@@ -434,6 +434,61 @@ source
 * 런타임은 배포 산출물을 표시할 뿐, source 검증이나 설명 재생성을 수행하지 않는다.
 * current authority는 하나의 경로로만 유지하며, 생산 경로와 런타임 경로를 서로 대체하지 않는다.
 
+#### Food semantic successor / current adoption 경계
+
+DVF 3-3 food semantic authority는 의미 사실의 생산과 current 채택을 서로 다른
+transaction으로 다룬다.
+
+```text
+Food Facts Authority (G2)
+-> approved schema / Rule / allowlist / lineage / curation
+-> sealed non-current successor facts + successor manifest
+-> Naturalization Phase 2 no-render compatibility probe
+
+Iris Artifact Registry (G3, separate approval)
+-> exact successor/base/diff/contract review
+-> atomic current facts/manifest adoption
+-> Registry adoption receipt
+
+Naturalization (fresh attempt)
+-> Phase 0
+-> Phase 2 current source inventory reseal
+-> Phase 3 through Phase 8
+
+Publish Boundary (fresh official attempt)
+-> public-text acceptance
+```
+
+다음 identity와 claim은 서로 대체하지 않는다.
+
+```text
+sealed_non_current_successor
+!= current_source_authority
+
+Phase 2 non-current no-render compatibility PASS
+!= official Naturalization Phase 2 PASS
+
+food semantic meaningful partition PASS
+!= rendered same-skeleton/public-text acceptance
+
+Food Semantic Facts Authority Successor Handoff
+!= Registry current adoption
+!= Publish Boundary PASS
+```
+
+G2의 canonical current write count는 0이다. G2 owner approval, independent review,
+owner seal 또는 terminal hash seal은 Registry current writer 권한을 만들지 않는다.
+Current facts/manifest 변경은 별도의 Registry-owned operational-cutover 계획이
+exact preimage, selected successor, atomicity/rollback과 adoption receipt를 봉인할
+때만 허용한다.
+
+2026-07-29 readpoint인 food `attempt-0022`는 317개 target, 718개 approved
+propositions, 17개 meaningful partitions를 가진
+`sealed_successor_handoff_complete`다. 이 readpoint는
+`current_authority_reconstruction_complete=false`,
+`canonical_complete=false`이며 current/public repetition issue의 종결 claim이
+아니다.
+
 Iris 3-3의 claim vocabulary는 축별로 분리한다.
 
 ```text

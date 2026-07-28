@@ -1978,6 +1978,51 @@ Iris DVF 3-3 — Registry Runtime Compatibility contract
   * COMMON-EVIDENCE-TRACE.
   * COMMON-RELEASE-NONDECISION.
 
+Iris DVF 3-3 — Food Semantic Facts Authority successor handoff
+
+* 날짜: 2026-07-29
+* 상태: G2 complete / sealed non-current successor / current adoption not executed / end-to-end problem unresolved
+* 결정: 317개 식품이 하나의 승인 의미 조건으로 수렴하던 상류 facts-authority 부채는 `attempt-0022`에서 Classification / Rule, Evidence Allowlist, row-level lineage, closed food-semantic schema, automatic mapping, curated approval, scoped writer와 successor facts/manifest로 재구축한다. 이 결과는 Registry가 검토할 수 있는 sealed non-current successor이며 current facts authority, 공식 Naturalization 결과 또는 Publish acceptance가 아니다.
+* 현재 기준:
+
+  * target food item은 `317`, final proposition inventory는 `718`, meaningful semantic partition은 `17`이다.
+  * automatic proposition은 `84`, explicitly approved curated proposition은 `634`다.
+  * unsupported fact, arbitrary inference, Layer 4 automatic promotion, compiler-invented proposition, dropped proposition은 모두 `0`이다.
+  * successor facts SHA-256은 `1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40`이다.
+  * successor input manifest SHA-256은 `d1dea3b7b871fac90fc6a15ec18d95641a52d566cd62d14ffb0114c2bfb0098a`이다.
+  * current facts와 current input manifest mutation count는 `0`이다.
+  * Naturalization D16 handoff는 selected successor를 explicit non-current override로 읽는 Phase 2 no-render compatibility evidence다. 공식 Naturalization attempt, candidate 생성, Phase 4~8 또는 Publish retry 권한이 아니다.
+  * terminal claim은 `Food Semantic Facts Authority Successor Handoff = sealed_successor_handoff_complete`로 제한한다.
+  * `current_authority_reconstruction_complete=false`, `canonical_complete=false`를 유지한다.
+* 검증 경계:
+
+  * final scoped validation은 food-semantic focused `17/17`, D16 acceptance `1/1`, D16 semantic preservation `1/1` PASS다.
+  * full-repository gate, direct all-`test_*.py`, Registry/runtime/package/release suite는 이 round의 terminal denominator가 아니며 실행하지 않았다.
+  * 보존된 mixed historical diagnostic `16 failures / 29 errors`는 terminal credit `0`이고 waiver가 아니다.
+  * distinct Codex Reviewer terminal review는 Critical `0`, Important `0`, Advisory `0`, verdict `PASS`다.
+* 문제 상태 판정:
+
+  * 이 결정은 G2 implementation plan의 완료를 기록한다.
+  * current authority가 predecessor에 남아 있으므로 “317개 식품의 실제 current/public 반복 문제가 해결됐다”는 claim은 금지한다.
+  * 후속 current adoption은 별도 owner-approved Registry operational-cutover 계획이 소유한다.
+  * Registry adoption 뒤에도 fresh Naturalization Phase 0/2 reseal, Phase 3~8, fresh Publish Boundary official attempt가 각각의 계획과 권위 아래 남는다.
+  * G2 완료를 전체 문제 해결, current adoption, public-text acceptance 또는 Publish PASS로 확대하지 않는다.
+* 최소 결과 trace:
+
+  * attempt: `attempt-0022`
+  * implementation branch: `codex/dvf-food-semantic-authority-v6`
+  * terminal implementation commit: `319fa3cf439d72703b888a4ddb19c961c86bf3f7`
+  * final artifact manifest SHA-256: `7e72bb17d7ff45abcf20fe9ca939f8e52779f3fd0e8da4646265c61b1557d620`
+  * independent closeout review SHA-256: `8c71275aee4c397b959d74bed25848850b36d699736cc1e8657287377105bce6`
+  * owner seal SHA-256: `c709ff339d4b95d2ead93d08e10e5dee807232ead087c6cb507cb642daff4646`
+  * sealed successor closeout SHA-256: `fe77dc23a9b6c1296c8c54361bd1291fbb5fa09bd6a662ad02336c145f4507f7`
+  * terminal hash seal SHA-256: `9a9a37731e8d76399f6b960a0e9beb21bcdd65d8ae39e511337527c5306d0c19`
+  * plan: `docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md`
+  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/`
+  * COMMON-EVIDENCE-TRACE.
+  * COMMON-RELEASE-NONDECISION.
+  * COMMON-RUNTIME-SURFACE-NONMUTATION.
+
 Iris — Clean-Checkout Full-Repository Validation Reproducibility Authority Phase 0
 
 * 날짜: 2026-07-28

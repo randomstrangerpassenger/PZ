@@ -473,6 +473,16 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * terminal implementation commit은 `7d253c91b87abb7f1e044acf3953504180848682`, local `main` integration commit은 `c6e2190e7b093b29bc5d615523ae29cf32560ff1`이다.
   * 이후 Runtime Compatibility 작업은 새 collision, consumer drift, required-route drift, 명시적 rollback / successor scope가 있을 때만 연다.
 
+* DVF 3-3 Food Semantic Facts Authority의 G2 successor handoff는 `attempt-0022`에서 완료했다.
+
+  * 317개 식품은 automatic `84` + owner-approved curated `634`, 총 `718` propositions와 `17`개 meaningful semantic partitions로 재구축했다.
+  * unsupported fact, arbitrary inference, Layer 4 automatic promotion, compiler invention, dropped proposition은 모두 `0`이다.
+  * successor facts / manifest SHA-256은 각각 `1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40` / `d1dea3b7b871fac90fc6a15ec18d95641a52d566cd62d14ffb0114c2bfb0098a`다.
+  * final scoped validation은 food focused `17/17`, D16 acceptance `1/1`, D16 semantic preservation `1/1` PASS이며 계획 밖 full-repository/all-test/runtime/package 검증은 실행하지 않았다.
+  * Codex Reviewer independent closeout PASS, owner seal, terminal hash seal `9a9a37731e8d76399f6b960a0e9beb21bcdd65d8ae39e511337527c5306d0c19`로 `sealed_successor_handoff_complete`를 봉인했다.
+  * current facts/manifest mutation은 `0`이며 `current_authority_reconstruction_complete=false`, `canonical_complete=false`다.
+  * 이 완료는 상류 successor 구축 완료이지 실제 current/public 반복 문제 해결 완료가 아니다.
+
 * 설명 계층은 해석 / 권장 / 비교 / 재작성을 하지 않는다.
 
   * Evidence / Source / Outcome / Description layer의 책임 분리를 유지한다.
@@ -532,6 +542,15 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * 내부 `.Iris` 정규화, 외부 JSON / SQLite 입출력 정책은 별도 scope에서 다룬다.
 
 ## Next
+
+* Food Semantic successor의 후속 경로는 G2와 분리해 명시적 승인 아래 단계별로 연다.
+
+  * G3 Registry operational cutover는 exact successor/base/diff/contract hashes, atomic current adoption, rollback, adoption receipt를 가진 별도 owner-approved 계획이 있을 때만 시작한다.
+  * 승인되지 않은 plan draft, candidate, compatibility probe 또는 G2 owner seal을 current write 권한으로 사용하지 않는다.
+  * G3 adoption 전에는 current facts/manifest를 변경하지 않고 official Naturalization retry를 열지 않는다.
+  * G3 뒤에는 fresh Naturalization attempt를 Phase 0부터 열고 Phase 2 source inventory를 재봉인한 뒤 Phase 3~8을 수행한다.
+  * fresh Phase 8 handoff 뒤에만 Publish Boundary official attempt를 새로 열 수 있다.
+  * 위 후속 단계가 끝나기 전에는 DVF 3-3 food repetition problem을 `resolved`, `canonical_complete`, `publicly accepted`로 기록하지 않는다.
 
 * Iris refactoring v4.1 완료본을 packaging / release-note / commit 단계로 넘길지 별도 scope로 결정한다.
 

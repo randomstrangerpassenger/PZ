@@ -2602,3 +2602,143 @@ This repository-relative appendix plus the successor plan is the durable require
 Owner semantic/adoption decisions begin only after implementation-complete bundle sealing.
 ```
 <!-- END NORMATIVE DESIGN REQUIREMENTS SNAPSHOT v1 -->
+
+---
+
+## Appendix B — VC-1 Post-Authority Validation Contract Reconciliation
+
+이 appendix는 `attempt-0022`의 post-authority validation에서 드러난 validation
+denominator와 branch 표현 충돌을 해결하는 owner-ratified append-only
+reconciliation이다. 기존 계획 본문, implementation-complete bundle,
+`post_authority_validation_failure.json`, sealed non-current successor facts/manifest
+hash는 수정하지 않는다. Appendix A marker 내부의 normative requirements
+snapshot도 변경하지 않는다.
+
+### B.1 Authority and exact approval binding
+
+```text
+proposal_id = VC-1_same_attempt_append_only_validation_contract_reconciliation
+proposal_sha256 = 3d1c4b2ab56dba796163fc18ef8db2f495ab5a90579f9dc72acbf759cd42b10f
+proposal_status = PENDING_OWNER_RATIFICATION at proposal seal
+proposal_review_status = PASS_WITH_OWNER_RATIFICATION_REQUIRED
+owner_ratification_status = APPROVED
+owner_approval_time = 2026-07-29T00:28:30+09:00
+same_attempt_continuation = attempt-0022
+```
+
+Authority artifacts:
+
+* `phase13_closeout/validation_contract_reconciliation_proposal.json`
+* `phase13_closeout/validation_contract_reconciliation_review.json`
+* `phase13_closeout/validation_contract_reconciliation_owner_ratification.json`
+
+Owner approval is limited to exact VC-1. It does not approve a new attempt,
+current facts/manifest mutation, Registry/runtime/shared-disposition repair,
+historical test reenactment, waiver, threshold relaxation, or a rewrite of the
+preserved failed validation.
+
+### B.2 Confirmed contract conflicts
+
+1. §7의 direct `unittest discover ... -p "test_*.py"`는 current와 historical,
+   diagnostic, obsolete/misrouted test sources를 한 process denominator로 결합한다.
+   Canonical G1 contract
+   `Iris/validation/clean_checkout/contracts/full_repository_gate.json`은
+   `current/ok` taxonomy identities, 명시적 maintained additions와 standalone
+   validation 4개만 external disposable clone에서 실행한다.
+2. §7은 current-route command를 G1에서만 실행하도록 규정하지만 기존
+   `record_post_authority_validation` 구현은 선택 branch와 무관하게
+   `current_route_exit_code=0`을 요구한다. `B+G2`에서 이 값을 기록하면 실행하지
+   않은 PASS를 발명하게 된다.
+3. 제공된 G1 receipt는 commit
+   `2a1741ce2e3ab85b0e5744f88b8a72a5a031b4db`의 G2 entry만 해제한다.
+   Food correction final subject의 validation receipt로 재사용할 수 없다.
+
+따라서 보존된 direct-discovery `16 failures / 29 errors` 결과는
+`noncanonical_mixed_historical_current_diagnostic_denominator`로 분류하며
+terminal gate credit은 0이다. 실패 자체, command, counts와 side-effect cleanup
+evidence는 계속 보존한다. 이 disposition은 test failure waiver가 아니며 해당
+test의 assertion, threshold 또는 authority claim을 변경하지 않는다.
+
+### B.3 Successor validation composition
+
+Final correction subject commit/tree는 다음 네 applicable command groups를 모두
+exit 0으로 통과해야 한다.
+
+```powershell
+uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p "test_dvf_3_3_food_semantic_*.py"
+```
+
+```powershell
+uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p "test_dvf_3_3_korean_prose_acceptance_gate.py"
+```
+
+```powershell
+uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p "test_dvf_3_3_korean_prose_semantic_preservation.py"
+```
+
+Canonical full-required repository validation은 동일 final subject commit에 대해
+아래 `full-gate` route를 서로 분리된 external work/result root로 두 번 실행한다.
+각 run의 `status=PASS`, pytest·standalone exit code 0, source checkout
+before/after clean, external work cleanup PASS, canonical result byte equality가
+필수다.
+
+```powershell
+uv run python -B Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py full-gate --repo C:/Users/MW/Downloads/coding/PZ/.f6 --commit <final-correction-subject-commit> --python C:/Users/MW/scoop/apps/python/current/python.exe --environment-receipt C:/Users/MW/iccv/receipts/env-v1/environment_receipt.json --work-root C:/Users/Public/Documents/ESTsoft/CreatorTemp/fsvca --result-root C:/Users/Public/Documents/ESTsoft/CreatorTemp/fsvra
+```
+
+```powershell
+uv run python -B Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py full-gate --repo C:/Users/MW/Downloads/coding/PZ/.f6 --commit <final-correction-subject-commit> --python C:/Users/MW/scoop/apps/python/current/python.exe --environment-receipt C:/Users/MW/iccv/receipts/env-v1/environment_receipt.json --work-root C:/Users/Public/Documents/ESTsoft/CreatorTemp/fsvcb --result-root C:/Users/Public/Documents/ESTsoft/CreatorTemp/fsvrb
+```
+
+Food focused와 D16 command groups는 canonical current/ok denominator에 대한
+reviewed additive selection이다. Canonical full-gate manifest나 live
+required-validation manifest를 이 round에서 변경하지 않는다.
+
+### B.4 Branch-aware recording
+
+기존 implementation bundle에 봉인된 `closeout.py`와
+`dvf_3_3_food_semantic_facts_authority.py`는 byte-preserved한다. 기존
+`record-authority-validation` command는 VC-1 terminal recording에 사용하지
+않는다. Additive attempt-local correction tool
+`phase13_closeout/vc1_validation_contract.py`만 다음을 수행한다.
+
+* exact owner-ratified proposal/review/ratification hash 검증
+* preserved failure artifact와 successor hashes 검증
+* 세 explicit Food/D16 exit code 0 검증
+* 두 external clean-checkout receipt 및 embedded canonical result 검증
+* exact final correction subject commit/tree equality 검증
+* two-run canonical result equality 검증
+* `current_route = NOT_APPLICABLE`, `exit_code = null`,
+  `fake_success_code_allowed = false` 기록
+* repository-retrievable
+  `vc1_clean_checkout_validation_receipt.json`과
+  `post_authority_validation_result.json` 생성
+
+`prepare-closeout`은 원 implementation bundle을 그대로 재검증하고 위 additive
+PASS result를 소비한다. Correction tool, plan addendum, owner ratification,
+correction review와 validation receipts는 final artifact manifest에 추가된다.
+
+### B.5 Review and terminal sequence
+
+```text
+VC-1 owner ratification
+-> append-only plan/correction-tool implementation
+-> exact correction subject commit/tree seal
+-> Codex Reviewer correction review PASS
+-> Food focused and D16 validations
+-> canonical clean-checkout full-gate run A and B
+-> branch-aware validation receipt recording
+-> final artifact manifest preparation
+-> distinct eligible Codex Reviewer terminal independent review
+-> owner final seal
+-> terminal hash seal
+```
+
+Correction reviewer는 VC-1 plan/tool correction에만 credit을 갖고 terminal
+independent review credit은 0이다. Terminal reviewer는 requirements, plan,
+implementation, curation, owner-decision, VC-1 correction chain에 참여하지 않은
+별도 Codex Reviewer여야 한다.
+
+Final correction subject commit은 테스트 대상이다. Validation receipt와 terminal
+artifacts를 담는 후속 evidence commit은 self-referential하게 테스트 대상이라고
+주장하지 않으며, exact subject commit/tree와 각 receipt hash를 결속한다.

@@ -1,0 +1,103 @@
+{
+  "schema_version": "food-semantic-validation-contract-reconciliation-implementation-v1",
+  "status": "READY_FOR_CODEX_REVIEW",
+  "authority_effect": "none",
+  "attempt_id": "attempt-0022",
+  "proposal_id": "VC-1_same_attempt_append_only_validation_contract_reconciliation",
+  "implemented_at": "2026-07-29T00:37:04+09:00",
+  "implementation_scope": "append_only_plan_and_attempt_local_validation_recording_contract",
+  "owner_ratification": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase13_closeout/validation_contract_reconciliation_owner_ratification.json",
+    "sha256": "c12c0598fb0e8c65d39a8323bf337eae60f7116dba8997bd0235a4714acb4b52",
+    "git_blob_id": "7b1fa03d4784e0f53eb409bc0ac6c781f6dc3dd2",
+    "status": "APPROVED",
+    "same_attempt_continuation_approved": true
+  },
+  "approved_contract": {
+    "proposal": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase13_closeout/validation_contract_reconciliation_proposal.json",
+      "sha256": "3d1c4b2ab56dba796163fc18ef8db2f495ab5a90579f9dc72acbf759cd42b10f",
+      "git_blob_id": "28b33ecd1d6642b46df3fea2ae64d068c427cde1"
+    },
+    "proposal_review": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase13_closeout/validation_contract_reconciliation_review.json",
+      "sha256": "4bc0c8cc52cea8d5b9758e45515c2ebafcc069b3f058c496bb7f3a05855a32b5",
+      "git_blob_id": "4c5a1b6c4cf381827b8084da206dd37a3b9e2f8e"
+    }
+  },
+  "plan_reconciliation": {
+    "path": "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md",
+    "before": {
+      "git_blob_id": "f5eef414788a28d502bacbab8c51a173fe537d04",
+      "sha256": "bdd7c6b04b773e5fcdd80882bd5d2436eed24af6c4904616d7fdaa06cdd7c74d"
+    },
+    "after": {
+      "git_blob_id": "c28a516c1f453d5ac38a5d17fc3d1968fc2684e5",
+      "sha256": "953bb9b3af961642cb76dc277ad767cad3f948613afda8bb09463c55dae67bdb"
+    },
+    "mutation_mode": "append_only_after_normative_requirements_snapshot",
+    "normative_requirements_snapshot_mutated": false,
+    "previous_validation_failure_rewritten": false
+  },
+  "attempt_local_correction_tool": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase13_closeout/vc1_validation_contract.py",
+    "sha256": "bbdf5b7552f1afa2cc92c7e0c4bcdcf654370bc5aeba1a5565307a9e5bfcca0c",
+    "git_blob_id": "fa0ea052625c8cdd27c166f3f22a93c26607a9b7",
+    "original_closeout_tool_mutated": false,
+    "original_cli_mutated": false,
+    "write_mode": "write_once",
+    "current_route_representation": {
+      "selected_branch": "B+G2",
+      "status": "NOT_APPLICABLE",
+      "exit_code": null,
+      "fake_success_code_allowed": false
+    },
+    "validation_subject_contract": "correction_review_commit_plus_only_the_correction_review_artifact",
+    "external_full_gate_run_count_required": 2,
+    "canonical_result_byte_equality_required": true,
+    "repository_only_revalidation_supported": true
+  },
+  "preserved_seals": {
+    "implementation_complete_bundle": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase13_closeout/implementation_complete_bundle.json",
+      "sha256": "e308cdff38769cdbfec51b0ced399ce79be3fb3d67f39efae9037a5692f0baf2",
+      "git_blob_id": "b31a6b65e30c95de3d406040ce0e4fea9ab841d5"
+    },
+    "post_authority_validation_failure": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase13_closeout/post_authority_validation_failure.json",
+      "sha256": "5901af660199fb3e13ff8d86ae3445c8894a935ff32c3abafc410004af62f135",
+      "git_blob_id": "bf63aea81716af8e8f7c9dd512a2e071006de2d8",
+      "terminal_gate_credit": 0,
+      "waiver_created": false
+    },
+    "successor_facts_sha256": "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40",
+    "successor_manifest_sha256": "d1dea3b7b871fac90fc6a15ec18d95641a52d566cd62d14ffb0114c2bfb0098a",
+    "current_facts_manifest_mutation_count": 0
+  },
+  "final_artifact_manifest_binding": {
+    "mechanism": "attempt_root_recursive_inclusion",
+    "correction_evidence_included": true,
+    "plan_path_and_exact_blob_bound_by_this_artifact": true,
+    "sealed_implementation_bundle_extended": false
+  },
+  "review_requirements": {
+    "fresh_Codex_Reviewer_correction_review_required": true,
+    "reviewed_commit_and_tree_must_be_exact": true,
+    "reviewed_bindings_required": [
+      "plan",
+      "correction_tool",
+      "owner_ratification"
+    ],
+    "open_critical_finding_count_required": 0,
+    "open_important_finding_count_required": 0,
+    "terminal_independent_review_credit": 0,
+    "distinct_terminal_Codex_Reviewer_required": true
+  },
+  "validation_execution": {
+    "test_command_count_executed_during_correction_implementation": 0,
+    "tests_deferred_to_final_validation_batch": true,
+    "direct_all_unittest_discovery_rerun_allowed": false
+  },
+  "forbidden_scope_mutation_count": 0,
+  "new_attempt_created": false
+}

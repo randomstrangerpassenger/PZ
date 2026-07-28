@@ -1,0 +1,18 @@
+{
+  "schema_version": "food-semantic-registry-cutover-attempt-disposition-v1",
+  "status": "SUPERSEDED_AFTER_REVIEW_FINDINGS_BEFORE_AUTHORIZATION",
+  "attempt_id": "attempt-0005",
+  "implementation_commit": "f85496940b3d1017265649fc849363977426a316",
+  "implementation_tree": "718756924fcfc4941f7f4764b4949178b345b05c",
+  "candidate_current_facts_sha256": "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40",
+  "candidate_current_manifest_sha256": "181316d70e147bc9f8f6175795c3317978d9eda7a96d51d924b4bb199bc9491c",
+  "reason": "Codex Reviewer found missing reviewed-manifest equality before canonical identity and incomplete owner authorization/nonce binding during verified crash recovery",
+  "pre_cutover_review_complete": false,
+  "pre_cutover_review_interim_finding_count": 2,
+  "owner_authorization_issued": false,
+  "authorization_nonce_consumed": false,
+  "live_write_count": 0,
+  "tests_executed": false,
+  "same_attempt_retry_allowed": false,
+  "successor_attempt_required": true
+}

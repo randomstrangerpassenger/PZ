@@ -1089,13 +1089,19 @@ def recover_pair_state(
 
 def recover_attempt(root: Path) -> dict[str, Any]:
     expected_preimages, expected_candidates = expected_pair_hashes(root)
+
+    def close_verified_recovery() -> None:
+        validate_recovery_repository_readpoint(root)
+        validate_consumed_owner_authorization(root)
+        create_adoption_receipts(root)
+
     return recover_pair_state(
         root=root,
         facts_target=CURRENT_FACTS,
         manifest_target=CURRENT_MANIFEST,
         expected_preimages=expected_preimages,
         expected_candidates=expected_candidates,
-        commit_verified_callback=lambda: create_adoption_receipts(root),
+        commit_verified_callback=close_verified_recovery,
     )
 
 
@@ -1140,6 +1146,19 @@ def startup_recovery(exclude_attempt: str | None = None) -> list[dict[str, Any]]
     return recovered
 
 
+def current_targets_match_preimages() -> bool:
+    try:
+        return {
+            "facts": sha256_file(CURRENT_FACTS),
+            "manifest": sha256_file(CURRENT_MANIFEST),
+        } == {
+            "facts": CURRENT_FACTS_PREIMAGE_SHA256,
+            "manifest": CURRENT_MANIFEST_PREIMAGE_SHA256,
+        }
+    except OSError:
+        return False
+
+
 def command_prepare(attempt_id: str) -> dict[str, Any]:
     root = attempt_root(attempt_id)
     if root.exists():
@@ -1149,7 +1168,8 @@ def command_prepare(attempt_id: str) -> dict[str, Any]:
             "mode": "prepare_startup_recovery",
             "attempt_id": attempt_id,
             "allowed_target_paths": ALLOWED_TARGET_PATHS,
-        }
+        },
+        error_release_guard=current_targets_match_preimages,
     ):
         initial_recovery = startup_recovery()
     if initial_recovery:
@@ -1420,6 +1440,54 @@ def validate_owner_authorization(root: Path) -> tuple[dict[str, Any], str]:
     return authorization, sha256_file(path)
 
 
+def validate_consumed_owner_authorization(
+    root: Path,
+) -> tuple[dict[str, Any], str]:
+    authorization_path = (
+        root / "authorization" / "owner_cutover_authorization.json"
+    )
+    authorization = read_json(authorization_path)
+    expected = authorization_expected(root)
+    sentinel = root / "transaction" / ".recovery-unconsumed-sentinel"
+    if sentinel.exists():
+        raise CutoverError("recovery_nonce_validation_sentinel_exists")
+    validate_authorization_payload(authorization, expected, sentinel)
+    authorization_sha256 = sha256_file(authorization_path)
+    nonce_path = root / "transaction" / "nonce_consumption.json"
+    nonce = read_json(nonce_path)
+    require_equal(nonce.get("status"), "CONSUMED", "recovery_nonce_status")
+    require_equal(nonce.get("attempt_id"), root.name, "recovery_nonce_attempt")
+    require_equal(
+        nonce.get("authorization_nonce"),
+        authorization.get("authorization_nonce"),
+        "recovery_nonce_value",
+    )
+    require_equal(
+        nonce.get("owner_authorization_sha256"),
+        authorization_sha256,
+        "recovery_nonce_authorization_sha256",
+    )
+    require_equal(
+        nonce.get("same_attempt_retry_allowed"),
+        False,
+        "recovery_nonce_retry_boundary",
+    )
+    for consumed_path in ATTEMPTS_ROOT.glob(
+        "attempt-*/transaction/nonce_consumption.json"
+    ):
+        if consumed_path.resolve() == nonce_path.resolve():
+            continue
+        consumed = read_json(consumed_path)
+        if consumed.get("authorization_nonce") == authorization[
+            "authorization_nonce"
+        ]:
+            raise CutoverError(
+                f"recovery_nonce_replayed_across_attempts:"
+                f"{repo_relative(consumed_path)}"
+            )
+    return authorization, authorization_sha256
+
+
 def validate_apply_repository_readpoint(root: Path) -> None:
     preflight = read_json(root / "preflight" / "current_preimage_report.json")
     expected_commit = preflight.get("implementation_commit")
@@ -1442,6 +1510,40 @@ def validate_apply_repository_readpoint(root: Path) -> None:
         ),
         PLAN_SHA256,
         "apply_plan_git_blob_sha256",
+    )
+
+
+def validate_recovery_repository_readpoint(root: Path) -> None:
+    preflight = read_json(root / "preflight" / "current_preimage_report.json")
+    expected_commit = str(preflight.get("implementation_commit"))
+    expected_tree = str(preflight.get("implementation_tree"))
+    require_equal(git_head(), expected_commit, "recovery_implementation_head")
+    require_equal(
+        git_tree(expected_commit),
+        expected_tree,
+        "recovery_implementation_tree",
+    )
+    changed = {
+        row
+        for row in git("diff", "--name-only").stdout.splitlines()
+        if row
+    }
+    unexpected = sorted(changed - set(ALLOWED_TARGET_PATHS))
+    if unexpected:
+        raise CutoverError(f"recovery_unexpected_tracked_changes:{unexpected}")
+    if git("diff", "--cached", "--quiet", check=False).returncode != 0:
+        raise CutoverError("recovery_index_not_clean")
+    require_equal(
+        git_blob_id(expected_commit, repo_relative(PLAN_PATH)),
+        PLAN_GIT_BLOB_ID,
+        "recovery_plan_git_blob",
+    )
+    require_equal(
+        sha256_bytes(
+            git_blob_bytes(expected_commit, repo_relative(PLAN_PATH))
+        ),
+        PLAN_SHA256,
+        "recovery_plan_git_blob_sha256",
     )
 
 
@@ -1533,7 +1635,8 @@ def command_apply(attempt_id: str, inject_failure: str | None = None) -> dict[st
             "mode": "apply_startup_recovery",
             "attempt_id": attempt_id,
             "allowed_target_paths": ALLOWED_TARGET_PATHS,
-        }
+        },
+        error_release_guard=current_targets_match_preimages,
     ):
         initial_recovery = startup_recovery()
     if initial_recovery:
@@ -1554,7 +1657,7 @@ def command_apply(attempt_id: str, inject_failure: str | None = None) -> dict[st
     def apply_error_release_guard() -> bool:
         nonce_path = root / "transaction" / "nonce_consumption.json"
         if not nonce_path.exists():
-            return True
+            return current_targets_match_preimages()
         failure_path = root / "transaction" / "transaction_failure.json"
         if not failure_path.is_file():
             return False
@@ -1711,10 +1814,21 @@ def command_verify_committed(attempt_id: str) -> dict[str, Any]:
     require_tracked_worktree_clean("verify_committed")
     facts_working = sha256_file(CURRENT_FACTS)
     manifest_working = sha256_file(CURRENT_MANIFEST)
+    _, expected_candidates = expected_pair_hashes(root)
     facts_blob_bytes = git_blob_bytes(head, CURRENT_FACTS_REL)
     manifest_blob_bytes = git_blob_bytes(head, CURRENT_MANIFEST_REL)
     facts_blob_sha = sha256_bytes(facts_blob_bytes)
     manifest_blob_sha = sha256_bytes(manifest_blob_bytes)
+    require_equal(
+        facts_working,
+        expected_candidates["facts"],
+        "committed_facts_candidate",
+    )
+    require_equal(
+        manifest_working,
+        expected_candidates["manifest"],
+        "committed_manifest_candidate",
+    )
     require_equal(facts_working, SUCCESSOR_FACTS_SHA256, "committed_facts_working")
     require_equal(facts_blob_sha, facts_working, "committed_facts_blob_working")
     require_equal(
@@ -1722,7 +1836,29 @@ def command_verify_committed(attempt_id: str) -> dict[str, Any]:
         manifest_working,
         "committed_manifest_blob_working",
     )
+    validate_projection(
+        read_json(G2_SUCCESSOR_MANIFEST),
+        read_json(CURRENT_MANIFEST),
+        attempt_id,
+    )
+    validate_consumed_owner_authorization(root)
     receipt_path = root / "closeout" / "registry_adoption_receipt.json"
+    receipt = read_json(receipt_path)
+    require_equal(
+        receipt.get("current_facts_sha256"),
+        facts_working,
+        "committed_receipt_current_facts",
+    )
+    require_equal(
+        receipt.get("current_manifest_sha256"),
+        manifest_working,
+        "committed_receipt_current_manifest",
+    )
+    require_equal(
+        receipt.get("projected_current_manifest_sha256"),
+        manifest_working,
+        "committed_receipt_projected_manifest",
+    )
     receipt_rel = repo_relative(receipt_path)
     require_equal(
         sha256_bytes(git_blob_bytes(head, receipt_rel)),

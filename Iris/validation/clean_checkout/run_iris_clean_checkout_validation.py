@@ -1235,6 +1235,19 @@ def run_full_repository_gate(
         or output_policy["windows_privileged_auditing_required"] is not False
     ):
         raise CleanCheckoutError("unsupported full-gate privilege policy")
+    checkout = work_root / "execution-checkout"
+    maximum_checkout_root_length = contract["execution_workspace"][
+        "windows_maximum_execution_checkout_root_length"
+    ]
+    if (
+        os.name == "nt"
+        and len(str(checkout)) > maximum_checkout_root_length
+    ):
+        raise CleanCheckoutError(
+            "Windows execution checkout root is too long for the declared "
+            f"path budget ({len(str(checkout))} > "
+            f"{maximum_checkout_root_length}): {checkout}"
+        )
 
     taxonomy = json_at_commit(repo, subject["commit"], TAXONOMY_PATH)
     selection = contract["required_pytest_selection"]
@@ -1306,7 +1319,6 @@ def run_full_repository_gate(
         }
     )
 
-    checkout = work_root / "execution-checkout"
     clone_command = [
         "git",
         "-c",

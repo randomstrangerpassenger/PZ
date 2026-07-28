@@ -113,7 +113,8 @@
     "source_checkout_writable": false,
     "generated_state_location": "caller_supplied_external_work_root",
     "cleanup_required": true,
-    "git_core_longpaths": true
+    "git_core_longpaths": true,
+    "windows_maximum_execution_checkout_root_length": 80
   },
   "pytest_cache_mode": "disabled",
   "result_plugin": "Iris.validation.clean_checkout.pytest_result_plugin"

@@ -1,0 +1,55 @@
+{
+  "schema_version": "food-semantic-registry-cutover-independent-plan-review-v1",
+  "review_stage": "initial",
+  "verdict": "FAIL",
+  "reviewer_identity": "Codex Reviewer /root/codex_reviewer_plan",
+  "reviewed_plan_path": "docs/dvf_3_3_food_semantic_registry_operational_cutover_implementation_plan.md",
+  "reviewed_plan_sha256": "dcd1f318b410f95439808caaf72f3c7bbb6b8663b683848609e784f14232b07d",
+  "reviewed_plan_git_blob_id": "4109bd2c957e24ba246ef537d521592df4fae056",
+  "finding_counts": {
+    "critical": 3,
+    "important": 4,
+    "advisory": 2
+  },
+  "findings": [
+    {
+      "severity": "critical",
+      "id": "projection_contract_unsatisfiable",
+      "disposition": "closed_by_allowlisting_food_semantic_authority_source_successor_manifest_sha256"
+    },
+    {
+      "severity": "critical",
+      "id": "git_blob_validation_precedes_adoption_commit",
+      "disposition": "closed_by_explicit_adoption_commit_and_post_commit_identity_checkpoint"
+    },
+    {
+      "severity": "critical",
+      "id": "two_file_atomicity_and_crash_recovery_overclaim",
+      "disposition": "closed_by_manifest_last_process_crash_recovery_and_narrowed_claim"
+    },
+    {
+      "severity": "important",
+      "id": "authority_role_breaks_live_contract",
+      "disposition": "closed_by_preserving_successor_current_source_authority"
+    },
+    {
+      "severity": "important",
+      "id": "rtc_collision_payload_equivalence_becomes_stale",
+      "disposition": "closed_by_hash_activated_staleness_marker_and_live_guard_consumption"
+    },
+    {
+      "severity": "important",
+      "id": "new_files_are_ignored",
+      "disposition": "closed_by_exact_gitignore_exceptions_and_tracking_validation"
+    },
+    {
+      "severity": "important",
+      "id": "entry_readpoint_ambiguous_and_false",
+      "disposition": "closed_by_reviewed_plan_blob_base_head_and_ancestry_contract"
+    }
+  ],
+  "tests_executed": false,
+  "files_modified_by_reviewer": false,
+  "recorded_by": "primary_implementation_agent",
+  "recorded_at": "2026-07-29T03:09:52.3782607+09:00"
+}

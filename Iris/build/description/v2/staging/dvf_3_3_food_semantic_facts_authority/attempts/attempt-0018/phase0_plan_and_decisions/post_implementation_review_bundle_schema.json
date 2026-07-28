@@ -1,0 +1,11 @@
+{
+  "required": [
+    "implementation_complete_bundle_sha256",
+    "reviewer_identity",
+    "reviewer_is_implementation_author",
+    "verdict",
+    "finding_counts"
+  ],
+  "schema_version": "food-semantic-postimplementation-review-bundle-v1",
+  "terminal_independent_gate_credit": 0
+}

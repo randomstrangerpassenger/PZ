@@ -1,0 +1,45 @@
+{
+  "schema_version": "food-semantic-authority-execution-state-v1",
+  "attempt_id": "attempt-0018",
+  "implementation_complete_bundle_sealed": true,
+  "implementation_complete_bundle_sha256": "7bd485e9d2ca265a110689601ea099f221148544a502db44b0325d8a245ef1d1",
+  "D16_authorized_and_applied": true,
+  "D16_focused_validation": "PASS",
+  "owner_decision_consumed_count": 1,
+  "pending_owner_decision_ids": [
+    "D1",
+    "D5",
+    "D6",
+    "D7",
+    "D8",
+    "D9",
+    "D10",
+    "D11",
+    "D12",
+    "D13",
+    "D14",
+    "D15"
+  ],
+  "curation_item_count_pending_review": 238,
+  "post_implementation_external_review": {
+    "status": "FAIL",
+    "reviewer_identity": "Codex Reviewer",
+    "review_sha256": "af77e7026b36a601c29c2da7ff0ff4cbc16f3bec04dc7e32f3f5bf5a12ee79a2",
+    "critical_finding_count": 1,
+    "important_finding_count": 5,
+    "advisory_finding_count": 0,
+    "terminal_independent_gate_credit": 0
+  },
+  "full_repository_regression": {
+    "status": "FAIL",
+    "test_count": 272,
+    "failure_count": 18,
+    "error_count": 29,
+    "authority_closeout_credit": 0
+  },
+  "food_semantic_facts_authority_authority_execution_state": "rejected_postimplementation_external_review",
+  "correction_attempt_required": true,
+  "sealed_non_current_successor_emitted": false,
+  "current_facts_manifest_mutation_count": 0,
+  "official_naturalization_retry_allowed": false
+}

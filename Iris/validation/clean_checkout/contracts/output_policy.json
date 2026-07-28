@@ -1,0 +1,25 @@
+{
+  "schema_version": "iris-clean-checkout-output-policy-v1",
+  "scope": "technical_debt_gate",
+  "repository_local_generated_output_allowed": false,
+  "external_subroots": [
+    "system-temp",
+    "system-temp/pycache",
+    "test-output"
+  ],
+  "required_environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PIP_NO_INDEX": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONHASHSEED": "0",
+    "PYTHONNOUSERSITE": "1"
+  },
+  "cleared_ambient_environment": [
+    "PYTHONHOME",
+    "PYTHONPATH",
+    "PYTEST_ADDOPTS"
+  ],
+  "pytest_cache_provider": "disabled",
+  "windows_privileged_auditing_required": false,
+  "administrator_token_required": false
+}

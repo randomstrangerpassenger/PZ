@@ -18,21 +18,40 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from iris_clean_checkout_validation_common import (
-    CleanCheckoutError,
-    blob_id,
-    bytes_at_commit,
-    canonical_json_bytes,
-    ensure_external_root,
-    git_identity,
-    git_text,
-    json_at_commit,
-    resolved_repo,
-    sha256_bytes,
-    sha256_file,
-    tracked_paths,
-    write_json_external,
-)
+try:
+    from .iris_clean_checkout_validation_common import (
+        CleanCheckoutError,
+        blob_id,
+        bytes_at_commit,
+        canonical_json_bytes,
+        ensure_external_root,
+        git_identity,
+        git_text,
+        json_at_commit,
+        resolved_repo,
+        sha256_bytes,
+        sha256_file,
+        tracked_paths,
+        validate_external_environment,
+        write_json_external,
+    )
+except ImportError:
+    from iris_clean_checkout_validation_common import (
+        CleanCheckoutError,
+        blob_id,
+        bytes_at_commit,
+        canonical_json_bytes,
+        ensure_external_root,
+        git_identity,
+        git_text,
+        json_at_commit,
+        resolved_repo,
+        sha256_bytes,
+        sha256_file,
+        tracked_paths,
+        validate_external_environment,
+        write_json_external,
+    )
 
 
 TAXONOMY_PATH = "Iris/_docs/round3/round3_test_taxonomy.json"
@@ -42,6 +61,13 @@ REQUIRED_MANIFEST_PATH = (
 PYTEST_INI_PATH = "pytest.ini"
 CANONICAL_GATE_PATH = (
     "Iris/validation/clean_checkout/contracts/canonical_gate.json"
+)
+PHASE0_ENVIRONMENT_BINDING_PATH = (
+    "Iris/validation/clean_checkout/authority/"
+    "phase0_ratification_attempt_0002.json"
+)
+OUTPUT_POLICY_PATH = (
+    "Iris/validation/clean_checkout/contracts/output_policy.json"
 )
 REPOSITORY_IMPORT_PREFIXES = (
     "",
@@ -533,9 +559,31 @@ def run_gate(
             f"environment receipt is missing: {environment_receipt}"
         )
 
+    phase0 = json_at_commit(
+        repo,
+        subject["commit"],
+        PHASE0_ENVIRONMENT_BINDING_PATH,
+    )
+    environment_contract = phase0["implementation_contract_delta"]["OR-06"]
+    environment_verification = validate_external_environment(
+        python_executable,
+        environment_receipt,
+        environment_contract,
+    )
     contract = json_at_commit(
         repo, subject["commit"], CANONICAL_GATE_PATH
     )
+    output_policy = json_at_commit(
+        repo,
+        subject["commit"],
+        OUTPUT_POLICY_PATH,
+    )
+    if (
+        output_policy["repository_local_generated_output_allowed"] is not False
+        or output_policy["administrator_token_required"] is not False
+        or output_policy["windows_privileged_auditing_required"] is not False
+    ):
+        raise CleanCheckoutError("unsupported clean-checkout output policy")
     command_contract = contract["command"]
     selection = contract["test_selection"]
     taxonomy = json_at_commit(
@@ -559,18 +607,20 @@ def run_gate(
     system_temp.mkdir(parents=True, exist_ok=True)
     test_output.mkdir(parents=True, exist_ok=True)
     environment = os.environ.copy()
-    environment.pop("PYTHONPATH", None)
+    for variable in output_policy["cleared_ambient_environment"]:
+        environment.pop(variable, None)
+    environment.update(output_policy["required_environment"])
     environment.update(
         {
-            "PYTHONNOUSERSITE": "1",
-            "PYTHONDONTWRITEBYTECODE": "1",
-            "PIP_NO_INDEX": "1",
+            "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+            "PYTHONPYCACHEPREFIX": str(system_temp / "pycache"),
             "IRIS_CLEAN_CHECKOUT_PYTEST_RESULT": str(
                 pytest_result_path
             ),
             "IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT": str(test_output),
             "TEMP": str(system_temp),
             "TMP": str(system_temp),
+            "TMPDIR": str(system_temp),
         }
     )
     completed = subprocess.run(
@@ -636,18 +686,25 @@ def run_gate(
     if collect_only:
         normalized_command.append("--collect-only")
     canonical_result = {
-        "schema_version": "iris-clean-checkout-canonical-result-v1",
+        "schema_version": "iris-clean-checkout-canonical-result-v2",
         "mode": "collect_only" if collect_only else "execute",
         "status": status,
         "subject": subject,
         "canonical_gate_blob_id": blob_id(
             repo, subject["commit"], CANONICAL_GATE_PATH
         ),
-        "normalized_command": normalized_command,
-        "environment_receipt_sha256": sha256_file(
-            environment_receipt
+        "phase0_environment_binding_blob_id": blob_id(
+            repo,
+            subject["commit"],
+            PHASE0_ENVIRONMENT_BINDING_PATH,
         ),
-        "python_executable_sha256": sha256_file(python_executable),
+        "output_policy_blob_id": blob_id(
+            repo,
+            subject["commit"],
+            OUTPUT_POLICY_PATH,
+        ),
+        "normalized_command": normalized_command,
+        "environment_verification": environment_verification,
         "pytest_version": raw_result.get("pytest_version"),
         "test_identity_count": len(identity_rows),
         "test_inventory_sha256": inventory_hash,
@@ -663,19 +720,17 @@ def run_gate(
         repo, canonical_path, canonical_result
     )
     receipt = {
-        "schema_version": "iris-clean-checkout-gate-run-receipt-v1",
+        "schema_version": "iris-clean-checkout-gate-run-receipt-v2",
         "status": status,
         "mode": canonical_result["mode"],
         "subject": subject,
         "checkout_path": repo.as_posix(),
         "actual_command": command,
         "environment_receipt_path": environment_receipt.as_posix(),
-        "environment_receipt_sha256": canonical_result[
-            "environment_receipt_sha256"
-        ],
+        "environment_verification": environment_verification,
         "python_executable_path": python_executable.as_posix(),
-        "python_executable_sha256": canonical_result[
-            "python_executable_sha256"
+        "python_executable_sha256": environment_verification[
+            "interpreter_sha256"
         ],
         "pytest_return_code": completed.returncode,
         "pytest_result": {

@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://iris.invalid/schemas/clean-checkout/environment-contract-v1",
+  "title": "Iris Clean-Checkout External Environment Receipt",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "provisioning_mode",
+    "environment_root",
+    "interpreter",
+    "isolation",
+    "pyvenv_cfg",
+    "environment_content_manifest",
+    "packages",
+    "package_count",
+    "package_set_sha256",
+    "tracked_lockfile_identity"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "iris_clean_checkout_external_environment_receipt_v1"
+    },
+    "provisioning_mode": {
+      "const": "pre_provisioned_external_environment_as_explicit_prerequisite"
+    },
+    "environment_root": {
+      "type": "string",
+      "minLength": 1
+    },
+    "interpreter": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "path",
+        "sha256",
+        "base_interpreter_path",
+        "base_interpreter_sha256",
+        "python_version",
+        "implementation",
+        "architecture"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "base_interpreter_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "base_interpreter_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "python_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "implementation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "architecture": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "isolation": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "dedicated_virtual_environment",
+        "include_system_site_packages",
+        "python_no_user_site",
+        "python_path_cleared",
+        "user_site_enabled"
+      ],
+      "properties": {
+        "dedicated_virtual_environment": {
+          "const": true
+        },
+        "include_system_site_packages": {
+          "const": false
+        },
+        "python_no_user_site": {
+          "const": true
+        },
+        "python_path_cleared": {
+          "const": true
+        },
+        "user_site_enabled": {
+          "const": false
+        }
+      }
+    },
+    "pyvenv_cfg": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "environment_content_manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "file_count"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "file_count": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "packages": {
+      "type": "array",
+      "minItems": 1
+    },
+    "package_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "package_set_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "tracked_lockfile_identity": {
+      "const": "absent_by_selected_mode"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

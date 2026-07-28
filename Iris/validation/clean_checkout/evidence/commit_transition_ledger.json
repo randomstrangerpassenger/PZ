@@ -1,0 +1,136 @@
+{
+  "schema_version": "iris-clean-checkout-commit-transition-v1",
+  "ledger_state": "terminal",
+  "common_context": {
+    "repository_root": "C:/Users/MW/.codex/visualizations/2026/07/27/019fa5fc-333b-7c03-8426-46d1780ab596/phase0-successor",
+    "submodule_state": "none",
+    "environment_receipt_path": "C:/Users/MW/iccv/receipts/env-v1/environment_receipt.json",
+    "environment_receipt_sha256": "fb5dd78e15c41346f15b39065c60c2ce4d83254d73bbde3d3181d327b30b6bc2",
+    "platform": "Windows 11 10.0.26200 AMD64",
+    "git_version": "2.51.0.windows.2",
+    "python_version": "3.14.3"
+  },
+  "entries": [
+    {
+      "identity": "O0",
+      "state": "unidentifiable",
+      "commit": null,
+      "tree": null,
+      "binding_evidence": "bounded preservation-parent and retained-receipt search found no exact origin command receipt"
+    },
+    {
+      "identity": "P0",
+      "state": "bound",
+      "commit": "9d0d4285f9176313de756eeb428b2d20f682d6d9",
+      "tree": "050037bd77c082f205e548502f88c42435a60ee7",
+      "binding_evidence": "Iris/validation/clean_checkout/evidence/preservation_baseline_record.json"
+    },
+    {
+      "identity": "B0",
+      "state": "bound",
+      "commit": "40b2a05d41504fad43ac642b08a7e4e04b425df0",
+      "tree": "ff52dea652bd799fec12184b1721fb36a941d7d5",
+      "binding_evidence": "accepted Phase 0 successor and dedicated implementation worktree baseline"
+    },
+    {
+      "identity": "R0",
+      "state": "not_created",
+      "commit": null,
+      "tree": null,
+      "binding_evidence": "no separate test-only red commit was required"
+    },
+    {
+      "identity": "CXn",
+      "state": "bound",
+      "commit": "3c96e8c26da7edd89542060192ccde050da1f10e",
+      "tree": "074caa49f228fc90b2d617a9e719a91b697346ed",
+      "binding_evidence": "Change 2 evidence-contract candidate"
+    },
+    {
+      "identity": "CXn",
+      "state": "bound",
+      "commit": "ded511cdaa90a724657828225116776a605c04e8",
+      "tree": "5a8096197ae1835d844d53ea53c394b2b240c8cd",
+      "binding_evidence": "configured clean-checkout dependency candidate"
+    },
+    {
+      "identity": "CXn",
+      "state": "bound",
+      "commit": "91e24ed285334eb71f43718bebe17f58ca2aa7ab",
+      "tree": "aa116c0aba838f84740137a64c1b924e6e19de5d",
+      "binding_evidence": "external temporary-output candidate"
+    },
+    {
+      "identity": "CXn",
+      "state": "bound",
+      "commit": "49ec2466a9b0cecfda5b5363b683fca1054874e4",
+      "tree": "0584f885eb6b9c914eb0cb2b8d59c8c97de7962a",
+      "binding_evidence": "external clean-checkout runner candidate"
+    },
+    {
+      "identity": "CXn",
+      "state": "bound",
+      "commit": "72fae22c81f956c494bc6b192a3e412fd2236a29",
+      "tree": "197cdb9cceaf2a69290b9a122e6e2583523bbae0",
+      "binding_evidence": "explicit collection-configuration candidate"
+    },
+    {
+      "identity": "CXn",
+      "state": "bound",
+      "commit": "1b165bbcd6c4f136a360e3f41b8311873b0cd9a5",
+      "tree": "b77bb0c3990401e602621252ecbb3237a6585a4d",
+      "binding_evidence": "active current-contract scope candidate"
+    },
+    {
+      "identity": "CXn",
+      "state": "bound",
+      "commit": "d948e8f0a26774d6d3fc341a678ec12a03ca25f3",
+      "tree": "cdf52e6aa315ceffb14ae87a2a7c2ec4cab039ad",
+      "binding_evidence": "owner-scoped technical-debt gate candidate"
+    },
+    {
+      "identity": "CXn",
+      "state": "bound",
+      "commit": "4e71892bcd1b0185ebd1670b2e53415f85e44644",
+      "tree": "1ba4682d9c37adf5406f1f8e6134ce6dfe73369e",
+      "binding_evidence": "final dependency-census-aligned candidate selected as C0"
+    },
+    {
+      "identity": "C0",
+      "state": "bound",
+      "commit": "4e71892bcd1b0185ebd1670b2e53415f85e44644",
+      "tree": "1ba4682d9c37adf5406f1f8e6134ce6dfe73369e",
+      "binding_evidence": "same exact passing CXn identity; no byte change for selection"
+    },
+    {
+      "identity": "G0",
+      "state": "not_created",
+      "commit": null,
+      "tree": null,
+      "binding_evidence": "no live-gate adoption or live-manifest mutation was made"
+    },
+    {
+      "identity": "V0",
+      "state": "bound",
+      "commit": "4e71892bcd1b0185ebd1670b2e53415f85e44644",
+      "tree": "1ba4682d9c37adf5406f1f8e6134ce6dfe73369e",
+      "binding_evidence": "independent checkout Run A and Run B canonical results are equal and both PASS"
+    },
+    {
+      "identity": "S0",
+      "state": "bound",
+      "commit": "085c67a0abc0a37dc7dccf6fd995753531f03392",
+      "tree": "afaae7cc0a2194d1a864a1ec9d6bcfb8377429a9",
+      "binding_evidence": "append-only scoped closeout successor binds V0 and canonical result hash"
+    },
+    {
+      "identity": "DOC0",
+      "state": "not_created",
+      "commit": null,
+      "tree": null,
+      "binding_evidence": "no later non-claim documentation trace is required by the scoped closeout"
+    }
+  ],
+  "tracked_input_change_invalidates_prior_execution_evidence": true,
+  "self_referential_commit_fields": 0
+}

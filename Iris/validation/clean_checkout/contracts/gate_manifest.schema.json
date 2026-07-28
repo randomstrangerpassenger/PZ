@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://iris.invalid/schemas/clean-checkout/gate-manifest-v1",
+  "$id": "https://iris.invalid/schemas/clean-checkout/gate-manifest-v2",
   "title": "Iris Clean-Checkout Gate Manifest",
   "type": "object",
   "additionalProperties": false,
@@ -11,17 +11,19 @@
     "terminal_claim",
     "excluded_claims",
     "implementation_base",
+    "validated_subject",
     "contract_bindings",
     "environment_binding",
     "canonical_gate",
     "write_boundary",
     "live_manifest_consumption",
     "evidence_bindings",
+    "origin_observation_use",
     "self_referential_commit_fields"
   ],
   "properties": {
     "schema_version": {
-      "const": "iris-clean-checkout-gate-manifest-v1"
+      "const": "iris-clean-checkout-gate-manifest-v2"
     },
     "manifest_state": {
       "enum": [
@@ -34,13 +36,15 @@
       "const": "Iris Repository Validation / Clean-Checkout Reproducibility Authority"
     },
     "terminal_claim": {
-      "const": "Iris Clean-Checkout Full-Repository Validation PASS"
+      "const": "Iris clean-checkout technical-debt gate reproducibility PASS"
     },
     "excluded_claims": {
       "type": "array",
       "uniqueItems": true,
       "items": {
         "enum": [
+          "full_repository_authority_closure",
+          "historical_evidence_regeneration",
           "independent_third_party_reproduction",
           "windows_event_level_transient_write_telemetry"
         ]
@@ -49,18 +53,25 @@
     "implementation_base": {
       "$ref": "#/$defs/git_identity"
     },
+    "validated_subject": {
+      "$ref": "#/$defs/git_identity"
+    },
     "contract_bindings": {
       "type": "object",
       "additionalProperties": false,
       "required": [
         "plan",
-        "phase0"
+        "phase0",
+        "canonical_gate"
       ],
       "properties": {
         "plan": {
           "$ref": "#/$defs/tracked_binding"
         },
         "phase0": {
+          "$ref": "#/$defs/tracked_binding"
+        },
+        "canonical_gate": {
           "$ref": "#/$defs/tracked_binding"
         }
       }
@@ -137,6 +148,9 @@
       "items": {
         "$ref": "#/$defs/external_binding"
       }
+    },
+    "origin_observation_use": {
+      "const": "qualitative_trigger_only"
     },
     "self_referential_commit_fields": {
       "const": 0

@@ -7,6 +7,7 @@
   "required": [
     "schema_version",
     "ledger_state",
+    "common_context",
     "entries",
     "tracked_input_change_invalidates_prior_execution_evidence",
     "self_referential_commit_fields"
@@ -20,6 +21,52 @@
         "candidate",
         "terminal"
       ]
+    },
+    "common_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_root",
+        "submodule_state",
+        "environment_receipt_path",
+        "environment_receipt_sha256",
+        "platform",
+        "git_version",
+        "python_version"
+      ],
+      "properties": {
+        "repository_root": {
+          "type": "string",
+          "minLength": 1
+        },
+        "submodule_state": {
+          "enum": [
+            "none",
+            "present_clean",
+            "present_dirty",
+            "unidentifiable"
+          ]
+        },
+        "environment_receipt_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "environment_receipt_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "platform": {
+          "type": "string",
+          "minLength": 1
+        },
+        "git_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "python_version": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
     },
     "entries": {
       "type": "array",
@@ -95,6 +142,10 @@
     "sha1": {
       "type": "string",
       "pattern": "^[0-9a-f]{40}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
     }
   }
 }

@@ -1,0 +1,280 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://iris.invalid/schemas/clean-checkout/preservation-baseline-record-v1",
+  "title": "Iris Clean-Checkout Preservation and Baseline Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_state",
+    "preservation",
+    "parents",
+    "origin_observation",
+    "retained_surfaces",
+    "bounded_search",
+    "implementation_baseline",
+    "scope_authority",
+    "self_referential_commit_fields"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "iris-clean-checkout-preservation-baseline-record-v1"
+    },
+    "record_state": {
+      "const": "bound_qualitative_origin_and_implementation_baseline"
+    },
+    "preservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "commit",
+        "tree",
+        "parent_count",
+        "subject",
+        "committed_at",
+        "topology_interpretation",
+        "exact_origin_parent_designation"
+      ],
+      "properties": {
+        "commit": {
+          "$ref": "#/$defs/sha1"
+        },
+        "tree": {
+          "$ref": "#/$defs/sha1"
+        },
+        "parent_count": {
+          "const": 3
+        },
+        "subject": {
+          "type": "string",
+          "minLength": 1
+        },
+        "committed_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "topology_interpretation": {
+          "const": "stash_like_three_parent_preservation_topology"
+        },
+        "exact_origin_parent_designation": {
+          "const": "unidentifiable"
+        }
+      }
+    },
+    "parents": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "role",
+          "commit",
+          "tree",
+          "subject"
+        ],
+        "properties": {
+          "role": {
+            "enum": [
+              "base_parent_candidate",
+              "index_parent_candidate",
+              "untracked_snapshot_parent_candidate"
+            ]
+          },
+          "commit": {
+            "$ref": "#/$defs/sha1"
+          },
+          "tree": {
+            "$ref": "#/$defs/sha1"
+          },
+          "subject": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "origin_observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "command",
+        "working_directory",
+        "execution_commit",
+        "environment",
+        "route",
+        "execution_time_or_receipt",
+        "test_count",
+        "failure_count",
+        "error_count",
+        "exit_code",
+        "reported_status_entry_count",
+        "quantitative_acceptance_use_allowed"
+      ],
+      "properties": {
+        "command": {
+          "const": "unidentifiable"
+        },
+        "working_directory": {
+          "const": "unidentifiable"
+        },
+        "execution_commit": {
+          "const": "unidentifiable"
+        },
+        "environment": {
+          "const": "unidentifiable"
+        },
+        "route": {
+          "const": "unidentifiable"
+        },
+        "execution_time_or_receipt": {
+          "const": "unidentifiable"
+        },
+        "test_count": {
+          "const": 309
+        },
+        "failure_count": {
+          "const": 13
+        },
+        "error_count": {
+          "const": 21
+        },
+        "exit_code": {
+          "const": 1
+        },
+        "reported_status_entry_count": {
+          "const": 612
+        },
+        "quantitative_acceptance_use_allowed": {
+          "const": false
+        }
+      }
+    },
+    "retained_surfaces": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tracked_delta",
+        "untracked_snapshot"
+      ],
+      "properties": {
+        "tracked_delta": {
+          "$ref": "#/$defs/retained_surface"
+        },
+        "untracked_snapshot": {
+          "$ref": "#/$defs/retained_surface"
+        }
+      }
+    },
+    "bounded_search": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source",
+          "result"
+        ],
+        "properties": {
+          "source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "result": {
+            "enum": [
+              "qualitative_preservation_confirmed",
+              "no_origin_receipt_found"
+            ]
+          }
+        }
+      }
+    },
+    "implementation_baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "commit",
+        "tree",
+        "selection_basis"
+      ],
+      "properties": {
+        "commit": {
+          "$ref": "#/$defs/sha1"
+        },
+        "tree": {
+          "$ref": "#/$defs/sha1"
+        },
+        "selection_basis": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "scope_authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "broad_origin_surface_reexecution_required",
+        "broad_historical_evidence_reconciliation_required"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "broad_origin_surface_reexecution_required": {
+          "const": false
+        },
+        "broad_historical_evidence_reconciliation_required": {
+          "const": false
+        }
+      }
+    },
+    "self_referential_commit_fields": {
+      "const": 0
+    }
+  },
+  "$defs": {
+    "sha1": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "retained_surface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "path_count",
+        "path_listing_sha256",
+        "acceptance_use"
+      ],
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "path_listing_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "acceptance_use": {
+          "const": "qualitative_preservation_only"
+        }
+      }
+    }
+  }
+}

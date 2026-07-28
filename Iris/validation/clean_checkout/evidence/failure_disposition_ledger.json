@@ -1,0 +1,69 @@
+{
+  "schema_version": "iris-clean-checkout-failure-disposition-ledger-v2",
+  "ledger_state": "scope_excluded",
+  "origin_command_provenance_status": "unidentifiable",
+  "origin_observation": {
+    "test_count": 309,
+    "failure_count": 13,
+    "error_count": 21,
+    "exit_code": 1,
+    "reported_status_entry_count": 612,
+    "quantitative_acceptance_use_allowed": false,
+    "command": "unidentifiable",
+    "working_directory": "unidentifiable",
+    "environment": "unidentifiable",
+    "route": "unidentifiable",
+    "execution_time_or_receipt": "unidentifiable",
+    "execution_commit": "unidentifiable",
+    "preservation_commit": "9d0d4285f9176313de756eeb428b2d20f682d6d9",
+    "use": "qualitative_trigger_only"
+  },
+  "scope_authority": {
+    "directive_source_path": "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0003.json",
+    "directive_source_sha256": "bec17c470ec3e09982923b8673c4af20fd6c622d80c49ae8dd2df372bbb5e882",
+    "origin_reconciliation_required_by_scoped_gate": false
+  },
+  "search_scope": [
+    {
+      "source": "preservation commit 9d0d4285f9176313de756eeb428b2d20f682d6d9",
+      "result": "qualitative_trigger_only"
+    },
+    {
+      "source": "base parent baeb0219cba471f2b009a2cbf741714a27ef1ccf",
+      "result": "no_origin_receipt_found"
+    },
+    {
+      "source": "index parent 66f801654c62003c760edb18c163b8cc58bceb3f",
+      "result": "no_origin_receipt_found"
+    },
+    {
+      "source": "untracked snapshot parent f1bc86778e934b33e9cf1df31de40871d9accd68",
+      "result": "no_origin_receipt_found"
+    },
+    {
+      "source": "C:/Users/MW/iccv/receipts retained external receipt root",
+      "result": "no_origin_receipt_found"
+    }
+  ],
+  "rows": [
+    {
+      "row_id": "origin-qualitative-status-surface-0001",
+      "surface_kind": "status_count_remainder",
+      "identity": "reported 612 status entries from an unidentified origin command",
+      "disposition": "outside_owner_scoped_gate",
+      "coverage": "excluded",
+      "evidence": "phase0_ratification_attempt_0003 limits closure to clean-checkout code and read-only current-input tests; no broad historical evidence regeneration or origin-surface reexecution was performed"
+    }
+  ],
+  "coverage_summary": {
+    "unit": "reported_status_entries_from_unidentified_origin_observation",
+    "origin_surface_total_count": 612,
+    "covered_origin_surface_count": 0,
+    "insufficient_preserved_evidence_count": 0,
+    "unreconciled_origin_surface_count": 0,
+    "excluded_by_owner_scope_count": 612,
+    "coverage_complete_with_insufficient_evidence": false,
+    "origin_failure_surface_coverage_status": "not_applicable_to_scoped_gate",
+    "accounting_rule": "origin_surface_total_count = covered_origin_surface_count + insufficient_preserved_evidence_count + unreconciled_origin_surface_count + excluded_by_owner_scope_count"
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "schema_version": "iris-clean-checkout-preservation-baseline-record-v1",
+  "record_state": "bound_qualitative_origin_and_implementation_baseline",
+  "preservation": {
+    "commit": "9d0d4285f9176313de756eeb428b2d20f682d6d9",
+    "tree": "050037bd77c082f205e548502f88c42435a60ee7",
+    "parent_count": 3,
+    "subject": "On codex/dvf-food-semantic-authority: full-suite generated side effects 2026-07-28",
+    "committed_at": "2026-07-28T00:05:26+09:00",
+    "topology_interpretation": "stash_like_three_parent_preservation_topology",
+    "exact_origin_parent_designation": "unidentifiable"
+  },
+  "parents": [
+    {
+      "role": "base_parent_candidate",
+      "commit": "baeb0219cba471f2b009a2cbf741714a27ef1ccf",
+      "tree": "dcc67555b576975df74fdb500197326c28d3de1d",
+      "subject": "Fix Phase 9 fixture path length"
+    },
+    {
+      "role": "index_parent_candidate",
+      "commit": "66f801654c62003c760edb18c163b8cc58bceb3f",
+      "tree": "dcc67555b576975df74fdb500197326c28d3de1d",
+      "subject": "index on codex/dvf-food-semantic-authority: baeb0219 Fix Phase 9 fixture path length"
+    },
+    {
+      "role": "untracked_snapshot_parent_candidate",
+      "commit": "f1bc86778e934b33e9cf1df31de40871d9accd68",
+      "tree": "eb6699a857b72271fa467aab57c6ac718a089088",
+      "subject": "untracked files on codex/dvf-food-semantic-authority: baeb0219 Fix Phase 9 fixture path length"
+    }
+  ],
+  "origin_observation": {
+    "command": "unidentifiable",
+    "working_directory": "unidentifiable",
+    "execution_commit": "unidentifiable",
+    "environment": "unidentifiable",
+    "route": "unidentifiable",
+    "execution_time_or_receipt": "unidentifiable",
+    "test_count": 309,
+    "failure_count": 13,
+    "error_count": 21,
+    "exit_code": 1,
+    "reported_status_entry_count": 612,
+    "quantitative_acceptance_use_allowed": false
+  },
+  "retained_surfaces": {
+    "tracked_delta": {
+      "source": "git diff --name-status baeb0219cba471f2b009a2cbf741714a27ef1ccf 9d0d4285f9176313de756eeb428b2d20f682d6d9",
+      "path_count": 192,
+      "path_listing_sha256": "af11775934d3e1130b0962d7e374667e090f790bfa76dc5fb5247b0c64f4471a",
+      "acceptance_use": "qualitative_preservation_only"
+    },
+    "untracked_snapshot": {
+      "source": "git ls-tree -r --name-only f1bc86778e934b33e9cf1df31de40871d9accd68",
+      "path_count": 48,
+      "path_listing_sha256": "79efc64a451a9b118c3bae8f9ba09122c3fd4849302cf1a50c67c8a84bc6e1c1",
+      "acceptance_use": "qualitative_preservation_only"
+    }
+  },
+  "bounded_search": [
+    {
+      "source": "preservation commit 9d0d4285f9176313de756eeb428b2d20f682d6d9",
+      "result": "qualitative_preservation_confirmed"
+    },
+    {
+      "source": "base parent baeb0219cba471f2b009a2cbf741714a27ef1ccf",
+      "result": "no_origin_receipt_found"
+    },
+    {
+      "source": "index parent 66f801654c62003c760edb18c163b8cc58bceb3f",
+      "result": "no_origin_receipt_found"
+    },
+    {
+      "source": "untracked snapshot parent f1bc86778e934b33e9cf1df31de40871d9accd68",
+      "result": "no_origin_receipt_found"
+    },
+    {
+      "source": "C:/Users/MW/iccv/receipts retained external receipt root",
+      "result": "no_origin_receipt_found"
+    }
+  ],
+  "implementation_baseline": {
+    "commit": "40b2a05d41504fad43ac642b08a7e4e04b425df0",
+    "tree": "ff52dea652bd799fec12184b1721fb36a941d7d5",
+    "selection_basis": "first dedicated implementation commit after accepted Phase 0 successor; preservation commit is evidence only"
+  },
+  "scope_authority": {
+    "path": "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0003.json",
+    "sha256": "bec17c470ec3e09982923b8673c4af20fd6c622d80c49ae8dd2df372bbb5e882",
+    "broad_origin_surface_reexecution_required": false,
+    "broad_historical_evidence_reconciliation_required": false
+  },
+  "self_referential_commit_fields": 0
+}

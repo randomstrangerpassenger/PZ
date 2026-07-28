@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://iris.invalid/schemas/clean-checkout/failure-disposition-ledger-v1",
+  "$id": "https://iris.invalid/schemas/clean-checkout/failure-disposition-ledger-v2",
   "title": "Iris Clean-Checkout Failure Disposition Ledger",
   "type": "object",
   "additionalProperties": false,
@@ -9,18 +9,20 @@
     "ledger_state",
     "origin_command_provenance_status",
     "origin_observation",
+    "scope_authority",
     "search_scope",
     "rows",
     "coverage_summary"
   ],
   "properties": {
     "schema_version": {
-      "const": "iris-clean-checkout-failure-disposition-ledger-v1"
+      "const": "iris-clean-checkout-failure-disposition-ledger-v2"
     },
     "ledger_state": {
       "enum": [
         "candidate_incomplete",
-        "complete"
+        "complete",
+        "scope_excluded"
       ]
     },
     "origin_command_provenance_status": {
@@ -38,7 +40,15 @@
         "error_count",
         "exit_code",
         "reported_status_entry_count",
-        "quantitative_acceptance_use_allowed"
+        "quantitative_acceptance_use_allowed",
+        "command",
+        "working_directory",
+        "environment",
+        "route",
+        "execution_time_or_receipt",
+        "execution_commit",
+        "preservation_commit",
+        "use"
       ],
       "properties": {
         "test_count": {
@@ -62,6 +72,60 @@
         },
         "quantitative_acceptance_use_allowed": {
           "type": "boolean"
+        },
+        "command": {
+          "type": "string",
+          "minLength": 1
+        },
+        "working_directory": {
+          "type": "string",
+          "minLength": 1
+        },
+        "environment": {
+          "type": "string",
+          "minLength": 1
+        },
+        "route": {
+          "type": "string",
+          "minLength": 1
+        },
+        "execution_time_or_receipt": {
+          "type": "string",
+          "minLength": 1
+        },
+        "execution_commit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "preservation_commit": {
+          "$ref": "#/$defs/sha1"
+        },
+        "use": {
+          "enum": [
+            "qualitative_trigger_only",
+            "quantitative_reconciliation"
+          ]
+        }
+      }
+    },
+    "scope_authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "directive_source_path",
+        "directive_source_sha256",
+        "origin_reconciliation_required_by_scoped_gate"
+      ],
+      "properties": {
+        "directive_source_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "directive_source_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "origin_reconciliation_required_by_scoped_gate": {
+          "const": false
         }
       }
     },
@@ -127,6 +191,7 @@
               "resolved_by_declared_dependency_repair",
               "pre_existing_unrelated_workspace_state",
               "superseded_by_bound_commit_difference",
+              "outside_owner_scoped_gate",
               "insufficient_preserved_evidence",
               "unreconciled"
             ]
@@ -135,7 +200,8 @@
             "enum": [
               "covered",
               "uncovered",
-              "pending"
+              "pending",
+              "excluded"
             ]
           },
           "evidence": {
@@ -154,8 +220,10 @@
         "covered_origin_surface_count",
         "insufficient_preserved_evidence_count",
         "unreconciled_origin_surface_count",
+        "excluded_by_owner_scope_count",
         "coverage_complete_with_insufficient_evidence",
-        "origin_failure_surface_coverage_status"
+        "origin_failure_surface_coverage_status",
+        "accounting_rule"
       ],
       "properties": {
         "unit": {
@@ -178,16 +246,34 @@
           "type": "integer",
           "minimum": 0
         },
+        "excluded_by_owner_scope_count": {
+          "type": "integer",
+          "minimum": 0
+        },
         "coverage_complete_with_insufficient_evidence": {
           "const": false
         },
         "origin_failure_surface_coverage_status": {
           "enum": [
             "complete",
-            "incomplete"
+            "incomplete",
+            "not_applicable_to_scoped_gate"
           ]
+        },
+        "accounting_rule": {
+          "const": "origin_surface_total_count = covered_origin_surface_count + insufficient_preserved_evidence_count + unreconciled_origin_surface_count + excluded_by_owner_scope_count"
         }
       }
+    }
+  },
+  "$defs": {
+    "sha1": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
     }
   }
 }

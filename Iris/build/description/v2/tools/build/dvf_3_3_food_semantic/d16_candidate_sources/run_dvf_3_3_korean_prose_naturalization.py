@@ -27,6 +27,25 @@ def _load_jsonl(path: Path):
     return rows
 
 
+def _canonical_jsonl_bytes(rows):
+    return "".join(
+        json.dumps(
+            row,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        )
+        + "\n"
+        for row in rows
+    ).encode("utf-8")
+
+
+def _member_set_sha256(members):
+    return hashlib.sha256(
+        "".join(f"{member}\n" for member in sorted(members)).encode("utf-8")
+    ).hexdigest()
+
+
 # BEGIN DVF FOOD SEMANTIC CANDIDATE PATCH (D16 adoption required)
 def build_food_semantic_proposition_inventory(
     facts_rows,
@@ -66,7 +85,7 @@ def build_food_semantic_proposition_inventory(
     )
 
 
-def build_food_semantic_no_render_receipt(
+def consume_food_semantic_inputs_no_render(
     *,
     facts_path,
     manifest_path,
@@ -111,9 +130,9 @@ def build_food_semantic_no_render_receipt(
     with paths["manifest"].open("r", encoding="utf-8") as handle:
         manifest = json.load(handle)
     with paths["schema"].open("r", encoding="utf-8") as handle:
-        json.load(handle)
+        schema = json.load(handle)
     with paths["proposition_license"].open("r", encoding="utf-8") as handle:
-        json.load(handle)
+        proposition_license = json.load(handle)
     manifest_declared_facts_sha256 = manifest.get("facts", {}).get("sha256")
     if manifest_declared_facts_sha256 != computed["facts_sha256"]:
         raise ValueError("manifest facts SHA-256 does not match opened facts")
@@ -128,6 +147,16 @@ def build_food_semantic_no_render_receipt(
     )
     if not manifest_facts_path_match:
         raise ValueError("manifest facts path does not match opened facts")
+    food_authority = manifest.get("food_semantic_authority", {})
+    for field, expected_value in (
+        ("schema_sha256", computed["schema_sha256"]),
+        (
+            "proposition_license_sha256",
+            computed["proposition_license_sha256"],
+        ),
+    ):
+        if food_authority.get(field) != expected_value:
+            raise ValueError(f"manifest food authority {field} mismatch")
     inventory = build_food_semantic_proposition_inventory(
         facts_rows,
         schema_sha256=computed["schema_sha256"],
@@ -135,19 +164,52 @@ def build_food_semantic_no_render_receipt(
             "proposition_license_sha256"
         ],
     )
-    inventory_bytes = (
-        "".join(
-            json.dumps(
-                row,
-                ensure_ascii=False,
-                sort_keys=True,
-                separators=(",", ":"),
-            )
-            + "\n"
-            for row in inventory
+    inventory_bytes = _canonical_jsonl_bytes(inventory)
+    allowed_values = {
+        axis["axis"]: {value["value"] for value in axis["values"]}
+        for axis in schema["axes"]
+    }
+    required_axes = sorted(
+        axis["axis"]
+        for axis in schema["axes"]
+        if axis["cardinality"] == "one_or_more"
+    )
+    license_index = {
+        (row["fact_axis"], row["fact_value"]): row
+        for row in proposition_license["licenses"]
+    }
+    invalid_schema_count = 0
+    invalid_license_count = 0
+    proposition_ids = []
+    axes_by_item = {}
+    profiles_by_item = {}
+    for row in inventory:
+        proposition_ids.append(row["proposition_id"])
+        axes_by_item.setdefault(row["item_id"], set()).add(row["fact_axis"])
+        profiles_by_item.setdefault(row["item_id"], []).append(
+            (row["fact_axis"], row["fact_value"])
         )
-    ).encode("utf-8")
-    return {
+        if row["fact_value"] not in allowed_values.get(row["fact_axis"], set()):
+            invalid_schema_count += 1
+        license_row = license_index.get((row["fact_axis"], row["fact_value"]))
+        if license_row is None or (
+            row["authority_class"] == "automatic"
+            and license_row.get("automatic_eligible") is not True
+        ) or (
+            row["authority_class"] == "curated"
+            and license_row.get("curated_allowed") is not True
+        ):
+            invalid_license_count += 1
+    projected_members = set(axes_by_item)
+    required_axis_missing = {
+        item_id: sorted(set(required_axes) - axes)
+        for item_id, axes in sorted(axes_by_item.items())
+        if set(required_axes) - axes
+    }
+    meaningful_profiles = {
+        tuple(sorted(profile)) for profile in profiles_by_item.values()
+    }
+    receipt = {
         "producer": "naturalization_actual_phase2_consumer",
         "facts_path": str(paths["facts"]),
         "facts_sha256": computed["facts_sha256"],
@@ -169,8 +231,42 @@ def build_food_semantic_no_render_receipt(
         "food_semantic_proposition_inventory_sha256": hashlib.sha256(
             inventory_bytes
         ).hexdigest(),
+        "food_semantic_item_count": len(projected_members),
+        "food_semantic_item_set_sha256": _member_set_sha256(
+            projected_members
+        ),
+        "required_fact_axes": required_axes,
+        "required_axis_missing_item_count": len(required_axis_missing),
+        "required_axis_missing_by_item": required_axis_missing,
+        "duplicate_proposition_id_count": (
+            len(proposition_ids) - len(set(proposition_ids))
+        ),
+        "invalid_schema_proposition_count": invalid_schema_count,
+        "invalid_license_proposition_count": invalid_license_count,
+        "meaningful_partition_count": len(meaningful_profiles),
+        "manifest_declared_food_semantic_item_count": food_authority.get(
+            "target_member_count"
+        ),
+        "manifest_declared_food_semantic_item_set_sha256": food_authority.get(
+            "target_member_set_sha256"
+        ),
+        "manifest_declared_required_fact_axes": food_authority.get(
+            "required_fact_axes"
+        ),
+        "manifest_declared_food_semantic_proposition_count": (
+            food_authority.get("proposition_count")
+        ),
+        "manifest_declared_food_semantic_proposition_inventory_sha256": (
+            food_authority.get("proposition_inventory_sha256")
+        ),
         "explicit_non_current_input_override": True,
         "current_facts_read_count": 0,
         "render_write_count": 0,
     }
+    return {"receipt": receipt, "inventory": inventory}
+
+
+def build_food_semantic_no_render_receipt(**kwargs):
+    """Compatibility wrapper returning the actual consumer receipt only."""
+    return consume_food_semantic_inputs_no_render(**kwargs)["receipt"]
 # END DVF FOOD SEMANTIC CANDIDATE PATCH

@@ -16,6 +16,7 @@ from tools.build.dvf_3_3_food_semantic.naturalization_handoff import (
     PREDECESSOR_BASELINE_FIXTURE_PATH,
     PRESERVATION_TEST_PATH,
     RUNNER_PATH,
+    TEMPLATE_ROOT,
     VALIDATOR_PATH,
 )
 from tools.build.dvf_3_3_food_semantic.contracts import load_json, sha256_file
@@ -52,24 +53,37 @@ class FoodSemanticHandoffTest(unittest.TestCase):
         manifest_by_target = {
             row["target_path"]: row for row in manifest["files"]
         }
+        authority_executed = (
+            sorted(successful)[-1]
+            / "authority_execution/authority_execution_summary.json"
+        ).is_file()
         for relative in targets:
             row = manifest_by_target[relative]
-            source = REPO_ROOT / relative
-            self.assertTrue(source.is_file())
-            self.assertIsNone(row["candidate_path"])
-            self.assertEqual(
-                row["preimage_state"],
-                "present_and_D16_symbols_adopted",
+            candidate = REPO_ROOT / row["candidate_path"]
+            self.assertTrue(candidate.is_file())
+            compile(
+                candidate.read_text(encoding="utf-8"),
+                str(candidate),
+                "exec",
             )
+            self.assertEqual(row["preimage_state"], "absent_at_g0_v0")
+            self.assertIsNone(row["preimage_sha256"])
             self.assertEqual(
                 row["patch_kind"],
-                "no_change_required_existing_D16_adoption",
+                "create_absent_target_after_D16_authorization",
             )
-            self.assertEqual(sha256_file(source), row["preimage_sha256"])
-            self.assertEqual(sha256_file(source), row["replacement_sha256"])
+            self.assertEqual(sha256_file(candidate), row["replacement_sha256"])
+            if authority_executed:
+                self.assertEqual(
+                    sha256_file(REPO_ROOT / relative),
+                    row["replacement_sha256"],
+                )
+            else:
+                self.assertFalse((REPO_ROOT / relative).exists())
         self.assertEqual(len(set(targets)), 4)
-        self.assertEqual(manifest["status"], "existing_D16_adoption_verified")
-        self.assertEqual(manifest["existing_D16_adoption_file_count"], 4)
+        self.assertEqual(manifest["status"], "candidate_pending_D16_adoption")
+        self.assertEqual(manifest["existing_D16_adoption_file_count"], 0)
+        self.assertEqual(manifest["candidate_only_file_count"], 4)
         self.assertFalse(manifest["D16_owner_authorization_consumed"])
 
     def test_predecessor_threshold_is_bound_without_authority_claim(self) -> None:
@@ -100,6 +114,9 @@ class FoodSemanticHandoffTest(unittest.TestCase):
         ]
         self.assertTrue(successful)
         attempt = sorted(successful)[-1]
+        authority_executed = (
+            attempt / "authority_execution/authority_execution_summary.json"
+        ).is_file()
         manifest = load_json(
             attempt
             / "phase12_phase2_handoff/naturalization_candidate_patch_manifest.json"
@@ -107,12 +124,21 @@ class FoodSemanticHandoffTest(unittest.TestCase):
         self.assertEqual(len(manifest["files"]), 4)
         self.assertEqual(manifest["candidate_patch_out_of_scope_symbol_count"], 0)
         for row in manifest["files"]:
-            source = REPO_ROOT / row["target_path"]
-            self.assertIsNone(row["candidate_path"])
-            self.assertEqual(sha256_file(source), row["replacement_sha256"])
-            self.assertEqual(sha256_file(source), row["preimage_sha256"])
+            candidate = REPO_ROOT / row["candidate_path"]
+            self.assertTrue(candidate.is_file())
+            self.assertEqual(sha256_file(candidate), row["replacement_sha256"])
+            self.assertIsNone(row["preimage_sha256"])
             self.assertEqual(row["existing_symbol_replacement_count"], 0)
+            target = REPO_ROOT / row["target_path"]
+            if authority_executed:
+                self.assertEqual(
+                    sha256_file(target), row["replacement_sha256"]
+                )
+            else:
+                self.assertFalse(target.exists())
         self.assertFalse(manifest["D16_owner_authorization_consumed"])
+        templates = REPO_ROOT / TEMPLATE_ROOT
+        self.assertEqual(len(list(templates.glob("*.py"))), 4)
 
 
 if __name__ == "__main__":

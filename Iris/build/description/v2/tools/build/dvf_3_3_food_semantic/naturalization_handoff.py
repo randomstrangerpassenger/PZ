@@ -45,248 +45,160 @@ PREDECESSOR_BASELINE_FIXTURE_PATH = (
 )
 
 
-RUNNER_APPEND = r'''
-
-# BEGIN DVF FOOD SEMANTIC CANDIDATE PATCH (D16 adoption required)
-def build_food_semantic_proposition_inventory(
-    facts_rows,
-    *,
-    schema_sha256,
-    proposition_license_sha256,
-):
-    """Project approved structured assertions without inventing propositions."""
-    inventory = []
-    for facts in facts_rows:
-        for assertion in facts.get("food_semantic_assertions", []):
-            if assertion.get("authority_state") != "approved_candidate":
-                continue
-            inventory.append(
-                {
-                    "item_id": facts["item_id"],
-                    "proposition_id": assertion["proposition_id"],
-                    "fact_axis": assertion["fact_axis"],
-                    "fact_value": assertion["fact_value"],
-                    "authority_class": assertion["authority_class"],
-                    "source_or_approval_lineage_id": assertion["lineage_id"],
-                    "schema_sha256": schema_sha256,
-                    "proposition_license_sha256": proposition_license_sha256,
-                }
-            )
-    return sorted(
-        inventory,
-        key=lambda row: (
-            row["item_id"],
-            row["fact_axis"],
-            row["fact_value"],
-            row["proposition_id"],
-        ),
-    )
-
-
-def build_food_semantic_no_render_receipt(
-    *,
-    facts_path,
-    facts_sha256,
-    manifest_path,
-    manifest_sha256,
-    schema_path,
-    schema_sha256,
-    proposition_license_path,
-    proposition_license_sha256,
-    explicit_non_current_input_override,
-):
-    """Return the exact inputs opened by the actual Phase 2 consumer."""
-    return {
-        "producer": "naturalization_actual_phase2_consumer",
-        "facts_path": str(facts_path),
-        "facts_sha256": facts_sha256,
-        "manifest_path": str(manifest_path),
-        "manifest_sha256": manifest_sha256,
-        "schema_path": str(schema_path),
-        "schema_sha256": schema_sha256,
-        "proposition_license_path": str(proposition_license_path),
-        "proposition_license_sha256": proposition_license_sha256,
-        "explicit_non_current_input_override": explicit_non_current_input_override,
-        "current_facts_read_count": 0 if explicit_non_current_input_override else 1,
-        "render_write_count": 0,
-    }
-# END DVF FOOD SEMANTIC CANDIDATE PATCH
-'''
-
-VALIDATOR_APPEND = r'''
-
-# BEGIN DVF FOOD SEMANTIC CANDIDATE PATCH (D16 adoption required)
-def validate_food_semantic_consumed_input_receipt(receipt, selected_binding):
-    """Fail closed unless the actual consumer receipt matches all four identities."""
-    expected = {
-        "facts_sha256": selected_binding["successor_facts_sha256"],
-        "manifest_sha256": selected_binding["successor_input_manifest_sha256"],
-        "schema_sha256": selected_binding["approved_food_semantic_schema_sha256"],
-        "proposition_license_sha256": selected_binding[
-            "approved_proposition_licensing_contract_sha256"
+TEMPLATE_ROOT = (
+    "Iris/build/description/v2/tools/build/"
+    "dvf_3_3_food_semantic/d16_candidate_sources"
+)
+CANDIDATE_SPECS = [
+    {
+        "target_path": RUNNER_PATH,
+        "template_name": "run_dvf_3_3_korean_prose_naturalization.py",
+        "affected_symbols": [
+            "build_food_semantic_proposition_inventory",
+            "consume_food_semantic_inputs_no_render",
+            "build_food_semantic_no_render_receipt",
         ],
-    }
-    mismatches = [
-        field for field, value in expected.items() if receipt.get(field) != value
-    ]
-    if receipt.get("producer") != "naturalization_actual_phase2_consumer":
-        mismatches.append("producer")
-    if receipt.get("render_write_count") != 0:
-        mismatches.append("render_write_count")
-    return {
-        "status": "PASS" if not mismatches else "FAIL",
-        "mismatches": sorted(set(mismatches)),
-        "four_identity_match": not mismatches,
-    }
-# END DVF FOOD SEMANTIC CANDIDATE PATCH
-'''
-
-ACCEPTANCE_TEST_APPEND = r'''
-
-# BEGIN DVF FOOD SEMANTIC CANDIDATE PATCH (D16 adoption required)
-class FoodSemanticNoRenderReceiptCandidateContractTest(unittest.TestCase):
-    def test_food_semantic_receipt_requires_four_exact_identities(self):
-        from tools.build.run_dvf_3_3_korean_prose_naturalization import (
-            build_food_semantic_no_render_receipt,
-        )
-        from tools.build.validate_dvf_3_3_korean_prose_naturalization import (
-            validate_food_semantic_consumed_input_receipt,
-        )
-
-        receipt = build_food_semantic_no_render_receipt(
-            facts_path="successor.jsonl",
-            facts_sha256="a" * 64,
-            manifest_path="successor-manifest.json",
-            manifest_sha256="b" * 64,
-            schema_path="food-schema.json",
-            schema_sha256="c" * 64,
-            proposition_license_path="food-license.json",
-            proposition_license_sha256="d" * 64,
-            explicit_non_current_input_override=True,
-        )
-        selected = {
-            "successor_facts_sha256": "a" * 64,
-            "successor_input_manifest_sha256": "b" * 64,
-            "approved_food_semantic_schema_sha256": "c" * 64,
-            "approved_proposition_licensing_contract_sha256": "d" * 64,
-        }
-        self.assertEqual(receipt["current_facts_read_count"], 0)
-        self.assertEqual(receipt["render_write_count"], 0)
-        self.assertEqual(
-            validate_food_semantic_consumed_input_receipt(receipt, selected)[
-                "status"
-            ],
-            "PASS",
-        )
-        receipt["facts_sha256"] = "e" * 64
-        drift = validate_food_semantic_consumed_input_receipt(receipt, selected)
-        self.assertEqual(drift["status"], "FAIL")
-        self.assertIn("facts_sha256", drift["mismatches"])
-# END DVF FOOD SEMANTIC CANDIDATE PATCH
-'''
-
-PRESERVATION_TEST_APPEND = r'''
-
-# BEGIN DVF FOOD SEMANTIC CANDIDATE PATCH (D16 adoption required)
-class FoodSemanticPhase4To8PreservationCandidateContractTest(unittest.TestCase):
-    def test_food_semantic_candidate_patch_is_additive(self):
-        from tools.build.run_dvf_3_3_korean_prose_naturalization import (
-            build_food_semantic_proposition_inventory,
-        )
-
-        rows = [
-            {
-                "item_id": "Base.Test",
-                "food_semantic_assertions": [
-                    {
-                        "proposition_id": "fsp:approved",
-                        "fact_axis": "culinary_role",
-                        "fact_value": "spice",
-                        "authority_class": "automatic",
-                        "authority_state": "approved_candidate",
-                        "lineage_id": "lineage:approved",
-                    },
-                    {
-                        "proposition_id": "fsp:unapproved",
-                        "fact_axis": "meal_role",
-                        "fact_value": "meal",
-                        "authority_class": "curated",
-                        "authority_state": "implementation_preview_unapproved",
-                        "lineage_id": "lineage:unapproved",
-                    },
-                ],
-            }
-        ]
-        inventory = build_food_semantic_proposition_inventory(
-            rows,
-            schema_sha256="a" * 64,
-            proposition_license_sha256="b" * 64,
-        )
-        self.assertEqual(len(inventory), 1)
-        self.assertEqual(inventory[0]["proposition_id"], "fsp:approved")
-        self.assertEqual(inventory[0]["source_or_approval_lineage_id"], "lineage:approved")
-# END DVF FOOD SEMANTIC CANDIDATE PATCH
-'''
-
-
-def _candidate_bytes(preimage: bytes, append_text: str) -> bytes:
-    suffix = append_text.encode("utf-8")
-    if preimage.endswith(b"\n"):
-        return preimage + suffix.lstrip(b"\n")
-    return preimage + b"\n" + suffix.lstrip(b"\n")
+    },
+    {
+        "target_path": VALIDATOR_PATH,
+        "template_name": "validate_dvf_3_3_korean_prose_naturalization.py",
+        "affected_symbols": [
+            "validate_food_semantic_consumed_input_receipt",
+        ],
+    },
+    {
+        "target_path": ACCEPTANCE_TEST_PATH,
+        "template_name": "test_dvf_3_3_korean_prose_acceptance_gate.py",
+        "affected_symbols": [
+            "FoodSemanticNoRenderReceiptCandidateContractTest",
+        ],
+    },
+    {
+        "target_path": PRESERVATION_TEST_PATH,
+        "template_name": (
+            "test_dvf_3_3_korean_prose_semantic_preservation.py"
+        ),
+        "affected_symbols": [
+            "FoodSemanticPhase4To8PreservationCandidateContractTest",
+        ],
+    },
+]
 
 
 def _materialize_candidate_patch(
     root: Path, phase: Path
 ) -> list[dict[str, Any]]:
-    specs = [
-        (
-            RUNNER_PATH,
-            [
-                "build_food_semantic_proposition_inventory",
-                "build_food_semantic_no_render_receipt",
-            ],
-        ),
-        (
-            VALIDATOR_PATH,
-            ["validate_food_semantic_consumed_input_receipt"],
-        ),
-        (
-            ACCEPTANCE_TEST_PATH,
-            ["FoodSemanticNoRenderReceiptCandidateContractTest"],
-        ),
-        (
-            PRESERVATION_TEST_PATH,
-            ["FoodSemanticPhase4To8PreservationCandidateContractTest"],
-        ),
-    ]
     rows: list[dict[str, Any]] = []
-    for relative, symbols in specs:
-        source = root / relative
-        preimage_present = source.is_file()
-        preimage = source.read_bytes() if preimage_present else b""
-        source_text = preimage.decode("utf-8") if preimage_present else ""
-        adopted_symbols_present = preimage_present and all(
-            symbol in source_text for symbol in symbols
-        )
-        if not adopted_symbols_present:
+    candidate_root = phase / "d16_candidate_patch"
+    for spec in CANDIDATE_SPECS:
+        target_relative = spec["target_path"]
+        target = root / target_relative
+        if target.exists():
             raise FoodSemanticError(
-                "attempt-0019 requires the exact D16 adoption preserved from "
-                f"attempt-0018: missing {relative}"
+                "D16 target must be absent at implementation entry: "
+                f"{target_relative}"
             )
+        template = root / TEMPLATE_ROOT / spec["template_name"]
+        if not template.is_file():
+            raise FoodSemanticError(f"missing D16 candidate template: {template}")
+        replacement = template.read_bytes()
+        replacement_text = replacement.decode("utf-8")
+        missing_symbols = [
+            symbol
+            for symbol in spec["affected_symbols"]
+            if symbol not in replacement_text
+        ]
+        if missing_symbols:
+            raise FoodSemanticError(
+                f"D16 candidate template missing symbols: {missing_symbols}"
+            )
+        candidate_path = candidate_root / spec["template_name"]
+        write_once_bytes(candidate_path, replacement)
         rows.append(
             {
-                "target_path": relative,
-                "candidate_path": None,
-                "preimage_state": "present_and_D16_symbols_adopted",
-                "preimage_sha256": sha256_bytes(preimage),
-                "replacement_sha256": sha256_bytes(preimage),
-                "affected_symbols": symbols,
+                "target_path": target_relative,
+                "candidate_path": candidate_path.relative_to(root).as_posix(),
+                "preimage_state": "absent_at_g0_v0",
+                "preimage_sha256": None,
+                "replacement_sha256": sha256_bytes(replacement),
+                "affected_symbols": spec["affected_symbols"],
                 "existing_symbol_replacement_count": 0,
-                "patch_kind": "no_change_required_existing_D16_adoption",
+                "patch_kind": "create_absent_target_after_D16_authorization",
             }
         )
     return rows
+
+
+def adopt_d16_candidate_patch(
+    root: Path,
+    attempt_root: Path,
+    *,
+    owner_decisions_sha256: str,
+) -> dict[str, Any]:
+    manifest_path = (
+        attempt_root
+        / "phase12_phase2_handoff/naturalization_candidate_patch_manifest.json"
+    )
+    manifest = load_json(manifest_path)
+    expected_targets = {spec["target_path"] for spec in CANDIDATE_SPECS}
+    actual_targets = {row.get("target_path") for row in manifest.get("files", [])}
+    blockers: list[str] = []
+    if manifest.get("status") != "candidate_pending_D16_adoption":
+        blockers.append("candidate_manifest_not_pending_D16")
+    if actual_targets != expected_targets:
+        blockers.append("candidate_target_set_mismatch")
+    prepared: list[tuple[Path, bytes, dict[str, Any]]] = []
+    for row in manifest.get("files", []):
+        target = root / row["target_path"]
+        candidate = root / row["candidate_path"]
+        if row.get("preimage_state") != "absent_at_g0_v0":
+            blockers.append(f"{row['target_path']}:preimage_state")
+        if row.get("preimage_sha256") is not None:
+            blockers.append(f"{row['target_path']}:preimage_sha256")
+        if target.exists():
+            blockers.append(f"{row['target_path']}:target_not_absent")
+        if not candidate.is_file():
+            blockers.append(f"{row['target_path']}:candidate_missing")
+            continue
+        payload = candidate.read_bytes()
+        if sha256_bytes(payload) != row.get("replacement_sha256"):
+            blockers.append(f"{row['target_path']}:candidate_sha256")
+        prepared.append((target, payload, row))
+    if blockers:
+        raise FoodSemanticError(
+            "D16 candidate adoption blocked: " + ",".join(sorted(blockers))
+        )
+    for target, payload, _ in prepared:
+        write_once_bytes(target, payload)
+    report = {
+        "schema_version": "food-semantic-d16-candidate-adoption-v1",
+        "status": "PASS",
+        "naturalization_candidate_patch_manifest_sha256": sha256_file(
+            manifest_path
+        ),
+        "owner_decisions_sha256": owner_decisions_sha256,
+        "adopted_file_count": len(prepared),
+        "adopted_files": [
+            {
+                "target_path": row["target_path"],
+                "replacement_sha256": row["replacement_sha256"],
+                "actual_sha256": sha256_file(target),
+                "affected_symbols": row["affected_symbols"],
+            }
+            for target, _, row in prepared
+        ],
+        "out_of_scope_file_count": 0,
+        "preimage_mismatch_count": 0,
+        "D16_owner_authorization_consumed": True,
+        "existing_phase4_to_8_mutation_count": 0,
+    }
+    write_json(
+        attempt_root
+        / "authority_execution/phase12_phase2_handoff/"
+        "d16_candidate_adoption_report.json",
+        report,
+    )
+    return report
 
 
 def run_phase12(root: Path, attempt_root: Path) -> dict[str, Any]:
@@ -349,22 +261,26 @@ def run_phase12(root: Path, attempt_root: Path) -> dict[str, Any]:
         phase / "naturalization_candidate_patch_manifest.json",
         {
             "schema_version": "food-semantic-naturalization-candidate-patch-v1",
-            "status": (
-                "existing_D16_adoption_verified"
-                if all(row["candidate_path"] is None for row in patch_rows)
-                else "candidate_pending_D16_adoption"
-            ),
+            "status": "candidate_pending_D16_adoption",
             "files": patch_rows,
             "candidate_patch_out_of_scope_symbol_count": 0,
+            "forbidden_symbols": [
+                "run_phase4",
+                "run_phase5",
+                "run_phase6",
+                "run_phase7",
+                "run_phase8",
+                "render",
+                "publish",
+            ],
             "candidate_patch_preimage_mismatch_count": 0,
             "missing_future_preimage_count": sum(
                 row["preimage_state"] == "absent_at_g0_v0"
                 for row in patch_rows
             ),
             "D16_owner_authorization_consumed": False,
-            "existing_D16_adoption_file_count": sum(
-                row["candidate_path"] is None for row in patch_rows
-            ),
+            "existing_D16_adoption_file_count": 0,
+            "candidate_only_file_count": len(patch_rows),
         },
     )
     write_json(
@@ -390,6 +306,19 @@ def run_phase12(root: Path, attempt_root: Path) -> dict[str, Any]:
                 "manifest_facts_sha256_match",
                 "food_semantic_proposition_count",
                 "food_semantic_proposition_inventory_sha256",
+                "food_semantic_item_count",
+                "food_semantic_item_set_sha256",
+                "required_fact_axes",
+                "required_axis_missing_item_count",
+                "duplicate_proposition_id_count",
+                "invalid_schema_proposition_count",
+                "invalid_license_proposition_count",
+                "meaningful_partition_count",
+                "manifest_declared_food_semantic_proposition_count",
+                (
+                    "manifest_declared_food_semantic_"
+                    "proposition_inventory_sha256"
+                ),
             ],
             "producer_must_equal": "naturalization_actual_phase2_consumer",
             "explicit_non_current_input_override_must_equal": True,
@@ -406,6 +335,10 @@ def run_phase12(root: Path, attempt_root: Path) -> dict[str, Any]:
                 "phase11 selected_successor_input_binding"
             ),
             "four_identity_match_required": True,
+            "exact_expected_actual_proposition_inventory_match_required": True,
+            "dropped_proposition_count_must_equal": 0,
+            "invented_proposition_count_must_equal": 0,
+            "actual_consumer_partition_required": True,
             "receipt_self_declaration_allowed": False,
         },
     )
@@ -530,9 +463,9 @@ def run_phase12(root: Path, attempt_root: Path) -> dict[str, Any]:
             "status": "NO_EFFECT_PROVEN",
             "changed_path_has_no_effect_on_attempt_0014": True,
             "proof": (
-                "The D16 adapter is already present at implementation entry; "
-                "this attempt writes no Naturalization target path and the "
-                "predecessor digest extract remains read-only."
+                "The D16 adapter remains candidate-only at implementation "
+                "entry; this attempt writes no Naturalization target path and "
+                "the predecessor digest extract remains read-only."
             ),
             "baseline_repeated_skeleton_hit_count": cause[
                 "baseline_repeated_skeleton_hit_count"
@@ -551,8 +484,10 @@ def run_phase12(root: Path, attempt_root: Path) -> dict[str, Any]:
             "status": "PASS",
             "existing_phase4_to_8_behavior_change_count": 0,
             "candidate_patch_adopted": False,
-            "existing_D16_adoption_verified": all(
-                row["candidate_path"] is None for row in patch_rows
+            "D16_candidate_only_pre_authorization": all(
+                row["preimage_state"] == "absent_at_g0_v0"
+                and row["candidate_path"]
+                for row in patch_rows
             ),
             "existing_symbol_replacement_count": sum(
                 row["existing_symbol_replacement_count"] for row in patch_rows
@@ -608,8 +543,10 @@ def run_phase12(root: Path, attempt_root: Path) -> dict[str, Any]:
         "handoff_tooling_implementation_complete": True,
         "candidate_patch_file_count": len(patch_rows),
         "candidate_patch_adopted": False,
-        "existing_D16_adoption_verified": all(
-            row["candidate_path"] is None for row in patch_rows
+        "D16_candidate_only_pre_authorization": all(
+            row["preimage_state"] == "absent_at_g0_v0"
+            and row["candidate_path"]
+            for row in patch_rows
         ),
         "D16_owner_authorization_consumed": False,
         "authority_handoff_claim_emitted_count": 0,

@@ -2,9 +2,11 @@ from __future__ import annotations
 
 from dataclasses import asdict
 from pathlib import Path
+import subprocess
 from typing import Any, Iterable
 
 from .contracts import (
+    FoodSemanticError,
     artifact_manifest,
     canonical_json_bytes,
     identity,
@@ -28,6 +30,23 @@ FORBIDDEN_IMPLEMENTATION_CLAIMS = {
     "Publish Boundary PASS",
     "naturalization_official_retry_complete",
     "package_release_ready",
+}
+
+POST_AUTHORITY_VALIDATION_COMMANDS = {
+    "d16_acceptance": (
+        "uv run python -B -m unittest discover "
+        "-s Iris/build/description/v2/tests "
+        '-p "test_dvf_3_3_korean_prose_acceptance_gate.py"'
+    ),
+    "d16_preservation": (
+        "uv run python -B -m unittest discover "
+        "-s Iris/build/description/v2/tests "
+        '-p "test_dvf_3_3_korean_prose_semantic_preservation.py"'
+    ),
+    "full_regression": (
+        "uv run python -B -m unittest discover "
+        "-s Iris/build/description/v2/tests -p \"test_*.py\""
+    ),
 }
 
 
@@ -96,27 +115,9 @@ def _implementation_files(root: Path, attempt_root: Path) -> list[Path]:
     )
     if cli.is_file():
         files.append(cli)
-    files.extend(
-        root / relative
-        for relative in (
-            (
-                "Iris/build/description/v2/tools/build/"
-                "run_dvf_3_3_korean_prose_naturalization.py"
-            ),
-            (
-                "Iris/build/description/v2/tools/build/"
-                "validate_dvf_3_3_korean_prose_naturalization.py"
-            ),
-            (
-                "Iris/build/description/v2/tests/"
-                "test_dvf_3_3_korean_prose_acceptance_gate.py"
-            ),
-            (
-                "Iris/build/description/v2/tests/"
-                "test_dvf_3_3_korean_prose_semantic_preservation.py"
-            ),
-        )
-    )
+    candidate_sources = code_dir / "d16_candidate_sources"
+    if candidate_sources.is_dir():
+        files.extend(path for path in candidate_sources.rglob("*") if path.is_file())
     tests = root / "Iris/build/description/v2/tests"
     files.extend(tests.glob("test_dvf_3_3_food_semantic_*.py"))
     fixture_dir = (
@@ -178,7 +179,7 @@ def run_phase13(
         for member in non_claim_input["members"]
     ]
     write_json(
-        phase / "final_claim_non_claim_vocabulary_scan.json",
+        phase / "implementation_claim_non_claim_vocabulary_scan.json",
         {
             "status": "PASS",
             "input_path": relative_posix(non_claim_input_path, root=root),
@@ -250,7 +251,7 @@ def run_phase13(
         },
     )
     write_json(
-        phase / "required_gate_deferred_freshness_impact.json",
+        phase / "implementation_required_gate_deferred_freshness_impact.json",
         {
             "branch": "G2",
             "required_gate_deferred_explicitly": True,
@@ -296,6 +297,7 @@ def run_phase13(
                 "independent_closeout_review_sha256",
                 "final_artifact_manifest_sha256",
                 "claim_token",
+                "terminal_value",
                 "approver_identity",
                 "approval_time",
                 "verdict",
@@ -309,8 +311,10 @@ def run_phase13(
             "required": [
                 "owner_seal_sha256",
                 "final_artifact_manifest_sha256",
+                "independent_closeout_review_sha256",
                 "sealed_successor_receipt_sha256",
                 "terminal_branch_disposition_sha256",
+                "sealed_successor_closeout_sha256",
             ],
             "post_terminal_claim_bearing_change_allowed": False,
         },
@@ -348,7 +352,7 @@ def run_phase13(
         },
     )
     write_json(
-        phase / "final_machine_report.json",
+        phase / "implementation_final_machine_report.json",
         {
             "status": "IMPLEMENTATION_COMPLETE_NOT_AUTHORITY_CLOSEOUT",
             "attempt_id": attempt_id,
@@ -373,7 +377,7 @@ def run_phase13(
     # not emissions. Restrict the implementation claim scan to actual machine
     # report fields and store the broader hits as declared vocabulary references.
     actual_emissions = []
-    final_machine = load_json(phase / "final_machine_report.json")
+    final_machine = load_json(phase / "implementation_final_machine_report.json")
     for key in ("status", "claim", "closeout_state"):
         value = final_machine.get(key)
         if value in FORBIDDEN_IMPLEMENTATION_CLAIMS:
@@ -559,7 +563,7 @@ def run_phase13(
             "existing_phase4_to_8_behavior_change_count"
         ]
         == 0
-        and no_impact["existing_D16_adoption_verified"],
+        and no_impact["D16_candidate_only_pre_authorization"],
         "threshold_authority_binding_deferred_without_credit": (
             threshold["authority_match_evaluated"] is False
             and threshold["threshold_policy_detector_identity_match"] is None
@@ -647,4 +651,575 @@ def run_phase13(
         "owner_decision_consumed_count": 0,
         "owner_approval_consumed_count": 0,
         "external_review_consumed_count": 0,
+    }
+
+
+def record_post_authority_validation(
+    attempt_root: Path,
+    *,
+    d16_acceptance_exit_code: int,
+    d16_preservation_exit_code: int,
+    full_regression_exit_code: int,
+) -> dict[str, Any]:
+    exit_codes = {
+        "d16_acceptance": d16_acceptance_exit_code,
+        "d16_preservation": d16_preservation_exit_code,
+        "full_regression": full_regression_exit_code,
+    }
+    failing = sorted(name for name, code in exit_codes.items() if code != 0)
+    if failing:
+        raise FoodSemanticError(
+            "post-authority validation cannot pass: " + ",".join(failing)
+        )
+    result = {
+        "schema_version": "food-semantic-post-authority-validation-v1",
+        "status": "PASS",
+        "commands": {
+            name: {
+                "command": POST_AUTHORITY_VALIDATION_COMMANDS[name],
+                "exit_code": exit_codes[name],
+                "status": "PASS",
+            }
+            for name in sorted(POST_AUTHORITY_VALIDATION_COMMANDS)
+        },
+        "command_count": len(POST_AUTHORITY_VALIDATION_COMMANDS),
+        "failed_command_count": 0,
+    }
+    write_json(
+        attempt_root
+        / "phase13_closeout/post_authority_validation_result.json",
+        result,
+    )
+    return result
+
+
+def _decision(owner: dict[str, Any], decision_id: str) -> dict[str, Any]:
+    rows = [
+        row
+        for row in owner.get("decisions", [])
+        if row.get("decision_id") == decision_id
+    ]
+    if len(rows) != 1:
+        raise FoodSemanticError(
+            f"terminal decision {decision_id} must appear exactly once"
+        )
+    return rows[0]
+
+
+def _repository_head(root: Path) -> str:
+    completed = subprocess.run(
+        ["git", "-C", str(root), "rev-parse", "HEAD"],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if completed.returncode != 0:
+        raise FoodSemanticError("cannot resolve reviewed repository HEAD")
+    return completed.stdout.strip()
+
+
+def _git_tracked(root: Path, path: Path) -> bool:
+    completed = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(root),
+            "ls-files",
+            "--error-unmatch",
+            relative_posix(path, root=root),
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    return completed.returncode == 0
+
+
+def _terminal_manifest_files(
+    root: Path,
+    attempt_root: Path,
+    *,
+    owner_decisions_path: Path,
+) -> list[Path]:
+    excluded = {
+        "final_artifact_manifest.json",
+        "terminal_review_request.json",
+        "independent_closeout_review.json",
+        "owner_seal.json",
+        "terminal_branch_disposition.json",
+        "sealed_successor_closeout.json",
+        "terminal_hash_seal.json",
+    }
+    files = [
+        path
+        for path in attempt_root.rglob("*")
+        if path.is_file() and path.name not in excluded
+    ]
+    files.append(owner_decisions_path)
+    owner_input_root = (
+        root
+        / "Iris/build/description/v2/owner_inputs/"
+        "dvf_3_3_food_semantic_facts_authority"
+    )
+    if owner_input_root.is_dir():
+        files.extend(path for path in owner_input_root.rglob("*") if path.is_file())
+    durable = root / "Iris/_docs/authority/food_semantic"
+    files.extend(path for path in durable.rglob("*") if path.is_file())
+    for relative in (
+        "docs/dvf_3_3_food_semantic_claim_boundary.md",
+        (
+            "Iris/build/description/v2/tools/build/"
+            "run_dvf_3_3_korean_prose_naturalization.py"
+        ),
+        (
+            "Iris/build/description/v2/tools/build/"
+            "validate_dvf_3_3_korean_prose_naturalization.py"
+        ),
+        (
+            "Iris/build/description/v2/tests/"
+            "test_dvf_3_3_korean_prose_acceptance_gate.py"
+        ),
+        (
+            "Iris/build/description/v2/tests/"
+            "test_dvf_3_3_korean_prose_semantic_preservation.py"
+        ),
+    ):
+        files.append(root / relative)
+    return sorted({path.resolve() for path in files if path.is_file()})
+
+
+def prepare_terminal_closeout(
+    root: Path,
+    attempt_root: Path,
+    attempt_id: str,
+    *,
+    owner_decisions_path: Path,
+) -> dict[str, Any]:
+    phase = attempt_root / "phase13_closeout"
+    authority_summary_path = (
+        attempt_root / "authority_execution/authority_execution_summary.json"
+    )
+    authority_summary = load_json(authority_summary_path)
+    sealed_receipt_path = (
+        attempt_root / "phase11_successor/sealed_successor_receipt.json"
+    )
+    sealed_receipt = load_json(sealed_receipt_path)
+    validation_path = phase / "post_authority_validation_result.json"
+    validation = load_json(validation_path)
+    owner = load_json(owner_decisions_path)
+    if (
+        authority_summary.get("status") != "PASS"
+        or authority_summary.get("sealed_non_current_successor") is not True
+        or sealed_receipt.get("non_current") is not True
+        or validation.get("status") != "PASS"
+        or validation.get("failed_command_count") != 0
+    ):
+        raise FoodSemanticError("terminal closeout prerequisites are incomplete")
+    adopted_targets = [
+        root / relative
+        for relative in (
+            (
+                "Iris/build/description/v2/tools/build/"
+                "run_dvf_3_3_korean_prose_naturalization.py"
+            ),
+            (
+                "Iris/build/description/v2/tools/build/"
+                "validate_dvf_3_3_korean_prose_naturalization.py"
+            ),
+            (
+                "Iris/build/description/v2/tests/"
+                "test_dvf_3_3_korean_prose_acceptance_gate.py"
+            ),
+            (
+                "Iris/build/description/v2/tests/"
+                "test_dvf_3_3_korean_prose_semantic_preservation.py"
+            ),
+        )
+    ]
+    untracked_adopted_targets = [
+        relative_posix(path, root=root)
+        for path in adopted_targets
+        if not path.is_file() or not _git_tracked(root, path)
+    ]
+    if untracked_adopted_targets:
+        raise FoodSemanticError(
+            "D16 adopted targets must be tracked before final manifest: "
+            + ",".join(untracked_adopted_targets)
+        )
+
+    d1 = _decision(owner, "D1")
+    if d1["selected_option"] == "C1":
+        claim_token = "Food Semantic Facts Authority Successor Handoff"
+        terminal_value = "sealed_successor_handoff_complete"
+    elif d1["selected_option"] == "C2":
+        claim_token = d1["claim_token"]
+        terminal_value = d1["terminal_value"]
+    else:
+        raise FoodSemanticError("D1 terminal claim option is invalid")
+    d11 = _decision(owner, "D11")
+    d13 = _decision(owner, "D13")
+    d15 = _decision(owner, "D15")
+    if d11.get("selected_option") != (
+        "defer_G2_and_issue_future_registry_G1_request"
+    ):
+        raise FoodSemanticError("D11 must select the bounded B+G2 disposition")
+    if d13.get("selected_option") not in {
+        "I1_full_chain_non_participant",
+        "I2_non_claude_full_chain_non_participant",
+    }:
+        raise FoodSemanticError("D13 reviewer eligibility option is invalid")
+    if d15.get("selected_option") not in {
+        "no_top_doc_update_current_round",
+        "defer_top_doc_updates_to_registry_cutover",
+    }:
+        raise FoodSemanticError("D15 top-doc disposition is invalid")
+
+    non_claim_input_path = (
+        attempt_root / "phase1_census/live_non_claim_enumeration.json"
+    )
+    non_claim_input = load_json(non_claim_input_path)
+    dispositions = [
+        {
+            "non_claim": member,
+            "terminal_disposition": "not_emitted",
+        }
+        for member in non_claim_input["members"]
+    ]
+    claim_scan = {
+        "schema_version": "food-semantic-final-claim-scan-v1",
+        "status": "PASS",
+        "input_path": relative_posix(non_claim_input_path, root=root),
+        "input_sha256": sha256_file(non_claim_input_path),
+        "input_enumeration_sha256": non_claim_input["enumeration_sha256"],
+        "input_count": non_claim_input["count"],
+        "disposition_count": len(dispositions),
+        "dispositions": dispositions,
+        "selected_claim_token": claim_token,
+        "selected_terminal_value": terminal_value,
+        "missing_live_non_claim_scan_disposition_count": 0,
+        "forbidden_non_claim_emission_count": 0,
+    }
+    write_json(phase / "final_claim_non_claim_vocabulary_scan.json", claim_scan)
+    write_json(
+        phase / "required_gate_deferred_freshness_impact.json",
+        {
+            "schema_version": "food-semantic-required-gate-G2-disposition-v1",
+            "status": "PASS",
+            "D11_selected_option": d11["selected_option"],
+            "required_gate_deferred_explicitly": True,
+            "future_registry_G1_adoption_request_complete": True,
+            "live_required_manifest_mutation_count": 0,
+            "freshness_impact_declared": True,
+            "canonical_completion_claimed": False,
+        },
+    )
+    write_json(
+        phase / "top_doc_update_disposition.json",
+        {
+            "schema_version": "food-semantic-D15-disposition-v1",
+            "status": "PASS",
+            "D15_selected_option": d15["selected_option"],
+            "top_doc_mutation_count": 0,
+            "freshness_reseal_required": False,
+        },
+    )
+    final_machine = {
+        "schema_version": "food-semantic-final-machine-report-v1",
+        "status": "PASS",
+        "attempt_id": attempt_id,
+        "selected_branch": "B+G2",
+        "sealed_successor_handoff_complete": True,
+        "food_semantic_facts_authority_closeout": (
+            "pending_terminal_independent_review_and_owner_seal"
+        ),
+        "selected_claim_token": claim_token,
+        "selected_terminal_value": terminal_value,
+        "current_authority_reconstruction_complete": False,
+        "canonical_complete": False,
+        "authority_execution_summary_sha256": sha256_file(
+            authority_summary_path
+        ),
+        "sealed_successor_receipt_sha256": sha256_file(sealed_receipt_path),
+        "post_authority_validation_sha256": sha256_file(validation_path),
+        "final_machine_validation": "PASS",
+        "current_facts_manifest_mutation_count": 0,
+    }
+    write_json(phase / "final_machine_report.json", final_machine)
+
+    traceability_path = (
+        attempt_root
+        / "phase0_plan_and_decisions/requirements_plan_traceability.json"
+    )
+    traceability = load_json(traceability_path)
+    eligibility = {
+        "schema_version": "food-semantic-independent-reviewer-eligibility-v1",
+        "status": "PASS",
+        "D13_selected_option": d13["selected_option"],
+        "requirements_chain_participation_allowed": False,
+        "plan_chain_participation_allowed": False,
+        "review_chain_participation_allowed": False,
+        "implementation_chain_participation_allowed": False,
+        "curation_chain_participation_allowed": False,
+        "owner_decision_chain_participation_allowed": False,
+        "non_claude_required": d13["selected_option"].startswith("I2_"),
+        "requirements_snapshot_sha256": traceability[
+            "requirements_snapshot_sha256"
+        ],
+        "requirements_snapshot_logical_line_count": traceability[
+            "requirements_snapshot_logical_line_count"
+        ],
+        "requirements_plan_traceability_sha256": sha256_file(
+            traceability_path
+        ),
+        "terminal_review_started": False,
+    }
+    write_json(
+        phase / "independent_reviewer_eligibility_report.json",
+        eligibility,
+    )
+
+    repository_head = _repository_head(root)
+    terminal_files = _terminal_manifest_files(
+        root,
+        attempt_root,
+        owner_decisions_path=owner_decisions_path,
+    )
+    manifest_rows = artifact_manifest(terminal_files, root=root)
+    final_manifest = {
+        "schema_version": "food-semantic-final-artifact-manifest-v1",
+        "status": "SEALED_FOR_TERMINAL_REVIEW",
+        "attempt_id": attempt_id,
+        "repository_head_commit": repository_head,
+        "selected_branch": "B+G2",
+        "artifact_count": len(manifest_rows),
+        "artifact_manifest_sha256": sha256_bytes(
+            canonical_json_bytes(manifest_rows)
+        ),
+        "artifacts": manifest_rows,
+        "sealed_successor_receipt_sha256": sha256_file(sealed_receipt_path),
+        "final_machine_report_sha256": sha256_file(
+            phase / "final_machine_report.json"
+        ),
+        "final_claim_scan_sha256": sha256_file(
+            phase / "final_claim_non_claim_vocabulary_scan.json"
+        ),
+        "terminal_independent_review_pending": True,
+        "owner_seal_pending": True,
+    }
+    final_manifest_path = phase / "final_artifact_manifest.json"
+    write_json(final_manifest_path, final_manifest)
+    review_request = {
+        "schema_version": "food-semantic-terminal-review-request-v1",
+        "status": "READY",
+        "attempt_id": attempt_id,
+        "reviewed_repository_commit": repository_head,
+        "reviewed_final_artifact_manifest_sha256": sha256_file(
+            final_manifest_path
+        ),
+        "eligibility_report_sha256": sha256_file(
+            phase / "independent_reviewer_eligibility_report.json"
+        ),
+        "requirements_snapshot_sha256": traceability[
+            "requirements_snapshot_sha256"
+        ],
+        "requirements_snapshot_logical_line_count": traceability[
+            "requirements_snapshot_logical_line_count"
+        ],
+        "plan_path": traceability["plan"]["path"],
+        "plan_sha256": traceability["plan"]["sha256"],
+        "plan_git_blob_id": traceability["plan_git_blob_id"],
+    }
+    write_json(phase / "terminal_review_request.json", review_request)
+    return {
+        "status": "READY_FOR_TERMINAL_INDEPENDENT_REVIEW",
+        "attempt_id": attempt_id,
+        "final_artifact_manifest_sha256": sha256_file(final_manifest_path),
+        "artifact_count": len(manifest_rows),
+        "terminal_review_request_sha256": sha256_file(
+            phase / "terminal_review_request.json"
+        ),
+    }
+
+
+def seal_terminal_closeout(
+    root: Path,
+    attempt_root: Path,
+    attempt_id: str,
+    *,
+    independent_review_path: Path,
+    owner_seal_path: Path,
+) -> dict[str, Any]:
+    phase = attempt_root / "phase13_closeout"
+    manifest_path = phase / "final_artifact_manifest.json"
+    manifest = load_json(manifest_path)
+    eligibility_path = phase / "independent_reviewer_eligibility_report.json"
+    eligibility = load_json(eligibility_path)
+    review = load_json(independent_review_path)
+    owner_seal = load_json(owner_seal_path)
+    mismatches = []
+    for row in manifest["artifacts"]:
+        path = root / row["path"]
+        if not path.is_file():
+            mismatches.append({"path": row["path"], "reason": "missing"})
+        elif sha256_file(path) != row["sha256"]:
+            mismatches.append({"path": row["path"], "reason": "sha256_mismatch"})
+    if mismatches:
+        raise FoodSemanticError(
+            f"terminal artifact manifest drift: {mismatches}"
+        )
+    participation_fields = [
+        "participated_in_requirements",
+        "participated_in_plan",
+        "participated_in_review_chain",
+        "participated_in_implementation",
+        "participated_in_curation",
+        "participated_in_owner_decisions",
+    ]
+    review_blockers = []
+    if review.get("verdict") != "PASS":
+        review_blockers.append("verdict")
+    if review.get("attempt_id") != attempt_id:
+        review_blockers.append("attempt_id")
+    if review.get("eligibility_report_sha256") != sha256_file(eligibility_path):
+        review_blockers.append("eligibility_report_sha256")
+    if review.get("reviewed_repository_commit") != manifest.get(
+        "repository_head_commit"
+    ):
+        review_blockers.append("reviewed_repository_commit")
+    if review.get("reviewed_final_artifact_manifest_sha256") != sha256_file(
+        manifest_path
+    ):
+        review_blockers.append("reviewed_final_artifact_manifest_sha256")
+    if review.get("requirements_snapshot_sha256") != eligibility.get(
+        "requirements_snapshot_sha256"
+    ):
+        review_blockers.append("requirements_snapshot_sha256")
+    if any(review.get(field) is not False for field in participation_fields):
+        review_blockers.append("reviewer_chain_participation")
+    if review.get("reviewer_is_implementation_author") is not False:
+        review_blockers.append("reviewer_is_implementation_author")
+    if not review.get("reviewer_identity"):
+        review_blockers.append("reviewer_identity")
+    if (
+        eligibility.get("non_claude_required")
+        and str(review.get("reviewer_model_family", "")).lower() == "claude"
+    ):
+        review_blockers.append("I2_non_claude")
+    finding_counts = review.get("finding_counts", {})
+    if (
+        finding_counts.get("critical") != 0
+        or finding_counts.get("important") != 0
+    ):
+        review_blockers.append("open_critical_or_important")
+    if review_blockers:
+        raise FoodSemanticError(
+            "terminal independent review blocked: "
+            + ",".join(sorted(review_blockers))
+        )
+    canonical_review_path = phase / "independent_closeout_review.json"
+    if independent_review_path.resolve() != canonical_review_path.resolve():
+        write_json(canonical_review_path, review)
+
+    final_machine = load_json(phase / "final_machine_report.json")
+    owner_blockers = []
+    if owner_seal.get("verdict") != "PASS":
+        owner_blockers.append("verdict")
+    if owner_seal.get("attempt_id") != attempt_id:
+        owner_blockers.append("attempt_id")
+    if owner_seal.get("independent_closeout_review_sha256") != sha256_file(
+        canonical_review_path
+    ):
+        owner_blockers.append("independent_closeout_review_sha256")
+    if owner_seal.get("final_artifact_manifest_sha256") != sha256_file(
+        manifest_path
+    ):
+        owner_blockers.append("final_artifact_manifest_sha256")
+    if owner_seal.get("claim_token") != final_machine["selected_claim_token"]:
+        owner_blockers.append("claim_token")
+    if owner_seal.get("terminal_value") != final_machine[
+        "selected_terminal_value"
+    ]:
+        owner_blockers.append("terminal_value")
+    if not owner_seal.get("approver_identity") or not owner_seal.get(
+        "approval_time"
+    ):
+        owner_blockers.append("approver_identity_or_time")
+    if owner_blockers:
+        raise FoodSemanticError(
+            "owner terminal seal blocked: " + ",".join(sorted(owner_blockers))
+        )
+    canonical_owner_seal_path = phase / "owner_seal.json"
+    if owner_seal_path.resolve() != canonical_owner_seal_path.resolve():
+        write_json(canonical_owner_seal_path, owner_seal)
+
+    branch_disposition = {
+        "schema_version": "food-semantic-terminal-branch-disposition-v1",
+        "status": "PASS",
+        "attempt_id": attempt_id,
+        "branch": "B+G2",
+        "required_gate_deferred_explicitly": True,
+        "future_registry_cutover_required": True,
+        "current_authority_reconstruction_complete": False,
+        "canonical_complete": False,
+        "current_facts_manifest_mutation_count": 0,
+    }
+    branch_path = phase / "terminal_branch_disposition.json"
+    write_json(branch_path, branch_disposition)
+    sealed_closeout = {
+        "schema_version": "food-semantic-sealed-successor-closeout-v1",
+        "status": "PASS",
+        "attempt_id": attempt_id,
+        "food_semantic_facts_authority_closeout": final_machine[
+            "selected_terminal_value"
+        ],
+        "claim_token": final_machine["selected_claim_token"],
+        "selected_branch": "B+G2",
+        "sealed_successor_receipt_sha256": manifest[
+            "sealed_successor_receipt_sha256"
+        ],
+        "final_artifact_manifest_sha256": sha256_file(manifest_path),
+        "independent_closeout_review_sha256": sha256_file(
+            canonical_review_path
+        ),
+        "owner_seal_sha256": sha256_file(canonical_owner_seal_path),
+        "terminal_branch_disposition_sha256": sha256_file(branch_path),
+        "current_authority_reconstruction_complete": False,
+        "canonical_complete": False,
+        "post_terminal_claim_bearing_change_count": 0,
+    }
+    closeout_path = phase / "sealed_successor_closeout.json"
+    write_json(closeout_path, sealed_closeout)
+    terminal_hash = {
+        "schema_version": "food-semantic-terminal-hash-seal-v1",
+        "status": "PASS",
+        "attempt_id": attempt_id,
+        "final_artifact_manifest_sha256": sha256_file(manifest_path),
+        "sealed_successor_receipt_sha256": manifest[
+            "sealed_successor_receipt_sha256"
+        ],
+        "independent_closeout_review_sha256": sha256_file(
+            canonical_review_path
+        ),
+        "owner_seal_sha256": sha256_file(canonical_owner_seal_path),
+        "terminal_branch_disposition_sha256": sha256_file(branch_path),
+        "sealed_successor_closeout_sha256": sha256_file(closeout_path),
+        "final_machine_report_sha256": sha256_file(
+            phase / "final_machine_report.json"
+        ),
+        "final_claim_non_claim_vocabulary_scan_sha256": sha256_file(
+            phase / "final_claim_non_claim_vocabulary_scan.json"
+        ),
+        "post_terminal_claim_bearing_change_allowed": False,
+    }
+    terminal_hash_path = phase / "terminal_hash_seal.json"
+    write_json(terminal_hash_path, terminal_hash)
+    return {
+        "status": "PASS",
+        "attempt_id": attempt_id,
+        "food_semantic_facts_authority_closeout": final_machine[
+            "selected_terminal_value"
+        ],
+        "terminal_hash_seal_sha256": sha256_file(terminal_hash_path),
+        "current_authority_reconstruction_complete": False,
+        "canonical_complete": False,
     }

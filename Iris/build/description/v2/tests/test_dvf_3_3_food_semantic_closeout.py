@@ -80,6 +80,14 @@ class FoodSemanticCloseoutTest(unittest.TestCase):
         self.assertIsNone(args.semantic_approval)
         self.assertIsNone(args.external_review)
         self.assertIsNone(args.curated_ledger)
+        prepare = parser.parse_args(
+            ["prepare-closeout", "--attempt-id", "attempt-0020"]
+        )
+        self.assertEqual(prepare.command, "prepare-closeout")
+        terminal = parser.parse_args(
+            ["terminal-seal", "--attempt-id", "attempt-0020"]
+        )
+        self.assertEqual(terminal.command, "terminal-seal")
 
     def test_successful_attempt_stays_below_authority_claim_ceiling(self) -> None:
         attempts = (
@@ -100,7 +108,8 @@ class FoodSemanticCloseoutTest(unittest.TestCase):
         self.assertTrue(successful)
         attempt = sorted(successful)[-1]
         final_machine = load_json(
-            attempt / "phase13_closeout/final_machine_report.json"
+            attempt
+            / "phase13_closeout/implementation_final_machine_report.json"
         )
         claim_scan = load_json(
             attempt / "phase13_closeout/implementation_claim_ceiling_scan.json"
@@ -128,18 +137,22 @@ class FoodSemanticCloseoutTest(unittest.TestCase):
             {
                 (
                     "Iris/build/description/v2/tools/build/"
+                    "dvf_3_3_food_semantic/d16_candidate_sources/"
                     "run_dvf_3_3_korean_prose_naturalization.py"
                 ),
                 (
                     "Iris/build/description/v2/tools/build/"
+                    "dvf_3_3_food_semantic/d16_candidate_sources/"
                     "validate_dvf_3_3_korean_prose_naturalization.py"
                 ),
                 (
-                    "Iris/build/description/v2/tests/"
+                    "Iris/build/description/v2/tools/build/"
+                    "dvf_3_3_food_semantic/d16_candidate_sources/"
                     "test_dvf_3_3_korean_prose_acceptance_gate.py"
                 ),
                 (
-                    "Iris/build/description/v2/tests/"
+                    "Iris/build/description/v2/tools/build/"
+                    "dvf_3_3_food_semantic/d16_candidate_sources/"
                     "test_dvf_3_3_korean_prose_semantic_preservation.py"
                 ),
             }

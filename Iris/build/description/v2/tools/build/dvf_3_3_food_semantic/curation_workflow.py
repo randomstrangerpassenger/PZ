@@ -38,6 +38,7 @@ def validate_curated_rows(
     schema: dict[str, Any],
     *,
     expected_schema_sha256: str | None = None,
+    layer4_review_context_allowed: bool | None = None,
 ) -> dict[str, Any]:
     allowed = {
         axis["axis"]: {value["value"] for value in axis["values"]}
@@ -49,6 +50,7 @@ def validate_curated_rows(
     approval_state_violations = 0
     schema_identity_violations = 0
     reviewed_source_set_violations = 0
+    layer4_policy_violations = 0
     duplicate_proposition_count = 0
     seen_propositions: set[str] = set()
     for row in rows:
@@ -69,9 +71,39 @@ def validate_curated_rows(
         if (
             not isinstance(reviewed_source_set, list)
             or not reviewed_source_set
-            or any(not isinstance(value, str) or not value for value in reviewed_source_set)
+            or any(
+                not isinstance(value, dict)
+                or not value.get("source_id")
+                or value.get("source_class")
+                not in {
+                    "allowlisted_layer3",
+                    "layer4_interaction_context",
+                    "curator_observation",
+                }
+                or not value.get("source_path")
+                or not isinstance(value.get("source_sha256"), str)
+                or len(value["source_sha256"]) != 64
+                or any(
+                    character not in "0123456789abcdef"
+                    for character in value["source_sha256"].lower()
+                )
+                for value in reviewed_source_set
+            )
         ):
             reviewed_source_set_violations += 1
+        else:
+            layer4_sources = [
+                value
+                for value in reviewed_source_set
+                if value["source_class"] == "layer4_interaction_context"
+            ]
+            if layer4_sources and layer4_review_context_allowed is not True:
+                layer4_policy_violations += 1
+            if any(
+                value.get("review_role") != "human_review_context_only"
+                for value in layer4_sources
+            ):
+                layer4_policy_violations += 1
         if row.get("authority_class") != "curated":
             authority_class_violations += 1
         if row.get("approval_status") not in APPROVED_STATES:
@@ -91,6 +123,7 @@ def validate_curated_rows(
         "curated_approval_state_violation_count": approval_state_violations,
         "curated_schema_identity_violation_count": schema_identity_violations,
         "curated_reviewed_source_set_violation_count": reviewed_source_set_violations,
+        "curated_layer4_policy_violation_count": layer4_policy_violations,
         "curated_duplicate_proposition_count": duplicate_proposition_count,
     }
 
@@ -541,7 +574,14 @@ def run_phase8(root: Path, attempt_root: Path) -> dict[str, Any]:
             "curator_identity": "fixture-curator",
             "semantic_approver": None,
             "approval_record": None,
-            "reviewed_source_set": ["fixture-source"],
+            "reviewed_source_set": [
+                {
+                    "source_id": "fixture-source",
+                    "source_class": "allowlisted_layer3",
+                    "source_path": "fixture/source.json",
+                    "source_sha256": "a" * 64,
+                }
+            ],
             "authority_class": "curated",
             "approval_status": "owner_approved",
             "schema_sha256": sha256_file(schema_path),
@@ -555,7 +595,14 @@ def run_phase8(root: Path, attempt_root: Path) -> dict[str, Any]:
             "curator_identity": "fixture-curator",
             "semantic_approver": "fixture",
             "approval_record": "fixture",
-            "reviewed_source_set": ["fixture-source"],
+            "reviewed_source_set": [
+                {
+                    "source_id": "fixture-source",
+                    "source_class": "allowlisted_layer3",
+                    "source_path": "fixture/source.json",
+                    "source_sha256": "a" * 64,
+                }
+            ],
             "authority_class": "curated",
             "approval_status": "owner_approved",
             "schema_sha256": sha256_file(schema_path),
@@ -569,7 +616,14 @@ def run_phase8(root: Path, attempt_root: Path) -> dict[str, Any]:
             "curator_identity": "fixture-curator",
             "semantic_approver": "fixture",
             "approval_record": "fixture",
-            "reviewed_source_set": ["fixture-source"],
+            "reviewed_source_set": [
+                {
+                    "source_id": "fixture-source",
+                    "source_class": "allowlisted_layer3",
+                    "source_path": "fixture/source.json",
+                    "source_sha256": "a" * 64,
+                }
+            ],
             "authority_class": "curated",
             "approval_status": "owner_approved",
             "schema_sha256": sha256_file(schema_path),

@@ -146,6 +146,45 @@ class FoodSemanticCurationWriterTest(unittest.TestCase):
         self.assertGreater(report["curated_approval_missing_count"], 0)
         self.assertGreater(report["curated_schema_violation_count"], 0)
 
+    def test_d5_layer4_review_context_is_enforced(self) -> None:
+        schema = {"axes": AXES}
+        row = {
+            "item_identity": "Base.Test",
+            "fact_axis": "meal_role",
+            "fact_value": "meal",
+            "proposition_id": "fsp:d5-layer4",
+            "authority_class": "curated",
+            "curator_identity": "curator:test",
+            "reviewed_source_set": [
+                {
+                    "source_id": "layer4:test",
+                    "source_class": "layer4_interaction_context",
+                    "source_path": "fixture/layer4.json",
+                    "source_sha256": "a" * 64,
+                    "review_role": "human_review_context_only",
+                }
+            ],
+            "rationale": "Bounded human review context.",
+            "schema_sha256": "b" * 64,
+            "approval_record": "approval:d5",
+            "semantic_approver": "approver:test",
+            "approval_status": "owner_approved",
+        }
+        denied = validate_curated_rows(
+            [row],
+            schema,
+            expected_schema_sha256="b" * 64,
+            layer4_review_context_allowed=False,
+        )
+        self.assertEqual(denied["curated_layer4_policy_violation_count"], 1)
+        allowed = validate_curated_rows(
+            [row],
+            schema,
+            expected_schema_sha256="b" * 64,
+            layer4_review_context_allowed=True,
+        )
+        self.assertEqual(set(allowed.values()), {0})
+
     def test_live_writer_sink_is_rejected(self) -> None:
         attempt_root = (
             REPO_ROOT

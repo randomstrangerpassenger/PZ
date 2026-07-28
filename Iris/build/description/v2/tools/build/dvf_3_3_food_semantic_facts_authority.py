@@ -21,7 +21,12 @@ from tools.build.dvf_3_3_food_semantic.census_rules import (
     run_phase1,
     run_phase2,
 )
-from tools.build.dvf_3_3_food_semantic.closeout import run_phase13
+from tools.build.dvf_3_3_food_semantic.closeout import (
+    prepare_terminal_closeout,
+    record_post_authority_validation,
+    run_phase13,
+    seal_terminal_closeout,
+)
 from tools.build.dvf_3_3_food_semantic.contracts import (
     ATTEMPT_ROOT_FRAGMENT,
     FoodSemanticError,
@@ -246,6 +251,9 @@ def build_parser() -> argparse.ArgumentParser:
             "seal",
             "verify",
             "authority",
+            "record-authority-validation",
+            "prepare-closeout",
+            "terminal-seal",
         ],
     )
     parser.add_argument("--attempt-id", required=True)
@@ -262,6 +270,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--semantic-approval")
     parser.add_argument("--external-review")
     parser.add_argument("--curated-ledger")
+    parser.add_argument("--d16-acceptance-exit-code", type=int)
+    parser.add_argument("--d16-preservation-exit-code", type=int)
+    parser.add_argument("--full-regression-exit-code", type=int)
+    parser.add_argument("--independent-review")
+    parser.add_argument("--owner-seal")
     return parser
 
 
@@ -311,6 +324,66 @@ def main(argv: list[str] | None = None) -> int:
             )
         elif args.command == "verify":
             result = verify_bundle(root, attempt_root)
+        elif args.command == "record-authority-validation":
+            exit_codes = {
+                "--d16-acceptance-exit-code": args.d16_acceptance_exit_code,
+                "--d16-preservation-exit-code": args.d16_preservation_exit_code,
+                "--full-regression-exit-code": args.full_regression_exit_code,
+            }
+            missing = [name for name, value in exit_codes.items() if value is None]
+            if missing:
+                raise FoodSemanticError(
+                    "record-authority-validation requires "
+                    + ", ".join(sorted(missing))
+                )
+            result = record_post_authority_validation(
+                attempt_root,
+                d16_acceptance_exit_code=args.d16_acceptance_exit_code,
+                d16_preservation_exit_code=args.d16_preservation_exit_code,
+                full_regression_exit_code=args.full_regression_exit_code,
+            )
+        elif args.command == "prepare-closeout":
+            if not args.owner_decisions:
+                raise FoodSemanticError(
+                    "prepare-closeout requires --owner-decisions"
+                )
+            owner_decisions_path = Path(args.owner_decisions).resolve()
+            try:
+                owner_decisions_path.relative_to(root.resolve())
+            except ValueError as exc:
+                raise FoodSemanticError(
+                    "--owner-decisions must stay inside the repository"
+                ) from exc
+            result = prepare_terminal_closeout(
+                root,
+                attempt_root,
+                args.attempt_id,
+                owner_decisions_path=owner_decisions_path,
+            )
+        elif args.command == "terminal-seal":
+            if not args.independent_review or not args.owner_seal:
+                raise FoodSemanticError(
+                    "terminal-seal requires --independent-review and --owner-seal"
+                )
+            resolved = {
+                "independent_review_path": Path(
+                    args.independent_review
+                ).resolve(),
+                "owner_seal_path": Path(args.owner_seal).resolve(),
+            }
+            for name, path in resolved.items():
+                try:
+                    path.relative_to(root.resolve())
+                except ValueError as exc:
+                    raise FoodSemanticError(
+                        f"{name} must stay inside the repository"
+                    ) from exc
+            result = seal_terminal_closeout(
+                root,
+                attempt_root,
+                args.attempt_id,
+                **resolved,
+            )
         else:
             required_paths = {
                 "--owner-decisions": args.owner_decisions,

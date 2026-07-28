@@ -9,6 +9,7 @@ def validate_food_semantic_consumed_input_receipt(
     selected_binding,
     *,
     repository_root=None,
+    expected_projection=None,
 ):
     """Fail closed unless the actual consumer receipt matches all four identities."""
     expected = {
@@ -22,6 +23,7 @@ def validate_food_semantic_consumed_input_receipt(
     mismatches = [
         field for field, value in expected.items() if receipt.get(field) != value
     ]
+    four_identity_match = not mismatches
     if receipt.get("producer") != "naturalization_actual_phase2_consumer":
         mismatches.append("producer")
     if receipt.get("explicit_non_current_input_override") is not True:
@@ -45,6 +47,72 @@ def validate_food_semantic_consumed_input_receipt(
     )
     if not isinstance(inventory_sha256, str) or len(inventory_sha256) != 64:
         mismatches.append("food_semantic_proposition_inventory_sha256")
+    if expected_projection is None:
+        mismatches.append("expected_projection")
+    else:
+        projection_fields = {
+            "food_semantic_proposition_inventory_sha256": (
+                "inventory_sha256"
+            ),
+            "food_semantic_proposition_count": "proposition_count",
+            "food_semantic_item_count": "item_count",
+            "food_semantic_item_set_sha256": "item_set_sha256",
+            "required_fact_axes": "required_fact_axes",
+            "meaningful_partition_count": "meaningful_partition_count",
+        }
+        for receipt_field, expected_field in projection_fields.items():
+            if receipt.get(receipt_field) != expected_projection.get(
+                expected_field
+            ):
+                mismatches.append(receipt_field)
+    for zero_field in (
+        "required_axis_missing_item_count",
+        "duplicate_proposition_id_count",
+        "invalid_schema_proposition_count",
+        "invalid_license_proposition_count",
+    ):
+        if receipt.get(zero_field) != 0:
+            mismatches.append(zero_field)
+    if receipt.get("food_semantic_item_count") != selected_binding.get(
+        "target_member_count"
+    ):
+        mismatches.append("target_member_count")
+    if receipt.get("food_semantic_item_set_sha256") != selected_binding.get(
+        "target_member_set_sha256"
+    ):
+        mismatches.append("target_member_set_sha256")
+    if receipt.get("required_fact_axes") != selected_binding.get(
+        "required_fact_axes"
+    ):
+        mismatches.append("required_fact_axes")
+    if receipt.get("manifest_declared_food_semantic_item_count") != receipt.get(
+        "food_semantic_item_count"
+    ):
+        mismatches.append("manifest_declared_food_semantic_item_count")
+    if receipt.get(
+        "manifest_declared_food_semantic_item_set_sha256"
+    ) != receipt.get("food_semantic_item_set_sha256"):
+        mismatches.append("manifest_declared_food_semantic_item_set_sha256")
+    if receipt.get("manifest_declared_required_fact_axes") != receipt.get(
+        "required_fact_axes"
+    ):
+        mismatches.append("manifest_declared_required_fact_axes")
+    if receipt.get(
+        "manifest_declared_food_semantic_proposition_count"
+    ) != receipt.get("food_semantic_proposition_count"):
+        mismatches.append("manifest_declared_food_semantic_proposition_count")
+    if receipt.get(
+        "manifest_declared_food_semantic_proposition_inventory_sha256"
+    ) != receipt.get("food_semantic_proposition_inventory_sha256"):
+        mismatches.append(
+            "manifest_declared_food_semantic_proposition_inventory_sha256"
+        )
+    minimum_partition = selected_binding.get("minimum_meaningful_partition")
+    if (
+        not isinstance(minimum_partition, int)
+        or receipt.get("meaningful_partition_count", 0) < minimum_partition
+    ):
+        mismatches.append("minimum_meaningful_partition")
     if receipt.get("manifest_facts_sha256_match") is not True:
         mismatches.append("manifest_facts_sha256_match")
     if receipt.get("manifest_facts_path_match") is not True:
@@ -85,6 +153,17 @@ def validate_food_semantic_consumed_input_receipt(
     return {
         "status": "PASS" if not mismatches else "FAIL",
         "mismatches": sorted(set(mismatches)),
-        "four_identity_match": not mismatches,
+        "four_identity_match": four_identity_match,
+        "exact_projection_match": not any(
+            mismatch
+            for mismatch in mismatches
+            if mismatch
+            not in {
+                "facts_sha256",
+                "manifest_sha256",
+                "schema_sha256",
+                "proposition_license_sha256",
+            }
+        ),
     }
 # END DVF FOOD SEMANTIC CANDIDATE PATCH

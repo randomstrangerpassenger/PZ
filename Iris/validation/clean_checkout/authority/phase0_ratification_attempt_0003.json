@@ -1,0 +1,112 @@
+{
+  "schema_version": "iris_clean_checkout_phase0_scoped_closeout_successor_v1",
+  "problem_id": "ICCR-P0",
+  "attempt_id": "phase0-ratification-attempt-0003",
+  "recorded_date": "2026-07-28",
+  "status": "accepted",
+  "closeout_state": "complete",
+  "record_mode": "append_only_scope_and_closeout_successor",
+  "predecessor": {
+    "introduction_commit": "40b2a05d41504fad43ac642b08a7e4e04b425df0",
+    "introduction_tree": "ff52dea652bd799fec12184b1721fb36a941d7d5",
+    "path": "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json",
+    "git_blob_id": "840b5144f9c18d1db91eba25b65d47c092cee3a6",
+    "sha256": "56e7d4bf331cf0a23a951997f7ba8dfef53bbcde682aa311d2ff059a98c814c8",
+    "rewrite_permitted": false
+  },
+  "owner_directive": {
+    "authority": "repository_owner_user",
+    "directive": "Do not perform validation outside the scope of resolving technical debt, even when the plan names it.",
+    "effect": "The terminal implementation gate is limited to clean-checkout code and read-only current-input tests. Evidence-regeneration workflows and unrelated cross-track pipeline execution are not part of this closeout.",
+    "new_plan_created": false,
+    "additional_plan_review_created": false
+  },
+  "inherited_authority": {
+    "OR-06": "resolved",
+    "OR-07": "discarded",
+    "OR-08": "discarded",
+    "administrator_token_required": false,
+    "windows_audit_policy_changes_required": false,
+    "independent_operator_required": false
+  },
+  "scope": {
+    "claim": "Iris clean-checkout technical-debt gate reproducibility PASS",
+    "canonical_test_source_count": 11,
+    "canonical_test_identity_count": 66,
+    "excluded_evidence_regeneration_sources": [
+      "Iris/build/description/v2/tests/test_dvf_3_3_consumer_migration_input_normalization.py",
+      "Iris/build/description/v2/tests/test_dvf_3_3_cutover_tooling_readiness.py",
+      "Iris/build/description/v2/tests/test_dvf_3_3_vnext_delta_disposition_guard_seal.py",
+      "Iris/build/description/v2/tests/test_dvf_3_3_vnext_delta_guard_current_route_integration.py",
+      "Iris/build/description/v2/tests/test_dvf_3_3_vnext_rejected_delta_correction_reparity.py",
+      "Iris/build/description/v2/tests/test_runtime_payload_state_integrity.py"
+    ],
+    "excluded_unrelated_cross_track_source": "Iris/build/tests/test_evidence_pipeline_cross_track.py",
+    "full_repository_authority_closure_claim": "not_claimed_by_explicit_owner_scope",
+    "historical_evidence_regeneration_claim": "not_claimed",
+    "independent_third_party_reproduction_claim": "not_claimed",
+    "windows_event_level_write_telemetry_claim": "not_claimed"
+  },
+  "validated_subject": {
+    "role": "V0",
+    "commit": "4e71892bcd1b0185ebd1670b2e53415f85e44644",
+    "tree": "1ba4682d9c37adf5406f1f8e6134ce6dfe73369e",
+    "branch": "codex/iris-clean-checkout-validation",
+    "canonical_gate_path": "Iris/validation/clean_checkout/contracts/canonical_gate.json",
+    "canonical_gate_git_blob_id": "af2fd608d46c6f5467e550553ee228d07fa23263",
+    "external_environment_receipt_path": "C:/Users/MW/iccv/receipts/env-v1/environment_receipt.json",
+    "external_environment_receipt_sha256": "fb5dd78e15c41346f15b39065c60c2ce4d83254d73bbde3d3181d327b30b6bc2"
+  },
+  "static_dependency_census": {
+    "status": "PASS",
+    "output_root": "C:/Users/MW/.codex/visualizations/2026/07/27/019fa5fc-333b-7c03-8426-46d1780ab596/change3-source-census-0006",
+    "canonical_gate_dependency_edge_count": 248,
+    "tracked_dependency_edge_count": 54,
+    "external_environment_edge_count": 194,
+    "ambient_dependency_candidate_edge_count": 0,
+    "unresolved_edge_count": 0,
+    "test_inventory_sha256": "b9674ecb471175982665606a9c6ff763ef06bb5f0cb78ba45d026bbdec033d57",
+    "dependency_edge_ledger_sha256": "7b07b3d4180023084d789715ae827da41c3acb4b044b0a4d98e3ab8a9e98778e",
+    "d0_manifest_sha256": "d96a02fc2664b5854dee9f91f455f890da6536d6eb69466ba806e420e95f15d3"
+  },
+  "collection_reproducibility": {
+    "run_a_status": "PASS",
+    "run_b_status": "PASS",
+    "test_identity_count": 66,
+    "test_inventory_sha256": "44e2612afd06e02505299142654dc42f383c679c975a8cfd2c07ca6ff9d54e51",
+    "run_a_canonical_result_path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iccv-ra3-collect/canonical_result.json",
+    "run_b_canonical_result_path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iccv-rb3-collect/canonical_result.json",
+    "canonical_result_sha256": "0f65c0427d611232e3b4390f7e689c49d9cd313f9c0e24f8bccdc455e9f08fef",
+    "canonical_results_equal": true,
+    "checkout_clean_after_a": true,
+    "checkout_clean_after_b": true
+  },
+  "execution_reproducibility": {
+    "run_a_status": "PASS",
+    "run_b_status": "PASS",
+    "run_a_passed": 66,
+    "run_b_passed": 66,
+    "run_a_failed": 0,
+    "run_b_failed": 0,
+    "run_a_canonical_result_path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iccv-ra3-exec/canonical_result.json",
+    "run_b_canonical_result_path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iccv-rb3-exec/canonical_result.json",
+    "canonical_result_sha256": "6dd4d77214a803cccfd76ddfbc13266dec0d01863682d703812db8d9afe8b3aa",
+    "canonical_results_equal": true,
+    "checkout_clean_after_a": true,
+    "checkout_clean_after_b": true
+  },
+  "phase0_exit": {
+    "technical_debt_gate_status": "PASS",
+    "scoped_reproducibility_status": "PASS",
+    "OR-07_status": "discarded",
+    "OR-08_status": "discarded",
+    "blocking_condition_count": 0,
+    "blocking_conditions": []
+  },
+  "documentation_successor": {
+    "validated_subject_is_unchanged": true,
+    "this_successor_is_not_the_validated_subject": true,
+    "tests_rerun_for_this_documentation_successor": false,
+    "self_referential_commit_fields": 0
+  }
+}

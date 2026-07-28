@@ -1,0 +1,19 @@
+{
+  "schema_version": "food-semantic-registry-cutover-implementation-base-binding-v1",
+  "status": "PASS",
+  "g2_terminal_subject_commit": "319fa3cf439d72703b888a4ddb19c961c86bf3f7",
+  "governing_boundary_doc_commit": "f68d1db963ed945d4019215d85a6ad8bf8be9211",
+  "implementation_base_head": "1a4fe5a27f420f84e42f974f2765396d3c9924ab",
+  "implementation_base_tree": "c04ff1679cf481b4076fc89dbc5681d822fef626",
+  "reviewed_plan_path": "docs/dvf_3_3_food_semantic_registry_operational_cutover_implementation_plan.md",
+  "reviewed_plan_sha256": "49a472fb499f51c797fafd0b90e31baad7ffd39f59eaf0f93a0548236d674cb2",
+  "reviewed_plan_git_blob_id": "c5c4e22d991fa150e9d556d1a7ca0d90e2935ebe",
+  "initial_review_path": "Iris/_docs/round3/dvf_3_3_food_semantic_registry_operational_cutover/independent_plan_review.initial.json",
+  "initial_review_sha256": "5742436e2daab97c98da2ed37728d06f18d200ad20eb3e1f8d007efbb6c1a1c6",
+  "re_review_path": "Iris/_docs/round3/dvf_3_3_food_semantic_registry_operational_cutover/independent_plan_review.json",
+  "re_review_sha256": "f92be5dbbb774345511c5eb5a52ec9197f74e48c726aee309cb9deb71ea49e4f",
+  "g2_terminal_is_ancestor": true,
+  "governing_boundary_doc_is_ancestor": true,
+  "reviewed_plan_blob_present": true,
+  "candidate_entry_worktree_clean_required": true
+}

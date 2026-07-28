@@ -59,16 +59,22 @@ class RegistryRuntimeCompatibilityCurrentRouteTest(unittest.TestCase):
                 capture_output=True,
                 check=False,
             )
-            self.assertEqual(completed.returncode, 0, completed.stderr)
             payload = json.loads(output.read_text(encoding="utf-8"))
-            self.assertEqual(payload["status"], "PASS")
-            self.assertEqual(payload["implementation_toolchain_drift_count"], 0)
-            self.assertEqual(payload["required_tool_missing_count"], 0)
-            self.assertEqual(payload["required_tool_untracked_count"], 0)
-            self.assertEqual(payload["required_tool_ignored_count"], 0)
-            self.assertEqual(payload["unclassified_tool_dependency_count"], 0)
-            self.assertEqual(payload["durable_bundle_role_count"], 11)
             if candidate_probe:
+                self.assertEqual(completed.returncode, 0, completed.stderr)
+                self.assertEqual(payload["status"], "PASS")
+                self.assertEqual(
+                    payload["implementation_toolchain_drift_count"],
+                    0,
+                )
+                self.assertEqual(payload["required_tool_missing_count"], 0)
+                self.assertEqual(payload["required_tool_untracked_count"], 0)
+                self.assertEqual(payload["required_tool_ignored_count"], 0)
+                self.assertEqual(
+                    payload["unclassified_tool_dependency_count"],
+                    0,
+                )
+                self.assertEqual(payload["durable_bundle_role_count"], 11)
                 self.assertEqual(
                     payload["resolution_mode"],
                     "candidate_required_manifest_override",
@@ -79,14 +85,13 @@ class RegistryRuntimeCompatibilityCurrentRouteTest(unittest.TestCase):
                     "PASS",
                 )
             else:
+                self.assertEqual(completed.returncode, 2, completed.stderr)
+                self.assertEqual(payload["status"], "BLOCKED")
                 self.assertEqual(
-                    payload["resolution_mode"],
-                    "post_adoption_live_manifest_default",
+                    payload["failure_code"],
+                    "registry_runtime_compatibility_current_source_stale",
                 )
-                self.assertEqual(
-                    payload["required_gate_state"],
-                    "live_gate_adopted",
-                )
+                self.assertFalse((Path(temporary) / "required-gate-temp").exists())
 
 
 if __name__ == "__main__":

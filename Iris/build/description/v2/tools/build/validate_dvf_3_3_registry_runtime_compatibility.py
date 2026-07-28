@@ -27,6 +27,7 @@ ROUND_ID = rtc.ROUND_ID
 DEFAULT_REQUIRED_MANIFEST = (
     REPO_ROOT / "Iris" / "_docs" / "round3" / "current_route_required_validations.json"
 )
+CURRENT_FACTS = V2_ROOT / "data" / "dvf_3_3_facts.jsonl"
 REQUIRED_ROLES = {
     "policy",
     "identity_field_exclusions",
@@ -64,6 +65,48 @@ def read_json(path: Path) -> dict[str, Any]:
             f"JSON root must be an object: {path}",
         )
     return value
+
+
+def reject_stale_current_source_alignment(
+    selection: dict[str, Any],
+    *,
+    isolated_candidate_probe: bool,
+) -> None:
+    alignment = selection.get("current_source_alignment")
+    if alignment is None:
+        return
+    if not isinstance(alignment, dict):
+        raise rtc.CompatibilityError(
+            "registry_runtime_compatibility_current_source_alignment_invalid",
+            "Current-source alignment marker is not an object",
+        )
+    if alignment.get("state") != "stale_requires_successor_rtc":
+        return
+    if isolated_candidate_probe:
+        if alignment.get("isolated_successor_candidate_probe_allowed") is not True:
+            raise rtc.CompatibilityError(
+                "registry_runtime_compatibility_current_source_stale",
+                "Successor candidate probing is not allowed by the marker",
+            )
+        return
+    expected_path = alignment.get("applies_when_current_facts_path")
+    expected_sha256 = alignment.get("applies_when_current_facts_sha256")
+    if (
+        expected_path
+        != "Iris/build/description/v2/data/dvf_3_3_facts.jsonl"
+        or not isinstance(expected_sha256, str)
+        or len(expected_sha256) != 64
+        or not CURRENT_FACTS.is_file()
+    ):
+        raise rtc.CompatibilityError(
+            "registry_runtime_compatibility_current_source_alignment_invalid",
+            "Current-source alignment marker is incomplete",
+        )
+    if rtc.sha256_file(CURRENT_FACTS) == expected_sha256:
+        raise rtc.CompatibilityError(
+            "registry_runtime_compatibility_current_source_stale",
+            "Current facts require a successor Registry Runtime Compatibility closure",
+        )
 
 
 def validate_toolchain_freshness(path: Path) -> dict[str, Any]:
@@ -1049,6 +1092,10 @@ def live_contract_from_manifest(path: Path) -> dict[str, Any]:
         row.get("candidate_manifest_probe") is True
         and row.get("policy_lifecycle_state")
         == "package_guard_active_not_required_gate_adopted"
+    )
+    reject_stale_current_source_alignment(
+        row,
+        isolated_candidate_probe=is_candidate_probe,
     )
     if (
         row.get("policy_lifecycle_state") != "live_required_gate_adopted"

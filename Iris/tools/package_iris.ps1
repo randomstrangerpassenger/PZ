@@ -55,6 +55,43 @@ function Invoke-RegistryCompatibilityValidator {
     }
 }
 
+function Assert-RegistryCurrentSourceAlignment {
+    param(
+        [Parameter(Mandatory = $true)][string]$RequiredManifest,
+        [Parameter(Mandatory = $true)][string]$RepositoryRoot,
+        [switch]$IsolatedCandidateProbe
+    )
+    if (-not (Test-Path -LiteralPath $RequiredManifest -PathType Leaf)) {
+        throw 'compatibility_policy_context_required: required-validation manifest is missing'
+    }
+    $payload = Get-Content -LiteralPath $RequiredManifest -Raw -Encoding UTF8 | ConvertFrom-Json
+    $selection = $payload.registry_runtime_compatibility
+    $alignment = $selection.current_source_alignment
+    if ($null -eq $alignment -or $alignment.state -ne 'stale_requires_successor_rtc') {
+        return
+    }
+    if ($IsolatedCandidateProbe) {
+        if ($alignment.isolated_successor_candidate_probe_allowed -ne $true) {
+            throw 'registry_runtime_compatibility_current_source_stale'
+        }
+        return
+    }
+    if (
+        $alignment.applies_when_current_facts_path -ne 'Iris/build/description/v2/data/dvf_3_3_facts.jsonl' -or
+        [string]::IsNullOrWhiteSpace($alignment.applies_when_current_facts_sha256)
+    ) {
+        throw 'registry_runtime_compatibility_current_source_alignment_invalid'
+    }
+    $currentFacts = Get-FullPath (Join-Path $RepositoryRoot $alignment.applies_when_current_facts_path)
+    if (-not (Test-Path -LiteralPath $currentFacts -PathType Leaf)) {
+        throw 'registry_runtime_compatibility_current_source_alignment_invalid'
+    }
+    $currentFactsSha256 = (Get-FileHash -LiteralPath $currentFacts -Algorithm SHA256).Hash.ToLowerInvariant()
+    if ($currentFactsSha256 -eq $alignment.applies_when_current_facts_sha256) {
+        throw 'registry_runtime_compatibility_current_source_stale'
+    }
+}
+
 function Get-RelativePackagePath {
     param(
         [Parameter(Mandatory = $true)][string]$Root,
@@ -207,6 +244,16 @@ if ($explicitCompatibilityCount -eq 0) {
         $RegistryCompatibilityRequiredManifest = Get-FullPath $RegistryCompatibilityRequiredManifest
     }
 }
+
+$alignmentManifest = if ([string]::IsNullOrWhiteSpace($RegistryCompatibilityRequiredManifest)) {
+    $defaultRequiredManifest
+} else {
+    $RegistryCompatibilityRequiredManifest
+}
+Assert-RegistryCurrentSourceAlignment `
+    -RequiredManifest $alignmentManifest `
+    -RepositoryRoot $repoRoot `
+    -IsolatedCandidateProbe:($RegistryCompatibilityContext -eq 'candidate')
 
 if ($RegistryCompatibilityContext -eq 'candidate') {
     if (-not $RegistryCompatibilityProbe) {

@@ -12,7 +12,9 @@
 >
 > 상류 동기화 대상: `docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md`
 >
-> 상류 교차 계획 계약: `dvf3_3_food_semantic_facts_authority__naturalization_phase2_sync_v1`
+> 상류 교차 계획 계약: `dvf3_3_food_semantic_facts_authority__naturalization_phase2_sync_v2`
+>
+> 보존 compatibility 계약: `dvf3_3_food_semantic_facts_authority__naturalization_phase2_sync_v1`
 >
 > 로드맵 입력 관찰값: `C:\Users\MW\.codex\attachments\91b61f60-9f67-4407-b32f-4952747614ae\pasted-text.txt`, SHA-256 `C0C4838352910F8CACBCEDFCA8B74912D544D4F2EBC1D8D96F5CD34860EB3D1D`
 >
@@ -241,7 +243,18 @@ semantic proposition inventory
 
 ### Food Semantic Facts Authority → Naturalization Phase 2 synchronization
 
-이 계획은 `dvf3_3_food_semantic_facts_authority__naturalization_phase2_sync_v1`의 consumer다. Facts Authority 계획의 producer 선언만으로 동기화가 성립하지 않으며, 양쪽 계획의 projection이 execution time에 byte-equivalent해야 한다.
+이 계획의 official current consumer 계약은
+`dvf3_3_food_semantic_facts_authority__naturalization_phase2_sync_v2`다.
+Facts Authority 계획의 producer 선언만으로 동기화가 성립하지 않으며, Registry
+adoption projection과 current facts/manifest identity가 execution time에
+일치해야 한다.
+
+기존 `dvf3_3_food_semantic_facts_authority__naturalization_phase2_sync_v1`은
+`sealed_non_current_compatibility_probe` 전용으로 보존한다. v1의
+`current_input_manifest_sha256 = selected_successor_manifest_sha256` predicate는
+current-adoption manifest에서 더 이상 유효하지 않으며
+`superseded_for_current_adoption_projection` 상태다. 이를 삭제하거나 official
+current consumer predicate로 다시 사용하지 않는다.
 
 Producer가 봉인해야 하는 exact identity set은 다음 네 개다.
 
@@ -270,15 +283,27 @@ phase12_phase2_handoff/downstream_resume_packet.json
 | `sealed_non_current_compatibility_probe` | actual Phase 2 inventory path가 explicit non-current override로 읽고 no-render compatibility만 검증 | official naturalization attempt, candidate 생성, Phase 4~8, Publish handoff |
 | `registry_adopted_official_retry` | Registry adoption receipt와 current facts/manifest의 successor identity 일치를 결속한 뒤 새 naturalization attempt를 Phase 0부터 열고 Phase 2 source inventory를 재봉인 | prior Phase 2 probe/attempt/human review/Publish disposition 재사용 |
 
-Facts Authority round의 no-render Phase 2 PASS는 이 계획의 Phase 2 PASS가 아니며 official retry authorization도 아니다. Official retry는 별도 Registry-owned operational-cutover가 successor facts/manifest를 current로 채택하고 다음 predicate를 만족한 뒤에만 허용한다.
+Facts Authority round의 no-render Phase 2 PASS는 이 계획의 Phase 2 PASS가 아니며 official retry authorization도 아니다. Official retry는 별도 Registry-owned operational-cutover가 successor facts를 exact current bytes로 채택하고 successor manifest의 closed current-adoption projection을 current manifest로 채택한 뒤 다음 v2 predicate를 만족해야만 허용한다.
 
 ```text
 registry_adoption_receipt = present
 current_facts_sha256 = selected_successor_facts_sha256
-current_input_manifest_sha256 = selected_successor_manifest_sha256
+current_manifest.food_semantic_authority.source_successor_manifest_sha256 =
+  selected_successor_manifest_sha256
+current_input_manifest_sha256 =
+  registry_adoption_receipt.current_manifest_sha256
+current_manifest_projection_validation = PASS
+schema_sha256 = selected_schema_sha256
+proposition_license_sha256 = selected_proposition_license_sha256
 registry_current_identity_ambiguity_count = 0
 official_naturalization_retry_allowed = true
 ```
+
+Registry adoption 때문에 predecessor RTC source-payload equivalence가 stale이 되면
+그 상태는 `stale_requires_successor_rtc`로 fail-closed하게 표시한다. 이 표식은
+Naturalization Phase 0/2 current-source inventory를 막지 않지만 successor RTC
+closure 전 bridge export, runtime/package mutation 또는 publication 권한을 만들지
+않는다.
 
 Official retry는 `attempt-0014-remediation`을 재개하지 않는다. 새 attempt ID로 Phase 0 prerequisite/provenance를 다시 봉인하고, source가 바뀌었으므로 Change 2 source proposition inventory부터 새 hash로 재생성한다. 이전 candidate, trace, Phase 6 detector, human review, Phase 8 handoff와 Publish disposition은 모두 stale이다.
 
@@ -640,7 +665,7 @@ staging artifact는 그 자체로 durable authority가 아니다. required gate�
 - `EXECUTION_CONTRACT.md`의 path, SHA-256, checked boolean, conflict count와 이 계획의 heavy/authority/public-output risk classification을 기록한다.
 - `EXECUTION_CONTRACT.md`는 이 round 전체에서 read-only로 유지하며 terminal docs patch, bundle mutation allowlist, rollback target에 포함하지 않는다.
 - tracked Publish foundation contract/readiness의 path, SHA-256, schema, synchronization contract ID, candidate-independent projection과 `authority_effect=none` 상태를 검증한다.
-- official retry이면 `dvf3_3_food_semantic_facts_authority__naturalization_phase2_sync_v1` producer projection, selected successor four-hash identity, Registry adoption receipt와 current facts/manifest identity를 검증한다. Sealed non-current successor만 있으면 official attempt를 열지 않고 compatibility probe state로 되돌린다.
+- official retry이면 `dvf3_3_food_semantic_facts_authority__naturalization_phase2_sync_v2` Registry adoption projection, selected successor four-hash identity, Registry adoption receipt와 current facts/manifest identity를 검증한다. Sealed non-current successor만 있으면 v1 compatibility probe state로 되돌리고 official attempt를 열지 않는다.
 - foundation이 제공한 policy-candidate input/output schema, required handoff schema, development runner/validator command, expected exit code, stdout/stderr/receipt contract와 fail-closed 동작을 실제 `--help`/schema와 대조한다.
 - human-review sample selection algorithm, mandatory strata, required review denominator definition과 deterministic selection contract를 foundation binding report에 고정한다.
 - item/aggregate disposition vocabulary mapping을 exact enum table로 고정한다.

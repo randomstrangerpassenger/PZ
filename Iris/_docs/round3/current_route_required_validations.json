@@ -2584,6 +2584,23 @@
     "adopted_row_identity": "registry_runtime_compatibility::46c87bfab662b09293adb6ba2b1028bdf6c0f20639c8e3fb8bd065895b5988b9::live",
     "roadmap_or_condition_superseded_by_plan_and_condition": true,
     "package_guard_and_live_required_gate_both_mandatory_for_closeout": true,
-    "owner_explicitly_approved": true
+    "owner_explicitly_approved": true,
+    "current_source_alignment": {
+      "schema_version": "rtc-current-source-alignment-staleness-v1",
+      "state": "stale_requires_successor_rtc",
+      "applies_when_current_facts_path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+      "applies_when_current_facts_sha256": "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40",
+      "predecessor_current_facts_sha256": "a89af8d75a78a57bd2ac05f07af4246d1ebab862dd4021bd089c5efa6e533be6",
+      "collision_group_id": "ascii-lower-fd527de5892ca80a",
+      "exact_members": [
+        "Base.LemonGrass",
+        "Base.Lemongrass"
+      ],
+      "predecessor_source_payload_equivalence": true,
+      "successor_source_payload_equivalence": false,
+      "live_bridge_runtime_package_publication_allowed": false,
+      "isolated_successor_candidate_probe_allowed": true,
+      "successor_rtc_closure_complete": false
+    }
   }
 }

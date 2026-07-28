@@ -44,6 +44,7 @@ REGISTRY_COMPATIBILITY_VALIDATOR = (
 CURRENT_REQUIRED_VALIDATIONS = (
     REPO_ROOT / "Iris" / "_docs" / "round3" / "current_route_required_validations.json"
 )
+CURRENT_FACTS = ROOT / "data" / "dvf_3_3_facts.jsonl"
 LUA_ENTRY_HEADER_RE = re.compile(r'^    \["(?P<full_type>(?:\\\\|\\"|[^"])*)"\] = \{$')
 LUA_ENTRY_KEY_RE = re.compile(r'\["(?P<full_type>(?:\\\\|\\"|[^"])*)"\]\s*=\s*\{')
 LUA_CHUNK_MODULE_RE = re.compile(r'^\s+"(?P<module>[^"]+/Chunk\d{3})",\s*$')
@@ -115,6 +116,44 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def reject_stale_current_source_alignment(
+    selection: dict[str, Any],
+    *,
+    isolated_candidate_probe: bool,
+) -> None:
+    alignment = selection.get("current_source_alignment")
+    if alignment is None:
+        return
+    if not isinstance(alignment, dict):
+        raise BridgeExportContractError(
+            "registry_runtime_compatibility_current_source_alignment_invalid"
+        )
+    if alignment.get("state") != "stale_requires_successor_rtc":
+        return
+    if isolated_candidate_probe:
+        if alignment.get("isolated_successor_candidate_probe_allowed") is not True:
+            raise BridgeExportContractError(
+                "registry_runtime_compatibility_current_source_stale"
+            )
+        return
+    expected_path = alignment.get("applies_when_current_facts_path")
+    expected_sha256 = alignment.get("applies_when_current_facts_sha256")
+    if (
+        expected_path
+        != "Iris/build/description/v2/data/dvf_3_3_facts.jsonl"
+        or not isinstance(expected_sha256, str)
+        or len(expected_sha256) != 64
+        or not CURRENT_FACTS.is_file()
+    ):
+        raise BridgeExportContractError(
+            "registry_runtime_compatibility_current_source_alignment_invalid"
+        )
+    if sha256_file(CURRENT_FACTS) == expected_sha256:
+        raise BridgeExportContractError(
+            "registry_runtime_compatibility_current_source_stale"
+        )
+
+
 def resolve_registry_compatibility_invocation_from_manifest(
     *,
     rendered_path: Path,
@@ -140,6 +179,10 @@ def resolve_registry_compatibility_invocation_from_manifest(
         and selection.get("candidate_manifest_probe") is True
         and selection.get("policy_lifecycle_state")
         == "package_guard_active_not_required_gate_adopted"
+    )
+    reject_stale_current_source_alignment(
+        selection,
+        isolated_candidate_probe=candidate_state_valid,
     )
     if (
         selection.get("policy_lifecycle_state") != "live_required_gate_adopted"

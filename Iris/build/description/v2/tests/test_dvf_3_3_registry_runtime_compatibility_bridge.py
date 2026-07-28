@@ -95,6 +95,32 @@ class RegistryRuntimeCompatibilityBridgeTest(unittest.TestCase):
         load_line = min(line for line, name in calls if name == "load_json")
         self.assertLess(preflight_line, load_line)
 
+    def test_successor_current_alignment_fails_before_writer(self) -> None:
+        required = json.loads(
+            bridge.CURRENT_REQUIRED_VALIDATIONS.read_text(encoding="utf-8")
+        )
+        alignment = required["registry_runtime_compatibility"][
+            "current_source_alignment"
+        ]
+        self.assertEqual(
+            bridge.sha256_file(bridge.CURRENT_FACTS),
+            alignment["applies_when_current_facts_sha256"],
+        )
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            output_root = root / "output"
+            with self.assertRaisesRegex(
+                bridge.BridgeExportContractError,
+                "registry_runtime_compatibility_current_source_stale",
+            ):
+                bridge.export_lua_bridge(
+                    rendered_path=root / "unread-rendered.json",
+                    output_root=output_root,
+                    report_path=root / "report.json",
+                )
+            self.assertFalse(output_root.exists())
+            self.assertFalse((root / "report.json").exists())
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -8,17 +8,24 @@
     ],
     "arguments": [
       "--round3-contract",
-      "all",
+      "current",
       "-q",
       "-p",
       "no:cacheprovider",
       "-p",
-      "Iris.validation.clean_checkout.pytest_result_plugin",
-      "Iris/build/description/v2/tests",
+      "Iris.validation.clean_checkout.pytest_result_plugin"
+    ]
+  },
+  "test_selection": {
+    "kind": "taxonomy_contract",
+    "taxonomy_path": "Iris/_docs/round3/round3_test_taxonomy.json",
+    "contract_class": "current",
+    "state": "ok",
+    "additional_paths": [
       "Iris/build/tests/test_evidence_pipeline_cross_track.py"
     ]
   },
-  "collection_scope": "pytest.ini testpaths with round3 contract all",
+  "collection_scope": "active current taxonomy contract plus the configured cross-track test",
   "pytest_cache_mode": "disabled",
   "result_plugin": "Iris.validation.clean_checkout.pytest_result_plugin",
   "generated_state_policy": "external_only"

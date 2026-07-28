@@ -509,12 +509,32 @@ def run_gate(
         repo, subject["commit"], CANONICAL_GATE_PATH
     )
     command_contract = contract["command"]
+    selection = contract["test_selection"]
+    if selection["kind"] != "taxonomy_contract":
+        raise CleanCheckoutError(
+            f"unsupported test selection: {selection['kind']}"
+        )
+    taxonomy = json_at_commit(
+        repo, subject["commit"], selection["taxonomy_path"]
+    )
+    selected_paths = sorted(
+        {
+            row["source_file"]
+            for row in taxonomy["rows"]
+            if row["contract_class"] == selection["contract_class"]
+            and row["state"] == selection["state"]
+        }
+    )
+    selected_paths.extend(selection.get("additional_paths", []))
+    if not selected_paths:
+        raise CleanCheckoutError("canonical gate selected no test sources")
     command = [
         str(python_executable),
         *command_contract["python_flags"],
         "-m",
         command_contract["module"],
         *command_contract["arguments"],
+        *selected_paths,
     ]
     if collect_only:
         command.append("--collect-only")
@@ -597,6 +617,7 @@ def run_gate(
         "-m",
         command_contract["module"],
         *command_contract["arguments"],
+        *selected_paths,
     ]
     if collect_only:
         normalized_command.append("--collect-only")

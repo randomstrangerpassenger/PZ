@@ -1,0 +1,15 @@
+{
+  "schema_version": "food-semantic-closeout-evidence-disposition-v1",
+  "status": "SUPERSEDED",
+  "attempt_id": "attempt-0009",
+  "superseded_adoption_commit": "5682c2cfb6b56b070965a91777b4a76cab0eef8d",
+  "superseded_adoption_tree": "4364fc4c808a07e14ea673f85d54162a594bab40",
+  "current_identity_report_sha256": "ce2156f02817b2dc93adacbbcd376e53e722a41703cfdd27492d4c51fd6236e7",
+  "final_validation_receipt_sha256": "75c44ae2640dad7c374a92b64deba1284d5d0d2e2990f04d3d9cc4359bd0640d",
+  "validation_run_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/closeout/final_validation_runs/run-0001.json",
+  "disposition_reason": "The first closeout review identified that the attempt-local attributes covered only three mixed/CRLF artifacts. Other LF durable evidence could be converted by core.autocrlf=true on a fresh checkout, violating the required committed-blob/working-byte identity.",
+  "replacement_control": "The attempt-local .gitattributes now applies -text to every file below attempt-0009. The adoption commit was amended without changing its implementation parent, current authority bytes, candidate bytes, authorization, nonce, or transaction evidence.",
+  "terminal_evidence_eligible": false,
+  "tests_in_this_run_were_planned": true,
+  "reviewer_verdict_issued": false
+}

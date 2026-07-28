@@ -1,0 +1,131 @@
+{
+  "attempt_id": "attempt-0009",
+  "direct_all_test_discovery_execution_count": 0,
+  "full_repository_gate_execution_count": 0,
+  "out_of_scope_test_execution_count": 0,
+  "results": [
+    {
+      "command": [
+        "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "Iris/build/description/v2/tests",
+        "-p",
+        "test_dvf_3_3_food_semantic_*.py"
+      ],
+      "exit_code": 0,
+      "pattern": "test_dvf_3_3_food_semantic_*.py",
+      "stderr": "...........................\n----------------------------------------------------------------------\nRan 27 tests in 2.312s\n\nOK\n",
+      "stderr_sha256": "d8f17fc8c5e8ba82c80719a8ab171d73761dc6838a30a5f12de91fa37b62f70c",
+      "stdout": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "test_count": 27
+    },
+    {
+      "command": [
+        "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "Iris/build/description/v2/tests",
+        "-p",
+        "test_dvf_3_3_korean_prose_acceptance_gate.py"
+      ],
+      "exit_code": 0,
+      "pattern": "test_dvf_3_3_korean_prose_acceptance_gate.py",
+      "stderr": ".\n----------------------------------------------------------------------\nRan 1 test in 0.063s\n\nOK\n",
+      "stderr_sha256": "93003cfaa99ffe7cee037e3673f8954e87036172fd19ce8d39befdbc225ba50d",
+      "stdout": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "test_count": 1
+    },
+    {
+      "command": [
+        "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "Iris/build/description/v2/tests",
+        "-p",
+        "test_dvf_3_3_korean_prose_semantic_preservation.py"
+      ],
+      "exit_code": 0,
+      "pattern": "test_dvf_3_3_korean_prose_semantic_preservation.py",
+      "stderr": ".\n----------------------------------------------------------------------\nRan 1 test in 0.017s\n\nOK\n",
+      "stderr_sha256": "9f75add94930d82f86f40553d972627172fa9fcad2415eaa9947d6de3d460011",
+      "stdout": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "test_count": 1
+    },
+    {
+      "command": [
+        "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "Iris/build/description/v2/tests",
+        "-p",
+        "test_dvf_3_3_registry_runtime_compatibility_bridge.py"
+      ],
+      "exit_code": 0,
+      "pattern": "test_dvf_3_3_registry_runtime_compatibility_bridge.py",
+      "stderr": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.071s\n\nOK\n",
+      "stderr_sha256": "066e59ff53d8680048582c601c09802b778015caee17e68370ff254fb1deba6a",
+      "stdout": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "test_count": 5
+    },
+    {
+      "command": [
+        "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "Iris/build/description/v2/tests",
+        "-p",
+        "test_dvf_3_3_registry_runtime_compatibility_package.py"
+      ],
+      "exit_code": 0,
+      "pattern": "test_dvf_3_3_registry_runtime_compatibility_package.py",
+      "stderr": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.999s\n\nOK\n",
+      "stderr_sha256": "99b6db9efbf4e5e539b4e8d2447c8b050d4675793241eacea9eacb600e8c43a7",
+      "stdout": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "test_count": 3
+    },
+    {
+      "command": [
+        "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "Iris/build/description/v2/tests",
+        "-p",
+        "test_dvf_3_3_registry_runtime_compatibility_current.py"
+      ],
+      "exit_code": 0,
+      "pattern": "test_dvf_3_3_registry_runtime_compatibility_current.py",
+      "stderr": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.311s\n\nOK\n",
+      "stderr_sha256": "9381a12fdd159c1a60a0e1c1aa7a6910b039617eba423cf07c6f5e5274c3627c",
+      "stdout": "",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "test_count": 2
+    }
+  ],
+  "run_id": "run-0002",
+  "schema_version": "food-semantic-scoped-final-validation-run-v1",
+  "status": "PASS"
+}

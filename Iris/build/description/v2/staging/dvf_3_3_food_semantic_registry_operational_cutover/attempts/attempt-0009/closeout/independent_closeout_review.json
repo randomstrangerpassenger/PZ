@@ -1,0 +1,76 @@
+{
+  "schema_version": "food-semantic-registry-adoption-closeout-review-v1",
+  "status": "PASS",
+  "verdict": "PASS",
+  "reviewer_identity": "Codex Reviewer /root/codex_reviewer_closeout_v1",
+  "reviewed_adoption_commit": "6272271bf7c73ca8f7eae57ea10542c03cc915df",
+  "reviewed_adoption_tree": "c6e436ca0c3d29fb615388b33b3f793689fa9e43",
+  "attempt_id": "attempt-0009",
+  "current_identity_report_sha256": "71dadc9901b713d6927e66719f758f925c50735fc6bc887e8f6a6ba8e086dca8",
+  "final_validation_receipt_sha256": "705e8dc8f0ebd20f5963bb48ddd6114cc458a470cc00db1bd3b2f9fec9097e1e",
+  "finding_counts": {
+    "critical": 0,
+    "important": 0,
+    "advisory": 0
+  },
+  "findings": [],
+  "evidence": [
+    {
+      "area": "adoption_topology_and_path_boundary",
+      "result": "PASS",
+      "detail": "The amended adoption commit has the single parent e6802ce36c3d1282208a4ab19c6449d0f6095b69. That implementation commit has exactly one referenced child, the reviewed adoption commit. The 18 actual changed paths exactly match current_identity_report.adoption_changed_paths and consist only of the two current-authority targets plus attempt-0009 durable artifacts."
+    },
+    {
+      "area": "cross_checkout_durability_hardening",
+      "result": "PASS",
+      "detail": "System core.autocrlf is true. attempt-0009/.gitattributes contains exactly `* -text`; check-attr reports text=unset for all 23 currently present files recursively below attempt-0009. All 16 committed attempt files report attr/-text with index and working EOL identities preserved. The rule does not affect attempt-0008 or the governing plan. Raw Git blob IDs equal raw working-file hash-object IDs for all 18 adoption paths."
+    },
+    {
+      "area": "replacement_adoption_integrity",
+      "result": "PASS",
+      "detail": "The only byte change between superseded adoption 5682c2cfb6b56b070965a91777b4a76cab0eef8d and replacement adoption 6272271bf7c73ca8f7eae57ea10542c03cc915df is attempt-0009/.gitattributes. Current authority, candidate, preflight, review, authorization, nonce, journal, rollback, receipt, and handoff blobs are unchanged."
+    },
+    {
+      "area": "current_candidate_and_rollback_identity",
+      "result": "PASS",
+      "detail": "Current facts and candidate facts are byte-identical at 1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40. Current and candidate manifests are byte-identical at 7a282be929217f0c117bc1fd86f84b4146d34e92dc1d2833c3c0f943c371c43c. Rollback facts and manifest retain exact preimages a89af8d75a78a57bd2ac05f07af4246d1ebab862dd4021bd089c5efa6e533be6 and db4c5e827c1aad4175894fb0f5b59db9496c5819cacd86a9f703d3542a05be41."
+    },
+    {
+      "area": "projection_and_inventory",
+      "result": "PASS",
+      "detail": "The projection has exactly the ten allowlisted paths and zero violations. Independent jq inspection confirms 2105 facts rows, 317 food target members, and 718 propositions. The current manifest binds the sealed successor, schema, license, attempt, and current facts path."
+    },
+    {
+      "area": "authorization_nonce_and_transaction",
+      "result": "PASS",
+      "detail": "Owner authorization SHA-256 is 1dfbb688671e3ce6b568427b288c84e056737e0075fe540c22cb88d2115667ef and is bound identically by nonce consumption and the adoption receipt. The nonce occurs only in attempt-0009 authorization and consumption records, was consumed after approval, and disallows same-attempt retry. Journal history is exactly prepared -> facts_replaced -> manifest_replaced -> verified -> committed; power-loss atomicity and zero intermediate-reader visibility are not claimed."
+    },
+    {
+      "area": "g2_and_runtime_nonmutation",
+      "result": "PASS",
+      "detail": "No attempt-0022 path differs from the G2 terminal subject commit. Terminal seal, review, manifest, successor binding, successor facts, and successor manifest retain their governing SHA-256 values. The adoption boundary changes no rendered, Lua, runtime, or package output."
+    },
+    {
+      "area": "rtc_staleness_nonclaim",
+      "result": "PASS",
+      "detail": "The current route remains hash-activated as stale_requires_successor_rtc for the adopted facts. The exact Base.LemonGrass/Base.Lemongrass pair and single comparison group are retained; predecessor payload equivalence is true, successor equivalence is false, successor RTC closure is false, and live bridge/runtime/package publication remains disallowed."
+    },
+    {
+      "area": "final_validation_evidence",
+      "result": "PASS",
+      "detail": "The canonical receipt hash is 705e8dc8f0ebd20f5963bb48ddd6114cc458a470cc00db1bd3b2f9fec9097e1e and binds run-0002 hash c4c080d05f886581cef651c3474776ccf84c61db1ddb3409a40f9d1d7e5527d6. Run-0002 contains exactly the six planned discovery patterns once each, with counts 27, 1, 1, 5, 3, and 2; every recorded exit code is zero. Recorded stdout/stderr hashes recompute exactly, and all out-of-scope execution counters are zero."
+    },
+    {
+      "area": "superseded_evidence_disposition",
+      "result": "PASS",
+      "detail": "The old identity and validation receipt are byte-preserved under closeout/superseded_before_cross_checkout_hardening with their original hashes. The disposition names the replaced commit/tree, explains the defect and replacement control, and sets terminal_evidence_eligible=false. Canonical closeout paths bind only the replacement identity and run-0002; run-0001 remains immutable historical evidence."
+    },
+    {
+      "area": "final_seal_readiness",
+      "result": "PASS",
+      "detail": "The pre-cutover reviewer is distinct: Codex Reviewer /root/codex_reviewer_precutover_v9. Owner final seal and terminal hash seal are absent as expected pending this review. The replacement adoption, canonical identity report, and canonical validation receipt are ready to be bound by the owner final seal and terminal seal."
+    }
+  ],
+  "tests_executed": false,
+  "files_modified": false
+}

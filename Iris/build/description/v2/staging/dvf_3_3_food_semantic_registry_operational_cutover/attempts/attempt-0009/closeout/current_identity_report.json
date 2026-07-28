@@ -1,0 +1,50 @@
+{
+  "adoption_changed_paths": [
+    "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+    "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+    "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/.gitattributes",
+    "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/authorization/owner_cutover_authorization.json",
+    "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/candidate/adoption_projection_diff.json",
+    "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/candidate/current_facts.jsonl",
+    "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/candidate/current_input_manifest.json",
+    "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/closeout/naturalization_phase2_current_handoff.json",
+    "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/closeout/registry_adoption_receipt.json",
+    "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/preflight/current_preimage_report.json",
+    "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/preflight/registry_runtime_compatibility_collision_impact_report.json",
+    "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/preflight/startup_recovery_report.json",
+    "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/reviews/independent_pre_cutover_review.json",
+    "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/transaction/cutover_journal.json",
+    "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/transaction/nonce_consumption.json",
+    "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/transaction/rollback_current_facts.jsonl",
+    "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/transaction/rollback_current_input_manifest.json",
+    "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/transaction/rollback_snapshot_manifest.json"
+  ],
+  "adoption_commit": "6272271bf7c73ca8f7eae57ea10542c03cc915df",
+  "adoption_tree": "c6e436ca0c3d29fb615388b33b3f793689fa9e43",
+  "attempt_id": "attempt-0009",
+  "canonical_adoption_readpoint": true,
+  "current_identity_ambiguity_count": 0,
+  "facts": {
+    "byte_identity": true,
+    "git_blob_id": "4d6a4495325af65092940d23aaa381733bf49165",
+    "git_blob_sha256": "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40",
+    "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+    "working_sha256": "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40"
+  },
+  "git_ls_files_eol": [
+    "i/mixed w/mixed attr/-text            \tIris/build/description/v2/data/dvf_3_3_facts.jsonl",
+    "i/lf    w/lf    attr/-text            \tIris/build/description/v2/data/dvf_3_3_input_manifest.json"
+  ],
+  "implementation_commit": "e6802ce36c3d1282208a4ab19c6449d0f6095b69",
+  "implementation_tree": "e41060fcbafb4818e347c7b914d55162064560e9",
+  "manifest": {
+    "byte_identity": true,
+    "git_blob_id": "cbb992e13dc813894bf5bb03a6f87a6e31f32cab",
+    "git_blob_sha256": "7a282be929217f0c117bc1fd86f84b4146d34e92dc1d2833c3c0f943c371c43c",
+    "path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+    "working_sha256": "7a282be929217f0c117bc1fd86f84b4146d34e92dc1d2833c3c0f943c371c43c"
+  },
+  "partial_or_dual_current_count": 0,
+  "schema_version": "food-semantic-current-identity-report-v1",
+  "status": "PASS"
+}

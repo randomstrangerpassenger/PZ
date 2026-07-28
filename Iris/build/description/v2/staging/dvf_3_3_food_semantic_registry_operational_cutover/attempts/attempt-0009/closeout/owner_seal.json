@@ -1,0 +1,15 @@
+{
+  "schema_version": "food-semantic-registry-adoption-owner-seal-v1",
+  "final_signoff_status": "PASS",
+  "attempt_id": "attempt-0009",
+  "adoption_commit": "6272271bf7c73ca8f7eae57ea10542c03cc915df",
+  "adoption_tree": "c6e436ca0c3d29fb615388b33b3f793689fa9e43",
+  "registry_adoption_receipt_sha256": "efcc387bb395b561ab67df0cab4e498fe0b429680fc6cc8f6dd96eb94ba49751",
+  "current_identity_report_sha256": "71dadc9901b713d6927e66719f758f925c50735fc6bc887e8f6a6ba8e086dca8",
+  "final_validation_receipt_sha256": "705e8dc8f0ebd20f5963bb48ddd6114cc458a470cc00db1bd3b2f9fec9097e1e",
+  "independent_closeout_review_sha256": "3de6eb7c541095845ea3a5b45d2de557faa87384b6ccab0e2534eb3324573047",
+  "terminal_claim": "DVF 3-3 Food Semantic Registry Adoption = current_adoption_complete",
+  "approver_identity": "Project Owner (user)",
+  "approval_time": "2026-07-28T21:48:16.1720763Z",
+  "approval_basis": "The project owner explicitly approved the cutover and directed Codex to complete the remaining exact governance records after the required reviewer gates passed."
+}

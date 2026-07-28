@@ -2029,6 +2029,41 @@ Iris — Clean-Checkout Full-Repository Validation Reproducibility Authority Pha
 
   * 이 blocked Phase 0 기록은 rewrite하지 않는다. 세 외부 전제가 충족되면 predecessor hash를 결속한 append-only successor Phase 0 ratification attempt만 추가할 수 있다.
 
+Iris — Clean-Checkout Phase 0 append-only successor attempt 0002
+
+* 날짜: 2026-07-28
+* Problem ID: `ICCR-P0`
+* 상태: OR-06 resolved / OR-07 discarded / OR-08 discarded / Phase 0 accepted
+* predecessor:
+
+  * commit / tree: `bc93d96166f6ab98bfdb11a4266472fa0e25a9b7` / `4c6b200df5401a5465d68ff4dd20bb8e15211bbe`
+  * record: `Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0001.json`
+  * Git blob / SHA-256: `deeaecedb5cedd95f81fe41510abd8377af06923` / `8d9c0a4f3bdf254a4a71e27e06b9f733b247e5d1f9705694093e963e4d77d465`
+  * predecessor는 rewrite하지 않는다.
+* OR-06:
+
+  * 저장소 외부 전용 environment는 `C:/Users/MW/iccv/env-v1`이다.
+  * resolved interpreter는 `C:/Users/MW/iccv/env-v1/Scripts/python.exe -B -s`다.
+  * immutable environment receipt SHA-256은 `fb5dd78e15c41346f15b39065c60c2ce4d83254d73bbde3d3181d327b30b6bc2`다.
+  * append-only OR-06 resolution receipt SHA-256은 `5896cc830795df201c2578c3b868e934b33302061ce442e0a20644281002c4bc`이며 독립 검증은 `PASS`다.
+  * OR-06은 더 이상 Phase 0을 block하지 않는다.
+* OR-07 / OR-08 폐기:
+
+  * owner는 OR-07과 OR-08을 clean-checkout validation gate에서 폐기했다.
+  * OR-07을 위한 독립 제3자 운영자, 별도 Windows 사용자 계정, reviewer run은 요구하지 않는다.
+  * OR-08을 위한 Administrator token, Windows 감사 정책 변경, global File resource SACL, NTFS deny/audit ACL, event telemetry run은 요구하지 않는다.
+  * 두 항목은 blocker, terminal validation task, 향후 수행 항목이 아니다.
+  * terminal result는 `Iris Clean-Checkout Full-Repository Validation PASS`만 판정하며, 독립 제3자 재현이나 Windows event-level transient-write telemetry를 주장하지 않는다.
+* Phase 0 exit:
+
+  * 남은 blocker는 없다.
+  * `phase0_accepted=true`, `change_2_authorized=true`다.
+  * 다음 작업은 기존 계획의 Change 2다.
+* evidence:
+
+  * successor record: `Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json`
+  * standing owner authorization SHA-256: `73646f404f088c6ad3d33a103fed638dbd5a08a2f394744a10ead9d6621a7c24`
+
 ---
 ## Frame
 

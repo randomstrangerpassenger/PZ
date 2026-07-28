@@ -1978,6 +1978,57 @@ Iris DVF 3-3 — Registry Runtime Compatibility contract
   * COMMON-EVIDENCE-TRACE.
   * COMMON-RELEASE-NONDECISION.
 
+Iris — Clean-Checkout Full-Repository Validation Reproducibility Authority Phase 0
+
+* 날짜: 2026-07-28
+* Problem ID: `ICCR-P0`
+* 상태: fixed contract ratified / implementation Phase 0 blocked on three external prerequisites
+* 논리적 소유자: `Iris Repository Validation / Clean-Checkout Reproducibility Authority`
+* 물리적 소유자 / root: 독립 repository-level offline validation root `Iris/validation/clean_checkout/`
+* single-writer: `iris_clean_checkout_validation_orchestrator_v1`은 attempt-local external result와 authority-owned durable projection의 유일한 machine writer다. Source 변경은 위 논리적 소유자의 ordinary version-control 변경으로만 수행한다.
+* 결정:
+
+  * terminal target은 subset/advisory route가 아닌 canonical mandatory full-repository gate다.
+  * bootstrap은 외부 환경 전제가 충족된 뒤 하나의 explicit deterministic orchestration command로 수행한다.
+  * platform claim은 Windows-first, reviewer contract는 same-machine/different-operator로 제한한다.
+  * Python은 immutable receipt로 결속된 pre-provisioned external dedicated environment만 허용한다.
+  * provenance는 mandatory이며 hash-only promotion은 금지한다.
+  * `partial`과 `blocked`는 downstream blocker를 해제하지 않는다.
+  * aggregate gate는 current / historical / diagnostic route projection과 aggregate-only identity를 포함하는 superset execution surface다. 세 route execution verdict와 aggregate verdict는 별도이며 sealed route, package gate, full historical byte-reproducibility claim을 대체하지 않는다.
+  * machine verdict는 `PASS / FAIL / BLOCKED / UNCOLLECTABLE`, closeout state는 `complete / partial / blocked`로 고정한다.
+  * maximum terminal claim token은 `Iris Clean-Checkout Full-Repository Validation Reproducibility Authority PASS`다.
+* 구현 경계:
+
+  * `docs/dvf_vcs_tracking_policy.md`와 그 test는 Iris Artifact Registry-owned surface로 유지한다. 이 closure는 vocabulary만 read-only 소비하며 Phase 0에서 test 확장 권한을 받지 않는다.
+  * `Iris/_docs/round3/current_route_required_validations.json`은 live required-validation manifest이자 `legacy_combined_governance_route` container다. 이 closure의 소유권이나 `DVF Body Compiler PASS` authority가 아니며, Phase 0은 `live_manifest_consumption = no`를 선택한다.
+  * approved tooling surface는 `phase0_ratification_attempt_0001.json`에 열거한 `Iris/validation/clean_checkout/` exact paths로 제한한다. 기존 producer edit authority는 0이며, census와 owner amendment 전에는 늘릴 수 없다.
+  * OR-09A는 B0 initial feasibility 1회, C0 preterminal 최대 2회, gate adoption 없음 기준 최대 8 full-suite-equivalent units, adoption 있음 기준 최대 10 units, safety factor `2.0`으로 고정한다.
+* 미충족 전제:
+
+  * 전용 외부 Python environment와 immutable receipt가 없다. 관찰된 system interpreter는 dedicated environment가 아니므로 credit이 0이다.
+  * eligible same-machine/different-operator reviewer identity와 operator-separation evidence가 없다.
+  * checkout 전체와 `.git`, descendant process tree, denied attempt 결과를 모두 증명할 approved Windows transient-write mechanism과 필요한 privilege가 없다.
+  * 따라서 `phase0_accepted=false`, `change_2_authorized=false`, terminal claim unavailable 상태로 fail-closed한다.
+* 근거 / evidence ID:
+
+  * ancestry: `aa49e8f9fce19955a374b45d0744b1418a45ac9e`
+  * G0 materialization commit/tree: `be69cbe73e61cfd73c89e72f1cf1a748b589065d` / `9a1d2d984a0bba36981c7a9c3569b8eba01084c2`
+  * synchronized plan-set manifest: `docs/iris_aa49_four_plan_execution_sync_manifest.json`
+  * Phase 0 record: `Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0001.json`
+  * plan SHA-256 / Git blob: `97eddd1750490c60182ebbc135805abf43e62735c764f9c48ff1275935fc2a63` / `fd3a2405e8789646df6203eaaf23ba8a2c4eb12e`
+  * review unresolved: Critical `0`, blocking Important `0`
+* 영향받는 consumer:
+
+  * future D0/D1 census, clean-checkout orchestrator, route projection report, Run A/B, reviewer run.
+  * live required-validation manifest consumer는 이번 Phase 0에서 변경하지 않는다.
+* claim ceiling:
+
+  * 이 결정은 validation-reproducibility axis의 Phase 0 경계만 고정한다.
+  * Registry cutover, Naturalization, `Iris Publish Boundary`, package/release/Workshop, gameplay approval을 부여하지 않는다.
+* Supersession rule:
+
+  * 이 blocked Phase 0 기록은 rewrite하지 않는다. 세 외부 전제가 충족되면 predecessor hash를 결속한 append-only successor Phase 0 ratification attempt만 추가할 수 있다.
+
 ---
 ## Frame
 

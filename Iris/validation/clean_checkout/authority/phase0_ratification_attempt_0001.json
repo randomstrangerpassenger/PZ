@@ -1,0 +1,379 @@
+{
+  "schema_version": "iris_clean_checkout_validation_phase0_ratification_v1",
+  "problem_id": "ICCR-P0",
+  "attempt_id": "phase0-attempt-0001",
+  "recorded_date": "2026-07-28",
+  "status": "blocked",
+  "closeout_state": "blocked",
+  "implementation_start_authorization": {
+    "status": "received",
+    "source": "repository_owner_user_instruction",
+    "scope": "begin_at_phase0",
+    "does_not_imply_terminal_approval": true
+  },
+  "g0_plan_set": {
+    "status": "materialized",
+    "ancestry_commit": "aa49e8f9fce19955a374b45d0744b1418a45ac9e",
+    "materialization_commit": "be69cbe73e61cfd73c89e72f1cf1a748b589065d",
+    "materialization_tree": "9a1d2d984a0bba36981c7a9c3569b8eba01084c2",
+    "manifest_path": "docs/iris_aa49_four_plan_execution_sync_manifest.json",
+    "manifest_git_blob_id": "70035140563ed6cd7ad70b60a6fb36101ed50519",
+    "plan_count": 4,
+    "projection_sha256": "12c32873dc7e16e0d64e416bdb6693599e2790e9fc129606a90a72ca745a6eb0",
+    "implementation_or_attempt_output_imported_count": 0
+  },
+  "review_chain": {
+    "plan_revision": "r6_plus_iris_aa49_four_plan_execution_sync_v1",
+    "plan_path": "docs/iris_clean_checkout_full_repository_validation_reproducibility_authority_closure_plan.md",
+    "plan_sha256": "97eddd1750490c60182ebbc135805abf43e62735c764f9c48ff1275935fc2a63",
+    "plan_git_blob_id": "fd3a2405e8789646df6203eaaf23ba8a2c4eb12e",
+    "critical_unresolved_count": 0,
+    "blocking_important_unresolved_count": 0,
+    "coordination_addendum_review_required": false,
+    "owner_phase0_contract_acceptance": "not_accepted"
+  },
+  "fixed_contract": {
+    "OD-01": {
+      "status": "ratified",
+      "logical_owner": "Iris Repository Validation / Clean-Checkout Reproducibility Authority"
+    },
+    "OD-02": {
+      "status": "ratified",
+      "terminal_target": "canonical_mandatory_full_repository_gate"
+    },
+    "OD-03": {
+      "status": "ratified",
+      "bootstrap": "one_explicit_deterministic_orchestration_command_after_external_environment_prerequisite"
+    },
+    "OD-04": {
+      "status": "ratified",
+      "platform": "windows_first"
+    },
+    "OD-05": {
+      "status": "ratified",
+      "reviewer_environment": "same_machine_different_operator"
+    },
+    "OD-06": {
+      "status": "ratified",
+      "python_provisioning": "pre_provisioned_external_dedicated_environment_with_immutable_receipt"
+    },
+    "OD-07": {
+      "status": "ratified",
+      "provenance": "mandatory",
+      "hash_only_promotion": "forbidden"
+    },
+    "OD-08": {
+      "status": "ratified",
+      "partial": "non_terminal_no_downstream_release"
+    },
+    "OD-09": {
+      "status": "ratified",
+      "aggregate_gate": "superset_execution_surface",
+      "route_and_aggregate_execution_verdicts_are_separate": true,
+      "sealed_route_or_package_claim_substitution": false
+    }
+  },
+  "implementation_contract": {
+    "OR-01": {
+      "status": "ratified",
+      "physical_authority_root": "Iris/validation/clean_checkout/",
+      "physical_root_role": "independent_repository_level_offline_validation_authority",
+      "single_writer_id": "iris_clean_checkout_validation_orchestrator_v1",
+      "single_writer_scope": "attempt_local_external_results_and_authority_owned_durable_projection_only",
+      "source_change_mode": "ordinary_version_control_under_logical_owner"
+    },
+    "OR-02": {
+      "status": "ratified",
+      "maximum_pass_token": "Iris Clean-Checkout Full-Repository Validation Reproducibility Authority PASS",
+      "machine_verdict_vocabulary": [
+        "PASS",
+        "FAIL",
+        "BLOCKED",
+        "UNCOLLECTABLE"
+      ],
+      "closeout_state_vocabulary": [
+        "complete",
+        "partial",
+        "blocked"
+      ],
+      "partial_releases_downstream": false,
+      "blocked_releases_downstream": false
+    },
+    "OR-03": {
+      "status": "ratified",
+      "policy_path": "docs/dvf_vcs_tracking_policy.md",
+      "policy_owner": "Iris Artifact Registry",
+      "relationship": "read_only_vocabulary_consumer",
+      "permission_to_extend_policy_test": false,
+      "test_path": "Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py",
+      "future_extension_requires_owner_amendment": true
+    },
+    "OR-04": {
+      "status": "ratified",
+      "manifest_path": "Iris/_docs/round3/current_route_required_validations.json",
+      "canonical_container_identity": "live required-validation manifest = legacy_combined_governance_route container",
+      "manifest_owner": "Iris Artifact Registry",
+      "write_authority_granted_to_this_closure": false,
+      "live_manifest_consumption": "no",
+      "reason": "no_leaf_guard_or_acyclic_consumer_graph_exists_at_phase0",
+      "invocation_dag": {
+        "nodes": [
+          {
+            "id": "aggregate_runner",
+            "type": "aggregate_runner"
+          },
+          {
+            "id": "current_route_runner",
+            "type": "route_runner"
+          }
+        ],
+        "edges": [
+          {
+            "from": "aggregate_runner",
+            "to": "current_route_runner",
+            "type": "may_invoke"
+          }
+        ],
+        "topological_order": [
+          "aggregate_runner",
+          "current_route_runner"
+        ],
+        "topological_order_sha256": "b462b6f005c1a1b40407e093ff0a5831e1b36760746effd6a2263519d09fa061"
+      },
+      "execution_dependency_cycle_count": 0,
+      "aggregate_runner_reentry_count": 0,
+      "current_attempt_result_dependency_count": 0,
+      "stored_terminal_pass_read_count": 0,
+      "affected_consumer_reruns": []
+    },
+    "OR-05": {
+      "status": "ratified",
+      "approved_tooling_surface": [
+        "Iris/validation/clean_checkout/__init__.py",
+        "Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+        "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
+        "Iris/validation/clean_checkout/validate_iris_clean_checkout_validation.py",
+        "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0001.json",
+        "Iris/validation/clean_checkout/contracts/environment_contract.schema.json",
+        "Iris/validation/clean_checkout/contracts/phase0_contract.schema.json",
+        "Iris/validation/clean_checkout/contracts/gate_manifest.schema.json",
+        "Iris/validation/clean_checkout/contracts/result_bundle.schema.json",
+        "Iris/validation/clean_checkout/contracts/route_verdict.schema.json",
+        "Iris/validation/clean_checkout/contracts/commit_transition.schema.json",
+        "Iris/validation/clean_checkout/contracts/test_inventory.schema.json",
+        "Iris/validation/clean_checkout/contracts/dependency_edge_ledger.schema.json",
+        "Iris/validation/clean_checkout/contracts/failure_disposition_ledger.schema.json",
+        "Iris/validation/clean_checkout/contracts/producer_graph.schema.json",
+        "Iris/validation/clean_checkout/contracts/output_policy.json",
+        "Iris/validation/clean_checkout/contracts/d0_manifest.json",
+        "Iris/validation/clean_checkout/contracts/d1_manifest.json",
+        "Iris/validation/clean_checkout/tests/__init__.py",
+        "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py",
+        "Iris/validation/clean_checkout/tests/fixtures/recursion_cycle.json"
+      ],
+      "existing_producer_edit_count_authorized": 0,
+      "future_existing_producer_edit_requires_census_and_owner_amendment": true,
+      "repairs_outside_approved_tooling_surface": 0
+    },
+    "OR-06": {
+      "status": "unresolved",
+      "tracked_environment_contract_path": "Iris/validation/clean_checkout/contracts/environment_contract.schema.json",
+      "receipt_schema_path": "Iris/validation/clean_checkout/contracts/environment_contract.schema.json",
+      "required_provisioning_mode": "pre_provisioned_external_environment_as_explicit_prerequisite",
+      "resolved_interpreter_invocation": null,
+      "immutable_environment_receipt": null,
+      "durable_receipt_promotion_rule": "promote_full_receipt_and_matching_hash_into_terminal_bundle",
+      "observed_system_interpreter": "C:/Users/MW/scoop/apps/python/current/python.exe",
+      "observed_system_interpreter_admissible": false,
+      "inadmissible_reason": "not_a_dedicated_external_virtual_environment",
+      "tracked_lockfile_identity": "absent_by_selected_mode",
+      "ambient_site_packages_isolation": "required",
+      "provisioning_network_mode": "must_be_declared_in_external_receipt",
+      "blocks_phase0_acceptance": true
+    },
+    "OR-07": {
+      "status": "unresolved",
+      "owner_identity": "repository_owner_user",
+      "independent_reviewer_identity": null,
+      "required_separation": "same_machine_different_operator",
+      "excluded_reviewers": [
+        "current_ChatGPT_reviewer",
+        "current_Claude_reviewer",
+        "roadmap_author_or_co_drafter",
+        "plan_author_or_co_drafter",
+        "implementation_participant",
+        "terminal_bundle_constructor",
+        "prior_closeout_reviewer_on_same_chain",
+        "owner"
+      ],
+      "operator_separation_evidence": null,
+      "blocks_phase0_acceptance": true
+    },
+    "OR-08": {
+      "status": "unresolved",
+      "approved_transient_write_evidence_mechanism": null,
+      "required_write_denial_scope": "checkout_including_dot_git",
+      "required_privilege_level": "unresolved_must_support_checkout_acl_denial_and_process_tree_trace",
+      "required_child_process_coverage": "complete_descendant_process_tree",
+      "application_runs": [
+        "B0_initial_feasibility",
+        "D0_census_A",
+        "D0_census_B",
+        "every_candidate_bound_preterminal_readpoint",
+        "C0_run_A",
+        "C0_run_B",
+        "every_post_adoption_terminal_run",
+        "independent_reviewer_run"
+      ],
+      "required_event_operations": [
+        "create",
+        "write",
+        "rename",
+        "delete"
+      ],
+      "required_event_fields": [
+        "timestamp",
+        "process_identity",
+        "operation",
+        "path",
+        "result"
+      ],
+      "available_unproven_candidates": [
+        "WPR_ETW_plus_NTFS_deny_ACL_plus_tracerpt",
+        "Windows_Security_Object_Access_auditing_plus_Process_Creation_plus_NTFS_deny_ACL"
+      ],
+      "procmon_available": false,
+      "current_operator_has_required_audit_or_acl_privilege": false,
+      "current_operator_privileges": [
+        "SeChangeNotifyPrivilege"
+      ],
+      "denied_attempt_receipt_schema": {
+        "required_fields": [
+          "attempt_id",
+          "run_class",
+          "timestamp",
+          "process_id",
+          "process_image",
+          "parent_process_id",
+          "command_identity",
+          "operation",
+          "path",
+          "result",
+          "classification",
+          "allowlist_row_id"
+        ],
+        "classification_vocabulary": [
+          "expected_allowlisted",
+          "unexpected",
+          "unclassified"
+        ]
+      },
+      "expected_attempt_allowlist_row_schema": {
+        "required_fields": [
+          "row_id",
+          "process_identity",
+          "target_path_pattern",
+          "command_identity",
+          "expected_denial_classification",
+          "evidence_identity",
+          "source_blob"
+        ],
+        "successful_write_may_be_allowlisted": false
+      },
+      "expected_attempt_allowlist": [],
+      "expected_attempt_allowlist_amendment_mode": "append_only_evidence_bound",
+      "expected_attempt_allowlist_amendment_owner": "repository_owner_user",
+      "expected_attempt_allowlist_amendment_log": [],
+      "discovery_runs": [
+        "B0_initial_feasibility",
+        "D0_census_A",
+        "D0_census_B"
+      ],
+      "enforcement_runs": [
+        "candidate_preterminal",
+        "C0_run_A",
+        "C0_run_B",
+        "G0_post_adoption_when_applicable",
+        "independent_reviewer_run"
+      ],
+      "discovery_zero_predicate_applies": false,
+      "enforcement_unexpected_denied_attempt_count_required": 0,
+      "enforcement_unclassified_denied_attempt_count_required": 0,
+      "all_runs_successful_repository_write_count_required": 0,
+      "failure_behavior": "blocked",
+      "blocks_phase0_acceptance": true
+    },
+    "OR-09A": {
+      "status": "ratified",
+      "b0_initial_feasibility_attempt_count": 1,
+      "c0_preterminal_feasibility_attempt_cap": 2,
+      "maximum_full_suite_equivalent_units_without_gate_adoption": 8,
+      "maximum_full_suite_equivalent_units_with_gate_adoption": 10,
+      "measurement_safety_factor": 2.0,
+      "budget_expansion_authority": "repository_owner_user_by_append_only_pre_run_amendment",
+      "mandatory_run_non_dropping_rule": true,
+      "failed_attempt_receipt_preservation": "append_only"
+    }
+  },
+  "top_document_gate_inputs": [
+    {
+      "path": "docs/DECISIONS.md",
+      "gate_input": true
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "gate_input": true
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "gate_input": true
+    },
+    {
+      "path": "docs/iris_clean_checkout_full_repository_validation_reproducibility_authority_closure_plan.md",
+      "gate_input": true
+    },
+    {
+      "path": "docs/PLAN_TEMPLATE.md",
+      "gate_input": true,
+      "g0_git_blob_id": "8e733df364894145795ef9320fd5028bfdb23482"
+    },
+    {
+      "path": "docs/EXECUTION_CONTRACT.md",
+      "gate_input": true,
+      "g0_git_blob_id": "5864d26dc192ea7d901b0d0b953cda89539e2546"
+    }
+  ],
+  "claim_ceiling": {
+    "maximum_claim": "Iris Clean-Checkout Full-Repository Validation Reproducibility Authority PASS",
+    "claim_available_now": false,
+    "does_not_grant": [
+      "Phase 12 approval",
+      "Registry cutover approval",
+      "Naturalization approval",
+      "Iris Publish Boundary approval",
+      "package approval",
+      "release approval",
+      "Workshop readiness",
+      "gameplay approval"
+    ]
+  },
+  "phase0_exit": {
+    "OD_01_through_OD_09_complete": true,
+    "OR_01_through_OR_05_complete": true,
+    "OR_06_complete": false,
+    "OR_07_complete": false,
+    "OR_08_complete": false,
+    "OR_09A_complete": true,
+    "owner_phase0_contract_acceptance": false,
+    "phase0_accepted": false,
+    "change_2_authorized": false,
+    "blocking_condition_count": 3,
+    "blocking_conditions": [
+      "missing_pre_provisioned_external_dedicated_python_environment_and_immutable_receipt",
+      "missing_eligible_same_machine_different_operator_reviewer_appointment",
+      "missing_approved_and_privilege_proven_windows_transient_write_evidence_mechanism"
+    ]
+  },
+  "supersession_rule": "append_only_successor_phase0_ratification_attempt_with_exact_predecessor_hash_and_no_rewrite",
+  "self_referential_commit_fields": 0
+}

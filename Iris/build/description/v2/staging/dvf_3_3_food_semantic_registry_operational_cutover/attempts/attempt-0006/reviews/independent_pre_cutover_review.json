@@ -1,0 +1,44 @@
+{
+  "schema_version": "food-semantic-registry-cutover-pre-cutover-review-v1",
+  "status": "FAIL",
+  "verdict": "BLOCKED_PRE_CUTOVER",
+  "reviewer_identity": "Codex Reviewer /root/codex_reviewer_precutover_v6",
+  "reviewed_implementation_commit": "8d210753bf6f81e878d940665024efb9a3958275",
+  "reviewed_implementation_tree": "0babd83a74cd417cfa42449c500b25730ee0df75",
+  "attempt_id": "attempt-0006",
+  "candidate_current_facts_sha256": "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40",
+  "candidate_current_manifest_sha256": "42ac7cc875e58d1fda9a21e8a73745fae9993b47502143f88a5fbf978cb5314f",
+  "finding_counts": {
+    "critical": 1,
+    "important": 2,
+    "advisory": 0
+  },
+  "findings": [
+    {
+      "severity": "Critical",
+      "title": "stale-lock reclamation can admit two simultaneous round owners",
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_registry_cutover.py",
+      "line": 763,
+      "disposition": "fixed_in_successor_implementation"
+    },
+    {
+      "severity": "Important",
+      "title": "durable candidate nonce and rollback tracking was not enforced",
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_registry_cutover.py",
+      "line": 1792,
+      "disposition": "fixed_in_successor_implementation"
+    },
+    {
+      "severity": "Important",
+      "title": "final closeout accepted an anonymous or malformed reviewer identity",
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_registry_cutover.py",
+      "line": 2083,
+      "disposition": "fixed_in_successor_implementation"
+    }
+  ],
+  "owner_authorization_present": false,
+  "authorization_nonce_consumed": false,
+  "live_write_count": 0,
+  "tests_executed": false,
+  "files_modified": false
+}

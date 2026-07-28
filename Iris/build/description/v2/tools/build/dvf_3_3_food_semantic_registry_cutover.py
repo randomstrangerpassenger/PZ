@@ -749,6 +749,58 @@ def process_is_alive(pid: int) -> bool:
     return True
 
 
+def default_guard_path(metadata_lock_path: Path) -> Path:
+    if metadata_lock_path == ROUND_ROOT / "transaction.lock":
+        repository_key = sha256_bytes(str(REPO_ROOT.resolve()).encode("utf-8"))
+        return (
+            Path(tempfile.gettempdir())
+            / "iris-dvf-round-locks"
+            / f"{repository_key}.guard"
+        )
+    return metadata_lock_path.with_name(metadata_lock_path.name + ".guard")
+
+
+@contextmanager
+def exclusive_os_guard(path: Path) -> Iterator[None]:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    handle = path.open("a+b")
+    locked = False
+    try:
+        if os.name == "nt":
+            import msvcrt
+
+            handle.seek(0, os.SEEK_END)
+            if handle.tell() == 0:
+                handle.write(b"\0")
+                handle.flush()
+            handle.seek(0)
+            try:
+                msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+            except OSError as exc:
+                raise CutoverError("round_transaction_os_guard_active") from exc
+        else:
+            import fcntl
+
+            try:
+                fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except OSError as exc:
+                raise CutoverError("round_transaction_os_guard_active") from exc
+        locked = True
+        yield
+    finally:
+        if locked:
+            if os.name == "nt":
+                import msvcrt
+
+                handle.seek(0)
+                msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
+            else:
+                import fcntl
+
+                fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+        handle.close()
+
+
 @contextmanager
 def transaction_lock(
     binding: dict[str, Any],
@@ -759,38 +811,41 @@ def transaction_lock(
     selected_lock_path = (
         lock_path if lock_path is not None else ROUND_ROOT / "transaction.lock"
     )
-    selected_lock_path.parent.mkdir(parents=True, exist_ok=True)
-    if selected_lock_path.exists():
-        stale = read_json(selected_lock_path)
-        stale_pid = stale.get("pid")
-        if not isinstance(stale_pid, int) or process_is_alive(stale_pid):
-            raise CutoverError("round_transaction_lock_active_or_invalid")
-        selected_lock_path.unlink()
-    payload = {
-        "schema_version": "food-semantic-registry-cutover-lock-v1",
-        "round_id": ROUND_ID,
-        "pid": os.getpid(),
-        "acquired_at": now_iso(),
-        **binding,
-    }
-    write_once_json(selected_lock_path, payload)
-    release_lock = True
-    try:
-        yield
-    except BaseException:
-        if error_release_guard is None:
-            release_lock = True
-        else:
-            try:
-                release_lock = error_release_guard()
-            except BaseException:
-                release_lock = False
-        raise
-    finally:
-        if release_lock and selected_lock_path.exists():
-            observed = read_json(selected_lock_path)
-            if observed.get("pid") == os.getpid():
-                selected_lock_path.unlink()
+    guard_path = default_guard_path(selected_lock_path)
+    with exclusive_os_guard(guard_path):
+        selected_lock_path.parent.mkdir(parents=True, exist_ok=True)
+        if selected_lock_path.exists():
+            stale = read_json(selected_lock_path)
+            stale_pid = stale.get("pid")
+            if not isinstance(stale_pid, int) or process_is_alive(stale_pid):
+                raise CutoverError("round_transaction_lock_active_or_invalid")
+            selected_lock_path.unlink()
+        payload = {
+            "schema_version": "food-semantic-registry-cutover-lock-v2",
+            "round_id": ROUND_ID,
+            "pid": os.getpid(),
+            "acquired_at": now_iso(),
+            "os_guard_path": str(guard_path.resolve()),
+            **binding,
+        }
+        write_once_json(selected_lock_path, payload)
+        release_lock = True
+        try:
+            yield
+        except BaseException:
+            if error_release_guard is None:
+                release_lock = True
+            else:
+                try:
+                    release_lock = error_release_guard()
+                except BaseException:
+                    release_lock = False
+            raise
+        finally:
+            if release_lock and selected_lock_path.exists():
+                observed = read_json(selected_lock_path)
+                if observed.get("pid") == os.getpid():
+                    selected_lock_path.unlink()
 
 
 def journal_path(root: Path) -> Path:
@@ -1628,6 +1683,73 @@ def create_adoption_receipts(root: Path) -> tuple[Path, Path]:
     return receipt_path, handoff_path
 
 
+def adoption_required_paths(root: Path) -> set[str]:
+    facts_snapshot, manifest_snapshot, snapshot_manifest = snapshot_paths(root)
+    return {
+        CURRENT_FACTS_REL,
+        CURRENT_MANIFEST_REL,
+        repo_relative(root / "candidate" / "current_facts.jsonl"),
+        repo_relative(root / "candidate" / "current_input_manifest.json"),
+        repo_relative(root / "candidate" / "adoption_projection_diff.json"),
+        repo_relative(root / "preflight" / "current_preimage_report.json"),
+        repo_relative(
+            root
+            / "preflight"
+            / "registry_runtime_compatibility_collision_impact_report.json"
+        ),
+        repo_relative(root / "preflight" / "startup_recovery_report.json"),
+        repo_relative(
+            root / "reviews" / "independent_pre_cutover_review.json"
+        ),
+        repo_relative(
+            root / "authorization" / "owner_cutover_authorization.json"
+        ),
+        repo_relative(root / "transaction" / "nonce_consumption.json"),
+        repo_relative(root / "transaction" / "cutover_journal.json"),
+        repo_relative(facts_snapshot),
+        repo_relative(manifest_snapshot),
+        repo_relative(snapshot_manifest),
+        repo_relative(
+            root / "closeout" / "registry_adoption_receipt.json"
+        ),
+        repo_relative(
+            root / "closeout" / "naturalization_phase2_current_handoff.json"
+        ),
+    }
+
+
+def require_committed_path_identities(
+    commit: str,
+    relative_paths: set[str],
+    label: str,
+) -> None:
+    missing: list[str] = []
+    untracked: list[str] = []
+    mismatched: list[str] = []
+    for relative_path in sorted(relative_paths):
+        path = REPO_ROOT / relative_path
+        if not path.is_file():
+            missing.append(relative_path)
+            continue
+        tracked = git(
+            "ls-files",
+            "--error-unmatch",
+            "--",
+            relative_path,
+            check=False,
+        )
+        if tracked.returncode != 0:
+            untracked.append(relative_path)
+            continue
+        if sha256_bytes(git_blob_bytes(commit, relative_path)) != sha256_file(path):
+            mismatched.append(relative_path)
+    if missing or untracked or mismatched:
+        raise CutoverError(
+            f"{label}_committed_path_identity_invalid:"
+            f"missing={missing}:untracked={untracked}:mismatched={mismatched}"
+        )
+
+
 def command_apply(attempt_id: str, inject_failure: str | None = None) -> dict[str, Any]:
     root = attempt_root(attempt_id)
     with transaction_lock(
@@ -1789,29 +1911,18 @@ def command_verify_committed(attempt_id: str) -> dict[str, Any]:
         raise CutoverError(
             f"adoption_commit_unexpected_paths:{unexpected_paths}"
         )
-    required_adoption_paths = {
-        CURRENT_FACTS_REL,
-        CURRENT_MANIFEST_REL,
-        repo_relative(
-            root / "closeout" / "registry_adoption_receipt.json"
-        ),
-        repo_relative(
-            root / "closeout" / "naturalization_phase2_current_handoff.json"
-        ),
-        repo_relative(
-            root / "authorization" / "owner_cutover_authorization.json"
-        ),
-        repo_relative(
-            root / "reviews" / "independent_pre_cutover_review.json"
-        ),
-        repo_relative(root / "transaction" / "cutover_journal.json"),
-    }
+    required_adoption_paths = adoption_required_paths(root)
     missing_adoption_paths = sorted(required_adoption_paths - set(changed_paths))
     if missing_adoption_paths:
         raise CutoverError(
             f"adoption_commit_required_paths_missing:{missing_adoption_paths}"
         )
     require_tracked_worktree_clean("verify_committed")
+    require_committed_path_identities(
+        head,
+        required_adoption_paths,
+        "adoption",
+    )
     facts_working = sha256_file(CURRENT_FACTS)
     manifest_working = sha256_file(CURRENT_MANIFEST)
     _, expected_candidates = expected_pair_hashes(root)
@@ -1932,6 +2043,11 @@ def artifact_validation(attempt_id: str) -> dict[str, Any]:
     require_equal(authorization.get("verdict"), "PASS", "authorization_status")
     require_equal(journal.get("state"), "committed", "journal_committed")
     validate_g2_chain(identity["adoption_commit"])
+    require_committed_path_identities(
+        identity["adoption_commit"],
+        adoption_required_paths(root),
+        "artifact_validation_adoption",
+    )
     status = git(
         "status",
         "--porcelain=v1",
@@ -2111,6 +2227,12 @@ def validate_closeout_review(root: Path) -> tuple[dict[str, Any], str]:
     )
     if review.get("reviewer_identity") == pre_review.get("reviewer_identity"):
         raise CutoverError("closeout_reviewer_not_distinct")
+    reviewer_identity = review.get("reviewer_identity")
+    if (
+        not isinstance(reviewer_identity, str)
+        or not reviewer_identity.startswith("Codex Reviewer /root/")
+    ):
+        raise CutoverError("closeout_reviewer_identity_invalid")
     counts = review.get("finding_counts", {})
     require_equal(counts.get("critical"), 0, "closeout_critical_count")
     require_equal(counts.get("important"), 0, "closeout_important_count")

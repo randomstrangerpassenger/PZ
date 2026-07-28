@@ -1,0 +1,23 @@
+{
+  "schema_version": "food-semantic-registry-cutover-attempt-disposition-v1",
+  "status": "SUPERSEDED_AFTER_REVIEW_FAIL_BEFORE_AUTHORIZATION",
+  "attempt_id": "attempt-0006",
+  "implementation_commit": "8d210753bf6f81e878d940665024efb9a3958275",
+  "implementation_tree": "0babd83a74cd417cfa42449c500b25730ee0df75",
+  "candidate_current_facts_sha256": "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40",
+  "candidate_current_manifest_sha256": "42ac7cc875e58d1fda9a21e8a73745fae9993b47502143f88a5fbf978cb5314f",
+  "reason": "Codex Reviewer final FAIL found stale-lock takeover race, incomplete adoption evidence tracking enforcement, and malformed closeout reviewer identity acceptance",
+  "pre_cutover_review_complete": true,
+  "pre_cutover_review_verdict": "FAIL",
+  "pre_cutover_review_finding_counts": {
+    "critical": 1,
+    "important": 2,
+    "advisory": 0
+  },
+  "owner_authorization_issued": false,
+  "authorization_nonce_consumed": false,
+  "live_write_count": 0,
+  "tests_executed": false,
+  "same_attempt_retry_allowed": false,
+  "successor_attempt_required": true
+}

@@ -1,0 +1,147 @@
+{
+  "disposition_count": 33,
+  "dispositions": [
+    {
+      "non_claim": "no_b42_readiness",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_canonical_seal",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_current_authority_cutover",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_deployment_readiness",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_dvf_body_compiler_pass_achievement_claim",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_dvf_system_pass_bare_claim",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_full_clean_checkout_required_evidence_reproducibility",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_full_historical_byte_reproducibility",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_independent_review_pass",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_live_migration_execution",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_lua_bridge_export",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_lua_bridge_export_mutation",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_manual_in_game_qa",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_manual_in_game_validation",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_package_payload_mutation",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_package_readiness",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_package_release_readiness",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_public_facing_text_acceptance",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_public_facing_text_quality_acceptance",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_publish_boundary_pass_claim",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_registry_authority_pass_claim",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_release_readiness",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_rendered_regeneration",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_required_gate_adoption_release_readiness_claim",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_runtime_chunk_replacement",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_runtime_payload_consumer_compatibility_closure",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_runtime_payload_state_integrity_complete_closeout",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_runtime_policy_mutation",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_semantic_quality_completion",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_source_mutation",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_source_rendered_lua_runtime_package_mutation",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_source_restoration",
+      "terminal_disposition": "not_emitted"
+    },
+    {
+      "non_claim": "no_workshop_readiness",
+      "terminal_disposition": "not_emitted"
+    }
+  ],
+  "forbidden_non_claim_emission_count": 0,
+  "input_count": 33,
+  "input_enumeration_sha256": "039b78cfe1d4f6d3b09a8d34ebbb8f6bf512ef28f1746ccdcc78a5038580747f",
+  "input_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase1_census/live_non_claim_enumeration.json",
+  "input_sha256": "cad734b5b53f609d9774329f29a4a928cd5d96fb3e7ec6939595bc1ffb4ea7a5",
+  "missing_live_non_claim_scan_disposition_count": 0,
+  "schema_version": "food-semantic-final-claim-scan-v1",
+  "selected_claim_token": "Food Semantic Facts Authority Successor Handoff",
+  "selected_terminal_value": "sealed_successor_handoff_complete",
+  "status": "PASS"
+}

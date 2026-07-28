@@ -1,0 +1,125 @@
+{
+  "schema_version": "food-semantic-validation-contract-reconciliation-proposal-v1",
+  "status": "PENDING_OWNER_RATIFICATION",
+  "authority_effect": "none",
+  "attempt_id": "attempt-0022",
+  "proposal_id": "VC-1_same_attempt_append_only_validation_contract_reconciliation",
+  "repository_state_reviewed": {
+    "commit": "27d1d8fbd0cbbd0d17ed2a61adbc4027c497ca78",
+    "tree": "37e6042c016c31f56c57c2517ca835d4af6d1124"
+  },
+  "bound_inputs": {
+    "implementation_plan": {
+      "path": "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md",
+      "git_blob_id": "f5eef414788a28d502bacbab8c51a173fe537d04",
+      "sha256": "bdd7c6b04b773e5fcdd80882bd5d2436eed24af6c4904616d7fdaa06cdd7c74d"
+    },
+    "closeout_tool": {
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/closeout.py",
+      "git_blob_id": "11478d495ea3cc62e06f71d7a32452f45efdb697",
+      "sha256": "991e54b08988a7079a41c1e99c6d167d894c1c3a20da39d1cb7f6c0dbdeb2c23"
+    },
+    "canonical_full_repository_gate": {
+      "path": "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+      "git_blob_id": "b20bf7d3dc78c98d64bcbbf22f30f9f9d000c264",
+      "sha256": "2a4ecf97cb4c565732007f6a77fe58867877d8fb5c004e9f2157f1feb4e89380"
+    },
+    "g1_release_receipt": {
+      "path": "C:/Users/MW/.codex/visualizations/2026/07/27/019fa5fc-333b-7c03-8426-46d1780ab596/phase0-successor/Iris/validation/clean_checkout/authority/g1_release_receipt_0001.json",
+      "sha256": "10755804a1d70ed0014ed7d32ee2c4dbe452684b30afad1fddf7cb2ff210f2bf",
+      "validated_commit": "2a1741ce2e3ab85b0e5744f88b8a72a5a031b4db",
+      "reuse_as_current_head_validation_allowed": false
+    },
+    "preserved_failed_validation": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase13_closeout/post_authority_validation_failure.json",
+      "git_blob_id": "bf63aea81716af8e8f7c9dd512a2e071006de2d8",
+      "sha256": "5901af660199fb3e13ff8d86ae3445c8894a935ff32c3abafc410004af62f135",
+      "rewrite_allowed": false
+    }
+  },
+  "contract_conflicts": [
+    {
+      "id": "VC-C1",
+      "plan_requirement": "The direct unittest discovery command selects every test_*.py file.",
+      "canonical_repository_contract": "The G1 gate selects current/ok taxonomy identities plus explicitly maintained additions and four standalone validations in an external disposable clone.",
+      "effect": "The direct discovery denominator includes historical and non-current suites that the canonical full-required repository gate deliberately classifies outside its required denominator."
+    },
+    {
+      "id": "VC-C2",
+      "plan_requirement": "Current-route validation is executed only for G1.",
+      "tool_requirement": "record_post_authority_validation requires current_route_exit_code=0 for every branch.",
+      "effect": "Selected B+G2 cannot be represented without inventing an unexecuted success code."
+    },
+    {
+      "id": "VC-C3",
+      "plan_requirement": "Post-authority validation must bind the final repository subject.",
+      "existing_receipt": "The supplied G1 receipt validates only commit 2a1741ce2e3ab85b0e5744f88b8a72a5a031b4db and grants G2 entry.",
+      "effect": "The receipt cannot substitute for a clean-checkout validation of the final correction subject."
+    }
+  ],
+  "proposed_successor_validation_contract": {
+    "subject_binding": "exact final correction commit and tree",
+    "food_semantic_focused_validation": {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_food_semantic_*.py\"",
+      "required_exit_code": 0
+    },
+    "d16_acceptance_validation": {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_korean_prose_acceptance_gate.py\"",
+      "required_exit_code": 0
+    },
+    "d16_semantic_preservation_validation": {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_korean_prose_semantic_preservation.py\"",
+      "required_exit_code": 0
+    },
+    "full_required_repository_validation": {
+      "authority_contract": "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+      "execution_route": "full-gate",
+      "execution_workspace": "independent_repository_external_disposable_clone",
+      "required_run_count": 2,
+      "required_exit_code_each_run": 0,
+      "canonical_results_equal_required": true,
+      "new_food_and_d16_coverage": "The three explicit food/D16 command groups above are a reviewed additive selection outside the canonical current/ok denominator."
+    },
+    "current_route_validation": {
+      "selected_branch": "B+G2",
+      "status": "NOT_APPLICABLE",
+      "exit_code": null,
+      "fake_success_code_allowed": false,
+      "future_G1_rule_unchanged": true
+    },
+    "direct_all_unittest_discovery": {
+      "preserved_result_status": "FAIL",
+      "terminal_gate_credit": 0,
+      "disposition": "noncanonical mixed historical/current diagnostic denominator",
+      "waiver_created": false,
+      "test_assertion_or_threshold_relaxation_allowed": false
+    }
+  },
+  "required_corrections_after_owner_ratification": [
+    "Add an append-only plan reconciliation that binds the old and successor validation contracts.",
+    "Make closeout validation recording branch-aware so B+G2 represents current-route validation as NOT_APPLICABLE without an exit code.",
+    "Bind the exact final subject commit/tree and clean-checkout run receipts.",
+    "Preserve the failed direct-discovery result and all existing successor hashes.",
+    "Obtain a fresh Codex Reviewer review of the plan/tool correction.",
+    "Use a distinct eligible Codex Reviewer for terminal independent closeout review."
+  ],
+  "forbidden_actions": [
+    "Repair unrelated historical, Registry, runtime, shared-disposition, package, or release suites in this food-semantic round.",
+    "Rewrite post_authority_validation_failure.json.",
+    "Reuse the old G1 receipt as validation of a new commit.",
+    "Record current_route_exit_code=0 without executing an applicable G1 route.",
+    "Change current facts, current manifest, runtime Lua, package payload, thresholds, waivers, or Naturalization Phase 4 through Phase 8."
+  ],
+  "preservation": {
+    "sealed_non_current_successor_sha256": "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40",
+    "sealed_non_current_successor_manifest_sha256": "d1dea3b7b871fac90fc6a15ec18d95641a52d566cd62d14ffb0114c2bfb0098a",
+    "current_facts_manifest_mutation_count": 0,
+    "new_attempt_created": false
+  },
+  "owner_ratification_required": {
+    "required": true,
+    "decision": "PENDING",
+    "allowed_selection": "approve VC-1 exactly or reject it",
+    "same_attempt_continuation_allowed_before_approval": false
+  }
+}

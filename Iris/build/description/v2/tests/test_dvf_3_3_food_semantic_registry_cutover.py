@@ -15,7 +15,7 @@ if str(V2_ROOT) not in sys.path:
 from tools.build import dvf_3_3_food_semantic_registry_cutover as cutover
 
 
-ATTEMPT_ROOT = cutover.ATTEMPTS_ROOT / "attempt-0007"
+ATTEMPT_ROOT = cutover.ATTEMPTS_ROOT / "attempt-0008"
 
 
 class FoodSemanticRegistryCutoverTest(unittest.TestCase):
@@ -46,6 +46,39 @@ class FoodSemanticRegistryCutoverTest(unittest.TestCase):
             ],
             cutover.SUCCESSOR_MANIFEST_SHA256,
         )
+
+    def test_allowlisted_projection_paths_cannot_carry_forged_values(self) -> None:
+        successor = cutover.read_json(cutover.G2_SUCCESSOR_MANIFEST)
+        projected = cutover.build_current_manifest_projection(
+            successor,
+            ATTEMPT_ROOT.name,
+        )
+        projected["facts"]["path"] = "forged/current.jsonl"
+        with self.assertRaisesRegex(
+            cutover.CutoverError,
+            "manifest_projection_exact_values",
+        ):
+            cutover.validate_projection(
+                successor,
+                projected,
+                ATTEMPT_ROOT.name,
+            )
+
+    def test_reviewer_identity_requires_nonempty_canonical_task_name(self) -> None:
+        self.assertTrue(
+            cutover.valid_codex_reviewer_identity(
+                "Codex Reviewer /root/codex_reviewer_precutover_v8"
+            )
+        )
+        for invalid in (
+            None,
+            "Codex Reviewer /root/",
+            "Codex Reviewer /root/   ",
+            "Codex Reviewer /root/reviewer name",
+            "other /root/reviewer",
+        ):
+            with self.subTest(invalid=invalid):
+                self.assertFalse(cutover.valid_codex_reviewer_identity(invalid))
 
     def test_adoption_evidence_and_committed_identity_are_closed(self) -> None:
         artifact = cutover.artifact_validation(ATTEMPT_ROOT.name)

@@ -232,6 +232,17 @@ def require_equal(actual: Any, expected: Any, label: str) -> None:
         raise CutoverError(f"{label}_mismatch:{expected!r}:{actual!r}")
 
 
+def valid_codex_reviewer_identity(value: Any) -> bool:
+    return (
+        isinstance(value, str)
+        and re.fullmatch(
+            r"Codex Reviewer /root/[a-z0-9_]+(?:/[a-z0-9_]+)*",
+            value,
+        )
+        is not None
+    )
+
+
 def write_once_bytes(path: Path, data: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     try:
@@ -471,6 +482,11 @@ def validate_projection(
             f"manifest_projection_allowlist_mismatch:"
             f"unexpected={unexpected}:missing={missing}"
         )
+    require_equal(
+        projected,
+        build_current_manifest_projection(successor_manifest, attempt_id),
+        "manifest_projection_exact_values",
+    )
     require_equal(projected["status"], "current_authority", "projected_status")
     require_equal(
         projected["authority_role"],
@@ -1398,10 +1414,7 @@ def validate_pre_cutover_review(root: Path) -> tuple[dict[str, Any], str]:
     require_equal(review.get("tests_executed"), False, "pre_cutover_tests_executed")
     require_equal(review.get("files_modified"), False, "pre_cutover_files_modified")
     reviewer_identity = review.get("reviewer_identity")
-    if (
-        not isinstance(reviewer_identity, str)
-        or not reviewer_identity.startswith("Codex Reviewer /root/")
-    ):
+    if not valid_codex_reviewer_identity(reviewer_identity):
         raise CutoverError("pre_cutover_reviewer_identity_invalid")
     return review, sha256_file(path)
 
@@ -2228,10 +2241,7 @@ def validate_closeout_review(root: Path) -> tuple[dict[str, Any], str]:
     if review.get("reviewer_identity") == pre_review.get("reviewer_identity"):
         raise CutoverError("closeout_reviewer_not_distinct")
     reviewer_identity = review.get("reviewer_identity")
-    if (
-        not isinstance(reviewer_identity, str)
-        or not reviewer_identity.startswith("Codex Reviewer /root/")
-    ):
+    if not valid_codex_reviewer_identity(reviewer_identity):
         raise CutoverError("closeout_reviewer_identity_invalid")
     counts = review.get("finding_counts", {})
     require_equal(counts.get("critical"), 0, "closeout_critical_count")

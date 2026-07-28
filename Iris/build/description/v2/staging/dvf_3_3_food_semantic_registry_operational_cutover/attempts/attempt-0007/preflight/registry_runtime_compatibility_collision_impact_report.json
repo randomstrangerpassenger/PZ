@@ -1,0 +1,25 @@
+{
+  "applies_when_current_facts_sha256": "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40",
+  "collision_group_id": "ascii-lower-fd527de5892ca80a",
+  "comparison_collision_group_count": 1,
+  "comparison_key": "base.lemongrass",
+  "current_source_alignment_state": "stale_requires_successor_rtc",
+  "exact_member_count": 2,
+  "exact_members": [
+    "Base.LemonGrass",
+    "Base.Lemongrass"
+  ],
+  "predecessor_source_payload_equivalence": true,
+  "predecessor_source_payload_hashes": {
+    "Base.LemonGrass": "eb524df92814660ea183846f26009b5d9686fbb3cd15cd115b21b1acbdfa57d0",
+    "Base.Lemongrass": "eb524df92814660ea183846f26009b5d9686fbb3cd15cd115b21b1acbdfa57d0"
+  },
+  "schema_version": "food-semantic-rtc-collision-impact-v1",
+  "status": "PASS",
+  "successor_rtc_closure_complete": false,
+  "successor_source_payload_equivalence": false,
+  "successor_source_payload_hashes": {
+    "Base.LemonGrass": "3b0aaa00d100ab449b6406f417a99c3b10f3ba12c2464389e9a1b1524a9e18e8",
+    "Base.Lemongrass": "c94df827433800be95cf952dd7790249b20c9a14d9bb08c0fb24e35da9641b37"
+  }
+}

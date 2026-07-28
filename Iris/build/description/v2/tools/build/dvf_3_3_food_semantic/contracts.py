@@ -247,6 +247,83 @@ def artifact_manifest(
     ]
 
 
+def verify_sealed_artifact_bundle(
+    root: Path,
+    bundle_path: Path,
+    *,
+    require_sealed: bool = True,
+) -> dict[str, Any]:
+    """Revalidate every identity sealed by an artifact bundle."""
+    root = root.resolve()
+    bundle = load_json(bundle_path)
+    artifacts = bundle.get("artifacts")
+    blockers: list[str] = []
+    mismatches: list[dict[str, Any]] = []
+    if not isinstance(artifacts, list):
+        artifacts = []
+        blockers.append("artifact_manifest_missing")
+    if require_sealed and bundle.get(
+        "implementation_complete_bundle_sealed"
+    ) is not True:
+        blockers.append("bundle_not_sealed")
+    if bundle.get("artifact_count") != len(artifacts):
+        blockers.append("artifact_count_mismatch")
+    computed_manifest_sha256 = sha256_bytes(canonical_json_bytes(artifacts))
+    if bundle.get("artifact_manifest_sha256") != computed_manifest_sha256:
+        blockers.append("artifact_manifest_sha256_mismatch")
+    seen_paths: set[str] = set()
+    for row in artifacts:
+        if not isinstance(row, dict):
+            blockers.append("artifact_row_not_object")
+            continue
+        relative = row.get("path")
+        if not isinstance(relative, str) or not relative:
+            blockers.append("artifact_path_invalid")
+            continue
+        if relative in seen_paths:
+            blockers.append("artifact_path_duplicate")
+            continue
+        seen_paths.add(relative)
+        path = (root / relative).resolve()
+        if not is_relative_to(path, root):
+            mismatches.append({"path": relative, "reason": "path_escape"})
+        elif not path.is_file():
+            mismatches.append({"path": relative, "reason": "missing"})
+        elif path.stat().st_size != row.get("byte_count"):
+            mismatches.append({"path": relative, "reason": "byte_count_mismatch"})
+        elif sha256_file(path) != row.get("sha256"):
+            mismatches.append({"path": relative, "reason": "sha256_mismatch"})
+    status = "PASS" if not blockers and not mismatches else "FAIL"
+    return {
+        "status": status,
+        "bundle_path": relative_posix(bundle_path, root=root),
+        "bundle_sha256": sha256_file(bundle_path),
+        "declared_artifact_count": bundle.get("artifact_count"),
+        "verified_artifact_count": len(artifacts) - len(mismatches),
+        "computed_artifact_manifest_sha256": computed_manifest_sha256,
+        "artifact_manifest_sha256_match": (
+            bundle.get("artifact_manifest_sha256")
+            == computed_manifest_sha256
+        ),
+        "blocking_predicates": sorted(set(blockers)),
+        "artifact_mismatch_count": len(mismatches),
+        "artifact_mismatches": mismatches,
+    }
+
+
+def require_sealed_artifact_bundle(
+    root: Path,
+    bundle_path: Path,
+) -> dict[str, Any]:
+    result = verify_sealed_artifact_bundle(root, bundle_path)
+    if result["status"] != "PASS":
+        raise FoodSemanticError(
+            "sealed artifact bundle drift: "
+            + json.dumps(result, ensure_ascii=False, sort_keys=True)
+        )
+    return result
+
+
 def hash_tree(path: Path, *, root: Path | None = None) -> dict[str, Any]:
     files = [candidate for candidate in path.rglob("*") if candidate.is_file()]
     rows = artifact_manifest(files, root=root)

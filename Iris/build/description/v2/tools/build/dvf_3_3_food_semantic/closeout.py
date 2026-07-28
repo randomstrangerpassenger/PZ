@@ -12,11 +12,13 @@ from .contracts import (
     identity,
     load_json,
     relative_posix,
+    require_sealed_artifact_bundle,
     repo_root,
     sha256_bytes,
     sha256_file,
     write_json,
     write_once_bytes,
+    verify_sealed_artifact_bundle,
 )
 
 
@@ -42,6 +44,14 @@ POST_AUTHORITY_VALIDATION_COMMANDS = {
         "uv run python -B -m unittest discover "
         "-s Iris/build/description/v2/tests "
         '-p "test_dvf_3_3_korean_prose_semantic_preservation.py"'
+    ),
+    "current_route": (
+        "uv run python -B "
+        "Iris/_docs/round3/round3_run_contract_tests.py "
+        "--class current --enforce-current-build-closure --out "
+        "Iris/build/description/v2/staging/"
+        "dvf_3_3_food_semantic_facts_authority/attempts/"
+        "<attempt-id>/phase13_closeout/current_route_validation_result.json"
     ),
     "full_regression": (
         "uv run python -B -m unittest discover "
@@ -284,6 +294,7 @@ def run_phase13(
                 "eligibility_report_sha256",
                 "reviewed_repository_commit",
                 "reviewed_final_artifact_manifest_sha256",
+                "reviewed_implementation_complete_bundle_sha256",
                 "requirements_snapshot_sha256",
                 "verdict",
             ],
@@ -564,12 +575,16 @@ def run_phase13(
         ]
         == 0
         and no_impact["D16_candidate_only_pre_authorization"],
-        "threshold_authority_binding_deferred_without_credit": (
-            threshold["authority_match_evaluated"] is False
-            and threshold["threshold_policy_detector_identity_match"] is None
+        "threshold_authority_candidate_binding_exact_without_credit": (
+            threshold["authority_match_evaluated"] is True
+            and threshold["threshold_source_identity_bound"] is True
+            and threshold["threshold_source_value_unchanged"] is True
+            and threshold["threshold_policy_detector_identity_match"] is True
             and threshold["implementation_authority_gate_credit"] == 0
             and threshold["threshold_authority_unclassified_mismatch_count"]
             == 0
+            and threshold["D16_candidate_adopted"] is False
+            and threshold["actual_bound_threshold_value"] is None
         ),
         "implementation_claim_ceiling_pass": not actual_emissions,
         "owner_decision_consumed_count_zero": final_machine[
@@ -659,11 +674,13 @@ def record_post_authority_validation(
     *,
     d16_acceptance_exit_code: int,
     d16_preservation_exit_code: int,
+    current_route_exit_code: int,
     full_regression_exit_code: int,
 ) -> dict[str, Any]:
     exit_codes = {
         "d16_acceptance": d16_acceptance_exit_code,
         "d16_preservation": d16_preservation_exit_code,
+        "current_route": current_route_exit_code,
         "full_regression": full_regression_exit_code,
     }
     failing = sorted(name for name, code in exit_codes.items() if code != 0)
@@ -676,7 +693,10 @@ def record_post_authority_validation(
         "status": "PASS",
         "commands": {
             name: {
-                "command": POST_AUTHORITY_VALIDATION_COMMANDS[name],
+                "command": POST_AUTHORITY_VALIDATION_COMMANDS[name].replace(
+                    "<attempt-id>", attempt_root.name
+                ),
+                "command_template": POST_AUTHORITY_VALIDATION_COMMANDS[name],
                 "exit_code": exit_codes[name],
                 "status": "PASS",
             }
@@ -755,6 +775,11 @@ def _terminal_manifest_files(
         for path in attempt_root.rglob("*")
         if path.is_file() and path.name not in excluded
     ]
+    implementation_bundle_path = (
+        attempt_root / "phase13_closeout/implementation_complete_bundle.json"
+    )
+    implementation_bundle = load_json(implementation_bundle_path)
+    files.extend(root / row["path"] for row in implementation_bundle["artifacts"])
     files.append(owner_decisions_path)
     owner_input_root = (
         root
@@ -796,10 +821,34 @@ def prepare_terminal_closeout(
     owner_decisions_path: Path,
 ) -> dict[str, Any]:
     phase = attempt_root / "phase13_closeout"
+    implementation_bundle_path = (
+        phase / "implementation_complete_bundle.json"
+    )
+    implementation_bundle_verification = require_sealed_artifact_bundle(
+        root, implementation_bundle_path
+    )
     authority_summary_path = (
         attempt_root / "authority_execution/authority_execution_summary.json"
     )
     authority_summary = load_json(authority_summary_path)
+    phase12_acceptance_path = (
+        attempt_root
+        / "authority_execution/phase12_phase2_handoff/"
+        "phase2_handoff_acceptance_report.json"
+    )
+    phase12_acceptance = load_json(phase12_acceptance_path)
+    threshold_binding_path = (
+        attempt_root
+        / "authority_execution/phase12_phase2_handoff/"
+        "threshold_authority_binding.json"
+    )
+    threshold_binding = load_json(threshold_binding_path)
+    skeleton_group_report_path = (
+        attempt_root
+        / "authority_execution/phase12_phase2_handoff/"
+        "skeleton_group_report.json"
+    )
+    skeleton_group_report = load_json(skeleton_group_report_path)
     sealed_receipt_path = (
         attempt_root / "phase11_successor/sealed_successor_receipt.json"
     )
@@ -813,6 +862,22 @@ def prepare_terminal_closeout(
         or sealed_receipt.get("non_current") is not True
         or validation.get("status") != "PASS"
         or validation.get("failed_command_count") != 0
+        or phase12_acceptance.get("status") != "PASS"
+        or not all(phase12_acceptance.get("predicates", {}).values())
+        or threshold_binding.get("threshold_source_identity_bound") is not True
+        or threshold_binding.get("threshold_source_value_unchanged") is not True
+        or threshold_binding.get("threshold_policy_detector_identity_match")
+        is not True
+        or threshold_binding.get(
+            "threshold_authority_unclassified_mismatch_count"
+        )
+        != 0
+        or skeleton_group_report.get(
+            "maximum_same_skeleton_group_within_bound"
+        )
+        is not True
+        or skeleton_group_report.get("maximum_same_skeleton_group", 1)
+        > skeleton_group_report.get("bound_threshold_value", 0)
     ):
         raise FoodSemanticError("terminal closeout prerequisites are incomplete")
     adopted_targets = [
@@ -941,8 +1006,30 @@ def prepare_terminal_closeout(
         ),
         "sealed_successor_receipt_sha256": sha256_file(sealed_receipt_path),
         "post_authority_validation_sha256": sha256_file(validation_path),
+        "phase2_handoff_acceptance_report_sha256": sha256_file(
+            phase12_acceptance_path
+        ),
+        "threshold_authority_binding_sha256": sha256_file(
+            threshold_binding_path
+        ),
+        "skeleton_group_report_sha256": sha256_file(
+            skeleton_group_report_path
+        ),
+        "maximum_same_skeleton_group": skeleton_group_report[
+            "maximum_same_skeleton_group"
+        ],
+        "bound_threshold_value": skeleton_group_report[
+            "bound_threshold_value"
+        ],
+        "maximum_same_skeleton_group_within_bound": True,
         "final_machine_validation": "PASS",
         "current_facts_manifest_mutation_count": 0,
+        "implementation_bundle_artifact_verification": (
+            implementation_bundle_verification
+        ),
+        "implementation_complete_bundle_sha256": sha256_file(
+            implementation_bundle_path
+        ),
     }
     write_json(phase / "final_machine_report.json", final_machine)
 
@@ -996,6 +1083,17 @@ def prepare_terminal_closeout(
             canonical_json_bytes(manifest_rows)
         ),
         "artifacts": manifest_rows,
+        "implementation_complete_bundle_sha256": sha256_file(
+            implementation_bundle_path
+        ),
+        "implementation_bundle_artifact_manifest_sha256": (
+            implementation_bundle_verification[
+                "computed_artifact_manifest_sha256"
+            ]
+        ),
+        "implementation_bundle_verified_artifact_count": (
+            implementation_bundle_verification["verified_artifact_count"]
+        ),
         "sealed_successor_receipt_sha256": sha256_file(sealed_receipt_path),
         "final_machine_report_sha256": sha256_file(
             phase / "final_machine_report.json"
@@ -1015,6 +1113,9 @@ def prepare_terminal_closeout(
         "reviewed_repository_commit": repository_head,
         "reviewed_final_artifact_manifest_sha256": sha256_file(
             final_manifest_path
+        ),
+        "reviewed_implementation_complete_bundle_sha256": sha256_file(
+            implementation_bundle_path
         ),
         "eligibility_report_sha256": sha256_file(
             phase / "independent_reviewer_eligibility_report.json"
@@ -1050,8 +1151,22 @@ def seal_terminal_closeout(
     owner_seal_path: Path,
 ) -> dict[str, Any]:
     phase = attempt_root / "phase13_closeout"
+    implementation_bundle_verification = require_sealed_artifact_bundle(
+        root,
+        phase / "implementation_complete_bundle.json",
+    )
     manifest_path = phase / "final_artifact_manifest.json"
     manifest = load_json(manifest_path)
+    final_manifest_verification = verify_sealed_artifact_bundle(
+        root,
+        manifest_path,
+        require_sealed=False,
+    )
+    if final_manifest_verification["status"] != "PASS":
+        raise FoodSemanticError(
+            "terminal artifact manifest drift: "
+            f"{final_manifest_verification}"
+        )
     eligibility_path = phase / "independent_reviewer_eligibility_report.json"
     eligibility = load_json(eligibility_path)
     review = load_json(independent_review_path)
@@ -1090,6 +1205,12 @@ def seal_terminal_closeout(
         manifest_path
     ):
         review_blockers.append("reviewed_final_artifact_manifest_sha256")
+    if review.get(
+        "reviewed_implementation_complete_bundle_sha256"
+    ) != manifest.get("implementation_complete_bundle_sha256"):
+        review_blockers.append(
+            "reviewed_implementation_complete_bundle_sha256"
+        )
     if review.get("requirements_snapshot_sha256") != eligibility.get(
         "requirements_snapshot_sha256"
     ):
@@ -1210,6 +1331,10 @@ def seal_terminal_closeout(
             phase / "final_claim_non_claim_vocabulary_scan.json"
         ),
         "post_terminal_claim_bearing_change_allowed": False,
+        "final_artifact_manifest_verification": final_manifest_verification,
+        "implementation_bundle_artifact_verification": (
+            implementation_bundle_verification
+        ),
     }
     terminal_hash_path = phase / "terminal_hash_seal.json"
     write_json(terminal_hash_path, terminal_hash)

@@ -17,8 +17,16 @@ from tools.build.dvf_3_3_food_semantic.closeout import (
     _implementation_files,
     scan_claim_values,
 )
-from tools.build.dvf_3_3_food_semantic.contracts import FoodSemanticError
-from tools.build.dvf_3_3_food_semantic.contracts import load_json
+from tools.build.dvf_3_3_food_semantic.contracts import (
+    FoodSemanticError,
+    artifact_manifest,
+    canonical_json_bytes,
+    load_json,
+    require_sealed_artifact_bundle,
+    sha256_bytes,
+    verify_sealed_artifact_bundle,
+    write_json,
+)
 from tools.build.dvf_3_3_food_semantic_facts_authority import (
     FOCUSED_VALIDATION_COMMAND,
     build_parser,
@@ -69,6 +77,38 @@ class FoodSemanticCloseoutTest(unittest.TestCase):
             resolve_attempt_root(REPO_ROOT, "../escape")
         valid = resolve_attempt_root(REPO_ROOT, "attempt-0001")
         self.assertEqual(valid.name, "attempt-0001")
+
+    def test_sealed_bundle_reverification_detects_artifact_drift(self) -> None:
+        staging = V2_ROOT / "staging"
+        staging.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=staging) as temp_dir:
+            root = Path(temp_dir)
+            artifact = root / "reviewed.py"
+            artifact.write_text("value = 1\n", encoding="utf-8")
+            rows = artifact_manifest([artifact], root=root)
+            bundle = root / "implementation_complete_bundle.json"
+            write_json(
+                bundle,
+                {
+                    "implementation_complete_bundle_sealed": True,
+                    "artifact_count": len(rows),
+                    "artifact_manifest_sha256": sha256_bytes(
+                        canonical_json_bytes(rows)
+                    ),
+                    "artifacts": rows,
+                },
+            )
+            self.assertEqual(
+                require_sealed_artifact_bundle(root, bundle)["status"],
+                "PASS",
+            )
+            artifact.write_text("value = 2\n", encoding="utf-8")
+            self.assertEqual(
+                verify_sealed_artifact_bundle(root, bundle)["status"],
+                "FAIL",
+            )
+            with self.assertRaises(FoodSemanticError):
+                require_sealed_artifact_bundle(root, bundle)
 
     def test_authority_command_is_exposed_but_requires_exact_inputs(self) -> None:
         parser = build_parser()

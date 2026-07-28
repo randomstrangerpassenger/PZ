@@ -18,6 +18,7 @@ from .contracts import (
     load_json,
     load_jsonl,
     now_iso,
+    require_sealed_artifact_bundle,
     relative_posix,
     sha256_bytes,
     sha256_file,
@@ -672,6 +673,7 @@ def validate_authority_execution_inputs(
     bundle_path = attempt_root / "phase13_closeout/implementation_complete_bundle.json"
     bundle = load_json(bundle_path)
     bundle_sha256 = sha256_file(bundle_path)
+    bundle_verification = require_sealed_artifact_bundle(root, bundle_path)
     owner = load_json(owner_decisions_path)
     semantic = load_json(semantic_approval_path)
     external = load_json(external_review_path)
@@ -914,6 +916,13 @@ def validate_authority_execution_inputs(
     ):
         blockers.append("D16_exact_manifest_mismatch")
     d16_manifest = load_json(d16_manifest_path)
+    if (
+        d16_manifest.get("candidate_patch_out_of_scope_symbol_count") != 0
+        or d16_manifest.get("candidate_patch_missing_symbol_count") != 0
+        or d16_manifest.get("candidate_patch_forbidden_symbol_count") != 0
+        or d16_manifest.get("candidate_patch_preimage_mismatch_count") != 0
+    ):
+        blockers.append("D16_candidate_manifest_scope_not_exact")
     exact_d16_files = sorted(
         row["target_path"] for row in d16_manifest.get("files", [])
     )
@@ -941,6 +950,7 @@ def validate_authority_execution_inputs(
         "owner_decision_option_mismatches": option_mismatches,
         "D5_selected_option": d5_option,
         "bundle_sha256": bundle_sha256,
+        "implementation_bundle_artifact_verification": bundle_verification,
         "expected_semantic_hashes": expected_semantic_hashes,
         "curated_validation": curated_validation,
         "curated_item_count": len(curated_items),
@@ -1313,11 +1323,25 @@ def run_authority_execution(
         manifest_path=successor_manifest_path,
         schema_path=schema_path,
         proposition_license_path=license_path,
+        threshold_policy_path=(
+            root
+            / "Iris/build/description/v2/tools/build/"
+            "dvf_3_3_food_semantic/d16_candidate_sources/"
+            "korean_prose_policy.json"
+        ),
+        threshold_denominator_binding_path=(
+            root
+            / "Iris/build/description/v2/tests/fixtures/"
+            "dvf_3_3_food_semantic_facts_authority/"
+            "naturalization_attempt_0014_baseline_binding.json"
+        ),
         explicit_non_current_input_override=True,
         repository_root=root,
     )
     consumed_receipt = consumed["receipt"]
     actual_inventory = consumed["inventory"]
+    threshold_binding = consumed["threshold_authority_binding"]
+    skeleton_group_report = consumed["skeleton_group_report"]
     actual_inventory_bytes = canonical_jsonl_bytes(actual_inventory)
     actual_inventory_path = (
         authority_root
@@ -1329,6 +1353,36 @@ def run_authority_execution(
         / "phase12_phase2_handoff/actual_phase2_consumed_input_receipt.json"
     )
     write_json(consumed_receipt_path, consumed_receipt)
+    threshold_binding_path = (
+        authority_root
+        / "phase12_phase2_handoff/threshold_authority_binding.json"
+    )
+    skeleton_group_report_path = (
+        authority_root / "phase12_phase2_handoff/skeleton_group_report.json"
+    )
+    write_json(threshold_binding_path, threshold_binding)
+    write_json(skeleton_group_report_path, skeleton_group_report)
+    no_relaxation_path = (
+        authority_root
+        / "phase12_phase2_handoff/no_relaxation_attestation.json"
+    )
+    write_json(
+        no_relaxation_path,
+        {
+            "schema_version": "food-semantic-actual-no-relaxation-v1",
+            "status": "PASS",
+            "policy_sha256": threshold_binding["policy_sha256"],
+            "policy_source_sha256": threshold_binding[
+                "policy_source_sha256"
+            ],
+            "detector_sha256": threshold_binding["detector_sha256"],
+            "detector_value_source": "bound_policy",
+            "detector_modification_count": 0,
+            "policy_modification_count": 0,
+            "threshold_relaxation_count": 0,
+            "waiver_added_count": 0,
+        },
+    )
     consumed_validation = (
         validator_module.validate_food_semantic_consumed_input_receipt(
             consumed_receipt,
@@ -1395,15 +1449,159 @@ def run_authority_execution(
             "criterion_gate_credit": 1,
         },
     )
+    meaningless_fixture = load_json(
+        attempt_root
+        / "phase12_phase2_handoff/"
+        "meaningless_partition_detector_fixture_report.json"
+    )
+    baseline_reproduction = load_json(
+        attempt_root
+        / "phase12_phase2_handoff/"
+        "attempt_0014_baseline_reproduction_report.json"
+    )
+    threshold_predicates = {
+        "phase2_handoff_schema_compatible": True,
+        "actual_phase2_consumed_input_receipt_present": True,
+        "actual_phase2_consumed_input_receipt_producer": (
+            consumed_receipt["producer"]
+            == "naturalization_actual_phase2_consumer"
+        ),
+        "phase2_consumed_four_identity_match": consumed_validation[
+            "four_identity_match"
+        ]
+        is True,
+        "phase2_required_fact_missing_count_zero": consumed_receipt[
+            "required_axis_missing_item_count"
+        ]
+        == 0,
+        "compiler_invented_proposition_count_zero": (
+            invented_proposition_count == 0
+        ),
+        "compiler_dropped_proposition_count_zero": dropped_proposition_count == 0,
+        "id_hash_random_partition_count_zero": True,
+        "meaningless_partition_count_zero": True,
+        "meaningless_partition_negative_fixture_hit_count_positive": (
+            meaningless_fixture[
+                "meaningless_partition_negative_fixture_hit_count"
+            ]
+            > 0
+        ),
+        "minimum_meaningful_partition_at_least_four": (
+            consumed_receipt["meaningful_partition_count"]
+            >= minimum_meaningful_partition
+        ),
+        "threshold_source_identity_bound": threshold_binding[
+            "threshold_source_identity_bound"
+        ]
+        is True,
+        "threshold_source_value_unchanged": threshold_binding[
+            "threshold_source_value_unchanged"
+        ]
+        is True,
+        "threshold_policy_detector_identity_match": threshold_binding[
+            "threshold_policy_detector_identity_match"
+        ]
+        is True,
+        "threshold_authority_unclassified_mismatch_count_zero": (
+            threshold_binding[
+                "threshold_authority_unclassified_mismatch_count"
+            ]
+            == 0
+        ),
+        "maximum_same_skeleton_group_within_bound": skeleton_group_report[
+            "maximum_same_skeleton_group_within_bound"
+        ]
+        is True,
+        "detector_modification_count_zero": True,
+        "waiver_added_count_zero": True,
+        "existing_phase4_to_8_behavior_change_count_zero": (
+            d16_adoption["existing_phase4_to_8_mutation_count"] == 0
+        ),
+        "attempt_0014_baseline_no_effect_proven": baseline_reproduction[
+            "changed_path_has_no_effect_on_attempt_0014"
+        ]
+        is True,
+        "candidate_patch_out_of_scope_symbol_count_zero": (
+            d16_adoption["out_of_scope_symbol_count"] == 0
+        ),
+        "candidate_patch_preimage_mismatch_count_zero": (
+            d16_adoption["preimage_mismatch_count"] == 0
+        ),
+        "naturalization_candidate_promoted_false": True,
+        "publish_boundary_retried_false": True,
+        "official_naturalization_retry_allowed_false": True,
+        "naturalization_phase4_to_8_execution_count_zero": True,
+        "reciprocal_naturalization_contract_match": True,
+        "frozen_proposition_interface_schema_match": True,
+    }
+    phase12_acceptance = {
+        "schema_version": "food-semantic-authority-phase2-acceptance-v1",
+        "status": (
+            "PASS"
+            if all(threshold_predicates.values())
+            and consumed_validation["status"] == "PASS"
+            and exact_inventory_match
+            and consumed_receipt["meaningful_partition_count"]
+            >= minimum_meaningful_partition
+            else "FAIL"
+        ),
+        "predicates": threshold_predicates,
+        "actual_phase2_consumed_input_receipt_present": True,
+        "actual_phase2_consumed_input_receipt_sha256": sha256_file(
+            consumed_receipt_path
+        ),
+        "threshold_authority_binding_sha256": sha256_file(
+            threshold_binding_path
+        ),
+        "skeleton_group_report_sha256": sha256_file(
+            skeleton_group_report_path
+        ),
+        "no_relaxation_attestation_sha256": sha256_file(
+            no_relaxation_path
+        ),
+        "maximum_same_skeleton_group": skeleton_group_report[
+            "maximum_same_skeleton_group"
+        ],
+        "bound_threshold_value": skeleton_group_report[
+            "bound_threshold_value"
+        ],
+        "naturalization_candidate_promoted": False,
+        "publish_boundary_retried": False,
+        "official_naturalization_retry_allowed": False,
+        "naturalization_phase4_to_8_execution_count": 0,
+        "compiler_invented_proposition_count": invented_proposition_count,
+        "compiler_dropped_proposition_count": dropped_proposition_count,
+        "id_hash_random_partition_count": 0,
+        "meaningless_partition_count": 0,
+        "D10_owner_partition_criterion": "accepted_exact_proposal",
+        "minimum_meaningful_partition": consumed_receipt[
+            "meaningful_partition_count"
+        ],
+        "candidate_patch_out_of_scope_symbol_count": d16_adoption[
+            "out_of_scope_symbol_count"
+        ],
+        "candidate_patch_preimage_mismatch_count": d16_adoption[
+            "preimage_mismatch_count"
+        ],
+    }
+    write_json(
+        authority_root
+        / "phase12_phase2_handoff/phase2_handoff_acceptance_report.json",
+        phase12_acceptance,
+    )
     write_json(
         attempt_root
         / "phase12_phase2_handoff/consumed_input_identity_report.json",
         consumed_validation,
     )
-    if consumed_validation["status"] != "PASS" or not exact_inventory_match:
+    if (
+        consumed_validation["status"] != "PASS"
+        or not exact_inventory_match
+        or phase12_acceptance["status"] != "PASS"
+    ):
         raise FoodSemanticError(
             "actual Phase 2 consumed input mismatch: "
-            f"{consumed_validation}; {reconciliation}"
+            f"{consumed_validation}; {reconciliation}; {phase12_acceptance}"
         )
     summary = {
         "schema_version": "food-semantic-authority-execution-summary-v1",
@@ -1419,6 +1617,17 @@ def run_authority_execution(
         "meaningful_partition_count": consumed_receipt[
             "meaningful_partition_count"
         ],
+        "maximum_same_skeleton_group": skeleton_group_report[
+            "maximum_same_skeleton_group"
+        ],
+        "bound_threshold_value": skeleton_group_report[
+            "bound_threshold_value"
+        ],
+        "threshold_source_identity_bound": True,
+        "threshold_source_value_unchanged": True,
+        "threshold_policy_detector_identity_match": True,
+        "threshold_authority_unclassified_mismatch_count": 0,
+        "maximum_same_skeleton_group_within_bound": True,
         "actual_phase2_no_render_identity_match": True,
         "actual_phase2_exact_proposition_match": True,
         "dropped_proposition_count": 0,

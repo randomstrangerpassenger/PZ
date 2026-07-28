@@ -13,11 +13,16 @@ if str(V2_ROOT) not in sys.path:
 
 from tools.build.dvf_3_3_food_semantic.naturalization_handoff import (
     ACCEPTANCE_TEST_PATH,
+    CANDIDATE_SPECS,
+    POLICY_PATH,
+    POLICY_SOURCE_GIT_BLOB_ID,
+    POLICY_SOURCE_SHA256,
     PREDECESSOR_BASELINE_FIXTURE_PATH,
     PRESERVATION_TEST_PATH,
     RUNNER_PATH,
     TEMPLATE_ROOT,
     VALIDATOR_PATH,
+    _top_level_symbols,
 )
 from tools.build.dvf_3_3_food_semantic.contracts import load_json, sha256_file
 
@@ -73,6 +78,21 @@ class FoodSemanticHandoffTest(unittest.TestCase):
                 "create_absent_target_after_D16_authorization",
             )
             self.assertEqual(sha256_file(candidate), row["replacement_sha256"])
+            candidate_symbols = _top_level_symbols(
+                candidate.read_text(encoding="utf-8"),
+                filename=candidate.as_posix(),
+            )
+            self.assertEqual(
+                candidate_symbols,
+                sorted(row["affected_symbols"]),
+            )
+            self.assertEqual(
+                row["candidate_top_level_symbols"],
+                candidate_symbols,
+            )
+            self.assertEqual(row["candidate_missing_symbol_count"], 0)
+            self.assertEqual(row["candidate_out_of_scope_symbol_count"], 0)
+            self.assertEqual(row["candidate_forbidden_symbol_count"], 0)
             if authority_executed:
                 self.assertEqual(
                     sha256_file(REPO_ROOT / relative),
@@ -137,8 +157,28 @@ class FoodSemanticHandoffTest(unittest.TestCase):
             else:
                 self.assertFalse(target.exists())
         self.assertFalse(manifest["D16_owner_authorization_consumed"])
+        self.assertEqual(manifest["candidate_patch_missing_symbol_count"], 0)
+        self.assertEqual(manifest["candidate_patch_forbidden_symbol_count"], 0)
+        self.assertEqual(
+            {
+                row["target_path"]: sorted(row["affected_symbols"])
+                for row in manifest["files"]
+            },
+            {
+                spec["target_path"]: sorted(spec["affected_symbols"])
+                for spec in CANDIDATE_SPECS
+            },
+        )
         templates = REPO_ROOT / TEMPLATE_ROOT
         self.assertEqual(len(list(templates.glob("*.py"))), 4)
+
+    def test_threshold_policy_is_the_preserved_canonical_blob(self) -> None:
+        policy = REPO_ROOT / POLICY_PATH
+        self.assertEqual(sha256_file(policy), POLICY_SOURCE_SHA256)
+        self.assertEqual(
+            POLICY_SOURCE_GIT_BLOB_ID,
+            "1f97932227128978b6a046734aa68c60e188d5a9",
+        )
 
 
 if __name__ == "__main__":

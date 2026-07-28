@@ -33,6 +33,7 @@ from tools.build.dvf_3_3_food_semantic.contracts import (
     assert_attempt_output_root,
     load_json,
     repo_root,
+    require_sealed_artifact_bundle,
     sha256_file,
     write_json,
 )
@@ -204,22 +205,19 @@ def verify_bundle(root: Path, attempt_root: Path) -> dict[str, Any]:
         attempt_root / "phase13_closeout/implementation_complete_bundle.json"
     )
     bundle = load_json(bundle_path)
-    mismatches = []
-    for row in bundle["artifacts"]:
-        path = root / row["path"]
-        if not path.is_file():
-            mismatches.append({"path": row["path"], "reason": "missing"})
-        elif sha256_file(path) != row["sha256"]:
-            mismatches.append({"path": row["path"], "reason": "sha256_mismatch"})
+    verification = require_sealed_artifact_bundle(root, bundle_path)
     protected = load_json(
         attempt_root / "phase11_successor/protected_surface_hashes_after.json"
     )
     result = {
-        "status": "PASS" if not mismatches else "FAIL",
+        "status": verification["status"],
         "bundle_sha256": sha256_file(bundle_path),
         "artifact_count": len(bundle["artifacts"]),
-        "artifact_mismatch_count": len(mismatches),
-        "artifact_mismatches": mismatches,
+        "artifact_manifest_sha256_match": verification[
+            "artifact_manifest_sha256_match"
+        ],
+        "artifact_mismatch_count": verification["artifact_mismatch_count"],
+        "artifact_mismatches": verification["artifact_mismatches"],
         "protected_surface_changed_count": protected["changed_count"],
         "authority_claim_emitted_count": bundle["authority_claim_emitted_count"],
         "current_facts_manifest_mutation_count": bundle[
@@ -272,6 +270,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--curated-ledger")
     parser.add_argument("--d16-acceptance-exit-code", type=int)
     parser.add_argument("--d16-preservation-exit-code", type=int)
+    parser.add_argument("--current-route-exit-code", type=int)
     parser.add_argument("--full-regression-exit-code", type=int)
     parser.add_argument("--independent-review")
     parser.add_argument("--owner-seal")
@@ -328,6 +327,7 @@ def main(argv: list[str] | None = None) -> int:
             exit_codes = {
                 "--d16-acceptance-exit-code": args.d16_acceptance_exit_code,
                 "--d16-preservation-exit-code": args.d16_preservation_exit_code,
+                "--current-route-exit-code": args.current_route_exit_code,
                 "--full-regression-exit-code": args.full_regression_exit_code,
             }
             missing = [name for name, value in exit_codes.items() if value is None]
@@ -340,6 +340,7 @@ def main(argv: list[str] | None = None) -> int:
                 attempt_root,
                 d16_acceptance_exit_code=args.d16_acceptance_exit_code,
                 d16_preservation_exit_code=args.d16_preservation_exit_code,
+                current_route_exit_code=args.current_route_exit_code,
                 full_regression_exit_code=args.full_regression_exit_code,
             )
         elif args.command == "prepare-closeout":

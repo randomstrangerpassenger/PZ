@@ -31,6 +31,16 @@ class FoodSemanticNoRenderReceiptCandidateContractTest(unittest.TestCase):
             manifest = root / "successor-manifest.json"
             schema = root / "food-schema.json"
             proposition_license = root / "food-license.json"
+            threshold_policy = (
+                V2_ROOT
+                / "tools/build/dvf_3_3_food_semantic/"
+                "d16_candidate_sources/korean_prose_policy.json"
+            )
+            threshold_denominator_binding = (
+                V2_ROOT
+                / "tests/fixtures/dvf_3_3_food_semantic_facts_authority/"
+                "naturalization_attempt_0014_baseline_binding.json"
+            )
             facts.write_text(
                 json.dumps(
                     {
@@ -190,6 +200,10 @@ class FoodSemanticNoRenderReceiptCandidateContractTest(unittest.TestCase):
                 schema_path=schema,
                 proposition_license_path=proposition_license,
                 explicit_non_current_input_override=True,
+                threshold_policy_path=threshold_policy,
+                threshold_denominator_binding_path=(
+                    threshold_denominator_binding
+                ),
             )
             receipt = consumed["receipt"]
             inventory_bytes = "".join(
@@ -240,6 +254,13 @@ class FoodSemanticNoRenderReceiptCandidateContractTest(unittest.TestCase):
             self.assertEqual(receipt["current_facts_read_count"], 0)
             self.assertEqual(receipt["render_write_count"], 0)
             self.assertEqual(receipt["food_semantic_proposition_count"], 2)
+            self.assertEqual(consumed["skeleton_group_report"]["status"], "PASS")
+            self.assertEqual(
+                consumed["threshold_authority_binding"][
+                    "detector_value_source"
+                ],
+                "bound_policy",
+            )
             self.assertEqual(
                 validate_food_semantic_consumed_input_receipt(
                     receipt,
@@ -305,6 +326,19 @@ class FoodSemanticNoRenderReceiptCandidateContractTest(unittest.TestCase):
                 )["status"],
                 "FAIL",
             )
+            oversized_skeleton = dict(receipt)
+            oversized_skeleton["maximum_same_skeleton_group"] = (
+                receipt["bound_threshold_value"] + 1
+            )
+            self.assertEqual(
+                validate_food_semantic_consumed_input_receipt(
+                    oversized_skeleton,
+                    selected,
+                    repository_root=root,
+                    expected_projection=expected_projection,
+                )["status"],
+                "FAIL",
+            )
 
             with self.assertRaises(ValueError):
                 consume_food_semantic_inputs_no_render(
@@ -314,6 +348,10 @@ class FoodSemanticNoRenderReceiptCandidateContractTest(unittest.TestCase):
                     schema_path=schema,
                     proposition_license_path=proposition_license,
                     explicit_non_current_input_override=True,
+                    threshold_policy_path=threshold_policy,
+                    threshold_denominator_binding_path=(
+                        threshold_denominator_binding
+                    ),
                 )
             with self.assertRaises(ValueError):
                 consume_food_semantic_inputs_no_render(
@@ -322,6 +360,10 @@ class FoodSemanticNoRenderReceiptCandidateContractTest(unittest.TestCase):
                     schema_path=schema,
                     proposition_license_path=proposition_license,
                     explicit_non_current_input_override=False,
+                    threshold_policy_path=threshold_policy,
+                    threshold_denominator_binding_path=(
+                        threshold_denominator_binding
+                    ),
                 )
             bad_manifest = root / "wrong-candidate-manifest.json"
             bad_manifest.write_text(
@@ -340,5 +382,9 @@ class FoodSemanticNoRenderReceiptCandidateContractTest(unittest.TestCase):
                     schema_path=schema,
                     proposition_license_path=proposition_license,
                     explicit_non_current_input_override=True,
+                    threshold_policy_path=threshold_policy,
+                    threshold_denominator_binding_path=(
+                        threshold_denominator_binding
+                    ),
                 )
 # END DVF FOOD SEMANTIC CANDIDATE PATCH

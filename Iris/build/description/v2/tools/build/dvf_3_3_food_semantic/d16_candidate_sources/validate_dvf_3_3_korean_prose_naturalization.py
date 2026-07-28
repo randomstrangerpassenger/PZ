@@ -34,6 +34,12 @@ def validate_food_semantic_consumed_input_receipt(
         mismatches.append("render_write_count")
     if receipt.get("opened_input_count") != 4:
         mismatches.append("opened_input_count")
+    if receipt.get("phase2_primary_opened_input_count") != 4:
+        mismatches.append("phase2_primary_opened_input_count")
+    if receipt.get("threshold_authority_opened_input_count") != 2:
+        mismatches.append("threshold_authority_opened_input_count")
+    if receipt.get("total_opened_input_count") != 6:
+        mismatches.append("total_opened_input_count")
     if not isinstance(receipt.get("facts_row_count"), int) or receipt.get(
         "facts_row_count", 0
     ) <= 0:
@@ -117,6 +123,16 @@ def validate_food_semantic_consumed_input_receipt(
         mismatches.append("manifest_facts_sha256_match")
     if receipt.get("manifest_facts_path_match") is not True:
         mismatches.append("manifest_facts_path_match")
+    maximum_same_skeleton_group = receipt.get(
+        "maximum_same_skeleton_group"
+    )
+    bound_threshold_value = receipt.get("bound_threshold_value")
+    if (
+        not isinstance(maximum_same_skeleton_group, int)
+        or not isinstance(bound_threshold_value, int)
+        or maximum_same_skeleton_group > bound_threshold_value
+    ):
+        mismatches.append("maximum_same_skeleton_group_within_bound")
     if receipt.get("manifest_declared_facts_sha256") != receipt.get(
         "facts_sha256"
     ):

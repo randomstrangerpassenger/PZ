@@ -1,0 +1,85 @@
+{
+  "schema_version": "food-semantic-registry-cutover-pre-cutover-review-v1",
+  "status": "PASS",
+  "verdict": "PASS",
+  "reviewer_identity": "Codex Reviewer /root/codex_reviewer_precutover_v9",
+  "reviewed_implementation_commit": "e6802ce36c3d1282208a4ab19c6449d0f6095b69",
+  "reviewed_implementation_tree": "e41060fcbafb4818e347c7b914d55162064560e9",
+  "attempt_id": "attempt-0009",
+  "candidate_current_facts_sha256": "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40",
+  "candidate_current_manifest_sha256": "7a282be929217f0c117bc1fd86f84b4146d34e92dc1d2833c3c0f943c371c43c",
+  "finding_counts": {
+    "critical": 0,
+    "important": 0,
+    "advisory": 0
+  },
+  "findings": [],
+  "verified_controls": [
+    {
+      "area": "immutable_plan_review_binding",
+      "result": "PASS",
+      "evidence": "Plan, amended re-review, and initial review have identical base/HEAD Git blobs c5c4e22d991fa150e9d556d1a7ca0d90e2935ebe, b340f511bd696d6565db15aeec912b6d3a305237, and e6fd57b345d78c59839ace3e1284f189fb8e9b7b. Working SHA-256 values are 49a472fb499f51c797fafd0b90e31baad7ffd39f59eaf0f93a0548236d674cb2, f92be5dbbb774345511c5eb5a52ec9197f74e48c726aee309cb9deb71ea49e4f, and 5742436e2daab97c98da2ed37728d06f18d200ad20eb3e1f8d007efbb6c1a1c6. The re-review binds the exact plan SHA/blob; validate_implementation_binding enforces working hashes, base review blob identities and SHA bytes, implementation plan blob/SHA, base ancestry, and the fixed base commit/tree.",
+      "file": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_registry_cutover.py",
+      "lines": "714-819"
+    },
+    {
+      "area": "g2_terminal_successor_chain",
+      "result": "PASS",
+      "evidence": "The terminal seal, owner seal, independent review, final artifact manifest, selected successor binding, successor facts, successor manifest, and registry cutover request retain the exact sealed hashes. No attempt-0022 path changed between G2 terminal commit and the reviewed implementation.",
+      "file": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_registry_cutover.py",
+      "lines": "636-711"
+    },
+    {
+      "area": "closed_candidate_projection",
+      "result": "PASS",
+      "evidence": "Candidate facts are byte-identical by SHA-256 to the sealed successor. Candidate manifest differences are exactly the ten allowlisted paths, with exact projected values enforced.",
+      "file": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_registry_cutover.py",
+      "lines": "454-522"
+    },
+    {
+      "area": "authorization_and_nonce",
+      "result": "PASS",
+      "evidence": "Authorization binds the exact plan, implementation commit/tree, attempt, pre-cutover review, successor identities, candidate identities, preimages, and target paths. Nonce uniqueness is checked before and again under the round-global lock, and consumption is write-once before the first live replace.",
+      "file": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_registry_cutover.py",
+      "lines": "1456-1629, 1839-1947"
+    },
+    {
+      "area": "transaction_recovery_and_locking",
+      "result": "PASS",
+      "evidence": "OS-level serialization encloses stale metadata-lock takeover; locked preimages are revalidated; rollback snapshots are exclusive-created; facts precede manifest; journal transitions are closed; rollback failure retains the metadata lock; verified recovery revalidates repository/auth/nonce state before creating receipts.",
+      "file": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_registry_cutover.py",
+      "lines": "841-1290, 1839-1947"
+    },
+    {
+      "area": "adoption_and_committed_identity",
+      "result": "PASS",
+      "evidence": "The adoption commit must be the single direct child of the reviewed implementation, has a closed changed-path boundary and required artifact set, and verifies tracked committed blob/working-byte identity plus the exact deterministic manifest projection before opening the canonical readpoint.",
+      "file": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_registry_cutover.py",
+      "lines": "1772-1836, 1960-2107"
+    },
+    {
+      "area": "rtc_staleness_guards",
+      "result": "PASS",
+      "evidence": "The hash-activated stale_requires_successor_rtc marker preserves the historical RTC readpoint while bridge, validator, and package canonical routes reject the successor current facts before writing; isolated candidate probing remains bounded.",
+      "file": "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py",
+      "lines": "116-154, 157-286"
+    },
+    {
+      "area": "final_validation_and_closeout",
+      "result": "PASS",
+      "evidence": "The final runner contains only the planned six discovery patterns, runs the food-semantic pattern once, records actual outputs/counts, and precedes a distinct Codex closeout review, exact owner seal, terminal seal, and evidence-only closeout commit workflow.",
+      "file": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_registry_cutover.py",
+      "lines": "2173-2466"
+    },
+    {
+      "area": "live_write_boundary",
+      "result": "PASS",
+      "evidence": "Current facts and manifest remain at exact preimages a89af8d75a78a57bd2ac05f07af4246d1ebab862dd4021bd089c5efa6e533be6 and db4c5e827c1aad4175894fb0f5b59db9496c5819cacd86a9f703d3542a05be41. Only attempt-0009 candidate/preflight files are untracked; no authorization, nonce, journal, rollback snapshot, receipt, or live mutation exists."
+    }
+  ],
+  "owner_authorization_present": false,
+  "authorization_nonce_consumed": false,
+  "live_write_count": 0,
+  "tests_executed": false,
+  "files_modified": false
+}

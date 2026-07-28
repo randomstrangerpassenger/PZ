@@ -1,0 +1,9 @@
+{
+  "attempt_id": "attempt-0009",
+  "authorization_nonce": "2bf0ca42-0795-4d27-bb19-2e8b47a514f0",
+  "consumed_at": "2026-07-28T21:28:34.539058+00:00",
+  "owner_authorization_sha256": "1dfbb688671e3ce6b568427b288c84e056737e0075fe540c22cb88d2115667ef",
+  "same_attempt_retry_allowed": false,
+  "schema_version": "food-semantic-cutover-nonce-consumption-v1",
+  "status": "CONSUMED"
+}

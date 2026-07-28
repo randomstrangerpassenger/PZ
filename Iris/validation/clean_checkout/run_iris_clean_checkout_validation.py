@@ -1,0 +1,466 @@
+"""Build the B0 clean-checkout source and dependency census.
+
+This command does not import or execute repository tests. It reads an exact Git
+tree, parses tracked Python test sources, and writes all generated records to a
+caller-supplied directory outside the checkout.
+"""
+
+from __future__ import annotations
+
+import argparse
+import ast
+import configparser
+import json
+import sys
+from collections import defaultdict
+from pathlib import Path
+from typing import Any
+
+from iris_clean_checkout_validation_common import (
+    CleanCheckoutError,
+    blob_id,
+    bytes_at_commit,
+    ensure_external_root,
+    git_identity,
+    json_at_commit,
+    resolved_repo,
+    sha256_file,
+    tracked_paths,
+    write_json_external,
+)
+
+
+TAXONOMY_PATH = "Iris/_docs/round3/round3_test_taxonomy.json"
+REQUIRED_MANIFEST_PATH = (
+    "Iris/_docs/round3/current_route_required_validations.json"
+)
+PYTEST_INI_PATH = "pytest.ini"
+REPOSITORY_IMPORT_PREFIXES = (
+    "",
+    "Iris",
+    "Iris/evidence/rightclick",
+    "Iris/build",
+    "Iris/build/description/v2",
+    "Iris/build/description/v2/tests",
+    "Iris/build/description/v2/tools",
+    "Iris/build/description/v2/tools/build",
+    "Iris/build/tests",
+)
+
+
+def _test_sources(paths: list[str]) -> list[str]:
+    return sorted(
+        path
+        for path in paths
+        if Path(path).name.startswith("test_") and path.endswith(".py")
+    )
+
+
+def _parse_pytest_ini(payload: bytes) -> tuple[list[str], list[str], list[str]]:
+    parser = configparser.ConfigParser()
+    parser.read_string(payload.decode("utf-8"))
+    section = parser["pytest"]
+    testpaths = section.get("testpaths", "").split()
+    addopts = section.get("addopts", "").split()
+    ignored = sorted(
+        token.split("=", 1)[1]
+        for token in addopts
+        if token.startswith("--ignore=")
+    )
+    norecursedirs = section.get("norecursedirs", "").split()
+    return testpaths, ignored, norecursedirs
+
+
+def _under_configured_root(path: str, testpaths: list[str]) -> bool:
+    for configured in testpaths:
+        configured = configured.rstrip("/")
+        if path == configured or path.startswith(f"{configured}/"):
+            return True
+    return False
+
+
+def _taxonomy_indexes(
+    taxonomy: dict[str, Any],
+) -> tuple[dict[str, list[dict[str, Any]]], dict[str, dict[str, Any]]]:
+    by_source: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    by_id: dict[str, dict[str, Any]] = {}
+    for row in taxonomy["rows"]:
+        by_source[row["source_file"]].append(row)
+        by_id[row["test_id"]] = row
+    return by_source, by_id
+
+
+def _required_test_ids(manifest: dict[str, Any]) -> set[str]:
+    return {
+        row["test_id"]
+        for row in manifest.get("required_tests", [])
+        if row.get("required") is True
+    }
+
+
+def _imports(
+    source: bytes,
+    source_path: str,
+    *,
+    current_module: str | None = None,
+    current_is_package: bool = False,
+) -> list[tuple[str, bool]]:
+    try:
+        tree = ast.parse(source, filename=source_path)
+    except SyntaxError as exc:
+        raise CleanCheckoutError(f"cannot parse {source_path}: {exc}") from exc
+    modules: set[tuple[str, bool]] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            modules.update((alias.name, False) for alias in node.names)
+        elif isinstance(node, ast.ImportFrom):
+            if node.level == 0:
+                base = node.module
+            elif current_module:
+                package_parts = current_module.split(".")
+                if not current_is_package:
+                    package_parts = package_parts[:-1]
+                trim_count = node.level - 1
+                if trim_count:
+                    package_parts = package_parts[:-trim_count]
+                if node.module:
+                    package_parts.extend(node.module.split("."))
+                base = ".".join(package_parts)
+            else:
+                base = None
+            if base:
+                modules.add((base, False))
+                modules.update(
+                    (f"{base}.{alias.name}", True)
+                    for alias in node.names
+                    if alias.name != "*"
+                )
+    return sorted(modules)
+
+
+def _module_candidates(module: str) -> list[str]:
+    module_path = module.replace(".", "/")
+    candidates: list[str] = []
+    for prefix in REPOSITORY_IMPORT_PREFIXES:
+        joined = f"{prefix}/{module_path}" if prefix else module_path
+        candidates.extend((f"{joined}.py", f"{joined}/__init__.py"))
+    return candidates
+
+
+def _resolve_repository_module(
+    module: str,
+    tracked: set[str],
+    discovery_root: Path | None,
+) -> dict[str, Any]:
+    candidates = _module_candidates(module)
+    for candidate in candidates:
+        if candidate in tracked:
+            return {
+                "resolved_path": candidate,
+                "tracking_state": "tracked",
+                "dependency_class": "required_tracked_source",
+                "provenance": "exact_subject_tree",
+            }
+    for prefix in REPOSITORY_IMPORT_PREFIXES:
+        joined = (
+            f"{prefix}/{module.replace('.', '/')}"
+            if prefix
+            else module.replace(".", "/")
+        )
+        if any(path.startswith(f"{joined}/") for path in tracked):
+            return {
+                "resolved_path": f"{joined}/",
+                "tracking_state": "tracked",
+                "dependency_class": "required_tracked_source",
+                "provenance": "exact_subject_tree_namespace_package",
+            }
+    if discovery_root is not None:
+        for candidate in candidates:
+            ambient_path = discovery_root / candidate
+            if ambient_path.is_file():
+                return {
+                    "resolved_path": candidate,
+                    "tracking_state": "ambient_untracked_or_ignored_candidate",
+                    "dependency_class": "required_tracked_source",
+                    "provenance": {
+                        "discovery_path": ambient_path.as_posix(),
+                        "sha256": sha256_file(ambient_path),
+                    },
+                }
+        for prefix in REPOSITORY_IMPORT_PREFIXES:
+            joined = (
+                f"{prefix}/{module.replace('.', '/')}"
+                if prefix
+                else module.replace(".", "/")
+            )
+            ambient_directory = discovery_root / joined
+            if ambient_directory.is_dir():
+                return {
+                    "resolved_path": f"{joined}/",
+                    "tracking_state": "ambient_untracked_or_ignored_candidate",
+                    "dependency_class": "required_tracked_source",
+                    "provenance": {
+                        "discovery_path": ambient_directory.as_posix(),
+                        "sha256": None,
+                    },
+                }
+    top_level = module.split(".", 1)[0]
+    if top_level in sys.stdlib_module_names:
+        return {
+            "resolved_path": None,
+            "tracking_state": "external_environment",
+            "dependency_class": "external_environment_dependency",
+            "provenance": "python_standard_library",
+        }
+    if top_level in {"pytest", "_pytest"}:
+        return {
+            "resolved_path": None,
+            "tracking_state": "external_environment",
+            "dependency_class": "external_environment_dependency",
+            "provenance": "frozen_external_environment_receipt",
+        }
+    return {
+        "resolved_path": None,
+        "tracking_state": "unresolved",
+        "dependency_class": "unresolved",
+        "provenance": "static_import_resolution_found_no_tracked_or_discovery_candidate",
+    }
+
+
+def build_source_census(
+    repo: Path,
+    commit: str,
+    output_root: Path,
+    discovery_root: Path | None,
+) -> dict[str, Any]:
+    subject = git_identity(repo, commit)
+    commit = subject["commit"]
+    paths = tracked_paths(repo, commit)
+    tracked = set(paths)
+    sources = _test_sources(paths)
+    taxonomy = json_at_commit(repo, commit, TAXONOMY_PATH)
+    required_manifest = json_at_commit(repo, commit, REQUIRED_MANIFEST_PATH)
+    taxonomy_by_source, taxonomy_by_id = _taxonomy_indexes(taxonomy)
+    required_ids = _required_test_ids(required_manifest)
+    testpaths, ignored_paths, norecursedirs = _parse_pytest_ini(
+        bytes_at_commit(repo, commit, PYTEST_INI_PATH)
+    )
+
+    source_rows: list[dict[str, Any]] = []
+    dependency_rows: list[dict[str, Any]] = []
+    required_sources = {
+        row["source_file"]
+        for test_id, row in taxonomy_by_id.items()
+        if test_id in required_ids
+    }
+
+    for source_path in sources:
+        taxonomy_rows = taxonomy_by_source.get(source_path, [])
+        source_rows.append(
+            {
+                "source_path": source_path,
+                "source_blob_id": blob_id(repo, commit, source_path),
+                "configured_pytest_root": _under_configured_root(
+                    source_path, testpaths
+                ),
+                "explicit_pytest_ignore": source_path in ignored_paths,
+                "taxonomy_contract_classes": sorted(
+                    {row["contract_class"] for row in taxonomy_rows}
+                ),
+                "taxonomy_identity_count": len(taxonomy_rows),
+                "required_manifest_member": source_path in required_sources,
+                "discovery_state": "tracked_source_not_live_collected",
+            }
+        )
+        visited_modules: set[tuple[str, str | None]] = set()
+
+        def visit_module(
+            module: str,
+            optional_submodule: bool,
+            depth: int,
+            parent_module: str | None,
+        ) -> None:
+            resolved = _resolve_repository_module(
+                module, tracked, discovery_root
+            )
+            if (
+                optional_submodule
+                and resolved["tracking_state"] == "unresolved"
+            ):
+                return
+            visit_key = (module, resolved["resolved_path"])
+            if visit_key in visited_modules:
+                return
+            visited_modules.add(visit_key)
+            dependency_rows.append(
+                {
+                    "test_source": source_path,
+                    "import_module": module,
+                    "dependency_depth": depth,
+                    "parent_module": parent_module,
+                    **resolved,
+                }
+            )
+            resolved_path = resolved["resolved_path"]
+            if (
+                not resolved_path
+                or not resolved_path.endswith(".py")
+                or resolved["tracking_state"]
+                not in {"tracked", "ambient_untracked_or_ignored_candidate"}
+            ):
+                return
+            if resolved["tracking_state"] == "tracked":
+                module_source = bytes_at_commit(repo, commit, resolved_path)
+            elif discovery_root is not None:
+                module_source = (discovery_root / resolved_path).read_bytes()
+            else:
+                return
+            for child_module, child_optional in _imports(
+                module_source,
+                resolved_path,
+                current_module=module,
+                current_is_package=resolved_path.endswith("/__init__.py"),
+            ):
+                visit_module(
+                    child_module,
+                    child_optional,
+                    depth + 1,
+                    module,
+                )
+
+        for module, optional_submodule in _imports(
+            bytes_at_commit(repo, commit, source_path), source_path
+        ):
+            visit_module(module, optional_submodule, 0, None)
+
+    source_inventory = {
+        "schema_version": "iris-clean-checkout-test-inventory-v1",
+        "inventory_state": "source_census_pending_live_collection",
+        "subject": subject,
+        "pytest_configuration": {
+            "testpaths": testpaths,
+            "explicit_ignores": ignored_paths,
+            "norecursedirs": norecursedirs,
+        },
+        "source_rows": source_rows,
+        "identity_rows": [],
+        "collection_errors": [],
+        "counts": {
+            "tracked_test_source_count": len(source_rows),
+            "configured_root_source_count": sum(
+                row["configured_pytest_root"] for row in source_rows
+            ),
+            "outside_configured_root_source_count": sum(
+                not row["configured_pytest_root"] for row in source_rows
+            ),
+            "explicitly_ignored_source_count": sum(
+                row["explicit_pytest_ignore"] for row in source_rows
+            ),
+            "taxonomy_fallback_identity_count": sum(
+                row["taxonomy_identity_count"] for row in source_rows
+            ),
+            "live_collection_identity_count": 0,
+        },
+    }
+    dependency_ledger = {
+        "schema_version": "iris-clean-checkout-dependency-edge-ledger-v1",
+        "ledger_state": "static_import_census",
+        "subject": subject,
+        "edges": dependency_rows,
+        "counts": {
+            "edge_count": len(dependency_rows),
+            "tracked_dependency_edge_count": sum(
+                row["tracking_state"] == "tracked"
+                for row in dependency_rows
+            ),
+            "external_environment_edge_count": sum(
+                row["tracking_state"] == "external_environment"
+                for row in dependency_rows
+            ),
+            "ambient_dependency_candidate_edge_count": sum(
+                row["tracking_state"]
+                == "ambient_untracked_or_ignored_candidate"
+                for row in dependency_rows
+            ),
+            "unresolved_edge_count": sum(
+                row["tracking_state"] == "unresolved"
+                for row in dependency_rows
+            ),
+        },
+    }
+
+    inventory_path = output_root / "test_inventory.json"
+    dependency_path = output_root / "dependency_edge_ledger.json"
+    inventory_sha256 = write_json_external(
+        repo, inventory_path, source_inventory
+    )
+    dependency_sha256 = write_json_external(
+        repo, dependency_path, dependency_ledger
+    )
+    d0_manifest = {
+        "schema_version": "iris-clean-checkout-d0-manifest-v1",
+        "manifest_state": "source_census_pending_live_collection",
+        "subject": subject,
+        "test_inventory": {
+            "path": inventory_path.as_posix(),
+            "sha256": inventory_sha256,
+        },
+        "dependency_edge_ledger": {
+            "path": dependency_path.as_posix(),
+            "sha256": dependency_sha256,
+        },
+        "tracked_test_source_count": len(source_rows),
+        "live_collection_identity_count": None,
+        "d0_frozen": False,
+        "tests_executed": False,
+    }
+    d0_path = output_root / "d0_manifest.json"
+    d0_sha256 = write_json_external(repo, d0_path, d0_manifest)
+    return {
+        "subject": subject,
+        "test_inventory_path": inventory_path.as_posix(),
+        "test_inventory_sha256": inventory_sha256,
+        "dependency_edge_ledger_path": dependency_path.as_posix(),
+        "dependency_edge_ledger_sha256": dependency_sha256,
+        "d0_manifest_path": d0_path.as_posix(),
+        "d0_manifest_sha256": d0_sha256,
+        "counts": {
+            **source_inventory["counts"],
+            **dependency_ledger["counts"],
+        },
+    }
+
+
+def _parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers(dest="command", required=True)
+    source = subparsers.add_parser("source-census")
+    source.add_argument("--repo", required=True)
+    source.add_argument("--commit", required=True)
+    source.add_argument("--output-root", required=True)
+    source.add_argument("--discovery-root")
+    return parser
+
+
+def main() -> int:
+    args = _parser().parse_args()
+    try:
+        repo = resolved_repo(args.repo)
+        output_root = ensure_external_root(repo, args.output_root)
+        discovery_root = (
+            Path(args.discovery_root).resolve()
+            if args.discovery_root
+            else None
+        )
+        result = build_source_census(
+            repo, args.commit, output_root, discovery_root
+        )
+    except (CleanCheckoutError, OSError, ValueError, json.JSONDecodeError) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 2
+    print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

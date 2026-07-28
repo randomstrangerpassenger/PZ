@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://iris.invalid/schemas/clean-checkout/dependency-edge-ledger-v1",
+  "title": "Iris Clean-Checkout Dependency Edge Ledger",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "ledger_state",
+    "subject",
+    "edges",
+    "counts"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "iris-clean-checkout-dependency-edge-ledger-v1"
+    },
+    "ledger_state": {
+      "enum": [
+        "static_import_census",
+        "runtime_complete"
+      ]
+    },
+    "subject": {
+      "type": "object",
+      "required": [
+        "commit",
+        "tree"
+      ]
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "test_source",
+          "import_module",
+          "resolved_path",
+          "tracking_state",
+          "dependency_class",
+          "provenance"
+        ],
+        "properties": {
+          "tracking_state": {
+            "enum": [
+              "tracked",
+              "external_environment",
+              "ambient_untracked_or_ignored_candidate",
+              "unresolved"
+            ]
+          },
+          "dependency_class": {
+            "enum": [
+              "required_tracked_source",
+              "external_environment_dependency",
+              "unresolved"
+            ]
+          }
+        }
+      }
+    },
+    "counts": {
+      "type": "object"
+    }
+  }
+}

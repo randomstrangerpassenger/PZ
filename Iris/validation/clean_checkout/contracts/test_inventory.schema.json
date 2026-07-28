@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://iris.invalid/schemas/clean-checkout/test-inventory-v1",
+  "title": "Iris Clean-Checkout Test Inventory",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "inventory_state",
+    "subject",
+    "pytest_configuration",
+    "source_rows",
+    "identity_rows",
+    "collection_errors",
+    "counts"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "iris-clean-checkout-test-inventory-v1"
+    },
+    "inventory_state": {
+      "enum": [
+        "source_census_pending_live_collection",
+        "live_collection"
+      ]
+    },
+    "subject": {
+      "$ref": "#/$defs/git_identity"
+    },
+    "pytest_configuration": {
+      "type": "object"
+    },
+    "source_rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "source_path",
+          "source_blob_id",
+          "configured_pytest_root",
+          "explicit_pytest_ignore",
+          "taxonomy_contract_classes",
+          "taxonomy_identity_count",
+          "required_manifest_member",
+          "discovery_state"
+        ]
+      }
+    },
+    "identity_rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "node_id",
+          "normalized_test_id",
+          "source_path",
+          "source_blob_id",
+          "contract_class",
+          "route_projection",
+          "selection_reason",
+          "identity_source"
+        ],
+        "properties": {
+          "identity_source": {
+            "enum": [
+              "live_collection",
+              "preserved_receipt",
+              "taxonomy_fallback"
+            ]
+          }
+        }
+      }
+    },
+    "collection_errors": {
+      "type": "array"
+    },
+    "counts": {
+      "type": "object"
+    }
+  },
+  "$defs": {
+    "git_identity": {
+      "type": "object",
+      "required": [
+        "commit",
+        "tree"
+      ],
+      "properties": {
+        "commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "tree": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        }
+      }
+    }
+  }
+}

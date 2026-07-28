@@ -428,6 +428,14 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * closed readpoint를 재개방하려면 새 입력 authority, 명시적 successor / correction scope, 또는 별도 approved plan이 필요하다.
   * 개별 closeout 근거만으로 release readiness / Workshop readiness / B42 readiness / deployment readiness / semantic quality completion / public-facing text quality acceptance를 선언하지 않는다.
 
+* Clean-Checkout Full-Required-Repository validation 재현성 부채를 닫고 four-plan global stage G1을 release했다.
+
+  * V0 `2a1741ce2e3ab85b0e5744f88b8a72a5a031b4db`의 tracked test inventory를 기준으로 67개 테스트 소스를 required 25 / historical optional 39 / obsolete-or-misrouted 3으로 전부 분류했다.
+  * required gate는 pytest 130개와 standalone validation 4개이며, 저장소 외부 disposable checkout의 Run A/B가 모두 exit code 0으로 통과하고 canonical result SHA-256 `9c01275ea1366ef9d5855e456aad67bff0e6dfcfc23997888014efe527672288`로 일치했다.
+  * pre-existing ignored/local residue requirement, missing required source/tool, unresolved dependency, authority-role ambiguity, broad unignore, assertion weakening, source checkout post-run residue는 모두 0이다.
+  * OR-07 독립 운영자 절차와 OR-08 관리자 권한/Windows auditing 절차는 폐기 상태이며 terminal claim에 포함하지 않는다.
+  * append-only `g1_release_receipt_0001.json`이 `clean_validation_terminal_pass=true`와 `downstream_unblock_target=G2_food_semantic_facts_authority`를 공통 계약 `iris_aa49_four_plan_execution_sync_v1`에 결속한다.
+
 ## Doing
 
 * Iris는 vanilla-first MVP를 **DVF System body production / DVF Body Compiler + Tooltip / Browser 표시면 검증** 중심으로 유지한다.
@@ -532,6 +540,12 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * 내부 `.Iris` 정규화, 외부 JSON / SQLite 입출력 정책은 별도 scope에서 다룬다.
 
 ## Next
+
+* four-plan global order의 다음 단계는 `G2_food_semantic_facts_authority`다.
+
+  * G2는 `g1_release_receipt_0001.json`의 exact path/hash와 공통 sync contract ID를 entry input으로 검증한 뒤 fresh Change 0에서 시작한다.
+  * `attempt-0007`을 재사용하지 않으며, G1 release를 Food semantic 승인이나 Registry current adoption으로 확대하지 않는다.
+  * G2의 산출물 상한은 sealed non-current successor와 terminal closeout이다. Registry operational cutover는 별도 G3 단계가 소유한다.
 
 * Iris refactoring v4.1 완료본을 packaging / release-note / commit 단계로 넘길지 별도 scope로 결정한다.
 

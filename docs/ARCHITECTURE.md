@@ -331,6 +331,34 @@ Iris의 정보 생산과 표시는 다음 책임으로 분리한다.
 
 즉, **분류는 Classification / Rule, 문장화는 Description, 표시는 Browser / Tooltip / Wiki, 외부 fact 생산은 추출기 계층**이 맡는다.
 
+### Clean-checkout validation / 재현성 권위
+
+Iris의 repository-level 검증 재현성은 Food Semantic Facts Authority, DVF Body Compiler, Artifact Registry, Naturalization, Publish Boundary가 대신 소유하지 않는다. 별도 `Iris Repository Validation / Clean-Checkout Reproducibility Authority`가 다음 경계를 소유한다.
+
+```text
+exact tracked commit
+-> commit-bound tracked test inventory와 authority-class 분류
+-> tracked hermetic fixture / deterministic materialization bootstrap
+-> repository-external disposable checkout Run A
+-> repository-external disposable checkout Run B
+-> canonical result equality와 source/work-root cleanliness
+-> append-only closeout
+-> G1 release receipt
+```
+
+이 권위의 mandatory denominator는 과거 실행의 고정 test count가 아니다. exact commit에서 다음 항목을 합성하고 inventory hash로 봉인한다.
+
+- current `ok` taxonomy identity
+- 명시적으로 유지되는 repository-level pytest identity
+- 명시적으로 유지되는 standalone validation
+- 모든 tracked test source의 `required_tracked_source`, `historical_optional_evidence`, `obsolete_or_misrouted_test_dependency` 분류
+
+테스트에 필요한 current-looking staging 또는 package 입력은 기존 개발자 worktree의 ignored residue에서 읽지 않는다. 실제 authority를 가장하지 않는 tracked hermetic fixture나 exact subject의 tracked 입력에서 생성하는 deterministic materialization만 disposable checkout 안에 만들 수 있다. generated output, cache, staging mutation과 test residue는 source checkout에 기록하지 않으며 execution checkout 폐기와 함께 제거한다.
+
+Windows에서는 Git `core.longpaths`만으로 Python consumer의 일반 경로 제한이 사라진다고 가정하지 않는다. execution checkout root에 짧은 fail-closed path budget을 적용하고, source checkout과 result/work root를 분리한다.
+
+현재 봉인된 readpoint는 V0 `2a1741ce2e3ab85b0e5744f88b8a72a5a031b4db`, Run A/B canonical result SHA-256 `9c01275ea1366ef9d5855e456aad67bff0e6dfcfc23997888014efe527672288`, G1 receipt `Iris/validation/clean_checkout/authority/g1_release_receipt_0001.json`이다. G1 release는 공통 계약 `iris_aa49_four_plan_execution_sync_v1`에서 `G2_food_semantic_facts_authority`의 시작 blocker만 제거한다. Food semantic 승인, Registry cutover, Naturalization, Publish Boundary, package 또는 release authority를 부여하지 않는다.
+
 ### Source / Action / Outcome / Evidence 원칙
 
 Iris는 행동 자체를 canonical evidence로 쓰지 않는다.

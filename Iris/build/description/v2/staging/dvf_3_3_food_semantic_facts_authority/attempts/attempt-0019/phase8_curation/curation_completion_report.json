@@ -1,0 +1,33 @@
+{
+  "authority_completion_claimed": false,
+  "curated_approval_detector_fixture_pass": true,
+  "curated_authority_emitted_during_implementation_count": 0,
+  "curation_batch_exact_member_expansion_fixture_pass": true,
+  "curation_crash_boundary_fixture_results": {
+    "crash_after_ledger_before_checkpoint_failed_loud": true,
+    "crash_before_commit_preserved_state": true,
+    "explicitly_resealed_checkpoint_matches_ledger": true,
+    "resume_replayed_append_only_ledger": true
+  },
+  "curation_crash_boundary_fixtures_pass": true,
+  "curation_rejection_rework_fixture_pass": true,
+  "curation_rejection_rework_fixture_result": {
+    "duplicate_replay_count": 6,
+    "final_state": "accepted",
+    "rejected_event_preserved": true,
+    "rework_event_preserved": true,
+    "status": "PASS"
+  },
+  "curation_resume_idempotence_fixture_pass": true,
+  "curation_workflow_option_implementations_complete": true,
+  "duplicate_replay_event_count_detected_and_ignored": 634,
+  "initial_checkpoint_validation": {
+    "checkpoint_hash_match": true,
+    "duplicate_event_count": 0,
+    "event_count": 634,
+    "state_count": 634,
+    "status": "PASS"
+  },
+  "status": "IMPLEMENTATION_READY",
+  "unapproved_curation_packet_generation_complete": true
+}

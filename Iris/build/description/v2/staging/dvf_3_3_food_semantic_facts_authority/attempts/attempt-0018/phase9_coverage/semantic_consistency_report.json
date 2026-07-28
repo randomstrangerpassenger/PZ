@@ -1,0 +1,13 @@
+{
+  "automatic_axis_distribution": {
+    "culinary_role": 23,
+    "preparation_requirement": 52,
+    "preparation_state": 1,
+    "preservation_form": 8
+  },
+  "automatic_lineage_missing_count": 0,
+  "automatic_proposition_count": 84,
+  "detector_positive_fixtures_pass": true,
+  "phase9_validator_implementation_complete": true,
+  "status": "PASS"
+}

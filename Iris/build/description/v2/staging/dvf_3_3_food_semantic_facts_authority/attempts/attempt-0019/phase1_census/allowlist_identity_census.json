@@ -1,0 +1,13 @@
+{
+  "document": {
+    "byte_count": 4781,
+    "path": "Iris/_docs/iris-evidence-allowlist.md",
+    "sha256": "da2e260346eafbf122f30a35e208003fa501d083f103e4f272c65cf7b2f161fa"
+  },
+  "document_heading_version": "0.4",
+  "document_history_latest_version": "0.5",
+  "document_version_divergence_present": true,
+  "machine": null,
+  "machine_contract_missing_at_g0_v0": true,
+  "machine_declared_version": null
+}

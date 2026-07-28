@@ -1,0 +1,15 @@
+{
+  "anonymous_approval_allowed": false,
+  "authority_class": "curated",
+  "batch_member_expansion_required": true,
+  "checkpoint_hash_binding_required": true,
+  "current_facts_direct_edit_allowed": false,
+  "event_ledger_append_only": true,
+  "implicit_bulk_approval_allowed": false,
+  "layer4_automatic_lineage_allowed": false,
+  "layer4_if_D5_approved": "human_review_context_only",
+  "out_of_schema_route": "schema_amendment_new_attempt",
+  "rejected_proposition_deletion_allowed": false,
+  "schema_version": "food-semantic-curation-policy-v1",
+  "status": "implementation_proposal_pending_owner_decisions_D5_to_D8"
+}

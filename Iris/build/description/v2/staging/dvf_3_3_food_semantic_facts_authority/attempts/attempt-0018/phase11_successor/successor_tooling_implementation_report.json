@@ -1,0 +1,10 @@
+{
+  "authority_successor_sealed_during_implementation": false,
+  "current_facts_mutation_count": 0,
+  "current_manifest_mutation_count": 0,
+  "protected_surface_changed_count": 0,
+  "registry_adoption_receipt_emitted_count": 0,
+  "rendered_lua_runtime_package_change": 0,
+  "status": "PASS",
+  "successor_tooling_implementation_complete": true
+}

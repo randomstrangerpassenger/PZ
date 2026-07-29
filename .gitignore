@@ -319,6 +319,9 @@ Iris/build/description/v2/tools/build/*
 !Iris/build/description/v2/tools/build/public_text_quality_foundation_rebind.py
 !Iris/build/description/v2/tools/build/run_public_text_quality_foundation_rebind.py
 !Iris/build/description/v2/tools/build/validate_public_text_quality_foundation_rebind.py
+!Iris/build/description/v2/tools/build/public_text_quality_foundation_rebind_correction_0003.py
+!Iris/build/description/v2/tools/build/run_public_text_quality_foundation_rebind_correction_0003.py
+!Iris/build/description/v2/tools/build/validate_public_text_quality_foundation_rebind_correction_0003.py
 !Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_work_lexeme_preservation.py
 !Iris/build/description/v2/tests/
 Iris/build/description/v2/tests/*

@@ -1,0 +1,304 @@
+{
+  "authority_effect": "none",
+  "candidate_content_dependency_count": 0,
+  "candidate_metric_dependency_count": 0,
+  "execution_start_readpoint": {
+    "commit": "00e23806c5dd6d220982604128ad50fadca3372c",
+    "exact_head_required_for_build": true,
+    "start_commit_is_ancestor_of_validation_head": true,
+    "tree": "f1acec6b1795a1a91e904a12893a9cb2b8adbd8d"
+  },
+  "foundation_contract_semantics_changed": false,
+  "foundation_validator_semantics_changed": false,
+  "immutable_foundation": {
+    "foundation_commit": "93db1acbfe31949760acef8e388ad07708e54e57",
+    "foundation_contract": {
+      "git_blob_id": "b18b9d6067bdd4aa1bf94755f91f24c0cd1deea4",
+      "git_blob_sha256": "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02",
+      "git_blob_working_byte_identity": true,
+      "ignored_by_current_rules": false,
+      "path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json",
+      "sha256": "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02",
+      "tracked": true,
+      "working_raw_blob_id": "b18b9d6067bdd4aa1bf94755f91f24c0cd1deea4"
+    },
+    "foundation_contract_canonical_sha256": "70e7261ad4fec51cf385a5182d8f23e1e72e1ac90dbd7638f37fd89a9b919e47",
+    "foundation_contract_mutated": false,
+    "foundation_meaning_changed": false,
+    "foundation_readiness": {
+      "git_blob_id": "160aaf8033ffafab98586cbd063a4d9f1bd7af0c",
+      "git_blob_sha256": "34419a8093970c7ffc68d3d968ff90207f63c512971ae9ada87f90cff7f2d263",
+      "git_blob_working_byte_identity": true,
+      "ignored_by_current_rules": false,
+      "path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_development_readiness_report.json",
+      "sha256": "34419a8093970c7ffc68d3d968ff90207f63c512971ae9ada87f90cff7f2d263",
+      "tracked": true,
+      "working_raw_blob_id": "160aaf8033ffafab98586cbd063a4d9f1bd7af0c"
+    },
+    "foundation_readiness_mutated": false,
+    "foundation_tree": "19f522a0d47e295bbbfc84644bf0edeb0c30c0f9",
+    "meaning_path_count": 17,
+    "meaning_path_mismatch_count": 0,
+    "meaning_paths": [
+      {
+        "git_blob_id": "0d68889f291fd08f339257e6e50eae47f1943070",
+        "git_filtered_working_identity": true,
+        "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py",
+        "predecessor_current_blob_identity": true
+      },
+      {
+        "git_blob_id": "5130822f7d06b9a11e343a3a9c3ce8756005766f",
+        "git_filtered_working_identity": true,
+        "path": "Iris/build/description/v2/tools/build/run_public_text_quality_acceptance.py",
+        "predecessor_current_blob_identity": true
+      },
+      {
+        "git_blob_id": "f2403bf0d036fc7daa4170e7fe887bd22f24add2",
+        "git_filtered_working_identity": true,
+        "path": "Iris/build/description/v2/tools/build/validate_public_text_quality_acceptance.py",
+        "predecessor_current_blob_identity": true
+      },
+      {
+        "git_blob_id": "45f65f593be2ace6e1909e3d9a35988d497f8e70",
+        "git_filtered_working_identity": true,
+        "path": "Iris/build/description/v2/tests/test_public_text_quality_metric_contract.py",
+        "predecessor_current_blob_identity": true
+      },
+      {
+        "git_blob_id": "38e933b013236db50932a8b677a1f77d96486507",
+        "git_filtered_working_identity": true,
+        "path": "Iris/build/description/v2/tests/test_public_text_quality_acceptance_policy.py",
+        "predecessor_current_blob_identity": true
+      },
+      {
+        "git_blob_id": "066a0e4686ab4de95eed2d9a323febd3464b2c3e",
+        "git_filtered_working_identity": true,
+        "path": "Iris/build/description/v2/tests/test_public_text_quality_acceptance.py",
+        "predecessor_current_blob_identity": true
+      },
+      {
+        "git_blob_id": "7b7c7c9b14adb6fdbb6a9fdc6a7aa2b74671fe20",
+        "git_filtered_working_identity": true,
+        "path": "Iris/build/description/v2/tests/test_public_text_quality_acceptance_fixtures.py",
+        "predecessor_current_blob_identity": true
+      },
+      {
+        "git_blob_id": "8d8884afeda8acbffcbb08e738e5951ab5598c6a",
+        "git_filtered_working_identity": true,
+        "path": "Iris/build/description/v2/tests/fixtures/public_text_quality_acceptance/foundation_fixtures.json",
+        "predecessor_current_blob_identity": true
+      },
+      {
+        "git_blob_id": "f74a4017a90d945b05be6e411cd2c5ec9dc33d21",
+        "git_filtered_working_identity": true,
+        "path": "docs/public_text_quality_metric_contract.md",
+        "predecessor_current_blob_identity": true
+      },
+      {
+        "git_blob_id": "1d939db32513dc3b88338cb981d6903934589d04",
+        "git_filtered_working_identity": true,
+        "path": "docs/public_text_quality_denominator_contract.md",
+        "predecessor_current_blob_identity": true
+      },
+      {
+        "git_blob_id": "01350c7b5c88f03baeca47c18b8a467c32a97c68",
+        "git_filtered_working_identity": true,
+        "path": "docs/public_text_quality_acceptance_policy.md",
+        "predecessor_current_blob_identity": true
+      },
+      {
+        "git_blob_id": "774f90229c804a600ba3ea806178bfb75bee1e3d",
+        "git_filtered_working_identity": true,
+        "path": "docs/public_text_quality_acceptance_claim_boundary.md",
+        "predecessor_current_blob_identity": true
+      },
+      {
+        "git_blob_id": "eb92e05b31bba3b22beb56031c62e39e48f555ec",
+        "git_filtered_working_identity": true,
+        "path": "docs/public_text_quality_exception_policy.md",
+        "predecessor_current_blob_identity": true
+      },
+      {
+        "git_blob_id": "9bd472b9e49c4ec261231e070baae9c2d4617e11",
+        "git_filtered_working_identity": true,
+        "path": "docs/public_text_quality_waiver_policy.md",
+        "predecessor_current_blob_identity": true
+      },
+      {
+        "git_blob_id": "d1777edb851b75d4680751b1ca8693a4026faf7b",
+        "git_filtered_working_identity": true,
+        "path": "docs/public_text_quality_freshness_policy.md",
+        "predecessor_current_blob_identity": true
+      },
+      {
+        "git_blob_id": "b18b9d6067bdd4aa1bf94755f91f24c0cd1deea4",
+        "git_filtered_working_identity": true,
+        "path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json",
+        "predecessor_current_blob_identity": true
+      },
+      {
+        "git_blob_id": "160aaf8033ffafab98586cbd063a4d9f1bd7af0c",
+        "git_filtered_working_identity": true,
+        "path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_development_readiness_report.json",
+        "predecessor_current_blob_identity": true
+      }
+    ],
+    "projection_hash_count": 10,
+    "projection_hashes": {
+      "denominator_registry_candidate_hash": "d0d8e7ab3509ef634d61ab2c33b86bab5352f3fa94c7e85b28d667a04937ff4b",
+      "detector_mapping_candidate_hash": "dbfa7b0fbfe4effdc45fcfd983ab0dc65478f17988626af3590e1cbbd3a300f4",
+      "freshness_contract_hash": "580d70bb57c68fa0116cc9f87a1f060392f0b00b1c945922659dd5ddae178ad6",
+      "human_review_selection_contract_hash": "8f82450c07ae83e936c3011595ec55b77ade10230fa1556cfde8ed9ed84687d0",
+      "metric_registry_candidate_hash": "1c7c08e519e9db9bb60fee5c14c749d11af07cb2ddc2c70cd4af7592fadb31a3",
+      "policy_candidate_hash": "bf6e941f48eb2507b4da909b035b7e68d6351de6fdfc6043468b2533fb30cea3",
+      "required_handoff_schema_hash": "d78b8c6742d8b94b6aedd620e4c3b787f78e2ed83a202ad050eef1ec25379fe6",
+      "runner_validator_interface_hash": "d7796bffa5e854098887ac34f091fb556681678acf5430aab53ee8a02a55bb0d",
+      "synchronization_projection_hash": "85d9ec5507cbd2d4dcecd34dcd6c7bd6901cd26a3927d2a760d66121ac9cb1a7",
+      "upstream_prerequisite_binding_hash": "dfcb3d00db2ec12b0c7d193feb992a96964abdaa30459d533d26a7a9c0bc1776"
+    }
+  },
+  "live_gate_adopted": false,
+  "naturalization_prerequisites": {
+    "current_input_handoff_consumed_as_identity_only": true,
+    "fresh_naturalization_attempt_must_start_at_phase": 0,
+    "g4_development_readiness_rebound": true,
+    "naturalization_attempt_created": false,
+    "naturalization_phase2_through_phase8_executed": false
+  },
+  "next_stage": "fresh_naturalization_attempt_phase0",
+  "official_disposition": "not_issued",
+  "policy_closure_state": "not_started",
+  "predecessor_readiness_rebind": {
+    "append_only_successor_required": true,
+    "git_blob_id": "89acf644404a485b2db36dc9a63c6fa0f48668ea",
+    "git_blob_sha256": "c362c44b01cabc0937cbddc3843ca89e994ace0fbcacac8f75e61bfb604e8cc2",
+    "git_blob_working_byte_identity": true,
+    "ignored_by_current_rules": false,
+    "path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/readiness_successors/correction-0002/public_text_quality_development_readiness_current_input_rebind.json",
+    "predecessor_mutated": false,
+    "rebind_commit": "e61a65322dabb0fd98f8e66f1a2b376cecc57eda",
+    "rebind_id": "correction-0002",
+    "sha256": "c362c44b01cabc0937cbddc3843ca89e994ace0fbcacac8f75e61bfb604e8cc2",
+    "tracked": true,
+    "working_raw_blob_id": "89acf644404a485b2db36dc9a63c6fa0f48668ea"
+  },
+  "protected_no_write_guard": {
+    "after_snapshot_hash": "1ed8318195df03fad461c756688177b13b67d6a381532ef3d094d93b0a9d0439",
+    "before_snapshot_hash": "1ed8318195df03fad461c756688177b13b67d6a381532ef3d094d93b0a9d0439",
+    "changed_paths": [],
+    "protected_surface_mutation_count": 0,
+    "schema_version": "public_text_quality_foundation_rebind_no_write_guard_v1",
+    "source_rendered_lua_runtime_package_authority_effect": "none",
+    "status": "PASS"
+  },
+  "protected_surface_mutation_count": 0,
+  "publish_boundary": {
+    "live_publish_gate_mutated": false,
+    "official_publish_attempt_created": false,
+    "policy_ratified": false,
+    "public_text_candidate_evaluated": false
+  },
+  "purpose": "Bind immutable G4 Foundation readiness to correction-0003 current inputs without changing Foundation contract or evaluation semantics.",
+  "rebind_id": "correction-0003",
+  "rebind_implementation_hashes": [
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "Iris/build/description/v2/tools/build/public_text_quality_foundation_rebind.py",
+      "sha256": "9db605493da3da83e7f72980423b461b2710d58783b1ed6c60eb34f41567c3ff"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "Iris/build/description/v2/tools/build/public_text_quality_foundation_rebind_correction_0003.py",
+      "sha256": "d0b96fba9eb6292cf4f835f81cc5173c4b7ee80917e694dee5a20c4fd5449900"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "Iris/build/description/v2/tools/build/run_public_text_quality_foundation_rebind_correction_0003.py",
+      "sha256": "1077e71281e843358e5f20fc1f74eb18d927f416be84488bda99fe7aefb10fd6"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "Iris/build/description/v2/tools/build/validate_public_text_quality_foundation_rebind_correction_0003.py",
+      "sha256": "dc5b1da075132e5c6acd3c3db9590e6dd77e6174a5d8c6bded29bc5fdc4f6cad"
+    }
+  ],
+  "rebind_kind": "append_only_current_input_readiness_successor",
+  "registry_correction_adoption": {
+    "adoption_commit": "e56c2e0c94aed8f31a61cb27cd6e37f0037451c8",
+    "adoption_tree": "c5123b318267f0d3f47933422b292aec864b481d",
+    "adoption_tree_matches_commit": true,
+    "correction_adoption_receipt": {
+      "git_blob_id": "617f67e63a1e6905aecbdf018b15b4f5069f911b",
+      "git_blob_sha256": "312c9b8744e1925b120129402b4ff6834d551960c284af8e91dbdbca091a56b0",
+      "git_blob_working_byte_identity": true,
+      "ignored_by_current_rules": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0012/closeout/registry_correction_adoption_receipt.json",
+      "sha256": "312c9b8744e1925b120129402b4ff6834d551960c284af8e91dbdbca091a56b0",
+      "tracked": true,
+      "working_raw_blob_id": "617f67e63a1e6905aecbdf018b15b4f5069f911b"
+    },
+    "current_facts": {
+      "git_blob_id": "e5a26ea4f7e4f0e1c1633e2d230ee4b81482c685",
+      "git_blob_sha256": "50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120",
+      "git_blob_working_byte_identity": true,
+      "ignored_by_current_rules": false,
+      "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+      "sha256": "50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120",
+      "tracked": true,
+      "working_raw_blob_id": "e5a26ea4f7e4f0e1c1633e2d230ee4b81482c685"
+    },
+    "current_identity_ambiguity_count": 0,
+    "current_identity_report": {
+      "git_blob_id": "a7f3dfdcebd1ef78d95c75a0d66ebbd9aa8469d6",
+      "git_blob_sha256": "bdaf9a2cb3873bd33fe5517ecce410d3e243ff6d9765ac8ca37b4b4073d650d1",
+      "git_blob_working_byte_identity": true,
+      "ignored_by_current_rules": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0012/closeout/current_correction_identity_report.json",
+      "sha256": "bdaf9a2cb3873bd33fe5517ecce410d3e243ff6d9765ac8ca37b4b4073d650d1",
+      "tracked": true,
+      "working_raw_blob_id": "a7f3dfdcebd1ef78d95c75a0d66ebbd9aa8469d6"
+    },
+    "current_manifest": {
+      "git_blob_id": "85cd848147c42e4229acaa0a597e891fc4b2b738",
+      "git_blob_sha256": "090381a652da540c6e72300624728aba48f6392e41fb50e8eec973efd320b9b7",
+      "git_blob_working_byte_identity": true,
+      "ignored_by_current_rules": false,
+      "path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+      "sha256": "090381a652da540c6e72300624728aba48f6392e41fb50e8eec973efd320b9b7",
+      "tracked": true,
+      "working_raw_blob_id": "85cd848147c42e4229acaa0a597e891fc4b2b738"
+    },
+    "forbidden_scope_execution_count": 0,
+    "naturalization_current_input_handoff": {
+      "git_blob_id": "dcfb590f437e6ac287912109d29d0f1189b8d5a3",
+      "git_blob_sha256": "bfa14583f524f99a75e88d4b6eaddfa146544cba9124cf09214a13a38c7d7750",
+      "git_blob_working_byte_identity": true,
+      "ignored_by_current_rules": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0012/handoff/naturalization_current_input_handoff.json",
+      "sha256": "bfa14583f524f99a75e88d4b6eaddfa146544cba9124cf09214a13a38c7d7750",
+      "tracked": true,
+      "working_raw_blob_id": "dcfb590f437e6ac287912109d29d0f1189b8d5a3"
+    },
+    "partial_or_dual_current_count": 0,
+    "registry_cutover_attempt_id": "attempt-0012",
+    "successor_id": "correction-0003",
+    "terminal_correction_seal": {
+      "git_blob_id": "6f7e5320bfd371a86b3f605cbddbd5e7fbb9de33",
+      "git_blob_sha256": "03dea1902f1d219b227b2b69cb88742f1005e3620cdcdee2b72ba811d1bd20fb",
+      "git_blob_working_byte_identity": true,
+      "ignored_by_current_rules": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0012/closeout/terminal_correction_hash_seal.json",
+      "sha256": "03dea1902f1d219b227b2b69cb88742f1005e3620cdcdee2b72ba811d1bd20fb",
+      "tracked": true,
+      "working_raw_blob_id": "6f7e5320bfd371a86b3f605cbddbd5e7fbb9de33"
+    }
+  },
+  "runtime_boundary": {
+    "package_mutated": false,
+    "rtc_executed": false,
+    "runtime_mutated": false,
+    "runtime_package_publication_claim_effect": "none_fail_closed_out_of_scope"
+  },
+  "schema_version": "public_text_quality_foundation_current_input_rebind_v3",
+  "status": "PASS"
+}

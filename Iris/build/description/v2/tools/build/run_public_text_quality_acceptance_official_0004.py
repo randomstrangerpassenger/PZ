@@ -14,6 +14,7 @@ from public_text_quality_acceptance_official_0004 import (
 
 
 MODES = (
+    "phase0-no-write-preflight",
     "phase0-binding",
     "phase1-contracts",
     "phase2-policy",

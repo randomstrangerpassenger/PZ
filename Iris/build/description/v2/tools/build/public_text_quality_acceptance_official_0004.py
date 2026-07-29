@@ -10,16 +10,19 @@ import public_text_quality_acceptance as base
 
 
 ATTEMPT_ID = "attempt-0004-official"
-START_COMMIT = "c30fb926d8c4a9035b314f6f0c6ca1734b5f77e1"
-START_TREE = "8d8672bc6ea144789c203fad32cd1136030b5074"
+START_COMMIT = "736fa7c05471a8e9adc35533b7d212b4311d1233"
+START_TREE = "dbc34059ae76e25cbe6d1d8d7f99c5af92349aea"
 EVALUATION_SUBJECT_KIND = "dvf_3_3_korean_naturalization_candidate"
-NATURALIZATION_ATTEMPT_ID = "attempt-0022-particle-correction-a"
+NATURALIZATION_ATTEMPT_ID = "attempt-0023-compiler-identity-v2-a"
 
 FOUNDATION_CONTRACT_SHA256 = (
     "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02"
 )
 G4_READINESS_SHA256 = (
-    "912f28b7869ff92ff7fbd84cbdc31e1fbb22923beebbfcce2c9cc78b72eca9d2"
+    "abe9ce479647ed1f126a3c11ab5dd7c9c11afdd1c757fd68241eef58f8095e25"
+)
+G4_PREDECESSOR_READINESS_SHA256 = (
+    "1257393ad67dbab62ae9c6159ab6b5b680cf61967aa5f212306f36986336a7b3"
 )
 CURRENT_FACTS_SHA256 = (
     "50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120"
@@ -28,19 +31,25 @@ CURRENT_MANIFEST_SHA256 = (
     "090381a652da540c6e72300624728aba48f6392e41fb50e8eec973efd320b9b7"
 )
 PHASE8_HANDOFF_SHA256 = (
-    "4268a419663fcae51370a92ee0c21cc09b9b6c7eace4ed602cec51f8c484fdbf"
+    "2cf743005bacb939a830bd04b448a061220f58fcbd64b745c8cf00972082a9c6"
 )
 PHASE8_CLOSEOUT_SHA256 = (
-    "ffb54dca9b33be3180fdba44bc5c601be6829985e6572102c22425b4cda9b0db"
+    "e8df68e1d7cd47d66001041df1b7c57ee024b5cd23795889fb32efb7297e0d41"
 )
 TERMINAL_CLOSEOUT_SHA256 = (
-    "083d2f6e4d0284d6e1e6e9c37fb829c742ee288421f588f3d3ea72b7f911db7b"
+    "368847892c7a24c57469b47f8e16504f5b0822a094e79ecfee497b77a1d435f4"
 )
 CANDIDATE_SHA256 = (
-    "79acd78da0e3c38baf91e903b314eda0aa1d8854163e73e141ac45bf918fd1a5"
+    "c4d2799ffd931c585b6da2d4d9a7663c2207181f21a822dbea2794f5d3a08787"
 )
 TRACE_SHA256 = (
     "b2d94a4cbaa40a488f7a444a7ff8000c23eab5545b0ec57606fb80a18bd17268"
+)
+COMPILER_IDENTITY_ALGORITHM_ID = (
+    "naturalization_compiler_identity_sha256_lf_normalized_ordered_paths_v2"
+)
+COMPILER_AGGREGATE_SHA256 = (
+    "aa88ee878cfb570b8278b40e62c560f093dc6ffdc363f06ed7133352d635c647"
 )
 
 REPO_ROOT = base.REPO_ROOT
@@ -50,8 +59,14 @@ FOUNDATION_CONTRACT = base.DEFAULT_FOUNDATION_ROOT / base.FOUNDATION_CONTRACT_NA
 G4_READINESS = (
     base.DEFAULT_FOUNDATION_ROOT
     / "readiness_successors"
-    / "correction-0003"
-    / "public_text_quality_development_readiness_current_input_rebind.json"
+    / "implementation-correction-0002"
+    / "public_text_quality_development_readiness_g1_handoff_correction.json"
+)
+G4_PREDECESSOR_READINESS = (
+    base.DEFAULT_FOUNDATION_ROOT
+    / "readiness_successors"
+    / "implementation-correction-0001"
+    / "public_text_quality_development_readiness_implementation_correction.json"
 )
 CURRENT_FACTS = V2_ROOT / "data" / "dvf_3_3_facts.jsonl"
 CURRENT_MANIFEST = V2_ROOT / "data" / "dvf_3_3_input_manifest.json"
@@ -69,7 +84,7 @@ TERMINAL_CLOSEOUT = (
     / "_docs"
     / "round3"
     / "dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure"
-    / "attempt_0022_terminal_closeout.json"
+    / "attempt_0023_terminal_closeout.json"
 )
 CANDIDATE = NATURALIZATION_ROOT / "phase4" / "candidate_rendered.json"
 TRACE = NATURALIZATION_ROOT / "phase4" / "candidate_proposition_trace.jsonl"
@@ -198,30 +213,81 @@ def _validate_g4_readiness() -> dict[str, Any]:
     record = _raw_vcs_record(G4_READINESS, expected_sha256=G4_READINESS_SHA256)
     value = base.load_json_strict(G4_READINESS)
     expected = {
-        "schema_version": "public_text_quality_foundation_current_input_rebind_v3",
-        "rebind_id": "correction-0003",
+        "schema_version": "public_text_quality_foundation_g1_handoff_correction_readiness_v1",
+        "correction_id": "implementation-correction-0002",
         "status": "PASS",
         "authority_effect": "none",
         "official_disposition": "not_issued",
         "live_gate_adopted": False,
         "policy_closure_state": "not_started",
         "protected_surface_mutation_count": 0,
+        "foundation_contract_semantics_changed": False,
+        "policy_threshold_denominator_detector_semantics_changed": False,
     }
     for key, wanted in expected.items():
         if value.get(key) != wanted:
             raise base.FoundationContractError(f"G4 readiness field mismatch: {key}")
-    registry = value.get("registry_correction_adoption", {})
+    predecessor_binding = value.get("predecessor_readiness", {})
+    foundation = value.get("foundation_semantics", {}).get(
+        "foundation_contract", {}
+    )
     if (
-        registry.get("current_facts", {}).get("sha256") != CURRENT_FACTS_SHA256
+        predecessor_binding.get("path") != base.repo_relative(G4_PREDECESSOR_READINESS)
+        or predecessor_binding.get("sha256") != G4_PREDECESSOR_READINESS_SHA256
+        or predecessor_binding.get("correction_id") != "implementation-correction-0001"
+        or predecessor_binding.get("predecessor_mutated") is not False
+        or foundation.get("sha256") != FOUNDATION_CONTRACT_SHA256
+    ):
+        raise base.FoundationContractError("G4 readiness predecessor binding mismatch")
+    predecessor_record = _raw_vcs_record(
+        G4_PREDECESSOR_READINESS,
+        expected_sha256=G4_PREDECESSOR_READINESS_SHA256,
+    )
+    predecessor = base.load_json_strict(G4_PREDECESSOR_READINESS)
+    compiler = predecessor.get("compiler_identity_correction", {})
+    registry = predecessor.get("registry_current_inputs", {})
+    if (
+        predecessor.get("schema_version")
+        != "public_text_quality_foundation_implementation_correction_readiness_v1"
+        or predecessor.get("correction_id") != "implementation-correction-0001"
+        or predecessor.get("status") != "PASS"
+        or predecessor.get("authority_effect") != "none"
+        or compiler.get("algorithm_id") != COMPILER_IDENTITY_ALGORITHM_ID
+        or compiler.get("compiler_aggregate_sha256") != COMPILER_AGGREGATE_SHA256
+        or compiler.get("compiler_path_count") != 9
+        or compiler.get("identity_helper_in_compiler_aggregate") is not False
+        or compiler.get("producer_consumer_shared_helper_identity") is not True
+        or compiler.get("producer_consumer_path_order_identity") is not True
+        or registry.get("current_facts", {}).get("sha256") != CURRENT_FACTS_SHA256
         or registry.get("current_manifest", {}).get("sha256")
         != CURRENT_MANIFEST_SHA256
-        or value.get("immutable_foundation", {})
-        .get("foundation_contract", {})
-        .get("sha256")
-        != FOUNDATION_CONTRACT_SHA256
     ):
-        raise base.FoundationContractError("G4 readiness current-input binding mismatch")
-    return record
+        raise base.FoundationContractError(
+            "G4 readiness compiler/current-input predecessor mismatch"
+        )
+    return {
+        **record,
+        "predecessor_readiness": predecessor_record,
+        "compiler_identity_algorithm_id": COMPILER_IDENTITY_ALGORITHM_ID,
+        "compiler_aggregate_sha256": COMPILER_AGGREGATE_SHA256,
+    }
+
+
+def _sealed_text_vcs_record(
+    path: Path,
+    *,
+    expected_sha256: str,
+) -> dict[str, Any]:
+    record = base._head_text_constituent_record(path, expected_sha256)
+    if record.get("match") is not True:
+        raise base.FoundationContractError(
+            f"sealed text identity mismatch: {base.repo_relative(path)}"
+        )
+    return {
+        **record,
+        "sealed_expected_sha256": expected_sha256,
+        "raw_head_git_identity_strict": True,
+    }
 
 
 def validate_current_inputs(*, require_clean: bool) -> dict[str, Any]:
@@ -244,16 +310,24 @@ def validate_current_inputs(*, require_clean: bool) -> dict[str, Any]:
             CURRENT_MANIFEST, expected_sha256=CURRENT_MANIFEST_SHA256
         ),
         "phase8_handoff": _raw_vcs_record(
-            PHASE8_HANDOFF, expected_sha256=PHASE8_HANDOFF_SHA256
+            PHASE8_HANDOFF,
+            expected_sha256=PHASE8_HANDOFF_SHA256,
+            require_text_unset=False,
         ),
         "phase8_closeout": _raw_vcs_record(
-            PHASE8_CLOSEOUT, expected_sha256=PHASE8_CLOSEOUT_SHA256
+            PHASE8_CLOSEOUT,
+            expected_sha256=PHASE8_CLOSEOUT_SHA256,
+            require_text_unset=False,
         ),
         "terminal_closeout": _raw_vcs_record(
-            TERMINAL_CLOSEOUT, expected_sha256=TERMINAL_CLOSEOUT_SHA256
+            TERMINAL_CLOSEOUT,
+            expected_sha256=TERMINAL_CLOSEOUT_SHA256,
+            require_text_unset=False,
         ),
-        "candidate": _raw_vcs_record(CANDIDATE, expected_sha256=CANDIDATE_SHA256),
-        "trace": _raw_vcs_record(TRACE, expected_sha256=TRACE_SHA256),
+        "trace": _sealed_text_vcs_record(
+            TRACE,
+            expected_sha256=TRACE_SHA256,
+        ),
     }
     handoff_validation = base.validate_candidate_handoff(PHASE8_HANDOFF)
     handoff = handoff_validation["handoff"]
@@ -263,18 +337,25 @@ def validate_current_inputs(*, require_clean: bool) -> dict[str, Any]:
         or handoff_validation["handoff_raw_sha256"] != PHASE8_HANDOFF_SHA256
         or handoff_validation["constituents"]["candidate_rendered_hash"]["sha256"]
         != CANDIDATE_SHA256
+        or handoff_validation["compiler_aggregate_hash"]
+        != COMPILER_AGGREGATE_SHA256
     ):
         raise base.FoundationContractError("Naturalization handoff identity mismatch")
-    constituent_records: list[dict[str, Any]] = []
-    for row in handoff_validation["handoff"]["constituents"]:
-        if "path" not in row:
-            continue
-        record = _raw_vcs_record(
-            REPO_ROOT / str(row["path"]),
-            expected_sha256=str(row["sha256"]),
-            require_text_unset=False,
-        )
-        constituent_records.append({"id": row["id"], **record})
+    constituent_records = handoff_validation["path_rows"]
+    candidate_record = next(
+        row for row in constituent_records if row["id"] == "candidate_rendered_hash"
+    )
+    if (
+        candidate_record["path"] != base.repo_relative(CANDIDATE)
+        or candidate_record["declared_sha256"] != CANDIDATE_SHA256
+        or candidate_record["match"] is not True
+    ):
+        raise base.FoundationContractError("Naturalization candidate identity mismatch")
+    fixed_records["candidate"] = {
+        **candidate_record,
+        "sealed_expected_sha256": CANDIDATE_SHA256,
+        "raw_head_git_identity_strict": True,
+    }
     closeout = base.load_json_strict(PHASE8_CLOSEOUT)
     if (
         closeout.get("schema_version") != "dvf-3-3-naturalization-phase8-closeout-v1"
@@ -307,6 +388,8 @@ def validate_current_inputs(*, require_clean: bool) -> dict[str, Any]:
         "handoff_required_constituent_count": len(base.REQUIRED_HANDOFF_CONSTITUENT_IDS),
         "handoff_constituent_hash_mismatch_count": 0,
         "candidate_trace_sha256": TRACE_SHA256,
+        "compiler_identity_algorithm_id": COMPILER_IDENTITY_ALGORITHM_ID,
+        "compiler_aggregate_sha256": COMPILER_AGGREGATE_SHA256,
         "current_checkout_input_fresh": True,
         "protected_input_mutation_count": 0,
     }
@@ -924,6 +1007,56 @@ def run_official_mode(
     subject_handoff: Path | None = None,
 ) -> dict[str, Any]:
     _require_attempt_id(attempt_id)
+    if mode == "phase0-no-write-preflight":
+        if evaluation_subject_kind != EVALUATION_SUBJECT_KIND:
+            raise base.FoundationContractError("official successor subject kind mismatch")
+        if subject_handoff is None or subject_handoff.resolve() != PHASE8_HANDOFF.resolve():
+            raise base.FoundationContractError("official successor handoff path mismatch")
+        if ATTEMPT_ROOT.exists():
+            raise base.FoundationContractError("fresh official attempt root already exists")
+        status_before = _git(
+            "status", "--porcelain=v1", "--untracked-files=all"
+        ).stdout
+        if status_before:
+            raise base.FoundationContractError(
+                "Phase 0 no-write preflight requires a clean checkout"
+            )
+        current = validate_current_inputs(require_clean=True)
+        status_after = _git(
+            "status", "--porcelain=v1", "--untracked-files=all"
+        ).stdout
+        if status_after != status_before or ATTEMPT_ROOT.exists():
+            raise base.FoundationContractError(
+                "Phase 0 no-write preflight mutated the checkout or consumed the attempt"
+            )
+        return {
+            "schema_version": (
+                "public_text_quality_official_phase0_no_write_preflight_v1"
+            ),
+            "status": "PASS",
+            "attempt_id": ATTEMPT_ID,
+            "attempt_root_created": False,
+            "official_attempt_consumed": False,
+            "evaluation_subject_kind": EVALUATION_SUBJECT_KIND,
+            "evaluation_subject_sha256": CANDIDATE_SHA256,
+            "naturalization_attempt_id": NATURALIZATION_ATTEMPT_ID,
+            "phase8_handoff_sha256": PHASE8_HANDOFF_SHA256,
+            "phase8_closeout_sha256": PHASE8_CLOSEOUT_SHA256,
+            "terminal_closeout_sha256": TERMINAL_CLOSEOUT_SHA256,
+            "foundation_contract_sha256": FOUNDATION_CONTRACT_SHA256,
+            "g4_readiness_successor_sha256": G4_READINESS_SHA256,
+            "compiler_identity_algorithm_id": COMPILER_IDENTITY_ALGORITHM_ID,
+            "compiler_aggregate_sha256": current["compiler_aggregate_sha256"],
+            "current_checkout_input_fresh": True,
+            "source_checkout_clean_before": True,
+            "source_checkout_clean_after": True,
+            "protected_surface_mutation_count": 0,
+            "official_disposition": "not_issued",
+            "authority_effect": "none",
+            "live_gate_adopted": False,
+            "policy_closure_state": "not_started",
+            "readpoint": current["readpoint"],
+        }
     if mode == "phase0-binding":
         if evaluation_subject_kind != EVALUATION_SUBJECT_KIND:
             raise base.FoundationContractError("official successor subject kind mismatch")

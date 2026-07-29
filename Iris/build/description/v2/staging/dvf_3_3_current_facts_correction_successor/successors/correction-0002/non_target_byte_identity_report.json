@@ -1,0 +1,13 @@
+{
+  "corrected_target_row_count": 67,
+  "item_id_universe_preserved": true,
+  "non_target_byte_identical_count": 2038,
+  "non_target_byte_mismatch_count": 0,
+  "non_target_byte_mismatch_item_ids": [],
+  "non_target_item_ids_sha256": "58b1e429b9bf7e7663ac91df8fddd74119c707e9e69e28ddd6746e47c6440f05",
+  "non_target_row_denominator": 2038,
+  "row_order_preserved": true,
+  "schema_version": "dvf-3-3-current-facts-non-target-byte-identity-v2",
+  "source_row_count": 2105,
+  "status": "PASS"
+}

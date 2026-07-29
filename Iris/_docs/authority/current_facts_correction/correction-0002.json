@@ -1,0 +1,678 @@
+{
+  "schema_version": "dvf-3-3-current-facts-correction-spec-v2",
+  "status": "owner_directed_correction_successor",
+  "successor_id": "correction-0002",
+  "input_commit": "ca851a1e10bd37be71deded1fcc57b0d8462db48",
+  "input_tree": "ecbca88b2f8424e412c6f2213852bc4728cc79e7",
+  "source_row_count": 2105,
+  "predecessor_current_facts_sha256": "ca74270191289af064d9d8fa9d739c97b0865d69e255885e815b01565243f46e",
+  "predecessor_current_manifest_sha256": "c9670c1625382444fe292158e6b50e65e2ee54316d2903835ebc4f59c199257d",
+  "previous_correction_receipt_sha256": "92cb65656562ec874dafea118c85ce424e2f391f36ee27860029c6fef582978f",
+  "reviewer_attestation_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/codex_reviewer_phase7_blocked_attestation.json",
+  "reviewer_attestation_sha256": "405a71d5e8ba81856edc7f678b131c5c19506de978708f2c5b1d7620df96b88e",
+  "seed_blocked_item_ids": [
+    "Base.SmallSheetMetal",
+    "Base.Shotgun",
+    "Base.Saw",
+    "camping.Flint",
+    "Base.HairDyeYellow",
+    "Base.HairDyePink",
+    "Base.MakeUp_CamoEyes1",
+    "Base.Comb"
+  ],
+  "origin_screen_counts": {
+    "primary_use_cluster_summary": 1275,
+    "primary_use_identity_fallback": 718,
+    "primary_use_role_fallback": 100,
+    "primary_use_direct_use": 12
+  },
+  "cohort_selectors": [
+    {
+      "cohort_id": "cluster_metalwork_welding",
+      "cluster": "metalwork_welding",
+      "expected_primary_use": "금속 접합에 쓰는 도구다",
+      "expected_skeleton": "role_centered",
+      "expected_count": 5
+    },
+    {
+      "cohort_id": "cluster_gun_modding",
+      "cluster": "gun_modding",
+      "expected_primary_use": "총기 개조 작업에 들어가는 부품이다",
+      "expected_skeleton": "membership_centered",
+      "expected_count": 17
+    },
+    {
+      "cohort_id": "cluster_reclaimed_material_sorting",
+      "cluster": "reclaimed_material_sorting",
+      "expected_primary_use": "자재 정리 작업에서 거친 재료나 남은 부품을 모아 다음 제작용으로 분류할 때 다룬다",
+      "expected_skeleton": "action_centered",
+      "expected_count": 10
+    },
+    {
+      "cohort_id": "cluster_grooming_cosmetic_prep",
+      "cluster": "grooming_cosmetic_prep",
+      "expected_primary_use": "외형 손질 작업에서 머리색이나 화장 바탕을 정리하고 준비할 때 다룬다",
+      "expected_skeleton": "action_centered",
+      "expected_count": 14
+    },
+    {
+      "cohort_id": "cluster_face_makeup_application",
+      "cluster": "face_makeup_application",
+      "expected_primary_use": "분장 작업에서 얼굴이나 눈, 입술 부위에 색을 입히거나 무늬를 올릴 때 다룬다",
+      "expected_skeleton": "action_centered",
+      "expected_count": 29
+    },
+    {
+      "cohort_id": "cluster_personal_grooming_care",
+      "cluster": "personal_grooming_care",
+      "expected_primary_use": "몸단장 작업에서 향을 더하거나 빗고 면도, 양치 같은 손질 준비를 할 때 다룬다",
+      "expected_skeleton": "action_centered",
+      "expected_count": 7
+    }
+  ],
+  "evidence_profiles": {
+    "item_identity_and_itemscript": {
+      "authority_class": "repository_source_authority",
+      "paths": [
+        "Iris/input/items_itemscript.json",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ],
+      "allowed_operations": [
+        "exact_item_id_lookup",
+        "exact_field_read",
+        "exact_korean_item_name_lookup",
+        "conservative_identity_scoped_statement"
+      ]
+    },
+    "itemscript_and_static_recipe": {
+      "authority_class": "repository_source_authority",
+      "paths": [
+        "Iris/input/items_itemscript.json",
+        "Iris/input/recipes_index_full.json",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ],
+      "allowed_operations": [
+        "exact_item_id_lookup",
+        "exact_field_read",
+        "exact_static_recipe_relation_read",
+        "exact_korean_item_name_lookup",
+        "conservative_source_scoped_statement"
+      ]
+    },
+    "itemscript_and_recipe_source": {
+      "authority_class": "repository_source_authority",
+      "paths": [
+        "Iris/input/items_itemscript.json",
+        "Iris/input/recipes_index_full.json",
+        "scripts/recipes.txt",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ],
+      "allowed_operations": [
+        "exact_item_id_lookup",
+        "exact_field_read",
+        "exact_static_recipe_relation_read",
+        "exact_static_recipe_result_read",
+        "exact_korean_item_name_lookup",
+        "conservative_source_scoped_statement"
+      ]
+    },
+    "coal_direct_use": {
+      "authority_class": "repository_source_authority",
+      "paths": [
+        "Iris/input/items_itemscript.json",
+        "lua/client/Blacksmith/TimedActions/ISAddCoalInFurnace.lua",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ],
+      "allowed_operations": [
+        "exact_item_id_lookup",
+        "exact_field_read",
+        "direct_runtime_action_read",
+        "exact_korean_item_name_lookup",
+        "conservative_source_scoped_statement"
+      ]
+    },
+    "metal_drum_direct_use": {
+      "authority_class": "repository_source_authority",
+      "paths": [
+        "Iris/input/items_itemscript.json",
+        "scripts/recipes.txt",
+        "lua/server/MetalDrum/BuildingObjects/ISMetalDrum.lua",
+        "lua/server/MetalDrum/SMetalDrumGlobalObject.lua",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ],
+      "allowed_operations": [
+        "exact_item_id_lookup",
+        "exact_field_read",
+        "exact_static_recipe_result_read",
+        "direct_runtime_action_read",
+        "exact_korean_item_name_lookup",
+        "conservative_source_scoped_statement"
+      ]
+    },
+    "wood_fuel_direct_use": {
+      "authority_class": "repository_source_authority",
+      "paths": [
+        "Iris/input/items_itemscript.json",
+        "lua/server/Camping/camping_fuel.lua",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ],
+      "allowed_operations": [
+        "exact_item_id_lookup",
+        "exact_field_read",
+        "direct_runtime_fuel_table_read",
+        "exact_korean_item_name_lookup",
+        "conservative_source_scoped_statement"
+      ]
+    },
+    "scrap_residue_direct_source": {
+      "authority_class": "repository_source_authority",
+      "paths": [
+        "Iris/input/items_itemscript.json",
+        "lua/client/Moveables/ISMoveableDefinitions.lua",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ],
+      "allowed_operations": [
+        "exact_item_id_lookup",
+        "exact_field_read",
+        "direct_runtime_scrap_fallback_read",
+        "exact_korean_item_name_lookup",
+        "conservative_source_scoped_statement"
+      ]
+    }
+  },
+  "correction_rules": [
+    {
+      "rule_id": "metal_pipe_welding_input_not_tool",
+      "cohort_id": "cluster_metalwork_welding",
+      "target_item_ids": ["Base.MetalPipe"],
+      "changes": {
+        "primary_use": {
+          "expected": "금속 접합에 쓰는 도구다",
+          "replacement": "금속 가공 작업에서 재료로 쓰이는 금속 파이프다"
+        }
+      },
+      "reason": "ItemScript는 금속 파이프를 무기로 분류하고 정적 recipe는 금속 가공 입력으로 사용하므로 용접 도구라고 규정하지 않는다",
+      "evidence_profile": "itemscript_and_static_recipe"
+    },
+    {
+      "rule_id": "propane_tank_welding_fuel_not_tool",
+      "cohort_id": "cluster_metalwork_welding",
+      "target_item_ids": ["Base.PropaneTank"],
+      "changes": {
+        "primary_use": {
+          "expected": "금속 접합에 쓰는 도구다",
+          "replacement": "용접용 토치를 충전할 때 쓰는 프로판 통이다"
+        }
+      },
+      "reason": "정적 recipe의 Refill Blow Torch 입력이며 ItemScript상 소모성 Material이므로 도구 역할을 제거한다",
+      "evidence_profile": "itemscript_and_static_recipe"
+    },
+    {
+      "rule_id": "sheet_metal_welding_material_not_tool",
+      "cohort_id": "cluster_metalwork_welding",
+      "target_item_ids": ["Base.SheetMetal"],
+      "changes": {
+        "primary_use": {
+          "expected": "금속 접합에 쓰는 도구다",
+          "replacement": "금속 가공에서 작은 금속판을 만드는 재료로 쓰는 금속판이다"
+        }
+      },
+      "reason": "ItemScript Material 분류와 Make Small Metal Sheet recipe 입력을 그대로 사용한다",
+      "evidence_profile": "itemscript_and_static_recipe"
+    },
+    {
+      "rule_id": "small_sheet_metal_welding_material_not_tool",
+      "cohort_id": "cluster_metalwork_welding",
+      "target_item_ids": ["Base.SmallSheetMetal"],
+      "changes": {
+        "primary_use": {
+          "expected": "금속 접합에 쓰는 도구다",
+          "replacement": "금속 가공에서 금속판을 만드는 재료로 쓰는 작은 금속판이다"
+        }
+      },
+      "reason": "ItemScript Material 분류와 Make Metal Sheet recipe 입력을 그대로 사용한다",
+      "evidence_profile": "itemscript_and_static_recipe"
+    },
+    {
+      "rule_id": "shotgun_firearm_identity_and_use",
+      "cohort_id": "cluster_gun_modding",
+      "target_item_ids": ["Base.Shotgun"],
+      "changes": {
+        "identity_hint": {
+          "expected": "근접 무기",
+          "replacement": "JS-2000 산탄총"
+        },
+        "primary_use": {
+          "expected": "총기 개조 작업에 들어가는 부품이다",
+          "replacement": "사격에 쓰는 산탄총이다"
+        }
+      },
+      "reason": "ItemScript의 Weapon, IsAimedFirearm, Firearm, ShotgunShells 신호와 공식 한국어 item name을 사용한다",
+      "evidence_profile": "itemscript_and_static_recipe"
+    },
+    {
+      "rule_id": "double_barrel_shotgun_firearm_identity_and_use",
+      "cohort_id": "cluster_gun_modding",
+      "target_item_ids": ["Base.DoubleBarrelShotgun"],
+      "changes": {
+        "identity_hint": {
+          "expected": "근접 무기",
+          "replacement": "더블 배럴 산탄총"
+        },
+        "primary_use": {
+          "expected": "총기 개조 작업에 들어가는 부품이다",
+          "replacement": "사격에 쓰는 더블 배럴 산탄총이다"
+        }
+      },
+      "reason": "ItemScript의 Weapon, IsAimedFirearm, Firearm, ShotgunShells 신호와 공식 한국어 item name을 사용한다",
+      "evidence_profile": "itemscript_and_static_recipe"
+    },
+    {
+      "rule_id": "saw_tool_identity_and_recipe_use",
+      "cohort_id": "cluster_gun_modding",
+      "target_item_ids": ["Base.Saw"],
+      "changes": {
+        "identity_hint": {
+          "expected": "도구",
+          "replacement": "톱"
+        },
+        "primary_use": {
+          "expected": "총기 개조 작업에 들어가는 부품이다",
+          "replacement": "톱질에 쓰며 산탄총 총열 절단 작업에도 쓰는 도구다"
+        }
+      },
+      "reason": "ItemScript Tool/Tags=Saw와 두 Saw Off recipe의 keep 관계 및 공식 한국어 item name을 사용한다",
+      "evidence_profile": "itemscript_and_static_recipe"
+    },
+    {
+      "rule_id": "broken_fishing_net_wire_recovery",
+      "cohort_id": "cluster_reclaimed_material_sorting",
+      "target_item_ids": ["Base.BrokenFishingNet"],
+      "changes": {
+        "primary_use": {
+          "expected": "자재 정리 작업에서 거친 재료나 남은 부품을 모아 다음 제작용으로 분류할 때 다룬다",
+          "replacement": "철사를 회수할 수 있는 부서진 통발이다"
+        }
+      },
+      "reason": "정적 recipe Get Wire Back의 입력 관계를 사용한다",
+      "evidence_profile": "itemscript_and_static_recipe"
+    },
+    {
+      "rule_id": "coal_furnace_fuel",
+      "cohort_id": "cluster_reclaimed_material_sorting",
+      "target_item_ids": ["Base.Coal"],
+      "changes": {
+        "primary_use": {
+          "expected": "자재 정리 작업에서 거친 재료나 남은 부품을 모아 다음 제작용으로 분류할 때 다룬다",
+          "replacement": "용광로에 연료로 넣어 쓰는 석탄이다"
+        }
+      },
+      "reason": "ISAddCoalInFurnace의 직접 행동과 ItemScript Material/Drainable 신호를 사용한다",
+      "evidence_profile": "coal_direct_use"
+    },
+    {
+      "rule_id": "drawer_carpentry_result",
+      "cohort_id": "cluster_reclaimed_material_sorting",
+      "target_item_ids": ["Base.Drawer"],
+      "changes": {
+        "primary_use": {
+          "expected": "자재 정리 작업에서 거친 재료나 남은 부품을 모아 다음 제작용으로 분류할 때 다룬다",
+          "replacement": "목공 작업으로 제작하는 서랍 부품이다"
+        }
+      },
+      "reason": "scripts/recipes.txt의 Build Drawer 결과와 ItemScript Material/Drawer identity를 사용한다",
+      "evidence_profile": "itemscript_and_recipe_source"
+    },
+    {
+      "rule_id": "metal_drum_direct_use",
+      "cohort_id": "cluster_reclaimed_material_sorting",
+      "target_item_ids": ["Base.MetalDrum"],
+      "changes": {
+        "primary_use": {
+          "expected": "자재 정리 작업에서 거친 재료나 남은 부품을 모아 다음 제작용으로 분류할 때 다룬다",
+          "replacement": "물을 받거나 장작을 태워 숯을 만드는 데 쓰는 금속 드럼통이다"
+        }
+      },
+      "reason": "MetalDrum source의 waterMax, rain collection, logs, charcoal 상태를 직접 사용한다",
+      "evidence_profile": "metal_drum_direct_use"
+    },
+    {
+      "rule_id": "stone_hammer_material",
+      "cohort_id": "cluster_reclaimed_material_sorting",
+      "target_item_ids": ["Base.Stone"],
+      "changes": {
+        "primary_use": {
+          "expected": "자재 정리 작업에서 거친 재료나 남은 부품을 모아 다음 제작용으로 분류할 때 다룬다",
+          "replacement": "돌망치를 만드는 재료로 쓰는 돌이다"
+        }
+      },
+      "reason": "정적 recipe Make Stone Hammer의 입력 관계를 사용한다",
+      "evidence_profile": "itemscript_and_static_recipe"
+    },
+    {
+      "rule_id": "string_identity_scoped_material",
+      "cohort_id": "cluster_reclaimed_material_sorting",
+      "target_item_ids": ["Base.String"],
+      "changes": {
+        "primary_use": {
+          "expected": "자재 정리 작업에서 거친 재료나 남은 부품을 모아 다음 제작용으로 분류할 때 다룬다",
+          "replacement": "끈 형태의 재료다"
+        }
+      },
+      "reason": "행동 근거가 없으므로 ItemScript Material과 공식 한국어 item identity를 넘지 않는 보수적 문장만 사용한다",
+      "evidence_profile": "item_identity_and_itemscript"
+    },
+    {
+      "rule_id": "twigs_campfire_material",
+      "cohort_id": "cluster_reclaimed_material_sorting",
+      "target_item_ids": ["Base.Twigs"],
+      "changes": {
+        "primary_use": {
+          "expected": "자재 정리 작업에서 거친 재료나 남은 부품을 모아 다음 제작용으로 분류할 때 다룬다",
+          "replacement": "모닥불 재료를 만드는 데 쓰는 잔가지다"
+        }
+      },
+      "reason": "정적 recipe Make Campfire Kit의 입력 관계를 사용한다",
+      "evidence_profile": "itemscript_and_static_recipe"
+    },
+    {
+      "rule_id": "unusable_metal_scrap_residue",
+      "cohort_id": "cluster_reclaimed_material_sorting",
+      "target_item_ids": ["Base.UnusableMetal"],
+      "changes": {
+        "primary_use": {
+          "expected": "자재 정리 작업에서 거친 재료나 남은 부품을 모아 다음 제작용으로 분류할 때 다룬다",
+          "replacement": "금속 해체 작업에서 남는, 재료로 쓸 수 없는 금속 조각이다"
+        }
+      },
+      "reason": "ItemScript의 Unusable Metal identity와 Moveables scrap fallback 결과를 사용하며 재사용 가능성을 주장하지 않는다",
+      "evidence_profile": "scrap_residue_direct_source"
+    },
+    {
+      "rule_id": "unusable_wood_campfire_fuel",
+      "cohort_id": "cluster_reclaimed_material_sorting",
+      "target_item_ids": ["Base.UnusableWood"],
+      "changes": {
+        "primary_use": {
+          "expected": "자재 정리 작업에서 거친 재료나 남은 부품을 모아 다음 제작용으로 분류할 때 다룬다",
+          "replacement": "모닥불 연료로 쓸 수 있는 나무 조각이다"
+        }
+      },
+      "reason": "camping_fuel.lua의 UnusableWood 연료 항목과 공식 한국어 item identity를 사용한다",
+      "evidence_profile": "wood_fuel_direct_use"
+    },
+    {
+      "rule_id": "flint_identity_scoped_fire_material",
+      "cohort_id": "cluster_reclaimed_material_sorting",
+      "target_item_ids": ["camping.Flint"],
+      "changes": {
+        "primary_use": {
+          "expected": "자재 정리 작업에서 거친 재료나 남은 부품을 모아 다음 제작용으로 분류할 때 다룬다",
+          "replacement": "불씨를 만들 때 쓰는 부싯돌이다"
+        }
+      },
+      "reason": "ItemScript Material/Flint와 공식 한국어 부싯돌 identity의 의미 범위만 사용한다",
+      "evidence_profile": "item_identity_and_itemscript"
+    },
+    {
+      "rule_id": "hair_dye_item_specific_use",
+      "cohort_id": "cluster_grooming_cosmetic_prep",
+      "target_item_ids": [
+        "Base.HairDyeBlack",
+        "Base.HairDyeBlonde",
+        "Base.HairDyeBlue",
+        "Base.HairDyeGinger",
+        "Base.HairDyeGreen",
+        "Base.HairDyeLightBrown",
+        "Base.HairDyePink",
+        "Base.HairDyeRed",
+        "Base.HairDyeWhite",
+        "Base.HairDyeYellow"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "외형 손질 작업에서 머리색이나 화장 바탕을 정리하고 준비할 때 다룬다",
+          "replacement": "머리색을 바꾸는 데 쓰는 염색약이다"
+        }
+      },
+      "reason": "ItemScript DisplayName의 Hair Dye와 공식 한국어 염색약 identity만 사용해 화장 바탕 누적 의미를 제거한다",
+      "evidence_profile": "item_identity_and_itemscript"
+    },
+    {
+      "rule_id": "hair_gel_item_specific_use",
+      "cohort_id": "cluster_grooming_cosmetic_prep",
+      "target_item_ids": ["Base.Hairgel"],
+      "changes": {
+        "primary_use": {
+          "expected": "외형 손질 작업에서 머리색이나 화장 바탕을 정리하고 준비할 때 다룬다",
+          "replacement": "머리 모양을 정돈하는 데 쓰는 헤어 젤이다"
+        }
+      },
+      "reason": "ItemScript와 공식 한국어 item identity의 의미 범위만 사용한다",
+      "evidence_profile": "item_identity_and_itemscript"
+    },
+    {
+      "rule_id": "eyes_makeup_item_specific_use",
+      "cohort_id": "cluster_grooming_cosmetic_prep",
+      "target_item_ids": ["Base.MakeupEyeshadow"],
+      "changes": {
+        "primary_use": {
+          "expected": "외형 손질 작업에서 머리색이나 화장 바탕을 정리하고 준비할 때 다룬다",
+          "replacement": "눈 화장에 쓰는 화장품이다"
+        }
+      },
+      "reason": "ItemScript Eyes Makeup과 공식 한국어 눈 화장품 identity를 사용한다",
+      "evidence_profile": "item_identity_and_itemscript"
+    },
+    {
+      "rule_id": "foundation_item_specific_use",
+      "cohort_id": "cluster_grooming_cosmetic_prep",
+      "target_item_ids": ["Base.MakeupFoundation"],
+      "changes": {
+        "primary_use": {
+          "expected": "외형 손질 작업에서 머리색이나 화장 바탕을 정리하고 준비할 때 다룬다",
+          "replacement": "기초 화장에 쓰는 화장품이다"
+        }
+      },
+      "reason": "ItemScript Foundation Makeup과 공식 한국어 기초 화장품 identity를 사용한다",
+      "evidence_profile": "item_identity_and_itemscript"
+    },
+    {
+      "rule_id": "mirror_grooming_use",
+      "cohort_id": "cluster_grooming_cosmetic_prep",
+      "target_item_ids": ["Base.Mirror"],
+      "changes": {
+        "primary_use": {
+          "expected": "외형 손질 작업에서 머리색이나 화장 바탕을 정리하고 준비할 때 다룬다",
+          "replacement": "몸단장 상태를 비춰 확인할 때 쓰는 거울이다"
+        }
+      },
+      "reason": "ItemScript Mirror와 공식 한국어 거울 identity의 의미 범위만 사용한다",
+      "evidence_profile": "item_identity_and_itemscript"
+    },
+    {
+      "rule_id": "makeup_lips_item_specific_use",
+      "cohort_id": "cluster_face_makeup_application",
+      "target_item_ids": [
+        "Base.Lipstick",
+        "Base.MakeUp_LipsBlack",
+        "Base.MakeUp_LipsBlue",
+        "Base.MakeUp_LipsGreen",
+        "Base.MakeUp_LipsLightBlue",
+        "Base.MakeUp_LipsPink",
+        "Base.MakeUp_LipsRed"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "분장 작업에서 얼굴이나 눈, 입술 부위에 색을 입히거나 무늬를 올릴 때 다룬다",
+          "replacement": "입술에 색을 더하는 데 쓰는 화장품이다"
+        }
+      },
+      "reason": "Lipstick identity 또는 ItemScript BodyLocation=MakeUp_Lips를 사용해 입술 범위로 제한한다",
+      "evidence_profile": "item_identity_and_itemscript"
+    },
+    {
+      "rule_id": "makeup_eyeshadow_item_specific_use",
+      "cohort_id": "cluster_face_makeup_application",
+      "target_item_ids": [
+        "Base.MakeUp_EyesShadowBlue",
+        "Base.MakeUp_EyesShadowGreen",
+        "Base.MakeUp_EyesShadowLightBlue",
+        "Base.MakeUp_EyesShadowPink",
+        "Base.MakeUp_EyesShadowRed",
+        "Base.MakeUp_EyesShadowWhite",
+        "Base.MakeUp_EyesShadowYellow"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "분장 작업에서 얼굴이나 눈, 입술 부위에 색을 입히거나 무늬를 올릴 때 다룬다",
+          "replacement": "눈가에 색을 더하는 아이섀도다"
+        }
+      },
+      "reason": "ItemScript BodyLocation=MakeUp_EyesShadow와 current identity를 사용해 눈가 범위로 제한한다",
+      "evidence_profile": "item_identity_and_itemscript"
+    },
+    {
+      "rule_id": "makeup_eyes_item_specific_use",
+      "cohort_id": "cluster_face_makeup_application",
+      "target_item_ids": [
+        "Base.MakeUp_CamoEyes1",
+        "Base.MakeUp_CamoEyes2",
+        "Base.MakeUp_CamoStripes",
+        "Base.MakeUp_Crow",
+        "Base.MakeUp_Football",
+        "Base.MakeUp_RedStripes1",
+        "Base.MakeUp_RedStripes2"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "분장 작업에서 얼굴이나 눈, 입술 부위에 색을 입히거나 무늬를 올릴 때 다룬다",
+          "replacement": "눈가에 무늬를 더하는 분장이다"
+        }
+      },
+      "reason": "ItemScript BodyLocation=MakeUp_Eyes와 current identity를 사용해 눈가 범위로 제한한다",
+      "evidence_profile": "item_identity_and_itemscript"
+    },
+    {
+      "rule_id": "makeup_full_face_item_specific_use",
+      "cohort_id": "cluster_face_makeup_application",
+      "target_item_ids": [
+        "Base.MakeUp_BraveHeart",
+        "Base.MakeUp_CamoFullFace1",
+        "Base.MakeUp_CamoFullFace2",
+        "Base.MakeUp_ClownFace1",
+        "Base.MakeUp_ClownFace2",
+        "Base.MakeUp_GreenCamo",
+        "Base.MakeUp_SkullFace1",
+        "Base.MakeUp_SkullFace2"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "분장 작업에서 얼굴이나 눈, 입술 부위에 색을 입히거나 무늬를 올릴 때 다룬다",
+          "replacement": "얼굴 전체에 무늬를 더하는 분장이다"
+        }
+      },
+      "reason": "ItemScript BodyLocation=MakeUp_FullFace와 current identity를 사용해 얼굴 전체 범위로 제한한다",
+      "evidence_profile": "item_identity_and_itemscript"
+    },
+    {
+      "rule_id": "belt_item_specific_use",
+      "cohort_id": "cluster_personal_grooming_care",
+      "target_item_ids": ["Base.Belt"],
+      "changes": {
+        "primary_use": {
+          "expected": "몸단장 작업에서 향을 더하거나 빗고 면도, 양치 같은 손질 준비를 할 때 다룬다",
+          "replacement": "허리에 착용하는 벨트다"
+        }
+      },
+      "reason": "current 허리띠 identity와 공식 한국어 벨트 identity의 의미 범위만 사용한다",
+      "evidence_profile": "item_identity_and_itemscript"
+    },
+    {
+      "rule_id": "fragrance_item_specific_use",
+      "cohort_id": "cluster_personal_grooming_care",
+      "target_item_ids": ["Base.Cologne", "Base.Perfume"],
+      "changes": {
+        "primary_use": {
+          "expected": "몸단장 작업에서 향을 더하거나 빗고 면도, 양치 같은 손질 준비를 할 때 다룬다",
+          "replacement": "몸에 향을 더할 때 쓰는 향수다"
+        }
+      },
+      "reason": "ItemScript Cologne/Perfume와 공식 한국어 향수 identity의 의미 범위만 사용한다",
+      "evidence_profile": "item_identity_and_itemscript"
+    },
+    {
+      "rule_id": "comb_item_specific_use",
+      "cohort_id": "cluster_personal_grooming_care",
+      "target_item_ids": ["Base.Comb"],
+      "changes": {
+        "primary_use": {
+          "expected": "몸단장 작업에서 향을 더하거나 빗고 면도, 양치 같은 손질 준비를 할 때 다룬다",
+          "replacement": "머리를 빗고 정돈할 때 쓰는 빗이다"
+        }
+      },
+      "reason": "ItemScript Comb와 공식 한국어 빗 identity의 의미 범위만 사용한다",
+      "evidence_profile": "item_identity_and_itemscript"
+    },
+    {
+      "rule_id": "razor_item_specific_use",
+      "cohort_id": "cluster_personal_grooming_care",
+      "target_item_ids": ["Base.Razor"],
+      "changes": {
+        "primary_use": {
+          "expected": "몸단장 작업에서 향을 더하거나 빗고 면도, 양치 같은 손질 준비를 할 때 다룬다",
+          "replacement": "면도에 쓰는 도구다"
+        }
+      },
+      "reason": "ItemScript Tags=Razor와 공식 한국어 면도기 identity를 사용한다",
+      "evidence_profile": "item_identity_and_itemscript"
+    },
+    {
+      "rule_id": "toothbrush_item_specific_use",
+      "cohort_id": "cluster_personal_grooming_care",
+      "target_item_ids": ["Base.Toothbrush"],
+      "changes": {
+        "primary_use": {
+          "expected": "몸단장 작업에서 향을 더하거나 빗고 면도, 양치 같은 손질 준비를 할 때 다룬다",
+          "replacement": "이를 닦을 때 쓰는 칫솔이다"
+        }
+      },
+      "reason": "ItemScript Toothbrush와 공식 한국어 칫솔 identity의 의미 범위만 사용한다",
+      "evidence_profile": "item_identity_and_itemscript"
+    },
+    {
+      "rule_id": "toothpaste_item_specific_use",
+      "cohort_id": "cluster_personal_grooming_care",
+      "target_item_ids": ["Base.Toothpaste"],
+      "changes": {
+        "primary_use": {
+          "expected": "몸단장 작업에서 향을 더하거나 빗고 면도, 양치 같은 손질 준비를 할 때 다룬다",
+          "replacement": "이를 닦을 때 쓰는 치약이다"
+        }
+      },
+      "reason": "ItemScript Toothpaste와 공식 한국어 치약 identity의 의미 범위만 사용한다",
+      "evidence_profile": "item_identity_and_itemscript"
+    }
+  ],
+  "expected_investigated_cohort_count": 6,
+  "expected_unique_investigated_row_count": 82,
+  "expected_corrected_row_count": 67,
+  "expected_unchanged_control_count": 15,
+  "expected_unresolved_row_count": 0,
+  "forbidden_evidence_classes": [
+    "layer4_qg",
+    "layer4_usecase",
+    "generated_description",
+    "naturalization_candidate_text"
+  ],
+  "immutability": {
+    "food_changes_0_to_13_mutation_allowed": false,
+    "attempt_0022_mutation_allowed": false,
+    "current_facts_direct_edit_allowed": false,
+    "current_manifest_direct_edit_allowed": false,
+    "registry_cutover_allowed": false,
+    "foundation_mutation_allowed": false,
+    "naturalization_attempt_mutation_allowed": false,
+    "correction_0001_mutation_allowed": false
+  }
+}

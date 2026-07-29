@@ -1,0 +1,12 @@
+{
+  "byte_identical_before_after_correction_0001_count": 8,
+  "classification": "preexisting_facts_defects_omitted_from_prior_cohort",
+  "current_predecessor_facts_sha256": "ca74270191289af064d9d8fa9d739c97b0865d69e255885e815b01565243f46e",
+  "g2_successor_facts_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/authority_execution/successor_facts.jsonl",
+  "g2_successor_facts_sha256": "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40",
+  "mismatch_count": 0,
+  "mismatch_item_ids": [],
+  "schema_version": "dvf-3-3-current-facts-correction-seed-preexisting-v2",
+  "seed_denominator": 8,
+  "status": "PASS"
+}

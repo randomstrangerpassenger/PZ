@@ -1,0 +1,28 @@
+{
+  "adoption_commit": "b1a39deeb5aabec208efdffa0804d3eb5a34aca2",
+  "adoption_tree": "94d57eb6f0eb48ec0730f35ea99036cf4da37e63",
+  "attempt_id": "attempt-0011",
+  "current_adoption_projection_validation": "PASS",
+  "current_facts_path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+  "current_facts_sha256": "37db2595eff9b58f7b08e59221e950cb529453bd96733fb29171d458e46118f6",
+  "current_manifest_path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+  "current_manifest_sha256": "a105e3790896b30bc25e95839ceb0ee4c88357fed98ec9fa4258790bf0733a1f",
+  "dual_current_count": 0,
+  "generated_at": "2026-07-29T11:41:12.262549+00:00",
+  "input_commit": "ea38a238bef5d7e7e283b03adcef22e0bae31e50",
+  "input_tree": "052edaf9ebf2f8fa5484b4d27e535db59450c61a",
+  "partial_current_count": 0,
+  "post_adoption_predecessor_restore_allowed": false,
+  "preservation": {
+    "input_commit": "ea38a238bef5d7e7e283b03adcef22e0bae31e50",
+    "inventory_sha256": "2bce9c78425ac60e4d2b71c18cc33b74a669e53360c46b2861bec9e09600d03b",
+    "observed_commit": "b1a39deeb5aabec208efdffa0804d3eb5a34aca2",
+    "protected_path_count": 281,
+    "status": "PASS"
+  },
+  "schema_version": "dvf-3-3-current-correction-identity-report-v2",
+  "sealed_non_current_manifest_copied_unchanged": false,
+  "single_current_identity": true,
+  "status": "PASS",
+  "successor_facts_byte_identity": true
+}

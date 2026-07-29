@@ -764,11 +764,11 @@ def write_phase2_identity_reseal(
         )
         == EXPECTED_G3_HANDOFF_SHA256,
         "foundation_contract_sha256_match": standard_reseal.get(
-            "foundation_contract_sha256"
+            "g4_foundation_contract_sha256"
         )
         == EXPECTED_FOUNDATION_CONTRACT_SHA256,
         "predecessor_readiness_sha256_match": standard_reseal.get(
-            "foundation_readiness_current_input_rebind_sha256"
+            "g4_foundation_readiness_current_input_rebind_sha256"
         )
         == EXPECTED_PREDECESSOR_READINESS_SHA256,
         "implementation_readiness_sha256_match": identity_report.get(
@@ -989,7 +989,18 @@ def run_phase(attempt_id: str, mode: str) -> int:
         "phase8-publish-handoff": producer.build_phase8_handoff,
     }
     try:
-        result = builders[mode](attempt_id, attempt_root)
+        existing_phase2_result_path = (
+            effective_phase_root(attempt_root, 2) / "phase2_result.json"
+        )
+        if (
+            mode == "phase2-source-inventory"
+            and existing_phase2_result_path.is_file()
+            and producer.load_json(existing_phase2_result_path).get("status")
+            == "PASS"
+        ):
+            result = producer.load_json(existing_phase2_result_path)
+        else:
+            result = builders[mode](attempt_id, attempt_root)
         if result.get("status") not in {"PASS", "HANDOFF_COMPLETE"}:
             raise IdentityV2AttemptError(
                 f"producer phase did not pass: {mode}: {result.get('status')}"

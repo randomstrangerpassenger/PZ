@@ -1,0 +1,335 @@
+{
+  "authority_effect": "none",
+  "correction_id": "implementation-correction-0004",
+  "execution_start_readpoint": {
+    "build_start_is_ancestor_of_validation_head": true,
+    "commit": "3073d06b1d3b03e6f5b17603a4fa2031dfcbeb2e",
+    "exact_head_required_for_build": true,
+    "g1_evidence_delta_paths": [
+      "Iris/validation/clean_checkout/authority/full_repository_technical_debt_closeout_successor_0004.json",
+      "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0004.json"
+    ],
+    "tree": "506361c8d4ea82cc09e89b157f4004cf4d3d08f0",
+    "validated_subject_commit": "edc70fdca94edc7b114f350e74373de9d39e2b0e",
+    "validated_subject_delta_paths": [
+      "Iris/build/description/v2/tests/test_public_text_constituent_identity.py",
+      "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py"
+    ],
+    "validated_subject_tree": "5350b45eecd62491306247b659339af44616706e"
+  },
+  "foundation_contract_semantics_changed": false,
+  "foundation_semantics": {
+    "acceptance_top_level_symbol_delta": [
+      "PROTECTED_SNAPSHOT_IDENTITY_ALGORITHM_ID",
+      "_protected_snapshot",
+      "build_protected_snapshot_identity_from_bytes",
+      "build_protected_snapshot_present_row_from_bytes"
+    ],
+    "foundation_contract": {
+      "git_blob_id": "b18b9d6067bdd4aa1bf94755f91f24c0cd1deea4",
+      "git_blob_sha256": "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02",
+      "git_blob_working_byte_identity": true,
+      "ignored_by_current_rules": false,
+      "path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json",
+      "sha256": "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02",
+      "tracked": true,
+      "working_raw_blob_id": "b18b9d6067bdd4aa1bf94755f91f24c0cd1deea4"
+    },
+    "foundation_contract_semantics_changed": false,
+    "handoff_text_constituent_freshness_algorithm_changed": false,
+    "handoff_text_constituent_identity_algorithm_id": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1",
+    "intentionally_corrected_meaning_path_count": 1,
+    "meaning_path_count": 17,
+    "meaning_paths": [
+      {
+        "classification": "intended_protected_snapshot_identity_representation_correction",
+        "git_blob_id": "8107aaa7a0107e4103b4ce0ed9f6f3735aee0152",
+        "git_blob_raw_sha256": "96911c4db921937ca6928234773e5392ab4ef614962b79c5cfc59e2cd823b620",
+        "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py"
+      },
+      {
+        "classification": "byte_identical_to_predecessor",
+        "git_blob_id": "5130822f7d06b9a11e343a3a9c3ce8756005766f",
+        "git_blob_raw_sha256": "016a2155d943006ea10fe3cede86640083c3a7b2fce211a72e9db841a53d127c",
+        "path": "Iris/build/description/v2/tools/build/run_public_text_quality_acceptance.py"
+      },
+      {
+        "classification": "byte_identical_to_predecessor",
+        "git_blob_id": "f2403bf0d036fc7daa4170e7fe887bd22f24add2",
+        "git_blob_raw_sha256": "d5e631d753a6819f13da986a1608ddd67a76a7598d0adf9a5a97e1ffee491db2",
+        "path": "Iris/build/description/v2/tools/build/validate_public_text_quality_acceptance.py"
+      },
+      {
+        "classification": "byte_identical_to_predecessor",
+        "git_blob_id": "45f65f593be2ace6e1909e3d9a35988d497f8e70",
+        "git_blob_raw_sha256": "51c2201c8af083bfa42a7e4c76e2da8eca7a6d7d82fb8b2434a6e3aea9d5fab8",
+        "path": "Iris/build/description/v2/tests/test_public_text_quality_metric_contract.py"
+      },
+      {
+        "classification": "byte_identical_to_predecessor",
+        "git_blob_id": "38e933b013236db50932a8b677a1f77d96486507",
+        "git_blob_raw_sha256": "80ec228774bea767f77f1dd8bc631d8be45914e6c73de20e1e7e443da723e39b",
+        "path": "Iris/build/description/v2/tests/test_public_text_quality_acceptance_policy.py"
+      },
+      {
+        "classification": "byte_identical_to_predecessor",
+        "git_blob_id": "066a0e4686ab4de95eed2d9a323febd3464b2c3e",
+        "git_blob_raw_sha256": "7db0d352ea9105dd669986c2a5b2569daf17697e54a5e6ff4b1b8688bfb51cad",
+        "path": "Iris/build/description/v2/tests/test_public_text_quality_acceptance.py"
+      },
+      {
+        "classification": "byte_identical_to_predecessor",
+        "git_blob_id": "7b7c7c9b14adb6fdbb6a9fdc6a7aa2b74671fe20",
+        "git_blob_raw_sha256": "e8f3320d3dc11366ce3852320314567720997b489395d1b25ae3483c525d8f6d",
+        "path": "Iris/build/description/v2/tests/test_public_text_quality_acceptance_fixtures.py"
+      },
+      {
+        "classification": "byte_identical_to_predecessor",
+        "git_blob_id": "8d8884afeda8acbffcbb08e738e5951ab5598c6a",
+        "git_blob_raw_sha256": "edbb02df08506fcf483ec6b06e01c515e9e758971ef39bb3fe13a83adb3b4b8b",
+        "path": "Iris/build/description/v2/tests/fixtures/public_text_quality_acceptance/foundation_fixtures.json"
+      },
+      {
+        "classification": "byte_identical_to_predecessor",
+        "git_blob_id": "f74a4017a90d945b05be6e411cd2c5ec9dc33d21",
+        "git_blob_raw_sha256": "0268d259d9b5a509061cffd3aab099c5bff34a9e372d979cda36aac41edcc96e",
+        "path": "docs/public_text_quality_metric_contract.md"
+      },
+      {
+        "classification": "byte_identical_to_predecessor",
+        "git_blob_id": "1d939db32513dc3b88338cb981d6903934589d04",
+        "git_blob_raw_sha256": "fdba37a13571ade860fa21d4b49b3fc8b7abe8af05394247ee26aa7c632b9bff",
+        "path": "docs/public_text_quality_denominator_contract.md"
+      },
+      {
+        "classification": "byte_identical_to_predecessor",
+        "git_blob_id": "01350c7b5c88f03baeca47c18b8a467c32a97c68",
+        "git_blob_raw_sha256": "eebbd4d2d08903fc4498f8b0a01289737bf61d03ba1dff63fcdf475c03cdfdd5",
+        "path": "docs/public_text_quality_acceptance_policy.md"
+      },
+      {
+        "classification": "byte_identical_to_predecessor",
+        "git_blob_id": "774f90229c804a600ba3ea806178bfb75bee1e3d",
+        "git_blob_raw_sha256": "d297e97257b4e5894e3439a0259ca5db58c7d48d49c9c1f2b82d1f2bf094d762",
+        "path": "docs/public_text_quality_acceptance_claim_boundary.md"
+      },
+      {
+        "classification": "byte_identical_to_predecessor",
+        "git_blob_id": "eb92e05b31bba3b22beb56031c62e39e48f555ec",
+        "git_blob_raw_sha256": "58fccffd6f92a8930860ea4a1ecdc796f2418d86718238fceb47247950691d0f",
+        "path": "docs/public_text_quality_exception_policy.md"
+      },
+      {
+        "classification": "byte_identical_to_predecessor",
+        "git_blob_id": "9bd472b9e49c4ec261231e070baae9c2d4617e11",
+        "git_blob_raw_sha256": "f3608ad9416c20fc662faa022a8f6b39ed2b725c42ad1a878e8c42230b4bef51",
+        "path": "docs/public_text_quality_waiver_policy.md"
+      },
+      {
+        "classification": "byte_identical_to_predecessor",
+        "git_blob_id": "d1777edb851b75d4680751b1ca8693a4026faf7b",
+        "git_blob_raw_sha256": "23e6f7e9fbf8c2d5c642e3cce30b02de9417e7c827938c8538b14123beb53728",
+        "path": "docs/public_text_quality_freshness_policy.md"
+      },
+      {
+        "classification": "byte_identical_to_predecessor",
+        "git_blob_id": "b18b9d6067bdd4aa1bf94755f91f24c0cd1deea4",
+        "git_blob_raw_sha256": "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02",
+        "path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json"
+      },
+      {
+        "classification": "byte_identical_to_predecessor",
+        "git_blob_id": "160aaf8033ffafab98586cbd063a4d9f1bd7af0c",
+        "git_blob_raw_sha256": "34419a8093970c7ffc68d3d968ff90207f63c512971ae9ada87f90cff7f2d263",
+        "path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_development_readiness_report.json"
+      }
+    ],
+    "policy_threshold_denominator_detector_semantics_changed": false,
+    "protected_snapshot_identity_algorithm_id": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_text_and_raw_binary_v1",
+    "protected_snapshot_identity_implementation_changed": true,
+    "regression_test": {
+      "absolute_path_or_host_metadata_in_identity": false,
+      "algorithm_id": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1",
+      "authority_git_blob_raw_sha256": "df1ab5ab403ef6c79b1306107e185a8a9ca425cc131943912a7ff66878672c0b",
+      "authority_lf_canonical_sha256": "df1ab5ab403ef6c79b1306107e185a8a9ca425cc131943912a7ff66878672c0b",
+      "authority_source": "HEAD_git_blob_raw",
+      "canonical_contract_declared_match": true,
+      "canonical_working_identity": true,
+      "declared_binding_mode": "canonical_line_ending_representation",
+      "declared_matches_head_authority": true,
+      "declared_representation_kinds": [
+        "git_blob_raw",
+        "lf"
+      ],
+      "declared_sha256": "df1ab5ab403ef6c79b1306107e185a8a9ca425cc131943912a7ff66878672c0b",
+      "exact_working_raw_sha256_match": true,
+      "git_filtered_working_identity": true,
+      "head_git_blob_id": "0bbf23c87f113c413e92f66dc0dd869fab99a6e4",
+      "json_semantic_normalization_applied": false,
+      "match": true,
+      "path": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py",
+      "raw_head_git_identity_strict": true,
+      "sealed_declared_sha256": "df1ab5ab403ef6c79b1306107e185a8a9ca425cc131943912a7ff66878672c0b",
+      "working_lf_canonical_sha256": "df1ab5ab403ef6c79b1306107e185a8a9ca425cc131943912a7ff66878672c0b",
+      "working_matches_head_authority": true
+    },
+    "regression_test_top_level_symbol_delta": [
+      "PublicTextConstituentIdentityTest",
+      "protected_identity",
+      "protected_snapshot_row"
+    ],
+    "unchanged_meaning_path_count": 16
+  },
+  "g1_clean_checkout_correction": {
+    "blocking_condition_count": 0,
+    "canonical_result_sha256": "62b6eb0a0be79cbfe99b5072058cc1d0e1ff60885cc10a2e0fd8341bd709b4f1",
+    "canonical_results_equal": true,
+    "census": {
+      "fixture": 2,
+      "historical": 55,
+      "obsolete": 3,
+      "required": 33,
+      "tracked": 93,
+      "unresolved_dependency": 0
+    },
+    "closeout_successor_0004": {
+      "absolute_path_or_host_metadata_in_identity": false,
+      "algorithm_id": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1",
+      "authority_git_blob_raw_sha256": "9a85e375db6c272b6f8eb685fb0024ee839e9f0dac3e42d728ed5e3632462f1e",
+      "authority_lf_canonical_sha256": "9a85e375db6c272b6f8eb685fb0024ee839e9f0dac3e42d728ed5e3632462f1e",
+      "authority_source": "HEAD_git_blob_raw",
+      "canonical_contract_declared_match": true,
+      "canonical_working_identity": true,
+      "declared_binding_mode": "canonical_line_ending_representation",
+      "declared_matches_head_authority": true,
+      "declared_representation_kinds": [
+        "git_blob_raw",
+        "lf"
+      ],
+      "declared_sha256": "9a85e375db6c272b6f8eb685fb0024ee839e9f0dac3e42d728ed5e3632462f1e",
+      "exact_working_raw_sha256_match": true,
+      "git_filtered_working_identity": true,
+      "head_git_blob_id": "8be3625d38a3b5b5e41a50ba4e254cf510ed42d5",
+      "json_semantic_normalization_applied": false,
+      "match": true,
+      "path": "Iris/validation/clean_checkout/authority/full_repository_technical_debt_closeout_successor_0004.json",
+      "raw_head_git_identity_strict": true,
+      "sealed_declared_sha256": "9a85e375db6c272b6f8eb685fb0024ee839e9f0dac3e42d728ed5e3632462f1e",
+      "working_lf_canonical_sha256": "9a85e375db6c272b6f8eb685fb0024ee839e9f0dac3e42d728ed5e3632462f1e",
+      "working_matches_head_authority": true
+    },
+    "compiler_aggregate_sha256": "aa88ee878cfb570b8278b40e62c560f093dc6ffdc363f06ed7133352d635c647",
+    "compiler_identity_algorithm_id": "naturalization_compiler_identity_sha256_lf_normalized_ordered_paths_v2",
+    "evidence_commit": {
+      "commit": "3073d06b1d3b03e6f5b17603a4fa2031dfcbeb2e",
+      "tree": "506361c8d4ea82cc09e89b157f4004cf4d3d08f0"
+    },
+    "focused_pytest_result": "8/8 PASS",
+    "focused_standalone_result": "8/8 PASS",
+    "gate_manifest_successor_0004": {
+      "absolute_path_or_host_metadata_in_identity": false,
+      "algorithm_id": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1",
+      "authority_git_blob_raw_sha256": "fc837f3c6957ac8da1ee4bf4cf2d9f9b0e5588c843ecc27ba2b903b1334e12f9",
+      "authority_lf_canonical_sha256": "fc837f3c6957ac8da1ee4bf4cf2d9f9b0e5588c843ecc27ba2b903b1334e12f9",
+      "authority_source": "HEAD_git_blob_raw",
+      "canonical_contract_declared_match": true,
+      "canonical_working_identity": true,
+      "declared_binding_mode": "canonical_line_ending_representation",
+      "declared_matches_head_authority": true,
+      "declared_representation_kinds": [
+        "git_blob_raw",
+        "lf"
+      ],
+      "declared_sha256": "fc837f3c6957ac8da1ee4bf4cf2d9f9b0e5588c843ecc27ba2b903b1334e12f9",
+      "exact_working_raw_sha256_match": true,
+      "git_filtered_working_identity": true,
+      "head_git_blob_id": "131991c75366ccf75d8926fcfb649078f41fe1e8",
+      "json_semantic_normalization_applied": false,
+      "match": true,
+      "path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0004.json",
+      "raw_head_git_identity_strict": true,
+      "sealed_declared_sha256": "fc837f3c6957ac8da1ee4bf4cf2d9f9b0e5588c843ecc27ba2b903b1334e12f9",
+      "working_lf_canonical_sha256": "fc837f3c6957ac8da1ee4bf4cf2d9f9b0e5588c843ecc27ba2b903b1334e12f9",
+      "working_matches_head_authority": true
+    },
+    "run_a_result": "185/185 PASS",
+    "run_b_result": "185/185 PASS",
+    "status": "PASS",
+    "validated_subject": {
+      "commit": "edc70fdca94edc7b114f350e74373de9d39e2b0e",
+      "tree": "5350b45eecd62491306247b659339af44616706e"
+    }
+  },
+  "handoff_text_constituent_freshness_algorithm_changed": false,
+  "live_gate_adopted": false,
+  "next_stage": "official_attempt_0004_phase0_no_write_preflight",
+  "official_disposition": "not_issued",
+  "policy_closure_state": "not_started",
+  "policy_threshold_denominator_detector_semantics_changed": false,
+  "predecessor_readiness": {
+    "append_only_successor_required": true,
+    "correction_id": "implementation-correction-0003",
+    "git_blob_id": "3945515b0ad4db267fe67b9bff1d8e1ae3e4fbf1",
+    "git_blob_sha256": "fa96bbdeddbcb287fd5c9c39894385729cc1d165bc1281a00f8ee031f3c85e59",
+    "git_blob_working_byte_identity": true,
+    "ignored_by_current_rules": false,
+    "path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/readiness_successors/implementation-correction-0003/public_text_quality_g1_gate_classification_readiness.json",
+    "predecessor_mutated": false,
+    "sha256": "fa96bbdeddbcb287fd5c9c39894385729cc1d165bc1281a00f8ee031f3c85e59",
+    "tracked": true,
+    "working_raw_blob_id": "3945515b0ad4db267fe67b9bff1d8e1ae3e4fbf1"
+  },
+  "protected_no_write_guard": {
+    "after_snapshot_hash": "ba55796a40bc27452a5bdeaa7b802864a0ff880832d10612278b4878c1b0fe40",
+    "authority_effect": "none",
+    "before_snapshot_hash": "ba55796a40bc27452a5bdeaa7b802864a0ff880832d10612278b4878c1b0fe40",
+    "changed_paths": [],
+    "protected_surface_mutation_count": 0,
+    "schema_version": "public_text_quality_foundation_g1_handoff_correction_no_write_guard_v1",
+    "status": "PASS"
+  },
+  "protected_snapshot_identity_implementation_changed": true,
+  "protected_surface_mutation_count": 0,
+  "purpose": "Bind the Phase 0 protected-snapshot HEAD authority and line-ending-independent tracked UTF-8 working identity correction, its focused regression, and its 185/185 G1 clean-checkout A/B evidence without granting authority.",
+  "readiness_kind": "append_only_foundation_protected_snapshot_identity_implementation_correction",
+  "schema_version": "public_text_quality_foundation_protected_snapshot_identity_correction_readiness_v1",
+  "scope_boundaries": {
+    "candidate_modified": false,
+    "facts_or_manifest_modified": false,
+    "foundation_contract_modified": false,
+    "foundation_implementation_modified": true,
+    "handoff_text_constituent_identity_modified": false,
+    "live_gate_modified": false,
+    "naturalization_modified_or_executed": false,
+    "official_attempt_0004_created_or_executed": false,
+    "persistent_worktree_created": false,
+    "phase8_handoff_modified": false,
+    "policy_threshold_denominator_detector_modified": false,
+    "protected_snapshot_identity_algorithm_modified": true,
+    "runtime_lua_package_modified": false
+  },
+  "status": "PASS",
+  "successor_implementation_hashes": [
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "Iris/build/description/v2/tools/build/public_text_quality_foundation_protected_snapshot_correction.py",
+      "sha256": "305e1d1796e8446d91a318003f6ced6ddb14efb3996ccab55a1bf6fa75b88073"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "Iris/build/description/v2/tools/build/run_public_text_quality_foundation_protected_snapshot_correction.py",
+      "sha256": "8bbab293c2a35c393dccc6687bc40b986696837a9490a09842495c30b76f2a46"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "Iris/build/description/v2/tools/build/validate_public_text_quality_foundation_protected_snapshot_correction.py",
+      "sha256": "471ea8e93d0d00bb547b89216f27d385ba3df34e7c684cd00491ee952f789e76"
+    }
+  ],
+  "successor_tracking_rules": {
+    "broad_unignore_added": false,
+    "exact_text_unset_rule_count": 1,
+    "exact_unignore_rule_count": 1,
+    "successor_path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/readiness_successors/implementation-correction-0004/public_text_quality_protected_snapshot_identity_readiness.json"
+  }
+}

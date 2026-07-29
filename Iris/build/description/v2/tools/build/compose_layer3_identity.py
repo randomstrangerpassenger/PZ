@@ -64,10 +64,10 @@ def naturalize_source_fragment(text: str) -> tuple[str, list[str]]:
 
     normalized = strip_sentence_ending(text)
     transformations: list[str] = []
+    # ``작업`` is a source-bearing noun, including when a Korean case particle
+    # is attached.  Replacing it with ``과정`` without semantic context corrupts
+    # compounds and parallel phrases, so lexical naturalization must preserve it.
     replacements = (
-        (r"작업에서", "과정에서"),
-        (r"작업에", "과정에"),
-        (r"작업을", "과정을"),
         (r"맥락에서", "상황에서"),
         (r"부품", "구성품"),
         (r"용도", "쓰임"),

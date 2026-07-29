@@ -1,0 +1,202 @@
+{
+  "schema_version": "dvf-3-3-korean-prose-work-lexeme-preservation-report-v1",
+  "status": "PASS",
+  "status_scope": "generic_work_lexeme_preservation_only",
+  "execution_mode": "temporary_projection_no_naturalization_attempt",
+  "input_binding": {
+    "commit": "1c6d6dd639d7e1bbfa139edb05441cf268ccd0b3",
+    "tree": "00b8afd4a2ee5ebda72179d18f79b5e5f5ec4049",
+    "compiler_fix_commit": "b399cdbacf884ed97a884e8a0266f94a7e4a13d5",
+    "compiler_fix_is_head_ancestor": true,
+    "facts_path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+    "facts_sha256": "ca74270191289af064d9d8fa9d739c97b0865d69e255885e815b01565243f46e",
+    "current_manifest_path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+    "current_manifest_sha256": "c9670c1625382444fe292158e6b50e65e2ee54316d2903835ebc4f59c199257d",
+    "source_inventory_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0019-g3-correction-a/phase2/source_proposition_inventory.jsonl",
+    "source_inventory_sha256": "ff1d81d6c1eee638343bb94af4da74b0137fee0122d94df94c0d79b6c72b19d6",
+    "requirement_inventory_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0019-g3-correction-a/phase2/body_plan_requirement_inventory.jsonl",
+    "requirement_inventory_sha256": "981f0cfc73624a7d4e6132606052ad8b8f96aefb2983ed63c6fe03ac0c274c2e",
+    "compiler_sha256": "8a271a72df26066e1ee1e1666ae1cc10d709231b6a7cf3d10558cfa7e29b8455"
+  },
+  "projection": {
+    "candidate_key_count": 2105,
+    "projected_text_denominator": 2084,
+    "unadopted_count": 21,
+    "candidate_file_sha256": "2d596a5c013805629be904928ecb5850494ee815701ce991d17dbb1319d78f58",
+    "candidate_entries_canonical_sha256": "e0a1cadbb4dd4f9b3da432b9e14f4eae818191d5fadbd67421d622cef5d4b223",
+    "trace_row_count": 3125
+  },
+  "detectors": {
+    "source_work_to_process_generic_transformation": {
+      "hit_count": 0,
+      "rows": []
+    },
+    "parallel_or_compound_work_phrase_damage": {
+      "hit_count": 0,
+      "rows": []
+    },
+    "compiler_introduced_process_without_same_clause_source_process": {
+      "observation_count": 31,
+      "generic_lexical_transformation_count": 0,
+      "non_generic_semantic_realization_count": 31,
+      "realization_rule_counts": {
+        "candidate_lead_food_cooked_ingredient_v1": 31
+      },
+      "item_ids": [
+        "Base.BaitFish",
+        "Base.Bass",
+        "Base.BreadDough",
+        "Base.Catfish",
+        "Base.Chicken",
+        "Base.Crappie",
+        "Base.Crayfish",
+        "Base.DeadBird",
+        "Base.DeadMouse",
+        "Base.DeadRabbit",
+        "Base.DeadRat",
+        "Base.DeadSquirrel",
+        "Base.Dough",
+        "Base.Egg",
+        "Base.Lobster",
+        "Base.MeatPatty",
+        "Base.MincedMeat",
+        "Base.MuttonChop",
+        "Base.Oysters",
+        "Base.Panfish",
+        "Base.Perch",
+        "Base.Pike",
+        "Base.PizzaRecipe",
+        "Base.PorkChop",
+        "Base.Salmon",
+        "Base.Sausage",
+        "Base.Shrimp",
+        "Base.Steak",
+        "Base.Trout",
+        "Base.WildEggs",
+        "farming.Bacon"
+      ],
+      "rows_digest": "0fae57641958ba71958c8537a86e1e60bde6d95100b0ec9d5c03f58453099cfc",
+      "disposition": "observed_outside_generic_work_lexeme_remediation_scope"
+    }
+  },
+  "regression": {
+    "historical_attestation_count": 7,
+    "historical_attestation_rows": [
+      {
+        "item_id": "Base.Hammer",
+        "source_work_count": 2,
+        "output_work_count": 2,
+        "generic_work_to_process_count": 0,
+        "compound_damage_count": 0,
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.Crowbar",
+        "source_work_count": 2,
+        "output_work_count": 2,
+        "generic_work_to_process_count": 0,
+        "compound_damage_count": 0,
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.MetalPipe",
+        "source_work_count": 1,
+        "output_work_count": 1,
+        "generic_work_to_process_count": 0,
+        "compound_damage_count": 0,
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.Shovel2",
+        "source_work_count": 2,
+        "output_work_count": 2,
+        "generic_work_to_process_count": 0,
+        "compound_damage_count": 0,
+        "status": "PASS"
+      },
+      {
+        "item_id": "Radio.RadioBlack",
+        "source_work_count": 1,
+        "output_work_count": 1,
+        "generic_work_to_process_count": 0,
+        "compound_damage_count": 0,
+        "status": "PASS"
+      },
+      {
+        "item_id": "Radio.WalkieTalkie2",
+        "source_work_count": 1,
+        "output_work_count": 1,
+        "generic_work_to_process_count": 0,
+        "compound_damage_count": 0,
+        "status": "PASS"
+      },
+      {
+        "item_id": "Radio.TvBlack",
+        "source_work_count": 1,
+        "output_work_count": 1,
+        "generic_work_to_process_count": 0,
+        "compound_damage_count": 0,
+        "status": "PASS"
+      }
+    ],
+    "current_attestation_count": 6,
+    "current_attestation_rows": [
+      {
+        "item_id": "Base.WoodenMallet",
+        "source_work_count": 2,
+        "output_work_count": 2,
+        "generic_work_to_process_count": 0,
+        "compound_damage_count": 0,
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.ClubHammer",
+        "source_work_count": 2,
+        "output_work_count": 2,
+        "generic_work_to_process_count": 0,
+        "compound_damage_count": 0,
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.GardenHoe",
+        "source_work_count": 2,
+        "output_work_count": 2,
+        "generic_work_to_process_count": 0,
+        "compound_damage_count": 0,
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.CordlessPhone",
+        "source_work_count": 1,
+        "output_work_count": 1,
+        "generic_work_to_process_count": 0,
+        "compound_damage_count": 0,
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.Corkscrew",
+        "source_work_count": 1,
+        "output_work_count": 1,
+        "generic_work_to_process_count": 0,
+        "compound_damage_count": 0,
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.PlateOrange",
+        "source_work_count": 1,
+        "output_work_count": 1,
+        "generic_work_to_process_count": 0,
+        "compound_damage_count": 0,
+        "status": "PASS"
+      }
+    ],
+    "combined_unique_blocker_count": 13,
+    "all_pass": true
+  },
+  "scope_guards": {
+    "item_specific_compiler_exception_count": 0,
+    "naturalization_attempt_created": false,
+    "phase7_or_phase8_executed": false,
+    "publish_executed": false
+  }
+}

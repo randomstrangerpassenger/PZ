@@ -7,7 +7,7 @@ import sys
 import unittest
 
 
-REPO_ROOT = Path(__file__).resolve().parents[4]
+REPO_ROOT = Path(__file__).resolve().parents[5]
 VALIDATOR = (
     REPO_ROOT
     / "Iris"

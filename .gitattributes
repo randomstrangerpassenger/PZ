@@ -61,6 +61,8 @@ Iris/build/description/v2/tools/build/validate_public_text_quality_acceptance_of
 Iris/build/description/v2/tools/build/materialize_public_text_quality_policy_ratification_0004.py -text
 Iris/build/description/v2/tests/test_public_text_quality_acceptance_current_route.py -text
 Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt_0022_terminal_closeout.json whitespace=cr-at-eol
+Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt_0022_human_review_decision.json -text whitespace=cr-at-eol
+Iris/build/description/v2/data/korean_prose_naturalization/corpus_manifest.json -text whitespace=cr-at-eol
 Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0022-particle-correction-a/phase2/source_proposition_manifest.json whitespace=cr-at-eol
 Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0022-particle-correction-a/phase2/body_plan_requirement_inventory.jsonl whitespace=cr-at-eol
 Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0022-particle-correction-a/phase4/candidate_rendered.json whitespace=cr-at-eol

@@ -115,3 +115,47 @@ This cutover may emit only Registry correction evidence and a Naturalization
 current-input handoff. It does not authorize RTC, rendered-description, Lua,
 runtime, package, Foundation rebind, a Naturalization attempt, or official
 Publish execution.
+
+## Append-only correction successor 0003
+
+This section extends the sealed correction chain without rewriting
+`correction-0001`, `correction-0002`, `attempt-0010`, or `attempt-0011`. It
+authorizes exactly one new Registry correction cutover:
+
+- input commit/tree:
+  `cec8c43f5ba1c93d0c7a3436c74d73a1e24549fa` /
+  `1a3d7a5bafbbd9cadc9d0f31f19e2323fc217ae8`;
+- successor id: `correction-0003`;
+- Registry cutover attempt: `attempt-0012`;
+- successor facts SHA-256:
+  `50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120`;
+- sealed non-current successor manifest SHA-256:
+  `da7f6676b899b628c444edca56241ad274f2c64fa1a3448a934abff2f059cbb5`;
+- successor receipt SHA-256:
+  `ad0b16c3bec487a4eba63ba51a24ba781f200551419b22d757eebd4e76cf57f8`;
+- row-level lineage SHA-256:
+  `6c257f1ce558068a1e5536be05c65dde33a477e7627cf15d98ad7d9563e62da8`;
+- predecessor current facts/manifest SHA-256:
+  `37db2595eff9b58f7b08e59221e950cb529453bd96733fb29171d458e46118f6` /
+  `a105e3790896b30bc25e95839ceb0ee4c88357fed98ec9fa4258790bf0733a1f`.
+
+The cutover binds 44 corrected rows, 60 corrected fields, 105 unchanged
+controls, 2,061 byte-identical non-target rows, and zero regression across the
+251 rows corrected by successors 0001 and 0002. The successor manifest remains
+a sealed non-current input and must be transformed by a closed current-adoption
+projection.
+
+The current pair is installed candidate-first under the round-global exclusive
+lock using rollback snapshots, facts-first replacement, and manifest-last
+replacement. Isolated failure injection must prove lock contention, rollback,
+and process-crash recovery without mutating live current paths.
+
+The Registry adoption contract appends a `correction-0003` binding after the
+immutable `correction-0002` binding. A Codex Reviewer must return blocker count
+zero for the committed adoption and preterminal evidence before Registry may
+create the terminal correction seal.
+
+This cutover does not authorize RTC, rendered candidate generation,
+Naturalization execution, Foundation rebind, official Publish, live-gate
+mutation, runtime/Lua/package mutation, or any overwrite of a predecessor
+receipt or terminal seal.

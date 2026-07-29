@@ -407,6 +407,7 @@ Iris/build/description/v2/staging/*
 !Iris/build/description/v2/tools/build/dvf_3_3_current_facts_correction.py
 !Iris/build/description/v2/tools/build/dvf_3_3_current_facts_correction_0002.py
 !Iris/build/description/v2/tools/build/dvf_3_3_current_facts_correction_0002_cutover.py
+!Iris/build/description/v2/tools/build/dvf_3_3_current_facts_correction_0003_cutover.py
 !Iris/build/description/v2/tools/build/dvf_3_3_current_facts_correction_0003.py
 !Iris/build/description/v2/staging/2105_baseline_consumption_audit/
 !Iris/build/description/v2/staging/2105_baseline_consumption_audit/**

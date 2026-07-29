@@ -23,6 +23,8 @@ ROUND_ROOT = (
 )
 ATTEMPTS_ROOT = ROUND_ROOT / "attempts"
 ATTEMPT_ID = "attempt-0011"
+CORRECTION_NUMBER = "0002"
+CORRECTION_ID = f"correction-{CORRECTION_NUMBER}"
 
 CURRENT_FACTS = V2_ROOT / "data" / "dvf_3_3_facts.jsonl"
 CURRENT_MANIFEST = V2_ROOT / "data" / "dvf_3_3_input_manifest.json"
@@ -576,6 +578,7 @@ def command_prepare(attempt_id: str) -> dict[str, Any]:
     projection = build_current_manifest_projection(attempt_id)
     differences = validate_projection(projection, attempt_id)
 
+    transaction_core.write_once_bytes(root / ".gitattributes", b"* -text\n")
     candidate_facts, candidate_manifest = candidate_paths(root)
     transaction_core.write_once_bytes(candidate_facts, SUCCESSOR_FACTS.read_bytes())
     transaction_core.write_once_bytes(
@@ -589,7 +592,9 @@ def command_prepare(attempt_id: str) -> dict[str, Any]:
     )
     candidate_hashes = expected_candidates(root)
     preflight = {
-        "schema_version": "dvf-3-3-registry-correction-0002-preimage-v1",
+        "schema_version": (
+            f"dvf-3-3-registry-correction-{CORRECTION_NUMBER}-preimage-v1"
+        ),
         "status": "PASS",
         "attempt_id": attempt_id,
         "generated_at": now_iso(),
@@ -610,7 +615,7 @@ def command_prepare(attempt_id: str) -> dict[str, Any]:
         "status": "AUTHORIZED",
         "attempt_id": attempt_id,
         "authority": "project_owner_user_prompt",
-        "scope": "correction-0002-registry-current-adoption-only",
+        "scope": f"{CORRECTION_ID}-registry-current-adoption-only",
         "input_commit": INPUT_COMMIT,
         "input_tree": INPUT_TREE,
         "successor_receipt_sha256": SUCCESSOR_RECEIPT_SHA256,
@@ -688,7 +693,9 @@ def command_failure_injection_check(attempt_id: str) -> dict[str, Any]:
         "live_preimage_before_failure_injection",
     )
     results: list[dict[str, Any]] = []
-    with tempfile.TemporaryDirectory(prefix="dvf-correction-0002-fi-") as temporary:
+    with tempfile.TemporaryDirectory(
+        prefix=f"dvf-correction-{CORRECTION_NUMBER}-fi-"
+    ) as temporary:
         temporary_root = Path(temporary)
         fixture_lock = temporary_root / "exclusive_lock.json"
         with transaction_core.transaction_lock(
@@ -814,7 +821,10 @@ def command_failure_injection_check(attempt_id: str) -> dict[str, Any]:
     }
     require_equal(live_after, live_before, "live_non_mutation_failure_injection")
     report = {
-        "schema_version": "dvf-3-3-registry-correction-failure-injection-v1",
+        "schema_version": (
+            f"dvf-3-3-registry-correction-{CORRECTION_NUMBER}"
+            "-failure-injection-v1"
+        ),
         "status": "PASS",
         "attempt_id": attempt_id,
         "generated_at": now_iso(),
@@ -839,7 +849,7 @@ def build_adoption_receipt(root: Path) -> dict[str, Any]:
         "schema_version": "dvf-3-3-registry-correction-adoption-receipt-v2",
         "status": "PASS",
         "attempt_id": root.name,
-        "successor_id": "correction-0002",
+        "successor_id": CORRECTION_ID,
         "input_commit": INPUT_COMMIT,
         "input_tree": INPUT_TREE,
         "predecessor_current_facts_sha256": PREIMAGE_FACTS_SHA256,
@@ -1047,7 +1057,7 @@ def command_apply(attempt_id: str) -> dict[str, Any]:
 
     with transaction_core.transaction_lock(
         {
-            "mode": "correction_0002_apply",
+            "mode": f"correction_{CORRECTION_NUMBER}_apply",
             "attempt_id": attempt_id,
             "input_commit": INPUT_COMMIT,
             "successor_receipt_sha256": SUCCESSOR_RECEIPT_SHA256,
@@ -1303,7 +1313,7 @@ def command_verify_adoption_commit(attempt_id: str) -> dict[str, Any]:
         "schema_version": "dvf-3-3-terminal-correction-hash-seal-v2",
         "status": "PASS",
         "attempt_id": attempt_id,
-        "successor_id": "correction-0002",
+        "successor_id": CORRECTION_ID,
         "input_commit": INPUT_COMMIT,
         "input_tree": INPUT_TREE,
         "adoption_commit": adoption_commit,
@@ -1457,7 +1467,9 @@ def command_verify_closeout(attempt_id: str) -> dict[str, Any]:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="DVF 3-3 correction successor 0002 Registry cutover"
+        description=(
+            f"DVF 3-3 correction successor {CORRECTION_NUMBER} Registry cutover"
+        )
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
     for command in (
@@ -1490,7 +1502,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             json.dumps(
                 {
                     "schema_version": (
-                        "dvf-3-3-current-facts-correction-0002-cutover-error-v1"
+                        "dvf-3-3-current-facts-correction-"
+                        f"{CORRECTION_NUMBER}-cutover-error-v1"
                     ),
                     "status": "BLOCKED",
                     "failure": str(exc),

@@ -1,0 +1,261 @@
+{
+  "schema_version": "dvf-3-3-naturalization-attempt-0023-terminal-closeout-v1",
+  "status": "PASS",
+  "write_once": true,
+  "attempts": {
+    "primary": "attempt-0023-compiler-identity-v2-a",
+    "replay": "attempt-0023-compiler-identity-v2-b",
+    "predecessor_attempt_modified_or_resumed": false,
+    "retry_attempt_created": false
+  },
+  "git_binding": {
+    "naturalization_start_commit": "510e55f581ae505f7330664f155fa1289748c207",
+    "naturalization_start_tree": "e46775de1bb0fc4ed4f43c5481a27609afaefe55",
+    "identity_v2_orchestration_head_before_phase7": "397a0bf334e2e7785062504a2b7a2913f1ff2ff8",
+    "identity_v2_orchestration_tree_before_phase7": "04f90c79e276ceaf23f4d2791db1c486ebd0bf40"
+  },
+  "phase_results": {
+    "phase0": "PASS_APPEND_ONLY_CORRECTION_0002",
+    "phase1": "PASS_APPEND_ONLY_CORRECTION_0001",
+    "phase2": "PASS",
+    "phase3": "PASS",
+    "phase4": "PASS",
+    "phase5": "PASS",
+    "phase6": "PASS",
+    "phase7": "PASS",
+    "phase8": "HANDOFF_COMPLETE"
+  },
+  "phase0_and_phase1_preserved_history": {
+    "new_attempt_id_consumed_for_correction": false,
+    "phase0_original_sha256": "a0ce625424aeba396d02304b2440efe01fb88240b66ce277e3ff2357bbb8ce3b",
+    "phase0_correction_0001_sha256": "51b93be8491973bf89d0d6b4d1e9ab1e65d645b31261dcfa0a9ba96b4050900a",
+    "phase0_effective_primary_sha256": "db3ed1fc757beb075a1f7309c2b0546498f9a6d276d9596bb35b6edf17860c67",
+    "phase0_effective_replay_sha256": "d1eb4fd7951f47701ee51ebb88a02d744792a1a1eefb62a3642cf90009b7179f",
+    "phase1_original_sha256": "be0578fafbb5bab914513659da99c5425700848b101d1efa8a87be9361227627",
+    "phase1_effective_primary_sha256": "e405ccf600a16c545ded68fcf79cd4ff0b97b23c3b0d68c456bcf562e0b7b2f0",
+    "phase1_effective_replay_sha256": "abefb9483ef2bdd00c2584db9df851b56ecd79748f8c924bd06ce1512bde74de",
+    "public_wording_changed_by_correction": false,
+    "source_authority_changed_by_correction": false,
+    "foundation_semantics_changed_by_correction": false
+  },
+  "phase2_source_authority_and_identity_v2_seal": {
+    "facts_sha256": "50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120",
+    "manifest_sha256": "090381a652da540c6e72300624728aba48f6392e41fb50e8eec973efd320b9b7",
+    "g3_adoption_receipt_sha256": "312c9b8744e1925b120129402b4ff6834d551960c284af8e91dbdbca091a56b0",
+    "g3_terminal_correction_seal_sha256": "03dea1902f1d219b227b2b69cb88742f1005e3620cdcdee2b72ba811d1bd20fb",
+    "g3_naturalization_handoff_sha256": "bfa14583f524f99a75e88d4b6eaddfa146544cba9124cf09214a13a38c7d7750",
+    "foundation_implementation_correction_readiness_sha256": "1257393ad67dbab62ae9c6159ab6b5b680cf61967aa5f212306f36986336a7b3",
+    "predecessor_readiness_sha256": "912f28b7869ff92ff7fbd84cbdc31e1fbb22923beebbfcce2c9cc78b72eca9d2",
+    "foundation_contract_sha256": "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02",
+    "identity_correction_contract_sha256": "a7981e6987b567a260c6d0c4c5ac0c77ea75bb487417bbc6d10dd41d32d9dcf1",
+    "identity_helper_sha256": "7def3a9d13c7f4c2a05a151007234bee98b30a309c599f11c0cf71168489ab87",
+    "compiler_aggregate_sha256": "aa88ee878cfb570b8278b40e62c560f093dc6ffdc363f06ed7133352d635c647",
+    "compiler_identity_algorithm_id": "naturalization_compiler_identity_sha256_lf_normalized_ordered_paths_v2",
+    "ordered_compiler_path_count": 9,
+    "per_file_canonical_sha256_count": 9,
+    "absolute_path_worktree_mtime_identity_input_count": 0,
+    "producer_publish_consumer_recomputation_match": true,
+    "lf_crlf_lone_cr_identity_match": true,
+    "fresh_checkout_identity_match": true,
+    "primary_identity_v2_reseal_report_sha256": "be6f88ff1dd0802bd39d855b7126bcde3c199b97c7bc6f82567ebd9844839e78",
+    "replay_identity_v2_reseal_report_sha256": "be6f88ff1dd0802bd39d855b7126bcde3c199b97c7bc6f82567ebd9844839e78",
+    "identity_v2_reseal_byte_identity": true,
+    "primary_source_proposition_manifest_sha256": "9b8d237c7a08dbdcb436c848652fc4dbacfe8a28b104c211828406f9ffac470f",
+    "replay_source_proposition_manifest_sha256": "ba2e0452dd25e9b0a23c9d28d6e486f54e5a2d301e12ee2ce03560b6fa574c76",
+    "deterministic_source_proposition_inventory_sha256": "bda72c837435d44cc1187ce4a6f6e0e61ee752750d4f5bfa9343b5969fbedd85",
+    "deterministic_body_plan_requirement_inventory_sha256": "057f3cb5f4ae0896fec6314936dd7b77c2c48778d6ee2ab2bc48a2d63e4dbe89"
+  },
+  "primary_replay_identity": {
+    "candidate_sha256": "c4d2799ffd931c585b6da2d4d9a7663c2207181f21a822dbea2794f5d3a08787",
+    "candidate_byte_identity": true,
+    "candidate_proposition_trace_sha256": "b2d94a4cbaa40a488f7a444a7ff8000c23eab5545b0ec57606fb80a18bd17268",
+    "trace_byte_identity": true,
+    "canonical_compiler_identity_byte_identity": true,
+    "deterministic_phase0_through_phase6_payload_identity": true,
+    "effective_compared_file_count": 69,
+    "raw_byte_equal_file_count": 49,
+    "attempt_or_orchestration_metadata_only_file_count": 20,
+    "metadata_difference_disposition": "attempt IDs, attempt-local paths, correction provenance, and hashes of attempt-scoped reports only",
+    "identity_report_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt_0023_phase0_through_phase6_ab_identity_v2_report.json",
+    "identity_report_sha256": "addc5be0ad0d72081c337a4ef6915b37c9ee44991da19236c77e4bea1db50292"
+  },
+  "attempt_0022_public_text_equality": {
+    "entry_count": 2105,
+    "public_text_difference_count": 0,
+    "public_text_identity": true,
+    "public_text_digest": "6eb463124cd44ce1b5504bb6170afe1f136e1fe118a841f31e743c8d578c3e9c",
+    "raw_container_byte_identity": false,
+    "raw_container_difference_disposition": "compiler identity evidence, attempt metadata, and line-ending representation; no text_ko change",
+    "equality_report_sha256": "c3b572e296059fc23bf2eab77549d1c621f899358a2b1733129ac23a118948d1"
+  },
+  "phase7_external_review": {
+    "reviewer": "Codex Reviewer (Avicenna)",
+    "reviewed_count": 2084,
+    "required_denominator": 2084,
+    "unique_public_wording_count_read": 722,
+    "selected_ordered_digest": "5fc4c856d75330105f52a2af8dc5dfd06c972c41c28d29c8718e9eb8a4fd48de",
+    "blocker_count": 0,
+    "compiler_blocker_count": 0,
+    "current_facts_source_blocker_count": 0,
+    "rubrics": {
+      "readability": {
+        "pass": 2084,
+        "fail": 0
+      },
+      "naturalness": {
+        "pass": 2084,
+        "fail": 0
+      },
+      "semantic_fidelity": {
+        "pass": 2084,
+        "fail": 0
+      },
+      "public_suitability": {
+        "pass": 2084,
+        "fail": 0
+      }
+    },
+    "focused_rechecks": {
+      "particle_blockers": {
+        "pass": 9,
+        "fail": 0
+      },
+      "correction_0003_facts_blockers": {
+        "pass": 44,
+        "fail": 0
+      },
+      "previous_blockers": {
+        "pass": 14,
+        "fail": 0
+      },
+      "process_realizations": {
+        "pass": 31,
+        "fail": 0,
+        "disposition": "justified_semantic_realization"
+      },
+      "unchanged_controls": {
+        "pass": 105,
+        "fail": 0
+      },
+      "known_l_final_control": {
+        "item_id": "Base.WristWatch_Right_DigitalDress",
+        "expected_realization": "(메탈릭 드레스 스타일)로",
+        "pass": 1,
+        "fail": 0
+      },
+      "instrumental_particle_clauses": {
+        "audited": 732,
+        "ro": 330,
+        "euro": 402,
+        "mismatch_count": 0
+      }
+    },
+    "reviewer_attestation_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/codex_reviewer_attempt_0023_phase7_pass_attestation.json",
+    "reviewer_attestation_sha256": "63cc212a32205cee54fcddf02f9fdc79a2378eb2d9673165b285c9217e44b02f",
+    "human_review_decision_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt_0023_human_review_decision.json",
+    "human_review_decision_sha256": "1c01c520dd04591ebfae9687bb9db8a2ae67d99bab50ec82acfbac1515510e26",
+    "human_review_binding_report_sha256": "62203d936ac04b40af07edeb042f6af0f05b4c911c3ab6117155a51267f0ea35",
+    "human_review_eligibility_report_sha256": "23064e201279d058b00e4228381d980a20c8ea459fe9a90b4921730587c142b1",
+    "human_review_sample_manifest_sha256": "32c580d741557a5f713ddda23c56656a8a221c117ce563689dbae0c853c7bc19"
+  },
+  "phase8_handoff": {
+    "status": "HANDOFF_COMPLETE",
+    "required_constituent_count": 16,
+    "present_constituent_count": 16,
+    "publish_acceptance_handoff_manifest_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0023-compiler-identity-v2-a/phase8/publish_acceptance_handoff_manifest.json",
+    "publish_acceptance_handoff_manifest_sha256": "2cf743005bacb939a830bd04b448a061220f58fcbd64b745c8cf00972082a9c6",
+    "phase8_closeout_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0023-compiler-identity-v2-a/phase8/phase8_closeout.json",
+    "phase8_closeout_sha256": "e8df68e1d7cd47d66001041df1b7c57ee024b5cd23795889fb32efb7297e0d41",
+    "publish_handoff_readiness_report_sha256": "e010c94d4f889a283bc6b34cc1afe6ac60e9d51073f5b9d2b787c80386f5febd",
+    "compiler_identity_v2_verification_report_sha256": "52e47ae7ffb5d82974bf23e0a7700369758014697a9f11bc6160579b4d4e974b",
+    "handoff_compiler_implementation_hash": "aa88ee878cfb570b8278b40e62c560f093dc6ffdc363f06ed7133352d635c647",
+    "next_stage": "official_publish_attempt_prohibited_until_separate_authorization"
+  },
+  "validation": {
+    "unit_test_count_observed": 64,
+    "unit_test_failures": 0,
+    "unit_test_commands": [
+      {
+        "suite": "Naturalization",
+        "requested_count": 27,
+        "observed_count": 20,
+        "exit_code": 0,
+        "count_disposition": "the exact current checkout contains 20 discoverable tests for this glob; the plan-listed test_dvf_3_3_korean_prose_policy.py (5 historical tests) and test_dvf_3_3_korean_prose_candidate_route.py (2 historical tests) are absent from the exact start commit, so no unrelated or duplicate tests were substituted",
+        "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_korean_prose_*.py\""
+      },
+      {
+        "suite": "Compose",
+        "requested_count": 29,
+        "observed_count": 29,
+        "exit_code": 0,
+        "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_compose*.py\""
+      },
+      {
+        "suite": "particle regression",
+        "requested_count": 12,
+        "observed_count": 12,
+        "exit_code": 0,
+        "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_compiler_particle_adjustment.py\""
+      },
+      {
+        "suite": "compiler identity",
+        "requested_count": 3,
+        "observed_count": 3,
+        "exit_code": 0,
+        "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_naturalization_compiler_identity.py\""
+      }
+    ],
+    "validator_command_count": 3,
+    "validator_failures": 0,
+    "validator_results": [
+      {
+        "scope": "Primary Phase 0-6 compared with replay",
+        "checked_phases": [
+          "phase0",
+          "phase1",
+          "phase2",
+          "phase3",
+          "phase4",
+          "phase5",
+          "phase6"
+        ],
+        "error_count": 0,
+        "exit_code": 0
+      },
+      {
+        "scope": "Replay Phase 0-6 compared with Primary",
+        "checked_phases": [
+          "phase0",
+          "phase1",
+          "phase2",
+          "phase3",
+          "phase4",
+          "phase5",
+          "phase6"
+        ],
+        "error_count": 0,
+        "exit_code": 0
+      },
+      {
+        "scope": "Primary Phase 7 and Phase 8 handoff",
+        "checked_phases": [
+          "phase7",
+          "phase8_handoff"
+        ],
+        "error_count": 0,
+        "exit_code": 0
+      }
+    ]
+  },
+  "scope_guards": {
+    "official_publish_attempt_0004_consumed": false,
+    "official_publish_attempt_created": false,
+    "official_publish_executed": false,
+    "live_gate_mutated": false,
+    "foundation_mutated": false,
+    "facts_or_manifest_mutated": false,
+    "registry_rtc_runtime_lua_or_package_mutated": false,
+    "new_worktree_or_repository_clone_created": false,
+    "runtime_or_current_adoption_claimed": false
+  }
+}

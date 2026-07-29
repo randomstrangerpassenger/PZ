@@ -10,8 +10,8 @@ import public_text_quality_acceptance as base
 
 
 ATTEMPT_ID = "attempt-0004-official"
-START_COMMIT = "d966007e3b584d1befcd777f73d2fa9687333692"
-START_TREE = "b85fcd34d2ddd5e31bd9bc5a4d730d71801b5b33"
+START_COMMIT = "3816df44c1db5afe8cd9b1c634adf8011e04c888"
+START_TREE = "9a9a25a0243ffad9db4d44617531163f545e1f5e"
 EVALUATION_SUBJECT_KIND = "dvf_3_3_korean_naturalization_candidate"
 NATURALIZATION_ATTEMPT_ID = "attempt-0023-compiler-identity-v2-a"
 
@@ -19,9 +19,12 @@ FOUNDATION_CONTRACT_SHA256 = (
     "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02"
 )
 G4_READINESS_SHA256 = (
-    "8d52c65a17565c39eb623d3213e7c209ace5b0a2204b05b8eeea0da1bede61e0"
+    "01b80e5e70e0e49d0eb956074cc6a0c6f2d15c9c147b5b25cefc12aa1a455421"
 )
 G4_PREDECESSOR_READINESS_SHA256 = (
+    "8d52c65a17565c39eb623d3213e7c209ace5b0a2204b05b8eeea0da1bede61e0"
+)
+G4_G1_GATE_READINESS_SHA256 = (
     "fa96bbdeddbcb287fd5c9c39894385729cc1d165bc1281a00f8ee031f3c85e59"
 )
 G4_G1_HANDOFF_READINESS_SHA256 = (
@@ -31,7 +34,7 @@ G4_COMPILER_READINESS_SHA256 = (
     "1257393ad67dbab62ae9c6159ab6b5b680cf61967aa5f212306f36986336a7b3"
 )
 G4_AB_CANONICAL_SHA256 = (
-    "62b6eb0a0be79cbfe99b5072058cc1d0e1ff60885cc10a2e0fd8341bd709b4f1"
+    "340c691946fec4844802ef179f896ad38bdc344316d2d19ceff8d4504a2d5ea5"
 )
 CURRENT_FACTS_SHA256 = (
     "50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120"
@@ -68,10 +71,16 @@ FOUNDATION_CONTRACT = base.DEFAULT_FOUNDATION_ROOT / base.FOUNDATION_CONTRACT_NA
 G4_READINESS = (
     base.DEFAULT_FOUNDATION_ROOT
     / "readiness_successors"
+    / "implementation-correction-0005"
+    / "public_text_quality_phase0_vcs_parity_readiness.json"
+)
+G4_PREDECESSOR_READINESS = (
+    base.DEFAULT_FOUNDATION_ROOT
+    / "readiness_successors"
     / "implementation-correction-0004"
     / "public_text_quality_protected_snapshot_identity_readiness.json"
 )
-G4_PREDECESSOR_READINESS = (
+G4_G1_GATE_READINESS = (
     base.DEFAULT_FOUNDATION_ROOT
     / "readiness_successors"
     / "implementation-correction-0003"
@@ -237,10 +246,10 @@ def _validate_g4_readiness() -> dict[str, Any]:
     value = base.load_json_strict(G4_READINESS)
     expected = {
         "schema_version": (
-            "public_text_quality_foundation_protected_snapshot_identity_"
-            "correction_readiness_v1"
+            "public_text_quality_foundation_phase0_required_input_vcs_"
+            "preflight_parity_correction_readiness_v1"
         ),
-        "correction_id": "implementation-correction-0004",
+        "correction_id": "implementation-correction-0005",
         "status": "PASS",
         "authority_effect": "none",
         "official_disposition": "not_issued",
@@ -249,8 +258,8 @@ def _validate_g4_readiness() -> dict[str, Any]:
         "protected_surface_mutation_count": 0,
         "foundation_contract_semantics_changed": False,
         "policy_threshold_denominator_detector_semantics_changed": False,
-        "handoff_text_constituent_freshness_algorithm_changed": False,
-        "protected_snapshot_identity_implementation_changed": True,
+        "freshness_algorithm_changed": False,
+        "phase0_required_input_vcs_preflight_implementation_changed": True,
     }
     for key, wanted in expected.items():
         if value.get(key) != wanted:
@@ -262,7 +271,7 @@ def _validate_g4_readiness() -> dict[str, Any]:
     if (
         predecessor_binding.get("path") != base.repo_relative(G4_PREDECESSOR_READINESS)
         or predecessor_binding.get("sha256") != G4_PREDECESSOR_READINESS_SHA256
-        or predecessor_binding.get("correction_id") != "implementation-correction-0003"
+        or predecessor_binding.get("correction_id") != "implementation-correction-0004"
         or predecessor_binding.get("predecessor_mutated") is not False
         or foundation.get("sha256") != FOUNDATION_CONTRACT_SHA256
         or value.get("foundation_semantics", {}).get(
@@ -288,23 +297,23 @@ def _validate_g4_readiness() -> dict[str, Any]:
         expected_sha256=G4_PREDECESSOR_READINESS_SHA256,
     )
     predecessor = base.load_json_strict(G4_PREDECESSOR_READINESS)
-    g1_handoff_binding = predecessor.get("predecessor_readiness", {})
+    g1_gate_binding = predecessor.get("predecessor_readiness", {})
     if (
         predecessor.get("schema_version")
         != (
-            "public_text_quality_foundation_g1_gate_classification_"
+            "public_text_quality_foundation_protected_snapshot_identity_"
             "correction_readiness_v1"
         )
-        or predecessor.get("correction_id") != "implementation-correction-0003"
+        or predecessor.get("correction_id") != "implementation-correction-0004"
         or predecessor.get("status") != "PASS"
         or predecessor.get("authority_effect") != "none"
-        or g1_handoff_binding.get("path")
-        != base.repo_relative(G4_G1_HANDOFF_READINESS)
-        or g1_handoff_binding.get("sha256")
-        != G4_G1_HANDOFF_READINESS_SHA256
-        or g1_handoff_binding.get("correction_id")
-        != "implementation-correction-0002"
-        or g1_handoff_binding.get("predecessor_mutated") is not False
+        or g1_gate_binding.get("path")
+        != base.repo_relative(G4_G1_GATE_READINESS)
+        or g1_gate_binding.get("sha256")
+        != G4_G1_GATE_READINESS_SHA256
+        or g1_gate_binding.get("correction_id")
+        != "implementation-correction-0003"
+        or g1_gate_binding.get("predecessor_mutated") is not False
     ):
         raise base.FoundationContractError(
             "G4 readiness implementation predecessor mismatch"
@@ -314,9 +323,12 @@ def _validate_g4_readiness() -> dict[str, Any]:
     if (
         gate.get("status") != "PASS"
         or gate.get("canonical_result_sha256") != G4_AB_CANONICAL_SHA256
-        or gate.get("run_a_result") != "185/185 PASS"
-        or gate.get("run_b_result") != "185/185 PASS"
+        or gate.get("run_a_result") != "189/189 PASS"
+        or gate.get("run_b_result") != "189/189 PASS"
         or gate.get("blocking_condition_count") != 0
+        or gate.get("phase0_required_path_count") != 38
+        or gate.get("ignored_required_input_count") != 0
+        or gate.get("broad_unignore_count") != 0
         or census
         != {
             "tracked": 93,
@@ -329,6 +341,32 @@ def _validate_g4_readiness() -> dict[str, Any]:
     ):
         raise base.FoundationContractError(
             "G4 readiness G1 gate-classification binding mismatch"
+        )
+    g1_gate_record = _raw_vcs_record(
+        G4_G1_GATE_READINESS,
+        expected_sha256=G4_G1_GATE_READINESS_SHA256,
+    )
+    g1_gate = base.load_json_strict(G4_G1_GATE_READINESS)
+    g1_handoff_binding = g1_gate.get("predecessor_readiness", {})
+    if (
+        g1_gate.get("schema_version")
+        != (
+            "public_text_quality_foundation_g1_gate_classification_"
+            "correction_readiness_v1"
+        )
+        or g1_gate.get("correction_id") != "implementation-correction-0003"
+        or g1_gate.get("status") != "PASS"
+        or g1_gate.get("authority_effect") != "none"
+        or g1_handoff_binding.get("path")
+        != base.repo_relative(G4_G1_HANDOFF_READINESS)
+        or g1_handoff_binding.get("sha256")
+        != G4_G1_HANDOFF_READINESS_SHA256
+        or g1_handoff_binding.get("correction_id")
+        != "implementation-correction-0002"
+        or g1_handoff_binding.get("predecessor_mutated") is not False
+    ):
+        raise base.FoundationContractError(
+            "G4 readiness G1-gate predecessor mismatch"
         )
     g1_handoff_record = _raw_vcs_record(
         G4_G1_HANDOFF_READINESS,
@@ -379,6 +417,7 @@ def _validate_g4_readiness() -> dict[str, Any]:
     return {
         **record,
         "predecessor_readiness": predecessor_record,
+        "g1_gate_readiness": g1_gate_record,
         "g1_handoff_readiness": g1_handoff_record,
         "compiler_readiness": compiler_record,
         "g1_ab_canonical_sha256": G4_AB_CANONICAL_SHA256,

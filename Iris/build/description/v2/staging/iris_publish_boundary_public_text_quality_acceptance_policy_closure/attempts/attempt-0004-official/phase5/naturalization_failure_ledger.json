@@ -1,0 +1,66 @@
+{
+  "adoption_timing": "after_remediation",
+  "attempt_id": "attempt-0004-official",
+  "evaluation_subject_sha256": "c4d2799ffd931c585b6da2d4d9a7663c2207181f21a822dbea2794f5d3a08787",
+  "exact_failure_count": 4,
+  "exact_failures": [
+    {
+      "denominator": 2084,
+      "disposition_class": "blocking_gate",
+      "metric_id": "banned_internal_abstraction",
+      "numerator": 673,
+      "owner_route": "dvf_korean_prose_naturalization_retry",
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      }
+    },
+    {
+      "denominator": 2084,
+      "disposition_class": "blocking_gate",
+      "metric_id": "human_review_blocker_required_denominator",
+      "numerator": 2084,
+      "owner_route": "source_or_description_remediation_successor",
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      }
+    },
+    {
+      "denominator": 2084,
+      "disposition_class": "advisory_debt",
+      "metric_id": "repeated_identity_noun_window",
+      "numerator": 2,
+      "owner_route": "dvf_korean_prose_naturalization_retry",
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      }
+    },
+    {
+      "denominator": 2084,
+      "disposition_class": "advisory_debt",
+      "metric_id": "paragraph_fragmentation",
+      "numerator": 1,
+      "owner_route": "dvf_korean_prose_naturalization_retry",
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      }
+    }
+  ],
+  "live_gate_adoption_allowed": false,
+  "phase7_allowed": false,
+  "policy_closure_state": "incomplete",
+  "return_phase": "phase6-raw-detectors",
+  "schema_version": "public_text_quality_naturalization_failure_ledger_v1",
+  "status": "blocked"
+}

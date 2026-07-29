@@ -1,0 +1,27 @@
+{
+  "attempt_id": "attempt-0004-official",
+  "manifest_hash": "46675f796df2f8f6522bc52d00305cdb90f2991a4a2299fab1c1838e6139a786",
+  "ordered_artifacts": [
+    {
+      "path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0004-official/phase5/evaluation_subject_metric_snapshot.json",
+      "sha256": "93d012bbd8806c66ea2bbbe28f8d97ac6559f20d1d0bb080f263b97b38a7f03c"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0004-official/phase5/evaluation_subject_raw_metric_report.json",
+      "sha256": "cd97dab0f102a4ed39b5e672fae121108fcd94f609d637d2a8e3b5ad27701b18"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0004-official/phase5/evaluation_subject_disposition.json",
+      "sha256": "50e342e91fc453939828c2fe9350c501dedc30aa6cd4fa35562c15b3091f2063"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0004-official/phase5/evaluation_subject_disposition.md",
+      "sha256": "f9ac3ae0192511615ba6bdbee4101d11249fc09cd7958f46e6422d15c8c97e25"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0004-official/phase5/protected_surface_no_mutation_report.json",
+      "sha256": "5eb67c47ecbf95e3ae14f36fa5aa70abd256f0974d6d0caa81653f877abba756"
+    }
+  ],
+  "schema_version": "public_text_quality_disposition_hash_manifest_v1"
+}

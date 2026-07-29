@@ -1,0 +1,1476 @@
+{
+  "schema_version": "dvf-3-3-current-facts-correction-spec-v1",
+  "status": "owner_preapproved_correction_candidate",
+  "successor_id": "correction-0001",
+  "source_row_count": 2105,
+  "unique_cohort_denominator": 393,
+  "corrected_item_count": 184,
+  "investigated_unchanged_control_count": 209,
+  "origin_screen_counts": {
+    "acquisition_hint_seed": 2105,
+    "primary_use_cluster_summary": 1275,
+    "primary_use_identity_fallback": 718,
+    "primary_use_role_fallback": 100,
+    "primary_use_direct_use": 12
+  },
+  "blocked_naturalization_attempt": "attempt-0018-g3-reseal-a",
+  "blocked_attempt_disposition": "immutable_blocked_no_phase7_or_phase8_reentry",
+  "seed_blocked_item_ids": [
+    "Base.AlarmClock",
+    "Base.BeerCan",
+    "Base.Bracelet_BangleLeftSilver",
+    "Base.Bracelet_RightFriendshipTINT",
+    "Base.CerealBowl",
+    "Base.CuttingBoardWooden",
+    "Base.MugWhite",
+    "Base.PillsBeta",
+    "Base.Pencil",
+    "Base.PoolBall",
+    "Base.RedPen",
+    "Base.RifleCase2",
+    "Base.Ring_Left_RingFinger_GoldRuby",
+    "Base.Ring_Left_RingFinger_SilverDiamond",
+    "Base.ScrewsBox",
+    "Base.SutureNeedleHolder",
+    "Base.Tweezers",
+    "Base.WhiskeyFull",
+    "Base.brokenglass_1_0",
+    "Radio.ElectricWire"
+  ],
+  "cohort_selectors": [
+    {
+      "selector_id": "cluster_small_household_accessory",
+      "kind": "cluster",
+      "cluster": "small_household_accessory",
+      "role": null,
+      "origin": "cluster_summary",
+      "expected_count": 11
+    },
+    {
+      "selector_id": "cluster_comfort_consumption",
+      "kind": "cluster",
+      "cluster": "comfort_consumption",
+      "role": null,
+      "origin": "cluster_summary",
+      "expected_count": 6
+    },
+    {
+      "selector_id": "cluster_wear_accessory",
+      "kind": "cluster",
+      "cluster": "wear_accessory",
+      "role": null,
+      "origin": "cluster_summary",
+      "expected_count": 25
+    },
+    {
+      "selector_id": "cluster_display_decor_placement",
+      "kind": "cluster",
+      "cluster": "display_decor_placement",
+      "role": null,
+      "origin": "cluster_summary",
+      "expected_count": 46
+    },
+    {
+      "selector_id": "cluster_cooking_prep",
+      "kind": "cluster",
+      "cluster": "cooking_prep",
+      "role": null,
+      "origin": "cluster_summary",
+      "expected_count": 52
+    },
+    {
+      "selector_id": "cluster_desk_stationery_use",
+      "kind": "cluster",
+      "cluster": "desk_stationery_use",
+      "role": null,
+      "origin": "cluster_summary",
+      "expected_count": 11
+    },
+    {
+      "selector_id": "cluster_sports_recreation_use",
+      "kind": "cluster",
+      "cluster": "sports_recreation_use",
+      "role": null,
+      "origin": "cluster_summary",
+      "expected_count": 9
+    },
+    {
+      "selector_id": "cluster_ranged_firearm_combat",
+      "kind": "cluster",
+      "cluster": "ranged_firearm_combat",
+      "role": null,
+      "origin": "cluster_summary",
+      "expected_count": 7
+    },
+    {
+      "selector_id": "cluster_container_storage",
+      "kind": "cluster",
+      "cluster": "container_storage",
+      "role": null,
+      "origin": "cluster_summary",
+      "expected_count": 72
+    },
+    {
+      "selector_id": "cluster_medical_treatment",
+      "kind": "cluster",
+      "cluster": "medical_treatment",
+      "role": null,
+      "origin": "cluster_summary",
+      "expected_count": 16
+    },
+    {
+      "selector_id": "cluster_electronics_assembly",
+      "kind": "cluster",
+      "cluster": "electronics_assembly",
+      "role": null,
+      "origin": "cluster_summary",
+      "expected_count": 34
+    },
+    {
+      "selector_id": "rule_small_household_accessory_primary",
+      "kind": "exact_field_value",
+      "field": "primary_use",
+      "value": "생활 작업에서 작은 소품이나 장식, 반려동물 물건을 곁에 두고 챙길 때 다룬다",
+      "origin": "cluster_summary",
+      "expected_count": 11
+    },
+    {
+      "selector_id": "rule_comfort_consumption_primary",
+      "kind": "exact_field_value",
+      "field": "primary_use",
+      "value": "기호품 소비 작업에서 피우거나 마시며 기분을 달랠 때 쓴다",
+      "origin": "cluster_summary",
+      "expected_count": 6
+    },
+    {
+      "selector_id": "rule_wear_accessory_primary",
+      "kind": "exact_field_value",
+      "field": "primary_use",
+      "value": "착용 작업에서 몸에 장식하거나 시야 보조용으로 걸칠 때 착용한다",
+      "origin": "cluster_summary",
+      "expected_count": 25
+    },
+    {
+      "selector_id": "rule_display_decor_primary",
+      "kind": "exact_field_value",
+      "field": "primary_use",
+      "value": "공간 연출 작업에서 장식물, 전시물, 표지물을 세우거나 치우며 구역 표시를 정리할 때 다룬다",
+      "origin": "cluster_summary",
+      "expected_count": 46
+    },
+    {
+      "selector_id": "rule_cooking_prep_primary",
+      "kind": "exact_field_value",
+      "field": "primary_use",
+      "value": "조리 작업에서 재료를 익히거나 다룰 때 쓴다",
+      "origin": "cluster_summary",
+      "expected_count": 20
+    },
+    {
+      "selector_id": "rule_desk_stationery_primary",
+      "kind": "exact_field_value",
+      "field": "primary_use",
+      "value": "문서 정리 작업에서 쓰고 지우거나 종이를 집고 고정할 때 다룬다",
+      "origin": "cluster_summary",
+      "expected_count": 11
+    },
+    {
+      "selector_id": "rule_sports_recreation_primary",
+      "kind": "exact_field_value",
+      "field": "primary_use",
+      "value": "놀이 작업에서 던지거나 차고 튀기며 스포츠용 물건을 가지고 놀 때 다룬다",
+      "origin": "cluster_summary",
+      "expected_count": 9
+    },
+    {
+      "selector_id": "rule_ranged_firearm_primary",
+      "kind": "exact_field_value",
+      "field": "primary_use",
+      "value": "사격 전투에 쓰는 화기다",
+      "origin": "cluster_summary",
+      "expected_count": 7
+    },
+    {
+      "selector_id": "rule_container_storage_primary",
+      "kind": "exact_field_value",
+      "field": "primary_use",
+      "value": "보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다",
+      "origin": "cluster_summary",
+      "expected_count": 25
+    },
+    {
+      "selector_id": "rule_container_storage_handling_primary",
+      "kind": "exact_field_value",
+      "field": "primary_use",
+      "value": "보관 작업에서 소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 다룬다",
+      "origin": "cluster_summary",
+      "expected_count": 35
+    },
+    {
+      "selector_id": "rule_medical_treatment_primary",
+      "kind": "exact_field_value",
+      "field": "primary_use",
+      "value": "의료 처치에 쓰는 소모품이다",
+      "origin": "cluster_summary",
+      "expected_count": 15
+    },
+    {
+      "selector_id": "rule_electronics_assembly_primary",
+      "kind": "exact_field_value",
+      "field": "primary_use",
+      "value": "전자 조립 작업에 들어가는 부품이다",
+      "origin": "cluster_summary",
+      "expected_count": 15
+    },
+    {
+      "selector_id": "rule_food_identity_fallback",
+      "kind": "identity_fallback",
+      "identity_hint": "식품",
+      "origin": "identity_fallback",
+      "expected_count": 88
+    },
+    {
+      "selector_id": "rule_cooking_tool_identity_fallback",
+      "kind": "identity_fallback",
+      "identity_hint": "조리 도구",
+      "origin": "identity_fallback",
+      "expected_count": 10
+    },
+    {
+      "selector_id": "rule_medical_consumable_identity_fallback",
+      "kind": "identity_fallback",
+      "identity_hint": "의료 소모품",
+      "origin": "identity_fallback",
+      "expected_count": 6
+    },
+    {
+      "selector_id": "rule_bowl_pot_acquisition_seed",
+      "kind": "exact_field_value",
+      "field": "acquisition_hint",
+      "value": "그릇이나 냄비에 재료를 넣어 조리한다",
+      "origin": "seed",
+      "expected_count": 15
+    }
+  ],
+  "correction_rules": [
+    {
+      "rule_id": "comfort_consumption_neutral_mode",
+      "selector_id": "rule_comfort_consumption_primary",
+      "target_item_ids": "ALL",
+      "changes": {
+        "primary_use": {
+          "expected": "기호품 소비 작업에서 피우거나 마시며 기분을 달랠 때 쓴다",
+          "replacement": "기호품으로 소비하며 기분을 달랠 때 쓴다"
+        }
+      },
+      "reason": "흡연물과 주류가 섞인 cohort에서 개별 섭취 방식을 동시에 부여하지 않는다",
+      "authority_evidence": [
+        "scripts/items_food.txt",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "wear_accessory_non_cumulative_function",
+      "selector_id": "rule_wear_accessory_primary",
+      "target_item_ids": "ALL",
+      "changes": {
+        "primary_use": {
+          "expected": "착용 작업에서 몸에 장식하거나 시야 보조용으로 걸칠 때 착용한다",
+          "replacement": "몸에 걸쳐 차림을 갖추거나 용도에 맞게 착용한다"
+        }
+      },
+      "reason": "장신구와 시야 보조 장비가 섞인 cohort에 시야 보조 기능을 누적하지 않는다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt",
+        "Iris/input/items_itemscript.json"
+      ]
+    },
+    {
+      "rule_id": "broken_glass_not_display_decor",
+      "selector_id": "rule_display_decor_primary",
+      "target_item_ids": [
+        "Base.brokenglass_1_0",
+        "Base.brokenglass_1_1",
+        "Base.brokenglass_1_2",
+        "Base.brokenglass_1_3"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "공간 연출 작업에서 장식물, 전시물, 표지물을 세우거나 치우며 구역 표시를 정리할 때 다룬다",
+          "replacement": "깨진 유리 파편이므로 치우거나 접근할 때 주의가 필요하다"
+        }
+      },
+      "reason": "깨진 유리 변형 4개를 장식·표지물로 설명하지 않는다",
+      "authority_evidence": [
+        "Iris/evidence/analysis/subcategory_analysis.md",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "cooking_prep_non_cooking_tool",
+      "selector_id": "rule_cooking_prep_primary",
+      "target_item_ids": "ALL",
+      "changes": {
+        "primary_use": {
+          "expected": "조리 작업에서 재료를 익히거나 다룰 때 쓴다",
+          "replacement": "조리 준비나 조리 과정에서 다룬다"
+        }
+      },
+      "reason": "도마·집게·오븐 장갑·통조림 따개·그릴 솔 등 모든 구성원에 직접 가열 또는 식재료 직접 취급 기능을 부여하지 않는다",
+      "authority_evidence": [
+        "scripts/items.txt",
+        "scripts/items_food.txt",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "desk_stationery_disjoint_actions",
+      "selector_id": "rule_desk_stationery_primary",
+      "target_item_ids": "ALL",
+      "changes": {
+        "primary_use": {
+          "expected": "문서 정리 작업에서 쓰고 지우거나 종이를 집고 고정할 때 다룬다",
+          "replacement": "문서를 작성·수정하거나 종이를 정리할 때 쓰는 문구류다"
+        }
+      },
+      "reason": "필기구·지우개·클립·스테이플러의 서로 다른 기능을 모든 행에 누적하지 않는다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt",
+        "Iris/input/items_itemscript.json"
+      ]
+    },
+    {
+      "rule_id": "sports_recreation_rule_specific_use",
+      "selector_id": "rule_sports_recreation_primary",
+      "target_item_ids": "ALL",
+      "changes": {
+        "primary_use": {
+          "expected": "놀이 작업에서 던지거나 차고 튀기며 스포츠용 물건을 가지고 놀 때 다룬다",
+          "replacement": "경기나 놀이 규칙에 맞춰 사용하는 스포츠 용품이다"
+        }
+      },
+      "reason": "당구공·다트·골프공 등에 던지기·차기 기능을 일괄 부여하지 않는다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt",
+        "Iris/input/items_itemscript.json"
+      ]
+    },
+    {
+      "rule_id": "ranged_firearm_includes_cases",
+      "selector_id": "rule_ranged_firearm_primary",
+      "target_item_ids": "ALL",
+      "changes": {
+        "primary_use": {
+          "expected": "사격 전투에 쓰는 화기다",
+          "replacement": "사격용 소총이나 이를 보관하는 장비로 쓰인다"
+        }
+      },
+      "reason": "소총 케이스 3개를 화기로 분류하지 않으면서 소총 대조군의 용도를 보존한다",
+      "authority_evidence": [
+        "scripts/items_weapons.txt",
+        "scripts/newBags.txt",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "ranged_identity_assault_rifle",
+      "selector_id": "rule_ranged_firearm_primary",
+      "target_item_ids": [
+        "Base.AssaultRifle"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "근접 무기",
+          "replacement": "M16 자동소총"
+        }
+      },
+      "reason": "소총의 저장소 한국어 identity를 구체적으로 기록한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "ranged_identity_assault_rifle_2",
+      "selector_id": "rule_ranged_firearm_primary",
+      "target_item_ids": [
+        "Base.AssaultRifle2"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "근접 무기",
+          "replacement": "M14 단발 자동소총"
+        }
+      },
+      "reason": "소총의 저장소 한국어 identity를 구체적으로 기록한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "ranged_identity_hunting_rifle",
+      "selector_id": "rule_ranged_firearm_primary",
+      "target_item_ids": [
+        "Base.HuntingRifle"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "근접 무기",
+          "replacement": "사냥용 소총"
+        }
+      },
+      "reason": "소총의 저장소 한국어 identity를 구체적으로 기록한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "ranged_identity_varmint_rifle",
+      "selector_id": "rule_ranged_firearm_primary",
+      "target_item_ids": [
+        "Base.VarmintRifle"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "근접 무기",
+          "replacement": "수렵총"
+        }
+      },
+      "reason": "소총의 저장소 한국어 identity를 구체적으로 기록한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "ranged_identity_rifle_case_1",
+      "selector_id": "rule_ranged_firearm_primary",
+      "target_item_ids": [
+        "Base.RifleCase1"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "용기",
+          "replacement": "총기 케이스"
+        }
+      },
+      "reason": "총기 케이스를 화기라고 규정하지 않는다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "ranged_identity_rifle_case_2",
+      "selector_id": "rule_ranged_firearm_primary",
+      "target_item_ids": [
+        "Base.RifleCase2"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "용기",
+          "replacement": "총기 케이스"
+        }
+      },
+      "reason": "총기 케이스를 화기라고 규정하지 않는다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "ranged_identity_rifle_case_3",
+      "selector_id": "rule_ranged_firearm_primary",
+      "target_item_ids": [
+        "Base.RifleCase3"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "용기",
+          "replacement": "총기 케이스"
+        }
+      },
+      "reason": "총기 케이스를 화기라고 규정하지 않는다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "medical_treatment_non_consumable_tools",
+      "selector_id": "rule_medical_treatment_primary",
+      "target_item_ids": [
+        "Base.AlcoholBandage",
+        "Base.AlcoholRippedSheets",
+        "Base.AlcoholWipes",
+        "Base.AlcoholedCottonBalls",
+        "Base.Antibiotics",
+        "Base.Bandage",
+        "Base.BandageDirty",
+        "Base.CottonBalls",
+        "Base.DenimStripsDirty",
+        "Base.LeatherStripsDirty",
+        "Base.RippedSheetsDirty",
+        "Base.SutureNeedle"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "의료 처치에 쓰는 소모품이다",
+          "replacement": "의료 처치에 쓰이는 물품이다"
+        }
+      },
+      "reason": "핀셋·봉합 바늘 집게 등 재사용 도구를 소모품으로 규정하지 않는다",
+      "authority_evidence": [
+        "scripts/newitems.txt",
+        "Iris/input/items_itemscript.json"
+      ]
+    },
+    {
+      "rule_id": "medical_sewing_needle_specific_use",
+      "selector_id": "rule_medical_treatment_primary",
+      "target_item_ids": [
+        "Base.Needle"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "의료 처치에 쓰는 소모품이다",
+          "replacement": "재봉에 쓰는 바늘이다"
+        }
+      },
+      "reason": "재봉 바늘을 의료 처치용 소모품으로 규정하지 않는다",
+      "authority_evidence": [
+        "scripts/newitems.txt",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "medical_suture_holder_specific_use",
+      "selector_id": "rule_medical_treatment_primary",
+      "target_item_ids": [
+        "Base.SutureNeedleHolder"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "의료 처치에 쓰는 소모품이다",
+          "replacement": "깊은 상처를 봉합할 때 봉합용 바늘과 함께 쓰는 의료 도구다"
+        }
+      },
+      "reason": "재사용 봉합 도구의 용도를 소모품으로 축약하지 않는다",
+      "authority_evidence": [
+        "scripts/items.txt",
+        "Iris/input/items_itemscript.json",
+        "lua/shared/Translate/KO/ToolTip_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "medical_tweezers_specific_use",
+      "selector_id": "rule_medical_treatment_primary",
+      "target_item_ids": [
+        "Base.Tweezers"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "의료 처치에 쓰는 소모품이다",
+          "replacement": "몸에 박힌 깨진 유리나 총알을 꺼낼 때 쓰는 의료 도구다"
+        }
+      },
+      "reason": "핀셋의 의료 사용 근거를 소모품으로 축약하지 않는다",
+      "authority_evidence": [
+        "scripts/items.txt",
+        "Iris/input/items_itemscript.json",
+        "lua/shared/Translate/KO/ToolTip_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "small_household_alarm_clock",
+      "selector_id": "rule_small_household_accessory_primary",
+      "target_item_ids": [
+        "Base.AlarmClock"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "생활 작업에서 작은 소품이나 장식, 반려동물 물건을 곁에 두고 챙길 때 다룬다",
+          "replacement": "설치한 뒤 일정 시간이 지나면 소리를 내는 재사용 장치다"
+        }
+      },
+      "reason": "OBSOLETE placeable timed noise device를 일반 시계나 반려동물 물건으로 규정하지 않는다",
+      "authority_evidence": [
+        "scripts/newitems.txt",
+        "Iris/input/items_itemscript.json"
+      ]
+    },
+    {
+      "rule_id": "small_household_bell",
+      "selector_id": "rule_small_household_accessory_primary",
+      "target_item_ids": [
+        "Base.Bell"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "생활 작업에서 작은 소품이나 장식, 반려동물 물건을 곁에 두고 챙길 때 다룬다",
+          "replacement": "소리를 내는 작은 종이다"
+        }
+      },
+      "reason": "종의 item-specific identity를 혼합 생활용품 summary로 대체하지 않는다",
+      "authority_evidence": [
+        "scripts/newitems.txt",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "small_household_bellows",
+      "selector_id": "rule_small_household_accessory_primary",
+      "target_item_ids": [
+        "Base.Bellows"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "생활 작업에서 작은 소품이나 장식, 반려동물 물건을 곁에 두고 챙길 때 다룬다",
+          "replacement": "화로에 바람을 불어넣어 온도를 높일 때 쓰는 풀무다"
+        }
+      },
+      "reason": "풀무의 item-specific 기능을 혼합 생활용품 summary로 대체하지 않는다",
+      "authority_evidence": [
+        "scripts/newitems.txt",
+        "lua/shared/Translate/KO/ToolTip_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "small_household_button",
+      "selector_id": "rule_small_household_accessory_primary",
+      "target_item_ids": [
+        "Base.Button"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "생활 작업에서 작은 소품이나 장식, 반려동물 물건을 곁에 두고 챙길 때 다룬다",
+          "replacement": "옷이나 천 제품에 다는 단추다"
+        }
+      },
+      "reason": "단추의 item-specific 용도를 혼합 생활용품 summary로 대체하지 않는다",
+      "authority_evidence": [
+        "scripts/newitems.txt",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "small_household_dog_chew",
+      "selector_id": "rule_small_household_accessory_primary",
+      "target_item_ids": [
+        "Base.DogChew"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "생활 작업에서 작은 소품이나 장식, 반려동물 물건을 곁에 두고 챙길 때 다룬다",
+          "replacement": "개가 씹는 장난감이다"
+        }
+      },
+      "reason": "개 장난감의 item-specific 용도를 혼합 생활용품 summary로 대체하지 않는다",
+      "authority_evidence": [
+        "scripts/newitems.txt",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "small_household_frame",
+      "selector_id": "rule_small_household_accessory_primary",
+      "target_item_ids": [
+        "Base.Frame"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "생활 작업에서 작은 소품이나 장식, 반려동물 물건을 곁에 두고 챙길 때 다룬다",
+          "replacement": "사진이나 그림을 넣어 두는 액자다"
+        }
+      },
+      "reason": "액자의 item-specific 용도를 혼합 생활용품 summary로 대체하지 않는다",
+      "authority_evidence": [
+        "scripts/newitems.txt",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "small_household_leash",
+      "selector_id": "rule_small_household_accessory_primary",
+      "target_item_ids": [
+        "Base.Leash"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "생활 작업에서 작은 소품이나 장식, 반려동물 물건을 곁에 두고 챙길 때 다룬다",
+          "replacement": "반려견에게 매는 목줄이다"
+        }
+      },
+      "reason": "목줄의 item-specific 용도를 혼합 생활용품 summary로 대체하지 않는다",
+      "authority_evidence": [
+        "scripts/newitems.txt",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "small_household_pinecone",
+      "selector_id": "rule_small_household_accessory_primary",
+      "target_item_ids": [
+        "Base.Pinecone"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "생활 작업에서 작은 소품이나 장식, 반려동물 물건을 곁에 두고 챙길 때 다룬다",
+          "replacement": "소나무에서 생기는 솔방울이다"
+        }
+      },
+      "reason": "솔방울의 item-specific identity를 혼합 생활용품 summary로 대체하지 않는다",
+      "authority_evidence": [
+        "scripts/newitems.txt",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "small_household_rubber_ducky",
+      "selector_id": "rule_small_household_accessory_primary",
+      "target_item_ids": [
+        "Base.Rubberducky"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "생활 작업에서 작은 소품이나 장식, 반려동물 물건을 곁에 두고 챙길 때 다룬다",
+          "replacement": "고무 오리 모양의 장난감이다"
+        }
+      },
+      "reason": "고무 오리의 item-specific identity를 혼합 생활용품 summary로 대체하지 않는다",
+      "authority_evidence": [
+        "scripts/newitems.txt",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "small_household_rubber_ducky_2",
+      "selector_id": "rule_small_household_accessory_primary",
+      "target_item_ids": [
+        "Base.Rubberducky2"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "생활 작업에서 작은 소품이나 장식, 반려동물 물건을 곁에 두고 챙길 때 다룬다",
+          "replacement": "건전지를 넣거나 뺄 수 있는 고무 오리다"
+        }
+      },
+      "reason": "건전지 교체 가능한 고무 오리의 item-specific 특성을 보존한다",
+      "authority_evidence": [
+        "scripts/newitems.txt",
+        "scripts/recipes.txt",
+        "Iris/input/recipes_index_full.json",
+        "Iris/input/items_itemscript.json"
+      ]
+    },
+    {
+      "rule_id": "small_household_water_dish",
+      "selector_id": "rule_small_household_accessory_primary",
+      "target_item_ids": [
+        "Base.WaterDish"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "생활 작업에서 작은 소품이나 장식, 반려동물 물건을 곁에 두고 챙길 때 다룬다",
+          "replacement": "물을 담는 그릇이다"
+        }
+      },
+      "reason": "물그릇의 item-specific 용도를 혼합 생활용품 summary로 대체하지 않는다",
+      "authority_evidence": [
+        "scripts/newitems.txt",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "electronics_assembly_non_part_scope",
+      "selector_id": "rule_electronics_assembly_primary",
+      "target_item_ids": "ALL",
+      "changes": {
+        "primary_use": {
+          "expected": "전자 조립 작업에 들어가는 부품이다",
+          "replacement": "전자 장비를 조립하거나 정비·분해하는 과정에서 다룬다"
+        }
+      },
+      "reason": "재료·부품·완제품이 섞인 cohort 전체를 부품으로 규정하지 않는다",
+      "authority_evidence": [
+        "scripts/items_radio.txt",
+        "scripts/items.txt",
+        "Iris/input/items_itemscript.json",
+        "Iris/input/recipes_index_full.json"
+      ]
+    },
+    {
+      "rule_id": "electronics_identity_amplifier",
+      "selector_id": "rule_electronics_assembly_primary",
+      "target_item_ids": [
+        "Base.Amplifier"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "전자 기기",
+          "replacement": "증폭기"
+        }
+      },
+      "reason": "저장소 한국어 item identity를 사용한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "electronics_identity_battery",
+      "selector_id": "rule_electronics_assembly_primary",
+      "target_item_ids": [
+        "Base.Battery"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "전자 기기",
+          "replacement": "건전지"
+        }
+      },
+      "reason": "저장소 한국어 item identity를 사용한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "electronics_identity_scrap",
+      "selector_id": "rule_electronics_assembly_primary",
+      "target_item_ids": [
+        "Base.ElectronicsScrap"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "전자 기기",
+          "replacement": "전기 회로 부속"
+        }
+      },
+      "reason": "저장소 한국어 item identity를 사용한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "electronics_identity_light_bulb",
+      "selector_id": "rule_electronics_assembly_primary",
+      "target_item_ids": [
+        "Base.LightBulb"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "전자 기기",
+          "replacement": "전구"
+        }
+      },
+      "reason": "저장소 한국어 item identity를 사용한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "electronics_identity_light_bulb_green",
+      "selector_id": "rule_electronics_assembly_primary",
+      "target_item_ids": [
+        "Base.LightBulbGreen"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "전자 기기",
+          "replacement": "녹색 전구"
+        }
+      },
+      "reason": "저장소 한국어 item identity를 사용한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "electronics_identity_motion_sensor",
+      "selector_id": "rule_electronics_assembly_primary",
+      "target_item_ids": [
+        "Base.MotionSensor"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "전자 기기",
+          "replacement": "동작 감지 센서"
+        }
+      },
+      "reason": "저장소 한국어 item identity를 사용한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "electronics_identity_electric_wire",
+      "selector_id": "rule_electronics_assembly_primary",
+      "target_item_ids": [
+        "Radio.ElectricWire"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "전자 기기",
+          "replacement": "전선"
+        }
+      },
+      "reason": "전선을 전자 기기라고 규정하지 않는다",
+      "authority_evidence": [
+        "scripts/items_radio.txt",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "electronics_identity_radio_receiver",
+      "selector_id": "rule_electronics_assembly_primary",
+      "target_item_ids": [
+        "Radio.RadioReceiver"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "전자 기기",
+          "replacement": "무전 수신기"
+        }
+      },
+      "reason": "저장소 한국어 item identity를 사용한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "electronics_identity_radio_transmitter",
+      "selector_id": "rule_electronics_assembly_primary",
+      "target_item_ids": [
+        "Radio.RadioTransmitter"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "전자 기기",
+          "replacement": "무전 송신기"
+        }
+      },
+      "reason": "저장소 한국어 item identity를 사용한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "container_box_of_jars_contents",
+      "selector_id": "rule_container_storage_primary",
+      "target_item_ids": [
+        "Base.BoxOfJars"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다",
+          "replacement": "상자를 열어 빈 병 여러 개를 꺼낼 수 있다"
+        }
+      },
+      "reason": "빈 병 묶음 상자를 일반 운반용 빈 상자로 설명하지 않는다",
+      "authority_evidence": [
+        "scripts/items.txt",
+        "Iris/input/recipes_index_full.json"
+      ]
+    },
+    {
+      "rule_id": "container_nails_box_contents",
+      "selector_id": "rule_container_storage_primary",
+      "target_item_ids": [
+        "Base.NailsBox"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다",
+          "replacement": "상자를 열어 못을 꺼낼 수 있다"
+        }
+      },
+      "reason": "못 상자의 unpack 결과를 일반 운반용 빈 상자로 설명하지 않는다",
+      "authority_evidence": [
+        "scripts/items.txt",
+        "Iris/input/recipes_index_full.json"
+      ]
+    },
+    {
+      "rule_id": "container_screws_box_contents",
+      "selector_id": "rule_container_storage_primary",
+      "target_item_ids": [
+        "Base.ScrewsBox"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다",
+          "replacement": "상자를 열어 나사못을 꺼낼 수 있다"
+        }
+      },
+      "reason": "나사못 상자의 unpack 결과를 일반 운반용 빈 상자로 설명하지 않는다",
+      "authority_evidence": [
+        "scripts/items.txt",
+        "Iris/input/recipes_index_full.json"
+      ]
+    },
+    {
+      "rule_id": "container_nails_material",
+      "selector_id": "rule_container_storage_primary",
+      "target_item_ids": [
+        "Base.Nails"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다",
+          "replacement": "건축이나 제작에 쓰는 못이다"
+        }
+      },
+      "reason": "낱개 못을 운반용 빈 상자로 설명하지 않는다",
+      "authority_evidence": [
+        "scripts/items.txt",
+        "Iris/input/recipes_index_full.json"
+      ]
+    },
+    {
+      "rule_id": "container_screws_material",
+      "selector_id": "rule_container_storage_primary",
+      "target_item_ids": [
+        "Base.Screws"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다",
+          "replacement": "조립이나 수리에 쓰는 나사못이다"
+        }
+      },
+      "reason": "낱개 나사못을 운반용 빈 상자로 설명하지 않는다",
+      "authority_evidence": [
+        "scripts/items.txt",
+        "Iris/input/recipes_index_full.json"
+      ]
+    },
+    {
+      "rule_id": "container_food_in_vessel",
+      "selector_id": "rule_container_storage_primary",
+      "target_item_ids": [
+        "Base.CandyPackage",
+        "Base.CannedCabbage",
+        "Base.PastaPan",
+        "Base.PastaPot",
+        "Base.PotOfSoup",
+        "Base.PotOfSoupRecipe",
+        "Base.PotOfStew",
+        "Base.RicePan",
+        "Base.RicePot",
+        "Base.WaterPotPasta",
+        "Base.WaterPotRice",
+        "Base.WaterSaucepanPasta",
+        "Base.WaterSaucepanRice"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다",
+          "replacement": "음식이나 식재료를 용기에 담은 상태로 준비하거나 섭취할 때 쓴다"
+        }
+      },
+      "reason": "용기에 든 음식·식재료를 일반 수납 상자로 설명하지 않는다",
+      "authority_evidence": [
+        "scripts/items_food.txt",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "container_seed_packet",
+      "selector_id": "rule_container_storage_primary",
+      "target_item_ids": [
+        "farming.BroccoliSeed",
+        "farming.CabbageSeed",
+        "farming.CarrotSeed",
+        "farming.PotatoSeed",
+        "farming.RedRadishSeed",
+        "farming.StrewberrieSeed",
+        "farming.TomatoSeed"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다",
+          "replacement": "재배를 준비하며 씨앗을 꺼내 심을 때 쓴다"
+        }
+      },
+      "reason": "씨앗을 일반 운반 용기로 설명하지 않는다",
+      "authority_evidence": [
+        "scripts/farming.txt",
+        "Iris/input/recipes_index_full.json"
+      ]
+    },
+    {
+      "rule_id": "container_produce_sack",
+      "selector_id": "rule_container_storage_handling_primary",
+      "target_item_ids": [
+        "Base.SackCabbages",
+        "Base.SackCarrots",
+        "Base.SackOnions",
+        "Base.SackPotatoes"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "보관 작업에서 소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 다룬다",
+          "replacement": "자루에 든 수확물을 보관하거나 꺼내 쓴다"
+        }
+      },
+      "reason": "수확물 자루를 빈 운반 상자로 설명하지 않는다",
+      "authority_evidence": [
+        "scripts/items_food.txt",
+        "Iris/input/recipes_index_full.json"
+      ]
+    },
+    {
+      "rule_id": "container_empty_reuse",
+      "selector_id": "rule_container_storage_handling_primary",
+      "target_item_ids": [
+        "Base.BeerEmpty",
+        "Base.BleachEmpty",
+        "Base.PopBottleEmpty",
+        "Base.WhiskeyEmpty",
+        "Base.WineEmpty",
+        "Base.WineEmpty2",
+        "farming.MayonnaiseEmpty",
+        "farming.RemouladeEmpty"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "보관 작업에서 소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 다룬다",
+          "replacement": "물을 담아 휴대할 때 다시 쓸 수 있는 빈 용기다"
+        }
+      },
+      "reason": "CanStoreWater인 빈 병·용기의 물 저장 재사용을 일반 수납 기능과 구분한다",
+      "authority_evidence": [
+        "scripts/items_food.txt",
+        "scripts/items.txt",
+        "scripts/farming.txt",
+        "scripts/newitems.txt"
+      ]
+    },
+    {
+      "rule_id": "medical_consumable_scope",
+      "selector_id": "rule_medical_consumable_identity_fallback",
+      "target_item_ids": "ALL",
+      "changes": {
+        "primary_use": {
+          "expected": "상처 처치 작업에 쓰는 의료 소모품이다",
+          "replacement": "건강 상태를 관리하거나 처치에 쓰는 의료 소모품이다"
+        }
+      },
+      "reason": "약품과 소독제를 모두 상처 처치 전용으로 규정하지 않는다",
+      "authority_evidence": [
+        "scripts/items.txt",
+        "lua/shared/Translate/KO/ToolTip_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "medical_identity_disinfectant",
+      "selector_id": "rule_medical_consumable_identity_fallback",
+      "target_item_ids": [
+        "Base.Disinfectant"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "의료 소모품",
+          "replacement": "소독약"
+        }
+      },
+      "reason": "저장소 한국어 item identity를 사용한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "medical_identity_pills",
+      "selector_id": "rule_medical_consumable_identity_fallback",
+      "target_item_ids": [
+        "Base.Pills"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "의료 소모품",
+          "replacement": "진통제"
+        }
+      },
+      "reason": "저장소 한국어 item identity를 사용한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "medical_identity_pills_antidep",
+      "selector_id": "rule_medical_consumable_identity_fallback",
+      "target_item_ids": [
+        "Base.PillsAntiDep"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "의료 소모품",
+          "replacement": "항우울제"
+        }
+      },
+      "reason": "저장소 한국어 item identity를 사용한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "medical_identity_pills_beta",
+      "selector_id": "rule_medical_consumable_identity_fallback",
+      "target_item_ids": [
+        "Base.PillsBeta"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "의료 소모품",
+          "replacement": "긴장완화제"
+        }
+      },
+      "reason": "저장소 한국어 item identity를 사용한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "medical_identity_sleeping_tablets",
+      "selector_id": "rule_medical_consumable_identity_fallback",
+      "target_item_ids": [
+        "Base.PillsSleepingTablets"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "의료 소모품",
+          "replacement": "수면제"
+        }
+      },
+      "reason": "저장소 한국어 item identity를 사용한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "medical_identity_vitamins",
+      "selector_id": "rule_medical_consumable_identity_fallback",
+      "target_item_ids": [
+        "Base.PillsVitamins"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "의료 소모품",
+          "replacement": "비타민"
+        }
+      },
+      "reason": "저장소 한국어 item identity를 사용한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "cooking_tool_fallback_scope",
+      "selector_id": "rule_cooking_tool_identity_fallback",
+      "target_item_ids": "ALL",
+      "changes": {
+        "primary_use": {
+          "expected": "조리 작업에서 재료를 다루거나 익힐 때 쓰는 도구다",
+          "replacement": "음식이나 음료를 준비하거나 담는 데 쓰는 주방 용품이다"
+        }
+      },
+      "reason": "빈 머그잔과 찻잔에 재료 가열 기능을 부여하지 않는다",
+      "authority_evidence": [
+        "scripts/items.txt",
+        "scripts/items_food.txt"
+      ]
+    },
+    {
+      "rule_id": "identity_gridle_pan",
+      "selector_id": "rule_cooking_tool_identity_fallback",
+      "target_item_ids": [
+        "Base.GridlePan"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "조리 도구",
+          "replacement": "번철 팬"
+        }
+      },
+      "reason": "저장소 한국어 item identity를 사용한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "identity_kettle",
+      "selector_id": "rule_cooking_tool_identity_fallback",
+      "target_item_ids": [
+        "Base.Kettle"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "조리 도구",
+          "replacement": "주전자"
+        }
+      },
+      "reason": "저장소 한국어 item identity를 사용한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "identity_muffin_tray",
+      "selector_id": "rule_cooking_tool_identity_fallback",
+      "target_item_ids": [
+        "Base.MuffinTray"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "조리 도구",
+          "replacement": "머핀 쟁반"
+        }
+      },
+      "reason": "저장소 한국어 item identity를 사용한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "identity_mug_red",
+      "selector_id": "rule_cooking_tool_identity_fallback",
+      "target_item_ids": [
+        "Base.MugRed"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "조리 도구",
+          "replacement": "빈 빨간 머그잔"
+        }
+      },
+      "reason": "빈 머그잔을 조리 도구라고만 규정하지 않는다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "identity_mug_spiffo",
+      "selector_id": "rule_cooking_tool_identity_fallback",
+      "target_item_ids": [
+        "Base.MugSpiffo"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "조리 도구",
+          "replacement": "빈 스피포 머그잔"
+        }
+      },
+      "reason": "빈 머그잔을 조리 도구라고만 규정하지 않는다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "identity_mug_white",
+      "selector_id": "rule_cooking_tool_identity_fallback",
+      "target_item_ids": [
+        "Base.MugWhite"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "조리 도구",
+          "replacement": "빈 흰색 머그잔"
+        }
+      },
+      "reason": "빈 흰색 머그잔을 조리 도구라고만 규정하지 않는다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "identity_mug_plain",
+      "selector_id": "rule_cooking_tool_identity_fallback",
+      "target_item_ids": [
+        "Base.Mugl"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "조리 도구",
+          "replacement": "빈 머그잔"
+        }
+      },
+      "reason": "빈 머그잔을 조리 도구라고만 규정하지 않는다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "identity_frying_pan",
+      "selector_id": "rule_cooking_tool_identity_fallback",
+      "target_item_ids": [
+        "Base.Pan"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "조리 도구",
+          "replacement": "프라이팬"
+        }
+      },
+      "reason": "저장소 한국어 item identity를 사용한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "identity_saucepan",
+      "selector_id": "rule_cooking_tool_identity_fallback",
+      "target_item_ids": [
+        "Base.Saucepan"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "조리 도구",
+          "replacement": "손잡이 냄비"
+        }
+      },
+      "reason": "저장소 한국어 item identity를 사용한다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "identity_teacup",
+      "selector_id": "rule_cooking_tool_identity_fallback",
+      "target_item_ids": [
+        "Base.Teacup"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "조리 도구",
+          "replacement": "빈 찻잔"
+        }
+      },
+      "reason": "빈 찻잔을 조리 도구라고만 규정하지 않는다",
+      "authority_evidence": [
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ]
+    },
+    {
+      "rule_id": "bowl_pot_acquisition_non_cooking_claim",
+      "selector_id": "rule_bowl_pot_acquisition_seed",
+      "target_item_ids": "ALL",
+      "changes": {
+        "acquisition_hint": {
+          "expected": "그릇이나 냄비에 재료를 넣어 조리한다",
+          "replacement": "그릇이나 냄비에 음식 또는 재료를 담아 준비한다"
+        }
+      },
+      "reason": "완성된 그릇 음식에 냄비 조리 과정을 일괄 부여하지 않는다",
+      "authority_evidence": [
+        "scripts/items_food.txt",
+        "Iris/input/recipes_index_full.json"
+      ]
+    }
+  ],
+  "immutability": {
+    "attempt_0022_mutation_allowed": false,
+    "attempt_0009_mutation_allowed": false,
+    "initial_g3_receipt_mutation_allowed": false,
+    "attempt_0018_mutation_allowed": false,
+    "current_facts_direct_edit_allowed": false,
+    "registry_correction_cutover_required": true
+  },
+  "publish_boundary": {
+    "official_publish_allowed_before_new_phase8_handoff": false,
+    "live_gate_mutation_allowed": false
+  }
+}

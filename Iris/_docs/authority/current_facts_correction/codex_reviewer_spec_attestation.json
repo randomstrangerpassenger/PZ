@@ -1,0 +1,30 @@
+{
+  "schema_version": "dvf-3-3-current-facts-correction-codex-review-v1",
+  "status": "PASS",
+  "reviewer": "Codex Reviewer (Avicenna)",
+  "review_scope": "correction-0001 semantic cohort, replacement, preimage, duplicate-field, cohort-boundary, evidence-path, and origin-screen audit",
+  "correction_spec_path": "Iris/_docs/authority/current_facts_correction/correction-0001.json",
+  "correction_spec_sha256": "46421a2336ef42b41cc26c2841eaf4cab96731c9225b92590fe104e77ff0dc07",
+  "source_current_facts_sha256": "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40",
+  "source_current_manifest_sha256": "7a282be929217f0c117bc1fd86f84b4146d34e92dc1d2833c3c0f943c371c43c",
+  "source_row_count": 2105,
+  "conservative_unique_cohort_count": 393,
+  "corrected_item_count": 184,
+  "unchanged_investigated_control_count": 209,
+  "field_patch_count": 223,
+  "duplicate_item_field_patch_count": 0,
+  "out_of_cohort_patch_count": 0,
+  "missing_evidence_file_count": 0,
+  "origin_screen_counts": {
+    "acquisition_hint_seed": 2105,
+    "primary_use_cluster_summary": 1275,
+    "primary_use_identity_fallback": 718,
+    "primary_use_role_fallback": 100,
+    "primary_use_direct_use": 12
+  },
+  "residual_semantic_blocker_count": 0,
+  "reviewer_file_mutation_count": 0,
+  "successor_created_during_review": false,
+  "current_authority_mutated_during_review": false,
+  "verdict": "PASS"
+}

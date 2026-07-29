@@ -397,6 +397,9 @@ Iris/build/description/v2/staging/*
 !Iris/build/description/v2/staging/README.md
 !Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/
 !Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/**
+!Iris/build/description/v2/staging/dvf_3_3_current_facts_correction_successor/
+!Iris/build/description/v2/staging/dvf_3_3_current_facts_correction_successor/**
+!Iris/build/description/v2/tools/build/dvf_3_3_current_facts_correction.py
 !Iris/build/description/v2/staging/2105_baseline_consumption_audit/
 !Iris/build/description/v2/staging/2105_baseline_consumption_audit/**
 !Iris/build/description/v2/staging/dvf_3_3_vnext_execution/

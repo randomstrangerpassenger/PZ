@@ -19,6 +19,7 @@ from Iris.validation.clean_checkout.run_iris_clean_checkout_validation import (
     _normalized_test_id,
     _safe_checkout_target,
     _validate_explicit_current_required_classifications,
+    _validate_explicit_tool_dispositions,
 )
 from Iris.validation.clean_checkout.validate_iris_clean_checkout_validation import (
     validate_result_pair,
@@ -129,41 +130,80 @@ def test_full_source_policy_classifies_only_declared_fallback() -> None:
         / "full_repository_gate.json"
     )
     contract = json.loads(contract_path.read_text(encoding="utf-8"))
-    constituent_source = (
-        "Iris/build/description/v2/tests/"
-        "test_public_text_constituent_identity.py"
-    )
+    explicit_required_sources = {
+        (
+            "Iris/build/description/v2/tests/"
+            "test_public_text_constituent_identity.py"
+        ),
+        (
+            "Iris/build/description/v2/tests/"
+            "test_dvf_3_3_korean_prose_compiler.py"
+        ),
+        (
+            "Iris/build/description/v2/tests/"
+            "test_naturalization_compiler_identity.py"
+        ),
+    }
     explicit_paths = {
         row["path"]
         for row in contract["source_disposition_policy"][
             "explicit_current_required_sources"
         ]
     }
-    assert constituent_source in explicit_paths
+    assert explicit_required_sources <= explicit_paths
     roles = _full_required_source_roles(contract, {"rows": []})
-    constituent = _classify_full_test_source(constituent_source, roles)
-    assert constituent == {
+    required_classifications = {
+        path: _classify_full_test_source(path, roles)
+        for path in explicit_required_sources
+    }
+    expected_classification = {
         "execution_role": "required_pytest",
         "authority_class": "required_tracked_source",
         "classification_basis": "explicit_current_required_source",
     }
+    assert all(
+        row == expected_classification
+        for row in required_classifications.values()
+    )
     _validate_explicit_current_required_classifications(
         contract,
-        {constituent_source: constituent},
+        required_classifications,
     )
+    for demoted_source in explicit_required_sources:
+        demoted = dict(required_classifications)
+        demoted[demoted_source] = {
+            "execution_role": "not_required",
+            "authority_class": "historical_optional_evidence",
+            "classification_basis": "historical heuristic",
+        }
+        with pytest.raises(
+            CleanCheckoutError,
+            match="classified as historical/optional",
+        ):
+            _validate_explicit_current_required_classifications(
+                contract,
+                demoted,
+            )
+    tool_paths = {
+        row["path"]
+        for row in contract["tool_disposition_policy"][
+            "explicit_tool_roles"
+        ]
+    }
+    tool_rows = _validate_explicit_tool_dispositions(
+        contract,
+        tool_paths,
+        set(),
+    )
+    assert len(tool_rows) == 2
     with pytest.raises(
         CleanCheckoutError,
-        match="classified as historical/optional",
+        match="required-test dependency",
     ):
-        _validate_explicit_current_required_classifications(
+        _validate_explicit_tool_dispositions(
             contract,
-            {
-                constituent_source: {
-                    "execution_role": "not_required",
-                    "authority_class": "historical_optional_evidence",
-                    "classification_basis": "historical heuristic",
-                }
-            },
+            tool_paths,
+            {next(iter(tool_paths))},
         )
     historical = _classify_full_test_source(
         "Iris/build/description/v2/tests/test_old_authority.py",

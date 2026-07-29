@@ -1,5 +1,5 @@
 {
-  "schema_version": "iris-clean-checkout-full-repository-gate-v3",
+  "schema_version": "iris-clean-checkout-full-repository-gate-v4",
   "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
   "claim": "Iris mandatory full-required-repository validation is reproducible from an exact tracked commit",
   "claim_boundary": {
@@ -35,10 +35,8 @@
       "Iris/build/description/v2/tests/test_compiler_particle_adjustment.py",
       "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_acceptance_gate.py",
       "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_candidate_route.py",
-      "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py",
       "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_policy.py",
       "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_semantic_preservation.py",
-      "Iris/build/description/v2/tests/test_naturalization_compiler_identity.py",
       "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
     ],
     "additional_node_ids": [
@@ -76,6 +74,14 @@
       {
         "path": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py",
         "reason": "current cross-platform constituent identity contract required by the Foundation-to-Naturalization handoff boundary"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py",
+        "reason": "current Naturalization compiler behavior is a required G5 producer contract and must override the historical description-test heuristic"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_naturalization_compiler_identity.py",
+        "reason": "current nine-constituent compiler identity is a required G5 handoff contract and must override the historical description-test heuristic"
       }
     ],
     "historical_optional_rule": "tracked Iris/build/description/v2/tests/test_*.py source with no current, ok taxonomy identity",
@@ -177,6 +183,137 @@
       }
     ],
     "unclassified_source_policy": "fail"
+  },
+  "tool_disposition_policy": {
+    "explicit_tool_roles": [
+      {
+        "path": "Iris/build/description/v2/tools/build/project_dvf_3_3_publish_remediation.py",
+        "execution_role": "not_required",
+        "authority_class": "historical_optional_evidence",
+        "tool_role": "attempt_generation_evidence_tooling",
+        "attempt_id": "attempt-0024-publish-remediation-a",
+        "reason": "tracked producer tooling preserved for attempt-0024 generation evidence; it is neither a compiler constituent nor a required-test dependency"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_publish_remediation_attempt.py",
+        "execution_role": "not_required",
+        "authority_class": "historical_optional_evidence",
+        "tool_role": "attempt_generation_evidence_tooling",
+        "attempt_id": "attempt-0024-publish-remediation-a",
+        "reason": "tracked orchestration tooling preserved for attempt-0024 generation evidence; it is neither a compiler constituent nor a required-test dependency"
+      }
+    ]
+  },
+  "g5_required_evidence": {
+    "primary_attempt_id": "attempt-0024-publish-remediation-a",
+    "replay_attempt_id": "attempt-0024-publish-remediation-b",
+    "compiler_identity": {
+      "algorithm_id": "naturalization_compiler_identity_sha256_lf_normalized_ordered_paths_v2",
+      "aggregate_sha256": "2dcff095b1cc34c8fb6d3ad735ac8f9d0ca2affe259f6bb97870b19e7235cc7f",
+      "ordered_paths": [
+        "Iris/build/description/v2/tools/build/compose_layer3_text.py",
+        "Iris/build/description/v2/tools/build/compose_layer3_body_profile.py",
+        "Iris/build/description/v2/tools/build/compose_layer3_item.py",
+        "Iris/build/description/v2/tools/build/compose_layer3_render.py",
+        "Iris/build/description/v2/tools/build/compose_layer3_blocks.py",
+        "Iris/build/description/v2/tools/build/compose_layer3_identity.py",
+        "Iris/build/description/v2/tools/build/compose_layer3_io.py",
+        "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py",
+        "Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py"
+      ]
+    },
+    "evidence_bindings": [
+      {
+        "binding_id": "candidate",
+        "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_rendered.json",
+        "declared_sha256": "ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437",
+        "git_blob_raw_sha256": "522ab2773476eb97688c0f2adc14e52bbb58f30ce7cf48a7d7a2282e428964a5",
+        "hash_mode": "line_ending_equivalent_text_sha256_v1"
+      },
+      {
+        "binding_id": "trace",
+        "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_proposition_trace.jsonl",
+        "declared_sha256": "f047c4e53fbe32d430192a2cedbc1db4e4685926643017a608bb7e89c911af06",
+        "git_blob_raw_sha256": "ec452b64faa26bb8bfd741c7292ffdb41c4e2e27b072662dc08bd50e1f7347cf",
+        "hash_mode": "line_ending_equivalent_text_sha256_v1"
+      },
+      {
+        "binding_id": "phase8_handoff",
+        "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase8/publish_acceptance_handoff_manifest.json",
+        "declared_sha256": "7fdbb224b3af4231a8bf3f2d37e448a8cdbfb4ed4d9871a83927b22cfdde25ec",
+        "git_blob_raw_sha256": "7fdbb224b3af4231a8bf3f2d37e448a8cdbfb4ed4d9871a83927b22cfdde25ec",
+        "hash_mode": "git_blob_raw_sha256"
+      },
+      {
+        "binding_id": "phase8_closeout",
+        "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase8/phase8_closeout.json",
+        "declared_sha256": "e1dfa84d2e5f1ab1fe959bec228668ca0c5a266c9b377e60baee865f3ca1fa84",
+        "git_blob_raw_sha256": "e1dfa84d2e5f1ab1fe959bec228668ca0c5a266c9b377e60baee865f3ca1fa84",
+        "hash_mode": "git_blob_raw_sha256"
+      },
+      {
+        "binding_id": "terminal_closeout",
+        "path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt_0024_terminal_closeout.json",
+        "declared_sha256": "6a9fd3eb65236aade1ff504423fb6850da95d2b5a9e3882f070b7f043f97049c",
+        "git_blob_raw_sha256": "6a9fd3eb65236aade1ff504423fb6850da95d2b5a9e3882f070b7f043f97049c",
+        "hash_mode": "git_blob_raw_sha256"
+      }
+    ],
+    "handoff_path_bearing_constituents": [
+      "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt_0024_human_review_decision.json",
+      "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json",
+      "Iris/build/description/v2/data/korean_prose_naturalization/corpus_manifest.json",
+      "Iris/build/description/v2/data/korean_prose_naturalization/korean_prose_policy.json",
+      "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase2/body_plan_requirement_inventory.jsonl",
+      "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase2/source_proposition_manifest.json",
+      "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_manifest.json",
+      "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_rendered.json",
+      "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/protected_surface_after_snapshot.json",
+      "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase5/semantic_preservation_report.json",
+      "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase5/structural_satisfaction_ledger.jsonl",
+      "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase6/raw_detector_report.json",
+      "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase7/human_review_sample_manifest.json"
+    ],
+    "g4_required_paths": [
+      "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt_0024_human_review_decision.json",
+      "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_development_readiness_report.json",
+      "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json",
+      "Iris/build/description/v2/data/korean_prose_naturalization/corpus_manifest.json",
+      "Iris/build/description/v2/data/korean_prose_naturalization/korean_prose_policy.json",
+      "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase2/body_plan_requirement_inventory.jsonl",
+      "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase2/source_proposition_manifest.json",
+      "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_manifest.json",
+      "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_rendered.json",
+      "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/protected_surface_after_snapshot.json",
+      "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase5/semantic_preservation_report.json",
+      "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase5/structural_satisfaction_ledger.jsonl",
+      "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase6/raw_detector_report.json",
+      "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase7/human_review_sample_manifest.json",
+      "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase8/publish_acceptance_handoff_manifest.json",
+      "Iris/build/description/v2/tests/fixtures/public_text_quality_acceptance/foundation_fixtures.json",
+      "Iris/build/description/v2/tools/build/compose_layer3_blocks.py",
+      "Iris/build/description/v2/tools/build/compose_layer3_body_profile.py",
+      "Iris/build/description/v2/tools/build/compose_layer3_identity.py",
+      "Iris/build/description/v2/tools/build/compose_layer3_io.py",
+      "Iris/build/description/v2/tools/build/compose_layer3_item.py",
+      "Iris/build/description/v2/tools/build/compose_layer3_render.py",
+      "Iris/build/description/v2/tools/build/compose_layer3_text.py",
+      "Iris/build/description/v2/tools/build/naturalization_compiler_identity.py",
+      "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py",
+      "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py",
+      "Iris/build/description/v2/tools/build/run_public_text_quality_acceptance.py",
+      "Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py",
+      "Iris/build/description/v2/tools/build/validate_public_text_quality_acceptance.py",
+      "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
+      "docs/iris_publish_boundary_public_text_quality_acceptance_policy_closure_plan.md",
+      "docs/public_text_quality_acceptance_claim_boundary.md",
+      "docs/public_text_quality_acceptance_policy.md",
+      "docs/public_text_quality_denominator_contract.md",
+      "docs/public_text_quality_exception_policy.md",
+      "docs/public_text_quality_freshness_policy.md",
+      "docs/public_text_quality_metric_contract.md",
+      "docs/public_text_quality_waiver_policy.md"
+    ]
   },
   "bootstrap": {
     "frozen_predecessor_fixture": {

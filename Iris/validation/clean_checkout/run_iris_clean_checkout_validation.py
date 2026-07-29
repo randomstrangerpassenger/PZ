@@ -27,6 +27,7 @@ from Iris.validation.clean_checkout.iris_clean_checkout_validation_common import
     CleanCheckoutError,
     blob_id,
     bytes_at_commit,
+    canonical_compact_json_bytes,
     canonical_json_bytes,
     ensure_external_root,
     git_identity,
@@ -442,6 +443,322 @@ def _resolve_repository_module(
     }
 
 
+def _required_dependency_paths(
+    repo: Path,
+    commit: str,
+    source_paths: set[str],
+    tracked: set[str],
+) -> set[str]:
+    resolved_paths: set[str] = set()
+    visited_modules: set[tuple[str, str | None]] = set()
+
+    def visit_module(module: str, optional_submodule: bool) -> None:
+        resolved = _resolve_repository_module(module, tracked, None)
+        if optional_submodule and resolved["tracking_state"] == "unresolved":
+            return
+        visit_key = (module, resolved["resolved_path"])
+        if visit_key in visited_modules:
+            return
+        visited_modules.add(visit_key)
+        resolved_path = resolved["resolved_path"]
+        if not isinstance(resolved_path, str):
+            return
+        resolved_paths.add(resolved_path)
+        if (
+            not resolved_path.endswith(".py")
+            or resolved["tracking_state"] != "tracked"
+        ):
+            return
+        for child_module, child_optional in _imports(
+            bytes_at_commit(repo, commit, resolved_path),
+            resolved_path,
+            current_module=module,
+            current_is_package=resolved_path.endswith("/__init__.py"),
+        ):
+            visit_module(child_module, child_optional)
+
+    for source_path in sorted(source_paths):
+        for module, optional_submodule in _imports(
+            bytes_at_commit(repo, commit, source_path),
+            source_path,
+        ):
+            visit_module(module, optional_submodule)
+    return resolved_paths
+
+
+def _validate_explicit_tool_dispositions(
+    contract: dict[str, Any],
+    tracked: set[str],
+    required_dependency_paths: set[str],
+) -> list[dict[str, str]]:
+    rows = contract["tool_disposition_policy"]["explicit_tool_roles"]
+    compiler_paths = set(
+        contract["g5_required_evidence"]["compiler_identity"][
+            "ordered_paths"
+        ]
+    )
+    validated: list[dict[str, str]] = []
+    seen: set[str] = set()
+    for row in rows:
+        path = row.get("path")
+        if (
+            not isinstance(path, str)
+            or not path
+            or path in seen
+            or path not in tracked
+            or row.get("execution_role") != "not_required"
+            or row.get("authority_class")
+            != "historical_optional_evidence"
+            or row.get("tool_role")
+            != "attempt_generation_evidence_tooling"
+            or row.get("attempt_id")
+            != contract["g5_required_evidence"]["primary_attempt_id"]
+            or not isinstance(row.get("reason"), str)
+            or not row["reason"].strip()
+        ):
+            raise CleanCheckoutError(
+                f"invalid explicit G5 tool disposition: {path!r}"
+            )
+        if path in compiler_paths:
+            raise CleanCheckoutError(
+                f"G5 evidence tool is a compiler constituent: {path}"
+            )
+        if path in required_dependency_paths:
+            raise CleanCheckoutError(
+                f"G5 evidence tool is a required-test dependency: {path}"
+            )
+        seen.add(path)
+        validated.append(
+            {
+                "path": path,
+                "execution_role": row["execution_role"],
+                "authority_class": row["authority_class"],
+                "tool_role": row["tool_role"],
+                "attempt_id": row["attempt_id"],
+            }
+        )
+    return sorted(validated, key=lambda row: row["path"])
+
+
+def _line_ending_sha256_variants(payload: bytes) -> set[str]:
+    normalized = payload.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return {
+        sha256_bytes(normalized),
+        sha256_bytes(normalized.replace(b"\n", b"\r\n")),
+        sha256_bytes(normalized.replace(b"\n", b"\r")),
+    }
+
+
+def _validate_g5_required_evidence(
+    repo: Path,
+    commit: str,
+    contract: dict[str, Any],
+    tracked: set[str],
+) -> dict[str, Any]:
+    g5 = contract["g5_required_evidence"]
+    binding_rows: list[dict[str, Any]] = []
+    binding_by_id: dict[str, dict[str, Any]] = {}
+    for binding in g5["evidence_bindings"]:
+        binding_id = binding["binding_id"]
+        path = binding["path"]
+        if binding_id in binding_by_id or path not in tracked:
+            raise CleanCheckoutError(
+                f"invalid or untracked G5 evidence binding: {binding_id}"
+            )
+        raw = bytes_at_commit(repo, commit, path)
+        raw_sha256 = sha256_bytes(raw)
+        if raw_sha256 != binding["git_blob_raw_sha256"]:
+            raise CleanCheckoutError(
+                f"G5 Git-blob raw identity mismatch: {binding_id}"
+            )
+        hash_mode = binding["hash_mode"]
+        if hash_mode == "git_blob_raw_sha256":
+            declared_match = raw_sha256 == binding["declared_sha256"]
+        elif hash_mode == "line_ending_equivalent_text_sha256_v1":
+            declared_match = (
+                binding["declared_sha256"]
+                in _line_ending_sha256_variants(raw)
+            )
+        else:
+            raise CleanCheckoutError(
+                f"unsupported G5 evidence hash mode: {hash_mode}"
+            )
+        if not declared_match:
+            raise CleanCheckoutError(
+                f"G5 declared evidence identity mismatch: {binding_id}"
+            )
+        row = {
+            "binding_id": binding_id,
+            "path": path,
+            "hash_mode": hash_mode,
+            "declared_sha256": binding["declared_sha256"],
+            "git_blob_raw_sha256": raw_sha256,
+            "declared_identity_match": True,
+        }
+        binding_rows.append(row)
+        binding_by_id[binding_id] = binding
+
+    compiler = g5["compiler_identity"]
+    ordered_files: list[dict[str, str]] = []
+    for path in compiler["ordered_paths"]:
+        if path not in tracked:
+            raise CleanCheckoutError(
+                f"G5 compiler constituent is not tracked: {path}"
+            )
+        canonical = (
+            bytes_at_commit(repo, commit, path)
+            .replace(b"\r\n", b"\n")
+            .replace(b"\r", b"\n")
+        )
+        ordered_files.append(
+            {"path": path, "sha256": sha256_bytes(canonical)}
+        )
+    aggregate_payload = {
+        "algorithm_id": compiler["algorithm_id"],
+        "ordered_files": ordered_files,
+    }
+    aggregate_sha256 = sha256_bytes(
+        canonical_compact_json_bytes(aggregate_payload)
+    )
+    if aggregate_sha256 != compiler["aggregate_sha256"]:
+        raise CleanCheckoutError("G5 compiler aggregate identity mismatch")
+
+    handoff = json_at_commit(
+        repo,
+        commit,
+        binding_by_id["phase8_handoff"]["path"],
+    )
+    path_constituents = {
+        row["path"]: row
+        for row in handoff["constituents"]
+        if isinstance(row.get("path"), str)
+    }
+    expected_constituent_paths = set(
+        g5["handoff_path_bearing_constituents"]
+    )
+    if set(path_constituents) != expected_constituent_paths:
+        raise CleanCheckoutError(
+            "G5 handoff path-bearing constituent set mismatch"
+        )
+    for path, row in path_constituents.items():
+        if path not in tracked:
+            raise CleanCheckoutError(
+                f"G5 handoff constituent is not tracked: {path}"
+            )
+        if row["sha256"] not in _line_ending_sha256_variants(
+            bytes_at_commit(repo, commit, path)
+        ):
+            raise CleanCheckoutError(
+                f"G5 handoff constituent identity mismatch: {path}"
+            )
+    handoff_by_id = {row["id"]: row for row in handoff["constituents"]}
+    if (
+        handoff["naturalization_attempt_id"] != g5["primary_attempt_id"]
+        or handoff_by_id["compiler_implementation_hash"]["value"]
+        != aggregate_sha256
+        or handoff_by_id["candidate_rendered_hash"]["sha256"]
+        != binding_by_id["candidate"]["declared_sha256"]
+    ):
+        raise CleanCheckoutError("G5 handoff binding mismatch")
+
+    phase8_closeout = json_at_commit(
+        repo,
+        commit,
+        binding_by_id["phase8_closeout"]["path"],
+    )
+    if (
+        phase8_closeout["naturalization_attempt_id"]
+        != g5["primary_attempt_id"]
+        or phase8_closeout["candidate_rendered_sha256"]
+        != binding_by_id["candidate"]["declared_sha256"]
+        or phase8_closeout["publish_acceptance_handoff_manifest_sha256"]
+        != binding_by_id["phase8_handoff"]["declared_sha256"]
+    ):
+        raise CleanCheckoutError("G5 Phase 8 closeout binding mismatch")
+
+    terminal = json_at_commit(
+        repo,
+        commit,
+        binding_by_id["terminal_closeout"]["path"],
+    )
+    if (
+        terminal["attempts"]["primary"] != g5["primary_attempt_id"]
+        or terminal["attempts"]["replay"] != g5["replay_attempt_id"]
+        or terminal["compiler_identity"]["aggregate_sha256"]
+        != aggregate_sha256
+        or terminal["phase0_through_phase6_ab"]["candidate_sha256"]
+        != binding_by_id["candidate"]["declared_sha256"]
+        or terminal["phase0_through_phase6_ab"]["trace_sha256"]
+        != binding_by_id["trace"]["declared_sha256"]
+        or terminal["phase8_handoff"]["handoff_sha256"]
+        != binding_by_id["phase8_handoff"]["declared_sha256"]
+        or terminal["phase8_handoff"]["phase8_closeout_sha256"]
+        != binding_by_id["phase8_closeout"]["declared_sha256"]
+    ):
+        raise CleanCheckoutError("G5 terminal closeout binding mismatch")
+
+    g4_required_paths = g5["g4_required_paths"]
+    if (
+        len(g4_required_paths) != len(set(g4_required_paths))
+        or not expected_constituent_paths.issubset(g4_required_paths)
+        or binding_by_id["phase8_handoff"]["path"]
+        not in g4_required_paths
+    ):
+        raise CleanCheckoutError("invalid G5-to-G4 required path contract")
+    missing_g4_paths = sorted(set(g4_required_paths) - tracked)
+    if missing_g4_paths:
+        raise CleanCheckoutError(
+            "G5-to-G4 required path is not tracked: "
+            + ", ".join(missing_g4_paths)
+        )
+    return {
+        "status": "PASS",
+        "primary_attempt_id": g5["primary_attempt_id"],
+        "replay_attempt_id": g5["replay_attempt_id"],
+        "binding_rows": sorted(
+            binding_rows, key=lambda row: row["binding_id"]
+        ),
+        "compiler_identity": {
+            "algorithm_id": compiler["algorithm_id"],
+            "ordered_path_count": len(ordered_files),
+            "aggregate_sha256": aggregate_sha256,
+        },
+        "handoff_path_bearing_constituent_count": len(
+            path_constituents
+        ),
+        "g4_required_path_count": len(g4_required_paths),
+        "candidate_trace_handoff_identity": "PASS",
+    }
+
+
+def _active_ignored_paths(repo: Path, paths: list[str]) -> list[str]:
+    ignored: list[str] = []
+    for path in paths:
+        completed = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(repo),
+                "check-ignore",
+                "--no-index",
+                "-q",
+                "--",
+                path,
+            ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=False,
+        )
+        if completed.returncode == 0:
+            ignored.append(path)
+        elif completed.returncode != 1:
+            raise CleanCheckoutError(
+                "cannot inspect active ignore state for "
+                f"{path}: {completed.stderr.decode(errors='replace')}"
+            )
+    return ignored
+
+
 def build_source_census(
     repo: Path,
     commit: str,
@@ -587,6 +904,20 @@ def build_source_census(
         ):
             visit_module(module, optional_submodule, 0, None)
 
+    tool_disposition_rows: list[dict[str, str]] = []
+    if full_repository:
+        required_dependency_paths = {
+            row["resolved_path"]
+            for row in dependency_rows
+            if row["tracking_state"] == "tracked"
+            and isinstance(row["resolved_path"], str)
+        }
+        tool_disposition_rows = _validate_explicit_tool_dispositions(
+            gate_contract,
+            tracked,
+            required_dependency_paths,
+        )
+
     source_inventory = {
         "schema_version": "iris-clean-checkout-test-inventory-v1",
         "inventory_state": "source_census_pending_live_collection",
@@ -602,6 +933,7 @@ def build_source_census(
             "norecursedirs": norecursedirs,
         },
         "source_rows": source_rows,
+        "tool_disposition_rows": tool_disposition_rows,
         "identity_rows": [],
         "collection_errors": [],
         "counts": {
@@ -632,6 +964,9 @@ def build_source_census(
             "hermetic_test_fixture_source_count": sum(
                 row.get("authority_class") == "hermetic_test_fixture"
                 for row in source_rows
+            ),
+            "attempt_generation_evidence_tool_count": len(
+                tool_disposition_rows
             ),
         },
     }
@@ -1419,6 +1754,33 @@ def run_full_repository_gate(
             "full-gate required source is not tracked: "
             + ", ".join(missing_required_sources)
         )
+    required_dependency_paths = _required_dependency_paths(
+        repo,
+        subject["commit"],
+        required_sources,
+        tracked_set,
+    )
+    tool_disposition_rows = _validate_explicit_tool_dispositions(
+        contract,
+        tracked_set,
+        required_dependency_paths,
+    )
+    g5_validation = _validate_g5_required_evidence(
+        repo,
+        subject["commit"],
+        contract,
+        tracked_set,
+    )
+    g5_contract = contract["g5_required_evidence"]
+    required_input_paths = sorted(
+        {
+            *g5_contract["g4_required_paths"],
+            *(
+                row["path"]
+                for row in g5_contract["evidence_bindings"]
+            ),
+        }
+    )
 
     environment = os.environ.copy()
     for variable in output_policy["cleared_ambient_environment"]:
@@ -1477,12 +1839,22 @@ def run_full_repository_gate(
     execution_status_after = ""
     fixture_result: dict[str, Any] = {}
     mirror_result: dict[str, Any] = {}
+    ignored_required_paths: list[str] = []
     try:
         initial_execution_status = _status_snapshot(checkout)
         if initial_execution_status:
             raise CleanCheckoutError(
                 "external execution checkout is not initially clean:\n"
                 + initial_execution_status
+            )
+        ignored_required_paths = _active_ignored_paths(
+            checkout,
+            required_input_paths,
+        )
+        if ignored_required_paths:
+            raise CleanCheckoutError(
+                "G5 or G4 required input is actively ignored: "
+                + ", ".join(ignored_required_paths)
             )
         fixture_result = _materialize_frozen_predecessor_fixture(
             checkout, contract
@@ -1697,6 +2069,9 @@ def run_full_repository_gate(
         ),
         "environment_verification": environment_verification,
         "source_classification_counts": source_counts,
+        "tool_disposition_rows": tool_disposition_rows,
+        "g5_required_evidence": g5_validation,
+        "ignored_required_input_count": len(ignored_required_paths),
         "pytest_identity_count": len(identity_rows),
         "standalone_validation_count": len(standalone_rows),
         "required_execution_unit_count": (
@@ -1770,6 +2145,8 @@ def run_full_repository_gate(
             ignored_status_after.splitlines()
         ),
         "source_repository_ignored_state_unchanged": ignored_status_unchanged,
+        "required_input_path_count": len(required_input_paths),
+        "ignored_required_input_paths": ignored_required_paths,
         "external_execution_status_after": (
             execution_status_after.splitlines()
         ),

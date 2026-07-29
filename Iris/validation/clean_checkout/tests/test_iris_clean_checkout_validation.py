@@ -14,9 +14,11 @@ from Iris.validation.clean_checkout.iris_clean_checkout_validation_common import
 )
 from Iris.validation.clean_checkout.run_iris_clean_checkout_validation import (
     _classify_full_test_source,
+    _full_required_source_roles,
     _ignored_status_snapshot,
     _normalized_test_id,
     _safe_checkout_target,
+    _validate_explicit_current_required_classifications,
 )
 from Iris.validation.clean_checkout.validate_iris_clean_checkout_validation import (
     validate_result_pair,
@@ -121,6 +123,48 @@ def test_result_pair_accepts_equivalent_passes(tmp_path: Path) -> None:
 
 
 def test_full_source_policy_classifies_only_declared_fallback() -> None:
+    contract_path = (
+        Path(__file__).resolve().parents[1]
+        / "contracts"
+        / "full_repository_gate.json"
+    )
+    contract = json.loads(contract_path.read_text(encoding="utf-8"))
+    constituent_source = (
+        "Iris/build/description/v2/tests/"
+        "test_public_text_constituent_identity.py"
+    )
+    explicit_paths = {
+        row["path"]
+        for row in contract["source_disposition_policy"][
+            "explicit_current_required_sources"
+        ]
+    }
+    assert constituent_source in explicit_paths
+    roles = _full_required_source_roles(contract, {"rows": []})
+    constituent = _classify_full_test_source(constituent_source, roles)
+    assert constituent == {
+        "execution_role": "required_pytest",
+        "authority_class": "required_tracked_source",
+        "classification_basis": "explicit_current_required_source",
+    }
+    _validate_explicit_current_required_classifications(
+        contract,
+        {constituent_source: constituent},
+    )
+    with pytest.raises(
+        CleanCheckoutError,
+        match="classified as historical/optional",
+    ):
+        _validate_explicit_current_required_classifications(
+            contract,
+            {
+                constituent_source: {
+                    "execution_role": "not_required",
+                    "authority_class": "historical_optional_evidence",
+                    "classification_basis": "historical heuristic",
+                }
+            },
+        )
     historical = _classify_full_test_source(
         "Iris/build/description/v2/tests/test_old_authority.py",
         {},

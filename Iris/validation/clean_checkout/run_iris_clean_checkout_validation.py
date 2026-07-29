@@ -161,6 +161,7 @@ def _full_required_pytest_sources(
         and row["state"] == selection["state"]
     }
     selected_paths.update(selection["additional_source_paths"])
+    selected_paths.update(_explicit_current_required_paths(contract))
     selected_paths.update(
         node_id.split("::", 1)[0]
         for node_id in selection["additional_node_ids"]
@@ -168,6 +169,35 @@ def _full_required_pytest_sources(
     if not selected_paths:
         raise CleanCheckoutError("full repository gate selected no pytest sources")
     return sorted(selected_paths)
+
+
+def _explicit_current_required_paths(
+    contract: dict[str, Any],
+) -> list[str]:
+    rows = contract["source_disposition_policy"].get(
+        "explicit_current_required_sources", []
+    )
+    paths: list[str] = []
+    for row in rows:
+        path = row.get("path")
+        reason = row.get("reason")
+        if (
+            not isinstance(path, str)
+            or not path
+            or path != path.strip()
+            or "\\" in path
+            or not isinstance(reason, str)
+            or not reason.strip()
+        ):
+            raise CleanCheckoutError(
+                "invalid explicit current-required source declaration"
+            )
+        paths.append(path)
+    if len(paths) != len(set(paths)):
+        raise CleanCheckoutError(
+            "duplicate explicit current-required source declaration"
+        )
+    return sorted(paths)
 
 
 def _full_required_source_roles(
@@ -231,6 +261,12 @@ def _full_required_source_roles(
             "authority_class": "obsolete_or_misrouted_test_dependency",
             "classification_basis": row["reason"],
         }
+    for path in _explicit_current_required_paths(contract):
+        roles[path] = {
+            "execution_role": "required_pytest",
+            "authority_class": "required_tracked_source",
+            "classification_basis": "explicit_current_required_source",
+        }
     return roles
 
 
@@ -255,6 +291,26 @@ def _classify_full_test_source(
     raise CleanCheckoutError(
         f"unclassified tracked test source in full gate: {source_path}"
     )
+
+
+def _validate_explicit_current_required_classifications(
+    contract: dict[str, Any],
+    classifications: dict[str, dict[str, str]],
+) -> None:
+    for path in _explicit_current_required_paths(contract):
+        classification = classifications.get(path)
+        if (
+            classification is None
+            or classification.get("execution_role") != "required_pytest"
+            or classification.get("authority_class")
+            != "required_tracked_source"
+            or classification.get("classification_basis")
+            != "explicit_current_required_source"
+        ):
+            raise CleanCheckoutError(
+                "explicit current-required source was classified as "
+                f"historical/optional or omitted: {path}"
+            )
 
 
 def _imports(
@@ -416,6 +472,10 @@ def build_source_census(
             )
             for source_path in sources
         }
+        _validate_explicit_current_required_classifications(
+            gate_contract,
+            source_classifications,
+        )
         gate_sources = {
             source_path
             for source_path, classification in source_classifications.items()
@@ -1327,6 +1387,10 @@ def run_full_repository_gate(
         source_path: _classify_full_test_source(source_path, source_roles)
         for source_path in test_sources
     }
+    _validate_explicit_current_required_classifications(
+        contract,
+        source_classifications,
+    )
     required_sources = {
         source_path
         for source_path, classification in source_classifications.items()
@@ -1449,14 +1513,19 @@ def run_full_repository_gate(
         )
         command_contract = contract["command"]
         additional_source_option = selection["additional_source_option"]
+        explicit_current_sources = _explicit_current_required_paths(contract)
+        declared_additional_sources = [
+            *selection["additional_source_paths"],
+            *explicit_current_sources,
+        ]
         additional_source_arguments = [
             argument
-            for path in selection["additional_source_paths"]
+            for path in declared_additional_sources
             for argument in (additional_source_option, path)
         ]
         pytest_selection = [
             *current_sources,
-            *selection["additional_source_paths"],
+            *declared_additional_sources,
             *selection["additional_node_ids"],
         ]
         pytest_command = [
@@ -1549,6 +1618,7 @@ def run_full_repository_gate(
     expected_sources = {
         *current_sources,
         *selection["additional_source_paths"],
+        *_explicit_current_required_paths(contract),
         *(
             node_id.split("::", 1)[0]
             for node_id in selection["additional_node_ids"]

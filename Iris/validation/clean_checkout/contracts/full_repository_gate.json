@@ -1,5 +1,5 @@
 {
-  "schema_version": "iris-clean-checkout-full-repository-gate-v2",
+  "schema_version": "iris-clean-checkout-full-repository-gate-v3",
   "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
   "claim": "Iris mandatory full-required-repository validation is reproducible from an exact tracked commit",
   "claim_boundary": {
@@ -72,6 +72,12 @@
     }
   ],
   "source_disposition_policy": {
+    "explicit_current_required_sources": [
+      {
+        "path": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py",
+        "reason": "current cross-platform constituent identity contract required by the Foundation-to-Naturalization handoff boundary"
+      }
+    ],
     "historical_optional_rule": "tracked Iris/build/description/v2/tests/test_*.py source with no current, ok taxonomy identity",
     "historical_optional_class": "historical_optional_evidence",
     "explicit_historical_optional_sources": [

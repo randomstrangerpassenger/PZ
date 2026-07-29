@@ -83,6 +83,12 @@ FOUNDATION_READINESS_CORRECTION_REBIND = (
     FOUNDATION_ROOT
     / "public_text_quality_development_readiness_correction_rebind.json"
 )
+FOUNDATION_READINESS_CURRENT_INPUT_REBIND = (
+    FOUNDATION_ROOT
+    / "readiness_successors"
+    / "correction-0002"
+    / "public_text_quality_development_readiness_current_input_rebind.json"
+)
 REGISTRY_ADOPTION_CONTRACT = (
     DURABLE_ROOT / "food_semantic_registry_adoption_contract.json"
 )
@@ -100,12 +106,17 @@ REGISTRY_ADOPTION_RECEIPT = (
     / "staging"
     / "dvf_3_3_food_semantic_registry_operational_cutover"
     / "attempts"
-    / "attempt-0010"
+    / "attempt-0011"
     / "closeout"
     / "registry_correction_adoption_receipt.json"
 )
 REGISTRY_CORRECTION_TERMINAL_SEAL = REGISTRY_ADOPTION_RECEIPT.with_name(
     "terminal_correction_hash_seal.json"
+)
+REGISTRY_NATURALIZATION_HANDOFF = (
+    REGISTRY_ADOPTION_RECEIPT.parents[1]
+    / "handoff"
+    / "naturalization_current_input_handoff.json"
 )
 FOOD_SEMANTIC_SCHEMA = (
     REPO_ROOT / "Iris" / "_docs" / "authority" / "food_semantic"
@@ -122,10 +133,10 @@ INPUT_MANIFEST = V2_ROOT / "data" / "dvf_3_3_input_manifest.json"
 FACTS_PATH = V2_ROOT / "data" / "dvf_3_3_facts.jsonl"
 DECISIONS_PATH = V2_ROOT / "data" / "dvf_3_3_decisions.jsonl"
 EXPECTED_CURRENT_FACTS_SHA256 = (
-    "ca74270191289af064d9d8fa9d739c97b0865d69e255885e815b01565243f46e"
+    "37db2595eff9b58f7b08e59221e950cb529453bd96733fb29171d458e46118f6"
 )
 EXPECTED_CURRENT_MANIFEST_SHA256 = (
-    "c9670c1625382444fe292158e6b50e65e2ee54316d2903835ebc4f59c199257d"
+    "a105e3790896b30bc25e95839ceb0ee4c88357fed98ec9fa4258790bf0733a1f"
 )
 EXPECTED_SELECTED_SUCCESSOR_FACTS_SHA256 = (
     "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40"
@@ -140,19 +151,22 @@ EXPECTED_FOOD_SEMANTIC_LICENSE_SHA256 = (
     "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd"
 )
 EXPECTED_REGISTRY_ADOPTION_RECEIPT_SHA256 = (
-    "92cb65656562ec874dafea118c85ce424e2f391f36ee27860029c6fef582978f"
+    "475239fba798104371d2c9f4fb166c46ceab15bb462015493238a4aff4656f7f"
 )
 EXPECTED_INITIAL_REGISTRY_ADOPTION_RECEIPT_SHA256 = (
     "efcc387bb395b561ab67df0cab4e498fe0b429680fc6cc8f6dd96eb94ba49751"
 )
 EXPECTED_REGISTRY_ADOPTION_CONTRACT_SHA256 = (
-    "c6d315e428f600878dc43d896b574398c0fd932d35a5824bbae6dab8e3c7906a"
+    "c2655f766d8db30a31821471c8c871b723dadd9bb9803ff99a6765b2ec3dc361"
 )
 EXPECTED_REGISTRY_CORRECTION_SUCCESSOR_MANIFEST_SHA256 = (
-    "4050b4cd4f23724b12ca1962c7b0ec85d4da626f86dc618d5f0d94be177c3808"
+    "e5ccc87ad00e3c8f009ad79a294ea771046d16e12a3582908bcb813545e7e63e"
 )
 EXPECTED_REGISTRY_CORRECTION_TERMINAL_SEAL_SHA256 = (
-    "0464d05c104f11599a9a5759cee402abfdcb0f07379dddb299e93243d88875cb"
+    "b54cca40e1dcbf4d279d878a6fba42e244311b33691eb27054d0881ff4682a52"
+)
+EXPECTED_REGISTRY_NATURALIZATION_HANDOFF_SHA256 = (
+    "6fa93017f037d3ffd5520a9da5ce1c2afdc97c3824de6ce00015e08aca4f068c"
 )
 EXPECTED_FOUNDATION_CONTRACT_SHA256 = (
     "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02"
@@ -163,7 +177,12 @@ EXPECTED_FOUNDATION_READINESS_SHA256 = (
 EXPECTED_FOUNDATION_READINESS_CORRECTION_REBIND_SHA256 = (
     "bf5916854b7aeb29f603ef42efb64e2b363fc5efb899dca1434b5e5c2744f315"
 )
-EXPECTED_COMPILER_FIX_COMMIT = "b399cdbacf884ed97a884e8a0266f94a7e4a13d5"
+EXPECTED_FOUNDATION_READINESS_CURRENT_INPUT_REBIND_SHA256 = (
+    "c362c44b01cabc0937cbddc3843ca89e994ace0fbcacac8f75e61bfb604e8cc2"
+)
+EXPECTED_COMPILER_FIX_COMMIT = "ca851a1e10bd37be71deded1fcc57b0d8462db48"
+EXPECTED_START_COMMIT = "e61a65322dabb0fd98f8e66f1a2b376cecc57eda"
+EXPECTED_START_TREE = "b7ef0a3e33797d2c55ccceecefd1cf750efc8116"
 POLICY_PATH = DATA_ROOT / "korean_prose_policy.json"
 CORPUS_MANIFEST_PATH = DATA_ROOT / "corpus_manifest.json"
 PLAN_PATH = (
@@ -525,10 +544,12 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
             FOUNDATION_CONTRACT,
             FOUNDATION_READINESS,
             FOUNDATION_READINESS_CORRECTION_REBIND,
+            FOUNDATION_READINESS_CURRENT_INPUT_REBIND,
             REGISTRY_ADOPTION_CONTRACT,
             REGISTRY_ADOPTION_RECEIPT,
             INITIAL_REGISTRY_ADOPTION_RECEIPT,
             REGISTRY_CORRECTION_TERMINAL_SEAL,
+            REGISTRY_NATURALIZATION_HANDOFF,
             FOOD_SEMANTIC_SCHEMA,
             FOOD_SEMANTIC_LICENSE,
             FACTS_AUTHORITY_ROUTING_CORRECTION,
@@ -548,11 +569,17 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
     foundation = load_json(FOUNDATION_CONTRACT)
     readiness = load_json(FOUNDATION_READINESS)
     readiness_rebind = load_json(FOUNDATION_READINESS_CORRECTION_REBIND)
+    readiness_current_input_rebind = load_json(
+        FOUNDATION_READINESS_CURRENT_INPUT_REBIND
+    )
     registry_contract = load_json(REGISTRY_ADOPTION_CONTRACT)
     registry_receipt = load_json(REGISTRY_ADOPTION_RECEIPT)
     initial_registry_receipt = load_json(INITIAL_REGISTRY_ADOPTION_RECEIPT)
     registry_correction_terminal = load_json(
         REGISTRY_CORRECTION_TERMINAL_SEAL
+    )
+    registry_naturalization_handoff = load_json(
+        REGISTRY_NATURALIZATION_HANDOFF
     )
     food_semantic_schema = load_json(FOOD_SEMANTIC_SCHEMA)
     food_semantic_license = load_json(FOOD_SEMANTIC_LICENSE)
@@ -682,6 +709,29 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
                 "current_manifest_sha256"
             )
         ),
+        "foundation_readiness_current_input_rebind_path": repo_relative(
+            FOUNDATION_READINESS_CURRENT_INPUT_REBIND
+        ),
+        "foundation_readiness_current_input_rebind_sha256": sha256_file(
+            FOUNDATION_READINESS_CURRENT_INPUT_REBIND
+        ),
+        "foundation_readiness_current_input_rebind_status": (
+            readiness_current_input_rebind.get("status")
+        ),
+        "foundation_readiness_current_input_rebind_current_facts_sha256": (
+            readiness_current_input_rebind.get(
+                "registry_correction_adoption", {}
+            )
+            .get("current_facts", {})
+            .get("sha256")
+        ),
+        "foundation_readiness_current_input_rebind_current_manifest_sha256": (
+            readiness_current_input_rebind.get(
+                "registry_correction_adoption", {}
+            )
+            .get("current_manifest", {})
+            .get("sha256")
+        ),
         "foundation_state": foundation_state,
         "expected_foundation_state": expected_foundation_state,
         "foundation_state_match": foundation_state == expected_foundation_state,
@@ -699,7 +749,21 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
     food_manifest = manifest.get("food_semantic_authority", {})
     current_manifest_correction = manifest.get("current_facts_correction", {})
     selected_successor = registry_contract.get("selected_successor", {})
-    current_correction = registry_contract.get("current_correction", {})
+    current_correction_selection = registry_contract.get(
+        "current_correction_selection", {}
+    )
+    current_correction_successors = registry_contract.get(
+        "current_correction_successors", []
+    )
+    current_correction = next(
+        (
+            row
+            for row in current_correction_successors
+            if row.get("successor_id")
+            == current_correction_selection.get("successor_id")
+        ),
+        {},
+    )
     registry_predicates = registry_contract.get("official_consumer_predicates", {})
     actual_source_identity = {
         "current_facts_sha256": sha256_file(FACTS_PATH),
@@ -725,10 +789,6 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
     }
     registry_receipt_predicates = {
         "status_pass": registry_receipt.get("status") == "PASS",
-        "official_naturalization_attempt_allowed": (
-            registry_receipt.get("official_naturalization_attempt_allowed")
-            is True
-        ),
         "current_facts_match": (
             registry_receipt.get("current_facts_sha256")
             == EXPECTED_CURRENT_FACTS_SHA256
@@ -738,7 +798,7 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
             == EXPECTED_CURRENT_MANIFEST_SHA256
         ),
         "correction_successor_manifest_match": (
-            registry_receipt.get("correction_successor_manifest_sha256")
+            registry_receipt.get("sealed_successor_manifest_sha256")
             == EXPECTED_REGISTRY_CORRECTION_SUCCESSOR_MANIFEST_SHA256
         ),
         "initial_receipt_match": (
@@ -746,14 +806,50 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
             == EXPECTED_INITIAL_REGISTRY_ADOPTION_RECEIPT_SHA256
         ),
         "partial_or_dual_current_zero": (
-            registry_receipt.get("partial_or_dual_current_count") == 0
+            registry_receipt.get("partial_current_allowed") is False
+            and registry_receipt.get("dual_current_allowed") is False
         ),
-        "official_publish_not_allowed": (
-            registry_receipt.get("official_publish_attempt_allowed") is False
+        "correction_attempt_match": (
+            registry_receipt.get("attempt_id") == "attempt-0011"
         ),
-        "live_publish_gate_mutation_not_allowed": (
-            registry_receipt.get("live_publish_gate_mutation_allowed")
+        "forbidden_scope_execution_zero": (
+            registry_receipt.get("forbidden_scope_execution_count") == 0
+        ),
+    }
+    registry_handoff_predicates = {
+        "status_ready_for_foundation_rebind": (
+            registry_naturalization_handoff.get("status")
+            == "READY_FOR_FOUNDATION_REBIND"
+        ),
+        "current_facts_match": (
+            registry_naturalization_handoff.get("current_facts_sha256")
+            == EXPECTED_CURRENT_FACTS_SHA256
+        ),
+        "current_manifest_match": (
+            registry_naturalization_handoff.get("current_manifest_sha256")
+            == EXPECTED_CURRENT_MANIFEST_SHA256
+        ),
+        "receipt_match": (
+            registry_naturalization_handoff.get(
+                "registry_correction_adoption_receipt_sha256"
+            )
+            == EXPECTED_REGISTRY_ADOPTION_RECEIPT_SHA256
+        ),
+        "naturalization_not_started": (
+            registry_naturalization_handoff.get(
+                "naturalization_attempt_started"
+            )
             is False
+        ),
+        "official_publish_not_started": (
+            registry_naturalization_handoff.get("official_publish_started")
+            is False
+        ),
+        "direct_phase_reentry_forbidden": (
+            registry_naturalization_handoff.get(
+                "forbidden_direct_phase_reentry"
+            )
+            is True
         ),
     }
     registry_contract_predicates = {
@@ -797,7 +893,12 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
         ),
         "correction_attempt_match": (
             current_correction.get("registry_cutover_attempt_id")
-            == "attempt-0010"
+            == "attempt-0011"
+        ),
+        "correction_selection_match": (
+            current_correction_selection.get("successor_id")
+            == "correction-0002"
+            and current_correction.get("successor_id") == "correction-0002"
         ),
         "legacy_direct_identity_predicate_false": (
             registry_predicates.get(
@@ -812,7 +913,9 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
             is True
         ),
         "runtime_publication_not_allowed": (
-            registry_contract.get("registry_runtime_compatibility", {}).get(
+            registry_contract.get(
+                "registry_runtime_compatibility_successor", {}
+            ).get(
                 "live_bridge_runtime_package_publication_allowed"
             )
             is False
@@ -841,6 +944,22 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
             )
             is False
         ),
+        "g4_current_input_rebind_requires_fresh_phase0": (
+            readiness_current_input_rebind.get(
+                "naturalization_prerequisites", {}
+            ).get("fresh_naturalization_attempt_must_start_at_phase")
+            == 0
+        ),
+        "g4_current_input_rebind_has_not_run_naturalization": (
+            readiness_current_input_rebind.get(
+                "naturalization_prerequisites", {}
+            ).get("naturalization_attempt_created")
+            is False
+            and readiness_current_input_rebind.get(
+                "naturalization_prerequisites", {}
+            ).get("naturalization_phase2_through_phase8_executed")
+            is False
+        ),
     }
     registry_binding_pass = all(
         (
@@ -851,6 +970,8 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
             == EXPECTED_INITIAL_REGISTRY_ADOPTION_RECEIPT_SHA256,
             sha256_file(REGISTRY_CORRECTION_TERMINAL_SEAL)
             == EXPECTED_REGISTRY_CORRECTION_TERMINAL_SEAL_SHA256,
+            sha256_file(REGISTRY_NATURALIZATION_HANDOFF)
+            == EXPECTED_REGISTRY_NATURALIZATION_HANDOFF_SHA256,
             sha256_file(REGISTRY_ADOPTION_CONTRACT)
             == EXPECTED_REGISTRY_ADOPTION_CONTRACT_SHA256,
             sha256_file(FOUNDATION_CONTRACT)
@@ -859,27 +980,31 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
             == EXPECTED_FOUNDATION_READINESS_SHA256,
             sha256_file(FOUNDATION_READINESS_CORRECTION_REBIND)
             == EXPECTED_FOUNDATION_READINESS_CORRECTION_REBIND_SHA256,
+            sha256_file(FOUNDATION_READINESS_CURRENT_INPUT_REBIND)
+            == EXPECTED_FOUNDATION_READINESS_CURRENT_INPUT_REBIND_SHA256,
             readiness_rebind.get("status") == "PASS",
-            readiness_rebind.get("registry_correction_adoption", {}).get(
-                "current_facts_sha256"
+            readiness_current_input_rebind.get("status") == "PASS",
+            readiness_current_input_rebind.get(
+                "registry_correction_adoption", {}
             )
+            .get("current_facts", {})
+            .get("sha256")
             == EXPECTED_CURRENT_FACTS_SHA256,
-            readiness_rebind.get("registry_correction_adoption", {}).get(
-                "current_manifest_sha256"
+            readiness_current_input_rebind.get(
+                "registry_correction_adoption", {}
             )
+            .get("current_manifest", {})
+            .get("sha256")
             == EXPECTED_CURRENT_MANIFEST_SHA256,
-            readiness_rebind.get("naturalization_prerequisites", {}).get(
-                "compiler_fix_commit"
-            )
-            == EXPECTED_COMPILER_FIX_COMMIT,
             registry_correction_terminal.get("status") == "PASS",
             initial_registry_receipt.get("status") == "PASS",
             all(registry_receipt_predicates.values()),
+            all(registry_handoff_predicates.values()),
             all(registry_contract_predicates.values()),
             all(blocked_attempt_predicates.values()),
             food_manifest.get("attempt_id") == "attempt-0022",
             food_manifest.get("registry_adoption_state")
-            == "current_with_correction_successor",
+            == "current_correction_0002",
             food_manifest.get("proposition_count") == 718,
             food_semantic_schema.get("schema_version")
             == "food-semantic-schema-v1",
@@ -917,12 +1042,22 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
         "registry_correction_terminal_seal_sha256": sha256_file(
             REGISTRY_CORRECTION_TERMINAL_SEAL
         ),
+        "registry_naturalization_handoff_path": repo_relative(
+            REGISTRY_NATURALIZATION_HANDOFF
+        ),
+        "registry_naturalization_handoff_sha256": sha256_file(
+            REGISTRY_NATURALIZATION_HANDOFF
+        ),
         "foundation_contract_sha256": sha256_file(FOUNDATION_CONTRACT),
         "foundation_readiness_sha256": sha256_file(FOUNDATION_READINESS),
         "foundation_readiness_correction_rebind_sha256": sha256_file(
             FOUNDATION_READINESS_CORRECTION_REBIND
         ),
+        "foundation_readiness_current_input_rebind_sha256": sha256_file(
+            FOUNDATION_READINESS_CURRENT_INPUT_REBIND
+        ),
         "registry_receipt_predicates": registry_receipt_predicates,
+        "registry_handoff_predicates": registry_handoff_predicates,
         "registry_contract_predicates": registry_contract_predicates,
         "blocked_attempt_predicates": blocked_attempt_predicates,
         "current_manifest_food_semantic_authority": food_manifest,
@@ -951,6 +1086,21 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
                 "merge-base",
                 "--is-ancestor",
                 EXPECTED_COMPILER_FIX_COMMIT,
+                "HEAD",
+            ],
+            cwd=REPO_ROOT,
+            check=False,
+            capture_output=True,
+        ).returncode
+        == 0
+    )
+    start_commit_is_ancestor = (
+        subprocess.run(
+            [
+                "git",
+                "merge-base",
+                "--is-ancestor",
+                EXPECTED_START_COMMIT,
                 "HEAD",
             ],
             cwd=REPO_ROOT,
@@ -994,8 +1144,35 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
                 "current_manifest_sha256"
             )
         ),
+        "foundation_readiness_current_input_rebind_sha256": sha256_file(
+            FOUNDATION_READINESS_CURRENT_INPUT_REBIND
+        ),
+        "foundation_readiness_current_input_rebind_status": (
+            readiness_current_input_rebind.get("status")
+        ),
+        "foundation_readiness_current_input_rebind_current_facts_sha256": (
+            readiness_current_input_rebind.get(
+                "registry_correction_adoption", {}
+            )
+            .get("current_facts", {})
+            .get("sha256")
+        ),
+        "foundation_readiness_current_input_rebind_current_manifest_sha256": (
+            readiness_current_input_rebind.get(
+                "registry_correction_adoption", {}
+            )
+            .get("current_manifest", {})
+            .get("sha256")
+        ),
         "compiler_fix_commit": EXPECTED_COMPILER_FIX_COMMIT,
         "compiler_fix_is_ancestor": compiler_fix_is_ancestor,
+        "naturalization_start_commit": EXPECTED_START_COMMIT,
+        "naturalization_start_tree": EXPECTED_START_TREE,
+        "naturalization_start_actual_tree": git_output(
+            "rev-parse",
+            f"{EXPECTED_START_COMMIT}^{{tree}}",
+        ),
+        "naturalization_start_commit_is_ancestor": start_commit_is_ancestor,
         "foundation_worktree_clean_at_branch_point": True,
     }
     write_once_or_same(
@@ -1214,6 +1391,12 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
     if not compiler_fix_is_ancestor:
         blocker_reasons.append("compiler_fix_commit_not_in_checkout_history")
     if (
+        not start_commit_is_ancestor
+        or foundation_identity["naturalization_start_actual_tree"]
+        != EXPECTED_START_TREE
+    ):
+        blocker_reasons.append("naturalization_start_commit_or_tree_mismatch")
+    if (
         historical_attempt_policy["blocked_attempt_phase7_exists"]
         or historical_attempt_policy["blocked_attempt_phase8_exists"]
     ):
@@ -1241,8 +1424,14 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
         "registry_correction_terminal_seal_sha256": sha256_file(
             REGISTRY_CORRECTION_TERMINAL_SEAL
         ),
+        "registry_naturalization_handoff_sha256": sha256_file(
+            REGISTRY_NATURALIZATION_HANDOFF
+        ),
         "current_facts_sha256": sha256_file(FACTS_PATH),
         "current_manifest_sha256": sha256_file(INPUT_MANIFEST),
+        "naturalization_start_commit": EXPECTED_START_COMMIT,
+        "naturalization_start_tree": EXPECTED_START_TREE,
+        "naturalization_start_commit_is_ancestor": start_commit_is_ancestor,
         "g4_foundation_commit": foundation_commit,
         "g4_foundation_tree": foundation_identity["foundation_tree"],
         "g4_foundation_commit_changed_path_count": foundation_identity[
@@ -1253,6 +1442,12 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
         ),
         "g4_foundation_readiness_correction_rebind_status": (
             readiness_rebind.get("status")
+        ),
+        "g4_foundation_readiness_current_input_rebind_sha256": sha256_file(
+            FOUNDATION_READINESS_CURRENT_INPUT_REBIND
+        ),
+        "g4_foundation_readiness_current_input_rebind_status": (
+            readiness_current_input_rebind.get("status")
         ),
         "compiler_fix_commit": EXPECTED_COMPILER_FIX_COMMIT,
         "compiler_fix_is_ancestor": compiler_fix_is_ancestor,
@@ -1574,7 +1769,9 @@ def build_phase2(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
             REGISTRY_ADOPTION_RECEIPT,
             INITIAL_REGISTRY_ADOPTION_RECEIPT,
             REGISTRY_CORRECTION_TERMINAL_SEAL,
+            REGISTRY_NATURALIZATION_HANDOFF,
             FOUNDATION_READINESS_CORRECTION_REBIND,
+            FOUNDATION_READINESS_CURRENT_INPUT_REBIND,
             FOOD_SEMANTIC_SCHEMA,
             FOOD_SEMANTIC_LICENSE,
             phase_root(attempt_root, 0)
@@ -1887,6 +2084,8 @@ def build_phase2(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
             == EXPECTED_INITIAL_REGISTRY_ADOPTION_RECEIPT_SHA256,
             sha256_file(REGISTRY_CORRECTION_TERMINAL_SEAL)
             == EXPECTED_REGISTRY_CORRECTION_TERMINAL_SEAL_SHA256,
+            sha256_file(REGISTRY_NATURALIZATION_HANDOFF)
+            == EXPECTED_REGISTRY_NATURALIZATION_HANDOFF_SHA256,
             sha256_file(REGISTRY_ADOPTION_CONTRACT)
             == EXPECTED_REGISTRY_ADOPTION_CONTRACT_SHA256,
             foundation_identity.get("foundation_contract_sha256")
@@ -1897,9 +2096,29 @@ def build_phase2(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
                 "foundation_readiness_correction_rebind_sha256"
             )
             == EXPECTED_FOUNDATION_READINESS_CORRECTION_REBIND_SHA256,
+            foundation_identity.get(
+                "foundation_readiness_current_input_rebind_sha256"
+            )
+            == EXPECTED_FOUNDATION_READINESS_CURRENT_INPUT_REBIND_SHA256,
+            foundation_identity.get(
+                "foundation_readiness_current_input_rebind_current_facts_sha256"
+            )
+            == EXPECTED_CURRENT_FACTS_SHA256,
+            foundation_identity.get(
+                "foundation_readiness_current_input_rebind_current_manifest_sha256"
+            )
+            == EXPECTED_CURRENT_MANIFEST_SHA256,
             foundation_identity.get("compiler_fix_commit")
             == EXPECTED_COMPILER_FIX_COMMIT,
             foundation_identity.get("compiler_fix_is_ancestor") is True,
+            foundation_identity.get("naturalization_start_commit")
+            == EXPECTED_START_COMMIT,
+            foundation_identity.get("naturalization_start_tree")
+            == EXPECTED_START_TREE,
+            foundation_identity.get("naturalization_start_actual_tree")
+            == EXPECTED_START_TREE,
+            foundation_identity.get("naturalization_start_commit_is_ancestor")
+            is True,
             foundation_identity.get("foundation_commit_changed_path_count") == 19,
             food_semantic_proposition_count == 718,
             not invalid_food_semantic_assertions,
@@ -1931,6 +2150,12 @@ def build_phase2(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
         "registry_correction_terminal_seal_sha256": sha256_file(
             REGISTRY_CORRECTION_TERMINAL_SEAL
         ),
+        "registry_naturalization_handoff_path": repo_relative(
+            REGISTRY_NATURALIZATION_HANDOFF
+        ),
+        "registry_naturalization_handoff_sha256": sha256_file(
+            REGISTRY_NATURALIZATION_HANDOFF
+        ),
         "g4_foundation_commit": foundation_identity.get("foundation_commit"),
         "g4_foundation_tree": foundation_identity.get("foundation_tree"),
         "g4_foundation_contract_sha256": foundation_identity.get(
@@ -1943,6 +2168,17 @@ def build_phase2(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
             foundation_identity.get(
                 "foundation_readiness_correction_rebind_sha256"
             )
+        ),
+        "g4_foundation_readiness_current_input_rebind_sha256": (
+            foundation_identity.get(
+                "foundation_readiness_current_input_rebind_sha256"
+            )
+        ),
+        "naturalization_start_commit": foundation_identity.get(
+            "naturalization_start_commit"
+        ),
+        "naturalization_start_tree": foundation_identity.get(
+            "naturalization_start_tree"
         ),
         "compiler_fix_commit": foundation_identity.get("compiler_fix_commit"),
         "compiler_fix_is_ancestor": foundation_identity.get(
@@ -2003,6 +2239,12 @@ def build_phase2(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
         "registry_correction_terminal_seal_sha256": sha256_file(
             REGISTRY_CORRECTION_TERMINAL_SEAL
         ),
+        "registry_naturalization_handoff_path": repo_relative(
+            REGISTRY_NATURALIZATION_HANDOFF
+        ),
+        "registry_naturalization_handoff_sha256": sha256_file(
+            REGISTRY_NATURALIZATION_HANDOFF
+        ),
         "g4_foundation_commit": foundation_identity.get("foundation_commit"),
         "g4_foundation_tree": foundation_identity.get("foundation_tree"),
         "g4_foundation_contract_sha256": foundation_identity.get(
@@ -2015,6 +2257,17 @@ def build_phase2(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
             foundation_identity.get(
                 "foundation_readiness_correction_rebind_sha256"
             )
+        ),
+        "g4_foundation_readiness_current_input_rebind_sha256": (
+            foundation_identity.get(
+                "foundation_readiness_current_input_rebind_sha256"
+            )
+        ),
+        "naturalization_start_commit": foundation_identity.get(
+            "naturalization_start_commit"
+        ),
+        "naturalization_start_tree": foundation_identity.get(
+            "naturalization_start_tree"
         ),
         "compiler_fix_commit": foundation_identity.get("compiler_fix_commit"),
         "compiler_fix_is_ancestor": foundation_identity.get(
@@ -3209,6 +3462,62 @@ def evaluate_human_review_decision(
         "semantic_fidelity",
         "public_suitability",
     }
+    if decision.get("decision_mode") == "exact_full_candidate_external_review":
+        if decision.get("reviewed_denominator") != len(ordered_selected):
+            errors.append("review_denominator_mismatch")
+        if (
+            decision.get("reviewed_item_id_binding")
+            != "human_review_sample_manifest.selected_item_ids"
+        ):
+            errors.append("review_item_binding_mismatch")
+        if decision.get("reviewer_role") != "external_codex_reviewer":
+            errors.append("external_reviewer_role_invalid")
+        if decision.get("all_unlisted_items_pass_all_rubrics") is not True:
+            errors.append("full_candidate_default_disposition_missing")
+        aggregates = decision.get("rubric_aggregate")
+        if not isinstance(aggregates, dict) or not required_fields.issubset(
+            aggregates
+        ):
+            errors.append("review_rubric_aggregate_missing")
+            aggregates = {}
+        for field in required_fields:
+            counts = aggregates.get(field, {})
+            if (
+                not isinstance(counts, dict)
+                or counts.get("pass", 0) + counts.get("fail", 0)
+                != len(ordered_selected)
+            ):
+                errors.append(f"review_rubric_denominator_mismatch:{field}")
+        blocker_rows = decision.get("blockers")
+        if not isinstance(blocker_rows, list):
+            errors.append("review_blocker_rows_missing")
+            blocker_rows = []
+        blocker_ids: set[str] = set()
+        for row in blocker_rows:
+            if not isinstance(row, dict):
+                errors.append("review_blocker_row_invalid")
+                continue
+            item_id = str(row.get("item_id"))
+            if item_id not in set(ordered_selected):
+                errors.append(f"review_blocker_item_not_selected:{item_id}")
+            if item_id in blocker_ids:
+                errors.append(f"review_blocker_item_duplicate:{item_id}")
+            blocker_ids.add(item_id)
+            rubric = row.get("rubric")
+            if (
+                not isinstance(rubric, dict)
+                or not required_fields.issubset(rubric)
+                or all(rubric.get(field) == "pass" for field in required_fields)
+            ):
+                errors.append(f"review_blocker_rubric_invalid:{item_id}")
+        aggregate_blocker_ids = {
+            str(item_id) for item_id in decision.get("blocker_item_ids", [])
+        }
+        if aggregate_blocker_ids != blocker_ids:
+            errors.append("review_blocker_item_binding_mismatch")
+        if decision.get("blocker_count") != len(blocker_ids):
+            errors.append("review_blocker_count_mismatch")
+        return len(blocker_ids), errors
     if decision.get("decision_mode") == "exact_sample_uniform_owner_approval":
         if decision.get("reviewed_denominator") != len(ordered_selected):
             errors.append("review_denominator_mismatch")
@@ -3331,14 +3640,19 @@ def build_phase7(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
                 "selected_item_ids": picked,
             }
         )
-    ordered_selected = sorted(
+    minimum_selected = sorted(
         selected,
         key=lambda item_id: select_rank(candidate_hash, "final_union", item_id),
     )
+    ordered_selected = sorted(
+        eligible,
+        key=lambda item_id: select_rank(candidate_hash, "final_union", item_id),
+    )
     manifest = {
-        "schema_version": "dvf-3-3-human-review-sample-manifest-v1",
+        "schema_version": "dvf-3-3-human-review-sample-manifest-v2",
         "naturalization_attempt_id": attempt_id,
         "candidate_rendered_hash": candidate_hash,
+        "selection_scope": "full_candidate_review_owner_directive",
         "selection_algorithm_id": contract["algorithm_id"],
         "selection_algorithm_hash": foundation[
             "human_review_selection_contract_hash"
@@ -3347,6 +3661,11 @@ def build_phase7(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
         "full_candidate_denominator": len(eligible),
         "eligible_review_denominator": len(eligible),
         "base_selected_denominator": base_size,
+        "minimum_contract_selected_denominator": len(minimum_selected),
+        "minimum_contract_selected_item_ids": minimum_selected,
+        "minimum_contract_selected_ordered_digest": canonical_hash(
+            minimum_selected
+        ),
         "selected_required_denominator": len(ordered_selected),
         "selected_item_ids": ordered_selected,
         "selected_ordered_digest": canonical_hash(ordered_selected),
@@ -3388,7 +3707,12 @@ def build_phase7(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
         ),
         "human_review_blocker_count_within_required_denominator": blocker_count,
         "errors": errors,
-        "corpus_wide_human_only_blocker_zero_claimed": False,
+        "corpus_wide_human_only_blocker_zero_claimed": (
+            decision_present
+            and not errors
+            and blocker_count == 0
+            and len(ordered_selected) == len(eligible)
+        ),
     }
     write_once_or_same(root / "human_review_binding_report.json", binding)
     eligibility = {
@@ -3401,8 +3725,9 @@ def build_phase7(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
         "reviewer_is_not_compiler": (
             decision_present
             and load_json(HUMAN_REVIEW_DECISION_PATH).get("reviewer_role")
-            == "human_public_text_reviewer"
+            in {"human_public_text_reviewer", "external_codex_reviewer"}
         ),
+        "full_candidate_review": len(ordered_selected) == len(eligible),
         "independent_terminal_reviewer_claimed": False,
     }
     write_once_or_same(root / "human_review_eligibility_report.json", eligibility)
@@ -3577,7 +3902,36 @@ def build_phase8_handoff(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
             "registry_runtime_pass_claim_allowed": False,
             "write_once": True,
         }
-        write_once_or_same(root / "publish_acceptance_handoff_manifest.json", handoff)
+        handoff_path = root / "publish_acceptance_handoff_manifest.json"
+        write_once_or_same(handoff_path, handoff)
+        closeout = {
+            "schema_version": "dvf-3-3-naturalization-phase8-closeout-v1",
+            "status": "HANDOFF_COMPLETE",
+            "naturalization_attempt_id": attempt_id,
+            "candidate_rendered_sha256": sha256_file(
+                p4 / "candidate_rendered.json"
+            ),
+            "publish_acceptance_handoff_manifest_path": repo_relative(
+                handoff_path
+            ),
+            "publish_acceptance_handoff_manifest_sha256": sha256_file(
+                handoff_path
+            ),
+            "human_review_denominator": review_binding.get(
+                "required_review_denominator"
+            ),
+            "human_review_blocker_count": review_binding.get(
+                "human_review_blocker_count_within_required_denominator"
+            ),
+            "official_publish_attempt_created": False,
+            "official_publish_executed": False,
+            "live_gate_mutated": False,
+            "runtime_lua_or_package_mutated": False,
+            "naturalization_terminal_closure_claimed": False,
+            "next_stage": "official_publish_attempt_prohibited_until_separate_authorization",
+            "write_once": True,
+        }
+        write_once_or_same(root / "phase8_closeout.json", closeout)
     return readiness
 
 

@@ -14,19 +14,25 @@ if __package__ in {None, ""}:
         EXPECTED_CURRENT_MANIFEST_SHA256,
         EXPECTED_COMPILER_FIX_COMMIT,
         EXPECTED_FOUNDATION_CONTRACT_SHA256,
+        EXPECTED_FOUNDATION_READINESS_CURRENT_INPUT_REBIND_SHA256,
         EXPECTED_FOUNDATION_READINESS_SHA256,
         EXPECTED_FOUNDATION_READINESS_CORRECTION_REBIND_SHA256,
         EXPECTED_INITIAL_REGISTRY_ADOPTION_RECEIPT_SHA256,
         EXPECTED_REGISTRY_ADOPTION_RECEIPT_SHA256,
         EXPECTED_REGISTRY_ADOPTION_CONTRACT_SHA256,
         EXPECTED_REGISTRY_CORRECTION_TERMINAL_SEAL_SHA256,
+        EXPECTED_REGISTRY_NATURALIZATION_HANDOFF_SHA256,
         EXPECTED_SELECTED_SUCCESSOR_FACTS_SHA256,
         EXPECTED_SELECTED_SUCCESSOR_MANIFEST_SHA256,
+        EXPECTED_START_COMMIT,
+        EXPECTED_START_TREE,
         FOUNDATION_CONTRACT,
+        FOUNDATION_READINESS_CURRENT_INPUT_REBIND,
         FOUNDATION_READINESS_CORRECTION_REBIND,
         NaturalizationError,
         REPO_ROOT,
         REGISTRY_ADOPTION_CONTRACT,
+        REGISTRY_NATURALIZATION_HANDOFF,
         attempt_root_for,
         canonical_hash,
         implementation_hash,
@@ -41,19 +47,25 @@ else:
         EXPECTED_CURRENT_MANIFEST_SHA256,
         EXPECTED_COMPILER_FIX_COMMIT,
         EXPECTED_FOUNDATION_CONTRACT_SHA256,
+        EXPECTED_FOUNDATION_READINESS_CURRENT_INPUT_REBIND_SHA256,
         EXPECTED_FOUNDATION_READINESS_SHA256,
         EXPECTED_FOUNDATION_READINESS_CORRECTION_REBIND_SHA256,
         EXPECTED_INITIAL_REGISTRY_ADOPTION_RECEIPT_SHA256,
         EXPECTED_REGISTRY_ADOPTION_RECEIPT_SHA256,
         EXPECTED_REGISTRY_ADOPTION_CONTRACT_SHA256,
         EXPECTED_REGISTRY_CORRECTION_TERMINAL_SEAL_SHA256,
+        EXPECTED_REGISTRY_NATURALIZATION_HANDOFF_SHA256,
         EXPECTED_SELECTED_SUCCESSOR_FACTS_SHA256,
         EXPECTED_SELECTED_SUCCESSOR_MANIFEST_SHA256,
+        EXPECTED_START_COMMIT,
+        EXPECTED_START_TREE,
         FOUNDATION_CONTRACT,
+        FOUNDATION_READINESS_CURRENT_INPUT_REBIND,
         FOUNDATION_READINESS_CORRECTION_REBIND,
         NaturalizationError,
         REPO_ROOT,
         REGISTRY_ADOPTION_CONTRACT,
+        REGISTRY_NATURALIZATION_HANDOFF,
         attempt_root_for,
         canonical_hash,
         implementation_hash,
@@ -148,6 +160,9 @@ def validate_phase0(root: Path, errors: list[str]) -> dict[str, Any]:
     )
     registry_contract = load_json(REGISTRY_ADOPTION_CONTRACT)
     readiness_rebind = load_json(FOUNDATION_READINESS_CORRECTION_REBIND)
+    readiness_current_input_rebind = load_json(
+        FOUNDATION_READINESS_CURRENT_INPUT_REBIND
+    )
     applicability = load_json(
         phase_root(root, 0) / "body_plan_applicability_authority_binding.json"
     )
@@ -270,6 +285,14 @@ def validate_phase0(root: Path, errors: list[str]) -> dict[str, Any]:
             "g4_rebind_phase7_or_phase8_reentry_not_allowed"
         )
         is True
+        and blocked_attempt_predicates.get(
+            "g4_current_input_rebind_requires_fresh_phase0"
+        )
+        is True
+        and blocked_attempt_predicates.get(
+            "g4_current_input_rebind_has_not_run_naturalization"
+        )
+        is True
         and readiness_rebind.get("naturalization_prerequisites", {}).get(
             "attempt_0018_status"
         )
@@ -290,7 +313,11 @@ def validate_phase0(root: Path, errors: list[str]) -> dict[str, Any]:
         and report.get("initial_registry_adoption_receipt_sha256")
         == EXPECTED_INITIAL_REGISTRY_ADOPTION_RECEIPT_SHA256
         and report.get("registry_correction_terminal_seal_sha256")
-        == EXPECTED_REGISTRY_CORRECTION_TERMINAL_SEAL_SHA256,
+        == EXPECTED_REGISTRY_CORRECTION_TERMINAL_SEAL_SHA256
+        and report.get("registry_naturalization_handoff_sha256")
+        == EXPECTED_REGISTRY_NATURALIZATION_HANDOFF_SHA256
+        and sha256_file(REGISTRY_NATURALIZATION_HANDOFF)
+        == EXPECTED_REGISTRY_NATURALIZATION_HANDOFF_SHA256,
         "g3_current_source_identity_mismatch",
         errors,
     )
@@ -303,9 +330,34 @@ def validate_phase0(root: Path, errors: list[str]) -> dict[str, Any]:
             "foundation_readiness_correction_rebind_sha256"
         )
         == EXPECTED_FOUNDATION_READINESS_CORRECTION_REBIND_SHA256
+        and foundation_identity.get(
+            "foundation_readiness_current_input_rebind_sha256"
+        )
+        == EXPECTED_FOUNDATION_READINESS_CURRENT_INPUT_REBIND_SHA256
+        and sha256_file(FOUNDATION_READINESS_CURRENT_INPUT_REBIND)
+        == EXPECTED_FOUNDATION_READINESS_CURRENT_INPUT_REBIND_SHA256
+        and foundation_identity.get(
+            "foundation_readiness_current_input_rebind_current_facts_sha256"
+        )
+        == EXPECTED_CURRENT_FACTS_SHA256
+        and foundation_identity.get(
+            "foundation_readiness_current_input_rebind_current_manifest_sha256"
+        )
+        == EXPECTED_CURRENT_MANIFEST_SHA256
+        and readiness_current_input_rebind.get("status") == "PASS"
         and foundation_identity.get("compiler_fix_commit")
         == EXPECTED_COMPILER_FIX_COMMIT
         and foundation_identity.get("compiler_fix_is_ancestor") is True
+        and foundation_identity.get("naturalization_start_commit")
+        == EXPECTED_START_COMMIT
+        and foundation_identity.get("naturalization_start_tree")
+        == EXPECTED_START_TREE
+        and foundation_identity.get("naturalization_start_actual_tree")
+        == EXPECTED_START_TREE
+        and foundation_identity.get(
+            "naturalization_start_commit_is_ancestor"
+        )
+        is True
         and foundation_identity.get("foundation_commit_changed_path_count")
         == 19,
         "g4_foundation_identity_mismatch",
@@ -436,6 +488,8 @@ def validate_phase2(root: Path, errors: list[str]) -> dict[str, Any]:
         == EXPECTED_INITIAL_REGISTRY_ADOPTION_RECEIPT_SHA256
         and reseal.get("registry_correction_terminal_seal_sha256")
         == EXPECTED_REGISTRY_CORRECTION_TERMINAL_SEAL_SHA256
+        and reseal.get("registry_naturalization_handoff_sha256")
+        == EXPECTED_REGISTRY_NATURALIZATION_HANDOFF_SHA256
         and reseal.get("g4_foundation_contract_sha256")
         == EXPECTED_FOUNDATION_CONTRACT_SHA256
         and reseal.get("g4_foundation_readiness_sha256")
@@ -444,6 +498,13 @@ def validate_phase2(root: Path, errors: list[str]) -> dict[str, Any]:
             "g4_foundation_readiness_correction_rebind_sha256"
         )
         == EXPECTED_FOUNDATION_READINESS_CORRECTION_REBIND_SHA256
+        and reseal.get(
+            "g4_foundation_readiness_current_input_rebind_sha256"
+        )
+        == EXPECTED_FOUNDATION_READINESS_CURRENT_INPUT_REBIND_SHA256
+        and reseal.get("naturalization_start_commit")
+        == EXPECTED_START_COMMIT
+        and reseal.get("naturalization_start_tree") == EXPECTED_START_TREE
         and reseal.get("compiler_fix_commit") == EXPECTED_COMPILER_FIX_COMMIT
         and reseal.get("compiler_fix_is_ancestor") is True,
         "phase2_g3_g4_identity_mismatch",
@@ -646,6 +707,9 @@ def validate_phase7(root: Path, errors: list[str]) -> dict[str, Any]:
         phase_root(root, 7) / "human_review_sample_manifest.json"
     )
     binding = load_json(phase_root(root, 7) / "human_review_binding_report.json")
+    eligibility = load_json(
+        phase_root(root, 7) / "human_review_eligibility_report.json"
+    )
     require_value(binding.get("status") == "PASS", "human_review_not_pass", errors)
     require_value(
         binding.get("candidate_rendered_hash")
@@ -660,8 +724,17 @@ def validate_phase7(root: Path, errors: list[str]) -> dict[str, Any]:
     )
     require_value(
         binding.get("human_review_decision_mode")
-        == "exact_sample_uniform_owner_approval",
+        == "exact_full_candidate_external_review",
         "human_review_decision_mode_invalid",
+        errors,
+    )
+    require_value(
+        manifest.get("selection_scope")
+        == "full_candidate_review_owner_directive"
+        and manifest.get("selected_required_denominator")
+        == manifest.get("full_candidate_denominator")
+        == manifest.get("eligible_review_denominator"),
+        "human_review_not_full_candidate",
         errors,
     )
     require_value(
@@ -671,8 +744,15 @@ def validate_phase7(root: Path, errors: list[str]) -> dict[str, Any]:
         errors,
     )
     require_value(
-        binding.get("corpus_wide_human_only_blocker_zero_claimed") is False,
-        "human_review_claim_scope_expanded",
+        binding.get("corpus_wide_human_only_blocker_zero_claimed") is True,
+        "full_candidate_human_review_claim_missing",
+        errors,
+    )
+    require_value(
+        eligibility.get("reviewer_identity_present") is True
+        and eligibility.get("reviewer_is_not_compiler") is True
+        and eligibility.get("full_candidate_review") is True,
+        "external_full_candidate_reviewer_ineligible",
         errors,
     )
     return binding
@@ -685,8 +765,10 @@ def validate_phase8(root: Path, errors: list[str]) -> dict[str, Any]:
     manifest_path = (
         phase_root(root, 8) / "publish_acceptance_handoff_manifest.json"
     )
+    closeout_path = phase_root(root, 8) / "phase8_closeout.json"
     require_value(readiness.get("status") == "PASS", "handoff_not_ready", errors)
     require_value(manifest_path.is_file(), "handoff_manifest_missing", errors)
+    require_value(closeout_path.is_file(), "phase8_closeout_missing", errors)
     if manifest_path.is_file():
         manifest = load_json(manifest_path)
         publish_input = load_json(
@@ -759,6 +841,24 @@ def validate_phase8(root: Path, errors: list[str]) -> dict[str, Any]:
             "handoff_scope_boundary_expanded",
             errors,
         )
+        if closeout_path.is_file():
+            closeout = load_json(closeout_path)
+            require_value(
+                closeout.get("status") == "HANDOFF_COMPLETE"
+                and closeout.get(
+                    "publish_acceptance_handoff_manifest_sha256"
+                )
+                == sha256_file(manifest_path)
+                and closeout.get("official_publish_attempt_created") is False
+                and closeout.get("official_publish_executed") is False
+                and closeout.get("live_gate_mutated") is False
+                and closeout.get("runtime_lua_or_package_mutated") is False
+                and closeout.get("naturalization_terminal_closure_claimed")
+                is False
+                and closeout.get("write_once") is True,
+                "phase8_closeout_boundary_invalid",
+                errors,
+            )
     return readiness
 
 

@@ -1,0 +1,47 @@
+{
+  "attempt_id": "attempt-0012",
+  "canonical_adoption_status": "pending_adoption_commit",
+  "durability": {
+    "facts_replaced": {
+      "atomic_replace": "completed",
+      "file_fsync": "completed",
+      "intermediate_reader_visibility_zero_claimed": false,
+      "parent_directory_fsync": "unsupported_or_failed:PermissionError",
+      "power_loss_atomicity_claimed": false
+    },
+    "manifest_replaced": {
+      "atomic_replace": "completed",
+      "file_fsync": "completed",
+      "intermediate_reader_visibility_zero_claimed": false,
+      "parent_directory_fsync": "unsupported_or_failed:PermissionError",
+      "power_loss_atomicity_claimed": false
+    }
+  },
+  "intermediate_reader_visibility_zero_claimed": false,
+  "power_loss_atomicity_claimed": false,
+  "round_id": "dvf_3_3_food_semantic_registry_operational_cutover",
+  "schema_version": "food-semantic-registry-cutover-journal-v1",
+  "state": "committed",
+  "state_history": [
+    {
+      "state": "prepared",
+      "time": "2026-07-29T13:28:57.752807+00:00"
+    },
+    {
+      "state": "facts_replaced",
+      "time": "2026-07-29T13:28:57.775179+00:00"
+    },
+    {
+      "state": "manifest_replaced",
+      "time": "2026-07-29T13:28:57.789927+00:00"
+    },
+    {
+      "state": "verified",
+      "time": "2026-07-29T13:28:57.816276+00:00"
+    },
+    {
+      "state": "committed",
+      "time": "2026-07-29T13:28:57.826205+00:00"
+    }
+  ]
+}

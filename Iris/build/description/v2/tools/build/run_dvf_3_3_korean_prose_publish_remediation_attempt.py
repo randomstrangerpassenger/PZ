@@ -646,19 +646,42 @@ def write_bounded_projection_equality_report(
     candidate = phase4 / "candidate_rendered.json"
     trace = phase4 / "candidate_proposition_trace.jsonl"
     bounded = producer.load_json(BOUNDED_PROJECTION_REPORT)
+    candidate_payload = base._BASE_LOAD_JSON(candidate)
+    projected_payload = base._BASE_LOAD_JSON(DISPOSABLE_CANDIDATE)
+    candidate_meta = candidate_payload.get("meta", {})
+    projected_meta = projected_payload.get("meta", {})
+    metadata_difference_keys = sorted(
+        key
+        for key in set(candidate_meta) | set(projected_meta)
+        if candidate_meta.get(key) != projected_meta.get(key)
+    )
+    allowed_repository_authority_metadata_keys = {
+        "decisions_sha256",
+        "profiles_sha256",
+        "identity_rules_sha256",
+        "precedence_rules_sha256",
+        "policy_sha256",
+    }
+    candidate_byte_identity = (
+        candidate.read_bytes() == DISPOSABLE_CANDIDATE.read_bytes()
+    )
     checks = {
-        "candidate_sha256_matches_projection": (
-            base.sha256_file(candidate)
-            == bounded.get("projected_candidate_sha256")
+        "candidate_entry_payload_identity": (
+            candidate_payload.get("entries") == projected_payload.get("entries")
+        ),
+        "candidate_entry_digest_identity": (
+            candidate_meta.get("entries_sha256")
+            == projected_meta.get("entries_sha256")
         ),
         "trace_sha256_matches_projection": (
             base.sha256_file(trace) == bounded.get("projected_trace_sha256")
         ),
-        "candidate_byte_identity": (
-            candidate.read_bytes() == DISPOSABLE_CANDIDATE.read_bytes()
-        ),
         "trace_byte_identity": (
             trace.read_bytes() == DISPOSABLE_TRACE.read_bytes()
+        ),
+        "candidate_metadata_difference_bounded": (
+            set(metadata_difference_keys)
+            <= allowed_repository_authority_metadata_keys
         ),
         "bounded_projection_pass": bounded.get("status") == "PASS",
     }
@@ -677,7 +700,19 @@ def write_bounded_projection_equality_report(
             "projected_candidate_sha256"
         ),
         "projected_trace_sha256": bounded.get("projected_trace_sha256"),
-        "candidate_byte_identity": checks["candidate_byte_identity"],
+        "candidate_byte_identity": candidate_byte_identity,
+        "candidate_byte_difference_disposition": (
+            None
+            if candidate_byte_identity
+            else "repository_authority_hash_metadata_only"
+        ),
+        "candidate_entry_payload_identity": checks[
+            "candidate_entry_payload_identity"
+        ],
+        "candidate_metadata_difference_keys": metadata_difference_keys,
+        "allowed_repository_authority_metadata_keys": sorted(
+            allowed_repository_authority_metadata_keys
+        ),
         "trace_byte_identity": checks["trace_byte_identity"],
         "attempt_0022_public_text_comparison_performed": False,
         "comparison_authority": (

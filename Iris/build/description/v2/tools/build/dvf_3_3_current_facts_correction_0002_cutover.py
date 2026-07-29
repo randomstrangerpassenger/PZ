@@ -228,6 +228,22 @@ def git_output(*args: str) -> str:
     return git(*args).stdout.strip()
 
 
+def git_blob_bytes(commit: str, path: Path) -> bytes:
+    relative = repo_relative(path)
+    result = subprocess.run(
+        ["git", "cat-file", "blob", f"{commit}:{relative}"],
+        cwd=REPO_ROOT,
+        check=False,
+        capture_output=True,
+    )
+    if result.returncode != 0:
+        raise CorrectionCutoverError(
+            f"git_blob_read_failed:{commit}:{relative}:"
+            f"{result.stderr.decode('utf-8', errors='replace').strip()}"
+        )
+    return result.stdout
+
+
 def git_is_ancestor(ancestor: str, descendant: str) -> bool:
     return git("merge-base", "--is-ancestor", ancestor, descendant, check=False).returncode == 0
 
@@ -1342,12 +1358,50 @@ def command_verify_closeout(attempt_id: str) -> dict[str, Any]:
     adoption_commit = terminal["adoption_commit"]
     if not git_is_ancestor(adoption_commit, closeout_commit):
         raise CorrectionCutoverError("adoption_not_ancestor_of_closeout")
-    for path in (
+    required_closeout_paths = (
         terminal_path,
         root / "closeout" / "current_correction_identity_report.json",
         root / "handoff" / "naturalization_current_input_handoff.json",
-    ):
+    )
+    for path in required_closeout_paths:
         git("cat-file", "-e", f"HEAD:{repo_relative(path)}")
+    byte_identity_paths = [
+        CURRENT_FACTS,
+        CURRENT_MANIFEST,
+        REGISTRY_CONTRACT,
+        NATURALIZATION_CONTRACT,
+        *sorted(path for path in root.rglob("*") if path.is_file()),
+    ]
+    byte_mismatches = [
+        repo_relative(path)
+        for path in byte_identity_paths
+        if git_blob_bytes(closeout_commit, path) != path.read_bytes()
+    ]
+    require_equal(
+        byte_mismatches,
+        [],
+        "committed_working_byte_identity",
+    )
+    require_equal(
+        sha256_bytes(
+            git_blob_bytes(
+                closeout_commit,
+                root / "candidate" / "current_facts.jsonl",
+            )
+        ),
+        SUCCESSOR_FACTS_SHA256,
+        "committed_candidate_facts_sha256",
+    )
+    require_equal(
+        sha256_bytes(
+            git_blob_bytes(
+                closeout_commit,
+                root / "transaction" / "rollback_current_facts.jsonl",
+            )
+        ),
+        PREIMAGE_FACTS_SHA256,
+        "committed_rollback_facts_sha256",
+    )
     preservation = validate_protected_inventory(closeout_commit)
     return {
         "schema_version": "dvf-3-3-registry-correction-closeout-verification-v1",
@@ -1369,6 +1423,8 @@ def command_verify_closeout(attempt_id: str) -> dict[str, Any]:
         "atomicity": "PASS",
         "rollback": "PASS",
         "failure_injection": "PASS",
+        "committed_working_byte_identity": "PASS",
+        "committed_working_byte_identity_path_count": len(byte_identity_paths),
         "preservation": preservation,
         "worktree_clean": True,
         "next_foundation_session_commit": closeout_commit,

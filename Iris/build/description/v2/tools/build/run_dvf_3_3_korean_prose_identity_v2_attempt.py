@@ -12,11 +12,13 @@ from typing import Any
 
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+    from tools.build import compose_layer3_text as compose_text
     from tools.build import naturalization_compiler_identity as compiler_identity
     from tools.build import public_text_quality_acceptance as publish_consumer
     from tools.build import run_dvf_3_3_korean_prose_naturalization as producer
     from tools.build import validate_dvf_3_3_korean_prose_naturalization as validator
 else:
+    from . import compose_layer3_text as compose_text
     from . import naturalization_compiler_identity as compiler_identity
     from . import public_text_quality_acceptance as publish_consumer
     from . import run_dvf_3_3_korean_prose_naturalization as producer
@@ -264,6 +266,7 @@ def apply_runtime_binding() -> None:
     producer.phase_root = effective_phase_root
     producer.sha256_file = authority_sha256_file
     producer.load_json = canonical_identity_load_json
+    compose_text.file_sha256 = authority_sha256_file
 
     validator.EXPECTED_START_COMMIT = START_COMMIT
     validator.EXPECTED_START_TREE = START_TREE

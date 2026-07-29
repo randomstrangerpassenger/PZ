@@ -1,0 +1,138 @@
+{
+  "schema_version": "dvf-3-3-compiler-particle-adjustment-correction-projection-v1",
+  "status": "PASS",
+  "correction_id": "compiler-particle-adjustment-correction-0001",
+  "input_identity": {
+    "commit": "db2fc709934294b8307f3f4344288728ccd468f2",
+    "tree": "cfabbf5adf13c648fd9dafc7606f35b10dcf8ad0",
+    "reviewer_attestation_sha256": "ddc58caa6bad2ed6c92f58990755947c0dc28ffa7da49d9d61928ee3b07d60de",
+    "attempt_0021_fail_close_sha256": "a3549751919afaf795b7b17a25e499040c3f1ae5cce42c174e97c5913808a5b8"
+  },
+  "implementation": {
+    "path": "Iris/build/description/v2/tools/build/compose_layer3_identity.py",
+    "before_sha256": "a3b1fb6e2d079781e0c78cee265de06771e4ed4f6c486ad233d8c04dcde7706f",
+    "after_sha256": "573ea23318959c4b8e97ccd4293981da3294ab3eb544fc1b714870c19a9d365b",
+    "function": "append_instrumental",
+    "helper": "instrumental_phonological_tail",
+    "realization_rule_id": "candidate_lead_identity_use_instrumental_v1",
+    "transformation_id": "particle_adjustment",
+    "rule": "Select 으로 when the final pronounced precomposed Hangul syllable, after skipping trailing whitespace and Unicode punctuation including closing brackets, has a non-ㄹ final consonant; otherwise select 로.",
+    "item_specific_exception_count": 0,
+    "string_specific_replacement_count": 0
+  },
+  "regression_test_contract": {
+    "path": "Iris/build/description/v2/tests/test_compiler_particle_adjustment.py",
+    "sha256": "a86529561a6ae1e43c78d41aae23f9c91faaede36b2e6670d381d95442fc3286",
+    "test_case_count": 12,
+    "required_particle_cases_covered": 10,
+    "additional_tail_normalization_cases": 2
+  },
+  "projection_scope": {
+    "source_attempt_id": "attempt-0021-g4-rebind-a",
+    "total_entry_count": 2105,
+    "candidate_entry_count": 2084,
+    "unadopted_entry_count": 21,
+    "facts_or_manifest_modified": false,
+    "existing_attempt_modified": false
+  },
+  "candidate_digests": {
+    "before_file_sha256": "e99e2fe0027c4568314ed58632cd68323cd7155c75a0ecf2916432e550435efe",
+    "after_file_sha256": "79acd78da0e3c38baf91e903b314eda0aa1d8854163e73e141ac45bf918fd1a5",
+    "before_projected_text_sha256": "6dc89321afe910da1e9f3a3b6e9e31838366a31c11e3a8f8bcc35d3dee662b21",
+    "after_projected_text_sha256": "510518658be7d2cf33d2093b76813405fdcaf4fbbfe6b854d8eef6a2e01c48aa"
+  },
+  "trace_digests": {
+    "before_file_sha256": "2c97c59781d6b9c8d8adeb0f9f99a386ba5ed872dd10ed66dd09635b8c435541",
+    "after_file_sha256": "b2d94a4cbaa40a488f7a444a7ff8000c23eab5545b0ec57606fb80a18bd17268"
+  },
+  "change_summary": {
+    "expected_changed_item_count": 9,
+    "actual_changed_item_count": 9,
+    "text_only_changed_item_count": 9,
+    "non_text_entry_changed_item_count": 0,
+    "trace_changed_item_count": 9,
+    "unexpected_changed_item_count": 0,
+    "missing_expected_changed_item_count": 0,
+    "unintended_change_count": 0
+  },
+  "changed_items": [
+    {
+      "item_id": "Base.CannedMushroomSoupOpen",
+      "before_text": "버섯스프 통조림 (열림)로, 식품으로 먹는 수프다.",
+      "after_text": "버섯스프 통조림 (열림)으로, 식품으로 먹는 수프다.",
+      "before_text_sha256": "5499522d0e419e2a880934fdb640fbf4e5741e03aceee2e160268c601c581f85",
+      "after_text_sha256": "698cda4f730e0fe93daea4c6bd5f2b07e35eb62ce4a1cbf9cc91db29ad1208c6"
+    },
+    {
+      "item_id": "Base.DoubleBarrelShotgunSawnoff",
+      "before_text": "더블 배럴 산탄총 (총열 자름)로, 사격에 쓰는 총기다. 쌍열 산탄총과 톱으로 절단해 만든다.",
+      "after_text": "더블 배럴 산탄총 (총열 자름)으로, 사격에 쓰는 총기다. 쌍열 산탄총과 톱으로 절단해 만든다.",
+      "before_text_sha256": "e5c971c9d33f9d4edcdf21fae53efc2985389db603d792df01dac39a29800edb",
+      "after_text_sha256": "aff2fc3393f411100299504dbe37e64c070b81df1db1e63a5e5f77718d471e6c"
+    },
+    {
+      "item_id": "Base.ShotgunSawnoff",
+      "before_text": "JS-2000 산탄총 (총열 자름)로, 사격에 쓰는 총기다. 산탄총과 톱으로 절단해 만든다.",
+      "after_text": "JS-2000 산탄총 (총열 자름)으로, 사격에 쓰는 총기다. 산탄총과 톱으로 절단해 만든다.",
+      "before_text_sha256": "145a3359df55fbe338c9b8947a189982be12029272dfc5e626bc0337c1a72eb3",
+      "after_text_sha256": "59aeede93963dbfcf0ab26cfc597e4dbe5d07028290f9f8ef3d2de0e8e3495e4"
+    },
+    {
+      "item_id": "Base.TinnedSoupOpen",
+      "before_text": "스프 통조림 (열림)로, 식품으로 먹는 수프다.",
+      "after_text": "스프 통조림 (열림)으로, 식품으로 먹는 수프다.",
+      "before_text_sha256": "1486ac2fd0cd1ca325ad65e32a245c2b86086e00e8dcfa5dd38fbe9ab285b720",
+      "after_text_sha256": "36ee6fbc9eaedbc1211b0d0e882a2977d65fb7a888ab842a89bdf915f5051306"
+    },
+    {
+      "item_id": "Base.WristWatch_Right_ClassicBlack",
+      "before_text": "클래식 손목시계 (검은색)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "after_text": "클래식 손목시계 (검은색)으로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "before_text_sha256": "dd735115743fa038ed74a7622a25263efa63e614c8a71ccdc72de65221ab5e97",
+      "after_text_sha256": "a22bf3f241625e6adb988ef877ee8265a98cc09c7b7ecd5819893815a36de2e7"
+    },
+    {
+      "item_id": "Base.WristWatch_Right_ClassicBrown",
+      "before_text": "클래식 손목시계 (갈색)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "after_text": "클래식 손목시계 (갈색)으로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "before_text_sha256": "31e6b092cfb279b6ae69ef1ecabe4a4c7f083eb7314b0e7e7fdeb76ea178a3a9",
+      "after_text_sha256": "a9b065156be7874fdf38b161336935b7b26ddbd52233696879d923a4a2b4b60d"
+    },
+    {
+      "item_id": "Base.WristWatch_Right_ClassicGold",
+      "before_text": "손목시계 (금)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "after_text": "손목시계 (금)으로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "before_text_sha256": "f9f415b61ae274dc1d0a89b1e131dd059cac21d9cb2c78e788235bd2f5d26939",
+      "after_text_sha256": "f51d8565ce8db99dbe6ac37dfc487cbf3bf0d68b3c68e016ae9ceaec1a394cb7"
+    },
+    {
+      "item_id": "Base.WristWatch_Right_DigitalBlack",
+      "before_text": "디지털 손목시계 (검은색)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "after_text": "디지털 손목시계 (검은색)으로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "before_text_sha256": "b2aed3c08c3c880e97286187945b53fc25edc7d285723ad13fabc0b5e93305c6",
+      "after_text_sha256": "160c3890c0ed1f1d3588c868a0438926c43c14d78cfcb94ce753add1f47aac6f"
+    },
+    {
+      "item_id": "Base.WristWatch_Right_DigitalRed",
+      "before_text": "디지털 손목시계 (빨간색)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "after_text": "디지털 손목시계 (빨간색)으로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "before_text_sha256": "6280173b7f8c925a2138855c1832bf38d7aef67f5968ef4cb1355f8172702a3c",
+      "after_text_sha256": "80dbfb8ff62d67108122c3c6ace01157d0af8ac45bb2592bd7d67fea4213230e"
+    }
+  ],
+  "known_control": {
+    "item_id": "Base.WristWatch_Right_DigitalDress",
+    "before_text": "디지털 손목시계 (메탈릭 드레스 스타일)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+    "after_text": "디지털 손목시계 (메탈릭 드레스 스타일)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+    "byte_identity": true,
+    "expected_suffix": "(메탈릭 드레스 스타일)로"
+  },
+  "scope_guards": {
+    "new_naturalization_attempt_created": false,
+    "phase7_or_phase8_executed": false,
+    "publish_executed": false,
+    "facts_correction_created": false,
+    "registry_or_foundation_rebound": false,
+    "rtc_runtime_lua_or_package_changed": false
+  }
+}

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+import unicodedata
 from typing import Any
 
 from .compose_layer3_blocks import has_text
@@ -46,11 +47,25 @@ def has_final_rieul(text: str) -> bool:
     return ((code - 0xAC00) % 28) == 8
 
 
+def instrumental_phonological_tail(text: str) -> str:
+    """Return the final pronounced character used to select 으로/로."""
+
+    for char in reversed(text):
+        category = unicodedata.category(char)
+        if char.isspace() or category.startswith("P"):
+            continue
+        return char
+    return ""
+
+
 def append_instrumental(noun: str) -> str:
     normalized = noun.strip().rstrip(".!?")
     if not normalized:
         return normalized
-    if has_final_consonant(normalized) and not has_final_rieul(normalized):
+    phonological_tail = instrumental_phonological_tail(normalized)
+    if has_final_consonant(phonological_tail) and not has_final_rieul(
+        phonological_tail
+    ):
         return f"{normalized}으로"
     return f"{normalized}로"
 

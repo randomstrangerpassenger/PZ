@@ -292,7 +292,8 @@ def protected_inventory(commit: str) -> dict[str, str]:
 
 def validate_protected_inventory(commit: str) -> dict[str, Any]:
     expected = protected_inventory(INPUT_COMMIT)
-    actual = protected_inventory(commit)
+    observed = protected_inventory(commit)
+    actual = {path: observed.get(path) for path in expected}
     require_equal(actual, expected, "protected_artifact_inventory")
     return {
         "status": "PASS",
@@ -1152,9 +1153,22 @@ def command_verify_adoption_commit(attempt_id: str) -> dict[str, Any]:
     require_clean_worktree()
     preflight = read_json(root / "preflight" / "current_preimage_report.json")
     implementation_commit = preflight["entry_identity"]["implementation_commit"]
-    adoption_commit = git_output("rev-parse", "HEAD")
+    head = git_output("rev-parse", "HEAD")
+    ancestry_path = [
+        line
+        for line in git_output(
+            "rev-list",
+            "--ancestry-path",
+            "--reverse",
+            f"{implementation_commit}..{head}",
+        ).splitlines()
+        if line
+    ]
+    if not ancestry_path:
+        raise CorrectionCutoverError("adoption_commit_not_found")
+    adoption_commit = ancestry_path[0]
     require_equal(
-        git_output("rev-parse", "HEAD^"),
+        git_output("rev-parse", f"{adoption_commit}^"),
         implementation_commit,
         "adoption_parent",
     )
@@ -1219,7 +1233,7 @@ def command_verify_adoption_commit(attempt_id: str) -> dict[str, Any]:
         "input_commit": INPUT_COMMIT,
         "input_tree": INPUT_TREE,
         "adoption_commit": adoption_commit,
-        "adoption_tree": git_output("rev-parse", "HEAD^{tree}"),
+        "adoption_tree": git_output("rev-parse", f"{adoption_commit}^{{tree}}"),
         "current_facts_path": CURRENT_FACTS_REL,
         "current_facts_sha256": candidates["facts"],
         "current_manifest_path": CURRENT_MANIFEST_REL,

@@ -207,6 +207,22 @@ def _full_required_source_roles(
             "authority_class": "required_tracked_source",
             "classification_basis": row["command_id"],
         }
+    for row in contract["source_disposition_policy"].get(
+        "explicit_historical_optional_sources", []
+    ):
+        roles[row["path"]] = {
+            "execution_role": "not_required",
+            "authority_class": "historical_optional_evidence",
+            "classification_basis": row["reason"],
+        }
+    for row in contract["source_disposition_policy"].get(
+        "hermetic_test_fixture_sources", []
+    ):
+        roles[row["path"]] = {
+            "execution_role": "not_required",
+            "authority_class": "hermetic_test_fixture",
+            "classification_basis": row["reason"],
+        }
     for row in contract["source_disposition_policy"][
         "obsolete_or_misrouted_sources"
     ]:
@@ -553,6 +569,10 @@ def build_source_census(
                 == "obsolete_or_misrouted_test_dependency"
                 for row in source_rows
             ),
+            "hermetic_test_fixture_source_count": sum(
+                row.get("authority_class") == "hermetic_test_fixture"
+                for row in source_rows
+            ),
         },
     }
     dependency_ledger = {
@@ -625,13 +645,22 @@ def build_source_census(
     }
 
 
-def _status_snapshot(repo: Path) -> str:
-    return git_text(
-        repo,
+def _status_snapshot(repo: Path, *, include_ignored: bool = True) -> str:
+    arguments = [
         "status",
         "--porcelain=v2",
         "--untracked-files=all",
-        "--ignored=matching",
+    ]
+    if include_ignored:
+        arguments.append("--ignored=matching")
+    return git_text(repo, *arguments)
+
+
+def _ignored_status_snapshot(repo: Path) -> str:
+    return "\n".join(
+        row
+        for row in _status_snapshot(repo, include_ignored=True).splitlines()
+        if row.startswith("! ")
     )
 
 
@@ -1164,6 +1193,14 @@ def _status_counts(status: str) -> dict[str, int]:
 
 
 def _remove_disposable_checkout(path: Path) -> None:
+    removal_path: str | Path = path
+    if os.name == "nt":
+        resolved = str(path.resolve())
+        if resolved.startswith("\\\\"):
+            removal_path = "\\\\?\\UNC\\" + resolved[2:]
+        else:
+            removal_path = "\\\\?\\" + resolved
+
     def make_writable_and_retry(
         function: Any,
         target: str,
@@ -1172,7 +1209,7 @@ def _remove_disposable_checkout(path: Path) -> None:
         os.chmod(target, stat.S_IWRITE)
         function(target)
 
-    shutil.rmtree(path, onerror=make_writable_and_retry)
+    shutil.rmtree(removal_path, onerror=make_writable_and_retry)
 
 
 def run_full_repository_gate(
@@ -1189,12 +1226,13 @@ def run_full_repository_gate(
         raise CleanCheckoutError(
             f"source checkout HEAD does not match subject: {head} != {subject}"
         )
-    before_status = _status_snapshot(repo)
+    before_status = _status_snapshot(repo, include_ignored=False)
     if before_status:
         raise CleanCheckoutError(
-            "full gate requires a clean source checkout, including no ignored "
-            f"generated state:\n{before_status}"
+            "full gate requires no tracked or non-ignored untracked source "
+            f"checkout changes:\n{before_status}"
         )
+    ignored_status_before = _ignored_status_snapshot(repo)
     _require_disjoint_external_roots(repo, work_root, result_root)
     _require_empty_directory(work_root, "work root")
     _require_empty_directory(result_root, "result root")
@@ -1267,6 +1305,22 @@ def run_full_repository_gate(
     }
     tracked = tracked_paths(repo, subject["commit"])
     tracked_set = set(tracked)
+    if os.name == "nt":
+        longest_relative_path = max(tracked, key=len)
+        maximum_materialized_path_length = contract["execution_workspace"][
+            "windows_maximum_materialized_path_length"
+        ]
+        longest_materialized_path_length = len(
+            str(checkout / longest_relative_path)
+        )
+        if longest_materialized_path_length > maximum_materialized_path_length:
+            raise CleanCheckoutError(
+                "Windows execution checkout cannot safely expose the longest "
+                "tracked path to repository validators "
+                f"({longest_materialized_path_length} > "
+                f"{maximum_materialized_path_length}): "
+                f"{longest_relative_path}"
+            )
     test_sources = _test_sources(tracked)
     source_roles = _full_required_source_roles(contract, taxonomy)
     source_classifications = {
@@ -1394,6 +1448,12 @@ def run_full_repository_gate(
             result_root / "test-output"
         )
         command_contract = contract["command"]
+        additional_source_option = selection["additional_source_option"]
+        additional_source_arguments = [
+            argument
+            for path in selection["additional_source_paths"]
+            for argument in (additional_source_option, path)
+        ]
         pytest_selection = [
             *current_sources,
             *selection["additional_source_paths"],
@@ -1405,6 +1465,7 @@ def run_full_repository_gate(
             "-m",
             command_contract["module"],
             *command_contract["arguments"],
+            *additional_source_arguments,
             *pytest_selection,
         ]
         pytest_completed = _run_subprocess(
@@ -1502,7 +1563,9 @@ def run_full_repository_gate(
         for row in identity_rows
     ]
     inventory_hash = sha256_bytes(canonical_json_bytes(identity_projection))
-    after_status = _status_snapshot(repo)
+    after_status = _status_snapshot(repo, include_ignored=False)
+    ignored_status_after = _ignored_status_snapshot(repo)
+    ignored_status_unchanged = ignored_status_after == ignored_status_before
     pytest_pass = (
         pytest_completed.returncode == 0
         and raw_result.get("status") == "PASS"
@@ -1521,6 +1584,7 @@ def run_full_repository_gate(
         and standalone_pass
         and not before_status
         and not after_status
+        and ignored_status_unchanged
         and cleanup_status == "PASS"
         and not any(work_root.iterdir())
         else "FAIL"
@@ -1535,6 +1599,10 @@ def run_full_repository_gate(
         "obsolete_or_misrouted_source_count": sum(
             row["authority_class"]
             == "obsolete_or_misrouted_test_dependency"
+            for row in source_classifications.values()
+        ),
+        "hermetic_test_fixture_source_count": sum(
+            row["authority_class"] == "hermetic_test_fixture"
             for row in source_classifications.values()
         ),
     }
@@ -1587,6 +1655,7 @@ def run_full_repository_gate(
         },
         "source_checkout_clean_before": not before_status,
         "source_checkout_clean_after": not after_status,
+        "source_checkout_ignored_state_unchanged": ignored_status_unchanged,
         "external_execution_checkout_cleanup_status": cleanup_status,
         "external_work_root_empty_after": not any(work_root.iterdir()),
     }
@@ -1624,6 +1693,13 @@ def run_full_repository_gate(
         },
         "source_repository_status_before": before_status.splitlines(),
         "source_repository_status_after": after_status.splitlines(),
+        "source_repository_ignored_status_before": (
+            ignored_status_before.splitlines()
+        ),
+        "source_repository_ignored_status_after": (
+            ignored_status_after.splitlines()
+        ),
+        "source_repository_ignored_state_unchanged": ignored_status_unchanged,
         "external_execution_status_after": (
             execution_status_after.splitlines()
         ),

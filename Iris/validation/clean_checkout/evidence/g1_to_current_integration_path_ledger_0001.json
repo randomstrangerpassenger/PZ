@@ -1,0 +1,234 @@
+{
+  "schema_version": "iris-clean-checkout-g1-to-current-integration-path-ledger-v1",
+  "recorded_date": "2026-07-30",
+  "status": "READY_FOR_VALIDATION",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "correction_scope": "bounded_G1_to_current_integration",
+  "current_start": {
+    "commit": "3ba197834afdfdabe4e8e64c7ecf13e170159c27",
+    "tree": "07be7482043c5357d8e546706e6af4d2006a1794"
+  },
+  "g1_lineage": {
+    "canonical_closeout_commit": "d8e3e1811b59d9a4b02d7f585181d719bb974eae",
+    "branch": "codex/iris-clean-checkout-validation",
+    "main_materialization_reference": "33aad08676c96d5ae1ae7ff1c3fa509feff8bf08",
+    "common_baseline": "aa49e8f9fce19955a374b45d0744b1418a45ac9e",
+    "full_merge_or_cherry_pick_performed": false
+  },
+  "classification_counts": {
+    "already_current_equivalent": 26,
+    "port_required": 0,
+    "superseded_current_implementation": 0,
+    "historical_evidence_only": 4,
+    "conflict_requires_current_adaptation": 3
+  },
+  "path_rows": [
+    {
+      "path": "Iris/validation/clean_checkout/__init__.py",
+      "g1_blob_id": "59b8aa6990aae388bc2cd4afeafc61d79e5368f5",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/authority/full_repository_technical_debt_closeout_successor_0001.json",
+      "g1_blob_id": "9ae349dd89c3fb934d4a3e56c80125c4f8fb84d9",
+      "classification": "historical_evidence_only",
+      "disposition": "bound by canonical G1 commit; historical closeout bytes are not restored"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0001.json",
+      "g1_blob_id": "deeaecedb5cedd95f81fe41510abd8377af06923",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json",
+      "g1_blob_id": "840b5144f9c18d1db91eba25b65d47c092cee3a6",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0003.json",
+      "g1_blob_id": "679eb89d9ca3227130c9b3df86f99fc8477bd04f",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/authority/technical_debt_gate_closeout_successor_0001.json",
+      "g1_blob_id": "f9dc447e92cdc2dbf6358ab22c73358072aec127",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/contracts/canonical_gate.json",
+      "g1_blob_id": "e1404aa8d4deae018e4866fe25f51732174a82ae",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/contracts/commit_transition.schema.json",
+      "g1_blob_id": "b35341503232bd906905b4753185c1256e68cd19",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/contracts/dependency_edge_ledger.schema.json",
+      "g1_blob_id": "c62ebd82ed75b9f303dae6e260cfdb361a1f5548",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/contracts/environment_contract.schema.json",
+      "g1_blob_id": "5c072d8318ce516ac1b22080ebcb9e4b868521ab",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/contracts/failure_disposition_ledger.schema.json",
+      "g1_blob_id": "f14a7cbe6a5354c578fa0133d7f21a09a072ccec",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+      "g1_blob_id": "b20bf7d3dc78c98d64bcbbf22f30f9f9d000c264",
+      "current_adapted_blob_id": "5a3fa09f527a660e01196a5ded9207072c967203",
+      "classification": "conflict_requires_current_adaptation",
+      "adaptation": "classify superseded G2/G4 tests, require the current Naturalization test surface, exclude official attempt-0004 consumption, and bind ignored source residue as stable non-input state"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/contracts/gate_manifest.schema.json",
+      "g1_blob_id": "c3d9d6e2f1655a2b35a145eed4b46a3f3570b0c4",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/contracts/output_policy.json",
+      "g1_blob_id": "2ad81c84c0751559a1b9efea40705b3faf7f38c8",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/contracts/preservation_baseline_record.schema.json",
+      "g1_blob_id": "67c87618319328879b8303482129a872e5fd5d2a",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/contracts/result_bundle.schema.json",
+      "g1_blob_id": "d59953ce7082399e439b6b1e3605c839590d644a",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/contracts/test_inventory.schema.json",
+      "g1_blob_id": "90a429f34c13ac900f4d4943e3c29778ec76b956",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/evidence/commit_transition_ledger.json",
+      "g1_blob_id": "dee90680846e3cd5759c9cceb358e279e39272e9",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/evidence/commit_transition_ledger_successor_0002.json",
+      "g1_blob_id": "bd80c922da04e000439c317d0d9decf755524f74",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/evidence/commit_transition_ledger_successor_0003.json",
+      "g1_blob_id": "6b3a62da7775891cfb6d3141c5a65c0712f24316",
+      "classification": "historical_evidence_only",
+      "disposition": "bound by canonical G1 commit; historical transition bytes are not restored"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/evidence/failure_disposition_ledger.json",
+      "g1_blob_id": "efafb72deea8439a08b439d9cf5aec28cf3090fe",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/evidence/full_repository_failure_disposition_ledger_successor_0001.json",
+      "g1_blob_id": "746d3261da8a3ba9ff9de07f3cac6c14d0fe6a90",
+      "classification": "historical_evidence_only",
+      "disposition": "bound by canonical G1 commit; historical failure ledger bytes are not restored"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0001.json",
+      "g1_blob_id": "1696ff5e6f54da191eb10eaab6bcb2829f261640",
+      "classification": "historical_evidence_only",
+      "disposition": "bound by canonical G1 commit; a current-lineage successor is written only after fresh validation"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/evidence/gate_manifest.json",
+      "g1_blob_id": "6720c81c317aae3f881e07ed3186b0c1881ff442",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/evidence/gate_manifest_successor_0002.json",
+      "g1_blob_id": "4d223e18ccf26c81d3c635604be06243742d09db",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/evidence/preservation_baseline_record.json",
+      "g1_blob_id": "71e84976165aa208ce89eb954146a492df67a704",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+      "g1_blob_id": "b30f9d3a4f861d538dc266dbc79ccae278437b50",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/pytest_result_plugin.py",
+      "g1_blob_id": "653189b07cdce84a1bcaed5b2a528592a23de1b0",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
+      "g1_blob_id": "c5d25354b612106e5e8554ec09f0d4e6fac9656f",
+      "current_adapted_blob_id": "21c7b7dc0f780d68a563ea629afedb28c38fbf87",
+      "classification": "conflict_requires_current_adaptation",
+      "adaptation": "require tracked and non-ignored source cleanliness while proving pre-existing ignored state remains unchanged and never enters the exact-commit clone"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/tests/__init__.py",
+      "g1_blob_id": "3957c124e3e809102cd3544daf01c3634705df6c",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py",
+      "g1_blob_id": "fa1e1b204cbfcc84c6257f6fbdaecc4d2f5c5fa2",
+      "current_adapted_blob_id": "33b12f9971c89c1ed8c7bdd36d5f54c350108066",
+      "classification": "conflict_requires_current_adaptation",
+      "adaptation": "cover ignored-state projection used by the current-compatible full gate"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/validate_iris_clean_checkout_validation.py",
+      "g1_blob_id": "f11f7c5c01a6073c72777c7e326cc07c1798e298",
+      "classification": "already_current_equivalent"
+    },
+    {
+      "path": "docs/iris_clean_checkout_full_repository_validation_reproducibility_authority_closure_plan.md",
+      "g1_blob_id": "fd3a2405e8789646df6203eaaf23ba8a2c4eb12e",
+      "classification": "already_current_equivalent"
+    }
+  ],
+  "current_integration_ports": [
+    {
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_policy.py",
+      "historical_blob_id": "4c5edac6dafe5d184dabb8e1686bb7cb9387b20f",
+      "current_blob_id": "4c5edac6dafe5d184dabb8e1686bb7cb9387b20f",
+      "classification": "port_required",
+      "expected_test_count": 5
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_candidate_route.py",
+      "historical_blob_id": "360d136d8b1f7a6127c0c55b19119a6926c40d3a",
+      "current_blob_id": "360d136d8b1f7a6127c0c55b19119a6926c40d3a",
+      "classification": "port_required",
+      "expected_test_count": 2
+    }
+  ],
+  "current_integration_adaptations": [
+    {
+      "path": "Iris/build/description/v2/tests/conftest.py",
+      "current_blob_id": "437d0bb853f3064390fb7d61b31bdce02f3d7801",
+      "classification": "conflict_requires_current_adaptation",
+      "adaptation": "permit only exact contract-declared additional source paths while retaining fail-closed taxonomy handling for all undeclared tests"
+    }
+  ],
+  "protected_scope": {
+    "historical_naturalization_or_publish_attempt_restored": false,
+    "official_attempt_0004_consumed": false,
+    "current_facts_or_manifest_changed": false,
+    "candidate_or_compiler_constituent_changed": false,
+    "persistent_worktree_or_repository_clone_created": false,
+    "sealed_evidence_overwritten": false
+  }
+}

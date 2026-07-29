@@ -14,6 +14,7 @@ from Iris.validation.clean_checkout.iris_clean_checkout_validation_common import
 )
 from Iris.validation.clean_checkout.run_iris_clean_checkout_validation import (
     _classify_full_test_source,
+    _ignored_status_snapshot,
     _normalized_test_id,
     _safe_checkout_target,
 )
@@ -127,6 +128,20 @@ def test_full_source_policy_classifies_only_declared_fallback() -> None:
     assert historical["authority_class"] == "historical_optional_evidence"
     with pytest.raises(CleanCheckoutError, match="unclassified"):
         _classify_full_test_source("Iris/test/test_unknown.py", {})
+
+
+def test_ignored_status_snapshot_excludes_nonignored_rows(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        "Iris.validation.clean_checkout.run_iris_clean_checkout_validation."
+        "_status_snapshot",
+        lambda repo, include_ignored=True: (
+            "1 .M N... tracked.py\n? local.py\n! ignored-output/\n"
+        ),
+    )
+    assert _ignored_status_snapshot(tmp_path) == "! ignored-output/"
 
 
 def test_full_node_identity_normalization() -> None:

@@ -1,5 +1,5 @@
 {
-  "schema_version": "iris-clean-checkout-full-repository-gate-v1",
+  "schema_version": "iris-clean-checkout-full-repository-gate-v2",
   "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
   "claim": "Iris mandatory full-required-repository validation is reproducible from an exact tracked commit",
   "claim_boundary": {
@@ -28,9 +28,17 @@
     "taxonomy_path": "Iris/_docs/round3/round3_test_taxonomy.json",
     "contract_class": "current",
     "state": "ok",
+    "additional_source_option": "--round3-additional-source",
     "additional_source_paths": [
       "Iris/_docs/round3/registry_runtime_compatibility/bootstrap/test_reserve_registry_runtime_compatibility_attempt.py",
       "Iris/build/tests/test_evidence_pipeline_cross_track.py",
+      "Iris/build/description/v2/tests/test_compiler_particle_adjustment.py",
+      "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_acceptance_gate.py",
+      "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_candidate_route.py",
+      "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py",
+      "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_policy.py",
+      "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_semantic_preservation.py",
+      "Iris/build/description/v2/tests/test_naturalization_compiler_identity.py",
       "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
     ],
     "additional_node_ids": [
@@ -66,6 +74,82 @@
   "source_disposition_policy": {
     "historical_optional_rule": "tracked Iris/build/description/v2/tests/test_*.py source with no current, ok taxonomy identity",
     "historical_optional_class": "historical_optional_evidence",
+    "explicit_historical_optional_sources": [
+      {
+        "path": "Iris/build/description/v2/tests/test_public_text_quality_acceptance_current_route.py",
+        "reason": "official attempt-0004 consumption is outside the bounded G1-to-current integration correction"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_closeout.py",
+        "reason": "attempt-0022 test is superseded by the correction-0003 current lineage"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_curation_writer.py",
+        "reason": "attempt-0022 byte-layout test is superseded by the correction-0003 current lineage"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_handoff.py",
+        "reason": "D16 candidate-patch test is superseded after current Naturalization adoption"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_kernel.py",
+        "reason": "attempt-0022 kernel evidence test is preserved as historical evidence after correction-0003"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_registry_cutover.py",
+        "reason": "attempt-0009 cutover test is superseded by the attempt-0012 correction-0003 cutover"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_public_text_quality_acceptance.py",
+        "reason": "original G4 Foundation build test is superseded for current inputs by the correction-0003 readiness successor validator"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_public_text_quality_acceptance_fixtures.py",
+        "reason": "original G4 Foundation fixture test is preserved with its immutable predecessor input binding"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_public_text_quality_acceptance_policy.py",
+        "reason": "original G4 Foundation policy test is preserved with its immutable predecessor input binding"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_public_text_quality_metric_contract.py",
+        "reason": "original G4 Foundation metric test is preserved with its immutable predecessor input binding"
+      },
+      {
+        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0020/phase12_phase2_handoff/d16_candidate_patch/test_dvf_3_3_korean_prose_acceptance_gate.py",
+        "reason": "sealed historical attempt-0020 patch evidence is not a live test source"
+      },
+      {
+        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0020/phase12_phase2_handoff/d16_candidate_patch/test_dvf_3_3_korean_prose_semantic_preservation.py",
+        "reason": "sealed historical attempt-0020 patch evidence is not a live test source"
+      },
+      {
+        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0021/phase12_phase2_handoff/d16_candidate_patch/test_dvf_3_3_korean_prose_acceptance_gate.py",
+        "reason": "sealed historical attempt-0021 patch evidence is not a live test source"
+      },
+      {
+        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0021/phase12_phase2_handoff/d16_candidate_patch/test_dvf_3_3_korean_prose_semantic_preservation.py",
+        "reason": "sealed historical attempt-0021 patch evidence is not a live test source"
+      },
+      {
+        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase12_phase2_handoff/d16_candidate_patch/test_dvf_3_3_korean_prose_acceptance_gate.py",
+        "reason": "sealed historical attempt-0022 patch evidence is not a live test source"
+      },
+      {
+        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase12_phase2_handoff/d16_candidate_patch/test_dvf_3_3_korean_prose_semantic_preservation.py",
+        "reason": "sealed historical attempt-0022 patch evidence is not a live test source"
+      }
+    ],
+    "hermetic_test_fixture_sources": [
+      {
+        "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/d16_candidate_sources/test_dvf_3_3_korean_prose_acceptance_gate.py",
+        "reason": "tracked D16 candidate-source fixture whose identity is verified by the Food closeout test"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/d16_candidate_sources/test_dvf_3_3_korean_prose_semantic_preservation.py",
+        "reason": "tracked D16 candidate-source fixture whose identity is verified by the Food closeout test"
+      }
+    ],
     "obsolete_or_misrouted_sources": [
       {
         "path": "Iris/build/tests/test_description_generator.py",
@@ -111,10 +195,14 @@
   "execution_workspace": {
     "kind": "independent_repository_external_disposable_clone",
     "source_checkout_writable": false,
+    "source_checkout_required_cleanliness": "tracked_and_nonignored_untracked_zero",
+    "preexisting_source_ignored_state_policy": "may_exist_but_must_be_byte-for-byte_status-stable_and_is_never_cloned",
+    "execution_checkout_initial_ignored_or_local_residue_required_count": 0,
     "generated_state_location": "caller_supplied_external_work_root",
     "cleanup_required": true,
     "git_core_longpaths": true,
-    "windows_maximum_execution_checkout_root_length": 56
+    "windows_maximum_execution_checkout_root_length": 56,
+    "windows_maximum_materialized_path_length": 259
   },
   "pytest_cache_mode": "disabled",
   "result_plugin": "Iris.validation.clean_checkout.pytest_result_plugin"

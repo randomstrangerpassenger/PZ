@@ -20,6 +20,15 @@ def pytest_addoption(parser):
         choices=sorted(VALID_CONTRACTS),
         help="Round 3 description-v2 test contract to collect; default: current.",
     )
+    parser.addoption(
+        "--round3-additional-source",
+        action="append",
+        default=[],
+        help=(
+            "Exact repository-relative test source additionally selected by "
+            "a tracked validation contract."
+        ),
+    )
 
 
 @lru_cache(maxsize=1)
@@ -82,6 +91,29 @@ def _item_test_id(item) -> str:
     return f"{stem}.{leaf}"
 
 
+def _additional_source_files(config) -> frozenset[str]:
+    sources = set()
+    for value in config.getoption("--round3-additional-source", default=[]):
+        candidate = Path(value)
+        if candidate.is_absolute() or ".." in candidate.parts:
+            raise RuntimeError(
+                f"Unsafe --round3-additional-source value: {value}"
+            )
+        resolved = (REPO_ROOT / candidate).resolve()
+        try:
+            source_file = _source_file_for_path(resolved)
+        except ValueError as exc:
+            raise RuntimeError(
+                f"Additional source is outside the repository: {value}"
+            ) from exc
+        if source_file != candidate.as_posix():
+            raise RuntimeError(
+                f"Additional source is not canonical: {value}"
+            )
+        sources.add(source_file)
+    return frozenset(sources)
+
+
 def _is_description_v2_test(path: Path) -> bool:
     resolved = path.resolve()
     return (
@@ -113,6 +145,7 @@ def pytest_collection_modifyitems(config, items):
         return
 
     allowed_ids = _test_ids_for_contract(contract)
+    additional_sources = _additional_source_files(config)
     selected = []
     deselected = []
     unknown = []
@@ -127,6 +160,9 @@ def pytest_collection_modifyitems(config, items):
             selected.append(item)
             continue
         source_file = _source_file_for_path(item_path)
+        if source_file in additional_sources:
+            selected.append(item)
+            continue
         if source_file not in _known_source_files():
             unknown.append(test_id)
             selected.append(item)

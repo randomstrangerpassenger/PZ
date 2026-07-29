@@ -1,0 +1,83 @@
+{
+  "schema_version": "iris-clean-checkout-full-repository-gate-manifest-v6",
+  "manifest_state": "frozen",
+  "recorded_date": "2026-07-30",
+  "status": "PASS",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "record_mode": "append_only_raw_git_identity_label_correction",
+  "predecessor": {
+    "path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0005.json",
+    "git_blob_id": "cb31f002f2d2d9d8dd407aa869bc213626efa504",
+    "git_blob_raw_sha256": "4a8e04e8fdcefdc78d9aca9b607ca735f3d07e5620a673ab0ef47b3b1905d8c1",
+    "rewrite_permitted": false
+  },
+  "correction": {
+    "reason": "successor 0005 labeled Windows working-byte SHA values as Git-blob raw SHA for two text paths",
+    "corrected_field_count": 2,
+    "tests_rerun": false,
+    "validated_subject_changed": false,
+    "execution_result_changed": false,
+    "authority_effect": "none"
+  },
+  "validated_subject": {
+    "commit": "437aa3e8723d189ae92ef4fdb466536bc037bb81",
+    "tree": "53b2bd1d990e8c2e054431a1a44f3582f0b02a9c"
+  },
+  "corrected_raw_git_identities": [
+    {
+      "path": ".gitignore",
+      "git_blob_id": "7ae72dd8f56bd954884eb084e19628aaad72cfd3",
+      "git_blob_raw_sha256": "0b7eafc5accb7bc7e8baec6e752a9d563490901f5f13a092cb6748280043cb89",
+      "successor_0005_working_raw_sha256": "6158e5624fdf686e2b780ab3e9f4f901d28daae2052385f57116d6457dcb3be6",
+      "head_working_canonical_identity": true
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py",
+      "git_blob_id": "fb0c4f41c0b0aaa96e24f04f943a29c26953c202",
+      "git_blob_raw_sha256": "3eb3b5bbc48ac62910a8eb6ccf2313086f638acaa80d4efc28cdd7f3c763e4ed",
+      "successor_0005_working_raw_sha256": "39a764890e7a9baea3bcab4eb871891c385f142436dcb33e2cca1860078f0abc",
+      "head_working_canonical_identity": true
+    }
+  ],
+  "unchanged_raw_git_identities": [
+    {
+      "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance_official_0004.py",
+      "git_blob_id": "7034c039a37fea8893af4f0aaa3f6d86ff6f7236",
+      "git_blob_raw_sha256": "49f5cfa5d0e6f28552d5bf1ccf14b02d6787ff090fdee7b60d9c8be3c30d3b10"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py",
+      "git_blob_id": "17e8b8e524e6d49546cf863df53cfc6d4cfea558",
+      "git_blob_raw_sha256": "bc86cc68ffc48aa093527f86f592445a1648907b49b66efbbde986dcd9d87a2c"
+    }
+  ],
+  "inherited_gate_result": {
+    "source": "full_repository_gate_manifest_successor_0005.json",
+    "tracked_test_source_count": 93,
+    "required_source_count": 33,
+    "required_execution_unit_count": 189,
+    "passed_execution_unit_count": 189,
+    "canonical_result_sha256": "340c691946fec4844802ef179f896ad38bdc344316d2d19ceff8d4504a2d5ea5",
+    "canonical_results_equal": true,
+    "unresolved_dependency_count": 0,
+    "residual_disposable_checkout_count": 0,
+    "persistent_worktree_created": false
+  },
+  "phase0_required_input_vcs_preflight": {
+    "status": "PASS",
+    "required_path_count": 38,
+    "required_path_set_sha256": "4ae5f7549124c4f411cc743ff0b6331052c09103bbdbc902e19fd3102eb3d85c",
+    "ignored_count": 0,
+    "head_working_identity_failure_count": 0,
+    "no_write_real_path_sets_equal": true
+  },
+  "preservation": {
+    "foundation_contract_changed": false,
+    "policy_threshold_denominator_detector_changed": false,
+    "freshness_algorithm_changed": false,
+    "naturalization_or_phase8_changed": false,
+    "publish_attempt_created_or_executed": false,
+    "protected_product_surface_mutation_count": 0,
+    "authority_effect": "none"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": "iris_clean_checkout_full_repository_technical_debt_closeout_successor_v6",
+  "recorded_date": "2026-07-30",
+  "status": "complete",
+  "record_mode": "append_only_raw_git_identity_label_correction_closeout",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "predecessor": {
+    "path": "Iris/validation/clean_checkout/authority/full_repository_technical_debt_closeout_successor_0005.json",
+    "git_blob_id": "0856c2d9aed721124a5a5ceb5edb8e582635a6c9",
+    "git_blob_raw_sha256": "9278eaa57343e0c7c000eaf7f4d4cf418d04a651c9c95c50c8e033dd10255689",
+    "rewrite_permitted": false
+  },
+  "gate_manifest_successor": {
+    "path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0006.json",
+    "git_blob_raw_sha256": "f8b46cb5832be3c6759e9a3c7be93daa5c6bddd211b39dcd64e730772a1844a3",
+    "status": "PASS"
+  },
+  "correction_closeout": {
+    "corrected_field_count": 2,
+    "gitignore_head_raw_sha256": "0b7eafc5accb7bc7e8baec6e752a9d563490901f5f13a092cb6748280043cb89",
+    "foundation_implementation_head_raw_sha256": "3eb3b5bbc48ac62910a8eb6ccf2313086f638acaa80d4efc28cdd7f3c763e4ed",
+    "predecessor_preserved": true,
+    "tests_rerun": false,
+    "gate_result_changed": false,
+    "blocking_condition_count": 0,
+    "blocking_conditions": []
+  },
+  "inherited_validation_closeout": {
+    "required_execution_unit_count": 189,
+    "passed_execution_unit_count": 189,
+    "canonical_result_sha256": "340c691946fec4844802ef179f896ad38bdc344316d2d19ceff8d4504a2d5ea5",
+    "phase0_required_path_count": 38,
+    "ignored_required_input_count": 0,
+    "unresolved_dependency_count": 0,
+    "disposable_checkout_residue_count": 0,
+    "persistent_worktree_created": false
+  },
+  "scope_preservation": {
+    "foundation_contract_changed": false,
+    "policy_threshold_denominator_detector_changed": false,
+    "freshness_algorithm_changed": false,
+    "naturalization_or_phase8_changed": false,
+    "publish_attempt_created_or_executed": false,
+    "protected_product_surface_mutation_count": 0,
+    "authority_effect": "none"
+  }
+}

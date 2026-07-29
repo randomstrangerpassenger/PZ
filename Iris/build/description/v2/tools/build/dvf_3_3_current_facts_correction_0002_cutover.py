@@ -244,6 +244,16 @@ def git_blob_bytes(commit: str, path: Path) -> bytes:
     return result.stdout
 
 
+def git_text_attribute(path: Path) -> str:
+    output = git_output("check-attr", "text", "--", repo_relative(path))
+    marker = ": text: "
+    if marker not in output:
+        raise CorrectionCutoverError(
+            f"git_text_attribute_unparseable:{repo_relative(path)}:{output}"
+        )
+    return output.rsplit(marker, 1)[1]
+
+
 def git_is_ancestor(ancestor: str, descendant: str) -> bool:
     return git("merge-base", "--is-ancestor", ancestor, descendant, check=False).returncode == 0
 
@@ -1382,6 +1392,19 @@ def command_verify_closeout(attempt_id: str) -> dict[str, Any]:
         [],
         "committed_working_byte_identity",
     )
+    text_attribute_mismatches = [
+        {
+            "path": repo_relative(path),
+            "text_attribute": git_text_attribute(path),
+        }
+        for path in byte_identity_paths
+        if git_text_attribute(path) != "unset"
+    ]
+    require_equal(
+        text_attribute_mismatches,
+        [],
+        "cross_checkout_byte_identity_attributes",
+    )
     require_equal(
         sha256_bytes(
             git_blob_bytes(
@@ -1425,6 +1448,7 @@ def command_verify_closeout(attempt_id: str) -> dict[str, Any]:
         "failure_injection": "PASS",
         "committed_working_byte_identity": "PASS",
         "committed_working_byte_identity_path_count": len(byte_identity_paths),
+        "cross_checkout_byte_identity_attributes": "PASS",
         "preservation": preservation,
         "worktree_clean": True,
         "next_foundation_session_commit": closeout_commit,

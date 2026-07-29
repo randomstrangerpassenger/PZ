@@ -20,6 +20,7 @@ Iris/_docs/round3/round3_active_core_closure.json -text
 tools/check_lua_syntax.ps1 -text
 Iris/_docs/authority/food_semantic/** -text
 Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/facts_authority_implementation_plan_successor_binding.json -text
+Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/food_semantic_registry_adoption_contract.json -text
 Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/** -text
 Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/** -text
 Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_facts_authority.py -text

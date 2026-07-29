@@ -1,0 +1,60 @@
+{
+  "after_snapshot": [
+    {
+      "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+      "present": true,
+      "sha256": "de927c6270148744530894146482b2e980637bc12547c1d813620d835711400f"
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+      "present": false,
+      "sha256": null
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "present": true,
+      "sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c"
+    },
+    {
+      "path": "Iris/build/package/Iris.zip",
+      "present": false,
+      "sha256": null
+    },
+    {
+      "path": "Iris/build/package/Iris.package_manifest.sha256.json",
+      "present": false,
+      "sha256": null
+    }
+  ],
+  "before_snapshot": [
+    {
+      "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+      "present": true,
+      "sha256": "de927c6270148744530894146482b2e980637bc12547c1d813620d835711400f"
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+      "present": false,
+      "sha256": null
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "present": true,
+      "sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c"
+    },
+    {
+      "path": "Iris/build/package/Iris.zip",
+      "present": false,
+      "sha256": null
+    },
+    {
+      "path": "Iris/build/package/Iris.package_manifest.sha256.json",
+      "present": false,
+      "sha256": null
+    }
+  ],
+  "changed_count": 0,
+  "schema_version": "public_text_quality_protected_surface_no_mutation_v1",
+  "source_rendered_lua_runtime_package_mutation_count": 0,
+  "status": "PASS"
+}

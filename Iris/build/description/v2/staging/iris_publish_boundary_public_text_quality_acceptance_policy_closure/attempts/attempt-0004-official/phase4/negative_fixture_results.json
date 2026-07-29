@@ -1,0 +1,379 @@
+{
+  "expected_accepted_fixture_fail_count": 0,
+  "expected_blocked_fixture_fail_count": 0,
+  "expected_deferred_fixture_fail_count": 0,
+  "fixture_failure_count": 0,
+  "results": [
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-01",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-02",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-03",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-04",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-05",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-06",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-07",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-08",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-09",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-10",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-11",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-12",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-13",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-14",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-15",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-16",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-17",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "accepted",
+      "error": null,
+      "expected_outcome": "accepted",
+      "fixture_id": "PTQA-RM-18",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "accepted",
+      "error": null,
+      "expected_outcome": "accepted",
+      "fixture_id": "PTQA-RM-19",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "deferred_internal_debt",
+      "error": null,
+      "expected_outcome": "deferred_internal_debt",
+      "fixture_id": "PTQA-RM-20",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "accepted",
+      "error": null,
+      "expected_outcome": "accepted",
+      "fixture_id": "PTQA-RM-21",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "accepted",
+      "error": null,
+      "expected_outcome": "accepted",
+      "fixture_id": "PTQA-RM-22",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "accepted",
+      "error": null,
+      "expected_outcome": "accepted",
+      "fixture_id": "PTQA-RM-23",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-24",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-25",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-26",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-27",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "deferred_internal_debt",
+      "error": null,
+      "expected_outcome": "deferred_internal_debt",
+      "fixture_id": "PTQA-RM-28",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-29",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": "FoundationContractError: metric denominator must be a positive integer",
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-30",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-31",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-32",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "deferred_internal_debt",
+      "error": null,
+      "expected_outcome": "deferred_internal_debt",
+      "fixture_id": "PTQA-RM-33",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-34",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-RM-35",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "accepted",
+      "error": null,
+      "expected_outcome": "accepted",
+      "fixture_id": "PTQA-RM-36",
+      "fixture_pass": true,
+      "origin": "roadmap_mandatory"
+    },
+    {
+      "actual_outcome": "deferred_internal_debt",
+      "error": null,
+      "expected_outcome": "deferred_internal_debt",
+      "fixture_id": "PTQA-PA-01",
+      "fixture_pass": true,
+      "origin": "plan_additive"
+    },
+    {
+      "actual_outcome": "accepted",
+      "error": null,
+      "expected_outcome": "accepted",
+      "fixture_id": "PTQA-PA-02",
+      "fixture_pass": true,
+      "origin": "plan_additive"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-PA-03",
+      "fixture_pass": true,
+      "origin": "plan_additive"
+    },
+    {
+      "actual_outcome": "accepted",
+      "error": null,
+      "expected_outcome": "accepted",
+      "fixture_id": "PTQA-PA-04",
+      "fixture_pass": true,
+      "origin": "plan_additive"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-PA-05",
+      "fixture_pass": true,
+      "origin": "plan_additive"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-PA-06",
+      "fixture_pass": true,
+      "origin": "plan_additive"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-PA-07",
+      "fixture_pass": true,
+      "origin": "plan_additive"
+    },
+    {
+      "actual_outcome": "blocked",
+      "error": null,
+      "expected_outcome": "blocked",
+      "fixture_id": "PTQA-PA-08",
+      "fixture_pass": true,
+      "origin": "plan_additive"
+    },
+    {
+      "actual_outcome": "accepted",
+      "error": null,
+      "expected_outcome": "accepted",
+      "fixture_id": "PTQA-PA-09",
+      "fixture_pass": true,
+      "origin": "plan_additive"
+    },
+    {
+      "actual_outcome": "accepted",
+      "error": null,
+      "expected_outcome": "accepted",
+      "fixture_id": "PTQA-PA-10",
+      "fixture_pass": true,
+      "origin": "plan_additive"
+    }
+  ],
+  "schema_version": "public_text_quality_negative_fixture_results_v1",
+  "status": "PASS",
+  "unexpected_fixture_pass_count": 0
+}

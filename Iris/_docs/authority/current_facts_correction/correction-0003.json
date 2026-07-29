@@ -1,0 +1,362 @@
+{
+  "schema_version": "dvf-3-3-current-facts-correction-spec-v3",
+  "status": "owner_directed_correction_successor",
+  "successor_id": "correction-0003",
+  "input_commit": "1ac13b88c64865ea5e4d4e54c3326e836f6d525d",
+  "input_tree": "fb97ebb0161d5ce0b04fa9f6cf3332c3d52aa7be",
+  "source_row_count": 2105,
+  "predecessor_current_facts_sha256": "37db2595eff9b58f7b08e59221e950cb529453bd96733fb29171d458e46118f6",
+  "predecessor_current_manifest_sha256": "a105e3790896b30bc25e95839ceb0ee4c88357fed98ec9fa4258790bf0733a1f",
+  "phase7_fail_close_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt_0020_phase7_fail_close.json",
+  "phase7_fail_close_git_blob_sha256": "5307908a6c697c41444ada46e70b595c583e31fedb3a6ff73b1e02437f5c70e1",
+  "human_review_decision_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/human_review_decision.json",
+  "human_review_decision_git_blob_sha256": "a2382d7e0f70384909baefd2b210aecebaacd0f86ee0a1e73077bd30f01c99b0",
+  "reviewer_attestation_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/codex_reviewer_attempt_0020_phase7_fail_attestation.json",
+  "correction_0001_patch_ledger_path": "Iris/build/description/v2/staging/dvf_3_3_current_facts_correction_successor/successors/correction-0001/correction_patch_ledger.jsonl",
+  "correction_0002_patch_ledger_path": "Iris/build/description/v2/staging/dvf_3_3_current_facts_correction_successor/successors/correction-0002/correction_patch_ledger.jsonl",
+  "correction_0002_successor_receipt_path": "Iris/build/description/v2/staging/dvf_3_3_current_facts_correction_successor/successors/correction-0002/successor_receipt.json",
+  "correction_0002_successor_receipt_sha256": "5d01e7c6d19336ed5231163060e636ad45ff6a79cc6f40faf971a89d4f8810fe",
+  "correction_0002_adoption_receipt_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0011/closeout/registry_correction_adoption_receipt.json",
+  "correction_0002_adoption_receipt_sha256": "475239fba798104371d2c9f4fb166c46ceab15bb462015493238a4aff4656f7f",
+  "expected_blocker_count": 44,
+  "expected_semantic_cohort_count": 8,
+  "expected_unique_investigated_row_count": 149,
+  "expected_corrected_row_count": 44,
+  "expected_correction_field_count": 60,
+  "expected_unchanged_control_count": 105,
+  "expected_additional_sibling_correction_count": 0,
+  "expected_unresolved_row_count": 0,
+  "semantic_cohorts": [
+    {
+      "cohort_id": "magazine_ammunition_identity",
+      "error_boundary": "magazine_identity_must_not_equal_ammunition_identity",
+      "selector": "firearm_loading_members_plus_referenced_ammo_types",
+      "expected_member_count": 13,
+      "expected_correction_count": 7
+    },
+    {
+      "cohort_id": "firearm_melee_identity",
+      "error_boundary": "aimed_firearm_identity_must_not_equal_melee_weapon_identity",
+      "selector": "itemscript_IsAimedFirearm_true",
+      "expected_member_count": 14,
+      "expected_correction_count": 8
+    },
+    {
+      "cohort_id": "food_beverage_role",
+      "error_boundary": "solid_food_or_ingredient_must_not_equal_direct_beverage",
+      "selector": "facts_cluster_beverage_consumption",
+      "expected_member_count": 16,
+      "expected_correction_count": 8
+    },
+    {
+      "cohort_id": "crafting_input_tool_role",
+      "error_boundary": "static_recipe_input_must_not_equal_retained_tool",
+      "selector": "ammo_crafting_plus_metalwork_anvil_plus_fishing_pair",
+      "expected_member_count": 12,
+      "expected_correction_count": 8
+    },
+    {
+      "cohort_id": "dismantle_target_tool_direction",
+      "error_boundary": "dismantle_recipe_input_must_not_equal_dismantle_tool",
+      "selector": "disassembly_repair_except_fishing_pair",
+      "expected_member_count": 48,
+      "expected_correction_count": 4
+    },
+    {
+      "cohort_id": "wristwatch_alarm_clock_identity",
+      "error_boundary": "wristwatch_identity_must_not_equal_tabletop_alarm_clock_identity",
+      "selector": "itemscript_watch_and_alarm_clock_identity_family",
+      "expected_member_count": 18,
+      "expected_correction_count": 7
+    },
+    {
+      "cohort_id": "padlock_key_identity",
+      "error_boundary": "padlock_identity_must_not_equal_key_identity",
+      "selector": "itemscript_Type_Key",
+      "expected_member_count": 9,
+      "expected_correction_count": 1
+    },
+    {
+      "cohort_id": "vehicle_trunk_seat_identity",
+      "error_boundary": "vehicle_trunk_identity_must_not_equal_seat_identity",
+      "selector": "facts_cluster_vehicle_cabin_module",
+      "expected_member_count": 19,
+      "expected_correction_count": 1
+    }
+  ],
+  "evidence_profiles": {
+    "item_identity": {
+      "authority_class": "repository_layer3_source_authority",
+      "paths": [
+        "Iris/input/items_itemscript.json",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ],
+      "allowed_operations": [
+        "exact_item_id_lookup",
+        "exact_itemscript_field_read",
+        "exact_korean_item_name_lookup",
+        "conservative_identity_scoped_statement"
+      ]
+    },
+    "item_identity_and_static_recipe": {
+      "authority_class": "repository_layer3_source_authority",
+      "paths": [
+        "Iris/input/items_itemscript.json",
+        "Iris/input/recipes_index_full.json",
+        "lua/shared/Translate/KO/ItemName_KO.txt"
+      ],
+      "allowed_operations": [
+        "exact_item_id_lookup",
+        "exact_itemscript_field_read",
+        "exact_static_recipe_relation_read",
+        "exact_korean_item_name_lookup",
+        "conservative_source_scoped_statement"
+      ]
+    },
+    "item_identity_and_human_review": {
+      "authority_class": "repository_layer3_source_plus_external_human_review",
+      "paths": [
+        "Iris/input/items_itemscript.json",
+        "lua/shared/Translate/KO/ItemName_KO.txt",
+        "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/human_review_decision.json"
+      ],
+      "allowed_operations": [
+        "exact_item_id_lookup",
+        "exact_itemscript_field_read",
+        "exact_korean_item_name_lookup",
+        "exact_reviewed_blocker_reason_read",
+        "conservative_source_scoped_statement"
+      ]
+    }
+  },
+  "correction_rules": [
+    {
+      "rule_id": "magazine_identity_from_korean_item_name",
+      "cohort_id": "magazine_ammunition_identity",
+      "evidence_profile": "item_identity",
+      "target_item_ids": [
+        "Base.223Clip",
+        "Base.308Clip",
+        "Base.44Clip",
+        "Base.45Clip",
+        "Base.556Clip",
+        "Base.9mmClip",
+        "Base.M14Clip"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "탄약",
+          "replacement_mode": "korean_item_name"
+        }
+      },
+      "reason": "ItemScript DisplayName과 AmmoType 및 공식 한국어 이름은 탄창을 탄약 자체와 구분한다."
+    },
+    {
+      "rule_id": "aimed_firearm_identity_and_use",
+      "cohort_id": "firearm_melee_identity",
+      "evidence_profile": "item_identity",
+      "target_item_ids": [
+        "Base.DoubleBarrelShotgunSawnoff",
+        "Base.Pistol",
+        "Base.Pistol2",
+        "Base.Pistol3",
+        "Base.Revolver",
+        "Base.Revolver_Long",
+        "Base.Revolver_Short",
+        "Base.ShotgunSawnoff"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "근접 무기",
+          "replacement_mode": "korean_item_name"
+        },
+        "primary_use": {
+          "expected": "근접 전투에 쓰는 무기다",
+          "replacement": "사격에 쓰는 총기다"
+        }
+      },
+      "reason": "ItemScript IsAimedFirearm=true, SubCategory=Firearm, AmmoType 신호가 근접 무기가 아닌 사격용 총기를 직접 입증한다."
+    },
+    {
+      "rule_id": "food_and_ingredient_not_direct_beverage",
+      "cohort_id": "food_beverage_role",
+      "evidence_profile": "item_identity_and_human_review",
+      "target_item_ids": [
+        "Base.BouillonCube",
+        "Base.CannedMushroomSoupOpen",
+        "Base.Lemon",
+        "Base.Lime",
+        "Base.Popcorn",
+        "Base.Teabag2",
+        "Base.TinnedSoupOpen",
+        "Base.Watermelon"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "음료",
+          "replacement_mode": "korean_item_name"
+        },
+        "primary_use": {
+          "expected": "음료 섭취 작업에서 마시거나 나눠 마실 때 쓴다",
+          "replacement_by_item": {
+            "Base.BouillonCube": "조리에 넣는 재료다",
+            "Base.CannedMushroomSoupOpen": "식품으로 먹는 수프다",
+            "Base.Lemon": "과일로 먹는 식품이다",
+            "Base.Lime": "과일로 먹는 식품이다",
+            "Base.Popcorn": "조리해 먹는 식품이다",
+            "Base.Teabag2": "차를 우릴 때 쓰는 재료다",
+            "Base.TinnedSoupOpen": "식품으로 먹는 수프다",
+            "Base.Watermelon": "과일로 먹는 식품이다"
+          }
+        }
+      },
+      "reason": "ItemScript Type=Food와 품목별 식품 신호 및 Codex Reviewer의 전수 검토 사유가 직접 음료 역할을 부정한다."
+    },
+    {
+      "rule_id": "ammo_crafting_inputs_not_tools",
+      "cohort_id": "crafting_input_tool_role",
+      "evidence_profile": "item_identity_and_static_recipe",
+      "target_item_ids": [
+        "Base.Coldpack",
+        "Base.DenimStrips",
+        "Base.GunPowder",
+        "Base.RippedSheets",
+        "Base.Sparklers"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "탄약 제작에 쓰는 도구다",
+          "replacement_by_item": {
+            "Base.Coldpack": "연막탄 제작에 들어가는 재료다",
+            "Base.DenimStrips": "여러 제작 작업에 들어가는 데님 조각 재료다",
+            "Base.GunPowder": "탄약과 폭발물 제작에 들어가는 화약 재료다",
+            "Base.RippedSheets": "여러 제작 작업에 들어가는 찢은 천 재료다",
+            "Base.Sparklers": "에어로졸 폭탄 제작에 들어가는 재료다"
+          }
+        }
+      },
+      "reason": "정적 recipe relation은 대상 행을 keep 도구가 아닌 소비 입력으로 기록한다."
+    },
+    {
+      "rule_id": "metalwork_inputs_not_anvil_tools",
+      "cohort_id": "crafting_input_tool_role",
+      "evidence_profile": "item_identity_and_static_recipe",
+      "target_item_ids": [
+        "Base.MetalBar",
+        "Base.Plank"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "금속 단조에 쓰는 도구다",
+          "replacement_by_item": {
+            "Base.MetalBar": "쇠지렛대와 골프채 제작에 들어가는 금속 막대 재료다",
+            "Base.Plank": "목공과 여러 제작 작업에 들어가는 판자 재료다"
+          }
+        }
+      },
+      "reason": "정적 recipe relation은 금속 막대와 판자를 제작 입력으로 기록하며 retained smithing tool로 기록하지 않는다."
+    },
+    {
+      "rule_id": "fishing_line_input_not_repair_tool",
+      "cohort_id": "crafting_input_tool_role",
+      "evidence_profile": "item_identity_and_static_recipe",
+      "target_item_ids": [
+        "Base.FishingLine"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "분해와 간단 조립에 쓰는 도구다",
+          "replacement": "낚싯대 제작과 수리에 들어가는 낚싯줄 재료다"
+        }
+      },
+      "reason": "정적 recipe relation은 낚싯줄을 낚싯대 제작과 수리에 소비되는 input으로 기록한다."
+    },
+    {
+      "rule_id": "dismantle_inputs_not_dismantle_tools",
+      "cohort_id": "dismantle_target_tool_direction",
+      "evidence_profile": "item_identity_and_static_recipe",
+      "target_item_ids": [
+        "Base.Speaker",
+        "Base.VideoGame",
+        "Radio.HamRadio1",
+        "Radio.HamRadio2"
+      ],
+      "changes": {
+        "primary_use": {
+          "expected": "분해와 간단 조립에 쓰는 도구다",
+          "replacement": "전자 작업에서 분해하는 대상이다"
+        }
+      },
+      "reason": "정적 Dismantle recipe relation은 각 기기를 도구가 아닌 분해 recipe의 input으로 기록한다."
+    },
+    {
+      "rule_id": "wristwatch_identity_from_korean_item_name",
+      "cohort_id": "wristwatch_alarm_clock_identity",
+      "evidence_profile": "item_identity_and_human_review",
+      "target_item_ids": [
+        "Base.DigitalWatch2",
+        "Base.WristWatch_Right_ClassicBlack",
+        "Base.WristWatch_Right_ClassicBrown",
+        "Base.WristWatch_Right_ClassicGold",
+        "Base.WristWatch_Right_DigitalBlack",
+        "Base.WristWatch_Right_DigitalDress",
+        "Base.WristWatch_Right_DigitalRed"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "알람 시계",
+          "replacement_mode": "korean_item_name"
+        }
+      },
+      "reason": "ItemScript DisplayName, Accessory/AlarmClockClothing 분류, BodyLocation과 공식 한국어 이름은 손목시계를 탁상형 알람 시계와 구분한다."
+    },
+    {
+      "rule_id": "padlock_identity_from_korean_item_name",
+      "cohort_id": "padlock_key_identity",
+      "evidence_profile": "item_identity_and_human_review",
+      "target_item_ids": [
+        "Base.Padlock"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "열쇠",
+          "replacement_mode": "korean_item_name"
+        }
+      },
+      "reason": "ItemScript DisplayName=Padlock와 공식 한국어 이름 통자물쇠는 잠금 장치와 열쇠를 구분한다."
+    },
+    {
+      "rule_id": "vehicle_trunk_identity_from_korean_item_name",
+      "cohort_id": "vehicle_trunk_seat_identity",
+      "evidence_profile": "item_identity_and_human_review",
+      "target_item_ids": [
+        "Base.VanSeatsTrunk2"
+      ],
+      "changes": {
+        "identity_hint": {
+          "expected": "좌석 모듈",
+          "replacement_mode": "korean_item_name"
+        }
+      },
+      "reason": "ItemScript DisplayName=Small Trunk와 공식 한국어 이름 소형 트렁크는 트렁크와 좌석 모듈을 구분한다."
+    }
+  ],
+  "forbidden_evidence_classes": [
+    "layer4_qg",
+    "layer4_usecase",
+    "generated_description",
+    "naturalization_candidate_text_as_fact_source"
+  ],
+  "immutability": {
+    "current_facts_direct_edit_allowed": false,
+    "current_manifest_direct_edit_allowed": false,
+    "correction_0001_mutation_allowed": false,
+    "correction_0002_mutation_allowed": false,
+    "attempt_0022_mutation_allowed": false,
+    "registry_cutover_allowed": false,
+    "foundation_mutation_allowed": false,
+    "naturalization_attempt_mutation_allowed": false,
+    "publish_mutation_allowed": false,
+    "runtime_lua_or_package_mutation_allowed": false
+  }
+}

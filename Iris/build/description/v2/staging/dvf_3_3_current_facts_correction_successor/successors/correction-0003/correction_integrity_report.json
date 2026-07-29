@@ -1,0 +1,21 @@
+{
+  "conflicting_patch_count": 0,
+  "correction_field_count": 60,
+  "duplicate_item_count": 0,
+  "layer4_evidence_consumed_count": 0,
+  "missing_item_count": 0,
+  "non_target_byte_mismatch_count": 0,
+  "prior_correction_regression_count": 0,
+  "projection_row_count": 44,
+  "review_blocker_corrected_count": 44,
+  "review_blocker_count": 44,
+  "review_blocker_missing_disposition_count": 0,
+  "row_lineage_count": 44,
+  "schema_version": "dvf-3-3-current-facts-correction-integrity-v3",
+  "sibling_new_misclassification_count": 0,
+  "source_row_count": 2105,
+  "status": "PASS",
+  "successor_row_count": 2105,
+  "unresolved_row_count": 0,
+  "unsupported_inference_count": 0
+}

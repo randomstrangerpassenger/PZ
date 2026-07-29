@@ -1,0 +1,33 @@
+{
+  "attempt_0022_mutation_count": 0,
+  "correction_0001_mutation_count": 0,
+  "correction_0002_adoption_receipt": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0011/closeout/registry_correction_adoption_receipt.json",
+    "sha256": "475239fba798104371d2c9f4fb166c46ceab15bb462015493238a4aff4656f7f"
+  },
+  "correction_0002_mutation_count": 0,
+  "correction_0002_successor_receipt": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_current_facts_correction_successor/successors/correction-0002/successor_receipt.json",
+    "sha256": "5d01e7c6d19336ed5231163060e636ad45ff6a79cc6f40faf971a89d4f8810fe"
+  },
+  "current_facts_mutation_count": 0,
+  "current_manifest_mutation_count": 0,
+  "foundation_mutation_count": 0,
+  "input_commit": "1ac13b88c64865ea5e4d4e54c3326e836f6d525d",
+  "input_tree": "fb97ebb0161d5ce0b04fa9f6cf3332c3d52aa7be",
+  "naturalization_attempt_mutation_count": 0,
+  "predecessor_current_facts": {
+    "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+    "row_count": 2105,
+    "sha256": "37db2595eff9b58f7b08e59221e950cb529453bd96733fb29171d458e46118f6"
+  },
+  "predecessor_current_manifest": {
+    "path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+    "sha256": "a105e3790896b30bc25e95839ceb0ee4c88357fed98ec9fa4258790bf0733a1f"
+  },
+  "publish_mutation_count": 0,
+  "registry_cutover_count": 0,
+  "runtime_lua_or_package_mutation_count": 0,
+  "schema_version": "dvf-3-3-current-facts-correction-input-identity-v3",
+  "status": "PASS"
+}

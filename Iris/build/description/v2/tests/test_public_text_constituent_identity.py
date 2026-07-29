@@ -38,6 +38,27 @@ PHASE0_ATTEMPT_REQUIRED_PATHS = frozenset(
         f"{NATURALIZATION_ATTEMPT_ROOT}/phase8/publish_acceptance_handoff_manifest.json",
     }
 )
+G5_ATTEMPT_ROOT = (
+    "Iris/build/description/v2/staging/"
+    "dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/"
+    "attempt-0024-publish-remediation-a"
+)
+G5_REQUIRED_PATHS = frozenset(
+    {
+        f"{G5_ATTEMPT_ROOT}/phase2/body_plan_requirement_inventory.jsonl",
+        f"{G5_ATTEMPT_ROOT}/phase2/source_proposition_manifest.json",
+        f"{G5_ATTEMPT_ROOT}/phase4/candidate_manifest.json",
+        f"{G5_ATTEMPT_ROOT}/phase4/candidate_proposition_trace.jsonl",
+        f"{G5_ATTEMPT_ROOT}/phase4/candidate_rendered.json",
+        f"{G5_ATTEMPT_ROOT}/phase4/protected_surface_after_snapshot.json",
+        f"{G5_ATTEMPT_ROOT}/phase5/semantic_preservation_report.json",
+        f"{G5_ATTEMPT_ROOT}/phase5/structural_satisfaction_ledger.jsonl",
+        f"{G5_ATTEMPT_ROOT}/phase6/raw_detector_report.json",
+        f"{G5_ATTEMPT_ROOT}/phase7/human_review_sample_manifest.json",
+        f"{G5_ATTEMPT_ROOT}/phase8/phase8_closeout.json",
+        f"{G5_ATTEMPT_ROOT}/phase8/publish_acceptance_handoff_manifest.json",
+    }
+)
 PHASE0_IMPLEMENTATION_REQUIRED_PATHS = frozenset(
     {
         "Iris/build/description/v2/tools/build/"
@@ -145,19 +166,15 @@ class PublicTextConstituentIdentityTest(unittest.TestCase):
     def test_attempt_0023_exact_full_review_has_zero_human_review_numerator(
         self,
     ) -> None:
-        attempt_root = (
-            acceptance.DEFAULT_ATTEMPTS_ROOT / "attempt-0004-official"
+        sample, decision = self.load_attempt_0023_review_fixture()
+        self.assertEqual(
+            acceptance._human_review_blocker_count(
+                review_sample=sample,
+                review_decision=decision,
+                required_denominator=2084,
+            ),
+            0,
         )
-        _, validation = acceptance._load_phase0_context(attempt_root)
-        snapshot = acceptance.compute_candidate_metric_snapshot(validation)
-        row = next(
-            row
-            for row in snapshot["metric_rows"]
-            if row["metric_id"]
-            == "human_review_blocker_required_denominator"
-        )
-        self.assertEqual(row["numerator"], 0)
-        self.assertEqual(row["denominator"], 2084)
 
     def test_exact_full_review_aggregate_failure_is_technical_blocker(
         self,
@@ -568,24 +585,39 @@ class PublicTextConstituentIdentityTest(unittest.TestCase):
             "# Publish Boundary attempt-0004-official: "
             "exact synchronized Naturalization inputs."
         )
+        g5_start = lines.index(
+            "# G5 clean-checkout and future G4: "
+            "exact attempt-0024 required inputs."
+        )
         end = lines.index(
             "# Publish Boundary attempt-0004-official: "
             "owner input and implementation."
         )
-        block = lines[start:end]
+        block = lines[start:g5_start]
+        g5_block = lines[g5_start:end]
         exact_files = {
             line[1:]
             for line in block
             if line.startswith("!") and not line.endswith("/")
         }
+        g5_exact_files = {
+            line[1:]
+            for line in g5_block
+            if line.startswith("!") and not line.endswith("/")
+        }
         self.assertEqual(exact_files, PHASE0_ATTEMPT_REQUIRED_PATHS)
+        self.assertEqual(g5_exact_files, G5_REQUIRED_PATHS)
         self.assertFalse(
             any(line.startswith("!") and "*" in line for line in block)
+        )
+        self.assertFalse(
+            any(line.startswith("!") and "*" in line for line in g5_block)
         )
         self.assertFalse(any("attempt-0022" in line for line in block))
         for relative in (
             PHASE0_ATTEMPT_REQUIRED_PATHS
             | PHASE0_IMPLEMENTATION_REQUIRED_PATHS
+            | G5_REQUIRED_PATHS
         ):
             self.assertEqual(lines.count(f"!{relative}"), 1)
             self.assertFalse(

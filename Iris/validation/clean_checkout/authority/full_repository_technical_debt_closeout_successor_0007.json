@@ -1,0 +1,94 @@
+{
+  "schema_version": "iris_clean_checkout_full_repository_technical_debt_closeout_successor_v7",
+  "recorded_date": "2026-07-30",
+  "status": "complete",
+  "record_mode": "append_only_g5_required_denominator_integration_closeout",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "predecessor": {
+    "path": "Iris/validation/clean_checkout/authority/full_repository_technical_debt_closeout_successor_0006.json",
+    "git_blob_id": "fcb4fef589644452752e24401295125b5989c6d3",
+    "git_blob_raw_sha256": "3b237adb15e8bc11ea697289257a63d43f78133ce054e15e1ab4f9b81dfdf7a6",
+    "successor_0005_raw_label_error_preserved": true,
+    "successor_0006_label_correction_preserved": true,
+    "rewrite_permitted": false
+  },
+  "gate_manifest_successor": {
+    "path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0007.json",
+    "git_blob_id": "cbd5f8cc263490b099c6a32e86e08d4a6891b488",
+    "git_blob_raw_sha256": "01297ef48939e1211bf994535da13fffe9fd14b6d7c2424402455d6d2764c1fa",
+    "status": "PASS"
+  },
+  "validated_subject": {
+    "commit": "c9d811e5d28c84af81d24cea755d52fec0803ef6",
+    "tree": "b8b014077988bb8dc91069ce8854e59caa6c839d"
+  },
+  "classification_closeout": {
+    "tracked_test_source_count": 93,
+    "required_source_count": 33,
+    "historical_optional_source_count": 55,
+    "obsolete_or_misrouted_source_count": 3,
+    "hermetic_test_fixture_source_count": 2,
+    "attempt_generation_evidence_tool_count": 2,
+    "explicit_current_required_source_count": 3,
+    "required_compiler_test_count": 12,
+    "required_compiler_identity_test_count": 3,
+    "current_route_acceptance_test_promoted": false,
+    "unclassified_test_source_count": 0,
+    "unresolved_dependency_edge_count": 0,
+    "required_source_missing_count": 0
+  },
+  "g5_closeout": {
+    "primary_attempt_id": "attempt-0024-publish-remediation-a",
+    "replay_attempt_id": "attempt-0024-publish-remediation-b",
+    "compiler_aggregate_sha256": "2dcff095b1cc34c8fb6d3ad735ac8f9d0ca2affe259f6bb97870b19e7235cc7f",
+    "candidate_declared_sha256": "ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437",
+    "trace_declared_sha256": "f047c4e53fbe32d430192a2cedbc1db4e4685926643017a608bb7e89c911af06",
+    "phase8_handoff_git_blob_raw_sha256": "7fdbb224b3af4231a8bf3f2d37e448a8cdbfb4ed4d9871a83927b22cfdde25ec",
+    "phase8_closeout_git_blob_raw_sha256": "e1dfa84d2e5f1ab1fe959bec228668ca0c5a266c9b377e60baee865f3ca1fa84",
+    "terminal_closeout_git_blob_raw_sha256": "6a9fd3eb65236aade1ff504423fb6850da95d2b5a9e3882f070b7f043f97049c",
+    "candidate_trace_handoff_byte_identity": "PASS",
+    "compiler_identity_match": true,
+    "g4_required_path_count": 38,
+    "required_input_path_count": 41,
+    "active_ignored_required_input_count": 0,
+    "exact_unignore_file_count": 12,
+    "broad_unignore_count": 0
+  },
+  "execution_closeout": {
+    "run_a_status": "PASS",
+    "run_b_status": "PASS",
+    "pytest_identity_count": 195,
+    "standalone_validation_count": 4,
+    "required_execution_unit_count": 199,
+    "passed_execution_unit_count": 199,
+    "failed_execution_unit_count": 0,
+    "collection_error_count": 0,
+    "canonical_result_sha256": "528979411eeb8eb95df97c0d15f05cbd9a05bd41e6bb4d1fff344b4b2c39d21f",
+    "canonical_results_equal": true,
+    "comparison_validator_exit_code": 0,
+    "source_checkout_mutation_count": 0,
+    "disposable_checkout_residue_count": 0,
+    "persistent_worktree_created": false
+  },
+  "scope_closeout": {
+    "foundation_contract_or_readiness_changed_or_executed": false,
+    "naturalization_or_phase8_artifact_changed_or_executed": false,
+    "candidate_trace_facts_or_manifest_changed": false,
+    "publish_attempt_changed_consumed_or_executed": false,
+    "g4_readiness_or_live_gate_executed": false,
+    "g2_or_g3_executed": false,
+    "runtime_lua_or_package_changed": false,
+    "attempt_0023_changed": false,
+    "attempt_0004_changed_or_consumed": false,
+    "existing_g1_evidence_overwritten": false
+  },
+  "terminal_state": {
+    "clean_validation_terminal_pass": true,
+    "blocking_condition_count": 0,
+    "blocking_conditions": [],
+    "inspection_resume_subject_commit": "c9d811e5d28c84af81d24cea755d52fec0803ef6",
+    "inspection_resume_subject_tree": "b8b014077988bb8dc91069ce8854e59caa6c839d",
+    "tests_rerun_for_this_successor_record": false,
+    "self_referential_commit_fields": 0
+  }
+}

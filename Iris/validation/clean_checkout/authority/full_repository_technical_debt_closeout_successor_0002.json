@@ -1,0 +1,110 @@
+{
+  "schema_version": "iris_clean_checkout_full_repository_technical_debt_closeout_successor_v2",
+  "recorded_date": "2026-07-30",
+  "status": "integration_complete_downstream_freshness_blocked",
+  "record_mode": "append_only_current_lineage_integration_successor",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "problem_id": "iris_clean_checkout_full_repository_validation_reproducibility_authority_closure",
+  "predecessor_g1_closeout": {
+    "canonical_commit": "d8e3e1811b59d9a4b02d7f585181d719bb974eae",
+    "canonical_tree": "bbcfb5a44de16c7a76141cf2eb89f0152ea6eb44",
+    "path": "Iris/validation/clean_checkout/authority/full_repository_technical_debt_closeout_successor_0001.json",
+    "git_blob_id": "9ae349dd89c3fb934d4a3e56c80125c4f8fb84d9",
+    "sha256": "45b03586b30ee4804d8bae71aad311912fedb52d9952c77aa4cbd56ca4d13c19",
+    "rewrite_permitted": false
+  },
+  "validated_subject": {
+    "role": "G1_current_integration_C0",
+    "commit": "046b680e82089c4ee8ff5c9fb3d71f9ef1ebde0b",
+    "tree": "38c17a9caba323d011ff16ee2ea2eb337587728c",
+    "branch": "codex/public-text-quality-official-attempt-0004"
+  },
+  "integration_scope": {
+    "current_start_commit": "3ba197834afdfdabe4e8e64c7ecf13e170159c27",
+    "current_start_tree": "07be7482043c5357d8e546706e6af4d2006a1794",
+    "main_materialization_reference": "33aad08676c96d5ae1ae7ff1c3fa509feff8bf08",
+    "common_baseline": "aa49e8f9fce19955a374b45d0744b1418a45ac9e",
+    "common_synchronization_contract_id": "dvf3_3_korean_naturalization__publish_boundary_sync_v1",
+    "g1_owned_path_count": 33,
+    "classification_counts": {
+      "already_current_equivalent": 26,
+      "port_required": 0,
+      "superseded_current_implementation": 0,
+      "historical_evidence_only": 4,
+      "conflict_requires_current_adaptation": 3
+    },
+    "path_ledger": {
+      "path": "Iris/validation/clean_checkout/evidence/g1_to_current_integration_path_ledger_0001.json",
+      "git_blob_id": "a2555e11ab4dffbf4ba948502546709e6464ccc9",
+      "sha256": "4540bde8b752685006abfaf2311234e5f72423e647bb0bc5acb1e456f2da1291"
+    },
+    "whole_g1_materialization_merged_or_cherry_picked": false,
+    "whole_g1_closeout_cherry_picked": false
+  },
+  "technical_gate": {
+    "status": "PASS",
+    "gate_manifest_path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0002.json",
+    "tracked_test_source_count": 92,
+    "required_source_count": 32,
+    "historical_optional_source_count": 55,
+    "obsolete_or_misrouted_source_count": 3,
+    "hermetic_test_fixture_source_count": 2,
+    "ambient_dependency_candidate_edge_count": 0,
+    "unresolved_dependency_edge_count": 0,
+    "policy_test_result": "5/5 PASS",
+    "candidate_route_test_result": "2/2 PASS",
+    "naturalization_glob_result": "27/27 PASS",
+    "full_gate_run_a_result": "177/177 PASS",
+    "full_gate_run_b_result": "177/177 PASS",
+    "run_a_canonical_result_sha256": "115e090e831d52a4b0a1fc6becc6104691c2585a95de00bc412cdf843c5f1832",
+    "run_b_canonical_result_sha256": "115e090e831d52a4b0a1fc6becc6104691c2585a95de00bc412cdf843c5f1832",
+    "canonical_results_equal": true,
+    "post_cleanup_disposable_root_entry_count": 0,
+    "residual_disposable_checkout_count": 0
+  },
+  "lineage_preservation": {
+    "facts_or_manifest_constituent_change_count": 0,
+    "candidate_constituent_change_count": 0,
+    "compiler_constituent_change_count": 0,
+    "compiler_aggregate_sha256": "aa88ee878cfb570b8278b40e62c560f093dc6ffdc363f06ed7133352d635c647",
+    "compiler_aggregate_maintained": true,
+    "candidate_rendered_equal_to_current_start": true,
+    "candidate_proposition_trace_equal_to_current_start": true,
+    "candidate_text_ko_equal_to_existing_phase8_lineage": true,
+    "candidate_text_ko_difference_count": 0,
+    "historical_naturalization_or_publish_attempt_restored": false,
+    "official_attempt_0004_consumed": false,
+    "sealed_evidence_overwritten": false,
+    "dot_w_gitlink_introduced": false
+  },
+  "freshness_disposition": {
+    "foundation_contract_status": "FRESH",
+    "foundation_contract_semantics_changed": false,
+    "foundation_implementation_readiness_status": "STALE_APPEND_ONLY_SUCCESSOR_REQUIRED",
+    "foundation_staleness_reason": "protected surface snapshot expanded by the two current required test ports",
+    "phase8_commit_bound_constituent_identity": true,
+    "phase8_working_copy_validator_status": "STALE",
+    "phase8_working_copy_staleness_reason": "the bound policy SHA-256 equals the Git blob raw bytes, while Windows checkout CRLF projection changes the path byte hash consumed by the current validator",
+    "publish_return_allowed": false,
+    "g4_append_only_readiness_successor_required": true,
+    "naturalization_reexecution_required_from_constituent_change": false,
+    "phase8_freshness_contract_correction_or_append_only_reseal_required": true,
+    "automatic_g4_or_naturalization_execution_performed": false
+  },
+  "closeout": {
+    "g1_current_integration_status": "PASS",
+    "full_required_repository_reproducibility_status": "PASS",
+    "downstream_publish_release_status": "BLOCKED",
+    "blocking_conditions": [
+      "G4 implementation readiness exact projection is stale after the protected test surface expansion.",
+      "Phase 8 working-copy freshness validation is line-ending-sensitive and fails despite exact Git-blob constituent identity."
+    ],
+    "next_exact_boundary": "append-only G4 readiness successor and current-compatible Phase 8 freshness reconciliation; do not consume official attempt-0004 and do not rerun Naturalization unless a real commit constituent changes"
+  },
+  "successor_boundary": {
+    "validated_subject_is_unchanged_by_this_record": true,
+    "this_record_is_not_the_validated_subject": true,
+    "tests_rerun_for_this_successor_record": false,
+    "self_referential_commit_fields": 0
+  }
+}

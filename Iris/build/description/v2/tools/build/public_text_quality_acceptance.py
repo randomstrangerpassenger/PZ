@@ -305,6 +305,10 @@ TEXT_HANDOFF_CONSTITUENT_IDS = frozenset(
 TEXT_CONSTITUENT_IDENTITY_ALGORITHM_ID = (
     "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1"
 )
+PROTECTED_SNAPSHOT_IDENTITY_ALGORITHM_ID = (
+    "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_text_"
+    "and_raw_binary_v1"
+)
 
 VOLATILE_CANONICAL_FIELDS = frozenset(
     {"generated_at", "host", "absolute_path", "mtime"}
@@ -468,6 +472,114 @@ def build_text_constituent_identity_from_bytes(
             declared_matches_head_authority
             and working_matches_head_authority
         ),
+    }
+
+
+def build_protected_snapshot_identity_from_bytes(
+    *,
+    repo_relative_posix_path: str,
+    declared_sha256: object,
+    head_blob_id: str,
+    head_blob_raw: bytes,
+    working_raw: bytes,
+    filtered_working_blob_id: str | None,
+    text_attribute: str,
+) -> dict[str, Any]:
+    pure_path = PurePosixPath(repo_relative_posix_path)
+    if (
+        not repo_relative_posix_path
+        or pure_path.is_absolute()
+        or ".." in pure_path.parts
+        or "\\" in repo_relative_posix_path
+    ):
+        raise FoundationContractError(
+            "protected snapshot identity path must be repo-relative POSIX"
+        )
+    authority_raw_sha256 = sha256_bytes(head_blob_raw)
+    declared_matches_head_authority = (
+        isinstance(declared_sha256, str)
+        and declared_sha256 == authority_raw_sha256
+    )
+    try:
+        head_blob_raw.decode("utf-8")
+    except UnicodeDecodeError:
+        head_is_utf8 = False
+    else:
+        head_is_utf8 = b"\x00" not in head_blob_raw
+    identity_kind = (
+        "text_lf_canonical"
+        if head_is_utf8 and text_attribute != "unset"
+        else "raw_bytes"
+    )
+    git_filtered_identity = (
+        identity_kind == "text_lf_canonical"
+        and filtered_working_blob_id is not None
+        and filtered_working_blob_id == head_blob_id
+    )
+    canonical_working_identity = (
+        identity_kind == "text_lf_canonical"
+        and normalize_text_line_endings(working_raw)
+        == normalize_text_line_endings(head_blob_raw)
+    )
+    raw_working_identity = working_raw == head_blob_raw
+    working_matches_head_authority = (
+        git_filtered_identity or canonical_working_identity
+        if identity_kind == "text_lf_canonical"
+        else raw_working_identity
+    )
+    return {
+        "algorithm_id": PROTECTED_SNAPSHOT_IDENTITY_ALGORITHM_ID,
+        "path": repo_relative_posix_path,
+        "identity_kind": identity_kind,
+        "text_attribute": text_attribute,
+        "authority_source": "HEAD_git_blob_raw",
+        "head_git_blob_id": head_blob_id,
+        "authority_git_blob_raw_sha256": authority_raw_sha256,
+        "declared_sha256": declared_sha256,
+        "declared_matches_head_authority": declared_matches_head_authority,
+        "working_raw_sha256": sha256_bytes(working_raw),
+        "git_filtered_working_identity": git_filtered_identity,
+        "canonical_working_identity": canonical_working_identity,
+        "raw_working_identity": raw_working_identity,
+        "working_matches_head_authority": working_matches_head_authority,
+        "json_semantic_normalization_applied": False,
+        "whitespace_normalization_applied": False,
+        "absolute_path_or_host_metadata_in_identity": False,
+        "match": (
+            declared_matches_head_authority
+            and working_matches_head_authority
+        ),
+    }
+
+
+def build_protected_snapshot_present_row_from_bytes(
+    *,
+    repo_relative_posix_path: str,
+    declared_sha256: object,
+    head_blob_id: str,
+    head_blob_raw: bytes,
+    working_raw: bytes,
+    filtered_working_blob_id: str | None,
+    text_attribute: str,
+) -> dict[str, Any]:
+    identity = build_protected_snapshot_identity_from_bytes(
+        repo_relative_posix_path=repo_relative_posix_path,
+        declared_sha256=declared_sha256,
+        head_blob_id=head_blob_id,
+        head_blob_raw=head_blob_raw,
+        working_raw=working_raw,
+        filtered_working_blob_id=filtered_working_blob_id,
+        text_attribute=text_attribute,
+    )
+    if identity["match"] is not True:
+        raise FoundationContractError(
+            "protected surface stale before Publish attempt: "
+            f"{repo_relative_posix_path}"
+        )
+    return {
+        "path": repo_relative_posix_path,
+        "present": True,
+        "sha256": identity["authority_git_blob_raw_sha256"],
     }
 
 
@@ -2991,21 +3103,81 @@ def _protected_snapshot(validation: dict[str, Any]) -> list[dict[str, Any]]:
         raise FoundationContractError("protected after snapshot missing")
     normalized: list[dict[str, Any]] = []
     for row in rows:
-        if not isinstance(row, dict) or "path" not in row:
+        if (
+            not isinstance(row, dict)
+            or "path" not in row
+            or not isinstance(row.get("exists"), bool)
+        ):
             raise FoundationContractError("protected snapshot row invalid")
-        path = REPO_ROOT / str(row["path"])
-        current = sha256_file(path) if path.is_file() else None
-        if path.is_file() != row.get("exists") or current != row.get("sha256"):
+        relative = str(row["path"])
+        pure_path = PurePosixPath(relative)
+        if (
+            not relative
+            or pure_path.is_absolute()
+            or ".." in pure_path.parts
+            or "\\" in relative
+        ):
             raise FoundationContractError(
-                f"protected surface stale before Publish attempt: {row['path']}"
+                "protected snapshot path must be repo-relative POSIX"
             )
-        normalized.append(
-            {
-                "path": repo_relative(path),
-                "present": path.is_file(),
-                "sha256": current,
-            }
+        path = REPO_ROOT / relative
+        if not path.resolve().is_relative_to(REPO_ROOT.resolve()):
+            raise FoundationContractError(
+                f"protected snapshot path escaped repository: {relative}"
+            )
+        declared_exists = row["exists"]
+        if not declared_exists:
+            if path.exists() or row.get("sha256") is not None:
+                raise FoundationContractError(
+                    f"protected surface stale before Publish attempt: {relative}"
+                )
+            normalized.append(
+                {
+                    "path": relative,
+                    "present": False,
+                    "sha256": None,
+                }
+            )
+            continue
+        if not path.is_file():
+            raise FoundationContractError(
+                f"protected surface stale before Publish attempt: {relative}"
+            )
+        if not _is_tracked(path):
+            raise FoundationContractError(
+                f"protected surface is untracked: {relative}"
+            )
+        if _is_ignored(path):
+            raise FoundationContractError(
+                f"protected surface is ignored: {relative}"
+            )
+        head_blob_id = _git("rev-parse", f"HEAD:{relative}").stdout.strip()
+        head_blob = subprocess.run(
+            ["git", "cat-file", "blob", head_blob_id],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            check=False,
         )
+        if head_blob.returncode != 0:
+            raise FoundationContractError(
+                f"cannot read protected surface HEAD blob: {relative}"
+            )
+        filtered_working_blob_id = _git(
+            "hash-object", "--", relative
+        ).stdout.strip()
+        text_attribute_output = _git(
+            "check-attr", "text", "--", relative
+        ).stdout.strip()
+        text_attribute = text_attribute_output.rsplit(": ", 1)[-1]
+        normalized.append(build_protected_snapshot_present_row_from_bytes(
+            repo_relative_posix_path=relative,
+            declared_sha256=row.get("sha256"),
+            head_blob_id=head_blob_id,
+            head_blob_raw=head_blob.stdout,
+            working_raw=path.read_bytes(),
+            filtered_working_blob_id=filtered_working_blob_id,
+            text_attribute=text_attribute,
+        ))
     return normalized
 
 

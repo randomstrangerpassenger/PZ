@@ -3185,13 +3185,41 @@ def _vcs_preflight(paths: Iterable[Path]) -> dict[str, Any]:
     unique = sorted({path.resolve() for path in paths}, key=lambda path: repo_relative(path))
     rows = []
     for path in unique:
+        relative = repo_relative(path)
+        present = path.is_file()
+        tracked = _is_tracked(path)
+        head_blob_id = None
+        filtered_working_blob_id = None
+        head_working_identity = False
+        if present and tracked:
+            head_result = _git(
+                "rev-parse",
+                f"HEAD:{relative}",
+                check=False,
+            )
+            working_result = _git(
+                "hash-object",
+                "--",
+                relative,
+                check=False,
+            )
+            if head_result.returncode == 0 and working_result.returncode == 0:
+                head_blob_id = head_result.stdout.strip()
+                filtered_working_blob_id = working_result.stdout.strip()
+                head_working_identity = (
+                    bool(head_blob_id)
+                    and head_blob_id == filtered_working_blob_id
+                )
         rows.append(
             {
-                "path": repo_relative(path),
-                "present": path.is_file(),
-                "tracked": _is_tracked(path),
+                "path": relative,
+                "present": present,
+                "tracked": tracked,
                 "ignored": _is_ignored(path),
                 "unstaged_delta": _has_unstaged_delta(path),
+                "head_git_blob_id": head_blob_id,
+                "filtered_working_blob_id": filtered_working_blob_id,
+                "head_working_identity": head_working_identity,
             }
         )
     blockers = [
@@ -3201,6 +3229,7 @@ def _vcs_preflight(paths: Iterable[Path]) -> dict[str, Any]:
         or not row["tracked"]
         or row["ignored"]
         or row["unstaged_delta"]
+        or not row["head_working_identity"]
     ]
     return {
         "schema_version": "public_text_quality_vcs_required_surface_preflight_v1",
@@ -3210,9 +3239,96 @@ def _vcs_preflight(paths: Iterable[Path]) -> dict[str, Any]:
         "tracked_count": sum(row["tracked"] for row in rows),
         "ignored_count": sum(row["ignored"] for row in rows),
         "unstaged_delta_count": sum(row["unstaged_delta"] for row in rows),
+        "head_working_identity_count": sum(
+            row["head_working_identity"] for row in rows
+        ),
         "blocker_paths": blockers,
         "rows": rows,
     }
+
+
+PHASE0_REQUIRED_VCS_CONSUMERS = frozenset(
+    {"phase0-no-write-preflight", "phase0-binding"}
+)
+
+
+def phase0_required_vcs_paths(
+    *,
+    subject_handoff: Path,
+    handoff_validation: dict[str, Any],
+) -> tuple[Path, ...]:
+    handoff_path = subject_handoff.resolve()
+    foundation_contract_path = DEFAULT_FOUNDATION_ROOT / FOUNDATION_CONTRACT_NAME
+    readiness_path = DEFAULT_FOUNDATION_ROOT / READINESS_REPORT_NAME
+    required = {
+        path.resolve()
+        for path in (
+            PLAN_DOC,
+            NATURALIZATION_PLAN_DOC,
+            foundation_contract_path,
+            readiness_path,
+            handoff_path,
+            FIXTURE_MANIFEST,
+            *FOUNDATION_DOCS,
+            *FOUNDATION_IMPLEMENTATION_FILES,
+            *NATURALIZATION_COMPILER_IMPLEMENTATION_FILES,
+            *(
+                REPO_ROOT / str(row["path"])
+                for row in handoff_validation["constituents"].values()
+                if "path" in row
+            ),
+        )
+    }
+    return tuple(sorted(required, key=repo_relative))
+
+
+def phase0_required_vcs_preflight(
+    *,
+    subject_handoff: Path,
+    consumer: str,
+    handoff_validation: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    if consumer not in PHASE0_REQUIRED_VCS_CONSUMERS:
+        raise FoundationContractError(
+            f"unsupported Phase 0 VCS-preflight consumer: {consumer}"
+        )
+    validation = (
+        validate_candidate_handoff(subject_handoff.resolve())
+        if handoff_validation is None
+        else handoff_validation
+    )
+    paths = phase0_required_vcs_paths(
+        subject_handoff=subject_handoff,
+        handoff_validation=validation,
+    )
+    preflight = _vcs_preflight(paths)
+    required_path_set = [repo_relative(path) for path in paths]
+    return {
+        "consumer": consumer,
+        "handoff_validation": validation,
+        "required_path_set": required_path_set,
+        "required_path_set_sha256": canonical_hash(required_path_set),
+        "vcs_preflight": preflight,
+    }
+
+
+def require_phase0_required_vcs_preflight(
+    *,
+    subject_handoff: Path,
+    consumer: str,
+    handoff_validation: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    result = phase0_required_vcs_preflight(
+        subject_handoff=subject_handoff,
+        consumer=consumer,
+        handoff_validation=handoff_validation,
+    )
+    preflight = result["vcs_preflight"]
+    if preflight["status"] != "PASS":
+        raise FoundationContractError(
+            f"required input VCS preflight failed: {preflight['blocker_paths']}"
+        )
+    return result
 
 
 def build_phase0_binding(
@@ -3235,34 +3351,18 @@ def build_phase0_binding(
         foundation_id="ptqa-foundation-v1"
     )
     handoff_path = subject_handoff.resolve()
-    validation = validate_candidate_handoff(handoff_path)
+    phase0_vcs = require_phase0_required_vcs_preflight(
+        subject_handoff=handoff_path,
+        consumer="phase0-binding",
+    )
+    validation = phase0_vcs["handoff_validation"]
+    preflight = phase0_vcs["vcs_preflight"]
     candidate_path = _handoff_path(validation, "candidate_rendered_hash")
     entries_rows = _candidate_entries_rows(validation)
     metric_snapshot = compute_candidate_metric_snapshot(validation)
     protected_before = _protected_snapshot(validation)
     foundation_contract_path = DEFAULT_FOUNDATION_ROOT / FOUNDATION_CONTRACT_NAME
     readiness_path = DEFAULT_FOUNDATION_ROOT / READINESS_REPORT_NAME
-    required_vcs_paths = [
-        PLAN_DOC,
-        NATURALIZATION_PLAN_DOC,
-        foundation_contract_path,
-        readiness_path,
-        handoff_path,
-        FIXTURE_MANIFEST,
-        *FOUNDATION_DOCS,
-        *FOUNDATION_IMPLEMENTATION_FILES,
-        *NATURALIZATION_COMPILER_IMPLEMENTATION_FILES,
-        *(
-            REPO_ROOT / str(row["path"])
-            for row in validation["constituents"].values()
-            if "path" in row
-        ),
-    ]
-    preflight = _vcs_preflight(required_vcs_paths)
-    if preflight["status"] != "PASS":
-        raise FoundationContractError(
-            f"required input VCS preflight failed: {preflight['blocker_paths']}"
-        )
 
     p0 = phase_root(root, 0)
     entries_bytes = canonical_jsonl_bytes(entries_rows)

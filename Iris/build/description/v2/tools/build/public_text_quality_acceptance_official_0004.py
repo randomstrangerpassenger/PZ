@@ -1136,6 +1136,11 @@ def run_official_mode(
                 "Phase 0 no-write preflight requires a clean checkout"
             )
         current = validate_current_inputs(require_clean=True)
+        phase0_vcs = base.require_phase0_required_vcs_preflight(
+            subject_handoff=PHASE8_HANDOFF,
+            consumer="phase0-no-write-preflight",
+        )
+        vcs_preflight = phase0_vcs["vcs_preflight"]
         status_after = _git(
             "status", "--porcelain=v1", "--untracked-files=all"
         ).stdout
@@ -1162,6 +1167,15 @@ def run_official_mode(
             "compiler_identity_algorithm_id": COMPILER_IDENTITY_ALGORITHM_ID,
             "compiler_aggregate_sha256": current["compiler_aggregate_sha256"],
             "current_checkout_input_fresh": True,
+            "required_input_vcs_preflight_status": vcs_preflight["status"],
+            "required_vcs_path_count": vcs_preflight["required_path_count"],
+            "required_vcs_path_set_sha256": phase0_vcs[
+                "required_path_set_sha256"
+            ],
+            "ignored_required_input_count": vcs_preflight["ignored_count"],
+            "head_working_identity_count": vcs_preflight[
+                "head_working_identity_count"
+            ],
             "source_checkout_clean_before": True,
             "source_checkout_clean_after": True,
             "protected_surface_mutation_count": 0,

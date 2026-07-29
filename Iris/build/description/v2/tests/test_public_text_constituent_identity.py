@@ -5,6 +5,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 
 V2_ROOT = Path(__file__).resolve().parents[1]
@@ -17,6 +18,33 @@ from tools.build import public_text_quality_acceptance as acceptance
 RELATIVE_PATH = "Iris/example/constituent.json"
 HEAD_BLOB_ID = "1" * 40
 NONMATCHING_FILTERED_BLOB_ID = "2" * 40
+NATURALIZATION_ATTEMPT_ROOT = (
+    "Iris/build/description/v2/staging/"
+    "dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/"
+    "attempt-0023-compiler-identity-v2-a"
+)
+PHASE0_ATTEMPT_REQUIRED_PATHS = frozenset(
+    {
+        f"{NATURALIZATION_ATTEMPT_ROOT}/phase2/body_plan_requirement_inventory.jsonl",
+        f"{NATURALIZATION_ATTEMPT_ROOT}/phase2/source_proposition_manifest.json",
+        f"{NATURALIZATION_ATTEMPT_ROOT}/phase4/candidate_manifest.json",
+        f"{NATURALIZATION_ATTEMPT_ROOT}/phase4/candidate_rendered.json",
+        f"{NATURALIZATION_ATTEMPT_ROOT}/phase4/protected_surface_after_snapshot.json",
+        f"{NATURALIZATION_ATTEMPT_ROOT}/phase5/semantic_preservation_report.json",
+        f"{NATURALIZATION_ATTEMPT_ROOT}/phase5/structural_satisfaction_ledger.jsonl",
+        f"{NATURALIZATION_ATTEMPT_ROOT}/phase6/raw_detector_report.json",
+        f"{NATURALIZATION_ATTEMPT_ROOT}/phase7/human_review_sample_manifest.json",
+        f"{NATURALIZATION_ATTEMPT_ROOT}/phase8/publish_acceptance_handoff_manifest.json",
+    }
+)
+PHASE0_IMPLEMENTATION_REQUIRED_PATHS = frozenset(
+    {
+        "Iris/build/description/v2/tools/build/"
+        "run_dvf_3_3_korean_prose_naturalization.py",
+        "Iris/build/description/v2/tools/build/"
+        "validate_dvf_3_3_korean_prose_naturalization.py",
+    }
+)
 
 
 def sha256(raw: bytes) -> str:
@@ -230,6 +258,218 @@ class PublicTextConstituentIdentityTest(unittest.TestCase):
         self.assertNotEqual(
             row["sha256"],
             sha256(working_crlf),
+        )
+
+    def test_phase0_no_write_and_real_required_path_sets_are_identical(
+        self,
+    ) -> None:
+        handoff = acceptance.REPO_ROOT / (
+            f"{NATURALIZATION_ATTEMPT_ROOT}/phase8/"
+            "publish_acceptance_handoff_manifest.json"
+        )
+        validation = {
+            "constituents": {
+                "candidate": {
+                    "path": (
+                        f"{NATURALIZATION_ATTEMPT_ROOT}/phase4/"
+                        "candidate_rendered.json"
+                    )
+                }
+            }
+        }
+
+        def passing_preflight(paths):
+            rows = [
+                {
+                    "path": acceptance.repo_relative(path),
+                    "present": True,
+                    "tracked": True,
+                    "ignored": False,
+                    "unstaged_delta": False,
+                    "head_git_blob_id": HEAD_BLOB_ID,
+                    "filtered_working_blob_id": HEAD_BLOB_ID,
+                    "head_working_identity": True,
+                }
+                for path in paths
+            ]
+            return {
+                "schema_version": (
+                    "public_text_quality_vcs_required_surface_preflight_v1"
+                ),
+                "status": "PASS",
+                "required_path_count": len(rows),
+                "present_count": len(rows),
+                "tracked_count": len(rows),
+                "ignored_count": 0,
+                "unstaged_delta_count": 0,
+                "head_working_identity_count": len(rows),
+                "blocker_paths": [],
+                "rows": rows,
+            }
+
+        with patch.object(
+            acceptance,
+            "_vcs_preflight",
+            side_effect=passing_preflight,
+        ):
+            no_write = acceptance.phase0_required_vcs_preflight(
+                subject_handoff=handoff,
+                consumer="phase0-no-write-preflight",
+                handoff_validation=validation,
+            )
+            real = acceptance.phase0_required_vcs_preflight(
+                subject_handoff=handoff,
+                consumer="phase0-binding",
+                handoff_validation=validation,
+            )
+        self.assertEqual(
+            no_write["required_path_set"],
+            real["required_path_set"],
+        )
+        self.assertEqual(
+            no_write["required_path_set_sha256"],
+            real["required_path_set_sha256"],
+        )
+        self.assertEqual(
+            no_write["vcs_preflight"]["required_path_count"],
+            real["vcs_preflight"]["required_path_count"],
+        )
+
+    def test_phase0_before_and_after_exact_unignore_have_parity(self) -> None:
+        handoff = acceptance.REPO_ROOT / (
+            f"{NATURALIZATION_ATTEMPT_ROOT}/phase8/"
+            "publish_acceptance_handoff_manifest.json"
+        )
+        blocker = (
+            f"{NATURALIZATION_ATTEMPT_ROOT}/phase4/"
+            "candidate_rendered.json"
+        )
+        validation = {
+            "constituents": {"candidate": {"path": blocker}}
+        }
+        ignored_paths = {blocker}
+
+        def stateful_preflight(paths):
+            rows = []
+            for path in paths:
+                relative = acceptance.repo_relative(path)
+                ignored = relative in ignored_paths
+                rows.append(
+                    {
+                        "path": relative,
+                        "present": True,
+                        "tracked": True,
+                        "ignored": ignored,
+                        "unstaged_delta": False,
+                        "head_git_blob_id": HEAD_BLOB_ID,
+                        "filtered_working_blob_id": HEAD_BLOB_ID,
+                        "head_working_identity": True,
+                    }
+                )
+            blockers = [
+                row["path"] for row in rows if row["ignored"]
+            ]
+            return {
+                "schema_version": (
+                    "public_text_quality_vcs_required_surface_preflight_v1"
+                ),
+                "status": "FAIL" if blockers else "PASS",
+                "required_path_count": len(rows),
+                "present_count": len(rows),
+                "tracked_count": len(rows),
+                "ignored_count": len(blockers),
+                "unstaged_delta_count": 0,
+                "head_working_identity_count": len(rows),
+                "blocker_paths": blockers,
+                "rows": rows,
+            }
+
+        with patch.object(
+            acceptance,
+            "_vcs_preflight",
+            side_effect=stateful_preflight,
+        ):
+            before = [
+                acceptance.phase0_required_vcs_preflight(
+                    subject_handoff=handoff,
+                    consumer=consumer,
+                    handoff_validation=validation,
+                )
+                for consumer in sorted(
+                    acceptance.PHASE0_REQUIRED_VCS_CONSUMERS
+                )
+            ]
+            ignored_paths.clear()
+            after = [
+                acceptance.phase0_required_vcs_preflight(
+                    subject_handoff=handoff,
+                    consumer=consumer,
+                    handoff_validation=validation,
+                )
+                for consumer in sorted(
+                    acceptance.PHASE0_REQUIRED_VCS_CONSUMERS
+                )
+            ]
+        self.assertEqual(
+            [row["vcs_preflight"]["status"] for row in before],
+            ["FAIL", "FAIL"],
+        )
+        self.assertEqual(
+            [row["vcs_preflight"]["blocker_paths"] for row in before],
+            [[blocker], [blocker]],
+        )
+        self.assertEqual(
+            [row["vcs_preflight"]["status"] for row in after],
+            ["PASS", "PASS"],
+        )
+
+    def test_phase0_exact_unignore_contract_has_no_broad_unignore(
+        self,
+    ) -> None:
+        lines = (
+            acceptance.REPO_ROOT / ".gitignore"
+        ).read_text(encoding="utf-8").splitlines()
+        start = lines.index(
+            "# Publish Boundary attempt-0004-official: "
+            "exact synchronized Naturalization inputs."
+        )
+        end = lines.index(
+            "# Publish Boundary attempt-0004-official: "
+            "owner input and implementation."
+        )
+        block = lines[start:end]
+        exact_files = {
+            line[1:]
+            for line in block
+            if line.startswith("!") and not line.endswith("/")
+        }
+        self.assertEqual(exact_files, PHASE0_ATTEMPT_REQUIRED_PATHS)
+        self.assertFalse(
+            any(line.startswith("!") and "*" in line for line in block)
+        )
+        self.assertFalse(any("attempt-0022" in line for line in block))
+        for relative in (
+            PHASE0_ATTEMPT_REQUIRED_PATHS
+            | PHASE0_IMPLEMENTATION_REQUIRED_PATHS
+        ):
+            self.assertEqual(lines.count(f"!{relative}"), 1)
+            self.assertFalse(
+                acceptance._is_ignored(acceptance.REPO_ROOT / relative)
+            )
+
+    def test_phase0_tracked_but_ignored_required_input_fails(self) -> None:
+        required = acceptance.REPO_ROOT / next(
+            iter(PHASE0_IMPLEMENTATION_REQUIRED_PATHS)
+        )
+        self.assertTrue(acceptance._is_tracked(required))
+        with patch.object(acceptance, "_is_ignored", return_value=True):
+            report = acceptance._vcs_preflight([required])
+        self.assertEqual(report["status"], "FAIL")
+        self.assertEqual(report["tracked_count"], 1)
+        self.assertEqual(report["ignored_count"], 1)
+        self.assertEqual(
+            report["blocker_paths"],
+            [acceptance.repo_relative(required)],
         )
 
 

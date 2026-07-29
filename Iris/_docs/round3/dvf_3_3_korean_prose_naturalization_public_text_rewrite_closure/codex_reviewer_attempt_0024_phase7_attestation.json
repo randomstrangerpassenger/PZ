@@ -1,0 +1,186 @@
+{
+  "schema_version": "dvf-3-3-codex-reviewer-attempt-0024-phase7-attestation-v1",
+  "status": "PASS",
+  "reviewer": {
+    "identity": "Codex Reviewer (Avicenna)",
+    "role": "external_codex_reviewer",
+    "compiler_or_runner": false
+  },
+  "candidate_binding": {
+    "naturalization_attempt_id": "attempt-0024-publish-remediation-a",
+    "candidate_rendered_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_rendered.json",
+    "candidate_rendered_sha256": "ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437",
+    "candidate_proposition_trace_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_proposition_trace.jsonl",
+    "candidate_proposition_trace_sha256": "f047c4e53fbe32d430192a2cedbc1db4e4685926643017a608bb7e89c911af06",
+    "candidate_manifest_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_manifest.json",
+    "candidate_manifest_sha256": "474cd41a439964768541738daf43af30bdee5f7eaf0deee352a44d45c880b18d",
+    "candidate_denominator": 2084,
+    "unadopted_denominator": 21,
+    "source_universe_denominator": 2105
+  },
+  "source_binding": {
+    "facts_sha256": "50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120",
+    "manifest_sha256": "090381a652da540c6e72300624728aba48f6392e41fb50e8eec973efd320b9b7",
+    "source_proposition_inventory_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase2/source_proposition_inventory.jsonl",
+    "source_proposition_inventory_sha256": "bda72c837435d44cc1187ce4a6f6e0e61ee752750d4f5bfa9343b5969fbedd85",
+    "body_plan_requirement_inventory_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase2/body_plan_requirement_inventory.jsonl",
+    "body_plan_requirement_inventory_sha256": "057f3cb5f4ae0896fec6314936dd7b77c2c48778d6ee2ab2bc48a2d63e4dbe89",
+    "source_proposition_count": 5915,
+    "resolved_proposition_count": 5915,
+    "candidate_trace_row_count": 3125,
+    "missing_proposition_resolution_count": 0,
+    "unresolved_proposition_reference_count": 0,
+    "qualifier_modality_limitation_preservation_failure_count": 0,
+    "forbidden_transformation_count": 0,
+    "unknown_transformation_count": 0,
+    "semantic_fidelity_crosscheck": "PASS"
+  },
+  "bounded_remediation_evidence": {
+    "report_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/compiler_corrections/publish_remediation_0001/bounded_projection_report.json",
+    "report_sha256": "6212d1ab7fd4626db4aa07da6bcef1ff59a298ad8ec3b604689d733fdebc4e19",
+    "classification_ledger_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/compiler_corrections/publish_remediation_0001/bounded_projection_classification.jsonl",
+    "classification_ledger_sha256": "2901c61a9e8bf49113291f70421bff6d779f63ec4aecc1246d6976df967542e4",
+    "changed_item_ledger_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/compiler_corrections/publish_remediation_0001/bounded_projection_changed_items.jsonl",
+    "changed_item_ledger_sha256": "f788bbb83bc2b4dfb9907941d0d5b6f8f48084bdf79831e628bd91ba1b42c20f",
+    "compiler_implementation_hash": "2dcff095b1cc34c8fb6d3ad735ac8f9d0ca2affe259f6bb97870b19e7235cc7f",
+    "item_specific_branch_override_patch_count": 0
+  },
+  "review_methodology": {
+    "review_mode": "exact_full_candidate_external_review",
+    "blanket_pass_used": false,
+    "actual_current_public_text_read": true,
+    "reviewed_item_count": 2084,
+    "current_unique_public_text_group_count": 722,
+    "changed_item_count": 676,
+    "changed_unique_public_text_group_count": 254,
+    "changed_unique_groups_individually_read": 254,
+    "unaffected_item_count": 1408,
+    "unaffected_unique_public_text_group_count": 468,
+    "unaffected_unique_groups_and_item_membership_inspected": 468,
+    "item_membership_coverage_count": 2084,
+    "item_membership_coverage_complete": true,
+    "changed_set_equals_bounded_ledger_set": true,
+    "changed_after_text_mismatch_count": 0,
+    "changed_before_text_mismatch_count": 0,
+    "unaffected_text_drift_count": 0,
+    "machine_detector_pass_used_as_human_pass_substitute": false,
+    "tests_or_phase_execution_performed": false,
+    "phase8_executed": false,
+    "compiler_facts_attempt_or_runtime_modified": false
+  },
+  "changed_cohort_review": {
+    "reviewed_count": 676,
+    "pass_count": 676,
+    "fail_count": 0,
+    "public_text_blocker_count": 0,
+    "work_abstraction_remediation": {
+      "item_count": 673,
+      "pass_count": 673,
+      "fail_count": 0,
+      "classification_axes_reviewed": [
+        "fact_origin_primary_use",
+        "resolved_profile",
+        "interaction_cluster_selected_cluster",
+        "interaction_cluster_selected_role",
+        "realization_rule_id",
+        "work_grammar",
+        "following_action_duplicate"
+      ],
+      "meaning_loss_or_addition_count": 0,
+      "orphaned_or_ungrammatical_fragment_count": 0,
+      "status": "PASS"
+    },
+    "repeated_identity_remediation": {
+      "item_count": 2,
+      "item_ids": [
+        "Base.Comb",
+        "Base.Stone"
+      ],
+      "pass_count": 2,
+      "fail_count": 0,
+      "status": "PASS"
+    },
+    "minimum_fragment_remediation": {
+      "item_count": 1,
+      "item_ids": [
+        "Base.String"
+      ],
+      "actual_text": "끈 형태로 된 재료다.",
+      "pass_count": 1,
+      "fail_count": 0,
+      "status": "PASS"
+    },
+    "generic_rule_impact_counts": {
+      "identity_use_terminal_zero_anaphora_v1": 2,
+      "minimum_fragment_form_fusion_v1": 1,
+      "work_acquisition_surface_fusion_v1": 41,
+      "work_case_role_realization_v1": 11,
+      "work_context_concrete_action_fusion_v1": 557,
+      "work_nominal_role_fusion_v1": 29,
+      "work_use_adjunct_fusion_v1": 68
+    },
+    "status": "PASS"
+  },
+  "unaffected_review": {
+    "reviewed_count": 1408,
+    "pass_count": 1408,
+    "fail_count": 0,
+    "unique_public_text_group_count": 468,
+    "item_membership_complete": true,
+    "text_drift_from_predecessor_count": 0,
+    "status": "PASS"
+  },
+  "raw_detector_human_consistency": {
+    "raw_detector_report_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase6/raw_detector_report.json",
+    "raw_detector_report_sha256": "038ea8e72baef56e220335567b9e164133c87bad8257926ca017c4019f80b053",
+    "configured_detector_count": 7,
+    "detector_opportunity_count": 14588,
+    "detector_hit_counts": {
+      "duplicate_proposition_realization": 0,
+      "repeated_identity_noun_window": 0,
+      "banned_internal_abstraction": 0,
+      "repeated_skeleton_concentration": 0,
+      "paragraph_fragmentation": 0,
+      "passive_translationese_pattern": 0,
+      "empty_or_filler_sentence": 0
+    },
+    "human_blocker_count": 0,
+    "machine_human_contradiction_count": 0,
+    "machine_zero_did_not_override_human_review": true,
+    "status": "PASS"
+  },
+  "rubric_aggregate": {
+    "readability": {
+      "pass": 2084,
+      "fail": 0
+    },
+    "naturalness": {
+      "pass": 2084,
+      "fail": 0
+    },
+    "semantic_fidelity": {
+      "pass": 2084,
+      "fail": 0
+    },
+    "public_suitability": {
+      "pass": 2084,
+      "fail": 0
+    },
+    "all_rubrics_pass": 2084,
+    "unique_blocker_items": 0
+  },
+  "blocker_count": 0,
+  "blocker_count_by_ownership": {
+    "compiler": 0,
+    "current_facts_source": 0
+  },
+  "blocker_item_ids": [],
+  "blockers": [],
+  "terminal_constraints": {
+    "phase8_eligible": true,
+    "phase8_executed_by_reviewer": false,
+    "official_publish_attempt_authorized": false,
+    "live_gate_change_authorized": false,
+    "facts_manifest_foundation_registry_rtc_runtime_lua_package_change_authorized": false
+  }
+}

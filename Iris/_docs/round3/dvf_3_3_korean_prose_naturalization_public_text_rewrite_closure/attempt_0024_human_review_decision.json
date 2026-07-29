@@ -1,0 +1,53 @@
+{
+  "schema_version": "dvf-3-3-exact-full-candidate-external-review-decision-v1",
+  "status": "PASS",
+  "decision_mode": "exact_full_candidate_external_review",
+  "candidate_rendered_hash": "ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437",
+  "selected_ordered_digest": "796f11f72adf5ac6e2247f923862795faeafce522172644c4309843d0409c0de",
+  "reviewed_denominator": 2084,
+  "reviewed_item_id_binding": "human_review_sample_manifest.selected_item_ids",
+  "reviewer_id": "Codex Reviewer (Avicenna)",
+  "reviewer_role": "external_codex_reviewer",
+  "external_reviewer_attestation_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/codex_reviewer_attempt_0024_phase7_attestation.json",
+  "external_reviewer_attestation_sha256": "43ce055dae6033f24537fc0e7022840715d5eae4b3beaeb0b9969d94a64ed9f5",
+  "review_methodology": {
+    "blanket_pass_used": false,
+    "actual_current_public_text_reviewed": true,
+    "reviewed_item_count": 2084,
+    "unique_public_text_group_count": 722,
+    "changed_item_count": 676,
+    "changed_unique_public_text_group_count": 254,
+    "unaffected_item_count": 1408,
+    "unaffected_unique_public_text_group_count": 468,
+    "item_membership_coverage_complete": true,
+    "changed_after_text_mismatch_count": 0,
+    "unaffected_text_drift_count": 0,
+    "detector_human_contradiction_count": 0
+  },
+  "all_unlisted_items_pass_all_rubrics": true,
+  "rubric_aggregate": {
+    "readability": {
+      "pass": 2084,
+      "fail": 0
+    },
+    "naturalness": {
+      "pass": 2084,
+      "fail": 0
+    },
+    "semantic_fidelity": {
+      "pass": 2084,
+      "fail": 0
+    },
+    "public_suitability": {
+      "pass": 2084,
+      "fail": 0
+    }
+  },
+  "blocker_count": 0,
+  "blocker_count_by_ownership": {
+    "compiler": 0,
+    "current_facts_source": 0
+  },
+  "blocker_item_ids": [],
+  "blockers": []
+}

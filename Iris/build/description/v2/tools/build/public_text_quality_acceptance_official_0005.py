@@ -371,9 +371,7 @@ def validate_current_inputs(*, require_clean: bool) -> dict[str, Any]:
         or terminal.get("status") != "HANDOFF_COMPLETE"
         or terminal.get("attempts", {}).get("primary")
         != NATURALIZATION_ATTEMPT_ID
-        or terminal.get("phase8_handoff", {}).get(
-            "publish_acceptance_handoff_manifest_sha256"
-        )
+        or terminal.get("phase8_handoff", {}).get("handoff_sha256")
         != PHASE8_HANDOFF_SHA256
         or terminal.get("phase8_handoff", {}).get("phase8_closeout_sha256")
         != PHASE8_CLOSEOUT_SHA256

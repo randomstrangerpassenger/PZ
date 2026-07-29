@@ -69,3 +69,49 @@ attempt may then begin at Phase 0 and must include compiler fix
 
 Official Publish creation and live Publish gate mutation remain forbidden
 until a new Naturalization Phase 8 handoff is complete.
+
+## Append-only correction successor 0002
+
+This section extends, and does not rewrite, the sealed `correction-0001` /
+`attempt-0010` adoption above. It authorizes exactly one new Registry
+correction cutover:
+
+- input commit:
+  `ea38a238bef5d7e7e283b03adcef22e0bae31e50`;
+- input tree:
+  `052edaf9ebf2f8fa5484b4d27e535db59450c61a`;
+- successor id: `correction-0002`;
+- Registry cutover attempt: `attempt-0011`;
+- successor facts SHA-256:
+  `37db2595eff9b58f7b08e59221e950cb529453bd96733fb29171d458e46118f6`;
+- sealed non-current successor manifest SHA-256:
+  `e5ccc87ad00e3c8f009ad79a294ea771046d16e12a3582908bcb813545e7e63e`;
+- successor receipt SHA-256:
+  `5d01e7c6d19336ed5231163060e636ad45ff6a79cc6f40faf971a89d4f8810fe`;
+- predecessor current facts SHA-256:
+  `ca74270191289af064d9d8fa9d739c97b0865d69e255885e815b01565243f46e`;
+- predecessor current manifest SHA-256:
+  `c9670c1625382444fe292158e6b50e65e2ee54316d2903835ebc4f59c199257d`.
+
+The successor manifest is a sealed non-current contract. Registry must derive
+the current manifest through a closed, machine-checked adoption projection;
+copying the successor manifest unchanged is forbidden. The current facts bytes
+must equal the sealed successor facts bytes exactly.
+
+The two current files must be installed candidate-first under an exclusive
+lock as one process-crash-recoverable facts-first / manifest-last transaction.
+Rollback snapshots are transaction recovery material only. Once the candidate
+pair reaches the committed transaction state, restoring the predecessor as a
+new canonical current state, exposing a partial current pair, or maintaining
+dual current identities is forbidden.
+
+The Registry adoption contract keeps its `correction-0001` binding immutable
+and adds a `correction-0002` successor binding. Food `attempt-0022`, Registry
+`attempt-0009`, correction `attempt-0010`, correction successor
+`correction-0001`, the Naturalization 0018/0019 evidence, every predecessor
+receipt, and every predecessor terminal seal remain immutable.
+
+This cutover may emit only Registry correction evidence and a Naturalization
+current-input handoff. It does not authorize RTC, rendered-description, Lua,
+runtime, package, Foundation rebind, a Naturalization attempt, or official
+Publish execution.

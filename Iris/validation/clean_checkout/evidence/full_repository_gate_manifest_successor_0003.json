@@ -1,0 +1,169 @@
+{
+  "schema_version": "iris-clean-checkout-full-repository-gate-manifest-v3",
+  "manifest_state": "frozen",
+  "recorded_date": "2026-07-30",
+  "status": "PASS",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "terminal_claim": "public text constituent identity is an explicit current-required full-gate source",
+  "predecessor": {
+    "path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0002.json",
+    "git_blob_id": "1e6eaf3512dbbf276a3a44ec0fd6a5ca6594e46e",
+    "git_blob_raw_sha256": "29031afdefc14b064f9dacebd0c82ef42d878e2e5a34689be918844da04a133d",
+    "rewrite_permitted": false
+  },
+  "validated_subject": {
+    "role": "explicit_current_required_classification_C0",
+    "commit": "cf8bbb3e083f1ea8155b24d9ead3eaf80c35b684",
+    "tree": "fdc2b9cab16a9d2a7dbf912ece3a6574a63b92fb",
+    "branch": "codex/public-text-quality-official-attempt-0004",
+    "start_commit": "2088c95a2bfe3a2150df8258052f77bf6a7824eb",
+    "start_tree": "2bc657572a0608bd995af7322bd89159cc49fe36"
+  },
+  "classification_contract": {
+    "path": "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+    "schema_version": "iris-clean-checkout-full-repository-gate-v3",
+    "git_blob_id": "e9f7c430e47e0f49591b88c6083052ae4646c34a",
+    "git_blob_raw_sha256": "dbfd1591fbd42ebcb615499f9e486c6707d3d729e5e6916ef1eb3c84dd350adb",
+    "explicit_current_required_source": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py",
+    "required_execution_role": "required_pytest",
+    "required_authority_class": "required_tracked_source",
+    "required_classification_basis": "explicit_current_required_source",
+    "explicit_required_precedes_historical_heuristic": true,
+    "filename_or_test_function_heuristic_bypass_used": false
+  },
+  "implementation_bindings": {
+    "runner": {
+      "path": "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
+      "git_blob_id": "6a07ece0ea7b998ef8395314eca2b6bcfca6517b",
+      "git_blob_raw_sha256": "964de698d89557b133b7936978eb60664ef18e2771cf5a6c179e29d9a755a245"
+    },
+    "regression_tests": {
+      "path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py",
+      "git_blob_id": "6777fe1403157d39caf7bdcc4a5eb10df0a69371",
+      "git_blob_raw_sha256": "25f78d1f0040929e11d9a5723130caf7ed5f72372b196cf4121d20dc07d765f8",
+      "existing_test_identity_extended": "test_full_source_policy_classifies_only_declared_fallback",
+      "new_pytest_identity_count": 0,
+      "demotion_to_historical_or_optional_fails_validator": true
+    },
+    "constituent_test": {
+      "path": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py",
+      "git_blob_id": "8b15fb3fff42dd802465f9994952633bbb331e99",
+      "git_blob_raw_sha256": "9ed282f090916a0530a066e8e5ac2d30dd416c258e8d084d3a4a65e7f2c8c4b7",
+      "test_count": 3
+    }
+  },
+  "classification_recensus": {
+    "start_commit": {
+      "output_root": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/g1-required-baseline-2088c95",
+      "tracked_test_source_count": 93,
+      "required_source_count": 32,
+      "historical_optional_source_count": 56,
+      "obsolete_or_misrouted_source_count": 3,
+      "hermetic_test_fixture_source_count": 2,
+      "test_inventory_sha256": "5f465369e486d7295e4f05990f3ee552535b729184e712825179f5073c46de36",
+      "dependency_edge_ledger_sha256": "7df1b5a464625cfc6599528236498ee012eb90f7f9aa3e7f7075e22cb70eb6e8",
+      "d0_manifest_sha256": "7ba0b949cd0c3a315e199be4ff77b2b2323be85f647e76b1f3898d94dd158226"
+    },
+    "validated_subject": {
+      "output_root": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/g1-required-census-cf8bbb3e",
+      "tracked_test_source_count": 93,
+      "configured_root_source_count": 75,
+      "outside_configured_root_source_count": 18,
+      "required_source_count": 33,
+      "historical_optional_source_count": 55,
+      "obsolete_or_misrouted_source_count": 3,
+      "hermetic_test_fixture_source_count": 2,
+      "explicitly_ignored_source_count": 6,
+      "ambient_dependency_candidate_edge_count": 0,
+      "unresolved_edge_count": 0,
+      "test_inventory_sha256": "d941b5f643b7c90cc96838619650553901cfdf07ec02ace33522a4751fa8bcf6",
+      "dependency_edge_ledger_sha256": "1f32e824dbdd09886caa71d9d2e4ce06168979b683b0d33495fd365cb5e0fb32",
+      "d0_manifest_sha256": "bb6b690340e61023577904b306ddaebb7e7d354e2ef5182e40cefa310617e0d1"
+    },
+    "delta": {
+      "tracked_test_source_count": 0,
+      "required_source_count": 1,
+      "historical_optional_source_count": -1,
+      "obsolete_or_misrouted_source_count": 0,
+      "hermetic_test_fixture_source_count": 0
+    },
+    "accounting_equation": "33 required + 55 historical optional + 3 obsolete or misrouted + 2 hermetic fixtures = 93 tracked test sources",
+    "forecast_reconciliation": "The designated start commit already tracked the new constituent test, so its actual start census was 56 historical optional rather than the earlier 55-source historical baseline; the requested one-source reclassification therefore produces 55, not 54."
+  },
+  "focused_validation": {
+    "constituent_identity": {
+      "status": "PASS",
+      "result": "3/3",
+      "exit_code": 0
+    },
+    "clean_checkout_classifier_regression": {
+      "status": "PASS",
+      "result": "11/11",
+      "exit_code": 0,
+      "required_demotion_failure_case_exercised": true
+    }
+  },
+  "environment_binding": {
+    "status": "PASS",
+    "resolved_interpreter": "C:/Users/MW/iccv/env-v1/Scripts/python.exe",
+    "receipt_path": "C:/Users/MW/iccv/receipts/env-v1/environment_receipt.json",
+    "receipt_sha256": "fb5dd78e15c41346f15b39065c60c2ce4d83254d73bbde3d3181d327b30b6bc2"
+  },
+  "execution_reproducibility": {
+    "run_a": {
+      "status": "PASS",
+      "canonical_result_path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/g1-required-rA-cf8bbb3e/canonical_full_result.json",
+      "canonical_result_sha256": "bd424ddcc2b22abcdd81843099a4cd603785ba62d61d8a6d5bb115708fd6fe84",
+      "run_receipt_sha256": "d4944638a32f2aaaec3f650932ca73871aa8076c0b1199ceb3440a0c65205d23",
+      "materialization_receipt_sha256": "65ea2e0d005f90c4ad7466b5a9bcfbd9aebd379ed2bb595a8bb9426f8bfec098"
+    },
+    "run_b": {
+      "status": "PASS",
+      "canonical_result_path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/g1-required-rB-cf8bbb3e/canonical_full_result.json",
+      "canonical_result_sha256": "bd424ddcc2b22abcdd81843099a4cd603785ba62d61d8a6d5bb115708fd6fe84",
+      "run_receipt_sha256": "1b5a49b7f96171deb3d7f65a1266e5480f25ff052e93047b792bd977bd0daa59",
+      "materialization_receipt_sha256": "65ea2e0d005f90c4ad7466b5a9bcfbd9aebd379ed2bb595a8bb9426f8bfec098"
+    },
+    "pytest_identity_count": 176,
+    "standalone_validation_count": 4,
+    "required_execution_unit_count": 180,
+    "passed_execution_unit_count": 180,
+    "failed_execution_unit_count": 0,
+    "collection_error_count": 0,
+    "constituent_identity_count": 3,
+    "constituent_identity_passed_count": 3,
+    "test_inventory_sha256": "3a062f4b1613d2e3d4a7a6478390cf134356da1ecd247b16a20cceba02730953",
+    "canonical_results_equal": true,
+    "canonical_result_sha256": "bd424ddcc2b22abcdd81843099a4cd603785ba62d61d8a6d5bb115708fd6fe84"
+  },
+  "cleanup": {
+    "run_a_source_checkout_clean_before": true,
+    "run_a_source_checkout_clean_after": true,
+    "run_b_source_checkout_clean_before": true,
+    "run_b_source_checkout_clean_after": true,
+    "run_a_source_ignored_state_unchanged": true,
+    "run_b_source_ignored_state_unchanged": true,
+    "run_a_external_work_root_entry_count_after": 0,
+    "run_b_external_work_root_entry_count_after": 0,
+    "residual_disposable_checkout_count": 0,
+    "persistent_worktree_created": false
+  },
+  "preservation": {
+    "foundation_changed": false,
+    "foundation_executed": false,
+    "naturalization_changed": false,
+    "naturalization_executed": false,
+    "phase8_handoff_changed": false,
+    "candidate_changed": false,
+    "facts_or_manifest_changed": false,
+    "publish_attempt_changed": false,
+    "publish_attempt_executed": false,
+    "new_persistent_worktree_created": false
+  },
+  "successor_boundary": {
+    "validated_subject_is_unchanged_by_this_record": true,
+    "this_record_is_not_the_validated_subject": true,
+    "tests_rerun_for_this_successor_record": false,
+    "self_referential_commit_fields": 0
+  }
+}

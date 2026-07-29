@@ -1,0 +1,19 @@
+{
+  "attempt_id": "attempt-0011",
+  "schema_version": "food-semantic-registry-cutover-rollback-snapshot-v1",
+  "status": "READY",
+  "targets": {
+    "facts": {
+      "byte_count": 2367012,
+      "sha256": "ca74270191289af064d9d8fa9d739c97b0865d69e255885e815b01565243f46e",
+      "snapshot_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0011/transaction/rollback_current_facts.jsonl",
+      "target_path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl"
+    },
+    "manifest": {
+      "byte_count": 9520,
+      "sha256": "c9670c1625382444fe292158e6b50e65e2ee54316d2903835ebc4f59c199257d",
+      "snapshot_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0011/transaction/rollback_current_input_manifest.json",
+      "target_path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json"
+    }
+  }
+}

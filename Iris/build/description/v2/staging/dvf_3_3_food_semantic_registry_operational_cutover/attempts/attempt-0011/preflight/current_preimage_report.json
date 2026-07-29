@@ -1,0 +1,156 @@
+{
+  "attempt_id": "attempt-0011",
+  "candidate_first": true,
+  "candidate_hashes": {
+    "facts": "37db2595eff9b58f7b08e59221e950cb529453bd96733fb29171d458e46118f6",
+    "manifest": "a105e3790896b30bc25e95839ceb0ee4c88357fed98ec9fa4258790bf0733a1f"
+  },
+  "entry_identity": {
+    "implementation_commit": "4cb771e3aaefa07200409192eec432263c98e90d",
+    "implementation_tree": "f088e29fb2b764fe81b16a41c0db206437145cc2",
+    "input_commit": "ea38a238bef5d7e7e283b03adcef22e0bae31e50",
+    "input_tree": "052edaf9ebf2f8fa5484b4d27e535db59450c61a",
+    "required_ancestor": "ca851a1e10bd37be71deded1fcc57b0d8462db48",
+    "required_ancestor_verified": true,
+    "status": "PASS"
+  },
+  "forbidden_scope_execution_count": 0,
+  "generated_at": "2026-07-29T11:39:19.038794+00:00",
+  "input_validation": {
+    "corrected_row_count": 67,
+    "correction_patch_count": 70,
+    "current_preimages": {
+      "facts": "ca74270191289af064d9d8fa9d739c97b0865d69e255885e815b01565243f46e",
+      "manifest": "c9670c1625382444fe292158e6b50e65e2ee54316d2903835ebc4f59c199257d"
+    },
+    "layer4_evidence_consumed_count": 0,
+    "non_target_byte_identity": "2038/2038",
+    "previous_correction_regression": "0/184",
+    "status": "PASS",
+    "successor": {
+      "facts": "37db2595eff9b58f7b08e59221e950cb529453bd96733fb29171d458e46118f6",
+      "manifest": "e5ccc87ad00e3c8f009ad79a294ea771046d16e12a3582908bcb813545e7e63e",
+      "receipt": "5d01e7c6d19336ed5231163060e636ad45ff6a79cc6f40faf971a89d4f8810fe"
+    },
+    "unresolved_row_count": 0
+  },
+  "live_current_mutation_count": 0,
+  "preservation": {
+    "input_commit": "ea38a238bef5d7e7e283b03adcef22e0bae31e50",
+    "inventory_sha256": "2bce9c78425ac60e4d2b71c18cc33b74a669e53360c46b2861bec9e09600d03b",
+    "observed_commit": "4cb771e3aaefa07200409192eec432263c98e90d",
+    "protected_path_count": 281,
+    "status": "PASS"
+  },
+  "projection_allowed_paths": [
+    "authority_role",
+    "current_facts_correction_successor.current_authority_mutated",
+    "current_facts_correction_successor.registry_cutover_attempt_id",
+    "current_facts_correction_successor.registry_cutover_performed",
+    "current_facts_correction_successor.successor_receipt_path",
+    "current_facts_correction_successor.successor_receipt_sha256",
+    "facts.path",
+    "facts.role",
+    "food_semantic_authority.current_adoption_allowed",
+    "food_semantic_authority.non_current",
+    "food_semantic_authority.registry_adoption_state",
+    "food_semantic_authority.registry_cutover_attempt_id",
+    "source_promotion.current_facts_correction_adoption_0002_binding",
+    "status"
+  ],
+  "projection_differences": [
+    {
+      "after": "successor_current_source_authority",
+      "before": "sealed_non_current_correction_successor",
+      "path": "authority_role"
+    },
+    {
+      "after": true,
+      "before": false,
+      "path": "current_facts_correction_successor.current_authority_mutated"
+    },
+    {
+      "after": "attempt-0011",
+      "before": null,
+      "path": "current_facts_correction_successor.registry_cutover_attempt_id"
+    },
+    {
+      "after": true,
+      "before": false,
+      "path": "current_facts_correction_successor.registry_cutover_performed"
+    },
+    {
+      "after": "Iris/build/description/v2/staging/dvf_3_3_current_facts_correction_successor/successors/correction-0002/successor_receipt.json",
+      "before": null,
+      "path": "current_facts_correction_successor.successor_receipt_path"
+    },
+    {
+      "after": "5d01e7c6d19336ed5231163060e636ad45ff6a79cc6f40faf971a89d4f8810fe",
+      "before": null,
+      "path": "current_facts_correction_successor.successor_receipt_sha256"
+    },
+    {
+      "after": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+      "before": "Iris/build/description/v2/staging/dvf_3_3_current_facts_correction_successor/successors/correction-0002/successor_facts.jsonl",
+      "path": "facts.path"
+    },
+    {
+      "after": "current_source_authority",
+      "before": "sealed_non_current_correction_successor",
+      "path": "facts.role"
+    },
+    {
+      "after": true,
+      "before": false,
+      "path": "food_semantic_authority.current_adoption_allowed"
+    },
+    {
+      "after": false,
+      "before": true,
+      "path": "food_semantic_authority.non_current"
+    },
+    {
+      "after": "current_correction_0002",
+      "before": "correction_successor_0002_sealed",
+      "path": "food_semantic_authority.registry_adoption_state"
+    },
+    {
+      "after": "attempt-0011",
+      "before": "attempt-0009",
+      "path": "food_semantic_authority.registry_cutover_attempt_id"
+    },
+    {
+      "after": {
+        "append_only": true,
+        "dual_current_allowed": false,
+        "initial_g3_adoption_receipt_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/closeout/registry_adoption_receipt.json",
+        "initial_g3_adoption_receipt_sha256": "efcc387bb395b561ab67df0cab4e498fe0b429680fc6cc8f6dd96eb94ba49751",
+        "partial_current_allowed": false,
+        "post_adoption_predecessor_restore_allowed": false,
+        "predecessor_current_facts_sha256": "ca74270191289af064d9d8fa9d739c97b0865d69e255885e815b01565243f46e",
+        "predecessor_current_manifest_sha256": "c9670c1625382444fe292158e6b50e65e2ee54316d2903835ebc4f59c199257d",
+        "previous_correction_receipt_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0010/closeout/registry_correction_adoption_receipt.json",
+        "previous_correction_receipt_sha256": "92cb65656562ec874dafea118c85ce424e2f391f36ee27860029c6fef582978f",
+        "registry_cutover_attempt_id": "attempt-0011",
+        "schema_version": "dvf-3-3-current-facts-correction-adoption-binding-v2",
+        "sealed_successor_manifest_path": "Iris/build/description/v2/staging/dvf_3_3_current_facts_correction_successor/successors/correction-0002/successor_input_manifest.json",
+        "sealed_successor_manifest_sha256": "e5ccc87ad00e3c8f009ad79a294ea771046d16e12a3582908bcb813545e7e63e",
+        "successor_facts_path": "Iris/build/description/v2/staging/dvf_3_3_current_facts_correction_successor/successors/correction-0002/successor_facts.jsonl",
+        "successor_facts_sha256": "37db2595eff9b58f7b08e59221e950cb529453bd96733fb29171d458e46118f6",
+        "successor_id": "correction-0002",
+        "successor_receipt_path": "Iris/build/description/v2/staging/dvf_3_3_current_facts_correction_successor/successors/correction-0002/successor_receipt.json",
+        "successor_receipt_sha256": "5d01e7c6d19336ed5231163060e636ad45ff6a79cc6f40faf971a89d4f8810fe"
+      },
+      "before": null,
+      "path": "source_promotion.current_facts_correction_adoption_0002_binding"
+    },
+    {
+      "after": "current_authority",
+      "before": "sealed_correction_successor",
+      "path": "status"
+    }
+  ],
+  "projection_source_manifest_sha256": "e5ccc87ad00e3c8f009ad79a294ea771046d16e12a3582908bcb813545e7e63e",
+  "schema_version": "dvf-3-3-registry-correction-0002-preimage-v1",
+  "status": "PASS"
+}

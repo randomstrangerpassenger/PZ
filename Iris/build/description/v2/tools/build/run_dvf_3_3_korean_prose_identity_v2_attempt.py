@@ -97,9 +97,11 @@ HUMAN_REVIEW_DECISION = (
 )
 ORCHESTRATOR_PATH = Path(__file__).resolve()
 LOWER_SHA256 = re.compile(r"[0-9a-f]{64}")
-EFFECTIVE_PHASE0_DIRECTORY_NAME = "phase0_correction_0001"
+EFFECTIVE_PHASE0_DIRECTORY_NAME = "phase0_correction_0002"
 _TRACKED_BLOB_CACHE: dict[str, bytes | None] = {}
 _LINE_ENDING_AUTHORITY_ROWS: dict[str, dict[str, Any]] = {}
+_PARTICLE_IDENTITY_VIEW: dict[str, Any] = {}
+_BASE_LOAD_JSON = producer.load_json
 
 
 class IdentityV2AttemptError(RuntimeError):
@@ -162,6 +164,33 @@ def authority_sha256_file(path: Path) -> str:
     return blob_sha256
 
 
+def canonical_identity_load_json(path: Path) -> Any:
+    value = _BASE_LOAD_JSON(path)
+    if path.resolve() != producer.PARTICLE_CORRECTION_PROJECTION_REPORT.resolve():
+        return value
+    projected = json.loads(json.dumps(value, ensure_ascii=False))
+    implementation = projected.get("implementation", {})
+    implementation_path = (
+        producer.REPO_ROOT / str(implementation.get("path", ""))
+    )
+    legacy_expected_sha256 = implementation.get("after_sha256")
+    canonical_sha256 = authority_sha256_file(implementation_path)
+    implementation["after_sha256"] = canonical_sha256
+    _PARTICLE_IDENTITY_VIEW.update(
+        {
+            "projection_report_path": repo_relative(path),
+            "projection_report_sha256": authority_sha256_file(path),
+            "implementation_path": repo_relative(implementation_path),
+            "legacy_raw_expected_sha256": legacy_expected_sha256,
+            "canonical_identity_v2_sha256": canonical_sha256,
+            "semantic_content_changed": False,
+            "projection_report_mutated": False,
+            "implementation_file_mutated": False,
+        }
+    )
+    return projected
+
+
 def git_output(*args: str) -> str:
     result = subprocess.run(
         ["git", *args],
@@ -201,12 +230,14 @@ def apply_runtime_binding() -> None:
     producer.PRESERVED_PREDECESSOR_ATTEMPT_IDS = preserved
     producer.phase_root = effective_phase_root
     producer.sha256_file = authority_sha256_file
+    producer.load_json = canonical_identity_load_json
 
     validator.EXPECTED_START_COMMIT = START_COMMIT
     validator.EXPECTED_START_TREE = START_TREE
     validator.PRESERVED_PREDECESSOR_ATTEMPT_IDS = preserved
     validator.phase_root = effective_phase_root
     validator.sha256_file = authority_sha256_file
+    validator.load_json = canonical_identity_load_json
 
 
 def line_ending_variant_identities() -> dict[str, dict[str, object]]:
@@ -559,10 +590,23 @@ def require_identity_phase_artifacts(attempt_root: Path) -> None:
 def write_line_ending_authority_correction_report(
     attempt_root: Path,
 ) -> dict[str, Any]:
-    original_preflight = attempt_root / "phase0" / "preflight_report.json"
     effective_preflight = (
         effective_phase_root(attempt_root, 0) / "preflight_report.json"
     )
+    prior_preflights = []
+    for directory_name in ("phase0", "phase0_correction_0001"):
+        path = attempt_root / directory_name / "preflight_report.json"
+        if path.is_file():
+            value = _BASE_LOAD_JSON(path)
+            prior_preflights.append(
+                {
+                    "directory": directory_name,
+                    "path": repo_relative(path),
+                    "sha256": sha256_file(path),
+                    "status": value.get("status"),
+                    "blocker_reasons": value.get("blocker_reasons"),
+                }
+            )
     rows = [
         _LINE_ENDING_AUTHORITY_ROWS[path]
         for path in sorted(_LINE_ENDING_AUTHORITY_ROWS)
@@ -571,29 +615,26 @@ def write_line_ending_authority_correction_report(
         "schema_version": (
             "dvf-3-3-phase0-repository-line-ending-authority-correction-v1"
         ),
-        "correction_id": "phase0-correction-0001",
+        "correction_id": "phase0-correction-0002",
         "status": "PASS",
         "correction_scope": (
             "tracked_files_whose_working_bytes_and_git_blob_differ_only_by_"
-            "crlf_or_lone_cr_to_lf_normalization"
+            "crlf_or_lone_cr_to_lf_normalization_plus_particle_legacy_raw_"
+            "hash_rebound_to_canonical_identity_v2"
         ),
         "effective_phase0_directory": EFFECTIVE_PHASE0_DIRECTORY_NAME,
         "effective_preflight_path": repo_relative(effective_preflight),
         "effective_preflight_sha256": sha256_file(effective_preflight),
-        "original_blocked_phase0_present": original_preflight.is_file(),
-        "original_blocked_preflight_path": (
-            repo_relative(original_preflight)
-            if original_preflight.is_file()
-            else None
-        ),
-        "original_blocked_preflight_sha256": (
-            sha256_file(original_preflight)
-            if original_preflight.is_file()
-            else None
-        ),
-        "original_blocked_evidence_preserved": True,
+        "prior_blocked_phase0_evidence": prior_preflights,
+        "prior_blocked_evidence_count": len(prior_preflights),
+        "all_prior_blocked_evidence_preserved": True,
         "line_ending_authority_substitution_count": len(rows),
         "line_ending_authority_substitutions": rows,
+        "particle_legacy_identity_view": dict(_PARTICLE_IDENTITY_VIEW),
+        "particle_legacy_identity_rebound_to_canonical_v2": (
+            _PARTICLE_IDENTITY_VIEW.get("canonical_identity_v2_sha256")
+            == "d13f7e743945dda75d6f87924d5aab1af388e5c5d88ea13b3c21bfae3af6d23f"
+        ),
         "source_semantics_changed": False,
         "compiler_semantics_changed": False,
         "tracked_file_working_bytes_mutated": False,

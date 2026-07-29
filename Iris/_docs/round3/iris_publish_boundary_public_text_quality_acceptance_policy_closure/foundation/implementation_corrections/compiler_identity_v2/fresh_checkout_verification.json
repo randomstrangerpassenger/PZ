@@ -1,0 +1,31 @@
+{
+  "schema_version": "public_text_quality_compiler_identity_fresh_checkout_verification_v1",
+  "status": "PASS",
+  "source_commit": "c4598018888d9711bb5c9e80888941908e240aa1",
+  "source_tree": "33b83c2bb9d5ef657029173031adf2af4219c461",
+  "algorithm_id": "naturalization_compiler_identity_sha256_lf_normalized_ordered_paths_v2",
+  "expected_aggregate_sha256": "aa88ee878cfb570b8278b40e62c560f093dc6ffdc363f06ed7133352d635c647",
+  "checkout_results": [
+    {
+      "checkout_id": "fresh-checkout-a",
+      "detached_head": true,
+      "commit": "c4598018888d9711bb5c9e80888941908e240aa1",
+      "tree": "33b83c2bb9d5ef657029173031adf2af4219c461",
+      "aggregate_sha256": "aa88ee878cfb570b8278b40e62c560f093dc6ffdc363f06ed7133352d635c647",
+      "command_exit_code": 0,
+      "worktree_status_count": 0
+    },
+    {
+      "checkout_id": "fresh-checkout-b",
+      "detached_head": true,
+      "commit": "c4598018888d9711bb5c9e80888941908e240aa1",
+      "tree": "33b83c2bb9d5ef657029173031adf2af4219c461",
+      "aggregate_sha256": "aa88ee878cfb570b8278b40e62c560f093dc6ffdc363f06ed7133352d635c647",
+      "command_exit_code": 0,
+      "worktree_status_count": 0
+    }
+  ],
+  "aggregate_identity_count": 1,
+  "fresh_checkout_count": 2,
+  "host_or_absolute_path_recorded": false
+}

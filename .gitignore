@@ -838,3 +838,10 @@ Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acce
 !Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0004-official/phase6/pre_adoption_protected_surface_report.json
 !Iris/build/description/v2/tools/build/naturalization_compiler_identity.py
 !Iris/build/description/v2/tests/test_naturalization_compiler_identity.py
+
+# G4 Foundation canonical compiler identity v2 implementation-correction readiness.
+!Iris/build/description/v2/tools/build/public_text_quality_foundation_implementation_correction.py
+!Iris/build/description/v2/tools/build/run_public_text_quality_foundation_implementation_correction.py
+!Iris/build/description/v2/tools/build/validate_public_text_quality_foundation_implementation_correction.py
+!Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/readiness_successors/implementation-correction-0001/
+!Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/readiness_successors/implementation-correction-0001/public_text_quality_development_readiness_implementation_correction.json

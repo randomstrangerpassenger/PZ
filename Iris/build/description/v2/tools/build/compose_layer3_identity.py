@@ -74,18 +74,144 @@ def strip_sentence_ending(text: str) -> str:
     return text.strip().rstrip(".!?").strip()
 
 
+def append_object_particle(noun: str) -> str:
+    normalized = noun.strip()
+    if not normalized:
+        return normalized
+    return f"{normalized}{'을' if has_final_consonant(normalized) else '를'}"
+
+
+def realize_concrete_work_context(context: str, body: str) -> str:
+    """Bind a source work-context noun to the concrete action that follows."""
+
+    normalized_context = context.strip()
+    normalized_body = body.strip()
+    if normalized_context == "전자":
+        if normalized_body.startswith("기기를 "):
+            return f"전자 {normalized_body}"
+        if normalized_body.startswith("분해하는 대상"):
+            return f"전자 기기 중 {normalized_body}"
+    if normalized_context == "주방":
+        return f"주방에서 {normalized_body}"
+    if normalized_context == "전력":
+        return f"전력 공급을 위해 {normalized_body}"
+    if normalized_context == "여가":
+        return f"여가를 보내며 {normalized_body}"
+    return f"{normalized_context}하며 {normalized_body}"
+
+
+def realize_work_use_context(context: str) -> str:
+    """Return a grammatical use adjunct without emitting the internal noun 작업."""
+
+    normalized = context.strip()
+    if re.search(r"(?:는|은|ㄴ)$", normalized):
+        return f"{normalized} 데"
+    coordination = re.fullmatch(r"(.+?)와\s+(.+)", normalized)
+    if coordination:
+        first, second = coordination.groups()
+        if second == "흙":
+            return f"{first}하거나 흙을 다룰 때"
+        return f"{first}하거나 {second}할 때"
+    return normalized
+
+
+def naturalize_internal_work_abstraction(text: str) -> str:
+    """Realize source ``작업`` through its grammatical role and concrete action."""
+
+    normalized = text
+
+    # Acquisition surfaces use concrete place/vehicle nouns.  ``작업장`` is a
+    # public place noun and is intentionally distinct from the banned bare
+    # internal abstraction ``작업``.
+    normalized = re.sub(r"(?<![가-힣])작업 차량", "현장 차량", normalized)
+    normalized = re.sub(r"(?<![가-힣])작업 현장", "현장", normalized)
+    normalized = re.sub(r"\s+작업 구역", " 구역", normalized)
+    normalized = re.sub(r"\s+작업 장소와", " 작업장과", normalized)
+    normalized = re.sub(r"\s+작업 장소에서", " 작업장에서", normalized)
+    normalized = re.sub(r"\s+작업 장소", " 작업장", normalized)
+
+    # A coordinated ``A나 작업`` source means the identity serves the named
+    # context and other uses.  Keep both meanings without a vague synonym.
+    normalized = re.sub(
+        r"^(.+?)나 작업에 함께 쓰는 (.+)$",
+        r"\1에서뿐 아니라 다른 쓰임으로도 쓰는 \2",
+        normalized,
+    )
+
+    # Bind a context directly to the already-declared concrete action.
+    match = re.fullmatch(r"(.+?) 작업에서 (.+)", normalized)
+    if match:
+        normalized = realize_concrete_work_context(*match.groups())
+
+    # A relative action followed by ``작업에 쓰는`` is naturally a ``데``
+    # adjunct.  Nominal contexts retain their source label without the
+    # implementation-facing abstraction.
+    match = re.fullmatch(r"(.+?) 작업에 쓰는 (.+)", normalized)
+    if match:
+        context, body = match.groups()
+        use_context = realize_work_use_context(context)
+        particle = "" if use_context.endswith(("데", "때")) else "에"
+        normalized = f"{use_context}{particle} 쓰는 {body}"
+
+    match = re.fullmatch(r"(.+?) 작업에 들어가는 (.+)", normalized)
+    if match:
+        context, body = match.groups()
+        normalized = f"{context.strip()}에 들어가는 {body.strip()}"
+
+    match = re.fullmatch(r"(.+?) 작업에 필요한 (.+)", normalized)
+    if match:
+        context, body = match.groups()
+        normalized = f"{context.strip()}에 필요한 {body.strip()}"
+
+    match = re.fullmatch(r"(.+?) 작업 중 (.+)", normalized)
+    if match:
+        context, body = match.groups()
+        normalized = f"{context.strip()} 중 {body.strip()}"
+
+    match = re.fullmatch(r"(.+?) 작업을 준비할 때 (.+)", normalized)
+    if match:
+        context, body = match.groups()
+        normalized = (
+            f"{append_object_particle(context.strip())} 준비할 때 {body.strip()}"
+        )
+
+    match = re.fullmatch(r"(.+?) 작업으로 (.+)", normalized)
+    if match:
+        context, body = match.groups()
+        normalized = f"{append_instrumental(context.strip())} {body.strip()}"
+
+    match = re.fullmatch(r"(.+?) 작업에도 (.+)", normalized)
+    if match:
+        context, body = match.groups()
+        normalized = f"{context.strip()}에도 {body.strip()}"
+
+    match = re.fullmatch(r"(.+?) 작업을 지원한다", normalized)
+    if match:
+        context = match.group(1).strip()
+        if context == "주방":
+            normalized = "주방에서 쓴다"
+        elif context == "전자":
+            normalized = "전자 기기를 다룰 때 쓴다"
+        else:
+            normalized = f"{append_object_particle(context)} 할 때 돕는다"
+
+    return normalized
+
+
 def naturalize_source_fragment(text: str) -> tuple[str, list[str]]:
     """Apply the closed, item-independent lexical realization rewrites."""
 
     normalized = strip_sentence_ending(text)
     transformations: list[str] = []
-    # ``작업`` is a source-bearing noun, including when a Korean case particle
-    # is attached.  Replacing it with ``과정`` without semantic context corrupts
-    # compounds and parallel phrases, so lexical naturalization must preserve it.
+    work_naturalized = naturalize_internal_work_abstraction(normalized)
+    if work_naturalized != normalized:
+        normalized = work_naturalized
+        transformations.append("lexical_surface_naturalization")
     replacements = (
         (r"맥락에서", "상황에서"),
         (r"부품", "구성품"),
         (r"용도", "쓰임"),
+        (r"^(.+?)\s+형태의\s+(.+다)$", r"\1 형태로 된 \2"),
         (r"사용된다$", "쓴다"),
         (r"활용된다$", "쓴다"),
         (r"다뤄진다$", "다룬다"),
@@ -510,6 +636,18 @@ def select_candidate_lead_realization(
             identity
             and use.replace(" ", "").count(identity.replace(" ", "")) > 1
         ):
+            terminal_identity = re.fullmatch(
+                rf"(.+?)\s+쓰는\s+{re.escape(identity)}(?:이)?다",
+                use,
+            )
+            if terminal_identity and (
+                normalize_for_contains(identity)
+                in normalize_for_contains(terminal_identity.group(1))
+            ):
+                use = f"{terminal_identity.group(1).strip()} 쓴다"
+                transformations.extend(
+                    ["suppress_duplicate", "pronoun_or_zero_anaphora"]
+                )
             reduced = re.sub(
                 rf"^{re.escape(identity)}\s+",
                 "",

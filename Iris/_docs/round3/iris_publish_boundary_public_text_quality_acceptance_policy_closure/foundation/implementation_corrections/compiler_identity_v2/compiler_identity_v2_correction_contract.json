@@ -1,0 +1,137 @@
+{
+  "schema_version": "public_text_quality_compiler_identity_implementation_correction_v1",
+  "correction_id": "compiler-identity-v2-line-ending-canonicalization",
+  "status": "implementation_ready_foundation_successor_required",
+  "start_readpoint": {
+    "commit": "2cf81462d058ce1c3f09fabeff8a3265fba1c152",
+    "tree": "93eb6e7470f9573dad1cbe094df2ff50cc875d5a"
+  },
+  "preserved_failure": {
+    "official_attempt_id": "attempt-0004-official",
+    "official_attempt_id_consumed": false,
+    "official_attempt_root_created": false,
+    "phase0_failure_preserved": true,
+    "phase0_failure_reason": "handoff naturalization compiler implementation is stale",
+    "naturalization_attempt_0022_modified": false,
+    "naturalization_handoff_modified": false
+  },
+  "root_cause": {
+    "compiler_implementation_path_change_count": 0,
+    "handoff_compiler_aggregate_sha256": "52e5a694a7150df94ddcb2fa36ccdd83da62f6a5a31d4ba4db91c2ae265b6d8f",
+    "working_byte_aggregate_sha256": "7992ed66c83e4f80c5bca8d6c21ff00241cf0c9db63c80e90819167175a05f60",
+    "head_blob_aggregate_sha256": "82f07bad56b20c2cc101f99a5a044a6cbdba9df644162e89bb4d6c3fd1e36c93",
+    "classification": "line_ending_and_git_representation_identity_drift",
+    "compiler_semantic_change_detected": false
+  },
+  "foundation_impact": {
+    "foundation_contract_path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json",
+    "foundation_contract_raw_sha256": "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02",
+    "foundation_contract_meaning_changed": false,
+    "policy_threshold_denominator_or_detector_changed": false,
+    "required_handoff_constituent_ids_changed": false,
+    "foundation_implementation_changed": true,
+    "fresh_implementation_correction_successor_required": true,
+    "authority_effect": "none"
+  },
+  "shared_identity_contract": {
+    "producer_path": "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py",
+    "consumer_path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py",
+    "shared_implementation_path": "Iris/build/description/v2/tools/build/naturalization_compiler_identity.py",
+    "shared_function": "build_compiler_identity",
+    "producer_consumer_function_identity_required": true,
+    "gitattributes_is_not_an_identity_input": true
+  },
+  "canonical_identity_v2": {
+    "schema_version": "naturalization_compiler_identity_evidence_v2",
+    "algorithm_id": "naturalization_compiler_identity_sha256_lf_normalized_ordered_paths_v2",
+    "path_order": [
+      "Iris/build/description/v2/tools/build/compose_layer3_text.py",
+      "Iris/build/description/v2/tools/build/compose_layer3_body_profile.py",
+      "Iris/build/description/v2/tools/build/compose_layer3_item.py",
+      "Iris/build/description/v2/tools/build/compose_layer3_render.py",
+      "Iris/build/description/v2/tools/build/compose_layer3_blocks.py",
+      "Iris/build/description/v2/tools/build/compose_layer3_identity.py",
+      "Iris/build/description/v2/tools/build/compose_layer3_io.py",
+      "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py",
+      "Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py"
+    ],
+    "ordered_files": [
+      {
+        "ordinal": 0,
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_text.py",
+        "hash_algorithm_id": "sha256_crlf_and_lone_cr_to_lf_bytes_v1",
+        "canonical_sha256": "8d8c3933cd1de5b170929af1462a2a4151676861a7876434d6769508955395df"
+      },
+      {
+        "ordinal": 1,
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_body_profile.py",
+        "hash_algorithm_id": "sha256_crlf_and_lone_cr_to_lf_bytes_v1",
+        "canonical_sha256": "88aae7c9175a342e294c9667c71e53c0f03d41626507d02cc9c510e92a8362ba"
+      },
+      {
+        "ordinal": 2,
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_item.py",
+        "hash_algorithm_id": "sha256_crlf_and_lone_cr_to_lf_bytes_v1",
+        "canonical_sha256": "e04119c5a75aa103d622c26a4eb51043d858b1a3501297b0f10e40d66a510659"
+      },
+      {
+        "ordinal": 3,
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_render.py",
+        "hash_algorithm_id": "sha256_crlf_and_lone_cr_to_lf_bytes_v1",
+        "canonical_sha256": "0b588bcafa6b31e3920ef2e7672bef10462b2a6f2729d7169b53c77d57a19b34"
+      },
+      {
+        "ordinal": 4,
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_blocks.py",
+        "hash_algorithm_id": "sha256_crlf_and_lone_cr_to_lf_bytes_v1",
+        "canonical_sha256": "82b041edb69ec2d959302ed54600fabcefc37e1b081f8023566ac0dab2cbe87c"
+      },
+      {
+        "ordinal": 5,
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_identity.py",
+        "hash_algorithm_id": "sha256_crlf_and_lone_cr_to_lf_bytes_v1",
+        "canonical_sha256": "d13f7e743945dda75d6f87924d5aab1af388e5c5d88ea13b3c21bfae3af6d23f"
+      },
+      {
+        "ordinal": 6,
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_io.py",
+        "hash_algorithm_id": "sha256_crlf_and_lone_cr_to_lf_bytes_v1",
+        "canonical_sha256": "12b98ea1de9e7eff87d1ba06cdf62e30f47e193b55070221dd5c0ace46494ed5"
+      },
+      {
+        "ordinal": 7,
+        "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py",
+        "hash_algorithm_id": "sha256_crlf_and_lone_cr_to_lf_bytes_v1",
+        "canonical_sha256": "15ea5a22840250514f97427b516f07a5abd8a7c60fca1403d87cc4f2e7736e62"
+      },
+      {
+        "ordinal": 8,
+        "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py",
+        "hash_algorithm_id": "sha256_crlf_and_lone_cr_to_lf_bytes_v1",
+        "canonical_sha256": "76797230b2b914f6eeb9ffea5b287d4fb779655b46f30fd36a1cb7a54e22f92d"
+      }
+    ],
+    "aggregate_sha256": "aa88ee878cfb570b8278b40e62c560f093dc6ffdc363f06ed7133352d635c647",
+    "content_normalization": "replace_crlf_then_lone_cr_with_lf",
+    "path_form": "repo_relative_posix",
+    "excluded_identity_inputs": [
+      "absolute_path",
+      "mtime",
+      "worktree_location",
+      "host_metadata",
+      "raw_line_ending_representation"
+    ]
+  },
+  "required_test_contract": {
+    "producer_consumer_identity": "test_producer_and_consumer_share_v2_identity_and_path_order",
+    "line_ending_metamorphic": "test_working_and_git_blob_line_endings_are_metamorphic",
+    "semantic_source_change_stale": "test_one_byte_semantic_source_change_is_stale"
+  },
+  "scope_guards": {
+    "new_naturalization_attempt_created": false,
+    "new_publish_attempt_created": false,
+    "live_gate_mutated": false,
+    "runtime_lua_or_package_mutated": false,
+    "prior_handoff_or_attempt_rewritten": false
+  }
+}

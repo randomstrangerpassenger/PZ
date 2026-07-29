@@ -34,6 +34,10 @@ if __package__ in {None, ""}:
         build_candidate_rendered,
         build_rendered,
     )
+    from tools.build.naturalization_compiler_identity import (
+        build_compiler_identity,
+        compiler_source_paths,
+    )
 else:
     from .compose_layer3_body_profile import (
         build_candidate_body_plan_requirements,
@@ -53,6 +57,10 @@ else:
         ComposeEntrypointGuardError,
         build_candidate_rendered,
         build_rendered,
+    )
+    from .naturalization_compiler_identity import (
+        build_compiler_identity,
+        compiler_source_paths,
     )
 
 
@@ -257,17 +265,7 @@ PROTECTED_PATHS = (
     REPO_ROOT / "Iris" / "build" / "package" / "Iris.zip",
     REPO_ROOT / "Iris" / "build" / "package" / "Iris.package_manifest.sha256.json",
 )
-COMPILER_IMPLEMENTATION_PATHS = (
-    TOOLS_DIR / "compose_layer3_text.py",
-    TOOLS_DIR / "compose_layer3_body_profile.py",
-    TOOLS_DIR / "compose_layer3_item.py",
-    TOOLS_DIR / "compose_layer3_render.py",
-    TOOLS_DIR / "compose_layer3_blocks.py",
-    TOOLS_DIR / "compose_layer3_identity.py",
-    TOOLS_DIR / "compose_layer3_io.py",
-    Path(__file__).resolve(),
-    TOOLS_DIR / "validate_dvf_3_3_korean_prose_naturalization.py",
-)
+COMPILER_IMPLEMENTATION_PATHS = compiler_source_paths(REPO_ROOT)
 SOURCE_ROLE_BY_FIELD = {
     "identity_hint": "identity",
     "primary_use": "use",
@@ -2949,6 +2947,7 @@ def build_phase3(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
     contract = {
         "schema_version": "dvf-3-3-compiler-contract-test-report-v1",
         "attempt_id": attempt_id,
+        "compiler_identity": implementation_identity(),
         "candidate_mode_requires_staging": True,
         "policy_hash_required": True,
         "attempt_local_output_required": True,
@@ -3024,12 +3023,12 @@ def require_phase3(attempt_root: Path) -> dict[str, Any]:
 
 def implementation_hash() -> str:
     require_files(COMPILER_IMPLEMENTATION_PATHS)
-    return canonical_hash(
-        [
-            {"path": repo_relative(path), "sha256": sha256_file(path)}
-            for path in COMPILER_IMPLEMENTATION_PATHS
-        ]
-    )
+    return str(build_compiler_identity(REPO_ROOT)["aggregate_sha256"])
+
+
+def implementation_identity() -> dict[str, object]:
+    require_files(COMPILER_IMPLEMENTATION_PATHS)
+    return build_compiler_identity(REPO_ROOT)
 
 
 def build_phase4(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
@@ -3083,8 +3082,9 @@ def build_phase4(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
     ]
     write_jsonl_once_or_same(root / "unadopted_disposition.jsonl", unadopted)
     entry_keys = sorted(str(value) for value in candidate["entries"])
+    compiler_identity = implementation_identity()
     candidate_manifest = {
-        "schema_version": "dvf-3-3-korean-prose-candidate-manifest-v1",
+        "schema_version": "dvf-3-3-korean-prose-candidate-manifest-v2",
         "naturalization_attempt_id": attempt_id,
         "candidate_rendered_path": repo_relative(candidate_path),
         "candidate_rendered_hash": sha256_file(candidate_path),
@@ -3104,7 +3104,8 @@ def build_phase4(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
         ),
         "korean_prose_policy_hash": sha256_file(POLICY_PATH),
         "corpus_manifest_hash": sha256_file(CORPUS_MANIFEST_PATH),
-        "compiler_implementation_hash": implementation_hash(),
+        "compiler_identity": compiler_identity,
+        "compiler_implementation_hash": compiler_identity["aggregate_sha256"],
         "source_universe_count": len(entry_keys),
         "candidate_emission_count": candidate["meta"]["stats"]["candidate_emitted"],
         "unadopted_count": len(unadopted),

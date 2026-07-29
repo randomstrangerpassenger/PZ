@@ -836,3 +836,5 @@ Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acce
 !Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0004-official/phase6/required_artifact_recensus_report.json
 !Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0004-official/phase6/stale_disposition_consumption_guard_report.json
 !Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0004-official/phase6/pre_adoption_protected_surface_report.json
+!Iris/build/description/v2/tools/build/naturalization_compiler_identity.py
+!Iris/build/description/v2/tests/test_naturalization_compiler_identity.py

@@ -9,6 +9,18 @@ import re
 import subprocess
 from typing import Any, Iterable
 
+try:
+    from .naturalization_compiler_identity import (
+        build_compiler_identity,
+        compiler_identity_matches_claim,
+        compiler_source_paths,
+    )
+except ImportError:
+    from naturalization_compiler_identity import (
+        build_compiler_identity,
+        compiler_identity_matches_claim,
+        compiler_source_paths,
+    )
 
 TOOLS_DIR = Path(__file__).resolve().parent
 V2_ROOT = TOOLS_DIR.parents[1]
@@ -61,17 +73,7 @@ REVIEWER_INPUT_ROOT = V2_ROOT / "reviewer_inputs" / ROUND_ID
 LIVE_REQUIRED_VALIDATIONS = (
     REPO_ROOT / "Iris" / "_docs" / "round3" / "current_route_required_validations.json"
 )
-NATURALIZATION_COMPILER_IMPLEMENTATION_FILES = (
-    TOOLS_DIR / "compose_layer3_text.py",
-    TOOLS_DIR / "compose_layer3_body_profile.py",
-    TOOLS_DIR / "compose_layer3_item.py",
-    TOOLS_DIR / "compose_layer3_render.py",
-    TOOLS_DIR / "compose_layer3_blocks.py",
-    TOOLS_DIR / "compose_layer3_identity.py",
-    TOOLS_DIR / "compose_layer3_io.py",
-    TOOLS_DIR / "run_dvf_3_3_korean_prose_naturalization.py",
-    TOOLS_DIR / "validate_dvf_3_3_korean_prose_naturalization.py",
-)
+NATURALIZATION_COMPILER_IMPLEMENTATION_FILES = compiler_source_paths(REPO_ROOT)
 
 OFFICIAL_MODES = (
     "phase0-binding",
@@ -240,6 +242,7 @@ FOUNDATION_DOCS = (
 )
 
 FOUNDATION_IMPLEMENTATION_FILES = (
+    TOOLS_DIR / "naturalization_compiler_identity.py",
     TOOLS_DIR / "public_text_quality_acceptance.py",
     TOOLS_DIR / "run_public_text_quality_acceptance.py",
     TOOLS_DIR / "validate_public_text_quality_acceptance.py",
@@ -2574,26 +2577,34 @@ def validate_candidate_handoff(
         != sha256_file(DEFAULT_FOUNDATION_ROOT / FOUNDATION_CONTRACT_NAME)
     ):
         raise FoundationContractError("handoff foundation contract is stale")
-    compiler_inventory = [
-        {"path": repo_relative(path), "sha256": sha256_file(path)}
-        for path in NATURALIZATION_COMPILER_IMPLEMENTATION_FILES
-    ]
-    compiler_aggregate_hash = sha256_bytes(
-        canonical_json_bytes(compiler_inventory) + b"\n"
+    compiler_identity = build_compiler_identity(REPO_ROOT)
+    compiler_aggregate_hash = str(compiler_identity["aggregate_sha256"])
+    compiler_claim = constituents["compiler_implementation_hash"].get("value")
+    if not compiler_identity_matches_claim(compiler_claim, compiler_identity):
+        raise FoundationContractError(
+            "handoff naturalization compiler implementation is stale"
+        )
+    candidate_manifest_path = (
+        REPO_ROOT / str(constituents["candidate_manifest_hash"]["path"])
     )
+    candidate_manifest = load_json_strict(candidate_manifest_path)
     if (
-        constituents["compiler_implementation_hash"].get("value")
+        candidate_manifest.get("schema_version")
+        != "dvf-3-3-korean-prose-candidate-manifest-v2"
+        or candidate_manifest.get("compiler_identity") != compiler_identity
+        or candidate_manifest.get("compiler_implementation_hash")
         != compiler_aggregate_hash
     ):
         raise FoundationContractError(
-            "handoff naturalization compiler implementation is stale"
+            "handoff candidate compiler identity evidence is stale"
         )
     return {
         "handoff": handoff,
         "constituents": constituents,
         "path_rows": path_rows,
         "handoff_raw_sha256": sha256_file(handoff_path),
-        "compiler_inventory": compiler_inventory,
+        "compiler_identity": compiler_identity,
+        "compiler_inventory": compiler_identity["ordered_files"],
         "compiler_aggregate_hash": compiler_aggregate_hash,
     }
 

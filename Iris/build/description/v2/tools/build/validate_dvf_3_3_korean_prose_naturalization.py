@@ -39,6 +39,7 @@ if __package__ in {None, ""}:
         REGISTRY_NATURALIZATION_HANDOFF,
         attempt_root_for,
         canonical_hash,
+        implementation_identity,
         implementation_hash,
         load_json,
         phase_root,
@@ -76,6 +77,7 @@ else:
         REGISTRY_NATURALIZATION_HANDOFF,
         attempt_root_for,
         canonical_hash,
+        implementation_identity,
         implementation_hash,
         load_json,
         phase_root,
@@ -619,6 +621,9 @@ def validate_phase2(root: Path, errors: list[str]) -> dict[str, Any]:
 
 def validate_phase3(root: Path, errors: list[str]) -> dict[str, Any]:
     result = load_json(phase_root(root, 3) / "phase3_result.json")
+    contract = load_json(
+        phase_root(root, 3) / "compiler_contract_test_report.json"
+    )
     regression = load_json(
         phase_root(root, 3) / "default_mode_regression_report.json"
     )
@@ -635,6 +640,11 @@ def validate_phase3(root: Path, errors: list[str]) -> dict[str, Any]:
         phase_root(root, 3) / "facts_authority_enrichment_request.json"
     )
     require_value(result.get("status") == "PASS", "phase3_status_not_pass", errors)
+    require_value(
+        contract.get("compiler_identity") == implementation_identity(),
+        "phase3_compiler_identity_stale",
+        errors,
+    )
     require_value(
         regression.get("legacy_normalized_content_hash_identity_pass") is True,
         "legacy_normalized_content_drift",
@@ -687,6 +697,16 @@ def validate_phase4(
     require_value(
         manifest.get("candidate_volatile_metadata_field_count") == 0,
         "candidate_volatile_metadata_present",
+        errors,
+    )
+    current_compiler_identity = implementation_identity()
+    require_value(
+        manifest.get("schema_version")
+        == "dvf-3-3-korean-prose-candidate-manifest-v2"
+        and manifest.get("compiler_identity") == current_compiler_identity
+        and manifest.get("compiler_implementation_hash")
+        == current_compiler_identity["aggregate_sha256"],
+        "candidate_compiler_identity_stale",
         errors,
     )
     if compare_root is None:

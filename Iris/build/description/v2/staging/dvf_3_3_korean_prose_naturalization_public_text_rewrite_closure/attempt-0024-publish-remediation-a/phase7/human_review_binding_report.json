@@ -1,0 +1,14 @@
+{
+  "candidate_rendered_hash": "ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437",
+  "corpus_wide_human_only_blocker_zero_claimed": true,
+  "errors": [],
+  "expanded_review_row_count": 2084,
+  "human_review_blocker_count_within_required_denominator": 0,
+  "human_review_decision_hash": "ceab588198d88d2a69fc54b37cb86ad78984a9bc00946fe0404cdae92cca15ae",
+  "human_review_decision_mode": "exact_full_candidate_external_review",
+  "human_review_decision_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt_0024_human_review_decision.json",
+  "human_review_decision_present": true,
+  "required_review_denominator": 2084,
+  "schema_version": "dvf-3-3-human-review-binding-report-v1",
+  "status": "PASS"
+}

@@ -65,6 +65,10 @@ EVALUATION_SUBJECT_KIND = "dvf_3_3_korean_naturalization_candidate"
 DEFAULT_ATTEMPT_PARENT = V2_ROOT / "staging" / ROUND_ID
 HISTORICAL_ATTEMPT_ID = "attempt-0014-remediation"
 BLOCKED_ATTEMPT_ID = "attempt-0018-g3-reseal-a"
+PRESERVED_PREDECESSOR_ATTEMPT_IDS = (
+    "attempt-0020-g4-rebind-a",
+    "attempt-0020-g4-rebind-b",
+)
 DATA_ROOT = V2_ROOT / "data" / "korean_prose_naturalization"
 DURABLE_ROOT = REPO_ROOT / "Iris" / "_docs" / "round3" / ROUND_ID
 FOUNDATION_ROOT = (
@@ -86,7 +90,7 @@ FOUNDATION_READINESS_CORRECTION_REBIND = (
 FOUNDATION_READINESS_CURRENT_INPUT_REBIND = (
     FOUNDATION_ROOT
     / "readiness_successors"
-    / "correction-0002"
+    / "correction-0003"
     / "public_text_quality_development_readiness_current_input_rebind.json"
 )
 REGISTRY_ADOPTION_CONTRACT = (
@@ -106,7 +110,7 @@ REGISTRY_ADOPTION_RECEIPT = (
     / "staging"
     / "dvf_3_3_food_semantic_registry_operational_cutover"
     / "attempts"
-    / "attempt-0011"
+    / "attempt-0012"
     / "closeout"
     / "registry_correction_adoption_receipt.json"
 )
@@ -133,10 +137,10 @@ INPUT_MANIFEST = V2_ROOT / "data" / "dvf_3_3_input_manifest.json"
 FACTS_PATH = V2_ROOT / "data" / "dvf_3_3_facts.jsonl"
 DECISIONS_PATH = V2_ROOT / "data" / "dvf_3_3_decisions.jsonl"
 EXPECTED_CURRENT_FACTS_SHA256 = (
-    "37db2595eff9b58f7b08e59221e950cb529453bd96733fb29171d458e46118f6"
+    "50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120"
 )
 EXPECTED_CURRENT_MANIFEST_SHA256 = (
-    "a105e3790896b30bc25e95839ceb0ee4c88357fed98ec9fa4258790bf0733a1f"
+    "090381a652da540c6e72300624728aba48f6392e41fb50e8eec973efd320b9b7"
 )
 EXPECTED_SELECTED_SUCCESSOR_FACTS_SHA256 = (
     "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40"
@@ -151,22 +155,25 @@ EXPECTED_FOOD_SEMANTIC_LICENSE_SHA256 = (
     "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd"
 )
 EXPECTED_REGISTRY_ADOPTION_RECEIPT_SHA256 = (
-    "475239fba798104371d2c9f4fb166c46ceab15bb462015493238a4aff4656f7f"
+    "312c9b8744e1925b120129402b4ff6834d551960c284af8e91dbdbca091a56b0"
 )
 EXPECTED_INITIAL_REGISTRY_ADOPTION_RECEIPT_SHA256 = (
     "efcc387bb395b561ab67df0cab4e498fe0b429680fc6cc8f6dd96eb94ba49751"
 )
+EXPECTED_PREVIOUS_REGISTRY_CORRECTION_RECEIPT_SHA256 = (
+    "475239fba798104371d2c9f4fb166c46ceab15bb462015493238a4aff4656f7f"
+)
 EXPECTED_REGISTRY_ADOPTION_CONTRACT_SHA256 = (
-    "c2655f766d8db30a31821471c8c871b723dadd9bb9803ff99a6765b2ec3dc361"
+    "d4aac650a5d8135e6f14846d47b08f538f63b5ad07aaf714074d7a3f6555aed4"
 )
 EXPECTED_REGISTRY_CORRECTION_SUCCESSOR_MANIFEST_SHA256 = (
-    "e5ccc87ad00e3c8f009ad79a294ea771046d16e12a3582908bcb813545e7e63e"
+    "da7f6676b899b628c444edca56241ad274f2c64fa1a3448a934abff2f059cbb5"
 )
 EXPECTED_REGISTRY_CORRECTION_TERMINAL_SEAL_SHA256 = (
-    "b54cca40e1dcbf4d279d878a6fba42e244311b33691eb27054d0881ff4682a52"
+    "03dea1902f1d219b227b2b69cb88742f1005e3620cdcdee2b72ba811d1bd20fb"
 )
 EXPECTED_REGISTRY_NATURALIZATION_HANDOFF_SHA256 = (
-    "6fa93017f037d3ffd5520a9da5ce1c2afdc97c3824de6ce00015e08aca4f068c"
+    "bfa14583f524f99a75e88d4b6eaddfa146544cba9124cf09214a13a38c7d7750"
 )
 EXPECTED_FOUNDATION_CONTRACT_SHA256 = (
     "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02"
@@ -178,11 +185,11 @@ EXPECTED_FOUNDATION_READINESS_CORRECTION_REBIND_SHA256 = (
     "bf5916854b7aeb29f603ef42efb64e2b363fc5efb899dca1434b5e5c2744f315"
 )
 EXPECTED_FOUNDATION_READINESS_CURRENT_INPUT_REBIND_SHA256 = (
-    "c362c44b01cabc0937cbddc3843ca89e994ace0fbcacac8f75e61bfb604e8cc2"
+    "912f28b7869ff92ff7fbd84cbdc31e1fbb22923beebbfcce2c9cc78b72eca9d2"
 )
 EXPECTED_COMPILER_FIX_COMMIT = "ca851a1e10bd37be71deded1fcc57b0d8462db48"
-EXPECTED_START_COMMIT = "e61a65322dabb0fd98f8e66f1a2b376cecc57eda"
-EXPECTED_START_TREE = "b7ef0a3e33797d2c55ccceecefd1cf750efc8116"
+EXPECTED_START_COMMIT = "8a203f65e3d8a943119235600fcb341ba471fac2"
+EXPECTED_START_TREE = "1572cbb3ebccb4bbf844a5325874c9c2d6fc74ec"
 POLICY_PATH = DATA_ROOT / "korean_prose_policy.json"
 CORPUS_MANIFEST_PATH = DATA_ROOT / "corpus_manifest.json"
 PLAN_PATH = (
@@ -202,7 +209,9 @@ GOLD_APPROVAL_PATH = DURABLE_ROOT / "gold_corpus_approval.json"
 BODY_PLAN_APPLICABILITY_APPROVAL_PATH = (
     DURABLE_ROOT / "body_plan_applicability_approval.json"
 )
-HUMAN_REVIEW_DECISION_PATH = DURABLE_ROOT / "human_review_decision.json"
+HUMAN_REVIEW_DECISION_PATH = (
+    DURABLE_ROOT / "attempt_0021_human_review_decision.json"
+)
 QUALITY_STANDARD_PATH = REPO_ROOT / "docs" / "dvf_3_3_korean_prose_quality_standard.md"
 GOLD_CORPUS_PATH = DATA_ROOT / "gold_corpus.jsonl"
 ROADMAP_ATTACHMENT_PATH = Path(
@@ -801,16 +810,16 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
             registry_receipt.get("sealed_successor_manifest_sha256")
             == EXPECTED_REGISTRY_CORRECTION_SUCCESSOR_MANIFEST_SHA256
         ),
-        "initial_receipt_match": (
-            registry_receipt.get("initial_g3_adoption_receipt_sha256")
-            == EXPECTED_INITIAL_REGISTRY_ADOPTION_RECEIPT_SHA256
+        "previous_correction_receipt_match": (
+            registry_receipt.get("previous_correction_receipt_sha256")
+            == EXPECTED_PREVIOUS_REGISTRY_CORRECTION_RECEIPT_SHA256
         ),
         "partial_or_dual_current_zero": (
             registry_receipt.get("partial_current_allowed") is False
             and registry_receipt.get("dual_current_allowed") is False
         ),
         "correction_attempt_match": (
-            registry_receipt.get("attempt_id") == "attempt-0011"
+            registry_receipt.get("attempt_id") == "attempt-0012"
         ),
         "forbidden_scope_execution_zero": (
             registry_receipt.get("forbidden_scope_execution_count") == 0
@@ -851,6 +860,14 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
             )
             is True
         ),
+        "correction_attempt_match": (
+            registry_naturalization_handoff.get("attempt_id")
+            == "attempt-0012"
+        ),
+        "successor_id_match": (
+            registry_naturalization_handoff.get("successor_id")
+            == "correction-0003"
+        ),
     }
     registry_contract_predicates = {
         "status_current": registry_contract.get("status") == "current",
@@ -887,18 +904,18 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
             )
             == EXPECTED_REGISTRY_ADOPTION_RECEIPT_SHA256
         ),
-        "initial_receipt_match": (
-            current_correction.get("initial_g3_adoption_receipt_sha256")
-            == EXPECTED_INITIAL_REGISTRY_ADOPTION_RECEIPT_SHA256
+        "previous_correction_receipt_match": (
+            current_correction.get("previous_correction_receipt_sha256")
+            == EXPECTED_PREVIOUS_REGISTRY_CORRECTION_RECEIPT_SHA256
         ),
         "correction_attempt_match": (
             current_correction.get("registry_cutover_attempt_id")
-            == "attempt-0011"
+            == "attempt-0012"
         ),
         "correction_selection_match": (
             current_correction_selection.get("successor_id")
-            == "correction-0002"
-            and current_correction.get("successor_id") == "correction-0002"
+            == "correction-0003"
+            and current_correction.get("successor_id") == "correction-0003"
         ),
         "legacy_direct_identity_predicate_false": (
             registry_predicates.get(
@@ -1004,7 +1021,7 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
             all(blocked_attempt_predicates.values()),
             food_manifest.get("attempt_id") == "attempt-0022",
             food_manifest.get("registry_adoption_state")
-            == "current_correction_0002",
+            == "current_correction_0003",
             food_manifest.get("proposition_count") == 718,
             food_semantic_schema.get("schema_version")
             == "food-semantic-schema-v1",
@@ -1196,12 +1213,36 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
         "blocked_attempt_role": "immutable_blocked_evidence_only",
         "blocked_attempt_resumed": False,
         "blocked_attempt_phase7_or_phase8_reentry_allowed": False,
+        "preserved_predecessor_attempt_ids": list(
+            PRESERVED_PREDECESSOR_ATTEMPT_IDS
+        ),
+        "preserved_predecessor_attempts_resumed": False,
+        "preserved_predecessor_phase7_or_phase8_reentry_allowed": False,
         "blocked_attempt_phase7_exists": (
             DEFAULT_ATTEMPT_PARENT / BLOCKED_ATTEMPT_ID / "phase7"
         ).exists(),
         "blocked_attempt_phase8_exists": (
             DEFAULT_ATTEMPT_PARENT / BLOCKED_ATTEMPT_ID / "phase8"
         ).exists(),
+        "preserved_predecessor_attempts": [
+            {
+                "attempt_id": predecessor_attempt_id,
+                "role": "immutable_predecessor_evidence_only",
+                "resumed": False,
+                "phase7_or_phase8_reentry_allowed": False,
+                "phase7_exists": (
+                    DEFAULT_ATTEMPT_PARENT
+                    / predecessor_attempt_id
+                    / "phase7"
+                ).exists(),
+                "phase8_exists": (
+                    DEFAULT_ATTEMPT_PARENT
+                    / predecessor_attempt_id
+                    / "phase8"
+                ).exists(),
+            }
+            for predecessor_attempt_id in PRESERVED_PREDECESSOR_ATTEMPT_IDS
+        ],
     }
     write_once_or_same(
         root / "historical_attempt_policy_report.json",

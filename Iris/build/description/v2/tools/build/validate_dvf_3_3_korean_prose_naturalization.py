@@ -30,6 +30,7 @@ if __package__ in {None, ""}:
         FOUNDATION_READINESS_CURRENT_INPUT_REBIND,
         FOUNDATION_READINESS_CORRECTION_REBIND,
         NaturalizationError,
+        PRESERVED_PREDECESSOR_ATTEMPT_IDS,
         REPO_ROOT,
         REGISTRY_ADOPTION_CONTRACT,
         REGISTRY_NATURALIZATION_HANDOFF,
@@ -63,6 +64,7 @@ else:
         FOUNDATION_READINESS_CURRENT_INPUT_REBIND,
         FOUNDATION_READINESS_CORRECTION_REBIND,
         NaturalizationError,
+        PRESERVED_PREDECESSOR_ATTEMPT_IDS,
         REPO_ROOT,
         REGISTRY_ADOPTION_CONTRACT,
         REGISTRY_NATURALIZATION_HANDOFF,
@@ -386,6 +388,21 @@ def validate_phase0(root: Path, errors: list[str]) -> dict[str, Any]:
         and historical_policy.get("blocked_attempt_phase7_exists") is False
         and historical_policy.get("blocked_attempt_phase8_exists") is False,
         "attempt_0018_blocked_boundary_invalid",
+        errors,
+    )
+    preserved_predecessors = historical_policy.get(
+        "preserved_predecessor_attempts", []
+    )
+    require_value(
+        [row.get("attempt_id") for row in preserved_predecessors]
+        == list(PRESERVED_PREDECESSOR_ATTEMPT_IDS)
+        and all(
+            row.get("role") == "immutable_predecessor_evidence_only"
+            and row.get("resumed") is False
+            and row.get("phase7_or_phase8_reentry_allowed") is False
+            for row in preserved_predecessors
+        ),
+        "attempt_0020_predecessor_preservation_invalid",
         errors,
     )
     return report

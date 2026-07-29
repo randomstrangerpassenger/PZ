@@ -1,0 +1,208 @@
+{
+  "schema_version": "dvf-3-3-codex-reviewer-phase7-blocked-attestation-v1",
+  "status": "BLOCKED",
+  "review_scope": "exact_required_sample_only",
+  "reviewer": {
+    "identity": "Codex Reviewer (Avicenna)",
+    "role": "external_codex_public_text_reviewer",
+    "compiler_or_runner": false
+  },
+  "candidate_binding": {
+    "naturalization_attempt_id": "attempt-0019-g3-correction-a",
+    "candidate_rendered_sha256": "d789d9e6d886836834a5611c148154cc8be0195f0b29b7defa9d39f653da9b61",
+    "sample_manifest_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0019-g3-correction-a/phase7/human_review_sample_manifest.json",
+    "selected_ordered_digest": "a4ea981ca1452f2b87755fbc5b0dd2dbf0cdcfa0b0c14b598a536612c4be85b2",
+    "selected_denominator": 195,
+    "selected_unique_denominator": 195,
+    "eligible_review_denominator": 2084,
+    "corpus_wide_human_only_blocker_zero_claimed": false
+  },
+  "deterministic_replay": {
+    "attempt_id": "attempt-0019-g3-correction-b",
+    "phase4_candidate_sha256": "d789d9e6d886836834a5611c148154cc8be0195f0b29b7defa9d39f653da9b61",
+    "phase7_executed": false,
+    "phase8_executed": false,
+    "new_attempt_required_for_this_attestation": false
+  },
+  "rubric_aggregate": {
+    "readability": {
+      "pass": 191,
+      "fail": 4
+    },
+    "naturalness": {
+      "pass": 189,
+      "fail": 6
+    },
+    "semantic_fidelity": {
+      "pass": 192,
+      "fail": 3
+    },
+    "public_suitability": {
+      "pass": 181,
+      "fail": 14
+    },
+    "all_rubrics_pass": 181,
+    "unique_blocker_items": 14
+  },
+  "structural_evidence": {
+    "selected_source_propositions": 527,
+    "selected_candidate_trace_rows": 309,
+    "selected_proposition_resolution_rows": 527,
+    "emitted_proposition_resolutions": 527,
+    "missing_proposition_resolutions": 0,
+    "untraced_source_propositions": 0,
+    "selected_structural_rows": 975,
+    "emitted_direct_structural_rows": 490,
+    "not_required_structural_rows": 468,
+    "satisfied_by_verified_fusion_structural_rows": 17,
+    "fusion_proof_references_checked": 17,
+    "missing_fusion_proofs": 0,
+    "structural_trace_completeness": "PASS",
+    "structural_pass_does_not_override_human_quality_blockers": true
+  },
+  "blockers": [
+    {
+      "item_id": "Base.WoodenMallet",
+      "ownership": "compiler_generic_rule",
+      "readability": "fail",
+      "naturalness": "fail",
+      "semantic_fidelity": "fail",
+      "public_suitability": "fail",
+      "reason": "근접 전투나 작업에를 근접 전투나 과정에로 바꾸어 작업 의미와 병렬 구조를 훼손했다."
+    },
+    {
+      "item_id": "Base.ClubHammer",
+      "ownership": "compiler_generic_rule",
+      "readability": "fail",
+      "naturalness": "fail",
+      "semantic_fidelity": "fail",
+      "public_suitability": "fail",
+      "reason": "근접 전투나 작업에를 근접 전투나 과정에로 바꾸어 작업 의미와 병렬 구조를 훼손했다."
+    },
+    {
+      "item_id": "Base.GardenHoe",
+      "ownership": "compiler_generic_rule",
+      "readability": "fail",
+      "naturalness": "fail",
+      "semantic_fidelity": "fail",
+      "public_suitability": "fail",
+      "reason": "재배와 흙 작업을 재배와 흙 과정으로 바꾸어 source proposition을 훼손하고 문장을 불명확하게 만들었다."
+    },
+    {
+      "item_id": "Base.CordlessPhone",
+      "ownership": "compiler_generic_rule",
+      "readability": "pass",
+      "naturalness": "fail",
+      "semantic_fidelity": "pass",
+      "public_suitability": "fail",
+      "reason": "전자 작업에서를 비관용적인 전자 과정에서로 바꾸었다."
+    },
+    {
+      "item_id": "Base.Corkscrew",
+      "ownership": "compiler_generic_rule",
+      "readability": "pass",
+      "naturalness": "fail",
+      "semantic_fidelity": "pass",
+      "public_suitability": "fail",
+      "reason": "주방 작업에서를 비관용적인 주방 과정에서로 바꾸었다."
+    },
+    {
+      "item_id": "Base.PlateOrange",
+      "ownership": "compiler_generic_rule",
+      "readability": "pass",
+      "naturalness": "fail",
+      "semantic_fidelity": "pass",
+      "public_suitability": "fail",
+      "reason": "주방 작업을 비관용적인 주방 과정으로 바꾸었다."
+    },
+    {
+      "item_id": "Base.SmallSheetMetal",
+      "ownership": "current_facts_source",
+      "readability": "fail",
+      "naturalness": "pass",
+      "semantic_fidelity": "pass",
+      "public_suitability": "fail",
+      "reason": "current facts가 identity는 재료, primary_use는 금속 접합에 쓰는 도구로 결속해 공개 문안에 내부 모순이 남는다."
+    },
+    {
+      "item_id": "Base.Shotgun",
+      "ownership": "current_facts_source",
+      "readability": "pass",
+      "naturalness": "pass",
+      "semantic_fidelity": "pass",
+      "public_suitability": "fail",
+      "reason": "current facts가 실제 aimed firearm을 근접 무기이자 총기 개조 부품으로 규정해 공개 의미를 오도한다."
+    },
+    {
+      "item_id": "Base.Saw",
+      "ownership": "current_facts_source",
+      "readability": "pass",
+      "naturalness": "pass",
+      "semantic_fidelity": "pass",
+      "public_suitability": "fail",
+      "reason": "current facts가 tool 태그의 톱을 총기 개조 부품으로 규정해 공개 의미를 오도한다."
+    },
+    {
+      "item_id": "camping.Flint",
+      "ownership": "current_facts_source",
+      "readability": "pass",
+      "naturalness": "pass",
+      "semantic_fidelity": "pass",
+      "public_suitability": "fail",
+      "reason": "reclaimed_material_sorting cohort 문구가 부싯돌의 item-specific 공개 용도와 어긋난다."
+    },
+    {
+      "item_id": "Base.HairDyeYellow",
+      "ownership": "current_facts_source",
+      "readability": "pass",
+      "naturalness": "pass",
+      "semantic_fidelity": "pass",
+      "public_suitability": "fail",
+      "reason": "머리 염색약에 머리색과 화장 바탕이라는 서로 다른 cohort 행위를 누적해 잘못된 용도를 암시한다."
+    },
+    {
+      "item_id": "Base.HairDyePink",
+      "ownership": "current_facts_source",
+      "readability": "pass",
+      "naturalness": "pass",
+      "semantic_fidelity": "pass",
+      "public_suitability": "fail",
+      "reason": "머리 염색약에 머리색과 화장 바탕이라는 서로 다른 cohort 행위를 누적해 잘못된 용도를 암시한다."
+    },
+    {
+      "item_id": "Base.MakeUp_CamoEyes1",
+      "ownership": "current_facts_source",
+      "readability": "pass",
+      "naturalness": "pass",
+      "semantic_fidelity": "pass",
+      "public_suitability": "fail",
+      "reason": "눈가 분장품에 얼굴, 눈, 입술 행위를 누적해 입술 용도까지 암시한다."
+    },
+    {
+      "item_id": "Base.Comb",
+      "ownership": "current_facts_source",
+      "readability": "pass",
+      "naturalness": "pass",
+      "semantic_fidelity": "pass",
+      "public_suitability": "fail",
+      "reason": "빗에 향 추가, 면도, 양치까지 누적한 personal-grooming cohort 문구가 공개 item 의미를 오도한다."
+    }
+  ],
+  "requested_focus_items": {
+    "Base.AlarmClock": "PASS",
+    "Base.Nails": "PASS",
+    "Base.Screws": "PASS",
+    "Base.BleachEmpty": "PASS",
+    "Radio.ElectricWire": "PASS",
+    "Base.Teacup": "PASS",
+    "Base.Antibiotics": "PASS"
+  },
+  "terminal_constraints": {
+    "attempt_0018_phase7_or_phase8_resumed": false,
+    "attempt_0019_g3_correction_b_phase7_resumed": false,
+    "naturalization_phase8_handoff_created": false,
+    "official_publish_attempt_created": false,
+    "live_gate_changed": false,
+    "next_action": "blocked_pending_source_correction_and_compiler_remediation_without_creating_a_retry_attempt_in_this_run"
+  }
+}

@@ -270,12 +270,16 @@ def _metric_projection(
         int(rows.get(metric_id, {}).get("numerator", -1))
         for metric_id in base.RAW_DETECTOR_IDS
     )
+    raw_detector_opportunity_count = sum(
+        int(rows.get(metric_id, {}).get("denominator", -1))
+        for metric_id in base.RAW_DETECTOR_IDS
+    )
     if (
         snapshot.get("technical_blocker_count") != 0
         or human.get("numerator") != 0
         or human.get("denominator") != 2084
         or raw_detector_hit_count != 0
-        or snapshot.get("raw_detector_opportunity_count") != 14588
+        or raw_detector_opportunity_count != 14588
     ):
         raise base.FoundationContractError(
             "corrected G5 metric projection is not publish-preflight clean"

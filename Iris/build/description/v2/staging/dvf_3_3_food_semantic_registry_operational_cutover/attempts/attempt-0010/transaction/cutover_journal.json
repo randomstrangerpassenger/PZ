@@ -1,9 +1,10 @@
 {
   "attempt_id": "attempt-0010",
-  "committed": false,
-  "facts_replaced": false,
-  "manifest_replaced": false,
+  "committed": true,
+  "committed_at": "2026-07-29T00:13:17.895021+00:00",
+  "facts_replaced": true,
+  "manifest_replaced": true,
   "schema_version": "dvf-3-3-registry-correction-cutover-journal-v1",
-  "state": "prepared",
-  "verified": false
+  "state": "committed",
+  "verified": true
 }

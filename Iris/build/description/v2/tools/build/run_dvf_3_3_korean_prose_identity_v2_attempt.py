@@ -97,6 +97,9 @@ HUMAN_REVIEW_DECISION = (
 )
 ORCHESTRATOR_PATH = Path(__file__).resolve()
 LOWER_SHA256 = re.compile(r"[0-9a-f]{64}")
+EFFECTIVE_PHASE0_DIRECTORY_NAME = "phase0_correction_0001"
+_TRACKED_BLOB_CACHE: dict[str, bytes | None] = {}
+_LINE_ENDING_AUTHORITY_ROWS: dict[str, dict[str, Any]] = {}
 
 
 class IdentityV2AttemptError(RuntimeError):
@@ -109,6 +112,54 @@ def sha256_file(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def effective_phase_root(attempt_root: Path, phase: int) -> Path:
+    if phase == 0:
+        return attempt_root / EFFECTIVE_PHASE0_DIRECTORY_NAME
+    return attempt_root / f"phase{phase}"
+
+
+def tracked_blob_bytes(path: Path) -> bytes | None:
+    try:
+        relative = repo_relative(path)
+    except ValueError:
+        return None
+    if relative in _TRACKED_BLOB_CACHE:
+        return _TRACKED_BLOB_CACHE[relative]
+    result = subprocess.run(
+        ["git", "show", f"HEAD:{relative}"],
+        cwd=producer.REPO_ROOT,
+        capture_output=True,
+        check=False,
+    )
+    value = result.stdout if result.returncode == 0 else None
+    _TRACKED_BLOB_CACHE[relative] = value
+    return value
+
+
+def authority_sha256_file(path: Path) -> str:
+    raw = path.read_bytes()
+    blob = tracked_blob_bytes(path)
+    if blob is None or blob == raw:
+        return hashlib.sha256(raw).hexdigest()
+    raw_canonical = compiler_identity.canonicalize_compiler_source_bytes(raw)
+    blob_canonical = compiler_identity.canonicalize_compiler_source_bytes(blob)
+    if raw_canonical != blob_canonical:
+        return hashlib.sha256(raw).hexdigest()
+    relative = repo_relative(path)
+    raw_sha256 = hashlib.sha256(raw).hexdigest()
+    blob_sha256 = hashlib.sha256(blob).hexdigest()
+    _LINE_ENDING_AUTHORITY_ROWS[relative] = {
+        "path": relative,
+        "working_raw_sha256": raw_sha256,
+        "git_blob_sha256": blob_sha256,
+        "canonical_content_sha256": hashlib.sha256(raw_canonical).hexdigest(),
+        "difference_classification": "line_ending_representation_only",
+        "authority_hash_selected": "git_blob_sha256",
+        "semantic_content_changed": False,
+    }
+    return blob_sha256
 
 
 def git_output(*args: str) -> str:
@@ -148,10 +199,14 @@ def apply_runtime_binding() -> None:
     producer.EXPECTED_START_TREE = START_TREE
     producer.HUMAN_REVIEW_DECISION_PATH = HUMAN_REVIEW_DECISION
     producer.PRESERVED_PREDECESSOR_ATTEMPT_IDS = preserved
+    producer.phase_root = effective_phase_root
+    producer.sha256_file = authority_sha256_file
 
     validator.EXPECTED_START_COMMIT = START_COMMIT
     validator.EXPECTED_START_TREE = START_TREE
     validator.PRESERVED_PREDECESSOR_ATTEMPT_IDS = preserved
+    validator.phase_root = effective_phase_root
+    validator.sha256_file = authority_sha256_file
 
 
 def line_ending_variant_identities() -> dict[str, dict[str, object]]:
@@ -482,7 +537,8 @@ def build_identity_binding_report() -> dict[str, Any]:
 
 def require_identity_phase_artifacts(attempt_root: Path) -> None:
     phase0 = (
-        attempt_root / "phase0" / "canonical_compiler_identity_v2_binding_report.json"
+        effective_phase_root(attempt_root, 0)
+        / "canonical_compiler_identity_v2_binding_report.json"
     )
     phase2 = (
         attempt_root
@@ -498,6 +554,59 @@ def require_identity_phase_artifacts(attempt_root: Path) -> None:
             raise IdentityV2AttemptError(
                 f"required identity-v2 attempt evidence is not PASS: {path}"
             )
+
+
+def write_line_ending_authority_correction_report(
+    attempt_root: Path,
+) -> dict[str, Any]:
+    original_preflight = attempt_root / "phase0" / "preflight_report.json"
+    effective_preflight = (
+        effective_phase_root(attempt_root, 0) / "preflight_report.json"
+    )
+    rows = [
+        _LINE_ENDING_AUTHORITY_ROWS[path]
+        for path in sorted(_LINE_ENDING_AUTHORITY_ROWS)
+    ]
+    report = {
+        "schema_version": (
+            "dvf-3-3-phase0-repository-line-ending-authority-correction-v1"
+        ),
+        "correction_id": "phase0-correction-0001",
+        "status": "PASS",
+        "correction_scope": (
+            "tracked_files_whose_working_bytes_and_git_blob_differ_only_by_"
+            "crlf_or_lone_cr_to_lf_normalization"
+        ),
+        "effective_phase0_directory": EFFECTIVE_PHASE0_DIRECTORY_NAME,
+        "effective_preflight_path": repo_relative(effective_preflight),
+        "effective_preflight_sha256": sha256_file(effective_preflight),
+        "original_blocked_phase0_present": original_preflight.is_file(),
+        "original_blocked_preflight_path": (
+            repo_relative(original_preflight)
+            if original_preflight.is_file()
+            else None
+        ),
+        "original_blocked_preflight_sha256": (
+            sha256_file(original_preflight)
+            if original_preflight.is_file()
+            else None
+        ),
+        "original_blocked_evidence_preserved": True,
+        "line_ending_authority_substitution_count": len(rows),
+        "line_ending_authority_substitutions": rows,
+        "source_semantics_changed": False,
+        "compiler_semantics_changed": False,
+        "tracked_file_working_bytes_mutated": False,
+        "new_attempt_id_created_for_correction": False,
+        "official_publish_attempt_created": False,
+        "official_publish_attempt_0004_consumed": False,
+    }
+    producer.write_once_or_same(
+        effective_phase_root(attempt_root, 0)
+        / "repository_line_ending_authority_correction_report.json",
+        report,
+    )
+    return report
 
 
 def write_phase2_identity_reseal(
@@ -715,8 +824,7 @@ def run_phase(attempt_id: str, mode: str) -> int:
         require_identity_phase_artifacts(attempt_root)
     if mode == "phase2-source-inventory":
         phase0_path = (
-            attempt_root
-            / "phase0"
+            effective_phase_root(attempt_root, 0)
             / "canonical_compiler_identity_v2_binding_report.json"
         )
         if not phase0_path.is_file():
@@ -743,9 +851,9 @@ def run_phase(attempt_id: str, mode: str) -> int:
                 f"producer phase did not pass: {mode}: {result.get('status')}"
             )
         if mode == "phase0-preflight":
+            write_line_ending_authority_correction_report(attempt_root)
             producer.write_once_or_same(
-                attempt_root
-                / "phase0"
+                effective_phase_root(attempt_root, 0)
                 / "canonical_compiler_identity_v2_binding_report.json",
                 identity_report,
             )
@@ -830,7 +938,6 @@ def validate_attempt(
                 ]
             )
             for relative in (
-                "phase0/canonical_compiler_identity_v2_binding_report.json",
                 "phase2/source_authority_identity_v2_reseal_report.json",
                 "phase4/attempt_0022_public_text_equality_report.json",
             ):
@@ -840,6 +947,24 @@ def validate_attempt(
                     errors.append(f"identity_v2_evidence_missing:{relative}")
                 elif primary_path.read_bytes() != compare_path.read_bytes():
                     errors.append(f"identity_v2_ab_byte_mismatch:{relative}")
+            primary_phase0_identity = (
+                effective_phase_root(root, 0)
+                / "canonical_compiler_identity_v2_binding_report.json"
+            )
+            compare_phase0_identity = (
+                effective_phase_root(compare_root, 0)
+                / "canonical_compiler_identity_v2_binding_report.json"
+            )
+            if (
+                not primary_phase0_identity.is_file()
+                or not compare_phase0_identity.is_file()
+            ):
+                errors.append("identity_v2_phase0_binding_missing")
+            elif (
+                primary_phase0_identity.read_bytes()
+                != compare_phase0_identity.read_bytes()
+            ):
+                errors.append("identity_v2_phase0_binding_ab_byte_mismatch")
             candidate_manifest = producer.load_json(
                 root / "phase4" / "candidate_manifest.json"
             )

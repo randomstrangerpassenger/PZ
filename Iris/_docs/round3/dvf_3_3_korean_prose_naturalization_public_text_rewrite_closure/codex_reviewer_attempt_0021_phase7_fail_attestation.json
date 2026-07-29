@@ -1,0 +1,3532 @@
+{
+  "schema_version": "dvf-3-3-codex-reviewer-attempt-0021-phase7-fail-attestation-v1",
+  "status": "FAIL",
+  "reviewer": {
+    "identity": "Codex Reviewer (Avicenna)",
+    "role": "external_codex_reviewer",
+    "compiler_or_runner": false
+  },
+  "candidate_binding": {
+    "naturalization_attempt_id": "attempt-0021-g4-rebind-a",
+    "candidate_rendered_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0021-g4-rebind-a/phase4/candidate_rendered.json",
+    "candidate_rendered_sha256": "e99e2fe0027c4568314ed58632cd68323cd7155c75a0ecf2916432e550435efe",
+    "candidate_proposition_trace_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0021-g4-rebind-a/phase4/candidate_proposition_trace.jsonl",
+    "candidate_proposition_trace_sha256": "2c97c59781d6b9c8d8adeb0f9f99a386ba5ed872dd10ed66dd09635b8c435541",
+    "source_facts_sha256": "50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120",
+    "source_manifest_sha256": "090381a652da540c6e72300624728aba48f6392e41fb50e8eec973efd320b9b7",
+    "selected_ordered_digest": "6c226d0330e2e098d30f08df2505844bd4d3257d8419380b41234d14c0898e1e",
+    "reviewed_item_id_binding": "human_review_sample_manifest.selected_item_ids",
+    "reviewed_denominator": 2084,
+    "full_candidate_denominator": 2084,
+    "full_candidate_reviewed": true,
+    "start_commit": "8a203f65e3d8a943119235600fcb341ba471fac2",
+    "start_tree": "1572cbb3ebccb4bbf844a5325874c9c2d6fc74ec"
+  },
+  "source_and_delta_binding": {
+    "correction_authority_id": "correction-0003",
+    "changed_entry_count_from_attempt_0020": 44,
+    "byte_identical_unlisted_entry_count": 2040,
+    "changed_entry_ids_exactly_match_prior_blocker_44": true,
+    "source_proposition_count": 5915,
+    "body_plan_requirement_count": 10525,
+    "candidate_proposition_trace_row_count": 3125,
+    "traced_candidate_item_count": 2084
+  },
+  "review_scope": {
+    "eligible_item_count": 2084,
+    "reviewed_item_count": 2084,
+    "all_unlisted_items_pass_all_rubrics": true,
+    "inability_to_review_all_2084": false
+  },
+  "rubric_aggregate": {
+    "readability": {
+      "pass": 2084,
+      "fail": 0
+    },
+    "naturalness": {
+      "pass": 2075,
+      "fail": 9
+    },
+    "semantic_fidelity": {
+      "pass": 2084,
+      "fail": 0
+    },
+    "public_suitability": {
+      "pass": 2075,
+      "fail": 9
+    },
+    "all_rubrics_pass": 2075,
+    "unique_blocker_items": 9
+  },
+  "blocker_count": 9,
+  "blocker_count_by_ownership": {
+    "compiler": 9,
+    "facts": 0
+  },
+  "blocker_item_ids": [
+    "Base.CannedMushroomSoupOpen",
+    "Base.DoubleBarrelShotgunSawnoff",
+    "Base.ShotgunSawnoff",
+    "Base.TinnedSoupOpen",
+    "Base.WristWatch_Right_ClassicBlack",
+    "Base.WristWatch_Right_ClassicBrown",
+    "Base.WristWatch_Right_ClassicGold",
+    "Base.WristWatch_Right_DigitalBlack",
+    "Base.WristWatch_Right_DigitalRed"
+  ],
+  "blockers": [
+    {
+      "item_id": "Base.CannedMushroomSoupOpen",
+      "candidate_output": "버섯스프 통조림 (열림)로, 식품으로 먹는 수프다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "fail",
+        "semantic_fidelity": "pass",
+        "public_suitability": "fail"
+      },
+      "ownership": "compiler",
+      "reason": "받침으로 끝나는 괄호 안 식별어 '열림' 뒤에 도구격 조사 '로'를 붙여 '(열림)로'가 되었다. 자연스러운 공개 문안은 '(열림)으로'다.",
+      "expected_correction": "버섯스프 통조림 (열림)으로, 식품으로 먹는 수프다.",
+      "trace_binding": {
+        "realization_rule_id": "candidate_lead_identity_use_instrumental_v1",
+        "transformation_ids": [
+          "paragraph_merge",
+          "particle_adjustment"
+        ]
+      }
+    },
+    {
+      "item_id": "Base.DoubleBarrelShotgunSawnoff",
+      "candidate_output": "더블 배럴 산탄총 (총열 자름)로, 사격에 쓰는 총기다. 쌍열 산탄총과 톱으로 절단해 만든다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "fail",
+        "semantic_fidelity": "pass",
+        "public_suitability": "fail"
+      },
+      "ownership": "compiler",
+      "reason": "받침으로 끝나는 괄호 안 식별어 '총열 자름' 뒤에 도구격 조사 '로'를 붙여 '(총열 자름)로'가 되었다. 자연스러운 공개 문안은 '(총열 자름)으로'다.",
+      "expected_correction": "더블 배럴 산탄총 (총열 자름)으로, 사격에 쓰는 총기다. 쌍열 산탄총과 톱으로 절단해 만든다.",
+      "trace_binding": {
+        "realization_rule_id": "candidate_lead_identity_use_instrumental_v1",
+        "transformation_ids": [
+          "paragraph_merge",
+          "particle_adjustment"
+        ]
+      }
+    },
+    {
+      "item_id": "Base.ShotgunSawnoff",
+      "candidate_output": "JS-2000 산탄총 (총열 자름)로, 사격에 쓰는 총기다. 산탄총과 톱으로 절단해 만든다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "fail",
+        "semantic_fidelity": "pass",
+        "public_suitability": "fail"
+      },
+      "ownership": "compiler",
+      "reason": "받침으로 끝나는 괄호 안 식별어 '총열 자름' 뒤에 도구격 조사 '로'를 붙여 '(총열 자름)로'가 되었다. 자연스러운 공개 문안은 '(총열 자름)으로'다.",
+      "expected_correction": "JS-2000 산탄총 (총열 자름)으로, 사격에 쓰는 총기다. 산탄총과 톱으로 절단해 만든다.",
+      "trace_binding": {
+        "realization_rule_id": "candidate_lead_identity_use_instrumental_v1",
+        "transformation_ids": [
+          "paragraph_merge",
+          "particle_adjustment"
+        ]
+      }
+    },
+    {
+      "item_id": "Base.TinnedSoupOpen",
+      "candidate_output": "스프 통조림 (열림)로, 식품으로 먹는 수프다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "fail",
+        "semantic_fidelity": "pass",
+        "public_suitability": "fail"
+      },
+      "ownership": "compiler",
+      "reason": "받침으로 끝나는 괄호 안 식별어 '열림' 뒤에 도구격 조사 '로'를 붙여 '(열림)로'가 되었다. 자연스러운 공개 문안은 '(열림)으로'다.",
+      "expected_correction": "스프 통조림 (열림)으로, 식품으로 먹는 수프다.",
+      "trace_binding": {
+        "realization_rule_id": "candidate_lead_identity_use_instrumental_v1",
+        "transformation_ids": [
+          "paragraph_merge",
+          "particle_adjustment"
+        ]
+      }
+    },
+    {
+      "item_id": "Base.WristWatch_Right_ClassicBlack",
+      "candidate_output": "클래식 손목시계 (검은색)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "fail",
+        "semantic_fidelity": "pass",
+        "public_suitability": "fail"
+      },
+      "ownership": "compiler",
+      "reason": "받침으로 끝나는 괄호 안 식별어 '검은색' 뒤에 도구격 조사 '로'를 붙여 '(검은색)로'가 되었다. 자연스러운 공개 문안은 '(검은색)으로'다.",
+      "expected_correction": "클래식 손목시계 (검은색)으로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "trace_binding": {
+        "realization_rule_id": "candidate_lead_identity_use_instrumental_v1",
+        "transformation_ids": [
+          "paragraph_merge",
+          "particle_adjustment"
+        ]
+      }
+    },
+    {
+      "item_id": "Base.WristWatch_Right_ClassicBrown",
+      "candidate_output": "클래식 손목시계 (갈색)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "fail",
+        "semantic_fidelity": "pass",
+        "public_suitability": "fail"
+      },
+      "ownership": "compiler",
+      "reason": "받침으로 끝나는 괄호 안 식별어 '갈색' 뒤에 도구격 조사 '로'를 붙여 '(갈색)로'가 되었다. 자연스러운 공개 문안은 '(갈색)으로'다.",
+      "expected_correction": "클래식 손목시계 (갈색)으로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "trace_binding": {
+        "realization_rule_id": "candidate_lead_identity_use_instrumental_v1",
+        "transformation_ids": [
+          "paragraph_merge",
+          "particle_adjustment"
+        ]
+      }
+    },
+    {
+      "item_id": "Base.WristWatch_Right_ClassicGold",
+      "candidate_output": "손목시계 (금)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "fail",
+        "semantic_fidelity": "pass",
+        "public_suitability": "fail"
+      },
+      "ownership": "compiler",
+      "reason": "받침으로 끝나는 괄호 안 식별어 '금' 뒤에 도구격 조사 '로'를 붙여 '(금)로'가 되었다. 자연스러운 공개 문안은 '(금)으로'다.",
+      "expected_correction": "손목시계 (금)으로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "trace_binding": {
+        "realization_rule_id": "candidate_lead_identity_use_instrumental_v1",
+        "transformation_ids": [
+          "paragraph_merge",
+          "particle_adjustment"
+        ]
+      }
+    },
+    {
+      "item_id": "Base.WristWatch_Right_DigitalBlack",
+      "candidate_output": "디지털 손목시계 (검은색)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "fail",
+        "semantic_fidelity": "pass",
+        "public_suitability": "fail"
+      },
+      "ownership": "compiler",
+      "reason": "받침으로 끝나는 괄호 안 식별어 '검은색' 뒤에 도구격 조사 '로'를 붙여 '(검은색)로'가 되었다. 자연스러운 공개 문안은 '(검은색)으로'다.",
+      "expected_correction": "디지털 손목시계 (검은색)으로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "trace_binding": {
+        "realization_rule_id": "candidate_lead_identity_use_instrumental_v1",
+        "transformation_ids": [
+          "paragraph_merge",
+          "particle_adjustment"
+        ]
+      }
+    },
+    {
+      "item_id": "Base.WristWatch_Right_DigitalRed",
+      "candidate_output": "디지털 손목시계 (빨간색)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "fail",
+        "semantic_fidelity": "pass",
+        "public_suitability": "fail"
+      },
+      "ownership": "compiler",
+      "reason": "받침으로 끝나는 괄호 안 식별어 '빨간색' 뒤에 도구격 조사 '로'를 붙여 '(빨간색)로'가 되었다. 자연스러운 공개 문안은 '(빨간색)으로'다.",
+      "expected_correction": "디지털 손목시계 (빨간색)으로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "trace_binding": {
+        "realization_rule_id": "candidate_lead_identity_use_instrumental_v1",
+        "transformation_ids": [
+          "paragraph_merge",
+          "particle_adjustment"
+        ]
+      }
+    }
+  ],
+  "previous_44_recheck": {
+    "reviewed_count": 44,
+    "pass_count": 35,
+    "fail_count": 9,
+    "rows": [
+      {
+        "item_id": "Base.223Clip",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": ".223 탄창으로, 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.308Clip",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": ".308 탄창으로, 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.44Clip",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": ".44 매그넘 탄창으로, 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.45Clip",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": ".45 자동 탄창으로, 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.556Clip",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "5.56mm 탄창으로, 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.9mmClip",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "9mm 탄창으로, 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.BouillonCube",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "부용 큐브로, 조리에 넣는 재료다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.CannedMushroomSoupOpen",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "버섯스프 통조림 (열림)로, 식품으로 먹는 수프다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "fail",
+          "semantic_fidelity": "pass",
+          "public_suitability": "fail"
+        },
+        "disposition": "FAIL",
+        "current_blocker_ownership": "compiler"
+      },
+      {
+        "item_id": "Base.Coldpack",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "의료 용품으로, 연막탄 제작에 들어가는 재료다. 의료 물품 보관 장소에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.DenimStrips",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "여러 제작 작업에 들어가는 데님 조각 재료다. 데님 의류를 찢어 얻는다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.DigitalWatch2",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "전자 시계로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.DoubleBarrelShotgunSawnoff",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "더블 배럴 산탄총 (총열 자름)로, 사격에 쓰는 총기다. 쌍열 산탄총과 톱으로 절단해 만든다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "fail",
+          "semantic_fidelity": "pass",
+          "public_suitability": "fail"
+        },
+        "disposition": "FAIL",
+        "current_blocker_ownership": "compiler"
+      },
+      {
+        "item_id": "Base.FishingLine",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "낚시 소모품으로, 낚싯대 제작과 수리에 들어가는 낚싯줄 재료다. 낚시 장비 취급 장소에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.GunPowder",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "소모성 재료로, 탄약과 폭발물 제작에 들어가는 화약 재료다. 탄약을 분해해 구한다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.Lemon",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "레몬으로, 과일로 먹는 식품이다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.Lime",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "라임으로, 과일로 먹는 식품이다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.M14Clip",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": ".308 탄창으로, 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.MetalBar",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "근접 무기로, 쇠지렛대와 골프채 제작에 들어가는 금속 막대 재료다. 금속 작업 장소와 정비 차량에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.Padlock",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "통자물쇠다. 농업 물품 상자와 공구점, 청소 작업 장소에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.Pistol",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "M9 권총으로, 사격에 쓰는 총기다. 총기 매장과 차고 총기 보관 장소, 은닉 보관 장소에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.Pistol2",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "M1911 권총으로, 사격에 쓰는 총기다. 총기 매장과 차고 총기 보관 장소, 은닉 보관 장소에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.Pistol3",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "D-E 권총으로, 사격에 쓰는 총기다. 총기 매장과 차고 총기 보관 장소, 은닉 보관 장소에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.Plank",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "목공과 여러 제작 작업에 들어가는 판자 재료다. 통나무를 톱으로 가공해 얻는다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.Popcorn",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "인스턴트 팝콘으로, 조리해 먹는 식품이다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.Revolver",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "M625 리볼버로, 사격에 쓰는 총기다. 총기 매장과 차고 총기 보관 장소, 은닉 보관 장소에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.Revolver_Long",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "매그넘으로, 사격에 쓰는 총기다. 총기 매장과 차고 총기 보관 장소, 은닉 보관 장소에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.Revolver_Short",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "M36 리볼버로, 사격에 쓰는 총기다. 총기 매장과 차고 총기 보관 장소, 은닉 보관 장소에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.RippedSheets",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "생활용품으로, 여러 제작 작업에 들어가는 찢은 천 재료다. 천이나 의류를 찢어 얻는다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.ShotgunSawnoff",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "JS-2000 산탄총 (총열 자름)로, 사격에 쓰는 총기다. 산탄총과 톱으로 절단해 만든다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "fail",
+          "semantic_fidelity": "pass",
+          "public_suitability": "fail"
+        },
+        "disposition": "FAIL",
+        "current_blocker_ownership": "compiler"
+      },
+      {
+        "item_id": "Base.Sparklers",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "에어로졸 폭탄 제작에 들어가는 재료다. 전기 공구 보관 장소에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.Speaker",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "전자 기기로, 전자 작업에서 분해하는 대상이다. 음향 기기 판매점이나 전자용품 보관 장소에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.Teabag2",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "티백으로, 차를 우릴 때 쓰는 재료다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.TinnedSoupOpen",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "스프 통조림 (열림)로, 식품으로 먹는 수프다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "fail",
+          "semantic_fidelity": "pass",
+          "public_suitability": "fail"
+        },
+        "disposition": "FAIL",
+        "current_blocker_ownership": "compiler"
+      },
+      {
+        "item_id": "Base.VanSeatsTrunk2",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "차량을 정비하며 좌석이나 적재 모듈을 분리하거나 다시 끼울 때 다루는 소형 트렁크다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.VideoGame",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "전자 기기로, 전자 작업에서 분해하는 대상이다. 장난감 판매점이나 주거지에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.Watermelon",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "수박으로, 과일로 먹는 식품이다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.WristWatch_Right_ClassicBlack",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "클래식 손목시계 (검은색)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "fail",
+          "semantic_fidelity": "pass",
+          "public_suitability": "fail"
+        },
+        "disposition": "FAIL",
+        "current_blocker_ownership": "compiler"
+      },
+      {
+        "item_id": "Base.WristWatch_Right_ClassicBrown",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "클래식 손목시계 (갈색)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "fail",
+          "semantic_fidelity": "pass",
+          "public_suitability": "fail"
+        },
+        "disposition": "FAIL",
+        "current_blocker_ownership": "compiler"
+      },
+      {
+        "item_id": "Base.WristWatch_Right_ClassicGold",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "손목시계 (금)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "fail",
+          "semantic_fidelity": "pass",
+          "public_suitability": "fail"
+        },
+        "disposition": "FAIL",
+        "current_blocker_ownership": "compiler"
+      },
+      {
+        "item_id": "Base.WristWatch_Right_DigitalBlack",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "디지털 손목시계 (검은색)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "fail",
+          "semantic_fidelity": "pass",
+          "public_suitability": "fail"
+        },
+        "disposition": "FAIL",
+        "current_blocker_ownership": "compiler"
+      },
+      {
+        "item_id": "Base.WristWatch_Right_DigitalDress",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "디지털 손목시계 (메탈릭 드레스 스타일)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Base.WristWatch_Right_DigitalRed",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "디지털 손목시계 (빨간색)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "fail",
+          "semantic_fidelity": "pass",
+          "public_suitability": "fail"
+        },
+        "disposition": "FAIL",
+        "current_blocker_ownership": "compiler"
+      },
+      {
+        "item_id": "Radio.HamRadio1",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "무전기로, 전자 작업에서 분해하는 대상이다. 전자용품점이나 전기 구성품 보관 장소에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      },
+      {
+        "item_id": "Radio.HamRadio2",
+        "previous_ownership": "current_facts_source",
+        "correction_0003_target": true,
+        "candidate_output": "무전기로, 전자 작업에서 분해하는 대상이다. 군용 전자 보관 장소에서 발견된다.",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "disposition": "PASS",
+        "current_blocker_ownership": null
+      }
+    ]
+  },
+  "semantic_cohort_recheck": {
+    "cohort_count": 8,
+    "investigated_row_count": 149,
+    "corrected_row_count": 44,
+    "unchanged_control_count": 105,
+    "blocker_count": 9,
+    "unresolved_row_count": 0,
+    "cohorts": [
+      {
+        "cohort_id": "magazine_ammunition_identity",
+        "error_boundary": "magazine_identity_must_not_equal_ammunition_identity",
+        "member_count": 13,
+        "corrected_count": 7,
+        "unchanged_control_count": 6,
+        "blocker_count": 0,
+        "corrected_rows": [
+          {
+            "item_id": "Base.223Clip",
+            "candidate_output": ".223 탄창으로, 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.308Clip",
+            "candidate_output": ".308 탄창으로, 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.44Clip",
+            "candidate_output": ".44 매그넘 탄창으로, 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.45Clip",
+            "candidate_output": ".45 자동 탄창으로, 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.556Clip",
+            "candidate_output": "5.56mm 탄창으로, 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.9mmClip",
+            "candidate_output": "9mm 탄창으로, 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.M14Clip",
+            "candidate_output": ".308 탄창으로, 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          }
+        ],
+        "unchanged_control_rows": [
+          {
+            "item_id": "Base.223Bullets",
+            "candidate_output": "장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 상자를 열거나 모루 근처에서 주조해 얻는다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.308Bullets",
+            "candidate_output": "장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 상자를 열거나 모루 근처에서 주조해 얻는다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.556Bullets",
+            "candidate_output": "장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 상자를 열어 얻는다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Bullets44",
+            "candidate_output": "장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 상자를 열어 얻는다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Bullets45",
+            "candidate_output": "장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 상자를 열어 얻는다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Bullets9mm",
+            "candidate_output": "장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 상자를 열거나 모루 근처에서 주조해 얻는다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          }
+        ],
+        "status": "PASS"
+      },
+      {
+        "cohort_id": "firearm_melee_identity",
+        "error_boundary": "aimed_firearm_identity_must_not_equal_melee_weapon_identity",
+        "member_count": 14,
+        "corrected_count": 8,
+        "unchanged_control_count": 6,
+        "blocker_count": 2,
+        "corrected_rows": [
+          {
+            "item_id": "Base.DoubleBarrelShotgunSawnoff",
+            "candidate_output": "더블 배럴 산탄총 (총열 자름)로, 사격에 쓰는 총기다. 쌍열 산탄총과 톱으로 절단해 만든다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "fail",
+              "semantic_fidelity": "pass",
+              "public_suitability": "fail"
+            },
+            "disposition": "FAIL",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Pistol",
+            "candidate_output": "M9 권총으로, 사격에 쓰는 총기다. 총기 매장과 차고 총기 보관 장소, 은닉 보관 장소에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Pistol2",
+            "candidate_output": "M1911 권총으로, 사격에 쓰는 총기다. 총기 매장과 차고 총기 보관 장소, 은닉 보관 장소에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Pistol3",
+            "candidate_output": "D-E 권총으로, 사격에 쓰는 총기다. 총기 매장과 차고 총기 보관 장소, 은닉 보관 장소에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Revolver",
+            "candidate_output": "M625 리볼버로, 사격에 쓰는 총기다. 총기 매장과 차고 총기 보관 장소, 은닉 보관 장소에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Revolver_Long",
+            "candidate_output": "매그넘으로, 사격에 쓰는 총기다. 총기 매장과 차고 총기 보관 장소, 은닉 보관 장소에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Revolver_Short",
+            "candidate_output": "M36 리볼버로, 사격에 쓰는 총기다. 총기 매장과 차고 총기 보관 장소, 은닉 보관 장소에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.ShotgunSawnoff",
+            "candidate_output": "JS-2000 산탄총 (총열 자름)로, 사격에 쓰는 총기다. 산탄총과 톱으로 절단해 만든다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "fail",
+              "semantic_fidelity": "pass",
+              "public_suitability": "fail"
+            },
+            "disposition": "FAIL",
+            "compiler_particle_control": false
+          }
+        ],
+        "unchanged_control_rows": [
+          {
+            "item_id": "Base.AssaultRifle",
+            "candidate_output": "M16 자동소총으로, 사격용 소총이나 이를 보관하는 장비로 쓰인다. 군용 무기 보관 장소와 총기 보관 장소, 특수 총기 진열대에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.AssaultRifle2",
+            "candidate_output": "M14 단발 자동소총으로, 사격용 소총이나 이를 보관하는 장비로 쓰인다. 군용 무기 보관 장소와 총기 보관 장소, 특수 총기 진열대에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.DoubleBarrelShotgun",
+            "candidate_output": "사격에 쓰는 더블 배럴 산탄총이다. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.HuntingRifle",
+            "candidate_output": "사냥용 소총으로, 사격용 소총이나 이를 보관하는 장비로 쓰인다. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Shotgun",
+            "candidate_output": "JS-2000 산탄총으로, 사격에 쓰는 산탄총이다. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.VarmintRifle",
+            "candidate_output": "수렵총으로, 사격용 소총이나 이를 보관하는 장비로 쓰인다. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          }
+        ],
+        "status": "FAIL"
+      },
+      {
+        "cohort_id": "food_beverage_role",
+        "error_boundary": "solid_food_or_ingredient_must_not_equal_direct_beverage",
+        "member_count": 16,
+        "corrected_count": 8,
+        "unchanged_control_count": 8,
+        "blocker_count": 2,
+        "corrected_rows": [
+          {
+            "item_id": "Base.BouillonCube",
+            "candidate_output": "부용 큐브로, 조리에 넣는 재료다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.CannedMushroomSoupOpen",
+            "candidate_output": "버섯스프 통조림 (열림)로, 식품으로 먹는 수프다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "fail",
+              "semantic_fidelity": "pass",
+              "public_suitability": "fail"
+            },
+            "disposition": "FAIL",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Lemon",
+            "candidate_output": "레몬으로, 과일로 먹는 식품이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Lime",
+            "candidate_output": "라임으로, 과일로 먹는 식품이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Popcorn",
+            "candidate_output": "인스턴트 팝콘으로, 조리해 먹는 식품이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Teabag2",
+            "candidate_output": "티백으로, 차를 우릴 때 쓰는 재료다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.TinnedSoupOpen",
+            "candidate_output": "스프 통조림 (열림)로, 식품으로 먹는 수프다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "fail",
+              "semantic_fidelity": "pass",
+              "public_suitability": "fail"
+            },
+            "disposition": "FAIL",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Watermelon",
+            "candidate_output": "수박으로, 과일로 먹는 식품이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          }
+        ],
+        "unchanged_control_rows": [
+          {
+            "item_id": "Base.CannedMilkOpen",
+            "candidate_output": "음료 섭취 작업에서 마시거나 나눠 마실 때 쓴다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Coffee2",
+            "candidate_output": "음료 섭취 작업에서 마시거나 나눠 마실 때 쓴다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.JuiceBox",
+            "candidate_output": "음료 섭취 작업에서 마시거나 나눠 마실 때 쓴다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Milk",
+            "candidate_output": "음료 섭취 작업에서 마시거나 나눠 마실 때 쓴다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Pop",
+            "candidate_output": "음료 섭취 작업에서 마시거나 나눠 마실 때 쓴다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Pop2",
+            "candidate_output": "음료 섭취 작업에서 마시거나 나눠 마실 때 쓴다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Pop3",
+            "candidate_output": "음료 섭취 작업에서 마시거나 나눠 마실 때 쓴다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.PopBottle",
+            "candidate_output": "음료 섭취 작업에서 마시거나 나눠 마실 때 쓴다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          }
+        ],
+        "status": "FAIL"
+      },
+      {
+        "cohort_id": "crafting_input_tool_role",
+        "error_boundary": "static_recipe_input_must_not_equal_retained_tool",
+        "member_count": 12,
+        "corrected_count": 8,
+        "unchanged_control_count": 4,
+        "blocker_count": 0,
+        "corrected_rows": [
+          {
+            "item_id": "Base.Coldpack",
+            "candidate_output": "의료 용품으로, 연막탄 제작에 들어가는 재료다. 의료 물품 보관 장소에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.DenimStrips",
+            "candidate_output": "여러 제작 작업에 들어가는 데님 조각 재료다. 데님 의류를 찢어 얻는다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.FishingLine",
+            "candidate_output": "낚시 소모품으로, 낚싯대 제작과 수리에 들어가는 낚싯줄 재료다. 낚시 장비 취급 장소에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.GunPowder",
+            "candidate_output": "소모성 재료로, 탄약과 폭발물 제작에 들어가는 화약 재료다. 탄약을 분해해 구한다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.MetalBar",
+            "candidate_output": "근접 무기로, 쇠지렛대와 골프채 제작에 들어가는 금속 막대 재료다. 금속 작업 장소와 정비 차량에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Plank",
+            "candidate_output": "목공과 여러 제작 작업에 들어가는 판자 재료다. 통나무를 톱으로 가공해 얻는다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.RippedSheets",
+            "candidate_output": "생활용품으로, 여러 제작 작업에 들어가는 찢은 천 재료다. 천이나 의류를 찢어 얻는다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Sparklers",
+            "candidate_output": "에어로졸 폭탄 제작에 들어가는 재료다. 전기 공구 보관 장소에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          }
+        ],
+        "unchanged_control_rows": [
+          {
+            "item_id": "Base.BallPeenHammer",
+            "candidate_output": "무기 겸용 도구로, 금속 단조에 쓰는 도구다. 작업 차량과 차고, 공구 상자와 공구점에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.FishingRodBreak",
+            "candidate_output": "손상 낚싯대로, 수리 작업에서 망가진 장비를 다시 연결하거나 손볼 때 쓴다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.IronIngot",
+            "candidate_output": "금속 재료로, 금속 제작 작업에서 녹이거나 두드려 다른 구성품으로 만들 때 쓴다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Tongs",
+            "candidate_output": "금속 단조에 쓰는 도구다. 모루 근처에서 철괴와 망치로 제작한다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          }
+        ],
+        "status": "PASS"
+      },
+      {
+        "cohort_id": "dismantle_target_tool_direction",
+        "error_boundary": "dismantle_recipe_input_must_not_equal_dismantle_tool",
+        "member_count": 48,
+        "corrected_count": 4,
+        "unchanged_control_count": 44,
+        "blocker_count": 0,
+        "corrected_rows": [
+          {
+            "item_id": "Base.Speaker",
+            "candidate_output": "전자 기기로, 전자 작업에서 분해하는 대상이다. 음향 기기 판매점이나 전자용품 보관 장소에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.VideoGame",
+            "candidate_output": "전자 기기로, 전자 작업에서 분해하는 대상이다. 장난감 판매점이나 주거지에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Radio.HamRadio1",
+            "candidate_output": "무전기로, 전자 작업에서 분해하는 대상이다. 전자용품점이나 전기 구성품 보관 장소에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Radio.HamRadio2",
+            "candidate_output": "무전기로, 전자 작업에서 분해하는 대상이다. 군용 전자 보관 장소에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          }
+        ],
+        "unchanged_control_rows": [
+          {
+            "item_id": "Base.Mov_AirConditioner",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 에어컨이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_AntiqueStove",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 앤티크 스토브다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_ChromeSink",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 싱크대다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_CoffeeMaker",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 커피 머신이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_ConcreteMixer",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 믹서 설비다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_DesktopComputer",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 데스크톱 컴퓨터다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_Espresso",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 커피 머신이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_FancyToilet",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 변기다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_FridgeMini",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 냉장고다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_GreenOven",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 오븐이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_GreyOven",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 오븐이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_HotdogMachine",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 조리 기기다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_IndustrialSink",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 싱크대다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_Lamp1",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 조명 기구다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_Lamp2",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 조명 기구다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_Lamp3",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 조명 기구다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_Lamp4",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 조명 기구다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_Lamp5",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 조명 기구다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_Lamp6",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 조명 기구다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_LightConstruction",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 조명 기구다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_Microphone",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 마이크다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_Microwave",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 전자레인지다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_Microwave2",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 전자레인지다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_MirrorLarge",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 거울이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_MirrorSmall",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 거울이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_MirrorTall",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 거울이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_MirrorWood",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 거울이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_MobileBloodbag",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 수혈 장비다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_ModernOven",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 오븐이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_NapkinDispenser",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 디스펜서다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_PopcornMachine",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 팝콘 기기다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_Projector",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 프로젝터다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_RedBBQ",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 바비큐 그릴이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_RedOven",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 오븐이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_SatelliteDish",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 위성 안테나다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_ScaleMedical",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 체중계다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_SodaMachine",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 음료 기기다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_TVCamera",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 카메라 장비다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_Toaster",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 토스터다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_TowelDispenser",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 디스펜서다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_Urinal",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 소변기다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_WallClock",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 벽시계다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_WaterDispenser",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 정수기다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Mov_WhiteSink",
+            "candidate_output": "기기나 고정 설비를 떼어내거나 다시 설치할 때 다루는 싱크대다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          }
+        ],
+        "status": "PASS"
+      },
+      {
+        "cohort_id": "wristwatch_alarm_clock_identity",
+        "error_boundary": "wristwatch_identity_must_not_equal_tabletop_alarm_clock_identity",
+        "member_count": 18,
+        "corrected_count": 7,
+        "unchanged_control_count": 11,
+        "blocker_count": 5,
+        "corrected_rows": [
+          {
+            "item_id": "Base.DigitalWatch2",
+            "candidate_output": "전자 시계로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.WristWatch_Right_ClassicBlack",
+            "candidate_output": "클래식 손목시계 (검은색)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "fail",
+              "semantic_fidelity": "pass",
+              "public_suitability": "fail"
+            },
+            "disposition": "FAIL",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.WristWatch_Right_ClassicBrown",
+            "candidate_output": "클래식 손목시계 (갈색)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "fail",
+              "semantic_fidelity": "pass",
+              "public_suitability": "fail"
+            },
+            "disposition": "FAIL",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.WristWatch_Right_ClassicGold",
+            "candidate_output": "손목시계 (금)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "fail",
+              "semantic_fidelity": "pass",
+              "public_suitability": "fail"
+            },
+            "disposition": "FAIL",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.WristWatch_Right_DigitalBlack",
+            "candidate_output": "디지털 손목시계 (검은색)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "fail",
+              "semantic_fidelity": "pass",
+              "public_suitability": "fail"
+            },
+            "disposition": "FAIL",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.WristWatch_Right_DigitalDress",
+            "candidate_output": "디지털 손목시계 (메탈릭 드레스 스타일)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": true
+          },
+          {
+            "item_id": "Base.WristWatch_Right_DigitalRed",
+            "candidate_output": "디지털 손목시계 (빨간색)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "fail",
+              "semantic_fidelity": "pass",
+              "public_suitability": "fail"
+            },
+            "disposition": "FAIL",
+            "compiler_particle_control": false
+          }
+        ],
+        "unchanged_control_rows": [
+          {
+            "item_id": "Base.AlarmClock",
+            "candidate_output": "알람 시계로, 설치한 뒤 일정 시간이 지나면 소리를 내는 재사용 장치다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.AlarmClock2",
+            "candidate_output": "전자 기기로, 전자 작업에서 기기를 분해하거나 회로를 맞출 때 다룬다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.DigitalWatch",
+            "candidate_output": "몸에 걸쳐 착용하는 액세서리다. 시계 취급 장소와 채집으로 구할 수 있다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.WristWatch_Left_ClassicBlack",
+            "candidate_output": "손목에 차고 시간을 확인하거나 알람을 맞출 때 다루는 손목시계다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.WristWatch_Left_ClassicBrown",
+            "candidate_output": "손목에 차고 시간을 확인하거나 알람을 맞출 때 다루는 손목시계다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.WristWatch_Left_ClassicGold",
+            "candidate_output": "손목에 차고 시간을 확인하거나 알람을 맞출 때 다루는 금색 손목시계다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.WristWatch_Left_ClassicMilitary",
+            "candidate_output": "손목에 차고 시간을 확인하거나 알람을 맞출 때 다루는 군용 손목시계다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.WristWatch_Left_DigitalBlack",
+            "candidate_output": "손목에 차고 시간을 확인하거나 알람을 맞출 때 다루는 디지털 손목시계다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.WristWatch_Left_DigitalDress",
+            "candidate_output": "손목에 차고 시간을 확인하거나 알람을 맞출 때 다루는 디지털 손목시계다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.WristWatch_Left_DigitalRed",
+            "candidate_output": "손목에 차고 시간을 확인하거나 알람을 맞출 때 다루는 디지털 손목시계다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.WristWatch_Right_ClassicMilitary",
+            "candidate_output": "손목에 차고 시간을 확인하거나 알람을 맞출 때 다루는 군용 손목시계다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          }
+        ],
+        "status": "FAIL"
+      },
+      {
+        "cohort_id": "padlock_key_identity",
+        "error_boundary": "padlock_identity_must_not_equal_key_identity",
+        "member_count": 9,
+        "corrected_count": 1,
+        "unchanged_control_count": 8,
+        "blocker_count": 0,
+        "corrected_rows": [
+          {
+            "item_id": "Base.Padlock",
+            "candidate_output": "통자물쇠다. 농업 물품 상자와 공구점, 청소 작업 장소에서 발견된다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          }
+        ],
+        "unchanged_control_rows": [
+          {
+            "item_id": "Base.CarKey",
+            "candidate_output": "차량 열쇠로, 보안 작업에서 자물쇠나 차량, 문 장치를 열거나 잠글 때 다룬다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.CombinationPadlock",
+            "candidate_output": "번호 자물쇠로, 보안 작업에서 자물쇠나 차량, 문 장치를 열거나 잠글 때 다룬다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Key1",
+            "candidate_output": "열쇠로, 보안 작업에서 자물쇠나 차량, 문 장치를 열거나 잠글 때 다룬다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Key2",
+            "candidate_output": "열쇠로, 보안 작업에서 자물쇠나 차량, 문 장치를 열거나 잠글 때 다룬다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Key3",
+            "candidate_output": "열쇠로, 보안 작업에서 자물쇠나 차량, 문 장치를 열거나 잠글 때 다룬다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Key4",
+            "candidate_output": "열쇠로, 보안 작업에서 자물쇠나 차량, 문 장치를 열거나 잠글 때 다룬다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.Key5",
+            "candidate_output": "열쇠로, 보안 작업에서 자물쇠나 차량, 문 장치를 열거나 잠글 때 다룬다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.KeyPadlock",
+            "candidate_output": "자물쇠 열쇠로, 보안 작업에서 자물쇠나 차량, 문 장치를 열거나 잠글 때 다룬다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          }
+        ],
+        "status": "PASS"
+      },
+      {
+        "cohort_id": "vehicle_trunk_seat_identity",
+        "error_boundary": "vehicle_trunk_identity_must_not_equal_seat_identity",
+        "member_count": 19,
+        "corrected_count": 1,
+        "unchanged_control_count": 18,
+        "blocker_count": 0,
+        "corrected_rows": [
+          {
+            "item_id": "Base.VanSeatsTrunk2",
+            "candidate_output": "차량을 정비하며 좌석이나 적재 모듈을 분리하거나 다시 끼울 때 다루는 소형 트렁크다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          }
+        ],
+        "unchanged_control_rows": [
+          {
+            "item_id": "Base.BigTrunk1",
+            "candidate_output": "차량을 정비하며 좌석이나 적재 모듈을 분리하거나 다시 끼울 때 다루는 트렁크 모듈이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.BigTrunk2",
+            "candidate_output": "차량을 정비하며 좌석이나 적재 모듈을 분리하거나 다시 끼울 때 다루는 트렁크 모듈이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.BigTrunk3",
+            "candidate_output": "차량을 정비하며 좌석이나 적재 모듈을 분리하거나 다시 끼울 때 다루는 트렁크 모듈이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.GloveBox1",
+            "candidate_output": "차량을 정비하며 좌석이나 적재 모듈을 분리하거나 다시 끼울 때 다루는 글러브 박스다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.GloveBox2",
+            "candidate_output": "차량을 정비하며 좌석이나 적재 모듈을 분리하거나 다시 끼울 때 다루는 글러브 박스다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.GloveBox3",
+            "candidate_output": "차량을 정비하며 좌석이나 적재 모듈을 분리하거나 다시 끼울 때 다루는 글러브 박스다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.NormalCarSeat1",
+            "candidate_output": "차량을 정비하며 좌석이나 적재 모듈을 분리하거나 다시 끼울 때 다루는 좌석 모듈이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.NormalCarSeat2",
+            "candidate_output": "차량을 정비하며 좌석이나 적재 모듈을 분리하거나 다시 끼울 때 다루는 좌석 모듈이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.NormalCarSeat3",
+            "candidate_output": "차량을 정비하며 좌석이나 적재 모듈을 분리하거나 다시 끼울 때 다루는 좌석 모듈이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.NormalTrunk1",
+            "candidate_output": "차량을 정비하며 좌석이나 적재 모듈을 분리하거나 다시 끼울 때 다루는 트렁크 모듈이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.NormalTrunk2",
+            "candidate_output": "차량을 정비하며 좌석이나 적재 모듈을 분리하거나 다시 끼울 때 다루는 트렁크 모듈이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.NormalTrunk3",
+            "candidate_output": "차량을 정비하며 좌석이나 적재 모듈을 분리하거나 다시 끼울 때 다루는 트렁크 모듈이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.SmallTrunk1",
+            "candidate_output": "차량을 정비하며 좌석이나 적재 모듈을 분리하거나 다시 끼울 때 다루는 트렁크 모듈이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.SmallTrunk2",
+            "candidate_output": "차량을 정비하며 좌석이나 적재 모듈을 분리하거나 다시 끼울 때 다루는 트렁크 모듈이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.SmallTrunk3",
+            "candidate_output": "차량을 정비하며 좌석이나 적재 모듈을 분리하거나 다시 끼울 때 다루는 트렁크 모듈이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.TrailerTrunk1",
+            "candidate_output": "차량을 정비하며 좌석이나 적재 모듈을 분리하거나 다시 끼울 때 다루는 트렁크 모듈이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.TrailerTrunk2",
+            "candidate_output": "차량을 정비하며 좌석이나 적재 모듈을 분리하거나 다시 끼울 때 다루는 트렁크 모듈이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          },
+          {
+            "item_id": "Base.TrailerTrunk3",
+            "candidate_output": "차량을 정비하며 좌석이나 적재 모듈을 분리하거나 다시 끼울 때 다루는 트렁크 모듈이다.",
+            "rubric": {
+              "readability": "pass",
+              "naturalness": "pass",
+              "semantic_fidelity": "pass",
+              "public_suitability": "pass"
+            },
+            "disposition": "PASS",
+            "compiler_particle_control": false
+          }
+        ],
+        "status": "PASS"
+      }
+    ]
+  },
+  "explicit_particle_control": {
+    "item_id": "Base.WristWatch_Right_DigitalDress",
+    "candidate_output": "디지털 손목시계 (메탈릭 드레스 스타일)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+    "disposition": "PASS",
+    "rubric": {
+      "readability": "pass",
+      "naturalness": "pass",
+      "semantic_fidelity": "pass",
+      "public_suitability": "pass"
+    },
+    "reason": "괄호 안 식별어가 받침 ㄹ로 끝나는 '메탈릭 드레스 스타일'이므로 도구격 조사 ㄹ 예외에 따라 '(메탈릭 드레스 스타일)로'가 자연스럽다. 이 행은 9건 blocker에 포함되지 않는 정상 control이다."
+  },
+  "prior_14_recheck": [
+    {
+      "item_id": "Base.WoodenMallet",
+      "ownership": "compiler_generic_rule",
+      "disposition": "PASS",
+      "candidate_output": "무기 겸용 도구로, 근접 전투나 작업에 함께 쓰는 도구다. 작업 차량과 차고, 공구 상자와 공구점에서 발견된다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "pass",
+        "semantic_fidelity": "pass",
+        "public_suitability": "pass"
+      }
+    },
+    {
+      "item_id": "Base.ClubHammer",
+      "ownership": "compiler_generic_rule",
+      "disposition": "PASS",
+      "candidate_output": "무기 겸용 도구로, 근접 전투나 작업에 함께 쓰는 도구다. 작업 차량과 차고, 공구 상자와 공구점에서 발견된다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "pass",
+        "semantic_fidelity": "pass",
+        "public_suitability": "pass"
+      }
+    },
+    {
+      "item_id": "Base.GardenHoe",
+      "ownership": "compiler_generic_rule",
+      "disposition": "PASS",
+      "candidate_output": "원예 도구로, 재배와 흙 작업에 쓰는 도구다. 작업 차량과 차고, 농업 물품 상자와 원예 상점에서 발견된다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "pass",
+        "semantic_fidelity": "pass",
+        "public_suitability": "pass"
+      }
+    },
+    {
+      "item_id": "Base.CordlessPhone",
+      "ownership": "compiler_generic_rule",
+      "disposition": "PASS",
+      "candidate_output": "전자 기기로, 전자 작업에서 기기를 분해하거나 회로를 맞출 때 다룬다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "pass",
+        "semantic_fidelity": "pass",
+        "public_suitability": "pass"
+      }
+    },
+    {
+      "item_id": "Base.Corkscrew",
+      "ownership": "compiler_generic_rule",
+      "disposition": "PASS",
+      "candidate_output": "코르크 따개로, 주방 작업에서 식기와 상차림 소품을 꺼내 쓰거나 식사 준비에 곁들일 때 다룬다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "pass",
+        "semantic_fidelity": "pass",
+        "public_suitability": "pass"
+      }
+    },
+    {
+      "item_id": "Base.PlateOrange",
+      "ownership": "compiler_generic_rule",
+      "disposition": "PASS",
+      "candidate_output": "주황 접시로, 주방 작업에서 식기와 상차림 소품을 꺼내 쓰거나 식사 준비에 곁들일 때 다룬다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "pass",
+        "semantic_fidelity": "pass",
+        "public_suitability": "pass"
+      }
+    },
+    {
+      "item_id": "Base.SmallSheetMetal",
+      "ownership": "current_facts_source",
+      "disposition": "PASS",
+      "candidate_output": "금속 가공에서 금속판을 만드는 재료로 쓰는 작은 금속판이다. 금속 가공으로 만든다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "pass",
+        "semantic_fidelity": "pass",
+        "public_suitability": "pass"
+      }
+    },
+    {
+      "item_id": "Base.Shotgun",
+      "ownership": "current_facts_source",
+      "disposition": "PASS",
+      "candidate_output": "JS-2000 산탄총으로, 사격에 쓰는 산탄총이다. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "pass",
+        "semantic_fidelity": "pass",
+        "public_suitability": "pass"
+      }
+    },
+    {
+      "item_id": "Base.Saw",
+      "ownership": "current_facts_source",
+      "disposition": "PASS",
+      "candidate_output": "톱질에 쓰며 산탄총 총열 절단 작업에도 쓰는 도구다. 작업장과 공구 보관 장소에서 발견된다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "pass",
+        "semantic_fidelity": "pass",
+        "public_suitability": "pass"
+      }
+    },
+    {
+      "item_id": "camping.Flint",
+      "ownership": "current_facts_source",
+      "disposition": "PASS",
+      "candidate_output": "불씨를 만들 때 쓰는 부싯돌이다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "pass",
+        "semantic_fidelity": "pass",
+        "public_suitability": "pass"
+      }
+    },
+    {
+      "item_id": "Base.HairDyeYellow",
+      "ownership": "current_facts_source",
+      "disposition": "PASS",
+      "candidate_output": "노란 염색약으로, 머리색을 바꾸는 데 쓰는 염색약이다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "pass",
+        "semantic_fidelity": "pass",
+        "public_suitability": "pass"
+      }
+    },
+    {
+      "item_id": "Base.HairDyePink",
+      "ownership": "current_facts_source",
+      "disposition": "PASS",
+      "candidate_output": "분홍 염색약으로, 머리색을 바꾸는 데 쓰는 염색약이다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "pass",
+        "semantic_fidelity": "pass",
+        "public_suitability": "pass"
+      }
+    },
+    {
+      "item_id": "Base.MakeUp_CamoEyes1",
+      "ownership": "current_facts_source",
+      "disposition": "PASS",
+      "candidate_output": "눈가 분장으로, 눈가에 무늬를 더하는 분장이다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "pass",
+        "semantic_fidelity": "pass",
+        "public_suitability": "pass"
+      }
+    },
+    {
+      "item_id": "Base.Comb",
+      "ownership": "current_facts_source",
+      "disposition": "PASS",
+      "candidate_output": "머리를 빗고 정돈할 때 쓰는 빗이다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "pass",
+        "semantic_fidelity": "pass",
+        "public_suitability": "pass"
+      }
+    }
+  ],
+  "compiler_process_observation_recheck": {
+    "detector_id": "compiler_introduced_process_without_same_clause_source_process",
+    "observation_count": 31,
+    "justified_count": 31,
+    "blocker_count": 0,
+    "common_candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+    "common_source_evidence": {
+      "consumption_form": "ingredient_component",
+      "meal_role": "ingredient",
+      "preparation_requirement": "cooking_declared"
+    },
+    "dispositions": [
+      {
+        "item_id": "Base.BaitFish",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.Bass",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.BreadDough",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.Catfish",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.Chicken",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.Crappie",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.Crayfish",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.DeadBird",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.DeadMouse",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.DeadRabbit",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.DeadRat",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.DeadSquirrel",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.Dough",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.Egg",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.Lobster",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.MeatPatty",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.MincedMeat",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.MuttonChop",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.Oysters",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.Panfish",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.Perch",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.Pike",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.PizzaRecipe",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.PorkChop",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.Salmon",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.Sausage",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.Shrimp",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.Steak",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.Trout",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "Base.WildEggs",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      },
+      {
+        "item_id": "farming.Bacon",
+        "candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+        "source_evidence": {
+          "consumption_form": "ingredient_component",
+          "meal_role": "ingredient",
+          "preparation_requirement": "cooking_declared"
+        },
+        "disposition": "justified_semantic_realization",
+        "rubric": {
+          "readability": "pass",
+          "naturalness": "pass",
+          "semantic_fidelity": "pass",
+          "public_suitability": "pass"
+        },
+        "status": "PASS"
+      }
+    ]
+  },
+  "review_methodology": {
+    "exact_count_reviewed": 2084,
+    "candidate_bindings_verified": true,
+    "candidate_file_sha256_independently_recomputed": true,
+    "trace_file_sha256_independently_recomputed": true,
+    "ordered_selection_digest_independently_recomputed": true,
+    "unique_rendered_text_groups_reviewed": 697,
+    "primary_use_cohorts_reviewed": 162,
+    "acquisition_text_groups_reviewed": 340,
+    "source_propositions_bound": 5915,
+    "prior_blockers_rechecked": 44,
+    "semantic_cohort_rows_rechecked": 149,
+    "unchanged_semantic_controls_rechecked": 105,
+    "prior_blockers_14_rechecked": 14,
+    "process_observations_individually_rechecked": 31,
+    "tests_or_phase_execution_performed": false,
+    "candidate_or_source_files_modified": false
+  },
+  "terminal_constraints": {
+    "compiler_blockers_present": true,
+    "facts_blockers_present": false,
+    "phase8_prohibited": true,
+    "official_publish_attempt_prohibited": true,
+    "live_gate_change_prohibited": true
+  }
+}

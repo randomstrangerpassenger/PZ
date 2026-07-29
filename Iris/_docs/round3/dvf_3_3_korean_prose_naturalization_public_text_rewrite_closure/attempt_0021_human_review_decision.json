@@ -1,0 +1,228 @@
+{
+  "schema_version": "dvf-3-3-exact-full-candidate-external-review-decision-v1",
+  "status": "FAIL",
+  "decision_mode": "exact_full_candidate_external_review",
+  "candidate_rendered_hash": "e99e2fe0027c4568314ed58632cd68323cd7155c75a0ecf2916432e550435efe",
+  "selected_ordered_digest": "6c226d0330e2e098d30f08df2505844bd4d3257d8419380b41234d14c0898e1e",
+  "reviewed_denominator": 2084,
+  "reviewed_item_id_binding": "human_review_sample_manifest.selected_item_ids",
+  "reviewer_id": "Codex Reviewer (Avicenna)",
+  "reviewer_role": "external_codex_reviewer",
+  "all_unlisted_items_pass_all_rubrics": true,
+  "rubric_aggregate": {
+    "readability": {
+      "pass": 2084,
+      "fail": 0
+    },
+    "naturalness": {
+      "pass": 2075,
+      "fail": 9
+    },
+    "semantic_fidelity": {
+      "pass": 2084,
+      "fail": 0
+    },
+    "public_suitability": {
+      "pass": 2075,
+      "fail": 9
+    }
+  },
+  "blocker_count": 9,
+  "blocker_count_by_ownership": {
+    "compiler": 9,
+    "facts": 0
+  },
+  "blocker_item_ids": [
+    "Base.CannedMushroomSoupOpen",
+    "Base.DoubleBarrelShotgunSawnoff",
+    "Base.ShotgunSawnoff",
+    "Base.TinnedSoupOpen",
+    "Base.WristWatch_Right_ClassicBlack",
+    "Base.WristWatch_Right_ClassicBrown",
+    "Base.WristWatch_Right_ClassicGold",
+    "Base.WristWatch_Right_DigitalBlack",
+    "Base.WristWatch_Right_DigitalRed"
+  ],
+  "blockers": [
+    {
+      "item_id": "Base.CannedMushroomSoupOpen",
+      "candidate_output": "버섯스프 통조림 (열림)로, 식품으로 먹는 수프다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "fail",
+        "semantic_fidelity": "pass",
+        "public_suitability": "fail"
+      },
+      "ownership": "compiler",
+      "reason": "받침으로 끝나는 괄호 안 식별어 '열림' 뒤에 도구격 조사 '로'를 붙여 '(열림)로'가 되었다. 자연스러운 공개 문안은 '(열림)으로'다.",
+      "expected_correction": "버섯스프 통조림 (열림)으로, 식품으로 먹는 수프다.",
+      "trace_binding": {
+        "realization_rule_id": "candidate_lead_identity_use_instrumental_v1",
+        "transformation_ids": [
+          "paragraph_merge",
+          "particle_adjustment"
+        ]
+      }
+    },
+    {
+      "item_id": "Base.DoubleBarrelShotgunSawnoff",
+      "candidate_output": "더블 배럴 산탄총 (총열 자름)로, 사격에 쓰는 총기다. 쌍열 산탄총과 톱으로 절단해 만든다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "fail",
+        "semantic_fidelity": "pass",
+        "public_suitability": "fail"
+      },
+      "ownership": "compiler",
+      "reason": "받침으로 끝나는 괄호 안 식별어 '총열 자름' 뒤에 도구격 조사 '로'를 붙여 '(총열 자름)로'가 되었다. 자연스러운 공개 문안은 '(총열 자름)으로'다.",
+      "expected_correction": "더블 배럴 산탄총 (총열 자름)으로, 사격에 쓰는 총기다. 쌍열 산탄총과 톱으로 절단해 만든다.",
+      "trace_binding": {
+        "realization_rule_id": "candidate_lead_identity_use_instrumental_v1",
+        "transformation_ids": [
+          "paragraph_merge",
+          "particle_adjustment"
+        ]
+      }
+    },
+    {
+      "item_id": "Base.ShotgunSawnoff",
+      "candidate_output": "JS-2000 산탄총 (총열 자름)로, 사격에 쓰는 총기다. 산탄총과 톱으로 절단해 만든다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "fail",
+        "semantic_fidelity": "pass",
+        "public_suitability": "fail"
+      },
+      "ownership": "compiler",
+      "reason": "받침으로 끝나는 괄호 안 식별어 '총열 자름' 뒤에 도구격 조사 '로'를 붙여 '(총열 자름)로'가 되었다. 자연스러운 공개 문안은 '(총열 자름)으로'다.",
+      "expected_correction": "JS-2000 산탄총 (총열 자름)으로, 사격에 쓰는 총기다. 산탄총과 톱으로 절단해 만든다.",
+      "trace_binding": {
+        "realization_rule_id": "candidate_lead_identity_use_instrumental_v1",
+        "transformation_ids": [
+          "paragraph_merge",
+          "particle_adjustment"
+        ]
+      }
+    },
+    {
+      "item_id": "Base.TinnedSoupOpen",
+      "candidate_output": "스프 통조림 (열림)로, 식품으로 먹는 수프다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "fail",
+        "semantic_fidelity": "pass",
+        "public_suitability": "fail"
+      },
+      "ownership": "compiler",
+      "reason": "받침으로 끝나는 괄호 안 식별어 '열림' 뒤에 도구격 조사 '로'를 붙여 '(열림)로'가 되었다. 자연스러운 공개 문안은 '(열림)으로'다.",
+      "expected_correction": "스프 통조림 (열림)으로, 식품으로 먹는 수프다.",
+      "trace_binding": {
+        "realization_rule_id": "candidate_lead_identity_use_instrumental_v1",
+        "transformation_ids": [
+          "paragraph_merge",
+          "particle_adjustment"
+        ]
+      }
+    },
+    {
+      "item_id": "Base.WristWatch_Right_ClassicBlack",
+      "candidate_output": "클래식 손목시계 (검은색)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "fail",
+        "semantic_fidelity": "pass",
+        "public_suitability": "fail"
+      },
+      "ownership": "compiler",
+      "reason": "받침으로 끝나는 괄호 안 식별어 '검은색' 뒤에 도구격 조사 '로'를 붙여 '(검은색)로'가 되었다. 자연스러운 공개 문안은 '(검은색)으로'다.",
+      "expected_correction": "클래식 손목시계 (검은색)으로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "trace_binding": {
+        "realization_rule_id": "candidate_lead_identity_use_instrumental_v1",
+        "transformation_ids": [
+          "paragraph_merge",
+          "particle_adjustment"
+        ]
+      }
+    },
+    {
+      "item_id": "Base.WristWatch_Right_ClassicBrown",
+      "candidate_output": "클래식 손목시계 (갈색)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "fail",
+        "semantic_fidelity": "pass",
+        "public_suitability": "fail"
+      },
+      "ownership": "compiler",
+      "reason": "받침으로 끝나는 괄호 안 식별어 '갈색' 뒤에 도구격 조사 '로'를 붙여 '(갈색)로'가 되었다. 자연스러운 공개 문안은 '(갈색)으로'다.",
+      "expected_correction": "클래식 손목시계 (갈색)으로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "trace_binding": {
+        "realization_rule_id": "candidate_lead_identity_use_instrumental_v1",
+        "transformation_ids": [
+          "paragraph_merge",
+          "particle_adjustment"
+        ]
+      }
+    },
+    {
+      "item_id": "Base.WristWatch_Right_ClassicGold",
+      "candidate_output": "손목시계 (금)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "fail",
+        "semantic_fidelity": "pass",
+        "public_suitability": "fail"
+      },
+      "ownership": "compiler",
+      "reason": "받침으로 끝나는 괄호 안 식별어 '금' 뒤에 도구격 조사 '로'를 붙여 '(금)로'가 되었다. 자연스러운 공개 문안은 '(금)으로'다.",
+      "expected_correction": "손목시계 (금)으로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "trace_binding": {
+        "realization_rule_id": "candidate_lead_identity_use_instrumental_v1",
+        "transformation_ids": [
+          "paragraph_merge",
+          "particle_adjustment"
+        ]
+      }
+    },
+    {
+      "item_id": "Base.WristWatch_Right_DigitalBlack",
+      "candidate_output": "디지털 손목시계 (검은색)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "fail",
+        "semantic_fidelity": "pass",
+        "public_suitability": "fail"
+      },
+      "ownership": "compiler",
+      "reason": "받침으로 끝나는 괄호 안 식별어 '검은색' 뒤에 도구격 조사 '로'를 붙여 '(검은색)로'가 되었다. 자연스러운 공개 문안은 '(검은색)으로'다.",
+      "expected_correction": "디지털 손목시계 (검은색)으로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "trace_binding": {
+        "realization_rule_id": "candidate_lead_identity_use_instrumental_v1",
+        "transformation_ids": [
+          "paragraph_merge",
+          "particle_adjustment"
+        ]
+      }
+    },
+    {
+      "item_id": "Base.WristWatch_Right_DigitalRed",
+      "candidate_output": "디지털 손목시계 (빨간색)로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "rubric": {
+        "readability": "pass",
+        "naturalness": "fail",
+        "semantic_fidelity": "pass",
+        "public_suitability": "fail"
+      },
+      "ownership": "compiler",
+      "reason": "받침으로 끝나는 괄호 안 식별어 '빨간색' 뒤에 도구격 조사 '로'를 붙여 '(빨간색)로'가 되었다. 자연스러운 공개 문안은 '(빨간색)으로'다.",
+      "expected_correction": "디지털 손목시계 (빨간색)으로, 시간 확인이나 알람 설정에 쓰는 기기다. 시계 취급 장소와 채집으로 구할 수 있다.",
+      "trace_binding": {
+        "realization_rule_id": "candidate_lead_identity_use_instrumental_v1",
+        "transformation_ids": [
+          "paragraph_merge",
+          "particle_adjustment"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "schema_version": "dvf-3-3-naturalization-phase7-fail-close-v1",
+  "status": "FAIL_CLOSED",
+  "naturalization_attempt_id": "attempt-0021-g4-rebind-a",
+  "determinism_replay_attempt_id": "attempt-0021-g4-rebind-b",
+  "start_identity": {
+    "commit": "8a203f65e3d8a943119235600fcb341ba471fac2",
+    "tree": "1572cbb3ebccb4bbf844a5325874c9c2d6fc74ec",
+    "compiler_correction_commit": "ca851a1e10bd37be71deded1fcc57b0d8462db48",
+    "compiler_correction_is_ancestor": true,
+    "facts_correction_successor": "correction-0003",
+    "facts_correction_and_g4_rebind_in_start_commit": true,
+    "attempt_execution_commit": "abc94e8542776b68f7f879402253cb4e0193fb59"
+  },
+  "phase_judgments": {
+    "phase0": {
+      "attempt_a": "PASS",
+      "attempt_b": "PASS"
+    },
+    "phase1": {
+      "attempt_a": "PASS",
+      "attempt_b": "PASS"
+    },
+    "phase2": {
+      "attempt_a": "PASS",
+      "attempt_b": "PASS"
+    },
+    "phase3": {
+      "attempt_a": "PASS",
+      "attempt_b": "PASS"
+    },
+    "phase4": {
+      "attempt_a": "PASS",
+      "attempt_b": "PASS"
+    },
+    "phase5": {
+      "attempt_a": "PASS",
+      "attempt_b": "PASS"
+    },
+    "phase6": {
+      "attempt_a": "PASS",
+      "attempt_b": "PASS"
+    },
+    "phase7": {
+      "attempt_a": "FAIL",
+      "runner_exit_code": 1,
+      "reviewed_denominator": 2084,
+      "blocker_count": 9
+    },
+    "phase8": {
+      "status": "NOT_EXECUTED_FAIL_CLOSED",
+      "directory_created": false,
+      "publish_handoff_created": false,
+      "phase8_closeout_created": false
+    }
+  },
+  "phase2_sealed_inputs": {
+    "current_facts_sha256": "50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120",
+    "current_manifest_sha256": "090381a652da540c6e72300624728aba48f6392e41fb50e8eec973efd320b9b7",
+    "g3_adoption_receipt_sha256": "312c9b8744e1925b120129402b4ff6834d551960c284af8e91dbdbca091a56b0",
+    "g3_terminal_correction_seal_sha256": "03dea1902f1d219b227b2b69cb88742f1005e3620cdcdee2b72ba811d1bd20fb",
+    "g3_naturalization_handoff_sha256": "bfa14583f524f99a75e88d4b6eaddfa146544cba9124cf09214a13a38c7d7750",
+    "g4_foundation_readiness_successor_sha256": "912f28b7869ff92ff7fbd84cbdc31e1fbb22923beebbfcce2c9cc78b72eca9d2",
+    "g4_foundation_contract_sha256": "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02",
+    "registry_adoption_contract_sha256": "d4aac650a5d8135e6f14846d47b08f538f63b5ad07aaf714074d7a3f6555aed4",
+    "registry_correction_successor_manifest_sha256": "da7f6676b899b628c444edca56241ad274f2c64fa1a3448a934abff2f059cbb5",
+    "source_authority_reseal_report_sha256_a": "578d4d54d450c1c2b7369ad6ab2d758f4e5834d544f9b5d9115fa36cd1e419ab",
+    "source_authority_reseal_report_sha256_b": "456b7eef5ca08b7197c259a2b0d907f9b3e28648963975526ca8c3e594144b2c",
+    "source_proposition_manifest_sha256_a": "c33ceb5c3b221fd0b6fe23596b746a2cc1cfa6f915d8214f9837f252e03d05aa",
+    "source_proposition_manifest_sha256_b": "e87722c0e6041768bf76f1e2aba0e5fc2faf78feb23f4071bfda6295dfce813c"
+  },
+  "determinism": {
+    "candidate_sha256_a": "e99e2fe0027c4568314ed58632cd68323cd7155c75a0ecf2916432e550435efe",
+    "candidate_sha256_b": "e99e2fe0027c4568314ed58632cd68323cd7155c75a0ecf2916432e550435efe",
+    "candidate_byte_identity": true,
+    "trace_sha256_a": "2c97c59781d6b9c8d8adeb0f9f99a386ba5ed872dd10ed66dd09635b8c435541",
+    "trace_sha256_b": "2c97c59781d6b9c8d8adeb0f9f99a386ba5ed872dd10ed66dd09635b8c435541",
+    "trace_byte_identity": true,
+    "raw_artifacts_compared": 63,
+    "raw_artifacts_byte_equal": 45,
+    "attempt_or_volatile_metadata_differences": 18,
+    "deterministic_semantic_payload_identity": true,
+    "phase0_through_phase6_identity_report_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt_0021_phase0_through_phase6_ab_byte_identity_report.json",
+    "phase0_through_phase6_identity_report_sha256": "5cff62ae24c9345fbaf5de8843ce457e2f912c680e1ac14ca8ac0eb68c1724c6"
+  },
+  "phase7_review": {
+    "decision_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt_0021_human_review_decision.json",
+    "decision_sha256": "74335b5f583018d16e3166f9a886d6322062c56ee274f06c3e99da8dfea92096",
+    "reviewer_attestation_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/codex_reviewer_attempt_0021_phase7_fail_attestation.json",
+    "reviewer_attestation_sha256": "ddc58caa6bad2ed6c92f58990755947c0dc28ffa7da49d9d61928ee3b07d60de",
+    "sample_manifest_sha256": "816917ca54322fe0c64e24beef745001b80488927b548daee8f12f047c2154de",
+    "binding_report_sha256": "eef2dc773fe53b3564e316c15e5ac75d6ccf4cea3d24a0ff4d5ab6bcd3a3a857",
+    "eligibility_report_sha256": "c30e203c4dd7877f47ee8c090e28540d762c71eb72f4991b5132e286faea1524",
+    "rubric_aggregate": {
+      "readability": {
+        "pass": 2084,
+        "fail": 0
+      },
+      "naturalness": {
+        "pass": 2075,
+        "fail": 9
+      },
+      "semantic_fidelity": {
+        "pass": 2084,
+        "fail": 0
+      },
+      "public_suitability": {
+        "pass": 2075,
+        "fail": 9
+      }
+    },
+    "previous_facts_blocker_44_reviewed_count": 44,
+    "previous_facts_semantic_error_corrected_count": 44,
+    "previous_facts_blocker_all_rubrics_pass_count": 35,
+    "new_compiler_blocker_count_within_previous_44": 9,
+    "semantic_cohort_count": 8,
+    "semantic_cohort_investigated_count": 149,
+    "semantic_cohort_corrected_count": 44,
+    "semantic_cohort_unchanged_control_count": 105,
+    "semantic_cohort_control_blocker_count": 0,
+    "previous_blocker_recheck_count": 14,
+    "previous_blocker_pass_count": 14,
+    "previous_compiler_blocker_count": 6,
+    "previous_compiler_blocker_pass_count": 6,
+    "previous_facts_blocker_count": 8,
+    "previous_facts_blocker_pass_count": 8,
+    "source_absent_process_observation_count": 31,
+    "source_absent_process_justified_count": 31,
+    "source_absent_process_blocker_count": 0,
+    "new_unique_blocker_count": 9
+  },
+  "blocker_ownership_split": {
+    "compiler": {
+      "blocker_count": 9,
+      "realization_rule_id": "candidate_lead_identity_use_instrumental_v1",
+      "transformation_id": "particle_adjustment",
+      "disposition": "BLOCKED_REQUIRES_GENERIC_PARENTHESIZED_IDENTITY_PARTICLE_REMEDIATION",
+      "item_id_authority": "attempt_0021_human_review_decision.json.blocker_item_ids"
+    },
+    "current_facts_source": {
+      "blocker_count": 0,
+      "disposition": "CORRECTION_0003_SEMANTIC_ERRORS_CLOSED"
+    }
+  },
+  "validation": {
+    "naturalization_unit_test_count": 27,
+    "naturalization_unit_test_exit_code": 0,
+    "compose_unit_test_count": 29,
+    "compose_unit_test_exit_code": 0,
+    "total_unit_test_count": 56,
+    "phase0_through_phase6_validator_a_exit_code": 0,
+    "phase0_through_phase6_validator_b_exit_code": 0,
+    "phase7_validator_expected_fail_exit_code": 1,
+    "phase7_validator_error_ids": [
+      "human_review_not_pass",
+      "human_review_blocker_present",
+      "full_candidate_human_review_claim_missing"
+    ]
+  },
+  "scope_guards": {
+    "attempt_0018_modified_or_resumed": false,
+    "attempt_0019_modified_or_resumed": false,
+    "attempt_0020_modified_or_resumed": false,
+    "current_facts_or_manifest_modified_in_attempt": false,
+    "foundation_meaning_or_readiness_modified": false,
+    "official_publish_attempt_created": false,
+    "official_publish_executed": false,
+    "live_gate_mutated": false,
+    "rtc_executed": false,
+    "runtime_lua_or_package_mutated": false,
+    "new_retry_attempt_created_after_phase7_failure": false
+  },
+  "next_action": {
+    "owner": "naturalization_compiler",
+    "required_action": "Remediate generic instrumental-particle selection so a parenthesized Korean identity uses the final pronounced Hangul syllable inside the closing parenthesis, including the ㄹ exception, without item-specific exceptions.",
+    "naturalization_direct_phase_reentry_allowed": false,
+    "new_retry_attempt_created_in_this_session": false,
+    "phase8_allowed_for_this_attempt": false
+  }
+}

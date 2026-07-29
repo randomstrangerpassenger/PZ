@@ -1061,9 +1061,10 @@ def run_phase(attempt_id: str, mode: str) -> int:
             result = producer.load_json(existing_phase4_result_path)
         else:
             result = builders[mode](attempt_id, attempt_root)
-        if result.get("status") not in {"PASS", "HANDOFF_COMPLETE"}:
+        producer_status = result.get("status", "PASS")
+        if producer_status not in {"PASS", "HANDOFF_COMPLETE"}:
             raise IdentityV2AttemptError(
-                f"producer phase did not pass: {mode}: {result.get('status')}"
+                f"producer phase did not pass: {mode}: {producer_status}"
             )
         if mode == "phase0-preflight":
             write_line_ending_authority_correction_report(attempt_root)
@@ -1101,7 +1102,7 @@ def run_phase(attempt_id: str, mode: str) -> int:
         "status": "PASS",
         "attempt_id": attempt_id,
         "mode": mode,
-        "producer_status": result.get("status"),
+        "producer_status": producer_status,
         "compiler_aggregate_sha256": EXPECTED_COMPILER_AGGREGATE_SHA256,
         "compiler_identity_algorithm_id": (
             EXPECTED_COMPILER_IDENTITY_ALGORITHM_ID

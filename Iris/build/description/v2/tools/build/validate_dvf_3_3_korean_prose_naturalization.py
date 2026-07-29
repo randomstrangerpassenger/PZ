@@ -12,12 +12,21 @@ if __package__ in {None, ""}:
         EVALUATION_SUBJECT_KIND,
         EXPECTED_CURRENT_FACTS_SHA256,
         EXPECTED_CURRENT_MANIFEST_SHA256,
+        EXPECTED_COMPILER_FIX_COMMIT,
         EXPECTED_FOUNDATION_CONTRACT_SHA256,
         EXPECTED_FOUNDATION_READINESS_SHA256,
+        EXPECTED_FOUNDATION_READINESS_CORRECTION_REBIND_SHA256,
+        EXPECTED_INITIAL_REGISTRY_ADOPTION_RECEIPT_SHA256,
         EXPECTED_REGISTRY_ADOPTION_RECEIPT_SHA256,
+        EXPECTED_REGISTRY_ADOPTION_CONTRACT_SHA256,
+        EXPECTED_REGISTRY_CORRECTION_TERMINAL_SEAL_SHA256,
+        EXPECTED_SELECTED_SUCCESSOR_FACTS_SHA256,
+        EXPECTED_SELECTED_SUCCESSOR_MANIFEST_SHA256,
         FOUNDATION_CONTRACT,
+        FOUNDATION_READINESS_CORRECTION_REBIND,
         NaturalizationError,
         REPO_ROOT,
+        REGISTRY_ADOPTION_CONTRACT,
         attempt_root_for,
         canonical_hash,
         implementation_hash,
@@ -30,12 +39,21 @@ else:
         EVALUATION_SUBJECT_KIND,
         EXPECTED_CURRENT_FACTS_SHA256,
         EXPECTED_CURRENT_MANIFEST_SHA256,
+        EXPECTED_COMPILER_FIX_COMMIT,
         EXPECTED_FOUNDATION_CONTRACT_SHA256,
         EXPECTED_FOUNDATION_READINESS_SHA256,
+        EXPECTED_FOUNDATION_READINESS_CORRECTION_REBIND_SHA256,
+        EXPECTED_INITIAL_REGISTRY_ADOPTION_RECEIPT_SHA256,
         EXPECTED_REGISTRY_ADOPTION_RECEIPT_SHA256,
+        EXPECTED_REGISTRY_ADOPTION_CONTRACT_SHA256,
+        EXPECTED_REGISTRY_CORRECTION_TERMINAL_SEAL_SHA256,
+        EXPECTED_SELECTED_SUCCESSOR_FACTS_SHA256,
+        EXPECTED_SELECTED_SUCCESSOR_MANIFEST_SHA256,
         FOUNDATION_CONTRACT,
+        FOUNDATION_READINESS_CORRECTION_REBIND,
         NaturalizationError,
         REPO_ROOT,
+        REGISTRY_ADOPTION_CONTRACT,
         attempt_root_for,
         canonical_hash,
         implementation_hash,
@@ -128,6 +146,8 @@ def validate_phase0(root: Path, errors: list[str]) -> dict[str, Any]:
     historical_policy = load_json(
         phase_root(root, 0) / "historical_attempt_policy_report.json"
     )
+    registry_contract = load_json(REGISTRY_ADOPTION_CONTRACT)
+    readiness_rebind = load_json(FOUNDATION_READINESS_CORRECTION_REBIND)
     applicability = load_json(
         phase_root(root, 0) / "body_plan_applicability_authority_binding.json"
     )
@@ -184,12 +204,93 @@ def validate_phase0(root: Path, errors: list[str]) -> dict[str, Any]:
         "registry_adoption_binding_not_pass",
         errors,
     )
+    registry_actual = registry_binding.get("actual_source_identity", {})
+    selected_successor = registry_contract.get("selected_successor", {})
+    registry_contract_predicates = registry_binding.get(
+        "registry_contract_predicates", {}
+    )
+    blocked_attempt_predicates = registry_binding.get(
+        "blocked_attempt_predicates", {}
+    )
+    require_value(
+        registry_binding.get("registry_adoption_contract_sha256")
+        == EXPECTED_REGISTRY_ADOPTION_CONTRACT_SHA256
+        and sha256_file(REGISTRY_ADOPTION_CONTRACT)
+        == EXPECTED_REGISTRY_ADOPTION_CONTRACT_SHA256,
+        "registry_adoption_contract_identity_mismatch",
+        errors,
+    )
+    require_value(
+        registry_actual.get("current_facts_sha256")
+        == EXPECTED_CURRENT_FACTS_SHA256
+        and registry_actual.get("current_manifest_sha256")
+        == EXPECTED_CURRENT_MANIFEST_SHA256
+        and registry_actual.get("selected_successor_manifest_sha256")
+        == EXPECTED_SELECTED_SUCCESSOR_MANIFEST_SHA256
+        and selected_successor.get("facts_sha256")
+        == EXPECTED_SELECTED_SUCCESSOR_FACTS_SHA256
+        and selected_successor.get("manifest_sha256")
+        == EXPECTED_SELECTED_SUCCESSOR_MANIFEST_SHA256
+        and registry_contract_predicates.get(
+            "selected_predecessor_facts_match"
+        )
+        is True
+        and registry_contract_predicates.get("selected_manifest_match")
+        is True
+        and registry_contract_predicates.get("correction_facts_match")
+        is True
+        and registry_contract_predicates.get("correction_manifest_match")
+        is True,
+        "registry_selected_predecessor_or_correction_binding_mismatch",
+        errors,
+    )
+    require_value(
+        registry_binding.get("official_publish_attempt_allowed") is False
+        and registry_binding.get("live_publish_gate_mutation_allowed")
+        is False
+        and registry_binding.get("runtime_or_package_publication_allowed")
+        is False,
+        "registry_publish_boundary_expanded",
+        errors,
+    )
+    require_value(
+        blocked_attempt_predicates.get(
+            "current_manifest_blocked_attempt_id_match"
+        )
+        is True
+        and blocked_attempt_predicates.get(
+            "current_manifest_reentry_not_allowed"
+        )
+        is True
+        and blocked_attempt_predicates.get(
+            "g4_rebind_blocked_status_match"
+        )
+        is True
+        and blocked_attempt_predicates.get(
+            "g4_rebind_phase7_or_phase8_reentry_not_allowed"
+        )
+        is True
+        and readiness_rebind.get("naturalization_prerequisites", {}).get(
+            "attempt_0018_status"
+        )
+        == "BLOCKED"
+        and readiness_rebind.get("naturalization_prerequisites", {}).get(
+            "attempt_0018_phase7_or_phase8_reentry_allowed"
+        )
+        is False,
+        "attempt_0018_rebind_boundary_invalid",
+        errors,
+    )
     require_value(
         report.get("current_facts_sha256") == EXPECTED_CURRENT_FACTS_SHA256
         and report.get("current_manifest_sha256")
         == EXPECTED_CURRENT_MANIFEST_SHA256
         and report.get("registry_adoption_receipt_sha256")
-        == EXPECTED_REGISTRY_ADOPTION_RECEIPT_SHA256,
+        == EXPECTED_REGISTRY_ADOPTION_RECEIPT_SHA256
+        and report.get("initial_registry_adoption_receipt_sha256")
+        == EXPECTED_INITIAL_REGISTRY_ADOPTION_RECEIPT_SHA256
+        and report.get("registry_correction_terminal_seal_sha256")
+        == EXPECTED_REGISTRY_CORRECTION_TERMINAL_SEAL_SHA256,
         "g3_current_source_identity_mismatch",
         errors,
     )
@@ -198,6 +299,13 @@ def validate_phase0(root: Path, errors: list[str]) -> dict[str, Any]:
         == EXPECTED_FOUNDATION_CONTRACT_SHA256
         and foundation_identity.get("foundation_readiness_sha256")
         == EXPECTED_FOUNDATION_READINESS_SHA256
+        and foundation_identity.get(
+            "foundation_readiness_correction_rebind_sha256"
+        )
+        == EXPECTED_FOUNDATION_READINESS_CORRECTION_REBIND_SHA256
+        and foundation_identity.get("compiler_fix_commit")
+        == EXPECTED_COMPILER_FIX_COMMIT
+        and foundation_identity.get("compiler_fix_is_ancestor") is True
         and foundation_identity.get("foundation_commit_changed_path_count")
         == 19,
         "g4_foundation_identity_mismatch",
@@ -211,6 +319,21 @@ def validate_phase0(root: Path, errors: list[str]) -> dict[str, Any]:
         and historical_policy.get("resumed") is False
         and historical_policy.get("candidate_or_trace_reused") is False,
         "attempt_0014_reuse_boundary_invalid",
+        errors,
+    )
+    require_value(
+        historical_policy.get("blocked_attempt_id")
+        == "attempt-0018-g3-reseal-a"
+        and historical_policy.get("blocked_attempt_role")
+        == "immutable_blocked_evidence_only"
+        and historical_policy.get("blocked_attempt_resumed") is False
+        and historical_policy.get(
+            "blocked_attempt_phase7_or_phase8_reentry_allowed"
+        )
+        is False
+        and historical_policy.get("blocked_attempt_phase7_exists") is False
+        and historical_policy.get("blocked_attempt_phase8_exists") is False,
+        "attempt_0018_blocked_boundary_invalid",
         errors,
     )
     return report
@@ -250,6 +373,11 @@ def validate_phase2(root: Path, errors: list[str]) -> dict[str, Any]:
     reseal = load_json(
         phase_root(root, 2) / "source_authority_reseal_report.json"
     )
+    phase0_registry_binding = load_json(
+        phase_root(root, 0)
+        / "registry_adoption_receipt_binding_report.json"
+    )
+    registry_contract = load_json(REGISTRY_ADOPTION_CONTRACT)
     require_value(result.get("status") == "PASS", "phase2_status_not_pass", errors)
     require_value(
         manifest.get("candidate_dependency_count") == 0,
@@ -302,11 +430,44 @@ def validate_phase2(root: Path, errors: list[str]) -> dict[str, Any]:
         == EXPECTED_CURRENT_MANIFEST_SHA256
         and reseal.get("registry_adoption_receipt_sha256")
         == EXPECTED_REGISTRY_ADOPTION_RECEIPT_SHA256
+        and reseal.get("registry_adoption_contract_sha256")
+        == EXPECTED_REGISTRY_ADOPTION_CONTRACT_SHA256
+        and reseal.get("initial_registry_adoption_receipt_sha256")
+        == EXPECTED_INITIAL_REGISTRY_ADOPTION_RECEIPT_SHA256
+        and reseal.get("registry_correction_terminal_seal_sha256")
+        == EXPECTED_REGISTRY_CORRECTION_TERMINAL_SEAL_SHA256
         and reseal.get("g4_foundation_contract_sha256")
         == EXPECTED_FOUNDATION_CONTRACT_SHA256
         and reseal.get("g4_foundation_readiness_sha256")
-        == EXPECTED_FOUNDATION_READINESS_SHA256,
+        == EXPECTED_FOUNDATION_READINESS_SHA256
+        and reseal.get(
+            "g4_foundation_readiness_correction_rebind_sha256"
+        )
+        == EXPECTED_FOUNDATION_READINESS_CORRECTION_REBIND_SHA256
+        and reseal.get("compiler_fix_commit") == EXPECTED_COMPILER_FIX_COMMIT
+        and reseal.get("compiler_fix_is_ancestor") is True,
         "phase2_g3_g4_identity_mismatch",
+        errors,
+    )
+    phase2_four_hash = reseal.get("actual_four_hash_identity", {})
+    selected_successor = registry_contract.get("selected_successor", {})
+    require_value(
+        phase2_four_hash.get("current_facts_sha256")
+        == EXPECTED_CURRENT_FACTS_SHA256
+        and phase2_four_hash.get("selected_successor_manifest_sha256")
+        == EXPECTED_SELECTED_SUCCESSOR_MANIFEST_SHA256
+        and selected_successor.get("facts_sha256")
+        == EXPECTED_SELECTED_SUCCESSOR_FACTS_SHA256
+        and selected_successor.get("manifest_sha256")
+        == EXPECTED_SELECTED_SUCCESSOR_MANIFEST_SHA256
+        and phase0_registry_binding.get(
+            "registry_contract_predicates", {}
+        ).get("selected_predecessor_facts_match")
+        is True
+        and reseal.get("live_gate_mutation_allowed") is False
+        and reseal.get("official_publish_attempt_allowed") is False
+        and reseal.get("runtime_or_package_compatibility_claimed") is False,
+        "phase2_selected_successor_or_publish_boundary_mismatch",
         errors,
     )
     require_value(
@@ -319,7 +480,9 @@ def validate_phase2(root: Path, errors: list[str]) -> dict[str, Any]:
     )
     require_value(
         manifest.get("attempt_0014_reused_as_current_evidence") is False
-        and reseal.get("attempt_0014_reused_as_current_evidence") is False,
+        and reseal.get("attempt_0014_reused_as_current_evidence") is False
+        and manifest.get("attempt_0018_reused_or_resumed") is False
+        and reseal.get("attempt_0018_reused_or_resumed") is False,
         "phase2_attempt_0014_evidence_reused",
         errors,
     )

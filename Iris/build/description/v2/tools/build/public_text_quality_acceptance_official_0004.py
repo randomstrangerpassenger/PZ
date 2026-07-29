@@ -162,10 +162,11 @@ def _raw_vcs_record(
         raise base.FoundationContractError(
             f"required current input missing: {base.repo_relative(path)}"
         )
-    if not base._is_tracked(path) or base._is_ignored(path):
+    if not base._is_tracked(path):
         raise base.FoundationContractError(
-            f"required current input must be tracked and not ignored: {base.repo_relative(path)}"
+            f"required current input must be tracked: {base.repo_relative(path)}"
         )
+    ignored_by_current_rules = base._is_ignored(path)
     relative = base.repo_relative(path)
     head_blob = _git("rev-parse", f"HEAD:{relative}").stdout.strip()
     working_blob = _git("hash-object", "--no-filters", "--", relative).stdout.strip()
@@ -189,7 +190,8 @@ def _raw_vcs_record(
         "working_raw_blob_id": working_blob,
         "git_blob_working_byte_identity": True,
         "tracked": True,
-        "ignored": False,
+        "ignored": ignored_by_current_rules,
+        "tracked_file_ignore_effect": "none",
         "text_attribute": "unset" if text_unset else attr.rsplit(": ", 1)[-1],
     }
 

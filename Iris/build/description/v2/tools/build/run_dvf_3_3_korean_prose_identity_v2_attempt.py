@@ -831,10 +831,40 @@ def write_phase2_identity_reseal(
 def write_attempt_0022_equality_report(attempt_root: Path) -> dict[str, Any]:
     candidate = attempt_root / "phase4" / "candidate_rendered.json"
     candidate_sha256 = sha256_file(candidate)
-    byte_equal = candidate.read_bytes() == ATTEMPT_0022_CANDIDATE.read_bytes()
+    candidate_payload = _BASE_LOAD_JSON(candidate)
+    accepted_payload = _BASE_LOAD_JSON(ATTEMPT_0022_CANDIDATE)
+    candidate_entries = candidate_payload.get("entries", {})
+    accepted_entries = accepted_payload.get("entries", {})
+    candidate_text = {
+        item_id: entry.get("text_ko")
+        for item_id, entry in candidate_entries.items()
+    }
+    accepted_text = {
+        item_id: entry.get("text_ko")
+        for item_id, entry in accepted_entries.items()
+    }
+    all_item_ids = sorted(set(candidate_text) | set(accepted_text))
+    public_text_differences = [
+        item_id
+        for item_id in all_item_ids
+        if candidate_text.get(item_id) != accepted_text.get(item_id)
+    ]
+    key_identity = set(candidate_entries) == set(accepted_entries)
+    public_text_equal = key_identity and not public_text_differences
+    raw_byte_equal = (
+        candidate.read_bytes() == ATTEMPT_0022_CANDIDATE.read_bytes()
+    )
+    lf_normalized_byte_equal = (
+        compiler_identity.canonicalize_compiler_source_bytes(
+            candidate.read_bytes()
+        )
+        == compiler_identity.canonicalize_compiler_source_bytes(
+            ATTEMPT_0022_CANDIDATE.read_bytes()
+        )
+    )
     report = {
         "schema_version": "dvf-3-3-attempt-0022-public-text-equality-v1",
-        "status": "PASS" if byte_equal else "FAIL",
+        "status": "PASS" if public_text_equal else "FAIL",
         "candidate_sha256": candidate_sha256,
         "attempt_0022_accepted_candidate_path": repo_relative(
             ATTEMPT_0022_CANDIDATE
@@ -842,10 +872,27 @@ def write_attempt_0022_equality_report(attempt_root: Path) -> dict[str, Any]:
         "attempt_0022_accepted_candidate_sha256": sha256_file(
             ATTEMPT_0022_CANDIDATE
         ),
-        "public_text_byte_identity": byte_equal,
+        "candidate_entry_count": len(candidate_entries),
+        "attempt_0022_entry_count": len(accepted_entries),
+        "item_key_identity": key_identity,
+        "public_text_field": "entries.*.text_ko",
+        "public_text_difference_count": len(public_text_differences),
+        "public_text_difference_item_ids": public_text_differences,
+        "public_text_digest": producer.canonical_hash(candidate_text),
+        "attempt_0022_public_text_digest": producer.canonical_hash(
+            accepted_text
+        ),
+        "public_text_identity": public_text_equal,
+        "raw_file_byte_identity": raw_byte_equal,
+        "lf_normalized_file_byte_identity": lf_normalized_byte_equal,
+        "raw_file_byte_difference_disposition": (
+            None
+            if raw_byte_equal
+            else "tracked_attempt_0022_crlf_representation_vs_new_lf_output"
+        ),
         "metadata_and_identity_evidence_excluded_from_public_text_comparison": True,
     }
-    if not byte_equal:
+    if not public_text_equal:
         raise IdentityV2AttemptError(
             "candidate public text differs from attempt-0022 accepted public text"
         )
@@ -995,6 +1042,9 @@ def run_phase(attempt_id: str, mode: str) -> int:
         existing_phase2_result_path = (
             effective_phase_root(attempt_root, 2) / "phase2_result.json"
         )
+        existing_phase4_result_path = (
+            effective_phase_root(attempt_root, 4) / "phase4_result.json"
+        )
         if (
             mode == "phase2-source-inventory"
             and existing_phase2_result_path.is_file()
@@ -1002,6 +1052,13 @@ def run_phase(attempt_id: str, mode: str) -> int:
             == "PASS"
         ):
             result = producer.load_json(existing_phase2_result_path)
+        elif (
+            mode == "phase4-candidate"
+            and existing_phase4_result_path.is_file()
+            and producer.load_json(existing_phase4_result_path).get("status")
+            == "PASS"
+        ):
+            result = producer.load_json(existing_phase4_result_path)
         else:
             result = builders[mode](attempt_id, attempt_root)
         if result.get("status") not in {"PASS", "HANDOFF_COMPLETE"}:

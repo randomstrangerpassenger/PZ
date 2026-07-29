@@ -18,6 +18,8 @@ if __package__ in {None, ""}:
         EXPECTED_FOUNDATION_READINESS_SHA256,
         EXPECTED_FOUNDATION_READINESS_CORRECTION_REBIND_SHA256,
         EXPECTED_INITIAL_REGISTRY_ADOPTION_RECEIPT_SHA256,
+        EXPECTED_PARTICLE_CORRECTION_COMMIT,
+        EXPECTED_PARTICLE_CORRECTION_PROJECTION_REPORT_SHA256,
         EXPECTED_REGISTRY_ADOPTION_RECEIPT_SHA256,
         EXPECTED_REGISTRY_ADOPTION_CONTRACT_SHA256,
         EXPECTED_REGISTRY_CORRECTION_TERMINAL_SEAL_SHA256,
@@ -30,6 +32,7 @@ if __package__ in {None, ""}:
         FOUNDATION_READINESS_CURRENT_INPUT_REBIND,
         FOUNDATION_READINESS_CORRECTION_REBIND,
         NaturalizationError,
+        PARTICLE_CORRECTION_PROJECTION_REPORT,
         PRESERVED_PREDECESSOR_ATTEMPT_IDS,
         REPO_ROOT,
         REGISTRY_ADOPTION_CONTRACT,
@@ -52,6 +55,8 @@ else:
         EXPECTED_FOUNDATION_READINESS_SHA256,
         EXPECTED_FOUNDATION_READINESS_CORRECTION_REBIND_SHA256,
         EXPECTED_INITIAL_REGISTRY_ADOPTION_RECEIPT_SHA256,
+        EXPECTED_PARTICLE_CORRECTION_COMMIT,
+        EXPECTED_PARTICLE_CORRECTION_PROJECTION_REPORT_SHA256,
         EXPECTED_REGISTRY_ADOPTION_RECEIPT_SHA256,
         EXPECTED_REGISTRY_ADOPTION_CONTRACT_SHA256,
         EXPECTED_REGISTRY_CORRECTION_TERMINAL_SEAL_SHA256,
@@ -64,6 +69,7 @@ else:
         FOUNDATION_READINESS_CURRENT_INPUT_REBIND,
         FOUNDATION_READINESS_CORRECTION_REBIND,
         NaturalizationError,
+        PARTICLE_CORRECTION_PROJECTION_REPORT,
         PRESERVED_PREDECESSOR_ATTEMPT_IDS,
         REPO_ROOT,
         REGISTRY_ADOPTION_CONTRACT,
@@ -156,6 +162,10 @@ def validate_phase0(root: Path, errors: list[str]) -> dict[str, Any]:
     )
     foundation_identity = load_json(
         phase_root(root, 0) / "g4_foundation_commit_identity.json"
+    )
+    particle_correction_binding = load_json(
+        phase_root(root, 0)
+        / "compiler_particle_correction_binding_report.json"
     )
     historical_policy = load_json(
         phase_root(root, 0) / "historical_attempt_policy_report.json"
@@ -366,6 +376,34 @@ def validate_phase0(root: Path, errors: list[str]) -> dict[str, Any]:
         errors,
     )
     require_value(
+        particle_correction_binding.get("status") == "PASS"
+        and particle_correction_binding.get("correction_commit")
+        == EXPECTED_PARTICLE_CORRECTION_COMMIT
+        and particle_correction_binding.get("correction_commit_is_ancestor")
+        is True
+        and particle_correction_binding.get("projection_report_sha256")
+        == EXPECTED_PARTICLE_CORRECTION_PROJECTION_REPORT_SHA256
+        and sha256_file(PARTICLE_CORRECTION_PROJECTION_REPORT)
+        == EXPECTED_PARTICLE_CORRECTION_PROJECTION_REPORT_SHA256
+        and particle_correction_binding.get("implementation_sha256")
+        == particle_correction_binding.get("implementation_expected_sha256")
+        and particle_correction_binding.get("item_specific_exception_count")
+        == 0
+        and particle_correction_binding.get(
+            "string_specific_replacement_count"
+        )
+        == 0
+        and particle_correction_binding.get("projected_candidate_entry_count")
+        == 2084
+        and particle_correction_binding.get("projected_changed_item_count") == 9
+        and particle_correction_binding.get(
+            "projected_unintended_change_count"
+        )
+        == 0,
+        "particle_correction_binding_mismatch",
+        errors,
+    )
+    require_value(
         historical_policy.get("historical_attempt_id")
         == "attempt-0014-remediation"
         and historical_policy.get("role")
@@ -402,7 +440,7 @@ def validate_phase0(root: Path, errors: list[str]) -> dict[str, Any]:
             and row.get("phase7_or_phase8_reentry_allowed") is False
             for row in preserved_predecessors
         ),
-        "attempt_0020_predecessor_preservation_invalid",
+        "preserved_predecessor_attempt_preservation_invalid",
         errors,
     )
     return report
@@ -523,7 +561,19 @@ def validate_phase2(root: Path, errors: list[str]) -> dict[str, Any]:
         == EXPECTED_START_COMMIT
         and reseal.get("naturalization_start_tree") == EXPECTED_START_TREE
         and reseal.get("compiler_fix_commit") == EXPECTED_COMPILER_FIX_COMMIT
-        and reseal.get("compiler_fix_is_ancestor") is True,
+        and reseal.get("compiler_fix_is_ancestor") is True
+        and reseal.get("particle_correction_commit")
+        == EXPECTED_PARTICLE_CORRECTION_COMMIT
+        and reseal.get("particle_correction_commit_is_ancestor") is True
+        and reseal.get("particle_correction_projection_report_sha256")
+        == EXPECTED_PARTICLE_CORRECTION_PROJECTION_REPORT_SHA256
+        and reseal.get("particle_correction_binding_status") == "PASS"
+        and manifest.get("particle_correction_commit")
+        == EXPECTED_PARTICLE_CORRECTION_COMMIT
+        and manifest.get("particle_correction_commit_is_ancestor") is True
+        and manifest.get("particle_correction_projection_report_sha256")
+        == EXPECTED_PARTICLE_CORRECTION_PROJECTION_REPORT_SHA256
+        and manifest.get("particle_correction_binding_status") == "PASS",
         "phase2_g3_g4_identity_mismatch",
         errors,
     )

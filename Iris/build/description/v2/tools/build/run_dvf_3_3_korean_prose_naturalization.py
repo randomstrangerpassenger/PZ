@@ -68,6 +68,8 @@ BLOCKED_ATTEMPT_ID = "attempt-0018-g3-reseal-a"
 PRESERVED_PREDECESSOR_ATTEMPT_IDS = (
     "attempt-0020-g4-rebind-a",
     "attempt-0020-g4-rebind-b",
+    "attempt-0021-g4-rebind-a",
+    "attempt-0021-g4-rebind-b",
 )
 DATA_ROOT = V2_ROOT / "data" / "korean_prose_naturalization"
 DURABLE_ROOT = REPO_ROOT / "Iris" / "_docs" / "round3" / ROUND_ID
@@ -133,6 +135,10 @@ FOOD_SEMANTIC_LICENSE = (
 FACTS_AUTHORITY_ROUTING_CORRECTION = (
     DURABLE_ROOT / "facts_authority_routing_correction_attempt_0014.json"
 )
+PARTICLE_CORRECTION_PROJECTION_REPORT = (
+    DURABLE_ROOT
+    / "compiler_particle_adjustment_correction_0001_projection_report.json"
+)
 INPUT_MANIFEST = V2_ROOT / "data" / "dvf_3_3_input_manifest.json"
 FACTS_PATH = V2_ROOT / "data" / "dvf_3_3_facts.jsonl"
 DECISIONS_PATH = V2_ROOT / "data" / "dvf_3_3_decisions.jsonl"
@@ -188,8 +194,14 @@ EXPECTED_FOUNDATION_READINESS_CURRENT_INPUT_REBIND_SHA256 = (
     "912f28b7869ff92ff7fbd84cbdc31e1fbb22923beebbfcce2c9cc78b72eca9d2"
 )
 EXPECTED_COMPILER_FIX_COMMIT = "ca851a1e10bd37be71deded1fcc57b0d8462db48"
-EXPECTED_START_COMMIT = "8a203f65e3d8a943119235600fcb341ba471fac2"
-EXPECTED_START_TREE = "1572cbb3ebccb4bbf844a5325874c9c2d6fc74ec"
+EXPECTED_PARTICLE_CORRECTION_COMMIT = (
+    "55c8df22085b581590624d50fdda804c94930316"
+)
+EXPECTED_PARTICLE_CORRECTION_PROJECTION_REPORT_SHA256 = (
+    "7cd0e72c879d5c24a171d5cc85fe00e19657388404fd2b55440769343cd4976f"
+)
+EXPECTED_START_COMMIT = EXPECTED_PARTICLE_CORRECTION_COMMIT
+EXPECTED_START_TREE = "d063e618a3c9cf2fcf8a81c05f39b15c4932e3d8"
 POLICY_PATH = DATA_ROOT / "korean_prose_policy.json"
 CORPUS_MANIFEST_PATH = DATA_ROOT / "corpus_manifest.json"
 PLAN_PATH = (
@@ -210,7 +222,7 @@ BODY_PLAN_APPLICABILITY_APPROVAL_PATH = (
     DURABLE_ROOT / "body_plan_applicability_approval.json"
 )
 HUMAN_REVIEW_DECISION_PATH = (
-    DURABLE_ROOT / "attempt_0021_human_review_decision.json"
+    DURABLE_ROOT / "attempt_0022_human_review_decision.json"
 )
 QUALITY_STANDARD_PATH = REPO_ROOT / "docs" / "dvf_3_3_korean_prose_quality_standard.md"
 GOLD_CORPUS_PATH = DATA_ROOT / "gold_corpus.jsonl"
@@ -562,6 +574,7 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
             FOOD_SEMANTIC_SCHEMA,
             FOOD_SEMANTIC_LICENSE,
             FACTS_AUTHORITY_ROUTING_CORRECTION,
+            PARTICLE_CORRECTION_PROJECTION_REPORT,
             ROADMAP_BINDING_PATH,
             BODY_PLAN_APPLICABILITY_APPROVAL_PATH,
             FACTS_PATH,
@@ -589,6 +602,9 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
     )
     registry_naturalization_handoff = load_json(
         REGISTRY_NATURALIZATION_HANDOFF
+    )
+    particle_correction_projection = load_json(
+        PARTICLE_CORRECTION_PROJECTION_REPORT
     )
     food_semantic_schema = load_json(FOOD_SEMANTIC_SCHEMA)
     food_semantic_license = load_json(FOOD_SEMANTIC_LICENSE)
@@ -1126,6 +1142,90 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
         ).returncode
         == 0
     )
+    particle_correction_is_ancestor = (
+        subprocess.run(
+            [
+                "git",
+                "merge-base",
+                "--is-ancestor",
+                EXPECTED_PARTICLE_CORRECTION_COMMIT,
+                "HEAD",
+            ],
+            cwd=REPO_ROOT,
+            check=False,
+            capture_output=True,
+        ).returncode
+        == 0
+    )
+    particle_implementation = particle_correction_projection.get(
+        "implementation", {}
+    )
+    particle_implementation_path = (
+        REPO_ROOT / str(particle_implementation.get("path", ""))
+    )
+    particle_correction_binding_pass = all(
+        (
+            sha256_file(PARTICLE_CORRECTION_PROJECTION_REPORT)
+            == EXPECTED_PARTICLE_CORRECTION_PROJECTION_REPORT_SHA256,
+            particle_correction_projection.get("status") == "PASS",
+            particle_correction_projection.get("correction_id")
+            == "compiler-particle-adjustment-correction-0001",
+            particle_implementation.get("function") == "append_instrumental",
+            particle_implementation.get("helper")
+            == "instrumental_phonological_tail",
+            particle_implementation.get("item_specific_exception_count") == 0,
+            particle_implementation.get("string_specific_replacement_count")
+            == 0,
+            particle_implementation_path.is_file(),
+            (
+                sha256_file(particle_implementation_path)
+                == particle_implementation.get("after_sha256")
+                if particle_implementation_path.is_file()
+                else False
+            ),
+            particle_correction_is_ancestor,
+        )
+    )
+    particle_correction_binding = {
+        "schema_version": "dvf-3-3-compiler-particle-correction-binding-v1",
+        "status": "PASS" if particle_correction_binding_pass else "FAIL",
+        "correction_commit": EXPECTED_PARTICLE_CORRECTION_COMMIT,
+        "correction_commit_is_ancestor": particle_correction_is_ancestor,
+        "projection_report_path": repo_relative(
+            PARTICLE_CORRECTION_PROJECTION_REPORT
+        ),
+        "projection_report_sha256": sha256_file(
+            PARTICLE_CORRECTION_PROJECTION_REPORT
+        ),
+        "implementation_path": repo_relative(particle_implementation_path),
+        "implementation_sha256": (
+            sha256_file(particle_implementation_path)
+            if particle_implementation_path.is_file()
+            else None
+        ),
+        "implementation_expected_sha256": particle_implementation.get(
+            "after_sha256"
+        ),
+        "item_specific_exception_count": particle_implementation.get(
+            "item_specific_exception_count"
+        ),
+        "string_specific_replacement_count": particle_implementation.get(
+            "string_specific_replacement_count"
+        ),
+        "projected_candidate_entry_count": particle_correction_projection.get(
+            "projection_scope", {}
+        ).get("candidate_entry_count"),
+        "projected_changed_item_count": particle_correction_projection.get(
+            "change_summary", {}
+        ).get("actual_changed_item_count"),
+        "projected_unintended_change_count": particle_correction_projection.get(
+            "change_summary", {}
+        ).get("unintended_change_count"),
+    }
+    write_once_or_same(
+        root / "compiler_particle_correction_binding_report.json",
+        particle_correction_binding,
+    )
     foundation_identity = {
         "schema_version": "dvf-3-3-g4-foundation-commit-identity-v1",
         "foundation_commit": foundation_commit,
@@ -1183,6 +1283,16 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
         ),
         "compiler_fix_commit": EXPECTED_COMPILER_FIX_COMMIT,
         "compiler_fix_is_ancestor": compiler_fix_is_ancestor,
+        "particle_correction_commit": EXPECTED_PARTICLE_CORRECTION_COMMIT,
+        "particle_correction_commit_is_ancestor": (
+            particle_correction_is_ancestor
+        ),
+        "particle_correction_projection_report_sha256": sha256_file(
+            PARTICLE_CORRECTION_PROJECTION_REPORT
+        ),
+        "particle_correction_binding_status": particle_correction_binding.get(
+            "status"
+        ),
         "naturalization_start_commit": EXPECTED_START_COMMIT,
         "naturalization_start_tree": EXPECTED_START_TREE,
         "naturalization_start_actual_tree": git_output(
@@ -1431,6 +1541,8 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
         blocker_reasons.append("body_plan_applicability_owner_approval_invalid")
     if not compiler_fix_is_ancestor:
         blocker_reasons.append("compiler_fix_commit_not_in_checkout_history")
+    if not particle_correction_binding_pass:
+        blocker_reasons.append("particle_correction_binding_not_pass")
     if (
         not start_commit_is_ancestor
         or foundation_identity["naturalization_start_actual_tree"]
@@ -1492,6 +1604,16 @@ def build_phase0(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
         ),
         "compiler_fix_commit": EXPECTED_COMPILER_FIX_COMMIT,
         "compiler_fix_is_ancestor": compiler_fix_is_ancestor,
+        "particle_correction_commit": EXPECTED_PARTICLE_CORRECTION_COMMIT,
+        "particle_correction_commit_is_ancestor": (
+            particle_correction_is_ancestor
+        ),
+        "particle_correction_projection_report_sha256": sha256_file(
+            PARTICLE_CORRECTION_PROJECTION_REPORT
+        ),
+        "particle_correction_binding_status": particle_correction_binding.get(
+            "status"
+        ),
         "historical_attempt_id": HISTORICAL_ATTEMPT_ID,
         "historical_attempt_role": "immutable_historical_evidence_only",
         "historical_attempt_resumed": False,
@@ -1818,6 +1940,8 @@ def build_phase2(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
             phase_root(attempt_root, 0)
             / "registry_adoption_receipt_binding_report.json",
             phase_root(attempt_root, 0) / "g4_foundation_commit_identity.json",
+            phase_root(attempt_root, 0)
+            / "compiler_particle_correction_binding_report.json",
         )
     )
     root = phase_root(attempt_root, 2)
@@ -1855,6 +1979,10 @@ def build_phase2(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
     )
     foundation_identity = load_json(
         phase_root(attempt_root, 0) / "g4_foundation_commit_identity.json"
+    )
+    particle_correction_binding = load_json(
+        phase_root(attempt_root, 0)
+        / "compiler_particle_correction_binding_report.json"
     )
     food_semantic_schema = load_json(FOOD_SEMANTIC_SCHEMA)
     food_semantic_license = load_json(FOOD_SEMANTIC_LICENSE)
@@ -2152,6 +2280,20 @@ def build_phase2(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
             foundation_identity.get("compiler_fix_commit")
             == EXPECTED_COMPILER_FIX_COMMIT,
             foundation_identity.get("compiler_fix_is_ancestor") is True,
+            particle_correction_binding.get("status") == "PASS",
+            particle_correction_binding.get("correction_commit")
+            == EXPECTED_PARTICLE_CORRECTION_COMMIT,
+            particle_correction_binding.get("correction_commit_is_ancestor")
+            is True,
+            particle_correction_binding.get("projection_report_sha256")
+            == EXPECTED_PARTICLE_CORRECTION_PROJECTION_REPORT_SHA256,
+            particle_correction_binding.get("projected_candidate_entry_count")
+            == 2084,
+            particle_correction_binding.get("projected_changed_item_count") == 9,
+            particle_correction_binding.get(
+                "projected_unintended_change_count"
+            )
+            == 0,
             foundation_identity.get("naturalization_start_commit")
             == EXPECTED_START_COMMIT,
             foundation_identity.get("naturalization_start_tree")
@@ -2224,6 +2366,21 @@ def build_phase2(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
         "compiler_fix_commit": foundation_identity.get("compiler_fix_commit"),
         "compiler_fix_is_ancestor": foundation_identity.get(
             "compiler_fix_is_ancestor"
+        ),
+        "particle_correction_commit": particle_correction_binding.get(
+            "correction_commit"
+        ),
+        "particle_correction_commit_is_ancestor": (
+            particle_correction_binding.get("correction_commit_is_ancestor")
+        ),
+        "particle_correction_projection_report_path": (
+            particle_correction_binding.get("projection_report_path")
+        ),
+        "particle_correction_projection_report_sha256": (
+            particle_correction_binding.get("projection_report_sha256")
+        ),
+        "particle_correction_binding_status": (
+            particle_correction_binding.get("status")
         ),
         "actual_four_hash_identity": four_hash_identity,
         "expected_four_hash_identity": expected_four_hash_identity,
@@ -2313,6 +2470,21 @@ def build_phase2(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
         "compiler_fix_commit": foundation_identity.get("compiler_fix_commit"),
         "compiler_fix_is_ancestor": foundation_identity.get(
             "compiler_fix_is_ancestor"
+        ),
+        "particle_correction_commit": particle_correction_binding.get(
+            "correction_commit"
+        ),
+        "particle_correction_commit_is_ancestor": (
+            particle_correction_binding.get("correction_commit_is_ancestor")
+        ),
+        "particle_correction_projection_report_path": (
+            particle_correction_binding.get("projection_report_path")
+        ),
+        "particle_correction_projection_report_sha256": (
+            particle_correction_binding.get("projection_report_sha256")
+        ),
+        "particle_correction_binding_status": (
+            particle_correction_binding.get("status")
         ),
         "four_hash_identity": four_hash_identity,
         "food_semantic_proposition_count": food_semantic_proposition_count,

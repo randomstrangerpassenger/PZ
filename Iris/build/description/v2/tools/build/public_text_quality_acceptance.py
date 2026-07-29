@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from fractions import Fraction
 import hashlib
 import json
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 import re
 import subprocess
 from typing import Any, Iterable
@@ -285,6 +285,26 @@ REQUIRED_HANDOFF_CONSTITUENT_IDS = (
     "protected_surface_no_mutation_report_hash",
     "requested_evaluation_subject_kind",
 )
+TEXT_HANDOFF_CONSTITUENT_IDS = frozenset(
+    {
+        "foundation_contract_hash",
+        "candidate_rendered_hash",
+        "candidate_manifest_hash",
+        "source_proposition_manifest_hash",
+        "body_plan_requirement_digest",
+        "structural_satisfaction_ledger_hash",
+        "semantic_preservation_report_hash",
+        "raw_detector_report_hash",
+        "human_review_sample_manifest_hash",
+        "human_review_decision_hash",
+        "korean_prose_policy_hash",
+        "corpus_manifest_hash",
+        "protected_surface_no_mutation_report_hash",
+    }
+)
+TEXT_CONSTITUENT_IDENTITY_ALGORITHM_ID = (
+    "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1"
+)
 
 VOLATILE_CANONICAL_FIELDS = frozenset(
     {"generated_at", "host", "absolute_path", "mtime"}
@@ -379,6 +399,76 @@ def sha256_lf_normalized_text(path: Path) -> str:
         ) from exc
     normalized = text.replace("\r\n", "\n").replace("\r", "\n")
     return sha256_bytes(normalized.encode("utf-8"))
+
+
+def normalize_text_line_endings(raw: bytes) -> bytes:
+    return raw.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+
+
+def build_text_constituent_identity_from_bytes(
+    *,
+    repo_relative_posix_path: str,
+    declared_sha256: object,
+    head_blob_id: str,
+    head_blob_raw: bytes,
+    working_raw: bytes,
+    filtered_working_blob_id: str | None,
+) -> dict[str, Any]:
+    pure_path = PurePosixPath(repo_relative_posix_path)
+    if (
+        not repo_relative_posix_path
+        or pure_path.is_absolute()
+        or ".." in pure_path.parts
+        or "\\" in repo_relative_posix_path
+    ):
+        raise FoundationContractError(
+            "text constituent identity path must be repo-relative POSIX"
+        )
+    canonical_authority = normalize_text_line_endings(head_blob_raw)
+    canonical_working = normalize_text_line_endings(working_raw)
+    authority_raw_sha256 = sha256_bytes(head_blob_raw)
+    canonical_authority_sha256 = sha256_bytes(canonical_authority)
+    allowed_representation_hashes = {
+        "git_blob_raw": authority_raw_sha256,
+        "lf": canonical_authority_sha256,
+        "crlf": sha256_bytes(canonical_authority.replace(b"\n", b"\r\n")),
+        "lone_cr": sha256_bytes(canonical_authority.replace(b"\n", b"\r")),
+    }
+    declared_representation_kinds = sorted(
+        kind
+        for kind, digest in allowed_representation_hashes.items()
+        if digest == declared_sha256
+    )
+    git_filtered_identity = (
+        filtered_working_blob_id is not None
+        and filtered_working_blob_id == head_blob_id
+    )
+    canonical_working_identity = canonical_working == canonical_authority
+    declared_matches_head_authority = bool(declared_representation_kinds)
+    working_matches_head_authority = (
+        git_filtered_identity or canonical_working_identity
+    )
+    return {
+        "algorithm_id": TEXT_CONSTITUENT_IDENTITY_ALGORITHM_ID,
+        "path": repo_relative_posix_path,
+        "authority_source": "HEAD_git_blob_raw",
+        "head_git_blob_id": head_blob_id,
+        "authority_git_blob_raw_sha256": authority_raw_sha256,
+        "authority_lf_canonical_sha256": canonical_authority_sha256,
+        "declared_sha256": declared_sha256,
+        "declared_representation_kinds": declared_representation_kinds,
+        "declared_matches_head_authority": declared_matches_head_authority,
+        "working_lf_canonical_sha256": sha256_bytes(canonical_working),
+        "git_filtered_working_identity": git_filtered_identity,
+        "canonical_working_identity": canonical_working_identity,
+        "working_matches_head_authority": working_matches_head_authority,
+        "json_semantic_normalization_applied": False,
+        "absolute_path_or_host_metadata_in_identity": False,
+        "match": (
+            declared_matches_head_authority
+            and working_matches_head_authority
+        ),
+    }
 
 
 def repo_relative(path: Path) -> str:
@@ -498,6 +588,47 @@ def _head_filtered_blob_record(path: Path) -> dict[str, Any]:
         "git_filtered_working_identity": filtered_working_blob_id == head_blob_id,
         "raw_working_byte_identity_required": False,
     }
+
+
+def _head_text_constituent_record(
+    path: Path,
+    declared_sha256: object,
+) -> dict[str, Any]:
+    relative = repo_relative(path)
+    if not path.is_file():
+        raise FoundationContractError(
+            f"text constituent is missing: {relative}"
+        )
+    if not path.resolve().is_relative_to(REPO_ROOT.resolve()):
+        raise FoundationContractError(
+            f"text constituent escaped repository: {relative}"
+        )
+    if not _is_tracked(path):
+        raise FoundationContractError(
+            f"text constituent is untracked: {relative}"
+        )
+    head_blob_id = _git("rev-parse", f"HEAD:{relative}").stdout.strip()
+    result = subprocess.run(
+        ["git", "cat-file", "blob", head_blob_id],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise FoundationContractError(
+            f"cannot read HEAD text constituent blob: {relative}"
+        )
+    filtered_working_blob_id = _git(
+        "hash-object", "--", relative
+    ).stdout.strip()
+    return build_text_constituent_identity_from_bytes(
+        repo_relative_posix_path=relative,
+        declared_sha256=declared_sha256,
+        head_blob_id=head_blob_id,
+        head_blob_raw=result.stdout,
+        working_raw=path.read_bytes(),
+        filtered_working_blob_id=filtered_working_blob_id,
+    )
 
 
 def _g0_sync_manifest_record() -> dict[str, Any]:
@@ -2551,16 +2682,23 @@ def validate_candidate_handoff(
             continue
         if "path" in row:
             path = REPO_ROOT / str(row["path"])
-            actual = sha256_file(path) if path.is_file() else None
-            path_rows.append(
-                {
-                    "id": identifier,
+            if identifier not in TEXT_HANDOFF_CONSTITUENT_IDS:
+                mismatches.append(f"{identifier}:non_text_path_constituent")
+                continue
+            try:
+                identity = _head_text_constituent_record(
+                    path,
+                    row.get("sha256"),
+                )
+            except FoundationContractError as exc:
+                identity = {
+                    "algorithm_id": TEXT_CONSTITUENT_IDENTITY_ALGORITHM_ID,
                     "path": repo_relative(path),
                     "declared_sha256": row.get("sha256"),
-                    "actual_sha256": actual,
-                    "match": actual == row.get("sha256"),
+                    "match": False,
+                    "identity_error": str(exc),
                 }
-            )
+            path_rows.append({"id": identifier, **identity})
         elif "value" in row:
             actual = sha256_bytes(canonical_json_bytes(row["value"]) + b"\n")
             if actual != row.get("sha256"):
@@ -2572,9 +2710,11 @@ def validate_candidate_handoff(
     )
     if mismatches:
         raise FoundationContractError(f"stale handoff constituents: {mismatches}")
-    if (
-        constituents["foundation_contract_hash"]["sha256"]
-        != sha256_file(DEFAULT_FOUNDATION_ROOT / FOUNDATION_CONTRACT_NAME)
+    foundation_path_row = next(
+        row for row in path_rows if row["id"] == "foundation_contract_hash"
+    )
+    if foundation_path_row["path"] != repo_relative(
+        DEFAULT_FOUNDATION_ROOT / FOUNDATION_CONTRACT_NAME
     ):
         raise FoundationContractError("handoff foundation contract is stale")
     compiler_identity = build_compiler_identity(REPO_ROOT)

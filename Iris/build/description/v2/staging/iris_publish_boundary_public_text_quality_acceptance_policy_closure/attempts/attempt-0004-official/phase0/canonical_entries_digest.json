@@ -1,0 +1,9 @@
+{
+  "encoding": "utf-8",
+  "line_ending": "lf",
+  "ordering": "item_id_ascending_exact_case",
+  "row_count": 2105,
+  "schema_version": "public_text_quality_canonical_entries_digest_v1",
+  "sha256": "4d1cfc396031babed3eae7efbd3121cdc2eb620677b05366493b49ed16685f1c",
+  "volatile_metadata_excluded": true
+}

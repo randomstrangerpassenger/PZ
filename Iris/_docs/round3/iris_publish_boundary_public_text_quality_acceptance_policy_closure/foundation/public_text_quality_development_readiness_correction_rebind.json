@@ -1,0 +1,57 @@
+{
+  "schema_version": "dvf-3-3-g4-development-readiness-correction-rebind-v1",
+  "status": "PASS",
+  "rebind_id": "correction-0001",
+  "purpose": "Additively rebind immutable G4 Foundation readiness to the Registry-adopted current-facts correction without changing the 19-file Foundation commit.",
+  "immutable_foundation": {
+    "foundation_commit": "93db1acbfe31949760acef8e388ad07708e54e57",
+    "foundation_tree": "19f522a0d47e295bbbfc84644bf0edeb0c30c0f9",
+    "foundation_changed_path_count": 19,
+    "foundation_contract_path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json",
+    "foundation_contract_sha256": "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02",
+    "foundation_readiness_path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_development_readiness_report.json",
+    "foundation_readiness_sha256": "34419a8093970c7ffc68d3d968ff90207f63c512971ae9ada87f90cff7f2d263",
+    "foundation_contract_mutated": false,
+    "foundation_readiness_mutated": false
+  },
+  "registry_correction_adoption": {
+    "successor_id": "correction-0001",
+    "registry_cutover_attempt_id": "attempt-0010",
+    "adoption_commit": "b74b3cf56b5c04e737aa6ef72d342357af1a37db",
+    "adoption_tree": "47c7dd2673c939127601880340cad83736e07e98",
+    "current_facts_path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+    "current_facts_sha256": "ca74270191289af064d9d8fa9d739c97b0865d69e255885e815b01565243f46e",
+    "current_manifest_path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+    "current_manifest_sha256": "c9670c1625382444fe292158e6b50e65e2ee54316d2903835ebc4f59c199257d",
+    "registry_adoption_contract_path": "Iris/_docs/authority/food_semantic/registry_adoption_contract.json",
+    "registry_adoption_contract_sha256": "c6d315e428f600878dc43d896b574398c0fd932d35a5824bbae6dab8e3c7906a",
+    "registry_correction_adoption_receipt_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0010/closeout/registry_correction_adoption_receipt.json",
+    "registry_correction_adoption_receipt_sha256": "92cb65656562ec874dafea118c85ce424e2f391f36ee27860029c6fef582978f",
+    "registry_correction_terminal_hash_seal_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0010/closeout/terminal_correction_hash_seal.json",
+    "registry_correction_terminal_hash_seal_sha256": "0464d05c104f11599a9a5759cee402abfdcb0f07379dddb299e93243d88875cb",
+    "initial_g3_adoption_receipt_sha256": "efcc387bb395b561ab67df0cab4e498fe0b429680fc6cc8f6dd96eb94ba49751",
+    "attempt_0022_terminal_hash_seal_sha256": "9a9a37731e8d76399f6b960a0e9beb21bcdd65d8ae39e511337527c5306d0c19",
+    "source_row_count": 2105,
+    "unique_cohort_denominator": 393,
+    "corrected_item_count": 184,
+    "unchanged_investigated_control_count": 209,
+    "correction_patch_count": 223,
+    "attempt_0022_mutated": false,
+    "initial_g3_receipt_mutated": false
+  },
+  "naturalization_prerequisites": {
+    "compiler_fix_commit": "b399cdbacf884ed97a884e8a0266f94a7e4a13d5",
+    "compiler_fix_is_ancestor_of_rebind_checkout": true,
+    "attempt_0018_status": "BLOCKED",
+    "attempt_0018_phase7_or_phase8_reentry_allowed": false,
+    "fresh_naturalization_attempt_must_start_at_phase": 0,
+    "g4_development_readiness_rebound": true,
+    "owner_preapproval_recorded_in_codex_thread": true
+  },
+  "publish_boundary": {
+    "official_publish_attempt_allowed_before_fresh_phase8_handoff": false,
+    "official_publish_attempt_created": false,
+    "live_publish_gate_mutation_allowed": false,
+    "live_publish_gate_mutated": false
+  }
+}

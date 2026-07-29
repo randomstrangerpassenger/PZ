@@ -1,0 +1,224 @@
+{
+  "authority_effect": "official_contract_candidate",
+  "disposition_class_enum": [
+    "blocking_gate",
+    "advisory_debt",
+    "non_claim"
+  ],
+  "foundation_projection_hash": "1c7c08e519e9db9bb60fee5c14c749d11af07cb2ddc2c70cd4af7592fadb31a3",
+  "official_attempt_id": "attempt-0004-official",
+  "raw_metric_immutable": true,
+  "registrations": [
+    {
+      "annotation": "acceptance_blocker",
+      "applicable_subject_kinds": [
+        "current_runtime_payload"
+      ],
+      "denominator_id": "quality_evaluable_adopted_item_v1",
+      "disposition_class": "blocking_gate",
+      "metric_id": "coverage_quality_weak",
+      "unit": "ratio"
+    },
+    {
+      "annotation": "quality_distribution",
+      "applicable_subject_kinds": [
+        "current_runtime_payload"
+      ],
+      "denominator_id": "quality_evaluable_adopted_item_v1",
+      "disposition_class": "non_claim",
+      "metric_id": "coverage_quality_adequate",
+      "unit": "ratio"
+    },
+    {
+      "annotation": "quality_distribution",
+      "applicable_subject_kinds": [
+        "current_runtime_payload"
+      ],
+      "denominator_id": "quality_evaluable_adopted_item_v1",
+      "disposition_class": "non_claim",
+      "metric_id": "coverage_quality_strong",
+      "unit": "ratio"
+    },
+    {
+      "annotation": "acceptance_blocker",
+      "applicable_subject_kinds": [
+        "current_runtime_payload"
+      ],
+      "denominator_id": "quality_evaluable_adopted_item_v1",
+      "disposition_class": "blocking_gate",
+      "metric_id": "missing_any_required_section_row",
+      "unit": "ratio"
+    },
+    {
+      "annotation": "missing_occurrence_debt",
+      "applicable_subject_kinds": [
+        "current_runtime_payload"
+      ],
+      "denominator_id": "required_section_opportunity_v1",
+      "disposition_class": "advisory_debt",
+      "metric_id": "missing_required_section_occurrence",
+      "unit": "ratio"
+    },
+    {
+      "annotation": "diagnostic_breakdown",
+      "applicable_subject_kinds": [
+        "current_runtime_payload"
+      ],
+      "denominator_id": "required_context_support_opportunity_v1",
+      "disposition_class": "non_claim",
+      "metric_id": "missing_context_support",
+      "unit": "ratio"
+    },
+    {
+      "annotation": "diagnostic_breakdown",
+      "applicable_subject_kinds": [
+        "current_runtime_payload"
+      ],
+      "denominator_id": "required_limitation_tail_opportunity_v1",
+      "disposition_class": "non_claim",
+      "metric_id": "missing_limitation_tail",
+      "unit": "ratio"
+    },
+    {
+      "annotation": "diagnostic_breakdown",
+      "applicable_subject_kinds": [
+        "current_runtime_payload"
+      ],
+      "denominator_id": "required_use_core_opportunity_v1",
+      "disposition_class": "non_claim",
+      "metric_id": "missing_use_core",
+      "unit": "ratio"
+    },
+    {
+      "annotation": "separate_adoption_axis",
+      "applicable_subject_kinds": [
+        "current_runtime_payload"
+      ],
+      "denominator_id": "current_item_universe_v1",
+      "disposition_class": "non_claim",
+      "metric_id": "unadopted",
+      "unit": "count_ratio"
+    },
+    {
+      "annotation": "source_provenance_blocker",
+      "applicable_subject_kinds": [
+        "dvf_3_3_korean_naturalization_candidate"
+      ],
+      "denominator_id": "naturalization_source_proposition_v1",
+      "disposition_class": "blocking_gate",
+      "metric_id": "semantic_preservation_failure",
+      "unit": "count"
+    },
+    {
+      "annotation": "structural_satisfaction_blocker",
+      "applicable_subject_kinds": [
+        "dvf_3_3_korean_naturalization_candidate"
+      ],
+      "denominator_id": "naturalization_required_body_plan_role_v1",
+      "disposition_class": "blocking_gate",
+      "metric_id": "unsatisfied_required_body_plan_role",
+      "unit": "count"
+    },
+    {
+      "annotation": "technical_semantic_blocker",
+      "applicable_subject_kinds": [
+        "dvf_3_3_korean_naturalization_candidate"
+      ],
+      "denominator_id": "naturalization_fusion_suppression_transformation_v1",
+      "disposition_class": "blocking_gate",
+      "metric_id": "equivalence_proof_failure",
+      "unit": "count"
+    },
+    {
+      "annotation": "compiler_contract_blocker",
+      "applicable_subject_kinds": [
+        "dvf_3_3_korean_naturalization_candidate"
+      ],
+      "denominator_id": "naturalization_candidate_item_v1",
+      "disposition_class": "blocking_gate",
+      "metric_id": "compiler_invalid_pattern",
+      "unit": "count"
+    },
+    {
+      "annotation": "raw_korean_prose_detector",
+      "applicable_subject_kinds": [
+        "dvf_3_3_korean_naturalization_candidate"
+      ],
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:duplicate_proposition_realization",
+      "disposition_class": "blocking_gate",
+      "metric_id": "duplicate_proposition_realization",
+      "unit": "count_ratio"
+    },
+    {
+      "annotation": "raw_korean_prose_detector",
+      "applicable_subject_kinds": [
+        "dvf_3_3_korean_naturalization_candidate"
+      ],
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:repeated_identity_noun_window",
+      "disposition_class": "advisory_debt",
+      "metric_id": "repeated_identity_noun_window",
+      "unit": "count_ratio"
+    },
+    {
+      "annotation": "raw_korean_prose_detector",
+      "applicable_subject_kinds": [
+        "dvf_3_3_korean_naturalization_candidate"
+      ],
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:banned_internal_abstraction",
+      "disposition_class": "blocking_gate",
+      "metric_id": "banned_internal_abstraction",
+      "unit": "count_ratio"
+    },
+    {
+      "annotation": "raw_korean_prose_detector",
+      "applicable_subject_kinds": [
+        "dvf_3_3_korean_naturalization_candidate"
+      ],
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:repeated_skeleton_concentration",
+      "disposition_class": "advisory_debt",
+      "metric_id": "repeated_skeleton_concentration",
+      "unit": "rational_metric"
+    },
+    {
+      "annotation": "raw_korean_prose_detector",
+      "applicable_subject_kinds": [
+        "dvf_3_3_korean_naturalization_candidate"
+      ],
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:paragraph_fragmentation",
+      "disposition_class": "advisory_debt",
+      "metric_id": "paragraph_fragmentation",
+      "unit": "count_ratio"
+    },
+    {
+      "annotation": "raw_korean_prose_detector",
+      "applicable_subject_kinds": [
+        "dvf_3_3_korean_naturalization_candidate"
+      ],
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:passive_translationese_pattern",
+      "disposition_class": "advisory_debt",
+      "metric_id": "passive_translationese_pattern",
+      "unit": "count_ratio"
+    },
+    {
+      "annotation": "raw_korean_prose_detector",
+      "applicable_subject_kinds": [
+        "dvf_3_3_korean_naturalization_candidate"
+      ],
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:empty_or_filler_sentence",
+      "disposition_class": "blocking_gate",
+      "metric_id": "empty_or_filler_sentence",
+      "unit": "count_ratio"
+    },
+    {
+      "annotation": "denominator_qualified_human_only_finding",
+      "applicable_subject_kinds": [
+        "dvf_3_3_korean_naturalization_candidate"
+      ],
+      "denominator_id": "naturalization_human_review_required_v1",
+      "disposition_class": "blocking_gate",
+      "metric_id": "human_review_blocker_required_denominator",
+      "unit": "count"
+    }
+  ],
+  "schema_version": "public_text_quality_metric_registry_v1"
+}

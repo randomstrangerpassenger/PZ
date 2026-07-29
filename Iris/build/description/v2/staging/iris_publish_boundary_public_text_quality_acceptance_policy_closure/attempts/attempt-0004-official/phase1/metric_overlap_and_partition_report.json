@@ -1,0 +1,9 @@
+{
+  "applicable_metric_registration_count": 12,
+  "hidden_composite_score_count": 0,
+  "metric_registration_count": 21,
+  "raw_occurrence_preserved": true,
+  "row_occurrence_double_blocker_count": 0,
+  "schema_version": "public_text_quality_metric_overlap_partition_report_v1",
+  "status": "PASS"
+}

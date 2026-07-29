@@ -1,0 +1,111 @@
+{
+  "schema_version": "dvf-3-3-naturalization-phase7-fail-close-v1",
+  "status": "FAIL_CLOSED",
+  "naturalization_attempt_id": "attempt-0020-g4-rebind-a",
+  "determinism_replay_attempt_id": "attempt-0020-g4-rebind-b",
+  "start_identity": {
+    "commit": "e61a65322dabb0fd98f8e66f1a2b376cecc57eda",
+    "tree": "b7ef0a3e33797d2c55ccceecefd1cf750efc8116",
+    "compiler_correction_commit": "ca851a1e10bd37be71deded1fcc57b0d8462db48",
+    "compiler_correction_is_ancestor": true,
+    "attempt_execution_commit": "3464b4c80a7f99ac6673e63d51148533c1c96674"
+  },
+  "phase_judgments": {
+    "phase0": {"attempt_a": "PASS", "attempt_b": "PASS"},
+    "phase1": {"attempt_a": "PASS", "attempt_b": "PASS"},
+    "phase2": {"attempt_a": "PASS", "attempt_b": "PASS"},
+    "phase3": {"attempt_a": "PASS", "attempt_b": "PASS"},
+    "phase4": {"attempt_a": "PASS", "attempt_b": "PASS"},
+    "phase5": {"attempt_a": "PASS", "attempt_b": "PASS"},
+    "phase6": {"attempt_a": "PASS", "attempt_b": "PASS"},
+    "phase7": {
+      "attempt_a": "FAIL",
+      "runner_exit_code": 1,
+      "reviewed_denominator": 2084,
+      "blocker_count": 44
+    },
+    "phase8": {
+      "status": "NOT_EXECUTED_FAIL_CLOSED",
+      "directory_created": false
+    }
+  },
+  "phase2_sealed_inputs": {
+    "current_facts_sha256": "37db2595eff9b58f7b08e59221e950cb529453bd96733fb29171d458e46118f6",
+    "current_manifest_sha256": "a105e3790896b30bc25e95839ceb0ee4c88357fed98ec9fa4258790bf0733a1f",
+    "g3_adoption_receipt_sha256": "475239fba798104371d2c9f4fb166c46ceab15bb462015493238a4aff4656f7f",
+    "g3_terminal_correction_seal_sha256": "b54cca40e1dcbf4d279d878a6fba42e244311b33691eb27054d0881ff4682a52",
+    "g3_naturalization_handoff_sha256": "6fa93017f037d3ffd5520a9da5ce1c2afdc97c3824de6ce00015e08aca4f068c",
+    "g4_foundation_readiness_successor_sha256": "c362c44b01cabc0937cbddc3843ca89e994ace0fbcacac8f75e61bfb604e8cc2",
+    "g4_foundation_contract_sha256": "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02",
+    "source_authority_reseal_report_sha256": "6ae079db329449cdf30d98549009efbb241e4619ecdd17ce8d0d11a1b0c3b19f",
+    "source_proposition_manifest_sha256": "544b8953ed2bc56a5e2c68a46cd7e6e805157ea76df5cbbe6045a9be6b589db3"
+  },
+  "determinism": {
+    "candidate_sha256_a": "4c1f4409d40c4de2f3e8983e6729e43fa718bf4306d8d43188d236851cb435f3",
+    "candidate_sha256_b": "4c1f4409d40c4de2f3e8983e6729e43fa718bf4306d8d43188d236851cb435f3",
+    "candidate_byte_identity": true,
+    "trace_sha256_a": "23a854bf7720009fc3d708a4445913fde4988be9501b53534d349f7172ac6806",
+    "trace_sha256_b": "23a854bf7720009fc3d708a4445913fde4988be9501b53534d349f7172ac6806",
+    "trace_byte_identity": true,
+    "phase0_through_phase6_identity_report_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt_0020_phase0_through_phase6_ab_byte_identity_report.json",
+    "phase0_through_phase6_identity_report_sha256": "b3c42e369e0a290d8a9d9c4e7af6f25c22eb497c04c5efe53b7a0bba25402d5c"
+  },
+  "phase7_review": {
+    "decision_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/human_review_decision.json",
+    "decision_sha256": "a2382d7e0f70384909baefd2b210aecebaacd0f86ee0a1e73077bd30f01c99b0",
+    "reviewer_attestation_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/codex_reviewer_attempt_0020_phase7_fail_attestation.json",
+    "reviewer_attestation_sha256": "8d96198e64b09b3e1bedd88fa9b9a85e45fcc6f90c8e0526cd7daf24feb166ef",
+    "sample_manifest_sha256": "7ef8c29aa8add4a25a8dc95e2a95ed81fd1e01c00f08cd357fe938f197bf7e46",
+    "binding_report_sha256": "62c9e2ad607e99281b1cb1e6f4cf50f7a7fc37980e7afcd98e4ad44d8110d68b",
+    "previous_blocker_recheck_count": 14,
+    "previous_blocker_pass_count": 14,
+    "source_absent_process_observation_count": 31,
+    "source_absent_process_justified_count": 31,
+    "source_absent_process_blocker_count": 0,
+    "new_unique_blocker_count": 44
+  },
+  "blocker_ownership_split": {
+    "compiler_generic_rule": {
+      "blocker_count": 0,
+      "disposition": "CLOSED_BY_CA851A1E_AND_CONFIRMED_IN_FULL_REVIEW"
+    },
+    "current_facts_source": {
+      "blocker_count": 44,
+      "disposition": "BLOCKED_REQUIRES_SEPARATE_APPEND_ONLY_FACTS_CORRECTION_SUCCESSOR",
+      "item_id_authority": "human_review_decision.json.blocker_item_ids",
+      "earliest_affected_naturalization_phase_after_adoption": 0
+    }
+  },
+  "validation": {
+    "naturalization_unit_test_count": 27,
+    "naturalization_unit_test_exit_code": 0,
+    "compose_unit_test_count": 29,
+    "compose_unit_test_exit_code": 0,
+    "total_unit_test_count": 56,
+    "phase0_through_phase6_validator_a_exit_code": 0,
+    "phase0_through_phase6_validator_b_exit_code": 0,
+    "phase7_validator_expected_fail_exit_code": 1,
+    "phase7_validator_error_ids": [
+      "human_review_not_pass",
+      "human_review_blocker_present",
+      "full_candidate_human_review_claim_missing"
+    ]
+  },
+  "scope_guards": {
+    "attempt_0018_modified_or_resumed": false,
+    "attempt_0019_modified_or_resumed": false,
+    "current_facts_or_manifest_modified_in_attempt": false,
+    "foundation_meaning_or_readiness_modified": false,
+    "official_publish_attempt_created": false,
+    "official_publish_executed": false,
+    "live_gate_mutated": false,
+    "runtime_lua_or_package_mutated": false,
+    "new_retry_attempt_created_after_phase7_failure": false
+  },
+  "next_action": {
+    "owner": "dvf_3_3_facts_authority",
+    "required_action": "Investigate the 44-item facts cohorts and, if confirmed, create an append-only facts correction successor followed by Registry correction cutover and G4 current-input rebind.",
+    "naturalization_direct_phase_reentry_allowed": false,
+    "new_naturalization_attempt_allowed_before_new_current_input_handoff": false
+  }
+}

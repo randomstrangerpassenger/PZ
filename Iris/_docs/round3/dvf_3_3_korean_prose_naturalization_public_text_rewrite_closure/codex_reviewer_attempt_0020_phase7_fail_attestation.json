@@ -1,0 +1,119 @@
+{
+  "schema_version": "dvf-3-3-codex-reviewer-full-candidate-phase7-attestation-v1",
+  "status": "FAIL",
+  "reviewer": {
+    "identity": "Codex Reviewer (Avicenna)",
+    "role": "external_codex_reviewer",
+    "compiler_or_runner": false
+  },
+  "candidate_binding": {
+    "naturalization_attempt_id": "attempt-0020-g4-rebind-a",
+    "candidate_rendered_sha256": "4c1f4409d40c4de2f3e8983e6729e43fa718bf4306d8d43188d236851cb435f3",
+    "sample_manifest_sha256": "7ef8c29aa8add4a25a8dc95e2a95ed81fd1e01c00f08cd357fe938f197bf7e46",
+    "selected_ordered_digest": "5bf4fa11941df265a20835fc86b773a10631e9d229f1669540124a0cb967c0ea",
+    "reviewed_denominator": 2084,
+    "full_candidate_denominator": 2084,
+    "full_candidate_reviewed": true
+  },
+  "decision_binding": {
+    "path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/human_review_decision.json",
+    "sha256": "a2382d7e0f70384909baefd2b210aecebaacd0f86ee0a1e73077bd30f01c99b0",
+    "phase7_binding_report_sha256": "62c9e2ad607e99281b1cb1e6f4cf50f7a7fc37980e7afcd98e4ad44d8110d68b",
+    "phase7_eligibility_report_sha256": "c30e203c4dd7877f47ee8c090e28540d762c71eb72f4991b5132e286faea1524"
+  },
+  "rubric_aggregate": {
+    "readability": {"pass": 2072, "fail": 12},
+    "naturalness": {"pass": 2084, "fail": 0},
+    "semantic_fidelity": {"pass": 2084, "fail": 0},
+    "public_suitability": {"pass": 2040, "fail": 44},
+    "all_rubrics_pass": 2040,
+    "unique_blocker_items": 44
+  },
+  "blocker_ownership": {
+    "compiler": 0,
+    "current_facts_source": 44,
+    "blocker_detail_authority": "human_review_decision.json.blockers"
+  },
+  "prior_14_recheck": [
+    {"item_id": "Base.WoodenMallet", "ownership": "compiler_generic_rule", "disposition": "PASS", "candidate_output": "무기 겸용 도구로, 근접 전투나 작업에 함께 쓰는 도구다. 작업 차량과 차고, 공구 상자와 공구점에서 발견된다."},
+    {"item_id": "Base.ClubHammer", "ownership": "compiler_generic_rule", "disposition": "PASS", "candidate_output": "무기 겸용 도구로, 근접 전투나 작업에 함께 쓰는 도구다. 작업 차량과 차고, 공구 상자와 공구점에서 발견된다."},
+    {"item_id": "Base.GardenHoe", "ownership": "compiler_generic_rule", "disposition": "PASS", "candidate_output": "원예 도구로, 재배와 흙 작업에 쓰는 도구다. 작업 차량과 차고, 농업 물품 상자와 원예 상점에서 발견된다."},
+    {"item_id": "Base.CordlessPhone", "ownership": "compiler_generic_rule", "disposition": "PASS", "candidate_output": "전자 기기로, 전자 작업에서 기기를 분해하거나 회로를 맞출 때 다룬다."},
+    {"item_id": "Base.Corkscrew", "ownership": "compiler_generic_rule", "disposition": "PASS", "candidate_output": "코르크 따개로, 주방 작업에서 식기와 상차림 소품을 꺼내 쓰거나 식사 준비에 곁들일 때 다룬다."},
+    {"item_id": "Base.PlateOrange", "ownership": "compiler_generic_rule", "disposition": "PASS", "candidate_output": "주황 접시로, 주방 작업에서 식기와 상차림 소품을 꺼내 쓰거나 식사 준비에 곁들일 때 다룬다."},
+    {"item_id": "Base.SmallSheetMetal", "ownership": "current_facts_source", "disposition": "PASS", "candidate_output": "금속 가공에서 금속판을 만드는 재료로 쓰는 작은 금속판이다. 금속 가공으로 만든다."},
+    {"item_id": "Base.Shotgun", "ownership": "current_facts_source", "disposition": "PASS", "candidate_output": "JS-2000 산탄총으로, 사격에 쓰는 산탄총이다. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다."},
+    {"item_id": "Base.Saw", "ownership": "current_facts_source", "disposition": "PASS", "candidate_output": "톱질에 쓰며 산탄총 총열 절단 작업에도 쓰는 도구다. 작업장과 공구 보관 장소에서 발견된다."},
+    {"item_id": "camping.Flint", "ownership": "current_facts_source", "disposition": "PASS", "candidate_output": "불씨를 만들 때 쓰는 부싯돌이다."},
+    {"item_id": "Base.HairDyeYellow", "ownership": "current_facts_source", "disposition": "PASS", "candidate_output": "노란 염색약으로, 머리색을 바꾸는 데 쓰는 염색약이다."},
+    {"item_id": "Base.HairDyePink", "ownership": "current_facts_source", "disposition": "PASS", "candidate_output": "분홍 염색약으로, 머리색을 바꾸는 데 쓰는 염색약이다."},
+    {"item_id": "Base.MakeUp_CamoEyes1", "ownership": "current_facts_source", "disposition": "PASS", "candidate_output": "눈가 분장으로, 눈가에 무늬를 더하는 분장이다."},
+    {"item_id": "Base.Comb", "ownership": "current_facts_source", "disposition": "PASS", "candidate_output": "머리를 빗고 정돈할 때 쓰는 빗이다."}
+  ],
+  "compiler_process_observation_recheck": {
+    "detector_id": "compiler_introduced_process_without_same_clause_source_process",
+    "observation_count": 31,
+    "justified_count": 31,
+    "blocker_count": 0,
+    "common_candidate_output": "조리 과정에서 음식에 넣는 재료다.",
+    "common_source_evidence": {
+      "consumption_form": "ingredient_component",
+      "meal_role": "ingredient",
+      "preparation_requirement": "cooking_declared"
+    },
+    "dispositions": [
+      {"item_id": "Base.BaitFish", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.Bass", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.BreadDough", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.Catfish", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.Chicken", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.Crappie", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.Crayfish", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.DeadBird", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.DeadMouse", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.DeadRabbit", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.DeadRat", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.DeadSquirrel", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.Dough", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.Egg", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.Lobster", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.MeatPatty", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.MincedMeat", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.MuttonChop", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.Oysters", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.Panfish", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.Perch", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.Pike", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.PizzaRecipe", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.PorkChop", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.Salmon", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.Sausage", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.Shrimp", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.Steak", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.Trout", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "Base.WildEggs", "disposition": "justified_semantic_realization", "status": "PASS"},
+      {"item_id": "farming.Bacon", "disposition": "justified_semantic_realization", "status": "PASS"}
+    ]
+  },
+  "review_methodology": {
+    "exact_count_reviewed": 2084,
+    "candidate_bindings_verified": true,
+    "candidate_file_sha256_independently_recomputed": true,
+    "ordered_selection_digest_independently_recomputed": true,
+    "unique_rendered_text_groups_reviewed": 697,
+    "primary_use_cohorts_reviewed": 162,
+    "acquisition_text_groups_reviewed": 340,
+    "source_propositions_bound": 5915,
+    "prior_blockers_rechecked": 14,
+    "process_observations_individually_rechecked": 31,
+    "tests_or_phase_execution_performed": false,
+    "files_modified": false
+  },
+  "terminal_constraints": {
+    "compiler_blockers_present": false,
+    "facts_blockers_present": true,
+    "phase8_prohibited": true,
+    "official_publish_attempt_prohibited": true,
+    "live_gate_change_prohibited": true
+  }
+}

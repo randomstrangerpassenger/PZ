@@ -1,0 +1,208 @@
+{
+  "schema_version": "dvf-3-3-naturalization-phase0-through-phase6-ab-identity-v1",
+  "status": "PASS",
+  "attempt_a": "attempt-0020-g4-rebind-a",
+  "attempt_b": "attempt-0020-g4-rebind-b",
+  "execution_commit": "3464b4c80a7f99ac6673e63d51148533c1c96674",
+  "naturalization_start_commit": "e61a65322dabb0fd98f8e66f1a2b376cecc57eda",
+  "naturalization_start_tree": "b7ef0a3e33797d2c55ccceecefd1cf750efc8116",
+  "comparison_scope": "independent_phase0_through_phase6_runs",
+  "candidate_payload_byte_identity_pass": true,
+  "candidate_trace_byte_identity_pass": true,
+  "phase0_through_phase6_deterministic_payload_identity_pass": true,
+  "all_artifact_raw_byte_identity_claimed": false,
+  "all_artifact_raw_byte_identity_not_claimed_reason": "Attempt IDs, attempt-local paths, generated_at values, and hashes of attempt-scoped reports are execution metadata. Deterministic source, inventory, compiler, candidate, semantic, and detector payloads are compared byte-for-byte.",
+  "raw_artifact_summary": {
+    "compared_file_count": 63,
+    "byte_equal_file_count": 45,
+    "attempt_or_volatile_metadata_file_count": 18
+  },
+  "phase_results": [
+    {
+      "phase": 0,
+      "status_a": "PASS",
+      "status_b": "PASS",
+      "compared_file_count": 17,
+      "byte_equal_file_count": 13,
+      "metadata_only_mismatch_files": [
+        "default_mode_golden_baseline.json",
+        "isolated_default_rendered.json",
+        "preflight_report.json",
+        "registry_adoption_receipt_binding_report.json"
+      ],
+      "deterministic_payloads": [
+        {
+          "path": "protected_surface_snapshot.json",
+          "sha256_a": "a8a436038d45fc39f5f2eae6ee5ae2ee571375d7e71e426a06908756c824c9a4",
+          "sha256_b": "a8a436038d45fc39f5f2eae6ee5ae2ee571375d7e71e426a06908756c824c9a4",
+          "byte_identity": true
+        },
+        {
+          "id": "normalized_default_content",
+          "sha256_a": "b844f0e51cdda12f716b3dc12e52e77639ebf2db967c28f1eb473ffdc6eaa4a4",
+          "sha256_b": "b844f0e51cdda12f716b3dc12e52e77639ebf2db967c28f1eb473ffdc6eaa4a4",
+          "byte_identity": true
+        }
+      ]
+    },
+    {
+      "phase": 1,
+      "status_a": "PASS",
+      "status_b": "PASS",
+      "compared_file_count": 4,
+      "byte_equal_file_count": 2,
+      "metadata_only_mismatch_files": [
+        "current_prose_census.json",
+        "phase1_result.json"
+      ],
+      "deterministic_payloads": [
+        {
+          "path": "recurring_skeleton_inventory.json",
+          "sha256_a": "65cbb828d236b4483e9c5a8bdf15482c8f1236419af2997acf048d9f0a0b78c1",
+          "sha256_b": "65cbb828d236b4483e9c5a8bdf15482c8f1236419af2997acf048d9f0a0b78c1",
+          "byte_identity": true
+        },
+        {
+          "path": "review_strata_report.json",
+          "sha256_a": "152a274f4a12c5c62305dc141c1ec6488a26c1856c11fb958ca84c602dcb78ab",
+          "sha256_b": "152a274f4a12c5c62305dc141c1ec6488a26c1856c11fb958ca84c602dcb78ab",
+          "byte_identity": true
+        }
+      ]
+    },
+    {
+      "phase": 2,
+      "status_a": "PASS",
+      "status_b": "PASS",
+      "compared_file_count": 8,
+      "byte_equal_file_count": 5,
+      "metadata_only_mismatch_files": [
+        "phase2_result.json",
+        "source_authority_reseal_report.json",
+        "source_proposition_manifest.json"
+      ],
+      "deterministic_payloads": [
+        {
+          "path": "source_proposition_inventory.jsonl",
+          "sha256_a": "2f528aeb1d90b7991756db00a67fc4aee505c2085b16053947e6e6c0b2c22184",
+          "sha256_b": "2f528aeb1d90b7991756db00a67fc4aee505c2085b16053947e6e6c0b2c22184",
+          "byte_identity": true
+        },
+        {
+          "path": "body_plan_requirement_inventory.jsonl",
+          "sha256_a": "cfb21d834f539104f04811c6f559005a8ddbfeac8899ba0dc8b93fefe0f4198a",
+          "sha256_b": "cfb21d834f539104f04811c6f559005a8ddbfeac8899ba0dc8b93fefe0f4198a",
+          "byte_identity": true
+        }
+      ]
+    },
+    {
+      "phase": 3,
+      "status_a": "PASS",
+      "status_b": "PASS",
+      "compared_file_count": 9,
+      "byte_equal_file_count": 4,
+      "metadata_only_mismatch_files": [
+        "compiler_contract_test_report.json",
+        "default_mode_replay.json",
+        "phase3_result.json",
+        "repeated_skeleton_cause_analysis.json",
+        "semantic_lead_rule_projection_report.json"
+      ],
+      "deterministic_payloads": [
+        {
+          "path": "write_boundary_negative_test_report.json",
+          "sha256_a": "f7c3e9b7bd95199fdd6e751469862ec9800c5205ac12d872cea7f1199d2402a4",
+          "sha256_b": "f7c3e9b7bd95199fdd6e751469862ec9800c5205ac12d872cea7f1199d2402a4",
+          "byte_identity": true
+        }
+      ]
+    },
+    {
+      "phase": 4,
+      "status_a": "PASS",
+      "status_b": "PASS",
+      "compared_file_count": 10,
+      "byte_equal_file_count": 8,
+      "metadata_only_mismatch_files": [
+        "candidate_manifest.json",
+        "phase4_result.json"
+      ],
+      "deterministic_payloads": [
+        {
+          "path": "candidate_rendered.json",
+          "sha256_a": "4c1f4409d40c4de2f3e8983e6729e43fa718bf4306d8d43188d236851cb435f3",
+          "sha256_b": "4c1f4409d40c4de2f3e8983e6729e43fa718bf4306d8d43188d236851cb435f3",
+          "byte_identity": true
+        },
+        {
+          "path": "candidate_proposition_trace.jsonl",
+          "sha256_a": "23a854bf7720009fc3d708a4445913fde4988be9501b53534d349f7172ac6806",
+          "sha256_b": "23a854bf7720009fc3d708a4445913fde4988be9501b53534d349f7172ac6806",
+          "byte_identity": true
+        },
+        {
+          "path": "_candidate_structural_satisfaction.jsonl",
+          "sha256_a": "577d6040567ebbcb6180b1237e189ec3ce935d2ee35fde3db1f6141e9f2e13ad",
+          "sha256_b": "577d6040567ebbcb6180b1237e189ec3ce935d2ee35fde3db1f6141e9f2e13ad",
+          "byte_identity": true
+        }
+      ]
+    },
+    {
+      "phase": 5,
+      "status_a": "PASS",
+      "status_b": "PASS",
+      "compared_file_count": 10,
+      "byte_equal_file_count": 9,
+      "metadata_only_mismatch_files": [
+        "phase5_semantic_result.json"
+      ],
+      "deterministic_payloads": [
+        {
+          "path": "semantic_preservation_report.json",
+          "sha256_a": "5f6662b2b2eb4d408bd69d20fcb25881f8f09dd0c56a9445d938cc6b38f63cb5",
+          "sha256_b": "5f6662b2b2eb4d408bd69d20fcb25881f8f09dd0c56a9445d938cc6b38f63cb5",
+          "byte_identity": true
+        },
+        {
+          "path": "structural_satisfaction_ledger.jsonl",
+          "sha256_a": "f045345a228d49dc1380d6089d4862ac17a251791b0e32b93769fa445b3f1386",
+          "sha256_b": "f045345a228d49dc1380d6089d4862ac17a251791b0e32b93769fa445b3f1386",
+          "byte_identity": true
+        }
+      ]
+    },
+    {
+      "phase": 6,
+      "status_a": "PASS",
+      "status_b": "PASS",
+      "compared_file_count": 5,
+      "byte_equal_file_count": 4,
+      "metadata_only_mismatch_files": [
+        "phase6_result.json"
+      ],
+      "deterministic_payloads": [
+        {
+          "path": "raw_detector_report.json",
+          "sha256_a": "d162877907769ccac85b535b283b0df27e260aebd8391e549c6eb5e682e3f03b",
+          "sha256_b": "d162877907769ccac85b535b283b0df27e260aebd8391e549c6eb5e682e3f03b",
+          "byte_identity": true
+        },
+        {
+          "path": "raw_detector_hit_ledger.jsonl",
+          "sha256_a": "6547234a45f8992e2aeaacf4502d2a077d4ba4f9e6aa7140c9cf5bdbfbc3e1bd",
+          "sha256_b": "6547234a45f8992e2aeaacf4502d2a077d4ba4f9e6aa7140c9cf5bdbfbc3e1bd",
+          "byte_identity": true
+        }
+      ]
+    }
+  ],
+  "scope_guards": {
+    "attempt_0018_modified_or_resumed": false,
+    "attempt_0019_modified_or_resumed": false,
+    "official_publish_attempt_created": false,
+    "live_gate_mutated": false,
+    "runtime_lua_or_package_mutated": false
+  }
+}

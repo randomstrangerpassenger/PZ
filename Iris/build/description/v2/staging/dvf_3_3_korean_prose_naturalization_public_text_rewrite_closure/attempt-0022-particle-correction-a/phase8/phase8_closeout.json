@@ -1,0 +1,17 @@
+{
+  "candidate_rendered_sha256": "79acd78da0e3c38baf91e903b314eda0aa1d8854163e73e141ac45bf918fd1a5",
+  "human_review_blocker_count": 0,
+  "human_review_denominator": 2084,
+  "live_gate_mutated": false,
+  "naturalization_attempt_id": "attempt-0022-particle-correction-a",
+  "naturalization_terminal_closure_claimed": false,
+  "next_stage": "official_publish_attempt_prohibited_until_separate_authorization",
+  "official_publish_attempt_created": false,
+  "official_publish_executed": false,
+  "publish_acceptance_handoff_manifest_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0022-particle-correction-a/phase8/publish_acceptance_handoff_manifest.json",
+  "publish_acceptance_handoff_manifest_sha256": "4268a419663fcae51370a92ee0c21cc09b9b6c7eace4ed602cec51f8c484fdbf",
+  "runtime_lua_or_package_mutated": false,
+  "schema_version": "dvf-3-3-naturalization-phase8-closeout-v1",
+  "status": "HANDOFF_COMPLETE",
+  "write_once": true
+}

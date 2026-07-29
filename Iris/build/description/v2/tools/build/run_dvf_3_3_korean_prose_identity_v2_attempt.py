@@ -97,11 +97,18 @@ HUMAN_REVIEW_DECISION = (
 )
 ORCHESTRATOR_PATH = Path(__file__).resolve()
 LOWER_SHA256 = re.compile(r"[0-9a-f]{64}")
-EFFECTIVE_PHASE0_DIRECTORY_NAME = "phase0_correction_0002"
+EFFECTIVE_PHASE_DIRECTORY_NAMES = {
+    0: "phase0_correction_0002",
+    1: "phase1_correction_0001",
+}
 _TRACKED_BLOB_CACHE: dict[str, bytes | None] = {}
 _LINE_ENDING_AUTHORITY_ROWS: dict[str, dict[str, Any]] = {}
 _PARTICLE_IDENTITY_VIEW: dict[str, Any] = {}
+_CURRENT_SNAPSHOT_IDENTITY_VIEW: dict[str, Any] = {}
 _BASE_LOAD_JSON = producer.load_json
+CURRENT_SNAPSHOT_MANIFEST = (
+    producer.DATA_ROOT / "current_surface_snapshot_manifest.json"
+)
 
 
 class IdentityV2AttemptError(RuntimeError):
@@ -117,9 +124,10 @@ def sha256_file(path: Path) -> str:
 
 
 def effective_phase_root(attempt_root: Path, phase: int) -> Path:
-    if phase == 0:
-        return attempt_root / EFFECTIVE_PHASE0_DIRECTORY_NAME
-    return attempt_root / f"phase{phase}"
+    return attempt_root / EFFECTIVE_PHASE_DIRECTORY_NAMES.get(
+        phase,
+        f"phase{phase}",
+    )
 
 
 def tracked_blob_bytes(path: Path) -> bytes | None:
@@ -166,6 +174,31 @@ def authority_sha256_file(path: Path) -> str:
 
 def canonical_identity_load_json(path: Path) -> Any:
     value = _BASE_LOAD_JSON(path)
+    if path.resolve() == CURRENT_SNAPSHOT_MANIFEST.resolve():
+        projected = json.loads(json.dumps(value, ensure_ascii=False))
+        source_path = producer.REPO_ROOT / str(projected.get("source_path", ""))
+        legacy_raw_sha256 = projected.get("source_raw_sha256")
+        selected_authority_sha256 = authority_sha256_file(source_path)
+        projected["source_raw_sha256"] = selected_authority_sha256
+        _CURRENT_SNAPSHOT_IDENTITY_VIEW.update(
+            {
+                "manifest_path": repo_relative(path),
+                "source_path": repo_relative(source_path),
+                "legacy_working_raw_sha256": legacy_raw_sha256,
+                "selected_repository_authority_sha256": (
+                    selected_authority_sha256
+                ),
+                "snapshot_semantic_authority": projected.get(
+                    "semantic_authority"
+                ),
+                "candidate_answer_corpus": projected.get(
+                    "candidate_answer_corpus"
+                ),
+                "manifest_mutated": False,
+                "source_mutated": False,
+            }
+        )
+        return projected
     if path.resolve() != producer.PARTICLE_CORRECTION_PROJECTION_REPORT.resolve():
         return value
     projected = json.loads(json.dumps(value, ensure_ascii=False))
@@ -622,7 +655,7 @@ def write_line_ending_authority_correction_report(
             "crlf_or_lone_cr_to_lf_normalization_plus_particle_legacy_raw_"
             "hash_rebound_to_canonical_identity_v2"
         ),
-        "effective_phase0_directory": EFFECTIVE_PHASE0_DIRECTORY_NAME,
+        "effective_phase0_directory": EFFECTIVE_PHASE_DIRECTORY_NAMES[0],
         "effective_preflight_path": repo_relative(effective_preflight),
         "effective_preflight_sha256": sha256_file(effective_preflight),
         "prior_blocked_phase0_evidence": prior_preflights,
@@ -645,6 +678,58 @@ def write_line_ending_authority_correction_report(
     producer.write_once_or_same(
         effective_phase_root(attempt_root, 0)
         / "repository_line_ending_authority_correction_report.json",
+        report,
+    )
+    return report
+
+
+def write_phase1_snapshot_identity_correction_report(
+    attempt_root: Path,
+) -> dict[str, Any]:
+    original_result = attempt_root / "phase1" / "phase1_result.json"
+    effective_result = (
+        effective_phase_root(attempt_root, 1) / "phase1_result.json"
+    )
+    report = {
+        "schema_version": (
+            "dvf-3-3-phase1-current-snapshot-identity-correction-v1"
+        ),
+        "correction_id": "phase1-correction-0001",
+        "status": "PASS",
+        "effective_phase1_directory": EFFECTIVE_PHASE_DIRECTORY_NAMES[1],
+        "effective_phase1_result_path": repo_relative(effective_result),
+        "effective_phase1_result_sha256": sha256_file(effective_result),
+        "original_failed_phase1_present": original_result.is_file(),
+        "original_failed_phase1_path": (
+            repo_relative(original_result) if original_result.is_file() else None
+        ),
+        "original_failed_phase1_sha256": (
+            sha256_file(original_result) if original_result.is_file() else None
+        ),
+        "original_failed_evidence_preserved": True,
+        "current_snapshot_identity_view": dict(
+            _CURRENT_SNAPSHOT_IDENTITY_VIEW
+        ),
+        "current_snapshot_semantic_authority": False,
+        "candidate_answer_corpus": False,
+        "source_semantics_changed": False,
+        "compiler_semantics_changed": False,
+        "tracked_file_working_bytes_mutated": False,
+        "new_attempt_id_created_for_correction": False,
+    }
+    if (
+        not _CURRENT_SNAPSHOT_IDENTITY_VIEW
+        or _CURRENT_SNAPSHOT_IDENTITY_VIEW.get("snapshot_semantic_authority")
+        is not False
+        or _CURRENT_SNAPSHOT_IDENTITY_VIEW.get("candidate_answer_corpus")
+        is not False
+    ):
+        raise IdentityV2AttemptError(
+            "current snapshot identity correction is not bounded"
+        )
+    producer.write_once_or_same(
+        effective_phase_root(attempt_root, 1)
+        / "current_snapshot_identity_correction_report.json",
         report,
     )
     return report
@@ -898,6 +983,8 @@ def run_phase(attempt_id: str, mode: str) -> int:
                 / "canonical_compiler_identity_v2_binding_report.json",
                 identity_report,
             )
+        elif mode == "phase1-census":
+            write_phase1_snapshot_identity_correction_report(attempt_root)
         elif mode == "phase2-source-inventory":
             write_phase2_identity_reseal(attempt_root, identity_report)
         elif mode == "phase4-candidate":

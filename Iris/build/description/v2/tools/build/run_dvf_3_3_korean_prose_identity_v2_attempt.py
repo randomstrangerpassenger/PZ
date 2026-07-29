@@ -955,8 +955,26 @@ def run_phase(attempt_id: str, mode: str) -> int:
         )
         if not phase0_path.is_file():
             raise IdentityV2AttemptError("Phase 0 identity-v2 binding is missing")
-        if producer.load_json(phase0_path) != identity_report:
-            raise IdentityV2AttemptError("Phase 0 identity-v2 binding is stale")
+        phase0_identity_report = producer.load_json(phase0_path)
+        phase0_identity_keys = (
+            "foundation_implementation_correction_readiness_sha256",
+            "foundation_contract_sha256",
+            "predecessor_readiness_sha256",
+            "identity_correction_contract_sha256",
+            "identity_helper_sha256",
+            "canonical_compiler_identity",
+            "producer_compiler_identity",
+            "publish_consumer_compiler_identity",
+            "line_ending_variant_aggregates",
+            "actual_identity_input_field_count",
+        )
+        if any(
+            phase0_identity_report.get(key) != identity_report.get(key)
+            for key in phase0_identity_keys
+        ):
+            raise IdentityV2AttemptError(
+                "Phase 0 canonical identity or authority binding is stale"
+            )
 
     builders = {
         "phase0-preflight": producer.build_phase0,

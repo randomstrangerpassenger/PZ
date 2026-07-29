@@ -1,0 +1,16 @@
+{
+  "adoption_commit": "b74b3cf56b5c04e737aa6ef72d342357af1a37db",
+  "adoption_tree": "47c7dd2673c939127601880340cad83736e07e98",
+  "attempt_0009_receipt_mutation_count": 0,
+  "attempt_0022_mutation_count": 0,
+  "attempt_id": "attempt-0010",
+  "current_facts_git_blob_sha256": "ca74270191289af064d9d8fa9d739c97b0865d69e255885e815b01565243f46e",
+  "current_facts_working_sha256": "ca74270191289af064d9d8fa9d739c97b0865d69e255885e815b01565243f46e",
+  "current_manifest_git_blob_sha256": "c9670c1625382444fe292158e6b50e65e2ee54316d2903835ebc4f59c199257d",
+  "current_manifest_working_sha256": "c9670c1625382444fe292158e6b50e65e2ee54316d2903835ebc4f59c199257d",
+  "facts_working_blob_identity": true,
+  "manifest_working_blob_identity": true,
+  "partial_or_dual_current_count": 0,
+  "schema_version": "dvf-3-3-registry-correction-current-identity-report-v1",
+  "status": "PASS"
+}

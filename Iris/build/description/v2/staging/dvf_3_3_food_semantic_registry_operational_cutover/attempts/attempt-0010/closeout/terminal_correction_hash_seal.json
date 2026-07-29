@@ -1,0 +1,18 @@
+{
+  "adoption_commit": "b74b3cf56b5c04e737aa6ef72d342357af1a37db",
+  "adoption_tree": "47c7dd2673c939127601880340cad83736e07e98",
+  "attempt_0009_receipt_mutation_count": 0,
+  "attempt_0022_mutation_count": 0,
+  "attempt_id": "attempt-0010",
+  "current_correction_identity_report_sha256": "6f54248367b011d621ce3a03d89ed508e9306009637aa6fbd5563dc3e97cea33",
+  "current_facts_sha256": "ca74270191289af064d9d8fa9d739c97b0865d69e255885e815b01565243f46e",
+  "current_manifest_sha256": "c9670c1625382444fe292158e6b50e65e2ee54316d2903835ebc4f59c199257d",
+  "initial_g3_adoption_receipt_sha256": "efcc387bb395b561ab67df0cab4e498fe0b429680fc6cc8f6dd96eb94ba49751",
+  "live_publish_gate_mutated": false,
+  "official_publish_attempt_created": false,
+  "registry_correction_adoption_receipt_sha256": "92cb65656562ec874dafea118c85ce424e2f391f36ee27860029c6fef582978f",
+  "registry_correction_cutover": "current_adoption_complete",
+  "schema_version": "dvf-3-3-registry-correction-terminal-hash-seal-v1",
+  "status": "PASS",
+  "successor_receipt_sha256": "d6616146155ee1967801c79c9b803f7f6967f2be057c898e51b0cc19c742b3dd"
+}

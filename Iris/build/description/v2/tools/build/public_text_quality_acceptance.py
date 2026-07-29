@@ -2883,6 +2883,94 @@ def _semantic_failure_count(report: dict[str, Any]) -> int:
     return sum(int(report.get(field, 0)) for field in fields)
 
 
+HUMAN_REVIEW_RUBRIC_IDS = (
+    "readability",
+    "naturalness",
+    "semantic_fidelity",
+    "public_suitability",
+)
+
+
+def _human_review_technical_blocker(reasons: list[str]) -> None:
+    raise FoundationContractError(
+        "human review schema technical blocker: "
+        + ",".join(sorted(set(reasons)))
+    )
+
+
+def _human_review_blocker_count(
+    *,
+    review_sample: dict[str, Any],
+    review_decision: dict[str, Any],
+    required_denominator: int,
+) -> int:
+    mode = review_decision.get("decision_mode")
+    expected_digest = review_sample.get("selected_ordered_digest")
+    if mode == "exact_full_candidate_external_review":
+        errors: list[str] = []
+        if review_decision.get("status") != "PASS":
+            errors.append("exact_full_status_not_pass")
+        if review_decision.get("reviewed_denominator") != required_denominator:
+            errors.append("exact_full_denominator_mismatch")
+        if review_decision.get("selected_ordered_digest") != expected_digest:
+            errors.append("exact_full_digest_mismatch")
+        aggregate = review_decision.get("rubric_aggregate")
+        if (
+            not isinstance(aggregate, dict)
+            or set(aggregate) != set(HUMAN_REVIEW_RUBRIC_IDS)
+        ):
+            errors.append("exact_full_rubric_aggregate_incomplete")
+            aggregate = {}
+        for rubric_id in HUMAN_REVIEW_RUBRIC_IDS:
+            counts = aggregate.get(rubric_id)
+            if (
+                not isinstance(counts, dict)
+                or set(counts) != {"pass", "fail"}
+                or type(counts.get("pass")) is not int
+                or type(counts.get("fail")) is not int
+                or counts.get("pass") != required_denominator
+                or counts.get("fail") != 0
+            ):
+                errors.append(
+                    f"exact_full_rubric_aggregate_mismatch:{rubric_id}"
+                )
+        blocker_count = review_decision.get("blocker_count")
+        blocker_item_ids = review_decision.get("blocker_item_ids")
+        blockers = review_decision.get("blockers")
+        if (
+            type(blocker_count) is not int
+            or blocker_count != 0
+            or blocker_item_ids != []
+            or blockers != []
+        ):
+            errors.append("exact_full_blocker_list_mismatch")
+        if errors:
+            _human_review_technical_blocker(errors)
+        return int(blocker_count)
+
+    if mode == "exact_sample_uniform_owner_approval":
+        if review_decision.get("selected_ordered_digest") != expected_digest:
+            _human_review_technical_blocker(
+                ["sampled_uniform_digest_mismatch"]
+            )
+        uniform_review = review_decision.get("uniform_review")
+        if not isinstance(uniform_review, dict) or not uniform_review:
+            _human_review_technical_blocker(
+                ["sampled_uniform_review_incomplete"]
+            )
+        return (
+            0
+            if review_decision.get("status") == "approved"
+            and all(value == "pass" for value in uniform_review.values())
+            else required_denominator
+        )
+
+    _human_review_technical_blocker(
+        [f"unknown_decision_mode:{mode!r}"]
+    )
+    raise AssertionError("unreachable")
+
+
 def compute_candidate_metric_snapshot(
     validation: dict[str, Any],
 ) -> dict[str, Any]:
@@ -2980,18 +3068,14 @@ def compute_candidate_metric_snapshot(
         or len(selected) != len(set(selected))
         or review_sample.get("candidate_rendered_hash") != sha256_file(candidate_path)
         or review_decision.get("candidate_rendered_hash") != sha256_file(candidate_path)
-        or review_decision.get("selected_ordered_digest")
-        != review_sample.get("selected_ordered_digest")
     ):
-        raise FoundationContractError("human review denominator/binding mismatch")
-    rubric = review_decision.get("uniform_review")
-    human_review_failures = (
-        0
-        if review_decision.get("status") == "approved"
-        and isinstance(rubric, dict)
-        and rubric
-        and all(value == "pass" for value in rubric.values())
-        else selected_denominator
+        _human_review_technical_blocker(
+            ["human_review_denominator_or_candidate_binding_mismatch"]
+        )
+    human_review_failures = _human_review_blocker_count(
+        review_sample=review_sample,
+        review_decision=review_decision,
+        required_denominator=selected_denominator,
     )
 
     denominators: dict[str, int] = {

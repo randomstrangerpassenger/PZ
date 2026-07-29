@@ -1,0 +1,100 @@
+{
+  "schema_version": "public_text_quality_attempt_disposition_interpretation_correction_v1",
+  "correction_id": "attempt-0004-phase5-review-schema-incompatibility-correction-0001",
+  "record_mode": "append_only",
+  "status": "bounded_consumer_correction_implemented",
+  "recorded_date": "2026-07-30",
+  "source_attempt": {
+    "attempt_id": "attempt-0004-official",
+    "phase5_commit": "b11bf46172c59d2a784a2b877929ff21e69cbe50",
+    "phase5_tree": "ec5ece90b58371601cdc45d5a2e18fdb6f8599d9",
+    "evaluation_subject_sha256": "c4d2799ffd931c585b6da2d4d9a7663c2207181f21a822dbea2794f5d3a08787",
+    "qualified_disposition": "blocked",
+    "disposition_path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0004-official/phase5/evaluation_subject_disposition.json",
+    "disposition_raw_sha256": "50e342e91fc453939828c2fe9350c501dedc30aa6cd4fa35562c15b3091f2063",
+    "failure_ledger_path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0004-official/phase5/naturalization_failure_ledger.json",
+    "failure_ledger_raw_sha256": "abf0722fe97c35554282d63a535f58352c4552be4ce94229c93a5e7768870993",
+    "immutable": true,
+    "recomputed_or_modified": false
+  },
+  "historical_result_interpretation": {
+    "overall_blocked_result_remains_valid": true,
+    "independent_sufficient_blocker": {
+      "metric_id": "banned_internal_abstraction",
+      "numerator": 673,
+      "denominator": 2084,
+      "threshold": {
+        "operator": "eq",
+        "integer": 0
+      }
+    },
+    "actual_advisory_debt": [
+      {
+        "metric_id": "repeated_identity_noun_window",
+        "numerator": 2,
+        "denominator": 2084
+      },
+      {
+        "metric_id": "paragraph_fragmentation",
+        "numerator": 1,
+        "denominator": 2084
+      }
+    ],
+    "misclassified_human_review_finding": {
+      "metric_id": "human_review_blocker_required_denominator",
+      "historical_numerator": 2084,
+      "denominator": 2084,
+      "root_cause": "Publish consumer review-schema incompatibility",
+      "source_or_facts_failure": false,
+      "naturalization_remediation_target": false,
+      "facts_remediation_target": false,
+      "routing_prohibition": [
+        "do_not_route_to_naturalization_remediation",
+        "do_not_route_to_facts_remediation"
+      ]
+    }
+  },
+  "bounded_consumer_contract": {
+    "implementation_path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py",
+    "algorithm_id": "publish_consumer_human_review_schema_compatibility_v2",
+    "supported_decision_modes": [
+      "exact_full_candidate_external_review",
+      "exact_sample_uniform_owner_approval"
+    ],
+    "exact_full_metric_numerator_source": "validated blocker_count",
+    "unknown_or_incomplete_schema_effect": "technical_blocker_fail_closed",
+    "unknown_or_incomplete_schema_full_denominator_synthesis_allowed": false,
+    "policy_changed": false,
+    "threshold_changed": false,
+    "denominator_changed": false,
+    "disposition_class_changed": false
+  },
+  "focused_validation": {
+    "test_source": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py",
+    "new_test_source_count": 0,
+    "focused_test_count": 8,
+    "pytest_result": "8/8 PASS",
+    "pytest_exit_code": 0,
+    "standalone_unittest_result": "8/8 PASS",
+    "standalone_unittest_exit_code": 0,
+    "actual_attempt_0023_exact_full_human_review_numerator": 0,
+    "negative_cases_fail_closed_as_technical_blocker": [
+      "aggregate_fail_one",
+      "reviewed_denominator_mismatch",
+      "selected_ordered_digest_mismatch",
+      "blocker_list_mismatch",
+      "incomplete_rubric_aggregate",
+      "unknown_review_schema"
+    ],
+    "sampled_uniform_review_contract_preserved": true
+  },
+  "execution_boundary": {
+    "attempt_0004_resumed": false,
+    "phase5_recomputed": false,
+    "phase6_created": false,
+    "live_gate_changed": false,
+    "g1_full_gate_successor_created": false,
+    "g4_readiness_successor_created": false,
+    "authority_effect": "none"
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "schema_version": "iris_clean_checkout_full_repository_technical_debt_closeout_successor_v4",
+  "recorded_date": "2026-07-30",
+  "status": "complete",
+  "record_mode": "append_only_protected_snapshot_identity_correction_successor",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "problem_id": "iris_clean_checkout_full_repository_validation_reproducibility_authority_closure",
+  "predecessor": {
+    "path": "Iris/validation/clean_checkout/authority/full_repository_technical_debt_closeout_successor_0003.json",
+    "git_blob_id": "ed9f38eb3d6f26b2124a0b8d5dc017354a9f24c8",
+    "git_blob_raw_sha256": "5dfd72386d0853f35eac13c2274f47b876dda4aa905334ca72cd49a25a07d632",
+    "rewrite_permitted": false
+  },
+  "gate_manifest_successor": {
+    "path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0004.json",
+    "git_blob_raw_sha256": "fc837f3c6957ac8da1ee4bf4cf2d9f9b0e5588c843ecc27ba2b903b1334e12f9",
+    "status": "PASS",
+    "raw_sha256_bound_by_next_foundation_successor": true
+  },
+  "validated_subject": {
+    "commit": "edc70fdca94edc7b114f350e74373de9d39e2b0e",
+    "tree": "5350b45eecd62491306247b659339af44616706e",
+    "start_commit": "1a98a4e2415b8121e62fe32e41bac36e0432a44a",
+    "start_tree": "5ba11491a75c3120575b5f228ee1c0564a7529a1"
+  },
+  "implementation_closeout": {
+    "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py",
+    "git_blob_raw_sha256": "96911c4db921937ca6928234773e5392ab4ef614962b79c5cfc59e2cd823b620",
+    "identity_contract": "HEAD Git blob raw SHA authority; Git filtered or CRLF/lone-CR-to-LF canonical working identity for tracked UTF-8 text; strict raw bytes for binary/raw surfaces",
+    "json_semantic_normalization": false,
+    "whitespace_normalization": false,
+    "line_ending_only_equivalence": true,
+    "non_line_ending_one_byte_change_stale": true,
+    "binary_raw_drift_stale": true,
+    "returned_snapshot_sha_is_head_authority_raw_sha": true
+  },
+  "inventory_closeout": {
+    "tracked_test_source_count": 93,
+    "required_source_count": 33,
+    "historical_optional_source_count": 55,
+    "obsolete_or_misrouted_source_count": 3,
+    "hermetic_test_fixture_source_count": 2,
+    "unresolved_dependency_count": 0
+  },
+  "validation_closeout": {
+    "focused_current_required_result": "8/8 PASS",
+    "focused_standalone_result": "8/8 PASS",
+    "run_a_result": "181 pytest + 4 standalone = 185/185 PASS",
+    "run_b_result": "181 pytest + 4 standalone = 185/185 PASS",
+    "canonical_result_sha256": "62b6eb0a0be79cbfe99b5072058cc1d0e1ff60885cc10a2e0fd8341bd709b4f1",
+    "canonical_results_equal": true,
+    "test_inventory_sha256": "f9aebe1181bf74857673b579ca38dd34fa6c4851aa9e796446393480b774e539",
+    "disposable_checkout_residue_count": 0,
+    "persistent_worktree_created": false
+  },
+  "scope_preservation": {
+    "foundation_contract_changed": false,
+    "policy_threshold_denominator_detector_changed": false,
+    "naturalization_changed_or_executed": false,
+    "handoff_changed_or_executed": false,
+    "candidate_changed_or_executed": false,
+    "facts_or_manifest_changed_or_executed": false,
+    "publish_attempt_changed_or_executed": false,
+    "protected_product_surface_mutation_count": 0,
+    "authority_effect": "none",
+    "existing_g1_evidence_overwritten": false
+  },
+  "closeout": {
+    "protected_snapshot_identity_correction_status": "PASS",
+    "full_clean_checkout_gate_status": "PASS",
+    "blocking_condition_count": 0,
+    "blocking_conditions": []
+  },
+  "successor_boundary": {
+    "validated_subject_is_unchanged_by_this_record": true,
+    "this_record_is_not_the_validated_subject": true,
+    "tests_rerun_for_this_successor_record": false,
+    "self_referential_commit_fields": 0
+  }
+}

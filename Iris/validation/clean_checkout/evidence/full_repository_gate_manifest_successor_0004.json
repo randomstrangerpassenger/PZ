@@ -1,0 +1,145 @@
+{
+  "schema_version": "iris-clean-checkout-full-repository-gate-manifest-v4",
+  "manifest_state": "frozen",
+  "recorded_date": "2026-07-30",
+  "status": "PASS",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "terminal_claim": "protected-snapshot text identity correction passes the current 33-source clean-checkout gate",
+  "predecessor": {
+    "path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0003.json",
+    "git_blob_id": "bfcc0954183df890c369bd78d49b356035778f0f",
+    "git_blob_raw_sha256": "876af6afc01f1349f369ed8982228944df31fedc79917bc885b3171fcdf6bb15",
+    "rewrite_permitted": false
+  },
+  "validated_subject": {
+    "role": "protected_snapshot_identity_implementation_correction",
+    "commit": "edc70fdca94edc7b114f350e74373de9d39e2b0e",
+    "tree": "5350b45eecd62491306247b659339af44616706e",
+    "branch": "codex/public-text-quality-official-attempt-0004",
+    "start_commit": "1a98a4e2415b8121e62fe32e41bac36e0432a44a",
+    "start_tree": "5ba11491a75c3120575b5f228ee1c0564a7529a1"
+  },
+  "classification_contract": {
+    "path": "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+    "schema_version": "iris-clean-checkout-full-repository-gate-v3",
+    "git_blob_id": "e9f7c430e47e0f49591b88c6083052ae4646c34a",
+    "git_blob_raw_sha256": "dbfd1591fbd42ebcb615499f9e486c6707d3d729e5e6916ef1eb3c84dd350adb",
+    "explicit_current_required_source": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py",
+    "required_execution_role": "required_pytest",
+    "required_authority_class": "required_tracked_source",
+    "required_classification_basis": "explicit_current_required_source",
+    "required_source_count": 33,
+    "contract_changed": false
+  },
+  "implementation_bindings": {
+    "foundation_implementation": {
+      "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py",
+      "git_blob_id": "8107aaa7a0107e4103b4ce0ed9f6f3735aee0152",
+      "git_blob_raw_sha256": "96911c4db921937ca6928234773e5392ab4ef614962b79c5cfc59e2cd823b620",
+      "correction": "protected_snapshot_HEAD_raw_authority_with_filtered_or_line_ending_canonical_working_identity"
+    },
+    "current_required_regression_source": {
+      "path": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py",
+      "git_blob_id": "0bbf23c87f113c413e92f66dc0dd869fab99a6e4",
+      "git_blob_raw_sha256": "df1ab5ab403ef6c79b1306107e185a8a9ca425cc131943912a7ff66878672c0b",
+      "test_count": 8,
+      "new_test_method_count": 5,
+      "new_test_source_count": 0
+    }
+  },
+  "classification_recensus": {
+    "output_root": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/psnap-census-edc70fdc",
+    "tracked_test_source_count": 93,
+    "configured_root_source_count": 75,
+    "outside_configured_root_source_count": 18,
+    "required_source_count": 33,
+    "historical_optional_source_count": 55,
+    "obsolete_or_misrouted_source_count": 3,
+    "hermetic_test_fixture_source_count": 2,
+    "explicitly_ignored_source_count": 6,
+    "ambient_dependency_candidate_edge_count": 0,
+    "unresolved_edge_count": 0,
+    "test_inventory_sha256": "a9a459954fbaa4b3ad42138c3f008c6df16d21d197e6e98c8cbbdc5ebaad0687",
+    "dependency_edge_ledger_sha256": "0db104bbbe527771c17053e9642ff80c081a6cf01ae87495249372a184479b92",
+    "d0_manifest_sha256": "7f0793441556d454cb1b19bfe932f6fa3a5f566a585256c207be26319a352507",
+    "accounting_equation": "33 required + 55 historical optional + 3 obsolete or misrouted + 2 hermetic fixtures = 93 tracked test sources"
+  },
+  "focused_validation": {
+    "current_required_pytest": {
+      "status": "PASS",
+      "result": "8/8",
+      "exit_code": 0,
+      "exact_source_selected": true
+    },
+    "standalone": {
+      "status": "PASS",
+      "result": "8/8",
+      "exit_code": 0
+    }
+  },
+  "execution_reproducibility": {
+    "run_a": {
+      "status": "PASS",
+      "canonical_result_path": "C:/Users/MW/p5ra/canonical_full_result.json",
+      "canonical_result_sha256": "62b6eb0a0be79cbfe99b5072058cc1d0e1ff60885cc10a2e0fd8341bd709b4f1",
+      "run_receipt_sha256": "836144a145cd0048b24d97b1157e31184f22bf8b699117fc6579f5541de0ff87",
+      "materialization_receipt_sha256": "701de7d0e46e52126bc2bfb923501ebcef224e794ee9c821dee8e228ad769dfb",
+      "full_pytest_result_sha256": "1cf0a8e9788f03a2e04c519961fe7084c3971b3f85d9abbce78f58e192c5f5d3",
+      "exit_code": 0
+    },
+    "run_b": {
+      "status": "PASS",
+      "canonical_result_path": "C:/Users/MW/p5rb/canonical_full_result.json",
+      "canonical_result_sha256": "62b6eb0a0be79cbfe99b5072058cc1d0e1ff60885cc10a2e0fd8341bd709b4f1",
+      "run_receipt_sha256": "b24d0d9d0dcc6ad20447582fb4bd5718b69d5d37c47456a0935f065e458d2593",
+      "materialization_receipt_sha256": "701de7d0e46e52126bc2bfb923501ebcef224e794ee9c821dee8e228ad769dfb",
+      "full_pytest_result_sha256": "1cf0a8e9788f03a2e04c519961fe7084c3971b3f85d9abbce78f58e192c5f5d3",
+      "exit_code": 0
+    },
+    "pytest_identity_count": 181,
+    "standalone_validation_count": 4,
+    "required_execution_unit_count": 185,
+    "passed_execution_unit_count": 185,
+    "failed_execution_unit_count": 0,
+    "collection_error_count": 0,
+    "test_inventory_sha256": "f9aebe1181bf74857673b579ca38dd34fa6c4851aa9e796446393480b774e539",
+    "canonical_results_equal": true,
+    "canonical_result_sha256": "62b6eb0a0be79cbfe99b5072058cc1d0e1ff60885cc10a2e0fd8341bd709b4f1",
+    "comparison_validator_exit_code": 0
+  },
+  "cleanup": {
+    "run_a_source_checkout_clean_before": true,
+    "run_a_source_checkout_clean_after": true,
+    "run_b_source_checkout_clean_before": true,
+    "run_b_source_checkout_clean_after": true,
+    "run_a_source_ignored_state_unchanged": true,
+    "run_b_source_ignored_state_unchanged": true,
+    "run_a_external_work_root_removed": true,
+    "run_b_external_work_root_removed": true,
+    "residual_disposable_checkout_count": 0,
+    "persistent_worktree_entry_count_before": 14,
+    "persistent_worktree_entry_count_after": 14,
+    "persistent_worktree_created": false
+  },
+  "preservation": {
+    "foundation_contract_changed": false,
+    "policy_changed": false,
+    "threshold_changed": false,
+    "denominator_changed": false,
+    "detector_changed": false,
+    "naturalization_changed_or_executed": false,
+    "phase8_handoff_changed": false,
+    "candidate_changed": false,
+    "facts_or_manifest_changed": false,
+    "publish_attempt_changed_or_executed": false,
+    "protected_product_surface_mutation_count": 0,
+    "authority_effect": "none",
+    "existing_g1_evidence_overwritten": false
+  },
+  "successor_boundary": {
+    "validated_subject_is_unchanged_by_this_record": true,
+    "this_record_is_not_the_validated_subject": true,
+    "tests_rerun_for_this_successor_record": false,
+    "self_referential_commit_fields": 0
+  }
+}

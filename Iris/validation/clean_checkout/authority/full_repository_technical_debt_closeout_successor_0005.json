@@ -1,0 +1,87 @@
+{
+  "schema_version": "iris_clean_checkout_full_repository_technical_debt_closeout_successor_v5",
+  "recorded_date": "2026-07-30",
+  "status": "complete",
+  "record_mode": "append_only_phase0_required_input_vcs_preflight_parity_correction_successor",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "problem_id": "iris_clean_checkout_full_repository_validation_reproducibility_authority_closure",
+  "predecessor": {
+    "path": "Iris/validation/clean_checkout/authority/full_repository_technical_debt_closeout_successor_0004.json",
+    "git_blob_id": "8be3625d38a3b5b5e41a50ba4e254cf510ed42d5",
+    "git_blob_raw_sha256": "9a85e375db6c272b6f8eb685fb0024ee839e9f0dac3e42d728ed5e3632462f1e",
+    "rewrite_permitted": false
+  },
+  "gate_manifest_successor": {
+    "path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0005.json",
+    "git_blob_raw_sha256": "4a8e04e8fdcefdc78d9aca9b607ca735f3d07e5620a673ab0ef47b3b1905d8c1",
+    "status": "PASS",
+    "raw_sha256_bound_by_next_foundation_successor": true
+  },
+  "validated_subject": {
+    "commit": "437aa3e8723d189ae92ef4fdb466536bc037bb81",
+    "tree": "53b2bd1d990e8c2e054431a1a44f3582f0b02a9c",
+    "start_commit": "f00e15f56ba27aac0b4ffff4aab7e9b8e89a6336",
+    "start_tree": "746be25d8f87ccb1225abc50dfec20a32fdab337"
+  },
+  "implementation_closeout": {
+    "exact_unignore_path": ".gitignore",
+    "exact_unignore_raw_sha256": "6158e5624fdf686e2b780ab3e9f4f901d28daae2052385f57116d6457dcb3be6",
+    "foundation_implementation_path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py",
+    "foundation_implementation_raw_sha256": "39a764890e7a9baea3bcab4eb871891c385f142436dcb33e2cca1860078f0abc",
+    "official_wrapper_path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance_official_0004.py",
+    "official_wrapper_raw_sha256": "49f5cfa5d0e6f28552d5bf1ccf14b02d6787ff090fdee7b60d9c8be3c30d3b10",
+    "required_path_count": 38,
+    "required_path_set_sha256": "4ae5f7549124c4f411cc743ff0b6331052c09103bbdbc902e19fd3102eb3d85c",
+    "no_write_real_phase0_path_set_equal": true,
+    "ignored_required_input_count": 0,
+    "head_working_identity_failure_count": 0,
+    "broad_unignore_count": 0
+  },
+  "inventory_closeout": {
+    "tracked_test_source_count": 93,
+    "required_source_count": 33,
+    "historical_optional_source_count": 55,
+    "obsolete_or_misrouted_source_count": 3,
+    "hermetic_test_fixture_source_count": 2,
+    "unresolved_dependency_count": 0,
+    "current_route_test_promoted": false
+  },
+  "validation_closeout": {
+    "focused_current_required_result": "12/12 PASS",
+    "focused_standalone_result": "12/12 PASS",
+    "run_a_result": "185 pytest + 4 standalone = 189/189 PASS",
+    "run_b_result": "185 pytest + 4 standalone = 189/189 PASS",
+    "canonical_result_sha256": "340c691946fec4844802ef179f896ad38bdc344316d2d19ceff8d4504a2d5ea5",
+    "canonical_results_equal": true,
+    "test_inventory_sha256": "d981021baa1642bc06d1b339e15c82b3f43be2541d37d2fd7afa4c65ec4d6d84",
+    "disposable_checkout_residue_count": 0,
+    "persistent_worktree_entry_count_before": 14,
+    "persistent_worktree_entry_count_after": 14,
+    "persistent_worktree_created": false
+  },
+  "scope_preservation": {
+    "foundation_contract_changed": false,
+    "policy_threshold_denominator_detector_changed": false,
+    "naturalization_changed_or_executed": false,
+    "handoff_changed_or_executed": false,
+    "candidate_changed_or_executed": false,
+    "facts_or_manifest_changed_or_executed": false,
+    "publish_attempt_changed_or_executed": false,
+    "protected_product_surface_mutation_count": 0,
+    "authority_effect": "none",
+    "existing_g1_evidence_overwritten": false
+  },
+  "closeout": {
+    "exact_unignore_status": "PASS",
+    "phase0_required_input_vcs_preflight_parity_status": "PASS",
+    "full_clean_checkout_gate_status": "PASS",
+    "blocking_condition_count": 0,
+    "blocking_conditions": []
+  },
+  "successor_boundary": {
+    "validated_subject_is_unchanged_by_this_record": true,
+    "this_record_is_not_the_validated_subject": true,
+    "tests_rerun_for_this_successor_record": false,
+    "self_referential_commit_fields": 0
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "schema_version": "dvf-3-3-exact-full-candidate-external-review-decision-v1",
+  "status": "PASS",
+  "decision_mode": "exact_full_candidate_external_review",
+  "candidate_rendered_hash": "79acd78da0e3c38baf91e903b314eda0aa1d8854163e73e141ac45bf918fd1a5",
+  "selected_ordered_digest": "40b39dc8f0740250a41726e0ad8d7f579590cf8bbae4b6becde59522e0456df8",
+  "reviewed_denominator": 2084,
+  "reviewed_item_id_binding": "human_review_sample_manifest.selected_item_ids",
+  "reviewer_id": "Codex Reviewer (Avicenna)",
+  "reviewer_role": "external_codex_reviewer",
+  "all_unlisted_items_pass_all_rubrics": true,
+  "rubric_aggregate": {
+    "readability": {
+      "pass": 2084,
+      "fail": 0
+    },
+    "naturalness": {
+      "pass": 2084,
+      "fail": 0
+    },
+    "semantic_fidelity": {
+      "pass": 2084,
+      "fail": 0
+    },
+    "public_suitability": {
+      "pass": 2084,
+      "fail": 0
+    }
+  },
+  "blocker_count": 0,
+  "blocker_count_by_ownership": {
+    "compiler": 0,
+    "facts": 0
+  },
+  "blocker_item_ids": [],
+  "blockers": []
+}

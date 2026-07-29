@@ -1,0 +1,213 @@
+{
+  "schema_version": "dvf-3-3-naturalization-attempt-0022-terminal-closeout-v1",
+  "status": "PASS",
+  "write_once": true,
+  "attempts": {
+    "primary": "attempt-0022-particle-correction-a",
+    "replay": "attempt-0022-particle-correction-b",
+    "predecessor_attempt_modified_or_resumed": false,
+    "retry_attempt_created": false
+  },
+  "git_binding": {
+    "naturalization_start_commit": "55c8df22085b581590624d50fdda804c94930316",
+    "naturalization_start_tree": "d063e618a3c9cf2fcf8a81c05f39b15c4932e3d8",
+    "attempt_runner_binding_commit": "42e5945ac0e25a07411c4b7a4938fa973aed3294"
+  },
+  "phase_results": {
+    "phase0": "PASS",
+    "phase1": "PASS",
+    "phase2": "PASS",
+    "phase3": "PASS",
+    "phase4": "PASS",
+    "phase5": "PASS",
+    "phase6": "PASS",
+    "phase7": "PASS",
+    "phase8": "HANDOFF_COMPLETE"
+  },
+  "phase2_source_authority_seal": {
+    "facts_sha256": "50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120",
+    "manifest_sha256": "090381a652da540c6e72300624728aba48f6392e41fb50e8eec973efd320b9b7",
+    "g3_adoption_receipt_sha256": "312c9b8744e1925b120129402b4ff6834d551960c284af8e91dbdbca091a56b0",
+    "g3_terminal_correction_seal_sha256": "03dea1902f1d219b227b2b69cb88742f1005e3620cdcdee2b72ba811d1bd20fb",
+    "g3_naturalization_handoff_sha256": "bfa14583f524f99a75e88d4b6eaddfa146544cba9124cf09214a13a38c7d7750",
+    "g4_readiness_successor_sha256": "912f28b7869ff92ff7fbd84cbdc31e1fbb22923beebbfcce2c9cc78b72eca9d2",
+    "foundation_contract_sha256": "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02",
+    "particle_correction_commit": "55c8df22085b581590624d50fdda804c94930316",
+    "particle_correction_projection_report_sha256": "7cd0e72c879d5c24a171d5cc85fe00e19657388404fd2b55440769343cd4976f",
+    "primary_reseal_report_sha256": "b565902e1556afcce320d9e6ec3cf154f48934228209621b283bbe9d8239aa28",
+    "replay_reseal_report_sha256": "2a3e65139265b5f610a89575d5de6ea26a63b305ec6478c0a5eedc72360a43f6",
+    "primary_source_proposition_manifest_sha256": "841901dd156bb97174ddf6fdb6aaf5b3821b725de111b442fcd274d9dfbe67bd",
+    "replay_source_proposition_manifest_sha256": "ae522f140f89ac310d3ecf86dc9a1b84bd801fef3a3e8dd309eeed7fd03f556a",
+    "deterministic_source_proposition_inventory_sha256": "bda72c837435d44cc1187ce4a6f6e0e61ee752750d4f5bfa9343b5969fbedd85",
+    "deterministic_body_plan_requirement_inventory_sha256": "b0c3945bc67bc097621ed0a9e3798f5f94ccc17d3971e8bc52b5cab01bb14b3d"
+  },
+  "primary_replay_identity": {
+    "candidate_sha256": "79acd78da0e3c38baf91e903b314eda0aa1d8854163e73e141ac45bf918fd1a5",
+    "candidate_byte_identity": true,
+    "candidate_proposition_trace_sha256": "b2d94a4cbaa40a488f7a444a7ff8000c23eab5545b0ec57606fb80a18bd17268",
+    "trace_byte_identity": true,
+    "deterministic_phase0_through_phase6_payload_identity": true,
+    "raw_compared_file_count": 64,
+    "raw_byte_equal_file_count": 46,
+    "attempt_or_volatile_metadata_only_file_count": 18,
+    "metadata_difference_disposition": "attempt IDs, attempt-local paths, generated_at values, and attempt-scoped report hashes only",
+    "identity_report_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt_0022_phase0_through_phase6_ab_byte_identity_report.json",
+    "identity_report_sha256": "d68f581b00f4395bfb154da5814e28fd667338e1230289176fc0797e64bccf89"
+  },
+  "phase7_external_review": {
+    "reviewer": "Codex Reviewer (Avicenna)",
+    "reviewed_count": 2084,
+    "required_denominator": 2084,
+    "selected_ordered_digest": "40b39dc8f0740250a41726e0ad8d7f579590cf8bbae4b6becde59522e0456df8",
+    "blocker_count": 0,
+    "compiler_blocker_count": 0,
+    "current_facts_source_blocker_count": 0,
+    "rubrics": {
+      "readability": {
+        "pass": 2084,
+        "fail": 0
+      },
+      "naturalness": {
+        "pass": 2084,
+        "fail": 0
+      },
+      "semantic_fidelity": {
+        "pass": 2084,
+        "fail": 0
+      },
+      "public_suitability": {
+        "pass": 2084,
+        "fail": 0
+      }
+    },
+    "focused_rechecks": {
+      "particle_blockers": {
+        "pass": 9,
+        "fail": 0
+      },
+      "known_l_final_control": {
+        "item_id": "Base.WristWatch_Right_DigitalDress",
+        "expected_realization": "(메탈릭 드레스 스타일)로",
+        "pass": 1,
+        "fail": 0
+      },
+      "correction_0003_facts_blockers": {
+        "pass": 44,
+        "fail": 0
+      },
+      "previous_blockers": {
+        "pass": 14,
+        "fail": 0
+      },
+      "process_realizations": {
+        "pass": 31,
+        "fail": 0,
+        "disposition": "justified_semantic_realization"
+      },
+      "unchanged_controls": {
+        "pass": 105,
+        "fail": 0
+      },
+      "all_particle_correction_changed_items": {
+        "pass": 9,
+        "fail": 0,
+        "collateral_issue_count": 0
+      },
+      "instrumental_particle_clauses": {
+        "audited": 732,
+        "ro": 330,
+        "euro": 402,
+        "mismatch_count": 0
+      }
+    },
+    "reviewer_attestation_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/codex_reviewer_attempt_0022_phase7_pass_attestation.json",
+    "reviewer_attestation_sha256": "effc984489a82c7bc6851cc6ac0cb676531a0a2621466baaf799459172d0ee7a",
+    "human_review_decision_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt_0022_human_review_decision.json",
+    "human_review_decision_sha256": "66d8f5f541eb7415f0dede8c5a03f2484f085fb25c9939d78d3285a35bf9e237",
+    "human_review_binding_report_sha256": "b9fdedcf370d5b7c31715ecd9e10c3c8f8303204fddc1fdc976fd5c5e5eab5d3",
+    "human_review_eligibility_report_sha256": "23064e201279d058b00e4228381d980a20c8ea459fe9a90b4921730587c142b1",
+    "human_review_sample_manifest_sha256": "eb16fad01c5d3bc70fb49a1096b055a1539440df34e7023dbcf228e1ee128a7c"
+  },
+  "phase8_handoff": {
+    "status": "HANDOFF_COMPLETE",
+    "required_constituent_count": 16,
+    "present_constituent_count": 16,
+    "publish_acceptance_handoff_manifest_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0022-particle-correction-a/phase8/publish_acceptance_handoff_manifest.json",
+    "publish_acceptance_handoff_manifest_sha256": "4268a419663fcae51370a92ee0c21cc09b9b6c7eace4ed602cec51f8c484fdbf",
+    "phase8_closeout_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0022-particle-correction-a/phase8/phase8_closeout.json",
+    "phase8_closeout_sha256": "ffb54dca9b33be3180fdba44bc5c601be6829985e6572102c22425b4cda9b0db",
+    "publish_handoff_readiness_report_sha256": "9e8fa58eaa7439d1e986ee8f61669c42e20b2bd6b32f0c71f7e77e7a32af4121",
+    "next_stage": "official_publish_attempt_prohibited_until_separate_authorization"
+  },
+  "validation": {
+    "unit_test_count": 68,
+    "unit_test_failures": 0,
+    "unit_test_commands": [
+      {
+        "suite": "Naturalization",
+        "count": 27,
+        "exit_code": 0,
+        "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_korean_prose_*.py\""
+      },
+      {
+        "suite": "Compose",
+        "count": 29,
+        "exit_code": 0,
+        "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_compose*.py\""
+      },
+      {
+        "suite": "particle regression",
+        "count": 12,
+        "exit_code": 0,
+        "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_compiler_particle_adjustment.py\""
+      }
+    ],
+    "validator_command_count": 3,
+    "validator_failures": 0,
+    "validator_results": [
+      {
+        "scope": "Primary Phase 0-6 compared with replay",
+        "checked_phases": [
+          "phase0",
+          "phase1",
+          "phase2",
+          "phase3",
+          "phase4",
+          "phase5",
+          "phase6"
+        ],
+        "exit_code": 0
+      },
+      {
+        "scope": "Replay Phase 0-6 compared with Primary",
+        "checked_phases": [
+          "phase0",
+          "phase1",
+          "phase2",
+          "phase3",
+          "phase4",
+          "phase5",
+          "phase6"
+        ],
+        "exit_code": 0
+      },
+      {
+        "scope": "Primary Phase 7 and Phase 8 handoff",
+        "checked_phases": [
+          "phase7",
+          "phase8_handoff"
+        ],
+        "exit_code": 0
+      }
+    ]
+  },
+  "scope_guards": {
+    "official_publish_attempt_created": false,
+    "official_publish_executed": false,
+    "live_gate_mutated": false,
+    "foundation_mutated": false,
+    "facts_or_manifest_mutated": false,
+    "registry_rtc_runtime_lua_or_package_mutated": false,
+    "runtime_or_current_adoption_claimed": false
+  }
+}

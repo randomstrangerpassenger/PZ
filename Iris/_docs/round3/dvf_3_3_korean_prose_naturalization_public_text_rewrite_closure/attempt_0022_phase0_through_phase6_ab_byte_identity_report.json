@@ -1,0 +1,185 @@
+{
+  "schema_version": "dvf-3-3-naturalization-phase0-through-phase6-ab-identity-v1",
+  "status": "PASS",
+  "attempt_a": "attempt-0022-particle-correction-a",
+  "attempt_b": "attempt-0022-particle-correction-b",
+  "execution_commit": "42e5945ac0e25a07411c4b7a4938fa973aed3294",
+  "naturalization_start_commit": "55c8df22085b581590624d50fdda804c94930316",
+  "naturalization_start_tree": "d063e618a3c9cf2fcf8a81c05f39b15c4932e3d8",
+  "particle_correction_projection_report_sha256": "7cd0e72c879d5c24a171d5cc85fe00e19657388404fd2b55440769343cd4976f",
+  "comparison_scope": "independent_phase0_through_phase6_runs",
+  "file_sets_equal": true,
+  "candidate_payload_byte_identity_pass": true,
+  "candidate_trace_byte_identity_pass": true,
+  "phase0_through_phase6_deterministic_payload_identity_pass": true,
+  "all_artifact_raw_byte_identity_claimed": false,
+  "all_artifact_raw_byte_identity_not_claimed_reason": "Attempt IDs, attempt-local paths, generated_at values, and hashes of attempt-scoped reports are execution metadata. Deterministic source, correction binding, inventory, compiler, candidate, semantic, and detector payloads are compared byte-for-byte.",
+  "raw_artifact_summary": {
+    "compared_file_count": 64,
+    "byte_equal_file_count": 46,
+    "attempt_or_volatile_metadata_file_count": 18
+  },
+  "phase_results": [
+    {
+      "phase": 0,
+      "status_a": "PASS",
+      "status_b": "PASS",
+      "compared_file_count": 18,
+      "byte_equal_file_count": 14,
+      "metadata_only_mismatch_files": [
+        "default_mode_golden_baseline.json",
+        "isolated_default_rendered.json",
+        "preflight_report.json",
+        "registry_adoption_receipt_binding_report.json"
+      ]
+    },
+    {
+      "phase": 1,
+      "status_a": "PASS",
+      "status_b": "PASS",
+      "compared_file_count": 4,
+      "byte_equal_file_count": 2,
+      "metadata_only_mismatch_files": [
+        "current_prose_census.json",
+        "phase1_result.json"
+      ]
+    },
+    {
+      "phase": 2,
+      "status_a": "PASS",
+      "status_b": "PASS",
+      "compared_file_count": 8,
+      "byte_equal_file_count": 5,
+      "metadata_only_mismatch_files": [
+        "phase2_result.json",
+        "source_authority_reseal_report.json",
+        "source_proposition_manifest.json"
+      ]
+    },
+    {
+      "phase": 3,
+      "status_a": "PASS",
+      "status_b": "PASS",
+      "compared_file_count": 9,
+      "byte_equal_file_count": 4,
+      "metadata_only_mismatch_files": [
+        "compiler_contract_test_report.json",
+        "default_mode_replay.json",
+        "phase3_result.json",
+        "repeated_skeleton_cause_analysis.json",
+        "semantic_lead_rule_projection_report.json"
+      ]
+    },
+    {
+      "phase": 4,
+      "status_a": "PASS",
+      "status_b": "PASS",
+      "compared_file_count": 10,
+      "byte_equal_file_count": 8,
+      "metadata_only_mismatch_files": [
+        "candidate_manifest.json",
+        "phase4_result.json"
+      ]
+    },
+    {
+      "phase": 5,
+      "status_a": "PASS",
+      "status_b": "PASS",
+      "compared_file_count": 10,
+      "byte_equal_file_count": 9,
+      "metadata_only_mismatch_files": [
+        "phase5_semantic_result.json"
+      ]
+    },
+    {
+      "phase": 6,
+      "status_a": "PASS",
+      "status_b": "PASS",
+      "compared_file_count": 5,
+      "byte_equal_file_count": 4,
+      "metadata_only_mismatch_files": [
+        "phase6_result.json"
+      ]
+    }
+  ],
+  "deterministic_payloads": [
+    {
+      "path": "phase0/protected_surface_snapshot.json",
+      "sha256": "a8a436038d45fc39f5f2eae6ee5ae2ee571375d7e71e426a06908756c824c9a4",
+      "byte_identity": true
+    },
+    {
+      "path": "phase0/compiler_particle_correction_binding_report.json",
+      "sha256": "06ec7f2141d63857ffb52446161068b9f4f72f45b259457e3d218958b92a6a7b",
+      "byte_identity": true
+    },
+    {
+      "path": "phase1/recurring_skeleton_inventory.json",
+      "sha256": "1cf4a2b141e2890abe2025989d41d39dcca91003da250c516d60744d2227e3db",
+      "byte_identity": true
+    },
+    {
+      "path": "phase1/review_strata_report.json",
+      "sha256": "23ffb0820e18e8e733e3b4ccb8f4070d67675ecbaf11c46d4b994b9d70f223cd",
+      "byte_identity": true
+    },
+    {
+      "path": "phase2/source_proposition_inventory.jsonl",
+      "sha256": "bda72c837435d44cc1187ce4a6f6e0e61ee752750d4f5bfa9343b5969fbedd85",
+      "byte_identity": true
+    },
+    {
+      "path": "phase2/body_plan_requirement_inventory.jsonl",
+      "sha256": "b0c3945bc67bc097621ed0a9e3798f5f94ccc17d3971e8bc52b5cab01bb14b3d",
+      "byte_identity": true
+    },
+    {
+      "path": "phase3/write_boundary_negative_test_report.json",
+      "sha256": "f7c3e9b7bd95199fdd6e751469862ec9800c5205ac12d872cea7f1199d2402a4",
+      "byte_identity": true
+    },
+    {
+      "path": "phase4/candidate_rendered.json",
+      "sha256": "79acd78da0e3c38baf91e903b314eda0aa1d8854163e73e141ac45bf918fd1a5",
+      "byte_identity": true
+    },
+    {
+      "path": "phase4/candidate_proposition_trace.jsonl",
+      "sha256": "b2d94a4cbaa40a488f7a444a7ff8000c23eab5545b0ec57606fb80a18bd17268",
+      "byte_identity": true
+    },
+    {
+      "path": "phase4/_candidate_structural_satisfaction.jsonl",
+      "sha256": "4ac850700dc978f1daf104419449a1d99309f6c8712f173ac7640933b3e51bf7",
+      "byte_identity": true
+    },
+    {
+      "path": "phase5/semantic_preservation_report.json",
+      "sha256": "fcf61b99635a0dba2a9bba2bc5a5b7ec7857d6070ded68a57bf730c58a32ddb5",
+      "byte_identity": true
+    },
+    {
+      "path": "phase5/structural_satisfaction_ledger.jsonl",
+      "sha256": "ec27e3c0f5be13381797c3cc7e0e625d8808317e73711eed6070148a19b08491",
+      "byte_identity": true
+    },
+    {
+      "path": "phase6/raw_detector_report.json",
+      "sha256": "28928efdc51bdc54db5a548d0f557b5d9d551b2a237bc390978e2c4703471ff5",
+      "byte_identity": true
+    },
+    {
+      "path": "phase6/raw_detector_hit_ledger.jsonl",
+      "sha256": "349be541b484f88f3f678a5b027c3cabccb2d700052b6d4cb26e456bce8f4219",
+      "byte_identity": true
+    }
+  ],
+  "scope_guards": {
+    "attempt_0021_modified_or_resumed": false,
+    "official_publish_attempt_created": false,
+    "live_gate_mutated": false,
+    "foundation_mutated": false,
+    "facts_or_manifest_mutated": false,
+    "registry_rtc_runtime_lua_or_package_mutated": false
+  }
+}

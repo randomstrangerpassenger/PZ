@@ -9,7 +9,15 @@ from pathlib import Path
 
 BUILD_DIR = Path(__file__).resolve().parents[1]
 IRIS_DIR = BUILD_DIR.parent
-OUTPUT_DIR = IRIS_DIR / "output"
+sys.path.insert(0, str(BUILD_DIR))
+
+from tools.common.io import repository_external_output_root
+
+OUTPUT_DIR = repository_external_output_root(
+    environment_variable="IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
+    default_root=IRIS_DIR / "output",
+    repository_root=IRIS_DIR.parent,
+)
 PIPELINE = BUILD_DIR / "recipe_evidence_pipeline.py"
 INTEGRATOR = BUILD_DIR / "tools" / "pipeline" / "build_usecases_by_fulltype.py"
 

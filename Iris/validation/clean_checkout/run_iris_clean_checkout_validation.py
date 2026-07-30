@@ -1932,6 +1932,25 @@ def run_full_repository_gate(
         standalone_root = result_root / "standalone"
         standalone_root.mkdir()
         for row in contract["required_standalone_validations"]:
+            standalone_output_root = (
+                result_root
+                / "test-output"
+                / "standalone-output-projections"
+                / row["command_id"]
+                / "Iris-output"
+            )
+            standalone_output_root.parent.mkdir(
+                parents=True,
+                exist_ok=True,
+            )
+            shutil.copytree(
+                checkout / "Iris" / "output",
+                standalone_output_root,
+            )
+            standalone_environment = dict(environment)
+            standalone_environment[
+                "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"
+            ] = str(standalone_output_root)
             command = [
                 str(python_executable),
                 *command_contract["python_flags"],
@@ -1940,7 +1959,7 @@ def run_full_repository_gate(
             completed = _run_subprocess(
                 command,
                 cwd=checkout,
-                environment=environment,
+                environment=standalone_environment,
             )
             stdout_path = standalone_root / f"{row['command_id']}.stdout.txt"
             stderr_path = standalone_root / f"{row['command_id']}.stderr.txt"
@@ -1953,6 +1972,9 @@ def run_full_repository_gate(
                     "return_code": completed.returncode,
                     "status": (
                         "PASS" if completed.returncode == 0 else "FAIL"
+                    ),
+                    "output_projection": (
+                        "repository_external_seeded_copy"
                     ),
                     "stdout_sha256": sha256_file(stdout_path),
                     "stderr_sha256": sha256_file(stderr_path),

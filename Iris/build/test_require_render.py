@@ -15,17 +15,20 @@ SCRIPT_DIR = Path(__file__).parent
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
+from tools.common.io import load_json, repository_external_output_root
+
 IRIS_DIR = SCRIPT_DIR.parent
-OUTPUT_DIR = IRIS_DIR / "output"
+OUTPUT_DIR = repository_external_output_root(
+    environment_variable="IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
+    default_root=IRIS_DIR / "output",
+    repository_root=IRIS_DIR.parent,
+)
 LUA_PATH = (
     IRIS_DIR / "media" / "lua" / "client" / "Iris" / "Data"
     / "IrisUseCaseDescriptions.lua"
 )
 LUA_CHUNK_DIR = LUA_PATH.parent / "UseCaseDescriptions"
 LUA_REQUIREMENTS_LOOKUP_PATH = LUA_CHUNK_DIR / "RequirementsLookup.lua"
-
-from tools.common.io import load_json
-
 
 def main():
     print("=" * 60)

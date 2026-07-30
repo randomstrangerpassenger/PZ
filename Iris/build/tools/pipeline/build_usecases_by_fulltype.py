@@ -30,11 +30,20 @@ for import_path in (BUILD_DIR, SCRIPT_DIR):
         sys.path.insert(0, str(import_path))
 
 IRIS_DIR = BUILD_DIR.parent
-OUTPUT_DIR = IRIS_DIR / "output"
 
 from registry_utils import resolve_use_case_id
-from tools.common.io import load_json, write_json
+from tools.common.io import (
+    load_json,
+    repository_external_output_root,
+    write_json,
+)
 from tools.common.versions import BUILD_VERSION
+
+OUTPUT_DIR = repository_external_output_root(
+    environment_variable="IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
+    default_root=IRIS_DIR / "output",
+    repository_root=IRIS_DIR.parent,
+)
 
 DATA_DIR = BUILD_DIR / "data" / BUILD_VERSION
 

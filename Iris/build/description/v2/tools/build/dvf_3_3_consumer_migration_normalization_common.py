@@ -813,32 +813,28 @@ def write_phase1() -> None:
 def attach_path_status(row: dict[str, Any]) -> dict[str, Any]:
     path = resolve_repo(row["path"])
     current_checkout_exists = path.exists()
+    package_mirror_source = package_runtime_mirror_source_for(path)
     frozen_source = (
         None
-        if current_checkout_exists
+        if current_checkout_exists or package_mirror_source is not None
         else frozen_predecessor_source_for(path)
     )
-    package_mirror_source = (
-        None
-        if current_checkout_exists or frozen_source is not None
-        else package_runtime_mirror_source_for(path)
-    )
     path_status = (
-        "exists"
+        "deterministically_materialized_input_available"
+        if package_mirror_source is not None
+        else "exists"
         if current_checkout_exists
         else "frozen_predecessor_available"
         if frozen_source is not None
-        else "deterministically_materialized_input_available"
-        if package_mirror_source is not None
         else "missing"
     )
     source_path = (
-        rel_norm(path)
+        rel_norm(package_mirror_source)
+        if package_mirror_source is not None
+        else rel_norm(path)
         if current_checkout_exists
         else rel_norm(frozen_source["resolved_payload"])
         if frozen_source is not None
-        else rel_norm(package_mirror_source)
-        if package_mirror_source is not None
         else None
     )
     updated = {
@@ -846,12 +842,12 @@ def attach_path_status(row: dict[str, Any]) -> dict[str, Any]:
         "path_status": path_status,
         "path_existence_checked_at": GENERATED_AT,
         "path_existence_basis": (
-            "current_checkout_path_existence"
+            "byte_identical_package_runtime_mirror_source"
+            if package_mirror_source is not None
+            else "current_checkout_path_existence"
             if current_checkout_exists
             else "validated_frozen_predecessor_payload"
             if frozen_source is not None
-            else "byte_identical_package_runtime_mirror_source"
-            if package_mirror_source is not None
             else "current_checkout_absence_without_frozen_source"
         ),
         "path_status_writer_phase": "phase2",
@@ -859,12 +855,12 @@ def attach_path_status(row: dict[str, Any]) -> dict[str, Any]:
         "current_checkout_path_exists": current_checkout_exists,
         "source_materialization_path": source_path,
         "source_materialization_role": (
-            "current_checkout_target"
+            "package_runtime_mirror_input"
+            if package_mirror_source is not None
+            else "current_checkout_target"
             if current_checkout_exists
             else "frozen_predecessor_input"
             if frozen_source is not None
-            else "package_runtime_mirror_input"
-            if package_mirror_source is not None
             else "none"
         ),
         "deterministic_materialization_source_sha256": (

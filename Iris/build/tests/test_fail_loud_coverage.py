@@ -11,13 +11,20 @@ BUILD_DIR = Path(__file__).resolve().parents[1]
 IRIS_DIR = BUILD_DIR.parent
 sys.path.insert(0, str(BUILD_DIR))
 
-from convert_labelmap_to_lua import coverage_check, extract_use_case_ids, load_json
+from convert_labelmap_to_lua import coverage_check, extract_use_case_ids
+from tools.common.io import load_json, repository_external_output_root
+
+OUTPUT_DIR = repository_external_output_root(
+    environment_variable="IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
+    default_root=IRIS_DIR / "output",
+    repository_root=IRIS_DIR.parent,
+)
 
 
 def main():
     labelmap = load_json(BUILD_DIR / "data" / "v2.4" / "usecase_label_map.json")
     label_keys = set(labelmap["labels"].keys())
-    usecases = load_json(IRIS_DIR / "output" / "usecases_by_fulltype.v2.4.json")
+    usecases = load_json(OUTPUT_DIR / "usecases_by_fulltype.v2.4.json")
     actual_ids = {
         use_case_id
         for use_case_id in extract_use_case_ids(usecases)

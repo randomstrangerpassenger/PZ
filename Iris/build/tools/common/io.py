@@ -2,8 +2,36 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from typing import Any
+
+
+def repository_external_output_root(
+    *,
+    environment_variable: str,
+    default_root: Path,
+    repository_root: Path,
+) -> Path:
+    """Resolve an optional output override without weakening the repo boundary."""
+    raw_value = os.environ.get(environment_variable)
+    if not raw_value:
+        return default_root
+    candidate = Path(raw_value)
+    if not candidate.is_absolute():
+        raise ValueError(
+            f"{environment_variable} must be an absolute path"
+        )
+    resolved_candidate = candidate.resolve()
+    resolved_repository = repository_root.resolve()
+    if (
+        resolved_candidate == resolved_repository
+        or resolved_repository in resolved_candidate.parents
+    ):
+        raise ValueError(
+            f"{environment_variable} must be outside the repository"
+        )
+    return resolved_candidate
 
 
 def load_json(path: Path) -> Any:

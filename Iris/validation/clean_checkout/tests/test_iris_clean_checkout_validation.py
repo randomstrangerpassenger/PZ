@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pytest
 
+from Iris.build.tools.common.io import repository_external_output_root
 from Iris.validation.clean_checkout.iris_clean_checkout_validation_common import (
     CleanCheckoutError,
     canonical_compact_json_bytes,
@@ -123,13 +124,51 @@ def test_result_pair_accepts_equivalent_passes(tmp_path: Path) -> None:
     assert result["canonical_results_equal"] is True
 
 
-def test_full_source_policy_classifies_only_declared_fallback() -> None:
+def test_full_source_policy_classifies_only_declared_fallback(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     contract_path = (
         Path(__file__).resolve().parents[1]
         / "contracts"
         / "full_repository_gate.json"
     )
     contract = json.loads(contract_path.read_text(encoding="utf-8"))
+    output_projection = contract["execution_workspace"][
+        "standalone_output_projection"
+    ]
+    assert (
+        output_projection["environment_variable"]
+        == "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"
+    )
+    assert output_projection["per_command_isolation"] is True
+    assert output_projection["repository_output_write_count"] == 0
+    repository_root = tmp_path / "repo"
+    repository_root.mkdir()
+    external_output = tmp_path / "external-output"
+    monkeypatch.setenv(
+        "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
+        str(external_output),
+    )
+    assert repository_external_output_root(
+        environment_variable=(
+            "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"
+        ),
+        default_root=repository_root / "Iris" / "output",
+        repository_root=repository_root,
+    ) == external_output.resolve()
+    monkeypatch.setenv(
+        "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
+        str(repository_root / "Iris" / "output"),
+    )
+    with pytest.raises(ValueError, match="outside the repository"):
+        repository_external_output_root(
+            environment_variable=(
+                "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"
+            ),
+            default_root=repository_root / "Iris" / "output",
+            repository_root=repository_root,
+        )
     explicit_required_sources = {
         (
             "Iris/build/description/v2/tests/"

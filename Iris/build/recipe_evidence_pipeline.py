@@ -28,12 +28,17 @@ if str(SCRIPT_DIR) not in sys.path:
 
 IRIS_DIR = SCRIPT_DIR.parent
 INPUT_DIR = IRIS_DIR / "input"
-OUTPUT_DIR = IRIS_DIR / "output"
 
-from tools.common.io import load_json
+from tools.common.io import load_json, repository_external_output_root
 from tools.common.stage_runner import StageRunner
 from tools.common.evidence_skeleton import pipeline_banner, require_inputs
 from tools.common.versions import BUILD_VERSION, REQUIRE_FIELDS_VERSION, versioned_name
+
+OUTPUT_DIR = repository_external_output_root(
+    environment_variable="IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
+    default_root=IRIS_DIR / "output",
+    repository_root=IRIS_DIR.parent,
+)
 
 RECIPES_PATH = INPUT_DIR / "recipes_index_full.json"
 ITEMS_PATH = INPUT_DIR / "items_itemscript.json"

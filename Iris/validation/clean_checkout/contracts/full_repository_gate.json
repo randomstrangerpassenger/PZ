@@ -1,5 +1,5 @@
 {
-  "schema_version": "iris-clean-checkout-full-repository-gate-v4",
+  "schema_version": "iris-clean-checkout-full-repository-gate-v5",
   "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
   "claim": "Iris mandatory full-required-repository validation is reproducible from an exact tracked commit",
   "claim_boundary": {
@@ -347,6 +347,13 @@
       "frozen_predecessor candidate seed targets",
       "package runtime mirror targets"
     ],
+    "standalone_output_projection": {
+      "environment_variable": "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
+      "seed_source": "exact-subject Iris/output",
+      "destination": "caller-supplied repository-external result root",
+      "per_command_isolation": true,
+      "repository_output_write_count": 0
+    },
     "post_bootstrap_test_execution_status_policy": "must_equal_exact_bootstrap_baseline",
     "cleanup_required": true,
     "git_core_longpaths": true,

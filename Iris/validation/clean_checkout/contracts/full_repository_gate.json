@@ -351,6 +351,7 @@
       "environment_variable": "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
       "seed_source": "exact-subject Iris/output",
       "destination": "caller-supplied repository-external result root",
+      "pytest_projection": true,
       "per_command_isolation": true,
       "repository_output_write_count": 0
     },

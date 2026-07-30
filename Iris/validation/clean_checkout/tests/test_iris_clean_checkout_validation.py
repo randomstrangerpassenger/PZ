@@ -141,6 +141,7 @@ def test_full_source_policy_classifies_only_declared_fallback(
         output_projection["environment_variable"]
         == "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"
     )
+    assert output_projection["pytest_projection"] is True
     assert output_projection["per_command_isolation"] is True
     assert output_projection["repository_output_write_count"] == 0
     repository_root = tmp_path / "repo"

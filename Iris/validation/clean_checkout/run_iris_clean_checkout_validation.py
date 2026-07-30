@@ -1890,6 +1890,23 @@ def run_full_repository_gate(
         environment["IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT"] = str(
             result_root / "test-output"
         )
+        pytest_legacy_output_root = (
+            result_root
+            / "test-output"
+            / "pytest-legacy-output"
+            / "Iris-output"
+        )
+        pytest_legacy_output_root.parent.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+        shutil.copytree(
+            checkout / "Iris" / "output",
+            pytest_legacy_output_root,
+        )
+        environment[
+            "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"
+        ] = str(pytest_legacy_output_root)
         command_contract = contract["command"]
         additional_source_option = selection["additional_source_option"]
         explicit_current_sources = _explicit_current_required_paths(contract)

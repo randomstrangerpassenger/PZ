@@ -1212,14 +1212,26 @@ def migration_source_for_row(row: dict[str, Any]) -> Path:
                 "Iris/media/lua/client/Iris/Data/"
                 + target_path.removeprefix(target_prefix)
             ).resolve()
+            resolved_target = resolve_repo(target_path).resolve()
+            target_exists = resolved_target.exists()
+            target_mirror_valid = (
+                not target_exists
+                or (
+                    resolved_target.is_file()
+                    and sha256_file(resolved_target)
+                    == sha256_file(expected_source)
+                )
+            )
             if (
                 source != expected_source
-                or row.get("current_checkout_path_exists") is not False
+                or row.get("current_checkout_path_exists")
+                is not target_exists
                 or not source.is_file()
                 or sha256_file(source)
                 != row.get(
                     "deterministic_materialization_source_sha256"
                 )
+                or not target_mirror_valid
             ):
                 raise ValueError(
                     "package runtime mirror source binding mismatch: "

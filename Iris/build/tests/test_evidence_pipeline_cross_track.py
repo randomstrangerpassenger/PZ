@@ -10,7 +10,16 @@ from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parents[3]
 IRIS_DIR = ROOT_DIR / "Iris"
-OUTPUT_DIR = IRIS_DIR / "output"
+BUILD_DIR = IRIS_DIR / "build"
+sys.path.insert(0, str(BUILD_DIR))
+
+from tools.common.io import repository_external_output_root
+
+OUTPUT_DIR = repository_external_output_root(
+    environment_variable="IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
+    default_root=IRIS_DIR / "output",
+    repository_root=ROOT_DIR,
+)
 
 RIGHTCLICK_OUTPUTS = [
     "evidence_candidates.v2.4.json",

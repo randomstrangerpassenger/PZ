@@ -1,0 +1,102 @@
+{
+  "schema_version": "iris_clean_checkout_full_repository_technical_debt_closeout_successor_v8",
+  "recorded_date": "2026-07-30",
+  "status": "complete",
+  "record_mode": "append_only_g1_current_route_debt_correction_closeout",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "predecessor": {
+    "path": "Iris/validation/clean_checkout/authority/full_repository_technical_debt_closeout_successor_0007.json",
+    "git_blob_id": "fb4d207fd76e1113e26ece041dd3cd6c965fcd62",
+    "git_blob_raw_sha256": "84eea72be39e6ec3170028b1503793ae2c14520b9d3fee1f65017dbd052a1f46",
+    "rewrite_permitted": false
+  },
+  "gate_manifest_successor": {
+    "path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0008.json",
+    "git_blob_id": "bdfe5553d8f31676143ec22cc599b6c470b410ab",
+    "git_blob_raw_sha256": "b81878c89f9e1aa4dd9873bd1ec204632547938e33ce33567c09633f77de758f",
+    "status": "PASS"
+  },
+  "disposition_ledger": {
+    "path": "Iris/validation/clean_checkout/evidence/g1_current_route_debt_disposition_ledger_0001.json",
+    "git_blob_id": "a3728180d6a1312c8e80028891894e0528945fb6",
+    "git_blob_raw_sha256": "6127556df93f919e51d9ee98cbb065d431ffabe0f19617d7a24ba159f5a80314",
+    "corrected_disposition_count": 7,
+    "returned_authority_defect_count": 1
+  },
+  "validated_subject": {
+    "commit": "1235e7bc497fea7f33774190a406534509838fa6",
+    "tree": "b19ed0b21d0eafe19e719a16138437edf1dd2fd7"
+  },
+  "current_route_closeout": {
+    "live_status": "PASS",
+    "live_test_count": 135,
+    "live_result_sha256": "e065d6fb3a08051b03a208b4d8af3e3e33d52a27cf4a843b6d50ea2b673dae84",
+    "g4_candidate_status": "PASS",
+    "g4_candidate_test_count": 136,
+    "g4_candidate_result_sha256": "216d142c00c2eb357a35d5d6824dfd3674460eaaeb8d3c6dda972e6d5f427fe0",
+    "g4_added_test_executed_count": 1,
+    "g4_added_artifact_check_count": 10,
+    "g4_added_surface_failure_count": 0,
+    "g4_phase6_failure_evidence_tree_unchanged": true,
+    "g4_phase6_tree": "7ada1295f6a449775d26b9a21b27df2c0a17f0d1"
+  },
+  "classification_closeout": {
+    "tracked_test_source_count": 93,
+    "required_source_count": 33,
+    "historical_optional_source_count": 55,
+    "obsolete_or_misrouted_source_count": 3,
+    "hermetic_test_fixture_source_count": 2,
+    "unclassified_test_source_count": 0,
+    "unresolved_dependency_edge_count": 0,
+    "required_source_missing_count": 0
+  },
+  "execution_closeout": {
+    "run_a_status": "PASS",
+    "run_b_status": "PASS",
+    "pytest_identity_count": 195,
+    "standalone_validation_count": 4,
+    "required_execution_unit_count": 199,
+    "passed_execution_unit_count": 199,
+    "failed_execution_unit_count": 0,
+    "collection_error_count": 0,
+    "canonical_result_sha256": "2381b79faaecf73780cbe57d518ce788162f1575c990f29d526111af5d746f9f",
+    "canonical_results_equal": true,
+    "source_checkout_mutation_count": 0,
+    "external_test_execution_mutation_count": 0,
+    "disposable_checkout_residue_count": 0,
+    "persistent_worktree_created": false
+  },
+  "authority_boundary_return": {
+    "failure_id": "registry_runtime_compatibility_failure_code_and_freshness",
+    "owner": "G3 Registry Runtime Compatibility authority",
+    "diagnostic_status": "BLOCKED",
+    "diagnostic_failure_code": "implementation_toolchain_freshness_failed",
+    "diagnostic_sha256": "2eb285239433deda61baab508c2f9eb4a95bcd00100bd4cda8b7c41cea9c9969",
+    "g1_assertion_correction_complete": true,
+    "rtc_successor_reseal_performed": false,
+    "g3_execution_performed": false
+  },
+  "scope_closeout": {
+    "g4_live_manifest_adopted": false,
+    "g4_phase7_executed": false,
+    "new_g4_attempt_created": false,
+    "g2_executed": false,
+    "g3_executed": false,
+    "g5_executed": false,
+    "foundation_naturalization_handoff_candidate_facts_manifest_changed": false,
+    "runtime_lua_package_surface_changed": false,
+    "existing_g1_or_g4_evidence_overwritten": false,
+    "protected_or_live_mutation_count": 0
+  },
+  "terminal_state": {
+    "clean_validation_terminal_pass": true,
+    "g1_blocking_condition_count": 0,
+    "g1_blocking_conditions": [],
+    "returned_authority_defect_count": 1,
+    "inspection_resume_subject_commit": "1235e7bc497fea7f33774190a406534509838fa6",
+    "inspection_resume_subject_tree": "b19ed0b21d0eafe19e719a16138437edf1dd2fd7",
+    "g4_resume_rule": "resume from the append-only evidence commit containing this record; the validated implementation subject is its direct ancestor",
+    "tests_rerun_for_this_successor_record": false,
+    "self_referential_commit_fields": 0
+  }
+}

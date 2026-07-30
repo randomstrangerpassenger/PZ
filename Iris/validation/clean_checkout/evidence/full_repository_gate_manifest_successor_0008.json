@@ -1,0 +1,207 @@
+{
+  "schema_version": "iris-clean-checkout-full-repository-gate-manifest-v8",
+  "manifest_state": "frozen",
+  "recorded_date": "2026-07-30",
+  "status": "PASS",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "record_mode": "append_only_g1_current_route_debt_correction",
+  "terminal_claim": "The existing live current route, the immutable G4 attempt-0005 Phase 6 candidate projection, and sequential exact-commit clean-checkout Run A/B pass after bounded G1 tooling correction without protected or live mutation",
+  "predecessor": {
+    "path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0007.json",
+    "git_blob_id": "cbd5f8cc263490b099c6a32e86e08d4a6891b488",
+    "git_blob_raw_sha256": "01297ef48939e1211bf994535da13fffe9fd14b6d7c2424402455d6d2764c1fa",
+    "rewrite_permitted": false
+  },
+  "disposition_ledger": {
+    "path": "Iris/validation/clean_checkout/evidence/g1_current_route_debt_disposition_ledger_0001.json",
+    "git_blob_id": "a3728180d6a1312c8e80028891894e0528945fb6",
+    "git_blob_raw_sha256": "6127556df93f919e51d9ee98cbb065d431ffabe0f19617d7a24ba159f5a80314",
+    "status": "PASS"
+  },
+  "requested_start": {
+    "commit": "6b8549208f27a8a62819fee08864afffd79abfbf",
+    "tree": "372e779aa3c34f3dec0e05a1d505b8ae0bb38416"
+  },
+  "integration_correction": {
+    "commits": [
+      {
+        "commit": "163536781d6a81a0ad7f62b3a1055abf92901821",
+        "tree": "c0782e2bbc74b22926dd758cb2648d1af9c5d6b0",
+        "role": "read_only_current_route_validation"
+      },
+      {
+        "commit": "9a4c882284d9be1552c50f6e09535d3e316816f4",
+        "tree": "eb1c6ba110af6c992b6322bca8178c83a4417cc8",
+        "role": "external_legacy_route_input_projection"
+      },
+      {
+        "commit": "1590e5e1e0efde92a652a76126a2d1f9ff8cda21",
+        "tree": "597b0e84ecc065c0a6216eea031b937cff0466cb",
+        "role": "legacy_standalone_output_isolation"
+      },
+      {
+        "commit": "1235e7bc497fea7f33774190a406534509838fa6",
+        "tree": "b19ed0b21d0eafe19e719a16138437edf1dd2fd7",
+        "role": "full_gate_output_isolation_closure"
+      }
+    ],
+    "changed_path_count": 36,
+    "g1_owned_test_or_tooling_paths_only": true,
+    "g4_attempt_artifact_changed": false,
+    "g5_candidate_trace_handoff_changed": false,
+    "facts_or_manifest_changed": false,
+    "runtime_lua_or_package_surface_changed": false
+  },
+  "validated_subject": {
+    "role": "g1_current_route_debt_bounded_correction",
+    "commit": "1235e7bc497fea7f33774190a406534509838fa6",
+    "tree": "b19ed0b21d0eafe19e719a16138437edf1dd2fd7",
+    "branch": "codex/public-text-quality-official-attempt-0004"
+  },
+  "implementation_bindings": {
+    "classification_contract": {
+      "path": "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+      "schema_version": "iris-clean-checkout-full-repository-gate-v5",
+      "git_blob_id": "91fca1a0badb4fafd96bfade97196eaa8b2c7d4b",
+      "git_blob_raw_sha256": "351c32b0c4ec844d8adf31f985cdc6fb651388a7971768592587ba77b62205ce"
+    },
+    "gate_runner": {
+      "path": "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
+      "git_blob_id": "7c12e2e32acf2f2dc1585f243a5ed41ccd52cc6f",
+      "git_blob_raw_sha256": "9b08b5516e9c68c5b9cf07c272688c356023781455882516f1523dfe565e91df"
+    },
+    "g4_candidate_manifest": {
+      "path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase6/required_gate_candidate.json",
+      "git_blob_raw_sha256": "3107201fd7e6da0c8a97a3c8d9ee8119d2d4d9768d0da3fcbcb306cc2447c75b"
+    },
+    "g4_candidate_patch": {
+      "path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase6/required_gate_patch.json",
+      "git_blob_raw_sha256": "fc2068f1018e9f8ace56e31958702616710d38c38914cb2307c6e598e1db42ad"
+    }
+  },
+  "classification_recensus": {
+    "tracked_test_source_count": 93,
+    "required_source_count": 33,
+    "historical_optional_source_count": 55,
+    "obsolete_or_misrouted_source_count": 3,
+    "hermetic_test_fixture_source_count": 2,
+    "unclassified_test_source_count": 0,
+    "unresolved_dependency_edge_count": 0,
+    "required_source_missing_count": 0,
+    "test_inventory_sha256": "8044bbb99f308cadcc1a745054229f57a0828c4cb338868d62fe55e40157e879",
+    "accounting_equation": "33 required + 55 historical optional + 3 obsolete or misrouted + 2 hermetic fixtures = 93 tracked test sources"
+  },
+  "current_route_projection": {
+    "reproduced_live_failure": {
+      "selected_identity_count": 135,
+      "executed_test_count": 119,
+      "failure_count": 6,
+      "error_count": 3,
+      "result_sha256": "66c1cfc54a2341e39b686bf4c52c9a3985595e0d3a7dca56bfc4daf2590dc80d"
+    },
+    "reproduced_g4_candidate_failure": {
+      "selected_identity_count": 136,
+      "executed_test_count": 120,
+      "failure_count": 6,
+      "error_count": 7,
+      "result_sha256": "f4306493bf346a076f8745bcb7422f58110a1c01845f7a3d44ddbe6cc91441cb"
+    },
+    "final_live": {
+      "status": "PASS",
+      "test_count": 135,
+      "result_sha256": "e065d6fb3a08051b03a208b4d8af3e3e33d52a27cf4a843b6d50ea2b673dae84"
+    },
+    "final_g4_candidate": {
+      "status": "PASS",
+      "test_count": 136,
+      "result_sha256": "216d142c00c2eb357a35d5d6824dfd3674460eaaeb8d3c6dda972e6d5f427fe0",
+      "required_test_count": 57,
+      "required_artifact_count": 159,
+      "g4_added_test_count": 1,
+      "g4_added_artifact_count": 10,
+      "g4_added_surface_failure_count": 0
+    },
+    "immutable_g4_phase6_tree": "7ada1295f6a449775d26b9a21b27df2c0a17f0d1"
+  },
+  "execution_reproducibility": {
+    "run_a": {
+      "status": "PASS",
+      "pytest_identity_count": 195,
+      "standalone_validation_count": 4,
+      "required_execution_unit_count": 199,
+      "canonical_result_sha256": "2381b79faaecf73780cbe57d518ce788162f1575c990f29d526111af5d746f9f",
+      "run_receipt_sha256": "4ee3505bcbbed7da4a6e2ec1cc505c751765ee860f459b54c6e89a9a9d4a9260",
+      "materialization_receipt_sha256": "9fc6eb3ee7df9765eb67e0c9e6b4764d5271eb60f5a7de4d4b6141ebfafe840a",
+      "full_pytest_result_sha256": "6cabca595df0da2177758e3506fe6facdb33d1f75e85b9e0cfed63079593d31a",
+      "exit_code": 0
+    },
+    "run_b": {
+      "status": "PASS",
+      "pytest_identity_count": 195,
+      "standalone_validation_count": 4,
+      "required_execution_unit_count": 199,
+      "canonical_result_sha256": "2381b79faaecf73780cbe57d518ce788162f1575c990f29d526111af5d746f9f",
+      "run_receipt_sha256": "7c7ecf1ad83d34cd41bc90469dfa9e08cd647f3bc7b19f67b3e005d8d8174c48",
+      "materialization_receipt_sha256": "9fc6eb3ee7df9765eb67e0c9e6b4764d5271eb60f5a7de4d4b6141ebfafe840a",
+      "full_pytest_result_sha256": "6cabca595df0da2177758e3506fe6facdb33d1f75e85b9e0cfed63079593d31a",
+      "exit_code": 0
+    },
+    "passed_execution_unit_count": 199,
+    "failed_execution_unit_count": 0,
+    "collection_error_count": 0,
+    "canonical_results_equal": true,
+    "canonical_result_sha256": "2381b79faaecf73780cbe57d518ce788162f1575c990f29d526111af5d746f9f",
+    "external_test_execution_mutation_count": 0,
+    "standalone_repository_output_write_count": 0
+  },
+  "cleanup": {
+    "source_checkout_mutation_count": 0,
+    "source_checkout_clean_before": true,
+    "source_checkout_clean_after": true,
+    "source_ignored_state_unchanged": true,
+    "run_a_test_execution_status_unchanged": true,
+    "run_b_test_execution_status_unchanged": true,
+    "run_a_work_root_entry_count_after": 0,
+    "run_b_work_root_entry_count_after": 0,
+    "run_a_disposable_checkout_removed": true,
+    "run_b_disposable_checkout_removed": true,
+    "residual_disposable_checkout_count": 0,
+    "persistent_worktree_entry_count_before": 14,
+    "persistent_worktree_entry_count_after": 14,
+    "persistent_worktree_created": false
+  },
+  "g5_preservation_bindings": {
+    "compiler_aggregate_sha256": "2dcff095b1cc34c8fb6d3ad735ac8f9d0ca2affe259f6bb97870b19e7235cc7f",
+    "candidate_declared_sha256": "ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437",
+    "trace_declared_sha256": "f047c4e53fbe32d430192a2cedbc1db4e4685926643017a608bb7e89c911af06",
+    "phase8_handoff_git_blob_raw_sha256": "7fdbb224b3af4231a8bf3f2d37e448a8cdbfb4ed4d9871a83927b22cfdde25ec",
+    "candidate_trace_handoff_byte_identity": "PASS"
+  },
+  "authority_boundary_return": {
+    "open_defect_count": 1,
+    "defect_id": "registry_runtime_compatibility_failure_code_and_freshness",
+    "owner": "G3 Registry Runtime Compatibility authority",
+    "g3_executed": false,
+    "g1_current_route_test_status": "PASS",
+    "diagnostic_failure_code": "implementation_toolchain_freshness_failed",
+    "diagnostic_sha256": "2eb285239433deda61baab508c2f9eb4a95bcd00100bd4cda8b7c41cea9c9969"
+  },
+  "preservation": {
+    "g4_attempt_0005_phase6_failure_evidence_changed": false,
+    "g4_live_manifest_adopted": false,
+    "g4_phase7_executed": false,
+    "new_g4_attempt_created": false,
+    "g2_executed": false,
+    "g3_executed": false,
+    "g5_executed": false,
+    "foundation_naturalization_handoff_candidate_facts_manifest_changed": false,
+    "runtime_lua_or_package_changed": false,
+    "existing_g1_evidence_overwritten": false
+  },
+  "successor_boundary": {
+    "validated_subject_is_unchanged_by_this_record": true,
+    "this_record_is_not_the_validated_subject": true,
+    "tests_rerun_for_this_successor_record": false,
+    "self_referential_commit_fields": 0
+  }
+}

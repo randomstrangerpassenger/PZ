@@ -1,0 +1,204 @@
+{
+  "schema_version": "iris-clean-checkout-g1-current-route-debt-disposition-ledger-v1",
+  "recorded_date": "2026-07-30",
+  "status": "PASS",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "record_mode": "append_only_bounded_current_route_correction",
+  "requested_start": {
+    "commit": "6b8549208f27a8a62819fee08864afffd79abfbf",
+    "tree": "372e779aa3c34f3dec0e05a1d505b8ae0bb38416"
+  },
+  "validated_subject": {
+    "commit": "1235e7bc497fea7f33774190a406534509838fa6",
+    "tree": "b19ed0b21d0eafe19e719a16138437edf1dd2fd7"
+  },
+  "immutable_g4_phase6_failure_evidence": {
+    "attempt_id": "attempt-0005-official",
+    "phase6_tree_before": "7ada1295f6a449775d26b9a21b27df2c0a17f0d1",
+    "phase6_tree_after": "7ada1295f6a449775d26b9a21b27df2c0a17f0d1",
+    "candidate_current_route_result_sha256": "f4306493bf346a076f8745bcb7422f58110a1c01845f7a3d44ddbe6cc91441cb",
+    "changed": false
+  },
+  "reproduction": {
+    "live_current_route": {
+      "result_path": "C:/Users/MW/Downloads/coding/PZ/g1l0/live_current_route_result.json",
+      "result_sha256": "66c1cfc54a2341e39b686bf4c52c9a3985595e0d3a7dca56bfc4daf2590dc80d",
+      "selected_identity_count": 135,
+      "executed_test_count": 119,
+      "failure_count": 6,
+      "error_count": 3,
+      "success": false
+    },
+    "g4_candidate_projection": {
+      "result_path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase6/candidate_current_route_result.json",
+      "result_sha256": "f4306493bf346a076f8745bcb7422f58110a1c01845f7a3d44ddbe6cc91441cb",
+      "selected_identity_count": 136,
+      "executed_test_count": 120,
+      "failure_count": 6,
+      "error_count": 7,
+      "success": false,
+      "g4_added_test_count": 1,
+      "g4_added_artifact_count": 10,
+      "additional_lua_external_path_error_count": 4
+    }
+  },
+  "dispositions": [
+    {
+      "failure_id": "consumer_migration_163_vs_106",
+      "classification": "current_contract_defect",
+      "actual_cause": "The current-route test reran a historical repository-bound producer against later checkout state. Its generated 106-row packet was then compared with the sealed 163-row authority denominator.",
+      "correction": "The sealed 163-row semantic denominator remains authoritative. Frozen predecessor rows and package-runtime mirror rows are resolved as declared external projection inputs, and no observed replacement scalar is written into the contract.",
+      "files_and_symbols": [
+        "Iris/build/description/v2/tools/build/dvf_3_3_consumer_migration_normalization_common.py::attach_path_status",
+        "Iris/build/description/v2/tools/build/dvf_3_3_cutover_tooling_readiness_common.py::migration_source_for_row",
+        "Iris/build/description/v2/tests/test_dvf_3_3_consumer_migration_input_normalization.py",
+        "Iris/build/description/v2/tests/test_dvf_3_3_cutover_tooling_readiness.py"
+      ],
+      "plan_boundary": "G1 approved tooling surface",
+      "returned_to": null,
+      "status": "corrected"
+    },
+    {
+      "failure_id": "consumer_migration_normalization_prerequisite",
+      "classification": "missing_declared_current_input_and_local_residue_dependency",
+      "actual_cause": "Normalization implicitly consumed ignored candidate-seed and package-runtime targets that happened to exist in a used checkout.",
+      "correction": "The frozen fixture partition and tracked live runtime mirror are declared inputs, materialized only in the disposable checkout, and projected to a repository-external output root.",
+      "files_and_symbols": [
+        "Iris/build/description/v2/tools/build/dvf_3_3_consumer_migration_normalization_common.py::validated_frozen_predecessor_source_rows",
+        "Iris/build/description/v2/tools/build/dvf_3_3_consumer_migration_normalization_common.py::package_runtime_mirror_source_for",
+        "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py::_materialize_frozen_predecessor_fixture",
+        "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py::_materialize_package_runtime_mirror"
+      ],
+      "plan_boundary": "G1 approved tooling surface",
+      "returned_to": null,
+      "status": "corrected"
+    },
+    {
+      "failure_id": "missing_vnext_phase11_final_execution_contract_report",
+      "classification": "obsolete_or_misrouted_test_dependency",
+      "actual_cause": "A current test setup invoked the historical Phase 1-10 packet producer even though its Phase 11 execution input is frozen predecessor evidence and is not a current generated artifact.",
+      "correction": "Current-route validation consumes the already sealed guard packet read-only. It neither synthesizes the missing Phase 11 report nor promotes the frozen copy to current authority.",
+      "files_and_symbols": [
+        "Iris/build/description/v2/tests/test_dvf_3_3_vnext_delta_disposition_guard_seal.py::DvfVnextDeltaDispositionGuardSealTest",
+        "Iris/build/description/v2/frozen_predecessor_inputs/dvf_3_3_registry_authority_canonical_closure/current_route/manifest.json"
+      ],
+      "plan_boundary": "G1 approved test-routing correction",
+      "returned_to": null,
+      "status": "corrected"
+    },
+    {
+      "failure_id": "lua_bridge_external_temporary_path_rejected",
+      "classification": "external_temporary_path_repository_boundary_contract_collision",
+      "actual_cause": "The G4 projection provided an external temporary path without the clean-checkout output-root contract, so four Lua bridge tests correctly rejected the unbound destination.",
+      "correction": "The G1 runner declares and supplies repository-external test and isolated-temp roots. Repository-boundary checks remain fail-closed and were not bypassed.",
+      "files_and_symbols": [
+        "Iris/validation/clean_checkout/contracts/full_repository_gate.json::execution_workspace",
+        "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py::run_full_gate"
+      ],
+      "plan_boundary": "G1 execution isolation contract",
+      "returned_to": null,
+      "status": "corrected"
+    },
+    {
+      "failure_id": "registry_runtime_compatibility_failure_code_and_freshness",
+      "classification": "implementation_source_freshness_drift",
+      "actual_cause": "The selected RTC bundle's current-source alignment marker applies to predecessor facts, while the live facts SHA is a later successor. Nine implementation/toolchain paths also drift from the sealed bundle manifest. The old test expected only the predecessor stale-source failure code.",
+      "correction": "G1 corrected only the current-route assertion to derive failure precedence from the sealed alignment and toolchain manifests. It did not reseal the RTC bundle, mutate facts, or execute G3.",
+      "files_and_symbols": [
+        "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_current.py::expected_live_failure",
+        "Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_runtime_compatibility.py::command_required_gate",
+        ".gitattributes",
+        "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_bridge.py",
+        "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_closeout.py",
+        "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_current.py",
+        "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_package.py",
+        "Iris/build/description/v2/tools/build/dvf_3_3_registry_runtime_compatibility.py",
+        "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py",
+        "Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_runtime_compatibility.py",
+        "Iris/tools/package_iris.ps1"
+      ],
+      "input_sha256": {
+        "live_current_facts": "50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120",
+        "alignment_applies_when_facts": "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40",
+        "alignment_predecessor_facts": "a89af8d75a78a57bd2ac05f07af4246d1ebab862dd4021bd089c5efa6e533be6",
+        "selected_bundle_id": "46c87bfab662b09293adb6ba2b1028bdf6c0f20639c8e3fb8bd065895b5988b9",
+        "selected_bundle_manifest": "0e50d9d37d67da7534f637252366bc6ecba58d2b975960b6477c01ebb5a052a1"
+      },
+      "output": {
+        "status": "BLOCKED",
+        "failure_code": "implementation_toolchain_freshness_failed",
+        "diagnostic_path": "C:/Users/MW/Downloads/coding/PZ/g1l0/rtc_required_gate_diagnostic.json",
+        "diagnostic_sha256": "2eb285239433deda61baab508c2f9eb4a95bcd00100bd4cda8b7c41cea9c9969"
+      },
+      "plan_boundary": "G3 Registry Runtime Compatibility authority",
+      "returned_to": "G3",
+      "return_reason": "Only G3 may bind the later facts identity, reconcile the nine-path implementation toolchain, and seal or adopt a successor RTC bundle.",
+      "status": "reported_open_authority_defect"
+    },
+    {
+      "failure_id": "registry_authority_frozen_fixture",
+      "classification": "hermetic_fixture_environment_contract_mismatch",
+      "actual_cause": "The test validated strict candidate-seed absence against a used checkout whose ignored local residue and isolation environment did not match the frozen fixture contract.",
+      "correction": "Direct validation copies only the tracked frozen fixture to a repository-external strict-absence root; canonical full-gate validation uses the declared disposable-checkout bootstrap.",
+      "files_and_symbols": [
+        "Iris/build/description/v2/tests/test_dvf_3_3_registry_authority_canonical_closure.py::test_wp6_live_denominator_closes_dependencies_and_vcs_inventory",
+        "Iris/build/description/v2/tools/build/dvf_3_3_registry_authority_canonical_closure.py::current_route_frozen_fixture_validation"
+      ],
+      "plan_boundary": "G1 hermetic fixture contract",
+      "returned_to": null,
+      "status": "corrected"
+    },
+    {
+      "failure_id": "runtime_predecessor_residue_expected_two_observed_zero",
+      "classification": "historical_evidence_reenactment_against_later_runtime",
+      "actual_cause": "The test setup regenerated a sealed predecessor-residue decision against the later runtime surface, changing the observation from the sealed value to zero.",
+      "correction": "The current gate validates the sealed decision read-only and does not rerun its historical producer.",
+      "files_and_symbols": [
+        "Iris/build/description/v2/tests/test_runtime_payload_state_integrity.py::RuntimePayloadStateIntegrityTest"
+      ],
+      "plan_boundary": "G1 historical/current evidence routing",
+      "returned_to": null,
+      "status": "corrected"
+    },
+    {
+      "failure_id": "closeout_reentry_guard_result_claim_surface",
+      "classification": "current_route_claim_surface_classifier_drift",
+      "actual_cause": "The fail-closed classifier treated repository-external relocated top-document paths and a wrapped Korean boundary statement as unrecognized claim surfaces.",
+      "correction": "The classifier recognizes the same bounded document identities after external relocation and the existing wrapped boundary form; forbidden claim detection remains fail-closed.",
+      "files_and_symbols": [
+        "Iris/build/description/v2/tools/build/dvf_3_3_closeout_reentry_guard_seal_common.py"
+      ],
+      "plan_boundary": "G1 current-route validator adaptation",
+      "returned_to": null,
+      "status": "corrected"
+    }
+  ],
+  "final_projection": {
+    "live_current_route": {
+      "result_path": "C:/Users/MW/Downloads/coding/PZ/g1l3/live/live_current_route_result.json",
+      "result_sha256": "e065d6fb3a08051b03a208b4d8af3e3e33d52a27cf4a843b6d50ea2b673dae84",
+      "test_count": 135,
+      "success": true
+    },
+    "g4_candidate_current_route": {
+      "result_path": "C:/Users/MW/Downloads/coding/PZ/g1l3/candidate/candidate_current_route_result.json",
+      "result_sha256": "216d142c00c2eb357a35d5d6824dfd3674460eaaeb8d3c6dda972e6d5f427fe0",
+      "test_count": 136,
+      "success": true,
+      "g4_added_test_executed_count": 1,
+      "g4_added_artifact_check_count": 10,
+      "g4_added_surface_failure_count": 0
+    }
+  },
+  "scope_preservation": {
+    "g4_live_manifest_adopted": false,
+    "g4_phase7_executed": false,
+    "new_g4_attempt_created": false,
+    "g2_executed": false,
+    "g3_executed": false,
+    "g5_executed": false,
+    "candidate_trace_handoff_facts_manifest_changed": false,
+    "runtime_lua_package_surface_changed": false,
+    "protected_or_live_mutation_count": 0
+  }
+}

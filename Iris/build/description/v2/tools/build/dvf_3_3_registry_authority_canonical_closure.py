@@ -10310,36 +10310,61 @@ def current_route_apply_input_coverage() -> dict[str, Any]:
         and row.get("payload_path") in normalization_payloads
         and isinstance(row.get("target_path"), str)
     }
-    live_ignored_apply_paths = {
-        repo_relative(path) for path in CURRENT_ROUTE_LIVE_IGNORED_APPLY_INPUTS
-    }
+    package_prefix = (
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/"
+    )
+    live_prefix = "Iris/media/lua/client/Iris/Data/"
+    deterministic_materialization_sources: dict[str, str] = {}
+    for target in CURRENT_ROUTE_LIVE_IGNORED_APPLY_INPUTS:
+        target_relative = repo_relative(target)
+        if not target_relative.startswith(package_prefix):
+            blockers.append(
+                "current_route_apply_input_package_target_invalid:"
+                f"{target_relative}"
+            )
+            continue
+        source_relative = (
+            live_prefix + target_relative.removeprefix(package_prefix)
+        )
+        source = REPO_ROOT / source_relative
+        if (
+            not path_is_file(source)
+            or source_relative not in tracked_paths
+        ):
+            blockers.append(
+                "current_route_apply_input_materialization_source_invalid:"
+                f"{target_relative}"
+            )
+            continue
+        deterministic_materialization_sources[
+            target_relative
+        ] = source_relative
     source_counts = {
         "tracked_checkout": 0,
         "frozen_predecessor_input": 0,
-        "live_ignored_apply_input": 0,
+        "deterministically_materialized_input": 0,
     }
     missing_rows: list[dict[str, Any]] = []
     overlapping_rows: list[dict[str, Any]] = []
     apply_projection: list[dict[str, Any]] = []
     for row in apply_rows:
         path = str(row["path"]).replace("\\", "/")
-        sources = [
-            source
-            for source, present in (
-                ("tracked_checkout", path in tracked_paths),
-                ("frozen_predecessor_input", path in frozen_paths),
-                (
-                    "live_ignored_apply_input",
-                    path in live_ignored_apply_paths,
-                ),
-            )
-            if present
-        ]
+        if path in tracked_paths:
+            sources = ["tracked_checkout"]
+        elif path in frozen_paths:
+            sources = ["frozen_predecessor_input"]
+        elif path in deterministic_materialization_sources:
+            sources = ["deterministically_materialized_input"]
+        else:
+            sources = []
         apply_projection.append(
             {
                 "occurrence_id": row.get("occurrence_id"),
                 "path": path,
                 "sources": sources,
+                "deterministic_materialization_source": (
+                    deterministic_materialization_sources.get(path)
+                ),
             }
         )
         if len(sources) == 1:
@@ -10362,35 +10387,24 @@ def current_route_apply_input_coverage() -> dict[str, Any]:
     apply_paths = {
         str(row["path"]).replace("\\", "/") for row in apply_rows
     }
-    unexpected_live_inputs = sorted(
-        live_ignored_apply_paths - apply_paths
+    unexpected_materialization_inputs = sorted(
+        set(deterministic_materialization_sources) - apply_paths
     )
     if len(candidate_rows) != 311:
         blockers.append("current_route_apply_input_matrix_row_count_mismatch")
     if len(apply_rows) != 163:
         blockers.append("current_route_apply_input_apply_row_count_mismatch")
-    expected_counts = {
-        "tracked_checkout": 101,
-        "frozen_predecessor_input": 40,
-        "live_ignored_apply_input": 22,
-    }
-    for source, expected in expected_counts.items():
-        if source_counts[source] != expected:
-            blockers.append(
-                "current_route_apply_input_source_count_mismatch:"
-                f"{source}"
-            )
-    if len(live_ignored_apply_paths) != 9:
+    if sum(source_counts.values()) != len(apply_rows):
         blockers.append(
-            "current_route_live_ignored_apply_input_path_count_mismatch"
+            "current_route_apply_input_source_partition_count_mismatch"
         )
     if missing_rows:
         blockers.append("current_route_apply_input_source_coverage_missing")
     if overlapping_rows:
         blockers.append("current_route_apply_input_source_coverage_overlap")
-    if unexpected_live_inputs:
+    if unexpected_materialization_inputs:
         blockers.append(
-            "current_route_live_ignored_apply_input_not_in_matrix"
+            "current_route_materialization_input_not_in_matrix"
         )
     return {
         "schema_version": (
@@ -10404,17 +10418,26 @@ def current_route_apply_input_coverage() -> dict[str, Any]:
         "apply_row_count": len(apply_rows),
         "apply_row_projection_sha256": canonical_hash(apply_projection),
         "source_row_counts": source_counts,
-        "expected_source_row_counts": expected_counts,
+        "source_resolution_precedence": [
+            "tracked_checkout",
+            "frozen_predecessor_input",
+            "deterministically_materialized_input",
+        ],
         "frozen_predecessor_source_path_count": len(frozen_paths),
-        "live_ignored_apply_input_path_count": len(
-            live_ignored_apply_paths
+        "deterministic_materialization_input_path_count": len(
+            deterministic_materialization_sources
         ),
-        "live_ignored_apply_input_paths": sorted(
-            live_ignored_apply_paths
+        "deterministic_materialization_input_paths": sorted(
+            deterministic_materialization_sources
+        ),
+        "deterministic_materialization_source_paths": sorted(
+            deterministic_materialization_sources.values()
         ),
         "missing_rows": missing_rows,
         "overlapping_rows": overlapping_rows,
-        "unexpected_live_ignored_apply_inputs": unexpected_live_inputs,
+        "unexpected_materialization_inputs": (
+            unexpected_materialization_inputs
+        ),
         "blockers": sorted(set(blockers)),
     }
 
@@ -10424,30 +10447,54 @@ def current_route_live_ignored_input_rows() -> tuple[
 ]:
     rows: list[dict[str, Any]] = []
     blockers: list[str] = []
+    package_prefix = (
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/"
+    )
+    live_prefix = "Iris/media/lua/client/Iris/Data/"
     for path in CURRENT_ROUTE_LIVE_IGNORED_INPUTS:
         relative = repo_relative(path)
-        tracked = run_git(
+        target_tracked = run_git(
             "ls-files", "--error-unmatch", "--", relative
         )["exit_code"] == 0
-        ignored = run_git(
+        target_ignored = run_git(
             "check-ignore", "-q", "--", relative
         )["exit_code"] == 0
-        exists = path_is_file(path)
+        target_exists = path_is_file(path)
+        if target_tracked and target_exists:
+            source_relative = relative
+            source_role = "tracked_current_input"
+        elif relative.startswith(package_prefix):
+            source_relative = (
+                live_prefix + relative.removeprefix(package_prefix)
+            )
+            source_role = "deterministically_materialized_input"
+        else:
+            source_relative = relative
+            source_role = "unresolved"
+        source = REPO_ROOT / source_relative
+        source_exists = path_is_file(source)
+        source_tracked = run_git(
+            "ls-files", "--error-unmatch", "--", source_relative
+        )["exit_code"] == 0
         row = {
             "path": relative,
-            "role": "live_ignored_current_route_input",
+            "role": source_role,
             "input_class": (
                 "current_package_apply_input"
                 if path in CURRENT_ROUTE_LIVE_IGNORED_APPLY_INPUTS
                 else "current_rendered_input"
             ),
-            "exists": exists,
-            "tracked": tracked,
-            "ignored": ignored,
-            "sha256": sha256_file(path),
+            "exists": source_exists,
+            "tracked": source_tracked,
+            "ignored": False,
+            "target_exists": target_exists,
+            "target_tracked": target_tracked,
+            "target_ignored": target_ignored,
+            "resolved_source_path": source_relative,
+            "sha256": sha256_file(source),
             "byte_length": (
-                filesystem_path(path).stat().st_size
-                if exists
+                filesystem_path(source).stat().st_size
+                if source_exists
                 else None
             ),
             "copied_to_isolated_candidate_only": True,
@@ -10457,13 +10504,13 @@ def current_route_live_ignored_input_rows() -> tuple[
             "executable_fixture_claimed": False,
         }
         rows.append(row)
-        if not exists:
+        if not source_exists:
             blockers.append(
-                f"current_route_live_ignored_input_missing:{relative}"
+                f"current_route_input_source_missing:{relative}"
             )
-        if tracked or not ignored:
+        if not source_tracked:
             blockers.append(
-                "current_route_live_ignored_input_git_state_invalid:"
+                "current_route_input_source_untracked:"
                 f"{relative}"
             )
     coverage = current_route_apply_input_coverage()
@@ -10691,7 +10738,9 @@ def isolated_current_route_command_record(
             shutil.copyfile(payload, target)
         for input_row in live_input_rows_before:
             source = REPO_ROOT.joinpath(
-                *PurePosixPath(str(input_row["path"])).parts
+                *PurePosixPath(
+                    str(input_row["resolved_source_path"])
+                ).parts
             )
             target = candidate_root.joinpath(
                 *PurePosixPath(str(input_row["path"])).parts

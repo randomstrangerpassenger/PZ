@@ -6,6 +6,7 @@ from pathlib import Path
 
 
 REPO = Path(__file__).resolve().parents[5]
+SCRIPT = REPO / "Iris/build/description/v2/tools/build/runtime_payload_state_integrity.py"
 ROOT = REPO / "Iris/build/description/v2/staging/runtime_payload_state_integrity"
 
 

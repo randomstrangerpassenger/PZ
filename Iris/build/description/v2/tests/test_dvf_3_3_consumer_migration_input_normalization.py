@@ -1,14 +1,22 @@
 from __future__ import annotations
 
 import json
+import os
+import shutil
 import subprocess
 import sys
 import unittest
 from pathlib import Path
 
+from clean_checkout_test_paths import external_test_path
+
 
 REPO = Path(__file__).resolve().parents[5]
-ROOT = REPO / "Iris/build/description/v2/staging/dvf_3_3_vnext_consumer_migration_input_normalization"
+PROJECTION_BASE = external_test_path("current-route-projection")
+ROOT = (
+    PROJECTION_BASE
+    / "dvf_3_3_vnext_consumer_migration_input_normalization"
+)
 TOOLS = REPO / "Iris/build/description/v2/tools/build"
 NORMALIZATION_VALIDATOR = TOOLS / "validate_dvf_3_3_consumer_migration_input_normalization.py"
 
@@ -42,8 +50,43 @@ def load_negative_helper_probe() -> dict:
 
 
 class DvfConsumerMigrationInputNormalizationTest(unittest.TestCase):
-    # The normalization packet is sealed current-route evidence. Its producer is
-    # an authority operation, not an undeclared test prerequisite.
+    @classmethod
+    def setUpClass(cls) -> None:
+        if ROOT.exists():
+            shutil.rmtree(ROOT)
+        environment = os.environ.copy()
+        environment.update(
+            {
+                "IRIS_DVF_CURRENT_ROUTE_FROZEN_PREDECESSOR": "1",
+                "IRIS_DVF_CURRENT_ROUTE_PROJECTION_ROOT": str(
+                    PROJECTION_BASE
+                ),
+            }
+        )
+        scripts = [
+            "generate_dvf_3_3_consumer_migration_input_contract.py",
+            "generate_dvf_3_3_consumer_migration_eligibility_matrix.py",
+            "generate_dvf_3_3_missing_path_disposition_ledger.py",
+            "validate_dvf_3_3_consumer_migration_anchor_relocation.py",
+            "generate_dvf_3_3_authority_role_migration_rule_seed.py",
+            "generate_dvf_3_3_downstream_command_surface_compatibility_manifest.py",
+            "generate_dvf_3_3_consumer_migration_reconciled_input_manifest.py",
+            "validate_dvf_3_3_consumer_migration_input_normalization.py",
+        ]
+        for script in scripts:
+            result = subprocess.run(
+                [sys.executable, "-B", str(TOOLS / script)],
+                cwd=REPO,
+                env=environment,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            if result.returncode != 0:
+                raise AssertionError(
+                    f"{script} failed\nSTDOUT:\n{result.stdout}\n"
+                    f"STDERR:\n{result.stderr}"
+                )
 
     def test_phase0_freezes_source_membership_and_scope(self) -> None:
         fingerprint = load_json(ROOT / "phase0/source_matrix_fingerprint_report.json")

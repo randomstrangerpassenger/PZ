@@ -1,15 +1,24 @@
 from __future__ import annotations
 
 import json
+import os
+import shutil
 import subprocess
 import sys
 import unittest
 from pathlib import Path
 
+from clean_checkout_test_paths import external_test_path
+
 
 REPO = Path(__file__).resolve().parents[5]
 TOOLS = REPO / "Iris/build/description/v2/tools/build"
-ROOT = REPO / "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness"
+PROJECTION_BASE = external_test_path("current-route-projection")
+NORMALIZATION_ROOT = (
+    PROJECTION_BASE
+    / "dvf_3_3_vnext_consumer_migration_input_normalization"
+)
+ROOT = PROJECTION_BASE / "dvf_3_3_vnext_cutover_tooling_readiness"
 MAPPING_VALIDATOR = TOOLS / "validate_dvf_3_3_command_surface_mapping.py"
 
 
@@ -42,9 +51,50 @@ def load_command_contract() -> dict:
 
 
 class DvfCutoverToolingReadinessTest(unittest.TestCase):
-    # This required gate consumes the tracked, sealed readiness evidence. Running
-    # its historical producer against later current inputs would silently replace
-    # the 163-row seal with a different authority surface and mutate the checkout.
+    @classmethod
+    def setUpClass(cls) -> None:
+        for root in (NORMALIZATION_ROOT, ROOT):
+            if root.exists():
+                shutil.rmtree(root)
+        environment = os.environ.copy()
+        environment.update(
+            {
+                "IRIS_DVF_CURRENT_ROUTE_FROZEN_PREDECESSOR": "1",
+                "IRIS_DVF_CURRENT_ROUTE_PROJECTION_ROOT": str(
+                    PROJECTION_BASE
+                ),
+            }
+        )
+        scripts = [
+            "generate_dvf_3_3_consumer_migration_input_contract.py",
+            "generate_dvf_3_3_consumer_migration_eligibility_matrix.py",
+            "generate_dvf_3_3_missing_path_disposition_ledger.py",
+            "validate_dvf_3_3_consumer_migration_anchor_relocation.py",
+            "generate_dvf_3_3_authority_role_migration_rule_seed.py",
+            "generate_dvf_3_3_downstream_command_surface_compatibility_manifest.py",
+            "generate_dvf_3_3_consumer_migration_reconciled_input_manifest.py",
+            "validate_dvf_3_3_consumer_migration_input_normalization.py",
+            "generate_dvf_3_3_overlay_support_artifact.py",
+            "manage_dvf_3_3_runtime_chunk_cutover.py",
+            "apply_dvf_3_3_consumer_migration.py",
+            "generate_dvf_3_3_row_level_migration_ledger.py",
+            "validate_dvf_3_3_actual_diff_to_ledger.py",
+            "validate_dvf_3_3_command_surface_mapping.py",
+        ]
+        for script in scripts:
+            result = subprocess.run(
+                [sys.executable, "-B", str(TOOLS / script)],
+                cwd=REPO,
+                env=environment,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            if result.returncode != 0:
+                raise AssertionError(
+                    f"{script} failed\nSTDOUT:\n{result.stdout}\n"
+                    f"STDERR:\n{result.stderr}"
+                )
 
     def test_phase0_command_mapping_has_downstream_compatibility_fields(self) -> None:
         mapping = load_json(ROOT / "phase0/command_surface_mapping.json")
@@ -121,6 +171,14 @@ class DvfCutoverToolingReadinessTest(unittest.TestCase):
         )
         self.assertTrue(baseline["tracked_sandbox_paths_preserved"])
         self.assertEqual(
+            baseline["sandbox_tracking_evidence_mode"],
+            "external_projection_tracked_source_provenance",
+        )
+        self.assertEqual(
+            baseline["projection_tracked_source_path_count"],
+            48,
+        )
+        self.assertEqual(
             baseline["tracked_sandbox_missing_after"],
             [],
         )
@@ -130,6 +188,14 @@ class DvfCutoverToolingReadinessTest(unittest.TestCase):
             76,
         )
         self.assertTrue(actual["tracked_sandbox_paths_preserved"])
+        self.assertEqual(
+            actual["sandbox_tracking_evidence_mode"],
+            "external_projection_tracked_source_provenance",
+        )
+        self.assertEqual(
+            actual["projection_tracked_source_path_count"],
+            48,
+        )
         self.assertEqual(forbidden["change_forbidden_occurrence_denominator"], 27558)
         self.assertEqual(forbidden["change_forbidden_occurrence_mutation_count"], 0)
         self.assertEqual(generation["status"], "PASS")

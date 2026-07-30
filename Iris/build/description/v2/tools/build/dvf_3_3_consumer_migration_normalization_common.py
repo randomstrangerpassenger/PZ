@@ -38,7 +38,36 @@ CLAIM_BOUNDARY = (
     "consumer migration input normalization only; not consumer migration execution, "
     "current authority adoption, runtime cutover, package readiness, or release readiness"
 )
-NORMALIZATION_ROOT = V2_ROOT / "staging" / "dvf_3_3_vnext_consumer_migration_input_normalization"
+CURRENT_ROUTE_PROJECTION_ROOT_ENV = (
+    "IRIS_DVF_CURRENT_ROUTE_PROJECTION_ROOT"
+)
+
+
+def projected_round_root(default: Path, round_id: str) -> Path:
+    configured = os.environ.get(CURRENT_ROUTE_PROJECTION_ROOT_ENV)
+    if not configured:
+        return default
+    candidate = Path(configured)
+    if not candidate.is_absolute():
+        raise ValueError(
+            f"{CURRENT_ROUTE_PROJECTION_ROOT_ENV} must be absolute"
+        )
+    resolved = candidate.resolve()
+    try:
+        resolved.relative_to(REPO_ROOT.resolve())
+    except ValueError:
+        return resolved / round_id
+    raise ValueError(
+        f"{CURRENT_ROUTE_PROJECTION_ROOT_ENV} must be outside the repository"
+    )
+
+
+NORMALIZATION_ROOT = projected_round_root(
+    V2_ROOT
+    / "staging"
+    / "dvf_3_3_vnext_consumer_migration_input_normalization",
+    "dvf_3_3_vnext_consumer_migration_input_normalization",
+)
 AUDIT_ROOT = V2_ROOT / "staging" / "2105_baseline_consumption_audit"
 EXECUTION_ROOT = V2_ROOT / "staging" / "dvf_3_3_vnext_execution"
 
@@ -170,8 +199,16 @@ def validated_frozen_predecessor_source_rows() -> dict[
         != EXPECTED_FROZEN_PREDECESSOR_USAGE_PARTITION_SHA256
     ):
         raise ValueError("invalid frozen predecessor fixture authority boundary")
-    allowed_payloads = set(
+    normalization_payloads = set(
         manifest.get("normalization_source_payload_paths", [])
+    )
+    candidate_projection_payloads = (
+        set(manifest.get("candidate_seed_payload_paths", []))
+        if os.environ.get(CURRENT_ROUTE_PROJECTION_ROOT_ENV)
+        else set()
+    )
+    allowed_payloads = (
+        normalization_payloads | candidate_projection_payloads
     )
     manifest_sha256 = sha256_file(FROZEN_PREDECESSOR_FIXTURE_MANIFEST)
     rows: dict[str, dict[str, Any]] = {}
@@ -201,6 +238,11 @@ def validated_frozen_predecessor_source_rows() -> dict[
         rows[target] = {
             **row,
             "resolved_payload": payload,
+            "fixture_usage_partition": (
+                "normalization_source"
+                if payload_relative in normalization_payloads
+                else "candidate_seed_external_projection"
+            ),
             "fixture_manifest_sha256": manifest_sha256,
             "fixture_row_sha256": canonical_hash(row),
         }
@@ -220,6 +262,22 @@ def frozen_predecessor_source_rows() -> dict[str, dict[str, Any]]:
 def frozen_predecessor_source_for(path: Path) -> dict[str, Any] | None:
     target = rel_norm(path)
     return frozen_predecessor_source_rows().get(target)
+
+
+def package_runtime_mirror_source_for(path: Path) -> Path | None:
+    if not os.environ.get(CURRENT_ROUTE_PROJECTION_ROOT_ENV):
+        return None
+    target = rel_norm(path)
+    package_prefix = (
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/"
+    )
+    if not target.startswith(package_prefix):
+        return None
+    source = resolve_repo(
+        "Iris/media/lua/client/Iris/Data/"
+        + target.removeprefix(package_prefix)
+    )
+    return source if source.is_file() else None
 
 
 def row_materialization_source(row: dict[str, Any]) -> Path:
@@ -760,11 +818,18 @@ def attach_path_status(row: dict[str, Any]) -> dict[str, Any]:
         if current_checkout_exists
         else frozen_predecessor_source_for(path)
     )
+    package_mirror_source = (
+        None
+        if current_checkout_exists or frozen_source is not None
+        else package_runtime_mirror_source_for(path)
+    )
     path_status = (
         "exists"
         if current_checkout_exists
         else "frozen_predecessor_available"
         if frozen_source is not None
+        else "deterministically_materialized_input_available"
+        if package_mirror_source is not None
         else "missing"
     )
     source_path = (
@@ -772,6 +837,8 @@ def attach_path_status(row: dict[str, Any]) -> dict[str, Any]:
         if current_checkout_exists
         else rel_norm(frozen_source["resolved_payload"])
         if frozen_source is not None
+        else rel_norm(package_mirror_source)
+        if package_mirror_source is not None
         else None
     )
     updated = {
@@ -783,6 +850,8 @@ def attach_path_status(row: dict[str, Any]) -> dict[str, Any]:
             if current_checkout_exists
             else "validated_frozen_predecessor_payload"
             if frozen_source is not None
+            else "byte_identical_package_runtime_mirror_source"
+            if package_mirror_source is not None
             else "current_checkout_absence_without_frozen_source"
         ),
         "path_status_writer_phase": "phase2",
@@ -794,7 +863,19 @@ def attach_path_status(row: dict[str, Any]) -> dict[str, Any]:
             if current_checkout_exists
             else "frozen_predecessor_input"
             if frozen_source is not None
+            else "package_runtime_mirror_input"
+            if package_mirror_source is not None
             else "none"
+        ),
+        "deterministic_materialization_source_sha256": (
+            sha256_file(package_mirror_source)
+            if package_mirror_source is not None
+            else None
+        ),
+        "frozen_predecessor_usage_partition": (
+            frozen_source.get("fixture_usage_partition")
+            if frozen_source is not None
+            else None
         ),
         "frozen_predecessor_source_sha256": (
             frozen_source.get("sha256")
@@ -1640,6 +1721,12 @@ def write_phase6() -> None:
                 "source_materialization_role": row.get(
                     "source_materialization_role"
                 ),
+                "deterministic_materialization_source_sha256": row.get(
+                    "deterministic_materialization_source_sha256"
+                ),
+                "frozen_predecessor_usage_partition": row.get(
+                    "frozen_predecessor_usage_partition"
+                ),
                 "frozen_predecessor_source_sha256": row.get(
                     "frozen_predecessor_source_sha256"
                 ),
@@ -1890,9 +1977,14 @@ def write_phase7_and_phase8() -> dict[str, Any]:
     write_json(phase_path("phase8", "claim_boundary_lint_report.json"), claim_lint)
     write_text(phase_path("phase8", "downstream_tooling_readiness_handoff_packet.md"), handoff_packet_text(final))
     write_text(phase_path("phase8", "closeout_report.md"), closeout_text(final))
-    write_text(REPO_ROOT / "docs" / "dvf_3_3_vnext_consumer_migration_input_normalization_closeout.md", closeout_text(final))
-    write_text(REPO_ROOT / "docs" / "dvf_3_3_vnext_consumer_migration_input_normalization_handoff_packet.md", handoff_packet_text(final))
-    write_text(REPO_ROOT / "docs" / "dvf_3_3_vnext_consumer_migration_input_normalization_ledger_packet.md", ledger_packet_text(final))
+    governance_doc_root = (
+        NORMALIZATION_ROOT / "phase8" / "governance-docs"
+        if os.environ.get(CURRENT_ROUTE_PROJECTION_ROOT_ENV)
+        else REPO_ROOT / "docs"
+    )
+    write_text(governance_doc_root / "dvf_3_3_vnext_consumer_migration_input_normalization_closeout.md", closeout_text(final))
+    write_text(governance_doc_root / "dvf_3_3_vnext_consumer_migration_input_normalization_handoff_packet.md", handoff_packet_text(final))
+    write_text(governance_doc_root / "dvf_3_3_vnext_consumer_migration_input_normalization_ledger_packet.md", ledger_packet_text(final))
     return final
 
 

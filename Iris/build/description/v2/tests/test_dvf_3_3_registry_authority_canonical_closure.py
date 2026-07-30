@@ -4,6 +4,7 @@ import ast
 import hashlib
 import importlib.util
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -12,6 +13,8 @@ import tempfile
 import unittest
 from unittest import mock
 import uuid
+
+from clean_checkout_test_paths import external_test_path
 
 
 ROUND_ID = "dvf_3_3_registry_authority_canonical_closure"
@@ -1003,10 +1006,42 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                 == "historical_or_staging_evidence"
             )
         )
-        fixture_validation = (
-            common.current_route_frozen_fixture_validation()
+        if (
+            os.environ.get(
+                common.CURRENT_ROUTE_FROZEN_PREDECESSOR_ENV
+            )
+            == "1"
+        ):
+            fixture_validation = (
+                common.current_route_frozen_fixture_validation()
+            )
+        else:
+            strict_absence_root = external_test_path(
+                "registry-authority-strict-absence"
+            )
+            if strict_absence_root.exists():
+                shutil.rmtree(strict_absence_root)
+            strict_absence_root.mkdir(parents=True)
+            projected_fixture_root = (
+                strict_absence_root
+                / common.CURRENT_ROUTE_FROZEN_FIXTURE_ROOT.relative_to(
+                    REPO_ROOT
+                )
+            )
+            shutil.copytree(
+                common.CURRENT_ROUTE_FROZEN_FIXTURE_ROOT,
+                projected_fixture_root,
+            )
+            fixture_validation = (
+                common.current_route_frozen_fixture_validation(
+                    repo_root=strict_absence_root
+                )
+            )
+        self.assertEqual(
+            fixture_validation["status"],
+            "PASS",
+            fixture_validation,
         )
-        self.assertEqual(fixture_validation["status"], "PASS")
         self.assertEqual(
             fixture_validation["candidate_seed_file_count"],
             15,
@@ -1095,7 +1130,37 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
             for row in fixture_manifest["rows"]
             if row["payload_path"] in normalization_payloads
         }
-        self.assertTrue(normalization_targets.isdisjoint(live_rows))
+        current_normalization_targets = (
+            normalization_targets & live_rows
+        )
+        for target in current_normalization_targets:
+            self.assertTrue((REPO_ROOT / target).is_file())
+            self.assertEqual(
+                subprocess.run(
+                    [
+                        "git",
+                        "ls-files",
+                        "--error-unmatch",
+                        "--",
+                        target,
+                    ],
+                    cwd=REPO_ROOT,
+                    text=True,
+                    capture_output=True,
+                    check=False,
+                ).returncode,
+                0,
+            )
+        self.assertTrue(
+            all(
+                row["live_materialization_allowed"] is False
+                for row in fixture_manifest["rows"]
+                if row["payload_path"] in normalization_payloads
+            )
+        )
+        self.assertFalse(
+            fixture_manifest["current_route_authority_claimed"]
+        )
         self.assertTrue(normalization_targets.isdisjoint(non_live_rows))
         candidate_seed_payloads = set(
             fixture_manifest["candidate_seed_payload_paths"]
@@ -1132,30 +1197,42 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
             163,
         )
         self.assertEqual(
-            apply_input_coverage["source_row_counts"],
+            set(apply_input_coverage["source_row_counts"]),
             {
-                "tracked_checkout": 101,
-                "frozen_predecessor_input": 40,
-                "live_ignored_apply_input": 22,
+                "tracked_checkout",
+                "frozen_predecessor_input",
+                "deterministically_materialized_input",
             },
         )
         self.assertEqual(
+            sum(apply_input_coverage["source_row_counts"].values()),
+            apply_input_coverage["apply_row_count"],
+        )
+        self.assertEqual(
             apply_input_coverage[
-                "live_ignored_apply_input_path_count"
+                "deterministic_materialization_input_path_count"
             ],
             9,
         )
-        expected_live_apply_inputs = {
+        expected_materialization_inputs = {
             common.repo_relative(path)
             for path in common.CURRENT_ROUTE_LIVE_IGNORED_APPLY_INPUTS
         }
         self.assertEqual(
             set(
                 apply_input_coverage[
-                    "live_ignored_apply_input_paths"
+                    "deterministic_materialization_input_paths"
                 ]
             ),
-            expected_live_apply_inputs,
+            expected_materialization_inputs,
+        )
+        self.assertTrue(
+            all(
+                (REPO_ROOT / path).is_file()
+                for path in apply_input_coverage[
+                    "deterministic_materialization_source_paths"
+                ]
+            )
         )
         (
             live_input_rows,
@@ -1169,13 +1246,18 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
         )
         self.assertEqual(
             len(live_input_rows),
-            1 + len(expected_live_apply_inputs),
+            1 + len(expected_materialization_inputs),
         )
         self.assertTrue(
             all(
                 row["exists"]
-                and row["ignored"]
-                and not row["tracked"]
+                and row["tracked"]
+                and not row["ignored"]
+                and row["role"]
+                in {
+                    "tracked_current_input",
+                    "deterministically_materialized_input",
+                }
                 and row["copied_to_isolated_candidate_only"]
                 and not row["live_materialization_allowed"]
                 and not row["current_authority_claimed"]
@@ -1187,7 +1269,7 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
         self.assertTrue(
             all(
                 not path.endswith((".py", ".ps1"))
-                for path in expected_live_apply_inputs
+                for path in expected_materialization_inputs
             )
         )
 

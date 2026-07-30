@@ -3,6 +3,7 @@ from __future__ import annotations
 import difflib
 import hashlib
 import json
+import os
 import re
 import shutil
 import stat
@@ -52,9 +53,41 @@ EXPECTED_FROZEN_PREDECESSOR_USAGE_PARTITION_SHA256 = (
     "4dd67eca4ee2d186edff5913e4d36d2647420a3c2d05184e801218714dcae303"
 )
 
-READINESS_ROOT = V2_ROOT / "staging" / "dvf_3_3_vnext_cutover_tooling_readiness"
+CURRENT_ROUTE_PROJECTION_ROOT_ENV = (
+    "IRIS_DVF_CURRENT_ROUTE_PROJECTION_ROOT"
+)
+
+
+def projected_round_root(default: Path, round_id: str) -> Path:
+    configured = os.environ.get(CURRENT_ROUTE_PROJECTION_ROOT_ENV)
+    if not configured:
+        return default
+    candidate = Path(configured)
+    if not candidate.is_absolute():
+        raise ValueError(
+            f"{CURRENT_ROUTE_PROJECTION_ROOT_ENV} must be absolute"
+        )
+    resolved = candidate.resolve()
+    try:
+        resolved.relative_to(REPO_ROOT.resolve())
+    except ValueError:
+        return resolved / round_id
+    raise ValueError(
+        f"{CURRENT_ROUTE_PROJECTION_ROOT_ENV} must be outside the repository"
+    )
+
+
+READINESS_ROOT = projected_round_root(
+    V2_ROOT / "staging" / "dvf_3_3_vnext_cutover_tooling_readiness",
+    "dvf_3_3_vnext_cutover_tooling_readiness",
+)
 CORRECTION_ROOT = V2_ROOT / "staging" / "dvf_3_3_vnext_rejected_delta_correction_reparity"
-NORMALIZATION_ROOT = V2_ROOT / "staging" / "dvf_3_3_vnext_consumer_migration_input_normalization"
+NORMALIZATION_ROOT = projected_round_root(
+    V2_ROOT
+    / "staging"
+    / "dvf_3_3_vnext_consumer_migration_input_normalization",
+    "dvf_3_3_vnext_consumer_migration_input_normalization",
+)
 EXECUTION_ROOT = V2_ROOT / "staging" / "dvf_3_3_vnext_execution"
 
 PLAN_PATH = REPO_ROOT / "docs" / "dvf_3_3_vnext_current_authority_cutover_tooling_readiness_plan.md"
@@ -971,6 +1004,21 @@ def tracked_sandbox_paths(root: Path) -> set[Path]:
     }
 
 
+def git_tracked_source(path: Path) -> bool:
+    try:
+        relative = path.resolve().relative_to(REPO_ROOT.resolve())
+    except ValueError:
+        return False
+    result = subprocess.run(
+        ["git", "ls-files", "--error-unmatch", "--", relative.as_posix()],
+        cwd=REPO_ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    return result.returncode == 0
+
+
 def prepare_sandbox_root(
     root: Path,
     *,
@@ -1150,6 +1198,33 @@ def migration_source_for_row(row: dict[str, Any]) -> Path:
                     "frozen predecessor migration source binding mismatch: "
                     + str(row.get("row_id"))
                 )
+        elif source_role == "package_runtime_mirror_input":
+            target_prefix = (
+                "Iris/build/package/Iris/media/lua/client/Iris/Data/"
+            )
+            target_path = str(row.get("path"))
+            if not target_path.startswith(target_prefix):
+                raise ValueError(
+                    "package runtime mirror target binding mismatch: "
+                    + str(row.get("row_id"))
+                )
+            expected_source = resolve_repo(
+                "Iris/media/lua/client/Iris/Data/"
+                + target_path.removeprefix(target_prefix)
+            ).resolve()
+            if (
+                source != expected_source
+                or row.get("current_checkout_path_exists") is not False
+                or not source.is_file()
+                or sha256_file(source)
+                != row.get(
+                    "deterministic_materialization_source_sha256"
+                )
+            ):
+                raise ValueError(
+                    "package runtime mirror source binding mismatch: "
+                    + str(row.get("row_id"))
+                )
         else:
             raise ValueError(
                 "unsupported migration source role: "
@@ -1189,10 +1264,17 @@ def write_sandbox_and_apply(rows: list[dict[str, Any]], apply_rows: list[dict[st
             raise ValueError(
                 f"multiple migration sources for target {row['path']}"
             )
-    tracked_by_root = {
-        root: tracked_sandbox_paths(root)
-        for root in (baseline_root, after_root)
-    }
+    projection_mode = bool(
+        os.environ.get(CURRENT_ROUTE_PROJECTION_ROOT_ENV)
+    )
+    tracked_by_root = (
+        {root: set() for root in (baseline_root, after_root)}
+        if projection_mode
+        else {
+            root: tracked_sandbox_paths(root)
+            for root in (baseline_root, after_root)
+        }
+    )
     owned_targets_by_root = {
         root: {
             sandbox_path_for(repo_path, root)
@@ -1227,17 +1309,44 @@ def write_sandbox_and_apply(rows: list[dict[str, Any]], apply_rows: list[dict[st
             "tracked sandbox evidence removed by materialization: "
             + ",".join(tracked_missing_after)
         )
-    tracked_sandbox_paths_preserved = sorted(
-        rel(path)
-        for tracked_paths in tracked_by_root.values()
-        for path in tracked_paths
-    )
-    tracked_sandbox_executable_paths_preserved = sorted(
-        rel(path)
-        for tracked_paths in tracked_by_root.values()
-        for path in tracked_paths
-        if path.suffix.lower() in {".lua", ".py"}
-    )
+    if projection_mode:
+        untracked_projection_sources = sorted(
+            rel(source)
+            for source in source_by_target.values()
+            if not git_tracked_source(source)
+        )
+        if untracked_projection_sources:
+            raise ValueError(
+                "external projection source is not tracked: "
+                + ",".join(untracked_projection_sources)
+            )
+        tracked_sandbox_paths_preserved = sorted(
+            rel(path)
+            for paths in owned_targets_by_root.values()
+            for path in paths
+        )
+        tracked_sandbox_executable_paths_preserved = sorted(
+            rel(path)
+            for paths in owned_targets_by_root.values()
+            for path in paths
+            if path.suffix.lower() in {".lua", ".py"}
+        )
+        tracking_evidence_mode = (
+            "external_projection_tracked_source_provenance"
+        )
+    else:
+        tracked_sandbox_paths_preserved = sorted(
+            rel(path)
+            for tracked_paths in tracked_by_root.values()
+            for path in tracked_paths
+        )
+        tracked_sandbox_executable_paths_preserved = sorted(
+            rel(path)
+            for tracked_paths in tracked_by_root.values()
+            for path in tracked_paths
+            if path.suffix.lower() in {".lua", ".py"}
+        )
+        tracking_evidence_mode = "git_tracked_sandbox_artifact"
 
     rows_by_path: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for row in apply_rows:
@@ -1305,6 +1414,10 @@ def write_sandbox_and_apply(rows: list[dict[str, Any]], apply_rows: list[dict[st
             tracked_sandbox_executable_paths_preserved
         ),
         "tracked_sandbox_paths_preserved": True,
+        "sandbox_tracking_evidence_mode": tracking_evidence_mode,
+        "projection_tracked_source_path_count": (
+            len(source_by_target) if projection_mode else 0
+        ),
         "tracked_sandbox_missing_after": tracked_missing_after,
         "removed_prior_hash_targets": removed_hash_targets,
         "file_hashes": baseline_records,
@@ -1332,6 +1445,10 @@ def write_sandbox_and_apply(rows: list[dict[str, Any]], apply_rows: list[dict[st
             tracked_sandbox_executable_paths_preserved
         ),
         "tracked_sandbox_paths_preserved": True,
+        "sandbox_tracking_evidence_mode": tracking_evidence_mode,
+        "projection_tracked_source_path_count": (
+            len(source_by_target) if projection_mode else 0
+        ),
         "forbidden_occurrence_mutation_count": 0,
         "live_repo_mutated": False,
         "claim_boundary": CLAIM_BOUNDARY,
@@ -1764,9 +1881,14 @@ def write_final_phase6_report(mapping_report: dict[str, Any]) -> None:
     write_text(phase_path("phase6", "tooling_readiness_closeout.md"), closeout_text(final))
     write_text(phase_path("phase6", "handoff_packet_for_current_authority_cutover.md"), handoff_text(final))
     write_text(phase_path("phase6", "ledger_update_packet.md"), ledger_packet_text(final))
-    write_text(REPO_ROOT / "docs" / "dvf_3_3_vnext_current_authority_cutover_tooling_readiness_closeout.md", closeout_text(final))
-    write_text(REPO_ROOT / "docs" / "dvf_3_3_vnext_current_authority_cutover_tooling_readiness_handoff_packet.md", handoff_text(final))
-    write_text(REPO_ROOT / "docs" / "dvf_3_3_vnext_current_authority_cutover_tooling_readiness_ledger_packet.md", ledger_packet_text(final))
+    governance_doc_root = (
+        READINESS_ROOT / "phase6" / "governance-docs"
+        if os.environ.get(CURRENT_ROUTE_PROJECTION_ROOT_ENV)
+        else REPO_ROOT / "docs"
+    )
+    write_text(governance_doc_root / "dvf_3_3_vnext_current_authority_cutover_tooling_readiness_closeout.md", closeout_text(final))
+    write_text(governance_doc_root / "dvf_3_3_vnext_current_authority_cutover_tooling_readiness_handoff_packet.md", handoff_text(final))
+    write_text(governance_doc_root / "dvf_3_3_vnext_current_authority_cutover_tooling_readiness_ledger_packet.md", ledger_packet_text(final))
     write_text(phase_path("phase6", "independent_review_seal.md"), independent_review_seal_text())
 
 

@@ -492,7 +492,20 @@ def tokenize_claim_terms(text: str) -> list[str]:
 
 def is_top_doc_boundary_routing_definition(path: Path, line: str) -> bool:
     normalized = rel(path).replace("\\", "/")
-    if normalized not in {"docs/ARCHITECTURE.md", "docs/DECISIONS.md", "docs/ROADMAP.md"}:
+    top_doc = next(
+        (
+            name
+            for name in (
+                "docs/ARCHITECTURE.md",
+                "docs/DECISIONS.md",
+                "docs/ROADMAP.md",
+            )
+            if normalized == name
+            or normalized.endswith("/" + name)
+        ),
+        None,
+    )
+    if top_doc is None:
         return False
     lowered = line.lower()
     stripped = lowered.strip()
@@ -511,7 +524,7 @@ def is_top_doc_boundary_routing_definition(path: Path, line: str) -> bool:
         "통과",
     )
     if (
-        normalized == "docs/ARCHITECTURE.md"
+        top_doc == "docs/ARCHITECTURE.md"
         and public_text_acceptance
         and not any(marker in lowered for marker in positive_completion_markers)
         and (
@@ -519,8 +532,10 @@ def is_top_doc_boundary_routing_definition(path: Path, line: str) -> bool:
             or "!=" in lowered
             or (
                 "별도" in lowered
-                and "naturalization" in lowered
-                and "publish boundary" in lowered
+                and (
+                    "naturalization" in lowered
+                    or "publish boundary" in lowered
+                )
             )
         )
     ):
@@ -528,7 +543,7 @@ def is_top_doc_boundary_routing_definition(path: Path, line: str) -> bool:
     if "-> publish boundary closure" in lowered or "→ publish boundary closure" in lowered:
         return True
     if (
-        normalized == "docs/ARCHITECTURE.md"
+        top_doc == "docs/ARCHITECTURE.md"
         and "public text quality" in lowered
         and "public acceptance" in lowered
         and "release readiness" in lowered

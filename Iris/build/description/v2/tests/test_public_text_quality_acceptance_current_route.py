@@ -16,7 +16,7 @@ VALIDATOR = (
     / "v2"
     / "tools"
     / "build"
-    / "validate_public_text_quality_acceptance_official_0004.py"
+    / "validate_public_text_quality_acceptance_official_0005.py"
 )
 
 
@@ -28,7 +28,7 @@ class PublicTextQualityAcceptanceCurrentRouteTest(unittest.TestCase):
                 "-B",
                 str(VALIDATOR),
                 "--attempt-id",
-                "attempt-0004-official",
+                "attempt-0005-official",
                 "--required-gate",
                 "--no-write",
             ],

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from contextlib import contextmanager
+from copy import deepcopy
+import json
 from pathlib import Path
 import subprocess
 from typing import Any, Iterable, Iterator
@@ -108,6 +110,9 @@ RUNNER_MODULE = THIS_MODULE.with_name(
 )
 VALIDATOR_MODULE = THIS_MODULE.with_name(
     "validate_public_text_quality_acceptance_official_0005.py"
+)
+CURRENT_ROUTE_TEST = (
+    V2_ROOT / "tests" / "test_public_text_quality_acceptance_current_route.py"
 )
 PHASE0_SUCCESSOR_BINDING = "official_current_input_binding_report.json"
 
@@ -553,6 +558,558 @@ def _validate_phase0_successor(root: Path) -> dict[str, Any]:
     }
 
 
+def _preserving_pretty_bytes(value: Any) -> bytes:
+    return (
+        json.dumps(
+            value,
+            ensure_ascii=False,
+            indent=2,
+            allow_nan=False,
+        )
+        + "\n"
+    ).encode("utf-8")
+
+
+def _tracked_not_ignored(path: Path) -> bool:
+    return (
+        path.is_file()
+        and base._is_tracked(path)
+        and not base._is_ignored(path)
+        and not base._has_unstaged_delta(path)
+    )
+
+
+def _live_manifest_record() -> dict[str, Any]:
+    path = base.LIVE_REQUIRED_VALIDATIONS
+    relative = base.repo_relative(path)
+    if not _tracked_not_ignored(path):
+        raise base.FoundationContractError(
+            "live required-validation manifest is not tracked and clean"
+        )
+    head_blob_id = _git(
+        "rev-parse",
+        f"HEAD:{relative}",
+    ).stdout.strip()
+    blob = subprocess.run(
+        ["git", "cat-file", "blob", head_blob_id],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        check=False,
+    )
+    if blob.returncode != 0:
+        raise base.FoundationContractError(
+            "cannot read live required-validation HEAD blob"
+        )
+    filtered_working_blob_id = _git(
+        "hash-object",
+        "--",
+        relative,
+    ).stdout.strip()
+    if filtered_working_blob_id != head_blob_id:
+        raise base.FoundationContractError(
+            "live required-validation manifest working identity is stale"
+        )
+    return {
+        "path": relative,
+        "sha256": base.sha256_bytes(blob.stdout),
+        "head_git_blob_id": head_blob_id,
+        "filtered_working_blob_id": filtered_working_blob_id,
+        "tracked": True,
+        "ignored": False,
+        "unstaged_delta": False,
+        "head_working_identity": True,
+    }
+
+
+def _candidate_required_entries(
+    root: Path,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    p0 = base.phase_root(root, 0)
+    p1 = base.phase_root(root, 1)
+    p2 = base.phase_root(root, 2)
+    p4 = base.phase_root(root, 4)
+    p5 = base.phase_root(root, 5)
+    p6 = base.phase_root(root, 6)
+    artifacts = [
+        {
+            "path": base.repo_relative(
+                p0 / "acceptance_input_binding_manifest.json"
+            ),
+            "checks": [{"field": "binding_fresh", "equals": True}],
+        },
+        {
+            "path": base.repo_relative(p0 / PHASE0_SUCCESSOR_BINDING),
+            "checks": [{"field": "status", "equals": "PASS"}],
+        },
+        {
+            "path": base.repo_relative(
+                p1 / "metric_denominator_contract_validation_report.json"
+            ),
+            "checks": [{"field": "status", "equals": "PASS"}],
+        },
+        {
+            "path": base.repo_relative(p2 / "policy_hash_seal.json"),
+            "checks": [{"field": "policy_ratified", "equals": True}],
+        },
+        {
+            "path": base.repo_relative(
+                p4 / "adversarial_fixture_manifest.json"
+            ),
+            "checks": [{"field": "status", "equals": "PASS"}],
+        },
+        {
+            "path": base.repo_relative(
+                p5 / "evaluation_subject_disposition.json"
+            ),
+            "checks": [
+                {
+                    "field": "qualified_disposition",
+                    "equals": "accepted",
+                }
+            ],
+        },
+        {
+            "path": base.repo_relative(
+                p5 / "evaluation_subject_disposition_hash_manifest.json"
+            ),
+            "checks": [
+                {
+                    "field": "schema_version",
+                    "equals": (
+                        "public_text_quality_disposition_hash_manifest_v1"
+                    ),
+                }
+            ],
+        },
+        {
+            "path": base.repo_relative(
+                p6 / "stale_disposition_consumption_guard_report.json"
+            ),
+            "checks": [{"field": "status", "equals": "PASS"}],
+        },
+        {
+            "path": base.repo_relative(
+                p6 / "pre_adoption_protected_surface_report.json"
+            ),
+            "checks": [{"field": "status", "equals": "PASS"}],
+        },
+        {
+            "path": base.repo_relative(
+                p6 / "required_artifact_recensus_report.json"
+            ),
+            "checks": [{"field": "status", "equals": "PASS"}],
+        },
+    ]
+    required_test = {
+        "test_id": (
+            "test_public_text_quality_acceptance_current_route."
+            "PublicTextQualityAcceptanceCurrentRouteTest."
+            "test_required_gate_runs_standalone_subprocess"
+        ),
+        "reason": (
+            "standalone Publish Boundary public-text acceptance "
+            "required gate"
+        ),
+        "role": (
+            "publish_boundary_public_text_acceptance_required_validation"
+        ),
+        "required": True,
+    }
+    return artifacts, required_test
+
+
+def build_phase6_gate_candidate(*, attempt_id: str) -> dict[str, Any]:
+    _require_attempt_id(attempt_id)
+    root = base.official_attempt_root(attempt_id)
+    phase5_validation = base.validate_official_attempt(
+        attempt_id=attempt_id,
+        requirement="phase5",
+    )
+    disposition_path = (
+        base.phase_root(root, 5)
+        / "evaluation_subject_disposition.json"
+    )
+    disposition = base.load_json_strict(disposition_path)
+    if (
+        phase5_validation.get("qualified_disposition") != "accepted"
+        or disposition.get("qualified_disposition") != "accepted"
+    ):
+        raise base.FoundationContractError(
+            "Phase 6 candidate is forbidden for non-accepted subject"
+        )
+    prerequisite_paths = [
+        base.phase_root(root, phase) / name
+        for phase in range(0, 6)
+        for name in base.PHASE_ARTIFACTS[phase]
+    ]
+    prerequisite_paths.extend(
+        [
+            base.phase_root(root, 2)
+            / "policy_ratification_record.json",
+            base.phase_root(root, 2) / "policy_hash_seal.json",
+        ]
+    )
+    unready = [
+        base.repo_relative(path)
+        for path in prerequisite_paths
+        if not _tracked_not_ignored(path)
+    ]
+    if unready:
+        raise base.FoundationContractError(
+            f"Phase 6 prerequisites are not tracked and clean: {unready}"
+        )
+    if not _tracked_not_ignored(CURRENT_ROUTE_TEST):
+        raise base.FoundationContractError(
+            "Phase 6 current-route test is not tracked and clean"
+        )
+    live_before = _live_manifest_record()
+    current = validate_current_inputs(require_clean=True)
+    p6 = base.phase_root(root, 6)
+    stale_guard = {
+        "schema_version": (
+            "public_text_quality_stale_disposition_consumption_guard_v1"
+        ),
+        "status": "PASS",
+        "attempt_id": ATTEMPT_ID,
+        "evaluation_subject_sha256": CANDIDATE_SHA256,
+        "evaluation_subject_disposition_sha256": base.sha256_file(
+            disposition_path
+        ),
+        "evaluation_subject_disposition_hash": disposition[
+            "disposition_hash"
+        ],
+        "phase0_current_input_binding_sha256": base.sha256_file(
+            base.phase_root(root, 0) / PHASE0_SUCCESSOR_BINDING
+        ),
+        "g4_readiness_successor_sha256": G4_READINESS_SHA256,
+        "current_checkout_input_fresh": current["status"] == "PASS",
+        "stale_disposition_consumption_count": 0,
+    }
+    protected = {
+        "schema_version": (
+            "public_text_quality_phase6_pre_adoption_protected_surface_v1"
+        ),
+        "status": "PASS",
+        "attempt_id": ATTEMPT_ID,
+        "live_required_validation_manifest_before": live_before,
+        "live_required_validation_manifest_after": live_before,
+        "live_manifest_mutation_count": 0,
+        "facts_manifest_foundation_candidate_mutation_count": 0,
+        "runtime_lua_package_mutation_count": 0,
+        "authority_effect": "none",
+    }
+    artifacts, required_test = _candidate_required_entries(root)
+    live_manifest = base.load_json_strict(base.LIVE_REQUIRED_VALIDATIONS)
+    recensus = {
+        "schema_version": (
+            "public_text_quality_required_artifact_recensus_v1"
+        ),
+        "status": "PASS",
+        "attempt_id": ATTEMPT_ID,
+        "base_required_artifact_count": len(
+            live_manifest["required_artifacts"]
+        ),
+        "base_required_test_count": len(
+            live_manifest["required_tests"]
+        ),
+        "publish_required_artifact_addition_count": len(artifacts),
+        "publish_required_test_addition_count": 1,
+        "prerequisite_tracked_count": len(prerequisite_paths),
+        "prerequisite_required_count": len(prerequisite_paths),
+        "prerequisite_ignored_count": 0,
+        "candidate_route_recensus_authority": (
+            "fresh_validator_and_route_execution"
+        ),
+    }
+    gitignore_report = {
+        "schema_version": (
+            "public_text_quality_gitignore_exact_unignore_patch_v1"
+        ),
+        "status": "PASS",
+        "attempt_id": ATTEMPT_ID,
+        "exact_phase6_unignore_materialized": True,
+        "broad_unignore_count": 0,
+        "live_adoption_gitignore_change_required": False,
+        "live_adoption_gitignore_diff": [],
+    }
+    base.write_once_or_same(
+        p6 / "stale_disposition_consumption_guard_report.json",
+        stale_guard,
+    )
+    base.write_once_or_same(
+        p6 / "pre_adoption_protected_surface_report.json",
+        protected,
+    )
+    base.write_once_or_same(
+        p6 / "required_artifact_recensus_report.json",
+        recensus,
+    )
+    base.write_once_or_same(
+        p6 / "gitignore_exact_unignore_patch.json",
+        gitignore_report,
+    )
+    candidate_manifest = deepcopy(live_manifest)
+    candidate_manifest["required_artifacts"].extend(artifacts)
+    candidate_manifest["required_tests"].append(required_test)
+    candidate_path = p6 / "required_gate_candidate.json"
+    base.write_once_bytes(
+        candidate_path,
+        _preserving_pretty_bytes(candidate_manifest),
+    )
+    candidate_sha = base.sha256_file(candidate_path)
+    patch = {
+        "schema_version": "public_text_quality_required_gate_patch_v1",
+        "status": "PASS",
+        "attempt_id": ATTEMPT_ID,
+        "target_path": base.repo_relative(
+            base.LIVE_REQUIRED_VALIDATIONS
+        ),
+        "base_manifest_sha256": live_before["sha256"],
+        "candidate_manifest_path": base.repo_relative(candidate_path),
+        "candidate_manifest_sha256": candidate_sha,
+        "operation": (
+            "append_only_required_artifacts_and_required_tests"
+        ),
+        "added_required_artifacts": artifacts,
+        "added_required_tests": [required_test],
+        "removed_required_artifact_count": 0,
+        "modified_required_artifact_count": 0,
+        "removed_required_test_count": 0,
+        "modified_required_test_count": 0,
+        "existing_entry_reorder_count": 0,
+        "live_manifest_mutated": False,
+    }
+    patch_path = p6 / "required_gate_patch.json"
+    base.write_once_or_same(patch_path, patch)
+    patch_sha = base.sha256_file(patch_path)
+    contract = {
+        "schema_version": (
+            "public_text_quality_required_gate_adoption_contract_v1"
+        ),
+        "status": "AWAITING_EXPLICIT_LIVE_GATE_APPROVAL",
+        "attempt_id": ATTEMPT_ID,
+        "candidate_manifest_sha256": candidate_sha,
+        "candidate_patch_sha256": patch_sha,
+        "evaluation_subject_kind": EVALUATION_SUBJECT_KIND,
+        "evaluation_subject_hash": CANDIDATE_SHA256,
+        "evaluation_subject_disposition": "accepted",
+        "evaluation_subject_disposition_hash": disposition[
+            "disposition_hash"
+        ],
+        "naturalization_handoff_manifest_hash": PHASE8_HANDOFF_SHA256,
+        "expected_post_adoption_official_route_state": "PASS",
+        "expected_exit_code": 0,
+        "exact_blocker_attribution": "none",
+        "adoption_timing": "immediate_after_explicit_owner_approval",
+        "owner_acknowledgement": "pending",
+        "owner_authorization": False,
+        "owner_identity": None,
+        "authorized_at": None,
+        "owner_binding_proof": None,
+        "live_manifest_path": base.repo_relative(
+            base.LIVE_REQUIRED_VALIDATIONS
+        ),
+        "live_manifest_base_sha256": live_before["sha256"],
+        "live_manifest_mutated": False,
+        "authority_effect": "none",
+        "phase7_allowed": False,
+        "policy_closure_state": "incomplete",
+        "rollback_contract": {
+            "precondition": (
+                "live manifest must still match base SHA before adoption"
+            ),
+            "rollback_operation": "restore exact base manifest bytes",
+            "rollback_target_path": base.repo_relative(
+                base.LIVE_REQUIRED_VALIDATIONS
+            ),
+            "rollback_base_sha256": live_before["sha256"],
+            "post_rollback_validation": (
+                "run current route with restored live manifest"
+            ),
+        },
+    }
+    contract_path = p6 / "required_gate_adoption_contract.json"
+    base.write_once_or_same(contract_path, contract)
+    base.write_once_text(
+        p6 / "required_gate_adoption_contract.md",
+        (
+            "# Publish Boundary Phase 6 Gate Candidate\n\n"
+            f"- Attempt: `{ATTEMPT_ID}`\n"
+            f"- Candidate manifest SHA-256: `{candidate_sha}`\n"
+            f"- Candidate patch SHA-256: `{patch_sha}`\n"
+            "- Evaluation subject disposition: `accepted`\n"
+            "- Authority effect: `none`\n"
+            "- Live manifest mutation: `false`\n"
+            "- Adoption state: "
+            "`AWAITING_EXPLICIT_LIVE_GATE_APPROVAL`\n"
+        ),
+    )
+    return {
+        "status": "PASS",
+        "attempt_id": ATTEMPT_ID,
+        "mode": "phase6-gate-candidate",
+        "candidate_manifest_path": base.repo_relative(candidate_path),
+        "candidate_manifest_sha256": candidate_sha,
+        "candidate_patch_path": base.repo_relative(patch_path),
+        "candidate_patch_sha256": patch_sha,
+        "base_manifest_sha256": live_before["sha256"],
+        "required_artifact_addition_count": len(artifacts),
+        "required_test_addition_count": 1,
+        "live_manifest_mutated": False,
+        "authority_effect": "none",
+        "adoption_timing": "immediate_after_explicit_owner_approval",
+        "approval_required": True,
+        "phase7_allowed": False,
+        "policy_closure_state": "incomplete",
+    }
+
+
+def _validate_gate_candidate(root: Path) -> dict[str, Any]:
+    phase5 = base.validate_official_attempt(
+        attempt_id=ATTEMPT_ID,
+        requirement="phase5",
+    )
+    if phase5.get("qualified_disposition") != "accepted":
+        raise base.FoundationContractError(
+            "gate candidate requires accepted Phase 5"
+        )
+    p6 = base.phase_root(root, 6)
+    candidate_path = p6 / "required_gate_candidate.json"
+    patch_path = p6 / "required_gate_patch.json"
+    contract_path = p6 / "required_gate_adoption_contract.json"
+    route_path = p6 / "candidate_current_route_result.json"
+    required_paths = (
+        candidate_path,
+        patch_path,
+        contract_path,
+        p6 / "required_gate_adoption_contract.md",
+        p6 / "gitignore_exact_unignore_patch.json",
+        p6 / "required_artifact_recensus_report.json",
+        p6 / "stale_disposition_consumption_guard_report.json",
+        p6 / "pre_adoption_protected_surface_report.json",
+        route_path,
+    )
+    missing = [
+        base.repo_relative(path)
+        for path in required_paths
+        if not path.is_file()
+    ]
+    if missing:
+        raise base.FoundationContractError(
+            f"Phase 6 candidate artifact missing: {missing}"
+        )
+    live = base.load_json_strict(base.LIVE_REQUIRED_VALIDATIONS)
+    candidate = base.load_json_strict(candidate_path)
+    patch = base.load_json_strict(patch_path)
+    contract = base.load_json_strict(contract_path)
+    route = base.load_json_strict(route_path)
+    artifacts = patch["added_required_artifacts"]
+    tests = patch["added_required_tests"]
+    if (
+        candidate["required_artifacts"]
+        != [*live["required_artifacts"], *artifacts]
+        or candidate["required_tests"]
+        != [*live["required_tests"], *tests]
+    ):
+        raise base.FoundationContractError(
+            "candidate manifest is not additive-only"
+        )
+    live_other = {
+        key: value
+        for key, value in live.items()
+        if key not in ("required_artifacts", "required_tests")
+    }
+    candidate_other = {
+        key: value
+        for key, value in candidate.items()
+        if key not in ("required_artifacts", "required_tests")
+    }
+    if live_other != candidate_other:
+        raise base.FoundationContractError(
+            "candidate manifest changes non-additive fields"
+        )
+    candidate_sha = base.sha256_file(candidate_path)
+    patch_sha = base.sha256_file(patch_path)
+    if (
+        patch.get("candidate_manifest_sha256") != candidate_sha
+        or contract.get("candidate_manifest_sha256") != candidate_sha
+        or contract.get("candidate_patch_sha256") != patch_sha
+        or contract.get("owner_authorization") is not False
+        or contract.get("live_manifest_mutated") is not False
+        or contract.get("authority_effect") != "none"
+        or contract.get("phase7_allowed") is not False
+    ):
+        raise base.FoundationContractError(
+            "Phase 6 approval contract/hash mismatch"
+        )
+    added_paths = [REPO_ROOT / row["path"] for row in artifacts]
+    unready = [
+        base.repo_relative(path)
+        for path in added_paths
+        if not _tracked_not_ignored(path)
+    ]
+    if unready or not _tracked_not_ignored(CURRENT_ROUTE_TEST):
+        raise base.FoundationContractError(
+            f"candidate required recensus failed: {unready}"
+        )
+    required = route.get("required_validations", {})
+    if (
+        route.get("schema_version") != "round3-contract-test-run-v1"
+        or route.get("contract_class") != "current"
+        or route.get("closure_enforced") is not True
+        or route.get("success") is not True
+        or route.get("errors") != []
+        or route.get("failures") != []
+        or required.get("success") is not True
+        or required.get("errors") != []
+        or required.get("required_artifact_count")
+        != len(candidate["required_artifacts"])
+        or required.get("required_test_count")
+        != len({row["test_id"] for row in candidate["required_tests"]})
+    ):
+        raise base.FoundationContractError(
+            "candidate current-route result is not PASS"
+        )
+    live_record = _live_manifest_record()
+    if live_record["sha256"] != contract["live_manifest_base_sha256"]:
+        raise base.FoundationContractError(
+            "live manifest changed before owner approval"
+        )
+    return {
+        "status": "PASS",
+        "candidate_manifest_path": base.repo_relative(candidate_path),
+        "candidate_manifest_sha256": candidate_sha,
+        "candidate_patch_sha256": patch_sha,
+        "candidate_current_route_result_sha256": base.sha256_file(
+            route_path
+        ),
+        "candidate_current_route_exit_code": 0,
+        "candidate_current_route_test_count": route["test_count"],
+        "execution_class": "sandbox_candidate",
+        "official_route": False,
+        "required_artifact_recensus": {
+            "required_count": len(added_paths),
+            "tracked_count": len(added_paths),
+            "ignored_count": 0,
+            "missing_count": 0,
+        },
+        "required_test_recensus": {
+            "required_count": 1,
+            "tracked_count": 1,
+            "ignored_count": 0,
+            "missing_count": 0,
+        },
+        "live_manifest_base_sha256": live_record["sha256"],
+        "live_manifest_mutated": False,
+        "protected_surface_mutation_count": 0,
+        "authority_effect": "none",
+        "adoption_timing": contract["adoption_timing"],
+        "approval_required": True,
+        "phase7_allowed": False,
+        "policy_closure_state": "incomplete",
+    }
+
+
 def run_official_mode(
     *,
     attempt_id: str,
@@ -706,6 +1263,8 @@ def run_official_mode(
                 attempt_id=attempt_id,
                 mode=mode,
             )
+    if mode == "phase6-gate-candidate":
+        return build_phase6_gate_candidate(attempt_id=attempt_id)
     return base.run_official_mode(attempt_id=attempt_id, mode=mode)
 
 
@@ -715,6 +1274,41 @@ def validate_official_attempt(
     requirement: str,
 ) -> dict[str, Any]:
     _require_attempt_id(attempt_id)
+    if requirement == "gate-candidate":
+        return {
+            "schema_version": (
+                "public_text_quality_official_validation_result_v1"
+            ),
+            "status": "PASS",
+            "attempt_id": ATTEMPT_ID,
+            "requirement": "gate-candidate",
+            "no_write": True,
+            **_validate_gate_candidate(ATTEMPT_ROOT),
+        }
+    if requirement == "required-gate":
+        phase5 = base.validate_official_attempt(
+            attempt_id=attempt_id,
+            requirement="phase5",
+        )
+        successor = _validate_phase0_successor(ATTEMPT_ROOT)
+        accepted = phase5.get("qualified_disposition") == "accepted"
+        return {
+            "schema_version": (
+                "public_text_quality_required_gate_result_v1"
+            ),
+            "status": "PASS" if accepted else "BLOCKED",
+            "attempt_id": ATTEMPT_ID,
+            "qualified_disposition": phase5[
+                "qualified_disposition"
+            ],
+            "evaluation_subject_sha256": CANDIDATE_SHA256,
+            "official_current_input_binding_sha256": successor["sha256"],
+            "g4_readiness_sha256": G4_READINESS_SHA256,
+            "policy_closure_state": "incomplete",
+            "publish_boundary_pass_claimed": False,
+            "package_or_release_ready_claimed": False,
+            "live_gate_adopted": False,
+        }
     if requirement not in (
         "phase0",
         "phase1",

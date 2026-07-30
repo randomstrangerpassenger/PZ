@@ -1,0 +1,19 @@
+{
+  "binding_freshness_validation": true,
+  "canonical_serializer": true,
+  "claim_boundary_scan": true,
+  "duplicate_key_rejection": true,
+  "exact_integer_rational_threshold_evaluation": true,
+  "exactly_one_disposition_state_machine": true,
+  "exception_and_waiver_separation": true,
+  "metric_projection_recomputation": true,
+  "owner_or_reviewer_verdict_generation_allowed": false,
+  "policy_foundation_projection_match": true,
+  "policy_raw_sha256": "12bf2c9e025108f217bf5c7304a900694503cebe08fc96d60cdf4c96a48267f0",
+  "protected_surface_no_mutation": true,
+  "schema_version": "public_text_quality_validator_contract_report_v1",
+  "source_runtime_package_write_allowed": false,
+  "status": "PASS",
+  "strict_json_and_jsonl_loader": true,
+  "threshold_exception_waiver_generation_allowed": false
+}

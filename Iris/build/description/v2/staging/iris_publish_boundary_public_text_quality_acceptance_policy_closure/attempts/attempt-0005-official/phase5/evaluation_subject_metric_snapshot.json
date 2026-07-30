@@ -1,0 +1,148 @@
+{
+  "candidate_key_count": 2105,
+  "evaluation_subject_hash": "ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437",
+  "evaluation_subject_kind": "dvf_3_3_korean_naturalization_candidate",
+  "explicit_unadopted_count": 21,
+  "fusion_suppression_transformation_count": 28,
+  "human_review_required_denominator": 2084,
+  "metric_projection_hash": "17156648e3ae9205d18a8ecc600df8e471e856cfb86032fb2eb7ba774a867a61",
+  "metric_rows": [
+    {
+      "denominator": 5915,
+      "denominator_id": "naturalization_source_proposition_v1",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 5915,
+        "numerator": 0
+      },
+      "metric_id": "semantic_preservation_failure",
+      "numerator": 0
+    },
+    {
+      "denominator": 3102,
+      "denominator_id": "naturalization_required_body_plan_role_v1",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 3102,
+        "numerator": 0
+      },
+      "metric_id": "unsatisfied_required_body_plan_role",
+      "numerator": 0
+    },
+    {
+      "denominator": 28,
+      "denominator_id": "naturalization_fusion_suppression_transformation_v1",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 28,
+        "numerator": 0
+      },
+      "metric_id": "equivalence_proof_failure",
+      "numerator": 0
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_candidate_item_v1",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "metric_id": "compiler_invalid_pattern",
+      "numerator": 0
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:duplicate_proposition_realization",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "metric_id": "duplicate_proposition_realization",
+      "numerator": 0
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:repeated_identity_noun_window",
+      "disposition_class": "advisory_debt",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "metric_id": "repeated_identity_noun_window",
+      "numerator": 0
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:banned_internal_abstraction",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "metric_id": "banned_internal_abstraction",
+      "numerator": 0
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:repeated_skeleton_concentration",
+      "disposition_class": "advisory_debt",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "metric_id": "repeated_skeleton_concentration",
+      "numerator": 0
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:paragraph_fragmentation",
+      "disposition_class": "advisory_debt",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "metric_id": "paragraph_fragmentation",
+      "numerator": 0
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:passive_translationese_pattern",
+      "disposition_class": "advisory_debt",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "metric_id": "passive_translationese_pattern",
+      "numerator": 0
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:empty_or_filler_sentence",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "metric_id": "empty_or_filler_sentence",
+      "numerator": 0
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_human_review_required_v1",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "metric_id": "human_review_blocker_required_denominator",
+      "numerator": 0
+    }
+  ],
+  "quality_evaluable_candidate_count": 2084,
+  "required_body_plan_role_count": 3102,
+  "schema_version": "public_text_quality_candidate_metric_snapshot_v1",
+  "source_proposition_count": 5915,
+  "technical_blocker_count": 0
+}

@@ -1,0 +1,9 @@
+{
+  "attempt_id": "attempt-0005-official",
+  "broad_unignore_count": 0,
+  "exact_phase6_unignore_materialized": true,
+  "live_adoption_gitignore_change_required": false,
+  "live_adoption_gitignore_diff": [],
+  "schema_version": "public_text_quality_gitignore_exact_unignore_patch_v1",
+  "status": "PASS"
+}

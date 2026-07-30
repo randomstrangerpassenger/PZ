@@ -1,0 +1,13 @@
+{
+  "attempt_id": "attempt-0005-official",
+  "base_required_artifact_count": 149,
+  "base_required_test_count": 56,
+  "candidate_route_recensus_authority": "fresh_validator_and_route_execution",
+  "prerequisite_ignored_count": 0,
+  "prerequisite_required_count": 39,
+  "prerequisite_tracked_count": 39,
+  "publish_required_artifact_addition_count": 10,
+  "publish_required_test_addition_count": 1,
+  "schema_version": "public_text_quality_required_artifact_recensus_v1",
+  "status": "PASS"
+}

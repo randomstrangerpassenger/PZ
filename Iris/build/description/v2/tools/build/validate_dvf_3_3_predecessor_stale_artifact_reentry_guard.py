@@ -18,6 +18,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Validate DVF 3-3 predecessor/stale artifact reentry guard.")
     parser.add_argument("--require-complete", action="store_true")
     parser.add_argument("--probe-contract", action="store_true")
+    parser.add_argument("--no-write-report", action="store_true")
     args = parser.parse_args()
     if args.probe_contract:
         claim_inputs = [
@@ -38,7 +39,10 @@ def main() -> int:
         }
         print(json.dumps(payload, ensure_ascii=False, sort_keys=True))
         return 0
-    report, ok = validate_artifacts(require_complete=args.require_complete)
+    report, ok = validate_artifacts(
+        require_complete=args.require_complete,
+        write_report=not args.no_write_report,
+    )
     print(json.dumps({"status": report["status"], "error_count": report["error_count"]}, sort_keys=True))
     return 0 if ok else 1
 

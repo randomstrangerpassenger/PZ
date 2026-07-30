@@ -1836,6 +1836,7 @@ def run_full_repository_gate(
     pytest_completed: subprocess.CompletedProcess[bytes] | None = None
     raw_result: dict[str, Any] = {}
     standalone_rows: list[dict[str, Any]] = []
+    execution_status_baseline = ""
     execution_status_after = ""
     fixture_result: dict[str, Any] = {}
     mirror_result: dict[str, Any] = {}
@@ -1862,6 +1863,12 @@ def run_full_repository_gate(
         mirror_result = _materialize_package_runtime_mirror(
             repo, subject["commit"], checkout, contract
         )
+        isolated_temp_root = checkout / ".dvf_tmp"
+        isolated_temp_root.mkdir()
+        environment["IRIS_DVF_ISOLATED_TEMP_ROOT"] = str(
+            isolated_temp_root
+        )
+        execution_status_baseline = _status_snapshot(checkout)
         materialization_receipt = {
             "schema_version": (
                 "iris-clean-checkout-full-materialization-receipt-v1"
@@ -2008,6 +2015,13 @@ def run_full_repository_gate(
     after_status = _status_snapshot(repo, include_ignored=False)
     ignored_status_after = _ignored_status_snapshot(repo)
     ignored_status_unchanged = ignored_status_after == ignored_status_before
+    execution_status_unchanged = (
+        execution_status_after == execution_status_baseline
+    )
+    execution_mutation_rows = sorted(
+        set(execution_status_after.splitlines())
+        ^ set(execution_status_baseline.splitlines())
+    )
     pytest_pass = (
         pytest_completed.returncode == 0
         and raw_result.get("status") == "PASS"
@@ -2027,6 +2041,7 @@ def run_full_repository_gate(
         and not before_status
         and not after_status
         and ignored_status_unchanged
+        and execution_status_unchanged
         and cleanup_status == "PASS"
         and not any(work_root.iterdir())
         else "FAIL"
@@ -2101,6 +2116,8 @@ def run_full_repository_gate(
         "source_checkout_clean_before": not before_status,
         "source_checkout_clean_after": not after_status,
         "source_checkout_ignored_state_unchanged": ignored_status_unchanged,
+        "external_execution_status_unchanged": execution_status_unchanged,
+        "external_execution_mutation_count": len(execution_mutation_rows),
         "external_execution_checkout_cleanup_status": cleanup_status,
         "external_work_root_empty_after": not any(work_root.iterdir()),
     }
@@ -2147,9 +2164,15 @@ def run_full_repository_gate(
         "source_repository_ignored_state_unchanged": ignored_status_unchanged,
         "required_input_path_count": len(required_input_paths),
         "ignored_required_input_paths": ignored_required_paths,
+        "external_execution_status_baseline": (
+            execution_status_baseline.splitlines()
+        ),
         "external_execution_status_after": (
             execution_status_after.splitlines()
         ),
+        "external_execution_status_unchanged": execution_status_unchanged,
+        "external_execution_mutation_count": len(execution_mutation_rows),
+        "external_execution_mutation_rows": execution_mutation_rows,
         "external_execution_status_counts": _status_counts(
             execution_status_after
         ),

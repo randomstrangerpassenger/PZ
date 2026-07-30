@@ -1947,7 +1947,11 @@ def generate_artifacts(*, run_current_route: bool = False, preflight_only: bool 
     return final
 
 
-def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any], bool]:
+def validate_artifacts(
+    *,
+    require_complete: bool = False,
+    write_report: bool = True,
+) -> tuple[dict[str, Any], bool]:
     errors: list[dict[str, Any]] = []
     required_checks: list[tuple[str, dict[str, Any]]] = [
         ("phase0/go_no_go_preflight_report.json", {"status": "PASS", "go_no_go_decision": "GO"}),
@@ -2024,8 +2028,9 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
         "error_count": len(errors),
         "errors": errors,
     }
-    write_json(
-        phase_path("phase6", "validation_report.require_complete.json" if require_complete else "validation_report.all.json"),
-        report,
-    )
+    if write_report:
+        write_json(
+            phase_path("phase6", "validation_report.require_complete.json" if require_complete else "validation_report.all.json"),
+            report,
+        )
     return report, not errors

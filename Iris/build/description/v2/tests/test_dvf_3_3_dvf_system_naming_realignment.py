@@ -12,7 +12,6 @@ REPO = Path(__file__).resolve().parents[5]
 TOOLS = REPO / "Iris/build/description/v2/tools/build"
 ROUND_ID = "dvf_3_3_dvf_system_naming_realignment"
 ROOT = REPO / "Iris/build/description/v2/staging" / ROUND_ID
-RUNNER = TOOLS / f"run_{ROUND_ID}.py"
 VALIDATOR = TOOLS / f"validate_{ROUND_ID}.py"
 INNER = os.environ.get("DVF_SYSTEM_NAMING_REALIGNMENT_INNER_CURRENT_ROUTE") == "1"
 
@@ -22,23 +21,8 @@ def load_json(path: Path) -> dict:
 
 
 class DvfSystemNamingRealignmentCurrentRouteTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        final = ROOT / "phase6/final_naming_realignment_machine_report.json"
-        if final.exists():
-            return
-        result = subprocess.run(
-            [sys.executable, "-B", str(RUNNER), "--mode", "all", "--skip-current-route"],
-            cwd=REPO,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-        if result.returncode != 0:
-            raise AssertionError(
-                "naming realignment artifact generation failed\n"
-                f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
-            )
+    # The naming packet is an adopted sealed input; current-route validation must
+    # not materialize or rewrite it.
 
     def test_required_gate_evidence_is_subprocess_generated_and_governance_only(self) -> None:
         final = load_json(ROOT / "phase6/final_naming_realignment_machine_report.json")
@@ -63,6 +47,7 @@ class DvfSystemNamingRealignmentCurrentRouteTest(unittest.TestCase):
                 str(VALIDATOR),
                 "--require-complete",
                 "--skip-route-requirements",
+                "--no-write-report",
             ],
             cwd=REPO,
             text=True,

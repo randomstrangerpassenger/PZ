@@ -42,26 +42,9 @@ def load_command_contract() -> dict:
 
 
 class DvfCutoverToolingReadinessTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        scripts = [
-            "generate_dvf_3_3_overlay_support_artifact.py",
-            "manage_dvf_3_3_runtime_chunk_cutover.py",
-            "apply_dvf_3_3_consumer_migration.py",
-            "generate_dvf_3_3_row_level_migration_ledger.py",
-            "validate_dvf_3_3_actual_diff_to_ledger.py",
-            "validate_dvf_3_3_command_surface_mapping.py",
-        ]
-        for script in scripts:
-            result = subprocess.run(
-                [sys.executable, "-B", str(TOOLS / script)],
-                cwd=REPO,
-                text=True,
-                capture_output=True,
-                check=False,
-            )
-            if result.returncode != 0:
-                raise AssertionError(f"{script} failed\nSTDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}")
+    # This required gate consumes the tracked, sealed readiness evidence. Running
+    # its historical producer against later current inputs would silently replace
+    # the 163-row seal with a different authority surface and mutate the checkout.
 
     def test_phase0_command_mapping_has_downstream_compatibility_fields(self) -> None:
         mapping = load_json(ROOT / "phase0/command_surface_mapping.json")

@@ -1,14 +1,11 @@
 from __future__ import annotations
 
 import json
-import subprocess
-import sys
 import unittest
 from pathlib import Path
 
 
 REPO = Path(__file__).resolve().parents[5]
-SCRIPT = REPO / "Iris/build/description/v2/tools/build/runtime_payload_state_integrity.py"
 ROOT = REPO / "Iris/build/description/v2/staging/runtime_payload_state_integrity"
 
 
@@ -21,17 +18,9 @@ def load_jsonl(path: Path) -> list[dict]:
 
 
 class RuntimePayloadStateIntegrityTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        result = subprocess.run(
-            [sys.executable, "-B", str(SCRIPT), "--mode", "validate"],
-            cwd=REPO,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-        if result.returncode != 0:
-            raise AssertionError(f"runtime payload state integrity generation failed\nSTDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}")
+    # The predecessor-residue decision is sealed historical/current-route
+    # evidence. Recomputing it from the later runtime surface changes its meaning
+    # and mutates the repository during validation.
 
     def test_phase0_inventory_resolves_current_payload_shape(self) -> None:
         inventory = load_json(ROOT / "phase0/runtime_payload_state_inventory.json")

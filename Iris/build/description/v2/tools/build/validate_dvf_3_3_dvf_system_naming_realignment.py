@@ -13,12 +13,14 @@ def main() -> int:
     parser.add_argument("--root", type=Path, default=EVIDENCE_ROOT)
     parser.add_argument("--require-complete", action="store_true")
     parser.add_argument("--skip-route-requirements", action="store_true")
+    parser.add_argument("--no-write-report", action="store_true")
     args = parser.parse_args()
 
     report, ok = validate_artifacts(
         args.root,
         require_complete=args.require_complete,
         skip_route_requirements=args.skip_route_requirements,
+        write_report=not args.no_write_report,
     )
     print(json.dumps({"status": report["status"], "error_count": report["error_count"]}, sort_keys=True))
     return 0 if ok else 1

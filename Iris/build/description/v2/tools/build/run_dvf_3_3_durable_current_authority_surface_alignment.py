@@ -1435,7 +1435,12 @@ def generate_artifacts(root: Path = EVIDENCE_ROOT, *, run_current_route: bool = 
     return phase7_final(root, rows_after)
 
 
-def validate_artifacts(root: Path = EVIDENCE_ROOT, *, require_complete: bool = False) -> tuple[dict[str, Any], bool]:
+def validate_artifacts(
+    root: Path = EVIDENCE_ROOT,
+    *,
+    require_complete: bool = False,
+    write_report: bool = True,
+) -> tuple[dict[str, Any], bool]:
     errors: list[dict[str, Any]] = []
     required_checks = [
         ("phase1/manifest_schema_header_report.json", {"status": "PASS"}),
@@ -1515,10 +1520,11 @@ def validate_artifacts(root: Path = EVIDENCE_ROOT, *, require_complete: bool = F
         "error_count": len(errors),
         "errors": errors,
     }
-    name = "validation_report.require_complete.json" if require_complete else "validation_report.all.json"
-    write_json(root / "phase7" / name, report)
-    if (root / "phase7" / "primary_review_artifact_manifest.json").exists():
-        write_independent_review_hash_report(root)
+    if write_report:
+        name = "validation_report.require_complete.json" if require_complete else "validation_report.all.json"
+        write_json(root / "phase7" / name, report)
+        if (root / "phase7" / "primary_review_artifact_manifest.json").exists():
+            write_independent_review_hash_report(root)
     return report, not errors
 
 

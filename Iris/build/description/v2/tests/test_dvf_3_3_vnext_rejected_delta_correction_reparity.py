@@ -1,15 +1,12 @@
 from __future__ import annotations
 
 import json
-import subprocess
-import sys
 import unittest
 from pathlib import Path
 
 
 REPO = Path(__file__).resolve().parents[5]
 ROOT = REPO / "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity"
-SCRIPT = REPO / "Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_rejected_delta_correction_reparity.py"
 REQUIRED_MANIFEST = REPO / "Iris/_docs/round3/current_route_required_validations.json"
 PRIOR_FINAL = (
     "Iris/build/description/v2/staging/dvf_3_3_vnext_delta_disposition_guard_seal/"
@@ -32,15 +29,9 @@ class DvfVnextRejectedDeltaCorrectionReparityTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.live_manifest_before = load_json(REQUIRED_MANIFEST) if REQUIRED_MANIFEST.exists() else None
-        result = subprocess.run(
-            [sys.executable, "-B", str(SCRIPT)],
-            cwd=REPO,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-        if result.returncode != 0:
-            raise AssertionError(result.stdout + result.stderr)
+        # The correction/reparity packet is an adopted sealed input. Its producer
+        # also renders bridge candidates, so invoking it here would violate the
+        # read-only current-route contract.
         cls.live_manifest_after = load_json(REQUIRED_MANIFEST) if REQUIRED_MANIFEST.exists() else None
 
     def test_corrected_reparity_removes_state_rejections_and_preserves_control_set(self) -> None:

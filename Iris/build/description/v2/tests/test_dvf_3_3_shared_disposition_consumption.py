@@ -10,7 +10,6 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[5]
 TOOLS = REPO / "Iris/build/description/v2/tools/build"
 ROOT = REPO / "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption"
-SCRIPT = TOOLS / "run_dvf_3_3_shared_disposition_consumption.py"
 VALIDATOR = TOOLS / "validate_dvf_3_3_shared_disposition_consumption.py"
 
 
@@ -39,20 +38,8 @@ def load_classifier_probe() -> dict:
 
 
 class SharedDispositionConsumptionTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        result = subprocess.run(
-            [sys.executable, "-B", str(SCRIPT), "--mode", "all"],
-            cwd=REPO,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-        if result.returncode != 0:
-            raise AssertionError(
-                "shared disposition consumption generation failed\n"
-                f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
-            )
+    # Required validation reads the adopted sealed packet. Re-running its
+    # historical producer is not part of the current-route test contract.
 
     def test_phase1_census_is_bounded_and_covers_sealed_axis_tokens(self) -> None:
         predicate = load_json(ROOT / "phase1/bounded_census_predicate.json")

@@ -495,6 +495,36 @@ def is_top_doc_boundary_routing_definition(path: Path, line: str) -> bool:
     if normalized not in {"docs/ARCHITECTURE.md", "docs/DECISIONS.md", "docs/ROADMAP.md"}:
         return False
     lowered = line.lower()
+    stripped = lowered.strip()
+    public_text_acceptance = (
+        "public-text acceptance" in lowered
+        or "public text acceptance" in lowered
+    )
+    positive_completion_markers = (
+        "achieved",
+        "accepted",
+        "complete",
+        "pass",
+        "satisfied",
+        "달성",
+        "완료",
+        "통과",
+    )
+    if (
+        normalized == "docs/ARCHITECTURE.md"
+        and public_text_acceptance
+        and not any(marker in lowered for marker in positive_completion_markers)
+        and (
+            stripped.startswith(("->", "→"))
+            or "!=" in lowered
+            or (
+                "별도" in lowered
+                and "naturalization" in lowered
+                and "publish boundary" in lowered
+            )
+        )
+    ):
+        return True
     if "-> publish boundary closure" in lowered or "→ publish boundary closure" in lowered:
         return True
     if (

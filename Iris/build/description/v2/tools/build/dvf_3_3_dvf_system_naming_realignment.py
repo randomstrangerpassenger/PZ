@@ -1600,6 +1600,7 @@ def validate_artifacts(
     *,
     require_complete: bool = False,
     skip_route_requirements: bool = False,
+    write_report: bool = True,
 ) -> tuple[dict[str, Any], bool]:
     errors: list[dict[str, Any]] = []
     required_files = [
@@ -1707,10 +1708,11 @@ def validate_artifacts(
         "require_complete": require_complete,
         "skip_route_requirements": skip_route_requirements,
     }
-    write_json(
-        root / "phase6" / ("validation_report.require_complete.json" if require_complete else "validation_report.json"),
-        report,
-    )
+    if write_report:
+        write_json(
+            root / "phase6" / ("validation_report.require_complete.json" if require_complete else "validation_report.json"),
+            report,
+        )
     return report, not errors
 
 

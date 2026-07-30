@@ -11,7 +11,6 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[5]
 TOOLS = REPO / "Iris/build/description/v2/tools/build"
 ROOT = REPO / "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard"
-RUNNER = TOOLS / "run_dvf_3_3_predecessor_stale_artifact_reentry_guard.py"
 VALIDATOR = TOOLS / "validate_dvf_3_3_predecessor_stale_artifact_reentry_guard.py"
 INNER_CURRENT_ROUTE = os.environ.get("DVF_PREDECESSOR_STALE_INNER_CURRENT_ROUTE") == "1"
 
@@ -37,25 +36,8 @@ def load_contract_probe() -> dict:
 
 
 class DvfPredecessorStaleArtifactReentryGuardTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        final = ROOT / "phase6/final_predecessor_stale_artifact_reentry_guard_report.json"
-        if final.exists():
-            payload = load_json(final)
-            if payload.get("machine_contract_status") == "PASS":
-                return
-        result = subprocess.run(
-            [sys.executable, "-B", str(RUNNER), "--mode", "generate"],
-            cwd=REPO,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-        if result.returncode != 0:
-            raise AssertionError(
-                "predecessor/stale artifact guard generation failed\n"
-                f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
-            )
+    # The predecessor/stale packet is sealed evidence. Validation reads it and
+    # exercises explicit negative probes without regenerating repository output.
 
     def test_preflight_denominator_and_taxonomy_pass(self) -> None:
         preflight = load_json(ROOT / "phase0/go_no_go_preflight_report.json")
@@ -207,7 +189,13 @@ class DvfPredecessorStaleArtifactReentryGuardTest(unittest.TestCase):
         if INNER_CURRENT_ROUTE:
             return
         result = subprocess.run(
-            [sys.executable, "-B", str(VALIDATOR), "--require-complete"],
+            [
+                sys.executable,
+                "-B",
+                str(VALIDATOR),
+                "--require-complete",
+                "--no-write-report",
+            ],
             cwd=REPO,
             text=True,
             capture_output=True,

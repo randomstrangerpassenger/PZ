@@ -12,7 +12,6 @@ from clean_checkout_test_paths import external_test_path
 
 REPO = Path(__file__).resolve().parents[5]
 ROOT = REPO / "Iris/build/description/v2/staging/dvf_3_3_vnext_delta_guard_current_route_integration"
-SCRIPT = REPO / "Iris/build/description/v2/tools/build/dvf_3_3_vnext_delta_guard_current_route_integration.py"
 RUNNER = REPO / "Iris/_docs/round3/round3_run_contract_tests.py"
 REQUIRED_MANIFEST = REPO / "Iris/_docs/round3/current_route_required_validations.json"
 
@@ -28,15 +27,8 @@ class DvfVnextDeltaGuardCurrentRouteIntegrationTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.live_manifest_before = load_json(REQUIRED_MANIFEST) if REQUIRED_MANIFEST.exists() else None
-        result = subprocess.run(
-            [sys.executable, "-B", str(SCRIPT)],
-            cwd=REPO,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-        if result.returncode != 0:
-            raise AssertionError(result.stdout + result.stderr)
+        # The integration packet is already sealed and adopted. Current-route
+        # validation verifies it without rebuilding repository-bound evidence.
         cls.live_manifest_after = load_json(REQUIRED_MANIFEST) if REQUIRED_MANIFEST.exists() else None
 
     def test_final_report_preserves_claim_boundary(self) -> None:

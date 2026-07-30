@@ -1,14 +1,11 @@
 from __future__ import annotations
 
 import json
-import subprocess
-import sys
 import unittest
 from pathlib import Path
 
 
 REPO = Path(__file__).resolve().parents[5]
-TOOLS = REPO / "Iris/build/description/v2/tools/build"
 ROOT = REPO / "Iris/build/description/v2/staging/consumer_universe_denominator_lock"
 
 
@@ -21,20 +18,8 @@ def load_jsonl(path: Path) -> list[dict]:
 
 
 class ConsumerUniverseDenominatorLockTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        result = subprocess.run(
-            [sys.executable, "-B", str(TOOLS / "generate_consumer_universe_denominator_lock_artifacts.py")],
-            cwd=REPO,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-        if result.returncode != 0:
-            raise AssertionError(
-                "consumer universe denominator lock generation failed\n"
-                f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
-            )
+    # The denominator registry is a sealed governance input. Required validation
+    # must not regenerate it as a side effect of importing this test class.
 
     def test_registry_locks_scalar_denominator_roles(self) -> None:
         registry = load_json(ROOT / "phase4/consumer_universe_denominator_registry.json")

@@ -1,14 +1,12 @@
 from __future__ import annotations
 
 import json
-import subprocess
 import unittest
 from pathlib import Path
 
 
 REPO = Path(__file__).resolve().parents[5]
 ROOT = REPO / "Iris/build/description/v2/staging/dvf_3_3_vnext_delta_disposition_guard_seal"
-SCRIPT = REPO / "Iris/build/description/v2/tools/build/build_dvf_3_3_vnext_delta_disposition_guard_seal.py"
 
 
 def load_json(path: Path) -> dict:
@@ -20,17 +18,8 @@ def load_jsonl(path: Path) -> list[dict]:
 
 
 class DvfVnextDeltaDispositionGuardSealTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        result = subprocess.run(
-            ["python", "-B", str(SCRIPT)],
-            cwd=REPO,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-        if result.returncode != 0:
-            raise AssertionError(result.stdout + result.stderr)
+    # The tracked Phase 1-10 packet is sealed evidence. Rebuilding it would
+    # require historical Phase 11 execution input that is not a current artifact.
 
     def test_phase1_binds_sealed_per_row_delta_source_without_rediff(self) -> None:
         verdict = load_json(ROOT / "phase1/per_row_delta_source_verdict.json")

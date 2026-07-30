@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import subprocess
@@ -27,6 +28,38 @@ REQUIRED_MANIFEST = (
     / "round3"
     / "current_route_required_validations.json"
 )
+
+
+def sha256_file(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def expected_live_failure(required_manifest: Path) -> tuple[str, list[str]]:
+    manifest = json.loads(required_manifest.read_text(encoding="utf-8"))
+    selection = manifest["registry_runtime_compatibility"]
+    alignment = selection["current_source_alignment"]
+    facts_path = REPO_ROOT / alignment["applies_when_current_facts_path"]
+    if sha256_file(facts_path) == alignment["applies_when_current_facts_sha256"]:
+        return "registry_runtime_compatibility_current_source_stale", []
+
+    toolchain_manifest = (
+        REPO_ROOT
+        / selection["bundle_root"]
+        / "implementation_toolchain_manifest.json"
+    )
+    rows = json.loads(toolchain_manifest.read_text(encoding="utf-8"))["rows"]
+    drift_paths = sorted(
+        row["path"]
+        for row in rows
+        if not (REPO_ROOT / row["path"]).is_file()
+        or sha256_file(REPO_ROOT / row["path"]) != row["sha256"]
+    )
+    if not drift_paths:
+        raise AssertionError(
+            "current facts no longer match the stale-source marker, but the "
+            "selected RTC bundle has no toolchain drift explaining a BLOCKED result"
+        )
+    return "implementation_toolchain_freshness_failed", drift_paths
 
 
 class RegistryRuntimeCompatibilityCurrentRouteTest(unittest.TestCase):
@@ -87,10 +120,12 @@ class RegistryRuntimeCompatibilityCurrentRouteTest(unittest.TestCase):
             else:
                 self.assertEqual(completed.returncode, 2, completed.stderr)
                 self.assertEqual(payload["status"], "BLOCKED")
-                self.assertEqual(
-                    payload["failure_code"],
-                    "registry_runtime_compatibility_current_source_stale",
+                expected_code, drift_paths = expected_live_failure(
+                    required_manifest
                 )
+                self.assertEqual(payload["failure_code"], expected_code)
+                for path in drift_paths:
+                    self.assertIn(repr(path), payload["message"])
                 self.assertFalse((Path(temporary) / "required-gate-temp").exists())
 
     def test_explicit_canonical_surface_validation_cannot_bypass_staleness(

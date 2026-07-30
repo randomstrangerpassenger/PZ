@@ -342,6 +342,12 @@
     "preexisting_source_ignored_state_policy": "may_exist_but_must_be_byte-for-byte_status-stable_and_is_never_cloned",
     "execution_checkout_initial_ignored_or_local_residue_required_count": 0,
     "generated_state_location": "caller_supplied_external_work_root",
+    "disposable_bootstrap_local_paths": [
+      ".dvf_tmp",
+      "frozen_predecessor candidate seed targets",
+      "package runtime mirror targets"
+    ],
+    "post_bootstrap_test_execution_status_policy": "must_equal_exact_bootstrap_baseline",
     "cleanup_required": true,
     "git_core_longpaths": true,
     "windows_maximum_execution_checkout_root_length": 56,

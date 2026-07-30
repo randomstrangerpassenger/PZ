@@ -11,7 +11,6 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[5]
 TOOLS = REPO / "Iris/build/description/v2/tools/build"
 ROOT = REPO / "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment"
-RUNNER = TOOLS / "run_dvf_3_3_durable_current_authority_surface_alignment.py"
 VALIDATOR = TOOLS / "validate_dvf_3_3_durable_current_authority_surface_alignment.py"
 INNER_CURRENT_ROUTE = os.environ.get("DVF_DURABLE_SURFACE_INNER_CURRENT_ROUTE") == "1"
 
@@ -21,27 +20,8 @@ def load_json(path: Path) -> dict:
 
 
 class DvfDurableCurrentAuthoritySurfaceAlignmentTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        if INNER_CURRENT_ROUTE:
-            return
-        final_report = ROOT / "phase7/final_durable_current_authority_surface_alignment_report.json"
-        if final_report.exists():
-            payload = load_json(final_report)
-            if payload.get("status") == "PASS" and payload.get("machine_plan_pass") is True:
-                return
-        result = subprocess.run(
-            [sys.executable, "-B", str(RUNNER), "--mode", "machine-pass"],
-            cwd=REPO,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-        if result.returncode != 0:
-            raise AssertionError(
-                "durable current authority surface alignment runner failed\n"
-                f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
-            )
+    # Current-route validation consumes the adopted Phase 1-7 packet. Artifact
+    # generation remains a separate authority operation.
 
     def test_inventory_tracking_and_import_boundary_pass(self) -> None:
         inventory = load_json(ROOT / "phase1/durable_surface_inventory.json")
@@ -126,7 +106,13 @@ class DvfDurableCurrentAuthoritySurfaceAlignmentTest(unittest.TestCase):
         self.assertEqual(review["mismatch_count"], 0)
 
         result = subprocess.run(
-            [sys.executable, "-B", str(VALIDATOR), "--require-complete"],
+            [
+                sys.executable,
+                "-B",
+                str(VALIDATOR),
+                "--require-complete",
+                "--no-write-report",
+            ],
             cwd=REPO,
             text=True,
             capture_output=True,

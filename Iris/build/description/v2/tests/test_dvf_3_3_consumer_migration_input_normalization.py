@@ -42,28 +42,8 @@ def load_negative_helper_probe() -> dict:
 
 
 class DvfConsumerMigrationInputNormalizationTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        scripts = [
-            "generate_dvf_3_3_consumer_migration_input_contract.py",
-            "generate_dvf_3_3_consumer_migration_eligibility_matrix.py",
-            "generate_dvf_3_3_missing_path_disposition_ledger.py",
-            "validate_dvf_3_3_consumer_migration_anchor_relocation.py",
-            "generate_dvf_3_3_authority_role_migration_rule_seed.py",
-            "generate_dvf_3_3_downstream_command_surface_compatibility_manifest.py",
-            "generate_dvf_3_3_consumer_migration_reconciled_input_manifest.py",
-            "validate_dvf_3_3_consumer_migration_input_normalization.py",
-        ]
-        for script in scripts:
-            result = subprocess.run(
-                [sys.executable, "-B", str(TOOLS / script)],
-                cwd=REPO,
-                text=True,
-                capture_output=True,
-                check=False,
-            )
-            if result.returncode != 0:
-                raise AssertionError(f"{script} failed\nSTDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}")
+    # The normalization packet is sealed current-route evidence. Its producer is
+    # an authority operation, not an undeclared test prerequisite.
 
     def test_phase0_freezes_source_membership_and_scope(self) -> None:
         fingerprint = load_json(ROOT / "phase0/source_matrix_fingerprint_report.json")

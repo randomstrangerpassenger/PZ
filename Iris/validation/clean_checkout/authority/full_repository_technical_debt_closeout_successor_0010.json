@@ -1,0 +1,74 @@
+{
+  "schema_version": "iris_clean_checkout_full_repository_technical_debt_closeout_successor_v10",
+  "recorded_date": "2026-07-31",
+  "status": "complete",
+  "record_mode": "append_only_g1_candidate_projection_post_adoption_parity_closeout",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "predecessor": {
+    "path": "Iris/validation/clean_checkout/authority/full_repository_technical_debt_closeout_successor_0009.json",
+    "git_blob_id": "812de53bed587d193d8c190200870812be246174",
+    "git_blob_raw_sha256": "50c80de908b7f90a59bff1d2349d5f4190c5e7bbcb3e5e1a49829c7abd145a41",
+    "rewrite_permitted": false
+  },
+  "gate_manifest_successor": {
+    "path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0010.json",
+    "git_blob_raw_sha256": "2378a6abe78fa115d0de66763413f27d233dce325ff195e48b655f5ddfe252c1",
+    "status": "PASS"
+  },
+  "validated_subject": {
+    "commit": "e5f1d7c0f4635340014667d882f82bcec40bc27c",
+    "tree": "0bf68cd938b865eb03f6976b6fe02e6840a3f7d6"
+  },
+  "parity_closeout": {
+    "root_cause_identified": true,
+    "actual_premature_claim": false,
+    "candidate_scanner_consumes_projected_manifest": true,
+    "candidate_projection_status": "136/136_PASS",
+    "post_adoption_equivalent_status": "136/136_PASS",
+    "post_adoption_exact_delta": "10_required_artifacts_plus_1_required_test",
+    "candidate_post_denominator_equal": true,
+    "candidate_post_artifact_inventory_equal": true,
+    "candidate_post_scanner_result_equal": true,
+    "candidate_post_scanner_blocker_count": 0,
+    "manifest_sha256": "3107201fd7e6da0c8a97a3c8d9ee8119d2d4d9768d0da3fcbcb306cc2447c75b",
+    "scanner_summary_sha256": "e8d19992aa7df957b998d176410b4e302fb5386060fe15ac7cd08e01ef271111",
+    "inventory_sha256": "e9e04f24f0e1ce8cec3ef80feddbe7c3d5d1eb3764ff63ac2afd1ad35619a6a0"
+  },
+  "validation_closeout": {
+    "structured_scanner_status": "9/9_PASS",
+    "existing_negative_fixture_status": "10/10_PASS_UNCHANGED",
+    "rollback_live_route_status": "135/135_PASS",
+    "candidate_projection_status": "136/136_PASS",
+    "post_adoption_equivalent_status": "136/136_PASS",
+    "pytest_identity_count": 195,
+    "standalone_validation_count": 4,
+    "required_execution_unit_count": 199,
+    "run_a_status": "PASS",
+    "run_b_status": "PASS",
+    "canonical_result_sha256": "2140c2be9ccaeb78860249eb756214aa74ef01227e33fadc0c671655a29fc516",
+    "canonical_results_equal": true,
+    "source_checkout_mutation_count": 0,
+    "external_execution_mutation_count": 0,
+    "disposable_checkout_residue_count": 0
+  },
+  "scope_closeout": {
+    "live_manifest_changed": false,
+    "g4_failure_rollback_or_lifecycle_evidence_changed": false,
+    "g2_executed": false,
+    "g3_executed": false,
+    "g4_executed": false,
+    "g5_executed": false,
+    "g6_executed": false,
+    "historical_g1_successor_overwritten": false,
+    "live_or_protected_mutation_count": 0,
+    "persistent_worktree_created": false
+  },
+  "terminal_state": {
+    "clean_validation_terminal_pass": true,
+    "g1_blocking_condition_count": 0,
+    "g1_blocking_conditions": [],
+    "g4_resume_rule": "resume from the append-only evidence commit containing this record; the validated implementation subject is its direct ancestor",
+    "tests_rerun_for_this_successor_record": false,
+    "self_referential_commit_fields": 0
+  }
+}

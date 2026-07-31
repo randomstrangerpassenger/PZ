@@ -174,6 +174,113 @@ def validate_freeze_document(value: Any) -> dict[str, Any]:
     }
 
 
+def _focused_fixture(schema: str) -> dict[str, Any]:
+    common: dict[str, Any] = {
+        "schema_version": schema,
+        "status": "PASS",
+        "attempt_id": official.ATTEMPT_ID,
+        "live_manifest_sha256": LIVE_SHA256,
+        "evaluation_subject_disposition": "accepted",
+        "claim_bearing_artifact_count": 0,
+        "claim_bearing_artifacts": [],
+        "implementation_path_count": 0,
+        "implementation_paths": [],
+    }
+    if schema == SCHEMA_V1:
+        common.update(
+            {
+                "g1_gate_manifest_sha256": legacy.G1_GATE_MANIFEST_SHA256,
+                "g1_closeout_sha256": legacy.G1_CLOSEOUT_SHA256,
+            }
+        )
+    elif schema == SCHEMA_V2:
+        common.update(
+            {
+                "g1_validated_subject_commit": G1_SUBJECT_COMMIT,
+                "g1_validated_subject_tree": G1_SUBJECT_TREE,
+                "g1_gate_manifest_sha256": G1_GATE_SHA256,
+                "g1_closeout_sha256": G1_CLOSEOUT_SHA256,
+                "readoption_transaction_id": TRANSACTION_ID,
+                "readoption_transaction_identity": TRANSACTION_IDENTITY,
+                "readoption_transaction_contract_sha256": TRANSACTION_CONTRACT_SHA256,
+                "owner_input_sha256": OWNER_INPUT_SHA256,
+                "live_readoption_receipt_sha256": LIVE_RECEIPT_SHA256,
+                "phase6_post_adoption_route_sha256": POST_ROUTE_SHA256,
+                "candidate_manifest_sha256": CANDIDATE_SHA256,
+                "candidate_patch_sha256": PATCH_SHA256,
+                "evaluation_subject_disposition_hash": DISPOSITION_SHA256,
+                "protected_surface_mutation_count": 0,
+                "runtime_lua_package_mutation_count": 0,
+            }
+        )
+    common["freeze_hash"] = base.canonical_hash(common)
+    return common
+
+
+def _focused_expect_rejection(payload: dict[str, Any], label: str) -> None:
+    try:
+        validate_freeze_document(payload)
+    except base.FoundationContractError:
+        return
+    _fail(f"focused negative case did not fail-close: {label}")
+
+
+def run_focused_schema_tests() -> dict[str, Any]:
+    historical = _focused_fixture(SCHEMA_V1)
+    current = _focused_fixture(SCHEMA_V2)
+    historical_result = validate_freeze_document(historical)
+    current_result = validate_freeze_document(current)
+
+    unknown = json.loads(json.dumps(current))
+    unknown["schema_version"] = "unknown-phase7-schema"
+    unknown["freeze_hash"] = base.canonical_hash(
+        {key: child for key, child in unknown.items() if key != "freeze_hash"}
+    )
+    malformed = json.loads(json.dumps(current))
+    del malformed["claim_bearing_artifacts"]
+    malformed["freeze_hash"] = base.canonical_hash(
+        {key: child for key, child in malformed.items() if key != "freeze_hash"}
+    )
+    _focused_expect_rejection(unknown, "unknown_schema")
+    _focused_expect_rejection(malformed, "malformed_schema")
+
+    mismatch_fields = (
+        "g1_validated_subject_commit",
+        "readoption_transaction_identity",
+        "live_readoption_receipt_sha256",
+    )
+    for field in mismatch_fields:
+        mismatch = json.loads(json.dumps(current))
+        mismatch[field] = "0" * 64
+        mismatch["freeze_hash"] = base.canonical_hash(
+            {key: child for key, child in mismatch.items() if key != "freeze_hash"}
+        )
+        _focused_expect_rejection(mismatch, f"mismatch:{field}")
+
+    replay = json.loads(json.dumps(current))
+    if base.pretty_json_bytes(current) != base.pretty_json_bytes(replay):
+        _fail("focused deterministic replay bytes mismatch")
+    if validate_freeze_document(current) != validate_freeze_document(replay):
+        _fail("focused deterministic replay result mismatch")
+    return {
+        "status": "PASS",
+        "case_count": 4,
+        "cases": {
+            "historical_v1_and_current_v2_acceptance": {
+                "status": "PASS",
+                "historical_dispatch": historical_result["schema_dispatch"],
+                "current_dispatch": current_result["schema_dispatch"],
+            },
+            "unknown_and_malformed_schema_rejection": {"status": "PASS"},
+            "successor_transaction_hash_mismatch_rejection": {
+                "status": "PASS",
+                "mismatch_field_count": len(mismatch_fields),
+            },
+            "deterministic_document_replay": {"status": "PASS"},
+        },
+    }
+
+
 def _raw(path: Path, expected: str, label: str) -> dict[str, Any]:
     actual = base.sha256_file(path)
     if actual != expected:

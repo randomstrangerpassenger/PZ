@@ -1927,10 +1927,30 @@ def run_full_repository_gate(
         required_sources,
         tracked_set,
     )
+    explicit_dependency_rows = _validate_explicit_required_dependencies(
+        contract,
+        tracked_set,
+        required_sources,
+    )
+    required_dependency_paths.update(
+        row["path"] for row in explicit_dependency_rows
+    )
     tool_disposition_rows = _validate_explicit_tool_dispositions(
         contract,
         tracked_set,
         required_dependency_paths,
+    )
+    consumer_integration_evidence_rows = (
+        _validate_consumer_integration_evidence(
+            repo,
+            subject["commit"],
+            contract,
+            tracked_set,
+            required_dependency_paths,
+        )
+    )
+    required_dependency_inventory_sha256 = sha256_bytes(
+        canonical_json_bytes(sorted(required_dependency_paths))
     )
     g5_validation = _validate_g5_required_evidence(
         repo,
@@ -2290,6 +2310,15 @@ def run_full_repository_gate(
         ),
         "environment_verification": environment_verification,
         "source_classification_counts": source_counts,
+        "required_dependency_inventory": {
+            "path_count": len(required_dependency_paths),
+            "sha256": required_dependency_inventory_sha256,
+            "explicit_direct_dependency_rows": explicit_dependency_rows,
+            "unresolved_count": 0,
+        },
+        "consumer_integration_evidence_rows": (
+            consumer_integration_evidence_rows
+        ),
         "tool_disposition_rows": tool_disposition_rows,
         "g5_required_evidence": g5_validation,
         "ignored_required_input_count": len(ignored_required_paths),

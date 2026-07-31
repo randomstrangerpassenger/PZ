@@ -1,0 +1,59 @@
+{
+  "schema_version": "public_text_quality_g1_successor_0010_candidate_post_adoption_parity_v1",
+  "status": "PASS",
+  "attempt_id": "attempt-0005-official",
+  "correction_id": "g1-successor-0010-readoption-preflight-0001",
+  "recorded_at": "2026-07-31T10:47:48.747Z",
+  "execution_commit": "555275b1b13b4163b200bc0a2ae5336573821aef",
+  "execution_tree": "1fb9b143135e99fb23a17ecef4d290f059498338",
+  "candidate_manifest_path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase6/required_gate_candidate.json",
+  "candidate_manifest_sha256": "3107201fd7e6da0c8a97a3c8d9ee8119d2d4d9768d0da3fcbcb306cc2447c75b",
+  "disposable_post_adoption_equivalent_manifest": {
+    "path_at_execution": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\g4-r10-0001\\post_adoption_equivalent_manifest.json",
+    "repository_external": true,
+    "single_manifest_copy_only": true,
+    "repository_or_worktree_copy_created": false,
+    "sha256": "3107201fd7e6da0c8a97a3c8d9ee8119d2d4d9768d0da3fcbcb306cc2447c75b",
+    "byte_identical_to_candidate": true
+  },
+  "route_parity": {
+    "candidate_result_sha256": "d886c18b5f7861bbc3ef6c0b386d284f48c82903128b8ab1b91cf86ecfee140c",
+    "post_adoption_equivalent_result_sha256": "8adea66580d04e0772a9f2348022eefb411445487532aae288f7173f132f6ee7",
+    "candidate_selected_identity_count": 136,
+    "post_adoption_equivalent_selected_identity_count": 136,
+    "candidate_passed_count": 136,
+    "post_adoption_equivalent_passed_count": 136,
+    "candidate_exit_code": 0,
+    "post_adoption_equivalent_exit_code": 0,
+    "denominator_equal": true
+  },
+  "inventory_parity": {
+    "required_artifact_count": 159,
+    "required_test_count": 57,
+    "required_artifacts_equal": true,
+    "required_tests_equal": true,
+    "inventory_sha256": "e9e04f24f0e1ce8cec3ef80feddbe7c3d5d1eb3764ff63ac2afd1ad35619a6a0",
+    "required_artifacts_sha256": "51c2241947f97ff03e1b9e209ccc4d15123dd5af892a51085f3bb2e841528ac4",
+    "required_tests_sha256": "a9977f128f466709b8f41e20939cf35524ab53cd3a5b32c92ed1f562d69f0598",
+    "matches_g1_successor_0010_inventory": true
+  },
+  "structured_scanner_parity": {
+    "scanner_result_equal": true,
+    "status": "PASS",
+    "string_leaf_count": 892,
+    "semantic_role_counts": {
+      "claim_text": 36,
+      "identifier": 682,
+      "unknown_string_fail_closed": 174
+    },
+    "blocker_count": 0,
+    "fresh_scanner_result_sha256": "a6a1b65a7c453ceee4be3730dd52eef45cd0b78f4567239cc2cb3185ab857a90",
+    "fresh_scanner_summary_projection_sha256": "7e318ca07a8ca0ca1327872da8ab74ea283965bf6869c830a1271c63a1b9f346",
+    "g1_successor_0010_scanner_summary_sha256": "e8d19992aa7df957b998d176410b4e302fb5386060fe15ac7cd08e01ef271111",
+    "g1_successor_0010_scanner_dimensions_match": true
+  },
+  "candidate_post_adoption_manifest_inventory_scanner_parity": true,
+  "protected_surface_mutation_count": 0,
+  "live_manifest_mutation_count": 0,
+  "authority_effect": "none"
+}

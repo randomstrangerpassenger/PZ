@@ -1,0 +1,119 @@
+{
+  "schema_version": "public_text_quality_gate_readoption_authorization_gap_v1",
+  "status": "WAITING_FOR_EXTERNAL_INPUT",
+  "attempt_id": "attempt-0005-official",
+  "transaction_id": "g1-successor-0010-readoption-0001",
+  "existing_owner_decision_path": "Iris/build/description/v2/owner_inputs/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempt-0005-official/gate_readoption_decision_g1_successor_0009.json",
+  "existing_owner_decision_sha256": "8e7944a8c212c2ebdbfeaefab3d24a529e05b5a9252232605974841b35c0883f",
+  "existing_owner_decision_preserved": true,
+  "existing_authorization_reused": false,
+  "existing_authorization_mismatches": [
+    {
+      "field": "g1_validated_subject_commit",
+      "authorized": "ea1c5f6f078e279f5d72e230364b1f4323ac4fd4",
+      "required": "e5f1d7c0f4635340014667d882f82bcec40bc27c"
+    },
+    {
+      "field": "g1_validated_subject_tree",
+      "authorized": "35b700f2406ab16fdd5d455b0997cde58dbaf26e",
+      "required": "0bf68cd938b865eb03f6976b6fe02e6840a3f7d6"
+    },
+    {
+      "field": "g1_gate_successor_sha256",
+      "authorized": "7f70c0f1c1df1cf879e0e21e9aeb04bbed62d7cb4b31edc13bed14d28cd369f1",
+      "required": "2378a6abe78fa115d0de66763413f27d233dce325ff195e48b655f5ddfe252c1"
+    },
+    {
+      "field": "g1_closeout_successor_sha256",
+      "authorized": "50c80de908b7f90a59bff1d2349d5f4190c5e7bbcb3e5e1a49829c7abd145a41",
+      "required": "d481f9b8a488838595f2db3990ba29116314c82c86ab1ee3762db08c181c57ab"
+    },
+    {
+      "field": "transaction_id",
+      "authorized": "g1-successor-0009-readoption-0001",
+      "required": "g1-successor-0010-readoption-0001"
+    },
+    {
+      "field": "transaction_nonce",
+      "authorized": "3df77479-073a-41b9-80e0-3b9b5dce582a",
+      "required": "c8d7e32b-d7a5-4c13-bf06-10c6e7854996"
+    },
+    {
+      "field": "transaction_identity",
+      "authorized": "3cbb73cdae587d0088af64de3e546515d770398302436bd901e6d0a2dd8df557",
+      "required": "c055f10506f4d4c308bc4521f284eaf630a06ee48fd9d1f933597212824da2a1"
+    },
+    {
+      "field": "readoption_transaction_contract_sha256",
+      "authorized": "d8bb3b88caf4825371282f50bdcba3a576f274a5bf3ccad1a3abb62404ad63ab",
+      "required": "e4d7637609f94b4f2ef98c8c9ba53b466b6ce8c4a81fbdb16aff4747c8e4f1df"
+    }
+  ],
+  "transaction_contract_path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase6/r10-0001/readoption_transaction_contract.json",
+  "transaction_contract_sha256": "e4d7637609f94b4f2ef98c8c9ba53b466b6ce8c4a81fbdb16aff4747c8e4f1df",
+  "required_owner_input_path": "Iris/build/description/v2/owner_inputs/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempt-0005-official/gate_readoption_decision_g1_successor_0010.json",
+  "required_owner_input_schema": "public_text_quality_gate_readoption_decision_v1",
+  "required_owner_input_exact_fields": {
+    "schema_version": "public_text_quality_gate_readoption_decision_v1",
+    "decision": "adopt",
+    "operation": "exact_additive_readoption_of_attempt_0005_required_gate_rows",
+    "attempt_id": "attempt-0005-official",
+    "transaction_id": "g1-successor-0010-readoption-0001",
+    "transaction_nonce": "c8d7e32b-d7a5-4c13-bf06-10c6e7854996",
+    "transaction_identity": "c055f10506f4d4c308bc4521f284eaf630a06ee48fd9d1f933597212824da2a1",
+    "readoption_transaction_contract_sha256": "e4d7637609f94b4f2ef98c8c9ba53b466b6ce8c4a81fbdb16aff4747c8e4f1df",
+    "g1_validated_subject_commit": "e5f1d7c0f4635340014667d882f82bcec40bc27c",
+    "g1_validated_subject_tree": "0bf68cd938b865eb03f6976b6fe02e6840a3f7d6",
+    "g1_gate_successor_sha256": "2378a6abe78fa115d0de66763413f27d233dce325ff195e48b655f5ddfe252c1",
+    "g1_closeout_successor_sha256": "d481f9b8a488838595f2db3990ba29116314c82c86ab1ee3762db08c181c57ab",
+    "g1_clean_checkout_canonical_sha256": "2140c2be9ccaeb78860249eb756214aa74ef01227e33fadc0c671655a29fc516",
+    "preflight_receipt_sha256": "5a2c7b6df08fd267de6d7128eaaa26d7c9c1e8fb6efab330d39b3ca68fd2734c",
+    "live_current_route_result_sha256": "4550543ac522ad3ab967225482c2cf670ef51d2cfebd8f125eb62723e7cbc85d",
+    "candidate_current_route_result_sha256": "d886c18b5f7861bbc3ef6c0b386d284f48c82903128b8ab1b91cf86ecfee140c",
+    "disposable_post_adoption_equivalent_result_sha256": "8adea66580d04e0772a9f2348022eefb411445487532aae288f7173f132f6ee7",
+    "candidate_post_adoption_parity_sha256": "d7fa5ced3a4edbbc1ce9e044d86dd1aa683cfe129dd5b041f61ffcb4a07ced26",
+    "live_manifest_base_sha256": "2ccf98edfd087bb193387a77d0fec5bdb3a1efe9905d66fa9ac5ae74eec2c7d1",
+    "candidate_manifest_sha256": "3107201fd7e6da0c8a97a3c8d9ee8119d2d4d9768d0da3fcbcb306cc2447c75b",
+    "candidate_patch_sha256": "fc2068f1018e9f8ace56e31958702616710d38c38914cb2307c6e598e1db42ad",
+    "evaluation_subject_kind": "dvf_3_3_korean_naturalization_candidate",
+    "evaluation_subject_hash": "ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437",
+    "evaluation_subject_disposition": "accepted",
+    "evaluation_subject_disposition_hash": "2a944a8f7e683726229aade6a9afc12e0475b8e46cf980c24dc03a36be560e64",
+    "naturalization_handoff_manifest_hash": "7fdbb224b3af4231a8bf3f2d37e448a8cdbfb4ed4d9871a83927b22cfdde25ec",
+    "required_artifact_addition_count": 10,
+    "required_test_addition_count": 1,
+    "exact_required_artifact_paths": [
+      "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase0/acceptance_input_binding_manifest.json",
+      "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase0/official_current_input_binding_report.json",
+      "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase1/metric_denominator_contract_validation_report.json",
+      "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase2/policy_hash_seal.json",
+      "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase4/adversarial_fixture_manifest.json",
+      "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase5/evaluation_subject_disposition.json",
+      "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase5/evaluation_subject_disposition_hash_manifest.json",
+      "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase6/stale_disposition_consumption_guard_report.json",
+      "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase6/pre_adoption_protected_surface_report.json",
+      "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase6/required_artifact_recensus_report.json"
+    ],
+    "exact_required_test_ids": [
+      "test_public_text_quality_acceptance_current_route.PublicTextQualityAcceptanceCurrentRouteTest.test_required_gate_runs_standalone_subprocess"
+    ],
+    "expected_post_adoption_official_route_state": "PASS",
+    "expected_post_adoption_selected_identity_count": 136,
+    "expected_exit_code": 0,
+    "adoption_timing": "immediate",
+    "live_gate_readoption_authorized": true,
+    "phase7_authorized_after_post_adoption_pass": true,
+    "automatic_rollback_authorized": false,
+    "owner_identity": "repository_owner_via_direct_codex_instruction",
+    "decided_at": "ACTUAL_UTC_TIME_OF_OWNER_DECISION",
+    "owner_acknowledgement": "authorizes only the exact 10 artifact plus 1 test additive re-adoption bound above and requires fail-close without automatic rollback if post-adoption validation fails",
+    "owner_binding_proof": "SHA256_CANONICAL_JSON_OF_ALL_OTHER_FIELDS"
+  },
+  "live_manifest_mutated": false,
+  "protected_surface_mutation_count": 0,
+  "live_manifest_mutation_count": 0,
+  "phase7_executed": false,
+  "terminal_artifact_created": false,
+  "g5_handoff_executed": false,
+  "authority_effect": "none"
+}

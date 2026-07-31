@@ -1,0 +1,60 @@
+{
+  "schema_version": "public_text_quality_phase7_evaluation_subject_text_identity_review_failure_v1",
+  "status": "FAIL",
+  "verdict": "FAIL",
+  "attempt_id": "attempt-0005-official",
+  "correction_id": "g1-successor-0010-terminal-evaluation-subject-text-identity-0005",
+  "reviewer_kind": "codex_reviewer",
+  "reviewer_identity": "codex_reviewer",
+  "reviewed_at_utc": "2026-07-31T19:23:11.4835809Z",
+  "reviewed_commit": "cb66ecac9b718b3b4b1877660cb1285c471c236b",
+  "reviewed_tree": "80ad0f09b721842636c1eed933ffe277c3426f51",
+  "freeze_sha256": "403bffd3ecac36ff0f6b4e141bfa1478cc64a70c4f80ff69010a050bf0bb7e4f",
+  "artifact_manifest_sha256": "b45210072729941b8dc88f014056f93f54f20a43a26f5b6849e8bacca0afcd38",
+  "review_request_sha256": "d4de01cba62609a51d30dab395350c56a1a389c10694f677123bf4cdff139153",
+  "evaluation_subject_identity_sha256": "79f222937a7cbb276268ce65698ef9fdc1c2ce93cc80003ccdbfd4ba8abe141d",
+  "claim_inventory_sha256": "cf2fb975de9422ebbd1a8635a8d8d12c764738d70803c976f0a7b06a34e3ca65",
+  "critical_finding_count": 0,
+  "important_finding_count": 1,
+  "findings": [
+    {
+      "severity": "Important",
+      "title": "Fresh freeze does not seal the long-path writer implementation or its validation evidence",
+      "impact": "Freeze and manifest replay can pass without attesting the correction that made materialization possible.",
+      "required_correction": "Append-only regenerate the freeze chain with the shared writer implementation, writer regression module and validator, correction contract, validation receipt, and predecessor identity failure explicitly sealed in the appropriate inventories.",
+      "evidence_paths": [
+        "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py",
+        "Iris/build/description/v2/tools/build/public_text_quality_acceptance_official_0005_phase7_evaluation_subject_text_identity.py",
+        "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase7/corrections/terminal-evaluation-subject-text-identity-0005/freeze.json",
+        "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase7/corrections/windows-long-path-writer-0006/correction_contract.json"
+      ]
+    }
+  ],
+  "scope_results": {
+    "windows_extended_length_path_filesystem_calls_only": "PASS",
+    "resolve_and_repository_containment_before_prefix": "PASS",
+    "traversal_outside_symlink_reparse_fail_closed": "PASS",
+    "atomic_sibling_temp_write_fsync_replace_stat_hash_cleanup": "PASS",
+    "no_partial_target_or_temporary_residue": "PASS",
+    "no_host_path_serialized": "PASS",
+    "short_and_non_windows_semantics_preserved": "PASS",
+    "sealed_to_head_role_scoped_text_identity": "PASS",
+    "identity_regression_11_of_11": "PASS",
+    "terminal_dag_fixture_34_nodes_48_edges": "PASS",
+    "freeze_deterministic_byte_replay": "PASS",
+    "canonical_inventory_139": "PASS",
+    "live_manifest_unchanged": "PASS",
+    "protected_runtime_lua_package_live_mutation_zero": "PASS",
+    "predecessor_failure_e17937_immutable": "PASS",
+    "fresh_freeze_writer_implementation_and_evidence_completeness": "FAIL"
+  },
+  "verified_hashes": {
+    "writer_correction_contract_sha256": "e670235e6328d37843055684055003e2dda2a0ff958523cae509e9e3f31a3f6e",
+    "writer_validation_receipt_sha256": "3640367221d748d7ddab8885b6545c32a22b7cbf85b52a1fc588ff399e839937",
+    "predecessor_identity_failure_sha256": "e17937e0902f034d39e59391931918a38d1ddce69fb87dd9df489f152c455010",
+    "live_manifest_sha256": "3107201fd7e6da0c8a97a3c8d9ee8119d2d4d9768d0da3fcbcb306cc2447c75b"
+  },
+  "owner_seal_sufficiency": false,
+  "files_written_by_reviewer": 0,
+  "reviewer_binding_proof": "2939648692d2fee0afbd6bd6487f49b203166a3e838d06692845819792b82433"
+}

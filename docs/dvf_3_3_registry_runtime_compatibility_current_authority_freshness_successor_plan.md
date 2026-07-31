@@ -1,6 +1,6 @@
 # Implementation Plan
 
-> 상태: owner-directed attribution-gated conditional plan / Change 1 discovery preserved / Changes 2–8 not applicable unless a canonical Iris RTC defect is independently reproduced without temporary orchestration
+> 상태: owner-directed non-blocking conditional RTC plan / Change 1 discovery preserved / G4 검사 시스템과 G5 번역체 개선 진행을 차단하지 않음 / Changes 2–8 require canonical Iris RTC defect attribution
 > 작성일: 2026-07-30
 > 최종 개정일: 2026-08-01
 > 대상 축: Iris Artifact Registry / Registry Runtime Compatibility
@@ -26,7 +26,7 @@
 > Near-convergence review findings: `SYN-RTCS-C01` (`CLD-RTCS-C19`), `SYN-RTCS-N01` (`CLD-RTCS-N29`)
 > Latest non-blocking inline finding: `M-01` — plan-review severity taxonomy / `REVIEW_TEMPLATE.md` section mapping
 > Template: `docs/PLAN_TEMPLATE.md`
-> 조건부 historical 최대 claim: 아래 canonical defect attribution gate가 먼저 PASS한 미래 실행에서만, exact Registry current-authority reference set와 canonical runtime failure를 결속한 `Registry Runtime Compatibility PASS`를 고려할 수 있다. 현재 claim은 `not_applicable_unproven_iris_defect`다.
+> 조건부 historical 최대 claim: 아래 canonical defect attribution gate가 먼저 PASS한 미래 실행에서만, exact Registry current-authority reference set와 canonical runtime failure를 결속한 `Registry Runtime Compatibility PASS`를 고려할 수 있다. 현재 claim은 `not_applicable_temporary_tooling_trigger`다.
 
 이 문서는 구현 결과나 PASS 증거가 아니다. 계획 작성 시점의 코드베이스 관찰값, 첨부 로드맵, staging, environment와 predecessor bundle은 current source authority를 선택하거나 Iris RTC 결함을 선언할 권한이 없다. 현재는 아래 attribution predicate를 만족하는 canonical failure가 없으므로 Change 2 이후 실행은 열리지 않는다. 뒤의 finalized G4/G5 handoff 기반 실행 설계는 predicate가 PASS한 미래 경우를 위한 historical design이며 현재 prerequisite가 아니다.
 
@@ -43,16 +43,16 @@
 - live required-validation manifest SHA-256: `2ccf98edfd087bb193387a77d0fec5bdb3a1efe9905d66fa9ac5ae74eec2c7d1`
 - live current-route: `135/135 PASS`
 - G6 Change 1 discovery: 보존
-- current RTC disposition: `not_applicable_unproven_iris_defect`
+- current RTC disposition: `not_applicable_temporary_tooling_trigger`
 
 세 계획이 동일하게 소비할 current compact projection은 다음과 같다.
 
 ```json
-{"baseline_commit":"7744df68fa7c0a66ccd9e760995c1b7071de8e08","baseline_tree":"5c6fd5d2df505c9ea217e6b913bfacf296e99a63","contract_id":"iris_iar_scope_reduction_sync_v2","current_route":{"required_test_count":135,"result":"PASS"},"g4":{"attempt_specific_closure":"retired_historical","iar_core":"reusable_evaluator_only","live_gate_adoption":"not_required"},"g5":{"phase8_candidate":"preserved","terminal_finalize":"retired_not_required"},"g6":{"changes_2_8":"blocked_until_canonical_defect_attribution","current_disposition":"not_applicable_unproven_iris_defect"},"live_required_validation_manifest_sha256":"2ccf98edfd087bb193387a77d0fec5bdb3a1efe9905d66fa9ac5ae74eec2c7d1","owner_directive":"exclude_attempt_specific_closure_orchestration_from_iar_core","stable_session_names":["G1","G2","G3","G4","G5","G6"]}
+{"baseline_commit":"a30abc041c3a7462ce34b2de2a0656c410faa8fd","baseline_tree":"1ca301cbf55a4f96a70bb13c05597989adae6239","contract_id":"iris_iar_naturalization_parallel_execution_sync_v3","g1":{"next_action":"clean_checkout_validate_generic_iar_integration"},"g4":{"attempt_specific_closure":"retired_historical","next_action":"complete_reusable_evaluator_and_generic_gate_integration"},"g5":{"phase8_candidate":"preserved","next_action":"consume_generic_iar_assessment_without_candidate_rerun"},"g6":{"blocks_g4_g5":false,"current_disposition":"not_applicable_temporary_tooling_trigger"},"live_required_validation_manifest_sha256":"2ccf98edfd087bb193387a77d0fec5bdb3a1efe9905d66fa9ac5ae74eec2c7d1","owner_directive":"continue_iar_and_naturalization_goal_without_attempt_specific_closure","stage_order":["G4_reusable_evaluator_contract","G1_clean_checkout_generic_gate_validation","G4_generic_gate_integration","G5_generic_assessment_consumption"],"stable_session_names":["G1","G2","G3","G4","G5","G6"]}
 ```
 
 ```text
-iar_scope_reduction_projection_sha256 = d2d1eec524bdbe8c29ce1a5552dd7cb1b33e8434d50bff4ce03df8c6e5b8dee7
+iar_naturalization_parallel_execution_projection_sha256 = 984415c349444dd90ed966490c7619cf32077525276d07616c5698051197b0e8
 ```
 
 ### Change 1 disposition
@@ -89,6 +89,8 @@ Attribution은 임시 script를 삭제·우회한 clean checkout에서 canonical
 ### Current exit
 
 - 현재는 위 predicate를 만족하는 증거가 없으므로 G6에 실행할 다음 Change가 없다.
+- G6의 `not_applicable` 상태는 G4 reusable evaluator 구현, G1 generic gate 검증 또는 G5 generic assessment 소비를 차단하지 않는다.
+- G4/G5는 RTC terminal, reservation, successor bundle 또는 G6 handoff 없이 current v3 stage order를 진행한다.
 - 새로운 reservation, successor bundle, adoption, review, owner seal, terminal 또는 G1 pre-adoption round를 만들지 않는다.
 - 향후 predicate가 PASS하면 그 exact defect attribution record를 새 실행 기준점으로 삼아 Change 2부터 진행할 수 있다. 기존 temporary-tooling failure를 재사용하지 않는다.
 - predicate가 계속 성립하지 않으면 G6은 `not_applicable_non_authoritative_tooling_failure`로 종료하며 Iris current authority나 runtime을 변경하지 않는다.

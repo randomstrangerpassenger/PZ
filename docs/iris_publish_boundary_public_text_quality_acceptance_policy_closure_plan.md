@@ -1,6 +1,6 @@
 # Implementation Plan
 
-> 상태: owner-directed IAR scope-reduction synchronization complete / reusable evaluator boundary only / attempt-specific live-adoption, owner-seal, freeze, terminal and cross-session handoff orchestration retired from the executable plan
+> 상태: owner-directed IAR/naturalization parallel execution synchronization / reusable evaluator and generic current-route integration continue / attempt-specific closure orchestration retired
 >
 > 대상: Iris Publish Boundary / Public Text Quality Acceptance Policy Closure
 >
@@ -8,7 +8,7 @@
 >
 > 동기화 대상: `docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md`
 >
-> 현재 교차 계획 계약: `iris_iar_scope_reduction_sync_v2`
+> 현재 교차 계획 계약: `iris_iar_naturalization_parallel_execution_sync_v3`
 >
 > 보존 historical 계약: `dvf3_3_korean_naturalization__publish_boundary_sync_v1`
 >
@@ -21,9 +21,9 @@
 >
 > 주의: 이 문서의 checkout, hash, count는 계획 수립 시점의 관찰값이다. 실행 authority나 threshold가 아니다. 2026-08-01 owner directive는 IAR의 지속 사용 기능과 특정 attempt의 종결 orchestration을 분리하며, 아래 `Current Executable Scope`와 충돌하는 기존 terminal 조항을 historical/non-executable로 전환한다.
 
-## 0. Current Executable Scope — IAR Reusable Evaluator Boundary
+## 0. Current Executable Scope — IAR Reusable Evaluator and Naturalization Consumption
 
-이 절은 이 문서에서 유일한 current executable synchronization authority다. 뒤의 `aa49e8f9` 계약과 Phase 6 live-adoption, Phase 7 independent closeout/owner seal/terminal, G5/G6/G7 handoff 조항은 설계 이력으로 보존하지만 이 절과 충돌하는 범위에서는 실행 prerequisite, 기술 부채 또는 completion predicate로 사용하지 않는다.
+이 절은 이 문서에서 유일한 current executable synchronization authority다. 뒤의 `aa49e8f9` 계약과 Phase 6/7 attempt-specific live-adoption, independent closeout, owner seal과 terminal 조항은 설계 이력으로 보존하지만 이 절과 충돌하는 범위에서는 실행 prerequisite나 기술 부채로 사용하지 않는다. 이것은 G4 검사 시스템 개발이나 G5 번역체 개선을 중단한다는 뜻이 아니다. G4는 지속 사용 가능한 IAR evaluator를 완성하고 G5는 그 generic assessment를 소비해 자연화 목표를 닫는다.
 
 동기화 기준점:
 
@@ -37,11 +37,11 @@
 세 계획이 동일하게 소비할 current compact projection은 다음과 같다.
 
 ```json
-{"baseline_commit":"7744df68fa7c0a66ccd9e760995c1b7071de8e08","baseline_tree":"5c6fd5d2df505c9ea217e6b913bfacf296e99a63","contract_id":"iris_iar_scope_reduction_sync_v2","current_route":{"required_test_count":135,"result":"PASS"},"g4":{"attempt_specific_closure":"retired_historical","iar_core":"reusable_evaluator_only","live_gate_adoption":"not_required"},"g5":{"phase8_candidate":"preserved","terminal_finalize":"retired_not_required"},"g6":{"changes_2_8":"blocked_until_canonical_defect_attribution","current_disposition":"not_applicable_unproven_iris_defect"},"live_required_validation_manifest_sha256":"2ccf98edfd087bb193387a77d0fec5bdb3a1efe9905d66fa9ac5ae74eec2c7d1","owner_directive":"exclude_attempt_specific_closure_orchestration_from_iar_core","stable_session_names":["G1","G2","G3","G4","G5","G6"]}
+{"baseline_commit":"a30abc041c3a7462ce34b2de2a0656c410faa8fd","baseline_tree":"1ca301cbf55a4f96a70bb13c05597989adae6239","contract_id":"iris_iar_naturalization_parallel_execution_sync_v3","g1":{"next_action":"clean_checkout_validate_generic_iar_integration"},"g4":{"attempt_specific_closure":"retired_historical","next_action":"complete_reusable_evaluator_and_generic_gate_integration"},"g5":{"phase8_candidate":"preserved","next_action":"consume_generic_iar_assessment_without_candidate_rerun"},"g6":{"blocks_g4_g5":false,"current_disposition":"not_applicable_temporary_tooling_trigger"},"live_required_validation_manifest_sha256":"2ccf98edfd087bb193387a77d0fec5bdb3a1efe9905d66fa9ac5ae74eec2c7d1","owner_directive":"continue_iar_and_naturalization_goal_without_attempt_specific_closure","stage_order":["G4_reusable_evaluator_contract","G1_clean_checkout_generic_gate_validation","G4_generic_gate_integration","G5_generic_assessment_consumption"],"stable_session_names":["G1","G2","G3","G4","G5","G6"]}
 ```
 
 ```text
-iar_scope_reduction_projection_sha256 = d2d1eec524bdbe8c29ce1a5552dd7cb1b33e8434d50bff4ce03df8c6e5b8dee7
+iar_naturalization_parallel_execution_projection_sha256 = 984415c349444dd90ed966490c7619cf32077525276d07616c5698051197b0e8
 ```
 
 ### IAR core에 남는 기능
@@ -51,26 +51,41 @@ iar_scope_reduction_projection_sha256 = d2d1eec524bdbe8c29ce1a5552dd7cb1b33e8434
 - raw detector, structured finding, failure attribution과 deterministic report
 - reusable negative fixture, regression test와 G1 current-route integration
 - 검사 결과와 source/facts/compiler/temporary orchestration 원인의 분리
+- attempt/session 이름에 독립적인 generic `iar_public_text_assessment` input/output contract
+- G5가 exact subject/policy/result hash로 소비할 수 있는 stable assessment result
 
 ### IAR core에서 제외되는 기능
 
-- 특정 attempt의 live required-validation manifest 채택·rollback orchestration
+- 특정 attempt evidence 10개를 live required-validation manifest에 결속하는 채택·rollback orchestration
 - attempt별 owner input, nonce, transaction, adoption receipt
 - owner seal 입력 생성과 owner seal materialization
 - final evidence freeze, terminal DAG, terminal hash seal과 closure receipt
-- G5/G6 또는 다른 세션 전용 공식 handoff 발행
+- G5/G6 또는 다른 세션 이름에 고정된 owner-sealed handoff 발행
 - 위 일회성 도구의 실패를 Iris 제품 부채나 IAR core blocker로 승격하는 행위
 
 Tracked 경로 또는 `Iris/build/...` 아래 존재한다는 사실만으로 official IAR core가 되지 않는다. 지속적인 DVF/QG 검사에서 호출되는 canonical evaluator/validator/test만 core다. Materializer, migration, attempt wrapper와 correction helper는 명시적으로 core에 채택되지 않는 한 construction tooling 또는 historical evidence다.
 
-### Current disposition과 exit
+### Current disposition과 next execution
 
 - `attempt-0005-official`의 Phase 0~5 assessment evidence와 candidate disposition은 historical assessment evidence로 보존한다.
 - 해당 attempt의 Phase 6/7 live-adoption, freeze, owner-seal, terminal correction chain은 `retired_non_product_governance_tooling_scope_expansion`으로 종료한다.
 - rollback된 `10+1` surface를 다시 live gate에 넣지 않는다.
-- 이 계획의 current 최대 claim은 `reusable_public_text_quality_evaluator_validated`다. 이는 policy closure complete, publication approval, runtime adoption 또는 release readiness가 아니다.
-- 현 기준점 이후 이 계획에서 실행할 추가 phase, correction, owner seal, terminal 또는 handoff는 없다.
+- G4는 기존 detector/policy evaluator에서 attempt ID, owner input, transaction, freeze와 terminal 의존성을 제거한 generic IAR assessment contract를 완성한다.
+- generic runner는 exact subject manifest와 policy/ruleset을 입력받아 subject hash, policy hash, metric/denominator, findings와 `PASS | FAIL`을 deterministic JSON으로 출력한다.
+- generic validator와 fixture는 DVF/QG subject type에 재사용 가능해야 하며 G5 candidate를 첫 integration subject로 사용한다.
+- G1은 이 generic runner/validator/test만 clean checkout A/B로 검증한다. attempt-0005 artifact는 required input이 아니다.
+- G1 PASS 뒤 generic test를 정상적인 code/config change로 current route에 편입한다. owner seal, transaction nonce, evidence freeze 또는 terminal은 요구하지 않는다.
+- G4의 실행 완료 claim은 `reusable_public_text_quality_evaluator_validated_and_integrated`다. 이는 publication approval, runtime adoption 또는 release readiness가 아니다.
+- G4 완료 출력은 session-specific handoff가 아니라 G5가 hash-bound input으로 소비하는 generic assessment result다.
 - 향후 실제 publication/adoption이 필요하면 IAR 검사를 소비하되 runtime/publication writer 권한과 rollback을 별도로 정의한 계획이 담당한다.
+
+### Current execution order
+
+1. G4가 generic assessment contract, runner, validator와 stable fixture를 구현한다.
+2. G1이 exact G4 integration candidate를 clean checkout Run A/B로 검증한다.
+3. G4가 G1 PASS를 결속하고 generic current-route integration을 완료한다.
+4. G5가 preserved candidate를 재생성하지 않고 exact generic assessment result를 소비한다.
+5. G5 assessment가 PASS이면 자연화 implementation/quality 목표를 완료 상태로 기록한다. 실제 runtime publication은 별도다.
 
 ### Stable session vocabulary
 

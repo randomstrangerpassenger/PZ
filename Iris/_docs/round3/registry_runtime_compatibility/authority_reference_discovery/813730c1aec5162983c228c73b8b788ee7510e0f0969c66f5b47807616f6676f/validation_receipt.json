@@ -1,0 +1,89 @@
+{
+  "schema_version": "rtc_change_1_validation_receipt_v1",
+  "discovery_id": "813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f",
+  "checks": [
+    {
+      "check": "frozen_plan_exact_bytes",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "check": "execution_head_tree_match",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "check": "current_source_reference_set_composition_v1",
+      "status": "PASS",
+      "exit_code": 0,
+      "matching_binding_cardinality": 1,
+      "missing_count": 0,
+      "mismatch_count": 0,
+      "ambiguity_count": 0
+    },
+    {
+      "check": "current_source_cross_reference_commit_tree_lifecycle_denominator",
+      "status": "PASS",
+      "exit_code": 0,
+      "cross_reference_check_count": 26,
+      "failed_check_count": 0
+    },
+    {
+      "check": "g4_g5_prerequisite_inventory",
+      "status": "PASS",
+      "exit_code": 0,
+      "entry_disposition": "blocked_pending_finalized_registry_handoff"
+    },
+    {
+      "check": "protected_input_inventory",
+      "status": "PASS",
+      "exit_code": 0,
+      "protected_mutation_count": 0,
+      "unknown_count": 0
+    },
+    {
+      "check": "discovery_identity_two_run_byte_and_id_equality",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "check": "discovery_identity_core_reconstruction_from_full_observation",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "check": "duplicate_key_and_forbidden_derived_field_negative_matrix",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "check": "changed_observation_id_fact_change_and_derived_path_stability_matrix",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "check": "validator_entrypoint_presence",
+      "status": "PASS",
+      "exit_code": 0
+    }
+  ],
+  "positive_validator_execution": {
+    "status": "not_run_due_unbound_finalized_rendered_handoff",
+    "exit_code": null,
+    "pass_claimed": false
+  },
+  "change_2_through_8_automated_validation": {
+    "status": "not_run_out_of_scope_and_entry_blocked",
+    "exit_code": null,
+    "pass_claimed": false
+  },
+  "unit_tests": {
+    "status": "not_run",
+    "reason": "Change 1 uses the plan-declared read-only inspection matrix; successor attempt and Changes 2-8 were not opened",
+    "pass_claimed": false
+  },
+  "observation_success": true,
+  "entry_eligibility_status": "blocked_pending_finalized_registry_handoff",
+  "rtc_pass_claimed": false,
+  "status": "PASS"
+}

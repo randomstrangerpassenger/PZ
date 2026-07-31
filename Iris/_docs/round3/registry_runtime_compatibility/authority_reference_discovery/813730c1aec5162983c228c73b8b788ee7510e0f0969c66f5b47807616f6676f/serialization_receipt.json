@@ -1,0 +1,51 @@
+{
+  "schema_version": "rtc_discovery_serialization_receipt_v1",
+  "discovery_id": "813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f",
+  "identity_prefix_utf8": "iris-rtc-discovery-id-v1\n",
+  "canonicalizer_identity": {
+    "field_order": [
+      "resolved_executable_sha256",
+      "raw_version_output_sha256",
+      "argv_compact_json",
+      "lc_all",
+      "lang",
+      "tz",
+      "encoding"
+    ],
+    "field_values": [
+      "23cb60a1354eed6bcc8d9b9735e8c7b388cd1fdcb75726b93bc299ef22dd9334",
+      "7400c85f2267880a83e7b98dff250460151bc022839bde39e304d876c7dfe703",
+      "[\"-S\",\"-c\"]",
+      "C",
+      "C",
+      "UTC",
+      "UTF-8"
+    ],
+    "field_encoding": "uint64_be(length)||utf8(field)",
+    "byte_length": 205,
+    "sha256": "3f762669dd3ac7ae45e88fe3d7da4947870cf2b52a500c19c514d99c38ded0f3"
+  },
+  "canonical_core": {
+    "source_path": "Iris/_docs/round3/registry_runtime_compatibility/authority_reference_discovery/813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f/discovery_identity_core_v1.json",
+    "jq_options": [
+      "-S",
+      "-c"
+    ],
+    "jq_filter": ".",
+    "raw_run_sha256": "ed2c1fe79b74f422dbefa60a79b429ca1f2e5c9dc7db79f6807bd13b78734d00",
+    "raw_run_length": 12358,
+    "terminal_bytes_hex": "0d0a",
+    "terminal_lf_removed_count": 1,
+    "canonical_byte_length": 12357,
+    "canonical_sha256": "6b217da0529ba68f120e221a763267a521db75b458842c9551b31827e7512def",
+    "bom_present": false
+  },
+  "identity_preimage": {
+    "encoding": "UTF8(prefix)||uint64_be(canonicalizer_identity_length)||canonicalizer_identity||uint64_be(canonical_core_length)||canonical_core",
+    "byte_length": 12603,
+    "sha256": "813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f"
+  },
+  "duplicate_key_count": 0,
+  "forbidden_derived_field_count": 0,
+  "status": "PASS"
+}

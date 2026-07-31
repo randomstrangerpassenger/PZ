@@ -1,0 +1,13 @@
+{
+  "schema_version": "rtc_discovery_second_run_comparison_receipt_v1",
+  "discovery_id": "813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f",
+  "run_1_raw_sha256": "ed2c1fe79b74f422dbefa60a79b429ca1f2e5c9dc7db79f6807bd13b78734d00",
+  "run_2_raw_sha256": "ed2c1fe79b74f422dbefa60a79b429ca1f2e5c9dc7db79f6807bd13b78734d00",
+  "run_1_raw_length": 12358,
+  "run_2_raw_length": 12358,
+  "byte_identical": true,
+  "run_1_discovery_id": "813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f",
+  "run_2_discovery_id": "813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f",
+  "full_id_identical": true,
+  "status": "PASS"
+}

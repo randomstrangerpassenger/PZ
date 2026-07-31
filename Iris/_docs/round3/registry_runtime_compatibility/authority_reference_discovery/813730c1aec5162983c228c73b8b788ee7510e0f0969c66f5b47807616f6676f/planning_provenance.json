@@ -1,0 +1,41 @@
+{
+  "schema_version": "rtc_change_1_planning_provenance_v1",
+  "documents": [
+    {
+      "path": "docs/Philosophy.md",
+      "sha256": "938c52e9090c36af00dac18b64905e12a4f2390ac238a26121a63a14f81f44b2",
+      "tracked": true
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "sha256": "5c3ca046d621a042855482c5ea44eeb799a380bacb7924c585604a6361c75102",
+      "tracked": true
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "sha256": "0e8eb5b359036476e1ea6cca59f4c13a4b6f87493a78fbf2f1331a58e44667d6",
+      "tracked": true
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "sha256": "540f9f66c2164d2e96bd43093b90c0a4c0f543757b59104c41709ef57cbebebe",
+      "tracked": true
+    },
+    {
+      "path": "docs/EXECUTION_CONTRACT.md",
+      "sha256": "a185bbd78eb849b0310d9aadc9102cb156b892513266fac0ec7903eb3d3a9493",
+      "tracked": true
+    },
+    {
+      "path": "docs/dvf_3_3_registry_runtime_compatibility_current_authority_freshness_successor_plan.md",
+      "sha256": "5fc7ee4060564ceafdc059a92eb58dad7892476fe8e898d59af847d2211a4ec6",
+      "tracked_at_observation": false,
+      "exact_bytes_verified": true
+    }
+  ],
+  "roadmap_input_sha256": "de1168b6704c97056a5072b638b47e8fb490ddf6e528203b9b4d24fa925fab88",
+  "latest_synthesis_review_input_sha256": "dd8da21e153b1f21359f79ab8c54c63d3f400cfc4343f41bef8c76d3cb61465d",
+  "current_lineage_synthesis_review_input_sha256": "2d641f2bbf8fba12cbe5622ab50a388bd1783bcf86c347f8d1c4dd95cef7fdc6",
+  "near_convergence_review_input_sha256": "caa8017894c43535b0d3cb257348b4c1df5d166b0c05726e38d6546adee2ae6b",
+  "provenance_is_not_source_authority": true
+}

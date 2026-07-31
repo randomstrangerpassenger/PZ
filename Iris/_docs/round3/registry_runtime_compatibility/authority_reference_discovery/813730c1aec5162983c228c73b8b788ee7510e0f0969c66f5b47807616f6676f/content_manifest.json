@@ -1,0 +1,89 @@
+{
+  "schema_version": "rtc_pre_entry_discovery_content_manifest_v1",
+  "discovery_id": "813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f",
+  "write_once": true,
+  "observation_success": true,
+  "entry_eligibility_status": "blocked_pending_finalized_registry_handoff",
+  "files": [
+    {
+      "role": "candidate_and_prerequisite_inventory",
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/authority_reference_discovery/813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f/candidate_and_prerequisite_inventory.json",
+      "sha256": "080500a6a05a756c5d36d3aa92144951efa3019a6037b93655dd6fc4884e22b7"
+    },
+    {
+      "role": "current_source_reference_set_manifest",
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/authority_reference_discovery/813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f/current_source_reference_set_manifest_v1.json",
+      "sha256": "4fb5344c75d4b66b48b079dfebf641a4f65ab4ee9664bfdbc740a7e060dec40e"
+    },
+    {
+      "role": "discovery_identity_core",
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/authority_reference_discovery/813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f/discovery_identity_core_v1.json",
+      "sha256": "be5cd5ce8e1efed7c275d4836d93f3a8cb50f1f44ced8e75fdd5455319561be9"
+    },
+    {
+      "role": "discovery_observation",
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/authority_reference_discovery/813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f/discovery_observation.json",
+      "sha256": "db1bb4575509b12ce039db4cbf817031c037d5c8e5f853a84d3e553d5d0b5482"
+    },
+    {
+      "role": "inspection_command_receipts",
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/authority_reference_discovery/813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f/inspection_command_receipts.json",
+      "sha256": "fc238890a1eb9733ef928b2f7ef814505eaf3e1ded3a26553ec5fdb2281ec3df"
+    },
+    {
+      "role": "identity_validation_command_payload",
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/authority_reference_discovery/813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f/identity_validation_command.txt",
+      "sha256": "8698cb7085cd5c31619bace89a61310b41240a67f44125c3cf023345d53f68f0"
+    },
+    {
+      "role": "raw_inspection_transcripts",
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/authority_reference_discovery/813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f/raw_inspection_transcripts.json",
+      "sha256": "374a3cce1fda62835bc3e942aa8f8a2164867daa2725cd9472d51427b2cf8423"
+    },
+    {
+      "role": "planning_provenance",
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/authority_reference_discovery/813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f/planning_provenance.json",
+      "sha256": "6403a83d366bc9bf21954a01c3ad841d42ed73e03b0fc6363e0946fa1b5197b4"
+    },
+    {
+      "role": "protected_input_inventory",
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/authority_reference_discovery/813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f/protected_input_inventory.json",
+      "sha256": "14b88c862fae7b79dd4e510c215300c9399899ffe4adec07726cc8d7d2cda170"
+    },
+    {
+      "role": "provisional_required_lineage_commit_set",
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/authority_reference_discovery/813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f/required_lineage_commit_set_v1_provisional.json",
+      "sha256": "048f8d817d5bfb8b88e71c55ce0ea45ae5cd632e5061bfa2ca69372efef05510"
+    },
+    {
+      "role": "second_run_comparison_receipt",
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/authority_reference_discovery/813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f/second_run_comparison_receipt.json",
+      "sha256": "176552c555055d689db64287446e739876ad82c88a3c27082a8edbd7f2024464"
+    },
+    {
+      "role": "serialization_receipt",
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/authority_reference_discovery/813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f/serialization_receipt.json",
+      "sha256": "400a10b2d458e742b912bf5f52d41e04d557b68e11ba9e557c7907740a99a110"
+    },
+    {
+      "role": "validation_receipt",
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/authority_reference_discovery/813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f/validation_receipt.json",
+      "sha256": "589df3fd42cb9a4bb1f4938da344c2f40dcf1808eb8ea7d65a49455975ab1043"
+    }
+  ],
+  "external_provenance": [
+    {
+      "role": "frozen_plan_exact_bytes",
+      "path": "docs/dvf_3_3_registry_runtime_compatibility_current_authority_freshness_successor_plan.md",
+      "sha256": "5fc7ee4060564ceafdc059a92eb58dad7892476fe8e898d59af847d2211a4ec6"
+    }
+  ],
+  "file_count": 13,
+  "external_provenance_count": 1,
+  "rtc_attempt_reserved": false,
+  "rtc_attempt_root_created": false,
+  "rtc_candidate_or_bundle_created": false,
+  "repository_file_toolchain_mutation_count": 0,
+  "protected_input_mutation_count": 0,
+  "live_surface_mutation_count": 0
+}

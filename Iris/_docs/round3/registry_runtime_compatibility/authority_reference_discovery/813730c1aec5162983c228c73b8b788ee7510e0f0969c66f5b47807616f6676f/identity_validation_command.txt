@@ -1,0 +1,127 @@
+$ErrorActionPreference = 'Stop'
+$root = 'Iris/_docs/round3/registry_runtime_compatibility/authority_reference_discovery/813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f'
+$core = "$root/discovery_identity_core_v1.json"
+$observation = "$root/discovery_observation.json"
+function Get-Sha256([byte[]]$bytes) {
+    $sha = [Security.Cryptography.SHA256]::Create()
+    try {
+        [BitConverter]::ToString($sha.ComputeHash($bytes)).Replace('-', '').ToLowerInvariant()
+    }
+    finally {
+        $sha.Dispose()
+    }
+}
+function Get-LengthFrame([uint64]$length) {
+    $bytes = [BitConverter]::GetBytes($length)
+    [Array]::Reverse($bytes)
+    $bytes
+}
+$identityFields = @(
+    '23cb60a1354eed6bcc8d9b9735e8c7b388cd1fdcb75726b93bc299ef22dd9334',
+    '7400c85f2267880a83e7b98dff250460151bc022839bde39e304d876c7dfe703',
+    '["-S","-c"]',
+    'C',
+    'C',
+    'UTC',
+    'UTF-8'
+)
+$identityStream = New-Object IO.MemoryStream
+foreach ($field in $identityFields) {
+    $fieldBytes = [Text.Encoding]::UTF8.GetBytes($field)
+    $lengthBytes = Get-LengthFrame $fieldBytes.Length
+    $identityStream.Write($lengthBytes, 0, $lengthBytes.Length)
+    $identityStream.Write($fieldBytes, 0, $fieldBytes.Length)
+}
+$canonicalizerIdentity = $identityStream.ToArray()
+function Get-DiscoveryId([string]$json) {
+    $canonicalLine = $json | jq -S -c .
+    if ($LASTEXITCODE -ne 0) {
+        throw 'jq canonicalization failed'
+    }
+    $canonicalBytes = [Text.Encoding]::UTF8.GetBytes($canonicalLine + "`r")
+    $preimage = New-Object IO.MemoryStream
+    $prefix = [Text.Encoding]::UTF8.GetBytes("iris-rtc-discovery-id-v1`n")
+    $preimage.Write($prefix, 0, $prefix.Length)
+    $lengthBytes = Get-LengthFrame $canonicalizerIdentity.Length
+    $preimage.Write($lengthBytes, 0, $lengthBytes.Length)
+    $preimage.Write($canonicalizerIdentity, 0, $canonicalizerIdentity.Length)
+    $lengthBytes = Get-LengthFrame $canonicalBytes.Length
+    $preimage.Write($lengthBytes, 0, $lengthBytes.Length)
+    $preimage.Write($canonicalBytes, 0, $canonicalBytes.Length)
+    Get-Sha256 $preimage.ToArray()
+}
+$coreRaw = Get-Content -Raw -LiteralPath $core
+$observationObject = Get-Content -Raw -LiteralPath $observation | ConvertFrom-Json
+$actualId = Get-DiscoveryId $coreRaw
+$embeddedId = Get-DiscoveryId ($observationObject.identity_core | ConvertTo-Json -Depth 100 -Compress)
+$valuePaths = @(jq --stream -r 'select(length==2)|.[0]|@json' -- $core)
+$duplicateKeyCount = @($valuePaths | Group-Object | Where-Object { $_.Count -gt 1 }).Count
+$syntheticValuePaths = @('{"a":1,"a":2}' | jq --stream -r 'select(length==2)|.[0]|@json')
+$syntheticDuplicateKeyCount = @($syntheticValuePaths | Group-Object | Where-Object { $_.Count -gt 1 }).Count
+$forbidden = @(
+    'discovery_id',
+    'discovery_root',
+    'directory_name',
+    'content_manifest_sha256',
+    'identity_core_sha256',
+    'serialization_receipt_sha256',
+    'second_run_comparison_result',
+    'observed_at_utc',
+    'timestamp',
+    'username',
+    'absolute_path'
+)
+$coreKeys = @(jq -r '..|objects|keys[]' -- $core)
+$forbiddenCount = @($coreKeys | Where-Object { $forbidden -ccontains $_ }).Count
+$syntheticKeys = @('{"discovery_id":"x"}' | jq -r '..|objects|keys[]')
+$syntheticForbiddenCount = @($syntheticKeys | Where-Object { $forbidden -ccontains $_ }).Count
+$changedCore = $coreRaw.Replace(
+    '"root_sha256": "090381a652da540c6e72300624728aba48f6392e41fb50e8eec973efd320b9b7"',
+    '"root_sha256": "190381a652da540c6e72300624728aba48f6392e41fb50e8eec973efd320b9b7"'
+)
+if ($changedCore -eq $coreRaw) {
+    throw 'changed-fact mutation failed'
+}
+$changedFactId = Get-DiscoveryId $changedCore
+$observationObject.discovery_id = '0' * 64
+$changedObservationMismatch = $observationObject.discovery_id -ne $embeddedId
+$observationObject.discovery_root = 'changed-derived-root'
+$derivedPathId = Get-DiscoveryId ($observationObject.identity_core | ConvertTo-Json -Depth 100 -Compress)
+$result = [ordered]@{
+    core_duplicate_key_count = $duplicateKeyCount
+    synthetic_duplicate_key_count = $syntheticDuplicateKeyCount
+    core_forbidden_derived_field_count = $forbiddenCount
+    synthetic_forbidden_derived_field_count = $syntheticForbiddenCount
+    recomputed_discovery_id = $actualId
+    embedded_core_discovery_id = $embeddedId
+    expected_discovery_id = '813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f'
+    root_name = Split-Path -Leaf $root
+    recomputed_id_matches = $actualId -eq '813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f'
+    embedded_core_matches = $embeddedId -eq $actualId
+    changed_fact_discovery_id = $changedFactId
+    changed_fact_changes_id = $changedFactId -ne $actualId
+    changed_observation_discovery_id_mismatch = $changedObservationMismatch
+    derived_path_change_discovery_id = $derivedPathId
+    derived_path_change_keeps_id = $derivedPathId -eq $actualId
+}
+$result.status = if (
+    $result.recomputed_id_matches -and
+    $result.embedded_core_matches -and
+    $result.root_name -eq $result.expected_discovery_id -and
+    $result.core_duplicate_key_count -eq 0 -and
+    $result.synthetic_duplicate_key_count -eq 1 -and
+    $result.core_forbidden_derived_field_count -eq 0 -and
+    $result.synthetic_forbidden_derived_field_count -eq 1 -and
+    $result.changed_fact_changes_id -and
+    $result.changed_observation_discovery_id_mismatch -and
+    $result.derived_path_change_keeps_id
+) {
+    'PASS'
+}
+else {
+    'FAIL'
+}
+$result | ConvertTo-Json -Compress
+if ($result.status -ne 'PASS') {
+    exit 2
+}

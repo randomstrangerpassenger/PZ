@@ -1,0 +1,231 @@
+{
+  "schema_version": "current_source_reference_set_manifest_v1",
+  "composition_rule": "current_source_reference_set_composition_v1",
+  "derived_receipt": true,
+  "source_authority_claimed": false,
+  "winner_decision_claimed": false,
+  "status": "PASS",
+  "root": {
+    "authority_classification_path": "Iris/_docs/authority/iris_current_authority_manifest.json",
+    "authority_classification_sha256": "f82f660a67ededa116f0b0c7569437320735dc14c6d87553479201a4cd13bdca",
+    "classification_match": {
+      "path_glob": "Iris/build/description/v2/data/**",
+      "classification": "current",
+      "delete_move_policy": "protected; data validation required"
+    },
+    "input_manifest_path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+    "input_manifest_sha256": "090381a652da540c6e72300624728aba48f6392e41fb50e8eec973efd320b9b7",
+    "input_manifest_status": "current_authority"
+  },
+  "mechanical_selection": {
+    "selector": "source_promotion object member whose successor_facts_sha256 equals facts.sha256 and which exposes exact successor_id plus registry_cutover_attempt_id",
+    "matching_binding_cardinality": 1,
+    "selected_binding_key": "current_facts_correction_adoption_0003_binding",
+    "selected_successor_id": "correction-0003",
+    "selected_registry_cutover_attempt_id": "attempt-0012",
+    "newest_name_or_mtime_selection_used": false,
+    "recursive_staging_scan_used": false,
+    "operator_member_list_used": false
+  },
+  "members": [
+    {
+      "role": "current_facts",
+      "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+      "sha256": "50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120",
+      "tracked": true,
+      "lifecycle": "current_source_authority"
+    },
+    {
+      "role": "current_input_manifest",
+      "path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+      "sha256": "090381a652da540c6e72300624728aba48f6392e41fb50e8eec973efd320b9b7",
+      "tracked": true,
+      "lifecycle": "current_authority"
+    },
+    {
+      "role": "attempt_0012_adoption_receipt",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0012/closeout/registry_correction_adoption_receipt.json",
+      "sha256": "312c9b8744e1925b120129402b4ff6834d551960c284af8e91dbdbca091a56b0",
+      "tracked": true,
+      "lifecycle": "PASS"
+    },
+    {
+      "role": "attempt_0012_terminal_seal",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0012/closeout/terminal_correction_hash_seal.json",
+      "sha256": "03dea1902f1d219b227b2b69cb88742f1005e3620cdcdee2b72ba811d1bd20fb",
+      "tracked": true,
+      "lifecycle": "PASS"
+    },
+    {
+      "role": "attempt_0012_downstream_handoff",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0012/handoff/naturalization_current_input_handoff.json",
+      "sha256": "bfa14583f524f99a75e88d4b6eaddfa146544cba9124cf09214a13a38c7d7750",
+      "tracked": true,
+      "lifecycle": "READY_FOR_FOUNDATION_REBIND"
+    }
+  ],
+  "cross_reference_checks": [
+    {
+      "check": "input_manifest_binding_successor_facts_matches_current_facts",
+      "expected": "50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120",
+      "observed": "50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120",
+      "pass": true
+    },
+    {
+      "check": "receipt_facts_and_input_manifest_match_current",
+      "facts_match": true,
+      "input_manifest_match": true,
+      "pass": true
+    },
+    {
+      "check": "terminal_facts_and_input_manifest_match_current",
+      "facts_match": true,
+      "input_manifest_match": true,
+      "pass": true
+    },
+    {
+      "check": "handoff_facts_and_input_manifest_match_current",
+      "facts_match": true,
+      "input_manifest_match": true,
+      "pass": true
+    },
+    {
+      "check": "successor_id_equality",
+      "expected": "correction-0003",
+      "input_manifest": "correction-0003",
+      "receipt": "correction-0003",
+      "terminal": "correction-0003",
+      "handoff": "correction-0003",
+      "pass": true
+    },
+    {
+      "check": "attempt_id_equality",
+      "expected": "attempt-0012",
+      "input_manifest": "attempt-0012",
+      "receipt": "attempt-0012",
+      "terminal": "attempt-0012",
+      "handoff": "attempt-0012",
+      "pass": true
+    },
+    {
+      "check": "terminal_direct_receipt_binding",
+      "path_match": true,
+      "sha256_match": true,
+      "pass": true
+    },
+    {
+      "check": "terminal_direct_handoff_binding",
+      "path_match": true,
+      "sha256_match": true,
+      "pass": true
+    },
+    {
+      "check": "handoff_direct_receipt_binding",
+      "path_match": true,
+      "sha256_match": true,
+      "pass": true
+    },
+    {
+      "check": "terminal_and_handoff_adoption_commit_tree_equality",
+      "adoption_commit": "e56c2e0c94aed8f31a61cb27cd6e37f0037451c8",
+      "adoption_tree": "c5123b318267f0d3f47933422b292aec864b481d",
+      "pass": true
+    }
+  ],
+  "commit_tree_validation": {
+    "receipt_input_commit": "cec8c43f5ba1c93d0c7a3436c74d73a1e24549fa",
+    "receipt_input_tree": "1a3d7a5bafbbd9cadc9d0f31f19e2323fc217ae8",
+    "receipt_input_tree_verified": true,
+    "adoption_commit": "e56c2e0c94aed8f31a61cb27cd6e37f0037451c8",
+    "adoption_tree": "c5123b318267f0d3f47933422b292aec864b481d",
+    "adoption_tree_verified": true,
+    "terminal_review_commit": "86b08a933d4de16db4852684f9bbb6c4c1c1b2e8",
+    "terminal_review_tree": "1d0dc4ab9896f93d427c2631fb21f9c555389e07",
+    "terminal_review_tree_verified": true,
+    "receipt_input_is_ancestor_of_adoption": true,
+    "adoption_is_ancestor_of_terminal_review": true,
+    "terminal_review_is_ancestor_of_inspected_head": true
+  },
+  "input_manifest_constituents": [
+    {
+      "role": "facts",
+      "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+      "declared_sha256": "50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120",
+      "observed_sha256": "50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120",
+      "declared_row_count": 2105,
+      "observed_row_count": 2105,
+      "pass": true
+    },
+    {
+      "role": "decisions",
+      "path": "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl",
+      "declared_sha256": "c0d6c253d9d7041fb072383c253ec8f438f9211a039ee1cf91b17e5c3418df46",
+      "observed_sha256": "c0d6c253d9d7041fb072383c253ec8f438f9211a039ee1cf91b17e5c3418df46",
+      "declared_row_count": 2105,
+      "observed_row_count": 2105,
+      "pass": true
+    },
+    {
+      "role": "overlay",
+      "path": "Iris/build/description/v2/data/dvf_3_3_overlay_support.jsonl",
+      "declared_sha256": "c16947429ccf0d07bd8df0b4a10c9c9ccae057e5407241414bfbf88628d04464",
+      "observed_sha256": "c16947429ccf0d07bd8df0b4a10c9c9ccae057e5407241414bfbf88628d04464",
+      "declared_row_count": 2105,
+      "observed_row_count": 2105,
+      "pass": true
+    },
+    {
+      "role": "compose_profiles",
+      "path": "Iris/build/description/v2/data/compose_profiles_v2.json",
+      "declared_sha256": "ba986a2f267a2d7f450474a903867b0120221fdd135dab93d2f3e6332dd92b14",
+      "observed_sha256": "ba986a2f267a2d7f450474a903867b0120221fdd135dab93d2f3e6332dd92b14",
+      "pass": true
+    },
+    {
+      "role": "compose_identity_rules",
+      "path": "Iris/build/description/v2/data/compose_profile_identity_hint_rules.json",
+      "declared_sha256": "254a088e885ec905680a8830e78ff6e761a272f9002afa9c55b9093118c32c97",
+      "observed_sha256": "254a088e885ec905680a8830e78ff6e761a272f9002afa9c55b9093118c32c97",
+      "pass": true
+    },
+    {
+      "role": "compose_precedence_rules",
+      "path": "Iris/build/description/v2/data/compose_profile_conflict_precedence_rules.json",
+      "declared_sha256": "d108c7e6a80b109d8947be6e9a8efe936ded2bd40e5b48943fbcc5327986c67d",
+      "observed_sha256": "d108c7e6a80b109d8947be6e9a8efe936ded2bd40e5b48943fbcc5327986c67d",
+      "pass": true
+    }
+  ],
+  "denominator": {
+    "declared_facts_row_count": 2105,
+    "declared_expected_facts_count": 2105,
+    "declared_accepted_source_count": 2105,
+    "observed_facts_record_count": 2105,
+    "observed_exact_item_id_count": 2105,
+    "all_equal": true
+  },
+  "derivation_transcript": {
+    "path": "Iris/_docs/round3/registry_runtime_compatibility/authority_reference_discovery/813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f/raw_inspection_transcripts.json",
+    "sha256": "374a3cce1fda62835bc3e942aa8f8a2164867daa2725cd9472d51427b2cf8423",
+    "transcript_ids": [
+      "inspected_path_hashes",
+      "tracked_path_inventory",
+      "ignored_path_inventory",
+      "authority_classification_extract",
+      "input_manifest_constituent_extract",
+      "adoption_receipt_extract",
+      "terminal_seal_extract",
+      "current_input_handoff_extract",
+      "lineage_tree_resolution",
+      "lineage_ancestry_checks",
+      "denominator_case_sensitive_count"
+    ]
+  },
+  "gap_audit": {
+    "missing_count": 0,
+    "mismatch_count": 0,
+    "ambiguity_count": 0,
+    "closed_chain_count": 1,
+    "disposition": "eligible_subject_to_remaining_prerequisites"
+  }
+}

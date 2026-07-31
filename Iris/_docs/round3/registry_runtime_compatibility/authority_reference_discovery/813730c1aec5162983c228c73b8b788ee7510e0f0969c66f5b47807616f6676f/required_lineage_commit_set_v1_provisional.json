@@ -1,0 +1,37 @@
+{
+  "schema_version": "required_lineage_commit_set_v1_provisional",
+  "status": "incomplete",
+  "historical_roots": [
+    {
+      "role": "predecessor_rtc_implementation",
+      "commit": "7d253c91b87abb7f1e044acf3953504180848682"
+    },
+    {
+      "role": "predecessor_rtc_integration",
+      "commit": "c6e2190e7b093b29bc5d615523ae29cf32560ff1"
+    },
+    {
+      "role": "registry_authority_closure",
+      "commit": "63357b7afb879f89c4f43df67ad0d39a060561fb"
+    }
+  ],
+  "current_lineage": [
+    {
+      "role": "synchronized_integration",
+      "commit": "c0eb88a64a08c50fb3f581ee53a0502bd2445195",
+      "tree": "0e19bac02886d67f5f8d08e60976d896f5bc2cbc"
+    },
+    {
+      "role": "current_source_adoption",
+      "commit": "e56c2e0c94aed8f31a61cb27cd6e37f0037451c8",
+      "tree": "c5123b318267f0d3f47933422b292aec864b481d"
+    }
+  ],
+  "missing_dynamic_members": [
+    "g4_terminal_closeout_commit_tree",
+    "g5_terminal_finalize_handoff_commit_tree"
+  ],
+  "missing_dynamic_member_count": 2,
+  "complete_set_constructed": false,
+  "rtc_attempt_reservation_allowed": false
+}

@@ -1,0 +1,123 @@
+{
+  "schema_version": "rtc_pre_entry_candidate_and_prerequisite_inventory_v1",
+  "inspected_head": "c0eb88a64a08c50fb3f581ee53a0502bd2445195",
+  "identity_basis": "git_blob_filtered_working_and_working_raw_are_recorded_separately",
+  "candidates": [
+    {
+      "role": "retained_rendered_output_non_authority",
+      "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+      "exists": true,
+      "tracked": true,
+      "working_raw_sha256": "4ebdb0b6c381fb07d8a61517133c7f61483d979563fc9c0e6ebbb8f2359fa50d",
+      "authority_claim": false
+    },
+    {
+      "role": "latest_accepted_candidate_rendered",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_rendered.json",
+      "exists": true,
+      "tracked": true,
+      "working_raw_sha256": "ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437",
+      "git_blob_raw_sha256": "522ab2773476eb97688c0f2adc14e52bbb58f30ce7cf48a7d7a2282e428964a5",
+      "filtered_working_matches_git_blob": true,
+      "authority_claim": false,
+      "lifecycle": "immutable_non_current_candidate"
+    },
+    {
+      "role": "phase8_evaluation_handoff",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase8/publish_acceptance_handoff_manifest.json",
+      "exists": true,
+      "tracked": true,
+      "working_raw_sha256": "d58833c8346bac55c46a0f891ef19ca9da6bab849cc4cb1c8ae34654ce811aa6",
+      "git_blob_raw_sha256": "7fdbb224b3af4231a8bf3f2d37e448a8cdbfb4ed4d9871a83927b22cfdde25ec",
+      "lf_canonical_sha256": "7fdbb224b3af4231a8bf3f2d37e448a8cdbfb4ed4d9871a83927b22cfdde25ec",
+      "filtered_working_matches_git_blob": true,
+      "status_field_present": false,
+      "terminal_closeout_reported_status": "HANDOFF_COMPLETE",
+      "status_source_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt_0024_terminal_closeout.json",
+      "registry_runtime_pass_claim_allowed": false,
+      "candidate_runtime_parity_reason": "candidate_not_registry_adopted",
+      "authority_claim": false,
+      "lifecycle": "evaluation_handoff_only"
+    }
+  ],
+  "g4": {
+    "attempt_id": "attempt-0005-official",
+    "accepted_disposition": {
+      "path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase5/evaluation_subject_disposition.json",
+      "sha256": "ad49f4bb0924d5f4528b61a4aed0e5338c505ee1b6be8f520abde963aa11b772",
+      "qualified_disposition": "accepted",
+      "policy_closure_state": "incomplete",
+      "phase6_live_gate_adoption_allowed": true,
+      "phase7_finalize_allowed": false
+    },
+    "preserved_failed_phase6": {
+      "path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase6/candidate_current_route_result.json",
+      "sha256": "f4306493bf346a076f8745bcb7422f58110a1c01845f7a3d44ddbe6cc91441cb",
+      "success": false,
+      "test_count": 120,
+      "failure_count": 6,
+      "error_count": 7
+    },
+    "required_gate_candidate": {
+      "path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase6/required_gate_candidate.json",
+      "sha256": "3107201fd7e6da0c8a97a3c8d9ee8119d2d4d9768d0da3fcbcb306cc2447c75b",
+      "live_adoption_claimed": false
+    },
+    "phase7_file_count": 0,
+    "terminal_closure_present": false,
+    "live_required_gate_adopted": false,
+    "prerequisite_status": "missing"
+  },
+  "g5": {
+    "naturalization_terminal_closeout": {
+      "path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt_0024_terminal_closeout.json",
+      "working_raw_sha256": "f5753e3e869467dec0b8ae51d90891c067b71aeab26e72ea7933378db3189f47",
+      "git_blob_raw_sha256": "6a9fd3eb65236aade1ff504423fb6850da95d2b5a9e3882f070b7f043f97049c",
+      "status": "HANDOFF_COMPLETE",
+      "live_gate_mutated": false,
+      "official_publish_attempt_created": false,
+      "official_publish_executed": false
+    },
+    "registry_field_search_roots": [
+      "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a",
+      "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure"
+    ],
+    "registry_field_search_match_count": 0,
+    "registry_field_search_exit_code": 1,
+    "eligible_finalized_registry_facing_packet_count": 0,
+    "prerequisite_status": "missing"
+  },
+  "missing_required_fields": [
+    "g4.terminal_artifact_path",
+    "g4.terminal_artifact_sha256",
+    "g4.terminal_commit",
+    "g4.terminal_tree",
+    "g4.live_required_gate_adopted_true",
+    "g4.policy_closure_complete_true",
+    "g5.registry_handoff_receipt_path",
+    "g5.registry_handoff_receipt_sha256",
+    "g5.packet_status_complete",
+    "g5.registry_handoff_eligibility_claimed_false",
+    "g5.registry_current_adoption_claimed_false",
+    "g5.candidate_rendered_path",
+    "g5.candidate_rendered_sha256",
+    "g5.rendered_source_facts_sha256",
+    "g5.rendered_source_input_manifest_sha256",
+    "g5.g4_disposition_artifact_path",
+    "g5.g4_disposition_artifact_sha256",
+    "g5.g4_terminal_artifact_path",
+    "g5.g4_terminal_artifact_sha256",
+    "g5.g4_terminal_commit",
+    "g5.g4_terminal_tree",
+    "g5.g5_terminal_finalize_artifact_path",
+    "g5.g5_terminal_finalize_artifact_sha256",
+    "g5.g5_terminal_finalize_commit",
+    "g5.g5_terminal_finalize_tree"
+  ],
+  "gap_counts": {
+    "missing_required_field_count": 25,
+    "mismatch_count": 0,
+    "ambiguity_count": 0
+  },
+  "entry_disposition": "blocked_pending_finalized_registry_handoff"
+}

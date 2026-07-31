@@ -314,6 +314,57 @@ def _validate_explicit_current_required_classifications(
             )
 
 
+def _validate_explicit_required_dependencies(
+    contract: dict[str, Any],
+    tracked: set[str],
+    gate_sources: set[str],
+) -> list[dict[str, str]]:
+    rows = contract.get("required_test_dependency_policy", {}).get(
+        "explicit_direct_dependencies", []
+    )
+    validated: list[dict[str, str]] = []
+    seen: set[tuple[str, str]] = set()
+    required_keys = {
+        "test_source",
+        "path",
+        "relationship",
+        "dependency_role",
+        "authority_class",
+        "reason",
+    }
+    for row in rows:
+        if not isinstance(row, dict) or set(row) != required_keys:
+            raise CleanCheckoutError(
+                "invalid explicit required-test dependency schema"
+            )
+        test_source = row["test_source"]
+        path = row["path"]
+        key = (test_source, path)
+        if (
+            not isinstance(test_source, str)
+            or test_source not in gate_sources
+            or not isinstance(path, str)
+            or path not in tracked
+            or key in seen
+            or row["relationship"] != "direct"
+            or not isinstance(row["dependency_role"], str)
+            or not row["dependency_role"].strip()
+            or row["authority_class"] != "required_tracked_source"
+            or not isinstance(row["reason"], str)
+            or not row["reason"].strip()
+        ):
+            raise CleanCheckoutError(
+                "invalid explicit required-test dependency: "
+                f"{test_source!r} -> {path!r}"
+            )
+        seen.add(key)
+        validated.append({key: row[key] for key in sorted(required_keys)})
+    return sorted(
+        validated,
+        key=lambda row: (row["test_source"], row["path"]),
+    )
+
+
 def _imports(
     source: bytes,
     source_path: str,
@@ -537,6 +588,75 @@ def _validate_explicit_tool_dispositions(
                 "attempt_id": row["attempt_id"],
             }
         )
+    return sorted(validated, key=lambda row: row["path"])
+
+
+def _validate_consumer_integration_evidence(
+    repo: Path,
+    commit: str,
+    contract: dict[str, Any],
+    tracked: set[str],
+    required_dependency_paths: set[str],
+) -> list[dict[str, str]]:
+    rows = contract.get("consumer_integration_evidence_policy", {}).get(
+        "explicit_evidence_roles", []
+    )
+    validated: list[dict[str, str]] = []
+    seen: set[str] = set()
+    required_keys = {
+        "evidence_id",
+        "path",
+        "sha256",
+        "deterministic_result_hash",
+        "execution_role",
+        "authority_class",
+        "evidence_role",
+        "reason",
+    }
+    for row in rows:
+        if not isinstance(row, dict) or set(row) != required_keys:
+            raise CleanCheckoutError(
+                "invalid consumer integration evidence schema"
+            )
+        path = row["path"]
+        if (
+            not isinstance(path, str)
+            or path not in tracked
+            or path in seen
+            or path in required_dependency_paths
+            or row["execution_role"] != "not_required"
+            or row["authority_class"] != "historical_optional_evidence"
+            or row["evidence_role"] != "consumer_integration_evidence"
+            or not isinstance(row["evidence_id"], str)
+            or not row["evidence_id"].strip()
+            or not isinstance(row["reason"], str)
+            or not row["reason"].strip()
+        ):
+            raise CleanCheckoutError(
+                f"invalid consumer integration evidence disposition: {path!r}"
+            )
+        payload = bytes_at_commit(repo, commit, path)
+        if sha256_bytes(payload) != row["sha256"]:
+            raise CleanCheckoutError(
+                f"consumer integration evidence SHA-256 mismatch: {path}"
+            )
+        try:
+            result = json.loads(payload.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+            raise CleanCheckoutError(
+                f"consumer integration evidence is not strict JSON: {path}"
+            ) from exc
+        if (
+            not isinstance(result, dict)
+            or result.get("deterministic_result_hash")
+            != row["deterministic_result_hash"]
+        ):
+            raise CleanCheckoutError(
+                "consumer integration evidence deterministic result hash "
+                f"mismatch: {path}"
+            )
+        seen.add(path)
+        validated.append({key: row[key] for key in sorted(required_keys)})
     return sorted(validated, key=lambda row: row["path"])
 
 
@@ -806,6 +926,20 @@ def build_source_census(
     else:
         source_classifications = {}
         gate_sources = set(_canonical_gate_sources(gate_contract, taxonomy))
+    explicit_dependency_rows = (
+        _validate_explicit_required_dependencies(
+            gate_contract,
+            tracked,
+            gate_sources,
+        )
+        if full_repository
+        else []
+    )
+    explicit_dependencies_by_source: dict[str, list[dict[str, str]]] = (
+        defaultdict(list)
+    )
+    for row in explicit_dependency_rows:
+        explicit_dependencies_by_source[row["test_source"]].append(row)
     required_manifest = json_at_commit(repo, commit, REQUIRED_MANIFEST_PATH)
     taxonomy_by_source, taxonomy_by_id = _taxonomy_indexes(taxonomy)
     required_ids = _required_test_ids(required_manifest)
@@ -843,6 +977,23 @@ def build_source_census(
         source_rows.append(source_row)
         if source_path not in gate_sources:
             continue
+        for row in explicit_dependencies_by_source[source_path]:
+            dependency_rows.append(
+                {
+                    "test_source": source_path,
+                    "import_module": None,
+                    "dependency_depth": 0,
+                    "parent_module": None,
+                    "resolved_path": row["path"],
+                    "tracking_state": "tracked",
+                    "dependency_class": row["authority_class"],
+                    "provenance": (
+                        "explicit_full_gate_direct_dependency_contract"
+                    ),
+                    "dependency_role": row["dependency_role"],
+                    "relationship": row["relationship"],
+                }
+            )
         visited_modules: set[tuple[str, str | None]] = set()
 
         def visit_module(
@@ -905,6 +1056,7 @@ def build_source_census(
             visit_module(module, optional_submodule, 0, None)
 
     tool_disposition_rows: list[dict[str, str]] = []
+    consumer_integration_evidence_rows: list[dict[str, str]] = []
     if full_repository:
         required_dependency_paths = {
             row["resolved_path"]
@@ -916,6 +1068,15 @@ def build_source_census(
             gate_contract,
             tracked,
             required_dependency_paths,
+        )
+        consumer_integration_evidence_rows = (
+            _validate_consumer_integration_evidence(
+                repo,
+                commit,
+                gate_contract,
+                tracked,
+                required_dependency_paths,
+            )
         )
 
     source_inventory = {
@@ -934,6 +1095,9 @@ def build_source_census(
         },
         "source_rows": source_rows,
         "tool_disposition_rows": tool_disposition_rows,
+        "consumer_integration_evidence_rows": (
+            consumer_integration_evidence_rows
+        ),
         "identity_rows": [],
         "collection_errors": [],
         "counts": {
@@ -967,6 +1131,9 @@ def build_source_census(
             ),
             "attempt_generation_evidence_tool_count": len(
                 tool_disposition_rows
+            ),
+            "consumer_integration_evidence_count": len(
+                consumer_integration_evidence_rows
             ),
         },
     }

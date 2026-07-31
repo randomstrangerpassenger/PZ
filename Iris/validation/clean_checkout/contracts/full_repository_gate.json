@@ -1,5 +1,5 @@
 {
-  "schema_version": "iris-clean-checkout-full-repository-gate-v5",
+  "schema_version": "iris-clean-checkout-full-repository-gate-v6",
   "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
   "claim": "Iris mandatory full-required-repository validation is reproducible from an exact tracked commit",
   "claim_boundary": {
@@ -82,6 +82,10 @@
       {
         "path": "Iris/build/description/v2/tests/test_naturalization_compiler_identity.py",
         "reason": "current nine-constituent compiler identity is a required G5 handoff contract and must override the historical description-test heuristic"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py",
+        "reason": "current reusable IAR evaluator behavior is required for the G4 generic public-text assessment integration boundary"
       }
     ],
     "historical_optional_rule": "tracked Iris/build/description/v2/tests/test_*.py source with no current, ok taxonomy identity",
@@ -183,6 +187,48 @@
       }
     ],
     "unclassified_source_policy": "fail"
+  },
+  "required_test_dependency_policy": {
+    "explicit_direct_dependencies": [
+      {
+        "test_source": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py",
+        "path": "Iris/build/description/v2/data/iar_public_text_assessment/iar_public_text_assessment_contract.json",
+        "relationship": "direct",
+        "dependency_role": "generic_assessment_contract",
+        "authority_class": "required_tracked_source",
+        "reason": "the required evaluator regression passes this generic contract to every runner, validator, and library projection"
+      },
+      {
+        "test_source": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py",
+        "path": "Iris/build/description/v2/tools/build/run_iar_public_text_assessment.py",
+        "relationship": "direct",
+        "dependency_role": "generic_assessment_runner",
+        "authority_class": "required_tracked_source",
+        "reason": "the required evaluator regression invokes the generic runner directly"
+      },
+      {
+        "test_source": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py",
+        "path": "Iris/build/description/v2/tools/build/validate_iar_public_text_assessment.py",
+        "relationship": "direct",
+        "dependency_role": "generic_assessment_no_write_validator",
+        "authority_class": "required_tracked_source",
+        "reason": "the required evaluator regression invokes the generic no-write validator directly"
+      }
+    ]
+  },
+  "consumer_integration_evidence_policy": {
+    "explicit_evidence_roles": [
+      {
+        "evidence_id": "g5_dvf_3_3_korean_naturalization_candidate_assessment",
+        "path": "Iris/_docs/round3/iar_public_text_assessment/subjects/dvf_3_3_korean_naturalization_candidate/ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437/assessment_result.json",
+        "sha256": "4a5cb7a8a7abf77c66c79a6a6376cafbf0eb4592f19ab94c28f6f5dab4fb5137",
+        "deterministic_result_hash": "861ca998dfff5a7e976d0298ba4e8c164797f6a44abf9c7f168e996d05169199",
+        "execution_role": "not_required",
+        "authority_class": "historical_optional_evidence",
+        "evidence_role": "consumer_integration_evidence",
+        "reason": "subject-specific G5 result proves consumer integration but is not a permanent execution dependency of the generic evaluator"
+      }
+    ]
   },
   "tool_disposition_policy": {
     "explicit_tool_roles": [

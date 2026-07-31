@@ -1,0 +1,22 @@
+{
+  "attempt_id": "attempt-0005-official",
+  "claim_bearing_artifact_count": 139,
+  "claim_inventory_sha256": "cf2fb975de9422ebbd1a8635a8d8d12c764738d70803c976f0a7b06a34e3ca65",
+  "correction_evidence_count": 7,
+  "correction_evidence_sha256": "e7b12d14b2a42e1e4b4563f2522a0258b71060c2d118d4f0514cb2895b4f4998",
+  "correction_id": "g1-successor-0010-terminal-evaluation-subject-text-identity-0005",
+  "current_verification_receipt_sha256": "8dad5b9110056696e47c429e5f2aa3fc3aae4133e9e36fae35542a3d50ebfc00",
+  "evaluation_subject_identity_sha256": "79f222937a7cbb276268ce65698ef9fdc1c2ce93cc80003ccdbfd4ba8abe141d",
+  "freeze_path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase7/corrections/terminal-evaluation-subject-text-identity-0005/freeze.json",
+  "freeze_sha256": "403bffd3ecac36ff0f6b4e141bfa1478cc64a70c4f80ff69010a050bf0bb7e4f",
+  "implementation_inventory_sha256": "b6fe5463296e81d893bfc326cb1e944416e87673f823e888b8da34e58d7742a5",
+  "implementation_path_count": 20,
+  "inventory_algorithm_id": "git_head_tree_index_posix_paths_blob_sha256_v1",
+  "manifest_hash": "dd8a2e5b37a9cbe2422e296d3384b0b95c312300bf49e37c91fb48a58f2c95c5",
+  "predecessor_failed_evidence_count": 3,
+  "predecessor_failed_evidence_sha256": "6bdef6330f15647ffe446cd28fdd406d782f996d4fabc1605b5744b1ecab5eeb",
+  "schema_version": "public_text_quality_phase7_evaluation_subject_text_identity_manifest_v6",
+  "self_hash_included": false,
+  "status": "PASS",
+  "terminal_included": false
+}

@@ -2287,6 +2287,96 @@
           "equals": 11
         }
       ]
+    },
+    {
+      "path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase0/acceptance_input_binding_manifest.json",
+      "checks": [
+        {
+          "field": "binding_fresh",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase0/official_current_input_binding_report.json",
+      "checks": [
+        {
+          "field": "status",
+          "equals": "PASS"
+        }
+      ]
+    },
+    {
+      "path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase1/metric_denominator_contract_validation_report.json",
+      "checks": [
+        {
+          "field": "status",
+          "equals": "PASS"
+        }
+      ]
+    },
+    {
+      "path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase2/policy_hash_seal.json",
+      "checks": [
+        {
+          "field": "policy_ratified",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase4/adversarial_fixture_manifest.json",
+      "checks": [
+        {
+          "field": "status",
+          "equals": "PASS"
+        }
+      ]
+    },
+    {
+      "path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase5/evaluation_subject_disposition.json",
+      "checks": [
+        {
+          "field": "qualified_disposition",
+          "equals": "accepted"
+        }
+      ]
+    },
+    {
+      "path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase5/evaluation_subject_disposition_hash_manifest.json",
+      "checks": [
+        {
+          "field": "schema_version",
+          "equals": "public_text_quality_disposition_hash_manifest_v1"
+        }
+      ]
+    },
+    {
+      "path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase6/stale_disposition_consumption_guard_report.json",
+      "checks": [
+        {
+          "field": "status",
+          "equals": "PASS"
+        }
+      ]
+    },
+    {
+      "path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase6/pre_adoption_protected_surface_report.json",
+      "checks": [
+        {
+          "field": "status",
+          "equals": "PASS"
+        }
+      ]
+    },
+    {
+      "path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase6/required_artifact_recensus_report.json",
+      "checks": [
+        {
+          "field": "status",
+          "equals": "PASS"
+        }
+      ]
     }
   ],
   "required_tests": [
@@ -2568,6 +2658,12 @@
     {
       "test_id": "test_dvf_3_3_registry_runtime_compatibility_current.RegistryRuntimeCompatibilityCurrentRouteTest.test_required_gate_runs_standalone_subprocess",
       "reason": "standalone Registry Runtime Compatibility required gate"
+    },
+    {
+      "test_id": "test_public_text_quality_acceptance_current_route.PublicTextQualityAcceptanceCurrentRouteTest.test_required_gate_runs_standalone_subprocess",
+      "reason": "standalone Publish Boundary public-text acceptance required gate",
+      "role": "publish_boundary_public_text_acceptance_required_validation",
+      "required": true
     }
   ],
   "route": "current",

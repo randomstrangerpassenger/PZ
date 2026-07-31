@@ -1,0 +1,100 @@
+{
+  "artifact_manifest_sha256": "fecd4e95bfcea8b38fe80c3c6bdcb209cef29d8bfb4d219c9b47a0f8b8b76153",
+  "attempt_id": "attempt-0005-official",
+  "claim_inventory_sha256": "cf2fb975de9422ebbd1a8635a8d8d12c764738d70803c976f0a7b06a34e3ca65",
+  "correction_id": "g1-successor-0010-replay-serialization-0004",
+  "critical_finding_count": 0,
+  "current_verification_receipt_sha256": "8dad5b9110056696e47c429e5f2aa3fc3aae4133e9e36fae35542a3d50ebfc00",
+  "findings": [],
+  "freeze_sha256": "9c5a3104889b16726b11809b7424b272051759f4d69ee6e25d6e895316103c52",
+  "important_finding_count": 0,
+  "owner_seal_sufficiency": {
+    "current_verification_receipt_bound": true,
+    "fresh_independent_review_bound": true,
+    "fresh_owner_seal_present": false,
+    "g5_allowed_now": false,
+    "g5_allowed_only_after_committed_valid_terminal": true,
+    "required_owner_seal_fields_sufficient": true,
+    "terminal_allowed_after_exact_fresh_owner_seal": true,
+    "terminal_allowed_now": false
+  },
+  "review_request_sha256": "724a59598c80ef1811fb10600d2874ea9113d3c4bc1aaf4625ddba19d3b721a7",
+  "reviewed_at_utc": "2026-07-31T16:12:05.2208276Z",
+  "reviewed_commit": "f10d404728d7e19e607c50ca51c4257e14d214df",
+  "reviewed_scope_count": 11,
+  "reviewed_tree": "61e44ac7dcc28fecc38e01352db6410b4cfbac4a",
+  "reviewer_binding_proof": "4d0d961e6f773188c79956ef07a9682b25b0872f4b95293754bf242986e96e0d",
+  "reviewer_identity": "codex_reviewer",
+  "reviewer_kind": "codex_reviewer",
+  "schema_version": "public_text_quality_phase7_replay_serialization_review_v5",
+  "scope_results": {
+    "canonical_census_tree_only_authority": {
+      "evidence": "Canonical rows derive only from Git commit-tree repo-relative POSIX paths, modes, blob IDs, and blob bytes.",
+      "status": "PASS"
+    },
+    "checkout_location_independence": {
+      "evidence": "Two distinct repository-external projections produced the same 139-path inventory SHA and were removed.",
+      "status": "PASS"
+    },
+    "claim_boundary_and_no_authority_effect": {
+      "evidence": "The correction is append-only, predecessor 0003 evidence is blob-identical, authority_effect is none, and terminal/G5 remain absent and gated.",
+      "status": "PASS"
+    },
+    "current_route_lua_no_mutation": {
+      "evidence": "Recorded current route is 136/136 PASS, Lua syntax is 94/94 PASS, and live/protected/runtime mutation counts are zero.",
+      "status": "PASS"
+    },
+    "current_verification_receipt_separation": {
+      "evidence": "The canonical census excludes current index/working counts; the separately committed receipt binds 139/139 HEAD, index, and filtered working identities.",
+      "status": "PASS"
+    },
+    "dirty_index_working_fail_closed_contract": {
+      "evidence": "Materialization requires a clean committed checkout and identity validation rejects any index or filtered-working mismatch.",
+      "status": "PASS"
+    },
+    "freeze_deterministic_replay": {
+      "evidence": "Fresh freeze, artifact manifest, review request, and VCS census replay exactly from commit 832ce189b08e744d14a8d2afe0700e061c9ff36d/tree 3abeebe4295e6ce566bfee505f08f82ebb9b839e.",
+      "status": "PASS"
+    },
+    "inventory_denominator_139": {
+      "evidence": "Canonical claim inventory contains exactly 139 unique tracked paths with inventory SHA cf2fb975de9422ebbd1a8635a8d8d12c764738d70803c976f0a7b06a34e3ca65.",
+      "status": "PASS"
+    },
+    "materialization_replay_byte_identity": {
+      "evidence": "Tracked freeze, manifest, request, and VCS census are byte-identical to deterministic replay at the sealed readpoint; census count is 139.",
+      "status": "PASS"
+    },
+    "receipt_negative_fail_closed_contract": {
+      "evidence": "Missing-field, unverified, count-mismatch, blob-mismatch, dirty-index, and dirty-working receipt fixtures are rejected.",
+      "status": "PASS"
+    },
+    "terminal_current_verification_requirement": {
+      "evidence": "Terminal production first requires fresh review and owner seal, revalidates the tracked receipt and committed checkout identity, and binds the receipt as a terminal DAG role.",
+      "status": "PASS"
+    }
+  },
+  "status": "PASS",
+  "verdict": "PASS",
+  "verified_hashes": {
+    "artifact_manifest_binding_sha256": "76d9bfc1a65ef1dae7401dc3c67aa2d47261852ecb31f6754b249b064529889c",
+    "artifact_manifest_canonical_full_sha256": "891694e6d6f7642b4db2d603aa224726ea361b42f84188658f94931668976cca",
+    "artifact_manifest_raw_sha256": "fecd4e95bfcea8b38fe80c3c6bdcb209cef29d8bfb4d219c9b47a0f8b8b76153",
+    "claim_inventory_sha256": "cf2fb975de9422ebbd1a8635a8d8d12c764738d70803c976f0a7b06a34e3ca65",
+    "correction_evidence_inventory_sha256": "b28f77e1c7e0428876ab234a2a8d495c403794a30d082e0de776fb78caa7ed45",
+    "current_verification_receipt_binding_sha256": "44584450a5de4e634b082ea22ad475f48dab2c37d23b2c4572e9c199d21d0469",
+    "current_verification_receipt_canonical_full_sha256": "203216151ea7ac427106d3ee8bc0c7acef03908ee2955055aaf1cb4824c9c4e7",
+    "current_verification_receipt_raw_sha256": "8dad5b9110056696e47c429e5f2aa3fc3aae4133e9e36fae35542a3d50ebfc00",
+    "freeze_binding_sha256": "c72ae6ca2158cff52efaadb50b4049969756e590839266f82b1af20ca7ea2581",
+    "freeze_canonical_full_sha256": "fe4331860bd3e5b619963787be290ffca45cf2dd65dd0adb4aa167798739c03a",
+    "freeze_raw_sha256": "9c5a3104889b16726b11809b7424b272051759f4d69ee6e25d6e895316103c52",
+    "implementation_inventory_sha256": "0c177670a8459a681479ccf6fafabddfe63645c2841d36fe19999fc19bda5e75",
+    "live_manifest_sha256": "3107201fd7e6da0c8a97a3c8d9ee8119d2d4d9768d0da3fcbcb306cc2447c75b",
+    "predecessor_failed_evidence_inventory_sha256": "8bc41e3daa3b1b7fc8cd1e9549e5c8da4b6ec4e56b02d7b8761795ef0a9e946f",
+    "review_request_canonical_sha256": "9d5b773fec33019593b1b51167ea9f156dbe40f3f5109cad0e902383c5b547da",
+    "review_request_raw_sha256": "724a59598c80ef1811fb10600d2874ea9113d3c4bc1aaf4625ddba19d3b721a7",
+    "reviewed_commit": "f10d404728d7e19e607c50ca51c4257e14d214df",
+    "reviewed_tree": "61e44ac7dcc28fecc38e01352db6410b4cfbac4a",
+    "vcs_census_canonical_sha256": "eac02e17bbabce16943cff8b3abddee678b5b7c399289299247c5869f66036c5",
+    "vcs_census_raw_sha256": "6899e199a50eb6d04a7655d3fb4cb8df11560e24eea96b58659d3e613b71906a"
+  }
+}

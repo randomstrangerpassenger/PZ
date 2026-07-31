@@ -1,0 +1,20 @@
+{
+  "schema_version": "public_text_quality_phase7_host_independent_test_census_v1",
+  "status": "PASS",
+  "attempt_id": "attempt-0005-official",
+  "correction_id": "g1-successor-0010-host-independent-freeze-0003",
+  "census_commit": "b14a1e9f7bd164d4a95a208a62141a1d3608836d",
+  "census_tree": "901b99cd9bd30fc78e014cb1476249621dc80328",
+  "tracked_test_source_count": 93,
+  "required_source_count": 33,
+  "historical_optional_source_count": 55,
+  "obsolete_or_misrouted_source_count": 3,
+  "hermetic_test_fixture_source_count": 2,
+  "new_test_source_count": 0,
+  "changed_current_required_source_count": 1,
+  "required_source_denominator_changed": false,
+  "new_regression_method_count": 1,
+  "full_clean_checkout_gate_rerun_required": false,
+  "reason": "The host-independent inventory regression is contained in an already current-required source and no test_*.py source was added.",
+  "authority_effect": "none"
+}

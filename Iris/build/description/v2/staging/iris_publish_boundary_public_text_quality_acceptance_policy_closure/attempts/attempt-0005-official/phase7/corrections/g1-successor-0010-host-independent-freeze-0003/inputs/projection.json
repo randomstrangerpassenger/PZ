@@ -1,0 +1,21 @@
+{
+  "schema_version": "public_text_quality_phase7_host_independent_projection_parity_v1",
+  "status": "PASS",
+  "attempt_id": "attempt-0005-official",
+  "correction_id": "g1-successor-0010-host-independent-freeze-0003",
+  "execution_commit": "b14a1e9f7bd164d4a95a208a62141a1d3608836d",
+  "execution_tree": "901b99cd9bd30fc78e014cb1476249621dc80328",
+  "inventory_algorithm_id": "git_head_tree_index_posix_paths_blob_sha256_v1",
+  "projection_count": 2,
+  "locations_distinct": true,
+  "repository_external": true,
+  "path_count_per_projection": 139,
+  "inventory_sha256_a": "cf2fb975de9422ebbd1a8635a8d8d12c764738d70803c976f0a7b06a34e3ca65",
+  "inventory_sha256_b": "cf2fb975de9422ebbd1a8635a8d8d12c764738d70803c976f0a7b06a34e3ca65",
+  "canonical_results_identical": true,
+  "normal_and_extended_length_representation_identical": true,
+  "projection_roots_removed": true,
+  "persistent_worktree_added_count": 0,
+  "exit_code": 0,
+  "authority_effect": "none"
+}

@@ -1,0 +1,34 @@
+{
+  "schema_version": "public_text_quality_phase7_host_independent_route_receipt_v1",
+  "status": "PASS",
+  "attempt_id": "attempt-0005-official",
+  "correction_id": "g1-successor-0010-host-independent-freeze-0003",
+  "executed_at_utc": "2026-07-31T15:11:11.1455664Z",
+  "execution_commit": "b14a1e9f7bd164d4a95a208a62141a1d3608836d",
+  "execution_tree": "901b99cd9bd30fc78e014cb1476249621dc80328",
+  "command_argv": [
+    "python",
+    "-B",
+    "Iris/_docs/round3/round3_run_contract_tests.py",
+    "--class",
+    "current",
+    "--enforce-current-build-closure",
+    "--out",
+    "EXTERNAL_ROOT/current_route.json"
+  ],
+  "environment_variable_names": [
+    "IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT",
+    "TEMP",
+    "TMP",
+    "TMPDIR"
+  ],
+  "declared_output_location": "repository_external_bounded_test_output_root",
+  "repository_external": true,
+  "external_root_removed_after_evidence_capture": true,
+  "source_result_raw_sha256": "73f8b6746b24bc940938abedb87c51a3dde3e8b89ceaf0cef7f83b737111ab51",
+  "exit_code": 0,
+  "test_count": 136,
+  "passed_test_count": 136,
+  "selected_identity_count": 136,
+  "authority_effect": "none"
+}

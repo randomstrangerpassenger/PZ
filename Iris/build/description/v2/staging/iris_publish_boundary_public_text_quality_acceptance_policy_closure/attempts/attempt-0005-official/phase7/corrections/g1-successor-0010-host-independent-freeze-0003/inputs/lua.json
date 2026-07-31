@@ -1,0 +1,20 @@
+{
+  "schema_version": "public_text_quality_phase7_host_independent_lua_syntax_v1",
+  "status": "PASS",
+  "attempt_id": "attempt-0005-official",
+  "correction_id": "g1-successor-0010-host-independent-freeze-0003",
+  "execution_commit": "b14a1e9f7bd164d4a95a208a62141a1d3608836d",
+  "execution_tree": "901b99cd9bd30fc78e014cb1476249621dc80328",
+  "command_argv": [
+    "powershell",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    ".\\tools\\check_lua_syntax.ps1"
+  ],
+  "exit_code": 0,
+  "file_count": 94,
+  "passed_file_count": 94,
+  "runtime_lua_package_mutation_count": 0,
+  "authority_effect": "none"
+}

@@ -60,7 +60,7 @@ class IarPublicTextAssessmentTest(unittest.TestCase):
         )
 
     def temporary_root(self) -> tempfile.TemporaryDirectory[str]:
-        return tempfile.TemporaryDirectory(dir=V2_ROOT / ".tmp")
+        return tempfile.TemporaryDirectory()
 
     def write_input(self, root: Path, value: dict[str, object]) -> Path:
         path = root / "assessment_input.json"

@@ -34,6 +34,9 @@ PHASE7_REPLAY_SERIALIZATION_VALIDATOR = TOOLS_ROOT / (
 PHASE7_EVALUATION_SUBJECT_TEXT_IDENTITY_VALIDATOR = TOOLS_ROOT / (
     "validate_public_text_quality_acceptance_official_0005_phase7_evaluation_subject_text_identity.py"
 )
+PHASE7_LONG_PATH_WRITER_VALIDATOR = TOOLS_ROOT / (
+    "validate_public_text_quality_acceptance_official_0005_phase7_long_path_writer.py"
+)
 
 
 class PublicTextQualityAcceptanceCurrentRouteTest(unittest.TestCase):
@@ -193,6 +196,28 @@ class PublicTextQualityAcceptanceCurrentRouteTest(unittest.TestCase):
             payload["evaluation_subject_head_blob_raw_sha256"],
             "522ab2773476eb97688c0f2adc14e52bbb58f30ce7cf48a7d7a2282e428964a5",
         )
+        self.assertEqual(payload["authority_effect"], "none")
+
+    def test_phase7_windows_long_path_safe_artifact_writer_regressions(self) -> None:
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(PHASE7_LONG_PATH_WRITER_VALIDATOR),
+                "--self-test",
+            ],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, msg=result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["status"], "PASS")
+        self.assertEqual(payload["case_count"], 9)
+        self.assertEqual(payload["passed_case_count"], 9)
+        self.assertEqual(payload["partial_target_count"], 0)
+        self.assertEqual(payload["temporary_residue_count"], 0)
         self.assertEqual(payload["authority_effect"], "none")
 
     def test_required_gate_runs_standalone_subprocess(self) -> None:

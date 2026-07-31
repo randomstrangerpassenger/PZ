@@ -487,7 +487,7 @@ def validate_freeze_bundle(*, require_tracked: bool) -> dict[str, Any]:
     expected = compute_freeze_bundle(freeze_commit=existing.get("freeze_commit"), freeze_tree=existing.get("freeze_tree"))
     records: dict[str, Any] = {}
     for path, key in ((FREEZE, "freeze"), (ARTIFACT_MANIFEST, "artifact_manifest"), (REVIEW_REQUEST, "review_request"), (VCS_CENSUS, "vcs_census")):
-        if path.read_bytes() != base.pretty_json_bytes(expected[key]):
+        if base.read_bytes_long_path_safe(path) != base.pretty_json_bytes(expected[key]):
             _fail(f"evaluation-subject identity freeze deterministic replay mismatch: {path.name}")
         records[key] = predecessor.predecessor._tracked_record(path) if require_tracked else {"path": _repo_path(path), "sha256": base.sha256_file(path)}
     subject, subject_ref = _load_tracked_json(SUBJECT_IDENTITY, "evaluation subject identity")

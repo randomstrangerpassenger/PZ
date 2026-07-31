@@ -683,7 +683,7 @@ def validate_temporary_projection_parity(output_root: Path) -> dict[str, Any]:
 
 def _load_tracked_json(path: Path, label: str) -> tuple[dict[str, Any], dict[str, Any]]:
     record = predecessor._tracked_record(path)
-    payload = predecessor._blob_bytes([record["git_blob_id"]])[record["git_blob_id"]
+    payload = predecessor._blob_bytes([record["git_blob_id"]])[record["git_blob_id"]]
     try:
         value = json.loads(payload.decode("utf-8"))
     except (UnicodeDecodeError, json.JSONDecodeError) as exc:

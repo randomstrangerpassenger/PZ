@@ -31,6 +31,9 @@ PHASE7_HOST_INDEPENDENT_VALIDATOR = TOOLS_ROOT / (
 PHASE7_REPLAY_SERIALIZATION_VALIDATOR = TOOLS_ROOT / (
     "validate_public_text_quality_acceptance_official_0005_phase7_replay_serialization.py"
 )
+PHASE7_EVALUATION_SUBJECT_TEXT_IDENTITY_VALIDATOR = TOOLS_ROOT / (
+    "validate_public_text_quality_acceptance_official_0005_phase7_evaluation_subject_text_identity.py"
+)
 
 
 class PublicTextQualityAcceptanceCurrentRouteTest(unittest.TestCase):
@@ -160,6 +163,36 @@ class PublicTextQualityAcceptanceCurrentRouteTest(unittest.TestCase):
         self.assertEqual(payload["passed_case_count"], 8)
         self.assertEqual(payload["canonical_tracked_inventory_count"], 139)
         self.assertEqual(payload["fake_zero_count_field_count"], 0)
+        self.assertEqual(payload["authority_effect"], "none")
+
+    def test_phase7_evaluation_subject_text_identity_regressions(self) -> None:
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(PHASE7_EVALUATION_SUBJECT_TEXT_IDENTITY_VALIDATOR),
+                "--attempt-id",
+                "attempt-0005-official",
+                "--self-test",
+            ],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, msg=result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["status"], "PASS")
+        self.assertEqual(payload["case_count"], 11)
+        self.assertEqual(payload["passed_case_count"], 11)
+        self.assertEqual(
+            payload["evaluation_subject_sealed_sha256"],
+            "ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437",
+        )
+        self.assertEqual(
+            payload["evaluation_subject_head_blob_raw_sha256"],
+            "522ab2773476eb97688c0f2adc14e52bbb58f30ce7cf48a7d7a2282e428964a5",
+        )
         self.assertEqual(payload["authority_effect"], "none")
 
     def test_required_gate_runs_standalone_subprocess(self) -> None:

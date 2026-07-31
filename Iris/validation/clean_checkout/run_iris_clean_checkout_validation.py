@@ -1835,7 +1835,7 @@ def run_full_repository_gate(
         or output_policy["windows_privileged_auditing_required"] is not False
     ):
         raise CleanCheckoutError("unsupported full-gate privilege policy")
-    checkout = work_root / "execution-checkout"
+    checkout = work_root / ("x" if os.name == "nt" else "execution-checkout")
     maximum_checkout_root_length = contract["execution_workspace"][
         "windows_maximum_execution_checkout_root_length"
     ]

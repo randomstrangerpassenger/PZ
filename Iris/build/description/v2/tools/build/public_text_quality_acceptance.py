@@ -3189,6 +3189,9 @@ def compute_candidate_metric_snapshot(
     raw = load_json_strict(raw_path)
     review_sample = load_json_strict(review_sample_path)
     review_decision = load_json_strict(review_decision_path)
+    candidate_declared_hash = validation["constituents"][
+        "candidate_rendered_hash"
+    ]["sha256"]
 
     entries = candidate.get("entries")
     if not isinstance(entries, dict) or not entries:
@@ -3256,8 +3259,8 @@ def compute_candidate_metric_snapshot(
         not isinstance(selected, list)
         or len(selected) != selected_denominator
         or len(selected) != len(set(selected))
-        or review_sample.get("candidate_rendered_hash") != sha256_file(candidate_path)
-        or review_decision.get("candidate_rendered_hash") != sha256_file(candidate_path)
+        or review_sample.get("candidate_rendered_hash") != candidate_declared_hash
+        or review_decision.get("candidate_rendered_hash") != candidate_declared_hash
     ):
         _human_review_technical_blocker(
             ["human_review_denominator_or_candidate_binding_mismatch"]
@@ -3330,7 +3333,7 @@ def compute_candidate_metric_snapshot(
     return {
         "schema_version": "public_text_quality_candidate_metric_snapshot_v1",
         "evaluation_subject_kind": "dvf_3_3_korean_naturalization_candidate",
-        "evaluation_subject_hash": sha256_file(candidate_path),
+        "evaluation_subject_hash": candidate_declared_hash,
         "candidate_key_count": len(item_ids),
         "quality_evaluable_candidate_count": candidate_denominator,
         "explicit_unadopted_count": len(item_ids) - candidate_denominator,

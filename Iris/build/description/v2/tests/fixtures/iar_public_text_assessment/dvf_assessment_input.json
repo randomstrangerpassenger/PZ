@@ -1,0 +1,35 @@
+{
+  "applicable_metrics": [
+    {
+      "denominator": 1,
+      "denominator_id": "naturalization_source_proposition_v1",
+      "metric_id": "semantic_preservation_failure"
+    }
+  ],
+  "authority_effect": "none",
+  "contract_id": "iar_public_text_assessment_v1",
+  "human_review_result": null,
+  "metric_source": {
+    "adapter": "bound_metric_evidence_manifest_v1",
+    "identity_algorithm": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1",
+    "path": "Iris/build/description/v2/tests/fixtures/iar_public_text_assessment/dvf_metric_evidence.json",
+    "sha256": "8bdc02c3818a1e1c40749148dfe8c848bf0c50f2c6ae1afdc9ea586a6c5a9764"
+  },
+  "policy": {
+    "identity_algorithm": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1",
+    "path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json",
+    "ruleset_id": "naturalization_candidate_thresholds",
+    "ruleset_sha256": "89d6b2b2afed45eeb0897037eed2eeb46f403b96b98185a6029d335c6b9e711d",
+    "sha256": "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02"
+  },
+  "schema_version": "iar_public_text_assessment_input_v1",
+  "subject": {
+    "identity_algorithm": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1",
+    "kind": "dvf_fixture_subject",
+    "manifest_identity_algorithm": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1",
+    "manifest_path": "Iris/build/description/v2/tests/fixtures/iar_public_text_assessment/dvf_metric_evidence.json",
+    "manifest_sha256": "8bdc02c3818a1e1c40749148dfe8c848bf0c50f2c6ae1afdc9ea586a6c5a9764",
+    "path": "Iris/build/description/v2/tests/fixtures/iar_public_text_assessment/dvf_subject.json",
+    "sha256": "c56b0cf2b18a0f4050148504f770e9c09ee529ecd1e728b142036a3d7637226b"
+  }
+}

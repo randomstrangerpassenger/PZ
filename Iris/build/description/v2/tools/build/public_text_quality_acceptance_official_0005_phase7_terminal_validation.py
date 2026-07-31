@@ -11,9 +11,11 @@ import public_text_quality_acceptance_official_0005_phase7_v2 as predecessor
 
 
 CORRECTION_ID = "g1-successor-0010-terminal-validation-0002"
+CORRECTION_PATH_ID = "terminal-validation-0002"
 PHASE7 = official.ATTEMPT_ROOT / "phase7"
-CORRECTION_ROOT = PHASE7 / "corrections" / CORRECTION_ID
-VALIDATION_ROOT = CORRECTION_ROOT / "inputs"
+EVIDENCE_ROOT = PHASE7 / "corrections" / CORRECTION_ID
+CORRECTION_ROOT = PHASE7 / "corrections" / CORRECTION_PATH_ID
+VALIDATION_ROOT = EVIDENCE_ROOT / "inputs"
 FREEZE = CORRECTION_ROOT / "final_evidence_freeze_manifest.json"
 ARTIFACT_MANIFEST = CORRECTION_ROOT / "final_artifact_hash_manifest.json"
 REVIEW_REQUEST = CORRECTION_ROOT / "independent_review_request.json"
@@ -27,13 +29,13 @@ REVIEWER_ROOT = (
     / "reviewer_inputs"
     / base.ROUND_ID
     / official.ATTEMPT_ID
-    / CORRECTION_ID
+    / CORRECTION_PATH_ID
 )
 INDEPENDENT_REVIEW = REVIEWER_ROOT / "independent_review.json"
 REVIEWER_ELIGIBILITY = REVIEWER_ROOT / "reviewer_eligibility_declaration.json"
 OWNER_SEAL = (
     official.OWNER_INPUT_ROOT
-    / "owner_closure_seal_g1_successor_0010_terminal_validation_0002.json"
+    / "owner_closure_seal_terminal_validation_0002.json"
 )
 
 DISPOSITION = official.ATTEMPT_ROOT / "phase5" / "evaluation_subject_disposition.json"

@@ -1,0 +1,200 @@
+{
+  "assessment": {
+    "assessment_input": {
+      "canonical_json_sha256": "8be2721c45189d48db09026f2474a849eb3a05edd750035a5119a4ef5e741d18",
+      "path": "Iris/_docs/round3/iar_public_text_assessment/subjects/dvf_3_3_korean_naturalization_candidate/ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437/assessment_input.json",
+      "raw_sha256": "812e22ae45363cb47a4382db530c2b9ead74ee70c02ddfe7fc8efe8e0569d604"
+    },
+    "authority_effect": "none",
+    "contract": {
+      "canonical_json_sha256": "1068c2386424fb0bfe0329c6c91757a82ddf6e1266c1a0db2150ed14e0941115",
+      "contract_id": "iar_public_text_assessment_v1",
+      "path": "Iris/build/description/v2/data/iar_public_text_assessment/iar_public_text_assessment_contract.json",
+      "raw_sha256": "cd964059bd7fb3ccefb175c7ebed477d51fba7341b41567c2bef9c411ed47ac9"
+    },
+    "deterministic_result_hash": "861ca998dfff5a7e976d0298ba4e8c164797f6a44abf9c7f168e996d05169199",
+    "failure_attribution": {
+      "subject_defect_counts": {
+        "candidate": 0,
+        "compiler": 0,
+        "facts": 0,
+        "source": 0
+      },
+      "technical_failure_counts": {
+        "environment": 0,
+        "iar": 0,
+        "orchestration": 0
+      },
+      "temporary_orchestration_failure_count": 0
+    },
+    "finding_count": 0,
+    "metric_count": 12,
+    "metric_denominators": [
+      {
+        "denominator": 5915,
+        "denominator_id": "naturalization_source_proposition_v1",
+        "metric_id": "semantic_preservation_failure"
+      },
+      {
+        "denominator": 3102,
+        "denominator_id": "naturalization_required_body_plan_role_v1",
+        "metric_id": "unsatisfied_required_body_plan_role"
+      },
+      {
+        "denominator": 28,
+        "denominator_id": "naturalization_fusion_suppression_transformation_v1",
+        "metric_id": "equivalence_proof_failure"
+      },
+      {
+        "denominator": 2084,
+        "denominator_id": "naturalization_candidate_item_v1",
+        "metric_id": "compiler_invalid_pattern"
+      },
+      {
+        "denominator": 2084,
+        "denominator_id": "naturalization_raw_detector_opportunity_v1:duplicate_proposition_realization",
+        "metric_id": "duplicate_proposition_realization"
+      },
+      {
+        "denominator": 2084,
+        "denominator_id": "naturalization_raw_detector_opportunity_v1:repeated_identity_noun_window",
+        "metric_id": "repeated_identity_noun_window"
+      },
+      {
+        "denominator": 2084,
+        "denominator_id": "naturalization_raw_detector_opportunity_v1:banned_internal_abstraction",
+        "metric_id": "banned_internal_abstraction"
+      },
+      {
+        "denominator": 2084,
+        "denominator_id": "naturalization_raw_detector_opportunity_v1:repeated_skeleton_concentration",
+        "metric_id": "repeated_skeleton_concentration"
+      },
+      {
+        "denominator": 2084,
+        "denominator_id": "naturalization_raw_detector_opportunity_v1:paragraph_fragmentation",
+        "metric_id": "paragraph_fragmentation"
+      },
+      {
+        "denominator": 2084,
+        "denominator_id": "naturalization_raw_detector_opportunity_v1:passive_translationese_pattern",
+        "metric_id": "passive_translationese_pattern"
+      },
+      {
+        "denominator": 2084,
+        "denominator_id": "naturalization_raw_detector_opportunity_v1:empty_or_filler_sentence",
+        "metric_id": "empty_or_filler_sentence"
+      },
+      {
+        "denominator": 2084,
+        "denominator_id": "naturalization_human_review_required_v1",
+        "metric_id": "human_review_blocker_required_denominator"
+      }
+    ],
+    "metric_projection_sha256": "b6ff5bf94205c5dbba50e11c59fdb2db72aea85ac094b9f5ec3e74153cb29cda",
+    "path": "Iris/_docs/round3/iar_public_text_assessment/subjects/dvf_3_3_korean_naturalization_candidate/ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437/assessment_result.json",
+    "raw_sha256": "4a5cb7a8a7abf77c66c79a6a6376cafbf0eb4592f19ab94c28f6f5dab4fb5137",
+    "schema_version": "iar_public_text_assessment_result_v1",
+    "status": "PASS"
+  },
+  "authority_boundary": {
+    "current_authority_path": "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
+    "current_authority_section": "0. Current Executable Scope — Candidate Preservation and Generic IAR Assessment Consumption",
+    "historical_terminal_or_allowlist_clauses_executable": false,
+    "publication_or_runtime_adoption_claimed": false
+  },
+  "completion_claim": "naturalization_implementation_and_quality_assessment_complete",
+  "g4_reusable_assessment_authority": {
+    "completion_claim": "reusable_public_text_quality_evaluator_validated_and_integrated",
+    "current_route": {
+      "manifest_path": "Iris/_docs/round3/current_route_required_validations.json",
+      "manifest_raw_sha256": "58f7427cccca4ab181caf5d9bf1031d32b3b2a924858588ce5e5082f9fb6592f",
+      "pass_count": 142,
+      "status": "PASS",
+      "total_count": 142
+    },
+    "generic_contract_raw_sha256": "cd964059bd7fb3ccefb175c7ebed477d51fba7341b41567c2bef9c411ed47ac9",
+    "integration_record": {
+      "path": "Iris/_docs/round3/iar_public_text_assessment/current_route_integration_g1_successor_0011.json",
+      "raw_sha256": "143d565da1dc2fdea08adf94eacdee8048331bd34cbedfa8ea05dc6f89336a75"
+    }
+  },
+  "mutation_boundary": {
+    "candidate_mutation_count": 0,
+    "candidate_regenerated": false,
+    "current_facts_or_manifest_mutation_count": 0,
+    "detector_corpus_reexecuted": false,
+    "human_review_reexecuted": false,
+    "naturalization_attempt_created": false,
+    "naturalization_phase_0_through_8_reexecuted": false,
+    "runtime_lua_or_package_mutation_count": 0
+  },
+  "non_claims": [
+    "current_rendered_adoption",
+    "runtime_or_lua_or_package_change",
+    "publication_or_deployment",
+    "release_readiness"
+  ],
+  "preserved_subject_identity": {
+    "candidate_emission_count": 2084,
+    "candidate_manifest": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_manifest.json",
+      "raw_sha256": "474cd41a439964768541738daf43af30bdee5f7eaf0deee352a44d45c880b18d"
+    },
+    "compiler_identity": {
+      "aggregate_sha256": "2dcff095b1cc34c8fb6d3ad735ac8f9d0ca2affe259f6bb97870b19e7235cc7f",
+      "algorithm_id": "naturalization_compiler_identity_sha256_lf_normalized_ordered_paths_v2",
+      "ordered_path_count": 9,
+      "status": "PASS"
+    },
+    "identity_algorithm": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1",
+    "kind": "dvf_3_3_korean_naturalization_candidate",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_rendered.json",
+    "raw_sha256": "ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437"
+  },
+  "schema_version": "dvf_3_3_naturalization_iar_assessment_consumption_v1",
+  "start_git_identity": {
+    "commit": "9c4b19cbaee5b2f2efb400ba7cb37411be831f48",
+    "tree": "de330c7b1c2ed360b0b571c66b86eed622604c40"
+  },
+  "status": "PASS",
+  "subject_policy_ruleset_identity": {
+    "candidate_manifest_sha256": "474cd41a439964768541738daf43af30bdee5f7eaf0deee352a44d45c880b18d",
+    "policy_sha256": "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02",
+    "ruleset_id": "naturalization_candidate_thresholds",
+    "ruleset_sha256": "89d6b2b2afed45eeb0897037eed2eeb46f403b96b98185a6029d335c6b9e711d",
+    "subject_kind": "dvf_3_3_korean_naturalization_candidate",
+    "subject_sha256": "ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437"
+  },
+  "synchronization": {
+    "contract_id": "iris_iar_naturalization_parallel_execution_sync_v3",
+    "projection_sha256": "984415c349444dd90ed966490c7619cf32077525276d07616c5698051197b0e8"
+  },
+  "validation": {
+    "assessment_recomputed": false,
+    "commands": [
+      {
+        "command_id": "generic_iar_no_write_validator",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "command_id": "g4_and_assessment_exact_identity_verifier",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "command_id": "naturalization_compiler_identity_helper",
+        "exit_code": 0,
+        "status": "PASS"
+      },
+      {
+        "command_id": "preserved_candidate_and_compiler_identity_verifier",
+        "exit_code": 0,
+        "status": "PASS"
+      }
+    ],
+    "new_policy_judgment_created": false,
+    "status": "PASS"
+  }
+}

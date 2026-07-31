@@ -93,11 +93,35 @@ PREDECESSOR_CORRECTION_FAILURE_RECORD_SHA256 = (
     "1a92afe40ff2dcdbdf5f3fdbbcafc87160ca71ba1068f86580d21234d9ba19d5"
 )
 CORRECTION_ROOT = PHASE6 / "corrections" / CORRECTION_ID
-EXECUTION_ENVIRONMENT_RECEIPT = (
+LONG_ROOT_FAILURE_EXECUTION_ENVIRONMENT_RECEIPT = (
     CORRECTION_ROOT / "execution_environment_receipt.json"
 )
-AFFECTED_TEST_RESULT = CORRECTION_ROOT / "affected_tests_result.json"
-CORRECTION_ROUTE_RESULT = CORRECTION_ROOT / "candidate_current_route_result.json"
+LONG_ROOT_FAILURE_AFFECTED_TEST_RESULT = (
+    CORRECTION_ROOT / "affected_tests_result.json"
+)
+LONG_ROOT_FAILURE_ROUTE_RESULT = (
+    CORRECTION_ROOT / "candidate_current_route_result.json"
+)
+LONG_ROOT_FAILURE_EXECUTION_ENVIRONMENT_RECEIPT_SHA256 = (
+    "3fb55560c3ab08b6cec917ad413250ebe907164a9734f1b0055a0313ebb9dfb0"
+)
+LONG_ROOT_FAILURE_AFFECTED_TEST_RESULT_SHA256 = (
+    "528fb35ecfb8426c8b49aa7d0a812e81e3ac21df01b5ec40b780ccea10dd2e95"
+)
+LONG_ROOT_FAILURE_ROUTE_RESULT_SHA256 = (
+    "26e7c2582d5f4095527ae1c49d8673ddb803d5ed5d0f683bdefd016170aa3e18"
+)
+EXECUTION_ENVIRONMENT_RECEIPT = (
+    CORRECTION_ROOT
+    / "execution_environment_receipt_short_root_successor.json"
+)
+AFFECTED_TEST_RESULT = (
+    CORRECTION_ROOT / "affected_tests_result_short_root_successor.json"
+)
+CORRECTION_ROUTE_RESULT = (
+    CORRECTION_ROOT
+    / "candidate_current_route_result_short_root_successor.json"
+)
 REVALIDATION_RECORD = CORRECTION_ROOT / "phase6_revalidation_record.json"
 ADOPTION_CONTRACT_SUCCESSOR = (
     CORRECTION_ROOT / "required_gate_adoption_contract_successor.json"
@@ -365,9 +389,7 @@ def _bounded_execution_environment() -> dict[str, Any]:
         official.REPO_ROOT,
         (
             Path(tempfile.gettempdir()).resolve()
-            / "iris-publish-boundary"
-            / official.ATTEMPT_ID
-            / CORRECTION_ID
+            / "i-g4-p6-r2"
         ),
     )
     test_output_root = (declared_root / "test-output").resolve()
@@ -1035,6 +1057,66 @@ def _validate_route_result(path: Path) -> dict[str, Any]:
     }
 
 
+def _validate_long_root_failure() -> dict[str, Any]:
+    receipt_ref = _sealed_record(
+        LONG_ROOT_FAILURE_EXECUTION_ENVIRONMENT_RECEIPT,
+        LONG_ROOT_FAILURE_EXECUTION_ENVIRONMENT_RECEIPT_SHA256,
+    )
+    affected_ref = _sealed_record(
+        LONG_ROOT_FAILURE_AFFECTED_TEST_RESULT,
+        LONG_ROOT_FAILURE_AFFECTED_TEST_RESULT_SHA256,
+    )
+    route_ref = _sealed_record(
+        LONG_ROOT_FAILURE_ROUTE_RESULT,
+        LONG_ROOT_FAILURE_ROUTE_RESULT_SHA256,
+    )
+    receipt = base.load_json_strict(
+        LONG_ROOT_FAILURE_EXECUTION_ENVIRONMENT_RECEIPT
+    )
+    affected = base.load_json_strict(LONG_ROOT_FAILURE_AFFECTED_TEST_RESULT)
+    route = base.load_json_strict(LONG_ROOT_FAILURE_ROUTE_RESULT)
+    core = {
+        key: value
+        for key, value in receipt.items()
+        if key != "receipt_hash"
+    }
+    if (
+        receipt.get("receipt_hash") != base.canonical_hash(core)
+        or receipt.get("status") != "FAIL"
+        or receipt.get("correction_id") != CORRECTION_ID
+        or receipt.get("execution_count") != 2
+        or receipt.get("executions", [])[0].get("passed_test_count") != 4
+        or receipt.get("executions", [])[1].get("exit_code") != 1
+        or affected.get("status") != "PASS"
+        or affected.get("passed_test_count") != 4
+        or route.get("selected_identity_count") != 136
+        or route.get("test_count") != 121
+        or route.get("success") is not False
+        or len(route.get("errors", [])) != 4
+        or route.get("failures") != []
+        or receipt.get("authority_effect") != "none"
+    ):
+        raise base.FoundationContractError(
+            "correction-0002 long-root failure evidence is stale"
+        )
+    return {
+        "status": "FAIL_CLOSED_PRESERVED",
+        "failure_class": "windows_external_root_path_length",
+        "execution_environment_receipt": receipt_ref,
+        "affected_test_result": affected_ref,
+        "candidate_current_route_result": route_ref,
+        "affected_test_count": 4,
+        "affected_passed_count": 4,
+        "selected_current_route_count": 136,
+        "executed_current_route_count": 121,
+        "current_route_error_count": 4,
+        "live_adoption_performed": False,
+        "phase7_executed": False,
+        "authority_effect": "none",
+        "preserved": True,
+    }
+
+
 def validate_execution_environment_receipt(
     *,
     require_tracked: bool,
@@ -1279,6 +1361,7 @@ def _validate_candidate_against_live() -> dict[str, Any]:
 
 def build_phase6_revalidation() -> dict[str, Any]:
     execution = run_bounded_phase6_revalidation()
+    long_root_failure = _validate_long_root_failure()
     g1 = _validate_g1_successor_0008()
     predecessor = _validate_predecessor_failure()
     protected_inputs = _validate_protected_inputs()
@@ -1300,6 +1383,7 @@ def build_phase6_revalidation() -> dict[str, Any]:
         "protected_inputs": protected_inputs,
         "immutable_phase5_disposition": disposition,
         "candidate_and_cas": candidate,
+        "long_root_execution_failure_preservation": long_root_failure,
         "bounded_execution_environment": execution,
         "fresh_candidate_current_route": route,
         "phase6_blocker_count": 0,
@@ -1404,6 +1488,7 @@ def validate_phase6_revalidation(*, require_tracked: bool) -> dict[str, Any]:
         result_path=CORRECTION_ROUTE_RESULT,
         require_affected=True,
     )
+    long_root_failure = _validate_long_root_failure()
     g1 = _validate_g1_successor_0008()
     predecessor = _validate_predecessor_failure()
     protected_inputs = _validate_protected_inputs()
@@ -1473,6 +1558,7 @@ def validate_phase6_revalidation(*, require_tracked: bool) -> dict[str, Any]:
         "predecessor_failure": predecessor,
         "protected_inputs": protected_inputs,
         "disposition": disposition,
+        "long_root_execution_failure_preservation": long_root_failure,
         "bounded_execution_environment": execution,
         "route": route_ref,
         "revalidation_record": record_ref,

@@ -1,0 +1,19 @@
+{
+  "attempt_id": "attempt-0005-official",
+  "correction_id": "g1-successor-0008-revalidation-0002",
+  "executed_test_count": 4,
+  "exit_code": 0,
+  "failed_test_count": 0,
+  "passed_test_count": 4,
+  "required_test_count": 4,
+  "schema_version": "public_text_quality_phase6_affected_test_result_v1",
+  "status": "PASS",
+  "stderr_sha256": "2bacd435e8e9fd94fa8a7cc0570ea3cd941063ffe1c447233cfb3b9d0850c68c",
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "test_ids": [
+    "test_lua_bridge_export_contract_realign.LuaBridgeExportContractRealignTest.test_bridge_report_forbidden_claim_scan",
+    "test_lua_bridge_export_contract_realign.LuaBridgeExportContractRealignTest.test_chunk_bundle_determinism",
+    "test_lua_bridge_export_contract_realign.LuaBridgeExportContractRealignTest.test_default_route_writes_chunk_bundle_under_pinned_staging_root",
+    "test_lua_bridge_export_contract_realign.LuaBridgeExportContractRealignTest.test_explicit_historical_and_diagnostic_monolith_routes_are_preserved"
+  ]
+}

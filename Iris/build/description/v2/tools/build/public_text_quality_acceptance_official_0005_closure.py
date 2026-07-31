@@ -112,15 +112,13 @@ LONG_ROOT_FAILURE_ROUTE_RESULT_SHA256 = (
     "26e7c2582d5f4095527ae1c49d8673ddb803d5ed5d0f683bdefd016170aa3e18"
 )
 EXECUTION_ENVIRONMENT_RECEIPT = (
-    CORRECTION_ROOT
-    / "execution_environment_receipt_short_root_successor.json"
+    CORRECTION_ROOT / "env_receipt_s2.json"
 )
 AFFECTED_TEST_RESULT = (
-    CORRECTION_ROOT / "affected_tests_result_short_root_successor.json"
+    CORRECTION_ROOT / "affected_4_s2.json"
 )
 CORRECTION_ROUTE_RESULT = (
-    CORRECTION_ROOT
-    / "candidate_current_route_result_short_root_successor.json"
+    CORRECTION_ROOT / "route_136_s2.json"
 )
 REVALIDATION_RECORD = CORRECTION_ROOT / "phase6_revalidation_record.json"
 ADOPTION_CONTRACT_SUCCESSOR = (

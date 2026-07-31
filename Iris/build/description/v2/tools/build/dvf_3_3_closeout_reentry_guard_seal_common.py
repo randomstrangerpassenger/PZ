@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections import Counter
 import json
+import os
 import re
 from pathlib import Path
 from typing import Any, Iterable
@@ -33,6 +34,9 @@ ROADMAP_DOC = REPO_ROOT / "docs" / "ROADMAP.md"
 DECISIONS_DOC = REPO_ROOT / "docs" / "DECISIONS.md"
 ARCHITECTURE_DOC = REPO_ROOT / "docs" / "ARCHITECTURE.md"
 CURRENT_REQUIRED_VALIDATIONS = REPO_ROOT / "Iris" / "_docs" / "round3" / "current_route_required_validations.json"
+REQUIRED_VALIDATIONS_PROJECTION_ENV = (
+    "IRIS_ROUND3_REQUIRED_VALIDATIONS_PROJECTION"
+)
 CURRENT_REQUIRED_VALIDATIONS_SCHEMA_VERSION = (
     "round3-current-route-required-validations-v1"
 )
@@ -496,7 +500,6 @@ def classify_claim_text(text: str) -> list[str]:
         (r"deployment[_ -]?readiness", "deployment_readiness"),
         (r"manual[_ -]?(in[_ -]?game[_ -]?)?qa.*pass", "manual_qa_pass"),
         (r"semantic[_ -]?quality.*complete", "semantic_quality_completion"),
-        (r"public[_ -]?(facing[_ -]?)?text.*accept", "public_text_acceptance"),
         (r"phase4[_ -]?live[_ -]?apply[_ -]?allowed.*live[_ -]?(migration|mutation|execution).*complete", "live_migration_execution_complete_without_execution"),
         (r"live[_ -]?mutation.*complete", "live_migration_execution_complete_without_execution"),
         (r"pre[-_ ]?apply[_ -]?readiness.*live.*complete", "live_migration_execution_complete_without_execution"),
@@ -504,6 +507,23 @@ def classify_claim_text(text: str) -> list[str]:
     for pattern, code in forbidden_patterns:
         if re.search(pattern, lowered):
             hits.append(code)
+    public_text_acceptance_reference = re.search(
+        r"public[_ -]?(facing[_ -]?)?text.*accept",
+        lowered,
+    )
+    required_validation_reference = re.search(
+        r"\b(required[_ -]?(gate|validation|test)|validation[_ -]?requirement)\b",
+        lowered,
+    )
+    assertion_predicate = re.search(
+        r"\b(complete(?:d)?|pass(?:ed)?|achiev(?:e|ed|ement)|approved?|"
+        r"satisfied|ready|sealed?|established|succeeded|fulfilled)\b",
+        lowered,
+    )
+    if public_text_acceptance_reference and not (
+        required_validation_reference and not assertion_predicate
+    ):
+        hits.append("public_text_acceptance")
     if any(alias in lowered for alias in PROBLEM7_ALIASES) and "problem8" in lowered and "complete" in lowered:
         hits.append("problem7_to_problem8_completion_promotion")
     return sorted(set(hits))
@@ -813,7 +833,7 @@ def scan_surface_files() -> list[Path]:
         ROADMAP_DOC,
         DECISIONS_DOC,
         ARCHITECTURE_DOC,
-        CURRENT_REQUIRED_VALIDATIONS,
+        claim_scan_required_validations_path(),
         REPO_ROOT / "Iris" / "build" / "description" / "v2" / "tools" / "build" / "dvf_3_3_closeout_reentry_guard_seal_common.py",
         REPO_ROOT / "Iris" / "build" / "description" / "v2" / "tools" / "build" / "run_dvf_3_3_closeout_reentry_guard_seal.py",
         REPO_ROOT / "Iris" / "build" / "description" / "v2" / "tools" / "build" / "validate_dvf_3_3_closeout_claim_taxonomy.py",
@@ -829,6 +849,16 @@ def same_surface_path(left: str | Path, right: str | Path) -> bool:
     return resolve_repo(left) == resolve_repo(right)
 
 
+def claim_scan_required_validations_path() -> Path:
+    projected = os.environ.get(REQUIRED_VALIDATIONS_PROJECTION_ENV)
+    if not projected:
+        return CURRENT_REQUIRED_VALIDATIONS
+    path = Path(projected)
+    if not path.is_absolute():
+        path = REPO_ROOT / path
+    return path.resolve()
+
+
 def surface_path_is_within(
     path: str | Path,
     root: str | Path,
@@ -841,7 +871,7 @@ def surface_path_is_within(
 
 
 def surface_family(path: Path) -> str:
-    if same_surface_path(path, CURRENT_REQUIRED_VALIDATIONS):
+    if same_surface_path(path, claim_scan_required_validations_path()):
         return "required_validation_manifest"
     if same_surface_path(path, LEDGER_PACKET_DOC):
         return "ledger_packets"
@@ -1187,9 +1217,13 @@ def write_phase1() -> dict[str, Any]:
     claim_rows: list[dict[str, Any]] = []
     structured_manifest_results: list[dict[str, Any]] = []
     for path in files:
-        if same_surface_path(path, CURRENT_REQUIRED_VALIDATIONS):
+        if same_surface_path(
+            path,
+            claim_scan_required_validations_path(),
+        ):
             structured_result = classify_required_validation_manifest_text(
-                path.read_text(encoding="utf-8")
+                path.read_text(encoding="utf-8"),
+                path=path,
             )
             structured_manifest_results.append(structured_result)
             claim_rows.extend(structured_result["scan_rows"])

@@ -110,6 +110,30 @@ STRUCTURED_MANIFEST_PROBE_REQUEST = {
             },
         },
         {
+            "fixture_id": "reason_required_gate_reference",
+            "document": {
+                "schema_version": "round3-current-route-required-validations-v1",
+                "reason": (
+                    "standalone Publish Boundary public-text acceptance "
+                    "required gate"
+                ),
+                "required_artifacts": [],
+                "required_tests": [],
+            },
+        },
+        {
+            "fixture_id": "reason_required_gate_overclaim",
+            "document": {
+                "schema_version": "round3-current-route-required-validations-v1",
+                "reason": (
+                    "standalone public text acceptance required gate "
+                    "complete"
+                ),
+                "required_artifacts": [],
+                "required_tests": [],
+            },
+        },
+        {
             "fixture_id": "unknown_field_overclaim",
             "document": {
                 "schema_version": "round3-current-route-required-validations-v1",
@@ -297,6 +321,10 @@ class DvfCloseoutReentryGuardSealTest(unittest.TestCase):
                 "required_test_id_identifier",
                 "/required_tests/0/test_id",
             ),
+            (
+                "reason_required_gate_reference",
+                "/reason",
+            ),
         ):
             with self.subTest(fixture_id=fixture_id):
                 case = cases[fixture_id]
@@ -307,13 +335,21 @@ class DvfCloseoutReentryGuardSealTest(unittest.TestCase):
                     for row in case["string_leaves"]
                     if row["json_pointer"] == pointer
                 )
-                self.assertEqual(leaf["semantic_role"], "identifier")
-                self.assertEqual(
-                    leaf["classification"],
-                    "identifier_excluded_from_claim_text",
-                )
+                if fixture_id == "reason_required_gate_reference":
+                    self.assertEqual(leaf["semantic_role"], "claim_text")
+                    self.assertEqual(
+                        leaf["classification"],
+                        "fail_closed_claim_text_scan",
+                    )
+                else:
+                    self.assertEqual(leaf["semantic_role"], "identifier")
+                    self.assertEqual(
+                        leaf["classification"],
+                        "identifier_excluded_from_claim_text",
+                    )
         for fixture_id in (
             "claim_field_overclaim",
+            "reason_required_gate_overclaim",
             "unknown_field_overclaim",
             "identifier_object_disguise",
             "wrong_schema",

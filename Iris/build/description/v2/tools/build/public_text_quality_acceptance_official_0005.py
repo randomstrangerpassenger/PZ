@@ -1252,6 +1252,7 @@ def run_official_mode(
     if mode in (
         "phase6-revalidate",
         "phase6-adopt-gate",
+        "phase6-post-adoption-route",
         "phase7-freeze",
         "phase7-finalize",
     ):
@@ -1260,11 +1261,13 @@ def run_official_mode(
             build_phase6_revalidation,
             build_phase7_finalize,
             build_phase7_freeze,
+            run_bounded_post_adoption_route,
         )
 
         dispatch = {
             "phase6-revalidate": build_phase6_revalidation,
             "phase6-adopt-gate": adopt_live_gate,
+            "phase6-post-adoption-route": run_bounded_post_adoption_route,
             "phase7-freeze": build_phase7_freeze,
             "phase7-finalize": build_phase7_finalize,
         }

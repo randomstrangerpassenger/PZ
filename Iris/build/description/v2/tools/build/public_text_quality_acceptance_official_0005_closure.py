@@ -1,15 +1,27 @@
 from __future__ import annotations
 
 from copy import deepcopy
+import json
+import os
 from pathlib import Path
+import re
 import subprocess
+import sys
+import tempfile
 from typing import Any, Iterable
 
 import public_text_quality_acceptance as base
 import public_text_quality_acceptance_official_0005 as official
 
+if str(official.REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(official.REPO_ROOT))
+from Iris.validation.clean_checkout.iris_clean_checkout_validation_common import (  # noqa: E402
+    ensure_external_root,
+)
 
-CORRECTION_ID = "g1-successor-0008-revalidation-0001"
+
+PREDECESSOR_CORRECTION_ID = "g1-successor-0008-revalidation-0001"
+CORRECTION_ID = "g1-successor-0008-revalidation-0002"
 G1_GATE_MANIFEST = (
     official.REPO_ROOT
     / "Iris"
@@ -65,7 +77,26 @@ TASK_START_TREE = "64782adcf856213f61c3fbccaad217d321c287f8"
 
 PHASE6 = official.ATTEMPT_ROOT / "phase6"
 PHASE7 = official.ATTEMPT_ROOT / "phase7"
+PREDECESSOR_CORRECTION_ROOT = (
+    PHASE6 / "corrections" / PREDECESSOR_CORRECTION_ID
+)
+PREDECESSOR_CORRECTION_ROUTE_RESULT = (
+    PREDECESSOR_CORRECTION_ROOT / "candidate_current_route_result.json"
+)
+PREDECESSOR_CORRECTION_FAILURE_RECORD = (
+    PREDECESSOR_CORRECTION_ROOT / "phase6_revalidation_failure_record.json"
+)
+PREDECESSOR_CORRECTION_ROUTE_RESULT_SHA256 = (
+    "5ee07d23641dc9253057efea275ff0f31ca8686451b581c102580bf4d88554fe"
+)
+PREDECESSOR_CORRECTION_FAILURE_RECORD_SHA256 = (
+    "1a92afe40ff2dcdbdf5f3fdbbcafc87160ca71ba1068f86580d21234d9ba19d5"
+)
 CORRECTION_ROOT = PHASE6 / "corrections" / CORRECTION_ID
+EXECUTION_ENVIRONMENT_RECEIPT = (
+    CORRECTION_ROOT / "execution_environment_receipt.json"
+)
+AFFECTED_TEST_RESULT = CORRECTION_ROOT / "affected_tests_result.json"
 CORRECTION_ROUTE_RESULT = CORRECTION_ROOT / "candidate_current_route_result.json"
 REVALIDATION_RECORD = CORRECTION_ROOT / "phase6_revalidation_record.json"
 ADOPTION_CONTRACT_SUCCESSOR = (
@@ -86,6 +117,9 @@ REVIEWER_ELIGIBILITY = (
 ADOPTION_DECISION_RECORD = PHASE6 / "gate_adoption_decision_record.json"
 ADOPTION_RECEIPT = PHASE6 / "live_required_gate_adoption_receipt.json"
 POST_ADOPTION_ROUTE_RESULT = PHASE6 / "post_adoption_current_route_result.json"
+POST_ADOPTION_EXECUTION_RECEIPT = (
+    PHASE6 / "post_adoption_execution_environment_receipt.json"
+)
 FREEZE_MANIFEST = PHASE7 / "final_evidence_freeze_manifest.json"
 FINAL_ARTIFACT_MANIFEST = PHASE7 / "final_artifact_hash_manifest.json"
 REVIEW_REQUEST = PHASE7 / "independent_review_request.json"
@@ -101,6 +135,41 @@ CLOSEOUT_DOC = (
     official.REPO_ROOT
     / "docs"
     / "iris_publish_boundary_public_text_quality_acceptance_policy_closure_closeout.md"
+)
+
+AFFECTED_TEST_IDS = (
+    (
+        "test_lua_bridge_export_contract_realign."
+        "LuaBridgeExportContractRealignTest."
+        "test_bridge_report_forbidden_claim_scan"
+    ),
+    (
+        "test_lua_bridge_export_contract_realign."
+        "LuaBridgeExportContractRealignTest."
+        "test_chunk_bundle_determinism"
+    ),
+    (
+        "test_lua_bridge_export_contract_realign."
+        "LuaBridgeExportContractRealignTest."
+        "test_default_route_writes_chunk_bundle_under_pinned_staging_root"
+    ),
+    (
+        "test_lua_bridge_export_contract_realign."
+        "LuaBridgeExportContractRealignTest."
+        "test_explicit_historical_and_diagnostic_monolith_routes_are_preserved"
+    ),
+)
+AFFECTED_FIXTURE_NAMES = (
+    "_tmp_lua_bridge_forbidden_claims",
+    "_tmp_lua_bridge_determinism",
+    "_tmp_lua_bridge_default_contract",
+    "_tmp_lua_bridge_monolith_routes",
+)
+EXECUTION_ENVIRONMENT_VARIABLE_NAMES = (
+    "IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT",
+    "TEMP",
+    "TMP",
+    "TMPDIR",
 )
 
 PREDECESSOR_PHASE6_HASHES = {
@@ -198,6 +267,79 @@ def _tracked_head_record(path: Path) -> dict[str, Any]:
     }
 
 
+def _sealed_head_git_record(
+    path: Path,
+    expected_sha256: str,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    relative = base.repo_relative(path)
+    tracked = _git(
+        "ls-files",
+        "--error-unmatch",
+        "--",
+        relative,
+        check=False,
+    ).returncode == 0
+    ignored = _git(
+        "check-ignore",
+        "-q",
+        "--",
+        relative,
+        check=False,
+    ).returncode == 0
+    unstaged = _git(
+        "diff",
+        "--quiet",
+        "--",
+        relative,
+        check=False,
+    ).returncode != 0
+    staged = _git(
+        "diff",
+        "--cached",
+        "--quiet",
+        "HEAD",
+        "--",
+        relative,
+        check=False,
+    ).returncode != 0
+    blob_id = _git("rev-parse", f"HEAD:{relative}").stdout.strip()
+    blob = subprocess.run(
+        ["git", "cat-file", "blob", blob_id],
+        cwd=official.REPO_ROOT,
+        capture_output=True,
+        check=False,
+    )
+    sha256 = base.sha256_bytes(blob.stdout)
+    if (
+        not tracked
+        or ignored
+        or unstaged
+        or staged
+        or blob.returncode != 0
+        or sha256 != expected_sha256
+    ):
+        raise base.FoundationContractError(
+            f"sealed HEAD Git artifact mismatch: {relative}"
+        )
+    try:
+        value = json.loads(blob.stdout.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise base.FoundationContractError(
+            f"sealed HEAD Git artifact is not strict UTF-8 JSON: {relative}"
+        ) from exc
+    return (
+        {
+            "path": relative,
+            "sha256": sha256,
+            "head_git_blob_id": blob_id,
+            "tracked": True,
+            "ignored": False,
+            "working_identity": True,
+        },
+        value,
+    )
+
+
 def _working_record(path: Path) -> dict[str, Any]:
     if not path.is_file():
         raise base.FoundationContractError(
@@ -208,6 +350,379 @@ def _working_record(path: Path) -> dict[str, Any]:
         "path": base.repo_relative(path),
         "sha256": base.sha256_file(path),
     }
+
+
+def _is_within(path: Path, parent: Path) -> bool:
+    try:
+        path.resolve().relative_to(parent.resolve())
+    except ValueError:
+        return False
+    return True
+
+
+def _bounded_execution_environment() -> dict[str, Any]:
+    declared_root = ensure_external_root(
+        official.REPO_ROOT,
+        (
+            Path(tempfile.gettempdir()).resolve()
+            / "iris-publish-boundary"
+            / official.ATTEMPT_ID
+            / CORRECTION_ID
+        ),
+    )
+    test_output_root = (declared_root / "test-output").resolve()
+    system_temp_root = (declared_root / "system-temp").resolve()
+    test_output_root.mkdir(parents=True, exist_ok=True)
+    system_temp_root.mkdir(parents=True, exist_ok=True)
+    environment_values = {
+        "IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT": str(test_output_root),
+        "TEMP": str(system_temp_root),
+        "TMP": str(system_temp_root),
+        "TMPDIR": str(system_temp_root),
+    }
+    fixture_paths = [
+        (test_output_root / name).resolve()
+        for name in AFFECTED_FIXTURE_NAMES
+    ]
+    if (
+        _is_within(declared_root, official.REPO_ROOT)
+        or _is_within(official.REPO_ROOT, declared_root)
+        or any(
+            not _is_within(Path(value), declared_root)
+            for value in environment_values.values()
+        )
+        or any(not _is_within(path, test_output_root) for path in fixture_paths)
+    ):
+        raise base.FoundationContractError(
+            "bounded repository-external execution root containment failed"
+        )
+    environment = os.environ.copy()
+    environment.pop("PYTHONHOME", None)
+    environment.pop("PYTHONPATH", None)
+    environment.pop("PYTEST_ADDOPTS", None)
+    environment.update(
+        {
+            "GIT_OPTIONAL_LOCKS": "0",
+            "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+            "PIP_NO_INDEX": "1",
+            "PYTHONDONTWRITEBYTECODE": "1",
+            "PYTHONHASHSEED": "0",
+            "PYTHONNOUSERSITE": "1",
+            "PYTHONPYCACHEPREFIX": str(system_temp_root / "pycache"),
+            **environment_values,
+        }
+    )
+    return {
+        "declared_external_root": declared_root,
+        "test_output_root": test_output_root,
+        "system_temp_root": system_temp_root,
+        "environment": environment,
+        "environment_values": environment_values,
+        "fixture_paths": fixture_paths,
+    }
+
+
+def _run_command(
+    argv: list[str],
+    *,
+    environment: dict[str, str],
+) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        argv,
+        cwd=official.REPO_ROOT,
+        env=environment,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        capture_output=True,
+        check=False,
+    )
+
+
+def _affected_test_result(
+    completed: subprocess.CompletedProcess[str],
+) -> dict[str, Any]:
+    combined = f"{completed.stdout}\n{completed.stderr}"
+    match = re.search(r"Ran\s+(\d+)\s+tests?", combined)
+    observed_count = int(match.group(1)) if match else 0
+    passed = completed.returncode == 0 and observed_count == len(
+        AFFECTED_TEST_IDS
+    )
+    return {
+        "schema_version": (
+            "public_text_quality_phase6_affected_test_result_v1"
+        ),
+        "status": "PASS" if passed else "FAIL",
+        "attempt_id": official.ATTEMPT_ID,
+        "correction_id": CORRECTION_ID,
+        "required_test_count": len(AFFECTED_TEST_IDS),
+        "executed_test_count": observed_count,
+        "passed_test_count": len(AFFECTED_TEST_IDS) if passed else 0,
+        "failed_test_count": 0 if passed else len(AFFECTED_TEST_IDS),
+        "test_ids": list(AFFECTED_TEST_IDS),
+        "exit_code": completed.returncode,
+        "stdout_sha256": base.sha256_bytes(completed.stdout.encode("utf-8")),
+        "stderr_sha256": base.sha256_bytes(completed.stderr.encode("utf-8")),
+    }
+
+
+def _execution_row(
+    *,
+    role: str,
+    argv: list[str],
+    result_path: Path,
+    exit_code: int,
+    selected_count: int,
+    passed_count: int,
+) -> dict[str, Any]:
+    return {
+        "role": role,
+        "argv": argv,
+        "cwd": str(official.REPO_ROOT),
+        "result_path": base.repo_relative(result_path),
+        "result_sha256": base.sha256_file(result_path),
+        "exit_code": exit_code,
+        "selected_test_count": selected_count,
+        "passed_test_count": passed_count,
+    }
+
+
+def _write_execution_receipt(
+    *,
+    receipt_path: Path,
+    environment_contract: dict[str, Any],
+    executions: list[dict[str, Any]],
+    status: str,
+    execution_role: str,
+) -> dict[str, Any]:
+    receipt_core = {
+        "schema_version": (
+            "public_text_quality_phase6_bounded_execution_environment_receipt_v1"
+        ),
+        "status": status,
+        "attempt_id": official.ATTEMPT_ID,
+        "correction_id": CORRECTION_ID,
+        "execution_role": execution_role,
+        "execution_commit": base.git_head(),
+        "execution_tree": _head_tree(),
+        "declared_external_root": str(
+            environment_contract["declared_external_root"]
+        ),
+        "repository_root": str(official.REPO_ROOT),
+        "repository_external": True,
+        "g1_execution_isolation_contract_reused": True,
+        "g1_external_root_validator": (
+            "Iris.validation.clean_checkout."
+            "iris_clean_checkout_validation_common.ensure_external_root"
+        ),
+        "environment_variable_names": list(
+            EXECUTION_ENVIRONMENT_VARIABLE_NAMES
+        ),
+        "environment_values": environment_contract["environment_values"],
+        "fixture_path_count": len(environment_contract["fixture_paths"]),
+        "fixture_paths": [
+            str(path) for path in environment_contract["fixture_paths"]
+        ],
+        "all_environment_paths_within_declared_root": True,
+        "all_fixture_paths_within_declared_test_output_root": True,
+        "rtc_containment_rules_modified": False,
+        "validator_bypass_used": False,
+        "test_specific_path_exception_used": False,
+        "execution_count": len(executions),
+        "executions": executions,
+        "authority_effect": "none",
+    }
+    receipt = {
+        **receipt_core,
+        "receipt_hash": base.canonical_hash(receipt_core),
+    }
+    base.write_once_or_same(receipt_path, receipt)
+    return receipt
+
+
+def _candidate_route_argv(result_path: Path) -> list[str]:
+    return [
+        sys.executable,
+        "-B",
+        "Iris/_docs/round3/round3_run_contract_tests.py",
+        "--class",
+        "current",
+        "--required-validations",
+        base.repo_relative(PHASE6 / "required_gate_candidate.json"),
+        "--enforce-current-build-closure",
+        "--out",
+        base.repo_relative(result_path),
+    ]
+
+
+def _post_adoption_route_argv(result_path: Path) -> list[str]:
+    return [
+        sys.executable,
+        "-B",
+        "Iris/_docs/round3/round3_run_contract_tests.py",
+        "--class",
+        "current",
+        "--required-validations",
+        base.repo_relative(base.LIVE_REQUIRED_VALIDATIONS),
+        "--enforce-current-build-closure",
+        "--out",
+        base.repo_relative(result_path),
+    ]
+
+
+def run_bounded_phase6_revalidation() -> dict[str, Any]:
+    if EXECUTION_ENVIRONMENT_RECEIPT.is_file():
+        return validate_execution_environment_receipt(
+            require_tracked=False,
+            receipt_path=EXECUTION_ENVIRONMENT_RECEIPT,
+            result_path=CORRECTION_ROUTE_RESULT,
+            require_affected=True,
+        )
+    contract = _bounded_execution_environment()
+    affected_argv = [
+        sys.executable,
+        "-B",
+        (
+            "Iris/build/description/v2/tests/"
+            "test_lua_bridge_export_contract_realign.py"
+        ),
+        *[
+            test_id.split("test_lua_bridge_export_contract_realign.", 1)[1]
+            for test_id in AFFECTED_TEST_IDS
+        ],
+    ]
+    affected_completed = _run_command(
+        affected_argv,
+        environment=contract["environment"],
+    )
+    affected = _affected_test_result(affected_completed)
+    base.write_once_or_same(AFFECTED_TEST_RESULT, affected)
+    executions = [
+        _execution_row(
+            role="affected_four_tests",
+            argv=affected_argv,
+            result_path=AFFECTED_TEST_RESULT,
+            exit_code=affected_completed.returncode,
+            selected_count=len(AFFECTED_TEST_IDS),
+            passed_count=affected["passed_test_count"],
+        )
+    ]
+    if affected["status"] != "PASS":
+        _write_execution_receipt(
+            receipt_path=EXECUTION_ENVIRONMENT_RECEIPT,
+            environment_contract=contract,
+            executions=executions,
+            status="FAIL",
+            execution_role="pre_adoption_candidate_revalidation",
+        )
+        raise base.FoundationContractError(
+            "affected four tests failed under the bounded environment"
+        )
+    route_argv = _candidate_route_argv(CORRECTION_ROUTE_RESULT)
+    route_completed = _run_command(
+        route_argv,
+        environment=contract["environment"],
+    )
+    if not CORRECTION_ROUTE_RESULT.is_file():
+        raise base.FoundationContractError(
+            "candidate current-route result was not materialized"
+        )
+    route_value = base.load_json_strict(CORRECTION_ROUTE_RESULT)
+    passed_count = (
+        route_value.get("test_count", 0)
+        - len(route_value.get("failures", []))
+        - len(route_value.get("errors", []))
+        - len(route_value.get("skipped", []))
+    )
+    executions.append(
+        _execution_row(
+            role="candidate_current_route_136",
+            argv=route_argv,
+            result_path=CORRECTION_ROUTE_RESULT,
+            exit_code=route_completed.returncode,
+            selected_count=route_value.get("selected_identity_count", 0),
+            passed_count=passed_count,
+        )
+    )
+    receipt_status = (
+        "PASS"
+        if route_completed.returncode == 0
+        and route_value.get("success") is True
+        else "FAIL"
+    )
+    _write_execution_receipt(
+        receipt_path=EXECUTION_ENVIRONMENT_RECEIPT,
+        environment_contract=contract,
+        executions=executions,
+        status=receipt_status,
+        execution_role="pre_adoption_candidate_revalidation",
+    )
+    if receipt_status != "PASS":
+        raise base.FoundationContractError(
+            "full candidate current route failed under bounded environment"
+        )
+    return validate_execution_environment_receipt(
+        require_tracked=False,
+        receipt_path=EXECUTION_ENVIRONMENT_RECEIPT,
+        result_path=CORRECTION_ROUTE_RESULT,
+        require_affected=True,
+    )
+
+
+def run_bounded_post_adoption_route() -> dict[str, Any]:
+    if POST_ADOPTION_EXECUTION_RECEIPT.is_file():
+        return validate_execution_environment_receipt(
+            require_tracked=False,
+            receipt_path=POST_ADOPTION_EXECUTION_RECEIPT,
+            result_path=POST_ADOPTION_ROUTE_RESULT,
+            require_affected=False,
+        )
+    contract = _bounded_execution_environment()
+    argv = _post_adoption_route_argv(POST_ADOPTION_ROUTE_RESULT)
+    completed = _run_command(argv, environment=contract["environment"])
+    if not POST_ADOPTION_ROUTE_RESULT.is_file():
+        raise base.FoundationContractError(
+            "post-adoption current-route result was not materialized"
+        )
+    value = base.load_json_strict(POST_ADOPTION_ROUTE_RESULT)
+    passed_count = (
+        value.get("test_count", 0)
+        - len(value.get("failures", []))
+        - len(value.get("errors", []))
+        - len(value.get("skipped", []))
+    )
+    executions = [
+        _execution_row(
+            role="post_adoption_current_route_136",
+            argv=argv,
+            result_path=POST_ADOPTION_ROUTE_RESULT,
+            exit_code=completed.returncode,
+            selected_count=value.get("selected_identity_count", 0),
+            passed_count=passed_count,
+        )
+    ]
+    status = (
+        "PASS"
+        if completed.returncode == 0 and value.get("success") is True
+        else "FAIL"
+    )
+    _write_execution_receipt(
+        receipt_path=POST_ADOPTION_EXECUTION_RECEIPT,
+        environment_contract=contract,
+        executions=executions,
+        status=status,
+        execution_role="post_adoption_live_route",
+    )
+    if status != "PASS":
+        raise base.FoundationContractError(
+            "post-adoption current route failed under bounded environment"
+        )
+    return validate_execution_environment_receipt(
+        require_tracked=False,
+        receipt_path=POST_ADOPTION_EXECUTION_RECEIPT,
+        result_path=POST_ADOPTION_ROUTE_RESULT,
+        require_affected=False,
+    )
 
 
 def _validate_g1_successor_0008() -> dict[str, Any]:
@@ -359,6 +874,34 @@ def _validate_predecessor_failure() -> dict[str, Any]:
         raise base.FoundationContractError(
             "attempt-0005 Phase 0-5 immutable evidence changed"
         )
+    correction_route, _correction_route_value = _sealed_head_git_record(
+        PREDECESSOR_CORRECTION_ROUTE_RESULT,
+        PREDECESSOR_CORRECTION_ROUTE_RESULT_SHA256,
+    )
+    correction_failure, correction_failure_value = _sealed_head_git_record(
+        PREDECESSOR_CORRECTION_FAILURE_RECORD,
+        PREDECESSOR_CORRECTION_FAILURE_RECORD_SHA256,
+    )
+    if (
+        correction_failure_value.get("status") != "FAIL_CLOSED"
+        or correction_failure_value.get("correction_id")
+        != PREDECESSOR_CORRECTION_ID
+        or correction_failure_value.get("fresh_current_route", {}).get(
+            "passed_test_count"
+        )
+        != 132
+        or correction_failure_value.get("fresh_current_route", {}).get(
+            "error_count"
+        )
+        != 4
+        or correction_failure_value.get("fail_close", {}).get(
+            "live_adoption_performed"
+        )
+        is not False
+    ):
+        raise base.FoundationContractError(
+            "correction-0001 failure evidence is stale"
+        )
     return {
         "status": "PASS",
         "failure_commit": PREDECESSOR_FAILURE_COMMIT,
@@ -368,6 +911,9 @@ def _validate_predecessor_failure() -> dict[str, Any]:
         "phase0_through_phase5_changed_path_count": 0,
         "failed_route_result_sha256": FAILED_ROUTE_RESULT_SHA256,
         "failed_route_preserved": True,
+        "correction_0001_route_result": correction_route,
+        "correction_0001_failure_record": correction_failure,
+        "correction_0001_failure_preserved": True,
     }
 
 
@@ -424,6 +970,7 @@ def _scope_diff_audit() -> dict[str, Any]:
         base.repo_relative(ADOPTION_DECISION_RECORD),
         base.repo_relative(ADOPTION_RECEIPT),
         base.repo_relative(POST_ADOPTION_ROUTE_RESULT),
+        base.repo_relative(POST_ADOPTION_EXECUTION_RECEIPT),
     }
     unexpected = [
         path
@@ -485,6 +1032,158 @@ def _validate_route_result(path: Path) -> dict[str, Any]:
         "required_test_count": 57,
         "required_artifact_count": 159,
         "status": "PASS",
+    }
+
+
+def validate_execution_environment_receipt(
+    *,
+    require_tracked: bool,
+    receipt_path: Path,
+    result_path: Path,
+    require_affected: bool,
+) -> dict[str, Any]:
+    receipt = base.load_json_strict(receipt_path)
+    core = {
+        key: value
+        for key, value in receipt.items()
+        if key != "receipt_hash"
+    }
+    declared_root = Path(receipt.get("declared_external_root", "")).resolve()
+    environment_values = receipt.get("environment_values", {})
+    fixture_paths = [
+        Path(path).resolve() for path in receipt.get("fixture_paths", [])
+    ]
+    test_output_root = Path(
+        environment_values.get(
+            "IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT",
+            "",
+        )
+    ).resolve()
+    execution_commit = str(receipt.get("execution_commit", ""))
+    execution_tree = str(receipt.get("execution_tree", ""))
+    resolved_commit = _git(
+        "rev-parse",
+        "--verify",
+        f"{execution_commit}^{{commit}}",
+    ).stdout.strip()
+    resolved_tree = _git(
+        "rev-parse",
+        f"{resolved_commit}^{{tree}}",
+    ).stdout.strip()
+    ancestor = _git(
+        "merge-base",
+        "--is-ancestor",
+        resolved_commit,
+        "HEAD",
+        check=False,
+    ).returncode == 0
+    expected_fixture_paths = [
+        (test_output_root / name).resolve()
+        for name in AFFECTED_FIXTURE_NAMES
+    ]
+    executions = receipt.get("executions", [])
+    expected_roles = (
+        ["affected_four_tests", "candidate_current_route_136"]
+        if require_affected
+        else ["post_adoption_current_route_136"]
+    )
+    if (
+        receipt.get("schema_version")
+        != "public_text_quality_phase6_bounded_execution_environment_receipt_v1"
+        or receipt.get("status") != "PASS"
+        or receipt.get("attempt_id") != official.ATTEMPT_ID
+        or receipt.get("correction_id") != CORRECTION_ID
+        or receipt.get("receipt_hash") != base.canonical_hash(core)
+        or receipt.get("repository_external") is not True
+        or receipt.get("g1_execution_isolation_contract_reused") is not True
+        or receipt.get("environment_variable_names")
+        != list(EXECUTION_ENVIRONMENT_VARIABLE_NAMES)
+        or sorted(environment_values)
+        != sorted(EXECUTION_ENVIRONMENT_VARIABLE_NAMES)
+        or _is_within(declared_root, official.REPO_ROOT)
+        or _is_within(official.REPO_ROOT, declared_root)
+        or any(
+            not _is_within(Path(value), declared_root)
+            for value in environment_values.values()
+        )
+        or fixture_paths != expected_fixture_paths
+        or any(not _is_within(path, test_output_root) for path in fixture_paths)
+        or receipt.get("all_environment_paths_within_declared_root") is not True
+        or receipt.get("all_fixture_paths_within_declared_test_output_root")
+        is not True
+        or receipt.get("rtc_containment_rules_modified") is not False
+        or receipt.get("validator_bypass_used") is not False
+        or receipt.get("test_specific_path_exception_used") is not False
+        or resolved_commit != execution_commit
+        or resolved_tree != execution_tree
+        or not ancestor
+        or receipt.get("execution_count") != len(expected_roles)
+        or [row.get("role") for row in executions] != expected_roles
+        or any(row.get("exit_code") != 0 for row in executions)
+        or any(
+            base.sha256_file(official.REPO_ROOT / row["result_path"])
+            != row.get("result_sha256")
+            for row in executions
+        )
+        or executions[-1].get("result_path") != base.repo_relative(result_path)
+        or executions[-1].get("selected_test_count") != 136
+        or executions[-1].get("passed_test_count") != 136
+        or receipt.get("authority_effect") != "none"
+    ):
+        raise base.FoundationContractError(
+            "bounded execution-environment receipt is stale"
+        )
+    result = _validate_route_result(result_path)
+    if require_affected:
+        affected = base.load_json_strict(AFFECTED_TEST_RESULT)
+        if (
+            affected.get("status") != "PASS"
+            or affected.get("required_test_count") != 4
+            or affected.get("executed_test_count") != 4
+            or affected.get("passed_test_count") != 4
+            or affected.get("failed_test_count") != 0
+            or affected.get("exit_code") != 0
+            or affected.get("test_ids") != list(AFFECTED_TEST_IDS)
+            or executions[0].get("result_path")
+            != base.repo_relative(AFFECTED_TEST_RESULT)
+            or executions[0].get("selected_test_count") != 4
+            or executions[0].get("passed_test_count") != 4
+        ):
+            raise base.FoundationContractError(
+                "affected-test bounded execution result is stale"
+            )
+    if require_tracked:
+        receipt_ref = _tracked_head_record(receipt_path)
+        result_ref = _tracked_head_record(result_path)
+        affected_ref = (
+            _tracked_head_record(AFFECTED_TEST_RESULT)
+            if require_affected
+            else None
+        )
+    else:
+        receipt_ref = _working_record(receipt_path)
+        result_ref = _working_record(result_path)
+        affected_ref = (
+            _working_record(AFFECTED_TEST_RESULT)
+            if require_affected
+            else None
+        )
+    return {
+        "status": "PASS",
+        "receipt": receipt_ref,
+        "result": result_ref,
+        "affected_result": affected_ref,
+        "declared_external_root": str(declared_root),
+        "repository_external": True,
+        "execution_commit": execution_commit,
+        "execution_tree": execution_tree,
+        "environment_variable_names": list(
+            EXECUTION_ENVIRONMENT_VARIABLE_NAMES
+        ),
+        "affected_test_count": 4 if require_affected else 0,
+        "current_route_test_count": result["test_count"],
+        "current_route_passed_count": result["passed_count"],
+        "authority_effect": "none",
     }
 
 
@@ -579,6 +1278,7 @@ def _validate_candidate_against_live() -> dict[str, Any]:
 
 
 def build_phase6_revalidation() -> dict[str, Any]:
+    execution = run_bounded_phase6_revalidation()
     g1 = _validate_g1_successor_0008()
     predecessor = _validate_predecessor_failure()
     protected_inputs = _validate_protected_inputs()
@@ -600,6 +1300,7 @@ def build_phase6_revalidation() -> dict[str, Any]:
         "protected_inputs": protected_inputs,
         "immutable_phase5_disposition": disposition,
         "candidate_and_cas": candidate,
+        "bounded_execution_environment": execution,
         "fresh_candidate_current_route": route,
         "phase6_blocker_count": 0,
         "disposition_maintained": True,
@@ -631,6 +1332,10 @@ def build_phase6_revalidation() -> dict[str, Any]:
         "phase6_revalidation_record_sha256": base.sha256_file(
             REVALIDATION_RECORD
         ),
+        "execution_environment_receipt_sha256": base.sha256_file(
+            EXECUTION_ENVIRONMENT_RECEIPT
+        ),
+        "affected_test_result_sha256": base.sha256_file(AFFECTED_TEST_RESULT),
         "g1_gate_manifest_sha256": G1_GATE_MANIFEST_SHA256,
         "g1_closeout_sha256": G1_CLOSEOUT_SHA256,
         "candidate_manifest_sha256": CANDIDATE_MANIFEST_SHA256,
@@ -693,6 +1398,12 @@ def build_phase6_revalidation() -> dict[str, Any]:
 
 
 def validate_phase6_revalidation(*, require_tracked: bool) -> dict[str, Any]:
+    execution = validate_execution_environment_receipt(
+        require_tracked=require_tracked,
+        receipt_path=EXECUTION_ENVIRONMENT_RECEIPT,
+        result_path=CORRECTION_ROUTE_RESULT,
+        require_affected=True,
+    )
     g1 = _validate_g1_successor_0008()
     predecessor = _validate_predecessor_failure()
     protected_inputs = _validate_protected_inputs()
@@ -727,6 +1438,14 @@ def validate_phase6_revalidation(*, require_tracked: bool) -> dict[str, Any]:
         or record.get("phase6_blocker_count") != 0
         or record.get("disposition_maintained") is not True
         or record.get("authority_effect") != "none"
+        or record.get("bounded_execution_environment", {})
+        .get("receipt", {})
+        .get("sha256")
+        != execution["receipt"]["sha256"]
+        or record.get("bounded_execution_environment", {})
+        .get("affected_result", {})
+        .get("sha256")
+        != execution["affected_result"]["sha256"]
         or contract.get("contract_hash") != base.canonical_hash(contract_core)
         or contract.get("status")
         != "READY_FOR_CONDITIONAL_OWNER_AUTHORIZATION"
@@ -736,6 +1455,10 @@ def validate_phase6_revalidation(*, require_tracked: bool) -> dict[str, Any]:
         != CANDIDATE_PATCH_SHA256
         or contract.get("candidate_current_route_result_sha256")
         != route["sha256"]
+        or contract.get("execution_environment_receipt_sha256")
+        != execution["receipt"]["sha256"]
+        or contract.get("affected_test_result_sha256")
+        != execution["affected_result"]["sha256"]
         or contract.get("live_manifest_base_sha256") != LIVE_BASE_SHA256
         or contract.get("evaluation_subject_disposition_hash")
         != DISPOSITION_SHA256
@@ -750,6 +1473,7 @@ def validate_phase6_revalidation(*, require_tracked: bool) -> dict[str, Any]:
         "predecessor_failure": predecessor,
         "protected_inputs": protected_inputs,
         "disposition": disposition,
+        "bounded_execution_environment": execution,
         "route": route_ref,
         "revalidation_record": record_ref,
         "adoption_contract_successor": contract_ref,
@@ -963,6 +1687,12 @@ def validate_phase6() -> dict[str, Any]:
     decision_record_ref = _tracked_head_record(ADOPTION_DECISION_RECORD)
     post_route_ref = _tracked_head_record(POST_ADOPTION_ROUTE_RESULT)
     post_route = _validate_route_result(POST_ADOPTION_ROUTE_RESULT)
+    post_execution = validate_execution_environment_receipt(
+        require_tracked=True,
+        receipt_path=POST_ADOPTION_EXECUTION_RECEIPT,
+        result_path=POST_ADOPTION_ROUTE_RESULT,
+        require_affected=False,
+    )
     live = official._live_manifest_record()
     receipt = base.load_json_strict(ADOPTION_RECEIPT)
     candidate = base.load_json_strict(
@@ -1004,6 +1734,7 @@ def validate_phase6() -> dict[str, Any]:
                 if key not in ("path", "sha256")
             },
         },
+        "post_adoption_bounded_execution_environment": post_execution,
         "live_manifest_sha256": live["sha256"],
         "live_required_gate_adopted": True,
         "post_adoption_artifact_set_complete": True,

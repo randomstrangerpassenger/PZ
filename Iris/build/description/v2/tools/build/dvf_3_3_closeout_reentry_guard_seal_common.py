@@ -55,6 +55,7 @@ IDENTIFIER_FIELDS = {
     "enforcement",
     "field",
     "generated_at",
+    "path",
     "role",
     "route",
     "schema_id",

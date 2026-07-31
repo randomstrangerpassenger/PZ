@@ -332,19 +332,19 @@ class DvfCloseoutReentryGuardSealTest(unittest.TestCase):
         )
         self.assertTrue(
             any(
-                row["code"] == "identifier_field_container_invalid"
+                row.get("code") == "identifier_field_container_invalid"
                 for row in cases["identifier_object_disguise"]["blockers"]
             )
         )
         self.assertTrue(
             any(
-                row["code"] == "manifest_schema_version_invalid"
+                row.get("code") == "manifest_schema_version_invalid"
                 for row in cases["wrong_schema"]["blockers"]
             )
         )
         self.assertTrue(
             any(
-                row["code"] == "strict_json_parse_failed"
+                row.get("code") == "strict_json_parse_failed"
                 for row in cases["duplicate_schema_key"]["blockers"]
             )
         )

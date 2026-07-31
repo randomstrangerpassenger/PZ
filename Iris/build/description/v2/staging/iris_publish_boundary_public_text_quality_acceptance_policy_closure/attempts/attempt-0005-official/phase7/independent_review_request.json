@@ -1,0 +1,22 @@
+{
+  "attempt_id": "attempt-0005-official",
+  "final_artifact_hash_manifest_sha256": "30f752f181452cd4b03ea3343a3f8be23390f69d9eecde3a848ae8e0e20fc106",
+  "freeze_manifest_sha256": "92568d6609e55c6a371852063a807ebe8a17d33d83a5fc84a70ea5f59c863d25",
+  "owner_or_implementation_author_ineligible": true,
+  "required_critical_finding_count": 0,
+  "required_important_finding_count": 0,
+  "required_reviewer_kind": "codex_reviewer",
+  "required_scopes": [
+    "policy_and_denominator_unchanged",
+    "validator_and_adversarial_contract",
+    "exact_accepted_disposition",
+    "g1_successor_0010_phase6_readoption",
+    "additive_live_gate_effect",
+    "failed_evidence_preservation",
+    "claim_boundary"
+  ],
+  "review_subject_commit": "efe042a4f5ef3fc4501a7f82904b9c9e8dadad8a",
+  "review_subject_tree": "29caf140c2308dc39cef65d659eba6c4da184e1e",
+  "schema_version": "public_text_quality_phase7_independent_review_request_v2",
+  "status": "READY_FOR_CODEX_REVIEWER"
+}

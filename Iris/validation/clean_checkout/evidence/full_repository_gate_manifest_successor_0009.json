@@ -1,0 +1,234 @@
+{
+  "schema_version": "iris-clean-checkout-full-repository-gate-manifest-v9",
+  "manifest_state": "frozen",
+  "recorded_date": "2026-07-31",
+  "status": "PASS",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "record_mode": "append_only_g1_bounded_structured_claim_scanner_correction",
+  "terminal_claim": "The current required-validation manifest is scanned as strict structured JSON, identifier leaves are excluded from claim text by semantic role, claim-bearing and unknown string leaves remain fail-closed, and the exact correction subject passes live, G4 candidate projection, and sequential clean-checkout Run A/B validation",
+  "predecessor": {
+    "path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0008.json",
+    "git_blob_id": "bdfe5553d8f31676143ec22cc599b6c470b410ab",
+    "git_blob_raw_sha256": "b81878c89f9e1aa4dd9873bd1ec204632547938e33ce33567c09633f77de758f",
+    "rewrite_permitted": false
+  },
+  "requested_start": {
+    "commit": "bda8c7a47b87ccc21676360b89909201d1c57100",
+    "tree": "5723cae9c811feccc75cd0bc277372afaa6ac3e7"
+  },
+  "validated_subject": {
+    "role": "g1_bounded_structured_claim_scanner_correction",
+    "commit": "ea1c5f6f078e279f5d72e230364b1f4323ac4fd4",
+    "tree": "35b700f2406ab16fdd5d455b0997cde58dbaf26e",
+    "branch": "codex/public-text-quality-official-attempt-0004"
+  },
+  "implementation": {
+    "commits": [
+      {
+        "commit": "eacc1a1464b4340043bcd3e94a0b522fbec7d627",
+        "role": "structured_json_claim_scanner_and_regression_fixtures"
+      },
+      {
+        "commit": "ea1c5f6f078e279f5d72e230364b1f4323ac4fd4",
+        "role": "explicit_path_identifier_role_completion"
+      }
+    ],
+    "changed_paths": [
+      {
+        "path": "Iris/build/description/v2/tools/build/dvf_3_3_closeout_reentry_guard_seal_common.py",
+        "git_blob_id": "0ffbce720d4e088d7c94f364b2fc2196ca761379",
+        "git_blob_raw_sha256": "c78847e0942a0ac60cbf8621ff3d734aed25d732e9df224d1073d781efeec9c0",
+        "functions": [
+          "strict_json_loads",
+          "json_pointer_segment",
+          "structured_string_semantic_role",
+          "structured_manifest_blocker",
+          "classify_required_validation_manifest_text",
+          "write_phase1"
+        ]
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_closeout_reentry_guard_seal.py",
+        "git_blob_id": "83dcc10a4d65c5ca3c9832c7d479af75d7625176",
+        "git_blob_raw_sha256": "b93929b04fc2d0a8d708c652ad9cb82007ab31e8766c7155b78043f6dc0392d8",
+        "functions": [
+          "structured_manifest_probe_payload",
+          "main"
+        ]
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_dvf_3_3_closeout_reentry_guard_seal.py",
+        "git_blob_id": "23aaf96f7265d4cdb0ea17e5335e74d3c0cf719a",
+        "git_blob_raw_sha256": "902cc1a5e08154f37307586e2d42650814840764513c7bcc57f9d633e6929589",
+        "functions": [
+          "DvfCloseoutReentryGuardSealTest.test_claim_surface_scan_is_fail_closed_and_not_self_scanned",
+          "DvfCloseoutReentryGuardSealTest.test_predecessor_reentry_negative_fixtures_fail_closed",
+          "DvfCloseoutReentryGuardSealTest.test_closeout_boundary_rejects_problem7_and_readiness_promotion"
+        ]
+      }
+    ],
+    "changed_path_count": 3,
+    "g1_owned_scanner_tooling_or_test_path_only": true
+  },
+  "structured_field_classification_contract": {
+    "manifest_path": "Iris/_docs/round3/current_route_required_validations.json",
+    "required_schema_version": "round3-current-route-required-validations-v1",
+    "parse_contract": [
+      "strict_json_parse_required",
+      "duplicate_object_key_rejected",
+      "non_json_numeric_constant_rejected",
+      "root_object_required",
+      "required_artifacts_array_required",
+      "required_tests_array_required"
+    ],
+    "identifier_semantic_roles": [
+      "path",
+      "test_id",
+      "schema_version",
+      "schema_id",
+      "artifact_id",
+      "explicit identifier and identity fields",
+      "explicit path, root, SHA-256, role, route, status, state, enforcement, and generated-at metadata fields"
+    ],
+    "identifier_policy": "string identifier leaves are classified by JSON pointer and excluded from claim-text matching; identifier fields containing an object, array, or non-string scalar fail closed",
+    "claim_text_semantic_roles": [
+      "claim",
+      "claims",
+      "summary",
+      "description",
+      "policy",
+      "narrative",
+      "reason",
+      "non_claims"
+    ],
+    "unknown_string_policy": "every unknown string leaf is scanned as claim-bearing fail-closed text",
+    "non_json_document_scanner": "existing line-based scanner retained unchanged for Markdown, documents, tools, tests, and claim-bearing evidence",
+    "attempt_specific_exception_count": 0,
+    "line_specific_exception_count": 0,
+    "global_public_text_quality_acceptance_allowlist_count": 0
+  },
+  "focused_regression": {
+    "status": "PASS",
+    "test_file": "Iris/build/description/v2/tests/test_dvf_3_3_closeout_reentry_guard_seal.py",
+    "test_count": 9,
+    "passed_count": 9,
+    "failed_count": 0,
+    "structured_fixture_count": 7,
+    "structured_fixtures": {
+      "required_artifact_path_identifier": "PASS_ZERO_BLOCKERS",
+      "required_test_id_identifier": "PASS_ZERO_BLOCKERS",
+      "claim_field_overclaim": "BLOCKED",
+      "unknown_field_overclaim": "BLOCKED",
+      "identifier_object_disguise": "BLOCKED",
+      "wrong_schema": "BLOCKED",
+      "duplicate_schema_key": "BLOCKED"
+    },
+    "pre_existing_negative_fixture_regression_count": 10,
+    "pre_existing_negative_fixture_partition": {
+      "forbidden_overclaim_fixture_count": 5,
+      "predecessor_reentry_fixture_count": 4,
+      "isolated_forbidden_surface_fixture_count": 1
+    },
+    "pre_existing_positive_control_count": 2,
+    "pre_existing_fixture_results_unchanged": true
+  },
+  "current_route_validation": {
+    "live": {
+      "status": "PASS",
+      "selected_identity_count": 135,
+      "passed_count": 135,
+      "failure_count": 0,
+      "error_count": 0,
+      "required_test_count": 56,
+      "required_artifact_count": 149,
+      "result_sha256": "ef9aabca6afdcdfbf7839c49de872f4f87809512806aa18194703487f114cd89"
+    },
+    "g4_candidate_projection": {
+      "status": "PASS",
+      "selected_identity_count": 136,
+      "passed_count": 136,
+      "failure_count": 0,
+      "error_count": 0,
+      "required_test_count": 57,
+      "required_artifact_count": 159,
+      "candidate_manifest_path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase6/required_gate_candidate.json",
+      "candidate_manifest_git_blob_id": "6a8e98cafb25cb78d8a841015d487b5797ecf2da",
+      "candidate_manifest_git_blob_raw_sha256": "3107201fd7e6da0c8a97a3c8d9ee8119d2d4d9768d0da3fcbcb306cc2447c75b",
+      "result_sha256": "f05b5d48b7327acebabfc96f24e41c7312fe0c0fe480ef21bcd3a04b575f5d96"
+    }
+  },
+  "classification_recensus": {
+    "tracked_test_source_count": 93,
+    "required_source_count": 33,
+    "historical_optional_source_count": 55,
+    "obsolete_or_misrouted_source_count": 3,
+    "hermetic_test_fixture_source_count": 2,
+    "unclassified_test_source_count": 0,
+    "unresolved_dependency_edge_count": 0,
+    "required_source_missing_count": 0,
+    "test_inventory_sha256": "8044bbb99f308cadcc1a745054229f57a0828c4cb338868d62fe55e40157e879"
+  },
+  "execution_reproducibility": {
+    "run_a": {
+      "status": "PASS",
+      "pytest_identity_count": 195,
+      "standalone_validation_count": 4,
+      "required_execution_unit_count": 199,
+      "canonical_result_sha256": "beed142f7ba83d6558f057fead351198c35621f65ff44ba11c7f20cb0832b693",
+      "run_receipt_sha256": "7a3bbed5af0375e54105ff5144e69ce2d73def21e12b2cc8f3dac1c89625ac45",
+      "materialization_receipt_sha256": "3e1deec4144f2c044eee9b24eb47b631650b553eea5f58fcfa99592a26262137",
+      "full_pytest_result_sha256": "6cabca595df0da2177758e3506fe6facdb33d1f75e85b9e0cfed63079593d31a",
+      "exit_code": 0
+    },
+    "run_b": {
+      "status": "PASS",
+      "pytest_identity_count": 195,
+      "standalone_validation_count": 4,
+      "required_execution_unit_count": 199,
+      "canonical_result_sha256": "beed142f7ba83d6558f057fead351198c35621f65ff44ba11c7f20cb0832b693",
+      "run_receipt_sha256": "bc97eace2f635b12332072d209acb320f0a488526731cde6b0d9eb1abf82752b",
+      "materialization_receipt_sha256": "3e1deec4144f2c044eee9b24eb47b631650b553eea5f58fcfa99592a26262137",
+      "full_pytest_result_sha256": "6cabca595df0da2177758e3506fe6facdb33d1f75e85b9e0cfed63079593d31a",
+      "exit_code": 0
+    },
+    "canonical_results_equal": true,
+    "canonical_result_sha256": "beed142f7ba83d6558f057fead351198c35621f65ff44ba11c7f20cb0832b693",
+    "passed_execution_unit_count": 199,
+    "failed_execution_unit_count": 0,
+    "collection_error_count": 0,
+    "ignored_required_input_count": 0,
+    "external_execution_mutation_count": 0,
+    "source_checkout_clean_before": true,
+    "source_checkout_clean_after": true,
+    "source_checkout_ignored_state_unchanged": true
+  },
+  "cleanup": {
+    "run_a_work_root_entry_count_after": 0,
+    "run_b_work_root_entry_count_after": 0,
+    "run_a_disposable_checkout_removed": true,
+    "run_b_disposable_checkout_removed": true,
+    "residual_disposable_checkout_count": 0,
+    "persistent_worktree_entry_count_before": 14,
+    "persistent_worktree_entry_count_after": 14,
+    "persistent_worktree_created": false
+  },
+  "preservation": {
+    "live_required_validation_manifest_git_blob_id_before": "d4fbab46596322244ceee293a93ee7be9fe47b75",
+    "live_required_validation_manifest_git_blob_id_after": "d4fbab46596322244ceee293a93ee7be9fe47b75",
+    "live_required_validation_manifest_git_blob_raw_sha256": "2ccf98edfd087bb193387a77d0fec5bdb3a1efe9905d66fa9ac5ae74eec2c7d1",
+    "g4_attempt_0005_tree_before": "7f9f4b475ec184669ed9875ec70fbdffa7c5a127",
+    "g4_attempt_0005_tree_after": "7f9f4b475ec184669ed9875ec70fbdffa7c5a127",
+    "g4_phase6_tree": "96fb48a0af4fe210a9f14a0880e884851d68535e",
+    "live_or_g4_protected_mutation_count": 0,
+    "g4_phase7_executed": false,
+    "g5_or_g6_executed": false,
+    "g5_or_g6_artifact_changed": false,
+    "historical_g1_successor_overwritten": false
+  },
+  "successor_boundary": {
+    "validated_subject_is_unchanged_by_this_record": true,
+    "this_record_is_not_the_validated_subject": true,
+    "tests_rerun_for_this_successor_record": false,
+    "self_referential_commit_fields": 0
+  }
+}

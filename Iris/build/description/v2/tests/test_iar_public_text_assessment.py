@@ -245,6 +245,38 @@ class IarPublicTextAssessmentTest(unittest.TestCase):
         self.assertTrue(all(row["threshold_satisfied"] for row in generic["metrics"]))
         self.assertEqual(generic["authority_effect"], "none")
 
+    def test_existing_metric_policy_detector_projections_are_unchanged(self) -> None:
+        foundation_path = (
+            REPO_ROOT
+            / "Iris"
+            / "_docs"
+            / "round3"
+            / "iris_publish_boundary_public_text_quality_acceptance_policy_closure"
+            / "foundation"
+            / "public_text_quality_foundation_contract.json"
+        )
+        foundation = ptqa.load_json_strict(foundation_path)
+        projections = (
+            (
+                ptqa.metric_registry_candidate(),
+                foundation["metric_registry_candidate_hash"],
+            ),
+            (
+                ptqa.denominator_registry_candidate(),
+                foundation["denominator_registry_candidate_hash"],
+            ),
+            (
+                ptqa.policy_candidate(),
+                foundation["policy_candidate_hash"],
+            ),
+            (
+                ptqa.detector_mapping_candidate(),
+                foundation["detector_mapping_candidate_hash"],
+            ),
+        )
+        for projection, expected_hash in projections:
+            self.assertEqual(ptqa.canonical_hash(projection), expected_hash)
+
 
 if __name__ == "__main__":
     unittest.main()

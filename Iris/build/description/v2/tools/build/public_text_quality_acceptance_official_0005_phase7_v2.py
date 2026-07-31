@@ -12,6 +12,7 @@ import public_text_quality_acceptance_official_0005_closure as legacy
 CORRECTION_ID = "g1-successor-0010-consumer-0001"
 PHASE7 = official.ATTEMPT_ROOT / "phase7"
 CORRECTION_ROOT = PHASE7 / "corrections" / CORRECTION_ID
+VALIDATION_ROOT = CORRECTION_ROOT / "inputs"
 FREEZE = CORRECTION_ROOT / "final_evidence_freeze_manifest.json"
 ARTIFACT_MANIFEST = CORRECTION_ROOT / "final_artifact_hash_manifest.json"
 REVIEW_REQUEST = CORRECTION_ROOT / "independent_review_request.json"
@@ -443,6 +444,7 @@ def _freeze_paths() -> tuple[list[Path], list[Path]]:
         for path in PHASE7.iterdir()
         if path.is_file()
     )
+    paths.extend(path for path in VALIDATION_ROOT.rglob("*") if path.is_file())
     predecessor_reviewer = (
         official.V2_ROOT
         / "reviewer_inputs"

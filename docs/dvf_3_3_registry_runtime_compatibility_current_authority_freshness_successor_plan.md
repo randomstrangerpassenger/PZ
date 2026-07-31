@@ -1,8 +1,8 @@
 # Implementation Plan
 
-> 상태: frozen implementation plan / eighth feedback revision integrated / durable pre-entry discovery eligible / Changes 2–8 blocked only pending finalized G4/G5 handoff and eligible Change 1 discovery
+> 상태: owner-directed attribution-gated conditional plan / Change 1 discovery preserved / Changes 2–8 not applicable unless a canonical Iris RTC defect is independently reproduced without temporary orchestration
 > 작성일: 2026-07-30
-> 최종 개정일: 2026-07-31
+> 최종 개정일: 2026-08-01
 > 대상 축: Iris Artifact Registry / Registry Runtime Compatibility
 > Roadmap candidate: `iris_registry_runtime_compatibility_current_authority_freshness_successor_authority_reconstruction`
 > Roadmap input: `C:/Users/MW/.codex/attachments/f741c537-ce33-47fc-af83-3111322439f1/pasted-text.txt`
@@ -26,13 +26,78 @@
 > Near-convergence review findings: `SYN-RTCS-C01` (`CLD-RTCS-C19`), `SYN-RTCS-N01` (`CLD-RTCS-N29`)
 > Latest non-blocking inline finding: `M-01` — plan-review severity taxonomy / `REVIEW_TEMPLATE.md` section mapping
 > Template: `docs/PLAN_TEMPLATE.md`
-> 최대 실행 완료 claim: exact Registry current-authority reference set와 exact finalized Registry-facing rendered handoff packet을 각각 결속한 RTC reservation, exact sealed repository-file toolchain manifest, exact recorded canonical execution environment identity, exact immutable successor bundle, pre-adoption G1 successor, two isolated Codex Reviewer PASS attestations 및 프로젝트 소유자의 exact-result seal에 한정한 `Registry Runtime Compatibility PASS`
+> 조건부 historical 최대 claim: 아래 canonical defect attribution gate가 먼저 PASS한 미래 실행에서만, exact Registry current-authority reference set와 canonical runtime failure를 결속한 `Registry Runtime Compatibility PASS`를 고려할 수 있다. 현재 claim은 `not_applicable_unproven_iris_defect`다.
 
-이 문서는 구현 결과나 PASS 증거가 아니다. 계획 작성 시점의 코드베이스 관찰값, 첨부 로드맵, staging, environment와 predecessor bundle은 current source authority를 선택할 권한이 없다. 실행은 이미 current로 채택된 source authority record set와 Publish closure를 역인계 받은 finalized Registry-facing rendered handoff packet을 필수 입력으로 받아 그 references와 일치하는 frozen commit의 fresh checkout에서만 진행한다.
+이 문서는 구현 결과나 PASS 증거가 아니다. 계획 작성 시점의 코드베이스 관찰값, 첨부 로드맵, staging, environment와 predecessor bundle은 current source authority를 선택하거나 Iris RTC 결함을 선언할 권한이 없다. 현재는 아래 attribution predicate를 만족하는 canonical failure가 없으므로 Change 2 이후 실행은 열리지 않는다. 뒤의 finalized G4/G5 handoff 기반 실행 설계는 predicate가 PASS한 미래 경우를 위한 historical design이며 현재 prerequisite가 아니다.
 
 ---
 
-## 0. Current-Lineage Synchronization Contract
+## 0. Current Executable Scope — Canonical Defect Attribution Gate
+
+이 절은 이 문서에서 유일한 current executable synchronization authority다. 뒤의 finalized G4/G5 terminal prerequisite, RTC reservation/adoption, Changes 2~8, review/seal/terminal 조항은 설계 이력으로 보존하며 이 attribution gate가 PASS하기 전에는 실행하지 않는다.
+
+동기화 기준점:
+
+- commit: `7744df68fa7c0a66ccd9e760995c1b7071de8e08`
+- tree: `5c6fd5d2df505c9ea217e6b913bfacf296e99a63`
+- live required-validation manifest SHA-256: `2ccf98edfd087bb193387a77d0fec5bdb3a1efe9905d66fa9ac5ae74eec2c7d1`
+- live current-route: `135/135 PASS`
+- G6 Change 1 discovery: 보존
+- current RTC disposition: `not_applicable_unproven_iris_defect`
+
+세 계획이 동일하게 소비할 current compact projection은 다음과 같다.
+
+```json
+{"baseline_commit":"7744df68fa7c0a66ccd9e760995c1b7071de8e08","baseline_tree":"5c6fd5d2df505c9ea217e6b913bfacf296e99a63","contract_id":"iris_iar_scope_reduction_sync_v2","current_route":{"required_test_count":135,"result":"PASS"},"g4":{"attempt_specific_closure":"retired_historical","iar_core":"reusable_evaluator_only","live_gate_adoption":"not_required"},"g5":{"phase8_candidate":"preserved","terminal_finalize":"retired_not_required"},"g6":{"changes_2_8":"blocked_until_canonical_defect_attribution","current_disposition":"not_applicable_unproven_iris_defect"},"live_required_validation_manifest_sha256":"2ccf98edfd087bb193387a77d0fec5bdb3a1efe9905d66fa9ac5ae74eec2c7d1","owner_directive":"exclude_attempt_specific_closure_orchestration_from_iar_core","stable_session_names":["G1","G2","G3","G4","G5","G6"]}
+```
+
+```text
+iar_scope_reduction_projection_sha256 = d2d1eec524bdbe8c29ce1a5552dd7cb1b33e8434d50bff4ce03df8c6e5b8dee7
+```
+
+### Change 1 disposition
+
+- 기존 Change 1의 source reference-set 누락/불일치/모호성 `0/0/0` 관찰은 append-only discovery evidence로 보존한다.
+- 당시 `blocked_pending_finalized_registry_handoff`는 G4/G5 attempt-specific terminal을 RTC prerequisite로 잘못 포함한 coordination 결과이며 current Iris RTC defect 증거가 아니다.
+- `implementation_toolchain_freshness_failed` 또는 temporary script/staging/worktree의 실패만으로 Iris Registry Runtime Compatibility 부채를 선언하지 않는다.
+- G4/G5 terminal 부재를 해결하기 위한 G6 실행은 폐기한다.
+
+### Mandatory attribution predicate
+
+Changes 2~8은 다음이 모두 독립적으로 참일 때만 열린다.
+
+```text
+canonical_iris_runner_failure_reproduced = true
+clean_checkout_reproduced = true
+temporary_orchestration_dependency = false
+current_registry_to_runtime_identity_mismatch = true
+runtime_or_package_effect_demonstrated = true
+exact_failure_artifact_and_command_bound = true
+```
+
+하나라도 false, missing 또는 unknown이면:
+
+```text
+g6_execution_applicability = not_applicable
+iris_rtc_debt_claimed = false
+changes_2_through_8_authorized = false
+runtime_lua_package_mutation_authorized = false
+```
+
+Attribution은 임시 script를 삭제·우회한 clean checkout에서 canonical Iris runner로 재현해야 한다. 저장소 안의 경로, tracked 상태, staging receipt 또는 검사기의 기대 freshness가 있다는 사실만으로 runtime defect가 되지 않는다. 실제 current Registry facts/manifest가 canonical rendered/bridge/runtime/package 결과와 불일치하거나 공식 실행이 실패하는 증거가 필요하다.
+
+### Current exit
+
+- 현재는 위 predicate를 만족하는 증거가 없으므로 G6에 실행할 다음 Change가 없다.
+- 새로운 reservation, successor bundle, adoption, review, owner seal, terminal 또는 G1 pre-adoption round를 만들지 않는다.
+- 향후 predicate가 PASS하면 그 exact defect attribution record를 새 실행 기준점으로 삼아 Change 2부터 진행할 수 있다. 기존 temporary-tooling failure를 재사용하지 않는다.
+- predicate가 계속 성립하지 않으면 G6은 `not_applicable_non_authoritative_tooling_failure`로 종료하며 Iris current authority나 runtime을 변경하지 않는다.
+
+### Stable session vocabulary
+
+이 동기화 이후 세션 명칭은 `G1` Clean-Checkup, `G2` 음식 사실 의미, `G3`, `G4` 검사 시스템, `G5` 번역체 개선, `G6` RTC만 사용한다. 세션 이름은 defect authority를 만들지 않는다.
+
+## Historical 0. Current-Lineage Synchronization Contract (Non-Executable Until Attribution PASS)
 
 이 절은 독립적으로 작성된 문제 정의와 roadmap-derived implementation design을 현재 저장소 계보에 연결하는 coordination-only contract다. 문제의 원인, RTC 책임 경계와 success claim은 세션 이름에서 파생하지 않는다. 아래 세션 표기는 현재 작업의 재실행·중복 생성을 막기 위한 handoff vocabulary일 뿐이다. 이 절은 다른 절을 덮어쓰는 precedence authority가 아니며, 동일 계약은 아래 Assumptions, Planned Changes, Validation, Rollback과 Expected Closeout에 직접 일치시킨다.
 

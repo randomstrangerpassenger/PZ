@@ -1,6 +1,6 @@
 # Implementation Plan
 
-> 상태: owner-directed `aa49e8f9` four-plan synchronized implementation plan; synchronization-only revision requires no additional plan-level review; Foundation Track waits for G1/G2/G3 and official Phase 0 waits for G5 immutable handoff
+> 상태: owner-directed IAR scope-reduction synchronization complete / reusable evaluator boundary only / attempt-specific live-adoption, owner-seal, freeze, terminal and cross-session handoff orchestration retired from the executable plan
 >
 > 대상: Iris Publish Boundary / Public Text Quality Acceptance Policy Closure
 >
@@ -8,7 +8,9 @@
 >
 > 동기화 대상: `docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md`
 >
-> 교차 계획 계약: `dvf3_3_korean_naturalization__publish_boundary_sync_v1`
+> 현재 교차 계획 계약: `iris_iar_scope_reduction_sync_v2`
+>
+> 보존 historical 계약: `dvf3_3_korean_naturalization__publish_boundary_sync_v1`
 >
 > 로드맵 입력 SHA-256 planning observation:
 > `4b28e1fd3302877de81d85b14b6a7facd79b5b97a09e6db5aa5bcf8e2d4b07b9`
@@ -17,9 +19,64 @@
 >
 > 공통 실행 ancestry/readpoint: `aa49e8f9fce19955a374b45d0744b1418a45ac9e`
 >
-> 주의: 이 문서의 checkout, hash, count는 계획 수립 시점의 관찰값이다. 실행 authority나 threshold가 아니며 Phase 0에서 전부 재측정한다. 이번 coordination-only 동기화는 policy, threshold, waiver, metric 또는 terminal predicate를 바꾸지 않으며 추가 plan-level review를 요구하지 않는다.
+> 주의: 이 문서의 checkout, hash, count는 계획 수립 시점의 관찰값이다. 실행 authority나 threshold가 아니다. 2026-08-01 owner directive는 IAR의 지속 사용 기능과 특정 attempt의 종결 orchestration을 분리하며, 아래 `Current Executable Scope`와 충돌하는 기존 terminal 조항을 historical/non-executable로 전환한다.
 
-## 0. `aa49e8f9` Four-Plan Synchronization Contract
+## 0. Current Executable Scope — IAR Reusable Evaluator Boundary
+
+이 절은 이 문서에서 유일한 current executable synchronization authority다. 뒤의 `aa49e8f9` 계약과 Phase 6 live-adoption, Phase 7 independent closeout/owner seal/terminal, G5/G6/G7 handoff 조항은 설계 이력으로 보존하지만 이 절과 충돌하는 범위에서는 실행 prerequisite, 기술 부채 또는 completion predicate로 사용하지 않는다.
+
+동기화 기준점:
+
+- commit: `7744df68fa7c0a66ccd9e760995c1b7071de8e08`
+- tree: `5c6fd5d2df505c9ea217e6b913bfacf296e99a63`
+- live required-validation manifest SHA-256: `2ccf98edfd087bb193387a77d0fec5bdb3a1efe9905d66fa9ac5ae74eec2c7d1`
+- live current-route: `135/135 PASS`
+- attempt 전용 artifact `10`개와 test `1`개: exact rollback 완료
+- unrelated/historical row mutation: `0`
+
+세 계획이 동일하게 소비할 current compact projection은 다음과 같다.
+
+```json
+{"baseline_commit":"7744df68fa7c0a66ccd9e760995c1b7071de8e08","baseline_tree":"5c6fd5d2df505c9ea217e6b913bfacf296e99a63","contract_id":"iris_iar_scope_reduction_sync_v2","current_route":{"required_test_count":135,"result":"PASS"},"g4":{"attempt_specific_closure":"retired_historical","iar_core":"reusable_evaluator_only","live_gate_adoption":"not_required"},"g5":{"phase8_candidate":"preserved","terminal_finalize":"retired_not_required"},"g6":{"changes_2_8":"blocked_until_canonical_defect_attribution","current_disposition":"not_applicable_unproven_iris_defect"},"live_required_validation_manifest_sha256":"2ccf98edfd087bb193387a77d0fec5bdb3a1efe9905d66fa9ac5ae74eec2c7d1","owner_directive":"exclude_attempt_specific_closure_orchestration_from_iar_core","stable_session_names":["G1","G2","G3","G4","G5","G6"]}
+```
+
+```text
+iar_scope_reduction_projection_sha256 = d2d1eec524bdbe8c29ce1a5552dd7cb1b33e8434d50bff4ce03df8c6e5b8dee7
+```
+
+### IAR core에 남는 기능
+
+- 임의의 DVF/QG evaluation subject에 재사용 가능한 input/schema/freshness 검증
+- metric/denominator 계산과 policy 기반 `PASS | FAIL` assessment
+- raw detector, structured finding, failure attribution과 deterministic report
+- reusable negative fixture, regression test와 G1 current-route integration
+- 검사 결과와 source/facts/compiler/temporary orchestration 원인의 분리
+
+### IAR core에서 제외되는 기능
+
+- 특정 attempt의 live required-validation manifest 채택·rollback orchestration
+- attempt별 owner input, nonce, transaction, adoption receipt
+- owner seal 입력 생성과 owner seal materialization
+- final evidence freeze, terminal DAG, terminal hash seal과 closure receipt
+- G5/G6 또는 다른 세션 전용 공식 handoff 발행
+- 위 일회성 도구의 실패를 Iris 제품 부채나 IAR core blocker로 승격하는 행위
+
+Tracked 경로 또는 `Iris/build/...` 아래 존재한다는 사실만으로 official IAR core가 되지 않는다. 지속적인 DVF/QG 검사에서 호출되는 canonical evaluator/validator/test만 core다. Materializer, migration, attempt wrapper와 correction helper는 명시적으로 core에 채택되지 않는 한 construction tooling 또는 historical evidence다.
+
+### Current disposition과 exit
+
+- `attempt-0005-official`의 Phase 0~5 assessment evidence와 candidate disposition은 historical assessment evidence로 보존한다.
+- 해당 attempt의 Phase 6/7 live-adoption, freeze, owner-seal, terminal correction chain은 `retired_non_product_governance_tooling_scope_expansion`으로 종료한다.
+- rollback된 `10+1` surface를 다시 live gate에 넣지 않는다.
+- 이 계획의 current 최대 claim은 `reusable_public_text_quality_evaluator_validated`다. 이는 policy closure complete, publication approval, runtime adoption 또는 release readiness가 아니다.
+- 현 기준점 이후 이 계획에서 실행할 추가 phase, correction, owner seal, terminal 또는 handoff는 없다.
+- 향후 실제 publication/adoption이 필요하면 IAR 검사를 소비하되 runtime/publication writer 권한과 rollback을 별도로 정의한 계획이 담당한다.
+
+### Stable session vocabulary
+
+이 동기화 이후 세션 명칭은 `G1` Clean-Checkup, `G2` 음식 사실 의미, `G3`, `G4` 검사 시스템, `G5` 번역체 개선, `G6` RTC만 사용한다. 아래 historical 본문의 `G6_publish_boundary_official`과 `G7_naturalization_terminal_finalize`는 더 이상 current 세션이나 실행 단계를 뜻하지 않는다.
+
+## Historical Contract — `aa49e8f9` Four-Plan Synchronization (Non-Executable Where Conflicting)
 
 이 계획은 공통 계약 `iris_aa49_four_plan_execution_sync_v1`에서 `G4_publish_boundary_foundation`과 `G6_publish_boundary_official_phase0_through_phase7`을 소유한다. `aa49e8f9fce19955a374b45d0744b1418a45ac9e`는 immutable ancestry/planning readpoint이며, 그 commit에는 이 계획을 포함한 네 plan blob 전부가 없으므로 직접 execution base가 아니다.
 

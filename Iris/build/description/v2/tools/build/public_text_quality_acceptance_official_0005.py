@@ -1250,13 +1250,25 @@ def run_official_mode(
         )
     _validate_phase0_successor(ATTEMPT_ROOT)
     if mode in (
+        "phase6-revalidate",
         "phase6-adopt-gate",
         "phase7-freeze",
         "phase7-finalize",
     ):
-        raise base.FoundationContractError(
-            f"{mode} is outside the attempt-0005 execution boundary"
+        from public_text_quality_acceptance_official_0005_closure import (
+            adopt_live_gate,
+            build_phase6_revalidation,
+            build_phase7_finalize,
+            build_phase7_freeze,
         )
+
+        dispatch = {
+            "phase6-revalidate": build_phase6_revalidation,
+            "phase6-adopt-gate": adopt_live_gate,
+            "phase7-freeze": build_phase7_freeze,
+            "phase7-finalize": build_phase7_finalize,
+        }
+        return dispatch[mode]()
     if mode == "phase2-policy":
         with _owner_input_namespace():
             return base.run_official_mode(
@@ -1275,6 +1287,10 @@ def validate_official_attempt(
 ) -> dict[str, Any]:
     _require_attempt_id(attempt_id)
     if requirement == "gate-candidate":
+        from public_text_quality_acceptance_official_0005_closure import (
+            validate_phase6_revalidation,
+        )
+
         return {
             "schema_version": (
                 "public_text_quality_official_validation_result_v1"
@@ -1283,32 +1299,37 @@ def validate_official_attempt(
             "attempt_id": ATTEMPT_ID,
             "requirement": "gate-candidate",
             "no_write": True,
-            **_validate_gate_candidate(ATTEMPT_ROOT),
+            **validate_phase6_revalidation(require_tracked=True),
         }
     if requirement == "required-gate":
-        phase5 = base.validate_official_attempt(
-            attempt_id=attempt_id,
-            requirement="phase5",
+        from public_text_quality_acceptance_official_0005_closure import (
+            validate_required_gate,
         )
-        successor = _validate_phase0_successor(ATTEMPT_ROOT)
-        accepted = phase5.get("qualified_disposition") == "accepted"
-        return {
-            "schema_version": (
-                "public_text_quality_required_gate_result_v1"
-            ),
-            "status": "PASS" if accepted else "BLOCKED",
-            "attempt_id": ATTEMPT_ID,
-            "qualified_disposition": phase5[
-                "qualified_disposition"
-            ],
-            "evaluation_subject_sha256": CANDIDATE_SHA256,
-            "official_current_input_binding_sha256": successor["sha256"],
-            "g4_readiness_sha256": G4_READINESS_SHA256,
-            "policy_closure_state": "incomplete",
-            "publish_boundary_pass_claimed": False,
-            "package_or_release_ready_claimed": False,
-            "live_gate_adopted": False,
-        }
+        return validate_required_gate()
+    if requirement == "phase6":
+        from public_text_quality_acceptance_official_0005_closure import (
+            validate_phase6,
+        )
+
+        return validate_phase6()
+    if requirement == "independent-review":
+        from public_text_quality_acceptance_official_0005_closure import (
+            validate_independent_review,
+        )
+
+        return validate_independent_review()
+    if requirement == "owner-seal":
+        from public_text_quality_acceptance_official_0005_closure import (
+            validate_owner_seal,
+        )
+
+        return validate_owner_seal()
+    if requirement == "terminal-seal":
+        from public_text_quality_acceptance_official_0005_closure import (
+            validate_terminal,
+        )
+
+        return validate_terminal()
     if requirement not in (
         "phase0",
         "phase1",

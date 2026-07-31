@@ -1,0 +1,1583 @@
+from __future__ import annotations
+
+from copy import deepcopy
+from pathlib import Path
+import subprocess
+from typing import Any, Iterable
+
+import public_text_quality_acceptance as base
+import public_text_quality_acceptance_official_0005 as official
+
+
+CORRECTION_ID = "g1-successor-0008-revalidation-0001"
+G1_GATE_MANIFEST = (
+    official.REPO_ROOT
+    / "Iris"
+    / "validation"
+    / "clean_checkout"
+    / "evidence"
+    / "full_repository_gate_manifest_successor_0008.json"
+)
+G1_GATE_MANIFEST_SHA256 = (
+    "b81878c89f9e1aa4dd9873bd1ec204632547938e33ce33567c09633f77de758f"
+)
+G1_CLOSEOUT = (
+    official.REPO_ROOT
+    / "Iris"
+    / "validation"
+    / "clean_checkout"
+    / "authority"
+    / "full_repository_technical_debt_closeout_successor_0008.json"
+)
+G1_CLOSEOUT_SHA256 = (
+    "e6c4e877532ac196f4e8f84fcda7274251d26f1431e9a8c5b3192a9ca2e0cc1a"
+)
+G1_VALIDATED_SUBJECT_COMMIT = "1235e7bc497fea7f33774190a406534509838fa6"
+G1_VALIDATED_SUBJECT_TREE = "b19ed0b21d0eafe19e719a16138437edf1dd2fd7"
+G1_CANONICAL_RESULT_SHA256 = (
+    "2381b79faaecf73780cbe57d518ce788162f1575c990f29d526111af5d746f9f"
+)
+G1_CANDIDATE_ROUTE_RESULT_SHA256 = (
+    "216d142c00c2eb357a35d5d6824dfd3674460eaaeb8d3c6dda972e6d5f427fe0"
+)
+PREDECESSOR_FAILURE_COMMIT = "6b8549208f27a8a62819fee08864afffd79abfbf"
+PREDECESSOR_PHASE6_TREE = "7ada1295f6a449775d26b9a21b27df2c0a17f0d1"
+LIVE_BASE_SHA256 = (
+    "2ccf98edfd087bb193387a77d0fec5bdb3a1efe9905d66fa9ac5ae74eec2c7d1"
+)
+CANDIDATE_MANIFEST_SHA256 = (
+    "3107201fd7e6da0c8a97a3c8d9ee8119d2d4d9768d0da3fcbcb306cc2447c75b"
+)
+CANDIDATE_PATCH_SHA256 = (
+    "fc2068f1018e9f8ace56e31958702616710d38c38914cb2307c6e598e1db42ad"
+)
+FAILED_ROUTE_RESULT_SHA256 = (
+    "f4306493bf346a076f8745bcb7422f58110a1c01845f7a3d44ddbe6cc91441cb"
+)
+DISPOSITION_SHA256 = (
+    "2a944a8f7e683726229aade6a9afc12e0475b8e46cf980c24dc03a36be560e64"
+)
+POLICY_SHA256 = (
+    "12bf2c9e025108f217bf5c7304a900694503cebe08fc96d60cdf4c96a48267f0"
+)
+TASK_START_COMMIT = "dd4b8ac37d2b974717364c79aa04afe2fe445f58"
+TASK_START_TREE = "64782adcf856213f61c3fbccaad217d321c287f8"
+
+PHASE6 = official.ATTEMPT_ROOT / "phase6"
+PHASE7 = official.ATTEMPT_ROOT / "phase7"
+CORRECTION_ROOT = PHASE6 / "corrections" / CORRECTION_ID
+CORRECTION_ROUTE_RESULT = CORRECTION_ROOT / "candidate_current_route_result.json"
+REVALIDATION_RECORD = CORRECTION_ROOT / "phase6_revalidation_record.json"
+ADOPTION_CONTRACT_SUCCESSOR = (
+    CORRECTION_ROOT / "required_gate_adoption_contract_successor.json"
+)
+GATE_DECISION = official.OWNER_INPUT_ROOT / "gate_adoption_decision.json"
+OWNER_CLOSURE_SEAL = official.OWNER_INPUT_ROOT / "owner_closure_seal.json"
+REVIEWER_INPUT_ROOT = (
+    official.V2_ROOT
+    / "reviewer_inputs"
+    / base.ROUND_ID
+    / official.ATTEMPT_ID
+)
+INDEPENDENT_REVIEW = REVIEWER_INPUT_ROOT / "independent_review.json"
+REVIEWER_ELIGIBILITY = (
+    REVIEWER_INPUT_ROOT / "reviewer_eligibility_declaration.json"
+)
+ADOPTION_DECISION_RECORD = PHASE6 / "gate_adoption_decision_record.json"
+ADOPTION_RECEIPT = PHASE6 / "live_required_gate_adoption_receipt.json"
+POST_ADOPTION_ROUTE_RESULT = PHASE6 / "post_adoption_current_route_result.json"
+FREEZE_MANIFEST = PHASE7 / "final_evidence_freeze_manifest.json"
+FINAL_ARTIFACT_MANIFEST = PHASE7 / "final_artifact_hash_manifest.json"
+REVIEW_REQUEST = PHASE7 / "independent_review_request.json"
+PRE_REVIEW_VCS_CENSUS = PHASE7 / "vcs_authority_census_pre_review.json"
+INDEPENDENT_REVIEW_VALIDATION = (
+    PHASE7 / "independent_review_validation_report.json"
+)
+OWNER_SEAL_VALIDATION = PHASE7 / "owner_seal_validation_report.json"
+FINAL_VCS_PRESERVATION = PHASE7 / "final_vcs_preservation_report.json"
+FINAL_CLOSEOUT = PHASE7 / "final_closeout_report.json"
+TERMINAL_SEAL = PHASE7 / "terminal_hash_seal.json"
+CLOSEOUT_DOC = (
+    official.REPO_ROOT
+    / "docs"
+    / "iris_publish_boundary_public_text_quality_acceptance_policy_closure_closeout.md"
+)
+
+PREDECESSOR_PHASE6_HASHES = {
+    "candidate_current_route_result.json": FAILED_ROUTE_RESULT_SHA256,
+    "gitignore_exact_unignore_patch.json": (
+        "38736a5283b379c7ebf3f554db125ad122c95f5b6e4f97fc34cda5136e6f4506"
+    ),
+    "pre_adoption_protected_surface_report.json": (
+        "301f5a5fbf2adbbb755de9e6581d3086b324ecedebd7161602fd24e1ee3ddbde"
+    ),
+    "required_artifact_recensus_report.json": (
+        "de42355d0daf2055abd164ddf34f8b1c959fb97eb9162ce30d194a04440e0376"
+    ),
+    "required_gate_adoption_contract.json": (
+        "f956fc2bf5e49ef677bf7ae1ff6149bdb1ba861ad7bd9b515dd865a36dbfeac4"
+    ),
+    "required_gate_adoption_contract.md": (
+        "6b85522e1596dde7c864a6a642e6d2f996c93c7fb95654c4fc158ce3cd447827"
+    ),
+    "required_gate_candidate.json": CANDIDATE_MANIFEST_SHA256,
+    "required_gate_patch.json": CANDIDATE_PATCH_SHA256,
+    "stale_disposition_consumption_guard_report.json": (
+        "d8ec53ca8e6c3fcd6d5c02a258d8e0bd97dad736e00dbb8ef60b6833879c59a8"
+    ),
+}
+
+
+def _git(*args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
+    result = subprocess.run(
+        ["git", *args],
+        cwd=official.REPO_ROOT,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        capture_output=True,
+        check=False,
+    )
+    if check and result.returncode != 0:
+        raise base.FoundationContractError(
+            f"git {' '.join(args)} failed: {result.stderr.strip()}"
+        )
+    return result
+
+
+def _head_tree() -> str:
+    return _git("rev-parse", "HEAD^{tree}").stdout.strip()
+
+
+def _sealed_record(path: Path, expected_sha256: str) -> dict[str, Any]:
+    record = official._sealed_text_record(path, expected_sha256)
+    if record.get("match") is not True:
+        raise base.FoundationContractError(
+            f"sealed record mismatch: {base.repo_relative(path)}"
+        )
+    return {
+        "path": base.repo_relative(path),
+        "sha256": expected_sha256,
+        "head_git_blob_id": record["head_git_blob_id"],
+        "tracked": True,
+        "ignored": False,
+        "working_identity": True,
+    }
+
+
+def _tracked_head_record(path: Path) -> dict[str, Any]:
+    if not official._tracked_not_ignored(path):
+        raise base.FoundationContractError(
+            f"required closure artifact is not tracked and clean: "
+            f"{base.repo_relative(path)}"
+        )
+    relative = base.repo_relative(path)
+    blob_id = _git("rev-parse", f"HEAD:{relative}").stdout.strip()
+    blob = subprocess.run(
+        ["git", "cat-file", "blob", blob_id],
+        cwd=official.REPO_ROOT,
+        capture_output=True,
+        check=False,
+    )
+    if blob.returncode != 0:
+        raise base.FoundationContractError(
+            f"cannot read HEAD blob for {relative}"
+        )
+    filtered = _git("hash-object", "--", relative).stdout.strip()
+    if filtered != blob_id:
+        raise base.FoundationContractError(
+            f"working identity differs from HEAD for {relative}"
+        )
+    return {
+        "path": relative,
+        "sha256": base.sha256_bytes(blob.stdout),
+        "git_blob_id": blob_id,
+        "tracked": True,
+        "ignored": False,
+        "working_identity": True,
+    }
+
+
+def _working_record(path: Path) -> dict[str, Any]:
+    if not path.is_file():
+        raise base.FoundationContractError(
+            f"required generated closure artifact is missing: "
+            f"{base.repo_relative(path)}"
+        )
+    return {
+        "path": base.repo_relative(path),
+        "sha256": base.sha256_file(path),
+    }
+
+
+def _validate_g1_successor_0008() -> dict[str, Any]:
+    gate_record = _sealed_record(
+        G1_GATE_MANIFEST,
+        G1_GATE_MANIFEST_SHA256,
+    )
+    closeout_record = _sealed_record(G1_CLOSEOUT, G1_CLOSEOUT_SHA256)
+    gate = base.load_json_strict(G1_GATE_MANIFEST)
+    closeout = base.load_json_strict(G1_CLOSEOUT)
+    gate_projection = gate.get("current_route_projection", {})
+    execution = gate.get("execution_reproducibility", {})
+    if (
+        gate.get("status") != "PASS"
+        or gate.get("validated_subject", {}).get("commit")
+        != G1_VALIDATED_SUBJECT_COMMIT
+        or gate.get("validated_subject", {}).get("tree")
+        != G1_VALIDATED_SUBJECT_TREE
+        or gate_projection.get("final_g4_candidate", {}).get("status")
+        != "PASS"
+        or gate_projection.get("final_g4_candidate", {}).get("test_count")
+        != 136
+        or gate_projection.get("final_g4_candidate", {}).get(
+            "required_test_count"
+        )
+        != 57
+        or gate_projection.get("final_g4_candidate", {}).get(
+            "required_artifact_count"
+        )
+        != 159
+        or gate_projection.get("final_g4_candidate", {}).get("result_sha256")
+        != G1_CANDIDATE_ROUTE_RESULT_SHA256
+        or execution.get("run_a", {}).get("status") != "PASS"
+        or execution.get("run_b", {}).get("status") != "PASS"
+        or execution.get("run_a", {}).get("required_execution_unit_count")
+        != 199
+        or execution.get("run_b", {}).get("required_execution_unit_count")
+        != 199
+        or execution.get("canonical_results_equal") is not True
+        or execution.get("canonical_result_sha256")
+        != G1_CANONICAL_RESULT_SHA256
+        or gate.get("preservation", {}).get(
+            "g4_attempt_0005_phase6_failure_evidence_changed"
+        )
+        is not False
+        or closeout.get("status") != "complete"
+        or closeout.get("gate_manifest_successor", {}).get(
+            "git_blob_raw_sha256"
+        )
+        != G1_GATE_MANIFEST_SHA256
+        or closeout.get("validated_subject", {}).get("commit")
+        != G1_VALIDATED_SUBJECT_COMMIT
+        or closeout.get("validated_subject", {}).get("tree")
+        != G1_VALIDATED_SUBJECT_TREE
+        or closeout.get("current_route_closeout", {}).get(
+            "g4_candidate_status"
+        )
+        != "PASS"
+        or closeout.get("current_route_closeout", {}).get(
+            "g4_candidate_test_count"
+        )
+        != 136
+        or closeout.get("execution_closeout", {}).get(
+            "required_execution_unit_count"
+        )
+        != 199
+        or closeout.get("scope_closeout", {}).get(
+            "protected_or_live_mutation_count"
+        )
+        != 0
+    ):
+        raise base.FoundationContractError(
+            "G1 successor 0008 exact binding is stale"
+        )
+    return {
+        "status": "PASS",
+        "gate_manifest": gate_record,
+        "closeout": closeout_record,
+        "validated_subject_commit": G1_VALIDATED_SUBJECT_COMMIT,
+        "validated_subject_tree": G1_VALIDATED_SUBJECT_TREE,
+        "run_a": "199/199 PASS",
+        "run_b": "199/199 PASS",
+        "canonical_result_sha256": G1_CANONICAL_RESULT_SHA256,
+        "candidate_current_route": "136/136 PASS",
+        "candidate_current_route_result_sha256": (
+            G1_CANDIDATE_ROUTE_RESULT_SHA256
+        ),
+    }
+
+
+def _validate_disposition_immutable() -> dict[str, Any]:
+    path = official.ATTEMPT_ROOT / "phase5" / "evaluation_subject_disposition.json"
+    value = base.load_json_strict(path)
+    core = {key: child for key, child in value.items() if key != "disposition_hash"}
+    if (
+        value.get("disposition_hash") != base.canonical_hash(core)
+        or value.get("disposition_hash") != DISPOSITION_SHA256
+        or value.get("qualified_disposition") != "accepted"
+        or value.get("effective_blocking_finding_count") != 0
+        or value.get("advisory_debt_count") != 0
+        or value.get("technical_blocker_count") != 0
+        or value.get("active_waiver_count") != 0
+        or value.get("policy_raw_sha256") != POLICY_SHA256
+        or value.get("evaluation_subject_hash") != official.CANDIDATE_SHA256
+        or value.get("naturalization_handoff_hash")
+        != official.PHASE8_HANDOFF_SHA256
+    ):
+        raise base.FoundationContractError(
+            "immutable Phase 5 accepted disposition is stale"
+        )
+    return {
+        "path": base.repo_relative(path),
+        "sha256": base.sha256_file(path),
+        "disposition_hash": DISPOSITION_SHA256,
+        "qualified_disposition": "accepted",
+        "blocking_finding_count": 0,
+        "advisory_finding_count": 0,
+        "technical_finding_count": 0,
+        "active_waiver_count": 0,
+    }
+
+
+def _validate_predecessor_failure() -> dict[str, Any]:
+    rows = []
+    for name, expected_sha in PREDECESSOR_PHASE6_HASHES.items():
+        rows.append(_sealed_record(PHASE6 / name, expected_sha))
+    predecessor_tree = _git(
+        "rev-parse",
+        (
+            f"{PREDECESSOR_FAILURE_COMMIT}:./"
+            f"{base.repo_relative(PHASE6)}"
+        ),
+    ).stdout.strip()
+    if predecessor_tree != PREDECESSOR_PHASE6_TREE:
+        raise base.FoundationContractError(
+            "predecessor Phase 6 failure tree mismatch"
+        )
+    phase0_5_diff = _git(
+        "diff",
+        "--name-only",
+        f"{PREDECESSOR_FAILURE_COMMIT}..HEAD",
+        "--",
+        *[
+            base.repo_relative(official.ATTEMPT_ROOT / f"phase{phase}")
+            for phase in range(6)
+        ],
+    ).stdout.strip()
+    if phase0_5_diff:
+        raise base.FoundationContractError(
+            "attempt-0005 Phase 0-5 immutable evidence changed"
+        )
+    return {
+        "status": "PASS",
+        "failure_commit": PREDECESSOR_FAILURE_COMMIT,
+        "phase6_tree": PREDECESSOR_PHASE6_TREE,
+        "direct_artifact_count": len(rows),
+        "direct_artifacts": rows,
+        "phase0_through_phase5_changed_path_count": 0,
+        "failed_route_result_sha256": FAILED_ROUTE_RESULT_SHA256,
+        "failed_route_preserved": True,
+    }
+
+
+def _validate_protected_inputs() -> dict[str, Any]:
+    expected = (
+        (official.FOUNDATION_CONTRACT, official.FOUNDATION_CONTRACT_SHA256),
+        (official.G4_READINESS, official.G4_READINESS_SHA256),
+        (official.CURRENT_FACTS, official.CURRENT_FACTS_SHA256),
+        (official.CURRENT_MANIFEST, official.CURRENT_MANIFEST_SHA256),
+        (official.PHASE8_HANDOFF, official.PHASE8_HANDOFF_SHA256),
+        (official.PHASE8_CLOSEOUT, official.PHASE8_CLOSEOUT_SHA256),
+        (official.TERMINAL_CLOSEOUT, official.TERMINAL_CLOSEOUT_SHA256),
+        (official.CANDIDATE, official.CANDIDATE_SHA256),
+        (official.TRACE, official.TRACE_SHA256),
+    )
+    rows = [_sealed_record(path, sha256) for path, sha256 in expected]
+    return {
+        "status": "PASS",
+        "required_count": len(rows),
+        "fresh_count": len(rows),
+        "rows": rows,
+        "facts_manifest_foundation_candidate_handoff_mutation_count": 0,
+        "runtime_lua_package_mutation_count": 0,
+        "g6_discovery_mutation_count": 0,
+    }
+
+
+def _scope_diff_audit() -> dict[str, Any]:
+    changed = [
+        row
+        for row in _git(
+            "diff",
+            "--name-only",
+            f"{TASK_START_COMMIT}..HEAD",
+        ).stdout.splitlines()
+        if row
+    ]
+    exact_allowed = {
+        ".gitignore",
+        base.repo_relative(base.LIVE_REQUIRED_VALIDATIONS),
+        base.repo_relative(official.THIS_MODULE),
+        base.repo_relative(official.RUNNER_MODULE),
+        base.repo_relative(official.VALIDATOR_MODULE),
+        base.repo_relative(Path(__file__).resolve()),
+        base.repo_relative(CLOSEOUT_DOC),
+    }
+    allowed_prefixes = (
+        f"{base.repo_relative(official.OWNER_INPUT_ROOT)}/",
+        f"{base.repo_relative(REVIEWER_INPUT_ROOT)}/",
+        f"{base.repo_relative(PHASE6)}/corrections/",
+        f"{base.repo_relative(PHASE7)}/",
+    )
+    exact_phase6_allowed = {
+        base.repo_relative(ADOPTION_DECISION_RECORD),
+        base.repo_relative(ADOPTION_RECEIPT),
+        base.repo_relative(POST_ADOPTION_ROUTE_RESULT),
+    }
+    unexpected = [
+        path
+        for path in changed
+        if path not in exact_allowed
+        and path not in exact_phase6_allowed
+        and not path.startswith(allowed_prefixes)
+    ]
+    if unexpected:
+        raise base.FoundationContractError(
+            f"task-scope protected path mutation detected: {unexpected}"
+        )
+    return {
+        "status": "PASS",
+        "task_start_commit": TASK_START_COMMIT,
+        "task_start_tree": TASK_START_TREE,
+        "changed_path_count": len(changed),
+        "changed_paths": changed,
+        "unexpected_changed_path_count": 0,
+        "unexpected_changed_paths": [],
+        "g5_candidate_trace_handoff_mutation_count": 0,
+        "g6_discovery_mutation_count": 0,
+        "runtime_lua_package_mutation_count": 0,
+        "phase0_through_phase5_mutation_count": 0,
+    }
+
+
+def _validate_route_result(path: Path) -> dict[str, Any]:
+    value = base.load_json_strict(path)
+    required = value.get("required_validations", {})
+    if (
+        value.get("schema_version") != "round3-contract-test-run-v1"
+        or value.get("contract_class") != "current"
+        or value.get("closure_enforced") is not True
+        or value.get("selected_identity_count") != 136
+        or value.get("test_count") != 136
+        or value.get("success") is not True
+        or value.get("failures") != []
+        or value.get("errors") != []
+        or value.get("skipped") != []
+        or required.get("success") is not True
+        or required.get("errors") != []
+        or required.get("required_test_count") != 57
+        or required.get("required_artifact_count") != 159
+    ):
+        raise base.FoundationContractError(
+            f"current-route result is not exact 136/136 PASS: "
+            f"{base.repo_relative(path)}"
+        )
+    return {
+        "path": base.repo_relative(path),
+        "sha256": base.sha256_file(path),
+        "selected_identity_count": 136,
+        "test_count": 136,
+        "passed_count": 136,
+        "failure_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "required_test_count": 57,
+        "required_artifact_count": 159,
+        "status": "PASS",
+    }
+
+
+def _validate_candidate_against_live() -> dict[str, Any]:
+    live_record = official._live_manifest_record()
+    if live_record["sha256"] != LIVE_BASE_SHA256:
+        raise base.FoundationContractError(
+            "live-manifest CAS base is not exact"
+        )
+    candidate_path = PHASE6 / "required_gate_candidate.json"
+    patch_path = PHASE6 / "required_gate_patch.json"
+    if (
+        base.sha256_file(candidate_path) != CANDIDATE_MANIFEST_SHA256
+        or base.sha256_file(patch_path) != CANDIDATE_PATCH_SHA256
+    ):
+        raise base.FoundationContractError(
+            "immutable Phase 6 candidate or patch changed"
+        )
+    live = base.load_json_strict(base.LIVE_REQUIRED_VALIDATIONS)
+    candidate = base.load_json_strict(candidate_path)
+    patch = base.load_json_strict(patch_path)
+    if (
+        candidate["required_artifacts"]
+        != [
+            *live["required_artifacts"],
+            *patch["added_required_artifacts"],
+        ]
+        or candidate["required_tests"]
+        != [*live["required_tests"], *patch["added_required_tests"]]
+        or patch.get("base_manifest_sha256") != LIVE_BASE_SHA256
+        or patch.get("candidate_manifest_sha256")
+        != CANDIDATE_MANIFEST_SHA256
+        or patch.get("removed_required_artifact_count") != 0
+        or patch.get("modified_required_artifact_count") != 0
+        or patch.get("removed_required_test_count") != 0
+        or patch.get("modified_required_test_count") != 0
+        or patch.get("existing_entry_reorder_count") != 0
+    ):
+        raise base.FoundationContractError(
+            "Phase 6 candidate is not exact additive-only CAS successor"
+        )
+    live_other = {
+        key: value
+        for key, value in live.items()
+        if key not in ("required_artifacts", "required_tests")
+    }
+    candidate_other = {
+        key: value
+        for key, value in candidate.items()
+        if key not in ("required_artifacts", "required_tests")
+    }
+    if live_other != candidate_other:
+        raise base.FoundationContractError(
+            "Phase 6 candidate changed non-additive live fields"
+        )
+    protected = base.load_json_strict(
+        PHASE6 / "pre_adoption_protected_surface_report.json"
+    )
+    if (
+        protected.get("status") != "PASS"
+        or protected.get("live_manifest_mutation_count") != 0
+        or protected.get(
+            "facts_manifest_foundation_candidate_mutation_count"
+        )
+        != 0
+        or protected.get("runtime_lua_package_mutation_count") != 0
+        or protected.get("authority_effect") != "none"
+    ):
+        raise base.FoundationContractError(
+            "pre-adoption protected-surface evidence is stale"
+        )
+    return {
+        "candidate_manifest_path": base.repo_relative(candidate_path),
+        "candidate_manifest_sha256": CANDIDATE_MANIFEST_SHA256,
+        "candidate_patch_path": base.repo_relative(patch_path),
+        "candidate_patch_sha256": CANDIDATE_PATCH_SHA256,
+        "live_manifest_path": base.repo_relative(
+            base.LIVE_REQUIRED_VALIDATIONS
+        ),
+        "live_manifest_base_sha256": LIVE_BASE_SHA256,
+        "required_artifact_addition_count": len(
+            patch["added_required_artifacts"]
+        ),
+        "required_test_addition_count": len(
+            patch["added_required_tests"]
+        ),
+        "additive_only": True,
+        "cas_fresh": True,
+        "protected_surface_mutation_count": 0,
+        "live_manifest_mutation_count": 0,
+    }
+
+
+def build_phase6_revalidation() -> dict[str, Any]:
+    g1 = _validate_g1_successor_0008()
+    predecessor = _validate_predecessor_failure()
+    protected_inputs = _validate_protected_inputs()
+    disposition = _validate_disposition_immutable()
+    candidate = _validate_candidate_against_live()
+    route = _validate_route_result(CORRECTION_ROUTE_RESULT)
+    core = {
+        "schema_version": (
+            "public_text_quality_phase6_g1_successor_revalidation_v1"
+        ),
+        "status": "PASS",
+        "attempt_id": official.ATTEMPT_ID,
+        "correction_id": CORRECTION_ID,
+        "record_mode": "append_only_failed_phase6_correction_revalidation",
+        "validation_commit": base.git_head(),
+        "validation_tree": _head_tree(),
+        "g1_successor_0008": g1,
+        "predecessor_failure": predecessor,
+        "protected_inputs": protected_inputs,
+        "immutable_phase5_disposition": disposition,
+        "candidate_and_cas": candidate,
+        "fresh_candidate_current_route": route,
+        "phase6_blocker_count": 0,
+        "disposition_maintained": True,
+        "live_adoption_allowed": True,
+        "live_manifest_mutated": False,
+        "protected_surface_mutation_count": 0,
+        "authority_effect": "none",
+        "phase7_allowed": False,
+    }
+    record = {**core, "record_hash": base.canonical_hash(core)}
+    base.write_once_or_same(REVALIDATION_RECORD, record)
+    contract_core = {
+        "schema_version": (
+            "public_text_quality_required_gate_adoption_contract_successor_v1"
+        ),
+        "status": "READY_FOR_CONDITIONAL_OWNER_AUTHORIZATION",
+        "attempt_id": official.ATTEMPT_ID,
+        "correction_id": CORRECTION_ID,
+        "predecessor_contract_path": base.repo_relative(
+            PHASE6 / "required_gate_adoption_contract.json"
+        ),
+        "predecessor_contract_sha256": PREDECESSOR_PHASE6_HASHES[
+            "required_gate_adoption_contract.json"
+        ],
+        "predecessor_mutated": False,
+        "phase6_revalidation_record_path": base.repo_relative(
+            REVALIDATION_RECORD
+        ),
+        "phase6_revalidation_record_sha256": base.sha256_file(
+            REVALIDATION_RECORD
+        ),
+        "g1_gate_manifest_sha256": G1_GATE_MANIFEST_SHA256,
+        "g1_closeout_sha256": G1_CLOSEOUT_SHA256,
+        "candidate_manifest_sha256": CANDIDATE_MANIFEST_SHA256,
+        "candidate_patch_sha256": CANDIDATE_PATCH_SHA256,
+        "candidate_current_route_result_sha256": route["sha256"],
+        "live_manifest_base_sha256": LIVE_BASE_SHA256,
+        "evaluation_subject_kind": official.EVALUATION_SUBJECT_KIND,
+        "evaluation_subject_hash": official.CANDIDATE_SHA256,
+        "evaluation_subject_disposition": "accepted",
+        "evaluation_subject_disposition_hash": DISPOSITION_SHA256,
+        "naturalization_handoff_manifest_hash": (
+            official.PHASE8_HANDOFF_SHA256
+        ),
+        "expected_post_adoption_official_route_state": "PASS",
+        "expected_exit_code": 0,
+        "exact_blocker_attribution": "none",
+        "adoption_timing": "immediate",
+        "owner_authorization": False,
+        "live_manifest_mutated": False,
+        "authority_effect": "none",
+        "phase7_allowed": False,
+        "policy_closure_state": "incomplete",
+        "rollback_contract": {
+            "cas_base_sha256": LIVE_BASE_SHA256,
+            "rollback_target_path": base.repo_relative(
+                base.LIVE_REQUIRED_VALIDATIONS
+            ),
+            "rollback_scope": (
+                "exact_attempt_0005_additive_required_artifact_and_test_rows"
+            ),
+            "post_rollback_validation": "full_current_route",
+        },
+    }
+    contract = {
+        **contract_core,
+        "contract_hash": base.canonical_hash(contract_core),
+    }
+    base.write_once_or_same(ADOPTION_CONTRACT_SUCCESSOR, contract)
+    return {
+        "status": "PASS",
+        "attempt_id": official.ATTEMPT_ID,
+        "mode": "phase6-revalidate",
+        "correction_id": CORRECTION_ID,
+        "revalidation_record_path": base.repo_relative(REVALIDATION_RECORD),
+        "revalidation_record_sha256": base.sha256_file(REVALIDATION_RECORD),
+        "adoption_contract_successor_path": base.repo_relative(
+            ADOPTION_CONTRACT_SUCCESSOR
+        ),
+        "adoption_contract_successor_sha256": base.sha256_file(
+            ADOPTION_CONTRACT_SUCCESSOR
+        ),
+        "current_route_test_count": 136,
+        "current_route_passed_count": 136,
+        "phase6_blocker_count": 0,
+        "qualified_disposition": "accepted",
+        "live_manifest_mutated": False,
+        "protected_surface_mutation_count": 0,
+        "authority_effect": "none",
+    }
+
+
+def validate_phase6_revalidation(*, require_tracked: bool) -> dict[str, Any]:
+    g1 = _validate_g1_successor_0008()
+    predecessor = _validate_predecessor_failure()
+    protected_inputs = _validate_protected_inputs()
+    disposition = _validate_disposition_immutable()
+    route = _validate_route_result(CORRECTION_ROUTE_RESULT)
+    if require_tracked:
+        record_ref = _tracked_head_record(REVALIDATION_RECORD)
+        contract_ref = _tracked_head_record(ADOPTION_CONTRACT_SUCCESSOR)
+        route_ref = _tracked_head_record(CORRECTION_ROUTE_RESULT)
+    else:
+        record_ref = {
+            "path": base.repo_relative(REVALIDATION_RECORD),
+            "sha256": base.sha256_file(REVALIDATION_RECORD),
+        }
+        contract_ref = {
+            "path": base.repo_relative(ADOPTION_CONTRACT_SUCCESSOR),
+            "sha256": base.sha256_file(ADOPTION_CONTRACT_SUCCESSOR),
+        }
+        route_ref = route
+    record = base.load_json_strict(REVALIDATION_RECORD)
+    record_core = {
+        key: value for key, value in record.items() if key != "record_hash"
+    }
+    contract = base.load_json_strict(ADOPTION_CONTRACT_SUCCESSOR)
+    contract_core = {
+        key: value for key, value in contract.items() if key != "contract_hash"
+    }
+    if (
+        record.get("record_hash") != base.canonical_hash(record_core)
+        or record.get("status") != "PASS"
+        or record.get("correction_id") != CORRECTION_ID
+        or record.get("phase6_blocker_count") != 0
+        or record.get("disposition_maintained") is not True
+        or record.get("authority_effect") != "none"
+        or contract.get("contract_hash") != base.canonical_hash(contract_core)
+        or contract.get("status")
+        != "READY_FOR_CONDITIONAL_OWNER_AUTHORIZATION"
+        or contract.get("candidate_manifest_sha256")
+        != CANDIDATE_MANIFEST_SHA256
+        or contract.get("candidate_patch_sha256")
+        != CANDIDATE_PATCH_SHA256
+        or contract.get("candidate_current_route_result_sha256")
+        != route["sha256"]
+        or contract.get("live_manifest_base_sha256") != LIVE_BASE_SHA256
+        or contract.get("evaluation_subject_disposition_hash")
+        != DISPOSITION_SHA256
+        or contract.get("owner_authorization") is not False
+    ):
+        raise base.FoundationContractError(
+            "Phase 6 correction revalidation evidence is stale"
+        )
+    return {
+        "status": "PASS",
+        "g1_successor_0008": g1,
+        "predecessor_failure": predecessor,
+        "protected_inputs": protected_inputs,
+        "disposition": disposition,
+        "route": route_ref,
+        "revalidation_record": record_ref,
+        "adoption_contract_successor": contract_ref,
+        "phase6_blocker_count": 0,
+        "qualified_disposition": "accepted",
+        "disposition_maintained": True,
+        "authority_effect": "none",
+    }
+
+
+def _validate_owner_gate_decision() -> dict[str, Any]:
+    record = _tracked_head_record(GATE_DECISION)
+    value = base.load_json_strict(GATE_DECISION)
+    core = {
+        key: child
+        for key, child in value.items()
+        if key != "owner_binding_proof"
+    }
+    revalidation_sha = base.sha256_file(REVALIDATION_RECORD)
+    route_sha = base.sha256_file(CORRECTION_ROUTE_RESULT)
+    if (
+        value.get("schema_version")
+        != "public_text_quality_gate_adoption_decision_v2"
+        or value.get("decision") != "adopt"
+        or value.get("attempt_id") != official.ATTEMPT_ID
+        or value.get("owner_identity")
+        != "repository_owner_via_direct_codex_instruction"
+        or not isinstance(value.get("authorized_at"), str)
+        or value.get("candidate_manifest_sha256")
+        != CANDIDATE_MANIFEST_SHA256
+        or value.get("candidate_patch_sha256")
+        != CANDIDATE_PATCH_SHA256
+        or value.get("live_manifest_base_sha256") != LIVE_BASE_SHA256
+        or value.get("phase6_revalidation_record_sha256")
+        != revalidation_sha
+        or value.get("candidate_current_route_result_sha256") != route_sha
+        or value.get("g1_gate_manifest_sha256")
+        != G1_GATE_MANIFEST_SHA256
+        or value.get("g1_closeout_sha256") != G1_CLOSEOUT_SHA256
+        or value.get("evaluation_subject_hash") != official.CANDIDATE_SHA256
+        or value.get("evaluation_subject_disposition") != "accepted"
+        or value.get("evaluation_subject_disposition_hash")
+        != DISPOSITION_SHA256
+        or value.get("naturalization_handoff_manifest_hash")
+        != official.PHASE8_HANDOFF_SHA256
+        or value.get("phase6_blocker_count") != 0
+        or value.get("expected_post_adoption_official_route_state") != "PASS"
+        or value.get("expected_exit_code") != 0
+        or value.get("live_gate_adoption_authorized") is not True
+        or value.get("phase7_authorized_after_post_adoption_pass") is not True
+        or value.get("owner_binding_proof") != base.canonical_hash(core)
+    ):
+        raise base.FoundationContractError(
+            "owner gate-adoption decision is invalid"
+        )
+    return {**record, "owner_binding_proof_valid": True}
+
+
+def adopt_live_gate() -> dict[str, Any]:
+    revalidation = validate_phase6_revalidation(require_tracked=True)
+    decision = _validate_owner_gate_decision()
+    live_before = official._live_manifest_record()
+    if live_before["sha256"] != LIVE_BASE_SHA256:
+        raise base.FoundationContractError(
+            "live-manifest CAS failed before adoption"
+        )
+    candidate_path = PHASE6 / "required_gate_candidate.json"
+    candidate_bytes = candidate_path.read_bytes()
+    if base.sha256_bytes(candidate_bytes) != CANDIDATE_MANIFEST_SHA256:
+        raise base.FoundationContractError(
+            "candidate bytes changed before adoption"
+        )
+    live_bytes = base.LIVE_REQUIRED_VALIDATIONS.read_bytes()
+    decision_value = base.load_json_strict(GATE_DECISION)
+    decision_record = {
+        "schema_version": (
+            "public_text_quality_gate_adoption_decision_record_v1"
+        ),
+        "status": "PASS",
+        "attempt_id": official.ATTEMPT_ID,
+        "decision": "adopt",
+        "owner_input_path": base.repo_relative(GATE_DECISION),
+        "owner_input_sha256": decision["sha256"],
+        "owner_identity": decision_value["owner_identity"],
+        "authorized_at": decision_value["authorized_at"],
+        "owner_binding_proof": decision_value["owner_binding_proof"],
+        "candidate_manifest_sha256": CANDIDATE_MANIFEST_SHA256,
+        "candidate_patch_sha256": CANDIDATE_PATCH_SHA256,
+        "phase6_revalidation_record_sha256": base.sha256_file(
+            REVALIDATION_RECORD
+        ),
+        "phase6_blocker_count": 0,
+        "qualified_disposition": "accepted",
+    }
+    receipt = {
+        "schema_version": (
+            "public_text_quality_live_required_gate_adoption_receipt_v1"
+        ),
+        "status": "PASS",
+        "attempt_id": official.ATTEMPT_ID,
+        "operation": "append_only_required_artifacts_and_required_tests",
+        "live_manifest_path": base.repo_relative(
+            base.LIVE_REQUIRED_VALIDATIONS
+        ),
+        "live_manifest_before_sha256": LIVE_BASE_SHA256,
+        "live_manifest_after_sha256": CANDIDATE_MANIFEST_SHA256,
+        "candidate_manifest_sha256": CANDIDATE_MANIFEST_SHA256,
+        "candidate_patch_sha256": CANDIDATE_PATCH_SHA256,
+        "owner_decision_sha256": decision["sha256"],
+        "phase6_revalidation_record_sha256": base.sha256_file(
+            REVALIDATION_RECORD
+        ),
+        "g1_gate_manifest_sha256": G1_GATE_MANIFEST_SHA256,
+        "g1_closeout_sha256": G1_CLOSEOUT_SHA256,
+        "evaluation_subject_disposition": "accepted",
+        "evaluation_subject_disposition_hash": DISPOSITION_SHA256,
+        "required_artifact_addition_count": 10,
+        "required_test_addition_count": 1,
+        "removed_or_modified_entry_count": 0,
+        "existing_entry_reorder_count": 0,
+        "cas_base_match": True,
+        "live_required_gate_adopted": True,
+        "protected_surface_mutation_count": 0,
+        "live_manifest_mutation_count": 1,
+        "runtime_lua_package_mutation_count": 0,
+        "authority_effect": "live_required_validation_governance_only",
+        "phase7_allowed_after_post_adoption_route_pass": True,
+    }
+    try:
+        base.write_once_or_same(ADOPTION_DECISION_RECORD, decision_record)
+        base.LIVE_REQUIRED_VALIDATIONS.write_bytes(candidate_bytes)
+        if (
+            base.sha256_file(base.LIVE_REQUIRED_VALIDATIONS)
+            != CANDIDATE_MANIFEST_SHA256
+        ):
+            raise base.FoundationContractError(
+                "live manifest bytes do not equal candidate after adoption"
+            )
+        base.write_once_or_same(ADOPTION_RECEIPT, receipt)
+    except Exception:
+        base.LIVE_REQUIRED_VALIDATIONS.write_bytes(live_bytes)
+        raise
+    return {
+        "status": "PASS",
+        "attempt_id": official.ATTEMPT_ID,
+        "mode": "phase6-adopt-gate",
+        "live_manifest_before_sha256": LIVE_BASE_SHA256,
+        "live_manifest_after_sha256": CANDIDATE_MANIFEST_SHA256,
+        "candidate_manifest_sha256": CANDIDATE_MANIFEST_SHA256,
+        "candidate_patch_sha256": CANDIDATE_PATCH_SHA256,
+        "qualified_disposition": "accepted",
+        "phase6_blocker_count": revalidation["phase6_blocker_count"],
+        "live_required_gate_adopted": True,
+        "protected_surface_mutation_count": 0,
+        "live_manifest_mutation_count": 1,
+        "authority_effect": "live_required_validation_governance_only",
+        "phase7_allowed_after_post_adoption_route_pass": True,
+    }
+
+
+def _live_is_adopted() -> bool:
+    if not ADOPTION_RECEIPT.is_file():
+        return False
+    if base._has_unstaged_delta(base.LIVE_REQUIRED_VALIDATIONS):
+        return False
+    try:
+        return (
+            official._live_manifest_record()["sha256"]
+            == CANDIDATE_MANIFEST_SHA256
+        )
+    except base.FoundationContractError:
+        return False
+
+
+def validate_required_gate() -> dict[str, Any]:
+    disposition = _validate_disposition_immutable()
+    live_adopted = _live_is_adopted()
+    terminal_complete = TERMINAL_SEAL.is_file() and live_adopted
+    if live_adopted:
+        receipt = base.load_json_strict(ADOPTION_RECEIPT)
+        if (
+            receipt.get("status") != "PASS"
+            or receipt.get("live_required_gate_adopted") is not True
+            or receipt.get("live_manifest_after_sha256")
+            != CANDIDATE_MANIFEST_SHA256
+            or receipt.get("protected_surface_mutation_count") != 0
+        ):
+            raise base.FoundationContractError(
+                "live required-gate adoption receipt is invalid"
+            )
+    return {
+        "schema_version": "public_text_quality_required_gate_result_v2",
+        "status": "PASS",
+        "attempt_id": official.ATTEMPT_ID,
+        "qualified_disposition": disposition["qualified_disposition"],
+        "evaluation_subject_sha256": official.CANDIDATE_SHA256,
+        "evaluation_subject_disposition_hash": DISPOSITION_SHA256,
+        "policy_closure_state": (
+            "complete" if terminal_complete else "incomplete"
+        ),
+        "live_gate_adopted": live_adopted,
+        "publish_boundary_pass_claimed": False,
+        "package_or_release_ready_claimed": False,
+    }
+
+
+def validate_phase6() -> dict[str, Any]:
+    revalidation = validate_phase6_revalidation(require_tracked=True)
+    decision = _validate_owner_gate_decision()
+    receipt_ref = _tracked_head_record(ADOPTION_RECEIPT)
+    decision_record_ref = _tracked_head_record(ADOPTION_DECISION_RECORD)
+    post_route_ref = _tracked_head_record(POST_ADOPTION_ROUTE_RESULT)
+    post_route = _validate_route_result(POST_ADOPTION_ROUTE_RESULT)
+    live = official._live_manifest_record()
+    receipt = base.load_json_strict(ADOPTION_RECEIPT)
+    candidate = base.load_json_strict(
+        PHASE6 / "required_gate_candidate.json"
+    )
+    live_value = base.load_json_strict(base.LIVE_REQUIRED_VALIDATIONS)
+    if (
+        live["sha256"] != CANDIDATE_MANIFEST_SHA256
+        or live_value != candidate
+        or receipt.get("status") != "PASS"
+        or receipt.get("live_required_gate_adopted") is not True
+        or receipt.get("live_manifest_before_sha256") != LIVE_BASE_SHA256
+        or receipt.get("live_manifest_after_sha256")
+        != CANDIDATE_MANIFEST_SHA256
+        or receipt.get("owner_decision_sha256") != decision["sha256"]
+        or receipt.get("protected_surface_mutation_count") != 0
+        or receipt.get("live_manifest_mutation_count") != 1
+    ):
+        raise base.FoundationContractError(
+            "Phase 6 live adoption validation failed"
+        )
+    return {
+        "status": "PASS",
+        "attempt_id": official.ATTEMPT_ID,
+        "requirement": "phase6",
+        "no_write": True,
+        "qualified_disposition": "accepted",
+        "disposition_maintained": True,
+        "phase6_blocker_count": 0,
+        "revalidation": revalidation,
+        "owner_decision": decision,
+        "owner_decision_record": decision_record_ref,
+        "adoption_receipt": receipt_ref,
+        "post_adoption_current_route": {
+            **post_route_ref,
+            **{
+                key: value
+                for key, value in post_route.items()
+                if key not in ("path", "sha256")
+            },
+        },
+        "live_manifest_sha256": live["sha256"],
+        "live_required_gate_adopted": True,
+        "post_adoption_artifact_set_complete": True,
+        "protected_surface_mutation_count": 0,
+        "live_manifest_mutation_count": 1,
+        "authority_effect": "live_required_validation_governance_only",
+        "phase7_allowed": True,
+        "policy_closure_state": "incomplete",
+    }
+
+
+def _artifact_rows(paths: Iterable[Path]) -> list[dict[str, Any]]:
+    return [
+        _tracked_head_record(path)
+        for path in sorted(paths, key=lambda item: base.repo_relative(item))
+    ]
+
+
+def build_phase7_freeze() -> dict[str, Any]:
+    phase6 = validate_phase6()
+    if _git("status", "--porcelain=v1").stdout.strip():
+        raise base.FoundationContractError(
+            "Phase 7 freeze requires a clean checkout"
+        )
+    paths: list[Path] = []
+    for phase in range(6):
+        paths.extend(
+            path
+            for path in (official.ATTEMPT_ROOT / f"phase{phase}").iterdir()
+            if path.is_file()
+        )
+    paths.extend(
+        [
+            path
+            for path in PHASE6.rglob("*")
+            if path.is_file()
+        ]
+    )
+    paths.extend(
+        [
+            G1_GATE_MANIFEST,
+            G1_CLOSEOUT,
+            GATE_DECISION,
+            base.LIVE_REQUIRED_VALIDATIONS,
+            official.FOUNDATION_CONTRACT,
+            official.G4_READINESS,
+            official.PHASE8_HANDOFF,
+            official.PHASE8_CLOSEOUT,
+            official.TERMINAL_CLOSEOUT,
+            official.CANDIDATE,
+            official.TRACE,
+        ]
+    )
+    artifact_rows = _artifact_rows(paths)
+    implementation_paths = [
+        official.THIS_MODULE,
+        official.RUNNER_MODULE,
+        official.VALIDATOR_MODULE,
+        Path(__file__).resolve(),
+        official.CURRENT_ROUTE_TEST,
+    ]
+    implementation_rows = _artifact_rows(implementation_paths)
+    freeze_core = {
+        "schema_version": (
+            "public_text_quality_phase7_final_evidence_freeze_v1"
+        ),
+        "status": "PASS",
+        "attempt_id": official.ATTEMPT_ID,
+        "freeze_commit": base.git_head(),
+        "freeze_tree": _head_tree(),
+        "g1_gate_manifest_sha256": G1_GATE_MANIFEST_SHA256,
+        "g1_closeout_sha256": G1_CLOSEOUT_SHA256,
+        "phase6_revalidation_record_sha256": base.sha256_file(
+            REVALIDATION_RECORD
+        ),
+        "phase6_post_adoption_route_sha256": base.sha256_file(
+            POST_ADOPTION_ROUTE_RESULT
+        ),
+        "live_manifest_sha256": CANDIDATE_MANIFEST_SHA256,
+        "evaluation_subject_hash": official.CANDIDATE_SHA256,
+        "evaluation_subject_disposition": "accepted",
+        "evaluation_subject_disposition_hash": DISPOSITION_SHA256,
+        "policy_sha256": POLICY_SHA256,
+        "naturalization_handoff_sha256": official.PHASE8_HANDOFF_SHA256,
+        "claim_bearing_artifact_count": len(artifact_rows),
+        "claim_bearing_artifacts": artifact_rows,
+        "implementation_path_count": len(implementation_rows),
+        "implementation_paths": implementation_rows,
+        "failed_phase6_evidence_preserved": True,
+        "live_required_gate_adopted": True,
+        "post_adoption_artifact_set_complete": True,
+        "phase6_blocker_count": 0,
+        "protected_surface_mutation_count": 0,
+        "policy_closure_state": "pending_independent_review_and_owner_seal",
+    }
+    freeze = {
+        **freeze_core,
+        "freeze_hash": base.canonical_hash(freeze_core),
+    }
+    base.write_once_or_same(FREEZE_MANIFEST, freeze)
+    manifest_core = {
+        "schema_version": (
+            "public_text_quality_phase7_final_artifact_hash_manifest_v1"
+        ),
+        "status": "PASS",
+        "attempt_id": official.ATTEMPT_ID,
+        "self_hash_included": False,
+        "terminal_seal_included": False,
+        "ordered_artifact_count": len(artifact_rows),
+        "ordered_artifacts": artifact_rows,
+        "freeze_manifest_path": base.repo_relative(FREEZE_MANIFEST),
+        "freeze_manifest_sha256": base.sha256_file(FREEZE_MANIFEST),
+    }
+    manifest = {
+        **manifest_core,
+        "manifest_hash": base.canonical_hash(manifest_core),
+    }
+    base.write_once_or_same(FINAL_ARTIFACT_MANIFEST, manifest)
+    request = {
+        "schema_version": (
+            "public_text_quality_phase7_independent_review_request_v1"
+        ),
+        "status": "READY_FOR_CODEX_REVIEWER",
+        "attempt_id": official.ATTEMPT_ID,
+        "review_subject_commit": base.git_head(),
+        "review_subject_tree": _head_tree(),
+        "freeze_manifest_sha256": base.sha256_file(FREEZE_MANIFEST),
+        "final_artifact_hash_manifest_sha256": base.sha256_file(
+            FINAL_ARTIFACT_MANIFEST
+        ),
+        "required_reviewer_kind": "codex_reviewer",
+        "required_scopes": [
+            "policy_and_denominator_unchanged",
+            "validator_and_adversarial_contract",
+            "exact_accepted_disposition",
+            "g1_successor_0008_phase6_revalidation",
+            "additive_live_gate_effect",
+            "failed_evidence_preservation",
+            "claim_boundary",
+        ],
+        "required_critical_finding_count": 0,
+        "required_important_finding_count": 0,
+        "owner_or_implementation_author_ineligible": True,
+    }
+    base.write_once_or_same(REVIEW_REQUEST, request)
+    census = {
+        "schema_version": (
+            "public_text_quality_phase7_pre_review_vcs_census_v1"
+        ),
+        "status": "PASS",
+        "attempt_id": official.ATTEMPT_ID,
+        "claim_bearing_artifact_required_count": len(artifact_rows),
+        "claim_bearing_artifact_tracked_count": len(artifact_rows),
+        "claim_bearing_artifact_ignored_count": 0,
+        "implementation_required_count": len(implementation_rows),
+        "implementation_tracked_count": len(implementation_rows),
+        "implementation_ignored_count": 0,
+        "protected_surface_mutation_count": 0,
+        "live_manifest_sha256": CANDIDATE_MANIFEST_SHA256,
+    }
+    base.write_once_or_same(PRE_REVIEW_VCS_CENSUS, census)
+    return {
+        "status": "PASS",
+        "attempt_id": official.ATTEMPT_ID,
+        "mode": "phase7-freeze",
+        "freeze_manifest_path": base.repo_relative(FREEZE_MANIFEST),
+        "freeze_manifest_sha256": base.sha256_file(FREEZE_MANIFEST),
+        "final_artifact_hash_manifest_sha256": base.sha256_file(
+            FINAL_ARTIFACT_MANIFEST
+        ),
+        "review_request_path": base.repo_relative(REVIEW_REQUEST),
+        "reviewer_input_required": True,
+        "phase6": phase6,
+        "policy_closure_state": "pending_independent_review_and_owner_seal",
+    }
+
+
+def validate_independent_review() -> dict[str, Any]:
+    review_ref = _tracked_head_record(INDEPENDENT_REVIEW)
+    eligibility_ref = _tracked_head_record(REVIEWER_ELIGIBILITY)
+    freeze_ref = _tracked_head_record(FREEZE_MANIFEST)
+    manifest_ref = _tracked_head_record(FINAL_ARTIFACT_MANIFEST)
+    review = base.load_json_strict(INDEPENDENT_REVIEW)
+    eligibility = base.load_json_strict(REVIEWER_ELIGIBILITY)
+    review_core = {
+        key: child
+        for key, child in review.items()
+        if key != "reviewer_binding_proof"
+    }
+    eligibility_core = {
+        key: child
+        for key, child in eligibility.items()
+        if key != "eligibility_binding_proof"
+    }
+    if (
+        review.get("schema_version")
+        != "public_text_quality_phase7_independent_review_v1"
+        or review.get("status") != "PASS"
+        or review.get("attempt_id") != official.ATTEMPT_ID
+        or review.get("reviewer_kind") != "codex_reviewer"
+        or review.get("reviewer_identity") != "codex_reviewer"
+        or review.get("freeze_manifest_sha256") != freeze_ref["sha256"]
+        or review.get("final_artifact_hash_manifest_sha256")
+        != manifest_ref["sha256"]
+        or review.get("critical_finding_count") != 0
+        or review.get("important_finding_count") != 0
+        or review.get("findings") != []
+        or review.get("reviewed_scope_count") != 7
+        or review.get("reviewer_binding_proof")
+        != base.canonical_hash(review_core)
+        or eligibility.get("schema_version")
+        != "public_text_quality_phase7_reviewer_eligibility_v1"
+        or eligibility.get("status") != "PASS"
+        or eligibility.get("attempt_id") != official.ATTEMPT_ID
+        or eligibility.get("reviewer_kind") != "codex_reviewer"
+        or eligibility.get("reviewer_identity") != "codex_reviewer"
+        or eligibility.get("independent_from_owner") is not True
+        or eligibility.get("independent_from_implementation_author")
+        is not True
+        or eligibility.get("owner_input_cross_reclassification") is not False
+        or eligibility.get("conflict_of_interest") is not False
+        or eligibility.get("eligibility_binding_proof")
+        != base.canonical_hash(eligibility_core)
+    ):
+        raise base.FoundationContractError(
+            "Phase 7 independent review or reviewer eligibility is invalid"
+        )
+    return {
+        "status": "PASS",
+        "attempt_id": official.ATTEMPT_ID,
+        "review": review_ref,
+        "eligibility": eligibility_ref,
+        "freeze_manifest": freeze_ref,
+        "final_artifact_hash_manifest": manifest_ref,
+        "independent_review_complete": True,
+        "independent_review_eligible": True,
+        "critical_finding_count": 0,
+        "important_finding_count": 0,
+        "reviewer_owner_cross_reclassification_count": 0,
+    }
+
+
+def validate_owner_seal() -> dict[str, Any]:
+    review = validate_independent_review()
+    owner_ref = _tracked_head_record(OWNER_CLOSURE_SEAL)
+    value = base.load_json_strict(OWNER_CLOSURE_SEAL)
+    core = {
+        key: child
+        for key, child in value.items()
+        if key != "owner_binding_proof"
+    }
+    if (
+        value.get("schema_version")
+        != "public_text_quality_phase7_owner_closure_seal_v1"
+        or value.get("status") != "PASS"
+        or value.get("decision") != "seal_policy_closure"
+        or value.get("attempt_id") != official.ATTEMPT_ID
+        or value.get("owner_identity")
+        != "repository_owner_via_direct_codex_instruction"
+        or not isinstance(value.get("sealed_at"), str)
+        or value.get("independent_review_sha256")
+        != review["review"]["sha256"]
+        or value.get("reviewer_eligibility_sha256")
+        != review["eligibility"]["sha256"]
+        or value.get("evaluation_subject_hash") != official.CANDIDATE_SHA256
+        or value.get("evaluation_subject_disposition") != "accepted"
+        or value.get("evaluation_subject_disposition_hash")
+        != DISPOSITION_SHA256
+        or value.get("policy_sha256") != POLICY_SHA256
+        or value.get("live_manifest_sha256")
+        != CANDIDATE_MANIFEST_SHA256
+        or value.get("live_required_gate_adopted") is not True
+        or value.get("post_adoption_artifact_set_complete") is not True
+        or value.get("policy_closure_state") != "complete"
+        or value.get("owner_binding_proof") != base.canonical_hash(core)
+    ):
+        raise base.FoundationContractError(
+            "Phase 7 owner closure seal is invalid"
+        )
+    return {
+        "status": "PASS",
+        "attempt_id": official.ATTEMPT_ID,
+        "owner_seal": owner_ref,
+        "owner_seal_valid": True,
+        "review": review,
+    }
+
+
+def build_phase7_finalize() -> dict[str, Any]:
+    phase6 = validate_phase6()
+    owner = validate_owner_seal()
+    review = owner["review"]
+    independent_validation = {
+        "schema_version": (
+            "public_text_quality_phase7_independent_review_validation_v1"
+        ),
+        "status": "PASS",
+        "attempt_id": official.ATTEMPT_ID,
+        "independent_review_sha256": review["review"]["sha256"],
+        "reviewer_eligibility_sha256": review["eligibility"]["sha256"],
+        "independent_review_complete": True,
+        "independent_review_eligible": True,
+        "critical_finding_count": 0,
+        "important_finding_count": 0,
+        "reviewer_owner_cross_reclassification_count": 0,
+    }
+    owner_validation = {
+        "schema_version": (
+            "public_text_quality_phase7_owner_seal_validation_v1"
+        ),
+        "status": "PASS",
+        "attempt_id": official.ATTEMPT_ID,
+        "owner_seal_sha256": owner["owner_seal"]["sha256"],
+        "owner_identity": "repository_owner_via_direct_codex_instruction",
+        "owner_seal_valid": True,
+        "evaluation_subject_hash": official.CANDIDATE_SHA256,
+        "evaluation_subject_disposition_hash": DISPOSITION_SHA256,
+        "policy_sha256": POLICY_SHA256,
+        "live_manifest_sha256": CANDIDATE_MANIFEST_SHA256,
+    }
+    base.write_once_or_same(
+        INDEPENDENT_REVIEW_VALIDATION,
+        independent_validation,
+    )
+    base.write_once_or_same(OWNER_SEAL_VALIDATION, owner_validation)
+    owner_inputs = [
+        official.POLICY_OWNER_INPUT,
+        official.WAIVER_OWNER_INPUT,
+        GATE_DECISION,
+        OWNER_CLOSURE_SEAL,
+    ]
+    reviewer_inputs = [INDEPENDENT_REVIEW, REVIEWER_ELIGIBILITY]
+    owner_rows = _artifact_rows(owner_inputs)
+    reviewer_rows = _artifact_rows(reviewer_inputs)
+    scope_audit = _scope_diff_audit()
+    vcs_report = {
+        "schema_version": (
+            "public_text_quality_phase7_final_vcs_preservation_v1"
+        ),
+        "status": "PASS",
+        "attempt_id": official.ATTEMPT_ID,
+        "owner_input_required_count": len(owner_rows),
+        "owner_input_tracked_count": len(owner_rows),
+        "owner_input_ignored_count": 0,
+        "reviewer_input_required_count": len(reviewer_rows),
+        "reviewer_input_tracked_count": len(reviewer_rows),
+        "reviewer_input_ignored_count": 0,
+        "reviewer_owner_cross_reclassification_count": 0,
+        "task_scope_diff_audit": scope_audit,
+        "failed_phase6_evidence_preserved": True,
+        "phase0_through_phase5_mutation_count": 0,
+        "g5_candidate_trace_handoff_mutation_count": 0,
+        "g6_discovery_mutation_count": 0,
+        "runtime_lua_package_mutation_count": 0,
+        "protected_surface_mutation_count": 0,
+        "live_manifest_mutation_count": 1,
+        "live_manifest_sha256": CANDIDATE_MANIFEST_SHA256,
+        "owner_inputs": owner_rows,
+        "reviewer_inputs": reviewer_rows,
+    }
+    base.write_once_or_same(FINAL_VCS_PRESERVATION, vcs_report)
+    closeout_core = {
+        "schema_version": (
+            "public_text_quality_acceptance_policy_closure_closeout_v1"
+        ),
+        "status": "PASS",
+        "attempt_id": official.ATTEMPT_ID,
+        "claim": "Public Text Quality Acceptance Policy Closure: complete",
+        "evaluation_subject_kind": official.EVALUATION_SUBJECT_KIND,
+        "evaluation_subject_hash": official.CANDIDATE_SHA256,
+        "qualified_disposition": "accepted",
+        "evaluation_subject_disposition_hash": DISPOSITION_SHA256,
+        "policy_sha256": POLICY_SHA256,
+        "g1_gate_manifest_sha256": G1_GATE_MANIFEST_SHA256,
+        "g1_closeout_sha256": G1_CLOSEOUT_SHA256,
+        "phase6_revalidation_record_sha256": base.sha256_file(
+            REVALIDATION_RECORD
+        ),
+        "phase6_post_adoption_route_sha256": base.sha256_file(
+            POST_ADOPTION_ROUTE_RESULT
+        ),
+        "independent_review_sha256": review["review"]["sha256"],
+        "reviewer_eligibility_sha256": review["eligibility"]["sha256"],
+        "owner_seal_sha256": owner["owner_seal"]["sha256"],
+        "live_manifest_sha256": CANDIDATE_MANIFEST_SHA256,
+        "machine_validation_complete": True,
+        "independent_review_complete": True,
+        "independent_review_eligible": True,
+        "critical_finding_count": 0,
+        "important_finding_count": 0,
+        "owner_seal_valid": True,
+        "live_required_gate_adopted": True,
+        "post_adoption_artifact_set_complete": True,
+        "gate_adoption_informed_authorization_valid": True,
+        "policy_hash_unchanged_since_phase2": True,
+        "disposition_hash_unchanged_since_phase5": True,
+        "failed_evidence_preserved": True,
+        "final_vcs_preservation_pass": True,
+        "protected_surface_mutation_count": 0,
+        "live_manifest_mutation_count": 1,
+        "publish_boundary_pass_claimed": False,
+        "package_or_release_ready_claimed": False,
+        "registry_runtime_current_adoption_claimed": False,
+        "policy_closure_state": "complete",
+        "g5_return": {
+            "naturalization_attempt_id": official.NATURALIZATION_ATTEMPT_ID,
+            "naturalization_handoff_sha256": official.PHASE8_HANDOFF_SHA256,
+            "evaluation_subject_hash": official.CANDIDATE_SHA256,
+            "qualified_disposition": "accepted",
+            "publish_live_required_gate_adopted": True,
+            "publish_policy_closure_state": "complete",
+        },
+    }
+    closeout = {
+        **closeout_core,
+        "closeout_hash": base.canonical_hash(closeout_core),
+    }
+    base.write_once_or_same(FINAL_CLOSEOUT, closeout)
+    base.write_once_text(
+        CLOSEOUT_DOC,
+        (
+            "# Public Text Quality Acceptance Policy Closure Closeout\n\n"
+            f"- Official attempt: `{official.ATTEMPT_ID}`\n"
+            f"- Evaluation subject: `{official.CANDIDATE_SHA256}`\n"
+            "- Qualified disposition: `accepted`\n"
+            "- Live required gate: `adopted`\n"
+            "- Policy closure state: `complete`\n"
+            "- Protected-surface mutation count: `0`\n"
+            "- Runtime/Lua/package mutation count: `0`\n"
+            "- This closeout does not claim package, release, Workshop, "
+            "or manual-QA readiness.\n"
+        ),
+    )
+    terminal_inputs = _artifact_rows(
+        [
+            FREEZE_MANIFEST,
+            FINAL_ARTIFACT_MANIFEST,
+            INDEPENDENT_REVIEW,
+            REVIEWER_ELIGIBILITY,
+            OWNER_CLOSURE_SEAL,
+            ADOPTION_RECEIPT,
+            POST_ADOPTION_ROUTE_RESULT,
+        ]
+    )
+    terminal_inputs.extend(
+        _working_record(path)
+        for path in (
+            INDEPENDENT_REVIEW_VALIDATION,
+            OWNER_SEAL_VALIDATION,
+            FINAL_VCS_PRESERVATION,
+            FINAL_CLOSEOUT,
+        )
+    )
+    terminal_inputs.sort(key=lambda row: row["path"])
+    closeout_doc_record = {
+        "path": base.repo_relative(CLOSEOUT_DOC),
+        "sha256": base.sha256_file(CLOSEOUT_DOC),
+    }
+    terminal_core = {
+        "schema_version": (
+            "public_text_quality_acceptance_terminal_hash_seal_v1"
+        ),
+        "status": "PASS",
+        "attempt_id": official.ATTEMPT_ID,
+        "terminal_claim": (
+            "Public Text Quality Acceptance Policy Closure: complete"
+        ),
+        "sealed_input_count": len(terminal_inputs),
+        "sealed_inputs": terminal_inputs,
+        "closeout_doc": closeout_doc_record,
+        "final_closeout_sha256": base.sha256_file(FINAL_CLOSEOUT),
+        "evaluation_subject_hash": official.CANDIDATE_SHA256,
+        "qualified_disposition": "accepted",
+        "evaluation_subject_disposition_hash": DISPOSITION_SHA256,
+        "policy_sha256": POLICY_SHA256,
+        "live_manifest_sha256": CANDIDATE_MANIFEST_SHA256,
+        "naturalization_handoff_sha256": official.PHASE8_HANDOFF_SHA256,
+        "live_required_gate_adopted": True,
+        "policy_closure_state": "complete",
+        "terminal_hash_seal_valid": True,
+        "claim_bearing_mutation_after_terminal_forbidden": True,
+        "protected_surface_mutation_count": 0,
+        "live_manifest_mutation_count": 1,
+        "runtime_lua_package_mutation_count": 0,
+        "publish_boundary_pass_claimed": False,
+        "package_or_release_ready_claimed": False,
+    }
+    terminal = {
+        **terminal_core,
+        "terminal_hash": base.canonical_hash(terminal_core),
+    }
+    base.write_once_or_same(TERMINAL_SEAL, terminal)
+    return {
+        "status": "PASS",
+        "attempt_id": official.ATTEMPT_ID,
+        "mode": "phase7-finalize",
+        "phase6": phase6,
+        "independent_review": review,
+        "owner_seal": owner["owner_seal"],
+        "final_closeout_path": base.repo_relative(FINAL_CLOSEOUT),
+        "final_closeout_sha256": base.sha256_file(FINAL_CLOSEOUT),
+        "terminal_artifact_path": base.repo_relative(TERMINAL_SEAL),
+        "terminal_artifact_sha256": base.sha256_file(TERMINAL_SEAL),
+        "qualified_disposition": "accepted",
+        "live_required_gate_adopted": True,
+        "policy_closure_state": "complete",
+        "protected_surface_mutation_count": 0,
+        "live_manifest_mutation_count": 1,
+    }
+
+
+def validate_terminal() -> dict[str, Any]:
+    phase6 = validate_phase6()
+    owner = validate_owner_seal()
+    scope_audit = _scope_diff_audit()
+    terminal_ref = _tracked_head_record(TERMINAL_SEAL)
+    final_ref = _tracked_head_record(FINAL_CLOSEOUT)
+    closeout_doc_ref = _tracked_head_record(CLOSEOUT_DOC)
+    terminal = base.load_json_strict(TERMINAL_SEAL)
+    core = {
+        key: child
+        for key, child in terminal.items()
+        if key != "terminal_hash"
+    }
+    closeout = base.load_json_strict(FINAL_CLOSEOUT)
+    closeout_core = {
+        key: child
+        for key, child in closeout.items()
+        if key != "closeout_hash"
+    }
+    sealed_rows = terminal.get("sealed_inputs", [])
+    if (
+        terminal.get("terminal_hash") != base.canonical_hash(core)
+        or terminal.get("status") != "PASS"
+        or terminal.get("terminal_hash_seal_valid") is not True
+        or terminal.get("qualified_disposition") != "accepted"
+        or terminal.get("live_required_gate_adopted") is not True
+        or terminal.get("policy_closure_state") != "complete"
+        or terminal.get("final_closeout_sha256") != final_ref["sha256"]
+        or terminal.get("closeout_doc", {}).get("sha256")
+        != closeout_doc_ref["sha256"]
+        or terminal.get("sealed_input_count") != len(sealed_rows)
+        or any(
+            _tracked_head_record(official.REPO_ROOT / row["path"])[
+                "sha256"
+            ]
+            != row["sha256"]
+            for row in sealed_rows
+        )
+        or closeout.get("closeout_hash") != base.canonical_hash(closeout_core)
+        or closeout.get("status") != "PASS"
+        or closeout.get("policy_closure_state") != "complete"
+        or closeout.get("failed_evidence_preserved") is not True
+        or closeout.get("protected_surface_mutation_count") != 0
+        or closeout.get("live_manifest_mutation_count") != 1
+    ):
+        raise base.FoundationContractError(
+            "Phase 7 terminal hash seal validation failed"
+        )
+    return {
+        "status": "PASS",
+        "attempt_id": official.ATTEMPT_ID,
+        "requirement": "terminal-seal",
+        "no_write": True,
+        "phase6": phase6,
+        "owner_seal": owner["owner_seal"],
+        "terminal_artifact": terminal_ref,
+        "final_closeout": final_ref,
+        "closeout_doc": closeout_doc_ref,
+        "terminal_hash_seal_valid": True,
+        "qualified_disposition": "accepted",
+        "live_required_gate_adopted": True,
+        "policy_closure_state": "complete",
+        "protected_surface_mutation_count": 0,
+        "live_manifest_mutation_count": 1,
+        "task_scope_diff_audit": scope_audit,
+    }

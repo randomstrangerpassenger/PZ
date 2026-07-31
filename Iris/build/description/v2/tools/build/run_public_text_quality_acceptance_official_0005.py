@@ -25,6 +25,10 @@ MODES = (
     "phase4-adversarial",
     "phase5-disposition",
     "phase6-gate-candidate",
+    "phase6-revalidate",
+    "phase6-adopt-gate",
+    "phase7-freeze",
+    "phase7-finalize",
 )
 
 

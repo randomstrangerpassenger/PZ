@@ -1,0 +1,69 @@
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+import public_text_quality_acceptance_official_0005_phase7_host_independent_freeze as phase7
+from public_text_quality_acceptance import ExternalInputRequired, FoundationContractError
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--attempt-id", required=True)
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--require-inputs", action="store_true")
+    group.add_argument("--self-test", action="store_true")
+    group.add_argument("--projection-test", action="store_true")
+    group.add_argument("--require-freeze", action="store_true")
+    group.add_argument("--require-review", action="store_true")
+    group.add_argument("--require-owner-seal", action="store_true")
+    group.add_argument("--require-terminal", action="store_true")
+    parser.add_argument("--projection-root")
+    parser.add_argument("--no-write", action="store_true")
+    args = parser.parse_args(argv)
+    if args.attempt_id != "attempt-0005-official":
+        print(json.dumps({"status": "FAIL", "error": "attempt ID mismatch"}), file=sys.stderr)
+        return 2
+    try:
+        if args.require_inputs:
+            result = phase7.validate_current_inputs()
+        elif args.self_test:
+            result = phase7.run_focused_tests()
+        elif args.projection_test:
+            if not args.projection_root:
+                raise FoundationContractError("--projection-root is required")
+            result = phase7.validate_temporary_projection_parity(Path(args.projection_root))
+        elif args.require_freeze:
+            result = phase7.validate_freeze_bundle(require_tracked=True)
+        elif args.require_review:
+            result = phase7.validate_review()
+        elif args.require_owner_seal:
+            result = phase7.validate_owner_seal()
+        else:
+            result = phase7.validate_terminal()
+    except ExternalInputRequired as exc:
+        print(
+            json.dumps(
+                {
+                    "status": "WAITING_FOR_EXTERNAL_INPUT",
+                    "input_kind": exc.input_kind,
+                    "input_path": str(exc.path),
+                    **exc.details,
+                },
+                ensure_ascii=False,
+                sort_keys=True,
+            ),
+            file=sys.stderr,
+        )
+        return 4
+    except FoundationContractError as exc:
+        print(json.dumps({"status": "FAIL", "error": str(exc)}, ensure_ascii=False), file=sys.stderr)
+        return 2
+    print(json.dumps(result, ensure_ascii=False, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

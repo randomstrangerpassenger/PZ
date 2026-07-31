@@ -25,6 +25,9 @@ PHASE7_V2_VALIDATOR = TOOLS_ROOT / (
 PHASE7_TERMINAL_VALIDATOR = TOOLS_ROOT / (
     "validate_public_text_quality_acceptance_official_0005_phase7_terminal_validation.py"
 )
+PHASE7_HOST_INDEPENDENT_VALIDATOR = TOOLS_ROOT / (
+    "validate_public_text_quality_acceptance_official_0005_phase7_host_independent_freeze.py"
+)
 
 
 class PublicTextQualityAcceptanceCurrentRouteTest(unittest.TestCase):
@@ -103,6 +106,34 @@ class PublicTextQualityAcceptanceCurrentRouteTest(unittest.TestCase):
         self.assertEqual(payload["historical_schema_dispatch"], "historical_v1")
         self.assertEqual(payload["protected_surface_mutation_count"], 0)
         self.assertEqual(payload["runtime_lua_package_mutation_count"], 0)
+
+    def test_phase7_host_independent_freeze_inventory_regressions(self) -> None:
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(PHASE7_HOST_INDEPENDENT_VALIDATOR),
+                "--attempt-id",
+                "attempt-0005-official",
+                "--self-test",
+                "--no-write",
+            ],
+            cwd=REPO_ROOT,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            capture_output=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, msg=result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["status"], "PASS")
+        self.assertEqual(payload["case_count"], 9)
+        self.assertEqual(payload["passed_case_count"], 9)
+        self.assertEqual(payload["claim_bearing_artifact_count"], 139)
+        self.assertEqual(payload["terminal_dag_node_count"], 25)
+        self.assertEqual(payload["terminal_dag_edge_count"], 38)
+        self.assertEqual(payload["authority_effect"], "none")
 
     def test_required_gate_runs_standalone_subprocess(self) -> None:
         result = subprocess.run(

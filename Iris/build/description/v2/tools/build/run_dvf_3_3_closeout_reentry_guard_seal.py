@@ -21,6 +21,9 @@ EXPECTED_CONTRACT_PROBE_REQUEST_SHA256 = (
 EXPECTED_FORBIDDEN_SURFACE_PROBE_REQUEST_SHA256 = (
     "821013056117e43b97729e500b246146398173e49061e1bc0bb391d4f90fa93b"
 )
+EXPECTED_STRUCTURED_MANIFEST_PROBE_REQUEST_SHA256 = (
+    "e9ef6c52f067967e299c6aacbf369cdda32619f46ae6e7937808cfb2380a9e22"
+)
 ISOLATED_TEMP_ROOT_ENV = "IRIS_DVF_ISOLATED_TEMP_ROOT"
 
 
@@ -245,6 +248,45 @@ def forbidden_surface_probe_payload(request: dict) -> dict:
     return payload
 
 
+def structured_manifest_probe_payload(request: dict) -> dict:
+    request_sha256 = common.canonical_hash(request)
+    if (
+        request_sha256
+        != EXPECTED_STRUCTURED_MANIFEST_PROBE_REQUEST_SHA256
+    ):
+        return {
+            "status": "FAIL",
+            "writes_performed": False,
+            "error": "structured_manifest_probe_request_hash_mismatch",
+            "expected_request_sha256": (
+                EXPECTED_STRUCTURED_MANIFEST_PROBE_REQUEST_SHA256
+            ),
+            "actual_request_sha256": request_sha256,
+        }
+    cases = {}
+    for fixture in request["fixtures"]:
+        text = fixture.get("raw_text")
+        if text is None:
+            text = json.dumps(
+                fixture["document"],
+                ensure_ascii=False,
+                sort_keys=True,
+            )
+        result = common.classify_required_validation_manifest_text(text)
+        cases[str(fixture["fixture_id"])] = {
+            "status": result["status"],
+            "blocker_count": result["blocker_count"],
+            "blockers": result["blockers"],
+            "string_leaves": result["string_leaves"],
+        }
+    return {
+        "status": "PASS",
+        "writes_performed": False,
+        "request_sha256": request_sha256,
+        "cases": cases,
+    }
+
+
 def route_shape_probe_case(case: str) -> dict:
     with isolated_fixture_candidate(f"route_{case}") as candidate:
         route_path = candidate["route_path"]
@@ -352,6 +394,10 @@ def main() -> int:
     probes = parser.add_mutually_exclusive_group()
     probes.add_argument("--probe-contract", action="store_true")
     probes.add_argument("--probe-forbidden-surface", action="store_true")
+    probes.add_argument(
+        "--probe-structured-manifest",
+        action="store_true",
+    )
     probes.add_argument("--probe-route-shapes", action="store_true")
     parser.add_argument("--report-json", action="store_true")
     parser.add_argument("--no-write-report", action="store_true")
@@ -363,6 +409,10 @@ def main() -> int:
         return 0 if payload["status"] == "PASS" else 1
     if args.probe_forbidden_surface:
         payload = forbidden_surface_probe_payload(read_probe_request())
+        print(json.dumps(payload, ensure_ascii=False, sort_keys=True))
+        return 0 if payload["status"] == "PASS" else 1
+    if args.probe_structured_manifest:
+        payload = structured_manifest_probe_payload(read_probe_request())
         print(json.dumps(payload, ensure_ascii=False, sort_keys=True))
         return 0 if payload["status"] == "PASS" else 1
     if args.probe_route_shapes:

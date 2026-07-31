@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections import Counter
+import json
 import re
 from pathlib import Path
 from typing import Any, Iterable
@@ -32,6 +33,39 @@ ROADMAP_DOC = REPO_ROOT / "docs" / "ROADMAP.md"
 DECISIONS_DOC = REPO_ROOT / "docs" / "DECISIONS.md"
 ARCHITECTURE_DOC = REPO_ROOT / "docs" / "ARCHITECTURE.md"
 CURRENT_REQUIRED_VALIDATIONS = REPO_ROOT / "Iris" / "_docs" / "round3" / "current_route_required_validations.json"
+CURRENT_REQUIRED_VALIDATIONS_SCHEMA_VERSION = (
+    "round3-current-route-required-validations-v1"
+)
+
+CLAIM_TEXT_FIELDS = {
+    "claim",
+    "claims",
+    "description",
+    "narrative",
+    "non_claims",
+    "policy",
+    "reason",
+    "summary",
+}
+IDENTIFIER_FIELDS = {
+    "adopted_row_identity",
+    "artifact_id",
+    "bundle_id",
+    "collision_group_id",
+    "enforcement",
+    "field",
+    "generated_at",
+    "role",
+    "route",
+    "schema_id",
+    "schema_version",
+    "state",
+    "status",
+    "test_id",
+}
+IDENTIFIER_COLLECTION_FIELDS = {
+    "exact_members",
+}
 
 CURRENT_ROUTE_RESULT = EVIDENCE_ROOT / "phase7" / "full_current_route_validation_result.json"
 EXPECTED_CURRENT_ROUTE_TEST_COUNT = 107
@@ -864,11 +898,306 @@ def classify_surface_line(path: Path, line: str) -> dict[str, Any] | None:
     }
 
 
+def json_pointer_segment(value: str) -> str:
+    return value.replace("~", "~0").replace("/", "~1")
+
+
+def structured_string_semantic_role(field: str | None) -> str:
+    if field in CLAIM_TEXT_FIELDS or (
+        field is not None
+        and field.endswith(
+            ("_claim", "_claims", "_description", "_narrative", "_policy", "_summary")
+        )
+    ):
+        return "claim_text"
+    if field in IDENTIFIER_COLLECTION_FIELDS:
+        return "identifier"
+    if field in IDENTIFIER_FIELDS or (
+        field is not None
+        and field.endswith(("_id", "_identity", "_path", "_root", "_sha256"))
+    ):
+        return "identifier"
+    return "unknown_string_fail_closed"
+
+
+def structured_manifest_blocker(
+    path: Path,
+    code: str,
+    pointer: str,
+    field: str | None,
+    *,
+    expected: str,
+    actual: str,
+) -> dict[str, Any]:
+    return {
+        "path": rel(path),
+        "surface_family": surface_family(path),
+        "json_pointer": pointer,
+        "field": field,
+        "semantic_role": "schema_contract",
+        "role": "structured_manifest_schema_violation",
+        "code": code,
+        "expected": expected,
+        "actual": actual,
+        "definition_context": False,
+        "classification": "blocked",
+    }
+
+
+def strict_json_loads(text: str) -> Any:
+    def reject_constant(value: str) -> None:
+        raise ValueError(f"non_json_constant:{value}")
+
+    def reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+        result: dict[str, Any] = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError(f"duplicate_json_key:{key}")
+            result[key] = value
+        return result
+
+    return json.loads(
+        text,
+        parse_constant=reject_constant,
+        object_pairs_hook=reject_duplicate_keys,
+        strict=True,
+    )
+
+
+def classify_required_validation_manifest_text(
+    text: str,
+    *,
+    path: Path = CURRENT_REQUIRED_VALIDATIONS,
+) -> dict[str, Any]:
+    string_leaves: list[dict[str, Any]] = []
+    scan_rows: list[dict[str, Any]] = []
+    blockers: list[dict[str, Any]] = []
+
+    try:
+        payload = strict_json_loads(text)
+    except (json.JSONDecodeError, ValueError) as exc:
+        blockers.append(
+            structured_manifest_blocker(
+                path,
+                "strict_json_parse_failed",
+                "",
+                None,
+                expected="strict_json_document",
+                actual=f"{type(exc).__name__}:{exc}",
+            )
+        )
+        return {
+            "path": rel(path),
+            "status": "FAIL",
+            "schema_version": None,
+            "string_leaf_count": 0,
+            "semantic_role_counts": {},
+            "string_leaves": [],
+            "scan_rows": [],
+            "blocker_count": len(blockers),
+            "blockers": blockers,
+        }
+
+    if not isinstance(payload, dict):
+        blockers.append(
+            structured_manifest_blocker(
+                path,
+                "manifest_root_type_invalid",
+                "",
+                None,
+                expected="object",
+                actual=type(payload).__name__,
+            )
+        )
+    else:
+        schema_version = payload.get("schema_version")
+        if schema_version != CURRENT_REQUIRED_VALIDATIONS_SCHEMA_VERSION:
+            blockers.append(
+                structured_manifest_blocker(
+                    path,
+                    "manifest_schema_version_invalid",
+                    "/schema_version",
+                    "schema_version",
+                    expected=CURRENT_REQUIRED_VALIDATIONS_SCHEMA_VERSION,
+                    actual=repr(schema_version),
+                )
+            )
+        for collection_name, identifier_name in (
+            ("required_artifacts", "path"),
+            ("required_tests", "test_id"),
+        ):
+            collection = payload.get(collection_name)
+            collection_pointer = f"/{collection_name}"
+            if not isinstance(collection, list):
+                blockers.append(
+                    structured_manifest_blocker(
+                        path,
+                        f"{collection_name}_type_invalid",
+                        collection_pointer,
+                        collection_name,
+                        expected="array",
+                        actual=type(collection).__name__,
+                    )
+                )
+                continue
+            for index, item in enumerate(collection):
+                item_pointer = f"{collection_pointer}/{index}"
+                if not isinstance(item, dict):
+                    blockers.append(
+                        structured_manifest_blocker(
+                            path,
+                            f"{collection_name}_item_type_invalid",
+                            item_pointer,
+                            collection_name,
+                            expected="object",
+                            actual=type(item).__name__,
+                        )
+                    )
+                    continue
+                identifier_value = item.get(identifier_name)
+                if not isinstance(identifier_value, str):
+                    blockers.append(
+                        structured_manifest_blocker(
+                            path,
+                            f"{identifier_name}_type_invalid",
+                            f"{item_pointer}/{identifier_name}",
+                            identifier_name,
+                            expected="string",
+                            actual=type(identifier_value).__name__,
+                        )
+                    )
+                if collection_name == "required_artifacts" and not isinstance(
+                    item.get("checks"), list
+                ):
+                    blockers.append(
+                        structured_manifest_blocker(
+                            path,
+                            "required_artifact_checks_type_invalid",
+                            f"{item_pointer}/checks",
+                            "checks",
+                            expected="array",
+                            actual=type(item.get("checks")).__name__,
+                        )
+                    )
+
+    def walk(value: Any, pointer: str, field: str | None) -> None:
+        semantic_role = structured_string_semantic_role(field)
+        if isinstance(value, str):
+            leaf = {
+                "json_pointer": pointer,
+                "field": field,
+                "semantic_role": semantic_role,
+                "classification": (
+                    "identifier_excluded_from_claim_text"
+                    if semantic_role == "identifier"
+                    else "fail_closed_claim_text_scan"
+                ),
+            }
+            string_leaves.append(leaf)
+            if semantic_role != "identifier":
+                row = classify_surface_line(path, value)
+                if row is not None:
+                    row["json_pointer"] = pointer
+                    row["field"] = field
+                    row["semantic_role"] = semantic_role
+                    scan_rows.append(row)
+            return
+        if isinstance(value, dict):
+            if semantic_role in {"identifier", "claim_text"}:
+                blockers.append(
+                    structured_manifest_blocker(
+                        path,
+                        f"{semantic_role}_field_container_invalid",
+                        pointer,
+                        field,
+                        expected="string",
+                        actual="object",
+                    )
+                )
+                return
+            for key, child in value.items():
+                walk(
+                    child,
+                    f"{pointer}/{json_pointer_segment(str(key))}",
+                    str(key),
+                )
+            return
+        if isinstance(value, list):
+            if semantic_role == "identifier" and field not in IDENTIFIER_COLLECTION_FIELDS:
+                blockers.append(
+                    structured_manifest_blocker(
+                        path,
+                        "identifier_field_container_invalid",
+                        pointer,
+                        field,
+                        expected="string",
+                        actual="array",
+                    )
+                )
+                return
+            if semantic_role == "claim_text" and field not in {"claims", "non_claims"}:
+                blockers.append(
+                    structured_manifest_blocker(
+                        path,
+                        "claim_text_field_container_invalid",
+                        pointer,
+                        field,
+                        expected="string",
+                        actual="array",
+                    )
+                )
+                return
+            for index, child in enumerate(value):
+                walk(child, f"{pointer}/{index}", field)
+            return
+        if semantic_role in {"identifier", "claim_text"}:
+            blockers.append(
+                structured_manifest_blocker(
+                    path,
+                    f"{semantic_role}_field_scalar_type_invalid",
+                    pointer,
+                    field,
+                    expected="string",
+                    actual=type(value).__name__,
+                )
+            )
+
+    walk(payload, "", None)
+    blockers.extend(row for row in scan_rows if row["classification"] == "blocked")
+    role_counts = Counter(row["semantic_role"] for row in string_leaves)
+    return {
+        "path": rel(path),
+        "status": "PASS" if not blockers else "FAIL",
+        "schema_version": (
+            payload.get("schema_version") if isinstance(payload, dict) else None
+        ),
+        "string_leaf_count": len(string_leaves),
+        "semantic_role_counts": dict(sorted(role_counts.items())),
+        "string_leaves": string_leaves,
+        "scan_rows": scan_rows,
+        "blocker_count": len(blockers),
+        "blockers": blockers,
+    }
+
+
 def write_phase1() -> dict[str, Any]:
     files = scan_surface_files()
     inventory_rows = [file_record(path, surface_family(path), required=False) for path in files]
     claim_rows: list[dict[str, Any]] = []
+    structured_manifest_results: list[dict[str, Any]] = []
     for path in files:
+        if same_surface_path(path, CURRENT_REQUIRED_VALIDATIONS):
+            structured_result = classify_required_validation_manifest_text(
+                path.read_text(encoding="utf-8")
+            )
+            structured_manifest_results.append(structured_result)
+            claim_rows.extend(structured_result["scan_rows"])
+            claim_rows.extend(
+                row
+                for row in structured_result["blockers"]
+                if row not in structured_result["scan_rows"]
+            )
+            continue
         for line_number, line in enumerate(path.read_text(encoding="utf-8", errors="replace").splitlines(), start=1):
             row = classify_surface_line(path, line)
             if row:
@@ -912,6 +1241,8 @@ def write_phase1() -> dict[str, Any]:
         "forbidden_predecessor_reentry_violation_count": len(predecessor_violations),
         "blocked_claim_surface_count": len(violation_rows),
         "blocked_claim_surfaces": violation_rows[:50],
+        "structured_json_manifest_count": len(structured_manifest_results),
+        "structured_json_manifests": structured_manifest_results,
     }
     write_json(phase_path("phase1", "claim_surface_scan_manifest.json"), scan_manifest)
     write_json(
@@ -929,6 +1260,20 @@ def write_phase1() -> dict[str, Any]:
             "forbidden_predecessor_reentry_violation_count": len(predecessor_violations),
             "blocked_claim_surface_count": len(violation_rows),
             "blocked_claim_surfaces": violation_rows[:50],
+            "structured_json_manifest_count": len(
+                structured_manifest_results
+            ),
+            "structured_json_manifests": [
+                {
+                    "path": row["path"],
+                    "status": row["status"],
+                    "schema_version": row["schema_version"],
+                    "string_leaf_count": row["string_leaf_count"],
+                    "semantic_role_counts": row["semantic_role_counts"],
+                    "blocker_count": row["blocker_count"],
+                }
+                for row in structured_manifest_results
+            ],
         },
     )
     write_text(

@@ -2287,6 +2287,30 @@
           "equals": 11
         }
       ]
+    },
+    {
+      "path": "Iris/build/description/v2/data/iar_public_text_assessment/iar_public_text_assessment_contract.json",
+      "checks": []
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/iar_public_text_assessment.py",
+      "checks": []
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/run_iar_public_text_assessment.py",
+      "checks": []
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/validate_iar_public_text_assessment.py",
+      "checks": []
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py",
+      "checks": []
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/naturalization_compiler_identity.py",
+      "checks": []
     }
   ],
   "required_tests": [
@@ -2568,6 +2592,41 @@
     {
       "test_id": "test_dvf_3_3_registry_runtime_compatibility_current.RegistryRuntimeCompatibilityCurrentRouteTest.test_required_gate_runs_standalone_subprocess",
       "reason": "standalone Registry Runtime Compatibility required gate"
+    },
+    {
+      "required": true,
+      "role": "iar_public_text_assessment_required_validation",
+      "test_id": "test_iar_public_text_assessment.IarPublicTextAssessmentTest.test_generic_schema_runner_validator_and_deterministic_replay"
+    },
+    {
+      "required": true,
+      "role": "iar_public_text_assessment_required_validation",
+      "test_id": "test_iar_public_text_assessment.IarPublicTextAssessmentTest.test_subject_policy_and_ruleset_hash_mismatch_fail_closed"
+    },
+    {
+      "required": true,
+      "role": "iar_public_text_assessment_required_validation",
+      "test_id": "test_iar_public_text_assessment.IarPublicTextAssessmentTest.test_actual_finding_is_distinct_from_orchestration_failure"
+    },
+    {
+      "required": true,
+      "role": "iar_public_text_assessment_required_validation",
+      "test_id": "test_iar_public_text_assessment.IarPublicTextAssessmentTest.test_dvf_and_qg_subject_type_fixtures"
+    },
+    {
+      "required": true,
+      "role": "iar_public_text_assessment_required_validation",
+      "test_id": "test_iar_public_text_assessment.IarPublicTextAssessmentTest.test_valid_fail_result_is_reproducible_not_a_runner_error"
+    },
+    {
+      "required": true,
+      "role": "iar_public_text_assessment_required_validation",
+      "test_id": "test_iar_public_text_assessment.IarPublicTextAssessmentTest.test_preserved_candidate_reproduces_existing_detector_policy_result"
+    },
+    {
+      "required": true,
+      "role": "iar_public_text_assessment_required_validation",
+      "test_id": "test_iar_public_text_assessment.IarPublicTextAssessmentTest.test_existing_metric_policy_detector_projections_are_unchanged"
     }
   ],
   "route": "current",

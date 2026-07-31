@@ -55,6 +55,11 @@ WRITER_CONTRACT = WRITER_CORRECTION_ROOT / "correction_contract.json"
 WRITER_RECEIPT = WRITER_CORRECTION_ROOT / "validation_receipt.json"
 
 PREDECESSOR_EVIDENCE = {
+    "predecessor_contract_materialization_failure": (
+        CORRECTION_ROOT / "contract_materialization_failure.json",
+        "33d2572c9e654cf239117da02bb1e7ea06962bb511ebaf91b879ff9c064a478b",
+        "public_text_quality_phase7_freeze_inventory_completeness_contract_materialization_failure_v1",
+    ),
     "predecessor_identity_materialization_failure": (
         predecessor.CORRECTION_ROOT / "identity_failure.json",
         "e17937e0902f034d39e59391931918a38d1ddce69fb87dd9df489f152c455010",
@@ -119,7 +124,7 @@ def _inventory_hash(rows: list[dict[str, Any]]) -> str:
 
 
 def _module_path(name: str) -> Path:
-    return official.TOOLS_DIR / f"{name}.py"
+    return base.TOOLS_DIR / f"{name}.py"
 
 
 def _surface_specs() -> list[dict[str, Any]]:
@@ -177,7 +182,7 @@ def _python_dependency_edges(
     local_modules = {
         Path(path).stem: path
         for path, row in tree.items()
-        if path.startswith(_repo_path(official.TOOLS_DIR) + "/")
+        if path.startswith(_repo_path(base.TOOLS_DIR) + "/")
         and path.endswith(".py")
         and row["object_type"] == "blob"
     }

@@ -111,6 +111,12 @@ LONG_ROOT_FAILURE_AFFECTED_TEST_RESULT_SHA256 = (
 LONG_ROOT_FAILURE_ROUTE_RESULT_SHA256 = (
     "26e7c2582d5f4095527ae1c49d8673ddb803d5ed5d0f683bdefd016170aa3e18"
 )
+LONG_PATH_PARTIAL_REVALIDATION_RECORD = (
+    CORRECTION_ROOT / "phase6_revalidation_record.json"
+)
+LONG_PATH_PARTIAL_REVALIDATION_RECORD_SHA256 = (
+    "527ffa45144e1f883fdcfff305f501373bb6c7d590351d74794bf08a398b4bf5"
+)
 EXECUTION_ENVIRONMENT_RECEIPT = (
     CORRECTION_ROOT / "env_receipt_s2.json"
 )
@@ -120,9 +126,9 @@ AFFECTED_TEST_RESULT = (
 CORRECTION_ROUTE_RESULT = (
     CORRECTION_ROOT / "route_136_s2.json"
 )
-REVALIDATION_RECORD = CORRECTION_ROOT / "phase6_revalidation_record.json"
+REVALIDATION_RECORD = CORRECTION_ROOT / "phase6_pass_s2.json"
 ADOPTION_CONTRACT_SUCCESSOR = (
-    CORRECTION_ROOT / "required_gate_adoption_contract_successor.json"
+    CORRECTION_ROOT / "gate_contract_s2.json"
 )
 GATE_DECISION = official.OWNER_INPUT_ROOT / "gate_adoption_decision.json"
 OWNER_CLOSURE_SEAL = official.OWNER_INPUT_ROOT / "owner_closure_seal.json"
@@ -1115,6 +1121,41 @@ def _validate_long_root_failure() -> dict[str, Any]:
     }
 
 
+def _validate_long_path_partial_revalidation() -> dict[str, Any]:
+    record_ref = _sealed_record(
+        LONG_PATH_PARTIAL_REVALIDATION_RECORD,
+        LONG_PATH_PARTIAL_REVALIDATION_RECORD_SHA256,
+    )
+    value = base.load_json_strict(LONG_PATH_PARTIAL_REVALIDATION_RECORD)
+    core = {
+        key: child
+        for key, child in value.items()
+        if key != "record_hash"
+    }
+    if (
+        value.get("record_hash") != base.canonical_hash(core)
+        or value.get("status") != "PASS"
+        or value.get("correction_id") != CORRECTION_ID
+        or value.get("phase6_blocker_count") != 0
+        or value.get("disposition_maintained") is not True
+        or value.get("live_manifest_mutated") is not False
+        or value.get("authority_effect") != "none"
+    ):
+        raise base.FoundationContractError(
+            "correction-0002 long-path partial revalidation is stale"
+        )
+    return {
+        "status": "PASS_RECORD_PRESERVED_WITHOUT_CONTRACT",
+        "failure_class": "windows_evidence_path_length",
+        "record": record_ref,
+        "adoption_contract_materialized": False,
+        "live_adoption_performed": False,
+        "phase7_executed": False,
+        "authority_effect": "none",
+        "preserved": True,
+    }
+
+
 def validate_execution_environment_receipt(
     *,
     require_tracked: bool,
@@ -1360,6 +1401,7 @@ def _validate_candidate_against_live() -> dict[str, Any]:
 def build_phase6_revalidation() -> dict[str, Any]:
     execution = run_bounded_phase6_revalidation()
     long_root_failure = _validate_long_root_failure()
+    long_path_partial = _validate_long_path_partial_revalidation()
     g1 = _validate_g1_successor_0008()
     predecessor = _validate_predecessor_failure()
     protected_inputs = _validate_protected_inputs()
@@ -1382,6 +1424,7 @@ def build_phase6_revalidation() -> dict[str, Any]:
         "immutable_phase5_disposition": disposition,
         "candidate_and_cas": candidate,
         "long_root_execution_failure_preservation": long_root_failure,
+        "long_path_partial_revalidation_preservation": long_path_partial,
         "bounded_execution_environment": execution,
         "fresh_candidate_current_route": route,
         "phase6_blocker_count": 0,
@@ -1487,6 +1530,7 @@ def validate_phase6_revalidation(*, require_tracked: bool) -> dict[str, Any]:
         require_affected=True,
     )
     long_root_failure = _validate_long_root_failure()
+    long_path_partial = _validate_long_path_partial_revalidation()
     g1 = _validate_g1_successor_0008()
     predecessor = _validate_predecessor_failure()
     protected_inputs = _validate_protected_inputs()
@@ -1557,6 +1601,7 @@ def validate_phase6_revalidation(*, require_tracked: bool) -> dict[str, Any]:
         "protected_inputs": protected_inputs,
         "disposition": disposition,
         "long_root_execution_failure_preservation": long_root_failure,
+        "long_path_partial_revalidation_preservation": long_path_partial,
         "bounded_execution_environment": execution,
         "route": route_ref,
         "revalidation_record": record_ref,

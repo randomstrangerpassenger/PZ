@@ -727,7 +727,13 @@ def materialize_assessment(
     writer: Callable[[Path, dict[str, Any]], None] | None = None,
 ) -> dict[str, Any]:
     result = build_assessment(input_path, contract_path=contract_path)
-    selected_writer = writer or ptqa.write_once_or_same
+    selected_writer = writer or (
+        lambda path, value: ptqa.write_once_or_same(
+            path,
+            value,
+            repository_root=path.parent,
+        )
+    )
     try:
         selected_writer(output_path, result)
     except AssessmentFailure:

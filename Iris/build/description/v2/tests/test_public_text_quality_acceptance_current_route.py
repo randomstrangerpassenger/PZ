@@ -37,6 +37,9 @@ PHASE7_EVALUATION_SUBJECT_TEXT_IDENTITY_VALIDATOR = TOOLS_ROOT / (
 PHASE7_LONG_PATH_WRITER_VALIDATOR = TOOLS_ROOT / (
     "validate_public_text_quality_acceptance_official_0005_phase7_long_path_writer.py"
 )
+PHASE7_FREEZE_INVENTORY_COMPLETENESS_VALIDATOR = TOOLS_ROOT / (
+    "validate_public_text_quality_acceptance_official_0005_phase7_freeze_inventory_completeness.py"
+)
 
 
 class PublicTextQualityAcceptanceCurrentRouteTest(unittest.TestCase):
@@ -218,6 +221,30 @@ class PublicTextQualityAcceptanceCurrentRouteTest(unittest.TestCase):
         self.assertEqual(payload["passed_case_count"], 9)
         self.assertEqual(payload["partial_target_count"], 0)
         self.assertEqual(payload["temporary_residue_count"], 0)
+        self.assertEqual(payload["authority_effect"], "none")
+
+    def test_phase7_freeze_inventory_completeness_regressions(self) -> None:
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(PHASE7_FREEZE_INVENTORY_COMPLETENESS_VALIDATOR),
+                "--attempt-id",
+                "attempt-0005-official",
+                "--self-test",
+            ],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, msg=result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["status"], "PASS")
+        self.assertEqual(payload["case_count"], 11)
+        self.assertEqual(payload["passed_case_count"], 11)
+        self.assertGreaterEqual(payload["declared_surface_count"], 22)
+        self.assertGreater(payload["dependency_edge_count"], 0)
         self.assertEqual(payload["authority_effect"], "none")
 
     def test_required_gate_runs_standalone_subprocess(self) -> None:

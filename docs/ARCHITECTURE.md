@@ -1,7 +1,7 @@
 # ARCHITECTURE.md
 
-> 상태: 초안 v0.3
-> 기준일: 2026-07-07
+> 상태: 초안 v0.4
+> 기준일: 2026-08-01
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 구조 지도, 역할 경계, 의존 방향을 고정한다.
 
@@ -414,6 +414,40 @@ Legacy Combined DVF Governance Route
 Iris Artifact Registry는 DVF System에서 분리된 하위 구성요소가 아니라, DVF 산출물을 포함한 Iris artifact lifecycle / authority / runtime-package identity pipeline이다.
 
 DVF와 QG는 런타임에서 즉석 설명을 생성하는 장치가 아니다. 런타임은 봉인된 정보를 표시하는 역할에 머문다.
+
+### Repository Validation / Clean-Checkout 경계
+
+Iris Repository Validation은 DVF, QG, Artifact Registry, Naturalization 또는 Publish Boundary 내부 기능이 아니다. 이들의 tracked validation surface가 정확한 commit만으로 재현되는지를 검사하는 별도 repository-level authority이며, 구현 root는 `Iris/validation/clean_checkout/`다.
+
+canonical 흐름은 다음과 같다.
+
+```text
+exact tracked commit
+-> tracked test-source census + authority classification
+-> static import fixed-point + explicit direct dependencies
+-> disposable checkout Run A
+-> disposable checkout Run B
+-> denominator / dependency inventory / canonical result identity
+-> append-only gate manifest + closeout successor
+```
+
+test source는 `required_tracked_source`, `historical_optional_evidence`, `obsolete_or_misrouted_test_dependency`, `hermetic_test_fixture`로 분리한다. 이름이나 위치에 따른 historical fallback은 명시적 current-required 선언을 이길 수 없으며, explicit current-required source의 강등은 validation contract 위반이다.
+
+dependency graph는 import 가능한 Python module만을 뜻하지 않는다. test가 path로 직접 실행하거나 읽는 contract, runner, validator처럼 static import graph에 나타나지 않는 필수 입력은 source별 explicit direct dependency로 선언한다. 반대로 특정 consumer의 실행 결과나 sealed assessment는 generic implementation의 영구 dependency로 자동 승격하지 않고 `consumer_integration_evidence`로 분리한다.
+
+Reusable IAR public-text assessment의 구조는 이 경계를 따른다.
+
+```text
+required IAR assessment test
+├─ generic assessment contract       (direct required dependency)
+├─ generic runner                    (direct required dependency)
+├─ generic no-write validator        (direct required dependency)
+└─ G5 subject assessment result      (consumer integration evidence)
+```
+
+assessment result가 PASS인지 FAIL인지는 유효한 deterministic 평가 결과의 상태다. evaluator 실행 자체의 orchestration failure와 subject finding은 별도 축이며, subject / policy / ruleset identity mismatch는 fail-closed한다.
+
+모든 test temporary output과 gate result는 source checkout 밖에 둔다. Windows disposable checkout 이름은 tracked longest-path budget을 침범하지 않는 짧은 bounded root를 사용하지만, path validation이나 repository boundary를 완화하지 않는다. Run A/B가 PASS하더라도 source/live/runtime/Lua/package authority를 변경하거나 downstream acceptance를 대신하지 않는다.
 
 ### DVF 3-3 생산 / 런타임 경계
 

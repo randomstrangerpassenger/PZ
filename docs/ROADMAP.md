@@ -1,7 +1,7 @@
 # ROADMAP.md
 
-> 상태: canonical summary + deduplicated consolidated addendum ledger through 2026-06-29
-> 기준일: 2026-06-29
+> 상태: canonical summary + deduplicated consolidated addendum ledger through 2026-08-01
+> 기준일: 2026-08-01
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 현재 진행 방향과 다음 게이트를 짧게 고정한다.
 
@@ -428,6 +428,16 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * closed readpoint를 재개방하려면 새 입력 authority, 명시적 successor / correction scope, 또는 별도 approved plan이 필요하다.
   * 개별 closeout 근거만으로 release readiness / Workshop readiness / B42 readiness / deployment readiness / semantic quality completion / public-facing text quality acceptance를 선언하지 않는다.
 
+* G1 reusable IAR evaluator clean-checkout integration을 append-only successor `0011`로 완료했다.
+
+  * tracked test source `94`개를 `required 34 / historical optional 55 / obsolete 3 / fixture 2`로 fresh recensus했고 unclassified source는 `0`이다.
+  * `test_iar_public_text_assessment.py`를 explicit current-required로 고정하고 generic contract / runner / no-write validator 3개를 direct dependencies로 결속했다.
+  * dependency census는 `715` edges, unresolved `0`이며 canonical dependency inventory는 Run A/B에서 동일했다.
+  * generic evaluator regression `7/7`, tracked G5 result standalone no-write validation, clean-checkout Run A/B 각각 `pytest 202 + standalone 4 = 206/206`이 PASS했다.
+  * A/B canonical result SHA-256은 `5aacb50791ec629e67c722faf22ed00cee75984de4dbf9f1cbfcf873cebba55b`로 동일하다.
+  * disposable checkout, temporary result, census output 잔존은 `0`이며 live required-validation manifest와 protected/runtime/Lua/package mutation도 `0`이다.
+  * validated subject는 `95cbbedf68f300f780fc808aaf50113eef00dead`, append-only evidence commit은 `c3e2cac1b2c6a6e9f237d5766f2620f92794b8fb`이다.
+
 ## Doing
 
 * Iris는 vanilla-first MVP를 **DVF System body production / DVF Body Compiler + Tooltip / Browser 표시면 검증** 중심으로 유지한다.
@@ -556,13 +566,13 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
 
 ## Next
 
-* Food Semantic G2/G3 authority reconstruction과 current adoption은 닫힌 readpoint로 유지하고, 다음 단계는 별도 public-text 계획이 소유한다.
+* G1 clean-checkout 결속 뒤 다음 단계는 synchronization contract `iris_iar_naturalization_parallel_execution_sync_v3`의 순서를 따른다.
 
-  * G2/G3를 새 drift, 명시적 correction/rollback 또는 새 owner-approved successor scope 없이 재개방하지 않는다.
-  * G4 Publish Boundary candidate-independent foundation readiness를 확인한 뒤, G5 fresh Naturalization attempt를 기존 `attempt-0014` 재사용 없이 Phase 0부터 연다.
-  * fresh Naturalization은 `attempt-0009` Phase 2 handoff v2가 결속한 current facts/manifest를 소비하고 Phase 2 source inventory를 재봉인한 뒤 Phase 3~8을 수행한다.
-  * fresh Phase 8 handoff 뒤에만 Publish Boundary official attempt를 새로 열 수 있다.
-  * 위 후속 단계가 끝나기 전에는 DVF 3-3 food repetition problem을 `resolved`, `canonical_complete`, `publicly accepted`로 기록하지 않는다.
+  * G4 reusable evaluator current-route integration의 G1 검증 handoff는 evidence commit/tree `c3e2cac1b2c6a6e9f237d5766f2620f92794b8fb` / `26bd957bbd756e16076d088211ae1291ef37eb94`가 결속한다. 이후 documentation-only descendant는 이 validated subject를 바꾸거나 G1 재실행을 요구하지 않는다.
+  * G4 integration이 완료되기 전에는 G5가 subject-specific assessment를 current workflow input으로 소비하지 않는다.
+  * G5 result는 현재 consumer integration evidence이며 generic evaluator의 permanent dependency나 Publish acceptance가 아니다.
+  * G2/G3는 새 drift, 명시적 correction/rollback 또는 owner-approved successor scope 없이 재개방하지 않고, G6도 자동 실행하지 않는다.
+  * G1 validated subject가 바뀌지 않는 한 동일 Run A/B를 반복하지 않는다. G4 integration이 required surface를 변경하면 그 exact successor를 새 G1 clean-checkout subject로 반환한다.
   * successor RTC closure는 bridge/runtime/package/publication 전에 별도 scope로 닫는다. 이 compatibility 작업은 offline Korean prose candidate 생성의 semantic authority를 변경하지 않는다.
 
 * Iris refactoring v4.1 완료본을 packaging / release-note / commit 단계로 넘길지 별도 scope로 결정한다.

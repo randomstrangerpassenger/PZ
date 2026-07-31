@@ -1,7 +1,7 @@
 # DECISIONS.md
 
-> 상태: current decision ledger / compact trace-dedup edition through 2026-06-29
-> 기준일: 2026-06-29
+> 상태: current decision ledger / compact trace-dedup edition through 2026-08-01
+> 기준일: 2026-08-01
 > 상위 기준: `Philosophy.md`
 > 목적: Pulse 생태계에서 이미 사실상 고정된 결정을 짧게 봉인하고, 같은 논쟁의 반복을 줄인다.
 
@@ -2152,6 +2152,33 @@ Iris — Clean-Checkout Phase 0 append-only successor attempt 0002
 
   * successor record: `Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json`
   * standing owner authorization SHA-256: `73646f404f088c6ad3d33a103fed638dbd5a08a2f394744a10ead9d6621a7c24`
+
+Iris — Clean-Checkout required surface와 reusable evaluator 결속
+
+* 날짜: 2026-08-01
+* 상태: current readpoint / G1 terminal PASS
+* 결정:
+
+  * mandatory full-repository gate의 test source 분류는 이름 기반 historical heuristic보다 `explicit_current_required_sources`를 우선한다. 명시적으로 current-required인 source가 optional 또는 historical로 강등되면 fail-closed한다.
+  * required dependency closure는 Python import fixed-point만으로 끝내지 않는다. 런타임에 직접 호출되지만 import graph에 나타나지 않는 contract, runner, validator는 source별 explicit direct dependency로 결속하고 canonical result에 dependency inventory identity를 포함한다.
+  * subject-specific assessment result는 generic evaluator의 영구 실행 입력과 분리한다. consumer integration을 증명하는 결과는 `consumer_integration_evidence`로 보존할 수 있지만 required dependency로 승격하지 않는다.
+  * required test의 임시 결과는 repository 밖에서 생성·정리한다. clean gate는 정확한 tracked commit을 disposable checkout에서 순차 Run A/B로 실행하고, denominator·dependency inventory·canonical result가 모두 동일할 때만 terminal PASS를 허용한다.
+  * clean-checkout evidence는 기존 기록을 수정하지 않고 append-only gate manifest와 closeout successor로만 전진한다.
+* 현재 기준:
+
+  * reusable IAR public-text assessment test는 explicit current-required source다.
+  * generic assessment contract / runner / no-write validator는 해당 test의 direct required dependencies다.
+  * G5 subject assessment result는 consumer integration evidence이며 generic evaluator의 permanent dependency가 아니다.
+  * current readpoint는 `full_repository_gate_manifest_successor_0011.json`과 `full_repository_technical_debt_closeout_successor_0011.json`이다.
+* 영향 / Non-decision:
+
+  * 이 PASS는 G4 current-route integration이 재개될 수 있는 repository-validation 입력을 제공한다.
+  * G4 live adoption, G5 assessment consumption, G2/G3/G6 실행, runtime/Lua/package mutation, Publish Boundary PASS 또는 release readiness를 부여하지 않는다.
+* Trace:
+
+  * validated subject: `95cbbedf68f300f780fc808aaf50113eef00dead`
+  * append-only evidence commit: `c3e2cac1b2c6a6e9f237d5766f2620f92794b8fb`
+  * COMMON-RUNTIME-SURFACE-NONMUTATION.
 
 ---
 ## Frame

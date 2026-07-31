@@ -1,0 +1,20 @@
+{
+  "attempt_id": "attempt-0005-official",
+  "claim_bearing_artifact_count": 139,
+  "claim_inventory_sha256": "cf2fb975de9422ebbd1a8635a8d8d12c764738d70803c976f0a7b06a34e3ca65",
+  "correction_evidence_count": 8,
+  "correction_evidence_sha256": "f1b98b266dfe61fd0022db82d67cb25661c371f8040965b07c172297df27ec9a",
+  "correction_id": "g1-successor-0010-host-independent-freeze-0003",
+  "freeze_path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase7/corrections/host-independent-freeze-0003/freeze.json",
+  "freeze_sha256": "705325d2422f11170ff49425864616a2173b22675898643b28a47fae3b6b46af",
+  "implementation_inventory_sha256": "eb992202e5632fd273b069f074d0b271c38ca483212f0cd3daaa7ad6f4709539",
+  "implementation_path_count": 14,
+  "inventory_algorithm_id": "git_head_tree_index_posix_paths_blob_sha256_v1",
+  "manifest_hash": "1b89a42614663012e33c03a0731492fa17cf2d10109615e3890abb6921bf88d6",
+  "predecessor_failed_evidence_count": 4,
+  "predecessor_failed_evidence_sha256": "5cce43dc7615d4d493f70768906b35e927b8c537ede358df2668bcae0104d972",
+  "schema_version": "public_text_quality_phase7_host_independent_artifact_manifest_v4",
+  "self_hash_included": false,
+  "status": "PASS",
+  "terminal_included": false
+}

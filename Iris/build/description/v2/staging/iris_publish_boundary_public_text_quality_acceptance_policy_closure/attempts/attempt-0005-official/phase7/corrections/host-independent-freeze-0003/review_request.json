@@ -1,0 +1,27 @@
+{
+  "artifact_manifest_sha256": "660d5d45cfb1df4386801dcd030a247e3dbc85b1ad7ea600a122be6dc54c982a",
+  "attempt_id": "attempt-0005-official",
+  "claim_inventory_sha256": "cf2fb975de9422ebbd1a8635a8d8d12c764738d70803c976f0a7b06a34e3ca65",
+  "correction_id": "g1-successor-0010-host-independent-freeze-0003",
+  "freeze_sha256": "705325d2422f11170ff49425864616a2173b22675898643b28a47fae3b6b46af",
+  "owner_or_implementation_author_ineligible": true,
+  "required_critical_finding_count": 0,
+  "required_important_finding_count": 0,
+  "required_reviewer_kind": "codex_reviewer",
+  "required_scopes": [
+    "git_tree_index_inventory_authority",
+    "long_path_representation_independence",
+    "inventory_denominator_139",
+    "inventory_fail_closed_fixtures",
+    "predecessor_failure_role_separation",
+    "terminal_dag_complete_binding",
+    "freeze_deterministic_replay",
+    "temporary_projection_parity",
+    "current_route_lua_no_mutation",
+    "claim_boundary_and_no_authority_effect"
+  ],
+  "review_subject_commit": "c305c84016d0a5b82a12b57fac0792844fa84b0c",
+  "review_subject_tree": "13da66631565f5b3d294e3d423c42aea7c01feb3",
+  "schema_version": "public_text_quality_phase7_host_independent_review_request_v4",
+  "status": "READY_FOR_CODEX_REVIEWER"
+}

@@ -22,6 +22,9 @@ TOOLS_ROOT = VALIDATOR.parent
 PHASE7_V2_VALIDATOR = TOOLS_ROOT / (
     "validate_public_text_quality_acceptance_official_0005_phase7_v2.py"
 )
+PHASE7_TERMINAL_VALIDATOR = TOOLS_ROOT / (
+    "validate_public_text_quality_acceptance_official_0005_phase7_terminal_validation.py"
+)
 
 
 class PublicTextQualityAcceptanceCurrentRouteTest(unittest.TestCase):
@@ -70,6 +73,36 @@ class PublicTextQualityAcceptanceCurrentRouteTest(unittest.TestCase):
     def test_phase7_freeze_document_replay_is_deterministic(self) -> None:
         case = self._phase7_self_test()["cases"]["deterministic_document_replay"]
         self.assertEqual(case["status"], "PASS")
+
+    def test_phase7_terminal_validation_complete_dag_regressions(self) -> None:
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(PHASE7_TERMINAL_VALIDATOR),
+                "--attempt-id",
+                "attempt-0005-official",
+                "--self-test",
+                "--no-write",
+            ],
+            cwd=REPO_ROOT,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            capture_output=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, msg=result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["status"], "PASS")
+        self.assertGreaterEqual(payload["case_count"], 20)
+        self.assertEqual(
+            payload["current_schema_dispatch"],
+            "current_v2_terminal_validation_0002",
+        )
+        self.assertEqual(payload["historical_schema_dispatch"], "historical_v1")
+        self.assertEqual(payload["protected_surface_mutation_count"], 0)
+        self.assertEqual(payload["runtime_lua_package_mutation_count"], 0)
 
     def test_required_gate_runs_standalone_subprocess(self) -> None:
         result = subprocess.run(

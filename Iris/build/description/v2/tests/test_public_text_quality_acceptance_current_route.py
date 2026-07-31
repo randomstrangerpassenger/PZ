@@ -28,6 +28,9 @@ PHASE7_TERMINAL_VALIDATOR = TOOLS_ROOT / (
 PHASE7_HOST_INDEPENDENT_VALIDATOR = TOOLS_ROOT / (
     "validate_public_text_quality_acceptance_official_0005_phase7_host_independent_freeze.py"
 )
+PHASE7_REPLAY_SERIALIZATION_VALIDATOR = TOOLS_ROOT / (
+    "validate_public_text_quality_acceptance_official_0005_phase7_replay_serialization.py"
+)
 
 
 class PublicTextQualityAcceptanceCurrentRouteTest(unittest.TestCase):
@@ -133,6 +136,30 @@ class PublicTextQualityAcceptanceCurrentRouteTest(unittest.TestCase):
         self.assertEqual(payload["claim_bearing_artifact_count"], 139)
         self.assertEqual(payload["terminal_dag_node_count"], 25)
         self.assertEqual(payload["terminal_dag_edge_count"], 38)
+        self.assertEqual(payload["authority_effect"], "none")
+
+    def test_phase7_replay_serialization_regressions(self) -> None:
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(PHASE7_REPLAY_SERIALIZATION_VALIDATOR),
+                "--attempt-id",
+                "attempt-0005-official",
+                "--self-test",
+            ],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, msg=result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["status"], "PASS")
+        self.assertEqual(payload["case_count"], 8)
+        self.assertEqual(payload["passed_case_count"], 8)
+        self.assertEqual(payload["canonical_tracked_inventory_count"], 139)
+        self.assertEqual(payload["fake_zero_count_field_count"], 0)
         self.assertEqual(payload["authority_effect"], "none")
 
     def test_required_gate_runs_standalone_subprocess(self) -> None:

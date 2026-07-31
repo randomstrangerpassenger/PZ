@@ -917,6 +917,9 @@ Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acce
 !Iris/build/description/v2/tools/build/run_public_text_quality_acceptance_official_0005.py
 !Iris/build/description/v2/tools/build/validate_public_text_quality_acceptance_official_0005.py
 !Iris/build/description/v2/tools/build/public_text_quality_acceptance_official_0005_closure.py
+!Iris/build/description/v2/tools/build/public_text_quality_acceptance_official_0005_phase7_v2.py
+!Iris/build/description/v2/tools/build/run_public_text_quality_acceptance_official_0005_phase7_v2.py
+!Iris/build/description/v2/tools/build/validate_public_text_quality_acceptance_official_0005_phase7_v2.py
 !Iris/build/description/v2/owner_inputs/iris_publish_boundary_public_text_quality_acceptance_policy_closure/
 !Iris/build/description/v2/owner_inputs/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempt-0005-official/
 !Iris/build/description/v2/owner_inputs/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempt-0005-official/policy_ratification_decision.json

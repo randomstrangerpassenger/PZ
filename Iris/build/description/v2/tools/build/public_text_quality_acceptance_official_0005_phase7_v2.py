@@ -485,7 +485,35 @@ def _freeze_paths() -> tuple[list[Path], list[Path]]:
     return paths, implementation
 
 
-def compute_freeze_bundle() -> dict[str, dict[str, Any]]:
+def _validated_freeze_readpoint(
+    freeze_commit: str | None,
+    freeze_tree: str | None,
+) -> tuple[str, str]:
+    if freeze_commit is None and freeze_tree is None:
+        return base.git_head(), legacy._head_tree()
+    if not isinstance(freeze_commit, str) or not isinstance(freeze_tree, str):
+        _fail("fresh Phase 7 freeze readpoint is malformed")
+    observed_tree = legacy._git(
+        "rev-parse", f"{freeze_commit}^{{tree}}", check=False
+    )
+    if observed_tree.returncode != 0 or observed_tree.stdout.strip() != freeze_tree:
+        _fail("fresh Phase 7 freeze commit/tree mismatch")
+    ancestry = legacy._git(
+        "merge-base", "--is-ancestor", freeze_commit, "HEAD", check=False
+    )
+    if ancestry.returncode != 0:
+        _fail("fresh Phase 7 freeze readpoint is not an ancestor of HEAD")
+    return freeze_commit, freeze_tree
+
+
+def compute_freeze_bundle(
+    *,
+    freeze_commit: str | None = None,
+    freeze_tree: str | None = None,
+) -> dict[str, dict[str, Any]]:
+    freeze_commit, freeze_tree = _validated_freeze_readpoint(
+        freeze_commit, freeze_tree
+    )
     current = validate_current_inputs()
     artifact_paths, implementation_paths = _freeze_paths()
     artifacts = _rows(artifact_paths)
@@ -495,8 +523,8 @@ def compute_freeze_bundle() -> dict[str, dict[str, Any]]:
         "status": "PASS",
         "attempt_id": official.ATTEMPT_ID,
         "correction_id": CORRECTION_ID,
-        "freeze_commit": base.git_head(),
-        "freeze_tree": legacy._head_tree(),
+        "freeze_commit": freeze_commit,
+        "freeze_tree": freeze_tree,
         "g1_validated_subject_commit": G1_SUBJECT_COMMIT,
         "g1_validated_subject_tree": G1_SUBJECT_TREE,
         "g1_gate_manifest_sha256": G1_GATE_SHA256,
@@ -563,8 +591,8 @@ def compute_freeze_bundle() -> dict[str, dict[str, Any]]:
         "status": "READY_FOR_CODEX_REVIEWER",
         "attempt_id": official.ATTEMPT_ID,
         "correction_id": CORRECTION_ID,
-        "review_subject_commit": base.git_head(),
-        "review_subject_tree": legacy._head_tree(),
+        "review_subject_commit": freeze_commit,
+        "review_subject_tree": freeze_tree,
         "freeze_manifest_sha256": freeze_sha,
         "final_artifact_hash_manifest_sha256": manifest_sha,
         "required_reviewer_kind": "codex_reviewer",
@@ -629,7 +657,11 @@ def materialize_freeze() -> dict[str, Any]:
 
 
 def validate_freeze_bundle(*, require_tracked: bool) -> dict[str, Any]:
-    expected = compute_freeze_bundle()
+    existing_freeze = _object(base.load_json_strict(FREEZE), "fresh Phase 7 freeze")
+    expected = compute_freeze_bundle(
+        freeze_commit=existing_freeze.get("freeze_commit"),
+        freeze_tree=existing_freeze.get("freeze_tree"),
+    )
     records: dict[str, Any] = {}
     for path, key in (
         (FREEZE, "freeze"),

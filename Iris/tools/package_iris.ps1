@@ -279,6 +279,13 @@ if (-not [string]::IsNullOrWhiteSpace($ValidatedNaturalizationCandidateProbeCont
     if ($Zip) {
         throw 'candidate_package_zip_forbidden'
     }
+    if (-not $RegistryCompatibilityProbe -or $RegistryCompatibilityRequiredGateState -ne 'not_adopted') {
+        throw 'candidate_probe_contract_argv_invalid'
+    }
+    if (-not [string]::IsNullOrWhiteSpace($RegistryCompatibilityRequiredManifest) -or
+        -not [string]::IsNullOrWhiteSpace($RegistryCompatibilityReceipt) -or $Clean) {
+        throw 'candidate_probe_contract_argv_invalid'
+    }
     $ValidatedNaturalizationCandidateProbeContract = Get-FullPath $ValidatedNaturalizationCandidateProbeContract
     $candidateProbeArgv = @(
         'powershell', '-ExecutionPolicy', 'Bypass', '-File', (Get-FullPath $PSCommandPath),
@@ -289,18 +296,7 @@ if (-not [string]::IsNullOrWhiteSpace($ValidatedNaturalizationCandidateProbeCont
         '-RegistryCompatibilityBindingManifest', $RegistryCompatibilityBindingManifest,
         '-RegistryCompatibilityRequiredGateState', $RegistryCompatibilityRequiredGateState
     )
-    if ($RegistryCompatibilityProbe) {
-        $candidateProbeArgv += '-RegistryCompatibilityProbe'
-    }
-    if (-not [string]::IsNullOrWhiteSpace($RegistryCompatibilityRequiredManifest)) {
-        $candidateProbeArgv += @('-RegistryCompatibilityRequiredManifest', $RegistryCompatibilityRequiredManifest)
-    }
-    if (-not [string]::IsNullOrWhiteSpace($RegistryCompatibilityReceipt)) {
-        $candidateProbeArgv += @('-RegistryCompatibilityReceipt', (Get-FullPath $RegistryCompatibilityReceipt))
-    }
-    if ($Clean) {
-        $candidateProbeArgv += '-Clean'
-    }
+    $candidateProbeArgv += '-RegistryCompatibilityProbe'
     $candidateProbeArgv += @('-ValidatedNaturalizationCandidateProbeContract', $ValidatedNaturalizationCandidateProbeContract)
     Invoke-ValidatedNaturalizationCandidateProbeValidator `
         -ContractPath $ValidatedNaturalizationCandidateProbeContract `

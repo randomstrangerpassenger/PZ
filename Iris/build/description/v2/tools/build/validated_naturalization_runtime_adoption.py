@@ -154,6 +154,40 @@ def _validate_bound_file(contract: dict[str, Any], path_field: str, hash_field: 
     return path.resolve()
 
 
+def _validate_candidate_probe_argv(
+    actual_argv: list[str],
+    contract: dict[str, Any],
+    contract_path: Path,
+    package_script_path: Path,
+    output_root: Path,
+) -> None:
+    if len(actual_argv) != 20:
+        raise CandidateProbeContractError("argv_contract_invalid")
+    expected_literals = {
+        0: "powershell", 1: "-ExecutionPolicy", 2: "Bypass", 3: "-File",
+        5: "-OutputRoot", 7: "-RegistryCompatibilityContext", 8: "candidate",
+        9: "-RegistryCompatibilityPolicy", 11: "-RegistryCompatibilityDisposition",
+        13: "-RegistryCompatibilityBindingManifest",
+        15: "-RegistryCompatibilityRequiredGateState", 16: "not_adopted",
+        17: "-RegistryCompatibilityProbe",
+        18: "-ValidatedNaturalizationCandidateProbeContract",
+    }
+    if any(actual_argv[index] != value for index, value in expected_literals.items()):
+        raise CandidateProbeContractError("argv_contract_invalid")
+    path_bindings = (
+        (4, package_script_path, "package_script_argv_mismatch"),
+        (6, output_root, "output_root_argv_mismatch"),
+        (10, Path(contract["registry_policy_path"]), "registry_policy_argv_mismatch"),
+        (12, Path(contract["collision_disposition_path"]), "collision_disposition_argv_mismatch"),
+        (14, Path(contract["binding_manifest_path"]), "binding_manifest_argv_mismatch"),
+        (19, contract_path, "probe_contract_argv_mismatch"),
+    )
+    for index, expected_path, failure in path_bindings:
+        actual_path = Path(actual_argv[index])
+        if not actual_path.is_absolute() or actual_path.resolve(strict=False) != expected_path.resolve(strict=False):
+            raise CandidateProbeContractError(failure)
+
+
 def validate_package_probe_contract(
     *,
     contract_path: Path,
@@ -207,6 +241,9 @@ def validate_package_probe_contract(
         raise CandidateProbeContractError("package_script_working_git_blob_drift")
     if sha256(package_script_bytes) != contract["package_script_git_blob_sha256"]:
         raise CandidateProbeContractError("package_script_git_blob_hash_mismatch")
+    _validate_candidate_probe_argv(
+        actual_argv, contract, contract_path, package_script_path, output_root
+    )
     actual_argv_hash = sha256(canonical_json(actual_argv))
     if actual_argv_hash != contract["allowed_argv_sha256"]:
         raise CandidateProbeContractError("argv_hash_mismatch")

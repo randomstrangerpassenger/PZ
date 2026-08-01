@@ -38,7 +38,10 @@ class ValidatedNaturalizationRuntimeAdoptionTest(unittest.TestCase):
         argv = [
             "powershell", "-ExecutionPolicy", "Bypass", "-File", str(package_script),
             "-OutputRoot", str(output_root), "-RegistryCompatibilityContext", "candidate",
-            "-RegistryCompatibilityProbe", "-RegistryCompatibilityRequiredGateState", "not_adopted",
+            "-RegistryCompatibilityPolicy", str(policy),
+            "-RegistryCompatibilityDisposition", str(disposition),
+            "-RegistryCompatibilityBindingManifest", str(binding),
+            "-RegistryCompatibilityRequiredGateState", "not_adopted", "-RegistryCompatibilityProbe",
             "-ValidatedNaturalizationCandidateProbeContract", str(contract_path),
         ]
         contract = {
@@ -180,12 +183,48 @@ class ValidatedNaturalizationRuntimeAdoptionTest(unittest.TestCase):
     def test_candidate_probe_contract_rejects_argv_mismatch(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             contract, contract_path, package_script, argv = self._candidate_probe_fixture(Path(temporary))
-            with self.assertRaisesRegex(adoption.CandidateProbeContractError, "argv_hash_mismatch"):
+            with self.assertRaisesRegex(adoption.CandidateProbeContractError, "argv_contract_invalid"):
                 adoption.validate_package_probe_contract(
                     contract_path=contract_path,
                     output_root=Path(contract["output_root"]),
                     package_script_path=package_script,
                     actual_argv=argv + ["-Clean"],
+                    package_script_bytes=package_script.read_bytes(),
+                )
+
+    def test_candidate_probe_contract_rejects_outside_receipt_before_write(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            contract, contract_path, package_script, argv = self._candidate_probe_fixture(Path(temporary))
+            outside_receipt = Path(temporary) / "outside" / "receipt.json"
+            hostile_argv = argv[:-2] + [
+                "-RegistryCompatibilityReceipt", str(outside_receipt), *argv[-2:]
+            ]
+            contract["allowed_argv_sha256"] = adoption.sha256(adoption.canonical_json(hostile_argv))
+            contract["contract_binding_sha256"] = adoption.package_probe_contract_binding_sha256(contract)
+            contract_path.write_text(json.dumps(contract), encoding="utf-8")
+            with self.assertRaisesRegex(adoption.CandidateProbeContractError, "argv_contract_invalid"):
+                adoption.validate_package_probe_contract(
+                    contract_path=contract_path,
+                    output_root=Path(contract["output_root"]),
+                    package_script_path=package_script,
+                    actual_argv=hostile_argv,
+                    package_script_bytes=package_script.read_bytes(),
+                )
+            self.assertFalse(outside_receipt.exists())
+
+    def test_candidate_probe_contract_cross_binds_policy_path(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            contract, contract_path, package_script, argv = self._candidate_probe_fixture(Path(temporary))
+            argv[argv.index("-RegistryCompatibilityPolicy") + 1] = contract["collision_disposition_path"]
+            contract["allowed_argv_sha256"] = adoption.sha256(adoption.canonical_json(argv))
+            contract["contract_binding_sha256"] = adoption.package_probe_contract_binding_sha256(contract)
+            contract_path.write_text(json.dumps(contract), encoding="utf-8")
+            with self.assertRaisesRegex(adoption.CandidateProbeContractError, "registry_policy_argv_mismatch"):
+                adoption.validate_package_probe_contract(
+                    contract_path=contract_path,
+                    output_root=Path(contract["output_root"]),
+                    package_script_path=package_script,
+                    actual_argv=argv,
                     package_script_bytes=package_script.read_bytes(),
                 )
 

@@ -462,6 +462,70 @@ def apply_generation_transaction(
             shutil.rmtree(backup_root)
 
 
+def run_mirror_transaction_proof(repo: Path, attempt_root: Path) -> dict[str, Any]:
+    repo = repo.resolve()
+    attempt_root = attempt_root.resolve()
+    generation_root = attempt_root / "phase3" / "next_generation"
+    proof_root = attempt_root / "phase4"
+    mirror = proof_root / "mirror"
+    if mirror.exists():
+        raise ValueError("mirror_proof_root_not_fresh")
+    live_paths = transaction_surface_paths(repo)
+    mirror_paths = transaction_surface_paths(mirror)
+    for role in ("rendered", "manifest"):
+        mirror_paths[role].parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(live_paths[role], mirror_paths[role])
+    shutil.copytree(live_paths["chunks"], mirror_paths["chunks"])
+    if live_paths["descriptor"].is_file():
+        mirror_paths["descriptor"].parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(live_paths["descriptor"], mirror_paths["descriptor"])
+    unrelated = mirror / "unrelated.sentinel"
+    unrelated.write_bytes(b"unchanged\n")
+    before = transaction_surface_census(mirror)
+    injected_failure_observed = False
+    try:
+        apply_generation_transaction(
+            mirror, generation_root,
+            transaction_id="attempt-0007-injected",
+            inject_failure_after_content=True,
+        )
+    except RuntimeError as exc:
+        if str(exc) != "injected_after_content_before_manifest":
+            raise
+        injected_failure_observed = True
+    after = transaction_surface_census(mirror)
+    temporary_count = sum(1 for path in mirror.rglob("*") if ".adoption-tmp-" in path.name)
+    rollback_pass = injected_failure_observed and before == after and unrelated.read_bytes() == b"unchanged\n" and temporary_count == 0
+    rollback_report = {
+        "schema_version": "validated-naturalization-mirror-rollback-proof-v1",
+        "status": "PASS" if rollback_pass else "BLOCKED",
+        "failure_injection_observed": injected_failure_observed,
+        "exact_preimage_restored": before == after,
+        "temporary_path_count": temporary_count,
+        "unrelated_mutation_count": 0 if unrelated.read_bytes() == b"unchanged\n" else 1,
+    }
+    write_json(proof_root / "rollback_proof.json", rollback_report)
+    if not rollback_pass:
+        raise RuntimeError("mirror_rollback_proof_failed")
+    success = apply_generation_transaction(
+        mirror, generation_root,
+        transaction_id="attempt-0007-success",
+    )
+    expected = {
+        "rendered": sha256((generation_root / "dvf_3_3_rendered.json").read_bytes()),
+        "manifest": sha256((generation_root / "IrisLayer3DataChunks.lua").read_bytes()),
+    }
+    observed = transaction_surface_census(mirror)
+    success["rendered_match"] = observed["rendered"].get("sha256") == expected["rendered"]
+    success["manifest_match"] = observed["manifest"].get("sha256") == expected["manifest"]
+    success["unrelated_mutation_count"] = 0 if unrelated.read_bytes() == b"unchanged\n" else 1
+    success["status"] = "PASS" if success["manifest_last"] and success["rendered_match"] and success["manifest_match"] and success["unrelated_mutation_count"] == 0 else "BLOCKED"
+    write_json(proof_root / "mirror_successful_apply.json", success)
+    if success["status"] != "PASS":
+        raise RuntimeError("mirror_successful_apply_failed")
+    return {"rollback": rollback_report, "successful_apply": success, "mirror": str(mirror)}
+
+
 def run_prepare_and_materialize(repo: Path, attempt_root: Path) -> dict[str, Any]:
     repo = repo.resolve()
     attempt_root = attempt_root.resolve()

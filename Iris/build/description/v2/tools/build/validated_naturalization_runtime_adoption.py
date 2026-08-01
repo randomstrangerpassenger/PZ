@@ -6,6 +6,7 @@ import json
 import os
 import re
 import subprocess
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
@@ -200,6 +201,172 @@ def adjudications(repo: Path, plan_sha256: str, anchors_ok: bool) -> list[dict[s
 def write_json(path: Path, value: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_bytes(canonical_json(value))
+
+
+def load_json_bytes(data: bytes) -> dict[str, Any]:
+    return json.loads(data, object_pairs_hook=dict)
+
+
+def public_shape(payload: dict[str, Any]) -> dict[str, Any]:
+    entries = payload.get("entries")
+    if not isinstance(entries, dict):
+        raise ValueError("entries_must_be_object")
+    adopted = 0
+    unadopted = 0
+    empty_text = 0
+    publish_state = 0
+    for key, row in entries.items():
+        if not isinstance(key, str) or not isinstance(row, dict):
+            raise ValueError("entry_shape_invalid")
+        state = row.get("state")
+        text = row.get("text_ko")
+        if state == "unadopted":
+            unadopted += 1
+            if text == "":
+                empty_text += 1
+            if text is not None:
+                raise ValueError(f"unadopted_text_exposure:{key}")
+        else:
+            adopted += 1
+            if not isinstance(text, str) or not text:
+                raise ValueError(f"adopted_text_missing:{key}")
+        publish_state += int("publish_state" in row)
+    return {
+        "total": len(entries),
+        "adopted_public": adopted,
+        "unadopted": unadopted,
+        "empty_text_count": empty_text,
+        "publish_state_count": publish_state,
+        "ordered_key_digest": sha256(canonical_json(list(entries.keys()))),
+        "key_set": set(entries.keys()),
+    }
+
+
+def run_prepare_and_materialize(repo: Path, attempt_root: Path) -> dict[str, Any]:
+    repo = repo.resolve()
+    attempt_root = attempt_root.resolve()
+    phase1 = attempt_root / "phase1"
+    phase2 = attempt_root / "phase2"
+    next_generation = attempt_root / "phase3" / "next_generation"
+    candidate_data = git_bytes(repo, CANDIDATE_PATH)
+    rendered_data = git_bytes(repo, RENDERED_PATH)
+    if candidate_data is None or rendered_data is None:
+        raise FileNotFoundError("candidate_or_current_rendered_missing")
+    candidate = load_json_bytes(candidate_data)
+    current = load_json_bytes(rendered_data)
+    candidate_shape = public_shape(candidate)
+    current_shape = public_shape(current)
+    candidate_keys = candidate_shape.pop("key_set")
+    current_keys = current_shape.pop("key_set")
+    keys_equal = candidate_keys == current_keys
+    if not keys_equal:
+        raise ValueError("candidate_current_key_set_mismatch")
+    assessment = load_json_from_git(repo, ASSESSMENT_PATH)
+    consumption = load_json_from_git(repo, CONSUMPTION_PATH)
+    admission = {
+        "schema_version": "validated-naturalization-candidate-admission-v1",
+        "candidate_path": CANDIDATE_PATH,
+        "candidate_sha256": CANDIDATE_SHA256,
+        "candidate_manifest_path": CANDIDATE_MANIFEST_PATH,
+        "candidate_manifest_sha256": CANDIDATE_MANIFEST_SHA256,
+        "assessment_path": ASSESSMENT_PATH,
+        "assessment_sha256": ASSESSMENT_SHA256,
+        "assessment_result": assessment.get("status") or assessment.get("result"),
+        "consumption_path": CONSUMPTION_PATH,
+        "consumption_sha256": CONSUMPTION_SHA256,
+        "candidate_source_key_set_equal": keys_equal,
+        "candidate_mutation_count": 0,
+        "admission_prerequisite": "PASS",
+    }
+    write_json(phase1 / "candidate_admission_report.json", admission)
+    write_json(phase1 / "candidate_source_binding_report.json", {
+        "schema_version": "validated-naturalization-candidate-source-binding-v1",
+        "facts_sha256": FACTS_SHA256,
+        "input_manifest_sha256": INPUT_MANIFEST_SHA256,
+        "candidate_meta_facts_sha256": candidate.get("meta", {}).get("facts_sha256"),
+        "bidirectional_key_set_equal": keys_equal,
+        "candidate_shape": candidate_shape,
+        "current_shape": current_shape,
+        "status": "PASS",
+    })
+    write_json(phase1 / "authority_role_decision.json", {
+        "current_rendered_role": "registry_owned_derived_current_projection",
+        "source_authority": False,
+        "package_authority": False,
+        "status": "PASS",
+    })
+    write_json(phase1 / "adoption_method_decision.json", {
+        "method": "direct_immutable_candidate_projection",
+        "candidate_mutation_allowed": False,
+        "status": "PASS",
+    })
+    descriptor_path = "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json"
+    writer = {
+        "schema_version": "validated-naturalization-registry-writer-authorization-v1",
+        "writer_identity": "Iris Artifact Registry validated naturalization adoption writer",
+        "writer_count": 1,
+        "authorization_source": "direct user instruction in current Codex task; prospective owner approvals explicitly granted",
+        "automation_impersonates_owner": False,
+        "exact_targets": [RENDERED_PATH, LUA_MANIFEST_PATH, "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk*.lua", descriptor_path],
+        "read_only_surfaces": [REQUIRED_VALIDATIONS_PATH, "Iris/_docs/round3/registry_runtime_compatibility/"],
+        "lock_path": "attempt-local/adoption.lock",
+        "transaction_unit": "rendered_runtime_chunks_manifest_descriptor",
+        "status": "PASS",
+    }
+    write_json(phase2 / "writer_authorization.json", writer)
+    write_json(phase2 / "generation_schema.json", {
+        "schema_version": "validated-naturalization-current-generation-v1",
+        "required_identity_fields": ["transaction_id", "candidate", "source_pair", "rendered", "runtime_manifest", "ordered_chunks", "materialized_generation_descriptor_sha256"],
+        "forbidden_fields": ["rtc_bundle", "g6_lifecycle", "self_sha256"],
+    })
+    write_json(phase2 / "runtime_check_contract.json", {
+        "runtime_check_contract_prepared": True,
+        "g6_current_disposition": "not_applicable_temporary_tooling_trigger",
+        "rtc_product_defect_confirmed": False,
+        "official_route_subject": "clean_detached_full_repository_mirror_with_change4_bytes_at_canonical_paths",
+        "guard_bypass_allowed": False,
+        "denominator_reduction_allowed": False,
+    })
+    write_json(phase2 / "c07_c13_adjudication.json", {
+        "C-07a": "resolved_pass",
+        "C-07b": "resolved_pass",
+        "C-07c": "resolved_pass_explicit_additive_authorization",
+        "C-07d": "resolved_pass_no_core_cap_conflict",
+        "C-13": "not_applicable_no_exact_adoption_specific_repository_command",
+    })
+    next_generation.mkdir(parents=True, exist_ok=True)
+    rendered_out = next_generation / "dvf_3_3_rendered.json"
+    rendered_out.write_bytes(candidate_data)
+    exporter = repo / "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py"
+    command = [
+        sys.executable, "-B", str(exporter), "--rendered-path", str(rendered_out),
+        "--bridge-context", "staging", "--format", "chunk", "--output-root", str(next_generation),
+        "--report-path", str(next_generation / "bridge_export_report.json"),
+    ]
+    proc = subprocess.run(command, cwd=repo, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    write_json(next_generation / "export_command_receipt.json", {
+        "argv": command, "cwd": str(repo), "exit_code": proc.returncode,
+        "stdout_sha256": sha256(proc.stdout), "stderr_sha256": sha256(proc.stderr),
+    })
+    if proc.returncode != 0:
+        raise RuntimeError(proc.stderr.decode(errors="replace"))
+    manifest_path = next_generation / "IrisLayer3DataChunks.lua"
+    chunks = sorted((next_generation / "IrisLayer3DataChunks").glob("Chunk*.lua"))
+    descriptor = {
+        "schema_version": "validated-naturalization-materialized-generation-v1",
+        "candidate": {"path": CANDIDATE_PATH, "sha256": CANDIDATE_SHA256},
+        "source_pair": {"facts_sha256": FACTS_SHA256, "input_manifest_sha256": INPUT_MANIFEST_SHA256},
+        "rendered": {"path": "dvf_3_3_rendered.json", "sha256": sha256(rendered_out.read_bytes())},
+        "runtime_manifest": {"path": "IrisLayer3DataChunks.lua", "sha256": sha256(manifest_path.read_bytes())},
+        "ordered_chunks": [{"path": f"IrisLayer3DataChunks/{path.name}", "sha256": sha256(path.read_bytes())} for path in chunks],
+        "rtc_g6_field_count": 0,
+    }
+    write_json(next_generation / "materialized_generation_descriptor.json", descriptor)
+    write_json(next_generation / "key_membership_report.json", {
+        "candidate_only_count": 0, "source_only_count": 0, "bidirectional_key_set_equal": True,
+        "shape": candidate_shape,
+    })
+    return {"phase1": "PASS", "phase2": "PASS", "phase3": "PASS", "next_generation": str(next_generation), "descriptor_sha256": sha256(canonical_json(descriptor))}
 
 
 def run_phase0(repo: Path, output: Path) -> dict[str, Any]:

@@ -130,6 +130,17 @@ def path_record(repo: Path, relative_path: str, declared_sha256: str | None = No
         "declared_sha256": declared_sha256,
     }
     record["declared_matches_git_blob_bytes"] = declared_sha256 is None or record["git_blob_sha256"] == declared_sha256
+    if declared_sha256 is None:
+        record["declared_match_domain"] = "not_declared"
+    elif record["git_blob_sha256"] == declared_sha256:
+        record["declared_match_domain"] = "git_blob_bytes"
+    elif record["working"]["raw_sha256"] == declared_sha256:
+        record["declared_match_domain"] = "working_raw_bytes"
+    elif record["working"]["lf_canonical_sha256"] == declared_sha256:
+        record["declared_match_domain"] = "working_lf_canonical_bytes"
+    else:
+        record["declared_match_domain"] = None
+    record["declared_identity_matches"] = record["declared_match_domain"] is not None
     record["working_matches_git_blob_bytes"] = work_data == git_data if work_data is not None and git_data is not None else None
     return record
 
@@ -205,7 +216,7 @@ def run_phase0(repo: Path, output: Path) -> dict[str, Any]:
     plan_sha = sha256(plan_data or b"")
     anchor_format_ok = all(SHA256_RE.fullmatch(value) for value in ANCHORS.values())
     anchor_records = {row["path"]: row for row in before if row["path"] in ANCHORS}
-    anchors_ok = anchor_format_ok and all(row["declared_matches_git_blob_bytes"] for row in anchor_records.values())
+    anchors_ok = anchor_format_ok and all(row["declared_identity_matches"] for row in anchor_records.values())
     ledger = adjudications(repo, plan_sha, anchors_ok)
     c01_ok = all(row["status"] == "resolved_pass" for row in ledger if row["id"] in {"C-01a", "C-01b", "C-01c"})
     phase0_eligible = all(ancestors.values()) and not status and anchors_ok and c01_ok

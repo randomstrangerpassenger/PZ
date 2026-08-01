@@ -22,7 +22,13 @@ class ValidatedNaturalizationRuntimeAdoptionTest(unittest.TestCase):
         by_path = {record["path"]: record for record in records}
         for path in adoption.ANCHORS:
             self.assertTrue(by_path[path]["git_tracked"])
-            self.assertTrue(by_path[path]["declared_matches_git_blob_bytes"])
+            self.assertTrue(by_path[path]["declared_identity_matches"])
+
+    def test_windows_candidate_anchor_preserves_named_identity_domain(self) -> None:
+        repo = Path(__file__).resolve().parents[5]
+        record = adoption.path_record(repo, adoption.CANDIDATE_PATH, adoption.CANDIDATE_SHA256)
+        self.assertEqual("working_raw_bytes", record["declared_match_domain"])
+        self.assertNotEqual(record["git_blob_sha256"], record["working"]["raw_sha256"])
 
     def test_current_source_pair_roles_are_coherent(self) -> None:
         repo = Path(__file__).resolve().parents[5]

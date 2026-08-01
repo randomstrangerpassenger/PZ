@@ -6,6 +6,7 @@ import json
 import os
 import re
 import shutil
+import stat
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -34,6 +35,8 @@ GENERATION_DESCRIPTOR_PATH = "Iris/_docs/round3/validated_naturalization_current
 REQUIRED_VALIDATIONS_SHA256 = "58f7427cccca4ab181caf5d9bf1031d32b3b2a924858588ce5e5082f9fb6592f"
 PLAN_PATH = "docs/dvf_3_3_validated_naturalization_current_runtime_adoption_plan.md"
 EXECUTION_CONTRACT_PATH = "docs/EXECUTION_CONTRACT.md"
+ADOPTION_EXTERNAL_MIRROR_PARENT = Path(r"C:\Users\Public\Documents\ESTsoft\CreatorTemp")
+WINDOWS_SAFE_TRANSACTION_PATH_LIMIT = 240
 
 REQUIRED_ANCESTORS = {
     "g1": "c3e2cac1b2c6a6e9f237d5766f2620f92794b8fb",
@@ -462,14 +465,43 @@ def apply_generation_transaction(
             shutil.rmtree(backup_root)
 
 
-def run_mirror_transaction_proof(repo: Path, attempt_root: Path) -> dict[str, Any]:
+def _is_reparse_point(path: Path) -> bool:
+    try:
+        metadata = path.lstat()
+    except FileNotFoundError:
+        return False
+    attributes = getattr(metadata, "st_file_attributes", 0)
+    return path.is_symlink() or bool(attributes & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400))
+
+
+def _path_chain(path: Path) -> list[Path]:
+    rows: list[Path] = []
+    current = path
+    while True:
+        if current.exists() or current.is_symlink():
+            rows.append(current)
+        if current.parent == current:
+            return rows
+        current = current.parent
+
+
+def _maximum_transaction_path(mirror: Path) -> tuple[int, str]:
+    candidates = [
+        mirror / RENDERED_PATH,
+        mirror / LUA_MANIFEST_PATH,
+        mirror / GENERATION_DESCRIPTOR_PATH,
+        mirror / ".validated-naturalization-transaction-attempt-0008-injected" / "preimage" / "descriptor",
+        (mirror / LUA_MANIFEST_PATH).with_name("IrisLayer3DataChunks.adoption-tmp-attempt-0008-success") / "Chunk011.lua",
+    ]
+    longest = max(candidates, key=lambda path: len(str(path)))
+    return len(str(longest)), str(longest)
+
+
+def _execute_mirror_transaction_proof(repo: Path, attempt_root: Path, mirror: Path) -> dict[str, Any]:
     repo = repo.resolve()
     attempt_root = attempt_root.resolve()
     generation_root = attempt_root / "phase3" / "next_generation"
     proof_root = attempt_root / "phase4"
-    mirror = proof_root / "mirror"
-    if mirror.exists():
-        raise ValueError("mirror_proof_root_not_fresh")
     live_paths = transaction_surface_paths(repo)
     mirror_paths = transaction_surface_paths(mirror)
     for role in ("rendered", "manifest"):
@@ -524,6 +556,44 @@ def run_mirror_transaction_proof(repo: Path, attempt_root: Path) -> dict[str, An
     if success["status"] != "PASS":
         raise RuntimeError("mirror_successful_apply_failed")
     return {"rollback": rollback_report, "successful_apply": success, "mirror": str(mirror)}
+
+
+def run_mirror_transaction_proof(repo: Path, attempt_root: Path, mirror_root: Path) -> dict[str, Any]:
+    repo = repo.resolve()
+    attempt_root = attempt_root.resolve()
+    mirror_root = mirror_root.absolute()
+    if attempt_root == mirror_root or attempt_root in mirror_root.parents:
+        raise ValueError("mirror_inside_attempt_forbidden")
+    if repo == mirror_root or repo in mirror_root.parents or mirror_root in repo.parents:
+        raise ValueError("external_mirror_repository_overlap")
+    approved_parent = ADOPTION_EXTERNAL_MIRROR_PARENT.resolve(strict=True)
+    if not mirror_root.is_absolute() or mirror_root.parent.resolve(strict=True) != approved_parent:
+        raise ValueError("external_mirror_containment_escape")
+    if any(_is_reparse_point(path) for path in _path_chain(mirror_root)):
+        raise ValueError("external_mirror_reparse_forbidden")
+    if mirror_root.exists():
+        raise ValueError("external_mirror_already_exists")
+    maximum_length, longest_path = _maximum_transaction_path(mirror_root)
+    if maximum_length >= WINDOWS_SAFE_TRANSACTION_PATH_LIMIT:
+        raise ValueError(f"external_mirror_path_length_unsafe:{maximum_length}:{longest_path}")
+    mirror_root.mkdir()
+    result: dict[str, Any] | None = None
+    try:
+        result = _execute_mirror_transaction_proof(repo, attempt_root, mirror_root)
+    finally:
+        if mirror_root.exists():
+            shutil.rmtree(mirror_root)
+    if mirror_root.exists():
+        raise RuntimeError("external_mirror_residue_detected")
+    assert result is not None
+    result["external_mirror"] = {
+        "path": str(mirror_root),
+        "maximum_target_path_length": maximum_length,
+        "longest_target_path": longest_path,
+        "temporary_residue_count": 0,
+        "mirror_residue_count": 0,
+    }
+    return result
 
 
 def run_prepare_and_materialize(repo: Path, attempt_root: Path) -> dict[str, Any]:

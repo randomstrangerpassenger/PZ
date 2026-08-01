@@ -7,6 +7,7 @@ import sys
 import tempfile
 import unittest
 import shutil
+import uuid
 from pathlib import Path
 
 
@@ -17,6 +18,21 @@ import validated_naturalization_runtime_adoption as adoption
 
 
 class ValidatedNaturalizationRuntimeAdoptionTest(unittest.TestCase):
+    def _transaction_attempt_fixture(self, root: Path) -> Path:
+        attempt = root / "very" / "long" / "attempt" / "path" / "phase-boundary" / "attempt-0008"
+        generation = attempt / "phase3" / "next_generation"
+        chunks = generation / "IrisLayer3DataChunks"
+        chunks.mkdir(parents=True)
+        (generation / "dvf_3_3_rendered.json").write_text('{"entries":{}}\n', encoding="utf-8")
+        (generation / "IrisLayer3DataChunks.lua").write_text('return {}\n', encoding="utf-8")
+        (chunks / "Chunk001.lua").write_text('return {}\n', encoding="utf-8")
+        (generation / "materialized_generation_descriptor.json").write_text(
+            '{"schema_version":"validated-naturalization-materialized-generation-v1"}\n', encoding="utf-8"
+        )
+        return attempt
+
+    def _fresh_external_mirror(self, prefix: str) -> Path:
+        return adoption.ADOPTION_EXTERNAL_MIRROR_PARENT / f"{prefix}-{uuid.uuid4().hex[:10]}"
     def _adoption_fixture(self, root: Path) -> tuple[Path, Path, Path, Path, Path]:
         candidate = root / "candidate.json"
         facts = root / "facts.jsonl"
@@ -221,6 +237,55 @@ class ValidatedNaturalizationRuntimeAdoptionTest(unittest.TestCase):
             self.assertEqual(before, adoption.transaction_surface_census(mirror))
             self.assertEqual("unchanged", unrelated.read_text(encoding="utf-8"))
             self.assertFalse(any(mirror.rglob("*.adoption-tmp-*")))
+
+    def test_short_external_mirror_passes_for_long_attempt_and_cleans_residue(self) -> None:
+        repo = Path(__file__).resolve().parents[5]
+        with tempfile.TemporaryDirectory() as temporary:
+            attempt = self._transaction_attempt_fixture(Path(temporary))
+            mirror = self._fresh_external_mirror("i8-pass")
+            result = adoption.run_mirror_transaction_proof(repo, attempt, mirror)
+            self.assertEqual("PASS", result["rollback"]["status"])
+            self.assertEqual("PASS", result["successful_apply"]["status"])
+            self.assertEqual(0, result["rollback"]["unrelated_mutation_count"])
+            self.assertEqual(0, result["rollback"]["temporary_path_count"])
+            self.assertFalse(mirror.exists())
+
+    def test_external_mirror_rejects_attempt_internal_existing_and_overlap(self) -> None:
+        repo = Path(__file__).resolve().parents[5]
+        with tempfile.TemporaryDirectory() as temporary:
+            attempt = self._transaction_attempt_fixture(Path(temporary))
+            with self.assertRaisesRegex(ValueError, "mirror_inside_attempt_forbidden"):
+                adoption.run_mirror_transaction_proof(repo, attempt, attempt / "phase4" / "mirror")
+            existing = self._fresh_external_mirror("i8-existing")
+            existing.mkdir()
+            try:
+                with self.assertRaisesRegex(ValueError, "external_mirror_already_exists"):
+                    adoption.run_mirror_transaction_proof(repo, attempt, existing)
+                self.assertTrue(existing.exists())
+            finally:
+                existing.rmdir()
+            with self.assertRaisesRegex(ValueError, "external_mirror_repository_overlap"):
+                adoption.run_mirror_transaction_proof(repo, attempt, repo / "mirror")
+
+    def test_external_mirror_rejects_containment_and_reparse_escape(self) -> None:
+        repo = Path(__file__).resolve().parents[5]
+        with tempfile.TemporaryDirectory() as temporary, tempfile.TemporaryDirectory() as external:
+            attempt = self._transaction_attempt_fixture(Path(temporary))
+            escaped = adoption.ADOPTION_EXTERNAL_MIRROR_PARENT / ".." / f"escape-{uuid.uuid4().hex[:8]}"
+            with self.assertRaisesRegex(ValueError, "external_mirror_containment_escape"):
+                adoption.run_mirror_transaction_proof(repo, attempt, escaped)
+            link = self._fresh_external_mirror("i8-reparse")
+            junction = subprocess.run(
+                ["cmd", "/c", "mklink", "/J", str(link), str(Path(external))],
+                capture_output=True, text=True, check=False,
+            )
+            if junction.returncode != 0:
+                self.fail(f"junction_creation_failed: {junction.stderr}")
+            try:
+                with self.assertRaisesRegex(ValueError, "external_mirror_reparse_forbidden"):
+                    adoption.run_mirror_transaction_proof(repo, attempt, link)
+            finally:
+                subprocess.run(["cmd", "/c", "rmdir", str(link)], check=False)
 
 
 if __name__ == "__main__":

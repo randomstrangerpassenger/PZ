@@ -207,6 +207,19 @@ def load_json_bytes(data: bytes) -> dict[str, Any]:
     return json.loads(data, object_pairs_hook=dict)
 
 
+def facts_key_set(data: bytes) -> set[str]:
+    keys: set[str] = set()
+    for line in data.decode("utf-8").splitlines():
+        if not line.strip():
+            continue
+        row = json.loads(line, object_pairs_hook=dict)
+        item_id = row.get("item_id")
+        if not isinstance(item_id, str) or not item_id or item_id in keys:
+            raise ValueError("facts_item_id_missing_or_duplicate")
+        keys.add(item_id)
+    return keys
+
+
 def public_shape(payload: dict[str, Any]) -> dict[str, Any]:
     entries = payload.get("entries")
     if not isinstance(entries, dict):
@@ -252,17 +265,26 @@ def run_prepare_and_materialize(repo: Path, attempt_root: Path) -> dict[str, Any
     next_generation = attempt_root / "phase3" / "next_generation"
     candidate_data = git_bytes(repo, CANDIDATE_PATH)
     rendered_data = git_bytes(repo, RENDERED_PATH)
-    if candidate_data is None or rendered_data is None:
-        raise FileNotFoundError("candidate_or_current_rendered_missing")
+    facts_data = git_bytes(repo, FACTS_PATH)
+    candidate_working_data = working_bytes(repo, CANDIDATE_PATH)
+    if candidate_data is None or rendered_data is None or facts_data is None or candidate_working_data is None:
+        raise FileNotFoundError("candidate_current_rendered_facts_or_working_candidate_missing")
     candidate = load_json_bytes(candidate_data)
+    candidate_working = load_json_bytes(candidate_working_data)
     current = load_json_bytes(rendered_data)
     candidate_shape = public_shape(candidate)
     current_shape = public_shape(current)
     candidate_keys = candidate_shape.pop("key_set")
     current_keys = current_shape.pop("key_set")
-    keys_equal = candidate_keys == current_keys
+    source_keys = facts_key_set(facts_data)
+    keys_equal = candidate_keys == source_keys
     if not keys_equal:
-        raise ValueError("candidate_current_key_set_mismatch")
+        raise ValueError("candidate_current_source_key_set_mismatch")
+    if candidate.get("meta", {}).get("facts_sha256") != FACTS_SHA256:
+        raise ValueError("candidate_meta_facts_sha256_mismatch")
+    decoded_projection_equal = candidate_working == candidate
+    if not decoded_projection_equal:
+        raise ValueError("candidate_working_git_decoded_projection_mismatch")
     assessment = load_json_from_git(repo, ASSESSMENT_PATH)
     consumption = load_json_from_git(repo, CONSUMPTION_PATH)
     admission = {
@@ -287,6 +309,13 @@ def run_prepare_and_materialize(repo: Path, attempt_root: Path) -> dict[str, Any
         "input_manifest_sha256": INPUT_MANIFEST_SHA256,
         "candidate_meta_facts_sha256": candidate.get("meta", {}).get("facts_sha256"),
         "bidirectional_key_set_equal": keys_equal,
+        "candidate_only_count": len(candidate_keys - source_keys),
+        "source_only_count": len(source_keys - candidate_keys),
+        "current_rendered_control_key_set_equal": candidate_keys == current_keys,
+        "projection_contract": "working_raw_crlf_to_git_blob_lf_decoded_json_identity",
+        "candidate_working_raw_sha256": sha256(candidate_working_data),
+        "candidate_git_blob_sha256": sha256(candidate_data),
+        "decoded_json_projection_equal": decoded_projection_equal,
         "candidate_shape": candidate_shape,
         "current_shape": current_shape,
         "status": "PASS",

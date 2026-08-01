@@ -48,6 +48,18 @@ class ValidatedNaturalizationRuntimeAdoptionTest(unittest.TestCase):
         self.assertEqual(1, shape["adopted_public"])
         self.assertEqual(1, shape["unadopted"])
 
+    def test_facts_key_set_rejects_duplicates(self) -> None:
+        with self.assertRaisesRegex(ValueError, "facts_item_id_missing_or_duplicate"):
+            adoption.facts_key_set(b'{"item_id":"Base.A"}\n{"item_id":"Base.A"}\n')
+
+    def test_candidate_working_and_git_domains_decode_to_same_payload(self) -> None:
+        repo = Path(__file__).resolve().parents[5]
+        git_data = adoption.git_bytes(repo, adoption.CANDIDATE_PATH)
+        working_data = adoption.working_bytes(repo, adoption.CANDIDATE_PATH)
+        self.assertIsNotNone(git_data)
+        self.assertIsNotNone(working_data)
+        self.assertEqual(adoption.load_json_bytes(git_data), adoption.load_json_bytes(working_data))
+
 
 if __name__ == "__main__":
     unittest.main()

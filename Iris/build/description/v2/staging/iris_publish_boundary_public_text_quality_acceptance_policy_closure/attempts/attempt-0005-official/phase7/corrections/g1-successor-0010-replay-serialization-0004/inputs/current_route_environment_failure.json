@@ -1,0 +1,20 @@
+{
+  "schema_version": "public_text_quality_phase7_replay_serialization_route_environment_failure_v1",
+  "status": "FAIL_CLOSED",
+  "attempt_id": "attempt-0005-official",
+  "correction_id": "g1-successor-0010-replay-serialization-0004",
+  "execution_commit": "09d844b0fed8e097e191b33c5f3d8bf91ed53734",
+  "execution_tree": "9ddd1a3d65321176eebbffae39e22de8da1f0928",
+  "source_result_raw_sha256": "5de5bc3b6de674e2652f0bf18f563e549282ec6c6dba49e6f22f35eb3327773e",
+  "exit_code": 1,
+  "executed_test_count": 121,
+  "selected_identity_count": 136,
+  "error_count": 2,
+  "failure_class": "repository_external_output_root_path_too_long",
+  "failing_operation": "fixture_output_materialization",
+  "product_or_contract_failure": false,
+  "live_manifest_mutation_count": 0,
+  "protected_surface_mutation_count": 0,
+  "retry_scope": "same_command_shorter_bounded_external_root",
+  "authority_effect": "none"
+}

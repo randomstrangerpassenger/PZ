@@ -1,0 +1,51 @@
+{
+  "schema_version": "public_text_quality_windows_long_path_safe_writer_correction_contract_v1",
+  "status": "PASS",
+  "attempt_id": "attempt-0005-official",
+  "correction_id": "g1-successor-0010-windows-long-path-safe-artifact-writer-0006",
+  "predecessor_commit": "5d183a8524a75bdcbad627a685d512f93c5f9d26",
+  "predecessor_tree": "1839e14c88896b3ba43de391ae1dd09f1707a3fa",
+  "implementation_commit": "d8056ceeded1ced4142534f6d2f97f3349ccd79e",
+  "implementation_tree": "41d450abb73ad808ac7fc33de9e9b12a702433b9",
+  "predecessor_identity_implementation_commit": "8853d5a96a1d507a7e7d0948109250bf97e025cc",
+  "predecessor_identity_failure_sha256": "e17937e0902f034d39e59391931918a38d1ddce69fb87dd9df489f152c455010",
+  "filesystem_contract": {
+    "windows_local_drive_prefix": "extended_length_local_drive",
+    "windows_unc_prefix": "extended_length_unc",
+    "extended_path_applied_only_to_filesystem_calls": true,
+    "artifact_paths_repo_relative_posix_only": true,
+    "absolute_path_drive_checkout_host_metadata_serialized": false,
+    "resolve_and_repository_containment_before_prefix": true,
+    "parent_traversal_rejected": true,
+    "repository_escape_rejected": true,
+    "path_alias_symlink_reparse_escape_rejected": true,
+    "atomic_sibling_write_flush_fsync_replace_stat_hash_cleanup": true,
+    "write_once_predecessor_preservation": true,
+    "non_windows_semantics_changed": false
+  },
+  "implementation_paths": [
+    {
+      "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py",
+      "git_blob_id": "70543930dd1c136747781ffc3e00cc74cbab5cc4",
+      "working_raw_sha256": "9e6b860d4c4565cb4ae98e61905585c3ea1871e0e2231e64ebe1ceb85c3dd56d"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance_official_0005_phase7_evaluation_subject_text_identity.py",
+      "git_blob_id": "c87f8933f4a5a6c9212708d5817d173eb5c174ff",
+      "working_raw_sha256": "7b27b4b0bb5b83be96efb980285d19f92b11d47e4c87f6b1aaf9a3ec1dcb1ec8"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance_official_0005_phase7_long_path_writer.py",
+      "git_blob_id": "3faa2c0a25b7e60ec979a930fe179c94d8dcc295",
+      "working_raw_sha256": "d33e4156984a6fbf2b69e06d9b4a510ede39dfbe842f58ef447b25e8ebd60a42"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/validate_public_text_quality_acceptance_official_0005_phase7_long_path_writer.py",
+      "git_blob_id": "32174b8d1611e9c493908524c4e348471db7fe7c",
+      "working_raw_sha256": "d39635834a3de56811ed3613ea7fbe74001e3a58d388c5442680527d1da5bc2a"
+    }
+  ],
+  "policy_threshold_denominator_detector_meaning_changed": false,
+  "live_manifest_sha256": "3107201fd7e6da0c8a97a3c8d9ee8119d2d4d9768d0da3fcbcb306cc2447c75b",
+  "authority_effect": "none"
+}

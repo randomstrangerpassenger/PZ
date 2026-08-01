@@ -19,6 +19,7 @@ from Iris.validation.clean_checkout.run_iris_clean_checkout_validation import (
     _ignored_status_snapshot,
     _normalized_test_id,
     _safe_checkout_target,
+    _validate_explicit_required_dependencies,
     _validate_explicit_current_required_classifications,
     _validate_explicit_tool_dispositions,
 )
@@ -183,6 +184,10 @@ def test_full_source_policy_classifies_only_declared_fallback(
             "Iris/build/description/v2/tests/"
             "test_naturalization_compiler_identity.py"
         ),
+        (
+            "Iris/build/description/v2/tests/"
+            "test_iar_public_text_assessment.py"
+        ),
     }
     explicit_paths = {
         row["path"]
@@ -209,6 +214,41 @@ def test_full_source_policy_classifies_only_declared_fallback(
         contract,
         required_classifications,
     )
+    direct_dependencies = _validate_explicit_required_dependencies(
+        contract,
+        {
+            row["path"]
+            for row in contract["required_test_dependency_policy"][
+                "explicit_direct_dependencies"
+            ]
+        },
+        explicit_required_sources,
+    )
+    iar_source = (
+        "Iris/build/description/v2/tests/"
+        "test_iar_public_text_assessment.py"
+    )
+    assert len(direct_dependencies) == 3
+    assert {row["test_source"] for row in direct_dependencies} == {
+        iar_source
+    }
+    assert {row["dependency_role"] for row in direct_dependencies} == {
+        "generic_assessment_contract",
+        "generic_assessment_runner",
+        "generic_assessment_no_write_validator",
+    }
+    consumer_evidence = contract["consumer_integration_evidence_policy"][
+        "explicit_evidence_roles"
+    ]
+    assert len(consumer_evidence) == 1
+    assert consumer_evidence[0]["execution_role"] == "not_required"
+    assert (
+        consumer_evidence[0]["evidence_role"]
+        == "consumer_integration_evidence"
+    )
+    assert consumer_evidence[0]["path"] not in {
+        row["path"] for row in direct_dependencies
+    }
     for demoted_source in explicit_required_sources:
         demoted = dict(required_classifications)
         demoted[demoted_source] = {

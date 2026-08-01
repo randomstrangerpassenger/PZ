@@ -1,0 +1,16 @@
+{
+  "schema_version": "public_text_quality_phase7_reviewer_eligibility_v2",
+  "status": "PASS",
+  "attempt_id": "attempt-0005-official",
+  "correction_id": "g1-successor-0010-consumer-0001",
+  "declared_at_utc": "2026-07-31T12:10:24Z",
+  "reviewer_kind": "codex_reviewer",
+  "reviewer_identity": "codex_reviewer",
+  "reviewed_commit": "b0fb5635a6e363e5ceeaac67093245ba07f61751",
+  "reviewed_tree": "c2a1e56c44458f0d618b036e4e4e065ba8686f4b",
+  "independent_from_owner": true,
+  "independent_from_implementation_author": true,
+  "owner_input_cross_reclassification": false,
+  "conflict_of_interest": false,
+  "eligibility_binding_proof": "9a2c2997de72006b65377a42ab4d4cc314532248ec7218e7bf8d27a796b8cd63"
+}

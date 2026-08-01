@@ -1,0 +1,22 @@
+{
+  "schema_version": "public_text_quality_phase7_independent_review_hash_report_v2",
+  "status": "FAIL",
+  "attempt_id": "attempt-0005-official",
+  "reviewer_kind": "codex_reviewer",
+  "reviewer_identity": "codex_reviewer",
+  "freeze_manifest_sha256": "92568d6609e55c6a371852063a807ebe8a17d33d83a5fc84a70ea5f59c863d25",
+  "final_artifact_hash_manifest_sha256": "30f752f181452cd4b03ea3343a3f8be23390f69d9eecde3a848ae8e0e20fc106",
+  "independent_review_path": "Iris/build/description/v2/reviewer_inputs/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempt-0005-official/independent_review.json",
+  "independent_review_sha256": "abd2993c21fa6db5b4986ccc9abae4639749ba691800155d0cd9cc347983c0fc",
+  "reviewer_eligibility_path": "Iris/build/description/v2/reviewer_inputs/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempt-0005-official/reviewer_eligibility_declaration.json",
+  "reviewer_eligibility_sha256": "117a9f2e40c9f802562254bad6d18a8d8e712d627c4af4a65d8dafb01ac61461",
+  "reviewer_binding_proof_valid": true,
+  "reviewer_eligibility_binding_proof_valid": true,
+  "reviewed_scope_count": 7,
+  "critical_finding_count": 1,
+  "important_finding_count": 0,
+  "independent_review_complete": true,
+  "independent_review_eligible": true,
+  "phase7_allowed": false,
+  "terminal_allowed": false
+}

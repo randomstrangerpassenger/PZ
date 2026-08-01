@@ -1,0 +1,27 @@
+{
+  "schema_version": "public_text_quality_phase7_terminal_validation_route_receipt_v2",
+  "status": "PASS",
+  "attempt_id": "attempt-0005-official",
+  "correction_id": "g1-successor-0010-terminal-validation-0002",
+  "executed_at_utc": "2026-07-31T13:12:27Z",
+  "execution_commit": "705435e8c32517834649939923e201c59c085a62",
+  "execution_tree": "14a4285812ab534829492ed33ac68e891e8fce57",
+  "declared_external_root": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/g4-phase7-terminal-v2-route-0002",
+  "repository_external": true,
+  "environment_variable_names": [
+    "IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT",
+    "TEMP",
+    "TMP",
+    "TMPDIR"
+  ],
+  "external_root_removed_after_execution": true,
+  "result_path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase7/corrections/g1-successor-0010-terminal-validation-0002/inputs/r2.json",
+  "result_sha256": "1b6d37da27dbc06f22453a1c8ef423a936b93e866e8220d6bea851295bbefd3e",
+  "exit_code": 0,
+  "test_count": 136,
+  "passed_test_count": 136,
+  "selected_identity_count": 136,
+  "live_manifest_sha256": "3107201fd7e6da0c8a97a3c8d9ee8119d2d4d9768d0da3fcbcb306cc2447c75b",
+  "live_manifest_mutation_count": 0,
+  "authority_effect": "none"
+}

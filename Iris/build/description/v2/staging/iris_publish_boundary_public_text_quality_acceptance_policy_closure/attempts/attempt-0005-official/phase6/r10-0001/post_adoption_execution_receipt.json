@@ -1,0 +1,43 @@
+{
+  "schema_version": "public_text_quality_g1_successor_0010_post_adoption_execution_receipt_v1",
+  "status": "PASS",
+  "attempt_id": "attempt-0005-official",
+  "transaction_id": "g1-successor-0010-readoption-0001",
+  "executed_at_readpoint_commit": "d8e060936dcd00d4651e65478d3a1dd32080ae19",
+  "executed_at_readpoint_tree": "39a5ad1a4a8ebb5e743e9343c9753aa2f9b8aa24",
+  "validated_at": "2026-07-31T11:07:32.797Z",
+  "command_argv": [
+    "uv",
+    "run",
+    "python",
+    "-B",
+    "Iris/_docs/round3/round3_run_contract_tests.py",
+    "--class",
+    "current",
+    "--enforce-current-build-closure",
+    "--out",
+    "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase6/r10-0001/post_adoption.json"
+  ],
+  "declared_external_root": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\g4-r10-post-0001",
+  "repository_external": true,
+  "environment_variable_names": [
+    "IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT",
+    "TEMP",
+    "TMP",
+    "TMPDIR"
+  ],
+  "external_root_removed_after_execution": true,
+  "result_path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase6/r10-0001/post_adoption.json",
+  "result_sha256": "d29f8b27d067188c71f3167aba6a280d4fb3633ebce65dbdefb5e7fc6fd6c1c9",
+  "exit_code": 0,
+  "test_count": 136,
+  "selected_identity_count": 136,
+  "passed_count": 136,
+  "failed_count": 0,
+  "error_count": 0,
+  "required_artifact_count": 159,
+  "required_test_count": 57,
+  "live_manifest_sha256": "3107201fd7e6da0c8a97a3c8d9ee8119d2d4d9768d0da3fcbcb306cc2447c75b",
+  "protected_surface_mutation_count": 0,
+  "runtime_lua_package_mutation_count": 0
+}

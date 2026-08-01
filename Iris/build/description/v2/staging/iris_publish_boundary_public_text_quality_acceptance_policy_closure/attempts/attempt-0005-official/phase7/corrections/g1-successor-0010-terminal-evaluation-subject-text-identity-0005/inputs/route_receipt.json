@@ -1,0 +1,33 @@
+{
+  "schema_version": "public_text_quality_phase7_evaluation_subject_text_identity_route_receipt_v1",
+  "status": "PASS",
+  "attempt_id": "attempt-0005-official",
+  "correction_id": "g1-successor-0010-terminal-evaluation-subject-text-identity-0005",
+  "executed_at_utc": "2026-07-31T18:49:46.1529183Z",
+  "execution_commit": "8853d5a96a1d507a7e7d0948109250bf97e025cc",
+  "execution_tree": "35f4a589a5b417a3f6a9f0e90e8fc47df1e0ffc4",
+  "command_argv": [
+    "python",
+    "-B",
+    "Iris/_docs/round3/round3_run_contract_tests.py",
+    "--class",
+    "current",
+    "--enforce-current-build-closure",
+    "--out",
+    "EXTERNAL_ROOT/r.json"
+  ],
+  "environment_variable_names": [
+    "IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT",
+    "TEMP",
+    "TMP",
+    "TMPDIR"
+  ],
+  "repository_external": true,
+  "external_root_removed_after_evidence_capture": true,
+  "source_result_raw_sha256": "e45305a9c273d4240381ea9ab078c21aa418858db894910b4909445c545299ae",
+  "exit_code": 0,
+  "test_count": 136,
+  "passed_test_count": 136,
+  "selected_identity_count": 136,
+  "authority_effect": "none"
+}

@@ -1,0 +1,360 @@
+{
+  "assessment_input": {
+    "identity_algorithm": "sha256_canonical_json_v1",
+    "sha256": "8be2721c45189d48db09026f2474a849eb3a05edd750035a5119a4ef5e741d18"
+  },
+  "authority_effect": "none",
+  "contract": {
+    "identity_algorithm": "sha256_canonical_json_v1",
+    "path": "Iris/build/description/v2/data/iar_public_text_assessment/iar_public_text_assessment_contract.json",
+    "sha256": "1068c2386424fb0bfe0329c6c91757a82ddf6e1266c1a0db2150ed14e0941115"
+  },
+  "contract_id": "iar_public_text_assessment_v1",
+  "deterministic_result_hash": "861ca998dfff5a7e976d0298ba4e8c164797f6a44abf9c7f168e996d05169199",
+  "failure_attribution": {
+    "subject_defect_counts": {
+      "candidate": 0,
+      "compiler": 0,
+      "facts": 0,
+      "source": 0
+    },
+    "technical_failure_counts": {
+      "environment": 0,
+      "iar": 0,
+      "orchestration": 0
+    },
+    "temporary_orchestration_failure_count": 0
+  },
+  "finding_count": 0,
+  "human_review_result": {
+    "authority_git_blob_raw_sha256": "ceab588198d88d2a69fc54b37cb86ad78984a9bc00946fe0404cdae92cca15ae",
+    "authority_lf_canonical_sha256": "ceab588198d88d2a69fc54b37cb86ad78984a9bc00946fe0404cdae92cca15ae",
+    "declared_representation_kinds": [
+      "git_blob_raw",
+      "lf"
+    ],
+    "identity_algorithm": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1",
+    "identity_status": "PASS",
+    "path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt_0024_human_review_decision.json",
+    "sha256": "ceab588198d88d2a69fc54b37cb86ad78984a9bc00946fe0404cdae92cca15ae",
+    "working_lf_canonical_sha256": "ceab588198d88d2a69fc54b37cb86ad78984a9bc00946fe0404cdae92cca15ae"
+  },
+  "metric_count": 12,
+  "metric_projection_sha256": "b6ff5bf94205c5dbba50e11c59fdb2db72aea85ac094b9f5ec3e74153cb29cda",
+  "metric_source": {
+    "adapter": "naturalization_handoff_v1",
+    "identity": {
+      "authority_git_blob_raw_sha256": "7fdbb224b3af4231a8bf3f2d37e448a8cdbfb4ed4d9871a83927b22cfdde25ec",
+      "authority_lf_canonical_sha256": "7fdbb224b3af4231a8bf3f2d37e448a8cdbfb4ed4d9871a83927b22cfdde25ec",
+      "declared_representation_kinds": [
+        "git_blob_raw",
+        "lf"
+      ],
+      "identity_algorithm": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1",
+      "identity_status": "PASS",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase8/publish_acceptance_handoff_manifest.json",
+      "sha256": "7fdbb224b3af4231a8bf3f2d37e448a8cdbfb4ed4d9871a83927b22cfdde25ec",
+      "working_lf_canonical_sha256": "7fdbb224b3af4231a8bf3f2d37e448a8cdbfb4ed4d9871a83927b22cfdde25ec"
+    }
+  },
+  "metrics": [
+    {
+      "denominator": 5915,
+      "denominator_id": "naturalization_source_proposition_v1",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 5915,
+        "numerator": 0
+      },
+      "failure_attribution": "facts",
+      "metric_id": "semantic_preservation_failure",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    },
+    {
+      "denominator": 3102,
+      "denominator_id": "naturalization_required_body_plan_role_v1",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 3102,
+        "numerator": 0
+      },
+      "failure_attribution": "source",
+      "metric_id": "unsatisfied_required_body_plan_role",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    },
+    {
+      "denominator": 28,
+      "denominator_id": "naturalization_fusion_suppression_transformation_v1",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 28,
+        "numerator": 0
+      },
+      "failure_attribution": "candidate",
+      "metric_id": "equivalence_proof_failure",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_candidate_item_v1",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "failure_attribution": "compiler",
+      "metric_id": "compiler_invalid_pattern",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:duplicate_proposition_realization",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "failure_attribution": "candidate",
+      "metric_id": "duplicate_proposition_realization",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:repeated_identity_noun_window",
+      "disposition_class": "advisory_debt",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "failure_attribution": "candidate",
+      "metric_id": "repeated_identity_noun_window",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:banned_internal_abstraction",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "failure_attribution": "candidate",
+      "metric_id": "banned_internal_abstraction",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:repeated_skeleton_concentration",
+      "disposition_class": "advisory_debt",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "failure_attribution": "candidate",
+      "metric_id": "repeated_skeleton_concentration",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "le",
+        "value": {
+          "denominator": 20,
+          "numerator": 1
+        }
+      },
+      "threshold_satisfied": true
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:paragraph_fragmentation",
+      "disposition_class": "advisory_debt",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "failure_attribution": "candidate",
+      "metric_id": "paragraph_fragmentation",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:passive_translationese_pattern",
+      "disposition_class": "advisory_debt",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "failure_attribution": "candidate",
+      "metric_id": "passive_translationese_pattern",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:empty_or_filler_sentence",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "failure_attribution": "candidate",
+      "metric_id": "empty_or_filler_sentence",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_human_review_required_v1",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "failure_attribution": "candidate",
+      "metric_id": "human_review_blocker_required_denominator",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    }
+  ],
+  "policy": {
+    "identity": {
+      "authority_git_blob_raw_sha256": "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02",
+      "authority_lf_canonical_sha256": "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02",
+      "declared_representation_kinds": [
+        "git_blob_raw",
+        "lf"
+      ],
+      "identity_algorithm": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1",
+      "identity_status": "PASS",
+      "path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json",
+      "sha256": "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02",
+      "working_lf_canonical_sha256": "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02"
+    },
+    "identity_algorithm": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1",
+    "path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json",
+    "ruleset_id": "naturalization_candidate_thresholds",
+    "ruleset_sha256": "89d6b2b2afed45eeb0897037eed2eeb46f403b96b98185a6029d335c6b9e711d",
+    "sha256": "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02"
+  },
+  "result_hash_algorithm": "sha256_canonical_json_without_result_hash_v1",
+  "schema_version": "iar_public_text_assessment_result_v1",
+  "status": "PASS",
+  "structured_findings": [],
+  "subject": {
+    "identity": {
+      "authority_git_blob_raw_sha256": "522ab2773476eb97688c0f2adc14e52bbb58f30ce7cf48a7d7a2282e428964a5",
+      "authority_lf_canonical_sha256": "522ab2773476eb97688c0f2adc14e52bbb58f30ce7cf48a7d7a2282e428964a5",
+      "declared_representation_kinds": [
+        "crlf"
+      ],
+      "identity_algorithm": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1",
+      "identity_status": "PASS",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_rendered.json",
+      "sha256": "ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437",
+      "working_lf_canonical_sha256": "522ab2773476eb97688c0f2adc14e52bbb58f30ce7cf48a7d7a2282e428964a5"
+    },
+    "identity_algorithm": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1",
+    "kind": "dvf_3_3_korean_naturalization_candidate",
+    "manifest_identity": {
+      "authority_git_blob_raw_sha256": "474cd41a439964768541738daf43af30bdee5f7eaf0deee352a44d45c880b18d",
+      "authority_lf_canonical_sha256": "474cd41a439964768541738daf43af30bdee5f7eaf0deee352a44d45c880b18d",
+      "declared_representation_kinds": [
+        "git_blob_raw",
+        "lf"
+      ],
+      "identity_algorithm": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1",
+      "identity_status": "PASS",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_manifest.json",
+      "sha256": "474cd41a439964768541738daf43af30bdee5f7eaf0deee352a44d45c880b18d",
+      "working_lf_canonical_sha256": "474cd41a439964768541738daf43af30bdee5f7eaf0deee352a44d45c880b18d"
+    },
+    "manifest_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_manifest.json",
+    "manifest_sha256": "474cd41a439964768541738daf43af30bdee5f7eaf0deee352a44d45c880b18d",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_rendered.json",
+    "sha256": "ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437"
+  }
+}

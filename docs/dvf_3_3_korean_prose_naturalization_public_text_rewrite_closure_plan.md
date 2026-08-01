@@ -2,13 +2,15 @@
 
 > 계획명: Iris DVF 3-3 — Korean Prose Naturalization / Public Text Rewrite Closure
 
-> 상태: owner-directed `aa49e8f9` four-plan synchronized implementation plan; synchronization-only revision requires no additional plan-level review; implementation entry waits for tracked plan-set materialization, G1 Clean-Checkout PASS, G2 Food successor closeout, G3 Registry adoption and G4 Publish foundation readiness
+> 상태: owner-directed IAR/naturalization parallel execution synchronization / Phase 8 candidate preserved / next action is generic IAR assessment consumption without candidate rerun
 >
 > 기준 로드맵: 사용자 제공 `Iris DVF 3-3 — Korean Prose Naturalization / Public Text Rewrite Closure Roadmap`
 >
 > 동기화 대상: `docs/iris_publish_boundary_public_text_quality_acceptance_policy_closure_plan.md`
 >
-> 교차 계획 계약: `dvf3_3_korean_naturalization__publish_boundary_sync_v1`
+> 현재 교차 계획 계약: `iris_iar_naturalization_parallel_execution_sync_v3`
+>
+> 보존 historical 계약: `dvf3_3_korean_naturalization__publish_boundary_sync_v1`
 >
 > 상류 동기화 대상: `docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md`
 >
@@ -28,9 +30,69 @@
 >
 > 계획 검토 판정 반영: Cycle 1의 Critical `2`, Important `6`, Minor `6`과 Cycle 2 종합 판정 `WARN`의 Open Important `1`, Minor `6`을 finding crosswalk, canonical terminal sequence 및 terminal predicate로 해소한다.
 >
-> 주의: 위 hash, row count, profile count, quality count는 계획 작성 시점의 관찰값이다. 실행 권한이나 봉인된 baseline을 뜻하지 않으며 Phase 0에서 live checkout을 다시 측정한다. 이번 coordination-only 동기화는 기존 검토 finding이나 implementation design을 다시 열지 않으며 추가 plan-level review를 요구하지 않는다.
+> 주의: 위 hash, row count, profile count, quality count는 계획 작성 시점의 관찰값이다. 실행 권한이나 봉인된 baseline을 뜻하지 않는다. 2026-08-01 owner directive는 보존된 naturalization candidate와 IAR의 재사용 assessment를 attempt-specific Publish terminal workflow에서 분리하며, 아래 `Current Executable Scope`와 충돌하는 기존 terminal 조항을 historical/non-executable로 전환한다.
 
-## 0. `aa49e8f9` Four-Plan Synchronization Contract
+## 0. Current Executable Scope — Candidate Preservation and Generic IAR Assessment Consumption
+
+이 절은 이 문서에서 유일한 current executable synchronization authority다. 뒤의 attempt-specific Publish live-gate adoption, policy closure terminal, G7 terminal finalize, owner seal과 terminal bundle 조항은 설계 이력으로 보존하지만 current completion predicate로 사용하지 않는다. G5는 중단되지 않는다. 기존 Phase 8 candidate를 유지한 채 G4의 generic IAR assessment를 소비해 번역체 개선 구현과 품질 검증 목표를 완료한다.
+
+동기화 기준점:
+
+- commit: `7744df68fa7c0a66ccd9e760995c1b7071de8e08`
+- tree: `5c6fd5d2df505c9ea217e6b913bfacf296e99a63`
+- live required-validation manifest SHA-256: `2ccf98edfd087bb193387a77d0fec5bdb3a1efe9905d66fa9ac5ae74eec2c7d1`
+- live current-route: `135/135 PASS`
+- G5 immutable Phase 8 candidate/evidence: 보존
+- attempt-specific Publish terminal/handoff: 요구하지 않음
+
+세 계획이 동일하게 소비할 current compact projection은 다음과 같다.
+
+```json
+{"baseline_commit":"a30abc041c3a7462ce34b2de2a0656c410faa8fd","baseline_tree":"1ca301cbf55a4f96a70bb13c05597989adae6239","contract_id":"iris_iar_naturalization_parallel_execution_sync_v3","g1":{"next_action":"clean_checkout_validate_generic_iar_integration"},"g4":{"attempt_specific_closure":"retired_historical","next_action":"complete_reusable_evaluator_and_generic_gate_integration"},"g5":{"phase8_candidate":"preserved","next_action":"consume_generic_iar_assessment_without_candidate_rerun"},"g6":{"blocks_g4_g5":false,"current_disposition":"not_applicable_temporary_tooling_trigger"},"live_required_validation_manifest_sha256":"2ccf98edfd087bb193387a77d0fec5bdb3a1efe9905d66fa9ac5ae74eec2c7d1","owner_directive":"continue_iar_and_naturalization_goal_without_attempt_specific_closure","stage_order":["G4_reusable_evaluator_contract","G1_clean_checkout_generic_gate_validation","G4_generic_gate_integration","G5_generic_assessment_consumption"],"stable_session_names":["G1","G2","G3","G4","G5","G6"]}
+```
+
+```text
+iar_naturalization_parallel_execution_projection_sha256 = 984415c349444dd90ed966490c7619cf32077525276d07616c5698051197b0e8
+```
+
+### Current result boundary
+
+- 자연화 compiler, candidate, trace, detector와 human-review evidence는 기존 immutable Phase 8 결과로 보존한다.
+- 기존 전수 검토 `2,084/2,084 PASS`와 blocker `0`은 candidate assessment evidence다.
+- G4의 generic evaluator가 만든 assessment result는 exact candidate hash, policy/ruleset hash, metric denominator, findings와 result를 포함해야 한다.
+- G5는 그 result를 독립 재계산하지 않고 exact hash/schema를 검증해 소비한다.
+- generic assessment가 PASS이면 이 계획의 current 완료 claim은 `naturalization_implementation_and_quality_assessment_complete`다.
+- 이 claim은 current rendered adoption, Lua/runtime/package mutation, publication, deployment 또는 release authorization이 아니다.
+
+### Retired execution surface
+
+- 기존 attempt-specific Publish result consume과 Phase 9/G7 terminal finalize는 실행하지 않는다.
+- Publish `policy_closure_state=complete`, `live_required_gate_adopted=true`, terminal bundle, independent review, owner seal과 closure receipt를 이 계획의 완료 조건으로 요구하지 않는다.
+- attempt-specific Publish wrapper, freeze, terminal 또는 G5/G6 handoff 오류 때문에 naturalization Phase 0~8을 재실행하지 않는다.
+- 현재 candidate를 runtime/current rendered로 채택하는 writer 권한은 이 계획에 새로 부여하지 않는다.
+- 실제 publication/adoption이 필요하면 candidate hash와 IAR assessment를 입력으로 받는 별도의 runtime/publication adoption 계획이 명시적 writer, protected surface와 rollback을 정의해야 한다.
+
+### Current next action
+
+1. G4의 generic assessment contract가 current plan contract/hash와 일치하는지 확인한다.
+2. preserved Phase 8 candidate hash를 generic evaluator의 subject로 사용한다.
+3. G4/G1이 봉인한 generic assessment result의 schema, subject hash, policy hash, denominator와 finding count를 검증한다.
+4. PASS이면 candidate를 재생성하지 않고 assessment consumption record만 deterministic하게 만든다.
+5. G5 focused compiler/candidate identity validation만 수행하고 full naturalization attempt, human review와 detector corpus를 재실행하지 않는다.
+6. 결과를 `naturalization_implementation_and_quality_assessment_complete`로 닫되 current/runtime adoption은 주장하지 않는다.
+
+### Failure attribution
+
+- facts/source/compiler/candidate 의미 결함만 G5 remediation 근거가 될 수 있다.
+- temporary orchestration, attempt wrapper, owner-seal, freeze, terminal, long-path writer와 evidence materializer 오류는 G5 candidate 결함으로 분류하지 않는다.
+- 현재 preserved candidate가 바뀌지 않는 한 새 Naturalization attempt를 열지 않는다.
+- generic IAR assessment가 실제 candidate finding으로 FAIL한 경우에만 exact finding owner와 earliest affected G5 phase를 따라 remediation한다.
+
+### Stable session vocabulary
+
+이 동기화 이후 세션 명칭은 `G1` Clean-Checkup, `G2` 음식 사실 의미, `G3`, `G4` 검사 시스템, `G5` 번역체 개선, `G6` RTC만 사용한다. 아래 historical 본문의 `G6_publish_boundary_official`과 `G7_naturalization_terminal_finalize`는 더 이상 current 세션이나 실행 단계를 뜻하지 않는다.
+
+## Historical Contract — `aa49e8f9` Four-Plan Synchronization (Non-Executable Where Conflicting)
 
 이 계획은 공통 계약 `iris_aa49_four_plan_execution_sync_v1`에서 `G5_naturalization_phase0_through_phase8`과 `G7_naturalization_terminal_finalize`를 소유한다. `aa49e8f9fce19955a374b45d0744b1418a45ac9e`는 immutable ancestry/planning readpoint이며, 그 commit에는 이 계획을 포함한 네 plan blob 전부가 없으므로 직접 execution base가 아니다.
 

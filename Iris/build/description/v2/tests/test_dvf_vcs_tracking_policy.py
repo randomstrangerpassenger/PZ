@@ -105,16 +105,36 @@ class DvfVcsTrackingPolicyTest(unittest.TestCase):
 
         self.assertEqual(closure["current_closure_count"], 12)
         self.assertEqual(len(core_modules), 12)
-        self.assertEqual(tooling_modules, ["export_dvf_3_3_lua_bridge"])
-        self.assertEqual(policy["max_allowed_modules"], 1)
+        self.assertEqual(
+            tooling_modules,
+            [
+                "export_dvf_3_3_lua_bridge",
+                "iar_public_text_assessment",
+                "public_text_quality_acceptance",
+                "naturalization_compiler_identity",
+            ],
+        )
+        self.assertEqual(policy["max_allowed_modules"], 4)
         self.assertEqual(policy["core_closure_count_must_remain"], 12)
         self.assertTrue(policy["modules_are_not_current_core"])
         self.assertTrue(set(tooling_modules).isdisjoint(core_modules))
-        self.assertEqual(len(tooling_rows), 1)
+        self.assertEqual(len(tooling_rows), 4)
         self.assertEqual(tooling_rows[0]["module"], "export_dvf_3_3_lua_bridge")
         self.assertEqual(tooling_rows[0]["owner_class"], "current_regeneration_tooling")
         self.assertFalse(tooling_rows[0]["in_current_closure"])
         self.assertTrue(tooling_rows[0]["import_allowed_for_current_route"])
+        self.assertEqual(
+            [row["module"] for row in tooling_rows[1:]],
+            [
+                "iar_public_text_assessment",
+                "public_text_quality_acceptance",
+                "naturalization_compiler_identity",
+            ],
+        )
+        for row in tooling_rows[1:]:
+            self.assertEqual(row["owner_class"], "reusable_iar_validation_tooling")
+            self.assertFalse(row["in_current_closure"])
+            self.assertTrue(row["import_allowed_for_current_route"])
 
 
 if __name__ == "__main__":

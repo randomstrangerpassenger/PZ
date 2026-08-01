@@ -1,0 +1,19 @@
+{
+  "metric_rows": [
+    {
+      "denominator": 1,
+      "denominator_id": "naturalization_source_proposition_v1",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 1,
+        "numerator": 0
+      },
+      "metric_id": "semantic_preservation_failure",
+      "numerator": 0
+    }
+  ],
+  "schema_version": "iar_bound_metric_evidence_manifest_v1",
+  "subject_kind": "dvf_fixture_subject",
+  "subject_path": "Iris/build/description/v2/tests/fixtures/iar_public_text_assessment/dvf_subject.json",
+  "subject_sha256": "c56b0cf2b18a0f4050148504f770e9c09ee529ecd1e728b142036a3d7637226b"
+}

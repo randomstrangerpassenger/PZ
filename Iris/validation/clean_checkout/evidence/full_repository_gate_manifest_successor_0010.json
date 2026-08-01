@@ -1,0 +1,249 @@
+{
+  "schema_version": "iris-clean-checkout-full-repository-gate-manifest-v10",
+  "manifest_state": "frozen",
+  "recorded_date": "2026-07-31",
+  "status": "PASS",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "record_mode": "append_only_g1_candidate_projection_post_adoption_parity_correction",
+  "terminal_claim": "Candidate projection and disposable exact post-adoption execution consume the same required-validation manifest for claim scanning, produce the same denominator, artifact inventory, and zero-blocker scanner result, and the exact correction subject passes sequential clean-checkout Run A/B",
+  "predecessor": {
+    "path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0009.json",
+    "git_blob_id": "52658ba32e923abf3898cf1ef5db966c0da172ed",
+    "git_blob_raw_sha256": "7f70c0f1c1df1cf879e0e21e9aeb04bbed62d7cb4b31edc13bed14d28cd369f1",
+    "rewrite_permitted": false
+  },
+  "requested_start": {
+    "commit": "be5dbcedbc1cbff197069f7052ac1b9a3d6a26c5",
+    "tree": "232dba8b1a1882f253298780acec9f2eb59f59f1"
+  },
+  "validated_subject": {
+    "role": "g1_candidate_projection_post_adoption_parity_correction",
+    "commit": "e5f1d7c0f4635340014667d882f82bcec40bc27c",
+    "tree": "0bf68cd938b865eb03f6976b6fe02e6840a3f7d6",
+    "branch": "codex/public-text-quality-official-attempt-0004"
+  },
+  "failure_census": {
+    "observed_post_adoption_state": "135/136_FAIL",
+    "failed_test": "test_dvf_3_3_closeout_reentry_guard_seal.DvfCloseoutReentryGuardSealTest.test_validator_requires_full_current_route_result_for_complete_contract",
+    "failure_codes": [
+      "blocked_claim_surface_nonzero",
+      "claim_surface_scan_not_pass",
+      "inventory_blocked_claim_surface_nonzero",
+      "machine_contract_not_pass"
+    ],
+    "preserved_failure_record": {
+      "path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0005-official/phase6/r9-0001/post_adoption_failure_record.json",
+      "git_blob_id": "d3ff359c6a2c9a88860f96d5004ec15b4d55ef34",
+      "git_blob_raw_sha256": "64c6490999c5a8fdc663e45214d218158b684d4db792e90ffc28bd81b4ddde31"
+    },
+    "trigger": {
+      "source_artifact": "Iris/_docs/round3/current_route_required_validations.json",
+      "adopted_content_sha256": "3107201fd7e6da0c8a97a3c8d9ee8119d2d4d9768d0da3fcbcb306cc2447c75b",
+      "transient_scanner_artifact": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase1/claim_surface_scan_manifest.json",
+      "json_pointer": "/required_tests/56/reason",
+      "field": "reason",
+      "string_value": "standalone Publish Boundary public-text acceptance required gate",
+      "semantic_role": "claim_text",
+      "old_claim_hit": "public_text_acceptance",
+      "old_classification": "forbidden_overclaim_violation"
+    },
+    "disposition": {
+      "actual_premature_claim": false,
+      "reason": "The string identifies a required validation gate and contains no completion, pass, achievement, approval, readiness, seal, establishment, success, satisfaction, or fulfillment predicate",
+      "g4_problem_return_required": false
+    }
+  },
+  "execution_difference": {
+    "candidate_before_correction": "--required-validations supplied the candidate to test selection and artifact validation, while the closeout claim scanner still read the rollback live constant path",
+    "post_adoption_before_correction": "the adopted rows existed at the live constant path, so the closeout claim scanner saw required_tests[56].reason and emitted one false blocker",
+    "correction": "the current-route runner exports the exact resolved execution manifest only for the suite lifetime, and the closeout scanner dynamically consumes that projection without changing authority or live files",
+    "projection_environment_variable": "IRIS_ROUND3_REQUIRED_VALIDATIONS_PROJECTION",
+    "environment_restored_after_suite": true
+  },
+  "general_claim_contract_correction": {
+    "public_text_acceptance_token_globally_allowed": false,
+    "attempt_specific_exception_count": 0,
+    "path_specific_exception_count": 0,
+    "item_specific_exception_count": 0,
+    "nonassertive_required_validation_reference_rule": "a public-text acceptance reference paired with required gate, required validation, required test, or validation requirement is nonassertive only when no affirmative achievement predicate is present",
+    "affirmative_achievement_predicates_remain_blocking": [
+      "complete",
+      "passed",
+      "achieved",
+      "approved",
+      "satisfied",
+      "ready",
+      "sealed",
+      "established",
+      "succeeded",
+      "fulfilled"
+    ],
+    "actual_claim_field_fixture": "public text acceptance complete",
+    "actual_claim_field_fixture_disposition": "BLOCKED",
+    "required_gate_plus_completion_fixture": "standalone public text acceptance required gate complete",
+    "required_gate_plus_completion_fixture_disposition": "BLOCKED",
+    "unknown_narrative_fixture_disposition": "BLOCKED",
+    "existing_line_based_scanner_retained": true
+  },
+  "implementation": {
+    "changed_paths": [
+      {
+        "path": "Iris/_docs/round3/round3_run_contract_tests.py",
+        "git_blob_id": "43e6fb811bf20f731521dfa8fae095fe1ab1086a",
+        "git_blob_raw_sha256": "ab6d8b45e448b86926b4b969e56733df11a80d63621b66974befe2d334283422",
+        "role": "bounded_suite_lifetime_required_manifest_projection"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/dvf_3_3_closeout_reentry_guard_seal_common.py",
+        "git_blob_id": "3caecddff03e6a09966e7671b2d77361c2f3f980",
+        "git_blob_raw_sha256": "7aead610f628ce207db238a9a72a029bcd30471391f3cf1d28610fe1cdf8f6f1",
+        "functions": [
+          "classify_claim_text",
+          "claim_scan_required_validations_path",
+          "scan_surface_files",
+          "surface_family",
+          "write_phase1"
+        ]
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_closeout_reentry_guard_seal.py",
+        "git_blob_id": "c51eedcb219687074216e17453621ef2d3b48b99",
+        "git_blob_raw_sha256": "41d417d63c3b1bcbc480dd6bd9e4f391cb47dadf23be8c832d018bf5ec1d3efe",
+        "role": "structured_probe_request_reseal"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_dvf_3_3_closeout_reentry_guard_seal.py",
+        "git_blob_id": "8c1000674e1d4426364695efe102369cc063f906",
+        "git_blob_raw_sha256": "16b136f5ed99a3f42550f20760bf2979cf0892f06fd5688706aced2a28337600",
+        "role": "nonassertive_reference_and_assertive_required_gate_regression"
+      }
+    ],
+    "changed_path_count": 4,
+    "g1_owned_validation_tooling_or_test_paths_only": true
+  },
+  "focused_validation": {
+    "status": "PASS",
+    "structured_scanner_test_count": 9,
+    "structured_scanner_passed_count": 9,
+    "existing_negative_fixture_count": 10,
+    "existing_negative_fixture_passed_count": 10,
+    "existing_negative_fixture_results_unchanged": true
+  },
+  "route_validation": {
+    "rollback_live": {
+      "status": "PASS",
+      "test_count": 135,
+      "passed_count": 135,
+      "required_test_count": 56,
+      "required_artifact_count": 149,
+      "result_sha256": "d12db21eee3732b926ce26c7e820b8192d28349e8c740dc8bff5f7bafa99eb70"
+    },
+    "candidate_projection": {
+      "status": "PASS",
+      "test_count": 136,
+      "passed_count": 136,
+      "required_test_count": 57,
+      "required_artifact_count": 159,
+      "result_sha256": "de666b5ed95c9ee8769c6a262b0a060245b95ebe6981b6383f0b29d2470573d4"
+    },
+    "disposable_post_adoption_equivalent": {
+      "status": "PASS",
+      "test_count": 136,
+      "passed_count": 136,
+      "required_test_count": 57,
+      "required_artifact_count": 159,
+      "exact_added_artifact_count": 10,
+      "exact_added_test_count": 1,
+      "candidate_manifest_sha256": "3107201fd7e6da0c8a97a3c8d9ee8119d2d4d9768d0da3fcbcb306cc2447c75b",
+      "adopted_live_manifest_sha256": "3107201fd7e6da0c8a97a3c8d9ee8119d2d4d9768d0da3fcbcb306cc2447c75b",
+      "result_sha256": "2b17d06b7124cefa8dada786695820b73422de5495bf33e2feabee137536d4c1",
+      "disposable_checkout_removed": true
+    }
+  },
+  "candidate_post_adoption_parity": {
+    "denominator_equal": true,
+    "required_test_count": 57,
+    "required_artifact_count": 159,
+    "manifest_byte_identity": true,
+    "manifest_sha256": "3107201fd7e6da0c8a97a3c8d9ee8119d2d4d9768d0da3fcbcb306cc2447c75b",
+    "inventory_sha256": "e9e04f24f0e1ce8cec3ef80feddbe7c3d5d1eb3764ff63ac2afd1ad35619a6a0",
+    "required_artifacts_sha256": "51c2241947f97ff03e1b9e209ccc4d15123dd5af892a51085f3bb2e841528ac4",
+    "required_tests_sha256": "a9977f128f466709b8f41e20939cf35524ab53cd3a5b32c92ed1f562d69f0598",
+    "scanner_result_equal": true,
+    "scanner_summary_sha256": "e8d19992aa7df957b998d176410b4e302fb5386060fe15ac7cd08e01ef271111",
+    "scanner_status": "PASS",
+    "scanner_string_leaf_count": 892,
+    "scanner_semantic_role_counts": {
+      "claim_text": 36,
+      "identifier": 682,
+      "unknown_string_fail_closed": 174
+    },
+    "scanner_blocker_count": 0
+  },
+  "classification_recensus": {
+    "tracked_test_source_count": 93,
+    "required_source_count": 33,
+    "historical_optional_source_count": 55,
+    "obsolete_or_misrouted_source_count": 3,
+    "hermetic_test_fixture_source_count": 2,
+    "unclassified_test_source_count": 0,
+    "test_inventory_sha256": "8044bbb99f308cadcc1a745054229f57a0828c4cb338868d62fe55e40157e879"
+  },
+  "execution_reproducibility": {
+    "run_a": {
+      "status": "PASS",
+      "pytest_identity_count": 195,
+      "standalone_validation_count": 4,
+      "required_execution_unit_count": 199,
+      "canonical_result_sha256": "2140c2be9ccaeb78860249eb756214aa74ef01227e33fadc0c671655a29fc516",
+      "run_receipt_sha256": "32fc9f6f69cb502869ed90e5e58555fedaad6525abd878c459f97aae7222890b",
+      "materialization_receipt_sha256": "10bc296fa014f057ad1c11f899fb29e9fb717782fd1cdf4187f3c24632408044",
+      "full_pytest_result_sha256": "6cabca595df0da2177758e3506fe6facdb33d1f75e85b9e0cfed63079593d31a",
+      "exit_code": 0
+    },
+    "run_b": {
+      "status": "PASS",
+      "pytest_identity_count": 195,
+      "standalone_validation_count": 4,
+      "required_execution_unit_count": 199,
+      "canonical_result_sha256": "2140c2be9ccaeb78860249eb756214aa74ef01227e33fadc0c671655a29fc516",
+      "run_receipt_sha256": "e28b608a28906ddcea54ed5f87dc2ddd01af58880965c422bff3ee071097e1b4",
+      "materialization_receipt_sha256": "10bc296fa014f057ad1c11f899fb29e9fb717782fd1cdf4187f3c24632408044",
+      "full_pytest_result_sha256": "6cabca595df0da2177758e3506fe6facdb33d1f75e85b9e0cfed63079593d31a",
+      "exit_code": 0
+    },
+    "canonical_results_equal": true,
+    "canonical_result_sha256": "2140c2be9ccaeb78860249eb756214aa74ef01227e33fadc0c671655a29fc516",
+    "passed_execution_unit_count": 199,
+    "failed_execution_unit_count": 0,
+    "collection_error_count": 0,
+    "ignored_required_input_count": 0,
+    "external_execution_mutation_count": 0,
+    "source_checkout_clean_before": true,
+    "source_checkout_clean_after": true,
+    "source_checkout_ignored_state_unchanged": true
+  },
+  "preservation": {
+    "live_manifest_git_blob_id_before": "d4fbab46596322244ceee293a93ee7be9fe47b75",
+    "live_manifest_git_blob_id_after": "d4fbab46596322244ceee293a93ee7be9fe47b75",
+    "live_manifest_git_blob_raw_sha256": "2ccf98edfd087bb193387a77d0fec5bdb3a1efe9905d66fa9ac5ae74eec2c7d1",
+    "g4_attempt_tree_before": "8ca8b08fbf6593654df25129ab4bea3cc08a0a6a",
+    "g4_attempt_tree_after": "8ca8b08fbf6593654df25129ab4bea3cc08a0a6a",
+    "live_or_protected_mutation_count": 0,
+    "g2_executed": false,
+    "g3_executed": false,
+    "g4_executed": false,
+    "g5_executed": false,
+    "g6_executed": false,
+    "historical_g1_successor_overwritten": false,
+    "persistent_worktree_created": false,
+    "persistent_worktree_count_before": 14,
+    "persistent_worktree_count_after": 14
+  },
+  "successor_boundary": {
+    "validated_subject_is_unchanged_by_this_record": true,
+    "this_record_is_not_the_validated_subject": true,
+    "tests_rerun_for_this_successor_record": false,
+    "self_referential_commit_fields": 0
+  }
+}

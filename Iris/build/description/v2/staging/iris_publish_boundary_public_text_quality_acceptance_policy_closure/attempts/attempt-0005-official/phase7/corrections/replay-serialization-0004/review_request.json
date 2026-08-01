@@ -1,0 +1,29 @@
+{
+  "artifact_manifest_sha256": "fecd4e95bfcea8b38fe80c3c6bdcb209cef29d8bfb4d219c9b47a0f8b8b76153",
+  "attempt_id": "attempt-0005-official",
+  "claim_inventory_sha256": "cf2fb975de9422ebbd1a8635a8d8d12c764738d70803c976f0a7b06a34e3ca65",
+  "correction_id": "g1-successor-0010-replay-serialization-0004",
+  "current_verification_receipt_sha256": "8dad5b9110056696e47c429e5f2aa3fc3aae4133e9e36fae35542a3d50ebfc00",
+  "freeze_sha256": "9c5a3104889b16726b11809b7424b272051759f4d69ee6e25d6e895316103c52",
+  "owner_or_implementation_author_ineligible": true,
+  "required_critical_finding_count": 0,
+  "required_important_finding_count": 0,
+  "required_reviewer_kind": "codex_reviewer",
+  "required_scopes": [
+    "canonical_census_tree_only_authority",
+    "materialization_replay_byte_identity",
+    "current_verification_receipt_separation",
+    "receipt_negative_fail_closed_contract",
+    "dirty_index_working_fail_closed_contract",
+    "inventory_denominator_139",
+    "checkout_location_independence",
+    "freeze_deterministic_replay",
+    "terminal_current_verification_requirement",
+    "current_route_lua_no_mutation",
+    "claim_boundary_and_no_authority_effect"
+  ],
+  "review_subject_commit": "832ce189b08e744d14a8d2afe0700e061c9ff36d",
+  "review_subject_tree": "3abeebe4295e6ce566bfee505f08f82ebb9b839e",
+  "schema_version": "public_text_quality_phase7_replay_serialization_review_request_v5",
+  "status": "READY_FOR_CODEX_REVIEWER"
+}

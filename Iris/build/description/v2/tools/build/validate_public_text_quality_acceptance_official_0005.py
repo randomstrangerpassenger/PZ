@@ -19,6 +19,10 @@ REQUIREMENTS = {
     "phase4": "--require-phase4",
     "phase5": "--require-phase5",
     "gate-candidate": "--require-gate-candidate",
+    "phase6": "--require-phase6",
+    "independent-review": "--require-independent-review",
+    "owner-seal": "--require-owner-seal",
+    "terminal-seal": "--require-terminal-seal",
     "required-gate": "--required-gate",
 }
 

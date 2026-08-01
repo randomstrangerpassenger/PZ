@@ -1,0 +1,207 @@
+{
+  "schema_version": "iris-clean-checkout-full-repository-gate-manifest-v11",
+  "manifest_state": "frozen",
+  "recorded_date": "2026-08-01",
+  "status": "PASS",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "record_mode": "append_only_g1_reusable_iar_evaluator_clean_checkout_integration",
+  "terminal_claim": "The reusable IAR evaluator integration is explicitly current-required, its generic contract, runner, and no-write validator are direct dependencies, its G5 result remains consumer integration evidence only, and the exact subject passes sequential clean-checkout Run A/B with identical dependency inventory and canonical result",
+  "predecessor": {
+    "path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0010.json",
+    "git_blob_id": "1b0e5e58318076b5cd5858fe447ece4a92866e05",
+    "git_blob_raw_sha256": "2378a6abe78fa115d0de66763413f27d233dce325ff195e48b655f5ddfe252c1",
+    "rewrite_permitted": false
+  },
+  "requested_start": {
+    "commit": "fbe1edb20cf5b1dd6b6508e3cf0697c174b5b2c3",
+    "tree": "3623a8d73a027ba05df65046e144b7101b49f9b0"
+  },
+  "synchronization_contract": {
+    "contract_id": "iris_iar_naturalization_parallel_execution_sync_v3",
+    "projection_sha256": "984415c349444dd90ed966490c7619cf32077525276d07616c5698051197b0e8",
+    "status": "MATCH"
+  },
+  "validated_subject": {
+    "role": "g1_reusable_iar_evaluator_integration_candidate",
+    "commit": "95cbbedf68f300f780fc808aaf50113eef00dead",
+    "tree": "24e4b1bc203a784de0dff00e222937133b0ce570",
+    "branch": "codex/public-text-quality-official-attempt-0004"
+  },
+  "integration_contract": {
+    "required_test_source": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py",
+    "classification": "required_tracked_source",
+    "classification_basis": "explicit_current_required_source",
+    "historical_heuristic_override": true,
+    "generic_contract": {
+      "path": "Iris/build/description/v2/data/iar_public_text_assessment/iar_public_text_assessment_contract.json",
+      "git_blob_id": "b7dd302589736a7a3317f79c86e9d5f0e389991c",
+      "git_blob_raw_sha256": "cd964059bd7fb3ccefb175c7ebed477d51fba7341b41567c2bef9c411ed47ac9",
+      "dependency_role": "generic_assessment_contract",
+      "relationship": "direct"
+    },
+    "generic_runner": {
+      "path": "Iris/build/description/v2/tools/build/run_iar_public_text_assessment.py",
+      "git_blob_id": "78a1a245b562210e0b339f0b1110f294848ebebf",
+      "git_blob_raw_sha256": "003f20de47fd21278aaeadbc6d7b91a1fecf44c8a93621f6455212431336e84c",
+      "dependency_role": "generic_assessment_runner",
+      "relationship": "direct"
+    },
+    "generic_no_write_validator": {
+      "path": "Iris/build/description/v2/tools/build/validate_iar_public_text_assessment.py",
+      "git_blob_id": "6b88c351660cd2b1e2f4a67cce6000129d4a6bc3",
+      "git_blob_raw_sha256": "a241e40029e575f972a1cec7caee45a82a236891e25e4aae0273c2e2665d6e0d",
+      "dependency_role": "generic_assessment_no_write_validator",
+      "relationship": "direct"
+    },
+    "attempt_owner_seal_transaction_freeze_terminal_dependency_count": 0,
+    "dvf_qg_generic_subject_support": "PASS",
+    "actual_finding_orchestration_failure_separation": "PASS",
+    "deterministic_pass_result_valid": true,
+    "deterministic_fail_result_valid": true,
+    "subject_policy_ruleset_mismatch_fail_closed": true,
+    "existing_metric_denominator_policy_detector_projection_regression_count": 0
+  },
+  "consumer_integration_evidence": {
+    "path": "Iris/_docs/round3/iar_public_text_assessment/subjects/dvf_3_3_korean_naturalization_candidate/ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437/assessment_result.json",
+    "git_blob_id": "bd485846029904115764f8333c5326fdac236a32",
+    "git_blob_raw_sha256": "4a5cb7a8a7abf77c66c79a6a6376cafbf0eb4592f19ab94c28f6f5dab4fb5137",
+    "deterministic_result_hash": "861ca998dfff5a7e976d0298ba4e8c164797f6a44abf9c7f168e996d05169199",
+    "authority_class": "historical_optional_evidence",
+    "evidence_role": "consumer_integration_evidence",
+    "generic_evaluator_permanent_execution_dependency": false,
+    "standalone_no_write_validation": "PASS"
+  },
+  "foundation_test_disposition": {
+    "classification": "historical_optional_evidence",
+    "execution_role": "not_required",
+    "preserved_source_count": 4,
+    "paths": [
+      "Iris/build/description/v2/tests/test_public_text_quality_acceptance.py",
+      "Iris/build/description/v2/tests/test_public_text_quality_acceptance_fixtures.py",
+      "Iris/build/description/v2/tests/test_public_text_quality_acceptance_policy.py",
+      "Iris/build/description/v2/tests/test_public_text_quality_metric_contract.py"
+    ],
+    "g1_rebinding_or_synthetic_receipt_count": 0
+  },
+  "implementation": {
+    "changed_paths": [
+      {
+        "path": "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+        "git_blob_id": "196e2c948d4de704d588f19613588da4b5ef9caf",
+        "git_blob_raw_sha256": "8c25300b7480cfdd6849a7ca6836012bb3ab36c3186720136f979438359a3172",
+        "role": "explicit source dependency and consumer-evidence classification contract"
+      },
+      {
+        "path": "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
+        "git_blob_id": "e379eef88239d4bc7fda685bde35baa812574e14",
+        "git_blob_raw_sha256": "cf3dabd00a5b9695e8c63e59bc3bf06c9f7d7f7c6cce32a81dd1924383a8a15f",
+        "role": "fail-closed dependency census canonical binding and Windows disposable path budget"
+      },
+      {
+        "path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py",
+        "git_blob_id": "1321e203c027a7effbbefe5d3323ac186e4bbeb7",
+        "git_blob_raw_sha256": "3a6104a5eca82c7840aec7fe6bfe28108046c7464d151bd8afb7119e0c2dd352",
+        "role": "explicit current-required and direct-dependency regression"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py",
+        "git_blob_id": "88103d97dea742c0a6a1cb07929ed71b9552197e",
+        "git_blob_raw_sha256": "90af802e88e5fb420948b72dc9f5d591defeee7355b7161e847bc33196a5c941",
+        "role": "repository-external temporary result isolation"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/iar_public_text_assessment.py",
+        "git_blob_id": "bbb3b534e17e95b6cd96cba4fd8cd766c33ecef3",
+        "git_blob_raw_sha256": "daf8867df584b18ed12c9b93f893a68fe8cb6d6247724420cca4e5685d465416",
+        "role": "write-once materialization scoped to the caller-selected result parent"
+      }
+    ],
+    "changed_path_count": 5,
+    "g1_owned_validation_or_generic_evaluator_paths_only": true
+  },
+  "classification_recensus": {
+    "tracked_test_source_count": 94,
+    "required_source_count": 34,
+    "historical_optional_source_count": 55,
+    "obsolete_or_misrouted_source_count": 3,
+    "hermetic_test_fixture_source_count": 2,
+    "unclassified_test_source_count": 0,
+    "dependency_edge_count": 715,
+    "tracked_dependency_edge_count": 141,
+    "external_environment_edge_count": 574,
+    "unresolved_dependency_edge_count": 0,
+    "explicit_direct_dependency_count": 3,
+    "consumer_integration_evidence_count": 1,
+    "source_census_test_inventory_sha256": "1a0f272548b7b40d294e00f1e6c55bb163cfa42509a1a37d8dcabaadd1017130",
+    "dependency_edge_ledger_sha256": "9d08ddd55b575748f9bc6e7b68b8b750103a3536d98bfa95925aea53819d57ff"
+  },
+  "focused_validation": {
+    "generic_evaluator_test_count": 7,
+    "generic_evaluator_passed_count": 7,
+    "clean_gate_regression_test_count": 11,
+    "clean_gate_regression_passed_count": 11,
+    "tracked_g5_result_no_write_validator_status": "PASS",
+    "tracked_g5_result_assessment_status": "PASS",
+    "tracked_g5_result_finding_count": 0,
+    "tracked_g5_result_metric_count": 12
+  },
+  "execution_reproducibility": {
+    "run_a": {
+      "status": "PASS",
+      "pytest_identity_count": 202,
+      "standalone_validation_count": 4,
+      "required_execution_unit_count": 206,
+      "canonical_result_sha256": "5aacb50791ec629e67c722faf22ed00cee75984de4dbf9f1cbfcf873cebba55b",
+      "run_receipt_sha256": "48ecb916526d02a25c84ec4c972a8cff599f064d1881d8982b4fdfe497971504",
+      "materialization_receipt_sha256": "28fc5456fa9188979fc15bbae7628cc4087283252e26c8c5f81c877cbf62fb56",
+      "full_pytest_result_sha256": "081e12375362fc52b70186dee7c14fd166f730eb4d6c29f78206c16556ff02d4",
+      "exit_code": 0
+    },
+    "run_b": {
+      "status": "PASS",
+      "pytest_identity_count": 202,
+      "standalone_validation_count": 4,
+      "required_execution_unit_count": 206,
+      "canonical_result_sha256": "5aacb50791ec629e67c722faf22ed00cee75984de4dbf9f1cbfcf873cebba55b",
+      "run_receipt_sha256": "44b3104ac509eda09a5672b8291dec9dc7879d6fba9beb60893d7981f0c296f8",
+      "materialization_receipt_sha256": "28fc5456fa9188979fc15bbae7628cc4087283252e26c8c5f81c877cbf62fb56",
+      "full_pytest_result_sha256": "081e12375362fc52b70186dee7c14fd166f730eb4d6c29f78206c16556ff02d4",
+      "exit_code": 0
+    },
+    "canonical_results_equal": true,
+    "canonical_result_sha256": "5aacb50791ec629e67c722faf22ed00cee75984de4dbf9f1cbfcf873cebba55b",
+    "test_inventory_sha256": "dc3496d891da3440560938e8aff02fbcb65a2bf15f676f7c9beb06f07e05a88a",
+    "dependency_inventory_path_count": 33,
+    "dependency_inventory_sha256": "7c3e304d93a75ddbc147cdea6a585243dba1f585db3348154fa61371882462ff",
+    "dependency_inventory_equal": true,
+    "failed_execution_unit_count": 0,
+    "collection_error_count": 0,
+    "ignored_required_input_count": 0,
+    "source_checkout_mutation_count": 0,
+    "external_execution_mutation_count": 0,
+    "disposable_checkout_residue_count": 0,
+    "temporary_result_residue_count": 0
+  },
+  "preservation": {
+    "live_required_validation_manifest_git_blob_id_before": "d4fbab46596322244ceee293a93ee7be9fe47b75",
+    "live_required_validation_manifest_git_blob_id_after": "d4fbab46596322244ceee293a93ee7be9fe47b75",
+    "live_required_validation_manifest_sha256": "2ccf98edfd087bb193387a77d0fec5bdb3a1efe9905d66fa9ac5ae74eec2c7d1",
+    "live_required_validation_manifest_mutation_count": 0,
+    "protected_runtime_lua_package_mutation_count": 0,
+    "g2_executed": false,
+    "g3_executed": false,
+    "g4_current_route_integration_executed": false,
+    "g5_assessment_consumption_executed": false,
+    "g6_executed": false,
+    "historical_g1_successor_overwritten": false,
+    "persistent_worktree_created": false,
+    "persistent_worktree_count_before": 14,
+    "persistent_worktree_count_after": 14
+  },
+  "successor_boundary": {
+    "validated_subject_is_unchanged_by_this_record": true,
+    "this_record_is_not_the_validated_subject": true,
+    "tests_rerun_for_this_successor_record": false,
+    "self_referential_commit_fields": 0
+  }
+}

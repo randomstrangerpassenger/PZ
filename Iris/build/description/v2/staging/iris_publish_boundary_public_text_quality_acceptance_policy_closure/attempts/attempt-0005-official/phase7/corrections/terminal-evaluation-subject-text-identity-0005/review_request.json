@@ -1,0 +1,31 @@
+{
+  "artifact_manifest_sha256": "b45210072729941b8dc88f014056f93f54f20a43a26f5b6849e8bacca0afcd38",
+  "attempt_id": "attempt-0005-official",
+  "claim_inventory_sha256": "cf2fb975de9422ebbd1a8635a8d8d12c764738d70803c976f0a7b06a34e3ca65",
+  "correction_id": "g1-successor-0010-terminal-evaluation-subject-text-identity-0005",
+  "current_verification_receipt_sha256": "8dad5b9110056696e47c429e5f2aa3fc3aae4133e9e36fae35542a3d50ebfc00",
+  "evaluation_subject_identity_sha256": "79f222937a7cbb276268ce65698ef9fdc1c2ce93cc80003ccdbfd4ba8abe141d",
+  "freeze_sha256": "403bffd3ecac36ff0f6b4e141bfa1478cc64a70c4f80ff69010a050bf0bb7e4f",
+  "owner_or_implementation_author_ineligible": true,
+  "required_critical_finding_count": 0,
+  "required_important_finding_count": 0,
+  "required_reviewer_kind": "codex_reviewer",
+  "required_scopes": [
+    "evaluation_subject_sealed_and_git_blob_identity_domains",
+    "foundation_text_constituent_contract_reuse",
+    "line_ending_only_equivalence",
+    "semantic_byte_change_fail_closed",
+    "role_scoped_identity_dispatch",
+    "declared_algorithm_fail_closed",
+    "terminal_dag_complete_binding",
+    "freeze_deterministic_replay",
+    "checkout_location_autocrlf_host_independence",
+    "current_route_lua_no_mutation",
+    "predecessor_failure_immutability",
+    "claim_boundary_and_no_authority_effect"
+  ],
+  "review_subject_commit": "bb881e60a4c1a60f10cfb24f56e2b2eb756fc629",
+  "review_subject_tree": "fcf22aa0756900f6ffe83bd63415fd5b444e152e",
+  "schema_version": "public_text_quality_phase7_evaluation_subject_text_identity_review_request_v6",
+  "status": "READY_FOR_CODEX_REVIEWER"
+}

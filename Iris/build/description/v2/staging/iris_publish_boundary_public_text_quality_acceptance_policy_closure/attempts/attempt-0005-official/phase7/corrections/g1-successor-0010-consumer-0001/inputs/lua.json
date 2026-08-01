@@ -1,0 +1,22 @@
+{
+  "schema_version": "public_text_quality_phase7_consumer_lua_syntax_result_v1",
+  "status": "PASS",
+  "attempt_id": "attempt-0005-official",
+  "correction_id": "g1-successor-0010-consumer-0001",
+  "executed_at_utc": "2026-07-31T11:56:59Z",
+  "execution_commit": "adbc1014d58800e7abfe08c6332e6a17a0dfbe9b",
+  "execution_tree": "c86d89c0f9f21112deed9fc204eead2ef3e01293",
+  "command": [
+    "powershell",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    ".\\tools\\check_lua_syntax.ps1"
+  ],
+  "exit_code": 0,
+  "file_count": 94,
+  "passed_file_count": 94,
+  "failed_file_count": 0,
+  "runtime_lua_package_mutation_count": 0,
+  "authority_effect": "none"
+}

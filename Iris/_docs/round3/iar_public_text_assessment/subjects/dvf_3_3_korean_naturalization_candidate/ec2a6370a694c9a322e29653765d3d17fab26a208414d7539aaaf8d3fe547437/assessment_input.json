@@ -1,0 +1,94 @@
+{
+  "applicable_metrics": [
+    {
+      "denominator": 5915,
+      "denominator_id": "naturalization_source_proposition_v1",
+      "metric_id": "semantic_preservation_failure"
+    },
+    {
+      "denominator": 3102,
+      "denominator_id": "naturalization_required_body_plan_role_v1",
+      "metric_id": "unsatisfied_required_body_plan_role"
+    },
+    {
+      "denominator": 28,
+      "denominator_id": "naturalization_fusion_suppression_transformation_v1",
+      "metric_id": "equivalence_proof_failure"
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_candidate_item_v1",
+      "metric_id": "compiler_invalid_pattern"
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:duplicate_proposition_realization",
+      "metric_id": "duplicate_proposition_realization"
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:repeated_identity_noun_window",
+      "metric_id": "repeated_identity_noun_window"
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:banned_internal_abstraction",
+      "metric_id": "banned_internal_abstraction"
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:repeated_skeleton_concentration",
+      "metric_id": "repeated_skeleton_concentration"
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:paragraph_fragmentation",
+      "metric_id": "paragraph_fragmentation"
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:passive_translationese_pattern",
+      "metric_id": "passive_translationese_pattern"
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:empty_or_filler_sentence",
+      "metric_id": "empty_or_filler_sentence"
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_human_review_required_v1",
+      "metric_id": "human_review_blocker_required_denominator"
+    }
+  ],
+  "authority_effect": "none",
+  "contract_id": "iar_public_text_assessment_v1",
+  "human_review_result": {
+    "identity_algorithm": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1",
+    "path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt_0024_human_review_decision.json",
+    "sha256": "ceab588198d88d2a69fc54b37cb86ad78984a9bc00946fe0404cdae92cca15ae"
+  },
+  "metric_source": {
+    "adapter": "naturalization_handoff_v1",
+    "identity_algorithm": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase8/publish_acceptance_handoff_manifest.json",
+    "sha256": "7fdbb224b3af4231a8bf3f2d37e448a8cdbfb4ed4d9871a83927b22cfdde25ec"
+  },
+  "policy": {
+    "identity_algorithm": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1",
+    "path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json",
+    "ruleset_id": "naturalization_candidate_thresholds",
+    "ruleset_sha256": "89d6b2b2afed45eeb0897037eed2eeb46f403b96b98185a6029d335c6b9e711d",
+    "sha256": "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02"
+  },
+  "schema_version": "iar_public_text_assessment_input_v1",
+  "subject": {
+    "identity_algorithm": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1",
+    "kind": "dvf_3_3_korean_naturalization_candidate",
+    "manifest_identity_algorithm": "git_head_blob_raw_sha256_with_filtered_or_lf_canonical_working_v1",
+    "manifest_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_manifest.json",
+    "manifest_sha256": "474cd41a439964768541738daf43af30bdee5f7eaf0deee352a44d45c880b18d",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_rendered.json",
+    "sha256": "ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437"
+  }
+}

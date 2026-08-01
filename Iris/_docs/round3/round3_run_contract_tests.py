@@ -8,6 +8,7 @@ import ast
 import importlib.abc
 import importlib.util
 import json
+import os
 import subprocess
 import sys
 import time
@@ -22,6 +23,9 @@ V2_ROOT = REPO / "Iris" / "build" / "description" / "v2"
 DEFAULT_TAXONOMY = ROUND_DIR / "round3_test_taxonomy.json"
 DEFAULT_CLOSURE = ROUND_DIR / "round3_active_core_closure.json"
 DEFAULT_REQUIRED_VALIDATIONS = ROUND_DIR / "current_route_required_validations.json"
+REQUIRED_VALIDATIONS_PROJECTION_ENV = (
+    "IRIS_ROUND3_REQUIRED_VALIDATIONS_PROJECTION"
+)
 TOOLS_BUILD_ROOT = V2_ROOT / "tools" / "build"
 
 
@@ -505,7 +509,22 @@ def main() -> int:
         sys.meta_path.insert(0, BuildClosureBlocker(allowed))
         closure_enforced = True
 
-    result, elapsed = run_suite(test_ids, args.verbosity)
+    previous_projection = os.environ.get(
+        REQUIRED_VALIDATIONS_PROJECTION_ENV
+    )
+    if args.contract_class == "current":
+        os.environ[REQUIRED_VALIDATIONS_PROJECTION_ENV] = str(
+            Path(args.required_validations).resolve()
+        )
+    try:
+        result, elapsed = run_suite(test_ids, args.verbosity)
+    finally:
+        if previous_projection is None:
+            os.environ.pop(REQUIRED_VALIDATIONS_PROJECTION_ENV, None)
+        else:
+            os.environ[REQUIRED_VALIDATIONS_PROJECTION_ENV] = (
+                previous_projection
+            )
     required_payload = required_validation_payload(
         manifest=required_manifest,
         selected_ids=test_ids,

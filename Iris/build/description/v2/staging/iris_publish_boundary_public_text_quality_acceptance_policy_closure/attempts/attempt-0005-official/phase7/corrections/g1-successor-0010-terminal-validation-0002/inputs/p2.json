@@ -1,0 +1,16 @@
+{
+  "schema_version": "public_text_quality_phase7_terminal_validation_protected_surface_v2",
+  "status": "PASS",
+  "attempt_id": "attempt-0005-official",
+  "correction_id": "g1-successor-0010-terminal-validation-0002",
+  "execution_commit": "705435e8c32517834649939923e201c59c085a62",
+  "execution_tree": "14a4285812ab534829492ed33ac68e891e8fce57",
+  "live_manifest_before_sha256": "3107201fd7e6da0c8a97a3c8d9ee8119d2d4d9768d0da3fcbcb306cc2447c75b",
+  "live_manifest_after_sha256": "3107201fd7e6da0c8a97a3c8d9ee8119d2d4d9768d0da3fcbcb306cc2447c75b",
+  "live_manifest_mutation_count": 0,
+  "protected_surface_mutation_count": 0,
+  "runtime_mutation_count": 0,
+  "lua_mutation_count": 0,
+  "package_mutation_count": 0,
+  "authority_effect": "none"
+}

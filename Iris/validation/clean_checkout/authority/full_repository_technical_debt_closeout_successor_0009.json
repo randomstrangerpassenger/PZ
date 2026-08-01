@@ -1,0 +1,73 @@
+{
+  "schema_version": "iris_clean_checkout_full_repository_technical_debt_closeout_successor_v9",
+  "recorded_date": "2026-07-31",
+  "status": "complete",
+  "record_mode": "append_only_g1_bounded_structured_claim_scanner_correction_closeout",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "predecessor": {
+    "path": "Iris/validation/clean_checkout/authority/full_repository_technical_debt_closeout_successor_0008.json",
+    "git_blob_id": "22868042144e37a9e43f1d73a31aa812559235be",
+    "git_blob_raw_sha256": "e6c4e877532ac196f4e8f84fcda7274251d26f1431e9a8c5b3192a9ca2e0cc1a",
+    "rewrite_permitted": false
+  },
+  "gate_manifest_successor": {
+    "path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0009.json",
+    "git_blob_raw_sha256": "7f70c0f1c1df1cf879e0e21e9aeb04bbed62d7cb4b31edc13bed14d28cd369f1",
+    "status": "PASS"
+  },
+  "validated_subject": {
+    "commit": "ea1c5f6f078e279f5d72e230364b1f4323ac4fd4",
+    "tree": "35b700f2406ab16fdd5d455b0997cde58dbaf26e"
+  },
+  "scanner_correction_closeout": {
+    "strict_json_parse": true,
+    "json_pointer_string_leaf_classification": true,
+    "identifier_fields_excluded_from_claim_text": true,
+    "claim_bearing_fields_scanned_fail_closed": true,
+    "unknown_string_fields_scanned_fail_closed": true,
+    "identifier_container_or_schema_violation_blocks": true,
+    "line_based_non_manifest_scanner_retained": true,
+    "attempt_specific_exception_count": 0,
+    "line_specific_exception_count": 0,
+    "broad_token_allowlist_count": 0
+  },
+  "validation_closeout": {
+    "focused_scanner_test_count": 9,
+    "focused_scanner_passed_count": 9,
+    "structured_regression_fixture_count": 7,
+    "pre_existing_negative_fixture_regression_count": 10,
+    "live_current_route_status": "PASS",
+    "live_current_route_test_count": 135,
+    "g4_candidate_projection_status": "PASS",
+    "g4_candidate_projection_test_count": 136,
+    "pytest_identity_count": 195,
+    "standalone_validation_count": 4,
+    "required_execution_unit_count": 199,
+    "run_a_status": "PASS",
+    "run_b_status": "PASS",
+    "canonical_result_sha256": "beed142f7ba83d6558f057fead351198c35621f65ff44ba11c7f20cb0832b693",
+    "canonical_results_equal": true,
+    "source_checkout_mutation_count": 0,
+    "external_execution_mutation_count": 0,
+    "disposable_checkout_residue_count": 0,
+    "persistent_worktree_created": false
+  },
+  "scope_closeout": {
+    "live_manifest_changed": false,
+    "g4_rollback_failure_or_correction_evidence_changed": false,
+    "g4_phase7_executed": false,
+    "g4_terminal_executed": false,
+    "g5_or_g6_executed": false,
+    "g5_or_g6_artifact_changed": false,
+    "historical_g1_successor_overwritten": false,
+    "live_or_protected_mutation_count": 0
+  },
+  "terminal_state": {
+    "clean_validation_terminal_pass": true,
+    "g1_blocking_condition_count": 0,
+    "g1_blocking_conditions": [],
+    "g4_resume_rule": "resume from the append-only evidence commit containing this record; the validated implementation subject is its direct ancestor",
+    "tests_rerun_for_this_successor_record": false,
+    "self_referential_commit_fields": 0
+  }
+}

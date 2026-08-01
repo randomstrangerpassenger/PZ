@@ -1,0 +1,101 @@
+{
+  "closure_enforced": true,
+  "contract_class": "current",
+  "elapsed_seconds": 66.273,
+  "errors": [
+    {
+      "test_id": "setUpClass (test_dvf_3_3_consumer_migration_input_normalization.DvfConsumerMigrationInputNormalizationTest)",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\MW\\Downloads\\coding\\PZ\\.f9\\Iris\\build\\description\\v2\\tests\\test_dvf_3_3_consumer_migration_input_normalization.py\", line 86, in setUpClass\n    raise AssertionError(\n    ...<2 lines>...\n    )\nAssertionError: generate_dvf_3_3_consumer_migration_input_contract.py failed\nSTDOUT:\n\nSTDERR:\nTraceback (most recent call last):\n  File \"C:\\Users\\MW\\Downloads\\coding\\PZ\\.f9\\Iris\\build\\description\\v2\\tools\\build\\generate_dvf_3_3_consumer_migration_input_contract.py\", line 14, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"C:\\Users\\MW\\Downloads\\coding\\PZ\\.f9\\Iris\\build\\description\\v2\\tools\\build\\generate_dvf_3_3_consumer_migration_input_contract.py\", line 7, in main\n    write_phase0()\n    ~~~~~~~~~~~~^^\n  File \"C:\\Users\\MW\\Downloads\\coding\\PZ\\.f9\\Iris\\build\\description\\v2\\tools\\build\\dvf_3_3_consumer_migration_normalization_common.py\", line 741, in write_phase0\n    write_json(phase_path(\"phase0\", \"source_matrix_fingerprint_report.json\"), fingerprint)\n    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\MW\\Downloads\\coding\\PZ\\.f9\\Iris\\build\\description\\v2\\tools\\build\\_dvf_3_3_vnext_common.py\", line 213, in write_json\n    with path.open(\"w\", encoding=\"utf-8\", newline=\"\\n\") as handle:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\MW\\scoop\\apps\\python\\current\\Lib\\pathlib\\__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\Public\\\\Documents\\\\ESTsoft\\\\CreatorTemp\\\\iris-publish-boundary\\\\attempt-0005-official\\\\g1-successor-0008-revalidation-0002\\\\test-output\\\\current-route-projection\\\\dvf_3_3_vnext_consumer_migration_input_normalization\\\\phase0\\\\source_matrix_fingerprint_report.json'\n\n"
+    },
+    {
+      "test_id": "setUpClass (test_dvf_3_3_cutover_tooling_readiness.DvfCutoverToolingReadinessTest)",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\MW\\Downloads\\coding\\PZ\\.f9\\Iris\\build\\description\\v2\\tests\\test_dvf_3_3_cutover_tooling_readiness.py\", line 94, in setUpClass\n    raise AssertionError(\n    ...<2 lines>...\n    )\nAssertionError: generate_dvf_3_3_consumer_migration_input_contract.py failed\nSTDOUT:\n\nSTDERR:\nTraceback (most recent call last):\n  File \"C:\\Users\\MW\\Downloads\\coding\\PZ\\.f9\\Iris\\build\\description\\v2\\tools\\build\\generate_dvf_3_3_consumer_migration_input_contract.py\", line 14, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"C:\\Users\\MW\\Downloads\\coding\\PZ\\.f9\\Iris\\build\\description\\v2\\tools\\build\\generate_dvf_3_3_consumer_migration_input_contract.py\", line 7, in main\n    write_phase0()\n    ~~~~~~~~~~~~^^\n  File \"C:\\Users\\MW\\Downloads\\coding\\PZ\\.f9\\Iris\\build\\description\\v2\\tools\\build\\dvf_3_3_consumer_migration_normalization_common.py\", line 741, in write_phase0\n    write_json(phase_path(\"phase0\", \"source_matrix_fingerprint_report.json\"), fingerprint)\n    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\MW\\Downloads\\coding\\PZ\\.f9\\Iris\\build\\description\\v2\\tools\\build\\_dvf_3_3_vnext_common.py\", line 213, in write_json\n    with path.open(\"w\", encoding=\"utf-8\", newline=\"\\n\") as handle:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\MW\\scoop\\apps\\python\\current\\Lib\\pathlib\\__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\Public\\\\Documents\\\\ESTsoft\\\\CreatorTemp\\\\iris-publish-boundary\\\\attempt-0005-official\\\\g1-successor-0008-revalidation-0002\\\\test-output\\\\current-route-projection\\\\dvf_3_3_vnext_consumer_migration_input_normalization\\\\phase0\\\\source_matrix_fingerprint_report.json'\n\n"
+    },
+    {
+      "test_id": "test_wp6_live_denominator_closes_dependencies_and_vcs_inventory (test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_wp6_live_denominator_closes_dependencies_and_vcs_inventory)",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\MW\\Downloads\\coding\\PZ\\.f9\\Iris\\build\\description\\v2\\tests\\test_dvf_3_3_registry_authority_canonical_closure.py\", line 1031, in test_wp6_live_denominator_closes_dependencies_and_vcs_inventory\n    shutil.copytree(\n    ~~~~~~~~~~~~~~~^\n        common.CURRENT_ROUTE_FROZEN_FIXTURE_ROOT,\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        projected_fixture_root,\n        ^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"C:\\Users\\MW\\scoop\\apps\\python\\current\\Lib\\shutil.py\", line 654, in copytree\n    return _copytree(entries=entries, src=src, dst=dst, symlinks=symlinks,\n                     ignore=ignore, copy_function=copy_function,\n                     ignore_dangling_symlinks=ignore_dangling_symlinks,\n                     dirs_exist_ok=dirs_exist_ok)\n  File \"C:\\Users\\MW\\scoop\\apps\\python\\current\\Lib\\shutil.py\", line 552, in _copytree\n    os.makedirs(dst, exist_ok=dirs_exist_ok)\n    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<frozen os>\", line 226, in makedirs\n  File \"<frozen os>\", line 236, in makedirs\nFileNotFoundError: [WinError 3] 지정된 경로를 찾을 수 없습니다: 'C:\\\\Users\\\\Public\\\\Documents\\\\ESTsoft\\\\CreatorTemp\\\\iris-publish-boundary\\\\attempt-0005-official\\\\g1-successor-0008-revalidation-0002\\\\test-output\\\\registry-authority-strict-absence\\\\Iris\\\\build\\\\description\\\\v2\\\\frozen_predecessor_inputs\\\\dvf_3_3_registry_authority_canonical_closure'\n"
+    },
+    {
+      "test_id": "test_docs_staging_tests_and_historical_predecessor_are_allowed (test_layer4_absorption_current_surface_guard.Layer4AbsorptionCurrentSurfaceGuardTest.test_docs_staging_tests_and_historical_predecessor_are_allowed)",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\MW\\Downloads\\coding\\PZ\\.f9\\Iris\\build\\description\\v2\\tests\\test_layer4_absorption_current_surface_guard.py\", line 83, in test_docs_staging_tests_and_historical_predecessor_are_allowed\n    write_text(\n    ~~~~~~~~~~^\n        self.tmp_dir\n        ^^^^^^^^^^^^\n    ...<7 lines>...\n        f'ROUND_A_LEGACY = \"{NAMESPACE}\"\\n',\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"C:\\Users\\MW\\Downloads\\coding\\PZ\\.f9\\Iris\\build\\description\\v2\\tests\\test_layer4_absorption_current_surface_guard.py\", line 26, in write_text\n    path.write_text(text, encoding=\"utf-8\", newline=\"\\n\")\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\MW\\scoop\\apps\\python\\current\\Lib\\pathlib\\__init__.py\", line 809, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\MW\\scoop\\apps\\python\\current\\Lib\\pathlib\\__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\Public\\\\Documents\\\\ESTsoft\\\\CreatorTemp\\\\iris-publish-boundary\\\\attempt-0005-official\\\\g1-successor-0008-revalidation-0002\\\\test-output\\\\_tmp_layer4_absorption_current_surface_guard\\\\Iris\\\\build\\\\description\\\\v2\\\\tools\\\\build\\\\build_dvf_3_3_round_a_round_b_parallel_execution.py'\n"
+    }
+  ],
+  "failures": [],
+  "required_validations": {
+    "errors": [
+      {
+        "code": "failed_required_test",
+        "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_wp6_live_denominator_closes_dependencies_and_vcs_inventory"
+      }
+    ],
+    "manifest_path": "Iris\\_docs\\round3\\current_route_required_validations.json",
+    "required": true,
+    "required_artifact_count": 159,
+    "required_test_count": 57,
+    "required_tests": [
+      "test_compose_entrypoint_guard_hardening.ComposeEntrypointGuardHardeningTest.test_legacy_profile_cannot_write_current_output_and_leaves_hash_unchanged",
+      "test_compose_entrypoint_guard_hardening.ComposeEntrypointGuardHardeningTest.test_staging_context_cannot_target_current_equivalent_output",
+      "test_consumer_universe_denominator_lock.ConsumerUniverseDenominatorLockTest.test_final_report_records_live_required_gate_adoption_without_canonical_seal",
+      "test_dvf_3_3_closeout_reentry_guard_seal.DvfCloseoutReentryGuardSealTest.test_claim_surface_scan_is_fail_closed_and_not_self_scanned",
+      "test_dvf_3_3_closeout_reentry_guard_seal.DvfCloseoutReentryGuardSealTest.test_generate_final_report_reflects_claim_scan_failure",
+      "test_dvf_3_3_closeout_reentry_guard_seal.DvfCloseoutReentryGuardSealTest.test_manifest_adoption_is_governance_only_and_runner_visible",
+      "test_dvf_3_3_closeout_reentry_guard_seal.DvfCloseoutReentryGuardSealTest.test_validator_requires_full_current_route_result_for_complete_contract",
+      "test_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.DvfCompletionVocabularyExternalGateVocabularySplitTest.test_canonical_schema_and_negative_fixture_matrix",
+      "test_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.DvfCompletionVocabularyExternalGateVocabularySplitTest.test_final_report_blocks_canonical_external_review_without_external_artifacts",
+      "test_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.DvfCompletionVocabularyExternalGateVocabularySplitTest.test_live_manifest_adoption_is_additive_and_axis_qualified",
+      "test_dvf_3_3_core_registry_boundary_required_gate_adoption.DvfCoreRegistryBoundaryRequiredGateAdoptionTest.test_bootstrap_and_pre_route_no_mutation_are_pass",
+      "test_dvf_3_3_core_registry_boundary_required_gate_adoption.DvfCoreRegistryBoundaryRequiredGateAdoptionTest.test_live_rescan_enforces_claim_boundary",
+      "test_dvf_3_3_core_registry_boundary_required_gate_adoption.DvfCoreRegistryBoundaryRequiredGateAdoptionTest.test_manifest_adoption_is_additive_and_governance_only",
+      "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.test_current_source_identity_redrive_and_drift_field_check_pass",
+      "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.test_live_manifest_update_is_additive_and_governance_only",
+      "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.test_negative_fixtures_remain_fail_closed_without_live_mutation",
+      "test_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.DvfCurrentSourceAuthorityDriftVerificationAdoptionResealTest.test_branch_selection_contract_and_rederivation_pass",
+      "test_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.DvfCurrentSourceAuthorityDriftVerificationAdoptionResealTest.test_live_manifest_adoption_is_additive_and_governance_only",
+      "test_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.DvfCurrentSourceAuthorityDriftVerificationAdoptionResealTest.test_negative_fixture_matrix_passes_without_live_mutation",
+      "test_dvf_3_3_durable_current_authority_surface_alignment.DvfDurableCurrentAuthoritySurfaceAlignmentTest.test_final_report_preserves_non_claims_and_bounded_sufficiency",
+      "test_dvf_3_3_durable_current_authority_surface_alignment.DvfDurableCurrentAuthoritySurfaceAlignmentTest.test_inventory_tracking_and_import_boundary_pass",
+      "test_dvf_3_3_durable_current_authority_surface_alignment.DvfDurableCurrentAuthoritySurfaceAlignmentTest.test_live_manifest_adoption_is_additive_and_governance_only",
+      "test_dvf_3_3_dvf_system_naming_realignment.DvfSystemNamingRealignmentCurrentRouteTest.test_required_gate_evidence_is_subprocess_generated_and_governance_only",
+      "test_dvf_3_3_predecessor_stale_artifact_reentry_guard.DvfPredecessorStaleArtifactReentryGuardTest.test_final_report_preserves_non_claims_and_review_boundary",
+      "test_dvf_3_3_predecessor_stale_artifact_reentry_guard.DvfPredecessorStaleArtifactReentryGuardTest.test_negative_fixture_matrix_fails_closed",
+      "test_dvf_3_3_predecessor_stale_artifact_reentry_guard.DvfPredecessorStaleArtifactReentryGuardTest.test_package_manifest_and_export_guards_pass",
+      "test_dvf_3_3_predecessor_stale_artifact_reentry_guard.DvfPredecessorStaleArtifactReentryGuardTest.test_preflight_denominator_and_taxonomy_pass",
+      "test_dvf_3_3_predecessor_stale_artifact_reentry_guard.DvfPredecessorStaleArtifactReentryGuardTest.test_required_manifest_claim_scan_and_adoption_are_governance_only",
+      "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_default_current_compose_is_rejected_without_mutation",
+      "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_registry_authority_required_gate_contract",
+      "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_wp6_live_denominator_closes_dependencies_and_vcs_inventory",
+      "test_dvf_3_3_registry_runtime_compatibility_current.RegistryRuntimeCompatibilityCurrentRouteTest.test_required_gate_runs_standalone_subprocess",
+      "test_dvf_3_3_shared_disposition_consumption.SharedDispositionConsumptionTest.test_final_report_records_live_required_gate_adoption",
+      "test_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.DvfVnextCurrentAuthorityChainSuccessorReadpointSealTest.test_live_manifest_adoption_is_additive_and_governance_only",
+      "test_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.DvfVnextCurrentAuthorityChainSuccessorReadpointSealTest.test_phase0_preflight_and_axis_contract_pass",
+      "test_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.DvfVnextCurrentAuthorityChainSuccessorReadpointSealTest.test_rowkey_and_package_binding_pass",
+      "test_dvf_3_3_vnext_current_authority_cutover.DvfVnextCurrentAuthorityCutoverTest.test_current_source_and_rendered_are_2105_successor_authority",
+      "test_dvf_3_3_vnext_current_authority_cutover.DvfVnextCurrentAuthorityCutoverTest.test_final_report_seals_cutover_without_release_claims",
+      "test_dvf_3_3_vnext_current_authority_cutover.DvfVnextCurrentAuthorityCutoverTest.test_live_runtime_chunks_are_single_successor_authority",
+      "test_dvf_3_3_vnext_current_authority_cutover.DvfVnextCurrentAuthorityCutoverTest.test_required_validation_manifest_points_to_cutover_evidence",
+      "test_dvf_3_3_vnext_delta_disposition_guard_seal.DvfVnextDeltaDispositionGuardSealTest.test_final_contract_separates_guard_completion_from_cutover_usability",
+      "test_dvf_3_3_vnext_delta_disposition_guard_seal.DvfVnextDeltaDispositionGuardSealTest.test_guard_matrix_dual_zero_and_negative_cases_pass",
+      "test_dvf_3_3_vnext_delta_guard_current_route_integration.DvfVnextDeltaGuardCurrentRouteIntegrationTest.test_final_report_preserves_claim_boundary",
+      "test_dvf_3_3_vnext_delta_guard_current_route_integration.DvfVnextDeltaGuardCurrentRouteIntegrationTest.test_guard_coverage_matrix_keeps_single_status_aware_definition",
+      "test_dvf_3_3_vnext_delta_guard_current_route_integration.DvfVnextDeltaGuardCurrentRouteIntegrationTest.test_package_export_compose_routes_share_criteria_by_equivalence",
+      "test_dvf_3_3_vnext_delta_guard_current_route_integration.DvfVnextDeltaGuardCurrentRouteIntegrationTest.test_parent_handoff_keeps_cutover_and_release_out_of_scope",
+      "test_dvf_3_3_vnext_delta_guard_current_route_integration.DvfVnextDeltaGuardCurrentRouteIntegrationTest.test_required_validation_manifest_is_fail_closed_and_runner_visible",
+      "test_dvf_3_3_vnext_rejected_delta_correction_reparity.DvfVnextRejectedDeltaCorrectionReparityTest.test_corrected_reparity_removes_state_rejections_and_preserves_control_set",
+      "test_dvf_3_3_vnext_rejected_delta_correction_reparity.DvfVnextRejectedDeltaCorrectionReparityTest.test_final_report_establishes_candidate_unlock_without_cutover_claim",
+      "test_lua_bridge_export_contract_realign.LuaBridgeExportContractRealignTest.test_current_context_and_current_monolith_destination_are_rejected",
+      "test_lua_bridge_export_contract_realign.LuaBridgeExportContractRealignTest.test_protected_live_chunk_destination_is_rejected_before_write",
+      "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_package_script_excludes_layer3_monolith",
+      "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_package_script_fails_loud_on_stale_dvf_bridge_surface",
+      "test_public_text_quality_acceptance_current_route.PublicTextQualityAcceptanceCurrentRouteTest.test_required_gate_runs_standalone_subprocess",
+      "test_runtime_payload_state_integrity.RuntimePayloadStateIntegrityTest.test_matrix_and_validator_fail_closed_without_runtime_mutation",
+      "test_runtime_payload_state_integrity.RuntimePayloadStateIntegrityTest.test_phase0_inventory_resolves_current_payload_shape",
+      "test_runtime_payload_state_integrity.RuntimePayloadStateIntegrityTest.test_runtime_consumer_and_closeout_preserve_governance_gates"
+    ],
+    "success": false
+  },
+  "schema_version": "round3-contract-test-run-v1",
+  "selected_identity_count": 136,
+  "skipped": [],
+  "success": false,
+  "test_count": 121
+}

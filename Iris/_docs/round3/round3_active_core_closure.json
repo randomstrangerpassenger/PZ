@@ -285,13 +285,16 @@
     "compose_layer3_text"
   ],
   "current_route_allowed_tooling_modules": [
-    "export_dvf_3_3_lua_bridge"
+    "export_dvf_3_3_lua_bridge",
+    "iar_public_text_assessment",
+    "public_text_quality_acceptance",
+    "naturalization_compiler_identity"
   ],
   "current_route_allowed_tooling_policy": {
     "allowed_owner_class": "current_regeneration_tooling",
     "core_closure_count_must_remain": 12,
     "expansion_requires": "separate reviewed scope; do not add modules here as a convenience bypass for current core closure",
-    "max_allowed_modules": 1,
+    "max_allowed_modules": 4,
     "modules_are_not_current_core": true
   },
   "current_route_allowed_tooling_rows": [
@@ -302,6 +305,30 @@
       "owner_class": "current_regeneration_tooling",
       "path": "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py",
       "reason": "Current-route tests verify the default chunk bridge export contract, but the exporter is regeneration tooling rather than one of the 12 current core build modules."
+    },
+    {
+      "in_current_closure": false,
+      "import_allowed_for_current_route": true,
+      "module": "iar_public_text_assessment",
+      "owner_class": "reusable_iar_validation_tooling",
+      "path": "Iris/build/description/v2/tools/build/iar_public_text_assessment.py",
+      "reason": "Current-route tests exercise the reusable DVF/QG public-text evaluator without promoting it into the 12-module build core."
+    },
+    {
+      "in_current_closure": false,
+      "import_allowed_for_current_route": true,
+      "module": "public_text_quality_acceptance",
+      "owner_class": "reusable_iar_validation_tooling",
+      "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py",
+      "reason": "The generic evaluator reuses the established detector, metric, denominator, policy, and text-identity implementation as a bounded current-route dependency."
+    },
+    {
+      "in_current_closure": false,
+      "import_allowed_for_current_route": true,
+      "module": "naturalization_compiler_identity",
+      "owner_class": "reusable_iar_validation_tooling",
+      "path": "Iris/build/description/v2/tools/build/naturalization_compiler_identity.py",
+      "reason": "The established public-text evaluator directly imports the canonical compiler-identity helper; current-route inclusion is limited to that transitive dependency."
     }
   ],
   "current_contract_imports": [

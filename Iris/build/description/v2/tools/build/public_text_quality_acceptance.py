@@ -4,10 +4,13 @@ from datetime import datetime, timezone
 from fractions import Fraction
 import hashlib
 import json
+import os
 from pathlib import Path, PurePosixPath
 import re
+import stat
 import subprocess
 from typing import Any, Iterable
+import uuid
 
 try:
     from .naturalization_compiler_identity import (
@@ -349,7 +352,7 @@ def _reject_duplicate_pairs(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 def load_json_strict(path: Path) -> Any:
     try:
         return json.loads(
-            path.read_text(encoding="utf-8"),
+            read_bytes_long_path_safe(path).decode("utf-8"),
             object_pairs_hook=_reject_duplicate_pairs,
         )
     except (OSError, UnicodeError, json.JSONDecodeError) as exc:
@@ -387,11 +390,117 @@ def canonical_hash(value: Any) -> str:
     return sha256_bytes(canonical_json_bytes(value))
 
 
+def _windows_extended_length_path(path: Path) -> str:
+    """Return a host-only filesystem spelling for an already resolved path."""
+    value = str(path)
+    if os.name != "nt":
+        return value
+    if value.startswith("\\\\?\\"):
+        raise FoundationContractError(
+            "callers must not supply an extended-length path alias"
+        )
+    if value.startswith("\\\\"):
+        return "\\\\?\\UNC\\" + value[2:]
+    if len(value) >= 3 and value[1:3] == ":\\":
+        return "\\\\?\\" + value
+    raise FoundationContractError(
+        "Windows artifact path must resolve to a local drive or UNC absolute path"
+    )
+
+
+def _unvalidated_long_path_filesystem_path(path: Path) -> str:
+    try:
+        resolved = path.resolve(strict=False)
+    except OSError as exc:
+        raise FoundationContractError(f"cannot resolve filesystem path {path}: {exc}") from exc
+    return _windows_extended_length_path(resolved)
+
+
+def read_bytes_long_path_safe(path: Path) -> bytes:
+    """Read bytes without making the host path part of artifact identity."""
+    filesystem_path = _unvalidated_long_path_filesystem_path(path)
+    try:
+        with open(filesystem_path, "rb") as stream:
+            return stream.read()
+    except OSError as exc:
+        raise FoundationContractError(f"cannot read {path}: {exc}") from exc
+
+
 def sha256_file(path: Path) -> str:
     try:
-        return sha256_bytes(path.read_bytes())
-    except OSError as exc:
+        return sha256_bytes(read_bytes_long_path_safe(path))
+    except FoundationContractError as exc:
         raise FoundationContractError(f"cannot hash {path}: {exc}") from exc
+
+
+def _path_has_reparse_point(path: Path) -> bool:
+    try:
+        metadata = os.lstat(_windows_extended_length_path(path))
+    except FileNotFoundError:
+        return False
+    except OSError as exc:
+        raise FoundationContractError(
+            f"cannot inspect artifact path component {path}: {exc}"
+        ) from exc
+    attributes = getattr(metadata, "st_file_attributes", 0)
+    return stat.S_ISLNK(metadata.st_mode) or bool(
+        attributes & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400)
+    )
+
+
+def _validated_repository_artifact_target(
+    path: Path, *, repository_root: Path
+) -> Path:
+    raw = str(path)
+    if raw.startswith("\\\\?\\"):
+        raise FoundationContractError(
+            "extended-length aliases are internal filesystem details only"
+        )
+    if ".." in path.parts:
+        raise FoundationContractError("artifact target contains parent traversal")
+    try:
+        root = repository_root.resolve(strict=True)
+        candidate = path if path.is_absolute() else root / path
+        lexical = Path(os.path.abspath(str(candidate)))
+        resolved = candidate.resolve(strict=False)
+    except OSError as exc:
+        raise FoundationContractError(f"cannot resolve artifact target {path}: {exc}") from exc
+    try:
+        relative = resolved.relative_to(root)
+    except ValueError as exc:
+        raise FoundationContractError(
+            "artifact target resolves outside the declared repository root"
+        ) from exc
+    if not relative.parts:
+        raise FoundationContractError("artifact target cannot be the repository root")
+    if os.path.normcase(str(lexical)) != os.path.normcase(str(resolved)):
+        raise FoundationContractError(
+            "artifact target path alias or symlink resolution is forbidden"
+        )
+    if os.name == "nt":
+        current = root
+        if _path_has_reparse_point(current):
+            raise FoundationContractError("repository root is a reparse-point alias")
+        for component in relative.parts:
+            current = current / component
+            if _path_has_reparse_point(current):
+                raise FoundationContractError(
+                    "artifact target contains a symlink or reparse-point component"
+                )
+    return resolved
+
+
+def _filesystem_path_exists(filesystem_path: str) -> bool:
+    try:
+        os.stat(filesystem_path)
+    except FileNotFoundError:
+        return False
+    return True
+
+
+def _read_filesystem_bytes(filesystem_path: str) -> bytes:
+    with open(filesystem_path, "rb") as stream:
+        return stream.read()
 
 
 def sha256_lf_normalized_text(path: Path) -> str:
@@ -2468,18 +2577,11 @@ def build_readiness_report(
     }
 
 
-def write_once_or_same(path: Path, value: Any) -> str:
+def write_once_or_same(
+    path: Path, value: Any, *, repository_root: Path = REPO_ROOT
+) -> str:
     desired = pretty_json_bytes(value)
-    if path.exists():
-        current = path.read_bytes()
-        if current != desired:
-            raise FoundationContractError(
-                f"write-once conflict at {repo_relative(path)}"
-            )
-        return "already_identical"
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_bytes(desired)
-    return "created"
+    return write_once_bytes(path, desired, repository_root=repository_root)
 
 
 def foundation_paths(root: Path) -> tuple[Path, Path]:
@@ -2504,7 +2606,9 @@ def build_foundation(
     protected_before = protected_foundation_surface_snapshot()
     contract_path, readiness_path = foundation_paths(foundation_root)
     contract = build_foundation_contract(foundation_id)
-    contract_write_state = write_once_or_same(contract_path, contract)
+    contract_write_state = write_once_or_same(
+        contract_path, contract, repository_root=foundation_root
+    )
     fixture_manifest = load_json_strict(FIXTURE_MANIFEST)
     fixture_report = validate_fixture_manifest(fixture_manifest, contract)
     protected_after = protected_foundation_surface_snapshot()
@@ -2516,7 +2620,9 @@ def build_foundation(
         fixture_report=fixture_report,
         protected_no_write_guard=protected_no_write_guard,
     )
-    readiness_write_state = write_once_or_same(readiness_path, readiness)
+    readiness_write_state = write_once_or_same(
+        readiness_path, readiness, repository_root=foundation_root
+    )
     protected_final = protected_foundation_surface_snapshot()
     if _no_write_guard(protected_before, protected_final) != protected_no_write_guard:
         raise FoundationContractError(
@@ -2641,16 +2747,100 @@ def canonical_jsonl_bytes(rows: Iterable[dict[str, Any]]) -> bytes:
     return b"".join(canonical_json_bytes(row) + b"\n" for row in rows)
 
 
-def write_once_bytes(path: Path, desired: bytes) -> str:
-    if path.exists():
-        if path.read_bytes() != desired:
+def write_once_bytes(
+    path: Path, desired: bytes, *, repository_root: Path = REPO_ROOT
+) -> str:
+    if os.name != "nt":
+        if path.exists():
+            if path.read_bytes() != desired:
+                raise FoundationContractError(
+                    f"write-once conflict at {repo_relative(path)}"
+                )
+            return "already_identical"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(desired)
+        return "created"
+
+    target = _validated_repository_artifact_target(
+        path, repository_root=repository_root
+    )
+    target_filesystem = _windows_extended_length_path(target)
+    try:
+        if _filesystem_path_exists(target_filesystem):
+            if _read_filesystem_bytes(target_filesystem) != desired:
+                raise FoundationContractError(
+                    f"write-once conflict at {repo_relative(path)}"
+                )
+            return "already_identical"
+
+        parent = target.parent
+        parent_filesystem = _windows_extended_length_path(parent)
+        os.makedirs(parent_filesystem, exist_ok=True)
+        revalidated = _validated_repository_artifact_target(
+            path, repository_root=repository_root
+        )
+        if revalidated != target:
             raise FoundationContractError(
-                f"write-once conflict at {repo_relative(path)}"
+                "artifact target changed while its parent was being prepared"
             )
-        return "already_identical"
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_bytes(desired)
-    return "created"
+
+        temporary = parent / f".{target.name}.tmp-{uuid.uuid4().hex}"
+        temporary_filesystem = _windows_extended_length_path(temporary)
+        descriptor: int | None = None
+        try:
+            descriptor = os.open(
+                temporary_filesystem,
+                os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, "O_BINARY", 0),
+                0o600,
+            )
+            view = memoryview(desired)
+            offset = 0
+            while offset < len(view):
+                written = os.write(descriptor, view[offset:])
+                if written <= 0:
+                    raise OSError("artifact temporary write made no progress")
+                offset += written
+            os.fsync(descriptor)
+            os.close(descriptor)
+            descriptor = None
+
+            temporary_stat = os.stat(temporary_filesystem)
+            temporary_bytes = _read_filesystem_bytes(temporary_filesystem)
+            if temporary_stat.st_size != len(desired) or temporary_bytes != desired:
+                raise FoundationContractError(
+                    "artifact temporary sibling failed byte/hash verification"
+                )
+            if _filesystem_path_exists(target_filesystem):
+                current = _read_filesystem_bytes(target_filesystem)
+                if current != desired:
+                    raise FoundationContractError(
+                        f"write-once conflict at {repo_relative(path)}"
+                    )
+                os.unlink(temporary_filesystem)
+                return "already_identical"
+
+            os.replace(temporary_filesystem, target_filesystem)
+            target_stat = os.stat(target_filesystem)
+            target_bytes = _read_filesystem_bytes(target_filesystem)
+            if target_stat.st_size != len(desired) or target_bytes != desired:
+                raise FoundationContractError(
+                    "atomically installed artifact failed byte/hash verification"
+                )
+            return "created"
+        except Exception:
+            if descriptor is not None:
+                os.close(descriptor)
+            try:
+                os.unlink(temporary_filesystem)
+            except FileNotFoundError:
+                pass
+            raise
+    except FoundationContractError:
+        raise
+    except OSError as exc:
+        raise FoundationContractError(
+            f"long-path-safe artifact write failed at {repo_relative(path)}: {exc}"
+        ) from exc
 
 
 def write_once_text(path: Path, text: str) -> str:
@@ -2999,6 +3189,9 @@ def compute_candidate_metric_snapshot(
     raw = load_json_strict(raw_path)
     review_sample = load_json_strict(review_sample_path)
     review_decision = load_json_strict(review_decision_path)
+    candidate_declared_hash = validation["constituents"][
+        "candidate_rendered_hash"
+    ]["sha256"]
 
     entries = candidate.get("entries")
     if not isinstance(entries, dict) or not entries:
@@ -3066,8 +3259,8 @@ def compute_candidate_metric_snapshot(
         not isinstance(selected, list)
         or len(selected) != selected_denominator
         or len(selected) != len(set(selected))
-        or review_sample.get("candidate_rendered_hash") != sha256_file(candidate_path)
-        or review_decision.get("candidate_rendered_hash") != sha256_file(candidate_path)
+        or review_sample.get("candidate_rendered_hash") != candidate_declared_hash
+        or review_decision.get("candidate_rendered_hash") != candidate_declared_hash
     ):
         _human_review_technical_blocker(
             ["human_review_denominator_or_candidate_binding_mismatch"]
@@ -3140,7 +3333,7 @@ def compute_candidate_metric_snapshot(
     return {
         "schema_version": "public_text_quality_candidate_metric_snapshot_v1",
         "evaluation_subject_kind": "dvf_3_3_korean_naturalization_candidate",
-        "evaluation_subject_hash": sha256_file(candidate_path),
+        "evaluation_subject_hash": candidate_declared_hash,
         "candidate_key_count": len(item_ids),
         "quality_evaluable_candidate_count": candidate_denominator,
         "explicit_unadopted_count": len(item_ids) - candidate_denominator,

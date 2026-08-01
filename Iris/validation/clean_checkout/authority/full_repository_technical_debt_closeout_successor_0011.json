@@ -1,0 +1,77 @@
+{
+  "schema_version": "iris_clean_checkout_full_repository_technical_debt_closeout_successor_v11",
+  "recorded_date": "2026-08-01",
+  "status": "complete",
+  "record_mode": "append_only_g1_reusable_iar_evaluator_integration_closeout",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "predecessor": {
+    "path": "Iris/validation/clean_checkout/authority/full_repository_technical_debt_closeout_successor_0010.json",
+    "git_blob_id": "0c94f41a9541f8294950e9cee39c74084d25c45f",
+    "git_blob_raw_sha256": "d481f9b8a488838595f2db3990ba29116314c82c86ab1ee3762db08c181c57ab",
+    "rewrite_permitted": false
+  },
+  "gate_manifest_successor": {
+    "path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0011.json",
+    "git_blob_raw_sha256": "13d596b6744d6e61b70178f8c6beac9b43b49d4a22046727525c60f4406ec7be",
+    "status": "PASS"
+  },
+  "validated_subject": {
+    "commit": "95cbbedf68f300f780fc808aaf50113eef00dead",
+    "tree": "24e4b1bc203a784de0dff00e222937133b0ce570"
+  },
+  "iar_integration_closeout": {
+    "synchronization_contract_id": "iris_iar_naturalization_parallel_execution_sync_v3",
+    "synchronization_projection_sha256": "984415c349444dd90ed966490c7619cf32077525276d07616c5698051197b0e8",
+    "required_test_source_classification": "explicit_current_required_source",
+    "generic_evaluator_test_status": "7/7_PASS",
+    "generic_direct_dependency_count": 3,
+    "generic_forbidden_lifecycle_dependency_count": 0,
+    "g5_result_role": "consumer_integration_evidence",
+    "g5_result_permanent_generic_dependency": false,
+    "g5_result_sha256": "4a5cb7a8a7abf77c66c79a6a6376cafbf0eb4592f19ab94c28f6f5dab4fb5137",
+    "g5_deterministic_result_hash": "861ca998dfff5a7e976d0298ba4e8c164797f6a44abf9c7f168e996d05169199",
+    "g5_no_write_validator_status": "PASS",
+    "foundation_historical_optional_source_count": 4
+  },
+  "validation_closeout": {
+    "tracked_test_source_count": 94,
+    "required_source_count": 34,
+    "historical_optional_source_count": 55,
+    "obsolete_or_misrouted_source_count": 3,
+    "hermetic_test_fixture_source_count": 2,
+    "dependency_edge_count": 715,
+    "unresolved_dependency_edge_count": 0,
+    "pytest_identity_count": 202,
+    "standalone_validation_count": 4,
+    "required_execution_unit_count": 206,
+    "run_a_status": "PASS",
+    "run_b_status": "PASS",
+    "canonical_result_sha256": "5aacb50791ec629e67c722faf22ed00cee75984de4dbf9f1cbfcf873cebba55b",
+    "canonical_results_equal": true,
+    "dependency_inventory_sha256": "7c3e304d93a75ddbc147cdea6a585243dba1f585db3348154fa61371882462ff",
+    "dependency_inventory_equal": true,
+    "source_checkout_mutation_count": 0,
+    "external_execution_mutation_count": 0,
+    "disposable_checkout_residue_count": 0,
+    "temporary_result_residue_count": 0
+  },
+  "scope_closeout": {
+    "live_required_validation_manifest_changed": false,
+    "protected_runtime_lua_package_changed": false,
+    "g2_executed": false,
+    "g3_executed": false,
+    "g4_current_route_integration_executed": false,
+    "g5_assessment_consumption_executed": false,
+    "g6_executed": false,
+    "historical_g1_successor_overwritten": false,
+    "persistent_worktree_created": false
+  },
+  "terminal_state": {
+    "clean_validation_terminal_pass": true,
+    "g1_blocking_condition_count": 0,
+    "g1_blocking_conditions": [],
+    "g4_resume_rule": "resume from the append-only evidence commit containing this record; the validated implementation subject is its ancestor",
+    "tests_rerun_for_this_successor_record": false,
+    "self_referential_commit_fields": 0
+  }
+}

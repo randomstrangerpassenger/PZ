@@ -1,0 +1,23 @@
+{
+  "attempt_id": "attempt-0005-official",
+  "correction_id": "g1-successor-0010-consumer-0001",
+  "final_artifact_hash_manifest_sha256": "535d0025d0fd26041d971b09f951a4dc3feb9b770209da6fa6dd072789fee8dc",
+  "freeze_manifest_sha256": "dc47eeb30f609ce1c76a375fdfeb9279ba6d14471177e0732038e22ad5b7e117",
+  "owner_or_implementation_author_ineligible": true,
+  "required_critical_finding_count": 0,
+  "required_important_finding_count": 0,
+  "required_reviewer_kind": "codex_reviewer",
+  "required_scopes": [
+    "schema_dispatch_and_fail_closed_behavior",
+    "policy_and_denominator_unchanged",
+    "exact_accepted_disposition",
+    "g1_successor_0010_phase6_readoption",
+    "additive_live_gate_effect",
+    "predecessor_failure_preservation",
+    "claim_boundary"
+  ],
+  "review_subject_commit": "5e3b1c6e4ffaa8e06df4b46ff184936800b4ef3c",
+  "review_subject_tree": "eb77305582ef605f0cb2d1dd25506f70c4e851b3",
+  "schema_version": "public_text_quality_phase7_independent_review_request_v2",
+  "status": "READY_FOR_CODEX_REVIEWER"
+}

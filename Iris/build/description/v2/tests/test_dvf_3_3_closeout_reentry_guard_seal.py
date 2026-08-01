@@ -70,6 +70,114 @@ CONTRACT_PROBE_REQUEST = {
 FORBIDDEN_SURFACE_PROBE_REQUEST = {
     "fixture_text": "release readiness achieved\n",
 }
+STRUCTURED_MANIFEST_PROBE_REQUEST = {
+    "fixtures": [
+        {
+            "fixture_id": "required_artifact_path_identifier",
+            "document": {
+                "schema_version": "round3-current-route-required-validations-v1",
+                "required_artifacts": [
+                    {
+                        "path": "evidence/public_text_quality_acceptance/report.json",
+                        "checks": [],
+                    }
+                ],
+                "required_tests": [],
+            },
+        },
+        {
+            "fixture_id": "required_test_id_identifier",
+            "document": {
+                "schema_version": "round3-current-route-required-validations-v1",
+                "required_artifacts": [],
+                "required_tests": [
+                    {
+                        "test_id": (
+                            "test_public_text_quality_acceptance."
+                            "AcceptanceTest.test_contract"
+                        )
+                    }
+                ],
+            },
+        },
+        {
+            "fixture_id": "claim_field_overclaim",
+            "document": {
+                "schema_version": "round3-current-route-required-validations-v1",
+                "claim": "public text acceptance complete",
+                "required_artifacts": [],
+                "required_tests": [],
+            },
+        },
+        {
+            "fixture_id": "reason_required_gate_reference",
+            "document": {
+                "schema_version": "round3-current-route-required-validations-v1",
+                "reason": (
+                    "standalone Publish Boundary public-text acceptance "
+                    "required gate"
+                ),
+                "required_artifacts": [],
+                "required_tests": [],
+            },
+        },
+        {
+            "fixture_id": "reason_required_gate_overclaim",
+            "document": {
+                "schema_version": "round3-current-route-required-validations-v1",
+                "reason": (
+                    "standalone public text acceptance required gate "
+                    "complete"
+                ),
+                "required_artifacts": [],
+                "required_tests": [],
+            },
+        },
+        {
+            "fixture_id": "unknown_field_overclaim",
+            "document": {
+                "schema_version": "round3-current-route-required-validations-v1",
+                "future_note": "public text acceptance complete",
+                "required_artifacts": [],
+                "required_tests": [],
+            },
+        },
+        {
+            "fixture_id": "identifier_object_disguise",
+            "document": {
+                "schema_version": "round3-current-route-required-validations-v1",
+                "required_artifacts": [
+                    {
+                        "path": {
+                            "value": (
+                                "evidence/public_text_quality_acceptance/"
+                                "report.json"
+                            )
+                        },
+                        "checks": [],
+                    }
+                ],
+                "required_tests": [],
+            },
+        },
+        {
+            "fixture_id": "wrong_schema",
+            "document": {
+                "schema_version": "round3-current-route-required-validations-v0",
+                "required_artifacts": [],
+                "required_tests": [],
+            },
+        },
+        {
+            "fixture_id": "duplicate_schema_key",
+            "raw_text": (
+                '{"schema_version":"round3-current-route-required-validations-v1",'
+                '"schema_version":"round3-current-route-required-validations-v1",'
+                '"required_artifacts":[],"required_tests":[]}'
+            ),
+        },
+    ],
+}
 
 
 def load_json(path: Path) -> dict:
@@ -199,6 +307,83 @@ class DvfCloseoutReentryGuardSealTest(unittest.TestCase):
                 for path in included
             )
         )
+        probe = run_probe(
+            "--probe-structured-manifest",
+            STRUCTURED_MANIFEST_PROBE_REQUEST,
+        )
+        cases = probe["cases"]
+        for fixture_id, pointer in (
+            (
+                "required_artifact_path_identifier",
+                "/required_artifacts/0/path",
+            ),
+            (
+                "required_test_id_identifier",
+                "/required_tests/0/test_id",
+            ),
+            (
+                "reason_required_gate_reference",
+                "/reason",
+            ),
+        ):
+            with self.subTest(fixture_id=fixture_id):
+                case = cases[fixture_id]
+                self.assertEqual(case["status"], "PASS")
+                self.assertEqual(case["blocker_count"], 0)
+                leaf = next(
+                    row
+                    for row in case["string_leaves"]
+                    if row["json_pointer"] == pointer
+                )
+                if fixture_id == "reason_required_gate_reference":
+                    self.assertEqual(leaf["semantic_role"], "claim_text")
+                    self.assertEqual(
+                        leaf["classification"],
+                        "fail_closed_claim_text_scan",
+                    )
+                else:
+                    self.assertEqual(leaf["semantic_role"], "identifier")
+                    self.assertEqual(
+                        leaf["classification"],
+                        "identifier_excluded_from_claim_text",
+                    )
+        for fixture_id in (
+            "claim_field_overclaim",
+            "reason_required_gate_overclaim",
+            "unknown_field_overclaim",
+            "identifier_object_disguise",
+            "wrong_schema",
+            "duplicate_schema_key",
+        ):
+            with self.subTest(fixture_id=fixture_id):
+                self.assertEqual(cases[fixture_id]["status"], "FAIL")
+                self.assertGreater(cases[fixture_id]["blocker_count"], 0)
+        self.assertEqual(
+            cases["claim_field_overclaim"]["blockers"][0]["role"],
+            "forbidden_overclaim_violation",
+        )
+        self.assertEqual(
+            cases["unknown_field_overclaim"]["blockers"][0]["role"],
+            "forbidden_overclaim_violation",
+        )
+        self.assertTrue(
+            any(
+                row.get("code") == "identifier_field_container_invalid"
+                for row in cases["identifier_object_disguise"]["blockers"]
+            )
+        )
+        self.assertTrue(
+            any(
+                row.get("code") == "manifest_schema_version_invalid"
+                for row in cases["wrong_schema"]["blockers"]
+            )
+        )
+        self.assertTrue(
+            any(
+                row.get("code") == "strict_json_parse_failed"
+                for row in cases["duplicate_schema_key"]["blockers"]
+            )
+        )
 
     def test_top_doc_publish_boundary_definitions_do_not_overclaim_readiness(self) -> None:
         probe = load_contract_probe()
@@ -232,6 +417,7 @@ class DvfCloseoutReentryGuardSealTest(unittest.TestCase):
         dual = load_json(ROOT / "phase3/dual_reentry_authority_report.json")
 
         self.assertEqual(guard["status"], "PASS")
+        self.assertEqual(len(guard["fixtures"]), 5)
         self.assertEqual(guard["predecessor_reentry_violation_count"], 0)
         self.assertEqual(guard["current_hard_gate_predecessor_direct_use_count"], 0)
         self.assertEqual(guard["runtime_authority_predecessor_direct_use_count"], 0)
@@ -267,6 +453,7 @@ class DvfCloseoutReentryGuardSealTest(unittest.TestCase):
         promotion = load_json(ROOT / "phase4/problem7_to_closeout_guard_promotion_guard_report.json")
 
         self.assertEqual(boundary["status"], "PASS")
+        self.assertEqual(len(boundary["fixtures"]), 6)
         self.assertEqual(boundary["ambiguous_complete_claim_count"], 0)
         self.assertEqual(boundary["broad_cutover_collision_count"], 0)
         self.assertEqual(boundary["pre_apply_readiness_to_live_completion_promotion_count"], 0)

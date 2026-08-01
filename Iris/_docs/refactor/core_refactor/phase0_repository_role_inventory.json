@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "rows": [
+    {"path":"Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua","exists":true,"tracked":true,"ignored":false,"role":"current_authority","writer":"export_dvf_3_3_lua_bridge.py","consumer":"Iris/Data/layer3_renderer","hash_policy":"protected_exact_sha256","reproduction_command":"current-route exporter","package_reachable":true,"required_validation_reference":true,"disposition":"preserve","reversible":true},
+    {"path":"Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/","exists":true,"tracked":true,"ignored":false,"role":"current_authority","writer":"export_dvf_3_3_lua_bridge.py","consumer":"IrisLayer3DataChunks.lua","hash_policy":"protected_exact_sha256_each_file","reproduction_command":"current-route exporter","package_reachable":true,"required_validation_reference":true,"disposition":"preserve","reversible":true},
+    {"path":"Iris/build/package/","exists":true,"tracked":false,"ignored":true,"role":"current_package_projection","writer":"Iris/tools/package_iris.ps1","consumer":"manual distribution","hash_policy":"read_only_pre_post_tree_hash","reproduction_command":"external disposable OutputRoot only","package_reachable":true,"required_validation_reference":true,"disposition":"preserve_read_only_stale_peer","reversible":true},
+    {"path":"Iris/build/description/v2/staging/","exists":true,"tracked":true,"ignored":false,"role":"historical_reproduction","writer":"many sealed round tools","consumer":"historical and diagnostic validation","hash_policy":"preserve_tracked","reproduction_command":"route-specific","package_reachable":false,"required_validation_reference":true,"disposition":"preserve","reversible":true},
+    {"path":".tmp/","exists":false,"tracked":false,"ignored":true,"role":"disposable_local_residue","writer":"local tools","consumer":"none_observed","hash_policy":"none","reproduction_command":null,"package_reachable":false,"required_validation_reference":false,"disposition":"no_material_target","reversible":true},
+    {"path":".tmp_tests/","exists":false,"tracked":false,"ignored":true,"role":"disposable_local_residue","writer":"tests","consumer":"none_observed","hash_policy":"none","reproduction_command":null,"package_reachable":false,"required_validation_reference":false,"disposition":"no_material_target","reversible":true},
+    {"path":"Iris/build/description/v2/.tmp_tests/","exists":false,"tracked":false,"ignored":true,"role":"disposable_local_residue","writer":"tests","consumer":"none_observed","hash_policy":"none","reproduction_command":null,"package_reachable":false,"required_validation_reference":false,"disposition":"no_material_target","reversible":true},
+    {"path":"console_log.txt","exists":false,"tracked":false,"ignored":false,"role":"unresolved","writer":"unknown","consumer":"unknown","hash_policy":"preserve_if_found","reproduction_command":null,"package_reachable":false,"required_validation_reference":false,"disposition":"preserve","reversible":true}
+  ],
+  "phase7_disposition":"not_applicable",
+  "delete_candidate_count":0
+}
+

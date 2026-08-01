@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "source_authority": "Iris/media/lua/client/Iris/Data/IrisClassifications.lua",
+  "source_sha256": "98d9ce3162703333b02dd48d62f8739e4606eada321a7731a35e2e586f033563",
+  "browser_primary_subcategory_path": "IrisBrowserVariantIndex.calculatePrimary",
+  "enumeration_algorithm": "representative frozen-classification rows plus explicit primary-subcategory variants",
+  "classification_source_count": 2079,
+  "runtime_item_universe_enumerable_offline": false,
+  "emitted_row_count": 8,
+  "duplicate_count": 0,
+  "unresolved_count": 1,
+  "complete": false,
+  "full_removal_disposition": "deferred_by_design",
+  "rows": [
+    {"full_type":"Base.Apple","ordered_tags":["Consumable.3-A","Consumable.3-B"],"canonical_tags":["Consumable.3-A","Consumable.3-B"],"primary_subcategory":null,"fixture_roles":["food","multi_classification","layer3_adopted"],"canonical_row_identity":"Base.Apple|Consumable.3-A,Consumable.3-B|null"},
+    {"full_type":"Base.Axe","ordered_tags":["Combat.2-A","Tool.1-D","Tool.1-E"],"canonical_tags":["Combat.2-A","Tool.1-D","Tool.1-E"],"primary_subcategory":null,"fixture_roles":["weapon","multi_classification","layer3_adopted"],"canonical_row_identity":"Base.Axe|Combat.2-A,Tool.1-D,Tool.1-E|null"},
+    {"full_type":"Base.Book","ordered_tags":["Literature.5-D"],"canonical_tags":["Literature.5-D"],"primary_subcategory":null,"fixture_roles":["literature","layer3_adopted"],"canonical_row_identity":"Base.Book|Literature.5-D|null"},
+    {"full_type":"Base.Hammer","ordered_tags":["Combat.2-C","Resource.4-A","Tool.1-A","Tool.1-D"],"canonical_tags":["Combat.2-C","Resource.4-A","Tool.1-A","Tool.1-D"],"primary_subcategory":"Tool.1-A","fixture_roles":["moveable","weapon","multi_classification","layer3_adopted"],"canonical_row_identity":"Base.Hammer|Combat.2-C,Resource.4-A,Tool.1-A,Tool.1-D|Tool.1-A"},
+    {"full_type":"Base.Pan","ordered_tags":["Combat.2-C","Tool.1-D"],"canonical_tags":["Combat.2-C","Tool.1-D"],"primary_subcategory":null,"fixture_roles":["generator_order"],"canonical_row_identity":"Base.Pan|Combat.2-C,Tool.1-D|null"},
+    {"full_type":"Base.WhiskeyFull","ordered_tags":["Consumable.3-B","Consumable.3-C","Consumable.3-D","Resource.4-F"],"canonical_tags":["Consumable.3-B","Consumable.3-C","Consumable.3-D","Resource.4-F"],"primary_subcategory":null,"fixture_roles":["generator_order"],"canonical_row_identity":"Base.WhiskeyFull|Consumable.3-B,Consumable.3-C,Consumable.3-D,Resource.4-F|null"},
+    {"full_type":"Base.223Box","ordered_tags":["Misc.9-A"],"canonical_tags":["Misc.9-A"],"primary_subcategory":null,"fixture_roles":["layer3_adopted","missing_optional_data"],"canonical_row_identity":"Base.223Box|Misc.9-A|null"},
+    {"full_type":"Base.Unknown","ordered_tags":[],"canonical_tags":[],"primary_subcategory":null,"fixture_roles":["layer3_unadopted","missing_optional_data"],"canonical_row_identity":"Base.Unknown||null"}
+  ],
+  "unresolved": ["complete runtime ScriptManager item universe cannot be enumerated from the frozen classification table alone"]
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "captured_at_commit": "72e76b367622f64af264f445889ea1832c87008a",
+  "current_core_count": 12,
+  "allowed_tooling": {"count":4,"maximum":4,"remaining_slots":0,"modules":["export_dvf_3_3_lua_bridge","iar_public_text_assessment","public_text_quality_acceptance","naturalization_compiler_identity"]},
+  "targets": [
+    {"module":"export_dvf_3_3_lua_bridge","path":"Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py","direct_importers":["Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_bridge.py"],"path_execution_classes":["current","historical","diagnostic"],"transitive_import_inventory":"round3 manifests and route tests","historical_callers_present":true},
+    {"module":"public_text_quality_acceptance","path":"Iris/build/description/v2/tools/build/public_text_quality_acceptance.py","direct_importers":["Iris/build/description/v2/tools/build/iar_public_text_assessment.py","Iris/build/description/v2/tools/build/public_text_quality_acceptance_official_0005.py","Iris/build/description/v2/tools/build/public_text_quality_acceptance_official_0005_closure.py","Iris/build/description/v2/tests/test_public_text_quality_acceptance_fixtures.py","Iris/build/description/v2/tests/test_public_text_quality_acceptance_policy.py","Iris/build/description/v2/tests/test_public_text_quality_metric_contract.py"],"path_execution_classes":["current","historical","diagnostic"],"historical_callers_present":true},
+    {"module":"_dvf_3_3_vnext_common","path":"Iris/build/description/v2/tools/build/_dvf_3_3_vnext_common.py","direct_importer_count_lower_bound":40,"path_execution_classes":["current","historical","diagnostic"],"historical_callers_present":true}
+  ],
+  "change7_disposition":"deferred_by_design",
+  "reason":"No allowed-tooling slot remains and the fresh import blast radius is broad."
+}
+

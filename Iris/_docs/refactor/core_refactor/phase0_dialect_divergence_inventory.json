@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "target_runtime_dialect": "project_zomboid_b41_kahlua",
+  "standalone_dialect": "puc_lua_5_4_8",
+  "overall_verdict": "standalone_auxiliary_only",
+  "rows": [
+    {"surface":"unpack/table.unpack","dialect_sensitive":true,"reason":"Kahlua exposes Lua 5.1-style unpack; PUC 5.4 exposes table.unpack","pz_cross_check_required":true},
+    {"surface":"numeric_tostring","dialect_sensitive":true,"reason":"integer/float string identity differs between runtimes","pz_cross_check_required":true},
+    {"surface":"length_operator","dialect_sensitive":true,"reason":"sparse-table and Java-table semantics are runtime-dependent","pz_cross_check_required":true},
+    {"surface":"integer_float_division","dialect_sensitive":true,"reason":"PUC 5.4 has integer subtype and // while Kahlua follows its own number model","pz_cross_check_required":true},
+    {"surface":"numeric_string_format","dialect_sensitive":true,"reason":"formatter implementation and integer coercion may differ","pz_cross_check_required":true},
+    {"surface":"table_iteration_order","dialect_sensitive":true,"reason":"pairs order is not a portable contract","pz_cross_check_required":true},
+    {"surface":"java_kahlua_object_invocation","dialect_sensitive":true,"reason":"not executable in standalone Lua without a semantic stub","pz_cross_check_required":true}
+  ]
+}
+

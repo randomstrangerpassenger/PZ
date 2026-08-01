@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "target_runtime_dialect": "project_zomboid_b41_kahlua",
+  "supported_standalone_policy": "prefer_puc_lua_5_1_if_available_else_auxiliary_puc_lua_5_4",
+  "candidates": [
+    {
+      "implementation": "PUC-Rio Lua",
+      "version": "5.4.8",
+      "executable_path": "C:/Users/MW/scoop/shims/lua.exe",
+      "version_command": "lua -v",
+      "version_output": "Lua 5.4.8 Copyright (C) 1994-2025 Lua.org, PUC-Rio",
+      "tier": "auxiliary_standalone",
+      "kahlua_equivalent": false
+    }
+  ],
+  "compiler": {
+    "implementation": "PUC-Rio luac",
+    "version": "5.4.8",
+    "executable_path": "C:/Users/MW/scoop/shims/luac.exe"
+  },
+  "pz": {
+    "available": true,
+    "executable_path": "G:/Program Files (x86)/Steam/steamapps/common/ProjectZomboid/ProjectZomboid64.exe",
+    "steam_beta_key": "legacy41",
+    "version": "41.78.20",
+    "dialect": "Kahlua"
+  }
+}
+

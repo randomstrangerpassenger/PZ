@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "target_runtime_dialect": "project_zomboid_b41_kahlua",
+  "rows": [
+    {"axis":"description_blocks_and_join","fixtures":["Base.Hammer","Base.Pan","Base.WhiskeyFull","Base.Unknown"],"standalone":"stubbed_production_module","pz":"required","dialect_sensitive":true,"sensitivity_reasons":["string bytes","numeric formatting"],"required_pz_cross_check":true},
+    {"axis":"selection_payload","fixtures":["event_item","selected_index","missing_selection","out_of_range"],"standalone":"pure_stub","pz":"cross_check","dialect_sensitive":false,"sensitivity_reasons":[],"required_pz_cross_check":true},
+    {"axis":"browser_build_boolean","fixtures":["initial","already_built","missing_iris_api","missing_tags"],"standalone":"stubbed_production_module","pz":"required","dialect_sensitive":false,"sensitivity_reasons":["script_manager_item_universe"],"required_pz_cross_check":true},
+    {"axis":"search_and_order","fixtures":["display_name","full_type","case_fold","empty_query"],"standalone":"pure_stub","pz":"cross_check","dialect_sensitive":true,"sensitivity_reasons":["table iteration","locale strings"],"required_pz_cross_check":true},
+    {"axis":"detail_raw_food","fixtures":["Base.Apple"],"standalone":"getter_stub_auxiliary","pz":"required","dialect_sensitive":true,"sensitivity_reasons":["Java getters","numeric formatting"],"required_pz_cross_check":true},
+    {"axis":"scroll_click_widget","fixtures":["Base.Hammer"],"standalone":"not_behavior_capable","pz":"required","dialect_sensitive":true,"sensitivity_reasons":["ISUI child identity","Kahlua callback target"],"required_pz_cross_check":true},
+    {"axis":"legacy_surface","fixtures":["Base.Apple","Base.Axe","Base.Book","Base.Hammer"],"standalone":"stubbed_production_module","pz":"required","dialect_sensitive":true,"sensitivity_reasons":["global alias","Java item access"],"required_pz_cross_check":true}
+  ]
+}
+

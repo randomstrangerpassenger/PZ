@@ -295,9 +295,14 @@ def validate_applicability_overrides(manifest: dict) -> None:
     if not isinstance(basis_path, str) or not isinstance(expected_sha, str):
         raise ValueError("current-route applicability authority binding is incomplete")
     resolved_basis = REPO / basis_path
+    decoded_basis = (
+        resolved_basis.read_text(encoding="utf-8").encode("utf-8")
+        if resolved_basis.is_file()
+        else b""
+    )
     if (
         not resolved_basis.is_file()
-        or hashlib.sha256(resolved_basis.read_bytes()).hexdigest() != expected_sha
+        or hashlib.sha256(decoded_basis).hexdigest() != expected_sha
     ):
         raise ValueError("current-route applicability authority binding drift")
     historical = overrides.get("historical_optional_evidence", {})

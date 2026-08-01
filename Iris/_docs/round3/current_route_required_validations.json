@@ -2722,6 +2722,11 @@
     {
       "required": true,
       "role": "current_route_applicability_required_validation",
+      "test_id": "test_round3_current_route_applicability.Round3CurrentRouteApplicabilityTest.test_applicability_authority_hash_uses_decoded_eol_identity"
+    },
+    {
+      "required": true,
+      "role": "current_route_applicability_required_validation",
       "test_id": "test_round3_current_route_applicability.Round3CurrentRouteApplicabilityTest.test_required_validation_payload_reports_both_applicability_denominators"
     },
     {

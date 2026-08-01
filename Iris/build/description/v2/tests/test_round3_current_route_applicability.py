@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import hashlib
 import json
 import tempfile
 import unittest
@@ -40,6 +41,33 @@ def load_freshness_tool():
 
 
 class Round3CurrentRouteApplicabilityTest(unittest.TestCase):
+    def test_applicability_authority_hash_uses_decoded_eol_identity(self) -> None:
+        runner = load_runner()
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            authority = root / "authority.json"
+            canonical = b'{"authority":"current"}\n'
+            authority.write_bytes(canonical.replace(b"\n", b"\r\n"))
+            manifest = {
+                "applicability_overrides": {
+                    "schema_version": "round3-current-route-applicability-v1",
+                    "current_authority_basis_path": "authority.json",
+                    "current_authority_sha256": hashlib.sha256(canonical).hexdigest(),
+                    "historical_optional_evidence": {
+                        "tests": [],
+                        "artifacts": [],
+                    },
+                },
+                "required_tests": [{"test_id": "current.test"}],
+                "required_artifacts": [],
+            }
+            original_repo = runner.REPO
+            runner.REPO = root
+            try:
+                runner.validate_applicability_overrides(manifest)
+            finally:
+                runner.REPO = original_repo
+
     def test_required_validation_payload_reports_both_applicability_denominators(self) -> None:
         runner = load_runner()
         manifest = {

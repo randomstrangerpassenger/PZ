@@ -33,7 +33,16 @@ if ($luaVersion -notlike '5.4.*' -and $luaVersion -notlike '5.1.*') { throw "uns
 
 $subjectCommit = (& git -C $RepositoryRoot rev-parse HEAD).Trim()
 $subjectTree = (& git -C $RepositoryRoot rev-parse 'HEAD^{tree}').Trim()
-$productionPatch = (& git -C $RepositoryRoot diff --binary -- 'Iris/media/lua/client/Iris' 2>&1 | Out-String)
+$previousErrorActionPreference = $ErrorActionPreference
+$ErrorActionPreference = 'Continue'
+try {
+    $productionPatch = (& git -C $RepositoryRoot diff --binary -- 'Iris/media/lua/client/Iris' 2>$null | Out-String)
+    $productionPatchExitCode = $LASTEXITCODE
+}
+finally {
+    $ErrorActionPreference = $previousErrorActionPreference
+}
+if ($productionPatchExitCode -ne 0) { throw 'git diff failed while binding subject overlay' }
 $sha = [System.Security.Cryptography.SHA256]::Create()
 function Get-TextSha([string]$Text) {
     return [System.BitConverter]::ToString($sha.ComputeHash($utf8NoBom.GetBytes($Text))).Replace('-', '').ToLowerInvariant()

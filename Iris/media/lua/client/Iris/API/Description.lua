@@ -143,28 +143,9 @@ end
 --- @param primarySubcategory string|nil 주 소분류 메타 (선택)
 --- @return string 설명 문자열 또는 빈 문자열
 function Description.getDescription(fullType, primarySubcategory)
-    if not fullType then return "" end
-
-    ensureDescGenerator()
-
-    if not IrisDescGenerator then
-        return ""
-    end
-
-    local tags = Tags.getTags(fullType)
-    if #tags == 0 then
-        return ""
-    end
-
-    local ok, result = ProtectedCall.data(function()
-        return IrisDescGenerator.generate(fullType, tags, primarySubcategory)
-    end)
-
-    if ok and result and #result > 0 then
-        return table.concat(result, "\n\n")
-    end
-
-    return ""
+    local blocks = Description.getDescriptionBlocks(fullType, primarySubcategory)
+    if #blocks == 0 then return "" end
+    return table.concat(blocks, "\n\n")
 end
 
 --- InventoryItem에서 설명 반환 (편의 함수)

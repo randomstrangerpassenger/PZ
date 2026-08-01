@@ -1,0 +1,11 @@
+{
+  "schema_version":1,
+  "owner_change":3,
+  "rows":[
+    {"axis":"description_blocks","relation":"preserve_exact","before_cases":["description.base_hammer","description.base_pan","description.base_whiskeyfull"],"after_cases":["description_acceptance.base_hammer","description_acceptance.base_pan","description_acceptance.base_whiskeyfull"]},
+    {"axis":"description_string","relation":"preserve_exact","separator":"\\n\\n","before_cases":["description.base_hammer","description.base_pan","description.base_whiskeyfull"],"after_cases":["description_acceptance.base_hammer","description_acceptance.base_pan","description_acceptance.base_whiskeyfull"]},
+    {"axis":"nil_and_missing_fallback","relation":"preserve_exact","before_cases":["description.nil_fallback"],"after_cases":["description_acceptance.nil_fallback"]},
+    {"axis":"generator_full_removal","relation":"deferred_by_design","reason":"generator_parity_corpus.complete is false"}
+  ]
+}
+

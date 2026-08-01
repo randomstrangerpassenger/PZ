@@ -1,8 +1,8 @@
 {
   "schema_version":1,
-  "generation":1,
-  "previous_ceiling_sha256_or_null":null,
-  "manifest_generation":1,
+  "generation":2,
+  "previous_ceiling_sha256_or_null":"975fffb4e2b212f1157af9f754e1bc58a07173cb3d1a12ab8fbcaf3c1557c92e",
+  "manifest_generation":2,
   "time_axis":"pre_refactor_characterization",
   "subject_commit":"72e76b367622f64af264f445889ea1832c87008a",
   "subject_tree":"9c98dad4623cea9242a41b77f0e378a87e56559f",
@@ -19,7 +19,9 @@
     {"axis":"scroll_click_widget","owner_change":5,"status":"validated","evidence_roles":["runtime_behavior"],"case_count":1,"remaining_ceiling":"standalone row remains auxiliary and outside denominator"},
     {"axis":"legacy_surface","owner_change":6,"status":"validated","evidence_roles":["auxiliary_standalone","runtime_behavior"],"case_count":2,"remaining_ceiling":null}
   ],
+  "post_refactor_acceptance":{
+    "description":{"path":"Iris/_docs/refactor/core_refactor/phase2_description_acceptance.jsonl","sha256":"620d3ad065e9ca22a80ca67d18ae3451229ba1156893a1082f9d4aa03649b307","binding_sha256":"c54c1be0d5d24256f1e9e7578226a489f7e43cb876c5b33f04fcd0026ee57883","case_count":4,"status":"validated"}
+  },
   "mandatory_unvalidated_axis_count":0,
-  "non_claims":["No B42 behavior claim","No multiplayer or soak claim","No unknown external-mod compatibility claim","No post-refactor acceptance claim"]
+  "non_claims":["No B42 behavior claim","No multiplayer or soak claim","No unknown external-mod compatibility claim"]
 }
-

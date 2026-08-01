@@ -1,12 +1,12 @@
 {
   "schema_version":1,
-  "generation":1,
-  "previous_manifest_sha256_or_null":null,
-  "expected_required_count":39,
+  "generation":2,
+  "previous_manifest_sha256_or_null":"073e46e02a11bdcd3fa0c65f7774722683187d1549c25a258d405321371e77c7",
+  "expected_required_count":44,
   "expected_required_asset_ids":[
-    "binding.phase1.headless","binding.phase1.pz","ceiling.phase1","corpus.generator.parity","dev_harness.dispatcher","evidence.phase1.headless","evidence.phase1.pz","fixture.manifest.duplicate_id","fixture.manifest.duplicate_path","fixture.manifest.empty","fixture.manifest.invalid_json","fixture.manifest.invalid_path","fixture.manifest.missing_field","fixture.manifest.sealed_reserved","harness.phase1.pz","harness.phase1.standalone","inventory.phase0.baseline","inventory.phase0.behavior_capability","inventory.phase0.build_imports","inventory.phase0.decisions","inventory.phase0.dialect_divergence","inventory.phase0.lua_vm","inventory.phase0.package_identity","inventory.phase0.protected_surface","inventory.phase0.repository_roles","inventory.phase0.supported_api","manifest.phase1.assets","ownership.phase1.targets","runner.phase1.pz","runner.phase1.standalone","schema.phase1.assets","schema.phase1.binding","schema.phase1.evidence","support.phase1.evidence","test.phase1.browser","test.phase1.description","test.phase1.detail","validator.phase1.assets","validator.phase1.package"
+    "binding.phase1.headless","binding.phase1.pz","binding.phase2.description","ceiling.phase1","corpus.generator.parity","dev_harness.dispatcher","evidence.phase1.headless","evidence.phase1.pz","evidence.phase2.description","fixture.manifest.duplicate_id","fixture.manifest.duplicate_path","fixture.manifest.empty","fixture.manifest.invalid_json","fixture.manifest.invalid_path","fixture.manifest.missing_field","fixture.manifest.sealed_reserved","harness.phase1.pz","harness.phase1.standalone","harness.phase2.description","inventory.phase0.baseline","inventory.phase0.behavior_capability","inventory.phase0.build_imports","inventory.phase0.decisions","inventory.phase0.dialect_divergence","inventory.phase0.lua_vm","inventory.phase0.package_identity","inventory.phase0.protected_surface","inventory.phase0.repository_roles","inventory.phase0.supported_api","manifest.phase1.assets","matrix.phase2.description","ownership.phase1.targets","runner.phase1.pz","runner.phase1.standalone","schema.phase1.assets","schema.phase1.binding","schema.phase1.evidence","support.phase1.evidence","test.phase1.browser","test.phase1.description","test.phase1.detail","test.phase2.description","validator.phase1.assets","validator.phase1.package"
   ],
-  "expected_required_asset_ids_sha256":"e1387af2ca6f23b7f0b67a43ee429d86978fc35390848d3038017285f7ea10c3",
+  "expected_required_asset_ids_sha256":"e92ec0b144858b64e4b3864fe3a30f6c9762dfe82c3754427ca43e3646a246e6",
   "sealed":false,
   "assets":[
     {"asset_id":"inventory.phase0.baseline","path":"Iris/_docs/refactor/core_refactor/phase0_baseline.md","required":true,"lifecycle_state":"required_active","artifact_class":"inventory","route_class_or_null":null,"owner_change":1,"tracked_required":true,"clean_checkout_required":true},
@@ -47,7 +47,11 @@
     {"asset_id":"fixture.manifest.missing_field","path":"Iris/test/fixtures/core_refactor/manifest_missing_field.json","required":true,"lifecycle_state":"required_active","artifact_class":"fixture","route_class_or_null":null,"owner_change":2,"tracked_required":true,"clean_checkout_required":true},
     {"asset_id":"test.phase1.description","path":"Iris/build/description/v2/tests/test_iris_pre_refactor_description_characterization.py","required":true,"lifecycle_state":"required_active","artifact_class":"python_test","route_class_or_null":"current","owner_change":2,"tracked_required":true,"clean_checkout_required":true},
     {"asset_id":"test.phase1.browser","path":"Iris/build/description/v2/tests/test_iris_pre_refactor_browser_characterization.py","required":true,"lifecycle_state":"required_active","artifact_class":"python_test","route_class_or_null":"current","owner_change":2,"tracked_required":true,"clean_checkout_required":true},
-    {"asset_id":"test.phase1.detail","path":"Iris/build/description/v2/tests/test_iris_pre_refactor_detail_characterization.py","required":true,"lifecycle_state":"required_active","artifact_class":"python_test","route_class_or_null":"current","owner_change":2,"tracked_required":true,"clean_checkout_required":true}
+    {"asset_id":"test.phase1.detail","path":"Iris/build/description/v2/tests/test_iris_pre_refactor_detail_characterization.py","required":true,"lifecycle_state":"required_active","artifact_class":"python_test","route_class_or_null":"current","owner_change":2,"tracked_required":true,"clean_checkout_required":true},
+    {"asset_id":"harness.phase2.description","path":"Iris/_dev/media/lua/client/Iris/Dev/DescriptionAcceptanceHarness.lua","required":true,"lifecycle_state":"required_active","artifact_class":"validation_support_asset","route_class_or_null":null,"owner_change":3,"tracked_required":true,"clean_checkout_required":true},
+    {"asset_id":"evidence.phase2.description","path":"Iris/_docs/refactor/core_refactor/phase2_description_acceptance.jsonl","required":true,"lifecycle_state":"required_active","artifact_class":"evidence","route_class_or_null":null,"owner_change":3,"tracked_required":true,"clean_checkout_required":true},
+    {"asset_id":"binding.phase2.description","path":"Iris/_docs/refactor/core_refactor/phase2_description_acceptance.binding.json","required":true,"lifecycle_state":"required_active","artifact_class":"binding_record","route_class_or_null":null,"owner_change":3,"tracked_required":true,"clean_checkout_required":true},
+    {"asset_id":"matrix.phase2.description","path":"Iris/_docs/refactor/core_refactor/phase2_before_after_matrix.json","required":true,"lifecycle_state":"required_active","artifact_class":"inventory","route_class_or_null":null,"owner_change":3,"tracked_required":true,"clean_checkout_required":true},
+    {"asset_id":"test.phase2.description","path":"Iris/build/description/v2/tests/test_iris_description_single_path_acceptance.py","required":true,"lifecycle_state":"required_active","artifact_class":"python_test","route_class_or_null":"current","owner_change":3,"tracked_required":true,"clean_checkout_required":true}
   ]
 }
-

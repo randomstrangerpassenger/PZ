@@ -1,0 +1,15 @@
+{
+    "schema_version":  1,
+    "evidence_path":  "Iris/_docs/refactor/core_refactor/phase2_description_acceptance.jsonl",
+    "evidence_sha256":  "620d3ad065e9ca22a80ca67d18ae3451229ba1156893a1082f9d4aa03649b307",
+    "evidence_schema_version":  1,
+    "row_count":  4,
+    "subject_commit":  "02b1e51c720a1454fc66fee06a20f0406738b9af",
+    "subject_tree":  "90ee4c4b27e95f772aacf7ccda218e1adcc3501c",
+    "subject_worktree_patch_sha256_or_null":  "696894147723865ae889572677691ab3b7d4fb7427f7531de3653fc230a93b62",
+    "producer_base_commit":  "02b1e51c720a1454fc66fee06a20f0406738b9af",
+    "producer_base_tree":  "90ee4c4b27e95f772aacf7ccda218e1adcc3501c",
+    "producer_overlay_sha256_or_null":  "b4443a4b535a850083ada7ce2e860d66c8b35e23f615127fc6a303c7a43640ed",
+    "time_axis":  "post_refactor_acceptance",
+    "execution_environment":  "project_zomboid_b41_41_78_20"
+}

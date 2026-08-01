@@ -2067,6 +2067,39 @@ Iris DVF 3-3 — Food Semantic Registry operational adoption and authority-probl
   * COMMON-RELEASE-NONDECISION.
   * COMMON-RUNTIME-SURFACE-NONMUTATION.
 
+Iris DVF 3-3 — Naturalization attempt-0020 current-facts blocker correction successor 0003
+
+* 날짜: 2026-07-29
+* 상태: correction successor complete / sealed non-current / Registry cutover not performed in this scope
+* 결정: Naturalization `attempt-0020` Phase 7 전수 검토가 current-facts source blocker로 판정한 44건을 exact correction target으로 결속하고, 동일 의미 오류군의 sibling을 2,105행 전체에서 조사한 뒤 append-only `correction-0003` facts/manifest successor를 봉인한다. 이 successor는 current facts/manifest를 직접 변경하거나 Naturalization/Publish 실행을 재개하는 권한이 아니다.
+* 권위 결속:
+
+  * exact input commit/tree는 `1ac13b88c64865ea5e4d4e54c3326e836f6d525d` / `fb97ebb0161d5ce0b04fa9f6cf3332c3d52aa7be`다.
+  * predecessor current facts/manifest SHA-256은 `37db2595eff9b58f7b08e59221e950cb529453bd96733fb29171d458e46118f6` / `a105e3790896b30bc25e95839ceb0ee4c88357fed98ec9fa4258790bf0733a1f`다.
+  * Phase 7 fail-close와 human review decision은 checkout CRLF가 아닌 exact Git blob bytes를 SHA-256한 `5307908a6c697c41444ada46e70b595c583e31fedb3a6ff73b1e02437f5c70e1` / `a2382d7e0f70384909baefd2b210aecebaacd0f86ee0a1e73077bd30f01c99b0`으로 결속한다.
+  * reviewer identity는 `Codex Reviewer (Avicenna)`이고, blocker ownership은 compiler `0`, current facts source `44`다.
+* cohort / correction disposition:
+
+  * 의미 오류군은 탄창/탄약 `7`, 총기/근접 무기 `8`, 식품·조리 재료/음료 `8`, 제작 입력/도구 `8`, 분해 대상/도구 `4`, 손목시계/알람 시계 `7`, 통자물쇠/열쇠 `1`, 차량 트렁크/좌석 `1`의 8개 cohort로 고정한다.
+  * 전체 조사 분모는 `149`, correction은 `44행 / 60필드`, unchanged control은 `105`, 추가 sibling correction은 `0`, unresolved는 `0`이다.
+  * 44건 모두 `corrected`로 disposition했으며, 각 행은 Item Script, 허용된 Layer 3 source, 정적 recipe relation, 공식 한국어 item name, reviewer blocker reason 중 해당 evidence profile에 연결된다.
+* 검증 경계:
+
+  * 누락·중복·충돌과 unsupported inference는 `0`, Layer 4 evidence consumption은 `0`이다.
+  * 비대상 `2,061 / 2,061` 행은 predecessor/successor byte identity를 유지한다.
+  * correction-0001/0002의 기존 `251` corrected rows에 대한 regression은 `0`이고, sibling cohort 신규 오분류도 `0`이다.
+  * current facts/manifest mutation, correction-0001/0002 rewrite, `attempt-0022` rewrite, Registry cutover, Foundation/Naturalization/Publish/runtime/Lua/package execution은 모두 `0`이다.
+* 산출물 / claim ceiling:
+
+  * successor facts/manifest SHA-256은 `50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120` / `da7f6676b899b628c444edca56241ad274f2c64fa1a3448a934abff2f059cbb5`다.
+  * receipt SHA-256은 `ad0b16c3bec487a4eba63ba51a24ba781f200551419b22d757eebd4e76cf57f8`, row-level lineage SHA-256은 `6c257f1ce558068a1e5536be05c65dde33a477e7627cf15d98ad7d9563e62da8`이다.
+  * implementation commit/tree는 `cec8c43f5ba1c93d0c7a3436c74d73a1e24549fa` / `1a3d7a5bafbbd9cadc9d0f31f19e2323fc217ae8`이다.
+  * maximum claim은 `DVF 3-3 current-facts correction-0003 sealed non-current successor complete`다. Registry current adoption, Naturalization PASS, Publish Boundary PASS, package/release/Workshop readiness로 확대하지 않는다.
+  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_current_facts_correction_successor/successors/correction-0003/`
+  * COMMON-EVIDENCE-TRACE.
+  * COMMON-RELEASE-NONDECISION.
+  * COMMON-RUNTIME-SURFACE-NONMUTATION.
+
 Iris — Clean-Checkout Full-Repository Validation Reproducibility Authority Phase 0
 
 * 날짜: 2026-07-28

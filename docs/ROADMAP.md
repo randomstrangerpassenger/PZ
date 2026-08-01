@@ -496,6 +496,14 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * 이 readpoint에서 식품 의미 facts authority 재구축 문제는 해결됐고 fresh Naturalization Phase 0/2 재봉인 입력이 준비됐다.
   * 실제 rendered same-skeleton `104` 상한, 번역체/반복 문제, Phase 3~8과 Publish acceptance는 별도 후속 계획의 미완료 상태다.
 
+* Naturalization `attempt-0020` Phase 7의 44건 current-facts blocker는 append-only `correction-0003` non-current successor로 봉인했다.
+
+  * 8개 의미 cohort의 149행을 조사해 44행/60필드를 correction하고 105행을 unchanged control로 고정했다. 추가 sibling correction과 unresolved는 모두 `0`이다.
+  * 비대상 byte identity는 `2061/2061`, correction-0001/0002 기존 251행 regression과 sibling 신규 오분류는 모두 `0`, Layer 4 evidence consumption도 `0`이다.
+  * successor facts/manifest SHA-256은 `50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120` / `da7f6676b899b628c444edca56241ad274f2c64fa1a3448a934abff2f059cbb5`다.
+  * implementation commit/tree는 `cec8c43f5ba1c93d0c7a3436c74d73a1e24549fa` / `1a3d7a5bafbbd9cadc9d0f31f19e2323fc217ae8`이고, receipt SHA-256은 `ad0b16c3bec487a4eba63ba51a24ba781f200551419b22d757eebd4e76cf57f8`이다.
+  * 이 readpoint의 current facts/manifest mutation과 Registry/Naturalization/Foundation/Publish/runtime/Lua/package execution은 `0`이다. 따라서 correction successor 봉인과 후속 Registry adoption/public-text acceptance를 서로 대체하지 않는다.
+
 * 설명 계층은 해석 / 권장 / 비교 / 재작성을 하지 않는다.
 
   * Evidence / Source / Outcome / Description layer의 책임 분리를 유지한다.

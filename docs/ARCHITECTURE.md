@@ -528,6 +528,51 @@ Registry Runtime Compatibility의 predecessor PASS를 successor current PASS로
 successor RTC closure 전 bridge/runtime/package/publication을 fail-closed로
 차단한다. 이 상태는 offline fresh Naturalization retry 허용과 모순되지 않는다.
 
+#### Current-facts correction successor 경계
+
+Naturalization이나 외부 검토가 current facts의 의미 결함을 발견한 경우,
+current authority 파일을 바로 편집하지 않고 correction과 adoption을 다음처럼
+분리한다.
+
+```text
+Naturalization / external review fail-close
+-> exact blocker set + reviewer authority binding
+-> rule / cluster / fact_origin sibling census over all current facts
+-> approved Layer 3 source lineage
+-> append-only sealed non-current correction successor
+-> separate Registry correction cutover / current-input rebind
+-> fresh downstream execution
+```
+
+correction writer의 소유 범위는 correction spec, full cohort census, row-level
+lineage, patch ledger, before/after projection, successor facts/manifest, receipt에
+한정한다. current facts/manifest, 이전 correction, Foundation,
+Naturalization, Publish, runtime Lua, package는 별도 권한 없이 변경하지 않는다.
+
+correction successor는 다음 불변조건을 갖는다.
+
+- review blocker와 correction target의 set identity를 정확히 결속한다.
+- seed item만 개별 patch하지 않고 동일 rule / cluster / fact origin의 sibling을 전체 facts denominator에서 조사한다.
+- correction과 unchanged control을 명시하고, 비대상 row는 byte identity를 유지한다.
+- 이전 correction successor의 효과를 regression denominator로 재검증한다.
+- 지원되지 않는 의미는 추론하지 않고 unresolved fail-close로 남긴다.
+- Layer 4 QG / usecase, generated description, Naturalization candidate text를 Layer 3 facts 근거로 자동 승격하지 않는다.
+- review/fail-close identity는 checkout EOL 변환값이 아닌 exact Git blob bytes의 SHA-256로 결속할 수 있다.
+
+`correction-0003`은 이 경계의 canonical example이다. Naturalization
+`attempt-0020` Phase 7의 facts blocker 44건을 8개 semantic cohort / 149행
+denominator에 결속했고, 44행/60필드 correction, 105 unchanged controls,
+0 additional sibling corrections, 0 unresolved, 2061/2061 non-target byte identity,
+0 correction-0001/0002 regression을 봉인했다. 이 산출물의 role은
+`sealed_non_current_correction_successor`이며 `current_source_authority`가 아니다.
+
+```text
+sealed_non_current_correction_successor
+!= current_source_authority
+!= Naturalization PASS
+!= Publish Boundary PASS
+```
+
 Iris 3-3의 claim vocabulary는 축별로 분리한다.
 
 ```text

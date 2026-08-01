@@ -16,6 +16,80 @@ def ensure_sentence(text: str) -> str:
     return f"{normalized}."
 
 
+def normalize_acquisition_enumeration(text: str) -> str:
+    normalized = text.strip().rstrip(".!?")
+    normalized = re.sub(r"이나\s+", "/", normalized)
+    normalized = re.sub(r"(?<!거)나\s+", "/", normalized)
+    normalized = re.sub(r"\s+(?:또는|혹은)\s+", "/", normalized)
+    normalized = re.sub(r"(?:와|과)\s+", ", ", normalized)
+    normalized = re.sub(r"\s*,\s*", ", ", normalized)
+    normalized = re.sub(r",(?:\s*,)+", ",", normalized)
+    return re.sub(r"\s+", " ", normalized).strip(" ,")
+
+
+def render_acquisition_listing(text: str) -> tuple[str, list[str], str]:
+    """Render one approved acquisition fact as a non-sentence DVF listing.
+
+    The transformation is deliberately lexical: it preserves the approved
+    source fact and only changes its presentation from a sentence to a
+    labelled list fragment. Tooltip concerns do not participate in this
+    compiler rule; runtime consumes the emitted DVF text unchanged.
+    """
+
+    normalized = text.strip().rstrip(".!?")
+    if not normalized:
+        raise ValueError("acquisition listing source must not be empty")
+
+    discovery_suffix = "에서 발견된다"
+    if normalized.endswith(discovery_suffix):
+        values = normalize_acquisition_enumeration(
+            normalized[: -len(discovery_suffix)]
+        )
+        if not values:
+            raise ValueError("acquisition location listing must not be empty")
+        return (
+            f"획득 장소: {values}",
+            ["lexical_surface_naturalization"],
+            "candidate_acquisition_location_list_v1",
+        )
+
+    forage_suffix = "으로 구할 수 있다"
+    if normalized.endswith(forage_suffix):
+        values = normalize_acquisition_enumeration(
+            normalized[: -len(forage_suffix)]
+        )
+        if not values:
+            raise ValueError("mixed acquisition listing must not be empty")
+        return (
+            f"획득: {values}",
+            ["lexical_surface_naturalization"],
+            "candidate_acquisition_mixed_list_v1",
+        )
+
+    method_terminals = (
+        ("제작한다", "제작"),
+        ("만든다", "제작"),
+        ("얻는다", "획득"),
+        ("준비한다", "준비"),
+        ("구한다", "획득"),
+        ("수리한다", "수리"),
+    )
+    for terminal, nominal in method_terminals:
+        if normalized.endswith(terminal):
+            method = normalize_acquisition_enumeration(
+                normalized[: -len(terminal)] + nominal
+            )
+            if not method:
+                raise ValueError("acquisition method listing must not be empty")
+            return (
+                f"획득 방법: {method}",
+                ["lexical_surface_naturalization"],
+                "candidate_acquisition_method_list_v1",
+            )
+
+    raise ValueError(f"unsupported acquisition listing source: {text!r}")
+
+
 def has_final_consonant(text: str) -> bool:
     if not text:
         return False

@@ -415,6 +415,11 @@ Iris/build/description/v2/tests/fixtures/iar_public_text_assessment/*
 !Iris/build/description/v2/staging/
 Iris/build/description/v2/staging/*
 !Iris/build/description/v2/staging/README.md
+!Iris/build/description/v2/staging/dvf_acquisition_list_runtime/
+Iris/build/description/v2/staging/dvf_acquisition_list_runtime/*
+!Iris/build/description/v2/staging/dvf_acquisition_list_runtime/attempt-0001/
+Iris/build/description/v2/staging/dvf_acquisition_list_runtime/attempt-0001/*
+!Iris/build/description/v2/staging/dvf_acquisition_list_runtime/attempt-0001/candidate_rendered.json
 !Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/
 !Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/**
 !Iris/build/description/v2/staging/dvf_3_3_current_facts_correction_successor/

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -13,6 +14,7 @@ from tools.build.compose_layer3_identity import (
     apply_identity_zero_anaphora,
     build_candidate_lead_context,
     naturalize_source_fragment,
+    render_acquisition_listing,
     render_candidate_lead,
     select_candidate_lead_realization,
 )
@@ -20,9 +22,55 @@ from tools.build.compose_layer3_body_profile import (
     build_candidate_body_plan_requirements,
 )
 from tools.build.compose_layer3_item import compose_item_candidate
+from tools.build.layer3_current_authority_reconstruction import (
+    CANONICAL_RENDERED,
+    load_runtime_chunks,
+)
 
 
 class KoreanProseCompilerTest(unittest.TestCase):
+    def test_acquisition_listing_uses_location_method_and_mixed_labels(self) -> None:
+        cases = {
+            "작업 차량과 차고, 공구 상자와 공구점에서 발견된다": (
+                "획득 장소: 작업 차량, 차고, 공구 상자, 공구점",
+                "candidate_acquisition_location_list_v1",
+            ),
+            "장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다": (
+                "획득: 장신구 취급 장소, 장신구 보관 장소, 채집",
+                "candidate_acquisition_mixed_list_v1",
+            ),
+            "나무막대와 끈, 종이클립이나 못으로 제작한다": (
+                "획득 방법: 나무막대, 끈, 종이클립/못으로 제작",
+                "candidate_acquisition_method_list_v1",
+            ),
+        }
+        for source, (expected_text, expected_rule) in cases.items():
+            with self.subTest(source=source):
+                text, transformations, rule = render_acquisition_listing(source)
+                self.assertEqual(text, expected_text)
+                self.assertEqual(transformations, ["lexical_surface_naturalization"])
+                self.assertEqual(rule, expected_rule)
+                self.assertNotRegex(text, r"(?:발견된다|구할 수 있다|얻는다|만든다|제작한다)$")
+
+    def test_current_acquisition_corpus_is_fully_list_renderable(self) -> None:
+        facts_path = V2_ROOT / "data" / "dvf_3_3_facts.jsonl"
+        rendered_count = 0
+
+        for raw_line in facts_path.read_text(encoding="utf-8").splitlines():
+            row = json.loads(raw_line)
+            source = row.get("acquisition_hint")
+            if source is None:
+                continue
+            text, _, _ = render_acquisition_listing(str(source))
+            self.assertTrue(text.startswith(("획득 장소: ", "획득 방법: ", "획득: ")))
+            self.assertFalse(text.endswith("."))
+            rendered_count += 1
+        self.assertEqual(rendered_count, 1050)
+
+    def test_acquisition_listing_fails_loud_on_unknown_sentence_shape(self) -> None:
+        with self.assertRaisesRegex(ValueError, "unsupported acquisition listing source"):
+            render_acquisition_listing("정의되지 않은 획득 표현이다")
+
     def test_food_rule_uses_structured_semantics_deterministically(self) -> None:
         context = {
             "resolved_profile": "consumable_body",
@@ -323,6 +371,140 @@ class KoreanProseCompilerTest(unittest.TestCase):
         self.assertTrue(all(row["status"] == "emitted_direct" for row in structural))
         self.assertTrue(all(row["proposition_resolution"] == "emitted" for row in resolutions))
         self.assertEqual(proofs, [])
+
+    def test_candidate_composer_emits_acquisition_as_separate_runtime_line(self) -> None:
+        propositions = [
+            {
+                "item_id": "Base.Test",
+                "proposition_id": "Base.Test#identity",
+                "role": "identity",
+                "source_path": "facts.jsonl",
+                "source_field": "facts.identity_hint",
+                "source_value": "도구",
+                "semantic_key": "identity-key",
+                "qualifier": "none",
+                "condition": "none",
+                "modality": "asserted",
+            },
+            {
+                "item_id": "Base.Test",
+                "proposition_id": "Base.Test#use",
+                "role": "use",
+                "source_path": "facts.jsonl",
+                "source_field": "facts.primary_use",
+                "source_value": "수리에 쓰는 도구다",
+                "semantic_key": "use-key",
+                "qualifier": "none",
+                "condition": "none",
+                "modality": "asserted",
+            },
+            {
+                "item_id": "Base.Test",
+                "proposition_id": "Base.Test#acquisition",
+                "role": "acquisition",
+                "source_path": "facts.jsonl",
+                "source_field": "facts.acquisition_hint",
+                "source_value": "작업 차량과 차고에서 발견된다",
+                "semantic_key": "acquisition-key",
+                "qualifier": "none",
+                "condition": "none",
+                "modality": "asserted",
+            },
+        ]
+        requirements = [
+            {
+                "item_id": "Base.Test",
+                "requirement_id": "Base.Test#identity_core",
+                "resolved_profile": "tool_body",
+                "section_name": "identity_core",
+                "role": "identity",
+                "required": True,
+                "optional": False,
+                "ordering_index": 0,
+                "applicable_proposition_ids": ["Base.Test#identity"],
+                "emission_eligible": True,
+            },
+            {
+                "item_id": "Base.Test",
+                "requirement_id": "Base.Test#use_core",
+                "resolved_profile": "tool_body",
+                "section_name": "use_core",
+                "role": "use",
+                "required": True,
+                "optional": False,
+                "ordering_index": 1,
+                "applicable_proposition_ids": ["Base.Test#use"],
+                "emission_eligible": True,
+            },
+            {
+                "item_id": "Base.Test",
+                "requirement_id": "Base.Test#acquisition_support",
+                "resolved_profile": "tool_body",
+                "section_name": "acquisition_support",
+                "role": "acquisition",
+                "required": False,
+                "optional": True,
+                "ordering_index": 2,
+                "applicable_proposition_ids": ["Base.Test#acquisition"],
+                "emission_eligible": True,
+            },
+        ]
+        entry, traces, structural, resolutions, proofs = compose_item_candidate(
+            {
+                "item_id": "Base.Test",
+                "identity_hint": "도구",
+                "primary_use": "수리에 쓰는 도구다",
+                "acquisition_hint": "작업 차량과 차고에서 발견된다",
+            },
+            {"item_id": "Base.Test", "state": "adopted", "selected_role": "tool"},
+            {"profiles": {"tool_body": {}}},
+            identity_hint_target_map={},
+            precedence_rules={},
+            proposition_rows=propositions,
+            requirement_rows=requirements,
+            policy={"realization_constraints": {"paragraph_split_character_threshold": 220}},
+        )
+        self.assertEqual(
+            entry["text_ko"],
+            "수리에 쓰는 도구다.\n\n획득 장소: 작업 차량, 차고",
+        )
+        acquisition_trace = next(
+            row for row in traces if row["ordering_reason"].endswith("acquisition")
+        )
+        self.assertEqual(acquisition_trace["text"], "획득 장소: 작업 차량, 차고")
+        self.assertEqual(
+            acquisition_trace["realization_rule_id"],
+            "candidate_acquisition_location_list_v1",
+        )
+        self.assertTrue(all(row["proposition_resolution"] == "emitted" for row in resolutions))
+        self.assertEqual(proofs, [])
+
+    def test_current_rendered_and_runtime_chunks_publish_same_acquisition_lists(
+        self,
+    ) -> None:
+        facts_path = V2_ROOT / "data" / "dvf_3_3_facts.jsonl"
+        rendered = json.loads(CANONICAL_RENDERED.read_text(encoding="utf-8"))["entries"]
+        runtime = load_runtime_chunks()
+        self.assertEqual(set(runtime), set(rendered))
+
+        for item_id, rendered_entry in rendered.items():
+            self.assertEqual(
+                runtime[item_id].get("text_ko"),
+                rendered_entry.get("text_ko"),
+                item_id,
+            )
+
+        acquisition_count = 0
+        for raw_line in facts_path.read_text(encoding="utf-8").splitlines():
+            fact = json.loads(raw_line)
+            source = fact.get("acquisition_hint")
+            text = rendered[str(fact["item_id"])].get("text_ko")
+            if source is None or text is None:
+                continue
+            listing, _, _ = render_acquisition_listing(str(source))
+            self.assertTrue(text.endswith(f"\n\n{listing}"), fact["item_id"])
+            acquisition_count += 1
+        self.assertEqual(acquisition_count, 1029)
 
 
 if __name__ == "__main__":

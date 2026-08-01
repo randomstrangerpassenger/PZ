@@ -25,6 +25,7 @@ from .compose_layer3_identity import (
     derive_context_from_primary_use,
     ensure_sentence,
     naturalize_source_fragment,
+    render_acquisition_listing,
     select_candidate_lead_realization,
 )
 
@@ -203,11 +204,12 @@ def _candidate_clause(
     ordering_reason: str,
     realization_rule_id: str,
     transformation_ids: list[str] | None = None,
+    sentence_surface: bool = True,
 ) -> dict[str, Any]:
     return {
         "item_id": item_id,
         "clause_id": f"{item_id}#clause-{clause_index:03d}",
-        "text": ensure_sentence(text),
+        "text": ensure_sentence(text) if sentence_surface else text.strip(),
         "proposition_ids": [
             str(row["proposition_id"]) for row in proposition_rows
         ],
@@ -341,6 +343,24 @@ def compose_item_candidate(
         for row in by_role.get(role, []):
             if str(row["proposition_id"]) in consumed_ids:
                 continue
+            if role == "acquisition":
+                text, transformations, rule_id = render_acquisition_listing(
+                    str(row["source_value"])
+                )
+                clauses.append(
+                    _candidate_clause(
+                        item_id=item_id,
+                        clause_index=len(clauses) + 1,
+                        text=text,
+                        proposition_rows=[row],
+                        relation="direct_realization",
+                        ordering_reason="profile_role_priority:acquisition",
+                        realization_rule_id=rule_id,
+                        transformation_ids=transformations,
+                        sentence_surface=False,
+                    )
+                )
+                continue
             text, transformations = naturalize_source_fragment(
                 str(row["source_value"])
             )
@@ -372,19 +392,10 @@ def compose_item_candidate(
     if not clauses:
         raise ValueError(f"No candidate clause emitted for adopted item '{item_id}'")
 
-    paragraph_limit = int(
-        policy.get("realization_constraints", {}).get(
-            "paragraph_split_character_threshold",
-            220,
-        )
-    )
-    total_characters = sum(len(str(clause["text"])) for clause in clauses)
     acquisition_ids = {
         str(row["proposition_id"]) for row in by_role.get("acquisition", [])
     }
-    split_before_acquisition = (
-        total_characters > paragraph_limit and bool(acquisition_ids)
-    )
+    split_before_acquisition = bool(acquisition_ids)
     paragraph_index = 1
     for clause in clauses:
         if (

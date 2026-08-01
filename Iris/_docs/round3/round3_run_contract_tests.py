@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import ast
+import hashlib
 import importlib.abc
 import importlib.util
 import json
@@ -277,20 +278,112 @@ def current_required_validation_manifest(path: Path, contract_class: str) -> dic
         raise ValueError(f"Unsupported current route required validation schema in {path}")
     if manifest.get("required") is not True:
         raise ValueError(f"Current route required validation manifest is not marked required: {path}")
+    validate_applicability_overrides(manifest)
     if not required_test_ids(manifest):
         raise ValueError(f"Current route required validation manifest has no required tests: {path}")
     return manifest
+
+
+def validate_applicability_overrides(manifest: dict) -> None:
+    overrides = manifest.get("applicability_overrides")
+    if overrides is None:
+        return
+    if overrides.get("schema_version") != "round3-current-route-applicability-v1":
+        raise ValueError("unsupported current-route applicability schema")
+    basis_path = overrides.get("current_authority_basis_path")
+    expected_sha = overrides.get("current_authority_sha256")
+    if not isinstance(basis_path, str) or not isinstance(expected_sha, str):
+        raise ValueError("current-route applicability authority binding is incomplete")
+    resolved_basis = REPO / basis_path
+    if (
+        not resolved_basis.is_file()
+        or hashlib.sha256(resolved_basis.read_bytes()).hexdigest() != expected_sha
+    ):
+        raise ValueError("current-route applicability authority binding drift")
+    historical = overrides.get("historical_optional_evidence", {})
+    for kind, identity_field in (("tests", "test_id"), ("artifacts", None)):
+        seen: set[str] = set()
+        for row in historical.get(kind, []):
+            identity = row.get(identity_field) if identity_field else (
+                row.get("path") or row.get("path_prefix")
+            )
+            if (
+                not isinstance(identity, str)
+                or not isinstance(row.get("authority_basis_path"), str)
+                or row.get("current_authority_sha256") != expected_sha
+                or identity in seen
+            ):
+                raise ValueError(
+                    "current-route historical applicability row is ambiguous"
+                )
+            seen.add(identity)
 
 
 def required_test_ids(manifest: dict | None) -> list[str]:
     if not manifest:
         return []
     rows = manifest.get("required_tests", [])
-    return sorted({str(row["test_id"]) for row in rows if row.get("test_id")})
+    return sorted(
+        {
+            str(row["test_id"])
+            for row in rows
+            if row.get("test_id")
+            and test_applicability(manifest, row)
+            != "historical_optional_evidence"
+        }
+    )
+
+
+def _override_rows(manifest: dict, kind: str) -> list[dict]:
+    return list(
+        manifest.get("applicability_overrides", {})
+        .get("historical_optional_evidence", {})
+        .get(kind, [])
+    )
+
+
+def test_applicability(manifest: dict, row: dict) -> str:
+    direct = row.get("applicability")
+    if direct:
+        return str(direct)
+    test_id = str(row.get("test_id", ""))
+    if any(str(override.get("test_id")) == test_id for override in _override_rows(manifest, "tests")):
+        return "historical_optional_evidence"
+    return "current_product_required"
+
+
+def artifact_applicability(manifest: dict, row: dict) -> str:
+    direct = row.get("applicability")
+    if direct:
+        return str(direct)
+    path = str(row.get("path", ""))
+    for override in _override_rows(manifest, "artifacts"):
+        exact = override.get("path")
+        prefix = override.get("path_prefix")
+        if (exact and str(exact) == path) or (prefix and path.startswith(str(prefix))):
+            return "historical_optional_evidence"
+    return "current_product_required"
+
+
+def historical_optional_test_ids(manifest: dict | None) -> list[str]:
+    if not manifest:
+        return []
+    return sorted(
+        {
+            str(row["test_id"])
+            for row in manifest.get("required_tests", [])
+            if row.get("test_id")
+            and test_applicability(manifest, row)
+            == "historical_optional_evidence"
+        }
+    )
 
 
 def combined_test_ids(taxonomy_ids: list[str], manifest: dict | None) -> list[str]:
-    return sorted(set(taxonomy_ids).union(required_test_ids(manifest)))
+    historical = set(historical_optional_test_ids(manifest))
+    return sorted(
+        (set(taxonomy_ids) - historical).union(required_test_ids(manifest))
+    )
 
 
 def object_field(payload: object, field_path: str) -> object:
@@ -308,6 +401,8 @@ def artifact_check_errors(manifest: dict | None) -> list[dict]:
         return []
     errors: list[dict] = []
     for row in manifest.get("required_artifacts", []):
+        if artifact_applicability(manifest, row) == "historical_optional_evidence":
+            continue
         artifact_path = REPO / row["path"]
         if not artifact_path.exists():
             errors.append({"code": "missing_required_artifact", "path": row["path"]})
@@ -360,6 +455,17 @@ def required_validation_payload(
         }
 
     required_ids = required_test_ids(manifest)
+    historical_ids = historical_optional_test_ids(manifest)
+    current_artifacts = [
+        row
+        for row in manifest.get("required_artifacts", [])
+        if artifact_applicability(manifest, row) != "historical_optional_evidence"
+    ]
+    historical_artifacts = [
+        row
+        for row in manifest.get("required_artifacts", [])
+        if artifact_applicability(manifest, row) == "historical_optional_evidence"
+    ]
     selected = set(selected_ids)
     missing = [test_id for test_id in required_ids if test_id not in selected]
     skipped = [
@@ -382,8 +488,24 @@ def required_validation_payload(
         "manifest_path": str(DEFAULT_REQUIRED_VALIDATIONS.relative_to(REPO)),
         "success": not errors,
         "required_test_count": len(required_ids),
-        "required_artifact_count": len(manifest.get("required_artifacts", [])),
+        "required_artifact_count": len(current_artifacts),
         "required_tests": required_ids,
+        "historical_optional_evidence": {
+            "test_count": len(historical_ids),
+            "artifact_count": len(historical_artifacts),
+            "tests": historical_ids,
+            "artifacts": sorted(
+                str(row.get("path", "")) for row in historical_artifacts
+            ),
+        },
+        "applicability_authority": {
+            "basis_path": manifest.get("applicability_overrides", {}).get(
+                "current_authority_basis_path"
+            ),
+            "sha256": manifest.get("applicability_overrides", {}).get(
+                "current_authority_sha256"
+            ),
+        },
         "errors": errors,
     }
 

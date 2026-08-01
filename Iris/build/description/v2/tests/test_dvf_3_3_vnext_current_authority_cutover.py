@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import unittest
 from pathlib import Path
 
@@ -13,6 +14,7 @@ CURRENT_DECISIONS = REPO / "Iris/build/description/v2/data/dvf_3_3_decisions.jso
 CURRENT_OVERLAY = REPO / "Iris/build/description/v2/data/dvf_3_3_overlay_support.jsonl"
 CURRENT_RENDERED = REPO / "Iris/build/description/v2/output/dvf_3_3_rendered.json"
 REQUIRED_MANIFEST = REPO / "Iris/_docs/round3/current_route_required_validations.json"
+CURRENT_GENERATION_DESCRIPTOR = REPO / "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json"
 
 
 def load_json(path: Path) -> dict:
@@ -21,6 +23,10 @@ def load_json(path: Path) -> dict:
 
 def count_jsonl(path: Path) -> int:
     return sum(1 for line in path.read_text(encoding="utf-8").splitlines() if line.strip())
+
+
+def sha256_file(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 class DvfVnextCurrentAuthorityCutoverTest(unittest.TestCase):
@@ -42,6 +48,7 @@ class DvfVnextCurrentAuthorityCutoverTest(unittest.TestCase):
         rendered = load_json(CURRENT_RENDERED)
         source_report = load_json(ROOT / "phase2/source_promotion_report.json")
         rendered_report = load_json(ROOT / "phase3/rendered_regeneration_report.json")
+        descriptor = load_json(CURRENT_GENERATION_DESCRIPTOR)
 
         self.assertEqual(manifest["status"], "current_authority")
         self.assertEqual(manifest["authority_role"], "successor_current_source_authority")
@@ -53,8 +60,10 @@ class DvfVnextCurrentAuthorityCutoverTest(unittest.TestCase):
         self.assertEqual(source_report["decisions_count"], 2105)
         self.assertEqual(rendered_report["status"], "PASS")
         self.assertEqual(rendered_report["rendered_entry_count"], 2105)
-        self.assertTrue(rendered_report["explicit_overlay_path"])
-        self.assertEqual(rendered["meta"]["overlay_path"].replace("\\", "/"), "Iris/build/description/v2/data/dvf_3_3_overlay_support.jsonl")
+        self.assertEqual(descriptor["authority_effect"], "current_runtime_adoption")
+        self.assertEqual(descriptor["source_pair"]["facts_sha256"], sha256_file(CURRENT_FACTS))
+        self.assertEqual(descriptor["source_pair"]["input_manifest_sha256"], sha256_file(CURRENT_MANIFEST))
+        self.assertEqual(descriptor["rendered"]["sha256"], sha256_file(CURRENT_RENDERED))
         self.assertEqual(len(rendered["entries"]), 2105)
 
     def test_live_runtime_chunks_are_single_successor_authority(self) -> None:

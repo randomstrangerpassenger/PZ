@@ -9,6 +9,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
+import time
 from typing import Any
 
 from _dvf_3_3_vnext_common import (
@@ -63,6 +64,31 @@ PACKAGE_DATA_DIR = REPO_ROOT / "Iris" / "build" / "package" / "Iris" / "media" /
 PACKAGE_CHUNK_MANIFEST = PACKAGE_DATA_DIR / "IrisLayer3DataChunks.lua"
 PACKAGE_CHUNK_DIR = PACKAGE_DATA_DIR / "IrisLayer3DataChunks"
 PACKAGE_MONOLITH = PACKAGE_DATA_DIR / "IrisLayer3Data.lua"
+
+
+def remove_disposable_tree(path: Path, *, attempts: int = 5) -> None:
+    resolved = path.resolve()
+    target = (
+        Path("\\\\?\\" + str(resolved))
+        if os.name == "nt" and not str(resolved).startswith("\\\\?\\")
+        else resolved
+    )
+    if not target.exists():
+        return
+    last_error: OSError | None = None
+    for attempt in range(attempts):
+        try:
+            shutil.rmtree(target)
+            last_error = None
+            break
+        except OSError as exc:
+            last_error = exc
+            if attempt + 1 < attempts:
+                time.sleep(0.05 * (attempt + 1))
+    if target.exists():
+        if last_error is not None:
+            raise last_error
+        raise OSError(f"disposable_cleanup_residue: {resolved}")
 
 EXPECTED_SUCCESSOR_COUNT = 2105
 INNER_CURRENT_ROUTE_ENV = "DVF_RESEAL_INNER_CURRENT_ROUTE"
@@ -1479,7 +1505,7 @@ def run_negative_fixture_matrix(root: Path = EVIDENCE_ROOT) -> dict[str, Any]:
     phase = phase_dir("phase1", root)
     sandbox = phase / "negative_fixture_sandbox"
     if sandbox.exists():
-        shutil.rmtree(sandbox)
+        remove_disposable_tree(sandbox)
     sandbox.mkdir(parents=True, exist_ok=True)
     live_manifest = read_json_object(LIVE_REQUIRED_MANIFEST)
     fixtures = []

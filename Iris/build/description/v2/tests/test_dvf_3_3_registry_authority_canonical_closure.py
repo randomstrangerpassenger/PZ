@@ -399,7 +399,7 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
             )
             self.assertEqual([row["status"] for row in reports], ["PASS", "PASS"])
             contract = json.loads(
-                (
+                common.filesystem_path(
                     root
                     / "phase4"
                     / "wp7_registry_authority_required_gate_contract_report.json"
@@ -413,10 +413,9 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                 contract["canonical_complete_without_required_gate_adoption_allowed"]
             )
         finally:
-            if root.exists():
-                resolved = root.resolve()
-                resolved.relative_to(ATTEMPTS_ROOT.resolve())
-                shutil.rmtree(resolved)
+            extended_root = common.filesystem_path(root)
+            if extended_root.is_dir():
+                shutil.rmtree(extended_root)
 
     def test_successful_implementation_attempt_cannot_gain_late_failure_record(self) -> None:
         common = load_common_module()

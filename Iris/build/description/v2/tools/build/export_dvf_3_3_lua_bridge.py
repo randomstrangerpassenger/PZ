@@ -1068,7 +1068,10 @@ def export_lua_bridge(
 
     selected_compatibility = None
     compatibility_preflight = None
-    if adoption_generation_validation is None:
+    if (
+        adoption_generation_validation is None
+        and registry_compatibility is not None
+    ):
         selected_compatibility, compatibility_preflight = run_registry_compatibility_preflight(
             rendered_path=rendered_path,
             report_path=report_path,
@@ -1158,8 +1161,7 @@ def export_lua_bridge(
     }
     if adoption_generation_validation is not None:
         report.update(adoption_generation_validation)
-    else:
-        assert selected_compatibility is not None
+    elif selected_compatibility is not None:
         report["registry_compatibility"] = {
             "policy_context": selected_compatibility.policy_context,
             "policy_path": str(selected_compatibility.policy_path.resolve()),
@@ -1167,6 +1169,12 @@ def export_lua_bridge(
             "binding_manifest_path": str(selected_compatibility.binding_manifest_path.resolve()),
             "resolution_mode": selected_compatibility.resolution_mode,
             "bridge_preflight": compatibility_preflight,
+        }
+    else:
+        report["applicability"] = {
+            "classification": "non_rtc_staging_or_historical_projection",
+            "rtc_certification_claimed": False,
+            "rtc_guard_applicable": False,
         }
     dump_json(report_path, report)
     return report

@@ -3,6 +3,8 @@ param(
     [string]$OutputRoot = '',
     [switch]$Clean,
     [switch]$Zip,
+    [ValidateSet('', 'current_runtime_payload', 'rtc_certified_payload')]
+    [string]$PackageApplicability = '',
     [ValidateSet('', 'candidate', 'canonical_durable')]
     [string]$RegistryCompatibilityContext = '',
     [string]$RegistryCompatibilityPolicy = '',
@@ -39,6 +41,139 @@ function Write-Utf8NoBomJson {
     $json = $Value | ConvertTo-Json -Depth $Depth
     $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
     [System.IO.File]::WriteAllText($Path, $json + [Environment]::NewLine, $utf8NoBom)
+}
+
+function Get-RuntimePayloadIdentity {
+    param(
+        [Parameter(Mandatory = $true)][string]$RepositoryRoot,
+        [Parameter(Mandatory = $true)][string]$SourceRoot,
+        [string]$PackageRoot = ''
+    )
+    $descriptorPath = Join-Path $RepositoryRoot 'Iris\_docs\round3\validated_naturalization_current_runtime_adoption\current_generation_descriptor.json'
+    if (-not (Test-Path -LiteralPath $descriptorPath -PathType Leaf)) {
+        throw 'runtime_payload_generation_descriptor_missing'
+    }
+    $descriptor = Get-Content -LiteralPath $descriptorPath -Raw -Encoding UTF8 | ConvertFrom-Json
+    if (
+        $descriptor.schema_version -ne 'validated-naturalization-materialized-generation-v1' -or
+        $descriptor.authority_effect -ne 'current_runtime_adoption' -or
+        [string]::IsNullOrWhiteSpace($descriptor.transaction_id)
+    ) {
+        throw 'runtime_payload_generation_descriptor_invalid'
+    }
+    $renderedPath = Join-Path $SourceRoot 'build\description\v2\output\dvf_3_3_rendered.json'
+    $manifestPath = Join-Path $SourceRoot 'media\lua\client\Iris\Data\IrisLayer3DataChunks.lua'
+    $chunksRoot = Join-Path $SourceRoot 'media\lua\client\Iris\Data\IrisLayer3DataChunks'
+    $candidatePath = Join-Path $RepositoryRoot $descriptor.candidate.path
+    $factsPath = Join-Path $SourceRoot 'build\description\v2\data\dvf_3_3_facts.jsonl'
+    $inputManifestPath = Join-Path $SourceRoot 'build\description\v2\data\dvf_3_3_input_manifest.json'
+    foreach ($requiredPath in @($renderedPath, $manifestPath, $chunksRoot, $candidatePath, $factsPath, $inputManifestPath)) {
+        if (-not (Test-Path -LiteralPath $requiredPath)) {
+            throw "runtime_payload_required_input_missing: $requiredPath"
+        }
+    }
+    $renderedSha = (Get-FileHash -LiteralPath $renderedPath -Algorithm SHA256).Hash.ToLowerInvariant()
+    $manifestSha = (Get-FileHash -LiteralPath $manifestPath -Algorithm SHA256).Hash.ToLowerInvariant()
+    if ($renderedSha -ne $descriptor.rendered.sha256) { throw 'runtime_payload_rendered_freshness_failed' }
+    if ($manifestSha -ne $descriptor.runtime_manifest.sha256) { throw 'runtime_payload_manifest_freshness_failed' }
+    if ((Get-FileHash -LiteralPath $candidatePath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $descriptor.candidate.sha256) { throw 'runtime_payload_candidate_freshness_failed' }
+    if ((Get-FileHash -LiteralPath $factsPath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $descriptor.source_pair.facts_sha256) { throw 'runtime_payload_facts_freshness_failed' }
+    if ((Get-FileHash -LiteralPath $inputManifestPath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $descriptor.source_pair.input_manifest_sha256) { throw 'runtime_payload_input_manifest_freshness_failed' }
+    $declaredChunks = @($descriptor.ordered_chunks)
+    $expectedChunkNames = @()
+    foreach ($declared in $declaredChunks) {
+        $normalizedPath = ([string]$declared.path).Replace('\', '/')
+        $prefix = 'IrisLayer3DataChunks/'
+        if (-not $normalizedPath.StartsWith($prefix, [System.StringComparison]::Ordinal)) {
+            throw 'runtime_payload_chunk_descriptor_path_invalid'
+        }
+        $relativeName = $normalizedPath.Substring($prefix.Length)
+        if (
+            [string]::IsNullOrWhiteSpace($relativeName) -or
+            $relativeName.Contains('/') -or
+            $expectedChunkNames -ccontains $relativeName
+        ) {
+            throw 'runtime_payload_chunk_descriptor_path_invalid'
+        }
+        $expectedChunkNames += $relativeName
+    }
+    $chunkEntries = @(Get-ChildItem -LiteralPath $chunksRoot -Force)
+    $unexpectedChunkEntries = @(
+        $chunkEntries | Where-Object {
+            $_.PSIsContainer -or -not ($expectedChunkNames -ccontains $_.Name)
+        }
+    )
+    $actualChunks = @($chunkEntries | Where-Object { -not $_.PSIsContainer } | Sort-Object Name)
+    if (
+        $declaredChunks.Count -ne 11 -or
+        $actualChunks.Count -ne 11 -or
+        $unexpectedChunkEntries.Count -ne 0
+    ) {
+        throw 'runtime_payload_chunk_surface_mismatch'
+    }
+    $chunkRows = @()
+    for ($index = 0; $index -lt $declaredChunks.Count; $index++) {
+        $declared = $declaredChunks[$index]
+        $expectedName = [System.IO.Path]::GetFileName($declared.path)
+        $actual = $actualChunks[$index]
+        if ($actual.Name -ne $expectedName) { throw 'runtime_payload_chunk_set_mismatch' }
+        $actualSha = (Get-FileHash -LiteralPath $actual.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+        if ($actualSha -ne $declared.sha256) { throw "runtime_payload_chunk_freshness_failed: $($actual.Name)" }
+        $chunkRows += [ordered]@{ path = $declared.path; sha256 = $actualSha }
+    }
+    $result = [ordered]@{
+        status = 'PASS'
+        applicability = 'current_runtime_payload'
+        transaction_id = $descriptor.transaction_id
+        generation_descriptor_path = (Get-FullPath $descriptorPath)
+        generation_descriptor_sha256 = (Get-FileHash -LiteralPath $descriptorPath -Algorithm SHA256).Hash.ToLowerInvariant()
+        rendered_sha256 = $renderedSha
+        manifest_sha256 = $manifestSha
+        chunk_count = $chunkRows.Count
+        chunks = $chunkRows
+    }
+    if (-not [string]::IsNullOrWhiteSpace($PackageRoot)) {
+        $packageData = Join-Path $PackageRoot 'media\lua\client\Iris\Data'
+        $packageManifest = Join-Path $packageData 'IrisLayer3DataChunks.lua'
+        $packageChunks = Join-Path $packageData 'IrisLayer3DataChunks'
+        $liveNames = @('IrisLayer3DataChunks.lua') + @($chunkRows | ForEach-Object { $_.path })
+        $packageChunkEntries = @(Get-ChildItem -LiteralPath $packageChunks -Force)
+        $unexpectedPackageChunkEntries = @(
+            $packageChunkEntries | Where-Object {
+                $_.PSIsContainer -or -not ($expectedChunkNames -ccontains $_.Name)
+            }
+        )
+        if ($unexpectedPackageChunkEntries.Count -ne 0) {
+            throw 'runtime_payload_package_chunk_surface_mismatch'
+        }
+        $packageChunkFiles = @(
+            $packageChunkEntries |
+                Where-Object { -not $_.PSIsContainer } |
+                Sort-Object Name
+        )
+        $packageNames = @('IrisLayer3DataChunks.lua') + @($packageChunkFiles | ForEach-Object { 'IrisLayer3DataChunks/' + $_.Name })
+        $mismatchCount = 0
+        foreach ($relative in $liveNames) {
+            $livePath = Join-Path (Join-Path $SourceRoot 'media\lua\client\Iris\Data') $relative
+            $packagePath = Join-Path $packageData $relative
+            if (-not (Test-Path -LiteralPath $packagePath) -or (Get-FileHash -LiteralPath $livePath -Algorithm SHA256).Hash -ne (Get-FileHash -LiteralPath $packagePath -Algorithm SHA256).Hash) {
+                $mismatchCount++
+            }
+        }
+        $liveOnly = @($liveNames | Where-Object { $_ -notin $packageNames })
+        $packageOnly = @($packageNames | Where-Object { $_ -notin $liveNames })
+        $forbidden = @(
+            (Join-Path $packageData 'IrisLayer3Data.lua'),
+            (Join-Path $PackageRoot 'media\lua\shared\Iris\IrisDvfBridgeData.lua')
+        ) | Where-Object { Test-Path -LiteralPath $_ }
+        $result.bidirectional_file_set_equal = $liveOnly.Count -eq 0 -and $packageOnly.Count -eq 0
+        $result.hash_mismatch_count = $mismatchCount
+        $result.forbidden_file_count = @($forbidden).Count
+        if (-not $result.bidirectional_file_set_equal -or $mismatchCount -ne 0 -or $result.forbidden_file_count -ne 0) {
+            throw 'runtime_payload_package_identity_failed'
+        }
+    }
+    return $result
 }
 
 function Invoke-RegistryCompatibilityValidator {
@@ -201,6 +336,31 @@ $zipPath = Join-Path $outputRootFull 'Iris.zip'
 $registryCompatibilityValidator = Join-Path $repoRoot 'Iris\build\description\v2\tools\build\validate_dvf_3_3_registry_runtime_compatibility.py'
 $defaultRequiredManifest = Join-Path $repoRoot 'Iris\_docs\round3\current_route_required_validations.json'
 $registryCompatibilityResolutionMode = 'explicit'
+$rtcArguments = @(
+    $RegistryCompatibilityContext,
+    $RegistryCompatibilityPolicy,
+    $RegistryCompatibilityDisposition,
+    $RegistryCompatibilityBindingManifest,
+    $RegistryCompatibilityRequiredGateState
+)
+$rtcArgumentCount = @($rtcArguments | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }).Count
+$anyRtcInput = $rtcArgumentCount -gt 0 -or $RegistryCompatibilityProbe -or -not [string]::IsNullOrWhiteSpace($RegistryCompatibilityRequiredManifest) -or -not [string]::IsNullOrWhiteSpace($RegistryCompatibilityReceipt)
+$resolvedPackageApplicability = if ([string]::IsNullOrWhiteSpace($PackageApplicability)) {
+    if ($anyRtcInput) { 'rtc_certified_payload' } else { 'current_runtime_payload' }
+} else {
+    $PackageApplicability
+}
+if ($resolvedPackageApplicability -eq 'current_runtime_payload' -and $anyRtcInput) {
+    throw 'package_applicability_mixed_or_ambiguous'
+}
+if ($resolvedPackageApplicability -eq 'rtc_certified_payload' -and $rtcArgumentCount -ne $rtcArguments.Count) {
+    throw 'rtc_package_requires_complete_compatibility_inputs'
+}
+$registryCompatibilityApplicable = $resolvedPackageApplicability -eq 'rtc_certified_payload'
+$runtimePayloadPreflight = $null
+if (-not $registryCompatibilityApplicable) {
+    $runtimePayloadPreflight = Get-RuntimePayloadIdentity -RepositoryRoot $repoRoot -SourceRoot $sourceRoot
+}
 
 $compatibilityValues = @(
     $RegistryCompatibilityContext,
@@ -210,6 +370,7 @@ $compatibilityValues = @(
     $RegistryCompatibilityRequiredGateState
 )
 $explicitCompatibilityCount = @($compatibilityValues | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }).Count
+if ($registryCompatibilityApplicable) {
 if ($explicitCompatibilityCount -ne 0 -and $explicitCompatibilityCount -ne $compatibilityValues.Count) {
     throw 'partial_registry_compatibility_arguments_forbidden'
 }
@@ -311,6 +472,7 @@ Invoke-RegistryCompatibilityValidator -ValidatorArguments @(
     '--binding-manifest', $RegistryCompatibilityBindingManifest,
     '--out', $contractReceiptPath
 )
+}
 
 $requiredPaths = @(
     (Join-Path $sourceRoot 'mod.info'),
@@ -417,6 +579,7 @@ $resolvedCompatibilityReceipt = if ([string]::IsNullOrWhiteSpace($RegistryCompat
     Get-FullPath $RegistryCompatibilityReceipt
 }
 
+if ($registryCompatibilityApplicable) {
 $surfaceInputs = [ordered]@{
     schema_version = 'rtc-compatibility-surface-input-v1'
     round_id = 'dvf_3_3_registry_runtime_compatibility'
@@ -460,6 +623,11 @@ $compatibilityResult = Get-Content -LiteralPath $resolvedCompatibilityReceipt -R
 if ($compatibilityResult.status -ne 'PASS') {
     throw "registry_compatibility_package_guard_failed: $resolvedCompatibilityReceipt"
 }
+} else {
+    $runtimePayloadIdentity = Get-RuntimePayloadIdentity -RepositoryRoot $repoRoot -SourceRoot $sourceRoot -PackageRoot $packageRoot
+    $runtimePayloadReceipt = Join-Path $outputRootFull 'runtime_payload_package_identity.json'
+    Write-Utf8NoBomJson -Value $runtimePayloadIdentity -Path $runtimePayloadReceipt -Depth 8
+}
 
 $packageRootFull = Get-FullPath $packageRoot
 $files = Get-ChildItem -LiteralPath $packageRootFull -Recurse -File |
@@ -472,14 +640,9 @@ $files = Get-ChildItem -LiteralPath $packageRootFull -Recurse -File |
         }
     }
 
-$manifest = [pscustomobject]@{
-    schema_version = 'iris-package-manifest-v1'
-    source_root = $sourceRoot
-    package_root = $packageRootFull
-    copied_roots = @('mod.info', 'poster.png if present', 'media/')
-    excluded_roots = $excludedRootNames
-    forbidden_files = $forbiddenPackageFiles
-    registry_compatibility = [ordered]@{
+$packageApplicabilityRecord = if ($registryCompatibilityApplicable) {
+    [ordered]@{
+        applicability = $resolvedPackageApplicability
         policy_context = $RegistryCompatibilityContext
         required_gate_state = $RegistryCompatibilityRequiredGateState
         resolution_mode = $registryCompatibilityResolutionMode
@@ -492,6 +655,22 @@ $manifest = [pscustomobject]@{
         guard_receipt_sha256 = (Get-FileHash -LiteralPath $resolvedCompatibilityReceipt -Algorithm SHA256).Hash.ToLowerInvariant()
         status = $compatibilityResult.status
     }
+} else {
+    [ordered]@{
+        applicability = $resolvedPackageApplicability
+        runtime_payload_identity_receipt = $runtimePayloadReceipt
+        runtime_payload_identity_receipt_sha256 = (Get-FileHash -LiteralPath $runtimePayloadReceipt -Algorithm SHA256).Hash.ToLowerInvariant()
+        status = $runtimePayloadIdentity.status
+    }
+}
+$manifest = [pscustomobject]@{
+    schema_version = 'iris-package-manifest-v1'
+    source_root = $sourceRoot
+    package_root = $packageRootFull
+    copied_roots = @('mod.info', 'poster.png if present', 'media/')
+    excluded_roots = $excludedRootNames
+    forbidden_files = $forbiddenPackageFiles
+    applicability = $packageApplicabilityRecord
     file_count = @($files).Count
     files = $files
 }

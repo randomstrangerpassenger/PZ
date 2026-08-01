@@ -1,0 +1,21 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"iris-core-refactor-evidence-binding-v1",
+  "type":"object",
+  "required":["schema_version","evidence_path","evidence_sha256","evidence_schema_version","row_count","subject_commit","subject_tree","producer_base_commit","producer_base_tree","time_axis","execution_environment"],
+  "properties": {
+    "schema_version":{"const":1},
+    "evidence_path":{"type":"string","pattern":"^[A-Za-z0-9._/-]+$"},
+    "evidence_sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"},
+    "evidence_schema_version":{"const":1},
+    "row_count":{"type":"integer","minimum":1},
+    "subject_commit":{"type":"string","pattern":"^[0-9a-f]{40}$"},
+    "subject_tree":{"type":"string","pattern":"^[0-9a-f]{40}$"},
+    "producer_base_commit":{"type":"string","pattern":"^[0-9a-f]{40}$"},
+    "producer_base_tree":{"type":"string","pattern":"^[0-9a-f]{40}$"},
+    "time_axis":{"enum":["pre_refactor_characterization","post_refactor_acceptance"]},
+    "execution_environment":{"type":"string","minLength":1}
+  },
+  "additionalProperties":true
+}
+

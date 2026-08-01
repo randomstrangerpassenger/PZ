@@ -1,0 +1,2 @@
+{"schema_version":1,"generation":1,"previous_manifest_sha256_or_null":null,"expected_required_count":1,"expected_required_asset_ids":["missing"],"expected_required_asset_ids_sha256":"0000000000000000000000000000000000000000000000000000000000000000","sealed":false,"assets":[{"asset_id":"missing","path":"Iris/test/missing.json","required":true,"lifecycle_state":"required_active","artifact_class":"fixture","route_class_or_null":null,"owner_change":2,"tracked_required":true}]}
+

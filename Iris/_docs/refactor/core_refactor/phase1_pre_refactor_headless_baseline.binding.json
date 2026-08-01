@@ -1,0 +1,15 @@
+{
+    "schema_version":  1,
+    "evidence_path":  "Iris/_docs/refactor/core_refactor/phase1_pre_refactor_headless_baseline.jsonl",
+    "evidence_sha256":  "4ea5ce32919d7f4655e867ced28edc7281f8c5d98eeabe071061046ac68ca799",
+    "evidence_schema_version":  1,
+    "row_count":  15,
+    "subject_commit":  "72e76b367622f64af264f445889ea1832c87008a",
+    "subject_tree":  "9c98dad4623cea9242a41b77f0e378a87e56559f",
+    "subject_worktree_patch_sha256_or_null":  null,
+    "producer_base_commit":  "72e76b367622f64af264f445889ea1832c87008a",
+    "producer_base_tree":  "9c98dad4623cea9242a41b77f0e378a87e56559f",
+    "producer_overlay_sha256_or_null":  "df4f2ce81bfc1137d88c472a790cb8d1ee7a368e0f128356ff5e792d5cfef2eb",
+    "time_axis":  "pre_refactor_characterization",
+    "execution_environment":  "auxiliary_standalone_puc_lua_5_4"
+}

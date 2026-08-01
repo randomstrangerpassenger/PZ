@@ -328,6 +328,9 @@ Iris/build/description/v2/tools/build/*
 !Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_work_lexeme_preservation.py
 !Iris/build/description/v2/tests/
 Iris/build/description/v2/tests/*
+!Iris/build/description/v2/tests/test_iris_pre_refactor_description_characterization.py
+!Iris/build/description/v2/tests/test_iris_pre_refactor_browser_characterization.py
+!Iris/build/description/v2/tests/test_iris_pre_refactor_detail_characterization.py
 !Iris/build/description/v2/tests/test_migrate_dvf_3_3_facts_v2.py
 !Iris/build/description/v2/tests/test_compose_layer3_text_v2.py
 !Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py

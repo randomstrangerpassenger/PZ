@@ -238,6 +238,17 @@ end
 
 ---전체 테스트 실행
 function IrisDescTest.runAll()
+    local configOk, config = pcall(require, "Iris/IrisConfig")
+    local selectedModule = configOk and config and config.CORE_REFACTOR_HARNESS_MODULE or nil
+    if selectedModule and selectedModule ~= "" then
+        local selectedOk, selectedHarness = pcall(require, selectedModule)
+        if not selectedOk or not selectedHarness or type(selectedHarness.runAll) ~= "function" then
+            Logger.error("[FAIL] Core refactor harness load failed: " .. tostring(selectedModule) .. ": " .. tostring(selectedHarness))
+            return false
+        end
+        return selectedHarness.runAll()
+    end
+
     Logger.info("========================================")
     Logger.info("[IrisDesc] Running all tests...")
     Logger.info("========================================")

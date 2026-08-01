@@ -1,0 +1,15 @@
+{
+    "schema_version":  1,
+    "evidence_path":  "Iris/_docs/refactor/core_refactor/phase1_pre_refactor_pz_baseline.jsonl",
+    "evidence_sha256":  "ab2a59c85b3390aed1b3215d191fb641cb06e85a72ef3d4e8f42c5c8f634d01c",
+    "evidence_schema_version":  1,
+    "row_count":  9,
+    "subject_commit":  "72e76b367622f64af264f445889ea1832c87008a",
+    "subject_tree":  "9c98dad4623cea9242a41b77f0e378a87e56559f",
+    "subject_worktree_patch_sha256_or_null":  null,
+    "producer_base_commit":  "72e76b367622f64af264f445889ea1832c87008a",
+    "producer_base_tree":  "9c98dad4623cea9242a41b77f0e378a87e56559f",
+    "producer_overlay_sha256_or_null":  "ddd46f92a87d2792756146b9f1be56d91053fc1f9dc50f457659b93ee4ef6b54",
+    "time_axis":  "pre_refactor_characterization",
+    "execution_environment":  "project_zomboid_b41_41_78_20"
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version":1,
+  "generation":1,
+  "previous_ceiling_sha256_or_null":null,
+  "manifest_generation":1,
+  "time_axis":"pre_refactor_characterization",
+  "subject_commit":"72e76b367622f64af264f445889ea1832c87008a",
+  "subject_tree":"9c98dad4623cea9242a41b77f0e378a87e56559f",
+  "evidence":{
+    "headless":{"path":"Iris/_docs/refactor/core_refactor/phase1_pre_refactor_headless_baseline.jsonl","sha256":"4ea5ce32919d7f4655e867ced28edc7281f8c5d98eeabe071061046ac68ca799","binding_sha256":"03a6a8e47750e2d367946c1cee319cdb145cf64a6d2d3cd675ee359ca6acd8db"},
+    "pz":{"path":"Iris/_docs/refactor/core_refactor/phase1_pre_refactor_pz_baseline.jsonl","sha256":"ab2a59c85b3390aed1b3215d191fb641cb06e85a72ef3d4e8f42c5c8f634d01c","binding_sha256":"f7d20593a885baee37acbc50506758d20a94cad843cc53d829c764a60591e0be"}
+  },
+  "axes":[
+    {"axis":"description","owner_change":3,"status":"validated","evidence_roles":["auxiliary_standalone","runtime_behavior"],"case_count":8,"remaining_ceiling":null},
+    {"axis":"selection","owner_change":4,"status":"validated","evidence_roles":["auxiliary_standalone","runtime_behavior"],"case_count":6,"remaining_ceiling":null},
+    {"axis":"browser_build","owner_change":4,"status":"validated","evidence_roles":["auxiliary_standalone","runtime_behavior"],"case_count":4,"remaining_ceiling":null},
+    {"axis":"search","owner_change":4,"status":"validated","evidence_roles":["auxiliary_standalone","runtime_behavior"],"case_count":2,"remaining_ceiling":null},
+    {"axis":"detail_raw_food","owner_change":5,"status":"validated","evidence_roles":["auxiliary_standalone","runtime_behavior"],"case_count":2,"remaining_ceiling":null},
+    {"axis":"scroll_click_widget","owner_change":5,"status":"validated","evidence_roles":["runtime_behavior"],"case_count":1,"remaining_ceiling":"standalone row remains auxiliary and outside denominator"},
+    {"axis":"legacy_surface","owner_change":6,"status":"validated","evidence_roles":["auxiliary_standalone","runtime_behavior"],"case_count":2,"remaining_ceiling":null}
+  ],
+  "mandatory_unvalidated_axis_count":0,
+  "non_claims":["No B42 behavior claim","No multiplayer or soak claim","No unknown external-mod compatibility claim","No post-refactor acceptance claim"]
+}
+

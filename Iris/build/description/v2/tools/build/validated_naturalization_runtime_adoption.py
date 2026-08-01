@@ -5,7 +5,6 @@ import hashlib
 import json
 import os
 import re
-import stat
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -14,29 +13,6 @@ from typing import Any, Iterable
 
 
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
-PACKAGE_PROBE_SCHEMA = "validated-naturalization-package-candidate-probe-contract-v1"
-PACKAGE_PROBE_REQUIRED_FIELDS = {
-    "schema_version",
-    "authority_effect",
-    "subject_kind",
-    "candidate_sha256",
-    "source_facts_sha256",
-    "source_manifest_sha256",
-    "materialized_generation_descriptor_path",
-    "materialized_generation_descriptor_sha256",
-    "registry_policy_path",
-    "registry_policy_sha256",
-    "collision_disposition_path",
-    "collision_disposition_sha256",
-    "binding_manifest_path",
-    "binding_manifest_sha256",
-    "package_script_git_blob_sha256",
-    "disposable_parent_root",
-    "output_root",
-    "allowed_argv_sha256",
-    "zip_allowed",
-    "contract_binding_sha256",
-}
 
 CANDIDATE_PATH = "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_rendered.json"
 CANDIDATE_SHA256 = "ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437"
@@ -98,186 +74,6 @@ def canonical_json(value: Any) -> bytes:
 
 def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
-
-
-class CandidateProbeContractError(ValueError):
-    pass
-
-
-def package_probe_contract_binding_sha256(contract: dict[str, Any]) -> str:
-    binding_subject = {key: value for key, value in contract.items() if key != "contract_binding_sha256"}
-    return sha256(canonical_json(binding_subject))
-
-
-def _is_reparse_point(path: Path) -> bool:
-    try:
-        value = path.lstat()
-    except FileNotFoundError:
-        return False
-    attributes = getattr(value, "st_file_attributes", 0)
-    return path.is_symlink() or bool(attributes & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400))
-
-
-def _existing_path_chain(path: Path) -> list[Path]:
-    chain: list[Path] = []
-    current = path
-    while True:
-        if current.exists() or current.is_symlink():
-            chain.append(current)
-        if current.parent == current:
-            break
-        current = current.parent
-    return chain
-
-
-def _require_sha256_field(contract: dict[str, Any], field: str) -> str:
-    value = contract.get(field)
-    if not isinstance(value, str) or SHA256_RE.fullmatch(value) is None:
-        raise CandidateProbeContractError(f"{field}_invalid")
-    return value
-
-
-def _validate_bound_file(contract: dict[str, Any], path_field: str, hash_field: str) -> Path:
-    raw_path = contract.get(path_field)
-    if not isinstance(raw_path, str) or not raw_path:
-        raise CandidateProbeContractError(f"{path_field}_invalid")
-    path = Path(raw_path)
-    if not path.is_absolute():
-        raise CandidateProbeContractError(f"{path_field}_not_absolute")
-    if any(_is_reparse_point(component) for component in _existing_path_chain(path)):
-        raise CandidateProbeContractError(f"{path_field}_reparse_escape")
-    if not path.is_file():
-        raise CandidateProbeContractError(f"{path_field}_missing")
-    expected = _require_sha256_field(contract, hash_field)
-    if sha256(path.read_bytes()) != expected:
-        raise CandidateProbeContractError(f"{hash_field.removesuffix('_sha256')}_hash_mismatch")
-    return path.resolve()
-
-
-def _validate_candidate_probe_argv(
-    actual_argv: list[str],
-    contract: dict[str, Any],
-    contract_path: Path,
-    package_script_path: Path,
-    output_root: Path,
-) -> None:
-    if len(actual_argv) != 20:
-        raise CandidateProbeContractError("argv_contract_invalid")
-    expected_literals = {
-        0: "powershell", 1: "-ExecutionPolicy", 2: "Bypass", 3: "-File",
-        5: "-OutputRoot", 7: "-RegistryCompatibilityContext", 8: "candidate",
-        9: "-RegistryCompatibilityPolicy", 11: "-RegistryCompatibilityDisposition",
-        13: "-RegistryCompatibilityBindingManifest",
-        15: "-RegistryCompatibilityRequiredGateState", 16: "not_adopted",
-        17: "-RegistryCompatibilityProbe",
-        18: "-ValidatedNaturalizationCandidateProbeContract",
-    }
-    if any(actual_argv[index] != value for index, value in expected_literals.items()):
-        raise CandidateProbeContractError("argv_contract_invalid")
-    path_bindings = (
-        (4, package_script_path, "package_script_argv_mismatch"),
-        (6, output_root, "output_root_argv_mismatch"),
-        (10, Path(contract["registry_policy_path"]), "registry_policy_argv_mismatch"),
-        (12, Path(contract["collision_disposition_path"]), "collision_disposition_argv_mismatch"),
-        (14, Path(contract["binding_manifest_path"]), "binding_manifest_argv_mismatch"),
-        (19, contract_path, "probe_contract_argv_mismatch"),
-    )
-    for index, expected_path, failure in path_bindings:
-        actual_path = Path(actual_argv[index])
-        if not actual_path.is_absolute() or actual_path.resolve(strict=False) != expected_path.resolve(strict=False):
-            raise CandidateProbeContractError(failure)
-
-
-def validate_package_probe_contract(
-    *,
-    contract_path: Path,
-    output_root: Path,
-    package_script_path: Path,
-    actual_argv: list[str],
-    package_script_bytes: bytes,
-) -> dict[str, Any]:
-    if not contract_path.is_file():
-        raise CandidateProbeContractError("contract_missing")
-    contract = json.loads(contract_path.read_text(encoding="utf-8"), object_pairs_hook=dict)
-    missing = sorted(PACKAGE_PROBE_REQUIRED_FIELDS - set(contract))
-    extra = sorted(set(contract) - PACKAGE_PROBE_REQUIRED_FIELDS)
-    if missing or extra:
-        raise CandidateProbeContractError(f"contract_fields_invalid:missing={missing}:extra={extra}")
-    if contract.get("schema_version") != PACKAGE_PROBE_SCHEMA:
-        raise CandidateProbeContractError("schema_version_invalid")
-    if contract.get("authority_effect") != "none":
-        raise CandidateProbeContractError("authority_effect_forbidden")
-    if contract.get("subject_kind") != "validated_naturalization_generation":
-        raise CandidateProbeContractError("subject_kind_invalid")
-    if contract.get("zip_allowed") is not False or any(str(value).lower() == "-zip" for value in actual_argv):
-        raise CandidateProbeContractError("zip_forbidden")
-    for field in (
-        "candidate_sha256",
-        "source_facts_sha256",
-        "source_manifest_sha256",
-        "package_script_git_blob_sha256",
-        "allowed_argv_sha256",
-        "contract_binding_sha256",
-    ):
-        _require_sha256_field(contract, field)
-    if contract["candidate_sha256"] != CANDIDATE_SHA256:
-        raise CandidateProbeContractError("candidate_hash_mismatch")
-    if contract["source_facts_sha256"] != FACTS_SHA256:
-        raise CandidateProbeContractError("source_facts_hash_mismatch")
-    if contract["source_manifest_sha256"] != INPUT_MANIFEST_SHA256:
-        raise CandidateProbeContractError("source_manifest_hash_mismatch")
-    if package_probe_contract_binding_sha256(contract) != contract["contract_binding_sha256"]:
-        raise CandidateProbeContractError("contract_binding_hash_mismatch")
-    for path_field, hash_field in (
-        ("materialized_generation_descriptor_path", "materialized_generation_descriptor_sha256"),
-        ("registry_policy_path", "registry_policy_sha256"),
-        ("collision_disposition_path", "collision_disposition_sha256"),
-        ("binding_manifest_path", "binding_manifest_sha256"),
-    ):
-        _validate_bound_file(contract, path_field, hash_field)
-    if not package_script_path.is_absolute() or not package_script_path.is_file():
-        raise CandidateProbeContractError("package_script_missing")
-    if package_script_path.read_bytes() != package_script_bytes:
-        raise CandidateProbeContractError("package_script_working_git_blob_drift")
-    if sha256(package_script_bytes) != contract["package_script_git_blob_sha256"]:
-        raise CandidateProbeContractError("package_script_git_blob_hash_mismatch")
-    _validate_candidate_probe_argv(
-        actual_argv, contract, contract_path, package_script_path, output_root
-    )
-    actual_argv_hash = sha256(canonical_json(actual_argv))
-    if actual_argv_hash != contract["allowed_argv_sha256"]:
-        raise CandidateProbeContractError("argv_hash_mismatch")
-    parent_value = contract.get("disposable_parent_root")
-    contract_output_value = contract.get("output_root")
-    if not isinstance(parent_value, str) or not isinstance(contract_output_value, str):
-        raise CandidateProbeContractError("output_root_contract_invalid")
-    disposable_parent = Path(parent_value)
-    contract_output = Path(contract_output_value)
-    if not disposable_parent.is_absolute() or not contract_output.is_absolute() or not output_root.is_absolute():
-        raise CandidateProbeContractError("output_root_not_absolute")
-    if contract_output != output_root:
-        raise CandidateProbeContractError("output_root_argv_mismatch")
-    if not disposable_parent.is_dir():
-        raise CandidateProbeContractError("disposable_parent_missing")
-    if any(_is_reparse_point(component) for component in _existing_path_chain(disposable_parent)):
-        raise CandidateProbeContractError("disposable_parent_reparse_escape")
-    if any(_is_reparse_point(component) for component in _existing_path_chain(output_root)):
-        raise CandidateProbeContractError("output_root_reparse_escape")
-    resolved_parent = disposable_parent.resolve(strict=True)
-    resolved_output = output_root.resolve(strict=False)
-    if resolved_output == resolved_parent or resolved_parent not in resolved_output.parents:
-        raise CandidateProbeContractError("output_root_escape")
-    if output_root.exists() and (not output_root.is_dir() or any(output_root.iterdir())):
-        raise CandidateProbeContractError("output_root_not_fresh_empty")
-    return {
-        "schema_version": "validated-naturalization-package-candidate-probe-validation-v1",
-        "status": "PASS",
-        "authority_effect": "none",
-        "contract_binding_sha256": contract["contract_binding_sha256"],
-        "actual_argv_sha256": actual_argv_hash,
-        "output_root": str(resolved_output),
-        "artifact_write_authorized": True,
-    }
 
 
 def run_git(repo: Path, *args: str, check: bool = True) -> subprocess.CompletedProcess[bytes]:
@@ -461,6 +257,81 @@ def public_shape(payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def validate_materialized_generation(candidate_path: Path, generation_root: Path) -> dict[str, Any]:
+    import layer3_current_authority_reconstruction as reconstruction
+
+    rendered_path = generation_root / "dvf_3_3_rendered.json"
+    manifest_path = generation_root / "IrisLayer3DataChunks.lua"
+    chunk_dir = generation_root / "IrisLayer3DataChunks"
+    candidate = load_json_bytes(candidate_path.read_bytes())
+    rendered = load_json_bytes(rendered_path.read_bytes())
+    candidate_entries = candidate.get("entries", {})
+    rendered_entries = rendered.get("entries", {})
+    runtime_entries = reconstruction.load_runtime_chunks(chunk_dir)
+    manifest_summary = reconstruction.lua_file_summary(manifest_path)
+    module_names = [Path(value).name + ".lua" for value in manifest_summary["runtime_manifest_modules"]]
+    actual_names = [path.name for path in sorted(chunk_dir.glob("Chunk*.lua"))]
+    candidate_keys = set(candidate_entries)
+    rendered_keys = set(rendered_entries)
+    runtime_keys = set(runtime_entries)
+    mismatches: list[str] = []
+    public_matches = 0
+    unadopted_without_text = 0
+    forbidden_metadata = 0
+    for key in sorted(candidate_keys | rendered_keys | runtime_keys):
+        candidate_row = candidate_entries.get(key, {})
+        rendered_row = rendered_entries.get(key, {})
+        runtime_row = runtime_entries.get(key, {})
+        if candidate_row != rendered_row:
+            mismatches.append(f"rendered:{key}")
+        if candidate_row.get("source") != runtime_row.get("source"):
+            mismatches.append(f"source:{key}")
+        expected_text = candidate_row.get("text_ko")
+        actual_text = runtime_row.get("text_ko")
+        if isinstance(expected_text, str):
+            if actual_text == expected_text:
+                public_matches += 1
+            else:
+                mismatches.append(f"text:{key}")
+        elif actual_text is None:
+            unadopted_without_text += int(candidate_row.get("source") == "unadopted")
+        else:
+            mismatches.append(f"unexpected_text:{key}")
+        forbidden_metadata += len(set(runtime_row) - {"source", "text_ko"})
+    status = "PASS" if (
+        candidate_keys == rendered_keys == runtime_keys
+        and not mismatches
+        and module_names == actual_names
+        and forbidden_metadata == 0
+    ) else "BLOCKED"
+    report = {
+        "schema_version": "validated-naturalization-full-generation-parity-v1",
+        "status": status,
+        "candidate_rendered_key_set_equal": candidate_keys == rendered_keys,
+        "candidate_runtime_key_set_equal": candidate_keys == runtime_keys,
+        "candidate_only_count": len(candidate_keys - runtime_keys),
+        "runtime_only_count": len(runtime_keys - candidate_keys),
+        "public_text_match_count": public_matches,
+        "unadopted_without_text_count": unadopted_without_text,
+        "forbidden_runtime_metadata_count": forbidden_metadata,
+        "manifest_chunk_set_equal": module_names == actual_names,
+        "mismatch_count": len(mismatches),
+        "mismatch_sample": mismatches[:20],
+    }
+    write_json(generation_root / "full_parity_report.json", report)
+    if status != "PASS":
+        raise ValueError("materialized_generation_parity_mismatch")
+    return report
+
+
+def generation_payload_files(root: Path) -> list[Path]:
+    return [
+        root / "dvf_3_3_rendered.json",
+        root / "IrisLayer3DataChunks.lua",
+        *sorted((root / "IrisLayer3DataChunks").glob("Chunk*.lua")),
+    ]
+
+
 def run_prepare_and_materialize(repo: Path, attempt_root: Path) -> dict[str, Any]:
     repo = repo.resolve()
     attempt_root = attempt_root.resolve()
@@ -569,14 +440,36 @@ def run_prepare_and_materialize(repo: Path, attempt_root: Path) -> dict[str, Any
         "C-07d": "resolved_pass_no_core_cap_conflict",
         "C-13": "not_applicable_no_exact_adoption_specific_repository_command",
     })
-    next_generation.mkdir(parents=True, exist_ok=True)
-    rendered_out = next_generation / "dvf_3_3_rendered.json"
-    rendered_out.write_bytes(candidate_data)
+    phase3 = next_generation.parent
+    phase3.mkdir(parents=True, exist_ok=True)
+    candidate_input = working_path(repo, CANDIDATE_PATH)
+    adoption_contract_path = phase2 / "adoption_generation_contract.json"
+    adoption_contract = {
+        "schema_version": "validated-naturalization-adoption-generation-contract-v1",
+        "authority_effect": "none",
+        "bridge_context": "staging",
+        "candidate_path": str(candidate_input),
+        "candidate_sha256": CANDIDATE_SHA256,
+        "facts_path": str(working_path(repo, FACTS_PATH)),
+        "facts_sha256": FACTS_SHA256,
+        "input_manifest_path": str(working_path(repo, INPUT_MANIFEST_PATH)),
+        "input_manifest_sha256": INPUT_MANIFEST_SHA256,
+        "adoption_owned_parent_root": str(phase3),
+        "output_root": str(next_generation),
+        "expected_shape": {
+            "total": candidate_shape["total"],
+            "adopted_public": candidate_shape["adopted_public"],
+            "unadopted": candidate_shape["unadopted"],
+            "public_text": candidate_shape["adopted_public"],
+        },
+    }
+    write_json(adoption_contract_path, adoption_contract)
     exporter = repo / "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py"
     command = [
-        sys.executable, "-B", str(exporter), "--rendered-path", str(rendered_out),
+        sys.executable, "-B", str(exporter), "--rendered-path", str(candidate_input),
         "--bridge-context", "staging", "--format", "chunk", "--output-root", str(next_generation),
         "--report-path", str(next_generation / "bridge_export_report.json"),
+        "--adoption-generation", "--adoption-generation-contract", str(adoption_contract_path),
     ]
     proc = subprocess.run(command, cwd=repo, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     write_json(next_generation / "export_command_receipt.json", {
@@ -585,6 +478,41 @@ def run_prepare_and_materialize(repo: Path, attempt_root: Path) -> dict[str, Any
     })
     if proc.returncode != 0:
         raise RuntimeError(proc.stderr.decode(errors="replace"))
+    rendered_out = next_generation / "dvf_3_3_rendered.json"
+    rendered_out.write_bytes(candidate_data)
+    parity = validate_materialized_generation(candidate_input, next_generation)
+
+    repeat_generation = phase3 / "regeneration_b"
+    repeat_contract_path = phase2 / "adoption_generation_contract_b.json"
+    repeat_contract = dict(adoption_contract)
+    repeat_contract["output_root"] = str(repeat_generation)
+    write_json(repeat_contract_path, repeat_contract)
+    repeat_command = [
+        sys.executable, "-B", str(exporter), "--rendered-path", str(candidate_input),
+        "--bridge-context", "staging", "--format", "chunk", "--output-root", str(repeat_generation),
+        "--report-path", str(repeat_generation / "bridge_export_report.json"),
+        "--adoption-generation", "--adoption-generation-contract", str(repeat_contract_path),
+    ]
+    repeat_proc = subprocess.run(repeat_command, cwd=repo, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if repeat_proc.returncode != 0:
+        raise RuntimeError(repeat_proc.stderr.decode(errors="replace"))
+    (repeat_generation / "dvf_3_3_rendered.json").write_bytes(candidate_data)
+    validate_materialized_generation(candidate_input, repeat_generation)
+    first_files = generation_payload_files(next_generation)
+    second_files = generation_payload_files(repeat_generation)
+    byte_identical = (
+        [path.relative_to(next_generation).as_posix() for path in first_files]
+        == [path.relative_to(repeat_generation).as_posix() for path in second_files]
+        and all(left.read_bytes() == right.read_bytes() for left, right in zip(first_files, second_files))
+    )
+    write_json(phase3 / "regeneration_identity_report.json", {
+        "schema_version": "validated-naturalization-regeneration-identity-v1",
+        "status": "PASS" if byte_identical else "BLOCKED",
+        "byte_identical": byte_identical,
+        "compared_file_count": len(first_files),
+    })
+    if not byte_identical:
+        raise ValueError("adoption_generation_regeneration_drift")
     manifest_path = next_generation / "IrisLayer3DataChunks.lua"
     chunks = sorted((next_generation / "IrisLayer3DataChunks").glob("Chunk*.lua"))
     descriptor = {
@@ -601,7 +529,7 @@ def run_prepare_and_materialize(repo: Path, attempt_root: Path) -> dict[str, Any
         "candidate_only_count": 0, "source_only_count": 0, "bidirectional_key_set_equal": True,
         "shape": candidate_shape,
     })
-    return {"phase1": "PASS", "phase2": "PASS", "phase3": "PASS", "next_generation": str(next_generation), "descriptor_sha256": sha256(canonical_json(descriptor))}
+    return {"phase1": "PASS", "phase2": "PASS", "phase3": "PASS", "next_generation": str(next_generation), "descriptor_sha256": sha256(canonical_json(descriptor)), "public_text_match_count": parity["public_text_match_count"]}
 
 
 def run_phase0(repo: Path, output: Path) -> dict[str, Any]:
@@ -678,44 +606,6 @@ def run_phase0(repo: Path, output: Path) -> dict[str, Any]:
 
 
 def main() -> int:
-    if len(sys.argv) > 1 and sys.argv[1] == "validate-package-probe-contract":
-        parser = argparse.ArgumentParser()
-        parser.add_argument("command")
-        parser.add_argument("--contract", required=True, type=Path)
-        parser.add_argument("--output-root", required=True, type=Path)
-        parser.add_argument("--package-script", required=True, type=Path)
-        parser.add_argument("--actual-argv-json", required=True)
-        parser.add_argument("--out", type=Path)
-        args = parser.parse_args()
-        try:
-            actual_argv = json.loads(args.actual_argv_json)
-            if not isinstance(actual_argv, list) or not all(isinstance(value, str) for value in actual_argv):
-                raise CandidateProbeContractError("actual_argv_invalid")
-            repo = Path(__file__).resolve().parents[6]
-            relative_script = args.package_script.resolve().relative_to(repo).as_posix()
-            script_blob = git_bytes(repo, relative_script)
-            if script_blob is None:
-                raise CandidateProbeContractError("package_script_git_blob_missing")
-            result = validate_package_probe_contract(
-                contract_path=args.contract.resolve(),
-                output_root=args.output_root,
-                package_script_path=args.package_script.resolve(),
-                actual_argv=actual_argv,
-                package_script_bytes=script_blob,
-            )
-            if args.out is not None:
-                write_json(args.out.resolve(), result)
-            print(json.dumps(result, ensure_ascii=False, sort_keys=True))
-            return 0
-        except (CandidateProbeContractError, ValueError, OSError) as exc:
-            failure = {
-                "schema_version": "validated-naturalization-package-candidate-probe-validation-v1",
-                "status": "BLOCKED",
-                "failure_code": str(exc).split(":", 1)[0],
-                "artifact_write_authorized": False,
-            }
-            print(json.dumps(failure, ensure_ascii=False, sort_keys=True), file=sys.stderr)
-            return 2
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)

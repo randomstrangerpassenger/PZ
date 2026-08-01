@@ -1,8 +1,9 @@
 from __future__ import annotations
 
-import sys
+import hashlib
 import json
 import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -15,281 +16,148 @@ import validated_naturalization_runtime_adoption as adoption
 
 
 class ValidatedNaturalizationRuntimeAdoptionTest(unittest.TestCase):
-    def _candidate_probe_fixture(self, root: Path) -> tuple[dict, Path, Path, list[str]]:
-        disposable_parent = root / "disposable"
-        disposable_parent.mkdir()
-        output_root = disposable_parent / "package"
-        inputs = root / "inputs"
-        inputs.mkdir()
-        descriptor = inputs / "materialized_generation_descriptor.json"
-        policy = inputs / "candidate_registry_compatibility_policy.json"
-        disposition = inputs / "candidate_collision_disposition.json"
-        binding = inputs / "candidate_contract_binding_manifest.json"
-        for path, payload in (
-            (descriptor, {"schema_version": "validated-naturalization-materialized-generation-v1"}),
-            (policy, {"schema_version": "rtc-policy-v1"}),
-            (disposition, {"schema_version": "rtc-disposition-v1"}),
-            (binding, {"schema_version": "rtc-candidate-contract-binding-manifest-v1"}),
-        ):
-            path.write_text(json.dumps(payload), encoding="utf-8")
-        package_script = root / "package_iris.ps1"
-        package_script.write_text("param()\n", encoding="utf-8")
-        contract_path = root / "package_candidate_probe_contract.json"
-        argv = [
-            "powershell", "-ExecutionPolicy", "Bypass", "-File", str(package_script),
-            "-OutputRoot", str(output_root), "-RegistryCompatibilityContext", "candidate",
-            "-RegistryCompatibilityPolicy", str(policy),
-            "-RegistryCompatibilityDisposition", str(disposition),
-            "-RegistryCompatibilityBindingManifest", str(binding),
-            "-RegistryCompatibilityRequiredGateState", "not_adopted", "-RegistryCompatibilityProbe",
-            "-ValidatedNaturalizationCandidateProbeContract", str(contract_path),
-        ]
+    def _adoption_fixture(self, root: Path) -> tuple[Path, Path, Path, Path, Path]:
+        candidate = root / "candidate.json"
+        facts = root / "facts.jsonl"
+        manifest = root / "input_manifest.json"
+        parent = root / "adoption-owned"
+        parent.mkdir()
+        output = parent / "generation"
+        candidate.write_text(json.dumps({
+            "meta": {"facts_sha256": "fixture"},
+            "entries": {
+                "Base.Adopted": {"source": "korean_prose_candidate_v1", "text_ko": "개선 문안"},
+                "Base.Unadopted": {"source": "unadopted", "text_ko": None},
+            },
+        }), encoding="utf-8")
+        facts.write_text('{"item_id":"Base.Adopted"}\n{"item_id":"Base.Unadopted"}\n', encoding="utf-8")
+        manifest.write_text('{"schema_version":"fixture-v1"}\n', encoding="utf-8")
+        digest = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()
         contract = {
-            "schema_version": "validated-naturalization-package-candidate-probe-contract-v1",
+            "schema_version": "validated-naturalization-adoption-generation-contract-v1",
             "authority_effect": "none",
-            "subject_kind": "validated_naturalization_generation",
-            "candidate_sha256": adoption.CANDIDATE_SHA256,
-            "source_facts_sha256": adoption.FACTS_SHA256,
-            "source_manifest_sha256": adoption.INPUT_MANIFEST_SHA256,
-            "materialized_generation_descriptor_path": str(descriptor),
-            "materialized_generation_descriptor_sha256": adoption.sha256(descriptor.read_bytes()),
-            "registry_policy_path": str(policy),
-            "registry_policy_sha256": adoption.sha256(policy.read_bytes()),
-            "collision_disposition_path": str(disposition),
-            "collision_disposition_sha256": adoption.sha256(disposition.read_bytes()),
-            "binding_manifest_path": str(binding),
-            "binding_manifest_sha256": adoption.sha256(binding.read_bytes()),
-            "package_script_git_blob_sha256": adoption.sha256(package_script.read_bytes()),
-            "disposable_parent_root": str(disposable_parent),
-            "output_root": str(output_root),
-            "allowed_argv_sha256": adoption.sha256(adoption.canonical_json(argv)),
-            "zip_allowed": False,
+            "bridge_context": "staging",
+            "candidate_path": str(candidate.resolve()),
+            "candidate_sha256": digest(candidate),
+            "facts_path": str(facts.resolve()),
+            "facts_sha256": digest(facts),
+            "input_manifest_path": str(manifest.resolve()),
+            "input_manifest_sha256": digest(manifest),
+            "adoption_owned_parent_root": str(parent.resolve()),
+            "output_root": str(output.resolve()),
+            "expected_shape": {"total": 2, "adopted_public": 1, "unadopted": 1, "public_text": 1},
         }
-        contract["contract_binding_sha256"] = adoption.package_probe_contract_binding_sha256(contract)
+        contract_path = root / "adoption_contract.json"
         contract_path.write_text(json.dumps(contract), encoding="utf-8")
-        return contract, contract_path, package_script, argv
+        return candidate, facts, manifest, output, contract_path
+
+    def _run_export(self, candidate: Path, output: Path, contract: Path, *extra: str) -> subprocess.CompletedProcess[str]:
+        exporter = TOOLS / "export_dvf_3_3_lua_bridge.py"
+        return subprocess.run([
+            sys.executable, "-B", str(exporter),
+            "--rendered-path", str(candidate),
+            "--bridge-context", "staging",
+            "--format", "chunk",
+            "--output-root", str(output),
+            "--report-path", str(output.parent / "export_report.json"),
+            "--adoption-generation",
+            "--adoption-generation-contract", str(contract),
+            *extra,
+        ], capture_output=True, text=True, check=False)
 
     def test_declared_anchors_are_full_lowercase_sha256(self) -> None:
         self.assertTrue(adoption.ANCHORS)
         self.assertTrue(all(adoption.SHA256_RE.fullmatch(value) for value in adoption.ANCHORS.values()))
 
-    def test_phase0_census_is_read_only_and_anchor_exact(self) -> None:
-        repo = Path(__file__).resolve().parents[5]
-        records = adoption.census(repo, adoption.PROTECTED_PATHS)
-        by_path = {record["path"]: record for record in records}
-        for path in adoption.ANCHORS:
-            self.assertTrue(by_path[path]["git_tracked"])
-            self.assertTrue(by_path[path]["declared_identity_matches"])
-
-    def test_windows_candidate_anchor_preserves_named_identity_domain(self) -> None:
-        repo = Path(__file__).resolve().parents[5]
-        record = adoption.path_record(repo, adoption.CANDIDATE_PATH, adoption.CANDIDATE_SHA256)
-        self.assertEqual("working_raw_bytes", record["declared_match_domain"])
-        self.assertNotEqual(record["git_blob_sha256"], record["working"]["raw_sha256"])
-
-    def test_current_source_pair_roles_are_coherent(self) -> None:
-        repo = Path(__file__).resolve().parents[5]
-        manifest = adoption.load_json_from_git(repo, adoption.INPUT_MANIFEST_PATH)
-        self.assertEqual("successor_current_source_authority", manifest["authority_role"])
-        self.assertEqual("current_source_authority", manifest["facts"]["role"])
-        self.assertEqual(adoption.FACTS_SHA256, manifest["facts"]["sha256"])
-
-    def test_candidate_source_vocabulary_counts_unadopted_without_state_field(self) -> None:
-        payload = {
-            "entries": {
-                "Base.Adopted": {"source": "korean_prose_candidate_v1", "text_ko": "본문"},
-                "Base.Unadopted": {"source": "unadopted", "text_ko": None},
-            }
-        }
-        shape = adoption.public_shape(payload)
-        self.assertEqual(1, shape["adopted_public"])
-        self.assertEqual(1, shape["unadopted"])
-
-    def test_facts_key_set_rejects_duplicates(self) -> None:
-        with self.assertRaisesRegex(ValueError, "facts_item_id_missing_or_duplicate"):
-            adoption.facts_key_set(b'{"item_id":"Base.A"}\n{"item_id":"Base.A"}\n')
-
     def test_candidate_working_and_git_domains_decode_to_same_payload(self) -> None:
         repo = Path(__file__).resolve().parents[5]
-        git_data = adoption.git_bytes(repo, adoption.CANDIDATE_PATH)
-        working_data = adoption.working_bytes(repo, adoption.CANDIDATE_PATH)
-        self.assertIsNotNone(git_data)
-        self.assertIsNotNone(working_data)
-        self.assertEqual(adoption.load_json_bytes(git_data), adoption.load_json_bytes(working_data))
+        self.assertEqual(
+            adoption.load_json_bytes(adoption.git_bytes(repo, adoption.CANDIDATE_PATH)),
+            adoption.load_json_bytes(adoption.working_bytes(repo, adoption.CANDIDATE_PATH)),
+        )
 
-    def test_candidate_probe_contract_accepts_fresh_contained_output(self) -> None:
+    def test_adoption_generation_requires_contract_before_write(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
-            contract, contract_path, package_script, argv = self._candidate_probe_fixture(Path(temporary))
-            result = adoption.validate_package_probe_contract(
-                contract_path=contract_path,
-                output_root=Path(contract["output_root"]),
-                package_script_path=package_script,
-                actual_argv=argv,
-                package_script_bytes=package_script.read_bytes(),
-            )
-            self.assertEqual("PASS", result["status"])
-            self.assertEqual("none", result["authority_effect"])
+            candidate, _, _, output, contract = self._adoption_fixture(Path(temporary))
+            contract.unlink()
+            result = self._run_export(candidate, output, contract)
+            self.assertNotEqual(0, result.returncode)
+            self.assertFalse(output.exists())
 
-    def test_candidate_probe_contract_rejects_hash_drift_before_output(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary:
-            contract, contract_path, package_script, argv = self._candidate_probe_fixture(Path(temporary))
-            Path(contract["registry_policy_path"]).write_text("drift", encoding="utf-8")
-            with self.assertRaisesRegex(adoption.CandidateProbeContractError, "registry_policy_hash_mismatch"):
-                adoption.validate_package_probe_contract(
-                    contract_path=contract_path,
-                    output_root=Path(contract["output_root"]),
-                    package_script_path=package_script,
-                    actual_argv=argv,
-                    package_script_bytes=package_script.read_bytes(),
-                )
-            self.assertFalse(Path(contract["output_root"]).exists())
+    def test_adoption_generation_rejects_each_input_hash_drift(self) -> None:
+        for field in ("candidate_sha256", "facts_sha256", "input_manifest_sha256"):
+            with self.subTest(field=field), tempfile.TemporaryDirectory() as temporary:
+                candidate, _, _, output, contract_path = self._adoption_fixture(Path(temporary))
+                contract = json.loads(contract_path.read_text(encoding="utf-8"))
+                contract[field] = "0" * 64
+                contract_path.write_text(json.dumps(contract), encoding="utf-8")
+                result = self._run_export(candidate, output, contract_path)
+                self.assertNotEqual(0, result.returncode)
+                self.assertIn(field.removesuffix("_sha256") + "_hash_mismatch", result.stderr)
+                self.assertFalse(output.exists())
 
-    def test_candidate_probe_contract_rejects_root_escape_before_output(self) -> None:
+    def test_adoption_generation_rejects_output_escape(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
-            contract, contract_path, package_script, argv = self._candidate_probe_fixture(Path(temporary))
+            candidate, _, _, output, contract_path = self._adoption_fixture(Path(temporary))
+            contract = json.loads(contract_path.read_text(encoding="utf-8"))
             escaped = Path(temporary) / "escaped"
-            contract["output_root"] = str(escaped)
-            contract["contract_binding_sha256"] = adoption.package_probe_contract_binding_sha256(contract)
+            contract["output_root"] = str(escaped.resolve())
             contract_path.write_text(json.dumps(contract), encoding="utf-8")
-            argv[argv.index("-OutputRoot") + 1] = str(escaped)
-            contract["allowed_argv_sha256"] = adoption.sha256(adoption.canonical_json(argv))
-            contract["contract_binding_sha256"] = adoption.package_probe_contract_binding_sha256(contract)
-            contract_path.write_text(json.dumps(contract), encoding="utf-8")
-            with self.assertRaisesRegex(adoption.CandidateProbeContractError, "output_root_escape"):
-                adoption.validate_package_probe_contract(
-                    contract_path=contract_path,
-                    output_root=escaped,
-                    package_script_path=package_script,
-                    actual_argv=argv,
-                    package_script_bytes=package_script.read_bytes(),
-                )
+            result = self._run_export(candidate, escaped, contract_path)
+            self.assertNotEqual(0, result.returncode)
+            self.assertIn("adoption_output_root_escape", result.stderr)
             self.assertFalse(escaped.exists())
 
-    def test_candidate_probe_contract_rejects_zip_and_authority_claim(self) -> None:
+    def test_adoption_generation_rejects_bridge_context_mismatch(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
-            contract, contract_path, package_script, argv = self._candidate_probe_fixture(Path(temporary))
-            contract["authority_effect"] = "package_authority"
-            contract["contract_binding_sha256"] = adoption.package_probe_contract_binding_sha256(contract)
+            candidate, _, _, output, contract_path = self._adoption_fixture(Path(temporary))
+            contract = json.loads(contract_path.read_text(encoding="utf-8"))
+            contract["bridge_context"] = "diagnostic"
             contract_path.write_text(json.dumps(contract), encoding="utf-8")
-            with self.assertRaisesRegex(adoption.CandidateProbeContractError, "authority_effect_forbidden"):
-                adoption.validate_package_probe_contract(
-                    contract_path=contract_path,
-                    output_root=Path(contract["output_root"]),
-                    package_script_path=package_script,
-                    actual_argv=argv + ["-Zip"],
-                    package_script_bytes=package_script.read_bytes(),
-                )
-
-    def test_candidate_probe_contract_rejects_argv_mismatch(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary:
-            contract, contract_path, package_script, argv = self._candidate_probe_fixture(Path(temporary))
-            with self.assertRaisesRegex(adoption.CandidateProbeContractError, "argv_contract_invalid"):
-                adoption.validate_package_probe_contract(
-                    contract_path=contract_path,
-                    output_root=Path(contract["output_root"]),
-                    package_script_path=package_script,
-                    actual_argv=argv + ["-Clean"],
-                    package_script_bytes=package_script.read_bytes(),
-                )
-
-    def test_candidate_probe_contract_rejects_outside_receipt_before_write(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary:
-            contract, contract_path, package_script, argv = self._candidate_probe_fixture(Path(temporary))
-            outside_receipt = Path(temporary) / "outside" / "receipt.json"
-            hostile_argv = argv[:-2] + [
-                "-RegistryCompatibilityReceipt", str(outside_receipt), *argv[-2:]
-            ]
-            contract["allowed_argv_sha256"] = adoption.sha256(adoption.canonical_json(hostile_argv))
-            contract["contract_binding_sha256"] = adoption.package_probe_contract_binding_sha256(contract)
-            contract_path.write_text(json.dumps(contract), encoding="utf-8")
-            with self.assertRaisesRegex(adoption.CandidateProbeContractError, "argv_contract_invalid"):
-                adoption.validate_package_probe_contract(
-                    contract_path=contract_path,
-                    output_root=Path(contract["output_root"]),
-                    package_script_path=package_script,
-                    actual_argv=hostile_argv,
-                    package_script_bytes=package_script.read_bytes(),
-                )
-            self.assertFalse(outside_receipt.exists())
-
-    def test_candidate_probe_contract_cross_binds_policy_path(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary:
-            contract, contract_path, package_script, argv = self._candidate_probe_fixture(Path(temporary))
-            argv[argv.index("-RegistryCompatibilityPolicy") + 1] = contract["collision_disposition_path"]
-            contract["allowed_argv_sha256"] = adoption.sha256(adoption.canonical_json(argv))
-            contract["contract_binding_sha256"] = adoption.package_probe_contract_binding_sha256(contract)
-            contract_path.write_text(json.dumps(contract), encoding="utf-8")
-            with self.assertRaisesRegex(adoption.CandidateProbeContractError, "registry_policy_argv_mismatch"):
-                adoption.validate_package_probe_contract(
-                    contract_path=contract_path,
-                    output_root=Path(contract["output_root"]),
-                    package_script_path=package_script,
-                    actual_argv=argv,
-                    package_script_bytes=package_script.read_bytes(),
-                )
-
-    def test_candidate_probe_contract_rejects_reparse_escape(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary, tempfile.TemporaryDirectory() as external:
-            root = Path(temporary)
-            link = root / "linked-parent"
-            try:
-                link.symlink_to(Path(external), target_is_directory=True)
-            except OSError:
-                junction = subprocess.run(
-                    ["cmd", "/c", "mklink", "/J", str(link), str(Path(external))],
-                    capture_output=True,
-                    text=True,
-                    check=False,
-                )
-                if junction.returncode != 0:
-                    self.fail(f"test_requires_directory_junction_support: {junction.stderr}")
-            contract, contract_path, package_script, argv = self._candidate_probe_fixture(root)
-            linked_parent = link / "disposable"
-            linked_parent.mkdir()
-            linked_output = linked_parent / "package"
-            contract["disposable_parent_root"] = str(linked_parent)
-            contract["output_root"] = str(linked_output)
-            argv[argv.index("-OutputRoot") + 1] = str(linked_output)
-            contract["allowed_argv_sha256"] = adoption.sha256(adoption.canonical_json(argv))
-            contract["contract_binding_sha256"] = adoption.package_probe_contract_binding_sha256(contract)
-            contract_path.write_text(json.dumps(contract), encoding="utf-8")
-            with self.assertRaisesRegex(adoption.CandidateProbeContractError, "reparse_escape"):
-                adoption.validate_package_probe_contract(
-                    contract_path=contract_path,
-                    output_root=linked_output,
-                    package_script_path=package_script,
-                    actual_argv=argv,
-                    package_script_bytes=package_script.read_bytes(),
-                )
-            self.assertFalse(linked_output.exists())
-
-    def test_package_script_rejects_missing_adoption_contract_before_output(self) -> None:
-        repo = Path(__file__).resolve().parents[5]
-        package_script = repo / "Iris" / "tools" / "package_iris.ps1"
-        with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
-            output = root / "package"
-            missing = root / "missing.json"
-            completed = subprocess.run(
-                [
-                    "powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(package_script),
-                    "-OutputRoot", str(output),
-                    "-RegistryCompatibilityContext", "candidate",
-                    "-RegistryCompatibilityPolicy", str(root / "policy.json"),
-                    "-RegistryCompatibilityDisposition", str(root / "disposition.json"),
-                    "-RegistryCompatibilityBindingManifest", str(root / "binding.json"),
-                    "-RegistryCompatibilityRequiredGateState", "not_adopted",
-                    "-RegistryCompatibilityProbe",
-                    "-ValidatedNaturalizationCandidateProbeContract", str(missing),
-                ],
-                cwd=repo,
-                text=True,
-                capture_output=True,
-                check=False,
-            )
-            self.assertNotEqual(0, completed.returncode)
-            self.assertIn("candidate_probe_contract_validation_failed", completed.stderr)
+            result = self._run_export(candidate, output, contract_path)
+            self.assertNotEqual(0, result.returncode)
+            self.assertIn("adoption_bridge_context_invalid", result.stderr)
             self.assertFalse(output.exists())
+
+    def test_adoption_generation_rejects_mixed_legacy_mode(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            candidate, _, _, output, contract_path = self._adoption_fixture(Path(temporary))
+            result = self._run_export(
+                candidate, output, contract_path,
+                "--registry-compatibility-context", "candidate",
+            )
+            self.assertNotEqual(0, result.returncode)
+            self.assertIn("adoption_generation_mode_mixed", result.stderr)
+            self.assertFalse(output.exists())
+
+    def test_adoption_generation_exports_off_live_without_default_fallback(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            candidate, _, _, output, contract_path = self._adoption_fixture(Path(temporary))
+            result = self._run_export(candidate, output, contract_path)
+            self.assertEqual(0, result.returncode, result.stderr)
+            self.assertTrue((output / "IrisLayer3DataChunks.lua").is_file())
+            self.assertTrue(any((output / "IrisLayer3DataChunks").glob("Chunk*.lua")))
+            report = json.loads((output.parent / "export_report.json").read_text(encoding="utf-8"))
+            self.assertEqual("adoption_generation", report["validation_mode"])
+            self.assertEqual("none", report["authority_effect"])
+            self.assertNotIn("registry_compatibility", report)
+
+    def test_materializer_uses_adoption_generation_contract(self) -> None:
+        repo = Path(__file__).resolve().parents[5]
+        with tempfile.TemporaryDirectory() as temporary:
+            result = adoption.run_prepare_and_materialize(repo, Path(temporary) / "attempt")
+            self.assertEqual("PASS", result["phase3"])
+            next_generation = Path(result["next_generation"])
+            report = json.loads((next_generation / "bridge_export_report.json").read_text(encoding="utf-8"))
+            self.assertEqual("adoption_generation", report["validation_mode"])
+            self.assertNotIn("registry_compatibility", report)
+            parity = json.loads((next_generation / "full_parity_report.json").read_text(encoding="utf-8"))
+            self.assertEqual("PASS", parity["status"])
+            self.assertEqual(2084, parity["public_text_match_count"])
+            self.assertEqual(21, parity["unadopted_without_text_count"])
+            repeat = json.loads((next_generation.parent / "regeneration_identity_report.json").read_text(encoding="utf-8"))
+            self.assertEqual("PASS", repeat["status"])
+            self.assertTrue(repeat["byte_identical"])
 
 
 if __name__ == "__main__":

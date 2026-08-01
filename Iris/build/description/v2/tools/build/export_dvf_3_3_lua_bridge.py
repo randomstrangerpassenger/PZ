@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import re
+import stat
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -56,6 +57,15 @@ class BridgeExportContractError(ValueError):
     """Raised when an export request violates the bridge output contract."""
 
 
+ADOPTION_GENERATION_SCHEMA = "validated-naturalization-adoption-generation-contract-v1"
+ADOPTION_GENERATION_FIELDS = {
+    "schema_version", "authority_effect", "bridge_context",
+    "candidate_path", "candidate_sha256", "facts_path", "facts_sha256",
+    "input_manifest_path", "input_manifest_sha256",
+    "adoption_owned_parent_root", "output_root", "expected_shape",
+}
+
+
 @dataclass(frozen=True)
 class RegistryCompatibilityInvocation:
     policy_context: str
@@ -70,6 +80,85 @@ class RegistryCompatibilityInvocation:
 def load_json(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as handle:
         return json.load(handle)
+
+
+def _is_reparse_point(path: Path) -> bool:
+    try:
+        metadata = path.lstat()
+    except FileNotFoundError:
+        return False
+    attributes = getattr(metadata, "st_file_attributes", 0)
+    return path.is_symlink() or bool(attributes & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400))
+
+
+def _existing_path_chain(path: Path) -> list[Path]:
+    rows: list[Path] = []
+    current = path
+    while True:
+        if current.exists() or current.is_symlink():
+            rows.append(current)
+        if current.parent == current:
+            return rows
+        current = current.parent
+
+
+def validate_adoption_generation_contract(
+    *, contract_path: Path, rendered_path: Path, output_root: Path, bridge_context: str
+) -> dict[str, Any]:
+    if not contract_path.is_file():
+        raise BridgeExportContractError("adoption_contract_missing")
+    contract = load_json(contract_path)
+    if set(contract) != ADOPTION_GENERATION_FIELDS:
+        raise BridgeExportContractError("adoption_contract_fields_invalid")
+    if contract.get("schema_version") != ADOPTION_GENERATION_SCHEMA:
+        raise BridgeExportContractError("adoption_contract_schema_invalid")
+    if contract.get("authority_effect") != "none":
+        raise BridgeExportContractError("adoption_authority_effect_invalid")
+    if bridge_context != "staging" or contract.get("bridge_context") != "staging":
+        raise BridgeExportContractError("adoption_bridge_context_invalid")
+    paths: dict[str, Path] = {}
+    for role, path_field, hash_field in (
+        ("candidate", "candidate_path", "candidate_sha256"),
+        ("facts", "facts_path", "facts_sha256"),
+        ("input_manifest", "input_manifest_path", "input_manifest_sha256"),
+    ):
+        path = Path(str(contract.get(path_field, "")))
+        if not path.is_absolute() or not path.is_file():
+            raise BridgeExportContractError(f"{role}_input_missing")
+        if hashlib.sha256(path.read_bytes()).hexdigest() != contract.get(hash_field):
+            raise BridgeExportContractError(f"{role}_hash_mismatch")
+        paths[role] = path.resolve()
+    if paths["candidate"] != rendered_path.resolve():
+        raise BridgeExportContractError("candidate_path_mismatch")
+    parent = Path(str(contract.get("adoption_owned_parent_root", "")))
+    contracted_output = Path(str(contract.get("output_root", "")))
+    if not parent.is_absolute() or not parent.is_dir() or not contracted_output.is_absolute() or not output_root.is_absolute():
+        raise BridgeExportContractError("adoption_output_root_invalid")
+    if any(_is_reparse_point(row) for row in _existing_path_chain(parent)) or any(
+        _is_reparse_point(row) for row in _existing_path_chain(contracted_output)
+    ):
+        raise BridgeExportContractError("adoption_output_root_reparse")
+    resolved_parent = parent.resolve(strict=True)
+    resolved_output = contracted_output.resolve(strict=False)
+    if output_root.resolve(strict=False) != resolved_output or resolved_parent not in resolved_output.parents:
+        raise BridgeExportContractError("adoption_output_root_escape")
+    if contracted_output.exists() and (not contracted_output.is_dir() or any(contracted_output.iterdir())):
+        raise BridgeExportContractError("adoption_output_root_not_fresh")
+    rendered = load_json(paths["candidate"])
+    entries = rendered.get("entries", {})
+    observed_shape = {
+        "total": len(entries),
+        "adopted_public": sum(row.get("source") == "korean_prose_candidate_v1" for row in entries.values()),
+        "unadopted": sum(row.get("source") == "unadopted" for row in entries.values()),
+        "public_text": sum(isinstance(row.get("text_ko"), str) and bool(row["text_ko"]) for row in entries.values()),
+    }
+    if contract.get("expected_shape") != observed_shape:
+        raise BridgeExportContractError("adoption_expected_shape_mismatch")
+    return {
+        "schema_version": "validated-naturalization-adoption-generation-validation-v1",
+        "status": "PASS", "authority_effect": "none",
+        "validation_mode": "adoption_generation", "observed_shape": observed_shape,
+    }
 
 
 def load_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -953,6 +1042,7 @@ def export_lua_bridge(
     output_format: str = "chunk",
     output_root: Path | None = None,
     registry_compatibility: RegistryCompatibilityInvocation | None = None,
+    adoption_generation_validation: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     resolved_chunk_size = chunk_size if chunk_size is not None else DEFAULT_CHUNK_SIZE
     resolved_output_root = output_root if output_root is not None else DEFAULT_OUTPUT_ROOT
@@ -973,13 +1063,14 @@ def export_lua_bridge(
         chunk_output_dir=resolved_chunk_output_dir,
     )
 
-    selected_compatibility, compatibility_preflight = (
-        run_registry_compatibility_preflight(
+    selected_compatibility = None
+    compatibility_preflight = None
+    if adoption_generation_validation is None:
+        selected_compatibility, compatibility_preflight = run_registry_compatibility_preflight(
             rendered_path=rendered_path,
             report_path=report_path,
             invocation=registry_compatibility,
         )
-    )
     rendered = load_json(rendered_path)
     source_entries = rendered.get("entries", {})
     publish_preview_map = load_publish_preview_map(publish_preview_path)
@@ -1059,21 +1150,21 @@ def export_lua_bridge(
         "non_current": bridge_context in {"diagnostic", "historical"} or output_format == "chunk",
         "input_scale": input_scale,
         "input_authority_status": input_authority_status,
-        "registry_compatibility": {
-            "policy_context": selected_compatibility.policy_context,
-            "policy_path": str(selected_compatibility.policy_path.resolve()),
-            "disposition_path": str(
-                selected_compatibility.disposition_path.resolve()
-            ),
-            "binding_manifest_path": str(
-                selected_compatibility.binding_manifest_path.resolve()
-            ),
-            "resolution_mode": selected_compatibility.resolution_mode,
-            "bridge_preflight": compatibility_preflight,
-        },
         "pass": True,
         **chunk_report,
     }
+    if adoption_generation_validation is not None:
+        report.update(adoption_generation_validation)
+    else:
+        assert selected_compatibility is not None
+        report["registry_compatibility"] = {
+            "policy_context": selected_compatibility.policy_context,
+            "policy_path": str(selected_compatibility.policy_path.resolve()),
+            "disposition_path": str(selected_compatibility.disposition_path.resolve()),
+            "binding_manifest_path": str(selected_compatibility.binding_manifest_path.resolve()),
+            "resolution_mode": selected_compatibility.resolution_mode,
+            "bridge_preflight": compatibility_preflight,
+        }
     dump_json(report_path, report)
     return report
 
@@ -1100,6 +1191,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--registry-compatibility-binding-manifest", type=Path)
     parser.add_argument("--bridge-preflight-input-manifest", type=Path)
     parser.add_argument("--bridge-preflight-receipt", type=Path)
+    parser.add_argument("--adoption-generation", action="store_true")
+    parser.add_argument("--adoption-generation-contract", type=Path)
     parser.add_argument(
         "--chunk-existing-lua-path",
         type=Path,
@@ -1119,6 +1212,20 @@ def main() -> int:
         args.bridge_preflight_input_manifest,
         args.bridge_preflight_receipt,
     )
+    adoption_selected = args.adoption_generation or args.adoption_generation_contract is not None
+    if adoption_selected and (
+        not args.adoption_generation
+        or args.adoption_generation_contract is None
+        or any(value is not None for value in compatibility_values)
+        or args.chunk_existing_lua_path is not None
+        or args.publish_preview_path is not None
+        or args.output_format != "chunk"
+        or args.output_root is None
+        or args.lua_output_path is not None
+        or args.chunk_output_dir is not None
+        or args.chunk_manifest_path is not None
+    ):
+        raise BridgeExportContractError("adoption_generation_mode_mixed")
     if any(value is not None for value in compatibility_values) and not all(
         value is not None for value in compatibility_values
     ):
@@ -1138,6 +1245,14 @@ def main() -> int:
         if all(value is not None for value in compatibility_values)
         else None
     )
+    adoption_validation = None
+    if adoption_selected:
+        adoption_validation = validate_adoption_generation_contract(
+            contract_path=args.adoption_generation_contract.resolve(),
+            rendered_path=args.rendered_path.resolve(),
+            output_root=args.output_root.resolve(),
+            bridge_context=args.bridge_context,
+        )
     if args.chunk_existing_lua_path is not None:
         selected_compatibility, compatibility_preflight = (
             run_registry_compatibility_preflight(
@@ -1177,7 +1292,7 @@ def main() -> int:
         return 0
 
     publish_preview_path = args.publish_preview_path
-    if publish_preview_path is None and PUBLISH_PREVIEW_PATH.exists():
+    if not adoption_selected and publish_preview_path is None and PUBLISH_PREVIEW_PATH.exists():
         publish_preview_path = PUBLISH_PREVIEW_PATH
     report = export_lua_bridge(
         rendered_path=args.rendered_path,
@@ -1192,6 +1307,7 @@ def main() -> int:
         output_format=args.output_format,
         output_root=args.output_root,
         registry_compatibility=registry_compatibility,
+        adoption_generation_validation=adoption_validation,
     )
     if report["chunked"]:
         print(

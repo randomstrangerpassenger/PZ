@@ -12,8 +12,7 @@ param(
     [string]$RegistryCompatibilityRequiredGateState = '',
     [switch]$RegistryCompatibilityProbe,
     [string]$RegistryCompatibilityRequiredManifest = '',
-    [string]$RegistryCompatibilityReceipt = '',
-    [string]$ValidatedNaturalizationCandidateProbeContract = ''
+    [string]$RegistryCompatibilityReceipt = ''
 )
 
 $ErrorActionPreference = 'Stop'
@@ -53,31 +52,6 @@ function Invoke-RegistryCompatibilityValidator {
     & $uv.Source run python -B $script:registryCompatibilityValidator @ValidatorArguments
     if ($LASTEXITCODE -ne 0) {
         throw "registry_compatibility_validator_failed: exit=$LASTEXITCODE"
-    }
-}
-
-function Invoke-ValidatedNaturalizationCandidateProbeValidator {
-    param(
-        [Parameter(Mandatory = $true)][string]$ContractPath,
-        [Parameter(Mandatory = $true)][string]$ResolvedOutputRoot,
-        [Parameter(Mandatory = $true)][string[]]$CanonicalArgv
-    )
-    $uv = Get-Command uv -ErrorAction SilentlyContinue
-    if ($null -eq $uv) {
-        throw 'candidate_probe_contract_validation_failed: uv executable is missing'
-    }
-    $validator = Get-FullPath (Join-Path $script:repoRoot 'Iris\build\description\v2\tools\build\validated_naturalization_runtime_adoption.py')
-    if (-not (Test-Path -LiteralPath $validator -PathType Leaf)) {
-        throw 'candidate_probe_contract_validation_failed: adoption validator is missing'
-    }
-    $argvJson = ConvertTo-Json -InputObject $CanonicalArgv -Compress
-    & $uv.Source run python -B $validator validate-package-probe-contract `
-        --contract $ContractPath `
-        --output-root $ResolvedOutputRoot `
-        --package-script $PSCommandPath `
-        --actual-argv-json $argvJson
-    if ($LASTEXITCODE -ne 0) {
-        throw "candidate_probe_contract_validation_failed: exit=$LASTEXITCODE"
     }
 }
 
@@ -227,7 +201,6 @@ $zipPath = Join-Path $outputRootFull 'Iris.zip'
 $registryCompatibilityValidator = Join-Path $repoRoot 'Iris\build\description\v2\tools\build\validate_dvf_3_3_registry_runtime_compatibility.py'
 $defaultRequiredManifest = Join-Path $repoRoot 'Iris\_docs\round3\current_route_required_validations.json'
 $registryCompatibilityResolutionMode = 'explicit'
-$validatedNaturalizationCandidateProbeAuthorized = $false
 
 $compatibilityValues = @(
     $RegistryCompatibilityContext,
@@ -272,39 +245,6 @@ if ($explicitCompatibilityCount -eq 0) {
     }
 }
 
-if (-not [string]::IsNullOrWhiteSpace($ValidatedNaturalizationCandidateProbeContract)) {
-    if ($RegistryCompatibilityContext -ne 'candidate') {
-        throw 'candidate_probe_contract_context_invalid'
-    }
-    if ($Zip) {
-        throw 'candidate_package_zip_forbidden'
-    }
-    if (-not $RegistryCompatibilityProbe -or $RegistryCompatibilityRequiredGateState -ne 'not_adopted') {
-        throw 'candidate_probe_contract_argv_invalid'
-    }
-    if (-not [string]::IsNullOrWhiteSpace($RegistryCompatibilityRequiredManifest) -or
-        -not [string]::IsNullOrWhiteSpace($RegistryCompatibilityReceipt) -or $Clean) {
-        throw 'candidate_probe_contract_argv_invalid'
-    }
-    $ValidatedNaturalizationCandidateProbeContract = Get-FullPath $ValidatedNaturalizationCandidateProbeContract
-    $candidateProbeArgv = @(
-        'powershell', '-ExecutionPolicy', 'Bypass', '-File', (Get-FullPath $PSCommandPath),
-        '-OutputRoot', $outputRootFull,
-        '-RegistryCompatibilityContext', $RegistryCompatibilityContext,
-        '-RegistryCompatibilityPolicy', $RegistryCompatibilityPolicy,
-        '-RegistryCompatibilityDisposition', $RegistryCompatibilityDisposition,
-        '-RegistryCompatibilityBindingManifest', $RegistryCompatibilityBindingManifest,
-        '-RegistryCompatibilityRequiredGateState', $RegistryCompatibilityRequiredGateState
-    )
-    $candidateProbeArgv += '-RegistryCompatibilityProbe'
-    $candidateProbeArgv += @('-ValidatedNaturalizationCandidateProbeContract', $ValidatedNaturalizationCandidateProbeContract)
-    Invoke-ValidatedNaturalizationCandidateProbeValidator `
-        -ContractPath $ValidatedNaturalizationCandidateProbeContract `
-        -ResolvedOutputRoot $outputRootFull `
-        -CanonicalArgv $candidateProbeArgv
-    $validatedNaturalizationCandidateProbeAuthorized = $true
-}
-
 $alignmentManifest = if ([string]::IsNullOrWhiteSpace($RegistryCompatibilityRequiredManifest)) {
     $defaultRequiredManifest
 } else {
@@ -325,11 +265,9 @@ if ($RegistryCompatibilityContext -eq 'candidate') {
     if ($Zip) {
         throw 'candidate_package_zip_forbidden'
     }
-    if (-not $validatedNaturalizationCandidateProbeAuthorized) {
-        $normalizedOutput = $outputRootFull.Replace('\', '/').ToLowerInvariant()
-        if (-not $normalizedOutput.Contains('/staging/dvf_3_3_registry_runtime_compatibility/attempts/')) {
-            throw 'candidate_package_output_outside_attempt_root'
-        }
+    $normalizedOutput = $outputRootFull.Replace('\', '/').ToLowerInvariant()
+    if (-not $normalizedOutput.Contains('/staging/dvf_3_3_registry_runtime_compatibility/attempts/')) {
+        throw 'candidate_package_output_outside_attempt_root'
     }
 }
 if ($RegistryCompatibilityContext -eq 'canonical_durable' -and $RegistryCompatibilityRequiredGateState -eq 'not_adopted') {

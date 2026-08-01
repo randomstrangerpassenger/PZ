@@ -37,6 +37,17 @@ class ValidatedNaturalizationRuntimeAdoptionTest(unittest.TestCase):
         self.assertEqual("current_source_authority", manifest["facts"]["role"])
         self.assertEqual(adoption.FACTS_SHA256, manifest["facts"]["sha256"])
 
+    def test_candidate_source_vocabulary_counts_unadopted_without_state_field(self) -> None:
+        payload = {
+            "entries": {
+                "Base.Adopted": {"source": "korean_prose_candidate_v1", "text_ko": "본문"},
+                "Base.Unadopted": {"source": "unadopted", "text_ko": None},
+            }
+        }
+        shape = adoption.public_shape(payload)
+        self.assertEqual(1, shape["adopted_public"])
+        self.assertEqual(1, shape["unadopted"])
+
 
 if __name__ == "__main__":
     unittest.main()

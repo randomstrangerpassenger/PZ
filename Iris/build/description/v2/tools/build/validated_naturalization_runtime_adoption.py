@@ -219,6 +219,8 @@ def public_shape(payload: dict[str, Any]) -> dict[str, Any]:
         if not isinstance(key, str) or not isinstance(row, dict):
             raise ValueError("entry_shape_invalid")
         state = row.get("state")
+        if state is None:
+            state = "unadopted" if row.get("source") == "unadopted" else "adopted"
         text = row.get("text_ko")
         if state == "unadopted":
             unadopted += 1

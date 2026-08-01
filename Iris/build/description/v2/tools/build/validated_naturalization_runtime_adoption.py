@@ -5,6 +5,7 @@ import hashlib
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -29,6 +30,7 @@ INPUT_MANIFEST_SHA256 = "090381a652da540c6e72300624728aba48f6392e41fb50e8eec973e
 RENDERED_PATH = "Iris/build/description/v2/output/dvf_3_3_rendered.json"
 LUA_MANIFEST_PATH = "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua"
 REQUIRED_VALIDATIONS_PATH = "Iris/_docs/round3/current_route_required_validations.json"
+GENERATION_DESCRIPTOR_PATH = "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json"
 REQUIRED_VALIDATIONS_SHA256 = "58f7427cccca4ab181caf5d9bf1031d32b3b2a924858588ce5e5082f9fb6592f"
 PLAN_PATH = "docs/dvf_3_3_validated_naturalization_current_runtime_adoption_plan.md"
 EXECUTION_CONTRACT_PATH = "docs/EXECUTION_CONTRACT.md"
@@ -348,6 +350,116 @@ def generation_payload_files(root: Path) -> list[Path]:
         root / "IrisLayer3DataChunks.lua",
         *sorted((root / "IrisLayer3DataChunks").glob("Chunk*.lua")),
     ]
+
+
+def transaction_surface_paths(repo: Path) -> dict[str, Path]:
+    manifest = repo / LUA_MANIFEST_PATH
+    return {
+        "rendered": repo / RENDERED_PATH,
+        "chunks": manifest.with_name("IrisLayer3DataChunks"),
+        "descriptor": repo / GENERATION_DESCRIPTOR_PATH,
+        "manifest": manifest,
+    }
+
+
+def transaction_surface_census(repo: Path) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for role, path in transaction_surface_paths(repo).items():
+        if path.is_file():
+            result[role] = {"kind": "file", "sha256": sha256(path.read_bytes())}
+        elif path.is_dir():
+            result[role] = {
+                "kind": "directory",
+                "files": {
+                    child.relative_to(path).as_posix(): sha256(child.read_bytes())
+                    for child in sorted(path.rglob("*")) if child.is_file()
+                },
+            }
+        else:
+            result[role] = {"kind": "absent"}
+    return result
+
+
+def apply_generation_transaction(
+    repo: Path,
+    generation_root: Path,
+    *,
+    transaction_id: str,
+    inject_failure_after_content: bool = False,
+) -> dict[str, Any]:
+    repo = repo.resolve()
+    generation_root = generation_root.resolve()
+    targets = transaction_surface_paths(repo)
+    sources = {
+        "rendered": generation_root / "dvf_3_3_rendered.json",
+        "chunks": generation_root / "IrisLayer3DataChunks",
+        "manifest": generation_root / "IrisLayer3DataChunks.lua",
+    }
+    if not all(path.exists() for path in sources.values()):
+        raise ValueError("transaction_generation_input_missing")
+    backup_root = repo / f".validated-naturalization-transaction-{transaction_id}"
+    if backup_root.exists():
+        raise ValueError("transaction_workspace_not_fresh")
+    backup_root.mkdir(parents=True)
+    before = transaction_surface_census(repo)
+    for role, target in targets.items():
+        backup = backup_root / "preimage" / role
+        if target.is_dir():
+            shutil.copytree(target, backup)
+        elif target.is_file():
+            backup.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(target, backup)
+    descriptor_source = generation_root / "materialized_generation_descriptor.json"
+    descriptor = json.loads(descriptor_source.read_text(encoding="utf-8"))
+    descriptor["transaction_id"] = transaction_id
+    descriptor["authority_effect"] = "current_runtime_adoption"
+    write_order: list[str] = []
+    try:
+        for role in ("rendered",):
+            target = targets[role]
+            target.parent.mkdir(parents=True, exist_ok=True)
+            temporary = target.with_name(target.name + f".adoption-tmp-{transaction_id}")
+            shutil.copy2(sources[role], temporary)
+            os.replace(temporary, target)
+            write_order.append(role)
+        chunk_target = targets["chunks"]
+        chunk_temporary = chunk_target.with_name(chunk_target.name + f".adoption-tmp-{transaction_id}")
+        shutil.copytree(sources["chunks"], chunk_temporary)
+        if chunk_target.exists():
+            shutil.rmtree(chunk_target)
+        os.replace(chunk_temporary, chunk_target)
+        write_order.append("chunks")
+        descriptor_target = targets["descriptor"]
+        descriptor_target.parent.mkdir(parents=True, exist_ok=True)
+        descriptor_temporary = descriptor_target.with_name(descriptor_target.name + f".adoption-tmp-{transaction_id}")
+        write_json(descriptor_temporary, descriptor)
+        os.replace(descriptor_temporary, descriptor_target)
+        write_order.append("descriptor")
+        if inject_failure_after_content:
+            raise RuntimeError("injected_after_content_before_manifest")
+        manifest_target = targets["manifest"]
+        manifest_temporary = manifest_target.with_name(manifest_target.name + f".adoption-tmp-{transaction_id}")
+        shutil.copy2(sources["manifest"], manifest_temporary)
+        os.replace(manifest_temporary, manifest_target)
+        write_order.append("manifest")
+        return {"status": "PASS", "write_order": write_order, "manifest_last": write_order[-1] == "manifest", "preimage": before}
+    except Exception:
+        for role, target in targets.items():
+            if target.is_dir():
+                shutil.rmtree(target)
+            elif target.exists():
+                target.unlink()
+            backup = backup_root / "preimage" / role
+            if backup.is_dir():
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copytree(backup, target)
+            elif backup.is_file():
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(backup, target)
+        raise
+    finally:
+        if backup_root.exists():
+            shutil.rmtree(backup_root)
 
 
 def run_prepare_and_materialize(repo: Path, attempt_root: Path) -> dict[str, Any]:

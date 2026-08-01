@@ -6,6 +6,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import shutil
 from pathlib import Path
 
 
@@ -191,6 +192,35 @@ class ValidatedNaturalizationRuntimeAdoptionTest(unittest.TestCase):
             repeat = json.loads((next_generation.parent / "regeneration_identity_report.json").read_text(encoding="utf-8"))
             self.assertEqual("PASS", repeat["status"])
             self.assertTrue(repeat["byte_identical"])
+
+    def test_transaction_failure_restores_exact_preimage(self) -> None:
+        repo = Path(__file__).resolve().parents[5]
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            attempt = root / "attempt"
+            materialized = adoption.run_prepare_and_materialize(repo, attempt)
+            mirror = root / "mirror"
+            live_rendered = mirror / adoption.RENDERED_PATH
+            live_manifest = mirror / adoption.LUA_MANIFEST_PATH
+            live_chunks = live_manifest.with_name("IrisLayer3DataChunks")
+            live_rendered.parent.mkdir(parents=True)
+            live_manifest.parent.mkdir(parents=True)
+            shutil.copy2(repo / adoption.RENDERED_PATH, live_rendered)
+            shutil.copy2(repo / adoption.LUA_MANIFEST_PATH, live_manifest)
+            shutil.copytree((repo / adoption.LUA_MANIFEST_PATH).with_name("IrisLayer3DataChunks"), live_chunks)
+            unrelated = mirror / "unrelated.txt"
+            unrelated.write_text("unchanged", encoding="utf-8")
+            before = adoption.transaction_surface_census(mirror)
+            with self.assertRaisesRegex(RuntimeError, "injected_after_content_before_manifest"):
+                adoption.apply_generation_transaction(
+                    mirror,
+                    Path(materialized["next_generation"]),
+                    transaction_id="rollback-test",
+                    inject_failure_after_content=True,
+                )
+            self.assertEqual(before, adoption.transaction_surface_census(mirror))
+            self.assertEqual("unchanged", unrelated.read_text(encoding="utf-8"))
+            self.assertFalse(any(mirror.rglob("*.adoption-tmp-*")))
 
 
 if __name__ == "__main__":

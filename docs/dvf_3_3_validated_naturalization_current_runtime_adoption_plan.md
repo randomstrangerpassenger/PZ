@@ -1,132 +1,124 @@
-# DVF 3.3 Validated Naturalization Current Runtime Adoption Plan
+# DVF 3.3 Validated Naturalization Runtime and Package Adoption Plan
 
-> Status: direct runtime adoption authorized / implementation pending / live mutation gated by off-live parity and rollback proof
+> Status: runtime adoption complete at attempt-0008 / canonical package and current-route alignment authorized
 >
-> Supersedes historical plan SHA-256 `7294fc8cc8b825a159c844fca66fc5438effe0ac1821ad78fdc50af84d16ce13`.
-> The superseded plan and attempts `attempt-0005` and `attempt-0006`, including every correction and failure artifact, remain immutable historical evidence. Their failures are neither RTC defects nor payload defects.
+> Supersedes the runtime-only scope whose plan SHA-256 was `f5adde504bafaa6e5134f2c921f07755adf5d3242861be8bb86ae0ade88ff39f`.
+> Attempts `attempt-0005` through `attempt-0008` and their correction/failure evidence remain immutable.
 
 ## 1. Objective and claim boundary
 
-Adopt the already validated G5 naturalization candidate into current rendered data and Iris Lua data, then prove that Iris's existing consumer path loads and displays the improved text.
+Complete the original adoption chain:
 
-The only allowed terminal claim is:
+```text
+validated candidate
+→ current rendered
+→ current Lua manifest and chunks
+→ existing Iris consumer/display smoke
+→ canonical package projection
+→ full current-route validation
+```
 
-`validated_naturalization_current_runtime_adoption_complete`
+Completion requires all three:
 
-This plan does not execute or claim package, release, RTC, G6, owner seal, handoff, bundle/lifecycle resealing, or terminal closure. It does not create or consume RTC authority artifacts and does not change `current_route_required_validations.json`.
+- validated naturalization is connected to the in-game runtime;
+- the canonical package contains that exact runtime payload;
+- the full current route passes twice from clean checkouts with the same denominator.
 
-## 2. Immutable inputs and protected history
+This work does not claim Workshop publication, release readiness, B42 readiness, owner seal, terminal closure, or a new RTC/G6 product defect.
 
-- Execution base: commit `c867a8d48fcf89c0e1f710acd5b100f261869af9`, tree `cd724ad09513e47b88046fabb2612f893a8b9bc5`.
-- Validated candidate: the existing G5 candidate at the exact path and SHA declared by the adoption implementation.
-- Source authority pair: the exact current facts and input-manifest paths and SHA-256 values declared by the adoption implementation.
-- `attempt-0005`, `attempt-0006`, and all correction/failure evidence are read-only.
-- `Iris/tools/package_iris.ps1` must equal its commit `d901881cfd8c9676559685eb8d2915181a7b754b` bytes. Package commands and package outputs are prohibited.
-- RTC validators, policies, dispositions, bindings, authority artifacts, bundles, lifecycle records, and required-validation manifests are outside scope.
+## 2. Preserved runtime adoption
 
-## 3. Change 1 — Direct adoption-generation exporter contract
+Attempt-0008 already proves:
 
-Add a mutually exclusive `adoption-generation` mode to the existing DVF Lua exporter. Existing callers and default behavior remain unchanged.
+- short external mirror rollback and exact cleanup;
+- manifest-last atomic rendered/Lua cutover under an exclusive lock;
+- 2,084 public texts match and 21 unadopted rows gain no text;
+- rendered/Lua full parity and Lua syntax PASS;
+- the existing Iris consumer loads adopted, unchanged, unadopted, and case-variant samples.
 
-The mode accepts only a hash-bound contract containing:
+Revalidate these results on the final tree. Do not rewrite attempt-0008.
 
-- exact candidate SHA-256;
-- exact facts SHA-256;
-- exact input-manifest SHA-256;
-- an absolute, adoption-owned, off-live output root;
-- `bridge_context=staging`;
-- `authority_effect=none`;
-- expected total/adopted/unadopted/text shape.
+## 3. Canonical package applicability
 
-The adoption validator materializes and validates the contract before invoking the exporter. The exporter must validate it before any output write. Missing contract, hash drift, output-root escape or reparse traversal, context mismatch, shape mismatch, or coexistence with another exporter mode fails without fallback. It must not read or create policy, disposition, binding, lifecycle, bundle, package, or RTC authority artifacts.
+`Iris/tools/package_iris.ps1` remains the canonical package writer. It must derive exactly one applicability class before writing:
+
+- `current_runtime_payload`: no RTC certification inputs are present. Validate current rendered, generation descriptor, Lua manifest, and all descriptor-bound chunks before copy; validate package/live exact identity after copy.
+- `rtc_certified_payload`: a complete explicit RTC input set is present. Preserve the existing RTC required-gate, contract, and surface validators.
+
+Partial RTC arguments, an explicit applicability value inconsistent with supplied inputs, or mixed runtime/RTC authority claims fail before artifact write. There is no global RTC bypass.
+
+The runtime package receipt must bind:
+
+- current rendered SHA-256;
+- current generation descriptor SHA-256 and transaction identity;
+- Lua manifest SHA-256;
+- the exact ordered set of 11 chunks and every SHA-256;
+- bidirectional package/live file-set equality;
+- stale, forbidden, missing, orphan, and hash-mismatch counts of zero.
 
 Required regression coverage:
 
-- missing adoption contract fails before write;
-- candidate/facts/input-manifest hash mismatch fails;
-- unauthorized output root fails;
-- bridge-context mismatch fails;
-- mixed adoption/legacy mode arguments fail;
-- valid off-live export succeeds;
-- default/fallback route is not invoked by adoption mode;
-- existing exporter callers retain their prior behavior;
-- every failure leaves live rendered, Lua, and package paths unchanged.
+- default canonical runtime payload package succeeds without an RTC bundle;
+- explicit RTC-certified package still invokes and requires the RTC guard;
+- partial, mixed, or contradictory applicability fails before package write;
+- manifest plus 11 chunks match live bidirectionally by SHA-256;
+- forbidden monolith/stale bridge count is zero.
 
-## 4. Change 2 — Single successor off-live generation
+## 4. Current-route applicability and failure taxonomy
 
-After Change 1 implementation and its regression suite pass, create exactly one new successor attempt. Never resume or modify attempts 0005 or 0006.
+Every current-route validation is classified as one of:
 
-Generate off-live:
+- `current_product_required`: applies to current Iris source/rendered/runtime/package behavior and remains executable and fail-closed;
+- `historical_optional_evidence`: preserves a historical authority/bundle assertion but is not selected as a current product gate; missing historical artifacts are never synthesized;
+- `current_harness_required`: validates current behavior through disposable roots and must leave tracked mutation and residue at zero.
 
-- `dvf_3_3_rendered.json`;
-- `IrisLayer3DataChunks.lua`;
-- every referenced `IrisLayer3DataChunks/Chunk*.lua`;
-- a materialized generation descriptor and exhaustive parity receipts.
+The live required-validation manifest retains historical rows and records their explicit applicability, authority basis paths, and current authority SHA binding. The runner filters only rows explicitly classified `historical_optional_evidence`; absence of classification remains required and fail-closed.
 
-Validate across the full denominator:
+Required classification:
 
-- candidate/source and candidate/rendered bidirectional key-set equality;
-- candidate facts and input-manifest binding;
-- Git blob versus working-copy decoded EOL identity;
-- candidate/rendered/Lua exact key, state, and public-text equality;
-- all 2,084 adopted public texts match the candidate;
-- all 21 unadopted rows gain no text;
-- forbidden metadata count is zero;
-- duplicate, overwrite, orphan, stale-chunk, and missing-chunk counts are zero;
-- A/B regeneration has byte-identical output or an explicitly sealed canonical-payload identity.
+- historical RTC bundle checks and their bundle-only artifacts: `historical_optional_evidence`;
+- obsolete source-authority reseal evidence: `historical_optional_evidence`;
+- preserved assessment replay whose metric artifact is absent: `historical_optional_evidence`;
+- package/runtime/exporter/current schema behavior: `current_product_required`;
+- disposable checkout and cleanup behavior: `current_harness_required`.
 
-Any failure is classified `blocked_adoption_generation` and stops without live mutation.
+## 5. Harness and current-schema corrections
 
-## 5. Change 3 — Atomic transaction and rollback proof
+- Temporary current-route attempts use a short external disposable root owned by the current test run.
+- Existing roots fail-close; repository/live overlap, reparse traversal, and containment escape are rejected.
+- Cleanup is retry-safe on Windows and verifies residue zero.
+- Current-route tests never rewrite tracked staging evidence or the required-validation manifest.
+- The current rendered test validates the adopted schema through the generation descriptor and source-pair hashes; it does not require obsolete `meta.overlay_path`.
+- Default staging/historical exporter tests do not acquire RTC applicability unless they explicitly request RTC certification.
 
-Treat the following as one transaction:
+## 6. Test order
 
-- current rendered JSON;
-- Lua chunk manifest;
-- the complete Lua chunk set;
-- current generation descriptor.
+After implementation, run focused package/applicability, runner applicability, exporter, current schema, and cleanup regression suites. Then request Codex Reviewer review before broad validation.
 
-The writer is allowlisted to those paths only. Write content files first and publish the manifest last. Before live cutover, execute the transaction in an isolated mirror and inject a failure between content installation and manifest publication.
+Final validation runs only after the final implementation tree is committed:
 
-Rollback validation requires:
+1. exact Lua syntax validation;
+2. canonical package command, exit 0;
+3. package/live payload identity validation;
+4. full current-route Run A, exit 0;
+5. clean-checkout full current-route Run B, exit 0 with the same selected identity count;
+6. runtime parity and consumer/display smoke;
+7. tracked mutation, unrelated mutation, unresolved dependency, and disposable residue counts all zero.
 
-- no partially applied generation remains current;
-- exact preimage bytes are restored;
-- temporary files count is zero;
-- orphan/stale chunks count is zero;
-- unrelated mutation count is zero.
+Package and current-route outputs use fresh disposable roots. Only outputs created by the current run are removed.
 
-Any failure is classified `blocked_adoption_transaction` and stops without live cutover.
+## 7. Failure handling
 
-## 6. Change 4 — Live cutover
+- A current payload mismatch is a package/runtime product defect.
+- A missing historical-only artifact is historical noncoverage, not a current defect.
+- A Windows path, cleanup, or sandbox failure is a harness defect.
+- An independently reproduced current RTC input failure may be recorded separately, but this plan does not create RTC or G6 debt from historical bundle failures.
+- No failed test is silently deleted from the manifest and no evidence is synthesized to force PASS.
 
-Only after Changes 2 and 3 pass, acquire the adoption lock, revalidate all input hashes and the live preimage, install rendered/chunks/descriptor, and publish the Lua manifest last. On any write or post-write verification failure, automatically restore the exact preimage and remove transaction temporaries.
+## 8. Completion claim
 
-No package or RTC path may be written. The current required-validation manifest remains byte-identical.
+Only after every final validation gate passes, record:
 
-## 7. Change 5 — Existing consumer and display validation
+`validated_naturalization_candidate_adopted_to_current_runtime_and_package`
 
-After cutover:
-
-1. Run `powershell -ExecutionPolicy Bypass -File .\tools\check_lua_syntax.ps1`.
-2. Load the current chunk manifest and every referenced Lua chunk through the existing Iris loading path.
-3. Compare current rendered and reconstructed current Lua across the full key/state/text denominator.
-4. Exercise the existing Iris Browser consumer path.
-5. Smoke-test sealed representative adopted, unchanged, unadopted, and case-variant items.
-6. Verify improved text is displayed and predecessor text or stale chunks are not consumed.
-
-An environment that cannot execute the real consumer/display smoke is classified `blocked_adoption_consumer_environment`; a load/parity failure is `blocked_adoption_consumer_connection`. Neither classification opens RTC or a separate technical-debt plan.
-
-## 8. Completion gates
-
-Completion requires all of the following:
-
-- current rendered bytes/payload equal the validated candidate;
-- current Lua equals current rendered over the full denominator;
-- the existing Iris consumer loads the new Lua generation;
-- representative in-game display smoke observes the improved text;
-- rollback proof passes;
-- unrelated runtime/Lua mutation count is zero;
-- attempts 0005/0006 and required-validation/RTC/package surfaces remain unchanged.
-
-Only then record `validated_naturalization_current_runtime_adoption_complete`. Do not claim package, release, RTC, G6, owner seal, handoff, bundle/lifecycle, or terminal closure completion.
+The earlier runtime-only claim remains valid historical evidence but is not the full-problem completion claim.

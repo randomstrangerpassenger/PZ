@@ -1,0 +1,41 @@
+{
+  "schema_version": "validated-naturalization-adoption-blocked-closeout-v1",
+  "attempt_id": "attempt-0005",
+  "closeout_state": "blocked",
+  "completed_changes": [1, 2, 3, 4],
+  "blocked_change": 5,
+  "blocked_reason": "blocked_official_terminal_route_noncoverage",
+  "validated": [
+    "fresh plan review Critical 0 Important 0",
+    "clean G1/G4/G5 descendant",
+    "Phase 0 exact anchor and coherent current source pair census",
+    "candidate admission and authority role decision",
+    "single Registry writer and generation contract preparation",
+    "off-live rendered and deterministic chunk materialization",
+    "disposable mirror exact rollback after official package policy denial"
+  ],
+  "out_of_scope": [
+    "release publication",
+    "Workshop upload",
+    "B42 compatibility",
+    "G6 technical-debt execution"
+  ],
+  "unvalidated_but_in_scope": [
+    "official package preflight payload parity",
+    "official current-route preflight",
+    "mirror failure-injection matrix",
+    "live generation cutover",
+    "post-cutover package/current-route validation",
+    "representative in-game consumer smoke"
+  ],
+  "non_claims": [
+    "validated_naturalization_current_runtime_adoption_complete",
+    "runtime adoption complete",
+    "package projection pass",
+    "release-ready",
+    "Workshop-ready",
+    "B42-compatible"
+  ],
+  "live_mutation_performed": false,
+  "g6_trigger": false
+}

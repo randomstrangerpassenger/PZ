@@ -43,6 +43,23 @@ function Write-Utf8NoBomJson {
     [System.IO.File]::WriteAllText($Path, $json + [Environment]::NewLine, $utf8NoBom)
 }
 
+function Get-DecodedUtf8EolSha256 {
+    param([Parameter(Mandatory = $true)][string]$Path)
+
+    $utf8 = New-Object System.Text.UTF8Encoding($false, $true)
+    $bytes = [System.IO.File]::ReadAllBytes($Path)
+    $text = $utf8.GetString($bytes)
+    $normalized = $text.Replace("`r`n", "`n").Replace("`r", "`n")
+    $normalizedBytes = $utf8.GetBytes($normalized)
+    $sha256 = [System.Security.Cryptography.SHA256]::Create()
+    try {
+        $hash = $sha256.ComputeHash($normalizedBytes)
+    } finally {
+        $sha256.Dispose()
+    }
+    return ([System.BitConverter]::ToString($hash)).Replace('-', '').ToLowerInvariant()
+}
+
 function Get-RuntimePayloadIdentity {
     param(
         [Parameter(Mandatory = $true)][string]$RepositoryRoot,
@@ -72,8 +89,8 @@ function Get-RuntimePayloadIdentity {
             throw "runtime_payload_required_input_missing: $requiredPath"
         }
     }
-    $renderedSha = (Get-FileHash -LiteralPath $renderedPath -Algorithm SHA256).Hash.ToLowerInvariant()
-    $manifestSha = (Get-FileHash -LiteralPath $manifestPath -Algorithm SHA256).Hash.ToLowerInvariant()
+    $renderedSha = Get-DecodedUtf8EolSha256 -Path $renderedPath
+    $manifestSha = Get-DecodedUtf8EolSha256 -Path $manifestPath
     if ($renderedSha -ne $descriptor.rendered.sha256) { throw 'runtime_payload_rendered_freshness_failed' }
     if ($manifestSha -ne $descriptor.runtime_manifest.sha256) { throw 'runtime_payload_manifest_freshness_failed' }
     if ((Get-FileHash -LiteralPath $candidatePath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $descriptor.candidate.sha256) { throw 'runtime_payload_candidate_freshness_failed' }
@@ -117,7 +134,7 @@ function Get-RuntimePayloadIdentity {
         $expectedName = [System.IO.Path]::GetFileName($declared.path)
         $actual = $actualChunks[$index]
         if ($actual.Name -ne $expectedName) { throw 'runtime_payload_chunk_set_mismatch' }
-        $actualSha = (Get-FileHash -LiteralPath $actual.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+        $actualSha = Get-DecodedUtf8EolSha256 -Path $actual.FullName
         if ($actualSha -ne $declared.sha256) { throw "runtime_payload_chunk_freshness_failed: $($actual.Name)" }
         $chunkRows += [ordered]@{ path = $declared.path; sha256 = $actualSha }
     }
@@ -126,7 +143,7 @@ function Get-RuntimePayloadIdentity {
         applicability = 'current_runtime_payload'
         transaction_id = $descriptor.transaction_id
         generation_descriptor_path = (Get-FullPath $descriptorPath)
-        generation_descriptor_sha256 = (Get-FileHash -LiteralPath $descriptorPath -Algorithm SHA256).Hash.ToLowerInvariant()
+        generation_descriptor_sha256 = Get-DecodedUtf8EolSha256 -Path $descriptorPath
         rendered_sha256 = $renderedSha
         manifest_sha256 = $manifestSha
         chunk_count = $chunkRows.Count

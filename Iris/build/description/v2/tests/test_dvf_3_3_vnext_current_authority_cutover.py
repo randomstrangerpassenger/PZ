@@ -29,6 +29,10 @@ def sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def sha256_decoded_eol_file(path: Path) -> str:
+    return hashlib.sha256(path.read_text(encoding="utf-8").encode("utf-8")).hexdigest()
+
+
 class DvfVnextCurrentAuthorityCutoverTest(unittest.TestCase):
     def test_final_report_seals_cutover_without_release_claims(self) -> None:
         report = load_json(ROOT / "phase10/final_current_authority_cutover_report.json")
@@ -63,7 +67,10 @@ class DvfVnextCurrentAuthorityCutoverTest(unittest.TestCase):
         self.assertEqual(descriptor["authority_effect"], "current_runtime_adoption")
         self.assertEqual(descriptor["source_pair"]["facts_sha256"], sha256_file(CURRENT_FACTS))
         self.assertEqual(descriptor["source_pair"]["input_manifest_sha256"], sha256_file(CURRENT_MANIFEST))
-        self.assertEqual(descriptor["rendered"]["sha256"], sha256_file(CURRENT_RENDERED))
+        self.assertEqual(
+            descriptor["rendered"]["sha256"],
+            sha256_decoded_eol_file(CURRENT_RENDERED),
+        )
         self.assertEqual(len(rendered["entries"]), 2105)
 
     def test_live_runtime_chunks_are_single_successor_authority(self) -> None:

@@ -59,7 +59,7 @@ class ValidatedNaturalizationRuntimeAdoptionTest(unittest.TestCase):
             "--bridge-context", "staging",
             "--format", "chunk",
             "--output-root", str(output),
-            "--report-path", str(output.parent / "export_report.json"),
+            "--report-path", str(output / "bridge_export_report.json"),
             "--adoption-generation",
             "--adoption-generation-contract", str(contract),
             *extra,
@@ -130,6 +130,39 @@ class ValidatedNaturalizationRuntimeAdoptionTest(unittest.TestCase):
             self.assertIn("adoption_generation_mode_mixed", result.stderr)
             self.assertFalse(output.exists())
 
+    def test_adoption_generation_rejects_outside_report_before_write(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            candidate, _, _, output, contract_path = self._adoption_fixture(Path(temporary))
+            outside_report = Path(temporary) / "live-or-package" / "report.json"
+            result = self._run_export(
+                candidate, output, contract_path, "--report-path", str(outside_report)
+            )
+            self.assertNotEqual(0, result.returncode)
+            self.assertIn("adoption_report_path_invalid", result.stderr)
+            self.assertFalse(output.exists())
+            self.assertFalse(outside_report.exists())
+
+    def test_candidate_manifest_binds_candidate_and_input_manifest(self) -> None:
+        repo = Path(__file__).resolve().parents[5]
+        manifest_path = repo / adoption.CANDIDATE_MANIFEST_PATH
+        result = adoption.validate_candidate_manifest_binding(
+            manifest_path,
+            expected_candidate_sha256=adoption.CANDIDATE_SHA256,
+            expected_input_manifest_sha256=adoption.INPUT_MANIFEST_SHA256,
+        )
+        self.assertEqual("PASS", result["status"])
+        with tempfile.TemporaryDirectory() as temporary:
+            drifted = Path(temporary) / "candidate_manifest.json"
+            payload = json.loads(manifest_path.read_text(encoding="utf-8"))
+            payload["source_manifest_hash"] = "0" * 64
+            drifted.write_text(json.dumps(payload), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "candidate_manifest_input_manifest_mismatch"):
+                adoption.validate_candidate_manifest_binding(
+                    drifted,
+                    expected_candidate_sha256=adoption.CANDIDATE_SHA256,
+                    expected_input_manifest_sha256=adoption.INPUT_MANIFEST_SHA256,
+                )
+
     def test_adoption_generation_exports_off_live_without_default_fallback(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             candidate, _, _, output, contract_path = self._adoption_fixture(Path(temporary))
@@ -137,7 +170,7 @@ class ValidatedNaturalizationRuntimeAdoptionTest(unittest.TestCase):
             self.assertEqual(0, result.returncode, result.stderr)
             self.assertTrue((output / "IrisLayer3DataChunks.lua").is_file())
             self.assertTrue(any((output / "IrisLayer3DataChunks").glob("Chunk*.lua")))
-            report = json.loads((output.parent / "export_report.json").read_text(encoding="utf-8"))
+            report = json.loads((output / "bridge_export_report.json").read_text(encoding="utf-8"))
             self.assertEqual("adoption_generation", report["validation_mode"])
             self.assertEqual("none", report["authority_effect"])
             self.assertNotIn("registry_compatibility", report)

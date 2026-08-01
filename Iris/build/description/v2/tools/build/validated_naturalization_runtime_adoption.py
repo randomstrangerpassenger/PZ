@@ -257,6 +257,24 @@ def public_shape(payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def validate_candidate_manifest_binding(
+    manifest_path: Path,
+    *,
+    expected_candidate_sha256: str,
+    expected_input_manifest_sha256: str,
+) -> dict[str, Any]:
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if manifest.get("candidate_rendered_hash") != expected_candidate_sha256:
+        raise ValueError("candidate_manifest_candidate_mismatch")
+    if manifest.get("source_manifest_hash") != expected_input_manifest_sha256:
+        raise ValueError("candidate_manifest_input_manifest_mismatch")
+    return {
+        "status": "PASS",
+        "candidate_rendered_hash": expected_candidate_sha256,
+        "source_manifest_hash": expected_input_manifest_sha256,
+    }
+
+
 def validate_materialized_generation(candidate_path: Path, generation_root: Path) -> dict[str, Any]:
     import layer3_current_authority_reconstruction as reconstruction
 
@@ -360,6 +378,11 @@ def run_prepare_and_materialize(repo: Path, attempt_root: Path) -> dict[str, Any
     decoded_projection_equal = candidate_working == candidate
     if not decoded_projection_equal:
         raise ValueError("candidate_working_git_decoded_projection_mismatch")
+    candidate_manifest_binding = validate_candidate_manifest_binding(
+        working_path(repo, CANDIDATE_MANIFEST_PATH),
+        expected_candidate_sha256=CANDIDATE_SHA256,
+        expected_input_manifest_sha256=INPUT_MANIFEST_SHA256,
+    )
     assessment = load_json_from_git(repo, ASSESSMENT_PATH)
     consumption = load_json_from_git(repo, CONSUMPTION_PATH)
     admission = {
@@ -391,6 +414,7 @@ def run_prepare_and_materialize(repo: Path, attempt_root: Path) -> dict[str, Any
         "candidate_working_raw_sha256": sha256(candidate_working_data),
         "candidate_git_blob_sha256": sha256(candidate_data),
         "decoded_json_projection_equal": decoded_projection_equal,
+        "candidate_manifest_binding": candidate_manifest_binding,
         "candidate_shape": candidate_shape,
         "current_shape": current_shape,
         "status": "PASS",

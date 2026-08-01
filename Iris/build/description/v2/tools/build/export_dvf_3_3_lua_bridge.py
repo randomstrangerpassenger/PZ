@@ -103,7 +103,8 @@ def _existing_path_chain(path: Path) -> list[Path]:
 
 
 def validate_adoption_generation_contract(
-    *, contract_path: Path, rendered_path: Path, output_root: Path, bridge_context: str
+    *, contract_path: Path, rendered_path: Path, output_root: Path,
+    report_path: Path, bridge_context: str
 ) -> dict[str, Any]:
     if not contract_path.is_file():
         raise BridgeExportContractError("adoption_contract_missing")
@@ -142,6 +143,8 @@ def validate_adoption_generation_contract(
     resolved_output = contracted_output.resolve(strict=False)
     if output_root.resolve(strict=False) != resolved_output or resolved_parent not in resolved_output.parents:
         raise BridgeExportContractError("adoption_output_root_escape")
+    if report_path.resolve(strict=False) != resolved_output / "bridge_export_report.json":
+        raise BridgeExportContractError("adoption_report_path_invalid")
     if contracted_output.exists() and (not contracted_output.is_dir() or any(contracted_output.iterdir())):
         raise BridgeExportContractError("adoption_output_root_not_fresh")
     rendered = load_json(paths["candidate"])
@@ -1224,6 +1227,8 @@ def main() -> int:
         or args.lua_output_path is not None
         or args.chunk_output_dir is not None
         or args.chunk_manifest_path is not None
+        or args.chunk_size is not None
+        or args.chunk_module_prefix != BRIDGE_CHUNK_MODULE_PREFIX
     ):
         raise BridgeExportContractError("adoption_generation_mode_mixed")
     if any(value is not None for value in compatibility_values) and not all(
@@ -1251,6 +1256,7 @@ def main() -> int:
             contract_path=args.adoption_generation_contract.resolve(),
             rendered_path=args.rendered_path.resolve(),
             output_root=args.output_root.resolve(),
+            report_path=args.report_path.resolve(),
             bridge_context=args.bridge_context,
         )
     if args.chunk_existing_lua_path is not None:

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "block_reasons": {"items": {"type": "string"}, "type": "array"},
+    "phase1_eligible": {"type": "boolean"},
+    "read_only_protected_live_mutation_count": {"minimum": 0, "type": "integer"},
+    "schema_version": {"const": "validated-naturalization-adoption-phase0-result-v1"},
+    "terminal_state": {"enum": ["phase0_complete_eligible_for_phase1", "phase0_complete_blocked"]},
+    "validation_axes": {"type": "object"}
+  },
+  "required": ["schema_version", "terminal_state", "block_reasons", "phase1_eligible", "validation_axes", "read_only_protected_live_mutation_count"],
+  "type": "object"
+}

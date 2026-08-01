@@ -2,7 +2,7 @@
 
 > 계획명: Iris DVF 3-3 — 검증된 한국어 자연화 문안의 Current Rendered·Lua Runtime·Package 일관 채택
 >
-> 상태: current G1·G4·G5 completion synchronization integrated / fresh plan review required / Phase 0 blocked pending fresh review / Changes 2~11 blocked / live mutation blocked
+> 상태: attempt-0005 fail-closed feedback integrated / candidate-scoped package coverage revision written / fresh revision review required / Change 5 re-entry blocked pending review / live mutation blocked
 >
 > 기준 로드맵: 사용자 제공 `Iris DVF 3-3 — 검증된 한국어 자연화 문안의 Current Rendered·Lua Runtime·Package 일관 채택 종합 로드맵`
 >
@@ -24,6 +24,12 @@
 >
 > Cycle 4 검토 반영: sealed compatibility-claim prohibition의 additive supersession, official package/current-route exact-command pre-cutover proof, canonical roadmap C-ID 지위, durable embedded generation identity, existing reviewer-eligibility contract, 독립 failure axes와 post-cutover disposition을 보강한다. 이는 G6을 현재 기술 부채로 재분류하지 않는다.
 >
+> Implementation feedback: branch `codex/dvf-3-3-validated-naturalization-adoption`, commit `d901881cfd8c9676559685eb8d2915181a7b754b`, tree `6ea23bfa5f02136a222fb0ca8c4576240c5d8b28`, attempt `attempt-0005`.
+>
+> Implementation feedback artifacts: `blocked_closeout.json` SHA-256 `b1c314ff71ca810a14c5853263bb2b86a7824824da4c6383e4808925aff8e1c4`, `official_preflight_failure.json` SHA-256 `0e5f16d7bcc8203af024c370e4583cd490f62615084ae50d04d4d7a173d18339`, `evidence_claim_correction_0001.json` SHA-256 `bfdb6d881baa5c79e25758927a1ab527de5b04efa81a41c916e3ab92684674c0`.
+>
+> Implementation feedback disposition: 기본 live RTC selection의 immutable toolchain manifest가 current official tooling을 포괄하지 않아 `implementation_toolchain_freshness_failed`로 payload 평가 전에 중단됐다. 이는 Iris runtime defect, G6 trigger 또는 기술 부채 판정이 아니라 `existing_certification_does_not_cover_current_candidate_toolchain`이다. 같은 attempt의 claim correction에 따라 candidate/source 양방향 key set, candidate facts binding, EOL decoded projection, off-live full parity와 exact rollback은 `not_evaluated`로 복구하며 이전 PASS 문구를 재사용하지 않는다.
+>
 > 역사적 계획 작성 기준점: repository HEAD `dd4b8ac37d2b974717364c79aa04afe2fe445f58`
 >
 > 현재 동기화 최소 실행 ancestry: G1 `c3e2cac1b2c6a6e9f237d5766f2620f92794b8fb`, G4 `9c4b19cbaee5b2f2efb400ba7cb37411be831f48`, G5 `14d240a1c4f22800a7576ab6e52c5019402b5a1a`
@@ -32,7 +38,7 @@
 
 ## 0. Current Executable Synchronization Contract
 
-이 절은 이 계획의 current execution input과 교차 계획 경계를 고정한다. 뒤의 Cycle 1~4 검토 설계는 보존하지만 이 절과 충돌하는 planning-time observation, attempt-specific Publish terminal prerequisite, candidate-anchor 부재 예상과 G6 선행 실행 문구는 historical/non-executable이다.
+이 절은 이 계획의 current execution input과 교차 계획 경계를 고정한다. 뒤의 Cycle 1~4 검토 설계는 보존하지만 이 절과 충돌하는 planning-time observation, attempt-specific Publish terminal prerequisite, candidate-anchor 부재 예상, G6 선행 실행 문구와 기본 live RTC bundle을 새 candidate의 terminal package authority로 요구하는 문구는 historical/non-executable이다.
 
 ### Synchronized completed inputs
 
@@ -76,6 +82,7 @@ result: 142/142 PASS
 - G4의 reusable evaluator와 G5의 naturalization completion은 이 계획의 upstream prerequisite를 이미 만족한다. attempt-specific Publish Phase 6/7, freeze, owner seal, terminal DAG 또는 세션 전용 handoff를 다시 요구하지 않는다.
 - G5 Phase 8 artifact는 immutable candidate provenance로 보존할 수 있지만, current admission의 완료 증거는 위 generic IAR assessment와 G5 consumption record다.
 - 이 계획은 current rendered, Lua runtime bundle, generation descriptor와 isolated package projection만 소유한다. facts, compiler, candidate, IAR policy/metric/result와 current-route manifest는 mutation하지 않는다.
+- blocked `attempt-0005`의 생성물은 구현 피드백과 negative evidence로만 소비한다. `evidence_claim_correction_0001.json`이 철회한 PASS claim은 다음 실행의 Phase 1~5 credit이 아니며, 새 immutable execution attempt에서 다시 검증한다.
 - project owner는 사용자 한 명이다. 별도 가상 subsystem owner를 만들지 않으며, implementation-time owner artifact는 destructive live cutover에 대해 기존 execution contract가 명시적으로 요구하는 exact authorization으로만 제한한다.
 
 ### Fixed synchronization decisions
@@ -88,17 +95,19 @@ result: 142/142 PASS
 - C-10: canonical completion token은 `validated_naturalization_current_runtime_adoption_complete`다.
 - C-11: G4 attempt-specific review/seal ceremony는 retired historical이다. 이 계획 자체의 fresh plan review와, existing execution contract가 live cutover에 요구하는 implementation/result review만 적용한다.
 - C-13: repository-wide gate는 exact current execution contract 또는 live required-validation manifest가 이 adoption implementation을 mandatory denominator로 포함할 때만 적용한다.
+- package coverage revision: 기본 `canonical_durable` live selection은 historical/live RTC certification의 적용 범위 진단이다. 새 generation의 package payload parity는 기존 `package_iris.ps1`의 explicit `candidate` context와 이 계획이 소유하는 hash-bound candidate-probe contract로 검증한다. 이 probe는 package authority, RTC PASS, G6 closure 또는 live required-gate adoption을 만들지 않는다.
 
 ### Machine-policy and RTC boundary
 
 - `stale_requires_successor_rtc`, `live_bridge_runtime_package_publication_allowed=false` 또는 동등 marker의 존재만으로 G6 기술 부채를 선언하지 않는다. Phase 0은 marker의 exact applicability predicate가 current facts/generation에 실제로 적용되는지 검사한다.
-- 적용되지 않는 historical marker는 non-applicable evidence로 보존한다. 적용되는 machine guard는 문서-only supersession으로 우회하지 않는다.
-- applicable machine guard가 exact generation의 canonical preflight 또는 cutover를 거부하면 `blocked_current_machine_policy`로 중단한다. 이는 payload mismatch나 G6 trigger가 아니다. 해당 machine policy를 바꾸려면 이 계획의 exact write surface에 추가하는 별도 명시적 계획 개정이 필요하다.
+- 적용되지 않는 historical marker는 non-applicable evidence로 보존한다. 기본 live RTC selection의 toolchain freshness는 그 immutable certification의 coverage를 판정하며, 새 candidate의 payload parity를 판정하지 않는다.
+- 기본 `canonical_durable` package 호출이 `implementation_toolchain_freshness_failed` 또는 동등한 historical coverage denial로 중단돼도 candidate-scoped probe가 아직 실행되지 않았다면 `coverage_status=not_covered`, `tooling_status=blocked_policy`, `payload_status=not_evaluated`, `g6_trigger=false`로 기록한다. 이 진단만으로 계획 전체를 기술 부채나 G6로 반환하지 않는다.
+- 이 revision이 승인하는 explicit `candidate` package probe contract는 guard 우회가 아니다. `package_iris.ps1`의 candidate policy/disposition/binding 및 surface validation을 그대로 실행하고, output-root containment만 adoption-owned disposable root까지 일반화한다. candidate probe 자체가 정책 또는 payload 검사에서 실패하면 fail-closed한다.
 - canonical Lua reconstruction, consumer load, package/live parity 또는 post-cutover current-route에서 동일 payload mismatch가 독립 재현될 때만 `rtc_product_mismatch_reproduced=true`와 G6 후속 eligibility를 기록한다.
 
 ### Synchronization precedence
 
-역사적 `dd4b8ac…` planning observation은 provenance로만 남는다. 현재 구현은 위 G1·G4·G5 commit을 모두 ancestor로 가진 clean descendant에서 시작한다. 현재 요청 경로의 plan blob은 아직 tracked execution baseline이 아니므로 fresh plan review PASS 후 exact plan blob을 clean descendant에 materialize하기 전 Phase 0와 live mutation을 실행하지 않는다.
+역사적 `dd4b8ac…` planning observation은 provenance로만 남는다. 다음 실행은 위 G1·G4·G5 commit과 blocked implementation commit `d901881c…`를 모두 포함하는 clean descendant에서 시작한다. 이 revision의 exact plan blob이 fresh review에서 Critical/Important `0`을 받고 그 clean descendant에 materialize되기 전에는 candidate-probe correction, 새 execution attempt, Phase 0 재실행과 live mutation을 실행하지 않는다.
 
 ## 1. Objective
 
@@ -254,7 +263,7 @@ G6을 현재 기술 부채 해결 계획으로 선행 실행:
 
 이 계획은 G6 RTC lifecycle, bundle adoption, required-validation live reference를 생성·활성화·수정하지 않는다. 인게임 연결 후 canonical Lua reconstruction, runtime consumer load, package/live parity, current-route 검사를 수행하고 동일 mismatch가 canonical path에서 독립적으로 재현될 때만 `rtc_product_mismatch_reproduced=true`를 기록한다. 그때에만 별도 owner-approved 후속 계획에서 G6의 필요한 부분을 현재 generation identity에 동기화할 수 있다. environment/tooling-only failure 또는 one-use evidence 부재는 이 trigger를 만족하지 않는다.
 
-다만 defect 존재 여부와 machine-policy applicability는 별개다. `docs/DECISIONS.md`의 Food Semantic G3 readpoint와 live `Iris/_docs/round3/current_route_required_validations.json`에는 historical `stale_requires_successor_rtc` 및 publication guard가 남아 있다. Phase 0은 current facts/generation에 대한 exact applicability predicate와 실제 canonical command 동작을 재현한다. non-applicable historical marker는 보존하되 blocker로 승격하지 않는다. applicable machine guard는 `docs/DECISIONS.md` 문구만으로 우회하지 않고 `blocked_current_machine_policy`로 종료한다. 이를 변경하려면 exact machine-policy path/field/test를 이 계획의 write surface에 추가하는 명시적 계획 개정이 먼저 필요하며, 그 개정 자체는 RTC 제품 결함 인정이나 G6 closure가 아니다.
+다만 defect 존재 여부와 machine-policy applicability는 별개다. `docs/DECISIONS.md`의 Food Semantic G3 readpoint와 live `Iris/_docs/round3/current_route_required_validations.json`에는 historical `stale_requires_successor_rtc` 및 publication guard가 남아 있다. Phase 0은 current facts/generation에 대한 exact applicability predicate와 기본 `canonical_durable` command 동작을 재현하되 이를 새 candidate payload gate로 사용하지 않는다. 이 revision은 `package_iris.ps1`의 기존 explicit `candidate` context에 adoption-owned probe contract를 추가하는 exact code/test write surface를 승인한다. candidate policy/disposition/binding 또는 surface guard의 실제 거부는 `blocked_candidate_package_probe_contract`로 종료하지만, historical live bundle의 noncoverage만으로는 live-dependent change 전체를 차단하지 않는다.
 
 ### Phase 0 Entry Preconditions
 
@@ -330,7 +339,8 @@ C-07b는 이 path의 owner를 `Iris Artifact Registry`로 고정한다. C-07c가
 - `Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py` — 기존 off-live exporter; protected write guard 보존
 - `Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_runtime_compatibility.py` — mutation 없는 candidate-scoped canonical surface probe로만 재사용 가능; RTC closure/adoption claim 금지
 - `Iris/build/description/v2/tools/build/` 아래 신규 adoption orchestrator, validator, transaction/rollback helper 및 test
-- `Iris/tools/package_iris.ps1` — official isolated package projection; 계약이 이미 충분하면 수정하지 않고 소비
+- `Iris/tools/package_iris.ps1` — `[string]$ValidatedNaturalizationCandidateProbeContract = ''` parameter를 추가한다. 기존 explicit `candidate` context의 정책·surface 검사는 보존하고, 이 contract가 승인한 disposable external output root를 수용하도록 bounded 수정한다. parameter가 비어 있으면 기존 RTC attempt-root 제한은 그대로다.
+- `Iris/build/description/v2/tests/`의 package candidate-probe contract regression — contract 누락·hash drift·root escape·reparse escape·authority claim·Zip 요청을 fail-closed하고 정상 external probe를 허용
 
 ### Docs
 
@@ -344,6 +354,7 @@ C-07b는 이 path의 owner를 `Iris Artifact Registry`로 고정한다. C-07c가
 - `Iris/_docs/round3/registry_authority_required_gate_contract.json`
 - `Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json` — C-07c additive authorization 전 write 금지
 - 신규 adoption attempt root 아래 writer authorization, transaction policy, generation schema, adjudication ledger
+- 신규 adoption attempt root 아래 `package_candidate_probe_contract.json`; RTC lifecycle/bundle/adoption record가 아니며 `authority_effect=none`
 
 ### Generated Artifacts
 
@@ -354,6 +365,7 @@ C-07b는 이 path의 owner를 `Iris Artifact Registry`로 고정한다. C-07c가
 - 격리 package output의 `Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua`
 - 격리 package output의 `Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk*.lua`
 - attempt-local receipts, rollback snapshot, journal, machine reports, closeout packet
+- disposable external package-probe output와 `candidate_package_projection_receipt.json`; 검증 후 package authority로 승격하지 않고 폐기 가능
 
 ### Protected but Normally Unmodified
 
@@ -391,8 +403,8 @@ Implementation Notes:
 - candidate와 관련 manifest의 referent를 재귀적으로 검증하되 historical artifact를 current로 승격하지 않는다.
 - 세 current facts 후보 충돌, current rendered 역할, closed protected output set, tooling allowlist/core cap, tooltip surface, predecessor snapshot residue를 실제 repository에서 판정한다.
 - G6 `not_applicable_temporary_tooling_trigger`, temporary tooling failure provenance, actual runtime defect reproduction `0`, 새 candidate의 기존 인증 비포괄성을 서로 분리해 기록한다.
-- `docs/ROADMAP.md`, `docs/DECISIONS.md`, live required-validation manifest의 exact prohibition source path/hash/field와 current-facts applicability predicate를 기록하고 `applicable=true|false`를 근거와 함께 판정한다. `true`인 machine guard는 문서-only supersession으로 우회하지 않고 모든 live-dependent change를 `blocked_current_machine_policy`로 닫는다.
-- official package command는 `Iris/tools/package_iris.ps1`의 실제 parameter contract에서, official current-route command는 `Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure --out <receipt>`에서 exact argv를 추출한다. live manifest의 required artifact/test 전체 denominator와 SHA-256을 함께 봉인하고 임의 axis subset을 정의하지 않는다.
+- `docs/ROADMAP.md`, `docs/DECISIONS.md`, live required-validation manifest의 exact prohibition source path/hash/field와 current-facts applicability predicate를 기록한다. historical `canonical_durable` coverage와 explicit adoption `candidate` payload gate의 `applicable=true|false`를 각각 판정하고 한쪽 결과를 다른 쪽에 전이하지 않는다.
+- official package command는 `Iris/tools/package_iris.ps1`의 기본 `canonical_durable` invocation과 explicit `candidate` invocation을 서로 다른 coverage domain으로 추출한다. 기본 invocation은 historical live RTC coverage 진단이고, 이 계획의 package payload gate는 hash-bound adoption candidate-probe contract를 동반한 explicit `candidate` invocation이다. official current-route command는 `Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure --out <receipt>`에서 exact argv를 추출하며 live manifest의 required artifact/test 전체 denominator와 SHA-256을 봉인한다.
 - review eligibility는 existing contract의 exact path/hash/clause, `independence_required`, `owner_seal_required`, reviewer identity/role, plan co-drafter 여부, credited review 여부를 기록한다. applicable contract가 independence를 요구할 때만 eligible reviewer의 fresh review를 요구한다. 요구하지 않거나 독립 review가 수행되지 않으면 waiver/PASS로 바꾸지 않고 closeout known limit로 남긴다.
 - live marker `stale_requires_successor_rtc`와 `successor_registry_runtime_compatibility_closure=false`는 freshness/non-coverage observation으로 기록하고 technical-debt 또는 G4/G5 blocker로 승격하지 않는다.
 - exporter output에 `bridge_context=staging`, attempt path/output root/identifier 같은 build-context marker가 존재하는지 조사한다. 없으면 `not_applicable`, 있으면 live projection 제거 gate를 연다.
@@ -411,7 +423,7 @@ Validation:
 - C-01a~C-01c 실제 판정 완료; blocked 결과는 reason과 함께 `phase0_complete_blocked`
 - C-02~C-13은 vocabulary/routing validity만 Phase 0에서 강제하고 실제 PASS를 선행 요구하지 않음
 - sealed prohibition applicability와 official terminal command/full denominator가 exact bytes로 확인됨
-- machine-policy guard가 non-applicable이거나 exact canonical route에서 허용됨; applicable denial이면 `blocked_current_machine_policy`로 정상 차단됨
+- historical canonical-durable coverage와 adoption candidate payload gate의 applicability 분리 PASS; candidate contract/policy/surface denial이면 `blocked_candidate_package_probe_contract`로 정상 차단됨
 - `phase0_complete_eligible_for_phase1` 또는 `phase0_complete_blocked` 중 정확히 하나
 - execution contract exact readpoint/applicable clause/conflict count 기록 PASS
 
@@ -442,6 +454,9 @@ Files:
 Implementation Notes:
 
 - candidate content hash, candidate manifest hash, assessment target identity, source input identities를 exact 비교한다.
+- candidate/source key membership은 decoded Unicode code point 기준 양방향 집합 차이를 계산해 `candidate_only_count=0`, `source_only_count=0`을 요구한다. count-only shape 일치는 PASS가 아니다.
+- candidate manifest의 facts/input-manifest referent와 current facts/input-manifest의 path·raw SHA·decoded projection을 직접 비교한다. sibling 또는 historical manifest의 binding을 대신 소비하지 않는다.
+- candidate와 Git blob/working bytes의 CRLF/LF 차이는 명시된 decoded-text identity domain에서만 동등하게 취급하고, line-ending 외 byte 또는 decoded-text 차이는 FAIL한다.
 - C-04는 direct projection과 regeneration 중 하나만 선택한다. regeneration을 선택하면 regenerated text가 immutable candidate의 public payload와 byte/decoded-text contract상 동일해야 하며 다르면 FAIL한다.
 - C-05는 current rendered를 source authority로 선언할 수 없다. 허용되는 역할은 판정된 generation-bound projection/consumer-facing build artifact 범위다.
 - C-03은 generic IAR assessment raw/deterministic identity와 G5 consumption record가 모두 exact candidate를 결속하는지 검증한다. attempt-specific Publish terminal, owner seal 또는 terminal DAG는 admission 입력이 아니다.
@@ -449,7 +464,9 @@ Implementation Notes:
 Validation:
 
 - candidate mutation `0`
-- candidate/current input binding PASS
+- candidate/current input binding PASS; candidate/source bidirectional key-set equality PASS
+- candidate meta facts/input-manifest binding PASS
+- Git-blob/working raw와 decoded-text/EOL identity 판정 PASS
 - assessment/candidate referent PASS
 - admission prerequisite PASS
 - authority vocabulary/claim-boundary scan PASS
@@ -466,12 +483,19 @@ Files:
 
 - 신규 writer authorization, exact target allowlist, lock/transaction/generation schema
 - Lua reconstruction/runtime/package probe의 exact-generation input contract와 test
+- attempt-local `candidate_registry_compatibility_policy.json`, `candidate_collision_disposition.json`, `candidate_contract_binding_manifest.json`; current source/collision/generation에 결속된 probe input이며 durable RTC bundle/lifecycle authority가 아님
+- `package_candidate_probe_contract.json` schema/materializer/validator와 `package_iris.ps1` candidate-probe root authorization regression
 - `C-07a`~`C-07d` 및 `C-13` 판정 record
 
 Implementation Notes:
 
 - 이 단계의 최대 상태는 `runtime_check_contract_prepared`이며 RTC/G6 closure나 제품 결함을 주장하지 않는다.
 - `package_iris.ps1`, exporter, Lua reconstruction과 current-route consumer가 나중에 소비할 exact input/output·failure taxonomy를 준비한다.
+- package candidate-probe contract schema는 `validated-naturalization-package-candidate-probe-contract-v1`로 고정한다. 필수 field는 `schema_version`, `authority_effect=none`, `subject_kind=validated_naturalization_generation`, `candidate_sha256`, `source_facts_sha256`, `source_manifest_sha256`, `materialized_generation_descriptor_path`, `materialized_generation_descriptor_sha256`, `registry_policy_path`, `registry_policy_sha256`, `collision_disposition_path`, `collision_disposition_sha256`, `binding_manifest_path`, `binding_manifest_sha256`, `package_script_git_blob_sha256`, `disposable_parent_root`, `output_root`, `allowed_argv_sha256`, `zip_allowed=false`, `contract_binding_sha256`다. `contract_binding_sha256`는 자기 자신을 제외한 나머지 field의 canonical JSON SHA-256이다.
+- `package_iris.ps1 -ValidatedNaturalizationCandidateProbeContract <path>`는 `RegistryCompatibilityContext=candidate`일 때만 허용한다. package artifact write 전에 adoption validator의 `validate-package-probe-contract` subcommand를 호출해 contract, current argv, script Git blob과 resolved output root를 대조한다. 다른 context 또는 contract와 actual argv/root 불일치는 FAIL한다. 기존 RTC attempt-root 아래 legacy candidate call은 parameter가 없을 때 기존 계약 그대로 허용하지만, 이 계획의 adoption orchestrator는 모든 candidate package invocation에서 parameter 생략을 FAIL한다.
+- attempt-local policy/disposition/binding은 current facts/source pair, exact case-sensitive collision groups와 materialized generation을 직접 결속한다. historical bundle의 문서를 schema template로 읽을 수는 있지만 predecessor candidate binding hash, PASS report, lifecycle state 또는 durable bundle identity를 복사해 current credit으로 사용하지 않는다.
+- `package_iris.ps1`의 existing candidate policy/disposition/binding validation, monolith/stale-bridge 거부와 surface validation은 완화하지 않는다. 변경은 contract에 결속된 adoption-owned external output root를 RTC attempt root와 동등한 비권위 candidate probe destination으로 인정하는 데 한정한다.
+- output root는 absolute path, fresh empty directory, approved disposable parent containment, no reparse traversal을 모두 만족해야 한다. contract 미제공, root/hash/argv 불일치, `-Zip`, partial compatibility arguments 또는 authority-effect non-none은 artifact write 전에 FAIL한다.
 - C-06은 `not_applicable_temporary_tooling_trigger`를 current default로 유지하고 actual canonical mismatch 재현 조건만 고정한다.
 - 기존 exporter의 protected current/package write refusal를 보존한다.
 - C-07a는 신규 Registry-owned adoption writer 하나만 exact protected paths에 쓸 수 있게 하고 validator와 package script에는 live mutation 권한을 주지 않는다.
@@ -488,6 +512,8 @@ Validation:
 - unauthorized protected writer `0`
 - generation descriptor destination ambiguity `0`
 - allowlist/core cap conflict `0`
+- candidate-probe contract omission/hash drift/root escape/reparse escape/Zip/authority claim negative fixtures PASS
+- candidate policy/disposition/binding current referent·hash·schema validation PASS; durable RTC identity field `0`
 
 ---
 
@@ -509,6 +535,7 @@ Implementation Notes:
 - output은 live/package-looking 경로가 아닌 attempt-local staging에 만든다.
 - `materialized_generation_descriptor.json`은 attempt-local trace이며 candidate identity, coherent source-pair identity, rendered identity, runtime manifest identity와 ordered chunk path/hash만 포함한다. RTC/G6 bundle, lifecycle, live binding, adoption receipt는 hash domain에 포함하지 않는다. live descriptor는 이 임시 파일의 hash만 가리키지 않고 동일한 full identity fields와 transaction ID를 직접 embed한다. staging cleanup 뒤에도 durable current descriptor 하나만으로 source/candidate/rendered/runtime/chunk identity를 재개방할 수 있어야 한다.
 - source의 exact case-sensitive key/state와 candidate의 public text를 결합하기 전에 `candidate_key_set == current_source_key_set`을 검증한다.
+- Change 2의 candidate facts/input-manifest binding과 decoded EOL identity를 재계산한다. blocked `attempt-0005`의 철회된 Phase 1 PASS report를 입력 credit으로 사용하지 않는다.
 - key 비교는 decoded Unicode code-point exact이며 casefold와 Unicode normalization을 사용하지 않는다. case-variant key는 독립 원소다.
 - public-text parity denominator는 candidate/source key set의 합집합이다. count는 보조 shape 지표일 뿐 membership evidence가 아니다.
 - adopted row에만 candidate public text를 투영한다. 모든 unadopted row의 `text_ko`는 absent 또는 explicit nil이어야 하고 빈 문자열은 FAIL이다.
@@ -516,6 +543,7 @@ Implementation Notes:
 - assessment, trace, review, detector, quality/disposition metadata를 runtime에 투영하지 않는다.
 - `export_dvf_3_3_lua_bridge.py --bridge-context staging --format chunk --output-root <attempt-local>` 계약을 사용한다.
 - actual Lua reconstruction으로 manifest module order, key/state/text, duplicate/overwrite/orphan을 검사한다.
+- candidate, materialized rendered, reconstructed Lua의 union denominator 전체에서 key/state/public text/허용 field projection을 비교한다. 파일 생성 성공이나 deterministic chunk hash만으로 full parity를 주장하지 않는다.
 - applicable canonical compatibility probe가 Windows Route C를 요구하면 `4 surfaces × 2105 = 8420` exact record projection을 소비한다. 이는 G6 closure나 제품 결함 claim이 아니다.
 - Phase 0에서 staging/build marker가 존재한다고 판정되면 live projection 전에 제거하고, 없으면 이 gate를 `not_applicable`로 닫는다.
 - materialization 완료 시 in-game sample item list와 각 expected text hash를 봉인하며 관측 결과를 보고 교체하지 않는다.
@@ -533,6 +561,8 @@ Validation:
 - repeated run normalized content identity PASS
 - sample manifest path/hash binding PASS
 - materialized descriptor canonical schema/hash PASS; RTC/G6 field `0`
+- candidate/current facts binding과 decoded EOL projection PASS
+- off-live full field parity와 actual Lua reconstruction parity PASS
 
 ---
 
@@ -555,10 +585,14 @@ Implementation Notes:
 - 기존 RTC bundle/lifecycle/current required-validation reference를 생성·수정·adopt하지 않는다.
 - mismatch는 `candidate_preflight_mismatch`로 기록하며 이 단계만으로 `rtc_product_mismatch_reproduced=true`나 G6 debt를 만들지 않는다.
 - applicable Route C는 exact case-sensitive record projection denominator 전체를 소비한다.
-- disposable off-live generation을 입력으로 official package exact argv와 official current-route exact argv를 **live mutation 전에 실제 실행**한다. 두 command 모두 guard bypass/manifest rewrite/required-test omission `0`, exit code `0`, full required denominator 충족을 증명해야 한다.
-- 두 official command에는 임의 input override를 추가하지 않는다. 대신 G1/G4/G5와 이 계획 implementation commit을 포함하는 exact clean detached checkout을 attempt-local external mirror root에 만든다. Change 4가 승인한 rendered/runtime manifest/ordered chunks만 그 mirror의 canonical relative live paths에 Registry transaction helper로 설치하고, mirror-local generation descriptor가 동일 embedded generation identity를 가리키게 한 뒤 기존 `Iris/tools/package_iris.ps1`와 `Iris/_docs/round3/round3_run_contract_tests.py`를 mirror 내부의 원래 argv/cwd 계약 그대로 실행한다. 원본 repository live tree는 실행 전·후 protected hash census equality로 불변을 증명한다.
+- disposable off-live generation을 입력으로 hash-bound adoption candidate-probe contract를 생성하고, `package_iris.ps1`의 explicit `candidate` context를 **live mutation 전에 실제 실행**한다. candidate policy/disposition/binding manifest와 exact generation surface는 Change 2~4의 current facts/collision/key evidence에서 파생하며 predecessor RTC PASS 또는 durable bundle PASS를 재사용하지 않는다.
+- exact package argv는 `powershell -ExecutionPolicy Bypass -File Iris/tools/package_iris.ps1 -OutputRoot <contract-output-root> -RegistryCompatibilityContext candidate -RegistryCompatibilityPolicy <candidate-policy> -RegistryCompatibilityDisposition <candidate-disposition> -RegistryCompatibilityBindingManifest <candidate-binding> -RegistryCompatibilityRequiredGateState not_adopted -RegistryCompatibilityProbe -ValidatedNaturalizationCandidateProbeContract <contract>`다. `-Zip`과 `-RegistryCompatibilityRequiredManifest`는 이 probe argv에 포함하지 않는다.
+- package candidate probe는 기존 official packaging implementation과 candidate surface validator를 그대로 통과해야 한다. plan-owned contract가 허용하는 것은 disposable external output root뿐이며 validator skip, manifest rewrite, required-field omission, denominator 축소 또는 policy/disposition 대체를 허용하지 않는다.
+- G1/G4/G5, blocked implementation `d901881c…`와 이 revision implementation commit을 포함하는 exact clean detached checkout을 external mirror root에 만든다. Change 4가 승인한 rendered/runtime manifest/ordered chunks만 mirror의 canonical relative live paths에 Registry transaction helper로 설치하고, mirror-local generation descriptor가 동일 embedded generation identity를 가리키게 한다.
+- 같은 mirror에서 official current-route exact argv를 원래 cwd/denominator로 실행한다. current-route는 candidate package probe를 대신하지 않고 candidate probe도 full current-route를 대신하지 않는다.
 - isolated mirror receipt는 mirror base commit/tree, clean-checkout creation argv, mirror root identity, installed Change 4 path/hash set, original repository pre/post census, official executable Git blob/SHA-256, exact argv/cwd, live-manifest denominator와 결과를 함께 결속한다. mirror의 predecessor live bytes가 남았거나 Change 4 exact path-set 밖 tracked/untracked mutation이 있으면 preflight FAIL이다. mirror 결과는 disposable evidence이며 current authority나 package authority가 아니다.
-- isolated candidate mode가 package script상 허용되더라도 current-route full denominator를 대체하지 않는다. exact official route가 stale RTC policy 때문에 exit `0`에 도달할 수 없거나 disposable input을 공식적으로 받을 수 없으면 우회하지 않고 `blocked_official_terminal_route_noncoverage`로 종료한다. 이 상태는 RTC 제품 결함이나 G6 trigger가 아니다.
+- 기본 live `canonical_durable` invocation은 별도 coverage diagnostic으로 실행하거나 Phase 0 관찰을 소비할 수 있다. 여기서 `implementation_toolchain_freshness_failed`가 재현돼도 candidate probe와 current-route가 PASS하면 terminal package payload gate를 차단하지 않으며, `existing_live_rtc_coverage=not_covered` known limit로 남긴다.
+- candidate-probe contract 또는 official candidate mode 자체가 현재 generation을 받을 수 없으면 `blocked_candidate_package_probe_contract`로 중단한다. 이는 계획 구현 결함/계약 비포괄이지 RTC 제품 결함이나 G6 trigger가 아니다.
 - pre-cutover receipt는 exact executable/interpreter identity, argv, cwd, input generation identity, live-manifest hash, required artifact/test IDs와 counts, exit code, stdout/stderr hashes, `guard_bypass=false`, `denominator_reduced=false`를 기록한다.
 
 Validation:
@@ -569,7 +603,8 @@ Validation:
 - predecessor RTC certification reuse `0`
 - RTC/G6 lifecycle mutation `0`
 - environment/tooling-only failure의 product defect 승격 `0`
-- official package/current-route exact command exit `0`; required denominator 누락 `0`; bypass `0`
+- explicit candidate package command와 official current-route exact command exit `0`; required denominator 누락 `0`; validator bypass `0`
+- default canonical-durable coverage result와 candidate payload result의 독립 field classification PASS
 
 ---
 
@@ -589,6 +624,7 @@ Implementation Notes:
 - exact preimage에는 rendered, runtime manifest, chunk directory 전체, `current_generation_descriptor.json`, applicable tooltip surface만 포함한다. RTC lifecycle과 `current_route_required_validations.json`은 read-only protected surface다.
 - snapshot manifest를 hash-bound하고 C-12에서 stale인 residue를 사용하지 않는다.
 - exact Change 4 bytes와 Change 5 canonical preflight PASS만 mirror input으로 허용한다.
+- blocked `attempt-0005`의 `disposable_mirror_rollback_verified=true`와 관련 closeout 문구는 `evidence_claim_correction_0001.json`에 의해 철회됐으므로 rollback credit `0`에서 새 failure-injection matrix를 실행한다.
 - runtime generation과 descriptor만 하나의 live transaction/snapshot/rollback unit으로 취급한다.
 - manifest-last를 지킨다.
 - failure injection은 rendered install 전/후, chunk swap 중, runtime manifest 전/후, descriptor install 실패를 포함한다.
@@ -649,18 +685,20 @@ Validation:
 
 Purpose:
 
-Change 5에서 disposable input으로 pre-proved한 동일 official package command를 live input으로 다시 실행해 package가 live runtime의 disposable projection이며 동일 payload를 포함하는지 검증한다. Change 5 PASS는 이 단계의 PASS를 대체하지 않는다.
+Change 5에서 disposable input으로 pre-proved한 동일 explicit candidate package command와 probe contract schema를 live generation identity에 다시 결속해 실행하고, package가 live runtime의 disposable projection이며 동일 payload를 포함하는지 검증한다. Change 5 PASS는 이 단계의 PASS를 대체하지 않는다.
 
 Files:
 
-- `Iris/tools/package_iris.ps1` 소비
-- attempt-local isolated package root, package manifest, compatibility probe receipt
+- `Iris/tools/package_iris.ps1` explicit `candidate` context 소비
+- live generation에 재결속한 `package_candidate_probe_contract.json`
+- disposable external package root, package manifest, compatibility probe receipt
 
 Implementation Notes:
 
-- Change 5의 disposable official-route proof가 PASS한 동일 command/mode를 live cutover 뒤 재실행한다.
-- `package_iris.ps1`의 monolith/stale bridge 금지와 surface validation을 유지한다. 기존 RTC required-gate가 새 candidate를 포괄하지 않는 사실은 non-coverage로 기록하고, package payload의 canonical parity는 별도 검사한다.
-- existing isolated candidate-probe mode는 Change 5 보조 진단으로만 사용할 수 있고 terminal official package PASS를 대체하지 않는다. pre-proved official mode가 live에서 exit `0`이 아니면 guard를 우회하지 않고 package를 폐기하고 live generation을 rollback한다.
+- Change 5에서 PASS한 동일 package script Git blob, explicit `candidate` context, policy/disposition/binding schema와 probe-contract algorithm을 사용하되 input generation identity와 output root는 post-cutover live 값으로 fresh materialize한다.
+- `package_iris.ps1`의 monolith/stale bridge 금지, contract-only 검사와 surface validation을 유지한다. 기존 RTC required-gate가 새 candidate를 포괄하지 않는 사실은 `existing_live_rtc_coverage=not_covered`로 기록하고 package payload의 canonical parity와 분리한다.
+- terminal package PASS는 explicit candidate probe의 package/live exact parity로 정의한다. 기본 `canonical_durable` invocation의 historical toolchain coverage PASS를 요구하거나 주장하지 않는다.
+- candidate package command, contract validation 또는 package/live parity가 PASS하지 않으면 package를 폐기하고 live generation을 rollback한다. 기본 canonical-durable noncoverage만으로는 이미 PASS한 candidate payload를 mismatch로 바꾸거나 G6을 열지 않는다.
 - package runtime manifest와 모든 chunk relative path/bytes를 live와 비교한다.
 - package mismatch는 live를 재정의하지 않는다. package를 폐기하고 terminal eligibility를 false로 만든 뒤 Change 7의 exact preimage로 live generation 전체를 rollback한다.
 
@@ -671,6 +709,7 @@ Validation:
 - missing/extra runtime file `0`
 - monolith/stale bridge `0`
 - package authority claim `0`
+- candidate probe `authority_effect=none`, Zip output `0`
 - G6/RTC lifecycle mutation `0`
 - package tooling/policy non-coverage와 product payload mismatch의 classification PASS
 
@@ -753,7 +792,7 @@ Files:
 - `claim_boundary_validation_report.json`
 - `final_adoption_verdict.json`
 - `rtc_g6_trigger_disposition.json`
-- machine-policy applicability와 실제 canonical command 결과를 보존하고, 성공한 adoption 사실만 `DECISIONS.md`/`ARCHITECTURE.md`/`ROADMAP.md`에 필요한 범위로 additive sync한다. applicable denial은 문서 supersession으로 바꾸지 않고 `blocked_current_machine_policy`로 기록한다.
+- historical live RTC coverage와 explicit adoption candidate package 결과를 독립 field로 보존하고, 성공한 adoption 사실만 `DECISIONS.md`/`ARCHITECTURE.md`/`ROADMAP.md`에 필요한 범위로 additive sync한다. candidate contract/policy/surface denial은 문서 supersession으로 바꾸지 않고 `blocked_candidate_package_probe_contract`로 기록한다.
 
 Implementation Notes:
 
@@ -790,7 +829,7 @@ Validation:
 - forbidden metadata와 unadopted text leakage 검사
 - Lua manifest/chunk completeness, duplicate/cross-chunk overwrite, orphan 검사
 - actual Lua reconstruction과 rendered parity
-- candidate-scoped canonical Lua/runtime/package preflight와 post-link mismatch reproduction check
+- hash-bound adoption candidate-probe contract를 사용한 canonical Lua/runtime/package preflight와 post-link mismatch reproduction check
 - 모든 receipt가 Validation Limits의 normative independent-field schema(`coverage_status`, `tooling_status`, `payload_status`, `independent_reproduction_status`, `g6_trigger`)를 사용하며 field 간 동시 상태를 보존
 - live-installed staging/build-context marker와 attempt-local path/identifier exposure `0`
 - RTC lifecycle/bundle/`current_route_required_validations.json` before/after mutation `0`
@@ -825,7 +864,7 @@ independent_reproduction_status = pass | fail | not_evaluated
 g6_trigger = true only when payload_status=mismatch and independent_reproduction_status=pass
 ```
 
-`not_covered`, `blocked_policy`, `failed_tooling`, `failed_environment`은 payload mismatch가 아니며 payload 검사가 실행되지 않았으면 반드시 `not_evaluated`다. 반대로 canonical payload mismatch도 independent reproduction이 없으면 G6 trigger가 아니다.
+`not_covered`, `blocked_policy`, `failed_tooling`, `failed_environment`은 payload mismatch가 아니며 payload 검사가 실행되지 않았으면 반드시 `not_evaluated`다. 기본 live RTC selection의 `implementation_toolchain_freshness_failed`는 candidate probe를 실행하지 않은 coverage 진단이므로 이 규칙을 따른다. explicit candidate probe에서 canonical payload mismatch가 발생해도 independent reproduction이 없으면 G6 trigger가 아니다.
 
 Post-cutover terminal-required validation 실패는 live generation을 애매한 current 상태로 남기지 않는다. cutover identity/parity 실패, package payload mismatch, full-denominator current-route product mismatch, in-game displayed-text/consumer mismatch는 terminal claim과 downstream eligibility를 false로 만들고 exact preimage로 자동 rollback한다. package 산출물은 폐기한다. package/current-route/in-game의 environment/tooling-only 실패도 제품 결함으로 주장하지 않지만 terminal validation이 미완료이므로 package를 폐기하고 live generation을 rollback한 뒤 `blocked_environment_or_tooling`으로 닫는다. rollback 자체는 defect 판정이 아니라 fail-closed current-state 복구다. rollback 검증 실패는 `blocked_rollback_integrity`로 수동 복구에 이관한다.
 
@@ -892,10 +931,11 @@ Mitigation: off-live complete materialization, exclusive lock, exact preimage, d
 
 - PowerShell JSON object 변환에서 대소문자 key가 붕괴하는 위험
 - 기존 RTC non-coverage를 실제 제품 결함 또는 G6 blocker로 오분류할 위험
+- immutable live RTC toolchain manifest의 historical coverage를 새 candidate package payload 합격 조건으로 오사용할 위험
 - tooling/one-use evidence failure를 canonical Lua/runtime/package mismatch로 오분류할 위험
 - legacy monolith/bridge가 다시 포함되는 위험
 
-Mitigation: pair-preserving Python route, candidate-scoped pre/post-link canonical checks, package/live byte comparison, failure-family 분리, forbidden path scan을 사용한다. G6 trigger는 actual canonical mismatch의 독립 재현에만 열린다.
+Mitigation: pair-preserving Python route, hash-bound adoption candidate-probe contract, explicit package candidate context, candidate-scoped pre/post-link canonical checks, package/live byte comparison, failure-family 분리, forbidden path scan을 사용한다. G6 trigger는 actual canonical mismatch의 독립 재현에만 열린다.
 
 ### Regression Risk
 
@@ -927,7 +967,7 @@ Package output은 authority가 아니므로 rollback하지 않고 폐기 후 재
 
 1. live apply 직전 path/type/size/SHA-256/Git blob/EOL을 가진 fresh preimage와 hash-bound snapshot manifest를 만든다.
 2. exclusive lock 후 preimage drift를 다시 확인한다.
-3. §7 Validation Limits의 post-cutover rollback disposition을 normative trigger source로 사용한다. write error, partial swap, manifest failure, runtime mismatch, orphan, metadata leakage, unadopted text exposure, generation mismatch뿐 아니라 cutover identity/parity failure, package payload mismatch, official package command failure, full-denominator current-route product mismatch, current-route environment/tooling failure, in-game displayed-text mismatch, in-game consumer-path mismatch, in-game environment/tooling failure가 발생하면 자동 rollback한다.
+3. §7 Validation Limits의 post-cutover rollback disposition을 normative trigger source로 사용한다. write error, partial swap, manifest failure, runtime mismatch, orphan, metadata leakage, unadopted text exposure, generation mismatch뿐 아니라 cutover identity/parity failure, explicit candidate package command/contract/payload failure, full-denominator current-route product mismatch, current-route environment/tooling failure, in-game displayed-text mismatch, in-game consumer-path mismatch, in-game environment/tooling failure가 발생하면 자동 rollback한다. historical canonical-durable coverage noncoverage만으로는 candidate payload mismatch를 만들지 않지만 terminal package gate가 별도로 PASS하지 못하면 rollback한다.
 4. exact generation descriptor, runtime manifest, runtime chunks, rendered를 승인된 복구 순서로 되돌리고 새 orphan path를 제거한다.
 5. exact preimage recensus와 actual Lua reconstruction을 실행한다.
 6. 모든 preimage hash equality와 new path `0`이 성립해야 rollback PASS다.
@@ -957,13 +997,13 @@ failed attempt receipt와 journal은 보존하고 one-use authorization/attempt 
 - additive amendment와 minimal diff를 우선한다.
 - Registry-owned single writer만 current rendered/runtime과 exact generation descriptor path를 변경한다.
 - generation descriptor path가 closed protected output set 밖이면 explicit additive authorization 없이는 생성·수정하지 않는다.
-- exporter의 protected path refusal와 package의 RTC guard를 우회하지 않는다.
+- exporter의 protected path refusal를 우회하지 않는다. package의 existing candidate policy/disposition/binding 및 surface guard를 유지하고, adoption candidate-probe contract가 승인한 disposable external output root만 bounded 확장한다.
 - exact case-sensitive key와 collision preservation을 유지한다.
 - `IrisLayer3Data.lua` monolith와 `IrisDvfBridgeData.lua` stale bridge를 되살리지 않는다.
-- predecessor RTC PASS, stale snapshot, superseded evidence를 current credit으로 재사용하지 않는다.
+- predecessor RTC PASS, stale snapshot, immutable live RTC toolchain freshness, superseded attempt-0005 evidence를 current candidate payload credit으로 재사용하지 않는다.
 - G6은 `not_applicable_temporary_tooling_trigger`로 유지하며 실제 canonical mismatch가 독립 재현되기 전에는 기술 부채 계획, prerequisite 또는 G4/G5 blocker로 실행하지 않는다.
 - RTC lifecycle/bundle/`current_route_required_validations.json`은 read-only protected surface로 유지한다.
-- package는 live payload의 disposable isolated projection이다.
+- package는 live payload의 disposable isolated projection이며 candidate probe의 `authority_effect`는 항상 `none`이다.
 - human/owner/independent review authority를 자동화가 대리하지 않는다.
 - product failure와 environment/tool failure를 구분하되 environment failure를 PASS나 waiver로 바꾸지 않는다.
 - top-doc update는 최종 판정 사실만 additive 반영하며 현재의 unrelated 사용자 변경을 덮어쓰지 않는다.
@@ -976,7 +1016,7 @@ failed attempt receipt와 journal은 보존하고 one-use authorization/attempt 
 Expected closeout target: `complete`, 단 아래 단계적 상태를 엄격히 구분한다.
 
 ```text
-planning_state=revision_complete_fresh_review_required
+planning_state=candidate_package_coverage_revision_complete_fresh_review_required
 phase0_entry=blocked_pending_fresh_plan_review
 changes_2_through_11=blocked
 live_mutation=blocked
@@ -1001,13 +1041,15 @@ target_closeout=complete_only_if_phase0_reverification_and_all_later_gates_pass
 - exact candidate anchor 전부 PASS 및 sibling/rebaseline `0`
 - current facts/manifest sealed-role match와 pair coherence PASS
 - candidate/source bidirectional key-set equality PASS
+- candidate meta facts/input-manifest binding과 Git-blob/working decoded EOL identity PASS
 - immutable candidate mutation `0`
-- candidate-scoped canonical runtime/package preflight와 single-writer authorization PASS
+- off-live full field/reconstruction parity PASS
+- hash-bound adoption candidate-probe contract를 사용한 candidate-scoped canonical runtime/package preflight와 single-writer authorization PASS
 - exact generation descriptor path/owner/protected-set authorization PASS
 - mirror apply/rollback 및 failure injection PASS
 - rendered/runtime generation alignment PASS
 - live cutover와 fresh full-denominator official current-route exit `0`
-- official package/live payload parity PASS
+- explicit candidate package/live payload parity PASS; default live RTC coverage status는 독립 known limit로 기록
 - representative consumer/display smoke PASS
 - C-10 terminal token 확정
 - C-11이 이 adoption/current-route에 실제 applicable하다고 확인한 review/seal 완료

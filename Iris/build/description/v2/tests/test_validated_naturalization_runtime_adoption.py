@@ -232,11 +232,13 @@ class ValidatedNaturalizationRuntimeAdoptionTest(unittest.TestCase):
                     mirror,
                     Path(materialized["next_generation"]),
                     transaction_id="rollback-test",
+                    lock_path=attempt / "adoption.lock",
                     inject_failure_after_content=True,
                 )
             self.assertEqual(before, adoption.transaction_surface_census(mirror))
             self.assertEqual("unchanged", unrelated.read_text(encoding="utf-8"))
             self.assertFalse(any(mirror.rglob("*.adoption-tmp-*")))
+            self.assertFalse((attempt / "adoption.lock").exists())
 
     def test_short_external_mirror_passes_for_long_attempt_and_cleans_residue(self) -> None:
         repo = Path(__file__).resolve().parents[5]
@@ -255,6 +257,43 @@ class ValidatedNaturalizationRuntimeAdoptionTest(unittest.TestCase):
             self.assertNotIn("attempt-0006", serialized)
             self.assertNotIn("attempt-0005", serialized)
             self.assertFalse(mirror.exists())
+            receipt = json.loads((attempt / "phase4" / "external_mirror_receipt.json").read_text(encoding="utf-8"))
+            self.assertEqual("PASS", receipt["status"])
+            self.assertTrue(receipt["created_by_current_run"])
+            self.assertTrue(receipt["cleanup_completed"])
+            self.assertEqual(0, receipt["mirror_residue_count"])
+            self.assertEqual(0, receipt["temporary_residue_count"])
+
+    def test_transaction_lock_is_exclusive_and_released(self) -> None:
+        repo = Path(__file__).resolve().parents[5]
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            attempt = root / "attempt"
+            materialized = adoption.run_prepare_and_materialize(repo, attempt)
+            mirror = root / "mirror"
+            for role, source in adoption.transaction_surface_paths(repo).items():
+                target = adoption.transaction_surface_paths(mirror)[role]
+                if source.is_dir():
+                    shutil.copytree(source, target)
+                elif source.is_file():
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(source, target)
+            lock = attempt / "adoption.lock"
+            lock.write_text("occupied", encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "adoption_lock_already_exists"):
+                adoption.apply_generation_transaction(
+                    mirror, Path(materialized["next_generation"]),
+                    transaction_id="locked-test", lock_path=lock,
+                )
+            lock.unlink()
+            result = adoption.apply_generation_transaction(
+                mirror, Path(materialized["next_generation"]),
+                transaction_id="lock-pass", lock_path=lock,
+            )
+            self.assertTrue(result["lock"]["exclusive_create"])
+            self.assertTrue(result["lock"]["released"])
+            self.assertEqual(0, result["lock"]["residue_count"])
+            self.assertFalse(lock.exists())
 
     def test_external_mirror_rejects_attempt_internal_existing_and_overlap(self) -> None:
         repo = Path(__file__).resolve().parents[5]

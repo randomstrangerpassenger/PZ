@@ -383,7 +383,7 @@ def transaction_surface_census(repo: Path) -> dict[str, Any]:
     return result
 
 
-def apply_generation_transaction(
+def _apply_generation_transaction_without_lock(
     repo: Path,
     generation_root: Path,
     *,
@@ -465,6 +465,43 @@ def apply_generation_transaction(
             shutil.rmtree(backup_root)
 
 
+def apply_generation_transaction(
+    repo: Path,
+    generation_root: Path,
+    *,
+    transaction_id: str,
+    lock_path: Path,
+    inject_failure_after_content: bool = False,
+) -> dict[str, Any]:
+    lock_path = lock_path.absolute()
+    lock_path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        descriptor = os.open(lock_path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+    except FileExistsError as exc:
+        raise ValueError("adoption_lock_already_exists") from exc
+    os.write(descriptor, transaction_id.encode("utf-8"))
+    try:
+        result = _apply_generation_transaction_without_lock(
+            repo,
+            generation_root,
+            transaction_id=transaction_id,
+            inject_failure_after_content=inject_failure_after_content,
+        )
+    finally:
+        os.close(descriptor)
+        lock_path.unlink()
+    result["lock"] = {
+        "path": str(lock_path),
+        "identity": transaction_id,
+        "exclusive_create": True,
+        "acquired_before_revalidation_and_write": True,
+        "held_through_transaction": True,
+        "released": not lock_path.exists(),
+        "residue_count": 0 if not lock_path.exists() else 1,
+    }
+    return result
+
+
 def _is_reparse_point(path: Path) -> bool:
     try:
         metadata = path.lstat()
@@ -521,6 +558,7 @@ def _execute_mirror_transaction_proof(
         apply_generation_transaction(
             mirror, generation_root,
             transaction_id=f"{transaction_namespace}-injected",
+            lock_path=attempt_root / "phase4" / "adoption.lock",
             inject_failure_after_content=True,
         )
     except RuntimeError as exc:
@@ -545,6 +583,7 @@ def _execute_mirror_transaction_proof(
     success = apply_generation_transaction(
         mirror, generation_root,
         transaction_id=f"{transaction_namespace}-success",
+        lock_path=attempt_root / "phase4" / "adoption.lock",
     )
     expected = {
         "rendered": sha256((generation_root / "dvf_3_3_rendered.json").read_bytes()),
@@ -594,11 +633,19 @@ def run_mirror_transaction_proof(repo: Path, attempt_root: Path, mirror_root: Pa
     assert result is not None
     result["external_mirror"] = {
         "path": str(mirror_root),
+        "approved_parent": str(approved_parent),
+        "created_by_current_run": True,
         "maximum_target_path_length": maximum_length,
         "longest_target_path": longest_path,
+        "cleanup_completed": True,
         "temporary_residue_count": 0,
         "mirror_residue_count": 0,
     }
+    write_json(attempt_root / "phase4" / "external_mirror_receipt.json", {
+        "schema_version": "validated-naturalization-external-mirror-receipt-v1",
+        "status": "PASS",
+        **result["external_mirror"],
+    })
     return result
 
 

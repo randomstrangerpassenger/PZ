@@ -1,0 +1,12 @@
+{
+  "schema_version": "validated-naturalization-external-mirror-receipt-v1",
+  "status": "PASS",
+  "approved_parent": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp",
+  "path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\i8",
+  "created_by_current_run": true,
+  "maximum_target_path_length": 151,
+  "longest_target_path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\i8\\Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3DataChunks.adoption-tmp-attempt-0008-success\\Chunk011.lua",
+  "cleanup_completed": true,
+  "temporary_residue_count": 0,
+  "mirror_residue_count": 0
+}

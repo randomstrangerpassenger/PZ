@@ -1,0 +1,22 @@
+{
+  "schema_version": "validated-naturalization-live-cutover-lock-correction-v1",
+  "status": "PASS",
+  "supersedes_claim_scope_of": "live_cutover_receipt.json",
+  "transaction_id": "attempt-0008-live-lock-correction-0001",
+  "write_order": [
+    "rendered",
+    "chunks",
+    "descriptor",
+    "manifest"
+  ],
+  "manifest_last": true,
+  "lock": {
+    "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\build\\worktrees\\validated-naturalization-adoption\\Iris\\build\\description\\v2\\staging\\validated_naturalization_current_runtime_adoption\\attempt-0008\\phase5\\adoption.lock",
+    "identity": "attempt-0008-live-lock-correction-0001",
+    "exclusive_create": true,
+    "acquired_before_revalidation_and_write": true,
+    "held_through_transaction": true,
+    "released": true,
+    "residue_count": 0
+  }
+}

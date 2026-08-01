@@ -445,7 +445,7 @@ def apply_generation_transaction(
         shutil.copy2(sources["manifest"], manifest_temporary)
         os.replace(manifest_temporary, manifest_target)
         write_order.append("manifest")
-        return {"status": "PASS", "write_order": write_order, "manifest_last": write_order[-1] == "manifest", "preimage": before}
+        return {"status": "PASS", "transaction_id": transaction_id, "write_order": write_order, "manifest_last": write_order[-1] == "manifest", "preimage": before}
     except Exception:
         for role, target in targets.items():
             if target.is_dir():
@@ -485,19 +485,21 @@ def _path_chain(path: Path) -> list[Path]:
         current = current.parent
 
 
-def _maximum_transaction_path(mirror: Path) -> tuple[int, str]:
+def _maximum_transaction_path(mirror: Path, transaction_namespace: str) -> tuple[int, str]:
     candidates = [
         mirror / RENDERED_PATH,
         mirror / LUA_MANIFEST_PATH,
         mirror / GENERATION_DESCRIPTOR_PATH,
-        mirror / ".validated-naturalization-transaction-attempt-0008-injected" / "preimage" / "descriptor",
-        (mirror / LUA_MANIFEST_PATH).with_name("IrisLayer3DataChunks.adoption-tmp-attempt-0008-success") / "Chunk011.lua",
+        mirror / f".validated-naturalization-transaction-{transaction_namespace}-injected" / "preimage" / "descriptor",
+        (mirror / LUA_MANIFEST_PATH).with_name(f"IrisLayer3DataChunks.adoption-tmp-{transaction_namespace}-success") / "Chunk011.lua",
     ]
     longest = max(candidates, key=lambda path: len(str(path)))
     return len(str(longest)), str(longest)
 
 
-def _execute_mirror_transaction_proof(repo: Path, attempt_root: Path, mirror: Path) -> dict[str, Any]:
+def _execute_mirror_transaction_proof(
+    repo: Path, attempt_root: Path, mirror: Path, transaction_namespace: str
+) -> dict[str, Any]:
     repo = repo.resolve()
     attempt_root = attempt_root.resolve()
     generation_root = attempt_root / "phase3" / "next_generation"
@@ -518,7 +520,7 @@ def _execute_mirror_transaction_proof(repo: Path, attempt_root: Path, mirror: Pa
     try:
         apply_generation_transaction(
             mirror, generation_root,
-            transaction_id="attempt-0007-injected",
+            transaction_id=f"{transaction_namespace}-injected",
             inject_failure_after_content=True,
         )
     except RuntimeError as exc:
@@ -535,13 +537,14 @@ def _execute_mirror_transaction_proof(repo: Path, attempt_root: Path, mirror: Pa
         "exact_preimage_restored": before == after,
         "temporary_path_count": temporary_count,
         "unrelated_mutation_count": 0 if unrelated.read_bytes() == b"unchanged\n" else 1,
+        "transaction_id": f"{transaction_namespace}-injected",
     }
     write_json(proof_root / "rollback_proof.json", rollback_report)
     if not rollback_pass:
         raise RuntimeError("mirror_rollback_proof_failed")
     success = apply_generation_transaction(
         mirror, generation_root,
-        transaction_id="attempt-0007-success",
+        transaction_id=f"{transaction_namespace}-success",
     )
     expected = {
         "rendered": sha256((generation_root / "dvf_3_3_rendered.json").read_bytes()),
@@ -562,6 +565,9 @@ def run_mirror_transaction_proof(repo: Path, attempt_root: Path, mirror_root: Pa
     repo = repo.resolve()
     attempt_root = attempt_root.resolve()
     mirror_root = mirror_root.absolute()
+    transaction_namespace = attempt_root.name
+    if transaction_namespace != "attempt-0008":
+        raise ValueError("transaction_attempt_namespace_invalid")
     if attempt_root == mirror_root or attempt_root in mirror_root.parents:
         raise ValueError("mirror_inside_attempt_forbidden")
     if repo == mirror_root or repo in mirror_root.parents or mirror_root in repo.parents:
@@ -573,13 +579,13 @@ def run_mirror_transaction_proof(repo: Path, attempt_root: Path, mirror_root: Pa
         raise ValueError("external_mirror_reparse_forbidden")
     if mirror_root.exists():
         raise ValueError("external_mirror_already_exists")
-    maximum_length, longest_path = _maximum_transaction_path(mirror_root)
+    maximum_length, longest_path = _maximum_transaction_path(mirror_root, transaction_namespace)
     if maximum_length >= WINDOWS_SAFE_TRANSACTION_PATH_LIMIT:
         raise ValueError(f"external_mirror_path_length_unsafe:{maximum_length}:{longest_path}")
     mirror_root.mkdir()
     result: dict[str, Any] | None = None
     try:
-        result = _execute_mirror_transaction_proof(repo, attempt_root, mirror_root)
+        result = _execute_mirror_transaction_proof(repo, attempt_root, mirror_root, transaction_namespace)
     finally:
         if mirror_root.exists():
             shutil.rmtree(mirror_root)

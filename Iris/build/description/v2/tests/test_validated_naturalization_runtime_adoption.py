@@ -248,6 +248,12 @@ class ValidatedNaturalizationRuntimeAdoptionTest(unittest.TestCase):
             self.assertEqual("PASS", result["successful_apply"]["status"])
             self.assertEqual(0, result["rollback"]["unrelated_mutation_count"])
             self.assertEqual(0, result["rollback"]["temporary_path_count"])
+            self.assertEqual("attempt-0008-injected", result["rollback"]["transaction_id"])
+            self.assertEqual("attempt-0008-success", result["successful_apply"]["transaction_id"])
+            serialized = json.dumps(result, sort_keys=True)
+            self.assertNotIn("attempt-0007", serialized)
+            self.assertNotIn("attempt-0006", serialized)
+            self.assertNotIn("attempt-0005", serialized)
             self.assertFalse(mirror.exists())
 
     def test_external_mirror_rejects_attempt_internal_existing_and_overlap(self) -> None:

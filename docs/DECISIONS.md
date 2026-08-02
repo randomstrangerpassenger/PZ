@@ -2262,7 +2262,7 @@ Iris DVF 3-3 — validated Naturalization current runtime adoption / canonical p
 Iris — consolidated core refactor implementation / integrated-closeout boundary
 
 * 날짜: 2026-08-02
-* 상태: Changes 1–6 implemented / Change 7 `deferred_by_design` / Change 8 `no_op` / Change 9 seal candidate ready; terminal status authority is the post-seal binding report
+* 상태: Changes 1–6 implemented / Change 7 `deferred_by_design` / Change 8 `no_op` / Change 9 `complete`; terminal status authority is `final_evidence_binding_report.json.status=complete`
 * 결정:
 
   * 지원 API와 public require surface를 유지하면서 Description, Browser, Detail, legacy compatibility 내부 경계를 분리한다. Description string output은 block API에서 파생하고, Browser selection fallback과 cache/build state는 명시적으로 모델링하며, Browser/Wiki detail은 read-only fact view model을 공유한다.
@@ -2282,6 +2282,7 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
   * production Lua syntax 95 files와 disposable package 95 Lua/12 Layer 3 files도 exit `0`이다. Diagnostic route의 `77 tests / 3 failures / 26 errors`는 historical overlay가 retired input을 의도적으로 생략한 결과와 ignored local source-contract anchor이므로 `advisory_failed`, `blocking=false`로 분리한다.
   * Phase 0의 일부 기준 해시는 혼합 줄바꿈 working bytes가 아니라 baseline/final에서 동일한 Git blob identity로 정규화했다. 승인된 변경은 `current_route_required_validations.json`의 pinned descriptor rebind 한 건뿐이며 protected report는 changed `1`, approved `1`, unauthorized `0`을 유지한다.
   * validation asset manifest와 ceiling을 generation 10, required asset 75, reserved future 0, lifecycle 전부 `sealed`, mandatory unvalidated axis 0으로 봉인한다. historical reproduction JSON/ZIP hard dependency도 denominator에 포함한다. Generation 8의 first CleanCheckout은 PowerShell 5.1 native stderr promotion으로 테스트 전 중단됐고, generation 9 CleanCheckout은 PASS했지만 terminal review에서 ceiling의 여섯 binding hash가 durable file identity가 아님을 확인해 supersede했다. Generation 10은 native exit code로 판정하며 six binding JSON의 tracked Git-blob SHA-256을 ceiling/matrix/test에 1:1로 고정한 exact commit receipt/canonical/stdout/stderr를 sealed denominator 밖의 post-seal `final_evidence_binding_report.json`에 결속한다.
+  * generation-10 seal candidate `f877f45b2e60740dbedc8fea637bec712ca2022b` / tree `1ccd8ff07e725d0265b5e9ac2ddb9fcd8fbd5f53`의 exact CleanCheckout이 exit `0`으로 통과했다. Binding attestation `b9658f16c9709f7c19bb8acc0738428ddcd1dfb8`에서 external result hash를 추적한 뒤 세 exact result root를 제거했고, cleanup attestation `2f30128745879278e1213643f731aeda997de25a`에서 report를 `status=complete`로 승격했다.
 * Claim / Non-decision:
 
   * sealed candidate 자체의 standard closeout state는 terminal 전 `implemented_only`다. Change 9 최종 `complete` 권위는 exact CleanCheckout과 external evidence hash 재검증을 기록한 `final_evidence_binding_report.json.status=complete`에만 있다. 이 완료는 diagnostic advisory를 PASS로 바꾸지 않는다.

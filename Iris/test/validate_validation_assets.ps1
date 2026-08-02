@@ -35,6 +35,16 @@ function Get-Sha256File([string]$Path) {
     return (Get-FileHash -Algorithm SHA256 -LiteralPath $Path).Hash.ToLowerInvariant()
 }
 
+function Remove-LongPathDirectoryTree([string]$Path) {
+    $resolved = [System.IO.Path]::GetFullPath($Path)
+    if (-not [System.IO.Directory]::Exists($resolved)) { return }
+    $deletePath = if ([System.IO.Path]::DirectorySeparatorChar -eq '\') {
+        '\\?\' + $resolved
+    }
+    else { $resolved }
+    [System.IO.Directory]::Delete($deletePath, $true)
+}
+
 function Get-PinnedProtectedApproval([string]$SnapshotRoot) {
     & git -C $SnapshotRoot merge-base --is-ancestor $ApprovalAuthorityCommit HEAD 2>$null
     if ($LASTEXITCODE -ne 0) { throw 'pinned protected approval commit is not an ancestor of HEAD' }
@@ -267,7 +277,9 @@ if ($Mode -eq 'CleanCheckout' -and -not $InternalMaterialized) {
         $checkoutProtected = Get-ProtectedSnapshot -Root $validatedWorkRoot -TrackedOnly
     }
     finally {
-        if (Test-Path -LiteralPath $validatedWorkRoot) { Remove-Item -LiteralPath $validatedWorkRoot -Recurse -Force -ErrorAction SilentlyContinue }
+        if (Test-Path -LiteralPath $validatedWorkRoot) {
+            Remove-LongPathDirectoryTree $validatedWorkRoot
+        }
         $cleanup = -not (Test-Path -LiteralPath $validatedWorkRoot)
     }
     $sourceStatusAfter = (Invoke-GitText @('status','--porcelain=v1','-uall')).Text

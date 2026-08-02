@@ -52,11 +52,16 @@ local function emit(caseId, axis, passed, expected, observed)
 end
 
 local function resetLoaded(prefixes)
+    local matched = {}
     for moduleName, _ in pairs(package.loaded) do
         for _, prefix in ipairs(prefixes) do
-            if moduleName:sub(1, #prefix) == prefix then package.loaded[moduleName] = nil end
+            if moduleName:sub(1, #prefix) == prefix then
+                matched[#matched + 1] = moduleName
+                break
+            end
         end
     end
+    for _, moduleName in ipairs(matched) do package.loaded[moduleName] = nil end
 end
 
 local function shallowCopy(values)

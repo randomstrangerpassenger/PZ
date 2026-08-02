@@ -136,9 +136,9 @@ class IrisCoreRefactorCloseoutTest(unittest.TestCase):
 
     def test_final_manifest_is_exact_and_fail_closed(self) -> None:
         manifest = load_json(ROOT / "phase1_validation_asset_manifest.json")
-        self.assertEqual(8, manifest["generation"])
+        self.assertEqual(9, manifest["generation"])
         self.assertEqual(
-            "d85f40c4c28609e9f7c4d24dd4d05a60b1d5dab274a6b39414cbba30a331ccda",
+            "b92ba19aaa67f653b15404631161bec22409a52f295fbe5ffbc45c02a618813a",
             manifest["previous_manifest_sha256_or_null"],
         )
         self.assertTrue(manifest["sealed"])
@@ -251,12 +251,12 @@ class IrisCoreRefactorCloseoutTest(unittest.TestCase):
         self.assertEqual(len(unresolved), matrix["mandatory_unvalidated_axis_count"])
 
         ceiling = load_json(ROOT / "phase1_validation_ceiling.json")
-        self.assertEqual(8, ceiling["generation"])
+        self.assertEqual(9, ceiling["generation"])
         self.assertEqual(
-            "1b2b572fb4764211cb40341673edb0777a7a361aaf8106df5b26b90a4b4f0403",
+            "3c334fe9d92b7a90cb7f161c97035a4634a5ea354bdfd00facc51b6d848f35f3",
             ceiling["previous_ceiling_sha256_or_null"],
         )
-        self.assertEqual(8, ceiling["manifest_generation"])
+        self.assertEqual(9, ceiling["manifest_generation"])
         self.assertEqual(9, ceiling["sealed_by_change"])
         self.assertTrue(ceiling["sealed"])
         self.assertEqual(len(unresolved), ceiling["mandatory_unvalidated_axis_count"])

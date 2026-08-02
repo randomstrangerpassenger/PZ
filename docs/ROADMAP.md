@@ -466,7 +466,7 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * current-route를 막던 review-artifact EOL hash, stale package mirror binding, ignored generated non-live registry classification을 수정했고 exact Current route는 `145/145 PASS`, exit `0`이다.
   * historical corpus/readpoints와 full-discovery writers를 Git-pinned·hermetic·bounded disposable root로 고쳐 historical `285/285`, full v2 discovery `520/520`, Lua syntax 95 files, disposable package 95 Lua/12 Layer 3 files를 각각 exit `0`으로 닫았다.
   * diagnostic `77 tests / 3 failures / 26 errors`는 retired input을 생략한 historical overlay와 ignored local source-contract anchor에 한정된 non-blocking advisory다.
-  * generation-8 manifest/ceiling은 historical corpus JSON/ZIP을 포함한 required 75, reserved future 0, lifecycle 전부 sealed, mandatory unvalidated axis 0으로 봉인한다. Sealed candidate 자체는 `implemented_only`이며 Change 9 최종 완료 권위는 exact commit CleanCheckout 결과를 결속한 post-seal `final_evidence_binding_report.json.status=complete`다.
+  * generation-9 manifest/ceiling은 historical corpus JSON/ZIP을 포함한 required 75, reserved future 0, lifecycle 전부 sealed, mandatory unvalidated axis 0으로 봉인한다. Generation 8의 정상 git stderr를 PowerShell 5.1이 오류로 올린 operational 시도는 supersede하고, generation 9는 native exit code로 판정한다. Sealed candidate 자체는 `implemented_only`이며 Change 9 최종 완료 권위는 exact commit CleanCheckout 결과를 결속한 post-seal `final_evidence_binding_report.json.status=complete`다.
   * `Iris/build/package/Iris`의 101개 package file은 source `Iris`와 missing `0` / hash difference `0`이며, ignored legacy seed 16개는 authority로 채택하지 않고 외부 quarantine에 격리했다.
   * 이전 current-route 복구 review verdict는 `APPROVE / P0 0 / P1 0 / P2 0`이다. 최종 Change 9 terminal artifact도 Codex Reviewer의 read-only 검토를 거친다. 구현 series는 `c096d8d6`부터 `34db710b`다.
 

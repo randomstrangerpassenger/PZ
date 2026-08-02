@@ -78,18 +78,24 @@ is made for unlisted external consumers.
 
 ## Manifest and seal
 
-Validation asset manifest generation 8 is sealed with exactly 75 required
+Validation asset manifest generation 9 is sealed with exactly 75 required
 assets, `reserved_future_count=0`, and all lifecycle rows `sealed`. Its previous
 generation content SHA-256 is
-`d85f40c4c28609e9f7c4d24dd4d05a60b1d5dab274a6b39414cbba30a331ccda`.
+`b92ba19aaa67f653b15404631161bec22409a52f295fbe5ffbc45c02a618813a`.
 The final required-ID SHA-256 is
 `6398631fe53b239e670ac6b5bf5a405fb80936b1016246b689fb2d0ab853ae2e`;
 the sealed manifest content SHA-256 is
-`b92ba19aaa67f653b15404631161bec22409a52f295fbe5ffbc45c02a618813a`
-and its staged Git blob is `480e838d07aab7b231678f4bf5d09ef5a11e43bf`.
-Validation ceiling generation 8 is sealed by Change 9 and has zero mandatory
+`4a2a8bdb3422a6741530914599e0d02d34483531a43af5b5b3469bb3fa91675a`
+and its staged Git blob is `68a5c6a856e19bd14868cb784185d61e5baf8210`.
+Validation ceiling generation 9 is sealed by Change 9 and has zero mandatory
 unvalidated axes. Its final content SHA-256 is
-`3c334fe9d92b7a90cb7f161c97035a4634a5ea354bdfd00facc51b6d848f35f3`.
+`42866d9c2f5951c16f22d7885c6d9df41d2b2faaa21887c85ac7585d4427a3b4`.
+
+Generation 8 seal candidate `b6bbe3b2` was superseded before running tests:
+Windows PowerShell 5.1 promoted normal `git clone` progress on native stderr to
+`NativeCommandError`. Its disposable work root was cleaned, its external result
+root is retained for terminal failure disposition, and generation 9 handles
+native stderr by process exit code without changing the validation commands.
 
 The operational order is fixed:
 

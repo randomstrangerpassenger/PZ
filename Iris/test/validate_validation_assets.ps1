@@ -282,13 +282,29 @@ if ($Mode -eq 'CleanCheckout' -and -not $InternalMaterialized) {
     $stderrPath = Join-Path $validatedResultRoot 'stderr.txt'
     $cleanup = $false
     try {
-        & git -c core.longpaths=true clone --no-local --no-checkout -- $ValidatedRepositoryRoot $validatedWorkRoot 1>$stdoutPath 2>$stderrPath
-        if ($LASTEXITCODE -ne 0) { throw 'external clone failed' }
-        & git -c core.longpaths=true -C $validatedWorkRoot checkout --detach $TargetCommit 1>>$stdoutPath 2>>$stderrPath
-        if ($LASTEXITCODE -ne 0) { throw 'detached checkout failed' }
+        $savedErrorActionPreference = $ErrorActionPreference
+        try {
+            $ErrorActionPreference = 'Continue'
+            & git -c core.longpaths=true clone --no-local --no-checkout -- $ValidatedRepositoryRoot $validatedWorkRoot 1>$stdoutPath 2>$stderrPath
+            $cloneExitCode = $LASTEXITCODE
+        }
+        finally { $ErrorActionPreference = $savedErrorActionPreference }
+        if ($cloneExitCode -ne 0) { throw 'external clone failed' }
+        try {
+            $ErrorActionPreference = 'Continue'
+            & git -c core.longpaths=true -C $validatedWorkRoot checkout --detach $TargetCommit 1>>$stdoutPath 2>>$stderrPath
+            $checkoutExitCode = $LASTEXITCODE
+        }
+        finally { $ErrorActionPreference = $savedErrorActionPreference }
+        if ($checkoutExitCode -ne 0) { throw 'detached checkout failed' }
         $committedValidator = Join-Path $validatedWorkRoot $ValidatorRelativePath
-        & powershell -NoProfile -ExecutionPolicy Bypass -File $committedValidator -Mode CleanCheckout -RepositoryRoot $validatedWorkRoot -TargetCommit $TargetCommit -InternalMaterialized 1>>$stdoutPath 2>>$stderrPath
-        if ($LASTEXITCODE -ne 0) { throw 'committed clean-checkout validator failed' }
+        try {
+            $ErrorActionPreference = 'Continue'
+            & powershell -NoProfile -ExecutionPolicy Bypass -File $committedValidator -Mode CleanCheckout -RepositoryRoot $validatedWorkRoot -TargetCommit $TargetCommit -InternalMaterialized 1>>$stdoutPath 2>>$stderrPath
+            $validatorExitCode = $LASTEXITCODE
+        }
+        finally { $ErrorActionPreference = $savedErrorActionPreference }
+        if ($validatorExitCode -ne 0) { throw 'committed clean-checkout validator failed' }
         $validatedManifestPath = Join-Path $validatedWorkRoot $ManifestRelativePath
         $validatedManifest = [System.IO.File]::ReadAllText($validatedManifestPath) | ConvertFrom-Json
         $validatedManifestSha = Get-Sha256File $validatedManifestPath

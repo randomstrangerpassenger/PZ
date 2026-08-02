@@ -242,11 +242,14 @@ def main() -> int:
         rows.append(long_row)
         long_tree = temporary_root / "long-path-segment"
         if long_tree.exists():
-            cleanup_path = (
-                Path("\\\\?\\" + str(long_tree.resolve()))
-                if os.name == "nt"
-                else long_tree
-            )
+            cleanup_path = long_tree
+            if os.name == "nt":
+                resolved_long_tree = str(long_tree.resolve())
+                cleanup_path = Path(
+                    "\\\\?\\UNC\\" + resolved_long_tree[2:]
+                    if resolved_long_tree.startswith("\\\\")
+                    else "\\\\?\\" + resolved_long_tree
+                )
             shutil.rmtree(cleanup_path)
 
         missing_path = temporary_root / "missing.jsonl"

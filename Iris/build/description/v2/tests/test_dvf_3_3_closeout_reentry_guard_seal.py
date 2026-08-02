@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -505,6 +506,7 @@ class DvfCloseoutReentryGuardSealTest(unittest.TestCase):
         )
 
     def test_final_report_allows_canonical_seal_and_keeps_release_out_of_scope(self) -> None:
+        common = load_common_module()
         final = load_json(ROOT / "phase7/final_closeout_reentry_guard_seal_report.json")
         no_mutation = load_json(ROOT / "phase7/final_no_mutation_report.json")
         commands = load_json(ROOT / "phase7/final_pinned_command_manifest.json")
@@ -536,6 +538,26 @@ class DvfCloseoutReentryGuardSealTest(unittest.TestCase):
         self.assertEqual(review_hash["independent_review_status"], "PASS")
         self.assertTrue(review_hash["canonical_seal_allowed"])
         self.assertEqual(review_hash["primary_review_artifact_missing_count"], 0)
+        self.assertEqual(
+            review_hash["schema_version"],
+            "dvf-3-3-closeout-reentry-independent-review-hash-report-v2",
+        )
+        self.assertTrue(
+            all(
+                row["identity_mode"] == "decoded_utf8_eol_lf"
+                for row in review_hash["artifacts"]
+            )
+        )
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            lf = root / "lf.md"
+            crlf = root / "crlf.md"
+            lf.write_bytes(b"first\nsecond\n")
+            crlf.write_bytes(b"first\r\nsecond\r\n")
+            self.assertEqual(
+                common.decoded_utf8_eol_identity(lf),
+                common.decoded_utf8_eol_identity(crlf),
+            )
         self.assertIn(
             "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/independent_review_artifact_hash_report.json",
             required_paths,

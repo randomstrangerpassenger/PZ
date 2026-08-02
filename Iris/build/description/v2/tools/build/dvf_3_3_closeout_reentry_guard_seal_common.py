@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections import Counter
+import hashlib
 import json
 import os
 import re
@@ -347,6 +348,25 @@ def file_record(path: str | Path, role: str, *, required: bool = True) -> dict[s
 
 def line_count(path: Path) -> int:
     return len(path.read_text(encoding="utf-8", errors="replace").splitlines())
+
+
+def decoded_utf8_eol_identity(path: Path) -> tuple[str, int]:
+    """Return a checkout-EOL-independent identity for UTF-8 review artifacts."""
+    decoded = path.read_bytes().decode("utf-8")
+    canonical = decoded.replace("\r\n", "\n").replace("\r", "\n").encode("utf-8")
+    return hashlib.sha256(canonical).hexdigest(), len(canonical)
+
+
+def independent_review_file_record(path: Path) -> dict[str, Any]:
+    record = file_record(path, "primary_review_artifact", required=True)
+    if record["exists"] and record["kind"] == "file":
+        identity_sha256, identity_bytes = decoded_utf8_eol_identity(path)
+        record["identity_mode"] = "decoded_utf8_eol_lf"
+        record["sha256"] = identity_sha256
+        record["bytes"] = identity_bytes
+    else:
+        record["identity_mode"] = None
+    return record
 
 
 def protected_surface_definition() -> dict[str, Any]:
@@ -1862,10 +1882,13 @@ def write_independent_review_artifact_hash_report(
     *,
     write_report: bool = True,
 ) -> dict[str, Any]:
-    review_records = [file_record(path, "primary_review_artifact", required=True) for path in independent_review_artifact_paths()]
+    review_records = [
+        independent_review_file_record(path)
+        for path in independent_review_artifact_paths()
+    ]
     missing = [row for row in review_records if not row["exists"]]
     report = {
-        "schema_version": "dvf-3-3-closeout-reentry-independent-review-hash-report-v1",
+        "schema_version": "dvf-3-3-closeout-reentry-independent-review-hash-report-v2",
         "generated_at": GENERATED_AT,
         "status": "PASS" if not missing else "FAIL",
         "independent_review_status": "PASS",

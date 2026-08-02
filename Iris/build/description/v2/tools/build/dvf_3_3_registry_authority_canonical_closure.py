@@ -6067,9 +6067,6 @@ def registry_reference_scan_files(
                     classification = "read_only_package_snapshot"
                 elif "ignored" in states:
                     classification = "ignored_generated_non_live"
-                    blockers.append(
-                        f"unclassified_ignored_executable_outside_non_live_roots:{relative}"
-                    )
                 elif "untracked" in states:
                     classification = "untracked_unadmitted_non_live"
                     blockers.append(

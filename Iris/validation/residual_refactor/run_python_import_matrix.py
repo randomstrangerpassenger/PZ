@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -232,14 +233,21 @@ def main() -> int:
             "assert len(file_sha256(p)) == 64;"
             "print(len(str(p)))"
         )
-        rows.append(
-            run_row(
-                case_id="compose_layer3_io.windows_long_path",
-                command=[str(python), "-B", "-s", "-c", long_snippet],
-                cwd=v2_root,
-                environment=environment,
-            )
+        long_row = run_row(
+            case_id="compose_layer3_io.windows_long_path",
+            command=[str(python), "-B", "-s", "-c", long_snippet],
+            cwd=v2_root,
+            environment=environment,
         )
+        rows.append(long_row)
+        long_tree = temporary_root / "long-path-segment"
+        if long_tree.exists():
+            cleanup_path = (
+                Path("\\\\?\\" + str(long_tree.resolve()))
+                if os.name == "nt"
+                else long_tree
+            )
+            shutil.rmtree(cleanup_path)
 
         missing_path = temporary_root / "missing.jsonl"
         missing_snippet = (

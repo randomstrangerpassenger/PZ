@@ -2,7 +2,7 @@
   "schema_version": "iris-historical-reproduction-corpus-v1",
   "purpose": "Self-contained ignored historical and diagnostic route reproduction for exact-commit clean checkout validation.",
   "archive_path": "Iris/_docs/refactor/core_refactor/historical_reproduction_corpus.zip",
-  "archive_sha256": "0b34c85c823f9320b7bc299d77195e58f529b7b199a1ceb3623fbc684b83a2f1",
+  "archive_sha256": "a8e3eef24aa1982090eb90b02a9059b84e9f93b8764e1b6f430ea96d74974e12",
   "row_count": 2409,
   "route_test_count": 201,
   "build_support_count": 498,
@@ -6708,7 +6708,7 @@
     {
       "path": "Iris/build/description/v2/tools/build/compose_layer3_text.py",
       "entry_kind": "build_support",
-      "sha256": "fa2d8127995d883cd6237b58ff047b47d328f9f70d45420a3c7fda93a194181f",
+      "sha256": "4f2c2f05db41dd2f931fbe36b12c091cf55e8e912c64a325c9e17c389615313c",
       "source_kind": "tracked_live_build_support",
       "source_path": "Iris/build/description/v2/tools/build/compose_layer3_text.py"
     },

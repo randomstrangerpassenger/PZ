@@ -248,8 +248,8 @@ def has_test_tmp_segment(path: Path) -> bool:
         )
         external_root = (
             system_temp_root.resolve()
-            / "IrisTest"
-            / f"checkout-{checkout_key}"
+            / "IT"
+            / checkout_key
         )
     if is_under_path(external_root, REPOSITORY_ROOT):
         return False

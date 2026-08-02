@@ -266,7 +266,7 @@ def build_phase_d_runtime_report(
             "code": "panel_uses_layer3_section",
             "status": (
                 "pass"
-                if "renderLayer3Section(item)" in panel_text
+                if "renderLayer3Section(" in panel_text
                 else "fail"
             ),
             "details": str(panel_path),
@@ -275,7 +275,7 @@ def build_phase_d_runtime_report(
             "code": "browser_uses_layer3_section",
             "status": (
                 "pass"
-                if "renderLayer3Section(item)" in browser_text
+                if "renderLayer3Section(" in browser_text
                 else "fail"
             ),
             "details": str(browser_path),

@@ -340,7 +340,7 @@ class BodyPlanPhaseDETest(unittest.TestCase):
             rollout_report_path=rollout_report_path,
         )
 
-        self.assertEqual(report["overall_status"], "pass")
+        self.assertEqual(report["overall_status"], "pass", report)
         chunk_manifest_path = lua_path.parent / "IrisLayer3DataChunks.lua"
         chunk_dir = lua_path.parent / "IrisLayer3DataChunks"
         self.assertFalse(lua_path.exists())

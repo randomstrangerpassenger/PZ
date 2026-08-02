@@ -242,14 +242,28 @@ class InteractionClusterPhaseDRuntimeTest(unittest.TestCase):
                 / "Util"
                 / "IrisItemAccess.lua"
             ).read_text(encoding="utf-8")
-            self.assertIn('require("Iris/Util/IrisItemAccess")', wiki_sections)
+            detail_view_model = (
+                IRIS_MOD_ROOT
+                / "media"
+                / "lua"
+                / "client"
+                / "Iris"
+                / "UI"
+                / "Detail"
+                / "IrisItemDetailViewModel.lua"
+            ).read_text(encoding="utf-8")
+            self.assertIn(
+                'require("Iris/UI/Detail/IrisItemDetailViewModel")',
+                wiki_sections,
+            )
+            self.assertIn('require("Iris/Util/IrisItemAccess")', detail_view_model)
             self.assertIn('require("Iris/Util/ItemKey")', item_access)
             self.assertIn(
                 'require("Iris/UI/Layer3/IrisLayer3DisplayFormatter")',
-                wiki_sections,
+                detail_view_model,
             )
-            self.assertIn("ItemAccess.getFullType(item)", wiki_sections)
-            self.assertIn("Layer3DisplayFormatter.format(l3text)", wiki_sections)
+            self.assertIn("ItemAccess.getFullType(item)", detail_view_model)
+            self.assertIn("Layer3DisplayFormatter.format(raw)", detail_view_model)
             self.assertIn("renderLayer3Section", wiki_sections)
             renderer_text = (
                 IRIS_MOD_ROOT

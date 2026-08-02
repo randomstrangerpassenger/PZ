@@ -1,0 +1,130 @@
+{
+  "$id": "iris-residual-evidence-role-v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "authority_claim": {
+      "type": "boolean"
+    },
+    "command": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "inputs": {
+      "$ref": "#/$defs/artifacts"
+    },
+    "mutable": {
+      "const": false
+    },
+    "outputs": {
+      "$ref": "#/$defs/artifacts"
+    },
+    "producer": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "producer_readpoint": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "role": {
+      "enum": [
+        "current",
+        "historical",
+        "diagnostic"
+      ]
+    },
+    "schema_version": {
+      "const": "iris-residual-evidence-role-v1"
+    },
+    "subject": {
+      "additionalProperties": true,
+      "properties": {
+        "commit": {
+          "pattern": "^[0-9a-f]{40}$",
+          "type": "string"
+        },
+        "overlay_sha256_or_null": {
+          "oneOf": [
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tree": {
+          "pattern": "^[0-9a-f]{40}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "commit",
+        "tree",
+        "overlay_sha256_or_null"
+      ],
+      "type": "object"
+    },
+    "supersedes": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "role",
+    "created_at",
+    "producer",
+    "producer_readpoint",
+    "command",
+    "subject",
+    "inputs",
+    "outputs",
+    "mutable",
+    "supersedes"
+  ],
+  "title": "Iris residual refactor evidence role manifest",
+  "type": "object",
+  "$defs": {
+    "artifact": {
+      "additionalProperties": true,
+      "properties": {
+        "exists": {
+          "type": "boolean"
+        },
+        "path": {
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9._/-]+$",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "artifacts": {
+      "items": {
+        "$ref": "#/$defs/artifact"
+      },
+      "type": "array"
+    }
+  }
+}

@@ -15,27 +15,15 @@ local IrisAltTooltip = {}
 local bootstrap = require("Iris/Util/IrisModuleBootstrap").create()
 local safeRequire = bootstrap.safeRequire
 local ItemKey = require("Iris/Util/ItemKey")
+local TranslationResolver = require("Iris/Util/IrisTranslationResolver")
 local debug = bootstrap.debug
 local warn = bootstrap.warn
 local logError = bootstrap.logError
 
-local IrisTranslationLoaderLocal = nil
 local IrisTooltipSummaryLocal = nil
 
 local function tr(key, fallback)
-    if not IrisTranslationLoaderLocal then
-        local ok, result = safeRequire("Iris/IrisTranslationLoader")
-        if ok then
-            IrisTranslationLoaderLocal = result
-        end
-    end
-    if IrisTranslationLoaderLocal and IrisTranslationLoaderLocal.get then
-        local result = IrisTranslationLoaderLocal.get(key, nil)
-        if result and result ~= key then
-            return result
-        end
-    end
-    return fallback or key
+    return TranslationResolver.get(key, fallback or key)
 end
 
 local function ensureSummary()
@@ -62,6 +50,44 @@ local function isAltPressed()
     return leftAlt or rightAlt
 end
 
+local function buildDetailLines(summary)
+    if not summary then
+        return {
+            tr("Iris_Tooltip_Tags", "Tags") .. ": (" .. tr("Iris_Tooltip_ApiLoadFailed", "API load failed") .. ")",
+            tr("Iris_Tooltip_More", "More") .. ": " .. tr("Iris_Tooltip_RightClickHint", "Right-click > Iris"),
+        }
+    end
+
+    local detailLines = {}
+    local tagList = summary.tags or {}
+    if #tagList > 0 then
+        local tagStr = table.concat(tagList, ", ")
+        if #tagStr > 50 then
+            tagStr = tagStr:sub(1, 47) .. "..."
+        end
+        table.insert(detailLines, tr("Iris_Tooltip_Tags", "Tags") .. ": " .. tagStr)
+    else
+        table.insert(detailLines, tr("Iris_Tooltip_Tags", "Tags") .. ": (" .. tr("Iris_Tooltip_None", "None") .. ")")
+    end
+
+    local connections = summary.connections or {}
+    if #connections > 0 then
+        table.insert(detailLines, tr("Iris_Tooltip_Connections", "Connections") .. ": " .. table.concat(connections, ", "))
+    else
+        table.insert(detailLines, tr("Iris_Tooltip_Connections", "Connections") .. ": " .. tr("Iris_Tooltip_None", "None"))
+    end
+
+    local useCaseCount = summary.useCaseCount or 0
+    if useCaseCount > 0 then
+        table.insert(detailLines, tr("Iris_Tooltip_UseCase", "Use cases") .. ": " .. useCaseCount ..
+            tr("Iris_Tooltip_CountSuffix", ""))
+    end
+
+    table.insert(detailLines, tr("Iris_Tooltip_More", "More") .. ": " ..
+        tr("Iris_Tooltip_RightClickHint", "Right-click > Iris"))
+    return detailLines
+end
+
 --- 아이템 툴팁에 Iris 정보 추가
 --- @param tooltipInv ISToolTipInv
 function IrisAltTooltip.addIrisOverlay(tooltipInv)
@@ -82,38 +108,7 @@ function IrisAltTooltip.addIrisOverlay(tooltipInv)
         local summaryModule = ensureSummary()
         local fullType = ItemKey.getFullTypeFromItem(tooltipInv.item)
         local summary = summaryModule and summaryModule.get and summaryModule.get(fullType) or nil
-
-        if summary then
-            local tagList = summary.tags or {}
-            if #tagList > 0 then
-                local tagStr = table.concat(tagList, ", ")
-                if #tagStr > 50 then
-                    tagStr = tagStr:sub(1, 47) .. "..."
-                end
-                table.insert(detailLines, tr("Iris_Tooltip_Tags", "Tags") .. ": " .. tagStr)
-            else
-                table.insert(detailLines, tr("Iris_Tooltip_Tags", "Tags") .. ": (" .. tr("Iris_Tooltip_None", "None") .. ")")
-            end
-            
-            local connections = summary.connections or {}
-            if #connections > 0 then
-                table.insert(detailLines, tr("Iris_Tooltip_Connections", "Connections") .. ": " .. table.concat(connections, ", "))
-            else
-                table.insert(detailLines, tr("Iris_Tooltip_Connections", "Connections") .. ": " .. tr("Iris_Tooltip_None", "None"))
-            end
-
-            local ucCount = summary.useCaseCount or 0
-            if ucCount > 0 then
-                table.insert(detailLines, tr("Iris_Tooltip_UseCase", "Use cases") .. ": " .. ucCount .. tr("Iris_Tooltip_CountSuffix", ""))
-            end
-
-            table.insert(detailLines, tr("Iris_Tooltip_More", "More") .. ": " .. tr("Iris_Tooltip_RightClickHint", "Right-click > Iris"))
-        else
-            detailLines = {
-                tr("Iris_Tooltip_Tags", "Tags") .. ": (" .. tr("Iris_Tooltip_ApiLoadFailed", "API load failed") .. ")",
-                tr("Iris_Tooltip_More", "More") .. ": " .. tr("Iris_Tooltip_RightClickHint", "Right-click > Iris"),
-            }
-        end
+        detailLines = buildDetailLines(summary)
     end
     
     -- Alt 키가 눌리지 않았으면 아무것도 표시하지 않음

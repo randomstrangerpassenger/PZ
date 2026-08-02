@@ -9,15 +9,7 @@ local IrisBrowserVariantIndex = {}
 
 local ProtectedCall = require("Iris/Util/IrisProtectedCall")
 local ItemAccess = require("Iris/Util/IrisItemAccess")
-
-local PRIMARY_CATEGORY_PRIORITY = {
-    Tool = 1,
-    Combat = 2,
-    Consumable = 3,
-    Resource = 4,
-    Literature = 5,
-    Wearable = 6,
-}
+local CategoryIndex = require("Iris/UI/Browser/IrisBrowserCategoryIndex")
 
 local function hasRecipeConnections(item, IrisAPI)
     if IrisAPI and IrisAPI.Index and IrisAPI.Index.getRecipeConnectionsForItem then
@@ -48,6 +40,18 @@ local function groupsCanFold(group)
     return true
 end
 
+local function groupingKey(subData)
+    local fullTypes = {}
+    for fullType, _ in pairs((subData and subData.items) or {}) do
+        if type(fullType) ~= "string" or fullType == "" then
+            error("Iris Browser grouping requires a non-empty fullType key")
+        end
+        fullTypes[#fullTypes + 1] = fullType
+    end
+    table.sort(fullTypes)
+    return table.concat(fullTypes, "\0")
+end
+
 local function buildDisplayNameGroups(cache, subData, IrisAPI)
     local itemsByDisplayName = {}
 
@@ -67,18 +71,31 @@ local function buildDisplayNameGroups(cache, subData, IrisAPI)
         })
     end
 
+    for _, group in pairs(itemsByDisplayName) do
+        table.sort(group, function(a, b)
+            return a.fullType < b.fullType
+        end)
+    end
+
     return itemsByDisplayName
+end
+
+local function getDisplayNameGroups(cache, subData, IrisAPI)
+    cache.displayNameGroupsByGrouping = cache.displayNameGroupsByGrouping or {}
+    local key = groupingKey(subData)
+    local cached = cache.displayNameGroupsByGrouping[key]
+    if cached then
+        return cached
+    end
+    local groups = buildDisplayNameGroups(cache, subData, IrisAPI)
+    cache.displayNameGroupsByGrouping[key] = groups
+    return groups
 end
 
 --- Canonical identity for a subcategory's grouping inputs. The owning cache is
 --- generation-scoped, so identical keys are never reused across rebuilds.
 function IrisBrowserVariantIndex.getFoldedCountCacheKey(subData)
-    local fullTypes = {}
-    for fullType, _ in pairs((subData and subData.items) or {}) do
-        fullTypes[#fullTypes + 1] = fullType
-    end
-    table.sort(fullTypes)
-    return table.concat(fullTypes, "\0")
+    return groupingKey(subData)
 end
 
 function IrisBrowserVariantIndex.calculateFoldedCount(cache, subData, IrisAPI)
@@ -87,7 +104,7 @@ function IrisBrowserVariantIndex.calculateFoldedCount(cache, subData, IrisAPI)
     end
 
     local foldedCount = 0
-    local itemsByDisplayName = buildDisplayNameGroups(cache, subData, IrisAPI)
+    local itemsByDisplayName = getDisplayNameGroups(cache, subData, IrisAPI)
 
     for _, group in pairs(itemsByDisplayName) do
         if #group == 1 or groupsCanFold(group) then
@@ -114,7 +131,7 @@ function IrisBrowserVariantIndex.calculatePrimary(item, fullType, currentTag, Ir
             for tag, _ in pairs(tags) do
                 local cat, code = tag:match("^([^%.]+)%.(.+)$")
                 if cat and code then
-                    local priority = PRIMARY_CATEGORY_PRIORITY[cat] or 999
+                    local priority = CategoryIndex.getDescriptionPriority(cat)
                     if priority < lowestPriority or
                        (priority == lowestPriority and code < lowestCode) then
                         lowestPriority = priority
@@ -161,7 +178,7 @@ function IrisBrowserVariantIndex.getItems(cache, categoryName, subcategoryName, 
     end
 
     local currentTag = categoryName .. "." .. subcategoryName
-    local itemsByDisplayName = buildDisplayNameGroups(cache, subData, IrisAPI)
+    local itemsByDisplayName = getDisplayNameGroups(cache, subData, IrisAPI)
 
     for displayName, group in pairs(itemsByDisplayName) do
         if #group == 1 then

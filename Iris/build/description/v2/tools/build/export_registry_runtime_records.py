@@ -17,6 +17,7 @@ if str(V2_ROOT) not in sys.path:
 
 from tools.build import dvf_3_3_registry_runtime_compatibility as rtc
 from tools.build import validate_dvf_3_3_registry_runtime_compatibility as validator
+from tools.build.registry_runtime_record_paths import resolve_surface_paths
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -30,28 +31,25 @@ def read_json(path: Path) -> dict[str, Any]:
 
 
 def surface_records(manifest: dict[str, Any]) -> dict[str, list[rtc.SurfaceRecord]]:
-    source_row = manifest["source"]
+    paths = resolve_surface_paths(manifest)
     source, _ = rtc.load_jsonl_surface(
-        {
-            component: Path(source_row[component]).resolve()
-            for component in ("facts", "decisions", "overlay")
-        },
+        paths["source"],
         repo=REPO_ROOT,
     )
     rendered = rtc.load_rendered_surface(
-        Path(manifest["rendered"]["path"]).resolve(),
+        paths["rendered"],
         repo=REPO_ROOT,
     )
     runtime, _ = rtc.load_lua_surface(
         surface="runtime",
-        manifest_path=Path(manifest["runtime"]["manifest"]).resolve(),
-        chunk_dir=Path(manifest["runtime"]["chunks"]).resolve(),
+        manifest_path=paths["runtime"]["manifest"],
+        chunk_dir=paths["runtime"]["chunks"],
         repo=REPO_ROOT,
     )
     package, _ = rtc.load_lua_surface(
         surface="package",
-        manifest_path=Path(manifest["package"]["manifest"]).resolve(),
-        chunk_dir=Path(manifest["package"]["chunks"]).resolve(),
+        manifest_path=paths["package"]["manifest"],
+        chunk_dir=paths["package"]["chunks"],
         repo=REPO_ROOT,
     )
     return {

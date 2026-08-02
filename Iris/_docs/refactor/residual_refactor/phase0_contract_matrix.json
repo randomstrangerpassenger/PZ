@@ -1,0 +1,85 @@
+{
+  "schema_version": "iris-residual-contract-matrix-v1",
+  "validation_status": "passed",
+  "claim_boundary": "named pilot and high-risk serialization owners only; distinct byte contracts are not unified",
+  "rows": [
+    {
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_io.py",
+      "role": "active",
+      "entrypoints": [
+        "from tools.build import compose_layer3_io",
+        "bare import compose_layer3_io",
+        "Iris.build.description.v2.tools.build.compose_layer3_io"
+      ],
+      "contract_ids": [
+        "compose-jsonl:utf8-no-bom:ensure-ascii-false:insertion-order:platform-newline:trailing-newline:direct-write",
+        "compose-sha256:8192-byte-chunks:missing-file-raises",
+        "compose-entry-hash:utf8:ensure-ascii-false:sorted-keys:no-trailer"
+      ],
+      "error_contract": "native JSON/OSError exceptions",
+      "change_5_disposition": "mandatory_zero_new_stem_in_place_pilot"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/_dvf_3_3_vnext_common.py",
+      "role": "legacy-required",
+      "entrypoints": [
+        "high-fan-in bare import",
+        "package import"
+      ],
+      "contract_ids": [
+        "vnext-json:utf8-no-bom:ensure-ascii-false:sorted-keys:indent-2:lf:trailing-newline:direct-write",
+        "vnext-jsonl:utf8-no-bom:ensure-ascii-false:sorted-keys:lf:trailing-newline:atomic-replace-with-windows-retry",
+        "vnext-sha256:8192-byte-chunks:missing-file-null"
+      ],
+      "error_contract": "owner-specific validation exceptions and nullable hash",
+      "change_5_disposition": "compatibility_fixture_only_high_fan_in_extraction_forbidden"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py",
+      "role": "active",
+      "entrypoints": [
+        "direct script",
+        "python -m tools.build.export_dvf_3_3_lua_bridge",
+        "package import"
+      ],
+      "contract_ids": [
+        "bridge-report-json:utf8-no-bom:ensure-ascii-false:insertion-order:indent-2:platform-newline:no-trailer",
+        "bridge-lua:utf8-no-bom:lf:direct-write",
+        "bridge-sha256:8192-byte-chunks:missing-file-raises"
+      ],
+      "error_contract": "argparse exit 2 and bridge owner failure JSON",
+      "change_5_disposition": "allowed_tooling_analysis_and_golden_fixture_only"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py",
+      "role": "active",
+      "entrypoints": [
+        "package import",
+        "runner-owned CLI"
+      ],
+      "contract_ids": [
+        "public-text-long-path-strict-sha256",
+        "public-text-canonical-decoded-eol-sha256",
+        "public-text-write-once-atomic-replace"
+      ],
+      "error_contract": "long-path-safe owner exceptions and fail-closed identity checks",
+      "change_5_disposition": "allowed_tooling_analysis_and_golden_fixture_only"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/export_registry_runtime_records.py",
+      "role": "legacy-required",
+      "entrypoints": [
+        "Iris/tools/inspect_registry_runtime_compatibility.ps1 direct script",
+        "python -m tools.build.export_registry_runtime_records",
+        "package import"
+      ],
+      "contract_ids": [
+        "rtc-record-sidecar:canonical-json-bytes:binary-concatenation",
+        "rtc-report:owner-write-json",
+        "rtc-cli:success-0:compatibility-error-2"
+      ],
+      "error_contract": "CompatibilityError becomes BLOCKED JSON on stderr with exit 2",
+      "change_5_disposition": "closure_external_non_hub_leaf_extraction_pilot_with_existing_path_adapter"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+    "schema_version":  "iris-residual-evidence-role-v1",
+    "role":  "current",
+    "created_at":  "2026-08-02T22:07:32Z",
+    "producer":  "Iris/test/run_residual_refactor_acceptance.ps1",
+    "producer_readpoint":  "iris-residual-refactor-plan-change-1",
+    "command":  [
+                    "powershell",
+                    "-ExecutionPolicy",
+                    "Bypass",
+                    "-File",
+                    "Iris/test/run_residual_refactor_acceptance.ps1",
+                    "-Mode",
+                    "Baseline"
+                ],
+    "subject":  {
+                    "commit":  "c8b96e40251b9043bae04261a8acd033660e0d45",
+                    "tree":  "1178ed0256296f9ac8a898efb77bb40abb4ee8ea",
+                    "overlay_sha256_or_null":  "195ba2a55cfd1fe24f7a2b1f68a930eb7cf6eaff7c785b4157283ec89bc9f2ce"
+                },
+    "inputs":  [
+
+               ],
+    "outputs":  [
+                    {
+                        "path":  "Iris/_docs/refactor/residual_refactor/runtime_behavior_baseline.jsonl",
+                        "sha256":  "7bb88832eacd398fc2f9da80fa7c9a30c63de364ac981b9b8094efef05cd23b3",
+                        "exists":  true
+                    },
+                    {
+                        "path":  "Iris/_docs/refactor/residual_refactor/runtime_behavior_baseline.binding.json",
+                        "sha256":  "cc2eed7d6c7445fa005b46e11106987ab144848fbb78bfe0a006f840cf03b72b",
+                        "exists":  true
+                    }
+                ],
+    "mutable":  false,
+    "supersedes":  [
+
+                   ],
+    "authority_claim":  false
+}

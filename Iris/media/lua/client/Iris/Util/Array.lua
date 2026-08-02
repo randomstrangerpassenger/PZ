@@ -17,4 +17,12 @@ function Array.contains(values, value)
     return false
 end
 
+function Array.copy(values)
+    local result = {}
+    for index, value in ipairs(values or {}) do
+        result[index] = value
+    end
+    return result
+end
+
 return Array

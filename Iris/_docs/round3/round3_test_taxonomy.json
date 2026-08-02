@@ -15,7 +15,7 @@
   "generated_at": "2026-06-18T01:25:00+09:00",
   "identity_source": "Iris/_docs/round3/round3_legacy_test_identities.json",
   "matrix": {
-    "current+ok": 99,
+    "current+ok": 104,
     "diagnostic+ok": 81,
     "historical+ok": 285
   },
@@ -6619,6 +6619,61 @@
       "source_file": "Iris/build/description/v2/tests/test_wiki_fallback_contract.py",
       "state": "ok",
       "test_id": "test_wiki_fallback_contract.WikiFallbackContractTest.test_usecase_language_detection_uses_shared_helper"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "residual refactor runtime acceptance executes a standalone Lua subprocess and does not expand the in-process build closure",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_residual_runtime_acceptance.py",
+      "state": "ok",
+      "test_id": "test_iris_residual_runtime_acceptance.IrisResidualRuntimeAcceptanceTest.test_runtime_acceptance_harness_passes_all_registered_axes"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "residual refactor protected and supported surface contract reads plan-specific evidence without importing tools.build modules",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+      "state": "ok",
+      "test_id": "test_iris_residual_contract_surfaces.IrisResidualContractSurfacesTest.test_registered_surfaces_preserve_architecture_and_closeout_contracts"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "residual refactor import matrix uses isolated subprocesses so core 12 and allowed tooling 4 remain unchanged",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_residual_python_import_matrix.py",
+      "state": "ok",
+      "test_id": "test_iris_residual_python_import_matrix.IrisResidualPythonImportMatrixTest.test_direct_module_package_bare_import_and_bytes_match_contract"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "residual diagnostic disposition contract imports only validation support outside tools.build and checks fail-closed adapter semantics",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_residual_diagnostic_disposition.py",
+      "state": "ok",
+      "test_id": "test_iris_residual_diagnostic_disposition.IrisResidualDiagnosticDispositionTest.test_fingerprints_and_raw_exit_dispositions_fail_closed"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "residual evidence role contract imports only validation support outside tools.build and protects non-authority projections",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_residual_evidence_roles.py",
+      "state": "ok",
+      "test_id": "test_iris_residual_evidence_roles.IrisResidualEvidenceRolesTest.test_role_schema_index_and_manual_classes_are_fail_closed"
     }
   ],
   "schema_version": "round3-test-taxonomy-v1"

@@ -1,0 +1,33 @@
+{
+  "schema_version": "iris-residual-conditional-application-v1",
+  "rows": [
+    {
+      "item": "Change 4C IrisModuleBootstrap.lua logger-gate modification",
+      "application_status": "not_applicable",
+      "validation_status": "not_applicable",
+      "inspection_note": "inspected_no_change",
+      "reason": "Browser can reuse the existing IrisLogger.isDebugEnabled API without changing bootstrap semantics"
+    },
+    {
+      "item": "Change 6B UTF-8 BOM normalization",
+      "application_status": "deferred",
+      "validation_status": "not_applicable",
+      "inspection_note": "16 untracked or ignored files; external and sealed source-hash consumers cannot be excluded",
+      "mutation_count": 0
+    },
+    {
+      "item": "Change 6C domain move",
+      "application_status": "deferred",
+      "validation_status": "not_applicable",
+      "inspection_note": "no exact domain bundle, caller inventory, compatibility adapter, and historical owner approval was fixed before implementation",
+      "mutation_count": 0
+    },
+    {
+      "item": "Evidence current index",
+      "application_status": "applied",
+      "validation_status": "passed",
+      "authority_claim": false,
+      "inspection_note": "non-authoritative convenience projection only"
+    }
+  ]
+}

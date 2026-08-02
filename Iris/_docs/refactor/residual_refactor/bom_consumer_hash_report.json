@@ -1,0 +1,12 @@
+{
+  "schema_version": "iris-residual-bom-consumer-report-v1",
+  "application_status": "deferred",
+  "validation_status": "not_applicable",
+  "inventory_path": "Iris/_docs/refactor/residual_refactor/phase0_inventory.json",
+  "observed_bom_count": 16,
+  "tracked_bom_count": 0,
+  "untracked_bom_count": 16,
+  "consumer_disposition": "external or sealed source-file hash consumers cannot be excluded for ignored reproduction scripts",
+  "mutation_count": 0,
+  "reason": "Change 6B requires positive hash-consumer clearance; absence of a tracked caller is not clearance"
+}

@@ -1,0 +1,22 @@
+{
+    "schema_version":  "iris-residual-runtime-binding-v1",
+    "validation_status":  "passed",
+    "evidence_path":  "Iris/_docs/refactor/residual_refactor/runtime_behavior_baseline.jsonl",
+    "evidence_sha256":  "7bb88832eacd398fc2f9da80fa7c9a30c63de364ac981b9b8094efef05cd23b3",
+    "row_count":  7,
+    "mode":  "Baseline",
+    "subject_commit":  "c8b96e40251b9043bae04261a8acd033660e0d45",
+    "subject_tree":  "1178ed0256296f9ac8a898efb77bb40abb4ee8ea",
+    "subject_overlay_sha256_or_null":  "195ba2a55cfd1fe24f7a2b1f68a930eb7cf6eaff7c785b4157283ec89bc9f2ce",
+    "producer_overlay_rows":  [
+                                  "??\tIris/test/lua/residual_refactor_acceptance_harness.lua\t8e64ecfe768aba539a7655ec8bf92a890302b9c57d4276a539367b4c8954295f",
+                                  "??\tIris/test/run_residual_refactor_acceptance.ps1\t4a7f47c517898f543a5e39d97f45b331ee66c0ab5ca555fadb7237680c122d48"
+                              ],
+    "command":  [
+                    "C:/Users/MW/scoop/shims/lua.exe",
+                    "C:/Users/MW/Downloads/coding/PZ/Iris/test/lua/residual_refactor_acceptance_harness.lua",
+                    "C:/Users/MW/Downloads/coding/PZ",
+                    "Baseline"
+                ],
+    "lua_version":  "Lua 5.4.8  Copyright (C) 1994-2025 Lua.org, PUC-Rio"
+}

@@ -1,0 +1,23 @@
+{
+  "application_status": "applied",
+  "authority_claim": false,
+  "claim_boundary": "convenience projection only; not Artifact Registry, seal, cutover, required-validation, or current authority",
+  "evidence_root": "Iris/_docs/refactor/residual_refactor",
+  "index_projection": true,
+  "rows": [
+    {
+      "manifest_path": "Iris/_docs/refactor/residual_refactor/runtime_behavior_baseline.jsonl.evidence.json",
+      "manifest_sha256": "8fc609314feb12df7c9d1320de05508c2c24a4862e17b064c33c7512c6076f89",
+      "output_count": 2,
+      "producer": "Iris/test/run_residual_refactor_acceptance.ps1",
+      "role": "current",
+      "subject": {
+        "commit": "c8b96e40251b9043bae04261a8acd033660e0d45",
+        "overlay_sha256_or_null": "195ba2a55cfd1fe24f7a2b1f68a930eb7cf6eaff7c785b4157283ec89bc9f2ce",
+        "tree": "1178ed0256296f9ac8a898efb77bb40abb4ee8ea"
+      }
+    }
+  ],
+  "schema_version": "iris-residual-evidence-index-v1",
+  "validation_status": "passed"
+}

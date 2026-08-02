@@ -1,0 +1,111 @@
+{
+  "$id": "iris-residual-manual-runtime-validation-v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "iris-residual-manual-runtime-validation-v1"
+    },
+    "validation_status": {
+      "enum": ["passed", "failed", "blocked"]
+    },
+    "binding": {
+      "additionalProperties": false,
+      "properties": {
+        "subject_commit": {"pattern": "^[0-9a-f]{40}$", "type": "string"},
+        "subject_tree": {"pattern": "^[0-9a-f]{40}$", "type": "string"},
+        "reviewer": {"minLength": 1, "type": "string"},
+        "tested_at": {"format": "date-time", "type": "string"}
+      },
+      "required": ["subject_commit", "subject_tree", "reviewer", "tested_at"],
+      "type": "object"
+    },
+    "class_summaries": {
+      "additionalProperties": false,
+      "properties": {
+        "runtime_ui": {"$ref": "#/$defs/classSummary"},
+        "operator_contract": {"$ref": "#/$defs/classSummary"}
+      },
+      "required": ["runtime_ui", "operator_contract"],
+      "type": "object"
+    },
+    "cases": {
+      "items": {"$ref": "#/$defs/case"},
+      "minItems": 2,
+      "type": "array"
+    }
+  },
+  "required": ["schema_version", "validation_status", "binding", "class_summaries", "cases"],
+  "type": "object",
+  "$defs": {
+    "classSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "case_count": {"minimum": 1, "type": "integer"},
+        "validation_status": {"enum": ["passed", "failed", "blocked"]}
+      },
+      "required": ["validation_status", "case_count"],
+      "type": "object"
+    },
+    "evidenceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {"enum": ["screenshot", "project_zomboid_log", "stdout", "stderr", "artifact"]},
+        "path": {"minLength": 1, "type": "string"},
+        "sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"}
+      },
+      "required": ["kind", "path", "sha256"],
+      "type": "object"
+    },
+    "case": {
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {"properties": {"case_class": {"const": "runtime_ui"}}, "required": ["case_class"]},
+          "then": {
+            "properties": {
+              "evidence": {"$ref": "#/$defs/evidenceReference"},
+              "iris_version": {"minLength": 1, "type": "string"},
+              "locale": {"minLength": 1, "type": "string"},
+              "os": {"minLength": 1, "type": "string"},
+              "project_zomboid_build": {"minLength": 1, "type": "string"},
+              "tested_package_sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"}
+            },
+            "required": ["tested_package_sha256", "project_zomboid_build", "iris_version", "os", "locale"],
+            "allOf": [
+              {
+                "if": {"properties": {"status": {"enum": ["passed", "failed"]}}, "required": ["status"]},
+                "then": {"required": ["evidence"]},
+                "else": {"required": ["blocked_reason"]}
+              }
+            ]
+          }
+        },
+        {
+          "if": {"properties": {"case_class": {"const": "operator_contract"}}, "required": ["case_class"]},
+          "then": {
+            "properties": {
+              "command": {"items": {"minLength": 1, "type": "string"}, "minItems": 1, "type": "array"},
+              "evidence": {"$ref": "#/$defs/evidenceReference"},
+              "exit_code": {"type": "integer"},
+              "os": {"minLength": 1, "type": "string"},
+              "python_or_tool_version": {"minLength": 1, "type": "string"},
+              "shell": {"minLength": 1, "type": "string"}
+            },
+            "required": ["os", "shell", "python_or_tool_version", "command", "exit_code", "evidence"]
+          }
+        }
+      ],
+      "properties": {
+        "blocked_reason": {"minLength": 1, "type": "string"},
+        "case_class": {"enum": ["runtime_ui", "operator_contract"]},
+        "case_id": {"minLength": 1, "type": "string"},
+        "expected": {},
+        "observed": {},
+        "status": {"enum": ["passed", "failed", "blocked"]}
+      },
+      "required": ["case_id", "case_class", "expected", "observed", "status"],
+      "type": "object"
+    }
+  }
+}

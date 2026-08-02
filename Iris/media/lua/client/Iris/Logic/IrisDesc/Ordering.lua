@@ -10,21 +10,11 @@
 ]]
 
 local TagParser = require("Iris/Logic/IrisDesc/TagParser")
+local CategoryPresentationOrder = require("Iris/Logic/CategoryPresentationOrder")
 
 local Logger = require("Iris/Logic/IrisDesc/Logger")
 
 local IrisDescOrdering = {}
-
-
--- 대분류 우선순위 맵
-local CATEGORY_PRIORITY = {
-    Tool = 1,
-    Combat = 2,
-    Consumable = 3,
-    Resource = 4,
-    Literature = 5,
-    Wearable = 6,
-}
 
 
 ---태그에서 대분류 추출
@@ -58,7 +48,7 @@ end
 local function getSortKey(tag)
     local category = extractCategory(tag)
     local code = extractCode(tag) or ""
-    local priority = CATEGORY_PRIORITY[category] or 999
+    local priority = CategoryPresentationOrder.getDescriptionPriority(category)
     return priority, code
 end
 
@@ -116,32 +106,43 @@ end
 ---@return string|nil anchor 주 소분류 ID
 ---@return table ordered 정렬된 소분류 배열
 function IrisDescOrdering.resolveSubcategories(subcat_set, meta_primary_opt)
-    Logger.debug("[Ordering.resolveSubcategories] ========== START ==========")
-    Logger.debug("[Ordering.resolveSubcategories] meta_primary_opt = " .. tostring(meta_primary_opt))
+    local debugEnabled = Logger.isDebugEnabled()
+    if debugEnabled then
+        Logger.debug("[Ordering.resolveSubcategories] ========== START ==========")
+        Logger.debug("[Ordering.resolveSubcategories] meta_primary_opt = " .. tostring(meta_primary_opt))
+    end
 
     local sorted = sortedSubcategories(subcat_set)
-    Logger.debug("[Ordering.resolveSubcategories] sorted result:")
-    for i, tag in ipairs(sorted) do
-        Logger.debug("[Ordering.resolveSubcategories]   sorted[" .. i .. "] = " .. tag)
+    if debugEnabled then
+        Logger.debug("[Ordering.resolveSubcategories] sorted result:")
+        for i, tag in ipairs(sorted) do
+            Logger.debug("[Ordering.resolveSubcategories]   sorted[" .. i .. "] = " .. tag)
+        end
     end
 
     local anchor = nil
     if #sorted == 0 then
-        Logger.debug("[Ordering.resolveSubcategories] No subcategories")
+        if debugEnabled then Logger.debug("[Ordering.resolveSubcategories] No subcategories") end
     elseif meta_primary_opt and subcat_set[meta_primary_opt] then
         anchor = meta_primary_opt
-        Logger.debug("[Ordering.resolveSubcategories] Using meta_primary_opt as anchor: " .. meta_primary_opt)
+        if debugEnabled then
+            Logger.debug("[Ordering.resolveSubcategories] Using meta_primary_opt as anchor: " .. meta_primary_opt)
+        end
     else
         anchor = sorted[1]
-        Logger.debug("[Ordering.resolveSubcategories] Picked anchor = '" .. tostring(anchor) .. "'")
+        if debugEnabled then
+            Logger.debug("[Ordering.resolveSubcategories] Picked anchor = '" .. tostring(anchor) .. "'")
+        end
     end
 
     local ordered = moveAnchorToFront(sorted, anchor)
-    Logger.debug("[Ordering.resolveSubcategories] Final result:")
-    for i, tag in ipairs(ordered) do
-        Logger.debug("[Ordering.resolveSubcategories]   ordered[" .. i .. "] = " .. tag)
+    if debugEnabled then
+        Logger.debug("[Ordering.resolveSubcategories] Final result:")
+        for i, tag in ipairs(ordered) do
+            Logger.debug("[Ordering.resolveSubcategories]   ordered[" .. i .. "] = " .. tag)
+        end
+        Logger.debug("[Ordering.resolveSubcategories] ========== END ==========")
     end
-    Logger.debug("[Ordering.resolveSubcategories] ========== END ==========")
 
     return anchor, ordered
 end
@@ -152,37 +153,48 @@ end
 ---@param meta_primary_opt string|nil 메타에서 지정된 주 소분류
 ---@return string|nil anchor 주 소분류 ID
 function IrisDescOrdering.pickAnchor(subcat_set, meta_primary_opt)
-    Logger.debug("[Ordering.pickAnchor] ========== START ==========")
-    Logger.debug("[Ordering.pickAnchor] subcat_set = " .. tostring(subcat_set))
-    Logger.debug("[Ordering.pickAnchor] meta_primary_opt = " .. tostring(meta_primary_opt))
+    local debugEnabled = Logger.isDebugEnabled()
+    if debugEnabled then
+        Logger.debug("[Ordering.pickAnchor] ========== START ==========")
+        Logger.debug("[Ordering.pickAnchor] subcat_set = " .. tostring(subcat_set))
+        Logger.debug("[Ordering.pickAnchor] meta_primary_opt = " .. tostring(meta_primary_opt))
+    end
     
     local count = TagParser.count(subcat_set)
-    Logger.debug("[Ordering.pickAnchor] subcat_set count = " .. count)
+    if debugEnabled then Logger.debug("[Ordering.pickAnchor] subcat_set count = " .. count) end
     
     -- 소분류가 없으면 nil
     if count == 0 then
-        Logger.debug("[Ordering.pickAnchor] No subcategories, returning nil")
-        Logger.debug("[Ordering.pickAnchor] ========== END ==========")
+        if debugEnabled then
+            Logger.debug("[Ordering.pickAnchor] No subcategories, returning nil")
+            Logger.debug("[Ordering.pickAnchor] ========== END ==========")
+        end
         return nil
     end
     
     -- meta가 있고 set에 포함되어 있으면 그대로 사용
     if meta_primary_opt and subcat_set[meta_primary_opt] then
-        Logger.debug("[Ordering.pickAnchor] Using meta_primary_opt as anchor: " .. meta_primary_opt)
-        Logger.debug("[Ordering.pickAnchor] ========== END ==========")
+        if debugEnabled then
+            Logger.debug("[Ordering.pickAnchor] Using meta_primary_opt as anchor: " .. meta_primary_opt)
+            Logger.debug("[Ordering.pickAnchor] ========== END ==========")
+        end
         return meta_primary_opt
     end
     
     -- 없으면 대분류 번호 순 → 코드 순 첫 번째
-    Logger.debug("[Ordering.pickAnchor] No meta, sorting to find anchor...")
+    if debugEnabled then Logger.debug("[Ordering.pickAnchor] No meta, sorting to find anchor...") end
     local sorted = sortedSubcategories(subcat_set)
-    for i, tag in ipairs(sorted) do
-        Logger.debug("[Ordering.pickAnchor] sorted[" .. i .. "] = " .. tag)
+    if debugEnabled then
+        for i, tag in ipairs(sorted) do
+            Logger.debug("[Ordering.pickAnchor] sorted[" .. i .. "] = " .. tag)
+        end
     end
     
     local anchor = sorted[1]
-    Logger.debug("[Ordering.pickAnchor] Picked anchor = '" .. tostring(anchor) .. "'")
-    Logger.debug("[Ordering.pickAnchor] ========== END ==========")
+    if debugEnabled then
+        Logger.debug("[Ordering.pickAnchor] Picked anchor = '" .. tostring(anchor) .. "'")
+        Logger.debug("[Ordering.pickAnchor] ========== END ==========")
+    end
     
     return anchor
 end
@@ -194,38 +206,49 @@ end
 ---@param anchor string|nil 주 소분류 ID
 ---@return table 정렬된 소분류 배열
 function IrisDescOrdering.orderSubcategories(subcat_set, anchor)
-    Logger.debug("[Ordering.orderSubcategories] ========== START ==========")
-    Logger.debug("[Ordering.orderSubcategories] anchor = " .. tostring(anchor))
+    local debugEnabled = Logger.isDebugEnabled()
+    if debugEnabled then
+        Logger.debug("[Ordering.orderSubcategories] ========== START ==========")
+        Logger.debug("[Ordering.orderSubcategories] anchor = " .. tostring(anchor))
+    end
     
     -- set을 배열로 변환 후 정렬
     local sorted = sortedSubcategories(subcat_set)
-    Logger.debug("[Ordering.orderSubcategories] sorted result count = " .. #sorted)
-    Logger.debug("[Ordering.orderSubcategories] sorted result:")
-    for i, tag in ipairs(sorted) do
-        Logger.debug("[Ordering.orderSubcategories]   sorted[" .. i .. "] = " .. tag)
+    if debugEnabled then
+        Logger.debug("[Ordering.orderSubcategories] sorted result count = " .. #sorted)
+        Logger.debug("[Ordering.orderSubcategories] sorted result:")
+        for i, tag in ipairs(sorted) do
+            Logger.debug("[Ordering.orderSubcategories]   sorted[" .. i .. "] = " .. tag)
+        end
     end
     
     -- anchor가 없거나 sorted에 없으면 그대로 반환
     if not anchor then
-        Logger.debug("[Ordering.orderSubcategories] No anchor, returning sorted as-is")
-        Logger.debug("[Ordering.orderSubcategories] ========== END ==========")
+        if debugEnabled then
+            Logger.debug("[Ordering.orderSubcategories] No anchor, returning sorted as-is")
+            Logger.debug("[Ordering.orderSubcategories] ========== END ==========")
+        end
         return sorted
     end
     
     -- anchor를 맨 앞으로 이동
-    Logger.debug("[Ordering.orderSubcategories] Moving anchor to front...")
+    if debugEnabled then Logger.debug("[Ordering.orderSubcategories] Moving anchor to front...") end
     local result = moveAnchorToFront(sorted, anchor)
-    if result ~= sorted then
-        Logger.debug("[Ordering.orderSubcategories] Inserted anchor at front")
-    else
-        Logger.debug("[Ordering.orderSubcategories] Anchor not found in list!")
+    if debugEnabled then
+        if result ~= sorted then
+            Logger.debug("[Ordering.orderSubcategories] Inserted anchor at front")
+        else
+            Logger.debug("[Ordering.orderSubcategories] Anchor not found in list!")
+        end
     end
     
-    Logger.debug("[Ordering.orderSubcategories] Final result:")
-    for i, tag in ipairs(result) do
-        Logger.debug("[Ordering.orderSubcategories]   result[" .. i .. "] = " .. tag)
+    if debugEnabled then
+        Logger.debug("[Ordering.orderSubcategories] Final result:")
+        for i, tag in ipairs(result) do
+            Logger.debug("[Ordering.orderSubcategories]   result[" .. i .. "] = " .. tag)
+        end
+        Logger.debug("[Ordering.orderSubcategories] ========== END ==========")
     end
-    Logger.debug("[Ordering.orderSubcategories] ========== END ==========")
     
     return result
 end

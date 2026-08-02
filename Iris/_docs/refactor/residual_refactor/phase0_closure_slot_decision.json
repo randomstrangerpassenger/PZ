@@ -1,0 +1,43 @@
+{
+  "schema_version": "iris-residual-closure-slot-decision-v1",
+  "validation_status": "passed",
+  "decision": "does_not_consume_slot",
+  "owner": "repository owner pre-approval in implementation request",
+  "decision_basis": {
+    "closure_manifest": "Iris/_docs/round3/round3_active_core_closure.json",
+    "closure_manifest_sha256": "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf",
+    "inventory": "Iris/_docs/refactor/residual_refactor/phase0_inventory.json",
+    "inventory_sha256": "4687e1b101ad3de691489c2b4b0d2686b67454d00dccd12b9f35e5945165d520"
+  },
+  "preserved_denominator": {
+    "current_closure_count": 12,
+    "current_route_allowed_tooling_count": 4,
+    "max_allowed_tooling_modules": 4
+  },
+  "change_5a": {
+    "application_status": "approved",
+    "path": "Iris/build/description/v2/tools/build/compose_layer3_io.py",
+    "scope": "in-place helper naming and golden contract only",
+    "new_stem_count": 0
+  },
+  "change_5b": {
+    "application_status": "approved",
+    "candidate": "Iris/build/description/v2/tools/build/export_registry_runtime_records.py",
+    "candidate_role": "legacy-required",
+    "closure_membership": "outside current core and allowed tooling",
+    "python_static_fan_in": 0,
+    "non_python_callers": [
+      "Iris/tools/inspect_registry_runtime_compatibility.ps1"
+    ],
+    "leaf": "Iris/build/description/v2/tools/build/registry_runtime_record_paths.py",
+    "leaf_scope": "stdlib-only pure manifest path projection",
+    "compatibility_adapter": "existing export_registry_runtime_records.py path, CLI, stdout/stderr, and exit code remain",
+    "closure_effect": "none; neither wrapper nor leaf is added to core 12 or allowed tooling 4"
+  },
+  "out_of_scope": [
+    "expand current core closure",
+    "expand allowed tooling slots",
+    "extract _dvf_3_3_vnext_common.py",
+    "registry giant decomposition"
+  ]
+}

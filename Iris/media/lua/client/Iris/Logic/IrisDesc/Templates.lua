@@ -298,16 +298,18 @@ local templates = {
 --- @return table|nil template {header, lines}
 function IrisDescTemplates.getTemplate(subcat_id)
     local template = templates[subcat_id]
-    if template then
-        Logger.debug("[Templates.getTemplate] subcat_id = '" .. tostring(subcat_id) .. "'")
-        Logger.debug("[Templates.getTemplate] FOUND - header = '" .. template.header .. "'")
-        Logger.debug("[Templates.getTemplate]   lines count = " .. #template.lines)
-        for i, line in ipairs(template.lines) do
-            Logger.debug("[Templates.getTemplate]   line[" .. i .. "] = '" .. line:sub(1, 50) .. "...'")
+    if Logger.isDebugEnabled() then
+        if template then
+            Logger.debug("[Templates.getTemplate] subcat_id = '" .. tostring(subcat_id) .. "'")
+            Logger.debug("[Templates.getTemplate] FOUND - header = '" .. template.header .. "'")
+            Logger.debug("[Templates.getTemplate]   lines count = " .. #template.lines)
+            for i, line in ipairs(template.lines) do
+                Logger.debug("[Templates.getTemplate]   line[" .. i .. "] = '" .. line:sub(1, 50) .. "...'")
+            end
+        else
+            Logger.debug("[Templates.getTemplate] subcat_id = '" .. tostring(subcat_id) .. "'")
+            Logger.debug("[Templates.getTemplate] NOT FOUND")
         end
-    else
-        Logger.debug("[Templates.getTemplate] subcat_id = '" .. tostring(subcat_id) .. "'")
-        Logger.debug("[Templates.getTemplate] NOT FOUND")
     end
     return template
 end

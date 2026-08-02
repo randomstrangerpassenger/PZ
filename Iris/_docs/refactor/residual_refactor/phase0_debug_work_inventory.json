@@ -1,0 +1,39 @@
+{
+  "schema_version": "iris-residual-debug-work-inventory-v1",
+  "validation_status": "passed",
+  "existing_gate": "IrisLogger.isDebugEnabled / IrisDesc Logger.isDebugEnabled",
+  "debug_only": [
+    {
+      "path": "Iris/media/lua/client/Iris/Logic/IrisDesc/Ordering.lua",
+      "work": "debug string concatenation and sorted/ordered iteration"
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Logic/IrisDesc/TagParser.lua",
+      "work": "per-tag debug strings and result-set diagnostic iteration"
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Logic/IrisDesc/Templates.lua",
+      "work": "template line diagnostic iteration and truncation"
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserData.lua",
+      "work": "Browser get/build debug strings; gate can be propagated by existing bootstrap"
+    }
+  ],
+  "already_gated_regression_only": [
+    "Iris/media/lua/client/Iris/Logic/IrisDesc/Generator.lua",
+    "Iris/media/lua/client/Iris/Logic/IrisDesc/Renderer.lua"
+  ],
+  "user_visible_or_failure": [
+    "TagParser invalid-tag warning",
+    "Browser required dependency warnings",
+    "Browser cache build failure warning",
+    "Tooltip hook errors"
+  ],
+  "module_bootstrap_disposition": {
+    "application_status": "not_applicable",
+    "validation_status": "not_applicable",
+    "inspection_note": "inspected_no_change",
+    "reason": "create() already exposes logger-backed debug/warn/logError functions; call sites can query the existing logger without a new bootstrap API"
+  }
+}

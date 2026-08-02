@@ -26,6 +26,7 @@ local IrisBrowserVariantIndex = require("Iris/UI/Browser/IrisBrowserVariantIndex
 local TranslationResolver = require("Iris/Util/IrisTranslationResolver")
 local ItemAccess = require("Iris/Util/IrisItemAccess")
 local StaticData = require("Iris/API/StaticData")
+local IrisLogger = require("Iris/Util/IrisLogger")
 local debug = bootstrap.debug
 local warn = bootstrap.warn
 
@@ -133,6 +134,7 @@ local function buildCandidateCache()
         itemLocationsByFullType = classificationIndex.itemLocationsByFullType,
         searchKeysByFullType = createSearchKeys(itemIndex),
         foldedCountsByGrouping = {},
+        displayNameGroupsByGrouping = {},
         generation = buildGeneration + 1,
     }
 
@@ -146,7 +148,7 @@ local function buildCandidateCache()
             return IrisAPI.Tags.getTagsForItem(item)
         end)
         if not tagOk then
-            if errorCount < maxErrors then
+            if IrisLogger.isDebugEnabled() and errorCount < maxErrors then
                 debug("[IrisBrowserData] DEBUG: IrisAPI.Tags.getTagsForItem() failed for " .. fullType .. ": " .. tostring(tagResult))
             end
             errorCount = errorCount + 1
@@ -174,7 +176,9 @@ function IrisBrowserData.ensureReady()
     end
 
     setBuildState("building", "build_in_progress", nil)
-    debug("[IrisBrowserData] Building cache...")
+    if IrisLogger.isDebugEnabled() then
+        debug("[IrisBrowserData] Building cache...")
+    end
     ensureDeps()
 
     if not IrisAPI then
@@ -204,9 +208,11 @@ function IrisBrowserData.ensureReady()
         setBuildState("ready", "build_complete", nil)
     end
 
-    debug("[IrisBrowserData] Cache built: " .. tostring(candidate.itemIndex.itemCount) ..
-        " items indexed, " .. taggedCount .. " tagged, errors=" .. errorCount ..
-        ", state=" .. buildState)
+    if IrisLogger.isDebugEnabled() then
+        debug("[IrisBrowserData] Cache built: " .. tostring(candidate.itemIndex.itemCount) ..
+            " items indexed, " .. taggedCount .. " tagged, errors=" .. errorCount ..
+            ", state=" .. buildState)
+    end
     return true, stateSnapshot()
 end
 
@@ -227,23 +233,28 @@ end
 --- 대분류 목록 반환 (고정 순서)
 --- @return table categories (name, subcategoryCount)
 function IrisBrowserData.getCategories()
-    debug("[IrisBrowserData] getCategories() called")
-    debug("[IrisBrowserData] state = " .. tostring(buildState))
+    local debugEnabled = IrisLogger.isDebugEnabled()
+    if debugEnabled then
+        debug("[IrisBrowserData] getCategories() called")
+        debug("[IrisBrowserData] state = " .. tostring(buildState))
+    end
     if not IrisBrowserData.isReady() then
-        debug("[IrisBrowserData] NOT BUILT, returning empty")
+        if debugEnabled then debug("[IrisBrowserData] NOT BUILT, returning empty") end
         return {}
     end
     
-    debug("[IrisBrowserData] _cache exists = " .. tostring(IrisBrowserData._cache ~= nil))
-    debug("[IrisBrowserData] CATEGORY_ORDER count = " .. #IrisBrowserData.CATEGORY_ORDER)
+    if debugEnabled then
+        debug("[IrisBrowserData] _cache exists = " .. tostring(IrisBrowserData._cache ~= nil))
+        debug("[IrisBrowserData] CATEGORY_ORDER count = " .. #IrisBrowserData.CATEGORY_ORDER)
+    end
 
     local result = IrisBrowserFilters.getCategories(
         IrisBrowserData._cache,
         IrisBrowserData.CATEGORY_ORDER,
         IrisBrowserData.getCategoryLabel,
-        debug
+        debugEnabled and debug or nil
     )
-    debug("[IrisBrowserData] getCategories() returning " .. #result .. " categories")
+    if debugEnabled then debug("[IrisBrowserData] getCategories() returning " .. #result .. " categories") end
     return result
 end
 
@@ -267,14 +278,17 @@ end
 --- @param categoryName string
 --- @return table subcategories (code, label, itemCount)
 function IrisBrowserData.getSubcategories(categoryName)
-    debug("[IrisBrowserData] getSubcategories('" .. tostring(categoryName) .. "') called")
+    local debugEnabled = IrisLogger.isDebugEnabled()
+    if debugEnabled then
+        debug("[IrisBrowserData] getSubcategories('" .. tostring(categoryName) .. "') called")
+    end
     
     if not IrisBrowserData.isReady() then
-        debug("[IrisBrowserData] NOT BUILT, returning empty")
+        if debugEnabled then debug("[IrisBrowserData] NOT BUILT, returning empty") end
         return {}
     end
     if not categoryName then
-        debug("[IrisBrowserData] categoryName is nil, returning empty")
+        if debugEnabled then debug("[IrisBrowserData] categoryName is nil, returning empty") end
         return {}
     end
     
@@ -283,9 +297,9 @@ function IrisBrowserData.getSubcategories(categoryName)
         categoryName,
         IrisBrowserData.getSubcategoryLabel,
         IrisBrowserData._calculateFoldedCount,
-        debug
+        debugEnabled and debug or nil
     )
-    debug("[IrisBrowserData] getSubcategories() returning " .. #result .. " subcategories")
+    if debugEnabled then debug("[IrisBrowserData] getSubcategories() returning " .. #result .. " subcategories") end
     return result
 end
 
@@ -307,10 +321,13 @@ end
 --- @param subcategoryName string
 --- @return table items (fullType, displayName, isPrimary)
 function IrisBrowserData.getItems(categoryName, subcategoryName)
-    debug("[IrisBrowserData] getItems('" .. tostring(categoryName) .. "', '" .. tostring(subcategoryName) .. "') called")
+    local debugEnabled = IrisLogger.isDebugEnabled()
+    if debugEnabled then
+        debug("[IrisBrowserData] getItems('" .. tostring(categoryName) .. "', '" .. tostring(subcategoryName) .. "') called")
+    end
     
     if not IrisBrowserData.isReady() or not categoryName or not subcategoryName then
-        debug("[IrisBrowserData] getItems - not built or missing params")
+        if debugEnabled then debug("[IrisBrowserData] getItems - not built or missing params") end
         return {}
     end
     
@@ -319,9 +336,11 @@ function IrisBrowserData.getItems(categoryName, subcategoryName)
         categoryName,
         subcategoryName,
         IrisAPI,
-        debug
+        debugEnabled and debug or nil
     )
-    debug("[IrisBrowserData] getItems() returning " .. #result .. " items (DisplayName folding)")
+    if debugEnabled then
+        debug("[IrisBrowserData] getItems() returning " .. #result .. " items (DisplayName folding)")
+    end
     return result
 end
 

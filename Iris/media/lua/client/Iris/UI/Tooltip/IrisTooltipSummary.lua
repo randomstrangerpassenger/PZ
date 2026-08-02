@@ -17,6 +17,23 @@ local IrisUseCaseDescriptions = nil
 local loaded = false
 local summaryByFullType = {}
 
+local function copyArray(values)
+    local result = {}
+    for index, value in ipairs(values or {}) do
+        result[index] = value
+    end
+    return result
+end
+
+local function copySummary(summary)
+    return {
+        fullType = summary.fullType,
+        tags = copyArray(summary.tags),
+        connections = copyArray(summary.connections),
+        useCaseCount = summary.useCaseCount,
+    }
+end
+
 local function ensureData()
     if loaded then
         return
@@ -102,7 +119,7 @@ function IrisTooltipSummary.get(fullType)
 
     local cached = summaryByFullType[fullType]
     if cached then
-        return cached
+        return copySummary(cached)
     end
 
     ensureData()
@@ -114,7 +131,7 @@ function IrisTooltipSummary.get(fullType)
         useCaseCount = countUseCaseLines(fullType),
     }
     summaryByFullType[fullType] = summary
-    return summary
+    return copySummary(summary)
 end
 
 return IrisTooltipSummary

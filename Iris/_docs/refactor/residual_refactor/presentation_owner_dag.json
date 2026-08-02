@@ -1,0 +1,61 @@
+{
+  "schema_version": "iris-residual-presentation-owner-dag-v1",
+  "validation_status": "passed",
+  "taxonomy_authority": "Iris Classification/Rule layers",
+  "projection_owner": "Iris/Logic/CategoryPresentationOrder",
+  "projection_semantics": "display order and primary-description priority only; no membership or classification authority",
+  "required_edges": [
+    {
+      "from": "Iris/UI/Browser/IrisBrowserCategoryIndex",
+      "to": "Iris/Logic/CategoryPresentationOrder",
+      "count": 1,
+      "owner_approved": true
+    },
+    {
+      "from": "Iris/UI/Browser/IrisBrowserVariantIndex",
+      "to": "Iris/Logic/CategoryPresentationOrder",
+      "count": 1,
+      "edge_kind": "indirect_same-layer_facade",
+      "via": "Iris/UI/Browser/IrisBrowserCategoryIndex.getDescriptionPriority",
+      "owner_approved": true
+    },
+    {
+      "from": "Iris/Logic/IrisDesc/Ordering",
+      "to": "Iris/Logic/CategoryPresentationOrder",
+      "count": 1,
+      "owner_approved": true
+    }
+  ],
+  "architecture_delta": {
+    "browser_namespace_to_projection_edge_count": 1,
+    "direct_browser_require_count": 1,
+    "new_cross_layer_edge_count_excluding_projection": 0
+  },
+  "forbidden_edges": [
+    {
+      "from": "Iris/Logic",
+      "to": "Iris/UI/Browser",
+      "expected_count": 0
+    }
+  ],
+  "browser_order": [
+    "Tool",
+    "Combat",
+    "Consumable",
+    "Resource",
+    "Literature",
+    "Wearable",
+    "Furniture",
+    "Vehicle",
+    "Misc"
+  ],
+  "description_priority": {
+    "Combat": 2,
+    "Consumable": 3,
+    "Literature": 5,
+    "Resource": 4,
+    "Tool": 1,
+    "Wearable": 6,
+    "fallback": 999
+  }
+}

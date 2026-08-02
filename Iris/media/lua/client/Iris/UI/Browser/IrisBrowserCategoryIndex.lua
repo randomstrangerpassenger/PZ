@@ -7,6 +7,7 @@
 ]]
 
 local IrisBrowserCategoryIndex = {}
+local CategoryPresentationOrder = require("Iris/Logic/CategoryPresentationOrder")
 
 IrisBrowserCategoryIndex.CATEGORY_DEFINITIONS = {
     {
@@ -136,12 +137,20 @@ IrisBrowserCategoryIndex.SUBCATEGORY_KEYS = {
     ["9-A"] = { key = "Iris_Sub_9A", fallback = "Miscellaneous" },
 }
 
-IrisBrowserCategoryIndex.CATEGORY_ORDER = {}
+local definitionsByName = {}
+for _, definition in ipairs(IrisBrowserCategoryIndex.CATEGORY_DEFINITIONS) do
+    definitionsByName[definition.name] = definition
+end
+
+IrisBrowserCategoryIndex.CATEGORY_DEFINITIONS = {}
+IrisBrowserCategoryIndex.CATEGORY_ORDER = CategoryPresentationOrder.getBrowserCategoryOrder()
 IrisBrowserCategoryIndex.CATEGORY_KEYS = {}
 IrisBrowserCategoryIndex.SUBCATEGORY_MAP = {}
 
-for _, definition in ipairs(IrisBrowserCategoryIndex.CATEGORY_DEFINITIONS) do
-    table.insert(IrisBrowserCategoryIndex.CATEGORY_ORDER, definition.name)
+for _, categoryName in ipairs(IrisBrowserCategoryIndex.CATEGORY_ORDER) do
+    local definition = assert(definitionsByName[categoryName],
+        "missing Browser presentation metadata for category: " .. tostring(categoryName))
+    table.insert(IrisBrowserCategoryIndex.CATEGORY_DEFINITIONS, definition)
     IrisBrowserCategoryIndex.CATEGORY_KEYS[definition.name] = {
         key = definition.key,
         fallback = definition.fallback,
@@ -152,6 +161,10 @@ for _, definition in ipairs(IrisBrowserCategoryIndex.CATEGORY_DEFINITIONS) do
         table.insert(subcategories, subcategory)
     end
     IrisBrowserCategoryIndex.SUBCATEGORY_MAP[definition.name] = subcategories
+end
+
+function IrisBrowserCategoryIndex.getDescriptionPriority(categoryName)
+    return CategoryPresentationOrder.getDescriptionPriority(categoryName)
 end
 
 function IrisBrowserCategoryIndex.getCategoryLabel(catName, translate)

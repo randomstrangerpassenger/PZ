@@ -1,0 +1,220 @@
+{
+    "schema_version":  "iris-residual-supported-api-v1",
+    "validation_status":  "passed",
+    "claim_boundary":  "predecessor_20_listed_surfaces_only",
+    "subject_commit":  "c8b96e40251b9043bae04261a8acd033660e0d45",
+    "subject_tree":  "1178ed0256296f9ac8a898efb77bb40abb4ee8ea",
+    "predecessor_manifest":  "Iris/_docs/refactor/core_refactor/phase0_supported_api_manifest.json",
+    "predecessor_manifest_sha256":  "c39390c0bc459a457ab05af2ece47710188680995164f435ce6aec3f904d3c0b",
+    "surface_count":  20,
+    "intended_identity_delta":  {
+                                    "return_table_identity":  "copy_on_read_for_frozen_array_and_tooltip_summary_boundaries",
+                                    "value_shape_signature":  "preserved"
+                                },
+    "surfaces":  [
+                     {
+                         "symbol":  "IrisAPI.Tags",
+                         "module_path":  "Iris/IrisAPI",
+                         "signature_or_shape":  "table facade",
+                         "compatibility_role":  "public facade namespace",
+                         "known_internal_callers":  [
+                                                        "Iris/UI/Browser/IrisBrowserData",
+                                                        "Iris/UI/Wiki/IrisWikiSections"
+                                                    ],
+                         "support_status":  "supported"
+                     },
+                     {
+                         "symbol":  "IrisAPI.getTagsForItem",
+                         "module_path":  "Iris/IrisAPI",
+                         "signature_or_shape":  "(item)-\u003etable",
+                         "compatibility_role":  "public facade",
+                         "known_internal_callers":  [
+
+                                                    ],
+                         "support_status":  "supported"
+                     },
+                     {
+                         "symbol":  "IrisAPI.getTags",
+                         "module_path":  "Iris/IrisAPI",
+                         "signature_or_shape":  "(fullType)-\u003etable",
+                         "compatibility_role":  "public facade",
+                         "known_internal_callers":  [
+
+                                                    ],
+                         "support_status":  "supported"
+                     },
+                     {
+                         "symbol":  "IrisAPI.getDescriptionBlocks",
+                         "module_path":  "Iris/IrisAPI",
+                         "signature_or_shape":  "(fullType,primarySubcategory?)-\u003etable",
+                         "compatibility_role":  "public facade",
+                         "known_internal_callers":  [
+
+                                                    ],
+                         "support_status":  "supported"
+                     },
+                     {
+                         "symbol":  "IrisAPI.getDescription",
+                         "module_path":  "Iris/IrisAPI",
+                         "signature_or_shape":  "(fullType,primarySubcategory?)-\u003estring",
+                         "compatibility_role":  "public facade",
+                         "known_internal_callers":  [
+                                                        "Iris/UI/Browser/IrisBrowserDetail"
+                                                    ],
+                         "support_status":  "supported"
+                     },
+                     {
+                         "symbol":  "IrisAPI.getDescriptionForItem",
+                         "module_path":  "Iris/IrisAPI",
+                         "signature_or_shape":  "(item,primarySubcategory?)-\u003estring",
+                         "compatibility_role":  "public facade",
+                         "known_internal_callers":  [
+
+                                                    ],
+                         "support_status":  "supported"
+                     },
+                     {
+                         "symbol":  "IrisAPI.getUseCaseLines",
+                         "module_path":  "Iris/IrisAPI",
+                         "signature_or_shape":  "(fullType)-\u003e{lines,debug_lines}",
+                         "compatibility_role":  "public facade",
+                         "known_internal_callers":  [
+                                                        "Iris/UI/Wiki/IrisWikiSections"
+                                                    ],
+                         "support_status":  "supported"
+                     },
+                     {
+                         "symbol":  "IrisAPI.getOutcomes",
+                         "module_path":  "Iris/IrisAPI",
+                         "signature_or_shape":  "(fullType)-\u003etable",
+                         "compatibility_role":  "public facade",
+                         "known_internal_callers":  [
+                                                        "Iris/UI/Browser/IrisBrowserInteractionCollector"
+                                                    ],
+                         "support_status":  "supported"
+                     },
+                     {
+                         "symbol":  "IrisAPI.getCapabilities",
+                         "module_path":  "Iris/IrisAPI",
+                         "signature_or_shape":  "(fullType)-\u003etable",
+                         "compatibility_role":  "live capability facade",
+                         "known_internal_callers":  [
+                                                        "Iris/UI/Browser/IrisBrowserInteractionCollector"
+                                                    ],
+                         "support_status":  "supported"
+                     },
+                     {
+                         "symbol":  "IrisAPI.hasCapability",
+                         "module_path":  "Iris/IrisAPI",
+                         "signature_or_shape":  "(fullType,capability)-\u003eboolean",
+                         "compatibility_role":  "live capability facade",
+                         "known_internal_callers":  [
+
+                                                    ],
+                         "support_status":  "supported"
+                     },
+                     {
+                         "symbol":  "Description",
+                         "module_path":  "Iris/API/Description",
+                         "signature_or_shape":  "module table",
+                         "compatibility_role":  "public module path",
+                         "known_internal_callers":  [
+                                                        "Iris/IrisAPI"
+                                                    ],
+                         "support_status":  "supported"
+                     },
+                     {
+                         "symbol":  "UseCases",
+                         "module_path":  "Iris/API/UseCases",
+                         "signature_or_shape":  "module table",
+                         "compatibility_role":  "public module path",
+                         "known_internal_callers":  [
+                                                        "Iris/IrisAPI"
+                                                    ],
+                         "support_status":  "supported"
+                     },
+                     {
+                         "symbol":  "IrisBrowserData.getGroupVariants",
+                         "module_path":  "Iris/UI/Browser/IrisBrowserData",
+                         "signature_or_shape":  "(groupId)-\u003etable|nil",
+                         "compatibility_role":  "external compatibility facade",
+                         "known_internal_callers":  [
+
+                                                    ],
+                         "adapter_owner":  "Iris/UI/Browser/IrisBrowserVariantIndex",
+                         "support_status":  "supported_adapter"
+                     },
+                     {
+                         "symbol":  "IrisBrowserData.build",
+                         "module_path":  "Iris/UI/Browser/IrisBrowserData",
+                         "signature_or_shape":  "()-\u003eboolean",
+                         "compatibility_role":  "startup compatibility facade",
+                         "known_internal_callers":  [
+                                                        "Iris/IrisMain",
+                                                        "Iris/UI/Browser/IrisBrowserBase"
+                                                    ],
+                         "support_status":  "supported"
+                     },
+                     {
+                         "symbol":  "IrisWikiSections",
+                         "module_path":  "Iris/UI/Wiki/IrisWikiSections",
+                         "signature_or_shape":  "render*Section(item)-\u003estring|nil; getAllSections(item)-\u003etable",
+                         "compatibility_role":  "public render facade",
+                         "known_internal_callers":  [
+                                                        "Iris/UI/Wiki/IrisWikiPanel",
+                                                        "Iris/UI/Browser/IrisBrowserDetail"
+                                                    ],
+                         "support_status":  "supported_wrappers"
+                     },
+                     {
+                         "symbol":  "IrisWikiPanel.openForItem",
+                         "module_path":  "Iris/UI/Wiki/IrisWikiPanel",
+                         "signature_or_shape":  "(item)-\u003enil",
+                         "compatibility_role":  "public UI facade",
+                         "known_internal_callers":  [
+                                                        "Iris/UI/Wiki/IrisContextMenu"
+                                                    ],
+                         "support_status":  "supported"
+                     },
+                     {
+                         "symbol":  "IrisBrowser.openSearch",
+                         "module_path":  "Iris/UI/Browser/IrisBrowser",
+                         "signature_or_shape":  "()-\u003enil",
+                         "compatibility_role":  "public UI facade",
+                         "known_internal_callers":  [
+                                                        "Iris/UI/Browser/IrisMapIcon"
+                                                    ],
+                         "support_status":  "supported"
+                     },
+                     {
+                         "symbol":  "IrisBrowser.openForItem",
+                         "module_path":  "Iris/UI/Browser/IrisBrowser",
+                         "signature_or_shape":  "(item)-\u003enil",
+                         "compatibility_role":  "public UI facade",
+                         "known_internal_callers":  [
+
+                                                    ],
+                         "support_status":  "supported"
+                     },
+                     {
+                         "symbol":  "IrisData",
+                         "module_path":  "Iris/Data/IrisData",
+                         "signature_or_shape":  "global table alias",
+                         "compatibility_role":  "generated legacy global",
+                         "known_internal_callers":  [
+                                                        "Iris/API/StaticData compatibility loader"
+                                                    ],
+                         "support_status":  "supported_read_only_consumer_compatibility"
+                     },
+                     {
+                         "symbol":  "IrisPrimarySubcategory",
+                         "module_path":  "generated runtime global",
+                         "signature_or_shape":  "fullType-\u003eclassification tag",
+                         "compatibility_role":  "generated compatibility global",
+                         "known_internal_callers":  [
+                                                        "Iris/UI/Browser/IrisBrowserVariantIndex"
+                                                    ],
+                         "support_status":  "supported"
+                     }
+                 ]
+}

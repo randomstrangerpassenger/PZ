@@ -6,6 +6,19 @@ from pathlib import Path
 from typing import Any
 
 
+JSONL_BYTE_CONTRACT = "unsorted-json-platform-newline-with-trailer"
+FILE_HASH_CONTRACT = "sha256-binary-chunks-8192"
+
+
+def _serialize_jsonl_row(row: dict[str, Any]) -> str:
+    return json.dumps(row, ensure_ascii=False)
+
+
+def _iter_binary_chunks(path: Path):
+    with path.open("rb") as handle:
+        yield from iter(lambda: handle.read(8192), b"")
+
+
 def load_jsonl(path: Path) -> list[dict[str, Any]]:
     entries: list[dict[str, Any]] = []
     with path.open("r", encoding="utf-8") as handle:
@@ -31,15 +44,14 @@ def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as handle:
         for row in rows:
-            handle.write(json.dumps(row, ensure_ascii=False))
+            handle.write(_serialize_jsonl_row(row))
             handle.write("\n")
 
 
 def file_sha256(path: Path) -> str:
     digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(8192), b""):
-            digest.update(chunk)
+    for chunk in _iter_binary_chunks(path):
+        digest.update(chunk)
     return digest.hexdigest()
 
 

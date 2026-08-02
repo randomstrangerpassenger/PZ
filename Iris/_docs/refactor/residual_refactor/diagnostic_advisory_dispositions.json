@@ -1,0 +1,6 @@
+{
+  "schema_version": "iris-residual-diagnostic-dispositions-v1",
+  "owner": "repository owner pre-approval; exact finding rows populated only from the final raw diagnostic report",
+  "status": "pending_final_raw_report",
+  "dispositions": []
+}

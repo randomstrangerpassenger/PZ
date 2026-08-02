@@ -2748,6 +2748,31 @@
       "required": true,
       "role": "current_route_harness_required_validation",
       "test_id": "test_round3_current_route_applicability.Round3CurrentRouteApplicabilityTest.test_windows_disposable_cleanup_removes_long_path_without_residue"
+    },
+    {
+      "required": true,
+      "role": "iris_residual_refactor_required_validation",
+      "test_id": "test_iris_residual_runtime_acceptance.IrisResidualRuntimeAcceptanceTest.test_runtime_acceptance_harness_passes_all_registered_axes"
+    },
+    {
+      "required": true,
+      "role": "iris_residual_refactor_required_validation",
+      "test_id": "test_iris_residual_contract_surfaces.IrisResidualContractSurfacesTest.test_registered_surfaces_preserve_architecture_and_closeout_contracts"
+    },
+    {
+      "required": true,
+      "role": "iris_residual_refactor_required_validation",
+      "test_id": "test_iris_residual_python_import_matrix.IrisResidualPythonImportMatrixTest.test_direct_module_package_bare_import_and_bytes_match_contract"
+    },
+    {
+      "required": true,
+      "role": "iris_residual_refactor_required_validation",
+      "test_id": "test_iris_residual_diagnostic_disposition.IrisResidualDiagnosticDispositionTest.test_fingerprints_and_raw_exit_dispositions_fail_closed"
+    },
+    {
+      "required": true,
+      "role": "iris_residual_refactor_required_validation",
+      "test_id": "test_iris_residual_evidence_roles.IrisResidualEvidenceRolesTest.test_role_schema_index_and_manual_classes_are_fail_closed"
     }
   ],
   "route": "current",

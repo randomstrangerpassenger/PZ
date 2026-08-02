@@ -33,42 +33,53 @@ end
 ---@param tags_iterable table 태그 배열 또는 iterable
 ---@return table set<string> 형태: { [tag] = true }
 function IrisDescTagParser.collect(tags_iterable)
-    Logger.debug("[TagParser.collect] ========== START ==========")
-    Logger.debug("[TagParser.collect] tags_iterable type = " .. type(tags_iterable))
+    local debugEnabled = Logger.isDebugEnabled()
+    if debugEnabled then
+        Logger.debug("[TagParser.collect] ========== START ==========")
+        Logger.debug("[TagParser.collect] tags_iterable type = " .. type(tags_iterable))
+    end
     
     local result = {}  -- { [tag] = true }
     
     if tags_iterable == nil then
-        Logger.debug("[TagParser.collect] tags_iterable is nil, returning empty set")
-        Logger.debug("[TagParser.collect] ========== END ==========")
+        if debugEnabled then
+            Logger.debug("[TagParser.collect] tags_iterable is nil, returning empty set")
+            Logger.debug("[TagParser.collect] ========== END ==========")
+        end
         return result
     end
     
-    Logger.debug("[TagParser.collect] tags_iterable count = " .. #tags_iterable)
+    if debugEnabled then Logger.debug("[TagParser.collect] tags_iterable count = " .. #tags_iterable) end
     
     for i, tag in ipairs(tags_iterable) do
-        Logger.debug("[TagParser.collect] Processing tag[" .. i .. "] = '" .. tostring(tag) .. "'")
-        Logger.debug("[TagParser.collect]   tag type = " .. type(tag))
+        if debugEnabled then
+            Logger.debug("[TagParser.collect] Processing tag[" .. i .. "] = '" .. tostring(tag) .. "'")
+            Logger.debug("[TagParser.collect]   tag type = " .. type(tag))
+        end
         
         if IrisDescTagParser.isValidSubcategoryId(tag) then
-            Logger.debug("[TagParser.collect]   VALID - adding to result set")
+            if debugEnabled then Logger.debug("[TagParser.collect]   VALID - adding to result set") end
             result[tag] = true
         else
             -- 잘못된 태그: 경고 + 무시 + 계속
-            Logger.debug("[TagParser.collect]   INVALID - skipping (expected format: Category.N-X)")
+            if debugEnabled then
+                Logger.debug("[TagParser.collect]   INVALID - skipping (expected format: Category.N-X)")
+            end
             Logger.warn("invalid subcategory tag: " .. tostring(tag))
         end
     end
     
     -- 결과 집합 출력
-    Logger.debug("[TagParser.collect] Result set contents:")
-    local count = 0
-    for k, v in pairs(result) do
-        count = count + 1
-        Logger.debug("[TagParser.collect]   result['" .. k .. "'] = " .. tostring(v))
+    if debugEnabled then
+        Logger.debug("[TagParser.collect] Result set contents:")
+        local count = 0
+        for k, v in pairs(result) do
+            count = count + 1
+            Logger.debug("[TagParser.collect]   result['" .. k .. "'] = " .. tostring(v))
+        end
+        Logger.debug("[TagParser.collect] Total valid tags = " .. count)
+        Logger.debug("[TagParser.collect] ========== END ==========")
     end
-    Logger.debug("[TagParser.collect] Total valid tags = " .. count)
-    Logger.debug("[TagParser.collect] ========== END ==========")
     
     return result
 end

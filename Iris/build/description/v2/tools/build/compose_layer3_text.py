@@ -257,7 +257,7 @@ def has_test_tmp_segment(path: Path) -> bool:
         external_parts = path.relative_to(external_root).parts
     except ValueError:
         return False
-    return any(part.startswith("_tmp") for part in external_parts)
+    return bool(external_parts)
 
 
 def is_known_current_protected_path(path: Path) -> bool:

@@ -54,7 +54,7 @@ class IrisCoreRefactorCloseoutTest(unittest.TestCase):
             self.assertEqual(manifest["archive_sha256"], report["archive_sha256"])
             import_paths = runner.reproduction_overlay_import_paths(overlay_root)
             self.assertEqual(
-                ["tests", "build", "v2"],
+                ["tests", "build", "tools", "v2"],
                 [Path(path).name for path in import_paths],
             )
             spec = PathFinder.find_spec("test_browser_common_base_contract", import_paths)

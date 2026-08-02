@@ -31,6 +31,31 @@ SANDBOX_BASELINE = (
 MIGRATION_MARKER = re.compile(
     r" DVF_AUTHORITY_ROLE_MIGRATION\[[0-9a-f]{32}\]"
 )
+HISTORICAL_TOOL_SUPPORT_PATHS: tuple[str, ...] = ()
+HISTORICAL_FIXTURE_PATHS = (
+    "Iris/build/description/v2/data/compose_profiles.json",
+    "Iris/build/description/v2/data/interaction_cluster_base_facts.jsonl",
+    "Iris/build/description/v2/data/interaction_cluster_usecase_rules.json",
+    "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_followup_split.json",
+    "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_policy_review/role_fallback_hollow_policy_outcome_projection.json",
+    "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_policy_review/role_fallback_hollow_policy_resolution_packet.json",
+    "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_policy_review/role_fallback_hollow_policy_review_rows.json",
+    "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_post_policy_default_closeout_status.json",
+    "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_residual_after_c1b_reuse.json",
+    "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_residual_tail_handoff.json",
+    "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_residual_tail_source_discovery_round.json",
+    "Iris/build/description/v2/staging/identity_fallback_source_expansion/phase6_subset_rollout/exec_subset_600_wrench_crowbar_b7_b8_b9/subset_distribution_remeasurement.json",
+    "Iris/build/description/v2/staging/identity_fallback_source_expansion/residual_round/residual_round_manifest.json",
+    "Iris/build/description/v2/staging/identity_fallback_source_expansion/residual_round/scope_lock/residual_round_scope_lock.json",
+    "Iris/build/description/v2/staging/source_coverage/block_a/block_a_baseline_summary.json",
+    "Iris/build/description/v2/staging/source_coverage/block_a/uncovered_items_with_classification.json",
+    "Iris/build/description/v2/staging/source_coverage/block_c/b1_consumable_package/b1_consumable_package_summary.json",
+    "Iris/build/description/v2/staging/source_coverage/block_c/role_fallback_hollow_residual_tail_source_discovery_round/c1-f/c1-f_residual_tail_source_discovery_rows.json",
+    "Iris/build/description/v2/staging/source_coverage/block_c/role_fallback_hollow_residual_tail_source_discovery_round/c1-g/c1-g_residual_tail_source_discovery_rows.json",
+    "Iris/build/description/v2/staging/source_coverage/c1_scope/c1_subset_partition.json",
+    "Iris/build/description/v2/staging/source_coverage/post_b/post_b_projection_summary.json",
+    "Iris/build/description/v2/tools/style/rules/structural_rules.json",
+)
 
 
 def sha256(payload: bytes) -> str:
@@ -125,14 +150,16 @@ def main() -> int:
 
     for live_source in sorted(TOOLS_BUILD_ROOT.rglob("*.py")):
         target_relative = live_source.relative_to(REPO).as_posix()
-        if target_relative in tracked:
-            continue
         add_entry(
             entries,
             target_relative=target_relative,
             source=live_source,
             entry_kind="build_support",
-            source_kind="ignored_live_reproduction",
+            source_kind=(
+                "tracked_live_build_support"
+                if target_relative in tracked
+                else "ignored_live_reproduction"
+            ),
         )
 
     for module in (
@@ -156,6 +183,38 @@ def main() -> int:
             entry_kind="build_support",
             source_kind="tracked_sandbox_marker_recovery",
             strip_markers=True,
+        )
+
+    for target_relative in HISTORICAL_TOOL_SUPPORT_PATHS:
+        source = REPO / target_relative
+        if not source.is_file():
+            raise FileNotFoundError(f"historical tool support missing: {target_relative}")
+        add_entry(
+            entries,
+            target_relative=target_relative,
+            source=source,
+            entry_kind="tool_support",
+            source_kind=(
+                "tracked_live_tool_support"
+                if target_relative in tracked
+                else "ignored_live_reproduction"
+            ),
+        )
+
+    for target_relative in HISTORICAL_FIXTURE_PATHS:
+        source = REPO / target_relative
+        if not source.is_file():
+            raise FileNotFoundError(f"historical fixture missing: {target_relative}")
+        add_entry(
+            entries,
+            target_relative=target_relative,
+            source=source,
+            entry_kind="route_fixture",
+            source_kind=(
+                "tracked_live_fixture"
+                if target_relative in tracked
+                else "ignored_live_reproduction"
+            ),
         )
 
     ordered_paths = sorted(entries)
@@ -184,7 +243,11 @@ def main() -> int:
         "archive_sha256": sha256(ARCHIVE.read_bytes()),
         "row_count": len(manifest_rows),
         "route_test_count": len(route_test_paths),
-        "build_support_count": len(manifest_rows) - len(route_test_paths),
+        "build_support_count": sum(
+            row["entry_kind"] == "build_support" for row in manifest_rows
+        ),
+        "tool_support_count": len(HISTORICAL_TOOL_SUPPORT_PATHS),
+        "route_fixture_count": len(HISTORICAL_FIXTURE_PATHS),
         "expected_entry_paths_sha256": sha256(
             "\n".join(ordered_paths).encode("utf-8")
         ),

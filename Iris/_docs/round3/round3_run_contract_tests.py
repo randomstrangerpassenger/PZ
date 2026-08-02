@@ -30,6 +30,7 @@ DEFAULT_REQUIRED_VALIDATIONS = ROUND_DIR / "current_route_required_validations.j
 REQUIRED_VALIDATIONS_PROJECTION_ENV = (
     "IRIS_ROUND3_REQUIRED_VALIDATIONS_PROJECTION"
 )
+CLEAN_CHECKOUT_TEST_OUTPUT_ROOT_ENV = "IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT"
 TOOLS_BUILD_ROOT = V2_ROOT / "tools" / "build"
 HISTORICAL_REPRODUCTION_MANIFEST = (
     REPO
@@ -49,17 +50,19 @@ HISTORICAL_REPRODUCTION_ARCHIVE = (
 )
 PORTABLE_REPOSITORY_PATH = re.compile(r"^[A-Za-z0-9._/-]+$")
 LOWERCASE_SHA256 = re.compile(r"^[0-9a-f]{64}$")
-PINNED_REPRODUCTION_ROW_COUNT = 425
+PINNED_REPRODUCTION_ROW_COUNT = 696
 PINNED_REPRODUCTION_ROUTE_TEST_COUNT = 176
-PINNED_REPRODUCTION_BUILD_SUPPORT_COUNT = 249
+PINNED_REPRODUCTION_BUILD_SUPPORT_COUNT = 498
+PINNED_REPRODUCTION_TOOL_SUPPORT_COUNT = 0
+PINNED_REPRODUCTION_ROUTE_FIXTURE_COUNT = 22
 PINNED_REPRODUCTION_ENTRY_PATHS_SHA256 = (
-    "1d6749223f952c95804533d5dea8ac525335826b5a827cdedfacfdcccfd91ad6"
+    "cf07ca6ae76f9326d20257e673659a853c81f3eeffe76047a8e7af71d65d85a9"
 )
 PINNED_REPRODUCTION_ROUTE_TEST_PATHS_SHA256 = (
     "41abe271251c8d2161947f25c271f147c25240389c4a1266a77f0c1b6447cef2"
 )
 PINNED_REPRODUCTION_ARCHIVE_SHA256 = (
-    "9b6c7ce973f3aecd93861f73f6f276e6dfeb86bc2a8e5f53dcd11e347fad7b18"
+    "acf8826f6d1913770563b617dcc92b282d5b4f021c385db81975c23fbd6f5cd3"
 )
 
 
@@ -590,6 +593,7 @@ def reproduction_overlay_import_paths(overlay_root: Path) -> list[str]:
     return [
         str(overlay_v2 / "tests"),
         str(overlay_v2 / "tools" / "build"),
+        str(overlay_v2 / "tools"),
         str(overlay_v2),
     ]
 
@@ -612,6 +616,9 @@ def materialize_historical_reproduction_overlay(
 
     paths = []
     route_test_paths = []
+    build_support_paths = []
+    tool_support_paths = []
+    route_fixture_paths = []
     row_by_path = {}
     for row in rows:
         if not isinstance(row, dict):
@@ -622,14 +629,35 @@ def materialize_historical_reproduction_overlay(
             raise ValueError(f"reproduction corpus path is outside v2: {path_text}")
         if path_text in row_by_path:
             raise ValueError(f"duplicate reproduction corpus path: {path_text}")
-        if row.get("entry_kind") not in {"route_test", "build_support"}:
+        if row.get("entry_kind") not in {
+            "route_test",
+            "build_support",
+            "tool_support",
+            "route_fixture",
+        }:
             raise ValueError(f"invalid reproduction corpus entry kind: {path_text}")
         if row["entry_kind"] == "route_test":
             if not path_text.startswith("Iris/build/description/v2/tests/test_"):
                 raise ValueError(f"invalid reproduction route-test path: {path_text}")
             route_test_paths.append(path_text)
-        elif not path_text.startswith("Iris/build/description/v2/tools/build/"):
-            raise ValueError(f"invalid reproduction build-support path: {path_text}")
+        elif row["entry_kind"] == "build_support":
+            if not path_text.startswith("Iris/build/description/v2/tools/build/"):
+                raise ValueError(f"invalid reproduction build-support path: {path_text}")
+            build_support_paths.append(path_text)
+        elif row["entry_kind"] == "tool_support":
+            if not path_text.startswith("Iris/build/description/v2/tools/"):
+                raise ValueError(f"invalid reproduction tool-support path: {path_text}")
+            tool_support_paths.append(path_text)
+        else:
+            if not path_text.startswith(
+                (
+                    "Iris/build/description/v2/data/",
+                    "Iris/build/description/v2/staging/",
+                    "Iris/build/description/v2/tools/style/",
+                )
+            ):
+                raise ValueError(f"invalid reproduction fixture path: {path_text}")
+            route_fixture_paths.append(path_text)
         if not isinstance(row.get("sha256"), str) or not LOWERCASE_SHA256.fullmatch(
             row["sha256"]
         ):
@@ -654,12 +682,20 @@ def materialize_historical_reproduction_overlay(
         raise ValueError("historical reproduction pinned route-test hash mismatch")
     if manifest.get("route_test_count") != len(route_test_paths):
         raise ValueError("historical reproduction route-test count mismatch")
-    if manifest.get("build_support_count") != len(paths) - len(route_test_paths):
+    if manifest.get("build_support_count") != len(build_support_paths):
         raise ValueError("historical reproduction build-support count mismatch")
+    if manifest.get("tool_support_count") != len(tool_support_paths):
+        raise ValueError("historical reproduction tool-support count mismatch")
+    if manifest.get("route_fixture_count") != len(route_fixture_paths):
+        raise ValueError("historical reproduction route-fixture count mismatch")
     if len(route_test_paths) != PINNED_REPRODUCTION_ROUTE_TEST_COUNT:
         raise ValueError("historical reproduction pinned route-test count mismatch")
-    if len(paths) - len(route_test_paths) != PINNED_REPRODUCTION_BUILD_SUPPORT_COUNT:
+    if len(build_support_paths) != PINNED_REPRODUCTION_BUILD_SUPPORT_COUNT:
         raise ValueError("historical reproduction pinned build-support count mismatch")
+    if len(tool_support_paths) != PINNED_REPRODUCTION_TOOL_SUPPORT_COUNT:
+        raise ValueError("historical reproduction pinned tool-support count mismatch")
+    if len(route_fixture_paths) != PINNED_REPRODUCTION_ROUTE_FIXTURE_COUNT:
+        raise ValueError("historical reproduction pinned route-fixture count mismatch")
 
     archive_relative = canonical_repository_relative_path(manifest.get("archive_path"))
     if archive_relative.as_posix() != HISTORICAL_REPRODUCTION_ARCHIVE.relative_to(
@@ -704,7 +740,9 @@ def materialize_historical_reproduction_overlay(
         "archive_sha256": archive_sha256,
         "row_count": materialized_count,
         "route_test_count": len(route_test_paths),
-        "build_support_count": materialized_count - len(route_test_paths),
+        "build_support_count": len(build_support_paths),
+        "tool_support_count": len(tool_support_paths),
+        "route_fixture_count": len(route_fixture_paths),
         "entry_paths_sha256": path_identity,
     }
 
@@ -810,8 +848,16 @@ def main() -> int:
     historical_overlay_paths: list[str] = []
     historical_reproduction = {"status": "not_applicable", "row_count": 0}
     if args.contract_class in {"historical", "diagnostic", "all"}:
+        public_root = os.environ.get("PUBLIC")
+        overlay_parent = (
+            Path(public_root).resolve() / "IrisTest"
+            if public_root
+            else Path(tempfile.gettempdir()).resolve()
+        )
+        overlay_parent.mkdir(parents=True, exist_ok=True)
         historical_overlay_temp = tempfile.TemporaryDirectory(
-            prefix="iris_historical_reproduction_"
+            prefix="historical-overlay-",
+            dir=overlay_parent,
         )
         overlay_root = Path(historical_overlay_temp.name)
         try:
@@ -845,10 +891,15 @@ def main() -> int:
     previous_projection = os.environ.get(
         REQUIRED_VALIDATIONS_PROJECTION_ENV
     )
+    previous_test_output_root = os.environ.get(
+        CLEAN_CHECKOUT_TEST_OUTPUT_ROOT_ENV
+    )
     if args.contract_class == "current":
         os.environ[REQUIRED_VALIDATIONS_PROJECTION_ENV] = str(
             Path(args.required_validations).resolve()
         )
+    if historical_overlay_temp is not None:
+        os.environ[CLEAN_CHECKOUT_TEST_OUTPUT_ROOT_ENV] = str(overlay_root)
     try:
         result, elapsed = run_suite(test_ids, args.verbosity)
     finally:
@@ -857,6 +908,12 @@ def main() -> int:
         else:
             os.environ[REQUIRED_VALIDATIONS_PROJECTION_ENV] = (
                 previous_projection
+            )
+        if previous_test_output_root is None:
+            os.environ.pop(CLEAN_CHECKOUT_TEST_OUTPUT_ROOT_ENV, None)
+        else:
+            os.environ[CLEAN_CHECKOUT_TEST_OUTPUT_ROOT_ENV] = (
+                previous_test_output_root
             )
         for overlay_path in historical_overlay_paths:
             if overlay_path in sys.path:

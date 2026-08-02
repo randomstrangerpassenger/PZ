@@ -1,15 +1,26 @@
 {
     "schema_version":  1,
     "evidence_path":  "Iris/_docs/refactor/core_refactor/phase3_browser_acceptance.jsonl",
-    "evidence_sha256":  "e2ee203d0b37e30fa7e0a4ac93ebe0eb624c5be6ff5bd1c477049b7a81b1182c",
+    "evidence_sha256":  "dd05f293824d613b0fcc3d328066271339e8e0a19058a96472e5189d84e3c945",
     "evidence_schema_version":  1,
     "row_count":  7,
-    "subject_commit":  "5f02f1d591e84f1b99cb7d085c85e41ba06999af",
-    "subject_tree":  "f6532c3410d8878d9a891466bc40b7a94321fc58",
-    "subject_worktree_patch_sha256_or_null":  "ab2caec77942a0222fc3c310b5d8b6d13e5b7c0b6152bf7b4c14acbe4655e6ed",
-    "producer_base_commit":  "5f02f1d591e84f1b99cb7d085c85e41ba06999af",
-    "producer_base_tree":  "f6532c3410d8878d9a891466bc40b7a94321fc58",
-    "producer_overlay_sha256_or_null":  "2210d8b18fc7b31d27a426de593544811ad8c594caf56ff39dfb401bf2542d60",
+    "subject_commit":  "60a919f016c8cee2eb2af7c76c243f399d341c14",
+    "subject_tree":  "f7ea8868937de9426e1a8274f022a7bb6a9623a5",
+    "subject_worktree_patch_sha256_or_null":  null,
+    "producer_base_commit":  "60a919f016c8cee2eb2af7c76c243f399d341c14",
+    "producer_base_tree":  "f7ea8868937de9426e1a8274f022a7bb6a9623a5",
+    "producer_worktree_state":  "clean",
+    "producer_input_scope":  [
+                                 "Iris/media/lua/client/Iris",
+                                 "Iris/_dev/media/lua/client/Iris",
+                                 "Iris/test/run_pz_core_refactor_harness.ps1",
+                                 "Iris/_docs/refactor/core_refactor/phase1_behavior_evidence.schema.json",
+                                 "Iris/_docs/refactor/core_refactor/phase1_evidence_binding.schema.json"
+                             ],
+    "producer_overlay_rows":  [
+
+                              ],
+    "producer_overlay_sha256_or_null":  null,
     "time_axis":  "post_refactor_acceptance",
     "execution_environment":  "project_zomboid_b41_41_78_20"
 }

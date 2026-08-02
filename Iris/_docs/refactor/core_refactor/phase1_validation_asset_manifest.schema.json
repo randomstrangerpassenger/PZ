@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "iris-core-refactor-validation-asset-manifest-v1",
   "type": "object",
-  "required": ["schema_version","generation","previous_manifest_sha256_or_null","expected_required_count","expected_required_asset_ids","expected_required_asset_ids_sha256","sealed","assets"],
+  "required": ["schema_version","generation","previous_manifest_sha256_or_null","expected_required_count","expected_required_asset_ids","expected_required_asset_ids_sha256","reserved_future_count","sealed","assets"],
   "properties": {
     "schema_version": {"const": 1},
     "generation": {"type":"integer","minimum":1},
@@ -10,6 +10,7 @@
     "expected_required_count": {"type":"integer","minimum":1},
     "expected_required_asset_ids": {"type":"array","minItems":1,"uniqueItems":true,"items":{"type":"string","pattern":"^[a-z0-9._-]+$"}},
     "expected_required_asset_ids_sha256": {"type":"string","pattern":"^[0-9a-f]{64}$"},
+    "reserved_future_count": {"type":"integer","minimum":0},
     "sealed": {"type":"boolean"},
     "assets": {
       "type":"array","minItems":1,
@@ -33,4 +34,3 @@
   },
   "additionalProperties": false
 }
-

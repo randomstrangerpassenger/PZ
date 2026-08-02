@@ -32,6 +32,41 @@ function Get-Sha256File([string]$Path) {
     return (Get-FileHash -Algorithm SHA256 -LiteralPath $Path).Hash.ToLowerInvariant()
 }
 
+function Get-ProtectedSnapshot([string]$Root, [switch]$TrackedOnly) {
+    $snapshotRoot = if ($Root) { $Root } else { $script:ValidatedRepositoryRoot }
+    $manifestPath = Join-Path $snapshotRoot 'Iris/_docs/refactor/core_refactor/phase0_protected_surface_manifest.json'
+    $protectedManifest = [System.IO.File]::ReadAllText($manifestPath) | ConvertFrom-Json
+    $approvedExpected = @{}
+    $approvalReportPath = Join-Path $snapshotRoot 'Iris/_docs/refactor/core_refactor/protected_surface_no_mutation_report.json'
+    if (Test-Path -LiteralPath $approvalReportPath -PathType Leaf) {
+        $approvalReport = [System.IO.File]::ReadAllText($approvalReportPath) | ConvertFrom-Json
+        foreach ($approved in @($approvalReport.approved_changes)) {
+            $approvedRow = @($approvalReport.rows | Where-Object { $_.path -ceq $approved.path })
+            if ($approvedRow.Count -ne 1 -or -not [bool]$approvedRow[0].approved_change) { throw "invalid protected approval row: $($approved.path)" }
+            $approvedExpected[[string]$approved.path] = [string]$approvedRow[0].after_sha256
+        }
+    }
+    $rows = @()
+    $changed = 0
+    $approvedChanged = 0
+    foreach ($row in @($protectedManifest.rows)) {
+        if ($TrackedOnly -and -not [bool]$row.tracked) { continue }
+        $full = Join-Path $snapshotRoot ([string]$row.path)
+        if (-not (Test-Path -LiteralPath $full -PathType Leaf)) { throw "protected surface missing: $($row.path)" }
+        $actual = Get-Sha256File $full
+        $expected = [string]$row.sha256
+        if ($approvedExpected.ContainsKey([string]$row.path)) {
+            $expected = $approvedExpected[[string]$row.path]
+            $approvedChanged += 1
+        }
+        if ($actual -ne $expected) { $changed += 1 }
+        $rows += "$($row.path)`t$actual"
+    }
+    [System.Array]::Sort($rows, [System.StringComparer]::Ordinal)
+    $canonical = ($rows -join "`n") + $(if ($rows.Count -gt 0) { "`n" } else { '' })
+    return [pscustomobject]@{ RowCount=$rows.Count; ChangedCount=$changed; ApprovedChangedCount=$approvedChanged; Sha256=Get-Sha256Bytes $Utf8NoBom.GetBytes($canonical) }
+}
+
 function Invoke-GitText([string[]]$Arguments, [switch]$AllowFailure) {
     $output = @(& git -C $script:ValidatedRepositoryRoot @Arguments 2>&1)
     $exitCode = $LASTEXITCODE
@@ -62,6 +97,8 @@ function Test-ManifestContent([string]$ManifestContent, [string]$SourceLabel) {
     if ((-not ($assetManifest.generation -is [int])) -and (-not ($assetManifest.generation -is [long]))) { throw 'generation must be an integer' }
     if ([long]$assetManifest.generation -lt 1) { throw 'generation must be positive' }
     if (-not ($assetManifest.sealed -is [bool])) { throw 'sealed must be boolean' }
+    if ((-not ($assetManifest.reserved_future_count -is [int])) -and (-not ($assetManifest.reserved_future_count -is [long]))) { throw 'reserved_future_count must be an integer' }
+    if ([long]$assetManifest.reserved_future_count -lt 0) { throw 'reserved_future_count must be non-negative' }
     if (-not ($assetManifest.assets -is [System.Array])) { throw "asset manifest missing 'assets' array" }
     $assets = @($assetManifest.assets)
     if ($assets.Count -eq 0) { throw 'asset manifest assets must be non-empty' }
@@ -105,6 +142,7 @@ function Test-ManifestContent([string]$ManifestContent, [string]$SourceLabel) {
     [System.Array]::Sort($actualRequiredIds, [System.StringComparer]::Ordinal)
     if ($requiredAssets.Count -ne $expectedRequiredCount -or $expectedRequiredIds.Count -ne $expectedRequiredCount -or ($actualRequiredIds -join "`0") -cne ($expectedRequiredIds -join "`0")) { throw 'required asset denominator mismatch' }
     $reservedFutureAssets = @($assets | Where-Object lifecycle_state -eq 'reserved_future')
+    if ($reservedFutureAssets.Count -ne [long]$assetManifest.reserved_future_count) { throw 'reserved future count mismatch' }
     if ($assetManifest.sealed -and $reservedFutureAssets.Count -ne 0) { throw 'sealed manifest contains reserved future asset' }
     if ($assetManifest.sealed -and @($requiredAssets | Where-Object lifecycle_state -ne 'sealed').Count -ne 0) { throw 'sealed manifest contains unsealed required asset' }
     if (-not $assetManifest.sealed -and @($requiredAssets | Where-Object lifecycle_state -eq 'sealed').Count -ne 0) { throw 'unsealed manifest contains sealed required asset' }
@@ -177,10 +215,17 @@ if ($Mode -eq 'CleanCheckout' -and -not $InternalMaterialized) {
     if (-not $TargetCommit) { throw 'TargetCommit is required for CleanCheckout' }
     $validatedWorkRoot = Assert-ExternalRoot $WorkRoot 'WorkRoot'
     $validatedResultRoot = Assert-ExternalRoot $ResultRoot 'ResultRoot'
-    if ($validatedWorkRoot.Equals($validatedResultRoot, [System.StringComparison]::OrdinalIgnoreCase)) { throw 'WorkRoot and ResultRoot must be disjoint' }
+    $workPrefix = $validatedWorkRoot.TrimEnd('\','/') + [System.IO.Path]::DirectorySeparatorChar
+    $resultPrefix = $validatedResultRoot.TrimEnd('\','/') + [System.IO.Path]::DirectorySeparatorChar
+    if ($validatedWorkRoot.Equals($validatedResultRoot, [System.StringComparison]::OrdinalIgnoreCase) -or
+        $validatedWorkRoot.StartsWith($resultPrefix, [System.StringComparison]::OrdinalIgnoreCase) -or
+        $validatedResultRoot.StartsWith($workPrefix, [System.StringComparison]::OrdinalIgnoreCase)) {
+        throw 'WorkRoot and ResultRoot must be disjoint and non-containing'
+    }
     if (Test-Path -LiteralPath $validatedWorkRoot) { throw 'WorkRoot must not exist' }
     if (Test-Path -LiteralPath $validatedResultRoot) { throw 'ResultRoot must not exist' }
     $sourceStatusBefore = (Invoke-GitText @('status','--porcelain=v1','-uall')).Text
+    $sourceProtectedBefore = Get-ProtectedSnapshot
     New-Item -ItemType Directory -Path $validatedResultRoot | Out-Null
     $stdoutPath = Join-Path $validatedResultRoot 'stdout.txt'
     $stderrPath = Join-Path $validatedResultRoot 'stderr.txt'
@@ -193,21 +238,50 @@ if ($Mode -eq 'CleanCheckout' -and -not $InternalMaterialized) {
         $committedValidator = Join-Path $validatedWorkRoot $ValidatorRelativePath
         & powershell -NoProfile -ExecutionPolicy Bypass -File $committedValidator -Mode CleanCheckout -RepositoryRoot $validatedWorkRoot -TargetCommit $TargetCommit -InternalMaterialized 1>>$stdoutPath 2>>$stderrPath
         if ($LASTEXITCODE -ne 0) { throw 'committed clean-checkout validator failed' }
+        $validatedManifestPath = Join-Path $validatedWorkRoot $ManifestRelativePath
+        $validatedManifest = [System.IO.File]::ReadAllText($validatedManifestPath) | ConvertFrom-Json
+        $validatedManifestSha = Get-Sha256File $validatedManifestPath
+        $validatedValidatorSha = Get-Sha256File $committedValidator
+        $checkoutProtected = Get-ProtectedSnapshot -Root $validatedWorkRoot -TrackedOnly
     }
     finally {
         if (Test-Path -LiteralPath $validatedWorkRoot) { Remove-Item -LiteralPath $validatedWorkRoot -Recurse -Force -ErrorAction SilentlyContinue }
         $cleanup = -not (Test-Path -LiteralPath $validatedWorkRoot)
     }
     $sourceStatusAfter = (Invoke-GitText @('status','--porcelain=v1','-uall')).Text
+    $sourceProtectedAfter = Get-ProtectedSnapshot
     if ($sourceStatusBefore -cne $sourceStatusAfter) { throw 'source worktree changed during CleanCheckout validation' }
+    if ($sourceProtectedBefore.Sha256 -ne $sourceProtectedAfter.Sha256 -or $sourceProtectedAfter.ChangedCount -ne 0) { throw 'source protected surface changed during CleanCheckout validation' }
     if (-not $cleanup) { throw 'disposable checkout cleanup failed' }
     $identity = Invoke-GitText @('show','-s','--format=%H:%T',$TargetCommit)
     $manifestBlob = (Invoke-GitText @('rev-parse',"$TargetCommit`:$ManifestRelativePath")).Text.Trim()
     $validatorBlob = (Invoke-GitText @('rev-parse',"$TargetCommit`:$ValidatorRelativePath")).Text.Trim()
-    $receipt = [ordered]@{schema_version=1;mode='CleanCheckout';target_identity=$identity.Text.Trim();manifest_blob=$manifestBlob;validator_blob=$validatorBlob;source_status_sha256=Get-Sha256Bytes $Utf8NoBom.GetBytes($sourceStatusBefore);checkout_cleanup=$cleanup;work_root=$validatedWorkRoot;result_root=$validatedResultRoot}
+    $receipt = [ordered]@{
+        schema_version=1;mode='CleanCheckout';target_identity=$identity.Text.Trim()
+        manifest_blob=$manifestBlob;validator_blob=$validatorBlob
+        manifest_sha256=$validatedManifestSha;validator_sha256=$validatedValidatorSha
+        required_count=[long]$validatedManifest.expected_required_count
+        required_asset_ids_sha256=[string]$validatedManifest.expected_required_asset_ids_sha256
+        reserved_future_count=[long]$validatedManifest.reserved_future_count;manifest_sealed=[bool]$validatedManifest.sealed
+        validation_commands=@(
+            'round3 current --enforce-current-build-closure',
+            'round3 historical',
+            'round3 diagnostic',
+            'unittest discover test_*.py'
+        )
+        validation_commands_status='pass'
+        checkout_protected_row_count=$checkoutProtected.RowCount;checkout_protected_sha256=$checkoutProtected.Sha256;checkout_protected_changed_count=$checkoutProtected.ChangedCount;checkout_protected_approved_changed_count=$checkoutProtected.ApprovedChangedCount
+        source_status_sha256_before=Get-Sha256Bytes $Utf8NoBom.GetBytes($sourceStatusBefore)
+        source_status_sha256_after=Get-Sha256Bytes $Utf8NoBom.GetBytes($sourceStatusAfter)
+        source_status_equal=($sourceStatusBefore -ceq $sourceStatusAfter)
+        source_protected_row_count=$sourceProtectedAfter.RowCount;source_protected_approved_changed_count=$sourceProtectedAfter.ApprovedChangedCount
+        source_protected_sha256_before=$sourceProtectedBefore.Sha256;source_protected_sha256_after=$sourceProtectedAfter.Sha256
+        source_protected_equal=($sourceProtectedBefore.Sha256 -eq $sourceProtectedAfter.Sha256)
+        checkout_cleanup=$cleanup;work_root=$validatedWorkRoot;result_root=$validatedResultRoot
+    }
     $receiptPath = Join-Path $validatedResultRoot 'receipt.json'
     [System.IO.File]::WriteAllText($receiptPath, (($receipt | ConvertTo-Json -Depth 10) + "`n"), $Utf8NoBom)
-    $canonical = [ordered]@{status='pass';mode='CleanCheckout';target_commit=$TargetCommit;receipt_sha256=Get-Sha256File $receiptPath;stdout_sha256=Get-Sha256File $stdoutPath;stderr_sha256=Get-Sha256File $stderrPath}
+    $canonical = [ordered]@{status='pass';mode='CleanCheckout';target_commit=$TargetCommit;manifest_sha256=$validatedManifestSha;validator_sha256=$validatedValidatorSha;receipt_sha256=Get-Sha256File $receiptPath;stdout_sha256=Get-Sha256File $stdoutPath;stderr_sha256=Get-Sha256File $stderrPath}
     [System.IO.File]::WriteAllText((Join-Path $validatedResultRoot 'canonical-result.json'), (($canonical | ConvertTo-Json -Compress) + "`n"), $Utf8NoBom)
     Write-Output "validation assets PASS: mode=CleanCheckout result_root=$validatedResultRoot"
     exit 0
@@ -242,8 +316,24 @@ if ($Mode -eq 'CleanCheckout') {
     if (-not [string]::IsNullOrWhiteSpace((Invoke-GitText @('status','--porcelain=v1','-uall')).Text)) { throw 'materialized checkout is dirty' }
     $manifestFull = Join-Path $ValidatedRepositoryRoot $ManifestRelativePath
     $manifest = Test-ManifestContent ([System.IO.File]::ReadAllText($manifestFull)) "commit:$resolvedTarget`:$ManifestRelativePath"
+    if (-not $manifest.sealed) { throw 'CleanCheckout requires a sealed final manifest' }
     Assert-RequiredFiles $manifest 'checkout'
-    Write-Output "validation assets PASS: mode=CleanCheckout(materialized) required=$($manifest.expected_required_count) generation=$($manifest.generation)"
+    $protected = Get-ProtectedSnapshot -TrackedOnly
+    if ($protected.ChangedCount -ne 0) { throw 'tracked protected surface drift in materialized checkout' }
+    $python = (Get-Command python -ErrorAction Stop).Source
+    Push-Location $ValidatedRepositoryRoot
+    try {
+        & $python -B 'Iris/_docs/round3/round3_run_contract_tests.py' --class current --enforce-current-build-closure
+        if ($LASTEXITCODE -ne 0) { throw 'clean-checkout current route failed' }
+        & $python -B 'Iris/_docs/round3/round3_run_contract_tests.py' --class historical
+        if ($LASTEXITCODE -ne 0) { throw 'clean-checkout historical route failed' }
+        & $python -B 'Iris/_docs/round3/round3_run_contract_tests.py' --class diagnostic
+        if ($LASTEXITCODE -ne 0) { throw 'clean-checkout diagnostic route failed' }
+        & $python -B -m unittest discover -s 'Iris/build/description/v2/tests' -p 'test_*.py'
+        if ($LASTEXITCODE -ne 0) { throw 'clean-checkout full v2 Python discovery failed' }
+    }
+    finally { Pop-Location }
+    Write-Output "validation assets PASS: mode=CleanCheckout(materialized) required=$($manifest.expected_required_count) generation=$($manifest.generation) protected=$($protected.RowCount)"
     exit 0
 }
 

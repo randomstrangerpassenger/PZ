@@ -1,9 +1,15 @@
 {
   "schema_version":1,
-  "generation":6,
-  "previous_ceiling_sha256_or_null":"2455e094b58947a0cb6d3de536faabc054d209e11d926f20e50781dcc6f5e275",
-  "manifest_generation":6,
-  "last_updated_by_change":7,
+  "generation":7,
+  "previous_ceiling_sha256_or_null":"6f747a9fefd53447c01dd95f28f8531b27e67c61205308003f7682799b00db30",
+  "manifest_generation":7,
+  "manifest_sha256":"05a0015147458e805a04f981981532267df95509fdb3ee2a77b9edb3a096efe4",
+  "manifest_reserved_future_count":0,
+  "last_updated_by_change":9,
+  "sealed":false,
+  "sealed_by_change":null,
+  "closeout_state":"blocked",
+  "reason_codes":["blocked_current_route_validation_failed","blocked_historical_route_validation_failed","blocked_full_v2_discovery_failed"],
   "time_axis":"pre_refactor_characterization",
   "subject_commit":"72e76b367622f64af264f445889ea1832c87008a",
   "subject_tree":"9c98dad4623cea9242a41b77f0e378a87e56559f",
@@ -21,15 +27,27 @@
     {"axis":"legacy_surface","owner_change":6,"status":"validated","evidence_roles":["auxiliary_standalone","runtime_behavior"],"case_count":2,"remaining_ceiling":null}
   ],
   "post_refactor_acceptance":{
-    "description":{"path":"Iris/_docs/refactor/core_refactor/phase2_description_acceptance.jsonl","sha256":"620d3ad065e9ca22a80ca67d18ae3451229ba1156893a1082f9d4aa03649b307","binding_sha256":"c54c1be0d5d24256f1e9e7578226a489f7e43cb876c5b33f04fcd0026ee57883","case_count":4,"status":"validated"},
-    "browser":{"path":"Iris/_docs/refactor/core_refactor/phase3_browser_acceptance.jsonl","sha256":"e2ee203d0b37e30fa7e0a4ac93ebe0eb624c5be6ff5bd1c477049b7a81b1182c","binding_sha256":"fec180de3a155cf4c6588f7cb55fae676f85842f7392913c8bc1a8e307836621","case_count":7,"status":"validated"},
-    "detail":{"path":"Iris/_docs/refactor/core_refactor/phase4_detail_acceptance.jsonl","sha256":"7bb344493e6e3bc442c8774c8e0fc1c6e74461dc8613fc2da993fc211c416459","binding_sha256":"5547b18a259c0d61ded302e085d01f89022ac44b495bf9a53a9c64b590f3da22","case_count":4,"status":"validated"},
-    "legacy":{"path":"Iris/_docs/refactor/core_refactor/phase5_legacy_surface_acceptance.jsonl","sha256":"938cebc319ee34cbb7270a772f4a3d4d1daa7ee0bf39300a74344ff6e1f6e4cc","binding_sha256":"6ff3216c3d0deadc98545b9abff45f0221ea056a7cf5cb48d6fa3b6c8dc78fff","case_count":3,"status":"validated"}
+    "description":{"path":"Iris/_docs/refactor/core_refactor/phase2_description_acceptance.jsonl","sha256":"c79a1200726740beefe1dd30488249045731e23a4b29b58d52e1a7bdde5013af","binding_sha256":"01025ac4f9200fe8b43079413d2909ecd23529deef7f0f63abe8871601f441df","case_count":4,"status":"validated","subject_commit":"60a919f016c8cee2eb2af7c76c243f399d341c14"},
+    "browser":{"path":"Iris/_docs/refactor/core_refactor/phase3_browser_acceptance.jsonl","sha256":"dd05f293824d613b0fcc3d328066271339e8e0a19058a96472e5189d84e3c945","binding_sha256":"f670b8487cdaacbf3d4c790a5b156c7fb17f681434e5f452399421b4a43c2ecf","case_count":7,"status":"validated","subject_commit":"60a919f016c8cee2eb2af7c76c243f399d341c14"},
+    "detail":{"path":"Iris/_docs/refactor/core_refactor/phase4_detail_acceptance.jsonl","sha256":"3a9f2c1326b146c828bc85125af01b863f2723d7f9060102afaf5b21a9b3bb45","binding_sha256":"58cec990f2fa659bbb5e1f82dfca3e943bd41f382f349b5a488038c92d144db8","case_count":4,"status":"validated","subject_commit":"60a919f016c8cee2eb2af7c76c243f399d341c14"},
+    "legacy":{"path":"Iris/_docs/refactor/core_refactor/phase5_legacy_surface_acceptance.jsonl","sha256":"a3c7f8c7fb433f7dc8a01a47c83e2c56d00132b753cc71db15fdb67956d50fdb","binding_sha256":"d71934ba9c84836ab298fff480873a89f8ff7bbbd47e6b10363e05fadd180c4b","case_count":3,"status":"validated","subject_commit":"60a919f016c8cee2eb2af7c76c243f399d341c14"}
   },
   "dispositions":{
     "change7_build_tool_decomposition":{"status":"deferred_by_design","current_core_count":12,"allowed_tooling_count":4,"max_allowed_tooling":4,"remaining_slots":0,"report":"Iris/_docs/refactor/core_refactor/phase6_build_tool_disposition.md"},
     "change8_repository_cleanup":{"status":"no_op","delete_candidate_count":0,"material_paths_deleted":0,"report":"Iris/_docs/refactor/core_refactor/phase7_disposition_report.md"}
   },
-  "mandatory_unvalidated_axis_count":0,
+  "implementation_changesets":{
+    "change1":"c096d8d6",
+    "change2":"02b1e51c",
+    "change3":"5f02f1d5",
+    "change4":"31647996",
+    "change5":"24576a27",
+    "change6":"2a9771d9",
+    "change7_and_change8":"583c03fd",
+    "reviewer_remediation":"60a919f0"
+  },
+  "staged_changeset_gate":{"source_label":"index:Iris/_docs/refactor/core_refactor/phase1_validation_asset_manifest.json","validator_sha256":"ac5eb138c8754b22c4fa422727feec15cb1ad27cef462fe3fad6f6574f431301","status":"validated","required_asset_count":72,"manifest_generation":7,"manifest_sealed":false},
+  "clean_checkout_gate":{"status":"not_run_blocked_by_unsealed_manifest_and_mandatory_failures","terminal_binding_path":"Iris/_docs/refactor/core_refactor/final_evidence_binding_report.json"},
+  "mandatory_unvalidated_axis_count":3,
   "non_claims":["No B42 behavior claim","No multiplayer or soak claim","No unknown external-mod compatibility claim"]
 }

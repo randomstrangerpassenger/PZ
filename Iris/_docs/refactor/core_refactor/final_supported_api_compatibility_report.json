@@ -1,0 +1,32 @@
+{
+  "schema_version":1,
+  "axis_status":"validated",
+  "claim_boundary":"listed_surfaces_only",
+  "baseline_manifest":"Iris/_docs/refactor/core_refactor/phase0_supported_api_manifest.json",
+  "baseline_manifest_sha256":"8ac355b306d2dbc6dae76e6a6bee267b3ddd3ffe1faf60e1588f4855a4d0dd79",
+  "surface_count":20,
+  "incompatible_count":0,
+  "surfaces":[
+    {"symbol":"IrisAPI.Tags","status":"compatible","evidence":"facade namespace preserved"},
+    {"symbol":"IrisAPI.getTagsForItem","status":"compatible","evidence":"signature preserved"},
+    {"symbol":"IrisAPI.getTags","status":"compatible","evidence":"signature preserved"},
+    {"symbol":"IrisAPI.getDescriptionBlocks","status":"compatible","evidence":"signature preserved"},
+    {"symbol":"IrisAPI.getDescription","status":"compatible","evidence":"signature preserved; delegates to block path"},
+    {"symbol":"IrisAPI.getDescriptionForItem","status":"compatible","evidence":"signature preserved"},
+    {"symbol":"IrisAPI.getUseCaseLines","status":"compatible","evidence":"signature preserved"},
+    {"symbol":"IrisAPI.getOutcomes","status":"compatible","evidence":"signature preserved"},
+    {"symbol":"IrisAPI.getCapabilities","status":"compatible","evidence":"signature preserved"},
+    {"symbol":"IrisAPI.hasCapability","status":"compatible","evidence":"signature preserved"},
+    {"symbol":"Description","status":"compatible","evidence":"module path preserved"},
+    {"symbol":"UseCases","status":"compatible","evidence":"module path preserved"},
+    {"symbol":"IrisBrowserData.getGroupVariants","status":"compatible","evidence":"facade preserved over VariantIndex adapter"},
+    {"symbol":"IrisBrowserData.build","status":"compatible","evidence":"startup facade preserved"},
+    {"symbol":"IrisWikiSections","status":"compatible","evidence":"render wrappers preserved"},
+    {"symbol":"IrisWikiPanel.openForItem","status":"compatible","evidence":"UI facade preserved"},
+    {"symbol":"IrisBrowser.openSearch","status":"compatible","evidence":"UI facade preserved"},
+    {"symbol":"IrisBrowser.openForItem","status":"compatible","evidence":"UI facade preserved"},
+    {"symbol":"IrisData","status":"compatible","evidence":"legacy global isolated behind StaticData compatibility loader"},
+    {"symbol":"IrisPrimarySubcategory","status":"compatible","evidence":"compatibility global consumed by VariantIndex"}
+  ],
+  "non_claim":"surfaces absent from the Phase 0 manifest are not guaranteed"
+}

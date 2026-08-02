@@ -41,65 +41,65 @@
   "applicability_overrides": {
     "schema_version": "round3-current-route-applicability-v1",
     "current_authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
-    "current_authority_sha256": "109dcd4fe1d3ba76059dcdced26da1ff307028cd51081832d7232de2b8693a02",
+    "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051",
     "historical_optional_evidence": {
       "tests": [
         {
           "test_id": "test_dvf_3_3_registry_runtime_compatibility_current.RegistryRuntimeCompatibilityCurrentRouteTest.test_required_gate_runs_standalone_subprocess",
           "authority_basis_path": "Iris/_docs/round3/registry_runtime_compatibility/",
-          "current_authority_sha256": "109dcd4fe1d3ba76059dcdced26da1ff307028cd51081832d7232de2b8693a02"
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
         },
         {
           "test_id": "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.test_current_source_identity_redrive_and_drift_field_check_pass",
           "authority_basis_path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/",
-          "current_authority_sha256": "109dcd4fe1d3ba76059dcdced26da1ff307028cd51081832d7232de2b8693a02"
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
         },
         {
           "test_id": "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.test_live_manifest_update_is_additive_and_governance_only",
           "authority_basis_path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/",
-          "current_authority_sha256": "109dcd4fe1d3ba76059dcdced26da1ff307028cd51081832d7232de2b8693a02"
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
         },
         {
           "test_id": "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.test_negative_fixtures_remain_fail_closed_without_live_mutation",
           "authority_basis_path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/",
-          "current_authority_sha256": "109dcd4fe1d3ba76059dcdced26da1ff307028cd51081832d7232de2b8693a02"
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
         },
         {
           "test_id": "test_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.DvfCurrentSourceAuthorityDriftVerificationAdoptionResealTest.test_branch_selection_contract_and_rederivation_pass",
           "authority_basis_path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/",
-          "current_authority_sha256": "109dcd4fe1d3ba76059dcdced26da1ff307028cd51081832d7232de2b8693a02"
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
         },
         {
           "test_id": "test_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.DvfCurrentSourceAuthorityDriftVerificationAdoptionResealTest.test_live_manifest_adoption_is_additive_and_governance_only",
           "authority_basis_path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/",
-          "current_authority_sha256": "109dcd4fe1d3ba76059dcdced26da1ff307028cd51081832d7232de2b8693a02"
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
         },
         {
           "test_id": "test_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.DvfCurrentSourceAuthorityDriftVerificationAdoptionResealTest.test_negative_fixture_matrix_passes_without_live_mutation",
           "authority_basis_path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/",
-          "current_authority_sha256": "109dcd4fe1d3ba76059dcdced26da1ff307028cd51081832d7232de2b8693a02"
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
         },
         {
           "test_id": "test_iar_public_text_assessment.IarPublicTextAssessmentTest.test_preserved_candidate_reproduces_existing_detector_policy_result",
           "authority_basis_path": "Iris/_docs/round3/iar_public_text_assessment/subjects/dvf_3_3_korean_naturalization_candidate/",
-          "current_authority_sha256": "109dcd4fe1d3ba76059dcdced26da1ff307028cd51081832d7232de2b8693a02"
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
         }
       ],
       "artifacts": [
         {
           "path_prefix": "Iris/_docs/round3/registry_runtime_compatibility/bundles/",
           "authority_basis_path": "Iris/_docs/round3/registry_runtime_compatibility/",
-          "current_authority_sha256": "109dcd4fe1d3ba76059dcdced26da1ff307028cd51081832d7232de2b8693a02"
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
         },
         {
           "path_prefix": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/",
           "authority_basis_path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/",
-          "current_authority_sha256": "109dcd4fe1d3ba76059dcdced26da1ff307028cd51081832d7232de2b8693a02"
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
         },
         {
           "path_prefix": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/",
           "authority_basis_path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/",
-          "current_authority_sha256": "109dcd4fe1d3ba76059dcdced26da1ff307028cd51081832d7232de2b8693a02"
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
         }
       ]
     }

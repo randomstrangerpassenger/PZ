@@ -625,8 +625,10 @@ def materialize_historical_reproduction_overlay(
             raise ValueError("historical reproduction corpus row must be an object")
         path = canonical_repository_relative_path(row.get("path"))
         path_text = path.as_posix()
-        if not path_text.startswith("Iris/build/description/v2/"):
-            raise ValueError(f"reproduction corpus path is outside v2: {path_text}")
+        if not path_text.startswith(
+            ("Iris/build/description/v2/", "Iris/input/")
+        ):
+            raise ValueError(f"reproduction corpus path is outside allowed roots: {path_text}")
         if path_text in row_by_path:
             raise ValueError(f"duplicate reproduction corpus path: {path_text}")
         if row.get("entry_kind") not in {
@@ -654,6 +656,7 @@ def materialize_historical_reproduction_overlay(
                     "Iris/build/description/v2/data/",
                     "Iris/build/description/v2/staging/",
                     "Iris/build/description/v2/tools/style/",
+                    "Iris/input/",
                 )
             ):
                 raise ValueError(f"invalid reproduction fixture path: {path_text}")

@@ -1,9 +1,9 @@
 {
   "schema_version":1,
-  "generation":9,
-  "previous_ceiling_sha256_or_null":"3c334fe9d92b7a90cb7f161c97035a4634a5ea354bdfd00facc51b6d848f35f3",
-  "manifest_generation":9,
-  "manifest_sha256":"4a2a8bdb3422a6741530914599e0d02d34483531a43af5b5b3469bb3fa91675a",
+  "generation":10,
+  "previous_ceiling_sha256_or_null":"42866d9c2f5951c16f22d7885c6d9df41d2b2faaa21887c85ac7585d4427a3b4",
+  "manifest_generation":10,
+  "manifest_sha256":"5e7c3982f065dfe8ef3581d9679f5fd21ec356d50bbc55b15554c2deb82543a3",
   "manifest_reserved_future_count":0,
   "last_updated_by_change":9,
   "sealed":true,
@@ -16,8 +16,8 @@
   "subject_commit":"72e76b367622f64af264f445889ea1832c87008a",
   "subject_tree":"9c98dad4623cea9242a41b77f0e378a87e56559f",
   "evidence":{
-    "headless":{"path":"Iris/_docs/refactor/core_refactor/phase1_pre_refactor_headless_baseline.jsonl","sha256":"87b66d23ed28e6ab09e28581d96c41b59d715a2d024ee3ffad56c8b06958e497","binding_sha256":"8c302977d099194db44f5c609c424a2b4e897e3eac344e34759e004ab9a98476"},
-    "pz":{"path":"Iris/_docs/refactor/core_refactor/phase1_pre_refactor_pz_baseline.jsonl","sha256":"061fb1a3262d73df4629ebedb534b6bf82b7389bef73d060d534566b6a795e09","binding_sha256":"bc5c10dba9bbbdcd5b18a6cf8007f2bc4502a38292ae496b354de97ac870a93a"}
+    "headless":{"path":"Iris/_docs/refactor/core_refactor/phase1_pre_refactor_headless_baseline.jsonl","sha256":"87b66d23ed28e6ab09e28581d96c41b59d715a2d024ee3ffad56c8b06958e497","binding_sha256":"df27508fd23b1f2345aa8ce2ead39b77f72efeeb552f52f45cf099bbee0f5b05"},
+    "pz":{"path":"Iris/_docs/refactor/core_refactor/phase1_pre_refactor_pz_baseline.jsonl","sha256":"061fb1a3262d73df4629ebedb534b6bf82b7389bef73d060d534566b6a795e09","binding_sha256":"cff73ba571ab5327c66120a1c9d45b58d5e72f82cc4b97ad14d0555ca0b635ec"}
   },
   "axes":[
     {"axis":"description","owner_change":3,"status":"validated","evidence_roles":["auxiliary_standalone","runtime_behavior"],"case_count":8,"remaining_ceiling":null},
@@ -29,10 +29,10 @@
     {"axis":"legacy_surface","owner_change":6,"status":"validated","evidence_roles":["auxiliary_standalone","runtime_behavior"],"case_count":2,"remaining_ceiling":null}
   ],
   "post_refactor_acceptance":{
-    "description":{"path":"Iris/_docs/refactor/core_refactor/phase2_description_acceptance.jsonl","sha256":"c79a1200726740beefe1dd30488249045731e23a4b29b58d52e1a7bdde5013af","binding_sha256":"01025ac4f9200fe8b43079413d2909ecd23529deef7f0f63abe8871601f441df","case_count":4,"status":"validated","subject_commit":"60a919f016c8cee2eb2af7c76c243f399d341c14"},
-    "browser":{"path":"Iris/_docs/refactor/core_refactor/phase3_browser_acceptance.jsonl","sha256":"dd05f293824d613b0fcc3d328066271339e8e0a19058a96472e5189d84e3c945","binding_sha256":"f670b8487cdaacbf3d4c790a5b156c7fb17f681434e5f452399421b4a43c2ecf","case_count":7,"status":"validated","subject_commit":"60a919f016c8cee2eb2af7c76c243f399d341c14"},
-    "detail":{"path":"Iris/_docs/refactor/core_refactor/phase4_detail_acceptance.jsonl","sha256":"3a9f2c1326b146c828bc85125af01b863f2723d7f9060102afaf5b21a9b3bb45","binding_sha256":"58cec990f2fa659bbb5e1f82dfca3e943bd41f382f349b5a488038c92d144db8","case_count":4,"status":"validated","subject_commit":"60a919f016c8cee2eb2af7c76c243f399d341c14"},
-    "legacy":{"path":"Iris/_docs/refactor/core_refactor/phase5_legacy_surface_acceptance.jsonl","sha256":"a3c7f8c7fb433f7dc8a01a47c83e2c56d00132b753cc71db15fdb67956d50fdb","binding_sha256":"d71934ba9c84836ab298fff480873a89f8ff7bbbd47e6b10363e05fadd180c4b","case_count":3,"status":"validated","subject_commit":"60a919f016c8cee2eb2af7c76c243f399d341c14"}
+    "description":{"path":"Iris/_docs/refactor/core_refactor/phase2_description_acceptance.jsonl","sha256":"c79a1200726740beefe1dd30488249045731e23a4b29b58d52e1a7bdde5013af","binding_sha256":"d73e9f43f2b375c89ec77fa32f217b17282600fcf81536f35ee121bc9e9f9537","case_count":4,"status":"validated","subject_commit":"60a919f016c8cee2eb2af7c76c243f399d341c14"},
+    "browser":{"path":"Iris/_docs/refactor/core_refactor/phase3_browser_acceptance.jsonl","sha256":"dd05f293824d613b0fcc3d328066271339e8e0a19058a96472e5189d84e3c945","binding_sha256":"1dde94be99c742951bf3e2e8239d9401a40d416169561f0e63a7ccfa114531e3","case_count":7,"status":"validated","subject_commit":"60a919f016c8cee2eb2af7c76c243f399d341c14"},
+    "detail":{"path":"Iris/_docs/refactor/core_refactor/phase4_detail_acceptance.jsonl","sha256":"3a9f2c1326b146c828bc85125af01b863f2723d7f9060102afaf5b21a9b3bb45","binding_sha256":"db5f06710080ef012dd97d0fcc28cd14deb3e22247a19fa61cc244fb4871fe2a","case_count":4,"status":"validated","subject_commit":"60a919f016c8cee2eb2af7c76c243f399d341c14"},
+    "legacy":{"path":"Iris/_docs/refactor/core_refactor/phase5_legacy_surface_acceptance.jsonl","sha256":"a3c7f8c7fb433f7dc8a01a47c83e2c56d00132b753cc71db15fdb67956d50fdb","binding_sha256":"2120fb11e0d297d06e65d79c4dabc8b5c5e555ceb2bc1e76b210817eb7dc7680","case_count":3,"status":"validated","subject_commit":"60a919f016c8cee2eb2af7c76c243f399d341c14"}
   },
   "dispositions":{
     "change7_build_tool_decomposition":{"status":"deferred_by_design","current_core_count":12,"allowed_tooling_count":4,"max_allowed_tooling":4,"remaining_slots":0,"report":"Iris/_docs/refactor/core_refactor/phase6_build_tool_disposition.md"},
@@ -49,8 +49,8 @@
     "reviewer_remediation":"60a919f0",
     "integrated_validation_remediation":"34db710b"
   },
-  "staged_changeset_gate":{"source_label":"index:Iris/_docs/refactor/core_refactor/phase1_validation_asset_manifest.json","manifest_blob":"68a5c6a856e19bd14868cb784185d61e5baf8210","manifest_sha256":"4a2a8bdb3422a6741530914599e0d02d34483531a43af5b5b3469bb3fa91675a","required_asset_ids_sha256":"6398631fe53b239e670ac6b5bf5a405fb80936b1016246b689fb2d0ab853ae2e","validator_sha256":"3ccbbed7a6f76f4c03228ae0b07fd7b00de5d46047e6d8800fd3ead4db0d3749","status":"validated","required_asset_count":75,"manifest_generation":9,"manifest_sealed":true,"protected_tracked_row_count":24,"approved_changed_count":1},
-  "clean_checkout_gate":{"status":"required_after_generation9_seal_candidate_commit","terminal_binding_path":"Iris/_docs/refactor/core_refactor/final_evidence_binding_report.json","terminal_status_authority":"final_evidence_binding_report.status","superseded_attempt":{"target_commit":"b6bbe3b23ddd5ca9ddba3b8e12ed732007e0b314","reason_code":"windows_powershell_native_stderr_promotion","work_root_cleanup":true,"result_root":"C:\\Users\\Public\\icr-b6bbe3b2"}},
+  "staged_changeset_gate":{"source_label":"index:Iris/_docs/refactor/core_refactor/phase1_validation_asset_manifest.json","manifest_blob":"fe80b1f0f1dca61bea68113d0e85692bbd675d88","manifest_sha256":"5e7c3982f065dfe8ef3581d9679f5fd21ec356d50bbc55b15554c2deb82543a3","required_asset_ids_sha256":"6398631fe53b239e670ac6b5bf5a405fb80936b1016246b689fb2d0ab853ae2e","validator_sha256":"3ccbbed7a6f76f4c03228ae0b07fd7b00de5d46047e6d8800fd3ead4db0d3749","status":"validated","required_asset_count":75,"manifest_generation":10,"manifest_sealed":true,"protected_tracked_row_count":24,"approved_changed_count":1},
+  "clean_checkout_gate":{"status":"required_after_generation10_seal_candidate_commit","terminal_binding_path":"Iris/_docs/refactor/core_refactor/final_evidence_binding_report.json","terminal_status_authority":"final_evidence_binding_report.status","superseded_attempts":[{"target_commit":"b6bbe3b23ddd5ca9ddba3b8e12ed732007e0b314","status":"failed_before_tests","reason_code":"windows_powershell_native_stderr_promotion","work_root_cleanup":true,"result_root":"C:\\Users\\Public\\icr-b6bbe3b2"},{"target_commit":"1292970c02c14a676f364b20442d234ddb35b0a7","status":"clean_checkout_pass_superseded","reason_code":"stale_ceiling_binding_content_hashes","work_root_cleanup":true,"result_root":"C:\\Users\\Public\\icr-1292970c"}]},
   "mandatory_unvalidated_axis_count":0,
   "non_claims":["No B42 behavior claim","No multiplayer or soak claim","No unknown external-mod compatibility claim"]
 }

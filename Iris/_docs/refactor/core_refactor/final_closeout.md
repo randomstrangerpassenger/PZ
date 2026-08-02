@@ -78,24 +78,34 @@ is made for unlisted external consumers.
 
 ## Manifest and seal
 
-Validation asset manifest generation 9 is sealed with exactly 75 required
+Validation asset manifest generation 10 is sealed with exactly 75 required
 assets, `reserved_future_count=0`, and all lifecycle rows `sealed`. Its previous
 generation content SHA-256 is
-`b92ba19aaa67f653b15404631161bec22409a52f295fbe5ffbc45c02a618813a`.
+`4a2a8bdb3422a6741530914599e0d02d34483531a43af5b5b3469bb3fa91675a`.
 The final required-ID SHA-256 is
 `6398631fe53b239e670ac6b5bf5a405fb80936b1016246b689fb2d0ab853ae2e`;
 the sealed manifest content SHA-256 is
-`4a2a8bdb3422a6741530914599e0d02d34483531a43af5b5b3469bb3fa91675a`
-and its staged Git blob is `68a5c6a856e19bd14868cb784185d61e5baf8210`.
-Validation ceiling generation 9 is sealed by Change 9 and has zero mandatory
+`5e7c3982f065dfe8ef3581d9679f5fd21ec356d50bbc55b15554c2deb82543a3`
+and its staged Git blob is `fe80b1f0f1dca61bea68113d0e85692bbd675d88`.
+Validation ceiling generation 10 is sealed by Change 9 and has zero mandatory
 unvalidated axes. Its final content SHA-256 is
-`42866d9c2f5951c16f22d7885c6d9df41d2b2faaa21887c85ac7585d4427a3b4`.
+`f802d6b9423cec55fd5ff02af3a4cfef242fffc3fe780f3e3309aa0baafcd551`.
+
+The six ceiling binding identities are exact tracked Git-blob content hashes:
+Phase 1 headless `df27508f...`, Phase 1 PZ `cff73ba5...`, Description
+`d73e9f43...`, Browser `1dde94be...`, Detail `db5f0671...`, and Legacy
+`2120fb11...`. The closeout guard maps every full hash to its ceiling row and
+binding file.
 
 Generation 8 seal candidate `b6bbe3b2` was superseded before running tests:
 Windows PowerShell 5.1 promoted normal `git clone` progress on native stderr to
 `NativeCommandError`. Its disposable work root was cleaned, its external result
 root is retained for terminal failure disposition, and generation 9 handles
 native stderr by process exit code without changing the validation commands.
+Generation 9 candidate `1292970c` completed CleanCheckout successfully but was
+superseded when terminal binding review found six stale, non-durable ceiling
+binding hashes. Its work root was cleaned and its successful external result
+root is retained until the generation-10 terminal disposition is tracked.
 
 The operational order is fixed:
 

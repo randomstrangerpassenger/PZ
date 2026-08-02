@@ -136,9 +136,9 @@ class IrisCoreRefactorCloseoutTest(unittest.TestCase):
 
     def test_final_manifest_is_exact_and_fail_closed(self) -> None:
         manifest = load_json(ROOT / "phase1_validation_asset_manifest.json")
-        self.assertEqual(9, manifest["generation"])
+        self.assertEqual(10, manifest["generation"])
         self.assertEqual(
-            "b92ba19aaa67f653b15404631161bec22409a52f295fbe5ffbc45c02a618813a",
+            "4a2a8bdb3422a6741530914599e0d02d34483531a43af5b5b3469bb3fa91675a",
             manifest["previous_manifest_sha256_or_null"],
         )
         self.assertTrue(manifest["sealed"])
@@ -251,12 +251,12 @@ class IrisCoreRefactorCloseoutTest(unittest.TestCase):
         self.assertEqual(len(unresolved), matrix["mandatory_unvalidated_axis_count"])
 
         ceiling = load_json(ROOT / "phase1_validation_ceiling.json")
-        self.assertEqual(9, ceiling["generation"])
+        self.assertEqual(10, ceiling["generation"])
         self.assertEqual(
-            "3c334fe9d92b7a90cb7f161c97035a4634a5ea354bdfd00facc51b6d848f35f3",
+            "42866d9c2f5951c16f22d7885c6d9df41d2b2faaa21887c85ac7585d4427a3b4",
             ceiling["previous_ceiling_sha256_or_null"],
         )
-        self.assertEqual(9, ceiling["manifest_generation"])
+        self.assertEqual(10, ceiling["manifest_generation"])
         self.assertEqual(9, ceiling["sealed_by_change"])
         self.assertTrue(ceiling["sealed"])
         self.assertEqual(len(unresolved), ceiling["mandatory_unvalidated_axis_count"])
@@ -277,6 +277,37 @@ class IrisCoreRefactorCloseoutTest(unittest.TestCase):
             self.assertEqual(staged[key], observed[key])
         self.assertEqual(staged["required_asset_count"], observed["required_assets"])
         self.assertEqual(staged["manifest_generation"], observed["generation"])
+
+        binding_rows = {
+            "phase1_headless": (
+                ceiling["evidence"]["headless"],
+                ROOT / "phase1_pre_refactor_headless_baseline.binding.json",
+            ),
+            "phase1_pz": (
+                ceiling["evidence"]["pz"],
+                ROOT / "phase1_pre_refactor_pz_baseline.binding.json",
+            ),
+            "phase2_description": (
+                ceiling["post_refactor_acceptance"]["description"],
+                ROOT / "phase2_description_acceptance.binding.json",
+            ),
+            "phase3_browser": (
+                ceiling["post_refactor_acceptance"]["browser"],
+                ROOT / "phase3_browser_acceptance.binding.json",
+            ),
+            "phase4_detail": (
+                ceiling["post_refactor_acceptance"]["detail"],
+                ROOT / "phase4_detail_acceptance.binding.json",
+            ),
+            "phase5_legacy": (
+                ceiling["post_refactor_acceptance"]["legacy"],
+                ROOT / "phase5_legacy_surface_acceptance.binding.json",
+            ),
+        }
+        for key, (ceiling_row, binding_path) in binding_rows.items():
+            expected = matrix["evidence_binding_sha256"][key]
+            self.assertEqual(expected, ceiling_row["binding_sha256"])
+            self.assertIn(expected, sha256_candidates(binding_path))
 
         closeout = (ROOT / "final_closeout.md").read_text(encoding="utf-8")
         self.assertIn("Standard closeout state: `implemented_only`", closeout)

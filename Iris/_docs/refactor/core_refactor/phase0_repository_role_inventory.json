@@ -10,7 +10,8 @@
     {"path":"Iris/build/description/v2/.tmp_tests/","exists":false,"tracked":false,"ignored":true,"role":"disposable_local_residue","writer":"tests","consumer":"none_observed","hash_policy":"none","reproduction_command":null,"package_reachable":false,"required_validation_reference":false,"disposition":"no_material_target","reversible":true},
     {"path":"console_log.txt","exists":false,"tracked":false,"ignored":false,"role":"unresolved","writer":"unknown","consumer":"unknown","hash_policy":"preserve_if_found","reproduction_command":null,"package_reachable":false,"required_validation_reference":false,"disposition":"preserve","reversible":true}
   ],
-  "phase7_disposition":"not_applicable",
-  "delete_candidate_count":0
+  "phase7_disposition":"no_op",
+  "phase7_disposition_report":"Iris/_docs/refactor/core_refactor/phase7_disposition_report.md",
+  "delete_candidate_count":0,
+  "material_paths_deleted":0
 }
-

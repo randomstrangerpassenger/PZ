@@ -1,9 +1,9 @@
 {
   "schema_version":1,
-  "generation":5,
-  "previous_ceiling_sha256_or_null":"8a781c7846d0c72f99a4fc28f67905c335a7fa7c65881c318accf92d6e730431",
-  "manifest_generation":5,
-  "last_updated_by_change":6,
+  "generation":6,
+  "previous_ceiling_sha256_or_null":"2455e094b58947a0cb6d3de536faabc054d209e11d926f20e50781dcc6f5e275",
+  "manifest_generation":6,
+  "last_updated_by_change":7,
   "time_axis":"pre_refactor_characterization",
   "subject_commit":"72e76b367622f64af264f445889ea1832c87008a",
   "subject_tree":"9c98dad4623cea9242a41b77f0e378a87e56559f",
@@ -25,6 +25,10 @@
     "browser":{"path":"Iris/_docs/refactor/core_refactor/phase3_browser_acceptance.jsonl","sha256":"e2ee203d0b37e30fa7e0a4ac93ebe0eb624c5be6ff5bd1c477049b7a81b1182c","binding_sha256":"fec180de3a155cf4c6588f7cb55fae676f85842f7392913c8bc1a8e307836621","case_count":7,"status":"validated"},
     "detail":{"path":"Iris/_docs/refactor/core_refactor/phase4_detail_acceptance.jsonl","sha256":"7bb344493e6e3bc442c8774c8e0fc1c6e74461dc8613fc2da993fc211c416459","binding_sha256":"5547b18a259c0d61ded302e085d01f89022ac44b495bf9a53a9c64b590f3da22","case_count":4,"status":"validated"},
     "legacy":{"path":"Iris/_docs/refactor/core_refactor/phase5_legacy_surface_acceptance.jsonl","sha256":"938cebc319ee34cbb7270a772f4a3d4d1daa7ee0bf39300a74344ff6e1f6e4cc","binding_sha256":"6ff3216c3d0deadc98545b9abff45f0221ea056a7cf5cb48d6fa3b6c8dc78fff","case_count":3,"status":"validated"}
+  },
+  "dispositions":{
+    "change7_build_tool_decomposition":{"status":"deferred_by_design","current_core_count":12,"allowed_tooling_count":4,"max_allowed_tooling":4,"remaining_slots":0,"report":"Iris/_docs/refactor/core_refactor/phase6_build_tool_disposition.md"},
+    "change8_repository_cleanup":{"status":"no_op","delete_candidate_count":0,"material_paths_deleted":0,"report":"Iris/_docs/refactor/core_refactor/phase7_disposition_report.md"}
   },
   "mandatory_unvalidated_axis_count":0,
   "non_claims":["No B42 behavior claim","No multiplayer or soak claim","No unknown external-mod compatibility claim"]

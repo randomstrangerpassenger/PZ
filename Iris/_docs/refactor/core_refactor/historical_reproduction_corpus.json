@@ -2,13 +2,13 @@
   "schema_version": "iris-historical-reproduction-corpus-v1",
   "purpose": "Self-contained ignored historical and diagnostic route reproduction for exact-commit clean checkout validation.",
   "archive_path": "Iris/_docs/refactor/core_refactor/historical_reproduction_corpus.zip",
-  "archive_sha256": "acf8826f6d1913770563b617dcc92b282d5b4f021c385db81975c23fbd6f5cd3",
-  "row_count": 696,
+  "archive_sha256": "cbf80bf95a268bb3aa766c4b23026f13c054e79b7d790362138ce21dacab466a",
+  "row_count": 712,
   "route_test_count": 176,
   "build_support_count": 498,
   "tool_support_count": 0,
-  "route_fixture_count": 22,
-  "expected_entry_paths_sha256": "cf07ca6ae76f9326d20257e673659a853c81f3eeffe76047a8e7af71d65d85a9",
+  "route_fixture_count": 38,
+  "expected_entry_paths_sha256": "e73bf4a229f1a79568cf86877693da61d1642d76d0bd2bd7be90cce12f15ca00",
   "expected_route_test_paths_sha256": "41abe271251c8d2161947f25c271f147c25240389c4a1266a77f0c1b6447cef2",
   "canonicalization": "Python UTF-8 text read with universal newlines and emitted as UTF-8 LF bytes",
   "rows": [
@@ -27,11 +27,25 @@
       "source_path": "Iris/build/description/v2/data/interaction_cluster_base_facts.jsonl"
     },
     {
+      "path": "Iris/build/description/v2/data/interaction_cluster_overlay.jsonl",
+      "entry_kind": "route_fixture",
+      "sha256": "516f8bb59fc9b2eb322900e4849d10843f7c7578adf0cddb49274b5e8d4a8a53",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "Iris/build/description/v2/data/interaction_cluster_overlay.jsonl"
+    },
+    {
       "path": "Iris/build/description/v2/data/interaction_cluster_usecase_rules.json",
       "entry_kind": "route_fixture",
       "sha256": "5e220ffe1f55511a68026e14ba07f076908aac8a571292ea246b40bcd95bbfce",
       "source_kind": "tracked_live_fixture",
       "source_path": "Iris/build/description/v2/data/interaction_cluster_usecase_rules.json"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_c1b_reuse_promotion_preview/role_fallback_hollow_c1b_reuse_promotion_preview.summary.json",
+      "entry_kind": "route_fixture",
+      "sha256": "6a3b638d626b17f9655c0159e06eb3d5e51e52027cb16401e3333d2088556800",
+      "source_kind": "ignored_live_reproduction",
+      "source_path": "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_c1b_reuse_promotion_preview/role_fallback_hollow_c1b_reuse_promotion_preview.summary.json"
     },
     {
       "path": "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_followup_split.json",
@@ -55,11 +69,25 @@
       "source_path": "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_policy_review/role_fallback_hollow_policy_resolution_packet.json"
     },
     {
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_policy_review/role_fallback_hollow_policy_review_memo.json",
+      "entry_kind": "route_fixture",
+      "sha256": "9be832e5fb0046d6e51f0ad7de7354da5716f70b82f1cedba7949b1c9e69be00",
+      "source_kind": "ignored_live_reproduction",
+      "source_path": "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_policy_review/role_fallback_hollow_policy_review_memo.json"
+    },
+    {
       "path": "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_policy_review/role_fallback_hollow_policy_review_rows.json",
       "entry_kind": "route_fixture",
       "sha256": "698b0b7060de39f20d786878fa33f28ce0e5ea173e8d66b6767faed1a4b21932",
       "source_kind": "ignored_live_reproduction",
       "source_path": "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_policy_review/role_fallback_hollow_policy_review_rows.json"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_post_block_c_apply_status.json",
+      "entry_kind": "route_fixture",
+      "sha256": "9c429df324f7cee2afc2cba0d95cb4d2e9552b538ab229d5ff28901e2d0a112c",
+      "source_kind": "ignored_live_reproduction",
+      "source_path": "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_post_block_c_apply_status.json"
     },
     {
       "path": "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_post_policy_default_closeout_status.json",
@@ -83,6 +111,13 @@
       "source_path": "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_residual_tail_handoff.json"
     },
     {
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_residual_tail_round_closeout.json",
+      "entry_kind": "route_fixture",
+      "sha256": "22155a80cee60e7094d197f959ce3258982453ac567cddbdedf38ad49353ca02",
+      "source_kind": "ignored_live_reproduction",
+      "source_path": "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_residual_tail_round_closeout.json"
+    },
+    {
       "path": "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_residual_tail_source_discovery_round.json",
       "entry_kind": "route_fixture",
       "sha256": "6ae306ac10f9ec1db2f8f05d6f2bf55873cfdcb0b55cacbeba8afd27aa345472",
@@ -90,11 +125,46 @@
       "source_path": "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_residual_tail_source_discovery_round.json"
     },
     {
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_residual_tail_source_discovery_status.json",
+      "entry_kind": "route_fixture",
+      "sha256": "c7f5e2e46f504e579ad52d8e0e42f479fc0d001ae9615aa1689e005b2ca75406",
+      "source_kind": "ignored_live_reproduction",
+      "source_path": "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/role_fallback_hollow_residual_tail_source_discovery_status.json"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/identity_fallback_source_expansion/closure_policy_round/closure_policy_round_manifest.json",
+      "entry_kind": "route_fixture",
+      "sha256": "28cbe639d74524c1b7db214c6909930a2eed5f130d7df4701d604b5ef961c293",
+      "source_kind": "ignored_live_reproduction",
+      "source_path": "Iris/build/description/v2/staging/identity_fallback_source_expansion/closure_policy_round/closure_policy_round_manifest.json"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/identity_fallback_source_expansion/identity_fallback_terminal_handoff.json",
+      "entry_kind": "route_fixture",
+      "sha256": "fa8cabe7d858a6110c96ebae9648c46396038c32b2bed7855565bd463884629f",
+      "source_kind": "ignored_live_reproduction",
+      "source_path": "Iris/build/description/v2/staging/identity_fallback_source_expansion/identity_fallback_terminal_handoff.json"
+    },
+    {
       "path": "Iris/build/description/v2/staging/identity_fallback_source_expansion/phase6_subset_rollout/exec_subset_600_wrench_crowbar_b7_b8_b9/subset_distribution_remeasurement.json",
       "entry_kind": "route_fixture",
       "sha256": "bb449e46b835fc509acdd7555e78d7bd874d84be31d93e51fbaf4a04a0a6aa60",
       "source_kind": "ignored_live_reproduction",
       "source_path": "Iris/build/description/v2/staging/identity_fallback_source_expansion/phase6_subset_rollout/exec_subset_600_wrench_crowbar_b7_b8_b9/subset_distribution_remeasurement.json"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/identity_fallback_source_expansion/phase6_subset_rollout/exec_subset_600_wrench_crowbar_b7_b8_b9/subset_remaining_identity_fallback_rows.jsonl",
+      "entry_kind": "route_fixture",
+      "sha256": "9462055e3be0dd3c6ab5b3b823eaeb25255e9a33e5a291f82e22a6441a25a940",
+      "source_kind": "ignored_live_reproduction",
+      "source_path": "Iris/build/description/v2/staging/identity_fallback_source_expansion/phase6_subset_rollout/exec_subset_600_wrench_crowbar_b7_b8_b9/subset_remaining_identity_fallback_rows.jsonl"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/identity_fallback_source_expansion/residual_round/closeout/residual_round_closeout_report.json",
+      "entry_kind": "route_fixture",
+      "sha256": "905a5465c939e4cc19f8431d428502a9c420e06cf430d1c4c29acea078434996",
+      "source_kind": "ignored_live_reproduction",
+      "source_path": "Iris/build/description/v2/staging/identity_fallback_source_expansion/residual_round/closeout/residual_round_closeout_report.json"
     },
     {
       "path": "Iris/build/description/v2/staging/identity_fallback_source_expansion/residual_round/residual_round_manifest.json",
@@ -125,11 +195,39 @@
       "source_path": "Iris/build/description/v2/staging/source_coverage/block_a/uncovered_items_with_classification.json"
     },
     {
+      "path": "Iris/build/description/v2/staging/source_coverage/block_b/tier_selection.json",
+      "entry_kind": "route_fixture",
+      "sha256": "2d16f5c3600315c298229fd698261b9ed4a5b100c243e11f4116065c5f1c92e7",
+      "source_kind": "ignored_live_reproduction",
+      "source_path": "Iris/build/description/v2/staging/source_coverage/block_b/tier_selection.json"
+    },
+    {
       "path": "Iris/build/description/v2/staging/source_coverage/block_c/b1_consumable_package/b1_consumable_package_summary.json",
       "entry_kind": "route_fixture",
       "sha256": "a84d2c300dfb2a2f4106c4e7bbe5640d29b6dc0beb32411f3d421aa6931517d2",
       "source_kind": "ignored_live_reproduction",
       "source_path": "Iris/build/description/v2/staging/source_coverage/block_c/b1_consumable_package/b1_consumable_package_summary.json"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/source_coverage/block_c/b2_literature_package/b2_literature_package_summary.json",
+      "entry_kind": "route_fixture",
+      "sha256": "285cf4b40bc841e633e35778323359253efaba7c89800942170ce3a20554f9ec",
+      "source_kind": "ignored_live_reproduction",
+      "source_path": "Iris/build/description/v2/staging/source_coverage/block_c/b2_literature_package/b2_literature_package_summary.json"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/source_coverage/block_c/c1a_vehicle_package/c1a_vehicle_package_summary.json",
+      "entry_kind": "route_fixture",
+      "sha256": "ed9aa2963513b2d9dc72f505f7d97c412de7fe360587eff9c918862822fd6038",
+      "source_kind": "ignored_live_reproduction",
+      "source_path": "Iris/build/description/v2/staging/source_coverage/block_c/c1a_vehicle_package/c1a_vehicle_package_summary.json"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/source_coverage/block_c/role_fallback_hollow_manual_residual_blocker_memo.json",
+      "entry_kind": "route_fixture",
+      "sha256": "679e4d727ad623fa4a3027ef68e58d4e609e62e4b8f22e1cc222ce48d26db30a",
+      "source_kind": "ignored_live_reproduction",
+      "source_path": "Iris/build/description/v2/staging/source_coverage/block_c/role_fallback_hollow_manual_residual_blocker_memo.json"
     },
     {
       "path": "Iris/build/description/v2/staging/source_coverage/block_c/role_fallback_hollow_residual_tail_source_discovery_round/c1-f/c1-f_residual_tail_source_discovery_rows.json",
@@ -151,6 +249,13 @@
       "sha256": "8b83d06bc56cbca1fe4e22f4a66418e335378ec93a45b7ceb71fb47926346feb",
       "source_kind": "ignored_live_reproduction",
       "source_path": "Iris/build/description/v2/staging/source_coverage/c1_scope/c1_subset_partition.json"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/source_coverage/c1r_scope/c1r_subset_partition.json",
+      "entry_kind": "route_fixture",
+      "sha256": "c54d439104734042c063ad6497312e6c29e91e0edf5685f4d635bcb8889110cd",
+      "source_kind": "ignored_live_reproduction",
+      "source_path": "Iris/build/description/v2/staging/source_coverage/c1r_scope/c1r_subset_partition.json"
     },
     {
       "path": "Iris/build/description/v2/staging/source_coverage/post_b/post_b_projection_summary.json",
@@ -4883,6 +4988,13 @@
       "sha256": "92c712145f55dfa45d51759d9026a72e3e316be1992baec8272f6769faf9acce",
       "source_kind": "ignored_live_reproduction",
       "source_path": "Iris/build/description/v2/tools/style/rules/structural_rules.json"
+    },
+    {
+      "path": "Iris/input/items_itemscript.json",
+      "entry_kind": "route_fixture",
+      "sha256": "6096148cd753a2a93786ab341b86ca1788b63e4955ffc2323668c47518df26bc",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "Iris/input/items_itemscript.json"
     }
   ]
 }

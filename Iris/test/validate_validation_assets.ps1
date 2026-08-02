@@ -42,6 +42,18 @@ function Remove-LongPathDirectoryTree([string]$Path) {
         '\\?\' + $resolved
     }
     else { $resolved }
+    foreach ($file in [System.IO.Directory]::EnumerateFiles(
+        $deletePath, '*', [System.IO.SearchOption]::AllDirectories
+    )) {
+        [System.IO.File]::SetAttributes($file, [System.IO.FileAttributes]::Normal)
+    }
+    foreach ($directory in [System.IO.Directory]::EnumerateDirectories(
+        $deletePath, '*', [System.IO.SearchOption]::AllDirectories
+    )) {
+        [System.IO.File]::SetAttributes(
+            $directory, [System.IO.FileAttributes]::Directory
+        )
+    }
     [System.IO.Directory]::Delete($deletePath, $true)
 }
 

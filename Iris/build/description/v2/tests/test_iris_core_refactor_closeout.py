@@ -136,17 +136,17 @@ class IrisCoreRefactorCloseoutTest(unittest.TestCase):
 
     def test_final_manifest_is_exact_and_fail_closed(self) -> None:
         manifest = load_json(ROOT / "phase1_validation_asset_manifest.json")
-        self.assertEqual(7, manifest["generation"])
+        self.assertEqual(8, manifest["generation"])
         self.assertEqual(
-            "73e8fcf8c0c3b025e5412df98597aa8924a6d11a1a0abf993f590503a405a920",
+            "d85f40c4c28609e9f7c4d24dd4d05a60b1d5dab274a6b39414cbba30a331ccda",
             manifest["previous_manifest_sha256_or_null"],
         )
-        self.assertFalse(manifest["sealed"])
+        self.assertTrue(manifest["sealed"])
         self.assertEqual(0, manifest["reserved_future_count"])
         assets = manifest["assets"]
         self.assertTrue(assets)
         self.assertTrue(all(row["required"] for row in assets))
-        self.assertTrue(all(row["lifecycle_state"] == "required_active" for row in assets))
+        self.assertTrue(all(row["lifecycle_state"] == "sealed" for row in assets))
         ids = sorted(row["asset_id"] for row in assets)
         self.assertEqual(manifest["expected_required_count"], len(ids))
         self.assertEqual(manifest["expected_required_asset_ids"], ids)
@@ -241,7 +241,7 @@ class IrisCoreRefactorCloseoutTest(unittest.TestCase):
         mandatory = [row for row in matrix["axes"] if row["mandatory"]]
         self.assertTrue(mandatory)
         unresolved = [row for row in mandatory if row["axis_status"] == "unvalidated_but_in_scope"]
-        self.assertTrue(unresolved)
+        self.assertFalse(unresolved)
         self.assertTrue(
             all(
                 row["axis_status"] in {"validated", "out_of_scope", "unvalidated_but_in_scope"}
@@ -251,19 +251,38 @@ class IrisCoreRefactorCloseoutTest(unittest.TestCase):
         self.assertEqual(len(unresolved), matrix["mandatory_unvalidated_axis_count"])
 
         ceiling = load_json(ROOT / "phase1_validation_ceiling.json")
-        self.assertEqual(7, ceiling["generation"])
+        self.assertEqual(8, ceiling["generation"])
         self.assertEqual(
-            "6f747a9fefd53447c01dd95f28f8531b27e67c61205308003f7682799b00db30",
+            "1b2b572fb4764211cb40341673edb0777a7a361aaf8106df5b26b90a4b4f0403",
             ceiling["previous_ceiling_sha256_or_null"],
         )
-        self.assertEqual(7, ceiling["manifest_generation"])
-        self.assertIsNone(ceiling["sealed_by_change"])
-        self.assertFalse(ceiling["sealed"])
+        self.assertEqual(8, ceiling["manifest_generation"])
+        self.assertEqual(9, ceiling["sealed_by_change"])
+        self.assertTrue(ceiling["sealed"])
         self.assertEqual(len(unresolved), ceiling["mandatory_unvalidated_axis_count"])
 
+        manifest_path = ROOT / "phase1_validation_asset_manifest.json"
+        self.assertIn(ceiling["manifest_sha256"], sha256_candidates(manifest_path))
+        staged = ceiling["staged_changeset_gate"]
+        self.assertEqual(ceiling["manifest_sha256"], staged["manifest_sha256"])
+        self.assertEqual(
+            load_json(manifest_path)["expected_required_asset_ids_sha256"],
+            staged["required_asset_ids_sha256"],
+        )
+        staged_axis = next(
+            row for row in matrix["axes"] if row["axis"] == "validation_assets_staged_changeset"
+        )
+        observed = staged_axis["observed"]
+        for key in ("manifest_blob", "manifest_sha256", "required_asset_ids_sha256", "validator_sha256"):
+            self.assertEqual(staged[key], observed[key])
+        self.assertEqual(staged["required_asset_count"], observed["required_assets"])
+        self.assertEqual(staged["manifest_generation"], observed["generation"])
+
         closeout = (ROOT / "final_closeout.md").read_text(encoding="utf-8")
-        self.assertIn("Standard closeout state: `blocked`", closeout)
-        self.assertIn("blocked_current_route_validation_failed", closeout)
+        self.assertIn("Standard closeout state: `implemented_only`", closeout)
+        self.assertIn("final_evidence_binding_report.json.status=complete", closeout)
+        self.assertTrue(any(digest in closeout for digest in sha256_candidates(ROOT / "phase1_validation_ceiling.json")))
+        self.assertNotIn("blocked_current_route_validation_failed", closeout)
 
 
 if __name__ == "__main__":

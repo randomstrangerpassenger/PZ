@@ -88,10 +88,17 @@ function Get-ProtectedSnapshot([string]$Root, [switch]$TrackedOnly) {
     $approvedChanged = 0
     foreach ($row in @($protectedManifest.rows)) {
         if ($TrackedOnly -and -not [bool]$row.tracked) { continue }
+        $optionalReadOnlyPeer = -not [bool]$row.tracked -and [string]$row.hash_policy -ceq 'read_only_pre_post'
         $full = Join-Path $snapshotRoot ([string]$row.path)
-        if (-not (Test-Path -LiteralPath $full -PathType Leaf)) { throw "protected surface missing: $($row.path)" }
+        if (-not (Test-Path -LiteralPath $full -PathType Leaf)) {
+            if ($optionalReadOnlyPeer) {
+                $rows += "$($row.path)`tabsent_optional_peer"
+                continue
+            }
+            throw "protected surface missing: $($row.path)"
+        }
         $actual = Get-Sha256File $full
-        $expected = [string]$row.sha256
+        $expected = if ($optionalReadOnlyPeer) { $actual } else { [string]$row.sha256 }
         if ($approvedExpected.ContainsKey([string]$row.path)) {
             $expected = $approvedExpected[[string]$row.path]
             $approvedChanged += 1

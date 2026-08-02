@@ -787,6 +787,39 @@ canonical Iris runner failure reproduced
 
 현재 disposition은 `not_applicable_temporary_tooling_trigger`다. G4/G5와 후속 current runtime/package adoption은 RTC terminal·reservation·successor bundle 없이 완료됐으며, 이 성공은 RTC certification PASS를 새로 주장하는 것이 아니다. G6은 이 downstream completion을 보충하기 위해 실행하지 않는다. 미래에 여섯 조건이 모두 성립하면 exact canonical defect record를 새 기준점으로 삼아 Change 2부터 재진입하고, 기존 temporary-tooling diagnostic은 실행 권위로 재사용하지 않는다.
 
+### Iris core refactor runtime / compatibility boundary
+
+Iris core refactor는 public API를 교체하는 재작성보다, 기존 runtime surface 안의 ownership과 state transition을 명시하는 구조 개편이다.
+
+```text
+supported API / public require surface
+-> thin facade or named compatibility adapter
+-> explicit Browser / Detail / Description state and fact model
+-> existing renderer, widget, and chunk runtime consumers
+```
+
+Description의 string output은 별도 병렬 구현이 아니라 canonical block API의 projection이다. Browser는 selection fallback, cache state, build state를 암묵적 table 존재 여부로 판정하지 않고 명시적 state로 보존한다. Browser와 Wiki detail은 같은 read-only fact view model을 사용하며, 스크롤은 widget tree를 다시 만들지 않고 기존 widget 위치를 갱신한다.
+
+Legacy `IrisData` access, object/item access, Browser variant compatibility는 삭제되지 않은 public 계약을 이름 있는 adapter로 격리한다. Adapter는 새 authority가 아니며 core state를 복제하거나 runtime 의미를 재해석할 수 없다. Generator full removal과 global alias removal은 별도 compatibility proof 없이 이 경계에서 실행하지 않는다.
+
+Build tooling은 current 12-module core와 approved tooling 4/4를 유지한다. 분해 slot과 소비자 계약이 먼저 승인되지 않으면 새 module extraction을 완료 조건으로 만들지 않는다. Cleanup도 consumer, required reference, package reachability, historical reproduction requirement가 모두 0인 exact path에만 허용하며, 이번 disposition은 delete candidate `0`의 no-op이다.
+
+Package 흐름은 단방향이다.
+
+```text
+Iris source/runtime authority
+-> isolated or local package projection
+-> identity validation
+
+package mirror
+-/> source writer
+-/> reverse-merge authority
+```
+
+`Iris/build/package/Iris`는 ignored read-only projection이다. Current source에서 재생성할 수 있으며, mirror와 source가 동일하면 역복사하지 않는다. Local ignored residue는 current authority나 tracked implementation으로 승격하지 않고 격리한다.
+
+검증 상태도 축별로 유지한다. Runtime behavior, supported API, Lua syntax, disposable package identity, protected surface, current route, historical route, full discovery는 서로 대체되지 않는다. 2026-08-02 final readpoint에서 current route `145/145`, historical route `285/285`, full v2 discovery `520/520`, production Lua syntax 95 files, disposable package 95 Lua/12 Layer 3 files가 각각 exit `0`으로 닫혔다. Diagnostic route `77 tests / 3 failures / 26 errors`는 retired input을 생략한 historical overlay와 ignored local source-contract anchor에 한정된 비차단 advisory다. Change 9는 historical reproduction JSON/ZIP hard dependency를 포함한 generation-8의 75-row sealed manifest/ceiling을 exact seal-candidate commit으로 검증하고, 별도 external CleanCheckout receipt를 post-seal `final_evidence_binding_report.json`에 결속하는 구조다. Sealed candidate는 terminal 전 `implemented_only`이며 최종 완료 권위는 report의 `status=complete`다. Terminal report는 자기 입력 순환을 피하기 위해 sealed denominator 밖의 evidence-only attestation이며 runtime이나 package authority가 아니다.
+
 ## 2-6. Frame
 
 ### 정체성

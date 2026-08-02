@@ -2259,6 +2259,39 @@ Iris DVF 3-3 — validated Naturalization current runtime adoption / canonical p
   * implementation commit / tree: `a440b9a638ae3caf0cb37215d46ebfc9dba7b90a` / `138ef819d166a5cd41f39e11047108201fd00b99`
   * Codex Reviewer final integrated review: `PROCEED / Critical 0 / Important 0 / Minor 0`
 
+Iris — consolidated core refactor implementation / integrated-closeout boundary
+
+* 날짜: 2026-08-02
+* 상태: Changes 1–6 implemented / Change 7 `deferred_by_design` / Change 8 `no_op` / Change 9 seal candidate ready; terminal status authority is the post-seal binding report
+* 결정:
+
+  * 지원 API와 public require surface를 유지하면서 Description, Browser, Detail, legacy compatibility 내부 경계를 분리한다. Description string output은 block API에서 파생하고, Browser selection fallback과 cache/build state는 명시적으로 모델링하며, Browser/Wiki detail은 read-only fact view model을 공유한다.
+  * 기존 외부 계약을 제거하는 대신 legacy `IrisData` access와 Browser variant compatibility를 이름 있는 adapter 뒤에 격리한다. 전역 alias 제거 또는 generator 제거를 이 refactor의 완료 조건으로 확대하지 않는다.
+  * build-tool decomposition은 현재 12-module core와 approved 4/4 tooling slot을 유지하는 `deferred_by_design`으로 닫고, repository cleanup은 deletion predicate를 만족한 경로가 없어 `no_op`으로 닫는다.
+  * `Iris/build/package/Iris`는 `Iris` source/runtime authority에서 생성되는 read-only package projection이다. package mirror를 source writer나 역방향 병합 권위로 사용하지 않으며, source와 mirror가 동일하면 복사를 수행하지 않는다.
+  * integrated closeout의 validation axis는 runtime behavior, current route, historical route, full v2 discovery, Lua syntax, disposable package identity, protected surface, supported API compatibility로 분리한다. 한 축의 PASS로 다른 mandatory axis나 release/B42/Workshop readiness를 대체하지 않는다.
+* Current-route 복구:
+
+  * 최초 integrated batch의 current route `135 tests / 1 failure / 2 errors`는 checkout EOL에 민감한 independent-review hash, stale package mirror source binding, ignored generated non-live executable을 blocker로 올린 registry scan에서 발생한 세 차단 항목으로 분해했다.
+  * review artifact identity는 decoded UTF-8 + LF canonical identity로 고정했고, package mirror는 current `Iris`에서 재생성했으며, ignored generated non-live 항목은 non-authority classification을 유지하되 untracked executable과 달리 blocker로 승격하지 않도록 수정했다.
+  * ignored legacy seed 16개는 repository authority로 흡수하거나 삭제하지 않고 외부 quarantine으로 격리했다. 이후 package mirror 101개 파일은 source `Iris`와 missing `0` / hash difference `0`이다.
+  * exact current-route command `python -B Iris\\_docs\\round3\\round3_run_contract_tests.py --class current --enforce-current-build-closure`는 `145/145 PASS`, exit `0`으로 복구됐다. Codex Reviewer의 최종 read-only verdict는 `APPROVE / P0 0 / P1 0 / P2 0`이다.
+* Integrated closeout:
+
+  * historical reproduction은 pinned Git corpus와 hermetic readpoint를 사용하도록 고쳤고 exact historical route는 `285/285 PASS`, exit `0`이다. 전체 v2 test writer는 bounded disposable root와 tracked Git input을 사용하며 exact full discovery는 `520/520 PASS`, exit `0`이다.
+  * production Lua syntax 95 files와 disposable package 95 Lua/12 Layer 3 files도 exit `0`이다. Diagnostic route의 `77 tests / 3 failures / 26 errors`는 historical overlay가 retired input을 의도적으로 생략한 결과와 ignored local source-contract anchor이므로 `advisory_failed`, `blocking=false`로 분리한다.
+  * Phase 0의 일부 기준 해시는 혼합 줄바꿈 working bytes가 아니라 baseline/final에서 동일한 Git blob identity로 정규화했다. 승인된 변경은 `current_route_required_validations.json`의 pinned descriptor rebind 한 건뿐이며 protected report는 changed `1`, approved `1`, unauthorized `0`을 유지한다.
+  * validation asset manifest와 ceiling을 generation 8, required asset 75, reserved future 0, lifecycle 전부 `sealed`, mandatory unvalidated axis 0으로 봉인한다. historical reproduction JSON/ZIP hard dependency도 denominator에 포함한다. exact commit CleanCheckout의 receipt/canonical/stdout/stderr는 sealed denominator 밖의 post-seal `final_evidence_binding_report.json`에 결속한다.
+* Claim / Non-decision:
+
+  * sealed candidate 자체의 standard closeout state는 terminal 전 `implemented_only`다. Change 9 최종 `complete` 권위는 exact CleanCheckout과 external evidence hash 재검증을 기록한 `final_evidence_binding_report.json.status=complete`에만 있다. 이 완료는 diagnostic advisory를 PASS로 바꾸지 않는다.
+  * package mirror 동기화는 current source의 파생본 복구이며 package publication, release archive, Workshop/B42 readiness 또는 unknown external consumer compatibility 승인이 아니다.
+* Trace:
+
+  * consolidated plan: `docs/iris_core_refactoring_consolidated_plan.md`
+  * implementation series: `c096d8d6` .. `34db710b`
+  * closeout evidence: `Iris/_docs/refactor/core_refactor/final_closeout.md`, `final_validation_matrix.json`, `final_package_identity_report.json`, `final_supported_api_compatibility_report.json`, `phase1_validation_asset_manifest.json`, `phase1_validation_ceiling.json`, post-seal `final_evidence_binding_report.json`
+
 ---
 ## Frame
 

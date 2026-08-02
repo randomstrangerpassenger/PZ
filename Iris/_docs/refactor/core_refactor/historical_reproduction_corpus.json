@@ -2,17 +2,22 @@
   "schema_version": "iris-historical-reproduction-corpus-v1",
   "purpose": "Self-contained ignored historical and diagnostic route reproduction for exact-commit clean checkout validation.",
   "archive_path": "Iris/_docs/refactor/core_refactor/historical_reproduction_corpus.zip",
-  "archive_sha256": "016884e56c42df7083c52fc3e9333ce73157846f84ac901a7a28d2ca8a4db1c4",
-  "row_count": 2404,
+  "archive_sha256": "862b23fa2942d99458664c240cae27c287a81fc67b00593847ddfa5b36ad9ec1",
+  "row_count": 2409,
   "route_test_count": 201,
   "build_support_count": 498,
   "tool_support_count": 0,
-  "route_fixture_count": 1705,
-  "expected_entry_paths_sha256": "785da1265bffbb408d6ffeb41e261bcf9c98af695db33534e113d7d888954e2b",
+  "route_fixture_count": 1710,
+  "expected_entry_paths_sha256": "dac5e1b2eb41a619467452a507e52aa0971a19e0d75509976aa6bc1afbe6c509",
   "expected_route_test_paths_sha256": "795da92ab46bba97d369bbf9d8fd5629ce0e394fd33338617b5bcc5cfe3817b5",
   "canonicalization": "Python UTF-8 text is read with universal newlines and emitted as UTF-8 LF bytes; RAW_FIXTURE_PATHS preserve source bytes",
   "raw_fixture_paths": [
-    "lua/shared/Translate/KO/Recipes_KO.txt"
+    "lua/shared/Translate/CS/Recipes_CS.txt",
+    "lua/shared/Translate/DA/Recipes_DA.txt",
+    "lua/shared/Translate/IT/Recipes_IT.txt",
+    "lua/shared/Translate/KO/Recipes_KO.txt",
+    "lua/shared/Translate/NL/Recipes_NL.txt",
+    "lua/shared/Translate/PT/Recipes_PT.txt"
   ],
   "rows": [
     {
@@ -15682,11 +15687,46 @@
       "source_path": "lua/shared/TimedActions/ISBaseTimedAction.lua"
     },
     {
+      "path": "lua/shared/Translate/CS/Recipes_CS.txt",
+      "entry_kind": "route_fixture",
+      "sha256": "92e06b4d27fd679d4f58d4e04079de8c9119563c7a11862a5c4c3f92092314be",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/shared/Translate/CS/Recipes_CS.txt"
+    },
+    {
+      "path": "lua/shared/Translate/DA/Recipes_DA.txt",
+      "entry_kind": "route_fixture",
+      "sha256": "09a4343846e4a59c2a904d70d985db14d082fd9bd5a72b28cf24ffae838aa430",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/shared/Translate/DA/Recipes_DA.txt"
+    },
+    {
+      "path": "lua/shared/Translate/IT/Recipes_IT.txt",
+      "entry_kind": "route_fixture",
+      "sha256": "c122cc50ff940be33a07fa2e163fa8a2380e57ce39b59a3c20578bae53386954",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/shared/Translate/IT/Recipes_IT.txt"
+    },
+    {
       "path": "lua/shared/Translate/KO/Recipes_KO.txt",
       "entry_kind": "route_fixture",
       "sha256": "f0af12d1025fce9cf48625a0c56bd4309c9a4085671d577f61be2723d6d603cd",
       "source_kind": "tracked_live_fixture",
       "source_path": "lua/shared/Translate/KO/Recipes_KO.txt"
+    },
+    {
+      "path": "lua/shared/Translate/NL/Recipes_NL.txt",
+      "entry_kind": "route_fixture",
+      "sha256": "2b2e165b2d9f3f09067ca6330ec5cf94d9f7393240d111cd76013a3fa20854fb",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/shared/Translate/NL/Recipes_NL.txt"
+    },
+    {
+      "path": "lua/shared/Translate/PT/Recipes_PT.txt",
+      "entry_kind": "route_fixture",
+      "sha256": "2ca8660534b7d71d635a5badb1744c17a37e18b67e685fb01af5b3f761dd710a",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/shared/Translate/PT/Recipes_PT.txt"
     },
     {
       "path": "lua/shared/Util/AdjacentFreeTileFinder.lua",

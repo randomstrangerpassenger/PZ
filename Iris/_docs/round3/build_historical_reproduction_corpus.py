@@ -46,7 +46,14 @@ HISTORICAL_FIXTURE_ROOTS = (
     "scripts",
 )
 HISTORICAL_FIXTURE_GLOBS = ("lua/**/*.lua",)
-RAW_FIXTURE_PATHS = {"lua/shared/Translate/KO/Recipes_KO.txt"}
+RAW_FIXTURE_PATHS = {
+    "lua/shared/Translate/CS/Recipes_CS.txt",
+    "lua/shared/Translate/DA/Recipes_DA.txt",
+    "lua/shared/Translate/IT/Recipes_IT.txt",
+    "lua/shared/Translate/KO/Recipes_KO.txt",
+    "lua/shared/Translate/NL/Recipes_NL.txt",
+    "lua/shared/Translate/PT/Recipes_PT.txt",
+}
 HISTORICAL_FIXTURE_PATHS = (
     "Iris/build/description/v2/data/compose_profiles.json",
     "Iris/build/description/v2/data/cluster_summary_templates.json",
@@ -100,7 +107,6 @@ HISTORICAL_FIXTURE_PATHS = (
     "Iris/build/description/v2/tools/style/rules/structural_rules.json",
     "scripts/camping.txt",
     "scripts/items.txt",
-    "lua/shared/Translate/KO/Recipes_KO.txt",
 )
 
 
@@ -255,6 +261,7 @@ def main() -> int:
         )
 
     fixture_paths = set(HISTORICAL_FIXTURE_PATHS)
+    fixture_paths.update(RAW_FIXTURE_PATHS)
     for root_relative in HISTORICAL_FIXTURE_ROOTS:
         root = REPO / root_relative
         if not root.is_dir():

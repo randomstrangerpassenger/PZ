@@ -1,0 +1,129 @@
+{
+  "binding": {
+    "reviewer": "Codex Reviewer; unattended runtime UI unavailable",
+    "subject_commit": "4f3699929ba838bf5b6a26f5924b3ee9d7066dff",
+    "subject_tree": "799728a148ab049f96f66c9761203b8d9ef746c3",
+    "tested_at": "2026-08-02T23:37:46.481363+00:00"
+  },
+  "cases": [
+    {
+      "blocked_reason": "Project Zomboid interactive runtime, locale switching, screenshot capture, and a human runtime reviewer were unavailable during the unattended implementation window",
+      "case_class": "runtime_ui",
+      "case_id": "runtime_ui.browser_determinism",
+      "expected": "category order, search, folded count, representative, and recipe display match baseline",
+      "iris_version": "subject-4f3699929ba8",
+      "locale": "not_observed",
+      "observed": "not executed",
+      "os": "Windows-11-10.0.26200-SP0",
+      "project_zomboid_build": "not_observed",
+      "status": "blocked",
+      "tested_package_sha256": "5f5219f08db316cb715d4bd3b4b208b5fa6e9e2f5fe6d5fea6d80a1a6c0004da"
+    },
+    {
+      "blocked_reason": "Project Zomboid interactive runtime, locale switching, screenshot capture, and a human runtime reviewer were unavailable during the unattended implementation window",
+      "case_class": "runtime_ui",
+      "case_id": "runtime_ui.copy_on_read",
+      "expected": "repeated Browser and Detail navigation cannot mutate frozen public data",
+      "iris_version": "subject-4f3699929ba8",
+      "locale": "not_observed",
+      "observed": "not executed",
+      "os": "Windows-11-10.0.26200-SP0",
+      "project_zomboid_build": "not_observed",
+      "status": "blocked",
+      "tested_package_sha256": "5f5219f08db316cb715d4bd3b4b208b5fa6e9e2f5fe6d5fea6d80a1a6c0004da"
+    },
+    {
+      "blocked_reason": "Project Zomboid interactive runtime, locale switching, screenshot capture, and a human runtime reviewer were unavailable during the unattended implementation window",
+      "case_class": "runtime_ui",
+      "case_id": "runtime_ui.wiki_units",
+      "expected": "EN and KO food/core values preserve their percent-scaled and raw profiles",
+      "iris_version": "subject-4f3699929ba8",
+      "locale": "not_observed",
+      "observed": "not executed",
+      "os": "Windows-11-10.0.26200-SP0",
+      "project_zomboid_build": "not_observed",
+      "status": "blocked",
+      "tested_package_sha256": "5f5219f08db316cb715d4bd3b4b208b5fa6e9e2f5fe6d5fea6d80a1a6c0004da"
+    },
+    {
+      "blocked_reason": "Project Zomboid interactive runtime, locale switching, screenshot capture, and a human runtime reviewer were unavailable during the unattended implementation window",
+      "case_class": "runtime_ui",
+      "case_id": "runtime_ui.tooltip",
+      "expected": "Alt Tooltip preserves 3/4-line success and 2-line failure branches after locale changes",
+      "iris_version": "subject-4f3699929ba8",
+      "locale": "not_observed",
+      "observed": "not executed",
+      "os": "Windows-11-10.0.26200-SP0",
+      "project_zomboid_build": "not_observed",
+      "status": "blocked",
+      "tested_package_sha256": "5f5219f08db316cb715d4bd3b4b208b5fa6e9e2f5fe6d5fea6d80a1a6c0004da"
+    },
+    {
+      "blocked_reason": "Project Zomboid interactive runtime, locale switching, screenshot capture, and a human runtime reviewer were unavailable during the unattended implementation window",
+      "case_class": "runtime_ui",
+      "case_id": "runtime_ui.logging",
+      "expected": "debug-off play emits no debug-only work while warnings and errors remain visible",
+      "iris_version": "subject-4f3699929ba8",
+      "locale": "not_observed",
+      "observed": "not executed",
+      "os": "Windows-11-10.0.26200-SP0",
+      "project_zomboid_build": "not_observed",
+      "status": "blocked",
+      "tested_package_sha256": "5f5219f08db316cb715d4bd3b4b208b5fa6e9e2f5fe6d5fea6d80a1a6c0004da"
+    },
+    {
+      "case_class": "operator_contract",
+      "case_id": "operator_contract.clean_checkout_full_gate",
+      "command": [
+        "C:/Users/MW/iccv/env-v1/Scripts/python.exe",
+        "-B",
+        "-s",
+        "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
+        "full-gate",
+        "--repo",
+        "C:/Users/Public/IT/s4",
+        "--commit",
+        "4f3699929ba838bf5b6a26f5924b3ee9d7066dff",
+        "--python",
+        "C:/Users/MW/iccv/env-v1/Scripts/python.exe",
+        "--environment-receipt",
+        "C:/Users/MW/iccv/receipts/env-v1/environment_receipt.json",
+        "--work-root",
+        "R:/a4",
+        "--result-root",
+        "R:/b4"
+      ],
+      "evidence": {
+        "kind": "artifact",
+        "path": "Iris/_docs/refactor/residual_refactor/clean_checkout_binding_report.json",
+        "sha256": "ae8de76dbe4ec51b65a73698b27beced90e4fcf6093cdc11c140535e352334aa"
+      },
+      "exit_code": 2,
+      "expected": {
+        "clean_checkout": true,
+        "exact_committed_subject": true,
+        "exit_code": 0
+      },
+      "observed": {
+        "exit_code": 2,
+        "status": "failed"
+      },
+      "os": "Windows-11-10.0.26200-SP0",
+      "python_or_tool_version": "3.14.3 (tags/v3.14.3:323c59a, Feb  3 2026, 16:04:56) [MSC v.1944 64 bit (AMD64)]",
+      "shell": "PowerShell",
+      "status": "failed"
+    }
+  ],
+  "class_summaries": {
+    "operator_contract": {
+      "case_count": 1,
+      "validation_status": "failed"
+    },
+    "runtime_ui": {
+      "case_count": 5,
+      "validation_status": "blocked"
+    }
+  },
+  "schema_version": "iris-residual-manual-runtime-validation-v1",
+  "validation_status": "failed"
+}

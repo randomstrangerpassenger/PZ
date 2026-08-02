@@ -6,8 +6,80 @@
   "index_projection": true,
   "rows": [
     {
+      "manifest_path": "Iris/_docs/refactor/residual_refactor/clean_checkout_binding_report.evidence.json",
+      "manifest_sha256": "5237f7ada5c750012f2c3391e83ea6bae46bf31b766039c08969d9a8d73e72ba",
+      "output_count": 1,
+      "producer": "clean_checkout_binding_adapter",
+      "role": "current",
+      "subject": {
+        "commit": "4f3699929ba838bf5b6a26f5924b3ee9d7066dff",
+        "overlay_sha256_or_null": null,
+        "tree": "799728a148ab049f96f66c9761203b8d9ef746c3"
+      }
+    },
+    {
+      "manifest_path": "Iris/_docs/refactor/residual_refactor/codex_reviewer_report.evidence.json",
+      "manifest_sha256": "f2d361a7fbec569f89155e60411f16d99c17f35334220f88dfef0d03cb9a4785",
+      "output_count": 1,
+      "producer": "codex_reviewer",
+      "role": "current",
+      "subject": {
+        "commit": "4f3699929ba838bf5b6a26f5924b3ee9d7066dff",
+        "overlay_sha256_or_null": null,
+        "tree": "799728a148ab049f96f66c9761203b8d9ef746c3"
+      }
+    },
+    {
+      "manifest_path": "Iris/_docs/refactor/residual_refactor/current_closeout.evidence.json",
+      "manifest_sha256": "d995bd315c2fa32c58b4e7245b4aed4172112d67e58370f9a894795611808f69",
+      "output_count": 12,
+      "producer": "residual_refactor_closeout",
+      "role": "current",
+      "subject": {
+        "commit": "4f3699929ba838bf5b6a26f5924b3ee9d7066dff",
+        "overlay_sha256_or_null": null,
+        "tree": "799728a148ab049f96f66c9761203b8d9ef746c3"
+      }
+    },
+    {
+      "manifest_path": "Iris/_docs/refactor/residual_refactor/diagnostic_contract_bundle.evidence.json",
+      "manifest_sha256": "26a58815e9e79255ad31fe6dd8fd0d1a2c26dcb17e08f9918c4d29e58e99cb62",
+      "output_count": 2,
+      "producer": "residual_diagnostic_disposition_adapter",
+      "role": "diagnostic",
+      "subject": {
+        "commit": "4f3699929ba838bf5b6a26f5924b3ee9d7066dff",
+        "overlay_sha256_or_null": null,
+        "tree": "799728a148ab049f96f66c9761203b8d9ef746c3"
+      }
+    },
+    {
+      "manifest_path": "Iris/_docs/refactor/residual_refactor/historical_contract_report.evidence.json",
+      "manifest_sha256": "e49d919990102f96a70d54e24451e0a55985444e74c5b06cb4336b0036072ce4",
+      "output_count": 1,
+      "producer": "round3_historical_execution_adapter",
+      "role": "historical",
+      "subject": {
+        "commit": "4f3699929ba838bf5b6a26f5924b3ee9d7066dff",
+        "overlay_sha256_or_null": null,
+        "tree": "799728a148ab049f96f66c9761203b8d9ef746c3"
+      }
+    },
+    {
+      "manifest_path": "Iris/_docs/refactor/residual_refactor/runtime_behavior_acceptance.jsonl.evidence.json",
+      "manifest_sha256": "367204f680e5ddefa7f1943855afdbe62a582c8ce03504a846ef6d401cc061e1",
+      "output_count": 2,
+      "producer": "Iris/test/run_residual_refactor_acceptance.ps1",
+      "role": "current",
+      "subject": {
+        "commit": "4f3699929ba838bf5b6a26f5924b3ee9d7066dff",
+        "overlay_sha256_or_null": null,
+        "tree": "799728a148ab049f96f66c9761203b8d9ef746c3"
+      }
+    },
+    {
       "manifest_path": "Iris/_docs/refactor/residual_refactor/runtime_behavior_baseline.jsonl.evidence.json",
-      "manifest_sha256": "8fc609314feb12df7c9d1320de05508c2c24a4862e17b064c33c7512c6076f89",
+      "manifest_sha256": "f44c8414fb8020e9b95a566e2e1e40ed22df3b4549f73e8b77198fc33be94b35",
       "output_count": 2,
       "producer": "Iris/test/run_residual_refactor_acceptance.ps1",
       "role": "current",

@@ -1,0 +1,21 @@
+{
+    "schema_version":  "iris-residual-runtime-binding-v1",
+    "validation_status":  "passed",
+    "evidence_path":  "Iris/_docs/refactor/residual_refactor/runtime_behavior_acceptance.jsonl",
+    "evidence_sha256":  "3ef8fc28f2993d113dc8ff81f69077831d543c811a5993f91eb71188a8b128d7",
+    "row_count":  7,
+    "mode":  "Acceptance",
+    "subject_commit":  "4f3699929ba838bf5b6a26f5924b3ee9d7066dff",
+    "subject_tree":  "799728a148ab049f96f66c9761203b8d9ef746c3",
+    "subject_overlay_sha256_or_null":  null,
+    "producer_overlay_rows":  [
+
+                              ],
+    "command":  [
+                    "C:/Users/MW/scoop/shims/lua.exe",
+                    "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iris-residual-source-60715d2d/Iris/test/lua/residual_refactor_acceptance_harness.lua",
+                    "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iris-residual-source-60715d2d",
+                    "Acceptance"
+                ],
+    "lua_version":  "Lua 5.4.8  Copyright (C) 1994-2025 Lua.org, PUC-Rio"
+}

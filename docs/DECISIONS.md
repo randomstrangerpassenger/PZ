@@ -2454,3 +2454,35 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
 
   * refined: 2026-03-25 Canvas 공개 포맷은 ZIP+JSON(+.pack), `.canvas`는 내부 정규화 번들 후보
   * COMMON-EVIDENCE-TRACE.
+
+---
+
+## Iris residual refactoring — 구현 수용 / closeout partial 유지
+
+* 상태: 2026-08-03 current readpoint / implementation accepted / validation partial
+* 결정: `iris_residual_refactoring_consolidated_plan.md`의 Changes 1~5, 6A, 7 구현은 현재 코드로 수용하되, 필수 closeout 축이 모두 통과하기 전에는 계획을 `complete` 또는 release-ready로 보지 않는다.
+* 수용된 구현:
+
+  * Browser 표시 순서와 Description 우선순위를 taxonomy 의미 권위와 분리된 중립 projection으로 둔다.
+  * 대표 항목과 folded group 계산은 locale-independent `fullType` 순서를 사용하고 generation 수명주기의 파생 cache를 공유한다.
+  * 공개 Lua getter는 wrapper와 nested collection을 copy-on-read로 반환한다.
+  * Wiki formatter는 현재 출력값을 유지하는 raw/percent profile을 명시한다.
+  * Alt Tooltip은 사실 projection, 번역 해석, 줄 조립을 분리하되 기존 3~4줄 성공/2줄 실패와 tag text 축약을 보존하고 새 줄 수 상한을 두지 않는다.
+  * debug-only 계산은 기존 logger gate 뒤로 옮기며 warning/error 경로는 유지한다.
+  * Python 파일럿은 기존 `compose_layer3_io` stem의 byte/error 계약을 유지하고, registry runtime record 경로 계산만 closure-external non-hub leaf로 분리한다.
+  * current/historical/diagnostic evidence 역할과 비권위 current index 경계를 분리한다.
+* 조건부 변경:
+
+  * BOM 정규화는 외부 hash consumer를 배제하지 못해 `deferred`이다.
+  * 추가 도메인 package 이동은 exact owner 승인 조건이 충족되지 않아 `deferred`이다.
+  * `IrisModuleBootstrap.lua` logger gate는 검사 결과 `not_applicable / inspected_no_change`이다.
+* 검증 판정:
+
+  * standalone runtime acceptance, production Lua syntax, disposable package, supported API, Python import/CLI/byte matrix는 통과했다.
+  * Codex Reviewer의 UNC temp-root finding은 `4f369992`에서 수정했고 재검토 finding은 0건이다.
+  * protected surface, current route, historical route, diagnostic disposition, full Python discovery, receipt-bound clean-checkout, manual Project Zomboid UI는 통과하지 못했거나 차단됐다.
+  * 따라서 최종 상태는 `partial`이며, 자동 검증 성공분은 실제 Project Zomboid 인게임 검증을 대체하지 않는다.
+* Non-decision:
+
+  * 이 항목은 봉인 predecessor evidence 수정, historical denominator 축소, registry giant 분해, package projection의 source authority 승격, release/Workshop/B42 준비 완료를 승인한 것이 아니다.
+* Evidence: `Iris/_docs/refactor/residual_refactor/final_validation_matrix.json` 및 같은 디렉터리의 role manifests.

@@ -1,0 +1,28 @@
+{
+  "schema_version": "iris-residual-codex-reviewer-v1",
+  "validation_status": "passed",
+  "created_at": "2026-08-02T23:35:48.1279529+00:00",
+  "reviewer": "Codex Reviewer",
+  "reviewer_cli_version": "0.130.0",
+  "reviewer_model": "gpt-5.4",
+  "implementation_review": {
+    "subject_commit": "60715d2db4cdf7ead9dd846bae9b6a33b2688bee",
+    "exit_code": 0,
+    "finding_count": 1,
+    "findings": [
+      {
+        "priority": "P2",
+        "path": "Iris/validation/residual_refactor/run_python_import_matrix.py",
+        "title": "Support UNC temp roots in long-path cleanup",
+        "disposition": "fixed"
+      }
+    ]
+  },
+  "fix_commit": "4f3699929ba838bf5b6a26f5924b3ee9d7066dff",
+  "fix_review": {
+    "subject_commit": "4f3699929ba838bf5b6a26f5924b3ee9d7066dff",
+    "exit_code": 0,
+    "finding_count": 0,
+    "summary": "The UNC path conversion is correct and no regression was found in the surrounding validation flow."
+  }
+}

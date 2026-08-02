@@ -1,0 +1,11 @@
+{
+    "schema_version":  "iris-residual-package-identity-report-v1",
+    "validation_status":  "passed",
+    "disposable_candidate_lua_count":  90,
+    "source_lua_count":  90,
+    "source_candidate_identity_equal":  true,
+    "candidate_lua_identity_sha256":  "5f5219f08db316cb715d4bd3b4b208b5fa6e9e2f5fe6d5fea6d80a1a6c0004da",
+    "existing_package_peer_unchanged":  true,
+    "candidate_cleanup_status":  "passed_removed",
+    "writer_target_policy":  "existing package peer is never a writer target"
+}

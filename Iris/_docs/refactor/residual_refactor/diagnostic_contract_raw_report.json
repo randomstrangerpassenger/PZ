@@ -1,0 +1,24 @@
+{
+  "schema_version": "iris-residual-diagnostic-raw-execution-v1",
+  "role": "diagnostic",
+  "validation_status": "failed",
+  "execution_status": "failed_before_raw_report_generation",
+  "created_at": "2026-08-02T23:35:48.1279529+00:00",
+  "subject_commit": "4f3699929ba838bf5b6a26f5924b3ee9d7066dff",
+  "subject_tree": "799728a148ab049f96f66c9761203b8d9ef746c3",
+  "command": [
+    "uv",
+    "run",
+    "python",
+    "-B",
+    "Iris/_docs/round3/round3_run_contract_tests.py",
+    "--class",
+    "diagnostic",
+    "--out",
+    "Iris/_docs/refactor/residual_refactor/diagnostic_contract_raw_report.json"
+  ],
+  "exit_code": 2,
+  "runner_report_generated": false,
+  "stderr": "historical reproduction route-test denominator mismatch\n",
+  "public_exit_semantics_modified": false
+}

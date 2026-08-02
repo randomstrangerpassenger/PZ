@@ -1177,3 +1177,19 @@ Pulse 생태계에서 리팩토링은 `더 예쁜 구조 만들기`보다 **헌�
 - 구조 가드와 경계 테스트는 **실제로 존재하고 현재 리팩토링 대상인 모듈**을 기준으로 작성한다.
 - 현 단계의 중심은 Echo, Fuse, Nerve(Lua-only, `allowEmptyShould` 허용)이며, 실존 코드가 없거나 현재 Java 리팩토링 대상이 아닌 축을 전제로 규칙을 늘리지 않는다.
 - 미래 spoke를 미리 상정한 규칙은 헌법 강화가 아니라 노이즈가 될 수 있으므로, 실제 코드 등장 후 별도 결정으로 연다.
+
+## 8-11. Iris residual refactoring readpoint
+
+Iris의 runtime 역할은 계속 **오프라인에서 확정된 사실을 Lua로 표시하는 viewer**다. 이번 후속 리팩토링은 의미 추론이나 taxonomy 권위를 runtime으로 옮기지 않고 다음 경계를 명시했다.
+
+- `Classification/Rule authority -> CategoryPresentationOrder projection -> CategoryIndex/VariantIndex -> BrowserData` 방향만 허용한다. Logic은 Browser UI를 require하지 않는다.
+- presentation-order projection은 표시 순서와 Description priority만 소유하며 category membership이나 의미를 소유하지 않는다.
+- Variant 대표 선택은 locale과 `pairs()` 순회 순서가 아닌 `fullType` comparator로 결정하고, 파생 group cache는 generation과 함께 폐기한다.
+- 공개 Tags, UseCases, Tooltip summary는 내부 동결 table을 직접 노출하지 않고 wrapper와 nested array를 복사한다.
+- Wiki unit profile은 source field와 multiplier/format을 명시하지만 현재 사용자-visible output을 임의 환산하지 않는다.
+- Alt Tooltip은 static fact projection, translation resolution, line assembly를 분리한다. 기존 cache와 분기 수를 유지하고 Detail ViewModel 생성이나 새 max-lines 정책을 도입하지 않는다.
+- debug 문자열/집계는 기존 logger enablement 뒤에서만 계산한다. warning/error 및 failure evidence는 lazy 대상이 아니다.
+- Python build 도구는 contract-specific I/O를 유지한다. `compose_layer3_io`는 기존 stem과 JSONL/hash/error 계약을 보존하고 Windows extended path를 처리하며, registry runtime record path projection만 stdlib-only leaf로 분리한다.
+- validation evidence는 current, historical, diagnostic 역할을 분리하고 `current_evidence_index.json`을 비권위 projection으로만 취급한다.
+
+구현 readpoint는 `4f3699929ba838bf5b6a26f5924b3ee9d7066dff`이다. 구조 구현은 수용됐지만 protected-surface overlay, historical denominator, diagnostic raw report, Windows clean-checkout path budget, 수동 PZ UI가 닫히지 않아 architecture closeout 상태는 `partial`이다.

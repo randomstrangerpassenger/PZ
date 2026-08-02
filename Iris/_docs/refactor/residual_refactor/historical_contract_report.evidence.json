@@ -1,0 +1,30 @@
+{
+  "authority_claim": false,
+  "command": [
+    "uv",
+    "run",
+    "python",
+    "-B",
+    "Iris/validation/residual_refactor/write_evidence_manifest.py"
+  ],
+  "created_at": "2026-08-02T23:39:06.385745+00:00",
+  "inputs": [],
+  "mutable": false,
+  "outputs": [
+    {
+      "exists": true,
+      "path": "Iris/_docs/refactor/residual_refactor/historical_contract_report.json",
+      "sha256": "54b77c4e5e4efb7d6cb8038527089b58cf81277ccc4f820e9933da2e2b105f0b"
+    }
+  ],
+  "producer": "round3_historical_execution_adapter",
+  "producer_readpoint": "Iris/_docs/round3/round3_run_contract_tests.py",
+  "role": "historical",
+  "schema_version": "iris-residual-evidence-role-v1",
+  "subject": {
+    "commit": "4f3699929ba838bf5b6a26f5924b3ee9d7066dff",
+    "overlay_sha256_or_null": null,
+    "tree": "799728a148ab049f96f66c9761203b8d9ef746c3"
+  },
+  "supersedes": []
+}

@@ -929,6 +929,45 @@ Pulse는 처음부터 “새 Java 로더”로 경쟁하는 브랜드가 아니�
 
 ---
 
+# 10. Iris residual refactoring follow-up
+
+## Done
+
+- Phase 0 inventory, runtime characterization, API/protected-surface baseline, evidence-role schema를 생성했다.
+- deterministic presentation projection, copy-on-read, Wiki unit profile, Tooltip 분리, lazy debug gate를 구현했다.
+- `compose_layer3_io`의 기존 계약을 유지한 Windows strict-path 지원과 registry runtime record path leaf 추출을 구현했다.
+- 다섯 current-route 테스트와 current/historical/diagnostic evidence 역할을 등록했다.
+- standalone runtime acceptance, production Lua syntax, disposable package, supported API, Python import/CLI/byte matrix를 실행했다.
+- Codex Reviewer finding 1건(UNC temp-root cleanup)을 수정했고 최종 재검토 finding 0건을 확인했다.
+
+## Blocked / Partial
+
+- Phase 0가 initial user overlay에 결속돼 clean subject와 protected-surface hash를 동시에 재현하지 못한다.
+- current route는 150개 중 surface 계약 1건이 실패했다.
+- historical 및 diagnostic route는 봉인 reproduction denominator mismatch로 테스트 전 차단됐다.
+- full Python discovery는 clean subject에서 520개 중 5 failures / 4 errors다.
+- receipt-bound clean-checkout은 최장 tracked path 272자가 Windows 계약 상한 259자를 넘어 materialization 전에 차단됐다.
+- Project Zomboid 인게임 Browser/Wiki/Tooltip/logging 검증과 screenshot/log 증거는 unattended 환경에서 수행할 수 없어 `runtime_ui=blocked`다.
+
+## Next
+
+- 별도 owner 세션에서 Project Zomboid runtime UI 5개 case를 실행하고 screenshot 또는 PZ log를 결속한다.
+- protected-surface baseline의 initial overlay와 committed subject 관계를 새 계획에서 재판정한다.
+- sealed predecessor corpus를 수정하지 않는 historical/diagnostic denominator 후속 계획을 수립한다.
+- Windows 259자 계약을 유지할지, tracked staging 경로를 별도 승인으로 재배치할지 clean-checkout owner가 결정한다.
+
+## Hold
+
+- BOM 정규화
+- 추가 도메인 package 이동
+- registry giant 분해
+- historical denominator 축소 또는 sealed evidence 재작성
+- `complete`, release-ready, Workshop-ready, B42-ready 선언
+
+현재 상태는 `partial`이다. 근거는 `Iris/_docs/refactor/residual_refactor/final_validation_matrix.json`에 둔다.
+
+---
+
 # 11. Historical Trace
 
 Historical trace / provenance index는 ROADMAP 본문에서 더 이상 관리하지 않는다.  

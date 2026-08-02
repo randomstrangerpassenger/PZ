@@ -1,0 +1,16 @@
+{
+    "schema_version":  "iris-residual-claim-boundary-v1",
+    "validation_status":  "failed",
+    "claims":  [
+                   "listed supported surfaces compatible",
+                   "protected surfaces unchanged",
+                   "disposable package equals source Lua projection"
+               ],
+    "non_claims":  [
+                       "release readiness",
+                       "Workshop readiness",
+                       "B42 readiness",
+                       "unlisted external consumer compatibility",
+                       "manual Project Zomboid runtime validation"
+                   ]
+}

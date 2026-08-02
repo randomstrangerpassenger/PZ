@@ -1,0 +1,196 @@
+{
+  "mode": "Closeout",
+  "python_executable": "C:/Users/MW/scoop/apps/python/3.14.3/python.exe",
+  "python_no_user_site": true,
+  "python_version": "3.14.3 (tags/v3.14.3:323c59a, Feb  3 2026, 16:04:56) [MSC v.1944 64 bit (AMD64)]",
+  "pythonpath_removed": true,
+  "rows": [
+    {
+      "case_id": "repo.package_import",
+      "command": [
+        "C:\\Users\\MW\\scoop\\apps\\python\\3.14.3\\python.exe",
+        "-B",
+        "-s",
+        "-c",
+        "from Iris.build.description.v2.tools.build import compose_layer3_io as m;print(m.__file__)"
+      ],
+      "cwd": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iris-residual-source-60715d2d",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "stdout": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\iris-residual-source-60715d2d\\Iris\\build\\description\\v2\\tools\\build\\compose_layer3_io.py\n",
+      "validation_status": "passed"
+    },
+    {
+      "case_id": "v2.tools_package_import",
+      "command": [
+        "C:\\Users\\MW\\scoop\\apps\\python\\3.14.3\\python.exe",
+        "-B",
+        "-s",
+        "-c",
+        "from tools.build import compose_layer3_io as m;print(m.__file__)"
+      ],
+      "cwd": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iris-residual-source-60715d2d/Iris/build/description/v2",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "stdout": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\iris-residual-source-60715d2d\\Iris\\build\\description\\v2\\tools\\build\\compose_layer3_io.py\n",
+      "validation_status": "passed"
+    },
+    {
+      "case_id": "build_root.bare_import",
+      "command": [
+        "C:\\Users\\MW\\scoop\\apps\\python\\3.14.3\\python.exe",
+        "-B",
+        "-s",
+        "-c",
+        "import compose_layer3_io as m;print(m.__file__)"
+      ],
+      "cwd": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iris-residual-source-60715d2d/Iris/build/description/v2/tools/build",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "stdout": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\iris-residual-source-60715d2d\\Iris\\build\\description\\v2\\tools\\build\\compose_layer3_io.py\n",
+      "validation_status": "passed"
+    },
+    {
+      "case_id": "repo.direct_script_help",
+      "command": [
+        "C:\\Users\\MW\\scoop\\apps\\python\\3.14.3\\python.exe",
+        "-B",
+        "-s",
+        "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\iris-residual-source-60715d2d\\Iris\\build\\description\\v2\\tools\\build\\export_registry_runtime_records.py",
+        "--help"
+      ],
+      "cwd": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iris-residual-source-60715d2d",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "stdout": "usage: export_registry_runtime_records.py [-h]\n                                          --surface-input-manifest SURFACE_INPUT_MANIFEST\n                                          --policy-context {candidate,canonical_durable}\n                                          --policy POLICY\n                                          --disposition DISPOSITION\n                                          --binding-manifest BINDING_MANIFEST\n                                          --records-out RECORDS_OUT\n                                          --report-out REPORT_OUT\n\nExport lossless Registry Runtime Compatibility records for Windows Route C.\n\noptions:\n  -h, --help            show this help message and exit\n  --surface-input-manifest SURFACE_INPUT_MANIFEST\n  --policy-context {candidate,canonical_durable}\n  --policy POLICY\n  --disposition DISPOSITION\n  --binding-manifest BINDING_MANIFEST\n  --records-out RECORDS_OUT\n  --report-out REPORT_OUT\n",
+      "validation_status": "passed"
+    },
+    {
+      "case_id": "v2.python_m_help",
+      "command": [
+        "C:\\Users\\MW\\scoop\\apps\\python\\3.14.3\\python.exe",
+        "-B",
+        "-s",
+        "-m",
+        "tools.build.export_registry_runtime_records",
+        "--help"
+      ],
+      "cwd": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iris-residual-source-60715d2d/Iris/build/description/v2",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "stdout": "usage: python.exe -m tools.build.export_registry_runtime_records\n       [-h] --surface-input-manifest SURFACE_INPUT_MANIFEST\n       --policy-context {candidate,canonical_durable} --policy POLICY\n       --disposition DISPOSITION --binding-manifest BINDING_MANIFEST\n       --records-out RECORDS_OUT --report-out REPORT_OUT\n\nExport lossless Registry Runtime Compatibility records for Windows Route C.\n\noptions:\n  -h, --help            show this help message and exit\n  --surface-input-manifest SURFACE_INPUT_MANIFEST\n  --policy-context {candidate,canonical_durable}\n  --policy POLICY\n  --disposition DISPOSITION\n  --binding-manifest BINDING_MANIFEST\n  --records-out RECORDS_OUT\n  --report-out REPORT_OUT\n",
+      "validation_status": "passed"
+    },
+    {
+      "case_id": "v2.tools_common_identity",
+      "command": [
+        "C:\\Users\\MW\\scoop\\apps\\python\\3.14.3\\python.exe",
+        "-B",
+        "-s",
+        "-c",
+        "from tools.common import paths;print(paths.V2_ROOT);assert paths.V2_ROOT.name == 'v2'"
+      ],
+      "cwd": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iris-residual-source-60715d2d/Iris/build/description/v2",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "stdout": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\iris-residual-source-60715d2d\\Iris\\build\\description\\v2\n",
+      "validation_status": "passed"
+    },
+    {
+      "case_id": "v2.extracted_leaf_import",
+      "command": [
+        "C:\\Users\\MW\\scoop\\apps\\python\\3.14.3\\python.exe",
+        "-B",
+        "-s",
+        "-c",
+        "from tools.build import registry_runtime_record_paths as m;print(m.__file__)"
+      ],
+      "cwd": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iris-residual-source-60715d2d/Iris/build/description/v2",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "stdout": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\iris-residual-source-60715d2d\\Iris\\build\\description\\v2\\tools\\build\\registry_runtime_record_paths.py\n",
+      "validation_status": "passed"
+    },
+    {
+      "artifact_bytes_hex": "7b227a223a2022ed959ceab880222c202261223a20317d0d0a",
+      "artifact_sha256": "9364c875b448806f62bb852ec5fc807787f51216ade6a6a5e083c47be5e41fa9",
+      "bom": false,
+      "byte_contract_equal": true,
+      "case_id": "compose_layer3_io.jsonl_byte_contract",
+      "command": [
+        "C:\\Users\\MW\\scoop\\apps\\python\\3.14.3\\python.exe",
+        "-B",
+        "-s",
+        "-c",
+        "from pathlib import Path;from tools.build.compose_layer3_io import write_jsonl;p=Path('C:\\\\Users\\\\Public\\\\Documents\\\\ESTsoft\\\\CreatorTemp\\\\iris-residual-byte-suv2d0vi\\\\rows.jsonl');write_jsonl(p,[{'z':'한글','a':1}]);print(p)"
+      ],
+      "cwd": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iris-residual-source-60715d2d/Iris/build/description/v2",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "line_ending": "crlf",
+      "stderr": "",
+      "stdout": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\iris-residual-byte-suv2d0vi\\rows.jsonl\n",
+      "trailing_newline": true,
+      "validation_status": "passed"
+    },
+    {
+      "case_id": "compose_layer3_io.windows_long_path",
+      "command": [
+        "C:\\Users\\MW\\scoop\\apps\\python\\3.14.3\\python.exe",
+        "-B",
+        "-s",
+        "-c",
+        "from pathlib import Path;from tools.build.compose_layer3_io import file_sha256,write_jsonl;p=Path('C:\\\\Users\\\\Public\\\\Documents\\\\ESTsoft\\\\CreatorTemp\\\\iris-residual-byte-suv2d0vi\\\\long-path-segment\\\\long-path-segment\\\\long-path-segment\\\\long-path-segment\\\\long-path-segment\\\\long-path-segment\\\\long-path-segment\\\\long-path-segment\\\\long-path-segment\\\\long-path-segment\\\\long-path-segment\\\\rows.jsonl');write_jsonl(p,[{'long':True}]);assert len(file_sha256(p)) == 64;print(len(str(p)))"
+      ],
+      "cwd": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iris-residual-source-60715d2d/Iris/build/description/v2",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "stdout": "282\n",
+      "validation_status": "passed"
+    },
+    {
+      "case_id": "compose_layer3_io.missing_file_exception",
+      "command": [
+        "C:\\Users\\MW\\scoop\\apps\\python\\3.14.3\\python.exe",
+        "-B",
+        "-s",
+        "-c",
+        "from pathlib import Path;from tools.build.compose_layer3_io import file_sha256;p=Path('C:\\\\Users\\\\Public\\\\Documents\\\\ESTsoft\\\\CreatorTemp\\\\iris-residual-byte-suv2d0vi\\\\missing.jsonl');\ntry:file_sha256(p)\nexcept FileNotFoundError:print('FileNotFoundError')\nelse:raise AssertionError('missing file did not fail')"
+      ],
+      "cwd": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iris-residual-source-60715d2d/Iris/build/description/v2",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stderr": "",
+      "stdout": "FileNotFoundError\n",
+      "validation_status": "passed"
+    },
+    {
+      "all_variants_distinct": true,
+      "case_id": "compose_layer3_io.line_ending_and_bom_fixtures",
+      "validation_status": "passed",
+      "variant_sha256": {
+        "bom_lf": "13a615e862dc6b1ddd9a3f3d601905d804c45a3688ea2aa34dd07b46295ae1bc",
+        "crlf": "34ca028eb53bbc3ba8f2391662e32c658b6aeb2fb3b47c583cb845c70e01f47e",
+        "lf": "e346432021b04179518d9614f3560ccd71354a4ee101ddcb893d6959a9d6301c"
+      }
+    },
+    {
+      "application_status": "not_applicable",
+      "case_id": "compose_layer3_io.atomic_replace_retry",
+      "reason": "compose_layer3_io owns a direct-write JSONL contract and neither the baseline nor Change 5A introduces atomic replace or retry semantics",
+      "validation_status": "passed"
+    }
+  ],
+  "schema_version": "iris-residual-python-import-matrix-v1",
+  "subject_commit": "4f3699929ba838bf5b6a26f5924b3ee9d7066dff",
+  "subject_tree": "799728a148ab049f96f66c9761203b8d9ef746c3",
+  "validation_status": "passed"
+}

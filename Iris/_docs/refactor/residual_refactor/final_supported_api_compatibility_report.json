@@ -1,0 +1,131 @@
+{
+    "schema_version":  "iris-residual-supported-api-report-v1",
+    "validation_status":  "passed",
+    "claim_boundary":  "predecessor_20_listed_surfaces_only",
+    "baseline_manifest":  "Iris/_docs/refactor/residual_refactor/phase0_supported_api_manifest.json",
+    "baseline_manifest_sha256":  "f0a00e5c9332f99e569bcb4bef8a85d68f3bfc2711a72e5e4aa6d6bd391eaca8",
+    "surface_count":  20,
+    "incompatible_count":  0,
+    "surfaces":  [
+                     {
+                         "symbol":  "IrisAPI.Tags",
+                         "module_path":  "Iris/IrisAPI",
+                         "status":  "compatible",
+                         "identity_delta":  "none"
+                     },
+                     {
+                         "symbol":  "IrisAPI.getTagsForItem",
+                         "module_path":  "Iris/IrisAPI",
+                         "status":  "compatible",
+                         "identity_delta":  "none"
+                     },
+                     {
+                         "symbol":  "IrisAPI.getTags",
+                         "module_path":  "Iris/IrisAPI",
+                         "status":  "compatible",
+                         "identity_delta":  "copy_on_read_only"
+                     },
+                     {
+                         "symbol":  "IrisAPI.getDescriptionBlocks",
+                         "module_path":  "Iris/IrisAPI",
+                         "status":  "compatible",
+                         "identity_delta":  "none"
+                     },
+                     {
+                         "symbol":  "IrisAPI.getDescription",
+                         "module_path":  "Iris/IrisAPI",
+                         "status":  "compatible",
+                         "identity_delta":  "none"
+                     },
+                     {
+                         "symbol":  "IrisAPI.getDescriptionForItem",
+                         "module_path":  "Iris/IrisAPI",
+                         "status":  "compatible",
+                         "identity_delta":  "none"
+                     },
+                     {
+                         "symbol":  "IrisAPI.getUseCaseLines",
+                         "module_path":  "Iris/IrisAPI",
+                         "status":  "compatible",
+                         "identity_delta":  "copy_on_read_only"
+                     },
+                     {
+                         "symbol":  "IrisAPI.getOutcomes",
+                         "module_path":  "Iris/IrisAPI",
+                         "status":  "compatible",
+                         "identity_delta":  "copy_on_read_only"
+                     },
+                     {
+                         "symbol":  "IrisAPI.getCapabilities",
+                         "module_path":  "Iris/IrisAPI",
+                         "status":  "compatible",
+                         "identity_delta":  "copy_on_read_only"
+                     },
+                     {
+                         "symbol":  "IrisAPI.hasCapability",
+                         "module_path":  "Iris/IrisAPI",
+                         "status":  "compatible",
+                         "identity_delta":  "none"
+                     },
+                     {
+                         "symbol":  "Description",
+                         "module_path":  "Iris/API/Description",
+                         "status":  "compatible",
+                         "identity_delta":  "none"
+                     },
+                     {
+                         "symbol":  "UseCases",
+                         "module_path":  "Iris/API/UseCases",
+                         "status":  "compatible",
+                         "identity_delta":  "none"
+                     },
+                     {
+                         "symbol":  "IrisBrowserData.getGroupVariants",
+                         "module_path":  "Iris/UI/Browser/IrisBrowserData",
+                         "status":  "compatible",
+                         "identity_delta":  "none"
+                     },
+                     {
+                         "symbol":  "IrisBrowserData.build",
+                         "module_path":  "Iris/UI/Browser/IrisBrowserData",
+                         "status":  "compatible",
+                         "identity_delta":  "none"
+                     },
+                     {
+                         "symbol":  "IrisWikiSections",
+                         "module_path":  "Iris/UI/Wiki/IrisWikiSections",
+                         "status":  "compatible",
+                         "identity_delta":  "none"
+                     },
+                     {
+                         "symbol":  "IrisWikiPanel.openForItem",
+                         "module_path":  "Iris/UI/Wiki/IrisWikiPanel",
+                         "status":  "compatible",
+                         "identity_delta":  "none"
+                     },
+                     {
+                         "symbol":  "IrisBrowser.openSearch",
+                         "module_path":  "Iris/UI/Browser/IrisBrowser",
+                         "status":  "compatible",
+                         "identity_delta":  "none"
+                     },
+                     {
+                         "symbol":  "IrisBrowser.openForItem",
+                         "module_path":  "Iris/UI/Browser/IrisBrowser",
+                         "status":  "compatible",
+                         "identity_delta":  "none"
+                     },
+                     {
+                         "symbol":  "IrisData",
+                         "module_path":  "Iris/Data/IrisData",
+                         "status":  "compatible",
+                         "identity_delta":  "none"
+                     },
+                     {
+                         "symbol":  "IrisPrimarySubcategory",
+                         "module_path":  "generated runtime global",
+                         "status":  "compatible",
+                         "identity_delta":  "none"
+                     }
+                 ]
+}

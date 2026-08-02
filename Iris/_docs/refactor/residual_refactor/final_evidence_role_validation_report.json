@@ -1,0 +1,8 @@
+{
+  "error_count": 0,
+  "errors": [],
+  "manifest_count": 7,
+  "schema": "Iris/_docs/refactor/residual_refactor/evidence_role.schema.json",
+  "schema_version": "iris-residual-evidence-role-validation-v1",
+  "validation_status": "passed"
+}

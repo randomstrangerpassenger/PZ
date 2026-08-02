@@ -1,0 +1,35 @@
+{
+  "authority_claim": false,
+  "command": [
+    "uv",
+    "run",
+    "python",
+    "-B",
+    "Iris/validation/residual_refactor/write_evidence_manifest.py"
+  ],
+  "created_at": "2026-08-02T23:39:06.981912+00:00",
+  "inputs": [],
+  "mutable": false,
+  "outputs": [
+    {
+      "exists": true,
+      "path": "Iris/_docs/refactor/residual_refactor/diagnostic_contract_raw_report.json",
+      "sha256": "6cccbc01e8779003ab49d48f20160e565159cf4f9f315040f6b914ca5dafb9e5"
+    },
+    {
+      "exists": true,
+      "path": "Iris/_docs/refactor/residual_refactor/diagnostic_contract_disposition_report.json",
+      "sha256": "d39951b24d353c07d701fbfe5d18ec4a1a7c54c5529a49621d680dc45382dba5"
+    }
+  ],
+  "producer": "residual_diagnostic_disposition_adapter",
+  "producer_readpoint": "Iris/validation/residual_refactor/run_diagnostic_disposition.py",
+  "role": "diagnostic",
+  "schema_version": "iris-residual-evidence-role-v1",
+  "subject": {
+    "commit": "4f3699929ba838bf5b6a26f5924b3ee9d7066dff",
+    "overlay_sha256_or_null": null,
+    "tree": "799728a148ab049f96f66c9761203b8d9ef746c3"
+  },
+  "supersedes": []
+}

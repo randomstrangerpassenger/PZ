@@ -1,0 +1,39 @@
+{
+  "schema_version": "iris-residual-full-python-discovery-v1",
+  "validation_status": "failed",
+  "created_at": "2026-08-02T23:35:48.1279529+00:00",
+  "subject_commit": "4f3699929ba838bf5b6a26f5924b3ee9d7066dff",
+  "subject_tree": "799728a148ab049f96f66c9761203b8d9ef746c3",
+  "command": [
+    "uv",
+    "run",
+    "python",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "Iris/build/description/v2/tests",
+    "-p",
+    "test_*.py"
+  ],
+  "exit_code": 1,
+  "test_count": 520,
+  "elapsed_seconds": 772.561,
+  "failure_count": 5,
+  "error_count": 4,
+  "failures": [
+    "test_dvf_3_3_food_semantic_handoff.FoodSemanticHandoffTest.test_candidate_patch_is_bounded",
+    "test_dvf_3_3_food_semantic_handoff.FoodSemanticHandoffTest.test_successful_attempt_patch_manifest_is_exact",
+    "test_dvf_3_3_registry_runtime_compatibility_current.RegistryRuntimeCompatibilityCurrentRouteTest.test_required_gate_runs_standalone_subprocess",
+    "test_iris_core_refactor_closeout.IrisCoreRefactorCloseoutTest.test_protected_surface_has_no_mutation",
+    "test_iris_residual_contract_surfaces.IrisResidualContractSurfacesTest.test_registered_surfaces_preserve_architecture_and_closeout_contracts"
+  ],
+  "errors": [
+    "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.setUpClass",
+    "test_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.DvfCurrentSourceAuthorityDriftVerificationAdoptionResealTest.setUpClass",
+    "test_iris_core_refactor_closeout.IrisCoreRefactorCloseoutTest.test_historical_reproduction_corpus_is_exact_and_fail_closed",
+    "test_naturalization_compiler_identity.NaturalizationCompilerIdentityTest.test_producer_and_consumer_share_v2_identity_and_path_order"
+  ],
+  "environment_note": "Executed from a clean detached worktree at the exact subject; missing untracked historical fixtures and Windows long paths account for several failures."
+}

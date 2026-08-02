@@ -1,0 +1,274 @@
+{
+  "schema_version": "iris-residual-final-validation-matrix-v1",
+  "overall_status": "partial",
+  "implementation_status": "implemented_with_blocked_closeout_axes",
+  "created_at": "2026-08-02T23:35:48.1279529+00:00",
+  "subject": {
+    "commit": "4f3699929ba838bf5b6a26f5924b3ee9d7066dff",
+    "tree": "799728a148ab049f96f66c9761203b8d9ef746c3"
+  },
+  "change_matrix": [
+    {
+      "change": "Change 1",
+      "application_status": "applied",
+      "validation_status": "passed",
+      "note": "Phase 0 inventory, runtime/API/protected baselines, closure decision, and evidence schemas were created before production mutation."
+    },
+    {
+      "change": "Change 2",
+      "application_status": "applied",
+      "validation_status": "passed",
+      "note": "Neutral presentation order, deterministic representative selection, and generation-scoped display-group cache are covered by runtime acceptance."
+    },
+    {
+      "change": "Change 3",
+      "application_status": "applied",
+      "validation_status": "passed",
+      "note": "Public wrapper and nested collection mutation isolation passed standalone acceptance."
+    },
+    {
+      "change": "Change 4A",
+      "application_status": "applied",
+      "validation_status": "passed",
+      "note": "Raw and percent Wiki profiles preserve current output."
+    },
+    {
+      "change": "Change 4B",
+      "application_status": "applied",
+      "validation_status": "passed",
+      "note": "Tooltip fact/translation/line assembly preserves the characterized branches and introduces no max-lines rule."
+    },
+    {
+      "change": "Change 4C",
+      "application_status": "applied",
+      "validation_status": "passed",
+      "note": "Lazy debug work passed; IrisModuleBootstrap.lua is not_applicable with inspection_note=inspected_no_change."
+    },
+    {
+      "change": "Change 5A",
+      "application_status": "applied",
+      "validation_status": "passed",
+      "note": "compose_layer3_io keeps its stem and contract while supporting strict Windows paths."
+    },
+    {
+      "change": "Change 5B",
+      "application_status": "applied",
+      "validation_status": "passed",
+      "note": "registry_runtime_record_paths.py is a closure-external stdlib-only non-hub leaf; the existing exporter remains the CLI/error adapter."
+    },
+    {
+      "change": "Change 6A",
+      "application_status": "applied",
+      "validation_status": "passed",
+      "note": "Final overlay inventory reports 497 recursive build-tool Python files with explicit roles."
+    },
+    {
+      "change": "Change 6B",
+      "application_status": "deferred",
+      "validation_status": "not_applicable",
+      "note": "Sixteen BOM candidates remain unchanged because external hash consumers were not resolved."
+    },
+    {
+      "change": "Change 6C",
+      "application_status": "deferred",
+      "validation_status": "not_applicable",
+      "note": "No additional domain move was made without an exact owner decision."
+    },
+    {
+      "change": "Change 7",
+      "application_status": "applied",
+      "validation_status": "failed",
+      "note": "Role manifests validate, but the diagnostic raw route exits 2 before report generation and remains blocking."
+    },
+    {
+      "change": "Change 8",
+      "application_status": "applied",
+      "validation_status": "partial",
+      "note": "Required closeout axes are not all passed."
+    }
+  ],
+  "validation_axes": [
+    {
+      "axis": "focused_runtime_acceptance_test",
+      "validation_status": "passed",
+      "exit_code": 0,
+      "test_count": 1
+    },
+    {
+      "axis": "focused_contract_surface_test",
+      "validation_status": "failed",
+      "exit_code": 1,
+      "test_count": 1,
+      "reason": "Protected-surface baseline cannot be reproduced simultaneously in the clean committed subject and the retained Phase 0 overlay."
+    },
+    {
+      "axis": "focused_python_import_test",
+      "validation_status": "passed",
+      "exit_code": 0,
+      "test_count": 1
+    },
+    {
+      "axis": "focused_diagnostic_disposition_test",
+      "validation_status": "passed",
+      "exit_code": 0,
+      "test_count": 1
+    },
+    {
+      "axis": "focused_evidence_role_test",
+      "validation_status": "passed",
+      "exit_code": 0,
+      "test_count": 1
+    },
+    {
+      "axis": "runtime_behavior_acceptance",
+      "validation_status": "passed",
+      "exit_code": 0,
+      "row_count": 7,
+      "sha256": "3ef8fc28f2993d113dc8ff81f69077831d543c811a5993f91eb71188a8b128d7"
+    },
+    {
+      "axis": "production_lua_syntax",
+      "validation_status": "passed",
+      "exit_code": 0,
+      "file_count": 97
+    },
+    {
+      "axis": "disposable_package_validation",
+      "validation_status": "passed",
+      "exit_code": 0,
+      "candidate_lua_count": 97,
+      "layer3_file_count": 12
+    },
+    {
+      "axis": "supported_api_compatibility",
+      "validation_status": "passed",
+      "incompatible_count": 0,
+      "evidence": "final_supported_api_compatibility_report.json"
+    },
+    {
+      "axis": "protected_surface",
+      "validation_status": "failed",
+      "unauthorized_changed_count": 6,
+      "evidence": "final_protected_surface_report.json"
+    },
+    {
+      "axis": "disposable_package_identity",
+      "validation_status": "passed",
+      "source_lua_count": 90,
+      "candidate_lua_count": 90,
+      "candidate_lua_identity_sha256": "5f5219f08db316cb715d4bd3b4b208b5fa6e9e2f5fe6d5fea6d80a1a6c0004da"
+    },
+    {
+      "axis": "python_import_cli_byte_matrix",
+      "validation_status": "passed",
+      "exit_code": 0,
+      "row_count": 12
+    },
+    {
+      "axis": "current_contract_route",
+      "validation_status": "failed",
+      "exit_code": 1,
+      "test_count": 150,
+      "failure_count": 1,
+      "error_count": 0
+    },
+    {
+      "axis": "historical_contract_route",
+      "validation_status": "failed",
+      "exit_code": 2,
+      "test_count": 0,
+      "reason": "historical reproduction route-test denominator mismatch"
+    },
+    {
+      "axis": "diagnostic_disposition",
+      "validation_status": "failed",
+      "execution_status": "failed",
+      "exit_code": 2,
+      "blocking": true,
+      "raw_report_generated": false
+    },
+    {
+      "axis": "full_python_discovery",
+      "validation_status": "failed",
+      "exit_code": 1,
+      "test_count": 520,
+      "failure_count": 5,
+      "error_count": 4,
+      "elapsed_seconds": 772.561
+    },
+    {
+      "axis": "clean_checkout_full_gate",
+      "validation_status": "blocked",
+      "exit_code": 2,
+      "execution_status": "blocked_before_checkout_materialization",
+      "reason": "longest tracked path is 272 characters, above the Windows contract maximum of 259"
+    },
+    {
+      "axis": "manual_runtime_ui",
+      "validation_status": "blocked",
+      "case_count": 5,
+      "reason": "Project Zomboid interactive runtime and screenshot/log evidence were unavailable unattended."
+    },
+    {
+      "axis": "manual_operator_contract",
+      "validation_status": "failed",
+      "case_count": 1,
+      "reason": "The clean-checkout full gate exited 2."
+    },
+    {
+      "axis": "manual_report_json_schema",
+      "validation_status": "blocked",
+      "reason": "The required jsonschema module is not installed; schema validation was not reported as passed."
+    },
+    {
+      "axis": "evidence_role_validator",
+      "validation_status": "passed",
+      "exit_code": 0,
+      "manifest_count": 7
+    },
+    {
+      "axis": "current_evidence_index",
+      "application_status": "applied",
+      "validation_status": "passed",
+      "authority_claim": false,
+      "row_count": 7
+    },
+    {
+      "axis": "codex_reviewer",
+      "validation_status": "passed",
+      "initial_finding_count": 1,
+      "fixed_finding_count": 1,
+      "final_finding_count": 0
+    },
+    {
+      "axis": "tracked_sealed_evidence_cleanup",
+      "validation_status": "passed",
+      "note": "Tracked staging/source files rewritten by the final test run were restored to the exact subject; the two pre-existing user document changes were retained."
+    }
+  ],
+  "blocking_reasons": [
+    "protected surface validation failed",
+    "current route failed",
+    "historical route failed before test execution",
+    "diagnostic raw route exited 2 and produced no runner report",
+    "full Python discovery failed",
+    "clean checkout is blocked by the Windows path budget",
+    "manual Project Zomboid runtime UI evidence is absent",
+    "manual report JSON Schema validation tool is unavailable"
+  ],
+  "claims": [
+    "Changes 2 through 5 are implemented and pass their standalone runtime/import fixtures",
+    "production Lua syntax and disposable package validation passed",
+    "evidence roles and the non-authoritative current index validate",
+    "the final Codex Reviewer pass has no actionable findings"
+  ],
+  "non_claims": [
+    "complete plan closeout",
+    "release readiness",
+    "Workshop readiness",
+    "B42 readiness",
+    "manual Project Zomboid runtime correctness",
+    "historical or diagnostic reproduction completeness",
+    "clean-checkout full-gate success"
+  ]
+}

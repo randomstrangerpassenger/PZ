@@ -1,0 +1,27 @@
+{
+  "blocking": true,
+  "command": [
+    "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe",
+    "-B",
+    "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\iris-residual-source-60715d2d\\Iris\\_docs\\round3\\round3_run_contract_tests.py",
+    "--class",
+    "diagnostic",
+    "--out",
+    "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\iris-residual-source-60715d2d\\Iris\\_docs\\refactor\\residual_refactor\\diagnostic_contract_raw_report.json"
+  ],
+  "disposition_count": 0,
+  "dispositions_path": "Iris/_docs/refactor/residual_refactor/diagnostic_advisory_dispositions.json",
+  "execution_status": "failed",
+  "finding_status": "unexpected_failed",
+  "matched_test_ids": [],
+  "observed_findings": [],
+  "raw_exit_code": 2,
+  "raw_report_path": "Iris/_docs/refactor/residual_refactor/diagnostic_contract_raw_report.json",
+  "raw_report_schema_valid": false,
+  "schema_version": "iris-residual-diagnostic-disposition-v1",
+  "stale_disposition_test_ids": [],
+  "stderr": "historical reproduction route-test denominator mismatch\n",
+  "stdout": "",
+  "unmatched_test_ids": [],
+  "validation_status": "failed"
+}

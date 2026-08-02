@@ -1,0 +1,85 @@
+{
+  "authority_claim": false,
+  "command": [
+    "uv",
+    "run",
+    "python",
+    "-B",
+    "Iris/validation/residual_refactor/write_evidence_manifest.py"
+  ],
+  "created_at": "2026-08-02T23:43:34.543527+00:00",
+  "inputs": [],
+  "mutable": false,
+  "outputs": [
+    {
+      "exists": true,
+      "path": "Iris/_docs/refactor/residual_refactor/runtime_behavior_acceptance.jsonl",
+      "sha256": "3ef8fc28f2993d113dc8ff81f69077831d543c811a5993f91eb71188a8b128d7"
+    },
+    {
+      "exists": true,
+      "path": "Iris/_docs/refactor/residual_refactor/current_contract_report.json",
+      "sha256": "1a4b7b4addfd4028e45c223cc5f6ed8f13058117dee8c290d74a9cb4ea8894e7"
+    },
+    {
+      "exists": true,
+      "path": "Iris/_docs/refactor/residual_refactor/final_supported_api_compatibility_report.json",
+      "sha256": "277938ecc75a15fbef3019023b784db245ec20e8aa77bf4630682eea52967595"
+    },
+    {
+      "exists": true,
+      "path": "Iris/_docs/refactor/residual_refactor/final_protected_surface_report.json",
+      "sha256": "82349ae7b76c435b720e3a8077232e472192a7a51c4d1efa82e9159f347efcc9"
+    },
+    {
+      "exists": true,
+      "path": "Iris/_docs/refactor/residual_refactor/final_package_identity_report.json",
+      "sha256": "679e0c0b1fae8580ef6d59aaf3a6f406fff9d27d98b9e9316752dadf88ea3f7d"
+    },
+    {
+      "exists": true,
+      "path": "Iris/_docs/refactor/residual_refactor/python_import_matrix_report.json",
+      "sha256": "827121d579baf0523e23e03655d3b967b8de90ded615f27c5bc2bf8efdc49de4"
+    },
+    {
+      "exists": true,
+      "path": "Iris/_docs/refactor/residual_refactor/full_python_discovery_report.json",
+      "sha256": "b71102d7f483524c30d34e2c5af466750888893a93647a50ea93dff379cfe3dc"
+    },
+    {
+      "exists": true,
+      "path": "Iris/_docs/refactor/residual_refactor/clean_checkout_binding_report.json",
+      "sha256": "ae8de76dbe4ec51b65a73698b27beced90e4fcf6093cdc11c140535e352334aa"
+    },
+    {
+      "exists": true,
+      "path": "Iris/_docs/refactor/residual_refactor/manual_runtime_validation_report.json",
+      "sha256": "5e74ad533388e23674aab340d63cdcbbb146aa2b4b659b97e71cadb8813995a1"
+    },
+    {
+      "exists": true,
+      "path": "Iris/_docs/refactor/residual_refactor/final_inventory.json",
+      "sha256": "fc82ff2f5724958026a6544e8785a1ab5c87e5a675706d872dc27b12b53782dc"
+    },
+    {
+      "exists": true,
+      "path": "Iris/_docs/refactor/residual_refactor/codex_reviewer_report.json",
+      "sha256": "91dddd0b61529564ae1d57eaac829b829c29d86221990489b32e42992c66e135"
+    },
+    {
+      "exists": true,
+      "path": "Iris/_docs/refactor/residual_refactor/final_validation_matrix.json",
+      "sha256": "72beb7cc9381fb581bba046589b0ca7a9e426e36c612cece8f9a62f3e365d500"
+    }
+  ],
+  "producer": "residual_refactor_closeout",
+  "producer_readpoint": "docs/iris_residual_refactoring_consolidated_plan.md",
+  "role": "current",
+  "schema_version": "iris-residual-evidence-role-v1",
+  "subject": {
+    "commit": "4f3699929ba838bf5b6a26f5924b3ee9d7066dff",
+    "overlay_sha256_or_null": null,
+    "tree": "799728a148ab049f96f66c9761203b8d9ef746c3"
+  },
+  "supersedes": []
+}

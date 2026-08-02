@@ -294,7 +294,7 @@ class InteractionClusterPhaseDRuntimeTest(unittest.TestCase):
             self.assertIn('require("Iris/UI/Browser/IrisBrowserVariantIndex")', browser_text)
             self.assertLess(
                 browser_text.index("IrisAPI.Description.getDescription"),
-                browser_text.index("renderLayer3Section(item)"),
+                browser_text.index("renderLayer3Section("),
             )
             panel_text = (
                 IRIS_MOD_ROOT

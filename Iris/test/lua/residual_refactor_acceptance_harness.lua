@@ -360,7 +360,8 @@ package.preload["Iris/Logic/IrisDesc/Logger"] = function()
         error=function() end,
     }
 end
-resetLoaded({"Iris/Logic/IrisDesc/TagParser", "Iris/Logic/IrisDesc/Ordering", "Iris/Logic/IrisDesc/Templates"})
+resetLoaded({"Iris/Logic/IrisDesc/Logger", "Iris/Logic/IrisDesc/TagParser",
+    "Iris/Logic/IrisDesc/Ordering", "Iris/Logic/IrisDesc/Templates"})
 local TagParser = require("Iris/Logic/IrisDesc/TagParser")
 TagParser.collect({"Tool.1-A", "invalid"})
 local Ordering = require("Iris/Logic/IrisDesc/Ordering")
@@ -377,7 +378,8 @@ package.preload["Iris/Logic/IrisDesc/Logger"] = function()
         error=function() end,
     }
 end
-resetLoaded({"Iris/Logic/IrisDesc/TagParser", "Iris/Logic/IrisDesc/Ordering", "Iris/Logic/IrisDesc/Templates"})
+resetLoaded({"Iris/Logic/IrisDesc/Logger", "Iris/Logic/IrisDesc/TagParser",
+    "Iris/Logic/IrisDesc/Ordering", "Iris/Logic/IrisDesc/Templates"})
 TagParser = require("Iris/Logic/IrisDesc/TagParser")
 TagParser.collect({"Tool.1-A", "invalid"})
 Ordering = require("Iris/Logic/IrisDesc/Ordering")

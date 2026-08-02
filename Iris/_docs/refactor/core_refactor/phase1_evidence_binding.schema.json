@@ -13,9 +13,11 @@
     "subject_tree":{"type":"string","pattern":"^[0-9a-f]{40}$"},
     "producer_base_commit":{"type":"string","pattern":"^[0-9a-f]{40}$"},
     "producer_base_tree":{"type":"string","pattern":"^[0-9a-f]{40}$"},
+    "producer_worktree_state":{"enum":["clean","tracked_overlay","tracked_and_untracked_overlay"]},
+    "producer_input_scope":{"type":"array","items":{"type":"string","minLength":1},"uniqueItems":true},
+    "producer_overlay_rows":{"type":"array","items":{"type":"string"}},
     "time_axis":{"enum":["pre_refactor_characterization","post_refactor_acceptance"]},
     "execution_environment":{"type":"string","minLength":1}
   },
   "additionalProperties":true
 }
-

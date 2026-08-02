@@ -9,7 +9,7 @@ from pathlib import Path
 
 REPO = next(parent for parent in Path(__file__).resolve().parents if (parent / ".git").exists())
 sys.path.insert(0, str(REPO / "Iris" / "test"))
-from core_refactor_evidence import load_bound_evidence  # noqa: E402
+from core_refactor_evidence import load_bound_evidence, require_case_fixtures  # noqa: E402
 
 
 class LegacySurfaceAcceptanceTest(unittest.TestCase):
@@ -20,6 +20,11 @@ class LegacySurfaceAcceptanceTest(unittest.TestCase):
         after = load_bound_evidence(
             REPO, "Iris/_docs/refactor/core_refactor/phase5_legacy_surface_acceptance.jsonl"
         )
+        require_case_fixtures(after, {
+            "legacy_acceptance.capability_tooltip": "Base.Hammer",
+            "legacy_acceptance.taxonomy_projection": "Base.Hammer",
+            "legacy_acceptance.variant_adapter": "legacy_global_only_group",
+        })
         rows = {row["case_id"]: row for row in after}
         self.assertEqual(
             {

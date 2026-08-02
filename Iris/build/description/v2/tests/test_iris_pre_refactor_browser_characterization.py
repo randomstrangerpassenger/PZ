@@ -16,20 +16,23 @@ class PreRefactorBrowserCharacterizationTest(unittest.TestCase):
         require_cases(
             headless,
             {
-                "selection.event_payload",
-                "selection.selected_index",
-                "selection.missing",
-                "selection.out_of_range",
-                "browser_build.missing_api",
-                "browser_build.missing_tags",
-                "browser_build.boolean_lifecycle",
-                "search.current_results",
+                "selection.event_payload": "event_item",
+                "selection.selected_index": "selected_index",
+                "selection.missing": "missing_selection",
+                "selection.out_of_range": "out_of_range",
+                "browser_build.missing_api": "missing_iris_api",
+                "browser_build.missing_tags": "missing_tags",
+                "browser_build.boolean_lifecycle": "false_build_true_already_skip",
+                "search.current_results": "display_fulltype_case_empty",
             },
             "auxiliary_standalone_puc_lua_5_4",
         )
-        require_cases(pz, {"selection.pz_payloads", "browser_build.pz_lifecycle"}, "project_zomboid_b41_41_78_20")
+        require_cases(
+            pz,
+            {"selection.pz_payloads": "event_and_selected_index", "browser_build.pz_lifecycle": "startup_build_and_skip"},
+            "project_zomboid_b41_41_78_20",
+        )
 
 
 if __name__ == "__main__":
     unittest.main()
-

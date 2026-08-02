@@ -67,6 +67,28 @@ local function readonly(values)
     })
 end
 
+local function readonlyArray(values)
+    return readonly(values or {})
+end
+
+--- Return a mutable consumer-local copy of a read-only array field. This keeps
+--- Lua 5.1/Kahlua iteration semantics out of the proxy contract.
+function ViewModel.copyArray(values)
+    local result = {}
+    local index = 1
+    while values and values[index] ~= nil do
+        result[index] = values[index]
+        index = index + 1
+    end
+    return result
+end
+
+function ViewModel.arrayLength(values)
+    local index = 1
+    while values and values[index] ~= nil do index = index + 1 end
+    return index - 1
+end
+
 function ViewModel.isViewModel(value)
     return type(value) == "table" and value.__irisItemDetailViewModel == true
 end
@@ -92,7 +114,7 @@ function ViewModel.fromItem(item)
         itemType = ItemAccess.getType(item),
         weight = read(item, {"getActualWeight", "getWeight"}),
         category = read(item, {"getDisplayCategory", "getCategory"}),
-        subcategory = read(item, {"getDisplayCategory", "getSubCategory"}),
+        subcategory = read(item, {"getSubCategory"}),
         tags = sortedTags(IrisAPI, item),
         food = {
             hunger = read(item, {"getHungerChange"}),
@@ -140,6 +162,24 @@ function ViewModel.fromItem(item)
         capabilities = #capabilities > 0,
     }
     values.revision = tostring(fullType) .. "|" .. tostring(values.locale)
+
+    values.tags = readonlyArray(values.tags)
+    values.food = readonly(values.food)
+    values.weapon = readonly(values.weapon)
+    values.literature = readonly(values.literature)
+    values.moveable = readonly(values.moveable)
+    values.layer3 = readonly(values.layer3)
+    values.connections = readonly({
+        recipes = readonlyArray(values.connections.recipes),
+        moveables = values.connections.moveables and readonly(values.connections.moveables) or nil,
+        fixing = values.connections.fixing and readonly(values.connections.fixing) or nil,
+    })
+    values.useCases = readonly({
+        lines = readonlyArray(values.useCases.lines),
+        debug_lines = readonlyArray(values.useCases.debug_lines),
+    })
+    values.capabilities = readonlyArray(values.capabilities)
+    values.availability = readonly(values.availability)
     return readonly(values)
 end
 

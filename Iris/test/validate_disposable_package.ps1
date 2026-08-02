@@ -44,6 +44,8 @@ try {
         $candidateHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $candidate).Hash
         if ($liveHash -ne $candidateHash) { throw "candidate/live runtime identity mismatch: $relative" }
     }
+    $detailViewModel = Join-Path $candidateModRoot 'media/lua/client/Iris/UI/Detail/IrisItemDetailViewModel.lua'
+    if (-not (Test-Path -LiteralPath $detailViewModel -PathType Leaf)) { throw 'new detail view-model module missing from candidate package' }
     $forbidden = @(
         'media/lua/client/Iris/Data/IrisLayer3Data.lua',
         'build', '_dev', 'staging', 'probe'
@@ -65,4 +67,3 @@ finally {
     if (Test-Path -LiteralPath $candidateFull) { Remove-Item -LiteralPath $candidateFull -Recurse -Force -ErrorAction SilentlyContinue }
     if (Test-Path -LiteralPath $candidateFull) { throw "candidate cleanup failed: $candidateFull" }
 }
-

@@ -12,10 +12,10 @@ from core_refactor_evidence import load_bound_evidence, require_cases  # noqa: E
 class PreRefactorDescriptionCharacterizationTest(unittest.TestCase):
     def test_description_cases_are_bound_in_both_runtimes(self) -> None:
         required = {
-            "description.base_hammer",
-            "description.base_pan",
-            "description.base_whiskeyfull",
-            "description.nil_fallback",
+            "description.base_hammer": "Base.Hammer",
+            "description.base_pan": "Base.Pan",
+            "description.base_whiskeyfull": "Base.WhiskeyFull",
+            "description.nil_fallback": "nil_input",
         }
         headless = load_bound_evidence(REPO, "Iris/_docs/refactor/core_refactor/phase1_pre_refactor_headless_baseline.jsonl")
         pz = load_bound_evidence(REPO, "Iris/_docs/refactor/core_refactor/phase1_pre_refactor_pz_baseline.jsonl")
@@ -25,4 +25,3 @@ class PreRefactorDescriptionCharacterizationTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

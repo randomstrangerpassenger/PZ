@@ -11,6 +11,7 @@
 
 local IrisBrowserInteractionCollector = {}
 local ProtectedCall = require("Iris/Util/IrisProtectedCall")
+local DetailViewModel = require("Iris/UI/Detail/IrisItemDetailViewModel")
 
 function IrisBrowserInteractionCollector.collectRecipeInteractions(fullType, item, IrisAPI, ucDescData, model)
     local interactionItems = {}
@@ -43,7 +44,7 @@ function IrisBrowserInteractionCollector.collectRecipeInteractions(fullType, ite
     end
 
     if not hasOfflineRecipes then
-        local recipeList = model and model.connections and model.connections.recipes or {}
+        local recipeList = model and DetailViewModel.copyArray(model.connections.recipes) or {}
         if not model and IrisAPI and IrisAPI.Index and IrisAPI.Index.getRecipeConnectionsForItem then
             local ok, list = ProtectedCall.data(function() return IrisAPI.Index.getRecipeConnectionsForItem(item) end)
             if ok and list then recipeList = list end
@@ -83,7 +84,7 @@ function IrisBrowserInteractionCollector.collectRecipeInteractions(fullType, ite
 end
 
 function IrisBrowserInteractionCollector.collectCapabilityInteractions(fullType, IrisAPI, tr, model)
-    local capabilityList = model and model.capabilities or {}
+    local capabilityList = model and DetailViewModel.copyArray(model.capabilities) or {}
     if not model and IrisAPI and IrisAPI.UseCases and IrisAPI.UseCases.getCapabilities then
         local ok, caps = ProtectedCall.data(function() return IrisAPI.UseCases.getCapabilities(fullType) end)
         if ok and caps then capabilityList = caps end

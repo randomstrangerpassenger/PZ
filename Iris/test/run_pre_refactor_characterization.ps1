@@ -48,7 +48,14 @@ function Get-TextSha([string]$Text) {
     return [System.BitConverter]::ToString($sha.ComputeHash($utf8NoBom.GetBytes($Text))).Replace('-', '').ToLowerInvariant()
 }
 $subjectPatchSha = if ([string]::IsNullOrEmpty($productionPatch)) { $null } else { Get-TextSha $productionPatch }
-$statusLines = @(& git -C $RepositoryRoot status --porcelain=v1 -uall -- Iris)
+$producerInputScope = @(
+    'Iris/media/lua/client/Iris',
+    'Iris/test/lua/pre_refactor_characterization_harness.lua',
+    'Iris/test/run_pre_refactor_characterization.ps1',
+    'Iris/_docs/refactor/core_refactor/phase1_behavior_evidence.schema.json',
+    'Iris/_docs/refactor/core_refactor/phase1_evidence_binding.schema.json'
+)
+$statusLines = @(& git -C $RepositoryRoot status --porcelain=v1 -uall -- @producerInputScope)
 $overlayRows = @()
 foreach ($line in $statusLines) {
     if ($line.Length -lt 4) { continue }
@@ -125,6 +132,9 @@ $binding = [ordered]@{
     subject_worktree_patch_sha256_or_null = $subjectPatchSha
     producer_base_commit = $subjectCommit
     producer_base_tree = $subjectTree
+    producer_worktree_state = $producerState
+    producer_input_scope = $producerInputScope
+    producer_overlay_rows = $overlayRows
     producer_overlay_sha256_or_null = $overlaySha
     time_axis = 'pre_refactor_characterization'
     execution_environment = 'auxiliary_standalone_puc_lua_5_4'

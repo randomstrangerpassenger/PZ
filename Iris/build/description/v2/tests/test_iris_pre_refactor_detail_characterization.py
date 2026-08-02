@@ -13,10 +13,18 @@ class PreRefactorDetailCharacterizationTest(unittest.TestCase):
     def test_detail_food_scroll_and_legacy_cases_are_bound(self) -> None:
         headless = load_bound_evidence(REPO, "Iris/_docs/refactor/core_refactor/phase1_pre_refactor_headless_baseline.jsonl")
         pz = load_bound_evidence(REPO, "Iris/_docs/refactor/core_refactor/phase1_pre_refactor_pz_baseline.jsonl")
-        require_cases(headless, {"detail.food_raw_units", "legacy.capability_tooltip"}, "auxiliary_standalone_puc_lua_5_4")
+        require_cases(
+            headless,
+            {"detail.food_raw_units": "Base.Apple", "legacy.capability_tooltip": "Base.Hammer"},
+            "auxiliary_standalone_puc_lua_5_4",
+        )
         require_cases(
             pz,
-            {"detail.food_pz_units", "legacy.pz_surface", "scroll_click.pz_pre_refactor"},
+            {
+                "detail.food_pz_units": "Base.Apple",
+                "legacy.pz_surface": "Base.Hammer",
+                "scroll_click.pz_pre_refactor": "Base.Hammer",
+            },
             "project_zomboid_b41_41_78_20",
         )
         standalone_scroll = next(row for row in headless if row["case_id"] == "scroll_click.standalone_ceiling")
@@ -26,4 +34,3 @@ class PreRefactorDetailCharacterizationTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

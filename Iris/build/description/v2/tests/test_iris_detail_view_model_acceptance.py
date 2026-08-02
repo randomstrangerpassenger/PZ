@@ -8,7 +8,7 @@ from pathlib import Path
 
 REPO = next(parent for parent in Path(__file__).resolve().parents if (parent / ".git").exists())
 sys.path.insert(0, str(REPO / "Iris" / "test"))
-from core_refactor_evidence import load_bound_evidence  # noqa: E402
+from core_refactor_evidence import load_bound_evidence, require_case_fixtures  # noqa: E402
 
 
 class DetailViewModelAcceptanceTest(unittest.TestCase):
@@ -19,6 +19,12 @@ class DetailViewModelAcceptanceTest(unittest.TestCase):
         after = load_bound_evidence(
             REPO, "Iris/_docs/refactor/core_refactor/phase4_detail_acceptance.jsonl"
         )
+        require_case_fixtures(after, {
+            "detail_acceptance.food_units": "Base.Apple",
+            "detail_acceptance.browser_wiki_shared": "Base.Apple",
+            "detail_acceptance.layer3_availability": "adopted_and_unadopted",
+            "detail_acceptance.incremental_scroll": "Base.Hammer",
+        })
         rows = {row["case_id"]: row for row in after}
         self.assertEqual(
             {
@@ -65,6 +71,7 @@ class DetailViewModelAcceptanceTest(unittest.TestCase):
         self.assertIn("raw_equal=true", completed.stdout)
         self.assertIn("availability_equal=true", completed.stdout)
         self.assertIn("labels_differ=true", completed.stdout)
+        self.assertIn("nested_readonly=true", completed.stdout)
 
     def test_shared_model_and_scroll_source_guards(self) -> None:
         model_path = REPO / "Iris/media/lua/client/Iris/UI/Detail/IrisItemDetailViewModel.lua"

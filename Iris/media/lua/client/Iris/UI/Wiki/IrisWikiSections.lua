@@ -58,8 +58,8 @@ end
 --- B) 태그 섹션 렌더링
 function IrisWikiSections.renderTagsSection(item)
     local model = DetailViewModel.ensure(item)
-    if not model or #model.tags == 0 then return nil end
-    return getLabel("Iris_Detail_Tags") .. ": " .. table.concat(model.tags, ", ")
+    if not model or DetailViewModel.arrayLength(model.tags) == 0 then return nil end
+    return getLabel("Iris_Detail_Tags") .. ": " .. table.concat(DetailViewModel.copyArray(model.tags), ", ")
 end
 
 function IrisWikiSections.renderLayer3Section(item)
@@ -165,8 +165,9 @@ function IrisWikiSections.renderConnectionSection(item)
     
     -- Recipe
     local recipeInfo = model.connections.recipes
-    if recipeInfo and #recipeInfo > 0 then
-        table.insert(parts, getLabel("Iris_Detail_Recipe") .. ": " .. #recipeInfo)
+    local recipeCount = DetailViewModel.arrayLength(recipeInfo)
+    if recipeCount > 0 then
+        table.insert(parts, getLabel("Iris_Detail_Recipe") .. ": " .. recipeCount)
     end
     
     -- Moveables
@@ -334,8 +335,9 @@ function IrisWikiSections.renderRecipeInfoSection(item)
     local model = DetailViewModel.ensure(item)
     if not model then return nil end
     local recipeInfo = model.connections.recipes
-    if recipeInfo and #recipeInfo > 0 then
-        return getLabel("Iris_Detail_Recipe") .. ": " .. #recipeInfo
+    local recipeCount = DetailViewModel.arrayLength(recipeInfo)
+    if recipeCount > 0 then
+        return getLabel("Iris_Detail_Recipe") .. ": " .. recipeCount
     end
     
     -- 레시피 0개면 nil 반환 (빈 줄 표시 금지)
@@ -353,8 +355,8 @@ function IrisWikiSections.renderMetaInfoSection(item)
     table.insert(lines, "────────────────────")
     
     -- 분류 ID (태그)
-    if #model.tags > 0 then
-        table.insert(lines, getLabel("Iris_Detail_ClassificationID") .. ": " .. table.concat(model.tags, ", "))
+    if DetailViewModel.arrayLength(model.tags) > 0 then
+        table.insert(lines, getLabel("Iris_Detail_ClassificationID") .. ": " .. table.concat(DetailViewModel.copyArray(model.tags), ", "))
     end
     
     -- 모듈
@@ -397,8 +399,8 @@ function IrisWikiSections.renderUseCaseSection(item)
     local model = DetailViewModel.ensure(item)
     if not model then return nil end
     local data = model.useCases
-    local lines = data.lines or {}
-    local debug_lines = data.debug_lines or {}
+    local lines = DetailViewModel.copyArray(data.lines)
+    local debug_lines = DetailViewModel.copyArray(data.debug_lines)
 
     if #lines == 0 and #debug_lines == 0 then
         return nil

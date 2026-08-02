@@ -40,7 +40,14 @@ finally {
 }
 if ($productionPatchExitCode -ne 0) { throw 'git diff failed while binding subject overlay' }
 $subjectPatchSha = if ([string]::IsNullOrEmpty($productionPatch)) { $null } else { Get-TextSha $productionPatch }
-$statusLines = @(& git -C $RepositoryRoot status --porcelain=v1 -uall -- Iris)
+$producerInputScope = @(
+    'Iris/media/lua/client/Iris',
+    'Iris/_dev/media/lua/client/Iris',
+    'Iris/test/run_pz_core_refactor_harness.ps1',
+    'Iris/_docs/refactor/core_refactor/phase1_behavior_evidence.schema.json',
+    'Iris/_docs/refactor/core_refactor/phase1_evidence_binding.schema.json'
+)
+$statusLines = @(& git -C $RepositoryRoot status --porcelain=v1 -uall -- @producerInputScope)
 $overlayRows = @()
 foreach ($line in $statusLines) {
     if ($line.Length -lt 4) { continue }
@@ -112,7 +119,7 @@ try {
     [System.IO.File]::WriteAllText($resolvedOutput, $jsonl + "`n", $utf8NoBom)
     $evidenceSha = (Get-FileHash -Algorithm SHA256 -LiteralPath $resolvedOutput).Hash.ToLowerInvariant()
     $relativeOutput = (Get-RelativePath $RepositoryRoot $resolvedOutput).Replace('\','/')
-    $binding = [ordered]@{schema_version=1;evidence_path=$relativeOutput;evidence_sha256=$evidenceSha;evidence_schema_version=1;row_count=$evidenceRows.Count;subject_commit=$subjectCommit;subject_tree=$subjectTree;subject_worktree_patch_sha256_or_null=$subjectPatchSha;producer_base_commit=$subjectCommit;producer_base_tree=$subjectTree;producer_overlay_sha256_or_null=$overlaySha;time_axis=$TimeAxis;execution_environment='project_zomboid_b41_41_78_20'}
+    $binding = [ordered]@{schema_version=1;evidence_path=$relativeOutput;evidence_sha256=$evidenceSha;evidence_schema_version=1;row_count=$evidenceRows.Count;subject_commit=$subjectCommit;subject_tree=$subjectTree;subject_worktree_patch_sha256_or_null=$subjectPatchSha;producer_base_commit=$subjectCommit;producer_base_tree=$subjectTree;producer_worktree_state=$producerState;producer_input_scope=$producerInputScope;producer_overlay_rows=$overlayRows;producer_overlay_sha256_or_null=$overlaySha;time_axis=$TimeAxis;execution_environment='project_zomboid_b41_41_78_20'}
     $bindingPath = [System.IO.Path]::ChangeExtension($resolvedOutput, '.binding.json')
     [System.IO.File]::WriteAllText($bindingPath, (($binding | ConvertTo-Json -Depth 20) + "`n"), $utf8NoBom)
     if (@($evidenceRows | Where-Object status -ne 'pass').Count -ne 0) { throw "PZ evidence contains failed rows: $(@($evidenceRows | Where-Object status -ne 'pass').case_id -join ', ')" }

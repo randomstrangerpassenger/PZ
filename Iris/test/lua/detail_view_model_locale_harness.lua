@@ -54,5 +54,7 @@ assert(english.availability.layer3 == korean.availability.layer3)
 assert(englishCore ~= koreanCore)
 assert(Sections.renderFoodSection(english):find("%-1600") ~= nil)
 assert(not pcall(function() english.fullType = "Base.Mutated" end))
+assert(not pcall(function() english.food.hunger = 0 end))
+assert(not pcall(function() english.tags[1] = "Mutated" end))
 
-print("IRIS_DETAIL_LOCALE_PASS raw_equal=true availability_equal=true labels_differ=true")
+print("IRIS_DETAIL_LOCALE_PASS raw_equal=true availability_equal=true labels_differ=true nested_readonly=true")

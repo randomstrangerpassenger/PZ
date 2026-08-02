@@ -8,7 +8,7 @@ from pathlib import Path
 
 REPO = next(parent for parent in Path(__file__).resolve().parents if (parent / ".git").exists())
 sys.path.insert(0, str(REPO / "Iris" / "test"))
-from core_refactor_evidence import load_bound_evidence  # noqa: E402
+from core_refactor_evidence import load_bound_evidence, require_case_fixtures  # noqa: E402
 
 
 class BrowserStateSelectionSearchAcceptanceTest(unittest.TestCase):
@@ -19,6 +19,15 @@ class BrowserStateSelectionSearchAcceptanceTest(unittest.TestCase):
         after = load_bound_evidence(
             REPO, "Iris/_docs/refactor/core_refactor/phase3_browser_acceptance.jsonl"
         )
+        require_case_fixtures(after, {
+            "browser_acceptance.pz_startup": "browser_open_startup",
+            "browser_acceptance.state_machine": "uninitialized_building_ready",
+            "browser_acceptance.required_retry": "missing_tags_then_browser_open",
+            "browser_acceptance.optional_degraded": "missing_optional_index",
+            "browser_acceptance.selection_matrix": "event_fallback_invalid",
+            "browser_acceptance.search_pz": "hammer_casefold_repeat",
+            "browser_acceptance.folded_count_pz": "tool_repeat",
+        })
         rows = {row["case_id"]: row for row in after}
         required = {
             "browser_acceptance.pz_startup",

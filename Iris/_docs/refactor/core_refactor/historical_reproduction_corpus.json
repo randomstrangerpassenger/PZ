@@ -2,15 +2,18 @@
   "schema_version": "iris-historical-reproduction-corpus-v1",
   "purpose": "Self-contained ignored historical and diagnostic route reproduction for exact-commit clean checkout validation.",
   "archive_path": "Iris/_docs/refactor/core_refactor/historical_reproduction_corpus.zip",
-  "archive_sha256": "88e46a7ed270f42e7d223615907898158debc528d7db0e83ee5419faa95cc368",
-  "row_count": 2403,
+  "archive_sha256": "016884e56c42df7083c52fc3e9333ce73157846f84ac901a7a28d2ca8a4db1c4",
+  "row_count": 2404,
   "route_test_count": 201,
   "build_support_count": 498,
   "tool_support_count": 0,
-  "route_fixture_count": 1704,
-  "expected_entry_paths_sha256": "f3d6bccac3cbb8282a4d4e1ef14fbd21cd90c3edf5e6f3a39d889af18d73efdb",
+  "route_fixture_count": 1705,
+  "expected_entry_paths_sha256": "785da1265bffbb408d6ffeb41e261bcf9c98af695db33534e113d7d888954e2b",
   "expected_route_test_paths_sha256": "795da92ab46bba97d369bbf9d8fd5629ce0e394fd33338617b5bcc5cfe3817b5",
-  "canonicalization": "Python UTF-8 text read with universal newlines and emitted as UTF-8 LF bytes",
+  "canonicalization": "Python UTF-8 text is read with universal newlines and emitted as UTF-8 LF bytes; RAW_FIXTURE_PATHS preserve source bytes",
+  "raw_fixture_paths": [
+    "lua/shared/Translate/KO/Recipes_KO.txt"
+  ],
   "rows": [
     {
       "path": "Iris/build/description/v2/data/acquisition_hint_normalization_schema.json",
@@ -15677,6 +15680,13 @@
       "sha256": "e228386d31ba9db2f7804158c3d7fa5743c0a65b215c4dd851af0a76f4f354a0",
       "source_kind": "tracked_live_fixture",
       "source_path": "lua/shared/TimedActions/ISBaseTimedAction.lua"
+    },
+    {
+      "path": "lua/shared/Translate/KO/Recipes_KO.txt",
+      "entry_kind": "route_fixture",
+      "sha256": "f0af12d1025fce9cf48625a0c56bd4309c9a4085671d577f61be2723d6d603cd",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/shared/Translate/KO/Recipes_KO.txt"
     },
     {
       "path": "lua/shared/Util/AdjacentFreeTileFinder.lua",

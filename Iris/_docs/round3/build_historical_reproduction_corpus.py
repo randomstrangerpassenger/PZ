@@ -46,6 +46,7 @@ HISTORICAL_FIXTURE_ROOTS = (
     "scripts",
 )
 HISTORICAL_FIXTURE_GLOBS = ("lua/**/*.lua",)
+RAW_FIXTURE_PATHS = {"lua/shared/Translate/KO/Recipes_KO.txt"}
 HISTORICAL_FIXTURE_PATHS = (
     "Iris/build/description/v2/data/compose_profiles.json",
     "Iris/build/description/v2/data/cluster_summary_templates.json",
@@ -99,6 +100,7 @@ HISTORICAL_FIXTURE_PATHS = (
     "Iris/build/description/v2/tools/style/rules/structural_rules.json",
     "scripts/camping.txt",
     "scripts/items.txt",
+    "lua/shared/Translate/KO/Recipes_KO.txt",
 )
 
 
@@ -140,10 +142,15 @@ def add_entry(
     entry_kind: str,
     source_kind: str,
     strip_markers: bool = False,
+    preserve_bytes: bool = False,
 ) -> None:
     if target_relative in entries:
         raise ValueError(f"duplicate reproduction corpus target: {target_relative}")
-    payload = canonical_python_payload(source, strip_markers=strip_markers)
+    payload = (
+        source.read_bytes()
+        if preserve_bytes
+        else canonical_python_payload(source, strip_markers=strip_markers)
+    )
     entries[target_relative] = {
         "path": target_relative,
         "entry_kind": entry_kind,
@@ -278,6 +285,7 @@ def main() -> int:
                 if target_relative in tracked
                 else "ignored_live_reproduction"
             ),
+            preserve_bytes=target_relative in RAW_FIXTURE_PATHS,
         )
 
     ordered_paths = sorted(entries)
@@ -317,7 +325,8 @@ def main() -> int:
         "expected_route_test_paths_sha256": sha256(
             "\n".join(route_test_paths).encode("utf-8")
         ),
-        "canonicalization": "Python UTF-8 text read with universal newlines and emitted as UTF-8 LF bytes",
+        "canonicalization": "Python UTF-8 text is read with universal newlines and emitted as UTF-8 LF bytes; RAW_FIXTURE_PATHS preserve source bytes",
+        "raw_fixture_paths": sorted(RAW_FIXTURE_PATHS),
         "rows": manifest_rows,
     }
     MANIFEST.write_bytes(

@@ -4,6 +4,6 @@
     {"owner_change":3,"axis":"description_single_path","status":"executed_validated","baseline_denominator_included":false,"acceptance_assets":["test_iris_description_single_path_acceptance.py","phase2_description_acceptance.jsonl"]},
     {"owner_change":4,"axis":"browser_state_selection_search","status":"executed_validated","baseline_denominator_included":false,"acceptance_assets":["test_iris_browser_state_selection_search_acceptance.py","phase3_browser_acceptance.jsonl"]},
     {"owner_change":5,"axis":"detail_view_model_incremental_scroll","status":"executed_validated","baseline_denominator_included":false,"acceptance_assets":["test_iris_detail_view_model_acceptance.py","phase4_detail_acceptance.jsonl"]},
-    {"owner_change":6,"axis":"legacy_surface","status":"not_executed_future_contract","baseline_denominator_included":false,"acceptance_assets":["test_iris_legacy_surface_acceptance.py","phase5_legacy_surface_acceptance.jsonl"]}
+    {"owner_change":6,"axis":"legacy_surface","status":"executed_validated","baseline_denominator_included":false,"acceptance_assets":["test_iris_legacy_surface_acceptance.py","phase5_legacy_surface_acceptance.jsonl"]}
   ]
 }

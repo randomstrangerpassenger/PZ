@@ -66,28 +66,4 @@ function IrisBrowserQuery.getItemLocation(cache, fullType, categoryOrder, subcat
     )
 end
 
-function IrisBrowserQuery.getGroupVariants(cache, groupId)
-    if not groupId then return nil end
-    if not cache or not cache.itemsByFullType then return nil end
-    if not IrisData or not IrisData.ItemGroups then return nil end
-
-    local groupItems = IrisData.ItemGroups[groupId]
-    if not groupItems then return nil end
-
-    local result = {}
-    for _, fullType in ipairs(groupItems) do
-        local item = cache.itemsByFullType[fullType]
-        table.insert(result, {
-            fullType = fullType,
-            displayName = ItemAccess.getDisplayName(item, fullType),
-        })
-    end
-
-    table.sort(result, function(a, b)
-        return a.displayName < b.displayName
-    end)
-
-    return result
-end
-
 return IrisBrowserQuery

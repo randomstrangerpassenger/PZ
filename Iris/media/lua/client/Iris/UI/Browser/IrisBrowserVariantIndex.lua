@@ -211,4 +211,27 @@ function IrisBrowserVariantIndex.getItems(cache, categoryName, subcategoryName, 
     return result
 end
 
+--- Public compatibility adapter for historical IrisData.ItemGroups callers.
+--- The global/module boundary is resolved by StaticData, not query code.
+function IrisBrowserVariantIndex.getGroupVariants(cache, groupId, legacyData)
+    if not groupId or not cache or not cache.itemsByFullType then return nil end
+    local itemGroups = legacyData and legacyData.ItemGroups
+    local groupItems = itemGroups and itemGroups[groupId]
+    if not groupItems then return nil end
+
+    local result = {}
+    for _, fullType in ipairs(groupItems) do
+        local item = cache.itemsByFullType[fullType]
+        result[#result + 1] = {
+            fullType = fullType,
+            displayName = ItemAccess.getDisplayName(item, fullType),
+        }
+    end
+    table.sort(result, function(a, b)
+        if a.displayName ~= b.displayName then return a.displayName < b.displayName end
+        return a.fullType < b.fullType
+    end)
+    return result
+end
+
 return IrisBrowserVariantIndex

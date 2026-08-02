@@ -25,6 +25,7 @@ local IrisBrowserQuery = require("Iris/UI/Browser/IrisBrowserQuery")
 local IrisBrowserVariantIndex = require("Iris/UI/Browser/IrisBrowserVariantIndex")
 local TranslationResolver = require("Iris/Util/IrisTranslationResolver")
 local ItemAccess = require("Iris/Util/IrisItemAccess")
+local StaticData = require("Iris/API/StaticData")
 local debug = bootstrap.debug
 local warn = bootstrap.warn
 
@@ -369,7 +370,11 @@ function IrisBrowserData.getGroupVariants(groupId)
     if not IrisBrowserData.isReady() then
         return nil
     end
-    return IrisBrowserQuery.getGroupVariants(IrisBrowserData._cache, groupId)
+    return IrisBrowserVariantIndex.getGroupVariants(
+        IrisBrowserData._cache,
+        groupId,
+        StaticData.getLegacyIrisData()
+    )
 end
 
 return IrisBrowserData

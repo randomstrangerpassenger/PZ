@@ -35,6 +35,9 @@ local DEFINITIONS = {
     useCaseDescriptions = {
         module = "Iris/Data/IrisUseCaseDescriptions",
     },
+    legacyData = {
+        module = "Iris/Data/IrisData",
+    },
 }
 
 local cache = {}
@@ -91,6 +94,15 @@ function StaticData.reset(key)
     failures = {}
     warned = {}
     return true
+end
+
+--- Compatibility-only loader for the historical IrisData global. New
+--- consumers must use the focused generated modules above.
+function StaticData.getLegacyIrisData()
+    local loaded = StaticData.get("legacyData")
+    if type(loaded) == "table" then return loaded end
+    if type(IrisData) == "table" then return IrisData end
+    return nil
 end
 
 function StaticData.arrayContains(values, value)

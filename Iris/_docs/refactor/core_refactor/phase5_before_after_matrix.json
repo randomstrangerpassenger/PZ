@@ -1,0 +1,13 @@
+{
+  "schema_version":1,
+  "owner_change":6,
+  "rows":[
+    {"axis":"capability_facade","relation":"preserve_exact","before_cases":["legacy.capability_tooltip","legacy.pz_surface"],"after_cases":["legacy_acceptance.capability_tooltip"]},
+    {"axis":"tooltip_tags","relation":"preserve_exact","before_cases":["legacy.capability_tooltip","legacy.pz_surface"],"after_cases":["legacy_acceptance.capability_tooltip"]},
+    {"axis":"classification_and_taxonomy_projection","relation":"preserve_exact","after_cases":["legacy_acceptance.taxonomy_projection"],"authority":"classification/rule data","presentation_owner":"IrisBrowserCategoryIndex"},
+    {"axis":"group_variants_signature","relation":"preserve_exact_adapter","before":"BrowserData.getGroupVariants(groupId)->table|nil reads global in Query","after":"same signature delegates to VariantIndex with StaticData compatibility loader"},
+    {"axis":"legacy_global_only_fixture","relation":"documented_fallback","after_cases":["legacy_acceptance.variant_adapter"],"missing_module_result":"nil with cached failure reason"},
+    {"axis":"generated_data_duplication","relation":"no_change","reason":"source authority/generator do not prove safe merge"},
+    {"axis":"semantic_inference","relation":"no_change","prohibited":["recommendation","priority","score","new taxonomy inference"]}
+  ]
+}

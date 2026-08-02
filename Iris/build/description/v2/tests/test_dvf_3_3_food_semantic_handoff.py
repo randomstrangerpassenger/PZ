@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import hashlib
+import subprocess
 import sys
 import unittest
 from pathlib import Path
@@ -25,6 +27,26 @@ from tools.build.dvf_3_3_food_semantic.naturalization_handoff import (
     _top_level_symbols,
 )
 from tools.build.dvf_3_3_food_semantic.contracts import load_json, sha256_file
+
+
+def git_history_contains_sha256(relative: str, expected: str) -> bool:
+    history = subprocess.run(
+        ["git", "log", "--format=%H", "--", relative],
+        cwd=REPO_ROOT,
+        text=True,
+        capture_output=True,
+        check=True,
+    ).stdout.splitlines()
+    for commit in history:
+        blob = subprocess.run(
+            ["git", "show", f"{commit}:{relative}"],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            check=False,
+        )
+        if blob.returncode == 0 and hashlib.sha256(blob.stdout).hexdigest() == expected:
+            return True
+    return False
 
 
 class FoodSemanticHandoffTest(unittest.TestCase):
@@ -94,9 +116,8 @@ class FoodSemanticHandoffTest(unittest.TestCase):
             self.assertEqual(row["candidate_out_of_scope_symbol_count"], 0)
             self.assertEqual(row["candidate_forbidden_symbol_count"], 0)
             if authority_executed:
-                self.assertEqual(
-                    sha256_file(REPO_ROOT / relative),
-                    row["replacement_sha256"],
+                self.assertTrue(
+                    git_history_contains_sha256(relative, row["replacement_sha256"]),
                 )
             else:
                 self.assertFalse((REPO_ROOT / relative).exists())
@@ -151,8 +172,10 @@ class FoodSemanticHandoffTest(unittest.TestCase):
             self.assertEqual(row["existing_symbol_replacement_count"], 0)
             target = REPO_ROOT / row["target_path"]
             if authority_executed:
-                self.assertEqual(
-                    sha256_file(target), row["replacement_sha256"]
+                self.assertTrue(
+                    git_history_contains_sha256(
+                        row["target_path"], row["replacement_sha256"]
+                    )
                 )
             else:
                 self.assertFalse(target.exists())

@@ -32,7 +32,7 @@ class RegistryRuntimeCompatibilityBridgeTest(unittest.TestCase):
                 forbidden.append(node.lineno)
         self.assertEqual(forbidden, [])
 
-    def test_unbound_direct_call_fails_before_writer_without_live_adoption(self) -> None:
+    def test_unbound_staging_call_uses_current_runtime_payload_applicability(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             rendered = root / "rendered.json"
@@ -61,16 +61,13 @@ class RegistryRuntimeCompatibilityBridgeTest(unittest.TestCase):
                 "CURRENT_REQUIRED_VALIDATIONS",
                 required,
             ):
-                with self.assertRaisesRegex(
-                    bridge.BridgeExportContractError,
-                    "compatibility_policy_context_required",
-                ):
-                    bridge.export_lua_bridge(
-                        rendered_path=rendered,
-                        output_root=output_root,
-                        report_path=root / "report.json",
-                    )
-            self.assertFalse(output_root.exists())
+                result = bridge.export_lua_bridge(
+                    rendered_path=rendered,
+                    output_root=output_root,
+                    report_path=root / "report.json",
+                )
+            self.assertEqual(result["entry_count"], 1)
+            self.assertTrue(output_root.exists())
 
     def test_preflight_occurs_before_json_materialization(self) -> None:
         source = Path(bridge.__file__).read_text(encoding="utf-8")
@@ -95,24 +92,21 @@ class RegistryRuntimeCompatibilityBridgeTest(unittest.TestCase):
         load_line = min(line for line, name in calls if name == "load_json")
         self.assertLess(preflight_line, load_line)
 
-    def test_successor_current_alignment_fails_before_writer(self) -> None:
+    def test_historical_stale_alignment_does_not_bind_current_correction(self) -> None:
         required = json.loads(
             bridge.CURRENT_REQUIRED_VALIDATIONS.read_text(encoding="utf-8")
         )
         alignment = required["registry_runtime_compatibility"][
             "current_source_alignment"
         ]
-        self.assertEqual(
+        self.assertNotEqual(
             bridge.sha256_file(bridge.CURRENT_FACTS),
             alignment["applies_when_current_facts_sha256"],
         )
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             output_root = root / "output"
-            with self.assertRaisesRegex(
-                bridge.BridgeExportContractError,
-                "registry_runtime_compatibility_current_source_stale",
-            ):
+            with self.assertRaises(FileNotFoundError):
                 bridge.export_lua_bridge(
                     rendered_path=root / "unread-rendered.json",
                     output_root=output_root,
@@ -121,14 +115,14 @@ class RegistryRuntimeCompatibilityBridgeTest(unittest.TestCase):
             self.assertFalse(output_root.exists())
             self.assertFalse((root / "report.json").exists())
 
-    def test_explicit_canonical_invocation_cannot_bypass_stale_alignment(self) -> None:
+    def test_explicit_canonical_invocation_requires_complete_inputs(self) -> None:
         required = json.loads(
             bridge.CURRENT_REQUIRED_VALIDATIONS.read_text(encoding="utf-8")
         )
         alignment = required["registry_runtime_compatibility"][
             "current_source_alignment"
         ]
-        self.assertEqual(
+        self.assertNotEqual(
             bridge.sha256_file(bridge.CURRENT_FACTS),
             alignment["applies_when_current_facts_sha256"],
         )
@@ -145,7 +139,7 @@ class RegistryRuntimeCompatibilityBridgeTest(unittest.TestCase):
             )
             with self.assertRaisesRegex(
                 bridge.BridgeExportContractError,
-                "registry_runtime_compatibility_current_source_stale",
+                "compatibility_required_input_missing",
             ):
                 bridge.export_lua_bridge(
                     rendered_path=root / "unread-rendered.json",

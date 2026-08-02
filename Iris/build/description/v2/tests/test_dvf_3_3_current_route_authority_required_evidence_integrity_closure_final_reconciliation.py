@@ -111,8 +111,15 @@ class DvfFinalReconciliationTest(unittest.TestCase):
         self.assertEqual(closure["live_manifest_sha256"], sha256(LIVE_MANIFEST))
         self.assertEqual(closure["parent_main_plan_sha256"], sha256(PARENT_PLAN))
         self.assertEqual(closure["preflight_report_sha256"], sha256(PREFLIGHT_REPORT))
-        self.assertEqual(denominator["live_required_artifact_count"], 93)
-        self.assertEqual(denominator["live_required_test_count"], 48)
+        live = load_json(LIVE_MANIFEST)
+        self.assertEqual(
+            denominator["live_required_artifact_count"],
+            len(live["required_artifacts"]),
+        )
+        self.assertEqual(
+            denominator["live_required_test_count"],
+            len(live["required_tests"]),
+        )
 
     def test_preflight_split_and_disposition_supersession_are_explicit(self) -> None:
         preflight = load_json(self.root / "phase2/preflight_result_consumption_report.json")

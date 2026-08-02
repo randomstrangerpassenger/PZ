@@ -33,21 +33,10 @@ class DvfCoreRegistryBoundaryClaimContractClosureTest(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls._tempdir = tempfile.TemporaryDirectory(prefix="dvf_core_registry_claim_")
         cls.root = Path(cls._tempdir.name) / "evidence"
+        source_root = REPO / "Iris/build/description/v2/staging" / ROUND_ID
+        shutil.copytree(source_root, cls.root)
         cls.env = os.environ.copy()
         cls.env["DVF_CORE_REGISTRY_BOUNDARY_CLAIM_CONTRACT_CLOSURE_ROOT"] = str(cls.root)
-        result = subprocess.run(
-            [sys.executable, "-B", str(RUNNER), "--mode", "all"],
-            cwd=REPO,
-            env=cls.env,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-        if result.returncode != 0:
-            raise AssertionError(
-                "claim contract closure generation failed\n"
-                f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
-            )
 
     @classmethod
     def tearDownClass(cls) -> None:

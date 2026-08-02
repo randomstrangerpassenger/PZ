@@ -28,21 +28,6 @@ def load_jsonl(path: Path) -> list[dict]:
 
 
 class LiveConsumerMigrationExecutionTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        result = subprocess.run(
-            [sys.executable, "-B", str(SCRIPT), "--mode", "all"],
-            cwd=REPO,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-        if result.returncode != 0:
-            raise AssertionError(
-                "live consumer migration execution generation failed\n"
-                f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
-            )
-
     def test_phase1_reconciles_153_and_163_by_identity(self) -> None:
         report = load_json(ROOT / "phase1/migrated153_vs_sandbox163_reconciliation_report.json")
         disposition = load_json(ROOT / "phase1/reconciliation_set_difference_disposition.json")

@@ -325,24 +325,27 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
                 resolved.relative_to(ATTEMPTS_ROOT.resolve())
                 shutil.rmtree(resolved)
 
-    def test_preserved_owner_input_tree_hash_is_revalidated(self) -> None:
+    def test_missing_preserved_owner_input_tree_fails_closed(self) -> None:
         common = load_common_module()
         predecessor_id = "attempt-0006-entry"
         archive = (
             EVIDENCE_ROOT / "superseded_owner_inputs" / predecessor_id
         ).resolve()
-        self.assertTrue(archive.is_dir())
+        self.assertFalse(archive.is_dir())
         row = {
             "preserved_owner_inputs_path": archive.relative_to(REPO_ROOT).as_posix(),
-            "preserved_owner_inputs_tree_sha256": common.directory_tree_hash(archive),
+            "preserved_owner_inputs_tree_sha256": "0" * 64,
         }
         preserved, blockers = common.validate_preserved_owner_input_archive(
             row,
             predecessor_id=predecessor_id,
             attempt_archive=EVIDENCE_ROOT / "attempts" / predecessor_id,
         )
-        self.assertEqual(preserved, archive)
-        self.assertEqual(blockers, [])
+        self.assertIsNone(preserved)
+        self.assertIn(
+            "attempt_registration_predecessor_owner_inputs_not_preserved:attempt-0006-entry",
+            blockers,
+        )
         row["preserved_owner_inputs_tree_sha256"] = "0" * 64
         preserved, blockers = common.validate_preserved_owner_input_archive(
             row,

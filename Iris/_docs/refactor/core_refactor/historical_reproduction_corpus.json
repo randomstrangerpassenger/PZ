@@ -2,7 +2,7 @@
   "schema_version": "iris-historical-reproduction-corpus-v1",
   "purpose": "Self-contained ignored historical and diagnostic route reproduction for exact-commit clean checkout validation.",
   "archive_path": "Iris/_docs/refactor/core_refactor/historical_reproduction_corpus.zip",
-  "archive_sha256": "efefb94f0995c834a4e1e18d44d486b099d94d5290dcfca41c793e4a3ef95237",
+  "archive_sha256": "ff69e4b8de63ae2a9b77dbd31842ede6a7a5b5f0ef38c71f0e6a413c5b2c11db",
   "row_count": 2409,
   "route_test_count": 201,
   "build_support_count": 498,
@@ -6820,7 +6820,7 @@
     {
       "path": "Iris/build/description/v2/tools/build/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation.py",
       "entry_kind": "build_support",
-      "sha256": "cca27a0df8cf4a897f4be6abe3a49a5db539cdba1cf31cd006bdba6107500059",
+      "sha256": "be63cb1bdca002f2c32bba02aec29dbf91de31cebb8ca633ebc90b9e02104769",
       "source_kind": "tracked_live_build_support",
       "source_path": "Iris/build/description/v2/tools/build/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation.py"
     },
@@ -7303,7 +7303,7 @@
     {
       "path": "Iris/build/description/v2/tools/build/naturalization_compiler_identity.py",
       "entry_kind": "build_support",
-      "sha256": "7def3a9d13c7f4c2a05a151007234bee98b30a309c599f11c0cf71168489ab87",
+      "sha256": "93f5c95b28548ec84d8f9fb4a89fa6384690b3ca0e210a2e7e233f4d3cb9049b",
       "source_kind": "tracked_live_build_support",
       "source_path": "Iris/build/description/v2/tools/build/naturalization_compiler_identity.py"
     },
@@ -7324,7 +7324,7 @@
     {
       "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py",
       "entry_kind": "build_support",
-      "sha256": "89cc04dd99c0a3212c79ddc976f03bc09cedb7996003fa8629df1af735373316",
+      "sha256": "71886164389eb53547f6f8137cefa4770987975b8498c50a1ccf32090ecd62ac",
       "source_kind": "tracked_live_build_support",
       "source_path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py"
     },
@@ -7359,7 +7359,7 @@
     {
       "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance_official_0005_phase7_freeze_inventory_completeness.py",
       "entry_kind": "build_support",
-      "sha256": "52590e9f2ad1dabc9d40968eaaf5887af507849375dc8c5337d52d154128d258",
+      "sha256": "c8f59ac0ca0706efb377e2b517f6ad9be88268786206ca51f9814f8f95ab2c40",
       "source_kind": "tracked_live_build_support",
       "source_path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance_official_0005_phase7_freeze_inventory_completeness.py"
     },

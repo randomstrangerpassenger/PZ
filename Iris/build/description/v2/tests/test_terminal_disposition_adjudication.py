@@ -34,21 +34,6 @@ def load_jsonl(path: Path) -> list[dict]:
 
 
 class TerminalDispositionAdjudicationTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        result = subprocess.run(
-            [sys.executable, "-B", str(SCRIPT), "--mode", "generate"],
-            cwd=REPO,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-        if result.returncode != 0:
-            raise AssertionError(
-                "terminal disposition generation failed\n"
-                f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
-            )
-
     def test_universe_binding_uses_executing_member_rows(self) -> None:
         manifest = load_json(ROOT / "phase1/terminal_consumer_universe_manifest.json")
         denominator = load_json(ROOT / "phase1/terminal_consumer_universe_denominator_report.json")

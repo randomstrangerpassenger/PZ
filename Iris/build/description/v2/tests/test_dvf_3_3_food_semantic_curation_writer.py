@@ -244,7 +244,7 @@ class FoodSemanticCurationWriterTest(unittest.TestCase):
         target = load_json(
             attempt / "phase1_census/target_food_universe_manifest.json"
         )
-        current_path = V2_ROOT / "data/dvf_3_3_facts.jsonl"
+        current_path = attempt / "authority_execution/successor_facts.jsonl"
         candidate_path = (
             attempt / "phase10_candidate/candidate_successor_facts.jsonl"
         )

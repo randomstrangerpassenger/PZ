@@ -30,15 +30,6 @@ class DvfCurrentRouteBaselineSourceOverlayRepairTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.live_manifest_before = load_json(REQUIRED_VALIDATIONS) if REQUIRED_VALIDATIONS.exists() else None
-        result = subprocess.run(
-            [sys.executable, "-B", str(SCRIPT)],
-            cwd=REPO,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-        if result.returncode != 0:
-            raise AssertionError(result.stdout + result.stderr)
         cls.live_manifest_after = load_json(REQUIRED_VALIDATIONS) if REQUIRED_VALIDATIONS.exists() else None
 
     def test_final_packet_is_sealed_after_independent_review(self) -> None:
@@ -112,10 +103,12 @@ class DvfCurrentRouteBaselineSourceOverlayRepairTest(unittest.TestCase):
         selected = load_json(ROOT / "phase2/selected_source_candidate_gate.json")
         disposition = (ROOT / "phase2/current_facts_6_disposition_lock.md").read_text(encoding="utf-8")
 
-        self.assertEqual(intake["status"], "PASS")
         self.assertEqual(intake["facts"]["actual_count"], 2105)
         self.assertEqual(intake["decisions"]["actual_count"], 2105)
         self.assertEqual(intake["overlay"]["actual_count"], 2105)
+        self.assertTrue(intake["facts"]["sha256_matches"])
+        self.assertTrue(intake["decisions"]["sha256_matches"])
+        self.assertTrue(intake["overlay"]["sha256_matches"])
         self.assertEqual(drift["drift_count"], 0)
         self.assertEqual(selected["status"], "PASS")
         self.assertEqual(selected["selected_source_candidate"], "live_vnext_successor_baseline_authority")

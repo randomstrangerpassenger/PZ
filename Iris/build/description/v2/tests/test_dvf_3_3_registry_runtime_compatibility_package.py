@@ -71,18 +71,18 @@ class RegistryRuntimeCompatibilityPackageTest(unittest.TestCase):
             )
             self.assertNotEqual(completed.returncode, 0)
             self.assertIn(
-                "partial_registry_compatibility_arguments_forbidden",
+                "rtc_package_requires_complete_compatibility_inputs",
                 completed.stderr,
             )
             self.assertFalse((output / "Iris").exists())
             self.assertFalse((output / "Iris.zip").exists())
 
-    def test_successor_current_alignment_fails_before_package_output(self) -> None:
+    def test_current_correction_package_ignores_historical_stale_marker(self) -> None:
         required = json.loads(REQUIRED_MANIFEST.read_text(encoding="utf-8"))
         alignment = required["registry_runtime_compatibility"][
             "current_source_alignment"
         ]
-        self.assertEqual(
+        self.assertNotEqual(
             sha256_file(CURRENT_FACTS),
             alignment["applies_when_current_facts_sha256"],
         )
@@ -104,12 +104,8 @@ class RegistryRuntimeCompatibilityPackageTest(unittest.TestCase):
                 capture_output=True,
                 check=False,
             )
-            self.assertNotEqual(completed.returncode, 0)
-            self.assertIn(
-                "registry_runtime_compatibility_current_source_stale",
-                completed.stderr,
-            )
-            self.assertFalse((output / "Iris").exists())
+            self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)
+            self.assertTrue((output / "Iris").exists())
             self.assertFalse((output / "Iris.zip").exists())
 
 

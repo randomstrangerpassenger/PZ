@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import importlib.util
 import subprocess
 import sys
 import tempfile
@@ -12,6 +13,20 @@ REPO = Path(__file__).resolve().parents[5]
 TOOLS = REPO / "Iris/build/description/v2/tools/build"
 ROOT = REPO / "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal"
 SCRIPT = TOOLS / "run_dvf_3_3_closeout_reentry_guard_seal.py"
+
+
+def load_common_module():
+    path = TOOLS / "dvf_3_3_closeout_reentry_guard_seal_common.py"
+    spec = importlib.util.spec_from_file_location(
+        "dvf_3_3_closeout_reentry_guard_seal_common_for_test",
+        path,
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError("cannot load closeout reentry guard common module")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
 
 CONTRACT_PROBE_REQUEST = {
     "surface_lines": [

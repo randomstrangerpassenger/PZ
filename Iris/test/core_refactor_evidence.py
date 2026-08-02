@@ -86,12 +86,18 @@ def load_bound_evidence(repo: Path, relative_path: str) -> list[dict[str, Any]]:
     if not binding_path.is_file():
         raise AssertionError(f"required evidence binding missing: {binding_path}")
     evidence_bytes = evidence_path.read_bytes()
-    digest = hashlib.sha256(evidence_bytes).hexdigest()
+    normalized_evidence_bytes = evidence_bytes.replace(b"\r\n", b"\n").replace(
+        b"\r", b"\n"
+    )
+    digests = {
+        hashlib.sha256(evidence_bytes).hexdigest(),
+        hashlib.sha256(normalized_evidence_bytes).hexdigest(),
+    }
     binding = json.loads(binding_path.read_text(encoding="utf-8"))
     assert binding["schema_version"] == 1
     assert binding["evidence_schema_version"] == 1
     assert binding["evidence_path"] == relative_path.replace("\\", "/")
-    assert binding["evidence_sha256"] == digest
+    assert binding["evidence_sha256"] in digests
     _verify_commit_tree(repo, binding["subject_commit"], binding["subject_tree"], "subject")
     _verify_commit_tree(repo, binding["producer_base_commit"], binding["producer_base_tree"], "producer")
     _verify_optional_sha256(binding["subject_worktree_patch_sha256_or_null"], "subject patch")

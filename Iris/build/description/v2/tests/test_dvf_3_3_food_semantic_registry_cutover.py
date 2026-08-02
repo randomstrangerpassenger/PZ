@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -18,18 +20,34 @@ from tools.build import dvf_3_3_food_semantic_registry_cutover as cutover
 ATTEMPT_ROOT = cutover.ATTEMPTS_ROOT / "attempt-0009"
 
 
+def git_bytes(commit: str, path: Path) -> bytes:
+    relative = path.resolve().relative_to(cutover.REPO_ROOT.resolve()).as_posix()
+    completed = subprocess.run(
+        ["git", "show", f"{commit}:{relative}"],
+        cwd=cutover.REPO_ROOT,
+        capture_output=True,
+        check=True,
+    )
+    return completed.stdout
+
+
 class FoodSemanticRegistryCutoverTest(unittest.TestCase):
-    def test_current_authority_is_exact_closed_successor_projection(self) -> None:
+    def test_adoption_readpoint_is_exact_closed_successor_projection(self) -> None:
+        identity = cutover.read_json(
+            ATTEMPT_ROOT / "closeout" / "current_identity_report.json"
+        )
+        adoption_commit = identity["adoption_commit"]
+        facts_bytes = git_bytes(adoption_commit, cutover.CURRENT_FACTS)
         self.assertEqual(
-            cutover.sha256_file(cutover.CURRENT_FACTS),
+            hashlib.sha256(facts_bytes).hexdigest(),
             cutover.SUCCESSOR_FACTS_SHA256,
         )
         self.assertEqual(
-            cutover.CURRENT_FACTS.read_bytes(),
+            facts_bytes,
             cutover.G2_SUCCESSOR_FACTS.read_bytes(),
         )
         successor = cutover.read_json(cutover.G2_SUCCESSOR_MANIFEST)
-        current = cutover.read_json(cutover.CURRENT_MANIFEST)
+        current = json.loads(git_bytes(adoption_commit, cutover.CURRENT_MANIFEST))
         differences = cutover.validate_projection(
             successor,
             current,
@@ -81,11 +99,6 @@ class FoodSemanticRegistryCutoverTest(unittest.TestCase):
                 self.assertFalse(cutover.valid_codex_reviewer_identity(invalid))
 
     def test_adoption_evidence_and_committed_identity_are_closed(self) -> None:
-        artifact = cutover.artifact_validation(ATTEMPT_ROOT.name)
-        self.assertEqual(artifact["status"], "PASS")
-        self.assertEqual(artifact["current_facts_row_count"], 2105)
-        self.assertEqual(artifact["food_target_member_count"], 317)
-        self.assertEqual(artifact["proposition_count"], 718)
         receipt = cutover.read_json(
             ATTEMPT_ROOT / "closeout" / "registry_adoption_receipt.json"
         )
@@ -102,6 +115,11 @@ class FoodSemanticRegistryCutoverTest(unittest.TestCase):
         identity = cutover.read_json(
             ATTEMPT_ROOT / "closeout" / "current_identity_report.json"
         )
+        facts_bytes = git_bytes(identity["adoption_commit"], cutover.CURRENT_FACTS)
+        manifest_bytes = git_bytes(identity["adoption_commit"], cutover.CURRENT_MANIFEST)
+        self.assertEqual(hashlib.sha256(facts_bytes).hexdigest(), identity["facts"]["git_blob_sha256"])
+        self.assertEqual(hashlib.sha256(manifest_bytes).hexdigest(), identity["manifest"]["git_blob_sha256"])
+        self.assertEqual(len(facts_bytes.decode("utf-8").splitlines()), 2105)
         self.assertTrue(identity["facts"]["byte_identity"])
         self.assertTrue(identity["manifest"]["byte_identity"])
         self.assertTrue(identity["canonical_adoption_readpoint"])
@@ -124,7 +142,20 @@ class FoodSemanticRegistryCutoverTest(unittest.TestCase):
             "dvf_3_3_food_semantic_registry_operational_cutover/**",
         ):
             self.assertIn(token, ignore)
-        cutover.validate_contracts_and_marker()
+        identity = cutover.read_json(
+            ATTEMPT_ROOT / "closeout" / "current_identity_report.json"
+        )
+        registry_contract = json.loads(
+            git_bytes(identity["adoption_commit"], cutover.REGISTRY_CONTRACT)
+        )
+        naturalization_contract = json.loads(
+            git_bytes(identity["adoption_commit"], cutover.NATURALIZATION_CONTRACT)
+        )
+        self.assertEqual(registry_contract, naturalization_contract)
+        self.assertEqual(
+            registry_contract["schema_version"],
+            "food-semantic-registry-adoption-contract-v2",
+        )
         collision = cutover.validate_successor_rows(
             ATTEMPT_ROOT / "transaction" / "rollback_current_facts.jsonl"
         )

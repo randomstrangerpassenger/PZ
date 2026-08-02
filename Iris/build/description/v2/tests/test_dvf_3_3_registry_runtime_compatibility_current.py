@@ -128,7 +128,7 @@ class RegistryRuntimeCompatibilityCurrentRouteTest(unittest.TestCase):
                     self.assertIn(repr(path), payload["message"])
                 self.assertFalse((Path(temporary) / "required-gate-temp").exists())
 
-    def test_explicit_canonical_surface_validation_cannot_bypass_staleness(
+    def test_explicit_canonical_surface_validation_fails_closed_on_missing_input(
         self,
     ) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -163,7 +163,7 @@ class RegistryRuntimeCompatibilityCurrentRouteTest(unittest.TestCase):
             self.assertEqual(payload["status"], "BLOCKED")
             self.assertEqual(
                 payload["failure_code"],
-                "registry_runtime_compatibility_current_source_stale",
+                "required_json_invalid",
             )
             self.assertFalse((root / "unread-surface.json").exists())
 

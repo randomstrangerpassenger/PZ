@@ -15,12 +15,14 @@ import uuid
 try:
     from .naturalization_compiler_identity import (
         build_compiler_identity,
+        build_compiler_identity_from_git,
         compiler_identity_matches_claim,
         compiler_source_paths,
     )
 except ImportError:
     from naturalization_compiler_identity import (
         build_compiler_identity,
+        build_compiler_identity_from_git,
         compiler_identity_matches_claim,
         compiler_source_paths,
     )
@@ -143,6 +145,7 @@ PHASE_ARTIFACTS = {
 }
 
 ATTEMPT_ID_PATTERN = re.compile(r"^attempt-[0-9]{4,}-[a-z0-9][a-z0-9-]*$")
+GIT_COMMIT_PATTERN = re.compile(r"^[0-9a-f]{40}$")
 
 PLAN_DOC = (
     REPO_ROOT
@@ -786,6 +789,28 @@ def _head_blob_record(path: Path) -> dict[str, Any]:
     }
 
 
+def _commit_blob_record(path: Path, commit: str) -> dict[str, Any]:
+    relative = repo_relative(path)
+    blob_id = _git("rev-parse", f"{commit}:{relative}").stdout.strip()
+    result = subprocess.run(
+        ["git", "cat-file", "blob", blob_id],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise FoundationContractError(
+            f"cannot read {commit} blob for {relative}: "
+            f"{result.stderr.decode('utf-8', errors='replace').strip()}"
+        )
+    return {
+        "path": relative,
+        "commit": commit,
+        "git_blob_id": blob_id,
+        "git_blob_sha256": sha256_bytes(result.stdout),
+    }
+
+
 def _head_filtered_blob_record(path: Path) -> dict[str, Any]:
     relative = repo_relative(path)
     head_blob_id = _git("rev-parse", f"HEAD:{relative}").stdout.strip()
@@ -1128,23 +1153,33 @@ def _validate_g3_and_current_identity(g2: dict[str, Any]) -> dict[str, Any]:
     identity = load_json_strict(G3_CURRENT_IDENTITY_REPORT)
     terminal = load_json_strict(G3_TERMINAL_HASH_SEAL)
     manifest = load_json_strict(CURRENT_INPUT_MANIFEST)
-    facts_blob = _head_blob_record(CURRENT_FACTS)
-    manifest_blob = _head_blob_record(CURRENT_INPUT_MANIFEST)
     _require_ancestor(identity.get("adoption_commit"), label="G3 adoption")
     actual_adoption_tree = _git(
         "rev-parse", f"{identity['adoption_commit']}^{{tree}}"
     ).stdout.strip()
 
+    adoption_commit = identity["adoption_commit"]
+    adoption_facts_blob = _commit_blob_record(CURRENT_FACTS, adoption_commit)
+    adoption_manifest_blob = _commit_blob_record(CURRENT_INPUT_MANIFEST, adoption_commit)
+    current_facts_blob = _head_blob_record(CURRENT_FACTS)
+    current_manifest_blob = _head_blob_record(CURRENT_INPUT_MANIFEST)
+    adoption_facts_sha256 = adoption_facts_blob["git_blob_sha256"]
+    adoption_manifest_sha256 = adoption_manifest_blob["git_blob_sha256"]
+    initial_successor_facts_sha256 = g2["selected_successor_facts_sha256"]
+    initial_successor_manifest_sha256 = g2["selected_successor_manifest_sha256"]
     current_facts_sha256 = facts_artifact["raw_sha256"]
     current_manifest_sha256 = manifest_artifact["raw_sha256"]
-    successor_facts_sha256 = g2["selected_successor_facts_sha256"]
-    successor_manifest_sha256 = g2["selected_successor_manifest_sha256"]
     food_authority = manifest.get("food_semantic_authority", {})
     source_binding = (
         manifest.get("source_promotion", {})
         .get("food_semantic_successor_binding", {})
     )
     terminal_artifacts = terminal.get("artifacts", {})
+    correction_binding = manifest.get("current_facts_correction_successor_0003", {})
+    correction_adoption = (
+        manifest.get("source_promotion", {})
+        .get("current_facts_correction_adoption_0003_binding", {})
+    )
     if (
         receipt.get("schema_version")
         != "food-semantic-registry-adoption-receipt-v1"
@@ -1156,18 +1191,18 @@ def _validate_g3_and_current_identity(g2: dict[str, Any]) -> dict[str, Any]:
         or receipt.get("partial_or_dual_current_count") != 0
         or receipt.get("rendered_lua_runtime_package_mutation_count") != 0
         or receipt.get("selected_successor_facts_sha256")
-        != successor_facts_sha256
+        != initial_successor_facts_sha256
         or receipt.get("selected_successor_manifest_sha256")
-        != successor_manifest_sha256
-        or receipt.get("current_facts_sha256") != current_facts_sha256
-        or receipt.get("candidate_current_facts_sha256") != current_facts_sha256
-        or receipt.get("current_manifest_sha256") != current_manifest_sha256
+        != initial_successor_manifest_sha256
+        or receipt.get("current_facts_sha256") != adoption_facts_sha256
+        or receipt.get("candidate_current_facts_sha256") != adoption_facts_sha256
+        or receipt.get("current_manifest_sha256") != adoption_manifest_sha256
         or receipt.get("candidate_current_manifest_sha256")
-        != current_manifest_sha256
+        != adoption_manifest_sha256
         or receipt.get("projected_current_manifest_sha256")
-        != current_manifest_sha256
+        != adoption_manifest_sha256
         or receipt.get("current_manifest_adopted_successor_manifest_sha256")
-        != successor_manifest_sha256
+        != initial_successor_manifest_sha256
         or identity.get("schema_version")
         != "food-semantic-current-identity-report-v1"
         or identity.get("status") != "PASS"
@@ -1176,47 +1211,54 @@ def _validate_g3_and_current_identity(g2: dict[str, Any]) -> dict[str, Any]:
         or identity.get("canonical_adoption_readpoint") is not True
         or identity.get("current_identity_ambiguity_count") != 0
         or identity.get("partial_or_dual_current_count") != 0
-        or identity.get("facts", {}).get("working_sha256") != current_facts_sha256
+        or identity.get("facts", {}).get("working_sha256") != adoption_facts_sha256
         or identity.get("facts", {}).get("git_blob_sha256")
-        != current_facts_sha256
+        != adoption_facts_sha256
         or identity.get("manifest", {}).get("working_sha256")
-        != current_manifest_sha256
+        != adoption_manifest_sha256
         or identity.get("manifest", {}).get("git_blob_sha256")
-        != current_manifest_sha256
+        != adoption_manifest_sha256
         or identity.get("facts", {}).get("git_blob_id")
-        != facts_blob["git_blob_id"]
+        != adoption_facts_blob["git_blob_id"]
         or identity.get("manifest", {}).get("git_blob_id")
-        != manifest_blob["git_blob_id"]
-        or facts_blob["git_blob_working_byte_identity"] is not True
-        or manifest_blob["git_blob_working_byte_identity"] is not True
+        != adoption_manifest_blob["git_blob_id"]
+        or current_facts_blob["git_blob_working_byte_identity"] is not True
+        or current_manifest_blob["git_blob_working_byte_identity"] is not True
         or terminal.get("schema_version")
         != "food-semantic-registry-adoption-terminal-hash-seal-v1"
         or terminal.get("status") != "PASS"
         or terminal.get("terminal_hash_seal") != "PASS"
         or terminal.get("food_semantic_registry_adoption")
         != "current_adoption_complete"
-        or terminal.get("current_facts_sha256") != current_facts_sha256
-        or terminal.get("current_manifest_sha256") != current_manifest_sha256
+        or terminal.get("current_facts_sha256") != adoption_facts_sha256
+        or terminal.get("current_manifest_sha256") != adoption_manifest_sha256
         or terminal.get("selected_successor_facts_sha256")
-        != successor_facts_sha256
+        != initial_successor_facts_sha256
         or terminal.get("selected_successor_manifest_sha256")
-        != successor_manifest_sha256
+        != initial_successor_manifest_sha256
         or terminal_artifacts.get("registry_adoption_receipt_sha256")
         != receipt_artifact["raw_sha256"]
         or terminal_artifacts.get("current_identity_report_sha256")
         != identity_artifact["raw_sha256"]
         or manifest.get("facts", {}).get("sha256") != current_facts_sha256
         or food_authority.get("attempt_id") != "attempt-0022"
-        or food_authority.get("registry_cutover_attempt_id") != "attempt-0009"
+        or food_authority.get("registry_cutover_attempt_id") != "attempt-0012"
         or food_authority.get("authority_bearing") is not True
         or food_authority.get("non_current") is not False
-        or food_authority.get("registry_adoption_state") != "current"
+        or food_authority.get("registry_adoption_state") != "current_correction_0003"
         or food_authority.get("source_successor_manifest_sha256")
-        != successor_manifest_sha256
+        != initial_successor_manifest_sha256
         or source_binding.get("successor_facts_sha256")
-        != successor_facts_sha256
+        != initial_successor_facts_sha256
         or source_binding.get("successor_manifest_sha256")
-        != successor_manifest_sha256
+        != initial_successor_manifest_sha256
+        or correction_binding.get("successor_id") != "correction-0003"
+        or correction_binding.get("registry_cutover_attempt_id") != "attempt-0012"
+        or correction_binding.get("current_authority_mutated") is not True
+        or correction_binding.get("successor_facts_sha256") != current_facts_sha256
+        or correction_adoption.get("successor_id") != "correction-0003"
+        or correction_adoption.get("registry_cutover_attempt_id") != "attempt-0012"
+        or correction_adoption.get("successor_facts_sha256") != current_facts_sha256
     ):
         raise FoundationContractError(
             "G3 adoption receipt and current facts/manifest identity binding is invalid"
@@ -1230,16 +1272,20 @@ def _validate_g3_and_current_identity(g2: dict[str, Any]) -> dict[str, Any]:
         "adoption_commit": identity["adoption_commit"],
         "adoption_tree": actual_adoption_tree,
         "adoption_tree_matches_commit": True,
-        "selected_successor_facts_sha256": successor_facts_sha256,
-        "selected_successor_manifest_sha256": successor_manifest_sha256,
+        "initial_g3_selected_successor_facts_sha256": initial_successor_facts_sha256,
+        "initial_g3_selected_successor_manifest_sha256": initial_successor_manifest_sha256,
+        "selected_successor_facts_sha256": current_facts_sha256,
+        "selected_successor_manifest_sha256": current_manifest_sha256,
+        "initial_g3_adoption_facts": adoption_facts_blob,
+        "initial_g3_adoption_manifest": adoption_manifest_blob,
         "current_facts": {
             **facts_artifact,
-            **facts_blob,
+            **current_facts_blob,
         },
         "current_input_manifest": {
             **manifest_artifact,
-            **manifest_blob,
-            "adopted_successor_manifest_sha256": successor_manifest_sha256,
+            **current_manifest_blob,
+            "adopted_successor_manifest_sha256": current_manifest_sha256,
         },
         "registry_adoption_receipt": receipt_artifact,
         "current_identity_report": identity_artifact,
@@ -3019,16 +3065,31 @@ def validate_candidate_handoff(
         DEFAULT_FOUNDATION_ROOT / FOUNDATION_CONTRACT_NAME
     ):
         raise FoundationContractError("handoff foundation contract is stale")
-    compiler_identity = build_compiler_identity(REPO_ROOT)
+    candidate_manifest_path = (
+        REPO_ROOT / str(constituents["candidate_manifest_hash"]["path"])
+    )
+    candidate_manifest_relative = repo_relative(candidate_manifest_path)
+    compiler_readpoint = _git(
+        "log",
+        "-1",
+        "--format=%H",
+        "--",
+        candidate_manifest_relative,
+    ).stdout.strip()
+    if not GIT_COMMIT_PATTERN.fullmatch(compiler_readpoint):
+        raise FoundationContractError(
+            "handoff candidate compiler readpoint is unavailable"
+        )
+    compiler_identity = build_compiler_identity_from_git(
+        REPO_ROOT,
+        compiler_readpoint,
+    )
     compiler_aggregate_hash = str(compiler_identity["aggregate_sha256"])
     compiler_claim = constituents["compiler_implementation_hash"].get("value")
     if not compiler_identity_matches_claim(compiler_claim, compiler_identity):
         raise FoundationContractError(
             "handoff naturalization compiler implementation is stale"
         )
-    candidate_manifest_path = (
-        REPO_ROOT / str(constituents["candidate_manifest_hash"]["path"])
-    )
     candidate_manifest = load_json_strict(candidate_manifest_path)
     if (
         candidate_manifest.get("schema_version")
@@ -3048,6 +3109,10 @@ def validate_candidate_handoff(
         "compiler_identity": compiler_identity,
         "compiler_inventory": compiler_identity["ordered_files"],
         "compiler_aggregate_hash": compiler_aggregate_hash,
+        "compiler_readpoint_commit": compiler_readpoint,
+        "compiler_readpoint_tree": _git(
+            "rev-parse", f"{compiler_readpoint}^{{tree}}"
+        ).stdout.strip(),
     }
 
 

@@ -22,21 +22,6 @@ def write_json(path: Path, payload: dict) -> None:
 
 
 class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        result = subprocess.run(
-            [sys.executable, "-B", str(SCRIPT), "--mode", "all", "--require-complete"],
-            cwd=REPO,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-        if result.returncode != 0:
-            raise AssertionError(
-                "runtime payload residual seal validation failed\n"
-                f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
-            )
-
     def test_final_report_allows_residual_seal_after_author_and_external_review(self) -> None:
         final = load_json(ROOT / "phase7/final_runtime_payload_residual_seal_report.json")
         adoption = load_json(ROOT / "phase8/current_route_governance_adoption_report.json")

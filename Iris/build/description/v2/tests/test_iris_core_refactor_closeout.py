@@ -10,6 +10,8 @@ from importlib.machinery import PathFinder
 from pathlib import Path
 from unittest import mock
 
+from clean_checkout_test_paths import external_test_root
+
 
 REPO = next(parent for parent in Path(__file__).resolve().parents if (parent / ".git").exists())
 ROOT = REPO / "Iris/_docs/refactor/core_refactor"
@@ -44,7 +46,9 @@ class IrisCoreRefactorCloseoutTest(unittest.TestCase):
         manifest = load_json(manifest_path)
         archive = REPO / manifest["archive_path"]
 
-        with tempfile.TemporaryDirectory(prefix="iris-closeout-corpus-") as temp:
+        with tempfile.TemporaryDirectory(
+            prefix="hc-", dir=external_test_root()
+        ) as temp:
             overlay_root = Path(temp)
             taxonomy = runner.load_json(runner.DEFAULT_TAXONOMY)
             report = runner.materialize_historical_reproduction_overlay(
@@ -71,7 +75,9 @@ class IrisCoreRefactorCloseoutTest(unittest.TestCase):
         )
 
         def assert_rejected(mutated: dict) -> None:
-            with tempfile.TemporaryDirectory(prefix="iris-closeout-negative-") as temp:
+            with tempfile.TemporaryDirectory(
+                prefix="hn-", dir=external_test_root()
+            ) as temp:
                 temp_root = Path(temp)
                 candidate = temp_root / "manifest.json"
                 candidate.write_text(json.dumps(mutated), encoding="utf-8")

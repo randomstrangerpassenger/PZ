@@ -4,6 +4,7 @@ import hashlib
 import json
 from pathlib import Path, PurePosixPath
 import re
+import subprocess
 from typing import Mapping
 
 
@@ -144,6 +145,28 @@ def build_compiler_identity(
             strict=True,
         )
     }
+    return build_compiler_identity_from_bytes(contents)
+
+
+def build_compiler_identity_from_git(
+    repo_root: Path,
+    treeish: str,
+) -> dict[str, object]:
+    root = repo_root.resolve()
+    contents: dict[str, bytes] = {}
+    for relative in COMPILER_REPO_RELATIVE_POSIX_PATH_ORDER:
+        completed = subprocess.run(
+            ["git", "show", f"{treeish}:{relative}"],
+            cwd=root,
+            capture_output=True,
+            check=False,
+        )
+        if completed.returncode != 0:
+            detail = completed.stderr.decode("utf-8", errors="replace").strip()
+            raise CompilerIdentityError(
+                f"cannot read compiler source at {treeish}:{relative}: {detail}"
+            )
+        contents[relative] = completed.stdout
     return build_compiler_identity_from_bytes(contents)
 
 

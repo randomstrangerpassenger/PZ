@@ -175,6 +175,13 @@ def _tree_map(treeish: str) -> dict[str, dict[str, str]]:
     return {row["path"]: row for row in _tree_entries(treeish)}
 
 
+def _tree_row_raw_sha256(row: dict[str, str]) -> str:
+    raw = predecessor.predecessor._blob_bytes([row["git_blob_id"]])[
+        row["git_blob_id"]
+    ]
+    return base.sha256_bytes(raw)
+
+
 def _python_dependency_edges(
     treeish: str, declared_paths: set[str]
 ) -> list[dict[str, str]]:
@@ -230,7 +237,9 @@ def build_surface_contract(treeish: str = "HEAD") -> dict[str, Any]:
             {
                 **spec,
                 "expected_head_git_blob_id": None if dynamic else row["git_blob_id"],
-                "expected_head_blob_raw_sha256": None if dynamic else row["raw_sha256"],
+                "expected_head_blob_raw_sha256": (
+                    None if dynamic else _tree_row_raw_sha256(row)
+                ),
             }
         )
     paths = {row["path"] for row in specs}
@@ -297,7 +306,7 @@ def validate_surface_contract_document(
         expected_raw = declaration.get("expected_head_blob_raw_sha256")
         if expected_blob is not None and row["git_blob_id"] != expected_blob:
             _fail(f"declared correction surface Git blob mismatch: {path}")
-        if expected_raw is not None and row["raw_sha256"] != expected_raw:
+        if expected_raw is not None and _tree_row_raw_sha256(row) != expected_raw:
             _fail(f"declared correction surface raw SHA mismatch: {path}")
     expected_edges = _python_dependency_edges(treeish, set(declared_by_path))
     if contract.get("python_local_dependency_edges") != expected_edges:

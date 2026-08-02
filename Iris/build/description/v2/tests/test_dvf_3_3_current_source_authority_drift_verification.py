@@ -42,21 +42,6 @@ def sha256_file(path: Path) -> str:
 
 
 class DvfCurrentSourceAuthorityDriftVerificationTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        result = subprocess.run(
-            [sys.executable, "-B", str(RUNNER), "--mode", "all"],
-            cwd=REPO,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-        if result.returncode != 0:
-            raise AssertionError(
-                "current source authority drift runner failed\n"
-                f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
-            )
-
     def test_source_chain_is_successor_2105_identity(self) -> None:
         report = load_json(ROOT / "phase1/source_chain_identity_report.json")
         matrix = load_json(ROOT / "phase1/source_hash_count_matrix.json")

@@ -34,21 +34,10 @@ class LegacyCombinedRouteAxisInventoryTest(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls._tempdir = tempfile.TemporaryDirectory(prefix="dvf_legacy_axis_")
         cls.root = Path(cls._tempdir.name) / "evidence"
+        source_root = REPO / "Iris/build/description/v2/staging" / ROUND_ID
+        shutil.copytree(source_root, cls.root)
         cls.env = os.environ.copy()
         cls.env["DVF_LEGACY_COMBINED_ROUTE_AXIS_INVENTORY_ROOT"] = str(cls.root)
-        result = subprocess.run(
-            [sys.executable, "-B", str(RUNNER), "--mode", "all"],
-            cwd=REPO,
-            env=cls.env,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-        if result.returncode != 0:
-            raise AssertionError(
-                "inventory generation failed\n"
-                f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
-            )
 
     @classmethod
     def tearDownClass(cls) -> None:

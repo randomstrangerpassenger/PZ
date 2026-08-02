@@ -160,6 +160,10 @@ def tools_build_import_candidates(path: Path) -> list[dict]:
             elif imported.startswith("tools.build."):
                 module = imported[len("tools.build.") :].split(".", 1)[0]
             elif "." not in imported:
+                test_local_file = path.parent / f"{imported}.py"
+                test_local_package = path.parent / imported / "__init__.py"
+                if test_local_file.is_file() or test_local_package.is_file():
+                    continue
                 candidate = tools_build_module_path(imported)
                 if candidate.is_file() or (
                     literal_tools_path_added

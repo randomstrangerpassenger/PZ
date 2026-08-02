@@ -96,18 +96,17 @@ def load_bound_evidence(repo: Path, relative_path: str) -> list[dict[str, Any]]:
     _verify_commit_tree(repo, binding["producer_base_commit"], binding["producer_base_tree"], "producer")
     _verify_optional_sha256(binding["subject_worktree_patch_sha256_or_null"], "subject patch")
     _verify_optional_sha256(binding["producer_overlay_sha256_or_null"], "producer overlay")
-    if "producer_overlay_rows" in binding:
-        overlay_rows = binding["producer_overlay_rows"]
-        assert isinstance(overlay_rows, list) and all(isinstance(row, str) for row in overlay_rows)
-        assert overlay_rows == sorted(overlay_rows), "producer overlay rows are not ordinal sorted"
-        canonical_overlay = ("\n".join(overlay_rows) + "\n").encode() if overlay_rows else b""
-        reconstructed = hashlib.sha256(canonical_overlay).hexdigest() if overlay_rows else None
-        assert reconstructed == binding["producer_overlay_sha256_or_null"]
-        if overlay_rows:
-            assert binding["producer_worktree_state"] in {"tracked_overlay", "tracked_and_untracked_overlay"}
-        else:
-            assert binding["producer_worktree_state"] == "clean"
-        assert isinstance(binding.get("producer_input_scope"), list) and binding["producer_input_scope"]
+    overlay_rows = binding["producer_overlay_rows"]
+    assert isinstance(overlay_rows, list) and all(isinstance(row, str) for row in overlay_rows)
+    assert overlay_rows == sorted(overlay_rows), "producer overlay rows are not ordinal sorted"
+    canonical_overlay = ("\n".join(overlay_rows) + "\n").encode() if overlay_rows else b""
+    reconstructed = hashlib.sha256(canonical_overlay).hexdigest() if overlay_rows else None
+    assert reconstructed == binding["producer_overlay_sha256_or_null"]
+    if overlay_rows:
+        assert binding["producer_worktree_state"] in {"tracked_overlay", "tracked_and_untracked_overlay"}
+    else:
+        assert binding["producer_worktree_state"] == "clean"
+    assert isinstance(binding["producer_input_scope"], list) and binding["producer_input_scope"]
     rows = [json.loads(line) for line in evidence_bytes.decode("utf-8").splitlines() if line]
     assert rows, f"empty evidence: {relative_path}"
     assert binding["row_count"] == len(rows)
@@ -124,8 +123,7 @@ def load_bound_evidence(repo: Path, relative_path: str) -> list[dict[str, Any]]:
         assert row["execution_environment"] == binding["execution_environment"]
         assert row["subject_worktree_patch_sha256_or_null"] == binding["subject_worktree_patch_sha256_or_null"]
         assert row["producer_overlay_sha256_or_null"] == binding["producer_overlay_sha256_or_null"]
-        if "producer_worktree_state" in binding:
-            assert row["producer_worktree_state"] == binding["producer_worktree_state"]
+        assert row["producer_worktree_state"] == binding["producer_worktree_state"]
         assert isinstance(row["fixture_id"], str) and row["fixture_id"], f"{row['case_id']} missing fixture identity"
         assert row["expected"] is not None, f"{row['case_id']} missing expected fixture contract"
         assert row["case_id"] not in case_ids, f"duplicate evidence case: {row['case_id']}"

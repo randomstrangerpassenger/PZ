@@ -1,7 +1,7 @@
 {
     "schema_version":  1,
     "evidence_path":  "Iris/_docs/refactor/core_refactor/phase1_pre_refactor_headless_baseline.jsonl",
-    "evidence_sha256":  "4ea5ce32919d7f4655e867ced28edc7281f8c5d98eeabe071061046ac68ca799",
+    "evidence_sha256":  "87b66d23ed28e6ab09e28581d96c41b59d715a2d024ee3ffad56c8b06958e497",
     "evidence_schema_version":  1,
     "row_count":  15,
     "subject_commit":  "72e76b367622f64af264f445889ea1832c87008a",
@@ -9,7 +9,21 @@
     "subject_worktree_patch_sha256_or_null":  null,
     "producer_base_commit":  "72e76b367622f64af264f445889ea1832c87008a",
     "producer_base_tree":  "9c98dad4623cea9242a41b77f0e378a87e56559f",
-    "producer_overlay_sha256_or_null":  "df4f2ce81bfc1137d88c472a790cb8d1ee7a368e0f128356ff5e792d5cfef2eb",
+    "producer_worktree_state":  "tracked_and_untracked_overlay",
+    "producer_input_scope":  [
+                                 "Iris/media/lua/client/Iris",
+                                 "Iris/test/lua/pre_refactor_characterization_harness.lua",
+                                 "Iris/test/run_pre_refactor_characterization.ps1",
+                                 "Iris/_docs/refactor/core_refactor/phase1_behavior_evidence.schema.json",
+                                 "Iris/_docs/refactor/core_refactor/phase1_evidence_binding.schema.json"
+                             ],
+    "producer_overlay_rows":  [
+                                  "??\tIris/_docs/refactor/core_refactor/phase1_behavior_evidence.schema.json\t7a248be23177c8e4d76f8505f9b52d14ddf860eaec2a5cadc367bb62be94af12",
+                                  "??\tIris/_docs/refactor/core_refactor/phase1_evidence_binding.schema.json\t61fbc8fe15938302d9da502624bc5896d086cb37b03584e4c614823865e59b23",
+                                  "??\tIris/test/lua/pre_refactor_characterization_harness.lua\t8de8f144e673eca542aafa56a399be1daa24d9a5b7be66ccd2a716479a07aa60",
+                                  "??\tIris/test/run_pre_refactor_characterization.ps1\t0f1c5d7ce0c127da164e1ed08094c011b9cd89a1649ab513cf2a3550003d7fbd"
+                              ],
+    "producer_overlay_sha256_or_null":  "e54dfe08087f6f02418c50a5c8a2b3737ec70adb842177b857283b1f3f13be92",
     "time_axis":  "pre_refactor_characterization",
     "execution_environment":  "auxiliary_standalone_puc_lua_5_4"
 }

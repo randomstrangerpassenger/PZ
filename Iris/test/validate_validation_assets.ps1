@@ -18,6 +18,9 @@ Set-StrictMode -Version Latest
 
 $ManifestRelativePath = 'Iris/_docs/refactor/core_refactor/phase1_validation_asset_manifest.json'
 $ValidatorRelativePath = 'Iris/test/validate_validation_assets.ps1'
+$ApprovalAuthorityRelativePath = 'Iris/_docs/refactor/core_refactor/phase9_protected_surface_approval_authority.json'
+$ApprovalAuthorityCommit = 'dd732e1fb7f529da40befdd3b658571aa898031f'
+$ApprovalAuthorityBlob = '7aebc178d8a0b1716f131f7b6a7c5f046b888244'
 $Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 
 function Get-Sha256Bytes([byte[]]$Bytes) {
@@ -32,20 +35,32 @@ function Get-Sha256File([string]$Path) {
     return (Get-FileHash -Algorithm SHA256 -LiteralPath $Path).Hash.ToLowerInvariant()
 }
 
+function Get-PinnedProtectedApproval([string]$SnapshotRoot) {
+    & git -C $SnapshotRoot merge-base --is-ancestor $ApprovalAuthorityCommit HEAD 2>$null
+    if ($LASTEXITCODE -ne 0) { throw 'pinned protected approval commit is not an ancestor of HEAD' }
+    $actualBlob = (& git -C $SnapshotRoot rev-parse "$ApprovalAuthorityCommit`:$ApprovalAuthorityRelativePath" 2>$null | Out-String).Trim()
+    if ($LASTEXITCODE -ne 0 -or $actualBlob -cne $ApprovalAuthorityBlob) { throw 'pinned protected approval blob mismatch' }
+    $authorityText = (& git -C $SnapshotRoot show "$ApprovalAuthorityCommit`:$ApprovalAuthorityRelativePath" 2>$null | Out-String)
+    if ($LASTEXITCODE -ne 0) { throw 'cannot read pinned protected approval authority' }
+    $authority = $authorityText | ConvertFrom-Json
+    if ([long]$authority.schema_version -ne 1 -or [string]$authority.authority_kind -cne 'owner_preauthorization_record' -or [string]$authority.scope -cne 'one_time_exact_current_route_authority_rebind') { throw 'invalid pinned protected approval authority' }
+    $approved = $authority.approved_change
+    if ([string]$approved.path -cne 'Iris/_docs/round3/current_route_required_validations.json' -or
+        [string]$approved.before_sha256 -cne 'ef586ef40a45f3b1c448f0220d30aff18fff3f1d359fe0f02d14d48b5de1df14' -or
+        [string]$approved.after_sha256 -cne '82be732a2e3a2b4f5a7deae342ceda93a59990dca0543f6ca7b7b82dc0c18d66' -or
+        [bool]$authority.constraints.additional_protected_paths_allowed -or
+        [bool]$authority.constraints.runtime_or_public_text_change_allowed -or
+        [bool]$authority.constraints.existing_package_peer_change_allowed) {
+        throw 'pinned protected approval scope mismatch'
+    }
+    return @{ ([string]$approved.path) = [string]$approved.after_sha256 }
+}
+
 function Get-ProtectedSnapshot([string]$Root, [switch]$TrackedOnly) {
     $snapshotRoot = if ($Root) { $Root } else { $script:ValidatedRepositoryRoot }
     $manifestPath = Join-Path $snapshotRoot 'Iris/_docs/refactor/core_refactor/phase0_protected_surface_manifest.json'
     $protectedManifest = [System.IO.File]::ReadAllText($manifestPath) | ConvertFrom-Json
-    $approvedExpected = @{}
-    $approvalReportPath = Join-Path $snapshotRoot 'Iris/_docs/refactor/core_refactor/protected_surface_no_mutation_report.json'
-    if (Test-Path -LiteralPath $approvalReportPath -PathType Leaf) {
-        $approvalReport = [System.IO.File]::ReadAllText($approvalReportPath) | ConvertFrom-Json
-        foreach ($approved in @($approvalReport.approved_changes)) {
-            $approvedRow = @($approvalReport.rows | Where-Object { $_.path -ceq $approved.path })
-            if ($approvedRow.Count -ne 1 -or -not [bool]$approvedRow[0].approved_change) { throw "invalid protected approval row: $($approved.path)" }
-            $approvedExpected[[string]$approved.path] = [string]$approvedRow[0].after_sha256
-        }
-    }
+    $approvedExpected = Get-PinnedProtectedApproval $snapshotRoot
     $rows = @()
     $changed = 0
     $approvedChanged = 0
@@ -59,8 +74,15 @@ function Get-ProtectedSnapshot([string]$Root, [switch]$TrackedOnly) {
             $expected = $approvedExpected[[string]$row.path]
             $approvedChanged += 1
         }
-        if ($actual -ne $expected) { $changed += 1 }
-        $rows += "$($row.path)`t$actual"
+        $matchesExpected = $actual -eq $expected
+        if (-not $matchesExpected -and [System.IO.Path]::GetExtension($full).ToLowerInvariant() -ne '.zip') {
+            $normalizedText = [System.IO.File]::ReadAllText($full).Replace("`r`n", "`n")
+            $normalized = Get-Sha256Bytes $Utf8NoBom.GetBytes($normalizedText)
+            $matchesExpected = $normalized -eq $expected
+        }
+        if (-not $matchesExpected) { $changed += 1 }
+        $canonicalIdentity = if ($matchesExpected) { $expected } else { $actual }
+        $rows += "$($row.path)`t$canonicalIdentity"
     }
     [System.Array]::Sort($rows, [System.StringComparer]::Ordinal)
     $canonical = ($rows -join "`n") + $(if ($rows.Count -gt 0) { "`n" } else { '' })
@@ -292,7 +314,9 @@ if ($Mode -eq 'LocalCandidate') {
     $manifestContent = [System.IO.File]::ReadAllText($manifestFull)
     $manifest = Test-ManifestContent $manifestContent "working:$ManifestRelativePath"
     if (-not $IntegrityOnly) { Assert-RequiredFiles $manifest 'working' }
-    Write-Output "validation assets PASS: mode=LocalCandidate required=$($manifest.expected_required_count) generation=$($manifest.generation)"
+    $protected = Get-ProtectedSnapshot
+    if ($protected.ChangedCount -ne 0) { throw 'protected surface drift in LocalCandidate' }
+    Write-Output "validation assets PASS: mode=LocalCandidate required=$($manifest.expected_required_count) generation=$($manifest.generation) protected=$($protected.RowCount) approved=$($protected.ApprovedChangedCount)"
     exit 0
 }
 
@@ -300,12 +324,14 @@ if ($Mode -eq 'StagedChangeset') {
     $manifestResult = Invoke-GitText @('show',":$ManifestRelativePath")
     $manifest = Test-ManifestContent $manifestResult.Text "index:$ManifestRelativePath"
     Assert-RequiredFiles $manifest 'index'
+    $protected = Get-ProtectedSnapshot -TrackedOnly
+    if ($protected.ChangedCount -ne 0) { throw 'protected surface drift in StagedChangeset' }
     $stagedIgnore = (Invoke-GitText @('show',':.gitignore')).Text
     foreach ($testAsset in @($manifest.assets | Where-Object { $_.required -and $_.artifact_class -eq 'python_test' })) {
         $exactRule = '!' + [string]$testAsset.path
         if (@($stagedIgnore -split "`r?`n" | Where-Object { $_ -ceq $exactRule }).Count -ne 1) { throw "missing exact staged .gitignore rule: $exactRule" }
     }
-    Write-Output "validation assets PASS: mode=StagedChangeset(materialized) required=$($manifest.expected_required_count) generation=$($manifest.generation)"
+    Write-Output "validation assets PASS: mode=StagedChangeset(materialized) required=$($manifest.expected_required_count) generation=$($manifest.generation) protected=$($protected.RowCount) approved=$($protected.ApprovedChangedCount)"
     exit 0
 }
 

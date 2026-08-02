@@ -46,8 +46,10 @@ The final batch produced these separate outcomes:
 
 - PZ/Kahlua B41 acceptance: validated for Description 4, Browser 7, Detail 4,
   and Legacy 3 cases against implementation commit `60a919f0`.
-- Standalone auxiliary characterization: 15 rows passed; the frozen
-  pre-refactor artifact was restored after replay to preserve its time axis.
+- Standalone auxiliary characterization: 15 rows passed against baseline
+  `72e76b36` with a reconstructable four-row producer overlay.
+- PZ pre-refactor characterization: 9 rows passed against baseline `72e76b36`
+  with a reconstructable five-row producer overlay.
 - Production Lua syntax: 95 files passed.
 - Disposable package identity: 95 Lua files and 12 Layer 3 files passed; the
   candidate was removed and the existing 102-row package peer was unchanged.
@@ -79,16 +81,20 @@ The final batch produced these separate outcomes:
    after a successful seal-candidate CleanCheckout.
 
 Re-entry requires resolving the three blocking route/discovery axes, rerunning
-the final matrix, changing all 72 required rows from `required_active` to
+the final matrix, changing all 73 required rows from `required_active` to
 `sealed`, setting the root and ceiling seal, then performing the exact committed
 CleanCheckout and terminal attestation sequence.
 
-External Codex Reviewer status: `review_complete_findings_resolved`. The review
+External Codex Reviewer status: `reviewer_remediation_applied_pending_final_read_only_verdict`. The review
 identified incomplete CleanCheckout coverage, weak evidence identity checks, an
 incorrect subcategory getter, shallow nested mutability, and non-disjoint result
 roots. The implementation incorporates the requested corrections; Changes 3–6
 PZ evidence was regenerated from clean implementation commit `60a919f0` with a
-reconstructable producer-input binding.
+reconstructable producer-input binding. A follow-up review identified missing
+reconstruction rows in the two Phase 1 bindings and a self-authorizing
+protected report. Both were remediated by replaying baseline `72e76b36` in a
+disposable checkout and by pinning exact owner authority to ancestor commit
+`dd732e1f` and blob `7aebc178` rather than trusting the report itself.
 
 One protected governance file has an approved exact change. Baseline commit
 `72e76b36` advanced `current_generation_descriptor.json` but left

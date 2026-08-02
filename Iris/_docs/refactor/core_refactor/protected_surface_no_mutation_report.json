@@ -7,6 +7,7 @@
   "changed_count":1,
   "approved_changed_count":1,
   "unauthorized_changed_count":0,
+  "approval_authority":{"path":"Iris/_docs/refactor/core_refactor/phase9_protected_surface_approval_authority.json","commit":"dd732e1fb7f529da40befdd3b658571aa898031f","blob":"7aebc178d8a0b1716f131f7b6a7c5f046b888244","trust_model":"pinned_ancestor_blob"},
   "approved_changes":[{"path":"Iris/_docs/round3/current_route_required_validations.json","reason":"baseline commit 72e76b36 changed the tracked current generation descriptor without advancing its authority hash; Change 9 binds the manifest to the tracked descriptor SHA-256","writer_chain":["commit 72e76b36 current_generation_descriptor.json","Change 9 current-route authority binding correction"],"owner_approval":"preauthorized_by_user_for_required_owner_decisions"}],
   "rows":[
     {"path":"docs/EXECUTION_CONTRACT.md","policy":"read_only_exact","before_sha256":"a185bbd78eb849b0310d9aadc9102cb156b892513266fac0ec7903eb3d3a9493","after_sha256":"a185bbd78eb849b0310d9aadc9102cb156b892513266fac0ec7903eb3d3a9493"},

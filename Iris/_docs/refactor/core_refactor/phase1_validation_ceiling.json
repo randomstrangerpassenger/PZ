@@ -3,19 +3,20 @@
   "generation":7,
   "previous_ceiling_sha256_or_null":"6f747a9fefd53447c01dd95f28f8531b27e67c61205308003f7682799b00db30",
   "manifest_generation":7,
-  "manifest_sha256":"05a0015147458e805a04f981981532267df95509fdb3ee2a77b9edb3a096efe4",
+  "manifest_sha256":"d85f40c4c28609e9f7c4d24dd4d05a60b1d5dab274a6b39414cbba30a331ccda",
   "manifest_reserved_future_count":0,
   "last_updated_by_change":9,
   "sealed":false,
   "sealed_by_change":null,
   "closeout_state":"blocked",
   "reason_codes":["blocked_current_route_validation_failed","blocked_historical_route_validation_failed","blocked_full_v2_discovery_failed"],
+  "protected_approval_authority":{"commit":"dd732e1fb7f529da40befdd3b658571aa898031f","blob":"7aebc178d8a0b1716f131f7b6a7c5f046b888244","path":"Iris/_docs/refactor/core_refactor/phase9_protected_surface_approval_authority.json"},
   "time_axis":"pre_refactor_characterization",
   "subject_commit":"72e76b367622f64af264f445889ea1832c87008a",
   "subject_tree":"9c98dad4623cea9242a41b77f0e378a87e56559f",
   "evidence":{
-    "headless":{"path":"Iris/_docs/refactor/core_refactor/phase1_pre_refactor_headless_baseline.jsonl","sha256":"4ea5ce32919d7f4655e867ced28edc7281f8c5d98eeabe071061046ac68ca799","binding_sha256":"03a6a8e47750e2d367946c1cee319cdb145cf64a6d2d3cd675ee359ca6acd8db"},
-    "pz":{"path":"Iris/_docs/refactor/core_refactor/phase1_pre_refactor_pz_baseline.jsonl","sha256":"ab2a59c85b3390aed1b3215d191fb641cb06e85a72ef3d4e8f42c5c8f634d01c","binding_sha256":"f7d20593a885baee37acbc50506758d20a94cad843cc53d829c764a60591e0be"}
+    "headless":{"path":"Iris/_docs/refactor/core_refactor/phase1_pre_refactor_headless_baseline.jsonl","sha256":"87b66d23ed28e6ab09e28581d96c41b59d715a2d024ee3ffad56c8b06958e497","binding_sha256":"8c302977d099194db44f5c609c424a2b4e897e3eac344e34759e004ab9a98476"},
+    "pz":{"path":"Iris/_docs/refactor/core_refactor/phase1_pre_refactor_pz_baseline.jsonl","sha256":"061fb1a3262d73df4629ebedb534b6bf82b7389bef73d060d534566b6a795e09","binding_sha256":"bc5c10dba9bbbdcd5b18a6cf8007f2bc4502a38292ae496b354de97ac870a93a"}
   },
   "axes":[
     {"axis":"description","owner_change":3,"status":"validated","evidence_roles":["auxiliary_standalone","runtime_behavior"],"case_count":8,"remaining_ceiling":null},
@@ -46,7 +47,7 @@
     "change7_and_change8":"583c03fd",
     "reviewer_remediation":"60a919f0"
   },
-  "staged_changeset_gate":{"source_label":"index:Iris/_docs/refactor/core_refactor/phase1_validation_asset_manifest.json","validator_sha256":"ac5eb138c8754b22c4fa422727feec15cb1ad27cef462fe3fad6f6574f431301","status":"validated","required_asset_count":72,"manifest_generation":7,"manifest_sealed":false},
+  "staged_changeset_gate":{"source_label":"index:Iris/_docs/refactor/core_refactor/phase1_validation_asset_manifest.json","validator_sha256":"21caed7632cc3820213cc66cf0669929c03d93227d891d6d56bd0a3917f3ed15","status":"validated","required_asset_count":73,"manifest_generation":7,"manifest_sealed":false,"protected_tracked_row_count":24,"approved_changed_count":1},
   "clean_checkout_gate":{"status":"not_run_blocked_by_unsealed_manifest_and_mandatory_failures","terminal_binding_path":"Iris/_docs/refactor/core_refactor/final_evidence_binding_report.json"},
   "mandatory_unvalidated_axis_count":3,
   "non_claims":["No B42 behavior claim","No multiplayer or soak claim","No unknown external-mod compatibility claim"]

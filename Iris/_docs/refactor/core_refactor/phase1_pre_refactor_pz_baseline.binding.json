@@ -1,7 +1,7 @@
 {
     "schema_version":  1,
     "evidence_path":  "Iris/_docs/refactor/core_refactor/phase1_pre_refactor_pz_baseline.jsonl",
-    "evidence_sha256":  "ab2a59c85b3390aed1b3215d191fb641cb06e85a72ef3d4e8f42c5c8f634d01c",
+    "evidence_sha256":  "061fb1a3262d73df4629ebedb534b6bf82b7389bef73d060d534566b6a795e09",
     "evidence_schema_version":  1,
     "row_count":  9,
     "subject_commit":  "72e76b367622f64af264f445889ea1832c87008a",
@@ -9,7 +9,22 @@
     "subject_worktree_patch_sha256_or_null":  null,
     "producer_base_commit":  "72e76b367622f64af264f445889ea1832c87008a",
     "producer_base_tree":  "9c98dad4623cea9242a41b77f0e378a87e56559f",
-    "producer_overlay_sha256_or_null":  "ddd46f92a87d2792756146b9f1be56d91053fc1f9dc50f457659b93ee4ef6b54",
+    "producer_worktree_state":  "tracked_and_untracked_overlay",
+    "producer_input_scope":  [
+                                 "Iris/media/lua/client/Iris",
+                                 "Iris/_dev/media/lua/client/Iris",
+                                 "Iris/test/run_pz_core_refactor_harness.ps1",
+                                 "Iris/_docs/refactor/core_refactor/phase1_behavior_evidence.schema.json",
+                                 "Iris/_docs/refactor/core_refactor/phase1_evidence_binding.schema.json"
+                             ],
+    "producer_overlay_rows":  [
+                                  " M\tIris/_dev/media/lua/client/Iris/Dev/IrisDesc/TestHarness.lua\t344f7c37c5f530a8babb6d6d6d8bc9d851abfe484df1130849739484a1787c1c",
+                                  "??\tIris/_dev/media/lua/client/Iris/Dev/PreRefactorCharacterizationHarness.lua\tee30e4c0ee698d356abc687ac6f65e580c13ebab8db4fb92f514ba7de26657b8",
+                                  "??\tIris/_docs/refactor/core_refactor/phase1_behavior_evidence.schema.json\t7a248be23177c8e4d76f8505f9b52d14ddf860eaec2a5cadc367bb62be94af12",
+                                  "??\tIris/_docs/refactor/core_refactor/phase1_evidence_binding.schema.json\t61fbc8fe15938302d9da502624bc5896d086cb37b03584e4c614823865e59b23",
+                                  "??\tIris/test/run_pz_core_refactor_harness.ps1\tc42f611bfff0a703cf075bea76625336b13b68da2a28bb822b1e50607575a1fa"
+                              ],
+    "producer_overlay_sha256_or_null":  "861a8b4fc02bc6cbc404b39d081a0d7df19c4d2230cec924504c11caf5eeacf5",
     "time_axis":  "pre_refactor_characterization",
     "execution_environment":  "project_zomboid_b41_41_78_20"
 }

@@ -51,6 +51,11 @@ class IrisCoreRefactorCloseoutTest(unittest.TestCase):
         self.assertEqual(1, report["approved_changed_count"])
         self.assertEqual(0, report["unauthorized_changed_count"])
         self.assertFalse(report["before_after_equal"])
+        self.assertEqual(
+            "dd732e1fb7f529da40befdd3b658571aa898031f",
+            report["approval_authority"]["commit"],
+        )
+        self.assertEqual("pinned_ancestor_blob", report["approval_authority"]["trust_model"])
         for row in report["rows"]:
             path = REPO / row["path"]
             if row["policy"] == "read_only_pre_post" and not path.exists():
@@ -115,6 +120,10 @@ class IrisCoreRefactorCloseoutTest(unittest.TestCase):
         package_validator = (REPO / "Iris/test/validate_disposable_package.ps1").read_text(encoding="utf-8")
         self.assertIn("IrisLayer3Data.lua", package_validator)
         self.assertIn("'build', '_dev', 'staging', 'probe'", package_validator)
+        asset_validator = (REPO / "Iris/test/validate_validation_assets.ps1").read_text(encoding="utf-8")
+        self.assertIn("dd732e1fb7f529da40befdd3b658571aa898031f", asset_validator)
+        self.assertIn("Get-PinnedProtectedApproval", asset_validator)
+        self.assertNotIn("approvalReport.approved_changes", asset_validator)
 
     def test_validation_axes_and_ceiling_close_without_overclaim(self) -> None:
         matrix = load_json(ROOT / "final_validation_matrix.json")

@@ -13,6 +13,8 @@ local ProtectedCall = require("Iris/Util/IrisProtectedCall")
 local Theme = require("Iris/UI/Browser/IrisBrowserTheme")
 local ObjectAccess = require("Iris/Util/IrisObjectAccess")
 local ItemAccess = require("Iris/Util/IrisItemAccess")
+local DetailViewModel = require("Iris/UI/Detail/IrisItemDetailViewModel")
+local TranslationResolver = require("Iris/Util/IrisTranslationResolver")
 
 local IrisBrowserDetail = {}
 
@@ -85,6 +87,22 @@ local function removeDetailChildren(detailPanel)
         if child then
             detailPanel:removeChild(child)
         end
+    end
+end
+
+local function captureDetailChildPositions(browser)
+    browser.detailChildBaseY = {}
+    for _, child in ipairs(collectLuaDetailChildren(browser.detailPanel)) do
+        local fallbackY = child.y or 0
+        browser.detailChildBaseY[child] = ObjectAccess.invokeMethod(child, "getY", fallbackY)
+    end
+end
+
+local function applyDetailScrollOffset(browser)
+    for child, baseY in pairs(browser.detailChildBaseY or {}) do
+        local targetY = baseY - browser.detailScrollY
+        local ok = ObjectAccess.call(child, "setY", targetY)
+        if not ok then child.y = targetY end
     end
 end
 
@@ -172,10 +190,15 @@ function IrisBrowserDetail.install(IrisBrowser, context)
     local safeRequire = context.safeRequire
     local tr = context.tr
 
-    function IrisBrowser:showDetail(fullType)
+    function IrisBrowser:rebuildDetailContent(fullType)
         removeDetailChildren(self.detailPanel)
+        self.detailChildBaseY = {}
+        self.currentDetailModel = nil
+        self.detailBuiltFullType = fullType
+        self.detailBuiltLocale = TranslationResolver.getLangKey("EN")
 
         if not fullType then
+            self.detailContentHeight = 0
             return
         end
 
@@ -186,18 +209,24 @@ function IrisBrowserDetail.install(IrisBrowser, context)
         if not item then
             local errorLabel = ISLabel:new(10, 10, 20, tr("Iris_UI_ItemInfoNotFound", "Item information not found"), 0.8, 0.3, 0.3, 1, UIFont.Medium, true)
             self.detailPanel:addChild(errorLabel)
+            self.detailContentHeight = 30
+            captureDetailChildPositions(self)
+            applyDetailScrollOffset(self)
             return
         end
 
-        local yOffset = 10 - self.detailScrollY
-        local displayName = resolveItemDisplayName(item, fullType)
+        local model = DetailViewModel.fromItem(item)
+        self.currentDetailModel = model
+        self.detailBuiltLocale = model.locale
+        local yOffset = 10
+        local displayName = model.displayName
 
         local nameLabel = ISLabel:new(10, yOffset, 25, displayName, 0.6, 0.9, 1.0, 1.0, UIFont.Medium, true)
         self.detailPanel:addChild(nameLabel)
         yOffset = yOffset + 30
 
         if IrisWikiSections and IrisWikiSections.renderCoreInfoSection then
-            local coreInfo = IrisWikiSections.renderCoreInfoSection(item)
+            local coreInfo = IrisWikiSections.renderCoreInfoSection(model)
             if coreInfo and coreInfo ~= "" then
                 local coreLabel = ISLabel:new(10, yOffset, 18, coreInfo, 0.7, 0.85, 0.9, 1, UIFont.Medium, true)
                 self.detailPanel:addChild(coreLabel)
@@ -217,7 +246,7 @@ function IrisBrowserDetail.install(IrisBrowser, context)
         end
 
         if IrisWikiSections and IrisWikiSections.renderLayer3Section then
-            local layer3Text = IrisWikiSections.renderLayer3Section(item)
+            local layer3Text = IrisWikiSections.renderLayer3Section(model)
             yOffset = addSeparatedMultilineSection(self.detailPanel, layer3Text, yOffset, 0.92, 0.92, 0.92)
         end
 
@@ -225,16 +254,29 @@ function IrisBrowserDetail.install(IrisBrowser, context)
             safeRequire = safeRequire,
             tr = tr,
             IrisAPI = IrisAPI,
+            model = model,
         })
 
         yOffset = addVariantList(self, IrisBrowser, IrisBrowserData, fullType, yOffset)
 
         if IrisWikiSections and IrisWikiSections.renderMetaInfoSection then
-            local metaInfo = IrisWikiSections.renderMetaInfoSection(item)
+            local metaInfo = IrisWikiSections.renderMetaInfoSection(model)
             yOffset = addMetaInfoSection(self.detailPanel, metaInfo, yOffset)
         end
 
-        self.detailContentHeight = yOffset + self.detailScrollY + 20
+        self.detailContentHeight = yOffset + 20
+        captureDetailChildPositions(self)
+        applyDetailScrollOffset(self)
+    end
+
+    function IrisBrowser:showDetail(fullType, forceRebuild)
+        local locale = TranslationResolver.getLangKey("EN")
+        if not forceRebuild and fullType and self.detailBuiltFullType == fullType and
+            self.detailBuiltLocale == locale and self.currentDetailModel then
+            applyDetailScrollOffset(self)
+            return
+        end
+        self:rebuildDetailContent(fullType)
     end
 
     function IrisBrowser:onDetailMouseWheel(del)
@@ -251,9 +293,7 @@ function IrisBrowserDetail.install(IrisBrowser, context)
             self.detailScrollY = maxScroll
         end
 
-        if self.currentSelectedFullType then
-            self:showDetail(self.currentSelectedFullType)
-        end
+        applyDetailScrollOffset(self)
     end
 
     function IrisBrowser:onToggleRecipeSection(button)
@@ -261,7 +301,7 @@ function IrisBrowserDetail.install(IrisBrowser, context)
         if not expandKey then return end
 
         self.recipeExpandedByFullType[expandKey] = not (self.recipeExpandedByFullType[expandKey] == true)
-        self:showDetail(self.currentSelectedFullType)
+        self:showDetail(self.currentSelectedFullType, true)
     end
 end
 

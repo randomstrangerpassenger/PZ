@@ -110,6 +110,10 @@ function IrisBrowser:new(x, y, width, height)
 
     o.detailScrollY = 0
     o.detailContentHeight = 0
+    o.detailChildBaseY = {}
+    o.detailBuiltFullType = nil
+    o.detailBuiltLocale = nil
+    o.currentDetailModel = nil
 
     return o
 end

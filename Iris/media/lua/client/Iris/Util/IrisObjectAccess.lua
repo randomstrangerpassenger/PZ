@@ -40,4 +40,12 @@ function IrisObjectAccess.invokeMethod(target, methodName, fallback, ...)
     return fallback
 end
 
+function IrisObjectAccess.firstValue(target, methodNames, fallback)
+    for _, methodName in ipairs(methodNames or {}) do
+        local ok, result = IrisObjectAccess.call(target, methodName)
+        if ok and result ~= nil then return result end
+    end
+    return fallback
+end
+
 return IrisObjectAccess

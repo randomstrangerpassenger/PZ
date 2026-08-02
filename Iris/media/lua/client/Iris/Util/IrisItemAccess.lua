@@ -33,4 +33,17 @@ function IrisItemAccess.getType(item, fallback)
     return normalizeString(itemType, fallback)
 end
 
+function IrisItemAccess.getModuleName(item, fallback)
+    local moduleName = ObjectAccess.invokeMethod(item, "getModule", nil)
+    if moduleName == nil then return fallback end
+
+    local text = tostring(moduleName)
+    if text:find("@", 1, true) then
+        local resolved = ObjectAccess.invokeMethod(moduleName, "getName", nil)
+        if resolved == nil then return fallback end
+        text = tostring(resolved)
+    end
+    return normalizeString(text, fallback)
+end
+
 return IrisItemAccess

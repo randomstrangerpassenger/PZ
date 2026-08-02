@@ -1,0 +1,12 @@
+{
+  "schema_version":1,
+  "owner_change":5,
+  "source":"phase0_supported_api_manifest.json IrisWikiSections supported_wrappers row plus fresh repository caller search",
+  "module":"Iris/UI/Wiki/IrisWikiSections",
+  "compatibility_contract":"Every render*Section and getAllSections entry accepts either the historical item input or IrisItemDetailViewModel; return shapes remain string|nil or table.",
+  "rows":[
+    {"family":"legacy","symbols":["renderBasicInfoSection","renderTagsSection","renderFoodSection","renderWeaponSection","renderConnectionSection","renderMiscSection","getAllSections","renderReasonSection","renderFieldsSection"],"known_internal_callers":["Iris/UI/Wiki/IrisWikiPanel"],"external_status":"supported_wrapper","disposition":"retain_model_adapter"},
+    {"family":"current","symbols":["renderCoreInfoSection","renderLayer3Section","renderRecipeInfoSection","renderMetaInfoSection","renderUseCaseSection"],"known_internal_callers":["Iris/UI/Browser/IrisBrowserDetail","Iris/UI/Wiki/IrisWikiPanel"],"external_status":"supported_wrapper","disposition":"retain_model_adapter"}
+  ],
+  "deprecation":"none; Phase 0 public render facade explicitly supports wrappers"
+}

@@ -9,8 +9,7 @@ local IrisWikiPanel = {}
 
 -- 의존성
 local IrisWikiSections = require "Iris/UI/Wiki/IrisWikiSections"
-local ItemKey = require("Iris/Util/ItemKey")
-local ProtectedCall = require("Iris/Util/IrisProtectedCall")
+local DetailViewModel = require("Iris/UI/Detail/IrisItemDetailViewModel")
 
 -- 패널 인스턴스
 IrisWikiPanel._panel = nil
@@ -45,6 +44,8 @@ end
 --- @param item InventoryItem
 --- @return ISPanel
 function IrisWikiPanel.createPanel(item)
+    local model = DetailViewModel.ensure(item)
+    if not model then return nil end
     local screenW = getCore():getScreenWidth()
     local screenH = getCore():getScreenHeight()
     local panelW = 400
@@ -61,12 +62,10 @@ function IrisWikiPanel.createPanel(item)
     panel.backgroundColor = {r=0.1, g=0.1, b=0.1, a=0.9}
     panel.borderColor = {r=0.4, g=0.4, b=0.4, a=1}
     panel.moveWithMouse = true
+    panel.detailModel = model
     
     -- 제목
-    local nameOk, displayName = ProtectedCall.engine(function()
-        return item:getDisplayName()
-    end)
-    local itemName = (nameOk and displayName) or ItemKey.getFullTypeFromItem(item) or "Unknown"
+    local itemName = model.displayName or model.fullType or "Unknown"
     local titleLabel = ISLabel:new(10, 10, 25, "Iris: " .. itemName, 1, 1, 1, 1, UIFont.Medium, true)
     panel:addChild(titleLabel)
     
@@ -81,19 +80,19 @@ function IrisWikiPanel.createPanel(item)
     local yOffset = 45
     
     -- A) 태그 목록
-    local tagsSection = IrisWikiSections.renderTagsSection(item)
+    local tagsSection = IrisWikiSections.renderTagsSection(model)
     local tagsLabel = ISLabel:new(10, yOffset, 20, tagsSection, 1, 1, 1, 1, UIFont.Small, true)
     panel:addChild(tagsLabel)
     yOffset = yOffset + 25
     
     -- B) 근거
-    local reasonSection = IrisWikiSections.renderReasonSection(item)
+    local reasonSection = IrisWikiSections.renderReasonSection(model)
     local reasonLabel = ISLabel:new(10, yOffset, 20, reasonSection, 0.8, 0.8, 0.8, 1, UIFont.Small, true)
     panel:addChild(reasonLabel)
     yOffset = yOffset + 25
 
     -- B.25) 3계층 본문
-    local layer3Section = IrisWikiSections.renderLayer3Section(item)
+    local layer3Section = IrisWikiSections.renderLayer3Section(model)
     if layer3Section then
         local renderedLineCount = 0
         for line in layer3Section:gmatch("[^\n]+") do
@@ -108,7 +107,7 @@ function IrisWikiPanel.createPanel(item)
     end
     
     -- B.5) UseCase (빌드 산출물 표시 전용)
-    local usecaseSection = IrisWikiSections.renderUseCaseSection(item)
+    local usecaseSection = IrisWikiSections.renderUseCaseSection(model)
     if usecaseSection then
         local usecaseLabel = ISLabel:new(10, yOffset, 20, usecaseSection, 0.9, 0.95, 0.8, 1, UIFont.Small, true)
         panel:addChild(usecaseLabel)
@@ -116,13 +115,13 @@ function IrisWikiPanel.createPanel(item)
     end
     
     -- C) 연결 시스템
-    local connectionSection = IrisWikiSections.renderConnectionSection(item)
+    local connectionSection = IrisWikiSections.renderConnectionSection(model)
     local connectionLabel = ISLabel:new(10, yOffset, 20, connectionSection, 1, 1, 1, 1, UIFont.Small, true)
     panel:addChild(connectionLabel)
     yOffset = yOffset + 25
     
     -- D) 상태 필드
-    local fieldsSection = IrisWikiSections.renderFieldsSection(item)
+    local fieldsSection = IrisWikiSections.renderFieldsSection(model)
     local fieldsLabel = ISLabel:new(10, yOffset, 20, fieldsSection, 1, 1, 1, 1, UIFont.Small, true)
     panel:addChild(fieldsLabel)
     

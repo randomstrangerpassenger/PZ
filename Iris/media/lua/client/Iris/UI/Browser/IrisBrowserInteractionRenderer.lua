@@ -25,8 +25,8 @@ function IrisBrowserInteractionRenderer.render(browser, browserClass, fullType, 
     local ucOk, ucResult = safeRequire("Iris/Data/IrisUseCaseDescriptions")
     if ucOk and ucResult then ucDescData = ucResult end
 
-    local interactionItems = Collector.collectRecipeInteractions(fullType, item, IrisAPI, ucDescData)
-    local capabilityItems = Collector.collectCapabilityInteractions(fullType, IrisAPI, tr)
+    local interactionItems = Collector.collectRecipeInteractions(fullType, item, IrisAPI, ucDescData, deps.model)
+    local capabilityItems = Collector.collectCapabilityInteractions(fullType, IrisAPI, tr, deps.model)
     for _, capabilityItem in ipairs(capabilityItems) do
         table.insert(interactionItems, capabilityItem)
     end

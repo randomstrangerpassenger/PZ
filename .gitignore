@@ -333,6 +333,7 @@ Iris/build/description/v2/tests/*
 !Iris/build/description/v2/tests/test_iris_pre_refactor_detail_characterization.py
 !Iris/build/description/v2/tests/test_iris_description_single_path_acceptance.py
 !Iris/build/description/v2/tests/test_iris_browser_state_selection_search_acceptance.py
+!Iris/build/description/v2/tests/test_iris_detail_view_model_acceptance.py
 !Iris/build/description/v2/tests/test_migrate_dvf_3_3_facts_v2.py
 !Iris/build/description/v2/tests/test_compose_layer3_text_v2.py
 !Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py

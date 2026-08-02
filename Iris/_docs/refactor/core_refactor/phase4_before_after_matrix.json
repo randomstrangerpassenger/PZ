@@ -1,0 +1,12 @@
+{
+  "schema_version":1,
+  "owner_change":5,
+  "rows":[
+    {"axis":"shared_raw_facts","relation":"preserve_exact","before_cases":["detail.food_stub_units","detail.food_pz_units"],"after_cases":["detail_acceptance.food_units","detail_acceptance.browser_wiki_shared"]},
+    {"axis":"food_units","relation":"preserve_exact","decision":"preserve_existing_behavior","decision_source":"phase0_decision_matrix.md#Food unit mismatch","contract":{"pz_getter":"raw integer observed","core_renderer":"raw","food_renderer":"raw * 100"}},
+    {"axis":"layer3_availability","relation":"preserve_exact","after_cases":["detail_acceptance.layer3_availability"],"rule":"display payload present iff public layer3 renderer returns non-empty text"},
+    {"axis":"locale","relation":"preserve_raw_change_labels","after_asset":"detail_view_model_locale_harness.lua","rule":"EN/KO labels may differ; raw facts and availability remain equal"},
+    {"axis":"scroll_widget_identity","relation":"approved_change","before":"wheel rebuilds detail children","after":"wheel applies offset to existing children","before_cases":["scroll_click.pz_pre_refactor"],"after_cases":["detail_acceptance.incremental_scroll"]},
+    {"axis":"interaction_ownership","relation":"preserve_exact","rule":"Browser/Wiki retain labels, buttons, navigation, and callbacks; model supplies raw identifiers only"}
+  ]
+}

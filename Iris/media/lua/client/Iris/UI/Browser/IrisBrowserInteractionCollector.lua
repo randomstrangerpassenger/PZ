@@ -12,7 +12,7 @@
 local IrisBrowserInteractionCollector = {}
 local ProtectedCall = require("Iris/Util/IrisProtectedCall")
 
-function IrisBrowserInteractionCollector.collectRecipeInteractions(fullType, item, IrisAPI, ucDescData)
+function IrisBrowserInteractionCollector.collectRecipeInteractions(fullType, item, IrisAPI, ucDescData, model)
     local interactionItems = {}
     local recipeNameSet = {}
     local hasOfflineRecipes = false
@@ -43,8 +43,8 @@ function IrisBrowserInteractionCollector.collectRecipeInteractions(fullType, ite
     end
 
     if not hasOfflineRecipes then
-        local recipeList = {}
-        if IrisAPI and IrisAPI.Index and IrisAPI.Index.getRecipeConnectionsForItem then
+        local recipeList = model and model.connections and model.connections.recipes or {}
+        if not model and IrisAPI and IrisAPI.Index and IrisAPI.Index.getRecipeConnectionsForItem then
             local ok, list = ProtectedCall.data(function() return IrisAPI.Index.getRecipeConnectionsForItem(item) end)
             if ok and list then recipeList = list end
         end
@@ -82,9 +82,9 @@ function IrisBrowserInteractionCollector.collectRecipeInteractions(fullType, ite
     return interactionItems
 end
 
-function IrisBrowserInteractionCollector.collectCapabilityInteractions(fullType, IrisAPI, tr)
-    local capabilityList = {}
-    if IrisAPI and IrisAPI.UseCases and IrisAPI.UseCases.getCapabilities then
+function IrisBrowserInteractionCollector.collectCapabilityInteractions(fullType, IrisAPI, tr, model)
+    local capabilityList = model and model.capabilities or {}
+    if not model and IrisAPI and IrisAPI.UseCases and IrisAPI.UseCases.getCapabilities then
         local ok, caps = ProtectedCall.data(function() return IrisAPI.UseCases.getCapabilities(fullType) end)
         if ok and caps then capabilityList = caps end
     end

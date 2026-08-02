@@ -253,9 +253,9 @@ if ($Mode -eq 'CleanCheckout' -and -not $InternalMaterialized) {
     $stderrPath = Join-Path $validatedResultRoot 'stderr.txt'
     $cleanup = $false
     try {
-        & git clone --no-local --no-checkout -- $ValidatedRepositoryRoot $validatedWorkRoot 1>$stdoutPath 2>$stderrPath
+        & git -c core.longpaths=true clone --no-local --no-checkout -- $ValidatedRepositoryRoot $validatedWorkRoot 1>$stdoutPath 2>$stderrPath
         if ($LASTEXITCODE -ne 0) { throw 'external clone failed' }
-        & git -C $validatedWorkRoot checkout --detach $TargetCommit 1>>$stdoutPath 2>>$stderrPath
+        & git -c core.longpaths=true -C $validatedWorkRoot checkout --detach $TargetCommit 1>>$stdoutPath 2>>$stderrPath
         if ($LASTEXITCODE -ne 0) { throw 'detached checkout failed' }
         $committedValidator = Join-Path $validatedWorkRoot $ValidatorRelativePath
         & powershell -NoProfile -ExecutionPolicy Bypass -File $committedValidator -Mode CleanCheckout -RepositoryRoot $validatedWorkRoot -TargetCommit $TargetCommit -InternalMaterialized 1>>$stdoutPath 2>>$stderrPath

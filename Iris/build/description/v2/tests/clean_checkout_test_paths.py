@@ -10,6 +10,7 @@ from pathlib import Path
 
 OUTPUT_ROOT_ENV = "IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT"
 REPOSITORY_ROOT = Path(__file__).resolve().parents[5]
+_DEFAULT_TEMP_DIRECTORY: tempfile.TemporaryDirectory | None = None
 
 
 def _is_within(path: Path, parent: Path) -> bool:
@@ -21,6 +22,7 @@ def _is_within(path: Path, parent: Path) -> bool:
 
 
 def external_test_root() -> Path:
+    global _DEFAULT_TEMP_DIRECTORY
     configured = os.environ.get(OUTPUT_ROOT_ENV)
     if configured:
         root = Path(configured).resolve()
@@ -28,10 +30,11 @@ def external_test_root() -> Path:
         checkout_key = hashlib.sha256(
             str(REPOSITORY_ROOT).casefold().encode("utf-8")
         ).hexdigest()[:12]
-        root = (
-            Path(tempfile.gettempdir()).resolve()
-            / f"iris-clean-checkout-tests-{checkout_key}"
-        )
+        if _DEFAULT_TEMP_DIRECTORY is None:
+            _DEFAULT_TEMP_DIRECTORY = tempfile.TemporaryDirectory(
+                prefix=f"iris-clean-checkout-tests-{checkout_key}-"
+            )
+        root = Path(_DEFAULT_TEMP_DIRECTORY.name).resolve()
     if _is_within(root, REPOSITORY_ROOT):
         raise RuntimeError(
             f"{OUTPUT_ROOT_ENV} must resolve outside the checkout: {root}"

@@ -27,6 +27,31 @@ def load_jsonl(path: Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
+def git_last_change_commit(path: Path) -> str:
+    relative = path.resolve().relative_to(REPO.resolve()).as_posix()
+    result = subprocess.run(
+        ["git", "log", "-1", "--format=%H", "--", relative],
+        cwd=REPO,
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+    commit = result.stdout.strip()
+    if not commit:
+        raise AssertionError(f"no producer commit for {relative}")
+    return commit
+
+
+def git_bytes(commit: str, path: Path) -> bytes:
+    relative = path.resolve().relative_to(REPO.resolve()).as_posix()
+    return subprocess.run(
+        ["git", "show", f"{commit}:{relative}"],
+        cwd=REPO,
+        capture_output=True,
+        check=True,
+    ).stdout
+
+
 class LiveConsumerMigrationExecutionTest(unittest.TestCase):
     def test_phase1_reconciles_153_and_163_by_identity(self) -> None:
         report = load_json(ROOT / "phase1/migrated153_vs_sandbox163_reconciliation_report.json")
@@ -121,8 +146,9 @@ class LiveConsumerMigrationExecutionTest(unittest.TestCase):
     def test_independent_review_hash_manifest_covers_external_docs_without_self_hash(self) -> None:
         manifest_path = ROOT / "phase7/independent_review_artifact_hash_manifest.json"
         report_path = ROOT / "phase7/independent_review_artifact_hash_report.json"
-        manifest = load_json(manifest_path)
-        report = load_json(report_path)
+        producer_commit = git_last_change_commit(manifest_path)
+        manifest = json.loads(git_bytes(producer_commit, manifest_path))
+        report = json.loads(git_bytes(producer_commit, report_path))
         artifact_paths = {row["path"] for row in manifest["artifacts"]}
         expected_doc_paths = {
             "docs/dvf_3_3_live_consumer_migration_execution_closeout.md",
@@ -146,13 +172,15 @@ class LiveConsumerMigrationExecutionTest(unittest.TestCase):
 
         mismatches = []
         for record in manifest["artifacts"]:
-            path = REPO / record["path"]
-            self.assertTrue(path.is_file(), record["path"])
-            if path.stat().st_size != record["bytes"]:
+            try:
+                payload = git_bytes(producer_commit, REPO / record["path"])
+            except subprocess.CalledProcessError:
                 mismatches.append(record["path"])
                 continue
-
-            if hashlib.sha256(path.read_bytes()).hexdigest() != record["sha256"]:
+            if len(payload) != record["bytes"]:
+                mismatches.append(record["path"])
+                continue
+            if hashlib.sha256(payload).hexdigest() != record["sha256"]:
                 mismatches.append(record["path"])
 
         self.assertEqual(mismatches, [])

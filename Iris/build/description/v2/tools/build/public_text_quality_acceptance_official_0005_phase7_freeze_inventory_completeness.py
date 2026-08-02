@@ -9,6 +9,7 @@ from typing import Any
 import public_text_quality_acceptance as base
 import public_text_quality_acceptance_official_0005 as official
 import public_text_quality_acceptance_official_0005_phase7_evaluation_subject_text_identity as predecessor
+import public_text_quality_acceptance_official_0005_phase7_host_independent_freeze as host_freeze
 import public_text_quality_acceptance_official_0005_phase7_terminal_validation as terminal_v2
 import public_text_quality_acceptance_official_0005_phase7_v2 as phase7_v2
 
@@ -176,7 +177,7 @@ def _tree_map(treeish: str) -> dict[str, dict[str, str]]:
 
 
 def _tree_row_raw_sha256(row: dict[str, str]) -> str:
-    raw = predecessor.predecessor._blob_bytes([row["git_blob_id"]])[
+    raw = host_freeze._blob_bytes([row["git_blob_id"]])[
         row["git_blob_id"]
     ]
     return base.sha256_bytes(raw)

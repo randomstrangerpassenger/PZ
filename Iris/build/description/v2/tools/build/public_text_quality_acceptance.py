@@ -465,7 +465,12 @@ def _validated_repository_artifact_target(
         root = repository_root.resolve(strict=True)
         candidate = path if path.is_absolute() else root / path
         lexical = Path(os.path.abspath(str(candidate)))
-        resolved = candidate.resolve(strict=False)
+        # ``Path.resolve(strict=False)`` still asks Windows to resolve the
+        # nearest existing ancestor.  A valid write-once target commonly has
+        # a not-yet-created parent, and that lookup raises WinError 2.  Keep
+        # the candidate lexical here and inspect every existing component for
+        # aliases below instead.
+        resolved = lexical
     except OSError as exc:
         raise FoundationContractError(f"cannot resolve artifact target {path}: {exc}") from exc
     try:
@@ -480,16 +485,15 @@ def _validated_repository_artifact_target(
         raise FoundationContractError(
             "artifact target path alias or symlink resolution is forbidden"
         )
-    if os.name == "nt":
-        current = root
+    current = root
+    if _path_has_reparse_point(current):
+        raise FoundationContractError("repository root is a reparse-point alias")
+    for component in relative.parts:
+        current = current / component
         if _path_has_reparse_point(current):
-            raise FoundationContractError("repository root is a reparse-point alias")
-        for component in relative.parts:
-            current = current / component
-            if _path_has_reparse_point(current):
-                raise FoundationContractError(
-                    "artifact target contains a symlink or reparse-point component"
-                )
+            raise FoundationContractError(
+                "artifact target contains a symlink or reparse-point component"
+            )
     return resolved
 
 

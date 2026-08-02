@@ -62,7 +62,7 @@ PINNED_REPRODUCTION_ROUTE_TEST_PATHS_SHA256 = (
     "795da92ab46bba97d369bbf9d8fd5629ce0e394fd33338617b5bcc5cfe3817b5"
 )
 PINNED_REPRODUCTION_ARCHIVE_SHA256 = (
-    "efefb94f0995c834a4e1e18d44d486b099d94d5290dcfca41c793e4a3ef95237"
+    "b497e9ccae1b4debcec6ccfc1a69afd017339d218a57d010d1434054175555ef"
 )
 PINNED_REPRODUCTION_RAW_FIXTURE_PATHS = (
     "lua/shared/Translate/CS/Recipes_CS.txt",
@@ -162,7 +162,10 @@ def tools_build_import_candidates(path: Path) -> list[dict]:
             elif "." not in imported:
                 test_local_file = path.parent / f"{imported}.py"
                 test_local_package = path.parent / imported / "__init__.py"
-                if test_local_file.is_file() or test_local_package.is_file():
+                if (
+                    not literal_tools_path_added
+                    and (test_local_file.is_file() or test_local_package.is_file())
+                ):
                     continue
                 candidate = tools_build_module_path(imported)
                 if candidate.is_file() or (

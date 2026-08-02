@@ -1,18 +1,18 @@
 {
   "existing_guard_test": {
     "path": "Iris/build/description/v2/tests/test_runtime_payload_state_integrity.py",
-    "sha256": "0024166409f8ff42e936186f645e1ca1ba1c36554f6029a30aed17b398202d47"
+    "sha256": "405392f48769247e18954006939325a27d2473931c732adfd5bd80ec7ecefb21"
   },
   "existing_guard_tool": {
     "path": "Iris/build/description/v2/tools/build/runtime_payload_state_integrity.py",
-    "sha256": "d8dce55740775388854db783795eb56fd98085de36dcc9bf89fdec2a20ebbefd"
+    "sha256": "1e53caeefd2cb3698f8a7ca657982904e0786f6d2cf446e0ea87d8e577a6b83c"
   },
   "generated_at": "2026-06-27T00:00:00+09:00",
   "plan": {
     "path": "docs/runtime_payload_state_integrity_residual_seal_plan.md",
     "sha256": "c80ae583e24925a9107dc86c5127f29aa03fe9667eff75c558e43d0d8f91c3aa"
   },
-  "protected_surface_manifest_hash": "ccfc9411afff7fb9ab9b3286fe13c61e2550da1a3974dd684621fdd3032cddca",
+  "protected_surface_manifest_hash": "16b016a1bdd3f82126d9734a580bdb30386ab908575a03d9aa9a7d9833bec442",
   "schema_version": "runtime-payload-residual-input-fingerprint-v1",
   "status": "PASS",
   "surface_summary_count": 4

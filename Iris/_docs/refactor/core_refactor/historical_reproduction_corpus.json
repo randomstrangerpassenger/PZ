@@ -2,7 +2,7 @@
   "schema_version": "iris-historical-reproduction-corpus-v1",
   "purpose": "Self-contained ignored historical and diagnostic route reproduction for exact-commit clean checkout validation.",
   "archive_path": "Iris/_docs/refactor/core_refactor/historical_reproduction_corpus.zip",
-  "archive_sha256": "ff69e4b8de63ae2a9b77dbd31842ede6a7a5b5f0ef38c71f0e6a413c5b2c11db",
+  "archive_sha256": "b497e9ccae1b4debcec6ccfc1a69afd017339d218a57d010d1434054175555ef",
   "row_count": 2409,
   "route_test_count": 201,
   "build_support_count": 498,
@@ -7324,7 +7324,7 @@
     {
       "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py",
       "entry_kind": "build_support",
-      "sha256": "71886164389eb53547f6f8137cefa4770987975b8498c50a1ccf32090ecd62ac",
+      "sha256": "dfde8da71313b394a9c295cba6b8bbaff4707ad7f1d41498431097ca3383b79d",
       "source_kind": "tracked_live_build_support",
       "source_path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py"
     },
@@ -7359,7 +7359,7 @@
     {
       "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance_official_0005_phase7_freeze_inventory_completeness.py",
       "entry_kind": "build_support",
-      "sha256": "c8f59ac0ca0706efb377e2b517f6ad9be88268786206ca51f9814f8f95ab2c40",
+      "sha256": "9e9ade049ced5a7b1a2cfb4ecacc47c44887d94e69b9c84016e2b8061066303a",
       "source_kind": "tracked_live_build_support",
       "source_path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance_official_0005_phase7_freeze_inventory_completeness.py"
     },
@@ -8213,7 +8213,7 @@
     {
       "path": "Iris/build/description/v2/tools/build/runtime_payload_state_integrity_residual_seal.py",
       "entry_kind": "build_support",
-      "sha256": "7fa620d08d6ced8dcc2215ae38fa6a0119285adb495a950fc619347d12ca5d92",
+      "sha256": "853246347605896362fb22d5740e92e6b31cf30d4bcd32ba34c51ca9269599f6",
       "source_kind": "tracked_live_build_support",
       "source_path": "Iris/build/description/v2/tools/build/runtime_payload_state_integrity_residual_seal.py"
     },

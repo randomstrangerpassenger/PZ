@@ -164,15 +164,23 @@ class FoodSemanticRegistryCutoverTest(unittest.TestCase):
         self.assertEqual(collision["exact_member_count"], 2)
         self.assertEqual(collision["comparison_collision_group_count"], 1)
         self.assertEqual(
-            cutover.sha256_file(cutover.PLAN_REVIEW_PATH),
+            hashlib.sha256(
+                git_bytes(identity["adoption_commit"], cutover.PLAN_REVIEW_PATH)
+            ).hexdigest(),
             cutover.PLAN_REVIEW_SHA256,
         )
         self.assertEqual(
-            cutover.sha256_file(cutover.INITIAL_PLAN_REVIEW_PATH),
+            hashlib.sha256(
+                git_bytes(
+                    identity["adoption_commit"], cutover.INITIAL_PLAN_REVIEW_PATH
+                )
+            ).hexdigest(),
             cutover.INITIAL_PLAN_REVIEW_SHA256,
         )
         self.assertEqual(
-            cutover.sha256_file(cutover.BASE_BINDING_PATH),
+            hashlib.sha256(
+                git_bytes(identity["adoption_commit"], cutover.BASE_BINDING_PATH)
+            ).hexdigest(),
             cutover.BASE_BINDING_SHA256,
         )
 

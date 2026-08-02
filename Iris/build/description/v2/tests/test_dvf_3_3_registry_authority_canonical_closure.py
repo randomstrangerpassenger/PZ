@@ -354,7 +354,7 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
         )
         self.assertIsNone(preserved)
         self.assertIn(
-            "attempt_registration_predecessor_owner_inputs_hash_mismatch:attempt-0006-entry",
+            "attempt_registration_predecessor_owner_inputs_not_preserved:attempt-0006-entry",
             blockers,
         )
 

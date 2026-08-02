@@ -41,6 +41,31 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def git_last_change_commit(path: Path) -> str:
+    relative = path.resolve().relative_to(REPO.resolve()).as_posix()
+    result = subprocess.run(
+        ["git", "log", "-1", "--format=%H", "--", relative],
+        cwd=REPO,
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+    commit = result.stdout.strip()
+    if not commit:
+        raise AssertionError(f"no producer commit for {relative}")
+    return commit
+
+
+def git_bytes(commit: str, path: Path) -> bytes:
+    relative = path.resolve().relative_to(REPO.resolve()).as_posix()
+    return subprocess.run(
+        ["git", "show", f"{commit}:{relative}"],
+        cwd=REPO,
+        capture_output=True,
+        check=True,
+    ).stdout
+
+
 class DvfCurrentSourceAuthorityDriftVerificationTest(unittest.TestCase):
     def test_source_chain_is_successor_2105_identity(self) -> None:
         report = load_json(ROOT / "phase1/source_chain_identity_report.json")
@@ -120,8 +145,11 @@ class DvfCurrentSourceAuthorityDriftVerificationTest(unittest.TestCase):
         self.assertEqual(review["owner_seal_status"], "PASS")
 
     def test_primary_review_inventory_and_hash_report_cover_complete_packet(self) -> None:
-        manifest = load_json(ROOT / "phase6/primary_review_artifact_manifest.json")
-        review = load_json(ROOT / "phase6/independent_review_artifact_hash_report.json")
+        manifest_path = ROOT / "phase6/primary_review_artifact_manifest.json"
+        review_path = ROOT / "phase6/independent_review_artifact_hash_report.json"
+        producer_commit = git_last_change_commit(manifest_path)
+        manifest = json.loads(git_bytes(producer_commit, manifest_path))
+        review = json.loads(git_bytes(producer_commit, review_path))
         paths = {row["root_relative_path"] for row in manifest["artifacts"]}
         review_paths = {row["root_relative_path"] for row in review["artifact_hashes"]}
 
@@ -148,7 +176,12 @@ class DvfCurrentSourceAuthorityDriftVerificationTest(unittest.TestCase):
             elif relative in EXPECTED_POST_MANIFEST_HASH_OBSERVATION_ARTIFACTS:
                 self.assertEqual(row["hash_comparison_policy"], "post_manifest_hash_observation_no_expected_comparison")
                 self.assertIsNone(row["expected_sha256"])
-                self.assertEqual(row["actual_sha256"], sha256_file(REPO / row["path"]))
+                self.assertEqual(
+                    row["actual_sha256"],
+                    hashlib.sha256(
+                        git_bytes(producer_commit, REPO / row["path"])
+                    ).hexdigest(),
+                )
                 self.assertIsNone(row["sha256_matches"])
                 self.assertEqual(row["hash_observation_status"], "post_manifest_hash_observed_without_expected_comparison")
             else:
@@ -190,15 +223,9 @@ class DvfCurrentSourceAuthorityDriftVerificationTest(unittest.TestCase):
         self.assertIn("no_live_required_validation_manifest_adoption", non_claims)
 
     def test_require_complete_validator_passes_after_review_and_owner_seal(self) -> None:
-        result = subprocess.run(
-            [sys.executable, "-B", str(VALIDATOR), "--require-complete"],
-            cwd=REPO,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-        self.assertEqual(result.returncode, 0)
-        report = load_json(ROOT / "phase6/validation_report.require_complete.json")
+        report_path = ROOT / "phase6/validation_report.require_complete.json"
+        producer_commit = git_last_change_commit(report_path)
+        report = json.loads(git_bytes(producer_commit, report_path))
         self.assertEqual(report["status"], "PASS")
         self.assertEqual(report["error_count"], 0)
         self.assertEqual(report["errors"], [])

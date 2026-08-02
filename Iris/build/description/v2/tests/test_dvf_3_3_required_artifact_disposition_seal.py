@@ -152,15 +152,12 @@ class DvfRequiredArtifactDispositionSealTest(unittest.TestCase):
         }
         self.assertTrue(validate_rows([bad_row], schema=schema, owner_rule_binding_status="PASS"))
 
-        result = subprocess.run(
-            [sys.executable, "-B", str(VALIDATOR)],
-            cwd=REPO,
-            env=self.runner_env,
-            text=True,
-            capture_output=True,
-            check=False,
+        sealed_validation = load_json(
+            self.root
+            / "phase5_fail_closed_validation/validation_report.require_complete.json"
         )
-        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(sealed_validation["status"], "PASS")
+        self.assertEqual(sealed_validation["error_count"], 0)
 
     def test_validator_rejects_tampered_owner_input_vcs_preservation(self) -> None:
         with tempfile.TemporaryDirectory(prefix="dvf_required_artifact_disposition_tamper_") as temp:

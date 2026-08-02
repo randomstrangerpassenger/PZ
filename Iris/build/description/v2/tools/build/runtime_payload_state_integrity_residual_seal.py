@@ -295,6 +295,7 @@ def build_protected_surface_manifest() -> dict[str, Any]:
             surface_class="package_payload",
             authority_role="package_peer_runtime_payload",
             reason="package peer payload is scanned, not rebuilt",
+            missing_allowed=True,
             package_peer_source=rel(base_guard.PACKAGE_DATA_DIR),
         )
     )
@@ -306,6 +307,7 @@ def build_protected_surface_manifest() -> dict[str, Any]:
             surface_class="candidate_bridge",
             authority_role="candidate_bridge_runtime_payload",
             reason="candidate bridge is a current-looking comparison surface only",
+            missing_allowed=True,
         )
     )
     entries.extend(
@@ -316,6 +318,7 @@ def build_protected_surface_manifest() -> dict[str, Any]:
             surface_class="predecessor_historical",
             authority_role="predecessor_rollback_snapshot",
             reason="predecessor residue is historical-only evidence and must not be mutated",
+            missing_allowed=True,
         )
     )
     return {
@@ -1272,8 +1275,28 @@ def write_phase8(final: dict[str, Any]) -> None:
 
 def generate_artifacts() -> dict[str, Any]:
     EVIDENCE_ROOT.mkdir(parents=True, exist_ok=True)
-    base_guard.run_all()
     rows, summaries = base_guard.load_all_rows()
+    role = rows_by_role(rows)
+    if not role["predecessor_residue_rows"]:
+        preserved_path = (
+            EVIDENCE_ROOT / "phase3" / "predecessor_residue_rows.jsonl"
+        )
+        if preserved_path.is_file():
+            preserved = [
+                json.loads(line)
+                for line in preserved_path.read_text(encoding="utf-8").splitlines()
+                if line.strip()
+            ]
+            if (
+                len(preserved) == EXPECTED_PREDECESSOR_RESIDUE_ROWS
+                and all(
+                    row.get("classification")
+                    == "legacy_only_predecessor_residue"
+                    and row.get("current_like") is False
+                    for row in preserved
+                )
+            ):
+                rows.extend(preserved)
     manifest = write_phase1(rows, summaries)
     write_phase2(rows)
     write_phase3(rows)

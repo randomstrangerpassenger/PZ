@@ -1,10 +1,15 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
+import tempfile
 import unittest
+import zipfile
 from pathlib import Path
+
+from clean_checkout_test_paths import external_test_root
 
 
 REPO = Path(__file__).resolve().parents[5]
@@ -29,8 +34,39 @@ class DvfCurrentRouteBaselineSourceOverlayRepairTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
+        global ROOT
+        if not ROOT.exists():
+            cls._fixture_temp = tempfile.TemporaryDirectory(
+                prefix="bo-", dir=external_test_root()
+            )
+            fixture_repo = Path(cls._fixture_temp.name)
+            archive = (
+                REPO
+                / "Iris/_docs/refactor/core_refactor/historical_reproduction_corpus.zip"
+            )
+            prefix = (
+                "Iris/build/description/v2/staging/"
+                "dvf_3_3_current_route_baseline_source_overlay_repair/"
+            )
+            with zipfile.ZipFile(archive, "r") as corpus:
+                names = [name for name in corpus.namelist() if name.startswith(prefix)]
+                if not names:
+                    raise AssertionError(
+                        "historical baseline-source-overlay fixture is absent"
+                    )
+                for name in names:
+                    target = fixture_repo.joinpath(*Path(name).parts)
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    target.write_bytes(corpus.read(name))
+            ROOT = fixture_repo.joinpath(*Path(prefix.rstrip("/")).parts)
         cls.live_manifest_before = load_json(REQUIRED_VALIDATIONS) if REQUIRED_VALIDATIONS.exists() else None
         cls.live_manifest_after = load_json(REQUIRED_VALIDATIONS) if REQUIRED_VALIDATIONS.exists() else None
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        fixture_temp = getattr(cls, "_fixture_temp", None)
+        if fixture_temp is not None:
+            fixture_temp.cleanup()
 
     def test_final_packet_is_sealed_after_independent_review(self) -> None:
         report = load_json(ROOT / "phase7/final_current_route_baseline_source_overlay_repair_predecessor_report.json")

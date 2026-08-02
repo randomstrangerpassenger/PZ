@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Capture ignored Round 3 route inputs into a deterministic tracked corpus."""
+"""Capture complete Round 3 route inputs into a deterministic tracked corpus."""
 
 from __future__ import annotations
 
@@ -34,6 +34,7 @@ MIGRATION_MARKER = re.compile(
 HISTORICAL_TOOL_SUPPORT_PATHS: tuple[str, ...] = ()
 HISTORICAL_FIXTURE_ROOTS = (
     "Iris/build/description/v2/data",
+    "Iris/build/description/v2/output",
     "Iris/build/description/v2/staging/compose_contract_migration/full_runtime",
     "Iris/build/description/v2/staging/identity_fallback_source_expansion",
     "Iris/build/description/v2/staging/interaction_cluster",
@@ -42,7 +43,7 @@ HISTORICAL_FIXTURE_ROOTS = (
     "Iris/build/phase3_output",
     "Iris/input",
     "Iris/media/lua",
-    "lua/server/Items",
+    "lua/server",
     "scripts",
 )
 HISTORICAL_FIXTURE_PATHS = (
@@ -160,8 +161,6 @@ def main() -> int:
         {
             row["source_file"]
             for row in taxonomy["rows"]
-            if row["contract_class"] in {"historical", "diagnostic"}
-            and row["source_file"] not in tracked
         }
     )
 
@@ -174,7 +173,11 @@ def main() -> int:
                 target_relative=target_relative,
                 source=live_source,
                 entry_kind="route_test",
-                source_kind="ignored_live_reproduction",
+                source_kind=(
+                    "tracked_live_route_test"
+                    if target_relative in tracked
+                    else "ignored_live_reproduction"
+                ),
             )
             continue
         sandbox_source = sandbox_source_for(target_relative)

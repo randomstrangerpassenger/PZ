@@ -50,19 +50,19 @@ HISTORICAL_REPRODUCTION_ARCHIVE = (
 )
 PORTABLE_REPOSITORY_PATH = re.compile(r"^[A-Za-z0-9._/-]+$")
 LOWERCASE_SHA256 = re.compile(r"^[0-9a-f]{64}$")
-PINNED_REPRODUCTION_ROW_COUNT = 1506
-PINNED_REPRODUCTION_ROUTE_TEST_COUNT = 176
+PINNED_REPRODUCTION_ROW_COUNT = 1646
+PINNED_REPRODUCTION_ROUTE_TEST_COUNT = 201
 PINNED_REPRODUCTION_BUILD_SUPPORT_COUNT = 498
 PINNED_REPRODUCTION_TOOL_SUPPORT_COUNT = 0
-PINNED_REPRODUCTION_ROUTE_FIXTURE_COUNT = 832
+PINNED_REPRODUCTION_ROUTE_FIXTURE_COUNT = 947
 PINNED_REPRODUCTION_ENTRY_PATHS_SHA256 = (
-    "d8fd3403e176223b6a455c9d4272a153e9a92618fbc43b564da1070e0a0a08d9"
+    "fe19d8c39f6225111722e2912d4e96b86701bfdd583ac33f0471aa5578b088e0"
 )
 PINNED_REPRODUCTION_ROUTE_TEST_PATHS_SHA256 = (
-    "41abe271251c8d2161947f25c271f147c25240389c4a1266a77f0c1b6447cef2"
+    "795da92ab46bba97d369bbf9d8fd5629ce0e394fd33338617b5bcc5cfe3817b5"
 )
 PINNED_REPRODUCTION_ARCHIVE_SHA256 = (
-    "3fc29c071f95684727d5a75cf928e370c07ee4c05815647934b26d12a7aa0f53"
+    "ca7b8b5fc4f47f702d0e37cc17544c8b005eb22ee38f4f5e488d6775ab5145d7"
 )
 
 
@@ -579,12 +579,7 @@ def canonical_repository_relative_path(value: object) -> PurePosixPath:
 
 
 def expected_reproduction_route_test_paths(taxonomy: dict) -> list[str]:
-    paths = {
-        row["source_file"]
-        for row in taxonomy.get("rows", [])
-        if row.get("contract_class") in {"historical", "diagnostic"}
-        and not git_path_is_tracked(REPO / row["source_file"])
-    }
+    paths = {row["source_file"] for row in taxonomy.get("rows", [])}
     return sorted(paths)
 
 
@@ -631,7 +626,7 @@ def materialize_historical_reproduction_overlay(
                 "Iris/build/phase3_output/",
                 "Iris/input/",
                 "Iris/media/lua/",
-                "lua/server/Items/",
+                "lua/server/",
                 "scripts/",
             )
         ):
@@ -661,12 +656,13 @@ def materialize_historical_reproduction_overlay(
             if not path_text.startswith(
                 (
                     "Iris/build/description/v2/data/",
+                    "Iris/build/description/v2/output/",
                     "Iris/build/description/v2/staging/",
                     "Iris/build/description/v2/tools/style/",
                     "Iris/build/phase3_output/",
                     "Iris/input/",
                     "Iris/media/lua/",
-                    "lua/server/Items/",
+                    "lua/server/",
                     "scripts/",
                 )
             ):

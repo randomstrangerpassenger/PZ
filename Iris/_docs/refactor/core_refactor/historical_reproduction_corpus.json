@@ -2,14 +2,14 @@
   "schema_version": "iris-historical-reproduction-corpus-v1",
   "purpose": "Self-contained ignored historical and diagnostic route reproduction for exact-commit clean checkout validation.",
   "archive_path": "Iris/_docs/refactor/core_refactor/historical_reproduction_corpus.zip",
-  "archive_sha256": "3fc29c071f95684727d5a75cf928e370c07ee4c05815647934b26d12a7aa0f53",
-  "row_count": 1506,
-  "route_test_count": 176,
+  "archive_sha256": "ca7b8b5fc4f47f702d0e37cc17544c8b005eb22ee38f4f5e488d6775ab5145d7",
+  "row_count": 1646,
+  "route_test_count": 201,
   "build_support_count": 498,
   "tool_support_count": 0,
-  "route_fixture_count": 832,
-  "expected_entry_paths_sha256": "d8fd3403e176223b6a455c9d4272a153e9a92618fbc43b564da1070e0a0a08d9",
-  "expected_route_test_paths_sha256": "41abe271251c8d2161947f25c271f147c25240389c4a1266a77f0c1b6447cef2",
+  "route_fixture_count": 947,
+  "expected_entry_paths_sha256": "fe19d8c39f6225111722e2912d4e96b86701bfdd583ac33f0471aa5578b088e0",
+  "expected_route_test_paths_sha256": "795da92ab46bba97d369bbf9d8fd5629ce0e394fd33338617b5bcc5cfe3817b5",
   "canonicalization": "Python UTF-8 text read with universal newlines and emitted as UTF-8 LF bytes",
   "rows": [
     {
@@ -214,6 +214,48 @@
       "sha256": "3d77a09caae2882dd20123995bf2642088ab743e0ec3c21031df4fc441166be5",
       "source_kind": "tracked_live_fixture",
       "source_path": "Iris/build/description/v2/data/upstream_usecases_by_fulltype.json"
+    },
+    {
+      "path": "Iris/build/description/v2/output/compose_requeue_candidates.jsonl",
+      "entry_kind": "route_fixture",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_kind": "ignored_live_reproduction",
+      "source_path": "Iris/build/description/v2/output/compose_requeue_candidates.jsonl"
+    },
+    {
+      "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+      "entry_kind": "route_fixture",
+      "sha256": "c0eb2383cdd66d9390e2641569dea0817556cd3359a4f539f999b337fd30f86b",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "Iris/build/description/v2/output/dvf_3_3_rendered.json"
+    },
+    {
+      "path": "Iris/build/description/v2/output/interaction_cluster_validation_report.json",
+      "entry_kind": "route_fixture",
+      "sha256": "47e99fd49b9f3eb66c75aa77569d90e6cc4c42e7ed3abd32f35f8dfb5565e11c",
+      "source_kind": "ignored_live_reproduction",
+      "source_path": "Iris/build/description/v2/output/interaction_cluster_validation_report.json"
+    },
+    {
+      "path": "Iris/build/description/v2/output/style_baseline_scan.json",
+      "entry_kind": "route_fixture",
+      "sha256": "8516665b0d04f3faa2e4acc31072e36a4d23a6c5617f4eae2907889c2a1d9146",
+      "source_kind": "ignored_live_reproduction",
+      "source_path": "Iris/build/description/v2/output/style_baseline_scan.json"
+    },
+    {
+      "path": "Iris/build/description/v2/output/style_lint_report.json",
+      "entry_kind": "route_fixture",
+      "sha256": "e421219e8befdbf6144a9faa934e422201e99863957ee9e6c86e7ca3ad6bc350",
+      "source_kind": "ignored_live_reproduction",
+      "source_path": "Iris/build/description/v2/output/style_lint_report.json"
+    },
+    {
+      "path": "Iris/build/description/v2/output/style_normalization_changes.jsonl",
+      "entry_kind": "route_fixture",
+      "sha256": "ba327add774c15e269664b8def4ce50bda6c586a8f3c9e0178fff202619e45ce",
+      "source_kind": "ignored_live_reproduction",
+      "source_path": "Iris/build/description/v2/output/style_normalization_changes.jsonl"
     },
     {
       "path": "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/IrisLayer3Data.body_plan_v2.staged.lua",
@@ -3849,6 +3891,13 @@
       "source_path": "Iris/build/description/v2/tests/test_apply_acquisition_sprint7_authority_reflection.py"
     },
     {
+      "path": "Iris/build/description/v2/tests/test_body_plan_phase_d_e.py",
+      "entry_kind": "route_test",
+      "sha256": "0967f7ca6e73fe4d3c86ec76cfd3f4d6b84309132814bbd0a55a7b96d902ea14",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_body_plan_phase_d_e.py"
+    },
+    {
       "path": "Iris/build/description/v2/tests/test_body_role_lexical_cleanup.py",
       "entry_kind": "route_test",
       "sha256": "90b4c0c4aeae51290453537f0a3f402f7cca53b7248ca63c4d443b6027e3b87f",
@@ -3947,6 +3996,13 @@
       "source_path": "Iris/build/description/v2/tests/test_build_acquisition_promotion_subset_preview.py"
     },
     {
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_sprint7_authority_promotion.py",
+      "entry_kind": "route_test",
+      "sha256": "fb6bc6d74c638faf938ef995d48745f71772824ecba3e5be3de1fce44bc05534",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_build_acquisition_sprint7_authority_promotion.py"
+    },
+    {
       "path": "Iris/build/description/v2/tests/test_build_body_role_full_preview.py",
       "entry_kind": "route_test",
       "sha256": "5c09290ab89bea4407fac8304f18e0decc4e80f44607e43510e21803a802bc24",
@@ -3959,6 +4015,13 @@
       "sha256": "5803863c4fd50ef0f33c6524e0acfc485df989e513f318a81290a150e1d5f94e",
       "source_kind": "ignored_live_reproduction",
       "source_path": "Iris/build/description/v2/tests/test_build_body_role_golden_subset.py"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_build_body_role_lexical_cleanup_authority.py",
+      "entry_kind": "route_test",
+      "sha256": "069ba93d6c935c37436193c4a049c7dea44eb5ab79ba066a1a0f6b048211d4ef",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_build_body_role_lexical_cleanup_authority.py"
     },
     {
       "path": "Iris/build/description/v2/tests/test_build_body_role_lint_feedback.py",
@@ -4024,6 +4087,13 @@
       "source_path": "Iris/build/description/v2/tests/test_build_identity_fallback_terminal_handoff.py"
     },
     {
+      "path": "Iris/build/description/v2/tests/test_build_iris_index_data.py",
+      "entry_kind": "route_test",
+      "sha256": "9c54e5c2de16d57b98a664bf4ff6436bd47674b991ca14f8e36e157257303216",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_build_iris_index_data.py"
+    },
+    {
       "path": "Iris/build/description/v2/tests/test_build_quality_publish_phase6_in_game_result_template.py",
       "entry_kind": "route_test",
       "sha256": "1abffc91129d41898b923d2232d5209b66aca0fd09804d76e4ef45a3f308509a",
@@ -4073,11 +4143,88 @@
       "source_path": "Iris/build/description/v2/tests/test_build_source_expansion_distribution_remeasurement_gate_phase6_8.py"
     },
     {
+      "path": "Iris/build/description/v2/tests/test_compose_entrypoint_guard_hardening.py",
+      "entry_kind": "route_test",
+      "sha256": "d5900b855461a99a51b9e8280cbf690db044055230b4b8fd3c2e1ab0e76d1e60",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_compose_entrypoint_guard_hardening.py"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py",
+      "entry_kind": "route_test",
+      "sha256": "5460b717363fbe1023fb036f3583507156d74aeefd4e92c54027c1aa778d7de6",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py",
+      "entry_kind": "route_test",
+      "sha256": "51a9a6baedd5aaed34cea219164cfa6bad728de58ef765fd1d813baceaad3393",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py",
+      "entry_kind": "route_test",
+      "sha256": "9afb433096caf20136be1b41e8190d2ba0c553c4c20673169c5f5add1257f04f",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py"
+    },
+    {
       "path": "Iris/build/description/v2/tests/test_description_generator_usecase_labels.py",
       "entry_kind": "route_test",
       "sha256": "04941cb89a6cb575d2c4fafb81d3672350f81b5b25979c9ed67c433cf9647f8c",
       "source_kind": "ignored_live_reproduction",
       "source_path": "Iris/build/description/v2/tests/test_description_generator_usecase_labels.py"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_consumer_migration_input_normalization.py",
+      "entry_kind": "route_test",
+      "sha256": "fbccc2c7b9974008a2615e390a4a2b310e5ca96319460af10724d021f0fec8ad",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_consumer_migration_input_normalization.py"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_cutover_tooling_readiness.py",
+      "entry_kind": "route_test",
+      "sha256": "9252451a6aa114e8e9c2a69407f22ab8869145aa848f2f4f5df3be171d415c31",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_cutover_tooling_readiness.py"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_vnext_current_authority_cutover.py",
+      "entry_kind": "route_test",
+      "sha256": "103d1cb3f36bcd58c069b69fae4698e2f3a2425bee1a56f5c625f234f47c2157",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_vnext_current_authority_cutover.py"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_vnext_delta_disposition_guard_seal.py",
+      "entry_kind": "route_test",
+      "sha256": "45e0da256890d28ad9f12c8669713f2a58c594523a1bace6b40ec492427bcdd1",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_vnext_delta_disposition_guard_seal.py"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_vnext_delta_guard_current_route_integration.py",
+      "entry_kind": "route_test",
+      "sha256": "f8c67567dffcea0237a50bf6f51404a3b80f32e2a6c36d714bdbb1522393ff26",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_vnext_delta_guard_current_route_integration.py"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_vnext_rejected_delta_correction_reparity.py",
+      "entry_kind": "route_test",
+      "sha256": "52741b4eadbbc147c50c4f3c0c2c67e0981e78f3fb8f058471dcc28fda783bc8",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_vnext_rejected_delta_correction_reparity.py"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py",
+      "entry_kind": "route_test",
+      "sha256": "93980ac3c174cd63e6f1095503b308de45c376faeea58209e8add004f2014399",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py"
     },
     {
       "path": "Iris/build/description/v2/tests/test_freeze_quality_baseline_v1.py",
@@ -4206,6 +4353,13 @@
       "source_path": "Iris/build/description/v2/tests/test_interaction_cluster_phase_c_review_packet.py"
     },
     {
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_phase_d_runtime.py",
+      "entry_kind": "route_test",
+      "sha256": "4711c79d8b1c60aa3f36bba9a0e30f48c1dcc06b5f753e74f854844926e90a50",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_interaction_cluster_phase_d_runtime.py"
+    },
+    {
       "path": "Iris/build/description/v2/tests/test_interaction_cluster_pipeline.py",
       "entry_kind": "route_test",
       "sha256": "116796446f8e83f3a83414941c2d6a61d0f860ac5523eeb2e5c01e3c787899e5",
@@ -4248,6 +4402,20 @@
       "source_path": "Iris/build/description/v2/tests/test_layer3_active_quality_audit.py"
     },
     {
+      "path": "Iris/build/description/v2/tests/test_layer3_current_authority_reconstruction.py",
+      "entry_kind": "route_test",
+      "sha256": "2dabb8e6784672ceee332e65802c3dd3f86330a2a29a1e4576b026cb6e0c5111",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_layer3_current_authority_reconstruction.py"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_layer3_data_chunking_contract.py",
+      "entry_kind": "route_test",
+      "sha256": "dfeb33dc055825e4f4fbe4477901d657a5b7c0ae74f4a0778a0384e1b40b68cc",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_layer3_data_chunking_contract.py"
+    },
+    {
       "path": "Iris/build/description/v2/tests/test_layer3_presentation_formatting_contract.py",
       "entry_kind": "route_test",
       "sha256": "afdb638e8bd23455bc527f25287a1c5b2f1ba1b7ccf8fde03a14400fd69f79b9",
@@ -4269,11 +4437,46 @@
       "source_path": "Iris/build/description/v2/tests/test_layer3_structural_audit.py"
     },
     {
+      "path": "Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py",
+      "entry_kind": "route_test",
+      "sha256": "db1894656e904e5e9b8664609a9caee3f8ff1e161b6ec128c956cc79e02480da",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_layer4_trace_edge_authority_admission_round.py",
+      "entry_kind": "route_test",
+      "sha256": "d853948fcb38e6816e4edd309dd4953dda0df6625baee960ce50f35767ce8bdd",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_layer4_trace_edge_authority_admission_round.py"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+      "entry_kind": "route_test",
+      "sha256": "082611b666ef826fe98d8a600f8392ad92f8d4cba758e7198abb57e6ad1615e0",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_lua_bridge_export_contract_realign.py",
+      "entry_kind": "route_test",
+      "sha256": "49b17c84ae40f26d3aac277a0e557ca39175e064f17753fb6bfd8ccb33ef2c8f",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_lua_bridge_export_contract_realign.py"
+    },
+    {
       "path": "Iris/build/description/v2/tests/test_normalize_acquisition_hint.py",
       "entry_kind": "route_test",
       "sha256": "ed74ff42f1a7c32dcd63d11513289cbb792e27ba354b84dfeef0f885f5b846f4",
       "source_kind": "ignored_live_reproduction",
       "source_path": "Iris/build/description/v2/tests/test_normalize_acquisition_hint.py"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
+      "entry_kind": "route_test",
+      "sha256": "6f0f76ec8d0ad979a5739f971aa8c9c878725c7c6d9c4f5a0f15ece85e00be9d",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py"
     },
     {
       "path": "Iris/build/description/v2/tests/test_phase5_array_util_contract.py",
@@ -4393,6 +4596,13 @@
       "sha256": "96a22f89c834a1a6001626120b4b858e4dd0f4aedb6a43f06f788cb19df6f824",
       "source_kind": "tracked_sandbox_marker_recovery",
       "source_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/sandbox_baseline/Iris__build__description__v2__tests__test_post_cleanup_phase2_adoption_validation.py"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_runtime_adoption.py",
+      "entry_kind": "route_test",
+      "sha256": "092f5637a8f4e40fc82faea38a8e0e10c94a11e7339adc9a56addc12101bea9c",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_runtime_adoption.py"
     },
     {
       "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_runtime_reflection.py",
@@ -4708,6 +4918,13 @@
       "sha256": "d19918f90d04dd9920fc6c7227894f740dbc94e202ade8d9c432154986158e16",
       "source_kind": "ignored_live_reproduction",
       "source_path": "Iris/build/description/v2/tests/test_round_a_round_b_parallel_execution.py"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_runtime_payload_state_integrity.py",
+      "entry_kind": "route_test",
+      "sha256": "d83c8d811ef5b074a62b140fecbddd915b295cbd92ff001ab61a85aab5f5510c",
+      "source_kind": "tracked_live_route_test",
+      "source_path": "Iris/build/description/v2/tests/test_runtime_payload_state_integrity.py"
     },
     {
       "path": "Iris/build/description/v2/tests/test_source_coverage_b1_consumable_package.py",
@@ -9330,6 +9547,405 @@
       "source_path": "Iris/media/lua/shared/translate/ko/Iris_ko.txt"
     },
     {
+      "path": "lua/server/BuildingObjects/ISAnvil.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "c7abc7fa3a71343f025b7543cda9c3ec5365fc9d6823112fc7e729aec548322d",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISAnvil.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISBSFurnace.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "8593ee9f5d72722f452850a575201d37aeb80fede747f42fa6d83d50a3873418",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISBSFurnace.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISBarbedWire.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "f91bc75a3ec5d695aed6fda8e8abd6f7c2f45ca3b87107aba1349b32dd5b80fc",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISBarbedWire.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISBrushToolTileCursor.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "6a4751b1eef7c77b643c47021a7b7eff881db1b125dd2f52e4c770b7151c862a",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISBrushToolTileCursor.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISBuildCursorMouse.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "09d4b79e4d6e49935ea6146b44c9574933d6a38c40eb390632718d21e9991f17",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISBuildCursorMouse.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISBuildUtil.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "18881fac527d3d25b66dd03864d2649937aa7780fd4b723099fc909d126fdf93",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISBuildUtil.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISBuildingObject.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "ff648e8f7ad9b1ef731b12fcb52a8940f90fc5f06733b7174be19ebb78012b6e",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISBuildingObject.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISChopTreeCursor.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "ee2229d2588d4ffb5d1031250bbf7d2c72031d1d2b12ca065f836f0855873d1d",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISChopTreeCursor.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISCleanBloodCursor.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "affe5f13294e578fe88f3e21ad6d15c8fd13147c739eda0e4de74affe8410933",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISCleanBloodCursor.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISCompost.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "894d0fe37af0eeb787fdca52e6488d48852ac0bbd4d3345d3cc9084c54c81077",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISCompost.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISDestroyCursor.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "93fb1c693400a2a079e90575509334f222dc8da64a631629ca3d50ec9c2b4328",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISDestroyCursor.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISDoubleDoor.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "5c91e32f11dbde91de2bf4b3b359c1529a1f29a6fca3123e05353339fdb9ee9f",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISDoubleDoor.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISDoubleTileFurniture.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "fd6fa77df7a113962acd79324966fa003657a506756a1cbc9bfdeff50c58e84a",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISDoubleTileFurniture.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISEmptyGraves.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "39de83d3fabf2a7cb36a56885f3de52c87d68879a86907d7ae588ad6fdfdb881",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISEmptyGraves.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISLightSource.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "1d6b42b084af6116d4c646fec2b2e197c4bb8282794edc37ddb3ed23fcfed755",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISLightSource.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISMoveableCursor.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "a08f39209fae1c2a223f8d700c8f791462f56ed02851623552f55a5e2323a6f1",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISMoveableCursor.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISNaturalFloor.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "d5514c63f564f4f54827e0bc48cd4db43a2687ac91e2a920371272e9c310b42a",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISNaturalFloor.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISPaintCursor.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "10f260c664f7f004d00bf61067f7bd8902b802085a5f6d4873abb33a38524dfe",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISPaintCursor.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISPlace3DItemCursor.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "68c5d25cbf2d3d352188d76f3ffe96b6fd803810f606dd9c81ee1f4550dbe77a",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISPlace3DItemCursor.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISRemovePlantCursor.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "5561a7cdb8c1ea74e3733334bf3f95ae4beb5c0ff924ae0a619f7fd73c252706",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISRemovePlantCursor.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISSelectCursor.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "156fe24cb1e82e36cb122ec7b89ca6c65a64c8ff03e81726f5f876196765259e",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISSelectCursor.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISShovelGroundCursor.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "1aeb23af70a6e24fe06f901704c59afbcec6a7fa908c8d0697c0afbdc4921cce",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISShovelGroundCursor.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISSimpleFurniture.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "c76322709cd8bf4b597754ff50b5fb20154d94772ad69fe951cba2a88a4e73ee",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISSimpleFurniture.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISWalkToCursor.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "095e47a6591adcf45198184a43cbbd9074e4dc302337fb4fb36f9adaf36fbab2",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISWalkToCursor.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISWoodenContainer.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "1556df51f23be4629770abb1a646f1e867dcad9a1a3c6ebb2a50a6e0f91ee9ff",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISWoodenContainer.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISWoodenDoor.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "640fa863550c87d178a978e8fab6a5a77bbac8a5a95c4b11961151c71c6cdcce",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISWoodenDoor.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISWoodenDoorFrame.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "758ab07d120f181f676ed3bfcc87ca832a50ddba2a2719a3e7ad88061f995b7c",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISWoodenDoorFrame.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISWoodenFloor.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "3436e85b25b26cde1e4815b93b398ea7671721015b44b9b846d8789f7cda5828",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISWoodenFloor.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISWoodenStairs.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "e14408987e85b58f42568b2dd6f273574fc0f7f14f0c02d0f013bcd8787ec904",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISWoodenStairs.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/ISWoodenWall.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "d0bad49c552b39dc595a7c9c24039de2ac0c3dd8083f5a2a2856cd4da5fefe19",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/ISWoodenWall.lua"
+    },
+    {
+      "path": "lua/server/BuildingObjects/PaintingReference.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "46cd92e8d35ab7cc354784d95cd45c9be5b13640d8c405d99c9f0a1cd0df4b99",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/BuildingObjects/PaintingReference.lua"
+    },
+    {
+      "path": "lua/server/Camping/BuildingObjects/campingCampfire.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "5c22fe441d744ecaf838ded3bfe0f5911c97c25b029b4575957a8f3692c5971d",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Camping/BuildingObjects/campingCampfire.lua"
+    },
+    {
+      "path": "lua/server/Camping/BuildingObjects/campingTent.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "681f7c956ee00929c452cb77cb94a665a862ddd6ab5a98328371e6721987ce04",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Camping/BuildingObjects/campingTent.lua"
+    },
+    {
+      "path": "lua/server/Camping/SCampfireGlobalObject.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "080922d7b10788b7ea64fb4264521436da5fe97f4bf7addeb3c03363af3c2058",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Camping/SCampfireGlobalObject.lua"
+    },
+    {
+      "path": "lua/server/Camping/SCampfireSystem.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "130119525667da8081955d329af1fc38ccdbdd70edb2ab3250646aa836984140",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Camping/SCampfireSystem.lua"
+    },
+    {
+      "path": "lua/server/Camping/SCampfireSystemCommands.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "bda3845e0d60874f099f22f3ca10023c7c5091b598a23bb315ca0e35ae796818",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Camping/SCampfireSystemCommands.lua"
+    },
+    {
+      "path": "lua/server/Camping/camping_fuel.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "ac88fa35c2dd3fcc1ffcbf96b479051b1f26399db9839c02e7f8be183c3bd30f",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Camping/camping_fuel.lua"
+    },
+    {
+      "path": "lua/server/Camping/camping_tent.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "c9a69cac6334c4cdf5883d6da9f884ffb163bc256f5e6bed5716d2073417bff9",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Camping/camping_tent.lua"
+    },
+    {
+      "path": "lua/server/Camping/camping_text.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "2348108e87e6e83ff4e8a7cc0f9fbd81229d4aa656cc6834c8881d5084b45d2a",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Camping/camping_text.lua"
+    },
+    {
+      "path": "lua/server/ClientCommands.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "b41bef933f8691ba042f4b9f607a6a2fd8fe9855c543f0942ada13357cf2a528",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/ClientCommands.lua"
+    },
+    {
+      "path": "lua/server/Climate/ClimateMain.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "a771f721acf717bf9f226110b949c03fe311fc46e8a5ed7ec7050fe9d7de47e2",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Climate/ClimateMain.lua"
+    },
+    {
+      "path": "lua/server/Farming/BuildingObjects/ISFarmingCursor.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "d9545558bf4578870ece000631ae23a5c7b808edb236dd13d202a6e705cdb812",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Farming/BuildingObjects/ISFarmingCursor.lua"
+    },
+    {
+      "path": "lua/server/Farming/BuildingObjects/ISFarmingCursorMouse.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "f4bd2376b6b8a1ea95e10f0037ed52e41cf379680523ae1fbc2a47cd374c81cb",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Farming/BuildingObjects/ISFarmingCursorMouse.lua"
+    },
+    {
+      "path": "lua/server/Farming/BuildingObjects/farmingPlot.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "695610581300b621ac5c995c0581f1e087f8e840af221365e23e4eb66fa01787",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Farming/BuildingObjects/farmingPlot.lua"
+    },
+    {
+      "path": "lua/server/Farming/SFarmingSystem.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "8e921c4eadd86b108d59b563ed4eca5072c95ebd7e94268d1120d1ad9592afb2",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Farming/SFarmingSystem.lua"
+    },
+    {
+      "path": "lua/server/Farming/SPlantGlobalObject.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "a3d1381d5e22a78e99b647248a03b24d7e745aa6ce33074cd17813ccb4ffae22",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Farming/SPlantGlobalObject.lua"
+    },
+    {
+      "path": "lua/server/Farming/ScavengeDefinition.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "830ea846c0bb0e59b7b69d46e975e5d83a32bbbde4bd438061b746630c38f3e4",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Farming/ScavengeDefinition.lua"
+    },
+    {
+      "path": "lua/server/Farming/farmingCommands.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "8a42fc67d6289332cfaa2de3b2d8af95109ad71f073cc44d7c270ffd7d3e754a",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Farming/farmingCommands.lua"
+    },
+    {
+      "path": "lua/server/Farming/farming_vegetableconf.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "3dcf46ed6f0880215c77b156120943097a1095fe742f7777b0562d05caf6c063",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Farming/farming_vegetableconf.lua"
+    },
+    {
+      "path": "lua/server/FireFighting/FireFighting.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "656868d0ceecde11b748ca14b02e6f5dc77fe43d50e36f08848b9628023f6f2d",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/FireFighting/FireFighting.lua"
+    },
+    {
+      "path": "lua/server/FireFighting/ISExtinguishCursor.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "89d14dfc37d240be8dfe244abfe7b51192af3be8838b46a36bf5ccf85cd228a4",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/FireFighting/ISExtinguishCursor.lua"
+    },
+    {
+      "path": "lua/server/Fishing/BuildingObjects/FishingNet.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "978876406ec3884ca90eb0c08b46936090306049447f0d278e2d2cd75f54192e",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Fishing/BuildingObjects/FishingNet.lua"
+    },
+    {
+      "path": "lua/server/Foraging/forageServer.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "6c8be7fa25dae582f5131d02e587d0f15c63a4ca5bd8976529192f77c52196b4",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Foraging/forageServer.lua"
+    },
+    {
+      "path": "lua/server/HealthSystem/HealthUpdate.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "b3491c6bdbabcb5970ef7ea2b219733ab32ac5eb117a4847ed24ef4e0e3b522d",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/HealthSystem/HealthUpdate.lua"
+    },
+    {
+      "path": "lua/server/ISBuildingBlueprintManager.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "50c3941a9d63f46b3be67c7148d7d094547847d8dff6d7ff24e25ea222f352b5",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/ISBuildingBlueprintManager.lua"
+    },
+    {
+      "path": "lua/server/ISCoordConversion.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "7f3be9a24f31f8884236bbc9ea460d8cbdd1ffb263a207a02ac21eb4fd6643b7",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/ISCoordConversion.lua"
+    },
+    {
+      "path": "lua/server/ISObjectClickHandler.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "8d144bc87cba2202a27c49e007e92d196830b48461131fe5102051c3a3c4d21d",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/ISObjectClickHandler.lua"
+    },
+    {
       "path": "lua/server/Items/AcceptItemFunction.lua",
       "entry_kind": "route_fixture",
       "sha256": "053e89ec4c03ca448a042b906f6705f78dd24d6c7a2520e7006d6a283f118d1c",
@@ -9482,6 +10098,370 @@
       "sha256": "43c4455ecd69e39edc9584f6d75ea1852dfb54acd2a1c988ba26b9f6b3c002e4",
       "source_kind": "tracked_live_fixture",
       "source_path": "lua/server/Items/WorldFiller.lua"
+    },
+    {
+      "path": "lua/server/Map/MapObjects/MOBarricade.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "8e15a66e05c77849ffaeeb32897bdccb1a3ede7b68d630dc28c54515739531e7",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Map/MapObjects/MOBarricade.lua"
+    },
+    {
+      "path": "lua/server/Map/MapObjects/MOCampfire.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "03ae5096e639aa62e512d376d2267c555d2647938d7e6d5d448eb20939c42c8d",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Map/MapObjects/MOCampfire.lua"
+    },
+    {
+      "path": "lua/server/Map/MapObjects/MOCompost.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "4c220850d5b6eab0c763bd9b8584081fc68a1edbb967ef876390ade6e5fe5e86",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Map/MapObjects/MOCompost.lua"
+    },
+    {
+      "path": "lua/server/Map/MapObjects/MOFarming.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "7f4715dd4ca788bc7b57b9bf4234023d672d475aba94f1f281eb5d518c8d3f7a",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Map/MapObjects/MOFarming.lua"
+    },
+    {
+      "path": "lua/server/Map/MapObjects/MOGenerator.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "999553023d15a80be65469a86b2939685bd4ec1ee1828200d61eae51eb28751a",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Map/MapObjects/MOGenerator.lua"
+    },
+    {
+      "path": "lua/server/Map/MapObjects/MOLampOnPillar.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "ce895b0ff590b6e9b836e3b6cb48fccfc31781736406364728922d6286df827b",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Map/MapObjects/MOLampOnPillar.lua"
+    },
+    {
+      "path": "lua/server/Map/MapObjects/MOMetalDrum.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "75dc2a570f3604ec7e7dee0b1d0b38884155da7e43f1bb853eaded472d7051f4",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Map/MapObjects/MOMetalDrum.lua"
+    },
+    {
+      "path": "lua/server/Map/MapObjects/MORainCollectorBarrel.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "0bd3fe5a65285bd4967c4cf42f662fe2089303862db0a823dc1eed3e360cd83a",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Map/MapObjects/MORainCollectorBarrel.lua"
+    },
+    {
+      "path": "lua/server/Map/MapObjects/MORandomPottedPlant.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "f22171b67432bb9a8dc4321a19a646f4c3c757fdca92cf2f04a76abef1bf4f54",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Map/MapObjects/MORandomPottedPlant.lua"
+    },
+    {
+      "path": "lua/server/Map/MapObjects/MOTent.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "759b1a3e344395373e7e44f798903f2115ab89a911c3223be9704668c71996f9",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Map/MapObjects/MOTent.lua"
+    },
+    {
+      "path": "lua/server/Map/MapObjects/MOTrap.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "9be41bdc3654e0af6eb1544be943817add1e270783182361c285c478cc294f0a",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Map/MapObjects/MOTrap.lua"
+    },
+    {
+      "path": "lua/server/Map/MapObjects/MOWoodenWallFrame.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "c69ef74b99c33c527642978e906d12ca4922ff175b55e76bb93918db8c53d7ea",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Map/MapObjects/MOWoodenWallFrame.lua"
+    },
+    {
+      "path": "lua/server/Map/MetaEnum.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "9d4296d720ae2db13e485760c9570b5edb936716f091ed62923277452991fd2e",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Map/MetaEnum.lua"
+    },
+    {
+      "path": "lua/server/Map/SGlobalObject.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "4bb1d4631a83c435894a3f42ffd9b1f7d9d34c32c0541e2d0ac6dfe25482fd56",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Map/SGlobalObject.lua"
+    },
+    {
+      "path": "lua/server/Map/SGlobalObjectSystem.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "f6bac2902d068c6ac0c31c596b108391deb894ed87a49538daeefbc34e3d164b",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Map/SGlobalObjectSystem.lua"
+    },
+    {
+      "path": "lua/server/MetalDrum/BuildingObjects/ISMetalDrum.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "30e1bd29e73b86d114c4718de11d079ceb6861fda62254ebf5dd8544885620b2",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/MetalDrum/BuildingObjects/ISMetalDrum.lua"
+    },
+    {
+      "path": "lua/server/MetalDrum/SMetalDrumGlobalObject.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "0feec2a23d5347494afe5d92a434c4689fff6373adaef1a36cd534df20db3308",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/MetalDrum/SMetalDrumGlobalObject.lua"
+    },
+    {
+      "path": "lua/server/MetalDrum/SMetalDrumSystem.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "c875f7c58bf7b595f184cc56758cefebac232e0e4590db81448e90f64d03810d",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/MetalDrum/SMetalDrumSystem.lua"
+    },
+    {
+      "path": "lua/server/Movers/ISBaseMover.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "83baf53d3e3073f3b30c020465aa16032674feb6870863fa51f6e4194a78d40c",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Movers/ISBaseMover.lua"
+    },
+    {
+      "path": "lua/server/Movers/MoverStateMachine.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "d0a45a169a20e0e4c5390a5b2e781ed4b2afa231429248e445df5adb5b82c7e9",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Movers/MoverStateMachine.lua"
+    },
+    {
+      "path": "lua/server/Movers/MoverStates/ISBaseState.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "c5bd0704780c345de199514fbe20c46add9f9d50532d26f3c24d2f7b81827827",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Movers/MoverStates/ISBaseState.lua"
+    },
+    {
+      "path": "lua/server/Movers/MoverStates/MoveToState.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "e201e2aadb5f668a5fbe99be452d7b6a9468a508d65a4f9b052ee0c5d2569a44",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Movers/MoverStates/MoveToState.lua"
+    },
+    {
+      "path": "lua/server/Movers/Rabbit.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "f054aeb0af283bcce1ec4a1b1d49b80e8f7c3d09aed1cecd2ed05d911a98f6c5",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Movers/Rabbit.lua"
+    },
+    {
+      "path": "lua/server/NPCs/SadisticAIDirector/SadisticMusicDirector.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "90ba340de9b116cc5fd0bf64f1ff3e6a93a5b5a9c50901ffc65799cb3dd00e09",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/NPCs/SadisticAIDirector/SadisticMusicDirector.lua"
+    },
+    {
+      "path": "lua/server/NewSelectionSystem/GridSquareSelector.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "6ed01d15d7132afa16c1ca38f81e88aeff145d16a7dc9168dc47c6649ad670b3",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/NewSelectionSystem/GridSquareSelector.lua"
+    },
+    {
+      "path": "lua/server/Professions/Professions.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "318c1dfad4ba7e18de3f06f876b0b5c46c9b0ca5fb112af6961c3ad33b4c1c4a",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Professions/Professions.lua"
+    },
+    {
+      "path": "lua/server/RainBarrel/BuildingObjects/RainCollectorBarrel.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "1e8ee9d4c3bc6f676af41e26946ee365e0a63e0bbeb5e888cf640571eb014ba8",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/RainBarrel/BuildingObjects/RainCollectorBarrel.lua"
+    },
+    {
+      "path": "lua/server/RainBarrel/SRainBarrelGlobalObject.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "3b552d94e4ea3c25b06b71c9c9a6f85c57df4d6bb48339080f7f4bb2f80511f8",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/RainBarrel/SRainBarrelGlobalObject.lua"
+    },
+    {
+      "path": "lua/server/RainBarrel/SRainBarrelSystem.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "c3edbde724d96e497ff589906e5ba7fc4d2b84e9b053bcc585542d610d223ef2",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/RainBarrel/SRainBarrelSystem.lua"
+    },
+    {
+      "path": "lua/server/Seasons/season.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "c300a54fdb8833bf819486cfd00c4cde6ed3e7603afb6bf7410bc1d0ece002a1",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Seasons/season.lua"
+    },
+    {
+      "path": "lua/server/Seasons/seasonProps.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "07ca9120d4435a8ac00942cacc68c0d64870866aff13bfe797f5029353df6b9b",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Seasons/seasonProps.lua"
+    },
+    {
+      "path": "lua/server/TemplateReplacers.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "023f838c8b905a1d6cbbc7eef27a0875ae4f7df0e177045b44a45d5c3367e6ae",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/TemplateReplacers.lua"
+    },
+    {
+      "path": "lua/server/Traps/BuildingObjects/TrapBO.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "9b11ff241d6322c23d14abc4f2ca772947e68c55d71f21d7c97e3afa9158ac9b",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Traps/BuildingObjects/TrapBO.lua"
+    },
+    {
+      "path": "lua/server/Traps/ISUI/ISTrapMenu.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "6504835501c99ab97c7e1767ecd8d5b534c080394bf7c6ba574a22e4a74904f9",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Traps/ISUI/ISTrapMenu.lua"
+    },
+    {
+      "path": "lua/server/Traps/STrapGlobalObject.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "7f634a973d2ae7925e7fb313aa465d2706f5b9c713eba0a93897ca103a65e2ac",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Traps/STrapGlobalObject.lua"
+    },
+    {
+      "path": "lua/server/Traps/STrapSystem.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "1e56667599d48c611326ba2e8af978f03b5cf8cbe9e0c2cf2b5bfcd7000abeff",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Traps/STrapSystem.lua"
+    },
+    {
+      "path": "lua/server/Traps/TrapDefinition.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "4352f05ed8c5f511b36a28101f75905d8bd30f27776ef81a0d286457341b5f03",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Traps/TrapDefinition.lua"
+    },
+    {
+      "path": "lua/server/Traps/TrapRecipeCode.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "dfa108f033c9a20a9cbef74007962f58136a0e121e74e2fee329070de5ba8f79",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Traps/TrapRecipeCode.lua"
+    },
+    {
+      "path": "lua/server/Traps/trappingCommands.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "dc58835f4fdc74fffcf5559d4428b9844a10990b817a2e436f38d9ab2fe58432",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Traps/trappingCommands.lua"
+    },
+    {
+      "path": "lua/server/TurnBased/TurnBasedMain.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "c6f18acad45b9d65cd38bea55984512972457f4312fe81a2da92e844c801cc20",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/TurnBased/TurnBasedMain.lua"
+    },
+    {
+      "path": "lua/server/TutorialHelperFunctions.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "92518aa76fad2bb85c5c726ce773971a2c999b23dba25cf3de31a7334c049c3a",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/TutorialHelperFunctions.lua"
+    },
+    {
+      "path": "lua/server/Vehicles/VehicleCommands.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "810c31baa0b45ec91125c133e31bf60792a3543d507eb56cd62f61e599adcfc7",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Vehicles/VehicleCommands.lua"
+    },
+    {
+      "path": "lua/server/Vehicles/VehicleDistributions.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "b79810bf38b155a9bf2b6eabc760a03cd2cb82e29d0b4dc7cb12266533f4dea5",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Vehicles/VehicleDistributions.lua"
+    },
+    {
+      "path": "lua/server/Vehicles/Vehicles.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "bca5dec74372dac635ad63091a18941cfb5a341e5c59e09608d865f92e7e4c74",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/Vehicles/Vehicles.lua"
+    },
+    {
+      "path": "lua/server/XpSystem/XPSystem_SkillBook.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "dae820cc9913b8af5a601c27281c5db125c8b5852144ecad39f5e26bc2a1dab1",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/XpSystem/XPSystem_SkillBook.lua"
+    },
+    {
+      "path": "lua/server/XpSystem/XpSystem_text.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "9e5834a3d763f77f7c6bc9afd7c05f427478e7f69b77dbf9ca6c843de5a10085",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/XpSystem/XpSystem_text.lua"
+    },
+    {
+      "path": "lua/server/XpSystem/XpUpdate.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "a06d10fad538d0d3920438c3d7b640ab2eb067a30dc49fd0ec1721f9e01168f2",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/XpSystem/XpUpdate.lua"
+    },
+    {
+      "path": "lua/server/lua.iml",
+      "entry_kind": "route_fixture",
+      "sha256": "7913d5351185493a6e57f32be5e1a0fcf5025d21b85d5594c51edf3b7f150553",
+      "source_kind": "ignored_live_reproduction",
+      "source_path": "lua/server/lua.iml"
+    },
+    {
+      "path": "lua/server/metazones/metazoneHandler.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "56769ae8f558a587f101383842b9a073f2f1794e4df16d328542b5ed17bfcebe",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/metazones/metazoneHandler.lua"
+    },
+    {
+      "path": "lua/server/radio/ISDynamicRadio.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "5af1045178b49bdfbd4fe95621350f332ec0e0b6ed1ed494b930080c17e3d701",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/radio/ISDynamicRadio.lua"
+    },
+    {
+      "path": "lua/server/radio/ISWeatherChannel.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "28455d1e9a82631b8ba703d5386cf4783316ae59abd5729375d4ecbc8379a2de",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/radio/ISWeatherChannel.lua"
+    },
+    {
+      "path": "lua/server/recipecode.lua",
+      "entry_kind": "route_fixture",
+      "sha256": "b81acd148285c1040def7d21ee440fd3a41c2e84207eb1f25a254622a2529353",
+      "source_kind": "tracked_live_fixture",
+      "source_path": "lua/server/recipecode.lua"
     },
     {
       "path": "scripts/animations.txt",

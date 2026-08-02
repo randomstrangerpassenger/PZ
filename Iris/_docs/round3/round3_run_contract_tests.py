@@ -50,19 +50,19 @@ HISTORICAL_REPRODUCTION_ARCHIVE = (
 )
 PORTABLE_REPOSITORY_PATH = re.compile(r"^[A-Za-z0-9._/-]+$")
 LOWERCASE_SHA256 = re.compile(r"^[0-9a-f]{64}$")
-PINNED_REPRODUCTION_ROW_COUNT = 726
+PINNED_REPRODUCTION_ROW_COUNT = 1506
 PINNED_REPRODUCTION_ROUTE_TEST_COUNT = 176
 PINNED_REPRODUCTION_BUILD_SUPPORT_COUNT = 498
 PINNED_REPRODUCTION_TOOL_SUPPORT_COUNT = 0
-PINNED_REPRODUCTION_ROUTE_FIXTURE_COUNT = 52
+PINNED_REPRODUCTION_ROUTE_FIXTURE_COUNT = 832
 PINNED_REPRODUCTION_ENTRY_PATHS_SHA256 = (
-    "2843898c8bc22412eea6508b83b9b34dcb52ed4d68bb2c27b7c238c54b3b9792"
+    "d8fd3403e176223b6a455c9d4272a153e9a92618fbc43b564da1070e0a0a08d9"
 )
 PINNED_REPRODUCTION_ROUTE_TEST_PATHS_SHA256 = (
     "41abe271251c8d2161947f25c271f147c25240389c4a1266a77f0c1b6447cef2"
 )
 PINNED_REPRODUCTION_ARCHIVE_SHA256 = (
-    "e1af571a27cc22e905bba7118c9a40e6705279b3e034111b3397745799fc06b6"
+    "3fc29c071f95684727d5a75cf928e370c07ee4c05815647934b26d12a7aa0f53"
 )
 
 
@@ -626,7 +626,14 @@ def materialize_historical_reproduction_overlay(
         path = canonical_repository_relative_path(row.get("path"))
         path_text = path.as_posix()
         if not path_text.startswith(
-            ("Iris/build/description/v2/", "Iris/input/", "scripts/")
+            (
+                "Iris/build/description/v2/",
+                "Iris/build/phase3_output/",
+                "Iris/input/",
+                "Iris/media/lua/",
+                "lua/server/Items/",
+                "scripts/",
+            )
         ):
             raise ValueError(f"reproduction corpus path is outside allowed roots: {path_text}")
         if path_text in row_by_path:
@@ -656,7 +663,10 @@ def materialize_historical_reproduction_overlay(
                     "Iris/build/description/v2/data/",
                     "Iris/build/description/v2/staging/",
                     "Iris/build/description/v2/tools/style/",
+                    "Iris/build/phase3_output/",
                     "Iris/input/",
+                    "Iris/media/lua/",
+                    "lua/server/Items/",
                     "scripts/",
                 )
             ):

@@ -32,6 +32,19 @@ MIGRATION_MARKER = re.compile(
     r" DVF_AUTHORITY_ROLE_MIGRATION\[[0-9a-f]{32}\]"
 )
 HISTORICAL_TOOL_SUPPORT_PATHS: tuple[str, ...] = ()
+HISTORICAL_FIXTURE_ROOTS = (
+    "Iris/build/description/v2/data",
+    "Iris/build/description/v2/staging/compose_contract_migration/full_runtime",
+    "Iris/build/description/v2/staging/identity_fallback_source_expansion",
+    "Iris/build/description/v2/staging/interaction_cluster",
+    "Iris/build/description/v2/staging/semantic_quality",
+    "Iris/build/description/v2/staging/source_coverage",
+    "Iris/build/phase3_output",
+    "Iris/input",
+    "Iris/media/lua",
+    "lua/server/Items",
+    "scripts",
+)
 HISTORICAL_FIXTURE_PATHS = (
     "Iris/build/description/v2/data/compose_profiles.json",
     "Iris/build/description/v2/data/cluster_summary_templates.json",
@@ -231,7 +244,18 @@ def main() -> int:
             ),
         )
 
-    for target_relative in HISTORICAL_FIXTURE_PATHS:
+    fixture_paths = set(HISTORICAL_FIXTURE_PATHS)
+    for root_relative in HISTORICAL_FIXTURE_ROOTS:
+        root = REPO / root_relative
+        if not root.is_dir():
+            raise FileNotFoundError(f"historical fixture root missing: {root_relative}")
+        fixture_paths.update(
+            path.relative_to(REPO).as_posix()
+            for path in root.rglob("*")
+            if path.is_file()
+        )
+
+    for target_relative in sorted(fixture_paths):
         source = REPO / target_relative
         if not source.is_file():
             raise FileNotFoundError(f"historical fixture missing: {target_relative}")
@@ -277,7 +301,7 @@ def main() -> int:
             row["entry_kind"] == "build_support" for row in manifest_rows
         ),
         "tool_support_count": len(HISTORICAL_TOOL_SUPPORT_PATHS),
-        "route_fixture_count": len(HISTORICAL_FIXTURE_PATHS),
+        "route_fixture_count": len(fixture_paths),
         "expected_entry_paths_sha256": sha256(
             "\n".join(ordered_paths).encode("utf-8")
         ),

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "authority_id": "iris-core-refactor-owner-preauthorization-2026-08-02",
+  "authority_kind": "owner_preauthorization_record",
+  "source": "user request at session start",
+  "scope": "one_time_exact_current_route_authority_rebind",
+  "approved_change": {
+    "path": "Iris/_docs/round3/current_route_required_validations.json",
+    "before_sha256": "ef586ef40a45f3b1c448f0220d30aff18fff3f1d359fe0f02d14d48b5de1df14",
+    "after_sha256": "82be732a2e3a2b4f5a7deae342ceda93a59990dca0543f6ca7b7b82dc0c18d66",
+    "purpose": "bind the current-route manifest to the descriptor already tracked by baseline commit 72e76b36",
+    "writer_chain": [
+      "commit 72e76b36 current_generation_descriptor.json",
+      "Change 9 current-route authority binding correction"
+    ]
+  },
+  "constraints": {
+    "additional_protected_paths_allowed": false,
+    "runtime_or_public_text_change_allowed": false,
+    "existing_package_peer_change_allowed": false
+  }
+}

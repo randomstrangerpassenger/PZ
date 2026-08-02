@@ -50,19 +50,19 @@ HISTORICAL_REPRODUCTION_ARCHIVE = (
 )
 PORTABLE_REPOSITORY_PATH = re.compile(r"^[A-Za-z0-9._/-]+$")
 LOWERCASE_SHA256 = re.compile(r"^[0-9a-f]{64}$")
-PINNED_REPRODUCTION_ROW_COUNT = 1646
+PINNED_REPRODUCTION_ROW_COUNT = 2403
 PINNED_REPRODUCTION_ROUTE_TEST_COUNT = 201
 PINNED_REPRODUCTION_BUILD_SUPPORT_COUNT = 498
 PINNED_REPRODUCTION_TOOL_SUPPORT_COUNT = 0
-PINNED_REPRODUCTION_ROUTE_FIXTURE_COUNT = 947
+PINNED_REPRODUCTION_ROUTE_FIXTURE_COUNT = 1704
 PINNED_REPRODUCTION_ENTRY_PATHS_SHA256 = (
-    "fe19d8c39f6225111722e2912d4e96b86701bfdd583ac33f0471aa5578b088e0"
+    "f3d6bccac3cbb8282a4d4e1ef14fbd21cd90c3edf5e6f3a39d889af18d73efdb"
 )
 PINNED_REPRODUCTION_ROUTE_TEST_PATHS_SHA256 = (
     "795da92ab46bba97d369bbf9d8fd5629ce0e394fd33338617b5bcc5cfe3817b5"
 )
 PINNED_REPRODUCTION_ARCHIVE_SHA256 = (
-    "ca7b8b5fc4f47f702d0e37cc17544c8b005eb22ee38f4f5e488d6775ab5145d7"
+    "88e46a7ed270f42e7d223615907898158debc528d7db0e83ee5419faa95cc368"
 )
 
 
@@ -626,7 +626,7 @@ def materialize_historical_reproduction_overlay(
                 "Iris/build/phase3_output/",
                 "Iris/input/",
                 "Iris/media/lua/",
-                "lua/server/",
+                "lua/",
                 "scripts/",
             )
         ):
@@ -662,7 +662,7 @@ def materialize_historical_reproduction_overlay(
                     "Iris/build/phase3_output/",
                     "Iris/input/",
                     "Iris/media/lua/",
-                    "lua/server/",
+                    "lua/",
                     "scripts/",
                 )
             ):

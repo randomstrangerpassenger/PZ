@@ -43,9 +43,9 @@ HISTORICAL_FIXTURE_ROOTS = (
     "Iris/build/phase3_output",
     "Iris/input",
     "Iris/media/lua",
-    "lua/server",
     "scripts",
 )
+HISTORICAL_FIXTURE_GLOBS = ("lua/**/*.lua",)
 HISTORICAL_FIXTURE_PATHS = (
     "Iris/build/description/v2/data/compose_profiles.json",
     "Iris/build/description/v2/data/cluster_summary_templates.json",
@@ -255,6 +255,12 @@ def main() -> int:
         fixture_paths.update(
             path.relative_to(REPO).as_posix()
             for path in root.rglob("*")
+            if path.is_file()
+        )
+    for pattern in HISTORICAL_FIXTURE_GLOBS:
+        fixture_paths.update(
+            path.relative_to(REPO).as_posix()
+            for path in REPO.glob(pattern)
             if path.is_file()
         )
 

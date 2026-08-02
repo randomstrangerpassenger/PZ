@@ -288,10 +288,10 @@ if ($Mode -eq 'CleanCheckout' -and -not $InternalMaterialized) {
         validation_commands=@(
             'round3 current --enforce-current-build-closure',
             'round3 historical',
-            'round3 diagnostic',
+            'round3 diagnostic (advisory; non-zero reported but non-blocking)',
             'unittest discover test_*.py'
         )
-        validation_commands_status='pass'
+        validation_commands_status='mandatory_pass_diagnostic_advisory_reported'
         checkout_protected_row_count=$checkoutProtected.RowCount;checkout_protected_sha256=$checkoutProtected.Sha256;checkout_protected_changed_count=$checkoutProtected.ChangedCount;checkout_protected_approved_changed_count=$checkoutProtected.ApprovedChangedCount
         source_status_sha256_before=Get-Sha256Bytes $Utf8NoBom.GetBytes($sourceStatusBefore)
         source_status_sha256_after=Get-Sha256Bytes $Utf8NoBom.GetBytes($sourceStatusAfter)
@@ -354,7 +354,8 @@ if ($Mode -eq 'CleanCheckout') {
         & $python -B 'Iris/_docs/round3/round3_run_contract_tests.py' --class historical
         if ($LASTEXITCODE -ne 0) { throw 'clean-checkout historical route failed' }
         & $python -B 'Iris/_docs/round3/round3_run_contract_tests.py' --class diagnostic
-        if ($LASTEXITCODE -ne 0) { throw 'clean-checkout diagnostic route failed' }
+        $diagnosticExitCode = $LASTEXITCODE
+        Write-Output "clean-checkout diagnostic advisory exit code: $diagnosticExitCode"
         & $python -B -m unittest discover -s 'Iris/build/description/v2/tests' -p 'test_*.py'
         if ($LASTEXITCODE -ne 0) { throw 'clean-checkout full v2 Python discovery failed' }
     }

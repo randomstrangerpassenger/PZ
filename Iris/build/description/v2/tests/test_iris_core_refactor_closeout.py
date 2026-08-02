@@ -1,9 +1,14 @@
 from __future__ import annotations
 
+import copy
 import hashlib
+import importlib.util
 import json
+import tempfile
 import unittest
+from importlib.machinery import PathFinder
 from pathlib import Path
+from unittest import mock
 
 
 REPO = next(parent for parent in Path(__file__).resolve().parents if (parent / ".git").exists())
@@ -22,7 +27,102 @@ def sha256_candidates(path: Path) -> set[str]:
     return candidates
 
 
+def load_round3_runner():
+    runner_path = REPO / "Iris/_docs/round3/round3_run_contract_tests.py"
+    spec = importlib.util.spec_from_file_location("iris_round3_contract_runner", runner_path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError("cannot load Round 3 contract runner")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 class IrisCoreRefactorCloseoutTest(unittest.TestCase):
+    def test_historical_reproduction_corpus_is_exact_and_fail_closed(self) -> None:
+        runner = load_round3_runner()
+        manifest_path = ROOT / "historical_reproduction_corpus.json"
+        manifest = load_json(manifest_path)
+        archive = REPO / manifest["archive_path"]
+
+        with tempfile.TemporaryDirectory(prefix="iris-closeout-corpus-") as temp:
+            overlay_root = Path(temp)
+            taxonomy = runner.load_json(runner.DEFAULT_TAXONOMY)
+            report = runner.materialize_historical_reproduction_overlay(
+                overlay_root, taxonomy
+            )
+            self.assertEqual(manifest["row_count"], report["row_count"])
+            self.assertEqual(manifest["archive_sha256"], report["archive_sha256"])
+            import_paths = runner.reproduction_overlay_import_paths(overlay_root)
+            self.assertEqual(
+                ["tests", "build", "v2"],
+                [Path(path).name for path in import_paths],
+            )
+            spec = PathFinder.find_spec("test_browser_common_base_contract", import_paths)
+            self.assertIsNotNone(spec)
+            self.assertTrue(str(spec.origin).startswith(str(overlay_root.resolve())))
+
+        self.assertEqual(manifest["archive_sha256"], hashlib.sha256(archive.read_bytes()).hexdigest())
+        paths = [row["path"] for row in manifest["rows"]]
+        self.assertEqual(paths, sorted(paths))
+        self.assertEqual(len(paths), len(set(paths)))
+        self.assertEqual(
+            manifest["expected_entry_paths_sha256"],
+            hashlib.sha256("\n".join(paths).encode("utf-8")).hexdigest(),
+        )
+
+        def assert_rejected(mutated: dict) -> None:
+            with tempfile.TemporaryDirectory(prefix="iris-closeout-negative-") as temp:
+                temp_root = Path(temp)
+                candidate = temp_root / "manifest.json"
+                candidate.write_text(json.dumps(mutated), encoding="utf-8")
+                with mock.patch.object(runner, "HISTORICAL_REPRODUCTION_MANIFEST", candidate):
+                    with self.assertRaises(ValueError):
+                        runner.materialize_historical_reproduction_overlay(
+                            temp_root / "out", taxonomy
+                        )
+
+        traversal = copy.deepcopy(manifest)
+        traversal["rows"][0]["path"] = "../escape.py"
+        assert_rejected(traversal)
+
+        duplicate = copy.deepcopy(manifest)
+        duplicate["rows"][1]["path"] = duplicate["rows"][0]["path"]
+        assert_rejected(duplicate)
+
+        removed = copy.deepcopy(manifest)
+        removed["rows"].pop(0)
+        removed["row_count"] -= 1
+        removed_paths = [row["path"] for row in removed["rows"]]
+        removed["expected_entry_paths_sha256"] = hashlib.sha256(
+            "\n".join(removed_paths).encode("utf-8")
+        ).hexdigest()
+        removed_route_paths = [
+            row["path"] for row in removed["rows"] if row["entry_kind"] == "route_test"
+        ]
+        removed["expected_route_test_paths_sha256"] = hashlib.sha256(
+            "\n".join(removed_route_paths).encode("utf-8")
+        ).hexdigest()
+        assert_rejected(removed)
+
+        support_removed = copy.deepcopy(manifest)
+        support_index = next(
+            index
+            for index, row in enumerate(support_removed["rows"])
+            if row["entry_kind"] == "build_support"
+        )
+        support_removed["rows"].pop(support_index)
+        support_removed["row_count"] -= 1
+        support_removed["build_support_count"] -= 1
+        support_paths = [row["path"] for row in support_removed["rows"]]
+        support_removed["expected_entry_paths_sha256"] = hashlib.sha256(
+            "\n".join(support_paths).encode("utf-8")
+        ).hexdigest()
+        assert_rejected(support_removed)
+
+        hash_mismatch = copy.deepcopy(manifest)
+        hash_mismatch["rows"][0]["sha256"] = "0" * 64
+        assert_rejected(hash_mismatch)
+
     def test_final_manifest_is_exact_and_fail_closed(self) -> None:
         manifest = load_json(ROOT / "phase1_validation_asset_manifest.json")
         self.assertEqual(7, manifest["generation"])

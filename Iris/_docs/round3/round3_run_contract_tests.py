@@ -10,11 +10,14 @@ import importlib.abc
 import importlib.util
 import json
 import os
+import re
 import subprocess
 import sys
+import tempfile
 import time
 import unittest
-from pathlib import Path
+import zipfile
+from pathlib import Path, PurePosixPath
 
 
 REPO = Path(__file__).resolve().parents[3]
@@ -28,6 +31,36 @@ REQUIRED_VALIDATIONS_PROJECTION_ENV = (
     "IRIS_ROUND3_REQUIRED_VALIDATIONS_PROJECTION"
 )
 TOOLS_BUILD_ROOT = V2_ROOT / "tools" / "build"
+HISTORICAL_REPRODUCTION_MANIFEST = (
+    REPO
+    / "Iris"
+    / "_docs"
+    / "refactor"
+    / "core_refactor"
+    / "historical_reproduction_corpus.json"
+)
+HISTORICAL_REPRODUCTION_ARCHIVE = (
+    REPO
+    / "Iris"
+    / "_docs"
+    / "refactor"
+    / "core_refactor"
+    / "historical_reproduction_corpus.zip"
+)
+PORTABLE_REPOSITORY_PATH = re.compile(r"^[A-Za-z0-9._/-]+$")
+LOWERCASE_SHA256 = re.compile(r"^[0-9a-f]{64}$")
+PINNED_REPRODUCTION_ROW_COUNT = 425
+PINNED_REPRODUCTION_ROUTE_TEST_COUNT = 176
+PINNED_REPRODUCTION_BUILD_SUPPORT_COUNT = 249
+PINNED_REPRODUCTION_ENTRY_PATHS_SHA256 = (
+    "1d6749223f952c95804533d5dea8ac525335826b5a827cdedfacfdcccfd91ad6"
+)
+PINNED_REPRODUCTION_ROUTE_TEST_PATHS_SHA256 = (
+    "41abe271251c8d2161947f25c271f147c25240389c4a1266a77f0c1b6447cef2"
+)
+PINNED_REPRODUCTION_ARCHIVE_SHA256 = (
+    "9b6c7ce973f3aecd93861f73f6f276e6dfeb86bc2a8e5f53dcd11e347fad7b18"
+)
 
 
 class BuildClosureBlocker(importlib.abc.MetaPathFinder):
@@ -525,6 +558,157 @@ def run_suite(test_ids: list[str], verbosity: int) -> tuple[unittest.TestResult,
     return result, time.monotonic() - started
 
 
+def sha256_bytes(payload: bytes) -> str:
+    return hashlib.sha256(payload).hexdigest()
+
+
+def canonical_repository_relative_path(value: object) -> PurePosixPath:
+    if not isinstance(value, str) or not value or not value.isascii():
+        raise ValueError("reproduction corpus path must be non-empty ASCII text")
+    if not PORTABLE_REPOSITORY_PATH.fullmatch(value) or "\\" in value:
+        raise ValueError(f"non-portable reproduction corpus path: {value}")
+    path = PurePosixPath(value)
+    if path.is_absolute() or any(part in {"", ".", ".."} for part in path.parts):
+        raise ValueError(f"non-canonical reproduction corpus path: {value}")
+    if path.as_posix() != value:
+        raise ValueError(f"non-canonical reproduction corpus path: {value}")
+    return path
+
+
+def expected_reproduction_route_test_paths(taxonomy: dict) -> list[str]:
+    paths = {
+        row["source_file"]
+        for row in taxonomy.get("rows", [])
+        if row.get("contract_class") in {"historical", "diagnostic"}
+        and not git_path_is_tracked(REPO / row["source_file"])
+    }
+    return sorted(paths)
+
+
+def reproduction_overlay_import_paths(overlay_root: Path) -> list[str]:
+    overlay_v2 = overlay_root / "Iris" / "build" / "description" / "v2"
+    return [
+        str(overlay_v2 / "tests"),
+        str(overlay_v2 / "tools" / "build"),
+        str(overlay_v2),
+    ]
+
+
+def materialize_historical_reproduction_overlay(
+    overlay_root: Path, taxonomy: dict
+) -> dict:
+    manifest = load_json(HISTORICAL_REPRODUCTION_MANIFEST)
+    if manifest.get("schema_version") != "iris-historical-reproduction-corpus-v1":
+        raise ValueError("unsupported historical reproduction corpus schema")
+
+    rows = manifest.get("rows")
+    if not isinstance(rows, list) or not rows:
+        raise ValueError("historical reproduction corpus rows must be non-empty")
+    expected_count = manifest.get("row_count")
+    if expected_count != len(rows):
+        raise ValueError("historical reproduction corpus row count mismatch")
+    if expected_count != PINNED_REPRODUCTION_ROW_COUNT:
+        raise ValueError("historical reproduction pinned row count mismatch")
+
+    paths = []
+    route_test_paths = []
+    row_by_path = {}
+    for row in rows:
+        if not isinstance(row, dict):
+            raise ValueError("historical reproduction corpus row must be an object")
+        path = canonical_repository_relative_path(row.get("path"))
+        path_text = path.as_posix()
+        if not path_text.startswith("Iris/build/description/v2/"):
+            raise ValueError(f"reproduction corpus path is outside v2: {path_text}")
+        if path_text in row_by_path:
+            raise ValueError(f"duplicate reproduction corpus path: {path_text}")
+        if row.get("entry_kind") not in {"route_test", "build_support"}:
+            raise ValueError(f"invalid reproduction corpus entry kind: {path_text}")
+        if row["entry_kind"] == "route_test":
+            if not path_text.startswith("Iris/build/description/v2/tests/test_"):
+                raise ValueError(f"invalid reproduction route-test path: {path_text}")
+            route_test_paths.append(path_text)
+        elif not path_text.startswith("Iris/build/description/v2/tools/build/"):
+            raise ValueError(f"invalid reproduction build-support path: {path_text}")
+        if not isinstance(row.get("sha256"), str) or not LOWERCASE_SHA256.fullmatch(
+            row["sha256"]
+        ):
+            raise ValueError(f"invalid reproduction corpus entry hash: {path_text}")
+        paths.append(path_text)
+        row_by_path[path_text] = row
+
+    if paths != sorted(paths):
+        raise ValueError("historical reproduction corpus rows are not ordinal")
+    path_identity = sha256_bytes("\n".join(paths).encode("utf-8"))
+    if path_identity != manifest.get("expected_entry_paths_sha256"):
+        raise ValueError("historical reproduction corpus entry-set hash mismatch")
+    if path_identity != PINNED_REPRODUCTION_ENTRY_PATHS_SHA256:
+        raise ValueError("historical reproduction pinned entry-set hash mismatch")
+    expected_route_tests = expected_reproduction_route_test_paths(taxonomy)
+    if route_test_paths != expected_route_tests:
+        raise ValueError("historical reproduction route-test denominator mismatch")
+    route_test_identity = sha256_bytes("\n".join(route_test_paths).encode("utf-8"))
+    if route_test_identity != manifest.get("expected_route_test_paths_sha256"):
+        raise ValueError("historical reproduction route-test hash mismatch")
+    if route_test_identity != PINNED_REPRODUCTION_ROUTE_TEST_PATHS_SHA256:
+        raise ValueError("historical reproduction pinned route-test hash mismatch")
+    if manifest.get("route_test_count") != len(route_test_paths):
+        raise ValueError("historical reproduction route-test count mismatch")
+    if manifest.get("build_support_count") != len(paths) - len(route_test_paths):
+        raise ValueError("historical reproduction build-support count mismatch")
+    if len(route_test_paths) != PINNED_REPRODUCTION_ROUTE_TEST_COUNT:
+        raise ValueError("historical reproduction pinned route-test count mismatch")
+    if len(paths) - len(route_test_paths) != PINNED_REPRODUCTION_BUILD_SUPPORT_COUNT:
+        raise ValueError("historical reproduction pinned build-support count mismatch")
+
+    archive_relative = canonical_repository_relative_path(manifest.get("archive_path"))
+    if archive_relative.as_posix() != HISTORICAL_REPRODUCTION_ARCHIVE.relative_to(
+        REPO
+    ).as_posix():
+        raise ValueError("historical reproduction archive path mismatch")
+    archive = HISTORICAL_REPRODUCTION_ARCHIVE
+    archive_sha256 = sha256_bytes(archive.read_bytes())
+    if archive_sha256 != manifest.get("archive_sha256"):
+        raise ValueError("historical reproduction archive hash mismatch")
+    if archive_sha256 != PINNED_REPRODUCTION_ARCHIVE_SHA256:
+        raise ValueError("historical reproduction pinned archive hash mismatch")
+
+    overlay_resolved = overlay_root.resolve()
+    materialized_count = 0
+    with zipfile.ZipFile(archive, "r") as corpus:
+        archive_names = corpus.namelist()
+        if archive_names != paths or len(set(archive_names)) != len(archive_names):
+            raise ValueError("historical reproduction archive entry-set mismatch")
+        for path_text in paths:
+            payload = corpus.read(path_text)
+            if sha256_bytes(payload) != row_by_path[path_text].get("sha256"):
+                raise ValueError(
+                    f"historical reproduction entry hash mismatch: {path_text}"
+                )
+            path = PurePosixPath(path_text)
+            target = (overlay_root / Path(*path.parts)).resolve()
+            try:
+                target.relative_to(overlay_resolved)
+            except ValueError as exc:
+                raise ValueError(
+                    f"historical reproduction target escapes overlay: {path_text}"
+                ) from exc
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(payload)
+            materialized_count += 1
+
+    return {
+        "status": "materialized",
+        "manifest_path": HISTORICAL_REPRODUCTION_MANIFEST.relative_to(REPO).as_posix(),
+        "archive_path": archive_relative.as_posix(),
+        "archive_sha256": archive_sha256,
+        "row_count": materialized_count,
+        "route_test_count": len(route_test_paths),
+        "build_support_count": materialized_count - len(route_test_paths),
+        "entry_paths_sha256": path_identity,
+    }
+
+
 def result_payload(
     *,
     contract_class: str,
@@ -533,6 +717,7 @@ def result_payload(
     elapsed_seconds: float,
     closure_enforced: bool,
     required_validations: dict,
+    historical_reproduction: dict,
 ) -> dict:
     return {
         "schema_version": "round3-contract-test-run-v1",
@@ -554,6 +739,7 @@ def result_payload(
             for test, reason in result.skipped
         ],
         "required_validations": required_validations,
+        "historical_reproduction": historical_reproduction,
         "elapsed_seconds": round(elapsed_seconds, 3),
     }
 
@@ -620,6 +806,26 @@ def main() -> int:
     sys.path.insert(0, str(TEST_ROOT))
     sys.path.insert(0, str(V2_ROOT))
 
+    historical_overlay_temp = None
+    historical_overlay_paths: list[str] = []
+    historical_reproduction = {"status": "not_applicable", "row_count": 0}
+    if args.contract_class in {"historical", "diagnostic", "all"}:
+        historical_overlay_temp = tempfile.TemporaryDirectory(
+            prefix="iris_historical_reproduction_"
+        )
+        overlay_root = Path(historical_overlay_temp.name)
+        try:
+            historical_reproduction = materialize_historical_reproduction_overlay(
+                overlay_root, taxonomy
+            )
+        except (KeyError, OSError, TypeError, ValueError, zipfile.BadZipFile) as exc:
+            historical_overlay_temp.cleanup()
+            print(str(exc), file=sys.stderr)
+            return 2
+        historical_overlay_paths = reproduction_overlay_import_paths(overlay_root)
+        for overlay_path in reversed(historical_overlay_paths):
+            sys.path.insert(0, overlay_path)
+
     closure_enforced = False
     if args.enforce_current_build_closure:
         if args.contract_class != "current":
@@ -652,6 +858,11 @@ def main() -> int:
             os.environ[REQUIRED_VALIDATIONS_PROJECTION_ENV] = (
                 previous_projection
             )
+        for overlay_path in historical_overlay_paths:
+            if overlay_path in sys.path:
+                sys.path.remove(overlay_path)
+        if historical_overlay_temp is not None:
+            historical_overlay_temp.cleanup()
     required_payload = required_validation_payload(
         manifest=required_manifest,
         selected_ids=test_ids,
@@ -664,6 +875,7 @@ def main() -> int:
         elapsed_seconds=elapsed,
         closure_enforced=closure_enforced,
         required_validations=required_payload,
+        historical_reproduction=historical_reproduction,
     )
     success = result.wasSuccessful() and required_payload["success"]
     payload["success"] = success

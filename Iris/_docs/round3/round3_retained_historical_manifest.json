@@ -3729,14 +3729,14 @@
         "doc_or_path_reference_count": 198,
         "dynamic_import_signal": false,
         "method": "static_reference_or_signal_scan",
-        "module": "build_silent_21 DVF_AUTHORITY_ROLE_MIGRATION[75c69469046045ca27d845f3d1edfe4e]_replacement_authority_reconstruction_round",
+        "module": "build_silent_21_replacement_authority_reconstruction_round",
         "path": "Iris/build/description/v2/tools/build/build_silent_21_replacement_authority_reconstruction_round.py",
         "production_mapping": "unresolved_static_signal"
       },
       "final_disposition": "keep_diagnostic_advisory",
-      "module": "build_silent_21 DVF_AUTHORITY_ROLE_MIGRATION[c8470bd8d000c59ec07f5df29096ac2d]_replacement_authority_reconstruction_round",
+      "module": "build_silent_21_replacement_authority_reconstruction_round",
       "owner_class": "diagnostic_advisory",
-      "path": "Iris/build/description/v2/tools/build/build_silent_21 DVF_AUTHORITY_ROLE_MIGRATION[b51afa6069165d3e3d7f052ee21153f7]_replacement_authority_reconstruction_round.py",
+      "path": "Iris/build/description/v2/tools/build/build_silent_21_replacement_authority_reconstruction_round.py",
       "signals": {
         "artifact_path_signal": true,
         "doc_or_path_reference_count": 198,

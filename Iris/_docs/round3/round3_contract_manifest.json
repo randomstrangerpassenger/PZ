@@ -239,7 +239,7 @@
       "compose_layer3_item": 60,
       "compose_layer3_render": 61,
       "compose_layer3_text": 152,
-      "draft_interaction_cluster_overlay": 21 DVF_AUTHORITY_ROLE_MIGRATION[c778d62a305abcf1e9ec43de886b0719],
+      "draft_interaction_cluster_overlay": 21,
       "export_dvf_3_3_lua_bridge": 42,
       "export_interaction_cluster_phase_c_review_packet": 9,
       "export_interaction_cluster_raw_source": 9,
@@ -1090,7 +1090,7 @@
       "module": "build_identity_fallback_batch3_authority_promotion",
       "owner_class": "diagnostic_advisory",
       "path": "Iris/build/description/v2/tools/build/build_identity_fallback_batch3_authority_promotion.py",
-      "sha256": "49186517705e9a21 DVF_AUTHORITY_ROLE_MIGRATION[a24b30d314f488fe72786f2e8ed2fb55]2548c21b323b2576178495adef259d78467cb41265d3366c",
+      "sha256": "49186517705e9a212548c21b323b2576178495adef259d78467cb41265d3366c",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -1110,7 +1110,7 @@
       "module": "build_identity_fallback_batch3_food_storage_reference_reuse",
       "owner_class": "diagnostic_advisory",
       "path": "Iris/build/description/v2/tools/build/build_identity_fallback_batch3_food_storage_reference_reuse.py",
-      "sha256": "e21 DVF_AUTHORITY_ROLE_MIGRATION[bcb5bac22c2aef570f8915011a186646]dfcb81a06331b06dacdc811a4cce35bc987b394ae159b909e468c00ed82d2",
+      "sha256": "e21dfcb81a06331b06dacdc811a4cce35bc987b394ae159b909e468c00ed82d2",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -1490,7 +1490,7 @@
       "module": "build_identity_fallback_expansion_plan",
       "owner_class": "historical_reproduction",
       "path": "Iris/build/description/v2/tools/build/build_identity_fallback_expansion_plan.py",
-      "sha256": "40aeafec281413375e31e2e21 DVF_AUTHORITY_ROLE_MIGRATION[87de2620ff76e61f8f2a13625c8473ff]c6b10a6e34186fd96b10442e186de0810ce3405",
+      "sha256": "40aeafec281413375e31e2e21c6b10a6e34186fd96b10442e186de0810ce3405",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -1890,7 +1890,7 @@
       "module": "build_interaction_cluster_phase_c_review_actions",
       "owner_class": "historical_reproduction",
       "path": "Iris/build/description/v2/tools/build/build_interaction_cluster_phase_c_review_actions.py",
-      "sha256": "57fe24bba767201ea538c8899a2edec8304f21 DVF_AUTHORITY_ROLE_MIGRATION[f4c37362052e6598c4bd8e48fc2febb3]aff3a9b27969a54354e53080b7",
+      "sha256": "57fe24bba767201ea538c8899a2edec8304f21aff3a9b27969a54354e53080b7",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -2642,7 +2642,7 @@
       "module": "build_quality_publish_phase6_validation_pack",
       "owner_class": "historical_reproduction",
       "path": "Iris/build/description/v2/tools/build/build_quality_publish_phase6_validation_pack.py",
-      "sha256": "e6c94300a21 DVF_AUTHORITY_ROLE_MIGRATION[02c59b707f04b695727cdb453aa1721a]f6a2e107de8dfe5cd644d92a15c599956e36c97fd9fdb67a995f5",
+      "sha256": "e6c94300a21f6a2e107de8dfe5cd644d92a15c599956e36c97fd9fdb67a995f5",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -2682,7 +2682,7 @@
       "module": "build_role_fallback_hollow_followup_execution_inputs",
       "owner_class": "diagnostic_advisory",
       "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_followup_execution_inputs.py",
-      "sha256": "3a580aef5bece8b605f3f5c12928e80303833a2a14eeef8b6f01dff003b40a21 DVF_AUTHORITY_ROLE_MIGRATION[b163401c5f7de6485dc97365e89cbb6b]",
+      "sha256": "3a580aef5bece8b605f3f5c12928e80303833a2a14eeef8b6f01dff003b40a21",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -2822,7 +2822,7 @@
       "module": "build_role_fallback_hollow_policy_default_closeout",
       "owner_class": "historical_reproduction",
       "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_policy_default_closeout.py",
-      "sha256": "056be22c911f92dad7a3e21 DVF_AUTHORITY_ROLE_MIGRATION[bed2f91e6bad4e8794eea7056d3a783c]fa3a0d4347744840e29f6e158f05c005b6e206c7a",
+      "sha256": "056be22c911f92dad7a3e21fa3a0d4347744840e29f6e158f05c005b6e206c7a",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -2902,7 +2902,7 @@
       "module": "build_role_fallback_hollow_residual_after_c1b_reuse",
       "owner_class": "diagnostic_advisory",
       "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_residual_after_c1b_reuse.py",
-      "sha256": "7e2c69506fe5465f8c097200f8f96feb26eb7ce98418b04ff21 DVF_AUTHORITY_ROLE_MIGRATION[732ae20a2aac24a4d01f63217e265f38]e71ad63545ef4",
+      "sha256": "7e2c69506fe5465f8c097200f8f96feb26eb7ce98418b04ff21e71ad63545ef4",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -3202,7 +3202,7 @@
       "module": "build_role_fallback_hollow_targeted_source_authority_candidates",
       "owner_class": "diagnostic_advisory",
       "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_targeted_source_authority_candidates.py",
-      "sha256": "b7c4efaed6920c723bc6f1adc0765a0edc5176e58e2a413324a5059f52aa21 DVF_AUTHORITY_ROLE_MIGRATION[57b418b129b6324b1d684dabaaefe14c]cf",
+      "sha256": "b7c4efaed6920c723bc6f1adc0765a0edc5176e58e2a413324a5059f52aa21cf",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -3541,7 +3541,7 @@
       "main_work": true,
       "module": "build_silent_21_replacement_authority_reconstruction_round",
       "owner_class": "diagnostic_advisory",
-      "path": "Iris/build/description/v2/tools/build/build_silent_21 DVF_AUTHORITY_ROLE_MIGRATION[8d865fc71b3c8bbee88f6b30d76e2810]_replacement_authority_reconstruction_round.py",
+      "path": "Iris/build/description/v2/tools/build/build_silent_21_replacement_authority_reconstruction_round.py",
       "sha256": "d691bdfef8857d16859757fb4ae0ac8d9b53e3887e7074c6cb028aa10b448fa9",
       "subprocess_execution": true,
       "sys_exit": false,
@@ -3702,7 +3702,7 @@
       "module": "build_source_coverage_c1b_portable_storage_package",
       "owner_class": "historical_reproduction",
       "path": "Iris/build/description/v2/tools/build/build_source_coverage_c1b_portable_storage_package.py",
-      "sha256": "21 DVF_AUTHORITY_ROLE_MIGRATION[4035c3c39ec1bbf1e0e7627f6b3194dc]b222123fc13ef59b1934d7455c3475129a01f3be84282e2d00838a62b591d4",
+      "sha256": "21b222123fc13ef59b1934d7455c3475129a01f3be84282e2d00838a62b591d4",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -4513,7 +4513,7 @@
       "module": "normalize_interaction_cluster_overlay",
       "owner_class": "historical_reproduction",
       "path": "Iris/build/description/v2/tools/build/normalize_interaction_cluster_overlay.py",
-      "sha256": "b3acd52bf06bc5600fb2adc6d77767bc152ba358ffaa9fb21 DVF_AUTHORITY_ROLE_MIGRATION[331d20ee4d8a2781c689780741d75267]d39c93ee34d2f03",
+      "sha256": "b3acd52bf06bc5600fb2adc6d77767bc152ba358ffaa9fb21d39c93ee34d2f03",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -4793,7 +4793,7 @@
       "module": "report_interaction_cluster_phase_c_review",
       "owner_class": "historical_reproduction",
       "path": "Iris/build/description/v2/tools/build/report_interaction_cluster_phase_c_review.py",
-      "sha256": "ee88c0fa822c1b2ee11570e51b6dc12d5aefce4e21 DVF_AUTHORITY_ROLE_MIGRATION[2b3da8efb856292330b8c4bb8696de9f]26a4d9cd3b36fa21d0aceb",
+      "sha256": "ee88c0fa822c1b2ee11570e51b6dc12d5aefce4e2126a4d9cd3b36fa21d0aceb",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -4973,7 +4973,7 @@
       "module": "report_phase_d_gate_threshold_proposal",
       "owner_class": "historical_reproduction",
       "path": "Iris/build/description/v2/tools/build/report_phase_d_gate_threshold_proposal.py",
-      "sha256": "2e263a85868e37579d7b9342a0c21 DVF_AUTHORITY_ROLE_MIGRATION[149b046727dfc4090bb61a50ceb5b4bd]a04ad0cb3a836398dcd55f375a7b5a30040",
+      "sha256": "2e263a85868e37579d7b9342a0c21a04ad0cb3a836398dcd55f375a7b5a30040",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -5073,7 +5073,7 @@
       "module": "report_post_cleanup_phase1_status_model_final",
       "owner_class": "historical_reproduction",
       "path": "Iris/build/description/v2/tools/build/report_post_cleanup_phase1_status_model_final.py",
-      "sha256": "f21 DVF_AUTHORITY_ROLE_MIGRATION[0ef04cbbcf3957b030c6aafb5a777904]c432b59f29d72b1aefcac7897520323462ba6100e4a15711977dddc2ae252",
+      "sha256": "f21c432b59f29d72b1aefcac7897520323462ba6100e4a15711977dddc2ae252",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -5213,7 +5213,7 @@
       "module": "report_role_fallback_hollow_followup_split",
       "owner_class": "diagnostic_advisory",
       "path": "Iris/build/description/v2/tools/build/report_role_fallback_hollow_followup_split.py",
-      "sha256": "b4194e08e6185ef52df073ed3f574b9c648c21 DVF_AUTHORITY_ROLE_MIGRATION[846ce9c93437a4c3991a7470d5c7a3a0]db93eccb89264ce6b8902ea6df",
+      "sha256": "b4194e08e6185ef52df073ed3f574b9c648c21db93eccb89264ce6b8902ea6df",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -5433,7 +5433,7 @@
       "module": "report_source_coverage_hold_policy",
       "owner_class": "historical_reproduction",
       "path": "Iris/build/description/v2/tools/build/report_source_coverage_hold_policy.py",
-      "sha256": "5a586a9939ac751ae08bdae98a6e93344c444de21 DVF_AUTHORITY_ROLE_MIGRATION[94e2ba3b6bbce3a8fd3a64f5f0f58e3e]d3d994a8cf6490226444bf4",
+      "sha256": "5a586a9939ac751ae08bdae98a6e93344c444de21d3d994a8cf6490226444bf4",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -5773,7 +5773,7 @@
       "module": "validate_interaction_cluster_phase_c_freeze",
       "owner_class": "historical_reproduction",
       "path": "Iris/build/description/v2/tools/build/validate_interaction_cluster_phase_c_freeze.py",
-      "sha256": "3e5b3d21 DVF_AUTHORITY_ROLE_MIGRATION[a3e938bf37881b9de79316ac7f84f822]f7e50d89661b5cb1b7054c360aecc207df856949545b6209a421aec5",
+      "sha256": "3e5b3d21f7e50d89661b5cb1b7054c360aecc207df856949545b6209a421aec5",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -6215,7 +6215,7 @@
       ],
       "main_work": true,
       "path": "Iris/build/description/v2/tests/test_build_acquisition_phase2_design_bundle.py",
-      "sha256": "7ee380da21 DVF_AUTHORITY_ROLE_MIGRATION[41b2e9dfb1a53aa10d9626174298f7e3]a9d319e10d2199597747a15b23df769ea6744542e383c795795567",
+      "sha256": "7ee380da21a9d319e10d2199597747a15b23df769ea6744542e383c795795567",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -6395,7 +6395,7 @@
       ],
       "main_work": true,
       "path": "Iris/build/description/v2/tests/test_build_identity_fallback_residual_round_phase0_1.py",
-      "sha256": "61251c5d3ba16b491a21 DVF_AUTHORITY_ROLE_MIGRATION[06f6befa33de93d072eb3e820f282f41]dfad7a5bca93806ce341cbbc7a82de61f3b2a1050f0a",
+      "sha256": "61251c5d3ba16b491a21dfad7a5bca93806ce341cbbc7a82de61f3b2a1050f0a",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -6487,7 +6487,7 @@
       ],
       "main_work": true,
       "path": "Iris/build/description/v2/tests/test_build_quality_publish_phase6_validation_pack.py",
-      "sha256": "8a6f881784a5d15ddc3356c652ae2c03c7a39773f7d501282ad0110d21 DVF_AUTHORITY_ROLE_MIGRATION[163cf4aa49163adde18e58f9c6d47ad4]aa2767",
+      "sha256": "8a6f881784a5d15ddc3356c652ae2c03c7a39773f7d501282ad0110d21aa2767",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -6910,7 +6910,7 @@
       ],
       "main_work": true,
       "path": "Iris/build/description/v2/tests/test_interaction_cluster_phase_d_runtime.py",
-      "sha256": "e21 DVF_AUTHORITY_ROLE_MIGRATION[bea1f95628a535c94538792c6fa3900e]b693adaeca5e7eb81a728579c21e91c0727370afba0262dcb57fbd524e96e",
+      "sha256": "e21b693adaeca5e7eb81a728579c21e91c0727370afba0262dcb57fbd524e96e",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -7069,7 +7069,7 @@
       ],
       "main_work": true,
       "path": "Iris/build/description/v2/tests/test_layer3_structural_audit.py",
-      "sha256": "82c21 DVF_AUTHORITY_ROLE_MIGRATION[80c9b11755f0860cadbb3e3f777b9c69]ae637bcf9a12db1611e6d253769a968e01d23d5193239ffba82589b9413",
+      "sha256": "82c21ae637bcf9a12db1611e6d253769a968e01d23d5193239ffba82589b9413",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -7147,7 +7147,7 @@
       "imported_build_modules": [],
       "main_work": true,
       "path": "Iris/build/description/v2/tests/test_phase5_array_util_contract.py",
-      "sha256": "54d888e21 DVF_AUTHORITY_ROLE_MIGRATION[92620c6e4a1b127bb7ac235c395c012f]e352767f4f5030ce6954b3cd4b8546d8d6a35bad7d4287a7b4a787d",
+      "sha256": "54d888e21e352767f4f5030ce6954b3cd4b8546d8d6a35bad7d4287a7b4a787d",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false
@@ -7854,7 +7854,7 @@
       ],
       "main_work": true,
       "path": "Iris/build/description/v2/tests/test_report_semantic_axis_linkage.py",
-      "sha256": "1f40a117c938d79bd2105 DVF_AUTHORITY_ROLE_MIGRATION[8c4da64698123b37d8636fa69fe6e395]baec6ac6690999ae65ae5b5fb80c730ffdb304004fe",
+      "sha256": "1f40a117c938d79bd2105baec6ac6690999ae65ae5b5fb80c730ffdb304004fe",
       "subprocess_execution": false,
       "sys_exit": false,
       "tracked": false

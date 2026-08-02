@@ -2875,9 +2875,9 @@
       "archive_eligible": false,
       "delete_eligible": false,
       "final_disposition": "keep_diagnostic_advisory",
-      "module": "build_silent_21 DVF_AUTHORITY_ROLE_MIGRATION[e0991a48478503db96cea257b9c0439e]_replacement_authority_reconstruction_round",
+      "module": "build_silent_21_replacement_authority_reconstruction_round",
       "owner_class": "diagnostic_advisory",
-      "path": "Iris/build/description/v2/tools/build/build_silent_21 DVF_AUTHORITY_ROLE_MIGRATION[5cf543722d18e4f33f273380112ea2f2]_replacement_authority_reconstruction_round.py",
+      "path": "Iris/build/description/v2/tools/build/build_silent_21_replacement_authority_reconstruction_round.py",
       "reason": "D2 limited approval: diagnostic/advisory surface retained outside default current route; blocking signals=doc_or_path_reference,artifact_path.",
       "recommended_disposition": "keep_diagnostic_advisory",
       "signals": {

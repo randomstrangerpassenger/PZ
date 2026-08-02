@@ -1598,7 +1598,7 @@
       "doc_or_path_reference_count": 198,
       "dynamic_import_signal": false,
       "method": "static_reference_or_signal_scan",
-      "module": "build_silent_21 DVF_AUTHORITY_ROLE_MIGRATION[3f695497b1924ab10abee408f9821fed]_replacement_authority_reconstruction_round",
+      "module": "build_silent_21_replacement_authority_reconstruction_round",
       "path": "Iris/build/description/v2/tools/build/build_silent_21_replacement_authority_reconstruction_round.py",
       "production_mapping": "unresolved_static_signal"
     },

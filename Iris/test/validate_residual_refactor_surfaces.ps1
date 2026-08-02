@@ -158,7 +158,7 @@ $ModuleFiles = @{
     'Iris/UI/Wiki/IrisWikiPanel' = 'Iris/media/lua/client/Iris/UI/Wiki/IrisWikiPanel.lua'
     'Iris/UI/Browser/IrisBrowser' = 'Iris/media/lua/client/Iris/UI/Browser/IrisBrowser.lua'
     'Iris/Data/IrisData' = 'Iris/media/lua/client/Iris/Data/IrisData.lua'
-    'generated runtime global' = 'Iris/media/lua/client/Iris/Data/IrisPrimarySubcategory.lua'
+    'generated runtime global' = 'Iris/media/lua/client/Iris/Data/IrisClassifications.lua'
 }
 $SurfaceRows = @()
 $Incompatible = 0
@@ -170,7 +170,7 @@ foreach ($Surface in $SupportedBaseline.surfaces) {
         $Exists = Test-Path -LiteralPath (Join-Path $RepositoryRoot $RelativeFile) -PathType Leaf
     }
     if (-not $Exists -and $ModulePath -eq 'generated runtime global') {
-        $PrimarySource = Join-Path $RepositoryRoot 'Iris/media/lua/client/Iris/Data/IrisPrimarySubcategory.lua'
+        $PrimarySource = Join-Path $RepositoryRoot 'Iris/media/lua/client/Iris/Data/IrisClassifications.lua'
         $Exists = Test-Path -LiteralPath $PrimarySource -PathType Leaf
     }
     $Status = if ($Exists) { 'compatible' } else { 'incompatible' }
@@ -199,11 +199,12 @@ $Unauthorized = 0
 foreach ($Row in $ProtectedBaseline.rows) {
     $FullPath = Join-Path $RepositoryRoot ([string]$Row.path)
     $After = Get-HashOrNull $FullPath
-    $Changed = $After -cne [string]$Row.sha256
+    $Before = if ($null -eq $Row.sha256) { $null } else { [string]$Row.sha256 }
+    $Changed = if ($null -eq $Before -and $null -eq $After) { $false } else { $After -cne $Before }
     if ($Changed) { $Unauthorized += 1 }
     $ProtectedRows += [ordered]@{
         path = [string]$Row.path
-        before_sha256 = [string]$Row.sha256
+        before_sha256 = $Before
         after_sha256 = $After
         changed = $Changed
         authorized = $false

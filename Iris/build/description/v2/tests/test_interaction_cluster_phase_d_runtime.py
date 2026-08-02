@@ -15,7 +15,10 @@ if str(ROOT) not in sys.path:
 
 from clean_checkout_test_paths import external_test_path
 from tools.build.build_interaction_cluster_phase_d_runtime import write_checklist
-from tools.build.export_dvf_3_3_lua_bridge import export_lua_bridge
+from tools.build.export_dvf_3_3_lua_bridge import (
+    RUNTIME_FULLTYPE_ALIASES,
+    export_lua_bridge,
+)
 from tools.build.validate_interaction_cluster_phase_d_runtime import (
     build_phase_d_runtime_report,
     read_browser_runtime_text,
@@ -206,13 +209,19 @@ class InteractionClusterPhaseDRuntimeTest(unittest.TestCase):
             self.assertGreaterEqual(
                 bridge_report["runtime_entry_count"], expected_entry_count
             )
-            self.assertIn(
-                {
-                    "source_full_type": "Base.CanOpener",
-                    "alias_full_type": "Base.TinOpener",
-                },
-                bridge_report["applied_aliases"],
-            )
+            rendered_entries = load_json(rendered_path).get("entries", {})
+            applied_aliases = bridge_report["applied_aliases"]
+            for source_full_type, alias_full_types in RUNTIME_FULLTYPE_ALIASES.items():
+                for alias_full_type in alias_full_types:
+                    mapping = {
+                        "source_full_type": source_full_type,
+                        "alias_full_type": alias_full_type,
+                    }
+                    expected_applied = (
+                        source_full_type in rendered_entries
+                        and alias_full_type not in rendered_entries
+                    )
+                    self.assertEqual(expected_applied, mapping in applied_aliases)
             self.assertIn("runtime_publish_state_counts", bridge_report)
             wiki_sections = (
                 IRIS_MOD_ROOT

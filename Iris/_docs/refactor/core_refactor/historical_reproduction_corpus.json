@@ -2,7 +2,7 @@
   "schema_version": "iris-historical-reproduction-corpus-v1",
   "purpose": "Self-contained ignored historical and diagnostic route reproduction for exact-commit clean checkout validation.",
   "archive_path": "Iris/_docs/refactor/core_refactor/historical_reproduction_corpus.zip",
-  "archive_sha256": "b497e9ccae1b4debcec6ccfc1a69afd017339d218a57d010d1434054175555ef",
+  "archive_sha256": "0b34c85c823f9320b7bc299d77195e58f529b7b199a1ceb3623fbc684b83a2f1",
   "row_count": 2409,
   "route_test_count": 201,
   "build_support_count": 498,
@@ -7324,7 +7324,7 @@
     {
       "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py",
       "entry_kind": "build_support",
-      "sha256": "dfde8da71313b394a9c295cba6b8bbaff4707ad7f1d41498431097ca3383b79d",
+      "sha256": "6893fc56c36cbe74d0fc47f06fc8148c70e38a164cb21161c5b5644d521aa93d",
       "source_kind": "tracked_live_build_support",
       "source_path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py"
     },
@@ -7359,7 +7359,7 @@
     {
       "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance_official_0005_phase7_freeze_inventory_completeness.py",
       "entry_kind": "build_support",
-      "sha256": "9e9ade049ced5a7b1a2cfb4ecacc47c44887d94e69b9c84016e2b8061066303a",
+      "sha256": "63670e0a5b9b4138b720e9e6347c64017c8a85d64fe19f64754a1fa92cd6c3ac",
       "source_kind": "tracked_live_build_support",
       "source_path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance_official_0005_phase7_freeze_inventory_completeness.py"
     },

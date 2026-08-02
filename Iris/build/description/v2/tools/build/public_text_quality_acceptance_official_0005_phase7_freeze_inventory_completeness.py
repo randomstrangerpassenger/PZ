@@ -199,7 +199,7 @@ def _python_dependency_edges(
         for path in declared_paths
         if path.endswith(".py") and path in tree
     ]
-    blobs = predecessor.predecessor._blob_bytes(blob_ids)
+    blobs = host_freeze._blob_bytes(blob_ids)
     edges: set[tuple[str, str, str]] = set()
     for source in sorted(path for path in declared_paths if path.endswith(".py")):
         row = tree.get(source)

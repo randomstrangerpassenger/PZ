@@ -462,7 +462,22 @@ def _validated_repository_artifact_target(
     if ".." in path.parts:
         raise FoundationContractError("artifact target contains parent traversal")
     try:
-        root = repository_root.resolve(strict=True)
+        root = Path(os.path.abspath(str(repository_root)))
+        existing_ancestor = root
+        while not existing_ancestor.exists():
+            parent = existing_ancestor.parent
+            if parent == existing_ancestor:
+                raise FoundationContractError(
+                    "artifact target has no resolvable existing ancestor"
+                )
+            existing_ancestor = parent
+        resolved_ancestor = existing_ancestor.resolve(strict=True)
+        if os.path.normcase(str(existing_ancestor)) != os.path.normcase(
+            str(resolved_ancestor)
+        ):
+            raise FoundationContractError(
+                "repository root descends from a path alias or symlink"
+            )
         candidate = path if path.is_absolute() else root / path
         lexical = Path(os.path.abspath(str(candidate)))
         # ``Path.resolve(strict=False)`` still asks Windows to resolve the
@@ -485,10 +500,9 @@ def _validated_repository_artifact_target(
         raise FoundationContractError(
             "artifact target path alias or symlink resolution is forbidden"
         )
-    current = root
-    if _path_has_reparse_point(current):
-        raise FoundationContractError("repository root is a reparse-point alias")
-    for component in relative.parts:
+    current = existing_ancestor
+    relative_from_existing = root.relative_to(existing_ancestor)
+    for component in (*relative_from_existing.parts, *relative.parts):
         current = current / component
         if _path_has_reparse_point(current):
             raise FoundationContractError(

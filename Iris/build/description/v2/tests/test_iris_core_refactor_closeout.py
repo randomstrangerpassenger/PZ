@@ -25,7 +25,11 @@ def sha256_candidates(path: Path) -> set[str]:
     data = path.read_bytes()
     candidates = {hashlib.sha256(data).hexdigest()}
     if path.suffix.lower() != ".zip":
-        normalized = data.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+        deduplicated = data
+        while b"\r\r\n" in deduplicated:
+            deduplicated = deduplicated.replace(b"\r\r\n", b"\r\n")
+        candidates.add(hashlib.sha256(deduplicated).hexdigest())
+        normalized = deduplicated.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
         candidates.add(hashlib.sha256(normalized).hexdigest())
     return candidates
 

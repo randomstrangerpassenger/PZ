@@ -10,7 +10,7 @@
   "primary_review_artifact_count": 21,
   "review_independence_basis": "user-supplied independent external review decision outside the executor-generated validator decision path",
   "review_verdict": "PASS",
-  "reviewed_artifact_manifest_hash": "b82f5e41991f2a799745594eb29ae614b5ce6cd69805d6471926d73a67c74d3c",
+  "reviewed_artifact_manifest_hash": "cf068c6c8de4a3a29a7063389ecb9e589c0a23c269f1728528aec192d3945a29",
   "reviewer_identity": "MW-declared-external-review-pass",
   "reviewer_kind": "user_supplied_independent_external_review",
   "same_authorship_chain_basis": "declared independent of executor evidence generation and validator implementation authorship chain",

@@ -24,11 +24,7 @@ def _is_within(path: Path, parent: Path) -> bool:
 def _default_external_base(checkout_key: str) -> Path:
     public_root = os.environ.get("PUBLIC")
     system_temp_root = Path(public_root) if public_root else Path(tempfile.gettempdir())
-    return (
-        system_temp_root.resolve()
-        / "IrisTest"
-        / f"checkout-{checkout_key}"
-    )
+    return system_temp_root.resolve() / "IT" / checkout_key
 
 
 def external_test_root() -> Path:
@@ -44,7 +40,7 @@ def external_test_root() -> Path:
             base = _default_external_base(checkout_key)
             base.mkdir(parents=True, exist_ok=True)
             _DEFAULT_TEMP_DIRECTORY = tempfile.TemporaryDirectory(
-                prefix="run-",
+                prefix="r-",
                 dir=base,
             )
         root = Path(_DEFAULT_TEMP_DIRECTORY.name).resolve()

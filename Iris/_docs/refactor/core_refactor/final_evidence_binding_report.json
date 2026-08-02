@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "report_kind": "post_seal_terminal_closeout_attestation",
+  "status": "binding_materialized_cleanup_pending",
+  "claim_boundary": "change9_integrated_closeout_only",
+  "non_recursive_subject_policy": "this evidence-only report commit is not a new runtime or sealed-manifest subject",
+  "seal_candidate": {
+    "final_changeset_commit": "f877f45b2e60740dbedc8fea637bec712ca2022b",
+    "final_changeset_tree": "1ccd8ff07e725d0265b5e9ac2ddb9fcd8fbd5f53",
+    "manifest_generation": 10,
+    "manifest_required_count": 75,
+    "manifest_reserved_future_count": 0,
+    "manifest_sealed": true,
+    "required_asset_ids_sha256": "6398631fe53b239e670ac6b5bf5a405fb80936b1016246b689fb2d0ab853ae2e",
+    "manifest_path": "Iris/_docs/refactor/core_refactor/phase1_validation_asset_manifest.json",
+    "manifest_git_blob": "fe80b1f0f1dca61bea68113d0e85692bbd675d88",
+    "manifest_git_blob_sha256": "5e7c3982f065dfe8ef3581d9679f5fd21ec356d50bbc55b15554c2deb82543a3",
+    "manifest_checkout_file_sha256": "6a15d756566452d6347188a902a0d387235bc5e53c67b341804704a389594b0c",
+    "ceiling_path": "Iris/_docs/refactor/core_refactor/phase1_validation_ceiling.json",
+    "ceiling_git_blob": "8c6e0d6117718bd4ccdd70ef161d98ca4a4a8555",
+    "ceiling_git_blob_sha256": "f802d6b9423cec55fd5ff02af3a4cfef242fffc3fe780f3e3309aa0baafcd551",
+    "validator_path": "Iris/test/validate_validation_assets.ps1",
+    "validator_git_blob": "cf3870b047ba15f9dc41b5740a6ebec7a440cec6",
+    "validator_git_blob_sha256": "3ccbbed7a6f76f4c03228ae0b07fd7b00de5d46047e6d8800fd3ead4db0d3749",
+    "validator_checkout_file_sha256": "c1ff1985424b0216e10729ca6dcfb50474f8a090994473b76a70015f5d5b44fa"
+  },
+  "clean_checkout": {
+    "status": "pass",
+    "mode": "CleanCheckout",
+    "target_identity": "f877f45b2e60740dbedc8fea637bec712ca2022b:1ccd8ff07e725d0265b5e9ac2ddb9fcd8fbd5f53",
+    "validation_commands_status": "mandatory_pass_diagnostic_advisory_reported",
+    "receipt_projection": {
+      "required_count": 75,
+      "required_asset_ids_sha256": "6398631fe53b239e670ac6b5bf5a405fb80936b1016246b689fb2d0ab853ae2e",
+      "reserved_future_count": 0,
+      "manifest_sealed": true,
+      "checkout_protected_row_count": 24,
+      "checkout_protected_changed_count": 0,
+      "checkout_protected_approved_changed_count": 1,
+      "source_status_sha256_before": "a3cdcf7facea690137f0c60717b4d625a56a87dc6ed5b6cf0f164bdb97dcd4f8",
+      "source_status_sha256_after": "a3cdcf7facea690137f0c60717b4d625a56a87dc6ed5b6cf0f164bdb97dcd4f8",
+      "source_status_equal": true,
+      "source_protected_sha256_before": "972a55889ad53ee8a720cd225ef0b77bf767fe1136c87310c95c0f9e974073aa",
+      "source_protected_sha256_after": "972a55889ad53ee8a720cd225ef0b77bf767fe1136c87310c95c0f9e974073aa",
+      "source_protected_equal": true,
+      "checkout_cleanup": true
+    },
+    "external_work_root": "C:\\Users\\Public\\icw-f877f45b",
+    "external_work_root_cleanup": true,
+    "external_result_root": "C:\\Users\\Public\\icr-f877f45b",
+    "external_result_root_cleanup": false,
+    "external_result_files": {
+      "canonical-result.json": "f1936eaff846ee542d27a01c86b22e41a136045e0dcaa35f8796cfb57138ccf9",
+      "receipt.json": "9c12a9478256006ffd46e850bc59556989f00a071a3f7aa6d479db3de9043ce6",
+      "stdout.txt": "65946c5d97f9d38decc5477a3e8e3daf34e121920ff90a2aaecb1f7b408dda29",
+      "stderr.txt": "208a79fde8ac61149fdc576bb230793de55236dbe97b6ad023989851c6e6f310"
+    },
+    "external_hashes_reverified_before_materialization": true
+  },
+  "evidence_bindings": [
+    {
+      "binding_path": "Iris/_docs/refactor/core_refactor/phase1_pre_refactor_headless_baseline.binding.json",
+      "binding_git_blob": "aa23bd8653979b71cbecbfc2b248153ccb18ab7d",
+      "binding_git_blob_sha256": "df27508fd23b1f2345aa8ce2ead39b77f72efeeb552f52f45cf099bbee0f5b05",
+      "evidence_path": "Iris/_docs/refactor/core_refactor/phase1_pre_refactor_headless_baseline.jsonl",
+      "evidence_sha256": "87b66d23ed28e6ab09e28581d96c41b59d715a2d024ee3ffad56c8b06958e497",
+      "subject_commit": "72e76b367622f64af264f445889ea1832c87008a",
+      "subject_tree": "9c98dad4623cea9242a41b77f0e378a87e56559f",
+      "producer_base_commit": "72e76b367622f64af264f445889ea1832c87008a",
+      "producer_base_tree": "9c98dad4623cea9242a41b77f0e378a87e56559f",
+      "producer_worktree_state": "tracked_and_untracked_overlay",
+      "producer_overlay_sha256_or_null": "e54dfe08087f6f02418c50a5c8a2b3737ec70adb842177b857283b1f3f13be92",
+      "final_changeset_commit": "f877f45b2e60740dbedc8fea637bec712ca2022b"
+    },
+    {
+      "binding_path": "Iris/_docs/refactor/core_refactor/phase1_pre_refactor_pz_baseline.binding.json",
+      "binding_git_blob": "d2bf7248a0508f5cbdd504a32b1f620fc2abd82e",
+      "binding_git_blob_sha256": "cff73ba571ab5327c66120a1c9d45b58d5e72f82cc4b97ad14d0555ca0b635ec",
+      "evidence_path": "Iris/_docs/refactor/core_refactor/phase1_pre_refactor_pz_baseline.jsonl",
+      "evidence_sha256": "061fb1a3262d73df4629ebedb534b6bf82b7389bef73d060d534566b6a795e09",
+      "subject_commit": "72e76b367622f64af264f445889ea1832c87008a",
+      "subject_tree": "9c98dad4623cea9242a41b77f0e378a87e56559f",
+      "producer_base_commit": "72e76b367622f64af264f445889ea1832c87008a",
+      "producer_base_tree": "9c98dad4623cea9242a41b77f0e378a87e56559f",
+      "producer_worktree_state": "tracked_and_untracked_overlay",
+      "producer_overlay_sha256_or_null": "861a8b4fc02bc6cbc404b39d081a0d7df19c4d2230cec924504c11caf5eeacf5",
+      "final_changeset_commit": "f877f45b2e60740dbedc8fea637bec712ca2022b"
+    },
+    {
+      "binding_path": "Iris/_docs/refactor/core_refactor/phase2_description_acceptance.binding.json",
+      "binding_git_blob": "dbc71965ac5f19fc89e81d46f63b7ee81c8dd8b5",
+      "binding_git_blob_sha256": "d73e9f43f2b375c89ec77fa32f217b17282600fcf81536f35ee121bc9e9f9537",
+      "evidence_path": "Iris/_docs/refactor/core_refactor/phase2_description_acceptance.jsonl",
+      "evidence_sha256": "c79a1200726740beefe1dd30488249045731e23a4b29b58d52e1a7bdde5013af",
+      "subject_commit": "60a919f016c8cee2eb2af7c76c243f399d341c14",
+      "subject_tree": "f7ea8868937de9426e1a8274f022a7bb6a9623a5",
+      "producer_base_commit": "60a919f016c8cee2eb2af7c76c243f399d341c14",
+      "producer_base_tree": "f7ea8868937de9426e1a8274f022a7bb6a9623a5",
+      "producer_worktree_state": "clean",
+      "producer_overlay_sha256_or_null": null,
+      "final_changeset_commit": "f877f45b2e60740dbedc8fea637bec712ca2022b"
+    },
+    {
+      "binding_path": "Iris/_docs/refactor/core_refactor/phase3_browser_acceptance.binding.json",
+      "binding_git_blob": "0d29177c64cd5cfe0359e96ab77af512ea878056",
+      "binding_git_blob_sha256": "1dde94be99c742951bf3e2e8239d9401a40d416169561f0e63a7ccfa114531e3",
+      "evidence_path": "Iris/_docs/refactor/core_refactor/phase3_browser_acceptance.jsonl",
+      "evidence_sha256": "dd05f293824d613b0fcc3d328066271339e8e0a19058a96472e5189d84e3c945",
+      "subject_commit": "60a919f016c8cee2eb2af7c76c243f399d341c14",
+      "subject_tree": "f7ea8868937de9426e1a8274f022a7bb6a9623a5",
+      "producer_base_commit": "60a919f016c8cee2eb2af7c76c243f399d341c14",
+      "producer_base_tree": "f7ea8868937de9426e1a8274f022a7bb6a9623a5",
+      "producer_worktree_state": "clean",
+      "producer_overlay_sha256_or_null": null,
+      "final_changeset_commit": "f877f45b2e60740dbedc8fea637bec712ca2022b"
+    },
+    {
+      "binding_path": "Iris/_docs/refactor/core_refactor/phase4_detail_acceptance.binding.json",
+      "binding_git_blob": "77daf49c2032f6301540a9495555e858b2089bf5",
+      "binding_git_blob_sha256": "db5f06710080ef012dd97d0fcc28cd14deb3e22247a19fa61cc244fb4871fe2a",
+      "evidence_path": "Iris/_docs/refactor/core_refactor/phase4_detail_acceptance.jsonl",
+      "evidence_sha256": "3a9f2c1326b146c828bc85125af01b863f2723d7f9060102afaf5b21a9b3bb45",
+      "subject_commit": "60a919f016c8cee2eb2af7c76c243f399d341c14",
+      "subject_tree": "f7ea8868937de9426e1a8274f022a7bb6a9623a5",
+      "producer_base_commit": "60a919f016c8cee2eb2af7c76c243f399d341c14",
+      "producer_base_tree": "f7ea8868937de9426e1a8274f022a7bb6a9623a5",
+      "producer_worktree_state": "clean",
+      "producer_overlay_sha256_or_null": null,
+      "final_changeset_commit": "f877f45b2e60740dbedc8fea637bec712ca2022b"
+    },
+    {
+      "binding_path": "Iris/_docs/refactor/core_refactor/phase5_legacy_surface_acceptance.binding.json",
+      "binding_git_blob": "a55a8e8b6c73dc762566dd445858a30a1d298e42",
+      "binding_git_blob_sha256": "2120fb11e0d297d06e65d79c4dabc8b5c5e555ceb2bc1e76b210817eb7dc7680",
+      "evidence_path": "Iris/_docs/refactor/core_refactor/phase5_legacy_surface_acceptance.jsonl",
+      "evidence_sha256": "a3c7f8c7fb433f7dc8a01a47c83e2c56d00132b753cc71db15fdb67956d50fdb",
+      "subject_commit": "60a919f016c8cee2eb2af7c76c243f399d341c14",
+      "subject_tree": "f7ea8868937de9426e1a8274f022a7bb6a9623a5",
+      "producer_base_commit": "60a919f016c8cee2eb2af7c76c243f399d341c14",
+      "producer_base_tree": "f7ea8868937de9426e1a8274f022a7bb6a9623a5",
+      "producer_worktree_state": "clean",
+      "producer_overlay_sha256_or_null": null,
+      "final_changeset_commit": "f877f45b2e60740dbedc8fea637bec712ca2022b"
+    }
+  ],
+  "superseded_attempts": [
+    {
+      "target_commit": "b6bbe3b23ddd5ca9ddba3b8e12ed732007e0b314",
+      "status": "failed_before_tests",
+      "reason_code": "windows_powershell_native_stderr_promotion",
+      "work_root_cleanup": true,
+      "result_root": "C:\\Users\\Public\\icr-b6bbe3b2",
+      "result_root_cleanup": false,
+      "result_files": {
+        "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "target_commit": "1292970c02c14a676f364b20442d234ddb35b0a7",
+      "status": "clean_checkout_pass_superseded",
+      "reason_code": "stale_ceiling_binding_content_hashes",
+      "work_root_cleanup": true,
+      "result_root": "C:\\Users\\Public\\icr-1292970c",
+      "result_root_cleanup": false,
+      "result_files": {
+        "canonical-result.json": "1bba106a22265b1651dc593e9e66ae4fd48fca038909c2057c6eadbab1f08a95",
+        "receipt.json": "d686b9c8f7f190b0c24db1ed7c3c65184ae83d7936449ca0ea139cab29df9764",
+        "stdout.txt": "5bc8a5a5a03111e42e620395bdca9630f4bac8dd088eb0f11ea79edf4a9b755c",
+        "stderr.txt": "5ecd5cda103eff0ce089d535baa5cd1099a5a33107e30f23de9da1d139589eac"
+      }
+    }
+  ],
+  "cleanup_gate": {
+    "binding_report_tracked_commit_required": true,
+    "external_hashes_must_match_before_delete": true,
+    "pending_result_roots": [
+      "C:\\Users\\Public\\icr-b6bbe3b2",
+      "C:\\Users\\Public\\icr-1292970c",
+      "C:\\Users\\Public\\icr-f877f45b"
+    ],
+    "cleanup_complete": false
+  }
+}

@@ -170,17 +170,21 @@ class InteractionClusterPhaseDRuntimeTest(unittest.TestCase):
             chunk_manifest_path = tmp / "IrisLayer3DataChunks.lua"
             chunk_output_dir = tmp / "IrisLayer3DataChunks"
             bridge_report_path = runtime_dir / "phase_d_lua_bridge_report.json"
+            rendered_path = ROOT / "output" / "dvf_3_3_rendered.json"
+            expected_entry_count = len(load_json(rendered_path).get("entries", {}))
             report = None
 
+            self.assertGreater(expected_entry_count, 0)
+
             export_lua_bridge(
-                rendered_path=ROOT / "output" / "dvf_3_3_rendered.json",
+                rendered_path=rendered_path,
                 report_path=bridge_report_path,
                 chunk_output_dir=chunk_output_dir,
                 chunk_manifest_path=chunk_manifest_path,
                 output_root=tmp,
             )
             report = build_phase_d_runtime_report(
-                rendered_path=ROOT / "output" / "dvf_3_3_rendered.json",
+                rendered_path=rendered_path,
                 bridge_report_path=bridge_report_path,
                 layer3_chunk_manifest_path=chunk_manifest_path,
                 layer3_chunk_dir=chunk_output_dir,
@@ -194,10 +198,14 @@ class InteractionClusterPhaseDRuntimeTest(unittest.TestCase):
             self.assertEqual(
                 report["overall_status"], "ready_for_in_game_validation", report
             )
-            self.assertEqual(report["rendered_entry_count"], 6)
+            self.assertEqual(report["rendered_entry_count"], expected_entry_count)
             bridge_report = load_json(bridge_report_path)
-            self.assertEqual(bridge_report["source_entry_count"], 6)
-            self.assertGreaterEqual(bridge_report["runtime_entry_count"], 6)
+            self.assertEqual(
+                bridge_report["source_entry_count"], expected_entry_count
+            )
+            self.assertGreaterEqual(
+                bridge_report["runtime_entry_count"], expected_entry_count
+            )
             self.assertIn(
                 {
                     "source_full_type": "Base.CanOpener",

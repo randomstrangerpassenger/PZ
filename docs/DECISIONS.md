@@ -2261,7 +2261,7 @@ Iris DVF 3-3 — validated Naturalization current runtime adoption / canonical p
 
 Iris — consolidated core refactor implementation / integrated-closeout boundary
 
-* 날짜: 2026-08-02
+* 날짜: 2026-08-03
 * 상태: Changes 1–6 implemented / Change 7 `deferred_by_design` / Change 8 `no_op` / Change 9 `complete`; terminal status authority is `final_evidence_binding_report.json.status=complete`
 * 결정:
 
@@ -2290,7 +2290,8 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
 * Trace:
 
   * consolidated plan: `docs/iris_core_refactoring_consolidated_plan.md`
-  * implementation series: `c096d8d6` .. `34db710b`
+  * implementation / validation series: `c096d8d6` .. `f877f45b`
+  * terminal binding / cleanup attestation: `b9658f16` .. `2f301287`; ecosystem state-document sync: `b235150b`
   * closeout evidence: `Iris/_docs/refactor/core_refactor/final_closeout.md`, `final_validation_matrix.json`, `final_package_identity_report.json`, `final_supported_api_compatibility_report.json`, `phase1_validation_asset_manifest.json`, `phase1_validation_ceiling.json`, post-seal `final_evidence_binding_report.json`
 
 ---

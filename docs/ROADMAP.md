@@ -459,7 +459,7 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * implementation commit/tree는 `a440b9a638ae3caf0cb37215d46ebfc9dba7b90a` / `138ef819d166a5cd41f39e11047108201fd00b99`이고 Codex Reviewer 최종 verdict는 finding `0`, `PROCEED`다. 결합 claim은 `validated_naturalization_candidate_adopted_to_current_runtime_and_package`다.
   * 이 완료를 package publication, release/Workshop/B42 readiness, RTC certification, G6 completion, owner seal 또는 별도 terminal closure로 확대하지 않는다.
 
-* Consolidated Iris core refactor Changes 1–8과 Change 9 terminal closeout을 완료했다.
+* 2026-08-03 terminal readpoint에서 Consolidated Iris core refactor Changes 1–8과 Change 9 terminal closeout을 완료했다.
 
   * Changes 1–6은 Description block-derived output, explicit Browser cache/selection state, Browser/Wiki shared detail fact model, scroll widget 보존, legacy access/variant adapter 격리로 구현했다.
   * Change 7 build-tool decomposition은 current 12-module core와 approved tooling 4/4를 보존하는 `deferred_by_design`, Change 8 repository cleanup은 delete candidate `0`인 `no_op`으로 닫았다.
@@ -468,7 +468,7 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * diagnostic `77 tests / 3 failures / 26 errors`는 retired input을 생략한 historical overlay와 ignored local source-contract anchor에 한정된 non-blocking advisory다.
   * generation-10 manifest/ceiling은 historical corpus JSON/ZIP을 포함한 required 75, reserved future 0, lifecycle 전부 sealed, mandatory unvalidated axis 0으로 봉인한다. Generation 8의 정상 git stderr를 PowerShell 5.1이 오류로 올린 operational 시도와, CleanCheckout PASS 뒤 stale ceiling binding hash가 발견된 generation 9을 supersede한다. Generation 10은 native exit code와 six binding Git-blob SHA-256 1:1 guard를 사용한다. Seal candidate `f877f45b`의 exact CleanCheckout이 통과했고, binding attestation `b9658f16` 뒤 세 external result root를 정리한 cleanup attestation `2f301287`에서 `final_evidence_binding_report.json.status=complete`를 기록했다.
   * `Iris/build/package/Iris`의 101개 package file은 source `Iris`와 missing `0` / hash difference `0`이며, ignored legacy seed 16개는 authority로 채택하지 않고 외부 quarantine에 격리했다.
-  * 이전 current-route 복구 review verdict는 `APPROVE / P0 0 / P1 0 / P2 0`이다. 최종 Change 9 terminal artifact도 Codex Reviewer의 read-only 검토를 거친다. 구현 series는 `c096d8d6`부터 `34db710b`다.
+  * 이전 current-route 복구 review verdict는 `APPROVE / P0 0 / P1 0 / P2 0`이다. 최종 Change 9 terminal artifact의 Codex Reviewer read-only verdict도 `APPROVE / P0 0 / P1 0 / P2 0 / P3 0`이다. 구현 / 검증 series는 `c096d8d6`부터 `f877f45b`, terminal binding / cleanup attestation은 `b9658f16`부터 `2f301287`이다.
 
 ## Doing
 

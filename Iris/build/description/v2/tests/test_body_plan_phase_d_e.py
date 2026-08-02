@@ -294,7 +294,7 @@ class BodyPlanPhaseDETest(unittest.TestCase):
             enforce_current_baseline=False,
         )
 
-        self.assertEqual(report["overall_status"], "pass")
+        self.assertEqual(report["overall_status"], "pass", report)
         self.assertFalse(report["failures"])
 
     def test_runtime_rollout_exports_lua_that_matches_staged_payload(self) -> None:

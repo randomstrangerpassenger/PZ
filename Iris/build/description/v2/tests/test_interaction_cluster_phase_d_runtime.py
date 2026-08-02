@@ -191,7 +191,9 @@ class InteractionClusterPhaseDRuntimeTest(unittest.TestCase):
                 output_path=runtime_dir / "phase_d_runtime_report.json",
             )
 
-            self.assertEqual(report["overall_status"], "ready_for_in_game_validation")
+            self.assertEqual(
+                report["overall_status"], "ready_for_in_game_validation", report
+            )
             self.assertEqual(report["rendered_entry_count"], 6)
             bridge_report = load_json(bridge_report_path)
             self.assertEqual(bridge_report["source_entry_count"], 6)

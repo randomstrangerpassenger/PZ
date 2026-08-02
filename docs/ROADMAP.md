@@ -1,7 +1,7 @@
 # ROADMAP.md
 
-> 상태: canonical summary + deduplicated consolidated addendum ledger through 2026-06-29
-> 기준일: 2026-06-29
+> 상태: canonical summary + deduplicated consolidated addendum ledger through 2026-08-01
+> 기준일: 2026-08-01
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 현재 진행 방향과 다음 게이트를 짧게 고정한다.
 
@@ -428,6 +428,37 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * closed readpoint를 재개방하려면 새 입력 authority, 명시적 successor / correction scope, 또는 별도 approved plan이 필요하다.
   * 개별 closeout 근거만으로 release readiness / Workshop readiness / B42 readiness / deployment readiness / semantic quality completion / public-facing text quality acceptance를 선언하지 않는다.
 
+* G1 reusable IAR evaluator clean-checkout integration을 append-only successor `0011`로 완료했다.
+
+  * tracked test source `94`개를 `required 34 / historical optional 55 / obsolete 3 / fixture 2`로 fresh recensus했고 unclassified source는 `0`이다.
+  * `test_iar_public_text_assessment.py`를 explicit current-required로 고정하고 generic contract / runner / no-write validator 3개를 direct dependencies로 결속했다.
+  * dependency census는 `715` edges, unresolved `0`이며 canonical dependency inventory는 Run A/B에서 동일했다.
+  * generic evaluator regression `7/7`, tracked G5 result standalone no-write validation, clean-checkout Run A/B 각각 `pytest 202 + standalone 4 = 206/206`이 PASS했다.
+  * A/B canonical result SHA-256은 `5aacb50791ec629e67c722faf22ed00cee75984de4dbf9f1cbfcf873cebba55b`로 동일하다.
+  * disposable checkout, temporary result, census output 잔존은 `0`이며 live required-validation manifest와 protected/runtime/Lua/package mutation도 `0`이다.
+  * validated subject는 `95cbbedf68f300f780fc808aaf50113eef00dead`, append-only evidence commit은 `c3e2cac1b2c6a6e9f237d5766f2620f92794b8fb`이다.
+
+* G4 generic evaluator current-route integration과 G5 preserved-subject consumption을 Section 0 `Current Executable Scope` 기준으로 완료했다.
+
+  * G4 integration commit/tree는 `9c4b19cbaee5b2f2efb400ba7cb37411be831f48` / `de330c7b1c2ed360b0b571c66b86eed622604c40`이며 current-route는 `142/142 PASS`, exit `0`이다.
+  * live required-validation manifest에는 generic evaluator artifact `6`개와 `test_iar_public_text_assessment.py`의 test `7`개가 추가됐고 manifest SHA-256은 `58f7427cccca4ab181caf5d9bf1031d32b3b2a924858588ce5e5082f9fb6592f`다.
+  * G4 integration record SHA-256은 `143d565da1dc2fdea08adf94eacdee8048331bd34cbedfa8ea05dc6f89336a75`, generic contract raw SHA-256은 `cd964059bd7fb3ccefb175c7ebed477d51fba7341b41567c2bef9c411ed47ac9`다.
+  * G5는 preserved `2084`-item candidate를 재생성하지 않고 assessment result를 exact hash로 소비했다. result raw / deterministic SHA-256은 `4a5cb7a8a7abf77c66c79a6a6376cafbf0eb4592f19ab94c28f6f5dab4fb5137` / `861ca998dfff5a7e976d0298ba4e8c164797f6a44abf9c7f168e996d05169199`이고 finding `0`, metric `12`, assessment `PASS`다.
+  * candidate/facts/current rendered/runtime/Lua/package mutation과 새 attempt, policy judgment, detector/human review 재실행은 모두 `0`이다. G5 consumption record SHA-256은 `0d11c4ca829361e9bc772bdab58e44f73eed540a498d551907168ca8cef30c7c`이고 record commit/tree는 `14d240a1c4f22800a7576ab6e52c5019402b5a1a` / `3b869bd801f4d0fb89de0979e21bc8da3df61b77`다.
+  * 완료 claim은 `naturalization_implementation_and_quality_assessment_complete`다. 이 generic evaluator/current-route sequence는 2026-08-01의 `a30abc041…` / `b890517f…` Section 0 amendment가 부여한 current scope이며, 뒤의 충돌하는 최초 terminal/allowlist 조항은 historical/non-executable이다.
+  * 이 G4/G5 완료 자체는 current rendered adoption, runtime/Lua/package 변경, publication/deployment 또는 release readiness가 아니다. 후속 adoption 상태는 다음 완료 항목이 대체한다.
+
+* 검증된 Naturalization candidate의 current runtime adoption, canonical package identity와 final current-route closure를 완료했다.
+
+  * exact candidate/facts/input-manifest를 `attempt-0008`에서 off-live로 재생성해 public text `2084`, unadopted-without-text `21`, candidate/rendered/Lua 전수 parity와 A/B regeneration identity를 PASS했다.
+  * short external mirror에서 failure injection, exact preimage rollback, successful manifest-last transaction과 temporary/mirror/unrelated residue `0`을 증명한 뒤 rendered, Lua manifest, 11 chunks, generation descriptor를 원자적으로 cutover했다.
+  * current generation descriptor의 transaction은 `attempt-0008-live-lock-correction-0001`이며 decoded-EOL authority SHA-256은 `109dcd4fe1d3ba76059dcdced26da1ff307028cd51081832d7232de2b8693a02`다. Lua syntax `94` files와 adoption regression `16/16`이 PASS했다.
+  * Iris의 기존 `IrisWikiSections.renderLayer3Section -> layer3_renderer -> IrisLayer3DataChunks` consumer/display smoke에서 adopted/unchanged/unadopted/case-variant 표본과 stale predecessor consumption `0`을 확인했다. 사용자는 동일 current readpoint의 실제 인게임 검증 완료도 확인했다.
+  * canonical package는 `current_runtime_payload`와 `rtc_certified_payload` applicability를 분리한다. Runtime payload package는 RTC bundle 없이 exit `0`, manifest 1개 + chunk 11개의 live/package exact identity와 forbidden/stale entry `0`을 만족했고, 실제 RTC 대상은 기존 RTC freshness guard를 계속 요구한다. 혼합·모호한 입력은 fail-close한다.
+  * full current-route는 current-required test entry `66` / artifact `99`와 historical-optional test entry `8` / artifact `56`을 같은 authority SHA에 결속했다. Main 및 clean-checkout Run A/B가 동일한 전체 실행 분모 `145/145`로 PASS했고 unresolved dependency, tracked mutation, disposable residue는 `0`이다.
+  * implementation commit/tree는 `a440b9a638ae3caf0cb37215d46ebfc9dba7b90a` / `138ef819d166a5cd41f39e11047108201fd00b99`이고 Codex Reviewer 최종 verdict는 finding `0`, `PROCEED`다. 결합 claim은 `validated_naturalization_candidate_adopted_to_current_runtime_and_package`다.
+  * 이 완료를 package publication, release/Workshop/B42 readiness, RTC certification, G6 completion, owner seal 또는 별도 terminal closure로 확대하지 않는다.
+
 ## Doing
 
 * Iris는 vanilla-first MVP를 **DVF System body production / DVF Body Compiler + Tooltip / Browser 표시면 검증** 중심으로 유지한다.
@@ -442,6 +473,8 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * Layer 3 runtime data는 chunk manifest + chunk files를 deployable authority로 유지한다.
   * monolith / chunks 동시 배포는 금지한다.
   * Lua bridge exporter의 default contract와 bridge report도 chunk authority 기준으로 유지한다.
+  * current rendered, chunk manifest, 11 chunks와 generation descriptor는 하나의 generation transaction으로 유지하고 content-first / manifest-last cutover 규칙을 보존한다.
+  * package applicability는 current runtime payload와 RTC-certified payload를 명시적으로 구분하며, payload identity guard는 항상 적용하고 RTC freshness guard는 실제 RTC 대상에만 적용한다.
 
 * DVF System / Iris Artifact Registry / Publish Boundary 책임 분리를 current-route 해석 기준으로 유지한다.
 
@@ -461,9 +494,9 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * implementation과 local / remote `main`의 sealed closure commit은 `63357b7afb879f89c4f43df67ad0d39a060561fb`이다.
   * 이후 Registry Authority 작업은 새 drift, 명시적 correction / rollback, 또는 별도 approved scope가 있을 때만 연다.
 
-* Registry Runtime Compatibility의 predecessor-current closure는 역사적으로 보존하되, Food Semantic G3 뒤 live current-source alignment는 successor closure 대기 상태다.
+* Registry Runtime Compatibility의 predecessor closure와 Change 1 read-only freshness discovery는 보존하되, 현재 G6 disposition은 `not_applicable_temporary_tooling_trigger`다.
 
-  * current sealed bundle은 `46c87bfab662b09293adb6ba2b1028bdf6c0f20639c8e3fb8bd065895b5988b9`이며 lifecycle state는 `live_required_gate_adopted`다.
+  * predecessor sealed bundle은 `46c87bfab662b09293adb6ba2b1028bdf6c0f20639c8e3fb8bd065895b5988b9`이며 봉인 당시 lifecycle state는 `live_required_gate_adopted`였다.
   * source / rendered / runtime / package exact key-set은 각각 `2105`개로 동일하고 unauthorized comparison collision은 `0`이다.
   * `Base.LemonGrass` / `Base.Lemongrass` 잔존 collision은 exact key 두 개를 유지하는 owner-bound `reference + exception` disposition과 four-edge payload binding으로 봉인했다.
   * bridge preflight, chunk generation / merge, actual Lua reconstruction, isolated package projection, Windows Route A / C가 동일 contract를 fail-closed로 소비한다.
@@ -471,9 +504,11 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * roadmap negative fixture `10 / 10`, Lua syntax `188` files, RTC regression `29 / 29`, adjacent bridge regression `7 / 7`, isolated official current route `135 / 135`가 PASS했다.
   * independent review, owner canonical seal, nine-role durable closeout packet, terminal event 순서로 `registry_runtime_compatibility_canonical_complete`를 봉인했다.
   * terminal implementation commit은 `7d253c91b87abb7f1e044acf3953504180848682`, local `main` integration commit은 `c6e2190e7b093b29bc5d615523ae29cf32560ff1`이다.
-  * Food Semantic G3가 current facts를 `1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40`로 바꾸면서 `Base.LemonGrass` / `Base.Lemongrass` successor payload-equivalence가 달라졌다.
-  * 따라서 기존 bundle은 predecessor historical PASS로 보존하고, live marker는 `stale_requires_successor_rtc`, `successor_registry_runtime_compatibility_closure=false`로 읽는다.
-  * successor RTC closure 전 bridge/runtime/package/publication compatibility claim은 금지한다. Offline Naturalization retry 권한과 RTC publication readiness는 서로 대체하지 않는다.
+  * Food Semantic correction-0003 뒤 current facts는 `50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120`이고 predecessor alignment의 `applies_when` facts는 `1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40`다. 이 freshness 차이와 stale marker는 진단 입력이지만 current Iris RTC defect의 충분조건은 아니다.
+  * 시작점 `c0eb88a64a08c50fb3f581ee53a0502bd2445195` / tree `0e19bac02886d67f5f8d08e60976d896f5bc2cbc`에서 수행한 Change 1은 current source reference chain의 누락·불일치·모호성 `0/0/0`, protected/live/toolchain mutation `0`을 append-only로 봉인했다. Discovery commit/tree는 `dd4b8ac37d2b974717364c79aa04afe2fe445f58` / `64782adcf856213f61c3fbccaad217d321c287f8`이다.
+  * Change 2~8은 canonical Iris runner 재현, clean-checkout 재현, temporary orchestration 비의존, current Registry-to-runtime identity mismatch, runtime/package effect, exact failure artifact/command binding이 모두 참일 때만 연다.
+  * 현재는 predicate를 만족하는 canonical defect evidence가 없으므로 successor reservation/bundle/adoption/review/seal/terminal과 G1 pre-adoption round를 만들지 않는다. G4/G5와 후속 current runtime/package adoption은 RTC certification을 요구하지 않는 current-runtime applicability에서 완료됐다.
+  * historical diagnostic `implementation_toolchain_freshness_failed`와 SHA-256 `2eb285239433deda61baab508c2f9eb4a95bcd00100bd4cda8b7c41cea9c9969`는 보존하되 실행 권위나 RTC FAIL/PASS로 승격하지 않는다.
 
 * DVF 3-3 Food Semantic Facts Authority의 G2 successor handoff는 `attempt-0022`에서 완료했다.
 
@@ -494,15 +529,7 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * canonical final validation은 계획된 `39/39` tests PASS, 계획 밖 실행 count `0`, distinct Codex Reviewer closeout `0/0/0 PASS`다.
   * terminal hash seal `1f494ed0661627a82c3fcfd8465f2313fe0768cac82af09457e9ffc9e91b7ae1`로 `food_semantic_registry_adoption=current_adoption_complete`를 봉인했다.
   * 이 readpoint에서 식품 의미 facts authority 재구축 문제는 해결됐고 fresh Naturalization Phase 0/2 재봉인 입력이 준비됐다.
-  * 실제 rendered same-skeleton `104` 상한, 번역체/반복 문제, Phase 3~8과 Publish acceptance는 별도 후속 계획의 미완료 상태다.
-
-* Naturalization `attempt-0020` Phase 7의 44건 current-facts blocker는 append-only `correction-0003` non-current successor로 봉인했다.
-
-  * 8개 의미 cohort의 149행을 조사해 44행/60필드를 correction하고 105행을 unchanged control로 고정했다. 추가 sibling correction과 unresolved는 모두 `0`이다.
-  * 비대상 byte identity는 `2061/2061`, correction-0001/0002 기존 251행 regression과 sibling 신규 오분류는 모두 `0`, Layer 4 evidence consumption도 `0`이다.
-  * successor facts/manifest SHA-256은 `50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120` / `da7f6676b899b628c444edca56241ad274f2c64fa1a3448a934abff2f059cbb5`다.
-  * implementation commit/tree는 `cec8c43f5ba1c93d0c7a3436c74d73a1e24549fa` / `1a3d7a5bafbbd9cadc9d0f31f19e2323fc217ae8`이고, receipt SHA-256은 `ad0b16c3bec487a4eba63ba51a24ba781f200551419b22d757eebd4e76cf57f8`이다.
-  * 이 readpoint의 current facts/manifest mutation과 Registry/Naturalization/Foundation/Publish/runtime/Lua/package execution은 `0`이다. 따라서 correction successor 봉인과 후속 Registry adoption/public-text acceptance를 서로 대체하지 않는다.
+  * 이 G3 readpoint 당시에는 rendered same-skeleton `104` 상한, 번역체/반복 문제와 Phase 3~8이 별도 후속 계획의 미완료 상태였다. 현재 Naturalization 구현·품질 assessment는 G4/G5 항목이, current runtime/package adoption은 후속 `attempt-0008` 완료 항목이 각각 대체한다. Release/Workshop Publish Boundary는 계속 별도다.
 
 * 설명 계층은 해석 / 권장 / 비교 / 재작성을 하지 않는다.
 
@@ -564,14 +591,14 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
 
 ## Next
 
-* Food Semantic G2/G3 authority reconstruction과 current adoption은 닫힌 readpoint로 유지하고, 다음 단계는 별도 public-text 계획이 소유한다.
+* G4/G5 assessment와 후속 current runtime/package/current-route adoption은 완료됐다. 동일 candidate에 남은 재실행이나 자동 G6 단계는 없다.
 
-  * G2/G3를 새 drift, 명시적 correction/rollback 또는 새 owner-approved successor scope 없이 재개방하지 않는다.
-  * G4 Publish Boundary candidate-independent foundation readiness를 확인한 뒤, G5 fresh Naturalization attempt를 기존 `attempt-0014` 재사용 없이 Phase 0부터 연다.
-  * fresh Naturalization은 `attempt-0009` Phase 2 handoff v2가 결속한 current facts/manifest를 소비하고 Phase 2 source inventory를 재봉인한 뒤 Phase 3~8을 수행한다.
-  * fresh Phase 8 handoff 뒤에만 Publish Boundary official attempt를 새로 열 수 있다.
-  * 위 후속 단계가 끝나기 전에는 DVF 3-3 food repetition problem을 `resolved`, `canonical_complete`, `publicly accepted`로 기록하지 않는다.
-  * successor RTC closure는 bridge/runtime/package/publication 전에 별도 scope로 닫는다. 이 compatibility 작업은 offline Korean prose candidate 생성의 semantic authority를 변경하지 않는다.
+  * `9c4b19cb…`의 generic contract/result와 `14d240a1…`의 G5 consumption record, `attempt-0008` runtime evidence, final `145/145` current-route 결과를 current evidence로 보존한다.
+  * Current rendered/Lua adoption, canonical package/live payload identity, 기존 consumer smoke와 owner-confirmed 실제 인게임 검증은 완료 상태로 읽는다.
+  * 실제 subject finding이나 identity mismatch가 새로 확인되지 않는 한 preserved candidate, G5 assessment result, facts/manifest, detector/human review를 재생성하지 않는다.
+  * G5 result는 generic evaluator의 permanent dependency가 아니며, 후속 runtime adoption evidence와도 역할을 합치지 않는다.
+  * G2/G3는 새 drift, 명시적 correction/rollback 또는 owner-approved successor scope 없이 재개방하지 않고, G6도 자동 실행하지 않는다.
+  * G6은 canonical defect-attribution predicate가 모두 참일 때만 exact failure record에서 별도 scope로 Change 2부터 연다. 현재 runtime/package PASS는 RTC certification claim이 아니며, historical RTC noncoverage도 제품 결함이 아니다.
 
 * Iris refactoring v4.1 완료본을 packaging / release-note / commit 단계로 넘길지 별도 scope로 결정한다.
 
@@ -648,6 +675,10 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * bridge preflight, post-generation surface validation, Lua merge reconstruction, package guard 중 하나를 생략한 부분 PASS를 closure로 읽지 않는다.
   * `Registry Runtime Compatibility PASS`를 Registry Authority PASS, DVF Body Compiler PASS, Publish Boundary PASS, package publication, release / Workshop readiness, manual QA로 확대하지 않는다.
   * attempt-0008의 independent-review major finding과 invalid terminal evidence를 삭제하거나 attempt-0009의 PASS로 덮어쓰지 않는다.
+  * `implementation_toolchain_freshness_failed`, temporary script·staging·worktree failure, predecessor/current path hash drift, stale marker 중 하나만으로 current Iris RTC debt나 successor 실행 권한을 만들지 않는다.
+  * stale marker 삭제, predecessor bundle evidence-only reseal, 기존 lifecycle·receipt·terminal 덮어쓰기로 current PASS를 가장하지 않는다.
+  * canonical defect-attribution predicate가 완전하지 않은데 Change 2~8, reservation, successor bundle, adoption, G1 pre-adoption round를 실행하지 않는다.
+  * G4/G5 terminal의 존재 여부를 G6 결함 증거로 사용하거나, G6 `not_applicable`을 G4 reusable evaluator·G5 번역체 개선의 blocker로 바꾸지 않는다.
 
 * current runtime authority를 과거 기준이나 임시 산출물로 되돌리는 것
 

@@ -1,7 +1,7 @@
 # ARCHITECTURE.md
 
-> 상태: 초안 v0.3
-> 기준일: 2026-07-07
+> 상태: 초안 v0.4
+> 기준일: 2026-08-01
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 구조 지도, 역할 경계, 의존 방향을 고정한다.
 
@@ -415,6 +415,74 @@ Iris Artifact Registry는 DVF System에서 분리된 하위 구성요소가 아�
 
 DVF와 QG는 런타임에서 즉석 설명을 생성하는 장치가 아니다. 런타임은 봉인된 정보를 표시하는 역할에 머문다.
 
+### Repository Validation / Clean-Checkout 경계
+
+Iris Repository Validation은 DVF, QG, Artifact Registry, Naturalization 또는 Publish Boundary 내부 기능이 아니다. 이들의 tracked validation surface가 정확한 commit만으로 재현되는지를 검사하는 별도 repository-level authority이며, 구현 root는 `Iris/validation/clean_checkout/`다.
+
+canonical 흐름은 다음과 같다.
+
+```text
+exact tracked commit
+-> tracked test-source census + authority classification
+-> static import fixed-point + explicit direct dependencies
+-> disposable checkout Run A
+-> disposable checkout Run B
+-> denominator / dependency inventory / canonical result identity
+-> append-only gate manifest + closeout successor
+```
+
+test source는 `required_tracked_source`, `historical_optional_evidence`, `obsolete_or_misrouted_test_dependency`, `hermetic_test_fixture`로 분리한다. 이름이나 위치에 따른 historical fallback은 명시적 current-required 선언을 이길 수 없으며, explicit current-required source의 강등은 validation contract 위반이다.
+
+dependency graph는 import 가능한 Python module만을 뜻하지 않는다. test가 path로 직접 실행하거나 읽는 contract, runner, validator처럼 static import graph에 나타나지 않는 필수 입력은 source별 explicit direct dependency로 선언한다. 반대로 특정 consumer의 실행 결과나 sealed assessment는 generic implementation의 영구 dependency로 자동 승격하지 않고 `consumer_integration_evidence`로 분리한다.
+
+Reusable IAR public-text assessment의 구조는 이 경계를 따른다.
+
+```text
+required IAR assessment test
+├─ generic assessment contract       (direct required dependency)
+├─ generic runner                    (direct required dependency)
+├─ generic no-write validator        (direct required dependency)
+└─ G5 subject assessment result      (consumer integration evidence)
+```
+
+assessment result가 PASS인지 FAIL인지는 유효한 deterministic 평가 결과의 상태다. evaluator 실행 자체의 orchestration failure와 subject finding은 별도 축이며, subject / policy / ruleset identity mismatch는 fail-closed한다.
+
+모든 test temporary output과 gate result는 source checkout 밖에 둔다. Windows disposable checkout 이름은 tracked longest-path budget을 침범하지 않는 짧은 bounded root를 사용하지만, path validation이나 repository boundary를 완화하지 않는다. Run A/B가 PASS하더라도 source/live/runtime/Lua/package authority를 변경하거나 downstream acceptance를 대신하지 않는다.
+
+### Reusable IAR public-text assessment 경계
+
+Reusable IAR evaluator는 attempt closure orchestrator가 아니라 DVF/QG subject에 반복 적용하는 offline assessment component다.
+
+```text
+subject kind + exact subject path/hash
++ policy/ruleset path/hash
++ applicable metric/denominator
++ optional human-review result
+-> structured findings + failure attribution
+-> deterministic PASS | FAIL result
+```
+
+contract, evaluator implementation, runner와 no-write validator는 일반 implementation dependency다. 특정 Naturalization candidate의 assessment result는 첫 integration subject evidence일 뿐 evaluator의 영구 입력이 아니다. attempt ID, owner input/seal, transaction/nonce, adoption receipt, freeze, terminal과 session-specific handoff는 evaluator dependency graph에 들어오지 않는다.
+
+failure attribution은 `source / facts / compiler / candidate` subject 계열과 `iar / environment / orchestration` technical 계열을 분리한다. 임시 output root, subprocess 또는 host path 실패를 subject finding으로 전환하지 않으며, 유효한 deterministic FAIL result와 evaluator execution failure도 같은 상태로 취급하지 않는다.
+
+현재 physical current-route integration은 `current_route_required_validations.json`에 required artifact `6`개와 generic test `7`개를 추가하고, `round3_active_core_closure.json`의 core count `12`는 유지한 채 allowed tooling을 `export_dvf_3_3_lua_bridge`, `iar_public_text_assessment`, `public_text_quality_acceptance`, `naturalization_compiler_identity`의 `4`개로 기록한다. 이 surface는 commit `9c4b19cbaee5b2f2efb400ba7cb37411be831f48`에서 `142/142 PASS`했지만, 이 수치는 public-text acceptance 판정을 의미하지 않으며 현재 route acceptance 주장으로 승격하지 않는다.
+
+G5 consumer는 evaluator를 다시 실행해 새 판정을 만들지 않는다. G4/G1이 봉인한 exact result를 generic no-write validator로 검증하고, preserved candidate/compiler identity만 확인한 뒤 deterministic consumption record를 만든다.
+
+```text
+preserved candidate + candidate manifest
++ policy/ruleset identity
++ sealed generic assessment result
+-> generic no-write validation
+-> focused candidate/compiler identity validation
+-> G5 deterministic consumption record
+```
+
+이 consumer edge는 candidate, facts/manifest, detector/human-review evidence, current rendered, runtime/Lua/package를 쓰지 않는다. 현재 record는 `0d11c4ca829361e9bc772bdab58e44f73eed540a498d551907168ca8cef30c7c`이며 claim은 `naturalization_implementation_and_quality_assessment_complete`다. 이 claim 자체는 publication, deployment, current rendered/runtime adoption 또는 release readiness로 전파되지 않으며, 후속 adoption은 별도 generation transaction을 사용한다.
+
+이 physical integration과 evaluator 자체의 architecture는 구분한다. 현재 authority는 Naturalization 계획 Section 0 `Current Executable Scope`이며 뒤의 attempt-specific terminal, owner seal, freeze와 allowlist cap 조항은 충돌하는 범위에서 historical/non-executable이다. 따라서 current-route allowlist `1 -> 4`는 generic validation surface의 현재 repository fact이지만 runtime/publication writer authority나 다른 subsystem의 permanent dependency를 만들지 않는다. 이 integration을 바꾸려면 preserved assessment를 재계산하는 대신 별도의 bounded correction scope에서 execution edge와 dependency closure를 명시해야 한다.
+
 ### DVF 3-3 생산 / 런타임 경계
 
 DVF 3-3은 정보 생산 경로와 런타임 표시 경로를 분리한다.
@@ -433,6 +501,49 @@ source
 * Lua bridge와 runtime chunks는 런타임 표시를 위한 배포 산출물이다.
 * 런타임은 배포 산출물을 표시할 뿐, source 검증이나 설명 재생성을 수행하지 않는다.
 * current authority는 하나의 경로로만 유지하며, 생산 경로와 런타임 경로를 서로 대체하지 않는다.
+
+#### Validated Naturalization current-generation adoption 경계
+
+검증된 Naturalization candidate를 current runtime에 연결하는 경로는 source-authority mutation이 아니라 Registry-owned derived generation adoption이다.
+
+```text
+exact validated candidate
++ exact current facts / input-manifest identity
+-> adoption-generation contract
+-> off-live rendered + Lua manifest + exact 11 chunks + generation descriptor
+-> short external mirror failure injection / exact rollback proof
+-> content-first / manifest-last live cutover
+-> rendered/Lua full parity + existing Iris consumer load
+-> applicability-selected canonical package projection
+```
+
+`adoption-generation`은 exporter의 전용 mode다. Exact candidate/facts/input-manifest SHA, adoption-owned off-live output root, `bridge_context=staging`, `authority_effect=none`, expected key/state/text shape가 모두 있어야 하며, 다른 exporter mode 인자와 혼용하거나 누락된 입력을 default/RTC path로 fallback하지 않는다. Policy, disposition, binding, lifecycle, RTC bundle은 이 mode의 dependency가 아니다. 기존 다른 exporter caller의 mode와 결과는 그대로 유지한다.
+
+Current generation의 transaction member는 `dvf_3_3_rendered.json`, `IrisLayer3DataChunks.lua`, manifest가 선언한 exact 11 chunks, `current_generation_descriptor.json`이다. Descriptor는 exact candidate와 source pair, rendered/manifest/chunk identity, transaction ID를 durable하게 결속한다. Authority freshness 비교는 UTF-8 decoded EOL identity를 사용해 LF/CRLF checkout 차이를 제거하지만, package projection 뒤 live/package identity는 실제 복사된 raw bytes와 양방향 파일 집합으로 검사한다.
+
+Live cutover 전에 run-owned short external mirror에서 가장 긴 target/temp path budget, repository/live 비중첩, reparse/containment escape, pre-existing path를 fail-close한다. Failure injection은 exact preimage 복원, unrelated mutation `0`, temporary/mirror residue `0`을 증명해야 한다. 성공 transaction은 rendered와 chunks를 먼저 쓰고 descriptor 뒤 Lua manifest를 마지막에 쓴다. Manifest가 새 generation을 가리키기 전에는 부분 content를 current로 읽지 않는다.
+
+Package wrapper는 payload guard와 RTC certification guard를 같은 predicate로 취급하지 않는다.
+
+```text
+current_runtime_payload
+-> current generation descriptor freshness
+-> rendered + Lua manifest + exact 11 chunks census / SHA
+-> live/package exact identity
+
+rtc_certified_payload
+-> payload guard
++ explicit RTC bundle / lifecycle freshness guard
+
+mixed or ambiguous applicability
+-> fail-close before artifact write
+```
+
+따라서 current runtime payload package는 historical RTC bundle 없이 유효하지만 RTC guard를 전역으로 우회하지 않는다. 실제 RTC bundle을 패키징하거나 RTC certification을 주장할 때만 기존 RTC freshness guard가 적용된다. 모든 경로에서 undeclared direct entry, nested directory, monolith, stale bridge와 manifest/chunk set drift는 금지한다.
+
+Current-route manifest는 test/artifact를 current-required와 `historical_optional_evidence`로 분류한다. Historical RTC bundle, missing historical assessment, predecessor reseal을 current runtime package의 필수 입력으로 합성하지 않으며, 각 optional row는 authority basis path와 current generation descriptor SHA에 결속한다. Windows cleanup, long path, EOL checkout 같은 harness 결함은 제품 payload defect와 분리해서 고치되, 미분류 누락이나 모호한 applicability는 계속 fail-close한다.
+
+현재 readpoint `a440b9a638ae3caf0cb37215d46ebfc9dba7b90a` / tree `138ef819d166a5cd41f39e11047108201fd00b99`에서 `attempt-0008`은 public text `2084`, unadopted-without-text `21`, mismatch/forbidden metadata/stale predecessor consumption `0`으로 완료됐다. Canonical package는 manifest 1개 + chunk 11개의 live identity를 보존했고, full current-route는 main과 clean-checkout Run A/B에서 동일한 `145/145` 분모로 PASS했다. 기존 Iris consumer/display smoke와 사용자 확인 실제 인게임 검증도 완료됐다. 자동 smoke와 owner observation은 별도 근거로 유지하며, 이 architecture readpoint를 release/Workshop/B42 readiness나 RTC certification으로 확대하지 않는다.
 
 #### Food semantic successor / current adoption 경계
 
@@ -522,56 +633,12 @@ authority boundary 기준으로 완료다. 그러나 Naturalization은 fresh Pha
 same-skeleton `104` 상한과 public-text acceptance는 별도 Naturalization /
 Publish Boundary가 소유한다.
 
-successor current facts는 기존 RTC collision payload-equivalence를 변경하므로
-Registry Runtime Compatibility의 predecessor PASS를 successor current PASS로
-재사용하지 않는다. live current alignment는 `stale_requires_successor_rtc`이며
-successor RTC closure 전 bridge/runtime/package/publication을 fail-closed로
-차단한다. 이 상태는 offline fresh Naturalization retry 허용과 모순되지 않는다.
-
-#### Current-facts correction successor 경계
-
-Naturalization이나 외부 검토가 current facts의 의미 결함을 발견한 경우,
-current authority 파일을 바로 편집하지 않고 correction과 adoption을 다음처럼
-분리한다.
-
-```text
-Naturalization / external review fail-close
--> exact blocker set + reviewer authority binding
--> rule / cluster / fact_origin sibling census over all current facts
--> approved Layer 3 source lineage
--> append-only sealed non-current correction successor
--> separate Registry correction cutover / current-input rebind
--> fresh downstream execution
-```
-
-correction writer의 소유 범위는 correction spec, full cohort census, row-level
-lineage, patch ledger, before/after projection, successor facts/manifest, receipt에
-한정한다. current facts/manifest, 이전 correction, Foundation,
-Naturalization, Publish, runtime Lua, package는 별도 권한 없이 변경하지 않는다.
-
-correction successor는 다음 불변조건을 갖는다.
-
-- review blocker와 correction target의 set identity를 정확히 결속한다.
-- seed item만 개별 patch하지 않고 동일 rule / cluster / fact origin의 sibling을 전체 facts denominator에서 조사한다.
-- correction과 unchanged control을 명시하고, 비대상 row는 byte identity를 유지한다.
-- 이전 correction successor의 효과를 regression denominator로 재검증한다.
-- 지원되지 않는 의미는 추론하지 않고 unresolved fail-close로 남긴다.
-- Layer 4 QG / usecase, generated description, Naturalization candidate text를 Layer 3 facts 근거로 자동 승격하지 않는다.
-- review/fail-close identity는 checkout EOL 변환값이 아닌 exact Git blob bytes의 SHA-256로 결속할 수 있다.
-
-`correction-0003`은 이 경계의 canonical example이다. Naturalization
-`attempt-0020` Phase 7의 facts blocker 44건을 8개 semantic cohort / 149행
-denominator에 결속했고, 44행/60필드 correction, 105 unchanged controls,
-0 additional sibling corrections, 0 unresolved, 2061/2061 non-target byte identity,
-0 correction-0001/0002 regression을 봉인했다. 이 산출물의 role은
-`sealed_non_current_correction_successor`이며 `current_source_authority`가 아니다.
-
-```text
-sealed_non_current_correction_successor
-!= current_source_authority
-!= Naturalization PASS
-!= Publish Boundary PASS
-```
+이 G3 adoption readpoint에서는 successor current facts가 기존 RTC collision
+payload-equivalence를 변경했으므로 predecessor PASS를 successor current PASS로
+재사용하지 않고 `stale_requires_successor_rtc`로 fail-close했다. 이 marker는
+후속 correction과 freshness 귀속 조사에서 진단 입력으로 보존하지만, 그 자체로
+current Iris RTC defect나 successor 실행 권한을 만들지는 않는다. 이 상태는
+offline fresh Naturalization retry 허용과 모순되지 않는다.
 
 Iris 3-3의 claim vocabulary는 축별로 분리한다.
 
@@ -693,11 +760,32 @@ exact identity는 decoded Unicode code-point sequence를 그대로 비교하고,
 
 Windows PowerShell 5.1의 `ConvertFrom-Json`으로 current rendered object를 직접 materialize하는 방식은 지원 consumer route가 아니다. Windows Route A는 canonical Python analyzer를 직접 실행하고, Route C는 같은 analyzer가 exact identity별 UTF-8 JSONL record sidecar를 만든다. 두 route는 하나의 algorithm proof와 두 개의 transport conformance 증거이며, PowerShell은 case-variant property를 object property로 합치지 않는다.
 
-bridge exporter, chunk/runtime validator, package wrapper는 동일한 compatibility contract를 fail-closed로 소비한다. package guard는 ZIP 생성 여부와 무관하게 unconditional이며, compatibility failure 시 publication artifact를 만들지 않는다. exporter의 생략 인자는 environment variable이 아니라 tracked live `current_route_required_validations.json`이 결속한 exact durable bundle과 lifecycle state에서만 해석한다.
+bridge exporter, chunk/runtime validator, package wrapper는 동일한 exact-key compatibility contract를 fail-closed로 소비한다. Payload guard는 ZIP 생성 여부와 package applicability에 무관하게 항상 적용하고, compatibility failure 시 package artifact를 만들지 않는다. RTC bundle/lifecycle freshness는 explicit `rtc_certified_payload`에만 적용하며, `current_runtime_payload`는 current generation descriptor를 authority basis로 사용한다. Exporter의 `adoption-generation` mode는 모든 필수 인자를 명시적으로 요구하고 environment variable, default route 또는 RTC bundle로 fallback하지 않는다. 기존 RTC/legacy exporter mode의 omitted-argument 계약은 해당 mode 내부에서만 유지한다.
 
 canonical evidence는 append-only attempt ledger, immutable content-addressed bundle, append-only bundle lifecycle, nine-role durable closeout packet으로 구성한다. successful terminal event는 independent review와 owner seal을 포함한 closeout packet이 먼저 commit된 뒤에만 기록한다.
 
-현재 readpoint는 `attempt-0009`, durable bundle `46c87bfab662b09293adb6ba2b1028bdf6c0f20639c8e3fb8bd065895b5988b9`, terminal commit `7d253c91b87abb7f1e044acf3953504180848682`, local `main` integration commit `c6e2190e7b093b29bc5d615523ae29cf32560ff1`이다. claim 상한은 `Registry Runtime Compatibility PASS`이며 Registry Authority, DVF Body Compiler, Publish Boundary, source mutation, package publication, release / Workshop readiness, manual QA를 대신하지 않는다.
+보존된 predecessor closure readpoint는 `attempt-0009`, durable bundle `46c87bfab662b09293adb6ba2b1028bdf6c0f20639c8e3fb8bd065895b5988b9`, terminal commit `7d253c91b87abb7f1e044acf3953504180848682`, local `main` integration commit `c6e2190e7b093b29bc5d615523ae29cf32560ff1`이다. 이 역사적 claim의 상한은 `Registry Runtime Compatibility PASS`이며 Registry Authority, DVF Body Compiler, Publish Boundary, source mutation, package publication, release / Workshop readiness, manual QA를 대신하지 않는다.
+
+#### Current freshness defect-attribution boundary
+
+RTC evidence freshness와 Iris current Registry-to-runtime defect는 같은 상태가 아니다. Repository toolchain path가 predecessor bundle과 다르거나 `implementation_toolchain_freshness_failed`가 관찰되어도, 그 실패가 temporary orchestration이 아닌 canonical Iris runner에서 재현되고 current Registry identity와 runtime/package effect를 직접 연결하기 전에는 RTC successor 실행 권한이 생기지 않는다.
+
+Current G6 attribution gate는 다음 여섯 조건의 conjunction이다.
+
+```text
+canonical Iris runner failure reproduced
++ clean checkout reproduced
++ temporary orchestration dependency = false
++ current Registry-to-runtime identity mismatch
++ runtime or package effect demonstrated
++ exact failure artifact and command bound
+```
+
+하나라도 false·missing·unknown이면 G6은 `not_applicable`이며 RTC debt, Change 2~8, runtime/Lua/package mutation을 승인하지 않는다. 이 경계는 stale marker를 지워 PASS를 만드는 장치도, predecessor bundle을 current facts에 맞춰 evidence-only reseal하는 장치도 아니다.
+
+시작점 `c0eb88a64a08c50fb3f581ee53a0502bd2445195`에서 봉인된 Change 1 discovery는 correction-0003 current facts/input-manifest `50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120` / `090381a652da540c6e72300624728aba48f6392e41fb50e8eec973efd320b9b7`을 기준으로 source reference chain의 누락·불일치·모호성 `0/0/0`과 protected mutation `0`을 기록한 read-only provenance다. Discovery commit/tree는 `dd4b8ac37d2b974717364c79aa04afe2fe445f58` / `64782adcf856213f61c3fbccaad217d321c287f8`이고, discovery ID는 `813730c1aec5162983c228c73b8b788ee7510e0f0969c66f5b47807616f6676f`다. 이것은 RTC PASS나 successor reservation이 아니다.
+
+현재 disposition은 `not_applicable_temporary_tooling_trigger`다. G4/G5와 후속 current runtime/package adoption은 RTC terminal·reservation·successor bundle 없이 완료됐으며, 이 성공은 RTC certification PASS를 새로 주장하는 것이 아니다. G6은 이 downstream completion을 보충하기 위해 실행하지 않는다. 미래에 여섯 조건이 모두 성립하면 exact canonical defect record를 새 기준점으로 삼아 Change 2부터 재진입하고, 기존 temporary-tooling diagnostic은 실행 권위로 재사용하지 않는다.
 
 ## 2-6. Frame
 

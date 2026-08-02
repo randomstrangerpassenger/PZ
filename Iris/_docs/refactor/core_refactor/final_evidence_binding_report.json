@@ -1,7 +1,8 @@
 {
   "schema_version": 1,
   "report_kind": "post_seal_terminal_closeout_attestation",
-  "status": "binding_materialized_cleanup_pending",
+  "status": "complete",
+  "binding_attestation_commit": "b9658f16c9709f7c19bb8acc0738428ddcd1dfb8",
   "claim_boundary": "change9_integrated_closeout_only",
   "non_recursive_subject_policy": "this evidence-only report commit is not a new runtime or sealed-manifest subject",
   "seal_candidate": {
@@ -48,14 +49,15 @@
     "external_work_root": "C:\\Users\\Public\\icw-f877f45b",
     "external_work_root_cleanup": true,
     "external_result_root": "C:\\Users\\Public\\icr-f877f45b",
-    "external_result_root_cleanup": false,
+    "external_result_root_cleanup": true,
     "external_result_files": {
       "canonical-result.json": "f1936eaff846ee542d27a01c86b22e41a136045e0dcaa35f8796cfb57138ccf9",
       "receipt.json": "9c12a9478256006ffd46e850bc59556989f00a071a3f7aa6d479db3de9043ce6",
       "stdout.txt": "65946c5d97f9d38decc5477a3e8e3daf34e121920ff90a2aaecb1f7b408dda29",
       "stderr.txt": "208a79fde8ac61149fdc576bb230793de55236dbe97b6ad023989851c6e6f310"
     },
-    "external_hashes_reverified_before_materialization": true
+    "external_hashes_reverified_before_materialization": true,
+    "external_hashes_reverified_after_binding_commit": true
   },
   "evidence_bindings": [
     {
@@ -150,7 +152,7 @@
       "reason_code": "windows_powershell_native_stderr_promotion",
       "work_root_cleanup": true,
       "result_root": "C:\\Users\\Public\\icr-b6bbe3b2",
-      "result_root_cleanup": false,
+      "result_root_cleanup": true,
       "result_files": {
         "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
@@ -162,7 +164,7 @@
       "reason_code": "stale_ceiling_binding_content_hashes",
       "work_root_cleanup": true,
       "result_root": "C:\\Users\\Public\\icr-1292970c",
-      "result_root_cleanup": false,
+      "result_root_cleanup": true,
       "result_files": {
         "canonical-result.json": "1bba106a22265b1651dc593e9e66ae4fd48fca038909c2057c6eadbab1f08a95",
         "receipt.json": "d686b9c8f7f190b0c24db1ed7c3c65184ae83d7936449ca0ea139cab29df9764",
@@ -174,11 +176,12 @@
   "cleanup_gate": {
     "binding_report_tracked_commit_required": true,
     "external_hashes_must_match_before_delete": true,
-    "pending_result_roots": [
+    "cleaned_result_roots": [
       "C:\\Users\\Public\\icr-b6bbe3b2",
       "C:\\Users\\Public\\icr-1292970c",
       "C:\\Users\\Public\\icr-f877f45b"
     ],
-    "cleanup_complete": false
+    "cleanup_verified_absent": true,
+    "cleanup_complete": true
   }
 }

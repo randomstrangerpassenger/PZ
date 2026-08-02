@@ -242,9 +242,14 @@ def has_test_tmp_segment(path: Path) -> bool:
         checkout_key = hashlib.sha256(
             str(REPOSITORY_ROOT).casefold().encode("utf-8")
         ).hexdigest()[:12]
+        public_root = os.environ.get("PUBLIC")
+        system_temp_root = (
+            Path(public_root) if public_root else Path(tempfile.gettempdir())
+        )
         external_root = (
-            Path(tempfile.gettempdir()).resolve()
-            / f"iris-clean-checkout-tests-{checkout_key}"
+            system_temp_root.resolve()
+            / "IrisTest"
+            / f"checkout-{checkout_key}"
         )
     if is_under_path(external_root, REPOSITORY_ROOT):
         return False

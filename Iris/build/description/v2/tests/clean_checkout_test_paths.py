@@ -21,6 +21,16 @@ def _is_within(path: Path, parent: Path) -> bool:
     return True
 
 
+def _default_external_base(checkout_key: str) -> Path:
+    public_root = os.environ.get("PUBLIC")
+    system_temp_root = Path(public_root) if public_root else Path(tempfile.gettempdir())
+    return (
+        system_temp_root.resolve()
+        / "IrisTest"
+        / f"checkout-{checkout_key}"
+    )
+
+
 def external_test_root() -> Path:
     global _DEFAULT_TEMP_DIRECTORY
     configured = os.environ.get(OUTPUT_ROOT_ENV)
@@ -31,8 +41,11 @@ def external_test_root() -> Path:
             str(REPOSITORY_ROOT).casefold().encode("utf-8")
         ).hexdigest()[:12]
         if _DEFAULT_TEMP_DIRECTORY is None:
+            base = _default_external_base(checkout_key)
+            base.mkdir(parents=True, exist_ok=True)
             _DEFAULT_TEMP_DIRECTORY = tempfile.TemporaryDirectory(
-                prefix=f"iris-clean-checkout-tests-{checkout_key}-"
+                prefix="run-",
+                dir=base,
             )
         root = Path(_DEFAULT_TEMP_DIRECTORY.name).resolve()
     if _is_within(root, REPOSITORY_ROOT):

@@ -61,7 +61,12 @@ function IrisBrowser.openSearch()
     ensureDeps()
 
     debug("[IrisBrowser] IrisBrowserData exists = " .. tostring(IrisBrowserData ~= nil))
-    debug("[IrisBrowser] IrisBrowserData._built = " .. tostring(IrisBrowserData and IrisBrowserData._built))
+    if IrisBrowserData then
+        local state = IrisBrowserData.getBuildState()
+        debug("[IrisBrowser] BrowserData state=" .. tostring(state.state) ..
+            " reason=" .. tostring(state.reason) ..
+            " dependency=" .. tostring(state.dependency))
+    end
 
     BrowserBase.ensureBrowserDataBuilt(BrowserModuleContext, debug)
 

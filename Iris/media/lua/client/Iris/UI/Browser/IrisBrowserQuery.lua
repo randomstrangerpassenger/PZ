@@ -18,10 +18,13 @@ function IrisBrowserQuery.searchAll(cache, query, getItemLocation)
     local result = {}
 
     for fullType, item in pairs(cache.itemsByFullType) do
-        local displayName = ItemAccess.getDisplayName(item, fullType)
+        local searchKeys = cache.searchKeysByFullType and cache.searchKeysByFullType[fullType]
+        local displayName = searchKeys and searchKeys.displayName or ItemAccess.getDisplayName(item, fullType)
+        local displayNameLower = searchKeys and searchKeys.displayNameLower or displayName:lower()
+        local fullTypeLower = searchKeys and searchKeys.fullTypeLower or fullType:lower()
 
-        if displayName:lower():find(queryLower, 1, true) or
-           fullType:lower():find(queryLower, 1, true) then
+        if displayNameLower:find(queryLower, 1, true) or
+           fullTypeLower:find(queryLower, 1, true) then
             local foundCat, foundSub = getItemLocation(fullType)
 
             table.insert(result, {
@@ -34,7 +37,10 @@ function IrisBrowserQuery.searchAll(cache, query, getItemLocation)
     end
 
     table.sort(result, function(a, b)
-        return a.displayName < b.displayName
+        if a.displayName ~= b.displayName then
+            return a.displayName < b.displayName
+        end
+        return a.fullType < b.fullType
     end)
 
     return result

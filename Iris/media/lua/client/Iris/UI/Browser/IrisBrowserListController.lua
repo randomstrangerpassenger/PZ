@@ -8,6 +8,41 @@ local IrisBrowserListController = {}
 local ItemAccess = require("Iris/Util/IrisItemAccess")
 local BrowserBase = require("Iris/UI/Browser/IrisBrowserBase")
 
+--- Resolve a scrolling-list selection without depending on the input device.
+--- Event payload wins; keyboard/programmatic selection falls back to the list index.
+--- @param list table|nil
+--- @param eventItem table|nil
+--- @return table|nil payload
+--- @return string reason
+function IrisBrowserListController.resolveSelectedPayload(list, eventItem)
+    if type(eventItem) == "table" and eventItem.item ~= nil then
+        return eventItem.item, "event_item"
+    end
+
+    local selectedIndex = list and list.selected
+    if type(selectedIndex) == "number" and selectedIndex > 0 then
+        local selectedItem = list.items and list.items[selectedIndex]
+        if type(selectedItem) == "table" and selectedItem.item ~= nil then
+            return selectedItem.item, "selected_index"
+        end
+        return nil, "selected_index_invalid"
+    end
+
+    return nil, "no_selection"
+end
+
+local function stableIdentity(payload, field)
+    if type(payload) ~= "table" then return nil end
+    return payload[field]
+end
+
+local function logSelection(debug, axis, fromValue, toValue, reason)
+    debug("[IrisBrowser] selection axis=" .. axis ..
+        " from=" .. tostring(fromValue) ..
+        " to=" .. tostring(toValue) ..
+        " reason=" .. tostring(reason))
+end
+
 function IrisBrowserListController.install(IrisBrowser, context)
     local debug = context.debug
     local logError = context.logError
@@ -90,43 +125,17 @@ function IrisBrowserListController.install(IrisBrowser, context)
     end
 
     function IrisBrowser:onCategorySelected(item)
-        debug("[IrisBrowser] onCategorySelected called")
-        debug("[IrisBrowser] item type: " .. type(item))
-
-        if not item then
-            debug("[IrisBrowser] item is nil, returning")
+        local catData, reason = IrisBrowserListController.resolveSelectedPayload(self.categoryList, item)
+        if not catData then
+            logSelection(debug, "category", self.currentCategory, nil, reason)
             return
         end
 
-        if type(item) == "table" then
-            for k, v in pairs(item) do
-                debug("[IrisBrowser] item." .. tostring(k) .. " = " .. tostring(v))
-            end
-        end
-
-        local catData = item.item
-        if not catData then
-            debug("[IrisBrowser] catData is nil, trying self.categoryList.selected")
-            local selectedIdx = self.categoryList.selected
-            if selectedIdx and selectedIdx > 0 then
-                local selectedItem = self.categoryList.items[selectedIdx]
-                if selectedItem then
-                    catData = selectedItem.item
-                    debug("[IrisBrowser] Got catData from selected: " .. tostring(catData and catData.name))
-                end
-            end
-        end
-
-        if not catData then
-            debug("[IrisBrowser] catData still nil, returning")
-            return
-        end
-
-        debug("[IrisBrowser] Selected category: " .. tostring(catData.name))
-
+        local previous = self.currentCategory
         self.currentCategory = catData.name
         self.currentSubcategory = nil
         self.currentSelectedFullType = nil
+        logSelection(debug, "category", previous, stableIdentity(catData, "name"), reason)
 
         self:loadSubcategories(self.currentCategory)
         self.itemList:clear()
@@ -134,89 +143,33 @@ function IrisBrowserListController.install(IrisBrowser, context)
     end
 
     function IrisBrowser:onSubcategorySelected(item)
-        debug("[IrisBrowser] onSubcategorySelected called")
-        if not item then
-            debug("[IrisBrowser] subitem is nil")
-            return
-        end
-        local subData = item.item
+        local subData, reason = IrisBrowserListController.resolveSelectedPayload(self.subcategoryList, item)
         if not subData then
-            debug("[IrisBrowser] subData is nil, trying selected index")
-            local selectedIdx = self.subcategoryList.selected
-            if selectedIdx and selectedIdx > 0 then
-                local selectedItem = self.subcategoryList.items[selectedIdx]
-                if selectedItem then
-                    subData = selectedItem.item
-                    debug("[IrisBrowser] Got subData from selected: " .. tostring(subData and subData.name))
-                end
-            end
-        end
-
-        if not subData then
-            debug("[IrisBrowser] subData still nil")
+            logSelection(debug, "subcategory", self.currentSubcategory, nil, reason)
             return
         end
 
-        debug("[IrisBrowser] Selected subcategory: " .. tostring(subData.name))
-
+        local previous = self.currentSubcategory
         self.currentSubcategory = subData.name
         self.currentSelectedFullType = nil
+        logSelection(debug, "subcategory", previous, stableIdentity(subData, "name"), reason)
 
         self:loadItems(self.currentCategory, self.currentSubcategory)
         self:showDetail(nil)
     end
 
     function IrisBrowser:onItemSelected(item)
-        debug("[IrisBrowser] onItemSelected called")
-        debug("[IrisBrowser] item = " .. tostring(item))
-        debug("[IrisBrowser] item type = " .. type(item))
-
-        if not item then
-            debug("[IrisBrowser] item is nil, returning")
+        local itemData, reason = IrisBrowserListController.resolveSelectedPayload(self.itemList, item)
+        if not itemData then
+            logSelection(debug, "item", self.currentSelectedFullType, nil, reason)
             return
         end
 
-        if type(item) == "table" then
-            for k, v in pairs(item) do
-                debug("[IrisBrowser] item." .. tostring(k) .. " = " .. tostring(v))
-            end
-        end
-
-        local itemData = item.item
-        debug("[IrisBrowser] itemData = " .. tostring(itemData))
-        debug("[IrisBrowser] itemData type = " .. type(itemData))
-
-        if not itemData then
-            debug("[IrisBrowser] itemData is nil, trying selected index")
-            local selectedIdx = self.itemList.selected
-            debug("[IrisBrowser] selectedIdx = " .. tostring(selectedIdx))
-            if selectedIdx and selectedIdx > 0 then
-                local selectedItem = self.itemList.items[selectedIdx]
-                debug("[IrisBrowser] selectedItem = " .. tostring(selectedItem))
-                if selectedItem then
-                    itemData = selectedItem.item
-                    debug("[IrisBrowser] Got itemData from selected: " .. tostring(itemData))
-                end
-            end
-        end
-
-        if not itemData then
-            debug("[IrisBrowser] itemData still nil, returning")
-            return
-        end
-
-        if type(itemData) == "table" then
-            for k, v in pairs(itemData) do
-                debug("[IrisBrowser] itemData." .. tostring(k) .. " = " .. tostring(v))
-            end
-        end
-
-        debug("[IrisBrowser] itemData.fullType = " .. tostring(itemData.fullType))
-
+        local previous = self.currentSelectedFullType
         self.detailScrollY = 0
         self.currentSelectedFullType = itemData.fullType
         self.currentSelectedVariants = itemData.variants
-        debug("[IrisBrowser] Set currentSelectedFullType = " .. tostring(self.currentSelectedFullType))
+        logSelection(debug, "item", previous, stableIdentity(itemData, "fullType"), reason)
         self:showDetail(self.currentSelectedFullType)
     end
 

@@ -1,8 +1,9 @@
 {
   "schema_version":1,
-  "generation":2,
-  "previous_ceiling_sha256_or_null":"975fffb4e2b212f1157af9f754e1bc58a07173cb3d1a12ab8fbcaf3c1557c92e",
-  "manifest_generation":2,
+  "generation":3,
+  "previous_ceiling_sha256_or_null":"d299d7352b38ce71c20473ee67adf75893ac29f65e4f199998dc8c2678d35471",
+  "manifest_generation":3,
+  "last_updated_by_change":4,
   "time_axis":"pre_refactor_characterization",
   "subject_commit":"72e76b367622f64af264f445889ea1832c87008a",
   "subject_tree":"9c98dad4623cea9242a41b77f0e378a87e56559f",
@@ -20,7 +21,8 @@
     {"axis":"legacy_surface","owner_change":6,"status":"validated","evidence_roles":["auxiliary_standalone","runtime_behavior"],"case_count":2,"remaining_ceiling":null}
   ],
   "post_refactor_acceptance":{
-    "description":{"path":"Iris/_docs/refactor/core_refactor/phase2_description_acceptance.jsonl","sha256":"620d3ad065e9ca22a80ca67d18ae3451229ba1156893a1082f9d4aa03649b307","binding_sha256":"c54c1be0d5d24256f1e9e7578226a489f7e43cb876c5b33f04fcd0026ee57883","case_count":4,"status":"validated"}
+    "description":{"path":"Iris/_docs/refactor/core_refactor/phase2_description_acceptance.jsonl","sha256":"620d3ad065e9ca22a80ca67d18ae3451229ba1156893a1082f9d4aa03649b307","binding_sha256":"c54c1be0d5d24256f1e9e7578226a489f7e43cb876c5b33f04fcd0026ee57883","case_count":4,"status":"validated"},
+    "browser":{"path":"Iris/_docs/refactor/core_refactor/phase3_browser_acceptance.jsonl","sha256":"e2ee203d0b37e30fa7e0a4ac93ebe0eb624c5be6ff5bd1c477049b7a81b1182c","binding_sha256":"fec180de3a155cf4c6588f7cb55fae676f85842f7392913c8bc1a8e307836621","case_count":7,"status":"validated"}
   },
   "mandatory_unvalidated_axis_count":0,
   "non_claims":["No B42 behavior claim","No multiplayer or soak claim","No unknown external-mod compatibility claim"]

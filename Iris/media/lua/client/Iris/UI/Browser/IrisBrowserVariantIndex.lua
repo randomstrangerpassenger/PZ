@@ -70,6 +70,17 @@ local function buildDisplayNameGroups(cache, subData, IrisAPI)
     return itemsByDisplayName
 end
 
+--- Canonical identity for a subcategory's grouping inputs. The owning cache is
+--- generation-scoped, so identical keys are never reused across rebuilds.
+function IrisBrowserVariantIndex.getFoldedCountCacheKey(subData)
+    local fullTypes = {}
+    for fullType, _ in pairs((subData and subData.items) or {}) do
+        fullTypes[#fullTypes + 1] = fullType
+    end
+    table.sort(fullTypes)
+    return table.concat(fullTypes, "\0")
+end
+
 function IrisBrowserVariantIndex.calculateFoldedCount(cache, subData, IrisAPI)
     if not cache or not cache.itemsByFullType or not subData then
         return 0

@@ -1,0 +1,20 @@
+{
+  "schema_version":1,
+  "owner_change":4,
+  "dependencies":[
+    {"consumer":"BrowserData classification","identity":"Iris/IrisAPI","requirement":"required","failure_state":"retryable_failed","retry_event":"Browser open"},
+    {"consumer":"BrowserData classification","identity":"IrisAPI.Tags","requirement":"required","failure_state":"retryable_failed","retry_event":"Browser open"},
+    {"consumer":"variant recipe guard","identity":"IrisAPI.Index","requirement":"optional","failure_state":"degraded_ready","retry_event":"explicit reload reset or next session"},
+    {"consumer":"API static generated data","identity":"StaticData.DEFINITIONS entry","requirement":"optional_session_stable","failure_state":"negative_cached","retry_event":"StaticData.reset"}
+  ],
+  "rows":[
+    {"axis":"selection","relation":"preserve_exact","before_cases":["selection.event_payload","selection.selected_index","selection.missing","selection.out_of_range","selection.pz_payloads"],"after_cases":["browser_acceptance.selection_matrix"]},
+    {"axis":"search","relation":"preserve_exact","before_cases":["search.current_results","browser_build.pz_lifecycle"],"after_cases":["browser_acceptance.search_pz"],"ordering":"displayName then fullType deterministic tie-break"},
+    {"axis":"required_dependency_failure","relation":"approved_change","before":"empty classification cache marked built","after":"retryable_failed with atomic cache and Browser-open retry","decision_source":"phase0_decision_matrix.md#browser-build-state"},
+    {"axis":"building_reentry","relation":"approved_change","before":"implicit boolean only","after":"building state rejects duplicate build"},
+    {"axis":"optional_dependency_failure","relation":"approved_change","before":"implicit partial behavior","after":"degraded_ready with reason and dependency identity"},
+    {"axis":"search_normalization","relation":"preserve_exact","optimization":"keys computed once per build; repeated queries consume cached keys"},
+    {"axis":"folded_count","relation":"preserve_exact","optimization":"canonical grouping key cached for one build generation"},
+    {"axis":"selection_logging","relation":"preserve_identity","after":"compact axis/from/to/reason record; no payload table dump"}
+  ]
+}

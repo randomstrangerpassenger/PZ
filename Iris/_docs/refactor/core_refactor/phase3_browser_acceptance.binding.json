@@ -1,0 +1,15 @@
+{
+    "schema_version":  1,
+    "evidence_path":  "Iris/_docs/refactor/core_refactor/phase3_browser_acceptance.jsonl",
+    "evidence_sha256":  "e2ee203d0b37e30fa7e0a4ac93ebe0eb624c5be6ff5bd1c477049b7a81b1182c",
+    "evidence_schema_version":  1,
+    "row_count":  7,
+    "subject_commit":  "5f02f1d591e84f1b99cb7d085c85e41ba06999af",
+    "subject_tree":  "f6532c3410d8878d9a891466bc40b7a94321fc58",
+    "subject_worktree_patch_sha256_or_null":  "ab2caec77942a0222fc3c310b5d8b6d13e5b7c0b6152bf7b4c14acbe4655e6ed",
+    "producer_base_commit":  "5f02f1d591e84f1b99cb7d085c85e41ba06999af",
+    "producer_base_tree":  "f6532c3410d8878d9a891466bc40b7a94321fc58",
+    "producer_overlay_sha256_or_null":  "2210d8b18fc7b31d27a426de593544811ad8c594caf56ff39dfb401bf2542d60",
+    "time_axis":  "post_refactor_acceptance",
+    "execution_environment":  "project_zomboid_b41_41_78_20"
+}

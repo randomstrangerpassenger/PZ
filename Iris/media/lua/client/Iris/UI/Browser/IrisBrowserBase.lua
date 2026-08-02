@@ -29,12 +29,15 @@ end
 
 function IrisBrowserBase.ensureBrowserDataBuilt(context, debug)
     local IrisBrowserData = IrisBrowserBase.getBrowserData(context)
-    if IrisBrowserData and not IrisBrowserData._built then
-        if debug then debug("[IrisBrowser] Building IrisBrowserData...") end
-        IrisBrowserData.build()
-        if debug then
-            debug("[IrisBrowser] Build complete, _built = " .. tostring(IrisBrowserData._built))
-        end
+    if not IrisBrowserData then return nil end
+
+    local ready, state = IrisBrowserData.ensureReady()
+    if debug then
+        debug("[IrisBrowser] BrowserData ready=" .. tostring(ready) ..
+            " state=" .. tostring(state and state.state) ..
+            " reason=" .. tostring(state and state.reason) ..
+            " dependency=" .. tostring(state and state.dependency) ..
+            " generation=" .. tostring(state and state.generation))
     end
     return IrisBrowserData
 end

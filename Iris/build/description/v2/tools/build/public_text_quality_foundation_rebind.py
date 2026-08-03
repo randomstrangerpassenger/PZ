@@ -52,7 +52,7 @@ FOUNDATION_ROOT = (
     / "Iris"
     / "_docs"
     / "round3"
-    / "iris_public_text_quality_policy_closure"
+    / "iris_publish_boundary_public_text_quality_acceptance_policy_closure"
     / "foundation"
 )
 FOUNDATION_CONTRACT = FOUNDATION_ROOT / "public_text_quality_foundation_contract.json"
@@ -114,8 +114,8 @@ FOUNDATION_MEANING_PATHS = (
     "docs/public_text_quality_exception_policy.md",
     "docs/public_text_quality_waiver_policy.md",
     "docs/public_text_quality_freshness_policy.md",
-    "Iris/_docs/round3/iris_public_text_quality_policy_closure/foundation/public_text_quality_foundation_contract.json",
-    "Iris/_docs/round3/iris_public_text_quality_policy_closure/foundation/public_text_quality_development_readiness_report.json",
+    "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json",
+    "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_development_readiness_report.json",
 )
 IMPLEMENTATION_FILES = (
     TOOLS_DIR / "public_text_quality_foundation_rebind.py",

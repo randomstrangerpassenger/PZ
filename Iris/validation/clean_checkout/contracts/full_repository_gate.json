@@ -307,7 +307,7 @@
     ],
     "handoff_path_bearing_constituents": [
       "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt_0024_human_review_decision.json",
-      "Iris/_docs/round3/iris_public_text_quality_policy_closure/foundation/public_text_quality_foundation_contract.json",
+      "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json",
       "Iris/build/description/v2/data/korean_prose_naturalization/corpus_manifest.json",
       "Iris/build/description/v2/data/korean_prose_naturalization/korean_prose_policy.json",
       "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase2/body_plan_requirement_inventory.jsonl",
@@ -322,8 +322,8 @@
     ],
     "g4_required_paths": [
       "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt_0024_human_review_decision.json",
-      "Iris/_docs/round3/iris_public_text_quality_policy_closure/foundation/public_text_quality_development_readiness_report.json",
-      "Iris/_docs/round3/iris_public_text_quality_policy_closure/foundation/public_text_quality_foundation_contract.json",
+      "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_development_readiness_report.json",
+      "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json",
       "Iris/build/description/v2/data/korean_prose_naturalization/corpus_manifest.json",
       "Iris/build/description/v2/data/korean_prose_naturalization/korean_prose_policy.json",
       "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase2/body_plan_requirement_inventory.jsonl",
@@ -351,7 +351,7 @@
       "Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py",
       "Iris/build/description/v2/tools/build/validate_public_text_quality_acceptance.py",
       "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
-      "docs/iris_public_text_quality_policy_closure_plan.md",
+      "docs/iris_publish_boundary_public_text_quality_acceptance_policy_closure_plan.md",
       "docs/public_text_quality_acceptance_claim_boundary.md",
       "docs/public_text_quality_acceptance_policy.md",
       "docs/public_text_quality_denominator_contract.md",

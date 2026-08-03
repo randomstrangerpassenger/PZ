@@ -13,7 +13,7 @@ CORRECTION_CONTRACT = (
     / "Iris"
     / "_docs"
     / "round3"
-    / "iris_public_text_quality_policy_closure"
+    / "iris_publish_boundary_public_text_quality_acceptance_policy_closure"
     / "foundation"
     / "implementation_corrections"
     / "compiler_identity_v2"

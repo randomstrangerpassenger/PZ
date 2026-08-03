@@ -31,7 +31,7 @@ TOOLS_DIR = Path(__file__).resolve().parent
 V2_ROOT = TOOLS_DIR.parents[1]
 REPO_ROOT = V2_ROOT.parents[3]
 
-ROUND_ID = "iris_public_text_quality_policy_closure"
+ROUND_ID = "iris_publish_boundary_public_text_quality_acceptance_policy_closure"
 SYNC_CONTRACT_ID = "dvf3_3_korean_naturalization__publish_boundary_sync_v1"
 GLOBAL_SYNC_CONTRACT_ID = "iris_aa49_four_plan_execution_sync_v1"
 FOUR_PLAN_SYNC_PROJECTION_SHA256 = (
@@ -150,7 +150,7 @@ GIT_COMMIT_PATTERN = re.compile(r"^[0-9a-f]{40}$")
 PLAN_DOC = (
     REPO_ROOT
     / "docs"
-    / "iris_public_text_quality_policy_closure_plan.md"
+    / "iris_publish_boundary_public_text_quality_acceptance_policy_closure_plan.md"
 )
 NATURALIZATION_PLAN_DOC = (
     REPO_ROOT
@@ -930,7 +930,7 @@ def _g0_sync_manifest_record() -> dict[str, Any]:
 def _predecessor_foundation_binding() -> dict[str, Any]:
     relative = (
         "Iris/_docs/round3/"
-        "iris_public_text_quality_policy_closure/"
+        "iris_publish_boundary_public_text_quality_acceptance_policy_closure/"
         "foundation/public_text_quality_foundation_contract.json"
     )
     revision = PREDECESSOR_FOUNDATION["source_commit"]
@@ -1001,7 +1001,7 @@ def _validate_g0_binding() -> dict[str, Any]:
         "docs/iris_clean_checkout_full_repository_validation_reproducibility_authority_closure_plan.md",
         "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md",
         "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
-        "docs/iris_public_text_quality_policy_closure_plan.md",
+        "docs/iris_publish_boundary_public_text_quality_acceptance_policy_closure_plan.md",
     ]
     plan_rows = manifest.get("plans")
     projection = manifest.get("projection")

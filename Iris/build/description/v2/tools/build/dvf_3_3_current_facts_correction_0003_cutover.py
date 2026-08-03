@@ -148,7 +148,7 @@ def configure_base() -> None:
             "Iris/_docs/round3/"
             "dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/",
             "Iris/_docs/round3/"
-            "iris_public_text_quality_policy_closure/"
+            "iris_publish_boundary_public_text_quality_acceptance_policy_closure/"
             "foundation/",
         ),
         "PROTECTED_EXCEPTIONS": {

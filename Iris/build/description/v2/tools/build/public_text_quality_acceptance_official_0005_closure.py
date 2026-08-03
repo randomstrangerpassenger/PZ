@@ -162,7 +162,7 @@ TERMINAL_SEAL = PHASE7 / "terminal_hash_seal.json"
 CLOSEOUT_DOC = (
     official.REPO_ROOT
     / "docs"
-    / "iris_public_text_quality_policy_closure_closeout.md"
+    / "iris_publish_boundary_public_text_quality_acceptance_policy_closure_closeout.md"
 )
 
 AFFECTED_TEST_IDS = (

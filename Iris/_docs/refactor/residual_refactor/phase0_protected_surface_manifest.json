@@ -15,6 +15,11 @@
                                            "path":  "Iris/_docs/round3/current_route_required_validations.json",
                                            "owner":  "residual_refactor_plan",
                                            "reason":  "add five tests to required denominator"
+                                       },
+                                       {
+                                           "path":  "Iris/build/description/v2/tools/build/INVENTORY.md",
+                                           "owner":  "residual_refactor_plan",
+                                           "reason":  "record the implemented residual refactor tool-role inventory"
                                        }
                                    ],
     "rows":  [

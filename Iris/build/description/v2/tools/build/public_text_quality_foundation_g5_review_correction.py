@@ -112,7 +112,7 @@ REVIEW_CORRECTION_RECORD = (
     / "Iris"
     / "_docs"
     / "round3"
-    / "iris_public_text_quality_policy_closure"
+    / "iris_publish_boundary_public_text_quality_acceptance_policy_closure"
     / "official_attempt_corrections"
     / "attempt-0004"
     / "phase5-review-schema-incompatibility-correction-0001.json"
@@ -181,7 +181,7 @@ ATTEMPT_0004_ROOT = (
 ATTEMPT_0004_OWNER_INPUT_ROOT = (
     V2_ROOT
     / "owner_inputs"
-    / "iris_public_text_quality_policy_closure"
+    / "iris_publish_boundary_public_text_quality_acceptance_policy_closure"
 )
 ATTEMPT_0004_IMPLEMENTATION = (
     V2_ROOT

@@ -86,7 +86,7 @@ FOUNDATION_ROOT = (
     / "Iris"
     / "_docs"
     / "round3"
-    / "iris_public_text_quality_policy_closure"
+    / "iris_publish_boundary_public_text_quality_acceptance_policy_closure"
     / "foundation"
 )
 FOUNDATION_CONTRACT = FOUNDATION_ROOT / "public_text_quality_foundation_contract.json"
@@ -220,7 +220,7 @@ PLAN_PATH = (
 PUBLISH_PLAN_PATH = (
     REPO_ROOT
     / "docs"
-    / "iris_public_text_quality_policy_closure_plan.md"
+    / "iris_publish_boundary_public_text_quality_acceptance_policy_closure_plan.md"
 )
 EXECUTION_CONTRACT_PATH = REPO_ROOT / "docs" / "EXECUTION_CONTRACT.md"
 ROADMAP_BINDING_PATH = DURABLE_ROOT / "roadmap_binding.json"

@@ -32,6 +32,7 @@ V2_ROOT = TOOLS_DIR.parents[1]
 REPO_ROOT = V2_ROOT.parents[3]
 
 ROUND_ID = "iris_publish_boundary_public_text_quality_acceptance_policy_closure"
+STAGING_ROUND_ID = "iris_public_text_quality_policy_closure"
 SYNC_CONTRACT_ID = "dvf3_3_korean_naturalization__publish_boundary_sync_v1"
 GLOBAL_SYNC_CONTRACT_ID = "iris_aa49_four_plan_execution_sync_v1"
 FOUR_PLAN_SYNC_PROJECTION_SHA256 = (
@@ -72,7 +73,7 @@ FIXTURE_MANIFEST = (
     / "foundation_fixtures.json"
 )
 
-DEFAULT_ATTEMPTS_ROOT = V2_ROOT / "staging" / ROUND_ID / "attempts"
+DEFAULT_ATTEMPTS_ROOT = V2_ROOT / "staging" / STAGING_ROUND_ID / "attempts"
 OWNER_INPUT_ROOT = V2_ROOT / "owner_inputs" / ROUND_ID
 REVIEWER_INPUT_ROOT = V2_ROOT / "reviewer_inputs" / ROUND_ID
 LIVE_REQUIRED_VALIDATIONS = (

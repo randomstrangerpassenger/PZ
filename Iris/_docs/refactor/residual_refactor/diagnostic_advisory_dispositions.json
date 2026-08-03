@@ -10,7 +10,7 @@
       "owner": "repository_owner",
       "reason": "The sealed diagnostic reproduction corpus intentionally omits the legacy description generator outside its pinned support denominator.",
       "test_id": "setUpClass (test_description_generator_usecase_labels.DescriptionGeneratorUseCaseLabelTest)",
-      "traceback_fingerprint": "416e2577617728f629249aba57a16c161d83d9b9f9ca1ac01bb594a86f7fcab0"
+      "traceback_fingerprint": "8e6452144a97779d1bd5f6296e5afeed0ced90fe7f57f22d82fa7751ea6ad3c8"
     },
     {
       "exception_type": "FileNotFoundError",
@@ -19,7 +19,7 @@
       "owner": "repository_owner",
       "reason": "The diagnostic overlay does not promote the predecessor presentation contract document into its pinned fixture corpus.",
       "test_id": "test_contract_spec_records_render_time_only_boundary (test_layer3_presentation_formatting_contract.Layer3PresentationFormattingContractTest.test_contract_spec_records_render_time_only_boundary)",
-      "traceback_fingerprint": "472f61c5cfa0bf5e9c8b50595c58139e3a9dab1516d171f85ff6ab15df9e8732"
+      "traceback_fingerprint": "3b46326b52414dab82232535d954f333194fe2f78979dddbfd30cdee45677af8"
     },
     {
       "exception_type": "AssertionError",
@@ -37,7 +37,7 @@
       "owner": "repository_owner",
       "reason": "The pinned diagnostic corpus excludes the legacy translation generator outside the declared reproduction support set.",
       "test_id": "test_generated_lua_data_matches_txt_sources (test_translation_source_contract.TranslationSourceContractTest.test_generated_lua_data_matches_txt_sources)",
-      "traceback_fingerprint": "b630a10ad14f33887d75c06e50bb4c0e4750e17dc51b239f814eb895eaa080e0"
+      "traceback_fingerprint": "7c730e6bdc07a519bbccbae7ea7e0f1783f6b6aba602c74e3f77d2180f89871e"
     },
     {
       "exception_type": "FileNotFoundError",
@@ -46,7 +46,7 @@
       "owner": "repository_owner",
       "reason": "The pinned diagnostic overlay excludes style-rule fixtures that are not part of the sealed reproduction denominator.",
       "test_id": "test_inactive_rules_preserve_existing_output (test_style_normalizer.StyleNormalizerTest.test_inactive_rules_preserve_existing_output)",
-      "traceback_fingerprint": "861e1698ba9d3800cf13065c37bdf46ab6d1e44ec32c226875bf39c587272e63"
+      "traceback_fingerprint": "6bb9319e24eeeecb8d3b97d7f0af0b8981ddac4a1908a9ffe1d18ea72618be4e"
     },
     {
       "exception_type": "AssertionError",
@@ -55,7 +55,7 @@
       "owner": "repository_owner",
       "reason": "The frozen predecessor formatting assertion intentionally differs from the current neutral presentation projection.",
       "test_id": "test_layer3_formatter_is_ui_only_and_used_by_wiki_sections (test_layer3_presentation_formatting_contract.Layer3PresentationFormattingContractTest.test_layer3_formatter_is_ui_only_and_used_by_wiki_sections)",
-      "traceback_fingerprint": "77d6d6b2d78899b3b20c4628e617806c1ffaf1dd67d0d99ef22065f5db37724e"
+      "traceback_fingerprint": "2f8f500c008c913db7f4340fea80bfc7eb38f35660f98f7ed190b62982546ed7"
     },
     {
       "exception_type": "FileNotFoundError",
@@ -64,7 +64,7 @@
       "owner": "repository_owner",
       "reason": "The pinned diagnostic overlay excludes style-rule fixtures that are not part of the sealed reproduction denominator.",
       "test_id": "test_manual_override_skips_style_rules_but_keeps_postproc (test_style_normalizer.StyleNormalizerTest.test_manual_override_skips_style_rules_but_keeps_postproc)",
-      "traceback_fingerprint": "861e1698ba9d3800cf13065c37bdf46ab6d1e44ec32c226875bf39c587272e63"
+      "traceback_fingerprint": "6bb9319e24eeeecb8d3b97d7f0af0b8981ddac4a1908a9ffe1d18ea72618be4e"
     },
     {
       "exception_type": "FileNotFoundError",
@@ -73,7 +73,7 @@
       "owner": "repository_owner",
       "reason": "The sealed diagnostic reproduction corpus intentionally omits the legacy protected-call mapping document.",
       "test_id": "test_mapping_doc_captures_failure_policy_and_migration_table (test_protected_call_boundary_contract.ProtectedCallBoundaryContractTest.test_mapping_doc_captures_failure_policy_and_migration_table)",
-      "traceback_fingerprint": "e30d958f50d9d30f49994e2aebf451267b327fbd28218935b8a922b27b677e69"
+      "traceback_fingerprint": "f5ef786b2429a6dc58e1f26e1863299b2dee6f6f2404f268280c2370e1fca736"
     },
     {
       "exception_type": "FileNotFoundError",
@@ -82,7 +82,7 @@
       "owner": "repository_owner",
       "reason": "The diagnostic overlay does not promote the live package writer into its pinned historical fixture set.",
       "test_id": "test_package_script_excludes_layer3_monolith (test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_package_script_excludes_layer3_monolith)",
-      "traceback_fingerprint": "0acf59a890abff5198b44753ee53ef62cff2f81c3d286b1397c9d9c70630e09f"
+      "traceback_fingerprint": "9306fb65371d16728ecd5c1c6bd994351cf7d82d70ae7e927307589dee196d01"
     },
     {
       "exception_type": "AssertionError",
@@ -91,7 +91,7 @@
       "owner": "repository_owner",
       "reason": "The frozen predecessor protected-call assertion intentionally differs from the current refactored call boundaries.",
       "test_id": "test_representative_call_sites_are_migrated_to_expected_boundaries (test_protected_call_boundary_contract.ProtectedCallBoundaryContractTest.test_representative_call_sites_are_migrated_to_expected_boundaries)",
-      "traceback_fingerprint": "9248fb4b5f42e2d70f1b8831fde371d1fb98c68114bf64ce380989c0847fc23d"
+      "traceback_fingerprint": "b56a33f2d971bc758a54256ac2d919daa4b1e70955469981b5a3b46d49043ee4"
     },
     {
       "exception_type": "FileNotFoundError",
@@ -100,7 +100,7 @@
       "owner": "repository_owner",
       "reason": "The diagnostic overlay does not include the developer-only Lua harness outside its pinned reproduction support set.",
       "test_id": "test_test_harness_lives_in_dev_media_overlay (test_phase5_test_harness_dev_gate_contract.Phase5TestHarnessDevGateContractTest.test_test_harness_lives_in_dev_media_overlay)",
-      "traceback_fingerprint": "5cfd236f6c47ab821a873350ac0ba06c10da3563117c0b21874ba3f8f5f828db"
+      "traceback_fingerprint": "8def7849a4a1fcaa2eec0e843e75536508f3459cd58274c73759863990fbcaf3"
     },
     {
       "exception_type": "FileNotFoundError",
@@ -109,7 +109,7 @@
       "owner": "repository_owner",
       "reason": "The pinned diagnostic corpus excludes the legacy translation generator outside the declared reproduction support set.",
       "test_id": "test_txt_sources_have_key_parity (test_translation_source_contract.TranslationSourceContractTest.test_txt_sources_have_key_parity)",
-      "traceback_fingerprint": "ee87ac0986ec10d1904a623b77877d6571a31a591b29a52cf0cf39458f0e5166"
+      "traceback_fingerprint": "4e225f265195e7b0a175a7a4fce3f91e0d3e75ea15ede9be9916b5cbabba55b7"
     },
     {
       "exception_type": "FileNotFoundError",
@@ -118,7 +118,7 @@
       "owner": "repository_owner",
       "reason": "The pinned diagnostic overlay excludes style-rule fixtures that are not part of the sealed reproduction denominator.",
       "test_id": "test_unknown_selected_cluster_sentinel_matches_family_rule (test_style_normalizer.StyleNormalizerTest.test_unknown_selected_cluster_sentinel_matches_family_rule)",
-      "traceback_fingerprint": "861e1698ba9d3800cf13065c37bdf46ab6d1e44ec32c226875bf39c587272e63"
+      "traceback_fingerprint": "6bb9319e24eeeecb8d3b97d7f0af0b8981ddac4a1908a9ffe1d18ea72618be4e"
     },
     {
       "exception_type": "ModuleNotFoundError",

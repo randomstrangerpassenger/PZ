@@ -115,6 +115,10 @@ class NaturalizationCompilerIdentityTest(unittest.TestCase):
                     ),
                     (
                         "Iris/build/description/v2/tools/build/"
+                        "compose_layer3_io.py"
+                    ),
+                    (
+                        "Iris/build/description/v2/tools/build/"
                         "compose_layer3_item.py"
                     ),
                     (

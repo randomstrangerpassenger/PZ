@@ -43,6 +43,11 @@ def normalize_traceback(
     temporary_basenames: list[str] | None = None,
 ) -> str:
     normalized = text.replace("\r\n", "\n").replace("\r", "\n").replace("\\", "/")
+    # Exception reprs escape Windows separators (``C:\\\\path``), while
+    # traceback source lines do not.  Canonicalize both forms before replacing
+    # repository/overlay prefixes so disposable checkout basenames cannot leak
+    # into the fingerprint.
+    normalized = re.sub(r"/+", "/", normalized)
     replacements: list[tuple[str, str]] = [(normalized_path(repository_root), "<REPO>/")]
     replacements.extend(
         (normalized_path(path), "<OVERLAY>/") for path in (overlay_roots or [])

@@ -1,8 +1,73 @@
 {
-  "error_count": 0,
-  "errors": [],
+  "error_count": 2,
+  "errors": [
+    {
+      "code": "external_review_gate_classification_mismatch",
+      "payload": {
+        "expected": {
+          "blocked_external_gate": true,
+          "blocked_reason": "external_independent_review_missing",
+          "canonical_residual_seal_allowed": false,
+          "external_independent_review_status": "MISSING",
+          "external_review_missing": true,
+          "external_review_rejected": false,
+          "review_report_source": "executor_generated_missing_review_placeholder",
+          "status": "BLOCKED_EXTERNAL_REVIEW"
+        },
+        "gate": {
+          "blocked_external_gate": true,
+          "blocked_reason": "stale_negative_fixture_reason",
+          "canonical_residual_seal_allowed": false,
+          "claim_boundary": "Runtime Payload State Integrity Residual Seal is a governance-only residual seal. It may confirm payload-shape guard evidence and historical-only predecessor residue confinement, but it does not mutate source, rendered, Lua bridge, runtime chunk, package payload, or predecessor residue surfaces and does not claim release readiness.",
+          "external_independent_review_status": "MISSING",
+          "external_review_missing": false,
+          "external_review_rejected": true,
+          "generated_at": "2026-06-27T00:00:00+09:00",
+          "review_report_source": "executor_generated_missing_review_placeholder",
+          "schema_version": "runtime-payload-residual-external-review-gate-v1",
+          "status": "BLOCKED_EXTERNAL_REVIEW"
+        }
+      }
+    },
+    {
+      "code": "independent_review_classification_mismatch",
+      "payload": {
+        "expected": {
+          "canonical_residual_seal_allowed": false,
+          "external_review_admissibility_state": "MISSING",
+          "external_review_missing": true,
+          "external_review_rejected": false,
+          "hash_comparison_pass": true,
+          "hash_mismatch_count": 0,
+          "independent_review_pass": false,
+          "missing_count": 0,
+          "primary_review_artifact_count": 21,
+          "status": "BLOCKED_EXTERNAL_REVIEW"
+        },
+        "independent_review": {
+          "canonical_residual_seal_allowed": false,
+          "comparison_exempt_count": 0,
+          "comparison_exemptions": [],
+          "external_review_admissibility_state": "REJECTED",
+          "external_review_missing": false,
+          "external_review_rejected": true,
+          "generated_at": "2026-06-27T00:00:00+09:00",
+          "hash_comparison_pass": true,
+          "hash_mismatch_count": 0,
+          "independent_review_pass": false,
+          "internal_artifact_hash_report": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase5/artifact_hash_report.json",
+          "mismatches": [],
+          "missing": [],
+          "missing_count": 0,
+          "primary_review_artifact_count": 21,
+          "schema_version": "runtime-payload-residual-independent-review-artifact-hash-report-v1",
+          "status": "BLOCKED_EXTERNAL_REVIEW"
+        }
+      }
+    }
+  ],
   "generated_at": "2026-06-27T00:00:00+09:00",
   "require_complete": false,
   "schema_version": "runtime-payload-residual-validation-report-v1",
-  "status": "PASS"
+  "status": "FAIL"
 }

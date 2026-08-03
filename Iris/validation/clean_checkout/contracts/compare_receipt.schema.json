@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "iris-clean-checkout-compare-receipt-v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "failure_reason",
+    "primary_failure",
+    "secondary_failures",
+    "claim_id",
+    "subject",
+    "native_exit_code",
+    "planned_argv",
+    "actual_argv",
+    "environment",
+    "identity",
+    "run_chains",
+    "stdout",
+    "stderr",
+    "canonical_fingerprint_schema",
+    "canonical_fingerprint_sha256",
+    "receipt_write_status",
+    "validation_ceiling"
+  ],
+  "properties": {
+    "schema_version": {"const": "iris-clean-checkout-compare-receipt-v1"},
+    "status": {"type": "string", "minLength": 1},
+    "failure_reason": {"type": ["string", "null"]},
+    "primary_failure": {"type": ["object", "null"]},
+    "secondary_failures": {"type": "array", "items": {"type": "object"}},
+    "claim_id": {"type": "string", "minLength": 1},
+    "subject": {
+      "oneOf": [
+        {"$ref": "#/$defs/subject"},
+        {"type": "null"}
+      ]
+    },
+    "native_exit_code": {"type": ["integer", "null"]},
+    "planned_argv": {"type": ["array", "null"], "items": {"type": "string"}},
+    "actual_argv": {"type": ["array", "null"], "items": {"type": "string"}},
+    "environment": {
+      "type": "object",
+      "required": ["configured", "before", "applied", "after_restore", "restored"]
+    },
+    "identity": {"type": "object"},
+    "run_chains": {
+      "type": "object"
+    },
+    "canonical_fingerprint_schema": {"const": "iris-clean-checkout-compare-fingerprint-v1"},
+    "canonical_fingerprint_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "stdout": {"$ref": "#/$defs/nullableArtifact"},
+    "stderr": {"$ref": "#/$defs/nullableArtifact"},
+    "receipt_write_status": {"enum": ["succeeded", "failed"]},
+    "validation_ceiling": {"type": "string", "minLength": 1}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"status": {"const": "succeeded"}},
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "failure_reason": {"const": null},
+          "primary_failure": {"const": null},
+          "subject": {"$ref": "#/$defs/subject"},
+          "native_exit_code": {"const": 0},
+          "actual_argv": {"type": "array"},
+          "environment": {
+            "properties": {
+              "configured": {"const": true},
+              "restored": {"const": true}
+            }
+          },
+          "identity": {"type": "object", "required": ["subject", "interpreter", "environment_receipt", "implementation"]},
+          "run_chains": {
+            "type": "object",
+            "required": ["run_a", "run_b"],
+            "properties": {
+              "run_a": {"$ref": "#/$defs/runChain"},
+              "run_b": {"$ref": "#/$defs/runChain"}
+            }
+          },
+          "canonical_fingerprint_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "receipt_write_status": {"const": "succeeded"}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "subject": {
+      "type": "object",
+      "required": ["commit", "tree"],
+      "properties": {
+        "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "tree": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      }
+    },
+    "pathHash": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "runChain": {
+      "type": "object",
+      "required": ["label", "orchestration_receipt", "inner_run_receipt", "canonical_result"],
+      "properties": {
+        "label": {"type": "string", "minLength": 1},
+        "orchestration_receipt": {
+          "type": "object",
+          "required": ["path", "sha256", "claim_id"],
+          "properties": {
+            "path": {"type": "string", "minLength": 1},
+            "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "claim_id": {"type": "string", "minLength": 1}
+          }
+        },
+        "inner_run_receipt": {"$ref": "#/$defs/pathHash"},
+        "canonical_result": {"$ref": "#/$defs/pathHash"}
+      }
+    },
+    "nullableArtifact": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": ["string", "null"]},
+        "sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"}
+      }
+    }
+  }
+}

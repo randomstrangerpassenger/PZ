@@ -1,10 +1,8 @@
 # Runtime Payload State Integrity Residual Ledger Packet
 
-Status: `complete_residual_seal_governance_only`.
+Draft additive packet; not applied to canonical authority docs.
 
-Additive packet; current-route manifest adoption is traceable separately and this packet does not mutate runtime/source/package authority surfaces.
-
-Runtime Payload State Integrity Residual Seal is complete for the governance-only residual scope because the machine guard evidence, author-owned seal-closing decision, and external independent review gate are all PASS.
+Runtime Payload State Integrity Residual Seal remains blocked because the author-owned selection and external independent review gates are not satisfied. Existing runtime payload guard evidence remains required-validation input, but this residual packet does not mutate the current-route manifest or any runtime/source/package authority surface.
 
 Readpoint:
 

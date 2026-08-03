@@ -109,6 +109,19 @@ $PredecessorSupportedPath = Join-Path $RepositoryRoot 'Iris/_docs/refactor/core_
 $PredecessorProtectedPath = Join-Path $RepositoryRoot 'Iris/_docs/refactor/core_refactor/phase0_protected_surface_manifest.json'
 $SupportedBaselinePath = Join-Path $EvidenceRoot 'phase0_supported_api_manifest.json'
 $ProtectedBaselinePath = Join-Path $EvidenceRoot 'phase0_protected_surface_manifest.json'
+$ApprovedDeltaManifestRelative = 'Iris/validation/clean_checkout/authority/offline_build_validation_protected_surface_delta.json'
+$ApprovedDeltaManifestPath = Join-Path $RepositoryRoot $ApprovedDeltaManifestRelative
+if (-not (Test-Path -LiteralPath $ApprovedDeltaManifestPath -PathType Leaf)) {
+    throw 'canonical approved protected-surface delta manifest missing'
+}
+$ApprovedDeltaManifestBlob = (& git -C $RepositoryRoot rev-parse ("HEAD:" + $ApprovedDeltaManifestRelative)).Trim()
+if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($ApprovedDeltaManifestBlob)) {
+    throw 'canonical approved protected-surface delta manifest is not tracked by HEAD'
+}
+$ApprovedDeltaManifestWorkingBlob = (& git -C $RepositoryRoot hash-object ("--path=" + $ApprovedDeltaManifestRelative) $ApprovedDeltaManifestPath).Trim()
+if ($LASTEXITCODE -ne 0 -or $ApprovedDeltaManifestWorkingBlob -cne $ApprovedDeltaManifestBlob) {
+    throw 'canonical approved protected-surface delta manifest differs from HEAD'
+}
 
 if ($Mode -eq 'Baseline') {
     $PredecessorSupported = Get-Content -LiteralPath $PredecessorSupportedPath -Raw | ConvertFrom-Json
@@ -225,7 +238,37 @@ $ProtectedRows = @()
 $Unauthorized = 0
 $AuthorizedChanged = 0
 $ApprovedDeltas = @{}
-foreach ($Delta in @($ProtectedBaseline.approved_activation_deltas)) {
+$ApprovedDeltaRows = @($ProtectedBaseline.approved_activation_deltas)
+$ApprovedDeltaPayload = Get-Content -LiteralPath $ApprovedDeltaManifestPath -Raw | ConvertFrom-Json
+if ([string]$ApprovedDeltaPayload.schema_version -cne 'iris-residual-protected-surface-delta-v1') {
+    throw 'approved protected-surface delta schema mismatch'
+}
+if ([string]$ApprovedDeltaPayload.authority -cne 'repository_owner') {
+    throw 'approved protected-surface delta authority mismatch'
+}
+$SuccessorApprovedDeltaRows = @($ApprovedDeltaPayload.approved_activation_deltas)
+if ($SuccessorApprovedDeltaRows.Count -eq 0) {
+    throw 'approved protected-surface delta manifest is empty'
+}
+foreach ($Delta in $SuccessorApprovedDeltaRows) {
+    $DeltaPath = [string]$Delta.path
+    if (
+        -not ($Delta.PSObject.Properties.Name -contains 'expected_git_blob_id') -or
+        [string]::IsNullOrWhiteSpace([string]$Delta.expected_git_blob_id)
+    ) {
+        throw "approved protected-surface delta Git blob missing: $DeltaPath"
+    }
+    $ExpectedBlob = [string]$Delta.expected_git_blob_id
+    $ActualBlob = (& git -C $RepositoryRoot rev-parse ("HEAD:" + $DeltaPath)).Trim()
+    if ($LASTEXITCODE -ne 0 -or $ActualBlob -cne $ExpectedBlob) {
+        throw "approved protected-surface delta Git blob mismatch: $DeltaPath"
+    }
+    if ([string]$Delta.after_sha256_lf -notmatch '^[0-9a-f]{64}$') {
+        throw "approved protected-surface delta LF hash invalid: $DeltaPath"
+    }
+}
+$ApprovedDeltaRows += $SuccessorApprovedDeltaRows
+foreach ($Delta in $ApprovedDeltaRows) {
     $DeltaPath = [string]$Delta.path
     if ($ApprovedDeltas.ContainsKey($DeltaPath)) {
         throw "duplicate approved protected-surface delta: $DeltaPath"
@@ -277,6 +320,9 @@ $ProtectedReport = [ordered]@{
     validation_status = if ($Unauthorized -eq 0) { 'passed' } else { 'failed' }
     baseline_manifest = Get-Relative $ProtectedBaselinePath
     baseline_manifest_sha256 = Get-HashOrNull $ProtectedBaselinePath
+    approved_delta_manifest = Get-Relative $ApprovedDeltaManifestPath
+    approved_delta_manifest_git_blob_id = $ApprovedDeltaManifestBlob
+    approved_delta_manifest_sha256 = Get-HashOrNull $ApprovedDeltaManifestPath
     changed_count = @($ProtectedRows | Where-Object changed).Count
     authorized_changed_count = $AuthorizedChanged
     unauthorized_changed_count = $Unauthorized

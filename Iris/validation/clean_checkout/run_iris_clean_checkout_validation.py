@@ -23,6 +23,9 @@ from typing import Any
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
+from Iris.validation.clean_checkout import (
+    iris_clean_checkout_validation_common as clean_checkout_common,
+)
 from Iris.validation.clean_checkout.iris_clean_checkout_validation_common import (
     CleanCheckoutError,
     blob_id,
@@ -59,6 +62,12 @@ PHASE0_ENVIRONMENT_BINDING_PATH = (
 )
 OUTPUT_POLICY_PATH = (
     "Iris/validation/clean_checkout/contracts/output_policy.json"
+)
+RUNNER_PATH = (
+    "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py"
+)
+COMMON_MODULE_PATH = (
+    "Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py"
 )
 REPOSITORY_IMPORT_PREFIXES = (
     "",
@@ -1754,6 +1763,63 @@ def _status_counts(status: str) -> dict[str, int]:
     }
 
 
+def _implementation_identity(
+    repo: Path,
+    commit: str,
+) -> dict[str, Any]:
+    runner_path = Path(__file__).resolve()
+    common_path = Path(clean_checkout_common.__file__).resolve()
+    expected_runner = (repo / RUNNER_PATH).resolve()
+    expected_common = (repo / COMMON_MODULE_PATH).resolve()
+    if runner_path != expected_runner:
+        raise CleanCheckoutError(
+            "runner was imported from a different checkout: "
+            f"{runner_path} != {expected_runner}"
+        )
+    if common_path != expected_common:
+        raise CleanCheckoutError(
+            "common module was imported from a different checkout: "
+            f"{common_path} != {expected_common}"
+        )
+    expected_runner_blob = blob_id(repo, commit, RUNNER_PATH)
+    expected_common_blob = blob_id(repo, commit, COMMON_MODULE_PATH)
+    working_runner_blob = git_text(
+        repo,
+        "hash-object",
+        f"--path={RUNNER_PATH}",
+        str(runner_path),
+    ).strip()
+    working_common_blob = git_text(
+        repo,
+        "hash-object",
+        f"--path={COMMON_MODULE_PATH}",
+        str(common_path),
+    ).strip()
+    if working_runner_blob != expected_runner_blob:
+        raise CleanCheckoutError("runner working file differs from subject blob")
+    if working_common_blob != expected_common_blob:
+        raise CleanCheckoutError(
+            "imported common working file differs from subject blob"
+        )
+    return {
+        "runner": {
+            "logical_path": RUNNER_PATH,
+            "actual_path": runner_path.as_posix(),
+            "git_blob_id": expected_runner_blob,
+            "working_git_blob_id": working_runner_blob,
+            "working_sha256": sha256_file(runner_path),
+        },
+        "imported_common": {
+            "logical_path": COMMON_MODULE_PATH,
+            "actual_path": common_path.as_posix(),
+            "module_file": common_path.as_posix(),
+            "git_blob_id": expected_common_blob,
+            "working_git_blob_id": working_common_blob,
+            "working_sha256": sha256_file(common_path),
+        },
+    }
+
+
 def _remove_disposable_checkout(path: Path) -> None:
     removal_path: str | Path = path
     if os.name == "nt":
@@ -1783,6 +1849,9 @@ def run_full_repository_gate(
     result_root: Path,
 ) -> dict[str, Any]:
     subject = git_identity(repo, commit)
+    implementation_identity = _implementation_identity(
+        repo, subject["commit"]
+    )
     head = git_identity(repo, "HEAD")
     if head != subject:
         raise CleanCheckoutError(
@@ -2305,6 +2374,7 @@ def run_full_repository_gate(
         "full_repository_gate_blob_id": blob_id(
             repo, subject["commit"], FULL_REPOSITORY_GATE_PATH
         ),
+        "implementation_identity": implementation_identity,
         "taxonomy_blob_id": blob_id(
             repo, subject["commit"], TAXONOMY_PATH
         ),
@@ -2366,6 +2436,7 @@ def run_full_repository_gate(
         "subject": subject,
         "python_executable_path": python_executable.as_posix(),
         "environment_receipt_path": environment_receipt.as_posix(),
+        "implementation_identity": implementation_identity,
         "materialization_receipt": {
             "path": materialization_path.as_posix(),
             "sha256": materialization_sha256,

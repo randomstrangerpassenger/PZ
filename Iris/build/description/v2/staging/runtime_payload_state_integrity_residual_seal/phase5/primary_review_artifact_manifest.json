@@ -12,14 +12,14 @@
       "exists": true,
       "kind": "file",
       "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase1/input_fingerprint_manifest.json",
-      "sha256": "62630e258356a532957ce6e237ca18be55aee1d692a3e2a0001b8ade7f2216b7"
+      "sha256": "5e320a3db07b3e46c4393a2b8e14ef526a98883e9764a587c6166a20390e6bae"
     },
     {
-      "bytes": 44848,
+      "bytes": 44836,
       "exists": true,
       "kind": "file",
       "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase1/protected_surface_manifest.json",
-      "sha256": "63f77063f5669a9dece3606f60e044758fb1790812c3e72fcab1b960d012894c"
+      "sha256": "5dd693434429f1a9605a44636fbff952a271ae17a0352793a141b08bc6a25711"
     },
     {
       "bytes": 1094,
@@ -85,18 +85,18 @@
       "sha256": "c27b122d89af6cfcdb802292817f185251c82cbb999f85674caf0acfcbc284dd"
     },
     {
-      "bytes": 972,
+      "bytes": 860,
       "exists": true,
       "kind": "file",
       "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase4/author_reserved_selection_decision_record.json",
-      "sha256": "25028f91552c50b2f1cd5a079c0bae9ab01277c96955eb003149a1a15472deb5"
+      "sha256": "d4c8e5962c8a3bfa0364d017724aca7db76d8b37859a888d2f32c3307c6fb987"
     },
     {
-      "bytes": 995,
+      "bytes": 1087,
       "exists": true,
       "kind": "file",
       "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase4/policy_consistency_report.json",
-      "sha256": "a961ae0e90b03b7afb6338839b6d93142398c6d8844813b9a1d58358b94b5794"
+      "sha256": "110b0a06316ca4299693c5d725128d1b7e408a3a549424499c389cf805b3e341"
     },
     {
       "bytes": 694,
@@ -141,11 +141,11 @@
       "sha256": "c80ae583e24925a9107dc86c5127f29aa03fe9667eff75c558e43d0d8f91c3aa"
     },
     {
-      "bytes": 773,
+      "bytes": 896,
       "exists": true,
       "kind": "file",
       "path": "docs/runtime_payload_state_integrity_author_decision.md",
-      "sha256": "9ae0402348edeebc105a1233a520f175c888def9da51a197fde6dc62c485810b"
+      "sha256": "c5cc9c0bd77986fed24e863b01b88702a532f9d495c416d2d324ecccaae4766c"
     }
   ],
   "generated_at": "2026-06-27T00:00:00+09:00",

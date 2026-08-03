@@ -1,8 +1,162 @@
 {
-  "error_count": 0,
-  "errors": [],
+  "error_count": 5,
+  "errors": [
+    {
+      "code": "external_review_gate_classification_mismatch",
+      "payload": {
+        "expected": {
+          "blocked_external_gate": true,
+          "blocked_reason": "external_independent_review_missing",
+          "canonical_residual_seal_allowed": false,
+          "external_independent_review_status": "MISSING",
+          "external_review_missing": true,
+          "external_review_rejected": false,
+          "review_report_source": "executor_generated_missing_review_placeholder",
+          "status": "BLOCKED_EXTERNAL_REVIEW"
+        },
+        "gate": {
+          "blocked_external_gate": true,
+          "blocked_reason": "stale_negative_fixture_reason",
+          "canonical_residual_seal_allowed": false,
+          "claim_boundary": "Runtime Payload State Integrity Residual Seal is a governance-only residual seal. It may confirm payload-shape guard evidence and historical-only predecessor residue confinement, but it does not mutate source, rendered, Lua bridge, runtime chunk, package payload, or predecessor residue surfaces and does not claim release readiness.",
+          "external_independent_review_status": "MISSING",
+          "external_review_missing": false,
+          "external_review_rejected": true,
+          "generated_at": "2026-06-27T00:00:00+09:00",
+          "review_report_source": "executor_generated_missing_review_placeholder",
+          "schema_version": "runtime-payload-residual-external-review-gate-v1",
+          "status": "BLOCKED_EXTERNAL_REVIEW"
+        }
+      }
+    },
+    {
+      "code": "independent_review_classification_mismatch",
+      "payload": {
+        "expected": {
+          "canonical_residual_seal_allowed": false,
+          "external_review_admissibility_state": "MISSING",
+          "external_review_missing": true,
+          "external_review_rejected": false,
+          "hash_comparison_pass": true,
+          "hash_mismatch_count": 0,
+          "independent_review_pass": false,
+          "missing_count": 0,
+          "primary_review_artifact_count": 21,
+          "status": "BLOCKED_EXTERNAL_REVIEW"
+        },
+        "independent_review": {
+          "canonical_residual_seal_allowed": false,
+          "comparison_exempt_count": 0,
+          "comparison_exemptions": [],
+          "external_review_admissibility_state": "REJECTED",
+          "external_review_missing": false,
+          "external_review_rejected": true,
+          "generated_at": "2026-06-27T00:00:00+09:00",
+          "hash_comparison_pass": true,
+          "hash_mismatch_count": 0,
+          "independent_review_pass": false,
+          "internal_artifact_hash_report": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase5/artifact_hash_report.json",
+          "mismatches": [],
+          "missing": [],
+          "missing_count": 0,
+          "primary_review_artifact_count": 21,
+          "schema_version": "runtime-payload-residual-independent-review-artifact-hash-report-v1",
+          "status": "BLOCKED_EXTERNAL_REVIEW"
+        }
+      }
+    },
+    {
+      "code": "canonical_residual_seal_not_allowed",
+      "payload": {
+        "author_decision_status": "PENDING_AUTHOR_SELECTION",
+        "author_policy_consistency_status": "BLOCKED_PENDING_AUTHOR_SELECTION",
+        "author_seal_closing_decision_complete": false,
+        "blocked_external_gate": true,
+        "canonical_residual_seal_allowed": false,
+        "claim_boundary": "Runtime Payload State Integrity Residual Seal is a governance-only residual seal. It may confirm payload-shape guard evidence and historical-only predecessor residue confinement, but it does not mutate source, rendered, Lua bridge, runtime chunk, package payload, or predecessor residue surfaces and does not claim release readiness.",
+        "closeout_state": "blocked_pending_author_selection_and_external_review",
+        "external_review_complete": false,
+        "generated_at": "2026-06-27T00:00:00+09:00",
+        "governance_adoption_status": "blocked",
+        "guard_predicate_freeze_status": "PASS",
+        "independent_external_review_status": "BLOCKED_EXTERNAL_REVIEW",
+        "machine_contract_status": "PASS",
+        "non_claims": [
+          "no_source_fact_or_decision_mutation",
+          "no_rendered_output_regeneration",
+          "no_lua_bridge_export_mutation",
+          "no_runtime_chunk_replacement",
+          "no_package_payload_mutation",
+          "no_predecessor_residue_cleanup_mutation",
+          "no_release_readiness",
+          "no_package_readiness",
+          "no_workshop_readiness",
+          "no_b42_readiness",
+          "no_deployment_readiness",
+          "no_manual_in_game_qa",
+          "no_semantic_quality_completion",
+          "no_public_facing_text_acceptance"
+        ],
+        "payload_shape_guard_status": "PASS",
+        "pending_author_selection": true,
+        "predecessor_residue_disposition": "historical_only",
+        "residue_in_current_denominator_count": 0,
+        "review_traceability_chain": [
+          "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase5/artifact_hash_report.json",
+          "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase5/primary_review_artifact_manifest.json",
+          "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase6/independent_review_artifact_hash_report.json",
+          "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase6/external_review_gate_report.json"
+        ],
+        "runtime_mutation_changed_count": 0,
+        "schema_version": "runtime-payload-residual-final-seal-report-v1",
+        "source_rendered_bridge_package_mutation_changed_count": 0,
+        "status": "BLOCKED"
+      }
+    },
+    {
+      "code": "author_seal_closing_decision_missing",
+      "payload": {
+        "decision_owner": null,
+        "decision_owner_role": null,
+        "decision_readpoint": "pending_author_selection",
+        "decision_record_generated_by_executor": true,
+        "decision_source": null,
+        "decision_timestamp": null,
+        "decision_value_not_generated_by_executor": true,
+        "decision_value_not_inferred_by_validator": true,
+        "generated_at": "2026-06-27T00:00:00+09:00",
+        "pending_author_selection": true,
+        "policy_confirmations": {
+          "current_compatible_unadopted_publish_state_forbidden": null,
+          "current_compatible_unadopted_text_ko_forbidden": null,
+          "predecessor_residue_historical_only": null,
+          "unadopted_display_body_missing_or_explicit_nil": null
+        },
+        "schema_version": "runtime-payload-residual-author-decision-record-v1",
+        "selected_option_id": null,
+        "selected_option_is_seal_closing": false,
+        "status": "PENDING_AUTHOR_SELECTION"
+      }
+    },
+    {
+      "code": "external_independent_review_not_pass",
+      "payload": {
+        "blocked_external_gate": true,
+        "blocked_reason": "stale_negative_fixture_reason",
+        "canonical_residual_seal_allowed": false,
+        "claim_boundary": "Runtime Payload State Integrity Residual Seal is a governance-only residual seal. It may confirm payload-shape guard evidence and historical-only predecessor residue confinement, but it does not mutate source, rendered, Lua bridge, runtime chunk, package payload, or predecessor residue surfaces and does not claim release readiness.",
+        "external_independent_review_status": "MISSING",
+        "external_review_missing": false,
+        "external_review_rejected": true,
+        "generated_at": "2026-06-27T00:00:00+09:00",
+        "review_report_source": "executor_generated_missing_review_placeholder",
+        "schema_version": "runtime-payload-residual-external-review-gate-v1",
+        "status": "BLOCKED_EXTERNAL_REVIEW"
+      }
+    }
+  ],
   "generated_at": "2026-06-27T00:00:00+09:00",
   "require_complete": true,
   "schema_version": "runtime-payload-residual-validation-report-v1",
-  "status": "PASS"
+  "status": "FAIL"
 }

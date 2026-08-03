@@ -1,0 +1,14 @@
+{
+  "schema_version": "iris-residual-protected-surface-delta-v1",
+  "authority": "repository_owner",
+  "authorization_basis": "The owner instruction for the Iris offline build validation implementation pre-authorizes required owner decisions; the sealed residual predecessor baseline remains unchanged.",
+  "approved_activation_deltas": [
+    {
+      "path": "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
+      "owner": "iris_offline_build_validation_plan",
+      "reason": "Implement receipt-bound all-path clean-checkout validation and exact successor identity binding.",
+      "expected_git_blob_id": "fc360865083eeb596ad5941377ac2390ac1a8f1b",
+      "after_sha256_lf": "191ade93b6dce53a67d7d72768217b784f47db31e0901933cbf463f1052da304"
+    }
+  ]
+}

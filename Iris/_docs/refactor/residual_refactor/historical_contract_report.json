@@ -1,25 +1,31 @@
 {
-  "schema_version": "iris-residual-historical-contract-execution-v1",
-  "validation_status": "failed",
-  "execution_status": "failed_before_test_execution",
-  "created_at": "2026-08-02T23:35:48.1279529+00:00",
-  "subject_commit": "4f3699929ba838bf5b6a26f5924b3ee9d7066dff",
-  "subject_tree": "799728a148ab049f96f66c9761203b8d9ef746c3",
-  "command": [
-    "uv",
-    "run",
-    "python",
-    "-B",
-    "Iris/_docs/round3/round3_run_contract_tests.py",
-    "--class",
-    "historical",
-    "--out",
-    "Iris/_docs/refactor/residual_refactor/historical_contract_report.json"
-  ],
-  "exit_code": 2,
-  "raw_runner_report_generated": false,
-  "error": "historical reproduction route-test denominator mismatch",
-  "sealed_predecessor_corpus_modified": false,
-  "runner_public_exit_semantics_modified": false,
-  "historical_denominator_shrunk": false
+  "closure_enforced": false,
+  "contract_class": "historical",
+  "elapsed_seconds": 16.465,
+  "errors": [],
+  "failures": [],
+  "historical_reproduction": {
+    "archive_path": "Iris/_docs/refactor/core_refactor/historical_reproduction_corpus.zip",
+    "archive_sha256": "a8e3eef24aa1982090eb90b02a9059b84e9f93b8764e1b6f430ea96d74974e12",
+    "build_support_count": 498,
+    "entry_paths_sha256": "dac5e1b2eb41a619467452a507e52aa0971a19e0d75509976aa6bc1afbe6c509",
+    "manifest_path": "Iris/_docs/refactor/core_refactor/historical_reproduction_corpus.json",
+    "route_fixture_count": 1710,
+    "route_test_count": 201,
+    "row_count": 2409,
+    "status": "materialized",
+    "tool_support_count": 0
+  },
+  "required_validations": {
+    "errors": [],
+    "required": false,
+    "required_artifact_count": 0,
+    "required_test_count": 0,
+    "success": true
+  },
+  "schema_version": "round3-contract-test-run-v1",
+  "selected_identity_count": 285,
+  "skipped": [],
+  "success": true,
+  "test_count": 285
 }

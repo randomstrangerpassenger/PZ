@@ -379,7 +379,7 @@
       "sha256_matches": null
     },
     {
-      "actual_sha256": "0c036a6a9fe525459f238b8e524c2fd7ce7657b6fb4ab962f2263235cde41b1d",
+      "actual_sha256": "7fb8b4cc34c21ba2526547eed43ad7cf61b5b7f65a7e1bc9854273efee37f444",
       "exists": true,
       "expected_sha256": null,
       "hash_comparison_policy": "post_manifest_hash_observation_no_expected_comparison",
@@ -409,7 +409,7 @@
   "canonical_complete_allowed": true,
   "comparison_checked_count": 43,
   "comparison_exempt_count": 2,
-  "generated_at": "2026-06-25T07:55:08.363231+00:00",
+  "generated_at": "2026-08-03T01:34:47.855768+00:00",
   "independent_review_basis": "non_claude_independent_review_reported_no_blocking_actionable_findings",
   "independent_review_status": "PASS",
   "mismatch_count": 0,

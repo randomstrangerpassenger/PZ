@@ -1,14 +1,9 @@
 {
   "closure_enforced": true,
   "contract_class": "current",
-  "elapsed_seconds": 222.072,
+  "elapsed_seconds": 246.524,
   "errors": [],
-  "failures": [
-    {
-      "test_id": "test_registered_surfaces_preserve_architecture_and_closeout_contracts (test_iris_residual_contract_surfaces.IrisResidualContractSurfacesTest.test_registered_surfaces_preserve_architecture_and_closeout_contracts)",
-      "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\iris-residual-source-60715d2d\\Iris\\build\\description\\v2\\tests\\test_iris_residual_contract_surfaces.py\", line 83, in test_registered_surfaces_preserve_architecture_and_closeout_contracts\n    self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 1 != 0 : Iris package staged: C:\\Users\\MW\\AppData\\Local\\Temp\\iris-residual-package-ec29d2b0b92346d68ee10a46d920be63\\Iris\nManifest written: C:\\Users\\MW\\AppData\\Local\\Temp\\iris-residual-package-ec29d2b0b92346d68ee10a46d920be63\\Iris.package_manifest.sha256.json\nresidual surface Closeout failed\nAt C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\iris-residual-source-60715d2d\\Iris\\test\\validate_residual_refactor_sur\nfaces.ps1:276 char:54\n+ ... ion_status -ne 'passed') { throw 'residual surface Closeout failed' }\n+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n    + CategoryInfo          : OperationStopped: (residual surface Closeout failed:String) [], RuntimeException\n    + FullyQualifiedErrorId : residual surface Closeout failed\n \n\n"
-    }
-  ],
+  "failures": [],
   "historical_reproduction": {
     "row_count": 0,
     "status": "not_applicable"
@@ -18,12 +13,7 @@
       "basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
       "sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
     },
-    "errors": [
-      {
-        "code": "failed_required_test",
-        "test_id": "test_iris_residual_contract_surfaces.IrisResidualContractSurfacesTest.test_registered_surfaces_preserve_architecture_and_closeout_contracts"
-      }
-    ],
+    "errors": [],
     "historical_optional_evidence": {
       "artifact_count": 56,
       "artifacts": [
@@ -173,11 +163,11 @@
       "test_runtime_payload_state_integrity.RuntimePayloadStateIntegrityTest.test_phase0_inventory_resolves_current_payload_shape",
       "test_runtime_payload_state_integrity.RuntimePayloadStateIntegrityTest.test_runtime_consumer_and_closeout_preserve_governance_gates"
     ],
-    "success": false
+    "success": true
   },
   "schema_version": "round3-contract-test-run-v1",
   "selected_identity_count": 150,
   "skipped": [],
-  "success": false,
+  "success": true,
   "test_count": 150
 }

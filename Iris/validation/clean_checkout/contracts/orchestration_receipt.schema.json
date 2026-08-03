@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "iris-clean-checkout-orchestration-receipt-v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "claim_id",
+    "launch_status",
+    "launch_stage",
+    "failure_reason",
+    "exception_type",
+    "exception_message",
+    "primary_failure",
+    "secondary_failures",
+    "native_exit_code",
+    "planned_argv",
+    "actual_argv",
+    "environment",
+    "identity",
+    "stdout",
+    "stderr",
+    "result_receipt",
+    "raw_parameters",
+    "receipt_write_status",
+    "validation_ceiling"
+  ],
+  "properties": {
+    "schema_version": {"const": "iris-clean-checkout-orchestration-receipt-v1"},
+    "claim_id": {"type": "string", "minLength": 1},
+    "launch_status": {"type": "string", "minLength": 1},
+    "launch_stage": {"type": "string", "minLength": 1},
+    "failure_reason": {"type": ["string", "null"]},
+    "exception_type": {"type": ["string", "null"]},
+    "exception_message": {"type": ["string", "null"]},
+    "primary_failure": {"type": ["object", "null"]},
+    "secondary_failures": {"type": "array", "items": {"type": "object"}},
+    "native_exit_code": {"type": ["integer", "null"]},
+    "planned_argv": {"type": ["array", "null"], "items": {"type": "string"}},
+    "actual_argv": {"type": ["array", "null"], "items": {"type": "string"}},
+    "environment": {
+      "type": "object",
+      "required": ["configured", "restored", "before", "applied", "after_restore"]
+    },
+    "identity": {"type": "object"},
+    "stdout": {"$ref": "#/$defs/nullableArtifact"},
+    "stderr": {"$ref": "#/$defs/nullableArtifact"},
+    "result_receipt": {
+      "type": "object",
+      "required": ["exists", "path", "sha256"],
+      "properties": {
+        "exists": {"type": "boolean"},
+        "path": {"type": ["string", "null"]},
+        "sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "raw_parameters": {
+      "type": "object",
+      "required": [
+        "repository_root",
+        "commit",
+        "environment_receipt",
+        "work_root",
+        "result_root",
+        "orchestration_receipt",
+        "stdout_path",
+        "stderr_path",
+        "failure_injection",
+        "empty_state_fixture_variable"
+      ]
+    },
+    "receipt_write_status": {"enum": ["succeeded", "failed"]},
+    "validation_ceiling": {"type": "string", "minLength": 1}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"launch_status": {"const": "succeeded"}},
+        "required": ["launch_status"]
+      },
+      "then": {
+        "properties": {
+          "failure_reason": {"const": null},
+          "primary_failure": {"const": null},
+          "native_exit_code": {"const": 0},
+          "actual_argv": {"type": "array"},
+          "environment": {
+            "properties": {
+              "configured": {"const": true},
+              "restored": {"const": true}
+            }
+          },
+          "identity": {"$ref": "#/$defs/successIdentity"},
+          "result_receipt": {
+            "properties": {
+              "exists": {"const": true},
+              "path": {"type": "string", "minLength": 1},
+              "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+            }
+          },
+          "receipt_write_status": {"const": "succeeded"}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "subject": {
+      "type": "object",
+      "required": ["commit", "tree"],
+      "properties": {
+        "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "tree": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      }
+    },
+    "implementationRow": {
+      "type": "object",
+      "required": ["logical_path", "actual_path", "git_blob_id", "working_git_blob_id", "working_sha256"],
+      "properties": {
+        "logical_path": {"type": "string", "minLength": 1},
+        "actual_path": {"type": "string", "minLength": 1},
+        "git_blob_id": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "working_git_blob_id": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "working_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "successIdentity": {
+      "type": "object",
+      "required": ["subject", "interpreter", "environment_receipt", "implementation", "inner_actual_import"],
+      "properties": {
+        "subject": {"$ref": "#/$defs/subject"},
+        "interpreter": {"$ref": "#/$defs/pathHash"},
+        "environment_receipt": {"$ref": "#/$defs/pathHash"},
+        "implementation": {
+          "type": "object",
+          "required": ["runner", "common", "policy", "environment_authority", "launcher"],
+          "properties": {
+            "runner": {"$ref": "#/$defs/implementationRow"},
+            "common": {"$ref": "#/$defs/implementationRow"},
+            "policy": {"$ref": "#/$defs/implementationRow"},
+            "environment_authority": {"$ref": "#/$defs/implementationRow"},
+            "launcher": {"$ref": "#/$defs/implementationRow"}
+          }
+        },
+        "inner_actual_import": {"type": "object"}
+      }
+    },
+    "pathHash": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "nullableArtifact": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": ["string", "null"]},
+        "sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"}
+      }
+    }
+  }
+}

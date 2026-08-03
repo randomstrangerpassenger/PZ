@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "iris-output-isolation-batch-registry-v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "schema",
+    "subject",
+    "registry_owner",
+    "source_denominator",
+    "census_manifest",
+    "owner_ratification",
+    "selected_rows",
+    "selected_owner_unknown_count",
+    "selected_unknown_role_count",
+    "mutation_fail_closed_on_registry_drift",
+    "mutation_disposition"
+  ],
+  "properties": {
+    "schema_version": {"const": "iris-output-isolation-batch-registry-v1"},
+    "schema": {
+      "type": "object",
+      "required": ["path", "git_blob_id", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "git_blob_id": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "subject": {"$ref": "#/$defs/subject"},
+    "registry_owner": {"const": "Iris Repository Validation / Clean-Checkout Reproducibility Authority"},
+    "source_denominator": {
+      "type": "object",
+      "required": ["path", "sha256", "denominator_id", "set_sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "denominator_id": {"const": "tools_build_recursive_tracked"},
+        "set_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "census_manifest": {"$ref": "#/$defs/pathHash"},
+    "owner_ratification": {
+      "type": "object",
+      "required": ["required", "path"],
+      "properties": {
+        "required": {"const": true},
+        "path": {"type": "string", "minLength": 1}
+      }
+    },
+    "selected_rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "git_blob_id",
+          "working_sha256",
+          "caller_boundary",
+          "owner",
+          "role",
+          "observed_write_set",
+          "golden_contract_id",
+          "approved_mutation_scope"
+        ],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "git_blob_id": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+          "working_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "caller_boundary": {"type": "object"},
+          "owner": {"type": "string", "not": {"const": "owner_unknown"}},
+          "role": {"type": "string", "not": {"const": "unknown_role"}},
+          "observed_write_set": {"type": ["array", "object"]},
+          "golden_contract_id": {"type": "string", "minLength": 1},
+          "approved_mutation_scope": {"type": ["array", "object", "string"]}
+        }
+      }
+    },
+    "selected_owner_unknown_count": {"const": 0},
+    "selected_unknown_role_count": {"const": 0},
+    "mutation_fail_closed_on_registry_drift": {"const": true},
+    "mutation_disposition": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "subject": {
+      "type": "object",
+      "required": ["commit", "tree"],
+      "properties": {
+        "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "tree": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      }
+    },
+    "pathHash": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    }
+  }
+}

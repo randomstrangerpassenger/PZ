@@ -4,7 +4,7 @@
     "disposable_candidate_lua_count":  90,
     "source_lua_count":  90,
     "source_candidate_identity_equal":  true,
-    "candidate_lua_identity_sha256":  "5f5219f08db316cb715d4bd3b4b208b5fa6e9e2f5fe6d5fea6d80a1a6c0004da",
+    "candidate_lua_identity_sha256":  "9742357ddb216832c5e9fb85eda30eb03df0e89059075d0da047471616de7850",
     "existing_package_peer_unchanged":  true,
     "candidate_cleanup_status":  "passed_removed",
     "writer_target_policy":  "existing package peer is never a writer target"

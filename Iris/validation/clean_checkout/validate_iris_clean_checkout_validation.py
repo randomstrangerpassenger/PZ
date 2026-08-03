@@ -11,11 +11,18 @@ from typing import Any
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
+from Iris.validation.clean_checkout import (
+    iris_clean_checkout_validation_common as clean_checkout_common,
+)
 from Iris.validation.clean_checkout.iris_clean_checkout_validation_common import (
     CleanCheckoutError,
+    blob_id,
+    canonical_json_bytes,
     git_identity,
+    git_text,
     json_at_commit,
     resolved_repo,
+    sha256_bytes,
     sha256_file,
     validate_external_environment,
 )
@@ -26,11 +33,74 @@ PHASE0_ENVIRONMENT_BINDING_PATH = (
     "phase0_ratification_attempt_0002.json"
 )
 EVIDENCE_ROOT = Path("Iris/validation/clean_checkout/evidence")
+VALIDATOR_PATH = (
+    "Iris/validation/clean_checkout/validate_iris_clean_checkout_validation.py"
+)
+COMMON_MODULE_PATH = (
+    "Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py"
+)
 
 
 def _require(condition: bool, message: str) -> None:
     if not condition:
         raise CleanCheckoutError(message)
+
+
+def _implementation_identity(
+    repo: Path,
+    commit: str,
+) -> dict[str, Any]:
+    validator_path = Path(__file__).resolve()
+    common_path = Path(clean_checkout_common.__file__).resolve()
+    expected_validator = (repo / VALIDATOR_PATH).resolve()
+    expected_common = (repo / COMMON_MODULE_PATH).resolve()
+    _require(
+        validator_path == expected_validator,
+        "compare validator was imported from a different checkout",
+    )
+    _require(
+        common_path == expected_common,
+        "compare common module was imported from a different checkout",
+    )
+    expected_validator_blob = blob_id(repo, commit, VALIDATOR_PATH)
+    expected_common_blob = blob_id(repo, commit, COMMON_MODULE_PATH)
+    working_validator_blob = git_text(
+        repo,
+        "hash-object",
+        f"--path={VALIDATOR_PATH}",
+        str(validator_path),
+    ).strip()
+    working_common_blob = git_text(
+        repo,
+        "hash-object",
+        f"--path={COMMON_MODULE_PATH}",
+        str(common_path),
+    ).strip()
+    _require(
+        working_validator_blob == expected_validator_blob,
+        "compare validator working file differs from subject blob",
+    )
+    _require(
+        working_common_blob == expected_common_blob,
+        "compare common working file differs from subject blob",
+    )
+    return {
+        "validator": {
+            "logical_path": VALIDATOR_PATH,
+            "actual_path": validator_path.as_posix(),
+            "git_blob_id": expected_validator_blob,
+            "working_git_blob_id": working_validator_blob,
+            "working_sha256": sha256_file(validator_path),
+        },
+        "imported_common": {
+            "logical_path": COMMON_MODULE_PATH,
+            "actual_path": common_path.as_posix(),
+            "module_file": common_path.as_posix(),
+            "git_blob_id": expected_common_blob,
+            "working_git_blob_id": working_common_blob,
+            "working_sha256": sha256_file(common_path),
+        },
+    }
 
 
 def validate_environment(
@@ -61,11 +131,40 @@ def validate_environment(
 def validate_result_pair(
     run_a_path: Path,
     run_b_path: Path,
+    *,
+    repo: Path | None = None,
+    commit: str | None = None,
 ) -> dict[str, Any]:
     run_a_path = run_a_path.resolve()
     run_b_path = run_b_path.resolve()
-    run_a = json.loads(run_a_path.read_text(encoding="utf-8"))
-    run_b = json.loads(run_b_path.read_text(encoding="utf-8"))
+    run_a_bytes = run_a_path.read_bytes()
+    run_b_bytes = run_b_path.read_bytes()
+    _require(
+        not run_a_bytes.startswith(b"\xef\xbb\xbf"),
+        "Run A canonical result contains a UTF-8 BOM",
+    )
+    _require(
+        not run_b_bytes.startswith(b"\xef\xbb\xbf"),
+        "Run B canonical result contains a UTF-8 BOM",
+    )
+    _require(
+        run_a_bytes == run_b_bytes,
+        "Run A and Run B canonical result bytes differ",
+    )
+    run_a = json.loads(run_a_bytes)
+    run_b = json.loads(run_b_bytes)
+    _require(
+        isinstance(run_a, dict) and isinstance(run_b, dict),
+        "canonical results must be JSON objects",
+    )
+    _require(
+        run_a_bytes == canonical_json_bytes(run_a),
+        "Run A canonical result does not use canonical JSON bytes",
+    )
+    _require(
+        run_b_bytes == canonical_json_bytes(run_b),
+        "Run B canonical result does not use canonical JSON bytes",
+    )
     supported_schemas = {
         "iris-clean-checkout-canonical-result-v2",
         "iris-clean-checkout-canonical-full-result-v1",
@@ -81,7 +180,15 @@ def validate_result_pair(
     _require(run_a.get("status") == "PASS", "Run A is not PASS")
     _require(run_b.get("status") == "PASS", "Run B is not PASS")
     _require(run_a == run_b, "Run A and Run B canonical results differ")
-    return {
+    _require(
+        isinstance(run_a.get("subject"), dict),
+        "canonical result subject is missing",
+    )
+    _require(
+        isinstance(run_a.get("test_inventory_sha256"), str),
+        "canonical result test inventory hash is missing",
+    )
+    result = {
         "schema_version": "iris-clean-checkout-result-comparison-v1",
         "status": "PASS",
         "subject": run_a["subject"],
@@ -93,10 +200,25 @@ def validate_result_pair(
             "required_execution_unit_count"
         ),
         "test_inventory_sha256": run_a["test_inventory_sha256"],
-        "run_a_sha256": sha256_file(run_a_path),
-        "run_b_sha256": sha256_file(run_b_path),
+        "run_a_sha256": sha256_bytes(run_a_bytes),
+        "run_b_sha256": sha256_bytes(run_b_bytes),
+        "canonical_result_raw_bytes_equal": True,
         "canonical_results_equal": True,
     }
+    if repo is not None or commit is not None:
+        _require(
+            repo is not None and commit is not None,
+            "repo and commit must be provided together",
+        )
+        subject = git_identity(repo, commit)
+        _require(
+            run_a["subject"] == subject,
+            "Run subject differs from compare subject",
+        )
+        result["implementation_identity"] = _implementation_identity(
+            repo, subject["commit"]
+        )
+    return result
 
 
 def validate_change2_evidence(repo: Path) -> dict[str, Any]:
@@ -180,6 +302,8 @@ def _parser() -> argparse.ArgumentParser:
     comparison = subparsers.add_parser("compare-results")
     comparison.add_argument("--run-a", required=True)
     comparison.add_argument("--run-b", required=True)
+    comparison.add_argument("--repo")
+    comparison.add_argument("--commit")
     evidence = subparsers.add_parser("change2-evidence")
     evidence.add_argument("--repo", required=True)
     return parser
@@ -199,6 +323,8 @@ def main() -> int:
             result = validate_result_pair(
                 Path(args.run_a),
                 Path(args.run_b),
+                repo=(resolved_repo(args.repo) if args.repo else None),
+                commit=args.commit,
             )
         else:
             result = validate_change2_evidence(resolved_repo(args.repo))

@@ -3,7 +3,7 @@
     "validation_status":  "passed",
     "claim_boundary":  "predecessor_20_listed_surfaces_only",
     "baseline_manifest":  "Iris/_docs/refactor/residual_refactor/phase0_supported_api_manifest.json",
-    "baseline_manifest_sha256":  "f0a00e5c9332f99e569bcb4bef8a85d68f3bfc2711a72e5e4aa6d6bd391eaca8",
+    "baseline_manifest_sha256":  "4f968193283e675cc1126a977cdf5735c1f91443fe68df2bdadc2f1ad2e1100f",
     "surface_count":  20,
     "incompatible_count":  0,
     "surfaces":  [

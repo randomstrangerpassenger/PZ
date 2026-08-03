@@ -939,22 +939,25 @@ Pulse는 처음부터 “새 Java 로더”로 경쟁하는 브랜드가 아니�
 - 다섯 current-route 테스트와 current/historical/diagnostic evidence 역할을 등록했다.
 - standalone runtime acceptance, production Lua syntax, disposable package, supported API, Python import/CLI/byte matrix를 실행했다.
 - Codex Reviewer finding 1건(UNC temp-root cleanup)을 수정했고 최종 재검토 finding 0건을 확인했다.
+- historical pinned corpus와 current taxonomy의 denominator equality 결합을 제거하고, pinned historical set의 taxonomy 포함 관계만 유지했다.
+- diagnostic fingerprint의 Windows doubled-separator/disposable-overlay 비결정성을 제거하고 raw `77 tests / 3 failures / 26 errors`의 29 findings를 22개 exact owner disposition으로 비차단 처리했다.
+- protected surface의 EOL-only 차이와 optional ignored package projection 부재를 의미 mutation에서 분리했다.
+- 272자 tracked staging 경로를 짧은 staging-only namespace로 100% rename해 tracked 상대 경로 최대치를 221자로 낮췄다. `_docs/round3`, owner/reviewer input과 문서 identity는 보존했다.
+- short-path clean clone에서 protected surface, current `150/150`, historical `285/285`, diagnostic adapter, full discovery `529/529`, Lua syntax `97` files, disposable package `97` Lua / `12` Layer 3 files가 모두 exit `0`으로 통과했다.
+- Codex Reviewer의 path-only approval P1을 exact LF-normalized successor SHA-256 결속으로 수정했다. 최종 `c1fa281e` clean clone surface는 supported `20` / protected `26` / package Lua `90`으로 재통과했다.
 
 ## Blocked / Partial
 
-- Phase 0가 initial user overlay에 결속돼 clean subject와 protected-surface hash를 동시에 재현하지 못한다.
-- current route는 150개 중 surface 계약 1건이 실패했다.
-- historical 및 diagnostic route는 봉인 reproduction denominator mismatch로 테스트 전 차단됐다.
-- full Python discovery는 clean subject에서 520개 중 5 failures / 4 errors다.
-- receipt-bound clean-checkout은 최장 tracked path 272자가 Windows 계약 상한 259자를 넘어 materialization 전에 차단됐다.
+- 최종 reviewer-hardening commit `c1fa281e` exact subject에 대해 receipt interpreter와 결속된 clean-checkout full-gate 전체를 아직 다시 실행하지 않았다.
 - Project Zomboid 인게임 Browser/Wiki/Tooltip/logging 검증과 screenshot/log 증거는 unattended 환경에서 수행할 수 없어 `runtime_ui=blocked`다.
+- 원본 작업트리에서 일부 full-discovery producer가 tracked facts/evidence를 갱신하는 실행 부작용이 확인됐다. 사용자 변경과 혼재한 파일을 자동 복원하지 않았으며, 후속 validation execution isolation 범위에서 해결해야 한다.
 
 ## Next
 
 - 별도 owner 세션에서 Project Zomboid runtime UI 5개 case를 실행하고 screenshot 또는 PZ log를 결속한다.
-- protected-surface baseline의 initial overlay와 committed subject 관계를 새 계획에서 재판정한다.
-- sealed predecessor corpus를 수정하지 않는 historical/diagnostic denominator 후속 계획을 수립한다.
-- Windows 259자 계약을 유지할지, tracked staging 경로를 별도 승인으로 재배치할지 clean-checkout owner가 결정한다.
+- `c1fa281e` exact subject를 receipt interpreter, no `PYTHONPATH`, `-B -s` 조건으로 clean-checkout full-gate 재검증한다.
+- 테스트와 evidence producer의 모든 output을 disposable root로 격리하고, 성공·실패 어느 경로에서도 source working tree mutation과 residue가 0인지 검증한다.
+- 추가 Iris 리팩터링의 필요성과 범위는 이 안정화 closeout과 별도로 평가한다. 이 항목의 `partial`, `Next`, `Hold` 상태를 구조 후보의 선제 배제 규칙으로 사용하지 않는다.
 
 ## Hold
 
@@ -964,7 +967,7 @@ Pulse는 처음부터 “새 Java 로더”로 경쟁하는 브랜드가 아니�
 - historical denominator 축소 또는 sealed evidence 재작성
 - `complete`, release-ready, Workshop-ready, B42-ready 선언
 
-현재 상태는 `partial`이다. 근거는 `Iris/_docs/refactor/residual_refactor/final_validation_matrix.json`에 둔다.
+현재 구현과 자동 closeout blocker correction은 수용됐지만 최종 상태는 `partial`이다. 남은 범위는 runtime/API 구조 개편이 아니라 validation execution isolation, final receipt-bound clean-checkout, manual runtime UI evidence다. 기존 근거는 `Iris/_docs/refactor/residual_refactor/final_validation_matrix.json`, successor 실행 근거는 `cfa9f0d5..c1fa281e` 구현 series와 short-path clean-clone validation log다.
 
 ---
 

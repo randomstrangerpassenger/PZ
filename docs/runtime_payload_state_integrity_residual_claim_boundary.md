@@ -1,7 +1,14 @@
 # Runtime Payload State Integrity Residual Claim Boundary
 
-Status: `complete_residual_seal_governance_only`.
+Status: `blocked_pending_author_and_external_review`.
 
-The residual seal completion claim is limited to the evidence packet: payload shape guard reverified, guard predicate frozen, predecessor residue confined to historical-only surfaces, protected surfaces unchanged, author-owned seal-closing decision recorded, and external independent review PASS.
+The payload shape guard can be PASS while the residual seal remains incomplete. A residual seal completion claim is allowed only after an author-owned seal-closing decision and an external independent review PASS are both present.
 
-Non-claims remain unchanged: no runtime mutation, no source mutation, no rendered regeneration, no Lua bridge export, no package payload mutation, no release readiness, no manual QA, no semantic quality completion, and no public-facing text acceptance.
+Current machine evidence is limited to:
+
+* payload shape guard reverified
+* guard predicate frozen
+* predecessor residue confined to historical-only surfaces
+* protected source/rendered/Lua bridge/runtime/package surfaces unchanged
+
+Non-claims: no runtime mutation, no source mutation, no rendered regeneration, no Lua bridge export, no package payload mutation, no release readiness, no manual QA, no semantic quality completion, and no public-facing text acceptance.

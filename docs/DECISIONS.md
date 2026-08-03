@@ -2457,10 +2457,10 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
 
 ---
 
-## Iris residual refactoring — 구현 수용 / closeout partial 유지
+## Iris residual refactoring — 구현 수용 / 자동 closeout 복구 / final partial 유지
 
-* 상태: 2026-08-03 current readpoint / implementation accepted / validation partial
-* 결정: `iris_residual_refactoring_consolidated_plan.md`의 Changes 1~5, 6A, 7 구현은 현재 코드로 수용하되, 필수 closeout 축이 모두 통과하기 전에는 계획을 `complete` 또는 release-ready로 보지 않는다.
+* 상태: 2026-08-03 successor readpoint / implementation accepted / automated closeout recovered / final validation partial
+* 결정: `iris_residual_refactoring_consolidated_plan.md`의 Changes 1~5, 6A, 7 구현과 이번 successor correction series `cfa9f0d5..c1fa281e`를 현재 코드로 수용한다. 다만 최종 exact subject의 receipt-bound full-gate와 수동 Project Zomboid UI evidence가 모두 결속되기 전에는 계획을 `complete` 또는 release-ready로 보지 않는다.
 * 수용된 구현:
 
   * Browser 표시 순서와 Description 우선순위를 taxonomy 의미 권위와 분리된 중립 projection으로 둔다.
@@ -2471,6 +2471,14 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
   * debug-only 계산은 기존 logger gate 뒤로 옮기며 warning/error 경로는 유지한다.
   * Python 파일럿은 기존 `compose_layer3_io` stem의 byte/error 계약을 유지하고, registry runtime record 경로 계산만 closure-external non-hub leaf로 분리한다.
   * current/historical/diagnostic evidence 역할과 비권위 current index 경계를 분리한다.
+* successor correction 결정:
+
+  * historical route의 봉인 201-test reproduction corpus는 고정한다. Current taxonomy가 확장돼도 historical pinned test가 taxonomy에 포함되는지만 요구하며 두 분모의 전체 equality를 요구하지 않는다.
+  * diagnostic raw exit `1`은 public 의미를 유지한다. Raw `77 tests / 3 failures / 26 errors`의 29 observed findings는 22개 exact owner-approved key로 disposition하며, adapter exit `0`과 `blocking=false`만 terminal 성공으로 읽는다.
+  * traceback fingerprint는 Windows exception repr의 doubled separator, slash 방향, repository root와 disposable historical overlay basename을 canonicalize한다. 서로 다른 clean clone이 같은 finding에 다른 fingerprint를 만들 수 없다.
+  * protected-surface activation delta는 path-only allowlist가 아니다. 각 delta는 exact LF-normalized successor SHA-256에 결속하며, 이후 같은 path의 임의 변경은 승인으로 상속되지 않는다.
+  * line-ending만 다른 tracked file과 baseline에서 optional/untracked인 package projection의 clean-checkout 부재는 의미 mutation으로 세지 않는다.
+  * Windows 259자 계약을 완화하지 않는다. `Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure`만 `.../staging/iris_public_text_quality_policy_closure`로 재배치하고, `_docs/round3`, `owner_inputs`, `reviewer_inputs`, 문서명과 historical identity는 기존 namespace를 보존한다.
 * 조건부 변경:
 
   * BOM 정규화는 외부 hash consumer를 배제하지 못해 `deferred`이다.
@@ -2478,11 +2486,13 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
   * `IrisModuleBootstrap.lua` logger gate는 검사 결과 `not_applicable / inspected_no_change`이다.
 * 검증 판정:
 
-  * standalone runtime acceptance, production Lua syntax, disposable package, supported API, Python import/CLI/byte matrix는 통과했다.
-  * Codex Reviewer의 UNC temp-root finding은 `4f369992`에서 수정했고 재검토 finding은 0건이다.
-  * protected surface, current route, historical route, diagnostic disposition, full Python discovery, receipt-bound clean-checkout, manual Project Zomboid UI는 통과하지 못했거나 차단됐다.
-  * 따라서 최종 상태는 `partial`이며, 자동 검증 성공분은 실제 Project Zomboid 인게임 검증을 대체하지 않는다.
+  * short-path clean clone의 `da7dc3bd` 자동 closeout은 protected surface, current `150/150`, historical `285/285`, diagnostic adapter, full Python discovery `529/529`, production Lua syntax `97` files, disposable package `97` Lua / `12` Layer 3 files를 각각 exit `0`으로 통과했다.
+  * 최종 reviewer hardening `c1fa281e`에서는 exact-hash protected delta를 적용한 뒤 새 clean clone에서 supported `20`, protected `26`, package Lua `90` surface closeout을 다시 통과했다.
+  * Codex Reviewer는 path-only protected approval이 미래 임의 변경을 허용하는 P1 1건을 보고했고, `c1fa281e`에서 exact successor hash guard로 수정했다.
+  * 최종 `c1fa281e` exact subject에 대한 receipt-bound clean-checkout full-gate 전체 재실행과 Project Zomboid Browser/Wiki/Tooltip/logging 수동 evidence는 아직 결속되지 않았다.
+  * 따라서 최종 상태는 계속 `partial`이며, 자동 검증 성공분은 실제 Project Zomboid 인게임 검증이나 release/Workshop/B42 readiness를 대체하지 않는다.
 * Non-decision:
 
   * 이 항목은 봉인 predecessor evidence 수정, historical denominator 축소, registry giant 분해, package projection의 source authority 승격, release/Workshop/B42 준비 완료를 승인한 것이 아니다.
+  * 남은 test-output 격리와 receipt-bound 재현성은 별도 validation execution stabilization 범위다. 이 분류는 향후 Iris runtime/API 리팩터링의 필요성이나 후보 범위를 결정하지 않는다.
 * Evidence: `Iris/_docs/refactor/residual_refactor/final_validation_matrix.json` 및 같은 디렉터리의 role manifests.

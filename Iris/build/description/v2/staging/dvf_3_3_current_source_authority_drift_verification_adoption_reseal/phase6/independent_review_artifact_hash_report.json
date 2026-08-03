@@ -307,7 +307,7 @@
       "sha256_matches": null
     },
     {
-      "actual_sha256": "20af9933551a249ff7789b0b6496bbddf89b33298bc24da1009ee83edd1a4058",
+      "actual_sha256": "ccfbb387e09e7b727f3d8f2bb62e4c0cff6e31acfaca8f11fb689b17ff12f9bf",
       "exists": true,
       "expected_sha256": null,
       "hash_comparison_policy": "post_manifest_hash_observation_no_expected_comparison",
@@ -325,7 +325,7 @@
       "sha256_matches": null
     },
     {
-      "actual_sha256": "5a739a71d67b068667cdd6521eaeeffdef8c0a70a8b4cde18988c80109c63fba",
+      "actual_sha256": "0f538439d3861a2d8c9461df136c22a58acb9bb05f6b4e1d9998ecc4484c946f",
       "exists": true,
       "expected_sha256": null,
       "hash_comparison_policy": "post_manifest_hash_observation_no_expected_comparison",
@@ -337,7 +337,7 @@
   "canonical_complete_allowed": true,
   "comparison_checked_count": 33,
   "comparison_exempt_count": 4,
-  "generated_at": "2026-06-26T14:37:35.052020+00:00",
+  "generated_at": "2026-08-03T01:34:51.235800+00:00",
   "independent_review_basis": "non_claude_independent_review_reported_no_blocking_actionable_findings",
   "independent_review_status": "PASS",
   "mismatch_count": 0,

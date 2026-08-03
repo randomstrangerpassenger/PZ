@@ -1,6 +1,6 @@
 {
     "schema_version":  "iris-residual-claim-boundary-v1",
-    "validation_status":  "failed",
+    "validation_status":  "passed",
     "claims":  [
                    "listed supported surfaces compatible",
                    "protected surfaces unchanged",

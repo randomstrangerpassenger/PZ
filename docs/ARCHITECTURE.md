@@ -1192,4 +1192,12 @@ Iris의 runtime 역할은 계속 **오프라인에서 확정된 사실을 Lua로
 - Python build 도구는 contract-specific I/O를 유지한다. `compose_layer3_io`는 기존 stem과 JSONL/hash/error 계약을 보존하고 Windows extended path를 처리하며, registry runtime record path projection만 stdlib-only leaf로 분리한다.
 - validation evidence는 current, historical, diagnostic 역할을 분리하고 `current_evidence_index.json`을 비권위 projection으로만 취급한다.
 
-구현 readpoint는 `4f3699929ba838bf5b6a26f5924b3ee9d7066dff`이다. 구조 구현은 수용됐지만 protected-surface overlay, historical denominator, diagnostic raw report, Windows clean-checkout path budget, 수동 PZ UI가 닫히지 않아 architecture closeout 상태는 `partial`이다.
+초기 구현 readpoint는 `4f3699929ba838bf5b6a26f5924b3ee9d7066dff`이고, blocker correction / reviewer-hardening successor readpoint는 `c1fa281e`다. Successor는 다음 운영 경계를 추가한다.
+
+- current taxonomy와 historical reproduction corpus는 서로 다른 denominator다. Historical pinned set은 current taxonomy의 subset이어야 하지만 전체 수가 같을 필요는 없다.
+- diagnostic runner는 raw evidence producer이고 adapter가 terminal policy boundary다. Raw exit `1`을 숨기지 않으며 exact owner disposition과 stable fingerprint가 모두 일치할 때만 비차단으로 변환한다.
+- protected-surface delta는 `path + exact LF-normalized successor SHA-256`으로 승인한다. Path 이름만으로 미래 변경 권한을 부여하지 않는다.
+- Windows path budget은 checkout 환경을 완화하지 않고 staging namespace 하나를 짧게 재배치해 지킨다. Historical/docs/owner/reviewer identity namespace는 이동 대상이 아니다.
+- clean-checkout에서 없는 ignored package peer와 EOL-only 차이는 source mutation이 아니다. Package identity는 disposable source projection으로 별도 검증한다.
+
+Short-path clean clone에서 surface, current `150/150`, historical `285/285`, diagnostic adapter, full discovery `529/529`, Lua `97`, disposable package가 통과했다. 최종 exact-hash hardening 뒤 surface도 새 clean clone에서 재통과했다. 남은 architecture closeout 조건은 최종 `c1fa281e`의 receipt-bound full-gate와 수동 PZ UI evidence이며, 상태는 `partial`이다. 이 closeout의 잔여 범위는 validation execution isolation / clean-checkout stabilization으로 분류하며, 별도의 architecture 분석에서 발견될 리팩터링 후보를 배제하는 근거로 사용하지 않는다.

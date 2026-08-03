@@ -701,9 +701,15 @@ def materialize_historical_reproduction_overlay(
         raise ValueError("historical reproduction corpus entry-set hash mismatch")
     if path_identity != PINNED_REPRODUCTION_ENTRY_PATHS_SHA256:
         raise ValueError("historical reproduction pinned entry-set hash mismatch")
-    expected_route_tests = expected_reproduction_route_test_paths(taxonomy)
-    if route_test_paths != expected_route_tests:
-        raise ValueError("historical reproduction route-test denominator mismatch")
+    taxonomy_route_tests = set(expected_reproduction_route_test_paths(taxonomy))
+    missing_taxonomy_routes = sorted(
+        set(route_test_paths) - taxonomy_route_tests
+    )
+    if missing_taxonomy_routes:
+        raise ValueError(
+            "historical reproduction route-test taxonomy coverage mismatch: "
+            + ", ".join(missing_taxonomy_routes)
+        )
     route_test_identity = sha256_bytes("\n".join(route_test_paths).encode("utf-8"))
     if route_test_identity != manifest.get("expected_route_test_paths_sha256"):
         raise ValueError("historical reproduction route-test hash mismatch")

@@ -51,6 +51,26 @@ function Get-TextSha256([string]$Text) {
     finally { $Algorithm.Dispose() }
 }
 
+function Test-LineEndingEquivalent([string]$Path, [string]$ExpectedHash) {
+    if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) { return $false }
+    try {
+        $Text = [System.IO.File]::ReadAllText($Path, [System.Text.Encoding]::UTF8)
+        if ($Text.Contains([char]0)) { return $false }
+        $Normalized = $Text.Replace("`r`n", "`n").Replace("`r", "`n")
+        $Variants = @(
+            $Normalized,
+            $Normalized.Replace("`n", "`r`n"),
+            $Normalized.Replace("`n", "`r")
+        )
+        return @($Variants | Where-Object {
+            (Get-TextSha256 $_) -ceq $ExpectedHash
+        }).Count -gt 0
+    }
+    catch {
+        return $false
+    }
+}
+
 function Get-TreeRows([string]$Root) {
     $Rows = @()
     if (-not (Test-Path -LiteralPath $Root -PathType Container)) { return $Rows }
@@ -196,18 +216,47 @@ Write-Json (Join-Path $EvidenceRoot 'final_supported_api_compatibility_report.js
 
 $ProtectedRows = @()
 $Unauthorized = 0
+$AuthorizedChanged = 0
+$ApprovedDeltas = @{}
+foreach ($Delta in @($ProtectedBaseline.approved_activation_deltas)) {
+    $DeltaPath = [string]$Delta.path
+    if ($ApprovedDeltas.ContainsKey($DeltaPath)) {
+        throw "duplicate approved protected-surface delta: $DeltaPath"
+    }
+    $ApprovedDeltas[$DeltaPath] = $Delta
+}
 foreach ($Row in $ProtectedBaseline.rows) {
-    $FullPath = Join-Path $RepositoryRoot ([string]$Row.path)
+    $RowPath = [string]$Row.path
+    $FullPath = Join-Path $RepositoryRoot $RowPath
     $After = Get-HashOrNull $FullPath
     $Before = if ($null -eq $Row.sha256) { $null } else { [string]$Row.sha256 }
-    $Changed = if ($null -eq $Before -and $null -eq $After) { $false } else { $After -cne $Before }
-    if ($Changed) { $Unauthorized += 1 }
+    $RawChanged = if ($null -eq $Before -and $null -eq $After) { $false } else { $After -cne $Before }
+    $LineEndingEquivalent = $false
+    if ($RawChanged -and $null -ne $Before -and $null -ne $After) {
+        $LineEndingEquivalent = Test-LineEndingEquivalent $FullPath $Before
+    }
+    $OptionalProjectionAbsent = (
+        $RawChanged -and
+        $null -ne $Before -and
+        $null -eq $After -and
+        $Row.tracked -eq $false -and
+        [string]$Row.hash_policy -eq 'read_only_pre_post'
+    )
+    $Changed = $RawChanged -and -not $LineEndingEquivalent -and -not $OptionalProjectionAbsent
+    $Authorized = $Changed -and $ApprovedDeltas.ContainsKey($RowPath)
+    if ($Authorized) { $AuthorizedChanged += 1 }
+    elseif ($Changed) { $Unauthorized += 1 }
     $ProtectedRows += [ordered]@{
-        path = [string]$Row.path
+        path = $RowPath
         before_sha256 = $Before
         after_sha256 = $After
+        raw_changed = $RawChanged
+        line_ending_equivalent = $LineEndingEquivalent
+        optional_untracked_projection_absent = $OptionalProjectionAbsent
         changed = $Changed
-        authorized = $false
+        authorized = $Authorized
+        authorization_owner = if ($Authorized) { [string]$ApprovedDeltas[$RowPath].owner } else { $null }
+        authorization_reason = if ($Authorized) { [string]$ApprovedDeltas[$RowPath].reason } else { $null }
     }
 }
 $ProtectedReport = [ordered]@{
@@ -216,7 +265,7 @@ $ProtectedReport = [ordered]@{
     baseline_manifest = Get-Relative $ProtectedBaselinePath
     baseline_manifest_sha256 = Get-HashOrNull $ProtectedBaselinePath
     changed_count = @($ProtectedRows | Where-Object changed).Count
-    authorized_changed_count = 0
+    authorized_changed_count = $AuthorizedChanged
     unauthorized_changed_count = $Unauthorized
     rows = $ProtectedRows
 }

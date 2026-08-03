@@ -1,0 +1,13 @@
+{
+  "approval_basis": "Owner pre-approved required owner decisions and explicitly requested resolution of the 272 greater than 259 Windows clean-checkout blocker on 2026-08-03.",
+  "content_identity_policy": "git_rename_without_blob_content_rewrite",
+  "historical_embedded_path_policy": "preserve_recorded_strings_and_hashes_as_historical_evidence; do_not_reseal",
+  "maximum_tracked_relative_path_after": 221,
+  "maximum_tracked_relative_path_before": 248,
+  "new_root": "Iris/build/description/v2/staging/iris_public_text_quality_policy_closure",
+  "old_root": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure",
+  "relocated_tracked_file_count": 223,
+  "schema_version": "iris-windows-path-budget-relocation-v1",
+  "semantic_authority_changed": false,
+  "status": "owner_approved"
+}

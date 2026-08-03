@@ -706,7 +706,7 @@ def _protected_paths() -> list[Path]:
         REPO_ROOT / "Iris" / "build" / "package",
         V2_ROOT
         / "staging"
-        / "iris_publish_boundary_public_text_quality_acceptance_policy_closure",
+        / "iris_public_text_quality_policy_closure",
         base.NATURALIZATION_ATTEMPT_ROOT,
         correction_0003.G3_ATTEMPT_ROOT,
     )

@@ -24,7 +24,7 @@ class KoreanProsePolicyTest(unittest.TestCase):
                 / "Iris"
                 / "_docs"
                 / "round3"
-                / "iris_publish_boundary_public_text_quality_acceptance_policy_closure"
+                / "iris_public_text_quality_policy_closure"
                 / "foundation"
                 / "public_text_quality_foundation_contract.json"
             ).read_text(encoding="utf-8")

@@ -9,17 +9,20 @@
                                        {
                                            "path":  "Iris/_docs/round3/round3_test_taxonomy.json",
                                            "owner":  "residual_refactor_plan",
-                                           "reason":  "register five current-route tests"
+                                           "reason":  "register five current-route tests",
+                                           "after_sha256_lf":  "b7706d03f2372881592669f115a52cdac811df61d53dc09f162a458a77c2cac2"
                                        },
                                        {
                                            "path":  "Iris/_docs/round3/current_route_required_validations.json",
                                            "owner":  "residual_refactor_plan",
-                                           "reason":  "add five tests to required denominator"
+                                           "reason":  "add five tests to required denominator",
+                                           "after_sha256_lf":  "e2d6845bb18f9333611d6f0c94869f9df1d5635f9bc062d73e879b5223c142a9"
                                        },
                                        {
                                            "path":  "Iris/build/description/v2/tools/build/INVENTORY.md",
                                            "owner":  "residual_refactor_plan",
-                                           "reason":  "record the implemented residual refactor tool-role inventory"
+                                           "reason":  "record the implemented residual refactor tool-role inventory",
+                                           "after_sha256_lf":  "35900c462cc70019c49e76209de1f5fd5ff74890b349ceca0b81d2d5ae020975"
                                        }
                                    ],
     "rows":  [

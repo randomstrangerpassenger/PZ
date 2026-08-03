@@ -185,9 +185,11 @@ class IrisCoreRefactorCloseoutTest(unittest.TestCase):
                     ROOT.parent / "residual_refactor" / "phase0_protected_surface_manifest.json"
                 )
                 approved_successors = {
-                    item["path"] for item in successor["approved_activation_deltas"]
+                    item["path"]: item["after_sha256_lf"]
+                    for item in successor["approved_activation_deltas"]
                 }
                 self.assertIn(row["path"], approved_successors)
+                self.assertIn(approved_successors[row["path"]], current_hashes)
 
     def test_supported_api_boundary_remains_compatible(self) -> None:
         supported = load_json(ROOT / "phase0_supported_api_manifest.json")

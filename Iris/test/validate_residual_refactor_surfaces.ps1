@@ -71,6 +71,13 @@ function Test-LineEndingEquivalent([string]$Path, [string]$ExpectedHash) {
     }
 }
 
+function Get-LfTextHashOrNull([string]$Path) {
+    if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) { return $null }
+    $Text = [System.IO.File]::ReadAllText($Path, [System.Text.Encoding]::UTF8)
+    if ($Text.Contains([char]0)) { return $null }
+    return Get-TextSha256 $Text.Replace("`r`n", "`n").Replace("`r", "`n")
+}
+
 function Get-TreeRows([string]$Root) {
     $Rows = @()
     if (-not (Test-Path -LiteralPath $Root -PathType Container)) { return $Rows }
@@ -243,13 +250,19 @@ foreach ($Row in $ProtectedBaseline.rows) {
         [string]$Row.hash_policy -eq 'read_only_pre_post'
     )
     $Changed = $RawChanged -and -not $LineEndingEquivalent -and -not $OptionalProjectionAbsent
-    $Authorized = $Changed -and $ApprovedDeltas.ContainsKey($RowPath)
+    $AfterLf = Get-LfTextHashOrNull $FullPath
+    $Authorized = (
+        $Changed -and
+        $ApprovedDeltas.ContainsKey($RowPath) -and
+        $AfterLf -ceq [string]$ApprovedDeltas[$RowPath].after_sha256_lf
+    )
     if ($Authorized) { $AuthorizedChanged += 1 }
     elseif ($Changed) { $Unauthorized += 1 }
     $ProtectedRows += [ordered]@{
         path = $RowPath
         before_sha256 = $Before
         after_sha256 = $After
+        after_sha256_lf = $AfterLf
         raw_changed = $RawChanged
         line_ending_equivalent = $LineEndingEquivalent
         optional_untracked_projection_absent = $OptionalProjectionAbsent

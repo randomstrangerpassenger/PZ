@@ -2773,6 +2773,181 @@
       "required": true,
       "role": "iris_residual_refactor_required_validation",
       "test_id": "test_iris_residual_evidence_roles.IrisResidualEvidenceRolesTest.test_role_schema_index_and_manual_classes_are_fail_closed"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_lifecycle_required_validation",
+      "test_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_same_subject_is_byte_stable_and_role_partition_is_complete"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_lifecycle_required_validation",
+      "test_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_ignored_giants_exist_only_in_physical_denominator_with_exact_identity"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_lifecycle_required_validation",
+      "test_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_repository_local_and_preexisting_outputs_fail_loud"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_lifecycle_required_validation",
+      "test_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_console_temp_cache_and_ignored_consumers_are_in_scope"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_lifecycle_required_validation",
+      "test_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_missing_references_and_real_tracking_transition_are_fail_loud"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_lifecycle_required_validation",
+      "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_baseline_promotion_preserves_bytes_and_dual_receipt_identity"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_lifecycle_required_validation",
+      "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_altered_source_and_wrong_subject_are_rejected_before_durable_write"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_lifecycle_required_validation",
+      "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_preexisting_destination_blocks_all_promotion_outputs"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_lifecycle_required_validation",
+      "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_terminal_promotion_rejects_semantically_tampered_transition"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_lifecycle_required_validation",
+      "test_id": "test_artifact_lifecycle_executor.ArtifactLifecycleExecutorTest.test_full_chain_is_receipt_bound_and_exact_leaf_delete_is_recoverable"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_lifecycle_required_validation",
+      "test_id": "test_artifact_lifecycle_executor.ArtifactLifecycleExecutorTest.test_selection_outside_baseline_is_rejected_without_source_change"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_work_root_required_validation",
+      "test_id": "test_artifact_work_root_contract.ArtifactWorkRootContractTest.test_guard_producer_requires_external_disjoint_newly_empty_roots"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_work_root_required_validation",
+      "test_id": "test_artifact_work_root_contract.ArtifactWorkRootContractTest.test_guard_producer_revalidates_allocator_and_ledger_identity"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_work_root_required_validation",
+      "test_id": "test_artifact_work_root_contract.ArtifactWorkRootContractTest.test_new_external_checkpoint_roots_are_disjoint_existing_and_empty"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_work_root_required_validation",
+      "test_id": "test_artifact_work_root_contract.ArtifactWorkRootContractTest.test_repository_nested_parent_and_preexisting_nonempty_candidate_fail_closed"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_work_root_required_validation",
+      "test_id": "test_artifact_work_root_contract.ArtifactWorkRootContractTest.test_reparse_external_parent_alias_into_repository_is_rejected_without_write"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_work_root_required_validation",
+      "test_id": "test_artifact_work_root_contract.ArtifactWorkRootContractTest.test_deleted_prior_run_path_is_still_rejected_by_append_only_ledger"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_work_root_required_validation",
+      "test_id": "test_artifact_work_root_contract.ArtifactWorkRootContractTest.test_failed_after_reservation_cannot_reuse_candidate_after_cleanup"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_work_root_required_validation",
+      "test_id": "test_artifact_work_root_contract.ArtifactWorkRootContractTest.test_terminal_run_profiles_are_disjoint_and_run_b_is_minimal"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_external_diagnostic_required_validation",
+      "test_id": "test_iris_residual_diagnostic_disposition.IrisResidualDiagnosticDispositionTest.test_external_raw_and_disposition_outputs_preserve_tagged_path_and_hash_identity"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_external_diagnostic_required_validation",
+      "test_id": "test_iris_residual_diagnostic_disposition.IrisResidualDiagnosticDispositionTest.test_unadopted_successor_policy_blocks_before_external_diagnostic_execution"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_external_diagnostic_required_validation",
+      "test_id": "test_iris_residual_diagnostic_disposition.IrisResidualDiagnosticDispositionTest.test_junction_output_alias_into_checkout_is_rejected_before_any_write"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_guard_single_serialization_required_validation",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_allow_path_with_unapproved_current_occurrence_kind_fails"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_guard_single_serialization_required_validation",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_allow_rule_cannot_admit_current_label_occurrence_kind"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_guard_single_serialization_required_validation",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_content_addressing_separates_changed_payload_and_isolates_two_runs"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_guard_single_serialization_required_validation",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_consecutive_run_does_not_grow_census_or_occurrence_hash"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_guard_single_serialization_required_validation",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_interrupted_object_write_leaves_no_canonical_object"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_guard_single_serialization_required_validation",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_old_full_payload_and_new_stream_verdict_parity_on_frozen_named_census"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_guard_single_serialization_required_validation",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_persistent_output_path_rejects_checkout_and_result_root_escape"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_guard_single_serialization_required_validation",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_report_only_and_round_owned_output_are_excluded"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_guard_single_serialization_required_validation",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_rg_and_python_backends_produce_identical_canonical_path_list"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_guard_single_serialization_required_validation",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_rg_missing_timeout_and_abnormal_exit_fail_loud_without_fallback"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_guard_single_serialization_required_validation",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_scan_surface_includes_current_historical_and_diagnostic_roles"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_guard_single_serialization_required_validation",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_single_canonical_stream_reference_integrity_and_missing_object_failure"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_guard_single_serialization_required_validation",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_stream_count_and_phase_summary_tampering_fail_loud"
     }
   ],
   "route": "current",

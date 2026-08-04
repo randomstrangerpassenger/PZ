@@ -1,0 +1,54 @@
+{
+  "allocation_contract": {
+    "allocator": "Iris/validation/clean_checkout/allocate_repository_runtime_lightweighting_roots.ps1",
+    "append_only_external_ledger_required": true,
+    "durable_reservation_before_candidate_creation_required": true,
+    "failed_reservation_reuse_allowed": false,
+    "profiles": [
+      "physical-capacity",
+      "checkpoint",
+      "terminal-run-a",
+      "terminal-run-b"
+    ],
+    "root_reuse_allowed": false
+  },
+  "command_contract": {
+    "argv_transport": "utf8_scalar_json_command_spec",
+    "launcher": "Iris/validation/clean_checkout/invoke_repository_runtime_lightweighting_command.ps1",
+    "shell_reinterpretation_allowed": false
+  },
+  "content_addressed_contract": {
+    "atomic_create_new_promotion_required": true,
+    "canonical_object_layout": "objects/sha256/<prefix>/<sha256>",
+    "dangling_reference_allowed": false,
+    "phase_payload_contract": "logical_id_sha256_size_media_type_producer_version",
+    "repository_evidence_may_record_external_absolute_payload_path": false
+  },
+  "guard_pilot": {
+    "builder": "Iris/build/description/v2/tools/build/build_legacy_active_silent_current_surface_guard_round.py",
+    "canonical_stream_count": 1,
+    "default_scan_backend": "rg",
+    "explicit_parity_backend": "python",
+    "implicit_backend_fallback_allowed": false,
+    "validator": "Iris/build/description/v2/tools/validate_legacy_active_silent_current_surface_guard.py"
+  },
+  "output_policy": {
+    "approval_authority": "repository_owner_user",
+    "path": "Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json",
+    "sha256": "c9f493023c8c655dbb75673e4168770f14d0e7594021d0950d3d00876b50abc3"
+  },
+  "root_contract": {
+    "approved_allocator_receipt_required": true,
+    "external_to_all_protected_repository_roots": true,
+    "newly_allocated_existing_empty_required": true,
+    "result_roles": [
+      "objects",
+      "phases",
+      "logs",
+      "package"
+    ],
+    "work_and_result_disjoint": true
+  },
+  "schema_version": "iris_repository_runtime_lightweighting_work_root_contract_v1",
+  "status": "adopted_common_candidate"
+}

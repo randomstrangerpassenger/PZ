@@ -1,0 +1,67 @@
+{
+  "backend": "python",
+  "canonical_paths": [
+    "Iris/media/lua/client/Iris/Data/Current.lua",
+    "Iris/output/operator.json",
+    "docs/Iris/history.md"
+  ],
+  "legacy_full_payload_occurrences": [
+    {
+      "allow_rule_id": null,
+      "column": 24,
+      "current_label_candidate": true,
+      "disposition": "rewrite_required",
+      "error_code": "CURRENT_SURFACE_REJECTED_LEGACY_ACTIVE_SILENT_LABEL",
+      "line": 1,
+      "line_excerpt": "return { [\"source\"] = \"silent\" }",
+      "nearby_key": "source",
+      "occurrence_kind": "source_value",
+      "path": "Iris/media/lua/client/Iris/Data/Current.lua",
+      "surface_class": "hard_fail",
+      "token": "silent"
+    },
+    {
+      "allow_rule_id": null,
+      "column": 12,
+      "current_label_candidate": true,
+      "disposition": "blocked_unclassified",
+      "error_code": "UNALLOWLISTED_LEGACY_ACTIVE_SILENT_OCCURRENCE",
+      "line": 1,
+      "line_excerpt": "{\"source\":\"active\"}",
+      "nearby_key": "source",
+      "occurrence_kind": "source_value",
+      "path": "Iris/output/operator.json",
+      "surface_class": "allow",
+      "token": "active"
+    },
+    {
+      "allow_rule_id": "docs",
+      "column": 12,
+      "current_label_candidate": false,
+      "disposition": "allowed",
+      "error_code": null,
+      "line": 1,
+      "line_excerpt": "Historical active alias.",
+      "nearby_key": null,
+      "occurrence_kind": "historical_quote",
+      "path": "docs/Iris/history.md",
+      "surface_class": "allow",
+      "token": "active"
+    }
+  ],
+  "summary": {
+    "allowed_occurrence_count": 1,
+    "covered_by_existing_guard_count": 0,
+    "gate_a_pass": false,
+    "hard_fail_current_label_occurrence_count": 1,
+    "manifest_error_count": 0,
+    "negative_fixture_reach": {
+      "current_surface_guard": true,
+      "legacy_metric_rendered_guard": false,
+      "runtime_state_default_guard": false
+    },
+    "non_label_occurrence_count": 0,
+    "occurrence_count": 3,
+    "unclassified_occurrence_count": 1
+  }
+}

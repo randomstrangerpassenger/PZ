@@ -270,18 +270,20 @@ try {
     $runnerRelative = 'Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py'
     $commonRelative = 'Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py'
     $policyRelative = 'Iris/validation/clean_checkout/contracts/output_policy.json'
+    $successorPolicyRelative = 'Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json'
     $phase0Relative = 'Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json'
     $launcherRelative = 'Iris/validation/clean_checkout/invoke_receipt_bound_full_gate.ps1'
     $runner = Join-Path $resolvedRepository $runnerRelative
     $common = Join-Path $resolvedRepository $commonRelative
     $policyPath = Join-Path $resolvedRepository $policyRelative
+    $successorPolicyPath = Join-Path $resolvedRepository $successorPolicyRelative
     $phase0Path = Join-Path $resolvedRepository $phase0Relative
     $expectedLauncher = Join-Path $resolvedRepository $launcherRelative
     $actualLauncher = [System.IO.Path]::GetFullPath($MyInvocation.MyCommand.Path)
     if (-not $actualLauncher.Equals([System.IO.Path]::GetFullPath($expectedLauncher), [System.StringComparison]::OrdinalIgnoreCase)) {
         throw 'launcher was loaded from a different checkout'
     }
-    foreach ($path in @($runner, $common, $policyPath, $phase0Path, $actualLauncher)) {
+    foreach ($path in @($runner, $common, $policyPath, $successorPolicyPath, $phase0Path, $actualLauncher)) {
         if (-not [System.IO.File]::Exists($path)) { throw "required implementation file is missing: $path" }
     }
     $blobRows = [ordered]@{}
@@ -289,6 +291,7 @@ try {
         @('runner', $runnerRelative, $runner),
         @('common', $commonRelative, $common),
         @('policy', $policyRelative, $policyPath),
+        @('successor_policy', $successorPolicyRelative, $successorPolicyPath),
         @('environment_authority', $phase0Relative, $phase0Path),
         @('launcher', $launcherRelative, $actualLauncher)
     )) {

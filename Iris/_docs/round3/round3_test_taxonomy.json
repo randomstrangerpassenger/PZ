@@ -7,15 +7,20 @@
       "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py": "manual audit: imports only current closure module compose_layer3_text; asserts current compose overlay/render behavior; no ignored reproduction imports",
       "Iris/build/description/v2/tests/test_compose_entrypoint_guard_hardening.py": "manual audit: compose entrypoint guard hardening imports current closure module compose_layer3_text and asserts shared current write-boundary behavior; explicit historical preservation test remains historical-classified",
       "Iris/build/description/v2/tests/test_lua_bridge_export_contract_realign.py": "manual audit: imports current lua bridge exporter and asserts default chunk export contract, protected destination rejection, report schema, and historical/diagnostic monolith quarantine",
-      "Iris/build/description/v2/tests/test_runtime_payload_state_integrity.py": "manual audit: subprocess-only current-route guard over runtime payload shape; imports no tools.build module in-process and asserts no runtime payload mutation / no release claim"
+      "Iris/build/description/v2/tests/test_runtime_payload_state_integrity.py": "manual audit: subprocess-only current-route guard over runtime payload shape; imports no tools.build module in-process and asserts no runtime payload mutation / no release claim",
+      "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py": "manual audit: subprocess-only lifecycle census fixtures cover physical/validation subjects, complete role partition, missing/referenced paths, ignored consumers, and real tracking transitions without importing tools.build modules",
+      "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py": "manual audit: subprocess-only lifecycle promotion fixtures prove byte identity, exact physical subject binding, collision refusal, and terminal transition semantic validation",
+      "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py": "manual audit: subprocess-only lifecycle executor fixtures use isolated repositories and small ignored payloads to prove the full receipt chain, exact-member and canonical embedded-manifest verification, exact-leaf deletion, recovery, promoted-baseline and owner-selection revalidation, stale physical-candidate and side-branch archive-evidence rejection, mandatory output-isolation verification, exact current-route argv rejection, and out-of-baseline rejection",
+      "Iris/build/description/v2/tests/test_artifact_work_root_contract.py": "manual audit: Windows PowerShell subprocess fixtures prove disjoint new external roots, durable pre-create reservation and failed-attempt reuse rejection, guard-producer allocation/ledger revalidation, and minimal isolated terminal profiles without importing tools.build modules",
+      "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py": "manual audit: Common Change 3 fixtures prove frozen legacy/full-payload parity, backend parity and fail-loud errors, role-scoped census, single content-addressed serialization, reference integrity, output authorization, and consecutive-run non-growth"
     },
     "state_policy": "legacy full discovery exit 0 makes collected identities ok unless _FailedTest appears",
     "current_cutover_taxonomy_refresh": "Added pytest-collected current DVF vNext evidence tests after current authority cutover; collection remains fail-closed for unknown future tests."
   },
-  "generated_at": "2026-06-18T01:25:00+09:00",
+  "generated_at": "2026-08-05T00:00:00+09:00",
   "identity_source": "Iris/_docs/round3/round3_legacy_test_identities.json",
   "matrix": {
-    "current+ok": 104,
+    "current+ok": 139,
     "diagnostic+ok": 81,
     "historical+ok": 285
   },
@@ -3372,6 +3377,50 @@
       "test_id": "test_layer4_trace_edge_authority_admission_round.Layer4TraceEdgeAuthorityAdmissionRoundTests.test_generated_edges_are_relation_only_and_deterministic"
     },
     {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "manual audit: Common Change 3 guard single-serialization and fail-closed scan fixture",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+      "state": "ok",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_allow_path_with_unapproved_current_occurrence_kind_fails"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "manual audit: Common Change 3 manifest authorization fixture rejects allow rules that admit current-label kinds",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+      "state": "ok",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_allow_rule_cannot_admit_current_label_occurrence_kind"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "manual audit: Common Change 3 content-addressing fixture proves different-content separation and exact two-run result-root isolation",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+      "state": "ok",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_content_addressing_separates_changed_payload_and_isolates_two_runs"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "manual audit: Common Change 3 guard single-serialization and fail-closed scan fixture",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+      "state": "ok",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_consecutive_run_does_not_grow_census_or_occurrence_hash"
+    },
+    {
       "audit_status": "seed",
       "contract_class": "current",
       "imported_build_modules": [],
@@ -3381,6 +3430,17 @@
       "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
       "state": "ok",
       "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_generated_operator_current_label_fails_with_new_guard"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "manual audit: Common Change 3 guard single-serialization and fail-closed scan fixture",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+      "state": "ok",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_interrupted_object_write_leaves_no_canonical_object"
     },
     {
       "audit_status": "seed",
@@ -3405,6 +3465,17 @@
       "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_lua_source_silent_current_surface_fails_with_new_guard"
     },
     {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "manual audit: Common Change 3 guard single-serialization and fail-closed scan fixture",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+      "state": "ok",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_old_full_payload_and_new_stream_verdict_parity_on_frozen_named_census"
+    },
+    {
       "audit_status": "seed",
       "contract_class": "current",
       "imported_build_modules": [],
@@ -3416,6 +3487,50 @@
       "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_positive_allowed_surfaces_and_non_label_words_pass"
     },
     {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "manual audit: Common Change 3 guard single-serialization and fail-closed scan fixture",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+      "state": "ok",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_persistent_output_path_rejects_checkout_and_result_root_escape"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "manual audit: Common Change 3 guard single-serialization and fail-closed scan fixture",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+      "state": "ok",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_report_only_and_round_owned_output_are_excluded"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "manual audit: Common Change 3 guard single-serialization and fail-closed scan fixture",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+      "state": "ok",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_rg_and_python_backends_produce_identical_canonical_path_list"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "manual audit: Common Change 3 guard single-serialization and fail-closed scan fixture",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+      "state": "ok",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_rg_missing_timeout_and_abnormal_exit_fail_loud_without_fallback"
+    },
+    {
       "audit_status": "seed",
       "contract_class": "current",
       "imported_build_modules": [],
@@ -3425,6 +3540,39 @@
       "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
       "state": "ok",
       "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_runtime_state_legacy_value_is_owned_by_existing_guard_only"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "manual audit: Common Change 3 guard single-serialization and fail-closed scan fixture",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+      "state": "ok",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_scan_surface_includes_current_historical_and_diagnostic_roles"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "manual audit: Common Change 3 guard single-serialization and fail-closed scan fixture",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+      "state": "ok",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_single_canonical_stream_reference_integrity_and_missing_object_failure"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "manual audit: Common Change 3 guard single-serialization and fail-closed scan fixture",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+      "state": "ok",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_stream_count_and_phase_summary_tampering_fail_loud"
     },
     {
       "audit_status": "seed",
@@ -6674,6 +6822,248 @@
       "source_file": "Iris/build/description/v2/tests/test_iris_residual_evidence_roles.py",
       "state": "ok",
       "test_id": "test_iris_residual_evidence_roles.IrisResidualEvidenceRolesTest.test_role_schema_index_and_manual_classes_are_fail_closed"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "subprocess-only physical lifecycle census proves stable role accounting and no in-process build closure expansion",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+      "state": "ok",
+      "test_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_same_subject_is_byte_stable_and_role_partition_is_complete"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "subprocess-only physical/validation fixture proves ignored giant identity belongs only to the physical denominator",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+      "state": "ok",
+      "test_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_ignored_giants_exist_only_in_physical_denominator_with_exact_identity"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "subprocess-only lifecycle output-boundary fixture proves repository-local and preexisting outputs fail closed",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+      "state": "ok",
+      "test_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_repository_local_and_preexisting_outputs_fail_loud"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "subprocess-only census fixture proves console/temp/cache scope and ignored-source consumer discovery",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+      "state": "ok",
+      "test_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_console_temp_cache_and_ignored_consumers_are_in_scope"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "subprocess-only census fixture distinguishes missing references and computes fail-closed Git tracking transitions",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+      "state": "ok",
+      "test_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_missing_references_and_real_tracking_transition_are_fail_loud"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "subprocess-only baseline promotion fixture proves byte-identical durable and operator receipts",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
+      "state": "ok",
+      "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_baseline_promotion_preserves_bytes_and_dual_receipt_identity"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "subprocess-only promotion fixture rejects altered source bytes and wrong subject kinds",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
+      "state": "ok",
+      "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_altered_source_and_wrong_subject_are_rejected_before_durable_write"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "subprocess-only promotion fixture proves preexisting durable destinations are never overwritten",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
+      "state": "ok",
+      "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_preexisting_destination_blocks_all_promotion_outputs"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "subprocess-only terminal promotion fixture cross-validates baseline, physical summary, and tracking transition semantics",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
+      "state": "ok",
+      "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_terminal_promotion_rejects_semantically_tampered_transition"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "subprocess-only executor fixture proves immutable receipt chaining, exact-member and canonical embedded-manifest verification with a tampered-manifest rejection, full restore, committed evidence, exact delete, and post-delete census",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+      "state": "ok",
+      "test_id": "test_artifact_lifecycle_executor.ArtifactLifecycleExecutorTest.test_full_chain_is_receipt_bound_and_exact_leaf_delete_is_recoverable"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "subprocess-only executor negative fixture rejects parent paths outside the promoted baseline before source mutation",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+      "state": "ok",
+      "test_id": "test_artifact_lifecycle_executor.ArtifactLifecycleExecutorTest.test_selection_outside_baseline_is_rejected_without_source_change"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "guard producer fixture rejects in-repository, nested, non-disjoint, and non-empty work/result roots",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_work_root_contract.py",
+      "state": "ok",
+      "test_id": "test_artifact_work_root_contract.ArtifactWorkRootContractTest.test_guard_producer_requires_external_disjoint_newly_empty_roots"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "guard producer fixture revalidates allocator identity, append-only ledger entry, and zero-PASS allocation proofs",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_work_root_contract.py",
+      "state": "ok",
+      "test_id": "test_artifact_work_root_contract.ArtifactWorkRootContractTest.test_guard_producer_revalidates_allocator_and_ledger_identity"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "PowerShell subprocess fixture proves newly allocated external checkpoint roots are disjoint, present, and empty",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_work_root_contract.py",
+      "state": "ok",
+      "test_id": "test_artifact_work_root_contract.ArtifactWorkRootContractTest.test_new_external_checkpoint_roots_are_disjoint_existing_and_empty"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "PowerShell subprocess fixture rejects repository-nested and preexisting nonempty allocation candidates",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_work_root_contract.py",
+      "state": "ok",
+      "test_id": "test_artifact_work_root_contract.ArtifactWorkRootContractTest.test_repository_nested_parent_and_preexisting_nonempty_candidate_fail_closed"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "PowerShell subprocess Windows junction fixture rejects a repository-targeting external-parent alias before ledger, root, or receipt creation",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_work_root_contract.py",
+      "state": "ok",
+      "test_id": "test_artifact_work_root_contract.ArtifactWorkRootContractTest.test_reparse_external_parent_alias_into_repository_is_rejected_without_write"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "PowerShell subprocess fixture proves append-only allocation ledger reuse rejection after path removal",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_work_root_contract.py",
+      "state": "ok",
+      "test_id": "test_artifact_work_root_contract.ArtifactWorkRootContractTest.test_deleted_prior_run_path_is_still_rejected_by_append_only_ledger"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "PowerShell subprocess failure fixture proves a durable reservation is recorded before directory creation and permanently rejects candidate reuse after a pre-receipt failure",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_work_root_contract.py",
+      "state": "ok",
+      "test_id": "test_artifact_work_root_contract.ArtifactWorkRootContractTest.test_failed_after_reservation_cannot_reuse_candidate_after_cleanup"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "PowerShell subprocess fixture proves terminal Run A/B disjointness and the exact minimal Run B profile",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_work_root_contract.py",
+      "state": "ok",
+      "test_id": "test_artifact_work_root_contract.ArtifactWorkRootContractTest.test_terminal_run_profiles_are_disjoint_and_run_b_is_minimal"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "diagnostic adapter subprocess fixture proves external raw/disposition sinks, advisory raw exit preservation, tagged path descriptors, and output hash identity",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_residual_diagnostic_disposition.py",
+      "state": "ok",
+      "test_id": "test_iris_residual_diagnostic_disposition.IrisResidualDiagnosticDispositionTest.test_external_raw_and_disposition_outputs_preserve_tagged_path_and_hash_identity"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "diagnostic adapter subprocess fixture proves unadopted successor policy writes a blocked receipt before runner execution",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_residual_diagnostic_disposition.py",
+      "state": "ok",
+      "test_id": "test_iris_residual_diagnostic_disposition.IrisResidualDiagnosticDispositionTest.test_unadopted_successor_policy_blocks_before_external_diagnostic_execution"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "diagnostic adapter Windows junction fixture proves lexical reparse aliases and resolved targets cannot redirect external raw or disposition writes into the source checkout",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_residual_diagnostic_disposition.py",
+      "state": "ok",
+      "test_id": "test_iris_residual_diagnostic_disposition.IrisResidualDiagnosticDispositionTest.test_junction_output_alias_into_checkout_is_rejected_before_any_write"
     }
   ],
   "schema_version": "round3-test-taxonomy-v1"

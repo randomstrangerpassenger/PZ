@@ -465,6 +465,22 @@ def _build_fake_launcher_repository(
             }
         )
     )
+    (contracts / "repository_runtime_lightweighting_output_policy.json").write_bytes(
+        canonical_json_bytes(
+            {
+                "schema_version": (
+                    "iris_repository_runtime_lightweighting_output_policy_v1"
+                ),
+                "required_environment": {
+                    "IRIS_ENV_ABSENT": "applied-absent",
+                    "IRIS_ENV_EMPTY": "applied-empty",
+                    "IRIS_ENV_VALUE": "applied-value",
+                    "IRIS_FAKE_NATIVE_EXIT": str(native_exit_code),
+                },
+                "cleared_ambient_environment": ["IRIS_ENV_CLEAR"],
+            }
+        )
+    )
     (authority / "phase0_ratification_attempt_0002.json").write_bytes(
         canonical_json_bytes(
             {

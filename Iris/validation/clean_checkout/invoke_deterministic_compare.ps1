@@ -174,7 +174,8 @@ function Resolve-RunChain(
     [object]$ExpectedInterpreter,
     [object]$ExpectedEnvironment,
     [object]$ExpectedRunner,
-    [object]$ExpectedCommon
+    [object]$ExpectedCommon,
+    [object]$ExpectedSuccessorPolicy
 ) {
     $path = [System.IO.Path]::GetFullPath($ReceiptPath)
     if (-not [System.IO.File]::Exists($path)) { throw "$Label orchestration receipt is missing" }
@@ -198,6 +199,9 @@ function Resolve-RunChain(
     Require-Equal ([System.IO.Path]::GetFullPath([string]$receipt.identity.implementation.common.actual_path)) ([System.IO.Path]::GetFullPath([string]$ExpectedCommon.actual_path)) "$Label common path mismatch"
     Require-Equal $receipt.identity.implementation.common.git_blob_id $ExpectedCommon.git_blob_id "$Label common blob mismatch"
     Require-Equal $receipt.identity.implementation.common.working_sha256 $ExpectedCommon.working_sha256 "$Label common materialization mismatch"
+    Require-Equal ([System.IO.Path]::GetFullPath([string]$receipt.identity.implementation.successor_policy.actual_path)) ([System.IO.Path]::GetFullPath([string]$ExpectedSuccessorPolicy.actual_path)) "$Label successor policy path mismatch"
+    Require-Equal $receipt.identity.implementation.successor_policy.git_blob_id $ExpectedSuccessorPolicy.git_blob_id "$Label successor policy blob mismatch"
+    Require-Equal $receipt.identity.implementation.successor_policy.working_sha256 $ExpectedSuccessorPolicy.working_sha256 "$Label successor policy materialization mismatch"
     if ($receipt.result_receipt.exists -ne $true) { throw "$Label inner run receipt is absent" }
     $innerPath = [System.IO.Path]::GetFullPath([string]$receipt.result_receipt.path)
     if (-not [System.IO.File]::Exists($innerPath)) { throw "$Label inner run receipt file is missing" }
@@ -279,6 +283,7 @@ try {
     $commonRelative = 'Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py'
     $runnerRelative = 'Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py'
     $policyRelative = 'Iris/validation/clean_checkout/contracts/output_policy.json'
+    $successorPolicyRelative = 'Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json'
     $phase0Relative = 'Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json'
     $launcherRelative = 'Iris/validation/clean_checkout/invoke_deterministic_compare.ps1'
     $implementation = [ordered]@{}
@@ -287,6 +292,7 @@ try {
         @('common', $commonRelative),
         @('runner', $runnerRelative),
         @('policy', $policyRelative),
+        @('successor_policy', $successorPolicyRelative),
         @('environment_authority', $phase0Relative),
         @('launcher', $launcherRelative)
     )) {
@@ -325,8 +331,8 @@ try {
     $identity['environment_receipt'] = [ordered]@{ path = $environmentPath.Replace('\', '/'); sha256 = $environmentHash }
 
     $stage = 'bind_run_chains'
-    $runChains['run_a'] = Resolve-RunChain 'Run A' $RunAOrchestrationReceipt $ClaimId $subject $identity.interpreter $identity.environment_receipt $implementation.runner $implementation.common
-    $runChains['run_b'] = Resolve-RunChain 'Run B' $RunBOrchestrationReceipt $ClaimId $subject $identity.interpreter $identity.environment_receipt $implementation.runner $implementation.common
+    $runChains['run_a'] = Resolve-RunChain 'Run A' $RunAOrchestrationReceipt $ClaimId $subject $identity.interpreter $identity.environment_receipt $implementation.runner $implementation.common $implementation.successor_policy
+    $runChains['run_b'] = Resolve-RunChain 'Run B' $RunBOrchestrationReceipt $ClaimId $subject $identity.interpreter $identity.environment_receipt $implementation.runner $implementation.common $implementation.successor_policy
     if ([System.IO.Path]::GetFullPath([string]$runChains.run_a.orchestration_receipt.path).Equals([System.IO.Path]::GetFullPath([string]$runChains.run_b.orchestration_receipt.path), [System.StringComparison]::OrdinalIgnoreCase)) {
         throw 'Run A and Run B must use distinct orchestration receipt paths'
     }
@@ -488,6 +494,8 @@ finally {
             validator_working_sha256 = $identity.implementation.validator.working_sha256
             common_blob = $identity.implementation.common.git_blob_id
             common_working_sha256 = $identity.implementation.common.working_sha256
+            successor_policy_blob = $identity.implementation.successor_policy.git_blob_id
+            successor_policy_working_sha256 = $identity.implementation.successor_policy.working_sha256
             interpreter_sha256 = $identity.interpreter.sha256
             environment_receipt_sha256 = $identity.environment_receipt.sha256
         }

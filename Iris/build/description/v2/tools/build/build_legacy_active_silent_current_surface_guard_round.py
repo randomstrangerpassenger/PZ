@@ -18,16 +18,23 @@ if str(V2_ROOT) not in sys.path:
 
 from tools.validate_legacy_active_silent_current_surface_guard import (  # noqa: E402
     ALLOWLIST_TOO_BROAD_ERROR_CODE,
+    AUTHORIZED_RESULT_SUBROOTS,
     CURRENT_SURFACE_ERROR_CODE,
     DEFAULT_RESOLVER_COMPAT_ERROR_CODE,
     DEFAULT_RUNTIME_STATE_ERROR_CODE,
     DIAGNOSTIC_ALIAS_OUTSIDE_ERROR_CODE,
     ERROR_CATALOG,
     LEGACY_METRIC_RENDERED_ERROR_CODE,
+    SCAN_BACKENDS,
     UNALLOWLISTED_ERROR_CODE,
+    compact_report,
     validate_repo,
+    validate_external_run_roots,
+    validate_successor_output_policy,
+    verify_occurrence_stream_reference,
     write_inventory_files,
     write_json,
+    write_json_create_new,
 )
 
 
@@ -42,6 +49,14 @@ PHILOSOPHY = REPO_ROOT / "docs" / "Philosophy.md"
 DECISIONS = REPO_ROOT / "docs" / "DECISIONS.md"
 ARCHITECTURE = REPO_ROOT / "docs" / "ARCHITECTURE.md"
 ROADMAP = REPO_ROOT / "docs" / "ROADMAP.md"
+OUTPUT_POLICY = (
+    REPO_ROOT
+    / "Iris"
+    / "validation"
+    / "clean_checkout"
+    / "contracts"
+    / "repository_runtime_lightweighting_output_policy.json"
+)
 
 SOURCE_DECISIONS = V2_ROOT / "data" / "dvf_3_3_decisions.jsonl"
 RENDERED_OUTPUT = V2_ROOT / "output" / "dvf_3_3_rendered.json"
@@ -120,6 +135,116 @@ def path_record(path: Path) -> dict[str, Any]:
         "sha256": sha256_file(path),
         "bytes": path.stat().st_size if path.exists() and path.is_file() else None,
     }
+
+
+def write_json_atomic(path: Path, payload: Any) -> None:
+    write_json_create_new(path, payload)
+
+
+def load_and_validate_allocation_receipt(
+    allocation_receipt_path: Path,
+    work_root: Path,
+    result_root: Path,
+) -> dict[str, Any]:
+    receipt = json.loads(allocation_receipt_path.read_text(encoding="utf-8"))
+    if receipt.get("schema_version") != "iris_repository_runtime_lightweighting_allocation_receipt_v1":
+        raise ValueError("unsupported repository-runtime allocation receipt schema")
+    if receipt.get("status") != "PASS":
+        raise ValueError("allocation receipt is not PASS")
+    for field in ("claim_id", "attempt_id", "run_id", "allocation_profile"):
+        if not isinstance(receipt.get(field), str) or not str(receipt[field]).strip():
+            raise ValueError(f"allocation receipt lacks non-empty {field}")
+    if receipt["allocation_profile"] not in {"checkpoint", "terminal-run-a", "terminal-run-b"}:
+        raise ValueError("allocation receipt profile cannot authorize the guard producer")
+    for proof_name, count_name in (
+        ("pre_create_existence", "existing_count"),
+        ("ledger_reuse", "match_count"),
+        ("post_create_empty", "nonempty_count"),
+    ):
+        proof = receipt.get(proof_name, {})
+        if proof.get("checked") is not True or int(proof.get(count_name, -1)) != 0:
+            raise ValueError(f"allocation receipt proof is not zero-PASS: {proof_name}")
+    roots = receipt.get("roots", {})
+    recorded_work = Path(str(roots.get("work", ""))).resolve()
+    recorded_result = Path(str(roots.get("result", ""))).resolve()
+    if recorded_work != work_root.resolve() or recorded_result != result_root.resolve():
+        raise ValueError("producer work/result roots do not match allocation receipt")
+    ledger = receipt.get("allocation_ledger", {})
+    required_ledger_fields = {
+        "path",
+        "sha256_after_append",
+        "appended_entry_sha256",
+        "append_offset_bytes",
+        "reservation_ledger_sha256_after_append",
+        "reservation_entry_sha256",
+        "reservation_append_offset_bytes",
+    }
+    if not isinstance(ledger, dict) or not required_ledger_fields.issubset(ledger):
+        raise ValueError("allocation receipt lacks ledger identity")
+    ledger_path = Path(str(ledger["path"])).resolve()
+    if not ledger_path.is_file() or ledger_path == REPO_ROOT.resolve() or REPO_ROOT.resolve() in ledger_path.parents:
+        raise ValueError("allocation ledger must be a readable repository-external file")
+    ledger_bytes = ledger_path.read_bytes()
+    reservation_offset = int(ledger["reservation_append_offset_bytes"])
+    if reservation_offset < 0 or reservation_offset >= len(ledger_bytes):
+        raise ValueError("allocation ledger reservation offset is outside the ledger")
+    reservation_newline = ledger_bytes.find(b"\n", reservation_offset)
+    if reservation_newline < 0:
+        raise ValueError("allocation ledger reservation entry is not newline terminated")
+    reservation_bytes = ledger_bytes[reservation_offset : reservation_newline + 1]
+    if hashlib.sha256(reservation_bytes).hexdigest() != str(ledger["reservation_entry_sha256"]).lower():
+        raise ValueError("allocation ledger reservation entry identity mismatch")
+    if hashlib.sha256(ledger_bytes[: reservation_newline + 1]).hexdigest() != str(
+        ledger["reservation_ledger_sha256_after_append"]
+    ).lower():
+        raise ValueError("allocation ledger reservation prefix identity mismatch")
+    offset = int(ledger["append_offset_bytes"])
+    if offset < 0 or offset >= len(ledger_bytes):
+        raise ValueError("allocation ledger append offset is outside the ledger")
+    newline = ledger_bytes.find(b"\n", offset)
+    if newline < 0:
+        raise ValueError("allocation ledger appended entry is not newline terminated")
+    entry_bytes = ledger_bytes[offset : newline + 1]
+    if hashlib.sha256(entry_bytes).hexdigest() != str(ledger["appended_entry_sha256"]).lower():
+        raise ValueError("allocation ledger appended entry identity mismatch")
+    if hashlib.sha256(ledger_bytes[: newline + 1]).hexdigest() != str(ledger["sha256_after_append"]).lower():
+        raise ValueError("allocation ledger prefix identity mismatch")
+    if offset != reservation_newline + 1:
+        raise ValueError("allocation ledger commit does not immediately follow its reservation")
+    reservation_entry = json.loads(reservation_bytes.decode("utf-8"))
+    ledger_entry = json.loads(entry_bytes.decode("utf-8"))
+    if (
+        reservation_entry.get("schema_version")
+        != "iris_repository_runtime_lightweighting_allocation_ledger_v2"
+        or reservation_entry.get("state") != "reserved"
+    ):
+        raise ValueError("allocation ledger reservation state is invalid")
+    if (
+        ledger_entry.get("schema_version")
+        != "iris_repository_runtime_lightweighting_allocation_ledger_v2"
+        or ledger_entry.get("state") != "committed"
+    ):
+        raise ValueError("allocation ledger commit state is invalid")
+    if (
+        ledger_entry.get("reservation_entry_sha256")
+        != str(ledger["reservation_entry_sha256"]).lower()
+        or int(ledger_entry.get("reservation_append_offset_bytes", -1)) != reservation_offset
+    ):
+        raise ValueError("allocation ledger commit does not bind its reservation")
+    for field in ("claim_id", "attempt_id", "run_id", "allocation_profile"):
+        if ledger_entry.get(field) != receipt.get(field) or reservation_entry.get(field) != receipt.get(field):
+            raise ValueError(f"allocation ledger entry does not bind receipt {field}")
+    ledger_paths = {Path(str(value)).resolve() for value in ledger_entry.get("paths", [])}
+    reservation_paths = {Path(str(value)).resolve() for value in reservation_entry.get("paths", [])}
+    if reservation_paths != ledger_paths:
+        raise ValueError("allocation ledger reservation and commit paths differ")
+    if work_root.resolve() not in ledger_paths or result_root.resolve() not in ledger_paths:
+        raise ValueError("allocation ledger entry does not bind producer roots")
+    return receipt
+
+
+def load_and_validate_output_policy() -> dict[str, Any]:
+    return validate_successor_output_policy(REPO_ROOT, OUTPUT_POLICY)
 
 
 def read_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -255,6 +380,58 @@ def build_manifest() -> dict[str, Any]:
         "round_root": rel(ROUND_ROOT),
         "canonical_runtime_state_enum": ["adopted", "unadopted"],
         "legacy_alias_scope": "diagnostic/import/historical read-only only",
+        "scan_surfaces": [
+            {
+                "id": "current_description_data",
+                "role": "current_source",
+                "path_globs": [
+                    "Iris/build/description/v2/data/**/*.json",
+                    "Iris/build/description/v2/data/**/*.jsonl",
+                    "Iris/build/description/v2/output/**/*.json",
+                    "Iris/build/description/v2/output/**/*.jsonl",
+                ],
+            },
+            {
+                "id": "protected_runtime_payload",
+                "role": "protected_runtime",
+                "path_globs": [
+                    "Iris/media/lua/client/Iris/Data/**/*.lua",
+                    "Iris/build/package/Iris/media/lua/client/Iris/Data/**/*.lua",
+                ],
+            },
+            {
+                "id": "guard_tests",
+                "role": "tests",
+                "path_globs": ["Iris/build/description/v2/tests/**/*.py"],
+            },
+            {
+                "id": "build_tool_source",
+                "role": "build_tool_source",
+                "path_globs": ["Iris/build/description/v2/tools/**/*.py"],
+            },
+            {
+                "id": "explicit_historical_substrate",
+                "role": "historical_substrate",
+                "path_globs": ["docs/**/*.md", "Iris/_docs/**/*.md", "Iris/output/**/*.json"],
+            },
+        ],
+        "scan_exclusions": [
+            {
+                "id": "guard_round_generated_output",
+                "role": "current_guard_run_output",
+                "path_globs": [f"{rel(ROUND_ROOT)}/**"],
+            },
+            {
+                "id": "report_only_staging_residue",
+                "role": "report_only_staging_residue",
+                "path_globs": ["Iris/build/description/v2/staging/**"],
+            },
+            {
+                "id": "cold_archive_payload",
+                "role": "cold_archive_payload",
+                "path_globs": ["Iris/_archive/**"],
+            },
+        ],
         "classification_precedence": [
             "round-local staging evidence wins over generic build/report path matching",
             "hard-fail requires both a sealed hard-fail surface and a current-label occurrence",
@@ -308,11 +485,6 @@ def build_manifest() -> dict[str, Any]:
                     "code_identifier",
                     "legacy_metric_key",
                     "diagnostic_alias",
-                    "runtime_state_value",
-                    "source_value",
-                    "operator_label_value",
-                    "current_report_label_value",
-                    "writer_output_label_value",
                 ],
                 "reason": "historical sealed body and planning text are preserved",
                 "must_not_be_current_output": True,
@@ -326,11 +498,6 @@ def build_manifest() -> dict[str, Any]:
                     "code_identifier",
                     "legacy_metric_key",
                     "diagnostic_alias",
-                    "runtime_state_value",
-                    "source_value",
-                    "operator_label_value",
-                    "current_report_label_value",
-                    "writer_output_label_value",
                 ],
                 "reason": "archived payloads are preserved historical evidence and not current output",
                 "must_not_be_current_output": True,
@@ -344,11 +511,6 @@ def build_manifest() -> dict[str, Any]:
                     "legacy_metric_key",
                     "diagnostic_alias",
                     "code_identifier",
-                    "runtime_state_value",
-                    "source_value",
-                    "operator_label_value",
-                    "current_report_label_value",
-                    "writer_output_label_value",
                 ],
                 "reason": "staging evidence is diagnostic and not current writer output",
                 "must_not_be_current_output": True,
@@ -362,11 +524,6 @@ def build_manifest() -> dict[str, Any]:
                     "legacy_metric_key",
                     "diagnostic_alias",
                     "code_identifier",
-                    "runtime_state_value",
-                    "source_value",
-                    "operator_label_value",
-                    "current_report_label_value",
-                    "writer_output_label_value",
                 ],
                 "reason": "round-local scanner/validator evidence may quote guarded tokens",
                 "must_not_be_current_output": True,
@@ -384,11 +541,6 @@ def build_manifest() -> dict[str, Any]:
                     "code_identifier",
                     "legacy_metric_key",
                     "diagnostic_alias",
-                    "runtime_state_value",
-                    "source_value",
-                    "operator_label_value",
-                    "current_report_label_value",
-                    "writer_output_label_value",
                 ],
                 "reason": "validator and explicit guard tests contain expected legacy-token fixtures",
                 "must_not_be_current_output": True,
@@ -402,11 +554,6 @@ def build_manifest() -> dict[str, Any]:
                     "code_identifier",
                     "legacy_metric_key",
                     "diagnostic_alias",
-                    "runtime_state_value",
-                    "source_value",
-                    "operator_label_value",
-                    "current_report_label_value",
-                    "writer_output_label_value",
                 ],
                 "reason": "build tool source may quote legacy fixtures but is not current output",
                 "must_not_be_current_output": True,
@@ -499,9 +646,9 @@ def write_phase1(manifest: dict[str, Any]) -> None:
     )
 
 
-def write_phase2(report: dict[str, Any]) -> None:
+def write_phase2(report: dict[str, Any], result_root: Path) -> None:
     phase = ROUND_ROOT / "phase2_inventory"
-    write_inventory_files(report, phase)
+    write_inventory_files(report, phase, result_root)
 
 
 def write_phase3(report: dict[str, Any]) -> dict[str, Any]:
@@ -545,7 +692,7 @@ def write_phase3(report: dict[str, Any]) -> dict[str, Any]:
         "gate_b_required": True,
     }
     phase = ROUND_ROOT / "phase3_adjudication"
-    write_json(phase / "occurrence_adjudication_report.json", report)
+    write_json(phase / "occurrence_adjudication_report.json", compact_report(report))
     write_json(phase / "branch_decision.json", decision)
     write_json(
         ROUND_ROOT / "phase4_mutation_if_needed" / "phase3_execution_diff_report.json",
@@ -563,7 +710,7 @@ def write_phase3(report: dict[str, Any]) -> dict[str, Any]:
 
 def write_phase5(report: dict[str, Any]) -> None:
     phase = ROUND_ROOT / "phase5_guard"
-    write_json(phase / "current_surface_guard_report.json", report)
+    write_json(phase / "current_surface_guard_report.json", compact_report(report))
     write_json(phase / "validator_error_catalog.json", ERROR_CATALOG)
     write_json(
         ROUND_ROOT / "phase5_negative_invariant_report.json",
@@ -601,7 +748,7 @@ def write_validation_report(path: Path, result: dict[str, Any]) -> None:
     write_text(path, "\n".join(lines))
 
 
-def run_validations(manifest_path: Path, run_tests: bool) -> dict[str, Any]:
+def run_validations(manifest_path: Path, run_tests: bool, scan_backend: str) -> dict[str, Any]:
     validator_cmd = [
         "python",
         "-B",
@@ -610,6 +757,8 @@ def run_validations(manifest_path: Path, run_tests: bool) -> dict[str, Any]:
         str(manifest_path),
         "--repo-root",
         ".",
+        "--scan-backend",
+        scan_backend,
     ]
     validator = run_command(validator_cmd)
     python_unittest = {"command": ["not_run"], "exit_code": None, "stdout": "", "stderr": "", "timed_out": False, "missing_tool": False}
@@ -795,7 +944,7 @@ def write_closeout(branch_decision: dict[str, Any], hard_gate: dict[str, Any], r
         ],
         "evidence": {
             "manifest": rel(ROUND_ROOT / "phase1_manifest" / "current_surface_guard_referent_manifest.json"),
-            "inventory": rel(ROUND_ROOT / "phase2_inventory" / "legacy_active_silent_occurrence_inventory.jsonl"),
+            "inventory": rel(ROUND_ROOT / "phase2_inventory" / "occurrence_stream_reference.json"),
             "branch_decision": rel(ROUND_ROOT / "phase3_adjudication" / "branch_decision.json"),
             "guard_report": rel(ROUND_ROOT / "phase5_guard" / "current_surface_guard_report.json"),
             "phase6_hard_gate": rel(ROUND_ROOT / "phase6_validation" / "phase6_hard_gate_report.json"),
@@ -829,22 +978,126 @@ def write_closeout(branch_decision: dict[str, Any], hard_gate: dict[str, Any], r
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build Legacy Active/Silent Current-Surface Guard Round artifacts.")
     parser.add_argument("--run-validations", action="store_true")
+    parser.add_argument("--work-root", required=True)
+    parser.add_argument("--result-root", required=True)
+    parser.add_argument("--allocation-receipt", required=True)
+    parser.add_argument("--scan-backend", choices=sorted(SCAN_BACKENDS), default="rg")
+    parser.add_argument("--scan-timeout", type=int, default=60)
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
+    output_policy = load_and_validate_output_policy()
+    work_root, result_root = validate_external_run_roots(
+        REPO_ROOT,
+        Path(args.work_root),
+        Path(args.result_root),
+    )
+    allocation_receipt_path = Path(args.allocation_receipt).resolve()
+    allocation_receipt = load_and_validate_allocation_receipt(
+        allocation_receipt_path,
+        work_root,
+        result_root,
+    )
+    result_subroots = {
+        name: result_root / name
+        for name in output_policy["external_subroots"]
+    }
+    if list(result_subroots) != AUTHORIZED_RESULT_SUBROOTS:
+        raise ValueError("successor policy result subroots are not the canonical ordered set")
+    for subroot in result_subroots.values():
+        subroot.mkdir(parents=True, exist_ok=False)
     write_phase0()
     manifest = build_manifest()
     write_phase1(manifest)
     manifest_path = ROUND_ROOT / "phase1_manifest" / "current_surface_guard_referent_manifest.json"
-    report = validate_repo(REPO_ROOT, manifest)
-    write_phase2(report)
+    report = validate_repo(
+        REPO_ROOT,
+        manifest,
+        scan_backend=args.scan_backend,
+        scan_timeout=args.scan_timeout,
+        result_root=result_root,
+    )
+    write_phase2(report, result_root)
     branch_decision = write_phase3(report)
     write_phase5(report)
-    hard_gate = run_validations(manifest_path, run_tests=args.run_validations)
+    write_json_atomic(
+        result_subroots["phases"] / "phase2_occurrence_stream_reference.json",
+        report["occurrence_stream"],
+    )
+    write_json_atomic(
+        result_subroots["phases"] / "phase3_occurrence_adjudication_summary.json",
+        compact_report(report),
+    )
+    write_json_atomic(
+        result_subroots["phases"] / "phase5_current_surface_guard_summary.json",
+        compact_report(report),
+    )
+    hard_gate = run_validations(
+        manifest_path,
+        run_tests=args.run_validations,
+        scan_backend=args.scan_backend,
+    )
     review = write_phase7_review(branch_decision, hard_gate)
     closeout = write_closeout(branch_decision, hard_gate, review)
+    verify_occurrence_stream_reference(report["occurrence_stream"], result_root)
+    producer_receipt_path = result_subroots["logs"] / "legacy_active_silent_guard_producer_receipt.json"
+    producer_receipt = {
+        "schema_version": "legacy-active-silent-guard-producer-receipt-v1",
+        "status": "PASS" if closeout["closeout_state"].startswith("closed_") else "FAIL",
+        "generated_at": now_iso(),
+        "run_id": allocation_receipt.get("run_id"),
+        "claim_id": allocation_receipt.get("claim_id"),
+        "attempt_id": allocation_receipt.get("attempt_id"),
+        "allocation_profile": allocation_receipt.get("allocation_profile"),
+        "output_policy": {
+            "path": rel(OUTPUT_POLICY),
+            "sha256": sha256_file(OUTPUT_POLICY),
+            "approval": output_policy.get("approval"),
+        },
+        "allocation_receipt": {
+            "path": allocation_receipt_path.as_posix(),
+            "sha256": sha256_file(allocation_receipt_path),
+        },
+        "allocation_ledger": allocation_receipt.get("allocation_ledger"),
+        "resolved_roots": {
+            "work": work_root.as_posix(),
+            "result": result_root.as_posix(),
+            **{name: path.as_posix() for name, path in result_subroots.items()},
+        },
+        "scan_receipt": report["scan_receipt"],
+        "occurrence_stream": report["occurrence_stream"],
+        "phase_summaries": [
+            path_record(ROUND_ROOT / "phase2_inventory" / "occurrence_stream_reference.json"),
+            path_record(ROUND_ROOT / "phase3_adjudication" / "occurrence_adjudication_report.json"),
+            path_record(ROUND_ROOT / "phase5_guard" / "current_surface_guard_report.json"),
+        ],
+        "external_phase_summaries": [
+            path_record(result_subroots["phases"] / "phase2_occurrence_stream_reference.json"),
+            path_record(result_subroots["phases"] / "phase3_occurrence_adjudication_summary.json"),
+            path_record(result_subroots["phases"] / "phase5_current_surface_guard_summary.json"),
+        ],
+        "root_disposition": {
+            "work": "empty_verified_delete_eligible_after_closeout",
+            "result": "retained_content_addressed_objects_phases_logs_and_package",
+            "package": "empty_verified_not_required_for_guard_pilot",
+        },
+        "object_lifecycle_dispositions": [
+            {
+                "logical_id": report["occurrence_stream"]["logical_id"],
+                "sha256": report["occurrence_stream"]["sha256"],
+                "role": "retained_current_required",
+            }
+        ],
+        "dangling_reference_count": 0,
+        "work_root_empty_at_closeout": not any(work_root.iterdir()),
+    }
+    write_json_atomic(producer_receipt_path, producer_receipt)
+    closeout["producer_receipt"] = {
+        "path": producer_receipt_path.as_posix(),
+        "sha256": sha256_file(producer_receipt_path),
+    }
     print(json.dumps(closeout, ensure_ascii=False, indent=2))
     return 0 if closeout["closeout_state"].startswith("closed_") else 1
 

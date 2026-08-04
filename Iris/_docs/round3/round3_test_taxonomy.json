@@ -20,7 +20,7 @@
   "generated_at": "2026-08-05T00:00:00+09:00",
   "identity_source": "Iris/_docs/round3/round3_legacy_test_identities.json",
   "matrix": {
-    "current+ok": 139,
+    "current+ok": 144,
     "diagnostic+ok": 81,
     "historical+ok": 285
   },
@@ -7064,6 +7064,61 @@
       "source_file": "Iris/build/description/v2/tests/test_iris_residual_diagnostic_disposition.py",
       "state": "ok",
       "test_id": "test_iris_residual_diagnostic_disposition.IrisResidualDiagnosticDispositionTest.test_junction_output_alias_into_checkout_is_rejected_before_any_write"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "inventory fixture proves explicit and discovered Windows reparse roots are held without traversing or exposing external target files",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+      "state": "ok",
+      "test_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_junctions_are_held_without_external_traversal"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "fail-closed file-symlink fixture proves an external ledger leaf cannot resolve into the repository or receive allocator writes",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_work_root_contract.py",
+      "state": "ok",
+      "test_id": "test_artifact_work_root_contract.ArtifactWorkRootContractTest.test_reparse_ledger_leaf_into_repository_is_rejected_without_write"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "default guard manifest fixture proves durable successor authority, exact role scope, predecessor identity, and LF checkout contracts",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+      "state": "ok",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_default_manifest_is_durable_role_scoped_successor"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "default denominator fixture includes representative current, governance, and diagnostic _docs JSON authority while excluding generated guard output",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+      "state": "ok",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_default_manifest_includes_docs_json_authority_and_excludes_guard_output"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "producer fixture proves all phase output is external, sealed repository evidence stays unchanged, and adoption remains pending receipt-bound checkpoints",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+      "state": "ok",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_producer_keeps_repository_and_sealed_predecessor_unchanged"
     }
   ],
   "schema_version": "round3-test-taxonomy-v1"

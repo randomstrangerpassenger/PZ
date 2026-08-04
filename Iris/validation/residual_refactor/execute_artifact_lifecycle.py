@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import os
+import stat
 import subprocess
 import sys
 import zipfile
@@ -15,28 +16,12 @@ from pathlib import Path, PurePosixPath
 from typing import Any
 
 from promote_artifact_lifecycle_evidence import PromotionError, validate_chain as validate_archive_chain
-from report_artifact_lifecycle import build_rows, git_path_set, reference_graph
+from report_artifact_lifecycle import SCOPED_ROOTS, build_rows, git_path_set, reference_graph
 
 
 class LifecycleExecutionError(RuntimeError):
     pass
 
-
-PRE_DELETE_DURABLE_ADDITIONS = {
-    "Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json",
-    "Iris/_docs/refactor/repository_runtime_lightweighting/bootstrap_validation_receipt.json",
-    "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_inventory.json",
-    "Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
-    "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_promotion_receipt.json",
-    "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_adoption_receipt.json",
-    "Iris/_docs/refactor/repository_runtime_lightweighting/work_root_contract.json",
-    "Iris/_docs/refactor/repository_runtime_lightweighting/producer_migration_manifest.json",
-    "Iris/_docs/refactor/repository_runtime_lightweighting/pre_delete_current_route_receipt.json",
-    "Iris/_docs/refactor/repository_runtime_lightweighting/current_route_coverage_map.json",
-    "Iris/_docs/refactor/repository_runtime_lightweighting/archive_operation_manifest.json",
-    "Iris/_docs/refactor/repository_runtime_lightweighting/archive_restore_receipt.json",
-    "Iris/_docs/refactor/repository_runtime_lightweighting/archive_promotion_receipt.json",
-}
 
 POST_VALIDATION_ALLOWED_ADDITIONS = {
     "Iris/_docs/refactor/repository_runtime_lightweighting/pre_delete_current_route_receipt.json",
@@ -158,12 +143,50 @@ def exact_repo_file(repo: Path, relative: str) -> Path:
     pure = PurePosixPath(relative)
     if pure.is_absolute() or ".." in pure.parts or not pure.name:
         raise LifecycleExecutionError(f"unsafe repository path: {relative}")
-    target = (repo / Path(*pure.parts)).resolve()
+    lexical_repo = Path(os.path.abspath(repo))
+    target = Path(os.path.abspath(lexical_repo / Path(*pure.parts)))
     try:
-        target.relative_to(repo)
+        target.relative_to(lexical_repo)
     except ValueError as error:
         raise LifecycleExecutionError(f"path escapes repository: {relative}") from error
+    current = target
+    while True:
+        try:
+            metadata = current.lstat()
+        except FileNotFoundError:
+            metadata = None
+        if metadata is not None:
+            reparse_flag = getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400)
+            file_attributes = getattr(metadata, "st_file_attributes", 0)
+            if stat.S_ISLNK(metadata.st_mode) or (file_attributes & reparse_flag):
+                raise LifecycleExecutionError(f"repository path traverses a symlink or reparse point: {relative}")
+        if current == lexical_repo:
+            break
+        current = current.parent
+    resolved_target = target.resolve(strict=False)
+    resolved_repo = lexical_repo.resolve(strict=True)
+    try:
+        resolved_target.relative_to(resolved_repo)
+    except ValueError as error:
+        raise LifecycleExecutionError(f"resolved path escapes repository: {relative}") from error
     return target
+
+
+def require_exact_regular_file(target: Path, row: dict[str, Any], phase: str) -> None:
+    try:
+        metadata = target.lstat()
+    except FileNotFoundError as error:
+        raise LifecycleExecutionError(f"{phase} target is not an exact regular file: {row['path']}") from error
+    reparse_flag = getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400)
+    file_attributes = getattr(metadata, "st_file_attributes", 0)
+    if (
+        not stat.S_ISREG(metadata.st_mode)
+        or stat.S_ISLNK(metadata.st_mode)
+        or (file_attributes & reparse_flag)
+    ):
+        raise LifecycleExecutionError(f"{phase} target is not an exact regular file: {row['path']}")
+    if sha256_file(target) != row["sha256"] or metadata.st_size != row["size_bytes"]:
+        raise LifecycleExecutionError(f"{phase} target changed: {row['path']}")
 
 
 def operation_id(subject: dict[str, Any], rows: list[dict[str, Any]]) -> str:
@@ -773,6 +796,220 @@ def validate_pre_delete_receipt(repo: Path, receipt_path: Path) -> dict[str, Any
     if receipt.get("checkout_clean_before") is not True or receipt.get("checkout_clean_after") is not True:
         raise LifecycleExecutionError("pre-delete receipt lacks clean pre/post assertions")
     return receipt
+
+
+def _git_changed_paths(
+    repo: Path,
+    before: str,
+    after: str,
+    diff_filter: str,
+) -> set[str]:
+    completed = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(repo),
+            "diff",
+            "--name-only",
+            "-z",
+            f"--diff-filter={diff_filter}",
+            before,
+            after,
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    if completed.returncode != 0:
+        raise LifecycleExecutionError(
+            "validated Common candidate tracked delta is unresolved"
+        )
+    return {
+        token.decode("utf-8", errors="surrogateescape")
+        for token in completed.stdout.split(b"\0")
+        if token
+    }
+
+
+def _is_lifecycle_scoped(path: str) -> bool:
+    return any(path == root or path.startswith(root.rstrip("/") + "/") for root in SCOPED_ROOTS)
+
+
+def build_validated_candidate_delta_allowset(
+    repo: Path,
+    baseline: dict[str, Any],
+    pre_delete: dict[str, Any],
+) -> dict[str, Any]:
+    baseline_commit = str(baseline.get("commit", ""))
+    subject = pre_delete.get("validated_subject", {})
+    subject_commit = str(subject.get("commit", ""))
+    validation_root = Path(str(subject.get("repository_root", ""))).resolve()
+    for commit, label in (
+        (baseline_commit, "baseline"),
+        (subject_commit, "validated Common candidate"),
+    ):
+        resolved = subprocess.run(
+            ["git", "-C", str(repo), "rev-parse", f"{commit}^{{commit}}"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            check=False,
+        )
+        if resolved.returncode != 0 or resolved.stdout.strip() != commit:
+            raise LifecycleExecutionError(f"{label} commit is unresolved")
+    for before, after, label in (
+        (baseline_commit, subject_commit, "baseline-to-Common"),
+        (subject_commit, "HEAD", "Common-to-physical"),
+    ):
+        ancestry = subprocess.run(
+            ["git", "-C", str(repo), "merge-base", "--is-ancestor", before, after],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=False,
+        )
+        if ancestry.returncode != 0:
+            raise LifecycleExecutionError(f"{label} candidate chronology is invalid")
+
+    candidate_paths = _git_changed_paths(repo, baseline_commit, subject_commit, "AM")
+    candidate_forbidden = _git_changed_paths(
+        repo, baseline_commit, subject_commit, "CDRTUXB"
+    )
+    if candidate_forbidden:
+        raise LifecycleExecutionError(
+            "validated Common candidate contains a forbidden tracked transition: "
+            + ", ".join(sorted(candidate_forbidden))
+        )
+    post_added = _git_changed_paths(repo, subject_commit, "HEAD", "A")
+    post_modified = _git_changed_paths(repo, subject_commit, "HEAD", "M")
+    post_forbidden = _git_changed_paths(repo, subject_commit, "HEAD", "CDRTUXB")
+    if (
+        post_forbidden
+        or post_added - POST_VALIDATION_ALLOWED_ADDITIONS
+        or post_modified - {CHECKPOINT_MANIFEST_RELATIVE}
+    ):
+        raise LifecycleExecutionError(
+            "post-validation physical candidate transition exceeds durable evidence policy"
+        )
+
+    rows: list[dict[str, Any]] = []
+    scoped_paths = {
+        path
+        for path in candidate_paths | post_added | post_modified
+        if _is_lifecycle_scoped(path)
+    }
+    for path in sorted(scoped_paths):
+        candidate_blob: str | None = None
+        if path in candidate_paths:
+            candidate_result = subprocess.run(
+                ["git", "-C", str(repo), "rev-parse", f"{subject_commit}:{path}"],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                check=False,
+            )
+            if candidate_result.returncode != 0:
+                raise LifecycleExecutionError(
+                    f"validated Common candidate path is unresolved: {path}"
+                )
+            candidate_blob = candidate_result.stdout.strip()
+            validation_path = validation_root / path
+            validation_blob = subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    str(validation_root),
+                    "hash-object",
+                    f"--path={path}",
+                    str(validation_path),
+                ],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                check=False,
+            )
+            if (
+                not validation_path.is_file()
+                or validation_path.is_symlink()
+                or validation_blob.returncode != 0
+                or validation_blob.stdout.strip() != candidate_blob
+            ):
+                raise LifecycleExecutionError(
+                    f"validated Common candidate path/blob binding mismatch: {path}"
+                )
+
+        head_blob = subprocess.run(
+            ["git", "-C", str(repo), "rev-parse", f"HEAD:{path}"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            check=False,
+        )
+        physical_path = exact_repo_file(repo, path)
+        working_blob = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(repo),
+                "hash-object",
+                f"--path={path}",
+                str(physical_path),
+            ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            check=False,
+        )
+        if (
+            not physical_path.is_file()
+            or physical_path.is_symlink()
+            or head_blob.returncode != 0
+            or working_blob.returncode != 0
+            or working_blob.stdout.strip() != head_blob.stdout.strip()
+        ):
+            raise LifecycleExecutionError(
+                f"physical candidate path/blob binding mismatch: {path}"
+            )
+        rows.append(
+            {
+                "path": path,
+                "transition_phase": (
+                    "validated_common_then_post_validation"
+                    if path in candidate_paths and path in post_added | post_modified
+                    else "validated_common_candidate"
+                    if path in candidate_paths
+                    else "post_validation_durable_evidence"
+                ),
+                "validated_candidate_git_blob_id": candidate_blob,
+                "expected_physical_head_git_blob_id": head_blob.stdout.strip(),
+                "sha256": sha256_file(physical_path),
+                "size_bytes": physical_path.stat().st_size,
+            }
+        )
+    return {
+        "schema_version": "iris_repository_runtime_lightweighting_validated_candidate_delta_allowset_v1",
+        "baseline_commit": baseline_commit,
+        "validated_subject_commit": subject_commit,
+        "physical_head_commit": subprocess.run(
+            ["git", "-C", str(repo), "rev-parse", "HEAD"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            check=True,
+        ).stdout.strip(),
+        "rows": rows,
+    }
 
 
 def validate_baseline(repo: Path, baseline_path: Path, promotion_path: Path) -> tuple[dict[str, Any], list[dict[str, Any]]]:
@@ -1513,26 +1750,18 @@ def command_delete(args: argparse.Namespace) -> None:
         raise LifecycleExecutionError("delete-time baseline artifact manifest is missing")
     baseline_sha256 = sha256_file(baseline_path)
     baseline_manifest_sha256 = sha256_file(baseline_manifest_path)
-    durable_evidence_bindings: list[dict[str, Any]] = []
-    for relative in sorted(PRE_DELETE_DURABLE_ADDITIONS):
-        candidate = exact_repo_file(repo, relative)
-        if candidate.is_file():
-            durable_evidence_bindings.append(
-                {
-                    "path": relative,
-                    "sha256": sha256_file(candidate),
-                    "size_bytes": candidate.stat().st_size,
-                }
-            )
+    validated_candidate_delta_allowset = build_validated_candidate_delta_allowset(
+        repo,
+        load_object(baseline_path),
+        load_object(Path(str(bindings["pre_delete_current_route_receipt"]["path"])).resolve()),
+    )
     deleted: list[dict[str, Any]] = []
     for row in operation["rows"]:
         target = exact_repo_file(repo, str(row["path"]))
-        if not target.is_file() or target.is_symlink():
-            raise LifecycleExecutionError(f"delete target is not an exact regular file: {row['path']}")
-        if sha256_file(target) != row["sha256"] or target.stat().st_size != row["size_bytes"]:
-            raise LifecycleExecutionError(f"delete target changed: {row['path']}")
+        require_exact_regular_file(target, row, "delete preflight")
     for row in operation["rows"]:
         target = exact_repo_file(repo, str(row["path"]))
+        require_exact_regular_file(target, row, "delete immediate pre-unlink")
         target.unlink()
         if target.exists():
             raise LifecycleExecutionError(f"delete target still exists: {row['path']}")
@@ -1552,7 +1781,7 @@ def command_delete(args: argparse.Namespace) -> None:
             "path": baseline_manifest_path.as_posix(),
             "sha256": baseline_manifest_sha256,
         },
-        "durable_evidence_bindings": durable_evidence_bindings,
+        "validated_candidate_delta_allowset": validated_candidate_delta_allowset,
         "deleted": deleted,
         "deleted_bytes": sum(int(row["size_bytes"]) for row in deleted),
         "recoverable_from_verified_cold_archive": True,
@@ -1578,13 +1807,52 @@ def command_post_delete(args: argparse.Namespace) -> None:
     manifest_binding = prior.get("baseline_artifact_manifest", {})
     if Path(str(manifest_binding.get("path", ""))).resolve() != baseline_manifest or manifest_binding.get("sha256") != sha256_file(baseline_manifest):
         raise LifecycleExecutionError("delete receipt baseline artifact-manifest binding mismatch")
-    durable_binding_rows = prior.get("durable_evidence_bindings")
-    if not isinstance(durable_binding_rows, list):
-        raise LifecycleExecutionError("delete receipt durable-evidence bindings are malformed")
+    allowset = prior.get("validated_candidate_delta_allowset")
+    if (
+        not isinstance(allowset, dict)
+        or allowset.get("schema_version")
+        != "iris_repository_runtime_lightweighting_validated_candidate_delta_allowset_v1"
+        or allowset.get("baseline_commit") != baseline.get("commit")
+        or not isinstance(allowset.get("rows"), list)
+    ):
+        raise LifecycleExecutionError(
+            "delete receipt validated-candidate delta allowset is malformed"
+        )
+    current_head = subprocess.run(
+        ["git", "-C", str(repo), "rev-parse", "HEAD"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
+    if (
+        current_head.returncode != 0
+        or current_head.stdout.strip() != allowset.get("physical_head_commit")
+    ):
+        raise LifecycleExecutionError(
+            "physical HEAD changed after validated-candidate allowset capture"
+        )
     durable_bindings: dict[str, dict[str, Any]] = {}
-    for binding in durable_binding_rows:
-        if not isinstance(binding, dict) or not isinstance(binding.get("path"), str) or binding["path"] in durable_bindings:
-            raise LifecycleExecutionError("delete receipt durable-evidence bindings are malformed")
+    for binding in allowset["rows"]:
+        if (
+            not isinstance(binding, dict)
+            or not isinstance(binding.get("path"), str)
+            or binding["path"] in durable_bindings
+            or binding.get("transition_phase")
+            not in {
+                "validated_common_candidate",
+                "post_validation_durable_evidence",
+                "validated_common_then_post_validation",
+            }
+            or not valid_sha256(binding.get("sha256"))
+            or not isinstance(binding.get("size_bytes"), int)
+            or not str(binding.get("expected_physical_head_git_blob_id", ""))
+        ):
+            raise LifecycleExecutionError(
+                "delete receipt validated-candidate delta allowset is malformed"
+            )
         durable_bindings[binding["path"]] = binding
     unexpected_existing = [row["path"] for row in operation["rows"] if exact_repo_file(repo, str(row["path"])).exists()]
     if unexpected_existing:
@@ -1596,16 +1864,34 @@ def command_post_delete(args: argparse.Namespace) -> None:
     selected_paths = {str(row["path"]) for row in operation["rows"]}
     for path, binding in durable_bindings.items():
         current_row = current_by_path.get(path)
+        current_path = exact_repo_file(repo, path)
+        current_blob = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(repo),
+                "hash-object",
+                f"--path={path}",
+                str(current_path),
+            ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            check=False,
+        )
         if (
-            path not in PRE_DELETE_DURABLE_ADDITIONS
-            or current_row is None
+            current_row is None
             or current_row.get("vcs_state") != "tracked"
-            or current_row.get("authority_role") != "current_required_evidence"
             or binding.get("sha256") != current_row.get("sha256")
             or int(binding.get("size_bytes", -1)) != int(current_row.get("size_bytes", 0))
+            or current_blob.returncode != 0
+            or current_blob.stdout.strip()
+            != binding.get("expected_physical_head_git_blob_id")
         ):
             raise LifecycleExecutionError(
-                f"post-delete durable evidence binding mismatch: {path}"
+                f"post-delete validated candidate binding mismatch: {path}"
             )
     unexpected: list[dict[str, Any]] = []
     approved_changed: list[dict[str, Any]] = []
@@ -1622,13 +1908,13 @@ def command_post_delete(args: argparse.Namespace) -> None:
             if (
                 baseline_row.get("path_access") == "missing_referenced"
                 and materialized_children
-                and materialized_children.issubset(PRE_DELETE_DURABLE_ADDITIONS)
+                and materialized_children.issubset(durable_bindings)
             ):
                 continue
             unexpected.append({"path": path, "change": "unexpectedly_missing"})
         elif baseline_row.get("sha256") != current_row.get("sha256") or baseline_row.get("size_bytes") != current_row.get("size_bytes") or baseline_row.get("path_access") != current_row.get("path_access"):
             binding = durable_bindings.get(path, {})
-            if path in PRE_DELETE_DURABLE_ADDITIONS and current_row.get("vcs_state") == "tracked" and current_row.get("authority_role") == "current_required_evidence" and binding.get("sha256") == current_row.get("sha256") and int(binding.get("size_bytes", -1)) == int(current_row.get("size_bytes", 0)):
+            if path in durable_bindings and binding.get("sha256") == current_row.get("sha256") and int(binding.get("size_bytes", -1)) == int(current_row.get("size_bytes", 0)):
                 approved_changed.append(
                     {
                         "path": path,
@@ -1646,7 +1932,7 @@ def command_post_delete(args: argparse.Namespace) -> None:
     for path in added_paths:
         row = current_by_path[path]
         binding = durable_bindings.get(path, {})
-        if path in PRE_DELETE_DURABLE_ADDITIONS and row.get("vcs_state") == "tracked" and row.get("authority_role") == "current_required_evidence" and binding.get("sha256") == row.get("sha256") and int(binding.get("size_bytes", -1)) == int(row.get("size_bytes", 0)):
+        if path in durable_bindings and binding.get("sha256") == row.get("sha256") and int(binding.get("size_bytes", -1)) == int(row.get("size_bytes", 0)):
             approved_added.append({"path": path, "sha256": row.get("sha256"), "size_bytes": row.get("size_bytes")})
         else:
             unexpected.append({"path": path, "change": "unexpectedly_added"})
@@ -1675,6 +1961,12 @@ def command_post_delete(args: argparse.Namespace) -> None:
         "approved_durable_change_bytes": approved_changed_bytes,
         "approved_durable_changes": approved_changed,
         "approved_durable_delta_bytes": approved_durable_delta_bytes,
+        "validated_candidate_delta_allowset": {
+            "baseline_commit": allowset["baseline_commit"],
+            "validated_subject_commit": allowset.get("validated_subject_commit"),
+            "physical_head_commit": allowset.get("physical_head_commit"),
+            "bound_path_count": len(durable_bindings),
+        },
         "deleted_path_count": len(operation["rows"]),
         "unexpected_existing_count": 0,
         "unexpected_path_delta_count": len(unexpected),

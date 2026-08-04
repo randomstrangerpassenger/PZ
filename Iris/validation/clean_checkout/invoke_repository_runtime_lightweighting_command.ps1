@@ -248,28 +248,44 @@ function Get-CheckoutCensus([string]$WorkingDirectory) {
     $tracked = Get-GitPathSet $root @('ls-files', '-z')
     $untracked = Get-GitPathSet $root @('ls-files', '-z', '--others', '--exclude-standard')
     $ignored = Get-GitPathSet $root @('ls-files', '-z', '--others', '-i', '--exclude-standard')
+    $untrackedDirectories = Get-GitPathSet $root @('ls-files', '-z', '--others', '--exclude-standard', '--directory')
+    $ignoredDirectories = Get-GitPathSet $root @('ls-files', '-z', '--others', '-i', '--exclude-standard', '--directory')
     $rows = [ordered]@{}
     $unreadable = @()
-    try {
-        $files = Get-ChildItem -LiteralPath $root -Force -File -Recurse -ErrorAction Stop | Where-Object {
-            $relativeCandidate = $_.FullName.Substring($root.Length).TrimStart('\', '/').Replace('\', '/')
-            -not ($relativeCandidate -eq '.git' -or $relativeCandidate.StartsWith('.git/'))
+    $entries = @()
+    $pending = [System.Collections.Generic.Stack[string]]::new()
+    $pending.Push($root)
+    while ($pending.Count -gt 0) {
+        $directory = $pending.Pop()
+        try {
+            $children = @(Get-ChildItem -LiteralPath $directory -Force -ErrorAction Stop)
+        }
+        catch {
+            $unreadable += [ordered]@{ path = $directory.Replace('\', '/'); error_type = $_.Exception.GetType().FullName; error = $_.Exception.Message }
+            continue
+        }
+        foreach ($child in $children) {
+            $relativeCandidate = $child.FullName.Substring($root.Length).TrimStart('\', '/').Replace('\', '/')
+            if ($relativeCandidate -eq '.git' -or $relativeCandidate.StartsWith('.git/')) { continue }
+            $entries += $child
+            $isReparse = (($child.Attributes -band [System.IO.FileAttributes]::ReparsePoint) -ne 0)
+            if ($child.PSIsContainer -and -not $isReparse) { $pending.Push($child.FullName) }
         }
     }
-    catch {
-        $unreadable += [ordered]@{ path = $root.Replace('\', '/'); error_type = $_.Exception.GetType().FullName; error = $_.Exception.Message }
-        $files = @()
-    }
-    foreach ($file in ($files | Sort-Object FullName)) {
-        $relative = $file.FullName.Substring($root.Length).TrimStart('\', '/').Replace('\', '/')
+    foreach ($entry in ($entries | Sort-Object FullName)) {
+        $relative = $entry.FullName.Substring($root.Length).TrimStart('\', '/').Replace('\', '/')
         try {
-            $state = if ($null -ne $tracked -and $tracked.Contains($relative)) { 'tracked' }
-                elseif ($null -ne $ignored -and $ignored.Contains($relative)) { 'ignored' }
-                elseif ($null -ne $untracked -and $untracked.Contains($relative)) { 'untracked' }
+            $directoryKey = $relative.TrimEnd('/') + '/'
+            $isReparse = (($entry.Attributes -band [System.IO.FileAttributes]::ReparsePoint) -ne 0)
+            $entryKind = if ($isReparse) { 'reparse_point' } elseif ($entry.PSIsContainer) { 'directory' } else { 'file' }
+            $state = if ($entryKind -eq 'file' -and $null -ne $tracked -and $tracked.Contains($relative)) { 'tracked' }
+                elseif (($null -ne $ignored -and $ignored.Contains($relative)) -or ($null -ne $ignoredDirectories -and $ignoredDirectories.Contains($directoryKey))) { 'ignored' }
+                elseif (($null -ne $untracked -and $untracked.Contains($relative)) -or ($null -ne $untrackedDirectories -and $untrackedDirectories.Contains($directoryKey))) { 'untracked' }
                 else { 'filesystem_only' }
             $rows[$relative] = [ordered]@{
-                size_bytes = $file.Length
-                sha256 = Get-Sha256 $file.FullName
+                entry_kind = $entryKind
+                size_bytes = if ($entryKind -eq 'file') { $entry.Length } else { 0 }
+                sha256 = if ($entryKind -eq 'file') { Get-Sha256 $entry.FullName } else { $null }
                 vcs_state = $state
             }
         }
@@ -279,12 +295,15 @@ function Get-CheckoutCensus([string]$WorkingDirectory) {
     }
     $fingerprintRows = @()
     foreach ($key in @($rows.Keys)) {
-        $fingerprintRows += [ordered]@{ path = $key; size_bytes = $rows[$key].size_bytes; sha256 = $rows[$key].sha256; vcs_state = $rows[$key].vcs_state }
+        $fingerprintRows += [ordered]@{ path = $key; entry_kind = $rows[$key].entry_kind; size_bytes = $rows[$key].size_bytes; sha256 = $rows[$key].sha256; vcs_state = $rows[$key].vcs_state }
     }
     $fingerprintJson = $fingerprintRows | ConvertTo-Json -Depth 6 -Compress
     return [ordered]@{
         root = $root.Replace('\', '/')
-        file_count = $rows.Count
+        entry_count = $rows.Count
+        file_count = @($rows.Values | Where-Object { $_.entry_kind -eq 'file' }).Count
+        directory_count = @($rows.Values | Where-Object { $_.entry_kind -eq 'directory' }).Count
+        reparse_point_count = @($rows.Values | Where-Object { $_.entry_kind -eq 'reparse_point' }).Count
         unreadable_count = $unreadable.Count
         unreadable = $unreadable
         fingerprint_sha256 = Get-BytesSha256 (([System.Text.UTF8Encoding]::new($false)).GetBytes($fingerprintJson))
@@ -304,7 +323,7 @@ function Compare-Census([object]$Before, [object]$After) {
         elseif ($null -eq $right) {
             $delta += [ordered]@{ path = $path; change = 'removed'; vcs_state = $left.vcs_state; before = $left; after = $null }
         }
-        elseif ($left.sha256 -ne $right.sha256 -or [long]$left.size_bytes -ne [long]$right.size_bytes -or $left.vcs_state -ne $right.vcs_state) {
+        elseif ($left.entry_kind -ne $right.entry_kind -or $left.sha256 -ne $right.sha256 -or [long]$left.size_bytes -ne [long]$right.size_bytes -or $left.vcs_state -ne $right.vcs_state) {
             $delta += [ordered]@{ path = $path; change = 'changed'; vcs_state = $right.vcs_state; before = $left; after = $right }
         }
     }
@@ -323,7 +342,10 @@ function Get-CensusReceiptSummary([object]$Census) {
     if ($null -eq $Census) { return $null }
     return [ordered]@{
         root = $Census.root
+        entry_count = $Census.entry_count
         file_count = $Census.file_count
+        directory_count = $Census.directory_count
+        reparse_point_count = $Census.reparse_point_count
         unreadable_count = $Census.unreadable_count
         unreadable = $Census.unreadable
         fingerprint_sha256 = $Census.fingerprint_sha256

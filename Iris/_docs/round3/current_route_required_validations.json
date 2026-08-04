@@ -2948,6 +2948,31 @@
       "required": true,
       "role": "repository_runtime_lightweighting_guard_single_serialization_required_validation",
       "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_stream_count_and_phase_summary_tampering_fail_loud"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_lifecycle_inventory_required_validation",
+      "test_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_junctions_are_held_without_external_traversal"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_work_root_required_validation",
+      "test_id": "test_artifact_work_root_contract.ArtifactWorkRootContractTest.test_reparse_ledger_leaf_into_repository_is_rejected_without_write"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_guard_single_serialization_required_validation",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_default_manifest_is_durable_role_scoped_successor"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_guard_single_serialization_required_validation",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_default_manifest_includes_docs_json_authority_and_excludes_guard_output"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_guard_single_serialization_required_validation",
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_producer_keeps_repository_and_sealed_predecessor_unchanged"
     }
   ],
   "route": "current",

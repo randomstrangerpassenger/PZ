@@ -9,6 +9,7 @@ import hashlib
 import json
 import os
 import re
+import stat
 import subprocess
 import sys
 from collections import Counter, defaultdict
@@ -175,6 +176,21 @@ def walk_files(root: Path, rel_root: str) -> tuple[list[Path], list[dict[str, An
     files: list[Path] = []
     unreadable: list[dict[str, Any]] = []
 
+    def is_reparse(path: Path, entry: os.DirEntry[str] | None = None) -> bool:
+        metadata = entry.stat(follow_symlinks=False) if entry is not None else path.lstat()
+        return stat.S_ISLNK(metadata.st_mode) or bool(
+            int(getattr(metadata, "st_file_attributes", 0)) & 0x400
+        )
+
+    def hold(path: Path) -> None:
+        unreadable.append(
+            {
+                "path": path.as_posix(),
+                "error_type": "ReparseOrSymlinkHold",
+                "error": "reparse/symlink traversal is not admitted",
+            }
+        )
+
     def visit(directory: Path) -> None:
         try:
             entries = sorted(os.scandir(directory), key=lambda item: item.name.casefold())
@@ -190,27 +206,36 @@ def walk_files(root: Path, rel_root: str) -> tuple[list[Path], list[dict[str, An
         for entry in entries:
             path = Path(entry.path)
             try:
-                if entry.is_symlink():
-                    unreadable.append(
-                        {
-                            "path": path.as_posix(),
-                            "error_type": "ReparseOrSymlinkHold",
-                            "error": "reparse/symlink traversal is not admitted",
-                        }
-                    )
-                elif entry.is_dir(follow_symlinks=False):
+                metadata = entry.stat(follow_symlinks=False)
+                if is_reparse(path, entry):
+                    hold(path)
+                elif stat.S_ISDIR(metadata.st_mode):
                     visit(path)
-                elif entry.is_file(follow_symlinks=False):
+                elif stat.S_ISREG(metadata.st_mode):
                     files.append(path)
             except OSError as error:
                 unreadable.append(
                     {"path": path.as_posix(), "error_type": type(error).__name__, "error": str(error)}
                 )
 
-    if root.is_dir():
-        visit(root)
-    elif root.exists():
-        files.append(root)
+    try:
+        root_metadata = root.lstat()
+        if is_reparse(root):
+            hold(root)
+        elif stat.S_ISDIR(root_metadata.st_mode):
+            visit(root)
+        elif stat.S_ISREG(root_metadata.st_mode):
+            files.append(root)
+    except FileNotFoundError:
+        pass
+    except OSError as error:
+        unreadable.append(
+            {
+                "path": root.as_posix(),
+                "error_type": type(error).__name__,
+                "error": str(error),
+            }
+        )
     return files, unreadable
 
 
@@ -284,13 +309,65 @@ def current_required_source_paths(repo: Path) -> set[str]:
     }
 
 
-def scoped_roots(repo: Path) -> list[str]:
+def scoped_roots(
+    repo: Path,
+    unreadable: list[dict[str, Any]] | None = None,
+) -> list[str]:
     roots = set(SCOPED_ROOTS)
     iris_root = repo / "Iris"
-    if iris_root.is_dir():
-        for path in iris_root.rglob("*"):
-            if path.is_dir() and path.name in {"__pycache__", ".pytest_cache", ".tmp", ".tmp_tests"}:
-                roots.add(path.relative_to(repo).as_posix())
+    holds = unreadable if unreadable is not None else []
+
+    def visit(directory: Path) -> None:
+        try:
+            entries = sorted(os.scandir(directory), key=lambda item: item.name.casefold())
+        except OSError as error:
+            holds.append(
+                {
+                    "path": directory.as_posix(),
+                    "error_type": type(error).__name__,
+                    "error": str(error),
+                }
+            )
+            return
+        for entry in entries:
+            path = Path(entry.path)
+            try:
+                metadata = entry.stat(follow_symlinks=False)
+                reparse = stat.S_ISLNK(metadata.st_mode) or bool(
+                    int(getattr(metadata, "st_file_attributes", 0)) & 0x400
+                )
+                if reparse:
+                    holds.append(
+                        {
+                            "path": path.as_posix(),
+                            "error_type": "ReparseOrSymlinkHold",
+                            "error": "reparse/symlink traversal is not admitted",
+                        }
+                    )
+                    continue
+                if not stat.S_ISDIR(metadata.st_mode):
+                    continue
+                if path.name in {"__pycache__", ".pytest_cache", ".tmp", ".tmp_tests"}:
+                    roots.add(path.relative_to(repo).as_posix())
+                    continue
+                visit(path)
+            except OSError as error:
+                holds.append(
+                    {
+                        "path": path.as_posix(),
+                        "error_type": type(error).__name__,
+                        "error": str(error),
+                    }
+                )
+
+    try:
+        iris_metadata = iris_root.lstat()
+        if stat.S_ISDIR(iris_metadata.st_mode) and not bool(
+            int(getattr(iris_metadata, "st_file_attributes", 0)) & 0x400
+        ):
+            visit(iris_root)
+    except FileNotFoundError:
+        pass
     return sorted(roots)
 
 
@@ -477,7 +554,7 @@ def build_rows(
     unreadable_rows: list[dict[str, Any]] = []
     seen: set[str] = set()
     required_sources = current_required_source_paths(repo)
-    resolved_scope_roots = scoped_roots(repo)
+    resolved_scope_roots = scoped_roots(repo, unreadable_rows)
     for root_rel in resolved_scope_roots:
         root = repo / root_rel
         if not root.exists():
@@ -506,7 +583,7 @@ def build_rows(
         files, unreadable = walk_files(root, root_rel)
         for issue in unreadable:
             try:
-                relative = Path(issue["path"]).resolve().relative_to(repo).as_posix()
+                relative = Path(os.path.abspath(issue["path"])).relative_to(repo).as_posix()
             except ValueError:
                 relative = str(issue["path"]).replace("\\", "/")
             unreadable_rows.append({**issue, "path": relative})
@@ -560,6 +637,13 @@ def build_rows(
                     "sha256": digest,
                 }
             )
+    deduplicated_unreadable = {
+        (str(issue["path"]), str(issue["error_type"])): issue
+        for issue in unreadable_rows
+    }
+    unreadable_rows = [
+        deduplicated_unreadable[key] for key in sorted(deduplicated_unreadable)
+    ]
     for issue in unreadable_rows:
         rows.append(
             {

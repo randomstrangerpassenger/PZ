@@ -1,0 +1,81 @@
+{
+  "schema_version": "iris_repository_runtime_lightweighting_current_surface_guard_successor_v1",
+  "successor_authority": {
+    "approval": "owner_preapproved_for_unattended_plan_execution",
+    "claim_id": "iris_repository_runtime_lightweighting",
+    "reason": "Adopt the Change 3 role-scoped scan denominator without rewriting sealed predecessor evidence."
+  },
+  "predecessor_manifest": {
+    "path": "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase1_manifest/current_surface_guard_referent_manifest.json",
+    "git_blob_id": "28b89b4b054b4ec6f625d03af3a07f0708c89f98",
+    "sha256_lf": "bb2940194bddcbe30a3917b0b73cc3c4e7633db117def200d44f4b401fdb647f"
+  },
+  "scan_surfaces": [
+    {
+      "id": "current_description_data",
+      "role": "current_source",
+      "path_globs": [
+        "Iris/build/description/v2/data/**/*.json",
+        "Iris/build/description/v2/data/**/*.jsonl",
+        "Iris/build/description/v2/output/**/*.json",
+        "Iris/build/description/v2/output/**/*.jsonl"
+      ]
+    },
+    {
+      "id": "protected_runtime_payload",
+      "role": "protected_runtime",
+      "path_globs": [
+        "Iris/media/lua/client/Iris/Data/**/*.lua",
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/**/*.lua"
+      ]
+    },
+    {
+      "id": "guard_tests",
+      "role": "tests",
+      "path_globs": [
+        "Iris/build/description/v2/tests/**/*.py"
+      ]
+    },
+    {
+      "id": "build_tool_source",
+      "role": "build_tool_source",
+      "path_globs": [
+        "Iris/build/description/v2/tools/**/*.py"
+      ]
+    },
+    {
+      "id": "explicit_historical_substrate",
+      "role": "historical_substrate",
+      "path_globs": [
+        "docs/**/*.md",
+        "Iris/_docs/**/*.md",
+        "Iris/_docs/**/*.json",
+        "Iris/_docs/**/*.jsonl",
+        "Iris/output/**/*.json"
+      ]
+    }
+  ],
+  "scan_exclusions": [
+    {
+      "id": "guard_round_generated_output",
+      "role": "current_guard_run_output",
+      "path_globs": [
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/**"
+      ]
+    },
+    {
+      "id": "report_only_staging_residue",
+      "role": "report_only_staging_residue",
+      "path_globs": [
+        "Iris/build/description/v2/staging/**"
+      ]
+    },
+    {
+      "id": "cold_archive_payload",
+      "role": "cold_archive_payload",
+      "path_globs": [
+        "Iris/_archive/**"
+      ]
+    }
+  ]
+}

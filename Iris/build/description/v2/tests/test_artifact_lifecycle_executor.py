@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -78,6 +79,30 @@ def invoke(script: Path, *args: object, cwd: Path) -> subprocess.CompletedProces
         errors="replace",
         check=False,
     )
+
+
+def create_file_symlink(link: Path, target: Path) -> None:
+    powershell = shutil.which("powershell")
+    if powershell is None:
+        raise AssertionError("Windows PowerShell is required for the file-symlink fixture")
+    completed = subprocess.run(
+        [
+            powershell,
+            "-NoProfile",
+            "-Command",
+            "& { param($link, $target) New-Item -ItemType SymbolicLink -Path $link -Target $target -ErrorAction Stop | Out-Null }",
+            str(link),
+            str(target),
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
+    if completed.returncode != 0:
+        raise AssertionError(completed.stderr)
 
 
 def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
@@ -191,6 +216,35 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
         raise AssertionError(promoted.stderr)
     git(repo, "add", DURABLE.as_posix())
     git(repo, "commit", "-m", "adopt baseline")
+
+    taxonomy_payload = json.loads(taxonomy.read_text(encoding="utf-8"))
+    taxonomy_payload["common_candidate_revision"] = "fixture-v1"
+    write_json(taxonomy, taxonomy_payload)
+    fixture_test.write_text(
+        fixture_test.read_text(encoding="utf-8")
+        + "\n# validated Common candidate fixture\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    successor_manifest = (
+        repo
+        / DURABLE
+        / "current_surface_guard_successor_manifest.json"
+    )
+    write_json(
+        successor_manifest,
+        {
+            "schema_version": (
+                "iris_repository_runtime_lightweighting_"
+                "current_surface_guard_successor_v1"
+            ),
+            "fixture": "validated Common candidate addition",
+        },
+    )
+    git(repo, "add", taxonomy.relative_to(repo).as_posix())
+    git(repo, "add", fixture_test.relative_to(repo).as_posix())
+    git(repo, "add", successor_manifest.relative_to(repo).as_posix())
+    git(repo, "commit", "-m", "adopt validated Common candidate delta")
 
     validation = (root / "validation-checkout").resolve()
     subprocess.run(
@@ -1092,6 +1146,28 @@ class ArtifactLifecycleExecutorTest(unittest.TestCase):
             )
             self.assertEqual(validated.returncode, 0, validated.stderr)
             delete_receipt = external / "archive/delete.json"
+            candidate_path = repo / CANDIDATE
+            candidate_bytes = candidate_path.read_bytes()
+            same_content_target = repo / "same-content-delete-target.json"
+            same_content_target.write_bytes(candidate_bytes)
+            candidate_path.unlink()
+            create_file_symlink(candidate_path, same_content_target)
+            rejected_symlink = invoke(
+                EXECUTOR,
+                "delete",
+                "--repo", repo,
+                "--operation-manifest", durable_operation,
+                "--prerequisite-receipt", prerequisite,
+                "--receipt-out", external / "archive/rejected-symlink-delete.json",
+                cwd=repo,
+            )
+            self.assertNotEqual(rejected_symlink.returncode, 0)
+            self.assertIn("symlink or reparse point", rejected_symlink.stderr)
+            self.assertTrue(candidate_path.is_symlink())
+            self.assertEqual(same_content_target.read_bytes(), candidate_bytes)
+            self.assertFalse((external / "archive/rejected-symlink-delete.json").exists())
+            candidate_path.unlink()
+            candidate_path.write_bytes(candidate_bytes)
             deleted = invoke(
                 EXECUTOR,
                 "delete",
@@ -1103,6 +1179,7 @@ class ArtifactLifecycleExecutorTest(unittest.TestCase):
             )
             self.assertEqual(deleted.returncode, 0, deleted.stderr)
             self.assertFalse((repo / CANDIDATE).exists())
+            self.assertEqual(same_content_target.read_bytes(), candidate_bytes)
             self.assertTrue(Path(json.loads(archive_receipt.read_text(encoding="utf-8"))["archive_path"]).is_file())
             durable_restore_bytes = durable_restore.read_bytes()
             durable_restore.unlink()
@@ -1131,6 +1208,32 @@ class ArtifactLifecycleExecutorTest(unittest.TestCase):
                 cwd=repo,
             )
             self.assertEqual(post.returncode, 0, post.stderr)
+            post_receipt = json.loads(
+                (external / "archive/post-delete.json").read_text(encoding="utf-8")
+            )
+            approved_paths = {
+                row["path"]
+                for row in (
+                    post_receipt["approved_durable_additions"]
+                    + post_receipt["approved_durable_changes"]
+                )
+            }
+            self.assertTrue(
+                {
+                    "Iris/_docs/round3/round3_test_taxonomy.json",
+                    "Iris/build/description/v2/tests/test_fixture.py",
+                    (
+                        "Iris/_docs/refactor/repository_runtime_lightweighting/"
+                        "current_surface_guard_successor_manifest.json"
+                    ),
+                }.issubset(approved_paths)
+            )
+            self.assertGreater(
+                post_receipt["validated_candidate_delta_allowset"][
+                    "bound_path_count"
+                ],
+                0,
+            )
 
     def test_selection_outside_baseline_is_rejected_without_source_change(self) -> None:
         with tempfile.TemporaryDirectory(prefix="iris-lifecycle-selection-") as temporary:

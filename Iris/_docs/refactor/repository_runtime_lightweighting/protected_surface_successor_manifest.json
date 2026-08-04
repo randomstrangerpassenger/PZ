@@ -1,0 +1,732 @@
+{
+    "schema_version":  "iris_repository_runtime_lightweighting_protected_surface_successor_v1",
+    "authority":  "repository_owner_user",
+    "authorization_basis":  "The repository owner pre-approved owner decisions required for unattended execution of the repository runtime lightweighting plan.",
+    "predecessor":  {
+                        "path":  "Iris/_docs/refactor/residual_refactor/phase0_protected_surface_manifest.json",
+                        "git_blob_id":  "6461f002790d29164d6ab11f0f8f45d726430530",
+                        "sha256_lf":  "075971c06e37d1b109e35d6002f57468520daf22a72f2e82587112ed2ab67034"
+                    },
+    "revisions":  [
+                      {
+                          "revision_id":  "common_contract_initial_v1",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "af1d3c2727491eecaf7ac57b2396e278cb572315",
+                          "reason":  "Adopt the initial Common Track contracts and register their exact protected-surface identities.",
+                          "approved_activation_deltas":  [
+                                                             {
+                                                                 "path":  "Iris/_docs/round3/round3_test_taxonomy.json",
+                                                                 "before_git_blob_id":  "777f393a60ca5658ae8049752caae53708f08275",
+                                                                 "before_sha256_lf":  "b7706d03f2372881592669f115a52cdac811df61d53dc09f162a458a77c2cac2",
+                                                                 "expected_git_blob_id":  "af8cd79a7d49956108c5e12d1ba30c8dae1a7d48",
+                                                                 "after_sha256_lf":  "522f2d5e404ef40cf89e2685817239d4ae1cf24e7d68429704ed356e6e5bb476",
+                                                                 "owner":  "repository_owner_user",
+                                                                 "reason":  "Adopt the Common Track required-validation and taxonomy closure without rewriting predecessor evidence."
+                                                             },
+                                                             {
+                                                                 "path":  "Iris/_docs/round3/current_route_required_validations.json",
+                                                                 "before_git_blob_id":  "9b293306baca31a042117caf0ff18528fb4cdae7",
+                                                                 "before_sha256_lf":  "e2d6845bb18f9333611d6f0c94869f9df1d5635f9bc062d73e879b5223c142a9",
+                                                                 "expected_git_blob_id":  "d3f113c9c5d15e496ac36f08c01bdc141ef4766d",
+                                                                 "after_sha256_lf":  "d41ece2e45163dc701278c79d696ebb09c87a4014975089a20c40d9f2774f55a",
+                                                                 "owner":  "repository_owner_user",
+                                                                 "reason":  "Adopt the Common Track required-validation and taxonomy closure without rewriting predecessor evidence."
+                                                             }
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  ".gitignore",
+                                                           "before_git_blob_id":  "51df5016f02a26d900b60dac595390fdd1ce58f6",
+                                                           "before_sha256_lf":  "0468dd4f2d6694c576525fc0a2a7e7336485e434f2ead5d4f041d1e1c570d535",
+                                                           "expected_git_blob_id":  "523a524f3e06a88fad0d2c3aa60d60d7ed314a80",
+                                                           "after_sha256_lf":  "4c3ab60c371d4db252c6848ec11a20e8abfc447d9e33302e22d9d6c19e148272",
+                                                           "role":  "repository_tracking_policy",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/work_root_contract.json",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "684010d4dbe6b9a398b58835a617c96bd7cf869d",
+                                                           "after_sha256_lf":  "a37cb78a4d19f1e0f32ec7d6904a28200ff810920ea9a3eb0eed8f2280235aab",
+                                                           "role":  "common_track_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/fixtures/legacy_active_silent_guard_frozen_reference.json",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "66b11388544ade5a1136fb6c0a1691b7beb2e235",
+                                                           "after_sha256_lf":  "f1d9e8715afe205d13e037bd31bbaf0a38f6803c3d92fea14bfb704a6f36f75a",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "5fab117268018d6007f6d705eb345abb2deac674",
+                                                           "after_sha256_lf":  "cfe537f2e653a13e697f2ed6da601b3aa9e8185a4d1c048d768a03a05ffc330d",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "9b03362c4520ed2ad30f5934e3d1cdb44b65b113",
+                                                           "after_sha256_lf":  "ab1250e79283d5453bbf240f8e221ba46dc779aefdeaeb7dc896d8009a50e4a7",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "bf04f7f3b59e45955e767420efc6bc9855371788",
+                                                           "after_sha256_lf":  "40da2242301e197831ea37ff1a4386e60eed70c75d06a4cc9e899ac30388ffe5",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_artifact_work_root_contract.py",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "6c3ec25dc45cbcf57f15f48f249c870ace783921",
+                                                           "after_sha256_lf":  "d4cb3be28964f8640c40b02fb1900bc913b0c11f70272c4131266b9272282e53",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_iris_residual_diagnostic_disposition.py",
+                                                           "before_git_blob_id":  "562d4cd9057282ac1538e1ef16111197fe113bce",
+                                                           "before_sha256_lf":  "3c3ca5716cbb5839f07708ef55fb6d8332d769848157834b2e2bdeb2c7c1297d",
+                                                           "expected_git_blob_id":  "7b5b47dea0e109f7edf387755b28cb05ba8059ed",
+                                                           "after_sha256_lf":  "26acee4c5320508ad9220be90a1ca537ec570d981fbe5add5a24c8945e3f035c",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+                                                           "before_git_blob_id":  "493f27df98fc025b808baa2e02fb3d3374cc72e8",
+                                                           "before_sha256_lf":  "082611b666ef826fe98d8a600f8392ad92f8d4cba758e7198abb57e6ad1615e0",
+                                                           "expected_git_blob_id":  "a51fa502223826e85cdf81156ad8ff5d20230806",
+                                                           "after_sha256_lf":  "77b3c037a77fb6921d6a81d44f384bf5f771b1cdeec0b3efb6ba93e1effd77ad",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tools/build/build_legacy_active_silent_current_surface_guard_round.py",
+                                                           "before_git_blob_id":  "3b89e73cb470125e95f8c36ed5ccbf5b6456a3c0",
+                                                           "before_sha256_lf":  "ff0bbeded199f476727d1a3cd576e922723bb985c41df4a25c7d5dbfe8195be4",
+                                                           "expected_git_blob_id":  "351499ffa73607a4ad6326ae0df1720974f5e309",
+                                                           "after_sha256_lf":  "a80faac9ffb9deab335f90b6d0f3cdf0575eee13a56a7bba21821db70f48e3aa",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tools/validate_legacy_active_silent_current_surface_guard.py",
+                                                           "before_git_blob_id":  "2a65ac9ae42f0a7120ecb98b4df9bce860dd404f",
+                                                           "before_sha256_lf":  "d358cf01388786a92ad5cd5af54c50308154fa19e2791c895e487f3ae7d9f152",
+                                                           "expected_git_blob_id":  "f726600b86ff15d61adf26f23322df4d5e5e78af",
+                                                           "after_sha256_lf":  "eb0a99e44f0127523ed37281ff1ecd17ef09c18c453a5f30f54931d128270694",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/allocate_repository_runtime_lightweighting_roots.ps1",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "c16df8c6b141ce3c5348946d5cc7f72464e42e6e",
+                                                           "after_sha256_lf":  "98078025f239c1ece08ff0cb9c974c3c268cbfbe13ef41ec02a7e0bf1bf4a9fa",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/audit_current_route_output_isolation.py",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "1338ac60ac7a4a20b45aab154882c11411ec48c3",
+                                                           "after_sha256_lf":  "fed2c393ed09781c942676336d5fa3739d1a7561ceffc3f72bd94ef486a15507",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "b90531a0bd716ad53ba2c433c8afbe31075ce7c2",
+                                                           "after_sha256_lf":  "c9f493023c8c655dbb75673e4168770f14d0e7594021d0950d3d00876b50abc3",
+                                                           "role":  "common_track_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/invoke_deterministic_compare.ps1",
+                                                           "before_git_blob_id":  "1b7f9773ccea0e16d3f6af528abcb7655ed2dbfa",
+                                                           "before_sha256_lf":  "ccd51713afbaa0cb5fb80f63bd00adaa3b29585031d3eb718118c6cb0f7f28e0",
+                                                           "expected_git_blob_id":  "468656a13e68eeda890889da0943b81cb2f66b38",
+                                                           "after_sha256_lf":  "1584290cfb668b2d1913319da0eb2fa831f71e352b9b58f7abc975eac8bc8003",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/invoke_receipt_bound_full_gate.ps1",
+                                                           "before_git_blob_id":  "f38530632d275853b6734304a573b6482eddc1a5",
+                                                           "before_sha256_lf":  "064b36e98d88001440e210ae3793f7f94d3a220c1c54f5a1261acb71b1683af6",
+                                                           "expected_git_blob_id":  "9a4e1c742f01376ffb9501dc404620ca49588d3b",
+                                                           "after_sha256_lf":  "9b178e54ea24b0fd3db2592ff190b527970ba061c390b0cd9195bbea39151de5",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/invoke_repository_runtime_lightweighting_command.ps1",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "51312e87a2db9dbb71e6610f7b85918c2e1b41e1",
+                                                           "after_sha256_lf":  "830c9f4fcbb3caa9a356ca2b6033a6195e56e46d99c0fd4d69a79f16cf5856ae",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/tests/test_current_route_output_isolation_audit.py",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "836ed24f656567b1a0970cc7a16e68221b5ce7a6",
+                                                           "after_sha256_lf":  "a89c53e083fdda437e740e1f9607b884a67e3c308e021832269d628cc479f03e",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py",
+                                                           "before_git_blob_id":  "63943592f413e9966573745fbcc8f45518b573b6",
+                                                           "before_sha256_lf":  "e59a26886bde90064f8c64cc6f750d46de4b2b7589b7b48e5066f4ed657fa45a",
+                                                           "expected_git_blob_id":  "9fe465e8c2cfcdbc0d47498713b8f145c243b5bf",
+                                                           "after_sha256_lf":  "27adf8a367c67c5c21fac38ff4bc5a113a9072297ad8026bb4d0d8e7fde8c1ea",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "31963a4eedff4b7c6c6e74199f7e42b723169b91",
+                                                           "after_sha256_lf":  "460ad6f2b48b75070208b9c76f3bcc12e930467e57c2dd6102dc83f90ac297c7",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/residual_refactor/execute_artifact_lifecycle.py",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "4b0f93dd412c69500aa8192604e92856bf69154d",
+                                                           "after_sha256_lf":  "1e1315514a7206963a7c77520b000133970872cf83cfb70275923bc48f6a6017",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/residual_refactor/promote_artifact_lifecycle_evidence.py",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "16c19c5f1b4f39e7a42bae7f2aa6995a8b02632d",
+                                                           "after_sha256_lf":  "193ac40b32203ece7be5f1d6e60f359b823432fb830ec55601cd1c3404d71eee",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/residual_refactor/report_artifact_lifecycle.py",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "888fb936f390f104cb7cf316babaf3c0c6cb156a",
+                                                           "after_sha256_lf":  "84b29c0c25c8da542dc6f5798fb48dc179c11b2e304eb9a65aa2d0ce4a70a0e8",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/residual_refactor/run_diagnostic_disposition.py",
+                                                           "before_git_blob_id":  "41aa9d11eae245ac3ca42084078034e06b13e613",
+                                                           "before_sha256_lf":  "8d74a64484aa86342aaa0bb146fd0f592429a9f70fd27081a90db93769b209c4",
+                                                           "expected_git_blob_id":  "d68d5a6ed220e09bdd68fdf6f7ba22eca13024bb",
+                                                           "after_sha256_lf":  "617c03b59caa267d39e47bd050e9ea7492a934f6d355e351faddc467ffde2b05",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "docs/iris_repository_runtime_lightweighting_plan.md",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "541abb174e567d964186dab52869e73ad5dcb847",
+                                                           "after_sha256_lf":  "51bce06ad7dca2bd1ec773b6e21e00e66640995f286827bfda64d6ba617d135e",
+                                                           "role":  "common_track_documentation",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/test/validate_residual_refactor_surfaces.ps1",
+                                                           "before_git_blob_id":  "0501059985dda94bc725b903a08f4b6282438dc2",
+                                                           "before_sha256_lf":  "740b594914dee591d2e812506755482deab38c5c0648b852993a3ad0f3ee06e8",
+                                                           "expected_git_blob_id":  "0501059985dda94bc725b903a08f4b6282438dc2",
+                                                           "after_sha256_lf":  "740b594914dee591d2e812506755482deab38c5c0648b852993a3ad0f3ee06e8",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+                                                           "before_git_blob_id":  "a28944ca70451a8c18a90aeaf43d9acaa2a67968",
+                                                           "before_sha256_lf":  "032e413e2370f0272b0920c7bbf1fbae47d07981f6e18c03c954d80c91e12d2a",
+                                                           "expected_git_blob_id":  "a28944ca70451a8c18a90aeaf43d9acaa2a67968",
+                                                           "after_sha256_lf":  "032e413e2370f0272b0920c7bbf1fbae47d07981f6e18c03c954d80c91e12d2a",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  ".gitattributes",
+                                                           "before_git_blob_id":  "783c81759fda001bbff67cee5ea941fe43895164",
+                                                           "before_sha256_lf":  "0fcfcfc8fa632734542eabbd2eeaaf301041334c26d490c43a238bb7f36daaa2",
+                                                           "expected_git_blob_id":  "783c81759fda001bbff67cee5ea941fe43895164",
+                                                           "after_sha256_lf":  "0fcfcfc8fa632734542eabbd2eeaaf301041334c26d490c43a238bb7f36daaa2",
+                                                           "role":  "common_track_checkout_identity_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the LF checkout identity contract used by durable lifecycle and protected-surface manifests."
+                                                       }
+                                                   ]
+                      },
+                      {
+                          "revision_id":  "common_contract_followup_v1",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "eb55ef459736327b2b61895f46552c175b054730",
+                          "reason":  "Adopt Common Track safety follow-ups, durable default scan coverage, and exact protected-surface identities.",
+                          "approved_activation_deltas":  [
+                                                             {
+                                                                 "path":  "Iris/_docs/round3/round3_test_taxonomy.json",
+                                                                 "before_git_blob_id":  "af8cd79a7d49956108c5e12d1ba30c8dae1a7d48",
+                                                                 "before_sha256_lf":  "522f2d5e404ef40cf89e2685817239d4ae1cf24e7d68429704ed356e6e5bb476",
+                                                                 "expected_git_blob_id":  "dd43fa5e41919c93d34a35e9b333d6ec67fbd340",
+                                                                 "after_sha256_lf":  "525a57beb234885eac69df1df8a8fcdb51e37cd64a76b298f85a703f97cb70a3",
+                                                                 "owner":  "repository_owner_user",
+                                                                 "reason":  "Add the five Common safety follow-up identities to the adopted current route without admitting Runtime Track tests."
+                                                             },
+                                                             {
+                                                                 "path":  "Iris/_docs/round3/current_route_required_validations.json",
+                                                                 "before_git_blob_id":  "d3f113c9c5d15e496ac36f08c01bdc141ef4766d",
+                                                                 "before_sha256_lf":  "d41ece2e45163dc701278c79d696ebb09c87a4014975089a20c40d9f2774f55a",
+                                                                 "expected_git_blob_id":  "2bb4521fd810589334c804556fdaa388a0692c9d",
+                                                                 "after_sha256_lf":  "e29b1101e15477c712a502a8d4d3de88621602c376e8b9dff8cb813d3ba1f1ed",
+                                                                 "owner":  "repository_owner_user",
+                                                                 "reason":  "Require the five Common safety follow-up identities without admitting Runtime Track tests."
+                                                             }
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+                                                           "before_git_blob_id":  "5fab117268018d6007f6d705eb345abb2deac674",
+                                                           "before_sha256_lf":  "cfe537f2e653a13e697f2ed6da601b3aa9e8185a4d1c048d768a03a05ffc330d",
+                                                           "expected_git_blob_id":  "feeb5481951ccab7f7f237a8faca12b7b2fe6caa",
+                                                           "after_sha256_lf":  "a6d15a69407ea3ef53d386b8f4899b46bb63ce9acdcdcdcadcea084d9ba9ed75",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+                                                           "before_git_blob_id":  "9b03362c4520ed2ad30f5934e3d1cdb44b65b113",
+                                                           "before_sha256_lf":  "ab1250e79283d5453bbf240f8e221ba46dc779aefdeaeb7dc896d8009a50e4a7",
+                                                           "expected_git_blob_id":  "42d8d5c09c765006342d6fd7e7e9ea61f48bf08b",
+                                                           "after_sha256_lf":  "fb026b3bd16868ea105bf02c1aec0d4a9e00c863c2e09dea542443b660c7359d",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_artifact_work_root_contract.py",
+                                                           "before_git_blob_id":  "6c3ec25dc45cbcf57f15f48f249c870ace783921",
+                                                           "before_sha256_lf":  "d4cb3be28964f8640c40b02fb1900bc913b0c11f70272c4131266b9272282e53",
+                                                           "expected_git_blob_id":  "30e6f79ae3eafd28a98a5d47ead28a0e53d25fc5",
+                                                           "after_sha256_lf":  "607c71b3ac3de7a3facf8e22b0e9b3df3998685d19097cfe15c252ef58254997",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+                                                           "before_git_blob_id":  "a51fa502223826e85cdf81156ad8ff5d20230806",
+                                                           "before_sha256_lf":  "77b3c037a77fb6921d6a81d44f384bf5f771b1cdeec0b3efb6ba93e1effd77ad",
+                                                           "expected_git_blob_id":  "b27d3a3e26927125abfd2b0aeabe247c6aa2c461",
+                                                           "after_sha256_lf":  "7d762ce028c9f28f4609ba8ebbe4768c178a65870dbcbcfec0874594f32d6f96",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tools/build/build_legacy_active_silent_current_surface_guard_round.py",
+                                                           "before_git_blob_id":  "351499ffa73607a4ad6326ae0df1720974f5e309",
+                                                           "before_sha256_lf":  "a80faac9ffb9deab335f90b6d0f3cdf0575eee13a56a7bba21821db70f48e3aa",
+                                                           "expected_git_blob_id":  "3bb297c65bec0231207b085d8e348f6bf2ed3651",
+                                                           "after_sha256_lf":  "8351903490de33c6d6f1af02566853beaa7bed3f366f03dabeac814f25f6649b",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tools/validate_legacy_active_silent_current_surface_guard.py",
+                                                           "before_git_blob_id":  "f726600b86ff15d61adf26f23322df4d5e5e78af",
+                                                           "before_sha256_lf":  "eb0a99e44f0127523ed37281ff1ecd17ef09c18c453a5f30f54931d128270694",
+                                                           "expected_git_blob_id":  "f710dd1daae606c0deddaac4aa8da41e4320e538",
+                                                           "after_sha256_lf":  "d9b6837f87397e74a777cbde095cfd09c3ab0790aa4eddc7fe3ebd47f416cb1f",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/allocate_repository_runtime_lightweighting_roots.ps1",
+                                                           "before_git_blob_id":  "c16df8c6b141ce3c5348946d5cc7f72464e42e6e",
+                                                           "before_sha256_lf":  "98078025f239c1ece08ff0cb9c974c3c268cbfbe13ef41ec02a7e0bf1bf4a9fa",
+                                                           "expected_git_blob_id":  "ca16e708670a72a78c4b06ded89416d8c37ca9ea",
+                                                           "after_sha256_lf":  "0ec87b698e318d72167155ac9baf7e799af4f15ff02b0184cc080cae742e206d",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/invoke_repository_runtime_lightweighting_command.ps1",
+                                                           "before_git_blob_id":  "51312e87a2db9dbb71e6610f7b85918c2e1b41e1",
+                                                           "before_sha256_lf":  "830c9f4fcbb3caa9a356ca2b6033a6195e56e46d99c0fd4d69a79f16cf5856ae",
+                                                           "expected_git_blob_id":  "335cfc0e649302f774efb6fbda43e90212993ae6",
+                                                           "after_sha256_lf":  "3616117fa516fbebf6f572a8860aaaece182b6163ffabcd3e5e60c72e9dfa29e",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py",
+                                                           "before_git_blob_id":  "31963a4eedff4b7c6c6e74199f7e42b723169b91",
+                                                           "before_sha256_lf":  "460ad6f2b48b75070208b9c76f3bcc12e930467e57c2dd6102dc83f90ac297c7",
+                                                           "expected_git_blob_id":  "9da3540141a9fce439dd70ab8735dd8ebb0bc5c6",
+                                                           "after_sha256_lf":  "04969ad0f2249e2da4ec17d51752137bd5133ef717c93b24592807299af025a0",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/residual_refactor/execute_artifact_lifecycle.py",
+                                                           "before_git_blob_id":  "4b0f93dd412c69500aa8192604e92856bf69154d",
+                                                           "before_sha256_lf":  "1e1315514a7206963a7c77520b000133970872cf83cfb70275923bc48f6a6017",
+                                                           "expected_git_blob_id":  "8dec90a42c9092b10220eb7cfe1dbda0b39aadb2",
+                                                           "after_sha256_lf":  "ee0fa6fa6904ad18f55183ca076db5000d40550783ea8706b03fe7d6824c0725",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/residual_refactor/report_artifact_lifecycle.py",
+                                                           "before_git_blob_id":  "888fb936f390f104cb7cf316babaf3c0c6cb156a",
+                                                           "before_sha256_lf":  "84b29c0c25c8da542dc6f5798fb48dc179c11b2e304eb9a65aa2d0ce4a70a0e8",
+                                                           "expected_git_blob_id":  "26611e68ab5c49cdbe9c44c89e391e10bb9bf7c8",
+                                                           "after_sha256_lf":  "7b48ee7178b15699e0d0e36c3baea86e58a3b5d0c286e8e9ee4c32df4618abcc",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/test/validate_residual_refactor_surfaces.ps1",
+                                                           "before_git_blob_id":  "0501059985dda94bc725b903a08f4b6282438dc2",
+                                                           "before_sha256_lf":  "740b594914dee591d2e812506755482deab38c5c0648b852993a3ad0f3ee06e8",
+                                                           "expected_git_blob_id":  "075f7ded9c0536316dd4175e04e600a3e61910be",
+                                                           "after_sha256_lf":  "4cce9edd46d91cb2c52e0951d5283b70fa05893afbfd8c614cbcdde6fbe3e600",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+                                                           "before_git_blob_id":  "a28944ca70451a8c18a90aeaf43d9acaa2a67968",
+                                                           "before_sha256_lf":  "032e413e2370f0272b0920c7bbf1fbae47d07981f6e18c03c954d80c91e12d2a",
+                                                           "expected_git_blob_id":  "5480fc2b1f4a53d57bd14fa7b6b4228a2033abb8",
+                                                           "after_sha256_lf":  "5d1ecdc0b89b63d7a35c33bc141315f912eaa6f7c760d92220e778e313e54ca5",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/current_surface_guard_successor_manifest.json",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "191af3c821b03f3a6e0ebd8896e6e2daadee4c77",
+                                                           "after_sha256_lf":  "dc29f9fb1c7404b6b01205446f26fc6608b8efb5114223b162210e33f3925baf",
+                                                           "role":  "common_track_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the adopted Common Track contract and its safety follow-up at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  ".gitattributes",
+                                                           "before_git_blob_id":  "783c81759fda001bbff67cee5ea941fe43895164",
+                                                           "before_sha256_lf":  "0fcfcfc8fa632734542eabbd2eeaaf301041334c26d490c43a238bb7f36daaa2",
+                                                           "expected_git_blob_id":  "cda92a8718cb7c28865a864b17f987137e40bd92",
+                                                           "after_sha256_lf":  "20f8c540f87722ecb23e856f541f863ecfc34126b2ea016e970eef6cbd1acf5c",
+                                                           "role":  "common_track_checkout_identity_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the LF checkout identity contract used by durable lifecycle and protected-surface manifests."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/producer_migration_manifest.json",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "351790a64dfe9b15a83857c901a133c1c178046d",
+                                                           "after_sha256_lf":  "fe18cde9dba5acba6f7565b5123ff4d1f72aac59626ff6b195b194e68e42d384",
+                                                           "role":  "common_track_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the explicit external-output migration state for every repository lightweighting producer."
+                                                       }
+                                                   ]
+                      }
+                  ]
+}

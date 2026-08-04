@@ -1,0 +1,95 @@
+{
+  "schema_version": "iris_repository_runtime_lightweighting_producer_migration_v1",
+  "claim_id": "iris_repository_runtime_lightweighting",
+  "revision_id": "common_candidate_initial_v1",
+  "status": "implemented_pending_common_checkpoint",
+  "authority": {
+    "owner": "repository_owner_user",
+    "approval": "preapproved_for_unattended_plan_execution",
+    "plan": "docs/iris_repository_runtime_lightweighting_plan.md"
+  },
+  "output_contract": {
+    "policy": "Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json",
+    "work_root_contract": "Iris/_docs/refactor/repository_runtime_lightweighting/work_root_contract.json",
+    "allocator": "Iris/validation/clean_checkout/allocate_repository_runtime_lightweighting_roots.ps1",
+    "command_wrapper": "Iris/validation/clean_checkout/invoke_repository_runtime_lightweighting_command.ps1",
+    "repository_local_large_output_allowed": false,
+    "explicit_new_external_roots_required": true,
+    "dangling_reference_allowed": false
+  },
+  "producer_rows": [
+    {
+      "producer_id": "legacy_active_silent_guard",
+      "entrypoint": "Iris/build/description/v2/tools/build/build_legacy_active_silent_current_surface_guard_round.py",
+      "status": "implemented_pending_external_checkpoint",
+      "required_arguments": [
+        "--work-root",
+        "--result-root",
+        "--allocation-receipt"
+      ],
+      "external_result_roles": [
+        "objects",
+        "phases",
+        "logs",
+        "package"
+      ],
+      "canonical_large_payload_count": 1,
+      "repository_output_mutation_allowed": false,
+      "adoption_evidence": "receipt_bound_common_guard_test_required"
+    },
+    {
+      "producer_id": "residual_diagnostic_disposition",
+      "entrypoint": "Iris/validation/residual_refactor/run_diagnostic_disposition.py",
+      "status": "implemented_pending_common_checkpoint",
+      "required_external_sinks": [
+        "raw_out",
+        "disposition_out"
+      ],
+      "source_path_descriptor_kind": "repository_relative_source",
+      "sink_path_descriptor_kind": "external_absolute_sink",
+      "raw_exit_preserved": true,
+      "repository_output_mutation_allowed": false,
+      "adoption_evidence": "receipt_bound_common_diagnostic_test_required"
+    },
+    {
+      "producer_id": "receipt_bound_full_gate",
+      "entrypoint": "Iris/validation/clean_checkout/invoke_receipt_bound_full_gate.ps1",
+      "status": "implemented_pending_terminal_checkpoint",
+      "output_policy_identity_required": true,
+      "allocation_receipt_identity_required": true,
+      "command_receipt_chain_required": true,
+      "repository_output_mutation_allowed": false,
+      "adoption_evidence": "terminal_run_a_run_b_receipts_required"
+    },
+    {
+      "producer_id": "deterministic_compare",
+      "entrypoint": "Iris/validation/clean_checkout/invoke_deterministic_compare.ps1",
+      "status": "implemented_pending_terminal_checkpoint",
+      "run_a_orchestration_receipt_required": true,
+      "run_b_orchestration_receipt_required": true,
+      "external_compare_receipt_required": true,
+      "repository_output_mutation_allowed": false,
+      "adoption_evidence": "terminal_deterministic_compare_receipt_required"
+    },
+    {
+      "producer_id": "current_runtime_package",
+      "entrypoint": "Iris/tools/package_iris.ps1",
+      "status": "runtime_track_not_yet_adopted",
+      "explicit_output_root_required": true,
+      "package_result_role": "package",
+      "repository_output_mutation_allowed": false,
+      "adoption_evidence": "runtime_track_package_receipt_required"
+    }
+  ],
+  "finalization_contract": {
+    "step": 13,
+    "required_terminal_rows": [
+      "tracking_set_transition.json",
+      "final_inventory.json",
+      "final_artifact_role_manifest.jsonl",
+      "terminal_promotion_receipt.json"
+    ],
+    "final_status": "adopted_common_closeout",
+    "current_status_is_closeout": false
+  }
+}

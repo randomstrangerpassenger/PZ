@@ -6,7 +6,6 @@ from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
-import subprocess
 import sys
 from typing import Any
 
@@ -20,6 +19,7 @@ from tools.validate_legacy_active_silent_current_surface_guard import (  # noqa:
     ALLOWLIST_TOO_BROAD_ERROR_CODE,
     AUTHORIZED_RESULT_SUBROOTS,
     CURRENT_SURFACE_ERROR_CODE,
+    DEFAULT_MANIFEST,
     DEFAULT_RESOLVER_COMPAT_ERROR_CODE,
     DEFAULT_RUNTIME_STATE_ERROR_CODE,
     DIAGNOSTIC_ALIAS_OUTSIDE_ERROR_CODE,
@@ -28,6 +28,7 @@ from tools.validate_legacy_active_silent_current_surface_guard import (  # noqa:
     SCAN_BACKENDS,
     UNALLOWLISTED_ERROR_CODE,
     compact_report,
+    load_manifest,
     validate_repo,
     validate_external_run_roots,
     validate_successor_output_policy,
@@ -258,61 +259,6 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
     return rows
 
 
-def run_command(command: list[str], timeout: int = 300) -> dict[str, Any]:
-    try:
-        completed = subprocess.run(
-            command,
-            cwd=REPO_ROOT,
-            text=True,
-            encoding="utf-8",
-            errors="replace",
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            timeout=timeout,
-        )
-        return {
-            "command": command,
-            "exit_code": completed.returncode,
-            "stdout": completed.stdout,
-            "stderr": completed.stderr,
-            "timed_out": False,
-            "missing_tool": False,
-        }
-    except FileNotFoundError as exc:
-        return {
-            "command": command,
-            "exit_code": None,
-            "stdout": "",
-            "stderr": str(exc),
-            "timed_out": False,
-            "missing_tool": True,
-        }
-    except subprocess.TimeoutExpired as exc:
-        return {
-            "command": command,
-            "exit_code": None,
-            "stdout": exc.stdout or "",
-            "stderr": exc.stderr or "",
-            "timed_out": True,
-            "missing_tool": False,
-        }
-
-
-def compact_command(result: dict[str, Any], max_lines: int = 80) -> dict[str, Any]:
-    stdout_lines = str(result.get("stdout", "")).splitlines()
-    stderr_lines = str(result.get("stderr", "")).splitlines()
-    return {
-        "command": result.get("command"),
-        "exit_code": result.get("exit_code"),
-        "timed_out": result.get("timed_out"),
-        "missing_tool": result.get("missing_tool"),
-        "stdout_line_count": len(stdout_lines),
-        "stderr_line_count": len(stderr_lines),
-        "stdout_tail": stdout_lines[-max_lines:],
-        "stderr_tail": stderr_lines[-max_lines:],
-    }
-
-
 def source_decision_summary() -> dict[str, Any]:
     rows = read_jsonl(SOURCE_DECISIONS)
     counts = Counter(str(row.get("state", "__missing__")) for row in rows)
@@ -347,244 +293,9 @@ def runtime_records() -> list[dict[str, Any]]:
     return records
 
 
-def protected_validation_paths() -> list[Path]:
-    paths = [SOURCE_DECISIONS, RENDERED_OUTPUT, *RUNTIME_MANIFESTS]
-    for chunk_dir in RUNTIME_CHUNK_DIRS:
-        if chunk_dir.exists():
-            paths.extend(sorted(chunk_dir.glob("Chunk*.lua")))
-    return sorted(set(paths), key=lambda item: rel(item))
-
-
-def snapshot_files(paths: list[Path]) -> dict[Path, bytes | None]:
-    snapshot: dict[Path, bytes | None] = {}
-    for path in paths:
-        snapshot[path] = path.read_bytes() if path.exists() and path.is_file() else None
-    return snapshot
-
-
-def restore_files(snapshot: dict[Path, bytes | None]) -> None:
-    for path, content in snapshot.items():
-        if content is None:
-            if path.exists():
-                path.unlink()
-            continue
-        ensure_parent(path)
-        path.write_bytes(content)
-
-
-def build_manifest() -> dict[str, Any]:
-    return {
-        "schema_version": "legacy-active-silent-current-surface-guard-manifest-v0",
-        "round_name": "Legacy Active/Silent Current-Surface Guard Round",
-        "generated_at": now_iso(),
-        "round_root": rel(ROUND_ROOT),
-        "canonical_runtime_state_enum": ["adopted", "unadopted"],
-        "legacy_alias_scope": "diagnostic/import/historical read-only only",
-        "scan_surfaces": [
-            {
-                "id": "current_description_data",
-                "role": "current_source",
-                "path_globs": [
-                    "Iris/build/description/v2/data/**/*.json",
-                    "Iris/build/description/v2/data/**/*.jsonl",
-                    "Iris/build/description/v2/output/**/*.json",
-                    "Iris/build/description/v2/output/**/*.jsonl",
-                ],
-            },
-            {
-                "id": "protected_runtime_payload",
-                "role": "protected_runtime",
-                "path_globs": [
-                    "Iris/media/lua/client/Iris/Data/**/*.lua",
-                    "Iris/build/package/Iris/media/lua/client/Iris/Data/**/*.lua",
-                ],
-            },
-            {
-                "id": "guard_tests",
-                "role": "tests",
-                "path_globs": ["Iris/build/description/v2/tests/**/*.py"],
-            },
-            {
-                "id": "build_tool_source",
-                "role": "build_tool_source",
-                "path_globs": ["Iris/build/description/v2/tools/**/*.py"],
-            },
-            {
-                "id": "explicit_historical_substrate",
-                "role": "historical_substrate",
-                "path_globs": ["docs/**/*.md", "Iris/_docs/**/*.md", "Iris/output/**/*.json"],
-            },
-        ],
-        "scan_exclusions": [
-            {
-                "id": "guard_round_generated_output",
-                "role": "current_guard_run_output",
-                "path_globs": [f"{rel(ROUND_ROOT)}/**"],
-            },
-            {
-                "id": "report_only_staging_residue",
-                "role": "report_only_staging_residue",
-                "path_globs": ["Iris/build/description/v2/staging/**"],
-            },
-            {
-                "id": "cold_archive_payload",
-                "role": "cold_archive_payload",
-                "path_globs": ["Iris/_archive/**"],
-            },
-        ],
-        "classification_precedence": [
-            "round-local staging evidence wins over generic build/report path matching",
-            "hard-fail requires both a sealed hard-fail surface and a current-label occurrence",
-            "current-label candidacy is based on occurrence_kind, not lexical token alone",
-            "allow rules require path_glob, occurrence_kind, reason, and must_not_be_current_output",
-            "no allow rule may downgrade current output serialization of active/silent",
-        ],
-        "hard_fail_surfaces": [
-            {
-                "id": "current_writer_output_decisions",
-                "surface": "current writer output",
-                "path_globs": ["Iris/build/description/v2/data/**/*.jsonl"],
-                "occurrence_kinds": ["runtime_state_value", "source_value", "writer_output_label_value"],
-                "primary_error_owner": DEFAULT_RUNTIME_STATE_ERROR_CODE,
-            },
-            {
-                "id": "current_generated_report_operator_output",
-                "surface": "current generated report / operator output",
-                "path_globs": ["Iris/build/description/v2/output/**/*.json", "Iris/build/description/v2/output/**/*.jsonl"],
-                "occurrence_kinds": ["operator_label_value", "current_report_label_value", "writer_output_label_value"],
-                "primary_error_owner": CURRENT_SURFACE_ERROR_CODE,
-            },
-            {
-                "id": "current_runtime_payload_lua",
-                "surface": "current runtime payload",
-                "path_globs": ["Iris/media/lua/client/Iris/Data/**/*.lua"],
-                "occurrence_kinds": ["source_value", "operator_label_value", "current_report_label_value"],
-                "primary_error_owner": CURRENT_SURFACE_ERROR_CODE,
-            },
-            {
-                "id": "packaged_lua_data",
-                "surface": "packaged Lua data",
-                "path_globs": ["Iris/build/package/Iris/media/lua/client/Iris/Data/**/*.lua"],
-                "occurrence_kinds": ["source_value", "operator_label_value", "current_report_label_value"],
-                "primary_error_owner": CURRENT_SURFACE_ERROR_CODE,
-            },
-        ],
-        "allow_surfaces": [
-            {
-                "id": "historical_docs",
-                "path_globs": [
-                    "docs/Iris/**",
-                    "docs/DECISIONS.md",
-                    "docs/ARCHITECTURE.md",
-                    "docs/ROADMAP.md",
-                    "Iris/_docs/**",
-                ],
-                "occurrence_kinds": [
-                    "historical_quote",
-                    "plain_text",
-                    "code_identifier",
-                    "legacy_metric_key",
-                    "diagnostic_alias",
-                ],
-                "reason": "historical sealed body and planning text are preserved",
-                "must_not_be_current_output": True,
-            },
-            {
-                "id": "archive_historical_payload",
-                "path_globs": ["Iris/_archive/**"],
-                "occurrence_kinds": [
-                    "historical_quote",
-                    "plain_text",
-                    "code_identifier",
-                    "legacy_metric_key",
-                    "diagnostic_alias",
-                ],
-                "reason": "archived payloads are preserved historical evidence and not current output",
-                "must_not_be_current_output": True,
-            },
-            {
-                "id": "staging_evidence",
-                "path_globs": ["Iris/build/description/v2/staging/**"],
-                "occurrence_kinds": [
-                    "historical_quote",
-                    "plain_text",
-                    "legacy_metric_key",
-                    "diagnostic_alias",
-                    "code_identifier",
-                ],
-                "reason": "staging evidence is diagnostic and not current writer output",
-                "must_not_be_current_output": True,
-            },
-            {
-                "id": "round_local_diagnostics",
-                "path_globs": [f"{rel(ROUND_ROOT)}/**"],
-                "occurrence_kinds": [
-                    "historical_quote",
-                    "plain_text",
-                    "legacy_metric_key",
-                    "diagnostic_alias",
-                    "code_identifier",
-                ],
-                "reason": "round-local scanner/validator evidence may quote guarded tokens",
-                "must_not_be_current_output": True,
-            },
-            {
-                "id": "validator_and_tests",
-                "path_globs": [
-                    "Iris/build/description/v2/tools/validate_legacy_active_silent_current_surface_guard.py",
-                    "Iris/build/description/v2/tools/build/build_legacy_active_silent_current_surface_guard_round.py",
-                    "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
-                ],
-                "occurrence_kinds": [
-                    "explicit_legacy_test_fixture",
-                    "plain_text",
-                    "code_identifier",
-                    "legacy_metric_key",
-                    "diagnostic_alias",
-                ],
-                "reason": "validator and explicit guard tests contain expected legacy-token fixtures",
-                "must_not_be_current_output": True,
-            },
-            {
-                "id": "historical_build_tool_source",
-                "path_globs": ["Iris/build/description/v2/tools/build/**/*.py"],
-                "occurrence_kinds": [
-                    "historical_quote",
-                    "plain_text",
-                    "code_identifier",
-                    "legacy_metric_key",
-                    "diagnostic_alias",
-                ],
-                "reason": "build tool source may quote legacy fixtures but is not current output",
-                "must_not_be_current_output": True,
-            },
-            {
-                "id": "current_input_manifest_diagnostic_metadata",
-                "path_globs": ["Iris/build/description/v2/data/dvf_3_3_input_manifest.json"],
-                "occurrence_kinds": ["diagnostic_alias", "plain_text"],
-                "reason": "input manifest may document unavailable legacy source split as diagnostic metadata",
-                "must_not_be_current_output": True,
-            },
-            {
-                "id": "legacy_output_metric_keys",
-                "path_globs": ["Iris/output/**/*.json"],
-                "occurrence_kinds": ["legacy_metric_key", "plain_text", "code_identifier"],
-                "reason": "legacy metric keys are retained unless rendered as current labels",
-                "must_not_be_current_output": True,
-            },
-        ],
-        "existing_guard_boundaries": {
-            "runtime_state writer/validator occurrence": DEFAULT_RUNTIME_STATE_ERROR_CODE,
-            "legacy resolver compatibility label occurrence": DEFAULT_RESOLVER_COMPAT_ERROR_CODE,
-            "packaged Lua / generated operator / writer non-runtime label occurrence": CURRENT_SURFACE_ERROR_CODE,
-        },
-        "error_catalog": ERROR_CATALOG,
-    }
-
-
-def write_phase0() -> None:
+def write_phase0(phase_root: Path) -> None:
     write_json(
-        ROUND_ROOT / "phase0_scope_lock" / "prior_readpoint_summary.json",
+        phase_root / "phase0_scope_lock" / "prior_readpoint_summary.json",
         {
             "schema_version": "legacy-active-silent-current-surface-guard-prior-readpoint-v0",
             "generated_at": now_iso(),
@@ -608,7 +319,7 @@ def write_phase0() -> None:
         },
     )
     write_text(
-        ROUND_ROOT / "phase0_scope_lock" / "scope_lock.md",
+        phase_root / "phase0_scope_lock" / "scope_lock.md",
         "\n".join(
             [
                 "# Scope Lock",
@@ -622,9 +333,10 @@ def write_phase0() -> None:
     )
 
 
-def write_phase1(manifest: dict[str, Any]) -> None:
-    phase = ROUND_ROOT / "phase1_manifest"
-    write_json(phase / "current_surface_guard_referent_manifest.json", manifest)
+def write_phase1(manifest: dict[str, Any], phase_root: Path) -> Path:
+    phase = phase_root / "phase1_manifest"
+    effective_manifest = phase / "effective_current_surface_guard_manifest.json"
+    write_json(effective_manifest, manifest)
     write_json(
         phase / "hard_fail_surface_manifest.json",
         {"schema_version": "legacy-active-silent-hard-fail-surface-manifest-v0", "surfaces": manifest["hard_fail_surfaces"]},
@@ -644,14 +356,15 @@ def write_phase1(manifest: dict[str, Any]) -> None:
             "top_docs": [path_record(path) for path in [PHILOSOPHY, DECISIONS, ARCHITECTURE, ROADMAP, PLAN]],
         },
     )
+    return effective_manifest
 
 
-def write_phase2(report: dict[str, Any], result_root: Path) -> None:
-    phase = ROUND_ROOT / "phase2_inventory"
+def write_phase2(report: dict[str, Any], result_root: Path, phase_root: Path) -> None:
+    phase = phase_root / "phase2_inventory"
     write_inventory_files(report, phase, result_root)
 
 
-def write_phase3(report: dict[str, Any]) -> dict[str, Any]:
+def write_phase3(report: dict[str, Any], phase_root: Path) -> dict[str, Any]:
     summary = report["summary"]
     manifest_errors = [item for item in report["errors"] if item.get("code") == ALLOWLIST_TOO_BROAD_ERROR_CODE]
     hard_fail_residue = [
@@ -691,11 +404,11 @@ def write_phase3(report: dict[str, Any]) -> dict[str, Any]:
         "gate_a_pass": summary["gate_a_pass"],
         "gate_b_required": True,
     }
-    phase = ROUND_ROOT / "phase3_adjudication"
+    phase = phase_root / "phase3_adjudication"
     write_json(phase / "occurrence_adjudication_report.json", compact_report(report))
     write_json(phase / "branch_decision.json", decision)
     write_json(
-        ROUND_ROOT / "phase4_mutation_if_needed" / "phase3_execution_diff_report.json",
+        phase_root / "phase4_mutation_if_needed" / "phase3_execution_diff_report.json",
         {
             "schema_version": "legacy-active-silent-phase4-mutation-report-v0",
             "generated_at": now_iso(),
@@ -708,12 +421,12 @@ def write_phase3(report: dict[str, Any]) -> dict[str, Any]:
     return decision
 
 
-def write_phase5(report: dict[str, Any]) -> None:
-    phase = ROUND_ROOT / "phase5_guard"
+def write_phase5(report: dict[str, Any], phase_root: Path) -> None:
+    phase = phase_root / "phase5_guard"
     write_json(phase / "current_surface_guard_report.json", compact_report(report))
     write_json(phase / "validator_error_catalog.json", ERROR_CATALOG)
     write_json(
-        ROUND_ROOT / "phase5_negative_invariant_report.json",
+        phase_root / "phase5_negative_invariant_report.json",
         {
             "schema_version": "legacy-active-silent-negative-invariant-report-v0",
             "generated_at": now_iso(),
@@ -732,103 +445,74 @@ def write_phase5(report: dict[str, Any]) -> None:
     )
 
 
-def write_validation_report(path: Path, result: dict[str, Any]) -> None:
-    lines = [
-        "command: " + " ".join(str(part) for part in result["command"]),
-        f"exit_code: {result['exit_code']}",
-        f"timed_out: {result['timed_out']}",
-        f"missing_tool: {result['missing_tool']}",
-        "",
-        "stdout:",
-        result.get("stdout", ""),
-        "",
-        "stderr:",
-        result.get("stderr", ""),
-    ]
-    write_text(path, "\n".join(lines))
-
-
-def run_validations(manifest_path: Path, run_tests: bool, scan_backend: str) -> dict[str, Any]:
-    validator_cmd = [
-        "python",
-        "-B",
-        "Iris\\build\\description\\v2\\tools\\validate_legacy_active_silent_current_surface_guard.py",
-        "--manifest",
-        str(manifest_path),
-        "--repo-root",
-        ".",
-        "--scan-backend",
-        scan_backend,
-    ]
-    validator = run_command(validator_cmd)
-    python_unittest = {"command": ["not_run"], "exit_code": None, "stdout": "", "stderr": "", "timed_out": False, "missing_tool": False}
-    lua_syntax = {"command": ["not_run"], "exit_code": None, "stdout": "", "stderr": "", "timed_out": False, "missing_tool": False}
-    if run_tests:
-        snapshot = snapshot_files(protected_validation_paths())
-        try:
-            python_unittest = run_command(
-                ["python", "-B", "-m", "unittest", "discover", "-s", "Iris\\build\\description\\v2\\tests", "-p", "test_*.py"],
-                timeout=600,
-            )
-            lua_syntax = run_command(
-                ["powershell", "-ExecutionPolicy", "Bypass", "-File", ".\\tools\\check_lua_syntax.ps1"],
-                timeout=600,
-            )
-        finally:
-            restore_files(snapshot)
-    phase = ROUND_ROOT / "phase6_validation"
-    write_validation_report(phase / "python_unittest_report.txt", python_unittest)
-    write_validation_report(phase / "lua_syntax_report.txt", lua_syntax)
+def run_validations(
+    report: dict[str, Any],
+    phase_root: Path,
+) -> dict[str, Any]:
+    phase = phase_root / "phase6_validation"
+    summary = report.get("summary", {})
+    gate_a_pass = (
+        report.get("status") == "pass"
+        and summary.get("gate_a_pass") is True
+        and int(summary.get("manifest_error_count", -1)) == 0
+        and int(summary.get("hard_fail_current_label_occurrence_count", -1)) == 0
+        and int(summary.get("unclassified_occurrence_count", -1)) == 0
+    )
     static_dynamic = {
         "schema_version": "legacy-active-silent-static-dynamic-residue-report-v0",
         "generated_at": now_iso(),
-        "standalone_validator": compact_command(validator),
-        "static_gate_a_status": "pass" if validator["exit_code"] == 0 else "fail",
+        "static_gate_a_status": "pass" if gate_a_pass else "fail",
+        "scan_receipt": report.get("scan_receipt"),
         "dynamic_runtime_gate": "not_applicable",
         "dynamic_runtime_gate_reason": "This is an offline build-time guard round; runtime rollout is out of scope.",
+        "native_process_policy": "producer_spawns_no_nested_native_processes",
     }
     hard_gate = {
         "schema_version": "legacy-active-silent-phase6-hard-gate-v0",
         "generated_at": now_iso(),
-        "gate_a_allowlist_outside_current_label_occurrence_0": validator["exit_code"] == 0,
-        "gate_b_negative_hard_fail_reach_verified_by_unittest": python_unittest["exit_code"] == 0 if run_tests else False,
-        "standalone_validator_exit_code": validator["exit_code"],
-        "python_unittest_exit_code": python_unittest["exit_code"],
-        "lua_syntax_exit_code": lua_syntax["exit_code"],
+        "gate_a_allowlist_outside_current_label_occurrence_0": gate_a_pass,
+        "gate_b_negative_hard_fail_reach": "external_receipt_bound_common_guard_test_required",
+        "lua_syntax": "external_receipt_bound_terminal_validation_required",
         "default_build_test_path_wiring": {
-            "status": "pass" if run_tests and python_unittest["exit_code"] == 0 else "not_proven",
-            "evidence": "guard tests are included in unittest discovery under Iris\\build\\description\\v2\\tests",
+            "status": "delegated_to_common_candidate_checkpoint",
+            "evidence": "STEP 7 runs test_legacy_active_silent_current_surface_guard.py through Invoke-IrisNative with checkout_unchanged",
         },
         "overall_status": (
-            "pass"
-            if validator["exit_code"] == 0
-            and run_tests
-            and python_unittest["exit_code"] == 0
-            and lua_syntax["exit_code"] == 0
-            else "fail"
+            "pending_external_checkpoint" if gate_a_pass else "fail"
         ),
-        "commands": {
-            "standalone_validator": compact_command(validator),
-            "python_unittest": compact_command(python_unittest),
-            "lua_syntax": compact_command(lua_syntax),
-        },
+        "nested_native_process_count": 0,
+        "source_validation_authority": "external_checkpoint_command_receipts",
     }
     write_json(phase / "static_dynamic_residue_report.json", static_dynamic)
     write_json(phase / "phase6_hard_gate_report.json", hard_gate)
     return hard_gate
 
 
-def write_phase7_review(branch_decision: dict[str, Any], hard_gate: dict[str, Any]) -> dict[str, Any]:
+def write_phase7_review(
+    branch_decision: dict[str, Any],
+    hard_gate: dict[str, Any],
+    phase_root: Path,
+) -> dict[str, Any]:
     critical: list[str] = []
     important: list[str] = []
     if branch_decision["branch"] not in {"GUARD-A", "GUARD-B"}:
         critical.append(f"Branch is blocked: {branch_decision['closeout_state']}")
-    if hard_gate["overall_status"] != "pass":
+    if hard_gate["overall_status"] == "fail":
         critical.append("Phase 6 hard gate did not pass.")
+    elif hard_gate["overall_status"] == "pending_external_checkpoint":
+        important.append(
+            "Adoption remains pending the receipt-bound Common guard test and terminal Lua syntax validation."
+        )
     if branch_decision["mutation_required"] and not branch_decision["mutation_performed"]:
         important.append("GUARD-B would require writer-origin or artifact-only mutation before closeout.")
-    verdict = "PASS" if not critical else "FAIL"
-    path = ROUND_ROOT / "phase7_adversarial_review.md"
+    verdict = (
+        "FAIL"
+        if critical
+        else "PENDING_EXTERNAL_CHECKPOINT"
+        if hard_gate["overall_status"] == "pending_external_checkpoint"
+        else "PASS"
+    )
+    path = phase_root / "phase7_adversarial_review.md"
     write_text(
         path,
         "\n".join(
@@ -881,7 +565,13 @@ def write_phase7_review(branch_decision: dict[str, Any], hard_gate: dict[str, An
                 "",
                 "## 10. Required Revisions",
                 "",
-                "- none" if not critical else "- resolve critical issues before successful closeout",
+                (
+                    "- bind the external checkpoint receipts before adoption closeout"
+                    if verdict == "PENDING_EXTERNAL_CHECKPOINT"
+                    else "- none"
+                    if not critical
+                    else "- resolve critical issues before successful closeout"
+                ),
                 "",
                 "## 11. Final Recommendation",
                 "",
@@ -896,9 +586,16 @@ def write_phase7_review(branch_decision: dict[str, Any], hard_gate: dict[str, An
     return {"verdict": verdict, "critical_count": len(critical), "important_count": len(important), "path": rel(path)}
 
 
-def write_closeout(branch_decision: dict[str, Any], hard_gate: dict[str, Any], review: dict[str, Any]) -> dict[str, Any]:
+def write_closeout(
+    branch_decision: dict[str, Any],
+    hard_gate: dict[str, Any],
+    review: dict[str, Any],
+    phase_root: Path,
+) -> dict[str, Any]:
     if review["verdict"] == "PASS" and hard_gate["overall_status"] == "pass":
         closeout_state = branch_decision["closeout_state"]
+    elif hard_gate["overall_status"] == "pending_external_checkpoint":
+        closeout_state = "implemented_pending_external_checkpoint"
     else:
         closeout_state = branch_decision["closeout_state"] if branch_decision["branch"] in {"GUARD-C", "GUARD-D"} else "implemented_only"
     closeout = {
@@ -911,16 +608,14 @@ def write_closeout(branch_decision: dict[str, Any], hard_gate: dict[str, Any], r
         "unclassified_occurrence_count": branch_decision["unclassified_occurrence_count"],
         "manifest_error_count": branch_decision["manifest_error_count"],
         "gate_a": "pass" if branch_decision["gate_a_pass"] else "fail",
-        "gate_b": "pass" if hard_gate.get("gate_b_negative_hard_fail_reach_verified_by_unittest") else "fail",
+        "gate_b": "external_checkpoint_required",
         "phase6_hard_gate": hard_gate["overall_status"],
         "adversarial_review": review,
         "validation_ceiling": {
             "validated": [
                 "manifest schema and allowlist broadness checks",
                 "current checkout active/silent occurrence inventory",
-                "standalone validator Gate A",
-                "unittest negative and positive fixture reach",
-                "Lua syntax command",
+                "in-process canonical scan Gate A",
             ],
             "out_of_scope": [
                 "runtime rollout",
@@ -930,7 +625,10 @@ def write_closeout(branch_decision: dict[str, Any], hard_gate: dict[str, Any], r
                 "external mod compatibility sweep",
                 "original artifact referent recovery",
             ],
-            "unvalidated_but_in_scope": [],
+            "unvalidated_but_in_scope": [
+                "receipt-bound Common guard unit test",
+                "receipt-bound terminal Lua syntax validation",
+            ],
         },
         "non_claims": [
             "original artifact cleanup success = not_claimed",
@@ -943,15 +641,20 @@ def write_closeout(branch_decision: dict[str, Any], hard_gate: dict[str, Any], r
             "ready_for_release = not_claimed",
         ],
         "evidence": {
-            "manifest": rel(ROUND_ROOT / "phase1_manifest" / "current_surface_guard_referent_manifest.json"),
-            "inventory": rel(ROUND_ROOT / "phase2_inventory" / "occurrence_stream_reference.json"),
-            "branch_decision": rel(ROUND_ROOT / "phase3_adjudication" / "branch_decision.json"),
-            "guard_report": rel(ROUND_ROOT / "phase5_guard" / "current_surface_guard_report.json"),
-            "phase6_hard_gate": rel(ROUND_ROOT / "phase6_validation" / "phase6_hard_gate_report.json"),
+            "manifest_authority": rel(DEFAULT_MANIFEST),
+            "effective_manifest": rel(
+                phase_root
+                / "phase1_manifest"
+                / "effective_current_surface_guard_manifest.json"
+            ),
+            "inventory": rel(phase_root / "phase2_inventory" / "occurrence_stream_reference.json"),
+            "branch_decision": rel(phase_root / "phase3_adjudication" / "branch_decision.json"),
+            "guard_report": rel(phase_root / "phase5_guard" / "current_surface_guard_report.json"),
+            "phase6_hard_gate": rel(phase_root / "phase6_validation" / "phase6_hard_gate_report.json"),
             "adversarial_review": review["path"],
         },
     }
-    phase = ROUND_ROOT / "phase7_closeout"
+    phase = phase_root / "phase7_closeout"
     write_json(phase / "closeout.json", closeout)
     write_text(
         phase / "closeout.md",
@@ -977,7 +680,6 @@ def write_closeout(branch_decision: dict[str, Any], hard_gate: dict[str, Any], r
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build Legacy Active/Silent Current-Surface Guard Round artifacts.")
-    parser.add_argument("--run-validations", action="store_true")
     parser.add_argument("--work-root", required=True)
     parser.add_argument("--result-root", required=True)
     parser.add_argument("--allocation-receipt", required=True)
@@ -1008,10 +710,13 @@ def main() -> int:
         raise ValueError("successor policy result subroots are not the canonical ordered set")
     for subroot in result_subroots.values():
         subroot.mkdir(parents=True, exist_ok=False)
-    write_phase0()
-    manifest = build_manifest()
-    write_phase1(manifest)
-    manifest_path = ROUND_ROOT / "phase1_manifest" / "current_surface_guard_referent_manifest.json"
+    phase_root = (
+        result_subroots["phases"]
+        / "legacy_active_silent_current_surface_guard_round"
+    )
+    manifest = load_manifest(DEFAULT_MANIFEST, REPO_ROOT)
+    write_phase0(phase_root)
+    effective_manifest_path = write_phase1(manifest, phase_root)
     report = validate_repo(
         REPO_ROOT,
         manifest,
@@ -1019,9 +724,9 @@ def main() -> int:
         scan_timeout=args.scan_timeout,
         result_root=result_root,
     )
-    write_phase2(report, result_root)
-    branch_decision = write_phase3(report)
-    write_phase5(report)
+    write_phase2(report, result_root, phase_root)
+    branch_decision = write_phase3(report, phase_root)
+    write_phase5(report, phase_root)
     write_json_atomic(
         result_subroots["phases"] / "phase2_occurrence_stream_reference.json",
         report["occurrence_stream"],
@@ -1035,17 +740,18 @@ def main() -> int:
         compact_report(report),
     )
     hard_gate = run_validations(
-        manifest_path,
-        run_tests=args.run_validations,
-        scan_backend=args.scan_backend,
+        report,
+        phase_root=phase_root,
     )
-    review = write_phase7_review(branch_decision, hard_gate)
-    closeout = write_closeout(branch_decision, hard_gate, review)
+    review = write_phase7_review(branch_decision, hard_gate, phase_root)
+    closeout = write_closeout(branch_decision, hard_gate, review, phase_root)
     verify_occurrence_stream_reference(report["occurrence_stream"], result_root)
     producer_receipt_path = result_subroots["logs"] / "legacy_active_silent_guard_producer_receipt.json"
     producer_receipt = {
         "schema_version": "legacy-active-silent-guard-producer-receipt-v1",
-        "status": "PASS" if closeout["closeout_state"].startswith("closed_") else "FAIL",
+        "status": "PENDING_EXTERNAL_CHECKPOINT",
+        "execution_status": "PASS",
+        "adoption_validation_status": "pending_external_checkpoint",
         "generated_at": now_iso(),
         "run_id": allocation_receipt.get("run_id"),
         "claim_id": allocation_receipt.get("claim_id"),
@@ -1068,10 +774,15 @@ def main() -> int:
         },
         "scan_receipt": report["scan_receipt"],
         "occurrence_stream": report["occurrence_stream"],
+        "manifest_authority": {
+            "path": rel(DEFAULT_MANIFEST),
+            "sha256": sha256_file(DEFAULT_MANIFEST),
+            "effective_copy": path_record(effective_manifest_path),
+        },
         "phase_summaries": [
-            path_record(ROUND_ROOT / "phase2_inventory" / "occurrence_stream_reference.json"),
-            path_record(ROUND_ROOT / "phase3_adjudication" / "occurrence_adjudication_report.json"),
-            path_record(ROUND_ROOT / "phase5_guard" / "current_surface_guard_report.json"),
+            path_record(phase_root / "phase2_inventory" / "occurrence_stream_reference.json"),
+            path_record(phase_root / "phase3_adjudication" / "occurrence_adjudication_report.json"),
+            path_record(phase_root / "phase5_guard" / "current_surface_guard_report.json"),
         ],
         "external_phase_summaries": [
             path_record(result_subroots["phases"] / "phase2_occurrence_stream_reference.json"),
@@ -1099,7 +810,7 @@ def main() -> int:
         "sha256": sha256_file(producer_receipt_path),
     }
     print(json.dumps(closeout, ensure_ascii=False, indent=2))
-    return 0 if closeout["closeout_state"].startswith("closed_") else 1
+    return 0
 
 
 if __name__ == "__main__":

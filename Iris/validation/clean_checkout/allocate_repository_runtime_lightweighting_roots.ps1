@@ -47,6 +47,20 @@ function Assert-NoReparseAncestor([string]$Path, [string]$Label) {
     }
 }
 
+function Assert-SafeExistingFileLeaf([string]$Path, [string]$Label, [string]$RequiredParent) {
+    $item = Get-Item -Force -LiteralPath $Path -ErrorAction SilentlyContinue
+    if ($null -eq $item) { return }
+    if (($item.Attributes -band [System.IO.FileAttributes]::ReparsePoint) -ne 0) {
+        throw "$Label leaf is a reparse point: $($item.FullName)"
+    }
+    if ($item.PSIsContainer) { throw "$Label must be a regular file: $($item.FullName)" }
+    $resolvedLeaf = Get-NormalizedPath $item.FullName
+    Assert-DisjointFromProtected $resolvedLeaf $Label
+    if (-not (Test-SameOrNested $resolvedLeaf $RequiredParent)) {
+        throw "$Label resolved leaf must remain beneath the approved external parent: $resolvedLeaf"
+    }
+}
+
 function Write-JsonNoBomNew([string]$Path, [object]$Payload) {
     $resolved = Get-NormalizedPath $Path
     if ([System.IO.File]::Exists($resolved) -or [System.IO.Directory]::Exists($resolved)) {
@@ -89,6 +103,7 @@ Assert-NoReparseAncestor $ledger 'allocation ledger'
 Assert-NoReparseAncestor $receipt 'allocation receipt'
 if (-not (Test-SameOrNested $ledger $external)) { throw 'allocation ledger must be beneath the approved external parent' }
 if (-not (Test-SameOrNested $receipt $external)) { throw 'allocation receipt must be beneath the approved external parent' }
+Assert-SafeExistingFileLeaf $ledger 'allocation ledger' $external
 if ([System.IO.File]::Exists($receipt) -or [System.IO.Directory]::Exists($receipt)) { throw 'allocation receipt already exists' }
 
 $safeClaim = [System.Text.RegularExpressions.Regex]::Replace($ClaimId, '[^A-Za-z0-9._-]', '-')
@@ -165,6 +180,7 @@ foreach ($property in $rootNames.GetEnumerator()) {
 [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($ledger)) | Out-Null
 Assert-NoReparseAncestor $ledger 'allocation ledger'
 Assert-NoReparseAncestor $receipt 'allocation receipt'
+Assert-SafeExistingFileLeaf $ledger 'allocation ledger' $external
 $ledgerStream = $null
 $ledgerHashAfterAppend = $null
 $ledgerEntryHash = $null

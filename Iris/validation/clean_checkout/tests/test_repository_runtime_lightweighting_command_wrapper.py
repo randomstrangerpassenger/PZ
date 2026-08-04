@@ -117,7 +117,10 @@ def fixture_checkout(tmp_path: Path) -> tuple[Path, Path, Path, Path]:
             "clear": CLEARED_ENVIRONMENT,
         },
     )
-    (repo / ".gitignore").write_text("ignored-write.txt\n", encoding="utf-8")
+    (repo / ".gitignore").write_text(
+        "ignored-write.txt\nignored-empty-directory/\n",
+        encoding="utf-8",
+    )
     git(repo, "add", ".")
     git(repo, "commit", "-m", "fixture")
     completed = subprocess.run(
@@ -251,6 +254,30 @@ def test_checkout_unchanged_detects_ignored_write(tmp_path: Path) -> None:
     assert receipt["native_exit_code"] == 0
     assert receipt["semantic_exit_code"] != 0
     assert receipt["output_assertion"]["delta"]["ignored_delta_count"] == 1
+
+
+def test_checkout_unchanged_detects_empty_ignored_directory(tmp_path: Path) -> None:
+    repo, external, subject, delta = fixture_checkout(tmp_path)
+    code = "from pathlib import Path; Path('ignored-empty-directory').mkdir()"
+    completed, receipt, _ = run_wrapper(
+        repo,
+        external,
+        subject,
+        delta,
+        command_id="ignored-empty-directory",
+        argv=["-B", "-c", code],
+        output_assertion="checkout_unchanged",
+    )
+    assert completed.returncode != 0
+    assert receipt["native_exit_code"] == 0
+    assert receipt["semantic_exit_code"] != 0
+    rows = receipt["output_assertion"]["delta"]["rows"]
+    assert any(
+        row["path"] == "ignored-empty-directory"
+        and row["change"] == "added"
+        and row["after"]["entry_kind"] == "directory"
+        for row in rows
+    )
 
 
 def test_junction_receipt_parent_targeting_checkout_is_rejected_before_any_write(

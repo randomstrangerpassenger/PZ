@@ -65,12 +65,15 @@ AUTHORIZED_LIFECYCLE_ROLES = {
 V2_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = V2_ROOT.parents[3]
 DEFAULT_MANIFEST = (
-    V2_ROOT
-    / "staging"
-    / "compose_contract_migration"
-    / "legacy_active_silent_current_surface_guard_round"
-    / "phase1_manifest"
-    / "current_surface_guard_referent_manifest.json"
+    REPO_ROOT
+    / "Iris"
+    / "_docs"
+    / "refactor"
+    / "repository_runtime_lightweighting"
+    / "current_surface_guard_successor_manifest.json"
+)
+SUCCESSOR_MANIFEST_SCHEMA = (
+    "iris_repository_runtime_lightweighting_current_surface_guard_successor_v1"
 )
 TOKEN_RE = re.compile(r"(?<![A-Za-z0-9_])(active|silent)(?=_count\b|\b)", re.IGNORECASE)
 RUNTIME_STATE_VALUE_RE = re.compile(
@@ -208,6 +211,80 @@ def _sha256_file(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def _sha256_lf_file(path: Path) -> str:
+    text = path.read_text(encoding="utf-8")
+    normalized = text.replace("\r\n", "\n").replace("\r", "\n")
+    return _sha256_bytes(normalized.encode("utf-8"))
+
+
+def load_manifest(path: Path, repo_root: Path = REPO_ROOT) -> dict[str, Any]:
+    manifest = read_json(path)
+    if manifest.get("schema_version") != SUCCESSOR_MANIFEST_SCHEMA:
+        return manifest
+
+    predecessor = manifest.get("predecessor_manifest")
+    if not isinstance(predecessor, dict):
+        raise ValueError("current_surface_guard_successor_predecessor_missing")
+    predecessor_relative = normalize_rel(str(predecessor.get("path", "")))
+    predecessor_path = (repo_root.resolve() / predecessor_relative).resolve()
+    try:
+        predecessor_path.relative_to(repo_root.resolve())
+    except ValueError as error:
+        raise ValueError(
+            "current_surface_guard_successor_predecessor_outside_repo"
+        ) from error
+    if not predecessor_path.is_file():
+        raise ValueError("current_surface_guard_successor_predecessor_missing")
+    expected_blob = str(predecessor.get("git_blob_id", "")).lower()
+    expected_sha256_lf = str(predecessor.get("sha256_lf", "")).lower()
+    if not re.fullmatch(r"[0-9a-f]{40,64}", expected_blob) or not re.fullmatch(
+        r"[0-9a-f]{64}", expected_sha256_lf
+    ):
+        raise ValueError("current_surface_guard_successor_predecessor_identity_invalid")
+    relative = predecessor_path.relative_to(repo_root.resolve()).as_posix()
+    head_blob = subprocess.run(
+        ["git", "-C", str(repo_root), "rev-parse", f"HEAD:{relative}"],
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    working_blob = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(repo_root),
+            "hash-object",
+            f"--path={relative}",
+            str(predecessor_path),
+        ],
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    if (
+        head_blob.returncode != 0
+        or working_blob.returncode != 0
+        or head_blob.stdout.strip() != expected_blob
+        or working_blob.stdout.strip() != expected_blob
+        or _sha256_lf_file(predecessor_path) != expected_sha256_lf
+    ):
+        raise ValueError("current_surface_guard_successor_predecessor_hash_mismatch")
+
+    merged = read_json(predecessor_path)
+    for key, value in manifest.items():
+        if key not in {"predecessor_manifest", "successor_authority"}:
+            merged[key] = value
+    if not _manifest_scan_surfaces(merged):
+        raise ValueError("current_surface_guard_successor_scan_surfaces_missing")
+    return merged
 
 
 def _canonical_json_bytes(payload: Any) -> bytes:
@@ -1261,7 +1338,11 @@ def main(argv: list[str] | None = None) -> int:
             file=sys.stderr,
         )
         return 2
-    manifest = read_json(manifest_path.resolve())
+    try:
+        manifest = load_manifest(manifest_path.resolve(), repo_root)
+    except (OSError, ValueError, json.JSONDecodeError) as error:
+        print(f"invalid current-surface guard manifest: {error}", file=sys.stderr)
+        return 2
     result_root = Path(args.result_root).resolve() if args.result_root else None
     persistent_output = bool(args.report or args.inventory_root or args.result_root)
     if args.result_root and not (args.report or args.inventory_root):

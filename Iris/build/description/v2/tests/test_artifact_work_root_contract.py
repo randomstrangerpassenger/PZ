@@ -24,7 +24,7 @@ from tools.validate_legacy_active_silent_current_surface_guard import (
 def powershell() -> str:
     executable = shutil.which("powershell")
     if executable is None:
-        raise unittest.SkipTest("Windows PowerShell 5.1 is required by the allocator contract")
+        raise AssertionError("Windows PowerShell 5.1 is required by the allocator contract")
     return executable
 
 
@@ -47,6 +47,27 @@ def create_junction(link: Path, target: Path) -> None:
     )
     if completed.returncode != 0:
         raise AssertionError(completed.stderr)
+
+
+def create_file_symlink(link: Path, target: Path) -> None:
+    completed = subprocess.run(
+        [
+            powershell(),
+            "-NoProfile",
+            "-Command",
+            "& { param($link, $target) New-Item -ItemType SymbolicLink -Path $link -Target $target -ErrorAction Stop | Out-Null }",
+            str(link),
+            str(target),
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
+    if completed.returncode != 0:
+        raise AssertionError(f"file symbolic links are unavailable: {completed.stderr}")
 
 
 def allocate(
@@ -255,6 +276,31 @@ class ArtifactWorkRootContractTest(unittest.TestCase):
             self.assertIn("reparse point", rejected.stderr)
             self.assertFalse((external_alias / "junction.json").exists())
             self.assertFalse(any(repository_target.iterdir()))
+
+    def test_reparse_ledger_leaf_into_repository_is_rejected_without_write(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="iris-work-root-ledger-reparse-") as temporary:
+            root = Path(temporary)
+            protected = root / "checkout"
+            external = root / "external"
+            protected.mkdir()
+            external.mkdir()
+            target = protected / "protected-ledger-target.jsonl"
+            target.write_text("protected\n", encoding="utf-8")
+            ledger_link = external / "allocation-ledger.jsonl"
+            create_file_symlink(ledger_link, target)
+            rejected = allocate(
+                protected,
+                external,
+                profile="checkpoint",
+                attempt="ledger-link",
+                run_id="7" * 32,
+                receipt_name="ledger-link.json",
+            )
+            self.assertNotEqual(rejected.returncode, 0)
+            self.assertIn("allocation ledger leaf is a reparse point", rejected.stderr)
+            self.assertEqual(target.read_text(encoding="utf-8"), "protected\n")
+            self.assertTrue(ledger_link.is_symlink())
+            self.assertFalse((external / "ledger-link.json").exists())
 
     def test_deleted_prior_run_path_is_still_rejected_by_append_only_ledger(self) -> None:
         with tempfile.TemporaryDirectory(prefix="iris-work-root-reuse-") as temporary:

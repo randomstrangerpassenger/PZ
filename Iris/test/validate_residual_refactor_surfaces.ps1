@@ -12,6 +12,7 @@ param(
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 $Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+$Utf8Strict = New-Object System.Text.UTF8Encoding($false, $true)
 
 function Write-Json([string]$Path, [object]$Value) {
     $Parent = Split-Path -Parent $Path
@@ -78,6 +79,34 @@ function Get-LfTextHashOrNull([string]$Path) {
     return Get-TextSha256 $Text.Replace("`r`n", "`n").Replace("`r", "`n")
 }
 
+function Get-GitBlobLfHash([string]$Blob) {
+    if ($Blob -notmatch '^[0-9a-f]{40,64}$') { throw "invalid Git blob identity: $Blob" }
+    $StartInfo = New-Object System.Diagnostics.ProcessStartInfo
+    $StartInfo.FileName = 'git'
+    $EscapedRoot = $RepositoryRoot.Replace('"', '\"')
+    $StartInfo.Arguments = '-C "' + $EscapedRoot + '" cat-file blob ' + $Blob
+    $StartInfo.UseShellExecute = $false
+    $StartInfo.RedirectStandardOutput = $true
+    $StartInfo.RedirectStandardError = $true
+    $Process = New-Object System.Diagnostics.Process
+    $Process.StartInfo = $StartInfo
+    $Stream = New-Object System.IO.MemoryStream
+    try {
+        [void]$Process.Start()
+        $Process.StandardOutput.BaseStream.CopyTo($Stream)
+        $StandardError = $Process.StandardError.ReadToEnd()
+        $Process.WaitForExit()
+        if ($Process.ExitCode -ne 0) { throw "git cat-file failed for ${Blob}: $StandardError" }
+        $Text = $Utf8Strict.GetString($Stream.ToArray())
+        if ($Text.Contains([char]0)) { throw "Git blob is not a text surface: $Blob" }
+        return Get-TextSha256 $Text.Replace("`r`n", "`n").Replace("`r", "`n")
+    }
+    finally {
+        $Stream.Dispose()
+        $Process.Dispose()
+    }
+}
+
 function Get-TreeRows([string]$Root) {
     $Rows = @()
     if (-not (Test-Path -LiteralPath $Root -PathType Container)) { return $Rows }
@@ -111,6 +140,8 @@ $SupportedBaselinePath = Join-Path $EvidenceRoot 'phase0_supported_api_manifest.
 $ProtectedBaselinePath = Join-Path $EvidenceRoot 'phase0_protected_surface_manifest.json'
 $ApprovedDeltaManifestRelative = 'Iris/validation/clean_checkout/authority/offline_build_validation_protected_surface_delta.json'
 $ApprovedDeltaManifestPath = Join-Path $RepositoryRoot $ApprovedDeltaManifestRelative
+$LightweightingSuccessorRelative = 'Iris/_docs/refactor/repository_runtime_lightweighting/protected_surface_successor_manifest.json'
+$LightweightingSuccessorPath = Join-Path $RepositoryRoot $LightweightingSuccessorRelative
 if (-not (Test-Path -LiteralPath $ApprovedDeltaManifestPath -PathType Leaf)) {
     throw 'canonical approved protected-surface delta manifest missing'
 }
@@ -121,6 +152,17 @@ if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($ApprovedDeltaManifestB
 $ApprovedDeltaManifestWorkingBlob = (& git -C $RepositoryRoot hash-object ("--path=" + $ApprovedDeltaManifestRelative) $ApprovedDeltaManifestPath).Trim()
 if ($LASTEXITCODE -ne 0 -or $ApprovedDeltaManifestWorkingBlob -cne $ApprovedDeltaManifestBlob) {
     throw 'canonical approved protected-surface delta manifest differs from HEAD'
+}
+if (-not (Test-Path -LiteralPath $LightweightingSuccessorPath -PathType Leaf)) {
+    throw 'repository lightweighting protected-surface successor manifest missing'
+}
+$LightweightingSuccessorBlob = (& git -C $RepositoryRoot rev-parse ("HEAD:" + $LightweightingSuccessorRelative)).Trim()
+if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($LightweightingSuccessorBlob)) {
+    throw 'repository lightweighting protected-surface successor is not tracked by HEAD'
+}
+$LightweightingSuccessorWorkingBlob = (& git -C $RepositoryRoot hash-object ("--path=" + $LightweightingSuccessorRelative) $LightweightingSuccessorPath).Trim()
+if ($LASTEXITCODE -ne 0 -or $LightweightingSuccessorWorkingBlob -cne $LightweightingSuccessorBlob) {
+    throw 'repository lightweighting protected-surface successor differs from HEAD'
 }
 
 if ($Mode -eq 'Baseline') {
@@ -188,6 +230,30 @@ if (-not (Test-Path -LiteralPath $SupportedBaselinePath -PathType Leaf)) { throw
 if (-not (Test-Path -LiteralPath $ProtectedBaselinePath -PathType Leaf)) { throw 'protected surface baseline missing' }
 $SupportedBaseline = Get-Content -LiteralPath $SupportedBaselinePath -Raw | ConvertFrom-Json
 $ProtectedBaseline = Get-Content -LiteralPath $ProtectedBaselinePath -Raw | ConvertFrom-Json
+$LightweightingSuccessor = Get-Content -LiteralPath $LightweightingSuccessorPath -Raw | ConvertFrom-Json
+if ([string]$LightweightingSuccessor.schema_version -cne 'iris_repository_runtime_lightweighting_protected_surface_successor_v1') {
+    throw 'repository lightweighting protected-surface successor schema mismatch'
+}
+if ([string]$LightweightingSuccessor.authority -cne 'repository_owner_user') {
+    throw 'repository lightweighting protected-surface successor authority mismatch'
+}
+$CanonicalProtectedRelative = 'Iris/_docs/refactor/residual_refactor/phase0_protected_surface_manifest.json'
+$CanonicalProtectedPath = Join-Path $RepositoryRoot $CanonicalProtectedRelative
+$CanonicalProtectedBlob = (& git -C $RepositoryRoot rev-parse ("HEAD:" + $CanonicalProtectedRelative)).Trim()
+$CanonicalProtectedWorkingBlob = (& git -C $RepositoryRoot hash-object ("--path=" + $CanonicalProtectedRelative) $CanonicalProtectedPath).Trim()
+if (
+    [string]$LightweightingSuccessor.predecessor.path -cne $CanonicalProtectedRelative -or
+    $LASTEXITCODE -ne 0 -or
+    [string]$LightweightingSuccessor.predecessor.git_blob_id -cne $CanonicalProtectedBlob -or
+    $CanonicalProtectedWorkingBlob -cne $CanonicalProtectedBlob -or
+    [string]$LightweightingSuccessor.predecessor.sha256_lf -cne (Get-LfTextHashOrNull $CanonicalProtectedPath)
+) {
+    throw 'repository lightweighting protected-surface predecessor identity mismatch'
+}
+$LightweightingRevisions = @($LightweightingSuccessor.revisions)
+if ($LightweightingRevisions.Count -eq 0) {
+    throw 'repository lightweighting protected-surface successor has no revisions'
+}
 
 $ModuleFiles = @{
     'Iris/IrisAPI' = 'Iris/media/lua/client/Iris/IrisAPI.lua'
@@ -237,8 +303,20 @@ Write-Json (Join-Path $EvidenceRoot 'final_supported_api_compatibility_report.js
 $ProtectedRows = @()
 $Unauthorized = 0
 $AuthorizedChanged = 0
+$AuthorizedAdded = 0
 $ApprovedDeltas = @{}
-$ApprovedDeltaRows = @($ProtectedBaseline.approved_activation_deltas)
+$AddedProtectedRows = @{}
+$BaselineProtectedRows = @{}
+foreach ($Row in @($ProtectedBaseline.rows)) {
+    $RowPath = [string]$Row.path
+    if ($BaselineProtectedRows.ContainsKey($RowPath)) { throw "duplicate protected baseline row: $RowPath" }
+    $BaselineProtectedRows[$RowPath] = $Row
+}
+foreach ($Delta in @($ProtectedBaseline.approved_activation_deltas)) {
+    $DeltaPath = [string]$Delta.path
+    if ($ApprovedDeltas.ContainsKey($DeltaPath)) { throw "duplicate protected baseline delta: $DeltaPath" }
+    $ApprovedDeltas[$DeltaPath] = $Delta
+}
 $ApprovedDeltaPayload = Get-Content -LiteralPath $ApprovedDeltaManifestPath -Raw | ConvertFrom-Json
 if ([string]$ApprovedDeltaPayload.schema_version -cne 'iris-residual-protected-surface-delta-v1') {
     throw 'approved protected-surface delta schema mismatch'
@@ -266,14 +344,146 @@ foreach ($Delta in $SuccessorApprovedDeltaRows) {
     if ([string]$Delta.after_sha256_lf -notmatch '^[0-9a-f]{64}$') {
         throw "approved protected-surface delta LF hash invalid: $DeltaPath"
     }
-}
-$ApprovedDeltaRows += $SuccessorApprovedDeltaRows
-foreach ($Delta in $ApprovedDeltaRows) {
-    $DeltaPath = [string]$Delta.path
     if ($ApprovedDeltas.ContainsKey($DeltaPath)) {
-        throw "duplicate approved protected-surface delta: $DeltaPath"
+        throw "offline approved protected-surface delta duplicates predecessor authority: $DeltaPath"
     }
     $ApprovedDeltas[$DeltaPath] = $Delta
+}
+$SeenRevisionIds = @{}
+$LightweightingDeltaPaths = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+$LastRevisionPredecessor = $null
+foreach ($Revision in $LightweightingRevisions) {
+    $RevisionId = [string]$Revision.revision_id
+    if ([string]::IsNullOrWhiteSpace($RevisionId) -or $SeenRevisionIds.ContainsKey($RevisionId)) {
+        throw "repository lightweighting protected-surface revision identity invalid: $RevisionId"
+    }
+    $SeenRevisionIds[$RevisionId] = $true
+    if ($Revision.approved -ne $true -or [string]$Revision.owner -cne 'repository_owner_user') {
+        throw "repository lightweighting protected-surface revision approval invalid: $RevisionId"
+    }
+    $RevisionPredecessor = [string]$Revision.predecessor_commit
+    if ($RevisionPredecessor -notmatch '^[0-9a-f]{40}$') {
+        throw "repository lightweighting revision predecessor invalid: $RevisionId"
+    }
+    & git -C $RepositoryRoot merge-base --is-ancestor $RevisionPredecessor HEAD 2>$null
+    if ($LASTEXITCODE -ne 0) {
+        throw "repository lightweighting revision predecessor is not an ancestor: $RevisionId"
+    }
+    if ($null -ne $LastRevisionPredecessor) {
+        & git -C $RepositoryRoot merge-base --is-ancestor $LastRevisionPredecessor $RevisionPredecessor 2>$null
+        if ($LASTEXITCODE -ne 0) {
+            throw "repository lightweighting revision predecessor regressed: $RevisionId"
+        }
+    }
+    $LastRevisionPredecessor = $RevisionPredecessor
+    foreach ($Delta in @($Revision.approved_activation_deltas)) {
+        $DeltaPath = [string]$Delta.path
+        if (-not $BaselineProtectedRows.ContainsKey($DeltaPath)) {
+            throw "repository lightweighting delta path is absent from predecessor rows: $DeltaPath"
+        }
+        if (
+            [string]$Delta.expected_git_blob_id -notmatch '^[0-9a-f]{40,64}$' -or
+            [string]$Delta.after_sha256_lf -notmatch '^[0-9a-f]{64}$' -or
+            [string]$Delta.before_git_blob_id -notmatch '^[0-9a-f]{40,64}$' -or
+            [string]$Delta.before_sha256_lf -notmatch '^[0-9a-f]{64}$'
+        ) {
+            throw "repository lightweighting delta identity invalid: $DeltaPath"
+        }
+        $BeforeBlob = (& git -C $RepositoryRoot rev-parse ($RevisionPredecessor + ':' + $DeltaPath)).Trim()
+        if ($LASTEXITCODE -ne 0 -or $BeforeBlob -cne [string]$Delta.before_git_blob_id) {
+            throw "repository lightweighting delta predecessor Git blob mismatch: $DeltaPath"
+        }
+        if ((Get-GitBlobLfHash $BeforeBlob) -cne [string]$Delta.before_sha256_lf) {
+            throw "repository lightweighting delta predecessor LF hash mismatch: $DeltaPath"
+        }
+        if ($ApprovedDeltas.ContainsKey($DeltaPath)) {
+            $PriorAfter = [string]$ApprovedDeltas[$DeltaPath].after_sha256_lf
+            if ([string]$Delta.before_sha256_lf -cne $PriorAfter) {
+                throw "repository lightweighting delta chain mismatch: $DeltaPath"
+            }
+            if (
+                $LightweightingDeltaPaths.Contains($DeltaPath) -and
+                [string]$Delta.before_git_blob_id -cne [string]$ApprovedDeltas[$DeltaPath].expected_git_blob_id
+            ) {
+                throw "repository lightweighting delta Git blob chain mismatch: $DeltaPath"
+            }
+        }
+        elseif ([string]$Delta.predecessor_sha256 -cne [string]$BaselineProtectedRows[$DeltaPath].sha256) {
+            throw "repository lightweighting delta predecessor mismatch: $DeltaPath"
+        }
+        $ApprovedDeltas[$DeltaPath] = $Delta
+        [void]$LightweightingDeltaPaths.Add($DeltaPath)
+    }
+    foreach ($Added in @($Revision.added_protected_rows)) {
+        $AddedPath = [string]$Added.path
+        if ($BaselineProtectedRows.ContainsKey($AddedPath) -or $ApprovedDeltas.ContainsKey($AddedPath)) {
+            throw "repository lightweighting added row overlaps predecessor surface: $AddedPath"
+        }
+        if (
+            [string]$Added.expected_git_blob_id -notmatch '^[0-9a-f]{40,64}$' -or
+            [string]$Added.after_sha256_lf -notmatch '^[0-9a-f]{64}$' -or
+            -not ($Added.PSObject.Properties.Name -contains 'before_sha256_lf') -or
+            ($null -ne $Added.before_sha256_lf -and [string]$Added.before_sha256_lf -notmatch '^[0-9a-f]{64}$') -or
+            [string]::IsNullOrWhiteSpace([string]$Added.role) -or
+            [string]::IsNullOrWhiteSpace([string]$Added.writer) -or
+            [string]::IsNullOrWhiteSpace([string]$Added.reason) -or
+            @($Added.consumers).Count -eq 0
+        ) {
+            throw "repository lightweighting added row identity invalid: $AddedPath"
+        }
+        $BeforeGitIsNull = $null -eq $Added.before_git_blob_id
+        $BeforeLfIsNull = $null -eq $Added.before_sha256_lf
+        if ($BeforeGitIsNull -ne $BeforeLfIsNull) {
+            throw "repository lightweighting added row predecessor identity pair mismatch: $AddedPath"
+        }
+        $BeforeBlob = (& git -C $RepositoryRoot rev-parse ($RevisionPredecessor + ':' + $AddedPath) 2>$null).Trim()
+        if ($BeforeGitIsNull) {
+            if ($LASTEXITCODE -eq 0) {
+                throw "repository lightweighting new row unexpectedly exists in predecessor: $AddedPath"
+            }
+        }
+        elseif (
+            [string]$Added.before_git_blob_id -notmatch '^[0-9a-f]{40,64}$' -or
+            $LASTEXITCODE -ne 0 -or
+            $BeforeBlob -cne [string]$Added.before_git_blob_id
+        ) {
+            throw "repository lightweighting added row predecessor Git blob mismatch: $AddedPath"
+        }
+        elseif ((Get-GitBlobLfHash $BeforeBlob) -cne [string]$Added.before_sha256_lf) {
+            throw "repository lightweighting added row predecessor LF hash mismatch: $AddedPath"
+        }
+        if ($AddedProtectedRows.ContainsKey($AddedPath)) {
+            $PriorAddedAfter = [string]$AddedProtectedRows[$AddedPath].after_sha256_lf
+            if ([string]$Added.before_sha256_lf -cne $PriorAddedAfter) {
+                throw "repository lightweighting added row chain mismatch: $AddedPath"
+            }
+            if ([string]$Added.before_git_blob_id -cne [string]$AddedProtectedRows[$AddedPath].expected_git_blob_id) {
+                throw "repository lightweighting added row Git blob chain mismatch: $AddedPath"
+            }
+        }
+        $AddedProtectedRows[$AddedPath] = $Added
+    }
+}
+foreach ($DeltaPath in $LightweightingDeltaPaths) {
+    $Delta = $ApprovedDeltas[$DeltaPath]
+    $ActualBlob = (& git -C $RepositoryRoot rev-parse ("HEAD:" + $DeltaPath)).Trim()
+    if ($LASTEXITCODE -ne 0 -or $ActualBlob -cne [string]$Delta.expected_git_blob_id) {
+        throw "repository lightweighting final delta Git blob mismatch: $DeltaPath"
+    }
+    if ((Get-LfTextHashOrNull (Join-Path $RepositoryRoot $DeltaPath)) -cne [string]$Delta.after_sha256_lf) {
+        throw "repository lightweighting final delta LF hash mismatch: $DeltaPath"
+    }
+}
+foreach ($Entry in $AddedProtectedRows.GetEnumerator()) {
+    $Added = $Entry.Value
+    $AddedPath = [string]$Added.path
+    $ActualBlob = (& git -C $RepositoryRoot rev-parse ("HEAD:" + $AddedPath)).Trim()
+    if ($LASTEXITCODE -ne 0 -or $ActualBlob -cne [string]$Added.expected_git_blob_id) {
+        throw "repository lightweighting final added-row Git blob mismatch: $AddedPath"
+    }
+    if ((Get-LfTextHashOrNull (Join-Path $RepositoryRoot $AddedPath)) -cne [string]$Added.after_sha256_lf) {
+        throw "repository lightweighting final added-row LF hash mismatch: $AddedPath"
+    }
 }
 foreach ($Row in $ProtectedBaseline.rows) {
     $RowPath = [string]$Row.path
@@ -315,6 +525,34 @@ foreach ($Row in $ProtectedBaseline.rows) {
         authorization_reason = if ($Authorized) { [string]$ApprovedDeltas[$RowPath].reason } else { $null }
     }
 }
+foreach ($Entry in @($AddedProtectedRows.GetEnumerator() | Sort-Object Key)) {
+    $Added = $Entry.Value
+    $AddedPath = [string]$Added.path
+    $FullPath = Join-Path $RepositoryRoot $AddedPath
+    $After = Get-HashOrNull $FullPath
+    $AfterLf = Get-LfTextHashOrNull $FullPath
+    $BeforeLf = if ($null -eq $Added.before_sha256_lf) { $null } else { [string]$Added.before_sha256_lf }
+    $AuthorizedAdded += 1
+    $ProtectedRows += [ordered]@{
+        path = $AddedPath
+        before_sha256 = $null
+        before_sha256_lf = $BeforeLf
+        after_sha256 = $After
+        after_sha256_lf = $AfterLf
+        raw_changed = $true
+        line_ending_equivalent = $false
+        optional_untracked_projection_absent = $false
+        changed = $true
+        authorized = $true
+        authorized_addition = $true
+        role = [string]$Added.role
+        writer = [string]$Added.writer
+        consumers = @($Added.consumers)
+        authorization_owner = [string]$Added.owner
+        authorization_reason = [string]$Added.reason
+        expected_git_blob_id = [string]$Added.expected_git_blob_id
+    }
+}
 $ProtectedReport = [ordered]@{
     schema_version = 'iris-residual-protected-surface-report-v1'
     validation_status = if ($Unauthorized -eq 0) { 'passed' } else { 'failed' }
@@ -323,8 +561,13 @@ $ProtectedReport = [ordered]@{
     approved_delta_manifest = Get-Relative $ApprovedDeltaManifestPath
     approved_delta_manifest_git_blob_id = $ApprovedDeltaManifestBlob
     approved_delta_manifest_sha256 = Get-HashOrNull $ApprovedDeltaManifestPath
+    repository_lightweighting_successor_manifest = $LightweightingSuccessorRelative
+    repository_lightweighting_successor_git_blob_id = $LightweightingSuccessorBlob
+    repository_lightweighting_successor_sha256 = Get-HashOrNull $LightweightingSuccessorPath
+    repository_lightweighting_revision_ids = @($LightweightingRevisions | ForEach-Object { [string]$_.revision_id })
     changed_count = @($ProtectedRows | Where-Object changed).Count
     authorized_changed_count = $AuthorizedChanged
+    authorized_added_count = $AuthorizedAdded
     unauthorized_changed_count = $Unauthorized
     rows = $ProtectedRows
 }

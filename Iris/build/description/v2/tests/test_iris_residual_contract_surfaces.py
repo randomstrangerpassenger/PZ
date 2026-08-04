@@ -90,6 +90,14 @@ class IrisResidualContractSurfacesTest(unittest.TestCase):
         self.assertEqual(supported["surface_count"], 20)
         self.assertEqual(protected["validation_status"], "passed")
         self.assertEqual(protected["unauthorized_changed_count"], 0)
+        self.assertEqual(
+            protected["repository_lightweighting_successor_manifest"],
+            "Iris/_docs/refactor/repository_runtime_lightweighting/protected_surface_successor_manifest.json",
+        )
+        self.assertEqual(
+            ["common_contract_initial_v1", "common_contract_followup_v1"],
+            protected["repository_lightweighting_revision_ids"][:2],
+        )
         self.assertEqual(package["validation_status"], "passed")
         self.assertTrue(package["source_candidate_identity_equal"])
         self.assertEqual(claims["validation_status"], "passed")

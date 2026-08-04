@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import subprocess
 import sys
 import tempfile
@@ -86,7 +87,78 @@ def manifest_rows(path: Path) -> list[dict[str, object]]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()]
 
 
+def create_directory_reparse(link: Path, target: Path) -> None:
+    link.parent.mkdir(parents=True, exist_ok=True)
+    if os.name == "nt":
+        completed = subprocess.run(
+            [
+                "powershell",
+                "-NoProfile",
+                "-Command",
+                (
+                    "& { param($link, $target) "
+                    "New-Item -ItemType Junction -Path $link -Target $target "
+                    "-ErrorAction Stop | Out-Null }"
+                ),
+                str(link),
+                str(target),
+            ],
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        if completed.returncode != 0:
+            raise AssertionError(completed.stderr)
+    else:
+        link.symlink_to(target, target_is_directory=True)
+
+
 class ArtifactLifecycleInventoryTest(unittest.TestCase):
+    def test_junctions_are_held_without_external_traversal(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="iris-lifecycle-reparse-") as temporary:
+            root = Path(temporary)
+            repo = make_repo(root, giants=True)
+            external = root / "outside"
+            external.mkdir()
+            secret = external / "external-only-secret.txt"
+            secret.write_text("must not enter census\n", encoding="utf-8")
+            (external / ".tmp_tests").mkdir()
+            (external / ".tmp_tests/also-external.txt").write_text(
+                "must not be discovered\n", encoding="utf-8"
+            )
+            scanned_link = (
+                repo / "Iris/build/description/v2/tests/junction-to-outside"
+            )
+            discovery_link = repo / "Iris/discovery-junction"
+            create_directory_reparse(scanned_link, external)
+            create_directory_reparse(discovery_link, external)
+
+            output = root / "evidence"
+            result = run_inventory(repo, output)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            rows = manifest_rows(output / "artifact_role_manifest.jsonl")
+            by_path = {str(row["path"]): row for row in rows}
+            for relative in (
+                "Iris/build/description/v2/tests/junction-to-outside",
+                "Iris/discovery-junction",
+            ):
+                self.assertIn(relative, by_path)
+                self.assertEqual(by_path[relative]["path_access"], "unreadable")
+                self.assertEqual(
+                    by_path[relative]["error_type"], "ReparseOrSymlinkHold"
+                )
+            self.assertFalse(
+                any("external-only-secret.txt" in str(row["path"]) for row in rows)
+            )
+            self.assertFalse(
+                any("also-external.txt" in str(row["path"]) for row in rows)
+            )
+            summary = json.loads(
+                (output / "baseline_inventory.json").read_text(encoding="utf-8")
+            )
+            self.assertGreaterEqual(summary["unreadable_count"], 2)
+            self.assertFalse(summary["complete_accounting"])
+
     def test_same_subject_is_byte_stable_and_role_partition_is_complete(self) -> None:
         with tempfile.TemporaryDirectory(prefix="iris-lifecycle-") as temporary:
             root = Path(temporary)

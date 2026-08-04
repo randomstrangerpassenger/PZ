@@ -29,6 +29,13 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def extended_windows_path(path: Path) -> str:
+    absolute = str(path.absolute())
+    if absolute.startswith("\\\\"):
+        return "\\\\?\\UNC\\" + absolute[2:]
+    return "\\\\?\\" + absolute
+
+
 def write_json(path: Path, value: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
@@ -85,6 +92,7 @@ def fixture_checkout(tmp_path: Path) -> tuple[Path, Path, Path, Path]:
     git(repo, "init")
     git(repo, "config", "user.email", "iris-tests@example.invalid")
     git(repo, "config", "user.name", "Iris Tests")
+    git(repo, "config", "core.longpaths", "true")
 
     external = tmp_path / "external"
     external.mkdir()
@@ -125,9 +133,12 @@ def fixture_checkout(tmp_path: Path) -> tuple[Path, Path, Path, Path]:
         encoding="utf-8",
     )
     long_parent = repo / LONG_PATH_PARENT
-    long_parent.mkdir(parents=True)
-    (long_parent / "tracked.txt").write_text("long-path-census\n", encoding="utf-8")
-    assert len(str(long_parent.resolve())) > 260
+    long_parent_extended = Path(extended_windows_path(long_parent))
+    long_parent_extended.mkdir(parents=True)
+    (long_parent_extended / "tracked.txt").write_text(
+        "long-path-census\n", encoding="utf-8"
+    )
+    assert len(str(long_parent.absolute())) > 260
     git(repo, "add", ".")
     git(repo, "commit", "-m", "fixture")
     completed = subprocess.run(
@@ -266,7 +277,8 @@ def test_checkout_unchanged_detects_ignored_write(tmp_path: Path) -> None:
 def test_checkout_unchanged_detects_empty_ignored_directory(tmp_path: Path) -> None:
     repo, external, subject, delta = fixture_checkout(tmp_path)
     ignored_directory = LONG_PATH_PARENT / "ignored-empty-directory"
-    code = f"from pathlib import Path; Path({str(ignored_directory)!r}).mkdir()"
+    ignored_directory_extended = extended_windows_path(repo / ignored_directory)
+    code = f"from pathlib import Path; Path({ignored_directory_extended!r}).mkdir()"
     completed, receipt, _ = run_wrapper(
         repo,
         external,

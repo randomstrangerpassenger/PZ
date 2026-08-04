@@ -770,6 +770,34 @@
                                                            "reason":  "Protect the greater-than-MAX_PATH directory-parent purity fixture at exact byte identity."
                                                        }
                                                    ]
+                      },
+                      {
+                          "revision_id":  "common_windows_long_path_fixture_followup_v1",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "cbfcaf985d727f2549fdb76c827ec2817cb74099",
+                          "reason":  "Create the Windows greater-than-MAX_PATH regression fixture through the extended-length namespace so the fixture reaches the wrapper under test.",
+                          "approved_activation_deltas":  [
+
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py",
+                                                           "before_git_blob_id":  "af0585034ebf38e1be02fc66f6cdd9d95682eafc",
+                                                           "before_sha256_lf":  "b301fce05f953f54960f58706d776999f8ffe4c2d0eccc532f8a5438afd60290",
+                                                           "expected_git_blob_id":  "b4541f324e98840703c0019c3a70318a3e9629b5",
+                                                           "after_sha256_lf":  "62bebf68f0ec45cd679975eb19cfcfc4b23423c7114b997a2ad4310551746833",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the executable extended-length fixture construction at exact byte identity."
+                                                       }
+                                                   ]
                       }
                   ]
 }

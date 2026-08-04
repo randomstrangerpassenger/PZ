@@ -727,6 +727,49 @@
                                                            "reason":  "Protect the explicit external-output migration state for every repository lightweighting producer."
                                                        }
                                                    ]
+                      },
+                      {
+                          "revision_id":  "common_windows_long_path_followup_v1",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "c43a080b93f50ef041f1a03083cec622d623b533",
+                          "reason":  "Make checkout purity census fail-closed without misclassifying legitimate Windows extended-length tracked paths as unreadable.",
+                          "approved_activation_deltas":  [
+
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/invoke_repository_runtime_lightweighting_command.ps1",
+                                                           "before_git_blob_id":  "335cfc0e649302f774efb6fbda43e90212993ae6",
+                                                           "before_sha256_lf":  "3616117fa516fbebf6f572a8860aaaece182b6163ffabcd3e5e60c72e9dfa29e",
+                                                           "expected_git_blob_id":  "ded9ba682ee22c067e68dc9d5911079c0c80e98a",
+                                                           "after_sha256_lf":  "e8120a6c6dd33165604758f8bfa010db4bcff14ead22113c38a884040af77419",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the extended-length path census implementation at exact byte identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py",
+                                                           "before_git_blob_id":  "9da3540141a9fce439dd70ab8735dd8ebb0bc5c6",
+                                                           "before_sha256_lf":  "04969ad0f2249e2da4ec17d51752137bd5133ef717c93b24592807299af025a0",
+                                                           "expected_git_blob_id":  "af0585034ebf38e1be02fc66f6cdd9d95682eafc",
+                                                           "after_sha256_lf":  "b301fce05f953f54960f58706d776999f8ffe4c2d0eccc532f8a5438afd60290",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the greater-than-MAX_PATH directory-parent purity fixture at exact byte identity."
+                                                       }
+                                                   ]
                       }
                   ]
 }

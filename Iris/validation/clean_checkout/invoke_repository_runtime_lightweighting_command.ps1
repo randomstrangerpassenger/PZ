@@ -62,8 +62,33 @@ public static class IrisRepositoryRuntimeFinalPath {
 '@
 }
 
+function Get-ExtendedLengthPath([string]$Path) {
+    $full = [System.IO.Path]::GetFullPath($Path)
+    if ($full.StartsWith('\\?\', [System.StringComparison]::Ordinal)) { return $full }
+    if ($full.StartsWith('\\', [System.StringComparison]::Ordinal)) {
+        return '\\?\UNC\' + $full.Substring(2)
+    }
+    return '\\?\' + $full
+}
+
+function Get-LogicalPathFromExtended([string]$Path) {
+    if ($Path.StartsWith('\\?\UNC\', [System.StringComparison]::OrdinalIgnoreCase)) {
+        return '\\' + $Path.Substring(8)
+    }
+    if ($Path.StartsWith('\\?\', [System.StringComparison]::OrdinalIgnoreCase)) {
+        return $Path.Substring(4)
+    }
+    return [System.IO.Path]::GetFullPath($Path)
+}
+
 function Get-Sha256([string]$Path) {
-    return (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant()
+    $stream = [System.IO.File]::OpenRead((Get-ExtendedLengthPath $Path))
+    $sha = [System.Security.Cryptography.SHA256]::Create()
+    try { return ([BitConverter]::ToString($sha.ComputeHash($stream))).Replace('-', '').ToLowerInvariant() }
+    finally {
+        $sha.Dispose()
+        $stream.Dispose()
+    }
 }
 
 function Get-BytesSha256([byte[]]$Bytes) {
@@ -257,35 +282,53 @@ function Get-CheckoutCensus([string]$WorkingDirectory) {
     $pending.Push($root)
     while ($pending.Count -gt 0) {
         $directory = $pending.Pop()
+        $directoryRelative = if ($directory.Equals($root, [System.StringComparison]::OrdinalIgnoreCase)) {
+            '.'
+        }
+        else {
+            $directory.Substring($root.Length).TrimStart('\', '/').Replace('\', '/')
+        }
         try {
-            $children = @(Get-ChildItem -LiteralPath $directory -Force -ErrorAction Stop)
+            $children = @(Get-ChildItem -LiteralPath (Get-ExtendedLengthPath $directory) -Force -ErrorAction Stop)
         }
         catch {
-            $unreadable += [ordered]@{ path = $directory.Replace('\', '/'); error_type = $_.Exception.GetType().FullName; error = $_.Exception.Message }
+            $unreadable += [ordered]@{ path = $directoryRelative; error_type = $_.Exception.GetType().FullName; error = $_.Exception.Message }
             continue
         }
         foreach ($child in $children) {
-            $relativeCandidate = $child.FullName.Substring($root.Length).TrimStart('\', '/').Replace('\', '/')
+            $logicalChild = Get-LogicalPathFromExtended $child.FullName
+            $relativeCandidate = $logicalChild.Substring($root.Length).TrimStart('\', '/').Replace('\', '/')
             if ($relativeCandidate -eq '.git' -or $relativeCandidate.StartsWith('.git/')) { continue }
-            $entries += $child
-            $isReparse = (($child.Attributes -band [System.IO.FileAttributes]::ReparsePoint) -ne 0)
-            if ($child.PSIsContainer -and -not $isReparse) { $pending.Push($child.FullName) }
+            try {
+                $attributes = [System.IO.File]::GetAttributes((Get-ExtendedLengthPath $logicalChild))
+            }
+            catch {
+                $unreadable += [ordered]@{ path = $relativeCandidate; error_type = $_.Exception.GetType().FullName; error = $_.Exception.Message }
+                continue
+            }
+            $entries += [ordered]@{ logical_full_path = $logicalChild; relative_path = $relativeCandidate }
+            $isReparse = (($attributes -band [System.IO.FileAttributes]::ReparsePoint) -ne 0)
+            $isDirectory = (($attributes -band [System.IO.FileAttributes]::Directory) -ne 0)
+            if ($isDirectory -and -not $isReparse) { $pending.Push($logicalChild) }
         }
     }
-    foreach ($entry in ($entries | Sort-Object FullName)) {
-        $relative = $entry.FullName.Substring($root.Length).TrimStart('\', '/').Replace('\', '/')
+    foreach ($entry in ($entries | Sort-Object relative_path)) {
+        $relative = [string]$entry.relative_path
         try {
             $directoryKey = $relative.TrimEnd('/') + '/'
-            $isReparse = (($entry.Attributes -band [System.IO.FileAttributes]::ReparsePoint) -ne 0)
-            $entryKind = if ($isReparse) { 'reparse_point' } elseif ($entry.PSIsContainer) { 'directory' } else { 'file' }
+            $extendedEntry = Get-ExtendedLengthPath ([string]$entry.logical_full_path)
+            $attributes = [System.IO.File]::GetAttributes($extendedEntry)
+            $isReparse = (($attributes -band [System.IO.FileAttributes]::ReparsePoint) -ne 0)
+            $isDirectory = (($attributes -band [System.IO.FileAttributes]::Directory) -ne 0)
+            $entryKind = if ($isReparse) { 'reparse_point' } elseif ($isDirectory) { 'directory' } else { 'file' }
             $state = if ($entryKind -eq 'file' -and $null -ne $tracked -and $tracked.Contains($relative)) { 'tracked' }
                 elseif (($null -ne $ignored -and $ignored.Contains($relative)) -or ($null -ne $ignoredDirectories -and $ignoredDirectories.Contains($directoryKey))) { 'ignored' }
                 elseif (($null -ne $untracked -and $untracked.Contains($relative)) -or ($null -ne $untrackedDirectories -and $untrackedDirectories.Contains($directoryKey))) { 'untracked' }
                 else { 'filesystem_only' }
             $rows[$relative] = [ordered]@{
                 entry_kind = $entryKind
-                size_bytes = if ($entryKind -eq 'file') { $entry.Length } else { 0 }
-                sha256 = if ($entryKind -eq 'file') { Get-Sha256 $entry.FullName } else { $null }
+                size_bytes = if ($entryKind -eq 'file') { [System.IO.FileInfo]::new($extendedEntry).Length } else { 0 }
+                sha256 = if ($entryKind -eq 'file') { Get-Sha256 $extendedEntry } else { $null }
                 vcs_state = $state
             }
         }

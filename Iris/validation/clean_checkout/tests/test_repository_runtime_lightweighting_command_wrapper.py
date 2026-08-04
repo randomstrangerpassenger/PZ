@@ -20,6 +20,9 @@ REQUIRED_ENVIRONMENT = {
     "PYTHONNOUSERSITE": "1",
 }
 CLEARED_ENVIRONMENT = ["PYTHONHOME", "PYTHONPATH", "PYTEST_ADDOPTS"]
+LONG_PATH_PARENT = Path("long-path-fixture").joinpath(
+    *(f"segment-{index}-" + ("x" * 54) for index in range(4))
+)
 
 
 def sha256(path: Path) -> str:
@@ -121,6 +124,10 @@ def fixture_checkout(tmp_path: Path) -> tuple[Path, Path, Path, Path]:
         "ignored-write.txt\nignored-empty-directory/\n",
         encoding="utf-8",
     )
+    long_parent = repo / LONG_PATH_PARENT
+    long_parent.mkdir(parents=True)
+    (long_parent / "tracked.txt").write_text("long-path-census\n", encoding="utf-8")
+    assert len(str(long_parent.resolve())) > 260
     git(repo, "add", ".")
     git(repo, "commit", "-m", "fixture")
     completed = subprocess.run(
@@ -258,7 +265,8 @@ def test_checkout_unchanged_detects_ignored_write(tmp_path: Path) -> None:
 
 def test_checkout_unchanged_detects_empty_ignored_directory(tmp_path: Path) -> None:
     repo, external, subject, delta = fixture_checkout(tmp_path)
-    code = "from pathlib import Path; Path('ignored-empty-directory').mkdir()"
+    ignored_directory = LONG_PATH_PARENT / "ignored-empty-directory"
+    code = f"from pathlib import Path; Path({str(ignored_directory)!r}).mkdir()"
     completed, receipt, _ = run_wrapper(
         repo,
         external,
@@ -272,8 +280,9 @@ def test_checkout_unchanged_detects_empty_ignored_directory(tmp_path: Path) -> N
     assert receipt["native_exit_code"] == 0
     assert receipt["semantic_exit_code"] != 0
     rows = receipt["output_assertion"]["delta"]["rows"]
+    assert receipt["output_assertion"]["delta"]["unreadable_count"] == 0
     assert any(
-        row["path"] == "ignored-empty-directory"
+        row["path"] == ignored_directory.as_posix()
         and row["change"] == "added"
         and row["after"]["entry_kind"] == "directory"
         for row in rows

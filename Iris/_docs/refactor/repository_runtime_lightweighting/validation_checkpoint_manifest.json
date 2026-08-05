@@ -314,7 +314,7 @@
                                                        },
                             "required_receipt":  {
                                                      "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/pre_delete_current_route_receipt.json",
-                                                     "sha256":  "621be36e4520a20dce5175c726c4aa4bb8d56f2882f6563399f5ab920d6a6159"
+                                                     "sha256":  "71ac49e27e5753653aa15fe98f88d6d2c057cd691dbff380ca83eaa98c05b056"
                                                  },
                             "taxonomy":  {
                                              "path":  "Iris/_docs/round3/round3_test_taxonomy.json",
@@ -336,7 +336,7 @@
                                                            "path":  "G:/r39/a8/checkpoint-a46-a8-033b3748952b/current-result/current_route_output_isolation_audit_receipt.json",
                                                            "sha256":  "dad0a08e9ca9e51bb4f23818f41c0ab3cb9a65311ff18749fc4a5d03560faeca"
                                                        },
-                            "command_receipt_set_sha256":  "f6bd809b5ff4353aa88548e6a3c13bdd0119d46c4d31d5d0ef3f49a98771311e"
+                            "command_receipt_set_sha256":  "d0fd04913b857e6ac18a9e9e3b8755ff7f7f54d06530f7ecf0850f681d971bc3"
                         }
                     ],
     "restart_epochs":  [

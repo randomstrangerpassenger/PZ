@@ -2204,8 +2204,8 @@
                                   "path": "Iris/_docs/refactor/repository_runtime_lightweighting/pre_delete_current_route_receipt.json",
                                   "before_git_blob_id": "60a367c81470054dcc63bba1a389b530d3e82400",
                                   "before_sha256_lf": "b2996592fd8290aff7579aad08748f26183d00952663616e3682bc4aabd9acec",
-                                  "expected_git_blob_id": "dc74bc54f8cbaa39c5b4243a999085e7c89766fe",
-                                  "after_sha256_lf": "621be36e4520a20dce5175c726c4aa4bb8d56f2882f6563399f5ab920d6a6159",
+                                  "expected_git_blob_id": "7f8594e2177d64ccabe8e24e8e261a756de327a1",
+                                  "after_sha256_lf": "71ac49e27e5753653aa15fe98f88d6d2c057cd691dbff380ca83eaa98c05b056",
                                   "role": "common_track_pre_delete_current_route_evidence",
                                   "writer": "repository_runtime_lightweighting_step8_checkpoint_writer",
                                   "consumers": [
@@ -2221,8 +2221,8 @@
                                   "path": "Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json",
                                   "before_git_blob_id": "fd25090ef5dd5dc168370a7686b333df7f45f19c",
                                   "before_sha256_lf": "1ee078c9c48a782b413fadb233b29c69523ac9001ddeef158c93dd0f7cea1dcd",
-                                  "expected_git_blob_id": "03347ecb68e3426291c468bf7fa8360862d87d3c",
-                                  "after_sha256_lf": "1d9cb0bd8c3abbf736cd9d74d75e37fb44e4ae061257ea685350fe45163562ba",
+                                  "expected_git_blob_id": "428cc242817e370941f2aa9afdc4a8615b669c82",
+                                  "after_sha256_lf": "375081ca014d1103794be5f76013a30644ae0d838478fd123787e270523bb90a",
                                   "role": "common_track_validation_checkpoint_manifest",
                                   "writer": "repository_runtime_lightweighting_step8_checkpoint_writer",
                                   "consumers": [

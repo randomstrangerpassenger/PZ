@@ -118,7 +118,7 @@
     "path": "G:/r39/s8/checkpoint-c46-s8-a3fc1b88cd14/result/command-receipts/010-git-status-pre-delete-after.json",
     "sha256": "f7d416b32702e1acf7ad95bcfb10f7ffc637a5b91cda3610ad0b28e28ce33427"
   },
-  "command_receipt_set_sha256": "f6bd809b5ff4353aa88548e6a3c13bdd0119d46c4d31d5d0ef3f49a98771311e",
+  "command_receipt_set_sha256": "d0fd04913b857e6ac18a9e9e3b8755ff7f7f54d06530f7ecf0850f681d971bc3",
   "command_spec_set_sha256": "91622b85d6b3ed213a3d8954eccab2f11723df97c2325078f222786141fc6893",
   "command_receipts": [
     {
@@ -146,7 +146,7 @@
   ],
   "validation_command_receipt_set_sha256": "155994f042ceb98c1ac0c10c5debcf46656134dc6fc135306781134dd9320b1b",
   "validation_command_spec_set_sha256": "b093166b4e9379cbd40dc579cfcc38745bf2ddc9222491585a0cd6edd191557c",
-  "execution_command_receipt_set_sha256": "f6bd809b5ff4353aa88548e6a3c13bdd0119d46c4d31d5d0ef3f49a98771311e",
+  "execution_command_receipt_set_sha256": "d0fd04913b857e6ac18a9e9e3b8755ff7f7f54d06530f7ecf0850f681d971bc3",
   "execution_command_spec_set_sha256": "91622b85d6b3ed213a3d8954eccab2f11723df97c2325078f222786141fc6893",
   "authority_scope": "common_code_and_tracked_current_contract_only",
   "non_claims": [

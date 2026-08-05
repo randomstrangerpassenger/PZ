@@ -1,6 +1,7 @@
 [CmdletBinding()]
 param(
-    [Parameter(Mandatory = $true)][string[]]$ProtectedRepositoryRoots,
+    [string[]]$ProtectedRepositoryRoots,
+    [string]$ProtectedRepositoryRootsJson,
     [Parameter(Mandatory = $true)][string]$ClaimId,
     [Parameter(Mandatory = $true)][string]$AttemptId,
     [Parameter(Mandatory = $true)]
@@ -80,8 +81,22 @@ function Get-Sha256([string]$Path) {
     return (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant()
 }
 
+$arrayRootsProvided = $null -ne $ProtectedRepositoryRoots -and @($ProtectedRepositoryRoots).Count -gt 0
+$jsonRootsProvided = -not [string]::IsNullOrWhiteSpace($ProtectedRepositoryRootsJson)
+if ($arrayRootsProvided -eq $jsonRootsProvided) {
+    throw 'provide exactly one protected repository roots input'
+}
+$protectedRootsInput = if ($jsonRootsProvided) {
+    try { @(ConvertFrom-Json -InputObject $ProtectedRepositoryRootsJson) }
+    catch { throw 'ProtectedRepositoryRootsJson is not valid JSON' }
+}
+else { @($ProtectedRepositoryRoots) }
+if ($protectedRootsInput.Count -eq 0 -or @($protectedRootsInput | Where-Object { [string]::IsNullOrWhiteSpace([string]$_) }).Count -ne 0) {
+    throw 'protected repository roots input must contain nonempty paths'
+}
+
 $script:ResolvedProtectedRoots = @()
-foreach ($root in $ProtectedRepositoryRoots) {
+foreach ($root in $protectedRootsInput) {
     $resolved = Get-NormalizedPath $root
     if (-not [System.IO.Directory]::Exists($resolved)) { throw "protected repository root is missing: $resolved" }
     Assert-NoReparseAncestor $resolved 'protected root'

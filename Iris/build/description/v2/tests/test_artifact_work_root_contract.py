@@ -58,7 +58,9 @@ def allocate(
     run_id: str | None,
     receipt_name: str,
     failure_injection: str = "none",
+    protected_roots: tuple[Path, ...] | None = None,
 ) -> subprocess.CompletedProcess[str]:
+    root_values = protected_roots or (protected,)
     command = [
         powershell(),
         "-NoProfile",
@@ -66,8 +68,8 @@ def allocate(
         "Bypass",
         "-File",
         str(ALLOCATOR),
-        "-ProtectedRepositoryRoots",
-        str(protected),
+        "-ProtectedRepositoryRootsJson",
+        json.dumps([str(root) for root in root_values]),
         "-ClaimId",
         "work-root-fixture",
         "-AttemptId",
@@ -98,6 +100,33 @@ def allocate(
 
 
 class ArtifactWorkRootContractTest(unittest.TestCase):
+    def test_scalar_json_preserves_multiple_protected_roots(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="iris-work-root-multiple-protected-") as temporary:
+            root = Path(temporary)
+            protected = root / "checkout-a"
+            protected_b = root / "checkout-b"
+            external = root / "external"
+            protected.mkdir()
+            protected_b.mkdir()
+            external.mkdir()
+            result = allocate(
+                protected,
+                external,
+                profile="checkpoint",
+                attempt="multiple-protected",
+                run_id="9" * 32,
+                receipt_name="multiple-protected.json",
+                protected_roots=(protected, protected_b),
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            receipt = json.loads(
+                (external / "multiple-protected.json").read_text(encoding="utf-8-sig")
+            )
+            self.assertEqual(
+                receipt["protected_repository_roots"],
+                sorted(path.resolve().as_posix() for path in (protected, protected_b)),
+            )
+
     def test_omitted_run_id_records_cryptographic_generation(self) -> None:
         with tempfile.TemporaryDirectory(prefix="iris-work-root-generated-run-id-") as temporary:
             root = Path(temporary)

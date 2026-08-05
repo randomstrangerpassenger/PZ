@@ -2122,7 +2122,7 @@
                           "track": "common",
                           "owner": "repository_owner_user",
                           "approved": true,
-                          "predecessor_commit": "b7ca4873265f347996fc481b6c3ee8c5e98f7414",
+                          "predecessor_commit": "dd5b8b95a317d603513d63c1846e5e6f1745bac5",
                           "reason": "Preserve the refreshed Common allocator contract across the Windows PowerShell 5.1 external process boundary.",
                           "approved_activation_deltas": [],
                           "added_protected_rows": [

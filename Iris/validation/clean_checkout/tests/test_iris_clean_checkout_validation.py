@@ -52,7 +52,7 @@ def _sha256(path: Path) -> str:
 
 def _git(repo: Path, *args: str) -> str:
     completed = subprocess.run(
-        ["git", "-C", str(repo), *args],
+        ["git", "-c", "core.longpaths=true", "-C", str(repo), *args],
         check=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -63,7 +63,7 @@ def _git(repo: Path, *args: str) -> str:
 
 def _git_bytes(repo: Path, *args: str) -> bytes:
     completed = subprocess.run(
-        ["git", "-C", str(repo), *args],
+        ["git", "-c", "core.longpaths=true", "-C", str(repo), *args],
         check=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,

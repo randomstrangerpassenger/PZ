@@ -333,6 +333,8 @@ Iris/build/description/v2/tests/*
 !Iris/build/description/v2/tests/test_iris_pre_refactor_detail_characterization.py
 !Iris/build/description/v2/tests/test_iris_description_single_path_acceptance.py
 !Iris/build/description/v2/tests/test_iris_browser_state_selection_search_acceptance.py
+!Iris/build/description/v2/tests/test_layer3_lazy_lookup_contract.py
+!Iris/build/description/v2/tests/test_usecase_lazy_lookup_contract.py
 !Iris/build/description/v2/tests/test_iris_detail_view_model_acceptance.py
 !Iris/build/description/v2/tests/test_iris_legacy_surface_acceptance.py
 !Iris/build/description/v2/tests/test_iris_core_refactor_closeout.py

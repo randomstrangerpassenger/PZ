@@ -1,7 +1,7 @@
 {
   "claim": "required_validation_gate_adopted: axis-qualified DVF 3-3 governance vocabulary split by axis",
   "enforcement": "fail_closed",
-  "generated_at": "2026-06-17T16:28:41.744038+00:00",
+  "generated_at": "2026-08-06T00:00:00+09:00",
   "non_claims": [
     "no_b42_readiness",
     "no_deployment_readiness",
@@ -2973,6 +2973,66 @@
       "required": true,
       "role": "repository_runtime_lightweighting_guard_single_serialization_required_validation",
       "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_producer_keeps_repository_and_sealed_predecessor_unchanged"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_browser_demand_build_required_validation",
+      "test_id": "test_iris_browser_state_selection_search_acceptance.BrowserStateSelectionSearchAcceptanceTest.test_actual_standalone_lua_state_and_cache_contracts"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_browser_demand_build_required_validation",
+      "test_id": "test_iris_browser_state_selection_search_acceptance.BrowserStateSelectionSearchAcceptanceTest.test_browserdata_compatibility_and_logging_source_guards"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_browser_demand_build_required_validation",
+      "test_id": "test_iris_browser_state_selection_search_acceptance.BrowserStateSelectionSearchAcceptanceTest.test_pz_acceptance_and_pre_refactor_relations"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_runtime_lazy_lookup_required_validation",
+      "test_id": "test_layer3_lazy_lookup_contract.Layer3LazyLookupContractTest.test_layer3_lazy_lookup_contract"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_runtime_lookup_identity_required_validation",
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_offline_guard_rejects_index_contract_metadata_mutations"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_runtime_lookup_identity_required_validation",
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_in_repository_output_root_without_write"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_runtime_lookup_identity_required_validation",
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_mutated_layer3_chunk_before_write"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_runtime_lookup_identity_required_validation",
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_mutated_usecase_chunk_before_write"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_runtime_lookup_identity_required_validation",
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_reparse_alias_into_repository_without_write"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_runtime_lookup_identity_required_validation",
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_stale_layer3_index_hash_before_write"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_runtime_lookup_identity_required_validation",
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_requires_explicit_output_root_without_repository_write"
+    },
+    {
+      "required": true,
+      "role": "repository_runtime_lightweighting_runtime_lazy_lookup_required_validation",
+      "test_id": "test_usecase_lazy_lookup_contract.UseCaseLazyLookupContractTest.test_usecase_lazy_lookup_contract"
     }
   ],
   "route": "current",

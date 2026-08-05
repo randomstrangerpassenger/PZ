@@ -64,9 +64,13 @@ class BrowserStateSelectionSearchAcceptanceTest(unittest.TestCase):
         )
         self.assertEqual(0, completed.returncode, completed.stdout + completed.stderr)
         self.assertIn("IRIS_BROWSER_STANDALONE_PASS", completed.stdout)
-        self.assertIn("normalized_getter_calls=0", completed.stdout)
+        self.assertIn("normalized_getter_calls=4", completed.stdout)
         self.assertIn("optional_load_calls=2", completed.stdout)
         self.assertIn("folded_cache_entries=1", completed.stdout)
+        self.assertIn("get_all_items_calls=1", completed.stdout)
+        self.assertIn("recovery_get_all_items_calls=2", completed.stdout)
+        self.assertIn("prefix_reuse_count=1", completed.stdout)
+        self.assertIn("tooltip_cache_hits=1", completed.stdout)
 
     def test_browserdata_compatibility_and_logging_source_guards(self) -> None:
         browser_root = REPO / "Iris/media/lua/client/Iris/UI/Browser"
@@ -76,6 +80,12 @@ class BrowserStateSelectionSearchAcceptanceTest(unittest.TestCase):
         self.assertIn("function IrisBrowserData.getBuildState()", data_text)
         self.assertIn("function IrisBrowserData.isReady()", data_text)
         self.assertIn("function IrisBrowserData.ensureReady()", data_text)
+        self.assertIn("function IrisBrowserData.getInstrumentation()", data_text)
+
+        main = (REPO / "Iris/media/lua/client/Iris/IrisMain.lua").read_text(encoding="utf-8")
+        self.assertIn('ready = "BrowserData demand-build boundary ready"', main)
+        self.assertNotIn("invoke = buildBrowserData", main)
+        self.assertNotIn("local function buildBrowserData", main)
 
         forbidden = []
         for path in browser_root.glob("*.lua"):
@@ -93,6 +103,8 @@ class BrowserStateSelectionSearchAcceptanceTest(unittest.TestCase):
 
         query = (browser_root / "IrisBrowserQuery.lua").read_text(encoding="utf-8")
         self.assertIn("searchKeysByFullType", query)
+        self.assertIn("prefixReuseCount", query)
+        self.assertIn("copyRows", query)
         static_data = (REPO / "Iris/media/lua/client/Iris/API/StaticData.lua").read_text(encoding="utf-8")
         self.assertIn("function StaticData.getFailureReason(key)", static_data)
         self.assertIn("function StaticData.reset(key)", static_data)

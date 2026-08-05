@@ -18,14 +18,56 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$scriptRoot = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
 if ([string]::IsNullOrWhiteSpace($OutputRoot)) {
-    $OutputRoot = Join-Path $scriptRoot '..\build\package'
+    throw 'runtime_package_explicit_output_root_required'
 }
+$scriptRoot = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
+Import-Module -Name (Join-Path $scriptRoot 'RuntimeLookupIndexIdentity.psm1') -Force
 
 function Get-FullPath {
     param([Parameter(Mandatory = $true)][string]$Path)
     return [System.IO.Path]::GetFullPath($Path)
+}
+
+function Test-SameOrNestedPath {
+    param(
+        [Parameter(Mandatory = $true)][string]$Candidate,
+        [Parameter(Mandatory = $true)][string]$Root
+    )
+    $candidateFull = (Get-FullPath $Candidate).TrimEnd('\', '/')
+    $rootFull = (Get-FullPath $Root).TrimEnd('\', '/')
+    return (
+        $candidateFull.Equals($rootFull, [System.StringComparison]::OrdinalIgnoreCase) -or
+        $candidateFull.StartsWith(
+            $rootFull + [System.IO.Path]::DirectorySeparatorChar,
+            [System.StringComparison]::OrdinalIgnoreCase
+        )
+    )
+}
+
+function Assert-ExternalPackageOutputRoot {
+    param(
+        [Parameter(Mandatory = $true)][string]$Candidate,
+        [Parameter(Mandatory = $true)][string[]]$ProtectedRoots
+    )
+    $candidateFull = (Get-FullPath $Candidate).TrimEnd('\', '/')
+    $cursor = [System.IO.DirectoryInfo]::new($candidateFull)
+    while ($null -ne $cursor) {
+        if ($cursor.Exists -and (($cursor.Attributes -band [System.IO.FileAttributes]::ReparsePoint) -ne 0)) {
+            throw "runtime_package_output_root_reparse_component: $($cursor.FullName)"
+        }
+        $cursor = $cursor.Parent
+    }
+    $existing = Get-Item -Force -LiteralPath $candidateFull -ErrorAction SilentlyContinue
+    if ($null -ne $existing -and -not $existing.PSIsContainer) {
+        throw "runtime_package_output_root_not_directory: $candidateFull"
+    }
+    foreach ($protected in $ProtectedRoots) {
+        if ((Test-SameOrNestedPath -Candidate $candidateFull -Root $protected) -or
+            (Test-SameOrNestedPath -Candidate $protected -Root $candidateFull)) {
+            throw "runtime_package_output_root_must_be_external: $candidateFull <-> $protected"
+        }
+    }
 }
 
 function Write-Utf8NoBomJson {
@@ -81,14 +123,31 @@ function Get-RuntimePayloadIdentity {
     $renderedPath = Join-Path $SourceRoot 'build\description\v2\output\dvf_3_3_rendered.json'
     $manifestPath = Join-Path $SourceRoot 'media\lua\client\Iris\Data\IrisLayer3DataChunks.lua'
     $chunksRoot = Join-Path $SourceRoot 'media\lua\client\Iris\Data\IrisLayer3DataChunks'
+    $supportRelativePaths = @(
+        'IrisLayer3DataChunkIndex.lua',
+        'IrisLayer3DataLookup.lua',
+        'UseCaseDescriptions/ChunkIndex.lua',
+        'UseCaseDescriptions/LineCountIndex.lua',
+        'IrisUseCaseDescriptionsLookup.lua',
+        'IrisRuntimeLookupDiagnostics.lua',
+        'IrisUseCaseDescriptions.lua',
+        'UseCaseDescriptions/RequirementsLookup.lua'
+    )
+    $supportPaths = @($supportRelativePaths | ForEach-Object {
+        Join-Path (Join-Path $SourceRoot 'media\lua\client\Iris\Data') $_
+    })
     $candidatePath = Join-Path $RepositoryRoot $descriptor.candidate.path
     $factsPath = Join-Path $SourceRoot 'build\description\v2\data\dvf_3_3_facts.jsonl'
     $inputManifestPath = Join-Path $SourceRoot 'build\description\v2\data\dvf_3_3_input_manifest.json'
-    foreach ($requiredPath in @($renderedPath, $manifestPath, $chunksRoot, $candidatePath, $factsPath, $inputManifestPath)) {
+    foreach ($requiredPath in (@($renderedPath, $manifestPath, $chunksRoot, $candidatePath, $factsPath, $inputManifestPath) + $supportPaths)) {
         if (-not (Test-Path -LiteralPath $requiredPath)) {
             throw "runtime_payload_required_input_missing: $requiredPath"
         }
     }
+    $liveDataRoot = Join-Path $SourceRoot 'media\lua\client\Iris\Data'
+    Assert-RuntimeLookupIndexIdentity -DataRoot $liveDataRoot -IndexName 'IrisLayer3DataChunkIndex.lua'
+    Assert-RuntimeLookupIndexIdentity -DataRoot $liveDataRoot -IndexName 'UseCaseDescriptions/ChunkIndex.lua'
+    Assert-RuntimeLookupIndexIdentity -DataRoot $liveDataRoot -IndexName 'UseCaseDescriptions/LineCountIndex.lua'
     $renderedSha = Get-DecodedUtf8EolSha256 -Path $renderedPath
     $manifestSha = Get-DecodedUtf8EolSha256 -Path $manifestPath
     if ($renderedSha -ne $descriptor.rendered.sha256) { throw 'runtime_payload_rendered_freshness_failed' }
@@ -148,12 +207,22 @@ function Get-RuntimePayloadIdentity {
         manifest_sha256 = $manifestSha
         chunk_count = $chunkRows.Count
         chunks = $chunkRows
+        support_files = @($supportRelativePaths | ForEach-Object {
+            $supportPath = Join-Path (Join-Path $SourceRoot 'media\lua\client\Iris\Data') $_
+            [ordered]@{
+                path = $_
+                sha256 = (Get-FileHash -LiteralPath $supportPath -Algorithm SHA256).Hash.ToLowerInvariant()
+            }
+        })
     }
     if (-not [string]::IsNullOrWhiteSpace($PackageRoot)) {
         $packageData = Join-Path $PackageRoot 'media\lua\client\Iris\Data'
         $packageManifest = Join-Path $packageData 'IrisLayer3DataChunks.lua'
         $packageChunks = Join-Path $packageData 'IrisLayer3DataChunks'
-        $liveNames = @('IrisLayer3DataChunks.lua') + @($chunkRows | ForEach-Object { $_.path })
+        Assert-RuntimeLookupIndexIdentity -DataRoot $packageData -IndexName 'IrisLayer3DataChunkIndex.lua'
+        Assert-RuntimeLookupIndexIdentity -DataRoot $packageData -IndexName 'UseCaseDescriptions/ChunkIndex.lua'
+        Assert-RuntimeLookupIndexIdentity -DataRoot $packageData -IndexName 'UseCaseDescriptions/LineCountIndex.lua'
+        $liveNames = @('IrisLayer3DataChunks.lua') + @($chunkRows | ForEach-Object { $_.path }) + $supportRelativePaths
         $packageChunkEntries = @(Get-ChildItem -LiteralPath $packageChunks -Force)
         $unexpectedPackageChunkEntries = @(
             $packageChunkEntries | Where-Object {
@@ -168,7 +237,7 @@ function Get-RuntimePayloadIdentity {
                 Where-Object { -not $_.PSIsContainer } |
                 Sort-Object Name
         )
-        $packageNames = @('IrisLayer3DataChunks.lua') + @($packageChunkFiles | ForEach-Object { 'IrisLayer3DataChunks/' + $_.Name })
+        $packageNames = @('IrisLayer3DataChunks.lua') + @($packageChunkFiles | ForEach-Object { 'IrisLayer3DataChunks/' + $_.Name }) + $supportRelativePaths
         $mismatchCount = 0
         foreach ($relative in $liveNames) {
             $livePath = Join-Path (Join-Path $SourceRoot 'media\lua\client\Iris\Data') $relative
@@ -347,6 +416,7 @@ function Assert-NoForbiddenIrisDvfBridgeSurface {
 $sourceRoot = Get-FullPath (Join-Path $scriptRoot '..')
 $repoRoot = Get-FullPath (Join-Path $sourceRoot '..')
 $outputRootFull = Get-FullPath $OutputRoot
+Assert-ExternalPackageOutputRoot -Candidate $outputRootFull -ProtectedRoots @($repoRoot, $sourceRoot)
 $packageRoot = Join-Path $outputRootFull 'Iris'
 $manifestPath = Join-Path $outputRootFull 'Iris.package_manifest.sha256.json'
 $zipPath = Join-Path $outputRootFull 'Iris.zip'

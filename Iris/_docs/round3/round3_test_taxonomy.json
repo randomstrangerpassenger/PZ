@@ -12,15 +12,18 @@
       "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py": "manual audit: subprocess-only lifecycle promotion fixtures prove byte identity, exact physical subject binding, collision refusal, and terminal transition semantic validation",
       "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py": "manual audit: subprocess-only lifecycle executor fixtures use isolated repositories and small ignored payloads to prove the full receipt chain, exact-member and canonical embedded-manifest verification, exact-leaf deletion, recovery, promoted-baseline and owner-selection revalidation, stale physical-candidate and side-branch archive-evidence rejection, mandatory output-isolation verification, exact current-route argv rejection, and out-of-baseline rejection",
       "Iris/build/description/v2/tests/test_artifact_work_root_contract.py": "manual audit: Windows PowerShell subprocess fixtures prove disjoint new external roots, durable pre-create reservation and failed-attempt reuse rejection, guard-producer allocation/ledger revalidation, and minimal isolated terminal profiles without importing tools.build modules",
-      "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py": "manual audit: Common Change 3 fixtures prove frozen legacy/full-payload parity, backend parity and fail-loud errors, role-scoped census, single content-addressed serialization, reference integrity, output authorization, and consecutive-run non-growth"
+      "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py": "manual audit: Common Change 3 fixtures prove frozen legacy/full-payload parity, backend parity and fail-loud errors, role-scoped census, single content-addressed serialization, reference integrity, output authorization, and consecutive-run non-growth",
+      "Iris/build/description/v2/tests/test_iris_browser_state_selection_search_acceptance.py": "manual audit: Runtime Change 5 and 7 acceptance binds boot demand-build, retry compatibility, search prefix reuse, locale invalidation, and tooltip cache copy isolation without importing build tooling",
+      "Iris/build/description/v2/tests/test_layer3_lazy_lookup_contract.py": "manual audit: Runtime Change 6 standalone Lua harness proves all-key Layer3 facade parity, bounded demand loading, cache reuse, and reason-coded fallback",
+      "Iris/build/description/v2/tests/test_usecase_lazy_lookup_contract.py": "manual audit: Runtime Change 6 standalone Lua harness proves all-key UseCase facade parity, zero-chunk line-count lookup, bounded demand loading, copy-on-read, and reason-coded fallback"
     },
     "state_policy": "legacy full discovery exit 0 makes collected identities ok unless _FailedTest appears",
     "current_cutover_taxonomy_refresh": "Added pytest-collected current DVF vNext evidence tests after current authority cutover; collection remains fail-closed for unknown future tests."
   },
-  "generated_at": "2026-08-05T00:00:00+09:00",
+  "generated_at": "2026-08-06T00:00:00+09:00",
   "identity_source": "Iris/_docs/round3/round3_legacy_test_identities.json",
   "matrix": {
-    "current+ok": 190,
+    "current+ok": 202,
     "diagnostic+ok": 80,
     "historical+ok": 285
   },
@@ -7614,6 +7617,138 @@
       "source_file": "Iris/build/description/v2/tests/test_round3_current_route_applicability.py",
       "state": "ok",
       "test_id": "test_round3_current_route_applicability.Round3CurrentRouteApplicabilityTest.test_windows_disposable_cleanup_removes_long_path_without_residue"
+    },
+    {
+      "audit_status": "required_manifest_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "current required validation manifest classifies this tracked test as current_product_required",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_browser_state_selection_search_acceptance.py",
+      "state": "ok",
+      "test_id": "test_iris_browser_state_selection_search_acceptance.BrowserStateSelectionSearchAcceptanceTest.test_actual_standalone_lua_state_and_cache_contracts"
+    },
+    {
+      "audit_status": "required_manifest_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "current required validation manifest classifies this tracked test as current_product_required",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_browser_state_selection_search_acceptance.py",
+      "state": "ok",
+      "test_id": "test_iris_browser_state_selection_search_acceptance.BrowserStateSelectionSearchAcceptanceTest.test_browserdata_compatibility_and_logging_source_guards"
+    },
+    {
+      "audit_status": "required_manifest_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "current required validation manifest classifies this tracked test as current_product_required",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_browser_state_selection_search_acceptance.py",
+      "state": "ok",
+      "test_id": "test_iris_browser_state_selection_search_acceptance.BrowserStateSelectionSearchAcceptanceTest.test_pz_acceptance_and_pre_refactor_relations"
+    },
+    {
+      "audit_status": "required_manifest_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "current required validation manifest classifies this tracked test as current_product_required",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_layer3_lazy_lookup_contract.py",
+      "state": "ok",
+      "test_id": "test_layer3_lazy_lookup_contract.Layer3LazyLookupContractTest.test_layer3_lazy_lookup_contract"
+    },
+    {
+      "audit_status": "required_manifest_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "current required validation manifest classifies this tracked test as current_product_required",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
+      "state": "ok",
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_offline_guard_rejects_index_contract_metadata_mutations"
+    },
+    {
+      "audit_status": "required_manifest_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "current required validation manifest classifies this tracked test as current_product_required",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
+      "state": "ok",
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_in_repository_output_root_without_write"
+    },
+    {
+      "audit_status": "required_manifest_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "current required validation manifest classifies this tracked test as current_product_required",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
+      "state": "ok",
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_mutated_layer3_chunk_before_write"
+    },
+    {
+      "audit_status": "required_manifest_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "current required validation manifest classifies this tracked test as current_product_required",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
+      "state": "ok",
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_mutated_usecase_chunk_before_write"
+    },
+    {
+      "audit_status": "required_manifest_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "current required validation manifest classifies this tracked test as current_product_required",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
+      "state": "ok",
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_reparse_alias_into_repository_without_write"
+    },
+    {
+      "audit_status": "required_manifest_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "current required validation manifest classifies this tracked test as current_product_required",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
+      "state": "ok",
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_stale_layer3_index_hash_before_write"
+    },
+    {
+      "audit_status": "required_manifest_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "current required validation manifest classifies this tracked test as current_product_required",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
+      "state": "ok",
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_requires_explicit_output_root_without_repository_write"
+    },
+    {
+      "audit_status": "required_manifest_current",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "current required validation manifest classifies this tracked test as current_product_required",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_usecase_lazy_lookup_contract.py",
+      "state": "ok",
+      "test_id": "test_usecase_lazy_lookup_contract.UseCaseLazyLookupContractTest.test_usecase_lazy_lookup_contract"
     }
   ],
   "schema_version": "round3-test-taxonomy-v1"

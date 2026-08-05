@@ -8,12 +8,14 @@ local IrisTooltipSummary = {}
 
 local safeRequire = require("Iris/Util/IrisRequire").safeRequire
 local ProtectedCall = require("Iris/Util/IrisProtectedCall")
+local RuntimeLookupDiagnostics = require("Iris/Data/IrisRuntimeLookupDiagnostics")
 
 local IrisClassifications = nil
 local IrisRecipeIndex = nil
 local IrisMoveablesIndex = nil
 local IrisFixingIndex = nil
 local IrisUseCaseDescriptions = nil
+local IrisUseCaseDescriptionsLookup = nil
 local loaded = false
 local summaryByFullType = {}
 
@@ -31,6 +33,7 @@ local function copySummary(summary)
         tags = copyArray(summary.tags),
         connections = copyArray(summary.connections),
         useCaseCount = summary.useCaseCount,
+        revision = summary.revision,
     }
 end
 
@@ -51,8 +54,8 @@ local function ensureData()
     ok, result = safeRequire("Iris/Data/IrisFixingIndex")
     if ok then IrisFixingIndex = result end
 
-    ok, result = safeRequire("Iris/Data/IrisUseCaseDescriptions")
-    if ok then IrisUseCaseDescriptions = result end
+    ok, result = safeRequire("Iris/Data/IrisUseCaseDescriptionsLookup")
+    if ok then IrisUseCaseDescriptionsLookup = result end
 
     loaded = true
 end
@@ -105,6 +108,16 @@ local function collectConnections(fullType)
 end
 
 local function countUseCaseLines(fullType)
+    if IrisUseCaseDescriptionsLookup and IrisUseCaseDescriptionsLookup.getLineCount then
+        local count, reason = IrisUseCaseDescriptionsLookup.getLineCount(fullType)
+        if reason == nil then return count end
+    else
+        RuntimeLookupDiagnostics.recordFallback("usecase_tooltip_line_count", "router_unavailable")
+    end
+    if not IrisUseCaseDescriptions then
+        local ok, result = safeRequire("Iris/Data/IrisUseCaseDescriptions")
+        if ok then IrisUseCaseDescriptions = result end
+    end
     local entry = IrisUseCaseDescriptions and IrisUseCaseDescriptions[fullType] or nil
     if not entry or not entry.lines then
         return 0
@@ -130,8 +143,26 @@ function IrisTooltipSummary.get(fullType)
         connections = collectConnections(fullType),
         useCaseCount = countUseCaseLines(fullType),
     }
+    summary.revision = table.concat({
+        fullType,
+        tostring(summary.useCaseCount),
+        table.concat(summary.tags, "\0"),
+        table.concat(summary.connections, "\0"),
+    }, "|")
     summaryByFullType[fullType] = summary
     return copySummary(summary)
+end
+
+--- Explicit dev/test reload hook. Static generated data is otherwise session-stable.
+function IrisTooltipSummary.reset()
+    IrisClassifications = nil
+    IrisRecipeIndex = nil
+    IrisMoveablesIndex = nil
+    IrisFixingIndex = nil
+    IrisUseCaseDescriptions = nil
+    IrisUseCaseDescriptionsLookup = nil
+    loaded = false
+    summaryByFullType = {}
 end
 
 return IrisTooltipSummary

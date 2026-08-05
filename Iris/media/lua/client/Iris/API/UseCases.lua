@@ -9,6 +9,19 @@ local UseCases = {}
 
 local Array = require("Iris/Util/Array")
 local StaticData = require("Iris/API/StaticData")
+local safeRequire = require("Iris/Util/IrisRequire").safeRequire
+local RuntimeLookupDiagnostics = require("Iris/Data/IrisRuntimeLookupDiagnostics")
+local descriptionLookup = nil
+local descriptionLookupAttempted = false
+
+local function getDescriptionLookup()
+    if not descriptionLookupAttempted then
+        descriptionLookupAttempted = true
+        local ok, loaded = safeRequire("Iris/Data/IrisUseCaseDescriptionsLookup")
+        if ok and loaded then descriptionLookup = loaded end
+    end
+    return descriptionLookup
+end
 
 local function emptyUseCaseLines()
     return { lines = {}, debug_lines = {} }
@@ -28,13 +41,65 @@ end
 function UseCases.getUseCaseLines(fullType)
     if not fullType then return emptyUseCaseLines() end
 
-    local entry = rawArray("useCaseDescriptions", fullType)
+    local entry = nil
+    local lookup = getDescriptionLookup()
+    if lookup and lookup.get then
+        local loaded, reason = lookup.get(fullType)
+        if reason == nil then entry = loaded end
+    else
+        RuntimeLookupDiagnostics.recordFallback("usecase", "router_unavailable")
+    end
+    if not entry then entry = rawArray("useCaseDescriptions", fullType) end
     if not entry then return emptyUseCaseLines() end
 
     return {
         lines = Array.copy(entry.lines),
         debug_lines = Array.copy(entry.debug_lines),
     }
+end
+
+-- Internal runtime consumers use these focused adapters; public facade shapes above remain unchanged.
+function UseCases._getDescriptionEntry(fullType)
+    if not fullType then return nil end
+    local entry = nil
+    local lookup = getDescriptionLookup()
+    if lookup and lookup.get then
+        local loaded, reason = lookup.get(fullType)
+        if reason == nil then entry = loaded end
+    else
+        RuntimeLookupDiagnostics.recordFallback("usecase", "router_unavailable")
+    end
+    if not entry then entry = rawArray("useCaseDescriptions", fullType) end
+    if not entry then return nil end
+    return {
+        lines = Array.copy(entry.lines),
+        exclusion_lines = Array.copy(entry.exclusion_lines),
+        debug_lines = Array.copy(entry.debug_lines),
+    }
+end
+
+function UseCases._getRequirements(recipeName)
+    local lookup = getDescriptionLookup()
+    if lookup and lookup.getRequirements then
+        local loaded, reason = lookup.getRequirements(recipeName)
+        if reason == nil then return Array.copy(loaded) end
+    else
+        RuntimeLookupDiagnostics.recordFallback("usecase_requirements", "router_unavailable")
+    end
+    local facade = StaticData.get("useCaseDescriptions")
+    return Array.copy(facade and facade._requirementsLookup and facade._requirementsLookup[recipeName])
+end
+
+function UseCases._getUseCaseLineCount(fullType)
+    local lookup = getDescriptionLookup()
+    if lookup and lookup.getLineCount then
+        local count, reason = lookup.getLineCount(fullType)
+        if reason == nil then return count end
+    else
+        RuntimeLookupDiagnostics.recordFallback("usecase_line_count", "router_unavailable")
+    end
+    local entry = rawArray("useCaseDescriptions", fullType)
+    return entry and entry.lines and #entry.lines or 0
 end
 
 --- Context Outcome 조회 (v1.3)

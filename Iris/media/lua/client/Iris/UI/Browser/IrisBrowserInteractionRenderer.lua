@@ -21,11 +21,23 @@ function IrisBrowserInteractionRenderer.render(browser, browserClass, fullType, 
     local tr = deps.tr
     local IrisAPI = deps.IrisAPI
 
-    local ucDescData = nil
-    local ucOk, ucResult = safeRequire("Iris/Data/IrisUseCaseDescriptions")
-    if ucOk and ucResult then ucDescData = ucResult end
+    local useCases = IrisAPI and IrisAPI.UseCases or nil
+    local ucDescEntry = useCases and useCases._getDescriptionEntry and
+        useCases._getDescriptionEntry(fullType) or nil
+    local requirementsGetter = useCases and useCases._getRequirements or nil
+    if not useCases or not useCases._getDescriptionEntry then
+        local ucOk, ucResult = safeRequire("Iris/Data/IrisUseCaseDescriptions")
+        if ucOk and ucResult then
+            ucDescEntry = ucResult[fullType]
+            requirementsGetter = function(recipeName)
+                return ucResult._requirementsLookup and ucResult._requirementsLookup[recipeName] or nil
+            end
+        end
+    end
 
-    local interactionItems = Collector.collectRecipeInteractions(fullType, item, IrisAPI, ucDescData, deps.model)
+    local interactionItems = Collector.collectRecipeInteractions(
+        fullType, item, IrisAPI, ucDescEntry, deps.model, requirementsGetter
+    )
     local capabilityItems = Collector.collectCapabilityInteractions(fullType, IrisAPI, tr, deps.model)
     for _, capabilityItem in ipairs(capabilityItems) do
         table.insert(interactionItems, capabilityItem)

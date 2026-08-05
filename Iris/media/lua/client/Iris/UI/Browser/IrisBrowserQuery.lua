@@ -9,30 +9,90 @@ local IrisBrowserQuery = {}
 local ItemAccess = require("Iris/Util/IrisItemAccess")
 local IrisBrowserClassificationIndex = require("Iris/UI/Browser/IrisBrowserClassificationIndex")
 
-function IrisBrowserQuery.searchAll(cache, query, getItemLocation)
-    if not cache or not cache.itemsByFullType or not query or query == "" then
+local function copyRows(rows)
+    local copied = {}
+    for index, row in ipairs(rows or {}) do
+        copied[index] = {
+            fullType = row.fullType,
+            displayName = row.displayName,
+            category = row.category,
+            subcategory = row.subcategory,
+        }
+    end
+    return copied
+end
+
+function IrisBrowserQuery.searchAll(cache, query, getItemLocation, locale)
+    if not cache or not cache.itemsByFullType then
         return {}
+    end
+    if not query or query == "" then
+        cache.searchPrefixState = nil
+        return {}
+    end
+
+    local normalizedLocale = locale or "EN"
+    if cache.searchKeysLocale ~= normalizedLocale then
+        local refreshed = {}
+        for fullType, item in pairs(cache.itemsByFullType) do
+            local displayName = ItemAccess.getDisplayName(item, fullType)
+            refreshed[fullType] = {
+                displayName = displayName,
+                folded = displayName:lower() .. "\0" .. fullType:lower(),
+            }
+        end
+        cache.searchKeysByFullType = refreshed
+        cache.searchKeysLocale = normalizedLocale
+        cache.searchPrefixState = nil
     end
 
     local queryLower = query:lower()
     local result = {}
+    local metrics = cache.searchMetrics or {
+        searchCalls = 0,
+        totalScanRows = 0,
+        lastScanRows = 0,
+        prefixReuseCount = 0,
+    }
+    cache.searchMetrics = metrics
+    metrics.searchCalls = metrics.searchCalls + 1
 
-    for fullType, item in pairs(cache.itemsByFullType) do
-        local searchKeys = cache.searchKeysByFullType and cache.searchKeysByFullType[fullType]
-        local displayName = searchKeys and searchKeys.displayName or ItemAccess.getDisplayName(item, fullType)
-        local displayNameLower = searchKeys and searchKeys.displayNameLower or displayName:lower()
-        local fullTypeLower = searchKeys and searchKeys.fullTypeLower or fullType:lower()
+    local previous = cache.searchPrefixState
+    local reusePrevious = previous and previous.generation == cache.generation and
+        previous.locale == normalizedLocale and #queryLower > #previous.query and
+        queryLower:sub(1, #previous.query) == previous.query
+    local sourceRows = reusePrevious and previous.results or nil
+    local scannedRows = 0
 
-        if displayNameLower:find(queryLower, 1, true) or
-           fullTypeLower:find(queryLower, 1, true) then
-            local foundCat, foundSub = getItemLocation(fullType)
+    if sourceRows then
+        metrics.prefixReuseCount = metrics.prefixReuseCount + 1
+        for _, row in ipairs(sourceRows) do
+            scannedRows = scannedRows + 1
+            local searchKeys = cache.searchKeysByFullType and cache.searchKeysByFullType[row.fullType]
+            local folded = searchKeys and searchKeys.folded or
+                (row.displayName:lower() .. "\0" .. row.fullType:lower())
+            if folded:find(queryLower, 1, true) then
+                table.insert(result, row)
+            end
+        end
+    else
+        for fullType, item in pairs(cache.itemsByFullType) do
+            scannedRows = scannedRows + 1
+            local searchKeys = cache.searchKeysByFullType and cache.searchKeysByFullType[fullType]
+            local displayName = searchKeys and searchKeys.displayName or ItemAccess.getDisplayName(item, fullType)
+            local folded = searchKeys and searchKeys.folded or
+                (displayName:lower() .. "\0" .. fullType:lower())
 
-            table.insert(result, {
-                fullType = fullType,
-                displayName = displayName,
-                category = foundCat,
-                subcategory = foundSub,
-            })
+            if folded:find(queryLower, 1, true) then
+                local foundCat, foundSub = getItemLocation(fullType)
+
+                table.insert(result, {
+                    fullType = fullType,
+                    displayName = displayName,
+                    category = foundCat,
+                    subcategory = foundSub,
+                })
+            end
         end
     end
 
@@ -43,7 +103,15 @@ function IrisBrowserQuery.searchAll(cache, query, getItemLocation)
         return a.fullType < b.fullType
     end)
 
-    return result
+    metrics.lastScanRows = scannedRows
+    metrics.totalScanRows = metrics.totalScanRows + scannedRows
+    cache.searchPrefixState = {
+        generation = cache.generation,
+        locale = normalizedLocale,
+        query = queryLower,
+        results = copyRows(result),
+    }
+    return copyRows(result)
 end
 
 function IrisBrowserQuery.getItem(cache, fullType)

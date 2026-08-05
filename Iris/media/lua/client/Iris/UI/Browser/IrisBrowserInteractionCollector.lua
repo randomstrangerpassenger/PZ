@@ -13,13 +13,13 @@ local IrisBrowserInteractionCollector = {}
 local ProtectedCall = require("Iris/Util/IrisProtectedCall")
 local DetailViewModel = require("Iris/UI/Detail/IrisItemDetailViewModel")
 
-function IrisBrowserInteractionCollector.collectRecipeInteractions(fullType, item, IrisAPI, ucDescData, model)
+function IrisBrowserInteractionCollector.collectRecipeInteractions(fullType, item, IrisAPI, ucDescEntry, model, getRequirements)
     local interactionItems = {}
     local recipeNameSet = {}
     local hasOfflineRecipes = false
 
-    if ucDescData and ucDescData[fullType] then
-        local ucDesc = ucDescData[fullType]
+    if ucDescEntry then
+        local ucDesc = ucDescEntry
         if ucDesc and ucDesc.lines then
             for _, line in ipairs(ucDesc.lines) do
                 if line.surface == "recipe_ui" or line.surface == "both" then
@@ -62,9 +62,7 @@ function IrisBrowserInteractionCollector.collectRecipeInteractions(fullType, ite
                     end
                 end
                 local fallbackReqs = nil
-                if ucDescData and ucDescData._requirementsLookup then
-                    fallbackReqs = ucDescData._requirementsLookup[name]
-                end
+                if getRequirements then fallbackReqs = getRequirements(name) end
                 table.insert(interactionItems, {
                     type = "recipe",
                     name = trName or name,

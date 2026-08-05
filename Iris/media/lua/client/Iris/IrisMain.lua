@@ -72,14 +72,6 @@ local function hookContextMenu(moduleResult)
     return true
 end
 
-local function buildBrowserData(moduleResult)
-    if not moduleResult or type(moduleResult.build) ~= "function" then
-        return false
-    end
-    moduleResult.build()
-    return true
-end
-
 local function initMapIcon(moduleResult)
     if not moduleResult or type(moduleResult.init) ~= "function" then
         return false
@@ -100,7 +92,7 @@ local INIT_MODULES = {
     { step = "Step 5c", label = "IrisBulletReloadCompat", load = loadModule("Iris/Compat/IrisBulletReloadCompat"), invoke = installBulletReloadCompat, protectedCall = ProtectedCall.compat, unavailable = "install() is not available", success = "BulletReloadCompat.install() success" },
     -- validation anchor: require, "Iris/UI/Wiki/IrisContextMenu"; hookContextMenu()
     { step = "Step 5d", label = "IrisContextMenu", load = loadModule("Iris/UI/Wiki/IrisContextMenu"), invoke = hookContextMenu, protectedCall = ProtectedCall.ui, unavailable = "hookContextMenu() is not available", success = "hookContextMenu() success" },
-    { step = "Step 5e", label = "IrisBrowserData", load = loadModule("Iris/UI/Browser/IrisBrowserData"), invoke = buildBrowserData, protectedCall = ProtectedCall.data, unavailable = "build() is not available", success = "BrowserData.build() success" },
+    { step = "Step 5e", label = "IrisBrowserData", load = loadModule("Iris/UI/Browser/IrisBrowserData"), ready = "BrowserData demand-build boundary ready" },
     { step = "Step 5f", label = "IrisMapIcon", load = loadModule("Iris/UI/Browser/IrisMapIcon"), invoke = initMapIcon, protectedCall = ProtectedCall.ui, unavailable = "init() is not available", success = "MapIcon.init() success" },
 }
 

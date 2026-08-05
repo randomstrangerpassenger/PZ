@@ -4,7 +4,7 @@
     Rule Engine 결과(Item → Set<Tag>)를 역인덱싱한 표현 전용 캐시
     
     규칙:
-    - OnGameStart 1회 생성
+    - Browser 최초 사용 시 generation당 1회 생성
     - 실시간 계산 ❌
     - 틱 훅 ❌
     - Ruleset 직접 접근 ❌
@@ -40,6 +40,26 @@ local buildState = "uninitialized"
 local buildReason = "not_built"
 local buildDependency = nil
 local buildGeneration = 0
+local instrumentation = {
+    buildAttempts = 0,
+    getAllItemsCallCount = 0,
+    scannedItemCount = 0,
+    lastBuildElapsedMilliseconds = 0,
+    lastScanElapsedMilliseconds = 0,
+}
+
+local function nowMilliseconds()
+    if getTimestampMs then
+        local ok, value = ProtectedCall.engine(getTimestampMs)
+        if ok and type(value) == "number" then return value end
+    end
+    if os and os.clock then return os.clock() * 1000 end
+    return 0
+end
+
+local function finishBuildTiming(startedAt)
+    instrumentation.lastBuildElapsedMilliseconds = math.max(0, nowMilliseconds() - startedAt)
+end
 
 local READY_STATES = {
     ready = true,
@@ -112,15 +132,13 @@ local function createSearchKeys(itemIndex)
         local displayName = ItemAccess.getDisplayName(item, fullType)
         keys[fullType] = {
             displayName = displayName,
-            displayNameLower = displayName:lower(),
-            fullTypeLower = fullType:lower(),
+            folded = displayName:lower() .. "\0" .. fullType:lower(),
         }
     end
     return keys
 end
 
-local function buildCandidateCache()
-    local itemIndex = IrisBrowserItemIndex.build()
+local function buildCandidateCache(itemIndex)
     local classificationIndex = IrisBrowserClassificationIndex.createEmpty(
         IrisBrowserData.CATEGORY_ORDER,
         IrisBrowserData.SUBCATEGORY_MAP
@@ -133,8 +151,15 @@ local function buildCandidateCache()
         categories = classificationIndex.categories,
         itemLocationsByFullType = classificationIndex.itemLocationsByFullType,
         searchKeysByFullType = createSearchKeys(itemIndex),
+        searchKeysLocale = TranslationResolver.getLangKey("EN"),
         foldedCountsByGrouping = {},
         displayNameGroupsByGrouping = {},
+        searchMetrics = {
+            searchCalls = 0,
+            totalScanRows = 0,
+            lastScanRows = 0,
+            prefixReuseCount = 0,
+        },
         generation = buildGeneration + 1,
     }
 
@@ -164,6 +189,15 @@ local function buildCandidateCache()
     return candidate, taggedCount, errorCount
 end
 
+local function recordItemIndexInstrumentation(itemIndex)
+    if not itemIndex then return end
+    instrumentation.getAllItemsCallCount = instrumentation.getAllItemsCallCount +
+        (itemIndex.getAllItemsCallCount or 0)
+    instrumentation.scannedItemCount = instrumentation.scannedItemCount +
+        (itemIndex.scannedItemCount or 0)
+    instrumentation.lastScanElapsedMilliseconds = itemIndex.elapsedMilliseconds or 0
+end
+
 --- 브라우저 cache를 필요한 경우 build/retry한다.
 --- @return boolean ready
 --- @return table stateInfo
@@ -175,31 +209,52 @@ function IrisBrowserData.ensureReady()
         return false, stateSnapshot()
     end
 
+    local buildStartedAt = nowMilliseconds()
     setBuildState("building", "build_in_progress", nil)
+    instrumentation.buildAttempts = instrumentation.buildAttempts + 1
     if IrisLogger.isDebugEnabled() then
         debug("[IrisBrowserData] Building cache...")
     end
     ensureDeps()
 
     if not IrisAPI then
+        finishBuildTiming(buildStartedAt)
         setBuildState("retryable_failed", "required_dependency_unavailable", "Iris/IrisAPI")
         warn("[IrisBrowserData] required dependency unavailable: Iris/IrisAPI")
         return false, stateSnapshot()
     end
     if not IrisAPI.Tags or not IrisAPI.Tags.getTagsForItem then
+        finishBuildTiming(buildStartedAt)
         setBuildState("retryable_failed", "required_dependency_unavailable", "IrisAPI.Tags")
         warn("[IrisBrowserData] required dependency unavailable: IrisAPI.Tags")
         return false, stateSnapshot()
     end
 
-    local buildOk, candidate, taggedCount, errorCount = pcall(buildCandidateCache)
+    local itemIndexOk, itemIndex, itemIndexFailure = pcall(IrisBrowserItemIndex.build)
+    if not itemIndexOk then
+        finishBuildTiming(buildStartedAt)
+        setBuildState("retryable_failed", "item_index_build_failed", "getAllItems")
+        warn("[IrisBrowserData] item index build failed: " .. tostring(itemIndex))
+        return false, stateSnapshot()
+    end
+    recordItemIndexInstrumentation(itemIndex)
+    if itemIndexFailure then
+        finishBuildTiming(buildStartedAt)
+        setBuildState("retryable_failed", itemIndexFailure or "item_index_unavailable", "getAllItems")
+        warn("[IrisBrowserData] item index unavailable: " .. tostring(itemIndexFailure))
+        return false, stateSnapshot()
+    end
+
+    local buildOk, candidate, taggedCount, errorCount = pcall(buildCandidateCache, itemIndex)
     if not buildOk then
+        finishBuildTiming(buildStartedAt)
         setBuildState("retryable_failed", "cache_build_failed", "IrisBrowserData.cache")
         warn("[IrisBrowserData] cache build failed: " .. tostring(candidate))
         return false, stateSnapshot()
     end
     IrisBrowserData._cache = candidate
     buildGeneration = candidate.generation
+    finishBuildTiming(buildStartedAt)
 
     if not IrisAPI.Index or not IrisAPI.Index.getRecipeConnectionsForItem then
         setBuildState("degraded_ready", "optional_dependency_unavailable", "IrisAPI.Index")
@@ -221,6 +276,30 @@ function IrisBrowserData.resetForReload()
     IrisAPI = nil
     IrisBrowserData._cache = nil
     setBuildState("uninitialized", "explicit_reload_reset", nil)
+end
+
+--- Dev/test-only build and scan counters. Returned by value.
+function IrisBrowserData.getInstrumentation()
+    return {
+        state = buildState,
+        generation = buildGeneration,
+        buildAttempts = instrumentation.buildAttempts,
+        getAllItemsCallCount = instrumentation.getAllItemsCallCount,
+        scannedItemCount = instrumentation.scannedItemCount,
+        lastElapsedMilliseconds = instrumentation.lastBuildElapsedMilliseconds,
+        lastBuildElapsedMilliseconds = instrumentation.lastBuildElapsedMilliseconds,
+        lastScanElapsedMilliseconds = instrumentation.lastScanElapsedMilliseconds,
+    }
+end
+
+function IrisBrowserData.resetInstrumentation()
+    instrumentation = {
+        buildAttempts = 0,
+        getAllItemsCallCount = 0,
+        scannedItemCount = 0,
+        lastBuildElapsedMilliseconds = 0,
+        lastScanElapsedMilliseconds = 0,
+    }
 end
 
 --- 기존 boolean build API compatibility adapter.
@@ -348,11 +427,16 @@ end
 --- @param query string
 --- @return table items (fullType, displayName, category, subcategory)
 function IrisBrowserData.searchAll(query)
-    if not IrisBrowserData.isReady() or not query or query == "" then
+    if not IrisBrowserData.isReady() then
         return {}
     end
 
-    return IrisBrowserQuery.searchAll(IrisBrowserData._cache, query, IrisBrowserData.getItemLocation)
+    return IrisBrowserQuery.searchAll(
+        IrisBrowserData._cache,
+        query,
+        IrisBrowserData.getItemLocation,
+        TranslationResolver.getLangKey("EN")
+    )
 end
 
 --- 아이템 객체 반환

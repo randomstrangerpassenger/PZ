@@ -21,6 +21,8 @@ local warn = bootstrap.warn
 local logError = bootstrap.logError
 
 local IrisTooltipSummaryLocal = nil
+local displayLineCache = {}
+local displayLineCacheMetrics = { hits = 0, misses = 0 }
 
 local function tr(key, fallback)
     return TranslationResolver.get(key, fallback or key)
@@ -88,6 +90,42 @@ local function buildDetailLines(summary)
     return detailLines
 end
 
+local function copyLines(lines)
+    local result = {}
+    for index, line in ipairs(lines or {}) do result[index] = line end
+    return result
+end
+
+local function getDetailLines(fullType, summary)
+    local locale = TranslationResolver.getLangKey("EN")
+    local revision = summary and summary.revision or "missing"
+    local key = tostring(fullType) .. "\0" .. tostring(locale) .. "\0" .. tostring(revision)
+    local cached = displayLineCache[key]
+    if cached then
+        displayLineCacheMetrics.hits = displayLineCacheMetrics.hits + 1
+        return copyLines(cached)
+    end
+    displayLineCacheMetrics.misses = displayLineCacheMetrics.misses + 1
+    local lines = buildDetailLines(summary)
+    displayLineCache[key] = copyLines(lines)
+    return copyLines(lines)
+end
+
+function IrisAltTooltip.resetDisplayLineCache()
+    displayLineCache = {}
+    displayLineCacheMetrics = { hits = 0, misses = 0 }
+    if IrisTooltipSummaryLocal and IrisTooltipSummaryLocal.reset then
+        IrisTooltipSummaryLocal.reset()
+    end
+end
+
+function IrisAltTooltip.getDisplayLineCacheMetrics()
+    return {
+        hits = displayLineCacheMetrics.hits,
+        misses = displayLineCacheMetrics.misses,
+    }
+end
+
 --- 아이템 툴팁에 Iris 정보 추가
 --- @param tooltipInv ISToolTipInv
 function IrisAltTooltip.addIrisOverlay(tooltipInv)
@@ -108,7 +146,7 @@ function IrisAltTooltip.addIrisOverlay(tooltipInv)
         local summaryModule = ensureSummary()
         local fullType = ItemKey.getFullTypeFromItem(tooltipInv.item)
         local summary = summaryModule and summaryModule.get and summaryModule.get(fullType) or nil
-        detailLines = buildDetailLines(summary)
+        detailLines = getDetailLines(fullType, summary)
     end
     
     -- Alt 키가 눌리지 않았으면 아무것도 표시하지 않음

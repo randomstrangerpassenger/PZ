@@ -12,6 +12,7 @@ local Layer3Renderer = {}
 local bootstrap = require("Iris/Util/IrisModuleBootstrap").create()
 local safeRequire = bootstrap.safeRequire
 local ProtectedCall = require("Iris/Util/IrisProtectedCall")
+local RuntimeLookupDiagnostics = require("Iris/Data/IrisRuntimeLookupDiagnostics")
 local debug = bootstrap.debug
 local warn = bootstrap.warn
 local logError = bootstrap.logError
@@ -20,6 +21,8 @@ local logError = bootstrap.logError
 local layer3Data = nil
 local dataLoaded = false
 local loadStatusLogged = false
+local layer3Lookup = nil
+local lookupAttempted = false
 
 -- validation anchor: require, "Iris/Data/IrisLayer3DataChunks"
 
@@ -55,18 +58,41 @@ local function ensureData()
     end
 end
 
+local function ensureLookup()
+    if lookupAttempted then return layer3Lookup end
+    lookupAttempted = true
+    local ok, loaded = safeRequire("Iris/Data/IrisLayer3DataLookup")
+    if ok and loaded and type(loaded.get) == "function" then
+        layer3Lookup = loaded
+    end
+    return layer3Lookup
+end
+
 
 --- fulltype에 대한 3계층 텍스트를 반환한다.
 ---@param fullType string 아이템의 FullType
 ---@param options table|nil consumer option table
 ---@return string|nil 3계층 텍스트 또는 nil (침묵)
 local function getEntry(fullType)
-    ensureData()
-
-    if not layer3Data or not fullType then
-        return nil
+    if not fullType then return nil end
+    local lookup = ensureLookup()
+    if lookup then
+        local ok, result = ProtectedCall.data(function()
+            local entry, reason = lookup.get(fullType)
+            return { entry = entry, reason = reason }
+        end)
+        if ok and result and result.reason == nil then
+            return result.entry
+        end
+        if not ok or not result then
+            RuntimeLookupDiagnostics.recordFallback("layer3", "router_unavailable")
+        end
+    else
+        RuntimeLookupDiagnostics.recordFallback("layer3", "router_unavailable")
     end
 
+    ensureData()
+    if not layer3Data then return nil end
     local ok, result = ProtectedCall.data(function()
         return layer3Data[fullType]
     end)

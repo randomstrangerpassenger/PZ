@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import tempfile
@@ -12,6 +13,7 @@ from pathlib import Path
 
 IRIS_ROOT = Path(__file__).resolve().parents[4]
 PACKAGE_SCRIPT_PATH = IRIS_ROOT / "tools" / "package_iris.ps1"
+LOOKUP_VALIDATOR_PATH = IRIS_ROOT / "tools" / "validate_runtime_lookup_indexes.ps1"
 ACTIVE_LAYER3_MONOLITH_PATH = (
     IRIS_ROOT
     / "media"
@@ -57,7 +59,241 @@ def run_package(*arguments: str) -> subprocess.CompletedProcess[str]:
     )
 
 
+def run_lookup_validator(data_root: Path) -> subprocess.CompletedProcess[str]:
+    powershell = shutil.which("powershell")
+    if powershell is None:
+        raise AssertionError("powershell executable is required")
+    return subprocess.run(
+        [
+            powershell,
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            str(LOOKUP_VALIDATOR_PATH),
+            "-DataRoot",
+            str(data_root),
+        ],
+        cwd=REPO_ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+
 class PackageLayer3ChunksOnlyContractTest(unittest.TestCase):
+    def repository_package_tree_identity(self) -> tuple[tuple[str, str], ...]:
+        root = IRIS_ROOT / "build/package"
+        if not root.exists():
+            return ()
+        return tuple(
+            (path.relative_to(root).as_posix(), sha256_file(path))
+            for path in sorted(root.rglob("*"))
+            if path.is_file()
+        )
+
+    def external_lookup_data_copy(self, temporary: str) -> Path:
+        source = IRIS_ROOT / "media/lua/client/Iris/Data"
+        data = Path(temporary) / "Data"
+        data.mkdir()
+        shutil.copy2(
+            source / "IrisLayer3DataChunkIndex.lua",
+            data / "IrisLayer3DataChunkIndex.lua",
+        )
+        shutil.copytree(source / "IrisLayer3DataChunks", data / "IrisLayer3DataChunks")
+        shutil.copytree(source / "UseCaseDescriptions", data / "UseCaseDescriptions")
+        return data
+
+    def assert_lookup_index_internal_hash_mutation_rejected(self, relative: str) -> None:
+        with tempfile.TemporaryDirectory(dir=EXTERNAL_TEMP_ROOT) as temporary:
+            data = self.external_lookup_data_copy(temporary)
+            path = data / relative
+            text = path.read_text(encoding="utf-8")
+            mutated, count = re.subn(
+                r'sha256 = "[0-9a-f]{64}"',
+                'sha256 = "' + ("0" * 64) + '"',
+                text,
+                count=1,
+            )
+            self.assertEqual(1, count)
+            path.write_text(mutated, encoding="utf-8", newline="\n")
+            completed = run_lookup_validator(data)
+            self.assertNotEqual(completed.returncode, 0)
+            self.assertIn(
+                "runtime_payload_lookup_index_hash_mismatch",
+                completed.stdout + completed.stderr,
+            )
+
+    def assert_lookup_identity_mutation_rejected(self, relative: str) -> None:
+        with tempfile.TemporaryDirectory(dir=EXTERNAL_TEMP_ROOT) as temporary:
+            data = self.external_lookup_data_copy(temporary)
+            path = data / relative
+            path.write_bytes(path.read_bytes() + b"\n")
+            completed = run_lookup_validator(data)
+            self.assertNotEqual(completed.returncode, 0)
+            self.assertIn(
+                "runtime_payload_lookup_index_hash_mismatch",
+                completed.stdout + completed.stderr,
+            )
+
+    def assert_lookup_identity_missing_rejected(self, relative: str) -> None:
+        with tempfile.TemporaryDirectory(dir=EXTERNAL_TEMP_ROOT) as temporary:
+            data = self.external_lookup_data_copy(temporary)
+            (data / relative).unlink()
+            completed = run_lookup_validator(data)
+            self.assertNotEqual(completed.returncode, 0)
+            self.assertIn(
+                "runtime_payload_lookup_index_target_missing",
+                completed.stdout + completed.stderr,
+            )
+
+    def test_runtime_package_rejects_stale_layer3_index_hash_before_write(self) -> None:
+        self.assert_lookup_index_internal_hash_mutation_rejected(
+            "IrisLayer3DataChunkIndex.lua"
+        )
+
+    def test_runtime_package_requires_explicit_output_root_without_repository_write(self) -> None:
+        before = self.repository_package_tree_identity()
+        completed = run_package(
+            "-PackageApplicability",
+            "current_runtime_payload",
+        )
+        self.assertNotEqual(completed.returncode, 0)
+        self.assertIn(
+            "runtime_package_explicit_output_root_required",
+            completed.stdout + completed.stderr,
+        )
+        self.assertEqual(before, self.repository_package_tree_identity())
+
+    def test_runtime_package_rejects_in_repository_output_root_without_write(self) -> None:
+        before = self.repository_package_tree_identity()
+        completed = run_package(
+            "-OutputRoot",
+            str(REPO_ROOT),
+            "-PackageApplicability",
+            "current_runtime_payload",
+        )
+        self.assertNotEqual(completed.returncode, 0)
+        self.assertIn(
+            "runtime_package_output_root_must_be_external",
+            completed.stdout + completed.stderr,
+        )
+        self.assertEqual(before, self.repository_package_tree_identity())
+
+    def test_runtime_package_rejects_reparse_alias_into_repository_without_write(self) -> None:
+        before = self.repository_package_tree_identity()
+        with tempfile.TemporaryDirectory(dir=EXTERNAL_TEMP_ROOT) as temporary:
+            alias = Path(temporary) / "repository-alias"
+            created = subprocess.run(
+                ["cmd", "/c", "mklink", "/J", str(alias), str(REPO_ROOT)],
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            if created.returncode != 0 or not alias.exists():
+                raise AssertionError(
+                    "Windows junction support is required for package output safety: "
+                    + created.stdout
+                    + created.stderr
+                )
+            try:
+                completed = run_package(
+                    "-OutputRoot",
+                    str(alias),
+                    "-PackageApplicability",
+                    "current_runtime_payload",
+                )
+            finally:
+                os.rmdir(alias)
+            self.assertNotEqual(completed.returncode, 0)
+            self.assertIn(
+                "runtime_package_output_root_reparse_component",
+                completed.stdout + completed.stderr,
+            )
+        self.assertEqual(before, self.repository_package_tree_identity())
+
+    def test_runtime_package_rejects_mutated_layer3_chunk_before_write(self) -> None:
+        self.assert_lookup_identity_mutation_rejected(
+            "IrisLayer3DataChunks/Chunk001.lua"
+        )
+
+    def test_runtime_package_rejects_mutated_usecase_chunk_before_write(self) -> None:
+        self.assert_lookup_identity_mutation_rejected(
+            "UseCaseDescriptions/Chunk001.lua"
+        )
+        self.assert_lookup_identity_missing_rejected(
+            "UseCaseDescriptions/Chunk001.lua"
+        )
+
+    def test_offline_guard_rejects_index_contract_metadata_mutations(self) -> None:
+        mutations = (
+            (
+                "schema",
+                "IrisLayer3DataChunkIndex.lua",
+                lambda text: text.replace(
+                    'schema_version = "iris_layer3_chunk_range_index_v1"',
+                    'schema_version = "invalid"',
+                    1,
+                ),
+            ),
+            (
+                "module",
+                "IrisLayer3DataChunkIndex.lua",
+                lambda text: text.replace(
+                    'module = "Iris/Data/IrisLayer3DataChunks/Chunk001"',
+                    'module = "Iris/Data/UseCaseDescriptions/Chunk001"',
+                    1,
+                ),
+            ),
+            (
+                "range",
+                "IrisLayer3DataChunkIndex.lua",
+                lambda text: text.replace('first = "Base.223Box"', 'first = "Base.ZZZ"', 1),
+            ),
+            (
+                "line_count",
+                "UseCaseDescriptions/LineCountIndex.lua",
+                lambda text: text.replace('["Base.223Box"] = 1,', '["Base.223Box"] = 999,', 1),
+            ),
+            (
+                "line_count_duplicate_and_omission",
+                "UseCaseDescriptions/LineCountIndex.lua",
+                lambda text: text.replace(
+                    '["Base.223Bullets"] = 2,',
+                    '["Base.223Box"] = 1,',
+                    1,
+                ),
+            ),
+            (
+                "line_count_alternate_format_duplicate_override",
+                "UseCaseDescriptions/LineCountIndex.lua",
+                lambda text: text.replace(
+                    '        ["Base.223Box"] = 1,',
+                    (
+                        '        ["Base.223Box"] = 1,\n'
+                        '        ["Base.223Box"]=999,'
+                    ),
+                    1,
+                ),
+            ),
+        )
+        for label, relative, mutate in mutations:
+            with self.subTest(label=label), tempfile.TemporaryDirectory(
+                dir=EXTERNAL_TEMP_ROOT
+            ) as temporary:
+                data = self.external_lookup_data_copy(temporary)
+                index = data / relative
+                original = index.read_text(encoding="utf-8")
+                changed = mutate(original)
+                self.assertNotEqual(original, changed)
+                index.write_text(changed, encoding="utf-8", newline="\n")
+                completed = run_lookup_validator(data)
+                self.assertNotEqual(completed.returncode, 0)
+                self.assertIn(
+                    "runtime_payload_lookup_index_",
+                    completed.stdout + completed.stderr,
+                )
+
     def test_runtime_package_rejects_undeclared_chunk_file_before_write(self) -> None:
         chunk_root = (
             IRIS_ROOT / "media/lua/client/Iris/Data/IrisLayer3DataChunks"
@@ -140,6 +376,26 @@ class PackageLayer3ChunksOnlyContractTest(unittest.TestCase):
             self.assertEqual(
                 sha256_file(live / "IrisLayer3DataChunks.lua"),
                 sha256_file(package / "IrisLayer3DataChunks.lua"),
+            )
+            expected_support = {
+                "IrisLayer3DataChunkIndex.lua",
+                "IrisLayer3DataLookup.lua",
+                "UseCaseDescriptions/ChunkIndex.lua",
+                "UseCaseDescriptions/LineCountIndex.lua",
+                "IrisUseCaseDescriptionsLookup.lua",
+                "IrisRuntimeLookupDiagnostics.lua",
+                "IrisUseCaseDescriptions.lua",
+                "UseCaseDescriptions/RequirementsLookup.lua",
+            }
+            self.assertEqual(expected_support, {row["path"] for row in receipt["support_files"]})
+            for name in expected_support:
+                self.assertEqual(sha256_file(live / name), sha256_file(package / name))
+            package_script = PACKAGE_SCRIPT_PATH.read_text(encoding="utf-8")
+            self.assertEqual(
+                3,
+                package_script.count(
+                    "Assert-RuntimeLookupIndexIdentity -DataRoot $packageData"
+                ),
             )
 
     def test_rtc_certified_payload_still_requires_rtc_guard(self) -> None:

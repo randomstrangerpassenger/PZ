@@ -89,7 +89,10 @@ emit("presentation.browser_and_description_order", "presentation_order",
 -- Variant folding must choose the ordinal-smallest non-empty fullType no
 -- matter which map insertion order produced the group.
 package.preload["Iris/Util/IrisProtectedCall"] = function()
-    return {data=function(callback) local ok, value = pcall(callback); return ok, value end}
+    return {
+        data=function(callback) local ok, value = pcall(callback); return ok, value end,
+        require=function(moduleName) return pcall(require, moduleName) end,
+    }
 end
 package.preload["Iris/Util/IrisItemAccess"] = function()
     return {
@@ -230,7 +233,7 @@ package.preload["Iris/Util/IrisRequire"] = function()
         return false, nil
     end}
 end
-resetLoaded({"Iris/UI/Tooltip/IrisTooltipSummary"})
+resetLoaded({"Iris/UI/Tooltip/IrisTooltipSummary", "Iris/Util/IrisRequire"})
 local TooltipSummary = require("Iris/UI/Tooltip/IrisTooltipSummary")
 local summaryA = TooltipSummary.get("Base.Sample")
 summaryA.tags[1] = "Mutated"
@@ -243,6 +246,8 @@ emit("tooltip.summary_copy_on_read", "mutation_isolation",
     mode == "Baseline" or summaryIsolated,
     mode == "Acceptance" and {record_and_nested_arrays_isolated=true} or {capture="pre-mutation cache exposure"},
     {isolated=summaryIsolated,second=summaryB})
+package.loaded["Iris/Util/IrisRequire"] = nil
+package.preload["Iris/Util/IrisRequire"] = nil
 
 -- Wiki unit profile preserves current food (*100) and core (raw) outputs.
 local runtimeLocale = "EN"

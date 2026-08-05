@@ -159,6 +159,7 @@ package.preload["Iris/UI/Tooltip/IrisTooltipSummary"] = function()
     }
 end
 isKeyDown = function(code) return code == 56 end
+UIFont = { Small = "Small" }
 local AltTooltip = require("Iris/UI/Tooltip/IrisAltTooltip")
 AltTooltip.resetDisplayLineCache()
 local function tooltipFixture()

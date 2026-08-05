@@ -2236,6 +2236,301 @@
                                   "reason": "Append the final Common pre-delete checkpoint without rewriting prior checkpoint history."
                               }
                           ]
+                      },
+                      {
+                          "revision_id": "runtime_track_c48_implementation_v1",
+                          "track": "runtime",
+                          "owner": "repository_owner_user",
+                          "approved": true,
+                          "predecessor_commit": "7b054e75d63bf829aab0e7ae748816cf85acb7d8",
+                          "reason": "Adopt Runtime Changes 5 through 7 under the owner-approved runtime_first c48 claim.",
+                          "approved_activation_deltas": [
+                              {
+                                  "path": ".gitignore",
+                                  "before_git_blob_id": "523a524f3e06a88fad0d2c3aa60d60d7ed314a80",
+                                  "before_sha256_lf": "4c3ab60c371d4db252c6848ec11a20e8abfc447d9e33302e22d9d6c19e148272",
+                                  "expected_git_blob_id": "91110375bf29f116a3543af5fd96476603909cdb",
+                                  "after_sha256_lf": "0961cf524fb7426d0bf5974b6defaa8d6dcf799f44f02efe3bf10817a2c5bc6c",
+                                  "owner": "repository_owner_user",
+                                  "reason": "Expose the selected Runtime Track focused tests to the adopted test surface."
+                              },
+                              {
+                                  "path": "Iris/_docs/round3/current_route_required_validations.json",
+                                  "before_git_blob_id": "2bb4521fd810589334c804556fdaa388a0692c9d",
+                                  "before_sha256_lf": "e29b1101e15477c712a502a8d4d3de88621602c376e8b9dff8cb813d3ba1f1ed",
+                                  "expected_git_blob_id": "75177ba2ac4b819fc3c120161854eb6b8662f9a7",
+                                  "after_sha256_lf": "c8a66a0dcb32b2745b810c2658b93baa2ead05426be80c51e47e131ceb48b369",
+                                  "owner": "repository_owner_user",
+                                  "reason": "Adopt the selected Runtime Track identity without rewriting Common predecessor evidence."
+                              },
+                              {
+                                  "path": "Iris/_docs/round3/round3_test_taxonomy.json",
+                                  "before_git_blob_id": "211df5da439ebdda81273f4ea72be3bc6e61c6b4",
+                                  "before_sha256_lf": "0fe547966e6b428db1631a669ceaa80faa521178c9494f900a76bc577943cb1b",
+                                  "expected_git_blob_id": "2ea96ff51a53421d8ed3c1f689d80bcd37579a8d",
+                                  "after_sha256_lf": "25c4570a82c3132118b84a7ab07b80f1b196595c437056ae87489fb8bec2745f",
+                                  "owner": "repository_owner_user",
+                                  "reason": "Adopt the selected Runtime Track identity without rewriting Common predecessor evidence."
+                              },
+                              {
+                                  "path": "Iris/tools/package_iris.ps1",
+                                  "before_git_blob_id": "377ecaee1a0b470f45445bc5a10bd7246e5420d8",
+                                  "before_sha256_lf": "a1fca567d4ce06037dff904bf934ee1f751a9b56e79347b8c86b185f1ebfd1cb",
+                                  "expected_git_blob_id": "3b986cd1aa82efe9461f040e659193ea7f765891",
+                                  "after_sha256_lf": "45a41c0734601c51375606eb80c339e680ebe8665d60ae3e4960f71389e08522",
+                                  "owner": "repository_owner_user",
+                                  "reason": "Adopt the selected Runtime Track identity without rewriting Common predecessor evidence.",
+                                  "predecessor_sha256": "a1fca567d4ce06037dff904bf934ee1f751a9b56e79347b8c86b185f1ebfd1cb"
+                              }
+                          ],
+                          "added_protected_rows": [
+                              {
+                                  "path": "Iris/media/lua/client/Iris/API/UseCases.lua",
+                                  "before_git_blob_id": "298d91454035e67928b122ac764b6a1d08749a10",
+                                  "before_sha256_lf": "5bac26cd4da0a9d58cfc6941f182a47c3140423c05363d8c07f24b6ada187b60",
+                                  "expected_git_blob_id": "60343ea34eacdf268575d0a6ce8efb6260c02fda",
+                                  "after_sha256_lf": "9905e2181bdcff82ac40ee1da7e97b45baf8e643993bfac35998c6c44ee5aba2",
+                                  "role": "runtime_public_api_facade",
+                                  "writer": "runtime_usecase_lookup_implementation",
+                                  "consumers": [
+                                      "runtime_callers",
+                                      "browser_interaction_renderer",
+                                      "compatibility_fallback"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the selected Runtime Track implementation and its exact package/runtime identity."
+                              },
+                              {
+                                  "path": "Iris/media/lua/client/Iris/Data/layer3_renderer.lua",
+                                  "before_git_blob_id": "3c10c17d612ddf462bbae42c9f5a8f4e7751b5c3",
+                                  "before_sha256_lf": "9498fd959fd669d96d9dee9c642ab4f3a9ac1bc2ded864275985bbd8bd36e6d1",
+                                  "expected_git_blob_id": "ea5af125f6a6f3bfa5e2ff9c95fcce5aebae61d4",
+                                  "after_sha256_lf": "53f4241b873dfb2069b638563c4d1c8efef7b2f3a64635a8162f342b178d7c03",
+                                  "role": "runtime_layer3_lookup_consumer",
+                                  "writer": "runtime_layer3_lookup_implementation",
+                                  "consumers": [
+                                      "tooltip_summary",
+                                      "wiki_sections",
+                                      "compatibility_fallback"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the selected Runtime Track implementation and its exact package/runtime identity."
+                              },
+                              {
+                                  "path": "Iris/media/lua/client/Iris/IrisMain.lua",
+                                  "before_git_blob_id": "b7f3d064706700c3dd8602e22e8def110cea3f99",
+                                  "before_sha256_lf": "2b60570b01bd535afdbb68cda7ced065c0064f3fad16c05097ffe77f1d7e74c5",
+                                  "expected_git_blob_id": "31bf54517457003303ebc9a600c82eb3ea4aa8f0",
+                                  "after_sha256_lf": "be44fbc168db462653dc582f4470fe75a6464fa73785d41532b0b2f77152ae2c",
+                                  "role": "runtime_boot_orchestration",
+                                  "writer": "runtime_browser_demand_build_implementation",
+                                  "consumers": [
+                                      "project_zomboid_boot",
+                                      "browser_first_open"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the selected Runtime Track implementation and its exact package/runtime identity."
+                              },
+                              {
+                                  "path": "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserData.lua",
+                                  "before_git_blob_id": "8bfa0b4296c00b36867d696011368445e3c2734c",
+                                  "before_sha256_lf": "cb703b48ed1bda8a5aa30f5abe879052eb8c3b4cc1d16b3ad108c9bd1ff0c0f8",
+                                  "expected_git_blob_id": "43f6d765312a63fc492cbd9f0508469bb715cf70",
+                                  "after_sha256_lf": "b7d73b70a0c7840c52ea3ab3edbdb71324b6d3ab56ad5e552ffaaa5880e04fbd",
+                                  "role": "runtime_browser_demand_cache",
+                                  "writer": "runtime_browser_demand_build_implementation",
+                                  "consumers": [
+                                      "browser_search",
+                                      "browser_detail",
+                                      "runtime_instrumentation"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the selected Runtime Track implementation and its exact package/runtime identity."
+                              },
+                              {
+                                  "path": "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserInteractionCollector.lua",
+                                  "before_git_blob_id": "b21b03d9a3c8fb7e1ee9dca043c983a7f2db2641",
+                                  "before_sha256_lf": "deaad5dca557aa3fc7a796ab95e9737f3fb748d286b7d42646c8951fca66ccce",
+                                  "expected_git_blob_id": "11593544655f0255d2f0443d9bf45e21ff17a845",
+                                  "after_sha256_lf": "fc456cc1cb92a0227ed6064d545ffb693195e7911b7c3235645872cb0073c70a",
+                                  "role": "runtime_usecase_interaction_consumer",
+                                  "writer": "runtime_usecase_lookup_implementation",
+                                  "consumers": [
+                                      "browser_interaction_renderer",
+                                      "recipe_requirements_lookup"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the selected Runtime Track implementation and its exact package/runtime identity."
+                              },
+                              {
+                                  "path": "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserInteractionRenderer.lua",
+                                  "before_git_blob_id": "e200b86cda5131ca5029359a1b1a724d45c31797",
+                                  "before_sha256_lf": "113c65d75ba8d18bdba8f2dcb527f4c9cfbe50aeb3aa8a970d39b3166d770e42",
+                                  "expected_git_blob_id": "b96d22e00f809a95c9dce8d523dde22e33e0b9a4",
+                                  "after_sha256_lf": "6679794f1183c31e5731fbd31f1f184d769d33a3dcb36ef94cc70a7794e67535",
+                                  "role": "runtime_usecase_interaction_renderer",
+                                  "writer": "runtime_usecase_lookup_implementation",
+                                  "consumers": [
+                                      "browser_detail",
+                                      "usecase_public_api"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the selected Runtime Track implementation and its exact package/runtime identity."
+                              },
+                              {
+                                  "path": "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserItemIndex.lua",
+                                  "before_git_blob_id": "0fe585207d4ed37fcbfe2d2d5621a56fb0297a12",
+                                  "before_sha256_lf": "a9820320f8e37e59343fe1091a308064d1b3ee30f650c2d5b670cc9dbc12f479",
+                                  "expected_git_blob_id": "a855bd103c34d03eb87e537060aaac1adb531e42",
+                                  "after_sha256_lf": "87f73b89bce7b27da1184c13f487cda5f502784ddb033c1b084a0a1998ccd626",
+                                  "role": "runtime_browser_item_index",
+                                  "writer": "runtime_browser_demand_build_implementation",
+                                  "consumers": [
+                                      "browser_data",
+                                      "runtime_instrumentation"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the selected Runtime Track implementation and its exact package/runtime identity."
+                              },
+                              {
+                                  "path": "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserQuery.lua",
+                                  "before_git_blob_id": "cc71db7ee7193460651c9fa52225b40fe60e9dfb",
+                                  "before_sha256_lf": "3cc3fbd6f0c499a4e61e160014dc764892649ee42bb3957dfa3fd51121673357",
+                                  "expected_git_blob_id": "65de1f98fdc11ddc1d16028ecf262ed0e3759b31",
+                                  "after_sha256_lf": "5786088e36d2b8e03e9afcf8908b09f3121b6e05410369b5e6692111bd44f744",
+                                  "role": "runtime_browser_search_cache",
+                                  "writer": "runtime_browser_cache_slimming_implementation",
+                                  "consumers": [
+                                      "browser_data",
+                                      "browser_search"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the selected Runtime Track implementation and its exact package/runtime identity."
+                              },
+                              {
+                                  "path": "Iris/media/lua/client/Iris/UI/Tooltip/IrisAltTooltip.lua",
+                                  "before_git_blob_id": "fb84a48ce30ed2eaafbb75b89b67e9d62c6844e3",
+                                  "before_sha256_lf": "40240a1bb38252a6e1e892e4769c71d7bc3802de3647a5040568669146a539ce",
+                                  "expected_git_blob_id": "9c0dedf3258a0fdc3cde2079c9285564b09e694c",
+                                  "after_sha256_lf": "21fd28eb310da4d76ae931a55e69d1e0d2ff797b632230a563ba409e4d6bbbf4",
+                                  "role": "runtime_tooltip_display_cache",
+                                  "writer": "runtime_browser_cache_slimming_implementation",
+                                  "consumers": [
+                                      "project_zomboid_tooltip",
+                                      "tooltip_summary"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the selected Runtime Track implementation and its exact package/runtime identity."
+                              },
+                              {
+                                  "path": "Iris/media/lua/client/Iris/UI/Tooltip/IrisTooltipSummary.lua",
+                                  "before_git_blob_id": "8d7b843c68550b8d0ca0f0b212bad3db4e0b3931",
+                                  "before_sha256_lf": "8ed9d3772f169fbb2cdf2b9657dfdf30ed0f5e55dc7b8f459db6a67f7c3d43f3",
+                                  "expected_git_blob_id": "4ed5fe65c339b813c9fddc7a27f5a0c12372e84c",
+                                  "after_sha256_lf": "32056da4630ba6d88fcf0408cd4d52d518ed241c6fcafb846dfb2bd482da84b7",
+                                  "role": "runtime_tooltip_summary_lookup",
+                                  "writer": "runtime_usecase_lookup_implementation",
+                                  "consumers": [
+                                      "alt_tooltip",
+                                      "usecase_line_count_index"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the selected Runtime Track implementation and its exact package/runtime identity."
+                              },
+                              {
+                                  "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunkIndex.lua",
+                                  "before_git_blob_id": null,
+                                  "before_sha256_lf": null,
+                                  "expected_git_blob_id": "50d48be8b5800abc68bf3b62fd49ba06675a7082",
+                                  "after_sha256_lf": "7ae19c3f173b01655e1b6ac54de5bb6fabc8322e24be95016e874082454c5ac5",
+                                  "role": "generated_runtime_routing_metadata",
+                                  "writer": "export_dvf_3_3_lua_bridge.py",
+                                  "consumers": [
+                                      "IrisLayer3DataLookup",
+                                      "runtime_package_identity"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the selected Runtime Track implementation and its exact package/runtime identity."
+                              },
+                              {
+                                  "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataLookup.lua",
+                                  "before_git_blob_id": null,
+                                  "before_sha256_lf": null,
+                                  "expected_git_blob_id": "1f10ae4ac7bbd472208ee3b25f485bbcbe8d41c1",
+                                  "after_sha256_lf": "f9b8a3ad446cc339e94271c34715f6fb91ebe39f44c4058d503303990d72cfed",
+                                  "role": "runtime_layer3_demand_router",
+                                  "writer": "runtime_layer3_lookup_implementation",
+                                  "consumers": [
+                                      "layer3_renderer",
+                                      "runtime_lookup_diagnostics"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the selected Runtime Track implementation and its exact package/runtime identity."
+                              },
+                              {
+                                  "path": "Iris/media/lua/client/Iris/Data/IrisRuntimeLookupDiagnostics.lua",
+                                  "before_git_blob_id": null,
+                                  "before_sha256_lf": null,
+                                  "expected_git_blob_id": "a846eb6ff20b49b2db03ea2bd0fca62e89cd25c0",
+                                  "after_sha256_lf": "2c677502f3818998553cff3f093ba31997e549aa346d9033a2a9eb15e2855738",
+                                  "role": "runtime_lookup_diagnostics",
+                                  "writer": "runtime_lookup_implementation",
+                                  "consumers": [
+                                      "layer3_router",
+                                      "usecase_router",
+                                      "runtime_adoption_receipt"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the selected Runtime Track implementation and its exact package/runtime identity."
+                              },
+                              {
+                                  "path": "Iris/media/lua/client/Iris/Data/IrisUseCaseDescriptionsLookup.lua",
+                                  "before_git_blob_id": null,
+                                  "before_sha256_lf": null,
+                                  "expected_git_blob_id": "7ba0fa886bf7ab042b2e8b389faeb882130a9757",
+                                  "after_sha256_lf": "6165f73f10d193001c70604eba08b0ebc1deb888481eab2e451e8454be9dd2ff",
+                                  "role": "runtime_usecase_demand_router",
+                                  "writer": "runtime_usecase_lookup_implementation",
+                                  "consumers": [
+                                      "UseCases_api",
+                                      "tooltip_summary",
+                                      "browser_interactions"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the selected Runtime Track implementation and its exact package/runtime identity."
+                              },
+                              {
+                                  "path": "Iris/media/lua/client/Iris/Data/UseCaseDescriptions/ChunkIndex.lua",
+                                  "before_git_blob_id": null,
+                                  "before_sha256_lf": null,
+                                  "expected_git_blob_id": "8e10fde018724c7a2d6acb0c5e8bb0a72ba3ec9a",
+                                  "after_sha256_lf": "a7b0aabdb9f4d9676487cfc1a9307abc4897d70258b4eb7fc11c887071dee202",
+                                  "role": "generated_runtime_routing_metadata",
+                                  "writer": "convert_descriptions_to_lua.py",
+                                  "consumers": [
+                                      "IrisUseCaseDescriptionsLookup",
+                                      "runtime_package_identity"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the selected Runtime Track implementation and its exact package/runtime identity."
+                              },
+                              {
+                                  "path": "Iris/media/lua/client/Iris/Data/UseCaseDescriptions/LineCountIndex.lua",
+                                  "before_git_blob_id": null,
+                                  "before_sha256_lf": null,
+                                  "expected_git_blob_id": "6a0cd77086e813a6630217f9fa7b43b9d6eef5b6",
+                                  "after_sha256_lf": "3207c471f8a2ac15fb26e36af24c2ecea7a67aae700e51b9d8b7e9e4a2b52ae2",
+                                  "role": "generated_runtime_routing_metadata",
+                                  "writer": "convert_descriptions_to_lua.py",
+                                  "consumers": [
+                                      "IrisUseCaseDescriptionsLookup",
+                                      "IrisTooltipSummary",
+                                      "runtime_package_identity"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the selected Runtime Track implementation and its exact package/runtime identity."
+                              }
+                          ]
                       }
                   ]
 }

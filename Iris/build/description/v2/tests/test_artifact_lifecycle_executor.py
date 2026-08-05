@@ -1196,7 +1196,10 @@ class ArtifactLifecycleExecutorTest(unittest.TestCase):
                 cwd=repo,
             )
             self.assertNotEqual(rejected_missing_evidence.returncode, 0)
-            self.assertIn("durable evidence binding mismatch", rejected_missing_evidence.stderr)
+            self.assertIn(
+                "post-delete validated candidate binding mismatch",
+                rejected_missing_evidence.stderr,
+            )
             self.assertFalse((external / "archive/rejected-missing-evidence.json").exists())
             durable_restore.write_bytes(durable_restore_bytes)
             post = invoke(

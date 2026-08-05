@@ -109,21 +109,399 @@ def expression_path_literal(node: ast.AST | None, variables: dict[str, str]) -> 
         return node.value.replace("\\", "/")
     if isinstance(node, ast.Name):
         return variables.get(node.id)
+    if isinstance(node, ast.JoinedStr):
+        parts: list[str] = []
+        for value in node.values:
+            if isinstance(value, ast.Constant) and isinstance(value.value, str):
+                parts.append(value.value)
+                continue
+            if isinstance(value, ast.FormattedValue):
+                if value.conversion != -1 or value.format_spec is not None:
+                    return None
+                resolved = expression_path_literal(value.value, variables)
+                if resolved is not None:
+                    parts.append(resolved)
+                    continue
+            return None
+        return "".join(parts)
     if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Div):
         left = expression_path_literal(node.left, variables)
         right = expression_path_literal(node.right, variables)
-        if left and right:
+        if left is not None and right is not None:
             return f"{left.rstrip('/')}/{right.lstrip('/')}"
-        return right
+        return None
+    if (
+        isinstance(node, ast.Subscript)
+        and isinstance(node.value, ast.Attribute)
+        and node.value.attr == "parents"
+        and isinstance(node.slice, ast.Constant)
+        and isinstance(node.slice.value, int)
+    ):
+        base = expression_path_literal(node.value.value, variables)
+        if base is None or node.slice.value < 0:
+            return None
+        parents = Path(base).parents
+        if node.slice.value >= len(parents):
+            return None
+        return parents[node.slice.value].as_posix()
     if isinstance(node, ast.Call):
         name = call_name(node)
         if name in {"Path", "PurePath", "PurePosixPath", "PureWindowsPath"} and node.args:
             return expression_path_literal(node.args[0], variables)
-        if isinstance(node.func, ast.Attribute):
+        if isinstance(node.func, ast.Attribute) and node.func.attr in {"resolve", "absolute"}:
             return expression_path_literal(node.func.value, variables)
+        if isinstance(node.func, ast.Attribute) and node.func.attr == "with_name" and node.args:
+            base = expression_path_literal(node.func.value, variables)
+            replacement = expression_path_literal(node.args[0], variables)
+            if base is not None and replacement is not None:
+                return (Path(base).parent / replacement).as_posix()
     if isinstance(node, ast.Attribute):
-        return expression_path_literal(node.value, variables)
+        base = expression_path_literal(node.value, variables)
+        if base is not None and node.attr == "parent":
+            return Path(base).parent.as_posix()
+        return None
     return None
+
+
+def bound_names(node: ast.AST) -> set[str]:
+    names: set[str] = set()
+    if isinstance(node, ast.Name) and isinstance(node.ctx, (ast.Store, ast.Del)):
+        names.add(node.id)
+    elif isinstance(node, ast.arg):
+        names.add(node.arg)
+    elif isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+        names.add(node.name)
+    elif isinstance(node, ast.alias):
+        names.add(node.asname or node.name.split(".")[0])
+    elif isinstance(node, ast.ExceptHandler) and node.name:
+        names.add(node.name)
+    elif isinstance(node, (ast.Global, ast.Nonlocal)):
+        names.update(node.names)
+    elif isinstance(node, (ast.MatchAs, ast.MatchStar)) and node.name:
+        names.add(node.name)
+    return names
+
+
+def direct_scope_nodes(statements: list[ast.stmt]) -> list[ast.AST]:
+    nodes: list[ast.AST] = []
+    stack: list[ast.AST] = list(reversed(statements))
+    scope_boundaries = (
+        ast.FunctionDef,
+        ast.AsyncFunctionDef,
+        ast.ClassDef,
+        ast.Lambda,
+        ast.ListComp,
+        ast.SetComp,
+        ast.DictComp,
+        ast.GeneratorExp,
+    )
+    while stack:
+        node = stack.pop()
+        nodes.append(node)
+        if isinstance(node, scope_boundaries):
+            continue
+        stack.extend(reversed(list(ast.iter_child_nodes(node))))
+    return nodes
+
+
+def module_path_variables(tree: ast.Module, relative: str) -> dict[str, str]:
+    variables: dict[str, str] = {"__file__": relative}
+    for statement in tree.body:
+        if isinstance(statement, (ast.Assign, ast.AnnAssign)):
+            value = statement.value
+            targets = statement.targets if isinstance(statement, ast.Assign) else [statement.target]
+            resolved = (
+                expression_path_literal(value, variables)
+                if all(isinstance(target, ast.Name) for target in targets)
+                else None
+            )
+            assigned_names = {
+                name
+                for target in targets
+                for node in ast.walk(target)
+                for name in bound_names(node)
+            }
+            for name in assigned_names:
+                if resolved is None:
+                    variables.pop(name, None)
+                else:
+                    variables[name] = resolved
+            value_bindings = {
+                name
+                for node in ast.walk(value)
+                for name in bound_names(node)
+            } if value is not None else set()
+            for name in value_bindings:
+                variables.pop(name, None)
+            continue
+        for node in direct_scope_nodes([statement]):
+            for name in bound_names(node):
+                variables.pop(name, None)
+    return variables
+
+
+def enclosing_scope_bound_names(
+    node: ast.AST,
+    parents: dict[int, ast.AST],
+) -> set[str]:
+    names: set[str] = set()
+    current = parents.get(id(node))
+    while current is not None:
+        if isinstance(current, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            arguments = [
+                *current.args.posonlyargs,
+                *current.args.args,
+                *current.args.kwonlyargs,
+            ]
+            if current.args.vararg is not None:
+                arguments.append(current.args.vararg)
+            if current.args.kwarg is not None:
+                arguments.append(current.args.kwarg)
+            names.update(
+                name
+                for scope_node in [*arguments, *direct_scope_nodes(current.body)]
+                for name in bound_names(scope_node)
+            )
+        elif isinstance(current, ast.ClassDef):
+            names.update(
+                name
+                for scope_node in direct_scope_nodes(current.body)
+                for name in bound_names(scope_node)
+            )
+        elif isinstance(
+            current,
+            (ast.Lambda, ast.ListComp, ast.SetComp, ast.DictComp, ast.GeneratorExp),
+        ):
+            names.update(
+                name
+                for scope_node in ast.walk(current)
+                for name in bound_names(scope_node)
+            )
+        current = parents.get(id(current))
+    return names
+
+
+def function_local_dynamic_paths(
+    function: ast.FunctionDef | ast.AsyncFunctionDef,
+    module_variables: dict[str, str],
+    dynamic_names: set[str],
+) -> dict[int, str]:
+    function_nodes = direct_scope_nodes(function.body)
+    binding_counts: dict[str, int] = {}
+    for scope_node in function_nodes:
+        for name in bound_names(scope_node):
+            binding_counts[name] = binding_counts.get(name, 0) + 1
+    parameters = {
+        argument.arg
+        for argument in [
+            *function.args.posonlyargs,
+            *function.args.args,
+            *function.args.kwonlyargs,
+        ]
+    }
+    if function.args.vararg is not None:
+        parameters.add(function.args.vararg.arg)
+    if function.args.kwarg is not None:
+        parameters.add(function.args.kwarg.arg)
+    locally_bound = set(binding_counts).union(parameters)
+    variables = {
+        name: value
+        for name, value in module_variables.items()
+        if name not in locally_bound
+    }
+    resolved_calls: dict[int, str] = {}
+    simple_statements = (ast.Assign, ast.AnnAssign, ast.Expr, ast.Return, ast.Raise)
+    for statement in function.body:
+        if isinstance(statement, simple_statements):
+            for call in (
+                node
+                for node in direct_scope_nodes([statement])
+                if isinstance(node, ast.Call) and call_name(node) in dynamic_names
+            ):
+                name = call_name(call)
+                path_index = (
+                    1
+                    if name.endswith("spec_from_file_location")
+                    or name.endswith("SourceFileLoader")
+                    else 0
+                )
+                path = (
+                    expression_path_literal(call.args[path_index], variables)
+                    if len(call.args) > path_index
+                    else None
+                )
+                if path is not None and path.lower().endswith(".py"):
+                    resolved_calls[id(call)] = path
+        if not isinstance(statement, (ast.Assign, ast.AnnAssign)):
+            continue
+        value = statement.value
+        targets = statement.targets if isinstance(statement, ast.Assign) else [statement.target]
+        if not all(isinstance(target, ast.Name) for target in targets):
+            continue
+        resolved_value = expression_path_literal(value, variables)
+        for target in targets:
+            if (
+                target.id not in parameters
+                and binding_counts.get(target.id) == 1
+                and resolved_value is not None
+            ):
+                variables[target.id] = resolved_value
+    return resolved_calls
+
+
+def resolved_dynamic_wrapper_paths(
+    tree: ast.Module,
+    path_variables: dict[str, str],
+) -> dict[int, list[str]]:
+    dynamic_names = {
+        "importlib.util.spec_from_file_location",
+        "runpy.run_path",
+        "SourceFileLoader",
+        "importlib.machinery.SourceFileLoader",
+    }
+    dynamic_calls = [
+        node
+        for node in ast.walk(tree)
+        if isinstance(node, ast.Call) and call_name(node) in dynamic_names
+    ]
+    resolved: dict[int, list[str]] = {id(node): [] for node in dynamic_calls}
+    parents = {
+        id(child): parent
+        for parent in ast.walk(tree)
+        for child in ast.iter_child_nodes(parent)
+    }
+    for direct_call in (
+        node
+        for node in direct_scope_nodes(tree.body)
+        if isinstance(node, ast.Call) and call_name(node) in dynamic_names
+    ):
+        direct_name = call_name(direct_call)
+        path_index = (
+            1
+            if direct_name.endswith("spec_from_file_location")
+            or direct_name.endswith("SourceFileLoader")
+            else 0
+        )
+        direct_path = (
+            expression_path_literal(direct_call.args[path_index], path_variables)
+            if len(direct_call.args) > path_index
+            else None
+        )
+        if direct_path is not None and direct_path.lower().endswith(".py"):
+            resolved[id(direct_call)] = [direct_path]
+    module_functions = [
+        node
+        for node in tree.body
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+    ]
+    for function in module_functions:
+        bindings = [
+            node
+            for node in ast.walk(tree)
+            if function.name in bound_names(node)
+        ]
+        uniquely_bound = len(bindings) == 1 and bindings[0] is function
+        loaded_names = [
+            node
+            for node in ast.walk(tree)
+            if isinstance(node, ast.Name)
+            and isinstance(node.ctx, ast.Load)
+            and node.id == function.name
+        ]
+        call_sites: list[ast.Call] = []
+        if uniquely_bound:
+            for name_node in loaded_names:
+                parent = parents.get(id(name_node))
+                if not isinstance(parent, ast.Call) or parent.func is not name_node:
+                    call_sites = []
+                    break
+                call_sites.append(parent)
+        calls_are_unambiguous = bool(call_sites) and len(call_sites) == len(loaded_names)
+        positional_parameters = [
+            argument.arg
+            for argument in [*function.args.posonlyargs, *function.args.args]
+        ]
+        keyword_parameters = [argument.arg for argument in function.args.kwonlyargs]
+        parameters = positional_parameters + keyword_parameters
+        function_nodes = direct_scope_nodes(function.body)
+        local_dynamic_paths = function_local_dynamic_paths(
+            function,
+            path_variables,
+            dynamic_names,
+        )
+        local_bindings = {
+            name
+            for node in function_nodes
+            for name in bound_names(node)
+        }
+        for inner in (node for node in function_nodes if isinstance(node, ast.Call)):
+            inner_name = call_name(inner)
+            if inner_name not in dynamic_names:
+                continue
+            if id(inner) in local_dynamic_paths:
+                resolved[id(inner)] = [local_dynamic_paths[id(inner)]]
+                continue
+            path_index = (
+                1
+                if inner_name.endswith("spec_from_file_location")
+                or inner_name.endswith("SourceFileLoader")
+                else 0
+            )
+            if len(inner.args) <= path_index:
+                continue
+            path_argument = inner.args[path_index]
+            referenced_names = {
+                node.id
+                for node in ast.walk(path_argument)
+                if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Load)
+            }
+            if not referenced_names.intersection(local_bindings.union(parameters)):
+                direct_path = expression_path_literal(path_argument, path_variables)
+                if direct_path is not None and direct_path.lower().endswith(".py"):
+                    resolved[id(inner)] = [direct_path]
+                continue
+            if not isinstance(path_argument, ast.Name):
+                continue
+            parameter = path_argument.id
+            if (
+                parameter not in parameters
+                or parameter in local_bindings
+                or not calls_are_unambiguous
+            ):
+                continue
+            parameter_index = (
+                positional_parameters.index(parameter)
+                if parameter in positional_parameters
+                else None
+            )
+            call_paths: list[str] = []
+            for call_site in call_sites:
+                argument: ast.AST | None = None
+                if parameter_index is not None and len(call_site.args) > parameter_index:
+                    argument = call_site.args[parameter_index]
+                else:
+                    argument = next(
+                        (keyword.value for keyword in call_site.keywords if keyword.arg == parameter),
+                        None,
+                    )
+                argument_names = {
+                    node.id
+                    for node in ast.walk(argument)
+                    if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Load)
+                } if argument is not None else set()
+                if argument_names.intersection(
+                    enclosing_scope_bound_names(call_site, parents)
+                ):
+                    call_paths = []
+                    break
+                path = expression_path_literal(argument, path_variables)
+                if path is None or not path.lower().endswith(".py"):
+                    call_paths = []
+                    break
+                call_paths.append(path)
+            if call_paths:
+                resolved[id(inner)] = sorted(set(call_paths))
+    return resolved
 
 
 def source_audit(repo: Path, relative: str, *, source_role: str) -> dict[str, Any]:
@@ -141,18 +519,16 @@ def source_audit(repo: Path, relative: str, *, source_role: str) -> dict[str, An
     unresolved_dynamic_imports: list[dict[str, Any]] = []
     write_sites: list[dict[str, Any]] = []
     variables: dict[str, str] = {}
-    path_variables: dict[str, str] = {}
     for node in ast.walk(tree):
         if isinstance(node, (ast.Assign, ast.AnnAssign)):
             value = node.value
             targets = node.targets if isinstance(node, ast.Assign) else [node.target]
             provenance = expression_provenance(value, variables)
-            path_literal = expression_path_literal(value, path_variables)
             for target in targets:
                 if isinstance(target, ast.Name):
                     variables[target.id] = provenance
-                    if path_literal:
-                        path_variables[target.id] = path_literal
+    path_variables = module_path_variables(tree, relative)
+    dynamic_wrapper_paths = resolved_dynamic_wrapper_paths(tree, path_variables)
     for node in ast.walk(tree):
         if isinstance(node, ast.Import):
             for alias in node.names:
@@ -180,23 +556,19 @@ def source_audit(repo: Path, relative: str, *, source_role: str) -> dict[str, An
                 "SourceFileLoader",
                 "importlib.machinery.SourceFileLoader",
             }:
-                path_argument_index = 1 if name.endswith("spec_from_file_location") or name.endswith("SourceFileLoader") else 0
-                dynamic_path = (
-                    expression_path_literal(node.args[path_argument_index], path_variables)
-                    if len(node.args) > path_argument_index
-                    else None
-                )
-                if dynamic_path and dynamic_path.lower().endswith(".py"):
-                    import_requests.append(
-                        {
-                            "kind": "dynamic_path",
-                            "module": "",
-                            "path": dynamic_path,
-                            "level": 0,
-                            "names": [],
-                            "line": node.lineno,
-                        }
-                    )
+                dynamic_paths = dynamic_wrapper_paths[id(node)]
+                if dynamic_paths:
+                    for dynamic_path in dynamic_paths:
+                        import_requests.append(
+                            {
+                                "kind": "dynamic_path",
+                                "module": "",
+                                "path": dynamic_path,
+                                "level": 0,
+                                "names": [],
+                                "line": node.lineno,
+                            }
+                        )
                 else:
                     unresolved_dynamic_imports.append({"call": name, "line": node.lineno})
             if name in {"__import__", "importlib.import_module"}:

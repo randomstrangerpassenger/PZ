@@ -161,8 +161,25 @@ def test_inventory_recurses_local_imports_and_rejects_nonliteral_dynamic_imports
     source = repo / "Iris/build/description/v2/tests/test_selected.py"
     helper = source.with_name("selected_helper.py")
     helper.write_text("VALUE = 1\n", encoding="utf-8", newline="\n")
+    safe_source = """\
+import importlib.util
+from pathlib import Path
+from selected_helper import VALUE
+
+HELPER = Path(__file__).resolve().parent / f"selected_{'helper'}.py"
+
+def load_module(path):
+    spec = importlib.util.spec_from_file_location("selected_dynamic", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+def test_selected():
+    assert VALUE == 1
+    assert load_module(HELPER).VALUE == 1
+"""
     source.write_text(
-        "from selected_helper import VALUE\n\ndef test_selected():\n    assert VALUE == 1\n",
+        safe_source,
         encoding="utf-8",
         newline="\n",
     )
@@ -175,6 +192,99 @@ def test_inventory_recurses_local_imports_and_rejects_nonliteral_dynamic_imports
     assert any(row["source_file"].endswith("selected_helper.py") for row in payload["sources"])
 
     output.unlink()
+    source.write_text(
+        """\
+import importlib.util
+from pathlib import Path
+from selected_helper import VALUE
+
+TOOLS = Path(__file__).resolve().parent
+
+def load_module():
+    path = TOOLS / "selected_helper.py"
+    spec = importlib.util.spec_from_file_location("selected_dynamic", path)
+    return importlib.util.module_from_spec(spec)
+
+def test_selected():
+    assert VALUE == 1
+    assert load_module().VALUE == 1
+""",
+        encoding="utf-8",
+        newline="\n",
+    )
+    local_static, output = inventory(repo, external)
+    assert local_static.returncode == 0, local_static.stderr
+    output.unlink()
+
+    source.write_text(
+        """\
+import importlib.util
+from pathlib import Path
+
+def load_module(runtime_base):
+    spec = importlib.util.spec_from_file_location(
+        "selected_dynamic", runtime_base / "selected_helper.py"
+    )
+    return importlib.util.module_from_spec(spec)
+
+def test_selected():
+    assert load_module(Path.cwd())
+""",
+        encoding="utf-8",
+        newline="\n",
+    )
+    unresolved_base, _ = inventory(repo, external)
+    assert unresolved_base.returncode != 0
+    assert "unresolved local/dynamic imports" in unresolved_base.stderr
+
+    source.write_text(
+        safe_source.replace(
+            "def test_selected():",
+            "loader = load_module\n\ndef test_selected():",
+        ).replace("load_module(HELPER)", "loader(HELPER)"),
+        encoding="utf-8",
+        newline="\n",
+    )
+    aliased_wrapper, _ = inventory(repo, external)
+    assert aliased_wrapper.returncode != 0
+    assert "unresolved local/dynamic imports" in aliased_wrapper.stderr
+
+    source.write_text(
+        safe_source.replace(
+            "    assert VALUE == 1",
+            "    HELPER = Path.cwd()\n    assert VALUE == 1",
+        ),
+        encoding="utf-8",
+        newline="\n",
+    )
+    shadowed_argument, _ = inventory(repo, external)
+    assert shadowed_argument.returncode != 0
+    assert "unresolved local/dynamic imports" in shadowed_argument.stderr
+
+    source.write_text(
+        safe_source.replace(
+            "def test_selected():\n    assert VALUE == 1\n    assert load_module(HELPER).VALUE == 1",
+            """\
+def outer():
+    HELPER = Path.cwd()
+
+    def inner():
+        return load_module(HELPER)
+
+    return inner()
+
+def test_selected():
+    assert VALUE == 1
+    assert outer()""",
+        ),
+        encoding="utf-8",
+        newline="\n",
+    )
+    closure_shadow, _ = inventory(repo, external)
+    assert closure_shadow.returncode != 0
+    assert "unresolved local/dynamic imports" in closure_shadow.stderr
+
+    source.write_text(safe_source, encoding="utf-8", newline="\n")
     helper.write_text(
         "import importlib\n\ndef load(name):\n    return importlib.import_module(name)\n",
         encoding="utf-8",

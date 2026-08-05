@@ -940,6 +940,49 @@
                                                            "reason":  "Protect the historical-optional exclusion fixture within the planned route-audit test command."
                                                        }
                                                    ]
+                      },
+                      {
+                          "revision_id":  "common_current_route_dynamic_path_analysis_v1",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "c93ac86e7e876158a9b1782d37659325873bdcfc",
+                          "reason":  "Resolve statically bound current-route dynamic loader paths without admitting unresolved runtime imports.",
+                          "approved_activation_deltas":  [
+
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/audit_current_route_output_isolation.py",
+                                                           "before_git_blob_id":  "6bfc185a018edaba4808a19554cb9eefbe4995f0",
+                                                           "before_sha256_lf":  "00b1a50f71450dfae6f928903e7dcd894a47f4ce5ea997f3c13a6bb7898aa300",
+                                                           "expected_git_blob_id":  "be6a94a72d633556fc07246be55ecd3cf7b14f3b",
+                                                           "after_sha256_lf":  "387ea1908c6cd5bb4605f9d69f9310f031d1e75694c4a25e725fc91384b31719",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect repository-relative __file__, parent, formatted path, and wrapper call-site resolution while unresolved imports remain fail-closed."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/tests/test_current_route_output_isolation_audit.py",
+                                                           "before_git_blob_id":  "fac21496649ca7ccc871479ab5f57d6c6de8d633",
+                                                           "before_sha256_lf":  "957ea93c27a4c2f40830cd5b103f1950982650f31c0ad1215ce0f4958e6d0544",
+                                                           "expected_git_blob_id":  "87f57c8b606cdb26fc3a8084655f38c27d5d8b6f",
+                                                           "after_sha256_lf":  "4578c48040ed65b255518250c41499044299394c54a27378912ead82799cad6c",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the statically bound dynamic-loader fixture inside the planned route-audit test command."
+                                                       }
+                                                   ]
                       }
                   ]
 }

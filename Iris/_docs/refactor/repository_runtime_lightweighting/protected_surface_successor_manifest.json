@@ -2123,7 +2123,7 @@
                           "owner": "repository_owner_user",
                           "approved": true,
                           "predecessor_commit": "dd5b8b95a317d603513d63c1846e5e6f1745bac5",
-                          "reason": "Preserve the refreshed Common allocator contract across the Windows PowerShell 5.1 external process boundary.",
+                          "reason": "Preserve the refreshed Common allocator and pre-delete lifecycle contracts at their promoted identities.",
                           "approved_activation_deltas": [],
                           "added_protected_rows": [
                               {
@@ -2155,6 +2155,39 @@
                                   ],
                                   "owner": "repository_owner_user",
                                   "reason": "Bind the generated run identity and multi-root JSON boundary regressions to the refreshed allocator contract."
+                              },
+                              {
+                                  "path": "Iris/validation/residual_refactor/execute_artifact_lifecycle.py",
+                                  "before_git_blob_id": "7f949385906e59c51f0f37c51153b9ba896b16af",
+                                  "before_sha256_lf": "d04571a68d52f809c353a86a5404a1ee3eec52c3931cf7b287a008e0bef1ea17",
+                                  "expected_git_blob_id": "57cd7220120ea3b5f5fc8e06ae2953c226df0baa",
+                                  "after_sha256_lf": "5680486aa184bea39d15250ea78423a4fac2b3fcd2fb22eb5d7abee9eb97f6ae",
+                                  "role": "common_track_validation_tool",
+                                  "writer": "repository_runtime_lightweighting_common_implementation",
+                                  "consumers": [
+                                      "archive_executor",
+                                      "delete_prerequisite_validation",
+                                      "current_route_validation",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Seal and consume the refreshed pre-delete checkpoint through the existing lifecycle transaction boundary."
+                              },
+                              {
+                                  "path": "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+                                  "before_git_blob_id": "3dbce90f8cb3e2444b5fb36f09d1cf9f2ce124cc",
+                                  "before_sha256_lf": "8469fc4b1a9609c8bee6fc147fd01ff19355fcbfd06288a2d7f00ee54477c0fd",
+                                  "expected_git_blob_id": "56077578594dba7c9bc8cd001f0ca37cc229afdc",
+                                  "after_sha256_lf": "08c42b05f3d5d7e74e685ac44cae92a298ad0fe11807cb71f4bb94f11234645a",
+                                  "role": "common_track_test_contract",
+                                  "writer": "repository_runtime_lightweighting_common_implementation",
+                                  "consumers": [
+                                      "common_lifecycle_executor_validation",
+                                      "current_route_validation",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Cover refreshed pre-delete checkpoint sealing, stale binding rejection, and the exact post-validation allowset."
                               }
                           ]
                       }

@@ -90,4 +90,5 @@ Iris/_docs/refactor/residual_refactor/phase0_protected_surface_manifest.json tex
 Iris/_docs/round3/round3_test_taxonomy.json text eol=lf
 Iris/_docs/round3/current_route_required_validations.json text eol=lf
 Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase1_manifest/current_surface_guard_referent_manifest.json text eol=lf
+Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json text eol=lf
 Iris/build/description/v2/owner_inputs/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempt-0005-official/** -text

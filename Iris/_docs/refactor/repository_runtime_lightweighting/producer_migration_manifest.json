@@ -1,8 +1,19 @@
 {
   "schema_version": "iris_repository_runtime_lightweighting_producer_migration_v1",
   "claim_id": "iris_repository_runtime_lightweighting",
-  "revision_id": "common_candidate_initial_v1",
+  "revision_id": "common_candidate_step6_v1",
   "status": "implemented_pending_common_checkpoint",
+  "validated_subject_commit": "bd2ef834573f120e70128daafc67fdedb2cc2742",
+  "validated_subject_tree": "cd1a5c2914f1ee8aa1e61e83338eaced68c4385b",
+  "baseline_adoption": {
+    "checkpoint_id": "baseline_adoption",
+    "evidence_commit": "db500a41e0270e84d1eadba7e8e02c52b006186e",
+    "evidence_tree": "f7984c8a2277f3c16b77c2fda6b7740018a7496b",
+    "receipt": {
+      "path": "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_adoption_receipt.json",
+      "sha256": "b68febe7e6186fce4f75ca489c4861ed1a47f812c1ee5474557ac3d4eebfcd5b"
+    }
+  },
   "authority": {
     "owner": "repository_owner_user",
     "approval": "preapproved_for_unattended_plan_execution",
@@ -10,7 +21,11 @@
   },
   "output_contract": {
     "policy": "Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json",
+    "policy_git_blob_id": "b90531a0bd716ad53ba2c433c8afbe31075ce7c2",
+    "policy_sha256_lf": "c9f493023c8c655dbb75673e4168770f14d0e7594021d0950d3d00876b50abc3",
     "work_root_contract": "Iris/_docs/refactor/repository_runtime_lightweighting/work_root_contract.json",
+    "work_root_contract_git_blob_id": "d9c6115c5164e80a361ca4aaee53ebb25076e418",
+    "work_root_contract_sha256_lf": "9c26cf7febe641c8900feb3f6dc557a212ae8e254540f89bb2836ec027b2a047",
     "allocator": "Iris/validation/clean_checkout/allocate_repository_runtime_lightweighting_roots.ps1",
     "command_wrapper": "Iris/validation/clean_checkout/invoke_repository_runtime_lightweighting_command.ps1",
     "repository_local_large_output_allowed": false,
@@ -21,7 +36,7 @@
     {
       "producer_id": "legacy_active_silent_guard",
       "entrypoint": "Iris/build/description/v2/tools/build/build_legacy_active_silent_current_surface_guard_round.py",
-      "status": "implemented_pending_external_checkpoint",
+      "status": "implemented_pending_common_checkpoint",
       "required_arguments": [
         "--work-root",
         "--result-root",
@@ -91,5 +106,10 @@
     ],
     "final_status": "adopted_common_closeout",
     "current_status_is_closeout": false
-  }
+  },
+  "non_claims": [
+    "This STEP 6 manifest does not claim the STEP 7 Common candidate checkpoint has passed.",
+    "This STEP 6 manifest does not adopt Runtime Track or Tooling Track implementation.",
+    "This STEP 6 manifest does not authorize archive deletion."
+  ]
 }

@@ -1421,6 +1421,196 @@
                                                            "reason":  "Align lifecycle executor fixtures with the canonical physical giant paths and Windows path budget."
                                                        }
                                                    ]
+                      },
+                      {
+                          "revision_id":  "common_baseline_promotion_evidence_v1",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "1bed2a5d88aff69f389b102077eb692c7c575237",
+                          "reason":  "Protect the exact hash-preserved STEP 4 physical baseline evidence after its reviewed promotion commit.",
+                          "approved_activation_deltas":  [
+
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "bcd2803bcb97efdd612059360f89a3e99c6ed277",
+                                                           "after_sha256_lf":  "8bf7a50e68597aec2c69d01cd5a8c67ddb05fabac1b02c8bb37288445993a609",
+                                                           "role":  "common_track_current_required_evidence",
+                                                           "writer":  "repository_runtime_lightweighting_baseline_promotion",
+                                                           "consumers":  [
+                                                                             "baseline_adoption_validation",
+                                                                             "artifact_lifecycle_executor",
+                                                                             "terminal_lifecycle_comparison",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the complete promoted lifecycle role partition at exact Git blob and LF identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_inventory.json",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "ddb40fa2439ee9cc4b46c892d1ba10938041ae7a",
+                                                           "after_sha256_lf":  "c6baefb685b3118b4376adb0eb0162963e251524b2639dba2257112933b48077",
+                                                           "role":  "common_track_current_required_evidence",
+                                                           "writer":  "repository_runtime_lightweighting_baseline_promotion",
+                                                           "consumers":  [
+                                                                             "baseline_adoption_validation",
+                                                                             "artifact_lifecycle_executor",
+                                                                             "terminal_lifecycle_comparison",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the promoted physical-capacity denominator and subject identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_promotion_receipt.json",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "ff8f84081317cbf5448a8513e4cbe045ad362d44",
+                                                           "after_sha256_lf":  "37cca6ad598680a013ab4597e68e4d4d2b47be26422d7a1cfdb17a784f7559ce",
+                                                           "role":  "common_track_current_required_evidence",
+                                                           "writer":  "repository_runtime_lightweighting_baseline_promotion",
+                                                           "consumers":  [
+                                                                             "baseline_adoption_validation",
+                                                                             "artifact_lifecycle_executor",
+                                                                             "terminal_lifecycle_comparison",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the source-to-durable hash-preserving promotion proof."
+                                                       }
+                                                   ]
+                      },
+                      {
+                          "revision_id":  "common_baseline_adoption_evidence_v1",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "bd2ef834573f120e70128daafc67fdedb2cc2742",
+                          "reason":  "Protect the reviewed STEP 5 baseline-adoption checkpoint and extend immutable checkpoint history.",
+                          "approved_activation_deltas":  [
+
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_adoption_receipt.json",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "cf46465286f54bcf348d457dbb21db1dfe2bdda4",
+                                                           "after_sha256_lf":  "b68febe7e6186fce4f75ca489c4861ed1a47f812c1ee5474557ac3d4eebfcd5b",
+                                                           "role":  "common_track_current_required_evidence",
+                                                           "writer":  "repository_runtime_lightweighting_checkpoint_writer",
+                                                           "consumers":  [
+                                                                             "common_candidate_contract",
+                                                                             "common_closeout",
+                                                                             "terminal_closeout",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the exact checkpoint that makes Change 1 authoritative."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/current_route_coverage_map.json",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "b39e5dcaeb80d3372c07a1614d4d111735615e95",
+                                                           "after_sha256_lf":  "1a4165eaf2069db4a2c7707d39df522f01f4b22efde5ba6dffd15fef39826a0b",
+                                                           "role":  "common_track_current_required_evidence",
+                                                           "writer":  "repository_runtime_lightweighting_route_result_canonicalizer",
+                                                           "consumers":  [
+                                                                             "selected_track_adoption",
+                                                                             "terminal_route_validation",
+                                                                             "final_closeout",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the initial exact direct and current-route lifecycle coverage map."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json",
+                                                           "before_git_blob_id":  "5cc62c46ea6aac3e30da72eb67d820e6106ad1c6",
+                                                           "before_sha256_lf":  "b32e06033ae3df8677b8b56dbf275af79e23447eaa49c161688611b93a835bc8",
+                                                           "expected_git_blob_id":  "b158643d8f9fd4155fd0945dde30580bb6538175",
+                                                           "after_sha256_lf":  "7328b08c09e6976621e1858a11742c4d34b74f1adcc1a91c32949413e18943a4",
+                                                           "role":  "common_track_current_required_evidence",
+                                                           "writer":  "repository_runtime_lightweighting_checkpoint_writer",
+                                                           "consumers":  [
+                                                                             "common_candidate_validation",
+                                                                             "common_closeout",
+                                                                             "terminal_closeout",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Append the immutable baseline_adoption subject without rewriting bootstrap_support."
+                                                       }
+                                                   ]
+                      },
+                      {
+                          "revision_id":  "common_candidate_contract_reseal_v1",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "db500a41e0270e84d1eadba7e8e02c52b006186e",
+                          "reason":  "Reseal the STEP 6 Common candidate contracts after authoritative Change 1 baseline adoption.",
+                          "approved_activation_deltas":  [
+
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  ".gitattributes",
+                                                           "before_git_blob_id":  "cda92a8718cb7c28865a864b17f987137e40bd92",
+                                                           "before_sha256_lf":  "20f8c540f87722ecb23e856f541f863ecfc34126b2ea016e970eef6cbd1acf5c",
+                                                           "expected_git_blob_id":  "cf3479cf4bf536abdcb44cc1c54018214eca307e",
+                                                           "after_sha256_lf":  "935d04572e63ad102f6034076ddb2619b9d1b383f36a551751377bbff27333a9",
+                                                           "role":  "common_track_checkout_identity_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "common_candidate_validation",
+                                                                             "terminal_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Materialize the adopted successor output policy with deterministic LF bytes in every exact checkout."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/work_root_contract.json",
+                                                           "before_git_blob_id":  "684010d4dbe6b9a398b58835a617c96bd7cf869d",
+                                                           "before_sha256_lf":  "a37cb78a4d19f1e0f32ec7d6904a28200ff810920ea9a3eb0eed8f2280235aab",
+                                                           "expected_git_blob_id":  "d9c6115c5164e80a361ca4aaee53ebb25076e418",
+                                                           "after_sha256_lf":  "9c26cf7febe641c8900feb3f6dc557a212ae8e254540f89bb2836ec027b2a047",
+                                                           "role":  "common_track_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "common_candidate_validation",
+                                                                             "terminal_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Bind the adopted external-root contract to the authoritative STEP 5 baseline evidence."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/producer_migration_manifest.json",
+                                                           "before_git_blob_id":  "351790a64dfe9b15a83857c901a133c1c178046d",
+                                                           "before_sha256_lf":  "fe18cde9dba5acba6f7565b5123ff4d1f72aac59626ff6b195b194e68e42d384",
+                                                           "expected_git_blob_id":  "19696a324ef9d8a3d653c480d91db04f0cc598f7",
+                                                           "after_sha256_lf":  "f843a7ad6474249e0278e6d9f6bd96d700179e0a81f62e29d722a1bb6a5f5be5",
+                                                           "role":  "common_track_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "common_candidate_validation",
+                                                                             "common_closeout",
+                                                                             "terminal_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Bind exact Common producer migration state to the authoritative STEP 5 baseline evidence."
+                                                       }
+                                                   ]
                       }
                   ]
 }

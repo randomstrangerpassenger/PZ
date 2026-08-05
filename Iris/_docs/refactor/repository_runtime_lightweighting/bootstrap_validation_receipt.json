@@ -1,0 +1,133 @@
+{
+  "schema_version": "iris_repository_runtime_lightweighting_bootstrap_validation_receipt_v1",
+  "status": "PASS",
+  "checkpoint_id": "bootstrap_support",
+  "validated_at": "2026-08-05T03:29:40.0730289Z",
+  "validated_subject": {
+    "subject_kind": "bootstrap_validation_subject",
+    "claim_id": "bootstrap-validation-56232829-20260805-16",
+    "repository_root": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/w33",
+    "commit": "562328294ae193c36dd814d458c74362bb34fd5d",
+    "tree": "fe7987d637b921f44cd524c2362784466dccf8c6",
+    "subject_receipt": {
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/bootstrap_subject_receipt.json",
+      "sha256": "5abbee8b6aca53a26df1e8559b465920c3b377302663e84e2cd53d68ca569748"
+    }
+  },
+  "route_audit_subject": {
+    "subject_kind": "bootstrap_route_audit_subject",
+    "claim_id": "bootstrap-route-audit-56232829-20260805-16",
+    "repository_root": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/w34",
+    "commit": "562328294ae193c36dd814d458c74362bb34fd5d",
+    "tree": "fe7987d637b921f44cd524c2362784466dccf8c6",
+    "subject_receipt": {
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/audit_subject_receipt.json",
+      "sha256": "85af6fccd9526e215e2427fd366be673ec97cb75e5bd5afc4131800111196868"
+    }
+  },
+  "environment_authority": {
+    "path": "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json",
+    "sha256": "1bc7076459f72dbfa733e0101d77e9eb0b73c0f01e88ac54bc326c8ad2f67138"
+  },
+  "environment_receipt": {
+    "path": "C:/Users/MW/iccv/receipts/env-v1/environment_receipt.json",
+    "sha256": "fb5dd78e15c41346f15b39065c60c2ce4d83254d73bbde3d3181d327b30b6bc2"
+  },
+  "environment_delta": {
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/environment_delta.json",
+    "sha256": "0ebb1be83f9b113c95dfcecfdfab50d5c7bffa314a38258cd9e2061ebc8fa5c0"
+  },
+  "taxonomy": {
+    "path": "Iris/_docs/round3/round3_test_taxonomy.json",
+    "sha256": "0fe547966e6b428db1631a669ceaa80faa521178c9494f900a76bc577943cb1b"
+  },
+  "required_validations": {
+    "path": "Iris/_docs/round3/current_route_required_validations.json",
+    "sha256": "e29b1101e15477c712a502a8d4d3de88621602c376e8b9dff8cb813d3ba1f1ed"
+  },
+  "active_core_closure": {
+    "path": "Iris/_docs/round3/round3_active_core_closure.json",
+    "sha256": "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf"
+  },
+  "checkout_clean_before": true,
+  "checkout_clean_before_dirty_entries": [],
+  "checkout_clean_before_receipt": {
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/001-git-status-bootstrap-before.json",
+    "sha256": "9dc6aa95ea76b69e5848a857b969d90186960868e7dbe10842dc9a51c0d561fc"
+  },
+  "checkout_clean_after": true,
+  "checkout_clean_after_dirty_entries": [],
+  "checkout_clean_after_receipt": {
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/005-git-status-bootstrap-after.json",
+    "sha256": "8ca900523e7e4077b1b378655b3ed61be26132f6b7021deeb1a0b00faf8e6a1a"
+  },
+  "route_audit_clean_before": true,
+  "route_audit_clean_before_dirty_entries": [],
+  "route_audit_clean_before_receipt": {
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/006-git-status-route-audit-before.json",
+    "sha256": "f136203e49bb810a7ecc0f19ffd39335f957f8f4764919e16a2060cdbcf900a6"
+  },
+  "route_audit_clean_after": true,
+  "route_audit_clean_after_dirty_entries": [],
+  "route_audit_clean_after_receipt": {
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/011-git-status-route-audit-after.json",
+    "sha256": "8c1f036b5356d43a05bc70353666716b77af4466406d29acc93fc1c117e26392"
+  },
+  "output_isolation_audit": {
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/audit-results/current_route_output_isolation_audit_receipt.json",
+    "sha256": "0c1311910322124057c51e31ae304dcc57dc6ab39c41bc8f87f0225e08279b34",
+    "status": "PASS",
+    "checkout_unchanged": true,
+    "tracked_delta_count": 0,
+    "untracked_delta_count": 0,
+    "ignored_delta_count": 0,
+    "unreadable_count": 0
+  },
+  "current_route_result": {
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/audit-results/current_route.json",
+    "sha256": "4387baa3c97dea41ba3dedb178b40b5df42667e9610546e305cbf25ac490fcf3",
+    "contract_class": "current",
+    "closure_enforced": true,
+    "test_count": 190,
+    "failure_count": 0,
+    "error_count": 0,
+    "success": true
+  },
+  "static_inventory": {
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/audit-results/static_inventory.json",
+    "sha256": "a2dd90f26df9b23fa1185af7442ab435c0a0ba296b9e657dfc6bbc97773a839c"
+  },
+  "command_receipt_set_sha256": "4c29a064cceb422c161346eb480d8e69ceacaa0c0482604d119c5a8938efe81d",
+  "command_spec_set_sha256": "bd412ac620347227ba0e28dd699b38c36eed4d47f820517196af9ffef91094f7",
+  "command_receipts": [
+    {"command_id": "001-git-status-bootstrap-before", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/001-git-status-bootstrap-before.json", "sha256": "9dc6aa95ea76b69e5848a857b969d90186960868e7dbe10842dc9a51c0d561fc"},
+    {"command_id": "002-wrapper-negative-and-argv-fixtures", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/002-wrapper-negative-and-argv-fixtures.json", "sha256": "d8c9aca4898cb7be20c8070513b41247a9c0c9e1b0e4b5f2df450a711f1a59af"},
+    {"command_id": "003-route-output-audit-fixtures", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/003-route-output-audit-fixtures.json", "sha256": "39465d309e30e0b080a11ea5365591bcfc446b0558a8afd903394a201f53aac7"},
+    {"command_id": "004-clean-checkout-fixtures", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/004-clean-checkout-fixtures.json", "sha256": "1c4422d352610f2f58847005cf804638d2d69a78cd1e885c26c42d6cc0d209c9"},
+    {"command_id": "005-git-status-bootstrap-after", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/005-git-status-bootstrap-after.json", "sha256": "8ca900523e7e4077b1b378655b3ed61be26132f6b7021deeb1a0b00faf8e6a1a"},
+    {"command_id": "006-git-status-route-audit-before", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/006-git-status-route-audit-before.json", "sha256": "f136203e49bb810a7ecc0f19ffd39335f957f8f4764919e16a2060cdbcf900a6"},
+    {"command_id": "007-route-audit-static-inventory", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/007-route-audit-static-inventory.json", "sha256": "5cc5aa3243cd7345a2821ca6b57b1a852b214fe38d72aaf4741c56dbfb3105ca"},
+    {"command_id": "008-route-audit-current-list", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/008-route-audit-current-list.json", "sha256": "2cb0ce8b7b99e6b02ee59e217a6661f7eca1d7d8a09078969cf8f9c376e1b688"},
+    {"command_id": "009-route-audit-dynamic-current", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/009-route-audit-dynamic-current.json", "sha256": "259302c2b1ef341ccf67c5d9bc2afd0732789ea79496bd0c1300ab12e3ef09ff"},
+    {"command_id": "010-route-audit-seal", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/010-route-audit-seal.json", "sha256": "512cebfc59a11b6862c58f423d6eee49e6b91959dde61c501beec867c64b7feb"},
+    {"command_id": "011-git-status-route-audit-after", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/011-git-status-route-audit-after.json", "sha256": "8c1f036b5356d43a05bc70353666716b77af4466406d29acc93fc1c117e26392"}
+  ],
+  "command_specs": [
+    {"command_id": "001-git-status-bootstrap-before", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/001-git-status-bootstrap-before.command.json", "sha256": "4d49fc700875568e17b8fc36ee707fe7bb54b2caf996fc4df33ff5fefb6080b3"},
+    {"command_id": "002-wrapper-negative-and-argv-fixtures", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/002-wrapper-negative-and-argv-fixtures.command.json", "sha256": "4282a31d11e819c1a627225e08577a6c9ca4f40a753114cd43c319227bdb4fae"},
+    {"command_id": "003-route-output-audit-fixtures", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/003-route-output-audit-fixtures.command.json", "sha256": "2f4db67b751fdd3c50dd57de88d0ec6693d8bf296accd70739645a8780aa7f75"},
+    {"command_id": "004-clean-checkout-fixtures", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/004-clean-checkout-fixtures.command.json", "sha256": "96e4f35a17f7ef8c8581cba8930bede762aea72f9c2e41e57b5018304b104905"},
+    {"command_id": "005-git-status-bootstrap-after", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/005-git-status-bootstrap-after.command.json", "sha256": "24f5cd233a8a3a435ca785879ac0c5845cd11d54543bd5873e4b8cc72c0a0d50"},
+    {"command_id": "006-git-status-route-audit-before", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/006-git-status-route-audit-before.command.json", "sha256": "68389d7e3db7e3dfb2f2059abff1988fa44402150c8c4a7be2c88af0ca385678"},
+    {"command_id": "007-route-audit-static-inventory", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/007-route-audit-static-inventory.command.json", "sha256": "74a7de7ccd73663db7b3945cf7afe0cc146bc19736c5a2da4b8dec8d452200fa"},
+    {"command_id": "008-route-audit-current-list", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/008-route-audit-current-list.command.json", "sha256": "a63fa2a1db09ff46b38358ece00437dcbe6f2defc015449848af28acebad1708"},
+    {"command_id": "009-route-audit-dynamic-current", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/009-route-audit-dynamic-current.command.json", "sha256": "6f6c0fe571eb1a629267ca7b2fe8bba53c611780a4b85578fcbacdb2dc1f38ca"},
+    {"command_id": "010-route-audit-seal", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/010-route-audit-seal.command.json", "sha256": "226ca4e49fa110ae12060ec4d8674ffb4572d761f6828f98f215e5e8e48e6aec"},
+    {"command_id": "011-git-status-route-audit-after", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/command-receipts/011-git-status-route-audit-after.command.json", "sha256": "8ddb08fd49fd0e412d05818c6320317af47bb630fffd518dd117a277daf90833"}
+  ],
+  "non_claims": [
+    "This bootstrap checkpoint is not authoritative Change 1 baseline adoption.",
+    "This bootstrap checkpoint does not prove physical-capacity byte accounting or ignored-artifact deletion.",
+    "This bootstrap checkpoint does not adopt Runtime Track or Tooling Track changes."
+  ]
+}

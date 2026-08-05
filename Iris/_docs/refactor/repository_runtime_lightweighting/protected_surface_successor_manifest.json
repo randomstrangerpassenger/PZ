@@ -1208,6 +1208,52 @@
                                                            "reason":  "Assert the generalized post-delete validated-candidate binding error emitted for a missing durable allowset row."
                                                        }
                                                    ]
+                      },
+                      {
+                          "revision_id":  "common_bootstrap_validation_evidence_v1",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "562328294ae193c36dd814d458c74362bb34fd5d",
+                          "reason":  "Adopt the planned Step 2 bootstrap PASS receipt and initial immutable validation-checkpoint history.",
+                          "approved_activation_deltas":  [
+
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/bootstrap_validation_receipt.json",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "8b607b34d80f8ff4548c15b123ca4c2f34cd81e5",
+                                                           "after_sha256_lf":  "9f3f4462f947c2cbf7edd7a08d4683aab1256e336894ff64f02a6b71d0fe8cec",
+                                                           "role":  "common_track_bootstrap_validation_receipt",
+                                                           "writer":  "repository_runtime_lightweighting_step2_checkpoint_writer",
+                                                           "consumers":  [
+                                                                             "baseline_generation_gate",
+                                                                             "validation_checkpoint_history",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the exact Step 2 validated subject, command-set hashes, clean assertions, and output-isolation PASS evidence."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json",
+                                                           "before_git_blob_id":  null,
+                                                           "before_sha256_lf":  null,
+                                                           "expected_git_blob_id":  "5cc62c46ea6aac3e30da72eb67d820e6106ad1c6",
+                                                           "after_sha256_lf":  "b32e06033ae3df8677b8b56dbf275af79e23447eaa49c161688611b93a835bc8",
+                                                           "role":  "common_track_validation_checkpoint_manifest",
+                                                           "writer":  "repository_runtime_lightweighting_step2_checkpoint_writer",
+                                                           "consumers":  [
+                                                                             "baseline_adoption_checkpoint",
+                                                                             "common_pre_delete_checkpoint",
+                                                                             "terminal_closeout",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the initial immutable bootstrap checkpoint row before later single-row checkpoint appends."
+                                                       }
+                                                   ]
                       }
                   ]
 }

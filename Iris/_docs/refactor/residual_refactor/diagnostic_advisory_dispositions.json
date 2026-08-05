@@ -76,15 +76,6 @@
       "traceback_fingerprint": "f5ef786b2429a6dc58e1f26e1863299b2dee6f6f2404f268280c2370e1fca736"
     },
     {
-      "exception_type": "FileNotFoundError",
-      "expiry_readpoint": "next_diagnostic_taxonomy_or_historical_reproduction_corpus_revision",
-      "kind": "error",
-      "owner": "repository_owner",
-      "reason": "The diagnostic overlay does not promote the live package writer into its pinned historical fixture set.",
-      "test_id": "test_package_script_excludes_layer3_monolith (test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_package_script_excludes_layer3_monolith)",
-      "traceback_fingerprint": "9306fb65371d16728ecd5c1c6bd994351cf7d82d70ae7e927307589dee196d01"
-    },
-    {
       "exception_type": "AssertionError",
       "expiry_readpoint": "next_diagnostic_taxonomy_or_historical_reproduction_corpus_revision",
       "kind": "failure",

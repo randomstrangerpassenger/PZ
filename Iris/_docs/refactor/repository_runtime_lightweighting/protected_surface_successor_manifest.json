@@ -1782,6 +1782,36 @@
                                                            "reason":  "Expect the exact tracked fixture path that replaced the generic test_fixture.py name for matched-path lexical policy coverage."
                                                        }
                                                    ]
+                      },
+                      {
+                          "revision_id":  "common_pre_delete_checkpoint_manifest_binding_repair_v1",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "9ffab70ebcd58941d4665a8215a4e3e0d3baec80",
+                          "reason":  "Bind the repaired STEP 8 checkpoint-manifest bytes sealed after the archive live-reference gate repair so the current protected-surface validator follows the complete immutable checkpoint chain.",
+                          "approved_activation_deltas":  [
+
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json",
+                                                           "before_git_blob_id":  "b158643d8f9fd4155fd0945dde30580bb6538175",
+                                                           "before_sha256_lf":  "7328b08c09e6976621e1858a11742c4d34b74f1adcc1a91c32949413e18943a4",
+                                                           "expected_git_blob_id":  "57c573adece7c008a0d367f8ece24fcbd134e211",
+                                                           "after_sha256_lf":  "d107431fdc3ba2127573b5981777cf69dc0d1a9ca527ea5c1a124955ece7602f",
+                                                           "role":  "common_track_current_required_evidence",
+                                                           "writer":  "repository_runtime_lightweighting_checkpoint_writer",
+                                                           "consumers":  [
+                                                                             "bootstrap_restart_validation",
+                                                                             "common_pre_delete_validation",
+                                                                             "archive_executor",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the exact repaired STEP 8 checkpoint history that became HEAD after the prior protected-surface revision was authored."
+                                                       }
+                                                   ]
                       }
                   ]
 }

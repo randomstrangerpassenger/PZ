@@ -12,6 +12,10 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[5]
 PRODUCER = REPO / "Iris/validation/residual_refactor/report_artifact_lifecycle.py"
+GUARD_REFERENCE_POLICY = (
+    REPO
+    / "Iris/_docs/refactor/repository_runtime_lightweighting/current_surface_guard_successor_manifest.json"
+)
 GIANT_RELATIVE = (
     "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/allowed_occurrence_inventory.json",
     "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/legacy_active_silent_occurrence_inventory.jsonl",
@@ -51,6 +55,13 @@ def make_repo(root: Path, *, giants: bool) -> Path:
             path = repo / relative
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes((f"giant-{index}\n" * index).encode("utf-8"))
+    fixture_policy = (
+        repo
+        / "Iris/_docs/refactor/repository_runtime_lightweighting/"
+        "current_surface_guard_successor_manifest.json"
+    )
+    fixture_policy.parent.mkdir(parents=True, exist_ok=True)
+    fixture_policy.write_bytes(GUARD_REFERENCE_POLICY.read_bytes())
     git(repo, "add", ".")
     git(repo, "commit", "-m", "fixture")
     return repo.resolve()
@@ -73,6 +84,25 @@ def run_inventory(repo: Path, output: Path, subject_kind: str = "physical_capaci
             "--subject-receipt-out",
             str(output / "subject_receipt.json"),
         ],
+        cwd=repo,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
+
+
+def probe_lifecycle_reference_policy(repo: Path) -> subprocess.CompletedProcess[str]:
+    script = (
+        "import json,sys;"
+        f"sys.path.insert(0,{str(PRODUCER.parent)!r});"
+        "from report_artifact_lifecycle import load_lifecycle_reference_policy;"
+        "print(json.dumps(load_lifecycle_reference_policy(__import__('pathlib').Path.cwd())['binding'],sort_keys=True))"
+    )
+    return subprocess.run(
+        [sys.executable, "-B", "-c", script],
         cwd=repo,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -264,6 +294,22 @@ class ArtifactLifecycleInventoryTest(unittest.TestCase):
                 handle.write("ignored_consumer.py\n")
             git(repo, "add", ".gitignore")
             git(repo, "commit", "-m", "scope fixture")
+            policy_probe = probe_lifecycle_reference_policy(repo)
+            self.assertEqual(policy_probe.returncode, 0, policy_probe.stderr)
+            policy_binding = json.loads(policy_probe.stdout)
+            self.assertTrue(policy_binding["git_blob_id"])
+            self.assertEqual(len(policy_binding["sha256"]), 64)
+            policy_path = (
+                repo
+                / "Iris/_docs/refactor/repository_runtime_lightweighting/"
+                "current_surface_guard_successor_manifest.json"
+            )
+            policy_bytes = policy_path.read_bytes()
+            policy_path.write_bytes(policy_bytes + b"\n")
+            rejected_policy = probe_lifecycle_reference_policy(repo)
+            self.assertNotEqual(rejected_policy.returncode, 0)
+            self.assertIn("not exact and HEAD-bound", rejected_policy.stderr)
+            policy_path.write_bytes(policy_bytes)
             output = root / "evidence"
             result = run_inventory(repo, output)
             self.assertEqual(result.returncode, 0, result.stderr)

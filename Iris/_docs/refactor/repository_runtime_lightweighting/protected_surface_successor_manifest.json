@@ -1611,6 +1611,148 @@
                                                            "reason":  "Bind exact Common producer migration state to the authoritative STEP 5 baseline evidence."
                                                        }
                                                    ]
+                      },
+                      {
+                          "revision_id":  "common_pre_delete_checkpoint_superseded_v1",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "6d00d35d400f34e589b61f009893566f128bee0e",
+                          "reason":  "Record the exact STEP 8 checkpoint transition from commit 8bece32 before its receipt was superseded prior to archive consumption.",
+                          "approved_activation_deltas":  [
+
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json",
+                                                           "before_git_blob_id":  "b158643d8f9fd4155fd0945dde30580bb6538175",
+                                                           "before_sha256_lf":  "7328b08c09e6976621e1858a11742c4d34b74f1adcc1a91c32949413e18943a4",
+                                                           "expected_git_blob_id":  "9b1d94c5bb316ca298651e327f22fc3f644fc3f1",
+                                                           "after_sha256_lf":  "21d6a124c91735920354038c78be877e226d0967ebe82be6fb369b5a5d539d03",
+                                                           "role":  "common_track_current_required_evidence",
+                                                           "writer":  "repository_runtime_lightweighting_checkpoint_writer",
+                                                           "consumers":  [
+                                                                             "common_pre_delete_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Seal the exact superseded Common pre-delete checkpoint transition so the protected row chain remains append-only and auditable."
+                                                       }
+                                                   ]
+                      },
+                      {
+                          "revision_id":  "common_archive_live_reference_repair_v1",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "8bece32d1873c068bc5f23527367f809aa430d16",
+                          "reason":  "Supersede the unconsumed STEP 8 receipt and repair the Common archive gate so frozen baseline consumers remain historical while archive and delete decisions require a strict HEAD-bound fresh reference policy.",
+                          "approved_activation_deltas":  [
+
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/current_surface_guard_successor_manifest.json",
+                                                           "before_git_blob_id":  "191af3c821b03f3a6e0ebd8896e6e2daadee4c77",
+                                                           "before_sha256_lf":  "dc29f9fb1c7404b6b01205446f26fc6608b8efb5114223b162210e33f3925baf",
+                                                           "expected_git_blob_id":  "c94a7d08e52759cd5328d7da761c91561cc91391",
+                                                           "after_sha256_lf":  "ebca0c5cd51fbc296f0a39526ee759f016e1785c4cf4cd6933928d5ac83f0aec",
+                                                           "role":  "common_track_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "physical_lifecycle_census",
+                                                                             "archive_executor",
+                                                                             "delete_prerequisite_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Bind the exact four cleanup targets to narrow evidence-only referrer dispositions while every executable reference axis remains blocking."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json",
+                                                           "before_git_blob_id":  "9b1d94c5bb316ca298651e327f22fc3f644fc3f1",
+                                                           "before_sha256_lf":  "21d6a124c91735920354038c78be877e226d0967ebe82be6fb369b5a5d539d03",
+                                                           "expected_git_blob_id":  "b158643d8f9fd4155fd0945dde30580bb6538175",
+                                                           "after_sha256_lf":  "7328b08c09e6976621e1858a11742c4d34b74f1adcc1a91c32949413e18943a4",
+                                                           "role":  "common_track_current_required_evidence",
+                                                           "writer":  "repository_runtime_lightweighting_checkpoint_writer",
+                                                           "consumers":  [
+                                                                             "common_candidate_validation",
+                                                                             "common_pre_delete_validation",
+                                                                             "common_closeout",
+                                                                             "terminal_closeout",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Remove the superseded Common pre-delete checkpoint row before replaying STEP 7 and STEP 8 from the repaired candidate commit."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+                                                           "before_git_blob_id":  "4ae62817d4329bf9bb20f3e28db72666a7cc13cc",
+                                                           "before_sha256_lf":  "70a6fc11a8dfd4bd7311dc3448f7dd74bd4c78f036be51013d6e1a33447608e5",
+                                                           "expected_git_blob_id":  "175d8531d68e54027f7efa63df32e559b1e7ba9f",
+                                                           "after_sha256_lf":  "2cf937f70a04d9053244b307788861479c73220d4bc240fc0c53294b4c8faf39",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "common_lifecycle_executor_validation",
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Cover stale baseline consumers, exact-axis policy scoping, policy broadening, sealed summary tampering, and fresh delete-time consumer rejection."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+                                                           "before_git_blob_id":  "0b1d5860d0e04c121b4004f514ec90d2a9e5a0e5",
+                                                           "before_sha256_lf":  "cd017e7408000f3fe1e7af86b9626623093350cc44673d2094036e58acecc741",
+                                                           "expected_git_blob_id":  "41c6e0810490d5e97274281a3cd9a61f09b305e2",
+                                                           "after_sha256_lf":  "a7fefccbcb7da346c712f6d50c68e64164a8f33d2dd3f727831874775cc86070",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "physical_lifecycle_validation",
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Exercise exact committed lifecycle policy loading without changing the frozen baseline consumer semantics."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/residual_refactor/execute_artifact_lifecycle.py",
+                                                           "before_git_blob_id":  "8dec90a42c9092b10220eb7cfe1dbda0b39aadb2",
+                                                           "before_sha256_lf":  "ee0fa6fa6904ad18f55183ca076db5000d40550783ea8706b03fe7d6824c0725",
+                                                           "expected_git_blob_id":  "f04acf35f555c7c3737da4454785785aead0f17c",
+                                                           "after_sha256_lf":  "8eb7a41a1edc4507a3935485da575b7fa1cd49d72ed2f5cbf966deb97a925063",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "archive_executor",
+                                                                             "delete_prerequisite_validation",
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Retain frozen baseline row evidence but gate archive and delete with fresh policy-bound zero-live reports whose disposition summaries are recomputed."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/residual_refactor/report_artifact_lifecycle.py",
+                                                           "before_git_blob_id":  "1651efbd1460a398d91d32209c9ea19e410fe40e",
+                                                           "before_sha256_lf":  "1c2d253515be4bf3ae71cf959edb4e5c27915aa89edcb89beb6f0f66285949c8",
+                                                           "expected_git_blob_id":  "7bdf33c525e761a9a62064c40c9cbea2819a71c1",
+                                                           "after_sha256_lf":  "d52c076b9326aed5d649bf812cf671894e1e0c22c628d2585ce55b22fac5d449",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "physical_lifecycle_census",
+                                                                             "archive_executor",
+                                                                             "delete_prerequisite_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Load an exact HEAD-bound canonical referrer policy and apply its dispositions only to the exact four producer-owned cleanup targets."
+                                                       }
+                                                   ]
                       }
                   ]
 }

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import ast
+import fnmatch
 import hashlib
 import json
 import os
@@ -39,6 +40,96 @@ GIANT_SUFFIXES = {
     "phase3_adjudication/occurrence_adjudication_report.json",
     "phase5_guard/current_surface_guard_report.json",
 }
+GIANT_ROOT = (
+    "Iris/build/description/v2/staging/compose_contract_migration/"
+    "legacy_active_silent_current_surface_guard_round"
+)
+GIANT_PATHS = tuple(sorted(f"{GIANT_ROOT}/{suffix}" for suffix in GIANT_SUFFIXES))
+LIFECYCLE_REFERENCE_POLICY_RELATIVE = (
+    "Iris/_docs/refactor/repository_runtime_lightweighting/"
+    "current_surface_guard_successor_manifest.json"
+)
+LIFECYCLE_REFERENCE_POLICY_SCHEMA = (
+    "iris_repository_runtime_lightweighting_lifecycle_reference_disposition_v1"
+)
+LIFECYCLE_REFERENCE_POLICY_REVISION = "legacy_guard_giant_cleanup_v1"
+LIFECYCLE_REFERENCE_POLICY_APPROVAL = (
+    "owner_preapproved_for_unattended_plan_execution"
+)
+LIFECYCLE_REFERENCE_POLICY_CLAIM = "iris_repository_runtime_lightweighting"
+LIFECYCLE_REFERENCE_POLICY_AUTHORITY = {
+    "approval": LIFECYCLE_REFERENCE_POLICY_APPROVAL,
+    "claim_id": LIFECYCLE_REFERENCE_POLICY_CLAIM,
+    "reason": "Adopt the Change 3 role-scoped scan denominator without rewriting sealed predecessor evidence.",
+}
+LIFECYCLE_REFERENCE_POLICY_REASON = (
+    "Treat only owner-dispositioned JSON/JSONL evidence manifests, the exact archived "
+    "lexical diagnostic, and four exact lexical-only test fixtures as nonblocking for "
+    "the four migrated guard payloads; explicit reads, imports, subprocesses, package "
+    "reachability, and every other reference remain blocking."
+)
+LIFECYCLE_BLOCKING_AXES = (
+    "python_import",
+    "python_read",
+    "python_string_reference",
+    "subprocess_invocation",
+    "manifest_path",
+    "package_reachability",
+)
+LIFECYCLE_REFERENCE_POLICY_PREDECESSOR = {
+    "path": (
+        "Iris/build/description/v2/staging/compose_contract_migration/"
+        "legacy_active_silent_current_surface_guard_round/phase1_manifest/"
+        "current_surface_guard_referent_manifest.json"
+    ),
+    "git_blob_id": "28b89b4b054b4ec6f625d03af3a07f0708c89f98",
+    "sha256_lf": "bb2940194bddcbe30a3917b0b73cc3c4e7633db117def200d44f4b401fdb647f",
+}
+LIFECYCLE_REFERENCE_POLICY_RULES = (
+    {
+        "id": "staging_evidence_reference",
+        "role": "report_only_staging_residue",
+        "path_globs": [
+            "Iris/build/description/v2/staging/**/*.json",
+            "Iris/build/description/v2/staging/**/*.jsonl",
+        ],
+        "allowed_axes": ["manifest_path"],
+        "record_axis": "disposed_staging_evidence_reference",
+    },
+    {
+        "id": "cold_archive_evidence_reference",
+        "role": "cold_archive_payload",
+        "path_globs": [
+            "Iris/_archive/**/*.json",
+            "Iris/_archive/**/*.jsonl",
+        ],
+        "allowed_axes": ["manifest_path"],
+        "record_axis": "disposed_cold_archive_evidence_reference",
+    },
+    {
+        "id": "cold_archive_lexical_diagnostic_reference",
+        "role": "cold_archive_payload",
+        "path_globs": [
+            "Iris/_archive/staging/compose_contract_migration/"
+            "layer4_boundary_current_corpus_lock_round/"
+            "layer4_boundary_lexical_scan_diagnostic.txt"
+        ],
+        "allowed_axes": ["python_string_reference"],
+        "record_axis": "disposed_cold_archive_diagnostic_reference",
+    },
+    {
+        "id": "test_fixture_lexical_reference",
+        "role": "test_fixture",
+        "path_globs": [
+            "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+            "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+            "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
+            "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+        ],
+        "allowed_axes": ["python_string_reference"],
+        "record_axis": "test_fixture_reference",
+    },
+)
 TEXT_SUFFIXES = {".json", ".jsonl", ".lua", ".md", ".py", ".ps1", ".txt"}
 LIFECYCLE_TRACKING_ADDITIONS = {
     f"Iris/_docs/refactor/repository_runtime_lightweighting/{name}"
@@ -85,6 +176,133 @@ def sha256_file(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def load_lifecycle_reference_policy(repo: Path) -> dict[str, Any]:
+    repo = repo.resolve()
+    relative = LIFECYCLE_REFERENCE_POLICY_RELATIVE
+    path = (repo / relative).resolve()
+    try:
+        path.relative_to(repo)
+    except ValueError as error:
+        raise LifecycleError("lifecycle reference policy escapes repository") from error
+    if not path.is_file():
+        raise LifecycleError("lifecycle reference policy is missing")
+    working_bytes = path.read_bytes()
+    blob = subprocess.run(
+        ["git", "-C", str(repo), "rev-parse", f"HEAD:{relative}"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
+    committed = subprocess.run(
+        ["git", "-C", str(repo), "show", f"HEAD:{relative}"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    if (
+        blob.returncode != 0
+        or committed.returncode != 0
+        or committed.stdout != working_bytes
+    ):
+        raise LifecycleError("lifecycle reference policy is not exact and HEAD-bound")
+    try:
+        manifest = json.loads(working_bytes.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise LifecycleError("lifecycle reference policy is malformed") from error
+    if not isinstance(manifest, dict):
+        raise LifecycleError("lifecycle reference policy manifest must be an object")
+    disposition = manifest.get("lifecycle_reference_disposition")
+    if (
+        manifest.get("schema_version")
+        != "iris_repository_runtime_lightweighting_current_surface_guard_successor_v1"
+        or manifest.get("successor_authority") != LIFECYCLE_REFERENCE_POLICY_AUTHORITY
+        or manifest.get("predecessor_manifest") != LIFECYCLE_REFERENCE_POLICY_PREDECESSOR
+        or not isinstance(disposition, dict)
+        or disposition.get("schema_version") != LIFECYCLE_REFERENCE_POLICY_SCHEMA
+        or disposition.get("revision_id") != LIFECYCLE_REFERENCE_POLICY_REVISION
+        or disposition.get("owner") != "repository_owner_user"
+        or disposition.get("approved") is not True
+        or disposition.get("approval") != LIFECYCLE_REFERENCE_POLICY_APPROVAL
+        or disposition.get("strict_head_binding_required") is not True
+        or disposition.get("reason") != LIFECYCLE_REFERENCE_POLICY_REASON
+        or set(disposition) != {
+            "schema_version",
+            "revision_id",
+            "owner",
+            "approved",
+            "approval",
+            "strict_head_binding_required",
+            "target_scope",
+            "nonblocking_referrer_rules",
+            "blocking_axes",
+            "reason",
+        }
+    ):
+        raise LifecycleError("lifecycle reference policy authority/schema mismatch")
+    target_scope = disposition.get("target_scope")
+    if not isinstance(target_scope, dict) or set(target_scope) != {"producer", "exact_paths"}:
+        raise LifecycleError("lifecycle reference policy target scope is malformed")
+    target_paths = target_scope.get("exact_paths")
+    if (
+        target_scope.get("producer")
+        != "build_legacy_active_silent_current_surface_guard_round.py"
+        or not isinstance(target_paths, list)
+        or not all(isinstance(target, str) for target in target_paths)
+        or target_paths != list(GIANT_PATHS)
+    ):
+        raise LifecycleError("lifecycle reference policy target scope mismatch")
+    rules = disposition.get("nonblocking_referrer_rules")
+    if not isinstance(rules, list) or len(rules) != len(LIFECYCLE_REFERENCE_POLICY_RULES):
+        raise LifecycleError("lifecycle reference policy referrer rules are missing")
+    normalized_rules: list[dict[str, Any]] = []
+    for rule, expected in zip(rules, LIFECYCLE_REFERENCE_POLICY_RULES, strict=True):
+        if (
+            not isinstance(rule, dict)
+            or set(rule) != set(expected)
+            or not isinstance(rule.get("id"), str)
+            or not isinstance(rule.get("role"), str)
+            or not isinstance(rule.get("record_axis"), str)
+            or not isinstance(rule.get("path_globs"), list)
+            or not all(isinstance(pattern, str) for pattern in rule.get("path_globs", []))
+            or not isinstance(rule.get("allowed_axes"), list)
+            or not all(isinstance(axis, str) for axis in rule.get("allowed_axes", []))
+            or rule != expected
+        ):
+            raise LifecycleError("lifecycle reference policy rule contract mismatch")
+        normalized_rules.append(
+            {
+                "id": rule["id"],
+                "role": rule["role"],
+                "path_globs": list(rule["path_globs"]),
+                "allowed_axes": set(rule["allowed_axes"]),
+                "record_axis": rule["record_axis"],
+            }
+        )
+    blocking_axes = disposition.get("blocking_axes")
+    if (
+        not isinstance(blocking_axes, list)
+        or not all(isinstance(axis, str) for axis in blocking_axes)
+        or blocking_axes != list(LIFECYCLE_BLOCKING_AXES)
+    ):
+        raise LifecycleError("lifecycle reference policy blocking-axis set mismatch")
+    return {
+        "binding": {
+            "path": relative,
+            "sha256": hashlib.sha256(working_bytes).hexdigest(),
+            "git_blob_id": blob.stdout.strip(),
+            "schema_version": LIFECYCLE_REFERENCE_POLICY_SCHEMA,
+            "revision_id": disposition.get("revision_id"),
+        },
+        "producer": target_scope["producer"],
+        "target_paths": set(target_paths),
+        "rules": normalized_rules,
+        "blocking_axes": set(blocking_axes),
+    }
 
 
 def atomic_write(path: Path, payload: bytes) -> None:
@@ -404,6 +622,7 @@ def reference_graph(
     rows: list[dict[str, Any]],
     tracked: set[str],
     untracked: set[str],
+    lifecycle_policy: dict[str, Any] | None = None,
 ) -> dict[str, dict[str, Any]]:
     by_basename: dict[str, list[str]] = defaultdict(list)
     module_paths: dict[str, list[str]] = defaultdict(list)
@@ -419,6 +638,29 @@ def reference_graph(
     all_axes: dict[str, dict[str, set[str]]] = {
         str(row["path"]): defaultdict(set) for row in rows
     }
+    rows_by_path = {str(row["path"]): row for row in rows}
+
+    def disposition_axes(target: str, source: str, axes: set[str]) -> set[str]:
+        if lifecycle_policy is None:
+            return axes
+        target_row = rows_by_path.get(target, {})
+        if (
+            target not in lifecycle_policy["target_paths"]
+            or target_row.get("producer") != lifecycle_policy["producer"]
+        ):
+            return axes
+        disposed: set[str] = set()
+        for axis in axes:
+            replacement = None
+            for rule in lifecycle_policy["rules"]:
+                if axis not in rule["allowed_axes"]:
+                    continue
+                if any(fnmatch.fnmatchcase(source, pattern) for pattern in rule["path_globs"]):
+                    replacement = rule["record_axis"]
+                    break
+            disposed.add(replacement or axis)
+        return disposed
+
     import_graph: dict[str, set[str]] = defaultdict(set)
     scan_holds: list[dict[str, str]] = []
     ignored = git_path_set(repo, "ls-files", "-z", "--others", "-i", "--exclude-standard")
@@ -519,17 +761,14 @@ def reference_graph(
                         axes.add("python_import")
                     if not axes:
                         axes.add("python_string_reference")
-                for axis in axes:
+                for axis in disposition_axes(target, relative, axes):
                     all_axes[target][axis].add(relative)
 
-    live_axis_names = {
-        "python_import",
-        "python_read",
-        "python_string_reference",
-        "subprocess_invocation",
-        "manifest_path",
-        "package_reachability",
-    }
+    live_axis_names = (
+        set(lifecycle_policy["blocking_axes"])
+        if lifecycle_policy is not None
+        else LIFECYCLE_BLOCKING_AXES
+    )
     reverse_imports: dict[str, set[str]] = defaultdict(set)
     for importer, imported_paths in import_graph.items():
         for imported in imported_paths:

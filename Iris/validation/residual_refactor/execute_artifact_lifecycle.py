@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import fnmatch
 import hashlib
 import json
 import os
@@ -16,7 +17,14 @@ from pathlib import Path, PurePosixPath
 from typing import Any
 
 from promote_artifact_lifecycle_evidence import PromotionError, validate_chain as validate_archive_chain
-from report_artifact_lifecycle import SCOPED_ROOTS, build_rows, git_path_set, reference_graph
+from report_artifact_lifecycle import (
+    SCOPED_ROOTS,
+    LifecycleError,
+    build_rows,
+    git_path_set,
+    load_lifecycle_reference_policy,
+    reference_graph,
+)
 
 
 class LifecycleExecutionError(RuntimeError):
@@ -204,6 +212,102 @@ def operation_repo(operation: dict[str, Any]) -> Path:
     return root
 
 
+def current_reference_policy(repo: Path) -> dict[str, Any]:
+    try:
+        return load_lifecycle_reference_policy(repo)
+    except (LifecycleError, OSError, ValueError, json.JSONDecodeError) as error:
+        raise LifecycleExecutionError(str(error)) from error
+
+
+def validate_zero_live_reference_report(
+    repo: Path,
+    report: object,
+    rows: list[dict[str, Any]],
+) -> dict[str, Any]:
+    if not isinstance(report, dict):
+        raise LifecycleExecutionError("archive operation lacks a fresh reference report")
+    report_rows = report.get("rows")
+    expected_paths = sorted(str(row.get("path", "")) for row in rows)
+    actual_paths = (
+        sorted(str(row.get("path", "")) for row in report_rows if isinstance(row, dict))
+        if isinstance(report_rows, list)
+        else []
+    )
+    payload = dict(report)
+    claimed_hash = payload.pop("report_sha256", None)
+    if (
+        report.get("schema_version")
+        != "iris_repository_runtime_lightweighting_live_reference_report_v1"
+        or report.get("physical_resolved_root") != repo.as_posix()
+        or actual_paths != expected_paths
+        or not isinstance(report_rows, list)
+        or len(report_rows) != len(actual_paths)
+        or len(actual_paths) != len(set(actual_paths))
+        or report.get("live_reference_count") != 0
+        or report.get("consumer_scan_hold_count") != 0
+        or not isinstance(report.get("excluded_role_counts"), dict)
+        or claimed_hash != hashlib.sha256(canonical_json_bytes(payload)).hexdigest()
+    ):
+        raise LifecycleExecutionError("fresh reference report identity/summary mismatch")
+    policy = current_reference_policy(repo)
+    if report.get("reference_policy") != policy["binding"]:
+        raise LifecycleExecutionError("fresh reference report policy binding mismatch")
+    disposed_rules = {
+        rule["record_axis"]: rule for rule in policy["rules"]
+    }
+    operation_by_path = {str(row["path"]): row for row in rows}
+    excluded_sources: dict[str, set[str]] = {
+        rule["role"]: set() for rule in policy["rules"]
+    }
+    for row in report_rows:
+        report_path = str(row.get("path", ""))
+        consumer_axes = row.get("consumer_axes")
+        if not isinstance(consumer_axes, dict):
+            raise LifecycleExecutionError("fresh reference report consumer axes are malformed")
+        for axis, sources in consumer_axes.items():
+            if (
+                not isinstance(axis, str)
+                or not isinstance(sources, list)
+                or not all(isinstance(source, str) for source in sources)
+                or len(sources) != len(set(sources))
+            ):
+                raise LifecycleExecutionError("fresh reference report consumer axes are malformed")
+            rule = disposed_rules.get(axis)
+            if rule is None:
+                continue
+            operation_row = operation_by_path.get(report_path, {})
+            if (
+                report_path not in policy["target_paths"]
+                or operation_row.get("producer") != policy["producer"]
+            ):
+                raise LifecycleExecutionError(
+                    "fresh reference report disposition target scope mismatch"
+                )
+            if not all(
+                any(fnmatch.fnmatchcase(source, pattern) for pattern in rule["path_globs"])
+                for source in sources
+            ):
+                raise LifecycleExecutionError(
+                    "fresh reference report disposed source is outside policy scope"
+                )
+            excluded_sources[rule["role"]].update(sources)
+        if (
+            row.get("direct_consumers")
+            or row.get("transitive_consumers")
+            or row.get("consumer_scan_holds")
+            or row.get("zero_live_consumers") is not True
+        ):
+            raise LifecycleExecutionError(
+                f"fresh reference report contains a live consumer: {row.get('path')}"
+            )
+    expected_excluded_role_counts = {
+        role: len(sources) for role, sources in sorted(excluded_sources.items())
+    }
+    if report.get("excluded_role_counts") != expected_excluded_role_counts:
+        raise LifecycleExecutionError("fresh reference report excluded-role summary mismatch")
+    return policy["binding"]
+
+
 def validate_operation(operation: dict[str, Any], repo: Path | None = None) -> Path:
     if operation.get("schema_version") != "iris_repository_runtime_lightweighting_archive_operation_v1":
         raise LifecycleExecutionError("archive operation schema mismatch")
@@ -223,12 +327,17 @@ def validate_operation(operation: dict[str, Any], repo: Path | None = None) -> P
             raise LifecycleExecutionError(f"archive operation hash is invalid: {row.get('path')}")
         if not isinstance(row.get("size_bytes"), int) or int(row["size_bytes"]) < 0:
             raise LifecycleExecutionError(f"archive operation size is invalid: {row.get('path')}")
-        if row.get("direct_consumers") or row.get("transitive_consumers"):
-            raise LifecycleExecutionError(f"archive operation records live consumers: {row.get('path')}")
     if operation_id(operation.get("physical_subject", {}), rows) != operation.get("operation_id"):
         raise LifecycleExecutionError("archive operation ID mismatch")
     if operation.get("zero_live_reference_count") != 0:
         raise LifecycleExecutionError("archive operation zero-reference disposition mismatch")
+    policy_binding = validate_zero_live_reference_report(
+        resolved_repo,
+        operation.get("zero_live_reference_report"),
+        rows,
+    )
+    if operation.get("lifecycle_reference_policy") != policy_binding:
+        raise LifecycleExecutionError("archive operation policy binding mismatch")
     return resolved_repo
 
 
@@ -1052,6 +1161,7 @@ def validate_baseline(repo: Path, baseline_path: Path, promotion_path: Path) -> 
 
 
 def live_reference_report(repo: Path, rows: list[dict[str, Any]]) -> dict[str, Any]:
+    policy = current_reference_policy(repo)
     probes = [
         {
             "path": str(row["path"]),
@@ -1065,6 +1175,7 @@ def live_reference_report(repo: Path, rows: list[dict[str, Any]]) -> dict[str, A
         probes,
         git_path_set(repo, "ls-files", "-z"),
         git_path_set(repo, "ls-files", "-z", "--others", "--exclude-standard"),
+        lifecycle_policy=policy,
     )
     report_rows = []
     for row in sorted(rows, key=lambda item: str(item["path"])):
@@ -1084,12 +1195,27 @@ def live_reference_report(repo: Path, rows: list[dict[str, Any]]) -> dict[str, A
         for row in report_rows
     )
     hold_count = sum(len(row["consumer_scan_holds"]) for row in report_rows)
+    disposed_roles = {
+        rule["record_axis"]: rule["role"] for rule in policy["rules"]
+    }
+    excluded_sources: dict[str, set[str]] = {
+        role: set() for role in disposed_roles.values()
+    }
+    for row in report_rows:
+        for axis, sources in row.get("consumer_axes", {}).items():
+            role = disposed_roles.get(axis)
+            if role is not None:
+                excluded_sources[role].update(map(str, sources))
     payload = {
         "schema_version": "iris_repository_runtime_lightweighting_live_reference_report_v1",
         "physical_resolved_root": repo.as_posix(),
+        "reference_policy": policy["binding"],
         "rows": report_rows,
         "live_reference_count": live_count,
         "consumer_scan_hold_count": hold_count,
+        "excluded_role_counts": {
+            role: len(paths) for role, paths in sorted(excluded_sources.items())
+        },
     }
     payload["report_sha256"] = hashlib.sha256(canonical_json_bytes(payload)).hexdigest()
     return payload
@@ -1137,8 +1263,6 @@ def command_dry_run(args: argparse.Namespace) -> None:
             raise LifecycleExecutionError(f"current authority/required evidence cannot be archived: {path}")
         if row.get("path_access") != "readable" or not row.get("sha256"):
             raise LifecycleExecutionError(f"selection is not fully readable: {path}")
-        if row.get("direct_consumers") or row.get("transitive_consumers") or row.get("consumer_scan_holds") or row.get("zero_live_consumers") is not True:
-            raise LifecycleExecutionError(f"selection still has live consumers: {path}")
         selected.append(row)
     selected.sort(key=lambda row: str(row["path"]))
     if not selected:
@@ -1183,6 +1307,7 @@ def command_dry_run(args: argparse.Namespace) -> None:
         ],
         "zero_live_reference_count": 0,
         "zero_live_reference_report": current_references,
+        "lifecycle_reference_policy": current_references["reference_policy"],
         "archive_role": "archived",
         "ordinary_attempt_cleanup_excluded": True,
         "delete_eligible": False,
@@ -1499,8 +1624,6 @@ def evaluate_delete_prerequisites(
         if (
             baseline_row.get("path_access") != "readable"
             or baseline_row.get("authority_role") in {"current_authority", "current_required_evidence"}
-            or baseline_row.get("consumer_scan_holds")
-            or baseline_row.get("zero_live_consumers") is not True
         ):
             raise LifecycleExecutionError(
                 f"delete operation baseline row is not archive eligible: {operation_row.get('path')}"
@@ -1657,6 +1780,8 @@ def evaluate_delete_prerequisites(
     references = live_reference_report(repo, operation.get("rows", []))
     if references["live_reference_count"] != 0 or references["consumer_scan_hold_count"] != 0 or not all(row["zero_live_consumers"] for row in references["rows"]):
         raise LifecycleExecutionError("final reference graph does not prove zero live consumers")
+    if references.get("reference_policy") != operation.get("lifecycle_reference_policy"):
+        raise LifecycleExecutionError("delete-time reference policy differs from archive operation")
     return {
         "operation_id": operation["operation_id"],
         "physical_subject": operation["physical_subject"],

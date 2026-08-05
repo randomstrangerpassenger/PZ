@@ -20,6 +20,10 @@ SUCCESSOR_POLICY = (
     REPO
     / "Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json"
 )
+GUARD_REFERENCE_POLICY = (
+    REPO
+    / "Iris/_docs/refactor/repository_runtime_lightweighting/current_surface_guard_successor_manifest.json"
+)
 DURABLE = Path("Iris/_docs/refactor/repository_runtime_lightweighting")
 CANDIDATE = Path(
     "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/"
@@ -124,13 +128,26 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
         candidate = repo / relative
         candidate.parent.mkdir(parents=True, exist_ok=True)
         candidate.write_text(json.dumps({"candidate": index}) + "\n", encoding="utf-8")
+    write_json(
+        repo / "Iris/build/description/v2/staging/historical/legacy_guard_reference.json",
+        {"path": CANDIDATE.as_posix()},
+    )
+    write_json(
+        repo / "Iris/_archive/staging/legacy_guard_reference.json",
+        {"path": CANDIDATE.as_posix()},
+    )
     taxonomy = repo / "Iris/_docs/round3/round3_test_taxonomy.json"
     required = repo / "Iris/_docs/round3/current_route_required_validations.json"
     fixture_test_id = "test_fixture.CurrentRouteFixture.test_passes"
-    fixture_test = repo / "Iris/build/description/v2/tests/test_fixture.py"
+    fixture_test = repo / "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py"
     fixture_test.parent.mkdir(parents=True, exist_ok=True)
     fixture_test.write_text(
-        "class CurrentRouteFixture:\n    def test_passes(self):\n        return None\n",
+        (
+            "GIANT_FIXTURE = 'allowed_occurrence_inventory.json'\n\n"
+            "class CurrentRouteFixture:\n"
+            "    def test_passes(self):\n"
+            "        return None\n"
+        ),
         encoding="utf-8",
     )
     write_json(
@@ -231,16 +248,7 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
         / DURABLE
         / "current_surface_guard_successor_manifest.json"
     )
-    write_json(
-        successor_manifest,
-        {
-            "schema_version": (
-                "iris_repository_runtime_lightweighting_"
-                "current_surface_guard_successor_v1"
-            ),
-            "fixture": "validated Common candidate addition",
-        },
-    )
+    successor_manifest.write_bytes(GUARD_REFERENCE_POLICY.read_bytes())
     git(repo, "add", taxonomy.relative_to(repo).as_posix())
     git(repo, "add", fixture_test.relative_to(repo).as_posix())
     git(repo, "add", successor_manifest.relative_to(repo).as_posix())
@@ -685,6 +693,8 @@ class ArtifactLifecycleExecutorTest(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix="f-") as temporary:
             root = Path(temporary)
             repo, external, candidate = build_fixture(root)
+            self.assertFalse(candidate["zero_live_consumers"])
+            self.assertGreater(len(candidate["direct_consumers"]), 0)
             durable = repo / DURABLE
             pre_delete = durable / "pre_delete_current_route_receipt.json"
             selection = external / "owner-selection.json"
@@ -888,6 +898,108 @@ class ArtifactLifecycleExecutorTest(unittest.TestCase):
                 canonical_current_argv + ["--out", alternate_route_result.as_posix()],
             )
 
+            def assert_fresh_reference_blocked(
+                label: str,
+                relative: Path,
+                content: str,
+            ) -> None:
+                source = repo / relative
+                source.parent.mkdir(parents=True, exist_ok=True)
+                original = source.read_bytes() if source.exists() else None
+                source.write_text(content, encoding="utf-8")
+                rejected = invoke(
+                    EXECUTOR,
+                    "dry-run",
+                    "--repo", repo,
+                    "--baseline", durable / "baseline_inventory.json",
+                    "--promotion-receipt", baseline_promotion,
+                    "--pre-delete-route-receipt", pre_delete,
+                    "--selection", selection,
+                    "--manifest-out", external / f"rejected-{label}/operation.json",
+                    "--receipt-out", external / f"rejected-{label}/receipt.json",
+                    cwd=repo,
+                )
+                self.assertNotEqual(rejected.returncode, 0)
+                self.assertIn(
+                    "current reference graph does not prove zero live consumers",
+                    rejected.stderr,
+                )
+                self.assertFalse((external / f"rejected-{label}/operation.json").exists())
+                if original is None:
+                    source.unlink()
+                else:
+                    source.write_bytes(original)
+
+            matched_reader = (
+                repo / "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py"
+            )
+            matched_reader_bytes = matched_reader.read_bytes()
+            matched_reader.write_text(
+                (
+                    "from pathlib import Path\n"
+                    f"Path({CANDIDATE.as_posix()!r}).read_text(encoding='utf-8')\n"
+                ),
+                encoding="utf-8",
+            )
+            graph_probe_script = "\n".join(
+                [
+                    "import json,sys",
+                    "from pathlib import Path",
+                    f"sys.path.insert(0, {str(REPORTER.parent)!r})",
+                    (
+                        "from report_artifact_lifecycle import "
+                        "git_path_set,load_lifecycle_reference_policy,reference_graph"
+                    ),
+                    "repo=Path.cwd().resolve()",
+                    f"target={CANDIDATE.as_posix()!r}",
+                    (
+                        "rows=[{'path':target,'path_access':'readable',"
+                        "'producer':'build_legacy_active_silent_current_surface_guard_round.py'}]"
+                    ),
+                    "policy=load_lifecycle_reference_policy(repo)",
+                    (
+                        "graph=reference_graph(repo,rows,git_path_set(repo,'ls-files','-z'),"
+                        "git_path_set(repo,'ls-files','-z','--others','--exclude-standard'),"
+                        "lifecycle_policy=policy)"
+                    ),
+                    "print(json.dumps(graph[target],sort_keys=True))",
+                ]
+            )
+            matched_probe = subprocess.run(
+                [sys.executable, "-B", "-c", graph_probe_script],
+                cwd=repo,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                check=False,
+            )
+            matched_reader.write_bytes(matched_reader_bytes)
+            self.assertEqual(matched_probe.returncode, 0, matched_probe.stderr)
+            matched_graph = json.loads(matched_probe.stdout)
+            matched_relative = matched_reader.relative_to(repo).as_posix()
+            self.assertIn(matched_relative, matched_graph["consumer_axes"]["python_read"])
+            self.assertIn(matched_relative, matched_graph["direct_consumers"])
+            self.assertNotIn(
+                matched_relative,
+                matched_graph["consumer_axes"].get("test_fixture_reference", []),
+            )
+
+            assert_fresh_reference_blocked(
+                "explicit-read",
+                Path("live_guard_consumer.py"),
+                (
+                    "from pathlib import Path\n"
+                    f"Path({CANDIDATE.as_posix()!r}).read_text(encoding='utf-8')\n"
+                ),
+            )
+            assert_fresh_reference_blocked(
+                "unscoped-manifest",
+                Path("live_guard_manifest.json"),
+                json.dumps({"path": CANDIDATE.as_posix()}) + "\n",
+            )
+
             archive_root = external / "archive"
             restore_root = external / "restore"
             archive_root.mkdir(parents=True)
@@ -930,9 +1042,56 @@ class ArtifactLifecycleExecutorTest(unittest.TestCase):
                     "--receipt-out", restore,
                 ),
             ]
-            for command in commands[:2]:
-                result = invoke(EXECUTOR, *command, cwd=repo)
-                self.assertEqual(result.returncode, 0, result.stderr)
+            result = invoke(EXECUTOR, *commands[0], cwd=repo)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            operation_payload = json.loads(operation.read_text(encoding="utf-8"))
+            self.assertFalse(operation_payload["delete_eligible"])
+            self.assertGreater(
+                len(operation_payload["rows"][0]["direct_consumers"]),
+                0,
+            )
+            fresh_report = operation_payload["zero_live_reference_report"]
+            self.assertEqual(fresh_report["live_reference_count"], 0)
+            self.assertEqual(fresh_report["consumer_scan_hold_count"], 0)
+            self.assertTrue(fresh_report["rows"][0]["zero_live_consumers"])
+            self.assertEqual(fresh_report["rows"][0]["direct_consumers"], [])
+            self.assertEqual(
+                operation_payload["lifecycle_reference_policy"],
+                fresh_report["reference_policy"],
+            )
+            self.assertTrue(fresh_report["reference_policy"]["git_blob_id"])
+            for role in (
+                "report_only_staging_residue",
+                "cold_archive_payload",
+                "test_fixture",
+            ):
+                self.assertGreaterEqual(fresh_report["excluded_role_counts"][role], 1)
+
+            tampered_operation_payload = json.loads(operation.read_text(encoding="utf-8"))
+            tampered_report = tampered_operation_payload["zero_live_reference_report"]
+            tampered_report["excluded_role_counts"]["test_fixture"] += 1
+            tampered_report.pop("report_sha256")
+            tampered_report["report_sha256"] = hashlib.sha256(
+                canonical_bytes(tampered_report)
+            ).hexdigest()
+            tampered_operation = external / "tampered-summary/operation.json"
+            write_json(tampered_operation, tampered_operation_payload)
+            rejected_summary = invoke(
+                EXECUTOR,
+                "archive",
+                "--repo", repo,
+                "--operation-manifest", tampered_operation,
+                "--prior-receipt", dry,
+                "--archive-root", external / "tampered-summary/archive",
+                "--receipt-out", external / "tampered-summary/receipt.json",
+                cwd=repo,
+            )
+            self.assertNotEqual(rejected_summary.returncode, 0)
+            self.assertIn("excluded-role summary mismatch", rejected_summary.stderr)
+            self.assertFalse((external / "tampered-summary/receipt.json").exists())
+
+            result = invoke(EXECUTOR, *commands[1], cwd=repo)
+            self.assertEqual(result.returncode, 0, result.stderr)
 
             archive_receipt_bytes = archive_receipt.read_bytes()
             archive_receipt_payload = json.loads(archive_receipt_bytes.decode("utf-8"))
@@ -977,6 +1136,78 @@ class ArtifactLifecycleExecutorTest(unittest.TestCase):
             for command in commands[2:]:
                 result = invoke(EXECUTOR, *command, cwd=repo)
                 self.assertEqual(result.returncode, 0, result.stderr)
+
+            guard_policy = repo / DURABLE / "current_surface_guard_successor_manifest.json"
+            guard_policy_bytes = guard_policy.read_bytes()
+            guard_policy.write_bytes(guard_policy_bytes + b"\n")
+            rejected_uncommitted_policy = invoke(
+                EXECUTOR,
+                "verify",
+                "--operation-manifest", operation,
+                "--prior-receipt", archive_receipt,
+                "--receipt-out", archive_root / "rejected_uncommitted_policy.json",
+                cwd=repo,
+            )
+            self.assertNotEqual(rejected_uncommitted_policy.returncode, 0)
+            self.assertIn("not exact and HEAD-bound", rejected_uncommitted_policy.stderr)
+            guard_policy.write_bytes(guard_policy_bytes)
+
+            broadened_policy = json.loads(guard_policy_bytes.decode("utf-8"))
+            broadened_policy["lifecycle_reference_disposition"][
+                "nonblocking_referrer_rules"
+            ][-1]["allowed_axes"].append("python_read")
+            write_json(guard_policy, broadened_policy)
+            git(repo, "add", guard_policy.relative_to(repo).as_posix())
+            git(repo, "commit", "-m", "broaden lifecycle reference policy fixture")
+            rejected_broadened_policy = invoke(
+                EXECUTOR,
+                "verify",
+                "--operation-manifest", operation,
+                "--prior-receipt", archive_receipt,
+                "--receipt-out", archive_root / "rejected_broadened_policy.json",
+                cwd=repo,
+            )
+            self.assertNotEqual(rejected_broadened_policy.returncode, 0)
+            self.assertIn("rule contract mismatch", rejected_broadened_policy.stderr)
+            self.assertFalse((archive_root / "rejected_broadened_policy.json").exists())
+            guard_policy.write_bytes(guard_policy_bytes)
+            git(repo, "add", guard_policy.relative_to(repo).as_posix())
+            git(repo, "commit", "-m", "restore broadened lifecycle reference policy fixture")
+
+            write_json(guard_policy, {"malformed": True})
+            git(repo, "add", guard_policy.relative_to(repo).as_posix())
+            git(repo, "commit", "-m", "malform lifecycle reference policy fixture")
+            rejected_malformed_policy = invoke(
+                EXECUTOR,
+                "verify",
+                "--operation-manifest", operation,
+                "--prior-receipt", archive_receipt,
+                "--receipt-out", archive_root / "rejected_malformed_policy.json",
+                cwd=repo,
+            )
+            self.assertNotEqual(rejected_malformed_policy.returncode, 0)
+            self.assertIn("authority/schema mismatch", rejected_malformed_policy.stderr)
+            guard_policy.write_bytes(guard_policy_bytes)
+            git(repo, "add", guard_policy.relative_to(repo).as_posix())
+            git(repo, "commit", "-m", "restore lifecycle reference policy fixture")
+
+            guard_policy.unlink()
+            git(repo, "add", "-u", guard_policy.relative_to(repo).as_posix())
+            git(repo, "commit", "-m", "remove lifecycle reference policy fixture")
+            rejected_missing_policy = invoke(
+                EXECUTOR,
+                "verify",
+                "--operation-manifest", operation,
+                "--prior-receipt", archive_receipt,
+                "--receipt-out", archive_root / "rejected_missing_policy.json",
+                cwd=repo,
+            )
+            self.assertNotEqual(rejected_missing_policy.returncode, 0)
+            self.assertIn("policy is missing", rejected_missing_policy.stderr)
+            guard_policy.write_bytes(guard_policy_bytes)
+            git(repo, "add", guard_policy.relative_to(repo).as_posix())
+            git(repo, "commit", "-m", "restore missing lifecycle reference policy fixture")
+
             archive_promotion_external = external / "promotion/archive.json"
             promotion = invoke(
                 PROMOTER,
@@ -1128,6 +1359,36 @@ class ArtifactLifecycleExecutorTest(unittest.TestCase):
             self.assertIn("baseline", rejected_promoted_baseline.stderr)
             self.assertFalse((external / "archive/rejected-promoted-baseline.json").exists())
             baseline_path.write_bytes(baseline_bytes)
+
+            fresh_consumer = repo / "delete_time_guard_consumer.py"
+            fresh_consumer.write_text(
+                (
+                    "from pathlib import Path\n"
+                    f"Path({CANDIDATE.as_posix()!r}).read_text(encoding='utf-8')\n"
+                ),
+                encoding="utf-8",
+            )
+            rejected_fresh_reference = invoke(
+                EXECUTOR,
+                "validate-delete-prerequisites",
+                "--repo", repo,
+                "--baseline", durable / "baseline_inventory.json",
+                "--operation-manifest", durable_operation,
+                "--archive-receipt", durable_restore,
+                "--archive-promotion-receipt", durable_promotion,
+                "--archive-evidence-commit", archive_commit,
+                "--pre-delete-route-receipt", pre_delete,
+                "--approval", approval,
+                "--out", external / "archive/rejected-fresh-reference.json",
+                cwd=repo,
+            )
+            self.assertNotEqual(rejected_fresh_reference.returncode, 0)
+            self.assertIn(
+                "final reference graph does not prove zero live consumers",
+                rejected_fresh_reference.stderr,
+            )
+            self.assertFalse((external / "archive/rejected-fresh-reference.json").exists())
+            fresh_consumer.unlink()
 
             prerequisite = external / "archive/delete-prerequisite.json"
             validated = invoke(

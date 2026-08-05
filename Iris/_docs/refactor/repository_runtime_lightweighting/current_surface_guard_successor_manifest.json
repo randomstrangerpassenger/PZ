@@ -77,5 +77,82 @@
         "Iris/_archive/**"
       ]
     }
-  ]
+  ],
+  "lifecycle_reference_disposition": {
+    "schema_version": "iris_repository_runtime_lightweighting_lifecycle_reference_disposition_v1",
+    "revision_id": "legacy_guard_giant_cleanup_v1",
+    "owner": "repository_owner_user",
+    "approved": true,
+    "approval": "owner_preapproved_for_unattended_plan_execution",
+    "strict_head_binding_required": true,
+    "target_scope": {
+      "producer": "build_legacy_active_silent_current_surface_guard_round.py",
+      "exact_paths": [
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/allowed_occurrence_inventory.json",
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/legacy_active_silent_occurrence_inventory.jsonl",
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase3_adjudication/occurrence_adjudication_report.json",
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase5_guard/current_surface_guard_report.json"
+      ]
+    },
+    "nonblocking_referrer_rules": [
+      {
+        "id": "staging_evidence_reference",
+        "role": "report_only_staging_residue",
+        "path_globs": [
+          "Iris/build/description/v2/staging/**/*.json",
+          "Iris/build/description/v2/staging/**/*.jsonl"
+        ],
+        "allowed_axes": [
+          "manifest_path"
+        ],
+        "record_axis": "disposed_staging_evidence_reference"
+      },
+      {
+        "id": "cold_archive_evidence_reference",
+        "role": "cold_archive_payload",
+        "path_globs": [
+          "Iris/_archive/**/*.json",
+          "Iris/_archive/**/*.jsonl"
+        ],
+        "allowed_axes": [
+          "manifest_path"
+        ],
+        "record_axis": "disposed_cold_archive_evidence_reference"
+      },
+      {
+        "id": "cold_archive_lexical_diagnostic_reference",
+        "role": "cold_archive_payload",
+        "path_globs": [
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_lexical_scan_diagnostic.txt"
+        ],
+        "allowed_axes": [
+          "python_string_reference"
+        ],
+        "record_axis": "disposed_cold_archive_diagnostic_reference"
+      },
+      {
+        "id": "test_fixture_lexical_reference",
+        "role": "test_fixture",
+        "path_globs": [
+          "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+          "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+          "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
+          "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+        ],
+        "allowed_axes": [
+          "python_string_reference"
+        ],
+        "record_axis": "test_fixture_reference"
+      }
+    ],
+    "blocking_axes": [
+      "python_import",
+      "python_read",
+      "python_string_reference",
+      "subprocess_invocation",
+      "manifest_path",
+      "package_reachability"
+    ],
+    "reason": "Treat only owner-dispositioned JSON/JSONL evidence manifests, the exact archived lexical diagnostic, and four exact lexical-only test fixtures as nonblocking for the four migrated guard payloads; explicit reads, imports, subprocesses, package reachability, and every other reference remain blocking."
+  }
 }

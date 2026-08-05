@@ -24,13 +24,13 @@ from report_artifact_lifecycle import (
 
 DURABLE_RELATIVE = Path("Iris/_docs/refactor/repository_runtime_lightweighting")
 GIANT_RELATIVES = {
-    "Iris/build/description/v2/staging/legacy_active_silent_current_surface_guard_round/"
+    "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/"
     "phase2_inventory/allowed_occurrence_inventory.json",
-    "Iris/build/description/v2/staging/legacy_active_silent_current_surface_guard_round/"
+    "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/"
     "phase2_inventory/legacy_active_silent_occurrence_inventory.jsonl",
-    "Iris/build/description/v2/staging/legacy_active_silent_current_surface_guard_round/"
+    "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/"
     "phase3_adjudication/occurrence_adjudication_report.json",
-    "Iris/build/description/v2/staging/legacy_active_silent_current_surface_guard_round/"
+    "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/"
     "phase5_guard/current_surface_guard_report.json",
 }
 

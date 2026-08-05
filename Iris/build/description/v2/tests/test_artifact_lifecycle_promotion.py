@@ -14,10 +14,10 @@ PRODUCER = REPO / "Iris/validation/residual_refactor/report_artifact_lifecycle.p
 PROMOTER = REPO / "Iris/validation/residual_refactor/promote_artifact_lifecycle_evidence.py"
 DURABLE_RELATIVE = Path("Iris/_docs/refactor/repository_runtime_lightweighting")
 GIANT_RELATIVE = (
-    "Iris/build/description/v2/staging/legacy_active_silent_current_surface_guard_round/phase2_inventory/allowed_occurrence_inventory.json",
-    "Iris/build/description/v2/staging/legacy_active_silent_current_surface_guard_round/phase2_inventory/legacy_active_silent_occurrence_inventory.jsonl",
-    "Iris/build/description/v2/staging/legacy_active_silent_current_surface_guard_round/phase3_adjudication/occurrence_adjudication_report.json",
-    "Iris/build/description/v2/staging/legacy_active_silent_current_surface_guard_round/phase5_guard/current_surface_guard_report.json",
+    "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/allowed_occurrence_inventory.json",
+    "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/legacy_active_silent_occurrence_inventory.jsonl",
+    "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase3_adjudication/occurrence_adjudication_report.json",
+    "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase5_guard/current_surface_guard_report.json",
 )
 
 
@@ -40,7 +40,7 @@ def make_fixture(root: Path) -> tuple[Path, Path]:
     source.parent.mkdir(parents=True)
     source.write_text("contract\n", encoding="utf-8")
     (repo / ".gitignore").write_text(
-        "Iris/build/description/v2/staging/legacy_active_silent_current_surface_guard_round/\n",
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/\n",
         encoding="utf-8",
     )
     for index, relative in enumerate(GIANT_RELATIVE, start=1):

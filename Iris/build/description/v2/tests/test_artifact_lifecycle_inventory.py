@@ -13,10 +13,10 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[5]
 PRODUCER = REPO / "Iris/validation/residual_refactor/report_artifact_lifecycle.py"
 GIANT_RELATIVE = (
-    "Iris/build/description/v2/staging/legacy_active_silent_current_surface_guard_round/phase2_inventory/allowed_occurrence_inventory.json",
-    "Iris/build/description/v2/staging/legacy_active_silent_current_surface_guard_round/phase2_inventory/legacy_active_silent_occurrence_inventory.jsonl",
-    "Iris/build/description/v2/staging/legacy_active_silent_current_surface_guard_round/phase3_adjudication/occurrence_adjudication_report.json",
-    "Iris/build/description/v2/staging/legacy_active_silent_current_surface_guard_round/phase5_guard/current_surface_guard_report.json",
+    "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/allowed_occurrence_inventory.json",
+    "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/legacy_active_silent_occurrence_inventory.jsonl",
+    "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase3_adjudication/occurrence_adjudication_report.json",
+    "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase5_guard/current_surface_guard_report.json",
 )
 
 
@@ -40,7 +40,7 @@ def make_repo(root: Path, *, giants: bool) -> Path:
     git(repo, "config", "user.email", "iris-tests@example.invalid")
     git(repo, "config", "user.name", "Iris Tests")
     (repo / ".gitignore").write_text(
-        "Iris/build/description/v2/staging/legacy_active_silent_current_surface_guard_round/\n",
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/\n",
         encoding="utf-8",
     )
     tracked = repo / "docs/contract.md"

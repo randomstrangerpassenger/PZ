@@ -1283,6 +1283,83 @@
                                                            "reason":  "Protect exact-commit unittest discovery that tolerates only inaccessible subtrees with no tracked pattern match and rejects reparse traversal."
                                                        }
                                                    ]
+                      },
+                      {
+                          "revision_id":  "common_physical_giant_canonical_path_followup_v1",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "b071792c5d32a1d7b342cd3c9d29a8c9e1efc5db",
+                          "reason":  "Align lifecycle census and promotion with the exact ignored giant paths protected by the repository tracking policy.",
+                          "approved_activation_deltas":  [
+
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  "Iris/validation/residual_refactor/promote_artifact_lifecycle_evidence.py",
+                                                           "before_git_blob_id":  "16c19c5f1b4f39e7a42bae7f2aa6995a8b02632d",
+                                                           "before_sha256_lf":  "193ac40b32203ece7be5f1d6e60f359b823432fb830ec55601cd1c3404d71eee",
+                                                           "expected_git_blob_id":  "d5cdc86a9c602202880043e1e6ac4082ed21686c",
+                                                           "after_sha256_lf":  "3cfd3dd7a0716e0a6d9b68da8914857f5d236b15098fc164f57e4b7cd49e18c5",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "baseline_promotion",
+                                                                             "terminal_promotion",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Bind baseline promotion to the canonical compose_contract_migration giant paths present in the physical checkout."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/residual_refactor/report_artifact_lifecycle.py",
+                                                           "before_git_blob_id":  "46401c3229317cff1234b09bbe6eed408dbbff99",
+                                                           "before_sha256_lf":  "eaac766ffccc2f9a201c29ef44869b02a3cb9c74811e58f989178dcb94f72193",
+                                                           "expected_git_blob_id":  "1651efbd1460a398d91d32209c9ea19e410fe40e",
+                                                           "after_sha256_lf":  "1c2d253515be4bf3ae71cf959edb4e5c27915aa89edcb89beb6f0f66285949c8",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "physical_lifecycle_census",
+                                                                             "baseline_promotion",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Generate missing-reference giant rows under the same canonical compose_contract_migration root used by physical evidence."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+                                                           "before_git_blob_id":  "42d8d5c09c765006342d6fd7e7e9ea61f48bf08b",
+                                                           "before_sha256_lf":  "fb026b3bd16868ea105bf02c1aec0d4a9e00c863c2e09dea542443b660c7359d",
+                                                           "expected_git_blob_id":  "99c81e03c1304b428cdd75308861829be4cb5ea6",
+                                                           "after_sha256_lf":  "68165022eaaea5298bc88a6b367fcf96d632d82cead1a039a67c353b3e00cb28",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "physical_lifecycle_validation",
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Exercise lifecycle inventory with the canonical physical giant path family."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
+                                                           "before_git_blob_id":  "bf04f7f3b59e45955e767420efc6bc9855371788",
+                                                           "before_sha256_lf":  "40da2242301e197831ea37ff1a4386e60eed70c75d06a4cc9e899ac30388ffe5",
+                                                           "expected_git_blob_id":  "07db3dd757d3381b6847b4a9d6ebdd1d93e449f4",
+                                                           "after_sha256_lf":  "0191916af2934406140bc1939af7df5ab65d56df506a33edc3f3315b2d9e1493",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "baseline_adoption_validation",
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Exercise hash-preserving promotion against the canonical physical giant path family."
+                                                       }
+                                                   ]
                       }
                   ]
 }

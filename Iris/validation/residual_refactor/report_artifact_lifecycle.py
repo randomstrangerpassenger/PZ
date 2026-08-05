@@ -683,7 +683,10 @@ def build_rows(
         )
     existing_paths = {str(row["path"]) for row in rows}
     if include_missing_giants:
-        giant_root = "Iris/build/description/v2/staging/legacy_active_silent_current_surface_guard_round"
+        giant_root = (
+            "Iris/build/description/v2/staging/compose_contract_migration/"
+            "legacy_active_silent_current_surface_guard_round"
+        )
         for suffix in sorted(GIANT_SUFFIXES):
             relative = f"{giant_root}/{suffix}"
             if relative in existing_paths:

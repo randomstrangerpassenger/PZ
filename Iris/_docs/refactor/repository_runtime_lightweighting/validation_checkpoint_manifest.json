@@ -301,6 +301,42 @@
                                                      },
                             "command_receipt_set_sha256":  "9ec8c0cba033af2a19b09478cffaa92341a3fa2233315affe110d8366e347ca1",
                             "command_spec_set_sha256":  "1f51721131faad028219e0e4443873dacc3a30915a0451051ef973a23688de72"
+                        },
+                        {
+                            "checkpoint_id":  "common_pre_delete",
+                            "subject_kind":  "common_pre_delete_validation_subject",
+                            "claim_id":  "c46",
+                            "commit":  "2786118fa2cd253052988aec778346ed20cbe3d8",
+                            "tree":  "ce969df3f1b834b88c28072496042f0d265e4427",
+                            "clean_checkout_receipt":  {
+                                                           "path":  "G:/r39/s8/checkpoint-c46-s8-a3fc1b88cd14/result/common_pre_delete_subject_receipt.json",
+                                                           "sha256":  "e5e82c632143d0fe1ee0a0d5d17b035d0f0b757c5309c834dbd1182c82d1a010"
+                                                       },
+                            "required_receipt":  {
+                                                     "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/pre_delete_current_route_receipt.json",
+                                                     "sha256":  "621be36e4520a20dce5175c726c4aa4bb8d56f2882f6563399f5ab920d6a6159"
+                                                 },
+                            "taxonomy":  {
+                                             "path":  "Iris/_docs/round3/round3_test_taxonomy.json",
+                                             "sha256":  "0fe547966e6b428db1631a669ceaa80faa521178c9494f900a76bc577943cb1b"
+                                         },
+                            "required_validations":  {
+                                                         "path":  "Iris/_docs/round3/current_route_required_validations.json",
+                                                         "sha256":  "e29b1101e15477c712a502a8d4d3de88621602c376e8b9dff8cb813d3ba1f1ed"
+                                                     },
+                            "active_core_closure":  {
+                                                        "path":  "Iris/_docs/round3/round3_active_core_closure.json",
+                                                        "sha256":  "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf"
+                                                    },
+                            "environment_authority":  {
+                                                          "path":  "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json",
+                                                          "sha256":  "1bc7076459f72dbfa733e0101d77e9eb0b73c0f01e88ac54bc326c8ad2f67138"
+                                                      },
+                            "output_isolation_audit":  {
+                                                           "path":  "G:/r39/a8/checkpoint-a46-a8-033b3748952b/current-result/current_route_output_isolation_audit_receipt.json",
+                                                           "sha256":  "dad0a08e9ca9e51bb4f23818f41c0ab3cb9a65311ff18749fc4a5d03560faeca"
+                                                       },
+                            "command_receipt_set_sha256":  "f6bd809b5ff4353aa88548e6a3c13bdd0119d46c4d31d5d0ef3f49a98771311e"
                         }
                     ],
     "restart_epochs":  [

@@ -1753,6 +1753,35 @@
                                                            "reason":  "Load an exact HEAD-bound canonical referrer policy and apply its dispositions only to the exact four producer-owned cleanup targets."
                                                        }
                                                    ]
+                      },
+                      {
+                          "revision_id":  "common_archive_live_reference_fixture_repair_v1",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "9ffab70ebcd58941d4665a8215a4e3e0d3baec80",
+                          "reason":  "Align the post-delete durable allowset assertion with the exact lifecycle fixture path adopted by the strict lexical-reference policy after the first repaired STEP 7 attempt exposed the stale name.",
+                          "approved_activation_deltas":  [
+
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+                                                           "before_git_blob_id":  "175d8531d68e54027f7efa63df32e559b1e7ba9f",
+                                                           "before_sha256_lf":  "2cf937f70a04d9053244b307788861479c73220d4bc240fc0c53294b4c8faf39",
+                                                           "expected_git_blob_id":  "3dbce90f8cb3e2444b5fb36f09d1cf9f2ce124cc",
+                                                           "after_sha256_lf":  "8469fc4b1a9609c8bee6fc147fd01ff19355fcbfd06288a2d7f00ee54477c0fd",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "common_lifecycle_executor_validation",
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Expect the exact tracked fixture path that replaced the generic test_fixture.py name for matched-path lexical policy coverage."
+                                                       }
+                                                   ]
                       }
                   ]
 }

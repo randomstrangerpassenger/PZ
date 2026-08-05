@@ -1487,7 +1487,7 @@ class ArtifactLifecycleExecutorTest(unittest.TestCase):
             self.assertTrue(
                 {
                     "Iris/_docs/round3/round3_test_taxonomy.json",
-                    "Iris/build/description/v2/tests/test_fixture.py",
+                    "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
                     (
                         "Iris/_docs/refactor/repository_runtime_lightweighting/"
                         "current_surface_guard_successor_manifest.json"

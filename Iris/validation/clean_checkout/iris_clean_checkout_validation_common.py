@@ -96,7 +96,7 @@ def write_json_external(repo: Path, path: Path, payload: Any) -> str:
 
 def git_bytes(repo: Path, *args: str, check: bool = True) -> bytes:
     completed = subprocess.run(
-        ["git", "-C", str(repo), *args],
+        ["git", "-c", "core.longpaths=true", "-C", str(repo), *args],
         check=False,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,

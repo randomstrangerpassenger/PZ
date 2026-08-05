@@ -826,6 +826,34 @@
                                                            "reason":  "Protect fixture-local Git long-path configuration and clone behavior at exact byte identity."
                                                        }
                                                    ]
+                      },
+                      {
+                          "revision_id":  "common_clean_checkout_git_long_path_followup_v1",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "daedf4a3c2a035a1d63257067d59431c264c0093",
+                          "reason":  "Make every clean-checkout validation Git read independent of ambient Git for Windows long-path configuration.",
+                          "approved_activation_deltas":  [
+
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+                                                           "before_git_blob_id":  "b30f9d3a4f861d538dc266dbc79ccae278437b50",
+                                                           "before_sha256_lf":  "4c054116ea3bc6ba8a18d6ea49a826181a03069bf7c381eb7337ae0c5e0290a7",
+                                                           "expected_git_blob_id":  "d18d2cd00006d4e432721ebf9aaf85da0738c244",
+                                                           "after_sha256_lf":  "1284853e48033938988f30b64bab19306122348429f5df771c6fb506339ca6c7",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect fixture and production Git reads with explicit Windows long-path support at exact byte identity."
+                                                       }
+                                                   ]
                       }
                   ]
 }

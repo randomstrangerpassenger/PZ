@@ -2055,6 +2055,67 @@
                                   "reason": "Preserve the preexisting external stage bytes test while allowing its already-created operator parent directory."
                               }
                           ]
+                      },
+                      {
+                          "revision_id": "restart_epoch_20260805_40_baseline_adoption_v1",
+                          "track": "common",
+                          "owner": "repository_owner_user",
+                          "approved": true,
+                          "predecessor_commit": "dd5b8b95a317d603513d63c1846e5e6f1745bac5",
+                          "reason": "Make the refreshed STEP 5 baseline-adoption checkpoint authoritative for restart epoch 20260805-39 after its exact focused, output-isolation, and current-route evidence passed.",
+                          "approved_activation_deltas": [],
+                          "added_protected_rows": [
+                              {
+                                  "path": "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_adoption_receipt.json",
+                                  "before_git_blob_id": "cf46465286f54bcf348d457dbb21db1dfe2bdda4",
+                                  "before_sha256_lf": "b68febe7e6186fce4f75ca489c4861ed1a47f812c1ee5474557ac3d4eebfcd5b",
+                                  "expected_git_blob_id": "06bd1b1dc47f6ef7574fbcefdea9ed58cdfa4d98",
+                                  "after_sha256_lf": "42eda31a5f0dfd4a02d8ddefe2467ea75dff93b308ecfc664a0af03ffcaf17a4",
+                                  "role": "common_track_baseline_adoption_evidence",
+                                  "writer": "repository_runtime_lightweighting_step5_checkpoint_writer",
+                                  "consumers": [
+                                      "common_candidate_validation",
+                                      "common_pre_delete_checkpoint",
+                                      "terminal_closeout",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the fresh STEP 5 PASS receipt at its exact validation subject, 15-test focused receipt, 190-test current-route result, and command receipt/spec set identities."
+                              },
+                              {
+                                  "path": "Iris/_docs/refactor/repository_runtime_lightweighting/current_route_coverage_map.json",
+                                  "before_git_blob_id": "b39e5dcaeb80d3372c07a1614d4d111735615e95",
+                                  "before_sha256_lf": "1a4165eaf2069db4a2c7707d39df522f01f4b22efde5ba6dffd15fef39826a0b",
+                                  "expected_git_blob_id": "717762f60233b72ca09e9fda8962c78aa7902895",
+                                  "after_sha256_lf": "c59eb654d4bbcafe7e1dc4b95ba65a4c3b373fd000246384667ab40d40942b67",
+                                  "role": "common_track_current_route_coverage_map",
+                                  "writer": "repository_runtime_lightweighting_step5_route_result_canonicalizer",
+                                  "consumers": [
+                                      "selected_track_validation",
+                                      "terminal_current_route_validation",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the active restart-epoch Change 1 coverage rows and their exact taxonomy, required-validation, focused-command, and current-route bindings."
+                              },
+                              {
+                                  "path": "Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json",
+                                  "before_git_blob_id": "26e883c246e6a2f67f70ef3db7ca4cd0b1560850",
+                                  "before_sha256_lf": "ea215474847627f4662095f8212c6e6053669e35fe08dd5e36fcda213d4cc48b",
+                                  "expected_git_blob_id": "fd25090ef5dd5dc168370a7686b333df7f45f19c",
+                                  "after_sha256_lf": "1ee078c9c48a782b413fadb233b29c69523ac9001ddeef158c93dd0f7cea1dcd",
+                                  "role": "common_track_validation_checkpoint_manifest",
+                                  "writer": "repository_runtime_lightweighting_step5_checkpoint_writer",
+                                  "consumers": [
+                                      "common_pre_delete_checkpoint",
+                                      "selected_track_validation",
+                                      "terminal_closeout",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Append the authoritative restart-20260805-40 baseline-adoption subject without rewriting any prior checkpoint row or the active restart epoch."
+                              }
+                          ]
                       }
                   ]
 }

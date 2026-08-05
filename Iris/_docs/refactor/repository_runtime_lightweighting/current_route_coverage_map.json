@@ -1,137 +1,138 @@
 {
-  "schema_version": "iris_repository_runtime_lightweighting_current_route_coverage_map_v1",
-  "status": "PASS",
-  "revision_id": "baseline_adoption_initial_v1",
-  "validated_at": "2026-08-05T06:26:19.2806487Z",
-  "validated_subject_commit": "bd2ef834573f120e70128daafc67fdedb2cc2742",
-  "validated_subject_tree": "cd1a5c2914f1ee8aa1e61e83338eaced68c4385b",
-  "taxonomy": {
-    "path": "Iris/_docs/round3/round3_test_taxonomy.json",
-    "sha256": "0fe547966e6b428db1631a669ceaa80faa521178c9494f900a76bc577943cb1b"
-  },
-  "required_validations": {
-    "path": "Iris/_docs/round3/current_route_required_validations.json",
-    "sha256": "e29b1101e15477c712a502a8d4d3de88621602c376e8b9dff8cb813d3ba1f1ed"
-  },
-  "active_core_closure": {
-    "path": "Iris/_docs/round3/round3_active_core_closure.json",
-    "sha256": "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf"
-  },
-  "current_route_result": {
-    "command_id": "010-baseline-adoption-current-route",
-    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/adoption-results/current_route.json",
-    "sha256": "45a0c67e38dd69a5effa30f587fdccb21c4ce37317f39e82e55877719dc8ed45",
-    "contract_class": "current",
-    "closure_enforced": true,
-    "test_count": 190,
-    "failure_count": 0,
-    "error_count": 0,
-    "skipped_count": 0,
-    "success": true
-  },
-  "direct_receipts": [
-    {
-      "command_id": "002-baseline-promotion-focused",
-      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/002-baseline-promotion-focused.json",
-      "sha256": "2b7752b99cf241b0aefbe08ba836c6b86c33956721d63289beba509a3497a5a2",
-      "test_count": 4,
-      "success": true
-    }
-  ],
-  "rows": [
-    {
-      "test_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_same_subject_is_byte_stable_and_role_partition_is_complete",
-      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
-      "coverage_disposition": "covered_by_current_route",
-      "taxonomy_entry_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_same_subject_is_byte_stable_and_role_partition_is_complete",
-      "required_validation_entry_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_same_subject_is_byte_stable_and_role_partition_is_complete",
-      "direct_command_id": null,
-      "route_command_id": "010-baseline-adoption-current-route"
-    },
-    {
-      "test_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_ignored_giants_exist_only_in_physical_denominator_with_exact_identity",
-      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
-      "coverage_disposition": "covered_by_current_route",
-      "taxonomy_entry_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_ignored_giants_exist_only_in_physical_denominator_with_exact_identity",
-      "required_validation_entry_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_ignored_giants_exist_only_in_physical_denominator_with_exact_identity",
-      "direct_command_id": null,
-      "route_command_id": "010-baseline-adoption-current-route"
-    },
-    {
-      "test_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_repository_local_and_preexisting_outputs_fail_loud",
-      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
-      "coverage_disposition": "covered_by_current_route",
-      "taxonomy_entry_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_repository_local_and_preexisting_outputs_fail_loud",
-      "required_validation_entry_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_repository_local_and_preexisting_outputs_fail_loud",
-      "direct_command_id": null,
-      "route_command_id": "010-baseline-adoption-current-route"
-    },
-    {
-      "test_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_console_temp_cache_and_ignored_consumers_are_in_scope",
-      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
-      "coverage_disposition": "covered_by_current_route",
-      "taxonomy_entry_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_console_temp_cache_and_ignored_consumers_are_in_scope",
-      "required_validation_entry_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_console_temp_cache_and_ignored_consumers_are_in_scope",
-      "direct_command_id": null,
-      "route_command_id": "010-baseline-adoption-current-route"
-    },
-    {
-      "test_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_missing_references_and_real_tracking_transition_are_fail_loud",
-      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
-      "coverage_disposition": "covered_by_current_route",
-      "taxonomy_entry_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_missing_references_and_real_tracking_transition_are_fail_loud",
-      "required_validation_entry_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_missing_references_and_real_tracking_transition_are_fail_loud",
-      "direct_command_id": null,
-      "route_command_id": "010-baseline-adoption-current-route"
-    },
-    {
-      "test_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_junctions_are_held_without_external_traversal",
-      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
-      "coverage_disposition": "covered_by_current_route",
-      "taxonomy_entry_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_junctions_are_held_without_external_traversal",
-      "required_validation_entry_id": "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_junctions_are_held_without_external_traversal",
-      "direct_command_id": null,
-      "route_command_id": "010-baseline-adoption-current-route"
-    },
-    {
-      "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_baseline_promotion_preserves_bytes_and_dual_receipt_identity",
-      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
-      "coverage_disposition": "direct_focused_and_current_route",
-      "taxonomy_entry_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_baseline_promotion_preserves_bytes_and_dual_receipt_identity",
-      "required_validation_entry_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_baseline_promotion_preserves_bytes_and_dual_receipt_identity",
-      "direct_command_id": "002-baseline-promotion-focused",
-      "route_command_id": "010-baseline-adoption-current-route"
-    },
-    {
-      "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_altered_source_and_wrong_subject_are_rejected_before_durable_write",
-      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
-      "coverage_disposition": "direct_focused_and_current_route",
-      "taxonomy_entry_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_altered_source_and_wrong_subject_are_rejected_before_durable_write",
-      "required_validation_entry_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_altered_source_and_wrong_subject_are_rejected_before_durable_write",
-      "direct_command_id": "002-baseline-promotion-focused",
-      "route_command_id": "010-baseline-adoption-current-route"
-    },
-    {
-      "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_preexisting_destination_blocks_all_promotion_outputs",
-      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
-      "coverage_disposition": "direct_focused_and_current_route",
-      "taxonomy_entry_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_preexisting_destination_blocks_all_promotion_outputs",
-      "required_validation_entry_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_preexisting_destination_blocks_all_promotion_outputs",
-      "direct_command_id": "002-baseline-promotion-focused",
-      "route_command_id": "010-baseline-adoption-current-route"
-    },
-    {
-      "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_terminal_promotion_rejects_semantically_tampered_transition",
-      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
-      "coverage_disposition": "direct_focused_and_current_route",
-      "taxonomy_entry_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_terminal_promotion_rejects_semantically_tampered_transition",
-      "required_validation_entry_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_terminal_promotion_rejects_semantically_tampered_transition",
-      "direct_command_id": "002-baseline-promotion-focused",
-      "route_command_id": "010-baseline-adoption-current-route"
-    }
-  ],
-  "non_claims": [
-    "This initial map covers only the Change 1 lifecycle inventory and promotion validations adopted at STEP 5.",
-    "This initial map is extended by later selected-track and terminal checkpoints rather than rewritten as evidence for an earlier subject."
-  ]
+    "schema_version":  "iris_repository_runtime_lightweighting_current_route_coverage_map_v1",
+    "status":  "PASS",
+    "revision_id":  "restart_epoch_20260805_40_baseline_adoption_v1",
+    "validated_at":  "2026-08-05T14:29:46.3712331Z",
+    "validated_subject_commit":  "dd5b8b95a317d603513d63c1846e5e6f1745bac5",
+    "validated_subject_tree":  "b1ad8a561f618129a152e7a5926d31a647f6132c",
+    "taxonomy":  {
+                     "path":  "Iris/_docs/round3/round3_test_taxonomy.json",
+                     "sha256":  "0fe547966e6b428db1631a669ceaa80faa521178c9494f900a76bc577943cb1b"
+                 },
+    "required_validations":  {
+                                 "path":  "Iris/_docs/round3/current_route_required_validations.json",
+                                 "sha256":  "e29b1101e15477c712a502a8d4d3de88621602c376e8b9dff8cb813d3ba1f1ed"
+                             },
+    "active_core_closure":  {
+                                "path":  "Iris/_docs/round3/round3_active_core_closure.json",
+                                "sha256":  "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf"
+                            },
+    "current_route_result":  {
+                                 "command_id":  "010-baseline-adoption-current-route",
+                                 "path":  "G:/v40/adoption-results/current_route.json",
+                                 "sha256":  "5982a69815a207ebc6e29283495b34e6ee30ba74b43e9f2435b98f378bcb089b",
+                                 "contract_class":  "current",
+                                 "closure_enforced":  true,
+                                 "test_count":  190,
+                                 "failure_count":  0,
+                                 "error_count":  0,
+                                 "skipped_count":  0,
+                                 "success":  true
+                             },
+    "direct_receipts":  [
+                            {
+                                "command_id":  "002-baseline-promotion-focused",
+                                "path":  "G:/v40/command-receipts/002-baseline-promotion-focused.json",
+                                "sha256":  "b384dfbe7e10e167cbda6028a0004eb60cc2db7a65a63e007e191344682269f9",
+                                "test_count":  15,
+                                "success":  true
+                            }
+                        ],
+    "rows":  [
+                 {
+                     "test_id":  "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_same_subject_is_byte_stable_and_role_partition_is_complete",
+                     "source_file":  "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+                     "coverage_disposition":  "covered_by_current_route",
+                     "taxonomy_entry_id":  "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_same_subject_is_byte_stable_and_role_partition_is_complete",
+                     "required_validation_entry_id":  "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_same_subject_is_byte_stable_and_role_partition_is_complete",
+                     "direct_command_id":  null,
+                     "route_command_id":  "010-baseline-adoption-current-route"
+                 },
+                 {
+                     "test_id":  "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_ignored_giants_exist_only_in_physical_denominator_with_exact_identity",
+                     "source_file":  "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+                     "coverage_disposition":  "covered_by_current_route",
+                     "taxonomy_entry_id":  "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_ignored_giants_exist_only_in_physical_denominator_with_exact_identity",
+                     "required_validation_entry_id":  "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_ignored_giants_exist_only_in_physical_denominator_with_exact_identity",
+                     "direct_command_id":  null,
+                     "route_command_id":  "010-baseline-adoption-current-route"
+                 },
+                 {
+                     "test_id":  "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_repository_local_and_preexisting_outputs_fail_loud",
+                     "source_file":  "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+                     "coverage_disposition":  "covered_by_current_route",
+                     "taxonomy_entry_id":  "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_repository_local_and_preexisting_outputs_fail_loud",
+                     "required_validation_entry_id":  "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_repository_local_and_preexisting_outputs_fail_loud",
+                     "direct_command_id":  null,
+                     "route_command_id":  "010-baseline-adoption-current-route"
+                 },
+                 {
+                     "test_id":  "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_console_temp_cache_and_ignored_consumers_are_in_scope",
+                     "source_file":  "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+                     "coverage_disposition":  "covered_by_current_route",
+                     "taxonomy_entry_id":  "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_console_temp_cache_and_ignored_consumers_are_in_scope",
+                     "required_validation_entry_id":  "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_console_temp_cache_and_ignored_consumers_are_in_scope",
+                     "direct_command_id":  null,
+                     "route_command_id":  "010-baseline-adoption-current-route"
+                 },
+                 {
+                     "test_id":  "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_missing_references_and_real_tracking_transition_are_fail_loud",
+                     "source_file":  "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+                     "coverage_disposition":  "covered_by_current_route",
+                     "taxonomy_entry_id":  "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_missing_references_and_real_tracking_transition_are_fail_loud",
+                     "required_validation_entry_id":  "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_missing_references_and_real_tracking_transition_are_fail_loud",
+                     "direct_command_id":  null,
+                     "route_command_id":  "010-baseline-adoption-current-route"
+                 },
+                 {
+                     "test_id":  "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_junctions_are_held_without_external_traversal",
+                     "source_file":  "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+                     "coverage_disposition":  "covered_by_current_route",
+                     "taxonomy_entry_id":  "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_junctions_are_held_without_external_traversal",
+                     "required_validation_entry_id":  "test_artifact_lifecycle_inventory.ArtifactLifecycleInventoryTest.test_junctions_are_held_without_external_traversal",
+                     "direct_command_id":  null,
+                     "route_command_id":  "010-baseline-adoption-current-route"
+                 },
+                 {
+                     "test_id":  "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_baseline_promotion_preserves_bytes_and_dual_receipt_identity",
+                     "source_file":  "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
+                     "coverage_disposition":  "direct_focused_and_current_route",
+                     "taxonomy_entry_id":  "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_baseline_promotion_preserves_bytes_and_dual_receipt_identity",
+                     "required_validation_entry_id":  "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_baseline_promotion_preserves_bytes_and_dual_receipt_identity",
+                     "direct_command_id":  "002-baseline-promotion-focused",
+                     "route_command_id":  "010-baseline-adoption-current-route"
+                 },
+                 {
+                     "test_id":  "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_altered_source_and_wrong_subject_are_rejected_before_durable_write",
+                     "source_file":  "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
+                     "coverage_disposition":  "direct_focused_and_current_route",
+                     "taxonomy_entry_id":  "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_altered_source_and_wrong_subject_are_rejected_before_durable_write",
+                     "required_validation_entry_id":  "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_altered_source_and_wrong_subject_are_rejected_before_durable_write",
+                     "direct_command_id":  "002-baseline-promotion-focused",
+                     "route_command_id":  "010-baseline-adoption-current-route"
+                 },
+                 {
+                     "test_id":  "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_preexisting_destination_blocks_all_promotion_outputs",
+                     "source_file":  "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
+                     "coverage_disposition":  "direct_focused_and_current_route",
+                     "taxonomy_entry_id":  "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_preexisting_destination_blocks_all_promotion_outputs",
+                     "required_validation_entry_id":  "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_preexisting_destination_blocks_all_promotion_outputs",
+                     "direct_command_id":  "002-baseline-promotion-focused",
+                     "route_command_id":  "010-baseline-adoption-current-route"
+                 },
+                 {
+                     "test_id":  "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_terminal_promotion_rejects_semantically_tampered_transition",
+                     "source_file":  "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
+                     "coverage_disposition":  "direct_focused_and_current_route",
+                     "taxonomy_entry_id":  "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_terminal_promotion_rejects_semantically_tampered_transition",
+                     "required_validation_entry_id":  "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_terminal_promotion_rejects_semantically_tampered_transition",
+                     "direct_command_id":  "002-baseline-promotion-focused",
+                     "route_command_id":  "010-baseline-adoption-current-route"
+                 }
+             ],
+    "non_claims":  [
+                       "This active restart-epoch map covers only the Change 1 lifecycle inventory and taxonomy-listed promotion validations adopted at STEP 5.",
+                       "The STEP 5 focused promotion command executed all 15 tests in its source file; only tests with exact taxonomy and required-validation IDs are represented as current-route coverage rows.",
+                       "This map is extended by later selected-track and terminal checkpoints rather than used as evidence for an earlier subject."
+                   ]
 }

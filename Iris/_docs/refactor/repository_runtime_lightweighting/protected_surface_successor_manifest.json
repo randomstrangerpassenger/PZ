@@ -2116,6 +2116,47 @@
                                   "reason": "Append the authoritative restart-20260805-40 baseline-adoption subject without rewriting any prior checkpoint row or the active restart epoch."
                               }
                           ]
+                      },
+                      {
+                          "revision_id": "common_scalar_protected_root_followup_v1",
+                          "track": "common",
+                          "owner": "repository_owner_user",
+                          "approved": true,
+                          "predecessor_commit": "b7ca4873265f347996fc481b6c3ee8c5e98f7414",
+                          "reason": "Preserve the refreshed Common allocator contract across the Windows PowerShell 5.1 external process boundary.",
+                          "approved_activation_deltas": [],
+                          "added_protected_rows": [
+                              {
+                                  "path": "Iris/validation/clean_checkout/allocate_repository_runtime_lightweighting_roots.ps1",
+                                  "before_git_blob_id": "4f80ccfad73e47075647ce95bd18603b20abb656",
+                                  "before_sha256_lf": "36d7b3395c0471978e8d278d31c1b8f04bf486f47267cdd66912bcca3bbbd303",
+                                  "expected_git_blob_id": "a61c58fbbb14bb6918026c65ce85b804743096b9",
+                                  "after_sha256_lf": "d93d8c221e7967c97cd9aa2a960fd42a6d91d595fb8735725f37ec9eec3ba885",
+                                  "role": "common_track_allocator",
+                                  "writer": "repository_runtime_lightweighting_common_implementation",
+                                  "consumers": [
+                                      "bootstrap_validation",
+                                      "artifact_lifecycle_validation"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Accept multiple protected roots through one JSON scalar argument while retaining the existing direct array interface and allocation safety checks."
+                              },
+                              {
+                                  "path": "Iris/build/description/v2/tests/test_artifact_work_root_contract.py",
+                                  "before_git_blob_id": "db1f9196713eee945d8d64371f9599283f3794b2",
+                                  "before_sha256_lf": "d10356cc6f9668bdc133686c75d8c654a4ee64fd2d0929e9544689cd667e8728",
+                                  "expected_git_blob_id": "20ce66b3d77428fdce412dbd0bf02f42c4690647",
+                                  "after_sha256_lf": "ca565e117c43beffa6da0fa01c35a1f5f8cc3c1870534a9d4a638ccadc1f5fb0",
+                                  "role": "common_track_test_contract",
+                                  "writer": "repository_runtime_lightweighting_common_implementation",
+                                  "consumers": [
+                                      "bootstrap_validation",
+                                      "artifact_lifecycle_validation"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Bind the generated run identity and multi-root JSON boundary regressions to the refreshed allocator contract."
+                              }
+                          ]
                       }
                   ]
 }

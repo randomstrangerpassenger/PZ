@@ -1,0 +1,29 @@
+{
+  "byte_identity_verified": true,
+  "destination_repository_relative_root": "Iris/_docs/refactor/repository_runtime_lightweighting",
+  "mode": "baseline",
+  "physical_subject": {
+    "commit": "1bed2a5d88aff69f389b102077eb692c7c575237",
+    "physical_resolved_root": "C:/Users/MW/Downloads/coding/PZ",
+    "run_identity": "970de0d4eeb36c1d56cbd4108c7ec20956a662d23c7ca29355e370fba6bf51bd",
+    "tree": "ac17ea6e8e038c8e7af49dcbc1fcdb53a6a8b855"
+  },
+  "promoted_files": [
+    {
+      "byte_length": 52386703,
+      "destination_path": "C:/Users/MW/Downloads/coding/PZ/Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
+      "destination_sha256": "8bf7a50e68597aec2c69d01cd5a8c67ddb05fabac1b02c8bb37288445993a609",
+      "source_path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/physical-capacity-physical-capacity-1bed2a5d-20260-step3-1bed2a5d-23-cd59c130854b/inventory-result/artifact_role_manifest.jsonl",
+      "source_sha256": "8bf7a50e68597aec2c69d01cd5a8c67ddb05fabac1b02c8bb37288445993a609"
+    },
+    {
+      "byte_length": 1049798,
+      "destination_path": "C:/Users/MW/Downloads/coding/PZ/Iris/_docs/refactor/repository_runtime_lightweighting/baseline_inventory.json",
+      "destination_sha256": "c6baefb685b3118b4376adb0eb0162963e251524b2639dba2257112933b48077",
+      "source_path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/physical-capacity-physical-capacity-1bed2a5d-20260-step3-1bed2a5d-23-cd59c130854b/inventory-result/baseline_inventory.json",
+      "source_sha256": "c6baefb685b3118b4376adb0eb0162963e251524b2639dba2257112933b48077"
+    }
+  ],
+  "promotion_commit_binding": "pending_reviewed_commit",
+  "schema_version": "iris_repository_runtime_lightweighting_baseline_promotion_v1"
+}

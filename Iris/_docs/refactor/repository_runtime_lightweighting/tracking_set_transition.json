@@ -1,0 +1,34 @@
+{
+  "added_tracked_paths": [
+    "Iris/_docs/refactor/repository_runtime_lightweighting/archive_operation_manifest.json",
+    "Iris/_docs/refactor/repository_runtime_lightweighting/archive_promotion_receipt.json",
+    "Iris/_docs/refactor/repository_runtime_lightweighting/archive_restore_receipt.json"
+  ],
+  "approved_newly_tracked_paths": [
+    "Iris/_docs/refactor/repository_runtime_lightweighting/archive_operation_manifest.json",
+    "Iris/_docs/refactor/repository_runtime_lightweighting/archive_promotion_receipt.json",
+    "Iris/_docs/refactor/repository_runtime_lightweighting/archive_restore_receipt.json"
+  ],
+  "baseline_physical_bytes": 4842336252,
+  "baseline_run_identity": "859598dc00da82a7c798a9c6e575394092e1d46983dc7c945ec077ad44c9c4c6",
+  "baseline_tracked_path_set_sha256": "d23d22a909900fd04bb30b44c89281d58252581f8c04232bcb7cf325bdda827c",
+  "final_physical_bytes": 1338324791,
+  "final_run_identity": "d1e7b2f123f606e522301f680fd4afceb39e2309d417e742732737b900a7a3aa",
+  "final_tracked_path_set_sha256": "31218d778584da4bae2de44b8d96904b11fd533823b44d8fadff75af9cbb3a48",
+  "physical_byte_delta": -3504011461,
+  "physical_resolved_root": "C:/Users/MW/Downloads/coding/PZ",
+  "producer_migration_manifest": {
+    "exists": true,
+    "path": "Iris/_docs/refactor/repository_runtime_lightweighting/producer_migration_manifest.json",
+    "sha256": "f843a7ad6474249e0278e6d9f6bd96d700179e0a81f62e29d722a1bb6a5f5be5"
+  },
+  "removed_tracked_count": 0,
+  "removed_tracked_paths": [],
+  "schema_version": "iris_repository_runtime_lightweighting_tracking_transition_v1",
+  "status": "PASS",
+  "subject_kind": "physical_capacity_subject",
+  "unapproved_newly_tracked_count": 0,
+  "unapproved_newly_tracked_paths": [],
+  "unexpectedly_untracked_protected_count": 0,
+  "unexpectedly_untracked_protected_paths": []
+}

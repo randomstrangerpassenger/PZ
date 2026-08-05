@@ -1,0 +1,40 @@
+{
+  "baseline_promotion_receipt": {
+    "path": "C:/Users/MW/Downloads/coding/PZ/Iris/_docs/refactor/repository_runtime_lightweighting/baseline_promotion_receipt.json",
+    "sha256": "5403ddd9b5733018dcdc03e7227a8533d2d2288e3611fdebd047139531a44203"
+  },
+  "byte_identity_verified": true,
+  "mode": "terminal",
+  "physical_subject": {
+    "commit": "a03ccc94b6734a37cb1a5b2ecf1ea85fadf22359",
+    "physical_resolved_root": "C:/Users/MW/Downloads/coding/PZ",
+    "run_identity": "d1e7b2f123f606e522301f680fd4afceb39e2309d417e742732737b900a7a3aa",
+    "tree": "a0a1643e5ef4f5cfd29cb0fa6cc7527c3fb23cbb"
+  },
+  "promoted_files": [
+    {
+      "byte_length": 52484505,
+      "destination_path": "C:/Users/MW/Downloads/coding/PZ/Iris/_docs/refactor/repository_runtime_lightweighting/final_artifact_role_manifest.jsonl",
+      "destination_sha256": "9edc05cce635b6b1615dacf154d2819960f14b759a8d6f8267e1be50820fbb92",
+      "source_path": "G:/r39/physical-capacity-physical-capacity-86197d46-20260-rebaseline-capacity-allocation-8-d4ed60d165cb/terminal-inventory-result/final_artifact_role_manifest.jsonl",
+      "source_sha256": "9edc05cce635b6b1615dacf154d2819960f14b759a8d6f8267e1be50820fbb92"
+    },
+    {
+      "byte_length": 1050771,
+      "destination_path": "C:/Users/MW/Downloads/coding/PZ/Iris/_docs/refactor/repository_runtime_lightweighting/final_inventory.json",
+      "destination_sha256": "01993a71826e060b78c9c82043293d7dd38ce1a7424d588f5e8561bfa40dc180",
+      "source_path": "G:/r39/physical-capacity-physical-capacity-86197d46-20260-rebaseline-capacity-allocation-8-d4ed60d165cb/terminal-inventory-result/final_inventory.json",
+      "source_sha256": "01993a71826e060b78c9c82043293d7dd38ce1a7424d588f5e8561bfa40dc180"
+    },
+    {
+      "byte_length": 1830,
+      "destination_path": "C:/Users/MW/Downloads/coding/PZ/Iris/_docs/refactor/repository_runtime_lightweighting/tracking_set_transition.json",
+      "destination_sha256": "80c5ba9470ca2730ea80f3bf0d00f3026c694246a213342ad3541f47f6157922",
+      "source_path": "G:/r39/physical-capacity-physical-capacity-86197d46-20260-rebaseline-capacity-allocation-8-d4ed60d165cb/terminal-inventory-result/tracking_set_transition.json",
+      "source_sha256": "80c5ba9470ca2730ea80f3bf0d00f3026c694246a213342ad3541f47f6157922"
+    }
+  ],
+  "promotion_commit_binding": "pending_reviewed_commit",
+  "schema_version": "iris_repository_runtime_lightweighting_terminal_promotion_v1",
+  "semantic_validation": true
+}

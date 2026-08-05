@@ -1,0 +1,159 @@
+{
+  "schema_version": "iris_repository_runtime_lightweighting_common_closeout_receipt_v1",
+  "receipt_kind": "common_closeout",
+  "checkpoint_id": "common_closeout",
+  "status": "PASS",
+  "validated_at": "2026-08-05T21:38:16.5170340+00:00",
+  "validated_subject": {
+    "subject_kind": "common_closeout_validation_subject",
+    "claim_id": "c47",
+    "repository_root": "G:/r39/s14/checkpoint-c47-s14-7dc75a1fa236/work/checkout",
+    "commit": "3f940720c7c9174de2ebf4910760c6384d9ef78d",
+    "tree": "1df5a58fca190e9a278bce95699c2b061bb2852e",
+    "subject_receipt_path": "G:/r39/s14/checkpoint-c47-s14-7dc75a1fa236/result/common_closeout_subject_receipt.json",
+    "subject_receipt_sha256": "8ed232d9e120c06d304f65483e858183658171a9b66e2ce79aa8374b6b55b7f2"
+  },
+  "validated_subject_commit": "3f940720c7c9174de2ebf4910760c6384d9ef78d",
+  "validated_subject_tree": "1df5a58fca190e9a278bce95699c2b061bb2852e",
+  "authority_scope": "common_track_closeout_only",
+  "environment_receipt": {
+    "path": "C:/Users/MW/iccv/receipts/env-v1/environment_receipt.json",
+    "sha256": "fb5dd78e15c41346f15b39065c60c2ce4d83254d73bbde3d3181d327b30b6bc2"
+  },
+  "environment_authority": {
+    "path": "G:/r39/s14/checkpoint-c47-s14-7dc75a1fa236/work/checkout/Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json",
+    "sha256": "56e7d4bf331cf0a23a951997f7ba8dfef53bbcde682aa311d2ff059a98c814c8"
+  },
+  "environment_deltas": {
+    "checkpoint": {
+      "path": "G:/r39/s14/environment_delta.json",
+      "sha256": "dacb1e202ac116d7b7097128fc666dc14dad44f0c243b4fbf9daab126c12d8e9"
+    },
+    "audit": {
+      "path": "G:/r39/s14audit/result/environment_delta.json",
+      "sha256": "ba9d154620c3adfc3549e593456616dd23c3eca07ba1e4ffe13bca3b9c0166ff"
+    }
+  },
+  "taxonomy": {
+    "path": "G:/r39/s14/checkpoint-c47-s14-7dc75a1fa236/work/checkout/Iris/_docs/round3/round3_test_taxonomy.json",
+    "sha256": "0fe547966e6b428db1631a669ceaa80faa521178c9494f900a76bc577943cb1b"
+  },
+  "required_validations": {
+    "path": "G:/r39/s14/checkpoint-c47-s14-7dc75a1fa236/work/checkout/Iris/_docs/round3/current_route_required_validations.json",
+    "sha256": "e29b1101e15477c712a502a8d4d3de88621602c376e8b9dff8cb813d3ba1f1ed"
+  },
+  "active_core_closure": {
+    "path": "G:/r39/s14/checkpoint-c47-s14-7dc75a1fa236/work/checkout/Iris/_docs/round3/round3_active_core_closure.json",
+    "sha256": "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf"
+  },
+  "output_isolation_audit": {
+    "path": "G:/r39/s14audit/result/current_route_output_isolation_audit_receipt.json",
+    "sha256": "b88b3962ed1eb6539b584ce46ca40ec7fa2bec2076cb5bbb1db968f50d75d9f7",
+    "status": "PASS",
+    "subject_commit": "3f940720c7c9174de2ebf4910760c6384d9ef78d",
+    "subject_tree": "1df5a58fca190e9a278bce95699c2b061bb2852e",
+    "selected_test_count": 111,
+    "dynamic_write_site_count": 519,
+    "checkout_unchanged": true,
+    "tracked_delta_count": 0,
+    "untracked_delta_count": 0,
+    "ignored_delta_count": 0,
+    "unreadable_count": 0
+  },
+  "output_isolation_verification_receipt": {
+    "command_id": "001-verify-current-route-output-isolation",
+    "path": "G:/r39/s14/checkpoint-c47-s14-7dc75a1fa236/result/command-receipts/001-verify-current-route-output-isolation.json",
+    "sha256": "cfb3f1987e4dd750adfa529067a5504f34cbbf41bfe10e31832586e077f57a10"
+  },
+  "current_route_result": {
+    "command_id": "002-common-closeout-current",
+    "path": "G:/r39/s14/checkpoint-c47-s14-7dc75a1fa236/current-result/current_route.json",
+    "sha256": "f80a1ada5040fc0472187f4bd2b620ce4b2fe2470a18ad9162ea85a8c502cb17",
+    "contract_class": "current",
+    "closure_enforced": true,
+    "test_count": 190,
+    "success": true
+  },
+  "historical_route_result": {
+    "command_id": "003-common-closeout-historical",
+    "path": "G:/r39/s14/checkpoint-c47-s14-7dc75a1fa236/historical-result/historical_route.json",
+    "sha256": "2d392be72208e7aa6d04ee5ec723cff7c4b1cb91ccb06ef9aa56211c8cb56134",
+    "contract_class": "historical",
+    "closure_enforced": false,
+    "test_count": 285,
+    "success": true
+  },
+  "diagnostic_result": {
+    "command_id": "004-common-closeout-diagnostic",
+    "path": "G:/r39/s14/checkpoint-c47-s14-7dc75a1fa236/diagnostic-disposition-result/diagnostic_disposition.json",
+    "sha256": "5e8c6c663c09dde73b0bde67b97ac130cff1d560cc14e99591f949f2fe914eb3",
+    "raw_report_path": "G:/r39/s14/checkpoint-c47-s14-7dc75a1fa236/diagnostic-raw-result/diagnostic_raw.json",
+    "raw_report_sha256": "f2af6d49a97e3eeff72e2c731d793bf3192e789e78e6da414c01727c35e8a3ae",
+    "execution_status": "passed",
+    "finding_status": "advisory_failed",
+    "raw_exit_code": 1,
+    "raw_report_schema_valid": true,
+    "blocking": false,
+    "validation_status": "passed",
+    "disposition_count": 21,
+    "matched_test_count": 21,
+    "unmatched_test_ids": [],
+    "stale_disposition_test_ids": []
+  },
+  "command_specs": [
+    {
+      "command_id": "001-verify-current-route-output-isolation",
+      "path": "G:/r39/s14/checkpoint-c47-s14-7dc75a1fa236/result/command-receipts/001-verify-current-route-output-isolation.command.json",
+      "sha256": "925b8429e8aafecce1150606359cde959d73d5bdfaf59351987d62703cb78b65"
+    },
+    {
+      "command_id": "002-common-closeout-current",
+      "path": "G:/r39/s14/checkpoint-c47-s14-7dc75a1fa236/result/command-receipts/002-common-closeout-current.command.json",
+      "sha256": "1adb9528aacf3d1ac2ae1a1eab2b9ba355ef8fb928b07aa54ae7c5663bc50a29"
+    },
+    {
+      "command_id": "003-common-closeout-historical",
+      "path": "G:/r39/s14/checkpoint-c47-s14-7dc75a1fa236/result/command-receipts/003-common-closeout-historical.command.json",
+      "sha256": "9843bdf1bf6025146ae050d46634ec345096f8e93d8260860dc40c159f579278"
+    },
+    {
+      "command_id": "004-common-closeout-diagnostic",
+      "path": "G:/r39/s14/checkpoint-c47-s14-7dc75a1fa236/result/command-receipts/004-common-closeout-diagnostic.command.json",
+      "sha256": "53783783f4a125a9e275f1aa2f90b5d2db98669223e3338cf02319c93fcd89f9"
+    }
+  ],
+  "command_spec_set_sha256": "04225cdb385d5fdcac8187d8b8fd7e4b38e11865d8e19f695d89909a81f6d1ce",
+  "command_receipts": [
+    {
+      "command_id": "001-verify-current-route-output-isolation",
+      "path": "G:/r39/s14/checkpoint-c47-s14-7dc75a1fa236/result/command-receipts/001-verify-current-route-output-isolation.json",
+      "sha256": "cfb3f1987e4dd750adfa529067a5504f34cbbf41bfe10e31832586e077f57a10"
+    },
+    {
+      "command_id": "002-common-closeout-current",
+      "path": "G:/r39/s14/checkpoint-c47-s14-7dc75a1fa236/result/command-receipts/002-common-closeout-current.json",
+      "sha256": "372f9f41b8ad0103e39139951c22fe52dd400c273b8272a1ec9d00b8041c3de4"
+    },
+    {
+      "command_id": "003-common-closeout-historical",
+      "path": "G:/r39/s14/checkpoint-c47-s14-7dc75a1fa236/result/command-receipts/003-common-closeout-historical.json",
+      "sha256": "38541637834814a6da51fd2725e847cc076609da58ca0472e0b536055c9faa8c"
+    },
+    {
+      "command_id": "004-common-closeout-diagnostic",
+      "path": "G:/r39/s14/checkpoint-c47-s14-7dc75a1fa236/result/command-receipts/004-common-closeout-diagnostic.json",
+      "sha256": "606e7248a9f171b389c28eebf2ad0efc957cf0f50c28b85062c038e07f3749aa"
+    }
+  ],
+  "command_receipt_set_sha256": "97e1767210cddbb615cb2824a339ba6a24ec26b7f9fbc2caf7dc4f7105de4b0b",
+  "checkout_clean_before": true,
+  "checkout_clean_after": true,
+  "working_tree_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "common_track_closed": true,
+  "follow_up_tracks_authorized": false,
+  "non_claims": [
+    "This STEP 14 checkpoint does not select Runtime Track or Tooling Track.",
+    "This STEP 14 checkpoint does not adopt Runtime Track or Tooling Track implementation.",
+    "Track authorization requires the separate STEP 15 track_order_decision.json."
+  ]
+}

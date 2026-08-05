@@ -50,6 +50,10 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def git_blob_id(payload: bytes) -> str:
+    return hashlib.sha1(f"blob {len(payload)}\0".encode("ascii") + payload).hexdigest()
+
+
 def canonical_bytes(value: object) -> bytes:
     return (json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode("utf-8")
 
@@ -188,6 +192,35 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
         {
             "schema_version": "iris_repository_runtime_lightweighting_validation_checkpoint_manifest_v1",
             "checkpoints": [],
+        },
+    )
+    write_json(
+        repo / DURABLE / "pre_delete_current_route_receipt.json",
+        {
+            "schema_version": "iris_repository_runtime_lightweighting_pre_delete_current_route_receipt_v1",
+            "receipt_kind": "pre_delete_current_route",
+            "status": "SUPERSEDED",
+        },
+    )
+    write_json(
+        repo / DURABLE / "protected_surface_successor_manifest.json",
+        {
+            "schema_version": "iris_repository_runtime_lightweighting_protected_surface_successor_v1",
+            "authority": "repository_owner_user",
+            "authorization_basis": "fixture owner authority",
+            "predecessor": {"fixture": True},
+            "revisions": [
+                {
+                    "revision_id": "fixture_predecessor_v1",
+                    "track": "common",
+                    "owner": "repository_owner_user",
+                    "approved": True,
+                    "predecessor_commit": "fixture-predecessor",
+                    "reason": "Fixture predecessor revision.",
+                    "approved_activation_deltas": [],
+                    "added_protected_rows": [],
+                }
+            ],
         },
     )
     git(repo, "add", ".")
@@ -595,6 +628,7 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
             "schema_version": "iris_repository_runtime_lightweighting_pre_delete_current_route_receipt_v1",
             "receipt_kind": "pre_delete_current_route",
             "status": "PASS",
+            "protected_surface_revision_id": "pre_delete_fixture_revision_v1",
             "validated_subject": {
                 "subject_kind": "common_pre_delete_validation_subject",
                 "claim_id": "pre-delete-fixture",
@@ -677,7 +711,72 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
         }
     )
     write_json(checkpoint_manifest, checkpoint)
-    git(repo, "add", pre_delete.relative_to(repo).as_posix(), checkpoint_manifest.relative_to(repo).as_posix())
+    protected_manifest = repo / DURABLE / "protected_surface_successor_manifest.json"
+    protected = json.loads(protected_manifest.read_text(encoding="utf-8"))
+    protected["revisions"].append(
+        {
+            "revision_id": "pre_delete_fixture_revision_v1",
+            "track": "common",
+            "owner": "repository_owner_user",
+            "approved": True,
+            "predecessor_commit": validation_commit,
+            "reason": "Bind the fixture STEP 8 receipt and checkpoint successor.",
+            "approved_activation_deltas": [],
+            "added_protected_rows": [
+                {
+                    "path": pre_delete.relative_to(repo).as_posix(),
+                    "before_git_blob_id": git(
+                        validation,
+                        "rev-parse",
+                        f"HEAD:{pre_delete.relative_to(repo).as_posix()}",
+                    ),
+                    "before_sha256_lf": sha256(validation / pre_delete.relative_to(repo)),
+                    "expected_git_blob_id": git_blob_id(pre_delete.read_bytes()),
+                    "after_sha256_lf": sha256(pre_delete),
+                    "role": "common_track_pre_delete_current_route_evidence",
+                    "writer": "repository_runtime_lightweighting_step8_checkpoint_writer",
+                    "consumers": [
+                        "archive_operation",
+                        "delete_prerequisite_gate",
+                        "terminal_closeout",
+                        "repository_maintainers",
+                    ],
+                    "owner": "repository_owner_user",
+                    "reason": "Protect the refreshed fixture STEP 8 receipt.",
+                },
+                {
+                    "path": checkpoint_manifest.relative_to(repo).as_posix(),
+                    "before_git_blob_id": git(
+                        validation,
+                        "rev-parse",
+                        f"HEAD:{checkpoint_manifest.relative_to(repo).as_posix()}",
+                    ),
+                    "before_sha256_lf": sha256(validation / checkpoint_manifest.relative_to(repo)),
+                    "expected_git_blob_id": git_blob_id(checkpoint_manifest.read_bytes()),
+                    "after_sha256_lf": sha256(checkpoint_manifest),
+                    "role": "common_track_validation_checkpoint_manifest",
+                    "writer": "repository_runtime_lightweighting_step8_checkpoint_writer",
+                    "consumers": [
+                        "archive_operation",
+                        "delete_prerequisite_gate",
+                        "selected_track_validation",
+                        "terminal_closeout",
+                        "repository_maintainers",
+                    ],
+                    "owner": "repository_owner_user",
+                    "reason": "Protect the appended fixture STEP 8 checkpoint.",
+                },
+            ],
+        }
+    )
+    write_json(protected_manifest, protected)
+    git(
+        repo,
+        "add",
+        pre_delete.relative_to(repo).as_posix(),
+        checkpoint_manifest.relative_to(repo).as_posix(),
+        protected_manifest.relative_to(repo).as_posix(),
+    )
     git(repo, "commit", "-m", "seal pre-delete route")
 
     rows = [
@@ -723,6 +822,80 @@ class ArtifactLifecycleExecutorTest(unittest.TestCase):
             )
 
             checkpoint_manifest = durable / "validation_checkpoint_manifest.json"
+            protected_manifest = durable / "protected_surface_successor_manifest.json"
+            protected_bytes = protected_manifest.read_bytes()
+
+            def refresh_protected_successor_bindings() -> None:
+                payload = json.loads(protected_bytes.decode("utf-8"))
+                targets = {
+                    pre_delete.relative_to(repo).as_posix(): pre_delete,
+                    checkpoint_manifest.relative_to(repo).as_posix(): checkpoint_manifest,
+                }
+                for row in payload["revisions"][-1]["added_protected_rows"]:
+                    target = targets[row["path"]]
+                    row["expected_git_blob_id"] = git_blob_id(target.read_bytes())
+                    row["after_sha256_lf"] = sha256(target)
+                write_json(protected_manifest, payload)
+
+            def assert_protected_successor_rejected(label: str, mutator) -> None:
+                payload = json.loads(protected_bytes.decode("utf-8"))
+                mutator(payload)
+                write_json(protected_manifest, payload)
+                git(repo, "add", protected_manifest.relative_to(repo).as_posix())
+                git(repo, "commit", "-m", f"tamper STEP 8 protected successor {label}")
+                rejected = invoke(
+                    EXECUTOR,
+                    "dry-run",
+                    "--repo", repo,
+                    "--baseline", durable / "baseline_inventory.json",
+                    "--promotion-receipt", baseline_promotion,
+                    "--pre-delete-route-receipt", pre_delete,
+                    "--selection", selection,
+                    "--manifest-out", external / f"rejected-protected-{label}/operation.json",
+                    "--receipt-out", external / f"rejected-protected-{label}/receipt.json",
+                    cwd=repo,
+                )
+                self.assertNotEqual(rejected.returncode, 0)
+                self.assertIn("STEP 8 protected successor", rejected.stderr)
+                protected_manifest.write_bytes(protected_bytes)
+                git(repo, "add", protected_manifest.relative_to(repo).as_posix())
+                git(repo, "commit", "-m", f"restore STEP 8 protected successor after {label}")
+
+            assert_protected_successor_rejected(
+                "prior-revision",
+                lambda payload: payload["revisions"][0].update(
+                    {"reason": "tampered predecessor revision"}
+                ),
+            )
+            assert_protected_successor_rejected(
+                "extra-revision",
+                lambda payload: payload["revisions"].append(
+                    dict(payload["revisions"][-1])
+                ),
+            )
+            assert_protected_successor_rejected(
+                "missing-row",
+                lambda payload: payload["revisions"][-1]["added_protected_rows"].pop(),
+            )
+            assert_protected_successor_rejected(
+                "predecessor",
+                lambda payload: payload["revisions"][-1].update(
+                    {"predecessor_commit": "0" * 40}
+                ),
+            )
+            assert_protected_successor_rejected(
+                "after-hash",
+                lambda payload: payload["revisions"][-1]["added_protected_rows"][0].update(
+                    {"after_sha256_lf": "0" * 64}
+                ),
+            )
+            assert_protected_successor_rejected(
+                "before-blob",
+                lambda payload: payload["revisions"][-1]["added_protected_rows"][0].update(
+                    {"before_git_blob_id": "0" * 40}
+                ),
+            )
+
             audit_receipt_path = external / "output-isolation-audit/current_route_output_isolation_audit_receipt.json"
             audit_receipt_bytes = audit_receipt_path.read_bytes()
             tampered_audit = json.loads(audit_receipt_bytes.decode("utf-8"))
@@ -775,11 +948,13 @@ class ArtifactLifecycleExecutorTest(unittest.TestCase):
                 pre_delete
             )
             write_json(checkpoint_manifest, omitted_checkpoint)
+            refresh_protected_successor_bindings()
             git(
                 repo,
                 "add",
                 pre_delete.relative_to(repo).as_posix(),
                 checkpoint_manifest.relative_to(repo).as_posix(),
+                protected_manifest.relative_to(repo).as_posix(),
             )
             git(repo, "commit", "-m", "tamper pre-delete audit command omission")
             rejected_audit_omission = invoke(
@@ -798,11 +973,13 @@ class ArtifactLifecycleExecutorTest(unittest.TestCase):
             self.assertIn("output-isolation mismatch", rejected_audit_omission.stderr)
             pre_delete.write_bytes(pre_delete_bytes)
             checkpoint_manifest.write_bytes(checkpoint_bytes)
+            protected_manifest.write_bytes(protected_bytes)
             git(
                 repo,
                 "add",
                 pre_delete.relative_to(repo).as_posix(),
                 checkpoint_manifest.relative_to(repo).as_posix(),
+                protected_manifest.relative_to(repo).as_posix(),
             )
             git(repo, "commit", "-m", "restore exact pre-delete audit command")
 
@@ -847,11 +1024,13 @@ class ArtifactLifecycleExecutorTest(unittest.TestCase):
                     pre_delete
                 )
                 write_json(checkpoint_manifest, checkpoint_payload)
+                refresh_protected_successor_bindings()
                 git(
                     repo,
                     "add",
                     pre_delete.relative_to(repo).as_posix(),
                     checkpoint_manifest.relative_to(repo).as_posix(),
+                    protected_manifest.relative_to(repo).as_posix(),
                 )
                 git(repo, "commit", "-m", f"tamper current-route argv {label}")
                 rejected = invoke(
@@ -872,11 +1051,13 @@ class ArtifactLifecycleExecutorTest(unittest.TestCase):
                 current_command.write_bytes(current_command_bytes)
                 pre_delete.write_bytes(pre_delete_bytes)
                 checkpoint_manifest.write_bytes(checkpoint_bytes)
+                protected_manifest.write_bytes(protected_bytes)
                 git(
                     repo,
                     "add",
                     pre_delete.relative_to(repo).as_posix(),
                     checkpoint_manifest.relative_to(repo).as_posix(),
+                    protected_manifest.relative_to(repo).as_posix(),
                 )
                 git(repo, "commit", "-m", f"restore current-route argv after {label}")
 

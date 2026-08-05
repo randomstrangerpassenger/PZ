@@ -41,12 +41,20 @@ POST_VALIDATION_ALLOWED_ADDITIONS = {
     "Iris/_docs/refactor/repository_runtime_lightweighting/archive_restore_receipt.json",
     "Iris/_docs/refactor/repository_runtime_lightweighting/archive_promotion_receipt.json",
 }
+POST_VALIDATION_ALLOWED_MODIFICATIONS = {
+    "Iris/_docs/refactor/repository_runtime_lightweighting/pre_delete_current_route_receipt.json",
+    "Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json",
+    "Iris/_docs/refactor/repository_runtime_lightweighting/protected_surface_successor_manifest.json",
+}
 
 CHECKPOINT_MANIFEST_RELATIVE = (
     "Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json"
 )
 PRE_DELETE_RECEIPT_RELATIVE = (
     "Iris/_docs/refactor/repository_runtime_lightweighting/pre_delete_current_route_receipt.json"
+)
+PROTECTED_SUCCESSOR_RELATIVE = (
+    "Iris/_docs/refactor/repository_runtime_lightweighting/protected_surface_successor_manifest.json"
 )
 ENVIRONMENT_AUTHORITY_RELATIVE = (
     "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json"
@@ -67,6 +75,40 @@ def sha256_file(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def sha256_lf_bytes(payload: bytes) -> str:
+    return hashlib.sha256(payload.replace(b"\r\n", b"\n")).hexdigest()
+
+
+def git_blob_bytes(repo: Path, revision: str, relative: str) -> bytes:
+    completed = subprocess.run(
+        ["git", "-C", str(repo), "show", f"{revision}:{relative}"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    if completed.returncode != 0:
+        raise LifecycleExecutionError(
+            f"Git blob is unavailable at {revision}:{relative}"
+        )
+    return completed.stdout
+
+
+def git_blob_id(repo: Path, revision: str, relative: str) -> str | None:
+    completed = subprocess.run(
+        ["git", "-C", str(repo), "rev-parse", f"{revision}:{relative}"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
+    if completed.returncode != 0:
+        return None
+    value = completed.stdout.strip()
+    return value if value else None
 
 
 def load_object(path: Path) -> dict[str, Any]:
@@ -349,6 +391,162 @@ def validate_operation(operation: dict[str, Any], repo: Path | None = None) -> P
     return resolved_repo
 
 
+def validate_step8_protected_successor(
+    repo: Path,
+    subject: dict[str, Any],
+    receipt: dict[str, Any],
+) -> None:
+    protected_path = (repo / PROTECTED_SUCCESSOR_RELATIVE).resolve()
+    if not protected_path.is_file():
+        raise LifecycleExecutionError("STEP 8 protected successor manifest is unavailable")
+    head_bytes = git_blob_bytes(repo, "HEAD", PROTECTED_SUCCESSOR_RELATIVE)
+    if head_bytes != protected_path.read_bytes():
+        raise LifecycleExecutionError("STEP 8 protected successor manifest is not bound to HEAD")
+    prior_bytes = git_blob_bytes(
+        repo,
+        str(subject["commit"]),
+        PROTECTED_SUCCESSOR_RELATIVE,
+    )
+    try:
+        prior = json.loads(prior_bytes.decode("utf-8"))
+        current = json.loads(head_bytes.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise LifecycleExecutionError("STEP 8 protected successor manifest is malformed") from error
+    if not isinstance(prior, dict) or not isinstance(current, dict):
+        raise LifecycleExecutionError("STEP 8 protected successor manifest is not an object")
+    if (
+        prior.get("schema_version")
+        != "iris_repository_runtime_lightweighting_protected_surface_successor_v1"
+        or current.get("schema_version") != prior.get("schema_version")
+    ):
+        raise LifecycleExecutionError("STEP 8 protected successor schema mismatch")
+    prior_header = {key: value for key, value in prior.items() if key != "revisions"}
+    current_header = {key: value for key, value in current.items() if key != "revisions"}
+    prior_revisions = prior.get("revisions")
+    current_revisions = current.get("revisions")
+    if (
+        prior_header != current_header
+        or not isinstance(prior_revisions, list)
+        or not isinstance(current_revisions, list)
+        or len(current_revisions) != len(prior_revisions) + 1
+        or current_revisions[:-1] != prior_revisions
+    ):
+        raise LifecycleExecutionError(
+            "STEP 8 protected successor history is not an immutable single-revision append"
+        )
+
+    revision = current_revisions[-1]
+    revision_id = receipt.get("protected_surface_revision_id")
+    expected_revision_keys = {
+        "revision_id",
+        "track",
+        "owner",
+        "approved",
+        "predecessor_commit",
+        "reason",
+        "approved_activation_deltas",
+        "added_protected_rows",
+    }
+    if (
+        not isinstance(revision, dict)
+        or set(revision) != expected_revision_keys
+        or not isinstance(revision_id, str)
+        or not revision_id
+        or revision.get("revision_id") != revision_id
+        or revision.get("track") != "common"
+        or revision.get("owner") != "repository_owner_user"
+        or revision.get("approved") is not True
+        or revision.get("predecessor_commit") != subject.get("commit")
+        or not isinstance(revision.get("reason"), str)
+        or not revision.get("reason")
+        or revision.get("approved_activation_deltas") != []
+    ):
+        raise LifecycleExecutionError("STEP 8 protected successor revision authority mismatch")
+    if any(
+        isinstance(row, dict) and row.get("revision_id") == revision_id
+        for row in prior_revisions
+    ):
+        raise LifecycleExecutionError("STEP 8 protected successor revision id is reused")
+
+    expected_metadata = {
+        PRE_DELETE_RECEIPT_RELATIVE: {
+            "role": "common_track_pre_delete_current_route_evidence",
+            "writer": "repository_runtime_lightweighting_step8_checkpoint_writer",
+            "consumers": [
+                "archive_operation",
+                "delete_prerequisite_gate",
+                "terminal_closeout",
+                "repository_maintainers",
+            ],
+        },
+        CHECKPOINT_MANIFEST_RELATIVE: {
+            "role": "common_track_validation_checkpoint_manifest",
+            "writer": "repository_runtime_lightweighting_step8_checkpoint_writer",
+            "consumers": [
+                "archive_operation",
+                "delete_prerequisite_gate",
+                "selected_track_validation",
+                "terminal_closeout",
+                "repository_maintainers",
+            ],
+        },
+    }
+    added_rows = revision.get("added_protected_rows")
+    if not isinstance(added_rows, list) or len(added_rows) != len(expected_metadata):
+        raise LifecycleExecutionError("STEP 8 protected successor row count mismatch")
+    by_path = {
+        str(row.get("path", "")): row
+        for row in added_rows
+        if isinstance(row, dict)
+    }
+    if set(by_path) != set(expected_metadata) or len(by_path) != len(added_rows):
+        raise LifecycleExecutionError("STEP 8 protected successor path set mismatch")
+
+    expected_row_keys = {
+        "path",
+        "before_git_blob_id",
+        "before_sha256_lf",
+        "expected_git_blob_id",
+        "after_sha256_lf",
+        "role",
+        "writer",
+        "consumers",
+        "owner",
+        "reason",
+    }
+    for relative, metadata in expected_metadata.items():
+        row = by_path[relative]
+        before_blob_id = git_blob_id(repo, str(subject["commit"]), relative)
+        before_bytes = (
+            git_blob_bytes(repo, str(subject["commit"]), relative)
+            if before_blob_id is not None
+            else None
+        )
+        after_blob_id = git_blob_id(repo, "HEAD", relative)
+        if after_blob_id is None:
+            raise LifecycleExecutionError(
+                f"STEP 8 protected successor target is absent from HEAD: {relative}"
+            )
+        after_bytes = git_blob_bytes(repo, "HEAD", relative)
+        if (
+            set(row) != expected_row_keys
+            or row.get("before_git_blob_id") != before_blob_id
+            or row.get("before_sha256_lf")
+            != (sha256_lf_bytes(before_bytes) if before_bytes is not None else None)
+            or row.get("expected_git_blob_id") != after_blob_id
+            or row.get("after_sha256_lf") != sha256_lf_bytes(after_bytes)
+            or row.get("role") != metadata["role"]
+            or row.get("writer") != metadata["writer"]
+            or row.get("consumers") != metadata["consumers"]
+            or row.get("owner") != "repository_owner_user"
+            or not isinstance(row.get("reason"), str)
+            or not row.get("reason")
+        ):
+            raise LifecycleExecutionError(
+                f"STEP 8 protected successor row identity mismatch: {relative}"
+            )
+
+
 def validate_pre_delete_receipt(repo: Path, receipt_path: Path) -> dict[str, Any]:
     expected = (repo / PRE_DELETE_RECEIPT_RELATIVE).resolve()
     if receipt_path.resolve() != expected:
@@ -593,6 +791,7 @@ def validate_pre_delete_receipt(repo: Path, receipt_path: Path) -> dict[str, Any
         raise LifecycleExecutionError(
             "Common pre-delete checkpoint does not bind the exact validated candidate"
         )
+    validate_step8_protected_successor(repo, subject, receipt)
 
     def changed_paths(diff_filter: str) -> set[str]:
         completed = subprocess.run(
@@ -627,12 +826,28 @@ def validate_pre_delete_receipt(repo: Path, receipt_path: Path) -> dict[str, Any
             "physical candidate contains a forbidden tracked transition: "
             + ", ".join(sorted(forbidden_transitions))
         )
+    receipt_added = PRE_DELETE_RECEIPT_RELATIVE in added_paths
+    receipt_modified = PRE_DELETE_RECEIPT_RELATIVE in modified_paths
+    if receipt_added == receipt_modified:
+        raise LifecycleExecutionError(
+            "pre-delete receipt must be exactly one approved add-or-refresh transition"
+        )
+    required_modifications = {
+        CHECKPOINT_MANIFEST_RELATIVE,
+        PROTECTED_SUCCESSOR_RELATIVE,
+    }
+    if receipt_modified:
+        required_modifications.add(PRE_DELETE_RECEIPT_RELATIVE)
     forbidden_additions = added_paths - POST_VALIDATION_ALLOWED_ADDITIONS
-    forbidden_modifications = modified_paths - {CHECKPOINT_MANIFEST_RELATIVE}
+    forbidden_modifications = modified_paths - POST_VALIDATION_ALLOWED_MODIFICATIONS
     if forbidden_additions or forbidden_modifications:
         changed_path = sorted(forbidden_additions | forbidden_modifications)[0]
         raise LifecycleExecutionError(
             f"physical tracked implementation differs from validated Common candidate: {changed_path}"
+        )
+    if modified_paths != required_modifications:
+        raise LifecycleExecutionError(
+            "physical post-validation modification set is not the exact STEP 8 seal"
         )
     for key, relative_input in (
         ("taxonomy", "Iris/_docs/round3/round3_test_taxonomy.json"),

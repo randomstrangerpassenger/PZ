@@ -505,7 +505,7 @@ class ArtifactLifecyclePromotionTest(unittest.TestCase):
             external = root / "operator/stage-collision-successor.json"
             transaction_id = successor_transaction_id(repo, evidence)
             external_stage = external.with_name(f".{external.name}.{transaction_id}.stage")
-            external_stage.parent.mkdir(parents=True)
+            external_stage.parent.mkdir(parents=True, exist_ok=True)
             external_stage.write_bytes(b"owner-stage-bytes\n")
             result = promote_successor(repo, evidence, external)
             self.assertNotEqual(result.returncode, 0)

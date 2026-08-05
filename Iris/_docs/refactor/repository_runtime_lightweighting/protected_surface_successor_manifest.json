@@ -2027,6 +2027,34 @@
                                   "reason": "Protect the v2 source-to-durable successor transaction and its exact external/durable receipt identity."
                               }
                           ]
+                      },
+                      {
+                          "revision_id": "common_baseline_successor_windows_stage_fixture_followup_v1",
+                          "track": "common",
+                          "owner": "repository_owner_user",
+                          "approved": true,
+                          "predecessor_commit": "acd591caf6c3405b43633f1ac3d7ba059b826a28",
+                          "reason": "Make the reviewed preexisting external-stage fixture idempotent when the shared successor fixture has already created its operator parent on Windows.",
+                          "approved_activation_deltas": [],
+                          "added_protected_rows": [
+                              {
+                                  "path": "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
+                                  "before_git_blob_id": "c9d1f751068de74773ef1d81dd8865f2bef84e0d",
+                                  "before_sha256_lf": "65532b46f61fe5f930a0cf6fc116d3e9fde172c48e8913115c5e7b46881c21cf",
+                                  "expected_git_blob_id": "308043f3cf09106a642717064b4ab5940d0eb777",
+                                  "after_sha256_lf": "a6c124bc31d218f24a4b53ab75cba84f2b202c65e6aa68d1bff343032b763c51",
+                                  "role": "common_track_test_contract",
+                                  "writer": "repository_runtime_lightweighting_common_implementation",
+                                  "consumers": [
+                                      "bootstrap_validation",
+                                      "baseline_adoption_validation",
+                                      "current_route_validation",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Preserve the preexisting external stage bytes test while allowing its already-created operator parent directory."
+                              }
+                          ]
                       }
                   ]
 }

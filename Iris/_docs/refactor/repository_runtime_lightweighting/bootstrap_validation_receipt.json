@@ -3,33 +3,33 @@
     "status":  "PASS",
     "checkpoint_id":  "bootstrap_support",
     "restart_epoch":  {
-                          "epoch_id":  "restart-20260805-35",
+                          "epoch_id":  "restart-20260805-39",
                           "authority_status":  "active",
                           "supersedes_prior_external_bindings":  true,
                           "supersession_reason":  "Owner-directed purge removed every prior external subject, audit, command, and checkout binding; Codex Reviewer required a fresh STEP 2 lineage.",
-                          "prior_required_receipt_sha256":  "9f3f4462f947c2cbf7edd7a08d4683aab1256e336894ff64f02a6b71d0fe8cec"
+                          "prior_required_receipt_sha256":  "60b292525a36048ce3d0537bbf6e16b38cb18a480eaa60a85adb90fabf69630a"
                       },
-    "validated_at":  "2026-08-05T11:46:21.9610036Z",
+    "validated_at":  "2026-08-05T13:21:09.1723425Z",
     "validated_subject":  {
                               "subject_kind":  "bootstrap_validation_subject",
-                              "claim_id":  "bootstrap-restart-0b0b5cbb-20260805-35",
-                              "repository_root":  "G:/b35",
-                              "commit":  "0b0b5cbb2c119819e403beeb15d08b479c8833d3",
-                              "tree":  "32b67acc3e4dca3cca98e3c3bc4691e50eee3e6c",
+                              "claim_id":  "restart-20260805-39-bootstrap",
+                              "repository_root":  "G:/b39",
+                              "commit":  "e0947823fb747bbd55ace95876ec08220d4f1b61",
+                              "tree":  "b2806d629fa50ec466837097c8d0ce70c760123a",
                               "subject_receipt":  {
-                                                      "path":  "G:/e35/bootstrap_subject_receipt.json",
-                                                      "sha256":  "80dba70052119e2891c754173efd4e92a64f89a4dd40df401a4d4ed693fd7894"
+                                                      "path":  "G:/e39/bootstrap_subject_receipt.json",
+                                                      "sha256":  "f7a4023b6f6ad43553d59530ee717fb8e96a508a185b2e421487441af03d17f9"
                                                   }
                           },
     "route_audit_subject":  {
                                 "subject_kind":  "bootstrap_route_audit_subject",
-                                "claim_id":  "bootstrap-audit-restart-0b0b5cbb-20260805-35",
-                                "repository_root":  "G:/a35",
-                                "commit":  "0b0b5cbb2c119819e403beeb15d08b479c8833d3",
-                                "tree":  "32b67acc3e4dca3cca98e3c3bc4691e50eee3e6c",
+                                "claim_id":  "restart-20260805-39-route-audit",
+                                "repository_root":  "G:/a39",
+                                "commit":  "e0947823fb747bbd55ace95876ec08220d4f1b61",
+                                "tree":  "b2806d629fa50ec466837097c8d0ce70c760123a",
                                 "subject_receipt":  {
-                                                        "path":  "G:/e35/audit_subject_receipt.json",
-                                                        "sha256":  "7f9b1dc31fa61981d8e52d8c7002dd7f184abc8970c00c0dcb1552d7315b3085"
+                                                        "path":  "G:/e39/audit_subject_receipt.json",
+                                                        "sha256":  "83750368dfbb30eee2d1576e4978c638ed62119e8f3d55a4320ef81fcd7e086d"
                                                     }
                             },
     "taxonomy":  {
@@ -53,8 +53,8 @@
                                 "sha256":  "fb5dd78e15c41346f15b39065c60c2ce4d83254d73bbde3d3181d327b30b6bc2"
                             },
     "environment_delta":  {
-                              "path":  "G:/e35/environment_delta.json",
-                              "sha256":  "ed2c0e98c4957ca75ade8fa869b46689e255a61ddadd42e25ca90ea883fcf22f"
+                              "path":  "G:/e39/environment_delta.json",
+                              "sha256":  "de0799184ceb1f201c130dbcae04d792a5af2b2df45def66632988513875a14c"
                           },
     "checkout_clean_before":  true,
     "checkout_clean_before_dirty_entries":  [
@@ -62,8 +62,8 @@
                                             ],
     "checkout_clean_before_receipt":  {
                                           "command_id":  "001-git-status-bootstrap-before",
-                                          "path":  "G:/e35/command-receipts/001-git-status-bootstrap-before.json",
-                                          "sha256":  "90f3c26b232b91969e21e877a37ef8757e2badd2ca20f407b186e95965985d47"
+                                          "path":  "G:/e39/command-receipts/001-git-status-bootstrap-before.json",
+                                          "sha256":  "15a3a9211dc54ec3e46d165a57f53c9285e7e8826ece8d67c559c2b43a395c50"
                                       },
     "checkout_clean_after":  true,
     "checkout_clean_after_dirty_entries":  [
@@ -71,8 +71,8 @@
                                            ],
     "checkout_clean_after_receipt":  {
                                          "command_id":  "005-git-status-bootstrap-after",
-                                         "path":  "G:/e35/command-receipts/005-git-status-bootstrap-after.json",
-                                         "sha256":  "d3aa6724b29f11e46a858fbe35804301a67db5f979884ea5e6d18cd5e8a3de11"
+                                         "path":  "G:/e39/command-receipts/005-git-status-bootstrap-after.json",
+                                         "sha256":  "a76b6259b49d0abec3687342b4be06478caad652e3915f9e805ac5bd6b25ab42"
                                      },
     "route_audit_clean_before":  true,
     "route_audit_clean_before_dirty_entries":  [
@@ -80,8 +80,8 @@
                                                ],
     "route_audit_clean_before_receipt":  {
                                              "command_id":  "006-git-status-route-audit-before",
-                                             "path":  "G:/e35/command-receipts/006-git-status-route-audit-before.json",
-                                             "sha256":  "e0b627b1cd5191263fcd1781aa2953e2f23f57e08290224a70b56acfbde18253"
+                                             "path":  "G:/e39/command-receipts/006-git-status-route-audit-before.json",
+                                             "sha256":  "0a2f65d5d025cefee33a3e503a84869401fd219316f76a27cb01d6d123ff807e"
                                          },
     "route_audit_clean_after":  true,
     "route_audit_clean_after_dirty_entries":  [
@@ -89,12 +89,12 @@
                                               ],
     "route_audit_clean_after_receipt":  {
                                             "command_id":  "011-git-status-route-audit-after",
-                                            "path":  "G:/e35/command-receipts/011-git-status-route-audit-after.json",
-                                            "sha256":  "02076e98e640d2c96157028c32310e3f02276216863c8f00a2dbff9140da4d32"
+                                            "path":  "G:/e39/command-receipts/011-git-status-route-audit-after.json",
+                                            "sha256":  "e3f2a57f2d5fdcce3f500ac89f5b27302a64fbb1856a52f9a02e303a5c6bd2ea"
                                         },
     "output_isolation_audit":  {
-                                   "path":  "G:/e35/audit-results/current_route_output_isolation_audit_receipt.json",
-                                   "sha256":  "752714de2d5484c879a596fdd6c35a76776f29bacee8f02a04bf07455a5ea847",
+                                   "path":  "G:/e39/audit-results/current_route_output_isolation_audit_receipt.json",
+                                   "sha256":  "17b340c845d76ae54a7c22b5774970cddb3921c6ddb379d470a30523d9309b3b",
                                    "status":  "PASS",
                                    "checkout_unchanged":  true,
                                    "tracked_delta_count":  0,
@@ -103,12 +103,12 @@
                                    "unreadable_count":  0
                                },
     "static_inventory":  {
-                             "path":  "G:/e35/audit-results/static_inventory.json",
-                             "sha256":  "565651c1e075da4f57839baf86b000c723112c448defdac9a3d8cbbb8e5201ed"
+                             "path":  "G:/e39/audit-results/static_inventory.json",
+                             "sha256":  "3b38faff89f5b4dc86610970f3ce75c4948cbd517a853007b3c5c969fe8cc2a9"
                          },
     "current_route_result":  {
-                                 "path":  "G:/e35/audit-results/current_route.json",
-                                 "sha256":  "4af6d570ed818d91d9cc569bd7087e977411aae7831d4b0b080aad9822cc8544",
+                                 "path":  "G:/e39/audit-results/current_route.json",
+                                 "sha256":  "a914ec82f5f0f5946e5ea6e0bb0a96e20653956df0fe137403ca1b97dbb6094d",
                                  "contract_class":  "current",
                                  "closure_enforced":  true,
                                  "test_count":  190,
@@ -116,120 +116,120 @@
                                  "error_count":  0,
                                  "success":  true
                              },
-    "command_receipt_set_sha256":  "1f4946b3e85e6e4dd93e9433c52256dfdd33d52070e04f5936a71d6143275e26",
-    "command_spec_set_sha256":  "f5767c2999908fa87e99cc3ea8f2ed963aa55998be5af61d2f4da4994582d853",
+    "command_receipt_set_sha256":  "d01475a2b732f155c0d6d65ecf5332aaeb5c92bb280029fbd9a2574f81926a83",
+    "command_spec_set_sha256":  "0ea70c0908478b7b489498ebec616964d53a378b94ccaf9e73693389c27a5b48",
     "command_receipts":  [
                              {
                                  "command_id":  "001-git-status-bootstrap-before",
-                                 "path":  "G:/e35/command-receipts/001-git-status-bootstrap-before.json",
-                                 "sha256":  "90f3c26b232b91969e21e877a37ef8757e2badd2ca20f407b186e95965985d47"
+                                 "path":  "G:/e39/command-receipts/001-git-status-bootstrap-before.json",
+                                 "sha256":  "15a3a9211dc54ec3e46d165a57f53c9285e7e8826ece8d67c559c2b43a395c50"
                              },
                              {
                                  "command_id":  "002-wrapper-negative-and-argv-fixtures",
-                                 "path":  "G:/e35/command-receipts/002-wrapper-negative-and-argv-fixtures.json",
-                                 "sha256":  "5192c7b01e0472a17346caa2d3dab19388b97fc73886062db37b0cef477e3347"
+                                 "path":  "G:/e39/command-receipts/002-wrapper-negative-and-argv-fixtures.json",
+                                 "sha256":  "b0af80298d3b3022f3ed69c4072f5de1563950240a5b1d1192b1dc41e0a54f18"
                              },
                              {
                                  "command_id":  "003-route-output-audit-fixtures",
-                                 "path":  "G:/e35/command-receipts/003-route-output-audit-fixtures.json",
-                                 "sha256":  "123c6c8c58931177d9977d82e23969c435739ac5a7a3041892a94f9e09544693"
+                                 "path":  "G:/e39/command-receipts/003-route-output-audit-fixtures.json",
+                                 "sha256":  "614b7888cb2134766092785458d07915186d5dab3922a40191ebd1a337b8d7c0"
                              },
                              {
                                  "command_id":  "004-clean-checkout-fixtures",
-                                 "path":  "G:/e35/command-receipts/004-clean-checkout-fixtures.json",
-                                 "sha256":  "abc63fd8d833d3eb39e66e55236ea60ca1306c70e6f9b21e3666dbb20f1dceb8"
+                                 "path":  "G:/e39/command-receipts/004-clean-checkout-fixtures.json",
+                                 "sha256":  "982fb17c59f4bd6b6efe566eb30ce57819cf6b49d383c86c09bd4b74a05d6e30"
                              },
                              {
                                  "command_id":  "005-git-status-bootstrap-after",
-                                 "path":  "G:/e35/command-receipts/005-git-status-bootstrap-after.json",
-                                 "sha256":  "d3aa6724b29f11e46a858fbe35804301a67db5f979884ea5e6d18cd5e8a3de11"
+                                 "path":  "G:/e39/command-receipts/005-git-status-bootstrap-after.json",
+                                 "sha256":  "a76b6259b49d0abec3687342b4be06478caad652e3915f9e805ac5bd6b25ab42"
                              },
                              {
                                  "command_id":  "006-git-status-route-audit-before",
-                                 "path":  "G:/e35/command-receipts/006-git-status-route-audit-before.json",
-                                 "sha256":  "e0b627b1cd5191263fcd1781aa2953e2f23f57e08290224a70b56acfbde18253"
+                                 "path":  "G:/e39/command-receipts/006-git-status-route-audit-before.json",
+                                 "sha256":  "0a2f65d5d025cefee33a3e503a84869401fd219316f76a27cb01d6d123ff807e"
                              },
                              {
                                  "command_id":  "007-route-audit-static-inventory",
-                                 "path":  "G:/e35/command-receipts/007-route-audit-static-inventory.json",
-                                 "sha256":  "a4dc7f8b03afaf8d0f0e1914b55367122c89da0a1f9d7cadf2323bbd7bc6f24a"
+                                 "path":  "G:/e39/command-receipts/007-route-audit-static-inventory.json",
+                                 "sha256":  "8fe447501ab09b9feadfc2f8523e0ddd602c16bd3f469212be575b2aa72fa500"
                              },
                              {
                                  "command_id":  "008-route-audit-current-list",
-                                 "path":  "G:/e35/command-receipts/008-route-audit-current-list.json",
-                                 "sha256":  "9426c93477006cac6007b26399cba68e01255bab42ef96146e61ef605d400a8f"
+                                 "path":  "G:/e39/command-receipts/008-route-audit-current-list.json",
+                                 "sha256":  "cea8f95cc8e953244372913ffc39f420541d33a38ca4ce76afbc530318c904eb"
                              },
                              {
                                  "command_id":  "009-route-audit-dynamic-current",
-                                 "path":  "G:/e35/command-receipts/009-route-audit-dynamic-current.json",
-                                 "sha256":  "774be3483e059947cb6f3b3e2a566e24693a8880e0fb87e95bd213d5edb548e1"
+                                 "path":  "G:/e39/command-receipts/009-route-audit-dynamic-current.json",
+                                 "sha256":  "01fef24fac26bff108ec36f4ad13fd0b9bc5afa71450ab99550b775e78425302"
                              },
                              {
                                  "command_id":  "010-route-audit-seal",
-                                 "path":  "G:/e35/command-receipts/010-route-audit-seal.json",
-                                 "sha256":  "aaf6dd8257897032dc054658da3bfd06ab35770273b8cb4bb7f290278e1ef587"
+                                 "path":  "G:/e39/command-receipts/010-route-audit-seal.json",
+                                 "sha256":  "3f38d68e127da69f23e0bfef5800fa689d7b87f9c0e42e743ea61dcce213bc27"
                              },
                              {
                                  "command_id":  "011-git-status-route-audit-after",
-                                 "path":  "G:/e35/command-receipts/011-git-status-route-audit-after.json",
-                                 "sha256":  "02076e98e640d2c96157028c32310e3f02276216863c8f00a2dbff9140da4d32"
+                                 "path":  "G:/e39/command-receipts/011-git-status-route-audit-after.json",
+                                 "sha256":  "e3f2a57f2d5fdcce3f500ac89f5b27302a64fbb1856a52f9a02e303a5c6bd2ea"
                              }
                          ],
     "command_specs":  [
                           {
                               "command_id":  "001-git-status-bootstrap-before",
-                              "path":  "G:/e35/command-receipts/001-git-status-bootstrap-before.command.json",
-                              "sha256":  "2f5b12e82fdd47f26d1be5b3ac1c0558f9d0387700bdd56002a4ca324944ca54"
+                              "path":  "G:/e39/command-receipts/001-git-status-bootstrap-before.command.json",
+                              "sha256":  "714ea30f2a775be8dcfad8dae3d16e5312782ec7f5e8dde310bf6b589bdf4776"
                           },
                           {
                               "command_id":  "002-wrapper-negative-and-argv-fixtures",
-                              "path":  "G:/e35/command-receipts/002-wrapper-negative-and-argv-fixtures.command.json",
-                              "sha256":  "72e50003b58fae93e618dc120be14f154429e3bd207c813d95a5643b73fe3bc0"
+                              "path":  "G:/e39/command-receipts/002-wrapper-negative-and-argv-fixtures.command.json",
+                              "sha256":  "9bd994b9bff43b3bf876b48088243d12b9207c457ecbff29b4136e5cc58cc895"
                           },
                           {
                               "command_id":  "003-route-output-audit-fixtures",
-                              "path":  "G:/e35/command-receipts/003-route-output-audit-fixtures.command.json",
-                              "sha256":  "46803425855627cbd6ea5ef4443b9523c4a54525b2759321b913a7bc05a3a9c9"
+                              "path":  "G:/e39/command-receipts/003-route-output-audit-fixtures.command.json",
+                              "sha256":  "65f72fee393fde8232f3c4c71fa602eb439b45dc067d53193901e5383aa11a67"
                           },
                           {
                               "command_id":  "004-clean-checkout-fixtures",
-                              "path":  "G:/e35/command-receipts/004-clean-checkout-fixtures.command.json",
-                              "sha256":  "884b47466c3b6f224404522907984a8c7923e96b17cd43cd20179c14d603fd09"
+                              "path":  "G:/e39/command-receipts/004-clean-checkout-fixtures.command.json",
+                              "sha256":  "ae7524f7c9b9ea622984f1a3d2db66d4389d73bacd306aac628b5897a6fec8c5"
                           },
                           {
                               "command_id":  "005-git-status-bootstrap-after",
-                              "path":  "G:/e35/command-receipts/005-git-status-bootstrap-after.command.json",
-                              "sha256":  "b12fa5bd26ea205bf58227d03215f7cd26c2736fb3d4c9b027e240a57a93118d"
+                              "path":  "G:/e39/command-receipts/005-git-status-bootstrap-after.command.json",
+                              "sha256":  "60e9628f9523198857527b5c01d2cd5718cedf790ea02e468a1b5078b68afe17"
                           },
                           {
                               "command_id":  "006-git-status-route-audit-before",
-                              "path":  "G:/e35/command-receipts/006-git-status-route-audit-before.command.json",
-                              "sha256":  "82ff89ce40f9d0fcb9cadff99354e3181fdf3d3c0961082933633d07cfe10e08"
+                              "path":  "G:/e39/command-receipts/006-git-status-route-audit-before.command.json",
+                              "sha256":  "b710b451c3a1f6238a679fc8debe134812d6b380f17194d2fe1b41024cee51c6"
                           },
                           {
                               "command_id":  "007-route-audit-static-inventory",
-                              "path":  "G:/e35/command-receipts/007-route-audit-static-inventory.command.json",
-                              "sha256":  "8f5a90fe5ff4411b983ec65d82f3eb89e7f50d9157c7c63a9ff2cf66bf8872e5"
+                              "path":  "G:/e39/command-receipts/007-route-audit-static-inventory.command.json",
+                              "sha256":  "7dfb1d657be689d1c6ddddcfe8fd7c7d39ed9bd1453a02a93b4ac3a8d9f75bf0"
                           },
                           {
                               "command_id":  "008-route-audit-current-list",
-                              "path":  "G:/e35/command-receipts/008-route-audit-current-list.command.json",
-                              "sha256":  "ed2a16c4828c8b92fdfb330a1ce904f35a8e42daeb1f17aa0e32e6d4c505d02e"
+                              "path":  "G:/e39/command-receipts/008-route-audit-current-list.command.json",
+                              "sha256":  "b330c0428454105b2c3e6f67c6bfe5590b02b031d97f6220cff9bc458aed6779"
                           },
                           {
                               "command_id":  "009-route-audit-dynamic-current",
-                              "path":  "G:/e35/command-receipts/009-route-audit-dynamic-current.command.json",
-                              "sha256":  "6f7cfde4b68fa7de7b42d16f41038047c18941dd657f387357cdd8dd0a3ed873"
+                              "path":  "G:/e39/command-receipts/009-route-audit-dynamic-current.command.json",
+                              "sha256":  "a19bc893be0cfe7e5ee880be711e6ce457078a79a58f07a8313cea1532fd6a12"
                           },
                           {
                               "command_id":  "010-route-audit-seal",
-                              "path":  "G:/e35/command-receipts/010-route-audit-seal.command.json",
-                              "sha256":  "4b10ac9a7f32ac3e9c8a1378eb6b78b5f38adfc4dd9a790ee7b18a7a377d84ec"
+                              "path":  "G:/e39/command-receipts/010-route-audit-seal.command.json",
+                              "sha256":  "94dfc0c3e7611b96ac470190667633c4e02344ca82f8d7b4a7874feb0e7bc18c"
                           },
                           {
                               "command_id":  "011-git-status-route-audit-after",
-                              "path":  "G:/e35/command-receipts/011-git-status-route-audit-after.command.json",
-                              "sha256":  "daa66a68c34e549bbdb5400a864066a983cdb6dfdb459bfcb032903e7e00c410"
+                              "path":  "G:/e39/command-receipts/011-git-status-route-audit-after.command.json",
+                              "sha256":  "5c15feb2919af43e6fa14f3694d2c3f7f9720b2c4b7dd36be6700ae47b760562"
                           }
                       ],
     "non_claims":  [

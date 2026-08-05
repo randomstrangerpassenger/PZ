@@ -1921,6 +1921,50 @@
                                   "reason": "Validate the canonical predecessor against HEAD and replace the three-file baseline generation through a locked, journaled, hash-verified rollback/recovery transaction without claiming filesystem group atomicity."
                               }
                           ]
+                      },
+                      {
+                          "revision_id": "restart_epoch_20260805_39_bootstrap_evidence_v1",
+                          "track": "common",
+                          "owner": "repository_owner_user",
+                          "approved": true,
+                          "predecessor_commit": "e0947823fb747bbd55ace95876ec08220d4f1b61",
+                          "reason": "Activate the fresh STEP 2 lineage collected after the baseline-successor bootstrap, while retaining earlier external-binding rows as historical and non-authoritative.",
+                          "approved_activation_deltas": [],
+                          "added_protected_rows": [
+                              {
+                                  "path": "Iris/_docs/refactor/repository_runtime_lightweighting/bootstrap_validation_receipt.json",
+                                  "before_git_blob_id": "30c818569ff0b197964245321b311d1c48985332",
+                                  "before_sha256_lf": "60b292525a36048ce3d0537bbf6e16b38cb18a480eaa60a85adb90fabf69630a",
+                                  "expected_git_blob_id": "7e7838e7d11945db2d5acd3dd869289b024e0fc4",
+                                  "after_sha256_lf": "1dc931865b3ebd583a4f880b258eb3c698e4e42a470462ba74f0ccc455a5306e",
+                                  "role": "common_track_bootstrap_validation_evidence",
+                                  "writer": "repository_runtime_lightweighting_step2_checkpoint_writer",
+                                  "consumers": [
+                                      "physical_baseline_generation",
+                                      "baseline_adoption_checkpoint",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the fresh PASS receipt, clean subject identities, command receipt/spec sets, and current-route output-isolation audit for restart epoch 20260805-39."
+                              },
+                              {
+                                  "path": "Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json",
+                                  "before_git_blob_id": "555c37674207c007ac455f51dca230f4f58849d7",
+                                  "before_sha256_lf": "37d6e0e021c8ea4ccc8867980fb5e8d1d4a172a1b936072b0a5dfab7242d827c",
+                                  "expected_git_blob_id": "26e883c246e6a2f67f70ef3db7ca4cd0b1560850",
+                                  "after_sha256_lf": "ea215474847627f4662095f8212c6e6053669e35fe08dd5e36fcda213d4cc48b",
+                                  "role": "common_track_validation_checkpoint_manifest",
+                                  "writer": "repository_runtime_lightweighting_step2_checkpoint_writer",
+                                  "consumers": [
+                                      "baseline_adoption_checkpoint",
+                                      "common_pre_delete_checkpoint",
+                                      "terminal_closeout",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Append the restart-20260805-39 bootstrap checkpoint and mark every earlier externally bound checkpoint row historical and non-authoritative."
+                              }
+                          ]
                       }
                   ]
 }

@@ -189,18 +189,79 @@
                                                     },
                             "command_receipt_set_sha256":  "1f4946b3e85e6e4dd93e9433c52256dfdd33d52070e04f5936a71d6143275e26",
                             "command_spec_set_sha256":  "f5767c2999908fa87e99cc3ea8f2ed963aa55998be5af61d2f4da4994582d853"
+                        },
+                        {
+                            "checkpoint_id":  "bootstrap_support",
+                            "subject_kind":  "bootstrap_validation_subject",
+                            "claim_id":  "restart-20260805-39-bootstrap",
+                            "commit":  "e0947823fb747bbd55ace95876ec08220d4f1b61",
+                            "tree":  "b2806d629fa50ec466837097c8d0ce70c760123a",
+                            "clean_checkout_receipt":  {
+                                                           "path":  "G:/e39/bootstrap_subject_receipt.json",
+                                                           "sha256":  "f7a4023b6f6ad43553d59530ee717fb8e96a508a185b2e421487441af03d17f9"
+                                                       },
+                            "required_receipt":  {
+                                                     "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/bootstrap_validation_receipt.json",
+                                                     "sha256":  "1dc931865b3ebd583a4f880b258eb3c698e4e42a470462ba74f0ccc455a5306e"
+                                                 },
+                            "taxonomy":  {
+                                             "path":  "Iris/_docs/round3/round3_test_taxonomy.json",
+                                             "sha256":  "0fe547966e6b428db1631a669ceaa80faa521178c9494f900a76bc577943cb1b"
+                                         },
+                            "required_validations":  {
+                                                         "path":  "Iris/_docs/round3/current_route_required_validations.json",
+                                                         "sha256":  "843434c6a89e9c493ce2e5d084d67598dd10a70737f62e63bb745e4ebc96a6d5"
+                                                     },
+                            "active_core_closure":  {
+                                                        "path":  "Iris/_docs/round3/round3_active_core_closure.json",
+                                                        "sha256":  "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf"
+                                                    },
+                            "environment_authority":  {
+                                                          "path":  "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json",
+                                                          "sha256":  "1bc7076459f72dbfa733e0101d77e9eb0b73c0f01e88ac54bc326c8ad2f67138"
+                                                      },
+                            "output_isolation_audit":  {
+                                                           "path":  "G:/e39/audit-results/current_route_output_isolation_audit_receipt.json",
+                                                           "sha256":  "17b340c845d76ae54a7c22b5774970cddb3921c6ddb379d470a30523d9309b3b"
+                                                       },
+                            "route_audit_subject":  {
+                                                        "subject_kind":  "bootstrap_route_audit_subject",
+                                                        "claim_id":  "restart-20260805-39-route-audit",
+                                                        "commit":  "e0947823fb747bbd55ace95876ec08220d4f1b61",
+                                                        "tree":  "b2806d629fa50ec466837097c8d0ce70c760123a",
+                                                        "clean_checkout_receipt":  {
+                                                                                       "path":  "G:/e39/audit_subject_receipt.json",
+                                                                                       "sha256":  "83750368dfbb30eee2d1576e4978c638ed62119e8f3d55a4320ef81fcd7e086d"
+                                                                                   }
+                                                    },
+                            "command_receipt_set_sha256":  "d01475a2b732f155c0d6d65ecf5332aaeb5c92bb280029fbd9a2574f81926a83",
+                            "command_spec_set_sha256":  "0ea70c0908478b7b489498ebec616964d53a378b94ccaf9e73693389c27a5b48"
                         }
                     ],
     "restart_epochs":  [
                            {
                                "epoch_id":  "restart-20260805-35",
-                               "status":  "active",
+                               "status":  "superseded",
                                "activated_at":  "2026-08-05T11:46:22.0586615Z",
                                "active_checkpoint_start_index":  3,
                                "superseded_checkpoint_indices":  [
                                                                      0,
                                                                      1,
                                                                      2
+                                                                 ],
+                               "prior_rows_disposition":  "historical_non_authoritative_external_bindings_owner_purged",
+                               "reviewer_ruling":  "fresh_full_step2_then_step3_through_step8_replay_required_before_step9"
+                           },
+                           {
+                               "epoch_id":  "restart-20260805-39",
+                               "status":  "active",
+                               "activated_at":  "2026-08-05T13:21:09.3077885Z",
+                               "active_checkpoint_start_index":  4,
+                               "superseded_checkpoint_indices":  [
+                                                                     0,
+                                                                     1,
+                                                                     2,
+                                                                     3
                                                                  ],
                                "prior_rows_disposition":  "historical_non_authoritative_external_bindings_owner_purged",
                                "reviewer_ruling":  "fresh_full_step2_then_step3_through_step8_replay_required_before_step9"

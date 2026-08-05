@@ -1,0 +1,179 @@
+{
+  "schema_version": "iris_repository_runtime_lightweighting_baseline_adoption_receipt_v1",
+  "status": "PASS",
+  "checkpoint_id": "baseline_adoption",
+  "validated_at": "2026-08-05T06:26:19.2806487Z",
+  "validated_subject_commit": "bd2ef834573f120e70128daafc67fdedb2cc2742",
+  "validated_subject_tree": "cd1a5c2914f1ee8aa1e61e83338eaced68c4385b",
+  "validated_subject": {
+    "subject_kind": "baseline_adoption_validation_subject",
+    "claim_id": "baseline-adoption-validation-bd2ef834-20260805-25",
+    "repository_root": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/w41",
+    "commit": "bd2ef834573f120e70128daafc67fdedb2cc2742",
+    "tree": "cd1a5c2914f1ee8aa1e61e83338eaced68c4385b",
+    "subject_receipt": {
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/baseline_adoption_subject_receipt.json",
+      "sha256": "8378a8d7c1d123d3c86009702c593c90b89d14f9a22b473c7906cc42d9ff1854"
+    }
+  },
+  "route_audit_subject": {
+    "subject_kind": "baseline_adoption_route_audit_subject",
+    "claim_id": "baseline-adoption-route-audit-bd2ef834-20260805-25",
+    "repository_root": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/w42",
+    "commit": "bd2ef834573f120e70128daafc67fdedb2cc2742",
+    "tree": "cd1a5c2914f1ee8aa1e61e83338eaced68c4385b",
+    "subject_receipt": {
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/baseline_adoption_audit_subject_receipt.json",
+      "sha256": "ef239ead6cb20be0f4821254992d9b380bf0b878d64b4758a9a0d48aa972edae"
+    }
+  },
+  "validation_summary": {
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/baseline_adoption_validation_summary.json",
+    "sha256": "b451a0912dbc3c0b7aec9400d464400c9e018a82d3e697f6508042cd280db8e7"
+  },
+  "environment_authority": {
+    "path": "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json",
+    "sha256": "1bc7076459f72dbfa733e0101d77e9eb0b73c0f01e88ac54bc326c8ad2f67138"
+  },
+  "environment_receipt": {
+    "path": "C:/Users/MW/iccv/receipts/env-v1/environment_receipt.json",
+    "sha256": "fb5dd78e15c41346f15b39065c60c2ce4d83254d73bbde3d3181d327b30b6bc2"
+  },
+  "environment_deltas": {
+    "checkpoint": {
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/environment_delta.checkpoint.json",
+      "sha256": "621d18b62f024341ae8ae5ff28a08e39975d7c5425257d2f8c318f5a1cdac276"
+    },
+    "audit": {
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/environment_delta.audit.json",
+      "sha256": "d3cffa8c260e9b76a8dec2f6149d09cdf96efb318c2eb0f812a377a967ead1b8"
+    }
+  },
+  "taxonomy": {
+    "path": "Iris/_docs/round3/round3_test_taxonomy.json",
+    "sha256": "0fe547966e6b428db1631a669ceaa80faa521178c9494f900a76bc577943cb1b"
+  },
+  "required_validations": {
+    "path": "Iris/_docs/round3/current_route_required_validations.json",
+    "sha256": "e29b1101e15477c712a502a8d4d3de88621602c376e8b9dff8cb813d3ba1f1ed"
+  },
+  "active_core_closure": {
+    "path": "Iris/_docs/round3/round3_active_core_closure.json",
+    "sha256": "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf"
+  },
+  "baseline_promotion_receipt": {
+    "path": "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_promotion_receipt.json",
+    "sha256": "37cca6ad598680a013ab4597e68e4d4d2b47be26422d7a1cfdb17a784f7559ce"
+  },
+  "baseline_inventory": {
+    "path": "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_inventory.json",
+    "sha256": "c6baefb685b3118b4376adb0eb0162963e251524b2639dba2257112933b48077",
+    "byte_length": 1049798
+  },
+  "artifact_role_manifest": {
+    "path": "Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
+    "sha256": "8bf7a50e68597aec2c69d01cd5a8c67ddb05fabac1b02c8bb37288445993a609",
+    "byte_length": 52386703
+  },
+  "checkout_clean_before": true,
+  "checkout_clean_before_dirty_entries": [],
+  "checkout_clean_before_receipt": {
+    "command_id": "001-git-status-baseline-adoption-before",
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/001-git-status-baseline-adoption-before.json",
+    "sha256": "45c29cb81415aeb75ce401c0f42fa6704e8cb4feab091de96984dc0d77951024"
+  },
+  "checkout_clean_after": true,
+  "checkout_clean_after_dirty_entries": [],
+  "checkout_clean_after_receipt": {
+    "command_id": "011-git-status-baseline-adoption-after",
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/011-git-status-baseline-adoption-after.json",
+    "sha256": "6a898cb52eddd6c3b0ef829d4852a1d51a376a540d3a3a36e8ac61d884d086c6"
+  },
+  "route_audit_clean_before": true,
+  "route_audit_clean_before_dirty_entries": [],
+  "route_audit_clean_before_receipt": {
+    "command_id": "003-git-status-baseline-adoption-audit-before",
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/003-git-status-baseline-adoption-audit-before.json",
+    "sha256": "4150007d297897437894c076b58d0caaeee2699679207e045a4b6ffd78570fda"
+  },
+  "route_audit_clean_after": true,
+  "route_audit_clean_after_dirty_entries": [],
+  "route_audit_clean_after_receipt": {
+    "command_id": "008-git-status-baseline-adoption-audit-after",
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/008-git-status-baseline-adoption-audit-after.json",
+    "sha256": "d0645d8efca3a66e80223c0e124c74a3dec382fe5206a212919878d28f4e5ede"
+  },
+  "focused_promotion": {
+    "receipt": {
+      "command_id": "002-baseline-promotion-focused",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/002-baseline-promotion-focused.json",
+      "sha256": "2b7752b99cf241b0aefbe08ba836c6b86c33956721d63289beba509a3497a5a2"
+    },
+    "test_count": 4,
+    "failure_count": 0,
+    "error_count": 0,
+    "skipped_count": 0,
+    "success": true
+  },
+  "output_isolation_audit": {
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/audit-results/current_route_output_isolation_audit_receipt.json",
+    "sha256": "69def223aaed9f8c948934daf11b2d09e98e259a65f9b8d3d0dc0a5c87cb8867",
+    "status": "PASS",
+    "checkout_unchanged": true,
+    "tracked_delta_count": 0,
+    "untracked_delta_count": 0,
+    "ignored_delta_count": 0,
+    "unreadable_count": 0
+  },
+  "output_isolation_verification_receipt": {
+    "command_id": "009-verify-current-route-output-isolation",
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/009-verify-current-route-output-isolation.json",
+    "sha256": "b238baa38239a76d4e7f68e5ad9c69cc46bbcdfbb89db8ad1330acc7769ba451"
+  },
+  "current_route_result": {
+    "command_id": "010-baseline-adoption-current-route",
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/adoption-results/current_route.json",
+    "sha256": "45a0c67e38dd69a5effa30f587fdccb21c4ce37317f39e82e55877719dc8ed45",
+    "contract_class": "current",
+    "closure_enforced": true,
+    "test_count": 190,
+    "failure_count": 0,
+    "error_count": 0,
+    "skipped_count": 0,
+    "success": true
+  },
+  "command_receipt_set_sha256": "76d71847f2c6bd08cef97d12bcfec33127b147f2a74e6f4abfabf65c71a34cf9",
+  "command_spec_set_sha256": "c681c06d4b1284a67ecc3c68c5dd9693dbb7163d39dd1b6184b30d70bf5f69ae",
+  "command_receipts": [
+    {"command_id": "001-git-status-baseline-adoption-before", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/001-git-status-baseline-adoption-before.json", "sha256": "45c29cb81415aeb75ce401c0f42fa6704e8cb4feab091de96984dc0d77951024"},
+    {"command_id": "002-baseline-promotion-focused", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/002-baseline-promotion-focused.json", "sha256": "2b7752b99cf241b0aefbe08ba836c6b86c33956721d63289beba509a3497a5a2"},
+    {"command_id": "003-git-status-baseline-adoption-audit-before", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/003-git-status-baseline-adoption-audit-before.json", "sha256": "4150007d297897437894c076b58d0caaeee2699679207e045a4b6ffd78570fda"},
+    {"command_id": "004-route-audit-static-inventory", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/004-route-audit-static-inventory.json", "sha256": "7fab7c672a3c637cc6cdc27b66bd78e8d8e6305720cf967fd93e5f9e667819f6"},
+    {"command_id": "005-route-audit-current-list", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/005-route-audit-current-list.json", "sha256": "b3a8adfbe5e02f654dc19fd9736decc00366de7a088dc8a8b4e9230e0de80c8c"},
+    {"command_id": "006-route-audit-dynamic-current", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/006-route-audit-dynamic-current.json", "sha256": "5e6ae997b2a028399d4117a34c4ca8a6e7b72a6d37c189390ac034e6513c0670"},
+    {"command_id": "007-route-audit-seal", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/007-route-audit-seal.json", "sha256": "2bbcea51df954349be48bf8c6cadc237c492ad6bc6debc0ab0dcc817b5d63927"},
+    {"command_id": "008-git-status-baseline-adoption-audit-after", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/008-git-status-baseline-adoption-audit-after.json", "sha256": "d0645d8efca3a66e80223c0e124c74a3dec382fe5206a212919878d28f4e5ede"},
+    {"command_id": "009-verify-current-route-output-isolation", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/009-verify-current-route-output-isolation.json", "sha256": "b238baa38239a76d4e7f68e5ad9c69cc46bbcdfbb89db8ad1330acc7769ba451"},
+    {"command_id": "010-baseline-adoption-current-route", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/010-baseline-adoption-current-route.json", "sha256": "a8a876ed3ad698d51f43781dafb809bf8890ab0c67a9fdf9380845f2e4ed0ee8"},
+    {"command_id": "011-git-status-baseline-adoption-after", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/011-git-status-baseline-adoption-after.json", "sha256": "6a898cb52eddd6c3b0ef829d4852a1d51a376a540d3a3a36e8ac61d884d086c6"}
+  ],
+  "command_specs": [
+    {"command_id": "001-git-status-baseline-adoption-before", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/001-git-status-baseline-adoption-before.command.json", "sha256": "07e61984be2c8ddc4b1960d329c596be623fe9ab16773e35bc4423d8aa38cec2"},
+    {"command_id": "002-baseline-promotion-focused", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/002-baseline-promotion-focused.command.json", "sha256": "69cc5b71e2ff31a9d4a514726be08373984f70e13d9b6332cc915bb469514e50"},
+    {"command_id": "003-git-status-baseline-adoption-audit-before", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/003-git-status-baseline-adoption-audit-before.command.json", "sha256": "484515e2019e2bf6ff0b45ecc279fbb05116ae626c25a9809f357b922e67a38f"},
+    {"command_id": "004-route-audit-static-inventory", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/004-route-audit-static-inventory.command.json", "sha256": "0ead8fcce9503f1b7e575da042566a73a43fab75a7d69eebed5787a633fe7ece"},
+    {"command_id": "005-route-audit-current-list", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/005-route-audit-current-list.command.json", "sha256": "e978e2e0d8c0ae7754729590e0c015ffbf11ad6bccc3d62bc9a2b60273cefbb5"},
+    {"command_id": "006-route-audit-dynamic-current", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/006-route-audit-dynamic-current.command.json", "sha256": "c5347dd162c0ac2c2029e6ee3e8ebe184c487b90c443fb43c562de222ab33a50"},
+    {"command_id": "007-route-audit-seal", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/007-route-audit-seal.command.json", "sha256": "c1c06b43e5e0ca7144aed51ce52ee7384db13af7aa491dac32810055c4d124a1"},
+    {"command_id": "008-git-status-baseline-adoption-audit-after", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/008-git-status-baseline-adoption-audit-after.command.json", "sha256": "7566dabb988100797e304aa547a9a634521bf4a4fb46421e2a019f731f454048"},
+    {"command_id": "009-verify-current-route-output-isolation", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/009-verify-current-route-output-isolation.command.json", "sha256": "d85c9cb23e1c98e2744a6b8f0b28937be1f7e77148c745f642920059bb9bc541"},
+    {"command_id": "010-baseline-adoption-current-route", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/010-baseline-adoption-current-route.command.json", "sha256": "0a8820306a6958da6fc11515ef4cb389ae9a50e5b37b6aa5a4d56cadea6a61e7"},
+    {"command_id": "011-git-status-baseline-adoption-after", "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/command-receipts/011-git-status-baseline-adoption-after.command.json", "sha256": "dfb5091595e5287556205db8430c9afbf067c928da14f43c33650b42c10db3df"}
+  ],
+  "authority_scope": "change_1_baseline_adopted_after_reviewed_commit",
+  "non_claims": [
+    "This checkpoint adopts only Change 1 physical baseline evidence.",
+    "This checkpoint does not authorize archive or delete operations.",
+    "This checkpoint does not adopt Runtime Track or Tooling Track changes."
+  ]
+}

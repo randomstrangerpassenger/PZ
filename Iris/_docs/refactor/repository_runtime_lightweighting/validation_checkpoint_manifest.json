@@ -47,6 +47,65 @@
       },
       "command_receipt_set_sha256": "4c29a064cceb422c161346eb480d8e69ceacaa0c0482604d119c5a8938efe81d",
       "command_spec_set_sha256": "bd412ac620347227ba0e28dd699b38c36eed4d47f820517196af9ffef91094f7"
+    },
+    {
+      "checkpoint_id": "baseline_adoption",
+      "subject_kind": "baseline_adoption_validation_subject",
+      "claim_id": "baseline-adoption-validation-bd2ef834-20260805-25",
+      "commit": "bd2ef834573f120e70128daafc67fdedb2cc2742",
+      "tree": "cd1a5c2914f1ee8aa1e61e83338eaced68c4385b",
+      "clean_checkout_receipt": {
+        "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/baseline_adoption_subject_receipt.json",
+        "sha256": "8378a8d7c1d123d3c86009702c593c90b89d14f9a22b473c7906cc42d9ff1854"
+      },
+      "required_receipt": {
+        "path": "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_adoption_receipt.json",
+        "sha256": "b68febe7e6186fce4f75ca489c4861ed1a47f812c1ee5474557ac3d4eebfcd5b"
+      },
+      "current_route_coverage_map": {
+        "path": "Iris/_docs/refactor/repository_runtime_lightweighting/current_route_coverage_map.json",
+        "sha256": "1a4165eaf2069db4a2c7707d39df522f01f4b22efde5ba6dffd15fef39826a0b"
+      },
+      "taxonomy": {
+        "path": "Iris/_docs/round3/round3_test_taxonomy.json",
+        "sha256": "0fe547966e6b428db1631a669ceaa80faa521178c9494f900a76bc577943cb1b"
+      },
+      "required_validations": {
+        "path": "Iris/_docs/round3/current_route_required_validations.json",
+        "sha256": "e29b1101e15477c712a502a8d4d3de88621602c376e8b9dff8cb813d3ba1f1ed"
+      },
+      "active_core_closure": {
+        "path": "Iris/_docs/round3/round3_active_core_closure.json",
+        "sha256": "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf"
+      },
+      "environment_authority": {
+        "path": "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json",
+        "sha256": "1bc7076459f72dbfa733e0101d77e9eb0b73c0f01e88ac54bc326c8ad2f67138"
+      },
+      "output_isolation_audit": {
+        "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/audit-results/current_route_output_isolation_audit_receipt.json",
+        "sha256": "69def223aaed9f8c948934daf11b2d09e98e259a65f9b8d3d0dc0a5c87cb8867"
+      },
+      "route_audit_subject": {
+        "subject_kind": "baseline_adoption_route_audit_subject",
+        "claim_id": "baseline-adoption-route-audit-bd2ef834-20260805-25",
+        "commit": "bd2ef834573f120e70128daafc67fdedb2cc2742",
+        "tree": "cd1a5c2914f1ee8aa1e61e83338eaced68c4385b",
+        "clean_checkout_receipt": {
+          "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/baseline_adoption_audit_subject_receipt.json",
+          "sha256": "ef239ead6cb20be0f4821254992d9b380bf0b878d64b4758a9a0d48aa972edae"
+        }
+      },
+      "baseline_promotion_receipt": {
+        "path": "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_promotion_receipt.json",
+        "sha256": "37cca6ad598680a013ab4597e68e4d4d2b47be26422d7a1cfdb17a784f7559ce"
+      },
+      "current_route_result": {
+        "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/adoption-results/current_route.json",
+        "sha256": "45a0c67e38dd69a5effa30f587fdccb21c4ce37317f39e82e55877719dc8ed45"
+      },
+      "command_receipt_set_sha256": "76d71847f2c6bd08cef97d12bcfec33127b147f2a74e6f4abfabf65c71a34cf9",
+      "command_spec_set_sha256": "c681c06d4b1284a67ecc3c68c5dd9693dbb7163d39dd1b6184b30d70bf5f69ae"
     }
   ]
 }

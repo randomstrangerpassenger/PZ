@@ -436,7 +436,8 @@ foreach ($Revision in $LightweightingRevisions) {
         if ($BeforeGitIsNull -ne $BeforeLfIsNull) {
             throw "repository lightweighting added row predecessor identity pair mismatch: $AddedPath"
         }
-        $BeforeTreeEntry = (& git -C $RepositoryRoot ls-tree $RevisionPredecessor -- $AddedPath).Trim()
+        $BeforeTreeEntry = [string](& git -C $RepositoryRoot ls-tree $RevisionPredecessor -- $AddedPath)
+        $BeforeTreeEntry = $BeforeTreeEntry.Trim()
         if ($LASTEXITCODE -ne 0) {
             throw "repository lightweighting added row predecessor tree inspection failed: $AddedPath"
         }

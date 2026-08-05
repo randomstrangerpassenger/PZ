@@ -81,16 +81,16 @@ def invoke(script: Path, *args: object, cwd: Path) -> subprocess.CompletedProces
     )
 
 
-def create_file_symlink(link: Path, target: Path) -> None:
+def create_directory_junction(link: Path, target: Path) -> None:
     powershell = shutil.which("powershell")
     if powershell is None:
-        raise AssertionError("Windows PowerShell is required for the file-symlink fixture")
+        raise AssertionError("Windows PowerShell is required for the junction fixture")
     completed = subprocess.run(
         [
             powershell,
             "-NoProfile",
             "-Command",
-            "& { param($link, $target) New-Item -ItemType SymbolicLink -Path $link -Target $target -ErrorAction Stop | Out-Null }",
+            "& { param($link, $target) New-Item -ItemType Junction -Path $link -Target $target -ErrorAction Stop | Out-Null }",
             str(link),
             str(target),
         ],
@@ -1148,10 +1148,12 @@ class ArtifactLifecycleExecutorTest(unittest.TestCase):
             delete_receipt = external / "archive/delete.json"
             candidate_path = repo / CANDIDATE
             candidate_bytes = candidate_path.read_bytes()
-            same_content_target = repo / "same-content-delete-target.json"
-            same_content_target.write_bytes(candidate_bytes)
+            same_content_target = repo / "same-content-delete-target"
+            same_content_target.mkdir()
+            same_content_payload = same_content_target / "candidate.json"
+            same_content_payload.write_bytes(candidate_bytes)
             candidate_path.unlink()
-            create_file_symlink(candidate_path, same_content_target)
+            create_directory_junction(candidate_path, same_content_target)
             rejected_symlink = invoke(
                 EXECUTOR,
                 "delete",
@@ -1163,10 +1165,10 @@ class ArtifactLifecycleExecutorTest(unittest.TestCase):
             )
             self.assertNotEqual(rejected_symlink.returncode, 0)
             self.assertIn("symlink or reparse point", rejected_symlink.stderr)
-            self.assertTrue(candidate_path.is_symlink())
-            self.assertEqual(same_content_target.read_bytes(), candidate_bytes)
+            self.assertTrue(candidate_path.is_junction())
+            self.assertEqual(same_content_payload.read_bytes(), candidate_bytes)
             self.assertFalse((external / "archive/rejected-symlink-delete.json").exists())
-            candidate_path.unlink()
+            candidate_path.rmdir()
             candidate_path.write_bytes(candidate_bytes)
             deleted = invoke(
                 EXECUTOR,
@@ -1179,7 +1181,7 @@ class ArtifactLifecycleExecutorTest(unittest.TestCase):
             )
             self.assertEqual(deleted.returncode, 0, deleted.stderr)
             self.assertFalse((repo / CANDIDATE).exists())
-            self.assertEqual(same_content_target.read_bytes(), candidate_bytes)
+            self.assertEqual(same_content_payload.read_bytes(), candidate_bytes)
             self.assertTrue(Path(json.loads(archive_receipt.read_text(encoding="utf-8"))["archive_path"]).is_file())
             durable_restore_bytes = durable_restore.read_bytes()
             durable_restore.unlink()

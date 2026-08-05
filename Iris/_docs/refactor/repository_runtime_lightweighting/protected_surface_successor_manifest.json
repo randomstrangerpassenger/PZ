@@ -1071,6 +1071,66 @@
                                                            "reason":  "Exercise the ledger-leaf reparse guard with a privilege-independent Windows junction fixture."
                                                        }
                                                    ]
+                      },
+                      {
+                          "revision_id":  "common_bootstrap_current_route_repair_v2",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "b7ca4873265f347996fc481b6c3ee8c5e98f7414",
+                          "reason":  "Close the remaining planned current-route Windows reparse and expected-absence failures.",
+                          "approved_activation_deltas":  [
+
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  "Iris/test/validate_residual_refactor_surfaces.ps1",
+                                                           "before_git_blob_id":  "a139d9b4320a55dd75e5829fb0a27ac1a8ee62ea",
+                                                           "before_sha256_lf":  "4add05c6e4d425c06ba3df3d05ffe11e9c47c66c1ab17b551384221dc0d01b56",
+                                                           "expected_git_blob_id":  "fdf0a4d8ae39437dd00681230368fd5ec7bb4a18",
+                                                           "after_sha256_lf":  "d701d5e62930d285f019366fb2b212c0a4651e3d524f236a895860826a736430",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Convert an empty predecessor tree listing to a stable string before trimming it under Windows PowerShell 5.1."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+                                                           "before_git_blob_id":  "feeb5481951ccab7f7f237a8faca12b7b2fe6caa",
+                                                           "before_sha256_lf":  "a6d15a69407ea3ef53d386b8f4899b46bb63ce9acdcdcdcadcea084d9ba9ed75",
+                                                           "expected_git_blob_id":  "ba2dc1604d8900d5558ecfcd4930385436dcfd1b",
+                                                           "after_sha256_lf":  "389185685c5c1709bf1aff4d503721b2e778e60d2a452de7f62572f7bd4feec2",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "artifact_lifecycle_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Exercise exact-leaf delete reparse rejection with a privilege-independent directory junction fixture."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/residual_refactor/report_artifact_lifecycle.py",
+                                                           "before_git_blob_id":  "26611e68ab5c49cdbe9c44c89e391e10bb9bf7c8",
+                                                           "before_sha256_lf":  "7b48ee7178b15699e0d0e36c3baea86e58a3b5d0c286e8e9ee4c32df4618abcc",
+                                                           "expected_git_blob_id":  "5bf73017e7db29d23b51db709b93cb6f32018771",
+                                                           "after_sha256_lf":  "5761b599eae5fa34cbbf4297ee9281a4ff8d1a4dc92ff7cffd58a80282c3700a",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "artifact_lifecycle_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Serialize held Windows reparse entries as checkout-relative lexical paths without traversing their targets."
+                                                       }
+                                                   ]
                       }
                   ]
 }

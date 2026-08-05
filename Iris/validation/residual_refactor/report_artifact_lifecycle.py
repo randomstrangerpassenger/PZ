@@ -127,6 +127,19 @@ def require_external(repo: Path, path: Path, role: str) -> Path:
     return resolved
 
 
+def lexical_repo_relative(path: str | Path, repo: Path) -> str:
+    candidate = os.path.normpath(os.path.abspath(os.fspath(path)))
+    root = os.path.normpath(os.path.abspath(os.fspath(repo)))
+    relative = os.path.relpath(candidate, root)
+    if (
+        os.path.isabs(relative)
+        or relative == os.pardir
+        or relative.startswith(os.pardir + os.sep)
+    ):
+        raise ValueError(f"path is outside repository: {candidate}")
+    return Path(relative).as_posix()
+
+
 def git(repo: Path, *args: str, binary: bool = False) -> bytes | str:
     completed = subprocess.run(
         ["git", "-C", str(repo), *args],
@@ -583,7 +596,7 @@ def build_rows(
         files, unreadable = walk_files(root, root_rel)
         for issue in unreadable:
             try:
-                relative = Path(os.path.abspath(issue["path"])).relative_to(repo).as_posix()
+                relative = lexical_repo_relative(issue["path"], repo)
             except ValueError:
                 relative = str(issue["path"]).replace("\\", "/")
             unreadable_rows.append({**issue, "path": relative})

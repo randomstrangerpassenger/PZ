@@ -1360,6 +1360,67 @@
                                                            "reason":  "Exercise hash-preserving promotion against the canonical physical giant path family."
                                                        }
                                                    ]
+                      },
+                      {
+                          "revision_id":  "common_physical_giant_fixture_path_budget_followup_v1",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "3d2d9409e9e43d16fdeb7155e0dfd0fcfc52537a",
+                          "reason":  "Complete canonical giant-path fixture alignment and keep Windows fixture paths below MAX_PATH in the approved external test root.",
+                          "approved_activation_deltas":  [
+
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+                                                           "before_git_blob_id":  "99c81e03c1304b428cdd75308861829be4cb5ea6",
+                                                           "before_sha256_lf":  "68165022eaaea5298bc88a6b367fcf96d632d82cead1a039a67c353b3e00cb28",
+                                                           "expected_git_blob_id":  "0b1d5860d0e04c121b4004f514ec90d2a9e5a0e5",
+                                                           "after_sha256_lf":  "cd017e7408000f3fe1e7af86b9626623093350cc44673d2094036e58acecc741",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "physical_lifecycle_validation",
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Use short fixture root prefixes so canonical giant paths remain below the Windows path-length boundary."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
+                                                           "before_git_blob_id":  "07db3dd757d3381b6847b4a9d6ebdd1d93e449f4",
+                                                           "before_sha256_lf":  "0191916af2934406140bc1939af7df5ab65d56df506a33edc3f3315b2d9e1493",
+                                                           "expected_git_blob_id":  "2db6fd703128a1630d46d11390ccc9768817fa87",
+                                                           "after_sha256_lf":  "d299ff9496f3b5d704d9e872d4b73311105fb4126b26c7b0e05a7c27ffcf9e67",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "baseline_adoption_validation",
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Use short fixture root prefixes so canonical giant paths remain below the Windows path-length boundary."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+                                                           "before_git_blob_id":  "014f3d75d062290611177dba0414f7ad68143b05",
+                                                           "before_sha256_lf":  "7616be9f72c1dad2432b30758373853e039101ac9fea338e8f03aab68d00a7ba",
+                                                           "expected_git_blob_id":  "4ae62817d4329bf9bb20f3e28db72666a7cc13cc",
+                                                           "after_sha256_lf":  "70a6fc11a8dfd4bd7311dc3448f7dd74bd4c78f036be51013d6e1a33447608e5",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "common_lifecycle_executor_validation",
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Align lifecycle executor fixtures with the canonical physical giant paths and Windows path budget."
+                                                       }
+                                                   ]
                       }
                   ]
 }

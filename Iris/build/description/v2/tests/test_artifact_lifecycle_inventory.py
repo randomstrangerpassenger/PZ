@@ -115,7 +115,7 @@ def create_directory_reparse(link: Path, target: Path) -> None:
 
 class ArtifactLifecycleInventoryTest(unittest.TestCase):
     def test_junctions_are_held_without_external_traversal(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="iris-lifecycle-reparse-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="r-") as temporary:
             root = Path(temporary)
             repo = make_repo(root, giants=True)
             external = root / "outside"
@@ -160,7 +160,7 @@ class ArtifactLifecycleInventoryTest(unittest.TestCase):
             self.assertFalse(summary["complete_accounting"])
 
     def test_same_subject_is_byte_stable_and_role_partition_is_complete(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="iris-lifecycle-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="s-") as temporary:
             root = Path(temporary)
             repo = make_repo(root, giants=True)
             first = root / "first"
@@ -186,8 +186,8 @@ class ArtifactLifecycleInventoryTest(unittest.TestCase):
             self.assertFalse(summary["archive_delete_allowed"])
 
     def test_ignored_giants_exist_only_in_physical_denominator_with_exact_identity(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="iris-lifecycle-physical-") as physical_temp, tempfile.TemporaryDirectory(
-            prefix="iris-lifecycle-validation-"
+        with tempfile.TemporaryDirectory(prefix="p-") as physical_temp, tempfile.TemporaryDirectory(
+            prefix="v-"
         ) as validation_temp:
             physical_root = Path(physical_temp)
             validation_root = Path(validation_temp)
@@ -218,7 +218,7 @@ class ArtifactLifecycleInventoryTest(unittest.TestCase):
             self.assertEqual(receipt["manifest"]["sha256"], hashlib.sha256((physical_out / "artifact_role_manifest.jsonl").read_bytes()).hexdigest())
 
     def test_repository_local_and_preexisting_outputs_fail_loud(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="iris-lifecycle-output-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="o-") as temporary:
             root = Path(temporary)
             repo = make_repo(root, giants=True)
             local = repo / "evidence"
@@ -234,7 +234,7 @@ class ArtifactLifecycleInventoryTest(unittest.TestCase):
             self.assertIn("output already exists", rejected_existing.stderr)
 
     def test_console_temp_cache_and_ignored_consumers_are_in_scope(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="iris-lifecycle-scope-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="c-") as temporary:
             root = Path(temporary)
             repo = make_repo(root, giants=True)
             additions = {
@@ -284,7 +284,7 @@ class ArtifactLifecycleInventoryTest(unittest.TestCase):
             self.assertFalse(imported["zero_live_consumers"])
 
     def test_missing_references_and_real_tracking_transition_are_fail_loud(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="iris-lifecycle-transition-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="t-") as temporary:
             root = Path(temporary)
             repo = make_repo(root, giants=True)
             baseline_out = root / "baseline"

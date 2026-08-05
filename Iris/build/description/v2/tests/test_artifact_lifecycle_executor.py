@@ -22,21 +22,21 @@ SUCCESSOR_POLICY = (
 )
 DURABLE = Path("Iris/_docs/refactor/repository_runtime_lightweighting")
 CANDIDATE = Path(
-    "Iris/build/description/v2/staging/legacy_active_silent_current_surface_guard_round/"
+    "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/"
     "phase2_inventory/allowed_occurrence_inventory.json"
 )
 GIANT_RELATIVES = (
     CANDIDATE,
     Path(
-        "Iris/build/description/v2/staging/legacy_active_silent_current_surface_guard_round/"
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/"
         "phase2_inventory/legacy_active_silent_occurrence_inventory.jsonl"
     ),
     Path(
-        "Iris/build/description/v2/staging/legacy_active_silent_current_surface_guard_round/"
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/"
         "phase3_adjudication/occurrence_adjudication_report.json"
     ),
     Path(
-        "Iris/build/description/v2/staging/legacy_active_silent_current_surface_guard_round/"
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/"
         "phase5_guard/current_surface_guard_report.json"
     ),
 )
@@ -117,7 +117,7 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
         newline="\n",
     )
     (repo / ".gitignore").write_text(
-        "Iris/build/description/v2/staging/legacy_active_silent_current_surface_guard_round/\n",
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/\n",
         encoding="utf-8",
     )
     for index, relative in enumerate(GIANT_RELATIVES, start=1):
@@ -682,7 +682,7 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
 
 class ArtifactLifecycleExecutorTest(unittest.TestCase):
     def test_full_chain_is_receipt_bound_and_exact_leaf_delete_is_recoverable(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="iris-lifecycle-executor-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="f-") as temporary:
             root = Path(temporary)
             repo, external, candidate = build_fixture(root)
             durable = repo / DURABLE
@@ -1241,7 +1241,7 @@ class ArtifactLifecycleExecutorTest(unittest.TestCase):
             )
 
     def test_selection_outside_baseline_is_rejected_without_source_change(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="iris-lifecycle-selection-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="s-") as temporary:
             root = Path(temporary)
             repo, external, candidate = build_fixture(root)
             durable = repo / DURABLE

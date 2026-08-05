@@ -111,7 +111,7 @@ def promote(repo: Path, evidence: Path, receipt_out: Path) -> subprocess.Complet
 
 class ArtifactLifecyclePromotionTest(unittest.TestCase):
     def test_baseline_promotion_preserves_bytes_and_dual_receipt_identity(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="iris-promotion-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="b-") as temporary:
             root = Path(temporary)
             repo, evidence = make_fixture(root)
             external_receipt = root / "operator/baseline_promotion_receipt.json"
@@ -133,7 +133,7 @@ class ArtifactLifecyclePromotionTest(unittest.TestCase):
                 )
 
     def test_altered_source_and_wrong_subject_are_rejected_before_durable_write(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="iris-promotion-altered-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="a-") as temporary:
             root = Path(temporary)
             repo, evidence = make_fixture(root)
             (evidence / "artifact_role_manifest.jsonl").write_bytes(
@@ -144,7 +144,7 @@ class ArtifactLifecyclePromotionTest(unittest.TestCase):
             self.assertIn("source hash differs", result.stderr)
             self.assertFalse((repo / DURABLE_RELATIVE).exists())
 
-        with tempfile.TemporaryDirectory(prefix="iris-promotion-subject-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="s-") as temporary:
             root = Path(temporary)
             repo, evidence = make_fixture(root)
             receipt_path = evidence / "physical_subject_receipt.json"
@@ -157,7 +157,7 @@ class ArtifactLifecyclePromotionTest(unittest.TestCase):
             self.assertFalse((repo / DURABLE_RELATIVE).exists())
 
     def test_preexisting_destination_blocks_all_promotion_outputs(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="iris-promotion-existing-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="e-") as temporary:
             root = Path(temporary)
             repo, evidence = make_fixture(root)
             durable = repo / DURABLE_RELATIVE
@@ -171,7 +171,7 @@ class ArtifactLifecyclePromotionTest(unittest.TestCase):
             self.assertFalse((durable / "baseline_promotion_receipt.json").exists())
 
     def test_terminal_promotion_rejects_semantically_tampered_transition(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="iris-promotion-terminal-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="t-") as temporary:
             root = Path(temporary)
             repo, evidence = make_fixture(root)
             baseline_external = root / "operator/baseline-promotion.json"

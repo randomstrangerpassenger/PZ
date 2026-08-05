@@ -882,6 +882,64 @@
                                                            "reason":  "Protect fixture-local Git setup and assertion reads with explicit Windows long-path support at exact byte identity."
                                                        }
                                                    ]
+                      },
+                      {
+                          "revision_id":  "common_current_required_taxonomy_alignment_v1",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "d07816037217af7b6b196975aa4f946ae680b4bc",
+                          "reason":  "Align the current-route output-isolation census with the adopted required-validation applicability contract and its exact tracked source closure.",
+                          "approved_activation_deltas":  [
+
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  "Iris/_docs/round3/round3_test_taxonomy.json",
+                                                           "before_git_blob_id":  "dd43fa5e41919c93d34a35e9b333d6ec67fbd340",
+                                                           "before_sha256_lf":  "525a57beb234885eac69df1df8a8fcdb51e37cd64a76b298f85a703f97cb70a3",
+                                                           "expected_git_blob_id":  "211df5da439ebdda81273f4ea72be3bc6e61c6b4",
+                                                           "after_sha256_lf":  "0fe547966e6b428db1631a669ceaa80faa521178c9494f900a76bc577943cb1b",
+                                                           "role":  "common_track_current_route_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the exact current-product-required taxonomy alignment and matrix identity."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/audit_current_route_output_isolation.py",
+                                                           "before_git_blob_id":  "1338ac60ac7a4a20b45aab154882c11411ec48c3",
+                                                           "before_sha256_lf":  "fed2c393ed09781c942676336d5fa3739d1a7561ceffc3f72bd94ef486a15507",
+                                                           "expected_git_blob_id":  "6bfc185a018edaba4808a19554cb9eefbe4995f0",
+                                                           "after_sha256_lf":  "00b1a50f71450dfae6f928903e7dcd894a47f4ce5ea997f3c13a6bb7898aa300",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect applicability parity between the static isolation census and the current-route runner."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/tests/test_current_route_output_isolation_audit.py",
+                                                           "before_git_blob_id":  "1b883f6a27d8b07eb616a69e5e9bc7e144eeb39a",
+                                                           "before_sha256_lf":  "ae89d225dc2c79a2f2b5d3115d67960d9ca7bf378eb05d5f1bfeb18464126f2a",
+                                                           "expected_git_blob_id":  "fac21496649ca7ccc871479ab5f57d6c6de8d633",
+                                                           "after_sha256_lf":  "957ea93c27a4c2f40830cd5b103f1950982650f31c0ad1215ce0f4958e6d0544",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the historical-optional exclusion fixture within the planned route-audit test command."
+                                                       }
+                                                   ]
                       }
                   ]
 }

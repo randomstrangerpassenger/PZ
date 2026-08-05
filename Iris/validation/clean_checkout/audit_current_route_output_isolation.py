@@ -346,6 +346,21 @@ def resolve_local_import(
     return [], "external_or_unresolved"
 
 
+def required_test_applicability(required: dict[str, Any], row: dict[str, Any]) -> str:
+    direct = row.get("applicability")
+    if direct:
+        return str(direct)
+    test_id = str(row.get("test_id", ""))
+    optional_rows = (
+        required.get("applicability_overrides", {})
+        .get("historical_optional_evidence", {})
+        .get("tests", [])
+    )
+    if any(str(optional.get("test_id", "")) == test_id for optional in optional_rows):
+        return "historical_optional_evidence"
+    return "current_product_required"
+
+
 def build_inventory(repo: Path, taxonomy_path: Path, required_path: Path) -> dict[str, Any]:
     taxonomy = load_object(taxonomy_path)
     required = load_object(required_path)
@@ -353,10 +368,22 @@ def build_inventory(repo: Path, taxonomy_path: Path, required_path: Path) -> dic
     taxonomy_rows = {str(row.get("test_id")): row for row in taxonomy_source_rows}
     if len(taxonomy_rows) != len(taxonomy_source_rows):
         raise AuditError("taxonomy contains duplicate test IDs")
-    required_rows = required.get("required_tests", [])
-    required_ids = [str(row.get("test_id", "")) for row in required_rows]
-    if not required_ids or len(set(required_ids)) != len(required_ids):
+    required_source_rows = required.get("required_tests", [])
+    all_required_ids = [str(row.get("test_id", "")) for row in required_source_rows]
+    if not all_required_ids or len(set(all_required_ids)) != len(all_required_ids):
         raise AuditError("required validations are empty or contain duplicate IDs")
+    historical_optional_ids = sorted(
+        str(row.get("test_id", ""))
+        for row in required_source_rows
+        if required_test_applicability(required, row) == "historical_optional_evidence"
+    )
+    required_rows = [
+        row
+        for row in required_source_rows
+        if required_test_applicability(required, row) != "historical_optional_evidence"
+    ]
+    if not required_rows:
+        raise AuditError("required validations contain no current-product tests")
     selected: list[dict[str, Any]] = []
     sources: dict[str, dict[str, Any]] = {}
     declared_imports: dict[str, set[str]] = {}
@@ -449,6 +476,8 @@ def build_inventory(repo: Path, taxonomy_path: Path, required_path: Path) -> dic
         "taxonomy": {"path": taxonomy_path.resolve().as_posix(), "sha256": sha256_file(taxonomy_path)},
         "required_validations": {"path": required_path.resolve().as_posix(), "sha256": sha256_file(required_path)},
         "selected_test_count": len(selected),
+        "historical_optional_test_count": len(historical_optional_ids),
+        "historical_optional_test_ids": historical_optional_ids,
         "selected_source_count": sum(row["source_role"] == "selected_test_module" for row in source_rows),
         "closure_source_count": len(source_rows),
         "selected_test_source_count": sum(row["source_role"] == "selected_test_module" for row in source_rows),

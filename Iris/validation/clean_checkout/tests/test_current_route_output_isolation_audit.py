@@ -72,7 +72,17 @@ def test_selected(tmp_path):
     )
     write_json(
         required,
-        {"required_tests": [{"test_id": "test_selected.test_selected", "role": "current"}]},
+        {
+            "required_tests": [
+                {"test_id": "test_selected.test_selected", "role": "current"},
+                {"test_id": "test_optional.test_optional", "role": "historical"},
+            ],
+            "applicability_overrides": {
+                "historical_optional_evidence": {
+                    "tests": [{"test_id": "test_optional.test_optional"}]
+                }
+            },
+        },
     )
     runner = repo / "Iris/_docs/round3/round3_run_contract_tests.py"
     runner.write_text("raise SystemExit(0)\n", encoding="utf-8", newline="\n")
@@ -128,6 +138,8 @@ def test_inventory_maps_every_required_id_source_import_and_write_site(tmp_path:
     assert completed.returncode == 0, completed.stderr
     payload = json.loads(output.read_text(encoding="utf-8"))
     assert payload["selected_test_count"] == 1
+    assert payload["historical_optional_test_count"] == 1
+    assert payload["historical_optional_test_ids"] == ["test_optional.test_optional"]
     assert payload["selected_source_count"] == 1
     assert payload["selected_tests"][0]["test_id"] == "test_selected.test_selected"
     selected_source = next(row for row in payload["sources"] if row["source_role"] == "selected_test_module")

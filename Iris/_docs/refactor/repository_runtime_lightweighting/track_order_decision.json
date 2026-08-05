@@ -1,0 +1,26 @@
+{
+  "schema_version": "iris_repository_runtime_lightweighting_track_order_decision_v1",
+  "decision": "runtime_first",
+  "selected_track": "runtime",
+  "owner": "repository_owner_user",
+  "approved_on": "2026-08-06",
+  "approval_source": "owner approval in the implementation task",
+  "rationale": "Adopt the repository and runtime lightweighting changes first, then evaluate the separate tooling track from a sealed runtime baseline.",
+  "common_closeout_receipt": {
+    "path": "Iris/_docs/refactor/repository_runtime_lightweighting/common_closeout_receipt.json",
+    "sha256": "95bba03fcb5212f9e4824c38566e8db6fe0df658559026a023cb36367867d073",
+    "checkpoint_id": "common_closeout",
+    "status": "PASS",
+    "validated_subject_commit": "3f940720c7c9174de2ebf4910760c6384d9ef78d",
+    "validated_subject_tree": "1df5a58fca190e9a278bce95699c2b061bb2852e"
+  },
+  "selected_track_entry_claim": {
+    "claim_id": "c48",
+    "track": "runtime",
+    "scope": "changes_5_through_7_only"
+  },
+  "unselected_track": {
+    "track": "tooling",
+    "status": "not_authorized_by_this_decision"
+  }
+}

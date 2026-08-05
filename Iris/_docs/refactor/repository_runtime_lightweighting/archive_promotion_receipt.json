@@ -1,0 +1,46 @@
+{
+  "byte_identity_verified": true,
+  "mode": "archive",
+  "physical_subject": {
+    "baseline_run_identity": "859598dc00da82a7c798a9c6e575394092e1d46983dc7c945ec077ad44c9c4c6",
+    "commit": "86197d46d94e8f0d921328583f6a5a91fbc9af28",
+    "physical_resolved_root": "C:/Users/MW/Downloads/coding/PZ",
+    "tree": "8905bc4e90f642a05b2b9b470cea99f635b38534"
+  },
+  "promoted_files": [
+    {
+      "byte_length": 52705,
+      "destination_path": "C:/Users/MW/Downloads/coding/PZ/Iris/_docs/refactor/repository_runtime_lightweighting/archive_operation_manifest.json",
+      "destination_sha256": "9f3d175576979b8f21515a1c3f37b2544dfaa07bd7a28081dd790811637826f3",
+      "source_path": "G:/r39/physical-capacity-physical-capacity-86197d46-20260-rebaseline-capacity-allocation-8-d4ed60d165cb/archive-store/archive_operation_manifest.json",
+      "source_sha256": "9f3d175576979b8f21515a1c3f37b2544dfaa07bd7a28081dd790811637826f3"
+    },
+    {
+      "byte_length": 1469,
+      "destination_path": "C:/Users/MW/Downloads/coding/PZ/Iris/_docs/refactor/repository_runtime_lightweighting/archive_restore_receipt.json",
+      "destination_sha256": "b7780fa5da9b955ff9edce109d32122f07a68ef01189d68372aae456deb4a152",
+      "source_path": "G:/r39/physical-capacity-physical-capacity-86197d46-20260-rebaseline-capacity-allocation-8-d4ed60d165cb/archive-store/restore_verify_receipt.json",
+      "source_sha256": "b7780fa5da9b955ff9edce109d32122f07a68ef01189d68372aae456deb4a152"
+    }
+  ],
+  "promotion_commit_binding": "pending_reviewed_commit",
+  "schema_version": "iris_repository_runtime_lightweighting_archive_promotion_v1",
+  "source_chain": [
+    {
+      "path": "G:/r39/physical-capacity-physical-capacity-86197d46-20260-rebaseline-capacity-allocation-8-d4ed60d165cb/archive-store/dry_run_receipt.json",
+      "sha256": "b5c559fb7618d0200fad463db16a5d4f7487e7f70e88b5a3f86405fa13db8b0c"
+    },
+    {
+      "path": "G:/r39/physical-capacity-physical-capacity-86197d46-20260-rebaseline-capacity-allocation-8-d4ed60d165cb/archive-store/archive_receipt.json",
+      "sha256": "b145680593bfb3092c817e4093be6383cc732315e71d941e822ec5675d2d74b4"
+    },
+    {
+      "path": "G:/r39/physical-capacity-physical-capacity-86197d46-20260-rebaseline-capacity-allocation-8-d4ed60d165cb/archive-store/archive_verify_receipt.json",
+      "sha256": "7dc9269052dc3155417a16335251f1a139ccd2d42e411f893003f0f1b3e84046"
+    },
+    {
+      "path": "G:/r39/physical-capacity-physical-capacity-86197d46-20260-rebaseline-capacity-allocation-8-d4ed60d165cb/archive-store/restore_verify_receipt.json",
+      "sha256": "b7780fa5da9b955ff9edce109d32122f07a68ef01189d68372aae456deb4a152"
+    }
+  ]
+}

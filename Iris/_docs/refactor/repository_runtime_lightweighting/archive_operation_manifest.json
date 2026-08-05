@@ -1,0 +1,596 @@
+{
+  "archive_role": "archived",
+  "delete_eligible": false,
+  "lifecycle_reference_policy": {
+    "git_blob_id": "c94a7d08e52759cd5328d7da761c91561cc91391",
+    "path": "Iris/_docs/refactor/repository_runtime_lightweighting/current_surface_guard_successor_manifest.json",
+    "revision_id": "legacy_guard_giant_cleanup_v1",
+    "schema_version": "iris_repository_runtime_lightweighting_lifecycle_reference_disposition_v1",
+    "sha256": "ebca0c5cd51fbc296f0a39526ee759f016e1785c4cf4cd6933928d5ac83f0aec"
+  },
+  "operation_id": "9a3f58346fa3be5ae3eef6850476f98c2a5d09ba367d25ea53e85eb3acba7971",
+  "ordinary_attempt_cleanup_excluded": true,
+  "physical_subject": {
+    "baseline_run_identity": "859598dc00da82a7c798a9c6e575394092e1d46983dc7c945ec077ad44c9c4c6",
+    "commit": "86197d46d94e8f0d921328583f6a5a91fbc9af28",
+    "physical_resolved_root": "C:/Users/MW/Downloads/coding/PZ",
+    "tree": "8905bc4e90f642a05b2b9b470cea99f635b38534"
+  },
+  "pre_delete_current_route_receipt": {
+    "path": "C:/Users/MW/Downloads/coding/PZ/Iris/_docs/refactor/repository_runtime_lightweighting/pre_delete_current_route_receipt.json",
+    "sha256": "70713f941c460abab478c350c34aad464926d6ff129c703fa5a5f6cbaa2c4552"
+  },
+  "rows": [
+    {
+      "authority_role": "diagnostic_only",
+      "consumer_axes": {
+        "documentation_owner_reference": [
+          "Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
+          "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_inventory.json",
+          "Iris/_docs/refactor/repository_runtime_lightweighting/current_surface_guard_successor_manifest.json",
+          "Iris/_docs/round2/round2_file_inventory.jsonl"
+        ],
+        "lifecycle_evidence_reference": [
+          "Iris/validation/residual_refactor/promote_artifact_lifecycle_evidence.py",
+          "Iris/validation/residual_refactor/report_artifact_lifecycle.py"
+        ],
+        "manifest_path": [
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_artifact_inventory.jsonl",
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_corpus_manifest.json",
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_exclusion_ledger.jsonl",
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_surface_classification.jsonl",
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_corpus_partition.json",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumer_type_map.jsonl",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumption_inventory.jsonl",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/raw_occurrences.jsonl",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/referent_map.jsonl",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/surface_inventory.jsonl",
+          "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/legacy_active_silent_occurrence_inventory.jsonl",
+          "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase3_adjudication/occurrence_adjudication_report.json",
+          "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase5_guard/current_surface_guard_report.json",
+          "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/pre_existing_dirty_diff_manifest.json",
+          "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/working_tree_baseline.json",
+          "Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/census_p0_readpoint_freeze/readpoint_freeze_report.json",
+          "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.after.json",
+          "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.before.json",
+          "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_migration_matrix.jsonl",
+          "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase10/consumer_migration_impact_matrix.jsonl"
+        ],
+        "producer_reference": [
+          "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+          "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py"
+        ],
+        "python_string_reference": [
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_lexical_scan_diagnostic.txt",
+          "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py"
+        ]
+      },
+      "direct_consumers": [
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_artifact_inventory.jsonl",
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_corpus_manifest.json",
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_exclusion_ledger.jsonl",
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_lexical_scan_diagnostic.txt",
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_surface_classification.jsonl",
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_corpus_partition.json",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumer_type_map.jsonl",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumption_inventory.jsonl",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/raw_occurrences.jsonl",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/referent_map.jsonl",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/surface_inventory.jsonl",
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/legacy_active_silent_occurrence_inventory.jsonl",
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase3_adjudication/occurrence_adjudication_report.json",
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase5_guard/current_surface_guard_report.json",
+        "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/pre_existing_dirty_diff_manifest.json",
+        "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/working_tree_baseline.json",
+        "Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/census_p0_readpoint_freeze/readpoint_freeze_report.json",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.after.json",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.before.json",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_migration_matrix.jsonl",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase10/consumer_migration_impact_matrix.jsonl",
+        "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py"
+      ],
+      "evidence_role": "delete_candidate_after_guard_pilot",
+      "logical_artifact_id": "sha256:dbc854c96c51eacc1dc6fa2d9481ad4a7451d0a36a661050689bfa523744bf4e",
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/allowed_occurrence_inventory.json",
+      "producer": "build_legacy_active_silent_current_surface_guard_round.py",
+      "sha256": "dbc854c96c51eacc1dc6fa2d9481ad4a7451d0a36a661050689bfa523744bf4e",
+      "size_bytes": 892723978,
+      "transitive_consumers": []
+    },
+    {
+      "authority_role": "diagnostic_only",
+      "consumer_axes": {
+        "documentation_owner_reference": [
+          "Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
+          "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_inventory.json",
+          "Iris/_docs/refactor/repository_runtime_lightweighting/current_surface_guard_successor_manifest.json",
+          "Iris/_docs/round2/round2_file_inventory.jsonl"
+        ],
+        "lifecycle_evidence_reference": [
+          "Iris/validation/residual_refactor/promote_artifact_lifecycle_evidence.py",
+          "Iris/validation/residual_refactor/report_artifact_lifecycle.py"
+        ],
+        "manifest_path": [
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_artifact_inventory.jsonl",
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_corpus_manifest.json",
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_exclusion_ledger.jsonl",
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_surface_classification.jsonl",
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_corpus_partition.json",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumer_type_map.jsonl",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumption_inventory.jsonl",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/raw_occurrences.jsonl",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/referent_map.jsonl",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/surface_inventory.jsonl",
+          "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/allowed_occurrence_inventory.json",
+          "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase3_adjudication/occurrence_adjudication_report.json",
+          "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase5_guard/current_surface_guard_report.json",
+          "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase7_closeout/closeout.json",
+          "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/pre_existing_dirty_diff_manifest.json",
+          "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/working_tree_baseline.json",
+          "Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/census_p0_readpoint_freeze/readpoint_freeze_report.json",
+          "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.after.json",
+          "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.before.json",
+          "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_migration_matrix.jsonl",
+          "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase10/consumer_migration_impact_matrix.jsonl"
+        ],
+        "python_string_reference": [
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_lexical_scan_diagnostic.txt",
+          "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+          "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+          "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py"
+        ]
+      },
+      "direct_consumers": [
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_artifact_inventory.jsonl",
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_corpus_manifest.json",
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_exclusion_ledger.jsonl",
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_lexical_scan_diagnostic.txt",
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_surface_classification.jsonl",
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_corpus_partition.json",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumer_type_map.jsonl",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumption_inventory.jsonl",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/raw_occurrences.jsonl",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/referent_map.jsonl",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/surface_inventory.jsonl",
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/allowed_occurrence_inventory.json",
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase3_adjudication/occurrence_adjudication_report.json",
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase5_guard/current_surface_guard_report.json",
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase7_closeout/closeout.json",
+        "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/pre_existing_dirty_diff_manifest.json",
+        "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/working_tree_baseline.json",
+        "Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/census_p0_readpoint_freeze/readpoint_freeze_report.json",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.after.json",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.before.json",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_migration_matrix.jsonl",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase10/consumer_migration_impact_matrix.jsonl",
+        "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+        "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+        "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py"
+      ],
+      "evidence_role": "delete_candidate_after_guard_pilot",
+      "logical_artifact_id": "sha256:0af3edba0055ab31588f003b0775cbfafa1eb64802d78beba4761edc58ff9ca8",
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/legacy_active_silent_occurrence_inventory.jsonl",
+      "producer": "build_legacy_active_silent_current_surface_guard_round.py",
+      "sha256": "0af3edba0055ab31588f003b0775cbfafa1eb64802d78beba4761edc58ff9ca8",
+      "size_bytes": 827062984,
+      "transitive_consumers": []
+    },
+    {
+      "authority_role": "diagnostic_only",
+      "consumer_axes": {
+        "documentation_owner_reference": [
+          "Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
+          "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_inventory.json",
+          "Iris/_docs/refactor/repository_runtime_lightweighting/current_surface_guard_successor_manifest.json",
+          "Iris/_docs/round2/round2_file_inventory.jsonl"
+        ],
+        "lifecycle_evidence_reference": [
+          "Iris/validation/residual_refactor/promote_artifact_lifecycle_evidence.py",
+          "Iris/validation/residual_refactor/report_artifact_lifecycle.py"
+        ],
+        "manifest_path": [
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_artifact_inventory.jsonl",
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_corpus_manifest.json",
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_exclusion_ledger.jsonl",
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_surface_classification.jsonl",
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_corpus_partition.json",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumer_type_map.jsonl",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumption_inventory.jsonl",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/raw_occurrences.jsonl",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/referent_map.jsonl",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/surface_inventory.jsonl",
+          "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/allowed_occurrence_inventory.json",
+          "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/legacy_active_silent_occurrence_inventory.jsonl",
+          "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase5_guard/current_surface_guard_report.json",
+          "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/pre_existing_dirty_diff_manifest.json",
+          "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/working_tree_baseline.json",
+          "Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/census_p0_readpoint_freeze/readpoint_freeze_report.json",
+          "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.after.json",
+          "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.before.json",
+          "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_migration_matrix.jsonl",
+          "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase10/consumer_migration_impact_matrix.jsonl"
+        ],
+        "producer_reference": [
+          "Iris/build/description/v2/tools/build/build_legacy_active_silent_current_surface_guard_round.py"
+        ],
+        "python_string_reference": [
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_lexical_scan_diagnostic.txt",
+          "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+          "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+          "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py"
+        ]
+      },
+      "direct_consumers": [
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_artifact_inventory.jsonl",
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_corpus_manifest.json",
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_exclusion_ledger.jsonl",
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_lexical_scan_diagnostic.txt",
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_surface_classification.jsonl",
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_corpus_partition.json",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumer_type_map.jsonl",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumption_inventory.jsonl",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/raw_occurrences.jsonl",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/referent_map.jsonl",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/surface_inventory.jsonl",
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/allowed_occurrence_inventory.json",
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/legacy_active_silent_occurrence_inventory.jsonl",
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase5_guard/current_surface_guard_report.json",
+        "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/pre_existing_dirty_diff_manifest.json",
+        "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/working_tree_baseline.json",
+        "Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/census_p0_readpoint_freeze/readpoint_freeze_report.json",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.after.json",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.before.json",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_migration_matrix.jsonl",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase10/consumer_migration_impact_matrix.jsonl",
+        "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+        "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+        "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py"
+      ],
+      "evidence_role": "delete_candidate_after_guard_pilot",
+      "logical_artifact_id": "sha256:4c79d2ea4703b26d5dd2e895475e1115efb095779cc2f347be6c20516f6b98d9",
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase3_adjudication/occurrence_adjudication_report.json",
+      "producer": "build_legacy_active_silent_current_surface_guard_round.py",
+      "sha256": "4c79d2ea4703b26d5dd2e895475e1115efb095779cc2f347be6c20516f6b98d9",
+      "size_bytes": 892725527,
+      "transitive_consumers": []
+    },
+    {
+      "authority_role": "diagnostic_only",
+      "consumer_axes": {
+        "documentation_owner_reference": [
+          "Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
+          "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_inventory.json",
+          "Iris/_docs/refactor/repository_runtime_lightweighting/current_surface_guard_successor_manifest.json",
+          "Iris/_docs/round2/round2_file_inventory.jsonl"
+        ],
+        "lifecycle_evidence_reference": [
+          "Iris/validation/residual_refactor/promote_artifact_lifecycle_evidence.py",
+          "Iris/validation/residual_refactor/report_artifact_lifecycle.py"
+        ],
+        "manifest_path": [
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_artifact_inventory.jsonl",
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_corpus_manifest.json",
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_exclusion_ledger.jsonl",
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_surface_classification.jsonl",
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_corpus_partition.json",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumer_type_map.jsonl",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumption_inventory.jsonl",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/raw_occurrences.jsonl",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/referent_map.jsonl",
+          "Iris/build/description/v2/staging/2105_baseline_consumption_audit/surface_inventory.jsonl",
+          "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/allowed_occurrence_inventory.json",
+          "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/legacy_active_silent_occurrence_inventory.jsonl",
+          "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase3_adjudication/occurrence_adjudication_report.json",
+          "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase7_closeout/closeout.json",
+          "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/pre_existing_dirty_diff_manifest.json",
+          "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/working_tree_baseline.json",
+          "Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/census_p0_readpoint_freeze/readpoint_freeze_report.json",
+          "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.after.json",
+          "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.before.json",
+          "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_migration_matrix.jsonl",
+          "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase10/consumer_migration_impact_matrix.jsonl"
+        ],
+        "producer_reference": [
+          "Iris/build/description/v2/tools/build/build_legacy_active_silent_current_surface_guard_round.py"
+        ],
+        "python_string_reference": [
+          "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_lexical_scan_diagnostic.txt",
+          "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+          "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+          "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
+          "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+        ]
+      },
+      "direct_consumers": [
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_artifact_inventory.jsonl",
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_corpus_manifest.json",
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_exclusion_ledger.jsonl",
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_lexical_scan_diagnostic.txt",
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_surface_classification.jsonl",
+        "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_corpus_partition.json",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumer_type_map.jsonl",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumption_inventory.jsonl",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/raw_occurrences.jsonl",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/referent_map.jsonl",
+        "Iris/build/description/v2/staging/2105_baseline_consumption_audit/surface_inventory.jsonl",
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/allowed_occurrence_inventory.json",
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/legacy_active_silent_occurrence_inventory.jsonl",
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase3_adjudication/occurrence_adjudication_report.json",
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase7_closeout/closeout.json",
+        "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/pre_existing_dirty_diff_manifest.json",
+        "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/working_tree_baseline.json",
+        "Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/census_p0_readpoint_freeze/readpoint_freeze_report.json",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.after.json",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.before.json",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_migration_matrix.jsonl",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase10/consumer_migration_impact_matrix.jsonl",
+        "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+        "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+        "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
+        "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+      ],
+      "evidence_role": "delete_candidate_after_guard_pilot",
+      "logical_artifact_id": "sha256:4c79d2ea4703b26d5dd2e895475e1115efb095779cc2f347be6c20516f6b98d9",
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase5_guard/current_surface_guard_report.json",
+      "producer": "build_legacy_active_silent_current_surface_guard_round.py",
+      "sha256": "4c79d2ea4703b26d5dd2e895475e1115efb095779cc2f347be6c20516f6b98d9",
+      "size_bytes": 892725527,
+      "transitive_consumers": []
+    }
+  ],
+  "schema_version": "iris_repository_runtime_lightweighting_archive_operation_v1",
+  "selection_approval": {
+    "owner": "repository_owner_user",
+    "path": "G:/r39/owner_archive_selection_step9.json",
+    "sha256": "49aa6a756f5d22b35f46d6abfc0cc14157bff4c3adff489dd75dc4f7f74b067d"
+  },
+  "zero_live_reference_count": 0,
+  "zero_live_reference_report": {
+    "consumer_scan_hold_count": 0,
+    "excluded_role_counts": {
+      "cold_archive_payload": 6,
+      "report_only_staging_residue": 18,
+      "test_fixture": 4
+    },
+    "live_reference_count": 0,
+    "physical_resolved_root": "C:/Users/MW/Downloads/coding/PZ",
+    "reference_policy": {
+      "git_blob_id": "c94a7d08e52759cd5328d7da761c91561cc91391",
+      "path": "Iris/_docs/refactor/repository_runtime_lightweighting/current_surface_guard_successor_manifest.json",
+      "revision_id": "legacy_guard_giant_cleanup_v1",
+      "schema_version": "iris_repository_runtime_lightweighting_lifecycle_reference_disposition_v1",
+      "sha256": "ebca0c5cd51fbc296f0a39526ee759f016e1785c4cf4cd6933928d5ac83f0aec"
+    },
+    "report_sha256": "68dd28742cf944225503e7053ae5abc91784350002fc9b0931593ff2be60ca17",
+    "rows": [
+      {
+        "consumer_axes": {
+          "disposed_cold_archive_diagnostic_reference": [
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_lexical_scan_diagnostic.txt"
+          ],
+          "disposed_cold_archive_evidence_reference": [
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_artifact_inventory.jsonl",
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_corpus_manifest.json",
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_exclusion_ledger.jsonl",
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_surface_classification.jsonl",
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_corpus_partition.json"
+          ],
+          "disposed_staging_evidence_reference": [
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl",
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumer_type_map.jsonl",
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumption_inventory.jsonl",
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/raw_occurrences.jsonl",
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/referent_map.jsonl",
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/surface_inventory.jsonl",
+            "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/legacy_active_silent_occurrence_inventory.jsonl",
+            "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase3_adjudication/occurrence_adjudication_report.json",
+            "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase5_guard/current_surface_guard_report.json",
+            "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/pre_existing_dirty_diff_manifest.json",
+            "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/working_tree_baseline.json",
+            "Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/census_p0_readpoint_freeze/readpoint_freeze_report.json",
+            "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.after.json",
+            "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.before.json",
+            "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_migration_matrix.jsonl",
+            "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase10/consumer_migration_impact_matrix.jsonl"
+          ],
+          "documentation_owner_reference": [
+            "Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
+            "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_inventory.json",
+            "Iris/_docs/refactor/repository_runtime_lightweighting/current_surface_guard_successor_manifest.json",
+            "Iris/_docs/round2/round2_file_inventory.jsonl"
+          ],
+          "lifecycle_evidence_reference": [
+            "Iris/validation/residual_refactor/promote_artifact_lifecycle_evidence.py",
+            "Iris/validation/residual_refactor/report_artifact_lifecycle.py"
+          ],
+          "producer_reference": [
+            "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+            "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py"
+          ],
+          "test_fixture_reference": [
+            "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py"
+          ]
+        },
+        "consumer_scan_holds": [],
+        "direct_consumers": [],
+        "path": "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/allowed_occurrence_inventory.json",
+        "transitive_consumers": [],
+        "zero_live_consumers": true
+      },
+      {
+        "consumer_axes": {
+          "disposed_cold_archive_diagnostic_reference": [
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_lexical_scan_diagnostic.txt"
+          ],
+          "disposed_cold_archive_evidence_reference": [
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_artifact_inventory.jsonl",
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_corpus_manifest.json",
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_exclusion_ledger.jsonl",
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_surface_classification.jsonl",
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_corpus_partition.json"
+          ],
+          "disposed_staging_evidence_reference": [
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl",
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumer_type_map.jsonl",
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumption_inventory.jsonl",
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/raw_occurrences.jsonl",
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/referent_map.jsonl",
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/surface_inventory.jsonl",
+            "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/allowed_occurrence_inventory.json",
+            "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase3_adjudication/occurrence_adjudication_report.json",
+            "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase5_guard/current_surface_guard_report.json",
+            "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase7_closeout/closeout.json",
+            "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/pre_existing_dirty_diff_manifest.json",
+            "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/working_tree_baseline.json",
+            "Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/census_p0_readpoint_freeze/readpoint_freeze_report.json",
+            "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.after.json",
+            "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.before.json",
+            "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_migration_matrix.jsonl",
+            "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase10/consumer_migration_impact_matrix.jsonl"
+          ],
+          "documentation_owner_reference": [
+            "Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
+            "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_inventory.json",
+            "Iris/_docs/refactor/repository_runtime_lightweighting/current_surface_guard_successor_manifest.json",
+            "Iris/_docs/round2/round2_file_inventory.jsonl"
+          ],
+          "lifecycle_evidence_reference": [
+            "Iris/validation/residual_refactor/promote_artifact_lifecycle_evidence.py",
+            "Iris/validation/residual_refactor/report_artifact_lifecycle.py"
+          ],
+          "test_fixture_reference": [
+            "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+            "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+            "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py"
+          ]
+        },
+        "consumer_scan_holds": [],
+        "direct_consumers": [],
+        "path": "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/legacy_active_silent_occurrence_inventory.jsonl",
+        "transitive_consumers": [],
+        "zero_live_consumers": true
+      },
+      {
+        "consumer_axes": {
+          "disposed_cold_archive_diagnostic_reference": [
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_lexical_scan_diagnostic.txt"
+          ],
+          "disposed_cold_archive_evidence_reference": [
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_artifact_inventory.jsonl",
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_corpus_manifest.json",
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_exclusion_ledger.jsonl",
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_surface_classification.jsonl",
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_corpus_partition.json"
+          ],
+          "disposed_staging_evidence_reference": [
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl",
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumer_type_map.jsonl",
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumption_inventory.jsonl",
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/raw_occurrences.jsonl",
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/referent_map.jsonl",
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/surface_inventory.jsonl",
+            "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/allowed_occurrence_inventory.json",
+            "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/legacy_active_silent_occurrence_inventory.jsonl",
+            "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase5_guard/current_surface_guard_report.json",
+            "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/pre_existing_dirty_diff_manifest.json",
+            "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/working_tree_baseline.json",
+            "Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/census_p0_readpoint_freeze/readpoint_freeze_report.json",
+            "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.after.json",
+            "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.before.json",
+            "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_migration_matrix.jsonl",
+            "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase10/consumer_migration_impact_matrix.jsonl"
+          ],
+          "documentation_owner_reference": [
+            "Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
+            "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_inventory.json",
+            "Iris/_docs/refactor/repository_runtime_lightweighting/current_surface_guard_successor_manifest.json",
+            "Iris/_docs/round2/round2_file_inventory.jsonl"
+          ],
+          "lifecycle_evidence_reference": [
+            "Iris/validation/residual_refactor/promote_artifact_lifecycle_evidence.py",
+            "Iris/validation/residual_refactor/report_artifact_lifecycle.py"
+          ],
+          "producer_reference": [
+            "Iris/build/description/v2/tools/build/build_legacy_active_silent_current_surface_guard_round.py"
+          ],
+          "test_fixture_reference": [
+            "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+            "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+            "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py"
+          ]
+        },
+        "consumer_scan_holds": [],
+        "direct_consumers": [],
+        "path": "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase3_adjudication/occurrence_adjudication_report.json",
+        "transitive_consumers": [],
+        "zero_live_consumers": true
+      },
+      {
+        "consumer_axes": {
+          "disposed_cold_archive_diagnostic_reference": [
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_lexical_scan_diagnostic.txt"
+          ],
+          "disposed_cold_archive_evidence_reference": [
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_artifact_inventory.jsonl",
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_corpus_manifest.json",
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_exclusion_ledger.jsonl",
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_surface_classification.jsonl",
+            "Iris/_archive/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_corpus_partition.json"
+          ],
+          "disposed_staging_evidence_reference": [
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl",
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumer_type_map.jsonl",
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumption_inventory.jsonl",
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/raw_occurrences.jsonl",
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/referent_map.jsonl",
+            "Iris/build/description/v2/staging/2105_baseline_consumption_audit/surface_inventory.jsonl",
+            "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/allowed_occurrence_inventory.json",
+            "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/legacy_active_silent_occurrence_inventory.jsonl",
+            "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase3_adjudication/occurrence_adjudication_report.json",
+            "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase7_closeout/closeout.json",
+            "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/pre_existing_dirty_diff_manifest.json",
+            "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/working_tree_baseline.json",
+            "Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/census_p0_readpoint_freeze/readpoint_freeze_report.json",
+            "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.after.json",
+            "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.before.json",
+            "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_migration_matrix.jsonl",
+            "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase10/consumer_migration_impact_matrix.jsonl"
+          ],
+          "documentation_owner_reference": [
+            "Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
+            "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_inventory.json",
+            "Iris/_docs/refactor/repository_runtime_lightweighting/current_surface_guard_successor_manifest.json",
+            "Iris/_docs/round2/round2_file_inventory.jsonl"
+          ],
+          "lifecycle_evidence_reference": [
+            "Iris/validation/residual_refactor/promote_artifact_lifecycle_evidence.py",
+            "Iris/validation/residual_refactor/report_artifact_lifecycle.py"
+          ],
+          "producer_reference": [
+            "Iris/build/description/v2/tools/build/build_legacy_active_silent_current_surface_guard_round.py"
+          ],
+          "test_fixture_reference": [
+            "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+            "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+            "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
+            "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+          ]
+        },
+        "consumer_scan_holds": [],
+        "direct_consumers": [],
+        "path": "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase5_guard/current_surface_guard_report.json",
+        "transitive_consumers": [],
+        "zero_live_consumers": true
+      }
+    ],
+    "schema_version": "iris_repository_runtime_lightweighting_live_reference_report_v1"
+  }
+}

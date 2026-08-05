@@ -1,0 +1,24 @@
+{
+  "all_sha256_verified": true,
+  "archive_path": "G:/r39/physical-capacity-physical-capacity-86197d46-20260-rebaseline-capacity-allocation-8-d4ed60d165cb/archive-store/9a3f58346fa3be5ae3eef6850476f98c2a5d09ba367d25ea53e85eb3acba7971.zip",
+  "archive_receipt_sha256": "b145680593bfb3092c817e4093be6383cc732315e71d941e822ec5675d2d74b4",
+  "delete_eligible": false,
+  "durable_successor": "pending_archive_evidence_promotion",
+  "object_reference_count": 4,
+  "operation_id": "9a3f58346fa3be5ae3eef6850476f98c2a5d09ba367d25ea53e85eb3acba7971",
+  "operation_manifest_sha256": "9f3d175576979b8f21515a1c3f37b2544dfaa07bd7a28081dd790811637826f3",
+  "ordinary_attempt_cleanup_excluded": true,
+  "physical_subject": {
+    "baseline_run_identity": "859598dc00da82a7c798a9c6e575394092e1d46983dc7c945ec077ad44c9c4c6",
+    "commit": "86197d46d94e8f0d921328583f6a5a91fbc9af28",
+    "physical_resolved_root": "C:/Users/MW/Downloads/coding/PZ",
+    "tree": "8905bc4e90f642a05b2b9b470cea99f635b38534"
+  },
+  "prior_receipt_path": "G:/r39/physical-capacity-physical-capacity-86197d46-20260-rebaseline-capacity-allocation-8-d4ed60d165cb/archive-store/archive_verify_receipt.json",
+  "prior_receipt_sha256": "7dc9269052dc3155417a16335251f1a139ccd2d42e411f893003f0f1b3e84046",
+  "restore_root": "G:/r9v",
+  "restored_file_count": 4,
+  "retention_owner": "repository_owner_user",
+  "schema_version": "iris_repository_runtime_lightweighting_restore_verify_receipt_v1",
+  "status": "PASS"
+}

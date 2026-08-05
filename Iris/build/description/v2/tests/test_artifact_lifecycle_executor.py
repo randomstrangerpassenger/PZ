@@ -1148,7 +1148,7 @@ class ArtifactLifecycleExecutorTest(unittest.TestCase):
             delete_receipt = external / "archive/delete.json"
             candidate_path = repo / CANDIDATE
             candidate_bytes = candidate_path.read_bytes()
-            same_content_target = repo / "same-content-delete-target"
+            same_content_target = external / "same-content-delete-target"
             same_content_target.mkdir()
             same_content_payload = same_content_target / "candidate.json"
             same_content_payload.write_bytes(candidate_bytes)

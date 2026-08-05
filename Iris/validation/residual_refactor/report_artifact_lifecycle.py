@@ -336,7 +336,7 @@ def scoped_roots(
         except OSError as error:
             holds.append(
                 {
-                    "path": directory.as_posix(),
+                    "path": lexical_repo_relative(directory, repo),
                     "error_type": type(error).__name__,
                     "error": str(error),
                 }
@@ -352,7 +352,7 @@ def scoped_roots(
                 if reparse:
                     holds.append(
                         {
-                            "path": path.as_posix(),
+                            "path": lexical_repo_relative(path, repo),
                             "error_type": "ReparseOrSymlinkHold",
                             "error": "reparse/symlink traversal is not admitted",
                         }
@@ -367,7 +367,7 @@ def scoped_roots(
             except OSError as error:
                 holds.append(
                     {
-                        "path": path.as_posix(),
+                        "path": lexical_repo_relative(path, repo),
                         "error_type": type(error).__name__,
                         "error": str(error),
                     }

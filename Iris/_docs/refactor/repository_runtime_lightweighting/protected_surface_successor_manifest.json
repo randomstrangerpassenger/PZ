@@ -1131,6 +1131,66 @@
                                                            "reason":  "Serialize held Windows reparse entries as checkout-relative lexical paths without traversing their targets."
                                                        }
                                                    ]
+                      },
+                      {
+                          "revision_id":  "common_bootstrap_current_route_repair_v3",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "a16708394e69bac963231fc830012eca4461ffa6",
+                          "reason":  "Close latent post-reparse lifecycle ordering and empty-pipeline behavior exposed by the planned current route.",
+                          "approved_activation_deltas":  [
+
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  "Iris/test/validate_residual_refactor_surfaces.ps1",
+                                                           "before_git_blob_id":  "fdf0a4d8ae39437dd00681230368fd5ec7bb4a18",
+                                                           "before_sha256_lf":  "d701d5e62930d285f019366fb2b212c0a4651e3d524f236a895860826a736430",
+                                                           "expected_git_blob_id":  "f35e78d81b015bcd4247020adafc9343c6ffae14",
+                                                           "after_sha256_lf":  "feb486fc59e598ef11c37b6bc06940cf86957111948bd4f2f913cde7b2bb35a0",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Join the captured zero-row predecessor tree array into a guaranteed empty string before trimming under Windows PowerShell 5.1."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+                                                           "before_git_blob_id":  "ba2dc1604d8900d5558ecfcd4930385436dcfd1b",
+                                                           "before_sha256_lf":  "389185685c5c1709bf1aff4d503721b2e778e60d2a452de7f62572f7bd4feec2",
+                                                           "expected_git_blob_id":  "29ffdea19c19227d51716350f170102d5ca5bb8d",
+                                                           "after_sha256_lf":  "f6962b5e865d2e97631554c7925d90a49890af92435e11f7c1ce9dd298b30aa2",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "artifact_lifecycle_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Keep the junction target in the external fixture root so post-delete candidate-delta validation observes only the intended source mutation."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/residual_refactor/report_artifact_lifecycle.py",
+                                                           "before_git_blob_id":  "5bf73017e7db29d23b51db709b93cb6f32018771",
+                                                           "before_sha256_lf":  "5761b599eae5fa34cbbf4297ee9281a4ff8d1a4dc92ff7cffd58a80282c3700a",
+                                                           "expected_git_blob_id":  "46401c3229317cff1234b09bbe6eed408dbbff99",
+                                                           "after_sha256_lf":  "eaac766ffccc2f9a201c29ef44869b02a3cb9c74811e58f989178dcb94f72193",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "artifact_lifecycle_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Normalize discovery-pass reparse holds at collection time as checkout-relative lexical paths."
+                                                       }
+                                                   ]
                       }
                   ]
 }

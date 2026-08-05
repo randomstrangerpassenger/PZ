@@ -1219,7 +1219,7 @@ def build_validated_candidate_delta_allowset(
     if (
         post_forbidden
         or post_added - POST_VALIDATION_ALLOWED_ADDITIONS
-        or post_modified - {CHECKPOINT_MANIFEST_RELATIVE}
+        or post_modified - POST_VALIDATION_ALLOWED_MODIFICATIONS
     ):
         raise LifecycleExecutionError(
             "post-validation physical candidate transition exceeds durable evidence policy"

@@ -55,7 +55,7 @@ def allocate(
     *,
     profile: str,
     attempt: str,
-    run_id: str,
+    run_id: str | None,
     receipt_name: str,
     failure_injection: str = "none",
 ) -> subprocess.CompletedProcess[str]:
@@ -80,9 +80,9 @@ def allocate(
         str(external / "allocation-ledger.jsonl"),
         "-Out",
         str(external / receipt_name),
-        "-RunId",
-        run_id,
     ]
+    if run_id is not None:
+        command.extend(["-RunId", run_id])
     if failure_injection != "none":
         command.extend(["-TestFailureInjection", failure_injection])
     return subprocess.run(
@@ -98,6 +98,26 @@ def allocate(
 
 
 class ArtifactWorkRootContractTest(unittest.TestCase):
+    def test_omitted_run_id_records_cryptographic_generation(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="iris-work-root-generated-run-id-") as temporary:
+            root = Path(temporary)
+            protected = root / "checkout"
+            external = root / "external"
+            protected.mkdir()
+            external.mkdir()
+            result = allocate(
+                protected,
+                external,
+                profile="checkpoint",
+                attempt="generated",
+                run_id=None,
+                receipt_name="generated.json",
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            receipt = json.loads((external / "generated.json").read_text(encoding="utf-8-sig"))
+            self.assertRegex(receipt["run_id"], r"^[0-9a-f]{32}$")
+            self.assertEqual(receipt["run_id_source"], "cryptographic_guid_generated")
+
     def test_guard_producer_revalidates_allocator_and_ledger_identity(self) -> None:
         with tempfile.TemporaryDirectory(prefix="iris-guard-allocation-binding-") as temporary:
             root = Path(temporary)

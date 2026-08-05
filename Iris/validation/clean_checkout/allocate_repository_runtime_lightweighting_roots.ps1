@@ -110,9 +110,10 @@ $safeClaim = [System.Text.RegularExpressions.Regex]::Replace($ClaimId, '[^A-Za-z
 if ($safeClaim.Length -gt 32) { $safeClaim = $safeClaim.Substring(0, 32) }
 $safeAttempt = [System.Text.RegularExpressions.Regex]::Replace($AttemptId, '[^A-Za-z0-9._-]', '-')
 if ($safeAttempt.Length -gt 32) { $safeAttempt = $safeAttempt.Substring(0, 32) }
-$runId = if ([string]::IsNullOrWhiteSpace($RunId)) { [Guid]::NewGuid().ToString('N') } else { $RunId.ToLowerInvariant() }
-if ($runId -notmatch '^[0-9a-f]{32}$') { throw 'RunId must be a 32-character lowercase hexadecimal GUID form' }
-$baseName = '{0}-{1}-{2}-{3}' -f $AllocationProfile, $safeClaim, $safeAttempt, $runId.Substring(0, 12)
+$runIdWasExplicit = -not [string]::IsNullOrWhiteSpace($RunId)
+$resolvedRunId = if ($runIdWasExplicit) { $RunId.ToLowerInvariant() } else { [Guid]::NewGuid().ToString('N') }
+if ($resolvedRunId -notmatch '^[0-9a-f]{32}$') { throw 'RunId must be a 32-character lowercase hexadecimal GUID form' }
+$baseName = '{0}-{1}-{2}-{3}' -f $AllocationProfile, $safeClaim, $safeAttempt, $resolvedRunId.Substring(0, 12)
 $base = Join-Path $external $baseName
 Assert-DisjointFromProtected $base 'allocation base'
 Assert-NoReparseAncestor $base 'allocation base'
@@ -219,8 +220,8 @@ try {
         state = 'reserved'
         claim_id = $ClaimId
         attempt_id = $AttemptId
-        run_id = $runId
-        run_id_source = if ([string]::IsNullOrWhiteSpace($RunId)) { 'cryptographic_guid_generated' } else { 'explicit_fixture_or_replay_probe' }
+        run_id = $resolvedRunId
+        run_id_source = if ($runIdWasExplicit) { 'explicit_fixture_or_replay_probe' } else { 'cryptographic_guid_generated' }
         allocation_profile = $AllocationProfile
         base = (Get-NormalizedPath $base).Replace('\', '/')
         paths = $candidatePathStrings
@@ -268,8 +269,8 @@ try {
         reservation_append_offset_bytes = $reservationAppendOffset
         claim_id = $ClaimId
         attempt_id = $AttemptId
-        run_id = $runId
-        run_id_source = if ([string]::IsNullOrWhiteSpace($RunId)) { 'cryptographic_guid_generated' } else { 'explicit_fixture_or_replay_probe' }
+        run_id = $resolvedRunId
+        run_id_source = if ($runIdWasExplicit) { 'explicit_fixture_or_replay_probe' } else { 'cryptographic_guid_generated' }
         allocation_profile = $AllocationProfile
         base = (Get-NormalizedPath $base).Replace('\', '/')
         paths = $candidatePathStrings
@@ -299,8 +300,8 @@ try {
         status = 'PASS'
         claim_id = $ClaimId
         attempt_id = $AttemptId
-        run_id = $runId
-        run_id_source = if ([string]::IsNullOrWhiteSpace($RunId)) { 'cryptographic_guid_generated' } else { 'explicit_fixture_or_replay_probe' }
+        run_id = $resolvedRunId
+        run_id_source = if ($runIdWasExplicit) { 'explicit_fixture_or_replay_probe' } else { 'cryptographic_guid_generated' }
         allocation_profile = $AllocationProfile
         external_parent = $external.Replace('\', '/')
         protected_repository_roots = @($script:ResolvedProtectedRoots | ForEach-Object { $_.Replace('\', '/') })
@@ -336,4 +337,4 @@ finally {
     if ($null -ne $ledgerStream) { $ledgerStream.Dispose() }
 }
 
-Write-Output (([ordered]@{ status = 'PASS'; run_id = $runId; allocation_profile = $AllocationProfile; receipt = $receipt.Replace('\', '/') }) | ConvertTo-Json -Compress)
+Write-Output (([ordered]@{ status = 'PASS'; run_id = $resolvedRunId; allocation_profile = $AllocationProfile; receipt = $receipt.Replace('\', '/') }) | ConvertTo-Json -Compress)

@@ -1253,6 +1253,35 @@
                                                            "owner":  "repository_owner_user",
                                                            "reason":  "Protect the initial immutable bootstrap checkpoint row before later single-row checkpoint appends."
                                                        }
+                                                    ]
+                      },
+                      {
+                          "revision_id":  "common_unittest_discovery_unreadable_followup_v1",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "ca7f0b13bfb14d8ac0739a8a59fd5ff71ffa1690",
+                          "reason":  "Keep planned unittest discovery bound to the exact tracked implementation set while safely excluding inaccessible untracked or ignored subtrees.",
+                          "approved_activation_deltas":  [
+
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/invoke_repository_runtime_lightweighting_command.ps1",
+                                                           "before_git_blob_id":  "ded9ba682ee22c067e68dc9d5911079c0c80e98a",
+                                                           "before_sha256_lf":  "e8120a6c6dd33165604758f8bfa010db4bcff14ead22113c38a884040af77419",
+                                                           "expected_git_blob_id":  "807d313ab4adb0724f31af7aaab8833d691d5f06",
+                                                           "after_sha256_lf":  "aa361dd35808f3400627554c42a6e60da162538f247321803dd1c15ac963250f",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "artifact_lifecycle_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect exact-commit unittest discovery that tolerates only inaccessible subtrees with no tracked pattern match and rejects reparse traversal."
+                                                       }
                                                    ]
                       }
                   ]

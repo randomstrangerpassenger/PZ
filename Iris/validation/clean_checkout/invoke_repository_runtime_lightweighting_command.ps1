@@ -543,7 +543,73 @@ try {
             $discoverRootValue = [string]$arguments[$startIndex + 1]
             $discoverRoot = if ([System.IO.Path]::IsPathRooted($discoverRootValue)) { [System.IO.Path]::GetFullPath($discoverRootValue) } else { [System.IO.Path]::GetFullPath((Join-Path $repositoryRoot $discoverRootValue)) }
             if (-not [System.IO.Directory]::Exists($discoverRoot) -or -not (Test-SameOrNested $discoverRoot $repositoryRoot)) { throw 'unittest discover root is not an exact repository directory' }
-            $discoveredTargets = @(Get-ChildItem -LiteralPath $discoverRoot -File -Recurse -Filter ([string]$arguments[$patternIndex + 1]) -ErrorAction Stop)
+            Assert-NoReparseComponent $discoverRoot 'unittest discover root'
+            $discoverPatternValue = [string]$arguments[$patternIndex + 1]
+            $discoverPattern = [System.Management.Automation.WildcardPattern]::new(
+                $discoverPatternValue,
+                [System.Management.Automation.WildcardOptions]::IgnoreCase
+            )
+            $discoverRelative = $discoverRoot.Substring($repositoryRoot.TrimEnd('\', '/').Length).TrimStart('\', '/').Replace('\', '/')
+            $trackedDiscovery = Invoke-CapturedText (Get-Command git -ErrorAction Stop).Source @(
+                '-C', $repositoryRoot, 'ls-tree', '-r', '--name-only', '-z', $executionCommit, '--', $discoverRelative
+            ) $repositoryRoot
+            if ($trackedDiscovery.exit_code -ne 0) {
+                throw "cannot resolve unittest discovery boundary at exact execution commit: $($trackedDiscovery.stderr.Trim())"
+            }
+            $trackedDiscoverTargets = @(
+                $trackedDiscovery.stdout -split "`0" |
+                    Where-Object {
+                        -not [string]::IsNullOrEmpty($_) -and
+                        $discoverPattern.IsMatch([System.IO.Path]::GetFileName([string]$_))
+                    }
+            )
+            $discoveredTargets = @()
+            $unreadableDiscoveryDirectories = @()
+            $pendingDiscoveryDirectories = [System.Collections.Generic.Stack[string]]::new()
+            $pendingDiscoveryDirectories.Push($discoverRoot)
+            while ($pendingDiscoveryDirectories.Count -gt 0) {
+                $discoveryDirectory = $pendingDiscoveryDirectories.Pop()
+                try {
+                    $discoveryChildren = @(Get-ChildItem -LiteralPath (Get-ExtendedLengthPath $discoveryDirectory) -Force -ErrorAction Stop)
+                }
+                catch {
+                    $unreadableDiscoveryDirectories += $discoveryDirectory
+                    continue
+                }
+                foreach ($discoveryChild in $discoveryChildren) {
+                    $logicalDiscoveryChild = Get-LogicalPathFromExtended $discoveryChild.FullName
+                    try {
+                        $discoveryAttributes = [System.IO.File]::GetAttributes((Get-ExtendedLengthPath $logicalDiscoveryChild))
+                    }
+                    catch {
+                        $unreadableDiscoveryDirectories += $logicalDiscoveryChild
+                        continue
+                    }
+                    $isDiscoveryReparse = (($discoveryAttributes -band [System.IO.FileAttributes]::ReparsePoint) -ne 0)
+                    if ($isDiscoveryReparse) {
+                        throw "unittest discover boundary contains a reparse point: $logicalDiscoveryChild"
+                    }
+                    $isDiscoveryDirectory = (($discoveryAttributes -band [System.IO.FileAttributes]::Directory) -ne 0)
+                    if ($isDiscoveryDirectory) {
+                        $pendingDiscoveryDirectories.Push($logicalDiscoveryChild)
+                    }
+                    elseif ($discoverPattern.IsMatch([System.IO.Path]::GetFileName($logicalDiscoveryChild))) {
+                        $discoveredTargets += [System.IO.FileInfo]::new($logicalDiscoveryChild)
+                    }
+                }
+            }
+            foreach ($unreadableDiscoveryDirectory in $unreadableDiscoveryDirectories) {
+                $unreadableRelative = $unreadableDiscoveryDirectory.Substring($repositoryRoot.TrimEnd('\', '/').Length).TrimStart('\', '/').Replace('\', '/')
+                $trackedUnderUnreadable = @(
+                    $trackedDiscoverTargets | Where-Object {
+                        $_.Equals($unreadableRelative, [System.StringComparison]::OrdinalIgnoreCase) -or
+                        $_.StartsWith($unreadableRelative.TrimEnd('/') + '/', [System.StringComparison]::OrdinalIgnoreCase)
+                    }
+                )
+                if ($trackedUnderUnreadable.Count -gt 0) {
+                    throw "unittest discover cannot inspect tracked implementation beneath unreadable directory: $unreadableRelative"
+                }
+            }
             if ($discoveredTargets.Count -eq 0) { throw 'unittest discover pattern resolves no repository implementation' }
             $targetCandidates += @($discoveredTargets | ForEach-Object { $_.FullName })
         }

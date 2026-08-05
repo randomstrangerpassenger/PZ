@@ -798,6 +798,34 @@
                                                            "reason":  "Protect the executable extended-length fixture construction at exact byte identity."
                                                        }
                                                    ]
+                      },
+                      {
+                          "revision_id":  "common_route_audit_long_path_fixture_followup_v1",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "2a63872de4e61e0c76f2fee9cafffd51b082aea7",
+                          "reason":  "Make the planned route-audit clone fixture independent of ambient Git for Windows long-path configuration.",
+                          "approved_activation_deltas":  [
+
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/tests/test_current_route_output_isolation_audit.py",
+                                                           "before_git_blob_id":  "836ed24f656567b1a0970cc7a16e68221b5ce7a6",
+                                                           "before_sha256_lf":  "a89c53e083fdda437e740e1f9607b884a67e3c308e021832269d628cc479f03e",
+                                                           "expected_git_blob_id":  "1b883f6a27d8b07eb616a69e5e9bc7e144eeb39a",
+                                                           "after_sha256_lf":  "ae89d225dc2c79a2f2b5d3115d67960d9ca7bf378eb05d5f1bfeb18464126f2a",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect fixture-local Git long-path configuration and clone behavior at exact byte identity."
+                                                       }
+                                                   ]
                       }
                   ]
 }

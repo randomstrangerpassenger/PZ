@@ -79,6 +79,10 @@ def test_selected(tmp_path):
     successor = repo / "Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json"
     write_json(successor, {"schema_version": "iris_repository_runtime_lightweighting_output_policy_v1"})
     subprocess.run(["git", "init", "-q", str(repo)], check=True)
+    subprocess.run(
+        ["git", "-C", str(repo), "config", "core.longpaths", "true"],
+        check=True,
+    )
     subprocess.run(["git", "-C", str(repo), "add", "."], check=True)
     subprocess.run(
         [
@@ -351,7 +355,17 @@ def test_seal_requires_dynamic_checkout_unchanged_pass_and_verify_detects_drift(
 
     verification = (tmp_path / "verification-checkout").resolve()
     subprocess.run(
-        ["git", "clone", "-q", str(repo), str(verification)],
+        [
+            "git",
+            "-c",
+            "core.longpaths=true",
+            "clone",
+            "-q",
+            "-c",
+            "core.longpaths=true",
+            str(repo),
+            str(verification),
+        ],
         check=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,

@@ -16,7 +16,11 @@ from collections import Counter
 from pathlib import Path, PurePosixPath
 from typing import Any
 
-from promote_artifact_lifecycle_evidence import PromotionError, validate_chain as validate_archive_chain
+from promote_artifact_lifecycle_evidence import (
+    PromotionError,
+    validate_baseline_promotion_payload,
+    validate_chain as validate_archive_chain,
+)
 from report_artifact_lifecycle import (
     SCOPED_ROOTS,
     LifecycleError,
@@ -47,6 +51,10 @@ PRE_DELETE_RECEIPT_RELATIVE = (
 ENVIRONMENT_AUTHORITY_RELATIVE = (
     "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json"
 )
+BASELINE_PROMOTION_SCHEMAS = {
+    "iris_repository_runtime_lightweighting_baseline_promotion_v1",
+    "iris_repository_runtime_lightweighting_baseline_promotion_v2",
+}
 
 
 def canonical_json_bytes(value: Any) -> bytes:
@@ -1128,8 +1136,16 @@ def validate_baseline(repo: Path, baseline_path: Path, promotion_path: Path) -> 
         raise LifecycleExecutionError("baseline is not a physical_capacity_subject")
     if Path(str(baseline.get("physical_resolved_root"))).resolve() != repo:
         raise LifecycleExecutionError("baseline physical root mismatch")
-    if promotion.get("mode") != "baseline" or not promotion.get("byte_identity_verified"):
+    if (
+        promotion.get("schema_version") not in BASELINE_PROMOTION_SCHEMAS
+        or promotion.get("mode") != "baseline"
+        or promotion.get("byte_identity_verified") is not True
+    ):
         raise LifecycleExecutionError("baseline promotion receipt is invalid")
+    try:
+        validate_baseline_promotion_payload(repo, baseline_path.parent, promotion)
+    except PromotionError as error:
+        raise LifecycleExecutionError("baseline promotion transaction is invalid") from error
     if baseline.get("unclassified_count") != 0 or baseline.get("unreadable_count") != 0 or baseline.get("consumer_scan_hold_count", 0) != 0 or baseline.get("complete_accounting") is not True:
         raise LifecycleExecutionError("baseline accounting is incomplete")
     manifest_path = baseline_path.with_name("artifact_role_manifest.jsonl")

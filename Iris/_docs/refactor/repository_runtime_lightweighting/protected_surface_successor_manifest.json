@@ -1858,6 +1858,69 @@
                                                            "reason":  "Append the new bootstrap checkpoint and explicitly mark the purged earlier external-binding lineage historical and non-authoritative."
                                                        }
                                                    ]
+                      },
+                      {
+                          "revision_id": "common_baseline_successor_bootstrap_v1",
+                          "track": "common",
+                          "owner": "repository_owner_user",
+                          "approved": true,
+                          "predecessor_commit": "97fa9d77cf40310a576f3949fff3d7de6ea7ca86",
+                          "reason": "Bootstrap a restart-safe successor transaction for the already-materialized STEP 4 baseline generation before collecting a new physical-capacity baseline.",
+                          "approved_activation_deltas": [],
+                          "added_protected_rows": [
+                              {
+                                  "path": "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
+                                  "before_git_blob_id": "2db6fd703128a1630d46d11390ccc9768817fa87",
+                                  "before_sha256_lf": "d299ff9496f3b5d704d9e872d4b73311105fb4126b26c7b0e05a7c27ffcf9e67",
+                                  "expected_git_blob_id": "c9d1f751068de74773ef1d81dd8865f2bef84e0d",
+                                  "after_sha256_lf": "65532b46f61fe5f930a0cf6fc116d3e9fde172c48e8913115c5e7b46881c21cf",
+                                  "role": "common_track_test_contract",
+                                  "writer": "repository_runtime_lightweighting_common_implementation",
+                                  "consumers": [
+                                      "bootstrap_validation",
+                                      "baseline_adoption_validation",
+                                      "current_route_validation",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Cover normal successor promotion, predecessor mismatch rejection, every controlled replacement rollback point, crash recovery, and durable/external receipt identity."
+                              },
+                              {
+                                  "path": "Iris/validation/residual_refactor/execute_artifact_lifecycle.py",
+                                  "before_git_blob_id": "f04acf35f555c7c3737da4454785785aead0f17c",
+                                  "before_sha256_lf": "8eb7a41a1edc4507a3935485da575b7fa1cd49d72ed2f5cbf966deb97a925063",
+                                  "expected_git_blob_id": "7f949385906e59c51f0f37c51153b9ba896b16af",
+                                  "after_sha256_lf": "d04571a68d52f809c353a86a5404a1ee3eec52c3931cf7b287a008e0bef1ea17",
+                                  "role": "common_track_validation_tool",
+                                  "writer": "repository_runtime_lightweighting_common_implementation",
+                                  "consumers": [
+                                      "baseline_adoption_validation",
+                                      "archive_executor",
+                                      "delete_prerequisite_validation",
+                                      "current_route_validation",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Consume only the explicitly supported v1 initial or v2 successor baseline receipt schemas while retaining mode and byte-identity checks."
+                              },
+                              {
+                                  "path": "Iris/validation/residual_refactor/promote_artifact_lifecycle_evidence.py",
+                                  "before_git_blob_id": "d5cdc86a9c602202880043e1e6ac4082ed21686c",
+                                  "before_sha256_lf": "3cfd3dd7a0716e0a6d9b68da8914857f5d236b15098fc164f57e4b7cd49e18c5",
+                                  "expected_git_blob_id": "e0d72bafd1137e0101624a56f3c9ea5fc96e408d",
+                                  "after_sha256_lf": "44b064a5574ebea5f190d9c7a523809ef69cd89aad377ae209b69017ab0db774",
+                                  "role": "common_track_validation_tool",
+                                  "writer": "repository_runtime_lightweighting_common_implementation",
+                                  "consumers": [
+                                      "baseline_successor_promotion",
+                                      "baseline_adoption_validation",
+                                      "current_route_validation",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Validate the canonical predecessor against HEAD and replace the three-file baseline generation through a locked, journaled, hash-verified rollback/recovery transaction without claiming filesystem group atomicity."
+                              }
+                          ]
                       }
                   ]
 }

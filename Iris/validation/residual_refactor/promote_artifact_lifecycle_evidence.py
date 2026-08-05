@@ -7,11 +7,13 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
+import time
 from pathlib import Path
-from typing import Any
+from typing import Any, BinaryIO
 
 from report_artifact_lifecycle import (
     LIFECYCLE_TRACKING_ADDITIONS,
@@ -33,6 +35,17 @@ GIANT_RELATIVES = {
     "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/"
     "phase5_guard/current_surface_guard_report.json",
 }
+BASELINE_DURABLE_NAMES = (
+    "artifact_role_manifest.jsonl",
+    "baseline_inventory.json",
+    "baseline_promotion_receipt.json",
+)
+BASELINE_PROMOTION_SCHEMAS = {
+    "iris_repository_runtime_lightweighting_baseline_promotion_v1",
+    "iris_repository_runtime_lightweighting_baseline_promotion_v2",
+}
+BASELINE_SUCCESSOR_LOCK_NAME = ".baseline-successor.lock"
+BASELINE_SUCCESSOR_TEST_AUTHORITY = "artifact_lifecycle_promotion_fixture_v1"
 
 
 class PromotionError(RuntimeError):
@@ -75,10 +88,17 @@ def atomic_write_new(path: Path, payload: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     if path.exists():
         raise PromotionError(f"destination already exists: {path}")
-    temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
+    temporary_prefix = path.name if path.name.startswith(".") else f".{path.name}"
+    temporary = path.with_name(f"{temporary_prefix}.{os.getpid()}.tmp")
     if temporary.exists():
         raise PromotionError(f"temporary destination already exists: {temporary}")
     temporary.write_bytes(payload)
+    if (
+        path.name.startswith(".baseline-successor-")
+        and path.name.endswith(".journal.json")
+        and baseline_successor_test_injection("IRIS_BASELINE_SUCCESSOR_CRASH_AFTER_JOURNAL_TEMP") == "1"
+    ):
+        os._exit(83)
     try:
         os.link(temporary, path)
     except FileExistsError as error:
@@ -118,6 +138,308 @@ def exact_copy_new(source: Path, destination: Path) -> dict[str, Any]:
         "destination_sha256": source_hash,
         "byte_length": source_size,
     }
+
+
+def git_head_identity(repo: Path) -> tuple[str, str]:
+    completed = subprocess.run(
+        ["git", "-C", str(repo), "rev-parse", "HEAD", "HEAD^{tree}"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
+    lines = completed.stdout.splitlines()
+    if completed.returncode != 0 or len(lines) != 2:
+        raise PromotionError("promotion checkout HEAD/tree is unresolved")
+    return lines[0], lines[1]
+
+
+def git_head_file_identity(repo: Path, path: Path) -> dict[str, Any]:
+    if not path.is_file() or is_reparse_or_symlink(path):
+        raise PromotionError(f"canonical predecessor is not a regular non-reparse file: {path}")
+    relative = path.resolve().relative_to(repo).as_posix()
+    blob_id = subprocess.run(
+        ["git", "-C", str(repo), "rev-parse", f"HEAD:{relative}"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
+    blob = subprocess.run(
+        ["git", "-C", str(repo), "show", f"HEAD:{relative}"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    working = path.read_bytes()
+    if blob_id.returncode != 0 or blob.returncode != 0 or working != blob.stdout:
+        raise PromotionError(f"canonical predecessor differs from HEAD: {relative}")
+    return {
+        "path": path.as_posix(),
+        "repository_relative_path": relative,
+        "sha256": hashlib.sha256(working).hexdigest(),
+        "byte_length": len(working),
+        "git_blob_id": blob_id.stdout.strip(),
+    }
+
+
+def valid_lower_hex(value: object, lengths: set[int]) -> bool:
+    text = str(value)
+    return len(text) in lengths and all(character in "0123456789abcdef" for character in text)
+
+
+def absolute_repository_external_descriptor(value: object, repo: Path) -> Path:
+    descriptor = Path(str(value))
+    if not descriptor.is_absolute():
+        raise PromotionError(f"path descriptor is not absolute: {value}")
+    lexical = Path(os.path.abspath(descriptor))
+    resolved = descriptor.resolve()
+    for candidate in (lexical, resolved):
+        try:
+            candidate.relative_to(repo)
+        except ValueError:
+            continue
+        raise PromotionError(f"path descriptor is not repository-external: {value}")
+    return resolved
+
+
+def validate_baseline_promotion_payload(
+    repo: Path,
+    destination: Path,
+    promotion: dict[str, Any],
+    *,
+    historical_after_terminal_closeout: bool = False,
+) -> None:
+    schema = promotion.get("schema_version")
+    if (
+        schema not in BASELINE_PROMOTION_SCHEMAS
+        or promotion.get("mode") != "baseline"
+        or promotion.get("byte_identity_verified") is not True
+    ):
+        raise PromotionError("baseline promotion receipt is invalid")
+    if schema == "iris_repository_runtime_lightweighting_baseline_promotion_v1":
+        if "transaction" in promotion or "promotion_strategy" in promotion:
+            raise PromotionError("baseline v1 receipt must retain create-new semantics")
+        return
+    repo = repo.resolve()
+    destination = destination.resolve()
+    transaction = promotion.get("transaction")
+    physical_subject = promotion.get("physical_subject")
+    if (
+        promotion.get("promotion_strategy") != "successor_transaction"
+        or not isinstance(transaction, dict)
+        or not isinstance(physical_subject, dict)
+        or not valid_lower_hex(physical_subject.get("run_identity"), {64})
+        or not valid_lower_hex(physical_subject.get("commit"), {40, 64})
+        or not valid_lower_hex(physical_subject.get("tree"), {40, 64})
+        or not valid_lower_hex(transaction.get("transaction_id"), {32})
+        or not valid_lower_hex(transaction.get("predecessor_commit"), {40, 64})
+        or not valid_lower_hex(transaction.get("predecessor_tree"), {40, 64})
+        or not valid_lower_hex(transaction.get("predecessor_receipt_sha256"), {64})
+        or not valid_lower_hex(transaction.get("predecessor_receipt_git_blob_id"), {40, 64})
+        or transaction.get("filesystem_group_atomicity_claimed") is not False
+        or transaction.get("final_all_new_verified") is not True
+        or transaction.get("recovery_policy")
+        != "exclusive_lock_hash_addressed_journal_restore_all_predecessor_files_then_rerun"
+        or promotion.get("destination_repository_relative_root") != DURABLE_RELATIVE.as_posix()
+        or Path(str(physical_subject.get("physical_resolved_root", ""))).resolve() != repo
+        or destination != (repo / DURABLE_RELATIVE).resolve()
+    ):
+        raise PromotionError("baseline successor transaction semantics are invalid")
+    predecessor_commit = str(transaction["predecessor_commit"])
+    predecessor_tree = str(transaction["predecessor_tree"])
+    if (
+        physical_subject.get("commit") != predecessor_commit
+        or physical_subject.get("tree") != predecessor_tree
+    ):
+        raise PromotionError("baseline successor physical subject differs from predecessor HEAD")
+    resolved_tree = subprocess.run(
+        ["git", "-C", str(repo), "rev-parse", f"{predecessor_commit}^{{tree}}"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
+    ancestor = subprocess.run(
+        ["git", "-C", str(repo), "merge-base", "--is-ancestor", predecessor_commit, "HEAD"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    if resolved_tree.returncode != 0 or resolved_tree.stdout.strip() != predecessor_tree or ancestor.returncode != 0:
+        raise PromotionError("baseline successor predecessor commit/tree is not in the current history")
+    durable_baseline = load_object(destination / "baseline_inventory.json")
+    if any(
+        durable_baseline.get(key) != physical_subject.get(key)
+        for key in ("physical_resolved_root", "commit", "tree", "run_identity")
+    ):
+        raise PromotionError("baseline successor physical subject differs from durable baseline")
+    predecessor_rows = transaction.get("predecessor_files")
+    if not isinstance(predecessor_rows, list) or len(predecessor_rows) != len(BASELINE_DURABLE_NAMES):
+        raise PromotionError("baseline successor predecessor file set is invalid")
+    predecessor_by_name: dict[str, dict[str, Any]] = {}
+    for row in predecessor_rows:
+        if not isinstance(row, dict):
+            raise PromotionError("baseline successor predecessor row is invalid")
+        relative = str(row.get("repository_relative_path", ""))
+        name = Path(relative).name
+        expected_predecessor_path = (repo / relative).resolve()
+        absolute_predecessor_path = Path(str(row.get("path", "")))
+        if (
+            name in predecessor_by_name
+            or relative != (DURABLE_RELATIVE / name).as_posix()
+            or not absolute_predecessor_path.is_absolute()
+            or absolute_predecessor_path.resolve() != expected_predecessor_path
+        ):
+            raise PromotionError("baseline successor predecessor path set is noncanonical")
+        if (
+            name not in BASELINE_DURABLE_NAMES
+            or not valid_lower_hex(row.get("sha256"), {64})
+            or not valid_lower_hex(row.get("git_blob_id"), {40, 64})
+            or int(row.get("byte_length", -1)) < 0
+        ):
+            raise PromotionError(f"baseline successor predecessor identity is invalid: {name}")
+        resolved_blob = subprocess.run(
+            ["git", "-C", str(repo), "rev-parse", f"{predecessor_commit}:{relative}"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            check=False,
+        )
+        blob_bytes = subprocess.run(
+            ["git", "-C", str(repo), "show", f"{predecessor_commit}:{relative}"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=False,
+        )
+        if (
+            resolved_blob.returncode != 0
+            or resolved_blob.stdout.strip() != row["git_blob_id"]
+            or blob_bytes.returncode != 0
+            or hashlib.sha256(blob_bytes.stdout).hexdigest() != row["sha256"]
+            or len(blob_bytes.stdout) != row["byte_length"]
+        ):
+            raise PromotionError(f"baseline successor predecessor Git object differs: {name}")
+        predecessor_by_name[name] = row
+    if set(predecessor_by_name) != set(BASELINE_DURABLE_NAMES):
+        raise PromotionError("baseline successor predecessor file names are incomplete")
+    predecessor_receipt = predecessor_by_name["baseline_promotion_receipt.json"]
+    if (
+        predecessor_receipt["sha256"] != transaction["predecessor_receipt_sha256"]
+        or predecessor_receipt["git_blob_id"] != transaction["predecessor_receipt_git_blob_id"]
+    ):
+        raise PromotionError("baseline successor predecessor receipt chain differs")
+    store = transaction.get("predecessor_durable_store")
+    if store != {"kind": "git_commit_blobs", "commit": predecessor_commit, "tree": predecessor_tree}:
+        raise PromotionError("baseline successor predecessor durable store is invalid")
+    promoted = promotion.get("promoted_files")
+    new_generation = transaction.get("new_generation_files")
+    if (
+        not isinstance(promoted, list)
+        or not isinstance(new_generation, list)
+        or len(promoted) != 2
+        or len(new_generation) != 2
+        or any(not isinstance(row, dict) for row in promoted)
+        or any(not isinstance(row, dict) for row in new_generation)
+    ):
+        raise PromotionError("baseline successor new generation bindings are invalid")
+    promoted_by_name = {Path(str(row.get("destination_path", ""))).name: row for row in promoted}
+    generation_by_name = {str(row.get("name", "")): row for row in new_generation}
+    expected_new_names = set(BASELINE_DURABLE_NAMES[:2])
+    if set(promoted_by_name) != expected_new_names or set(generation_by_name) != expected_new_names:
+        raise PromotionError("baseline successor new generation path set is noncanonical")
+    for name in expected_new_names:
+        promoted_row = promoted_by_name[name]
+        generation_row = generation_by_name[name]
+        physical_destination = (repo / DURABLE_RELATIVE / name).resolve()
+        promoted_source = absolute_repository_external_descriptor(
+            promoted_row.get("source_path"),
+            repo,
+        )
+        generation_source = absolute_repository_external_descriptor(
+            generation_row.get("source_path"),
+            repo,
+        )
+        if (
+            generation_row.get("repository_relative_destination") != (DURABLE_RELATIVE / name).as_posix()
+            or promoted_row.get("repository_relative_destination")
+            != (DURABLE_RELATIVE / name).as_posix()
+            or Path(str(promoted_row.get("destination_path", ""))).resolve()
+            != physical_destination
+            or promoted_source != generation_source
+            or promoted_row.get("source_sha256") != generation_row.get("sha256")
+            or promoted_row.get("destination_sha256") != generation_row.get("sha256")
+            or int(promoted_row.get("byte_length", -1)) != generation_row.get("byte_length")
+            or not valid_lower_hex(generation_row.get("sha256"), {64})
+        ):
+            raise PromotionError(f"baseline successor new generation binding differs: {name}")
+        if promoted_source.exists():
+            if (
+                not promoted_source.is_file()
+                or is_reparse_or_symlink(promoted_source)
+                or sha256_file(promoted_source) != generation_row["sha256"]
+                or promoted_source.stat().st_size != generation_row["byte_length"]
+            ):
+                raise PromotionError(f"baseline successor external source differs: {name}")
+        elif not historical_after_terminal_closeout:
+            raise PromotionError(
+                f"baseline successor external source must remain through terminal closeout: {name}"
+            )
+    expected_transaction_seed = {
+        "predecessor_commit": predecessor_commit,
+        "predecessor_tree": predecessor_tree,
+        "predecessor_receipt_sha256": transaction["predecessor_receipt_sha256"],
+        "physical_run_identity": physical_subject["run_identity"],
+        "sources": {
+            name: {
+                "sha256": generation_by_name[name]["sha256"],
+                "byte_length": generation_by_name[name]["byte_length"],
+            }
+            for name in BASELINE_DURABLE_NAMES[:2]
+        },
+    }
+    if (
+        hashlib.sha256(canonical_json_bytes(expected_transaction_seed)).hexdigest()[:32]
+        != transaction["transaction_id"]
+    ):
+        raise PromotionError("baseline successor transaction ID is not reproducible")
+    generated_receipt = transaction.get("generated_receipt_output")
+    staging = transaction.get("staging_verification")
+    source_disposition = transaction.get("external_source_disposition")
+    if (
+        not isinstance(generated_receipt, dict)
+        or generated_receipt.get("source_identity") != "generated:baseline-successor-receipt-v2"
+        or generated_receipt.get("repository_relative_destination")
+        != (DURABLE_RELATIVE / "baseline_promotion_receipt.json").as_posix()
+        or generated_receipt.get("identity_rule")
+        != "durable_and_external_bytes_must_be_identical_after_all_three_replacements"
+        or generated_receipt.get("operator_receipt_disposition")
+        != "retained_through_reviewed_promotion_commit_then_may_be_purged"
+        or not isinstance(staging, dict)
+        or staging.get("same_volume_stage_backup_and_destination") is not True
+        or staging.get("all_staged_hashes_verified_before_replace") is not True
+        or staging.get("ephemeral_paths_retained_in_durable_receipt") is not False
+        or staging.get("ephemeral_paths_retained_in_recovery_journal_only") is not True
+        or source_disposition
+        != {
+            "policy": "retained_through_terminal_closeout_then_may_be_purged",
+            "existence_required_through_terminal_closeout": True,
+            "historical_after_terminal_closeout_may_accept_absent": True,
+        }
+    ):
+        raise PromotionError("baseline successor staging/final verification semantics are invalid")
+    absolute_repository_external_descriptor(
+        generated_receipt.get("external_destination_path"),
+        repo,
+    )
 
 
 def resolve_repo(path: Path) -> Path:
@@ -245,8 +567,7 @@ def require_absent(paths: list[Path]) -> None:
         raise PromotionError(f"promotion destination already exists: {existing[0]}")
 
 
-def promote_baseline(args: argparse.Namespace) -> None:
-    repo, destination, external = validate_roots(args.repo, args.destination_root, args.receipt_out)
+def validate_baseline_generation(args: argparse.Namespace, repo: Path) -> tuple[dict[str, Any], dict[str, Any]]:
     subject = validate_subject_receipt(
         args.subject_receipt.resolve(),
         args.source_manifest.resolve(),
@@ -288,6 +609,12 @@ def promote_baseline(args: argparse.Namespace) -> None:
             or row.get("size_bytes") != source.stat().st_size
         ):
             raise PromotionError(f"baseline giant physical identity mismatch: {relative}")
+    return subject, summary
+
+
+def promote_baseline(args: argparse.Namespace) -> None:
+    repo, destination, external = validate_roots(args.repo, args.destination_root, args.receipt_out)
+    subject, _ = validate_baseline_generation(args, repo)
     require_absent(
         [
             destination / "artifact_role_manifest.jsonl",
@@ -315,6 +642,664 @@ def promote_baseline(args: argparse.Namespace) -> None:
         "promotion_commit_binding": "pending_reviewed_commit",
     }
     finish_receipt(destination, external, "baseline_promotion_receipt.json", payload)
+
+
+def transaction_path(destination: Path, transaction_id: str, role: str, name: str = "") -> Path:
+    suffix = f".{name}" if name else ""
+    return destination / f".baseline-successor-{transaction_id}.{role}{suffix}"
+
+
+def write_json_replace(path: Path, payload: dict[str, Any]) -> None:
+    temporary = path.with_name(f"{path.name}.{os.getpid()}.replace")
+    if os.path.lexists(temporary):
+        raise PromotionError(f"journal replace temporary already exists: {temporary}")
+    with temporary.open("xb") as handle:
+        handle.write(canonical_json_bytes(payload))
+    os.replace(temporary, path)
+
+
+def acquire_transaction_lock(path: Path, *, create: bool) -> BinaryIO:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        handle = path.open("x+b" if create else "r+b")
+    except FileExistsError as error:
+        raise PromotionError("another baseline successor transaction owns the exclusive lock") from error
+    try:
+        if path.stat().st_size == 0:
+            handle.write(b"0")
+            handle.flush()
+        handle.seek(0)
+        if os.name == "nt":
+            import msvcrt
+
+            msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+        else:
+            import fcntl
+
+            fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError as error:
+        handle.close()
+        raise PromotionError("another baseline successor transaction is currently active") from error
+    return handle
+
+
+def release_transaction_lock(handle: BinaryIO) -> None:
+    try:
+        handle.seek(0)
+        if os.name == "nt":
+            import msvcrt
+
+            msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
+        else:
+            import fcntl
+
+            fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+    finally:
+        handle.close()
+
+
+def baseline_successor_test_injection(name: str) -> str:
+    if os.environ.get("IRIS_BASELINE_SUCCESSOR_TEST_AUTHORITY") != BASELINE_SUCCESSOR_TEST_AUTHORITY:
+        return ""
+    return os.environ.get(name, "")
+
+
+def copy_verified(source: Path, destination: Path, expected_sha256: str, expected_size: int) -> None:
+    if destination.exists():
+        raise PromotionError(f"transaction artifact already exists: {destination}")
+    with source.open("rb") as input_handle, destination.open("xb") as output_handle:
+        shutil.copyfileobj(input_handle, output_handle, length=1024 * 1024)
+    if sha256_file(destination) != expected_sha256 or destination.stat().st_size != expected_size:
+        raise PromotionError(f"transaction copy differs: {destination}")
+
+
+def cleanup_transaction_artifacts(journal: dict[str, Any], *, remove_external: bool) -> None:
+    for row in journal.get("files", []):
+        for key in ("stage_path", "backup_path"):
+            Path(str(row[key])).unlink(missing_ok=True)
+        stage_path = Path(str(row["stage_path"]))
+        for temporary in stage_path.parent.glob(f"{stage_path.name}.*.tmp"):
+            temporary.unlink(missing_ok=True)
+    external_stage = Path(str(journal["external_stage_path"]))
+    for temporary in external_stage.parent.glob(f"{external_stage.name}.*.tmp"):
+        temporary.unlink(missing_ok=True)
+    journal_path = Path(str(journal["journal_path"]))
+    for temporary in journal_path.parent.glob(f"{journal_path.name}.*.tmp"):
+        temporary.unlink(missing_ok=True)
+    for temporary in journal_path.parent.glob(f"{journal_path.name}.*.replace"):
+        temporary.unlink(missing_ok=True)
+    if remove_external:
+        external = Path(str(journal["external_receipt_path"]))
+        linked_stage = (
+            external.exists()
+            and external_stage.exists()
+            and os.path.samefile(external, external_stage)
+        )
+        if external.exists() and (journal.get("external_published") is True or linked_stage):
+            expected = journal.get("receipt_sha256")
+            if isinstance(expected, str) and sha256_file(external) == expected:
+                external.unlink()
+            else:
+                raise PromotionError("operator receipt cannot be safely removed during recovery")
+    external_stage.unlink(missing_ok=True)
+    journal_path.unlink(missing_ok=True)
+
+
+def restore_predecessor_generation(journal: dict[str, Any]) -> None:
+    errors: list[str] = []
+    for row in journal.get("files", []):
+        destination = Path(str(row["destination_path"]))
+        backup = Path(str(row["backup_path"]))
+        expected_hash = str(row["predecessor_sha256"])
+        expected_size = int(row["predecessor_byte_length"])
+        try:
+            backup_valid = (
+                backup.is_file()
+                and not is_reparse_or_symlink(backup)
+                and sha256_file(backup) == expected_hash
+                and backup.stat().st_size == expected_size
+            )
+            destination_valid = (
+                destination.is_file()
+                and not is_reparse_or_symlink(destination)
+                and sha256_file(destination) == expected_hash
+                and destination.stat().st_size == expected_size
+            )
+            if backup_valid:
+                restore_stage = destination.with_name(
+                    f".baseline-successor-{journal['transaction_id']}.restore.{destination.name}"
+                )
+                restore_stage.unlink(missing_ok=True)
+                copy_verified(backup, restore_stage, expected_hash, expected_size)
+                os.replace(restore_stage, destination)
+            elif not destination_valid:
+                raise PromotionError(f"predecessor cannot be recovered: {destination}")
+            if sha256_file(destination) != expected_hash or destination.stat().st_size != expected_size:
+                raise PromotionError(f"recovered predecessor differs: {destination}")
+        except (OSError, PromotionError) as error:
+            errors.append(str(error))
+    if errors:
+        journal["state"] = "recovery_failed"
+        journal["recovery_errors"] = errors
+        write_json_replace(Path(str(journal["journal_path"])), journal)
+        raise PromotionError("baseline successor recovery failed; journal and backups retained: " + "; ".join(errors))
+
+
+def validate_recovery_journal(repo: Path, destination: Path, journal_path: Path, journal: dict[str, Any]) -> None:
+    transaction_id = str(journal.get("transaction_id", ""))
+    if len(transaction_id) != 32 or any(character not in "0123456789abcdef" for character in transaction_id):
+        raise PromotionError("baseline successor journal transaction ID is invalid")
+    expected_lock = destination / BASELINE_SUCCESSOR_LOCK_NAME
+    if (
+        journal.get("schema_version") != "iris_repository_runtime_lightweighting_baseline_successor_journal_v1"
+        or Path(str(journal.get("repository_root", ""))).resolve() != repo
+        or Path(str(journal.get("journal_path", ""))).resolve() != journal_path.resolve()
+        or journal_path.resolve() != transaction_path(destination, transaction_id, "journal", "json").resolve()
+        or Path(str(journal.get("lock_path", ""))).resolve() != expected_lock.resolve()
+    ):
+        raise PromotionError("baseline successor journal identity is invalid")
+    rows = journal.get("files", [])
+    if not isinstance(rows, list) or [row.get("name") for row in rows] != list(BASELINE_DURABLE_NAMES):
+        raise PromotionError("baseline successor journal file set is invalid")
+    for row in rows:
+        name = str(row["name"])
+        if (
+            Path(str(row.get("destination_path", ""))).resolve() != (destination / name).resolve()
+            or Path(str(row.get("stage_path", ""))).resolve()
+            != transaction_path(destination, transaction_id, "stage", name).resolve()
+            or Path(str(row.get("backup_path", ""))).resolve()
+            != transaction_path(destination, transaction_id, "backup", name).resolve()
+            or not isinstance(row.get("predecessor_sha256"), str)
+            or len(str(row["predecessor_sha256"])) != 64
+            or any(character not in "0123456789abcdef" for character in str(row["predecessor_sha256"]))
+            or int(row.get("predecessor_byte_length", -1)) < 0
+        ):
+            raise PromotionError(f"baseline successor journal row is invalid: {name}")
+    external = Path(str(journal.get("external_receipt_path", ""))).resolve()
+    external_stage = Path(str(journal.get("external_stage_path", ""))).resolve()
+    try:
+        external.relative_to(repo)
+    except ValueError:
+        pass
+    else:
+        raise PromotionError("baseline successor recovery receipt is not repository-external")
+    expected_external_stage = external.with_name(f".{external.name}.{transaction_id}.stage")
+    if external_stage != expected_external_stage:
+        raise PromotionError("baseline successor recovery receipt stage is invalid")
+    command_intent = journal.get("command_intent")
+    lock_owner = journal.get("lock_owner")
+    if (
+        not isinstance(command_intent, dict)
+        or journal.get("command_intent_sha256")
+        != hashlib.sha256(canonical_json_bytes(command_intent)).hexdigest()
+        or not isinstance(lock_owner, dict)
+        or not isinstance(lock_owner.get("pid"), int)
+        or lock_owner.get("pid", 0) <= 0
+        or lock_owner.get("process_identity")
+        != f"pid-{lock_owner.get('pid')}-transaction-{transaction_id}"
+    ):
+        raise PromotionError("baseline successor recovery command intent is invalid")
+
+
+def baseline_successor_input_identity(path: Path, role: str) -> dict[str, Any]:
+    resolved = path.resolve()
+    if not resolved.is_file() or is_reparse_or_symlink(resolved):
+        raise PromotionError(f"baseline successor {role} is not a regular non-reparse file: {resolved}")
+    return {
+        "path": resolved.as_posix(),
+        "sha256": sha256_file(resolved),
+        "byte_length": resolved.stat().st_size,
+    }
+
+
+def baseline_successor_command_intent(
+    args: argparse.Namespace,
+    repo: Path,
+    destination: Path,
+    external: Path,
+) -> dict[str, Any]:
+    predecessor = args.predecessor_promotion_receipt.resolve()
+    expected_predecessor = (destination / "baseline_promotion_receipt.json").resolve()
+    if predecessor != expected_predecessor:
+        raise PromotionError("baseline successor command intent predecessor path is noncanonical")
+    return {
+        "schema_version": "iris_repository_runtime_lightweighting_baseline_successor_command_intent_v1",
+        "mode": "baseline-successor",
+        "repository_root": repo.as_posix(),
+        "destination_root": destination.as_posix(),
+        "receipt_out": external.as_posix(),
+        "predecessor_promotion_receipt_path": predecessor.as_posix(),
+        "inputs": {
+            "source_manifest": baseline_successor_input_identity(args.source_manifest, "source manifest"),
+            "source_summary": baseline_successor_input_identity(args.source_summary, "source summary"),
+            "subject_receipt": baseline_successor_input_identity(args.subject_receipt, "subject receipt"),
+        },
+    }
+
+
+def recover_interrupted_baseline_successor(
+    args: argparse.Namespace,
+    repo: Path,
+    destination: Path,
+    external: Path,
+) -> bool:
+    journals = sorted(destination.glob(".baseline-successor-*.journal.json"))
+    lock = destination / BASELINE_SUCCESSOR_LOCK_NAME
+    transaction_artifacts = sorted(destination.glob(".baseline-successor-*"))
+    if len(journals) > 1:
+        raise PromotionError("multiple baseline successor transactions are ambiguous")
+    if not journals:
+        if transaction_artifacts:
+            journal_temporaries_only = all(
+                re.fullmatch(
+                    r"\.baseline-successor-[0-9a-f]{32}\.journal\.json\.\d+\.tmp",
+                    path.name,
+                )
+                is not None
+                for path in transaction_artifacts
+            )
+            if not journal_temporaries_only or not lock.is_file() or is_reparse_or_symlink(lock):
+                raise PromotionError("baseline successor artifacts exist without a recoverable journal")
+            stale_lock = acquire_transaction_lock(lock, create=False)
+            try:
+                for temporary in transaction_artifacts:
+                    temporary.unlink()
+            finally:
+                release_transaction_lock(stale_lock)
+            lock.unlink(missing_ok=True)
+            return False
+        if not os.path.lexists(lock):
+            return False
+        if not lock.is_file() or is_reparse_or_symlink(lock):
+            raise PromotionError("baseline successor lock-only residue is noncanonical")
+        stale_lock = acquire_transaction_lock(lock, create=False)
+        release_transaction_lock(stale_lock)
+        lock.unlink()
+        return False
+    if not lock.is_file() or is_reparse_or_symlink(lock):
+        raise PromotionError("baseline successor journal exists without its exclusive lock")
+    journal_path = journals[0]
+    recovery_lock = acquire_transaction_lock(lock, create=False)
+    remove_lock = False
+    try:
+        try:
+            journal = load_object(journal_path)
+        except (OSError, json.JSONDecodeError, PromotionError) as error:
+            raise PromotionError(f"baseline successor journal is unreadable: {journal_path}") from error
+        validate_recovery_journal(repo, destination, journal_path, journal)
+        current_intent = baseline_successor_command_intent(args, repo, destination, external)
+        if (
+            journal.get("command_intent") != current_intent
+            or journal.get("command_intent_sha256")
+            != hashlib.sha256(canonical_json_bytes(current_intent)).hexdigest()
+        ):
+            raise PromotionError("baseline successor recovery command intent differs from the current invocation")
+        if journal.get("state") not in {"preparing", "prepared", "applying", "recovery_failed", "committed"}:
+            raise PromotionError("baseline successor journal state is invalid")
+        transaction_id = str(journal["transaction_id"])
+        allowed_artifacts = {journal_path.resolve()}
+        for temporary in journal_path.parent.glob(f"{journal_path.name}.*.replace"):
+            allowed_artifacts.add(temporary.resolve())
+        for temporary in journal_path.parent.glob(f"{journal_path.name}.*.tmp"):
+            allowed_artifacts.add(temporary.resolve())
+        for row in journal["files"]:
+            stage_path = Path(str(row["stage_path"]))
+            allowed_artifacts.add(stage_path.resolve())
+            allowed_artifacts.add(Path(str(row["backup_path"])).resolve())
+            for temporary in stage_path.parent.glob(f"{stage_path.name}.*.tmp"):
+                allowed_artifacts.add(temporary.resolve())
+            allowed_artifacts.add(
+                (destination / f".baseline-successor-{transaction_id}.restore.{row['name']}").resolve()
+            )
+        unexpected = [path for path in transaction_artifacts if path.resolve() not in allowed_artifacts]
+        if unexpected:
+            raise PromotionError(f"baseline successor recovery artifacts are ambiguous: {unexpected[0]}")
+        if journal.get("state") == "committed":
+            for row in journal["files"]:
+                final = Path(str(row["destination_path"]))
+                if (
+                    not final.is_file()
+                    or is_reparse_or_symlink(final)
+                    or sha256_file(final) != row.get("new_sha256")
+                    or final.stat().st_size != row.get("new_byte_length")
+                ):
+                    raise PromotionError("committed baseline successor transaction is incomplete")
+            external = Path(str(journal["external_receipt_path"]))
+            if (
+                not external.is_file()
+                or sha256_file(external) != journal.get("receipt_sha256")
+                or external.read_bytes() != (destination / "baseline_promotion_receipt.json").read_bytes()
+            ):
+                raise PromotionError("committed baseline successor operator receipt is incomplete")
+            validate_baseline_promotion_payload(
+                repo,
+                destination,
+                load_object(destination / "baseline_promotion_receipt.json"),
+            )
+            cleanup_transaction_artifacts(journal, remove_external=False)
+            remove_lock = True
+            return True
+        restore_predecessor_generation(journal)
+        cleanup_transaction_artifacts(journal, remove_external=True)
+        remove_lock = True
+        raise PromotionError(
+            f"recovered interrupted baseline successor transaction {transaction_id}; rerun with a fresh command"
+        )
+    finally:
+        release_transaction_lock(recovery_lock)
+        if remove_lock:
+            lock.unlink(missing_ok=True)
+
+
+def validate_predecessor_generation(
+    repo: Path,
+    destination: Path,
+    predecessor_receipt_path: Path,
+) -> tuple[dict[str, Any], list[dict[str, Any]], str, str]:
+    expected_receipt = (destination / "baseline_promotion_receipt.json").resolve()
+    if predecessor_receipt_path.resolve() != expected_receipt:
+        raise PromotionError("predecessor promotion receipt must be the canonical durable receipt")
+    predecessor = load_object(expected_receipt)
+    validate_baseline_promotion_payload(repo, destination, predecessor)
+    identities = [git_head_file_identity(repo, destination / name) for name in BASELINE_DURABLE_NAMES]
+    promoted = predecessor.get("promoted_files", [])
+    if not isinstance(promoted, list):
+        raise PromotionError("predecessor promoted-file bindings are invalid")
+    by_name: dict[str, dict[str, Any]] = {}
+    for row in promoted:
+        name = Path(str(row.get("destination_path", ""))).name
+        if name in by_name:
+            raise PromotionError(f"duplicate predecessor promoted-file binding: {name}")
+        by_name[name] = row
+    if set(by_name) != set(BASELINE_DURABLE_NAMES[:2]):
+        raise PromotionError("predecessor promoted-file bindings are incomplete or noncanonical")
+    for identity in identities[:2]:
+        name = Path(str(identity["path"])).name
+        binding = by_name.get(name)
+        if (
+            binding is None
+            or Path(str(binding.get("destination_path", ""))).resolve() != (destination / name).resolve()
+            or binding.get("destination_sha256") != identity["sha256"]
+            or int(binding.get("byte_length", -1)) != identity["byte_length"]
+        ):
+            raise PromotionError(f"predecessor promoted-file binding differs from HEAD: {name}")
+    head_commit, head_tree = git_head_identity(repo)
+    return predecessor, identities, head_commit, head_tree
+
+
+def promote_baseline_successor(args: argparse.Namespace) -> str | None:
+    repo, destination, external = validate_roots(args.repo, args.destination_root, args.receipt_out)
+    if recover_interrupted_baseline_successor(args, repo, destination, external):
+        return "recovered_committed_transaction"
+    if external.exists():
+        raise PromotionError(f"operator receipt already exists: {external}")
+    predecessor, predecessor_files, predecessor_commit, predecessor_tree = validate_predecessor_generation(
+        repo,
+        destination,
+        args.predecessor_promotion_receipt.resolve(),
+    )
+    subject, _ = validate_baseline_generation(args, repo)
+    source_paths = {
+        "artifact_role_manifest.jsonl": args.source_manifest.resolve(),
+        "baseline_inventory.json": args.source_summary.resolve(),
+    }
+    source_identities = {
+        name: {"sha256": sha256_file(path), "byte_length": path.stat().st_size}
+        for name, path in source_paths.items()
+    }
+    command_intent = baseline_successor_command_intent(args, repo, destination, external)
+    transaction_seed = {
+        "predecessor_commit": predecessor_commit,
+        "predecessor_tree": predecessor_tree,
+        "predecessor_receipt_sha256": sha256_file(destination / "baseline_promotion_receipt.json"),
+        "physical_run_identity": subject["run_identity"],
+        "sources": source_identities,
+    }
+    transaction_id = hashlib.sha256(canonical_json_bytes(transaction_seed)).hexdigest()[:32]
+    lock_path = destination / BASELINE_SUCCESSOR_LOCK_NAME
+    journal_path = transaction_path(destination, transaction_id, "journal", "json")
+    external_stage = external.with_name(f".{external.name}.{transaction_id}.stage")
+    if os.path.lexists(external_stage):
+        raise PromotionError(f"operator receipt stage already exists: {external_stage}")
+    if os.path.lexists(lock_path) or list(destination.glob(".baseline-successor-*")):
+        raise PromotionError("another baseline successor transaction is active")
+
+    predecessor_by_name = {Path(str(row["path"])).name: row for row in predecessor_files}
+    file_rows: list[dict[str, Any]] = []
+    for name in BASELINE_DURABLE_NAMES:
+        predecessor_identity = predecessor_by_name[name]
+        file_rows.append(
+            {
+                "name": name,
+                "destination_path": (destination / name).as_posix(),
+                "stage_path": transaction_path(destination, transaction_id, "stage", name).as_posix(),
+                "backup_path": transaction_path(destination, transaction_id, "backup", name).as_posix(),
+                "predecessor_sha256": predecessor_identity["sha256"],
+                "predecessor_byte_length": predecessor_identity["byte_length"],
+                "predecessor_git_blob_id": predecessor_identity["git_blob_id"],
+            }
+        )
+    journal: dict[str, Any] = {
+        "schema_version": "iris_repository_runtime_lightweighting_baseline_successor_journal_v1",
+        "transaction_id": transaction_id,
+        "state": "preparing",
+        "repository_root": repo.as_posix(),
+        "journal_path": journal_path.as_posix(),
+        "lock_path": lock_path.as_posix(),
+        "external_stage_path": external_stage.as_posix(),
+        "external_receipt_path": external.as_posix(),
+        "external_published": False,
+        "lock_owner": {
+            "pid": os.getpid(),
+            "process_identity": f"pid-{os.getpid()}-transaction-{transaction_id}",
+        },
+        "command_intent": command_intent,
+        "command_intent_sha256": hashlib.sha256(canonical_json_bytes(command_intent)).hexdigest(),
+        "files": file_rows,
+    }
+    transaction_lock = acquire_transaction_lock(lock_path, create=True)
+    committed = False
+    try:
+        if baseline_successor_test_injection("IRIS_BASELINE_SUCCESSOR_CRASH_AFTER_LOCK") == "1":
+            os._exit(87)
+        atomic_write_new(journal_path, canonical_json_bytes(journal))
+        pause_path_value = baseline_successor_test_injection(
+            "IRIS_BASELINE_SUCCESSOR_PAUSE_AFTER_JOURNAL"
+        )
+        if pause_path_value:
+            pause_path = Path(pause_path_value).resolve()
+            try:
+                pause_path.relative_to(repo)
+            except ValueError:
+                pass
+            else:
+                raise PromotionError("baseline successor test pause path must be repository-external")
+            release_path = pause_path.with_name(f"{pause_path.name}.release")
+            atomic_write_new(pause_path, b"ready\n")
+            deadline = time.monotonic() + 15.0
+            while not release_path.is_file():
+                if time.monotonic() >= deadline:
+                    raise PromotionError("baseline successor test pause timed out")
+                time.sleep(0.01)
+            pause_path.unlink(missing_ok=True)
+            release_path.unlink(missing_ok=True)
+        crash_after_backup = int(
+            baseline_successor_test_injection("IRIS_BASELINE_SUCCESSOR_CRASH_AFTER_BACKUP") or "0"
+        )
+        for backup_index, row in enumerate(file_rows, start=1):
+            name = str(row["name"])
+            destination_path = Path(str(row["destination_path"]))
+            copy_verified(
+                destination_path,
+                Path(str(row["backup_path"])),
+                str(row["predecessor_sha256"]),
+                int(row["predecessor_byte_length"]),
+            )
+            if crash_after_backup == backup_index:
+                os._exit(85)
+            if name in source_paths:
+                source = source_paths[name]
+                source_hash = source_identities[name]["sha256"]
+                source_size = source_identities[name]["byte_length"]
+                row.update(
+                    {
+                        "source_path": source.as_posix(),
+                        "source_sha256": source_hash,
+                        "new_sha256": source_hash,
+                        "new_byte_length": source_size,
+                    }
+                )
+                copy_verified(source, Path(str(row["stage_path"])), source_hash, source_size)
+
+        promoted_files = [
+            {
+                "source_path": source_paths[name].as_posix(),
+                "source_sha256": source_identities[name]["sha256"],
+                "destination_path": (destination / name).as_posix(),
+                "repository_relative_destination": (DURABLE_RELATIVE / name).as_posix(),
+                "destination_sha256": source_identities[name]["sha256"],
+                "byte_length": source_identities[name]["byte_length"],
+            }
+            for name in ("artifact_role_manifest.jsonl", "baseline_inventory.json")
+        ]
+        receipt_payload = {
+            "schema_version": "iris_repository_runtime_lightweighting_baseline_promotion_v2",
+            "mode": "baseline",
+            "promotion_strategy": "successor_transaction",
+            "physical_subject": {
+                "physical_resolved_root": subject["physical_resolved_root"],
+                "commit": subject["commit"],
+                "tree": subject["tree"],
+                "run_identity": subject["run_identity"],
+            },
+            "promoted_files": promoted_files,
+            "destination_repository_relative_root": DURABLE_RELATIVE.as_posix(),
+            "byte_identity_verified": True,
+            "promotion_commit_binding": "pending_reviewed_commit",
+            "transaction": {
+                "transaction_id": transaction_id,
+                "predecessor_commit": predecessor_commit,
+                "predecessor_tree": predecessor_tree,
+                "predecessor_receipt_sha256": sha256_file(destination / "baseline_promotion_receipt.json"),
+                "predecessor_receipt_git_blob_id": predecessor_by_name["baseline_promotion_receipt.json"]["git_blob_id"],
+                "predecessor_files": predecessor_files,
+                "new_generation_files": [
+                    {
+                        "name": row["name"],
+                        "source_path": row.get("source_path"),
+                        "repository_relative_destination": (
+                            DURABLE_RELATIVE / str(row["name"])
+                        ).as_posix(),
+                        "sha256": row.get("new_sha256"),
+                        "byte_length": row.get("new_byte_length"),
+                    }
+                    for row in file_rows[:2]
+                ],
+                "generated_receipt_output": {
+                    "source_identity": "generated:baseline-successor-receipt-v2",
+                    "repository_relative_destination": (
+                        DURABLE_RELATIVE / "baseline_promotion_receipt.json"
+                    ).as_posix(),
+                    "external_destination_path": external.as_posix(),
+                    "identity_rule": "durable_and_external_bytes_must_be_identical_after_all_three_replacements",
+                    "operator_receipt_disposition": "retained_through_reviewed_promotion_commit_then_may_be_purged",
+                },
+                "external_source_disposition": {
+                    "policy": "retained_through_terminal_closeout_then_may_be_purged",
+                    "existence_required_through_terminal_closeout": True,
+                    "historical_after_terminal_closeout_may_accept_absent": True,
+                },
+                "staging_verification": {
+                    "same_volume_stage_backup_and_destination": True,
+                    "all_staged_hashes_verified_before_replace": True,
+                    "ephemeral_paths_retained_in_durable_receipt": False,
+                    "ephemeral_paths_retained_in_recovery_journal_only": True,
+                },
+                "predecessor_durable_store": {
+                    "kind": "git_commit_blobs",
+                    "commit": predecessor_commit,
+                    "tree": predecessor_tree,
+                },
+                "recovery_policy": "exclusive_lock_hash_addressed_journal_restore_all_predecessor_files_then_rerun",
+                "filesystem_group_atomicity_claimed": False,
+                "final_all_new_verified": True,
+            },
+        }
+        receipt_bytes = canonical_json_bytes(receipt_payload)
+        receipt_hash = hashlib.sha256(receipt_bytes).hexdigest()
+        receipt_size = len(receipt_bytes)
+        receipt_row = file_rows[2]
+        receipt_row.update(
+            {
+                "source_path": "generated:baseline-successor-receipt-v2",
+                "source_sha256": receipt_hash,
+                "new_sha256": receipt_hash,
+                "new_byte_length": receipt_size,
+            }
+        )
+        atomic_write_new(Path(str(receipt_row["stage_path"])), receipt_bytes)
+        atomic_write_new(external_stage, receipt_bytes)
+        if sha256_file(Path(str(receipt_row["stage_path"]))) != receipt_hash or sha256_file(external_stage) != receipt_hash:
+            raise PromotionError("staged successor receipt copies differ")
+        journal["state"] = "prepared"
+        journal["receipt_sha256"] = receipt_hash
+        journal["files"] = file_rows
+        write_json_replace(journal_path, journal)
+
+        failure_after = int(
+            baseline_successor_test_injection("IRIS_BASELINE_SUCCESSOR_FAIL_AFTER_REPLACE") or "0"
+        )
+        crash_after = int(
+            baseline_successor_test_injection("IRIS_BASELINE_SUCCESSOR_CRASH_AFTER_REPLACE") or "0"
+        )
+        journal["state"] = "applying"
+        write_json_replace(journal_path, journal)
+        for index, row in enumerate(file_rows, start=1):
+            os.replace(Path(str(row["stage_path"])), Path(str(row["destination_path"])))
+            journal["replaced_count"] = index
+            write_json_replace(journal_path, journal)
+            if crash_after == index:
+                os._exit(86)
+            if failure_after == index:
+                raise PromotionError(f"injected baseline successor failure after replace {index}")
+
+        for row in file_rows:
+            destination_path = Path(str(row["destination_path"]))
+            if sha256_file(destination_path) != row["new_sha256"] or destination_path.stat().st_size != row["new_byte_length"]:
+                raise PromotionError(f"successor destination differs: {destination_path}")
+        if baseline_successor_test_injection("IRIS_BASELINE_SUCCESSOR_CREATE_EXTERNAL_COLLISION") == "1":
+            atomic_write_new(external, b"test-owner-collision\n")
+        try:
+            os.link(external_stage, external)
+        except FileExistsError as error:
+            raise PromotionError(f"operator receipt appeared during transaction: {external}") from error
+        if baseline_successor_test_injection("IRIS_BASELINE_SUCCESSOR_CRASH_AFTER_EXTERNAL_PUBLISH") == "1":
+            os._exit(84)
+        journal["external_published"] = True
+        write_json_replace(journal_path, journal)
+        if external.read_bytes() != (destination / "baseline_promotion_receipt.json").read_bytes():
+            raise PromotionError("durable and operator successor receipt copies differ")
+        external_stage.unlink()
+        journal["state"] = "committed"
+        write_json_replace(journal_path, journal)
+        committed = True
+        if baseline_successor_test_injection("IRIS_BASELINE_SUCCESSOR_FAIL_COMMITTED_CLEANUP") == "1":
+            raise PromotionError("injected committed baseline successor cleanup failure")
+        cleanup_transaction_artifacts(journal, remove_external=False)
+    except Exception:
+        if committed:
+            raise
+        try:
+            restore_predecessor_generation(journal)
+            cleanup_transaction_artifacts(journal, remove_external=True)
+        except Exception:
+            raise
+        raise
+    finally:
+        release_transaction_lock(transaction_lock)
+        if not journal_path.exists():
+            lock_path.unlink(missing_ok=True)
+    return None
 
 
 def validate_chain(operation_path: Path, *paths: Path) -> list[dict[str, Any]]:
@@ -441,12 +1426,7 @@ def promote_terminal(args: argparse.Namespace) -> None:
     if baseline_promotion_path != expected_baseline_promotion:
         raise PromotionError("terminal promotion requires the exact durable baseline promotion receipt")
     baseline_promotion = load_object(baseline_promotion_path)
-    if (
-        baseline_promotion.get("schema_version") != "iris_repository_runtime_lightweighting_baseline_promotion_v1"
-        or baseline_promotion.get("mode") != "baseline"
-        or baseline_promotion.get("byte_identity_verified") is not True
-    ):
-        raise PromotionError("baseline promotion receipt is not authoritative")
+    validate_baseline_promotion_payload(repo, destination, baseline_promotion)
     baseline_path = (destination / "baseline_inventory.json").resolve()
     baseline_manifest_path = (destination / "artifact_role_manifest.jsonl").resolve()
     if not baseline_path.is_file() or not baseline_manifest_path.is_file():
@@ -626,6 +1606,14 @@ def parser() -> argparse.ArgumentParser:
     baseline.add_argument("--subject-receipt", type=Path, required=True)
     baseline.add_argument("--destination-root", type=Path, required=True)
     baseline.add_argument("--receipt-out", type=Path, required=True)
+    baseline_successor = sub.add_parser("baseline-successor")
+    baseline_successor.add_argument("--repo", type=Path, required=True)
+    baseline_successor.add_argument("--source-manifest", type=Path, required=True)
+    baseline_successor.add_argument("--source-summary", type=Path, required=True)
+    baseline_successor.add_argument("--subject-receipt", type=Path, required=True)
+    baseline_successor.add_argument("--predecessor-promotion-receipt", type=Path, required=True)
+    baseline_successor.add_argument("--destination-root", type=Path, required=True)
+    baseline_successor.add_argument("--receipt-out", type=Path, required=True)
     archive = sub.add_parser("archive")
     archive.add_argument("--repo", type=Path, required=True)
     archive.add_argument("--source-operation-manifest", type=Path, required=True)
@@ -647,8 +1635,16 @@ def parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = parser().parse_args(argv)
-    {"baseline": promote_baseline, "archive": promote_archive, "terminal": promote_terminal}[args.mode](args)
-    print(json.dumps({"status": "PASS", "mode": args.mode}, sort_keys=True))
+    outcome = {
+        "baseline": promote_baseline,
+        "baseline-successor": promote_baseline_successor,
+        "archive": promote_archive,
+        "terminal": promote_terminal,
+    }[args.mode](args)
+    result = {"status": "PASS", "mode": args.mode}
+    if outcome is not None:
+        result["outcome"] = outcome
+    print(json.dumps(result, sort_keys=True))
     return 0
 
 

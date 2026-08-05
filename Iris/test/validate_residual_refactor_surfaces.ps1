@@ -436,9 +436,18 @@ foreach ($Revision in $LightweightingRevisions) {
         if ($BeforeGitIsNull -ne $BeforeLfIsNull) {
             throw "repository lightweighting added row predecessor identity pair mismatch: $AddedPath"
         }
-        $BeforeBlob = (& git -C $RepositoryRoot rev-parse ($RevisionPredecessor + ':' + $AddedPath) 2>$null).Trim()
+        $BeforeTreeEntry = (& git -C $RepositoryRoot ls-tree $RevisionPredecessor -- $AddedPath).Trim()
+        if ($LASTEXITCODE -ne 0) {
+            throw "repository lightweighting added row predecessor tree inspection failed: $AddedPath"
+        }
+        $BeforeBlob = if ([string]::IsNullOrWhiteSpace($BeforeTreeEntry)) {
+            $null
+        }
+        else {
+            @($BeforeTreeEntry -split '\s+', 4)[2]
+        }
         if ($BeforeGitIsNull) {
-            if ($LASTEXITCODE -eq 0) {
+            if ($null -ne $BeforeBlob) {
                 throw "repository lightweighting new row unexpectedly exists in predecessor: $AddedPath"
             }
         }

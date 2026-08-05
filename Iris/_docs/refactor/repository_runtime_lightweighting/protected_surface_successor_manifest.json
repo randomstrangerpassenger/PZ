@@ -983,6 +983,94 @@
                                                            "reason":  "Protect the statically bound dynamic-loader fixture inside the planned route-audit test command."
                                                        }
                                                    ]
+                      },
+                      {
+                          "revision_id":  "common_bootstrap_current_route_repair_v1",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "8b3d5f1ed9506300a089b14147c8e144e63b9bf0",
+                          "reason":  "Close planned bootstrap current-route failures without changing protected product authority content.",
+                          "approved_activation_deltas":  [
+
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  "Iris/test/validate_residual_refactor_surfaces.ps1",
+                                                           "before_git_blob_id":  "075f7ded9c0536316dd4175e04e600a3e61910be",
+                                                           "before_sha256_lf":  "4cce9edd46d91cb2c52e0951d5283b70fa05893afbfd8c614cbcdde6fbe3e600",
+                                                           "expected_git_blob_id":  "a139d9b4320a55dd75e5829fb0a27ac1a8ee62ea",
+                                                           "after_sha256_lf":  "4add05c6e4d425c06ba3df3d05ffe11e9c47c66c1ab17b551384221dc0d01b56",
+                                                           "role":  "common_track_validation_tool",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Inspect absent predecessor rows without converting an expected miss into a native-command failure."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+                                                           "before_git_blob_id":  "b27d3a3e26927125abfd2b0aeabe247c6aa2c461",
+                                                           "before_sha256_lf":  "7d762ce028c9f28f4609ba8ebbe4768c178a65870dbcbcfec0874594f32d6f96",
+                                                           "expected_git_blob_id":  "73cbe513bff605be5a70dfe4ee78a105c0d7eb06",
+                                                           "after_sha256_lf":  "db6d51246a28b9309b4a271b5167d6260a44625165a31d429c54adc94a31c3d6",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Bind the frozen reference by its protected LF-decoded identity across checkout EOL policy."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_dvf_3_3_registry_authority_canonical_closure.py",
+                                                           "before_git_blob_id":  "73787658e352f894d1bae597dfc851721a31bacc",
+                                                           "before_sha256_lf":  "f79a32c5d6c8a4af6a193141e94aaf7fd6829746d91863c08c235e2e01895fd6",
+                                                           "expected_git_blob_id":  "3eb5e903834d18cccb21ee21664c679ae060a9d6",
+                                                           "after_sha256_lf":  "fbc341d46511dad68b8dc89107f50ad932135eab7112599b5194009434a3ebdd",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "current_route_validation",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Route write-once fixtures through a checkout-external repository projection while preserving canonical logical evidence paths."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/validation/clean_checkout/allocate_repository_runtime_lightweighting_roots.ps1",
+                                                           "before_git_blob_id":  "ca16e708670a72a78c4b06ded89416d8c37ca9ea",
+                                                           "before_sha256_lf":  "0ec87b698e318d72167155ac9baf7e799af4f15ff02b0184cc080cae742e206d",
+                                                           "expected_git_blob_id":  "4f80ccfad73e47075647ce95bd18603b20abb656",
+                                                           "after_sha256_lf":  "36d7b3395c0471978e8d278d31c1b8f04bf486f47267cdd66912bcca3bbbd303",
+                                                           "role":  "common_track_allocator",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "bootstrap_validation",
+                                                                             "artifact_lifecycle_validation"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Reject an existing reparse ledger leaf before ancestor traversal or any allocation write."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/build/description/v2/tests/test_artifact_work_root_contract.py",
+                                                           "before_git_blob_id":  "30e6f79ae3eafd28a98a5d47ead28a0e53d25fc5",
+                                                           "before_sha256_lf":  "607c71b3ac3de7a3facf8e22b0e9b3df3998685d19097cfe15c252ef58254997",
+                                                           "expected_git_blob_id":  "db1f9196713eee945d8d64371f9599283f3794b2",
+                                                           "after_sha256_lf":  "d10356cc6f9668bdc133686c75d8c654a4ee64fd2d0929e9544689cd667e8728",
+                                                           "role":  "common_track_test_contract",
+                                                           "writer":  "repository_runtime_lightweighting_common_implementation",
+                                                           "consumers":  [
+                                                                             "bootstrap_validation",
+                                                                             "artifact_lifecycle_validation"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Exercise the ledger-leaf reparse guard with a privilege-independent Windows junction fixture."
+                                                       }
+                                                   ]
                       }
                   ]
 }

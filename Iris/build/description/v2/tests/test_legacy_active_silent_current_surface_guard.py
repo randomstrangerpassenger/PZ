@@ -518,8 +518,9 @@ class LegacyActiveSilentCurrentSurfaceGuardTest(unittest.TestCase):
     def test_old_full_payload_and_new_stream_verdict_parity_on_frozen_named_census(self) -> None:
         frozen_path = ROOT / "tests" / "fixtures" / "legacy_active_silent_guard_frozen_reference.json"
         frozen_bytes = frozen_path.read_bytes()
-        self.assertEqual(hashlib.sha256(frozen_bytes).hexdigest(), FROZEN_REFERENCE_SHA256)
-        frozen = json.loads(frozen_bytes.decode("utf-8"))
+        frozen_lf_bytes = frozen_bytes.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+        self.assertEqual(hashlib.sha256(frozen_lf_bytes).hexdigest(), FROZEN_REFERENCE_SHA256)
+        frozen = json.loads(frozen_lf_bytes.decode("utf-8"))
         write_text(self.tmp_dir / "docs" / "Iris" / "history.md", "Historical active alias.\n")
         write_text(
             self.tmp_dir / "Iris" / "media" / "lua" / "client" / "Iris" / "Data" / "Current.lua",

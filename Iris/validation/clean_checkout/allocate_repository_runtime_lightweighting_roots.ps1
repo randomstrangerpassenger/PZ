@@ -99,11 +99,11 @@ $receipt = Get-NormalizedPath $Out
 if ($ledger.Equals($receipt, [System.StringComparison]::OrdinalIgnoreCase)) { throw 'allocation ledger and receipt paths must be distinct' }
 Assert-DisjointFromProtected $ledger 'allocation ledger'
 Assert-DisjointFromProtected $receipt 'allocation receipt'
+Assert-SafeExistingFileLeaf $ledger 'allocation ledger' $external
 Assert-NoReparseAncestor $ledger 'allocation ledger'
 Assert-NoReparseAncestor $receipt 'allocation receipt'
 if (-not (Test-SameOrNested $ledger $external)) { throw 'allocation ledger must be beneath the approved external parent' }
 if (-not (Test-SameOrNested $receipt $external)) { throw 'allocation receipt must be beneath the approved external parent' }
-Assert-SafeExistingFileLeaf $ledger 'allocation ledger' $external
 if ([System.IO.File]::Exists($receipt) -or [System.IO.Directory]::Exists($receipt)) { throw 'allocation receipt already exists' }
 
 $safeClaim = [System.Text.RegularExpressions.Regex]::Replace($ClaimId, '[^A-Za-z0-9._-]', '-')

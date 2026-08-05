@@ -26,10 +26,35 @@ RUNNER = TOOLS_ROOT / f"run_{ROUND_ID}.py"
 VALIDATOR = TOOLS_ROOT / f"validate_{ROUND_ID}.py"
 FOCUSED_TEST = Path(__file__).resolve()
 EVIDENCE_ROOT = V2_ROOT / "staging" / ROUND_ID
-ATTEMPTS_ROOT = EVIDENCE_ROOT / "attempts"
+CANONICAL_ATTEMPTS_ROOT = EVIDENCE_ROOT / "attempts"
+PROJECTED_REPO_ROOT = external_test_path("registry-authority-projection")
+ATTEMPTS_ROOT = (
+    PROJECTED_REPO_ROOT
+    / CANONICAL_ATTEMPTS_ROOT.relative_to(REPO_ROOT)
+)
 BOOTSTRAP_MANIFEST = EVIDENCE_ROOT / "phase0" / "bootstrap_scaffold_hash_manifest.json"
 COMPOSE_TOOL = TOOLS_ROOT / "compose_layer3_text.py"
 ROUND3_RUNNER = REPO_ROOT / "Iris" / "_docs" / "round3" / "round3_run_contract_tests.py"
+
+
+def projected_repo_relative(path: Path) -> str:
+    resolved = path.resolve()
+    for root in (PROJECTED_REPO_ROOT, REPO_ROOT):
+        try:
+            return resolved.relative_to(root.resolve()).as_posix()
+        except ValueError:
+            continue
+    raise ValueError(f"path is outside source and projected repository roots: {path}")
+
+
+def project_common_attempt_paths(common, *, project_repo_root: bool = False):
+    replacements = {
+        "ATTEMPTS_ROOT": ATTEMPTS_ROOT,
+        "repo_relative": projected_repo_relative,
+    }
+    if project_repo_root:
+        replacements["REPO_ROOT"] = PROJECTED_REPO_ROOT
+    return mock.patch.multiple(common, **replacements)
 
 
 def sha256_file(path: Path) -> str:
@@ -37,8 +62,60 @@ def sha256_file(path: Path) -> str:
 
 
 def run_script(path: Path, *args: str) -> subprocess.CompletedProcess[str]:
+    if path not in (RUNNER, VALIDATOR):
+        return subprocess.run(
+            [sys.executable, "-B", str(path), *args],
+            cwd=REPO_ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+    bootstrap = """
+import importlib
+from pathlib import Path
+import runpy
+import sys
+
+script_path = Path(sys.argv[1]).resolve()
+source_root = Path(sys.argv[2]).resolve()
+projected_root = Path(sys.argv[3]).resolve()
+sys.path.insert(0, str(script_path.parent))
+common = importlib.import_module("dvf_3_3_registry_authority_canonical_closure")
+common.ATTEMPTS_ROOT = (
+    projected_root
+    / "Iris"
+    / "build"
+    / "description"
+    / "v2"
+    / "staging"
+    / "dvf_3_3_registry_authority_canonical_closure"
+    / "attempts"
+)
+
+def projected_repo_relative(path):
+    resolved = Path(path).resolve()
+    for root in (projected_root, source_root):
+        try:
+            return resolved.relative_to(root).as_posix()
+        except ValueError:
+            continue
+    raise ValueError(f"path is outside source and projected repository roots: {path}")
+
+common.repo_relative = projected_repo_relative
+sys.argv = [str(script_path), *sys.argv[4:]]
+runpy.run_path(str(script_path), run_name="__main__")
+"""
     return subprocess.run(
-        [sys.executable, "-B", str(path), *args],
+        [
+            sys.executable,
+            "-B",
+            "-c",
+            bootstrap,
+            str(path),
+            str(REPO_ROOT),
+            str(PROJECTED_REPO_ROOT),
+            *args,
+        ],
         cwd=REPO_ROOT,
         text=True,
         capture_output=True,
@@ -396,10 +473,16 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
         common = load_common_module()
         root = self.temporary_evidence_root()
         try:
-            reports = common.build_wp7_reports(
-                root,
-                [{"schema_version": "fixture-prerequisite-v1", "status": "PASS"}],
-            )
+            with project_common_attempt_paths(common):
+                reports = common.build_wp7_reports(
+                    root,
+                    [
+                        {
+                            "schema_version": "fixture-prerequisite-v1",
+                            "status": "PASS",
+                        }
+                    ],
+                )
             self.assertEqual([row["status"] for row in reports], ["PASS", "PASS"])
             contract = json.loads(
                 common.filesystem_path(
@@ -427,13 +510,14 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
         try:
             terminal.parent.mkdir(parents=True)
             terminal.write_text('{"status":"PASS"}\n', encoding="utf-8")
-            result = common.record_attempt_failure_once(
-                root,
-                attempt_id=root.name,
-                mode="implementation",
-                error_type="FileExistsError",
-                error="write-once replay",
-            )
+            with project_common_attempt_paths(common):
+                result = common.record_attempt_failure_once(
+                    root,
+                    attempt_id=root.name,
+                    mode="implementation",
+                    error_type="FileExistsError",
+                    error="write-once replay",
+                )
             self.assertFalse(result["written"])
             self.assertEqual(result["reason"], "terminal_claim_output_already_exists")
             self.assertFalse((root / "attempt_failures" / "implementation.json").exists())
@@ -450,34 +534,39 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
         )
         failure = root / "attempt_failures" / "practical-gate-candidate.json"
         try:
-            common.write_json_once(
-                failure,
-                {
-                    "attempt_id": root.name,
-                    "mode": "practical-gate-candidate",
-                    "status": "FAIL",
-                },
-            )
-            before = sha256_file(failure)
-            with self.assertRaisesRegex(
-                RuntimeError,
-                "practical attempt already terminated",
-            ):
-                common.require_practical_attempt_open(root)
-            self.assertEqual(
-                common.practical_attempt_failure_blockers(root),
-                [
-                    "practical_attempt_terminal_failure_present:"
-                    "practical-gate-candidate.json"
-                ],
-            )
-            later = common.record_attempt_failure_once(
-                root,
-                attempt_id=root.name,
-                mode="practical-adopt-gate",
-                error_type="RuntimeError",
-                error="same-attempt continuation refused",
-            )
+            with project_common_attempt_paths(common):
+                common.write_json_once(
+                    failure,
+                    {
+                        "attempt_id": root.name,
+                        "mode": "practical-gate-candidate",
+                        "status": "FAIL",
+                    },
+                )
+                before = sha256_file(failure)
+                with self.assertRaisesRegex(
+                    RuntimeError,
+                    "practical attempt already terminated",
+                ):
+                    common.require_practical_attempt_open(root)
+                self.assertEqual(
+                    common.practical_attempt_failure_blockers(root),
+                    [
+                        "practical_attempt_terminal_failure_present:"
+                        "practical-gate-candidate.json"
+                    ],
+                )
+                later = common.record_attempt_failure_once(
+                    root,
+                    attempt_id=root.name,
+                    mode="practical-adopt-gate",
+                    error_type="RuntimeError",
+                    error="same-attempt continuation refused",
+                )
+                snapshot = common.validate_practical_preflight_snapshot(
+                    root,
+                    attempt_id=root.name,
+                )
             self.assertFalse(later["written"])
             self.assertEqual(
                 later["reason"],
@@ -490,10 +579,6 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                     / "attempt_failures"
                     / "practical-adopt-gate.json"
                 ).exists()
-            )
-            snapshot = common.validate_practical_preflight_snapshot(
-                root,
-                attempt_id=root.name,
             )
             self.assertIn(
                 "practical_attempt_terminal_failure_present:"
@@ -518,24 +603,25 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
             / ("f" * 64 + ".json")
         )
         try:
-            common.write_json_once(nonce_path, {"status": "CONSUMED"})
-            self.assertEqual(
-                common.read_json_object(nonce_path),
-                {"status": "CONSUMED"},
-            )
-            normal_children = [
-                nonce_path.parent / child.name
-                for child in common.filesystem_path(nonce_path.parent).glob(
-                    "*.json"
+            with project_common_attempt_paths(common):
+                common.write_json_once(nonce_path, {"status": "CONSUMED"})
+                self.assertEqual(
+                    common.read_json_object(nonce_path),
+                    {"status": "CONSUMED"},
                 )
-            ]
-            self.assertEqual(normal_children, [nonce_path])
-            self.assertEqual(
-                common.repo_relative(normal_children[0]),
-                nonce_path.relative_to(REPO_ROOT).as_posix(),
-            )
-            with self.assertRaises(FileExistsError):
-                common.write_json_once(nonce_path, {"status": "REUSED"})
+                normal_children = [
+                    nonce_path.parent / child.name
+                    for child in common.filesystem_path(nonce_path.parent).glob(
+                        "*.json"
+                    )
+                ]
+                self.assertEqual(normal_children, [nonce_path])
+                self.assertEqual(
+                    common.repo_relative(normal_children[0]),
+                    nonce_path.relative_to(PROJECTED_REPO_ROOT).as_posix(),
+                )
+                with self.assertRaises(FileExistsError):
+                    common.write_json_once(nonce_path, {"status": "REUSED"})
         finally:
             extended_root = common.filesystem_path(root)
             if extended_root.is_dir():
@@ -549,33 +635,36 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
         try:
             completion.parent.mkdir(parents=True)
             completion.write_text("preexisting fault fixture\n", encoding="utf-8")
-            with self.assertRaises(FileExistsError):
-                common.write_implementation_terminal_outputs(
-                    phase4,
-                    scope={"status": "PASS"},
-                    no_mutation={"status": "PASS"},
-                    tooling={"status": "PASS"},
-                    focused={"status": "PENDING_PLAN_STEP_6"},
-                    completion_text="new completion\n",
+            with project_common_attempt_paths(common):
+                with self.assertRaises(FileExistsError):
+                    common.write_implementation_terminal_outputs(
+                        phase4,
+                        scope={"status": "PASS"},
+                        no_mutation={"status": "PASS"},
+                        tooling={"status": "PASS"},
+                        focused={"status": "PENDING_PLAN_STEP_6"},
+                        completion_text="new completion\n",
+                    )
+                self.assertFalse(
+                    (phase4 / "implementation_scope_report.json").exists()
                 )
-            self.assertFalse((phase4 / "implementation_scope_report.json").exists())
-            first = common.record_attempt_failure_once(
-                root,
-                attempt_id=root.name,
-                mode="implementation",
-                error_type="FileExistsError",
-                error="penultimate write fault",
-            )
-            self.assertTrue(first["written"])
-            failure = root / "attempt_failures" / "implementation.json"
-            before = sha256_file(failure)
-            second = common.record_attempt_failure_once(
-                root,
-                attempt_id=root.name,
-                mode="implementation",
-                error_type="FileExistsError",
-                error="same attempt replay",
-            )
+                first = common.record_attempt_failure_once(
+                    root,
+                    attempt_id=root.name,
+                    mode="implementation",
+                    error_type="FileExistsError",
+                    error="penultimate write fault",
+                )
+                self.assertTrue(first["written"])
+                failure = root / "attempt_failures" / "implementation.json"
+                before = sha256_file(failure)
+                second = common.record_attempt_failure_once(
+                    root,
+                    attempt_id=root.name,
+                    mode="implementation",
+                    error_type="FileExistsError",
+                    error="same attempt replay",
+                )
             self.assertFalse(second["written"])
             self.assertEqual(second["reason"], "failure_record_already_preserved")
             self.assertEqual(sha256_file(failure), before)
@@ -588,7 +677,7 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
     def test_command_order_failure_anchor_rejects_same_attempt_rewrite(self) -> None:
         common = load_common_module()
         predecessor_id = "attempt-0020-entry"
-        attempt_archive = ATTEMPTS_ROOT / predecessor_id
+        attempt_archive = CANONICAL_ATTEMPTS_ROOT / predecessor_id
         owner_archive = (
             EVIDENCE_ROOT / "superseded_owner_inputs" / predecessor_id
         )
@@ -779,7 +868,8 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
         common = load_common_module()
         root = self.temporary_evidence_root()
         try:
-            report = common.build_wp6_negative_fixture_report(root)
+            with project_common_attempt_paths(common, project_repo_root=True):
+                report = common.build_wp6_negative_fixture_report(root)
             self.assertEqual(report["status"], "PASS")
             self.assertEqual(
                 set(report["expected_violation_kinds"]),

@@ -1812,6 +1812,52 @@
                                                            "reason":  "Protect the exact repaired STEP 8 checkpoint history that became HEAD after the prior protected-surface revision was authored."
                                                        }
                                                    ]
+                      },
+                      {
+                          "revision_id":  "restart_epoch_20260805_35_bootstrap_evidence_v1",
+                          "track":  "common",
+                          "owner":  "repository_owner_user",
+                          "approved":  true,
+                          "predecessor_commit":  "0b0b5cbb2c119819e403beeb15d08b479c8833d3",
+                          "reason":  "Activate the fresh STEP 2 lineage required after the owner-directed purge of all prior external checkpoint bindings, while retaining the earlier rows as non-authoritative Git history.",
+                          "approved_activation_deltas":  [
+
+                                                         ],
+                          "added_protected_rows":  [
+                                                       {
+                                                           "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/bootstrap_validation_receipt.json",
+                                                           "before_git_blob_id":  "8b607b34d80f8ff4548c15b123ca4c2f34cd81e5",
+                                                           "before_sha256_lf":  "9f3f4462f947c2cbf7edd7a08d4683aab1256e336894ff64f02a6b71d0fe8cec",
+                                                           "expected_git_blob_id":  "30c818569ff0b197964245321b311d1c48985332",
+                                                           "after_sha256_lf":  "60b292525a36048ce3d0537bbf6e16b38cb18a480eaa60a85adb90fabf69630a",
+                                                           "role":  "common_track_bootstrap_validation_evidence",
+                                                           "writer":  "repository_runtime_lightweighting_step2_checkpoint_writer",
+                                                           "consumers":  [
+                                                                             "physical_baseline_generation",
+                                                                             "baseline_adoption_checkpoint",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Protect the fresh PASS receipt, exact clean subjects, command receipt/spec sets, and current-route output-isolation audit for restart epoch 20260805-35."
+                                                       },
+                                                       {
+                                                           "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json",
+                                                           "before_git_blob_id":  "57c573adece7c008a0d367f8ece24fcbd134e211",
+                                                           "before_sha256_lf":  "d107431fdc3ba2127573b5981777cf69dc0d1a9ca527ea5c1a124955ece7602f",
+                                                           "expected_git_blob_id":  "555c37674207c007ac455f51dca230f4f58849d7",
+                                                           "after_sha256_lf":  "37d6e0e021c8ea4ccc8867980fb5e8d1d4a172a1b936072b0a5dfab7242d827c",
+                                                           "role":  "common_track_validation_checkpoint_manifest",
+                                                           "writer":  "repository_runtime_lightweighting_step2_checkpoint_writer",
+                                                           "consumers":  [
+                                                                             "baseline_adoption_checkpoint",
+                                                                             "common_pre_delete_checkpoint",
+                                                                             "terminal_closeout",
+                                                                             "repository_maintainers"
+                                                                         ],
+                                                           "owner":  "repository_owner_user",
+                                                           "reason":  "Append the new bootstrap checkpoint and explicitly mark the purged earlier external-binding lineage historical and non-authoritative."
+                                                       }
+                                                   ]
                       }
                   ]
 }

@@ -1,147 +1,209 @@
 {
-  "schema_version": "iris_repository_runtime_lightweighting_validation_checkpoint_manifest_v1",
-  "checkpoints": [
-    {
-      "checkpoint_id": "bootstrap_support",
-      "subject_kind": "bootstrap_validation_subject",
-      "claim_id": "bootstrap-validation-56232829-20260805-16",
-      "commit": "562328294ae193c36dd814d458c74362bb34fd5d",
-      "tree": "fe7987d637b921f44cd524c2362784466dccf8c6",
-      "clean_checkout_receipt": {
-        "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/bootstrap_subject_receipt.json",
-        "sha256": "5abbee8b6aca53a26df1e8559b465920c3b377302663e84e2cd53d68ca569748"
-      },
-      "required_receipt": {
-        "path": "Iris/_docs/refactor/repository_runtime_lightweighting/bootstrap_validation_receipt.json",
-        "sha256": "9f3f4462f947c2cbf7edd7a08d4683aab1256e336894ff64f02a6b71d0fe8cec"
-      },
-      "taxonomy": {
-        "path": "Iris/_docs/round3/round3_test_taxonomy.json",
-        "sha256": "0fe547966e6b428db1631a669ceaa80faa521178c9494f900a76bc577943cb1b"
-      },
-      "required_validations": {
-        "path": "Iris/_docs/round3/current_route_required_validations.json",
-        "sha256": "e29b1101e15477c712a502a8d4d3de88621602c376e8b9dff8cb813d3ba1f1ed"
-      },
-      "active_core_closure": {
-        "path": "Iris/_docs/round3/round3_active_core_closure.json",
-        "sha256": "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf"
-      },
-      "environment_authority": {
-        "path": "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json",
-        "sha256": "1bc7076459f72dbfa733e0101d77e9eb0b73c0f01e88ac54bc326c8ad2f67138"
-      },
-      "output_isolation_audit": {
-        "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/audit-results/current_route_output_isolation_audit_receipt.json",
-        "sha256": "0c1311910322124057c51e31ae304dcc57dc6ab39c41bc8f87f0225e08279b34"
-      },
-      "route_audit_subject": {
-        "subject_kind": "bootstrap_route_audit_subject",
-        "claim_id": "bootstrap-route-audit-56232829-20260805-16",
-        "commit": "562328294ae193c36dd814d458c74362bb34fd5d",
-        "tree": "fe7987d637b921f44cd524c2362784466dccf8c6",
-        "clean_checkout_receipt": {
-          "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/audit_subject_receipt.json",
-          "sha256": "85af6fccd9526e215e2427fd366be673ec97cb75e5bd5afc4131800111196868"
-        }
-      },
-      "command_receipt_set_sha256": "4c29a064cceb422c161346eb480d8e69ceacaa0c0482604d119c5a8938efe81d",
-      "command_spec_set_sha256": "bd412ac620347227ba0e28dd699b38c36eed4d47f820517196af9ffef91094f7"
-    },
-    {
-      "checkpoint_id": "baseline_adoption",
-      "subject_kind": "baseline_adoption_validation_subject",
-      "claim_id": "baseline-adoption-validation-bd2ef834-20260805-25",
-      "commit": "bd2ef834573f120e70128daafc67fdedb2cc2742",
-      "tree": "cd1a5c2914f1ee8aa1e61e83338eaced68c4385b",
-      "clean_checkout_receipt": {
-        "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/baseline_adoption_subject_receipt.json",
-        "sha256": "8378a8d7c1d123d3c86009702c593c90b89d14f9a22b473c7906cc42d9ff1854"
-      },
-      "required_receipt": {
-        "path": "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_adoption_receipt.json",
-        "sha256": "b68febe7e6186fce4f75ca489c4861ed1a47f812c1ee5474557ac3d4eebfcd5b"
-      },
-      "current_route_coverage_map": {
-        "path": "Iris/_docs/refactor/repository_runtime_lightweighting/current_route_coverage_map.json",
-        "sha256": "1a4165eaf2069db4a2c7707d39df522f01f4b22efde5ba6dffd15fef39826a0b"
-      },
-      "taxonomy": {
-        "path": "Iris/_docs/round3/round3_test_taxonomy.json",
-        "sha256": "0fe547966e6b428db1631a669ceaa80faa521178c9494f900a76bc577943cb1b"
-      },
-      "required_validations": {
-        "path": "Iris/_docs/round3/current_route_required_validations.json",
-        "sha256": "e29b1101e15477c712a502a8d4d3de88621602c376e8b9dff8cb813d3ba1f1ed"
-      },
-      "active_core_closure": {
-        "path": "Iris/_docs/round3/round3_active_core_closure.json",
-        "sha256": "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf"
-      },
-      "environment_authority": {
-        "path": "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json",
-        "sha256": "1bc7076459f72dbfa733e0101d77e9eb0b73c0f01e88ac54bc326c8ad2f67138"
-      },
-      "output_isolation_audit": {
-        "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/audit-results/current_route_output_isolation_audit_receipt.json",
-        "sha256": "69def223aaed9f8c948934daf11b2d09e98e259a65f9b8d3d0dc0a5c87cb8867"
-      },
-      "route_audit_subject": {
-        "subject_kind": "baseline_adoption_route_audit_subject",
-        "claim_id": "baseline-adoption-route-audit-bd2ef834-20260805-25",
-        "commit": "bd2ef834573f120e70128daafc67fdedb2cc2742",
-        "tree": "cd1a5c2914f1ee8aa1e61e83338eaced68c4385b",
-        "clean_checkout_receipt": {
-          "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/baseline_adoption_audit_subject_receipt.json",
-          "sha256": "ef239ead6cb20be0f4821254992d9b380bf0b878d64b4758a9a0d48aa972edae"
-        }
-      },
-      "baseline_promotion_receipt": {
-        "path": "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_promotion_receipt.json",
-        "sha256": "37cca6ad598680a013ab4597e68e4d4d2b47be26422d7a1cfdb17a784f7559ce"
-      },
-      "current_route_result": {
-        "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/adoption-results/current_route.json",
-        "sha256": "45a0c67e38dd69a5effa30f587fdccb21c4ce37317f39e82e55877719dc8ed45"
-      },
-      "command_receipt_set_sha256": "76d71847f2c6bd08cef97d12bcfec33127b147f2a74e6f4abfabf65c71a34cf9",
-      "command_spec_set_sha256": "c681c06d4b1284a67ecc3c68c5dd9693dbb7163d39dd1b6184b30d70bf5f69ae"
-    },
-    {
-      "checkpoint_id": "common_pre_delete",
-      "subject_kind": "common_pre_delete_validation_subject",
-      "claim_id": "common-pre-delete-repair-9e6c292a-attempt-0001",
-      "commit": "9e6c292a3e1b95578489a5254557f0ae549b03ab",
-      "tree": "8267b993df20ce8e5075909c8ce6c06cfddaa026",
-      "clean_checkout_receipt": {
-        "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r30/common_pre_delete_subject_receipt.json",
-        "sha256": "82cda9d00effc661584cae1ff68663be5ecd6c01f6a5496887d00f8b9bd9138c"
-      },
-      "required_receipt": {
-        "path": "Iris/_docs/refactor/repository_runtime_lightweighting/pre_delete_current_route_receipt.json",
-        "sha256": "b2996592fd8290aff7579aad08748f26183d00952663616e3682bc4aabd9acec"
-      },
-      "taxonomy": {
-        "path": "Iris/_docs/round3/round3_test_taxonomy.json",
-        "sha256": "0fe547966e6b428db1631a669ceaa80faa521178c9494f900a76bc577943cb1b"
-      },
-      "required_validations": {
-        "path": "Iris/_docs/round3/current_route_required_validations.json",
-        "sha256": "e29b1101e15477c712a502a8d4d3de88621602c376e8b9dff8cb813d3ba1f1ed"
-      },
-      "active_core_closure": {
-        "path": "Iris/_docs/round3/round3_active_core_closure.json",
-        "sha256": "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf"
-      },
-      "environment_authority": {
-        "path": "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json",
-        "sha256": "1bc7076459f72dbfa733e0101d77e9eb0b73c0f01e88ac54bc326c8ad2f67138"
-      },
-      "output_isolation_audit": {
-        "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r30/audit-results/current_route_output_isolation_audit_receipt.json",
-        "sha256": "0b4ab2bc67ba8d4d742fd4d0319666eb0c9dfbe21d1ee35b1095cbeda5810601"
-      },
-      "command_receipt_set_sha256": "12b63640b786604dfc0387e4e258f454d70012b77bce8acfb657ad9dc7ed5dd6"
-    }
-  ]
+    "schema_version":  "iris_repository_runtime_lightweighting_validation_checkpoint_manifest_v1",
+    "checkpoints":  [
+                        {
+                            "checkpoint_id":  "bootstrap_support",
+                            "subject_kind":  "bootstrap_validation_subject",
+                            "claim_id":  "bootstrap-validation-56232829-20260805-16",
+                            "commit":  "562328294ae193c36dd814d458c74362bb34fd5d",
+                            "tree":  "fe7987d637b921f44cd524c2362784466dccf8c6",
+                            "clean_checkout_receipt":  {
+                                                           "path":  "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/bootstrap_subject_receipt.json",
+                                                           "sha256":  "5abbee8b6aca53a26df1e8559b465920c3b377302663e84e2cd53d68ca569748"
+                                                       },
+                            "required_receipt":  {
+                                                     "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/bootstrap_validation_receipt.json",
+                                                     "sha256":  "9f3f4462f947c2cbf7edd7a08d4683aab1256e336894ff64f02a6b71d0fe8cec"
+                                                 },
+                            "taxonomy":  {
+                                             "path":  "Iris/_docs/round3/round3_test_taxonomy.json",
+                                             "sha256":  "0fe547966e6b428db1631a669ceaa80faa521178c9494f900a76bc577943cb1b"
+                                         },
+                            "required_validations":  {
+                                                         "path":  "Iris/_docs/round3/current_route_required_validations.json",
+                                                         "sha256":  "e29b1101e15477c712a502a8d4d3de88621602c376e8b9dff8cb813d3ba1f1ed"
+                                                     },
+                            "active_core_closure":  {
+                                                        "path":  "Iris/_docs/round3/round3_active_core_closure.json",
+                                                        "sha256":  "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf"
+                                                    },
+                            "environment_authority":  {
+                                                          "path":  "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json",
+                                                          "sha256":  "1bc7076459f72dbfa733e0101d77e9eb0b73c0f01e88ac54bc326c8ad2f67138"
+                                                      },
+                            "output_isolation_audit":  {
+                                                           "path":  "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/audit-results/current_route_output_isolation_audit_receipt.json",
+                                                           "sha256":  "0c1311910322124057c51e31ae304dcc57dc6ab39c41bc8f87f0225e08279b34"
+                                                       },
+                            "route_audit_subject":  {
+                                                        "subject_kind":  "bootstrap_route_audit_subject",
+                                                        "claim_id":  "bootstrap-route-audit-56232829-20260805-16",
+                                                        "commit":  "562328294ae193c36dd814d458c74362bb34fd5d",
+                                                        "tree":  "fe7987d637b921f44cd524c2362784466dccf8c6",
+                                                        "clean_checkout_receipt":  {
+                                                                                       "path":  "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r16/audit_subject_receipt.json",
+                                                                                       "sha256":  "85af6fccd9526e215e2427fd366be673ec97cb75e5bd5afc4131800111196868"
+                                                                                   }
+                                                    },
+                            "command_receipt_set_sha256":  "4c29a064cceb422c161346eb480d8e69ceacaa0c0482604d119c5a8938efe81d",
+                            "command_spec_set_sha256":  "bd412ac620347227ba0e28dd699b38c36eed4d47f820517196af9ffef91094f7"
+                        },
+                        {
+                            "checkpoint_id":  "baseline_adoption",
+                            "subject_kind":  "baseline_adoption_validation_subject",
+                            "claim_id":  "baseline-adoption-validation-bd2ef834-20260805-25",
+                            "commit":  "bd2ef834573f120e70128daafc67fdedb2cc2742",
+                            "tree":  "cd1a5c2914f1ee8aa1e61e83338eaced68c4385b",
+                            "clean_checkout_receipt":  {
+                                                           "path":  "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/baseline_adoption_subject_receipt.json",
+                                                           "sha256":  "8378a8d7c1d123d3c86009702c593c90b89d14f9a22b473c7906cc42d9ff1854"
+                                                       },
+                            "required_receipt":  {
+                                                     "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_adoption_receipt.json",
+                                                     "sha256":  "b68febe7e6186fce4f75ca489c4861ed1a47f812c1ee5474557ac3d4eebfcd5b"
+                                                 },
+                            "current_route_coverage_map":  {
+                                                               "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/current_route_coverage_map.json",
+                                                               "sha256":  "1a4165eaf2069db4a2c7707d39df522f01f4b22efde5ba6dffd15fef39826a0b"
+                                                           },
+                            "taxonomy":  {
+                                             "path":  "Iris/_docs/round3/round3_test_taxonomy.json",
+                                             "sha256":  "0fe547966e6b428db1631a669ceaa80faa521178c9494f900a76bc577943cb1b"
+                                         },
+                            "required_validations":  {
+                                                         "path":  "Iris/_docs/round3/current_route_required_validations.json",
+                                                         "sha256":  "e29b1101e15477c712a502a8d4d3de88621602c376e8b9dff8cb813d3ba1f1ed"
+                                                     },
+                            "active_core_closure":  {
+                                                        "path":  "Iris/_docs/round3/round3_active_core_closure.json",
+                                                        "sha256":  "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf"
+                                                    },
+                            "environment_authority":  {
+                                                          "path":  "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json",
+                                                          "sha256":  "1bc7076459f72dbfa733e0101d77e9eb0b73c0f01e88ac54bc326c8ad2f67138"
+                                                      },
+                            "output_isolation_audit":  {
+                                                           "path":  "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/audit-results/current_route_output_isolation_audit_receipt.json",
+                                                           "sha256":  "69def223aaed9f8c948934daf11b2d09e98e259a65f9b8d3d0dc0a5c87cb8867"
+                                                       },
+                            "route_audit_subject":  {
+                                                        "subject_kind":  "baseline_adoption_route_audit_subject",
+                                                        "claim_id":  "baseline-adoption-route-audit-bd2ef834-20260805-25",
+                                                        "commit":  "bd2ef834573f120e70128daafc67fdedb2cc2742",
+                                                        "tree":  "cd1a5c2914f1ee8aa1e61e83338eaced68c4385b",
+                                                        "clean_checkout_receipt":  {
+                                                                                       "path":  "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/baseline_adoption_audit_subject_receipt.json",
+                                                                                       "sha256":  "ef239ead6cb20be0f4821254992d9b380bf0b878d64b4758a9a0d48aa972edae"
+                                                                                   }
+                                                    },
+                            "baseline_promotion_receipt":  {
+                                                               "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_promotion_receipt.json",
+                                                               "sha256":  "37cca6ad598680a013ab4597e68e4d4d2b47be26422d7a1cfdb17a784f7559ce"
+                                                           },
+                            "current_route_result":  {
+                                                         "path":  "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r25/adoption-results/current_route.json",
+                                                         "sha256":  "45a0c67e38dd69a5effa30f587fdccb21c4ce37317f39e82e55877719dc8ed45"
+                                                     },
+                            "command_receipt_set_sha256":  "76d71847f2c6bd08cef97d12bcfec33127b147f2a74e6f4abfabf65c71a34cf9",
+                            "command_spec_set_sha256":  "c681c06d4b1284a67ecc3c68c5dd9693dbb7163d39dd1b6184b30d70bf5f69ae"
+                        },
+                        {
+                            "checkpoint_id":  "common_pre_delete",
+                            "subject_kind":  "common_pre_delete_validation_subject",
+                            "claim_id":  "common-pre-delete-repair-9e6c292a-attempt-0001",
+                            "commit":  "9e6c292a3e1b95578489a5254557f0ae549b03ab",
+                            "tree":  "8267b993df20ce8e5075909c8ce6c06cfddaa026",
+                            "clean_checkout_receipt":  {
+                                                           "path":  "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r30/common_pre_delete_subject_receipt.json",
+                                                           "sha256":  "82cda9d00effc661584cae1ff68663be5ecd6c01f6a5496887d00f8b9bd9138c"
+                                                       },
+                            "required_receipt":  {
+                                                     "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/pre_delete_current_route_receipt.json",
+                                                     "sha256":  "b2996592fd8290aff7579aad08748f26183d00952663616e3682bc4aabd9acec"
+                                                 },
+                            "taxonomy":  {
+                                             "path":  "Iris/_docs/round3/round3_test_taxonomy.json",
+                                             "sha256":  "0fe547966e6b428db1631a669ceaa80faa521178c9494f900a76bc577943cb1b"
+                                         },
+                            "required_validations":  {
+                                                         "path":  "Iris/_docs/round3/current_route_required_validations.json",
+                                                         "sha256":  "e29b1101e15477c712a502a8d4d3de88621602c376e8b9dff8cb813d3ba1f1ed"
+                                                     },
+                            "active_core_closure":  {
+                                                        "path":  "Iris/_docs/round3/round3_active_core_closure.json",
+                                                        "sha256":  "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf"
+                                                    },
+                            "environment_authority":  {
+                                                          "path":  "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json",
+                                                          "sha256":  "1bc7076459f72dbfa733e0101d77e9eb0b73c0f01e88ac54bc326c8ad2f67138"
+                                                      },
+                            "output_isolation_audit":  {
+                                                           "path":  "C:/Users/Public/Documents/ESTsoft/CreatorTemp/r30/audit-results/current_route_output_isolation_audit_receipt.json",
+                                                           "sha256":  "0b4ab2bc67ba8d4d742fd4d0319666eb0c9dfbe21d1ee35b1095cbeda5810601"
+                                                       },
+                            "command_receipt_set_sha256":  "12b63640b786604dfc0387e4e258f454d70012b77bce8acfb657ad9dc7ed5dd6"
+                        },
+                        {
+                            "checkpoint_id":  "bootstrap_support",
+                            "subject_kind":  "bootstrap_validation_subject",
+                            "claim_id":  "bootstrap-restart-0b0b5cbb-20260805-35",
+                            "commit":  "0b0b5cbb2c119819e403beeb15d08b479c8833d3",
+                            "tree":  "32b67acc3e4dca3cca98e3c3bc4691e50eee3e6c",
+                            "clean_checkout_receipt":  {
+                                                           "path":  "G:/e35/bootstrap_subject_receipt.json",
+                                                           "sha256":  "80dba70052119e2891c754173efd4e92a64f89a4dd40df401a4d4ed693fd7894"
+                                                       },
+                            "required_receipt":  {
+                                                     "path":  "Iris/_docs/refactor/repository_runtime_lightweighting/bootstrap_validation_receipt.json",
+                                                     "sha256":  "60b292525a36048ce3d0537bbf6e16b38cb18a480eaa60a85adb90fabf69630a"
+                                                 },
+                            "taxonomy":  {
+                                             "path":  "Iris/_docs/round3/round3_test_taxonomy.json",
+                                             "sha256":  "0fe547966e6b428db1631a669ceaa80faa521178c9494f900a76bc577943cb1b"
+                                         },
+                            "required_validations":  {
+                                                         "path":  "Iris/_docs/round3/current_route_required_validations.json",
+                                                         "sha256":  "843434c6a89e9c493ce2e5d084d67598dd10a70737f62e63bb745e4ebc96a6d5"
+                                                     },
+                            "active_core_closure":  {
+                                                        "path":  "Iris/_docs/round3/round3_active_core_closure.json",
+                                                        "sha256":  "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf"
+                                                    },
+                            "environment_authority":  {
+                                                          "path":  "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json",
+                                                          "sha256":  "1bc7076459f72dbfa733e0101d77e9eb0b73c0f01e88ac54bc326c8ad2f67138"
+                                                      },
+                            "output_isolation_audit":  {
+                                                           "path":  "G:/e35/audit-results/current_route_output_isolation_audit_receipt.json",
+                                                           "sha256":  "752714de2d5484c879a596fdd6c35a76776f29bacee8f02a04bf07455a5ea847"
+                                                       },
+                            "route_audit_subject":  {
+                                                        "subject_kind":  "bootstrap_route_audit_subject",
+                                                        "claim_id":  "bootstrap-audit-restart-0b0b5cbb-20260805-35",
+                                                        "commit":  "0b0b5cbb2c119819e403beeb15d08b479c8833d3",
+                                                        "tree":  "32b67acc3e4dca3cca98e3c3bc4691e50eee3e6c",
+                                                        "clean_checkout_receipt":  {
+                                                                                       "path":  "G:/e35/audit_subject_receipt.json",
+                                                                                       "sha256":  "7f9b1dc31fa61981d8e52d8c7002dd7f184abc8970c00c0dcb1552d7315b3085"
+                                                                                   }
+                                                    },
+                            "command_receipt_set_sha256":  "1f4946b3e85e6e4dd93e9433c52256dfdd33d52070e04f5936a71d6143275e26",
+                            "command_spec_set_sha256":  "f5767c2999908fa87e99cc3ea8f2ed963aa55998be5af61d2f4da4994582d853"
+                        }
+                    ],
+    "restart_epochs":  [
+                           {
+                               "epoch_id":  "restart-20260805-35",
+                               "status":  "active",
+                               "activated_at":  "2026-08-05T11:46:22.0586615Z",
+                               "active_checkpoint_start_index":  3,
+                               "superseded_checkpoint_indices":  [
+                                                                     0,
+                                                                     1,
+                                                                     2
+                                                                 ],
+                               "prior_rows_disposition":  "historical_non_authoritative_external_bindings_owner_purged",
+                               "reviewer_ruling":  "fresh_full_step2_then_step3_through_step8_replay_required_before_step9"
+                           }
+                       ]
 }

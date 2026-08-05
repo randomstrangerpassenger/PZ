@@ -1,17 +1,17 @@
 {
   "archive_delete_allowed": false,
-  "commit": "1bed2a5d88aff69f389b102077eb692c7c575237",
+  "commit": "86197d46d94e8f0d921328583f6a5a91fbc9af28",
   "complete_accounting": true,
   "consumer_scan_hold_count": 0,
   "consumer_scan_holds": [],
-  "current_required_count": 653,
+  "current_required_count": 659,
   "current_required_validation_identity": {
     "exists": true,
     "path": "Iris/_docs/round3/current_route_required_validations.json",
     "sha256": "843434c6a89e9c493ce2e5d084d67598dd10a70737f62e63bb745e4ebc96a6d5"
   },
   "delete_eligible_count": 0,
-  "file_count": 7505,
+  "file_count": 7512,
   "ignored_giant_count": 4,
   "ignored_giant_paths": [
     "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/allowed_occurrence_inventory.json",
@@ -19,10 +19,10 @@
     "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase3_adjudication/occurrence_adjudication_report.json",
     "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase5_guard/current_surface_guard_report.json"
   ],
-  "inventory_timestamp": "2026-08-05T14:06:24+09:00",
-  "physical_bytes": 4788747488,
+  "inventory_timestamp": "2026-08-05T22:29:07+09:00",
+  "physical_bytes": 4842336252,
   "physical_resolved_root": "C:/Users/MW/Downloads/coding/PZ",
-  "protected_tracked_path_set_sha256": "cbb1298b4abb551fc5beb58891d95bd1ca43262944bb17e8ba019bb743f0142e",
+  "protected_tracked_path_set_sha256": "375f06af5a68b3c980490de88f9d87657ce6e9b666ee6d4636cc8f2a3db180d7",
   "protected_tracked_paths": [
     "Iris/_docs/refactor/_done/cleanup_candidates.md",
     "Iris/_docs/refactor/_done/deferred_closeout.md",
@@ -116,8 +116,14 @@
     "Iris/_docs/refactor/phase5_ordering_single_pass_batch13.md",
     "Iris/_docs/refactor/phase5_test_harness_dev_gate_batch12.md",
     "Iris/_docs/refactor/refactor_baseline_20260512.md",
+    "Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
+    "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_adoption_receipt.json",
+    "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_inventory.json",
+    "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_promotion_receipt.json",
     "Iris/_docs/refactor/repository_runtime_lightweighting/bootstrap_validation_receipt.json",
+    "Iris/_docs/refactor/repository_runtime_lightweighting/current_route_coverage_map.json",
     "Iris/_docs/refactor/repository_runtime_lightweighting/current_surface_guard_successor_manifest.json",
+    "Iris/_docs/refactor/repository_runtime_lightweighting/pre_delete_current_route_receipt.json",
     "Iris/_docs/refactor/repository_runtime_lightweighting/producer_migration_manifest.json",
     "Iris/_docs/refactor/repository_runtime_lightweighting/protected_surface_successor_manifest.json",
     "Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json",
@@ -679,20 +685,20 @@
     "docs/stale_predecessor_reentry_guard_policy.md"
   ],
   "role_counts": {
-    "current_required_evidence": 653,
-    "diagnostic_only": 4,
+    "current_required_evidence": 659,
+    "diagnostic_only": 5,
     "disposable": 483,
     "generated_projection": 103,
     "historical_reproduction": 6262
   },
   "role_partition_bytes": {
-    "current_required_evidence": 21557498,
+    "current_required_evidence": 75146244,
     "diagnostic_only": 3505238016,
     "disposable": 15135952,
     "generated_projection": 2863665,
-    "historical_reproduction": 1243952357
+    "historical_reproduction": 1243952375
   },
-  "run_identity": "970de0d4eeb36c1d56cbd4108c7ec20956a662d23c7ca29355e370fba6bf51bd",
+  "run_identity": "859598dc00da82a7c798a9c6e575394092e1d46983dc7c945ec077ad44c9c4c6",
   "runtime_baseline": {
     "required_metrics": [
       "boot_build_calls",
@@ -762,8 +768,8 @@
       "sha256": "4687e1b101ad3de691489c2b4b0d2686b67454d00dccd12b9f35e5945165d520"
     }
   },
-  "tracked_path_count": 9327,
-  "tracked_path_set_sha256": "93442b7229e5c8e9227658a2d2b90dc3c6accf7a2a34f129be83e90484b545ff",
+  "tracked_path_count": 9333,
+  "tracked_path_set_sha256": "d23d22a909900fd04bb30b44c89281d58252581f8c04232bcb7cf325bdda827c",
   "tracked_paths": [
     ".agent/rules/dev-tools.md",
     ".agents/rules/pulse-ecosystem.md",
@@ -1164,8 +1170,14 @@
     "Iris/_docs/refactor/playtest_evidence/2026-05-08-ko-module-bootstrap/console.txt",
     "Iris/_docs/refactor/playtest_evidence/2026-05-08-ko-protected-call-boundary/console.txt",
     "Iris/_docs/refactor/refactor_baseline_20260512.md",
+    "Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
+    "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_adoption_receipt.json",
+    "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_inventory.json",
+    "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_promotion_receipt.json",
     "Iris/_docs/refactor/repository_runtime_lightweighting/bootstrap_validation_receipt.json",
+    "Iris/_docs/refactor/repository_runtime_lightweighting/current_route_coverage_map.json",
     "Iris/_docs/refactor/repository_runtime_lightweighting/current_surface_guard_successor_manifest.json",
+    "Iris/_docs/refactor/repository_runtime_lightweighting/pre_delete_current_route_receipt.json",
     "Iris/_docs/refactor/repository_runtime_lightweighting/producer_migration_manifest.json",
     "Iris/_docs/refactor/repository_runtime_lightweighting/protected_surface_successor_manifest.json",
     "Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json",
@@ -10093,13 +10105,14 @@
     "uv.toml",
     "viewer/echo_viewer.html"
   ],
-  "tree": "ac17ea6e8e038c8e7af49dcbc1fcdb53a6a8b855",
+  "tree": "8905bc4e90f642a05b2b9b470cea99f635b38534",
   "unclassified_count": 0,
   "unreadable_count": 0,
   "vcs_partition_bytes": {
     "filesystem_only": 0,
     "ignored": 4262528880,
-    "tracked": 526218608
+    "missing": 0,
+    "tracked": 579807372
   },
   "working_tree_state": "dirty_or_untracked",
   "working_tree_status_entry_count": 26,

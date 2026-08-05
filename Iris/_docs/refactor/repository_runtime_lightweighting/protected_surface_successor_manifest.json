@@ -1965,6 +1965,68 @@
                                   "reason": "Append the restart-20260805-39 bootstrap checkpoint and mark every earlier externally bound checkpoint row historical and non-authoritative."
                               }
                           ]
+                      },
+                      {
+                          "revision_id": "restart_epoch_20260805_39_baseline_successor_v1",
+                          "track": "common",
+                          "owner": "repository_owner_user",
+                          "approved": true,
+                          "predecessor_commit": "86197d46d94e8f0d921328583f6a5a91fbc9af28",
+                          "reason": "Advance the protected STEP 4 physical baseline generation through the reviewed restart-safe successor transaction without changing the protected path set.",
+                          "approved_activation_deltas": [],
+                          "added_protected_rows": [
+                              {
+                                  "path": "Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
+                                  "before_git_blob_id": "bcd2803bcb97efdd612059360f89a3e99c6ed277",
+                                  "before_sha256_lf": "8bf7a50e68597aec2c69d01cd5a8c67ddb05fabac1b02c8bb37288445993a609",
+                                  "expected_git_blob_id": "1c176b356b1680e9a90ad327ecc585cb7b60f0b6",
+                                  "after_sha256_lf": "10c349b97d709e8b43722cfd9fe5855b02875f5ee2fa5ceeb96e4107caa8e900",
+                                  "role": "common_track_current_required_evidence",
+                                  "writer": "repository_runtime_lightweighting_baseline_successor_promotion",
+                                  "consumers": [
+                                      "baseline_adoption_validation",
+                                      "artifact_lifecycle_executor",
+                                      "terminal_lifecycle_comparison",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the fresh complete lifecycle role partition at its exact promoted Git blob and LF identity."
+                              },
+                              {
+                                  "path": "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_inventory.json",
+                                  "before_git_blob_id": "ddb40fa2439ee9cc4b46c892d1ba10938041ae7a",
+                                  "before_sha256_lf": "c6baefb685b3118b4376adb0eb0162963e251524b2639dba2257112933b48077",
+                                  "expected_git_blob_id": "e97a8d82ce7e719b6b1aa6cda81c6f0ca75d59a7",
+                                  "after_sha256_lf": "b16c7307eaa54919105aa33f79034e798ee392343e0b4a6b9d4b0f46bf4f72ba",
+                                  "role": "common_track_current_required_evidence",
+                                  "writer": "repository_runtime_lightweighting_baseline_successor_promotion",
+                                  "consumers": [
+                                      "baseline_adoption_validation",
+                                      "artifact_lifecycle_executor",
+                                      "terminal_lifecycle_comparison",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the refreshed physical-capacity denominator and exact physical subject identity."
+                              },
+                              {
+                                  "path": "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_promotion_receipt.json",
+                                  "before_git_blob_id": "ff8f84081317cbf5448a8513e4cbe045ad362d44",
+                                  "before_sha256_lf": "37cca6ad598680a013ab4597e68e4d4d2b47be26422d7a1cfdb17a784f7559ce",
+                                  "expected_git_blob_id": "762e4fe5b54b751b9c7a4042ad66aa01ca71b6c5",
+                                  "after_sha256_lf": "5403ddd9b5733018dcdc03e7227a8533d2d2288e3611fdebd047139531a44203",
+                                  "role": "common_track_current_required_evidence",
+                                  "writer": "repository_runtime_lightweighting_baseline_successor_promotion",
+                                  "consumers": [
+                                      "baseline_adoption_validation",
+                                      "artifact_lifecycle_executor",
+                                      "terminal_lifecycle_comparison",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the v2 source-to-durable successor transaction and its exact external/durable receipt identity."
+                              }
+                          ]
                       }
                   ]
 }

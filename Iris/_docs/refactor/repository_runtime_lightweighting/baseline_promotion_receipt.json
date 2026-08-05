@@ -3,27 +3,102 @@
   "destination_repository_relative_root": "Iris/_docs/refactor/repository_runtime_lightweighting",
   "mode": "baseline",
   "physical_subject": {
-    "commit": "1bed2a5d88aff69f389b102077eb692c7c575237",
+    "commit": "86197d46d94e8f0d921328583f6a5a91fbc9af28",
     "physical_resolved_root": "C:/Users/MW/Downloads/coding/PZ",
-    "run_identity": "970de0d4eeb36c1d56cbd4108c7ec20956a662d23c7ca29355e370fba6bf51bd",
-    "tree": "ac17ea6e8e038c8e7af49dcbc1fcdb53a6a8b855"
+    "run_identity": "859598dc00da82a7c798a9c6e575394092e1d46983dc7c945ec077ad44c9c4c6",
+    "tree": "8905bc4e90f642a05b2b9b470cea99f635b38534"
   },
   "promoted_files": [
     {
-      "byte_length": 52386703,
+      "byte_length": 53503823,
       "destination_path": "C:/Users/MW/Downloads/coding/PZ/Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
-      "destination_sha256": "8bf7a50e68597aec2c69d01cd5a8c67ddb05fabac1b02c8bb37288445993a609",
-      "source_path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/physical-capacity-physical-capacity-1bed2a5d-20260-step3-1bed2a5d-23-cd59c130854b/inventory-result/artifact_role_manifest.jsonl",
-      "source_sha256": "8bf7a50e68597aec2c69d01cd5a8c67ddb05fabac1b02c8bb37288445993a609"
+      "destination_sha256": "10c349b97d709e8b43722cfd9fe5855b02875f5ee2fa5ceeb96e4107caa8e900",
+      "repository_relative_destination": "Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
+      "source_path": "G:/r39/physical-capacity-physical-capacity-86197d46-20260-rebaseline-capacity-allocation-8-d4ed60d165cb/inventory-result/artifact_role_manifest.jsonl",
+      "source_sha256": "10c349b97d709e8b43722cfd9fe5855b02875f5ee2fa5ceeb96e4107caa8e900"
     },
     {
-      "byte_length": 1049798,
+      "byte_length": 1050920,
       "destination_path": "C:/Users/MW/Downloads/coding/PZ/Iris/_docs/refactor/repository_runtime_lightweighting/baseline_inventory.json",
-      "destination_sha256": "c6baefb685b3118b4376adb0eb0162963e251524b2639dba2257112933b48077",
-      "source_path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/physical-capacity-physical-capacity-1bed2a5d-20260-step3-1bed2a5d-23-cd59c130854b/inventory-result/baseline_inventory.json",
-      "source_sha256": "c6baefb685b3118b4376adb0eb0162963e251524b2639dba2257112933b48077"
+      "destination_sha256": "b16c7307eaa54919105aa33f79034e798ee392343e0b4a6b9d4b0f46bf4f72ba",
+      "repository_relative_destination": "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_inventory.json",
+      "source_path": "G:/r39/physical-capacity-physical-capacity-86197d46-20260-rebaseline-capacity-allocation-8-d4ed60d165cb/inventory-result/baseline_inventory.json",
+      "source_sha256": "b16c7307eaa54919105aa33f79034e798ee392343e0b4a6b9d4b0f46bf4f72ba"
     }
   ],
   "promotion_commit_binding": "pending_reviewed_commit",
-  "schema_version": "iris_repository_runtime_lightweighting_baseline_promotion_v1"
+  "promotion_strategy": "successor_transaction",
+  "schema_version": "iris_repository_runtime_lightweighting_baseline_promotion_v2",
+  "transaction": {
+    "external_source_disposition": {
+      "existence_required_through_terminal_closeout": true,
+      "historical_after_terminal_closeout_may_accept_absent": true,
+      "policy": "retained_through_terminal_closeout_then_may_be_purged"
+    },
+    "filesystem_group_atomicity_claimed": false,
+    "final_all_new_verified": true,
+    "generated_receipt_output": {
+      "external_destination_path": "G:/r39/physical-capacity-physical-capacity-86197d46-20260-rebaseline-capacity-allocation-8-d4ed60d165cb/promotion-result/baseline_promotion_receipt.json",
+      "identity_rule": "durable_and_external_bytes_must_be_identical_after_all_three_replacements",
+      "operator_receipt_disposition": "retained_through_reviewed_promotion_commit_then_may_be_purged",
+      "repository_relative_destination": "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_promotion_receipt.json",
+      "source_identity": "generated:baseline-successor-receipt-v2"
+    },
+    "new_generation_files": [
+      {
+        "byte_length": 53503823,
+        "name": "artifact_role_manifest.jsonl",
+        "repository_relative_destination": "Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
+        "sha256": "10c349b97d709e8b43722cfd9fe5855b02875f5ee2fa5ceeb96e4107caa8e900",
+        "source_path": "G:/r39/physical-capacity-physical-capacity-86197d46-20260-rebaseline-capacity-allocation-8-d4ed60d165cb/inventory-result/artifact_role_manifest.jsonl"
+      },
+      {
+        "byte_length": 1050920,
+        "name": "baseline_inventory.json",
+        "repository_relative_destination": "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_inventory.json",
+        "sha256": "b16c7307eaa54919105aa33f79034e798ee392343e0b4a6b9d4b0f46bf4f72ba",
+        "source_path": "G:/r39/physical-capacity-physical-capacity-86197d46-20260-rebaseline-capacity-allocation-8-d4ed60d165cb/inventory-result/baseline_inventory.json"
+      }
+    ],
+    "predecessor_commit": "86197d46d94e8f0d921328583f6a5a91fbc9af28",
+    "predecessor_durable_store": {
+      "commit": "86197d46d94e8f0d921328583f6a5a91fbc9af28",
+      "kind": "git_commit_blobs",
+      "tree": "8905bc4e90f642a05b2b9b470cea99f635b38534"
+    },
+    "predecessor_files": [
+      {
+        "byte_length": 52386703,
+        "git_blob_id": "bcd2803bcb97efdd612059360f89a3e99c6ed277",
+        "path": "C:/Users/MW/Downloads/coding/PZ/Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
+        "repository_relative_path": "Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
+        "sha256": "8bf7a50e68597aec2c69d01cd5a8c67ddb05fabac1b02c8bb37288445993a609"
+      },
+      {
+        "byte_length": 1049798,
+        "git_blob_id": "ddb40fa2439ee9cc4b46c892d1ba10938041ae7a",
+        "path": "C:/Users/MW/Downloads/coding/PZ/Iris/_docs/refactor/repository_runtime_lightweighting/baseline_inventory.json",
+        "repository_relative_path": "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_inventory.json",
+        "sha256": "c6baefb685b3118b4376adb0eb0162963e251524b2639dba2257112933b48077"
+      },
+      {
+        "byte_length": 1753,
+        "git_blob_id": "ff8f84081317cbf5448a8513e4cbe045ad362d44",
+        "path": "C:/Users/MW/Downloads/coding/PZ/Iris/_docs/refactor/repository_runtime_lightweighting/baseline_promotion_receipt.json",
+        "repository_relative_path": "Iris/_docs/refactor/repository_runtime_lightweighting/baseline_promotion_receipt.json",
+        "sha256": "37cca6ad598680a013ab4597e68e4d4d2b47be26422d7a1cfdb17a784f7559ce"
+      }
+    ],
+    "predecessor_receipt_git_blob_id": "ff8f84081317cbf5448a8513e4cbe045ad362d44",
+    "predecessor_receipt_sha256": "37cca6ad598680a013ab4597e68e4d4d2b47be26422d7a1cfdb17a784f7559ce",
+    "predecessor_tree": "8905bc4e90f642a05b2b9b470cea99f635b38534",
+    "recovery_policy": "exclusive_lock_hash_addressed_journal_restore_all_predecessor_files_then_rerun",
+    "staging_verification": {
+      "all_staged_hashes_verified_before_replace": true,
+      "ephemeral_paths_retained_in_durable_receipt": false,
+      "ephemeral_paths_retained_in_recovery_journal_only": true,
+      "same_volume_stage_backup_and_destination": true
+    },
+    "transaction_id": "fbc46a45f117954b417d332fffc267a3"
+  }
 }

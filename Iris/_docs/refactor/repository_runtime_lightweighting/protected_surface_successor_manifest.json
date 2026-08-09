@@ -2587,7 +2587,7 @@
                           "track": "runtime",
                           "owner": "repository_owner_user",
                           "approved": true,
-                          "predecessor_commit": "bea4b90633cc3db0ff2d8d98f1fd3be0985e76e7",
+                          "predecessor_commit": "c1e592811aa885ca91fe9a90fd31c1a4f0a6916b",
                           "reason": "Seal the selected Runtime Track automated adoption checkpoint and its bounded measurement state.",
                           "approved_activation_deltas": [],
                           "added_protected_rows": [

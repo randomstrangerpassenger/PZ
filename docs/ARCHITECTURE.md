@@ -1,7 +1,7 @@
 # ARCHITECTURE.md
 
 > 상태: 초안 v0.4
-> 기준일: 2026-08-01
+> 기준일: 2026-08-10
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 구조 지도, 역할 경계, 의존 방향을 고정한다.
 
@@ -819,6 +819,41 @@ package mirror
 `Iris/build/package/Iris`는 ignored read-only projection이다. Current source에서 재생성할 수 있으며, mirror와 source가 동일하면 역복사하지 않는다. Local ignored residue는 current authority나 tracked implementation으로 승격하지 않고 격리한다.
 
 검증 상태도 축별로 유지한다. Runtime behavior, supported API, Lua syntax, disposable package identity, protected surface, current route, historical route, full discovery는 서로 대체되지 않는다. 2026-08-02 final validation readpoint와 2026-08-03 terminal attestation readpoint에서 current route `145/145`, historical route `285/285`, full v2 discovery `520/520`, production Lua syntax 95 files, disposable package 95 Lua/12 Layer 3 files가 각각 exit `0`으로 닫혔다. Diagnostic route `77 tests / 3 failures / 26 errors`는 retired input을 생략한 historical overlay와 ignored local source-contract anchor에 한정된 비차단 advisory다. Change 9는 historical reproduction JSON/ZIP hard dependency를 포함한 generation-10의 75-row sealed manifest/ceiling을 exact seal-candidate commit으로 검증하고, 별도 external CleanCheckout receipt를 post-seal `final_evidence_binding_report.json`에 결속하는 구조다. Generation 8은 PowerShell 5.1이 정상 native stderr를 오류로 승격한 operational 시도 때문에, generation 9는 CleanCheckout PASS 뒤 terminal review에서 stale ceiling binding hash 여섯 건이 발견돼 supersede됐다. Generation 10은 stderr 내용이 아니라 native exit code로 판정하고 각 binding JSON의 tracked Git-blob SHA-256을 ceiling과 guard test에 1:1로 결속한다. Seal candidate `f877f45b`의 exact CleanCheckout이 exit `0`으로 통과했고, binding attestation `b9658f16`에서 외부 결과 해시를 추적한 뒤 cleanup attestation `2f301287`에서 세 exact result root의 부재와 report `status=complete`를 기록했다. Codex Reviewer의 terminal read-only verdict는 `APPROVE / P0 0 / P1 0 / P2 0 / P3 0`이다. Terminal report는 자기 입력 순환을 피하기 위해 sealed denominator 밖의 evidence-only attestation이며 runtime이나 package authority가 아니다.
+
+### Iris repository/runtime lightweighting boundary
+
+Repository artifact의 canonical 흐름은 다음과 같다.
+
+```text
+tracked source / current authority
+-> checkout-external work root
+-> content-addressed result object + phase reference
+-> small Git-visible manifest / hash / receipt
+-> explicit archive or disposable cleanup disposition
+```
+
+Source checkout은 current authority, current-required evidence, historical reproduction input과 이를 결속하는 작은 receipt만 소유한다. Scratch, test output, cache, package projection과 큰 diagnostic payload는 source checkout 밖의 새롭고 비어 있는 exact root에 생성한다. 같은 payload는 content hash로 한 번만 직렬화하고 phase/attempt는 참조로 연결한다. Tracked/ignored 상태는 authority나 삭제 가능성을 뜻하지 않으며, role classification·consumer closure·restore proof·dangling reference `0`이 cleanup의 전제다.
+
+Runtime의 demand-loading 흐름은 다음과 같다.
+
+```text
+Browser boot
+-> module/API surface만 등록
+-> first open에서 Browser data build
+-> generation cache로 warm reopen 재사용
+
+Layer3 / UseCase consumer
+-> deterministic range/count index
+-> internal lookup router
+-> target chunk 1개 require + session cache
+
+direct compatibility facade
+-> 전체 chunk materialization + 기존 global/field 유지
+```
+
+Range/count index는 key boundary, module name, row count와 identity만 가진 routing metadata다. Source fact를 복제하거나 runtime에서 의미를 생성하지 않는다. Lookup router failure의 compatibility fallback은 관측 가능해야 하며 normal lazy-load 성능 근거에는 fallback count `0`이 필요하다. Browser eager build 제거도 public `build()` 계약이나 기존 open entrypoint를 제거하지 않는다.
+
+물리 용량 authority와 clean validation authority는 분리한다. Physical inventory만 byte accounting과 cleanup을 승인하며, exact commit/tree/claim에 묶인 clean checkout만 current/historical/diagnostic/package/full-gate 재현성을 승인한다. Standalone Lua/Python contract는 로딩 경계와 parity를 증명하지만 실제 Project Zomboid/Kahlua timing evidence를 대체하지 않는다. Manual runtime sample이 없으면 구조 채택은 가능해도 performance claim과 Runtime Track complete 판정은 열리지 않는다.
 
 ## 2-6. Frame
 

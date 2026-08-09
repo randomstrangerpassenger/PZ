@@ -1,5 +1,38 @@
 # Iris Build Tool Inventory
 
+## Repository runtime lightweighting tooling-track decision (2026-08-10)
+
+Change 8 was re-evaluated after selecting and implementing the Runtime Track.
+The three touched lifecycle producers share small canonical JSON and SHA-256
+leaf functions, but they do not share one byte-for-byte path/JSON/hash
+contract: their repository-boundary rules, atomic-create behavior, exception
+types, inputs, and partial-artifact disposition differ. Extracting only the
+two leaf functions would add a cross-tree import without preserving the whole
+producer contract, so the three-current-producer commonization gate is not
+met. The approved outcome is therefore an explicit no-op; no
+`artifact_paths.py` abstraction is introduced.
+
+The current inventory below also reports zero no-signal build-tool candidates.
+Consequently this track archives or deletes no build script. Existing
+historical and diagnostic reproduction paths remain unchanged, no broad
+allowed-tooling module is admitted, and the four ignored giant artifact rows
+remain governed exclusively by the Common lifecycle receipt chain rather than
+by a tooling-name cleanup.
+
+Exact follow-up remeasurement on 2026-08-10 keeps the historical and current
+denominators separate:
+
+| Readpoint | Recursive `tools/build` Python | Root-direct Python |
+|---|---:|---:|
+| sealed residual-refactor predecessor | 496 | 483 |
+| repository-lightweighting pre-change probe | 497 | 484 |
+| Change 8 implementation subject | 497 | 484 |
+
+The one-file increase is the already adopted
+`registry_runtime_record_paths.py` runtime-record path leaf, not disposable
+residue. Change 8 therefore changes no Python implementation, moves or deletes
+no file, and keeps helper commonization and cleanup as explicit no-ops.
+
 P0.5 inventory for `iris_refactor_roadmap_v2.0.md`.
 
 P7-3 note: `compose_layer3_text.py` has been split into the core entrypoint plus

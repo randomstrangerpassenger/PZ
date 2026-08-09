@@ -7,8 +7,8 @@
       "path": "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
       "owner": "iris_offline_build_validation_plan",
       "reason": "Implement receipt-bound all-path clean-checkout validation and exact successor identity binding.",
-      "expected_git_blob_id": "fc360865083eeb596ad5941377ac2390ac1a8f1b",
-      "after_sha256_lf": "191ade93b6dce53a67d7d72768217b784f47db31e0901933cbf463f1052da304"
+      "expected_git_blob_id": "85df1cdfa2f0af3ec828eee9573208eacdb7835c",
+      "after_sha256_lf": "12a7da6c13cf6a7def4afeabaf9dd37843363c074fe3e333bf79746ceafca45c"
     }
   ]
 }

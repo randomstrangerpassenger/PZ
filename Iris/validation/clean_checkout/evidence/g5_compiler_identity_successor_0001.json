@@ -1,0 +1,131 @@
+{
+  "schema_version": "iris-clean-checkout-g5-compiler-identity-successor-v1",
+  "status": "PASS",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "record_mode": "append_only_historical_to_current_compiler_identity_transition",
+  "claim_boundary": "The immutable attempt-0024 handoff and terminal closeout attest only the historical compiler identity. The current compiler identity is recomputed from the exact validation subject and linked without rewriting those historical receipts.",
+  "algorithm_id": "naturalization_compiler_identity_sha256_lf_normalized_ordered_paths_v2",
+  "historical_gate_integration_basis": {
+    "commit": "c68831070a1d631c378532c20272d75efbc45116",
+    "tree": "01e204850ffe93c38baf4acf8094c4cbc0114810",
+    "aggregate_sha256": "2dcff095b1cc34c8fb6d3ad735ac8f9d0ca2affe259f6bb97870b19e7235cc7f",
+    "ordered_files": [
+      {
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_text.py",
+        "sha256_lf": "8d8c3933cd1de5b170929af1462a2a4151676861a7876434d6769508955395df"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_body_profile.py",
+        "sha256_lf": "88aae7c9175a342e294c9667c71e53c0f03d41626507d02cc9c510e92a8362ba"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_item.py",
+        "sha256_lf": "e04119c5a75aa103d622c26a4eb51043d858b1a3501297b0f10e40d66a510659"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_render.py",
+        "sha256_lf": "0b588bcafa6b31e3920ef2e7672bef10462b2a6f2729d7169b53c77d57a19b34"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_blocks.py",
+        "sha256_lf": "82b041edb69ec2d959302ed54600fabcefc37e1b081f8023566ac0dab2cbe87c"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_identity.py",
+        "sha256_lf": "9778f52814fb9690839556ce283190279b5187b788281d4c984316d5f82b8dbb"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_io.py",
+        "sha256_lf": "12b98ea1de9e7eff87d1ba06cdf62e30f47e193b55070221dd5c0ace46494ed5"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py",
+        "sha256_lf": "15ea5a22840250514f97427b516f07a5abd8a7c60fca1403d87cc4f2e7736e62"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py",
+        "sha256_lf": "76797230b2b914f6eeb9ffea5b287d4fb779655b46f30fd36a1cb7a54e22f92d"
+      }
+    ]
+  },
+  "current_identity_basis": {
+    "commit": "c2fc77a5a2a13e40dd02d06eb19685d08125fed3",
+    "tree": "3ef7496bf66ef3a5c7843327d3c4c5f1705959b8",
+    "aggregate_sha256": "71d81ad1cc8ba5bae2f927436ae6de3b952537dcbe7d3650e5903e71fefc7fea",
+    "ordered_files": [
+      {
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_text.py",
+        "sha256_lf": "4f2c2f05db41dd2f931fbe36b12c091cf55e8e912c64a325c9e17c389615313c"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_body_profile.py",
+        "sha256_lf": "88aae7c9175a342e294c9667c71e53c0f03d41626507d02cc9c510e92a8362ba"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_item.py",
+        "sha256_lf": "d88b8d7a464b11b7499a4cc51210cb2a5bb967a233a013d41497ebf501706650"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_render.py",
+        "sha256_lf": "0b588bcafa6b31e3920ef2e7672bef10462b2a6f2729d7169b53c77d57a19b34"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_blocks.py",
+        "sha256_lf": "82b041edb69ec2d959302ed54600fabcefc37e1b081f8023566ac0dab2cbe87c"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_identity.py",
+        "sha256_lf": "21c222e92c5041ca3d017846d2d6a627597762fba895b87c9fefea1af95a148c"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_io.py",
+        "sha256_lf": "1b8e62550e0d40e66391817820a0f32a22fab99b6678a723967cec14ba30fbaf"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py",
+        "sha256_lf": "15ea5a22840250514f97427b516f07a5abd8a7c60fca1403d87cc4f2e7736e62"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py",
+        "sha256_lf": "76797230b2b914f6eeb9ffea5b287d4fb779655b46f30fd36a1cb7a54e22f92d"
+      }
+    ]
+  },
+  "changed_rows": [
+    {
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_text.py",
+      "historical_sha256_lf": "8d8c3933cd1de5b170929af1462a2a4151676861a7876434d6769508955395df",
+      "current_sha256_lf": "4f2c2f05db41dd2f931fbe36b12c091cf55e8e912c64a325c9e17c389615313c",
+      "current_last_writer_commit": "4bafea47729c1fefd81f0b50beaa857da4974493",
+      "current_last_writer_tree": "362a550587b8b6185321b56e85238b9d90d90eb1"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_item.py",
+      "historical_sha256_lf": "e04119c5a75aa103d622c26a4eb51043d858b1a3501297b0f10e40d66a510659",
+      "current_sha256_lf": "d88b8d7a464b11b7499a4cc51210cb2a5bb967a233a013d41497ebf501706650",
+      "current_last_writer_commit": "72e76b367622f64af264f445889ea1832c87008a",
+      "current_last_writer_tree": "9c98dad4623cea9242a41b77f0e378a87e56559f"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_identity.py",
+      "historical_sha256_lf": "9778f52814fb9690839556ce283190279b5187b788281d4c984316d5f82b8dbb",
+      "current_sha256_lf": "21c222e92c5041ca3d017846d2d6a627597762fba895b87c9fefea1af95a148c",
+      "current_last_writer_commit": "72e76b367622f64af264f445889ea1832c87008a",
+      "current_last_writer_tree": "9c98dad4623cea9242a41b77f0e378a87e56559f"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_io.py",
+      "historical_sha256_lf": "12b98ea1de9e7eff87d1ba06cdf62e30f47e193b55070221dd5c0ace46494ed5",
+      "current_sha256_lf": "1b8e62550e0d40e66391817820a0f32a22fab99b6678a723967cec14ba30fbaf",
+      "current_last_writer_commit": "6b0809729b74ca29c2a0d63bc0ac955001737d70",
+      "current_last_writer_tree": "010325bf5689679a88d5668a443232f2f9fd88ae"
+    }
+  ],
+  "changed_constituent_count": 4,
+  "unchanged_constituent_count": 5,
+  "non_claims": [
+    "The immutable attempt-0024 handoff and terminal closeout are not rewritten or reinterpreted as evidence for the current compiler bytes.",
+    "This transition receipt does not claim that attempt-0024 was rerun with the current compiler identity.",
+    "The current identity is validation input provenance only and makes no public-text quality or release claim."
+  ]
+}

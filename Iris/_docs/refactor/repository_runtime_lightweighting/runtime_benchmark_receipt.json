@@ -1,0 +1,108 @@
+{
+    "schema_version":  "iris_repository_runtime_lightweighting_runtime_benchmark_receipt_v1",
+    "status":  "PARTIAL",
+    "measurement_phase":  "step17_automated_measurement",
+    "validated_at":  "2026-08-08T22:46:34.2000251Z",
+    "validated_subject_commit":  "c1e592811aa885ca91fe9a90fd31c1a4f0a6916b",
+    "validated_subject_tree":  "f383bd9949f702485b1c0253e3143335bc559bf1",
+    "selected_track":  "runtime",
+    "automated_contract_status":  "PASS",
+    "performance_claim_authorized":  false,
+    "environment_receipt":  {
+                                "path":  "C:/Users/MW/iccv/receipts/env-v1/environment_receipt.json",
+                                "sha256":  "fb5dd78e15c41346f15b39065c60c2ce4d83254d73bbde3d3181d327b30b6bc2"
+                            },
+    "focused_command_receipts":  [
+                                     {
+                                         "command_id":  "001-runtime-layer3",
+                                         "path":  "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q17mr/command-receipts/001-runtime-layer3.json",
+                                         "sha256":  "c939c61ab7927ba3068a824d9bf0048e5bca1bed9836f100a8d33100d0260d3a",
+                                         "test_count":  1,
+                                         "success":  true
+                                     },
+                                     {
+                                         "command_id":  "002-runtime-usecase",
+                                         "path":  "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q17mr/command-receipts/002-runtime-usecase.json",
+                                         "sha256":  "4fa1b7bed811792d118b7771434cec78729507fc1abe7792e2102621745d4b5b",
+                                         "test_count":  1,
+                                         "success":  true
+                                     },
+                                     {
+                                         "command_id":  "003-runtime-browser",
+                                         "path":  "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q17mr/command-receipts/003-runtime-browser.json",
+                                         "sha256":  "6363df9b99f5d64c574b07228f8a23326136520b6a4970222f53de88880279b8",
+                                         "test_count":  3,
+                                         "success":  true
+                                     }
+                                 ],
+    "contract_observations":  [
+                                  {
+                                      "surface":  "layer3_lazy_lookup",
+                                      "evidence_kind":  "standalone_contract_assertion",
+                                      "parity_row_count":  2105,
+                                      "first_lookup_loaded_chunk_count":  1,
+                                      "first_lookup_loaded_modules":  [
+                                                                          "Iris/Data/IrisLayer3DataChunks/Chunk001"
+                                                                      ],
+                                      "adjacent_lookup_loaded_chunk_count":  2,
+                                      "adjacent_lookup_loaded_modules":  [
+                                                                             "Iris/Data/IrisLayer3DataChunks/Chunk001",
+                                                                             "Iris/Data/IrisLayer3DataChunks/Chunk002"
+                                                                         ],
+                                      "success_path_fallback_count":  0,
+                                      "command_id":  "001-runtime-layer3"
+                                  },
+                                  {
+                                      "surface":  "usecase_lazy_lookup",
+                                      "evidence_kind":  "standalone_contract_assertion",
+                                      "parity_row_count":  1631,
+                                      "line_count_loaded_chunk_count":  0,
+                                      "first_lookup_loaded_chunk_count":  1,
+                                      "first_lookup_loaded_modules":  [
+                                                                          "Iris/Data/UseCaseDescriptions/Chunk001"
+                                                                      ],
+                                      "adjacent_lookup_loaded_chunk_count":  2,
+                                      "adjacent_lookup_loaded_modules":  [
+                                                                             "Iris/Data/UseCaseDescriptions/Chunk001",
+                                                                             "Iris/Data/UseCaseDescriptions/Chunk002"
+                                                                         ],
+                                      "success_path_fallback_count":  0,
+                                      "command_id":  "002-runtime-usecase"
+                                  },
+                                  {
+                                      "surface":  "browser_demand_build_and_hot_path_cache",
+                                      "evidence_kind":  "standalone_contract_assertion",
+                                      "boot_get_all_items_call_count":  0,
+                                      "first_ready_get_all_items_call_count":  1,
+                                      "repeat_ready_get_all_items_call_count":  1,
+                                      "first_ready_scanned_item_count":  1,
+                                      "first_ready_generation":  1,
+                                      "command_id":  "003-runtime-browser"
+                                  }
+                              ],
+    "project_zomboid_runtime_measurement":  {
+                                                "status":  "BLOCKED_UNATTENDED",
+                                                "raw_sample_count":  0,
+                                                "raw_samples":  [
+
+                                                                ],
+                                                "required_cases":  [
+                                                                       "boot_build_absence",
+                                                                       "first_browser_open",
+                                                                       "first_alt_tooltip",
+                                                                       "first_item_detail",
+                                                                       "warm_repeat"
+                                                                   ],
+                                                "reason":  "Project Zomboid runtime and human-visible UI/log capture were unavailable in the unattended implementation environment."
+                                            },
+    "timing_summary":  {
+                           "before_after_same_machine_save_mod_set":  "NOT_MEASURED",
+                           "median":  null,
+                           "p95":  null
+                       },
+    "non_claims":  [
+                       "Standalone Lua contract assertions are not Project Zomboid or Kahlua performance evidence.",
+                       "No runtime timing improvement, release readiness, Workshop readiness, multiplayer stability, or long-session stability is claimed.",
+                       "STEP 20 manual evidence may seal this receipt only with raw Project Zomboid sample identities."
+                   ]
+}

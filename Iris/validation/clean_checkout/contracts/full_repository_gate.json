@@ -1,5 +1,5 @@
 {
-  "schema_version": "iris-clean-checkout-full-repository-gate-v6",
+  "schema_version": "iris-clean-checkout-full-repository-gate-v7",
   "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
   "claim": "Iris mandatory full-required-repository validation is reproducible from an exact tracked commit",
   "claim_boundary": {
@@ -37,7 +37,9 @@
       "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_candidate_route.py",
       "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_policy.py",
       "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_semantic_preservation.py",
-      "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+      "Iris/validation/clean_checkout/tests/test_current_route_output_isolation_audit.py",
+      "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py",
+      "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py"
     ],
     "additional_node_ids": [
       "Iris/test/test_rightclick_pipeline.py::test_invert_produces_sorted_output",
@@ -255,7 +257,8 @@
     "replay_attempt_id": "attempt-0024-publish-remediation-b",
     "compiler_identity": {
       "algorithm_id": "naturalization_compiler_identity_sha256_lf_normalized_ordered_paths_v2",
-      "aggregate_sha256": "2dcff095b1cc34c8fb6d3ad735ac8f9d0ca2affe259f6bb97870b19e7235cc7f",
+      "historical_attested_aggregate_sha256": "2dcff095b1cc34c8fb6d3ad735ac8f9d0ca2affe259f6bb97870b19e7235cc7f",
+      "current_aggregate_sha256": "71d81ad1cc8ba5bae2f927436ae6de3b952537dcbe7d3650e5903e71fefc7fea",
       "ordered_paths": [
         "Iris/build/description/v2/tools/build/compose_layer3_text.py",
         "Iris/build/description/v2/tools/build/compose_layer3_body_profile.py",
@@ -266,7 +269,12 @@
         "Iris/build/description/v2/tools/build/compose_layer3_io.py",
         "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py",
         "Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py"
-      ]
+      ],
+      "successor_transition": {
+        "path": "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0001.json",
+        "git_blob_raw_sha256": "a230d333166b5fd17b9e90d03cabf3ca29456842dd5b1cc596d6a6914842ae1c",
+        "hash_mode": "git_blob_raw_sha256"
+      }
     },
     "evidence_bindings": [
       {
@@ -350,6 +358,7 @@
       "Iris/build/description/v2/tools/build/run_public_text_quality_acceptance.py",
       "Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py",
       "Iris/build/description/v2/tools/build/validate_public_text_quality_acceptance.py",
+      "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0001.json",
       "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
       "docs/iris_publish_boundary_public_text_quality_acceptance_policy_closure_plan.md",
       "docs/public_text_quality_acceptance_claim_boundary.md",

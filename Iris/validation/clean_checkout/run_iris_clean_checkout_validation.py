@@ -678,6 +678,232 @@ def _line_ending_sha256_variants(payload: bytes) -> set[str]:
     }
 
 
+def _normalized_compiler_rows(
+    repo: Path, commit: str, ordered_paths: list[str]
+) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    for path in ordered_paths:
+        canonical = (
+            bytes_at_commit(repo, commit, path)
+            .replace(b"\r\n", b"\n")
+            .replace(b"\r", b"\n")
+        )
+        rows.append({"path": path, "sha256_lf": sha256_bytes(canonical)})
+    return rows
+
+
+def _compiler_aggregate_sha256(
+    algorithm_id: str, ordered_files: list[dict[str, str]]
+) -> str:
+    payload = {
+        "algorithm_id": algorithm_id,
+        "ordered_files": [
+            {"path": row["path"], "sha256": row["sha256_lf"]}
+            for row in ordered_files
+        ],
+    }
+    return sha256_bytes(canonical_compact_json_bytes(payload))
+
+
+def _git_is_ancestor(repo: Path, ancestor: str, descendant: str) -> bool:
+    completed = subprocess.run(
+        [
+            "git",
+            "-c",
+            "core.longpaths=true",
+            "-C",
+            str(repo),
+            "merge-base",
+            "--is-ancestor",
+            ancestor,
+            descendant,
+        ],
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    return completed.returncode == 0
+
+
+def _validate_g5_compiler_identity_transition(
+    repo: Path,
+    subject_commit: str,
+    compiler: dict[str, Any],
+    transition: dict[str, Any],
+) -> dict[str, Any]:
+    expected_compiler_keys = {
+        "algorithm_id",
+        "historical_attested_aggregate_sha256",
+        "current_aggregate_sha256",
+        "ordered_paths",
+        "successor_transition",
+    }
+    if set(compiler) != expected_compiler_keys:
+        raise CleanCheckoutError("invalid G5 compiler identity contract schema")
+    ordered_paths = compiler["ordered_paths"]
+    if (
+        not isinstance(ordered_paths, list)
+        or len(ordered_paths) != 9
+        or len(ordered_paths) != len(set(ordered_paths))
+        or any(not isinstance(path, str) or not path for path in ordered_paths)
+    ):
+        raise CleanCheckoutError("invalid G5 compiler ordered path contract")
+    expected_transition_keys = {
+        "schema_version",
+        "status",
+        "authority",
+        "record_mode",
+        "claim_boundary",
+        "algorithm_id",
+        "historical_gate_integration_basis",
+        "current_identity_basis",
+        "changed_rows",
+        "changed_constituent_count",
+        "unchanged_constituent_count",
+        "non_claims",
+    }
+    if (
+        set(transition) != expected_transition_keys
+        or transition["schema_version"]
+        != "iris-clean-checkout-g5-compiler-identity-successor-v1"
+        or transition["status"] != "PASS"
+        or transition["algorithm_id"] != compiler["algorithm_id"]
+        or not isinstance(transition["non_claims"], list)
+        or not transition["non_claims"]
+        or any(
+            not isinstance(row, str) or not row.strip()
+            for row in transition["non_claims"]
+        )
+    ):
+        raise CleanCheckoutError("invalid G5 compiler successor transition schema")
+
+    expected_basis_keys = {"commit", "tree", "aggregate_sha256", "ordered_files"}
+
+    def validate_basis(name: str) -> tuple[dict[str, Any], list[dict[str, str]], str]:
+        basis = transition[name]
+        if not isinstance(basis, dict) or set(basis) != expected_basis_keys:
+            raise CleanCheckoutError(f"invalid G5 compiler {name} schema")
+        identity = git_identity(repo, basis["commit"])
+        if identity != {"commit": basis["commit"], "tree": basis["tree"]}:
+            raise CleanCheckoutError(f"G5 compiler {name} identity mismatch")
+        actual_rows = _normalized_compiler_rows(
+            repo, basis["commit"], ordered_paths
+        )
+        if basis["ordered_files"] != actual_rows:
+            raise CleanCheckoutError(f"G5 compiler {name} ordered files mismatch")
+        aggregate = _compiler_aggregate_sha256(
+            compiler["algorithm_id"], actual_rows
+        )
+        if basis["aggregate_sha256"] != aggregate:
+            raise CleanCheckoutError(f"G5 compiler {name} aggregate mismatch")
+        return basis, actual_rows, aggregate
+
+    historical, historical_rows, historical_aggregate = validate_basis(
+        "historical_gate_integration_basis"
+    )
+    current_basis, current_basis_rows, current_aggregate = validate_basis(
+        "current_identity_basis"
+    )
+    if (
+        not _git_is_ancestor(repo, historical["commit"], current_basis["commit"])
+        or not _git_is_ancestor(repo, current_basis["commit"], subject_commit)
+    ):
+        raise CleanCheckoutError("G5 compiler successor ancestry mismatch")
+    subject_rows = _normalized_compiler_rows(repo, subject_commit, ordered_paths)
+    if subject_rows != current_basis_rows:
+        raise CleanCheckoutError("G5 current compiler identity changed after bridge basis")
+    for path in ordered_paths:
+        basis_last_writer = git_text(
+            repo,
+            "log",
+            "-1",
+            "--format=%H",
+            current_basis["commit"],
+            "--",
+            path,
+        ).strip()
+        subject_last_writer = git_text(
+            repo,
+            "log",
+            "-1",
+            "--format=%H",
+            subject_commit,
+            "--",
+            path,
+        ).strip()
+        if (
+            subject_last_writer != basis_last_writer
+            or blob_id(repo, subject_commit, path)
+            != blob_id(repo, current_basis["commit"], path)
+        ):
+            raise CleanCheckoutError(
+                f"G5 compiler path changed after bridge basis: {path}"
+            )
+    if (
+        compiler["historical_attested_aggregate_sha256"]
+        != historical_aggregate
+        or compiler["current_aggregate_sha256"] != current_aggregate
+    ):
+        raise CleanCheckoutError("G5 compiler contract aggregate split mismatch")
+
+    historical_by_path = {row["path"]: row for row in historical_rows}
+    current_by_path = {row["path"]: row for row in current_basis_rows}
+    expected_changed_rows: list[dict[str, str]] = []
+    for path in ordered_paths:
+        historical_sha = historical_by_path[path]["sha256_lf"]
+        current_sha = current_by_path[path]["sha256_lf"]
+        if historical_sha == current_sha:
+            continue
+        last_writer_commit = git_text(
+            repo,
+            "log",
+            "-1",
+            "--format=%H",
+            current_basis["commit"],
+            "--",
+            path,
+        ).strip()
+        last_writer_identity = git_identity(repo, last_writer_commit)
+        if (
+            not _git_is_ancestor(
+                repo, last_writer_commit, current_basis["commit"]
+            )
+            or _normalized_compiler_rows(repo, last_writer_commit, [path])[0][
+                "sha256_lf"
+            ]
+            != current_sha
+        ):
+            raise CleanCheckoutError(
+                f"G5 compiler last-writer provenance mismatch: {path}"
+            )
+        expected_changed_rows.append(
+            {
+                "path": path,
+                "historical_sha256_lf": historical_sha,
+                "current_sha256_lf": current_sha,
+                "current_last_writer_commit": last_writer_identity["commit"],
+                "current_last_writer_tree": last_writer_identity["tree"],
+            }
+        )
+    if transition["changed_rows"] != expected_changed_rows:
+        raise CleanCheckoutError("G5 compiler derived changed-row mismatch")
+    if (
+        transition["changed_constituent_count"] != len(expected_changed_rows)
+        or transition["unchanged_constituent_count"]
+        != len(ordered_paths) - len(expected_changed_rows)
+    ):
+        raise CleanCheckoutError("G5 compiler transition count mismatch")
+    return {
+        "algorithm_id": compiler["algorithm_id"],
+        "ordered_path_count": len(ordered_paths),
+        "historical_attested_aggregate_sha256": historical_aggregate,
+        "current_aggregate_sha256": current_aggregate,
+        "changed_constituent_count": len(expected_changed_rows),
+        "unchanged_constituent_count": len(ordered_paths)
+        - len(expected_changed_rows),
+    }
+
+
 def _validate_g5_required_evidence(
     repo: Path,
     commit: str,
@@ -728,29 +954,39 @@ def _validate_g5_required_evidence(
         binding_by_id[binding_id] = binding
 
     compiler = g5["compiler_identity"]
-    ordered_files: list[dict[str, str]] = []
     for path in compiler["ordered_paths"]:
         if path not in tracked:
             raise CleanCheckoutError(
                 f"G5 compiler constituent is not tracked: {path}"
             )
-        canonical = (
-            bytes_at_commit(repo, commit, path)
-            .replace(b"\r\n", b"\n")
-            .replace(b"\r", b"\n")
-        )
-        ordered_files.append(
-            {"path": path, "sha256": sha256_bytes(canonical)}
-        )
-    aggregate_payload = {
-        "algorithm_id": compiler["algorithm_id"],
-        "ordered_files": ordered_files,
-    }
-    aggregate_sha256 = sha256_bytes(
-        canonical_compact_json_bytes(aggregate_payload)
+    transition_binding = compiler["successor_transition"]
+    if (
+        set(transition_binding)
+        != {"path", "git_blob_raw_sha256", "hash_mode"}
+        or transition_binding["hash_mode"] != "git_blob_raw_sha256"
+        or transition_binding["path"] not in tracked
+    ):
+        raise CleanCheckoutError("invalid G5 compiler successor binding")
+    transition_raw = bytes_at_commit(
+        repo, commit, transition_binding["path"]
     )
-    if aggregate_sha256 != compiler["aggregate_sha256"]:
-        raise CleanCheckoutError("G5 compiler aggregate identity mismatch")
+    transition_sha256 = sha256_bytes(transition_raw)
+    if transition_sha256 != transition_binding["git_blob_raw_sha256"]:
+        raise CleanCheckoutError("G5 compiler successor raw identity mismatch")
+    transition = json.loads(transition_raw)
+    compiler_validation = _validate_g5_compiler_identity_transition(
+        repo, commit, compiler, transition
+    )
+    compiler_validation["successor_transition"] = {
+        "path": transition_binding["path"],
+        "git_blob_raw_sha256": transition_sha256,
+        "hash_mode": transition_binding["hash_mode"],
+        "schema_version": transition["schema_version"],
+        "status": transition["status"],
+    }
+    historical_aggregate_sha256 = compiler_validation[
+        "historical_attested_aggregate_sha256"
+    ]
 
     handoff = json_at_commit(
         repo,
@@ -784,7 +1020,7 @@ def _validate_g5_required_evidence(
     if (
         handoff["naturalization_attempt_id"] != g5["primary_attempt_id"]
         or handoff_by_id["compiler_implementation_hash"]["value"]
-        != aggregate_sha256
+        != historical_aggregate_sha256
         or handoff_by_id["candidate_rendered_hash"]["sha256"]
         != binding_by_id["candidate"]["declared_sha256"]
     ):
@@ -814,7 +1050,7 @@ def _validate_g5_required_evidence(
         terminal["attempts"]["primary"] != g5["primary_attempt_id"]
         or terminal["attempts"]["replay"] != g5["replay_attempt_id"]
         or terminal["compiler_identity"]["aggregate_sha256"]
-        != aggregate_sha256
+        != historical_aggregate_sha256
         or terminal["phase0_through_phase6_ab"]["candidate_sha256"]
         != binding_by_id["candidate"]["declared_sha256"]
         or terminal["phase0_through_phase6_ab"]["trace_sha256"]
@@ -832,6 +1068,7 @@ def _validate_g5_required_evidence(
         or not expected_constituent_paths.issubset(g4_required_paths)
         or binding_by_id["phase8_handoff"]["path"]
         not in g4_required_paths
+        or transition_binding["path"] not in g4_required_paths
     ):
         raise CleanCheckoutError("invalid G5-to-G4 required path contract")
     missing_g4_paths = sorted(set(g4_required_paths) - tracked)
@@ -847,11 +1084,7 @@ def _validate_g5_required_evidence(
         "binding_rows": sorted(
             binding_rows, key=lambda row: row["binding_id"]
         ),
-        "compiler_identity": {
-            "algorithm_id": compiler["algorithm_id"],
-            "ordered_path_count": len(ordered_files),
-            "aggregate_sha256": aggregate_sha256,
-        },
+        "compiler_identity": compiler_validation,
         "handoff_path_bearing_constituent_count": len(
             path_constituents
         ),
@@ -1919,6 +2152,14 @@ def run_full_repository_gate(
         )
 
     taxonomy = json_at_commit(repo, subject["commit"], TAXONOMY_PATH)
+    required_manifest = json_at_commit(
+        repo, subject["commit"], REQUIRED_MANIFEST_PATH
+    )
+    historical_optional_test_ids = {
+        row["test_id"]
+        for row in required_manifest["applicability_overrides"]
+        ["historical_optional_evidence"]["tests"]
+    }
     selection = contract["required_pytest_selection"]
     current_sources = sorted(
         {
@@ -2282,6 +2523,7 @@ def run_full_repository_gate(
         for row in identity_rows
         if row["source_path"] in current_sources
     }
+    actual_current_ids -= historical_optional_test_ids
     current_identity_set_equal = actual_current_ids == current_ids
     actual_node_ids = {row["node_id"] for row in identity_rows}
     explicit_node_set_equal = (

@@ -2238,6 +2238,50 @@
                           ]
                       },
                       {
+                          "revision_id": "restart_epoch_20260805_47_common_closeout_v1",
+                          "track": "common",
+                          "owner": "repository_owner_user",
+                          "approved": true,
+                          "predecessor_commit": "3f940720c7c9174de2ebf4910760c6384d9ef78d",
+                          "reason": "Seal the authoritative Common closeout receipt and append its immutable checkpoint row before selected-track adoption.",
+                          "approved_activation_deltas": [],
+                          "added_protected_rows": [
+                              {
+                                  "path": "Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json",
+                                  "before_git_blob_id": "0ffdea288fc1ff9e5b11ed1477946b27921bf27f",
+                                  "before_sha256_lf": "c29acd8f2548b93a2161a4dc79592b44ea9797404f2dca1635c37ca2e7576cd4",
+                                  "expected_git_blob_id": "2cc64d9d26d401e10b81304f90864b026d356bd3",
+                                  "after_sha256_lf": "f9a70c2dbe404ee332eea04583a605aed81bff2f2e44d657525b9a676e7cf096",
+                                  "role": "common_track_validation_checkpoint_manifest",
+                                  "writer": "repository_runtime_lightweighting_step14_checkpoint_writer",
+                                  "consumers": [
+                                      "selected_track_validation",
+                                      "terminal_closeout",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Append the authoritative Common closeout subject without rewriting prior checkpoint rows."
+                              },
+                              {
+                                  "path": "Iris/_docs/refactor/repository_runtime_lightweighting/common_closeout_receipt.json",
+                                  "before_git_blob_id": null,
+                                  "before_sha256_lf": null,
+                                  "expected_git_blob_id": "fda3ee60c48e8171726a296d5b176899d30b19e0",
+                                  "after_sha256_lf": "95bba03fcb5212f9e4824c38566e8db6fe0df658559026a023cb36367867d073",
+                                  "role": "common_track_current_required_evidence",
+                                  "writer": "repository_runtime_lightweighting_step14_checkpoint_writer",
+                                  "consumers": [
+                                      "selected_track_decision",
+                                      "selected_track_validation",
+                                      "terminal_closeout",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the authoritative Common closeout receipt before selected-track adoption."
+                              }
+                          ]
+                      },
+                      {
                           "revision_id": "runtime_track_c48_implementation_v1",
                           "track": "runtime",
                           "owner": "repository_owner_user",
@@ -2245,15 +2289,6 @@
                           "predecessor_commit": "7b054e75d63bf829aab0e7ae748816cf85acb7d8",
                           "reason": "Adopt Runtime Changes 5 through 7 under the owner-approved runtime_first c48 claim.",
                           "approved_activation_deltas": [
-                              {
-                                  "path": ".gitignore",
-                                  "before_git_blob_id": "523a524f3e06a88fad0d2c3aa60d60d7ed314a80",
-                                  "before_sha256_lf": "4c3ab60c371d4db252c6848ec11a20e8abfc447d9e33302e22d9d6c19e148272",
-                                  "expected_git_blob_id": "91110375bf29f116a3543af5fd96476603909cdb",
-                                  "after_sha256_lf": "0961cf524fb7426d0bf5974b6defaa8d6dcf799f44f02efe3bf10817a2c5bc6c",
-                                  "owner": "repository_owner_user",
-                                  "reason": "Expose the selected Runtime Track focused tests to the adopted test surface."
-                              },
                               {
                                   "path": "Iris/_docs/round3/current_route_required_validations.json",
                                   "before_git_blob_id": "2bb4521fd810589334c804556fdaa388a0692c9d",
@@ -2284,6 +2319,21 @@
                               }
                           ],
                           "added_protected_rows": [
+                              {
+                                  "path": ".gitignore",
+                                  "before_git_blob_id": "523a524f3e06a88fad0d2c3aa60d60d7ed314a80",
+                                  "before_sha256_lf": "4c3ab60c371d4db252c6848ec11a20e8abfc447d9e33302e22d9d6c19e148272",
+                                  "expected_git_blob_id": "91110375bf29f116a3543af5fd96476603909cdb",
+                                  "after_sha256_lf": "0961cf524fb7426d0bf5974b6defaa8d6dcf799f44f02efe3bf10817a2c5bc6c",
+                                  "role": "repository_tracking_policy",
+                                  "writer": "repository_runtime_lightweighting_runtime_implementation",
+                                  "consumers": [
+                                      "current_route_validation",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Expose the selected Runtime Track focused tests to the adopted test surface."
+                              },
                               {
                                   "path": "Iris/media/lua/client/Iris/API/UseCases.lua",
                                   "before_git_blob_id": "298d91454035e67928b122ac764b6a1d08749a10",
@@ -2531,6 +2581,289 @@
                                   "reason": "Protect the selected Runtime Track implementation and its exact package/runtime identity."
                               }
                           ]
+                      },
+                      {
+                          "revision_id": "runtime_track_c48_adoption_evidence_v1",
+                          "track": "runtime",
+                          "owner": "repository_owner_user",
+                          "approved": true,
+                          "predecessor_commit": "c1e592811aa885ca91fe9a90fd31c1a4f0a6916b",
+                          "reason": "Seal the selected Runtime Track automated adoption checkpoint and its bounded measurement state.",
+                          "approved_activation_deltas": [],
+                          "added_protected_rows": [
+                              {
+                                  "path": "Iris/_docs/refactor/repository_runtime_lightweighting/current_route_coverage_map.json",
+                                  "before_git_blob_id": "717762f60233b72ca09e9fda8962c78aa7902895",
+                                  "before_sha256_lf": "c59eb654d4bbcafe7e1dc4b95ba65a4c3b373fd000246384667ab40d40942b67",
+                                  "expected_git_blob_id": "bff273ea87b5adeffc0bf2ba5632e58432c118b7",
+                                  "after_sha256_lf": "63ae9a4c9f6256c54d4634ab6b51a98fb714ba77a85e5e7d72dfd9b9af201f9d",
+                                  "role": "selected_track_current_route_coverage",
+                                  "writer": "repository_runtime_lightweighting_step17_coverage_canonicalizer",
+                                  "consumers": [
+                                      "selected_track_adoption_receipt",
+                                      "terminal_closeout",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Append exact direct and current-route coverage for the twelve Runtime Track validations."
+                              },
+                              {
+                                  "path": "Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json",
+                                  "before_git_blob_id": "2cc64d9d26d401e10b81304f90864b026d356bd3",
+                                  "before_sha256_lf": "f9a70c2dbe404ee332eea04583a605aed81bff2f2e44d657525b9a676e7cf096",
+                                  "expected_git_blob_id": "80064535de62a5b1f9bbbc87ed08e6b33d915c98",
+                                  "after_sha256_lf": "cbd1f92a712b3ac23f75f6b64a1e40148a33828a9a3056a1b4836c37f8b25101",
+                                  "role": "selected_track_validation_checkpoint_manifest",
+                                  "writer": "repository_runtime_lightweighting_step17_checkpoint_writer",
+                                  "consumers": [
+                                      "terminal_successor_validation",
+                                      "final_closeout",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Append the immutable Runtime selected-track adoption checkpoint without rewriting Common history."
+                              },
+                              {
+                                  "path": "Iris/_docs/refactor/repository_runtime_lightweighting/runtime_benchmark_receipt.json",
+                                  "before_git_blob_id": null,
+                                  "before_sha256_lf": null,
+                                  "expected_git_blob_id": "d388c5e1a95f14c1361943ae070c0ef9c03ed294",
+                                  "after_sha256_lf": "e03f0790357715f6eb9ca0677d671da0a5d1555f7b4965a9daea4c364e775b67",
+                                  "role": "runtime_measurement_evidence",
+                                  "writer": "repository_runtime_lightweighting_step17_benchmark_canonicalizer",
+                                  "consumers": [
+                                      "selected_track_adoption_receipt",
+                                      "step20_manual_runtime_seal",
+                                      "final_closeout",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Record automated Runtime contracts while keeping unavailable Project Zomboid timing evidence explicitly partial."
+                              },
+                              {
+                                  "path": "Iris/_docs/refactor/repository_runtime_lightweighting/selected_track_adoption_receipt.json",
+                                  "before_git_blob_id": null,
+                                  "before_sha256_lf": null,
+                                  "expected_git_blob_id": "8d035a7f1847fbf88061cbb9e77679e4e651b5ef",
+                                  "after_sha256_lf": "20e5c2e3419aa720265d709ec4dfcf2520152c16f05421eda99fd4ab6a6439a2",
+                                  "role": "selected_track_current_required_evidence",
+                                  "writer": "repository_runtime_lightweighting_step17_checkpoint_writer",
+                                  "consumers": [
+                                      "terminal_successor_validation",
+                                      "final_closeout",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the PASS automated Runtime adoption receipt without claiming manual Project Zomboid evidence."
+                              }
+                          ]
+                      },
+                      {
+                          "revision_id": "terminal_successor_c49_step19_v1",
+                          "track": "runtime",
+                          "owner": "repository_owner_user",
+                          "approved": true,
+                          "predecessor_commit": "7f11ec78539f5a658ba358ef7a9c805702e6433f",
+                          "reason": "Seal the terminal successor automated route, diagnostic, package, Lua-syntax, and purity checkpoint before the final deterministic full gate.",
+                          "approved_activation_deltas": [],
+                          "added_protected_rows": [
+                              {
+                                  "path": "Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json",
+                                  "before_git_blob_id": "80064535de62a5b1f9bbbc87ed08e6b33d915c98",
+                                  "before_sha256_lf": "cbd1f92a712b3ac23f75f6b64a1e40148a33828a9a3056a1b4836c37f8b25101",
+                                  "expected_git_blob_id": "27e81037fbe2cf3802f901263b6ed11d9828fa38",
+                                  "after_sha256_lf": "3e7985e7c8d2ac9ad7cd6de643b275f1a2ce614708c5104b236aaa9693eb03a0",
+                                  "role": "terminal_successor_validation_checkpoint_manifest",
+                                  "writer": "repository_runtime_lightweighting_step19_checkpoint_writer",
+                                  "consumers": [
+                                      "final_full_gate",
+                                      "final_closeout",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Append the immutable terminal successor STEP 19 checkpoint without rewriting selected-track or Common history."
+                              },
+                              {
+                                  "path": "Iris/_docs/refactor/repository_runtime_lightweighting/current_route_coverage_map.json",
+                                  "before_git_blob_id": "bff273ea87b5adeffc0bf2ba5632e58432c118b7",
+                                  "before_sha256_lf": "63ae9a4c9f6256c54d4634ab6b51a98fb714ba77a85e5e7d72dfd9b9af201f9d",
+                                  "expected_git_blob_id": "6627d4a1ab2d14bc954bc06d287a4469814640f6",
+                                  "after_sha256_lf": "d3fdf85859b4d3511fdf4ebdfe5d60a6dd88cf03d80b9b2f4d781cf18e693441",
+                                  "role": "terminal_successor_current_route_coverage",
+                                  "writer": "repository_runtime_lightweighting_step19_coverage_canonicalizer",
+                                  "consumers": [
+                                      "terminal_current_route_receipt",
+                                      "final_full_gate",
+                                      "final_closeout",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Finalize all twenty-two coverage rows against the exact c49 terminal current route and its direct package-contract command."
+                              },
+                              {
+                                  "path": "Iris/_docs/refactor/repository_runtime_lightweighting/terminal_current_route_receipt.json",
+                                  "before_git_blob_id": null,
+                                  "before_sha256_lf": null,
+                                  "expected_git_blob_id": "5a39aaa141dfd6c7b1c6d659776d2d88e7d96a84",
+                                  "after_sha256_lf": "0f53c187dfafd1acbdef6fd2f90ab43410d60e4dc71dc6e80f66747c00ad61ec",
+                                  "role": "terminal_successor_current_required_evidence",
+                                  "writer": "repository_runtime_lightweighting_step19_checkpoint_writer",
+                                  "consumers": [
+                                      "final_full_gate",
+                                      "final_closeout",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the PASS terminal automated route, package identity, Lua-syntax, and checkout-purity receipt without claiming unavailable manual runtime evidence."
+                              }
+                          ]
+                      },
+                      {
+                          "revision_id": "terminal_successor_c50_step19_v1",
+                          "track": "runtime",
+                          "owner": "repository_owner_user",
+                          "approved": true,
+                          "predecessor_commit": "c2fc77a5a2a13e40dd02d06eb19685d08125fed3",
+                          "reason": "Reseal the corrected c50 terminal successor automated STEP 19 checkpoint before the final deterministic full gate.",
+                          "approved_activation_deltas": [],
+                          "added_protected_rows": [
+                              {
+                                  "path": "Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json",
+                                  "before_git_blob_id": "27e81037fbe2cf3802f901263b6ed11d9828fa38",
+                                  "before_sha256_lf": "3e7985e7c8d2ac9ad7cd6de643b275f1a2ce614708c5104b236aaa9693eb03a0",
+                                  "expected_git_blob_id": "682d4efb2298abb73684917616ef61bb2a4a65f4",
+                                  "after_sha256_lf": "21841367b38491556922ae06b563804d3ec997b622e1e3afdabaae9a222798e1",
+                                  "role": "terminal_successor_c50_validation_checkpoint_manifest",
+                                  "writer": "repository_runtime_lightweighting_step19_checkpoint_writer",
+                                  "consumers": [
+                                      "final_full_gate",
+                                      "final_closeout",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Append the immutable corrected c50 terminal successor STEP 19 checkpoint without rewriting c49 or earlier history."
+                              },
+                              {
+                                  "path": "Iris/_docs/refactor/repository_runtime_lightweighting/current_route_coverage_map.json",
+                                  "before_git_blob_id": "6627d4a1ab2d14bc954bc06d287a4469814640f6",
+                                  "before_sha256_lf": "d3fdf85859b4d3511fdf4ebdfe5d60a6dd88cf03d80b9b2f4d781cf18e693441",
+                                  "expected_git_blob_id": "41f39da372b6ab72174c5fb7385a8e2356bcdac5",
+                                  "after_sha256_lf": "e5caa97c64da8718b325ec8afd26896b6dd708b3b82e3b90a31b9fd639eff93e",
+                                  "role": "terminal_successor_c50_current_route_coverage",
+                                  "writer": "repository_runtime_lightweighting_step19_coverage_canonicalizer",
+                                  "consumers": [
+                                      "terminal_current_route_receipt",
+                                      "final_full_gate",
+                                      "final_closeout",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Finalize all twenty-two coverage rows against the exact c50 terminal current route and its direct package-contract command."
+                              },
+                              {
+                                  "path": "Iris/_docs/refactor/repository_runtime_lightweighting/terminal_current_route_receipt.json",
+                                  "before_git_blob_id": "5a39aaa141dfd6c7b1c6d659776d2d88e7d96a84",
+                                  "before_sha256_lf": "0f53c187dfafd1acbdef6fd2f90ab43410d60e4dc71dc6e80f66747c00ad61ec",
+                                  "expected_git_blob_id": "c60e306d7ff128ac5b1de564bafb80769c6e80ea",
+                                  "after_sha256_lf": "3758083d8a4a06e2357d149f952e0cd328fcf2aed2d586a1cebf7461ecc64090",
+                                  "role": "terminal_successor_c50_current_required_evidence",
+                                  "writer": "repository_runtime_lightweighting_step19_checkpoint_writer",
+                                  "consumers": [
+                                      "final_full_gate",
+                                      "final_closeout",
+                                      "repository_maintainers"
+                                  ],
+                                  "owner": "repository_owner_user",
+                                  "reason": "Protect the PASS corrected c50 terminal automated route, package identity, Lua-syntax, and checkout-purity receipt without claiming unavailable manual runtime evidence."
+                              }
+                          ]
+                      },
+                      {
+                        "revision_id": "common_c51_full_gate_identity_successor_v1",
+                        "track": "common",
+                        "owner": "repository_owner_user",
+                        "approved": true,
+                        "predecessor_commit": "c2fc77a5a2a13e40dd02d06eb19685d08125fed3",
+                        "reason": "Separate the immutable historical G5 compiler attestation from the current compiler identity before restarting the final full gate.",
+                        "approved_activation_deltas": [],
+                        "added_protected_rows": [
+                          {
+                            "path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py",
+                            "before_git_blob_id": "9793c538a922ff5bbbcf10ba2e923c6cfd9a5600",
+                            "before_sha256_lf": "a83108416d92c9ccda4384865e279f92cbe29f843dfee2788f6f9bc579af109c",
+                            "expected_git_blob_id": "c19747967febfb645da656857c46c8e505c6f0b1",
+                            "after_sha256_lf": "e3a06404a7915a346f961c701d1debfa21586134ce22372781ba8afd80ac4554",
+                            "role": "common_track_test_contract",
+                            "writer": "g5_compiler_identity_successor_bridge",
+                            "consumers": [
+                              "final_full_gate",
+                              "final_closeout",
+                              "repository_maintainers"
+                            ],
+                            "owner": "repository_owner_user",
+                            "reason": "Protect the fail-closed historical/current G5 identity split and tamper regression at exact byte identity."
+                          }
+                        ]
+                      },
+                      {
+                        "revision_id": "terminal_successor_c52_step19_v1",
+                        "track": "runtime",
+                        "owner": "repository_owner_user",
+                        "approved": true,
+    "predecessor_commit": "ce49b4afb10910813ec8b43dd4f4549c18409566",
+                        "reason": "Seal the c52 terminal successor automated STEP 19 checkpoint before the final deterministic full gate.",
+                        "approved_activation_deltas": [],
+                        "added_protected_rows": [
+                          {
+                            "path": "Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json",
+                            "before_git_blob_id": "682d4efb2298abb73684917616ef61bb2a4a65f4",
+                            "before_sha256_lf": "21841367b38491556922ae06b563804d3ec997b622e1e3afdabaae9a222798e1",
+                            "expected_git_blob_id": "1f1087ec3a49e1e34c365bddcec92bae8a97bd49",
+                            "after_sha256_lf": "8e33dc1d92143e8c7f5da0fc1bb77953df4b67fd8e6bdca07484b1d36e624a91",
+                            "role": "terminal_successor_c52_validation_checkpoint_manifest",
+                            "writer": "repository_runtime_lightweighting_step19_checkpoint_writer",
+                            "consumers": [
+                              "final_full_gate",
+                              "final_closeout",
+                              "repository_maintainers"
+                            ],
+                            "owner": "repository_owner_user",
+                            "reason": "Append the immutable c52 terminal successor STEP 19 checkpoint without rewriting c50 or earlier history."
+                          },
+                          {
+                            "path": "Iris/_docs/refactor/repository_runtime_lightweighting/current_route_coverage_map.json",
+                            "before_git_blob_id": "41f39da372b6ab72174c5fb7385a8e2356bcdac5",
+                            "before_sha256_lf": "e5caa97c64da8718b325ec8afd26896b6dd708b3b82e3b90a31b9fd639eff93e",
+                            "expected_git_blob_id": "5d97454f772a70bbc0d736249db05a4d55ad1fe7",
+                            "after_sha256_lf": "1bba7e43d69cfce868936d3801795e2f2a38160bc2f65e385d87a1e672b4eb0b",
+                            "role": "terminal_successor_c52_current_route_coverage",
+                            "writer": "repository_runtime_lightweighting_step19_coverage_canonicalizer",
+                            "consumers": [
+                              "terminal_current_route_receipt",
+                              "final_full_gate",
+                              "final_closeout",
+                              "repository_maintainers"
+                            ],
+                            "owner": "repository_owner_user",
+                            "reason": "Finalize all twenty-two coverage rows against the exact c52 terminal current route and its direct package-contract command."
+                          },
+                          {
+                            "path": "Iris/_docs/refactor/repository_runtime_lightweighting/terminal_current_route_receipt.json",
+                            "before_git_blob_id": "c60e306d7ff128ac5b1de564bafb80769c6e80ea",
+                            "before_sha256_lf": "3758083d8a4a06e2357d149f952e0cd328fcf2aed2d586a1cebf7461ecc64090",
+                            "expected_git_blob_id": "786910f26b2b0c62405f5b1b721de7f7abc83784",
+                            "after_sha256_lf": "cddbc6a1b6780e345717ab36c299532ed9e8a7a31c3cc62c0a9481d0fa759fed",
+                            "role": "terminal_successor_c52_current_required_evidence",
+                            "writer": "repository_runtime_lightweighting_step19_checkpoint_writer",
+                            "consumers": [
+                              "final_full_gate",
+                              "final_closeout",
+                              "repository_maintainers"
+                            ],
+                            "owner": "repository_owner_user",
+                            "reason": "Protect the PASS c52 terminal automated route, package identity, Lua-syntax, and checkout-purity receipt without claiming unavailable manual runtime evidence."
+                          }
+                        ]
                       }
                   ]
 }

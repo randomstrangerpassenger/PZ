@@ -1,0 +1,275 @@
+{
+  "schema_version": "iris_repository_runtime_lightweighting_terminal_current_route_receipt_v1",
+  "receipt_kind": "terminal_current_route",
+  "checkpoint_id": "terminal_successor",
+  "status": "PASS",
+  "validated_at": "2026-08-09T14:10:11.8216811+00:00",
+  "validated_subject": {
+    "subject_kind": "terminal_successor_validation_subject",
+    "claim_id": "c52",
+    "repository_root": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18",
+    "commit": "1d68f80398efd47fa2d01e7fe26290ca71e72f61",
+    "tree": "2da9132dfd5d4a236755d47263d4a3782bf0748e",
+    "subject_receipt_path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/terminal_successor_validation_subject_receipt.json",
+    "subject_receipt_sha256": "df0bc6e26a5b9ae35796a0d890ea374268a0b4a52d3d97ce7d3ee4d79147fbff"
+  },
+  "validated_subject_commit": "1d68f80398efd47fa2d01e7fe26290ca71e72f61",
+  "validated_subject_tree": "2da9132dfd5d4a236755d47263d4a3782bf0748e",
+  "authority_scope": "terminal_successor_automated_routes_package_and_purity",
+  "selected_track_adoption_receipt": {
+    "path": "Iris/_docs/refactor/repository_runtime_lightweighting/selected_track_adoption_receipt.json",
+    "sha256": "20e5c2e3419aa720265d709ec4dfcf2520152c16f05421eda99fd4ab6a6439a2",
+    "selected_track": "runtime",
+    "status": "PASS"
+  },
+  "environment_receipt": {
+    "path": "C:/Users/MW/iccv/receipts/env-v1/environment_receipt.json",
+    "sha256": "fb5dd78e15c41346f15b39065c60c2ce4d83254d73bbde3d3181d327b30b6bc2"
+  },
+  "environment_authority": {
+    "path": "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json",
+    "sha256": "1bc7076459f72dbfa733e0101d77e9eb0b73c0f01e88ac54bc326c8ad2f67138"
+  },
+  "environment_deltas": {
+    "standard": {
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/environment_delta.terminal.json",
+      "sha256": "a068f96267fa2f737cb9186b00419283a6648de40ba2d480feecd088a96c6803"
+    },
+    "historical_overlay": {
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/environment_delta.historical.json",
+      "sha256": "237faf056c6785a2c921d2c8b7a49914bc0a44341d156a3e02c8f85d555361dd",
+      "public_root_kind": "external_writable_long_path"
+    }
+  },
+  "taxonomy": {
+    "path": "Iris/_docs/round3/round3_test_taxonomy.json",
+    "sha256": "25c4570a82c3132118b84a7ab07b80f1b196595c437056ae87489fb8bec2745f"
+  },
+  "required_validations": {
+    "path": "Iris/_docs/round3/current_route_required_validations.json",
+    "sha256": "c8a66a0dcb32b2745b810c2658b93baa2ead05426be80c51e47e131ceb48b369"
+  },
+  "active_core_closure": {
+    "path": "Iris/_docs/round3/round3_active_core_closure.json",
+    "sha256": "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf"
+  },
+  "current_route_coverage_map": {
+    "path": "Iris/_docs/refactor/repository_runtime_lightweighting/current_route_coverage_map.json",
+    "sha256": "1bba7e43d69cfce868936d3801795e2f2a38160bc2f65e385d87a1e672b4eb0b",
+    "row_count": 22,
+    "runtime_row_count": 12,
+    "direct_package_contract_row_count": 7,
+    "current_route_only_row_count": 15
+  },
+  "runtime_benchmark_receipt": {
+    "path": "Iris/_docs/refactor/repository_runtime_lightweighting/runtime_benchmark_receipt.json",
+    "sha256": "e03f0790357715f6eb9ca0677d671da0a5d1555f7b4965a9daea4c364e775b67",
+    "status": "PARTIAL",
+    "performance_claim_authorized": false
+  },
+  "output_isolation_audit": {
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/a52/current_route_output_isolation_audit_receipt.json",
+    "sha256": "74f50237b887db39c5b17bacbe1100eb304e4878fa734ce9e5e199facc8b425b",
+    "status": "PASS",
+    "subject_commit": "1d68f80398efd47fa2d01e7fe26290ca71e72f61",
+    "subject_tree": "2da9132dfd5d4a236755d47263d4a3782bf0748e",
+    "selected_test_count": 123,
+    "dynamic_write_site_count": 546,
+    "checkout_unchanged": true,
+    "tracked_delta_count": 0,
+    "untracked_delta_count": 0,
+    "ignored_delta_count": 0,
+    "unreadable_count": 0
+  },
+  "output_isolation_verification_receipt": {
+    "command_id": "004-verify-current-route-output-isolation",
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/command-receipts/004-verify-current-route-output-isolation.json",
+    "sha256": "6eb4efd9fea79bc9f465a235d5db124a0104bbcd4e535df748545251cf8d7a86"
+  },
+  "current_route_result": {
+    "command_id": "005-terminal-current-route",
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/terminal-run-a-c52-99e2bdecbae94176b90df2c5cc8d2244-de30129971b8/current-result/current_route.json",
+    "sha256": "370f7d370a59cdbdded40b24453770d61e6a3cb67737a65ad7d17d1a9f9f8c34",
+    "contract_class": "current",
+    "closure_enforced": true,
+    "test_count": 202,
+    "failure_count": 0,
+    "error_count": 0,
+    "skipped_count": 0,
+    "success": true
+  },
+  "historical_route_result": {
+    "command_id": "006-terminal-historical-route",
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/terminal-run-a-c52-99e2bdecbae94176b90df2c5cc8d2244-de30129971b8/historical-result/historical_route.json",
+    "sha256": "f996dc1c2667fdba4c911678f9bf6f20f78d190a58cecf19f266e9130237009e",
+    "contract_class": "historical",
+    "closure_enforced": false,
+    "test_count": 285,
+    "failure_count": 0,
+    "error_count": 0,
+    "skipped_count": 0,
+    "historical_reproduction_status": "materialized",
+    "historical_reproduction_row_count": 2409,
+    "success": true
+  },
+  "diagnostic_result": {
+    "command_id": "007-terminal-diagnostic",
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/terminal-run-a-c52-99e2bdecbae94176b90df2c5cc8d2244-de30129971b8/diagnostic-disposition-result/diagnostic_disposition.json",
+    "sha256": "5ec6b91c2173512ccf8757b686dcf219d36a30d7acf8c431ec851b87604e498a",
+    "raw_report_path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/terminal-run-a-c52-99e2bdecbae94176b90df2c5cc8d2244-de30129971b8/diagnostic-raw-result/diagnostic_raw.json",
+    "raw_report_sha256": "65101ff3692a494bc2d161d51e11a750c2912ca7e0584777954cb7e269736075",
+    "execution_status": "passed",
+    "finding_status": "advisory_failed",
+    "raw_exit_code": 1,
+    "raw_report_schema_valid": true,
+    "blocking": false,
+    "validation_status": "passed",
+    "disposition_count": 21,
+    "matched_test_count": 21,
+    "unmatched_test_ids": [],
+    "stale_disposition_test_ids": []
+  },
+  "package_result": {
+    "command_id": "008-terminal-package",
+    "package_applicability": "current_runtime_payload",
+    "zip": {
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/terminal-run-a-c52-99e2bdecbae94176b90df2c5cc8d2244-de30129971b8/package-result/Iris.zip",
+      "sha256": "8b338fb58cf4108b5f1917ff69ee977159033717e80194f69e67eb71a759039b",
+      "size_bytes": 279601
+    },
+    "package_manifest": {
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/terminal-run-a-c52-99e2bdecbae94176b90df2c5cc8d2244-de30129971b8/package-result/Iris.package_manifest.sha256.json",
+      "sha256": "d881ebc7550e32f70067878becd849c624245d96218ddbfed9852c2e83c7f4e4",
+      "file_count": 109,
+      "applicability_status": "PASS"
+    },
+    "runtime_payload_identity": {
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/terminal-run-a-c52-99e2bdecbae94176b90df2c5cc8d2244-de30129971b8/package-result/runtime_payload_package_identity.json",
+      "sha256": "92cf048629b86767f38dd55d1d24ad2a72d1f32fa7a9e7df2fe817218bad646a",
+      "status": "PASS",
+      "generation_descriptor_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051",
+      "live_rendered_sha256": "c0eb2383cdd66d9390e2641569dea0817556cd3359a4f539f999b337fd30f86b",
+      "live_manifest_sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c",
+      "bidirectional_file_set_equal": true,
+      "hash_mismatch_count": 0,
+      "forbidden_file_count": 0
+    }
+  },
+  "package_contract_receipt": {
+    "command_id": "009-terminal-package-contract",
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/command-receipts/009-terminal-package-contract.json",
+    "sha256": "b671b29ccd2f6304baeabb35454598684618caad1d70158d718976f4d7c0b43a"
+  },
+  "lua_syntax_receipt": {
+    "command_id": "010-terminal-lua-syntax",
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/command-receipts/010-terminal-lua-syntax.json",
+    "sha256": "581ba349e7516a41b694af2ca811c4d2920dc4fe6586e0070088883d84012ad0"
+  },
+  "command_specs": [
+    {
+      "command_id": "003-git-status-terminal-before",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/command-receipts/003-git-status-terminal-before.command.json",
+      "sha256": "6c4958947d30b5680983dc1de243f1e892339790396b693326e6f546f2620019"
+    },
+    {
+      "command_id": "004-verify-current-route-output-isolation",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/command-receipts/004-verify-current-route-output-isolation.command.json",
+      "sha256": "ac37713dc950d1268e5e6bc05333b12288e06c76eab5b8cac20e5a13d426df9c"
+    },
+    {
+      "command_id": "005-terminal-current-route",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/command-receipts/005-terminal-current-route.command.json",
+      "sha256": "19e2e68e78dd5cb36819ed0a81c08ce4103358ee7ed2044c38e1249ed9893c0f"
+    },
+    {
+      "command_id": "006-terminal-historical-route",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/command-receipts/006-terminal-historical-route.command.json",
+      "sha256": "708ca0875d6a518d3f4a2eac422b8d81f392af5866a40debd4a41fc36ff59eac"
+    },
+    {
+      "command_id": "007-terminal-diagnostic",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/command-receipts/007-terminal-diagnostic.command.json",
+      "sha256": "36091aadd6b31f2fe2577cab77161a7511d1efa763e773f0b97b484df28751ba"
+    },
+    {
+      "command_id": "008-terminal-package",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/command-receipts/008-terminal-package.command.json",
+      "sha256": "4694c61e2938780656b2e974d3ecf56a8a4b06287db599d8609b4bfb6a3f448f"
+    },
+    {
+      "command_id": "009-terminal-package-contract",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/command-receipts/009-terminal-package-contract.command.json",
+      "sha256": "415c1b7086d0ec5469baadec83a5ac2bb913fb692ea855bc173b471a6dc5e34c"
+    },
+    {
+      "command_id": "010-terminal-lua-syntax",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/command-receipts/010-terminal-lua-syntax.command.json",
+      "sha256": "79139516a141ea47f03c492820f97f419f4defaa7692869919abe03263d0aa4f"
+    },
+    {
+      "command_id": "011-git-status-terminal-after-routes",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/command-receipts/011-git-status-terminal-after-routes.command.json",
+      "sha256": "75c72dff61d8bf866299955ffb0754b2a32ab2978c3909e0a8f5a7df19e70d76"
+    }
+  ],
+  "command_spec_set_sha256": "1f3923ec964c9a40ff0956674e9a535da2ea1e56f8e35d88e721fcab3ab37665",
+  "command_receipts": [
+    {
+      "command_id": "003-git-status-terminal-before",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/command-receipts/003-git-status-terminal-before.json",
+      "sha256": "227e1e8bc2c7b849d6794c594a1d6241160509edfcc87675832c7cbb2d3f0245"
+    },
+    {
+      "command_id": "004-verify-current-route-output-isolation",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/command-receipts/004-verify-current-route-output-isolation.json",
+      "sha256": "6eb4efd9fea79bc9f465a235d5db124a0104bbcd4e535df748545251cf8d7a86"
+    },
+    {
+      "command_id": "005-terminal-current-route",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/command-receipts/005-terminal-current-route.json",
+      "sha256": "af18245768cd3574f7c991fac6be735b5a1b649bd3841e0e8050a033c3683f90"
+    },
+    {
+      "command_id": "006-terminal-historical-route",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/command-receipts/006-terminal-historical-route.json",
+      "sha256": "a15dadb56e03d44baab93b6d7edb0d63e4b31a76d0c74d19cbd40eed1fcf23b8"
+    },
+    {
+      "command_id": "007-terminal-diagnostic",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/command-receipts/007-terminal-diagnostic.json",
+      "sha256": "4bf01cb2f648cf04e429770929b3ed2b212268d009ef3baf9a592d2fe87006b4"
+    },
+    {
+      "command_id": "008-terminal-package",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/command-receipts/008-terminal-package.json",
+      "sha256": "a268b50156acbb333242d44a8429e17f82339233ad7cc349d77f81edc268dc09"
+    },
+    {
+      "command_id": "009-terminal-package-contract",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/command-receipts/009-terminal-package-contract.json",
+      "sha256": "b671b29ccd2f6304baeabb35454598684618caad1d70158d718976f4d7c0b43a"
+    },
+    {
+      "command_id": "010-terminal-lua-syntax",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/command-receipts/010-terminal-lua-syntax.json",
+      "sha256": "581ba349e7516a41b694af2ca811c4d2920dc4fe6586e0070088883d84012ad0"
+    },
+    {
+      "command_id": "011-git-status-terminal-after-routes",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q18r-c52/command-receipts/011-git-status-terminal-after-routes.json",
+      "sha256": "9ae9563c7d33527d00a1fbfda27ab13b02e37d0cc557ebdd62b6928a85ac20a5"
+    }
+  ],
+  "command_receipt_set_sha256": "7ed99214be4b9e12a77ceee08e72d3918752a97b208c1d5e0af00d2d90743303",
+  "checkout_clean_before": true,
+  "checkout_clean_after": true,
+  "working_tree_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "terminal_routes_package_and_purity_complete": true,
+  "manual_runtime_validation_complete": false,
+  "non_claims": [
+    "This STEP 19 receipt proves the c52 terminal automated current, historical, diagnostic, package, package-contract, Lua-syntax, and checkout-purity axes only.",
+    "Project Zomboid manual runtime behavior and human-visible Browser, Wiki, Tooltip, localization, and log evidence remain unsealed.",
+    "The PARTIAL runtime benchmark receipt does not authorize a performance improvement claim.",
+    "No release, Workshop, multiplayer, external-mod sweep, or long-session stability claim is made."
+  ]
+}

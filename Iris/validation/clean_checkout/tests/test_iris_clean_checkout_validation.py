@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import hashlib
 import json
 import os
@@ -31,6 +32,7 @@ from Iris.validation.clean_checkout.run_iris_clean_checkout_validation import (
     _ignored_status_snapshot,
     _normalized_test_id,
     _safe_checkout_target,
+    _validate_g5_compiler_identity_transition,
     _validate_explicit_required_dependencies,
     _validate_explicit_current_required_classifications,
     _validate_explicit_tool_dispositions,
@@ -1418,6 +1420,85 @@ def test_full_source_policy_classifies_only_declared_fallback(
     assert historical["authority_class"] == "historical_optional_evidence"
     with pytest.raises(CleanCheckoutError, match="unclassified"):
         _classify_full_test_source("Iris/test/test_unknown.py", {})
+
+
+def test_g5_compiler_identity_successor_separates_historical_and_current() -> None:
+    repository_root = Path(__file__).resolve().parents[4]
+    contract_path = (
+        repository_root
+        / "Iris/validation/clean_checkout/contracts/full_repository_gate.json"
+    )
+    contract = json.loads(contract_path.read_text(encoding="utf-8"))
+    compiler = contract["g5_required_evidence"]["compiler_identity"]
+    transition_binding = compiler["successor_transition"]
+    subject_commit = _git(repository_root, "rev-parse", "HEAD")
+    transition_raw = _git_bytes(
+        repository_root,
+        "show",
+        f"{subject_commit}:{transition_binding['path']}",
+    )
+    transition = json.loads(transition_raw)
+    assert hashlib.sha256(transition_raw).hexdigest() == transition_binding[
+        "git_blob_raw_sha256"
+    ]
+    assert transition_binding["path"] in contract["g5_required_evidence"][
+        "g4_required_paths"
+    ]
+    validated = _validate_g5_compiler_identity_transition(
+        repository_root,
+        subject_commit,
+        compiler,
+        transition,
+    )
+    assert validated == {
+        "algorithm_id": (
+            "naturalization_compiler_identity_sha256_lf_normalized_"
+            "ordered_paths_v2"
+        ),
+        "ordered_path_count": 9,
+        "historical_attested_aggregate_sha256": (
+            "2dcff095b1cc34c8fb6d3ad735ac8f9d0ca2affe259f6bb97870b19e7235cc7f"
+        ),
+        "current_aggregate_sha256": (
+            "71d81ad1cc8ba5bae2f927436ae6de3b952537dcbe7d3650e5903e71fefc7fea"
+        ),
+        "changed_constituent_count": 4,
+        "unchanged_constituent_count": 5,
+    }
+
+    tampered_compiler = copy.deepcopy(compiler)
+    tampered_compiler["current_aggregate_sha256"] = "0" * 64
+    with pytest.raises(
+        CleanCheckoutError, match="contract aggregate split mismatch"
+    ):
+        _validate_g5_compiler_identity_transition(
+            repository_root,
+            subject_commit,
+            tampered_compiler,
+            transition,
+        )
+
+    tampered_changed = copy.deepcopy(transition)
+    tampered_changed["changed_rows"][0]["current_sha256_lf"] = "0" * 64
+    with pytest.raises(CleanCheckoutError, match="derived changed-row mismatch"):
+        _validate_g5_compiler_identity_transition(
+            repository_root,
+            subject_commit,
+            compiler,
+            tampered_changed,
+        )
+
+    tampered_provenance = copy.deepcopy(transition)
+    tampered_provenance["changed_rows"][0]["current_last_writer_tree"] = (
+        "0" * 40
+    )
+    with pytest.raises(CleanCheckoutError, match="derived changed-row mismatch"):
+        _validate_g5_compiler_identity_transition(
+            repository_root,
+            subject_commit,
+            compiler,
+            tampered_provenance,
+        )
 
 
 def test_ignored_status_snapshot_excludes_nonignored_rows(

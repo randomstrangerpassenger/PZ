@@ -499,6 +499,173 @@
           "reason": "Bind both v1 byte streams, all v2 artifacts, parity counts, checkout contract, and no-change inventory disposition."
         }
       ]
+    },
+    {
+      "revision_id": "repository_evidence_lightweighting_changes3_7_closeout_v1",
+      "track": "repository_evidence_lightweighting",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "85914363f5a1cab81023cde090446339af9b70a1",
+      "protection_predecessor_tree": "4bd1353a049adf1d0ab0b6c4768c20a13afebcb7",
+      "reason": "Adopt the bounded CAS, 2105 resolver, cold archive, runtime eager-load successor, compatibility deferral, and closeout evidence without requiring pruned historical Git objects.",
+      "approved_activation_deltas": [
+        {
+          "path": "Iris/_docs/round3/round3_test_taxonomy.json",
+          "predecessor_sha256": "b7706d03f2372881592669f115a52cdac811df61d53dc09f162a458a77c2cac2",
+          "before_git_blob_id": "6d2b2b06aaeabe662996aabfb739c50cd41e2de9",
+          "before_sha256_lf": "87c83ed39ad8a2bf6739ef226a478f5a883a485a7044198e1a93ab5f6ec72673",
+          "expected_git_blob_id": "6b8ef1e93a0b9769c6bfcf5ab072c2e36d6b581c",
+          "after_sha256_lf": "175b0a08d60af648501d4c15e69b81b77b5d285d85fb86447011fa4c763a8ccf",
+          "owner": "repository_owner_user",
+          "reason": "Correct the stale four-test diagnostic and bind the seven-module runtime successor order."
+        }
+      ],
+      "added_protected_rows": [
+        {
+          "path": ".gitattributes",
+          "before_git_blob_id": "ebb99c6207444e41537b857f61fd9cd0cbbdad4c",
+          "before_sha256_lf": "c543b26d266b7859d08f3209e1d77558ce4c9fbde041f506e9802789f947d77d",
+          "expected_git_blob_id": "6918a0ee47333c59e1c61cf1a13f29d6c8aa5db9",
+          "after_sha256_lf": "383a48d41f1abc22d6dc096122d7832222372750cadaa7607ea6e9a5a8edb11c",
+          "role": "checkout_identity_contract",
+          "writer": "repository_evidence_lightweighting_changes3_7",
+          "consumers": ["cas_restore", "cold_archive", "runtime_validation"],
+          "owner": "repository_owner_user",
+          "reason": "Give CAS, cold archive, closeout, runtime, and diagnostic successor files stable checkout identities."
+        },
+        {
+          "path": ".gitignore",
+          "before_git_blob_id": "03ccc6b1cb9de0ba1f600f18eeee45329b02ebc1",
+          "before_sha256_lf": "21e5767ae5b4c78c9752097a016013f44aa969c11ce904ea56d74e6da6b1d567",
+          "expected_git_blob_id": "0a968dd0bd123c25a521d15246efd4a612573c89",
+          "after_sha256_lf": "a4e8c9176c94a6ece679f0b406703ae9bd8ea5dc4200a828cb7daededf93606a",
+          "role": "repository_tracking_policy",
+          "writer": "repository_evidence_lightweighting_changes3_7",
+          "consumers": ["diagnostic_route", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Track the corrected runtime diagnostic through the existing default-deny tests rule."
+        },
+        {
+          "path": "Iris/validation/residual_refactor/report_artifact_lifecycle.py",
+          "before_git_blob_id": "00714fc38dcb805dfcdee3fbc3c65aa5a3aa5150",
+          "before_sha256_lf": "eb7e8034307a46c471dfa1e9692619d1c5ae80a2e36cf21f904fb36d5bacb238",
+          "expected_git_blob_id": "a98fd8d2549bc2764f6bc77b8a5cfaa82c985449",
+          "after_sha256_lf": "d7312b29b74d52c7b9c48f570ea3314fe6a4a642df0755e3b3338bcbc36fc7c5",
+          "role": "lifecycle_manifest_writer",
+          "writer": "repository_evidence_lightweighting_changes3_7",
+          "consumers": ["lifecycle_inventory", "tracking_transition"],
+          "owner": "repository_owner_user",
+          "reason": "Approve plan-scoped CAS/reference evidence additions and the canonical 2105 pair removal."
+        },
+        {
+          "path": "Iris/validation/residual_refactor/migrate_repository_evidence.py",
+          "before_git_blob_id": "462a9b022774538732a43a66944b7c94f9f69edf",
+          "before_sha256_lf": "423cb3955553293e6a31713dc70f6822a393fded0cb0c30ca10f7943218b95b4",
+          "expected_git_blob_id": "7695d20ff5d96b31aaeebb45e47e91a0e43db8f3",
+          "after_sha256_lf": "6187b7497c1a8711e6fa63fb9b5c42a0904abcd96e8315a5cac5856f77868fbc",
+          "role": "cas_and_cold_archive_migrator",
+          "writer": "repository_evidence_lightweighting_changes3_7",
+          "consumers": ["cas_promotion", "cas_restore", "cold_archive_restore"],
+          "owner": "repository_owner_user",
+          "reason": "Own create-new CAS and deterministic external cold archive migration operations."
+        },
+        {
+          "path": "Iris/build/description/v2/tools/build/_dvf_3_3_vnext_common.py",
+          "before_git_blob_id": "6ca7c0ec7189a3ca8abb84d231bd6eeeb88948ce",
+          "before_sha256_lf": "877374a504040060858133491c51598f8875f4bc593bec1428222b199a3765b9",
+          "expected_git_blob_id": "6f5bef38fd36d6e942df3fe4da6da6e863b91264",
+          "after_sha256_lf": "ec5fbe60708c79eccc277f4d39b10cc6f286297c6328518f22a5c824a90a4afb",
+          "role": "current_input_cas_resolver",
+          "writer": "repository_evidence_lightweighting_change4",
+          "consumers": ["dvf_vnext_current_tools"],
+          "owner": "repository_owner_user",
+          "reason": "Resolve the removed 2105 duplicate pair through one verified object while preserving logical paths."
+        },
+        {
+          "path": "Iris/media/lua/client/Iris/IrisMain.lua",
+          "before_git_blob_id": "31bf54517457003303ebc9a600c82eb3ea4aa8f0",
+          "before_sha256_lf": "be44fbc168db462653dc582f4470fe75a6464fa73785d41532b0b2f77152ae2c",
+          "expected_git_blob_id": "0dd88ab5827b3a59d6c8c76ea4cb6ce8dd8800e3",
+          "after_sha256_lf": "b723eef9be570566a677bba6915db29dfc334de9d67ec56b9a3769947e4ec4ca",
+          "role": "runtime_boot_module_registry",
+          "writer": "repository_evidence_lightweighting_change6",
+          "consumers": ["project_zomboid_boot", "runtime_diagnostic"],
+          "owner": "repository_owner_user",
+          "reason": "Remove four static data modules from boot while preserving the seven required runtime registrations."
+        },
+        {
+          "path": "Iris/media/lua/client/Iris/API/StaticData.lua",
+          "before_git_blob_id": "c5d856764591ff284e99f4f8f119f8fd1fed3273",
+          "before_sha256_lf": "b3bd2eb4aa5c67d4c005853661ab2f0916631cf73703eaafbf15ef64678cb530",
+          "expected_git_blob_id": "e2518fb0b32ab7330977faf15db4d69338c461b7",
+          "after_sha256_lf": "dae37f20f88f39c294f1126f9c056a11d29dc9e00e648d8588725ca451876985",
+          "role": "runtime_static_data_first_use_cache",
+          "writer": "repository_evidence_lightweighting_change6",
+          "consumers": ["IrisAPI.Tags", "IrisAPI.Index"],
+          "owner": "repository_owner_user",
+          "reason": "Preserve session-stable failure caching while making every first-use static load failure visible once."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_phase5_iris_main_function_specs_contract.py",
+          "before_git_blob_id": null,
+          "before_sha256_lf": null,
+          "expected_git_blob_id": "f658cf910a249b09bfeaae7e542c8d1bfb770280",
+          "after_sha256_lf": "f36ad7cceb5a92ad5f48e3f7038245d8bdf89c097374e222a81353602c389e60",
+          "role": "runtime_successor_diagnostic",
+          "writer": "repository_evidence_lightweighting_change6",
+          "consumers": ["diagnostic_route"],
+          "owner": "repository_owner_user",
+          "reason": "Replace the stale browser helper expectation with the exact seven-module boot successor contract."
+        },
+        {
+          "path": "Iris/_docs/refactor/repository_evidence_lightweighting/cas_migration_successor.json",
+          "before_git_blob_id": null,
+          "before_sha256_lf": null,
+          "expected_git_blob_id": "ffe6dcee1ede62ef044f77687051802a0cb86815",
+          "after_sha256_lf": "794f38787ca828805011520586ab63b65fb3443953e59960d4aa50e40ec2fd3a",
+          "role": "cas_migration_successor",
+          "writer": "repository_evidence_lightweighting_changes3_4",
+          "consumers": ["repository_maintainers", "closeout"],
+          "owner": "repository_owner_user",
+          "reason": "Record adopted CAS transactions and the bounded Change 4 deferral."
+        },
+        {
+          "path": "Iris/_docs/refactor/repository_evidence_lightweighting/cold_archive/archive_manifest.json",
+          "before_git_blob_id": null,
+          "before_sha256_lf": null,
+          "expected_git_blob_id": "1f4a64faa10ed5434e12a584182da90b2f452d74",
+          "after_sha256_lf": "41e97954b6cc5c4a2b00b28873846be844055a2e83100bc5139f2b640f31116c",
+          "role": "cold_archive_manifest",
+          "writer": "repository_evidence_lightweighting_change5",
+          "consumers": ["cold_archive_verify", "cold_archive_restore"],
+          "owner": "repository_owner_user",
+          "reason": "Bind the external archive without recording its machine-specific absolute path."
+        },
+        {
+          "path": "Iris/_docs/refactor/repository_evidence_lightweighting/closeout/closeout_receipt.json",
+          "before_git_blob_id": null,
+          "before_sha256_lf": null,
+          "expected_git_blob_id": "f6dd0551a976a4078c8152984e43b31e0995567c",
+          "after_sha256_lf": "72b2f374d6a7f795b14f278dcceaca66ac3f14dcc262dcd9aae171558f78b0d3",
+          "role": "bounded_closeout_receipt",
+          "writer": "repository_evidence_lightweighting_change7",
+          "consumers": ["repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Keep Change 4 and unmeasured Project Zomboid runtime evidence explicitly partial."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+          "before_git_blob_id": "7ef85af829973ffea568b680bde54d407847a979",
+          "before_sha256_lf": "3b989e1c5379fcaa63ad7fcf73d26877f8a941dd309e07044a25f34ef1a1e944",
+          "expected_git_blob_id": "982b988def3c9ee5f9c1dbdb366b95dd908188d5",
+          "after_sha256_lf": "563b3ae0744fadcf52e08689f8d489e2d5bfe4e1b514d7fe8757c43beb1806a8",
+          "role": "protected_surface_current_required_test",
+          "writer": "repository_evidence_lightweighting_changes3_7",
+          "consumers": ["current_route_validation", "residual_closeout"],
+          "owner": "repository_owner_user",
+          "reason": "Require the bounded Changes 3-7 protection successor revision."
+        }
+      ]
     }
   ]
 }

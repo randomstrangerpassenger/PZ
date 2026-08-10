@@ -193,7 +193,13 @@ package.preload["Iris/Util/Array"] = function()
         end,
     }
 end
-resetLoaded({"Iris/API/Tags", "Iris/API/UseCases"})
+-- This axis exercises the public compatibility facade. Keep the demand
+-- router explicitly unavailable so Base.Sample is sourced from the frozen
+-- fixture instead of being treated as an authoritative runtime-index miss.
+package.preload["Iris/Util/IrisRequire"] = function()
+    return {safeRequire=function() return false, nil end}
+end
+resetLoaded({"Iris/API/Tags", "Iris/API/UseCases", "Iris/Util/IrisRequire"})
 local Tags = require("Iris/API/Tags")
 local firstTags = Tags.getTags("Base.Sample")
 firstTags[1] = "Mutated"

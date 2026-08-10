@@ -127,7 +127,12 @@ class RepositoryEvidenceRequiredValidationAdoptionTest(unittest.TestCase):
         for name, relative in adoption["bound_inputs"].items():
             revision = (
                 "63ec5cb0a43834ff1d189cd09716defe4e4a54bf"
-                if name in {"gitignore", "protected_surface_successor"}
+                if name
+                in {
+                    "adoption_test_source",
+                    "gitignore",
+                    "protected_surface_successor",
+                }
                 else "HEAD"
             )
             self.assertEqual(relative["git_blob_id"], tracked_blob(relative["path"], revision), name)

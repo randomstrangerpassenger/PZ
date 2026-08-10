@@ -133,6 +133,7 @@ class RepositoryEvidenceRequiredValidationAdoptionTest(unittest.TestCase):
                     "gitattributes",
                     "gitignore",
                     "protected_surface_successor",
+                    "residual_surface_validator",
                     "required_validations",
                     "test_taxonomy",
                 }

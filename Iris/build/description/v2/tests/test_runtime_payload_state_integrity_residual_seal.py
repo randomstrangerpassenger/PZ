@@ -22,6 +22,17 @@ def write_json(path: Path, payload: dict) -> None:
 
 
 def rebind_and_restore_complete_review() -> subprocess.CompletedProcess[str]:
+    decision = load_json(
+        ROOT / "phase4/author_reserved_selection_decision_record.json"
+    )
+    if decision.get("pending_author_selection") is True:
+        return subprocess.run(
+            [sys.executable, "-B", str(SCRIPT), "--mode", "all"],
+            cwd=REPO,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
     generated = subprocess.run(
         [sys.executable, "-B", str(SCRIPT), "--mode", "generate"],
         cwd=REPO,
@@ -64,23 +75,23 @@ class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
         claim_boundary = (REPO / "docs/runtime_payload_state_integrity_residual_claim_boundary.md").read_text(encoding="utf-8")
         ledger = (REPO / "docs/runtime_payload_state_integrity_residual_ledger_packet.md").read_text(encoding="utf-8")
 
-        self.assertEqual(final["status"], "PASS")
+        self.assertEqual(final["status"], "BLOCKED")
         self.assertEqual(final["machine_contract_status"], "PASS")
-        self.assertTrue(final["canonical_residual_seal_allowed"])
-        self.assertFalse(final["pending_author_selection"])
-        self.assertFalse(final["blocked_external_gate"])
-        self.assertTrue(final["author_seal_closing_decision_complete"])
-        self.assertTrue(final["external_review_complete"])
+        self.assertFalse(final["canonical_residual_seal_allowed"])
+        self.assertTrue(final["pending_author_selection"])
+        self.assertTrue(final["blocked_external_gate"])
+        self.assertFalse(final["author_seal_closing_decision_complete"])
+        self.assertFalse(final["external_review_complete"])
         self.assertEqual(final["payload_shape_guard_status"], "PASS")
         self.assertEqual(final["guard_predicate_freeze_status"], "PASS")
         self.assertEqual(final["predecessor_residue_disposition"], "historical_only")
         self.assertEqual(final["residue_in_current_denominator_count"], 0)
         self.assertEqual(final["runtime_mutation_changed_count"], 0)
         self.assertIn("no_release_readiness", final["non_claims"])
-        self.assertEqual(adoption["governance_adoption_status"], "not_required_traceable")
+        self.assertEqual(adoption["governance_adoption_status"], "blocked")
         self.assertFalse(adoption["live_manifest_mutated"])
-        self.assertIn("complete_residual_seal_governance_only", claim_boundary)
-        self.assertIn("complete_residual_seal_governance_only", ledger)
+        self.assertIn("blocked_pending_author_and_external_review", claim_boundary)
+        self.assertIn("remains blocked", ledger)
         self.assertIn("current runtime rows: 2105", ledger)
 
     def test_reverification_and_residue_confinement_match_existing_guard(self) -> None:
@@ -148,22 +159,22 @@ class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
         self.assertEqual(options["status"], "PASS")
         self.assertTrue(options["enumerable_option_space_present"])
         self.assertGreaterEqual(options["option_count"], 3)
-        self.assertFalse(decision["decision_record_generated_by_executor"])
+        self.assertTrue(decision["decision_record_generated_by_executor"])
         self.assertTrue(decision["decision_value_not_generated_by_executor"])
         self.assertTrue(decision["decision_value_not_inferred_by_validator"])
-        self.assertFalse(decision["pending_author_selection"])
-        self.assertEqual(decision["selected_option_id"], "explicit_no_branch_mutation_required")
-        self.assertTrue(decision["selected_option_is_seal_closing"])
-        self.assertEqual(policy["status"], "PASS")
-        self.assertTrue(policy["author_policy_confirmation_present"])
-        self.assertTrue(policy["selected_option_metadata_consistent_with_decision"])
-        self.assertEqual(review["status"], "PASS")
-        self.assertTrue(review["canonical_residual_seal_allowed"])
+        self.assertTrue(decision["pending_author_selection"])
+        self.assertIsNone(decision["selected_option_id"])
+        self.assertFalse(decision["selected_option_is_seal_closing"])
+        self.assertEqual(policy["status"], "BLOCKED_PENDING_AUTHOR_SELECTION")
+        self.assertFalse(policy["author_policy_confirmation_present"])
+        self.assertFalse(policy["selected_option_metadata_consistent_with_decision"])
+        self.assertEqual(review["status"], "BLOCKED_EXTERNAL_REVIEW")
+        self.assertFalse(review["canonical_residual_seal_allowed"])
         self.assertEqual(review["comparison_exempt_count"], 0)
-        self.assertEqual(review_gate["status"], "PASS")
-        self.assertEqual(review_gate["external_independent_review_status"], "PASS")
-        self.assertFalse(review_gate["blocked_external_gate"])
-        self.assertIn("seal_closing_author_decision_recorded", author_doc)
+        self.assertEqual(review_gate["status"], "BLOCKED_EXTERNAL_REVIEW")
+        self.assertEqual(review_gate["external_independent_review_status"], "MISSING")
+        self.assertTrue(review_gate["blocked_external_gate"])
+        self.assertIn("pending_author_selection", author_doc)
 
     def test_require_complete_rejects_missing_author_and_review_gates(self) -> None:
         author_path = ROOT / "phase4/author_reserved_selection_decision_record.json"

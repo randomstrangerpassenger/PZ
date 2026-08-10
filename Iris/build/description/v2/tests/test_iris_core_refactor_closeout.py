@@ -188,6 +188,14 @@ class IrisCoreRefactorCloseoutTest(unittest.TestCase):
                     item["path"]: item["after_sha256_lf"]
                     for item in successor["approved_activation_deltas"]
                 }
+                evidence_successor = load_json(
+                    ROOT.parent
+                    / "repository_evidence_lightweighting"
+                    / "protected_surface_successor_manifest.json"
+                )
+                for revision in evidence_successor["active_revisions"]:
+                    for item in revision["approved_activation_deltas"]:
+                        approved_successors[item["path"]] = item["after_sha256_lf"]
                 self.assertIn(row["path"], approved_successors)
                 self.assertIn(approved_successors[row["path"]], current_hashes)
 

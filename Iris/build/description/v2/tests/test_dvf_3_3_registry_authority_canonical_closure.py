@@ -870,7 +870,7 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
         try:
             with project_common_attempt_paths(common, project_repo_root=True):
                 report = common.build_wp6_negative_fixture_report(root)
-            self.assertEqual(report["status"], "PASS")
+            self.assertEqual(report["status"], "PASS", report)
             self.assertEqual(
                 set(report["expected_violation_kinds"]),
                 set(report["observed_violation_kinds"]),
@@ -1608,7 +1608,8 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                 + "\n",
                 encoding="utf-8",
             )
-            rows, binding = common.wp2_role_ledger_binding(root)
+            with project_common_attempt_paths(common, project_repo_root=True):
+                rows, binding = common.wp2_role_ledger_binding(root)
             self.assertEqual(rows, [row])
             self.assertEqual(binding["status"], "PASS")
             self.assertTrue(binding["exact_hash_match"])
@@ -1617,7 +1618,8 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                 ledger_path.read_text(encoding="utf-8") + "{truncated\n",
                 encoding="utf-8",
             )
-            _, rejected = common.wp2_role_ledger_binding(root)
+            with project_common_attempt_paths(common, project_repo_root=True):
+                _, rejected = common.wp2_role_ledger_binding(root)
             self.assertEqual(rejected["status"], "FAIL")
             self.assertIn(
                 "wp2_role_ledger_json_invalid:2",
@@ -1755,6 +1757,15 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                 "dvf_3_3_completion_vocabulary_external_gate_vocabulary_split",
             )
             self.assertTrue(rows[0]["literal_tools_sys_path_present"])
+            def all_tracked(paths: list[Path]) -> dict[str, dict[str, bool]]:
+                return {
+                    runner.repository_relative_path(path): {
+                        "tracked": True,
+                        "ignored": False,
+                    }
+                    for path in paths
+                }
+
             with (
                 mock.patch.object(
                     runner,
@@ -1763,13 +1774,8 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                 ),
                 mock.patch.object(
                     runner,
-                    "git_path_is_tracked",
-                    return_value=True,
-                ),
-                mock.patch.object(
-                    runner,
-                    "git_path_is_ignored",
-                    return_value=False,
+                    "batch_git_path_states",
+                    side_effect=all_tracked,
                 ),
             ):
                 with self.assertRaisesRegex(
@@ -1805,6 +1811,15 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
             / uuid.uuid4().hex
             / "test_missing_selected.py"
         )
+        def missing_state(paths: list[Path]) -> dict[str, dict[str, bool]]:
+            return {
+                runner.repository_relative_path(path): {
+                    "tracked": False,
+                    "ignored": True,
+                }
+                for path in paths
+            }
+
         with (
             mock.patch.object(
                 runner,
@@ -1813,13 +1828,8 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
             ),
             mock.patch.object(
                 runner,
-                "git_path_is_tracked",
-                return_value=False,
-            ),
-            mock.patch.object(
-                runner,
-                "git_path_is_ignored",
-                return_value=True,
+                "batch_git_path_states",
+                side_effect=missing_state,
             ),
         ):
             report = runner.inspect_preimport_build_dependency_closure(
@@ -1893,6 +1903,17 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                             and state == "ignored"
                         )
 
+                    def batch_states(
+                        paths: list[Path],
+                    ) -> dict[str, dict[str, bool]]:
+                        return {
+                            runner.repository_relative_path(path): {
+                                "tracked": is_tracked(path),
+                                "ignored": is_ignored(path),
+                            }
+                            for path in paths
+                        }
+
                     with (
                         mock.patch.object(
                             runner,
@@ -1906,13 +1927,8 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                         ),
                         mock.patch.object(
                             runner,
-                            "git_path_is_tracked",
-                            side_effect=is_tracked,
-                        ),
-                        mock.patch.object(
-                            runner,
-                            "git_path_is_ignored",
-                            side_effect=is_ignored,
+                            "batch_git_path_states",
+                            side_effect=batch_states,
                         ),
                     ):
                         report = (

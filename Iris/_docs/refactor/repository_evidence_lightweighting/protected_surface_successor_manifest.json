@@ -1057,6 +1057,18 @@
           "consumers": ["current_route_validation", "residual_closeout"],
           "owner": "repository_owner_user",
           "reason": "Require the two plan-scoped optimization protection successor revisions."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_dvf_3_3_registry_authority_canonical_closure.py",
+          "before_git_blob_id": "3eb5e903834d18cccb21ee21664c679ae060a9d6",
+          "before_sha256_lf": "fbc341d46511dad68b8dc89107f50ad932135eab7112599b5194009434a3ebdd",
+          "expected_git_blob_id": "f2a7a95a0bdedafcac7f012481e48ac92f08741d",
+          "after_sha256_lf": "6da58b3669fcb87873600c63a10601e47b358d2745a45bbd4a2e96c2362b2b62",
+          "role": "common_track_test_contract",
+          "writer": "iris_codebase_optimization",
+          "consumers": ["current_route_validation", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Exercise the adopted batched Git path-state API and projected external fixtures."
         }
       ]
     },

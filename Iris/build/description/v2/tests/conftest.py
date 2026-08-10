@@ -434,3 +434,14 @@ def pytest_collection_modifyitems(config, items):
     _write_receipt(config, items, selected_sources, errors)
     if errors:
         raise RuntimeError("Round 3 denominator enforcement failed: " + "; ".join(errors))
+
+
+# A conftest's ignore hook can be registered after pytest has already chosen
+# sibling files in the same directory. ``collect_ignore`` is consumed while
+# that directory is expanded, so approved ImportError exclusions are stopped
+# before module import instead of being merely deselected afterward.
+collect_ignore = [
+    str((REPO_ROOT / row["source_file"]).resolve())
+    for row in _source_policy_payload().get("excluded_sources", [])
+    if (REPO_ROOT / row["source_file"]).parent.resolve() == TESTS_DIR.resolve()
+]

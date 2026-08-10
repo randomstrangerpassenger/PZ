@@ -675,7 +675,13 @@ foreach ($RevisionEntry in $RevisionEntries) {
             $RemovedProtectedRows.Remove($AddedPath)
         }
     }
-    foreach ($Removed in @($Revision.removed_protected_rows)) {
+    $RevisionRemovedRows = if ($Revision.PSObject.Properties.Name -contains 'removed_protected_rows') {
+        @($Revision.removed_protected_rows)
+    }
+    else {
+        @()
+    }
+    foreach ($Removed in $RevisionRemovedRows) {
         $RemovedPath = [string]$Removed.path
         if (
             [string]$Removed.before_git_blob_id -notmatch '^[0-9a-f]{40,64}$' -or

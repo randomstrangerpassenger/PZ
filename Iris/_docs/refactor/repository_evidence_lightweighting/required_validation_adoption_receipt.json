@@ -71,6 +71,16 @@
       "path": ".gitattributes",
       "git_blob_id": "76dec44b6019cdce7331a3fcaa726b1b16a903d6",
       "physical_raw_sha256_at_adoption": "a4899a744cadf551b5855fc0e760023e8a61460481e9cf4f4ef3b836c8e1eee9"
+    },
+    "protected_surface_successor": {
+      "path": "Iris/_docs/refactor/repository_evidence_lightweighting/protected_surface_successor_manifest.json",
+      "git_blob_id": "7cd30d94cd38aebfca6ee17e74dd038d6d74e3c2",
+      "physical_raw_sha256_at_adoption": "a5c74fd8123064bc61d3131e9e0783efdbbe29796b28f03df7dcd915f6f4016e"
+    },
+    "residual_surface_validator": {
+      "path": "Iris/test/validate_residual_refactor_surfaces.ps1",
+      "git_blob_id": "09bc4a1ce1f3b9afc24375dcfeff517b6d6b8b5f",
+      "physical_raw_sha256_at_adoption": "0f9c3f8a4f2b5259d3a35dcdd32d6d82181af37b9723773dfcef9426cac1063f"
     }
   },
   "required_test_ids": [
@@ -109,6 +119,19 @@
     "receipt_bound_run_b": "pending_c0_c_commit",
     "deterministic_compare": "pending_c0_c_commit"
   },
+  "attempt_history": [
+    {
+      "subject_commit": "6300388265b2aa9f75f1aa66a32d2b59102859ad",
+      "status": "inactive_failed_validation_candidate",
+      "focused": "4_of_4_pass",
+      "historical": "285_of_285_pass",
+      "current": "203_tests_1_failure_4_errors",
+      "failure_axes": [
+        "missing_additive_protected_surface_successor",
+        "clean_checkout_legacy_guard_bootstrap_absent"
+      ]
+    }
+  ],
   "non_claims": [
     "This receipt does not claim validation PASS before the C0-c clean receipts exist.",
     "This receipt does not authorize a CAS object as semantic authority.",

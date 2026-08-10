@@ -1,0 +1,161 @@
+{
+  "schema_version": "iris_repository_evidence_lightweighting_protected_surface_successor_v1",
+  "authority": "repository_owner_user",
+  "authorization_basis": "The repository owner approved the plan-scoped C0-c governance, current-route adoption, launcher binding, durable CAS tracking roots, and additive protection successor without modifying the sealed predecessor successor.",
+  "claim_id": "iris_repository_evidence_lightweighting",
+  "owner_approval": {
+    "path": "Iris/_docs/refactor/repository_evidence_lightweighting/owner_policy_approval.json",
+    "git_blob_id": "b66376ce2efc514bbb011ddeaf2799874e8a6c1a",
+    "sha256_lf": "1defa7e97dfc73f983349304f43bf12099c365f2ed9399b0baea78327b5e12f6"
+  },
+  "protection_predecessor": {
+    "path": "Iris/_docs/refactor/repository_runtime_lightweighting/protected_surface_successor_manifest.json",
+    "git_blob_id": "bf52d7c048d675a865b8978a4d6cde6e55658da4",
+    "commit": "7a3bb22fb9c3bc5327d16f4e73ca4897ab559c1d",
+    "tree": "04d14bbec11182130c71d72c3a0d14c276ac5b23",
+    "interpretation": "active_predecessor_chain"
+  },
+  "active_revisions": [
+    {
+      "revision_id": "repository_evidence_lightweighting_c0_c_bootstrap_v1",
+      "track": "repository_evidence_lightweighting",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "7a3bb22fb9c3bc5327d16f4e73ca4897ab559c1d",
+      "protection_predecessor_tree": "04d14bbec11182130c71d72c3a0d14c276ac5b23",
+      "reason": "Adopt the exact successor policy, owner approval, four current-required tests, tracking allowlist, and receipt-bound launcher identity while preserving the predecessor authorization chain.",
+      "approved_activation_deltas": [
+        {
+          "path": "Iris/_docs/round3/round3_test_taxonomy.json",
+          "predecessor_sha256": "b7706d03f2372881592669f115a52cdac811df61d53dc09f162a458a77c2cac2",
+          "before_git_blob_id": "2ea96ff51a53421d8ed3c1f689d80bcd37579a8d",
+          "before_sha256_lf": "25c4570a82c3132118b84a7ab07b80f1b196595c437056ae87489fb8bec2745f",
+          "expected_git_blob_id": "a0046722114472a14bfdfbbc47a55feb971883e6",
+          "after_sha256_lf": "b3fe063012de2b0d32bff68a4073a691a26b38cbbe17c934ea82ebfb4336e421",
+          "owner": "repository_owner_user",
+          "reason": "Add the four exact repository evidence lightweighting bootstrap tests as current+ok rows."
+        },
+        {
+          "path": "Iris/_docs/round3/current_route_required_validations.json",
+          "predecessor_sha256": "0ea650737ab6ccdcc5a2c325c7efddc72fa376fa848e8f8ffd254498e36dc6a1",
+          "before_git_blob_id": "75177ba2ac4b819fc3c120161854eb6b8662f9a7",
+          "before_sha256_lf": "c8a66a0dcb32b2745b810c2658b93baa2ead05426be80c51e47e131ceb48b369",
+          "expected_git_blob_id": "35cca10bfbe6001f3e66c1b74a38cd0432da91b6",
+          "after_sha256_lf": "52f802d842b8889c1b0895ff4aed0156aa21befa5cf9d0051c6ea9eb76f735b7",
+          "owner": "repository_owner_user",
+          "reason": "Require the same four bootstrap test IDs in the current route."
+        }
+      ],
+      "added_protected_rows": [
+        {
+          "path": ".gitattributes",
+          "before_git_blob_id": "cf3479cf4bf536abdcb44cc1c54018214eca307e",
+          "before_sha256_lf": "935d04572e63ad102f6034076ddb2619b9d1b383f36a551751377bbff27333a9",
+          "expected_git_blob_id": "76dec44b6019cdce7331a3fcaa726b1b16a903d6",
+          "after_sha256_lf": "a4899a744cadf551b5855fc0e760023e8a61460481e9cf4f4ef3b836c8e1eee9",
+          "role": "checkout_identity_contract",
+          "writer": "repository_evidence_lightweighting_c0_c",
+          "consumers": ["clean_checkout_validation", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Give new policy, approval, adoption, predecessor, and focused-test files stable LF checkout identities."
+        },
+        {
+          "path": ".gitignore",
+          "before_git_blob_id": "91110375bf29f116a3543af5fd96476603909cdb",
+          "before_sha256_lf": "0961cf524fb7426d0bf5974b6defaa8d6dcf799f44f02efe3bf10817a2c5bc6c",
+          "expected_git_blob_id": "e53bcffe23b01a7aaf2467fb1b159c40a149069c",
+          "after_sha256_lf": "ecbf86e16b1da610f716bf22998d56c6282165da4bb154e2b72bed602ec26f59",
+          "role": "repository_tracking_policy",
+          "writer": "repository_evidence_lightweighting_c0_c",
+          "consumers": ["durable_cas_promotion", "clean_checkout_validation", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Allow only the durable object/reference roots and the exact bootstrap test source through the existing default-deny rules."
+        },
+        {
+          "path": "Iris/validation/clean_checkout/invoke_receipt_bound_full_gate.ps1",
+          "before_git_blob_id": "9a4e1c742f01376ffb9501dc404620ca49588d3b",
+          "before_sha256_lf": "9b178e54ea24b0fd3db2592ff190b527970ba061c390b0cd9195bbea39151de5",
+          "expected_git_blob_id": "7008144d906f83f2cc9e1d386f8ee9b1b65595f8",
+          "after_sha256_lf": "ceb977b275248865b2227e2d016e60f10848362d6c647f5dd2a9a0c54d22783b",
+          "role": "receipt_bound_full_gate_launcher",
+          "writer": "repository_evidence_lightweighting_c0_c",
+          "consumers": ["receipt_bound_run_a", "receipt_bound_run_b", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Bind the predecessor, successor policy, owner approval, taxonomy, required validations, full gate, and adoption receipt in each orchestration receipt."
+        },
+        {
+          "path": "Iris/validation/clean_checkout/invoke_deterministic_compare.ps1",
+          "before_git_blob_id": "468656a13e68eeda890889da0943b81cb2f66b38",
+          "before_sha256_lf": "1584290cfb668b2d1913319da0eb2fa831f71e352b9b58f7abc975eac8bc8003",
+          "expected_git_blob_id": "14b34551703a6bb44888814397a56dcae22237a6",
+          "after_sha256_lf": "d0a52065312378c6b600a830a967b02f819ffd32aa8b69e7430a6f5e61b10fcc",
+          "role": "deterministic_compare_launcher",
+          "writer": "repository_evidence_lightweighting_c0_c",
+          "consumers": ["deterministic_compare", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Recompute and compare every successor bootstrap identity from both orchestration receipts."
+        },
+        {
+          "path": "Iris/test/validate_residual_refactor_surfaces.ps1",
+          "before_git_blob_id": "8ca6e6415948337a08c330fda228b09b06804909",
+          "before_sha256_lf": "82c9c7a64e5fa7370cb1f03fc950f6bbd3dca1766075b099b12aff87f10b9be0",
+          "expected_git_blob_id": "09bc4a1ce1f3b9afc24375dcfeff517b6d6b8b5f",
+          "after_sha256_lf": "0daaa69077f3e51febf137fd474e4c1e611ed8e9e39e9175fca51abfaa13442d",
+          "role": "protected_surface_validator",
+          "writer": "repository_evidence_lightweighting_c0_c_successor",
+          "consumers": ["current_route_validation", "residual_closeout", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Fold the additive repository evidence lightweighting revision after the sealed predecessor successor."
+        },
+        {
+          "path": "Iris/_docs/refactor/repository_evidence_lightweighting/predecessor_subject_manifest.json",
+          "before_git_blob_id": "c442e9f93b9c2ab2e9438b3b1334a3c832d2e384",
+          "before_sha256_lf": "624b2de8667a74e4238614cbc1bccc8e7fe26791ed028cebcca058335ab7e267",
+          "expected_git_blob_id": "c442e9f93b9c2ab2e9438b3b1334a3c832d2e384",
+          "after_sha256_lf": "624b2de8667a74e4238614cbc1bccc8e7fe26791ed028cebcca058335ab7e267",
+          "role": "predecessor_subject_binding",
+          "writer": "repository_evidence_lightweighting_c0_b",
+          "consumers": ["successor_policy", "current_route_validation", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Protect the exact committed predecessor identity consumed by every later migration."
+        },
+        {
+          "path": "Iris/validation/clean_checkout/contracts/repository_evidence_lightweighting_output_policy.json",
+          "before_git_blob_id": null,
+          "before_sha256_lf": null,
+          "expected_git_blob_id": "85dd43103de7b9b4351a9f3ae82e8fbb37baedc4",
+          "after_sha256_lf": "be27d1f5abaaf085d497bbf53c0767cde96d30b4ac3d3638d102797ca2c1163e",
+          "role": "successor_output_storage_policy",
+          "writer": "repository_evidence_lightweighting_c0_c",
+          "consumers": ["receipt_bound_full_gate", "cas_migration", "cold_archive", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Define the representation-only CAS, external root, cold archive, tracking, and deletion gates."
+        },
+        {
+          "path": "Iris/_docs/refactor/repository_evidence_lightweighting/owner_policy_approval.json",
+          "before_git_blob_id": null,
+          "before_sha256_lf": null,
+          "expected_git_blob_id": "b66376ce2efc514bbb011ddeaf2799874e8a6c1a",
+          "after_sha256_lf": "1defa7e97dfc73f983349304f43bf12099c365f2ed9399b0baea78327b5e12f6",
+          "role": "successor_owner_approval",
+          "writer": "repository_evidence_lightweighting_c0_c",
+          "consumers": ["receipt_bound_full_gate", "cas_migration", "cold_archive", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Record independent owner decisions for CAS promotion, cold-store backend, and payload deletion authority."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_repository_evidence_required_validation_adoption.py",
+          "before_git_blob_id": null,
+          "before_sha256_lf": null,
+          "expected_git_blob_id": "d3fd9a905e3a54d3607b6b9e53343b0471f90945",
+          "after_sha256_lf": "f3fb8cab65018a57edfb88c3e25bd471aab0f5dfd21f02152febeb3a94b12e49",
+          "role": "successor_bootstrap_required_test",
+          "writer": "repository_evidence_lightweighting_c0_c",
+          "consumers": ["current_route_validation", "full_repository_gate", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Verify predecessor, policy/approval, current selection, and durable tracking boundaries."
+        }
+      ]
+    }
+  ]
+}

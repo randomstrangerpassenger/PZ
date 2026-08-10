@@ -192,6 +192,8 @@ $ApprovedDeltaManifestRelative = 'Iris/validation/clean_checkout/authority/offli
 $ApprovedDeltaManifestPath = Join-Path $RepositoryRoot $ApprovedDeltaManifestRelative
 $LightweightingSuccessorRelative = 'Iris/_docs/refactor/repository_runtime_lightweighting/protected_surface_successor_manifest.json'
 $LightweightingSuccessorPath = Join-Path $RepositoryRoot $LightweightingSuccessorRelative
+$EvidenceLightweightingSuccessorRelative = 'Iris/_docs/refactor/repository_evidence_lightweighting/protected_surface_successor_manifest.json'
+$EvidenceLightweightingSuccessorPath = Join-Path $RepositoryRoot $EvidenceLightweightingSuccessorRelative
 if ($Mode -eq 'AttestationProbe') {
     if (
         [string]::IsNullOrWhiteSpace($HistoricalManifestAttestationPath) -or
@@ -225,6 +227,17 @@ if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($LightweightingSuccesso
 $LightweightingSuccessorWorkingBlob = (& git -C $RepositoryRoot hash-object ("--path=" + $LightweightingSuccessorRelative) $LightweightingSuccessorPath).Trim()
 if ($LASTEXITCODE -ne 0 -or $LightweightingSuccessorWorkingBlob -cne $LightweightingSuccessorBlob) {
     throw 'repository lightweighting protected-surface successor differs from HEAD'
+}
+if (-not (Test-Path -LiteralPath $EvidenceLightweightingSuccessorPath -PathType Leaf)) {
+    throw 'repository evidence lightweighting protected-surface successor manifest missing'
+}
+$EvidenceLightweightingSuccessorBlob = (& git -C $RepositoryRoot rev-parse ("HEAD:" + $EvidenceLightweightingSuccessorRelative)).Trim()
+if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($EvidenceLightweightingSuccessorBlob)) {
+    throw 'repository evidence lightweighting protected-surface successor is not tracked by HEAD'
+}
+$EvidenceLightweightingSuccessorWorkingBlob = (& git -C $RepositoryRoot hash-object ("--path=" + $EvidenceLightweightingSuccessorRelative) $EvidenceLightweightingSuccessorPath).Trim()
+if ($LASTEXITCODE -ne 0 -or $EvidenceLightweightingSuccessorWorkingBlob -cne $EvidenceLightweightingSuccessorBlob) {
+    throw 'repository evidence lightweighting protected-surface successor differs from HEAD'
 }
 
 if ($Mode -eq 'Baseline') {
@@ -293,12 +306,36 @@ if (-not (Test-Path -LiteralPath $ProtectedBaselinePath -PathType Leaf)) { throw
 $SupportedBaseline = Get-Content -LiteralPath $SupportedBaselinePath -Raw | ConvertFrom-Json
 $ProtectedBaseline = Get-Content -LiteralPath $ProtectedBaselinePath -Raw | ConvertFrom-Json
 $LightweightingSuccessor = Get-Content -LiteralPath $LightweightingSuccessorPath -Raw | ConvertFrom-Json
+$EvidenceLightweightingSuccessor = Get-Content -LiteralPath $EvidenceLightweightingSuccessorPath -Raw | ConvertFrom-Json
 if ([string]$LightweightingSuccessor.schema_version -cne 'iris_repository_runtime_lightweighting_protected_surface_successor_v2') {
     throw 'repository lightweighting protected-surface successor schema mismatch'
 }
 
 if ([string]$LightweightingSuccessor.authority -cne 'repository_owner_user') {
     throw 'repository lightweighting protected-surface successor authority mismatch'
+}
+if ([string]$EvidenceLightweightingSuccessor.schema_version -cne 'iris_repository_evidence_lightweighting_protected_surface_successor_v1') {
+    throw 'repository evidence lightweighting protected-surface successor schema mismatch'
+}
+if ([string]$EvidenceLightweightingSuccessor.authority -cne 'repository_owner_user') {
+    throw 'repository evidence lightweighting protected-surface successor authority mismatch'
+}
+$EvidenceProtectionPredecessor = $EvidenceLightweightingSuccessor.protection_predecessor
+if (
+    [string]$EvidenceProtectionPredecessor.commit -notmatch '^[0-9a-f]{40}$' -or
+    [string]$EvidenceProtectionPredecessor.tree -notmatch '^[0-9a-f]{40}$' -or
+    [string]$EvidenceProtectionPredecessor.path -cne $LightweightingSuccessorRelative -or
+    [string]$EvidenceProtectionPredecessor.git_blob_id -cne $LightweightingSuccessorBlob
+) {
+    throw 'repository evidence lightweighting protection predecessor identity mismatch'
+}
+$EvidenceProtectionPredecessorTree = (& git -C $RepositoryRoot rev-parse ([string]$EvidenceProtectionPredecessor.commit + '^{tree}')).Trim()
+if ($LASTEXITCODE -ne 0 -or $EvidenceProtectionPredecessorTree -cne [string]$EvidenceProtectionPredecessor.tree) {
+    throw 'repository evidence lightweighting protection predecessor tree mismatch'
+}
+& git -C $RepositoryRoot merge-base --is-ancestor ([string]$EvidenceProtectionPredecessor.commit) HEAD 2>$null
+if ($LASTEXITCODE -ne 0) {
+    throw 'repository evidence lightweighting protection predecessor is not an ancestor'
 }
 $HistoricalAttestation = $LightweightingSuccessor.historical_manifest_attestation
 $HistoricalValidation = Assert-HistoricalManifestAttestation $HistoricalAttestation $LightweightingSuccessorRelative
@@ -340,7 +377,11 @@ if ($LASTEXITCODE -ne 0 -or $AnchorTree -cne [string]$ActiveProtectionAnchor.tre
 if ($LASTEXITCODE -ne 0) {
     throw 'repository lightweighting active protection anchor is not an ancestor'
 }
-$ActiveRevisions = @($LightweightingSuccessor.active_revisions)
+$EvidenceActiveRevisions = @($EvidenceLightweightingSuccessor.active_revisions)
+if ($EvidenceActiveRevisions.Count -eq 0) {
+    throw 'repository evidence lightweighting protected-surface successor has no active revisions'
+}
+$ActiveRevisions = @($LightweightingSuccessor.active_revisions) + @($EvidenceActiveRevisions)
 if ($ActiveRevisions.Count -eq 0) {
     throw 'repository lightweighting protected-surface successor has no active revisions'
 }
@@ -740,6 +781,10 @@ $ProtectedReport = [ordered]@{
     repository_lightweighting_successor_git_blob_id = $LightweightingSuccessorBlob
     repository_lightweighting_successor_sha256 = Get-HashOrNull $LightweightingSuccessorPath
     repository_lightweighting_successor_schema_version = [string]$LightweightingSuccessor.schema_version
+    repository_evidence_lightweighting_successor_manifest = $EvidenceLightweightingSuccessorRelative
+    repository_evidence_lightweighting_successor_git_blob_id = $EvidenceLightweightingSuccessorBlob
+    repository_evidence_lightweighting_successor_sha256 = Get-HashOrNull $EvidenceLightweightingSuccessorPath
+    repository_evidence_lightweighting_successor_schema_version = [string]$EvidenceLightweightingSuccessor.schema_version
     historical_manifest_attestation = [ordered]@{
         commit = $HistoricalCommit
         tree = $HistoricalTree

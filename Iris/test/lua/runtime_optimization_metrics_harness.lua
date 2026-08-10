@@ -277,6 +277,24 @@ local function runViewModel()
     local refreshed = ViewModel.fromItem(retained.source)
     assert(refreshed ~= retained.model and refreshed.sourceItem == retained.source)
     assert(refreshed.weight == 999 and retained.model.weight ~= 999)
+    local inventoryA = item("Normal", 201)
+    local inventoryB = item("Normal", 202)
+    inventoryB.fullType = inventoryA.fullType
+    inventoryB.displayName = "different-instance"
+    inventoryB.weight = 202
+    local modelA = ViewModel.fromItem(inventoryA)
+    local modelB = ViewModel.fromItem(inventoryB)
+    assert(modelA ~= modelB and modelA.sourceItem == inventoryA and modelB.sourceItem == inventoryB)
+    assert(modelA.displayName ~= modelB.displayName and modelA.weight ~= modelB.weight)
+    -- Exercise the same adapters in ScriptItem -> InventoryItem and reverse
+    -- order, standing in for the Browser/Wiki callers that share this model.
+    local scriptFirst = ViewModel.ensure(inventoryA)
+    local inventorySecond = ViewModel.fromItem(inventoryB)
+    local inventoryFirst = ViewModel.ensure(inventoryB)
+    local scriptSecond = ViewModel.fromItem(inventoryA)
+    assert(scriptFirst.sourceItem == inventoryA and scriptSecond.sourceItem == inventoryA)
+    assert(inventoryFirst.sourceItem == inventoryB and inventorySecond.sourceItem == inventoryB)
+    assert(scriptFirst ~= scriptSecond and inventoryFirst ~= inventorySecond)
     emit("mode", "viewmodel")
     emit("items", 100)
     emit("method_attempts", metrics.methodAttempts)

@@ -1,0 +1,172 @@
+{
+  "schema_version": "iris_repository_evidence_lightweighting_predecessor_subject_v1",
+  "manifest_id": "iris_repository_evidence_lightweighting_c0_b_predecessor_subject_20260810",
+  "status": "sealed_predecessor_subject",
+  "created_at_utc": "2026-08-10T03:01:23.3844082Z",
+  "claim_id": "iris_repository_evidence_lightweighting",
+  "subject": {
+    "kind": "committed_predecessor_closeout",
+    "commit": "df498f95aa334bdf3a74167e900ca8a04a2550d6",
+    "tree": "da5e2447b8a8dcce392a4b8f22908f58cfc9d44d",
+    "dirty_delta_allowed": false,
+    "base_plus_delta_fallback_allowed": false,
+    "hash_only_fallback_allowed": false
+  },
+  "adopted_plan": {
+    "path": "docs/iris_repository_evidence_intermediate_artifact_lightweighting_plan.md",
+    "bytes": 87756,
+    "raw_sha256": "4c4ea8526db4b04d93432f4fb0f700b3d7d2b89fd6c4f6a0a043f19f7ee8196a",
+    "git_blob_id": "b5bae9f57952199871937eba34a91566582faaa1"
+  },
+  "checkout_representation": {
+    "gitattributes": {
+      "path": ".gitattributes",
+      "bytes": 11751,
+      "raw_sha256": "935d04572e63ad102f6034076ddb2619b9d1b383f36a551751377bbff27333a9",
+      "git_blob_id": "cf3479cf4bf536abdcb44cc1c54018214eca307e"
+    },
+    "core_autocrlf": "true",
+    "physical_raw_bytes_are_distinct_from_filtered_git_blob_where_recorded": true
+  },
+  "sealed_residual_baselines": [
+    {
+      "role": "protected_baseline_authority",
+      "path": "Iris/_docs/refactor/residual_refactor/phase0_protected_surface_manifest.json",
+      "bytes": 13141,
+      "physical_raw_sha256": "aaaecb90efb3bfd36b9b096aaa51b96b45800c1004ca912f75560c45b32b38c2",
+      "git_blob_id": "6461f002790d29164d6ab11f0f8f45d726430530",
+      "schema_version": "iris-residual-protected-surface-v1",
+      "row_count": 26
+    },
+    {
+      "role": "supported_api_baseline_authority",
+      "path": "Iris/_docs/refactor/residual_refactor/phase0_supported_api_manifest.json",
+      "bytes": 12300,
+      "physical_raw_sha256": "4f968193283e675cc1126a977cdf5735c1f91443fe68df2bdadc2f1ad2e1100f",
+      "git_blob_id": "2551cfcf6fbce5bc3785f2667ec42c899c837f63",
+      "schema_version": "iris-residual-supported-api-v1",
+      "surface_count": 20
+    }
+  ],
+  "predecessor_census": {
+    "row_count": 9,
+    "generator": {
+      "kind": "sealed_powershell_git_census",
+      "argv": "Get-FileHash -Algorithm SHA256 -LiteralPath <path>; git hash-object -- <path>",
+      "canonicalization": "UTF-8 JSON; rows in plan order; repository-relative POSIX paths; lowercase SHA-256"
+    },
+    "rows": [
+      {
+        "path": "Iris/_docs/refactor/repository_runtime_lightweighting/protected_surface_successor_manifest.json",
+        "bytes": 6883,
+        "physical_raw_sha256": "a3c7e3c24fd4c45d2596385f14fba5a735d21f8d04dc6469f81a0b6fdb8debff",
+        "git_blob_id": "bf52d7c048d675a865b8978a4d6cde6e55658da4"
+      },
+      {
+        "path": "Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json",
+        "bytes": 57530,
+        "physical_raw_sha256": "558a9850c483e1900016a5392717191704acecd5ba870a6de81ebbcec9c981da",
+        "git_blob_id": "b59fcc33d6bf6148b16d33caf4426720b7c94afc"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+        "bytes": 8518,
+        "physical_raw_sha256": "27a0a40a864e53749cedddc50b50a600f6f360914d0c83d5c81d7c6ee07225e1",
+        "git_blob_id": "f6fb2b876e91094c2dc721aab39ad025504bec5b"
+      },
+      {
+        "path": "Iris/test/validate_residual_refactor_surfaces.ps1",
+        "bytes": 43114,
+        "physical_raw_sha256": "ca65672b414cc679d0be4c73794e89253ed3b602596075d5653ce3a535820454",
+        "git_blob_id": "8ca6e6415948337a08c330fda228b09b06804909"
+      },
+      {
+        "path": "Iris/validation/residual_refactor/report_inventory.py",
+        "bytes": 21978,
+        "physical_raw_sha256": "a69242a301d210b15997eeb7ab34ad3222bd0f4e774f878bf832ef434b4a65f3",
+        "git_blob_id": "948f08b741125208c532fda222fe5c2c48bf3809"
+      },
+      {
+        "path": "docs/ARCHITECTURE.md",
+        "bytes": 79839,
+        "physical_raw_sha256": "526a81f02043bf3f990cab9cb9da903993f8f16fbab129bed8db267f812ee7e3",
+        "git_blob_id": "a7a45a53d721d97281f45be694043ee576e6893f"
+      },
+      {
+        "path": "docs/DECISIONS.md",
+        "bytes": 236741,
+        "physical_raw_sha256": "797d6eff31baac4776befe1f414154a83b8a66eda1c88f69f62bdb11e7832f35",
+        "git_blob_id": "3fbedf0fcd43cadb5399baba64759250e8cd081d"
+      },
+      {
+        "path": "docs/ROADMAP.md",
+        "bytes": 81956,
+        "physical_raw_sha256": "f1df8afb11d89e063cff015aa6360592e5bbd7c5c6c9b355a889558cabd1286f",
+        "git_blob_id": "7f1c9e854ef313accb8bac0710a1d46e125521fd"
+      },
+      {
+        "path": "Iris/_docs/refactor/repository_runtime_lightweighting/tooling_track_adoption_receipt.json",
+        "bytes": 12499,
+        "physical_raw_sha256": "4356e47b58eea3ba6fdd132a1cdbf12d736a14e16ead45e1bd2c73e5e9966a2d",
+        "git_blob_id": "8d3347f688949646f0330da1a68a9a99b57a52a7"
+      }
+    ]
+  },
+  "c0_a_validation": {
+    "status": "PASS",
+    "independent_materialization_count": 2,
+    "external_receipt": {
+      "allocator_id": "c0a-0cf936597c6445df9c2876c94556bf73",
+      "raw_sha256": "8a43f71c6779b5cb7cab1255dfa1f182e07e05610c25274aa6cd6c2bccf68ba7",
+      "absolute_path_recorded_in_successor_evidence": false
+    },
+    "materializations": [
+      {
+        "id": "a",
+        "subject_commit": "df498f95aa334bdf3a74167e900ca8a04a2550d6",
+        "subject_tree": "da5e2447b8a8dcce392a4b8f22908f58cfc9d44d",
+        "clean_before_and_after": true,
+        "exit_code": 0,
+        "protected_report_sha256": "2323308af9d6b57cbacd31891025b67c2978fae282f037041fb3add56f9e7d53",
+        "supported_report_sha256": "cfce966d0faa31ce294d321355526b5280e354c7f575e8553454a251172ba8b2",
+        "protected_baseline_rows": 26,
+        "authorized_changed_baseline_rows": 6,
+        "folded_unique_added_rows": 60,
+        "total_protected_rows": 86,
+        "unauthorized_changed_count": 0
+      },
+      {
+        "id": "b",
+        "subject_commit": "df498f95aa334bdf3a74167e900ca8a04a2550d6",
+        "subject_tree": "da5e2447b8a8dcce392a4b8f22908f58cfc9d44d",
+        "clean_before_and_after": true,
+        "exit_code": 0,
+        "protected_report_sha256": "6f519dcc0d0b3b6e66724d7bbfe66d384a36b4a83457343f1e1ade6cc59f799f",
+        "supported_report_sha256": "db4f24753d04adb551e49ad98c9c7113f2c35abaddbdcc0f4fc14ad0cea6a583",
+        "protected_baseline_rows": 26,
+        "authorized_changed_baseline_rows": 6,
+        "folded_unique_added_rows": 60,
+        "total_protected_rows": 86,
+        "unauthorized_changed_count": 0
+      }
+    ],
+    "failed_attempts": [
+      {
+        "allocator_id": "c0a-dce92eabf1de49ac98e160a8174e2448",
+        "status": "failed_preflight",
+        "reason": "clean-checkout baseline bytes were used instead of the separately sealed physical-subject baseline representation",
+        "test_body_started": false
+      }
+    ]
+  },
+  "authority_boundary": {
+    "predecessor_manifest_is_storage_or_semantic_authority": false,
+    "predecessor_manifest_binds_existing_authority": true,
+    "existing_repository_runtime_lightweighting_receipts_modified": false
+  },
+  "non_claims": [
+    "This manifest does not authorize storage or runtime migration.",
+    "This manifest does not treat a dirty delta or hash-only bundle as a predecessor subject.",
+    "This manifest does not claim Project Zomboid runtime performance improvement."
+  ]
+}

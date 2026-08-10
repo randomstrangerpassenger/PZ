@@ -384,6 +384,7 @@ class PackageLayer3ChunksOnlyContractTest(unittest.TestCase):
                 "UseCaseDescriptions/LineCountIndex.lua",
                 "IrisUseCaseDescriptionsLookup.lua",
                 "IrisRuntimeLookupDiagnostics.lua",
+                "IrisRuntimeLookupPackageIdentity.json",
                 "IrisUseCaseDescriptions.lua",
                 "UseCaseDescriptions/RequirementsLookup.lua",
             }

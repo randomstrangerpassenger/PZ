@@ -915,6 +915,28 @@
           "reason": "Require the owner-complete closeout protection successor revision."
         }
       ]
+    },
+    {
+      "revision_id": "iris_codebase_optimization_package_identity_v1",
+      "track": "iris_codebase_optimization",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "a4677cb4c5f49d30f7e85c578d644345a2db1d65",
+      "protection_predecessor_tree": "59e14df282f94fce5deef2cc4132a6f16b382a2b",
+      "reason": "Adopt the plan-required fail-closed runtime lookup package identity validator and its package support file.",
+      "approved_activation_deltas": [
+        {
+          "path": "Iris/tools/package_iris.ps1",
+          "predecessor_sha256": "a1fca567d4ce06037dff904bf934ee1f751a9b56e79347b8c86b185f1ebfd1cb",
+          "before_git_blob_id": "3b986cd1aa82efe9461f040e659193ea7f765891",
+          "before_sha256_lf": "45a41c0734601c51375606eb80c339e680ebe8665d60ae3e4960f71389e08522",
+          "expected_git_blob_id": "c861605e83a7748502b46b0f9f6ae1988902d733",
+          "after_sha256_lf": "d7c6f211706422c8822d0512cd2546a5f73032ed31cce6d75409d57b55fda3c7",
+          "owner": "repository_owner_user",
+          "reason": "Validate lookup indices and the package identity receipt before writing a runtime payload."
+        }
+      ],
+      "added_protected_rows": []
     }
   ]
 }

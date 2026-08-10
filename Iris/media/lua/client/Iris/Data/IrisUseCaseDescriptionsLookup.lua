@@ -155,10 +155,14 @@ function IrisUseCaseDescriptionsLookup.get(fullType)
         diagnostics.loadedDescriptionChunkCount = diagnostics.loadedDescriptionChunkCount + 1
     end
     local entry = chunk[fullType]
-    if entry == nil or lineCountIndex.lineCounts[fullType] == nil then
+    local lineCount = lineCountIndex.lineCounts[fullType]
+    if entry == nil and lineCount == nil then
+        return recordMiss("usecase")
+    end
+    if entry == nil or lineCount == nil then
         return recordFallback("index_content_mismatch")
     end
-    if type(entry.lines) ~= "table" or #entry.lines ~= lineCountIndex.lineCounts[fullType] then
+    if type(entry.lines) ~= "table" or #entry.lines ~= lineCount then
         return recordFallback("index_content_mismatch")
     end
     return entry, nil

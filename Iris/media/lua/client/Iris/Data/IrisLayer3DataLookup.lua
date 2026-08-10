@@ -116,7 +116,10 @@ function IrisLayer3DataLookup.get(fullType)
         diagnostics.loadedChunkCount = diagnostics.loadedChunkCount + 1
     end
     local entry = chunk[fullType]
-    if entry == nil then return recordFallback("index_content_mismatch") end
+    -- Range records deliberately cover the lexical gaps between real keys.
+    -- Once the loaded chunk itself matches its index record, an absent key is
+    -- an ordinary lookup miss rather than evidence of router corruption.
+    if entry == nil then return recordMiss() end
     return entry, nil
 end
 

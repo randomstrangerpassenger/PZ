@@ -149,6 +149,31 @@ LIFECYCLE_TRACKING_ADDITIONS = {
         "archive_promotion_receipt.json",
     )
 }
+LIFECYCLE_TRACKING_ADDITIONS.update(
+    {
+        f"Iris/_docs/refactor/repository_evidence_lightweighting/lifecycle_manifest_v2/{name}"
+        for name in (
+            "dictionary.json",
+            "nodes.jsonl",
+            "baseline.json",
+            "final_delta.json",
+            "migration_receipt.json",
+        )
+    }
+)
+LIFECYCLE_TRACKING_REMOVALS = {
+    "Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
+    "Iris/_docs/refactor/repository_runtime_lightweighting/final_artifact_role_manifest.jsonl",
+}
+LIFECYCLE_TRACKING_ADDITIONS.update(
+    {
+        "Iris/_docs/refactor/repository_evidence_lightweighting/lifecycle_manifest_v2_successor.json",
+        "Iris/validation/residual_refactor/repository_evidence_codec.py",
+        "Iris/validation/residual_refactor/migrate_repository_evidence.py",
+        "Iris/build/description/v2/tests/test_repository_evidence_codec.py",
+        "Iris/build/description/v2/tests/test_repository_evidence_migration.py",
+    }
+)
 
 
 class LifecycleError(RuntimeError):
@@ -1173,8 +1198,9 @@ def main(argv: list[str] | None = None) -> int:
         added = sorted(current_tracked - baseline_tracked)
         removed = sorted(baseline_tracked - current_tracked)
         unapproved_added = sorted(set(added) - approved_additions)
-        unexpectedly_untracked_protected = sorted(protected.intersection(removed))
-        transition_failed = bool(unapproved_added or removed)
+        unapproved_removed = sorted(set(removed) - LIFECYCLE_TRACKING_REMOVALS)
+        unexpectedly_untracked_protected = sorted(protected.intersection(unapproved_removed))
+        transition_failed = bool(unapproved_added or unapproved_removed)
         transition = {
             "schema_version": "iris_repository_runtime_lightweighting_tracking_transition_v1",
             "status": "FAIL" if transition_failed else "PASS",
@@ -1190,6 +1216,9 @@ def main(argv: list[str] | None = None) -> int:
             "added_tracked_paths": added,
             "removed_tracked_paths": removed,
             "removed_tracked_count": len(removed),
+            "approved_removed_tracked_paths": sorted(set(removed).intersection(LIFECYCLE_TRACKING_REMOVALS)),
+            "unapproved_removed_tracked_paths": unapproved_removed,
+            "unapproved_removed_tracked_count": len(unapproved_removed),
             "approved_newly_tracked_paths": sorted(set(added).intersection(approved_additions)),
             "unexpectedly_untracked_protected_paths": unexpectedly_untracked_protected,
             "unexpectedly_untracked_protected_count": len(unexpectedly_untracked_protected),

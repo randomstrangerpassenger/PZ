@@ -29,6 +29,16 @@ from report_artifact_lifecycle import (
     load_lifecycle_reference_policy,
     reference_graph,
 )
+from repository_evidence_codec import (
+    BASELINE_NAME as LIFECYCLE_V2_BASELINE_NAME,
+    DELTA_NAME as LIFECYCLE_V2_DELTA_NAME,
+    DICTIONARY_NAME as LIFECYCLE_V2_DICTIONARY_NAME,
+    MIGRATION_RECEIPT_NAME as LIFECYCLE_V2_RECEIPT_NAME,
+    NODES_NAME as LIFECYCLE_V2_NODES_NAME,
+    RepositoryEvidenceCodecError,
+    materialize_manifest,
+    raw_sha256 as evidence_raw_sha256,
+)
 
 
 class LifecycleExecutionError(RuntimeError):
@@ -63,6 +73,14 @@ BASELINE_PROMOTION_SCHEMAS = {
     "iris_repository_runtime_lightweighting_baseline_promotion_v1",
     "iris_repository_runtime_lightweighting_baseline_promotion_v2",
 }
+LIFECYCLE_V2_DIRECTORY = "lifecycle_manifest_v2"
+LIFECYCLE_V2_COMPONENTS = (
+    LIFECYCLE_V2_DICTIONARY_NAME,
+    LIFECYCLE_V2_NODES_NAME,
+    LIFECYCLE_V2_BASELINE_NAME,
+    LIFECYCLE_V2_DELTA_NAME,
+    LIFECYCLE_V2_RECEIPT_NAME,
+)
 
 
 def canonical_json_bytes(value: Any) -> bytes:
@@ -129,6 +147,30 @@ def load_jsonl(path: Path) -> list[dict[str, Any]]:
                 raise LifecycleExecutionError(f"expected object at {path}:{line_number}")
             rows.append(value)
     return rows
+
+
+def durable_lifecycle_source(
+    baseline_path: Path,
+    view: str = "baseline",
+) -> tuple[Path, bytes, list[dict[str, Any]], str]:
+    v1_path = baseline_path.with_name(
+        "artifact_role_manifest.jsonl"
+        if view == "baseline"
+        else "final_artifact_role_manifest.jsonl"
+    )
+    v2_root = (
+        baseline_path.parent.parent
+        / "repository_evidence_lightweighting"
+        / LIFECYCLE_V2_DIRECTORY
+    )
+    source = v1_path if v1_path.is_file() else v2_root
+    try:
+        payload, rows, representation = materialize_manifest(source, view)  # type: ignore[arg-type]
+    except RepositoryEvidenceCodecError as error:
+        raise LifecycleExecutionError(
+            f"durable lifecycle {view} representation is unavailable or invalid"
+        ) from error
+    return source.resolve(), payload, rows, representation
 
 
 def valid_sha256(value: object) -> bool:
@@ -1363,9 +1405,9 @@ def validate_baseline(repo: Path, baseline_path: Path, promotion_path: Path) -> 
         raise LifecycleExecutionError("baseline promotion transaction is invalid") from error
     if baseline.get("unclassified_count") != 0 or baseline.get("unreadable_count") != 0 or baseline.get("consumer_scan_hold_count", 0) != 0 or baseline.get("complete_accounting") is not True:
         raise LifecycleExecutionError("baseline accounting is incomplete")
-    manifest_path = baseline_path.with_name("artifact_role_manifest.jsonl")
-    if not manifest_path.is_file():
-        raise LifecycleExecutionError("promoted artifact role manifest is missing")
+    manifest_path, manifest_bytes, manifest_rows, manifest_representation = durable_lifecycle_source(
+        baseline_path
+    )
     promoted_by_destination = {
         Path(str(row.get("destination_path"))).name: row for row in promotion.get("promoted_files", [])
     }
@@ -1373,9 +1415,16 @@ def validate_baseline(repo: Path, baseline_path: Path, promotion_path: Path) -> 
     manifest_binding = promoted_by_destination.get("artifact_role_manifest.jsonl", {})
     if baseline_binding.get("destination_sha256") != sha256_file(baseline_path):
         raise LifecycleExecutionError("promoted baseline hash mismatch")
-    if manifest_binding.get("destination_sha256") != sha256_file(manifest_path):
+    if manifest_binding.get("destination_sha256") != evidence_raw_sha256(manifest_bytes):
         raise LifecycleExecutionError("promoted manifest hash mismatch")
-    for path in (baseline_path, manifest_path, promotion_path):
+    durable_paths = [baseline_path, promotion_path]
+    if manifest_representation == "v1":
+        durable_paths.append(manifest_path)
+    else:
+        durable_paths.extend(manifest_path / name for name in LIFECYCLE_V2_COMPONENTS)
+    for path in durable_paths:
+        if not path.is_file():
+            raise LifecycleExecutionError(f"durable lifecycle evidence is missing: {path}")
         try:
             relative = path.resolve().relative_to(repo).as_posix()
         except ValueError as error:
@@ -1388,7 +1437,7 @@ def validate_baseline(repo: Path, baseline_path: Path, promotion_path: Path) -> 
         )
         if blob.returncode != 0 or hashlib.sha256(blob.stdout).hexdigest() != sha256_file(path):
             raise LifecycleExecutionError(f"promoted baseline evidence is not bound to HEAD: {relative}")
-    return baseline, load_jsonl(manifest_path)
+    return baseline, manifest_rows
 
 
 def live_reference_report(repo: Path, rows: list[dict[str, Any]]) -> dict[str, Any]:
@@ -2101,11 +2150,11 @@ def command_delete(args: argparse.Namespace) -> None:
     if receipt_out.exists():
         raise LifecycleExecutionError(f"delete receipt already exists: {receipt_out}")
     baseline_path = Path(str(bindings["baseline"]["path"])).resolve()
-    baseline_manifest_path = baseline_path.with_name("artifact_role_manifest.jsonl")
-    if not baseline_manifest_path.is_file():
-        raise LifecycleExecutionError("delete-time baseline artifact manifest is missing")
+    baseline_manifest_path, baseline_manifest_bytes, _, baseline_manifest_representation = (
+        durable_lifecycle_source(baseline_path)
+    )
     baseline_sha256 = sha256_file(baseline_path)
-    baseline_manifest_sha256 = sha256_file(baseline_manifest_path)
+    baseline_manifest_sha256 = evidence_raw_sha256(baseline_manifest_bytes)
     validated_candidate_delta_allowset = build_validated_candidate_delta_allowset(
         repo,
         load_object(baseline_path),
@@ -2135,6 +2184,7 @@ def command_delete(args: argparse.Namespace) -> None:
         },
         "baseline_artifact_manifest": {
             "path": baseline_manifest_path.as_posix(),
+            "representation": baseline_manifest_representation,
             "sha256": baseline_manifest_sha256,
         },
         "validated_candidate_delta_allowset": validated_candidate_delta_allowset,
@@ -2159,9 +2209,15 @@ def command_post_delete(args: argparse.Namespace) -> None:
     baseline_binding = prior.get("baseline", {})
     if Path(str(baseline_binding.get("path", ""))).resolve() != baseline_path or baseline_binding.get("sha256") != sha256_file(baseline_path):
         raise LifecycleExecutionError("delete receipt baseline binding mismatch")
-    baseline_manifest = baseline_path.with_name("artifact_role_manifest.jsonl")
+    baseline_manifest, baseline_manifest_bytes, baseline_rows, baseline_manifest_representation = (
+        durable_lifecycle_source(baseline_path)
+    )
     manifest_binding = prior.get("baseline_artifact_manifest", {})
-    if Path(str(manifest_binding.get("path", ""))).resolve() != baseline_manifest or manifest_binding.get("sha256") != sha256_file(baseline_manifest):
+    if (
+        Path(str(manifest_binding.get("path", ""))).resolve() != baseline_manifest
+        or manifest_binding.get("sha256") != evidence_raw_sha256(baseline_manifest_bytes)
+        or manifest_binding.get("representation", "v1") != baseline_manifest_representation
+    ):
         raise LifecycleExecutionError("delete receipt baseline artifact-manifest binding mismatch")
     allowset = prior.get("validated_candidate_delta_allowset")
     if (
@@ -2213,7 +2269,6 @@ def command_post_delete(args: argparse.Namespace) -> None:
     unexpected_existing = [row["path"] for row in operation["rows"] if exact_repo_file(repo, str(row["path"])).exists()]
     if unexpected_existing:
         raise LifecycleExecutionError(f"deleted paths still exist: {unexpected_existing}")
-    baseline_rows = load_jsonl(baseline_manifest)
     current_rows, _ = build_rows(repo)
     baseline_by_path = {str(row["path"]): row for row in baseline_rows}
     current_by_path = {str(row["path"]): row for row in current_rows}

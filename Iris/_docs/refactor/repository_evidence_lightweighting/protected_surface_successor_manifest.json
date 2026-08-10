@@ -262,6 +262,243 @@
           "reason": "Record the separated bytecode and package cleanup census without changing C0-c bootstrap evidence."
         }
       ]
+    },
+    {
+      "revision_id": "repository_evidence_lightweighting_change2_lifecycle_v2_v1",
+      "track": "repository_evidence_lightweighting",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "67b88a3e2ddb036ecaad086fe223b14e78efd5bc",
+      "protection_predecessor_tree": "8ecb2450575615b5e1da810c89f8a86149c64926",
+      "reason": "Adopt the normalized lifecycle v2 dictionary/node/baseline/delta representation, exact v1 reconstruction, migrated consumers, current-required tests, and owner-approved v1 pair disposition.",
+      "approved_activation_deltas": [
+        {
+          "path": "Iris/_docs/round3/round3_test_taxonomy.json",
+          "predecessor_sha256": "b7706d03f2372881592669f115a52cdac811df61d53dc09f162a458a77c2cac2",
+          "before_git_blob_id": "a0046722114472a14bfdfbbc47a55feb971883e6",
+          "before_sha256_lf": "b3fe063012de2b0d32bff68a4073a691a26b38cbbe17c934ea82ebfb4336e421",
+          "expected_git_blob_id": "6d2b2b06aaeabe662996aabfb739c50cd41e2de9",
+          "after_sha256_lf": "87c83ed39ad8a2bf6739ef226a478f5a883a485a7044198e1a93ab5f6ec72673",
+          "owner": "repository_owner_user",
+          "reason": "Add the thirteen lifecycle v2 codec and migration tests as current+ok rows."
+        },
+        {
+          "path": "Iris/_docs/round3/current_route_required_validations.json",
+          "predecessor_sha256": "0ea650737ab6ccdcc5a2c325c7efddc72fa376fa848e8f8ffd254498e36dc6a1",
+          "before_git_blob_id": "35cca10bfbe6001f3e66c1b74a38cd0432da91b6",
+          "before_sha256_lf": "52f802d842b8889c1b0895ff4aed0156aa21befa5cf9d0051c6ea9eb76f735b7",
+          "expected_git_blob_id": "cb0cce9610c3f97b49f2c6ae3d7027741ef3df58",
+          "after_sha256_lf": "55267df64c2f545265b951eacdc12a19a009e80551f26ae575b2a3b1b1650927",
+          "owner": "repository_owner_user",
+          "reason": "Require the same thirteen lifecycle v2 tests in the current route."
+        }
+      ],
+      "added_protected_rows": [
+        {
+          "path": ".gitattributes",
+          "before_git_blob_id": "76dec44b6019cdce7331a3fcaa726b1b16a903d6",
+          "before_sha256_lf": "a4899a744cadf551b5855fc0e760023e8a61460481e9cf4f4ef3b836c8e1eee9",
+          "expected_git_blob_id": "ebb99c6207444e41537b857f61fd9cd0cbbdad4c",
+          "after_sha256_lf": "c543b26d266b7859d08f3209e1d77558ce4c9fbde041f506e9802789f947d77d",
+          "role": "checkout_identity_contract",
+          "writer": "repository_evidence_lightweighting_change2",
+          "consumers": ["lifecycle_v2_codec", "clean_checkout_validation"],
+          "owner": "repository_owner_user",
+          "reason": "Give new lifecycle v2 evidence, codec, and tests stable LF checkout identities."
+        },
+        {
+          "path": ".gitignore",
+          "before_git_blob_id": "f82dc97dd3c3e7f4e0859595a8262796526d62a0",
+          "before_sha256_lf": "58905aae2784d771ba5e04b2da005c569e51b6dcbdc5fcfc2059b27daaf5189b",
+          "expected_git_blob_id": "03ccc6b1cb9de0ba1f600f18eeee45329b02ebc1",
+          "after_sha256_lf": "21e5767ae5b4c78c9752097a016013f44aa969c11ce904ea56d74e6da6b1d567",
+          "role": "repository_tracking_policy",
+          "writer": "repository_evidence_lightweighting_change2",
+          "consumers": ["current_route_validation", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Allow the two exact lifecycle v2 test sources through the existing tests default-deny rule."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_repository_evidence_required_validation_adoption.py",
+          "before_git_blob_id": "d2d06d7ccf6184829be867fa27275812b96a110e",
+          "before_sha256_lf": "790f1b35b70dfd48575076f2cc0d39652fdefc594ec5ee08bb4f29a4a34c96c0",
+          "expected_git_blob_id": "304296395fbb1408fc8f12320c9a40fe5841fba8",
+          "after_sha256_lf": "c63e36f81c9811953fd7af470771d4df151864d6c861349afe81f1126becfd5a",
+          "role": "successor_bootstrap_required_test",
+          "writer": "repository_evidence_lightweighting_change2",
+          "consumers": ["current_route_validation", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Treat the C0-c taxonomy, required-validation, and gitattributes bindings as historical after the authorized Change 2 successor."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+          "before_git_blob_id": "0d658db273e883e6550dd3f1af656c1f1eea4cd2",
+          "before_sha256_lf": "9fc381f9926173462ffd5ec1338c53fc5f726aa5ed54d3d0522881d8b9870637",
+          "expected_git_blob_id": "7ef85af829973ffea568b680bde54d407847a979",
+          "after_sha256_lf": "3b989e1c5379fcaa63ad7fcf73d26877f8a941dd309e07044a25f34ef1a1e944",
+          "role": "protected_surface_current_required_test",
+          "writer": "repository_evidence_lightweighting_change2",
+          "consumers": ["current_route_validation", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Require the Change 2 lifecycle v2 successor revision."
+        },
+        {
+          "path": "Iris/validation/residual_refactor/report_artifact_lifecycle.py",
+          "before_git_blob_id": "7bdf33c525e761a9a62064c40c9cbea2819a71c1",
+          "before_sha256_lf": "d52c076b9326aed5d649bf812cf671894e1e0c22c628d2585ce55b22fac5d449",
+          "expected_git_blob_id": "00714fc38dcb805dfcdee3fbc3c65aa5a3aa5150",
+          "after_sha256_lf": "eb7e8034307a46c471dfa1e9692619d1c5ae80a2e36cf21f904fb36d5bacb238",
+          "role": "lifecycle_manifest_writer",
+          "writer": "repository_evidence_lightweighting_change2",
+          "consumers": ["lifecycle_inventory", "current_route_validation"],
+          "owner": "repository_owner_user",
+          "reason": "Track lifecycle v2 artifacts as approved lifecycle evidence."
+        },
+        {
+          "path": "Iris/validation/residual_refactor/promote_artifact_lifecycle_evidence.py",
+          "before_git_blob_id": "e0d72bafd1137e0101624a56f3c9ea5fc96e408d",
+          "before_sha256_lf": "44b064a5574ebea5f190d9c7a523809ef69cd89aad377ae209b69017ab0db774",
+          "expected_git_blob_id": "e91f3e2c4c4bee0204fd22ebdb91a269c3d95f21",
+          "after_sha256_lf": "f3e2087531faa68d0640da88bd45c090dca71c8300932f5f0c53142a8b03a970",
+          "role": "lifecycle_evidence_promoter",
+          "writer": "repository_evidence_lightweighting_change2",
+          "consumers": ["lifecycle_promotion", "current_route_validation"],
+          "owner": "repository_owner_user",
+          "reason": "Read one v1 or v2 lifecycle representation per invocation and materialize the exact v1 view."
+        },
+        {
+          "path": "Iris/validation/residual_refactor/execute_artifact_lifecycle.py",
+          "before_git_blob_id": "57cd7220120ea3b5f5fc8e06ae2953c226df0baa",
+          "before_sha256_lf": "5680486aa184bea39d15250ea78423a4fac2b3fcd2fb22eb5d7abee9eb97f6ae",
+          "expected_git_blob_id": "46409325c7ab921a043eb97344fedfab3de8162d",
+          "after_sha256_lf": "71366b448c46c71d2caaf4f3b4ec2256aff200f44d9de26f0f8b2b931cb3e1c5",
+          "role": "lifecycle_evidence_executor",
+          "writer": "repository_evidence_lightweighting_change2",
+          "consumers": ["lifecycle_execution", "current_route_validation"],
+          "owner": "repository_owner_user",
+          "reason": "Use the v2 baseline after the durable v1 pair is dispositioned."
+        },
+        {
+          "path": "Iris/validation/residual_refactor/repository_evidence_codec.py",
+          "before_git_blob_id": null,
+          "before_sha256_lf": null,
+          "expected_git_blob_id": "abe46e49192af826dbc19b16f0c7200e17c5e16c",
+          "after_sha256_lf": "2f29054ee03e82bf089235b71ea38b89c5bacdd397fc9bfd39eb31c7fdcd31bc",
+          "role": "lifecycle_v2_codec",
+          "writer": "repository_evidence_lightweighting_change2",
+          "consumers": ["lifecycle_promotion", "lifecycle_execution", "current_route_validation"],
+          "owner": "repository_owner_user",
+          "reason": "Own canonical normalization, fail-loud validation, and exact v1 reconstruction."
+        },
+        {
+          "path": "Iris/validation/residual_refactor/migrate_repository_evidence.py",
+          "before_git_blob_id": null,
+          "before_sha256_lf": null,
+          "expected_git_blob_id": "462a9b022774538732a43a66944b7c94f9f69edf",
+          "after_sha256_lf": "423cb3955553293e6a31713dc70f6822a393fded0cb0c30ca10f7943218b95b4",
+          "role": "lifecycle_v2_migrator",
+          "writer": "repository_evidence_lightweighting_change2",
+          "consumers": ["repository_maintainers", "current_route_validation"],
+          "owner": "repository_owner_user",
+          "reason": "Create the v2 bundle and deterministic reconstructed views."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_repository_evidence_codec.py",
+          "before_git_blob_id": null,
+          "before_sha256_lf": null,
+          "expected_git_blob_id": "696f26f45b275e40526d02361aa7ed9f1136da50",
+          "after_sha256_lf": "e323cb3964e0bde19ae794a2d07578da06441d3f6281aa9a8eed25cb82698e7e",
+          "role": "lifecycle_v2_codec_required_test",
+          "writer": "repository_evidence_lightweighting_change2",
+          "consumers": ["current_route_validation", "full_repository_gate"],
+          "owner": "repository_owner_user",
+          "reason": "Exercise deterministic reconstruction and malformed dictionary/node/delta rejection."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_repository_evidence_migration.py",
+          "before_git_blob_id": null,
+          "before_sha256_lf": null,
+          "expected_git_blob_id": "ea284dceb643701bcb62b11b118d46aa0d6b6f3f",
+          "after_sha256_lf": "d87ebe5cc6402688780648d6aace402e52019ebc52097ff89ecc911c7976144f",
+          "role": "lifecycle_v2_migration_required_test",
+          "writer": "repository_evidence_lightweighting_change2",
+          "consumers": ["current_route_validation", "full_repository_gate"],
+          "owner": "repository_owner_user",
+          "reason": "Bind the adopted v2 artifacts, reconstruction parity, dual readers, and inventory disposition."
+        },
+        {
+          "path": "Iris/_docs/refactor/repository_evidence_lightweighting/lifecycle_manifest_v2_successor.json",
+          "before_git_blob_id": null,
+          "before_sha256_lf": null,
+          "expected_git_blob_id": "373017a56ab00708ce85f40f390e475456f3dab3",
+          "after_sha256_lf": "d5f399d24ec9b28d43e11380696ce530d485bbb2db96739419bd0bb479653fbf",
+          "role": "lifecycle_v2_successor",
+          "writer": "repository_evidence_lightweighting_change2",
+          "consumers": ["repository_maintainers", "current_route_validation"],
+          "owner": "repository_owner_user",
+          "reason": "Connect Change 1, the v2 representation, exact reconstruction, migrated consumers, and v1 disposition."
+        },
+        {
+          "path": "Iris/_docs/refactor/repository_evidence_lightweighting/lifecycle_manifest_v2/dictionary.json",
+          "before_git_blob_id": null,
+          "before_sha256_lf": null,
+          "expected_git_blob_id": "1b119f27136153cc7b17b2dff860eceb55e0782f",
+          "after_sha256_lf": "9faffc2f3244bde64b2d3f14f02d72162a7c831e8d6efcc57c8f25ed7928bf27",
+          "role": "lifecycle_v2_dictionary",
+          "writer": "repository_evidence_lightweighting_change2",
+          "consumers": ["lifecycle_v2_codec"],
+          "owner": "repository_owner_user",
+          "reason": "Store unique strings and consumer relation edges once."
+        },
+        {
+          "path": "Iris/_docs/refactor/repository_evidence_lightweighting/lifecycle_manifest_v2/nodes.jsonl",
+          "before_git_blob_id": null,
+          "before_sha256_lf": null,
+          "expected_git_blob_id": "b24bdfece5ec8028baf463808dd87238e07296c0",
+          "after_sha256_lf": "fc81ef2086330af7e4371d3295854196376c94c79b22e3cff715507b5230750f",
+          "role": "lifecycle_v2_nodes",
+          "writer": "repository_evidence_lightweighting_change2",
+          "consumers": ["lifecycle_v2_codec"],
+          "owner": "repository_owner_user",
+          "reason": "Store each unique lifecycle row node once."
+        },
+        {
+          "path": "Iris/_docs/refactor/repository_evidence_lightweighting/lifecycle_manifest_v2/baseline.json",
+          "before_git_blob_id": null,
+          "before_sha256_lf": null,
+          "expected_git_blob_id": "fa022651a7b2b401c2e385f188a3bf24a1495abb",
+          "after_sha256_lf": "cc2bd2ff21e45264c9dcbe17cc0a8fe4635f23e15620d3b0d639885a3e150e3f",
+          "role": "lifecycle_v2_baseline",
+          "writer": "repository_evidence_lightweighting_change2",
+          "consumers": ["lifecycle_v2_codec"],
+          "owner": "repository_owner_user",
+          "reason": "Represent the complete sorted 7,512-row baseline state."
+        },
+        {
+          "path": "Iris/_docs/refactor/repository_evidence_lightweighting/lifecycle_manifest_v2/final_delta.json",
+          "before_git_blob_id": null,
+          "before_sha256_lf": null,
+          "expected_git_blob_id": "bb6551bfb99ea5a7afd7981f26f127d0506eeee0",
+          "after_sha256_lf": "6d16c5ce913674e87b790f91729395b997e3fc0b0619728bbd8c2249f9350f43",
+          "role": "lifecycle_v2_final_delta",
+          "writer": "repository_evidence_lightweighting_change2",
+          "consumers": ["lifecycle_v2_codec"],
+          "owner": "repository_owner_user",
+          "reason": "Represent the final state with three adds and 775 replacements."
+        },
+        {
+          "path": "Iris/_docs/refactor/repository_evidence_lightweighting/lifecycle_manifest_v2/migration_receipt.json",
+          "before_git_blob_id": null,
+          "before_sha256_lf": null,
+          "expected_git_blob_id": "ca0b8f2f65919380213dd052ddf3521a62a4e307",
+          "after_sha256_lf": "599fe233c0ec55d0f5be840faf2e0e2380784ed4fc89bbe5e6d1dfbffe2f0781",
+          "role": "lifecycle_v2_migration_receipt",
+          "writer": "repository_evidence_lightweighting_change2",
+          "consumers": ["lifecycle_v2_codec", "current_route_validation"],
+          "owner": "repository_owner_user",
+          "reason": "Bind both v1 byte streams, all v2 artifacts, parity counts, checkout contract, and no-change inventory disposition."
+        }
+      ]
     }
   ]
 }

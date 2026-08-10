@@ -3053,6 +3053,71 @@
       "required": true,
       "role": "repository_evidence_lightweighting_bootstrap_required_validation",
       "test_id": "test_repository_evidence_required_validation_adoption.RepositoryEvidenceRequiredValidationAdoptionTest.test_durable_cas_roots_are_trackable_and_clean_checkout_available"
+    },
+    {
+      "required": true,
+      "role": "repository_evidence_lightweighting_lifecycle_v2_required_validation",
+      "test_id": "test_repository_evidence_codec.RepositoryEvidenceCodecTest.test_round_trip_and_same_input_are_byte_stable"
+    },
+    {
+      "required": true,
+      "role": "repository_evidence_lightweighting_lifecycle_v2_required_validation",
+      "test_id": "test_repository_evidence_codec.RepositoryEvidenceCodecTest.test_v1_rejects_duplicate_path_and_noncanonical_json"
+    },
+    {
+      "required": true,
+      "role": "repository_evidence_lightweighting_lifecycle_v2_required_validation",
+      "test_id": "test_repository_evidence_codec.RepositoryEvidenceCodecTest.test_duplicate_delta_path_is_rejected"
+    },
+    {
+      "required": true,
+      "role": "repository_evidence_lightweighting_lifecycle_v2_required_validation",
+      "test_id": "test_repository_evidence_codec.RepositoryEvidenceCodecTest.test_wrong_delta_order_is_rejected"
+    },
+    {
+      "required": true,
+      "role": "repository_evidence_lightweighting_lifecycle_v2_required_validation",
+      "test_id": "test_repository_evidence_codec.RepositoryEvidenceCodecTest.test_wrong_before_hash_and_malformed_remove_are_rejected"
+    },
+    {
+      "required": true,
+      "role": "repository_evidence_lightweighting_lifecycle_v2_required_validation",
+      "test_id": "test_repository_evidence_codec.RepositoryEvidenceCodecTest.test_unknown_node_and_dangling_node_are_rejected"
+    },
+    {
+      "required": true,
+      "role": "repository_evidence_lightweighting_lifecycle_v2_required_validation",
+      "test_id": "test_repository_evidence_codec.RepositoryEvidenceCodecTest.test_duplicate_edge_and_unknown_edge_reference_are_rejected"
+    },
+    {
+      "required": true,
+      "role": "repository_evidence_lightweighting_lifecycle_v2_required_validation",
+      "test_id": "test_repository_evidence_codec.RepositoryEvidenceCodecTest.test_noncanonical_v2_json_is_rejected"
+    },
+    {
+      "required": true,
+      "role": "repository_evidence_lightweighting_lifecycle_v2_required_validation",
+      "test_id": "test_repository_evidence_migration.RepositoryEvidenceMigrationTest.test_adopted_v1_views_are_reconstructed_byte_identically"
+    },
+    {
+      "required": true,
+      "role": "repository_evidence_lightweighting_lifecycle_v2_required_validation",
+      "test_id": "test_repository_evidence_migration.RepositoryEvidenceMigrationTest.test_v2_components_are_deterministic_and_smaller_than_the_v1_pair"
+    },
+    {
+      "required": true,
+      "role": "repository_evidence_lightweighting_lifecycle_v2_required_validation",
+      "test_id": "test_repository_evidence_migration.RepositoryEvidenceMigrationTest.test_promoter_and_executor_select_one_v2_representation"
+    },
+    {
+      "required": true,
+      "role": "repository_evidence_lightweighting_lifecycle_v2_required_validation",
+      "test_id": "test_repository_evidence_migration.RepositoryEvidenceMigrationTest.test_report_inventory_no_change_disposition_is_sealed"
+    },
+    {
+      "required": true,
+      "role": "repository_evidence_lightweighting_lifecycle_v2_required_validation",
+      "test_id": "test_repository_evidence_migration.RepositoryEvidenceMigrationTest.test_codec_materializer_rejects_representation_mixing_by_construction"
     }
   ],
   "route": "current",

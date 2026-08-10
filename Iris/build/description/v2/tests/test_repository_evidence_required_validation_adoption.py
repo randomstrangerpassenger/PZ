@@ -130,8 +130,11 @@ class RepositoryEvidenceRequiredValidationAdoptionTest(unittest.TestCase):
                 if name
                 in {
                     "adoption_test_source",
+                    "gitattributes",
                     "gitignore",
                     "protected_surface_successor",
+                    "required_validations",
+                    "test_taxonomy",
                 }
                 else "HEAD"
             )

@@ -1,0 +1,64 @@
+{
+  "schema_version": "iris_repository_evidence_lifecycle_v2_successor_v1",
+  "claim_id": "iris_repository_evidence_lightweighting",
+  "status": "adopted",
+  "authority": "repository_owner_user",
+  "predecessor": {
+    "active_revision": "repository_evidence_lightweighting_change1_cleanup_v1",
+    "commit": "67b88a3e2ddb036ecaad086fe223b14e78efd5bc",
+    "tree": "8ecb2450575615b5e1da810c89f8a86149c64926"
+  },
+  "representation": {
+    "kind": "normalized_dictionary_nodes_baseline_final_delta",
+    "root": "Iris/_docs/refactor/repository_evidence_lightweighting/lifecycle_manifest_v2",
+    "migration_receipt": "Iris/_docs/refactor/repository_evidence_lightweighting/lifecycle_manifest_v2/migration_receipt.json",
+    "baseline_rows": 7512,
+    "final_rows": 7515,
+    "shared_exact_rows": 6737,
+    "added_rows": 3,
+    "removed_rows": 0,
+    "replaced_rows": 775,
+    "v2_payload_bytes": 11939550,
+    "v2_total_bytes_with_receipt": 11942429
+  },
+  "v1_reconstruction": {
+    "baseline": {
+      "path": "Iris/_docs/refactor/repository_runtime_lightweighting/artifact_role_manifest.jsonl",
+      "bytes": 53503823,
+      "sha256": "10c349b97d709e8b43722cfd9fe5855b02875f5ee2fa5ceeb96e4107caa8e900",
+      "byte_identical": true
+    },
+    "final": {
+      "path": "Iris/_docs/refactor/repository_runtime_lightweighting/final_artifact_role_manifest.jsonl",
+      "bytes": 52484505,
+      "sha256": "9edc05cce635b6b1615dacf154d2819960f14b759a8d6f8267e1be50820fbb92",
+      "byte_identical": true
+    }
+  },
+  "consumer_transition": {
+    "single_representation_per_invocation": true,
+    "dual_readers": [
+      "Iris/validation/residual_refactor/promote_artifact_lifecycle_evidence.py",
+      "Iris/validation/residual_refactor/execute_artifact_lifecycle.py"
+    ],
+    "writer_and_codec": [
+      "Iris/validation/residual_refactor/report_artifact_lifecycle.py",
+      "Iris/validation/residual_refactor/repository_evidence_codec.py",
+      "Iris/validation/residual_refactor/migrate_repository_evidence.py"
+    ],
+    "report_inventory_disposition": "sealed_no_change"
+  },
+  "disposition": {
+    "owner_approval_source": "owner directive allowing plan-scoped gates and explicitly prioritizing practical lightweighting over unavailable historical Git SHA recovery",
+    "v1_pair": "delete_after_v2_adoption_and_terminal_validation",
+    "deleted_payload_bytes": 105988328,
+    "net_manifest_representation_reduction_bytes": 94045899,
+    "restore_mechanism": "deterministic v2 codec reconstruction",
+    "historical_git_object_recovery_required": false
+  },
+  "non_claims": [
+    "The v2 representation is not semantic authority.",
+    "No Project Zomboid runtime behavior changes in Change 2.",
+    "No release or Workshop readiness claim is made."
+  ]
+}

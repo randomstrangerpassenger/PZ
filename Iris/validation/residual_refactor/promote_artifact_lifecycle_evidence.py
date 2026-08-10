@@ -22,6 +22,11 @@ from report_artifact_lifecycle import (
     repository_identity as lifecycle_repository_identity,
     summary_for as lifecycle_summary_for,
 )
+from repository_evidence_codec import (
+    RepositoryEvidenceCodecError,
+    materialize_manifest,
+    raw_sha256 as evidence_raw_sha256,
+)
 
 
 DURABLE_RELATIVE = Path("Iris/_docs/refactor/repository_runtime_lightweighting")
@@ -84,6 +89,28 @@ def load_jsonl(path: Path) -> list[dict[str, Any]]:
     return rows
 
 
+def load_lifecycle_source(
+    path: Path,
+    view: str,
+) -> tuple[bytes, list[dict[str, Any]], str]:
+    try:
+        return materialize_manifest(path.resolve(), view)  # type: ignore[arg-type]
+    except RepositoryEvidenceCodecError as error:
+        raise PromotionError(f"invalid lifecycle {view} representation: {path}") from error
+
+
+def durable_baseline_lifecycle_source(destination: Path) -> tuple[Path, bytes, list[dict[str, Any]], str]:
+    v1_path = destination / "artifact_role_manifest.jsonl"
+    v2_root = (
+        destination.parent
+        / "repository_evidence_lightweighting"
+        / "lifecycle_manifest_v2"
+    )
+    source = v1_path if v1_path.is_file() else v2_root
+    payload, rows, representation = load_lifecycle_source(source, "baseline")
+    return source.resolve(), payload, rows, representation
+
+
 def atomic_write_new(path: Path, payload: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     if path.exists():
@@ -137,6 +164,34 @@ def exact_copy_new(source: Path, destination: Path) -> dict[str, Any]:
         "destination_path": destination.as_posix(),
         "destination_sha256": source_hash,
         "byte_length": source_size,
+    }
+
+
+def exact_payload_new(source: Path, payload: bytes, destination: Path, representation: str) -> dict[str, Any]:
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    if destination.exists():
+        raise PromotionError(f"destination already exists: {destination}")
+    temporary = destination.with_name(f".{destination.name}.{os.getpid()}.tmp")
+    if temporary.exists():
+        raise PromotionError(f"temporary destination already exists: {temporary}")
+    temporary.write_bytes(payload)
+    source_hash = evidence_raw_sha256(payload)
+    if sha256_file(temporary) != source_hash or temporary.stat().st_size != len(payload):
+        temporary.unlink(missing_ok=True)
+        raise PromotionError(f"temporary promotion materialization differs: {destination}")
+    try:
+        os.link(temporary, destination)
+    except FileExistsError as error:
+        raise PromotionError(f"destination already exists: {destination}") from error
+    finally:
+        temporary.unlink(missing_ok=True)
+    return {
+        "source_path": source.as_posix(),
+        "source_representation": representation,
+        "source_sha256": source_hash,
+        "destination_path": destination.as_posix(),
+        "destination_sha256": source_hash,
+        "byte_length": len(payload),
     }
 
 
@@ -535,15 +590,20 @@ def validate_subject_receipt(
     )
     if head.returncode != 0 or head.stdout.splitlines() != [receipt.get("commit"), receipt.get("tree")]:
         raise PromotionError("subject receipt commit/tree differs from promotion checkout")
+    manifest_bytes, _, manifest_representation = load_lifecycle_source(source_manifest, "baseline")
     bindings = (("manifest", source_manifest), ("summary", source_summary))
     for key, source in bindings:
         binding = receipt.get(key, {})
         if os.path.normcase(str(Path(str(binding.get("path"))).resolve())) != os.path.normcase(str(source.resolve())):
             raise PromotionError(f"{key} source path differs from subject receipt")
-        if sha256_file(source) != binding.get("sha256"):
+        payload_hash = evidence_raw_sha256(manifest_bytes) if key == "manifest" else sha256_file(source)
+        payload_bytes = len(manifest_bytes) if key == "manifest" else source.stat().st_size
+        if payload_hash != binding.get("sha256"):
             raise PromotionError(f"{key} source hash differs from subject receipt")
-        if source.stat().st_size != binding.get("bytes"):
+        if payload_bytes != binding.get("bytes"):
             raise PromotionError(f"{key} source length differs from subject receipt")
+    if manifest_representation not in {"v1", "v2"}:
+        raise PromotionError("unknown lifecycle manifest representation")
     return receipt
 
 
@@ -579,7 +639,7 @@ def validate_baseline_generation(args: argparse.Namespace, repo: Path) -> tuple[
         raise PromotionError("summary physical subject identity mismatch")
     if summary.get("unclassified_count") != 0 or summary.get("unreadable_count") != 0 or summary.get("consumer_scan_hold_count", 0) != 0 or summary.get("complete_accounting") is not True:
         raise PromotionError("summary accounting is incomplete")
-    manifest_rows = load_jsonl(args.source_manifest.resolve())
+    manifest_bytes, manifest_rows, _ = load_lifecycle_source(args.source_manifest.resolve(), "baseline")
     actual_identity = lifecycle_repository_identity(repo)
     actual_rows, _ = lifecycle_build_rows(repo, include_missing_giants=True)
     actual_summary = lifecycle_summary_for(
@@ -588,7 +648,7 @@ def validate_baseline_generation(args: argparse.Namespace, repo: Path) -> tuple[
         actual_identity,
         actual_rows,
     )
-    if args.source_manifest.resolve().read_bytes() != lifecycle_jsonl_bytes(actual_rows):
+    if manifest_bytes != lifecycle_jsonl_bytes(actual_rows):
         raise PromotionError("baseline manifest differs from a fresh physical checkout census")
     if summary != actual_summary:
         raise PromotionError("baseline summary differs from a fresh physical checkout census")
@@ -623,8 +683,14 @@ def promote_baseline(args: argparse.Namespace) -> None:
             external,
         ]
     )
+    manifest_bytes, _, representation = load_lifecycle_source(args.source_manifest.resolve(), "baseline")
     rows = [
-        exact_copy_new(args.source_manifest.resolve(), destination / "artifact_role_manifest.jsonl"),
+        exact_payload_new(
+            args.source_manifest.resolve(),
+            manifest_bytes,
+            destination / "artifact_role_manifest.jsonl",
+            representation,
+        ),
         exact_copy_new(args.source_summary.resolve(), destination / "baseline_inventory.json"),
     ]
     payload = {
@@ -1428,24 +1494,42 @@ def promote_terminal(args: argparse.Namespace) -> None:
     baseline_promotion = load_object(baseline_promotion_path)
     validate_baseline_promotion_payload(repo, destination, baseline_promotion)
     baseline_path = (destination / "baseline_inventory.json").resolve()
-    baseline_manifest_path = (destination / "artifact_role_manifest.jsonl").resolve()
-    if not baseline_path.is_file() or not baseline_manifest_path.is_file():
+    baseline_manifest_path, baseline_manifest_bytes, _, _ = durable_baseline_lifecycle_source(
+        destination
+    )
+    if not baseline_path.is_file():
         raise PromotionError("durable baseline evidence is incomplete")
     promoted = {
         Path(str(row.get("destination_path", ""))).resolve(): row
         for row in baseline_promotion.get("promoted_files", [])
         if isinstance(row, dict)
     }
-    for durable_path in (baseline_path, baseline_manifest_path):
-        binding = promoted.get(durable_path)
-        if (
-            not binding
-            or binding.get("destination_sha256") != sha256_file(durable_path)
-            or int(binding.get("byte_length", -1)) != durable_path.stat().st_size
-        ):
-            raise PromotionError(f"durable baseline promotion binding mismatch: {durable_path.name}")
+    baseline_binding = promoted.get(baseline_path)
+    if (
+        not baseline_binding
+        or baseline_binding.get("destination_sha256") != sha256_file(baseline_path)
+        or int(baseline_binding.get("byte_length", -1)) != baseline_path.stat().st_size
+    ):
+        raise PromotionError("durable baseline promotion binding mismatch: baseline_inventory.json")
+    manifest_binding = next(
+        (
+            row
+            for row in baseline_promotion.get("promoted_files", [])
+            if isinstance(row, dict)
+            and Path(str(row.get("destination_path", ""))).name == "artifact_role_manifest.jsonl"
+        ),
+        None,
+    )
+    if (
+        not manifest_binding
+        or manifest_binding.get("destination_sha256") != evidence_raw_sha256(baseline_manifest_bytes)
+        or int(manifest_binding.get("byte_length", -1)) != len(baseline_manifest_bytes)
+    ):
+        raise PromotionError("durable baseline promotion binding mismatch: artifact_role_manifest.jsonl")
     baseline = load_object(baseline_path)
-    manifest_rows = load_jsonl(args.source_manifest.resolve())
+    manifest_bytes, manifest_rows, representation = load_lifecycle_source(
+        args.source_manifest.resolve(), "final"
+    )
     summary = load_object(args.source_summary.resolve())
     transition = load_object(args.source_transition.resolve())
     actual_identity = lifecycle_repository_identity(repo)
@@ -1456,7 +1540,7 @@ def promote_terminal(args: argparse.Namespace) -> None:
         actual_identity,
         actual_rows,
     )
-    if args.source_manifest.resolve().read_bytes() != lifecycle_jsonl_bytes(actual_rows):
+    if manifest_bytes != lifecycle_jsonl_bytes(actual_rows):
         raise PromotionError("terminal manifest differs from a fresh physical checkout census")
     if summary != actual_summary:
         raise PromotionError("terminal summary differs from a fresh physical checkout census")
@@ -1571,7 +1655,12 @@ def promote_terminal(args: argparse.Namespace) -> None:
         ]
     )
     rows = [
-        exact_copy_new(args.source_manifest.resolve(), destination / "final_artifact_role_manifest.jsonl"),
+        exact_payload_new(
+            args.source_manifest.resolve(),
+            manifest_bytes,
+            destination / "final_artifact_role_manifest.jsonl",
+            representation,
+        ),
         exact_copy_new(args.source_summary.resolve(), destination / "final_inventory.json"),
         exact_copy_new(args.source_transition.resolve(), destination / "tracking_set_transition.json"),
     ]

@@ -1100,7 +1100,7 @@
       "owner": "repository_owner_user",
       "approved": true,
       "protection_predecessor_commit": "fb583f400eccd8de1239aab642ea24ff6fbe5344",
-      "protection_predecessor_tree": "23dfa77f8621f756894ed417b2709643c9dcaf8d",
+      "protection_predecessor_tree": "23dfa77e09fa4737128d95b41414624463faa611",
       "reason": "Adopt the owner-preapproved Codex Reviewer corrections that make optimization instrumentation opt-in while preserving Browser search, cache, and Tooltip behavior.",
       "approved_activation_deltas": [
         {
@@ -1118,8 +1118,8 @@
           "predecessor_sha256": "c29fdde4957d23fa28ac664d6c6355918b4739988c757eba808ae1b7796bd97c",
           "before_git_blob_id": "d413706e50f9b6a3f191372f3ac0eba6b21fdafb",
           "before_sha256_lf": "c29fdde4957d23fa28ac664d6c6355918b4739988c757eba808ae1b7796bd97c",
-          "expected_git_blob_id": "16475fb85e88eb70b5e88d5357d47f14f719906b",
-          "after_sha256_lf": "dcf70d9c88c127d95ae83bab8d1901605da93640605191f356f9b0df3b3b9657",
+          "expected_git_blob_id": "d29abee63c72fb18ba8e0ce0c46dd77bd9d03d4e",
+          "after_sha256_lf": "17fcecb3bf5ddf79d8f911d0a5919a327b87f0f237aac437008084efc651b92f",
           "owner": "repository_owner_user",
           "reason": "Allocate and update search metrics only after explicit instrumentation opt-in."
         },

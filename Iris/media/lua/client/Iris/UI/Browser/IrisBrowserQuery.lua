@@ -69,7 +69,7 @@ function IrisBrowserQuery.searchAll(cache, query, getItemLocation, locale)
         if instrumentationEnabled then
             cache.searchMetrics = cache.searchMetrics or newSearchMetrics()
             cache.searchMetrics.localeInvalidationCount =
-                cache.searchMetrics.localeInvalidationCount + 1
+                (cache.searchMetrics.localeInvalidationCount or 0) + 1
         end
     end
 
@@ -79,7 +79,7 @@ function IrisBrowserQuery.searchAll(cache, query, getItemLocation, locale)
     if instrumentationEnabled then
         metrics = cache.searchMetrics or newSearchMetrics()
         cache.searchMetrics = metrics
-        metrics.searchCalls = metrics.searchCalls + 1
+        metrics.searchCalls = (metrics.searchCalls or 0) + 1
     end
 
     local previous = cache.searchPrefixState
@@ -93,7 +93,9 @@ function IrisBrowserQuery.searchAll(cache, query, getItemLocation, locale)
     local scannedRows = 0
 
     if sourceRows then
-        if metrics then metrics.prefixReuseCount = metrics.prefixReuseCount + 1 end
+        if metrics then
+            metrics.prefixReuseCount = (metrics.prefixReuseCount or 0) + 1
+        end
         for _, row in ipairs(sourceRows) do
             scannedRows = scannedRows + 1
             local searchKeys = cache.searchKeysByFullType and cache.searchKeysByFullType[row.fullType]
@@ -124,7 +126,8 @@ function IrisBrowserQuery.searchAll(cache, query, getItemLocation, locale)
                     -- cache fixture. Production caches always use the map.
                     foundCat, foundSub = getItemLocation(fullType)
                     if metrics then
-                        metrics.locationLookupCount = metrics.locationLookupCount + 1
+                        metrics.locationLookupCount =
+                            (metrics.locationLookupCount or 0) + 1
                     end
                 end
 
@@ -147,7 +150,7 @@ function IrisBrowserQuery.searchAll(cache, query, getItemLocation, locale)
 
     if metrics then
         metrics.lastScanRows = scannedRows
-        metrics.totalScanRows = metrics.totalScanRows + scannedRows
+        metrics.totalScanRows = (metrics.totalScanRows or 0) + scannedRows
     end
     cache.searchPrefixState = {
         generation = cache.generation,

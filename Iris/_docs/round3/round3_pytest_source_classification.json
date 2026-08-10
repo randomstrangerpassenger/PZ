@@ -1,0 +1,155 @@
+{
+  "schema_version": "round3-pytest-source-classification-v1",
+  "policy": "General pytest source discovery only; this manifest does not extend the exact Round 3 current authority.",
+  "exact_taxonomy_projection": "Iris/_docs/round3/round3_test_taxonomy.json",
+  "owner_approval": {
+    "approved": true,
+    "owner": "repository-owner-preapproval-2026-08-10",
+    "reviewed_at": "2026-08-10",
+    "scope": "All source classifications, exclusions, mixed overrides, and planned optimization contract sources in this manifest."
+  },
+  "baseline_inventory": {
+    "description_v2_test_sources": 263,
+    "taxonomy_unknown_sources_reviewed": 49,
+    "pytest_ini_ignored_sources_reviewed": 6,
+    "known_collection_blockers_reviewed": 2,
+    "taxonomy_sources_missing_from_current_tree": 14
+  },
+  "reviewed_sources": [
+    {"source_file": "Iris/build/description/v2/tests/test_compiler_particle_adjustment.py", "classification": "current", "reason": "Validates the current Layer3 compiler particle realization."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_core_registry_boundary_claim_contract_closure.py", "classification": "historical", "reason": "Reproduces a closed registry-boundary claim-closure workflow."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py", "classification": "current", "reason": "Validates the currently referenced current-route evidence-integrity surface."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation.py", "classification": "current", "reason": "Validates the live final reconciliation consumed by current-route evidence."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_current_route_baseline_source_overlay_repair.py", "classification": "current", "reason": "Guards the current-route baseline overlay repair now consumed by the current closure."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.py", "classification": "current", "reason": "Guards freshness of the current required-validation evidence seal."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_current_source_authority_drift_verification.py", "classification": "current", "reason": "Checks current source-authority drift and fail-closed behavior."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.py", "classification": "current", "reason": "Checks the adopted current source-authority drift reseal."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_closeout.py", "classification": "historical", "reason": "Reproduces the closed food-semantic implementation claim ceiling."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_curation_writer.py", "classification": "historical", "reason": "Exercises the superseded food-semantic curation workflow."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_handoff.py", "classification": "historical", "reason": "Exercises the sealed food-semantic handoff workflow."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_kernel.py", "classification": "historical", "reason": "Exercises the closed food-semantic reconstruction kernel."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_registry_cutover.py", "classification": "current", "reason": "Validates the registry cutover adopted by the current runtime authority."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_acceptance_gate.py", "classification": "historical", "reason": "Reproduces a sealed Korean-prose naturalization acceptance round."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_candidate_route.py", "classification": "historical", "reason": "Reproduces the closed Korean-prose candidate route."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py", "classification": "historical", "reason": "Reproduces the closed Korean-prose compiler round."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_policy.py", "classification": "historical", "reason": "Checks a superseded Korean-prose candidate policy."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_semantic_preservation.py", "classification": "historical", "reason": "Reproduces the sealed Korean-prose semantic-preservation proof."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_legacy_combined_route_axis_inventory.py", "classification": "diagnostic", "reason": "Inventories legacy combined-route axes without defining current success."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_bridge.py", "classification": "current", "reason": "Validates the current registry-to-runtime bridge contract."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_chunks.py", "classification": "current", "reason": "Validates current registry runtime chunk reconstruction."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_closeout.py", "classification": "current", "reason": "Guards the closeout bundle adopted by the current runtime route."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_contract.py", "classification": "current", "reason": "Validates the current registry runtime compatibility contract."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_current.py", "classification": "current", "reason": "Directly validates the current registry runtime payload."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_fixtures.py", "classification": "current", "reason": "Provides contract fixtures used to validate the current registry runtime route."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_package.py", "classification": "current", "reason": "Validates the current packaged registry runtime surface."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_windows.py", "classification": "current", "reason": "Validates the supported Windows wrapper for the current route."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_required_artifact_disposition_seal.py", "classification": "historical", "reason": "Reproduces the closed required-artifact disposition transaction."},
+    {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_required_artifact_surface_preflight_census.py", "classification": "diagnostic", "reason": "Censuses a historical required-artifact surface without defining current success."},
+    {"source_file": "Iris/build/description/v2/tests/test_iris_core_refactor_closeout.py", "classification": "current", "reason": "Guards the core refactor contracts still consumed by the current runtime."},
+    {"source_file": "Iris/build/description/v2/tests/test_iris_description_single_path_acceptance.py", "classification": "current", "reason": "Validates the current single description path."},
+    {"source_file": "Iris/build/description/v2/tests/test_iris_detail_view_model_acceptance.py", "classification": "current", "reason": "Validates the current detail ViewModel behavior."},
+    {"source_file": "Iris/build/description/v2/tests/test_iris_legacy_surface_acceptance.py", "classification": "current", "reason": "Protects current public compatibility surfaces."},
+    {"source_file": "Iris/build/description/v2/tests/test_iris_pre_refactor_browser_characterization.py", "classification": "diagnostic", "reason": "Observes the sealed pre-refactor Browser baseline."},
+    {"source_file": "Iris/build/description/v2/tests/test_iris_pre_refactor_description_characterization.py", "classification": "diagnostic", "reason": "Observes the sealed pre-refactor description baseline."},
+    {"source_file": "Iris/build/description/v2/tests/test_iris_pre_refactor_detail_characterization.py", "classification": "diagnostic", "reason": "Observes the sealed pre-refactor detail baseline."},
+    {"source_file": "Iris/build/description/v2/tests/test_live_consumer_migration_execution.py", "classification": "historical", "reason": "Reproduces the completed live-consumer migration transaction."},
+    {"source_file": "Iris/build/description/v2/tests/test_live_migration_readiness_authorization.py", "classification": "historical", "reason": "Reproduces the closed migration-readiness authorization."},
+    {"source_file": "Iris/build/description/v2/tests/test_live_migration_readiness_execution.py", "classification": "historical", "reason": "Reproduces the closed migration-readiness execution."},
+    {"source_file": "Iris/build/description/v2/tests/test_naturalization_compiler_identity.py", "classification": "historical", "reason": "Reproduces the sealed naturalization compiler identity."},
+    {"source_file": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py", "classification": "historical", "reason": "Reproduces public-text constituent identity from a closed quality round."},
+    {"source_file": "Iris/build/description/v2/tests/test_public_text_quality_acceptance.py", "classification": "historical", "reason": "Exercises the closed public-text quality acceptance workflow."},
+    {"source_file": "Iris/build/description/v2/tests/test_public_text_quality_acceptance_current_route.py", "classification": "current", "reason": "Validates the public-text acceptance guard bound to the current route."},
+    {"source_file": "Iris/build/description/v2/tests/test_public_text_quality_acceptance_fixtures.py", "classification": "diagnostic", "reason": "Checks quality-policy fixtures without defining current release success."},
+    {"source_file": "Iris/build/description/v2/tests/test_public_text_quality_acceptance_policy.py", "classification": "historical", "reason": "Checks a closed candidate quality policy rather than current runtime output."},
+    {"source_file": "Iris/build/description/v2/tests/test_public_text_quality_metric_contract.py", "classification": "diagnostic", "reason": "Audits metric registry shape without defining current release success."},
+    {"source_file": "Iris/build/description/v2/tests/test_runtime_payload_state_integrity_residual_seal.py", "classification": "current", "reason": "Guards the residual seal consumed by the current runtime payload."},
+    {"source_file": "Iris/build/description/v2/tests/test_terminal_disposition_adjudication.py", "classification": "historical", "reason": "Reproduces a closed terminal-disposition adjudication."},
+    {"source_file": "Iris/build/description/v2/tests/test_validated_naturalization_runtime_adoption.py", "classification": "current", "reason": "Validates the naturalization payload adopted by the current runtime."}
+  ],
+  "planned_sources": [
+    {"source_file": "Iris/build/description/v2/tests/test_round3_pytest_source_classification.py", "classification": "current"},
+    {"source_file": "Iris/build/description/v2/tests/test_round3_pytest_failure_classification.py", "classification": "current"},
+    {"source_file": "Iris/build/description/v2/tests/test_lookup_package_parity_contract.py", "classification": "current"},
+    {"source_file": "Iris/build/description/v2/tests/test_generated_lua_sparse_fields_contract.py", "classification": "current"},
+    {"source_file": "Iris/build/description/v2/tests/test_round3_git_batch_contract.py", "classification": "current"},
+    {"source_file": "Iris/build/description/v2/tests/test_iris_runtime_optimization_metrics.py", "classification": "current"},
+    {"source_file": "Iris/build/description/v2/tests/test_python_tooling_contract_commonization.py", "classification": "current"}
+  ],
+  "mixed_sources": [
+    {
+      "source_file": "Iris/build/description/v2/tests/test_compose_entrypoint_guard_hardening.py",
+      "default_classification": "current",
+      "item_overrides": [
+        {"test_id": "test_compose_entrypoint_guard_hardening.ComposeEntrypointGuardHardeningTest.test_legacy_profile_explicit_historical_output_passes", "classification": "historical"}
+      ]
+    },
+    {
+      "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
+      "default_classification": "current",
+      "item_overrides": [
+        {"test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_workspace_copy_flow_excludes_layer3_monolith", "classification": "diagnostic"}
+      ]
+    }
+  ],
+  "additional_sources": [
+    {"source_file": "Iris/build/tests/test_evidence_pipeline_cross_track.py", "classification": "current", "reason": "The configured cross-track evidence regression remains a current supported contract."}
+  ],
+  "excluded_sources": [
+    {
+      "source_file": "Iris/build/description/v2/tests/test_phase_d_signal_preservation_supporting_reports.py",
+      "reason": "Historical source imports the removed validate_phase_d_signal_preservation producer at collection time.",
+      "alternative_validation": "Exact historical taxonomy trace plus surviving Phase D build/crosscheck producer contracts; this source is not a current success authority.",
+      "owner": "repository-owner-preapproval-2026-08-10",
+      "reviewed_at": "2026-08-10"
+    },
+    {
+      "source_file": "Iris/build/description/v2/tests/test_structural_reclassification_code_path_convergence_supporting_reports.py",
+      "reason": "Historical source imports the removed validate_structural_reclassification_convergence producer at collection time.",
+      "alternative_validation": "Exact historical taxonomy trace plus surviving structural-reclassification guard/crosscheck producer contracts; this source is not a current success authority.",
+      "owner": "repository-owner-preapproval-2026-08-10",
+      "reviewed_at": "2026-08-10"
+    },
+    {
+      "source_file": "Iris/build/tests/test_description_generator.py",
+      "reason": "Legacy script-style generator test is outside the supported description-v2 route and is superseded by current package/generator contracts.",
+      "alternative_validation": "test_generated_lua_sparse_fields_contract.py and test_package_layer3_chunks_only_contract.py",
+      "owner": "repository-owner-preapproval-2026-08-10",
+      "reviewed_at": "2026-08-10"
+    },
+    {
+      "source_file": "Iris/build/tests/test_determinism_rc.py",
+      "reason": "Legacy release-candidate script mutates/produces historical build outputs and is outside the configured current denominator.",
+      "alternative_validation": "Current exact route plus deterministic generated-package Run A/B contracts",
+      "owner": "repository-owner-preapproval-2026-08-10",
+      "reviewed_at": "2026-08-10"
+    },
+    {
+      "source_file": "Iris/build/tests/test_fail_loud_coverage.py",
+      "reason": "Legacy labelmap coverage route is superseded by the current description-v2/package validation surface.",
+      "alternative_validation": "Current exact route and generated package parity contract",
+      "owner": "repository-owner-preapproval-2026-08-10",
+      "reviewed_at": "2026-08-10"
+    },
+    {
+      "source_file": "Iris/build/tests/test_layer3_pipeline.py",
+      "reason": "Legacy monolithic Layer3 pipeline route is outside the chunked current runtime authority.",
+      "alternative_validation": "test_lookup_package_parity_contract.py and exact current route",
+      "owner": "repository-owner-preapproval-2026-08-10",
+      "reviewed_at": "2026-08-10"
+    },
+    {
+      "source_file": "Iris/build/tests/test_recipe_evidence.py",
+      "reason": "Legacy recipe-evidence script is superseded by the current cross-track evidence regression and description-v2 contracts.",
+      "alternative_validation": "Iris/build/tests/test_evidence_pipeline_cross_track.py",
+      "owner": "repository-owner-preapproval-2026-08-10",
+      "reviewed_at": "2026-08-10"
+    },
+    {
+      "source_file": "Iris/build/tests/test_wearable_6f.py",
+      "reason": "Legacy phase-specific wearable script is not a current description-v2 runtime/package contract.",
+      "alternative_validation": "Current exact route and current generated description/package contracts",
+      "owner": "repository-owner-preapproval-2026-08-10",
+      "reviewed_at": "2026-08-10"
+    }
+  ]
+}

@@ -182,8 +182,14 @@ def expand_cli_evidence(payload: dict[str, Any]) -> tuple[dict[str, Any], dict[s
     expanded = dict(payload)
     modified_subject = dict(payload.get("modified_subject", {}))
     base = str(modified_subject.get("base_commit", ""))
+    endpoint = str(modified_subject.get("endpoint", ""))
+    diff_arguments: tuple[str, ...] | None = None
     if base:
-        changed = _run_git("diff", "--name-only", base, "--").decode("utf-8")
+        if endpoint and endpoint != "implementation_worktree":
+            diff_arguments = ("diff", "--name-only", base, endpoint, "--")
+        else:
+            diff_arguments = ("diff", "--name-only", base, "--")
+        changed = _run_git(*diff_arguments).decode("utf-8")
         modified_paths = {
             _canonical_repo_path(path)
             for path in changed.splitlines()
@@ -224,6 +230,7 @@ def expand_cli_evidence(payload: dict[str, Any]) -> tuple[dict[str, Any], dict[s
     expanded["failures"] = failures
     basis = {
         "modified_subject": modified_subject,
+        "modified_diff_arguments": list(diff_arguments or ()),
         "modified_path_count": len(modified_paths),
         "mandatory_test_id_count": len(payload.get("mandatory_test_ids", [])),
         "mandatory_path_count": len(payload.get("mandatory_paths", [])),

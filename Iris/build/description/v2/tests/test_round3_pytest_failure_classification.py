@@ -3,6 +3,7 @@ from __future__ import annotations
 import importlib.util
 import unittest
 from pathlib import Path
+from unittest import mock
 
 
 REPO = Path(__file__).resolve().parents[5]
@@ -88,6 +89,30 @@ class Round3PytestFailureClassificationTest(unittest.TestCase):
             mandatory_paths={"runtime/current.lua"},
         )
         self.assertEqual("mandatory", mandatory["failures"][0]["classification"])
+
+    def test_cli_evidence_uses_the_exact_endpoint_range(self) -> None:
+        base = "a" * 40
+        endpoint = "b" * 40
+        with mock.patch.object(
+            CLASSIFIER,
+            "_run_git",
+            return_value=b"runtime/current.lua\n",
+        ) as run_git:
+            expanded, basis = CLASSIFIER.expand_cli_evidence({
+                "modified_subject": {
+                    "base_commit": base,
+                    "endpoint": endpoint,
+                },
+                "failures": [],
+            })
+        run_git.assert_called_once_with(
+            "diff", "--name-only", base, endpoint, "--"
+        )
+        self.assertEqual(["runtime/current.lua"], expanded["modified_paths"])
+        self.assertEqual(
+            ["diff", "--name-only", base, endpoint, "--"],
+            basis["modified_diff_arguments"],
+        )
 
     def test_manual_downgrade_is_rejected_but_escalation_is_allowed(self) -> None:
         with self.assertRaises(ValueError):

@@ -723,6 +723,18 @@
           "reason": "Treat revisions without removed_protected_rows as an empty removal set under PowerShell strict mode."
         },
         {
+          "path": "Iris/build/description/v2/tests/test_repository_evidence_required_validation_adoption.py",
+          "before_git_blob_id": "304296395fbb1408fc8f12320c9a40fe5841fba8",
+          "before_sha256_lf": "c63e36f81c9811953fd7af470771d4df151864d6c861349afe81f1126becfd5a",
+          "expected_git_blob_id": "7cb55f73db2c98a3f232a306506f33fc9822bb46",
+          "after_sha256_lf": "74af0af339f21e418d6c1976a871007c40aca5b0068a1eab8a905e9102bcad93",
+          "role": "successor_bootstrap_required_test",
+          "writer": "repository_evidence_lightweighting_terminal_validation_fix",
+          "consumers": ["current_route_validation"],
+          "owner": "repository_owner_user",
+          "reason": "Treat the immutable C0 residual validator binding as historical after an authorized validator successor."
+        },
+        {
           "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
           "before_git_blob_id": "982b988def3c9ee5f9c1dbdb366b95dd908188d5",
           "before_sha256_lf": "563b3ae0744fadcf52e08689f8d489e2d5bfe4e1b514d7fe8757c43beb1806a8",

@@ -9,7 +9,8 @@ descriptions_by_fulltype.v2.4.json + usecases_by_fulltype.v2.4.json
   - lines/debug_lines 순서 그대로 복사 (재정렬 금지)
   - surface는 키("context_menu"/"recipe_ui"/"both")로 저장 (로컬 문자열 금지)
   - label_key는 use_case_id 그대로 (빌드에서 i18n 치환 금지)
-  - 변환 후 구조 검증: fulltype 수 + lines/debug_lines 키 존재
+  - 변환 후 구조 검증: fulltype 수 + lines 키 존재
+  - demand chunk의 빈 debug_lines/optional nil field는 생략하고 public facade에서 복원
 """
 import hashlib
 import re
@@ -73,6 +74,13 @@ def lua_nil_or_str(val) -> str:
     if val is None or val == "none":
         return "nil"
     return lua_str(val)
+
+
+def optional_lua_field(name: str, value) -> str:
+    """Return a complete optional field fragment, omitting semantic nil."""
+    if value is None or value == "none":
+        return ""
+    return f"{name} = {lua_str(value)}, "
 
 
 def build_lua_check(rq: dict) -> str:
@@ -169,8 +177,10 @@ def convert_to_lua(
             label_key = lua_str(ucid)
             display = lua_str(item["display_text"])
             surface = lua_str(item["surface"])
-            strength = lua_nil_or_str(item.get("strength"))
-            uniqueness = lua_nil_or_str(item.get("uniqueness"))
+            optional_fields = (
+                optional_lua_field("strength", item.get("strength"))
+                + optional_lua_field("uniqueness", item.get("uniqueness"))
+            )
 
             # recipe 필드 삽입
             nav_ref_str = ""
@@ -188,11 +198,14 @@ def convert_to_lua(
                         nav_ref_str += f", recipe_translated_name = {lua_str(tr_name)}"
                     # recipe_nav_ref는 eligible만 삽입 (이동 버튼용)
                     if nav_entry.get("nav_eligible"):
+                        category_field = optional_lua_field(
+                            "category", nav_entry.get("category")
+                        )
                         nav_ref_str += (
                             f", recipe_nav_ref = {{ "
                             f"original_name = {lua_str(nav_entry['original_name'])}, "
                             f"translated_name = {lua_str(tr_name) if tr_name else 'nil'}, "
-                            f"category = {lua_nil_or_str(nav_entry.get('category'))} }}"
+                            f"{category_field}}}"
                         )
 
                     # recipe_requirements (비어 있으면 생략 — I2 패턴)
@@ -214,8 +227,7 @@ def convert_to_lua(
                 f"        {{ label_key = {label_key}, "
                 f"display_text = {display}, "
                 f"surface = {surface}, "
-                f"strength = {strength}, "
-                f"uniqueness = {uniqueness}, "
+                f"{optional_fields}"
                 f"line_kind = {lua_str(kind)}"
                 f"{nav_ref_str} }},"
             )
@@ -236,26 +248,29 @@ def convert_to_lua(
         parts.extend(exclusion_lines_lua)
         parts.append("    },")
 
-        # debug_lines
-        parts.append("    debug_lines = {")
-        for item in debug_items:
-            ucid = item["use_case_id"]
-            label_key = lua_str(ucid)
-            display = lua_str(item["display_text"])
-            surface = lua_str(item["surface"])
-            strength = lua_nil_or_str(item.get("strength"))
-            uniqueness = lua_nil_or_str(item.get("uniqueness"))
+        # Empty debug_lines are omitted from demand chunks. The public facade
+        # below rehydrates a distinct table for every entry.
+        if debug_items:
+            parts.append("    debug_lines = {")
+            for item in debug_items:
+                ucid = item["use_case_id"]
+                label_key = lua_str(ucid)
+                display = lua_str(item["display_text"])
+                surface = lua_str(item["surface"])
+                optional_fields = (
+                    optional_lua_field("strength", item.get("strength"))
+                    + optional_lua_field("uniqueness", item.get("uniqueness"))
+                )
 
-            parts.append(
-                f"        {{ label_key = {label_key}, "
-                f"display_text = {display}, "
-                f"surface = {surface}, "
-                f"strength = {strength}, "
-                f"uniqueness = {uniqueness} }},"
-            )
-            total_lines += 1
+                parts.append(
+                    f"        {{ label_key = {label_key}, "
+                    f"display_text = {display}, "
+                    f"surface = {surface}, "
+                    f"{optional_fields}}},"
+                )
+                total_lines += 1
 
-        parts.append("    },")
+            parts.append("    },")
 
         # requirements_block (keep 도구 정보)
         if req_lines or req_debug_lines:
@@ -349,6 +364,7 @@ def convert_to_lua(
     facade_parts.append("for _, moduleName in ipairs(chunkModules) do")
     facade_parts.append("    local chunk = require(moduleName)")
     facade_parts.append("    for fullType, entry in pairs(chunk) do")
+    facade_parts.append("        if entry.debug_lines == nil then entry.debug_lines = {} end")
     facade_parts.append("        IrisUseCaseDescriptions[fullType] = entry")
     facade_parts.append("    end")
     facade_parts.append("end")
@@ -423,7 +439,8 @@ def structural_validation(
     """
     변환 결과 Lua 문자열 구조 검증.
     - fulltype 수 일치
-    - 모든 entry에 lines/debug_lines 키 존재
+    - 모든 entry에 lines 키 존재
+    - 존재하는 debug_lines는 table shape
     """
     errors = []
     combined_chunks = "\n".join(chunk_contents)
@@ -438,7 +455,8 @@ def structural_validation(
             f"Fulltype count mismatch: expected={expected_count}, actual={actual}"
         )
 
-    # Check structure: every entry must have lines and debug_lines
+    # Check structure: every entry must have lines. Empty debug_lines may be
+    # absent in a demand chunk and are rehydrated by the public facade.
     entries = re.findall(
         r'chunk\["([^"]+)"\]\s*=\s*\{', combined_chunks
     )
@@ -450,8 +468,8 @@ def structural_validation(
             block_text = match.group(1)
             if "lines = {" not in block_text:
                 errors.append(f"{ft}: missing 'lines' key")
-            if "debug_lines = {" not in block_text:
-                errors.append(f"{ft}: missing 'debug_lines' key")
+            if "debug_lines =" in block_text and "debug_lines = {" not in block_text:
+                errors.append(f"{ft}: invalid 'debug_lines' shape")
 
     return errors
 

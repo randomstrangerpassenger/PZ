@@ -5,8 +5,8 @@
   "claim_id": "iris_repository_evidence_lightweighting",
   "owner_approval": {
     "path": "Iris/_docs/refactor/repository_evidence_lightweighting/owner_policy_approval.json",
-    "git_blob_id": "b66376ce2efc514bbb011ddeaf2799874e8a6c1a",
-    "sha256_lf": "1defa7e97dfc73f983349304f43bf12099c365f2ed9399b0baea78327b5e12f6"
+    "git_blob_id": "94181c0aeeea678a9217aa06b544178e1cb088d7",
+    "sha256_lf": "d9fd890ce26b80862b5e200c3e7780a30db2868939dfeec028f3df2b626064f1"
   },
   "protection_predecessor": {
     "path": "Iris/_docs/refactor/repository_runtime_lightweighting/protected_surface_successor_manifest.json",
@@ -108,6 +108,18 @@
           "reason": "Keep full receipt identity while giving terminal profiles a short physical basename that can satisfy the declared Windows tracked-path budget."
         },
         {
+          "path": "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
+          "before_git_blob_id": "85df1cdfa2f0af3ec828eee9573208eacdb7835c",
+          "before_sha256_lf": "12a7da6c13cf6a7def4afeabaf9dd37843363c074fe3e333bf79746ceafca45c",
+          "expected_git_blob_id": "76b8b483d94d70fc6c2f4f223fd1b51d7e4a9cf2",
+          "after_sha256_lf": "81d9757e0f83bda467d06c58acd15b8121dbf4979926ae7b1024f4c1c7de05d0",
+          "role": "owner_pruned_history_gate",
+          "writer": "repository_evidence_lightweighting_c0_c",
+          "consumers": ["receipt_bound_run_a", "receipt_bound_run_b", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Disposition the intentionally pruned intermediate Git object and revalidate its recorded compiler rows against the reachable current subject."
+        },
+        {
           "path": "Iris/test/validate_residual_refactor_surfaces.ps1",
           "before_git_blob_id": "8ca6e6415948337a08c330fda228b09b06804909",
           "before_sha256_lf": "82c9c7a64e5fa7370cb1f03fc950f6bbd3dca1766075b099b12aff87f10b9be0",
@@ -159,8 +171,8 @@
           "path": "Iris/_docs/refactor/repository_evidence_lightweighting/owner_policy_approval.json",
           "before_git_blob_id": null,
           "before_sha256_lf": null,
-          "expected_git_blob_id": "b66376ce2efc514bbb011ddeaf2799874e8a6c1a",
-          "after_sha256_lf": "1defa7e97dfc73f983349304f43bf12099c365f2ed9399b0baea78327b5e12f6",
+          "expected_git_blob_id": "94181c0aeeea678a9217aa06b544178e1cb088d7",
+          "after_sha256_lf": "d9fd890ce26b80862b5e200c3e7780a30db2868939dfeec028f3df2b626064f1",
           "role": "successor_owner_approval",
           "writer": "repository_evidence_lightweighting_c0_c",
           "consumers": ["receipt_bound_full_gate", "cas_migration", "cold_archive", "repository_maintainers"],

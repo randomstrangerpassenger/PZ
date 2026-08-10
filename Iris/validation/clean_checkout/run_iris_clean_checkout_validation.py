@@ -63,6 +63,10 @@ PHASE0_ENVIRONMENT_BINDING_PATH = (
 OUTPUT_POLICY_PATH = (
     "Iris/validation/clean_checkout/contracts/output_policy.json"
 )
+EVIDENCE_OWNER_APPROVAL_PATH = (
+    "Iris/_docs/refactor/repository_evidence_lightweighting/"
+    "owner_policy_approval.json"
+)
 RUNNER_PATH = (
     "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py"
 )
@@ -725,11 +729,31 @@ def _git_is_ancestor(repo: Path, ancestor: str, descendant: str) -> bool:
     return completed.returncode == 0
 
 
+def _git_commit_is_available(repo: Path, commit: str) -> bool:
+    completed = subprocess.run(
+        [
+            "git",
+            "-c",
+            "core.longpaths=true",
+            "-C",
+            str(repo),
+            "rev-parse",
+            "--verify",
+            f"{commit}^{{commit}}",
+        ],
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    return completed.returncode == 0
+
+
 def _validate_g5_compiler_identity_transition(
     repo: Path,
     subject_commit: str,
     compiler: dict[str, Any],
     transition: dict[str, Any],
+    allow_owner_pruned_current_basis: bool,
 ) -> dict[str, Any]:
     expected_compiler_keys = {
         "algorithm_id",
@@ -779,16 +803,28 @@ def _validate_g5_compiler_identity_transition(
 
     expected_basis_keys = {"commit", "tree", "aggregate_sha256", "ordered_files"}
 
+    current_basis_was_pruned = False
+
     def validate_basis(name: str) -> tuple[dict[str, Any], list[dict[str, str]], str]:
+        nonlocal current_basis_was_pruned
         basis = transition[name]
         if not isinstance(basis, dict) or set(basis) != expected_basis_keys:
             raise CleanCheckoutError(f"invalid G5 compiler {name} schema")
-        identity = git_identity(repo, basis["commit"])
-        if identity != {"commit": basis["commit"], "tree": basis["tree"]}:
-            raise CleanCheckoutError(f"G5 compiler {name} identity mismatch")
-        actual_rows = _normalized_compiler_rows(
-            repo, basis["commit"], ordered_paths
-        )
+        basis_is_available = _git_commit_is_available(repo, basis["commit"])
+        if not basis_is_available:
+            if name != "current_identity_basis" or not allow_owner_pruned_current_basis:
+                raise CleanCheckoutError(
+                    f"G5 compiler {name} Git object is unavailable"
+                )
+            current_basis_was_pruned = True
+            actual_rows = basis["ordered_files"]
+        else:
+            identity = git_identity(repo, basis["commit"])
+            if identity != {"commit": basis["commit"], "tree": basis["tree"]}:
+                raise CleanCheckoutError(f"G5 compiler {name} identity mismatch")
+            actual_rows = _normalized_compiler_rows(
+                repo, basis["commit"], ordered_paths
+            )
         if basis["ordered_files"] != actual_rows:
             raise CleanCheckoutError(f"G5 compiler {name} ordered files mismatch")
         aggregate = _compiler_aggregate_sha256(
@@ -804,7 +840,10 @@ def _validate_g5_compiler_identity_transition(
     current_basis, current_basis_rows, current_aggregate = validate_basis(
         "current_identity_basis"
     )
-    if (
+    if current_basis_was_pruned:
+        if not _git_is_ancestor(repo, historical["commit"], subject_commit):
+            raise CleanCheckoutError("G5 compiler historical ancestry mismatch")
+    elif (
         not _git_is_ancestor(repo, historical["commit"], current_basis["commit"])
         or not _git_is_ancestor(repo, current_basis["commit"], subject_commit)
     ):
@@ -812,33 +851,34 @@ def _validate_g5_compiler_identity_transition(
     subject_rows = _normalized_compiler_rows(repo, subject_commit, ordered_paths)
     if subject_rows != current_basis_rows:
         raise CleanCheckoutError("G5 current compiler identity changed after bridge basis")
-    for path in ordered_paths:
-        basis_last_writer = git_text(
-            repo,
-            "log",
-            "-1",
-            "--format=%H",
-            current_basis["commit"],
-            "--",
-            path,
-        ).strip()
-        subject_last_writer = git_text(
-            repo,
-            "log",
-            "-1",
-            "--format=%H",
-            subject_commit,
-            "--",
-            path,
-        ).strip()
-        if (
-            subject_last_writer != basis_last_writer
-            or blob_id(repo, subject_commit, path)
-            != blob_id(repo, current_basis["commit"], path)
-        ):
-            raise CleanCheckoutError(
-                f"G5 compiler path changed after bridge basis: {path}"
-            )
+    if not current_basis_was_pruned:
+        for path in ordered_paths:
+            basis_last_writer = git_text(
+                repo,
+                "log",
+                "-1",
+                "--format=%H",
+                current_basis["commit"],
+                "--",
+                path,
+            ).strip()
+            subject_last_writer = git_text(
+                repo,
+                "log",
+                "-1",
+                "--format=%H",
+                subject_commit,
+                "--",
+                path,
+            ).strip()
+            if (
+                subject_last_writer != basis_last_writer
+                or blob_id(repo, subject_commit, path)
+                != blob_id(repo, current_basis["commit"], path)
+            ):
+                raise CleanCheckoutError(
+                    f"G5 compiler path changed after bridge basis: {path}"
+                )
     if (
         compiler["historical_attested_aggregate_sha256"]
         != historical_aggregate
@@ -854,19 +894,22 @@ def _validate_g5_compiler_identity_transition(
         current_sha = current_by_path[path]["sha256_lf"]
         if historical_sha == current_sha:
             continue
+        provenance_commit = (
+            subject_commit if current_basis_was_pruned else current_basis["commit"]
+        )
         last_writer_commit = git_text(
             repo,
             "log",
             "-1",
             "--format=%H",
-            current_basis["commit"],
+            provenance_commit,
             "--",
             path,
         ).strip()
         last_writer_identity = git_identity(repo, last_writer_commit)
         if (
             not _git_is_ancestor(
-                repo, last_writer_commit, current_basis["commit"]
+                repo, last_writer_commit, provenance_commit
             )
             or _normalized_compiler_rows(repo, last_writer_commit, [path])[0][
                 "sha256_lf"
@@ -901,6 +944,11 @@ def _validate_g5_compiler_identity_transition(
         "changed_constituent_count": len(expected_changed_rows),
         "unchanged_constituent_count": len(ordered_paths)
         - len(expected_changed_rows),
+        "current_basis_validation_mode": (
+            "owner_pruned_revalidated_from_subject"
+            if current_basis_was_pruned
+            else "exact_git_object"
+        ),
     }
 
 
@@ -910,6 +958,17 @@ def _validate_g5_required_evidence(
     contract: dict[str, Any],
     tracked: set[str],
 ) -> dict[str, Any]:
+    owner_approval = json_at_commit(repo, commit, EVIDENCE_OWNER_APPROVAL_PATH)
+    pruned_history = owner_approval["decisions"].get(
+        "pruned_git_history_validation"
+    )
+    allow_owner_pruned_current_basis = bool(
+        isinstance(pruned_history, dict)
+        and pruned_history.get("approved") is True
+        and pruned_history.get("checkpoint_id") == "terminal_successor_c50"
+        and pruned_history.get("disposition")
+        == "revalidate_recorded_compiler_rows_against_reachable_subject"
+    )
     g5 = contract["g5_required_evidence"]
     binding_rows: list[dict[str, Any]] = []
     binding_by_id: dict[str, dict[str, Any]] = {}
@@ -975,7 +1034,11 @@ def _validate_g5_required_evidence(
         raise CleanCheckoutError("G5 compiler successor raw identity mismatch")
     transition = json.loads(transition_raw)
     compiler_validation = _validate_g5_compiler_identity_transition(
-        repo, commit, compiler, transition
+        repo,
+        commit,
+        compiler,
+        transition,
+        allow_owner_pruned_current_basis,
     )
     compiler_validation["successor_transition"] = {
         "path": transition_binding["path"],

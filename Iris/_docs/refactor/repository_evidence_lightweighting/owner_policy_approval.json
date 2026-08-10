@@ -35,7 +35,13 @@
     "payload_deletion_authority_approved": true,
     "deletion_authority_scope": "only plan-enumerated payloads after consumer migration, sealed selection, verified restore, clean validation, and zero dangling references",
     "physical_cleanup_approved": true,
-    "successor_policy_and_current_route_adoption_approved": true
+    "successor_policy_and_current_route_adoption_approved": true,
+    "pruned_git_history_validation": {
+      "approved": true,
+      "checkpoint_id": "terminal_successor_c50",
+      "disposition": "revalidate_recorded_compiler_rows_against_reachable_subject",
+      "reason": "The repository owner intentionally deleted obsolete Git history for storage lightweighting and explicitly waived restoration of unavailable historical Git objects."
+    }
   },
   "independent_guards": {
     "cas_promotion_does_not_imply_delete_approval": true,

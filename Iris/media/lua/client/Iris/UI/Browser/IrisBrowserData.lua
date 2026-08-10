@@ -46,6 +46,11 @@ local instrumentation = {
     scannedItemCount = 0,
     lastBuildElapsedMilliseconds = 0,
     lastScanElapsedMilliseconds = 0,
+    coldOpenCount = 0,
+    warmReopenCount = 0,
+    lastColdOpenElapsedMilliseconds = 0,
+    lastWarmReopenElapsedMilliseconds = 0,
+    generationInvalidationCount = 0,
 }
 
 local function nowMilliseconds()
@@ -202,7 +207,10 @@ end
 --- @return boolean ready
 --- @return table stateInfo
 function IrisBrowserData.ensureReady()
+    local callStartedAt = nowMilliseconds()
     if READY_STATES[buildState] then
+        instrumentation.warmReopenCount = instrumentation.warmReopenCount + 1
+        instrumentation.lastWarmReopenElapsedMilliseconds = math.max(0, nowMilliseconds() - callStartedAt)
         return true, stateSnapshot()
     end
     if buildState == "building" then
@@ -255,6 +263,8 @@ function IrisBrowserData.ensureReady()
     IrisBrowserData._cache = candidate
     buildGeneration = candidate.generation
     finishBuildTiming(buildStartedAt)
+    instrumentation.coldOpenCount = instrumentation.coldOpenCount + 1
+    instrumentation.lastColdOpenElapsedMilliseconds = instrumentation.lastBuildElapsedMilliseconds
 
     if not IrisAPI.Index or not IrisAPI.Index.getRecipeConnectionsForItem then
         setBuildState("degraded_ready", "optional_dependency_unavailable", "IrisAPI.Index")
@@ -275,6 +285,7 @@ end
 function IrisBrowserData.resetForReload()
     IrisAPI = nil
     IrisBrowserData._cache = nil
+    instrumentation.generationInvalidationCount = instrumentation.generationInvalidationCount + 1
     setBuildState("uninitialized", "explicit_reload_reset", nil)
 end
 
@@ -289,6 +300,11 @@ function IrisBrowserData.getInstrumentation()
         lastElapsedMilliseconds = instrumentation.lastBuildElapsedMilliseconds,
         lastBuildElapsedMilliseconds = instrumentation.lastBuildElapsedMilliseconds,
         lastScanElapsedMilliseconds = instrumentation.lastScanElapsedMilliseconds,
+        coldOpenCount = instrumentation.coldOpenCount,
+        warmReopenCount = instrumentation.warmReopenCount,
+        lastColdOpenElapsedMilliseconds = instrumentation.lastColdOpenElapsedMilliseconds,
+        lastWarmReopenElapsedMilliseconds = instrumentation.lastWarmReopenElapsedMilliseconds,
+        generationInvalidationCount = instrumentation.generationInvalidationCount,
     }
 end
 
@@ -299,6 +315,11 @@ function IrisBrowserData.resetInstrumentation()
         scannedItemCount = 0,
         lastBuildElapsedMilliseconds = 0,
         lastScanElapsedMilliseconds = 0,
+        coldOpenCount = 0,
+        warmReopenCount = 0,
+        lastColdOpenElapsedMilliseconds = 0,
+        lastWarmReopenElapsedMilliseconds = 0,
+        generationInvalidationCount = 0,
     }
 end
 

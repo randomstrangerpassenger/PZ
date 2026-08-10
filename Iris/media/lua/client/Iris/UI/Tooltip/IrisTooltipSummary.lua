@@ -18,12 +18,14 @@ local IrisUseCaseDescriptions = nil
 local IrisUseCaseDescriptionsLookup = nil
 local loaded = false
 local summaryByFullType = {}
+local metrics = { hits = 0, misses = 0, arrayCopies = 0, builds = 0 }
 
 local function copyArray(values)
     local result = {}
     for index, value in ipairs(values or {}) do
         result[index] = value
     end
+    metrics.arrayCopies = metrics.arrayCopies + #result
     return result
 end
 
@@ -132,8 +134,11 @@ function IrisTooltipSummary.get(fullType)
 
     local cached = summaryByFullType[fullType]
     if cached then
+        metrics.hits = metrics.hits + 1
         return copySummary(cached)
     end
+
+    metrics.misses = metrics.misses + 1
 
     ensureData()
 
@@ -150,7 +155,21 @@ function IrisTooltipSummary.get(fullType)
         table.concat(summary.connections, "\0"),
     }, "|")
     summaryByFullType[fullType] = summary
+    metrics.builds = metrics.builds + 1
     return copySummary(summary)
+end
+
+function IrisTooltipSummary.getMetrics()
+    return {
+        hits = metrics.hits,
+        misses = metrics.misses,
+        arrayCopies = metrics.arrayCopies,
+        builds = metrics.builds,
+    }
+end
+
+function IrisTooltipSummary.resetMetrics()
+    metrics = { hits = 0, misses = 0, arrayCopies = 0, builds = 0 }
 end
 
 --- Explicit dev/test reload hook. Static generated data is otherwise session-stable.
@@ -163,6 +182,7 @@ function IrisTooltipSummary.reset()
     IrisUseCaseDescriptionsLookup = nil
     loaded = false
     summaryByFullType = {}
+    IrisTooltipSummary.resetMetrics()
 end
 
 return IrisTooltipSummary

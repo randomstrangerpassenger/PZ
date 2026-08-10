@@ -22,7 +22,16 @@ local logError = bootstrap.logError
 
 local IrisTooltipSummaryLocal = nil
 local displayLineCache = {}
-local displayLineCacheMetrics = { hits = 0, misses = 0 }
+local displayLineCacheMetrics = {
+    hits = 0,
+    misses = 0,
+    inactiveRenders = 0,
+    summaryLoadAttempts = 0,
+    summaryGetCalls = 0,
+    temporaryDetailTables = 0,
+    displayLineBuilds = 0,
+    lineCopies = 0,
+}
 
 local function tr(key, fallback)
     return TranslationResolver.get(key, fallback or key)
@@ -30,6 +39,7 @@ end
 
 local function ensureSummary()
     if not IrisTooltipSummaryLocal then
+        displayLineCacheMetrics.summaryLoadAttempts = displayLineCacheMetrics.summaryLoadAttempts + 1
         local ok, result = safeRequire("Iris/UI/Tooltip/IrisTooltipSummary")
         if ok then
             IrisTooltipSummaryLocal = result
@@ -53,6 +63,7 @@ local function isAltPressed()
 end
 
 local function buildDetailLines(summary)
+    displayLineCacheMetrics.displayLineBuilds = displayLineCacheMetrics.displayLineBuilds + 1
     if not summary then
         return {
             tr("Iris_Tooltip_Tags", "Tags") .. ": (" .. tr("Iris_Tooltip_ApiLoadFailed", "API load failed") .. ")",
@@ -93,6 +104,7 @@ end
 local function copyLines(lines)
     local result = {}
     for index, line in ipairs(lines or {}) do result[index] = line end
+    displayLineCacheMetrics.lineCopies = displayLineCacheMetrics.lineCopies + #result
     return result
 end
 
@@ -113,7 +125,11 @@ end
 
 function IrisAltTooltip.resetDisplayLineCache()
     displayLineCache = {}
-    displayLineCacheMetrics = { hits = 0, misses = 0 }
+    displayLineCacheMetrics = {
+        hits = 0, misses = 0, inactiveRenders = 0, summaryLoadAttempts = 0,
+        summaryGetCalls = 0, temporaryDetailTables = 0, displayLineBuilds = 0,
+        lineCopies = 0,
+    }
     if IrisTooltipSummaryLocal and IrisTooltipSummaryLocal.reset then
         IrisTooltipSummaryLocal.reset()
     end
@@ -123,6 +139,12 @@ function IrisAltTooltip.getDisplayLineCacheMetrics()
     return {
         hits = displayLineCacheMetrics.hits,
         misses = displayLineCacheMetrics.misses,
+        inactiveRenders = displayLineCacheMetrics.inactiveRenders,
+        summaryLoadAttempts = displayLineCacheMetrics.summaryLoadAttempts,
+        summaryGetCalls = displayLineCacheMetrics.summaryGetCalls,
+        temporaryDetailTables = displayLineCacheMetrics.temporaryDetailTables,
+        displayLineBuilds = displayLineCacheMetrics.displayLineBuilds,
+        lineCopies = displayLineCacheMetrics.lineCopies,
     }
 end
 
@@ -142,15 +164,20 @@ function IrisAltTooltip.addIrisOverlay(tooltipInv)
     -- Alt 누름 상태에 따른 상세 정보
     local isAlt = isAltPressed()
     local detailLines = {}
+    displayLineCacheMetrics.temporaryDetailTables = displayLineCacheMetrics.temporaryDetailTables + 1
     if isAlt and tooltipInv.item then
         local summaryModule = ensureSummary()
         local fullType = ItemKey.getFullTypeFromItem(tooltipInv.item)
+        displayLineCacheMetrics.summaryGetCalls = displayLineCacheMetrics.summaryGetCalls + 1
         local summary = summaryModule and summaryModule.get and summaryModule.get(fullType) or nil
         detailLines = getDetailLines(fullType, summary)
     end
     
     -- Alt 키가 눌리지 않았으면 아무것도 표시하지 않음
     if not isAlt or #detailLines == 0 then
+        if not isAlt then
+            displayLineCacheMetrics.inactiveRenders = displayLineCacheMetrics.inactiveRenders + 1
+        end
         return
     end
     

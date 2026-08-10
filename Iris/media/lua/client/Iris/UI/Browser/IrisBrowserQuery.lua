@@ -9,7 +9,7 @@ local IrisBrowserQuery = {}
 local ItemAccess = require("Iris/Util/IrisItemAccess")
 local IrisBrowserClassificationIndex = require("Iris/UI/Browser/IrisBrowserClassificationIndex")
 
-local function copyRows(rows)
+local function copyRows(rows, metrics, metricName)
     local copied = {}
     for index, row in ipairs(rows or {}) do
         copied[index] = {
@@ -18,6 +18,9 @@ local function copyRows(rows)
             category = row.category,
             subcategory = row.subcategory,
         }
+    end
+    if metrics and metricName then
+        metrics[metricName] = (metrics[metricName] or 0) + #copied
     end
     return copied
 end
@@ -44,6 +47,9 @@ function IrisBrowserQuery.searchAll(cache, query, getItemLocation, locale)
         cache.searchKeysByFullType = refreshed
         cache.searchKeysLocale = normalizedLocale
         cache.searchPrefixState = nil
+        cache.searchMetrics = cache.searchMetrics or {}
+        cache.searchMetrics.localeInvalidationCount =
+            (cache.searchMetrics.localeInvalidationCount or 0) + 1
     end
 
     local queryLower = query:lower()
@@ -53,11 +59,19 @@ function IrisBrowserQuery.searchAll(cache, query, getItemLocation, locale)
         totalScanRows = 0,
         lastScanRows = 0,
         prefixReuseCount = 0,
+        locationLookupCount = 0,
+        internalRowCopyCount = 0,
+        publicRowCopyCount = 0,
+        localeInvalidationCount = 0,
+        generationInvalidationCount = 0,
     }
     cache.searchMetrics = metrics
     metrics.searchCalls = metrics.searchCalls + 1
 
     local previous = cache.searchPrefixState
+    if previous and previous.generation ~= cache.generation then
+        metrics.generationInvalidationCount = (metrics.generationInvalidationCount or 0) + 1
+    end
     local reusePrevious = previous and previous.generation == cache.generation and
         previous.locale == normalizedLocale and #queryLower > #previous.query and
         queryLower:sub(1, #previous.query) == previous.query
@@ -85,6 +99,7 @@ function IrisBrowserQuery.searchAll(cache, query, getItemLocation, locale)
 
             if folded:find(queryLower, 1, true) then
                 local foundCat, foundSub = getItemLocation(fullType)
+                metrics.locationLookupCount = (metrics.locationLookupCount or 0) + 1
 
                 table.insert(result, {
                     fullType = fullType,
@@ -109,9 +124,9 @@ function IrisBrowserQuery.searchAll(cache, query, getItemLocation, locale)
         generation = cache.generation,
         locale = normalizedLocale,
         query = queryLower,
-        results = copyRows(result),
+        results = copyRows(result, metrics, "internalRowCopyCount"),
     }
-    return copyRows(result)
+    return copyRows(result, metrics, "publicRowCopyCount")
 end
 
 function IrisBrowserQuery.getItem(cache, fullType)

@@ -15,8 +15,26 @@ local ObjectAccess = require("Iris/Util/IrisObjectAccess")
 local Layer3DisplayFormatter = require("Iris/UI/Layer3/IrisLayer3DisplayFormatter")
 local TranslationResolver = require("Iris/Util/IrisTranslationResolver")
 
-local function read(item, methodNames)
-    return ObjectAccess.firstValue(item, methodNames, nil)
+local metrics = {
+    fromItemCalls = 0,
+    methodAttempts = 0,
+    methodSuccesses = 0,
+    groupAttempts = {},
+    groupSuccesses = {},
+    staticCacheHits = 0,
+    staticCacheMisses = 0,
+}
+
+local function read(item, methodNames, group)
+    local normalizedGroup = group or "core"
+    metrics.methodAttempts = metrics.methodAttempts + #(methodNames or {})
+    metrics.groupAttempts[normalizedGroup] = (metrics.groupAttempts[normalizedGroup] or 0) + #(methodNames or {})
+    local value = ObjectAccess.firstValue(item, methodNames, nil)
+    if value ~= nil then
+        metrics.methodSuccesses = metrics.methodSuccesses + 1
+        metrics.groupSuccesses[normalizedGroup] = (metrics.groupSuccesses[normalizedGroup] or 0) + 1
+    end
+    return value
 end
 
 local function sortedTags(IrisAPI, item)
@@ -96,6 +114,9 @@ end
 function ViewModel.fromItem(item)
     if not item then return nil end
 
+    metrics.fromItemCalls = metrics.fromItemCalls + 1
+    metrics.staticCacheMisses = metrics.staticCacheMisses + 1
+
     local apiOk, IrisAPI = safeRequire("Iris/IrisAPI")
     if not apiOk then IrisAPI = nil end
     local fullType = ItemAccess.getFullType(item)
@@ -112,36 +133,36 @@ function ViewModel.fromItem(item)
         displayName = ItemAccess.getDisplayName(item, fullType or "Unknown"),
         moduleName = ItemAccess.getModuleName(item),
         itemType = ItemAccess.getType(item),
-        weight = read(item, {"getActualWeight", "getWeight"}),
-        category = read(item, {"getDisplayCategory", "getCategory"}),
-        subcategory = read(item, {"getSubCategory"}),
+        weight = read(item, {"getActualWeight", "getWeight"}, "core"),
+        category = read(item, {"getDisplayCategory", "getCategory"}, "core"),
+        subcategory = read(item, {"getSubCategory"}, "core"),
         tags = sortedTags(IrisAPI, item),
         food = {
-            hunger = read(item, {"getHungerChange"}),
-            thirst = read(item, {"getThirstChange"}),
-            stress = read(item, {"getStressChange"}),
-            boredom = read(item, {"getBoredomChange"}),
-            calories = read(item, {"getCalories"}),
+            hunger = read(item, {"getHungerChange"}, "food"),
+            thirst = read(item, {"getThirstChange"}, "food"),
+            stress = read(item, {"getStressChange"}, "food"),
+            boredom = read(item, {"getBoredomChange"}, "food"),
+            calories = read(item, {"getCalories"}, "food"),
         },
         weapon = {
-            minDamage = read(item, {"getMinDamage"}),
-            maxDamage = read(item, {"getMaxDamage"}),
-            minRange = read(item, {"getMinRange"}),
-            maxRange = read(item, {"getMaxRange"}),
-            criticalChance = read(item, {"getCriticalChance"}),
-            conditionMax = read(item, {"getConditionMax"}),
+            minDamage = read(item, {"getMinDamage"}, "weapon"),
+            maxDamage = read(item, {"getMaxDamage"}, "weapon"),
+            minRange = read(item, {"getMinRange"}, "weapon"),
+            maxRange = read(item, {"getMaxRange"}, "weapon"),
+            criticalChance = read(item, {"getCriticalChance"}, "weapon"),
+            conditionMax = read(item, {"getConditionMax"}, "weapon"),
         },
         literature = {
-            numberOfPages = read(item, {"getNumberOfPages"}),
-            skillTrained = read(item, {"getSkillTrained"}),
-            level = read(item, {"getLvlSkillTrained"}),
-            levelCount = read(item, {"getNumLevelsTrained"}),
+            numberOfPages = read(item, {"getNumberOfPages"}, "literature"),
+            skillTrained = read(item, {"getSkillTrained"}, "literature"),
+            level = read(item, {"getLvlSkillTrained"}, "literature"),
+            levelCount = read(item, {"getNumLevelsTrained"}, "literature"),
         },
         moveable = {
-            capacity = read(item, {"getCapacity"}),
-            lightStrength = read(item, {"getLightStrength"}),
-            waterproof = read(item, {"isWaterproof"}),
-            insulation = read(item, {"getInsulation"}),
+            capacity = read(item, {"getCapacity"}, "moveable"),
+            lightStrength = read(item, {"getLightStrength"}, "moveable"),
+            waterproof = read(item, {"isWaterproof"}, "moveable"),
+            insulation = read(item, {"getInsulation"}, "moveable"),
         },
         layer3 = layer3,
         connections = {
@@ -181,6 +202,32 @@ function ViewModel.fromItem(item)
     values.capabilities = readonlyArray(values.capabilities)
     values.availability = readonly(values.availability)
     return readonly(values)
+end
+
+local function copyCounts(source)
+    local result = {}
+    for key, value in pairs(source or {}) do result[key] = value end
+    return result
+end
+
+function ViewModel.getInstrumentation()
+    return {
+        fromItemCalls = metrics.fromItemCalls,
+        methodAttempts = metrics.methodAttempts,
+        methodSuccesses = metrics.methodSuccesses,
+        groupAttempts = copyCounts(metrics.groupAttempts),
+        groupSuccesses = copyCounts(metrics.groupSuccesses),
+        staticCacheHits = metrics.staticCacheHits,
+        staticCacheMisses = metrics.staticCacheMisses,
+    }
+end
+
+function ViewModel.resetInstrumentation()
+    metrics = {
+        fromItemCalls = 0, methodAttempts = 0, methodSuccesses = 0,
+        groupAttempts = {}, groupSuccesses = {}, staticCacheHits = 0,
+        staticCacheMisses = 0,
+    }
 end
 
 function ViewModel.ensure(itemOrModel)

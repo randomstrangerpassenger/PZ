@@ -194,7 +194,20 @@
   ],
   "external_review": {
     "reviewer": "Codex Reviewer",
-    "status": "pending_closeout_review"
+    "initial_status": "changes_requested",
+    "resolved_findings": [
+      "capability-mask negative authority and hybrid-field preservation",
+      "fail-closed source denominator binding",
+      "static-cache evidence scope",
+      "dependency-aware exact-endpoint advisory classification",
+      "default-off runtime instrumentation and successor protection coverage"
+    ],
+    "reviewed_subject": "b33ed2acd12288571acdeb181f6f156b3c6373ed",
+    "status": "approved",
+    "p0": 0,
+    "p1": 0,
+    "p2": 0,
+    "p3": 0
   },
   "closeout_reason": "All current and focused automated contracts pass, but four plan-required Project Zomboid measurement receipts remain unavailable; item dispositions therefore reduce to partial rather than complete."
 }

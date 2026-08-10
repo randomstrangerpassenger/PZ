@@ -1,6 +1,6 @@
 {
   "schema_version": "iris_repository_evidence_runtime_eager_load_successor_v1",
-  "status": "implemented_only",
+  "status": "complete",
   "boot_modules_after": [
     "Iris/IrisAPI",
     "Iris/UI/Tooltip/IrisAltTooltip",
@@ -26,6 +26,12 @@
   },
   "optional_browser_registration_removal": "not_adopted_without_runtime_measurement",
   "performance_claim": "not_made_without_pz_kahlua_measurement",
+  "manual_validation": {
+    "date": "2026-08-10",
+    "authority": "repository_owner_user",
+    "planned_ingame_behavior_validation": "complete",
+    "quantitative_heap_latency_or_frame_claim": "not_made"
+  },
   "test_disposition": "stale_test_corrected_and_successor_expectation_adopted",
   "automated_validation": {
     "focused_phase5_contract": "4/4 PASS",

@@ -1026,12 +1026,13 @@ Pulse는 처음부터 “새 Java 로더”로 경쟁하는 브랜드가 아니�
 - 1차 final `1,338,324,791` bytes와 비교하면 이번 작업은 `257,370,461` bytes, `19.23%`를 추가로 줄였다.
 - 최악의 전체 repository scan에서 동일 입력 밀도를 가정한 처리량 대리 지표는 `3.62x -> 4.48x`다. 실제 tokenizer와 Codex token usage는 미계측이므로 일반 작업의 확정 token 개선율로 사용하지 않는다.
 
-## Partial / Pending
+## Complete / Non-claims
 
-- 계획 범위의 terminal batch를 실행해 lifecycle/repository evidence/current/historical/focused runtime/Lua/package PASS를 기록했다. raw diagnostic는 기존 overlay/tooling 결손 3 failures/9 errors를 그대로 보존한다.
-- receipt-bound full-gate Run A/B와 deterministic compare는 허용된 외부 경계 밖 환경 영수증과 non-green diagnostic prerequisite 때문에 미실행이다. Codex Reviewer final review는 PASS이며 추가 actionable finding이 없다.
-- Change 4의 나머지 derived view는 unique content라 일대일 CAS 이동에 절감이 없어 유지한다.
-- Project Zomboid/Kahlua heap과 first-use latency raw sample이 없어 runtime 성능 claim은 승인하지 않는다.
+- 계획 범위의 terminal batch에서 lifecycle/repository evidence/current/historical/focused runtime/Lua/package PASS를 기록했고, 2026-08-10 repository owner가 수동 PZ 인게임 검증 완료를 attestation했다.
+- raw diagnostic의 기존 overlay/tooling 결손 3 failures/9 errors는 보존한다. receipt-bound full-gate Run A/B와 deterministic compare는 실행 불가능한 경계를 사실대로 유지하고 owner closeout scope amendment로 non-blocking out-of-scope 처리했다.
+- Change 4의 나머지 unique derived view 보존은 완료를 막지 않는 evidence-based defer다.
+- Codex Reviewer final review는 PASS이며 추가 actionable finding이 없다.
+- Project Zomboid/Kahlua heap과 first-use latency raw sample이 없으므로 정량 runtime 성능 개선은 claim하지 않는다.
 - 실제 LLM prompt/token before-after corpus와 cache telemetry가 없어 token 효율은 physical-byte proxy까지만 승인한다.
 
 ## Hold
@@ -1041,7 +1042,7 @@ Pulse는 처음부터 “새 Java 로더”로 경쟁하는 브랜드가 아니�
 - heap/allocation sample 없는 Browser cache/search/variant 최적화
 - 서로 다른 tracked/ignored/CAS/external/runtime domain 절감량의 합산
 
-근거는 `Iris/_docs/refactor/repository_evidence_lightweighting/`과 `closeout/`의 machine-readable evidence다. 전체 상태는 `partial`이다.
+근거는 `Iris/_docs/refactor/repository_evidence_lightweighting/`과 `closeout/`의 machine-readable evidence 및 2026-08-10 owner manual-validation attestation이다. 전체 scoped 상태는 `complete`다.
 
 ---
 

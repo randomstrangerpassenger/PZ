@@ -1251,7 +1251,7 @@ Iris의 대형 검증 산출물은 내용 자체를 runtime/source authority로 
 - repository, ignored working tree, CAS, 외부 archive, runtime Lua, runtime heap 측정은 서로 다른 domain이다. 겹치는 절감량을 하나의 합계로 주장하지 않는다.
 - `OnGameBoot`는 Recipe/Moveables/Fixing/Classifications static payload를 미리 require하지 않는다. 기존 `StaticData` first-use cache와 실패 가시성을 유지하며 BrowserData registration은 측정 없이 제거하지 않는다.
 - Layer3/UseCase full-table facade, `IrisData` global, LineCountIndex와 Browser allocation 후보는 외부 소비자·heap 증거 없이 변경하지 않는다.
-- 현재 저장소 기준 lifecycle, repository evidence, current/historical, focused runtime, Lua syntax와 disposable package 검증은 통과했다. raw diagnostic route의 기존 overlay/tooling 결손과 수동 PZ 증거 부재 때문에 runtime/overall closeout은 `partial`이다.
+- 현재 저장소 기준 lifecycle, repository evidence, current/historical, focused runtime, Lua syntax와 disposable package 검증은 통과했다. 2026-08-10 repository owner가 계획된 수동 PZ 인게임 검증 완료를 attestation했고, 실행 불가능한 raw diagnostic/full-gate 축은 성공으로 다시 쓰지 않은 채 scoped closeout의 non-blocking 범위 밖으로 disposition했으므로 전체 상태는 `complete`다.
 - 동일 physical repository root에서 1차 baseline `4,842,336,252` bytes, 1차 final `1,338,324,791` bytes, 현재 file-length census `1,080,954,330` bytes를 비교한다. 2차는 1차 final에서 `257,370,461` bytes, `19.23%`를 추가로 줄였고 누적 감소는 `3,761,381,922` bytes, `77.68%`다.
 - 전체 repository를 재귀적으로 읽는 workload의 입력량 대리 지표는 최초 대비 `4.48x`다. 이는 동일 토큰 예산의 처리 가능량을 바이트 비례로 환산한 값이며 실제 tokenizer, prompt selection, cache hit 또는 Codex token usage 측정값이 아니다.
 - Codex Reviewer가 발견한 동적 CAS consumer 누락과 restore containment 결함은 AST/fragment census, 11,381-byte physical exception, canonical path/output/reparse guard로 수정했고 최종 review는 PASS다.

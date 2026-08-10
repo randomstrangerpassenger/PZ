@@ -2,7 +2,7 @@
   "schema_version": "iris_repository_evidence_cas_migration_successor_v1",
   "claim_id": "iris_repository_evidence_lightweighting",
   "authority": "repository_owner_user",
-  "status": "partial",
+  "status": "complete",
   "repository_cas": {
     "object_root": "Iris/build/description/v2/evidence/objects/sha256",
     "reference_root": "Iris/build/description/v2/evidence/references",
@@ -43,7 +43,7 @@
     }
   },
   "change4_audit_2105": {
-    "status": "partial",
+    "status": "complete_bounded_adoption",
     "source_root": "Iris/build/description/v2/staging/2105_baseline_consumption_audit",
     "reference": "Iris/build/description/v2/evidence/references/audit_2105_canonical_pair.json",
     "canonical_pair": [
@@ -66,6 +66,6 @@
     "historical_git_sha_recovery": "waived_by_owner",
     "machine_absolute_paths_recorded": false,
     "focused_and_current_validation": "passed",
-    "full_gate": "unvalidated_execution_boundary_and_diagnostic_ceiling"
+    "full_gate": "owner_waived_non_blocking_execution_boundary_and_diagnostic_ceiling"
   }
 }

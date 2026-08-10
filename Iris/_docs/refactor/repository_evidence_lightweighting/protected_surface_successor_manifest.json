@@ -867,6 +867,54 @@
           "reason": "Require the Codex Reviewer correction protection successor revision."
         }
       ]
+    },
+    {
+      "revision_id": "repository_evidence_lightweighting_owner_complete_closeout_v1",
+      "track": "repository_evidence_lightweighting",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "43b1fade199ce8f394cc131930a09ecbf32ebf27",
+      "protection_predecessor_tree": "88e25ee93e721a92f19b2fc82c2440407aad13f4",
+      "reason": "Record the owner's completed manual in-game validation and scoped complete closeout amendment.",
+      "approved_activation_deltas": [],
+      "added_protected_rows": [
+        {
+          "path": "Iris/_docs/refactor/repository_evidence_lightweighting/cas_migration_successor.json",
+          "before_git_blob_id": "d3f1d60a126cf6bfb1ecdb9596baa201a0ffc3c6",
+          "before_sha256_lf": "dd1eea11fd6e709ad1ba0f00d88ae2e95cb9f7c5a816a6fab0b25983ea93d7ca",
+          "expected_git_blob_id": "09463a0726823846e649419411413f9e04906819",
+          "after_sha256_lf": "a3f67d5f493fce42a5868ec91404397fc477bef52e6522f2275ac6ebe73a0c91",
+          "role": "cas_migration_successor",
+          "writer": "repository_evidence_lightweighting_owner_complete_closeout",
+          "consumers": ["repository_maintainers", "closeout"],
+          "owner": "repository_owner_user",
+          "reason": "Adopt the bounded CAS result as complete and record the non-runnable full gate as owner-waived rather than PASS."
+        },
+        {
+          "path": "Iris/_docs/refactor/repository_evidence_lightweighting/closeout/closeout_receipt.json",
+          "before_git_blob_id": "34c282ead1a76193f1e7c4034d8d7d5149b74f77",
+          "before_sha256_lf": "f0d45d96c75fdf3ab775ae32b5ccfde636e823992c9754e0999169de84df9749",
+          "expected_git_blob_id": "4d2fd3a44c2e19d3c5b7c1097df8ea2c409edb5b",
+          "after_sha256_lf": "ea1e52dbb783d73686fc1c3f34b7960d3d336c137c42af8193d1b8ff58b740a8",
+          "role": "bounded_closeout_receipt",
+          "writer": "repository_evidence_lightweighting_owner_complete_closeout",
+          "consumers": ["repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Bind the owner-attested manual validation and scoped complete final claim ceiling."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+          "before_git_blob_id": "948635872282f203afff18cace40d4b1a713ed5d",
+          "before_sha256_lf": "ee8ae845308d79ddd59b0261b80aaffd2ef4c95750bdd3d32f5b6aa09226264c",
+          "expected_git_blob_id": "183530cc72d7c2a662f7be0fdc6fa07e69659216",
+          "after_sha256_lf": "ef3c7a26d4f1e81cf14a5dbc6f39686eb66e8fec08da2f79d707b0dd9d22e83b",
+          "role": "protected_surface_current_required_test",
+          "writer": "repository_evidence_lightweighting_owner_complete_closeout",
+          "consumers": ["current_route_validation", "residual_closeout"],
+          "owner": "repository_owner_user",
+          "reason": "Require the owner-complete closeout protection successor revision."
+        }
+      ]
     }
   ]
 }

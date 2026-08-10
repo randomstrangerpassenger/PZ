@@ -94,8 +94,8 @@
     }
   ],
   "validation_ceiling": {
-    "external_consumer_sweep": "unvalidated_but_in_scope",
+    "external_consumer_sweep": "out_of_scope_by_owner_closeout_scope_amendment",
     "repository_internal_consumers": "censused",
-    "result": "no_compatibility_surface_mutation"
+    "result": "complete_evidence_based_defer_no_compatibility_surface_mutation"
   }
 }

@@ -1,6 +1,6 @@
 {
   "schema_version": "iris_repository_evidence_lightweighting_validation_matrix_v1",
-  "status": "partial",
+  "status": "complete",
   "claims": [
     {
       "claim": "lifecycle_v2_exact_reconstruction_and_consumers",
@@ -24,18 +24,23 @@
     },
     {
       "claim": "full_diagnostic_route",
-      "state": "unvalidated_but_in_scope",
-      "evidence": "raw route preserved: 76 tests, 3 failures, 9 errors, exit 1; failures are legacy overlay/tooling gaps outside this lightweighting mutation"
+      "state": "out_of_scope",
+      "evidence": "owner closeout scope amendment: raw result remains preserved at 76 tests, 3 failures, 9 errors, exit 1 and is not represented as PASS"
     },
     {
       "claim": "receipt_bound_full_gate_runs_and_deterministic_compare",
-      "state": "unvalidated_but_in_scope",
-      "evidence": "not run: the owner-bound environment receipt is outside the plan-authorized external path boundary, and the raw diagnostic prerequisite is not green"
+      "state": "out_of_scope",
+      "evidence": "owner closeout scope amendment: non-runnable because the bound environment receipt is outside the authorized path boundary and the diagnostic prerequisite is not green"
     },
     {
-      "claim": "manual_project_zomboid_runtime_behavior_and_heap",
-      "state": "unvalidated_but_in_scope",
-      "evidence": "no same-build Project Zomboid/Kahlua manual run or heap/latency sample"
+      "claim": "manual_project_zomboid_runtime_behavior",
+      "state": "validated",
+      "evidence": "2026-08-10 repository owner attestation: planned in-game manual validation complete"
+    },
+    {
+      "claim": "quantitative_project_zomboid_heap_latency_and_frame_improvement",
+      "state": "out_of_scope",
+      "evidence": "no raw instrumentation sample; no quantitative performance claim is made"
     },
     {
       "claim": "multiplayer_long_session_release_and_workshop",

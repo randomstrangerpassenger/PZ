@@ -3,6 +3,7 @@ from __future__ import annotations
 import ast
 import hashlib
 import json
+import subprocess
 import unittest
 from collections import defaultdict
 from pathlib import Path
@@ -59,7 +60,28 @@ def function_fingerprint(node: ast.FunctionDef | ast.AsyncFunctionDef) -> str:
 
 
 def build_inventory() -> dict:
-    files = sorted(TOOLS_ROOT.rglob("*.py"))
+    tracked_result = subprocess.run(
+        [
+            "git",
+            "ls-files",
+            "-z",
+            "--",
+            TOOLS_ROOT.relative_to(REPO).as_posix(),
+        ],
+        cwd=REPO,
+        capture_output=True,
+        check=False,
+    )
+    if tracked_result.returncode != 0:
+        raise RuntimeError(
+            "failed to enumerate tracked Python tooling: "
+            + tracked_result.stderr.decode("utf-8", errors="replace")
+        )
+    files = sorted(
+        REPO / value.decode("utf-8")
+        for value in tracked_result.stdout.split(b"\0")
+        if value and value.endswith(b".py")
+    )
     closure = json.loads(CLOSURE.read_text(encoding="utf-8"))
     current_modules = set(closure.get("current_closure_modules", []))
     current_modules.update(closure.get("current_route_allowed_tooling_modules", []))

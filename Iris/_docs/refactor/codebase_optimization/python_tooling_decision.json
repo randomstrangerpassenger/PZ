@@ -2,18 +2,19 @@
   "schema_version": "iris-python-tooling-contract-commonization-v1",
   "inventory_subject": {
     "commit": "951987be7136cce94557bc4da26fe41bb108d02e",
-    "tree": "4f476042a322eaa08ab93c90c603595fb36e83d4"
+    "tree": "4f476042a322eaa08ab93c90c603595fb36e83d4",
+    "scope": "git-tracked Iris/build/description/v2/tools/build/**/*.py"
   },
   "inventory_counts": {
-    "tool_files": 497,
-    "subprocess_sites": 113,
-    "helper_definitions": 321,
-    "load_json_definitions": 148,
-    "write_json_definitions": 113,
-    "sha256_file_definitions": 60,
+    "tool_files": 250,
+    "subprocess_sites": 106,
+    "helper_definitions": 56,
+    "load_json_definitions": 19,
+    "write_json_definitions": 16,
+    "sha256_file_definitions": 21,
     "exact_current_groups": 0
   },
-  "denominator_sha256": "b88fe91b360231d0c08b9a0f9a0766d2d8f61eb27dec6a84322f1a1f69e3a90c",
+  "denominator_sha256": "34c0782492910ceb8291ec5d55a9404cdef06f3469eaf066b3102bccc9703621",
   "fingerprint_contract": [
     "function arguments and defaults",
     "complete AST body and exception behavior",
@@ -21,10 +22,10 @@
     "cwd/path and CLI call constants",
     "current Round 3 closure membership"
   ],
-  "subprocess_disposition": "retain all 113 explicit process boundaries; no pure-function conversion group was proven equivalent",
+  "subprocess_disposition": "retain all 106 explicit process boundaries in the tracked tooling denominator; no pure-function conversion group was proven equivalent",
   "candidate_groups": [],
   "adopted_consumers": [],
   "adopted_parity_validation": "not_applicable",
   "disposition": "complete/no-op",
-  "reason": "No exact-contract helper fingerprint is shared by three or more current producers. The plan forbids weakening the equivalence gate to force commonization."
+  "reason": "No exact-contract helper fingerprint is shared by three or more current producers in the reproducible Git-tracked tooling denominator. The plan forbids weakening the equivalence gate to force commonization."
 }

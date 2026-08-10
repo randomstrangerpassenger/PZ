@@ -55,6 +55,7 @@
     "content_hashing": "one inventory pass plus promotion/restore verification required by CAS identity",
     "historical_git_sha_recovery": "waived_by_owner",
     "machine_absolute_paths_recorded": false,
-    "full_gate": "pending_terminal_validation_batch"
+    "focused_and_current_validation": "passed",
+    "full_gate": "unvalidated_execution_boundary_and_diagnostic_ceiling"
   }
 }

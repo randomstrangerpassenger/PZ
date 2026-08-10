@@ -26,5 +26,12 @@
   },
   "optional_browser_registration_removal": "not_adopted_without_runtime_measurement",
   "performance_claim": "not_made_without_pz_kahlua_measurement",
-  "test_disposition": "stale_test_corrected_and_successor_expectation_adopted"
+  "test_disposition": "stale_test_corrected_and_successor_expectation_adopted",
+  "automated_validation": {
+    "focused_phase5_contract": "4/4 PASS",
+    "current_route": "219/219 PASS",
+    "lua_syntax": "103 files PASS",
+    "disposable_package": "PASS",
+    "raw_diagnostic_route": "76 tests; 3 failures and 9 errors; exit 1"
+  }
 }

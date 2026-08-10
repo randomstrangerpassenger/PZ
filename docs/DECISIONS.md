@@ -2532,7 +2532,7 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
 
 ## Iris repository evidence/intermediate artifact lightweighting — representation 채택 / bounded partial
 
-* 상태: 2026-08-10 implementation complete / terminal automated validation pending / overall partial
+* 상태: 2026-08-10 implementation complete / bounded terminal validation recorded / overall partial
 * 결정:
 
   * 삭제된 과거 Git object는 이 후속 작업의 복구 전제에서 제외하고, 현재 저장소와 successor artifact에서 재구성 가능한 identity를 검증 대상으로 삼는다.
@@ -2550,4 +2550,5 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
 
   * Change 4의 unique derived views, Layer3/UseCase full facade, `IrisData`, LineCountIndex, Browser allocation 후보는 별도 소비자·heap 증거가 생길 때만 연다.
   * 수동 Project Zomboid runtime/heap 증거가 없어 Change 6은 `implemented_only`, 전체 상태는 `partial`이다.
+  * lifecycle 23 tests, repository evidence 17 tests, current `219/219`, historical `285/285`, focused runtime `4/4`, Lua 103 files와 disposable package는 통과했다. raw diagnostic는 76 tests 중 3 failures/9 errors로 기존 overlay/tooling 결손을 그대로 보존했으며, receipt-bound full-gate Run A/B와 deterministic compare는 허용된 외부 경계 밖 환경 영수증 및 non-green diagnostic prerequisite 때문에 실행하지 않았다.
 * Evidence: `Iris/_docs/refactor/repository_evidence_lightweighting/`의 lifecycle/CAS/cold-archive receipts와 `closeout/` census/measurement/validation/closeout evidence.

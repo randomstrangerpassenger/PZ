@@ -1249,3 +1249,4 @@ Iris의 대형 검증 산출물은 내용 자체를 runtime/source authority로 
 - repository, ignored working tree, CAS, 외부 archive, runtime Lua, runtime heap 측정은 서로 다른 domain이다. 겹치는 절감량을 하나의 합계로 주장하지 않는다.
 - `OnGameBoot`는 Recipe/Moveables/Fixing/Classifications static payload를 미리 require하지 않는다. 기존 `StaticData` first-use cache와 실패 가시성을 유지하며 BrowserData registration은 측정 없이 제거하지 않는다.
 - Layer3/UseCase full-table facade, `IrisData` global, LineCountIndex와 Browser allocation 후보는 외부 소비자·heap 증거 없이 변경하지 않는다.
+- 현재 저장소 기준 lifecycle, repository evidence, current/historical, focused runtime, Lua syntax와 disposable package 검증은 통과했다. raw diagnostic route의 기존 overlay/tooling 결손과 수동 PZ 증거 부재 때문에 runtime/overall closeout은 `partial`이다.

@@ -1020,7 +1020,8 @@ Pulse는 처음부터 “새 Java 로더”로 경쟁하는 브랜드가 아니�
 
 ## Partial / Pending
 
-- terminal automated validation batch와 Codex Reviewer final review는 아직 진행 전이다.
+- 계획 범위의 terminal batch를 실행해 lifecycle/repository evidence/current/historical/focused runtime/Lua/package PASS를 기록했다. raw diagnostic는 기존 overlay/tooling 결손 3 failures/9 errors를 그대로 보존한다.
+- receipt-bound full-gate Run A/B와 deterministic compare는 허용된 외부 경계 밖 환경 영수증과 non-green diagnostic prerequisite 때문에 미실행이며, Codex Reviewer final review는 진행 중이다.
 - Change 4의 나머지 derived view는 unique content라 일대일 CAS 이동에 절감이 없어 유지한다.
 - Project Zomboid/Kahlua heap과 first-use latency raw sample이 없어 runtime 성능 claim은 승인하지 않는다.
 

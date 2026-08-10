@@ -747,6 +747,54 @@
           "reason": "Require the terminal validation protection successor revision."
         }
       ]
+    },
+    {
+      "revision_id": "repository_evidence_lightweighting_terminal_closeout_v1",
+      "track": "repository_evidence_lightweighting",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "82acbdc117d73bc19ef01db2d32112ac842d3404",
+      "protection_predecessor_tree": "a78952735cfa35bd7a7dcdd769320442a18d2693",
+      "reason": "Bind the bounded terminal validation results without reopening deleted historical Git objects.",
+      "approved_activation_deltas": [],
+      "added_protected_rows": [
+        {
+          "path": "Iris/_docs/refactor/repository_evidence_lightweighting/cas_migration_successor.json",
+          "before_git_blob_id": "ffe6dcee1ede62ef044f77687051802a0cb86815",
+          "before_sha256_lf": "794f38787ca828805011520586ab63b65fb3443953e59960d4aa50e40ec2fd3a",
+          "expected_git_blob_id": "36b954895ff38fb75171888d754afe4364c58bad",
+          "after_sha256_lf": "13e37e0e9b92da27119be3733b81f2f652c5e293a748c821ba1e6235fd01a185",
+          "role": "cas_migration_successor",
+          "writer": "repository_evidence_lightweighting_terminal_closeout",
+          "consumers": ["repository_maintainers", "closeout"],
+          "owner": "repository_owner_user",
+          "reason": "Record the focused/current PASS boundary and the unrun receipt-bound gate truthfully."
+        },
+        {
+          "path": "Iris/_docs/refactor/repository_evidence_lightweighting/closeout/closeout_receipt.json",
+          "before_git_blob_id": "f6dd0551a976a4078c8152984e43b31e0995567c",
+          "before_sha256_lf": "72b2f374d6a7f795b14f278dcceaca66ac3f14dcc262dcd9aae171558f78b0d3",
+          "expected_git_blob_id": "e871740e79edd4fd0e1fe1510d9b0d0ffa4d8024",
+          "after_sha256_lf": "e141ed47646f95bd9fe8728fc55aedc27d56a9a365cc2e6dd810e6db9c693e03",
+          "role": "bounded_closeout_receipt",
+          "writer": "repository_evidence_lightweighting_terminal_closeout",
+          "consumers": ["repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Replace the pending terminal marker with the measured partial closeout ceiling."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+          "before_git_blob_id": "99c66ec07ac3c4f495d9500f6d9395840c21c219",
+          "before_sha256_lf": "d584f352d5db1c231ec3d4b9f7b6ee2c5b8378998c74970693bd851a6edb2c3c",
+          "expected_git_blob_id": "f183da470177fd5f1ebeb8b3d3a8dd098ef26ad2",
+          "after_sha256_lf": "dfc6639b736c7d769b43f8a45287dbf97bcf59565b3338cdb6e79bcd1ad660f0",
+          "role": "protected_surface_current_required_test",
+          "writer": "repository_evidence_lightweighting_terminal_closeout",
+          "consumers": ["current_route_validation", "residual_closeout"],
+          "owner": "repository_owner_user",
+          "reason": "Require the bounded terminal closeout protection successor revision."
+        }
+      ]
     }
   ]
 }

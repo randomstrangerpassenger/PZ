@@ -802,7 +802,9 @@ Description의 string output은 별도 병렬 구현이 아니라 canonical bloc
 
 Legacy `IrisData` access, object/item access, Browser variant compatibility는 삭제되지 않은 public 계약을 이름 있는 adapter로 격리한다. Adapter는 새 authority가 아니며 core state를 복제하거나 runtime 의미를 재해석할 수 없다. Generator full removal과 global alias removal은 별도 compatibility proof 없이 이 경계에서 실행하지 않는다.
 
-Build tooling은 current 12-module core와 approved tooling 4/4를 유지한다. 분해 slot과 소비자 계약이 먼저 승인되지 않으면 새 module extraction을 완료 조건으로 만들지 않는다. Cleanup도 consumer, required reference, package reachability, historical reproduction requirement가 모두 0인 exact path에만 허용하며, 이번 disposition은 delete candidate `0`의 no-op이다.
+Build tooling은 current 12-module core와 approved tooling 4/4를 유지한다. 분해 slot과 소비자 계약이 먼저 승인되지 않으면 새 module extraction을 완료 조건으로 만들지 않는다. Cleanup도 consumer, required reference, package reachability, historical reproduction requirement가 모두 0인 exact path에만 허용한다. Repository/runtime lightweighting Change 8의 current inventory는 `497 recursive / 484 root-direct`, archive/delete eligible candidate와 helper extraction은 각각 `0`이며 세 producer의 전체 path/JSON/hash 계약이 같지 않아 새 abstraction·이동·삭제가 없는 no-op으로 채택됐다.
+
+Repository/runtime lightweighting의 수동 Project Zomboid runtime acceptance는 2026-08-10 owner attestation으로 닫혔다. 이 attestation은 계획 범위의 Browser/Wiki/Tooltip/localization/log 인게임 검증 완료를 뜻하지만, 첨부된 raw timing sample이 없으므로 성능 개선 수치나 release/Workshop/multiplayer/long-session readiness 권위를 만들지 않는다.
 
 Package 흐름은 단방향이다.
 

@@ -54,6 +54,9 @@ class IrisResidualContractSurfacesTest(unittest.TestCase):
         self.assertNotRegex(tooltip, r"table\.remove\s*\(\s*detailLines")
         self.assertIn("tagStr:sub(1, 47)", tooltip)
 
+        successor_path = REPO / "Iris/_docs/refactor/repository_runtime_lightweighting/protected_surface_successor_manifest.json"
+        successor = load_json(successor_path)
+        attestation = successor["historical_manifest_attestation"]
         with tempfile.TemporaryDirectory(prefix="iris-residual-surfaces-") as temp:
             external_evidence = Path(temp)
             for name in ("phase0_supported_api_manifest.json", "phase0_protected_surface_manifest.json"):
@@ -85,14 +88,83 @@ class IrisResidualContractSurfacesTest(unittest.TestCase):
             protected = load_json(external_evidence / "final_protected_surface_report.json")
             package = load_json(external_evidence / "final_package_identity_report.json")
             claims = load_json(external_evidence / "final_claim_boundary_report.json")
+            tampered_attestation_path = external_evidence / "tampered_historical_attestation.json"
+            tampered_attestation_path.write_text(
+                json.dumps({**attestation, "git_blob_id": "0" * 40}),
+                encoding="utf-8",
+            )
+            tampered = subprocess.run(
+                [
+                    "powershell",
+                    "-NoProfile",
+                    "-ExecutionPolicy",
+                    "Bypass",
+                    "-File",
+                    str(REPO / "Iris/test/validate_residual_refactor_surfaces.ps1"),
+                    "-Mode",
+                    "AttestationProbe",
+                    "-RepositoryRoot",
+                    str(REPO),
+                    "-EvidenceRoot",
+                    str(external_evidence),
+                    "-HistoricalManifestAttestationPath",
+                    str(tampered_attestation_path),
+                ],
+                cwd=REPO,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                capture_output=True,
+                check=False,
+            )
+            self.assertNotEqual(tampered.returncode, 0)
+            self.assertIn(
+                "repository lightweighting historical manifest attestation blob mismatch",
+                tampered.stdout + tampered.stderr,
+            )
         self.assertEqual(supported["validation_status"], "passed")
         self.assertEqual(supported["incompatible_count"], 0)
         self.assertEqual(supported["surface_count"], 20)
         self.assertEqual(protected["validation_status"], "passed")
         self.assertEqual(protected["unauthorized_changed_count"], 0)
+        attested_blob = subprocess.run(
+            ["git", "-C", str(REPO), "rev-parse", f"{attestation['commit']}:{attestation['path']}"],
+            text=True,
+            encoding="utf-8",
+            capture_output=True,
+            check=True,
+        ).stdout.strip()
+        anchor_tree = subprocess.run(
+            ["git", "-C", str(REPO), "rev-parse", f"{successor['active_protection_anchor']['commit']}^{{tree}}"],
+            text=True,
+            encoding="utf-8",
+            capture_output=True,
+            check=True,
+        ).stdout.strip()
+        self.assertEqual(
+            successor["schema_version"],
+            "iris_repository_runtime_lightweighting_protected_surface_successor_v2",
+        )
+        self.assertEqual(attestation["git_blob_id"], attested_blob)
+        self.assertEqual(attestation["interpretation"], "embedded_identity_chain_only")
+        self.assertEqual(successor["active_protection_anchor"]["tree"], anchor_tree)
         self.assertEqual(
             protected["repository_lightweighting_successor_manifest"],
             "Iris/_docs/refactor/repository_runtime_lightweighting/protected_surface_successor_manifest.json",
+        )
+        self.assertEqual(
+            protected["repository_lightweighting_successor_schema_version"],
+            "iris_repository_runtime_lightweighting_protected_surface_successor_v2",
+        )
+        self.assertEqual(protected["historical_manifest_attestation"]["git_blob_id"], attested_blob)
+        self.assertEqual(protected["historical_subject_object_dereference_count"], 0)
+        self.assertTrue(protected["active_protection_anchor"]["final_state_verified"])
+        self.assertEqual(
+            protected["active_revision_ids"],
+            [
+                "tooling_track_v2_durable_protection_successor_v1",
+                "tooling_track_adoption_checkpoint_v1",
+            ],
         )
         self.assertEqual(
             ["common_contract_initial_v1", "common_contract_followup_v1"],

@@ -63,6 +63,14 @@ def relative(path: Path, repository_root: Path) -> str:
     return path.resolve().relative_to(repository_root.resolve()).as_posix()
 
 
+def display_path(path: Path, repository_root: Path) -> str:
+    resolved = path.resolve()
+    try:
+        return resolved.relative_to(repository_root.resolve()).as_posix()
+    except ValueError:
+        return resolved.as_posix()
+
+
 def git_lines(repository_root: Path, *args: str) -> list[str]:
     result = subprocess.run(
         ["git", "-C", str(repository_root), *args],
@@ -471,7 +479,7 @@ def main() -> int:
             "v2_root": relative(v2_root, repository_root),
             "build_tools_root": relative(build_tools_root, repository_root),
             "closure": relative(closure_path, repository_root),
-            "output": relative(output_path, repository_root),
+            "output": display_path(output_path, repository_root),
             "python_line_definition": {
                 "physical": "splitlines including blank and comment lines",
                 "nonblank": "splitlines whose stripped value is non-empty",
@@ -543,7 +551,7 @@ def main() -> int:
             {
                 "validation_status": payload["validation_status"],
                 "build_tools_python_recursive": len(build_python),
-                "output": relative(output_path, repository_root),
+                "output": display_path(output_path, repository_root),
             },
             sort_keys=True,
         )

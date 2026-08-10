@@ -2499,10 +2499,10 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
 
 ---
 
-## Iris repository/runtime lightweighting — Common + Runtime-first 채택 / 전체 계획 partial
+## Iris repository/runtime lightweighting — Common + Runtime-first + Tooling no-op 채택 / 계획 범위 complete
 
-* 상태: 2026-08-10 current readpoint / Common closeout PASS / Runtime-first automated adoption PASS / overall partial
-* 결정: `iris_repository_runtime_lightweighting_plan.md`의 Common Track과 선택된 Runtime Track Changes 5~7을 현재 구현으로 수용한다. 검토된 최종 소스 상태는 recovery commit `ae7b3172cc80b5bf3b2aaed15654d41f707c9134`로 `main`에 보존한다.
+* 상태: 2026-08-10 current readpoint / Common closeout PASS / Runtime-first automated adoption PASS / Tooling Change 8 no-op adopted / owner-attested PZ runtime validation complete / scoped overall complete
+* 결정: `iris_repository_runtime_lightweighting_plan.md`의 Common Track, Runtime Track Changes 5~7, 후속 Tooling Track Change 8의 검토된 no-op disposition을 현재 구현으로 수용한다. Recovery commit `ae7b3172cc80b5bf3b2aaed15654d41f707c9134`를 durable base로 유지하고, 삭제된 임시 validation checkout 객체에 의존하지 않는 protected-surface v2 successor를 사용한다.
 * Repository 경량화 결정:
 
   * source checkout에는 current authority와 작은 canonical manifest/hash/receipt만 durable하게 두고, 실행 scratch·중간 결과·package projection은 checkout 밖의 명시적 work/result root에 둔다.
@@ -2511,7 +2511,7 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
   * diagnostic raw result와 terminal disposition은 분리한다. 승인된 advisory raw failure를 PASS로 다시 쓰거나 historical reproduction 분모를 cleanup 명분으로 축소하지 않는다.
 * Runtime 경량화 결정:
 
-  * Track Order는 `runtime_first -> runtime`으로 봉인한다. 미선택 Tooling Track Change 8은 이 결정으로 자동 승인되지 않는다.
+  * Track Order는 `runtime_first -> runtime`으로 봉인했고 Runtime adoption 뒤 별도 후속 checkpoint에서 Tooling Track Change 8을 평가했다. 세 current producer의 전체 path/JSON/hash 계약이 같지 않고 archive/delete eligible candidate와 helper extraction이 각각 `0`이므로 helper 추출·파일 이동·삭제 없이 no-op으로 닫는다.
   * Browser module surface와 public `IrisBrowserData.build()` facade는 유지하되 `OnGameBoot`의 eager full build를 제거한다. `openSearch()` / `openForItem()` 최초 사용에서 한 번 build하고 같은 generation의 warm reopen은 cache를 재사용한다.
   * Layer3와 UseCase는 deterministic range/count index와 internal lookup router로 key별 청크를 demand-load한다. 단일 조회는 각각 최대 한 청크를 로드하고 Alt Tooltip line-count 경로는 UseCase description chunk를 로드하지 않는다.
   * 기존 direct public facade는 전체 table과 compatibility global/field를 계속 materialize한다. index는 routing metadata이며 source fact나 별도 semantic authority가 아니다.
@@ -2519,10 +2519,11 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
 
   * Runtime automated contract는 Layer3 `1/11`, UseCase `1/9`, Tooltip line-count `0`, Browser boot full scan `0`, same-generation repeat scan 증가 `0`, compatibility fallback `0`을 기록했다.
   * terminal current/historical/diagnostic/package/Lua/purity route와 receipt-bound full-gate Run A/B 및 deterministic compare는 자동 PASS로 닫혔다.
-  * Project Zomboid 수동 Browser/Wiki/Tooltip/localization/log 및 동일 환경 before/after timing sample은 수집되지 않았다. 따라서 runtime benchmark는 `PARTIAL`, `performance_claim_authorized=false`이며 전체 Common + Runtime + Tooling 목표도 `partial`이다.
+  * Tooling Change 8 adoption receipt는 inventory `497 recursive / 484 root-direct`, archive/delete eligible candidate `0`, helper extraction `0`, exact successor current route `202/202`를 결속한다.
+  * 2026-08-10 owner가 계획 범위의 Project Zomboid 수동 Browser/Wiki/Tooltip/localization/log 인게임 검증을 완료했다고 attestation했다. 이로써 Common + Runtime + Tooling의 scoped validation은 `complete`다. 스크린샷·로그·raw before/after timing sample은 repository evidence로 첨부되지 않았으므로 `performance_claim_authorized=false`를 유지하고 성능 개선 수치는 주장하지 않는다.
 * Non-decision:
 
   * 이 항목은 Codex/LLM token 효율의 정량 향상, PZ 실행 시간 개선, release/Workshop/multiplayer/long-session readiness를 주장하지 않는다.
-  * 미선택 Tooling Track, positional schema migration, registry giant split, public compatibility 제거는 별도 승인·채택 없이 열린 작업이 아니다.
+  * Tooling no-op은 새 공통 helper, positional schema migration, registry giant split, public compatibility 제거 또는 추가 cleanup을 승인하지 않는다.
   * external attempt/root 삭제는 current authority나 historical reproduction input을 삭제할 권한으로 확대하지 않는다.
-* Evidence: `Iris/_docs/refactor/repository_runtime_lightweighting/{baseline_inventory.json,final_inventory.json,track_order_decision.json,runtime_benchmark_receipt.json,terminal_current_route_receipt.json,validation_checkpoint_manifest.json}`.
+* Evidence: `Iris/_docs/refactor/repository_runtime_lightweighting/{baseline_inventory.json,final_inventory.json,track_order_decision.json,runtime_benchmark_receipt.json,terminal_current_route_receipt.json,tooling_track_adoption_receipt.json,validation_checkpoint_manifest.json,protected_surface_successor_manifest.json}`, `Iris/build/description/v2/tools/build/INVENTORY.md`, 이 항목의 2026-08-10 owner attestation.

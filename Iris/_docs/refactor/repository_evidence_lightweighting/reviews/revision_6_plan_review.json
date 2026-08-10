@@ -1,0 +1,183 @@
+{
+  "schema_version": "iris_repository_evidence_lightweighting_plan_review_v1",
+  "review_id": "iris_repository_evidence_lightweighting_revision_6_plan_review_20260810",
+  "reviewed_at": "2026-08-10T11:37:50.6024661+09:00",
+  "reviewer": {
+    "identity": "Codex Reviewer",
+    "role": "independent_external_plan_reviewer",
+    "independent_from_implementation_author": true,
+    "tests_run_by_reviewer": false,
+    "review_scope": "plan_level_with_read_only_repository_feasibility_checks"
+  },
+  "review_target": {
+    "reviewed_plan_revision": 6,
+    "plan": {
+      "path": "docs/iris_repository_evidence_intermediate_artifact_lightweighting_plan.md",
+      "commit": "16ba66a69a199dff412631e2b5fccc3095b65d26",
+      "tree": "a4bb0faa4214c4c83467724f0380bb3fa1835582",
+      "git_blob_id": "2da6d081bbbf31a5bd707cbf9e28dceb2daff286",
+      "raw_sha256": "f7061db19d2fb5bfa78ee926c4a646ef82590a3587210fb7097e6732b71ef1a1",
+      "byte_count": 103757,
+      "format": "text/markdown; charset=utf-8; bom=absent; eol=lf; terminal_newline=true"
+    }
+  },
+  "failed_review_bindings": [
+    {
+      "path": "Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_4_plan_review.json",
+      "raw_sha256": "62e58d844189e7f1af4d8cddead07cfc0d867b2a840ee01abe5d47975ffa39e2",
+      "byte_count": 18345,
+      "reviewed_plan_revision": 4,
+      "review_verdict": "blocked",
+      "change0_eligibility": "ineligible",
+      "open_critical_count": 2,
+      "authority_for_revision_6_eligibility": false
+    },
+    {
+      "path": "Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_5_plan_review.json",
+      "raw_sha256": "e6538e193db31271153fca318d88fd1fc947e4347f04948114ac3d89875a0e61",
+      "byte_count": 14280,
+      "reviewed_plan_revision": 5,
+      "review_verdict": "blocked",
+      "change0_eligibility": "ineligible",
+      "open_critical_count": 1,
+      "authority_for_revision_6_eligibility": false
+    }
+  ],
+  "input_source_bindings": [
+    {
+      "role": "consolidated_roadmap",
+      "source_locator": "attachment 2006c560-4a80-4bcc-837a-c361a6ce1d6f/pasted-text.txt",
+      "durable_repository_adoption_path": "Iris/_docs/refactor/repository_evidence_lightweighting/inputs/consolidated_roadmap.md",
+      "byte_count": 27216,
+      "raw_sha256": "90aab09441a3bb8ff49dab410be9abb11148e394215e01815a2610645f942e00",
+      "format": "text/markdown; charset=utf-8; bom=absent; eol=crlf; terminal_newline=false",
+      "schema": "none_unstructured_markdown",
+      "preflight_status": "unavailable",
+      "repository_adoption_state_at_review": "not_yet_adopted_c0_b"
+    },
+    {
+      "role": "revision_1_consolidated_review",
+      "source_locator": "attachment f0d3d135-9a4e-4bdf-9a9c-88a5d0fed25d/pasted-text.txt",
+      "durable_repository_adoption_path": "Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_1_consolidated_review.md",
+      "byte_count": 26163,
+      "raw_sha256": "6cc9c1871a09654f9b6b0e2ddda77e141a3a66adfbdb976008405adf18e8d1ab",
+      "format": "text/markdown; charset=utf-8; bom=absent; eol=crlf; terminal_newline=false",
+      "schema": "none_unstructured_markdown",
+      "preflight_status": "unavailable",
+      "repository_adoption_state_at_review": "not_yet_adopted_c0_b"
+    },
+    {
+      "role": "revision_2_consolidated_review",
+      "source_locator": "attachment 8aebf68d-965f-4f62-9a43-39f48540f122/pasted-text.txt",
+      "durable_repository_adoption_path": "Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_2_consolidated_review.md",
+      "byte_count": 24946,
+      "raw_sha256": "1112c4ac162c1d50a8d31d91eb7d740bd9588703a1b3e7702201884ddbbe2cbf",
+      "format": "text/markdown; charset=utf-8; bom=absent; eol=crlf; terminal_newline=false",
+      "schema": "none_unstructured_markdown",
+      "preflight_status": "unavailable",
+      "repository_adoption_state_at_review": "not_yet_adopted_c0_b"
+    },
+    {
+      "role": "revision_3_consolidated_review",
+      "source_locator": "attachment 46332e63-ff2d-428f-8a83-f6045fc3dab5/pasted-text.txt",
+      "durable_repository_adoption_path": "Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_3_consolidated_review.md",
+      "byte_count": 22259,
+      "raw_sha256": "049c4146a93df716277a3bdb4a36669c81a82c482442c3875b39363502577b11",
+      "format": "text/markdown; charset=utf-8; bom=absent; eol=crlf; terminal_newline=false",
+      "schema": "none_unstructured_markdown",
+      "preflight_status": "unavailable",
+      "repository_adoption_state_at_review": "not_yet_adopted_c0_b"
+    }
+  ],
+  "read_only_preflight": {
+    "revision_6_plan_read_in_full": true,
+    "committed_plan_identity_match": true,
+    "four_attachment_identity_and_framing_match": null,
+    "four_attachment_preflight_status": "blocked_unavailable",
+    "failed_revision_4_review_identity_match": true,
+    "failed_revision_5_review_identity_match": true,
+    "predecessor_census_row_count": 9,
+    "predecessor_census_checkout_bytes_and_raw_sha256_match": true,
+    "predecessor_census_filtered_git_blob_set_match": true,
+    "tests_executed": 0
+  },
+  "prior_review_resolution": [
+    {
+      "finding_id": "REV4-CRITICAL-001",
+      "status": "resolved"
+    },
+    {
+      "finding_id": "REV4-CRITICAL-002",
+      "status": "resolved"
+    },
+    {
+      "finding_id": "REV4-IMPORTANT-001",
+      "status": "resolved"
+    },
+    {
+      "finding_id": "REV5-CRITICAL-001",
+      "status": "resolved"
+    }
+  ],
+  "review_axes": [
+    {
+      "axis": "revision_4_and_revision_5_finding_resolution",
+      "verdict": "pass",
+      "observations": [
+        "The durable active predecessor and embedded-only historical evidence subject are separated.",
+        "The required residual test expects both active revision IDs in order.",
+        "The protected manifest binds the corrected required-test final Git blob and LF SHA-256.",
+        "The protected report count contract is consistently 26 baseline rows, 6 authorized changed baseline rows, 60 folded unique added rows, 86 total rows, and 0 unauthorized changed rows."
+      ]
+    },
+    {
+      "axis": "c0_phase_graph_cas_tracking_full_gate_and_runtime_diagnostics",
+      "verdict": "pass",
+      "observations": [
+        "No additional plan-text blocker was found in the C0-a/C0-b split, independent clean materializations, CAS tracking and restore boundary, full-gate binding, or Change 6 raw diagnostic preservation."
+      ]
+    },
+    {
+      "axis": "fresh_four_source_preflight",
+      "verdict": "blocked",
+      "observations": [
+        "The four attachment sources are not present at their future durable repository paths and no readable attachment path is available in the allowed execution scope.",
+        "Revision 4 and 5 historical preflight attestations do not replace the revision 6 fresh preflight required by the reviewed plan."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "REV6-CRITICAL-001",
+      "severity": "critical",
+      "status": "open",
+      "category": "c0_p3_required_input_preflight",
+      "title": "The four required attachment sources cannot be freshly verified within the allowed review scope",
+      "classification": "execution_precondition_not_plan_defect",
+      "impact": "The mandatory pre-review input gate is not closed, so revision 6 cannot authorize C0-a even though its prior plan defects are resolved.",
+      "required_resolution": "Provide an allowed readable path or a fresh external receipt proving all four attachment byte counts, SHA-256 values, and UTF-8 framing, then repeat the revision 6 eligibility review.",
+      "affects_change0_eligibility": true
+    }
+  ],
+  "finding_counts": {
+    "critical": 1,
+    "important": 0,
+    "minor": 0,
+    "open_critical": 1,
+    "open_important": 0,
+    "open_minor": 0
+  },
+  "open_critical_count": 1,
+  "review_verdict": "blocked",
+  "change0_eligibility": "ineligible",
+  "eligibility_reason": "Revision 6 resolves all prior critical plan defects, but its mandatory fresh four-source C0-p3 preflight could not be performed from the available allowed inputs.",
+  "non_claims": [
+    "change_0_started",
+    "predecessor_subject_adopted",
+    "change_1_through_change_7_authorized",
+    "tests_passed",
+    "implementation_complete",
+    "runtime_behavior_validated",
+    "repository_evidence_lightweighting_complete"
+  ]
+}

@@ -1,0 +1,276 @@
+{
+  "schema_version": "iris_repository_runtime_lightweighting_selected_track_adoption_receipt_v1",
+  "receipt_kind": "selected_track_adoption",
+  "checkpoint_id": "tooling_track_adoption",
+  "selected_track": "tooling",
+  "status": "PASS",
+  "validated_at": "2026-08-09T21:30:48.5517199Z",
+  "validated_subject": {
+    "subject_kind": "selected_track_adoption_subject",
+    "claim_id": "w",
+    "repository_root": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q8-final",
+    "commit": "dac450348e97a30c50935034ea8d49b4c8fe4564",
+    "tree": "ba41557346abbe865acda2236d014d2977781b6a",
+    "subject_receipt_path": "C:/Users/MW/AppData/Local/Temp/i11/tooling-subject.json",
+    "subject_receipt_sha256": "ad8b404fc3c0d776917c14df942ecfbe99c4dea0f39979afbe0bcd7cd663326b"
+  },
+  "validated_subject_commit": "dac450348e97a30c50935034ea8d49b4c8fe4564",
+  "validated_subject_tree": "ba41557346abbe865acda2236d014d2977781b6a",
+  "authority_scope": "tooling_track_automated_adoption",
+  "track_order_decision": {
+    "path": "Iris/_docs/refactor/repository_runtime_lightweighting/track_order_decision.json",
+    "sha256": "5321932322eb076f8e9d41d023c9de303e13d701e636a8c17a9e975b9704c976",
+    "decision": "runtime_first",
+    "initial_normalized_track": "runtime",
+    "subsequent_track": "tooling"
+  },
+  "common_closeout_receipt": {
+    "path": "Iris/_docs/refactor/repository_runtime_lightweighting/common_closeout_receipt.json",
+    "sha256": "95bba03fcb5212f9e4824c38566e8db6fe0df658559026a023cb36367867d073"
+  },
+  "preceding_runtime_adoption_receipt": {
+    "path": "Iris/_docs/refactor/repository_runtime_lightweighting/selected_track_adoption_receipt.json",
+    "sha256": "20e5c2e3419aa720265d709ec4dfcf2520152c16f05421eda99fd4ab6a6439a2",
+    "status": "PASS",
+    "selected_track": "runtime"
+  },
+  "environment_receipt": {
+    "path": "C:/Users/MW/iccv/receipts/env-v1/environment_receipt.json",
+    "sha256": "fb5dd78e15c41346f15b39065c60c2ce4d83254d73bbde3d3181d327b30b6bc2"
+  },
+  "environment_authority": {
+    "path": "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json",
+    "sha256": "1bc7076459f72dbfa733e0101d77e9eb0b73c0f01e88ac54bc326c8ad2f67138"
+  },
+  "environment_delta": {
+    "path": "C:/Users/MW/AppData/Local/Temp/i11/tooling-environment-delta.json",
+    "sha256": "9b4490f5a76e7964d73d75cede2a1738de07a82c447d3908c7eac0d43f162286"
+  },
+  "allocation_receipt": {
+    "path": "C:/Users/MW/AppData/Local/Temp/i11/tooling-allocation.json",
+    "sha256": "a61aa6840aaf0469015a42fe0df998418490224cdea9d0f291b1f138c42caa0b",
+    "claim_id": "w",
+    "attempt_id": "4",
+    "profile": "checkpoint"
+  },
+  "taxonomy": {
+    "path": "Iris/_docs/round3/round3_test_taxonomy.json",
+    "sha256": "25c4570a82c3132118b84a7ab07b80f1b196595c437056ae87489fb8bec2745f"
+  },
+  "required_validations": {
+    "path": "Iris/_docs/round3/current_route_required_validations.json",
+    "sha256": "c8a66a0dcb32b2745b810c2658b93baa2ead05426be80c51e47e131ceb48b369"
+  },
+  "active_core_closure": {
+    "path": "Iris/_docs/round3/round3_active_core_closure.json",
+    "sha256": "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf"
+  },
+  "tooling_inventory_result": {
+    "path": "C:/Users/MW/AppData/Local/Temp/checkpoint-w-4-d530e10bd73f/result/tooling-inventory.json",
+    "sha256": "68c2fdc39f16d5dfb04aa1bbe6133009786c223167241157bb5c9e86dec5ca15",
+    "status": "PASS",
+    "subject_commit": "dac450348e97a30c50935034ea8d49b4c8fe4564",
+    "subject_tree": "ba41557346abbe865acda2236d014d2977781b6a",
+    "build_tools_python_recursive": 497,
+    "build_tools_python_root_direct": 484,
+    "tracked_build_tools": 250,
+    "ignored_or_untracked_build_tools": 247,
+    "predecessor_recursive": 496,
+    "predecessor_root_direct": 483,
+    "denominator_drift_paths": [
+      {
+        "path": "Iris/build/description/v2/tools/build/registry_runtime_record_paths.py",
+        "git_blob_id": "1c6d34cacb0eaea042a10efba76dde9378e057da",
+        "sha256_raw": "d699edba721202fc37fc8cdd428f454bc74a0e5b2304eece3f265bbd6a76ce60"
+      }
+    ],
+    "commonization_gate_met": false,
+    "archive_delete_candidate_count": 0,
+    "helper_extraction_count": 0,
+    "build_tool_python_move_count": 0,
+    "build_tool_python_delete_count": 0,
+    "build_tool_python_add_count": 0,
+    "decision": "no_op"
+  },
+  "physical_materialization": {
+    "path": "C:/Users/MW/AppData/Local/Temp/i11/tooling-physical-materialization-manifest.json",
+    "sha256": "05189a1ddfd9e6dee5c4cebef4bfeb15bf3c3eb4c684e4b6b76221a63d0a1ffe",
+    "copy_mode": "raw_bytes_only",
+    "materialized_ignored_file_count": 247,
+    "tracked_file_count": 250,
+    "source_repository_root": "C:/Users/MW/Downloads/coding/PZ",
+    "destination_repository_root": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/q8-final",
+    "git_status_clean_after_materialization": true
+  },
+  "inventory_decision_binding": {
+    "path": "Iris/build/description/v2/tools/build/INVENTORY.md",
+    "git_blob_id": "d68370d57924038d25b71118cb03a2340a02c221",
+    "sha256_lf": "1b6f0a409e136a543f2247b81ad7396ee2470e5609476e15e252e94ad79d57c9",
+    "commonization_disposition": "no_op",
+    "cleanup_disposition": "no_candidates"
+  },
+  "output_isolation_audit": {
+    "path": "C:/Users/MW/AppData/Local/Temp/checkpoint-c-3-71ce639fc6bb/result/current_route_output_isolation_audit_receipt.json",
+    "sha256": "7002651183ebe3472d6169e65660e62961d4e149c3c0ab8dd412204b00c36b17",
+    "status": "PASS",
+    "subject_commit": "dac450348e97a30c50935034ea8d49b4c8fe4564",
+    "subject_tree": "ba41557346abbe865acda2236d014d2977781b6a",
+    "selected_test_count": 123,
+    "selected_source_count": 33,
+    "closure_source_count": 55,
+    "dynamic_write_site_count": 550,
+    "checkout_unchanged": true,
+    "tracked_delta_count": 0,
+    "untracked_delta_count": 0,
+    "ignored_delta_count": 0,
+    "unreadable_count": 0
+  },
+  "output_isolation_verification_receipt": {
+    "path": "C:/Users/MW/AppData/Local/Temp/i11/tooling-command-receipts/004-verify-current-route-output-isolation.json",
+    "sha256": "c51f0b78b29c4f76a6614c4b8e3c9dad4a531aff09996374a9ce945e3061c18d"
+  },
+  "current_route_result": {
+    "command_id": "005-selected-track-current-route",
+    "path": "C:/Users/MW/AppData/Local/Temp/checkpoint-w-4-d530e10bd73f/current-result/current-route.json",
+    "sha256": "93d75a628e35d6b887802dd3210743f6aee022dfb168d33d201f19e1241fa832",
+    "contract_class": "current",
+    "closure_enforced": true,
+    "test_count": 202,
+    "failure_count": 0,
+    "error_count": 0,
+    "skipped_count": 0,
+    "success": true
+  },
+  "command_specs": [
+    {
+      "command_id": "001-tooling-allocate",
+      "path": "C:/Users/MW/AppData/Local/Temp/i11/tooling-command-receipts/001-tooling-allocate.command.json",
+      "sha256": "ac942801d1683f9b36b79eb48a167a8953d6e7d8b0cb1b13cc5f4c21e57e7c32"
+    },
+    {
+      "command_id": "002-git-status-selected-track-before",
+      "path": "C:/Users/MW/AppData/Local/Temp/i11/tooling-command-receipts/002-git-status-selected-track-before.command.json",
+      "sha256": "d46c4ee47603a4cc7ecf3cb373ac92be6bbe05d12dec20b96c453d894f932215"
+    },
+    {
+      "command_id": "003-tooling-inventory",
+      "path": "C:/Users/MW/AppData/Local/Temp/i11/tooling-command-receipts/003-tooling-inventory.command.json",
+      "sha256": "f08f48dd9a33afa10e051d5bef8db00293378036541efcdc5bb05dc75e2ea5f4"
+    },
+    {
+      "command_id": "004-verify-current-route-output-isolation",
+      "path": "C:/Users/MW/AppData/Local/Temp/i11/tooling-command-receipts/004-verify-current-route-output-isolation.command.json",
+      "sha256": "a3d7fb644ce21caf01d274f80a44528b021c060e8d48d51e2be2c8d8a8097851"
+    },
+    {
+      "command_id": "005-selected-track-current-route",
+      "path": "C:/Users/MW/AppData/Local/Temp/i11/tooling-command-receipts/005-selected-track-current-route.command.json",
+      "sha256": "ee97fb0067fc6b5e1166be0ec5b34a5517827cfdb6817da3aae72d5125680149"
+    },
+    {
+      "command_id": "006-git-status-selected-track-after",
+      "path": "C:/Users/MW/AppData/Local/Temp/i11/tooling-command-receipts/006-git-status-selected-track-after.command.json",
+      "sha256": "e3acc6b2e7d4d97e2ead873422520fb7bac5465f4526ca2ca83000f20ef95dec"
+    }
+  ],
+  "command_spec_set_sha256": "94597edfd5180e2bacdd82b0fe9868e4295b5d283ef805497f35b900e07196d8",
+  "command_receipts": [
+    {
+      "command_id": "001-tooling-allocate",
+      "path": "C:/Users/MW/AppData/Local/Temp/i11/tooling-command-receipts/001-tooling-allocate.json",
+      "sha256": "3792480e624d519085a68973051b7600d3869fb8c608b5e5189eb1feee69bb49"
+    },
+    {
+      "command_id": "002-git-status-selected-track-before",
+      "path": "C:/Users/MW/AppData/Local/Temp/i11/tooling-command-receipts/002-git-status-selected-track-before.json",
+      "sha256": "a8de0a81b02bda0f0fff347074380f587666d074feb21a4258155f084537c282"
+    },
+    {
+      "command_id": "003-tooling-inventory",
+      "path": "C:/Users/MW/AppData/Local/Temp/i11/tooling-command-receipts/003-tooling-inventory.json",
+      "sha256": "1f5939d92657a322c1ca43053ffdecc69fbaad0db1e3af72cf6ced489ba4a061"
+    },
+    {
+      "command_id": "004-verify-current-route-output-isolation",
+      "path": "C:/Users/MW/AppData/Local/Temp/i11/tooling-command-receipts/004-verify-current-route-output-isolation.json",
+      "sha256": "c51f0b78b29c4f76a6614c4b8e3c9dad4a531aff09996374a9ce945e3061c18d"
+    },
+    {
+      "command_id": "005-selected-track-current-route",
+      "path": "C:/Users/MW/AppData/Local/Temp/i11/tooling-command-receipts/005-selected-track-current-route.json",
+      "sha256": "f0573171cfe0b73d2ac8fb766265066e22efd40b09bae9c601c40203a5d8e58d"
+    },
+    {
+      "command_id": "006-git-status-selected-track-after",
+      "path": "C:/Users/MW/AppData/Local/Temp/i11/tooling-command-receipts/006-git-status-selected-track-after.json",
+      "sha256": "d9c2bf149bb8a275bf57b895449bd85a74b4d07696bd81fa4db4a274d2f4436a"
+    }
+  ],
+  "command_receipt_set_sha256": "ca861f941520b556508b2ed1061b4c954129deb6520fee038c8fd2ff6e1440e1",
+  "command_results": [
+    {
+      "command_id": "001-tooling-allocate",
+      "terminal_status": "pass",
+      "native_exit_code": 0,
+      "semantic_exit_code": 0,
+      "output_assertion": "none",
+      "assertion_status": "pass"
+    },
+    {
+      "command_id": "002-git-status-selected-track-before",
+      "terminal_status": "pass",
+      "native_exit_code": 0,
+      "semantic_exit_code": 0,
+      "output_assertion": "empty_git_porcelain",
+      "assertion_status": "pass"
+    },
+    {
+      "command_id": "003-tooling-inventory",
+      "terminal_status": "pass",
+      "native_exit_code": 0,
+      "semantic_exit_code": 0,
+      "output_assertion": "checkout_unchanged",
+      "assertion_status": "pass"
+    },
+    {
+      "command_id": "004-verify-current-route-output-isolation",
+      "terminal_status": "pass",
+      "native_exit_code": 0,
+      "semantic_exit_code": 0,
+      "output_assertion": "checkout_unchanged",
+      "assertion_status": "pass"
+    },
+    {
+      "command_id": "005-selected-track-current-route",
+      "terminal_status": "pass",
+      "native_exit_code": 0,
+      "semantic_exit_code": 0,
+      "output_assertion": "checkout_unchanged",
+      "assertion_status": "pass"
+    },
+    {
+      "command_id": "006-git-status-selected-track-after",
+      "terminal_status": "pass",
+      "native_exit_code": 0,
+      "semantic_exit_code": 0,
+      "output_assertion": "empty_git_porcelain",
+      "assertion_status": "pass"
+    }
+  ],
+  "checkout_clean_before": true,
+  "checkout_clean_after": true,
+  "clean_before_dirty_entries": [],
+  "clean_after_dirty_entries": [],
+  "working_tree_status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "tooling_track_automated_adopted": true,
+  "remaining_automated_track": null,
+  "manual_runtime_validation_complete": false,
+  "overall_plan_disposition": "PARTIAL",
+  "non_claims": [
+    "This receipt adopts only the automated Tooling Track no-op evaluation and checkpoint.",
+    "The 247 ignored historical Python files are physical validation inputs and are not added to Git.",
+    "No helper extraction, build-tool move, build-tool deletion, archive, or cleanup mutation is claimed.",
+    "No performance, token-efficiency, release, Workshop, multiplayer, or long-session stability claim is made.",
+    "Project Zomboid runtime timing and human-visible Browser, Wiki, Tooltip, and log evidence remain unsealed."
+  ]
+}

@@ -1,12 +1,13 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
-    [ValidateSet('Baseline', 'Closeout')]
+    [ValidateSet('Baseline', 'Closeout', 'AttestationProbe')]
     [string]$Mode,
     [Parameter(Mandatory = $true)]
     [string]$RepositoryRoot,
     [Parameter(Mandatory = $true)]
-    [string]$EvidenceRoot
+    [string]$EvidenceRoot,
+    [string]$HistoricalManifestAttestationPath
 )
 
 $ErrorActionPreference = 'Stop'
@@ -107,6 +108,55 @@ function Get-GitBlobLfHash([string]$Blob) {
     }
 }
 
+function Assert-HistoricalManifestAttestation([object]$Attestation, [string]$ExpectedPath) {
+    if (
+        [string]$Attestation.path -cne $ExpectedPath -or
+        [string]$Attestation.commit -notmatch '^[0-9a-f]{40}$' -or
+        [string]$Attestation.tree -notmatch '^[0-9a-f]{40}$' -or
+        [string]$Attestation.git_blob_id -notmatch '^[0-9a-f]{40,64}$' -or
+        [string]$Attestation.sha256_lf -notmatch '^[0-9a-f]{64}$' -or
+        [string]$Attestation.attested_schema_version -cne 'iris_repository_runtime_lightweighting_protected_surface_successor_v1' -or
+        [string]$Attestation.attested_authority -cne 'repository_owner_user' -or
+        [string]$Attestation.interpretation -cne 'embedded_identity_chain_only'
+    ) {
+        throw 'repository lightweighting historical manifest attestation invalid'
+    }
+    $Commit = [string]$Attestation.commit
+    $Tree = (& git -C $RepositoryRoot rev-parse ($Commit + '^{tree}')).Trim()
+    if ($LASTEXITCODE -ne 0 -or $Tree -cne [string]$Attestation.tree) {
+        throw 'repository lightweighting historical manifest attestation tree mismatch'
+    }
+    & git -C $RepositoryRoot merge-base --is-ancestor $Commit HEAD 2>$null
+    if ($LASTEXITCODE -ne 0) {
+        throw 'repository lightweighting historical manifest attestation is not durable ancestry'
+    }
+    $Blob = (& git -C $RepositoryRoot rev-parse ($Commit + ':' + $ExpectedPath)).Trim()
+    if (
+        $LASTEXITCODE -ne 0 -or
+        $Blob -cne [string]$Attestation.git_blob_id -or
+        (Get-GitBlobLfHash $Blob) -cne [string]$Attestation.sha256_lf
+    ) {
+        throw 'repository lightweighting historical manifest attestation blob mismatch'
+    }
+    $ManifestLines = @(& git -C $RepositoryRoot cat-file blob $Blob)
+    if ($LASTEXITCODE -ne 0) {
+        throw 'repository lightweighting historical manifest attestation read failed'
+    }
+    $Payload = ($ManifestLines -join "`n") | ConvertFrom-Json
+    if (
+        [string]$Payload.schema_version -cne [string]$Attestation.attested_schema_version -or
+        [string]$Payload.authority -cne [string]$Attestation.attested_authority
+    ) {
+        throw 'repository lightweighting attested historical manifest payload mismatch'
+    }
+    return [pscustomobject]@{
+        commit = $Commit
+        tree = $Tree
+        blob = $Blob
+        payload = $Payload
+    }
+}
+
 function Get-TreeRows([string]$Root) {
     $Rows = @()
     if (-not (Test-Path -LiteralPath $Root -PathType Container)) { return $Rows }
@@ -142,6 +192,18 @@ $ApprovedDeltaManifestRelative = 'Iris/validation/clean_checkout/authority/offli
 $ApprovedDeltaManifestPath = Join-Path $RepositoryRoot $ApprovedDeltaManifestRelative
 $LightweightingSuccessorRelative = 'Iris/_docs/refactor/repository_runtime_lightweighting/protected_surface_successor_manifest.json'
 $LightweightingSuccessorPath = Join-Path $RepositoryRoot $LightweightingSuccessorRelative
+if ($Mode -eq 'AttestationProbe') {
+    if (
+        [string]::IsNullOrWhiteSpace($HistoricalManifestAttestationPath) -or
+        -not (Test-Path -LiteralPath $HistoricalManifestAttestationPath -PathType Leaf)
+    ) {
+        throw 'historical manifest attestation probe input missing'
+    }
+    $ProbeAttestation = Get-Content -LiteralPath $HistoricalManifestAttestationPath -Raw | ConvertFrom-Json
+    [void](Assert-HistoricalManifestAttestation $ProbeAttestation $LightweightingSuccessorRelative)
+    Write-Output 'repository lightweighting historical manifest attestation probe PASS'
+    exit 0
+}
 if (-not (Test-Path -LiteralPath $ApprovedDeltaManifestPath -PathType Leaf)) {
     throw 'canonical approved protected-surface delta manifest missing'
 }
@@ -231,29 +293,58 @@ if (-not (Test-Path -LiteralPath $ProtectedBaselinePath -PathType Leaf)) { throw
 $SupportedBaseline = Get-Content -LiteralPath $SupportedBaselinePath -Raw | ConvertFrom-Json
 $ProtectedBaseline = Get-Content -LiteralPath $ProtectedBaselinePath -Raw | ConvertFrom-Json
 $LightweightingSuccessor = Get-Content -LiteralPath $LightweightingSuccessorPath -Raw | ConvertFrom-Json
-if ([string]$LightweightingSuccessor.schema_version -cne 'iris_repository_runtime_lightweighting_protected_surface_successor_v1') {
+if ([string]$LightweightingSuccessor.schema_version -cne 'iris_repository_runtime_lightweighting_protected_surface_successor_v2') {
     throw 'repository lightweighting protected-surface successor schema mismatch'
 }
+
 if ([string]$LightweightingSuccessor.authority -cne 'repository_owner_user') {
     throw 'repository lightweighting protected-surface successor authority mismatch'
 }
+$HistoricalAttestation = $LightweightingSuccessor.historical_manifest_attestation
+$HistoricalValidation = Assert-HistoricalManifestAttestation $HistoricalAttestation $LightweightingSuccessorRelative
+$HistoricalCommit = [string]$HistoricalValidation.commit
+$HistoricalTree = [string]$HistoricalValidation.tree
+$HistoricalBlob = [string]$HistoricalValidation.blob
+$HistoricalSuccessor = $HistoricalValidation.payload
 $CanonicalProtectedRelative = 'Iris/_docs/refactor/residual_refactor/phase0_protected_surface_manifest.json'
 $CanonicalProtectedPath = Join-Path $RepositoryRoot $CanonicalProtectedRelative
 $CanonicalProtectedBlob = (& git -C $RepositoryRoot rev-parse ("HEAD:" + $CanonicalProtectedRelative)).Trim()
 $CanonicalProtectedWorkingBlob = (& git -C $RepositoryRoot hash-object ("--path=" + $CanonicalProtectedRelative) $CanonicalProtectedPath).Trim()
 if (
-    [string]$LightweightingSuccessor.predecessor.path -cne $CanonicalProtectedRelative -or
+    [string]$HistoricalSuccessor.predecessor.path -cne $CanonicalProtectedRelative -or
     $LASTEXITCODE -ne 0 -or
-    [string]$LightweightingSuccessor.predecessor.git_blob_id -cne $CanonicalProtectedBlob -or
+    [string]$HistoricalSuccessor.predecessor.git_blob_id -cne $CanonicalProtectedBlob -or
     $CanonicalProtectedWorkingBlob -cne $CanonicalProtectedBlob -or
-    [string]$LightweightingSuccessor.predecessor.sha256_lf -cne (Get-LfTextHashOrNull $CanonicalProtectedPath)
+    [string]$HistoricalSuccessor.predecessor.sha256_lf -cne (Get-LfTextHashOrNull $CanonicalProtectedPath)
 ) {
     throw 'repository lightweighting protected-surface predecessor identity mismatch'
 }
-$LightweightingRevisions = @($LightweightingSuccessor.revisions)
-if ($LightweightingRevisions.Count -eq 0) {
-    throw 'repository lightweighting protected-surface successor has no revisions'
+$HistoricalRevisions = @($HistoricalSuccessor.revisions)
+if ($HistoricalRevisions.Count -eq 0) {
+    throw 'repository lightweighting attested historical manifest has no revisions'
 }
+$ActiveProtectionAnchor = $LightweightingSuccessor.active_protection_anchor
+if (
+    [string]$ActiveProtectionAnchor.commit -notmatch '^[0-9a-f]{40}$' -or
+    [string]$ActiveProtectionAnchor.tree -notmatch '^[0-9a-f]{40}$' -or
+    [string]$ActiveProtectionAnchor.state_source -cne 'folded_v1_final_rows'
+) {
+    throw 'repository lightweighting active protection anchor invalid'
+}
+$AnchorCommit = [string]$ActiveProtectionAnchor.commit
+$AnchorTree = (& git -C $RepositoryRoot rev-parse ($AnchorCommit + '^{tree}')).Trim()
+if ($LASTEXITCODE -ne 0 -or $AnchorTree -cne [string]$ActiveProtectionAnchor.tree) {
+    throw 'repository lightweighting active protection anchor tree mismatch'
+}
+& git -C $RepositoryRoot merge-base --is-ancestor $AnchorCommit HEAD 2>$null
+if ($LASTEXITCODE -ne 0) {
+    throw 'repository lightweighting active protection anchor is not an ancestor'
+}
+$ActiveRevisions = @($LightweightingSuccessor.active_revisions)
+if ($ActiveRevisions.Count -eq 0) {
+    throw 'repository lightweighting protected-surface successor has no active revisions'
+}
+$LightweightingRevisions = @($HistoricalRevisions) + @($ActiveRevisions)
 
 $ModuleFiles = @{
     'Iris/IrisAPI' = 'Iris/media/lua/client/Iris/IrisAPI.lua'
@@ -351,8 +442,42 @@ foreach ($Delta in $SuccessorApprovedDeltaRows) {
 }
 $SeenRevisionIds = @{}
 $LightweightingDeltaPaths = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
-$LastRevisionPredecessor = $null
-foreach ($Revision in $LightweightingRevisions) {
+$LastRevisionPredecessor = $AnchorCommit
+$AnchorStateVerified = $false
+$RevisionEntries = @()
+foreach ($HistoricalRevision in $HistoricalRevisions) {
+    $RevisionEntries += [pscustomobject]@{ active = $false; revision = $HistoricalRevision }
+}
+foreach ($ActiveRevision in $ActiveRevisions) {
+    $RevisionEntries += [pscustomobject]@{ active = $true; revision = $ActiveRevision }
+}
+foreach ($RevisionEntry in $RevisionEntries) {
+    $Revision = $RevisionEntry.revision
+    $IsActiveRevision = [bool]$RevisionEntry.active
+    if ($IsActiveRevision -and -not $AnchorStateVerified) {
+        foreach ($DeltaPath in $LightweightingDeltaPaths) {
+            $Delta = $ApprovedDeltas[$DeltaPath]
+            $AnchorBlob = (& git -C $RepositoryRoot rev-parse ($AnchorCommit + ':' + $DeltaPath)).Trim()
+            if ($LASTEXITCODE -ne 0 -or $AnchorBlob -cne [string]$Delta.expected_git_blob_id) {
+                throw "repository lightweighting active anchor delta Git blob mismatch: $DeltaPath"
+            }
+            if ((Get-GitBlobLfHash $AnchorBlob) -cne [string]$Delta.after_sha256_lf) {
+                throw "repository lightweighting active anchor delta LF hash mismatch: $DeltaPath"
+            }
+        }
+        foreach ($Entry in $AddedProtectedRows.GetEnumerator()) {
+            $Added = $Entry.Value
+            $AddedPath = [string]$Added.path
+            $AnchorBlob = (& git -C $RepositoryRoot rev-parse ($AnchorCommit + ':' + $AddedPath)).Trim()
+            if ($LASTEXITCODE -ne 0 -or $AnchorBlob -cne [string]$Added.expected_git_blob_id) {
+                throw "repository lightweighting active anchor added-row Git blob mismatch: $AddedPath"
+            }
+            if ((Get-GitBlobLfHash $AnchorBlob) -cne [string]$Added.after_sha256_lf) {
+                throw "repository lightweighting active anchor added-row LF hash mismatch: $AddedPath"
+            }
+        }
+        $AnchorStateVerified = $true
+    }
     $RevisionId = [string]$Revision.revision_id
     if ([string]::IsNullOrWhiteSpace($RevisionId) -or $SeenRevisionIds.ContainsKey($RevisionId)) {
         throw "repository lightweighting protected-surface revision identity invalid: $RevisionId"
@@ -361,21 +486,54 @@ foreach ($Revision in $LightweightingRevisions) {
     if ($Revision.approved -ne $true -or [string]$Revision.owner -cne 'repository_owner_user') {
         throw "repository lightweighting protected-surface revision approval invalid: $RevisionId"
     }
-    $RevisionPredecessor = [string]$Revision.predecessor_commit
+    if ($IsActiveRevision) {
+        if ($Revision.PSObject.Properties.Name -contains 'predecessor_commit') {
+            throw "repository lightweighting active revision uses ambiguous predecessor field: $RevisionId"
+        }
+        $RevisionPredecessor = [string]$Revision.protection_predecessor_commit
+        $RevisionPredecessorTree = [string]$Revision.protection_predecessor_tree
+        if (
+            $RevisionPredecessor -notmatch '^[0-9a-f]{40}$' -or
+            $RevisionPredecessorTree -notmatch '^[0-9a-f]{40}$'
+        ) {
+            throw "repository lightweighting active revision predecessor identity invalid: $RevisionId"
+        }
+        $ActualRevisionTree = (& git -C $RepositoryRoot rev-parse ($RevisionPredecessor + '^{tree}')).Trim()
+        if ($LASTEXITCODE -ne 0 -or $ActualRevisionTree -cne $RevisionPredecessorTree) {
+            throw "repository lightweighting active revision predecessor tree mismatch: $RevisionId"
+        }
+        $HasEvidenceCommit = $Revision.PSObject.Properties.Name -contains 'evidence_subject_commit'
+        $HasEvidenceTree = $Revision.PSObject.Properties.Name -contains 'evidence_subject_tree'
+        if ($HasEvidenceCommit -ne $HasEvidenceTree) {
+            throw "repository lightweighting active revision evidence subject pair mismatch: $RevisionId"
+        }
+        if (
+            $HasEvidenceCommit -and
+            (
+                [string]$Revision.evidence_subject_commit -notmatch '^[0-9a-f]{40}$' -or
+                [string]$Revision.evidence_subject_tree -notmatch '^[0-9a-f]{40}$'
+            )
+        ) {
+            throw "repository lightweighting active revision evidence subject format invalid: $RevisionId"
+        }
+    }
+    else {
+        $RevisionPredecessor = [string]$Revision.predecessor_commit
+    }
     if ($RevisionPredecessor -notmatch '^[0-9a-f]{40}$') {
         throw "repository lightweighting revision predecessor invalid: $RevisionId"
     }
-    & git -C $RepositoryRoot merge-base --is-ancestor $RevisionPredecessor HEAD 2>$null
-    if ($LASTEXITCODE -ne 0) {
-        throw "repository lightweighting revision predecessor is not an ancestor: $RevisionId"
-    }
-    if ($null -ne $LastRevisionPredecessor) {
+    if ($IsActiveRevision) {
+        & git -C $RepositoryRoot merge-base --is-ancestor $RevisionPredecessor HEAD 2>$null
+        if ($LASTEXITCODE -ne 0) {
+            throw "repository lightweighting revision predecessor is not an ancestor: $RevisionId"
+        }
         & git -C $RepositoryRoot merge-base --is-ancestor $LastRevisionPredecessor $RevisionPredecessor 2>$null
         if ($LASTEXITCODE -ne 0) {
             throw "repository lightweighting revision predecessor regressed: $RevisionId"
         }
+        $LastRevisionPredecessor = $RevisionPredecessor
     }
-    $LastRevisionPredecessor = $RevisionPredecessor
     foreach ($Delta in @($Revision.approved_activation_deltas)) {
         $DeltaPath = [string]$Delta.path
         if (-not $BaselineProtectedRows.ContainsKey($DeltaPath)) {
@@ -389,12 +547,14 @@ foreach ($Revision in $LightweightingRevisions) {
         ) {
             throw "repository lightweighting delta identity invalid: $DeltaPath"
         }
-        $BeforeBlob = (& git -C $RepositoryRoot rev-parse ($RevisionPredecessor + ':' + $DeltaPath)).Trim()
-        if ($LASTEXITCODE -ne 0 -or $BeforeBlob -cne [string]$Delta.before_git_blob_id) {
-            throw "repository lightweighting delta predecessor Git blob mismatch: $DeltaPath"
-        }
-        if ((Get-GitBlobLfHash $BeforeBlob) -cne [string]$Delta.before_sha256_lf) {
-            throw "repository lightweighting delta predecessor LF hash mismatch: $DeltaPath"
+        if ($IsActiveRevision) {
+            $BeforeBlob = (& git -C $RepositoryRoot rev-parse ($RevisionPredecessor + ':' + $DeltaPath)).Trim()
+            if ($LASTEXITCODE -ne 0 -or $BeforeBlob -cne [string]$Delta.before_git_blob_id) {
+                throw "repository lightweighting delta predecessor Git blob mismatch: $DeltaPath"
+            }
+            if ((Get-GitBlobLfHash $BeforeBlob) -cne [string]$Delta.before_sha256_lf) {
+                throw "repository lightweighting delta predecessor LF hash mismatch: $DeltaPath"
+            }
         }
         if ($ApprovedDeltas.ContainsKey($DeltaPath)) {
             $PriorAfter = [string]$ApprovedDeltas[$DeltaPath].after_sha256_lf
@@ -436,31 +596,33 @@ foreach ($Revision in $LightweightingRevisions) {
         if ($BeforeGitIsNull -ne $BeforeLfIsNull) {
             throw "repository lightweighting added row predecessor identity pair mismatch: $AddedPath"
         }
-        $BeforeTreeRows = @(& git -C $RepositoryRoot ls-tree $RevisionPredecessor -- $AddedPath)
-        $BeforeTreeEntry = ($BeforeTreeRows -join "`n").Trim()
-        if ($LASTEXITCODE -ne 0) {
-            throw "repository lightweighting added row predecessor tree inspection failed: $AddedPath"
-        }
-        $BeforeBlob = if ([string]::IsNullOrWhiteSpace($BeforeTreeEntry)) {
-            $null
-        }
-        else {
-            @($BeforeTreeEntry -split '\s+', 4)[2]
-        }
-        if ($BeforeGitIsNull) {
-            if ($null -ne $BeforeBlob) {
-                throw "repository lightweighting new row unexpectedly exists in predecessor: $AddedPath"
+        if ($IsActiveRevision) {
+            $BeforeTreeRows = @(& git -C $RepositoryRoot ls-tree $RevisionPredecessor -- $AddedPath)
+            $BeforeTreeEntry = ($BeforeTreeRows -join "`n").Trim()
+            if ($LASTEXITCODE -ne 0) {
+                throw "repository lightweighting added row predecessor tree inspection failed: $AddedPath"
             }
-        }
-        elseif (
-            [string]$Added.before_git_blob_id -notmatch '^[0-9a-f]{40,64}$' -or
-            $LASTEXITCODE -ne 0 -or
-            $BeforeBlob -cne [string]$Added.before_git_blob_id
-        ) {
-            throw "repository lightweighting added row predecessor Git blob mismatch: $AddedPath"
-        }
-        elseif ((Get-GitBlobLfHash $BeforeBlob) -cne [string]$Added.before_sha256_lf) {
-            throw "repository lightweighting added row predecessor LF hash mismatch: $AddedPath"
+            $BeforeBlob = if ([string]::IsNullOrWhiteSpace($BeforeTreeEntry)) {
+                $null
+            }
+            else {
+                @($BeforeTreeEntry -split '\s+', 4)[2]
+            }
+            if ($BeforeGitIsNull) {
+                if ($null -ne $BeforeBlob) {
+                    throw "repository lightweighting new row unexpectedly exists in predecessor: $AddedPath"
+                }
+            }
+            elseif (
+                [string]$Added.before_git_blob_id -notmatch '^[0-9a-f]{40,64}$' -or
+                $LASTEXITCODE -ne 0 -or
+                $BeforeBlob -cne [string]$Added.before_git_blob_id
+            ) {
+                throw "repository lightweighting added row predecessor Git blob mismatch: $AddedPath"
+            }
+            elseif ((Get-GitBlobLfHash $BeforeBlob) -cne [string]$Added.before_sha256_lf) {
+                throw "repository lightweighting added row predecessor LF hash mismatch: $AddedPath"
+            }
         }
         if ($AddedProtectedRows.ContainsKey($AddedPath)) {
             $PriorAddedAfter = [string]$AddedProtectedRows[$AddedPath].after_sha256_lf
@@ -473,6 +635,9 @@ foreach ($Revision in $LightweightingRevisions) {
         }
         $AddedProtectedRows[$AddedPath] = $Added
     }
+}
+if (-not $AnchorStateVerified) {
+    throw 'repository lightweighting active protection anchor was not verified'
 }
 foreach ($DeltaPath in $LightweightingDeltaPaths) {
     $Delta = $ApprovedDeltas[$DeltaPath]
@@ -574,6 +739,23 @@ $ProtectedReport = [ordered]@{
     repository_lightweighting_successor_manifest = $LightweightingSuccessorRelative
     repository_lightweighting_successor_git_blob_id = $LightweightingSuccessorBlob
     repository_lightweighting_successor_sha256 = Get-HashOrNull $LightweightingSuccessorPath
+    repository_lightweighting_successor_schema_version = [string]$LightweightingSuccessor.schema_version
+    historical_manifest_attestation = [ordered]@{
+        commit = $HistoricalCommit
+        tree = $HistoricalTree
+        git_blob_id = $HistoricalBlob
+        sha256_lf = [string]$HistoricalAttestation.sha256_lf
+        interpretation = [string]$HistoricalAttestation.interpretation
+    }
+    historical_subject_object_dereference_count = 0
+    active_protection_anchor = [ordered]@{
+        commit = $AnchorCommit
+        tree = $AnchorTree
+        state_source = [string]$ActiveProtectionAnchor.state_source
+        final_state_verified = $AnchorStateVerified
+    }
+    historical_revision_ids = @($HistoricalRevisions | ForEach-Object { [string]$_.revision_id })
+    active_revision_ids = @($ActiveRevisions | ForEach-Object { [string]$_.revision_id })
     repository_lightweighting_revision_ids = @($LightweightingRevisions | ForEach-Object { [string]$_.revision_id })
     changed_count = @($ProtectedRows | Where-Object changed).Count
     authorized_changed_count = $AuthorizedChanged

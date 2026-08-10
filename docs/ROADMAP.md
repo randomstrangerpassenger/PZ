@@ -978,22 +978,23 @@ Pulse는 처음부터 “새 Java 로더”로 경쟁하는 브랜드가 아니�
 - Common Track의 lifecycle inventory, 외부 work/result root, output-isolation, producer migration, archive/restore, cleanup 및 closeout을 완료했다.
 - physical inventory를 `4,842,336,252` bytes에서 `1,338,324,791` bytes로 줄였다. ignored giant는 `4 -> 0`, diagnostic-only bytes는 `3,505,238,016 -> 0`이며 current authority와 historical reproduction은 보존했다.
 - Track Order를 `runtime_first`로 결정하고 Runtime Track Changes 5~7을 채택했다.
+- Runtime adoption 뒤 Tooling Track Change 8을 별도 평가했다. Inventory는 `497 recursive / 484 root-direct`, archive/delete eligible candidate와 helper extraction은 각각 `0`이며 세 producer 공통화 gate가 성립하지 않아 구현·이동·삭제 없는 no-op으로 채택했다.
 - Browser boot eager build를 제거하고 first-use build와 same-generation warm cache 재사용을 적용했다.
 - Layer3 11개와 UseCase 9개 청크에 deterministic index/internal lookup router를 추가했다. 단일 조회는 최대 한 청크, Alt Tooltip line-count는 설명 청크 0개를 로드하며 direct compatibility facade는 전체 table 계약을 유지한다.
 - automated current/historical/diagnostic/package/Lua/purity route와 receipt-bound full-gate Run A/B 및 deterministic compare를 PASS로 닫았다.
 - 삭제된 격리 checkout과 무관하게 검토된 최종 소스 11개 파일을 `ae7b3172cc80b5bf3b2aaed15654d41f707c9134`로 복구해 `main`에 보존했다.
+- protected-surface v2 successor는 삭제된 임시 subject를 durable v1 manifest blob으로 attestation하고, Change 8 exact successor current route `202/202`를 clean checkout에서 통과했다.
+- 2026-08-10 owner가 계획 범위의 Project Zomboid Browser/Wiki/Tooltip/localization/log 인게임 검증을 완료했다고 attestation해 마지막 수동 runtime 축을 닫았다.
 
-## Blocked / Partial
+## Measurement limits
 
-- Project Zomboid 인게임 Browser/Wiki/Tooltip/localization/log 검증과 동일 machine/save/mod-set의 before/after timing 표본이 없어 Runtime benchmark는 `PARTIAL`이다.
-- 미선택 Tooling Track Change 8은 아직 채택되지 않았다. 따라서 full Common + Runtime + Tooling 목표는 `complete`가 아니다.
 - 저장소 물리량은 `72.36%` 감소했지만 LLM prompt/token 사용량을 before/after로 계측하지 않았으므로 token 효율 향상률은 미측정이다.
+- raw PZ before/after timing sample은 repository evidence로 첨부되지 않았으므로 성능 개선 수치는 승인하지 않는다.
 
 ## Next
 
-- 전체 계획의 `complete`가 필요하면 새 exact subject/claim/checkpoint에서 Tooling Track Change 8을 별도로 승인·구현·채택한다.
-- 동일 PZ 환경에서 boot, first use, warm repeat와 Browser/Wiki/Tooltip/localization/log 수동 matrix를 실행해 runtime receipt에 결속한다.
-- 두 잔여 축이 닫힌 뒤에만 terminal disposition을 `partial`에서 `complete`로 승격한다.
+- 계획 범위의 필수 후속 작업은 없다.
+- PZ 성능 개선율이 필요할 때만 동일 build/machine/save/mod-set의 raw before/after timing sample을 별도 측정 범위로 연다.
 
 ## Hold
 
@@ -1002,7 +1003,7 @@ Pulse는 처음부터 “새 Java 로더”로 경쟁하는 브랜드가 아니�
 - public facade/global 제거, positional schema migration, registry giant split
 - release-ready, Workshop-ready, multiplayer 또는 long-session 안정성 선언
 
-근거는 `Iris/_docs/refactor/repository_runtime_lightweighting/`의 baseline/final inventory, track-order decision, runtime benchmark, selected-track/terminal receipt와 validation checkpoint manifest다.
+근거는 `Iris/_docs/refactor/repository_runtime_lightweighting/`의 baseline/final inventory, track-order decision, runtime benchmark, selected-track/terminal receipt, validation checkpoint manifest와 2026-08-10 owner attestation이다.
 
 ---
 

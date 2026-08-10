@@ -1,0 +1,25 @@
+{
+  "schema_version": "iris_repository_evidence_lightweighting_closeout_receipt_v1",
+  "status": "partial_pending_terminal_validation",
+  "changes": {
+    "change1": "adopted",
+    "change2": "adopted",
+    "change3": "adopted",
+    "change4": "partial_unique_derived_views_deferred",
+    "change5": "adopted_external_owner_managed_archive",
+    "change6": "implemented_only_pending_terminal_and_manual_runtime_validation",
+    "change7": "deferred_no_compatibility_mutation"
+  },
+  "authority_boundary": {
+    "historical_pruned_git_objects_required": false,
+    "owner_approval": "advance_plan_scoped_approval",
+    "validation_subject": "current_repository_and_reconstructable_successor_artifacts"
+  },
+  "compatibility_disposition": "deferred_pending_external_consumer_and_heap_evidence",
+  "final_claim_ceiling": "partial",
+  "reasons": [
+    "Change 4 retains unique derived views whose one-for-one CAS promotion would not reduce checkout bytes",
+    "manual Project Zomboid/Kahlua runtime and heap evidence is unavailable",
+    "terminal automated validation has not yet run"
+  ]
+}

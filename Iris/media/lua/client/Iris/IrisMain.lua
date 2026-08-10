@@ -81,10 +81,6 @@ local function initMapIcon(moduleResult)
 end
 
 local INIT_MODULES = {
-    { step = "Step 2a", label = "IrisRecipeIndex", load = loadModule("Iris/Data/IrisRecipeIndex"), ready = "RecipeIndex precompiled data ready" },
-    { step = "Step 2b", label = "IrisMoveablesIndex", load = loadModule("Iris/Data/IrisMoveablesIndex"), ready = "MoveablesIndex precompiled data ready" },
-    { step = "Step 2c", label = "IrisFixingIndex", load = loadModule("Iris/Data/IrisFixingIndex"), ready = "FixingIndex precompiled data ready" },
-    { step = "Step 3", label = "IrisClassifications", load = loadModule("Iris/Data/IrisClassifications"), ready = "IrisClassifications loaded successfully" },
     { step = "Step 4", label = "IrisAPI", load = loadModule("Iris/IrisAPI"), onLoaded = assignApi },
     { step = "Step 5a", label = "IrisAltTooltip", load = loadModule("Iris/UI/Tooltip/IrisAltTooltip"), invoke = hookTooltip, protectedCall = ProtectedCall.ui, unavailable = "hookTooltip() is not available", success = "hookTooltip() success" },
     { step = "Step 5b", label = "IrisContextMenuTextureCompat", load = loadModule("Iris/Compat/IrisContextMenuTextureCompat"), invoke = installContextMenuTextureCompat, protectedCall = ProtectedCall.compat, unavailable = "install() is not available", success = "ContextMenuTextureCompat.install() success" },

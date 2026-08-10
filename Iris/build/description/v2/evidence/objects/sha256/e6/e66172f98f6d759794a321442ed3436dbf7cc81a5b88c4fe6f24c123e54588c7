@@ -1,0 +1,25 @@
+{
+  "blocker_mapping_created": false,
+  "candidate_denominator": 2084,
+  "candidate_rendered_hash": "02f8209ef7f3db72e22ab50b906bef50d22800df6100a5b6a0cf5c7e7097e411",
+  "configured_detector_count": 7,
+  "configured_detector_ids": [
+    "duplicate_proposition_realization",
+    "repeated_identity_noun_window",
+    "banned_internal_abstraction",
+    "repeated_skeleton_concentration",
+    "paragraph_fragmentation",
+    "passive_translationese_pattern",
+    "empty_or_filler_sentence"
+  ],
+  "detector_hit_counts": {
+    "repeated_skeleton_concentration": 450
+  },
+  "detector_opportunity_count": 14588,
+  "disposition_created": false,
+  "expected_detector_opportunity_count": 14588,
+  "human_review_pass_created": false,
+  "publish_acceptance_created": false,
+  "raw_detector_full_candidate_completeness_pass": true,
+  "schema_version": "dvf-3-3-raw-detector-report-v1"
+}

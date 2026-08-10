@@ -1,0 +1,46 @@
+{
+  "baseline_source": "HEAD_pre_change_snapshot_plus_additive_default_path_replay",
+  "head": "129c6c124ffa5a6b671041c6ab86675c660fb494",
+  "head_compiler_hashes": [
+    {
+      "head_blob_sha256": "9289a2c50afd44158c42ff1e3f8e391e30af6c8f73e28c7d420425c76ff9f35d",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_text.py"
+    },
+    {
+      "head_blob_sha256": "1d0a5c6af999168b8be30fc04387f09309941cb121d0e92296bc27338e92dc69",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_body_profile.py"
+    },
+    {
+      "head_blob_sha256": "214f8e465729de28792d52991f8c4426604e0e591a56c48c032092ce903f1297",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_item.py"
+    },
+    {
+      "head_blob_sha256": "a5d7be46129cf18af0dda06544a66965ddc6fcd29080f6ce3e66a14f4532593a",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_render.py"
+    },
+    {
+      "head_blob_sha256": "82b041edb69ec2d959302ed54600fabcefc37e1b081f8023566ac0dab2cbe87c",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_blocks.py"
+    },
+    {
+      "head_blob_sha256": "2aaf4e00c7ba549307430eaced174e9dbf70d33cad22f2ed5a6fff100ff4779b",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_identity.py"
+    },
+    {
+      "head_blob_sha256": "12b98ea1de9e7eff87d1ba06cdf62e30f47e193b55070221dd5c0ace46494ed5",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_io.py"
+    }
+  ],
+  "legacy_raw_file_byte_identity_pass": "not_claimed",
+  "normalized_content_sha256": "a872cc3575e626466e6644f67f29808d41b57d0de222d089a20dafbe2841b2cd",
+  "pre_change_baseline_order_pass": true,
+  "raw_file_sha256": "89c8ca699b8d81db0f6e677eb4f5b89235041678e1cc99548782768cff2393fc",
+  "schema_version": "dvf-3-3-default-mode-golden-baseline-v1",
+  "volatile_metadata_contract": {
+    "excluded_fields": [
+      "meta.generated_at"
+    ],
+    "generated_at_format": "ISO-8601",
+    "generated_at_type": "str"
+  }
+}

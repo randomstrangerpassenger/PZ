@@ -1,0 +1,11 @@
+{
+  "observed_reasons": [
+    "CANDIDATE_PROSE_OUTPUT_OUTSIDE_ATTEMPT_ROOT"
+  ],
+  "schema_version": "dvf-3-3-write-boundary-negative-test-report-v1",
+  "tested_forbidden_surfaces": [
+    "current_rendered_output",
+    "outside_attempt_trace"
+  ],
+  "write_boundary_negative_test_pass": true
+}

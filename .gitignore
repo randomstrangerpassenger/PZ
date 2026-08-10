@@ -346,6 +346,7 @@ Iris/build/description/v2/tests/*
 !Iris/build/description/v2/tests/test_repository_evidence_required_validation_adoption.py
 !Iris/build/description/v2/tests/test_repository_evidence_codec.py
 !Iris/build/description/v2/tests/test_repository_evidence_migration.py
+!Iris/build/description/v2/tests/test_phase5_iris_main_function_specs_contract.py
 !Iris/build/description/v2/tests/test_iris_detail_view_model_acceptance.py
 !Iris/build/description/v2/tests/test_iris_legacy_surface_acceptance.py
 !Iris/build/description/v2/tests/test_iris_core_refactor_closeout.py

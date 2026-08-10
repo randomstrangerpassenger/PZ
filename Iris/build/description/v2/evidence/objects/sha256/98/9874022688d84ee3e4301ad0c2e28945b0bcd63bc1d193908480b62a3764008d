@@ -1,0 +1,13 @@
+{
+  "attempt_id": "attempt-0013-remediation",
+  "compiler_rule_projection_pass": true,
+  "compiler_rule_remediable_item_count": 133,
+  "phase3_compiler_evidence_pass": true,
+  "repeated_skeleton_cause_analysis_hash": "99c3432ead31da5e7216aa89ba660914abc250e80b27f670437d9a96ccb53d0c",
+  "schema_version": "dvf-3-3-phase3-result-v1",
+  "semantic_condition_source_qg_gate_pass": false,
+  "semantic_lead_rule_projection_report_hash": "8ac7b49ca8c48f6a3c37c7df82d62993ae94214a92df21c3272a879933c24a8b",
+  "source_qg_blocked_item_count": 317,
+  "source_qg_return_request_hash": "2ba47721d1a920ad9cfc7abb7850ff470bcad81f90f6004976d6908bb23627f9",
+  "status": "blocked_source_qg_information_insufficient"
+}

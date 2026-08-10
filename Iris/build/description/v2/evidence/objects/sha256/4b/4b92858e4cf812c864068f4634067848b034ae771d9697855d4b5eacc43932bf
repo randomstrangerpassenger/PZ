@@ -1,0 +1,56 @@
+{
+  "fixture_pass": true,
+  "publish_foundation_runner_contract_pass": true,
+  "runner_exists": true,
+  "runner_validator_interface": {
+    "exit_codes": {
+      "0": "validated_foundation_ready",
+      "2": "interface_or_contract_failure",
+      "3": "write_once_conflict"
+    },
+    "foundation_can_issue_official_disposition": false,
+    "official_phase_modes_implemented": false,
+    "runner": {
+      "forbidden_arguments": [
+        "--attempt-id"
+      ],
+      "foundation_root_policy": {
+        "external_fixture_or_diagnostic_root": "allowed_when_explicit",
+        "other_repository_local_root": "forbidden",
+        "repository_local_default": "exact_tracked_s1_foundation_root_only"
+      },
+      "implicit_default_mode_allowed": false,
+      "optional_arguments": {
+        "--foundation-root": "explicit_output_root_for_fixture_or_diagnostic"
+      },
+      "path": "Iris/build/description/v2/tools/build/run_public_text_quality_acceptance.py",
+      "required_arguments": {
+        "--foundation-id": "nonempty_identifier",
+        "--mode": "foundation-build"
+      }
+    },
+    "schema_version": "public_text_quality_runner_validator_interface_v1",
+    "validator": {
+      "forbidden_arguments": [
+        "--attempt-id"
+      ],
+      "foundation_root_policy": {
+        "external_fixture_or_diagnostic_root": "allowed_when_explicit",
+        "other_repository_local_root": "forbidden",
+        "repository_local_default": "exact_tracked_s1_foundation_root_only"
+      },
+      "optional_arguments": {
+        "--foundation-root": "explicit_input_root_for_fixture_or_diagnostic"
+      },
+      "path": "Iris/build/description/v2/tools/build/validate_public_text_quality_acceptance.py",
+      "required_arguments": {
+        "--foundation-id": "exact_runner_foundation_id",
+        "--no-write": true,
+        "--require-foundation-ready": true
+      }
+    }
+  },
+  "runner_validator_interface_hash": "5dffcff3051291489502f0f81ab0fc76214ee5c6c465b82bc8b63591644ad388",
+  "schema_version": "dvf-3-3-publish-foundation-runner-contract-report-v1",
+  "validator_exists": true
+}

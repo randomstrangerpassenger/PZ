@@ -2527,3 +2527,27 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
   * Tooling no-op은 새 공통 helper, positional schema migration, registry giant split, public compatibility 제거 또는 추가 cleanup을 승인하지 않는다.
   * external attempt/root 삭제는 current authority나 historical reproduction input을 삭제할 권한으로 확대하지 않는다.
 * Evidence: `Iris/_docs/refactor/repository_runtime_lightweighting/{baseline_inventory.json,final_inventory.json,track_order_decision.json,runtime_benchmark_receipt.json,terminal_current_route_receipt.json,tooling_track_adoption_receipt.json,validation_checkpoint_manifest.json,protected_surface_successor_manifest.json}`, `Iris/build/description/v2/tools/build/INVENTORY.md`, 이 항목의 2026-08-10 owner attestation.
+
+---
+
+## Iris repository evidence/intermediate artifact lightweighting — representation 채택 / bounded partial
+
+* 상태: 2026-08-10 implementation complete / terminal automated validation pending / overall partial
+* 결정:
+
+  * 삭제된 과거 Git object는 이 후속 작업의 복구 전제에서 제외하고, 현재 저장소와 successor artifact에서 재구성 가능한 identity를 검증 대상으로 삼는다.
+  * lifecycle v1 두 full JSONL은 exact reconstruction 가능한 v2 dictionary/node/baseline/delta 표현으로 대체한다.
+  * 자연화 historical closure의 ignored 중복 payload는 237개 repository-local CAS object와 path reference로 대체한다. current full-gate가 직접 결속한 47개 tracked payload는 physical exception으로 유지한다.
+  * `2105_baseline_consumption_audit`의 byte-identical 두 canonical view는 한 CAS object로 정규화하고 기존 logical path reader는 투명 resolver를 사용한다. 나머지 unique derived view는 일대일 CAS가 checkout 절감을 만들지 않아 deferred다.
+  * ignored `_archive` 86개 파일은 owner-managed 외부 deterministic ZIP으로 보관하고 verify/restore 뒤 local 원본을 제거한다.
+  * Iris boot 목록에서 Recipe/Moveables/Fixing/Classifications static module 네 개를 제거하고 기존 `StaticData` first-use cache로 이동한다. BrowserData registration과 public compatibility facade는 유지한다.
+* 측정 경계:
+
+  * lifecycle representation `105,988,328 -> 11,942,429` bytes, 자연화 selection `485,112,779 -> 161,978,235` object bytes, 2105 pair `48,169,098 -> 24,084,549` object bytes를 각 transaction으로만 기록한다.
+  * cold archive source는 `74,806,195` bytes, 외부 ZIP은 `2,031,096` bytes다. 외부 저장소 운영 지속성과 repository checkout 절감량을 같은 수치로 합산하지 않는다.
+  * boot에서 빠진 네 static module의 source 합계는 `115,912` bytes지만 PZ/Kahlua heap 또는 latency 개선 수치로 해석하지 않는다.
+* 보류:
+
+  * Change 4의 unique derived views, Layer3/UseCase full facade, `IrisData`, LineCountIndex, Browser allocation 후보는 별도 소비자·heap 증거가 생길 때만 연다.
+  * 수동 Project Zomboid runtime/heap 증거가 없어 Change 6은 `implemented_only`, 전체 상태는 `partial`이다.
+* Evidence: `Iris/_docs/refactor/repository_evidence_lightweighting/`의 lifecycle/CAS/cold-archive receipts와 `closeout/` census/measurement/validation/closeout evidence.

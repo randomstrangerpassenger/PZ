@@ -1,0 +1,60 @@
+{
+  "schema_version": "iris_repository_evidence_cas_migration_successor_v1",
+  "claim_id": "iris_repository_evidence_lightweighting",
+  "authority": "repository_owner_user",
+  "status": "partial",
+  "repository_cas": {
+    "object_root": "Iris/build/description/v2/evidence/objects/sha256",
+    "reference_root": "Iris/build/description/v2/evidence/references",
+    "object_count": 238,
+    "unique_object_bytes": 186062784,
+    "reference_manifest_count": 2,
+    "reference_manifest_bytes": 310699,
+    "dangling_reference_count": 0,
+    "orphan_object_count": 0,
+    "authority_class": "raw_byte_representation_only"
+  },
+  "change3_naturalization_pilot": {
+    "status": "adopted",
+    "source_root": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure",
+    "reference": "Iris/build/description/v2/evidence/references/naturalization_public_text_rewrite_closure.json",
+    "inventory": "Iris/_docs/refactor/repository_evidence_lightweighting/cas/naturalization_public_text/inventory.json",
+    "plan": "Iris/_docs/refactor/repository_evidence_lightweighting/cas/naturalization_public_text/plan.json",
+    "migrated_files": 654,
+    "migrated_source_bytes": 485112779,
+    "unique_object_count": 237,
+    "unique_object_bytes": 161978235,
+    "representation_reduction_bytes": 323134544,
+    "tracked_physical_exceptions": 47,
+    "remaining_physical_bytes": 61777209,
+    "executable_consumer_hits": 0,
+    "unresolved_dynamic_hits": 0,
+    "restore_verified": true,
+    "owner_disposition": "approved_and_applied"
+  },
+  "change4_audit_2105": {
+    "status": "partial",
+    "source_root": "Iris/build/description/v2/staging/2105_baseline_consumption_audit",
+    "reference": "Iris/build/description/v2/evidence/references/audit_2105_canonical_pair.json",
+    "canonical_pair": [
+      "Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl",
+      "Iris/build/description/v2/staging/2105_baseline_consumption_audit/consumption_inventory.jsonl"
+    ],
+    "canonical_pair_source_bytes": 48169098,
+    "canonical_object_count": 1,
+    "canonical_object_bytes": 24084549,
+    "representation_reduction_bytes": 24084549,
+    "consumer_resolution": "Iris/build/description/v2/tools/build/_dvf_3_3_vnext_common.py",
+    "remaining_physical_bytes": 150002822,
+    "restore_verified": true,
+    "owner_disposition": "approved_and_applied",
+    "remaining_derived_view_disposition": "deferred_to_separate_successor",
+    "defer_reason": "The remaining large derived views are unique byte streams. Moving them one-for-one into repository CAS would not reduce checkout bytes; deleting them requires broader derived-on-demand consumer and authority work than is justified by the lightweighting objective."
+  },
+  "validation_boundary": {
+    "content_hashing": "one inventory pass plus promotion/restore verification required by CAS identity",
+    "historical_git_sha_recovery": "waived_by_owner",
+    "machine_absolute_paths_recorded": false,
+    "full_gate": "pending_terminal_validation_batch"
+  }
+}

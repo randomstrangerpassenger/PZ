@@ -1238,3 +1238,14 @@ Iris의 runtime 역할은 계속 **오프라인에서 확정된 사실을 Lua로
 - clean-checkout에서 없는 ignored package peer와 EOL-only 차이는 source mutation이 아니다. Package identity는 disposable source projection으로 별도 검증한다.
 
 Short-path clean clone에서 surface, current `150/150`, historical `285/285`, diagnostic adapter, full discovery `529/529`, Lua `97`, disposable package가 통과했다. 최종 exact-hash hardening 뒤 surface도 새 clean clone에서 재통과했다. 남은 architecture closeout 조건은 최종 `c1fa281e`의 receipt-bound full-gate와 수동 PZ UI evidence이며, 상태는 `partial`이다. 이 closeout의 잔여 범위는 validation execution isolation / clean-checkout stabilization으로 분류하며, 별도의 architecture 분석에서 발견될 리팩터링 후보를 배제하는 근거로 사용하지 않는다.
+
+## 8-12. Iris repository evidence representation 경량화
+
+Iris의 대형 검증 산출물은 내용 자체를 runtime/source authority로 승격하지 않고, 현재 소비자가 요구하는 복원 가능성과 역할을 기준으로 저장 표현을 줄인다.
+
+- lifecycle baseline/final은 canonical dictionary + node stream + baseline selection + final delta로 저장하며 필요할 때 기존 JSONL을 byte-identical하게 재구성한다.
+- 반복 historical payload는 repository-local content-addressed object와 original-path reference로 분리한다. 현재 실행 입력은 resolver가 원래 logical path를 유지한 채 object를 읽는다.
+- `_archive`의 ignored historical payload는 검증·복원된 owner-managed 외부 ZIP으로 이동할 수 있지만 current/historical clean-checkout 입력에는 이 경계를 적용하지 않는다.
+- repository, ignored working tree, CAS, 외부 archive, runtime Lua, runtime heap 측정은 서로 다른 domain이다. 겹치는 절감량을 하나의 합계로 주장하지 않는다.
+- `OnGameBoot`는 Recipe/Moveables/Fixing/Classifications static payload를 미리 require하지 않는다. 기존 `StaticData` first-use cache와 실패 가시성을 유지하며 BrowserData registration은 측정 없이 제거하지 않는다.
+- Layer3/UseCase full-table facade, `IrisData` global, LineCountIndex와 Browser allocation 후보는 외부 소비자·heap 증거 없이 변경하지 않는다.

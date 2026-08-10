@@ -1,0 +1,110 @@
+{
+  "cross_plan_sync_projection_hash_match": false,
+  "expected_projection": {
+    "blocked_immediate_allowed_for_synchronized_candidate": false,
+    "candidate_runtime_parity_applicability": "not_applicable",
+    "candidate_runtime_parity_reason": "candidate_not_registry_adopted",
+    "candidate_structural_status_enum": [
+      "emitted_direct",
+      "satisfied_by_verified_fusion",
+      "satisfied_by_verified_suppression",
+      "not_required",
+      "missing"
+    ],
+    "canonical_stage_order": [
+      "S0_plan_sync",
+      "S1_publish_foundation",
+      "S2_naturalization_build",
+      "S3_publish_official_attempt",
+      "S4_naturalization_finalize"
+    ],
+    "dvf_owns_proposition_discourse_realization_raw_detector": true,
+    "evaluation_subject_kind_enum": [
+      "current_runtime_payload",
+      "dvf_3_3_korean_naturalization_candidate"
+    ],
+    "foundation_required_state": {
+      "authority_effect": "none",
+      "foundation_contract_ready_for_remediation": true,
+      "live_gate_adopted": false,
+      "official_disposition": "not_issued",
+      "policy_closure_state": "not_started"
+    },
+    "nonaccepted_candidate_action": "after_remediation",
+    "publish_owns_metric_mapping_threshold_waiver_disposition": true,
+    "required_handoff_constituent_ids": [
+      "naturalization_attempt_id",
+      "foundation_contract_hash",
+      "candidate_rendered_hash",
+      "candidate_manifest_hash",
+      "source_proposition_manifest_hash",
+      "body_plan_requirement_digest",
+      "structural_satisfaction_ledger_hash",
+      "semantic_preservation_report_hash",
+      "raw_detector_report_hash",
+      "human_review_sample_manifest_hash",
+      "human_review_decision_hash",
+      "compiler_implementation_hash",
+      "korean_prose_policy_hash",
+      "corpus_manifest_hash",
+      "protected_surface_no_mutation_report_hash",
+      "requested_evaluation_subject_kind"
+    ],
+    "synchronization_contract_id": "dvf3_3_korean_naturalization__publish_boundary_sync_v1"
+  },
+  "expected_projection_hash": "460ab186a636344f3850976b938010c144a05ae8597e6cfe362cfc4867cedbee",
+  "foundation_projection": {
+    "blocked_immediate_allowed_for_synchronized_candidate": false,
+    "candidate_runtime_parity_applicability": "not_applicable",
+    "candidate_runtime_parity_reason": "candidate_not_registry_adopted",
+    "candidate_structural_status_enum": [
+      "emitted_direct",
+      "satisfied_by_verified_fusion",
+      "satisfied_by_verified_suppression",
+      "not_required",
+      "missing"
+    ],
+    "canonical_stage_order": [
+      "S0_plan_sync",
+      "S1_publish_foundation",
+      "S2_naturalization_build",
+      "S3_publish_official_attempt",
+      "S4_naturalization_finalize"
+    ],
+    "dvf_owns_proposition_discourse_realization_raw_detector": true,
+    "evaluation_subject_kind_enum": [
+      "current_runtime_payload",
+      "dvf_3_3_korean_naturalization_candidate"
+    ],
+    "foundation_required_state": {
+      "authority_effect": "none",
+      "foundation_contract_ready_for_remediation": true,
+      "live_gate_adopted": false,
+      "official_disposition": "not_issued",
+      "policy_closure_state": "not_started"
+    },
+    "nonaccepted_candidate_action": "after_remediation",
+    "publish_owns_metric_mapping_threshold_waiver_disposition": true,
+    "required_handoff_constituent_ids": [
+      "naturalization_attempt_id",
+      "foundation_contract_hash",
+      "candidate_rendered_hash",
+      "candidate_manifest_hash",
+      "source_proposition_manifest_hash",
+      "body_plan_requirement_digest",
+      "structural_satisfaction_ledger_hash",
+      "semantic_preservation_report_hash",
+      "raw_detector_report_hash",
+      "human_review_sample_manifest_hash",
+      "human_review_decision_hash",
+      "compiler_implementation_hash",
+      "korean_prose_policy_hash",
+      "corpus_manifest_hash",
+      "protected_surface_no_mutation_report_hash",
+      "requested_evaluation_subject_kind"
+    ],
+    "synchronization_contract_id": "dvf3_3_korean_naturalization__publish_boundary_sync_v1"
+  },
+  "foundation_projection_hash": "85d9ec5507cbd2d4dcecd34dcd6c7bd6901cd26a3927d2a760d66121ac9cb1a7",
+  "schema_version": "dvf-3-3-cross-plan-sync-projection-report-v1"
+}

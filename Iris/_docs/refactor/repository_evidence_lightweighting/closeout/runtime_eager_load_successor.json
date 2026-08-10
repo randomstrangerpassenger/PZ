@@ -1,0 +1,30 @@
+{
+  "schema_version": "iris_repository_evidence_runtime_eager_load_successor_v1",
+  "status": "implemented_only",
+  "boot_modules_after": [
+    "Iris/IrisAPI",
+    "Iris/UI/Tooltip/IrisAltTooltip",
+    "Iris/Compat/IrisContextMenuTextureCompat",
+    "Iris/Compat/IrisBulletReloadCompat",
+    "Iris/UI/Wiki/IrisContextMenu",
+    "Iris/UI/Browser/IrisBrowserData",
+    "Iris/UI/Browser/IrisMapIcon"
+  ],
+  "removed_from_boot_only": [
+    "Iris/Data/IrisRecipeIndex",
+    "Iris/Data/IrisMoveablesIndex",
+    "Iris/Data/IrisFixingIndex",
+    "Iris/Data/IrisClassifications"
+  ],
+  "first_use_boundary": "Iris/media/lua/client/Iris/API/StaticData.lua",
+  "failure_contract": {
+    "cached_failure": true,
+    "caller_receives_nil": true,
+    "dev_test_reset_preserved": true,
+    "one_shot_warning": true,
+    "retry_storm": false
+  },
+  "optional_browser_registration_removal": "not_adopted_without_runtime_measurement",
+  "performance_claim": "not_made_without_pz_kahlua_measurement",
+  "test_disposition": "stale_test_corrected_and_successor_expectation_adopted"
+}

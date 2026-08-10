@@ -1,0 +1,83 @@
+{
+  "schema_version": "iris_repository_evidence_lightweighting_measurement_summary_v1",
+  "status": "pre_terminal_validation_snapshot",
+  "aggregation_policy": {
+    "cross_domain_savings_sum": "forbidden",
+    "ignored_and_tracked_bytes_are_reported_separately": true,
+    "runtime_source_bytes_are_not_memory_or_latency": true
+  },
+  "current_physical_snapshot": {
+    "cas": {
+      "object_bytes": 186062784,
+      "object_count": 238,
+      "reference_bytes": 310699,
+      "reference_count": 2
+    },
+    "ignored_untracked": {
+      "bytes": 306436280,
+      "files": 3884
+    },
+    "runtime_lua": {
+      "bytes": 2924385,
+      "files": 103
+    },
+    "staging": {
+      "bytes": 547742530,
+      "files": 4551
+    },
+    "tracked": {
+      "bytes": 774467889,
+      "files": 9639
+    },
+    "working_tree_excluding_git_metadata": {
+      "bytes": 1080904169,
+      "files": 13524
+    }
+  },
+  "transactions": [
+    {
+      "domain": "working_tree_local_residue",
+      "removed_bytes": 12967893,
+      "removed_package_files": 103,
+      "removed_pyc_files": 445,
+      "source": "Iris/_docs/refactor/repository_evidence_lightweighting/change1_cleanup_receipt.json"
+    },
+    {
+      "domain": "tracked_lifecycle_representation",
+      "source_v1_bytes": 105988328,
+      "successor_v2_bytes": 11942429,
+      "transaction_reduction_bytes": 94045899
+    },
+    {
+      "domain": "ignored_naturalization_duplicate_payload",
+      "selected_bytes": 485112779,
+      "successor_unique_object_bytes": 161978235,
+      "transaction_reduction_bytes": 323134544
+    },
+    {
+      "domain": "tracked_2105_duplicate_pair",
+      "selected_bytes": 48169098,
+      "successor_unique_object_bytes": 24084549,
+      "transaction_reduction_bytes": 24084549
+    },
+    {
+      "domain": "ignored_cold_archive_source",
+      "external_archive_bytes": 2031096,
+      "repository_removed_bytes": 74806195,
+      "store_identifier": "iris-owner-store-cold-archive-v1"
+    },
+    {
+      "domain": "runtime_boot_parsing_candidate",
+      "browser_data_registration_preserved": true,
+      "repository_bytes_removed": 0,
+      "static_module_source_bytes_no_longer_boot_required": 115912,
+      "static_modules_no_longer_boot_required": 4
+    }
+  ],
+  "unmeasured": {
+    "external_mod_consumers": "no external filesystem sweep performed",
+    "kahlua_heap_or_allocation": "Project Zomboid runtime instrumentation unavailable",
+    "runtime_first_use_latency": "Project Zomboid runtime instrumentation unavailable",
+    "whole_repository_unique_content": "not recomputed because transaction receipts already bind deduplicated selections"
+  }
+}

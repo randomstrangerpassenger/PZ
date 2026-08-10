@@ -1,0 +1,8 @@
+{
+  "attempt_id": "attempt-0003-determinism",
+  "candidate_full_universe_generation_pass": true,
+  "candidate_rendered_hash": "6f64772d1355569fd97d8b610475864de0b60a6fdad8bb868df5d9397f4431ea",
+  "candidate_trace_hash": "49a1a3770f40215b2b0e3738af1c71691f2422d860389b105b930c85a7361708",
+  "schema_version": "dvf-3-3-phase4-result-v1",
+  "status": "PASS"
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": "iris_repository_evidence_lightweighting_validation_matrix_v1",
+  "status": "pending_terminal_validation_batch",
+  "claims": [
+    {
+      "claim": "lifecycle_v2_exact_reconstruction_and_consumers",
+      "state": "unvalidated_but_in_scope"
+    },
+    {
+      "claim": "cas_reference_restore_and_tracking_integrity",
+      "state": "unvalidated_but_in_scope"
+    },
+    {
+      "claim": "current_historical_diagnostic_lua_package_routes",
+      "state": "unvalidated_but_in_scope"
+    },
+    {
+      "claim": "manual_project_zomboid_runtime_behavior_and_heap",
+      "state": "unvalidated_but_in_scope"
+    },
+    {
+      "claim": "multiplayer_long_session_release_and_workshop",
+      "state": "out_of_scope"
+    }
+  ]
+}

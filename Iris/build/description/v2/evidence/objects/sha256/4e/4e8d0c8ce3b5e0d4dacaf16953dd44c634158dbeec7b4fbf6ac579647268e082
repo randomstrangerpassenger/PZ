@@ -1,0 +1,42 @@
+{
+  "adopted_count": 2084,
+  "attempt_id": "attempt-0008-handoff",
+  "coverage_quality_counts": {
+    "adequate": 729,
+    "strong": 315,
+    "weak": 1040
+  },
+  "current_surface_snapshot_is_semantic_authority": false,
+  "length_max": 124,
+  "length_mean": 51,
+  "length_min": 21,
+  "missing_required_row_count": 1507,
+  "primary_use_origin_counts": {
+    "cluster_summary": 1275,
+    "direct_use": 12,
+    "identity_fallback": 718,
+    "role_fallback": 79
+  },
+  "profile_counts": {
+    "consumable_body": 466,
+    "container_body": 61,
+    "material_body": 213,
+    "output_body": 374,
+    "tool_body": 519,
+    "wearable_body": 451
+  },
+  "schema_version": "dvf-3-3-current-prose-census-v1",
+  "section_topology_counts": {
+    "identity_core+acquisition_support": 54,
+    "identity_core+context_support+use_core+acquisition_support": 51,
+    "identity_core+context_support+use_core+limitation_tail+acquisition_support": 1,
+    "identity_core+use_core": 1049,
+    "identity_core+use_core+acquisition_support": 652,
+    "identity_core+use_core+context_support": 6,
+    "identity_core+use_core+context_support+acquisition_support": 260,
+    "identity_core+use_core+context_support+limitation_tail+acquisition_support": 1,
+    "identity_core+use_core+limitation_tail+acquisition_support": 10
+  },
+  "source_universe_count": 2105,
+  "unadopted_count": 21
+}

@@ -1,0 +1,14 @@
+{
+  "execution_contract_checked": true,
+  "execution_contract_conflict_count": 0,
+  "execution_weight": "heavy",
+  "path": "docs/EXECUTION_CONTRACT.md",
+  "read_only": true,
+  "risk_surfaces": [
+    "authority_surface",
+    "sealed_artifact_surface",
+    "public_facing_output_surface"
+  ],
+  "schema_version": "dvf-3-3-execution-contract-checked-state-v1",
+  "sha256": "a185bbd78eb849b0310d9aadc9102cb156b892513266fac0ec7903eb3d3a9493"
+}

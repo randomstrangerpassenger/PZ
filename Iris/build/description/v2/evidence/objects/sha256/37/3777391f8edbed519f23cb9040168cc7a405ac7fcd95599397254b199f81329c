@@ -1,0 +1,26 @@
+{
+  "adversarial_validation_pass": true,
+  "fixture_count": 8,
+  "observed_failure_reasons": [
+    "context_qualifier_deleted",
+    "cross_item_proposition",
+    "invalid_suppression_reason",
+    "limitation_deleted",
+    "source_candidate_key_swap",
+    "strengthened_modality",
+    "trace_missing",
+    "unsupported_use_insertion"
+  ],
+  "required_failure_reasons": [
+    "context_qualifier_deleted",
+    "cross_item_proposition",
+    "invalid_suppression_reason",
+    "limitation_deleted",
+    "source_candidate_key_swap",
+    "strengthened_modality",
+    "trace_missing",
+    "unsupported_use_insertion"
+  ],
+  "schema_version": "dvf-3-3-adversarial-validation-report-v1",
+  "unexpected_pass_count": 0
+}

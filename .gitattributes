@@ -99,6 +99,17 @@ Iris/validation/residual_refactor/migrate_repository_evidence.py text eol=lf
 Iris/_docs/refactor/repository_evidence_lightweighting/lifecycle_manifest_v2/*.json text eol=lf
 Iris/_docs/refactor/repository_evidence_lightweighting/lifecycle_manifest_v2/*.jsonl text eol=lf
 Iris/_docs/refactor/repository_evidence_lightweighting/lifecycle_manifest_v2_successor.json text eol=lf
+Iris/_docs/refactor/repository_evidence_lightweighting/cas/*.json text eol=lf
+Iris/_docs/refactor/repository_evidence_lightweighting/cas/**/*.json text eol=lf
+Iris/_docs/refactor/repository_evidence_lightweighting/cas_migration_successor.json text eol=lf
+Iris/build/description/v2/evidence/objects/sha256/** -text
+Iris/build/description/v2/evidence/references/*.json text eol=lf
+Iris/build/description/v2/tools/build/_dvf_3_3_vnext_common.py text eol=lf
+Iris/build/description/v2/tests/test_phase5_iris_main_function_specs_contract.py text eol=lf
+Iris/_docs/refactor/repository_evidence_lightweighting/cold_archive/*.json text eol=lf
+Iris/_docs/refactor/repository_evidence_lightweighting/closeout/*.json text eol=lf
+Iris/media/lua/client/Iris/IrisMain.lua text eol=lf
+Iris/media/lua/client/Iris/API/StaticData.lua text eol=lf
 Iris/_docs/round3/round3_test_taxonomy.json text eol=lf
 Iris/_docs/round3/current_route_required_validations.json text eol=lf
 Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase1_manifest/current_surface_guard_referent_manifest.json text eol=lf

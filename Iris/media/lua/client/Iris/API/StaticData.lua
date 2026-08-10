@@ -66,9 +66,10 @@ function StaticData.get(key)
 
     failures[key] = tostring(result)
 
-    if definition.warn and not warned[key] then
+    if not warned[key] then
         warned[key] = true
-        warn(definition.warn .. ": " .. tostring(result))
+        local message = definition.warn or ("[IrisAPI] " .. definition.module .. " not found")
+        warn(message .. ": " .. tostring(result))
     end
     return nil
 end

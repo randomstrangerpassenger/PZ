@@ -1007,7 +1007,35 @@ Pulse는 처음부터 “새 Java 로더”로 경쟁하는 브랜드가 아니�
 
 ---
 
-# 12. Historical Trace
+# 12. Iris repository evidence/intermediate artifact lightweighting
+
+## Done
+
+- lifecycle v1 full manifest pair를 exact reconstruction 가능한 v2 representation으로 교체했다.
+- naturalization ignored historical payload를 repository-local CAS 237 objects + reference로 정규화하고 47개 current-bound tracked exception은 유지했다.
+- `2105`의 byte-identical canonical pair를 한 CAS object로 합치고 기존 logical path consumer에 transparent resolver를 추가했다.
+- `_archive` 86개 ignored file을 외부 deterministic ZIP으로 검증·복원 가능하게 보관한 뒤 local 원본을 제거했다.
+- boot eager require에서 Recipe/Moveables/Fixing/Classifications 네 static module을 제거하고 first-use 실패 경고/cache/reset 계약을 유지했다.
+- compatibility/full-materialization과 Browser allocation 후보의 repository consumer census를 만들고 source 변경 없이 deferred로 disposition했다.
+
+## Partial / Pending
+
+- terminal automated validation batch와 Codex Reviewer final review는 아직 진행 전이다.
+- Change 4의 나머지 derived view는 unique content라 일대일 CAS 이동에 절감이 없어 유지한다.
+- Project Zomboid/Kahlua heap과 first-use latency raw sample이 없어 runtime 성능 claim은 승인하지 않는다.
+
+## Hold
+
+- deleted historical Git object 복구를 경량화 완료 조건으로 다시 도입
+- 외부 mod consumer 조사 없는 public facade/global 변경
+- heap/allocation sample 없는 Browser cache/search/variant 최적화
+- 서로 다른 tracked/ignored/CAS/external/runtime domain 절감량의 합산
+
+근거는 `Iris/_docs/refactor/repository_evidence_lightweighting/`과 `closeout/`의 machine-readable evidence다. 전체 상태는 `partial`이다.
+
+---
+
+# 13. Historical Trace
 
 Historical trace / provenance index는 ROADMAP 본문에서 더 이상 관리하지 않는다.  
 과거 Addendum과 closeout 근거는 `DECISIONS.md` 및 각 round plan/review/closeout 산출물을 따른다.

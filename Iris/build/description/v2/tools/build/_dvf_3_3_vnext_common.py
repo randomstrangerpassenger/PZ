@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections import Counter
 from datetime import datetime, timezone
 import errno
+from functools import lru_cache
 import hashlib
 import json
 import os
@@ -23,6 +24,10 @@ LIVE_RUNTIME_DATA_DIR = IRIS_ROOT / "media" / "lua" / "client" / "Iris" / "Data"
 RUNTIME_CHUNK_MANIFEST = LIVE_RUNTIME_DATA_DIR / "IrisLayer3DataChunks.lua"
 RUNTIME_CHUNK_DIR = LIVE_RUNTIME_DATA_DIR / "IrisLayer3DataChunks"
 RUNTIME_MONOLITH = LIVE_RUNTIME_DATA_DIR / "IrisLayer3Data.lua"
+REPOSITORY_EVIDENCE_OBJECT_ROOT = V2_ROOT / "evidence" / "objects" / "sha256"
+AUDIT_2105_REFERENCE = (
+    V2_ROOT / "evidence" / "references" / "audit_2105_canonical_pair.json"
+)
 
 STATE_MAP = {
     "active": "adopted",
@@ -188,6 +193,55 @@ def resolve_repo(path: str | Path) -> Path:
     return (REPO_ROOT / path).resolve()
 
 
+@lru_cache(maxsize=1)
+def _audit_2105_reference_rows() -> dict[str, dict[str, Any]]:
+    if not AUDIT_2105_REFERENCE.is_file():
+        return {}
+    payload = json.loads(AUDIT_2105_REFERENCE.read_text(encoding="utf-8"))
+    if payload.get("schema_version") != "iris_repository_evidence_cas_reference_v1":
+        raise ValueError("2105 repository evidence reference schema mismatch")
+    rows = payload.get("references")
+    if not isinstance(rows, list):
+        raise ValueError("2105 repository evidence references are malformed")
+    result: dict[str, dict[str, Any]] = {}
+    for row in rows:
+        if not isinstance(row, dict) or not isinstance(row.get("original_path"), str):
+            raise ValueError("2105 repository evidence reference row is malformed")
+        if row["original_path"] in result:
+            raise ValueError("2105 repository evidence reference path is duplicated")
+        result[row["original_path"]] = row
+    return result
+
+
+@lru_cache(maxsize=8)
+def _verified_repository_evidence_object(path: str, digest: str, size: int) -> Path:
+    target = REPOSITORY_EVIDENCE_OBJECT_ROOT / digest[:2] / digest
+    if not target.is_file() or target.is_symlink() or target.stat().st_size != size:
+        raise ValueError(f"repository evidence object is unavailable: {path}")
+    actual = hashlib.sha256(target.read_bytes()).hexdigest()
+    if actual != digest:
+        raise ValueError(f"repository evidence object differs: {path}")
+    return target
+
+
+def resolve_repository_evidence_input(path: str | Path) -> Path:
+    logical = resolve_repo(path)
+    if logical.is_file():
+        return logical
+    try:
+        relative = logical.relative_to(REPO_ROOT.resolve()).as_posix()
+    except ValueError:
+        return logical
+    row = _audit_2105_reference_rows().get(relative)
+    if row is None:
+        return logical
+    digest = str(row.get("object_sha256", ""))
+    size = row.get("size_bytes")
+    if len(digest) != 64 or not isinstance(size, int):
+        raise ValueError(f"repository evidence reference identity is malformed: {relative}")
+    return _verified_repository_evidence_object(relative, digest, size)
+
+
 def rel(path: str | Path) -> str:
     path = resolve_repo(path)
     try:
@@ -221,13 +275,13 @@ def write_text(path: str | Path, text: str) -> None:
 
 
 def read_json(path: str | Path) -> Any:
-    with resolve_repo(path).open("r", encoding="utf-8") as handle:
+    with resolve_repository_evidence_input(path).open("r", encoding="utf-8") as handle:
         return json.load(handle)
 
 
 def read_jsonl(path: str | Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
-    with resolve_repo(path).open("r", encoding="utf-8") as handle:
+    with resolve_repository_evidence_input(path).open("r", encoding="utf-8") as handle:
         for line in handle:
             line = line.strip()
             if line:
@@ -267,7 +321,7 @@ def write_jsonl(path: str | Path, rows: Iterable[dict[str, Any]]) -> None:
 
 
 def sha256_file(path: str | Path) -> str | None:
-    path = resolve_repo(path)
+    path = resolve_repository_evidence_input(path)
     if not path.exists() or not path.is_file():
         return None
     digest = hashlib.sha256()
@@ -284,9 +338,10 @@ def canonical_hash(payload: Any) -> str:
 
 
 def file_record(path: str | Path, role: str | None = None) -> dict[str, Any]:
-    resolved = resolve_repo(path)
+    logical = resolve_repo(path)
+    resolved = resolve_repository_evidence_input(path)
     return {
-        "path": rel(resolved),
+        "path": rel(logical),
         "exists": resolved.exists(),
         "kind": "dir" if resolved.is_dir() else "file" if resolved.is_file() else "missing",
         "bytes": resolved.stat().st_size if resolved.exists() and resolved.is_file() else None,

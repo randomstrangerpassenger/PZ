@@ -1,0 +1,8 @@
+{
+  "attempt_id": "attempt-0008-handoff",
+  "body_plan_requirement_digest": "2c6e958c7462f00f3df310a55668fc55fd0a5749cd13a6537bd631af03544b75",
+  "schema_version": "dvf-3-3-phase2-result-v1",
+  "source_proposition_manifest_hash": "1f6ecb9a56cfcfc3f347eba6af382ad90ef2f0aec6ff4abdd7da517e544ce83a",
+  "source_to_proposition_coverage_pass": true,
+  "status": "PASS"
+}

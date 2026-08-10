@@ -1,0 +1,19 @@
+{
+  "blocker_reasons": [
+    "required_handoff_constituent_missing",
+    "unsatisfied_required_body_plan_role",
+    "human_review_not_pass",
+    "corpus_or_quality_owner_approval_missing"
+  ],
+  "candidate_rendered_hash": "02f8209ef7f3db72e22ab50b906bef50d22800df6100a5b6a0cf5c7e7097e411",
+  "live_required_gate_adopted": false,
+  "naturalization_attempt_id": "development-probe-g",
+  "official_publish_attempt_created": false,
+  "present_constituent_count": 15,
+  "publish_acceptance_handoff_manifest_frozen": false,
+  "publish_disposition_created": false,
+  "required_constituent_count": 16,
+  "runtime_or_current_adoption_claimed": false,
+  "schema_version": "dvf-3-3-publish-handoff-readiness-report-v1",
+  "status": "blocked_handoff_not_ready"
+}

@@ -1,0 +1,9 @@
+{
+  "attempt_id": "attempt-0010-determinism",
+  "body_plan_applicability_report_hash": "28db53b090b7ae6ba351b9a57347fc0379725f6a3f9d7cf0279f994091f1bd3c",
+  "body_plan_requirement_digest": "0efdba43f182e57d80b85a27772705affff27743de7b6c9a675b9de057700a2b",
+  "schema_version": "dvf-3-3-phase2-result-v1",
+  "source_proposition_manifest_hash": "43eddab104c38fdecdafe11903bb101a3d1954fb2e8e646c276c0d00de2f736f",
+  "source_to_proposition_coverage_pass": true,
+  "status": "PASS"
+}

@@ -1642,6 +1642,7 @@ def run_gate(
         {
             "PIP_DISABLE_PIP_VERSION_CHECK": "1",
             "PYTHONPYCACHEPREFIX": str(system_temp / "pycache"),
+            "UV_CACHE_DIR": str(system_temp / "uv-cache"),
             "IRIS_CLEAN_CHECKOUT_PYTEST_RESULT": str(
                 pytest_result_path
             ),
@@ -2353,6 +2354,7 @@ def run_full_repository_gate(
         {
             "PIP_DISABLE_PIP_VERSION_CHECK": "1",
             "PYTHONPYCACHEPREFIX": str(system_temp / "pycache"),
+            "UV_CACHE_DIR": str(system_temp / "uv-cache"),
             "TEMP": str(system_temp),
             "TMP": str(system_temp),
             "TMPDIR": str(system_temp),

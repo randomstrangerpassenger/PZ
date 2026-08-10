@@ -64,8 +64,8 @@
     },
     "clean_checkout_runner": {
       "path": "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
-      "git_blob_id": "76b8b483d94d70fc6c2f4f223fd1b51d7e4a9cf2",
-      "physical_raw_sha256_at_adoption": "5785beb2243eaad932c8fe04a0c5f221ac32108ba69b706e4c445b96d3a655f5"
+      "git_blob_id": "3331cc8bd855a2db95fb7a87e74374033396bea3",
+      "physical_raw_sha256_at_adoption": "e544ea94e135173fe7e1857b7f32ef5585096bfe0033ceeace01fd47f96df679"
     },
     "adoption_test_source": {
       "path": "Iris/build/description/v2/tests/test_repository_evidence_required_validation_adoption.py",
@@ -84,8 +84,8 @@
     },
     "protected_surface_successor": {
       "path": "Iris/_docs/refactor/repository_evidence_lightweighting/protected_surface_successor_manifest.json",
-      "git_blob_id": "513b2f41d5fc38131a4f2e26686adddab98f8a82",
-      "physical_raw_sha256_at_adoption": "d152969852124dd054fb0d9d8685397f4a23e89ead7201d497fa174a64268afc"
+      "git_blob_id": "b4e66a8d31bae16234347c3dbc63b57d764b79df",
+      "physical_raw_sha256_at_adoption": "43bdcdd29040db9eaccdede969a7cb6b3075e9cca3620714144f25c89e5d8d7a"
     },
     "residual_surface_validator": {
       "path": "Iris/test/validate_residual_refactor_surfaces.ps1",

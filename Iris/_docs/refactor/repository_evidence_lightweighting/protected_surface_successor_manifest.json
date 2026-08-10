@@ -50,8 +50,8 @@
           "predecessor_sha256": "0886f63a9c4f5de6645e43c318d5e65cb90e963bc81ab53e9e22dc210bff296e",
           "before_git_blob_id": "85df1cdfa2f0af3ec828eee9573208eacdb7835c",
           "before_sha256_lf": "12a7da6c13cf6a7def4afeabaf9dd37843363c074fe3e333bf79746ceafca45c",
-          "expected_git_blob_id": "76b8b483d94d70fc6c2f4f223fd1b51d7e4a9cf2",
-          "after_sha256_lf": "81d9757e0f83bda467d06c58acd15b8121dbf4979926ae7b1024f4c1c7de05d0",
+          "expected_git_blob_id": "3331cc8bd855a2db95fb7a87e74374033396bea3",
+          "after_sha256_lf": "38af24a2b44cc2120f09f6fef35a07e0cc75ec08db4e2738293a847e8d7030b5",
           "owner": "repository_owner_user",
           "reason": "Disposition the intentionally pruned intermediate Git object and revalidate its recorded compiler rows against the reachable current subject."
         }

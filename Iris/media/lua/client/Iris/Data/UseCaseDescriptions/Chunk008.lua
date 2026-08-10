@@ -7,54 +7,46 @@ local chunk = {}
 
 chunk["Base.WaterPotRice"] = {
     lines = {
-        { label_key = "uc.recipe.make_2_bowls_of_rice", display_text = "[\235\160\136\236\139\156\237\148\188] \234\183\184\235\166\135 2\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make 2 Bowls of Rice", recipe_translated_name = "\234\183\184\235\166\135 2\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", recipe_nav_ref = { original_name = "Make 2 Bowls of Rice", translated_name = "\234\183\184\235\166\135 2\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", category = "Cooking" } },
-        { label_key = "uc.recipe.make_4_bowls_of_rice", display_text = "[\235\160\136\236\139\156\237\148\188] \234\183\184\235\166\135 4\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make 4 Bowls of Rice", recipe_translated_name = "\234\183\184\235\166\135 4\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", recipe_nav_ref = { original_name = "Make 4 Bowls of Rice", translated_name = "\234\183\184\235\166\135 4\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", category = "Cooking" } },
+        { label_key = "uc.recipe.make_2_bowls_of_rice", display_text = "[\235\160\136\236\139\156\237\148\188] \234\183\184\235\166\135 2\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make 2 Bowls of Rice", recipe_translated_name = "\234\183\184\235\166\135 2\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", recipe_nav_ref = { original_name = "Make 2 Bowls of Rice", translated_name = "\234\183\184\235\166\135 2\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", category = "Cooking", } },
+        { label_key = "uc.recipe.make_4_bowls_of_rice", display_text = "[\235\160\136\236\139\156\237\148\188] \234\183\184\235\166\135 4\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make 4 Bowls of Rice", recipe_translated_name = "\234\183\184\235\166\135 4\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", recipe_nav_ref = { original_name = "Make 4 Bowls of Rice", translated_name = "\234\183\184\235\166\135 4\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", category = "Cooking", } },
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", line_kind = "exclusion" },
+        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
 chunk["Base.WaterSaucepan"] = {
     lines = {
         { label_key = "uc.action.extinguish_fire", display_text = "[\236\154\176\237\129\180\235\166\173] \236\134\140\237\153\148\236\151\144 \236\130\172\236\154\169", surface = "context_menu", strength = "WEAK", uniqueness = "shared", line_kind = "evidence" },
-        { label_key = "uc.recipe.disinfect_bandage", display_text = "[\235\160\136\236\139\156\237\148\188] \235\182\149\235\140\128 \236\134\140\235\143\133\237\149\152\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = "shared", line_kind = "evidence", recipe_original_name = "Disinfect Bandage", recipe_translated_name = "\235\182\149\235\140\128 \236\134\140\235\143\133\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Disinfect Bandage", translated_name = "\235\182\149\235\140\128 \236\134\140\235\143\133\237\149\152\234\184\176", category = "Health" } },
-        { label_key = "uc.recipe.disinfect_rag", display_text = "[\235\160\136\236\139\156\237\148\188] \236\178\156 \236\134\140\235\143\133\237\149\152\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = "shared", line_kind = "evidence", recipe_original_name = "Disinfect Rag", recipe_translated_name = "\236\178\156 \236\134\140\235\143\133\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Disinfect Rag", translated_name = "\236\178\156 \236\134\140\235\143\133\237\149\152\234\184\176", category = "Health" } },
-        { label_key = "uc.recipe.place_pasta_in_saucepan", display_text = "[\235\160\136\236\139\156\237\148\188] \236\134\144\236\158\161\236\157\180 \235\131\132\235\185\132\236\151\144 \237\140\140\236\138\164\237\131\128 \235\139\180\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = "shared", line_kind = "evidence", recipe_original_name = "Place Pasta in Saucepan", recipe_translated_name = "\236\134\144\236\158\161\236\157\180 \235\131\132\235\185\132\236\151\144 \237\140\140\236\138\164\237\131\128 \235\139\180\234\184\176", recipe_nav_ref = { original_name = "Place Pasta in Saucepan", translated_name = "\236\134\144\236\158\161\236\157\180 \235\131\132\235\185\132\236\151\144 \237\140\140\236\138\164\237\131\128 \235\139\180\234\184\176", category = "Cooking" } },
-        { label_key = "uc.recipe.place_rice_in_saucepan", display_text = "[\235\160\136\236\139\156\237\148\188] \236\134\144\236\158\161\236\157\180 \235\131\132\235\185\132\236\151\144 \235\176\165 \235\139\180\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = "shared", line_kind = "evidence", recipe_original_name = "Place Rice in Saucepan", recipe_translated_name = "\236\134\144\236\158\161\236\157\180 \235\131\132\235\185\132\236\151\144 \235\176\165 \235\139\180\234\184\176", recipe_nav_ref = { original_name = "Place Rice in Saucepan", translated_name = "\236\134\144\236\158\161\236\157\180 \235\131\132\235\185\132\236\151\144 \235\176\165 \235\139\180\234\184\176", category = "Cooking" } },
+        { label_key = "uc.recipe.disinfect_bandage", display_text = "[\235\160\136\236\139\156\237\148\188] \235\182\149\235\140\128 \236\134\140\235\143\133\237\149\152\234\184\176", surface = "recipe_ui", uniqueness = "shared", line_kind = "evidence", recipe_original_name = "Disinfect Bandage", recipe_translated_name = "\235\182\149\235\140\128 \236\134\140\235\143\133\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Disinfect Bandage", translated_name = "\235\182\149\235\140\128 \236\134\140\235\143\133\237\149\152\234\184\176", category = "Health", } },
+        { label_key = "uc.recipe.disinfect_rag", display_text = "[\235\160\136\236\139\156\237\148\188] \236\178\156 \236\134\140\235\143\133\237\149\152\234\184\176", surface = "recipe_ui", uniqueness = "shared", line_kind = "evidence", recipe_original_name = "Disinfect Rag", recipe_translated_name = "\236\178\156 \236\134\140\235\143\133\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Disinfect Rag", translated_name = "\236\178\156 \236\134\140\235\143\133\237\149\152\234\184\176", category = "Health", } },
+        { label_key = "uc.recipe.place_pasta_in_saucepan", display_text = "[\235\160\136\236\139\156\237\148\188] \236\134\144\236\158\161\236\157\180 \235\131\132\235\185\132\236\151\144 \237\140\140\236\138\164\237\131\128 \235\139\180\234\184\176", surface = "recipe_ui", uniqueness = "shared", line_kind = "evidence", recipe_original_name = "Place Pasta in Saucepan", recipe_translated_name = "\236\134\144\236\158\161\236\157\180 \235\131\132\235\185\132\236\151\144 \237\140\140\236\138\164\237\131\128 \235\139\180\234\184\176", recipe_nav_ref = { original_name = "Place Pasta in Saucepan", translated_name = "\236\134\144\236\158\161\236\157\180 \235\131\132\235\185\132\236\151\144 \237\140\140\236\138\164\237\131\128 \235\139\180\234\184\176", category = "Cooking", } },
+        { label_key = "uc.recipe.place_rice_in_saucepan", display_text = "[\235\160\136\236\139\156\237\148\188] \236\134\144\236\158\161\236\157\180 \235\131\132\235\185\132\236\151\144 \235\176\165 \235\139\180\234\184\176", surface = "recipe_ui", uniqueness = "shared", line_kind = "evidence", recipe_original_name = "Place Rice in Saucepan", recipe_translated_name = "\236\134\144\236\158\161\236\157\180 \235\131\132\235\185\132\236\151\144 \235\176\165 \235\139\180\234\184\176", recipe_nav_ref = { original_name = "Place Rice in Saucepan", translated_name = "\236\134\144\236\158\161\236\157\180 \235\131\132\235\185\132\236\151\144 \235\176\165 \235\139\180\234\184\176", category = "Cooking", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Base.WaterSaucepanPasta"] = {
     lines = {
-        { label_key = "uc.recipe.make_2_bowls_of_pasta", display_text = "[\235\160\136\236\139\156\237\148\188] \234\183\184\235\166\135 2\234\176\156\236\151\144 \237\140\140\236\138\164\237\131\128 \235\130\152\235\136\160 \235\139\180\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make 2 Bowls of Pasta", recipe_translated_name = "\234\183\184\235\166\135 2\234\176\156\236\151\144 \237\140\140\236\138\164\237\131\128 \235\130\152\235\136\160 \235\139\180\234\184\176", recipe_nav_ref = { original_name = "Make 2 Bowls of Pasta", translated_name = "\234\183\184\235\166\135 2\234\176\156\236\151\144 \237\140\140\236\138\164\237\131\128 \235\130\152\235\136\160 \235\139\180\234\184\176", category = "Cooking" } },
-        { label_key = "uc.recipe.make_4_bowls_of_pasta", display_text = "[\235\160\136\236\139\156\237\148\188] \234\183\184\235\166\135 4\234\176\156\236\151\144 \237\140\140\236\138\164\237\131\128 \235\130\152\235\136\160 \235\139\180\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make 4 Bowls of Pasta", recipe_translated_name = "\234\183\184\235\166\135 4\234\176\156\236\151\144 \237\140\140\236\138\164\237\131\128 \235\130\152\235\136\160 \235\139\180\234\184\176", recipe_nav_ref = { original_name = "Make 4 Bowls of Pasta", translated_name = "\234\183\184\235\166\135 4\234\176\156\236\151\144 \237\140\140\236\138\164\237\131\128 \235\130\152\235\136\160 \235\139\180\234\184\176", category = "Cooking" } },
+        { label_key = "uc.recipe.make_2_bowls_of_pasta", display_text = "[\235\160\136\236\139\156\237\148\188] \234\183\184\235\166\135 2\234\176\156\236\151\144 \237\140\140\236\138\164\237\131\128 \235\130\152\235\136\160 \235\139\180\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make 2 Bowls of Pasta", recipe_translated_name = "\234\183\184\235\166\135 2\234\176\156\236\151\144 \237\140\140\236\138\164\237\131\128 \235\130\152\235\136\160 \235\139\180\234\184\176", recipe_nav_ref = { original_name = "Make 2 Bowls of Pasta", translated_name = "\234\183\184\235\166\135 2\234\176\156\236\151\144 \237\140\140\236\138\164\237\131\128 \235\130\152\235\136\160 \235\139\180\234\184\176", category = "Cooking", } },
+        { label_key = "uc.recipe.make_4_bowls_of_pasta", display_text = "[\235\160\136\236\139\156\237\148\188] \234\183\184\235\166\135 4\234\176\156\236\151\144 \237\140\140\236\138\164\237\131\128 \235\130\152\235\136\160 \235\139\180\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make 4 Bowls of Pasta", recipe_translated_name = "\234\183\184\235\166\135 4\234\176\156\236\151\144 \237\140\140\236\138\164\237\131\128 \235\130\152\235\136\160 \235\139\180\234\184\176", recipe_nav_ref = { original_name = "Make 4 Bowls of Pasta", translated_name = "\234\183\184\235\166\135 4\234\176\156\236\151\144 \237\140\140\236\138\164\237\131\128 \235\130\152\235\136\160 \235\139\180\234\184\176", category = "Cooking", } },
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", line_kind = "exclusion" },
+        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
 chunk["Base.WaterSaucepanRice"] = {
     lines = {
-        { label_key = "uc.recipe.make_2_bowls_of_rice", display_text = "[\235\160\136\236\139\156\237\148\188] \234\183\184\235\166\135 2\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make 2 Bowls of Rice", recipe_translated_name = "\234\183\184\235\166\135 2\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", recipe_nav_ref = { original_name = "Make 2 Bowls of Rice", translated_name = "\234\183\184\235\166\135 2\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", category = "Cooking" } },
-        { label_key = "uc.recipe.make_4_bowls_of_rice", display_text = "[\235\160\136\236\139\156\237\148\188] \234\183\184\235\166\135 4\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make 4 Bowls of Rice", recipe_translated_name = "\234\183\184\235\166\135 4\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", recipe_nav_ref = { original_name = "Make 4 Bowls of Rice", translated_name = "\234\183\184\235\166\135 4\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", category = "Cooking" } },
+        { label_key = "uc.recipe.make_2_bowls_of_rice", display_text = "[\235\160\136\236\139\156\237\148\188] \234\183\184\235\166\135 2\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make 2 Bowls of Rice", recipe_translated_name = "\234\183\184\235\166\135 2\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", recipe_nav_ref = { original_name = "Make 2 Bowls of Rice", translated_name = "\234\183\184\235\166\135 2\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", category = "Cooking", } },
+        { label_key = "uc.recipe.make_4_bowls_of_rice", display_text = "[\235\160\136\236\139\156\237\148\188] \234\183\184\235\166\135 4\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make 4 Bowls of Rice", recipe_translated_name = "\234\183\184\235\166\135 4\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", recipe_nav_ref = { original_name = "Make 4 Bowls of Rice", translated_name = "\234\183\184\235\166\135 4\234\176\156\236\151\144 \235\176\165 \235\130\152\235\136\160 \235\139\180\234\184\176", category = "Cooking", } },
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", line_kind = "exclusion" },
+        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -64,20 +56,16 @@ chunk["Base.WaterTeacup"] = {
     },
     exclusion_lines = {
     },
-    debug_lines = {
-    },
 }
 
 chunk["Base.Watermelon"] = {
     lines = {
-        { label_key = "uc.recipe.slice_watermelon", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\235\176\149 \236\158\144\235\165\180\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Slice Watermelon", recipe_translated_name = "\236\136\152\235\176\149 \236\158\144\235\165\180\234\184\176", recipe_nav_ref = { original_name = "Slice Watermelon", translated_name = "\236\136\152\235\176\149 \236\158\144\235\165\180\234\184\176", category = "Cooking" } },
-        { label_key = "uc.recipe.smash_watermelon", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\235\176\149 \235\182\128\236\136\152\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Smash Watermelon", recipe_translated_name = "\236\136\152\235\176\149 \235\182\128\236\136\152\234\184\176", recipe_nav_ref = { original_name = "Smash Watermelon", translated_name = "\236\136\152\235\176\149 \235\182\128\236\136\152\234\184\176", category = "Cooking" } },
+        { label_key = "uc.recipe.slice_watermelon", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\235\176\149 \236\158\144\235\165\180\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Slice Watermelon", recipe_translated_name = "\236\136\152\235\176\149 \236\158\144\235\165\180\234\184\176", recipe_nav_ref = { original_name = "Slice Watermelon", translated_name = "\236\136\152\235\176\149 \236\158\144\235\165\180\234\184\176", category = "Cooking", } },
+        { label_key = "uc.recipe.smash_watermelon", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\235\176\149 \235\182\128\236\136\152\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Smash Watermelon", recipe_translated_name = "\236\136\152\235\176\149 \235\182\128\236\136\152\234\184\176", recipe_nav_ref = { original_name = "Smash Watermelon", translated_name = "\236\136\152\235\176\149 \235\182\128\236\136\152\234\184\176", category = "Cooking", } },
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", line_kind = "exclusion" },
+        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", line_kind = "exclusion" },
     },
     requirements = {
         { label_key = "Base.Axe", role = "keep", surface = "recipe_ui" },
@@ -107,10 +95,8 @@ chunk["Base.WatermelonSliced"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", line_kind = "exclusion" },
+        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -118,10 +104,8 @@ chunk["Base.WatermelonSmashed"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", line_kind = "exclusion" },
+        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -129,9 +113,7 @@ chunk["Base.WeddingDress"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -139,9 +121,7 @@ chunk["Base.WeddingJacket"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -149,22 +129,18 @@ chunk["Base.WeldingMask"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
 chunk["Base.WhiskeyEmpty"] = {
     lines = {
         { label_key = "uc.action.extinguish_fire", display_text = "[\236\154\176\237\129\180\235\166\173] \236\134\140\237\153\148\236\151\144 \236\130\172\236\154\169", surface = "context_menu", strength = "WEAK", uniqueness = "shared", line_kind = "evidence" },
-        { label_key = "uc.recipe.hockeymasksmashbottle", display_text = "[\235\160\136\236\139\156\237\148\188] HockeyMaskSmashBottle", surface = "recipe_ui", strength = nil, uniqueness = "shared", line_kind = "evidence", recipe_original_name = "HockeyMaskSmashBottle", recipe_nav_ref = { original_name = "HockeyMaskSmashBottle", translated_name = nil, category = nil } },
-        { label_key = "uc.recipe.make_molotov_cocktail", display_text = "[\235\160\136\236\139\156\237\148\188] \237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = "shared", line_kind = "evidence", recipe_original_name = "Make Molotov Cocktail", recipe_translated_name = "\237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Molotov Cocktail", translated_name = "\237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", category = nil } },
-        { label_key = "uc.recipe.smash_bottle", display_text = "[\235\160\136\236\139\156\237\148\188] \235\179\145 \235\182\128\236\136\152\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = "shared", line_kind = "evidence", recipe_original_name = "Smash Bottle", recipe_translated_name = "\235\179\145 \235\182\128\236\136\152\234\184\176", recipe_nav_ref = { original_name = "Smash Bottle", translated_name = "\235\179\145 \235\182\128\236\136\152\234\184\176", category = nil } },
+        { label_key = "uc.recipe.hockeymasksmashbottle", display_text = "[\235\160\136\236\139\156\237\148\188] HockeyMaskSmashBottle", surface = "recipe_ui", uniqueness = "shared", line_kind = "evidence", recipe_original_name = "HockeyMaskSmashBottle", recipe_nav_ref = { original_name = "HockeyMaskSmashBottle", translated_name = nil, } },
+        { label_key = "uc.recipe.make_molotov_cocktail", display_text = "[\235\160\136\236\139\156\237\148\188] \237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", uniqueness = "shared", line_kind = "evidence", recipe_original_name = "Make Molotov Cocktail", recipe_translated_name = "\237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Molotov Cocktail", translated_name = "\237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", } },
+        { label_key = "uc.recipe.smash_bottle", display_text = "[\235\160\136\236\139\156\237\148\188] \235\179\145 \235\182\128\236\136\152\234\184\176", surface = "recipe_ui", uniqueness = "shared", line_kind = "evidence", recipe_original_name = "Smash Bottle", recipe_translated_name = "\235\179\145 \235\182\128\236\136\152\234\184\176", recipe_nav_ref = { original_name = "Smash Bottle", translated_name = "\235\179\145 \235\182\128\236\136\152\234\184\176", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
@@ -172,21 +148,17 @@ chunk["Base.WhiskeyFull"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", line_kind = "exclusion" },
+        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
 chunk["Base.WhiskeyPetrol"] = {
     lines = {
-        { label_key = "uc.action.fuel", display_text = "[\236\154\176\237\129\180\235\166\173] \236\163\188\236\156\160\236\151\144 \236\130\172\236\154\169", surface = "context_menu", strength = "WEAK", uniqueness = nil, line_kind = "evidence" },
-        { label_key = "uc.recipe.make_molotov_cocktail", display_text = "[\235\160\136\236\139\156\237\148\188] \237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make Molotov Cocktail", recipe_translated_name = "\237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Molotov Cocktail", translated_name = "\237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", category = nil } },
+        { label_key = "uc.action.fuel", display_text = "[\236\154\176\237\129\180\235\166\173] \236\163\188\236\156\160\236\151\144 \236\130\172\236\154\169", surface = "context_menu", strength = "WEAK", line_kind = "evidence" },
+        { label_key = "uc.recipe.make_molotov_cocktail", display_text = "[\235\160\136\236\139\156\237\148\188] \237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make Molotov Cocktail", recipe_translated_name = "\237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Molotov Cocktail", translated_name = "\237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
@@ -196,39 +168,31 @@ chunk["Base.WhiskeyWaterFull"] = {
     },
     exclusion_lines = {
     },
-    debug_lines = {
-    },
 }
 
 chunk["Base.WildEggs"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", line_kind = "exclusion" },
+        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
 chunk["Base.WildGarlic"] = {
     lines = {
-        { label_key = "uc.recipe.make_wild_garlic_poultice", display_text = "[\235\160\136\236\139\156\237\148\188] \234\179\176\237\140\140 \236\138\181\237\143\172\236\160\156 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make Wild Garlic Poultice", recipe_translated_name = "\234\179\176\237\140\140 \236\138\181\237\143\172\236\160\156 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Wild Garlic Poultice", translated_name = "\234\179\176\237\140\140 \236\138\181\237\143\172\236\160\156 \235\167\140\235\147\164\234\184\176", category = "Health" } },
+        { label_key = "uc.recipe.make_wild_garlic_poultice", display_text = "[\235\160\136\236\139\156\237\148\188] \234\179\176\237\140\140 \236\138\181\237\143\172\236\160\156 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make Wild Garlic Poultice", recipe_translated_name = "\234\179\176\237\140\140 \236\138\181\237\143\172\236\160\156 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Wild Garlic Poultice", translated_name = "\234\179\176\237\140\140 \236\138\181\237\143\172\236\160\156 \235\167\140\235\147\164\234\184\176", category = "Health", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Base.WildGarlic2"] = {
     lines = {
-        { label_key = "uc.recipe.make_wild_garlic_poultice", display_text = "[\235\160\136\236\139\156\237\148\188] \234\179\176\237\140\140 \236\138\181\237\143\172\236\160\156 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make Wild Garlic Poultice", recipe_translated_name = "\234\179\176\237\140\140 \236\138\181\237\143\172\236\160\156 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Wild Garlic Poultice", translated_name = "\234\179\176\237\140\140 \236\138\181\237\143\172\236\160\156 \235\167\140\235\147\164\234\184\176", category = "Health" } },
+        { label_key = "uc.recipe.make_wild_garlic_poultice", display_text = "[\235\160\136\236\139\156\237\148\188] \234\179\176\237\140\140 \236\138\181\237\143\172\236\160\156 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make Wild Garlic Poultice", recipe_translated_name = "\234\179\176\237\140\140 \236\138\181\237\143\172\236\160\156 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Wild Garlic Poultice", translated_name = "\234\179\176\237\140\140 \236\138\181\237\143\172\236\160\156 \235\167\140\235\147\164\234\184\176", category = "Health", } },
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -236,10 +200,8 @@ chunk["Base.Wine"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", line_kind = "exclusion" },
+        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -247,36 +209,30 @@ chunk["Base.Wine2"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", line_kind = "exclusion" },
+        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
 chunk["Base.WineEmpty"] = {
     lines = {
         { label_key = "uc.action.extinguish_fire", display_text = "[\236\154\176\237\129\180\235\166\173] \236\134\140\237\153\148\236\151\144 \236\130\172\236\154\169", surface = "context_menu", strength = "WEAK", uniqueness = "shared", line_kind = "evidence" },
-        { label_key = "uc.recipe.hockeymasksmashbottle", display_text = "[\235\160\136\236\139\156\237\148\188] HockeyMaskSmashBottle", surface = "recipe_ui", strength = nil, uniqueness = "shared", line_kind = "evidence", recipe_original_name = "HockeyMaskSmashBottle", recipe_nav_ref = { original_name = "HockeyMaskSmashBottle", translated_name = nil, category = nil } },
-        { label_key = "uc.recipe.make_molotov_cocktail", display_text = "[\235\160\136\236\139\156\237\148\188] \237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = "shared", line_kind = "evidence", recipe_original_name = "Make Molotov Cocktail", recipe_translated_name = "\237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Molotov Cocktail", translated_name = "\237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", category = nil } },
-        { label_key = "uc.recipe.smash_bottle", display_text = "[\235\160\136\236\139\156\237\148\188] \235\179\145 \235\182\128\236\136\152\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = "shared", line_kind = "evidence", recipe_original_name = "Smash Bottle", recipe_translated_name = "\235\179\145 \235\182\128\236\136\152\234\184\176", recipe_nav_ref = { original_name = "Smash Bottle", translated_name = "\235\179\145 \235\182\128\236\136\152\234\184\176", category = nil } },
+        { label_key = "uc.recipe.hockeymasksmashbottle", display_text = "[\235\160\136\236\139\156\237\148\188] HockeyMaskSmashBottle", surface = "recipe_ui", uniqueness = "shared", line_kind = "evidence", recipe_original_name = "HockeyMaskSmashBottle", recipe_nav_ref = { original_name = "HockeyMaskSmashBottle", translated_name = nil, } },
+        { label_key = "uc.recipe.make_molotov_cocktail", display_text = "[\235\160\136\236\139\156\237\148\188] \237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", uniqueness = "shared", line_kind = "evidence", recipe_original_name = "Make Molotov Cocktail", recipe_translated_name = "\237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Molotov Cocktail", translated_name = "\237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", } },
+        { label_key = "uc.recipe.smash_bottle", display_text = "[\235\160\136\236\139\156\237\148\188] \235\179\145 \235\182\128\236\136\152\234\184\176", surface = "recipe_ui", uniqueness = "shared", line_kind = "evidence", recipe_original_name = "Smash Bottle", recipe_translated_name = "\235\179\145 \235\182\128\236\136\152\234\184\176", recipe_nav_ref = { original_name = "Smash Bottle", translated_name = "\235\179\145 \235\182\128\236\136\152\234\184\176", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Base.WineEmpty2"] = {
     lines = {
         { label_key = "uc.action.extinguish_fire", display_text = "[\236\154\176\237\129\180\235\166\173] \236\134\140\237\153\148\236\151\144 \236\130\172\236\154\169", surface = "context_menu", strength = "WEAK", uniqueness = "shared", line_kind = "evidence" },
-        { label_key = "uc.recipe.hockeymasksmashbottle", display_text = "[\235\160\136\236\139\156\237\148\188] HockeyMaskSmashBottle", surface = "recipe_ui", strength = nil, uniqueness = "shared", line_kind = "evidence", recipe_original_name = "HockeyMaskSmashBottle", recipe_nav_ref = { original_name = "HockeyMaskSmashBottle", translated_name = nil, category = nil } },
-        { label_key = "uc.recipe.make_molotov_cocktail", display_text = "[\235\160\136\236\139\156\237\148\188] \237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = "shared", line_kind = "evidence", recipe_original_name = "Make Molotov Cocktail", recipe_translated_name = "\237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Molotov Cocktail", translated_name = "\237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", category = nil } },
-        { label_key = "uc.recipe.smash_bottle", display_text = "[\235\160\136\236\139\156\237\148\188] \235\179\145 \235\182\128\236\136\152\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = "shared", line_kind = "evidence", recipe_original_name = "Smash Bottle", recipe_translated_name = "\235\179\145 \235\182\128\236\136\152\234\184\176", recipe_nav_ref = { original_name = "Smash Bottle", translated_name = "\235\179\145 \235\182\128\236\136\152\234\184\176", category = nil } },
+        { label_key = "uc.recipe.hockeymasksmashbottle", display_text = "[\235\160\136\236\139\156\237\148\188] HockeyMaskSmashBottle", surface = "recipe_ui", uniqueness = "shared", line_kind = "evidence", recipe_original_name = "HockeyMaskSmashBottle", recipe_nav_ref = { original_name = "HockeyMaskSmashBottle", translated_name = nil, } },
+        { label_key = "uc.recipe.make_molotov_cocktail", display_text = "[\235\160\136\236\139\156\237\148\188] \237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", uniqueness = "shared", line_kind = "evidence", recipe_original_name = "Make Molotov Cocktail", recipe_translated_name = "\237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Molotov Cocktail", translated_name = "\237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", } },
+        { label_key = "uc.recipe.smash_bottle", display_text = "[\235\160\136\236\139\156\237\148\188] \235\179\145 \235\182\128\236\136\152\234\184\176", surface = "recipe_ui", uniqueness = "shared", line_kind = "evidence", recipe_original_name = "Smash Bottle", recipe_translated_name = "\235\179\145 \235\182\128\236\136\152\234\184\176", recipe_nav_ref = { original_name = "Smash Bottle", translated_name = "\235\179\145 \235\182\128\236\136\152\234\184\176", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
@@ -284,20 +240,16 @@ chunk["Base.WineInGlass"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
 chunk["Base.WinePetrol"] = {
     lines = {
-        { label_key = "uc.action.fuel", display_text = "[\236\154\176\237\129\180\235\166\173] \236\163\188\236\156\160\236\151\144 \236\130\172\236\154\169", surface = "context_menu", strength = "WEAK", uniqueness = nil, line_kind = "evidence" },
-        { label_key = "uc.recipe.make_molotov_cocktail", display_text = "[\235\160\136\236\139\156\237\148\188] \237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make Molotov Cocktail", recipe_translated_name = "\237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Molotov Cocktail", translated_name = "\237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", category = nil } },
+        { label_key = "uc.action.fuel", display_text = "[\236\154\176\237\129\180\235\166\173] \236\163\188\236\156\160\236\151\144 \236\130\172\236\154\169", surface = "context_menu", strength = "WEAK", line_kind = "evidence" },
+        { label_key = "uc.recipe.make_molotov_cocktail", display_text = "[\235\160\136\236\139\156\237\148\188] \237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make Molotov Cocktail", recipe_translated_name = "\237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Molotov Cocktail", translated_name = "\237\153\148\236\151\188\235\179\145 \235\167\140\235\147\164\234\184\176", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
@@ -307,53 +259,43 @@ chunk["Base.WineWaterFull"] = {
     },
     exclusion_lines = {
     },
-    debug_lines = {
-    },
 }
 
 chunk["Base.WinterBerry"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", line_kind = "exclusion" },
+        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
 chunk["Base.Wire"] = {
     lines = {
-        { label_key = "uc.recipe.make_cage_trap", display_text = "[\235\160\136\236\139\156\237\148\188] \236\178\160\236\158\165 \235\141\171 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make Cage Trap", recipe_translated_name = "\236\178\160\236\158\165 \235\141\171 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Cage Trap", translated_name = "\236\178\160\236\158\165 \235\141\171 \235\167\140\235\147\164\234\184\176", category = "Trapper" }, recipe_requirements = { { kind = "flag", display = "\235\175\184\236\138\181\235\147\157", check = { type = "flag", flag_id = "NeedToBeLearn", recipe_name = "Make Cage Trap" } }, { kind = "perk", display = "\237\149\168\236\160\149 >= 3", check = { type = "perk", perk_id = "Trapping", level = 3 } } } },
-        { label_key = "uc.recipe.make_fishing_net", display_text = "[\235\160\136\236\139\156\237\148\188] \236\150\180\235\167\157 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make Fishing Net", recipe_translated_name = "\236\150\180\235\167\157 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Fishing Net", translated_name = "\236\150\180\235\167\157 \235\167\140\235\147\164\234\184\176", category = "Fishing" }, recipe_requirements = { { kind = "flag", display = "\235\175\184\236\138\181\235\147\157", check = { type = "flag", flag_id = "NeedToBeLearn", recipe_name = "Make Fishing Net" } } } },
+        { label_key = "uc.recipe.make_cage_trap", display_text = "[\235\160\136\236\139\156\237\148\188] \236\178\160\236\158\165 \235\141\171 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make Cage Trap", recipe_translated_name = "\236\178\160\236\158\165 \235\141\171 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Cage Trap", translated_name = "\236\178\160\236\158\165 \235\141\171 \235\167\140\235\147\164\234\184\176", category = "Trapper", }, recipe_requirements = { { kind = "flag", display = "\235\175\184\236\138\181\235\147\157", check = { type = "flag", flag_id = "NeedToBeLearn", recipe_name = "Make Cage Trap" } }, { kind = "perk", display = "\237\149\168\236\160\149 >= 3", check = { type = "perk", perk_id = "Trapping", level = 3 } } } },
+        { label_key = "uc.recipe.make_fishing_net", display_text = "[\235\160\136\236\139\156\237\148\188] \236\150\180\235\167\157 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make Fishing Net", recipe_translated_name = "\236\150\180\235\167\157 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Fishing Net", translated_name = "\236\150\180\235\167\157 \235\167\140\235\147\164\234\184\176", category = "Fishing", }, recipe_requirements = { { kind = "flag", display = "\235\175\184\236\138\181\235\147\157", check = { type = "flag", flag_id = "NeedToBeLearn", recipe_name = "Make Fishing Net" } } } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Base.WoodAxe"] = {
     lines = {
-        { label_key = "uc.recipe.slice_watermelon", display_text = "[\235\160\136\236\139\156\237\148\188\194\183\235\143\132\234\181\172] \236\136\152\235\176\149 \236\158\144\235\165\180\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Slice Watermelon", recipe_translated_name = "\236\136\152\235\176\149 \236\158\144\235\165\180\234\184\176", recipe_nav_ref = { original_name = "Slice Watermelon", translated_name = "\236\136\152\235\176\149 \236\158\144\235\165\180\234\184\176", category = "Cooking" } },
+        { label_key = "uc.recipe.slice_watermelon", display_text = "[\235\160\136\236\139\156\237\148\188\194\183\235\143\132\234\181\172] \236\136\152\235\176\149 \236\158\144\235\165\180\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Slice Watermelon", recipe_translated_name = "\236\136\152\235\176\149 \236\158\144\235\165\180\234\184\176", recipe_nav_ref = { original_name = "Slice Watermelon", translated_name = "\236\136\152\235\176\149 \236\158\144\235\165\180\234\184\176", category = "Cooking", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Base.WoodenStick"] = {
     lines = {
-        { label_key = "uc.recipe.make_fishing_rod", display_text = "[\235\160\136\236\139\156\237\148\188] \235\130\154\236\139\175\235\140\128 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make Fishing Rod", recipe_translated_name = "\235\130\154\236\139\175\235\140\128 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Fishing Rod", translated_name = "\235\130\154\236\139\175\235\140\128 \235\167\140\235\147\164\234\184\176", category = "Fishing" }, recipe_requirements = { { kind = "flag", display = "\235\175\184\236\138\181\235\147\157", check = { type = "flag", flag_id = "NeedToBeLearn", recipe_name = "Make Fishing Rod" } } } },
-        { label_key = "uc.recipe.make_splint", display_text = "[\235\160\136\236\139\156\237\148\188] \235\182\128\235\170\169 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make Splint", recipe_translated_name = "\235\182\128\235\170\169 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Splint", translated_name = "\235\182\128\235\170\169 \235\167\140\235\147\164\234\184\176", category = "Health" } },
-        { label_key = "uc.recipe.make_stick_trap", display_text = "[\235\160\136\236\139\156\237\148\188] \235\167\137\235\140\128 \235\141\171 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make Stick Trap", recipe_translated_name = "\235\167\137\235\140\128 \235\141\171 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Stick Trap", translated_name = "\235\167\137\235\140\128 \235\141\171 \235\167\140\235\147\164\234\184\176", category = "Trapper" }, recipe_requirements = { { kind = "flag", display = "\235\175\184\236\138\181\235\147\157", check = { type = "flag", flag_id = "NeedToBeLearn", recipe_name = "Make Stick Trap" } } } },
-        { label_key = "uc.recipe.make_tent_kit", display_text = "[\235\160\136\236\139\156\237\148\188] \237\133\144\237\138\184 \236\158\165\235\185\132 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make Tent Kit", recipe_translated_name = "\237\133\144\237\138\184 \236\158\165\235\185\132 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Tent Kit", translated_name = "\237\133\144\237\138\184 \236\158\165\235\185\132 \235\167\140\235\147\164\234\184\176", category = "Survivalist" } },
+        { label_key = "uc.recipe.make_fishing_rod", display_text = "[\235\160\136\236\139\156\237\148\188] \235\130\154\236\139\175\235\140\128 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make Fishing Rod", recipe_translated_name = "\235\130\154\236\139\175\235\140\128 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Fishing Rod", translated_name = "\235\130\154\236\139\175\235\140\128 \235\167\140\235\147\164\234\184\176", category = "Fishing", }, recipe_requirements = { { kind = "flag", display = "\235\175\184\236\138\181\235\147\157", check = { type = "flag", flag_id = "NeedToBeLearn", recipe_name = "Make Fishing Rod" } } } },
+        { label_key = "uc.recipe.make_splint", display_text = "[\235\160\136\236\139\156\237\148\188] \235\182\128\235\170\169 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make Splint", recipe_translated_name = "\235\182\128\235\170\169 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Splint", translated_name = "\235\182\128\235\170\169 \235\167\140\235\147\164\234\184\176", category = "Health", } },
+        { label_key = "uc.recipe.make_stick_trap", display_text = "[\235\160\136\236\139\156\237\148\188] \235\167\137\235\140\128 \235\141\171 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make Stick Trap", recipe_translated_name = "\235\167\137\235\140\128 \235\141\171 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Stick Trap", translated_name = "\235\167\137\235\140\128 \235\141\171 \235\167\140\235\147\164\234\184\176", category = "Trapper", }, recipe_requirements = { { kind = "flag", display = "\235\175\184\236\138\181\235\147\157", check = { type = "flag", flag_id = "NeedToBeLearn", recipe_name = "Make Stick Trap" } } } },
+        { label_key = "uc.recipe.make_tent_kit", display_text = "[\235\160\136\236\139\156\237\148\188] \237\133\144\237\138\184 \236\158\165\235\185\132 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make Tent Kit", recipe_translated_name = "\237\133\144\237\138\184 \236\158\165\235\185\132 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Tent Kit", translated_name = "\237\133\144\237\138\184 \236\158\165\235\185\132 \235\167\140\235\147\164\234\184\176", category = "Survivalist", } },
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.inputmaterial_material", display_text = "uc.exclusion.inputmaterial_material", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.inputmaterial_material", display_text = "uc.exclusion.inputmaterial_material", surface = "context_menu", line_kind = "exclusion" },
     },
     requirements = {
         { label_key = "Base.MeatCleaver", role = "keep", surface = "recipe_ui" },
@@ -367,10 +309,8 @@ chunk["Base.Worm"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", line_kind = "exclusion" },
+        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -378,9 +318,7 @@ chunk["Base.Wound_Abdomen_Bite_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -388,9 +326,7 @@ chunk["Base.Wound_Abdomen_Bite_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -398,9 +334,7 @@ chunk["Base.Wound_Abdomen_Laceration_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -408,9 +342,7 @@ chunk["Base.Wound_Abdomen_Laceration_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -418,9 +350,7 @@ chunk["Base.Wound_Abdomen_Scratch_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -428,9 +358,7 @@ chunk["Base.Wound_Abdomen_Scratch_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -438,9 +366,7 @@ chunk["Base.Wound_Chest_Bite_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -448,9 +374,7 @@ chunk["Base.Wound_Chest_Bite_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -458,9 +382,7 @@ chunk["Base.Wound_Chest_Laceration_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -468,9 +390,7 @@ chunk["Base.Wound_Chest_Laceration_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -478,9 +398,7 @@ chunk["Base.Wound_Chest_Scratch_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -488,9 +406,7 @@ chunk["Base.Wound_Chest_Scratch_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -498,9 +414,7 @@ chunk["Base.Wound_Groin_Bite_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -508,9 +422,7 @@ chunk["Base.Wound_Groin_Bite_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -518,9 +430,7 @@ chunk["Base.Wound_Groin_Laceration_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -528,9 +438,7 @@ chunk["Base.Wound_Groin_Laceration_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -538,9 +446,7 @@ chunk["Base.Wound_Groin_Scratch_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -548,9 +454,7 @@ chunk["Base.Wound_Groin_Scratch_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -558,9 +462,7 @@ chunk["Base.Wound_LForearm_Bite_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -568,9 +470,7 @@ chunk["Base.Wound_LForearm_Bite_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -578,9 +478,7 @@ chunk["Base.Wound_LForearm_Laceration_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -588,9 +486,7 @@ chunk["Base.Wound_LForearm_Laceration_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -598,9 +494,7 @@ chunk["Base.Wound_LForearm_Scratch_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -608,9 +502,7 @@ chunk["Base.Wound_LForearm_Scratch_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -618,9 +510,7 @@ chunk["Base.Wound_LHand_Bite_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -628,9 +518,7 @@ chunk["Base.Wound_LHand_Bite_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -638,9 +526,7 @@ chunk["Base.Wound_LHand_Laceration_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -648,9 +534,7 @@ chunk["Base.Wound_LHand_Laceration_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -658,9 +542,7 @@ chunk["Base.Wound_LHand_Scratch_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -668,9 +550,7 @@ chunk["Base.Wound_LHand_Scratch_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -678,9 +558,7 @@ chunk["Base.Wound_LUArm_Bite_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -688,9 +566,7 @@ chunk["Base.Wound_LUArm_Bite_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -698,9 +574,7 @@ chunk["Base.Wound_LUArm_Laceration_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -708,9 +582,7 @@ chunk["Base.Wound_LUArm_Laceration_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -718,9 +590,7 @@ chunk["Base.Wound_LUArm_Scratch_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -728,9 +598,7 @@ chunk["Base.Wound_LUArm_Scratch_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -738,9 +606,7 @@ chunk["Base.Wound_Neck_Bite_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -748,9 +614,7 @@ chunk["Base.Wound_Neck_Bite_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -758,9 +622,7 @@ chunk["Base.Wound_Neck_Laceration_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -768,9 +630,7 @@ chunk["Base.Wound_Neck_Laceration_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -778,9 +638,7 @@ chunk["Base.Wound_Neck_Scratch_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -788,9 +646,7 @@ chunk["Base.Wound_Neck_Scratch_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -798,9 +654,7 @@ chunk["Base.Wound_RForearm_Bite_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -808,9 +662,7 @@ chunk["Base.Wound_RForearm_Bite_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -818,9 +670,7 @@ chunk["Base.Wound_RForearm_Laceration_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -828,9 +678,7 @@ chunk["Base.Wound_RForearm_Laceration_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -838,9 +686,7 @@ chunk["Base.Wound_RForearm_Scratch_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -848,9 +694,7 @@ chunk["Base.Wound_RForearm_Scratch_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -858,9 +702,7 @@ chunk["Base.Wound_RHand_Bite_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -868,9 +710,7 @@ chunk["Base.Wound_RHand_Bite_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -878,9 +718,7 @@ chunk["Base.Wound_RHand_Laceration_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -888,9 +726,7 @@ chunk["Base.Wound_RHand_Laceration_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -898,9 +734,7 @@ chunk["Base.Wound_RHand_Scratch_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -908,9 +742,7 @@ chunk["Base.Wound_RHand_Scratch_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -918,9 +750,7 @@ chunk["Base.Wound_RUArm_Bite_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -928,9 +758,7 @@ chunk["Base.Wound_RUArm_Bite_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -938,9 +766,7 @@ chunk["Base.Wound_RUArm_Laceration_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -948,9 +774,7 @@ chunk["Base.Wound_RUArm_Laceration_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -958,9 +782,7 @@ chunk["Base.Wound_RUArm_Scratch_Female"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -968,9 +790,7 @@ chunk["Base.Wound_RUArm_Scratch_Male"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -978,22 +798,18 @@ chunk["Base.Yarn"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.inputmaterial_material", display_text = "uc.exclusion.inputmaterial_material", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.inputmaterial_material", display_text = "uc.exclusion.inputmaterial_material", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
 chunk["Base.Yeast"] = {
     lines = {
-        { label_key = "uc.recipe.make_bread_dough", display_text = "[\235\160\136\236\139\156\237\148\188] \235\185\181 \235\176\152\236\163\189 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make Bread Dough", recipe_translated_name = "\235\185\181 \235\176\152\236\163\189 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Bread Dough", translated_name = "\235\185\181 \235\176\152\236\163\189 \235\167\140\235\147\164\234\184\176", category = "Cooking" }, recipe_requirements = { { kind = "flag", display = "\235\175\184\236\138\181\235\147\157", check = { type = "flag", flag_id = "NeedToBeLearn", recipe_name = "Make Bread Dough" } } } },
-        { label_key = "uc.recipe.make_cake_batter", display_text = "[\235\160\136\236\139\156\237\148\188] \236\188\128\236\157\180\237\129\172 \235\176\152\236\163\189 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make Cake Batter", recipe_translated_name = "\236\188\128\236\157\180\237\129\172 \235\176\152\236\163\189 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Cake Batter", translated_name = "\236\188\128\236\157\180\237\129\172 \235\176\152\236\163\189 \235\167\140\235\147\164\234\184\176", category = "Cooking" }, recipe_requirements = { { kind = "flag", display = "\235\175\184\236\138\181\235\147\157", check = { type = "flag", flag_id = "NeedToBeLearn", recipe_name = "Make Cake Batter" } } } },
-        { label_key = "uc.recipe.make_pizza", display_text = "[\235\160\136\236\139\156\237\148\188] \237\148\188\236\158\144 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make Pizza", recipe_translated_name = "\237\148\188\236\158\144 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Pizza", translated_name = "\237\148\188\236\158\144 \235\167\140\235\147\164\234\184\176", category = "Cooking" }, recipe_requirements = { { kind = "flag", display = "\235\175\184\236\138\181\235\147\157", check = { type = "flag", flag_id = "NeedToBeLearn", recipe_name = "Make Pizza" } } } },
+        { label_key = "uc.recipe.make_bread_dough", display_text = "[\235\160\136\236\139\156\237\148\188] \235\185\181 \235\176\152\236\163\189 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make Bread Dough", recipe_translated_name = "\235\185\181 \235\176\152\236\163\189 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Bread Dough", translated_name = "\235\185\181 \235\176\152\236\163\189 \235\167\140\235\147\164\234\184\176", category = "Cooking", }, recipe_requirements = { { kind = "flag", display = "\235\175\184\236\138\181\235\147\157", check = { type = "flag", flag_id = "NeedToBeLearn", recipe_name = "Make Bread Dough" } } } },
+        { label_key = "uc.recipe.make_cake_batter", display_text = "[\235\160\136\236\139\156\237\148\188] \236\188\128\236\157\180\237\129\172 \235\176\152\236\163\189 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make Cake Batter", recipe_translated_name = "\236\188\128\236\157\180\237\129\172 \235\176\152\236\163\189 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Cake Batter", translated_name = "\236\188\128\236\157\180\237\129\172 \235\176\152\236\163\189 \235\167\140\235\147\164\234\184\176", category = "Cooking", }, recipe_requirements = { { kind = "flag", display = "\235\175\184\236\138\181\235\147\157", check = { type = "flag", flag_id = "NeedToBeLearn", recipe_name = "Make Cake Batter" } } } },
+        { label_key = "uc.recipe.make_pizza", display_text = "[\235\160\136\236\139\156\237\148\188] \237\148\188\236\158\144 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make Pizza", recipe_translated_name = "\237\148\188\236\158\144 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Pizza", translated_name = "\237\148\188\236\158\144 \235\167\140\235\147\164\234\184\176", category = "Cooking", }, recipe_requirements = { { kind = "flag", display = "\235\175\184\236\138\181\235\147\157", check = { type = "flag", flag_id = "NeedToBeLearn", recipe_name = "Make Pizza" } } } },
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", line_kind = "exclusion" },
     },
     requirements = {
         { label_key = "Base.Bowl", role = "keep", surface = "recipe_ui" },
@@ -1015,10 +831,8 @@ chunk["Base.Yoghurt"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", line_kind = "exclusion" },
+        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1026,9 +840,7 @@ chunk["Base.ZedDmg_BACK_Slash"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1036,9 +848,7 @@ chunk["Base.ZedDmg_BACK_Spine"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1046,9 +856,7 @@ chunk["Base.ZedDmg_BELLY_Bullet"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1056,9 +864,7 @@ chunk["Base.ZedDmg_BELLY_Shotgun"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1066,9 +872,7 @@ chunk["Base.ZedDmg_BELLY_Skin"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1076,9 +880,7 @@ chunk["Base.ZedDmg_BELLY_Slash"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1086,9 +888,7 @@ chunk["Base.ZedDmg_BellySlashLeft"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1096,9 +896,7 @@ chunk["Base.ZedDmg_BellySlashRight"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1106,9 +904,7 @@ chunk["Base.ZedDmg_BulletBelly01"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1116,9 +912,7 @@ chunk["Base.ZedDmg_BulletBelly02"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1126,9 +920,7 @@ chunk["Base.ZedDmg_BulletBelly03"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1136,9 +928,7 @@ chunk["Base.ZedDmg_BulletChest01"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1146,9 +936,7 @@ chunk["Base.ZedDmg_BulletChest02"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1156,9 +944,7 @@ chunk["Base.ZedDmg_BulletChest03"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1166,9 +952,7 @@ chunk["Base.ZedDmg_BulletChest04"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1176,9 +960,7 @@ chunk["Base.ZedDmg_BulletFace01"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1186,9 +968,7 @@ chunk["Base.ZedDmg_BulletFace02"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1196,9 +976,7 @@ chunk["Base.ZedDmg_BulletForehead01"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1206,9 +984,7 @@ chunk["Base.ZedDmg_BulletForehead02"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1216,9 +992,7 @@ chunk["Base.ZedDmg_BulletForehead03"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1226,9 +1000,7 @@ chunk["Base.ZedDmg_BulletLeftTemple"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1236,9 +1008,7 @@ chunk["Base.ZedDmg_BulletRightTemple"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1246,9 +1016,7 @@ chunk["Base.ZedDmg_CHEST_Bullet"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1256,9 +1024,7 @@ chunk["Base.ZedDmg_CHEST_Shotgun"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1266,9 +1032,7 @@ chunk["Base.ZedDmg_CHEST_Slash"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1276,9 +1040,7 @@ chunk["Base.ZedDmg_ChestSlashLeft"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1286,9 +1048,7 @@ chunk["Base.ZedDmg_FaceSkullLeft"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1296,9 +1056,7 @@ chunk["Base.ZedDmg_FaceSkullRight"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1306,9 +1064,7 @@ chunk["Base.ZedDmg_HEAD_Bullet"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1316,9 +1072,7 @@ chunk["Base.ZedDmg_HEAD_Shotgun"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1326,9 +1080,7 @@ chunk["Base.ZedDmg_HEAD_Skin"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1336,9 +1088,7 @@ chunk["Base.ZedDmg_HEAD_Slash"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1346,9 +1096,7 @@ chunk["Base.ZedDmg_HeadSlashCentre01"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1356,9 +1104,7 @@ chunk["Base.ZedDmg_HeadSlashCentre02"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1366,9 +1112,7 @@ chunk["Base.ZedDmg_HeadSlashCentre03"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1376,9 +1120,7 @@ chunk["Base.ZedDmg_HeadSlashLeft01"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1386,9 +1128,7 @@ chunk["Base.ZedDmg_HeadSlashLeft02"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1396,9 +1136,7 @@ chunk["Base.ZedDmg_HeadSlashLeft03"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1406,9 +1144,7 @@ chunk["Base.ZedDmg_HeadSlashLeftBack01"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1416,9 +1152,7 @@ chunk["Base.ZedDmg_HeadSlashLeftBack02"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1426,9 +1160,7 @@ chunk["Base.ZedDmg_HeadSlashRight01"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1436,9 +1168,7 @@ chunk["Base.ZedDmg_HeadSlashRight02"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1446,9 +1176,7 @@ chunk["Base.ZedDmg_HeadSlashRight03"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1456,9 +1184,7 @@ chunk["Base.ZedDmg_HeadSlashRightBack01"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1466,9 +1192,7 @@ chunk["Base.ZedDmg_HeadSlashRightBack02"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1476,9 +1200,7 @@ chunk["Base.ZedDmg_Mouth01"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1486,9 +1208,7 @@ chunk["Base.ZedDmg_Mouth02"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1496,9 +1216,7 @@ chunk["Base.ZedDmg_MouthLeft"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1506,9 +1224,7 @@ chunk["Base.ZedDmg_MouthRight"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1516,9 +1232,7 @@ chunk["Base.ZedDmg_NECK_Bite"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1526,9 +1240,7 @@ chunk["Base.ZedDmg_NeckBiteBackLeft"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1536,9 +1248,7 @@ chunk["Base.ZedDmg_NeckBiteBackRight"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1546,9 +1256,7 @@ chunk["Base.ZedDmg_NeckBiteFrontLeft"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1556,9 +1264,7 @@ chunk["Base.ZedDmg_NeckBiteFrontRight"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1566,9 +1272,7 @@ chunk["Base.ZedDmg_NoChin"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1576,9 +1280,7 @@ chunk["Base.ZedDmg_NoEarLeft"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1586,9 +1288,7 @@ chunk["Base.ZedDmg_NoEarRight"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1596,9 +1296,7 @@ chunk["Base.ZedDmg_NoNose"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1606,9 +1304,7 @@ chunk["Base.ZedDmg_RibsLeft"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1616,9 +1312,7 @@ chunk["Base.ZedDmg_RibsRight"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1626,9 +1320,7 @@ chunk["Base.ZedDmg_ShotgunBelly"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1636,9 +1328,7 @@ chunk["Base.ZedDmg_ShotgunChestCentre"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1646,9 +1336,7 @@ chunk["Base.ZedDmg_ShotgunChestLeft"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1656,9 +1344,7 @@ chunk["Base.ZedDmg_ShotgunChestRight"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1666,9 +1352,7 @@ chunk["Base.ZedDmg_ShotgunFaceFull"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1676,9 +1360,7 @@ chunk["Base.ZedDmg_ShotgunFaceLeft"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1686,9 +1368,7 @@ chunk["Base.ZedDmg_ShotgunFaceRight"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1696,9 +1376,7 @@ chunk["Base.ZedDmg_ShotgunLeft"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1706,9 +1384,7 @@ chunk["Base.ZedDmg_ShotgunRight"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1716,9 +1392,7 @@ chunk["Base.ZedDmg_ShoulderSlashLeft"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1726,9 +1400,7 @@ chunk["Base.ZedDmg_ShoulderSlashRight"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1736,9 +1408,7 @@ chunk["Base.ZedDmg_SkullCap"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1746,9 +1416,7 @@ chunk["Base.ZedDmg_SkullUpLeft"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1756,9 +1424,7 @@ chunk["Base.ZedDmg_SkullUpRight"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.equip_clothing", display_text = "uc.exclusion.equip_clothing", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1766,92 +1432,74 @@ chunk["Base.Zucchini"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", line_kind = "exclusion" },
+        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
 chunk["Base.x2Scope"] = {
     lines = {
-        { label_key = "uc.action.attach_weapon_part", display_text = "[\236\154\176\237\129\180\235\166\173] \235\172\180\234\184\176 \235\182\128\237\146\136 \236\158\165\236\176\169", surface = "context_menu", strength = "EXCLUDE", uniqueness = nil, line_kind = "evidence" },
+        { label_key = "uc.action.attach_weapon_part", display_text = "[\236\154\176\237\129\180\235\166\173] \235\172\180\234\184\176 \235\182\128\237\146\136 \236\158\165\236\176\169", surface = "context_menu", strength = "EXCLUDE", line_kind = "evidence" },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Base.x4Scope"] = {
     lines = {
-        { label_key = "uc.action.attach_weapon_part", display_text = "[\236\154\176\237\129\180\235\166\173] \235\172\180\234\184\176 \235\182\128\237\146\136 \236\158\165\236\176\169", surface = "context_menu", strength = "EXCLUDE", uniqueness = nil, line_kind = "evidence" },
+        { label_key = "uc.action.attach_weapon_part", display_text = "[\236\154\176\237\129\180\235\166\173] \235\172\180\234\184\176 \235\182\128\237\146\136 \236\158\165\236\176\169", surface = "context_menu", strength = "EXCLUDE", line_kind = "evidence" },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Base.x8Scope"] = {
     lines = {
-        { label_key = "uc.action.attach_weapon_part", display_text = "[\236\154\176\237\129\180\235\166\173] \235\172\180\234\184\176 \235\182\128\237\146\136 \236\158\165\236\176\169", surface = "context_menu", strength = "EXCLUDE", uniqueness = nil, line_kind = "evidence" },
+        { label_key = "uc.action.attach_weapon_part", display_text = "[\236\154\176\237\129\180\235\166\173] \235\172\180\234\184\176 \235\182\128\237\146\136 \236\158\165\236\176\169", surface = "context_menu", strength = "EXCLUDE", line_kind = "evidence" },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Radio.CDplayer"] = {
     lines = {
-        { label_key = "uc.recipe.dismantle_cd_player", display_text = "[\235\160\136\236\139\156\237\148\188] CD \237\148\140\235\160\136\236\157\180\236\150\180 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Dismantle CD Player", recipe_translated_name = "CD \237\148\140\235\160\136\236\157\180\236\150\180 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle CD Player", translated_name = "CD \237\148\140\235\160\136\236\157\180\236\150\180 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical" } },
+        { label_key = "uc.recipe.dismantle_cd_player", display_text = "[\235\160\136\236\139\156\237\148\188] CD \237\148\140\235\160\136\236\157\180\236\150\180 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Dismantle CD Player", recipe_translated_name = "CD \237\148\140\235\160\136\236\157\180\236\150\180 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle CD Player", translated_name = "CD \237\148\140\235\160\136\236\157\180\236\150\180 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Radio.ElectricWire"] = {
     lines = {
-        { label_key = "uc.recipe.craft_makeshift_ham_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\236\160\156\236\158\145 \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Craft Makeshift HAM Radio", recipe_translated_name = "\236\136\152\236\160\156\236\158\145 \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Craft Makeshift HAM Radio", translated_name = "\236\136\152\236\160\156\236\158\145 \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\167\140\235\147\164\234\184\176", category = "Electrical" } },
-        { label_key = "uc.recipe.craft_makeshift_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\236\160\156\236\158\145 \235\157\188\235\148\148\236\152\164 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Craft Makeshift Radio", recipe_translated_name = "\236\136\152\236\160\156\236\158\145 \235\157\188\235\148\148\236\152\164 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Craft Makeshift Radio", translated_name = "\236\136\152\236\160\156\236\158\145 \235\157\188\235\148\148\236\152\164 \235\167\140\235\147\164\234\184\176", category = "Electrical" } },
-        { label_key = "uc.recipe.craft_makeshift_walkie_talkie", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\236\160\156\236\158\145 \237\156\180\235\140\128\236\154\169 \235\172\180\236\160\132\234\184\176 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Craft Makeshift Walkie Talkie", recipe_translated_name = "\236\136\152\236\160\156\236\158\145 \237\156\180\235\140\128\236\154\169 \235\172\180\236\160\132\234\184\176 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Craft Makeshift Walkie Talkie", translated_name = "\236\136\152\236\160\156\236\158\145 \237\156\180\235\140\128\236\154\169 \235\172\180\236\160\132\234\184\176 \235\167\140\235\147\164\234\184\176", category = "Electrical" } },
+        { label_key = "uc.recipe.craft_makeshift_ham_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\236\160\156\236\158\145 \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Craft Makeshift HAM Radio", recipe_translated_name = "\236\136\152\236\160\156\236\158\145 \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Craft Makeshift HAM Radio", translated_name = "\236\136\152\236\160\156\236\158\145 \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\167\140\235\147\164\234\184\176", category = "Electrical", } },
+        { label_key = "uc.recipe.craft_makeshift_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\236\160\156\236\158\145 \235\157\188\235\148\148\236\152\164 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Craft Makeshift Radio", recipe_translated_name = "\236\136\152\236\160\156\236\158\145 \235\157\188\235\148\148\236\152\164 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Craft Makeshift Radio", translated_name = "\236\136\152\236\160\156\236\158\145 \235\157\188\235\148\148\236\152\164 \235\167\140\235\147\164\234\184\176", category = "Electrical", } },
+        { label_key = "uc.recipe.craft_makeshift_walkie_talkie", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\236\160\156\236\158\145 \237\156\180\235\140\128\236\154\169 \235\172\180\236\160\132\234\184\176 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Craft Makeshift Walkie Talkie", recipe_translated_name = "\236\136\152\236\160\156\236\158\145 \237\156\180\235\140\128\236\154\169 \235\172\180\236\160\132\234\184\176 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Craft Makeshift Walkie Talkie", translated_name = "\236\136\152\236\160\156\236\158\145 \237\156\180\235\140\128\236\154\169 \235\172\180\236\160\132\234\184\176 \235\167\140\235\147\164\234\184\176", category = "Electrical", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Radio.HamRadio1"] = {
     lines = {
-        { label_key = "uc.recipe.dismantle_ham_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Dismantle HAM Radio", recipe_translated_name = "\236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle HAM Radio", translated_name = "\236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical" } },
+        { label_key = "uc.recipe.dismantle_ham_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Dismantle HAM Radio", recipe_translated_name = "\236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle HAM Radio", translated_name = "\236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Radio.HamRadio2"] = {
     lines = {
-        { label_key = "uc.recipe.dismantle_ham_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Dismantle HAM Radio", recipe_translated_name = "\236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle HAM Radio", translated_name = "\236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical" } },
+        { label_key = "uc.recipe.dismantle_ham_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Dismantle HAM Radio", recipe_translated_name = "\236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle HAM Radio", translated_name = "\236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Radio.RadioBlack"] = {
     lines = {
-        { label_key = "uc.recipe.dismantle_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \235\157\188\235\148\148\236\152\164 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Dismantle Radio", recipe_translated_name = "\235\157\188\235\148\148\236\152\164 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle Radio", translated_name = "\235\157\188\235\148\148\236\152\164 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical" } },
+        { label_key = "uc.recipe.dismantle_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \235\157\188\235\148\148\236\152\164 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Dismantle Radio", recipe_translated_name = "\235\157\188\235\148\148\236\152\164 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle Radio", translated_name = "\235\157\188\235\148\148\236\152\164 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
@@ -1859,9 +1507,7 @@ chunk["Radio.RadioMag1"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_literature", display_text = "uc.exclusion.consumption_literature", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_literature", display_text = "uc.exclusion.consumption_literature", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1869,9 +1515,7 @@ chunk["Radio.RadioMag2"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_literature", display_text = "uc.exclusion.consumption_literature", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_literature", display_text = "uc.exclusion.consumption_literature", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -1879,123 +1523,99 @@ chunk["Radio.RadioMag3"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_literature", display_text = "uc.exclusion.consumption_literature", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_literature", display_text = "uc.exclusion.consumption_literature", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
 chunk["Radio.RadioReceiver"] = {
     lines = {
-        { label_key = "uc.recipe.craft_makeshift_ham_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\236\160\156\236\158\145 \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Craft Makeshift HAM Radio", recipe_translated_name = "\236\136\152\236\160\156\236\158\145 \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Craft Makeshift HAM Radio", translated_name = "\236\136\152\236\160\156\236\158\145 \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\167\140\235\147\164\234\184\176", category = "Electrical" } },
-        { label_key = "uc.recipe.craft_makeshift_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\236\160\156\236\158\145 \235\157\188\235\148\148\236\152\164 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Craft Makeshift Radio", recipe_translated_name = "\236\136\152\236\160\156\236\158\145 \235\157\188\235\148\148\236\152\164 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Craft Makeshift Radio", translated_name = "\236\136\152\236\160\156\236\158\145 \235\157\188\235\148\148\236\152\164 \235\167\140\235\147\164\234\184\176", category = "Electrical" } },
-        { label_key = "uc.recipe.craft_makeshift_walkie_talkie", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\236\160\156\236\158\145 \237\156\180\235\140\128\236\154\169 \235\172\180\236\160\132\234\184\176 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Craft Makeshift Walkie Talkie", recipe_translated_name = "\236\136\152\236\160\156\236\158\145 \237\156\180\235\140\128\236\154\169 \235\172\180\236\160\132\234\184\176 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Craft Makeshift Walkie Talkie", translated_name = "\236\136\152\236\160\156\236\158\145 \237\156\180\235\140\128\236\154\169 \235\172\180\236\160\132\234\184\176 \235\167\140\235\147\164\234\184\176", category = "Electrical" } },
-        { label_key = "uc.recipe.make_remote_trigger", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\236\160\156\236\158\145 \236\155\144\234\178\169 \237\143\173\237\131\132 \234\178\169\235\176\156\234\184\176 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make Remote Trigger", recipe_translated_name = "\236\136\152\236\160\156\236\158\145 \236\155\144\234\178\169 \237\143\173\237\131\132 \234\178\169\235\176\156\234\184\176 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Remote Trigger", translated_name = "\236\136\152\236\160\156\236\158\145 \236\155\144\234\178\169 \237\143\173\237\131\132 \234\178\169\235\176\156\234\184\176 \235\167\140\235\147\164\234\184\176", category = "Electrical" }, recipe_requirements = { { kind = "flag", display = "\235\175\184\236\138\181\235\147\157", check = { type = "flag", flag_id = "NeedToBeLearn", recipe_name = "Make Remote Trigger" } }, { kind = "perk", display = "\236\160\132\234\184\176\234\179\181\237\149\153 >= 2", check = { type = "perk", perk_id = "Electricity", level = 2 } } } },
+        { label_key = "uc.recipe.craft_makeshift_ham_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\236\160\156\236\158\145 \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Craft Makeshift HAM Radio", recipe_translated_name = "\236\136\152\236\160\156\236\158\145 \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Craft Makeshift HAM Radio", translated_name = "\236\136\152\236\160\156\236\158\145 \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\167\140\235\147\164\234\184\176", category = "Electrical", } },
+        { label_key = "uc.recipe.craft_makeshift_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\236\160\156\236\158\145 \235\157\188\235\148\148\236\152\164 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Craft Makeshift Radio", recipe_translated_name = "\236\136\152\236\160\156\236\158\145 \235\157\188\235\148\148\236\152\164 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Craft Makeshift Radio", translated_name = "\236\136\152\236\160\156\236\158\145 \235\157\188\235\148\148\236\152\164 \235\167\140\235\147\164\234\184\176", category = "Electrical", } },
+        { label_key = "uc.recipe.craft_makeshift_walkie_talkie", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\236\160\156\236\158\145 \237\156\180\235\140\128\236\154\169 \235\172\180\236\160\132\234\184\176 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Craft Makeshift Walkie Talkie", recipe_translated_name = "\236\136\152\236\160\156\236\158\145 \237\156\180\235\140\128\236\154\169 \235\172\180\236\160\132\234\184\176 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Craft Makeshift Walkie Talkie", translated_name = "\236\136\152\236\160\156\236\158\145 \237\156\180\235\140\128\236\154\169 \235\172\180\236\160\132\234\184\176 \235\167\140\235\147\164\234\184\176", category = "Electrical", } },
+        { label_key = "uc.recipe.make_remote_trigger", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\236\160\156\236\158\145 \236\155\144\234\178\169 \237\143\173\237\131\132 \234\178\169\235\176\156\234\184\176 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make Remote Trigger", recipe_translated_name = "\236\136\152\236\160\156\236\158\145 \236\155\144\234\178\169 \237\143\173\237\131\132 \234\178\169\235\176\156\234\184\176 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Remote Trigger", translated_name = "\236\136\152\236\160\156\236\158\145 \236\155\144\234\178\169 \237\143\173\237\131\132 \234\178\169\235\176\156\234\184\176 \235\167\140\235\147\164\234\184\176", category = "Electrical", }, recipe_requirements = { { kind = "flag", display = "\235\175\184\236\138\181\235\147\157", check = { type = "flag", flag_id = "NeedToBeLearn", recipe_name = "Make Remote Trigger" } }, { kind = "perk", display = "\236\160\132\234\184\176\234\179\181\237\149\153 >= 2", check = { type = "perk", perk_id = "Electricity", level = 2 } } } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Radio.RadioRed"] = {
     lines = {
-        { label_key = "uc.recipe.dismantle_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \235\157\188\235\148\148\236\152\164 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Dismantle Radio", recipe_translated_name = "\235\157\188\235\148\148\236\152\164 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle Radio", translated_name = "\235\157\188\235\148\148\236\152\164 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical" } },
+        { label_key = "uc.recipe.dismantle_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \235\157\188\235\148\148\236\152\164 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Dismantle Radio", recipe_translated_name = "\235\157\188\235\148\148\236\152\164 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle Radio", translated_name = "\235\157\188\235\148\148\236\152\164 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Radio.RadioTransmitter"] = {
     lines = {
-        { label_key = "uc.recipe.craft_makeshift_ham_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\236\160\156\236\158\145 \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Craft Makeshift HAM Radio", recipe_translated_name = "\236\136\152\236\160\156\236\158\145 \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Craft Makeshift HAM Radio", translated_name = "\236\136\152\236\160\156\236\158\145 \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\167\140\235\147\164\234\184\176", category = "Electrical" } },
-        { label_key = "uc.recipe.craft_makeshift_walkie_talkie", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\236\160\156\236\158\145 \237\156\180\235\140\128\236\154\169 \235\172\180\236\160\132\234\184\176 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Craft Makeshift Walkie Talkie", recipe_translated_name = "\236\136\152\236\160\156\236\158\145 \237\156\180\235\140\128\236\154\169 \235\172\180\236\160\132\234\184\176 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Craft Makeshift Walkie Talkie", translated_name = "\236\136\152\236\160\156\236\158\145 \237\156\180\235\140\128\236\154\169 \235\172\180\236\160\132\234\184\176 \235\167\140\235\147\164\234\184\176", category = "Electrical" } },
+        { label_key = "uc.recipe.craft_makeshift_ham_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\236\160\156\236\158\145 \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Craft Makeshift HAM Radio", recipe_translated_name = "\236\136\152\236\160\156\236\158\145 \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Craft Makeshift HAM Radio", translated_name = "\236\136\152\236\160\156\236\158\145 \236\149\132\235\167\136\236\182\148\236\150\180 \235\172\180\236\132\160\237\134\181\236\139\160\234\184\176 \235\167\140\235\147\164\234\184\176", category = "Electrical", } },
+        { label_key = "uc.recipe.craft_makeshift_walkie_talkie", display_text = "[\235\160\136\236\139\156\237\148\188] \236\136\152\236\160\156\236\158\145 \237\156\180\235\140\128\236\154\169 \235\172\180\236\160\132\234\184\176 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Craft Makeshift Walkie Talkie", recipe_translated_name = "\236\136\152\236\160\156\236\158\145 \237\156\180\235\140\128\236\154\169 \235\172\180\236\160\132\234\184\176 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Craft Makeshift Walkie Talkie", translated_name = "\236\136\152\236\160\156\236\158\145 \237\156\180\235\140\128\236\154\169 \235\172\180\236\160\132\234\184\176 \235\167\140\235\147\164\234\184\176", category = "Electrical", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Radio.TvAntique"] = {
     lines = {
-        { label_key = "uc.recipe.dismantle_television", display_text = "[\235\160\136\236\139\156\237\148\188] \237\133\148\235\160\136\235\185\132\236\160\132 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Dismantle Television", recipe_translated_name = "\237\133\148\235\160\136\235\185\132\236\160\132 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle Television", translated_name = "\237\133\148\235\160\136\235\185\132\236\160\132 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical" } },
+        { label_key = "uc.recipe.dismantle_television", display_text = "[\235\160\136\236\139\156\237\148\188] \237\133\148\235\160\136\235\185\132\236\160\132 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Dismantle Television", recipe_translated_name = "\237\133\148\235\160\136\235\185\132\236\160\132 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle Television", translated_name = "\237\133\148\235\160\136\235\185\132\236\160\132 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Radio.TvBlack"] = {
     lines = {
-        { label_key = "uc.recipe.dismantle_television", display_text = "[\235\160\136\236\139\156\237\148\188] \237\133\148\235\160\136\235\185\132\236\160\132 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Dismantle Television", recipe_translated_name = "\237\133\148\235\160\136\235\185\132\236\160\132 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle Television", translated_name = "\237\133\148\235\160\136\235\185\132\236\160\132 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical" } },
+        { label_key = "uc.recipe.dismantle_television", display_text = "[\235\160\136\236\139\156\237\148\188] \237\133\148\235\160\136\235\185\132\236\160\132 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Dismantle Television", recipe_translated_name = "\237\133\148\235\160\136\235\185\132\236\160\132 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle Television", translated_name = "\237\133\148\235\160\136\235\185\132\236\160\132 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Radio.TvWideScreen"] = {
     lines = {
-        { label_key = "uc.recipe.dismantle_television", display_text = "[\235\160\136\236\139\156\237\148\188] \237\133\148\235\160\136\235\185\132\236\160\132 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Dismantle Television", recipe_translated_name = "\237\133\148\235\160\136\235\185\132\236\160\132 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle Television", translated_name = "\237\133\148\235\160\136\235\185\132\236\160\132 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical" } },
+        { label_key = "uc.recipe.dismantle_television", display_text = "[\235\160\136\236\139\156\237\148\188] \237\133\148\235\160\136\235\185\132\236\160\132 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Dismantle Television", recipe_translated_name = "\237\133\148\235\160\136\235\185\132\236\160\132 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle Television", translated_name = "\237\133\148\235\160\136\235\185\132\236\160\132 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Radio.WalkieTalkie1"] = {
     lines = {
-        { label_key = "uc.recipe.dismantle_two_way_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Dismantle Two-way Radio", recipe_translated_name = "\236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle Two-way Radio", translated_name = "\236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical" } },
+        { label_key = "uc.recipe.dismantle_two_way_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Dismantle Two-way Radio", recipe_translated_name = "\236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle Two-way Radio", translated_name = "\236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Radio.WalkieTalkie2"] = {
     lines = {
-        { label_key = "uc.recipe.dismantle_two_way_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Dismantle Two-way Radio", recipe_translated_name = "\236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle Two-way Radio", translated_name = "\236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical" } },
+        { label_key = "uc.recipe.dismantle_two_way_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Dismantle Two-way Radio", recipe_translated_name = "\236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle Two-way Radio", translated_name = "\236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Radio.WalkieTalkie3"] = {
     lines = {
-        { label_key = "uc.recipe.dismantle_two_way_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Dismantle Two-way Radio", recipe_translated_name = "\236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle Two-way Radio", translated_name = "\236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical" } },
+        { label_key = "uc.recipe.dismantle_two_way_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Dismantle Two-way Radio", recipe_translated_name = "\236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle Two-way Radio", translated_name = "\236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Radio.WalkieTalkie4"] = {
     lines = {
-        { label_key = "uc.recipe.dismantle_two_way_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Dismantle Two-way Radio", recipe_translated_name = "\236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle Two-way Radio", translated_name = "\236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical" } },
+        { label_key = "uc.recipe.dismantle_two_way_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Dismantle Two-way Radio", recipe_translated_name = "\236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle Two-way Radio", translated_name = "\236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["Radio.WalkieTalkie5"] = {
     lines = {
-        { label_key = "uc.recipe.dismantle_two_way_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Dismantle Two-way Radio", recipe_translated_name = "\236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle Two-way Radio", translated_name = "\236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical" } },
+        { label_key = "uc.recipe.dismantle_two_way_radio", display_text = "[\235\160\136\236\139\156\237\148\188] \236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Dismantle Two-way Radio", recipe_translated_name = "\236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", recipe_nav_ref = { original_name = "Dismantle Two-way Radio", translated_name = "\236\134\161\236\136\152\236\139\160 \235\172\180\236\160\132\234\184\176 \235\182\132\237\149\180\237\149\152\234\184\176", category = "Electrical", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
@@ -2003,32 +1623,26 @@ chunk["camping.Flint"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.inputmaterial_material", display_text = "uc.exclusion.inputmaterial_material", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.inputmaterial_material", display_text = "uc.exclusion.inputmaterial_material", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
 chunk["camping.TentPeg"] = {
     lines = {
-        { label_key = "uc.recipe.make_tent_kit", display_text = "[\235\160\136\236\139\156\237\148\188] \237\133\144\237\138\184 \236\158\165\235\185\132 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make Tent Kit", recipe_translated_name = "\237\133\144\237\138\184 \236\158\165\235\185\132 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Tent Kit", translated_name = "\237\133\144\237\138\184 \236\158\165\235\185\132 \235\167\140\235\147\164\234\184\176", category = "Survivalist" } },
+        { label_key = "uc.recipe.make_tent_kit", display_text = "[\235\160\136\236\139\156\237\148\188] \237\133\144\237\138\184 \236\158\165\235\185\132 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make Tent Kit", recipe_translated_name = "\237\133\144\237\138\184 \236\158\165\235\185\132 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Make Tent Kit", translated_name = "\237\133\144\237\138\184 \236\158\165\235\185\132 \235\167\140\235\147\164\234\184\176", category = "Survivalist", } },
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.inputmaterial_material", display_text = "uc.exclusion.inputmaterial_material", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.inputmaterial_material", display_text = "uc.exclusion.inputmaterial_material", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
 chunk["farming.Bacon"] = {
     lines = {
-        { label_key = "uc.recipe.get_bacon_rashers", display_text = "[\235\160\136\236\139\156\237\148\188] \235\178\160\236\157\180\236\187\168 \236\138\172\235\157\188\236\157\180\236\138\164 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Get Bacon Rashers", recipe_translated_name = "\235\178\160\236\157\180\236\187\168 \236\138\172\235\157\188\236\157\180\236\138\164 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Get Bacon Rashers", translated_name = "\235\178\160\236\157\180\236\187\168 \236\138\172\235\157\188\236\157\180\236\138\164 \235\167\140\235\147\164\234\184\176", category = "Cooking" } },
+        { label_key = "uc.recipe.get_bacon_rashers", display_text = "[\235\160\136\236\139\156\237\148\188] \235\178\160\236\157\180\236\187\168 \236\138\172\235\157\188\236\157\180\236\138\164 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Get Bacon Rashers", recipe_translated_name = "\235\178\160\236\157\180\236\187\168 \236\138\172\235\157\188\236\157\180\236\138\164 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Get Bacon Rashers", translated_name = "\235\178\160\236\157\180\236\187\168 \236\138\172\235\157\188\236\157\180\236\138\164 \235\167\140\235\147\164\234\184\176", category = "Cooking", } },
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", line_kind = "exclusion" },
+        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -2036,22 +1650,18 @@ chunk["farming.BaconBits"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", line_kind = "exclusion" },
+        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
 chunk["farming.BaconRashers"] = {
     lines = {
-        { label_key = "uc.recipe.get_bacon_bits", display_text = "[\235\160\136\236\139\156\237\148\188] \235\178\160\236\157\180\236\187\168 \236\158\145\236\157\128 \236\161\176\234\176\129 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Get Bacon Bits", recipe_translated_name = "\235\178\160\236\157\180\236\187\168 \236\158\145\236\157\128 \236\161\176\234\176\129 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Get Bacon Bits", translated_name = "\235\178\160\236\157\180\236\187\168 \236\158\145\236\157\128 \236\161\176\234\176\129 \235\167\140\235\147\164\234\184\176", category = "Cooking" } },
+        { label_key = "uc.recipe.get_bacon_bits", display_text = "[\235\160\136\236\139\156\237\148\188] \235\178\160\236\157\180\236\187\168 \236\158\145\236\157\128 \236\161\176\234\176\129 \235\167\140\235\147\164\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Get Bacon Bits", recipe_translated_name = "\235\178\160\236\157\180\236\187\168 \236\158\145\236\157\128 \236\161\176\234\176\129 \235\167\140\235\147\164\234\184\176", recipe_nav_ref = { original_name = "Get Bacon Bits", translated_name = "\235\178\160\236\157\180\236\187\168 \236\158\145\236\157\128 \236\161\176\234\176\129 \235\167\140\235\147\164\234\184\176", category = "Cooking", } },
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", line_kind = "exclusion" },
+        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
@@ -2059,52 +1669,42 @@ chunk["farming.BloomingBroccoli"] = {
     lines = {
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", line_kind = "exclusion" },
+        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
 chunk["farming.BroccoliBagSeed"] = {
     lines = {
-        { label_key = "uc.recipe.open_packet_of_broccoli_seeds", display_text = "[\235\160\136\236\139\156\237\148\188] \235\184\140\235\161\156\236\189\156\235\166\172 \236\148\168\236\149\151 \235\180\137\237\136\172\236\151\144\236\132\156 \234\186\188\235\130\180\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Open Packet of Broccoli Seeds", recipe_translated_name = "\235\184\140\235\161\156\236\189\156\235\166\172 \236\148\168\236\149\151 \235\180\137\237\136\172\236\151\144\236\132\156 \234\186\188\235\130\180\234\184\176", recipe_nav_ref = { original_name = "Open Packet of Broccoli Seeds", translated_name = "\235\184\140\235\161\156\236\189\156\235\166\172 \236\148\168\236\149\151 \235\180\137\237\136\172\236\151\144\236\132\156 \234\186\188\235\130\180\234\184\176", category = "Farming" } },
+        { label_key = "uc.recipe.open_packet_of_broccoli_seeds", display_text = "[\235\160\136\236\139\156\237\148\188] \235\184\140\235\161\156\236\189\156\235\166\172 \236\148\168\236\149\151 \235\180\137\237\136\172\236\151\144\236\132\156 \234\186\188\235\130\180\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Open Packet of Broccoli Seeds", recipe_translated_name = "\235\184\140\235\161\156\236\189\156\235\166\172 \236\148\168\236\149\151 \235\180\137\237\136\172\236\151\144\236\132\156 \234\186\188\235\130\180\234\184\176", recipe_nav_ref = { original_name = "Open Packet of Broccoli Seeds", translated_name = "\235\184\140\235\161\156\236\189\156\235\166\172 \236\148\168\236\149\151 \235\180\137\237\136\172\236\151\144\236\132\156 \234\186\188\235\130\180\234\184\176", category = "Farming", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["farming.BroccoliSeed"] = {
     lines = {
-        { label_key = "uc.recipe.put_broccoli_seeds_in_packet", display_text = "[\235\160\136\236\139\156\237\148\188] \235\184\140\235\161\156\236\189\156\235\166\172 \236\148\168\236\149\151 \235\180\137\237\136\172\236\151\144 \235\139\180\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Put Broccoli Seeds in Packet", recipe_translated_name = "\235\184\140\235\161\156\236\189\156\235\166\172 \236\148\168\236\149\151 \235\180\137\237\136\172\236\151\144 \235\139\180\234\184\176", recipe_nav_ref = { original_name = "Put Broccoli Seeds in Packet", translated_name = "\235\184\140\235\161\156\236\189\156\235\166\172 \236\148\168\236\149\151 \235\180\137\237\136\172\236\151\144 \235\139\180\234\184\176", category = "Farming" } },
+        { label_key = "uc.recipe.put_broccoli_seeds_in_packet", display_text = "[\235\160\136\236\139\156\237\148\188] \235\184\140\235\161\156\236\189\156\235\166\172 \236\148\168\236\149\151 \235\180\137\237\136\172\236\151\144 \235\139\180\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Put Broccoli Seeds in Packet", recipe_translated_name = "\235\184\140\235\161\156\236\189\156\235\166\172 \236\148\168\236\149\151 \235\180\137\237\136\172\236\151\144 \235\139\180\234\184\176", recipe_nav_ref = { original_name = "Put Broccoli Seeds in Packet", translated_name = "\235\184\140\235\161\156\236\189\156\235\166\172 \236\148\168\236\149\151 \235\180\137\237\136\172\236\151\144 \235\139\180\234\184\176", category = "Farming", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 
 chunk["farming.Cabbage"] = {
     lines = {
-        { label_key = "uc.recipe.make_jar_of_cabbage", display_text = "[\235\160\136\236\139\156\237\148\188] \235\179\145\236\151\144 \236\150\145\235\176\176\236\182\148 \236\160\136\236\157\180\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Make Jar of Cabbage", recipe_translated_name = "\235\179\145\236\151\144 \236\150\145\235\176\176\236\182\148 \236\160\136\236\157\180\234\184\176", recipe_nav_ref = { original_name = "Make Jar of Cabbage", translated_name = "\235\179\145\236\151\144 \236\150\145\235\176\176\236\182\148 \236\160\136\236\157\180\234\184\176", category = "Cooking" } },
+        { label_key = "uc.recipe.make_jar_of_cabbage", display_text = "[\235\160\136\236\139\156\237\148\188] \235\179\145\236\151\144 \236\150\145\235\176\176\236\182\148 \236\160\136\236\157\180\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Make Jar of Cabbage", recipe_translated_name = "\235\179\145\236\151\144 \236\150\145\235\176\176\236\182\148 \236\160\136\236\157\180\234\184\176", recipe_nav_ref = { original_name = "Make Jar of Cabbage", translated_name = "\235\179\145\236\151\144 \236\150\145\235\176\176\236\182\148 \236\160\136\236\157\180\234\184\176", category = "Cooking", } },
     },
     exclusion_lines = {
-        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", strength = nil, uniqueness = nil, line_kind = "exclusion" },
-    },
-    debug_lines = {
+        { label_key = "uc.exclusion.consumption_displaycategory_food", display_text = "uc.exclusion.consumption_displaycategory_food", surface = "context_menu", line_kind = "exclusion" },
+        { label_key = "uc.exclusion.consumption_food", display_text = "uc.exclusion.consumption_food", surface = "context_menu", line_kind = "exclusion" },
     },
 }
 
 chunk["farming.CabbageBagSeed"] = {
     lines = {
-        { label_key = "uc.recipe.open_packet_of_cabbage_seeds", display_text = "[\235\160\136\236\139\156\237\148\188] \236\150\145\235\176\176\236\182\148 \236\148\168\236\149\151 \235\180\137\237\136\172\236\151\144\236\132\156 \234\186\188\235\130\180\234\184\176", surface = "recipe_ui", strength = nil, uniqueness = nil, line_kind = "evidence", recipe_original_name = "Open Packet of Cabbage Seeds", recipe_translated_name = "\236\150\145\235\176\176\236\182\148 \236\148\168\236\149\151 \235\180\137\237\136\172\236\151\144\236\132\156 \234\186\188\235\130\180\234\184\176", recipe_nav_ref = { original_name = "Open Packet of Cabbage Seeds", translated_name = "\236\150\145\235\176\176\236\182\148 \236\148\168\236\149\151 \235\180\137\237\136\172\236\151\144\236\132\156 \234\186\188\235\130\180\234\184\176", category = "Farming" } },
+        { label_key = "uc.recipe.open_packet_of_cabbage_seeds", display_text = "[\235\160\136\236\139\156\237\148\188] \236\150\145\235\176\176\236\182\148 \236\148\168\236\149\151 \235\180\137\237\136\172\236\151\144\236\132\156 \234\186\188\235\130\180\234\184\176", surface = "recipe_ui", line_kind = "evidence", recipe_original_name = "Open Packet of Cabbage Seeds", recipe_translated_name = "\236\150\145\235\176\176\236\182\148 \236\148\168\236\149\151 \235\180\137\237\136\172\236\151\144\236\132\156 \234\186\188\235\130\180\234\184\176", recipe_nav_ref = { original_name = "Open Packet of Cabbage Seeds", translated_name = "\236\150\145\235\176\176\236\182\148 \236\148\168\236\149\151 \235\180\137\237\136\172\236\151\144\236\132\156 \234\186\188\235\130\180\234\184\176", category = "Farming", } },
     },
     exclusion_lines = {
-    },
-    debug_lines = {
     },
 }
 

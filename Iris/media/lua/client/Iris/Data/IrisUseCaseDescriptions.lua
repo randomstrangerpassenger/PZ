@@ -21,6 +21,7 @@ local chunkModules = {
 for _, moduleName in ipairs(chunkModules) do
     local chunk = require(moduleName)
     for fullType, entry in pairs(chunk) do
+        if entry.debug_lines == nil then entry.debug_lines = {} end
         IrisUseCaseDescriptions[fullType] = entry
     end
 end

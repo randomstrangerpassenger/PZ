@@ -128,7 +128,11 @@ if ($safeAttempt.Length -gt 32) { $safeAttempt = $safeAttempt.Substring(0, 32) }
 $runIdWasExplicit = -not [string]::IsNullOrWhiteSpace($RunId)
 $resolvedRunId = if ($runIdWasExplicit) { $RunId.ToLowerInvariant() } else { [Guid]::NewGuid().ToString('N') }
 if ($resolvedRunId -notmatch '^[0-9a-f]{32}$') { throw 'RunId must be a 32-character lowercase hexadecimal GUID form' }
-$baseName = '{0}-{1}-{2}-{3}' -f $AllocationProfile, $safeClaim, $safeAttempt, $resolvedRunId.Substring(0, 12)
+$baseName = switch ($AllocationProfile) {
+    'terminal-run-a' { 'ta-{0}' -f $resolvedRunId.Substring(0, 12) }
+    'terminal-run-b' { 'tb-{0}' -f $resolvedRunId.Substring(0, 12) }
+    default { '{0}-{1}-{2}-{3}' -f $AllocationProfile, $safeClaim, $safeAttempt, $resolvedRunId.Substring(0, 12) }
+}
 $base = Join-Path $external $baseName
 Assert-DisjointFromProtected $base 'allocation base'
 Assert-NoReparseAncestor $base 'allocation base'

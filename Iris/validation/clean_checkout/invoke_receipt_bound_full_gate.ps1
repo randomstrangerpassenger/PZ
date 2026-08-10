@@ -278,6 +278,7 @@ try {
     $requiredValidationsRelative = 'Iris/_docs/round3/current_route_required_validations.json'
     $fullGateContractRelative = 'Iris/validation/clean_checkout/contracts/full_repository_gate.json'
     $evidenceAdoptionReceiptRelative = 'Iris/_docs/refactor/repository_evidence_lightweighting/required_validation_adoption_receipt.json'
+    $evidenceAllocatorRelative = 'Iris/validation/clean_checkout/allocate_repository_runtime_lightweighting_roots.ps1'
     $phase0Relative = 'Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json'
     $launcherRelative = 'Iris/validation/clean_checkout/invoke_receipt_bound_full_gate.ps1'
     $runner = Join-Path $resolvedRepository $runnerRelative
@@ -291,6 +292,7 @@ try {
     $requiredValidationsPath = Join-Path $resolvedRepository $requiredValidationsRelative
     $fullGateContractPath = Join-Path $resolvedRepository $fullGateContractRelative
     $evidenceAdoptionReceiptPath = Join-Path $resolvedRepository $evidenceAdoptionReceiptRelative
+    $evidenceAllocatorPath = Join-Path $resolvedRepository $evidenceAllocatorRelative
     $phase0Path = Join-Path $resolvedRepository $phase0Relative
     $expectedLauncher = Join-Path $resolvedRepository $launcherRelative
     $actualLauncher = [System.IO.Path]::GetFullPath($MyInvocation.MyCommand.Path)
@@ -309,6 +311,7 @@ try {
         $requiredValidationsPath,
         $fullGateContractPath,
         $evidenceAdoptionReceiptPath,
+        $evidenceAllocatorPath,
         $phase0Path,
         $actualLauncher
     )) {
@@ -327,6 +330,7 @@ try {
         @('required_validations', $requiredValidationsRelative, $requiredValidationsPath),
         @('full_gate_contract', $fullGateContractRelative, $fullGateContractPath),
         @('evidence_adoption_receipt', $evidenceAdoptionReceiptRelative, $evidenceAdoptionReceiptPath),
+        @('evidence_allocator', $evidenceAllocatorRelative, $evidenceAllocatorPath),
         @('environment_authority', $phase0Relative, $phase0Path),
         @('launcher', $launcherRelative, $actualLauncher)
     )) {

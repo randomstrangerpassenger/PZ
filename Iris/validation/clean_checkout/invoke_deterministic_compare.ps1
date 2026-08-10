@@ -308,6 +308,7 @@ try {
     $requiredValidationsRelative = 'Iris/_docs/round3/current_route_required_validations.json'
     $fullGateContractRelative = 'Iris/validation/clean_checkout/contracts/full_repository_gate.json'
     $evidenceAdoptionReceiptRelative = 'Iris/_docs/refactor/repository_evidence_lightweighting/required_validation_adoption_receipt.json'
+    $evidenceAllocatorRelative = 'Iris/validation/clean_checkout/allocate_repository_runtime_lightweighting_roots.ps1'
     $phase0Relative = 'Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json'
     $launcherRelative = 'Iris/validation/clean_checkout/invoke_deterministic_compare.ps1'
     $implementation = [ordered]@{}
@@ -324,6 +325,7 @@ try {
         @('required_validations', $requiredValidationsRelative),
         @('full_gate_contract', $fullGateContractRelative),
         @('evidence_adoption_receipt', $evidenceAdoptionReceiptRelative),
+        @('evidence_allocator', $evidenceAllocatorRelative),
         @('environment_authority', $phase0Relative),
         @('launcher', $launcherRelative)
     )) {
@@ -542,6 +544,8 @@ finally {
                 full_gate_contract_working_sha256 = $identity.implementation.full_gate_contract.working_sha256
                 adoption_receipt_blob = $identity.implementation.evidence_adoption_receipt.git_blob_id
                 adoption_receipt_working_sha256 = $identity.implementation.evidence_adoption_receipt.working_sha256
+                allocator_blob = $identity.implementation.evidence_allocator.git_blob_id
+                allocator_working_sha256 = $identity.implementation.evidence_allocator.working_sha256
             }
             interpreter_sha256 = $identity.interpreter.sha256
             environment_receipt_sha256 = $identity.environment_receipt.sha256

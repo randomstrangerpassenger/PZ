@@ -49,13 +49,18 @@
     },
     "receipt_bound_launcher": {
       "path": "Iris/validation/clean_checkout/invoke_receipt_bound_full_gate.ps1",
-      "git_blob_id": "7008144d906f83f2cc9e1d386f8ee9b1b65595f8",
-      "physical_raw_sha256_at_adoption": "048b273725e1e1cd1310291a21c18128ccc5544c34309ef38b59a9f8e4417d72"
+      "git_blob_id": "dc25711cb0e825350916c3ec6bca200599fe2d97",
+      "physical_raw_sha256_at_adoption": "9de76eab0c4dd8aaf7753fd1b075a40f69efadfafce7f4720092ee165982e395"
     },
     "deterministic_compare_launcher": {
       "path": "Iris/validation/clean_checkout/invoke_deterministic_compare.ps1",
-      "git_blob_id": "14b34551703a6bb44888814397a56dcae22237a6",
-      "physical_raw_sha256_at_adoption": "0ed46a4299d857fe7b0c9189df693772741e1394910e24e5800d65c87505b626"
+      "git_blob_id": "f415e3801a036c5316f5e4fdfda37cca45ed2cca",
+      "physical_raw_sha256_at_adoption": "15f6e50ffc1a880f9dbd25e0218acc8fdf5b2dff071be430e87aef8a61d6ec66"
+    },
+    "runtime_root_allocator": {
+      "path": "Iris/validation/clean_checkout/allocate_repository_runtime_lightweighting_roots.ps1",
+      "git_blob_id": "0a23e6073ff658678bb70c962a38a1b1b5201597",
+      "physical_raw_sha256_at_adoption": "1be04ec8c8f1aeb1a59a21db50f7934dacd7c05d862cc5eb9897e3f98d42dddb"
     },
     "adoption_test_source": {
       "path": "Iris/build/description/v2/tests/test_repository_evidence_required_validation_adoption.py",
@@ -74,8 +79,8 @@
     },
     "protected_surface_successor": {
       "path": "Iris/_docs/refactor/repository_evidence_lightweighting/protected_surface_successor_manifest.json",
-      "git_blob_id": "260dd3b0822b91268ff2c032295a01dbe144abd2",
-      "physical_raw_sha256_at_adoption": "af72bbf26d75ee8d770d581a60064cd12e529678bf0c3c4dec6d0e7a178fb838"
+      "git_blob_id": "3a3059f3e13b7899055c97176bfdaf78e32145bf",
+      "physical_raw_sha256_at_adoption": "2a2d38f8b4963ce7b5b693cbebe2e6e3afb8554f99f6a5a67ad036d9fbaf727d"
     },
     "residual_surface_validator": {
       "path": "Iris/test/validate_residual_refactor_surfaces.ps1",

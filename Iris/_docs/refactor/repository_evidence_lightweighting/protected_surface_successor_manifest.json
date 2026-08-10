@@ -44,6 +44,16 @@
           "after_sha256_lf": "52f802d842b8889c1b0895ff4aed0156aa21befa5cf9d0051c6ea9eb76f735b7",
           "owner": "repository_owner_user",
           "reason": "Require the same four bootstrap test IDs in the current route."
+        },
+        {
+          "path": "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
+          "predecessor_sha256": "0886f63a9c4f5de6645e43c318d5e65cb90e963bc81ab53e9e22dc210bff296e",
+          "before_git_blob_id": "85df1cdfa2f0af3ec828eee9573208eacdb7835c",
+          "before_sha256_lf": "12a7da6c13cf6a7def4afeabaf9dd37843363c074fe3e333bf79746ceafca45c",
+          "expected_git_blob_id": "76b8b483d94d70fc6c2f4f223fd1b51d7e4a9cf2",
+          "after_sha256_lf": "81d9757e0f83bda467d06c58acd15b8121dbf4979926ae7b1024f4c1c7de05d0",
+          "owner": "repository_owner_user",
+          "reason": "Disposition the intentionally pruned intermediate Git object and revalidate its recorded compiler rows against the reachable current subject."
         }
       ],
       "added_protected_rows": [
@@ -108,23 +118,11 @@
           "reason": "Keep full receipt identity while giving terminal profiles a short physical basename that can satisfy the declared Windows tracked-path budget."
         },
         {
-          "path": "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
-          "before_git_blob_id": "85df1cdfa2f0af3ec828eee9573208eacdb7835c",
-          "before_sha256_lf": "12a7da6c13cf6a7def4afeabaf9dd37843363c074fe3e333bf79746ceafca45c",
-          "expected_git_blob_id": "76b8b483d94d70fc6c2f4f223fd1b51d7e4a9cf2",
-          "after_sha256_lf": "81d9757e0f83bda467d06c58acd15b8121dbf4979926ae7b1024f4c1c7de05d0",
-          "role": "owner_pruned_history_gate",
-          "writer": "repository_evidence_lightweighting_c0_c",
-          "consumers": ["receipt_bound_run_a", "receipt_bound_run_b", "repository_maintainers"],
-          "owner": "repository_owner_user",
-          "reason": "Disposition the intentionally pruned intermediate Git object and revalidate its recorded compiler rows against the reachable current subject."
-        },
-        {
           "path": "Iris/test/validate_residual_refactor_surfaces.ps1",
           "before_git_blob_id": "8ca6e6415948337a08c330fda228b09b06804909",
           "before_sha256_lf": "82c9c7a64e5fa7370cb1f03fc950f6bbd3dca1766075b099b12aff87f10b9be0",
-          "expected_git_blob_id": "09bc4a1ce1f3b9afc24375dcfeff517b6d6b8b5f",
-          "after_sha256_lf": "0daaa69077f3e51febf137fd474e4c1e611ed8e9e39e9175fca51abfaa13442d",
+          "expected_git_blob_id": "f5a9320623ca0c78a474a4b4a27046b5dfa48c09",
+          "after_sha256_lf": "59b34810e38f30980943273da5d65715704dbd60b08ffba9164449c0def128e6",
           "role": "protected_surface_validator",
           "writer": "repository_evidence_lightweighting_c0_c_successor",
           "consumers": ["current_route_validation", "residual_closeout", "repository_maintainers"],

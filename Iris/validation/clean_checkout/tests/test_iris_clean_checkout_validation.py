@@ -194,6 +194,24 @@ def _build_fake_launcher_repository(
     authority = clean_checkout_root / "authority"
     contracts.mkdir(parents=True)
     authority.mkdir(parents=True)
+    fixture_json_paths = (
+        "Iris/validation/clean_checkout/contracts/repository_evidence_lightweighting_output_policy.json",
+        "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+        "Iris/_docs/refactor/repository_evidence_lightweighting/predecessor_subject_manifest.json",
+        "Iris/_docs/refactor/repository_evidence_lightweighting/owner_policy_approval.json",
+        "Iris/_docs/refactor/repository_evidence_lightweighting/required_validation_adoption_receipt.json",
+        "Iris/_docs/round3/round3_test_taxonomy.json",
+        "Iris/_docs/round3/current_route_required_validations.json",
+    )
+    for relative in fixture_json_paths:
+        fixture_path = repo / relative
+        fixture_path.parent.mkdir(parents=True, exist_ok=True)
+        fixture_path.write_bytes(canonical_json_bytes({"fixture": True}))
+    allocator_fixture = (
+        clean_checkout_root
+        / "allocate_repository_runtime_lightweighting_roots.ps1"
+    )
+    allocator_fixture.write_text("# fixture\n", encoding="utf-8", newline="\n")
     launcher_source = Path(__file__).resolve().parents[1] / (
         "invoke_receipt_bound_full_gate.ps1"
     )
@@ -1449,6 +1467,7 @@ def test_g5_compiler_identity_successor_separates_historical_and_current() -> No
         subject_commit,
         compiler,
         transition,
+        True,
     )
     assert validated == {
         "algorithm_id": (
@@ -1464,6 +1483,9 @@ def test_g5_compiler_identity_successor_separates_historical_and_current() -> No
         ),
         "changed_constituent_count": 4,
         "unchanged_constituent_count": 5,
+        "current_basis_validation_mode": (
+            "owner_pruned_revalidated_from_subject"
+        ),
     }
 
     tampered_compiler = copy.deepcopy(compiler)
@@ -1476,6 +1498,7 @@ def test_g5_compiler_identity_successor_separates_historical_and_current() -> No
             subject_commit,
             tampered_compiler,
             transition,
+            True,
         )
 
     tampered_changed = copy.deepcopy(transition)
@@ -1486,6 +1509,7 @@ def test_g5_compiler_identity_successor_separates_historical_and_current() -> No
             subject_commit,
             compiler,
             tampered_changed,
+            True,
         )
 
     tampered_provenance = copy.deepcopy(transition)
@@ -1498,6 +1522,7 @@ def test_g5_compiler_identity_successor_separates_historical_and_current() -> No
             subject_commit,
             compiler,
             tampered_provenance,
+            True,
         )
 
 

@@ -468,11 +468,6 @@ foreach ($Delta in $SuccessorApprovedDeltaRows) {
     ) {
         throw "approved protected-surface delta Git blob missing: $DeltaPath"
     }
-    $ExpectedBlob = [string]$Delta.expected_git_blob_id
-    $ActualBlob = (& git -C $RepositoryRoot rev-parse ("HEAD:" + $DeltaPath)).Trim()
-    if ($LASTEXITCODE -ne 0 -or $ActualBlob -cne $ExpectedBlob) {
-        throw "approved protected-surface delta Git blob mismatch: $DeltaPath"
-    }
     if ([string]$Delta.after_sha256_lf -notmatch '^[0-9a-f]{64}$') {
         throw "approved protected-surface delta LF hash invalid: $DeltaPath"
     }

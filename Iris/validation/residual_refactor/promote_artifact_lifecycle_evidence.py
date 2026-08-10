@@ -590,18 +590,22 @@ def validate_subject_receipt(
     )
     if head.returncode != 0 or head.stdout.splitlines() != [receipt.get("commit"), receipt.get("tree")]:
         raise PromotionError("subject receipt commit/tree differs from promotion checkout")
-    manifest_bytes, _, manifest_representation = load_lifecycle_source(source_manifest, "baseline")
+    if source_manifest.is_file():
+        manifest_identity_bytes = source_manifest.read_bytes()
+    else:
+        manifest_identity_bytes, _, _ = load_lifecycle_source(source_manifest, "baseline")
     bindings = (("manifest", source_manifest), ("summary", source_summary))
     for key, source in bindings:
         binding = receipt.get(key, {})
         if os.path.normcase(str(Path(str(binding.get("path"))).resolve())) != os.path.normcase(str(source.resolve())):
             raise PromotionError(f"{key} source path differs from subject receipt")
-        payload_hash = evidence_raw_sha256(manifest_bytes) if key == "manifest" else sha256_file(source)
-        payload_bytes = len(manifest_bytes) if key == "manifest" else source.stat().st_size
+        payload_hash = evidence_raw_sha256(manifest_identity_bytes) if key == "manifest" else sha256_file(source)
+        payload_bytes = len(manifest_identity_bytes) if key == "manifest" else source.stat().st_size
         if payload_hash != binding.get("sha256"):
             raise PromotionError(f"{key} source hash differs from subject receipt")
         if payload_bytes != binding.get("bytes"):
             raise PromotionError(f"{key} source length differs from subject receipt")
+    _, _, manifest_representation = load_lifecycle_source(source_manifest, "baseline")
     if manifest_representation not in {"v1", "v2"}:
         raise PromotionError("unknown lifecycle manifest representation")
     return receipt

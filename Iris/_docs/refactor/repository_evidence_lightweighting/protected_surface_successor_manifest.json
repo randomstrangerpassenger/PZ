@@ -1045,6 +1045,18 @@
           "consumers": ["alt_tooltip", "usecase_line_count_index"],
           "owner": "repository_owner_user",
           "reason": "Expose an internal immutable cache path while retaining public copies."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+          "before_git_blob_id": "183530cc72d7c2a662f7be0fdc6fa07e69659216",
+          "before_sha256_lf": "ef3c7a26d4f1e81cf14a5dbc6f39686eb66e8fec08da2f79d707b0dd9d22e83b",
+          "expected_git_blob_id": "58667e10ab3c24e9169e6d50780f714decf416c2",
+          "after_sha256_lf": "2a1007bf78daad84022ef2df839297bad4d1630d0827b257b260bc62b2a39be0",
+          "role": "protected_surface_current_required_test",
+          "writer": "iris_codebase_optimization",
+          "consumers": ["current_route_validation", "residual_closeout"],
+          "owner": "repository_owner_user",
+          "reason": "Require the two plan-scoped optimization protection successor revisions."
         }
       ]
     },

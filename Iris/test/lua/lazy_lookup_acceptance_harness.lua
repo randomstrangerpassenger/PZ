@@ -112,6 +112,7 @@ if mode == "layer3" then
     local normalMissDiagnostics = RuntimeDiagnostics.getDiagnostics()
     assert(normalMissFacadeLoads == 0 and normalMissDiagnostics.fallbackCount == 0)
     assert(normalMissDiagnostics.metrics.layer3.lookup_miss == 1)
+    local normalMissFacadeLoadsAtObservation = normalMissFacadeLoads
 
     local function assertConsumerFallback(indexValue, expectedReason)
         RuntimeDiagnostics.reset()
@@ -212,7 +213,7 @@ if mode == "layer3" then
         " initial_loaded_modules=" .. table.concat(beforeRepeat.loadedChunkModules, ",") ..
         " router_unavailable_count=" ..
         tostring(unavailableDiagnostics.surfaces.layer3.fallbackReasons.router_unavailable) ..
-        " normal_miss_facade_loads=" .. tostring(normalMissFacadeLoads))
+        " normal_miss_facade_loads=" .. tostring(normalMissFacadeLoadsAtObservation))
 elseif mode == "usecase" then
     local realUseCaseChunkIndex = require("Iris/Data/UseCaseDescriptions/ChunkIndex")
     local realUseCaseLineCountIndex = require("Iris/Data/UseCaseDescriptions/LineCountIndex")
@@ -387,6 +388,7 @@ elseif mode == "usecase" then
     assert(normalMissFacadeLoads == 0)
     local normalMissDiagnostics = RuntimeDiagnostics.getDiagnostics()
     assert(normalMissDiagnostics.fallbackCount == 0)
+    local normalMissFacadeLoadsAtObservation = normalMissFacadeLoads
     package.preload["Iris/API/StaticData"] = nil
     package.loaded["Iris/API/StaticData"] = nil
 
@@ -403,9 +405,9 @@ elseif mode == "usecase" then
     package.preload["Iris/Data/UseCaseDescriptions/RequirementsLookup"] = nil
     local coldLookup = require("Iris/Data/IrisUseCaseDescriptionsLookup")
     local coldRequirements, coldRequirementsReason =
-        coldLookup.getRequirements("Open Box of .223 Ammo")
+        coldLookup.getRequirements("Add Timer")
     assert(coldRequirementsReason == nil)
-    assert(deepEqual(coldRequirements, facade._requirementsLookup["Open Box of .223 Ammo"]))
+    assert(deepEqual(coldRequirements, facade._requirementsLookup["Add Timer"]))
     local coldRequirementsDiagnostics = coldLookup.getDiagnostics()
     assert(coldRequirementsDiagnostics.loadedDescriptionChunkCount == 0)
     assert(coldRequirementsDiagnostics.descriptionRequireCallCount == 0)
@@ -493,7 +495,7 @@ elseif mode == "usecase" then
         " initial_loaded_modules=" .. table.concat(beforeRepeat.loadedDescriptionChunkModules, ",") ..
         " router_unavailable_count=" ..
         tostring(unavailableDiagnostics.surfaces.usecase.fallbackReasons.router_unavailable) ..
-        " normal_miss_facade_loads=" .. tostring(normalMissFacadeLoads))
+        " normal_miss_facade_loads=" .. tostring(normalMissFacadeLoadsAtObservation))
 else
     error("unsupported lookup mode: " .. tostring(mode))
 end

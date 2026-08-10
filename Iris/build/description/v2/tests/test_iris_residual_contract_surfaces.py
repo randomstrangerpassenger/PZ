@@ -180,6 +180,8 @@ class IrisResidualContractSurfacesTest(unittest.TestCase):
                 "repository_evidence_lightweighting_terminal_closeout_v1",
                 "repository_evidence_lightweighting_reviewer_corrections_v1",
                 "repository_evidence_lightweighting_owner_complete_closeout_v1",
+                "iris_codebase_optimization_runtime_surfaces_v1",
+                "iris_codebase_optimization_package_identity_v1",
             ],
         )
         self.assertEqual(

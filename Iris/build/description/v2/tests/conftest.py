@@ -283,25 +283,27 @@ def pytest_configure(config):
 def pytest_ignore_collect(collection_path=None, path=None, config=None):
     raw_path = collection_path if collection_path is not None else path
     if raw_path is None or config is None:
-        return False
+        return None
     candidate = Path(str(raw_path))
     if not candidate.name.startswith("test_") or candidate.suffix != ".py":
-        return False
+        return None
     try:
         source = _source_file_for_path(candidate)
     except ValueError:
-        return False
+        return None
     classification = _source_policy().get(source)
     if classification is None:
-        return False
+        return None
     if classification == "excluded":
         return True
     contract = _contract(config)
     if contract == "all" or source in _additional_source_files(config):
-        return False
+        return None
     if source in _item_overrides():
-        return False
-    return classification != contract
+        return None
+    if classification != contract:
+        return True
+    return None
 
 
 def pytest_collectreport(report):

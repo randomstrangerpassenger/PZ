@@ -78,8 +78,8 @@ class LookupPackageParityContractTest(unittest.TestCase):
     def test_chunk_hash_boundary_and_line_count_key_mismatches_fail_closed(self) -> None:
         mutations = (
             ("IrisLayer3DataChunks/Chunk001.lua", r'\["Base\.223Box"\]', '["Base.223BoxX"]'),
-            ("UseCaseDescriptions/Chunk001.lua", 'chunk["Base.223Box"]', 'chunk["Base.223BoxX"]'),
-            ("UseCaseDescriptions/LineCountIndex.lua", '["Base.223Box"] = 1', '["Base.223BoxX"] = 1'),
+            ("UseCaseDescriptions/Chunk001.lua", r'chunk\["Base\.223Box"\]', 'chunk["Base.223BoxX"]'),
+            ("UseCaseDescriptions/LineCountIndex.lua", r'\["Base\.223Box"\] = 1', '["Base.223BoxX"] = 1'),
         )
         for relative, pattern, replacement in mutations:
             with self.subTest(relative=relative), tempfile.TemporaryDirectory() as temporary:

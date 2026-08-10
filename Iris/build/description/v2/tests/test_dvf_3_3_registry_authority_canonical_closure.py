@@ -54,6 +54,10 @@ def project_common_attempt_paths(common, *, project_repo_root: bool = False):
     }
     if project_repo_root:
         replacements["REPO_ROOT"] = PROJECTED_REPO_ROOT
+        replacements["V2_ROOT"] = (
+            PROJECTED_REPO_ROOT / "Iris" / "build" / "description" / "v2"
+        )
+        replacements["TESTS_ROOT"] = replacements["V2_ROOT"] / "tests"
     return mock.patch.multiple(common, **replacements)
 
 

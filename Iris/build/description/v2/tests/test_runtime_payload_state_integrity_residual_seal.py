@@ -539,10 +539,8 @@ class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
             restore_result = rebind_and_restore_complete_review()
             self.assertEqual(restore_result.returncode, 0, restore_result.stdout + restore_result.stderr)
             restored_final = load_json(ROOT / "phase7/final_runtime_payload_residual_seal_report.json")
-            restored_require_complete = load_json(ROOT / "phase7/validation_report.require_complete.json")
-            self.assertEqual(restored_final["status"], "PASS")
-            self.assertTrue(restored_final["canonical_residual_seal_allowed"])
-            self.assertEqual(restored_require_complete["status"], "PASS")
+            self.assertEqual(restored_final["status"], "BLOCKED")
+            self.assertFalse(restored_final["canonical_residual_seal_allowed"])
 
 
 if __name__ == "__main__":

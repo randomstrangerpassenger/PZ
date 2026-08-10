@@ -4,6 +4,7 @@ import copy
 import hashlib
 import importlib.util
 import json
+import subprocess
 import tempfile
 import unittest
 from importlib.machinery import PathFinder
@@ -181,21 +182,50 @@ class IrisCoreRefactorCloseoutTest(unittest.TestCase):
                 self.assertEqual(row["before_sha256"], row["after_sha256"])
             current_hashes = sha256_candidates(path)
             if row["after_sha256"] not in current_hashes:
-                successor = load_json(
+                phase0_successor = load_json(
                     ROOT.parent / "residual_refactor" / "phase0_protected_surface_manifest.json"
                 )
                 approved_successors = {
                     item["path"]: item["after_sha256_lf"]
-                    for item in successor["approved_activation_deltas"]
+                    for item in phase0_successor["approved_activation_deltas"]
                 }
+                runtime_successor = load_json(
+                    ROOT.parent
+                    / "repository_runtime_lightweighting"
+                    / "protected_surface_successor_manifest.json"
+                )
+                historical_attestation = runtime_successor["historical_manifest_attestation"]
+                historical_result = subprocess.run(
+                    [
+                        "git",
+                        "show",
+                        f"{historical_attestation['commit']}:{historical_attestation['path']}",
+                    ],
+                    cwd=REPO,
+                    text=True,
+                    capture_output=True,
+                    check=False,
+                )
+                self.assertEqual(
+                    0,
+                    historical_result.returncode,
+                    historical_result.stdout + historical_result.stderr,
+                )
+                historical_successor = json.loads(historical_result.stdout)
                 evidence_successor = load_json(
                     ROOT.parent
                     / "repository_evidence_lightweighting"
                     / "protected_surface_successor_manifest.json"
                 )
-                for revision in evidence_successor["active_revisions"]:
-                    for item in revision["approved_activation_deltas"]:
-                        approved_successors[item["path"]] = item["after_sha256_lf"]
+                revisions = [
+                    *historical_successor["revisions"],
+                    *runtime_successor["active_revisions"],
+                    *evidence_successor["active_revisions"],
+                ]
+                for revision in revisions:
+                    for field in ("approved_activation_deltas", "added_protected_rows"):
+                        for item in revision.get(field, []):
+                            approved_successors[item["path"]] = item["after_sha256_lf"]
                 self.assertIn(row["path"], approved_successors)
                 self.assertIn(approved_successors[row["path"]], current_hashes)
 

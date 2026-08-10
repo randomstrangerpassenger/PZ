@@ -199,16 +199,16 @@
   "input_basis": {
     "modified_subject": {
       "base_commit": "9dcb16288b79fa911adf601741b913cd71ded145",
-      "endpoint": "13a39d6b2919bc209f126634c1525dc0d5e8fdaa"
+      "endpoint": "fe4bb9f60f15dfa370ced2d910a94ac5a627caec"
     },
     "modified_diff_arguments": [
       "diff",
       "--name-only",
       "9dcb16288b79fa911adf601741b913cd71ded145",
-      "13a39d6b2919bc209f126634c1525dc0d5e8fdaa",
+      "fe4bb9f60f15dfa370ced2d910a94ac5a627caec",
       "--"
     ],
-    "modified_path_count": 69,
+    "modified_path_count": 75,
     "mandatory_test_id_count": 9,
     "mandatory_path_count": 6,
     "dependency_manifests": [

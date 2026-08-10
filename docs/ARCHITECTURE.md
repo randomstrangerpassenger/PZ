@@ -1262,9 +1262,9 @@ Iris runtime lookup은 이제 `verified hit`, `verified miss`, `routing/target f
 
 Generated UseCase chunk는 nil optional field와 빈 `debug_lines`를 저장하지 않는다. 이 sparse representation은 source 의미를 바꾸지 않으며 public/direct facade가 기존 empty-table/nil shape를 재구성한다. Line-count index는 routing authority로 유지되고 runtime 의미 추론 권한을 얻지 않는다.
 
-Browser/Tooltip/Ordering 최적화는 내부 materialization과 반복 호출만 줄인다. Public Browser row는 계속 copy-on-read이고, Tooltip public summary는 caller mutation으로부터 격리되며, Ordering public wrapper와 anchor/order semantics는 유지된다. Capability mask는 matching canonical type/category pair만 closed negative evidence로 사용하고 custom·contradictory·hybrid hint는 method-presence fallback으로 기존 field를 보존한다. Instance state를 fullType 전역 cache로 승격하지 않는다.
+Browser/Tooltip/Ordering 최적화는 내부 materialization과 반복 호출만 줄인다. Public Browser row는 계속 copy-on-read이고, Tooltip public summary는 caller mutation으로부터 격리되며, Ordering public wrapper와 anchor/order semantics는 유지된다. Capability category/type은 positive hint일 뿐 closed negative evidence가 아니다. Custom·contradictory·same-canonical hybrid의 기존 field를 보존할 안전한 부정 authority가 없으므로 capability mask는 no-op이고 method-presence fallback을 유지한다. Instance state를 fullType 전역 cache로 승격하지 않는다.
 
-Runtime instrumentation은 기본 off다. BrowserData/ItemIndex/Query, Detail ViewModel, Alt Tooltip, Ordering의 counter와 clock read는 diagnostics harness가 각 module의 explicit enable API를 호출한 동안에만 갱신된다. Counter API는 operation evidence일 뿐 runtime authority나 일반 production state가 아니다.
+Runtime instrumentation은 기본 off다. RuntimeLookupDiagnostics의 normal-miss metric과 BrowserData/ItemIndex/Query, Detail ViewModel, Alt Tooltip/TooltipSummary, Ordering의 counter·clock read는 diagnostics harness가 각 module의 explicit enable API를 호출한 동안에만 갱신된다. Fault/fallback 가시성은 계측과 별개로 유지한다. Counter API는 operation evidence일 뿐 runtime authority나 일반 production state가 아니다.
 
 Pytest의 configured discovery는 exact Round 3 current authority와 별도다. Source policy는 current/historical/diagnostic/excluded 및 mixed item override를 소유한다. Git-tracked policy source set과 approval 시점의 clean-checkout-absent policy source set은 각각 count/identity로 고정되므로 tracked source 삭제나 정책 분모 축소는 collection 전에 실패한다. 승인된 ignored historical source 두 개는 존재할 때만 실제 collection denominator에 들어간다. Exact current runner의 authority를 configured `all` 결과로 대체하지 않으며 advisory 역사 실패를 current PASS로 다시 쓰지도 않는다.
 

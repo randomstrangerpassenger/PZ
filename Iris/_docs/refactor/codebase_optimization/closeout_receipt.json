@@ -7,8 +7,8 @@
     "tree": "50439b89a3b5bc6f620da395a016eaf3264b8c39"
   },
   "implementation_subject": {
-    "commit": "13a39d6b2919bc209f126634c1525dc0d5e8fdaa",
-    "tree": "75cb99163a105f1b5b37d689997903765a57fe0a"
+    "commit": "fe4bb9f60f15dfa370ced2d910a94ac5a627caec",
+    "tree": "6c597b18896742d5bbaa51f668ad8a2965e89561"
   },
   "item_dispositions": [
     {
@@ -27,7 +27,7 @@
       "item": "Change 3 runtime operation metrics",
       "disposition": "adopted",
       "evidence": "Iris/_docs/refactor/codebase_optimization/baseline_0.json",
-      "result": "standalone operation counters and fixed corpus identities are sealed without a Project Zomboid timing claim"
+      "result": "standalone operation counters and fixed corpus identities are sealed behind explicit opt-in without a Project Zomboid timing claim"
     },
     {
       "item": "Change 4 sparse generated UseCase fields",
@@ -49,9 +49,9 @@
     },
     {
       "item": "Change 6B capability mask",
-      "disposition": "adopted",
+      "disposition": "no-op",
       "evidence": "Iris/_docs/refactor/codebase_optimization/change_6b_capability_mask.json",
-      "result": "engine method calls 2200 -> 1060, a 51.81818182% reduction, with fixed output plus custom-category/hybrid parity"
+      "result": "engine method calls remain 2200 -> 2200; category/type are positive hints only because no safe closed-negative authority exists for custom, contradictory, or same-canonical hybrid items"
     },
     {
       "item": "Change 6B whole/static projection cache",
@@ -140,12 +140,17 @@
     {
       "command": "uv run python Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure",
       "exit_code": 0,
-      "result": "219 tests PASS in 169.586 seconds"
+      "result": "219 tests PASS in 171.429 seconds"
     },
     {
       "command": "plan focused Change 2-11 validation rows",
       "exit_code": 0,
-      "result": "lookup 5 tests + 3 subtests; metrics 11 + 4; sparse 19 + 6; Tooltip 17 + 4; 6A/6B/6C/7/10 single rows; CAS 15 + 10; Git batch 2; tooling inventory 1; adopted tooling parity N/A"
+      "result": "59 passed, 1 not-applicable tooling skip, and 23 subtests passed in 29.82 seconds across the consolidated plan-focused file set"
+    },
+    {
+      "command": "final corrective runtime/source/protection focused rows",
+      "exit_code": 0,
+      "result": "27 passed and 4 subtests passed in 20.50 seconds"
     },
     {
       "command": "powershell -ExecutionPolicy Bypass -File .\\tools\\check_lua_syntax.ps1",
@@ -155,13 +160,13 @@
     {
       "command": "uv run python -m pytest -q --round3-contract=current --round3-enforce-denominator",
       "exit_code": 0,
-      "result": "470 passed, 1 not-applicable skip, 504 deselected, 112 subtests passed in 307.78 seconds"
+      "result": "470 passed, 1 not-applicable skip, 504 deselected, 112 subtests passed in 307.42 seconds"
     },
     {
       "command": "uv run python -m pytest -q --round3-contract=all --round3-enforce-denominator",
-      "execution_environment": "clean disposable checkout at implementation subject",
+      "execution_environment": "clean disposable checkout at exact implementation subject fe4bb9f60f15dfa370ced2d910a94ac5a627caec",
       "exit_code": 1,
-      "result": "644 passed, 1 not-applicable skip, 126 subtests passed, 1 historical failure in test_live_consumer_migration_execution.py in 416.61 seconds",
+      "result": "644 passed, 1 not-applicable skip, 126 subtests passed, 1 historical failure in test_live_consumer_migration_execution.py in 406.04 seconds",
       "classification": "historical_out_of_scope_for_current_optimization; configured full-suite PASS is not claimed",
       "classifier_receipt": "Iris/_docs/refactor/codebase_optimization/advisory_full_failure_classification.json",
       "failing_node": "Iris/build/description/v2/tests/test_live_consumer_migration_execution.py::LiveConsumerMigrationExecutionTest::test_independent_review_hash_manifest_covers_external_docs_without_self_hash",

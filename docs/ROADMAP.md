@@ -1061,7 +1061,7 @@ Historical trace / provenance index는 ROADMAP 본문에서 더 이상 관리하
 - lazy lookup의 verified miss와 routing/target fault를 분리하고 package identity validator를 추가했다.
 - UseCase generated chunk에서 nil/empty field를 sparse화해 132,486 bytes를 줄이고 direct facade 1,631개 row shape를 보존했다.
 - Alt Tooltip inactive temporary table `1000 -> 0`, warm line copy `404 -> 0`을 달성했다.
-- Browser search target operation을 `66 -> 24`, capability-mask engine call을 `2200 -> 1060`, Ordering key derivation을 `64 -> 12`로 줄이고 각 fixed-corpus signature parity를 보존했다. Custom-category/hybrid item field parity를 추가하고 runtime counter는 기본 off로 전환했다.
+- Browser search target operation을 `66 -> 24`, Ordering key derivation을 `64 -> 12`로 줄이고 각 fixed-corpus signature parity를 보존했다. Capability mask는 custom·contradictory·same-canonical hybrid field를 안전하게 부정할 authority가 없어 `2200 -> 2200` no-op으로 닫았고, runtime counter는 기본 off로 전환했다.
 - Git path 상태 조회를 batch화했다. CAS와 Python helper 공통화는 안전 후보가 없어 mutation 없는 no-op으로 닫았다.
 - exact current `219/219`, terminal current `470 passed / 1 N/A skipped / 112 subtests`, Lua 103 files와 focused optimization rows를 통과했다.
 

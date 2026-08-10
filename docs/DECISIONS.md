@@ -2565,7 +2565,7 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
 
   * normal lazy lookup miss는 package/index corruption과 분리한다. 검증된 부재 key는 full facade fallback을 유발하지 않고, routing 또는 target identity 결함만 관측 가능한 fault/fallback 경계로 보낸다.
   * generated UseCase nil optional field와 빈 debug line table은 chunk에서 생략하고 direct compatibility facade에서 기존 shape로 재구성한다. 이 변경은 1,269,883 bytes를 1,137,397 bytes로 줄였고 1,631개 facade row를 보존했다.
-  * Alt Tooltip inactive/warm allocation, Browser search location/copy, capability mask, Ordering decoration은 고정 standalone operation corpus에서 parity와 감소가 함께 확인되어 채택한다. Capability mask는 matching canonical type/category만 negative authority로 사용하며 custom·contradictory·hybrid hint는 method-presence fallback으로 predecessor-visible field를 보존한다.
+  * Alt Tooltip inactive/warm allocation, Browser search location/copy, Ordering decoration은 고정 standalone operation corpus에서 parity와 감소가 함께 확인되어 채택한다. Capability mask는 custom·contradictory·same-canonical hybrid를 모두 보존할 closed-negative authority가 없어 category/type을 positive hint로만 유지하고 `complete/no-op`으로 닫는다.
   * whole/static projection cache는 purity와 generation invalidation이 닫히지 않아 no-op으로 남긴다. repository evidence CAS도 306개 중복 group 중 모든 lifecycle/consumer/delete gate를 통과한 group이 0이므로 mutation 없는 no-op으로 닫는다.
   * Python helper 공통화는 Git-tracked tooling 250개 파일의 106개 process boundary와 56개 helper definition을 exact contract로 비교했으나 3개 이상 current consumer group이 0이므로 강제하지 않는다. Runtime operation counter는 기본 off이며 metrics harness가 명시적으로 켠 경우에만 갱신한다.
   * 실제 PZ sample이 필요한 search debounce, incremental Browser build, Tooltip static attribution, LineCount attribution은 `deferred`다. 이 네 항목 때문에 통합 상태는 `complete`가 아니라 `partial`이다.

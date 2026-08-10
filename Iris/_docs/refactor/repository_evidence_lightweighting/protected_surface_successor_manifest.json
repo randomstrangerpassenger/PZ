@@ -706,6 +706,42 @@
           "reason": "Require the bounded Changes 3-7 protection successor revision."
         }
       ]
+    },
+    {
+      "revision_id": "repository_evidence_lightweighting_terminal_validation_v1",
+      "track": "repository_evidence_lightweighting",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "07c39a5e70282f14968dfb1ec9e4ab4e715fb3f7",
+      "protection_predecessor_tree": "90971fb4fb3184bb59ccb3647283319e2332b714",
+      "reason": "Close the terminal validation defect found while adopting exact protected representation removals.",
+      "approved_activation_deltas": [],
+      "added_protected_rows": [
+        {
+          "path": "Iris/test/validate_residual_refactor_surfaces.ps1",
+          "before_git_blob_id": "d48b87e6d28f91863af138fe61130a494d5581cc",
+          "before_sha256_lf": "ee5eff7a1a98bb2c6fe45c4ac3edcb7bfbc8dcc443f9a01170669b12bd5bc2d4",
+          "expected_git_blob_id": "62af8c597f66ea1b3276f771f379410a2c217649",
+          "after_sha256_lf": "e97c8d1af3c4f1635c5ffeda33156713fdc3a06d8bec5d917ff9815120013281",
+          "role": "protected_surface_validator",
+          "writer": "repository_evidence_lightweighting_terminal_validation_fix",
+          "consumers": ["current_route_validation", "residual_closeout"],
+          "owner": "repository_owner_user",
+          "reason": "Treat revisions without removed_protected_rows as an empty removal set under PowerShell strict mode."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+          "before_git_blob_id": "982b988def3c9ee5f9c1dbdb366b95dd908188d5",
+          "before_sha256_lf": "563b3ae0744fadcf52e08689f8d489e2d5bfe4e1b514d7fe8757c43beb1806a8",
+          "expected_git_blob_id": "99c66ec07ac3c4f495d9500f6d9395840c21c219",
+          "after_sha256_lf": "d584f352d5db1c231ec3d4b9f7b6ee2c5b8378998c74970693bd851a6edb2c3c",
+          "role": "protected_surface_current_required_test",
+          "writer": "repository_evidence_lightweighting_terminal_validation_fix",
+          "consumers": ["current_route_validation", "residual_closeout"],
+          "owner": "repository_owner_user",
+          "reason": "Require the terminal validation protection successor revision."
+        }
+      ]
     }
   ]
 }

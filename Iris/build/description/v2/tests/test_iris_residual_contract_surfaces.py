@@ -176,6 +176,7 @@ class IrisResidualContractSurfacesTest(unittest.TestCase):
                 "repository_evidence_lightweighting_change1_cleanup_v1",
                 "repository_evidence_lightweighting_change2_lifecycle_v2_v1",
                 "repository_evidence_lightweighting_changes3_7_closeout_v1",
+                "repository_evidence_lightweighting_terminal_validation_v1",
             ],
         )
         self.assertEqual(

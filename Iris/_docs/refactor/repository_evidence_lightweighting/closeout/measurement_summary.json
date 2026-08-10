@@ -1,6 +1,7 @@
 {
   "schema_version": "iris_repository_evidence_lightweighting_measurement_summary_v1",
-  "status": "terminal_partial_snapshot",
+  "status": "pre_reviewer_correction_snapshot",
+  "snapshot_boundary": "current_physical_snapshot predates the 11,381-byte ignored physical exception restore and final tracked reviewer-correction commits; transaction rows below contain the corrected bounded Change 3 measurement",
   "aggregation_policy": {
     "cross_domain_savings_sum": "forbidden",
     "ignored_and_tracked_bytes_are_reported_separately": true,

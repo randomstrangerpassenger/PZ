@@ -2532,7 +2532,7 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
 
 ## Iris repository evidence/intermediate artifact lightweighting — representation 채택 / bounded partial
 
-* 상태: 2026-08-10 implementation complete / bounded terminal validation recorded / overall partial
+* 상태: 2026-08-10 implementation complete / bounded terminal validation recorded / Codex Reviewer PASS / overall partial
 * 결정:
 
   * 삭제된 과거 Git object는 이 후속 작업의 복구 전제에서 제외하고, 현재 저장소와 successor artifact에서 재구성 가능한 identity를 검증 대상으로 삼는다.
@@ -2546,9 +2546,12 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
   * lifecycle representation `105,988,328 -> 11,942,429` bytes, 자연화 selection `485,112,779 -> 161,978,235` object bytes + `11,381` physical exception bytes, 2105 pair `48,169,098 -> 24,084,549` object bytes를 각 transaction으로만 기록한다.
   * cold archive source는 `74,806,195` bytes, 외부 ZIP은 `2,031,096` bytes다. 외부 저장소 운영 지속성과 repository checkout 절감량을 같은 수치로 합산하지 않는다.
   * boot에서 빠진 네 static module의 source 합계는 `115,912` bytes지만 PZ/Kahlua heap 또는 latency 개선 수치로 해석하지 않는다.
+  * 동일 physical root의 공통 분모에서는 1차 baseline `4,842,336,252` bytes에서 현재 `1,080,954,330` bytes로 `3,761,381,922` bytes, `77.68%` 감소했다. 1차 final `1,338,324,791` bytes 대비 이번 작업의 추가 감소는 `257,370,461` bytes, `19.23%`다.
+  * 전체 재귀 scan을 가정한 동일 입력 밀도 대리 지표는 `3.62x -> 4.48x`이며, 1차 final 대비 처리 가능량이 약 `23.8%` 증가한 값이다. `4.48x`는 실제 LLM tokenizer 계측이 아니라 physical-byte proxy다.
 * 보류:
 
   * Change 4의 unique derived views, Layer3/UseCase full facade, `IrisData`, LineCountIndex, Browser allocation 후보는 별도 소비자·heap 증거가 생길 때만 연다.
   * 수동 Project Zomboid runtime/heap 증거가 없어 Change 6은 `implemented_only`, 전체 상태는 `partial`이다.
   * lifecycle 23 tests, repository evidence 19 tests, current `219/219`, historical `285/285`, focused runtime `4/4`, Lua 103 files와 disposable package는 통과했다. raw diagnostic는 76 tests 중 3 failures/9 errors로 기존 overlay/tooling 결손을 그대로 보존했으며, receipt-bound full-gate Run A/B와 deterministic compare는 허용된 외부 경계 밖 환경 영수증 및 non-green diagnostic prerequisite 때문에 실행하지 않았다.
+  * 실제 Codex/LLM before-after token count, prompt corpus와 cache-hit telemetry는 수집하지 않았다. 따라서 `77.68% token 절감`이나 모든 작업의 고정 `4.48x` 개선은 승인된 claim이 아니며, 서로 다른 transaction별 배수를 곱하지 않는다.
 * Evidence: `Iris/_docs/refactor/repository_evidence_lightweighting/`의 lifecycle/CAS/cold-archive receipts와 `closeout/` census/measurement/validation/closeout evidence.

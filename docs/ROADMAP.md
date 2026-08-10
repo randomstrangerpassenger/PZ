@@ -1017,6 +1017,14 @@ Pulse는 처음부터 “새 Java 로더”로 경쟁하는 브랜드가 아니�
 - `_archive` 86개 ignored file을 외부 deterministic ZIP으로 검증·복원 가능하게 보관한 뒤 local 원본을 제거했다.
 - boot eager require에서 Recipe/Moveables/Fixing/Classifications 네 static module을 제거하고 first-use 실패 경고/cache/reset 계약을 유지했다.
 - compatibility/full-materialization과 Browser allocation 후보의 repository consumer census를 만들고 source 변경 없이 deferred로 disposition했다.
+- ignored tooling의 동적 Path consumer를 AST/string-fragment scan에 포함하고 누락 입력 1개를 11,381-byte physical exception으로 복원했다. CAS restore는 absolute/parent traversal/output escape/reparse path를 거부한다.
+- Codex Reviewer의 원 finding과 closeout 정합성 finding을 모두 해소해 최종 PASS를 받았다.
+
+## Measurement
+
+- 1차 baseline `4,842,336,252` bytes에서 현재 `1,080,954,330` bytes로 누적 `3,761,381,922` bytes, `77.68%` 감소했다.
+- 1차 final `1,338,324,791` bytes와 비교하면 이번 작업은 `257,370,461` bytes, `19.23%`를 추가로 줄였다.
+- 최악의 전체 repository scan에서 동일 입력 밀도를 가정한 처리량 대리 지표는 `3.62x -> 4.48x`다. 실제 tokenizer와 Codex token usage는 미계측이므로 일반 작업의 확정 token 개선율로 사용하지 않는다.
 
 ## Partial / Pending
 
@@ -1024,6 +1032,7 @@ Pulse는 처음부터 “새 Java 로더”로 경쟁하는 브랜드가 아니�
 - receipt-bound full-gate Run A/B와 deterministic compare는 허용된 외부 경계 밖 환경 영수증과 non-green diagnostic prerequisite 때문에 미실행이다. Codex Reviewer final review는 PASS이며 추가 actionable finding이 없다.
 - Change 4의 나머지 derived view는 unique content라 일대일 CAS 이동에 절감이 없어 유지한다.
 - Project Zomboid/Kahlua heap과 first-use latency raw sample이 없어 runtime 성능 claim은 승인하지 않는다.
+- 실제 LLM prompt/token before-after corpus와 cache telemetry가 없어 token 효율은 physical-byte proxy까지만 승인한다.
 
 ## Hold
 

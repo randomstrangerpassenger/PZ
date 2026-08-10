@@ -1084,4 +1084,4 @@ Historical trace / provenance index는 ROADMAP 본문에서 더 이상 관리하
 - safe lifecycle candidate가 없는 CAS mutation 또는 exact-contract group이 없는 Python helper 강제 공통화
 - configured full-suite PASS, release-ready, Workshop-ready 또는 정량 PZ 성능 개선 선언
 
-근거는 `Iris/_docs/refactor/codebase_optimization/closeout_receipt.json`, 같은 디렉터리의 baseline/change receipts, 2026-08-11 repository owner attestation이다. 현재 scoped 통합 상태는 `complete`다.
+근거는 `Iris/_docs/refactor/codebase_optimization/closeout_receipt.json`, 같은 디렉터리의 baseline/change receipts, 2026-08-11 repository owner attestation이다. 수동 functional in-game validation은 `complete`, governing plan에 따른 통합 closeout 상태는 `partial`이다.

@@ -2558,9 +2558,9 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
 
 ---
 
-## Iris codebase optimization — 측정 기반 채택 / scoped complete closeout
+## Iris codebase optimization — 측정 기반 채택 / partial closeout
 
-* 상태: 2026-08-11 implementation complete / current automated validation PASS / owner-attested Project Zomboid functional validation complete / overall `complete`
+* 상태: 2026-08-11 implementation complete / current automated validation PASS / owner-attested Project Zomboid functional validation complete / overall `partial`
 * 결정:
 
   * normal lazy lookup miss는 package/index corruption과 분리한다. 검증된 부재 key는 full facade fallback을 유발하지 않고, routing 또는 target identity 결함만 관측 가능한 fault/fallback 경계로 보낸다.
@@ -2568,7 +2568,7 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
   * Alt Tooltip inactive/warm allocation, Browser search location/copy, Ordering decoration은 고정 standalone operation corpus에서 parity와 감소가 함께 확인되어 채택한다. Capability mask는 custom·contradictory·same-canonical hybrid를 모두 보존할 closed-negative authority가 없어 category/type을 positive hint로만 유지하고 `complete/no-op`으로 닫는다.
   * whole/static projection cache는 purity와 generation invalidation이 닫히지 않아 no-op으로 남긴다. repository evidence CAS도 306개 중복 group 중 모든 lifecycle/consumer/delete gate를 통과한 group이 0이므로 mutation 없는 no-op으로 닫는다.
   * Python helper 공통화는 Git-tracked tooling 250개 파일의 106개 process boundary와 56개 helper definition을 exact contract로 비교했으나 3개 이상 current consumer group이 0이므로 강제하지 않는다. Runtime operation counter는 기본 off이며 metrics harness가 명시적으로 켠 경우에만 갱신한다.
-  * 2026-08-11 repository owner가 실제 Project Zomboid에서 정상 동작을 확인해 수동 functional runtime validation을 완료했다. Search debounce, incremental Browser build, Tooltip static attribution, LineCount attribution의 raw timing receipt는 기능 검증이 아니라 선택적 성능 benchmark로 계속 `deferred`다. 이 값이 없으므로 정량 성능 claim은 승인하지 않지만 scoped 통합 상태는 `complete`다.
+  * 2026-08-11 repository owner가 실제 Project Zomboid에서 정상 동작을 확인해 수동 functional runtime validation을 완료했다. Search debounce, incremental Browser build, Tooltip static attribution, LineCount attribution의 raw timing receipt는 기능 검증과 구분되는 성능 benchmark로 계속 `deferred`다. 이 값이 없으므로 정량 성능 claim은 승인하지 않으며 governing plan에 따른 통합 상태는 `partial`로 유지한다.
 * 검증 경계:
 
   * exact current `219/219`, terminal current `470 passed / 1 N/A skipped / 112 subtests`, Lua 103 files 및 계획의 focused rows는 exit `0`이다.

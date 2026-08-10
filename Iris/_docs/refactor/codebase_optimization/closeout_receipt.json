@@ -1,7 +1,7 @@
 {
   "schema_version": "iris-codebase-optimization-closeout-v1",
   "plan": "docs/iris_codebase_optimization_consolidated_plan.md",
-  "closeout_state": "complete",
+  "closeout_state": "partial",
   "plan_base": {
     "commit": "9dcb16288b79fa911adf601741b913cd71ded145",
     "tree": "50439b89a3b5bc6f620da395a016eaf3264b8c39"
@@ -217,5 +217,5 @@
     "p2": 0,
     "p3": 0
   },
-  "closeout_reason": "All current and focused automated contracts pass and the repository owner completed manual Project Zomboid functional validation. Four optional performance benchmark candidates remain deferred without authorizing timing claims; they do not make functional validation incomplete."
+  "closeout_reason": "All current and focused automated contracts pass and the repository owner completed manual Project Zomboid functional validation. The governing plan still maps the four deferred performance benchmark candidates to an overall partial closeout; this does not make the separately recorded functional in-game validation incomplete."
 }

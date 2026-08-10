@@ -88,28 +88,61 @@ class BuildClosureBlocker(importlib.abc.MetaPathFinder):
         return None
 
 
-def git_path_is_tracked(path: Path) -> bool:
-    relative = path.resolve().relative_to(REPO.resolve()).as_posix()
-    result = subprocess.run(
-        ["git", "ls-files", "--error-unmatch", "--", relative],
-        cwd=REPO,
-        text=True,
-        capture_output=True,
-        check=False,
-    )
-    return result.returncode == 0
+def repository_relative_path(path: Path) -> str:
+    try:
+        return path.resolve().relative_to(REPO.resolve()).as_posix()
+    except ValueError as exc:
+        raise ValueError(f"path is outside the repository: {path}") from exc
 
 
-def git_path_is_ignored(path: Path) -> bool:
-    relative = path.resolve().relative_to(REPO.resolve()).as_posix()
-    result = subprocess.run(
-        ["git", "check-ignore", "-q", "--", relative],
+def _nul_paths(payload: bytes) -> set[str]:
+    return {
+        value.decode("utf-8", errors="strict").replace("\\", "/")
+        for value in payload.split(b"\0")
+        if value
+    }
+
+
+def batch_git_path_states(paths: list[Path]) -> dict[str, dict[str, bool]]:
+    """Resolve tracked/ignored state with two Git processes, independent of N."""
+    relative_paths = list(dict.fromkeys(repository_relative_path(path) for path in paths))
+    tracked_result = subprocess.run(
+        ["git", "ls-files", "-z"],
         cwd=REPO,
-        text=True,
-        capture_output=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
         check=False,
     )
-    return result.returncode == 0
+    if tracked_result.returncode != 0:
+        raise RuntimeError(
+            "git ls-files failed: "
+            + tracked_result.stderr.decode("utf-8", errors="replace").strip()
+        )
+    tracked = _nul_paths(tracked_result.stdout)
+
+    ignored_result = subprocess.run(
+        ["git", "check-ignore", "--stdin", "-z"],
+        cwd=REPO,
+        input=(b"\0".join(path.encode("utf-8") for path in relative_paths) + b"\0")
+        if relative_paths
+        else b"",
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    if ignored_result.returncode not in {0, 1}:
+        raise RuntimeError(
+            "git check-ignore failed: "
+            + ignored_result.stderr.decode("utf-8", errors="replace").strip()
+        )
+    ignored = _nul_paths(ignored_result.stdout)
+    return {
+        relative: {
+            "tracked": relative in tracked,
+            "ignored": relative in ignored,
+        }
+        for relative in relative_paths
+    }
 
 
 def selected_test_module_paths(test_ids: list[str]) -> list[Path]:
@@ -190,14 +223,24 @@ def tools_build_import_candidates(path: Path) -> list[dict]:
 def inspect_preimport_build_dependency_closure(
     test_ids: list[str], allowed_modules: set[str]
 ) -> dict:
+    selected_paths = selected_test_module_paths(test_ids)
+    import_rows_by_test: dict[Path, list[dict]] = {}
+    repository_paths = list(selected_paths)
+    for test_path in selected_paths:
+        rows = tools_build_import_candidates(test_path) if test_path.is_file() else []
+        import_rows_by_test[test_path] = rows
+        repository_paths.extend(row["resolved_path"] for row in rows)
+    git_states = batch_git_path_states(repository_paths)
+
     rows: list[dict] = []
     selected_tests: list[dict] = []
     violations: list[dict] = []
-    for test_path in selected_test_module_paths(test_ids):
+    for test_path in selected_paths:
         selected_test = test_path.relative_to(REPO).as_posix()
         exists = test_path.is_file()
-        tracked = git_path_is_tracked(test_path)
-        ignored = git_path_is_ignored(test_path)
+        state = git_states[selected_test]
+        tracked = state["tracked"]
+        ignored = state["ignored"]
         selected_tests.append(
             {
                 "selected_test": selected_test,
@@ -228,15 +271,17 @@ def inspect_preimport_build_dependency_closure(
                     "selected_test": selected_test,
                 }
             )
-        for row in tools_build_import_candidates(test_path):
+        for row in import_rows_by_test[test_path]:
             target = row["resolved_path"]
             target_exists = target.is_file()
-            target_tracked = target_exists and git_path_is_tracked(target)
-            target_ignored = git_path_is_ignored(target)
+            target_relative = target.relative_to(REPO).as_posix()
+            target_state = git_states[target_relative]
+            target_tracked = target_exists and target_state["tracked"]
+            target_ignored = target_state["ignored"]
             allowed = row["module"] in allowed_modules
             observed = {
                 **{key: value for key, value in row.items() if key != "resolved_path"},
-                "resolved_path": target.relative_to(REPO).as_posix(),
+                "resolved_path": target_relative,
                 "exists": target_exists,
                 "tracked": target_tracked,
                 "ignored": target_ignored,

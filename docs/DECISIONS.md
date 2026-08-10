@@ -2575,4 +2575,5 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
   * clean disposable checkout의 configured full advisory는 `644 passed / 1 N/A skipped / 1 historical failure`다. 유일한 실패는 폐쇄된 live-consumer migration hash 재현 source이고, producer commit의 83-artifact dependency manifest와 exact `base..endpoint` diff/mandatory path 교집합이 0임을 classifier receipt로 확인했다. Current optimization claim 밖으로 분류하지만 full-suite PASS는 주장하지 않는다.
   * standalone operation count를 PZ frame/heap 성능, release/Workshop/multiplayer/long-session readiness로 확대하지 않는다.
   * owner attestation은 정상 동작 확인을 승인하지만 screenshot, log, raw timing 또는 benchmark 결과를 합성하지 않는다.
-* Evidence: `Iris/_docs/refactor/codebase_optimization/closeout_receipt.json` 및 같은 디렉터리의 baseline/change decision receipts.
+  * Codex Reviewer의 최초 changes-requested 항목은 hybrid item field 보존, source denominator 축소 방지, static-cache claim 축소, exact-endpoint/dependency failure classification, default-off instrumentation과 protection successor 보강으로 모두 해소했다. 구현 closeout과 owner-attestation correction의 최종 재검토는 각각 P0/P1/P2/P3 `0`으로 승인됐다.
+* Evidence: `Iris/_docs/refactor/codebase_optimization/closeout_receipt.json` 및 같은 디렉터리의 baseline/change decision receipts. 구현 subject는 `fe4bb9f6`, endpoint-bound closeout은 `b33ed2ac`, functional-attestation correction은 `89f7499c`, review seal은 `91259769`다.

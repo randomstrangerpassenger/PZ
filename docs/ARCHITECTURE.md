@@ -1268,4 +1268,8 @@ Runtime instrumentation은 기본 off다. RuntimeLookupDiagnostics의 normal-mis
 
 Pytest의 configured discovery는 exact Round 3 current authority와 별도다. Source policy는 current/historical/diagnostic/excluded 및 mixed item override를 소유한다. Git-tracked policy source set과 approval 시점의 clean-checkout-absent policy source set은 각각 count/identity로 고정되므로 tracked source 삭제나 정책 분모 축소는 collection 전에 실패한다. 승인된 ignored historical source 두 개는 존재할 때만 실제 collection denominator에 들어간다. Exact current runner의 authority를 configured `all` 결과로 대체하지 않으며 advisory 역사 실패를 current PASS로 다시 쓰지도 않는다.
 
+Advisory failure classification은 exact `base..endpoint` diff와 실패 source의 sealed dependency manifest를 함께 펼쳐 modified/mandatory 교집합을 판정한다. 이번 34-artifact historical hash 재현 실패는 83-path dependency manifest까지 포함해 두 교집합이 모두 0일 때만 optimization claim 밖으로 분류했으며, configured full-suite PASS로 승격하지 않았다. Reviewer protection successor v2는 수정된 RuntimeLookupDiagnostics, AltTooltip, TooltipSummary 및 residual contract surface의 predecessor tree와 before/after blob을 연쇄 결속한다.
+
 Standalone Lua fixture는 operation count와 output parity만 승인한다. 2026-08-11 repository owner가 실제 Project Zomboid에서 정상 동작을 확인해 수동 functional runtime acceptance는 완료됐다. Raw timing sample이 없는 debounce, incremental build, Tooltip first-load 및 LineCount attribution은 계속 deferred benchmark candidate이고 정량 성능 claim을 만들지 않으며, governing plan에 따른 통합 closeout 상태는 `partial`이다. 이 상태는 별도로 기록된 기능 검증 완료를 무효화하지 않는다.
+
+Closeout review authority는 implementation subject `fe4bb9f6`, endpoint-bound receipt `b33ed2ac`, owner-attestation correction `89f7499c`, review seal `91259769`로 분리한다. Codex Reviewer는 구현과 attestation 경계를 각각 재검토해 최종 P0/P1/P2/P3 모두 0으로 승인했다. Review seal은 성능 benchmark나 release 권위를 새로 만들지 않는다.

@@ -1065,6 +1065,7 @@ Historical trace / provenance index는 ROADMAP 본문에서 더 이상 관리하
 - Git path 상태 조회를 batch화했다. CAS와 Python helper 공통화는 안전 후보가 없어 mutation 없는 no-op으로 닫았다.
 - exact current `219/219`, terminal current `470 passed / 1 N/A skipped / 112 subtests`, Lua 103 files와 focused optimization rows를 통과했다.
 - 2026-08-11 repository owner가 실제 Project Zomboid에서 정상 동작을 확인해 수동 functional in-game validation을 완료했다.
+- Codex Reviewer가 hybrid compatibility, fail-closed source denominator, cache claim scope, endpoint/dependency classifier, default-off instrumentation과 protected-surface chain 수정을 확인했다. 구현 및 owner-attestation 경계의 최종 verdict는 모두 `APPROVE`, P0/P1/P2/P3 `0`이다.
 
 ## Runtime acceptance / Measurement limits
 
@@ -1084,4 +1085,4 @@ Historical trace / provenance index는 ROADMAP 본문에서 더 이상 관리하
 - safe lifecycle candidate가 없는 CAS mutation 또는 exact-contract group이 없는 Python helper 강제 공통화
 - configured full-suite PASS, release-ready, Workshop-ready 또는 정량 PZ 성능 개선 선언
 
-근거는 `Iris/_docs/refactor/codebase_optimization/closeout_receipt.json`, 같은 디렉터리의 baseline/change receipts, 2026-08-11 repository owner attestation이다. 수동 functional in-game validation은 `complete`, governing plan에 따른 통합 closeout 상태는 `partial`이다.
+근거는 `Iris/_docs/refactor/codebase_optimization/closeout_receipt.json`, 같은 디렉터리의 baseline/change receipts, 2026-08-11 repository owner attestation과 `fe4bb9f6 -> b33ed2ac -> 89f7499c -> 91259769` closeout/review chain이다. 수동 functional in-game validation은 `complete`, governing plan에 따른 통합 closeout 상태는 `partial`이다.

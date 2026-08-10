@@ -118,6 +118,18 @@
           "reason": "Keep full receipt identity while giving terminal profiles a short physical basename that can satisfy the declared Windows tracked-path budget."
         },
         {
+          "path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py",
+          "before_git_blob_id": "c19747967febfb645da656857c46c8e505c6f0b1",
+          "before_sha256_lf": "e3a06404a7915a346f961c701d1debfa21586134ce22372781ba8afd80ac4554",
+          "expected_git_blob_id": "62c1797eeda438f9e5f1eb495678dd90c11b95b1",
+          "after_sha256_lf": "b36b2eb2118d0a33776321f61d9b08acfb00af575fcda70df96ca879d518ad30",
+          "role": "clean_checkout_launcher_fixture_contract",
+          "writer": "repository_evidence_lightweighting_c0_c",
+          "consumers": ["full_repository_gate", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Keep the fake launcher repository aligned with the C0-c bound implementation inputs."
+        },
+        {
           "path": "Iris/test/validate_residual_refactor_surfaces.ps1",
           "before_git_blob_id": "8ca6e6415948337a08c330fda228b09b06804909",
           "before_sha256_lf": "82c9c7a64e5fa7370cb1f03fc950f6bbd3dca1766075b099b12aff87f10b9be0",

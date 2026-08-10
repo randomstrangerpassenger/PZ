@@ -682,6 +682,18 @@
           "reason": "Keep Change 4 and unmeasured Project Zomboid runtime evidence explicitly partial."
         },
         {
+          "path": "Iris/test/validate_residual_refactor_surfaces.ps1",
+          "before_git_blob_id": "f5a9320623ca0c78a474a4b4a27046b5dfa48c09",
+          "before_sha256_lf": "59b34810e38f30980943273da5d65715704dbd60b08ffba9164449c0def128e6",
+          "expected_git_blob_id": "d48b87e6d28f91863af138fe61130a494d5581cc",
+          "after_sha256_lf": "ee5eff7a1a98bb2c6fe45c4ac3edcb7bfbc8dcc443f9a01170669b12bd5bc2d4",
+          "role": "protected_surface_validator",
+          "writer": "repository_evidence_lightweighting_terminal_validation_fix",
+          "consumers": ["current_route_validation", "residual_closeout"],
+          "owner": "repository_owner_user",
+          "reason": "Fold exact successor-authorized removal of a protected full representation after its reconstruction replacement is adopted."
+        },
+        {
           "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
           "before_git_blob_id": "7ef85af829973ffea568b680bde54d407847a979",
           "before_sha256_lf": "3b989e1c5379fcaa63ad7fcf73d26877f8a941dd309e07044a25f34ef1a1e944",

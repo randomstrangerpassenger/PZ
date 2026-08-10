@@ -1117,6 +1117,18 @@
           "reason": "Keep production instrumentation disabled by default and coordinate explicit Browser query/index instrumentation opt-in."
         },
         {
+          "path": "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserItemIndex.lua",
+          "before_git_blob_id": "a855bd103c34d03eb87e537060aaac1adb531e42",
+          "before_sha256_lf": "87f73b89bce7b27da1184c13f487cda5f502784ddb033c1b084a0a1998ccd626",
+          "expected_git_blob_id": "10745e762419468e8639f15119baa25f6c3f1d06",
+          "after_sha256_lf": "72478e915b723be08dcdb0cef72a4ba082a559b70e62c5e4673800a81c0a704e",
+          "role": "runtime_browser_item_index",
+          "writer": "iris_codebase_optimization_reviewer_corrections",
+          "consumers": ["browser_data", "runtime_instrumentation"],
+          "owner": "repository_owner_user",
+          "reason": "Avoid scan counters and clock reads unless Browser instrumentation is explicitly enabled."
+        },
+        {
           "path": "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserQuery.lua",
           "before_git_blob_id": "d413706e50f9b6a3f191372f3ac0eba6b21fdafb",
           "before_sha256_lf": "c29fdde4957d23fa28ac664d6c6355918b4739988c757eba808ae1b7796bd97c",

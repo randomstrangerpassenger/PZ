@@ -739,8 +739,12 @@ foreach ($Entry in $AddedProtectedRows.GetEnumerator()) {
     }
 }
 foreach ($RemovedPath in $RemovedProtectedRows.Keys) {
-    & git -C $RepositoryRoot cat-file -e ("HEAD:" + [string]$RemovedPath) 2>$null
-    if ($LASTEXITCODE -eq 0 -or (Test-Path -LiteralPath (Join-Path $RepositoryRoot ([string]$RemovedPath)))) {
+    $FinalTreeRows = @(& git -C $RepositoryRoot ls-tree HEAD -- ([string]$RemovedPath))
+    if (
+        $LASTEXITCODE -ne 0 -or
+        $FinalTreeRows.Count -ne 0 -or
+        (Test-Path -LiteralPath (Join-Path $RepositoryRoot ([string]$RemovedPath)))
+    ) {
         throw "repository lightweighting removed row unexpectedly exists: $RemovedPath"
     }
 }

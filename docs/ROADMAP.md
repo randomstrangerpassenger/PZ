@@ -1064,17 +1064,18 @@ Historical trace / provenance index는 ROADMAP 본문에서 더 이상 관리하
 - Browser search target operation을 `66 -> 24`, Ordering key derivation을 `64 -> 12`로 줄이고 각 fixed-corpus signature parity를 보존했다. Capability mask는 custom·contradictory·same-canonical hybrid field를 안전하게 부정할 authority가 없어 `2200 -> 2200` no-op으로 닫았고, runtime counter는 기본 off로 전환했다.
 - Git path 상태 조회를 batch화했다. CAS와 Python helper 공통화는 안전 후보가 없어 mutation 없는 no-op으로 닫았다.
 - exact current `219/219`, terminal current `470 passed / 1 N/A skipped / 112 subtests`, Lua 103 files와 focused optimization rows를 통과했다.
+- 2026-08-11 repository owner가 실제 Project Zomboid에서 정상 동작을 확인해 수동 functional in-game validation을 완료했다.
 
-## Partial / Measurement limits
+## Runtime acceptance / Measurement limits
 
-- 실제 Project Zomboid 실행 환경이 없어 `PZ-6C-SEARCH-01`, `PZ-6C-BUILD-01`, `PZ-7-TOOLTIP-01`, `PZ-7-LINECOUNT-01` sample은 비어 있다. Search debounce, incremental Browser build, Tooltip static attribution, LineCount attribution은 deferred다.
+- `PZ-6C-SEARCH-01`, `PZ-6C-BUILD-01`, `PZ-7-TOOLTIP-01`, `PZ-7-LINECOUNT-01` raw timing sample은 비어 있다. 이는 기능 검증이 아니라 선택적 성능 benchmark이며 Search debounce, incremental Browser build, Tooltip static attribution, LineCount attribution의 정량 채택 판단은 deferred다.
 - clean disposable checkout의 configured full advisory는 644 pass, 1 N/A skip, 1 historical failure다. Failing node, 34-artifact mismatch identity, sealed 83-path dependency manifest, exact `base..endpoint` modified/mandatory 교집합 0을 classifier receipt에 보존했다. Current/modified/mandatory failure는 없지만 full-suite PASS는 주장하지 않는다.
 - standalone operation 감소를 PZ frame time, heap, release/Workshop/multiplayer/long-session 성능으로 해석하지 않는다.
 
-## Next
+## Optional benchmark follow-up
 
 - 동일 PZ build/machine/save/mod-set에서 네 named receipt를 각각 10회 측정하고 median/p95/max와 raw sample을 결속한다.
-- 네 measurement gate가 모두 닫힌 뒤에만 deferred candidate의 채택 여부와 전체 `complete` 승격을 다시 판정한다.
+- 측정할 경우 deferred candidate의 정량 채택 여부만 다시 판정하며, 이미 완료된 functional in-game validation을 소급해 미완료로 취급하지 않는다.
 
 ## Hold
 
@@ -1083,4 +1084,4 @@ Historical trace / provenance index는 ROADMAP 본문에서 더 이상 관리하
 - safe lifecycle candidate가 없는 CAS mutation 또는 exact-contract group이 없는 Python helper 강제 공통화
 - configured full-suite PASS, release-ready, Workshop-ready 또는 정량 PZ 성능 개선 선언
 
-근거는 `Iris/_docs/refactor/codebase_optimization/closeout_receipt.json`과 같은 디렉터리의 baseline/change receipts다. 현재 통합 상태는 `partial`이다.
+근거는 `Iris/_docs/refactor/codebase_optimization/closeout_receipt.json`, 같은 디렉터리의 baseline/change receipts, 2026-08-11 repository owner attestation이다. 현재 scoped 통합 상태는 `complete`다.

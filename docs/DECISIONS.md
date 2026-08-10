@@ -2558,9 +2558,9 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
 
 ---
 
-## Iris codebase optimization — 측정 기반 채택 / partial closeout
+## Iris codebase optimization — 측정 기반 채택 / scoped complete closeout
 
-* 상태: 2026-08-11 implementation complete / current automated validation PASS / Project Zomboid measurement receipts deferred / overall `partial`
+* 상태: 2026-08-11 implementation complete / current automated validation PASS / owner-attested Project Zomboid functional validation complete / overall `complete`
 * 결정:
 
   * normal lazy lookup miss는 package/index corruption과 분리한다. 검증된 부재 key는 full facade fallback을 유발하지 않고, routing 또는 target identity 결함만 관측 가능한 fault/fallback 경계로 보낸다.
@@ -2568,10 +2568,11 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
   * Alt Tooltip inactive/warm allocation, Browser search location/copy, Ordering decoration은 고정 standalone operation corpus에서 parity와 감소가 함께 확인되어 채택한다. Capability mask는 custom·contradictory·same-canonical hybrid를 모두 보존할 closed-negative authority가 없어 category/type을 positive hint로만 유지하고 `complete/no-op`으로 닫는다.
   * whole/static projection cache는 purity와 generation invalidation이 닫히지 않아 no-op으로 남긴다. repository evidence CAS도 306개 중복 group 중 모든 lifecycle/consumer/delete gate를 통과한 group이 0이므로 mutation 없는 no-op으로 닫는다.
   * Python helper 공통화는 Git-tracked tooling 250개 파일의 106개 process boundary와 56개 helper definition을 exact contract로 비교했으나 3개 이상 current consumer group이 0이므로 강제하지 않는다. Runtime operation counter는 기본 off이며 metrics harness가 명시적으로 켠 경우에만 갱신한다.
-  * 실제 PZ sample이 필요한 search debounce, incremental Browser build, Tooltip static attribution, LineCount attribution은 `deferred`다. 이 네 항목 때문에 통합 상태는 `complete`가 아니라 `partial`이다.
+  * 2026-08-11 repository owner가 실제 Project Zomboid에서 정상 동작을 확인해 수동 functional runtime validation을 완료했다. Search debounce, incremental Browser build, Tooltip static attribution, LineCount attribution의 raw timing receipt는 기능 검증이 아니라 선택적 성능 benchmark로 계속 `deferred`다. 이 값이 없으므로 정량 성능 claim은 승인하지 않지만 scoped 통합 상태는 `complete`다.
 * 검증 경계:
 
   * exact current `219/219`, terminal current `470 passed / 1 N/A skipped / 112 subtests`, Lua 103 files 및 계획의 focused rows는 exit `0`이다.
   * clean disposable checkout의 configured full advisory는 `644 passed / 1 N/A skipped / 1 historical failure`다. 유일한 실패는 폐쇄된 live-consumer migration hash 재현 source이고, producer commit의 83-artifact dependency manifest와 exact `base..endpoint` diff/mandatory path 교집합이 0임을 classifier receipt로 확인했다. Current optimization claim 밖으로 분류하지만 full-suite PASS는 주장하지 않는다.
   * standalone operation count를 PZ frame/heap 성능, release/Workshop/multiplayer/long-session readiness로 확대하지 않는다.
+  * owner attestation은 정상 동작 확인을 승인하지만 screenshot, log, raw timing 또는 benchmark 결과를 합성하지 않는다.
 * Evidence: `Iris/_docs/refactor/codebase_optimization/closeout_receipt.json` 및 같은 디렉터리의 baseline/change decision receipts.

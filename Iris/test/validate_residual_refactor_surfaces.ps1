@@ -438,6 +438,7 @@ $AuthorizedChanged = 0
 $AuthorizedAdded = 0
 $ApprovedDeltas = @{}
 $AddedProtectedRows = @{}
+$RemovedProtectedRows = @{}
 $BaselineProtectedRows = @{}
 foreach ($Row in @($ProtectedBaseline.rows)) {
     $RowPath = [string]$Row.path
@@ -670,6 +671,41 @@ foreach ($RevisionEntry in $RevisionEntries) {
             }
         }
         $AddedProtectedRows[$AddedPath] = $Added
+        if ($RemovedProtectedRows.ContainsKey($AddedPath)) {
+            $RemovedProtectedRows.Remove($AddedPath)
+        }
+    }
+    foreach ($Removed in @($Revision.removed_protected_rows)) {
+        $RemovedPath = [string]$Removed.path
+        if (
+            [string]$Removed.before_git_blob_id -notmatch '^[0-9a-f]{40,64}$' -or
+            [string]$Removed.before_sha256_lf -notmatch '^[0-9a-f]{64}$' -or
+            [string]$Removed.owner -cne 'repository_owner_user' -or
+            [string]::IsNullOrWhiteSpace([string]$Removed.reason)
+        ) {
+            throw "repository lightweighting removed row identity invalid: $RemovedPath"
+        }
+        if (-not $AddedProtectedRows.ContainsKey($RemovedPath)) {
+            throw "repository lightweighting removed row is not an active added row: $RemovedPath"
+        }
+        $PriorAdded = $AddedProtectedRows[$RemovedPath]
+        if (
+            [string]$Removed.before_git_blob_id -cne [string]$PriorAdded.expected_git_blob_id -or
+            [string]$Removed.before_sha256_lf -cne [string]$PriorAdded.after_sha256_lf
+        ) {
+            throw "repository lightweighting removed row chain mismatch: $RemovedPath"
+        }
+        if ($IsActiveRevision) {
+            $BeforeBlob = (& git -C $RepositoryRoot rev-parse ($RevisionPredecessor + ':' + $RemovedPath)).Trim()
+            if ($LASTEXITCODE -ne 0 -or $BeforeBlob -cne [string]$Removed.before_git_blob_id) {
+                throw "repository lightweighting removed row predecessor Git blob mismatch: $RemovedPath"
+            }
+            if ((Get-GitBlobLfHash $BeforeBlob) -cne [string]$Removed.before_sha256_lf) {
+                throw "repository lightweighting removed row predecessor LF hash mismatch: $RemovedPath"
+            }
+        }
+        $AddedProtectedRows.Remove($RemovedPath)
+        $RemovedProtectedRows[$RemovedPath] = $Removed
     }
 }
 if (-not $AnchorStateVerified) {
@@ -694,6 +730,12 @@ foreach ($Entry in $AddedProtectedRows.GetEnumerator()) {
     }
     if ((Get-LfTextHashOrNull (Join-Path $RepositoryRoot $AddedPath)) -cne [string]$Added.after_sha256_lf) {
         throw "repository lightweighting final added-row LF hash mismatch: $AddedPath"
+    }
+}
+foreach ($RemovedPath in $RemovedProtectedRows.Keys) {
+    & git -C $RepositoryRoot cat-file -e ("HEAD:" + [string]$RemovedPath) 2>$null
+    if ($LASTEXITCODE -eq 0 -or (Test-Path -LiteralPath (Join-Path $RepositoryRoot ([string]$RemovedPath)))) {
+        throw "repository lightweighting removed row unexpectedly exists: $RemovedPath"
     }
 }
 foreach ($Row in $ProtectedBaseline.rows) {
@@ -797,6 +839,7 @@ $ProtectedReport = [ordered]@{
     historical_revision_ids = @($HistoricalRevisions | ForEach-Object { [string]$_.revision_id })
     active_revision_ids = @($ActiveRevisions | ForEach-Object { [string]$_.revision_id })
     repository_lightweighting_revision_ids = @($LightweightingRevisions | ForEach-Object { [string]$_.revision_id })
+    removed_protected_paths = @($RemovedProtectedRows.Keys | Sort-Object)
     changed_count = @($ProtectedRows | Where-Object changed).Count
     authorized_changed_count = $AuthorizedChanged
     authorized_added_count = $AuthorizedAdded

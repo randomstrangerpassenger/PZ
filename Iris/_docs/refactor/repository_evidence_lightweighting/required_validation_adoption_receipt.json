@@ -74,8 +74,8 @@
     },
     "protected_surface_successor": {
       "path": "Iris/_docs/refactor/repository_evidence_lightweighting/protected_surface_successor_manifest.json",
-      "git_blob_id": "7cd30d94cd38aebfca6ee17e74dd038d6d74e3c2",
-      "physical_raw_sha256_at_adoption": "a5c74fd8123064bc61d3131e9e0783efdbbe29796b28f03df7dcd915f6f4016e"
+      "git_blob_id": "260dd3b0822b91268ff2c032295a01dbe144abd2",
+      "physical_raw_sha256_at_adoption": "af72bbf26d75ee8d770d581a60064cd12e529678bf0c3c4dec6d0e7a178fb838"
     },
     "residual_surface_validator": {
       "path": "Iris/test/validate_residual_refactor_surfaces.ps1",

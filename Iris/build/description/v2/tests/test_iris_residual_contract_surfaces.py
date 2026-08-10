@@ -156,6 +156,14 @@ class IrisResidualContractSurfacesTest(unittest.TestCase):
             protected["repository_lightweighting_successor_schema_version"],
             "iris_repository_runtime_lightweighting_protected_surface_successor_v2",
         )
+        self.assertEqual(
+            protected["repository_evidence_lightweighting_successor_manifest"],
+            "Iris/_docs/refactor/repository_evidence_lightweighting/protected_surface_successor_manifest.json",
+        )
+        self.assertEqual(
+            protected["repository_evidence_lightweighting_successor_schema_version"],
+            "iris_repository_evidence_lightweighting_protected_surface_successor_v1",
+        )
         self.assertEqual(protected["historical_manifest_attestation"]["git_blob_id"], attested_blob)
         self.assertEqual(protected["historical_subject_object_dereference_count"], 0)
         self.assertTrue(protected["active_protection_anchor"]["final_state_verified"])
@@ -164,6 +172,7 @@ class IrisResidualContractSurfacesTest(unittest.TestCase):
             [
                 "tooling_track_v2_durable_protection_successor_v1",
                 "tooling_track_adoption_checkpoint_v1",
+                "repository_evidence_lightweighting_c0_c_bootstrap_v1",
             ],
         )
         self.assertEqual(

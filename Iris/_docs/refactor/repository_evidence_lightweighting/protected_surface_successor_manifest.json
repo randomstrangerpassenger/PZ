@@ -108,6 +108,18 @@
           "reason": "Fold the additive repository evidence lightweighting revision after the sealed predecessor successor."
         },
         {
+          "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+          "before_git_blob_id": "f6fb2b876e91094c2dc721aab39ad025504bec5b",
+          "before_sha256_lf": "5d212bceb65e8e1bad91235ee5febf035fcf24085201722826b8f242a655329e",
+          "expected_git_blob_id": "4c2aa5876c81782270009256ad06118f0c277f3d",
+          "after_sha256_lf": "6940ed0822d46e95f2476a7fc39a1fb9623883bd46f3d15c6da30452f91ccf38",
+          "role": "protected_surface_current_required_test",
+          "writer": "repository_evidence_lightweighting_c0_c_successor",
+          "consumers": ["current_route_validation", "residual_closeout", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Require the additive repository evidence lightweighting active revision and its report identity."
+        },
+        {
           "path": "Iris/_docs/refactor/repository_evidence_lightweighting/predecessor_subject_manifest.json",
           "before_git_blob_id": "c442e9f93b9c2ab2e9438b3b1334a3c832d2e384",
           "before_sha256_lf": "624b2de8667a74e4238614cbc1bccc8e7fe26791ed028cebcca058335ab7e267",

@@ -271,19 +271,47 @@ try {
     $commonRelative = 'Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py'
     $policyRelative = 'Iris/validation/clean_checkout/contracts/output_policy.json'
     $successorPolicyRelative = 'Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json'
+    $evidencePolicyRelative = 'Iris/validation/clean_checkout/contracts/repository_evidence_lightweighting_output_policy.json'
+    $evidencePredecessorRelative = 'Iris/_docs/refactor/repository_evidence_lightweighting/predecessor_subject_manifest.json'
+    $evidenceOwnerApprovalRelative = 'Iris/_docs/refactor/repository_evidence_lightweighting/owner_policy_approval.json'
+    $taxonomyRelative = 'Iris/_docs/round3/round3_test_taxonomy.json'
+    $requiredValidationsRelative = 'Iris/_docs/round3/current_route_required_validations.json'
+    $fullGateContractRelative = 'Iris/validation/clean_checkout/contracts/full_repository_gate.json'
+    $evidenceAdoptionReceiptRelative = 'Iris/_docs/refactor/repository_evidence_lightweighting/required_validation_adoption_receipt.json'
     $phase0Relative = 'Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json'
     $launcherRelative = 'Iris/validation/clean_checkout/invoke_receipt_bound_full_gate.ps1'
     $runner = Join-Path $resolvedRepository $runnerRelative
     $common = Join-Path $resolvedRepository $commonRelative
     $policyPath = Join-Path $resolvedRepository $policyRelative
     $successorPolicyPath = Join-Path $resolvedRepository $successorPolicyRelative
+    $evidencePolicyPath = Join-Path $resolvedRepository $evidencePolicyRelative
+    $evidencePredecessorPath = Join-Path $resolvedRepository $evidencePredecessorRelative
+    $evidenceOwnerApprovalPath = Join-Path $resolvedRepository $evidenceOwnerApprovalRelative
+    $taxonomyPath = Join-Path $resolvedRepository $taxonomyRelative
+    $requiredValidationsPath = Join-Path $resolvedRepository $requiredValidationsRelative
+    $fullGateContractPath = Join-Path $resolvedRepository $fullGateContractRelative
+    $evidenceAdoptionReceiptPath = Join-Path $resolvedRepository $evidenceAdoptionReceiptRelative
     $phase0Path = Join-Path $resolvedRepository $phase0Relative
     $expectedLauncher = Join-Path $resolvedRepository $launcherRelative
     $actualLauncher = [System.IO.Path]::GetFullPath($MyInvocation.MyCommand.Path)
     if (-not $actualLauncher.Equals([System.IO.Path]::GetFullPath($expectedLauncher), [System.StringComparison]::OrdinalIgnoreCase)) {
         throw 'launcher was loaded from a different checkout'
     }
-    foreach ($path in @($runner, $common, $policyPath, $successorPolicyPath, $phase0Path, $actualLauncher)) {
+    foreach ($path in @(
+        $runner,
+        $common,
+        $policyPath,
+        $successorPolicyPath,
+        $evidencePolicyPath,
+        $evidencePredecessorPath,
+        $evidenceOwnerApprovalPath,
+        $taxonomyPath,
+        $requiredValidationsPath,
+        $fullGateContractPath,
+        $evidenceAdoptionReceiptPath,
+        $phase0Path,
+        $actualLauncher
+    )) {
         if (-not [System.IO.File]::Exists($path)) { throw "required implementation file is missing: $path" }
     }
     $blobRows = [ordered]@{}
@@ -292,6 +320,13 @@ try {
         @('common', $commonRelative, $common),
         @('policy', $policyRelative, $policyPath),
         @('successor_policy', $successorPolicyRelative, $successorPolicyPath),
+        @('evidence_policy', $evidencePolicyRelative, $evidencePolicyPath),
+        @('evidence_predecessor', $evidencePredecessorRelative, $evidencePredecessorPath),
+        @('evidence_owner_approval', $evidenceOwnerApprovalRelative, $evidenceOwnerApprovalPath),
+        @('test_taxonomy', $taxonomyRelative, $taxonomyPath),
+        @('required_validations', $requiredValidationsRelative, $requiredValidationsPath),
+        @('full_gate_contract', $fullGateContractRelative, $fullGateContractPath),
+        @('evidence_adoption_receipt', $evidenceAdoptionReceiptRelative, $evidenceAdoptionReceiptPath),
         @('environment_authority', $phase0Relative, $phase0Path),
         @('launcher', $launcherRelative, $actualLauncher)
     )) {

@@ -1,0 +1,120 @@
+{
+  "schema_version": "iris_repository_evidence_lightweighting_output_policy_v1",
+  "policy_id": "iris_repository_evidence_lightweighting_output_policy_20260810",
+  "claim_id": "iris_repository_evidence_lightweighting",
+  "scope": "repository_evidence_and_intermediate_artifact_storage_representation",
+  "predecessor_subject": {
+    "path": "Iris/_docs/refactor/repository_evidence_lightweighting/predecessor_subject_manifest.json",
+    "git_blob_id": "c442e9f93b9c2ab2e9438b3b1334a3c832d2e384",
+    "c0_a_commit": "df498f95aa334bdf3a74167e900ca8a04a2550d6",
+    "c0_a_tree": "da5e2447b8a8dcce392a4b8f22908f58cfc9d44d",
+    "c0_b_commit": "7a3bb22fb9c3bc5327d16f4e73ca4897ab559c1d",
+    "c0_b_tree": "04d14bbec11182130c71d72c3a0d14c276ac5b23"
+  },
+  "authority_boundary": {
+    "cas_authority_class": "raw_byte_representation_only",
+    "cas_is_source_authority": false,
+    "cas_is_rendered_authority": false,
+    "cas_is_runtime_authority": false,
+    "cas_is_semantic_authority": false,
+    "existing_artifact_role_and_receipt_identity_remain_authoritative": true,
+    "same_invocation_may_mix_v1_and_v2_representations": false
+  },
+  "durable_repository_storage": {
+    "canonical_object_layout": "Iris/build/description/v2/evidence/objects/sha256/<prefix>/<sha256>",
+    "reference_root": "Iris/build/description/v2/evidence/references",
+    "allowed_roots": [
+      "Iris/build/description/v2/evidence/objects/sha256",
+      "Iris/build/description/v2/evidence/references"
+    ],
+    "tracking_required": true,
+    "gitignore_allowlist_required": true,
+    "clean_checkout_availability_required": true,
+    "atomic_create_new_promotion_required": true,
+    "overwrite_existing_object_allowed": false,
+    "existing_object_reuse_requires_sha256_and_size_match": true,
+    "dangling_reference_allowed": false,
+    "orphan_retained_object_allowed": false,
+    "duplicate_object_body_allowed": false,
+    "symbolic_or_hard_link_representation_allowed": false
+  },
+  "external_roots": {
+    "allocator_required": true,
+    "newly_allocated_existing_empty_required": true,
+    "repository_disjoint_required": true,
+    "work_result_mutually_non_nested_required": true,
+    "run_root_reuse_allowed": false,
+    "allowed_roles": [
+      "objects",
+      "phases",
+      "logs",
+      "package",
+      "materialized",
+      "cold_archive",
+      "restore"
+    ],
+    "machine_specific_absolute_path_in_successor_evidence_allowed": false,
+    "opaque_allocator_id_and_receipt_hash_required": true
+  },
+  "cold_archive_profile": {
+    "backend_kind": "owner_selected_repository_external_file_store",
+    "format": "zip",
+    "compression": "deflate",
+    "compression_level": 9,
+    "member_name_form": "repository_relative_posix",
+    "member_order": "unicode_code_point_lexical",
+    "member_timestamp": "1980-01-01T00:00:00",
+    "create_system": 3,
+    "external_attr": "0o100644 << 16",
+    "directory_entries_allowed": false,
+    "extra_fields_allowed": false,
+    "member_or_global_comments_allowed": false,
+    "embedded_operation_manifest_required": true,
+    "producer_identity_required": true,
+    "restore_before_delete_required": true
+  },
+  "deletion_contract": {
+    "owner_approval_required": true,
+    "selection_manifest_required": true,
+    "consumer_migration_required": true,
+    "clean_restore_receipt_required": true,
+    "zero_dangling_reference_required": true,
+    "current_authority_deletion_allowed": false,
+    "historical_reproduction_input_deletion_allowed_without_repository_available_restore": false,
+    "append_only_failed_attempt_and_rollback_evidence_required": true
+  },
+  "required_environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PIP_NO_INDEX": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONHASHSEED": "0",
+    "PYTHONNOUSERSITE": "1"
+  },
+  "cleared_ambient_environment": [
+    "PYTHONHOME",
+    "PYTHONPATH",
+    "PYTEST_ADDOPTS"
+  ],
+  "required_receipt_fields": [
+    "claim_id",
+    "subject_commit",
+    "subject_tree",
+    "predecessor_subject_manifest_git_blob_id",
+    "policy_git_blob_id",
+    "owner_approval_git_blob_id",
+    "taxonomy_git_blob_id",
+    "required_validations_git_blob_id",
+    "full_repository_gate_git_blob_id",
+    "allocator_id",
+    "resolved_role_roots",
+    "object_and_reference_dispositions",
+    "dangling_reference_count"
+  ],
+  "validation_boundary": {
+    "repository_local_output_forbidden_except_approved_durable_roots": true,
+    "ambient_python_bytecode_forbidden": true,
+    "identity_drift_fail_loud": true,
+    "dirty_source_checkout_fail_loud": true,
+    "exact_relevant_command_exit_zero_required_for_pass": true
+  }
+}

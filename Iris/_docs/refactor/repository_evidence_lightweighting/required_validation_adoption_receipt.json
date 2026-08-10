@@ -1,0 +1,117 @@
+{
+  "schema_version": "iris_repository_evidence_lightweighting_required_validation_adoption_v1",
+  "adoption_id": "iris_repository_evidence_lightweighting_c0_c_bootstrap_adoption_20260810",
+  "status": "adopted_pending_clean_validation",
+  "claim_id": "iris_repository_evidence_lightweighting",
+  "created_at_utc": "2026-08-10T03:18:00Z",
+  "predecessor_c0_b": {
+    "commit": "7a3bb22fb9c3bc5327d16f4e73ca4897ab559c1d",
+    "tree": "04d14bbec11182130c71d72c3a0d14c276ac5b23",
+    "external_validation_allocator_id": "c0b-b50829e1dbd142dbab8101224b8ec46b",
+    "external_validation_receipt_sha256": "cc744f46a4d0354b1e51db8f5e8a9f66b5e2fd9735597c3050f78093c143eeba"
+  },
+  "commit_binding": {
+    "kind": "first_commit_containing_exact_adoption_receipt_blob",
+    "self_referential_commit_or_blob_field_allowed": false,
+    "clean_validation_receipt_binds_actual_c0_c_commit_and_tree": true
+  },
+  "bound_inputs": {
+    "predecessor_subject": {
+      "path": "Iris/_docs/refactor/repository_evidence_lightweighting/predecessor_subject_manifest.json",
+      "git_blob_id": "c442e9f93b9c2ab2e9438b3b1334a3c832d2e384",
+      "physical_raw_sha256_at_adoption": "624b2de8667a74e4238614cbc1bccc8e7fe26791ed028cebcca058335ab7e267"
+    },
+    "successor_policy": {
+      "path": "Iris/validation/clean_checkout/contracts/repository_evidence_lightweighting_output_policy.json",
+      "git_blob_id": "85dd43103de7b9b4351a9f3ae82e8fbb37baedc4",
+      "physical_raw_sha256_at_adoption": "be27d1f5abaaf085d497bbf53c0767cde96d30b4ac3d3638d102797ca2c1163e"
+    },
+    "owner_approval": {
+      "path": "Iris/_docs/refactor/repository_evidence_lightweighting/owner_policy_approval.json",
+      "git_blob_id": "b66376ce2efc514bbb011ddeaf2799874e8a6c1a",
+      "physical_raw_sha256_at_adoption": "1defa7e97dfc73f983349304f43bf12099c365f2ed9399b0baea78327b5e12f6"
+    },
+    "test_taxonomy": {
+      "path": "Iris/_docs/round3/round3_test_taxonomy.json",
+      "git_blob_id": "a0046722114472a14bfdfbbc47a55feb971883e6",
+      "physical_raw_sha256_at_adoption": "b3fe063012de2b0d32bff68a4073a691a26b38cbbe17c934ea82ebfb4336e421"
+    },
+    "required_validations": {
+      "path": "Iris/_docs/round3/current_route_required_validations.json",
+      "git_blob_id": "35cca10bfbe6001f3e66c1b74a38cd0432da91b6",
+      "physical_raw_sha256_at_adoption": "52f802d842b8889c1b0895ff4aed0156aa21befa5cf9d0051c6ea9eb76f735b7"
+    },
+    "full_repository_gate": {
+      "path": "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+      "git_blob_id": "79d803486eba7c860cad899a7129c5b08eeb28ab",
+      "physical_raw_sha256_at_adoption": "84b8fb5f5c5f65dbf5b77bea4c6699b65238d6fdd1da5d658f50ad44fedbee42",
+      "content_changed_for_c0_c": false
+    },
+    "receipt_bound_launcher": {
+      "path": "Iris/validation/clean_checkout/invoke_receipt_bound_full_gate.ps1",
+      "git_blob_id": "7008144d906f83f2cc9e1d386f8ee9b1b65595f8",
+      "physical_raw_sha256_at_adoption": "048b273725e1e1cd1310291a21c18128ccc5544c34309ef38b59a9f8e4417d72"
+    },
+    "deterministic_compare_launcher": {
+      "path": "Iris/validation/clean_checkout/invoke_deterministic_compare.ps1",
+      "git_blob_id": "14b34551703a6bb44888814397a56dcae22237a6",
+      "physical_raw_sha256_at_adoption": "0ed46a4299d857fe7b0c9189df693772741e1394910e24e5800d65c87505b626"
+    },
+    "adoption_test_source": {
+      "path": "Iris/build/description/v2/tests/test_repository_evidence_required_validation_adoption.py",
+      "git_blob_id": "d3fd9a905e3a54d3607b6b9e53343b0471f90945",
+      "physical_raw_sha256_at_adoption": "f3fb8cab65018a57edfb88c3e25bd471aab0f5dfd21f02152febeb3a94b12e49"
+    },
+    "gitignore": {
+      "path": ".gitignore",
+      "git_blob_id": "e53bcffe23b01a7aaf2467fb1b159c40a149069c",
+      "physical_raw_sha256_at_adoption": "c81390a2b344109f97c79343cccafa564f7fa10bd5cad7562d96f09b3cccf1c1"
+    },
+    "gitattributes": {
+      "path": ".gitattributes",
+      "git_blob_id": "76dec44b6019cdce7331a3fcaa726b1b16a903d6",
+      "physical_raw_sha256_at_adoption": "a4899a744cadf551b5855fc0e760023e8a61460481e9cf4f4ef3b836c8e1eee9"
+    }
+  },
+  "required_test_ids": [
+    "test_repository_evidence_required_validation_adoption.RepositoryEvidenceRequiredValidationAdoptionTest.test_predecessor_subject_is_exact",
+    "test_repository_evidence_required_validation_adoption.RepositoryEvidenceRequiredValidationAdoptionTest.test_successor_policy_owner_approval_and_representation_boundary_are_adopted",
+    "test_repository_evidence_required_validation_adoption.RepositoryEvidenceRequiredValidationAdoptionTest.test_taxonomy_required_validation_and_full_gate_are_bound",
+    "test_repository_evidence_required_validation_adoption.RepositoryEvidenceRequiredValidationAdoptionTest.test_durable_cas_roots_are_trackable_and_clean_checkout_available"
+  ],
+  "selection_contract": {
+    "taxonomy_schema_version": "round3-test-taxonomy-v1",
+    "required_validations_schema_version": "round3-current-route-required-validations-v1",
+    "full_gate_schema_version": "iris-clean-checkout-full-repository-gate-v7",
+    "contract_class": "current",
+    "state": "ok",
+    "taxonomy_current_ok_count_after_adoption": 206,
+    "required_test_count_after_adoption": 135,
+    "full_gate_selection_is_taxonomy_driven": true
+  },
+  "launcher_binding_contract": {
+    "outer_orchestration_receipt_binds_all_bound_inputs": true,
+    "deterministic_compare_recomputes_and_compares_all_bound_inputs": true,
+    "missing_or_drifted_bound_input_fails_loud": true,
+    "dirty_source_checkout_fails_loud": true
+  },
+  "durable_storage_tracking": {
+    "gitignore_allowlist_added": true,
+    "object_root": "Iris/build/description/v2/evidence/objects/sha256",
+    "reference_root": "Iris/build/description/v2/evidence/references",
+    "temporary_or_partial_payload_allowlisted": false
+  },
+  "validation_status": {
+    "focused": "pending_c0_c_commit",
+    "current": "pending_c0_c_commit",
+    "historical": "pending_c0_c_commit",
+    "receipt_bound_run_a": "pending_c0_c_commit",
+    "receipt_bound_run_b": "pending_c0_c_commit",
+    "deterministic_compare": "pending_c0_c_commit"
+  },
+  "non_claims": [
+    "This receipt does not claim validation PASS before the C0-c clean receipts exist.",
+    "This receipt does not authorize a CAS object as semantic authority.",
+    "This receipt does not claim storage byte reduction or runtime performance improvement."
+  ]
+}

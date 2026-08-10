@@ -34,6 +34,14 @@ Iris/build/tests/*
 Iris/build/description/*
 !Iris/build/description/v2/
 Iris/build/description/v2/*
+!Iris/build/description/v2/evidence/
+Iris/build/description/v2/evidence/*
+!Iris/build/description/v2/evidence/objects/
+Iris/build/description/v2/evidence/objects/*
+!Iris/build/description/v2/evidence/objects/sha256/
+!Iris/build/description/v2/evidence/objects/sha256/**
+!Iris/build/description/v2/evidence/references/
+!Iris/build/description/v2/evidence/references/**
 !Iris/build/description/v2/output/
 Iris/build/description/v2/output/*
 !Iris/build/description/v2/output/dvf_3_3_rendered.json
@@ -335,6 +343,7 @@ Iris/build/description/v2/tests/*
 !Iris/build/description/v2/tests/test_iris_browser_state_selection_search_acceptance.py
 !Iris/build/description/v2/tests/test_layer3_lazy_lookup_contract.py
 !Iris/build/description/v2/tests/test_usecase_lazy_lookup_contract.py
+!Iris/build/description/v2/tests/test_repository_evidence_required_validation_adoption.py
 !Iris/build/description/v2/tests/test_iris_detail_view_model_acceptance.py
 !Iris/build/description/v2/tests/test_iris_legacy_surface_acceptance.py
 !Iris/build/description/v2/tests/test_iris_core_refactor_closeout.py

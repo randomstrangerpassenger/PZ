@@ -1,0 +1,54 @@
+{
+  "schema_version": "iris_repository_evidence_lightweighting_owner_policy_approval_v1",
+  "approval_id": "iris_repository_evidence_lightweighting_owner_approval_20260810",
+  "status": "approved",
+  "approved_at": "2026-08-10T03:12:00Z",
+  "authority": "repository_owner_user",
+  "source": "owner directive in the implementation task granting advance approval for plan-scoped owner gates",
+  "claim_id": "iris_repository_evidence_lightweighting",
+  "predecessor_subject": {
+    "path": "Iris/_docs/refactor/repository_evidence_lightweighting/predecessor_subject_manifest.json",
+    "git_blob_id": "c442e9f93b9c2ab2e9438b3b1334a3c832d2e384",
+    "raw_sha256": "624b2de8667a74e4238614cbc1bccc8e7fe26791ed028cebcca058335ab7e267",
+    "c0_b_commit": "7a3bb22fb9c3bc5327d16f4e73ca4897ab559c1d",
+    "c0_b_tree": "04d14bbec11182130c71d72c3a0d14c276ac5b23",
+    "c0_b_external_receipt": {
+      "allocator_id": "c0b-b50829e1dbd142dbab8101224b8ec46b",
+      "raw_sha256": "cc744f46a4d0354b1e51db8f5e8a9f66b5e2fd9735597c3050f78093c143eeba"
+    }
+  },
+  "policy": {
+    "path": "Iris/validation/clean_checkout/contracts/repository_evidence_lightweighting_output_policy.json",
+    "schema_version": "iris_repository_evidence_lightweighting_output_policy_v1",
+    "git_blob_id": "85dd43103de7b9b4351a9f3ae82e8fbb37baedc4",
+    "raw_sha256": "be27d1f5abaaf085d497bbf53c0767cde96d30b4ac3d3638d102797ca2c1163e",
+    "bytes": 4614
+  },
+  "decisions": {
+    "repository_local_cas_promotion_approved": true,
+    "repository_local_cas_roots": [
+      "Iris/build/description/v2/evidence/objects/sha256",
+      "Iris/build/description/v2/evidence/references"
+    ],
+    "cold_store_backend_approved": true,
+    "cold_store_backend_selection": "external_repository_sibling_owner_managed_store_v1",
+    "payload_deletion_authority_approved": true,
+    "deletion_authority_scope": "only plan-enumerated payloads after consumer migration, sealed selection, verified restore, clean validation, and zero dangling references",
+    "physical_cleanup_approved": true,
+    "successor_policy_and_current_route_adoption_approved": true
+  },
+  "independent_guards": {
+    "cas_promotion_does_not_imply_delete_approval": true,
+    "cold_store_selection_does_not_imply_delete_approval": true,
+    "delete_approval_does_not_waive_restore_or_consumer_proof": true,
+    "current_authority_deletion_approved": false,
+    "historical_reproduction_input_deletion_without_repository_available_restore_approved": false,
+    "machine_specific_external_path_in_successor_evidence_approved": false
+  },
+  "non_claims": [
+    "Approval does not waive exact relevant validation exit zero.",
+    "Approval does not authorize paths outside the adopted plan.",
+    "Approval does not authorize public compatibility surface removal.",
+    "Approval does not claim Project Zomboid runtime performance improvement."
+  ]
+}

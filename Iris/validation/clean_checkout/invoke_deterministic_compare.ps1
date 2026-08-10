@@ -173,10 +173,11 @@ function Resolve-RunChain(
     [object]$ExpectedSubject,
     [object]$ExpectedInterpreter,
     [object]$ExpectedEnvironment,
-    [object]$ExpectedRunner,
-    [object]$ExpectedCommon,
-    [object]$ExpectedSuccessorPolicy
+    [object]$ExpectedImplementation
 ) {
+    $ExpectedRunner = $ExpectedImplementation.runner
+    $ExpectedCommon = $ExpectedImplementation.common
+    $ExpectedSuccessorPolicy = $ExpectedImplementation.successor_policy
     $path = [System.IO.Path]::GetFullPath($ReceiptPath)
     if (-not [System.IO.File]::Exists($path)) { throw "$Label orchestration receipt is missing" }
     $receiptHash = Get-Sha256 $path
@@ -202,6 +203,22 @@ function Resolve-RunChain(
     Require-Equal ([System.IO.Path]::GetFullPath([string]$receipt.identity.implementation.successor_policy.actual_path)) ([System.IO.Path]::GetFullPath([string]$ExpectedSuccessorPolicy.actual_path)) "$Label successor policy path mismatch"
     Require-Equal $receipt.identity.implementation.successor_policy.git_blob_id $ExpectedSuccessorPolicy.git_blob_id "$Label successor policy blob mismatch"
     Require-Equal $receipt.identity.implementation.successor_policy.working_sha256 $ExpectedSuccessorPolicy.working_sha256 "$Label successor policy materialization mismatch"
+    foreach ($identityName in @(
+        'evidence_policy',
+        'evidence_predecessor',
+        'evidence_owner_approval',
+        'test_taxonomy',
+        'required_validations',
+        'full_gate_contract',
+        'evidence_adoption_receipt'
+    )) {
+        $actualIdentity = $receipt.identity.implementation.$identityName
+        $expectedIdentity = $ExpectedImplementation.$identityName
+        if ($null -eq $actualIdentity -or $null -eq $expectedIdentity) { throw "$Label $identityName identity is missing" }
+        Require-Equal ([System.IO.Path]::GetFullPath([string]$actualIdentity.actual_path)) ([System.IO.Path]::GetFullPath([string]$expectedIdentity.actual_path)) "$Label $identityName path mismatch"
+        Require-Equal $actualIdentity.git_blob_id $expectedIdentity.git_blob_id "$Label $identityName blob mismatch"
+        Require-Equal $actualIdentity.working_sha256 $expectedIdentity.working_sha256 "$Label $identityName materialization mismatch"
+    }
     if ($receipt.result_receipt.exists -ne $true) { throw "$Label inner run receipt is absent" }
     $innerPath = [System.IO.Path]::GetFullPath([string]$receipt.result_receipt.path)
     if (-not [System.IO.File]::Exists($innerPath)) { throw "$Label inner run receipt file is missing" }
@@ -284,6 +301,13 @@ try {
     $runnerRelative = 'Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py'
     $policyRelative = 'Iris/validation/clean_checkout/contracts/output_policy.json'
     $successorPolicyRelative = 'Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json'
+    $evidencePolicyRelative = 'Iris/validation/clean_checkout/contracts/repository_evidence_lightweighting_output_policy.json'
+    $evidencePredecessorRelative = 'Iris/_docs/refactor/repository_evidence_lightweighting/predecessor_subject_manifest.json'
+    $evidenceOwnerApprovalRelative = 'Iris/_docs/refactor/repository_evidence_lightweighting/owner_policy_approval.json'
+    $taxonomyRelative = 'Iris/_docs/round3/round3_test_taxonomy.json'
+    $requiredValidationsRelative = 'Iris/_docs/round3/current_route_required_validations.json'
+    $fullGateContractRelative = 'Iris/validation/clean_checkout/contracts/full_repository_gate.json'
+    $evidenceAdoptionReceiptRelative = 'Iris/_docs/refactor/repository_evidence_lightweighting/required_validation_adoption_receipt.json'
     $phase0Relative = 'Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json'
     $launcherRelative = 'Iris/validation/clean_checkout/invoke_deterministic_compare.ps1'
     $implementation = [ordered]@{}
@@ -293,6 +317,13 @@ try {
         @('runner', $runnerRelative),
         @('policy', $policyRelative),
         @('successor_policy', $successorPolicyRelative),
+        @('evidence_policy', $evidencePolicyRelative),
+        @('evidence_predecessor', $evidencePredecessorRelative),
+        @('evidence_owner_approval', $evidenceOwnerApprovalRelative),
+        @('test_taxonomy', $taxonomyRelative),
+        @('required_validations', $requiredValidationsRelative),
+        @('full_gate_contract', $fullGateContractRelative),
+        @('evidence_adoption_receipt', $evidenceAdoptionReceiptRelative),
         @('environment_authority', $phase0Relative),
         @('launcher', $launcherRelative)
     )) {
@@ -331,8 +362,8 @@ try {
     $identity['environment_receipt'] = [ordered]@{ path = $environmentPath.Replace('\', '/'); sha256 = $environmentHash }
 
     $stage = 'bind_run_chains'
-    $runChains['run_a'] = Resolve-RunChain 'Run A' $RunAOrchestrationReceipt $ClaimId $subject $identity.interpreter $identity.environment_receipt $implementation.runner $implementation.common $implementation.successor_policy
-    $runChains['run_b'] = Resolve-RunChain 'Run B' $RunBOrchestrationReceipt $ClaimId $subject $identity.interpreter $identity.environment_receipt $implementation.runner $implementation.common $implementation.successor_policy
+    $runChains['run_a'] = Resolve-RunChain 'Run A' $RunAOrchestrationReceipt $ClaimId $subject $identity.interpreter $identity.environment_receipt $implementation
+    $runChains['run_b'] = Resolve-RunChain 'Run B' $RunBOrchestrationReceipt $ClaimId $subject $identity.interpreter $identity.environment_receipt $implementation
     if ([System.IO.Path]::GetFullPath([string]$runChains.run_a.orchestration_receipt.path).Equals([System.IO.Path]::GetFullPath([string]$runChains.run_b.orchestration_receipt.path), [System.StringComparison]::OrdinalIgnoreCase)) {
         throw 'Run A and Run B must use distinct orchestration receipt paths'
     }
@@ -496,6 +527,22 @@ finally {
             common_working_sha256 = $identity.implementation.common.working_sha256
             successor_policy_blob = $identity.implementation.successor_policy.git_blob_id
             successor_policy_working_sha256 = $identity.implementation.successor_policy.working_sha256
+            repository_evidence_lightweighting = [ordered]@{
+                policy_blob = $identity.implementation.evidence_policy.git_blob_id
+                policy_working_sha256 = $identity.implementation.evidence_policy.working_sha256
+                predecessor_blob = $identity.implementation.evidence_predecessor.git_blob_id
+                predecessor_working_sha256 = $identity.implementation.evidence_predecessor.working_sha256
+                owner_approval_blob = $identity.implementation.evidence_owner_approval.git_blob_id
+                owner_approval_working_sha256 = $identity.implementation.evidence_owner_approval.working_sha256
+                taxonomy_blob = $identity.implementation.test_taxonomy.git_blob_id
+                taxonomy_working_sha256 = $identity.implementation.test_taxonomy.working_sha256
+                required_validations_blob = $identity.implementation.required_validations.git_blob_id
+                required_validations_working_sha256 = $identity.implementation.required_validations.working_sha256
+                full_gate_contract_blob = $identity.implementation.full_gate_contract.git_blob_id
+                full_gate_contract_working_sha256 = $identity.implementation.full_gate_contract.working_sha256
+                adoption_receipt_blob = $identity.implementation.evidence_adoption_receipt.git_blob_id
+                adoption_receipt_working_sha256 = $identity.implementation.evidence_adoption_receipt.working_sha256
+            }
             interpreter_sha256 = $identity.interpreter.sha256
             environment_receipt_sha256 = $identity.environment_receipt.sha256
         }

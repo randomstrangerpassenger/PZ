@@ -3033,6 +3033,26 @@
       "required": true,
       "role": "repository_runtime_lightweighting_runtime_lazy_lookup_required_validation",
       "test_id": "test_usecase_lazy_lookup_contract.UseCaseLazyLookupContractTest.test_usecase_lazy_lookup_contract"
+    },
+    {
+      "required": true,
+      "role": "repository_evidence_lightweighting_bootstrap_required_validation",
+      "test_id": "test_repository_evidence_required_validation_adoption.RepositoryEvidenceRequiredValidationAdoptionTest.test_predecessor_subject_is_exact"
+    },
+    {
+      "required": true,
+      "role": "repository_evidence_lightweighting_bootstrap_required_validation",
+      "test_id": "test_repository_evidence_required_validation_adoption.RepositoryEvidenceRequiredValidationAdoptionTest.test_successor_policy_owner_approval_and_representation_boundary_are_adopted"
+    },
+    {
+      "required": true,
+      "role": "repository_evidence_lightweighting_bootstrap_required_validation",
+      "test_id": "test_repository_evidence_required_validation_adoption.RepositoryEvidenceRequiredValidationAdoptionTest.test_taxonomy_required_validation_and_full_gate_are_bound"
+    },
+    {
+      "required": true,
+      "role": "repository_evidence_lightweighting_bootstrap_required_validation",
+      "test_id": "test_repository_evidence_required_validation_adoption.RepositoryEvidenceRequiredValidationAdoptionTest.test_durable_cas_roots_are_trackable_and_clean_checkout_available"
     }
   ],
   "route": "current",

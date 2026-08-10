@@ -558,6 +558,18 @@
           "reason": "Approve plan-scoped CAS/reference evidence additions and the canonical 2105 pair removal."
         },
         {
+          "path": "Iris/validation/residual_refactor/promote_artifact_lifecycle_evidence.py",
+          "before_git_blob_id": "e91f3e2c4c4bee0204fd22ebdb91a269c3d95f21",
+          "before_sha256_lf": "f3e2087531faa68d0640da88bd45c090dca71c8300932f5f0c53142a8b03a970",
+          "expected_git_blob_id": "347348bf725b796ceecd7e82a038f956891b680d",
+          "after_sha256_lf": "4aac973a890cb71eea531612d8863ba92a11134f6629023bf57e87f7b6424294",
+          "role": "lifecycle_evidence_promoter",
+          "writer": "repository_evidence_lightweighting_terminal_validation_fix",
+          "consumers": ["lifecycle_promotion", "current_route_validation"],
+          "owner": "repository_owner_user",
+          "reason": "Check the source receipt byte binding before decoding so altered v1 evidence reports the authoritative hash mismatch."
+        },
+        {
           "path": "Iris/validation/residual_refactor/migrate_repository_evidence.py",
           "before_git_blob_id": "462a9b022774538732a43a66944b7c94f9f69edf",
           "before_sha256_lf": "423cb3955553293e6a31713dc70f6822a393fded0cb0c30ca10f7943218b95b4",

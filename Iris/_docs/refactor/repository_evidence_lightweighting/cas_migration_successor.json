@@ -15,22 +15,32 @@
     "authority_class": "raw_byte_representation_only"
   },
   "change3_naturalization_pilot": {
-    "status": "adopted",
+    "status": "adopted_with_required_physical_exception",
     "source_root": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure",
     "reference": "Iris/build/description/v2/evidence/references/naturalization_public_text_rewrite_closure.json",
     "inventory": "Iris/_docs/refactor/repository_evidence_lightweighting/cas/naturalization_public_text/inventory.json",
     "plan": "Iris/_docs/refactor/repository_evidence_lightweighting/cas/naturalization_public_text/plan.json",
     "migrated_files": 654,
+    "effective_deduplicated_files": 653,
     "migrated_source_bytes": 485112779,
     "unique_object_count": 237,
     "unique_object_bytes": 161978235,
-    "representation_reduction_bytes": 323134544,
+    "representation_reduction_bytes": 323123163,
     "tracked_physical_exceptions": 47,
-    "remaining_physical_bytes": 61777209,
-    "executable_consumer_hits": 0,
+    "ignored_required_physical_exceptions": 1,
+    "remaining_physical_bytes": 61788590,
+    "executable_consumer_hits": 1,
     "unresolved_dynamic_hits": 0,
     "restore_verified": true,
-    "owner_disposition": "approved_and_applied"
+    "owner_disposition": "approved_and_applied_with_reviewer_physical_exception",
+    "consumer_correction": {
+      "consumer": "Iris/build/description/v2/tools/build/audit_dvf_3_3_facts_authority_enrichment_feasibility.py",
+      "consumer_vcs_state": "ignored_untracked_tooling",
+      "restored_original_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0014-remediation/phase3/repeated_skeleton_cause_analysis.json",
+      "restored_bytes": 11381,
+      "durable_recovery": "repository CAS reference retained",
+      "future_scan": "Python AST and fragment scan includes ignored files"
+    }
   },
   "change4_audit_2105": {
     "status": "partial",

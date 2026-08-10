@@ -10,7 +10,7 @@
     {
       "claim": "cas_reference_restore_and_tracking_integrity",
       "state": "validated",
-      "evidence": "repository evidence unittest discovery: 17 tests, exit 0; current route: 219/219, exit 0"
+      "evidence": "repository evidence unittest discovery and current route pass; reviewer correction adds dynamic Path-fragment coverage, one 11,381-byte physical exception, and restore containment rejection"
     },
     {
       "claim": "current_historical_lua_and_package_routes",

@@ -795,6 +795,78 @@
           "reason": "Require the bounded terminal closeout protection successor revision."
         }
       ]
+    },
+    {
+      "revision_id": "repository_evidence_lightweighting_reviewer_corrections_v1",
+      "track": "repository_evidence_lightweighting",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "b62f511f4882381c9bade6eac0831ce7733746fc",
+      "protection_predecessor_tree": "4702040ff1e493afa2e1752396f3c0edc30dae32",
+      "reason": "Adopt the Codex Reviewer dynamic-consumer and CAS restore-containment corrections.",
+      "approved_activation_deltas": [],
+      "added_protected_rows": [
+        {
+          "path": "Iris/validation/residual_refactor/migrate_repository_evidence.py",
+          "before_git_blob_id": "7695d20ff5d96b31aaeebb45e47e91a0e43db8f3",
+          "before_sha256_lf": "6187b7497c1a8711e6fa63fb9b5c42a0904abcd96e8315a5cac5856f77868fbc",
+          "expected_git_blob_id": "84ab5199888fc2caa6045436221141d8666d9b2c",
+          "after_sha256_lf": "8a0f853ac6fd1882fd68a1fa09183e83de4cb6eb11ebeeaedf9c7c320d56434b",
+          "role": "cas_and_cold_archive_migrator",
+          "writer": "repository_evidence_lightweighting_reviewer_correction",
+          "consumers": ["cas_inventory", "cas_promotion", "cas_restore", "cold_archive_restore"],
+          "owner": "repository_owner_user",
+          "reason": "Detect ignored dynamic Path consumers and reject non-contained or reparse-point CAS restore paths."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_repository_evidence_migration.py",
+          "before_git_blob_id": "ea284dceb643701bcb62b11b118d46aa0d6b6f3f",
+          "before_sha256_lf": "d87ebe5cc6402688780648d6aace402e52019ebc52097ff89ecc911c7976144f",
+          "expected_git_blob_id": "0fd9a50155b88afacfdb58615a92ece41887f17a",
+          "after_sha256_lf": "5515996ce55930dc158d277a44fc133a9da35ea4cb66d3e5dc40773b7e3d82f4",
+          "role": "lifecycle_v2_migration_required_test",
+          "writer": "repository_evidence_lightweighting_reviewer_correction",
+          "consumers": ["current_route_validation", "full_repository_gate"],
+          "owner": "repository_owner_user",
+          "reason": "Cover dynamic Path-fragment detection and canonical contained CAS reference paths."
+        },
+        {
+          "path": "Iris/_docs/refactor/repository_evidence_lightweighting/cas_migration_successor.json",
+          "before_git_blob_id": "36b954895ff38fb75171888d754afe4364c58bad",
+          "before_sha256_lf": "13e37e0e9b92da27119be3733b81f2f652c5e293a748c821ba1e6235fd01a185",
+          "expected_git_blob_id": "d3f1d60a126cf6bfb1ecdb9596baa201a0ffc3c6",
+          "after_sha256_lf": "dd1eea11fd6e709ad1ba0f00d88ae2e95cb9f7c5a816a6fab0b25983ea93d7ca",
+          "role": "cas_migration_successor",
+          "writer": "repository_evidence_lightweighting_reviewer_correction",
+          "consumers": ["repository_maintainers", "closeout"],
+          "owner": "repository_owner_user",
+          "reason": "Correct the consumer count and bounded reduction for one required ignored physical exception."
+        },
+        {
+          "path": "Iris/_docs/refactor/repository_evidence_lightweighting/closeout/closeout_receipt.json",
+          "before_git_blob_id": "e871740e79edd4fd0e1fe1510d9b0d0ffa4d8024",
+          "before_sha256_lf": "e141ed47646f95bd9fe8728fc55aedc27d56a9a365cc2e6dd810e6db9c693e03",
+          "expected_git_blob_id": "34c282ead1a76193f1e7c4034d8d7d5149b74f77",
+          "after_sha256_lf": "f0d45d96c75fdf3ab775ae32b5ccfde636e823992c9754e0999169de84df9749",
+          "role": "bounded_closeout_receipt",
+          "writer": "repository_evidence_lightweighting_reviewer_correction",
+          "consumers": ["repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Record both reviewer corrections and keep the overall partial ceiling truthful."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+          "before_git_blob_id": "f183da470177fd5f1ebeb8b3d3a8dd098ef26ad2",
+          "before_sha256_lf": "dfc6639b736c7d769b43f8a45287dbf97bcf59565b3338cdb6e79bcd1ad660f0",
+          "expected_git_blob_id": "948635872282f203afff18cace40d4b1a713ed5d",
+          "after_sha256_lf": "ee8ae845308d79ddd59b0261b80aaffd2ef4c95750bdd3d32f5b6aa09226264c",
+          "role": "protected_surface_current_required_test",
+          "writer": "repository_evidence_lightweighting_reviewer_correction",
+          "consumers": ["current_route_validation", "residual_closeout"],
+          "owner": "repository_owner_user",
+          "reason": "Require the Codex Reviewer correction protection successor revision."
+        }
+      ]
     }
   ]
 }

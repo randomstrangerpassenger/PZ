@@ -13,6 +13,11 @@ sys.path.insert(0, str(CODEC_ROOT))
 
 from execute_artifact_lifecycle import durable_lifecycle_source  # noqa: E402
 from promote_artifact_lifecycle_evidence import load_lifecycle_source  # noqa: E402
+from migrate_repository_evidence import (  # noqa: E402
+    MigrationError,
+    _dynamic_path_references,
+    _reference_relative,
+)
 from repository_evidence_codec import (  # noqa: E402
     BASELINE_NAME,
     DELTA_NAME,
@@ -89,7 +94,43 @@ class RepositoryEvidenceMigrationTest(unittest.TestCase):
         self.assertEqual((baseline_representation, final_representation), ("v2", "v2"))
         self.assertEqual((baseline_bytes, final_bytes), (self.bundle.baseline_bytes, self.bundle.final_bytes))
 
+    def test_cas_consumer_scan_detects_python_path_fragment_assembly(self) -> None:
+        source_root = (
+            "Iris/build/description/v2/staging/"
+            "dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure"
+        )
+        selected_path = (
+            source_root
+            + "/attempt-0014-remediation/phase3/repeated_skeleton_cause_analysis.json"
+        )
+        source = """
+ROOT = V2_ROOT / "staging" / "dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure"
+TARGET = ROOT / "attempt-0014-remediation" / "phase3" / "repeated_skeleton_cause_analysis.json"
+"""
+        references, scan, parsed = _dynamic_path_references(
+            Path("audit_consumer.py"), source, source_root, {selected_path}
+        )
+        self.assertTrue(parsed)
+        self.assertEqual(scan, "python_ast_string_fragments")
+        self.assertEqual(references, [selected_path])
+
+    def test_cas_reference_path_rejects_escape_and_absolute_forms(self) -> None:
+        source_root = "Iris/build/description/v2/staging/example"
+        invalid = [
+            "Iris/build/description/v2/staging/example/../../outside.json",
+            "C:/outside.json",
+            "/outside.json",
+            "Iris\\build\\description\\v2\\staging\\example\\outside.json",
+        ]
+        for original_path in invalid:
+            with self.subTest(original_path=original_path):
+                with self.assertRaises(MigrationError):
+                    _reference_relative(source_root, original_path)
+        self.assertEqual(
+            _reference_relative(source_root, source_root + "/attempt/phase/result.json"),
+            Path("attempt/phase/result.json"),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
-

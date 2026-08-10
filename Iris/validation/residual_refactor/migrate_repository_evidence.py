@@ -9,13 +9,14 @@ import hashlib
 import json
 import mimetypes
 import os
+import re
 import shutil
 import subprocess
 import sys
 import platform
 import zipfile
 import zlib
-from pathlib import Path
+from pathlib import Path, PurePosixPath, PureWindowsPath
 from typing import Any
 
 from repository_evidence_codec import (
@@ -225,6 +226,46 @@ def _regular_file(path: Path) -> bool:
     )
 
 
+def _repository_path_parts(value: str, label: str) -> tuple[str, ...]:
+    if (
+        not value
+        or "\\" in value
+        or PurePosixPath(value).is_absolute()
+        or PureWindowsPath(value).is_absolute()
+        or bool(PureWindowsPath(value).drive)
+    ):
+        raise MigrationError(f"{label} must be a repository-relative POSIX path: {value}")
+    parts = tuple(value.split("/"))
+    if any(part in {"", ".", ".."} for part in parts):
+        raise MigrationError(f"{label} contains a non-canonical path component: {value}")
+    return parts
+
+
+def _reference_relative(source_root: str, original_path: str) -> Path:
+    root_parts = _repository_path_parts(source_root, "CAS source_root")
+    path_parts = _repository_path_parts(original_path, "CAS original_path")
+    if len(path_parts) <= len(root_parts) or path_parts[: len(root_parts)] != root_parts:
+        raise MigrationError(f"CAS original_path is outside source_root: {original_path}")
+    return Path(*path_parts[len(root_parts) :])
+
+
+def _is_reparse_point(path: Path) -> bool:
+    if path.is_symlink():
+        return True
+    is_junction = getattr(path, "is_junction", None)
+    return bool(is_junction and is_junction())
+
+
+def _assert_no_reparse_ancestor(path: Path, label: str) -> None:
+    current = path
+    while True:
+        if os.path.lexists(current) and _is_reparse_point(current):
+            raise MigrationError(f"{label} traverses a reparse point: {current}")
+        if current.parent == current:
+            return
+        current = current.parent
+
+
 def _git_paths(repo: Path, *args: str) -> set[str]:
     completed = subprocess.run(
         ["git", "-C", str(repo), args[0], "-z", *args[1:]],
@@ -289,9 +330,88 @@ def cas_inventory(args: argparse.Namespace) -> None:
     _write_new(args.out.resolve(), canonical_json_bytes(payload))
 
 
+def _literal_path_parts(candidate: Path, text: str) -> tuple[set[str], str, bool]:
+    if candidate.suffix.lower() == ".py":
+        try:
+            tree = ast.parse(text, filename=str(candidate))
+        except SyntaxError:
+            return set(), "python_ast_parse_failed", False
+        literals = {
+            node.value
+            for node in ast.walk(tree)
+            if isinstance(node, ast.Constant) and isinstance(node.value, str)
+        }
+        scan = "python_ast_string_fragments"
+    else:
+        literals = {
+            match.group(2)
+            for match in re.finditer(r"(['\"])(.*?)(?<!\\)\1", text, flags=re.DOTALL)
+        }
+        scan = "quoted_string_fragments"
+    parts = {
+        part
+        for literal in literals
+        for part in literal.replace("\\", "/").split("/")
+        if part not in {"", ".", ".."}
+    }
+    return parts, scan, True
+
+
+def _dynamic_path_references(
+    candidate: Path,
+    text: str,
+    source_root: str,
+    selected_paths: set[str],
+) -> tuple[list[str], str, bool]:
+    literal_parts, scan, parsed = _literal_path_parts(candidate, text)
+    root_marker = _repository_path_parts(source_root, "CAS source_root")[-1]
+    if root_marker not in literal_parts:
+        return [], scan, parsed
+    references = []
+    for path in selected_paths:
+        relative = _reference_relative(source_root, path)
+        if all(part in literal_parts for part in relative.parts):
+            references.append(path)
+    return sorted(references), scan, parsed
+
+
 def _consumer_scan(repo: Path, source_root: str, selected_paths: set[str]) -> dict[str, Any]:
+    basename_counts: dict[str, int] = {}
+    for path in selected_paths:
+        basename = _reference_relative(source_root, path).name
+        basename_counts[basename] = basename_counts.get(basename, 0) + 1
+    patterns = {
+        source_root,
+        _repository_path_parts(source_root, "CAS source_root")[-1],
+        *(
+            basename
+            for basename, count in basename_counts.items()
+            if count == 1 and len(basename) >= 8
+        ),
+    }
     completed = subprocess.run(
-        ["rg", "-l", "-F", source_root, str(repo)],
+        [
+            "rg",
+            "-l",
+            "-F",
+            "--no-ignore",
+            "-g",
+            "*.py",
+            "-g",
+            "*.ps1",
+            "-g",
+            "*.lua",
+            "-g",
+            "*.json",
+            "-g",
+            "*.jsonl",
+            "-g",
+            "*.md",
+            "-f",
+            "-",
+            str(repo),
+        ],
+        input="\n".join(sorted(patterns)) + "\n",
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True,
@@ -302,6 +422,7 @@ def _consumer_scan(repo: Path, source_root: str, selected_paths: set[str]) -> di
     if completed.returncode not in {0, 1}:
         raise MigrationError(f"consumer lexical scan failed: {completed.stderr.strip()}")
     hits: list[dict[str, Any]] = []
+    unresolved: list[dict[str, Any]] = []
     for raw in completed.stdout.splitlines():
         candidate = Path(raw).resolve()
         try:
@@ -316,7 +437,20 @@ def _consumer_scan(repo: Path, source_root: str, selected_paths: set[str]) -> di
             text = candidate.read_text(encoding="utf-8-sig", errors="replace")
         except OSError:
             continue
-        referenced = sorted(path for path in selected_paths if path in text)
+        exact = sorted(path for path in selected_paths if path in text)
+        dynamic, dynamic_scan, parsed = _dynamic_path_references(
+            candidate, text, source_root, selected_paths
+        )
+        referenced = sorted(set(exact) | set(dynamic))
+        if not referenced and not parsed and candidate.suffix.lower() in {".py", ".ps1", ".lua"}:
+            unresolved.append(
+                {
+                    "consumer": relative,
+                    "scan": dynamic_scan,
+                    "reason": "candidate matched a source-root or unique-path fragment but could not be parsed",
+                }
+            )
+            continue
         if not referenced:
             continue
         if candidate.suffix.lower() in {".py", ".ps1", ".lua"}:
@@ -332,14 +466,19 @@ def _consumer_scan(repo: Path, source_root: str, selected_paths: set[str]) -> di
                 "classification": classification,
                 "consumer": relative,
                 "referenced_paths": referenced,
-                "scan": "rg_fixed_root_plus_exact_path_confirmation",
+                "scan": (
+                    "rg_fragment_candidates_plus_exact_path_confirmation"
+                    if not dynamic
+                    else f"rg_fragment_candidates_plus_{dynamic_scan}"
+                ),
             }
         )
     executable = [hit for hit in hits if hit["classification"] == "executable_read"]
     return {
         "hits": hits,
         "executable_hit_count": len(executable),
-        "unresolved_dynamic_count": 0,
+        "unresolved_dynamic_count": len(unresolved),
+        "unresolved_dynamic_hits": unresolved,
         "legacy_silent_fallback_count": 0,
     }
 
@@ -488,11 +627,14 @@ def _validate_reference(reference: dict[str, Any], object_root: Path) -> list[di
     rows = reference.get("references")
     if not isinstance(rows, list):
         raise MigrationError("CAS reference rows are malformed")
+    source_root = str(reference.get("source_root", ""))
+    _repository_path_parts(source_root, "CAS source_root")
     paths: set[str] = set()
     used: set[str] = set()
     for row in rows:
         path = str(row.get("original_path", ""))
         digest = str(row.get("object_sha256", ""))
+        _reference_relative(source_root, path)
         if path in paths:
             raise MigrationError(f"duplicate CAS reference path: {path}")
         paths.add(path)
@@ -522,7 +664,9 @@ def cas_restore(args: argparse.Namespace) -> None:
     repo = args.repo.resolve()
     reference = _load_object(args.reference.resolve())
     rows = _validate_reference(reference, args.object_root.resolve())
-    output = args.out.resolve()
+    output_input = args.out.absolute()
+    _assert_no_reparse_ancestor(output_input, "CAS restore output")
+    output = output_input.resolve()
     try:
         output.relative_to(repo)
     except ValueError:
@@ -532,12 +676,19 @@ def cas_restore(args: argparse.Namespace) -> None:
     if output.exists() and any(output.iterdir()):
         raise MigrationError("CAS restore output must be absent or empty")
     output.mkdir(parents=True, exist_ok=True)
+    _assert_no_reparse_ancestor(output, "CAS restore output")
     root = str(reference["source_root"])
     for row in rows:
-        relative = Path(str(row["original_path"])).relative_to(root)
+        relative = _reference_relative(root, str(row["original_path"]))
         destination = output / relative
+        try:
+            destination.resolve(strict=False).relative_to(output)
+        except ValueError as error:
+            raise MigrationError(f"CAS restore destination escaped output: {destination}") from error
+        _assert_no_reparse_ancestor(destination.parent, "CAS restore destination")
         destination.parent.mkdir(parents=True, exist_ok=True)
-        if destination.exists():
+        _assert_no_reparse_ancestor(destination.parent, "CAS restore destination")
+        if os.path.lexists(destination):
             raise MigrationError(f"CAS restore collision: {destination}")
         shutil.copyfile(_object_path(args.object_root.resolve(), str(row["object_sha256"])), destination)
         if destination.stat().st_size != row["size_bytes"] or _sha256_file(destination) != row["object_sha256"]:
@@ -631,8 +782,13 @@ def cas_cleanup_materialization(args: argparse.Namespace) -> None:
     source_root = str(reference["source_root"])
     expected: dict[Path, dict[str, Any]] = {}
     for row in rows:
-        relative = Path(str(row["original_path"])).relative_to(source_root)
-        expected[(output / relative).resolve()] = row
+        relative = _reference_relative(source_root, str(row["original_path"]))
+        target = (output / relative).resolve()
+        try:
+            target.relative_to(output)
+        except ValueError as error:
+            raise MigrationError(f"CAS materialization cleanup target escaped output: {target}") from error
+        expected[target] = row
     actual = {path.resolve() for path in output.rglob("*") if path.is_file()}
     if actual != set(expected):
         raise MigrationError("CAS materialization cleanup file set differs from reference")

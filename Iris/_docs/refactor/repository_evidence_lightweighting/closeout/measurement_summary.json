@@ -1,6 +1,6 @@
 {
   "schema_version": "iris_repository_evidence_lightweighting_measurement_summary_v1",
-  "status": "pre_terminal_validation_snapshot",
+  "status": "terminal_partial_snapshot",
   "aggregation_policy": {
     "cross_domain_savings_sum": "forbidden",
     "ignored_and_tracked_bytes_are_reported_separately": true,
@@ -52,7 +52,9 @@
       "domain": "ignored_naturalization_duplicate_payload",
       "selected_bytes": 485112779,
       "successor_unique_object_bytes": 161978235,
-      "transaction_reduction_bytes": 323134544
+      "required_physical_exception_bytes": 11381,
+      "required_physical_exception_files": 1,
+      "transaction_reduction_bytes": 323123163
     },
     {
       "domain": "tracked_2105_duplicate_pair",

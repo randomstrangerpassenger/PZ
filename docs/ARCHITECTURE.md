@@ -1245,6 +1245,8 @@ Iris의 대형 검증 산출물은 내용 자체를 runtime/source authority로 
 
 - lifecycle baseline/final은 canonical dictionary + node stream + baseline selection + final delta로 저장하며 필요할 때 기존 JSONL을 byte-identical하게 재구성한다.
 - 반복 historical payload는 repository-local content-addressed object와 original-path reference로 분리한다. 현재 실행 입력은 resolver가 원래 logical path를 유지한 채 object를 읽는다.
+- consumer census는 ignored tooling도 포함해 Python AST/string fragment로 동적 Path 조립을 탐지한다. 탐지된 legacy ignored 도구 입력 하나는 11,381-byte 원경로 물리 예외로 유지하며 CAS reference도 복구 경로로 보존한다.
+- CAS restore는 repository-relative POSIX `original_path`만 허용하고 absolute path, `..`, output escape와 reparse ancestor를 거부한다.
 - `_archive`의 ignored historical payload는 검증·복원된 owner-managed 외부 ZIP으로 이동할 수 있지만 current/historical clean-checkout 입력에는 이 경계를 적용하지 않는다.
 - repository, ignored working tree, CAS, 외부 archive, runtime Lua, runtime heap 측정은 서로 다른 domain이다. 겹치는 절감량을 하나의 합계로 주장하지 않는다.
 - `OnGameBoot`는 Recipe/Moveables/Fixing/Classifications static payload를 미리 require하지 않는다. 기존 `StaticData` first-use cache와 실패 가시성을 유지하며 BrowserData registration은 측정 없이 제거하지 않는다.

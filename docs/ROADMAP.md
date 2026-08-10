@@ -1012,7 +1012,7 @@ Pulse는 처음부터 “새 Java 로더”로 경쟁하는 브랜드가 아니�
 ## Done
 
 - lifecycle v1 full manifest pair를 exact reconstruction 가능한 v2 representation으로 교체했다.
-- naturalization ignored historical payload를 repository-local CAS 237 objects + reference로 정규화하고 47개 current-bound tracked exception은 유지했다.
+- naturalization ignored historical payload를 repository-local CAS 237 objects + reference로 정규화하고 47개 current-bound tracked exception과 동적 ignored-tool consumer 입력 1개(11,381 bytes)는 physical exception으로 유지했다.
 - `2105`의 byte-identical canonical pair를 한 CAS object로 합치고 기존 logical path consumer에 transparent resolver를 추가했다.
 - `_archive` 86개 ignored file을 외부 deterministic ZIP으로 검증·복원 가능하게 보관한 뒤 local 원본을 제거했다.
 - boot eager require에서 Recipe/Moveables/Fixing/Classifications 네 static module을 제거하고 first-use 실패 경고/cache/reset 계약을 유지했다.

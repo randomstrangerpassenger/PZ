@@ -215,7 +215,15 @@
     "p0": 0,
     "p1": 0,
     "p2": 0,
-    "p3": 0
+    "p3": 0,
+    "functional_attestation_review": {
+      "reviewed_subject": "89f7499c2bf33498a42acf6e295c65f57de20c8b",
+      "status": "approved",
+      "p0": 0,
+      "p1": 0,
+      "p2": 0,
+      "p3": 0
+    }
   },
   "closeout_reason": "All current and focused automated contracts pass and the repository owner completed manual Project Zomboid functional validation. The governing plan still maps the four deferred performance benchmark candidates to an overall partial closeout; this does not make the separately recorded functional in-game validation incomplete."
 }

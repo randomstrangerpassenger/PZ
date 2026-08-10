@@ -22,16 +22,22 @@ local logError = bootstrap.logError
 
 local IrisTooltipSummaryLocal = nil
 local displayLineCache = {}
-local displayLineCacheMetrics = {
-    hits = 0,
-    misses = 0,
-    inactiveRenders = 0,
-    summaryLoadAttempts = 0,
-    summaryGetCalls = 0,
-    temporaryDetailTables = 0,
-    displayLineBuilds = 0,
-    lineCopies = 0,
-}
+local instrumentationEnabled = false
+
+local function newDisplayLineCacheMetrics()
+    return {
+        hits = 0,
+        misses = 0,
+        inactiveRenders = 0,
+        summaryLoadAttempts = 0,
+        summaryGetCalls = 0,
+        temporaryDetailTables = 0,
+        displayLineBuilds = 0,
+        lineCopies = 0,
+    }
+end
+
+local displayLineCacheMetrics = newDisplayLineCacheMetrics()
 
 local function tr(key, fallback)
     return TranslationResolver.get(key, fallback or key)
@@ -39,7 +45,10 @@ end
 
 local function ensureSummary()
     if not IrisTooltipSummaryLocal then
-        displayLineCacheMetrics.summaryLoadAttempts = displayLineCacheMetrics.summaryLoadAttempts + 1
+        if instrumentationEnabled then
+            displayLineCacheMetrics.summaryLoadAttempts =
+                displayLineCacheMetrics.summaryLoadAttempts + 1
+        end
         local ok, result = safeRequire("Iris/UI/Tooltip/IrisTooltipSummary")
         if ok then
             IrisTooltipSummaryLocal = result
@@ -63,8 +72,12 @@ local function isAltPressed()
 end
 
 local function buildDetailLines(summary)
-    displayLineCacheMetrics.displayLineBuilds = displayLineCacheMetrics.displayLineBuilds + 1
-    displayLineCacheMetrics.temporaryDetailTables = displayLineCacheMetrics.temporaryDetailTables + 1
+    if instrumentationEnabled then
+        displayLineCacheMetrics.displayLineBuilds =
+            displayLineCacheMetrics.displayLineBuilds + 1
+        displayLineCacheMetrics.temporaryDetailTables =
+            displayLineCacheMetrics.temporaryDetailTables + 1
+    end
     if not summary then
         return {
             tr("Iris_Tooltip_Tags", "Tags") .. ": (" .. tr("Iris_Tooltip_ApiLoadFailed", "API load failed") .. ")",
@@ -118,10 +131,14 @@ local function getDetailLines(fullType, summary)
     end
     local cached = byRevision[revisionKey]
     if cached then
-        displayLineCacheMetrics.hits = displayLineCacheMetrics.hits + 1
+        if instrumentationEnabled then
+            displayLineCacheMetrics.hits = displayLineCacheMetrics.hits + 1
+        end
         return cached
     end
-    displayLineCacheMetrics.misses = displayLineCacheMetrics.misses + 1
+    if instrumentationEnabled then
+        displayLineCacheMetrics.misses = displayLineCacheMetrics.misses + 1
+    end
     local lines = buildDetailLines(summary)
     byRevision[revisionKey] = lines
     return lines
@@ -129,11 +146,7 @@ end
 
 function IrisAltTooltip.resetDisplayLineCache()
     displayLineCache = {}
-    displayLineCacheMetrics = {
-        hits = 0, misses = 0, inactiveRenders = 0, summaryLoadAttempts = 0,
-        summaryGetCalls = 0, temporaryDetailTables = 0, displayLineBuilds = 0,
-        lineCopies = 0,
-    }
+    displayLineCacheMetrics = newDisplayLineCacheMetrics()
     if IrisTooltipSummaryLocal and IrisTooltipSummaryLocal.reset then
         IrisTooltipSummaryLocal.reset()
     end
@@ -141,6 +154,7 @@ end
 
 function IrisAltTooltip.getDisplayLineCacheMetrics()
     return {
+        enabled = instrumentationEnabled,
         hits = displayLineCacheMetrics.hits,
         misses = displayLineCacheMetrics.misses,
         inactiveRenders = displayLineCacheMetrics.inactiveRenders,
@@ -150,6 +164,11 @@ function IrisAltTooltip.getDisplayLineCacheMetrics()
         displayLineBuilds = displayLineCacheMetrics.displayLineBuilds,
         lineCopies = displayLineCacheMetrics.lineCopies,
     }
+end
+
+function IrisAltTooltip.setInstrumentationEnabled(enabled)
+    instrumentationEnabled = enabled == true
+    displayLineCacheMetrics = newDisplayLineCacheMetrics()
 end
 
 --- 아이템 툴팁에 Iris 정보 추가
@@ -165,14 +184,20 @@ function IrisAltTooltip.addIrisOverlay(tooltipInv)
     -- coordinate setup, temporary arrays, and the summary module boundary.
     local isAlt = isAltPressed()
     if not isAlt then
-        displayLineCacheMetrics.inactiveRenders = displayLineCacheMetrics.inactiveRenders + 1
+        if instrumentationEnabled then
+            displayLineCacheMetrics.inactiveRenders =
+                displayLineCacheMetrics.inactiveRenders + 1
+        end
         return
     end
     if not tooltipInv.item then return end
 
     local summaryModule = ensureSummary()
     local fullType = ItemKey.getFullTypeFromItem(tooltipInv.item)
-    displayLineCacheMetrics.summaryGetCalls = displayLineCacheMetrics.summaryGetCalls + 1
+    if instrumentationEnabled then
+        displayLineCacheMetrics.summaryGetCalls =
+            displayLineCacheMetrics.summaryGetCalls + 1
+    end
     local summary = nil
     if summaryModule then
         if summaryModule._getCached then

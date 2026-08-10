@@ -15,6 +15,18 @@
     "known_collection_blockers_reviewed": 2,
     "taxonomy_sources_missing_from_current_tree": 14
   },
+  "source_set_binding": {
+    "canonicalization": "sorted repository-relative source paths joined with LF and a terminal LF",
+    "tracked_policy_sources": {
+      "count": 115,
+      "sha256": "9bd0f832a9de93005decc397e38f49b5df05aa58cc6e3f5375ff2d8c89de6ead"
+    },
+    "approved_clean_checkout_absent_policy_sources": {
+      "count": 176,
+      "sha256": "30bea066ca2147cb8d09bccc862f57846d13b5ea5764835d97c014be53aa11be",
+      "basis": "Exact policy sources that were not Git-tracked at owner approval; this set may exist in an ignored local checkout but may be absent from a clean checkout."
+    }
+  },
   "reviewed_sources": [
     {"source_file": "Iris/build/description/v2/tests/test_compiler_particle_adjustment.py", "classification": "current", "reason": "Validates the current Layer3 compiler particle realization."},
     {"source_file": "Iris/build/description/v2/tests/test_dvf_3_3_core_registry_boundary_claim_contract_closure.py", "classification": "historical", "reason": "Reproduces a closed registry-boundary claim-closure workflow."},

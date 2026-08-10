@@ -3,17 +3,19 @@
   "candidate": "Change 6B static projection cache",
   "test_id": "Iris/build/description/v2/tests/test_iris_runtime_optimization_metrics.py::RuntimeOptimizationMetricsTest::test_change_6b_static_projection_instance_isolation_receipt",
   "denominator": {
-    "identity": "static-v1|same-fullType-different-instance|mutation|ScriptItem-InventoryItem|Browser-Wiki-order",
-    "sha256": "175a5f3d248952a6325eec9b54b3f5dd619d1b8649776e311f22d893d54bd864"
+    "identity": "static-v2|same-fullType-different-inventory-instance|mutation|ensure-fromItem-order",
+    "sha256": "dcca436ed13796ce7db24dc45a9da1398dd370b7fd0407c9e3ec88777a646c61"
   },
   "baseline_generation": "baseline-1",
   "raw_samples": {
     "static_cache_hits": 0,
     "static_cache_misses": 100,
-    "instance_isolation": "PASS"
+    "instance_isolation": "PASS",
+    "isolation_scope": "same-fullType-inventory|ensure-fromItem-order",
+    "excluded_claims": ["ScriptItem-to-InventoryItem", "Browser-to-Wiki caller order"]
   },
   "trigger": {"result": "purity_and_generation_invalidation_not_closed"},
   "parity": "PASS",
   "disposition": "complete/no-op",
-  "reason": "A generation-safe pure static projection was not proven, so whole-model and static caches remain absent."
+  "reason": "A generation-safe pure static projection was not proven, so whole-model and static caches remain absent. The no-op receipt is limited to the exercised inventory-instance and ensure/fromItem order corpus."
 }

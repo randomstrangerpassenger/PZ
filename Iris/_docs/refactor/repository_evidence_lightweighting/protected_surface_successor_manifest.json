@@ -1093,6 +1093,48 @@
         }
       ],
       "added_protected_rows": []
+    },
+    {
+      "revision_id": "iris_codebase_optimization_reviewer_corrections_v1",
+      "track": "iris_codebase_optimization",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "fb583f400eccd8de1239aab642ea24ff6fbe5344",
+      "protection_predecessor_tree": "23dfa77f8621f756894ed417b2709643c9dcaf8d",
+      "reason": "Adopt the owner-preapproved Codex Reviewer corrections that make optimization instrumentation opt-in while preserving Browser search, cache, and Tooltip behavior.",
+      "approved_activation_deltas": [
+        {
+          "path": "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserData.lua",
+          "predecessor_sha256": "a064d55b245f7c38331526eefa294e48c4dae0c473df0d1c6fe6b0e3a2f10260",
+          "before_git_blob_id": "eec0b4cbdc471c0bf4ca24879294099010892e76",
+          "before_sha256_lf": "a064d55b245f7c38331526eefa294e48c4dae0c473df0d1c6fe6b0e3a2f10260",
+          "expected_git_blob_id": "d3a35dd131803372f48dae971e57f25c09b0dea2",
+          "after_sha256_lf": "add496651819f776076bbb2ee6dbfc3012370585bbca8fe7962010a501e935bc",
+          "owner": "repository_owner_user",
+          "reason": "Keep production instrumentation disabled by default and coordinate explicit Browser query/index instrumentation opt-in."
+        },
+        {
+          "path": "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserQuery.lua",
+          "predecessor_sha256": "c29fdde4957d23fa28ac664d6c6355918b4739988c757eba808ae1b7796bd97c",
+          "before_git_blob_id": "d413706e50f9b6a3f191372f3ac0eba6b21fdafb",
+          "before_sha256_lf": "c29fdde4957d23fa28ac664d6c6355918b4739988c757eba808ae1b7796bd97c",
+          "expected_git_blob_id": "16475fb85e88eb70b5e88d5357d47f14f719906b",
+          "after_sha256_lf": "dcf70d9c88c127d95ae83bab8d1901605da93640605191f356f9b0df3b3b9657",
+          "owner": "repository_owner_user",
+          "reason": "Allocate and update search metrics only after explicit instrumentation opt-in."
+        },
+        {
+          "path": "Iris/media/lua/client/Iris/UI/Tooltip/IrisAltTooltip.lua",
+          "predecessor_sha256": "c7ebd3665fcbd0f3501ad50eafb9b145f48cd0c1d4f4f8e254db29cf5470bd42",
+          "before_git_blob_id": "146b9841d4982e96a0e7e055b2130177d6b639f9",
+          "before_sha256_lf": "c7ebd3665fcbd0f3501ad50eafb9b145f48cd0c1d4f4f8e254db29cf5470bd42",
+          "expected_git_blob_id": "750fdef73f5f9c1b0867179727301efc1bddc869",
+          "after_sha256_lf": "8e5e39ae42211ab91d12d6fe8742c6b5d80b0f3a9f38f8bf9034035a08bb2cb9",
+          "owner": "repository_owner_user",
+          "reason": "Avoid Tooltip hot-path metric bookkeeping until instrumentation is explicitly enabled."
+        }
+      ],
+      "added_protected_rows": []
     }
   ]
 }

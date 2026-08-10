@@ -9,6 +9,20 @@ end
 
 local function runSearch()
     local Query = require("Iris/UI/Browser/IrisBrowserQuery")
+    local disabledProbe = {
+        itemsByFullType = { ["Probe.Item"] = {} },
+        searchKeysByFullType = {
+            ["Probe.Item"] = {displayName="Probe",folded="probe\0probe.item"},
+        },
+        primaryLocationByFullType = {
+            ["Probe.Item"] = {category="Tool",subcategory="1-A"},
+        },
+        searchKeysLocale = "EN",
+        generation = 1,
+    }
+    Query.searchAll(disabledProbe, "probe", nil, "EN")
+    assert(disabledProbe.searchMetrics == nil)
+    Query.setInstrumentationEnabled(true)
     local rows = {
         {"Base.Alpha", "Alpha", "Tool", "1-A"},
         {"Base.Alpine", "Alpine Saw", "Tool", "1-A"},
@@ -157,6 +171,9 @@ local function runTooltip()
         }
     end
     local Tooltip = require("Iris/UI/Tooltip/IrisAltTooltip")
+    Tooltip.addIrisOverlay(tooltip())
+    assert(Tooltip.getDisplayLineCacheMetrics().inactiveRenders == 0)
+    Tooltip.setInstrumentationEnabled(true)
     Tooltip.resetDisplayLineCache()
     for _ = 1, 1000 do Tooltip.addIrisOverlay(tooltip()) end
     local inactive = Tooltip.getDisplayLineCacheMetrics()
@@ -257,6 +274,10 @@ local function runViewModel()
     end
 
     local ViewModel = require("Iris/UI/Detail/IrisItemDetailViewModel")
+    ViewModel.fromItem(item("Normal", 0))
+    assert(ViewModel.getInstrumentation().methodAttempts == 0)
+    engineCalls = 0
+    ViewModel.setInstrumentationEnabled(true)
     ViewModel.resetInstrumentation()
     local signature = {}
     local retained = nil
@@ -286,15 +307,32 @@ local function runViewModel()
     local modelB = ViewModel.fromItem(inventoryB)
     assert(modelA ~= modelB and modelA.sourceItem == inventoryA and modelB.sourceItem == inventoryB)
     assert(modelA.displayName ~= modelB.displayName and modelA.weight ~= modelB.weight)
-    -- Exercise the same adapters in ScriptItem -> InventoryItem and reverse
-    -- order, standing in for the Browser/Wiki callers that share this model.
-    local scriptFirst = ViewModel.ensure(inventoryA)
+    -- The no-op decision is bounded to same-fullType inventory instances and
+    -- ensure/fromItem call order. It does not claim ScriptItem or UI-caller
+    -- coverage without distinct runtime fixtures.
+    local ensureFirst = ViewModel.ensure(inventoryA)
     local inventorySecond = ViewModel.fromItem(inventoryB)
     local inventoryFirst = ViewModel.ensure(inventoryB)
-    local scriptSecond = ViewModel.fromItem(inventoryA)
-    assert(scriptFirst.sourceItem == inventoryA and scriptSecond.sourceItem == inventoryA)
+    local fromItemSecond = ViewModel.fromItem(inventoryA)
+    assert(ensureFirst.sourceItem == inventoryA and fromItemSecond.sourceItem == inventoryA)
     assert(inventoryFirst.sourceItem == inventoryB and inventorySecond.sourceItem == inventoryB)
-    assert(scriptFirst ~= scriptSecond and inventoryFirst ~= inventorySecond)
+    assert(ensureFirst ~= fromItemSecond and inventoryFirst ~= inventorySecond)
+
+    local custom = item("Normal", 301)
+    custom.itemType = "CustomItem"
+    custom.category = "Alchemy"
+    custom.values.hunger = -0.4
+    custom.values.minDamage = 2
+    local customModel = ViewModel.fromItem(custom)
+    assert(customModel.food.hunger == -0.4 and customModel.weapon.minDamage == 2)
+
+    local hybrid = item("Normal", 302)
+    hybrid.itemType = "Weapon"
+    hybrid.category = "Food"
+    hybrid.values.hunger = -0.5
+    hybrid.values.minDamage = 3
+    local hybridModel = ViewModel.fromItem(hybrid)
+    assert(hybridModel.food.hunger == -0.5 and hybridModel.weapon.minDamage == 3)
     emit("mode", "viewmodel")
     emit("items", 100)
     emit("method_attempts", metrics.methodAttempts)
@@ -306,6 +344,8 @@ local function runViewModel()
     emit("static_cache_hits", metrics.staticCacheHits or 0)
     emit("static_cache_misses", metrics.staticCacheMisses or 0)
     emit("instance_isolation", "PASS")
+    emit("isolation_scope", "same-fullType-inventory|ensure-fromItem-order")
+    emit("custom_hybrid_parity", "PASS")
     emit("signature", table.concat(signature, "|"))
 end
 
@@ -322,6 +362,10 @@ local function runOrdering()
         return {isDebugEnabled=function() return false end,debug=function() end}
     end
     local Ordering = require("Iris/Logic/IrisDesc/Ordering")
+    Ordering.resolveSubcategories({["Tool.1-A"]=true}, nil)
+    assert(Ordering.getInstrumentation().sortKeyDerivations == 0)
+    priorityCalls = 0
+    Ordering.setInstrumentationEnabled(true)
     if Ordering.resetInstrumentation then Ordering.resetInstrumentation() end
     local tags = {
         ["Tool.1-C"]=true,["Tool.1-A"]=true,["Combat.2-B"]=true,

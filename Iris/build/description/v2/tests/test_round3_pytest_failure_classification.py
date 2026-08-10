@@ -61,6 +61,34 @@ class Round3PytestFailureClassificationTest(unittest.TestCase):
         self.assertEqual("unknown", result["failures"][0]["classification"])
         self.assertEqual("unvalidated_but_in_scope", result["scoped_status"])
 
+    def test_modified_or_mandatory_dependency_cannot_hide_behind_historical_source(self) -> None:
+        failure = {
+            "nodeid": "tests/historical.py::Test::test_x",
+            "dependency_paths": ["runtime/current.lua"],
+        }
+        modified = CLASSIFIER.classify_report(
+            [failure],
+            source_classes=self.classes,
+            mixed_sources=set(),
+            modified_paths={"runtime/current.lua"},
+            mandatory_test_ids=set(),
+        )
+        self.assertEqual("modified", modified["failures"][0]["classification"])
+        self.assertEqual(
+            ["runtime/current.lua"],
+            modified["failures"][0]["classification_basis"]["matched_paths"],
+        )
+
+        mandatory = CLASSIFIER.classify_report(
+            [failure],
+            source_classes=self.classes,
+            mixed_sources=set(),
+            modified_paths=set(),
+            mandatory_test_ids=set(),
+            mandatory_paths={"runtime/current.lua"},
+        )
+        self.assertEqual("mandatory", mandatory["failures"][0]["classification"])
+
     def test_manual_downgrade_is_rejected_but_escalation_is_allowed(self) -> None:
         with self.assertRaises(ValueError):
             CLASSIFIER.classify_report(

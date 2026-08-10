@@ -126,6 +126,7 @@ class RuntimeOptimizationMetricsTest(unittest.TestCase):
         self.assertGreater(sum(int(after[key]) for key in (
             "food_skips", "weapon_skips", "literature_skips", "moveable_skips"
         )), 0)
+        self.assertEqual("PASS", after["custom_hybrid_parity"])
         self.assertEqual("adopted", receipt["disposition"])
 
     def test_change_6b_static_projection_instance_isolation_receipt(self) -> None:
@@ -134,6 +135,14 @@ class RuntimeOptimizationMetricsTest(unittest.TestCase):
         self.assert_common_receipt(receipt, method)
         current = self.run_mode("viewmodel")
         self.assertEqual("PASS", current["instance_isolation"])
+        self.assertEqual(
+            receipt["raw_samples"]["isolation_scope"],
+            current["isolation_scope"],
+        )
+        self.assertEqual(
+            ["ScriptItem-to-InventoryItem", "Browser-to-Wiki caller order"],
+            receipt["raw_samples"]["excluded_claims"],
+        )
         self.assertEqual(0, int(current["static_cache_hits"]))
         self.assertEqual("complete/no-op", receipt["disposition"])
         self.assertEqual("purity_and_generation_invalidation_not_closed", receipt["trigger"]["result"])

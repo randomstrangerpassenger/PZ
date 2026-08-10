@@ -14,6 +14,7 @@ local ItemAccess = require("Iris/Util/IrisItemAccess")
 local ObjectAccess = require("Iris/Util/IrisObjectAccess")
 local debug = bootstrap.debug
 local warn = bootstrap.warn
+local instrumentationEnabled = false
 
 local function nowMilliseconds()
     if getTimestampMs then
@@ -38,20 +39,28 @@ end
 
 local function failed(index, startedAt, reason)
     index.failureReason = reason
-    index.elapsedMilliseconds = math.max(0, nowMilliseconds() - startedAt)
+    if instrumentationEnabled then
+        index.elapsedMilliseconds = math.max(0, nowMilliseconds() - startedAt)
+    end
     return index, reason
+end
+
+function IrisBrowserItemIndex.setInstrumentationEnabled(enabled)
+    instrumentationEnabled = enabled == true
 end
 
 function IrisBrowserItemIndex.build()
     local index = emptyIndex()
-    local startedAt = nowMilliseconds()
+    local startedAt = instrumentationEnabled and nowMilliseconds() or 0
 
     if not getAllItems then
         warn("[IrisBrowserItemIndex] getAllItems not available")
         return failed(index, startedAt, "get_all_items_unavailable")
     end
 
-    index.getAllItemsCallCount = index.getAllItemsCallCount + 1
+    if instrumentationEnabled then
+        index.getAllItemsCallCount = index.getAllItemsCallCount + 1
+    end
     local allItemsOk, allItems = ProtectedCall.engine(getAllItems)
     if not allItemsOk or not allItems then
         warn("[IrisBrowserItemIndex] getAllItems() failed: " .. tostring(allItems))
@@ -79,7 +88,9 @@ function IrisBrowserItemIndex.build()
 
     local maxErrors = 5
     for i = 0, itemsSize - 1 do
-        index.scannedItemCount = index.scannedItemCount + 1
+        if instrumentationEnabled then
+            index.scannedItemCount = index.scannedItemCount + 1
+        end
         if i % 1000 == 0 then
             debug("[IrisBrowserItemIndex] Processing item " .. i .. "/" .. itemsSize)
         end
@@ -99,7 +110,9 @@ function IrisBrowserItemIndex.build()
         end
     end
 
-    index.elapsedMilliseconds = math.max(0, nowMilliseconds() - startedAt)
+    if instrumentationEnabled then
+        index.elapsedMilliseconds = math.max(0, nowMilliseconds() - startedAt)
+    end
     if index.itemCount == 0 then
         warn("[IrisBrowserItemIndex] no usable item was indexed")
         return failed(index, startedAt, "item_collection_unusable")

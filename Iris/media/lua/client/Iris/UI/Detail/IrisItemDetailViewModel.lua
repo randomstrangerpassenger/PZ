@@ -15,60 +15,97 @@ local ObjectAccess = require("Iris/Util/IrisObjectAccess")
 local Layer3DisplayFormatter = require("Iris/UI/Layer3/IrisLayer3DisplayFormatter")
 local TranslationResolver = require("Iris/Util/IrisTranslationResolver")
 
-local metrics = {
-    fromItemCalls = 0,
-    methodAttempts = 0,
-    methodSuccesses = 0,
-    groupAttempts = {},
-    groupSuccesses = {},
-    groupSkips = {},
-    staticCacheHits = 0,
-    staticCacheMisses = 0,
-}
+local instrumentationEnabled = false
+
+local function newMetrics()
+    return {
+        fromItemCalls = 0,
+        methodAttempts = 0,
+        methodSuccesses = 0,
+        groupAttempts = {},
+        groupSuccesses = {},
+        groupSkips = {},
+        staticCacheHits = 0,
+        staticCacheMisses = 0,
+    }
+end
+
+local metrics = newMetrics()
+
+local function recordGroup(target, group)
+    target[group] = (target[group] or 0) + 1
+end
 
 local function read(item, methodNames, group)
     local normalizedGroup = group or "core"
     for _, methodName in ipairs(methodNames or {}) do
-        metrics.methodAttempts = metrics.methodAttempts + 1
-        metrics.groupAttempts[normalizedGroup] =
-            (metrics.groupAttempts[normalizedGroup] or 0) + 1
+        if instrumentationEnabled then
+            metrics.methodAttempts = metrics.methodAttempts + 1
+            recordGroup(metrics.groupAttempts, normalizedGroup)
+        end
         local ok, value = ObjectAccess.call(item, methodName)
         if ok and value ~= nil then
-            metrics.methodSuccesses = metrics.methodSuccesses + 1
-            metrics.groupSuccesses[normalizedGroup] =
-                (metrics.groupSuccesses[normalizedGroup] or 0) + 1
+            if instrumentationEnabled then
+                metrics.methodSuccesses = metrics.methodSuccesses + 1
+                recordGroup(metrics.groupSuccesses, normalizedGroup)
+            end
             return value
         end
     end
     return nil
 end
 
-local function capabilityHint(category, itemType)
+local CANONICAL_CAPABILITY = {
+    food = "food",
+    weapon = "weapon",
+    literature = "literature",
+    moveable = "moveable",
+}
+
+local function exactCapability(value)
+    local normalized = tostring(value or ""):lower()
+    return CANONICAL_CAPABILITY[normalized]
+end
+
+local function capabilityHints(category, itemType)
+    local hints = {}
+    local categoryCapability = exactCapability(category)
+    local typeCapability = exactCapability(itemType)
+    if categoryCapability then hints[categoryCapability] = true end
+    if typeCapability then hints[typeCapability] = true end
+
+    -- Free-form category/type text is positive evidence only. It may describe
+    -- a custom or hybrid mod item and must never suppress a present method.
     local text = (tostring(category or "") .. " " .. tostring(itemType or "")):lower()
-    if text:find("food", 1, true) then return "food", true end
-    if text:find("weapon", 1, true) then return "weapon", true end
+    if text:find("food", 1, true) then hints.food = true end
+    if text:find("weapon", 1, true) then hints.weapon = true end
     if text:find("literature", 1, true) or text:find("book", 1, true) then
-        return "literature", true
+        hints.literature = true
     end
     if text:find("moveable", 1, true) or text:find("furniture", 1, true) then
-        return "moveable", true
+        hints.moveable = true
     end
-    if category ~= nil and tostring(category) ~= "" then return nil, true end
-    return nil, false
+
+    -- Only matching canonical type/category pairs are closed negative
+    -- evidence. Unknown, custom, contradictory, and hybrid hints fall back to
+    -- method presence so predecessor-visible fields cannot disappear.
+    local authoritative = categoryCapability ~= nil and
+        categoryCapability == typeCapability
+    return hints, authoritative
 end
 
 local function groupApplicable(item, methodNames, group, category, itemType)
-    local hintedGroup, hasCategoryHint = capabilityHint(category, itemType)
-    if hasCategoryHint then
-        if hintedGroup == group then return true end
-        metrics.groupSkips[group] = (metrics.groupSkips[group] or 0) + 1
+    local hints, authoritative = capabilityHints(category, itemType)
+    if hints[group] then return true end
+    if authoritative then
+        if instrumentationEnabled then recordGroup(metrics.groupSkips, group) end
         return false
     end
     for _, methodName in ipairs(methodNames or {}) do
         local ok, method = pcall(function() return item[methodName] end)
         if ok and method ~= nil then return true end
     end
-    metrics.groupSkips[group] = (metrics.groupSkips[group] or 0) + 1
+    if instrumentationEnabled then recordGroup(metrics.groupSkips, group) end
     return false
 end
 
@@ -154,8 +191,10 @@ end
 function ViewModel.fromItem(item)
     if not item then return nil end
 
-    metrics.fromItemCalls = metrics.fromItemCalls + 1
-    metrics.staticCacheMisses = metrics.staticCacheMisses + 1
+    if instrumentationEnabled then
+        metrics.fromItemCalls = metrics.fromItemCalls + 1
+        metrics.staticCacheMisses = metrics.staticCacheMisses + 1
+    end
 
     local apiOk, IrisAPI = safeRequire("Iris/IrisAPI")
     if not apiOk then IrisAPI = nil end
@@ -275,6 +314,7 @@ end
 
 function ViewModel.getInstrumentation()
     return {
+        enabled = instrumentationEnabled,
         fromItemCalls = metrics.fromItemCalls,
         methodAttempts = metrics.methodAttempts,
         methodSuccesses = metrics.methodSuccesses,
@@ -287,11 +327,12 @@ function ViewModel.getInstrumentation()
 end
 
 function ViewModel.resetInstrumentation()
-    metrics = {
-        fromItemCalls = 0, methodAttempts = 0, methodSuccesses = 0,
-        groupAttempts = {}, groupSuccesses = {}, groupSkips = {}, staticCacheHits = 0,
-        staticCacheMisses = 0,
-    }
+    metrics = newMetrics()
+end
+
+function ViewModel.setInstrumentationEnabled(enabled)
+    instrumentationEnabled = enabled == true
+    ViewModel.resetInstrumentation()
 end
 
 function ViewModel.ensure(itemOrModel)

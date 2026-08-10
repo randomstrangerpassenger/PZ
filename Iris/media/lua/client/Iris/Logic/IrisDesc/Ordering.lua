@@ -15,6 +15,7 @@ local CategoryPresentationOrder = require("Iris/Logic/CategoryPresentationOrder"
 local Logger = require("Iris/Logic/IrisDesc/Logger")
 
 local IrisDescOrdering = {}
+local instrumentationEnabled = false
 local metrics = { sortKeyDerivations = 0, sortPasses = 0 }
 
 
@@ -47,7 +48,9 @@ end
 ---@return number priority 대분류 우선순위
 ---@return string code 코드
 local function getSortKey(tag)
-    metrics.sortKeyDerivations = metrics.sortKeyDerivations + 1
+    if instrumentationEnabled then
+        metrics.sortKeyDerivations = metrics.sortKeyDerivations + 1
+    end
     local category = extractCategory(tag)
     local code = extractCode(tag) or ""
     local priority = CategoryPresentationOrder.getDescriptionPriority(category)
@@ -78,7 +81,9 @@ local function sortedSubcategories(subcat_set)
         local priority, code = getSortKey(tag)
         decorated[index] = { tag = tag, priority = priority, code = code }
     end
-    metrics.sortPasses = metrics.sortPasses + 1
+    if instrumentationEnabled then
+        metrics.sortPasses = metrics.sortPasses + 1
+    end
     table.sort(decorated, function(a, b)
         if a.priority ~= b.priority then return a.priority < b.priority end
         if a.code ~= b.code then return a.code < b.code end
@@ -96,6 +101,7 @@ IrisDescOrdering.compareTags = compareTags
 
 function IrisDescOrdering.getInstrumentation()
     return {
+        enabled = instrumentationEnabled,
         sortKeyDerivations = metrics.sortKeyDerivations,
         sortPasses = metrics.sortPasses,
     }
@@ -104,6 +110,12 @@ end
 
 function IrisDescOrdering.resetInstrumentation()
     metrics = { sortKeyDerivations = 0, sortPasses = 0 }
+end
+
+
+function IrisDescOrdering.setInstrumentationEnabled(enabled)
+    instrumentationEnabled = enabled == true
+    IrisDescOrdering.resetInstrumentation()
 end
 
 

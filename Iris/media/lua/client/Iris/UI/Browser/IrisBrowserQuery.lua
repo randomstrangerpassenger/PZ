@@ -8,6 +8,25 @@ local IrisBrowserQuery = {}
 
 local ItemAccess = require("Iris/Util/IrisItemAccess")
 local IrisBrowserClassificationIndex = require("Iris/UI/Browser/IrisBrowserClassificationIndex")
+local instrumentationEnabled = false
+
+local function newSearchMetrics()
+    return {
+        searchCalls = 0,
+        totalScanRows = 0,
+        lastScanRows = 0,
+        prefixReuseCount = 0,
+        locationLookupCount = 0,
+        internalRowCopyCount = 0,
+        publicRowCopyCount = 0,
+        localeInvalidationCount = 0,
+        generationInvalidationCount = 0,
+    }
+end
+
+function IrisBrowserQuery.setInstrumentationEnabled(enabled)
+    instrumentationEnabled = enabled == true
+end
 
 local function copyRows(rows, metrics, metricName)
     local copied = {}
@@ -47,29 +66,24 @@ function IrisBrowserQuery.searchAll(cache, query, getItemLocation, locale)
         cache.searchKeysByFullType = refreshed
         cache.searchKeysLocale = normalizedLocale
         cache.searchPrefixState = nil
-        cache.searchMetrics = cache.searchMetrics or {}
-        cache.searchMetrics.localeInvalidationCount =
-            (cache.searchMetrics.localeInvalidationCount or 0) + 1
+        if instrumentationEnabled then
+            cache.searchMetrics = cache.searchMetrics or newSearchMetrics()
+            cache.searchMetrics.localeInvalidationCount =
+                cache.searchMetrics.localeInvalidationCount + 1
+        end
     end
 
     local queryLower = query:lower()
     local result = {}
-    local metrics = cache.searchMetrics or {
-        searchCalls = 0,
-        totalScanRows = 0,
-        lastScanRows = 0,
-        prefixReuseCount = 0,
-        locationLookupCount = 0,
-        internalRowCopyCount = 0,
-        publicRowCopyCount = 0,
-        localeInvalidationCount = 0,
-        generationInvalidationCount = 0,
-    }
-    cache.searchMetrics = metrics
-    metrics.searchCalls = metrics.searchCalls + 1
+    local metrics = nil
+    if instrumentationEnabled then
+        metrics = cache.searchMetrics or newSearchMetrics()
+        cache.searchMetrics = metrics
+        metrics.searchCalls = metrics.searchCalls + 1
+    end
 
     local previous = cache.searchPrefixState
-    if previous and previous.generation ~= cache.generation then
+    if metrics and previous and previous.generation ~= cache.generation then
         metrics.generationInvalidationCount = (metrics.generationInvalidationCount or 0) + 1
     end
     local reusePrevious = previous and previous.generation == cache.generation and
@@ -79,7 +93,7 @@ function IrisBrowserQuery.searchAll(cache, query, getItemLocation, locale)
     local scannedRows = 0
 
     if sourceRows then
-        metrics.prefixReuseCount = metrics.prefixReuseCount + 1
+        if metrics then metrics.prefixReuseCount = metrics.prefixReuseCount + 1 end
         for _, row in ipairs(sourceRows) do
             scannedRows = scannedRows + 1
             local searchKeys = cache.searchKeysByFullType and cache.searchKeysByFullType[row.fullType]
@@ -109,7 +123,9 @@ function IrisBrowserQuery.searchAll(cache, query, getItemLocation, locale)
                     -- Compatibility for callers constructing a pre-generation
                     -- cache fixture. Production caches always use the map.
                     foundCat, foundSub = getItemLocation(fullType)
-                    metrics.locationLookupCount = (metrics.locationLookupCount or 0) + 1
+                    if metrics then
+                        metrics.locationLookupCount = metrics.locationLookupCount + 1
+                    end
                 end
 
                 table.insert(result, {
@@ -129,8 +145,10 @@ function IrisBrowserQuery.searchAll(cache, query, getItemLocation, locale)
         return a.fullType < b.fullType
     end)
 
-    metrics.lastScanRows = scannedRows
-    metrics.totalScanRows = metrics.totalScanRows + scannedRows
+    if metrics then
+        metrics.lastScanRows = scannedRows
+        metrics.totalScanRows = metrics.totalScanRows + scannedRows
+    end
     cache.searchPrefixState = {
         generation = cache.generation,
         locale = normalizedLocale,

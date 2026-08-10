@@ -38,7 +38,9 @@ local BrowserData = require("Iris/UI/Browser/IrisBrowserData")
 local initial = BrowserData.getBuildState()
 assert(initial.state == "uninitialized" and BrowserData._built == false)
 local initialInstrumentation = BrowserData.getInstrumentation()
+assert(initialInstrumentation.enabled == false)
 assert(initialInstrumentation.getAllItemsCallCount == 0 and initialInstrumentation.scannedItemCount == 0)
+BrowserData.setInstrumentationEnabled(true)
 
 local missingReady, missingState = BrowserData.ensureReady()
 assert(missingReady == false and missingState.state == "retryable_failed" and missingState.dependency == "Iris/IrisAPI")
@@ -76,6 +78,7 @@ package.preload["Iris/UI/Browser/IrisBrowserClassificationIndex"] = function()
     }
 end
 local PostScanFailBrowserData = require("Iris/UI/Browser/IrisBrowserData")
+PostScanFailBrowserData.setInstrumentationEnabled(true)
 local postScanReady, postScanState = PostScanFailBrowserData.ensureReady()
 assert(postScanReady == false and postScanState.state == "retryable_failed")
 assert(postScanState.reason == "cache_build_failed" and PostScanFailBrowserData._cache == nil)
@@ -161,6 +164,8 @@ end
 isKeyDown = function(code) return code == 56 end
 UIFont = { Small = "Small" }
 local AltTooltip = require("Iris/UI/Tooltip/IrisAltTooltip")
+assert(AltTooltip.getDisplayLineCacheMetrics().enabled == false)
+AltTooltip.setInstrumentationEnabled(true)
 AltTooltip.resetDisplayLineCache()
 local function tooltipFixture()
     local drawn = {}

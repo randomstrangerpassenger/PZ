@@ -40,18 +40,24 @@ local buildState = "uninitialized"
 local buildReason = "not_built"
 local buildDependency = nil
 local buildGeneration = 0
-local instrumentation = {
-    buildAttempts = 0,
-    getAllItemsCallCount = 0,
-    scannedItemCount = 0,
-    lastBuildElapsedMilliseconds = 0,
-    lastScanElapsedMilliseconds = 0,
-    coldOpenCount = 0,
-    warmReopenCount = 0,
-    lastColdOpenElapsedMilliseconds = 0,
-    lastWarmReopenElapsedMilliseconds = 0,
-    generationInvalidationCount = 0,
-}
+local instrumentationEnabled = false
+
+local function newInstrumentation()
+    return {
+        buildAttempts = 0,
+        getAllItemsCallCount = 0,
+        scannedItemCount = 0,
+        lastBuildElapsedMilliseconds = 0,
+        lastScanElapsedMilliseconds = 0,
+        coldOpenCount = 0,
+        warmReopenCount = 0,
+        lastColdOpenElapsedMilliseconds = 0,
+        lastWarmReopenElapsedMilliseconds = 0,
+        generationInvalidationCount = 0,
+    }
+end
+
+local instrumentation = newInstrumentation()
 
 local function nowMilliseconds()
     if getTimestampMs then
@@ -63,6 +69,7 @@ local function nowMilliseconds()
 end
 
 local function finishBuildTiming(startedAt)
+    if not instrumentationEnabled then return end
     instrumentation.lastBuildElapsedMilliseconds = math.max(0, nowMilliseconds() - startedAt)
 end
 
@@ -160,12 +167,12 @@ local function buildCandidateCache(itemIndex)
         searchKeysLocale = TranslationResolver.getLangKey("EN"),
         foldedCountsByGrouping = {},
         displayNameGroupsByGrouping = {},
-        searchMetrics = {
+        searchMetrics = instrumentationEnabled and {
             searchCalls = 0,
             totalScanRows = 0,
             lastScanRows = 0,
             prefixReuseCount = 0,
-        },
+        } or nil,
         generation = buildGeneration + 1,
     }
 
@@ -211,7 +218,7 @@ local function buildCandidateCache(itemIndex)
 end
 
 local function recordItemIndexInstrumentation(itemIndex)
-    if not itemIndex then return end
+    if not instrumentationEnabled or not itemIndex then return end
     instrumentation.getAllItemsCallCount = instrumentation.getAllItemsCallCount +
         (itemIndex.getAllItemsCallCount or 0)
     instrumentation.scannedItemCount = instrumentation.scannedItemCount +
@@ -223,19 +230,24 @@ end
 --- @return boolean ready
 --- @return table stateInfo
 function IrisBrowserData.ensureReady()
-    local callStartedAt = nowMilliseconds()
+    local callStartedAt = instrumentationEnabled and nowMilliseconds() or 0
     if READY_STATES[buildState] then
-        instrumentation.warmReopenCount = instrumentation.warmReopenCount + 1
-        instrumentation.lastWarmReopenElapsedMilliseconds = math.max(0, nowMilliseconds() - callStartedAt)
+        if instrumentationEnabled then
+            instrumentation.warmReopenCount = instrumentation.warmReopenCount + 1
+            instrumentation.lastWarmReopenElapsedMilliseconds =
+                math.max(0, nowMilliseconds() - callStartedAt)
+        end
         return true, stateSnapshot()
     end
     if buildState == "building" then
         return false, stateSnapshot()
     end
 
-    local buildStartedAt = nowMilliseconds()
+    local buildStartedAt = instrumentationEnabled and nowMilliseconds() or 0
     setBuildState("building", "build_in_progress", nil)
-    instrumentation.buildAttempts = instrumentation.buildAttempts + 1
+    if instrumentationEnabled then
+        instrumentation.buildAttempts = instrumentation.buildAttempts + 1
+    end
     if IrisLogger.isDebugEnabled() then
         debug("[IrisBrowserData] Building cache...")
     end
@@ -279,8 +291,11 @@ function IrisBrowserData.ensureReady()
     IrisBrowserData._cache = candidate
     buildGeneration = candidate.generation
     finishBuildTiming(buildStartedAt)
-    instrumentation.coldOpenCount = instrumentation.coldOpenCount + 1
-    instrumentation.lastColdOpenElapsedMilliseconds = instrumentation.lastBuildElapsedMilliseconds
+    if instrumentationEnabled then
+        instrumentation.coldOpenCount = instrumentation.coldOpenCount + 1
+        instrumentation.lastColdOpenElapsedMilliseconds =
+            instrumentation.lastBuildElapsedMilliseconds
+    end
 
     if not IrisAPI.Index or not IrisAPI.Index.getRecipeConnectionsForItem then
         setBuildState("degraded_ready", "optional_dependency_unavailable", "IrisAPI.Index")
@@ -301,13 +316,17 @@ end
 function IrisBrowserData.resetForReload()
     IrisAPI = nil
     IrisBrowserData._cache = nil
-    instrumentation.generationInvalidationCount = instrumentation.generationInvalidationCount + 1
+    if instrumentationEnabled then
+        instrumentation.generationInvalidationCount =
+            instrumentation.generationInvalidationCount + 1
+    end
     setBuildState("uninitialized", "explicit_reload_reset", nil)
 end
 
 --- Dev/test-only build and scan counters. Returned by value.
 function IrisBrowserData.getInstrumentation()
     return {
+        enabled = instrumentationEnabled,
         state = buildState,
         generation = buildGeneration,
         buildAttempts = instrumentation.buildAttempts,
@@ -325,18 +344,14 @@ function IrisBrowserData.getInstrumentation()
 end
 
 function IrisBrowserData.resetInstrumentation()
-    instrumentation = {
-        buildAttempts = 0,
-        getAllItemsCallCount = 0,
-        scannedItemCount = 0,
-        lastBuildElapsedMilliseconds = 0,
-        lastScanElapsedMilliseconds = 0,
-        coldOpenCount = 0,
-        warmReopenCount = 0,
-        lastColdOpenElapsedMilliseconds = 0,
-        lastWarmReopenElapsedMilliseconds = 0,
-        generationInvalidationCount = 0,
-    }
+    instrumentation = newInstrumentation()
+end
+
+function IrisBrowserData.setInstrumentationEnabled(enabled)
+    instrumentationEnabled = enabled == true
+    IrisBrowserQuery.setInstrumentationEnabled(instrumentationEnabled)
+    IrisBrowserItemIndex.setInstrumentationEnabled(instrumentationEnabled)
+    IrisBrowserData.resetInstrumentation()
 end
 
 --- 기존 boolean build API compatibility adapter.

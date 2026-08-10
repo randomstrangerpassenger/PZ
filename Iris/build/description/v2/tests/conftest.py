@@ -7,7 +7,9 @@ test source from silently becoming a required current-route test.
 """
 from __future__ import annotations
 
+import hashlib
 import json
+import subprocess
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
@@ -194,26 +196,79 @@ def _actual_controlled_sources() -> set[str]:
     return description_sources | auxiliary
 
 
+def _canonical_source_set_sha256(sources: set[str]) -> str:
+    payload = ("\n".join(sorted(sources)) + "\n").encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+
+@lru_cache(maxsize=1)
+def _tracked_policy_sources() -> set[str]:
+    result = subprocess.run(
+        [
+            "git",
+            "ls-files",
+            "-z",
+            "--",
+            "Iris/build/description/v2/tests",
+            "Iris/build/tests",
+        ],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(
+            "Failed to enumerate the tracked Round 3 source denominator: "
+            + result.stderr.decode("utf-8", errors="replace")
+        )
+    policy = _source_policy()
+    return {
+        value.decode("utf-8")
+        for value in result.stdout.split(b"\0")
+        if value and value.decode("utf-8") in policy
+    }
+
+
+def _validate_bound_source_set(
+    name: str,
+    actual: set[str],
+    expected: dict[str, Any],
+) -> None:
+    if expected.get("count") != len(actual):
+        raise RuntimeError(
+            f"Round 3 {name} count drift: expected {expected.get('count')}, "
+            f"observed {len(actual)}"
+        )
+    observed_hash = _canonical_source_set_sha256(actual)
+    if expected.get("sha256") != observed_hash:
+        raise RuntimeError(
+            f"Round 3 {name} identity drift: expected {expected.get('sha256')}, "
+            f"observed {observed_hash}"
+        )
+
+
 def _validate_policy_inventory() -> None:
     payload = _source_policy_payload()
     policy = _source_policy()
     actual = _actual_controlled_sources()
-    planned = {
-        _normalize_source(row["source_file"])
-        for row in payload.get("planned_sources", [])
-    }
-    clean_checkout_optional = {
-        _normalize_source(row["source_file"])
-        for row in payload.get("reviewed_sources", [])
-        if row.get("clean_checkout_optional") is True
-    }
+    binding = payload.get("source_set_binding", {})
+    tracked = _tracked_policy_sources()
+    approved_clean_checkout_absent = set(policy) - tracked
+    _validate_bound_source_set(
+        "tracked policy source denominator",
+        tracked,
+        binding.get("tracked_policy_sources", {}),
+    )
+    _validate_bound_source_set(
+        "approved clean-checkout absence denominator",
+        approved_clean_checkout_absent,
+        binding.get("approved_clean_checkout_absent_policy_sources", {}),
+    )
     unclassified = sorted(actual - policy.keys())
     vanished = sorted(
         source
         for source in policy.keys() - actual
-        if source not in _taxonomy_source_classes()
-        and source not in planned
-        and source not in clean_checkout_optional
+        if source not in approved_clean_checkout_absent
     )
     if unclassified or vanished:
         parts = []

@@ -1,0 +1,11 @@
+{
+  "schema_version": "iris-runtime-optimization-receipt-v1",
+  "candidate": "Change 7 LineCount validation ceiling",
+  "test_id": "Iris/build/description/v2/tests/test_iris_runtime_optimization_metrics.py::RuntimeOptimizationMetricsTest::test_change_7_linecount_receipt",
+  "denominator": {"identity": "PZ-7-LINECOUNT-01|first-lookup|10-runs|validation-operation-attribution", "sha256": "51f854da676d2f942d63febddf1ca6eb34f5b8ac46d2562d5859ba8ea8090d18", "required_runs": 10},
+  "baseline_generation": "baseline-1",
+  "raw_samples": [],
+  "trigger": {"result": "unvalidated_but_in_scope"},
+  "validation_limit": "actual_project_zomboid_runtime_unavailable",
+  "disposition": "deferred"
+}

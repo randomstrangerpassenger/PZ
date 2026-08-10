@@ -1,0 +1,11 @@
+{
+  "schema_version": "iris-runtime-optimization-receipt-v1",
+  "candidate": "Change 6C search debounce",
+  "test_id": "Iris/build/description/v2/tests/test_iris_runtime_optimization_metrics.py::RuntimeOptimizationMetricsTest::test_change_6c_search_debounce_receipt",
+  "denominator": {"identity": "PZ-6C-SEARCH-01|10-character-sequence|10-runs|handler-p95|input-to-result-p95", "sha256": "92b1288e836cc0ca01c19b146f2a2b57e38a74cd9042e347a37dcc9b74196f2f", "required_runs": 10},
+  "baseline_generation": "baseline-1",
+  "raw_samples": [],
+  "trigger": {"result": "unvalidated_but_in_scope"},
+  "validation_limit": "actual_project_zomboid_runtime_unavailable",
+  "disposition": "deferred"
+}

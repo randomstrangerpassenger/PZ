@@ -1,0 +1,31 @@
+{
+  "schema_version": "iris-generated-lua-sparse-receipt-v1",
+  "baseline_generation": "baseline-0",
+  "denominator": {
+    "identity": "generated-usecase-v1|9-chunks|1631-fulltypes|direct-facade-rehydration|run-a-b",
+    "sha256": "c905ff539ab5dd4de11439d819453264e7b8181ea320fc24053249999389ea1c"
+  },
+  "before": {
+    "chunk_bytes": 1269883,
+    "strength_nil_fields": 2593,
+    "uniqueness_nil_fields": 2572,
+    "category_nil_fields": 91,
+    "debug_line_fields": 1631
+  },
+  "after": {
+    "chunk_bytes": 1137397,
+    "strength_nil_fields": 0,
+    "uniqueness_nil_fields": 0,
+    "category_nil_fields": 0,
+    "debug_line_fields": 0,
+    "facade_rehydrated_entries": 1631
+  },
+  "saved_chunk_bytes": 132486,
+  "deterministic_generation": {
+    "status": "PASS",
+    "compared_files": 13,
+    "comparison": "byte comparison without additional content-hash materialization"
+  },
+  "disposition": "adopted",
+  "claim_limit": "package and demand-chunk bytes only; full facade rehydrates the compatibility shape"
+}

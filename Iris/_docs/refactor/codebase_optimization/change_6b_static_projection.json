@@ -1,0 +1,19 @@
+{
+  "schema_version": "iris-runtime-optimization-receipt-v1",
+  "candidate": "Change 6B static projection cache",
+  "test_id": "Iris/build/description/v2/tests/test_iris_runtime_optimization_metrics.py::RuntimeOptimizationMetricsTest::test_change_6b_static_projection_instance_isolation_receipt",
+  "denominator": {
+    "identity": "static-v1|same-fullType-different-instance|mutation|ScriptItem-InventoryItem|Browser-Wiki-order",
+    "sha256": "175a5f3d248952a6325eec9b54b3f5dd619d1b8649776e311f22d893d54bd864"
+  },
+  "baseline_generation": "baseline-1",
+  "raw_samples": {
+    "static_cache_hits": 0,
+    "static_cache_misses": 100,
+    "instance_isolation": "PASS"
+  },
+  "trigger": {"result": "purity_and_generation_invalidation_not_closed"},
+  "parity": "PASS",
+  "disposition": "complete/no-op",
+  "reason": "A generation-safe pure static projection was not proven, so whole-model and static caches remain absent."
+}

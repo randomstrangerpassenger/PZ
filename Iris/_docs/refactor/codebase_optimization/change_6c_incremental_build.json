@@ -1,0 +1,11 @@
+{
+  "schema_version": "iris-runtime-optimization-receipt-v1",
+  "candidate": "Change 6C incremental Browser build",
+  "test_id": "Iris/build/description/v2/tests/test_iris_runtime_optimization_metrics.py::RuntimeOptimizationMetricsTest::test_change_6c_incremental_build_receipt",
+  "denominator": {"identity": "PZ-6C-BUILD-01|cold-open|10-runs|first-ready-p95|longest-slice", "sha256": "fb237f7cbe24f3de584016d0445ada0ac13f718315962291c0d2bbc9ff1ebef2", "required_runs": 10},
+  "baseline_generation": "baseline-1",
+  "raw_samples": [],
+  "trigger": {"result": "unvalidated_but_in_scope"},
+  "validation_limit": "actual_project_zomboid_runtime_unavailable",
+  "disposition": "deferred"
+}

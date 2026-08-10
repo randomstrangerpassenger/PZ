@@ -1,0 +1,18 @@
+{
+  "schema_version": "iris-runtime-optimization-receipt-v1",
+  "candidate": "Change 10 Ordering decoration",
+  "test_id": "Iris/build/description/v2/tests/test_iris_runtime_optimization_metrics.py::RuntimeOptimizationMetricsTest::test_change_10_ordering_receipt",
+  "denominator": {
+    "identity": "ordering-v1|12-approved-category-subcategory-tags|no-meta-anchor",
+    "sha256": "3cf1a0b9dc3690b72546af4f922af0090e99d083b3897ce91e1ed8d68fe59a0b"
+  },
+  "baseline_generation": "baseline-1",
+  "raw_samples": {
+    "before": {"rows": 12, "sort_key_derivations": 64, "signature_sha256": "94559205f9745a29aa2d1838cf8cba02acbf062e3c901ae17826f716e2aa0ec7"},
+    "after": {"rows": 12, "sort_key_derivations": 12, "signature_sha256": "94559205f9745a29aa2d1838cf8cba02acbf062e3c901ae17826f716e2aa0ec7"}
+  },
+  "trigger": {"result": "met", "baseline_derivations_exceed_rows_plus_constant": true},
+  "adoption": {"derivation_reduction_fraction": 0.8125},
+  "parity": "PASS",
+  "disposition": "adopted"
+}

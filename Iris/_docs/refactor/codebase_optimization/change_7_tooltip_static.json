@@ -1,0 +1,11 @@
+{
+  "schema_version": "iris-runtime-optimization-receipt-v1",
+  "candidate": "Change 7 Tooltip static data",
+  "test_id": "Iris/build/description/v2/tests/test_iris_runtime_optimization_metrics.py::RuntimeOptimizationMetricsTest::test_change_7_tooltip_static_receipt",
+  "denominator": {"identity": "PZ-7-TOOLTIP-01|first-alt|10-runs|module-load-attribution", "sha256": "0735a02afe418d5c15b2b222defb31d797440251bc11412e855d80a7c56a409a", "required_runs": 10},
+  "baseline_generation": "baseline-1",
+  "raw_samples": [],
+  "trigger": {"result": "unvalidated_but_in_scope"},
+  "validation_limit": "actual_project_zomboid_runtime_unavailable",
+  "disposition": "deferred"
+}

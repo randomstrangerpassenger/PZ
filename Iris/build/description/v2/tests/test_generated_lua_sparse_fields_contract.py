@@ -105,6 +105,52 @@ class GeneratedLuaSparseFieldsContractTest(unittest.TestCase):
         self.assertIn("IRIS_GENERATED_SPARSE_FIELDS_PASS", completed.stdout)
         self.assertIn("facade_entries=1631", completed.stdout)
 
+    def test_nonempty_debug_and_present_optional_values_are_retained(self) -> None:
+        fixture = {
+            "fulltypes": {
+                "Fixture.Empty": {
+                    "use_case_block": {"items": [], "debug_items": []}
+                },
+                "Fixture.Present": {
+                    "use_case_block": {
+                        "items": [
+                            {
+                                "use_case_id": "uc.fixture.present",
+                                "display_text": "present",
+                                "surface": "context_menu",
+                                "strength": "strong",
+                                "uniqueness": "unique",
+                            }
+                        ],
+                        "debug_items": [
+                            {
+                                "use_case_id": "uc.fixture.debug",
+                                "display_text": "debug",
+                                "surface": "context_menu",
+                                "strength": "weak",
+                                "uniqueness": "shared",
+                            }
+                        ],
+                    }
+                },
+            }
+        }
+        facade, chunks, _requirements, count, _lines, errors = (
+            self.generator.convert_to_lua(fixture)
+        )
+        self.assertEqual(2, count)
+        self.assertEqual([], errors)
+        combined = "\n".join(content for _index, content, _count in chunks)
+        self.assertIn('strength = "strong"', combined)
+        self.assertIn('uniqueness = "unique"', combined)
+        self.assertIn('strength = "weak"', combined)
+        self.assertIn('uniqueness = "shared"', combined)
+        self.assertEqual(1, combined.count("    debug_lines = {"))
+        self.assertIn(
+            "if entry.debug_lines == nil then entry.debug_lines = {} end",
+            facade,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,34 @@
+{
+  "schema_version": "iris-runtime-optimization-receipt-v1",
+  "candidate": "Change 6B capability mask",
+  "test_id": "Iris/build/description/v2/tests/test_iris_runtime_optimization_metrics.py::RuntimeOptimizationMetricsTest::test_change_6b_capability_mask_receipt",
+  "denominator": {
+    "identity": "viewmodel-v1|Food,Weapon,Literature,Moveable,Normal|20-each|all-group-methods-present",
+    "sha256": "bee35473b8cab9fb21b66d6cfa79771a98aa866da604de1da6901198fbb8ba9c"
+  },
+  "baseline_generation": "baseline-1",
+  "raw_samples": {
+    "before": {
+      "items": 100,
+      "method_attempts": 2400,
+      "engine_method_calls": 2200,
+      "signature_sha256": "d99ac488671f65dfdedb1129624d74893369a7f5ad6c5fea5c0e4b5aecaeb21b"
+    },
+    "after": {
+      "items": 100,
+      "method_attempts": 680,
+      "engine_method_calls": 680,
+      "food_skips": 80,
+      "weapon_skips": 80,
+      "literature_skips": 80,
+      "moveable_skips": 80,
+      "static_cache_hits": 0,
+      "static_cache_misses": 100,
+      "signature_sha256": "d99ac488671f65dfdedb1129624d74893369a7f5ad6c5fea5c0e4b5aecaeb21b"
+    }
+  },
+  "trigger": {"result": "met", "inapplicable_group_calls_present": true},
+  "adoption": {"engine_method_call_reduction_fraction": 0.6909090909},
+  "parity": "PASS",
+  "disposition": "adopted"
+}

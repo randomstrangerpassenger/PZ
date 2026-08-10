@@ -1,0 +1,37 @@
+{
+  "schema_version": "iris-runtime-optimization-receipt-v1",
+  "candidate": "Change 5 Tooltip allocation",
+  "test_id": "Iris/build/description/v2/tests/test_iris_runtime_optimization_metrics.py::RuntimeOptimizationMetricsTest::test_change_5_tooltip_allocation_receipt",
+  "denominator": {
+    "identity": "tooltip-v1|inactive:1000|warm-active:100|locale-transition:EN-KO|revision-transition:r1-r2",
+    "sha256": "befc09cadfaa211822f987cd537c73599d5685b8f6d3b483b0b7ba43d23fb01b"
+  },
+  "baseline_generation": "baseline-0",
+  "raw_samples": {
+    "before": {
+      "inactive_renders": 1000,
+      "inactive_summary_loads": 0,
+      "inactive_summary_gets": 0,
+      "inactive_temporary_tables": 1000,
+      "inactive_draw_calls": 0,
+      "warm_hits": 99,
+      "warm_misses": 1,
+      "warm_display_builds": 1,
+      "warm_line_copies": 404
+    },
+    "after": {
+      "inactive_renders": 1000,
+      "inactive_summary_loads": 0,
+      "inactive_summary_gets": 0,
+      "inactive_temporary_tables": 0,
+      "inactive_draw_calls": 0,
+      "warm_hits": 99,
+      "warm_misses": 1,
+      "warm_display_builds": 1,
+      "warm_line_copies": 0
+    }
+  },
+  "trigger": {"result": "mandatory_acceptance_gate", "passed": true},
+  "parity": "PASS",
+  "disposition": "adopted"
+}

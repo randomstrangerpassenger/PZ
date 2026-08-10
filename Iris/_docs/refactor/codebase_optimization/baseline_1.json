@@ -1,0 +1,44 @@
+{
+  "schema_version": "iris-runtime-optimization-baseline-v1",
+  "generation": "baseline-1",
+  "commit": "a940cf18e129bb3f144d35545aa4ff93357f2a40",
+  "tree": "abd178b4b9d3d68848a0a898eba3b840642e3cb0",
+  "environment": {
+    "runtime": "fixed_standalone_lua_fixture",
+    "lua": "Lua 5.4.8",
+    "project_zomboid_build": "not_available_in_standalone_harness",
+    "mod_set": "harness stubs only",
+    "locale": "EN",
+    "run_count": 1
+  },
+  "denominator": {
+    "identity": "baseline-1-v1|search-v1|viewmodel-v1|ordering-v1",
+    "sha256": "59aa546a4473151044648636067d84437a0b89e9dea73ef6039755056cd47e35"
+  },
+  "raw_samples": {
+    "search": {
+      "returned_rows": 24,
+      "location_lookups": 18,
+      "internal_row_copies": 24,
+      "public_row_copies": 24,
+      "scan_rows": 50,
+      "prefix_reuse": 3,
+      "signature_sha256": "b37bf69550b7730c20de57f9749873c5c2ec1f070e4bc22f4d064ce65f965752"
+    },
+    "viewmodel": {
+      "items": 100,
+      "method_attempts": 2400,
+      "engine_method_calls": 2200,
+      "static_cache_hits": 0,
+      "static_cache_misses": 100,
+      "signature_sha256": "d99ac488671f65dfdedb1129624d74893369a7f5ad6c5fea5c0e4b5aecaeb21b"
+    },
+    "ordering": {
+      "rows": 12,
+      "sort_key_derivations": 64,
+      "signature_sha256": "94559205f9745a29aa2d1838cf8cba02acbf062e3c901ae17826f716e2aa0ec7"
+    }
+  },
+  "result_sha256": "9b7d99527cebfa440dfab7d6b3286782b35c65d70acf9fea650b26df092b2526",
+  "claim_limit": "operation counts only; no Project Zomboid frame or heap claim"
+}

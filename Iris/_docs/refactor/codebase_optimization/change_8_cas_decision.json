@@ -1,0 +1,60 @@
+{
+  "schema_version": "iris-codebase-optimization-cas-decision-v1",
+  "inventory_subject": {
+    "commit": "951987be7136cce94557bc4da26fe41bb108d02e",
+    "tree": "4f476042a322eaa08ab93c90c603595fb36e83d4",
+    "source_root": "Iris/build/description/v2/staging"
+  },
+  "inventory_authority": {
+    "source": "Iris/_docs/refactor/repository_evidence_lightweighting/lifecycle_manifest_v2",
+    "schema_version": "iris_repository_evidence_lifecycle_migration_receipt_v2",
+    "status": "PASS",
+    "final_rows": 7515,
+    "tracked_staging_rows_reconciled": 3403,
+    "tracked_staging_rows_missing_metadata": 0,
+    "metadata_fields": [
+      "sha256",
+      "size_bytes",
+      "producer",
+      "evidence_role",
+      "consumer_axes",
+      "direct_consumers",
+      "transitive_consumers",
+      "authority_role",
+      "route_class",
+      "delete_eligible",
+      "zero_live_consumers"
+    ],
+    "nodes_sha256": "fc81ef2086330af7e4371d3295854196376c94c79b22e3cff715507b5230750f",
+    "dictionary_sha256": "9faffc2f3244bde64b2d3f14f02d72162a7c831e8d6efcc57c8f25ed7928bf27"
+  },
+  "physical_inventory": {
+    "tracked_files": 3403,
+    "tracked_bytes": 396006374,
+    "duplicate_groups": 306,
+    "gross_duplicate_bytes": 113083892
+  },
+  "safety_filter": {
+    "required": [
+      "historical_reproduction authority",
+      "not a current required-validation input",
+      "zero live consumers",
+      "delete eligible",
+      "complete lifecycle metadata",
+      "non-executable payload",
+      "net batch saving at least 1048576 bytes"
+    ],
+    "safe_closed_candidate_groups": 0,
+    "safe_closed_candidate_bytes": 0,
+    "excluded_duplicate_groups": 306,
+    "exclusion": "Every duplicate group retained at least one live-consumer or non-delete-eligible lifecycle hold."
+  },
+  "owner_approval": "advance_plan_scoped_approval_available_but_not_exercised_without_a_safe_candidate",
+  "destructive_targets": [],
+  "new_objects": 0,
+  "new_references": 0,
+  "dangling_references_added": 0,
+  "threshold_bytes": 1048576,
+  "disposition": "complete/no-op",
+  "reason": "The verified safe batch is empty, so the plan forbids CAS promotion or physical disposition despite gross duplicate bytes."
+}

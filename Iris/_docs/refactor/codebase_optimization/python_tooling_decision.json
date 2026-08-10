@@ -1,0 +1,30 @@
+{
+  "schema_version": "iris-python-tooling-contract-commonization-v1",
+  "inventory_subject": {
+    "commit": "951987be7136cce94557bc4da26fe41bb108d02e",
+    "tree": "4f476042a322eaa08ab93c90c603595fb36e83d4"
+  },
+  "inventory_counts": {
+    "tool_files": 497,
+    "subprocess_sites": 113,
+    "helper_definitions": 321,
+    "load_json_definitions": 148,
+    "write_json_definitions": 113,
+    "sha256_file_definitions": 60,
+    "exact_current_groups": 0
+  },
+  "denominator_sha256": "b88fe91b360231d0c08b9a0f9a0766d2d8f61eb27dec6a84322f1a1f69e3a90c",
+  "fingerprint_contract": [
+    "function arguments and defaults",
+    "complete AST body and exception behavior",
+    "encoding/newline/indent/sort-key constants",
+    "cwd/path and CLI call constants",
+    "current Round 3 closure membership"
+  ],
+  "subprocess_disposition": "retain all 113 explicit process boundaries; no pure-function conversion group was proven equivalent",
+  "candidate_groups": [],
+  "adopted_consumers": [],
+  "adopted_parity_validation": "not_applicable",
+  "disposition": "complete/no-op",
+  "reason": "No exact-contract helper fingerprint is shared by three or more current producers. The plan forbids weakening the equivalence gate to force commonization."
+}

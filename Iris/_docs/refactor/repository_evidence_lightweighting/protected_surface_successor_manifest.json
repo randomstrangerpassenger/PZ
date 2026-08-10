@@ -1129,6 +1129,18 @@
           "reason": "Avoid scan counters and clock reads unless Browser instrumentation is explicitly enabled."
         },
         {
+          "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+          "before_git_blob_id": "58667e10ab3c24e9169e6d50780f714decf416c2",
+          "before_sha256_lf": "2a1007bf78daad84022ef2df839297bad4d1630d0827b257b260bc62b2a39be0",
+          "expected_git_blob_id": "24695bd242fcd14d72901193d1d30d68cfa67ac1",
+          "after_sha256_lf": "3fa6ecf94993c273462a858b56b83987d89f5b0e836a2f6d6bf19451b91ad599",
+          "role": "protected_surface_current_required_test",
+          "writer": "iris_codebase_optimization_reviewer_corrections",
+          "consumers": ["current_route_validation", "residual_closeout"],
+          "owner": "repository_owner_user",
+          "reason": "Require the additive reviewer-corrections protection revision in the exact active revision chain."
+        },
+        {
           "path": "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserQuery.lua",
           "before_git_blob_id": "d413706e50f9b6a3f191372f3ac0eba6b21fdafb",
           "before_sha256_lf": "c29fdde4957d23fa28ac664d6c6355918b4739988c757eba808ae1b7796bd97c",

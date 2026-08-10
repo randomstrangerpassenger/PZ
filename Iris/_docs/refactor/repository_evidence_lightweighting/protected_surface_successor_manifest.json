@@ -300,13 +300,6 @@
           "before_sha256_lf": "10c349b97d709e8b43722cfd9fe5855b02875f5ee2fa5ceeb96e4107caa8e900",
           "owner": "repository_owner_user",
           "reason": "The lifecycle v2 baseline reconstructs this exact v1 stream, so the full baseline copy is no longer stored in every checkout."
-        },
-        {
-          "path": "Iris/_docs/refactor/repository_runtime_lightweighting/final_artifact_role_manifest.jsonl",
-          "before_git_blob_id": "81ea8f9cf398e70878f0319ebc14253575e2ea2e",
-          "before_sha256_lf": "9edc05cce635b6b1615dacf154d2819960f14b759a8d6f8267e1be50820fbb92",
-          "owner": "repository_owner_user",
-          "reason": "The lifecycle v2 final delta reconstructs this exact v1 stream, so the full final copy is no longer stored in every checkout."
         }
       ],
       "added_protected_rows": [

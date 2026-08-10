@@ -1,6 +1,6 @@
 # Implementation Plan
 
-> 상태: revision 5 proposed / `BLOCKED_PENDING_CHANGE_0_REVISION_AND_FRESH_REVIEW`
+> 상태: revision 6 proposed / `BLOCKED_PENDING_CHANGE_0_REVISION_AND_FRESH_REVIEW`
 > 작성일: 2026-08-10
 > 최종 수정일: 2026-08-10
 > 관찰 기준 readpoint: commit `1e0b706db7a5e965f26008f89017a5f648c5fb12`, tree `95ad6e2439e494c78fe1b6022fb6a95476f301c7` + 아래 predecessor-seal pre-commit census; 이 조합은 실행 subject가 아님
@@ -11,7 +11,8 @@
 > 입력 artifact identity: §2 `Input and review provenance` table에 exact durable adoption path/SHA-256/bytes/format/schema를 정의
 > 최신 종합 검토 SHA-256: `049c4146a93df716277a3bdb4a36669c81a82c482442c3875b39363502577b11`
 > revision 4 plan review SHA-256: `62e58d844189e7f1af4d8cddead07cfc0d867b2a840ee01abe5d47975ffa39e2`; verdict `blocked`, Change 0 `ineligible`
-> 검토 판정 반영: C0-a/C0-b manifest phase 분리, sealed residual baseline/drift disposition, commit-first Change 0, review provenance, CAS tracking, Change 6 diagnostic route에 더해 durable active-protection predecessor, two-active-revision current-test parity, folded protected-report count를 필수 gate로 채택
+> revision 5 plan review SHA-256: `e6538e193db31271153fca318d88fd1fc947e4347f04948114ac3d89875a0e61`; verdict `blocked`, Change 0 `ineligible`
+> 검토 판정 반영: C0-a/C0-b manifest phase 분리, sealed residual baseline/drift disposition, commit-first Change 0, review provenance, CAS tracking, Change 6 diagnostic route에 더해 durable active-protection predecessor, two-active-revision current-test parity, corrected final protected test identity, folded protected-report count를 필수 gate로 채택
 
 ---
 
@@ -46,7 +47,7 @@ Repository/evidence closeout 뒤에는 `IrisMain.lua`의 남은 boot-time static
 
 | Status | Path | Bytes | Raw SHA-256 | Git blob OID |
 | --- | --- | ---: | --- | --- |
-| `M` | `Iris/_docs/refactor/repository_runtime_lightweighting/protected_surface_successor_manifest.json` | 6,883 | `fcdc5f63eedcc39d3a43f72d74c7951d1afd2b471d68cafd80f58e4a690bf85c` | `3c2fc36b8d6380cc1c66b12c9b6b96abf3d364ef` |
+| `M` | `Iris/_docs/refactor/repository_runtime_lightweighting/protected_surface_successor_manifest.json` | 6,883 | `a3c7e3c24fd4c45d2596385f14fba5a735d21f8d04dc6469f81a0b6fdb8debff` | `bf52d7c048d675a865b8978a4d6cde6e55658da4` |
 | `M` | `Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json` | 57,530 | `558a9850c483e1900016a5392717191704acecd5ba870a6de81ebbcec9c981da` | `b59fcc33d6bf6148b16d33caf4426720b7c94afc` |
 | `M` | `Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py` | 8,518 | `27a0a40a864e53749cedddc50b50a600f6f360914d0c83d5c81d7c6ee07225e1` | `f6fb2b876e91094c2dc721aab39ad025504bec5b` |
 | `M` | `Iris/test/validate_residual_refactor_surfaces.ps1` | 43,114 | `ca65672b414cc679d0be4c73794e89253ed3b602596075d5653ce3a535820454` | `8ca6e6415948337a08c330fda228b09b06804909` |
@@ -56,7 +57,7 @@ Repository/evidence closeout 뒤에는 `IrisMain.lua`의 남은 boot-time static
 | `M` | `docs/ROADMAP.md` | 81,956 | `f1df8afb11d89e063cff015aa6360592e5bbd7c5c6c9b355a889558cabd1286f` | `7f1c9e854ef313accb8bac0710a1d46e125521fd` |
 | `??` | `Iris/_docs/refactor/repository_runtime_lightweighting/tooling_track_adoption_receipt.json` | 12,499 | `4356e47b58eea3ba6fdd132a1cdbf12d736a14e16ead45e1bd2c73e5e9966a2d` | `8d3347f688949646f0330da1a68a9a99b57a52a7` |
 
-Revision 4의 planning seed `b388e783e10159f225b14525349837dab0d55cc9ecc2dfe32aa8c0b923e827ba`는 위 두 row가 바뀌었으므로 폐기한다. Revision 5는 검토되지 않은 임시 seed를 새 authority처럼 제시하지 않는다. Seed canonicalization의 소유자는 C0-a generator이며, generator path/Git blob/raw SHA, canonical JSON schema, UTF-8/LF/key/row ordering, exact argv를 먼저 정의해 receipt에 봉인한 뒤 위 fresh census에서 새 seed를 계산한다. 어느 row/hash라도 다시 달라지면 해당 seed를 폐기하고 fresh census와 plan-level review를 수행한다.
+Revision 4의 planning seed `b388e783e10159f225b14525349837dab0d55cc9ecc2dfe32aa8c0b923e827ba`는 predecessor rows가 바뀌었으므로 폐기한다. Revision 6는 검토되지 않은 임시 seed를 새 authority처럼 제시하지 않는다. Seed canonicalization의 소유자는 C0-a generator이며, generator path/Git blob/raw SHA, canonical JSON schema, UTF-8/LF/key/row ordering, exact argv를 먼저 정의해 receipt에 봉인한 뒤 위 fresh census에서 새 seed를 계산한다. 어느 row/hash라도 다시 달라지면 해당 seed를 폐기하고 fresh census와 plan-level review를 수행한다.
 
 현재 staging의 재측정 기준은 5,208 files / 1,081,097,121 bytes다. 전체 regular file을 raw SHA-256으로 묶고 각 group의 `size * (count - 1)`을 합한 결과는 443 duplicate groups, 1,837 member files, 1,394 excess copies, 39 rounds, 481,097,523 bytes의 working-tree upper bound다. Tracked staging만 같은 방식으로 계산하면 307 groups, 1,160 member files, 853 excess copies, 27 rounds, 137,168,441 bytes다. 입력 로드맵의 472.71 MiB/136.5 MB는 다른 readpoint/population의 제안치로 보존하되 실행 denominator로 사용하지 않는다.
 
@@ -70,7 +71,7 @@ Revision 4의 planning seed `b388e783e10159f225b14525349837dab0d55cc9ecc2dfe32aa
 * `IrisLayer3DataChunks.lua`와 `IrisUseCaseDescriptions.lua`는 direct compatibility require 시 전체 청크를 병합한다. 내부 lookup router는 이미 binary-search와 chunk cache를 사용한다.
 * `uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p 'test_phase5_iris_main_function_specs_contract.py'`의 현재 관찰 결과는 4 tests / 1 failure / exit `1`이다. 실패 원인은 현재 source에는 이미 없는 `local function buildBrowserData(moduleResult)`을 요구하는 stale diagnostic expectation이다. 이는 predecessor PASS가 아니라 Change 6 전에 봉인·수정·채택해야 할 known baseline failure다.
 * Revision 2 검토에서 current working tree의 residual validator는 exit `1`, exact throw `repository lightweighting protected-surface successor differs from HEAD`로 확인됐다. C0-a commit 직후 같은 baseline evidence와 exact argv를 사용해 clean materialization에서 재실행하고 exit `0`가 되지 않으면 predecessor seal을 채택하지 않는다.
-* Working-tree `protected_surface_successor_manifest.json` v2는 v1의 39 revisions/146 added protected rows를 `historical_manifest_attestation.interpretation=embedded_identity_chain_only`로 보존하고 active revisions 2개/active entries 5개(activation delta 1개, added protected row 4개)를 직접 검증한다. 두 번째 active revision의 `protection_predecessor_commit/tree`는 durable revision 4 plan parent commit `0da5e67dea0e51340a9c8097a347f000e7fe8255` / tree `e38a184a317cb7f6f1919c39466c4e734911ff81`에 결속하고, pruned `dac450...` / `ba415...`는 `evidence_subject_commit/tree`로만 보존해 active predecessor로 역참조하지 않는다. Current required residual contract test도 두 active revision ID를 순서대로 요구한다. `.gitignore`는 v1 chain에는 있으나 v2 active row에는 없으므로 Change 1/3/4 편집 가능성은 이 축소에 기대지 않고 새 successor policy와 owner approval로 별도 승인한다.
+* Working-tree `protected_surface_successor_manifest.json` v2는 v1의 39 revisions/146 added protected rows를 `historical_manifest_attestation.interpretation=embedded_identity_chain_only`로 보존하고 active revisions 2개/active entries 5개(activation delta 1개, added protected row 4개)를 직접 검증한다. 두 번째 active revision의 `protection_predecessor_commit/tree`는 durable revision 4 plan parent commit `0da5e67dea0e51340a9c8097a347f000e7fe8255` / tree `e38a184a317cb7f6f1919c39466c4e734911ff81`에 결속하고, pruned `dac450...` / `ba415...`는 `evidence_subject_commit/tree`로만 보존해 active predecessor로 역참조하지 않는다. Current required residual contract test도 두 active revision ID를 순서대로 요구하며, 그 final protected identity는 Git blob `f6fb2b876e91094c2dc721aab39ad025504bec5b`, LF SHA-256 `5d212bceb65e8e1bad91235ee5febf035fcf24085201722826b8f242a655329e`로 active protected row와 일치한다. `.gitignore`는 v1 chain에는 있으나 v2 active row에는 없으므로 Change 1/3/4 편집 가능성은 이 축소에 기대지 않고 새 successor policy와 owner approval로 별도 승인한다.
 * Revision 2 review scan에서는 `report_inventory.py`의 lifecycle v1 exact-path reference가 발견되지 않았다. Change 2는 이를 provisional no-impact observation으로 취급하고 sealed scan receipt로 재확인한 뒤에만 no-change disposition을 채택한다.
 
 완료 상태에서는 동일 payload가 hash당 한 번만 물리적으로 보존되고, historical attempt는 content reference와 chronology만 보유한다. 기존 v1 manifest와 historical tree는 새 representation에서 byte-identical하게 복원할 수 있어야 하며, current/historical/full-gate validation과 공개 사용자 결과는 변하지 않아야 한다.
@@ -94,11 +95,11 @@ Revision 4의 planning seed `b388e783e10159f225b14525349837dab0d55cc9ecc2dfe32aa
 
 Lifecycle/staging/archive 작업은 새 successor claim `iris_repository_evidence_lightweighting` 아래에서 수행한다. 완료된 `repository_runtime_lightweighting` v1 receipt와 protected-surface successor를 덮어쓰지 않고, 새 evidence root와 additive successor chain을 만든다.
 
-현재 계획은 실행 승인이 아니며 Change 0도 차단 상태다. Revision 4 plan review는 `blocked/ineligible`이므로 승인 authority로 재사용하지 않는다. C0-p2에서 그 failed review를 append-only history로 보존하면서 revision 5 plan blob을 commit하고, revision 5 plan-level fresh review가 아래 contract로 `review_verdict=pass`, `change0_eligibility=eligible`을 부여한 뒤에만 Change 0의 census + governance artifact 작성과 commit sequence를 시작한다. Revision 1~4 plan/review identity는 이 수정본의 승인에 재사용하지 않는다. Change 0은 storage/runtime payload migration을 하지 않지만 predecessor/governance/validation 파일을 실제로 commit한다. Change 1~7은 C0-d execution-eligibility review까지 닫히기 전에는 계속 차단한다.
+현재 계획은 실행 승인이 아니며 Change 0도 차단 상태다. Revision 4와 5 plan review는 모두 `blocked/ineligible`이므로 승인 authority로 재사용하지 않는다. C0-p3에서 failed revision 5 review를 append-only history로 보존하면서 revision 6 plan blob을 commit하고, revision 6 plan-level fresh review가 아래 contract로 `review_verdict=pass`, `change0_eligibility=eligible`을 부여한 뒤에만 Change 0의 census + governance artifact 작성과 commit sequence를 시작한다. Revision 1~5 plan/review identity는 이 수정본의 승인에 재사용하지 않는다. Change 0은 storage/runtime payload migration을 하지 않지만 predecessor/governance/validation 파일을 실제로 commit한다. Change 1~7은 C0-d execution-eligibility review까지 닫히기 전에는 계속 차단한다.
 
 ### Input and review provenance
 
-기존 attachment ID는 source discovery 정보일 뿐 durable authority가 아니다. Machine-specific absolute attachment path는 successor evidence에 기록하지 않는다. C0-p2 read-only preflight는 아래 네 source가 readable하고 expected bytes/SHA-256/UTF-8 framing과 일치하는지 검사하며 하나라도 없거나 drift하면 plan review를 시작하지 않는다. C0-b는 네 input의 raw bytes를 exact repository adoption path에 byte-identical하게 보존하고 Git blob OID를 추가로 기록한다. 네 source는 모두 UTF-8 without BOM, CRLF, terminal newline 없음인 Markdown이다. Raw 문서에 machine schema가 없음을 나타내는 `none_unstructured_markdown`을 사용한다. C0-b는 `.gitattributes` 파일 말미에 해당 네 exact adopted Markdown paths와 revision 4/5 plan-review JSON paths, 총 여섯 exact paths의 `-text` rules를 추가해 후행 rule 우선 semantics를 고정하고 `core.autocrlf`가 Git blob/checkout bytes를 정규화하지 못하게 하며, 다른 Markdown/JSON 경로로 rule을 확대하지 않는다.
+기존 attachment ID는 source discovery 정보일 뿐 durable authority가 아니다. Machine-specific absolute attachment path는 successor evidence에 기록하지 않는다. C0-p3 read-only preflight는 아래 네 source가 readable하고 expected bytes/SHA-256/UTF-8 framing과 일치하는지 검사하며 하나라도 없거나 drift하면 plan review를 시작하지 않는다. C0-b는 네 input의 raw bytes를 exact repository adoption path에 byte-identical하게 보존하고 Git blob OID를 추가로 기록한다. 네 source는 모두 UTF-8 without BOM, CRLF, terminal newline 없음인 Markdown이다. Raw 문서에 machine schema가 없음을 나타내는 `none_unstructured_markdown`을 사용한다. C0-b는 `.gitattributes` 파일 말미에 해당 네 exact adopted Markdown paths와 revision 4/5/6 plan-review JSON paths, 총 일곱 exact paths의 `-text` rules를 추가해 후행 rule 우선 semantics를 고정하고 `core.autocrlf`가 Git blob/checkout bytes를 정규화하지 못하게 하며, 다른 Markdown/JSON 경로로 rule을 확대하지 않는다.
 
 | Role | Source locator | Durable repository adoption path | Bytes | Raw SHA-256 | Format / schema |
 | --- | --- | --- | ---: | --- | --- |
@@ -107,11 +108,11 @@ Lifecycle/staging/archive 작업은 새 successor claim `iris_repository_evidenc
 | revision 2 consolidated review | attachment `8aebf68d-965f-4f62-9a43-39f48540f122/pasted-text.txt` | `Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_2_consolidated_review.md` | 24,946 | `1112c4ac162c1d50a8d31d91eb7d740bd9588703a1b3e7702201884ddbbe2cbf` | `text/markdown; charset=utf-8; bom=absent; eol=crlf; terminal_newline=false` / `none_unstructured_markdown` |
 | revision 3 consolidated review | attachment `46332e63-ff2d-428f-8a83-f6045fc3dab5/pasted-text.txt` | `Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_3_consolidated_review.md` | 22,259 | `049c4146a93df716277a3bdb4a36669c81a82c482442c3875b39363502577b11` | `text/markdown; charset=utf-8; bom=absent; eol=crlf; terminal_newline=false` / `none_unstructured_markdown` |
 
-Revision 4의 failed plan review는 `Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_4_plan_review.json`, schema `iris_repository_evidence_lightweighting_plan_review_v1`, bytes `18,345`, raw SHA-256 `62e58d844189e7f1af4d8cddead07cfc0d867b2a840ee01abe5d47975ffa39e2`, `review_verdict=blocked`, `change0_eligibility=ineligible`, open critical count `2`다. C0-p2는 이 exact bytes를 revision 5 plan과 함께 commit해 append-only 실패 이력으로 보존한다. 이 artifact는 Change 0 eligibility를 열 수 없고 revision 5 review의 대체물이 아니다.
+Revision 4의 failed plan review는 `Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_4_plan_review.json`, schema `iris_repository_evidence_lightweighting_plan_review_v1`, bytes `18,345`, raw SHA-256 `62e58d844189e7f1af4d8cddead07cfc0d867b2a840ee01abe5d47975ffa39e2`, `review_verdict=blocked`, `change0_eligibility=ineligible`, open critical count `2`다. C0-p2가 이 exact bytes를 append-only 실패 이력으로 commit했다. Revision 5의 failed plan review는 같은 root의 `revision_5_plan_review.json`, bytes `14,280`, raw SHA-256 `e6538e193db31271153fca318d88fd1fc947e4347f04948114ac3d89875a0e61`, `review_verdict=blocked`, `change0_eligibility=ineligible`, open critical count `1`이며 C0-p3가 revision 6 plan과 함께 commit한다. 두 artifact는 Change 0 eligibility를 열 수 없고 revision 6 review의 대체물이 아니다.
 
 두 future review artifact는 JSON으로 구분한다.
 
-* `Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_5_plan_review.json`, schema `iris_repository_evidence_lightweighting_plan_review_v1`: `reviewed_plan_revision=5`, committed revision 5 plan path/blob/raw SHA/bytes, failed revision 4 review identity, C0-b가 채택해야 할 위 네 source input identities, reviewed finding set, `review_verdict`, `change0_eligibility`을 결속한다. Change 0 시작에 허용되는 값은 `review_verdict=pass`, `change0_eligibility=eligible`, open critical count `0`뿐이다.
+* `Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_6_plan_review.json`, schema `iris_repository_evidence_lightweighting_plan_review_v1`: `reviewed_plan_revision=6`, committed revision 6 plan path/blob/raw SHA/bytes, failed revision 4/5 review identities, C0-b가 채택해야 할 위 네 source input identities, reviewed finding set, `review_verdict`, `change0_eligibility`을 결속한다. Change 0 시작에 허용되는 값은 `review_verdict=pass`, `change0_eligibility=eligible`, open critical count `0`뿐이다.
 * `Iris/_docs/refactor/repository_evidence_lightweighting/reviews/execution_eligibility_review.json`, schema `iris_repository_evidence_lightweighting_execution_eligibility_review_v1`: exact reviewed plan blob, C0-a predecessor commit/tree, C0-b predecessor manifest SHA, C0-c successor policy/owner approval/adoption receipt Git blob과 raw SHA, taxonomy/required-validation identities, C0-c validation receipts, finding set, `review_verdict`, `change1_7_eligibility`을 결속한다. Change 1 gate에 허용되는 값은 `review_verdict=pass`, `change1_7_eligibility=eligible`, open critical count `0`뿐이다.
 
 여기서 `review_verdict`는 검토 결과이고 `*_eligibility`는 다음 execution phase의 실행 가능 상태다. 이전 문안의 모호한 `PROCEED` 문자열은 사용하지 않으며 `pass`, `partial`, `blocked` closeout 상태와도 혼용하지 않는다. Future review의 bytes/SHA/Git blob은 생성 전에는 알 수 없으므로 placeholder로 승인하지 않고, 생성·commit 뒤 binding validator가 실제 값을 계산해 exact manifest/receipt에 봉인한다.
@@ -151,7 +152,8 @@ C0-a clean run은 각 row에 대해 baseline row, authorization chain, expected 
 | predecessor subject | `Iris/_docs/refactor/repository_evidence_lightweighting/predecessor_subject_manifest.json` | `iris_repository_evidence_lightweighting_predecessor_subject_v1` |
 | plan/input binding | `Iris/_docs/refactor/repository_evidence_lightweighting/plan_input_binding.json` | `iris_repository_evidence_lightweighting_plan_input_binding_v1`; committed plan blob과 위 durable input path/blob/raw SHA/bytes/format/schema 결속 |
 | failed plan review history | `Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_4_plan_review.json` | `iris_repository_evidence_lightweighting_plan_review_v1`; `reviewed_plan_revision=4`; `blocked/ineligible` only |
-| plan-level review | `Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_5_plan_review.json` | `iris_repository_evidence_lightweighting_plan_review_v1`; `reviewed_plan_revision=5` |
+| failed plan review history | `Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_5_plan_review.json` | `iris_repository_evidence_lightweighting_plan_review_v1`; `reviewed_plan_revision=5`; `blocked/ineligible` only |
+| plan-level review | `Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_6_plan_review.json` | `iris_repository_evidence_lightweighting_plan_review_v1`; `reviewed_plan_revision=6` |
 | owner approval | `Iris/_docs/refactor/repository_evidence_lightweighting/owner_policy_approval.json` | `iris_repository_evidence_lightweighting_owner_policy_approval_v1` |
 | successor output/storage policy | `Iris/validation/clean_checkout/contracts/repository_evidence_lightweighting_output_policy.json` | `iris_repository_evidence_lightweighting_output_policy_v1` |
 | test taxonomy | `Iris/_docs/round3/round3_test_taxonomy.json` | existing `round3-test-taxonomy-v1`에 successor test IDs additive adoption |
@@ -174,9 +176,9 @@ Bootstrap adoption test의 exact taxonomy/current-required IDs는 다음 네 개
 ### Execution Gates
 
 * current working tree의 기존 수정은 사용자 소유로 간주한다. Predecessor adoption은 위 9-row census 전부를 포함한 C0-a commit/tree 하나만 허용한다. Base+dirty delta, hash-only manifest, patch/blob-bundle 또는 일부-row commit fallback은 금지한다.
-* C0-p2 revision 5 plan blob commit과 revision 5 plan-level review의 exact hash/accepted fields가 검증되기 전에는 C0-a를 시작하지 않는다. Failed revision 4 review는 C0-p2 commit에 tracked history로 포함하고 eligibility authority로 사용하지 않는다. Revision 5 review JSON은 C0-b 전까지 exact future repository path에 존재할 수 있지만 반드시 untracked/unstaged이고 C0-a commit에서 제외한다. Attachment 네 source의 readable/hash preflight와 두 review artifact의 raw SHA/bytes는 C0-p2 external receipt에도 보존한다.
-* C0-a의 허용 dirty-delta scope는 위 9개 predecessor census path로 한정한다. Commit 뒤 그 9개 path는 HEAD와 byte-identical하고 uncommitted delta가 0이어야 한다. Operator worktree에는 C0-b future input인 untracked `revision_5_plan_review.json` 하나가 남을 수 있지만 다른 tracked/untracked lightweighting artifact는 허용하지 않는다. C0-a의 두 validation checkout은 repository 전체가 clean이어야 한다.
-* C0-a validation은 revision 5 plan-review SHA, C0-a commit/tree, 9-row expected final blob set, sealed residual baseline identities만 결속한다. 아직 생성되지 않은 `predecessor_subject_manifest.json`을 요구하거나 재구성하지 않는다. Active protection predecessor `0da5e67d...`는 실제 Git object/tree/HEAD ancestry로 검증하고, `dac450...` evidence subject는 format-bound embedded evidence identity일 뿐 active predecessor로 rev-parse하지 않는다. C0-a 뒤 sealed commit의 두 clean materialization에서 HEAD-bound residual validation이 exit `0`로 전환되지 않으면 C0-b로 진행하지 않는다.
+* C0-p3 revision 6 plan blob commit과 revision 6 plan-level review의 exact hash/accepted fields가 검증되기 전에는 C0-a를 시작하지 않는다. Failed revision 4/5 reviews는 tracked history로 포함하고 eligibility authority로 사용하지 않는다. Revision 6 review JSON은 C0-b 전까지 exact future repository path에 존재할 수 있지만 반드시 untracked/unstaged이고 C0-a commit에서 제외한다. Attachment 네 source의 readable/hash preflight와 세 review artifact의 raw SHA/bytes는 C0-p3 external receipt에도 보존한다.
+* C0-a의 허용 dirty-delta scope는 위 9개 predecessor census path로 한정한다. Commit 뒤 그 9개 path는 HEAD와 byte-identical하고 uncommitted delta가 0이어야 한다. Operator worktree에는 C0-b future input인 untracked `revision_6_plan_review.json` 하나가 남을 수 있지만 다른 tracked/untracked lightweighting artifact는 허용하지 않는다. C0-a의 두 validation checkout은 repository 전체가 clean이어야 한다.
+* C0-a validation은 revision 6 plan-review SHA, C0-a commit/tree, 9-row expected final blob set, sealed residual baseline identities만 결속한다. 아직 생성되지 않은 `predecessor_subject_manifest.json`을 요구하거나 재구성하지 않는다. Active protection predecessor `0da5e67d...`는 실제 Git object/tree/HEAD ancestry로 검증하고, `dac450...` evidence subject는 format-bound embedded evidence identity일 뿐 active predecessor로 rev-parse하지 않는다. Residual test의 folded final added-row identity는 census의 `f6fb...` / `5d212...`와 일치해야 한다. C0-a 뒤 sealed commit의 두 clean materialization에서 HEAD-bound residual validation이 exit `0`로 전환되지 않으면 C0-b로 진행하지 않는다.
 * C0-b가 `predecessor_subject_manifest.json`을 생성·commit한 뒤 physical census subject와 두 clean validation subject가 동일한 C0-a predecessor commit/tree와 C0-b manifest SHA에서 파생됨을 검증한다. Physical subject는 ignored/local payload를 포함할 수 있지만 tracked bytes는 C0-a와 같아야 하며, clean validation subjects는 dirty/untracked repository state가 없어야 한다.
 * Independent materialization은 동일 sealed commit에서 만든 서로 다른 두 checkout directory와 서로 다른 empty/non-nested external work/result roots를 뜻한다. 두 materialization은 동일 `.gitattributes` raw SHA, path별 attributes와 recorded `core.autocrlf`을 사용하고 각각 raw hash/Git blob set을 독립 계산한다. 기존 dirty working tree와 한 checkout을 두 번 읽는 것은 independent로 세지 않는다.
 * C0-d에서 committed execution-eligibility review의 raw SHA/Git blob, `review_verdict=pass`, `change1_7_eligibility=eligible`, open critical count `0`, reviewed identity set을 Change 1 bootstrap validator가 직접 검증하기 전에는 `.pyc`/package 삭제를 포함한 Change 1~7 physical/runtime mutation을 시작하지 않는다.
@@ -291,7 +293,7 @@ Bootstrap adoption test의 exact taxonomy/current-required IDs는 다음 네 개
 ### Config
 
 * `.gitignore`
-* `.gitattributes` (C0-b에서 파일 말미에 위 네 adopted raw Markdown paths와 revision 4/5 review JSON paths의 exact `-text` rule만 추가; 나머지는 read-only identity binding)
+* `.gitattributes` (C0-b에서 파일 말미에 위 네 adopted raw Markdown paths와 revision 4/5/6 review JSON paths의 exact `-text` rule만 추가; 나머지는 read-only identity binding)
 * `Iris/validation/clean_checkout/contracts/repository_evidence_lightweighting_output_policy.json` (new, owner approval required)
 * `Iris/_docs/round3/round3_test_taxonomy.json`
 * `Iris/_docs/round3/current_route_required_validations.json`
@@ -319,14 +321,15 @@ Predecessor closeout subject와 successor policy/owner/current-route adoption을
 
 Files:
 
-* `docs/iris_repository_evidence_intermediate_artifact_lightweighting_plan.md` (C0-p2 committed revision 5 plan identity)
+* `docs/iris_repository_evidence_intermediate_artifact_lightweighting_plan.md` (C0-p3 committed revision 6 plan identity)
 * `.gitattributes` (C0-b exact raw-input/review `-text` rules)
 * `Iris/_docs/refactor/repository_evidence_lightweighting/inputs/consolidated_roadmap.md` (new durable copy)
 * `Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_1_consolidated_review.md` (new durable copy)
 * `Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_2_consolidated_review.md` (new durable copy)
 * `Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_3_consolidated_review.md` (new durable copy)
-* `Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_4_plan_review.json` (new failed-review history; C0-p2 adoption)
-* `Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_5_plan_review.json` (new eligibility review)
+* `Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_4_plan_review.json` (failed-review history; C0-p2 adoption)
+* `Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_5_plan_review.json` (new failed-review history; C0-p3 adoption)
+* `Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_6_plan_review.json` (new eligibility review)
 * `Iris/_docs/refactor/repository_evidence_lightweighting/reviews/execution_eligibility_review.json` (new)
 * `Iris/_docs/refactor/repository_evidence_lightweighting/predecessor_subject_manifest.json` (new)
 * `Iris/_docs/refactor/repository_evidence_lightweighting/plan_input_binding.json` (new)
@@ -342,9 +345,9 @@ Files:
 
 Implementation Notes:
 
-* C0-p2 — planning prerequisite: blocked revision 4 review exact bytes와 revision 5 plan bytes만 함께 commit해 failed-review history와 새 plan Git blob OID를 확정한다. Review 시작 전 read-only preflight가 네 attachment source의 readability, bytes, raw SHA-256, UTF-8 framing, failed revision 4 review identity를 확인한다. Independent review가 committed revision 5 plan blob, corrected 9-row census와 §2 identities를 검토해 exact future path에 `revision_5_plan_review.json`을 만들고, raw SHA/bytes/schema 및 accepted fields가 검증돼야 C0-a가 eligible하다. Revision 5 review JSON은 C0-b 전까지 untracked/unstaged이며 이 단계는 lightweighting execution이나 predecessor adoption이 아니다.
+* C0-p3 — planning prerequisite: blocked revision 5 review exact bytes와 revision 6 plan bytes만 함께 commit해 failed-review history와 새 plan Git blob OID를 확정한다. Review 시작 전 read-only preflight가 네 attachment source의 readability, bytes, raw SHA-256, UTF-8 framing, failed revision 4/5 review identities를 확인한다. Independent review가 committed revision 6 plan blob, corrected 9-row census와 §2 identities를 검토해 exact future path에 `revision_6_plan_review.json`을 만들고, raw SHA/bytes/schema 및 accepted fields가 검증돼야 C0-a가 eligible하다. Revision 6 review JSON은 C0-b 전까지 untracked/unstaged이며 이 단계는 lightweighting execution이나 predecessor adoption이 아니다.
 * C0-a — predecessor seal: 위 9-row census의 exact bytes를 모두 포함한 predecessor closeout commit을 만든다. 이 phase의 gate는 9-row final Git blob set, plan-review identity, 두 clean materialization과 §2 sealed residual baseline Closeout뿐이다. `predecessor_subject_manifest.json`은 아직 존재하지 않으며 요구하지 않는다. Working delta fallback은 없다.
-* C0-b — plan/input identity seal: `.gitattributes` 파일 말미에 네 exact raw Markdown path와 revision 4/5 review JSON path의 `-text` rules를 추가하고, 네 raw input과 `revision_5_plan_review.json`을 exact durable paths에 채택하며, `predecessor_subject_manifest.json`과 `plan_input_binding.json`을 생성해 commit한다. Revision 4 failed review는 이미 C0-p2에서 tracked history로 보존돼 있고 C0-b는 그 identity를 다시 검증만 한다. `predecessor_subject_manifest.json`은 C0-a commit/tree, 9-row blob set, C0-a residual receipt를 결속하고 두 independent clean checkout에서 재구성한다. `plan_input_binding.json`은 C0-p2 plan blob, failed/passed review identities, durable input path/blob/raw SHA/bytes/format/schema/attribute result, C0-a commit/tree 및 C0-b manifest SHA를 결속한다.
+* C0-b — plan/input identity seal: `.gitattributes` 파일 말미에 네 exact raw Markdown path와 revision 4/5/6 review JSON path의 `-text` rules를 추가하고, 네 raw input과 `revision_6_plan_review.json`을 exact durable paths에 채택하며, `predecessor_subject_manifest.json`과 `plan_input_binding.json`을 생성해 commit한다. Revision 4/5 failed reviews는 이미 tracked history로 보존돼 있고 C0-b는 그 identity를 다시 검증만 한다. `predecessor_subject_manifest.json`은 C0-a commit/tree, 9-row blob set, C0-a residual receipt를 결속하고 두 independent clean checkout에서 재구성한다. `plan_input_binding.json`은 C0-p3 plan blob, failed/passed review identities, durable input path/blob/raw SHA/bytes/format/schema/attribute result, C0-a commit/tree 및 C0-b manifest SHA를 결속한다.
 * C0-c — bootstrap successor seal: successor policy, owner approval, required-validation adoption receipt, taxonomy, required-validations, phase-aware launcher/compare binding, adoption test를 구현해 한 clean commit으로 봉인한다. C0-c mode는 execution review 부재를 요구하고 C0-d/follow-on mode는 그 review를 요구한다. `full_repository_gate.json`은 새 current+ok IDs가 기존 taxonomy-driven selection으로 실제 선택되지 않을 때만 최소 변경하며, 변경하지 않아도 exact existing blob/raw SHA를 adoption receipt와 launchers에 결속한다.
 * C0-c commit의 두 independent clean materialization에서 focused, current, historical, receipt-bound Run A/B와 deterministic compare를 실행한다. Source checkout dirty rejection, plan/policy/review drift와 missing current selection은 fail-loud한다.
 * C0-d — execution eligibility seal: independent reviewer가 C0-c artifacts와 raw validation receipts를 검토해 `execution_eligibility_review.json`을 작성한다. Review artifact를 additive commit한 뒤 final clean subject에서 review-binding focused test, current route, receipt-bound Run A/B와 deterministic compare를 재실행한다. `review_verdict=pass`, `change1_7_eligibility=eligible`, open critical count `0`가 모두 맞을 때만 Change 0을 complete하고 Change 1 gate를 연다.
@@ -356,10 +359,10 @@ Implementation Notes:
 
 Validation:
 
-* C0-p2 revision 5 plan blob/raw SHA/bytes, failed revision 4 review identity와 plan-level revision 5 review의 reviewed plan identity 및 accepted eligibility fields 동일
-* C0-a predecessor commit/tree가 9-row pre-commit census의 final Git blob set을 전부 포함하고 해당 9 paths의 dirty delta 0; operator worktree의 유일한 허용 추가 state는 untracked/unstaged future `revision_5_plan_review.json`
+* C0-p3 revision 6 plan blob/raw SHA/bytes, failed revision 4/5 review identities와 plan-level revision 6 review의 reviewed plan identity 및 accepted eligibility fields 동일
+* C0-a predecessor commit/tree가 9-row pre-commit census의 final Git blob set을 전부 포함하고 해당 9 paths의 dirty delta 0; operator worktree의 유일한 허용 추가 state는 untracked/unstaged future `revision_6_plan_review.json`
 * C0-a의 두 clean materialization에서 sealed two-file EvidenceRoot를 사용한 `validate_residual_refactor_surfaces.ps1` exact invocation exit `0`; known `differs from HEAD` throw 0, unauthorized changed 0, 6-row authorization disposition 동일
-* C0-b durable roadmap/review copies가 source locator raw bytes와 byte-identical하고 네 Markdown 및 두 plan-review JSON exact path의 `git check-attr text` 결과 `unset`, Git blob bytes/raw SHA/bytes/format/schema binding 동일
+* C0-b durable roadmap/review copies가 source locator raw bytes와 byte-identical하고 네 Markdown 및 세 plan-review JSON exact path의 `git check-attr text` 결과 `unset`, Git blob bytes/raw SHA/bytes/format/schema binding 동일
 * C0-b predecessor manifest가 C0-a commit/tree/9-row set을 byte-exact 재구성하고 physical census subject 및 두 clean subjects가 같은 manifest SHA에 결속
 * C0-c/C0-d 각각의 두 independent materialization에서 commit/tree, `.gitattributes` SHA, recorded `core.autocrlf`, raw hash/Git blob set과 external-root isolation 동일
 * policy/approval/schema/path mismatch, missing committed input, dirty checkout, hash drift, stale plan/review blob fail-loud
@@ -654,7 +657,7 @@ Validation:
 
 각 command는 exact relevant change가 적용된 clean/disposable subject에서 exit `0`일 때만 PASS로 기록한다.
 
-* Change 0 phase validator: C0-p2 revision 5 plan blob/review, failed revision 4 review와 four-source availability receipt, C0-a predecessor commit/tree·9-row final blob set·sealed residual identities, C0-b predecessor manifest reconstruction·durable input copies/binding, C0-c policy/approval/taxonomy/required-validation/full-gate/adoption identity, C0-d execution-review identity/accepted fields를 phase별로 재계산하고 receipt와 대조. Base+dirty delta 입력은 schema에서 거부한다.
+* Change 0 phase validator: C0-p3 revision 6 plan blob/review, failed revision 4/5 reviews와 four-source availability receipt, C0-a predecessor commit/tree·9-row final blob set·sealed residual identities, C0-b predecessor manifest reconstruction·durable input copies/binding, C0-c policy/approval/taxonomy/required-validation/full-gate/adoption identity, C0-d execution-review identity/accepted fields를 phase별로 재계산하고 receipt와 대조. Base+dirty delta 입력은 schema에서 거부한다.
 * `uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p "test_artifact_lifecycle_*.py"`
 * `uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p "test_repository_evidence_*.py"`
 * `uv run python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --taxonomy Iris/_docs/round3/round3_test_taxonomy.json --required-validations Iris/_docs/round3/current_route_required_validations.json --enforce-current-build-closure`
@@ -686,7 +689,7 @@ Validation command에 필요한 work/result root는 allocator가 새롭고 비�
 
 Full-gate cadence는 비용과 결함 격리를 함께 고정한다.
 
-1. C0-p2: committed revision 5 plan blob, failed revision 4 review 보존 identity와 revision 5 plan-level review binding focused validation만 실행하고 Change 0 eligibility를 판정한다.
+1. C0-p3: committed revision 6 plan blob, failed revision 4/5 review 보존 identities와 revision 6 plan-level review binding focused validation만 실행하고 Change 0 eligibility를 판정한다.
 2. C0-a: 두 independent clean materialization에서 9-row final blob set과 sealed two-file baseline을 사용한 HEAD-bound residual validation만 실행한다. Predecessor manifest는 아직 생성·요구·재구성하지 않는다.
 3. C0-b: predecessor manifest를 생성·commit한 뒤 두 independent clean materialization에서 C0-a subject reconstruction, physical/clean subject binding, durable four-input byte parity와 plan/predecessor/review binding focused/current validation을 실행한다.
 4. C0-c: focused + current + historical + receipt-bound full-gate Run A/B + deterministic compare를 실행한다.
@@ -759,7 +762,7 @@ Change 6의 boot ordering에 영향 가능성이 있다. Full-materialization fa
 ### Architecture Risk
 
 * predecessor subject, plan input, successor policy 또는 required-validation identity 중 하나가 drift하면 서로 다른 실행을 같은 successor claim으로 오인할 수 있다.
-* C0-p2/C0-a/C0-b/C0-c/C0-d commit 순서가 생략되거나 validation receipt가 다른 HEAD를 가리키면 dirty state를 sealed state로 오인할 수 있다.
+* C0-p3/C0-a/C0-b/C0-c/C0-d commit 순서가 생략되거나 validation receipt가 다른 HEAD를 가리키면 dirty state를 sealed state로 오인할 수 있다.
 * C0-a가 C0-b에서만 생성되는 predecessor manifest를 요구하면 phase graph가 순환한다. C0-a는 commit/tree·9-row set·sealed baseline만 검증하고 manifest 생성/재구성은 C0-b로 제한한다.
 * 현재 protected baseline과 불일치하는 과거 final report를 authority로 쓰거나 C0-a HEAD에서 baseline을 재생성하면 stale-reference 또는 before=after tautology가 승인될 수 있다. Exact two-file baseline identity와 fresh external report binding을 강제한다.
 * 6개 drift를 delta 이름만으로 승인하면 다른 blob/line-ending representation이 숨어들 수 있다. Path별 effective source, expected Git blob, LF SHA를 모두 비교하고 불일치 row는 `requires_new_successor_delta`로 fail-closed한다.
@@ -795,7 +798,7 @@ Change 6의 boot ordering에 영향 가능성이 있다. Full-materialization fa
 
 Change 0은 storage/runtime payload migration을 하지 않지만 predecessor 및 governance/validation 파일을 commit한다. Rollback은 `git reset`이나 history 삭제를 사용하지 않는다.
 
-* C0-p2 revision 5 review가 `pass/eligible`이 아니면 C0-a를 시작하지 않고 plan commit과 review finding만 보존한다.
+* C0-p3 revision 6 review가 `pass/eligible`이 아니면 C0-a를 시작하지 않고 plan commit과 review finding만 보존한다.
 * C0-a residual validation이 실패하거나 sealed baseline/report identity가 다르면 그 commit을 predecessor authority로 채택하지 않는다. 6개 drift 중 authorization chain/blob/LF가 어긋난 row는 `requires_new_successor_delta`로 기록하고, baseline/report를 재생성하거나 과거 stale report를 rewrite하지 않는다. 기본 처리는 branch/commit을 inactive evidence로 보존하고 후속 phase를 중단하는 것이다. 이미 통합된 경우에만 owner 승인 아래 additive revert commit으로 pre-C0-a tree를 복원한다.
 * C0-b input/binding validation이 실패하면 durable input/binding commit을 inactive로 두고 C0-c를 시작하지 않는다. 원본 predecessor commit은 자동으로 되돌리지 않는다.
 * C0-c focused/current/historical/full-gate가 실패하거나 C0-d review가 eligibility를 거부하면 taxonomy, required-validations, conditional full-gate contract, launchers, policy/approval/adoption changes는 미채택 상태다. Branch가 아직 통합되지 않았으면 그대로 inactive로 보존하고, 이미 통합됐다면 pre-C0-c exact blobs를 복원하는 additive rollback commit을 만든다.
@@ -825,7 +828,7 @@ Rollback은 기존 receipt, failed attempt, migration journal을 삭제하거나
 * runtime/build-time separation 유지
 * current source/rendered/runtime authority와 storage representation 분리
 * 기존 sealed artifact/decision은 수정하지 않고 additive successor 사용
-* C0-p2 revision 5 plan-level review의 `pass/eligible` 전에는 Change 0 시작 금지; C0-d execution review의 `pass/eligible` 전에는 Change 1~7 physical/runtime mutation 금지
+* C0-p3 revision 6 plan-level review의 `pass/eligible` 전에는 Change 0 시작 금지; C0-d execution review의 `pass/eligible` 전에는 Change 1~7 physical/runtime mutation 금지
 * predecessor adoption은 committed C0-a commit/tree만 허용하고 base+dirty-delta/hash-only fallback 금지
 * C0-a는 predecessor manifest를 생성·요구하지 않고 sealed residual baseline 두 파일과 9-row set만 검증; predecessor manifest 생성·commit·reconstruction은 C0-b에만 허용
 * residual baseline authority는 pre-C0-a commit `c8b96e40251b9043bae04261a8acd033660e0d45`의 exact protected/supported bytes이며 C0-a HEAD에서 재생성 금지
@@ -850,7 +853,7 @@ Rollback은 기존 receipt, failed attempt, migration journal을 삭제하거나
 
 ## 12. Expected Closeout State
 
-현재 계획 상태는 `BLOCKED_PENDING_CHANGE_0_REVISION_AND_FRESH_REVIEW`이며 실행 승인이 아니다. Revision 4 review는 `blocked/ineligible`로 닫혔다. C0-p2에서 revision 5 plan-level review가 Change 0 eligibility를 열고, C0-a~C0-c가 exact predecessor/successor/current-route identity를 commit/검증한 뒤, C0-d execution review가 Change 1~7 eligibility를 열어야 한다. 그 뒤의 목표 closeout은 `complete`다.
+현재 계획 상태는 `BLOCKED_PENDING_CHANGE_0_REVISION_AND_FRESH_REVIEW`이며 실행 승인이 아니다. Revision 4/5 reviews는 `blocked/ineligible`로 닫혔다. C0-p3에서 revision 6 plan-level review가 Change 0 eligibility를 열고, C0-a~C0-c가 exact predecessor/successor/current-route identity를 commit/검증한 뒤, C0-d execution review가 Change 1~7 eligibility를 열어야 한다. 그 뒤의 목표 closeout은 `complete`다.
 
 `complete`는 다음 bounded state를 의미한다.
 
@@ -868,7 +871,7 @@ Rollback은 기존 receipt, failed attempt, migration journal을 삭제하거나
 
 외부 cold-store 지속성/owner deletion approval이 없으면 Change 5는 `blocked`로 두고 전체 상태를 `partial`로 닫는다. 그 이유는 cold archive externalization이 이 계획이 약속한 4대 storage outcome 중 하나라서 local `_archive` payload 보존 상태로는 해당 in-scope outcome이 검증되지 않기 때문이다. Manual Project Zomboid runtime evidence가 없으면 repository/evidence track은 완료할 수 있지만 Runtime Change 6은 `implemented_only`이고 전체 상태는 `partial`이다. 반면 compatibility facade를 변경하지 않고 `deferred`로 결론내는 것은 Change 7이 애초에 adoption이 아니라 evidence-based disposition을 완료 조건으로 정의했기 때문에 `complete`를 막지 않는다.
 
-C0-p2 revision 5 review가 Change 0을 승인하지 않으면 Change 0 자체를 시작하지 않는다. C0-d review가 exact identity/wiring을 승인하지 않으면 이 계획은 `blocked`로 유지하며 Change 1~7 완료를 주장하지 않는다.
+C0-p3 revision 6 review가 Change 0을 승인하지 않으면 Change 0 자체를 시작하지 않는다. C0-d review가 exact identity/wiring을 승인하지 않으면 이 계획은 `blocked`로 유지하며 Change 1~7 완료를 주장하지 않는다.
 
 이 계획의 완료는 모든 historical artifact 삭제, 모든 compatibility facade 제거, runtime heap 최적화, release/Workshop readiness를 의미하지 않는다. 허용되는 최종 claim은 다음으로 제한한다.
 

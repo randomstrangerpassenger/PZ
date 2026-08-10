@@ -23,6 +23,17 @@ class Round3PytestSourceClassificationTest(unittest.TestCase):
         self.assertEqual(2, payload["baseline_inventory"]["known_collection_blockers_reviewed"])
         self.assertEqual(6, payload["baseline_inventory"]["pytest_ini_ignored_sources_reviewed"])
         self.assertEqual(
+            {
+                "Iris/build/description/v2/tests/test_live_migration_readiness_authorization.py",
+                "Iris/build/description/v2/tests/test_live_migration_readiness_execution.py",
+            },
+            {
+                row["source_file"]
+                for row in payload["reviewed_sources"]
+                if row.get("clean_checkout_optional") is True
+            },
+        )
+        self.assertEqual(
             "Iris/_docs/round3/round3_test_taxonomy.json",
             payload["exact_taxonomy_projection"],
         )

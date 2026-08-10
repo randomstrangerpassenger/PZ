@@ -195,17 +195,25 @@ def _actual_controlled_sources() -> set[str]:
 
 
 def _validate_policy_inventory() -> None:
+    payload = _source_policy_payload()
     policy = _source_policy()
     actual = _actual_controlled_sources()
     planned = {
         _normalize_source(row["source_file"])
-        for row in _source_policy_payload().get("planned_sources", [])
+        for row in payload.get("planned_sources", [])
+    }
+    clean_checkout_optional = {
+        _normalize_source(row["source_file"])
+        for row in payload.get("reviewed_sources", [])
+        if row.get("clean_checkout_optional") is True
     }
     unclassified = sorted(actual - policy.keys())
     vanished = sorted(
         source
         for source in policy.keys() - actual
-        if source not in _taxonomy_source_classes() and source not in planned
+        if source not in _taxonomy_source_classes()
+        and source not in planned
+        and source not in clean_checkout_optional
     )
     if unclassified or vanished:
         parts = []

@@ -149,8 +149,7 @@ if mode == "layer3" then
     assertConsumerFallback(
         onlyRangeIndex(
             "iris_layer3_chunk_range_index_v1",
-            "Iris/Data/IrisLayer3DataChunks/Chunk001",
-            "Base.ZZZ"
+            "Iris/Data/IrisLayer3DataChunks/Chunk001"
         ),
         "index_content_mismatch"
     )
@@ -359,10 +358,9 @@ elseif mode == "usecase" then
     assertConsumerFallback(
         onlyRangeIndex(
             "iris_usecase_chunk_range_index_v1",
-            "Iris/Data/UseCaseDescriptions/Chunk001",
-            "Base.ZZZ"
+            "Iris/Data/UseCaseDescriptions/Chunk001"
         ),
-        onlyLineCountIndex("iris_usecase_line_count_index_v1", "Base.ZZZ", 1),
+        onlyLineCountIndex("iris_usecase_line_count_index_v1"),
         "index_content_mismatch"
     )
 

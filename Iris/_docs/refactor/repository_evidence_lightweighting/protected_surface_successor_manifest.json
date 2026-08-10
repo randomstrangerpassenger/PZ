@@ -917,6 +917,138 @@
       ]
     },
     {
+      "revision_id": "iris_codebase_optimization_runtime_surfaces_v1",
+      "track": "iris_codebase_optimization",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "41051b1b84c8220d433ff2d80248e5fd8ec7a4f4",
+      "protection_predecessor_tree": "c4666192ae36ec3ad9e77c8bfa719633c8ac1fd2",
+      "reason": "Adopt the plan-scoped lazy lookup, Browser, Tooltip, instrumentation, and generated routing optimizations without reopening predecessor evidence.",
+      "approved_activation_deltas": [],
+      "added_protected_rows": [
+        {
+          "path": "Iris/media/lua/client/Iris/API/UseCases.lua",
+          "before_git_blob_id": "60343ea34eacdf268575d0a6ce8efb6260c02fda",
+          "before_sha256_lf": "9905e2181bdcff82ac40ee1da7e97b45baf8e643993bfac35998c6c44ee5aba2",
+          "expected_git_blob_id": "e1c8d523d640fcb1eb02ad8a1a51c2c6057667c6",
+          "after_sha256_lf": "e3ef684bc0bf88561b913695102449e5e2bdf701d1ea74b909a5aa1a9f9674a5",
+          "role": "runtime_public_api_facade",
+          "writer": "iris_codebase_optimization",
+          "consumers": ["runtime_callers", "browser_interaction_renderer", "compatibility_fallback"],
+          "owner": "repository_owner_user",
+          "reason": "Preserve public UseCase copy boundaries while using the optimized lookup route."
+        },
+        {
+          "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataLookup.lua",
+          "before_git_blob_id": "1f10ae4ac7bbd472208ee3b25f485bbcbe8d41c1",
+          "before_sha256_lf": "f9b8a3ad446cc339e94271c34715f6fb91ebe39f44c4058d503303990d72cfed",
+          "expected_git_blob_id": "2ecd85f5bacc96a81ccee5069d65656596ec74fb",
+          "after_sha256_lf": "e98d32809261fa91de1b9d534953d066fb8f8b9ce30d3ab86829fe68adc8aa86",
+          "role": "runtime_layer3_demand_router",
+          "writer": "iris_codebase_optimization",
+          "consumers": ["layer3_renderer", "runtime_lookup_diagnostics"],
+          "owner": "repository_owner_user",
+          "reason": "Separate normal sparse lookup misses from verified router faults."
+        },
+        {
+          "path": "Iris/media/lua/client/Iris/Data/IrisRuntimeLookupDiagnostics.lua",
+          "before_git_blob_id": "a846eb6ff20b49b2db03ea2bd0fca62e89cd25c0",
+          "before_sha256_lf": "2c677502f3818998553cff3f093ba31997e549aa346d9033a2a9eb15e2855738",
+          "expected_git_blob_id": "035bef3508836206486048aecf66c4ef2f9b9827",
+          "after_sha256_lf": "fffe84313da722e2fe5c4afb2ee07679486e01531674dc22aacc075465e05393",
+          "role": "runtime_lookup_diagnostics",
+          "writer": "iris_codebase_optimization",
+          "consumers": ["layer3_router", "usecase_router", "runtime_adoption_receipt"],
+          "owner": "repository_owner_user",
+          "reason": "Record opt-in lookup miss metrics separately from fallback faults."
+        },
+        {
+          "path": "Iris/media/lua/client/Iris/Data/IrisUseCaseDescriptionsLookup.lua",
+          "before_git_blob_id": "7ba0fa886bf7ab042b2e8b389faeb882130a9757",
+          "before_sha256_lf": "6165f73f10d193001c70604eba08b0ebc1deb888481eab2e451e8454be9dd2ff",
+          "expected_git_blob_id": "2e991f00f64eb5cedb7a1b6c48a6ab47068f7556",
+          "after_sha256_lf": "40f131907c16e898cd68ecd896b0c8fca1b78bb1d9f9ac6704030bf61899ca22",
+          "role": "runtime_usecase_demand_router",
+          "writer": "iris_codebase_optimization",
+          "consumers": ["UseCases_api", "tooltip_summary", "browser_interactions"],
+          "owner": "repository_owner_user",
+          "reason": "Keep the line-count index authoritative while separating sparse misses from index mismatch."
+        },
+        {
+          "path": "Iris/media/lua/client/Iris/Data/UseCaseDescriptions/ChunkIndex.lua",
+          "before_git_blob_id": "8e10fde018724c7a2d6acb0c5e8bb0a72ba3ec9a",
+          "before_sha256_lf": "a7b0aabdb9f4d9676487cfc1a9307abc4897d70258b4eb7fc11c887071dee202",
+          "expected_git_blob_id": "8670e9f14ae7cb5d6efc20da8cc37b5cbb4b87f2",
+          "after_sha256_lf": "1ccd415c488b2b8a354e339c478a788de2c46d97da1867c90fce25d406a1c597",
+          "role": "generated_runtime_routing_metadata",
+          "writer": "iris_codebase_optimization",
+          "consumers": ["IrisUseCaseDescriptionsLookup", "runtime_package_identity"],
+          "owner": "repository_owner_user",
+          "reason": "Bind regenerated sparse UseCase routing metadata."
+        },
+        {
+          "path": "Iris/media/lua/client/Iris/Data/layer3_renderer.lua",
+          "before_git_blob_id": "ea5af125f6a6f3bfa5e2ff9c95fcce5aebae61d4",
+          "before_sha256_lf": "53f4241b873dfb2069b638563c4d1c8efef7b2f3a64635a8162f342b178d7c03",
+          "expected_git_blob_id": "e136589129b07e6c0419d85489e779fd976e90b7",
+          "after_sha256_lf": "432bee1567f029598a381137ad4a0526464b4956315ea003ffe8c8b170ee0c72",
+          "role": "runtime_layer3_lookup_consumer",
+          "writer": "iris_codebase_optimization",
+          "consumers": ["tooltip_summary", "wiki_sections", "compatibility_fallback"],
+          "owner": "repository_owner_user",
+          "reason": "Return verified lookup misses without loading the full compatibility facade."
+        },
+        {
+          "path": "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserData.lua",
+          "before_git_blob_id": "43f6d765312a63fc492cbd9f0508469bb715cf70",
+          "before_sha256_lf": "b7d73b70a0c7840c52ea3ab3edbdb71324b6d3ab56ad5e552ffaaa5880e04fbd",
+          "expected_git_blob_id": "eec0b4cbdc471c0bf4ca24879294099010892e76",
+          "after_sha256_lf": "a064d55b245f7c38331526eefa294e48c4dae0c473df0d1c6fe6b0e3a2f10260",
+          "role": "runtime_browser_demand_cache",
+          "writer": "iris_codebase_optimization",
+          "consumers": ["browser_search", "browser_detail", "runtime_instrumentation"],
+          "owner": "repository_owner_user",
+          "reason": "Materialize primary location once and preserve public copy-on-read."
+        },
+        {
+          "path": "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserQuery.lua",
+          "before_git_blob_id": "65de1f98fdc11ddc1d16028ecf262ed0e3759b31",
+          "before_sha256_lf": "5786088e36d2b8e03e9afcf8908b09f3121b6e05410369b5e6692111bd44f744",
+          "expected_git_blob_id": "d413706e50f9b6a3f191372f3ac0eba6b21fdafb",
+          "after_sha256_lf": "c29fdde4957d23fa28ac664d6c6355918b4739988c757eba808ae1b7796bd97c",
+          "role": "runtime_browser_search_cache",
+          "writer": "iris_codebase_optimization",
+          "consumers": ["browser_data", "browser_search"],
+          "owner": "repository_owner_user",
+          "reason": "Cache canonical prefix rows while preserving returned row isolation."
+        },
+        {
+          "path": "Iris/media/lua/client/Iris/UI/Tooltip/IrisAltTooltip.lua",
+          "before_git_blob_id": "9c0dedf3258a0fdc3cde2079c9285564b09e694c",
+          "before_sha256_lf": "21fd28eb310da4d76ae931a55e69d1e0d2ff797b632230a563ba409e4d6bbbf4",
+          "expected_git_blob_id": "146b9841d4982e96a0e7e055b2130177d6b639f9",
+          "after_sha256_lf": "c7ebd3665fcbd0f3501ad50eafb9b145f48cd0c1d4f4f8e254db29cf5470bd42",
+          "role": "runtime_tooltip_display_cache",
+          "writer": "iris_codebase_optimization",
+          "consumers": ["project_zomboid_tooltip", "tooltip_summary"],
+          "owner": "repository_owner_user",
+          "reason": "Avoid inactive-path allocations and reuse private warm summary lines."
+        },
+        {
+          "path": "Iris/media/lua/client/Iris/UI/Tooltip/IrisTooltipSummary.lua",
+          "before_git_blob_id": "4ed5fe65c339b813c9fddc7a27f5a0c12372e84c",
+          "before_sha256_lf": "32056da4630ba6d88fcf0408cd4d52d518ed241c6fcafb846dfb2bd482da84b7",
+          "expected_git_blob_id": "2f63d279889b9d4a954932ea067f2439b411bd21",
+          "after_sha256_lf": "ae235d621bac520097fed653f8df4218db7d4f371532aa1e0c0811ab1a20f90f",
+          "role": "runtime_tooltip_summary_lookup",
+          "writer": "iris_codebase_optimization",
+          "consumers": ["alt_tooltip", "usecase_line_count_index"],
+          "owner": "repository_owner_user",
+          "reason": "Expose an internal immutable cache path while retaining public copies."
+        }
+      ]
+    },
+    {
       "revision_id": "iris_codebase_optimization_package_identity_v1",
       "track": "iris_codebase_optimization",
       "owner": "repository_owner_user",

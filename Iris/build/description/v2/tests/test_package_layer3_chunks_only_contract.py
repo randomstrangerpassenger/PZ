@@ -393,9 +393,9 @@ class PackageLayer3ChunksOnlyContractTest(unittest.TestCase):
                 self.assertEqual(sha256_file(live / name), sha256_file(package / name))
             package_script = PACKAGE_SCRIPT_PATH.read_text(encoding="utf-8")
             self.assertEqual(
-                3,
+                2,
                 package_script.count(
-                    "Assert-RuntimeLookupIndexIdentity -DataRoot $packageData"
+                    "Assert-RuntimeLookupPackageParity -DataRoot"
                 ),
             )
 

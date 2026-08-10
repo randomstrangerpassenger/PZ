@@ -98,8 +98,19 @@ function IrisBrowserQuery.searchAll(cache, query, getItemLocation, locale)
                 (displayName:lower() .. "\0" .. fullType:lower())
 
             if folded:find(queryLower, 1, true) then
-                local foundCat, foundSub = getItemLocation(fullType)
-                metrics.locationLookupCount = (metrics.locationLookupCount or 0) + 1
+                local foundCat = nil
+                local foundSub = nil
+                local primary = cache.primaryLocationByFullType and
+                    cache.primaryLocationByFullType[fullType] or nil
+                if primary then
+                    foundCat = primary.category
+                    foundSub = primary.subcategory
+                elseif not cache.primaryLocationByFullType and getItemLocation then
+                    -- Compatibility for callers constructing a pre-generation
+                    -- cache fixture. Production caches always use the map.
+                    foundCat, foundSub = getItemLocation(fullType)
+                    metrics.locationLookupCount = (metrics.locationLookupCount or 0) + 1
+                end
 
                 table.insert(result, {
                     fullType = fullType,
@@ -124,7 +135,7 @@ function IrisBrowserQuery.searchAll(cache, query, getItemLocation, locale)
         generation = cache.generation,
         locale = normalizedLocale,
         query = queryLower,
-        results = copyRows(result, metrics, "internalRowCopyCount"),
+        results = result,
     }
     return copyRows(result, metrics, "publicRowCopyCount")
 end
@@ -137,9 +148,17 @@ function IrisBrowserQuery.getItem(cache, fullType)
 end
 
 function IrisBrowserQuery.getItemLocation(cache, fullType, categoryOrder, subcategoryMap)
-    if not cache or not cache.classificationIndex or not fullType then
+    if not cache or not fullType then
         return nil, nil
     end
+
+    if cache.primaryLocationByFullType then
+        local primary = cache.primaryLocationByFullType[fullType]
+        if not primary then return nil, nil end
+        return primary.category, primary.subcategory
+    end
+
+    if not cache.classificationIndex then return nil, nil end
 
     return IrisBrowserClassificationIndex.chooseLocation(
         cache.classificationIndex,

@@ -155,6 +155,7 @@ local function buildCandidateCache(itemIndex)
         itemsByFullType = itemIndex.itemsByFullType,
         categories = classificationIndex.categories,
         itemLocationsByFullType = classificationIndex.itemLocationsByFullType,
+        primaryLocationByFullType = {},
         searchKeysByFullType = createSearchKeys(itemIndex),
         searchKeysLocale = TranslationResolver.getLangKey("EN"),
         foldedCountsByGrouping = {},
@@ -189,6 +190,21 @@ local function buildCandidateCache(itemIndex)
         if IrisBrowserClassificationIndex.addItem(classificationIndex, fullType, tags) then
             taggedCount = taggedCount + 1
         end
+    end
+
+    -- Materialize the same presentation-order choice once per generation.
+    -- An empty record is an authoritative "no browser location" result.
+    for fullType, _ in pairs(itemIndex.itemsByFullType or {}) do
+        local category, subcategory = IrisBrowserClassificationIndex.chooseLocation(
+            classificationIndex,
+            fullType,
+            IrisBrowserData.CATEGORY_ORDER,
+            IrisBrowserData.SUBCATEGORY_MAP
+        )
+        candidate.primaryLocationByFullType[fullType] = {
+            category = category,
+            subcategory = subcategory,
+        }
     end
     
     return candidate, taggedCount, errorCount
@@ -455,7 +471,7 @@ function IrisBrowserData.searchAll(query)
     return IrisBrowserQuery.searchAll(
         IrisBrowserData._cache,
         query,
-        IrisBrowserData.getItemLocation,
+        nil,
         TranslationResolver.getLangKey("EN")
     )
 end
@@ -479,12 +495,7 @@ function IrisBrowserData.getItemLocation(fullType)
         return nil, nil
     end
 
-    return IrisBrowserQuery.getItemLocation(
-        IrisBrowserData._cache,
-        fullType,
-        IrisBrowserData.CATEGORY_ORDER,
-        IrisBrowserData.SUBCATEGORY_MAP
-    )
+    return IrisBrowserQuery.getItemLocation(IrisBrowserData._cache, fullType)
 end
 
 --- 그룹의 변형 아이템 목록 반환

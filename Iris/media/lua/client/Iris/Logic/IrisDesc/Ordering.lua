@@ -15,6 +15,7 @@ local CategoryPresentationOrder = require("Iris/Logic/CategoryPresentationOrder"
 local Logger = require("Iris/Logic/IrisDesc/Logger")
 
 local IrisDescOrdering = {}
+local metrics = { sortKeyDerivations = 0, sortPasses = 0 }
 
 
 ---태그에서 대분류 추출
@@ -46,6 +47,7 @@ end
 ---@return number priority 대분류 우선순위
 ---@return string code 코드
 local function getSortKey(tag)
+    metrics.sortKeyDerivations = metrics.sortKeyDerivations + 1
     local category = extractCategory(tag)
     local code = extractCode(tag) or ""
     local priority = CategoryPresentationOrder.getDescriptionPriority(category)
@@ -64,14 +66,44 @@ local function compareTags(a, b)
     if priorityA ~= priorityB then
         return priorityA < priorityB
     end
-    return codeA < codeB
+    if codeA ~= codeB then return codeA < codeB end
+    return a < b
 end
 
 
 local function sortedSubcategories(subcat_set)
-    local sorted = TagParser.toArray(subcat_set)
-    table.sort(sorted, compareTags)
+    local values = TagParser.toArray(subcat_set)
+    local decorated = {}
+    for index, tag in ipairs(values) do
+        local priority, code = getSortKey(tag)
+        decorated[index] = { tag = tag, priority = priority, code = code }
+    end
+    metrics.sortPasses = metrics.sortPasses + 1
+    table.sort(decorated, function(a, b)
+        if a.priority ~= b.priority then return a.priority < b.priority end
+        if a.code ~= b.code then return a.code < b.code end
+        return a.tag < b.tag
+    end)
+    local sorted = {}
+    for index, entry in ipairs(decorated) do sorted[index] = entry.tag end
     return sorted
+end
+
+
+-- Compatibility comparator for callers that sort their own tag arrays.
+IrisDescOrdering.compareTags = compareTags
+
+
+function IrisDescOrdering.getInstrumentation()
+    return {
+        sortKeyDerivations = metrics.sortKeyDerivations,
+        sortPasses = metrics.sortPasses,
+    }
+end
+
+
+function IrisDescOrdering.resetInstrumentation()
+    metrics = { sortKeyDerivations = 0, sortPasses = 0 }
 end
 
 

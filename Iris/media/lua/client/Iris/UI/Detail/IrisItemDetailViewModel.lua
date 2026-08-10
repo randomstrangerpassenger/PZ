@@ -21,20 +21,60 @@ local metrics = {
     methodSuccesses = 0,
     groupAttempts = {},
     groupSuccesses = {},
+    groupSkips = {},
     staticCacheHits = 0,
     staticCacheMisses = 0,
 }
 
 local function read(item, methodNames, group)
     local normalizedGroup = group or "core"
-    metrics.methodAttempts = metrics.methodAttempts + #(methodNames or {})
-    metrics.groupAttempts[normalizedGroup] = (metrics.groupAttempts[normalizedGroup] or 0) + #(methodNames or {})
-    local value = ObjectAccess.firstValue(item, methodNames, nil)
-    if value ~= nil then
-        metrics.methodSuccesses = metrics.methodSuccesses + 1
-        metrics.groupSuccesses[normalizedGroup] = (metrics.groupSuccesses[normalizedGroup] or 0) + 1
+    for _, methodName in ipairs(methodNames or {}) do
+        metrics.methodAttempts = metrics.methodAttempts + 1
+        metrics.groupAttempts[normalizedGroup] =
+            (metrics.groupAttempts[normalizedGroup] or 0) + 1
+        local ok, value = ObjectAccess.call(item, methodName)
+        if ok and value ~= nil then
+            metrics.methodSuccesses = metrics.methodSuccesses + 1
+            metrics.groupSuccesses[normalizedGroup] =
+                (metrics.groupSuccesses[normalizedGroup] or 0) + 1
+            return value
+        end
     end
-    return value
+    return nil
+end
+
+local function capabilityHint(category, itemType)
+    local text = (tostring(category or "") .. " " .. tostring(itemType or "")):lower()
+    if text:find("food", 1, true) then return "food", true end
+    if text:find("weapon", 1, true) then return "weapon", true end
+    if text:find("literature", 1, true) or text:find("book", 1, true) then
+        return "literature", true
+    end
+    if text:find("moveable", 1, true) or text:find("furniture", 1, true) then
+        return "moveable", true
+    end
+    if category ~= nil and tostring(category) ~= "" then return nil, true end
+    return nil, false
+end
+
+local function groupApplicable(item, methodNames, group, category, itemType)
+    local hintedGroup, hasCategoryHint = capabilityHint(category, itemType)
+    if hasCategoryHint then
+        if hintedGroup == group then return true end
+        metrics.groupSkips[group] = (metrics.groupSkips[group] or 0) + 1
+        return false
+    end
+    for _, methodName in ipairs(methodNames or {}) do
+        local ok, method = pcall(function() return item[methodName] end)
+        if ok and method ~= nil then return true end
+    end
+    metrics.groupSkips[group] = (metrics.groupSkips[group] or 0) + 1
+    return false
+end
+
+local function readIfApplicable(applicable, item, methodNames, group)
+    if not applicable then return nil end
+    return read(item, methodNames, group)
 end
 
 local function sortedTags(IrisAPI, item)
@@ -124,6 +164,29 @@ function ViewModel.fromItem(item)
     local capabilities = safeUseCaseCall(IrisAPI and IrisAPI.UseCases, "getCapabilities", fullType, {})
     local Index = IrisAPI and IrisAPI.Index
     local layer3 = layer3Payload(fullType)
+    local itemType = ItemAccess.getType(item)
+    local weight = read(item, {"getActualWeight", "getWeight"}, "core")
+    local category = read(item, {"getDisplayCategory", "getCategory"}, "core")
+    local subcategory = read(item, {"getSubCategory"}, "core")
+    local foodMethods = {
+        "getHungerChange", "getThirstChange", "getStressChange",
+        "getBoredomChange", "getCalories",
+    }
+    local weaponMethods = {
+        "getMinDamage", "getMaxDamage", "getMinRange", "getMaxRange",
+        "getCriticalChance", "getConditionMax",
+    }
+    local literatureMethods = {
+        "getNumberOfPages", "getSkillTrained", "getLvlSkillTrained",
+        "getNumLevelsTrained",
+    }
+    local moveableMethods = {
+        "getCapacity", "getLightStrength", "isWaterproof", "getInsulation",
+    }
+    local foodApplicable = groupApplicable(item, foodMethods, "food", category, itemType)
+    local weaponApplicable = groupApplicable(item, weaponMethods, "weapon", category, itemType)
+    local literatureApplicable = groupApplicable(item, literatureMethods, "literature", category, itemType)
+    local moveableApplicable = groupApplicable(item, moveableMethods, "moveable", category, itemType)
 
     local values = {
         __irisItemDetailViewModel = true,
@@ -132,37 +195,37 @@ function ViewModel.fromItem(item)
         fullType = fullType,
         displayName = ItemAccess.getDisplayName(item, fullType or "Unknown"),
         moduleName = ItemAccess.getModuleName(item),
-        itemType = ItemAccess.getType(item),
-        weight = read(item, {"getActualWeight", "getWeight"}, "core"),
-        category = read(item, {"getDisplayCategory", "getCategory"}, "core"),
-        subcategory = read(item, {"getSubCategory"}, "core"),
+        itemType = itemType,
+        weight = weight,
+        category = category,
+        subcategory = subcategory,
         tags = sortedTags(IrisAPI, item),
         food = {
-            hunger = read(item, {"getHungerChange"}, "food"),
-            thirst = read(item, {"getThirstChange"}, "food"),
-            stress = read(item, {"getStressChange"}, "food"),
-            boredom = read(item, {"getBoredomChange"}, "food"),
-            calories = read(item, {"getCalories"}, "food"),
+            hunger = readIfApplicable(foodApplicable, item, {"getHungerChange"}, "food"),
+            thirst = readIfApplicable(foodApplicable, item, {"getThirstChange"}, "food"),
+            stress = readIfApplicable(foodApplicable, item, {"getStressChange"}, "food"),
+            boredom = readIfApplicable(foodApplicable, item, {"getBoredomChange"}, "food"),
+            calories = readIfApplicable(foodApplicable, item, {"getCalories"}, "food"),
         },
         weapon = {
-            minDamage = read(item, {"getMinDamage"}, "weapon"),
-            maxDamage = read(item, {"getMaxDamage"}, "weapon"),
-            minRange = read(item, {"getMinRange"}, "weapon"),
-            maxRange = read(item, {"getMaxRange"}, "weapon"),
-            criticalChance = read(item, {"getCriticalChance"}, "weapon"),
-            conditionMax = read(item, {"getConditionMax"}, "weapon"),
+            minDamage = readIfApplicable(weaponApplicable, item, {"getMinDamage"}, "weapon"),
+            maxDamage = readIfApplicable(weaponApplicable, item, {"getMaxDamage"}, "weapon"),
+            minRange = readIfApplicable(weaponApplicable, item, {"getMinRange"}, "weapon"),
+            maxRange = readIfApplicable(weaponApplicable, item, {"getMaxRange"}, "weapon"),
+            criticalChance = readIfApplicable(weaponApplicable, item, {"getCriticalChance"}, "weapon"),
+            conditionMax = readIfApplicable(weaponApplicable, item, {"getConditionMax"}, "weapon"),
         },
         literature = {
-            numberOfPages = read(item, {"getNumberOfPages"}, "literature"),
-            skillTrained = read(item, {"getSkillTrained"}, "literature"),
-            level = read(item, {"getLvlSkillTrained"}, "literature"),
-            levelCount = read(item, {"getNumLevelsTrained"}, "literature"),
+            numberOfPages = readIfApplicable(literatureApplicable, item, {"getNumberOfPages"}, "literature"),
+            skillTrained = readIfApplicable(literatureApplicable, item, {"getSkillTrained"}, "literature"),
+            level = readIfApplicable(literatureApplicable, item, {"getLvlSkillTrained"}, "literature"),
+            levelCount = readIfApplicable(literatureApplicable, item, {"getNumLevelsTrained"}, "literature"),
         },
         moveable = {
-            capacity = read(item, {"getCapacity"}, "moveable"),
-            lightStrength = read(item, {"getLightStrength"}, "moveable"),
-            waterproof = read(item, {"isWaterproof"}, "moveable"),
-            insulation = read(item, {"getInsulation"}, "moveable"),
+            capacity = readIfApplicable(moveableApplicable, item, {"getCapacity"}, "moveable"),
+            lightStrength = readIfApplicable(moveableApplicable, item, {"getLightStrength"}, "moveable"),
+            waterproof = readIfApplicable(moveableApplicable, item, {"isWaterproof"}, "moveable"),
+            insulation = readIfApplicable(moveableApplicable, item, {"getInsulation"}, "moveable"),
         },
         layer3 = layer3,
         connections = {
@@ -217,6 +280,7 @@ function ViewModel.getInstrumentation()
         methodSuccesses = metrics.methodSuccesses,
         groupAttempts = copyCounts(metrics.groupAttempts),
         groupSuccesses = copyCounts(metrics.groupSuccesses),
+        groupSkips = copyCounts(metrics.groupSkips),
         staticCacheHits = metrics.staticCacheHits,
         staticCacheMisses = metrics.staticCacheMisses,
     }
@@ -225,7 +289,7 @@ end
 function ViewModel.resetInstrumentation()
     metrics = {
         fromItemCalls = 0, methodAttempts = 0, methodSuccesses = 0,
-        groupAttempts = {}, groupSuccesses = {}, staticCacheHits = 0,
+        groupAttempts = {}, groupSuccesses = {}, groupSkips = {}, staticCacheHits = 0,
         staticCacheMisses = 0,
     }
 end

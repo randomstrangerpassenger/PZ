@@ -10,6 +10,11 @@ require = function(moduleName)
 end
 
 local RuntimeDiagnostics = require("Iris/Data/IrisRuntimeLookupDiagnostics")
+assert(RuntimeDiagnostics.getDiagnostics().metricsEnabled == false)
+RuntimeDiagnostics.recordMetric("probe", "disabled", 1)
+assert(RuntimeDiagnostics.getDiagnostics().metrics.probe == nil)
+RuntimeDiagnostics.setMetricsEnabled(true)
+assert(RuntimeDiagnostics.getDiagnostics().metricsEnabled == true)
 
 local function onlyRangeIndex(schemaVersion, moduleName, fullType)
     local rangeKey = fullType or "Base.223Box"

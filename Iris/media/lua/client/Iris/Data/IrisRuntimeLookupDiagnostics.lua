@@ -3,6 +3,7 @@ local IrisRuntimeLookupDiagnostics = {}
 
 local countsBySurface = {}
 local metricsBySurface = {}
+local metricsEnabled = false
 
 local function surfaceState(surface)
     local state = countsBySurface[surface]
@@ -23,6 +24,7 @@ end
 
 --- Record an opt-in diagnostic counter without producing a runtime log line.
 function IrisRuntimeLookupDiagnostics.recordMetric(surface, metric, amount)
+    if not metricsEnabled then return end
     local normalizedSurface = tostring(surface or "unknown")
     local normalizedMetric = tostring(metric or "unknown")
     local state = metricsBySurface[normalizedSurface]
@@ -51,7 +53,17 @@ function IrisRuntimeLookupDiagnostics.getDiagnostics()
         for metric, value in pairs(state) do copied[metric] = value end
         metrics[surface] = copied
     end
-    return { fallbackCount = total, surfaces = surfaces, metrics = metrics }
+    return {
+        fallbackCount = total,
+        surfaces = surfaces,
+        metrics = metrics,
+        metricsEnabled = metricsEnabled,
+    }
+end
+
+function IrisRuntimeLookupDiagnostics.setMetricsEnabled(enabled)
+    metricsEnabled = enabled == true
+    metricsBySurface = {}
 end
 
 function IrisRuntimeLookupDiagnostics.reset()

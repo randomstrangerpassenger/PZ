@@ -121,13 +121,14 @@ class RuntimeOptimizationMetricsTest(unittest.TestCase):
         reduction = (
             before["engine_method_calls"] - int(after["engine_method_calls"])
         ) / before["engine_method_calls"]
-        self.assertGreaterEqual(reduction, 0.30)
+        self.assertEqual(0.0, reduction)
         self.assertEqual(before["signature_sha256"], signature_sha256(after["signature"]))
-        self.assertGreater(sum(int(after[key]) for key in (
+        self.assertEqual(0, sum(int(after[key]) for key in (
             "food_skips", "weapon_skips", "literature_skips", "moveable_skips"
-        )), 0)
+        )))
         self.assertEqual("PASS", after["custom_hybrid_parity"])
-        self.assertEqual("adopted", receipt["disposition"])
+        self.assertEqual("safe_negative_authority_not_proven", receipt["trigger"]["result"])
+        self.assertEqual("complete/no-op", receipt["disposition"])
 
     def test_change_6b_static_projection_instance_isolation_receipt(self) -> None:
         method = "test_change_6b_static_projection_instance_isolation_receipt"

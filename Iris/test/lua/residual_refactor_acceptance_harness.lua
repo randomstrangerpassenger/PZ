@@ -248,6 +248,15 @@ summaryA.useCaseCount = 99
 local summaryB = TooltipSummary.get("Base.Sample")
 local summaryIsolated = summaryB.tags[1] == "Tool.1-A" and summaryB.connections[1] == "Recipe" and
     summaryB.useCaseCount == 1 and summaryA ~= summaryB
+local disabledSummaryMetrics = TooltipSummary.getMetrics()
+assert(disabledSummaryMetrics.enabled == false)
+assert(disabledSummaryMetrics.hits == 0 and disabledSummaryMetrics.misses == 0)
+assert(disabledSummaryMetrics.arrayCopies == 0 and disabledSummaryMetrics.builds == 0)
+TooltipSummary.setInstrumentationEnabled(true)
+TooltipSummary.get("Base.Sample")
+local enabledSummaryMetrics = TooltipSummary.getMetrics()
+assert(enabledSummaryMetrics.enabled == true and enabledSummaryMetrics.hits == 1)
+assert(enabledSummaryMetrics.arrayCopies == 2 and enabledSummaryMetrics.builds == 0)
 emit("tooltip.summary_copy_on_read", "mutation_isolation",
     mode == "Baseline" or summaryIsolated,
     mode == "Acceptance" and {record_and_nested_arrays_isolated=true} or {capture="pre-mutation cache exposure"},

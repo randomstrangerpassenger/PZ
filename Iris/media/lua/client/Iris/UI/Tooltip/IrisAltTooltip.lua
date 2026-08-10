@@ -52,6 +52,9 @@ local function ensureSummary()
         local ok, result = safeRequire("Iris/UI/Tooltip/IrisTooltipSummary")
         if ok then
             IrisTooltipSummaryLocal = result
+            if IrisTooltipSummaryLocal.setInstrumentationEnabled then
+                IrisTooltipSummaryLocal.setInstrumentationEnabled(instrumentationEnabled)
+            end
         end
     end
     return IrisTooltipSummaryLocal
@@ -169,6 +172,9 @@ end
 function IrisAltTooltip.setInstrumentationEnabled(enabled)
     instrumentationEnabled = enabled == true
     displayLineCacheMetrics = newDisplayLineCacheMetrics()
+    if IrisTooltipSummaryLocal and IrisTooltipSummaryLocal.setInstrumentationEnabled then
+        IrisTooltipSummaryLocal.setInstrumentationEnabled(instrumentationEnabled)
+    end
 end
 
 --- 아이템 툴팁에 Iris 정보 추가

@@ -3,8 +3,8 @@
   "candidate": "Change 6B capability mask",
   "test_id": "Iris/build/description/v2/tests/test_iris_runtime_optimization_metrics.py::RuntimeOptimizationMetricsTest::test_change_6b_capability_mask_receipt",
   "denominator": {
-    "identity": "viewmodel-v2|Food,Weapon,Literature,Moveable,Normal|20-each|all-group-methods-present|custom-category|hybrid-category-type",
-    "sha256": "fa2e35615b08ea4b53cb01ec13a5ff3331fb3a2461bfb7e63d78a0af63b1eefc"
+    "identity": "viewmodel-v3|Food,Weapon,Literature,Moveable,Normal|20-each|all-group-methods-present|positive-hints-only|custom-category|contradictory-hybrid|same-canonical-hybrid",
+    "sha256": "424c13c2fc0cae8c680f50ac95dc599c115275f9248d47e7defd8201b8d00916"
   },
   "baseline_generation": "baseline-1",
   "raw_samples": {
@@ -16,19 +16,20 @@
     },
     "after": {
       "items": 100,
-      "method_attempts": 1060,
-      "engine_method_calls": 1060,
-      "food_skips": 60,
-      "weapon_skips": 60,
-      "literature_skips": 60,
-      "moveable_skips": 60,
+      "method_attempts": 2200,
+      "engine_method_calls": 2200,
+      "food_skips": 0,
+      "weapon_skips": 0,
+      "literature_skips": 0,
+      "moveable_skips": 0,
       "static_cache_hits": 0,
       "static_cache_misses": 100,
       "signature_sha256": "d99ac488671f65dfdedb1129624d74893369a7f5ad6c5fea5c0e4b5aecaeb21b"
     }
   },
-  "trigger": {"result": "met", "inapplicable_group_calls_present": true},
-  "adoption": {"engine_method_call_reduction_fraction": 0.5181818182},
+  "trigger": {"result": "safe_negative_authority_not_proven", "inapplicable_group_calls_present": true},
+  "adoption": {"engine_method_call_reduction_fraction": 0.0},
   "parity": "PASS",
-  "disposition": "adopted"
+  "disposition": "complete/no-op",
+  "reason": "Category/type labels remain positive hints only. They cannot safely suppress present methods because custom and hybrid items may retain canonical-looking labels."
 }

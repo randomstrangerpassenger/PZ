@@ -18,14 +18,22 @@ local IrisUseCaseDescriptions = nil
 local IrisUseCaseDescriptionsLookup = nil
 local loaded = false
 local summaryByFullType = {}
-local metrics = { hits = 0, misses = 0, arrayCopies = 0, builds = 0 }
+local instrumentationEnabled = false
+
+local function newMetrics()
+    return { hits = 0, misses = 0, arrayCopies = 0, builds = 0 }
+end
+
+local metrics = newMetrics()
 
 local function copyArray(values)
     local result = {}
     for index, value in ipairs(values or {}) do
         result[index] = value
     end
-    metrics.arrayCopies = metrics.arrayCopies + #result
+    if instrumentationEnabled then
+        metrics.arrayCopies = metrics.arrayCopies + #result
+    end
     return result
 end
 
@@ -134,11 +142,11 @@ local function getCachedSummary(fullType)
 
     local cached = summaryByFullType[fullType]
     if cached then
-        metrics.hits = metrics.hits + 1
+        if instrumentationEnabled then metrics.hits = metrics.hits + 1 end
         return cached
     end
 
-    metrics.misses = metrics.misses + 1
+    if instrumentationEnabled then metrics.misses = metrics.misses + 1 end
 
     ensureData()
 
@@ -155,7 +163,7 @@ local function getCachedSummary(fullType)
         table.concat(summary.connections, "\0"),
     }, "|")
     summaryByFullType[fullType] = summary
-    metrics.builds = metrics.builds + 1
+    if instrumentationEnabled then metrics.builds = metrics.builds + 1 end
     return summary
 end
 
@@ -173,6 +181,7 @@ end
 
 function IrisTooltipSummary.getMetrics()
     return {
+        enabled = instrumentationEnabled,
         hits = metrics.hits,
         misses = metrics.misses,
         arrayCopies = metrics.arrayCopies,
@@ -181,7 +190,12 @@ function IrisTooltipSummary.getMetrics()
 end
 
 function IrisTooltipSummary.resetMetrics()
-    metrics = { hits = 0, misses = 0, arrayCopies = 0, builds = 0 }
+    metrics = newMetrics()
+end
+
+function IrisTooltipSummary.setInstrumentationEnabled(enabled)
+    instrumentationEnabled = enabled == true
+    IrisTooltipSummary.resetMetrics()
 end
 
 --- Explicit dev/test reload hook. Static generated data is otherwise session-stable.

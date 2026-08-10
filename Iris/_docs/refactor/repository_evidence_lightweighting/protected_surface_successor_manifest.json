@@ -1165,6 +1165,66 @@
           "reason": "Avoid Tooltip hot-path metric bookkeeping until instrumentation is explicitly enabled."
         }
       ]
+    },
+    {
+      "revision_id": "iris_codebase_optimization_reviewer_corrections_v2",
+      "track": "iris_codebase_optimization",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "a6992d3f88c9ea04152de5f3a11a49f60fbcbd75",
+      "protection_predecessor_tree": "259b6d7452cc99df5862b710bd3511863dbc1b67",
+      "reason": "Adopt the owner-preapproved final Codex Reviewer corrections: no unsafe closed-negative capability mask and no default-on normal-miss or Tooltip summary metrics.",
+      "approved_activation_deltas": [],
+      "added_protected_rows": [
+        {
+          "path": "Iris/media/lua/client/Iris/Data/IrisRuntimeLookupDiagnostics.lua",
+          "before_git_blob_id": "035bef3508836206486048aecf66c4ef2f9b9827",
+          "before_sha256_lf": "fffe84313da722e2fe5c4afb2ee07679486e01531674dc22aacc075465e05393",
+          "expected_git_blob_id": "2e01443806aa29f88c6b8c4a43bd5d4c9a115810",
+          "after_sha256_lf": "7f221be9168beff0ac1b376f84bf3e6552e2f20d1515d4e1564dae44277c226b",
+          "role": "runtime_lookup_diagnostics",
+          "writer": "iris_codebase_optimization_reviewer_corrections",
+          "consumers": ["layer3_router", "usecase_router", "runtime_adoption_receipt"],
+          "owner": "repository_owner_user",
+          "reason": "Keep normal-miss metrics disabled until an explicit diagnostics harness opt-in while retaining fault/fallback visibility."
+        },
+        {
+          "path": "Iris/media/lua/client/Iris/UI/Tooltip/IrisAltTooltip.lua",
+          "before_git_blob_id": "750fdef73f5f9c1b0867179727301efc1bddc869",
+          "before_sha256_lf": "8e5e39ae42211ab91d12d6fe8742c6b5d80b0f3a9f38f8bf9034035a08bb2cb9",
+          "expected_git_blob_id": "cac3b80a9824b1cf8b695802eb2dd17508cc5669",
+          "after_sha256_lf": "496ad0c394a29af3d3de421c1361a56e2b7580bb6c8d3444d6426f602a6077bf",
+          "role": "runtime_tooltip_display_cache",
+          "writer": "iris_codebase_optimization_reviewer_corrections",
+          "consumers": ["project_zomboid_tooltip", "tooltip_summary", "runtime_instrumentation"],
+          "owner": "repository_owner_user",
+          "reason": "Propagate explicit instrumentation state to the lazily loaded Tooltip summary module."
+        },
+        {
+          "path": "Iris/media/lua/client/Iris/UI/Tooltip/IrisTooltipSummary.lua",
+          "before_git_blob_id": "2f63d279889b9d4a954932ea067f2439b411bd21",
+          "before_sha256_lf": "ae235d621bac520097fed653f8df4218db7d4f371532aa1e0c0811ab1a20f90f",
+          "expected_git_blob_id": "85bc83f36070713288d66830885a6a7a265a71a0",
+          "after_sha256_lf": "306bf4dfd8d0788123ea2d38437722d6d5aa889612da1dcd48428809606c79c0",
+          "role": "runtime_tooltip_summary_lookup",
+          "writer": "iris_codebase_optimization_reviewer_corrections",
+          "consumers": ["alt_tooltip", "usecase_line_count_index", "runtime_instrumentation"],
+          "owner": "repository_owner_user",
+          "reason": "Disable summary hit/miss/build/copy counters by default and reset them on explicit opt-in transitions."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+          "before_git_blob_id": "24695bd242fcd14d72901193d1d30d68cfa67ac1",
+          "before_sha256_lf": "3fa6ecf94993c273462a858b56b83987d89f5b0e836a2f6d6bf19451b91ad599",
+          "expected_git_blob_id": "5289a5374aa6d2fed40ff3d5e3217d312d86aaca",
+          "after_sha256_lf": "88a8a6832a186a35d5f3765323b0b15b14136d69c07fcac0ddc8426af062a108",
+          "role": "protected_surface_current_required_test",
+          "writer": "iris_codebase_optimization_reviewer_corrections",
+          "consumers": ["current_route_validation", "residual_closeout"],
+          "owner": "repository_owner_user",
+          "reason": "Require the second additive reviewer-corrections protection revision in the active chain."
+        }
+      ]
     }
   ]
 }

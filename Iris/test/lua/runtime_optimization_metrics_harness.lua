@@ -333,6 +333,12 @@ local function runViewModel()
     hybrid.values.minDamage = 3
     local hybridModel = ViewModel.fromItem(hybrid)
     assert(hybridModel.food.hunger == -0.5 and hybridModel.weapon.minDamage == 3)
+
+    local canonicalHybrid = item("Food", 303)
+    canonicalHybrid.values.minDamage = 4
+    local canonicalHybridModel = ViewModel.fromItem(canonicalHybrid)
+    assert(canonicalHybridModel.food.hunger == -0.2)
+    assert(canonicalHybridModel.weapon.minDamage == 4)
     emit("mode", "viewmodel")
     emit("items", 100)
     emit("method_attempts", metrics.methodAttempts)

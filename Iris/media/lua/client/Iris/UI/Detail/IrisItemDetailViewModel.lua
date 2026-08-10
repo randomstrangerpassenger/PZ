@@ -55,27 +55,11 @@ local function read(item, methodNames, group)
     return nil
 end
 
-local CANONICAL_CAPABILITY = {
-    food = "food",
-    weapon = "weapon",
-    literature = "literature",
-    moveable = "moveable",
-}
-
-local function exactCapability(value)
-    local normalized = tostring(value or ""):lower()
-    return CANONICAL_CAPABILITY[normalized]
-end
-
 local function capabilityHints(category, itemType)
     local hints = {}
-    local categoryCapability = exactCapability(category)
-    local typeCapability = exactCapability(itemType)
-    if categoryCapability then hints[categoryCapability] = true end
-    if typeCapability then hints[typeCapability] = true end
-
-    -- Free-form category/type text is positive evidence only. It may describe
-    -- a custom or hybrid mod item and must never suppress a present method.
+    -- Category/type text is positive evidence only. Matching canonical labels
+    -- are not closed negative evidence because a mod item can expose hybrid
+    -- fields while retaining a vanilla-looking category and type.
     local text = (tostring(category or "") .. " " .. tostring(itemType or "")):lower()
     if text:find("food", 1, true) then hints.food = true end
     if text:find("weapon", 1, true) then hints.weapon = true end
@@ -86,21 +70,12 @@ local function capabilityHints(category, itemType)
         hints.moveable = true
     end
 
-    -- Only matching canonical type/category pairs are closed negative
-    -- evidence. Unknown, custom, contradictory, and hybrid hints fall back to
-    -- method presence so predecessor-visible fields cannot disappear.
-    local authoritative = categoryCapability ~= nil and
-        categoryCapability == typeCapability
-    return hints, authoritative
+    return hints
 end
 
 local function groupApplicable(item, methodNames, group, category, itemType)
-    local hints, authoritative = capabilityHints(category, itemType)
+    local hints = capabilityHints(category, itemType)
     if hints[group] then return true end
-    if authoritative then
-        if instrumentationEnabled then recordGroup(metrics.groupSkips, group) end
-        return false
-    end
     for _, methodName in ipairs(methodNames or {}) do
         local ok, method = pcall(function() return item[methodName] end)
         if ok and method ~= nil then return true end

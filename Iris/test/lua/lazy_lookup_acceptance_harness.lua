@@ -446,11 +446,15 @@ elseif mode == "usecase" then
 
     package.loaded["Iris/Data/IrisUseCaseDescriptionsLookup"] = nil
     package.loaded["Iris/Data/UseCaseDescriptions/ChunkIndex"] = nil
+    package.loaded["Iris/Data/UseCaseDescriptions/LineCountIndex"] = nil
     package.preload["Iris/Data/UseCaseDescriptions/ChunkIndex"] = function()
         return onlyRangeIndex(
             "iris_usecase_chunk_range_index_v1",
             "Iris/Data/UseCaseDescriptions/Chunk999"
         )
+    end
+    package.preload["Iris/Data/UseCaseDescriptions/LineCountIndex"] = function()
+        return onlyLineCountIndex("iris_usecase_line_count_index_v1")
     end
     package.preload["Iris/Data/UseCaseDescriptions/Chunk999"] = function()
         error("standalone target chunk failure")

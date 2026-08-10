@@ -1,0 +1,331 @@
+{
+  "schema_version": "iris_repository_evidence_lightweighting_plan_review_v1",
+  "review_id": "iris_repository_evidence_lightweighting_revision_4_plan_review_20260810",
+  "reviewed_at": "2026-08-10T10:10:02.7276052+09:00",
+  "reviewer": {
+    "identity": "Codex Reviewer",
+    "role": "independent_external_plan_reviewer",
+    "independent_from_implementation_author": true,
+    "tests_run_by_reviewer": false,
+    "review_scope": "plan_level_with_read_only_repository_feasibility_checks"
+  },
+  "review_target": {
+    "reviewed_plan_revision": 4,
+    "plan": {
+      "path": "docs/iris_repository_evidence_intermediate_artifact_lightweighting_plan.md",
+      "commit": "0da5e67dea0e51340a9c8097a347f000e7fe8255",
+      "tree": "e38a184a317cb7f6f1919c39466c4e734911ff81",
+      "git_blob_id": "f2bd504670f50639bb45a9a9789cc9ee634d9c2b",
+      "raw_sha256": "c11be832e614ab6019f1e7445d475a7f833c544c548515161ac1d9762b03d863",
+      "byte_count": 99323,
+      "format": "text/markdown; charset=utf-8; bom=absent; eol=lf; terminal_newline=true"
+    }
+  },
+  "input_source_bindings": [
+    {
+      "role": "consolidated_roadmap",
+      "source_locator": "attachment 2006c560-4a80-4bcc-837a-c361a6ce1d6f/pasted-text.txt",
+      "durable_repository_adoption_path": "Iris/_docs/refactor/repository_evidence_lightweighting/inputs/consolidated_roadmap.md",
+      "byte_count": 27216,
+      "raw_sha256": "90aab09441a3bb8ff49dab410be9abb11148e394215e01815a2610645f942e00",
+      "format": "text/markdown; charset=utf-8; bom=absent; eol=crlf; terminal_newline=false",
+      "schema": "none_unstructured_markdown",
+      "preflight": {
+        "readable": true,
+        "byte_count_match": true,
+        "raw_sha256_match": true,
+        "utf8_framing_match": true,
+        "status": "pass"
+      },
+      "repository_adoption_state_at_review": "not_yet_adopted_c0_b"
+    },
+    {
+      "role": "revision_1_consolidated_review",
+      "source_locator": "attachment f0d3d135-9a4e-4bdf-9a9c-88a5d0fed25d/pasted-text.txt",
+      "durable_repository_adoption_path": "Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_1_consolidated_review.md",
+      "byte_count": 26163,
+      "raw_sha256": "6cc9c1871a09654f9b6b0e2ddda77e141a3a66adfbdb976008405adf18e8d1ab",
+      "format": "text/markdown; charset=utf-8; bom=absent; eol=crlf; terminal_newline=false",
+      "schema": "none_unstructured_markdown",
+      "preflight": {
+        "readable": true,
+        "byte_count_match": true,
+        "raw_sha256_match": true,
+        "utf8_framing_match": true,
+        "status": "pass"
+      },
+      "repository_adoption_state_at_review": "not_yet_adopted_c0_b"
+    },
+    {
+      "role": "revision_2_consolidated_review",
+      "source_locator": "attachment 8aebf68d-965f-4f62-9a43-39f48540f122/pasted-text.txt",
+      "durable_repository_adoption_path": "Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_2_consolidated_review.md",
+      "byte_count": 24946,
+      "raw_sha256": "1112c4ac162c1d50a8d31d91eb7d740bd9588703a1b3e7702201884ddbbe2cbf",
+      "format": "text/markdown; charset=utf-8; bom=absent; eol=crlf; terminal_newline=false",
+      "schema": "none_unstructured_markdown",
+      "preflight": {
+        "readable": true,
+        "byte_count_match": true,
+        "raw_sha256_match": true,
+        "utf8_framing_match": true,
+        "status": "pass"
+      },
+      "repository_adoption_state_at_review": "not_yet_adopted_c0_b"
+    },
+    {
+      "role": "revision_3_consolidated_review",
+      "source_locator": "attachment 46332e63-ff2d-428f-8a83-f6045fc3dab5/pasted-text.txt",
+      "durable_repository_adoption_path": "Iris/_docs/refactor/repository_evidence_lightweighting/reviews/revision_3_consolidated_review.md",
+      "byte_count": 22259,
+      "raw_sha256": "049c4146a93df716277a3bdb4a36669c81a82c482442c3875b39363502577b11",
+      "format": "text/markdown; charset=utf-8; bom=absent; eol=crlf; terminal_newline=false",
+      "schema": "none_unstructured_markdown",
+      "preflight": {
+        "readable": true,
+        "byte_count_match": true,
+        "raw_sha256_match": true,
+        "utf8_framing_match": true,
+        "status": "pass"
+      },
+      "repository_adoption_state_at_review": "not_yet_adopted_c0_b"
+    }
+  ],
+  "review_basis": {
+    "constitutional_authority_read_in_full": "docs/Philosophy.md",
+    "plan_read_in_full": true,
+    "four_input_sources_read_in_full": true,
+    "task_relevant_ecosystem_sources": [
+      "docs/DECISIONS.md",
+      "docs/ARCHITECTURE.md",
+      "docs/ROADMAP.md"
+    ],
+    "task_relevant_repository_sources": [
+      "Iris/_docs/refactor/repository_runtime_lightweighting/protected_surface_successor_manifest.json",
+      "Iris/_docs/refactor/repository_runtime_lightweighting/validation_checkpoint_manifest.json",
+      "Iris/_docs/refactor/repository_runtime_lightweighting/tooling_track_adoption_receipt.json",
+      "Iris/_docs/refactor/residual_refactor/phase0_protected_surface_manifest.json",
+      "Iris/_docs/refactor/residual_refactor/phase0_supported_api_manifest.json",
+      "Iris/_docs/refactor/residual_refactor/final_protected_surface_report.json",
+      "Iris/validation/clean_checkout/authority/offline_build_validation_protected_surface_delta.json",
+      "Iris/test/validate_residual_refactor_surfaces.ps1",
+      "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+      "Iris/_docs/round3/round3_test_taxonomy.json",
+      "Iris/_docs/round3/current_route_required_validations.json",
+      ".gitignore",
+      ".gitattributes"
+    ]
+  },
+  "read_only_preflight": {
+    "committed_plan_identity_match": true,
+    "four_source_identity_and_framing_match": true,
+    "predecessor_census_row_count": 9,
+    "predecessor_census_checkout_bytes_and_raw_sha256_match": true,
+    "predecessor_census_filtered_git_blob_set_match": true,
+    "core_autocrlf_observed": "true",
+    "gitattributes_raw_sha256": "935d04572e63ad102f6034076ddb2619b9d1b383f36a551751377bbff27333a9",
+    "gitattributes_identity_matches_plan": true,
+    "tests_executed": 0
+  },
+  "prior_review_resolution": {
+    "all_revision_1_through_revision_3_findings_addressed_in_revision_4_plan_text": true,
+    "resolved_axes": [
+      "commit_first_predecessor_adoption",
+      "c0_a_c0_b_predecessor_manifest_phase_separation",
+      "sealed_residual_baseline_identity_and_anti_tautology",
+      "six_row_residual_drift_disposition",
+      "stale_final_report_disposition",
+      "durable_roadmap_and_review_provenance",
+      "revision_specific_plan_review_contract",
+      "explicit_c0_p_through_c0_d_commit_and_validation_graph",
+      "successor_policy_owner_approval_and_current_route_wiring",
+      "cas_gitignore_tracking_and_clean_checkout_availability",
+      "diagnostic_exact_route_and_raw_failure_preservation",
+      "duplicate_census_denominator_binding",
+      "lifecycle_v2_canonicalization",
+      "cold_archive_deterministic_same_producer_profile",
+      "new_evidence_only_absolute_path_prohibition",
+      "report_inventory_impact_disposition",
+      "consumer_scan_and_reconstructed_view_contract",
+      "windows_path_and_line_ending_binding",
+      "three_state_validation_ceiling",
+      "runtime_first_use_failure_visibility",
+      "full_gate_cadence_lightweighting"
+    ],
+    "note": "The open findings below are newly identified contradictions in the exact revision-4 C0-a implementation subject, not unresolved copies of the revision 1 through revision 3 plan-text findings."
+  },
+  "review_axes": [
+    {
+      "axis": "philosophy_and_module_boundary",
+      "verdict": "pass",
+      "observations": [
+        "The plan preserves Iris as a 100 percent Lua runtime module and keeps Python confined to build and storage tooling.",
+        "No Pulse submodule dependency or public interpretive, recommendation, or comparison behavior is introduced."
+      ]
+    },
+    {
+      "axis": "storage_lightweighting_purpose_and_authority_preservation",
+      "verdict": "pass",
+      "observations": [
+        "The primary objective remains physical evidence and intermediate-artifact deduplication rather than unnecessary runtime Lua redesign.",
+        "CAS is explicitly representation-only, lifecycle v1 and historical trees require byte-exact reconstruction, and payload deletion is a terminal disposition after consumer migration and restore proof.",
+        "Tracked, ignored, working-tree, unique-content, runtime-source, and runtime-memory denominators remain separated."
+      ]
+    },
+    {
+      "axis": "change_0_phase_graph_and_exact_predecessor_subject",
+      "verdict": "blocked",
+      "observations": [
+        "The document-level C0-p through C0-d graph is acyclic and correctly moves predecessor-manifest creation to C0-b.",
+        "The exact nine-row C0-a subject is nevertheless not executable as written because its active protection chain dereferences a missing commit and its required current-route test disagrees with the manifest it validates."
+      ]
+    },
+    {
+      "axis": "windows_git_line_endings_and_durable_input_adoption",
+      "verdict": "pass",
+      "observations": [
+        "All four raw attachment identities and CRLF framing match section 2.",
+        "C0-b appends exact path-scoped -text rules at the end of .gitattributes and binds path attributes, core.autocrlf, checkout raw bytes, and Git blob identity without broadening the rule."
+      ]
+    },
+    {
+      "axis": "validation_cadence_and_fail_loud_behavior",
+      "verdict": "blocked",
+      "observations": [
+        "The object, round, change-terminal, and runtime-terminal cadence is proportionate to the lightweighting purpose and avoids full-gate execution for every object.",
+        "The exact C0-a and C0-b gates cannot currently reach their required exit-zero states for the concrete reasons in CRITICAL-001 and CRITICAL-002.",
+        "No test was run for this plan review; the blocking conclusions come from deterministic static identity and contract checks."
+      ]
+    },
+    {
+      "axis": "cas_tracking_and_historical_reproduction",
+      "verdict": "pass",
+      "observations": [
+        "Durable object and reference roots are explicitly allowlisted, tracked, and verified in clean checkout before old payload disposition.",
+        "Direct readers, dynamic references, chronology, restore parity, dangling references, orphan retained objects, and replacement tracked-set inclusion are fail-closed."
+      ]
+    },
+    {
+      "axis": "cold_archive_and_runtime_deferral",
+      "verdict": "pass",
+      "observations": [
+        "Cold archive externalization is owner- and backend-gated, same-producer deterministic, restore-tested, and leaves the overall closeout partial if persistence cannot be approved.",
+        "Runtime eager-load work is deferred until storage terminal validation, preserves demand-loaded chunks and public facades, and requires manual PZ evidence for a complete runtime claim."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "REV4-CRITICAL-001",
+      "severity": "critical",
+      "status": "open",
+      "title": "C0-a's exact active protection chain dereferences a missing commit",
+      "category": "change_0_execution_identity_and_residual_validation",
+      "evidence": [
+        {
+          "path": "Iris/_docs/refactor/repository_runtime_lightweighting/protected_surface_successor_manifest.json",
+          "location": "/active_revisions/1",
+          "observation": "tooling_track_adoption_checkpoint_v1 binds protection_predecessor_commit and evidence_subject_commit to dac450348e97a30c50935034ea8d49b4c8fe4564 with tree ba41557346abbe865acda2236d014d2977781b6a."
+        },
+        {
+          "path": "Iris/test/validate_residual_refactor_surfaces.ps1",
+          "location": "active revision verification around lines 501-533",
+          "observation": "Every active protection_predecessor_commit is rev-parsed to a tree and must be an ancestor of HEAD; an attested but unavailable evidence identity is not accepted as embedded-only at this point."
+        },
+        {
+          "check": "git cat-file -e dac450348e97a30c50935034ea8d49b4c8fe4564^{commit}",
+          "result": "exit 128; object unavailable in the reviewed repository",
+          "check_kind": "read_only_git_object_existence_check"
+        },
+        {
+          "path": "docs/iris_repository_evidence_intermediate_artifact_lightweighting_plan.md",
+          "location": "Change 0 C0-a and validation cadence",
+          "observation": "C0-a requires the exact nine-row final blob set and the HEAD-bound residual validator to exit zero in two clean materializations; committing those exact bytes does not create or durably adopt the missing dac450 commit."
+        }
+      ],
+      "impact": "After the current differs-from-HEAD failure is removed by the C0-a commit, residual validation reaches the missing active predecessor and fails before the sealed residual report can be accepted. Change 0 therefore has no executable C0-a path under the reviewed exact subject.",
+      "required_resolution": "Reconcile the second active revision with a durable commit/tree that is available from the committed predecessor graph, or redesign it as an embedded historical evidence attestation that the validator does not dereference as an active protection predecessor. Recompute the affected manifest and nine-row census identities, revise the plan, and obtain a fresh plan-level review before C0-a.",
+      "affects_change0_eligibility": true
+    },
+    {
+      "finding_id": "REV4-CRITICAL-002",
+      "severity": "critical",
+      "status": "open",
+      "title": "The required current-route contract test contradicts the exact two-revision successor manifest",
+      "category": "change_0_current_route_validation",
+      "evidence": [
+        {
+          "path": "Iris/_docs/refactor/repository_runtime_lightweighting/protected_surface_successor_manifest.json",
+          "location": "/active_revisions",
+          "observation": "The exact C0-a manifest contains two active revisions: tooling_track_v2_durable_protection_successor_v1 and tooling_track_adoption_checkpoint_v1."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+          "location": "assertion around lines 161-165",
+          "observation": "The exact C0-a test bytes require protected.active_revision_ids to equal a one-element list containing only tooling_track_v2_durable_protection_successor_v1."
+        },
+        {
+          "path": "Iris/_docs/round3/round3_test_taxonomy.json",
+          "location": "test_iris_residual_contract_surfaces current row",
+          "observation": "The contradictory test is contract_class=current and state=ok."
+        },
+        {
+          "path": "Iris/_docs/round3/current_route_required_validations.json",
+          "location": "required test row",
+          "observation": "The contradictory test is required=true, so C0-b focused/current validation cannot omit it."
+        }
+      ],
+      "impact": "Even if the missing Git-object issue is corrected, the validator reports both active revision IDs while the required current-route test accepts only one. C0-b therefore cannot satisfy the plan's required current exit-zero gate, and no planned C0-b edit repairs this exact predecessor test.",
+      "required_resolution": "Make the protected successor manifest, validator output, and required test agree on the complete ordered active revision set, then update the exact predecessor census identities and revision plan. The corrected current contract must be part of the predecessor seal and fresh plan review, not deferred past C0-b.",
+      "affects_change0_eligibility": true
+    },
+    {
+      "finding_id": "REV4-IMPORTANT-001",
+      "severity": "important",
+      "status": "open",
+      "title": "C0-a's protected-report row-count acceptance is inconsistent with the validator's folded report shape",
+      "category": "change_0_acceptance_contract",
+      "evidence": [
+        {
+          "path": "docs/iris_repository_evidence_intermediate_artifact_lightweighting_plan.md",
+          "location": "C0-a sealed residual baseline contract and Automated Validation",
+          "observation": "The plan describes a fresh protected report with 26 rows and six authorized changes."
+        },
+        {
+          "path": "Iris/test/validate_residual_refactor_surfaces.ps1",
+          "location": "protected row construction around lines 663-730",
+          "observation": "The report appends every baseline row and every unique added protected row from the folded historical and active revision chain to one rows array."
+        },
+        {
+          "check_kind": "read_only_manifest_fold",
+          "result": "26 baseline rows plus 60 unique added protected paths yields 86 report rows before considering the blocking active-commit failure."
+        }
+      ],
+      "impact": "A phase validator that interprets the stated 26 rows as the report rows-array size will reject the validator's intended folded output, while a validator that interprets it as baseline-only has no explicit field or wording to bind that interpretation.",
+      "required_resolution": "State separate expected counts for baseline rows, authorized changed baseline rows, authorized added rows, and total folded report rows, and bind them to explicit report fields or a phase-validator calculation.",
+      "affects_change0_eligibility": false
+    }
+  ],
+  "finding_counts": {
+    "critical": 2,
+    "important": 1,
+    "minor": 0,
+    "open_critical": 2,
+    "open_important": 1,
+    "open_minor": 0
+  },
+  "open_critical_count": 2,
+  "review_verdict": "blocked",
+  "change0_eligibility": "ineligible",
+  "eligibility_reason": "Revision 4 resolves the earlier plan-text findings, but its exact C0-a predecessor bytes cannot pass the required residual and current-route gates. The predecessor manifest/test/census must be corrected in a new committed plan revision and independently reviewed before Change 0 starts.",
+  "non_claims": [
+    "change_0_started",
+    "predecessor_subject_adopted",
+    "change_1_through_change_7_authorized",
+    "implementation_complete",
+    "tests_passed",
+    "runtime_behavior_validated",
+    "cold_store_backend_approved",
+    "repository_evidence_lightweighting_complete"
+  ]
+}

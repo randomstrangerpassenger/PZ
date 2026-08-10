@@ -127,7 +127,7 @@ local function countUseCaseLines(fullType)
     return #entry.lines
 end
 
-function IrisTooltipSummary.get(fullType)
+local function getCachedSummary(fullType)
     if not fullType then
         return nil
     end
@@ -135,7 +135,7 @@ function IrisTooltipSummary.get(fullType)
     local cached = summaryByFullType[fullType]
     if cached then
         metrics.hits = metrics.hits + 1
-        return copySummary(cached)
+        return cached
     end
 
     metrics.misses = metrics.misses + 1
@@ -156,6 +156,18 @@ function IrisTooltipSummary.get(fullType)
     }, "|")
     summaryByFullType[fullType] = summary
     metrics.builds = metrics.builds + 1
+    return summary
+end
+
+-- Private read-only view for the Alt renderer. This avoids the public
+-- defensive copy while keeping the cached summary inside this module.
+function IrisTooltipSummary._getCached(fullType)
+    return getCachedSummary(fullType)
+end
+
+function IrisTooltipSummary.get(fullType)
+    local summary = getCachedSummary(fullType)
+    if not summary then return nil end
     return copySummary(summary)
 end
 

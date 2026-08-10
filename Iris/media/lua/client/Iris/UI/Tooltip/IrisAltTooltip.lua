@@ -64,6 +64,7 @@ end
 
 local function buildDetailLines(summary)
     displayLineCacheMetrics.displayLineBuilds = displayLineCacheMetrics.displayLineBuilds + 1
+    displayLineCacheMetrics.temporaryDetailTables = displayLineCacheMetrics.temporaryDetailTables + 1
     if not summary then
         return {
             tr("Iris_Tooltip_Tags", "Tags") .. ": (" .. tr("Iris_Tooltip_ApiLoadFailed", "API load failed") .. ")",
@@ -101,26 +102,29 @@ local function buildDetailLines(summary)
     return detailLines
 end
 
-local function copyLines(lines)
-    local result = {}
-    for index, line in ipairs(lines or {}) do result[index] = line end
-    displayLineCacheMetrics.lineCopies = displayLineCacheMetrics.lineCopies + #result
-    return result
-end
-
 local function getDetailLines(fullType, summary)
-    local locale = TranslationResolver.getLangKey("EN")
-    local revision = summary and summary.revision or "missing"
-    local key = tostring(fullType) .. "\0" .. tostring(locale) .. "\0" .. tostring(revision)
-    local cached = displayLineCache[key]
+    local fullTypeKey = tostring(fullType)
+    local localeKey = tostring(TranslationResolver.getLangKey("EN"))
+    local revisionKey = tostring(summary and summary.revision or "missing")
+    local byLocale = displayLineCache[fullTypeKey]
+    if not byLocale then
+        byLocale = {}
+        displayLineCache[fullTypeKey] = byLocale
+    end
+    local byRevision = byLocale[localeKey]
+    if not byRevision then
+        byRevision = {}
+        byLocale[localeKey] = byRevision
+    end
+    local cached = byRevision[revisionKey]
     if cached then
         displayLineCacheMetrics.hits = displayLineCacheMetrics.hits + 1
-        return copyLines(cached)
+        return cached
     end
     displayLineCacheMetrics.misses = displayLineCacheMetrics.misses + 1
     local lines = buildDetailLines(summary)
-    displayLineCache[key] = copyLines(lines)
-    return copyLines(lines)
+    byRevision[revisionKey] = lines
+    return lines
 end
 
 function IrisAltTooltip.resetDisplayLineCache()
@@ -156,31 +160,34 @@ function IrisAltTooltip.addIrisOverlay(tooltipInv)
         return
     end
     tooltipInv._irisRendered = true
-    
+
+    -- The inactive path is called every rendered frame. Leave it before
+    -- coordinate setup, temporary arrays, and the summary module boundary.
+    local isAlt = isAltPressed()
+    if not isAlt then
+        displayLineCacheMetrics.inactiveRenders = displayLineCacheMetrics.inactiveRenders + 1
+        return
+    end
+    if not tooltipInv.item then return end
+
+    local summaryModule = ensureSummary()
+    local fullType = ItemKey.getFullTypeFromItem(tooltipInv.item)
+    displayLineCacheMetrics.summaryGetCalls = displayLineCacheMetrics.summaryGetCalls + 1
+    local summary = nil
+    if summaryModule then
+        if summaryModule._getCached then
+            summary = summaryModule._getCached(fullType)
+        elseif summaryModule.get then
+            summary = summaryModule.get(fullType)
+        end
+    end
+    local detailLines = getDetailLines(fullType, summary)
+    if #detailLines == 0 then return end
+
     local lineHeight = 16
     local x = 10
     local startY = tooltipInv.height
-    
-    -- Alt 누름 상태에 따른 상세 정보
-    local isAlt = isAltPressed()
-    local detailLines = {}
-    displayLineCacheMetrics.temporaryDetailTables = displayLineCacheMetrics.temporaryDetailTables + 1
-    if isAlt and tooltipInv.item then
-        local summaryModule = ensureSummary()
-        local fullType = ItemKey.getFullTypeFromItem(tooltipInv.item)
-        displayLineCacheMetrics.summaryGetCalls = displayLineCacheMetrics.summaryGetCalls + 1
-        local summary = summaryModule and summaryModule.get and summaryModule.get(fullType) or nil
-        detailLines = getDetailLines(fullType, summary)
-    end
-    
-    -- Alt 키가 눌리지 않았으면 아무것도 표시하지 않음
-    if not isAlt or #detailLines == 0 then
-        if not isAlt then
-            displayLineCacheMetrics.inactiveRenders = displayLineCacheMetrics.inactiveRenders + 1
-        end
-        return
-    end
-    
+
     -- 전체 높이 계산 (상세 정보만)
     local totalLines = #detailLines
     local irisHeight = (lineHeight * totalLines) + 8

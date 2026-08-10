@@ -202,6 +202,66 @@
           "reason": "Verify predecessor, policy/approval, current selection, and durable tracking boundaries."
         }
       ]
+    },
+    {
+      "revision_id": "repository_evidence_lightweighting_change1_cleanup_v1",
+      "track": "repository_evidence_lightweighting",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "63ec5cb0a43834ff1d189cd09716defe4e4a54bf",
+      "protection_predecessor_tree": "3227f3ba2efa3df6c634601fdcdbcbe7a37abb2f",
+      "reason": "Adopt the repository-wide Iris Python cache rule, tracked bytecode deletion, package projection cleanup, and cleanup receipt after the C0-c terminal gate.",
+      "approved_activation_deltas": [],
+      "added_protected_rows": [
+        {
+          "path": ".gitignore",
+          "before_git_blob_id": "e53bcffe23b01a7aaf2467fb1b159c40a149069c",
+          "before_sha256_lf": "ecbf86e16b1da610f716bf22998d56c6282165da4bb154e2b72bed602ec26f59",
+          "expected_git_blob_id": "f82dc97dd3c3e7f4e0859595a8262796526d62a0",
+          "after_sha256_lf": "58905aae2784d771ba5e04b2da005c569e51b6dcbdc5fcfc2059b27daaf5189b",
+          "role": "repository_tracking_policy",
+          "writer": "repository_evidence_lightweighting_change1",
+          "consumers": ["python_cache_cleanup", "clean_checkout_validation", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Ignore Python cache material throughout Iris rather than only below description/v2."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_repository_evidence_required_validation_adoption.py",
+          "before_git_blob_id": "d3fd9a905e3a54d3607b6b9e53343b0471f90945",
+          "before_sha256_lf": "f3fb8cab65018a57edfb88c3e25bd471aab0f5dfd21f02152febeb3a94b12e49",
+          "expected_git_blob_id": "67a0124cf669a3960840ef94fdf9215c6a411177",
+          "after_sha256_lf": "da84f1c70998352bbfa2680beae8a249ec0e912c0d0a3c0f82cf006dbf81843d",
+          "role": "successor_bootstrap_required_test",
+          "writer": "repository_evidence_lightweighting_change1",
+          "consumers": ["current_route_validation", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Treat the C0-c gitignore binding as historical after the authorized Change 1 successor."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+          "before_git_blob_id": "4c2aa5876c81782270009256ad06118f0c277f3d",
+          "before_sha256_lf": "6940ed0822d46e95f2476a7fc39a1fb9623883bd46f3d15c6da30452f91ccf38",
+          "expected_git_blob_id": "0d658db273e883e6550dd3f1af656c1f1eea4cd2",
+          "after_sha256_lf": "9fc381f9926173462ffd5ec1338c53fc5f726aa5ed54d3d0522881d8b9870637",
+          "role": "protected_surface_current_required_test",
+          "writer": "repository_evidence_lightweighting_change1",
+          "consumers": ["current_route_validation", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Require the Change 1 cleanup successor revision in the protected-surface report."
+        },
+        {
+          "path": "Iris/_docs/refactor/repository_evidence_lightweighting/change1_cleanup_receipt.json",
+          "before_git_blob_id": null,
+          "before_sha256_lf": null,
+          "expected_git_blob_id": "4e6e246036785c21d255d48d7579945b07766480",
+          "after_sha256_lf": "9b499f02a14ad341d878daf0ae2dda815374cf75c93ec2c193e60edf25616c5e",
+          "role": "change1_cleanup_receipt",
+          "writer": "repository_evidence_lightweighting_change1",
+          "consumers": ["change2_lifecycle_migration", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Record the separated bytecode and package cleanup census without changing C0-c bootstrap evidence."
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,54 @@
+{
+  "schema_version": "iris_repository_evidence_lightweighting_change1_cleanup_v1",
+  "status": "cleanup_applied",
+  "claim_id": "iris_repository_evidence_lightweighting_change1",
+  "authority": "repository_owner_user",
+  "predecessor": {
+    "commit": "63ec5cb0a43834ff1d189cd09716defe4e4a54bf",
+    "tree": "3227f3ba2efa3df6c634601fdcdbcbe7a37abb2f",
+    "c0_c_terminal_attempt_id": "8c8918456068426e83f4a59c52d658a4",
+    "run_a_status": "PASS",
+    "run_b_status": "PASS",
+    "deterministic_compare_status": "PASS"
+  },
+  "bootstrap_identity": {
+    "predecessor_subject_raw_sha256": "624b2de8667a74e4238614cbc1bccc8e7fe26791ed028cebcca058335ab7e267",
+    "successor_policy_raw_sha256": "be27d1f5abaaf085d497bbf53c0767cde96d30b4ac3d3638d102797ca2c1163e",
+    "owner_approval_raw_sha256": "d9fd890ce26b80862b5e200c3e7780a30db2868939dfeec028f3df2b626064f1",
+    "adoption_receipt_git_blob_id": "3b06dc22e65dfefd72a7e71d12dde458497105d9",
+    "adoption_receipt_raw_sha256": "bf5a0fc96ba1bdd6d35b903646d23ac622006c7833c4fe8772427d364383b2f4"
+  },
+  "before": {
+    "tracked_pyc_count": 1,
+    "physical_pyc_count": 445,
+    "physical_pyc_bytes": 10104228,
+    "package_file_count": 103,
+    "package_bytes": 2863665
+  },
+  "cleanup": {
+    "tracked_pyc_deleted": "Iris/_docs/round3/__pycache__/round3_run_contract_tests.cpython-314.pyc",
+    "ignored_python_cache_deleted": true,
+    "local_package_projection_deleted": true,
+    "repository_wide_iris_cache_ignore_enabled": true,
+    "package_external_parity": {
+      "status": "PASS",
+      "candidate_lua_count": 103,
+      "existing_peer_row_count": 103,
+      "layer3_file_count": 12
+    }
+  },
+  "after": {
+    "tracked_pyc_count": 0,
+    "physical_pyc_count": 0,
+    "package_exists": false,
+    "removed_bytes": 12967893
+  },
+  "validation_contract": [
+    "git_tracked_pyc_zero",
+    "physical_iris_pyc_zero",
+    "external_disposable_package_parity",
+    "package_absent_before_and_after_validation",
+    "current_route_exit_zero",
+    "protected_surface_exit_zero"
+  ]
+}

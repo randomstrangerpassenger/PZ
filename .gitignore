@@ -717,8 +717,8 @@ Iris/build/description/v2/staging/phase3/pilots/*
 !Iris/build/description/v2/staging/phase3/pilots/**/*.txt
 Iris/build/description/v2/staging/phase3/tmp/
 Iris/build/description/v2/staging/phase3/scratch/
-Iris/build/description/v2/**/__pycache__/
-Iris/build/description/v2/**/*.pyc
+Iris/**/__pycache__/
+Iris/**/*.pyc
 !Iris/build/baseline/
 !Iris/build/baseline/golden/
 Iris/build/baseline/full/

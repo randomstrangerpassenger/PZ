@@ -125,7 +125,12 @@ class RepositoryEvidenceRequiredValidationAdoptionTest(unittest.TestCase):
             "iris_repository_evidence_lightweighting_required_validation_adoption_v1",
         )
         for name, relative in adoption["bound_inputs"].items():
-            self.assertEqual(relative["git_blob_id"], tracked_blob(relative["path"]), name)
+            revision = (
+                "63ec5cb0a43834ff1d189cd09716defe4e4a54bf"
+                if name in {"gitignore", "protected_surface_successor"}
+                else "HEAD"
+            )
+            self.assertEqual(relative["git_blob_id"], tracked_blob(relative["path"], revision), name)
 
     def test_durable_cas_roots_are_trackable_and_clean_checkout_available(self) -> None:
         policy = load_json(POLICY)

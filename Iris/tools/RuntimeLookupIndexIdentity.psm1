@@ -53,6 +53,52 @@ function Get-UseCaseActualLineCounts {
     return $counts
 }
 
+function Get-RuntimeLookupActualKeys {
+    param(
+        [Parameter(Mandatory = $true)][string]$DataRoot,
+        [Parameter(Mandatory = $true)][ValidateSet('layer3', 'usecase')][string]$Kind
+    )
+    $relativeRoot = if ($Kind -ceq 'layer3') {
+        'IrisLayer3DataChunks'
+    }
+    else {
+        'UseCaseDescriptions'
+    }
+    $pattern = if ($Kind -ceq 'layer3') {
+        '(?m)^    \["([^"]+)"\]\s*='
+    }
+    else {
+        '(?m)^chunk\["([^"]+)"\]\s*='
+    }
+    $keys = [System.Collections.Generic.HashSet[string]]::new(
+        [System.StringComparer]::Ordinal
+    )
+    $root = Join-Path $DataRoot $relativeRoot
+    foreach ($path in @(Get-ChildItem -LiteralPath $root -File -Filter 'Chunk???.lua' | Sort-Object Name)) {
+        $text = Get-Content -LiteralPath $path.FullName -Raw
+        foreach ($match in [regex]::Matches($text, $pattern)) {
+            $key = [string]$match.Groups[1].Value
+            if (-not $keys.Add($key)) {
+                throw "runtime_payload_lookup_package_duplicate_key: $Kind -> $key"
+            }
+        }
+    }
+    return $keys
+}
+
+function Get-Utf8StringSha256 {
+    param([Parameter(Mandatory = $true)][string]$Value)
+    $utf8 = [System.Text.UTF8Encoding]::new($false)
+    $algorithm = [System.Security.Cryptography.SHA256]::Create()
+    try {
+        $digest = $algorithm.ComputeHash($utf8.GetBytes($Value))
+        return ([System.BitConverter]::ToString($digest)).Replace('-', '').ToLowerInvariant()
+    }
+    finally {
+        $algorithm.Dispose()
+    }
+}
+
 function Assert-RuntimeLookupIndexIdentity {
     param(
         [Parameter(Mandatory = $true)][string]$DataRoot,
@@ -243,4 +289,76 @@ function Assert-RuntimeLookupIndexIdentity {
     }
 }
 
-Export-ModuleMember -Function Assert-RuntimeLookupIndexIdentity, Get-NormalizedUtf8EolSha256
+function Assert-RuntimeLookupPackageParity {
+    param(
+        [Parameter(Mandatory = $true)][string]$DataRoot,
+        [switch]$SkipManifestCheck
+    )
+
+    Assert-RuntimeLookupIndexIdentity -DataRoot $DataRoot -IndexName 'IrisLayer3DataChunkIndex.lua'
+    Assert-RuntimeLookupIndexIdentity -DataRoot $DataRoot -IndexName 'UseCaseDescriptions/ChunkIndex.lua'
+    Assert-RuntimeLookupIndexIdentity -DataRoot $DataRoot -IndexName 'UseCaseDescriptions/LineCountIndex.lua'
+
+    $layer3Keys = Get-RuntimeLookupActualKeys -DataRoot $DataRoot -Kind 'layer3'
+    $useCaseKeys = Get-RuntimeLookupActualKeys -DataRoot $DataRoot -Kind 'usecase'
+    $lineCounts = Get-UseCaseActualLineCounts -DataRoot $DataRoot
+    if ($layer3Keys.Count -ne 2105 -or $useCaseKeys.Count -ne 1631 -or $lineCounts.Count -ne 1631) {
+        throw 'runtime_payload_lookup_package_denominator_mismatch'
+    }
+    foreach ($key in $useCaseKeys) {
+        if (-not $lineCounts.ContainsKey($key)) {
+            throw "runtime_payload_lookup_package_key_mismatch: $key"
+        }
+    }
+    foreach ($key in $lineCounts.Keys) {
+        if (-not $useCaseKeys.Contains($key)) {
+            throw "runtime_payload_lookup_package_key_mismatch: $key"
+        }
+    }
+
+    $identityRows = [System.Collections.Generic.List[string]]::new()
+    foreach ($key in @($layer3Keys | Sort-Object)) {
+        $identityRows.Add("layer3`t$key")
+    }
+    foreach ($key in @($useCaseKeys | Sort-Object)) {
+        $identityRows.Add("usecase`t$key`t$($lineCounts[$key])")
+    }
+    foreach ($indexName in @('IrisLayer3DataChunkIndex.lua', 'UseCaseDescriptions/ChunkIndex.lua')) {
+        $indexText = Get-Content -LiteralPath (Join-Path $DataRoot $indexName) -Raw
+        $position = 0
+        foreach ($match in [regex]::Matches($indexText, 'sha256 = "([0-9a-f]{64})"')) {
+            $position += 1
+            $identityRows.Add("chunk-hash`t$indexName`t$position`t$([string]$match.Groups[1].Value)")
+        }
+    }
+    $sourceDigest = Get-Utf8StringSha256 -Value ([string]::Join("`n", $identityRows) + "`n")
+    $identity = [ordered]@{
+        schema_version = 'iris-runtime-lookup-package-parity-v1'
+        generation_id = 'lookup-' + $sourceDigest.Substring(0, 16)
+        source_digest = $sourceDigest
+        layer3_entry_count = $layer3Keys.Count
+        usecase_entry_count = $useCaseKeys.Count
+        line_count_entry_count = $lineCounts.Count
+        status = 'PASS'
+    }
+    if (-not $SkipManifestCheck) {
+        $manifestPath = Join-Path $DataRoot 'IrisRuntimeLookupPackageIdentity.json'
+        if (-not (Test-Path -LiteralPath $manifestPath -PathType Leaf)) {
+            throw 'runtime_payload_lookup_package_manifest_missing'
+        }
+        $manifest = Get-Content -LiteralPath $manifestPath -Raw -Encoding UTF8 | ConvertFrom-Json
+        if (
+            $manifest.schema_version -cne 'iris-runtime-lookup-package-identity-v1' -or
+            $manifest.generation_id -cne $identity.generation_id -or
+            $manifest.source_digest -cne $identity.source_digest -or
+            [int]$manifest.layer3_entry_count -ne $identity.layer3_entry_count -or
+            [int]$manifest.usecase_entry_count -ne $identity.usecase_entry_count -or
+            [int]$manifest.line_count_entry_count -ne $identity.line_count_entry_count
+        ) {
+            throw 'runtime_payload_lookup_package_generation_mismatch'
+        }
+    }
+    return $identity
+}
+
+Export-ModuleMember -Function Assert-RuntimeLookupIndexIdentity, Assert-RuntimeLookupPackageParity, Get-NormalizedUtf8EolSha256

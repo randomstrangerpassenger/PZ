@@ -9,9 +9,16 @@ local diagnostics = {
     requireCallCount = 0,
     loadedChunkCount = 0,
     lookupCount = 0,
+    lookupMissCount = 0,
     fallbackCount = 0,
     fallbackReasons = {},
 }
+
+local function recordMiss()
+    diagnostics.lookupMissCount = diagnostics.lookupMissCount + 1
+    RuntimeLookupDiagnostics.recordMetric("layer3", "lookup_miss", 1)
+    return nil, "lookup_miss"
+end
 
 local function recordFallback(reason)
     diagnostics.fallbackCount = diagnostics.fallbackCount + 1
@@ -52,6 +59,21 @@ end
 
 local indexValid, indexInvalidReason = validIndex()
 
+local function validLoadedChunk(chunk, record)
+    local count = 0
+    local first = nil
+    local last = nil
+    for fullType, entry in pairs(chunk) do
+        if type(fullType) ~= "string" or type(entry) ~= "table" then
+            return false
+        end
+        count = count + 1
+        if first == nil or fullType < first then first = fullType end
+        if last == nil or fullType > last then last = fullType end
+    end
+    return count == record.count and first == record.first and last == record.last
+end
+
 local function findRecord(fullType)
     local low, high = 1, #index.chunks
     while low <= high do
@@ -71,13 +93,13 @@ end
 function IrisLayer3DataLookup.get(fullType)
     diagnostics.lookupCount = diagnostics.lookupCount + 1
     if type(fullType) ~= "string" or fullType == "" then
-        return recordFallback("lookup_miss")
+        return recordMiss()
     end
     if not indexValid then
         return recordFallback(indexOk and indexInvalidReason or "router_unavailable")
     end
     local record = findRecord(fullType)
-    if not record then return recordFallback("lookup_miss") end
+    if not record then return recordMiss() end
 
     local chunk = chunkCache[record.module]
     if not chunk then
@@ -86,12 +108,15 @@ function IrisLayer3DataLookup.get(fullType)
         if not ok or type(loaded) ~= "table" then
             return recordFallback("target_module_load_failure")
         end
+        if not validLoadedChunk(loaded, record) then
+            return recordFallback("index_content_mismatch")
+        end
         chunk = loaded
         chunkCache[record.module] = chunk
         diagnostics.loadedChunkCount = diagnostics.loadedChunkCount + 1
     end
     local entry = chunk[fullType]
-    if entry == nil then return recordFallback("lookup_miss") end
+    if entry == nil then return recordFallback("index_content_mismatch") end
     return entry, nil
 end
 
@@ -107,6 +132,7 @@ function IrisLayer3DataLookup.getDiagnostics()
         loadedChunkCount = diagnostics.loadedChunkCount,
         loadedChunkModules = loadedChunkModules,
         lookupCount = diagnostics.lookupCount,
+        lookupMissCount = diagnostics.lookupMissCount,
         fallbackCount = diagnostics.fallbackCount,
         fallbackReasons = reasons,
     }
@@ -117,6 +143,7 @@ function IrisLayer3DataLookup.reset()
     diagnostics.requireCallCount = 0
     diagnostics.loadedChunkCount = 0
     diagnostics.lookupCount = 0
+    diagnostics.lookupMissCount = 0
     diagnostics.fallbackCount = 0
     diagnostics.fallbackReasons = {}
 end

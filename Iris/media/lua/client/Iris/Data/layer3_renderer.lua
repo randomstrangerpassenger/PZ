@@ -84,7 +84,9 @@ local function getEntry(fullType)
         if ok and result and result.reason == nil then
             return result.entry
         end
-        if not ok or not result then
+        if ok and result and result.reason == "lookup_miss" then
+            return nil
+        elseif not ok or not result then
             RuntimeLookupDiagnostics.recordFallback("layer3", "router_unavailable")
         end
     else
@@ -101,7 +103,7 @@ local function getEntry(fullType)
         return result
     end
 
-    -- protected call 실패 시 조용히 nil 반환
+    RuntimeLookupDiagnostics.recordFallback("layer3", "compat_read_failure")
     return nil
 end
 

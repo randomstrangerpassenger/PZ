@@ -13,6 +13,7 @@ local safeRequire = require("Iris/Util/IrisRequire").safeRequire
 local RuntimeLookupDiagnostics = require("Iris/Data/IrisRuntimeLookupDiagnostics")
 local descriptionLookup = nil
 local descriptionLookupAttempted = false
+local AUTHORITATIVE_NEGATIVE = { lookup_miss = true }
 
 local function getDescriptionLookup()
     if not descriptionLookupAttempted then
@@ -45,7 +46,11 @@ function UseCases.getUseCaseLines(fullType)
     local lookup = getDescriptionLookup()
     if lookup and lookup.get then
         local loaded, reason = lookup.get(fullType)
-        if reason == nil then entry = loaded end
+        if reason == nil then
+            entry = loaded
+        elseif AUTHORITATIVE_NEGATIVE[reason] then
+            return emptyUseCaseLines()
+        end
     else
         RuntimeLookupDiagnostics.recordFallback("usecase", "router_unavailable")
     end
@@ -65,7 +70,11 @@ function UseCases._getDescriptionEntry(fullType)
     local lookup = getDescriptionLookup()
     if lookup and lookup.get then
         local loaded, reason = lookup.get(fullType)
-        if reason == nil then entry = loaded end
+        if reason == nil then
+            entry = loaded
+        elseif AUTHORITATIVE_NEGATIVE[reason] then
+            return nil
+        end
     else
         RuntimeLookupDiagnostics.recordFallback("usecase", "router_unavailable")
     end
@@ -83,6 +92,7 @@ function UseCases._getRequirements(recipeName)
     if lookup and lookup.getRequirements then
         local loaded, reason = lookup.getRequirements(recipeName)
         if reason == nil then return Array.copy(loaded) end
+        if AUTHORITATIVE_NEGATIVE[reason] then return {} end
     else
         RuntimeLookupDiagnostics.recordFallback("usecase_requirements", "router_unavailable")
     end
@@ -95,6 +105,7 @@ function UseCases._getUseCaseLineCount(fullType)
     if lookup and lookup.getLineCount then
         local count, reason = lookup.getLineCount(fullType)
         if reason == nil then return count end
+        if AUTHORITATIVE_NEGATIVE[reason] then return 0 end
     else
         RuntimeLookupDiagnostics.recordFallback("usecase_line_count", "router_unavailable")
     end

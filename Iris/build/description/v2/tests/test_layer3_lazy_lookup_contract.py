@@ -36,6 +36,7 @@ class Layer3LazyLookupContractTest(unittest.TestCase):
             completed.stdout,
         )
         self.assertIn("router_unavailable_count=1", completed.stdout)
+        self.assertIn("normal_miss_facade_loads=0", completed.stdout)
 
 
 if __name__ == "__main__":

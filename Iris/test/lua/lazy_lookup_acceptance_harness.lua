@@ -51,6 +51,7 @@ local function deepEqual(left, right, seen)
 end
 
 if mode == "layer3" then
+    local realLayer3Index = require("Iris/Data/IrisLayer3DataChunkIndex")
     local lookup = require("Iris/Data/IrisLayer3DataLookup")
     local first = assert(lookup.get("Base.223Box"))
     local afterFirst = lookup.getDiagnostics()
@@ -95,6 +96,23 @@ if mode == "layer3" then
     end
     assert(parityCount == 2105 and IrisLayer3Data == facade)
 
+    RuntimeDiagnostics.reset()
+    package.loaded["Iris/Data/IrisLayer3DataLookup"] = nil
+    package.loaded["Iris/Data/IrisLayer3DataChunkIndex"] = nil
+    package.loaded["Iris/Data/layer3_renderer"] = nil
+    package.loaded["Iris/Data/IrisLayer3DataChunks"] = nil
+    package.preload["Iris/Data/IrisLayer3DataChunkIndex"] = function() return realLayer3Index end
+    local normalMissFacadeLoads = 0
+    package.preload["Iris/Data/IrisLayer3DataChunks"] = function()
+        normalMissFacadeLoads = normalMissFacadeLoads + 1
+        return facade
+    end
+    local missRenderer = require("Iris/Data/layer3_renderer")
+    assert(missRenderer.getText("Missing.DoesNotExist") == nil)
+    local normalMissDiagnostics = RuntimeDiagnostics.getDiagnostics()
+    assert(normalMissFacadeLoads == 0 and normalMissDiagnostics.fallbackCount == 0)
+    assert(normalMissDiagnostics.metrics.layer3.lookup_miss == 1)
+
     local function assertConsumerFallback(indexValue, expectedReason)
         RuntimeDiagnostics.reset()
         package.loaded["Iris/Data/IrisLayer3DataLookup"] = nil
@@ -134,13 +152,15 @@ if mode == "layer3" then
             "Iris/Data/IrisLayer3DataChunks/Chunk001",
             "Base.ZZZ"
         ),
-        "lookup_miss"
+        "index_content_mismatch"
     )
 
     RuntimeDiagnostics.reset()
     local missingEntry, missingReason = lookup.get("Missing.DoesNotExist")
     assert(missingEntry == nil and missingReason == "lookup_miss")
-    assert(RuntimeDiagnostics.getDiagnostics().surfaces.layer3.fallbackReasons.lookup_miss == 1)
+    local missingDiagnostics = RuntimeDiagnostics.getDiagnostics()
+    assert(missingDiagnostics.fallbackCount == 0)
+    assert(missingDiagnostics.metrics.layer3.lookup_miss == 1)
 
     package.loaded["Iris/Data/IrisLayer3DataLookup"] = nil
     package.loaded["Iris/Data/IrisLayer3DataChunkIndex"] = nil
@@ -192,8 +212,11 @@ if mode == "layer3" then
         " initial_loaded_chunks=" .. tostring(beforeRepeat.loadedChunkCount) ..
         " initial_loaded_modules=" .. table.concat(beforeRepeat.loadedChunkModules, ",") ..
         " router_unavailable_count=" ..
-        tostring(unavailableDiagnostics.surfaces.layer3.fallbackReasons.router_unavailable))
+        tostring(unavailableDiagnostics.surfaces.layer3.fallbackReasons.router_unavailable) ..
+        " normal_miss_facade_loads=" .. tostring(normalMissFacadeLoads))
 elseif mode == "usecase" then
+    local realUseCaseChunkIndex = require("Iris/Data/UseCaseDescriptions/ChunkIndex")
+    local realUseCaseLineCountIndex = require("Iris/Data/UseCaseDescriptions/LineCountIndex")
     local lookup = require("Iris/Data/IrisUseCaseDescriptionsLookup")
     local lineCount, lineReason = lookup.getLineCount("Base.223Box")
     assert(lineReason == nil and lineCount == 1)
@@ -253,7 +276,9 @@ elseif mode == "usecase" then
     RuntimeDiagnostics.reset()
     local missingEntry, missingReason = lookup.get("Missing.DoesNotExist")
     assert(missingEntry == nil and missingReason == "lookup_miss")
-    assert(RuntimeDiagnostics.getDiagnostics().surfaces.usecase.fallbackReasons.lookup_miss == 1)
+    local missingDiagnostics = RuntimeDiagnostics.getDiagnostics()
+    assert(missingDiagnostics.fallbackCount == 0)
+    assert(missingDiagnostics.metrics.usecase.lookup_miss == 1)
 
     local facade = require("Iris/Data/IrisUseCaseDescriptions")
     local parityCount = 0
@@ -269,13 +294,15 @@ elseif mode == "usecase" then
     end
     assert(parityCount == 1631)
 
-    local function assertConsumerFallback(indexValue, expectedReason)
+    local function assertConsumerFallback(indexValue, lineCountValue, expectedReason)
         RuntimeDiagnostics.reset()
         package.loaded["Iris/Data/IrisUseCaseDescriptionsLookup"] = nil
         package.loaded["Iris/Data/UseCaseDescriptions/ChunkIndex"] = nil
+        package.loaded["Iris/Data/UseCaseDescriptions/LineCountIndex"] = nil
         package.loaded["Iris/API/UseCases"] = nil
         package.preload["Iris/Data/IrisUseCaseDescriptionsLookup"] = nil
         package.preload["Iris/Data/UseCaseDescriptions/ChunkIndex"] = function() return indexValue end
+        package.preload["Iris/Data/UseCaseDescriptions/LineCountIndex"] = function() return lineCountValue end
         local fallbackUseCases = require("Iris/API/UseCases")
         local actual = fallbackUseCases.getUseCaseLines("Base.223Box")
         assert(deepEqual(actual.lines, facade["Base.223Box"].lines))
@@ -318,6 +345,7 @@ elseif mode == "usecase" then
     assertLineCountFallback(malformedLineCounts, "index_shape_invalid")
     assertConsumerFallback(
         onlyRangeIndex("iris_usecase_chunk_range_index_v1", "invalid/module"),
+        onlyLineCountIndex("iris_usecase_line_count_index_v1"),
         "module_name_invalid"
     )
     assertConsumerFallback(
@@ -325,6 +353,7 @@ elseif mode == "usecase" then
             "iris_usecase_chunk_range_index_v1",
             "Iris/Data/UseCaseDescriptions/Chunk999"
         ),
+        onlyLineCountIndex("iris_usecase_line_count_index_v1"),
         "target_module_load_failure"
     )
     assertConsumerFallback(
@@ -333,8 +362,35 @@ elseif mode == "usecase" then
             "Iris/Data/UseCaseDescriptions/Chunk001",
             "Base.ZZZ"
         ),
-        "lookup_miss"
+        onlyLineCountIndex("iris_usecase_line_count_index_v1", "Base.ZZZ", 1),
+        "index_content_mismatch"
     )
+
+    RuntimeDiagnostics.reset()
+    package.loaded["Iris/Data/IrisUseCaseDescriptionsLookup"] = nil
+    package.loaded["Iris/Data/UseCaseDescriptions/ChunkIndex"] = nil
+    package.loaded["Iris/Data/UseCaseDescriptions/LineCountIndex"] = nil
+    package.loaded["Iris/API/UseCases"] = nil
+    package.loaded["Iris/API/StaticData"] = nil
+    package.preload["Iris/Data/IrisUseCaseDescriptionsLookup"] = nil
+    package.preload["Iris/Data/UseCaseDescriptions/ChunkIndex"] = function() return realUseCaseChunkIndex end
+    package.preload["Iris/Data/UseCaseDescriptions/LineCountIndex"] = function() return realUseCaseLineCountIndex end
+    local normalMissFacadeLoads = 0
+    package.preload["Iris/API/StaticData"] = function()
+        return {get=function(dataset)
+            if dataset == "useCaseDescriptions" then normalMissFacadeLoads = normalMissFacadeLoads + 1 end
+            return nil
+        end}
+    end
+    local missUseCases = require("Iris/API/UseCases")
+    assert(#missUseCases.getUseCaseLines("Missing.DoesNotExist").lines == 0)
+    assert(missUseCases._getDescriptionEntry("Missing.DoesNotExist") == nil)
+    assert(missUseCases._getUseCaseLineCount("Missing.DoesNotExist") == 0)
+    assert(normalMissFacadeLoads == 0)
+    local normalMissDiagnostics = RuntimeDiagnostics.getDiagnostics()
+    assert(normalMissDiagnostics.fallbackCount == 0)
+    package.preload["Iris/API/StaticData"] = nil
+    package.loaded["Iris/API/StaticData"] = nil
 
     RuntimeDiagnostics.reset()
     package.loaded["Iris/Data/IrisUseCaseDescriptionsLookup"] = nil
@@ -438,7 +494,8 @@ elseif mode == "usecase" then
         table.concat(afterFirst.loadedDescriptionChunkModules, ",") ..
         " initial_loaded_modules=" .. table.concat(beforeRepeat.loadedDescriptionChunkModules, ",") ..
         " router_unavailable_count=" ..
-        tostring(unavailableDiagnostics.surfaces.usecase.fallbackReasons.router_unavailable))
+        tostring(unavailableDiagnostics.surfaces.usecase.fallbackReasons.router_unavailable) ..
+        " normal_miss_facade_loads=" .. tostring(normalMissFacadeLoads))
 else
     error("unsupported lookup mode: " .. tostring(mode))
 end

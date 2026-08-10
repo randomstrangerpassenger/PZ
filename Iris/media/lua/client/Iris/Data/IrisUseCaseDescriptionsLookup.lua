@@ -12,9 +12,16 @@ local diagnostics = {
     loadedDescriptionChunkCount = 0,
     requirementsRequireCallCount = 0,
     lookupCount = 0,
+    lookupMissCount = 0,
     fallbackCount = 0,
     fallbackReasons = {},
 }
+
+local function recordMiss(surface)
+    diagnostics.lookupMissCount = diagnostics.lookupMissCount + 1
+    RuntimeLookupDiagnostics.recordMetric(surface or "usecase", "lookup_miss", 1)
+    return nil, "lookup_miss"
+end
 
 local function recordFallback(reason)
     diagnostics.fallbackCount = diagnostics.fallbackCount + 1
@@ -75,6 +82,29 @@ end
 local chunkIndexValid, chunkIndexInvalidReason = validChunkIndex()
 local lineCountIndexValid, lineCountIndexInvalidReason = validLineCountIndex()
 
+if chunkIndexValid and lineCountIndexValid and
+    chunkIndex.entry_count ~= lineCountIndex.entry_count then
+    chunkIndexValid = false
+    lineCountIndexValid = false
+    chunkIndexInvalidReason = "index_content_mismatch"
+    lineCountIndexInvalidReason = "index_content_mismatch"
+end
+
+local function validLoadedChunk(chunk, record)
+    local count = 0
+    local first = nil
+    local last = nil
+    for fullType, entry in pairs(chunk) do
+        if type(fullType) ~= "string" or type(entry) ~= "table" then
+            return false
+        end
+        count = count + 1
+        if first == nil or fullType < first then first = fullType end
+        if last == nil or fullType > last then last = fullType end
+    end
+    return count == record.count and first == record.first and last == record.last
+end
+
 local function findRecord(fullType)
     local low, high = 1, #chunkIndex.chunks
     while low <= high do
@@ -94,13 +124,21 @@ end
 function IrisUseCaseDescriptionsLookup.get(fullType)
     diagnostics.lookupCount = diagnostics.lookupCount + 1
     if type(fullType) ~= "string" or fullType == "" then
-        return recordFallback("lookup_miss")
+        return recordMiss("usecase")
     end
     if not chunkIndexValid then
         return recordFallback(chunkIndexOk and chunkIndexInvalidReason or "router_unavailable")
     end
+    if not lineCountIndexValid then
+        return recordFallback(lineCountIndexOk and lineCountIndexInvalidReason or "router_unavailable")
+    end
     local record = findRecord(fullType)
-    if not record then return recordFallback("lookup_miss") end
+    if not record then
+        if lineCountIndex.lineCounts[fullType] ~= nil then
+            return recordFallback("index_content_mismatch")
+        end
+        return recordMiss("usecase")
+    end
 
     local chunk = chunkCache[record.module]
     if not chunk then
@@ -109,12 +147,20 @@ function IrisUseCaseDescriptionsLookup.get(fullType)
         if not ok or type(loaded) ~= "table" then
             return recordFallback("target_module_load_failure")
         end
+        if not validLoadedChunk(loaded, record) then
+            return recordFallback("index_content_mismatch")
+        end
         chunk = loaded
         chunkCache[record.module] = chunk
         diagnostics.loadedDescriptionChunkCount = diagnostics.loadedDescriptionChunkCount + 1
     end
     local entry = chunk[fullType]
-    if entry == nil then return recordFallback("lookup_miss") end
+    if entry == nil or lineCountIndex.lineCounts[fullType] == nil then
+        return recordFallback("index_content_mismatch")
+    end
+    if type(entry.lines) ~= "table" or #entry.lines ~= lineCountIndex.lineCounts[fullType] then
+        return recordFallback("index_content_mismatch")
+    end
     return entry, nil
 end
 
@@ -134,7 +180,7 @@ end
 
 function IrisUseCaseDescriptionsLookup.getRequirements(recipeName)
     if type(recipeName) ~= "string" or recipeName == "" then
-        return recordFallback("lookup_miss")
+        return recordMiss("usecase_requirements")
     end
     if requirements == nil then
         diagnostics.requirementsRequireCallCount = diagnostics.requirementsRequireCallCount + 1
@@ -144,7 +190,9 @@ function IrisUseCaseDescriptionsLookup.getRequirements(recipeName)
         end
         requirements = loaded
     end
-    return requirements[recipeName], nil
+    local result = requirements[recipeName]
+    if result == nil then return recordMiss("usecase_requirements") end
+    return result, nil
 end
 
 function IrisUseCaseDescriptionsLookup.getDiagnostics()
@@ -164,6 +212,7 @@ function IrisUseCaseDescriptionsLookup.getDiagnostics()
         loadedDescriptionChunkModules = loadedDescriptionChunkModules,
         requirementsRequireCallCount = diagnostics.requirementsRequireCallCount,
         lookupCount = diagnostics.lookupCount,
+        lookupMissCount = diagnostics.lookupMissCount,
         fallbackCount = diagnostics.fallbackCount,
         fallbackReasons = reasons,
     }
@@ -176,6 +225,7 @@ function IrisUseCaseDescriptionsLookup.reset()
     diagnostics.loadedDescriptionChunkCount = 0
     diagnostics.requirementsRequireCallCount = 0
     diagnostics.lookupCount = 0
+    diagnostics.lookupMissCount = 0
     diagnostics.fallbackCount = 0
     diagnostics.fallbackReasons = {}
 end

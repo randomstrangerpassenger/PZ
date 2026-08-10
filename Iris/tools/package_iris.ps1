@@ -128,6 +128,7 @@ function Get-RuntimePayloadIdentity {
         'IrisLayer3DataLookup.lua',
         'UseCaseDescriptions/ChunkIndex.lua',
         'UseCaseDescriptions/LineCountIndex.lua',
+        'IrisRuntimeLookupPackageIdentity.json',
         'IrisUseCaseDescriptionsLookup.lua',
         'IrisRuntimeLookupDiagnostics.lua',
         'IrisUseCaseDescriptions.lua',
@@ -145,9 +146,7 @@ function Get-RuntimePayloadIdentity {
         }
     }
     $liveDataRoot = Join-Path $SourceRoot 'media\lua\client\Iris\Data'
-    Assert-RuntimeLookupIndexIdentity -DataRoot $liveDataRoot -IndexName 'IrisLayer3DataChunkIndex.lua'
-    Assert-RuntimeLookupIndexIdentity -DataRoot $liveDataRoot -IndexName 'UseCaseDescriptions/ChunkIndex.lua'
-    Assert-RuntimeLookupIndexIdentity -DataRoot $liveDataRoot -IndexName 'UseCaseDescriptions/LineCountIndex.lua'
+    $lookupPackageIdentity = Assert-RuntimeLookupPackageParity -DataRoot $liveDataRoot
     $renderedSha = Get-DecodedUtf8EolSha256 -Path $renderedPath
     $manifestSha = Get-DecodedUtf8EolSha256 -Path $manifestPath
     if ($renderedSha -ne $descriptor.rendered.sha256) { throw 'runtime_payload_rendered_freshness_failed' }
@@ -214,14 +213,19 @@ function Get-RuntimePayloadIdentity {
                 sha256 = (Get-FileHash -LiteralPath $supportPath -Algorithm SHA256).Hash.ToLowerInvariant()
             }
         })
+        lookup_package = $lookupPackageIdentity
     }
     if (-not [string]::IsNullOrWhiteSpace($PackageRoot)) {
         $packageData = Join-Path $PackageRoot 'media\lua\client\Iris\Data'
         $packageManifest = Join-Path $packageData 'IrisLayer3DataChunks.lua'
         $packageChunks = Join-Path $packageData 'IrisLayer3DataChunks'
-        Assert-RuntimeLookupIndexIdentity -DataRoot $packageData -IndexName 'IrisLayer3DataChunkIndex.lua'
-        Assert-RuntimeLookupIndexIdentity -DataRoot $packageData -IndexName 'UseCaseDescriptions/ChunkIndex.lua'
-        Assert-RuntimeLookupIndexIdentity -DataRoot $packageData -IndexName 'UseCaseDescriptions/LineCountIndex.lua'
+        $packageLookupPackageIdentity = Assert-RuntimeLookupPackageParity -DataRoot $packageData
+        if (
+            $packageLookupPackageIdentity.generation_id -cne $lookupPackageIdentity.generation_id -or
+            $packageLookupPackageIdentity.source_digest -cne $lookupPackageIdentity.source_digest
+        ) {
+            throw 'runtime_payload_lookup_package_generation_mismatch'
+        }
         $liveNames = @('IrisLayer3DataChunks.lua') + @($chunkRows | ForEach-Object { $_.path }) + $supportRelativePaths
         $packageChunkEntries = @(Get-ChildItem -LiteralPath $packageChunks -Force)
         $unexpectedPackageChunkEntries = @(

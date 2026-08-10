@@ -2555,3 +2555,23 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
   * lifecycle 23 tests, repository evidence 19 tests, current `219/219`, historical `285/285`, focused runtime `4/4`, Lua 103 files와 disposable package는 통과했다. raw diagnostic의 76 tests 중 3 failures/9 errors는 기존 overlay/tooling 결과로 그대로 보존한다. receipt-bound full-gate Run A/B와 deterministic compare는 환경 영수증 경계와 non-green diagnostic prerequisite 때문에 실행 불가능했으며, owner closeout scope amendment로 non-blocking out-of-scope 처리했지 PASS로 다시 쓰지 않았다.
   * 실제 Codex/LLM before-after token count, prompt corpus와 cache-hit telemetry는 수집하지 않았다. 따라서 `77.68% token 절감`이나 모든 작업의 고정 `4.48x` 개선은 승인된 claim이 아니며, 서로 다른 transaction별 배수를 곱하지 않는다.
 * Evidence: `Iris/_docs/refactor/repository_evidence_lightweighting/`의 lifecycle/CAS/cold-archive receipts와 `closeout/` census/measurement/validation/closeout evidence.
+
+---
+
+## Iris codebase optimization — 측정 기반 채택 / partial closeout
+
+* 상태: 2026-08-11 implementation complete / current automated validation PASS / Project Zomboid measurement receipts deferred / overall `partial`
+* 결정:
+
+  * normal lazy lookup miss는 package/index corruption과 분리한다. 검증된 부재 key는 full facade fallback을 유발하지 않고, routing 또는 target identity 결함만 관측 가능한 fault/fallback 경계로 보낸다.
+  * generated UseCase nil optional field와 빈 debug line table은 chunk에서 생략하고 direct compatibility facade에서 기존 shape로 재구성한다. 이 변경은 1,269,883 bytes를 1,137,397 bytes로 줄였고 1,631개 facade row를 보존했다.
+  * Alt Tooltip inactive/warm allocation, Browser search location/copy, capability mask, Ordering decoration은 고정 standalone operation corpus에서 parity와 감소가 함께 확인되어 채택한다. Capability mask는 matching canonical type/category만 negative authority로 사용하며 custom·contradictory·hybrid hint는 method-presence fallback으로 predecessor-visible field를 보존한다.
+  * whole/static projection cache는 purity와 generation invalidation이 닫히지 않아 no-op으로 남긴다. repository evidence CAS도 306개 중복 group 중 모든 lifecycle/consumer/delete gate를 통과한 group이 0이므로 mutation 없는 no-op으로 닫는다.
+  * Python helper 공통화는 Git-tracked tooling 250개 파일의 106개 process boundary와 56개 helper definition을 exact contract로 비교했으나 3개 이상 current consumer group이 0이므로 강제하지 않는다. Runtime operation counter는 기본 off이며 metrics harness가 명시적으로 켠 경우에만 갱신한다.
+  * 실제 PZ sample이 필요한 search debounce, incremental Browser build, Tooltip static attribution, LineCount attribution은 `deferred`다. 이 네 항목 때문에 통합 상태는 `complete`가 아니라 `partial`이다.
+* 검증 경계:
+
+  * exact current `219/219`, terminal current `470 passed / 1 N/A skipped / 112 subtests`, Lua 103 files 및 계획의 focused rows는 exit `0`이다.
+  * clean disposable checkout의 configured full advisory는 `644 passed / 1 N/A skipped / 1 historical failure`다. 유일한 실패는 폐쇄된 live-consumer migration hash 재현 source이고, producer commit의 83-artifact dependency manifest와 exact `base..endpoint` diff/mandatory path 교집합이 0임을 classifier receipt로 확인했다. Current optimization claim 밖으로 분류하지만 full-suite PASS는 주장하지 않는다.
+  * standalone operation count를 PZ frame/heap 성능, release/Workshop/multiplayer/long-session readiness로 확대하지 않는다.
+* Evidence: `Iris/_docs/refactor/codebase_optimization/closeout_receipt.json` 및 같은 디렉터리의 baseline/change decision receipts.

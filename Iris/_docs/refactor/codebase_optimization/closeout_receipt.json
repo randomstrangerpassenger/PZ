@@ -1,0 +1,195 @@
+{
+  "schema_version": "iris-codebase-optimization-closeout-v1",
+  "plan": "docs/iris_codebase_optimization_consolidated_plan.md",
+  "closeout_state": "partial",
+  "plan_base": {
+    "commit": "9dcb16288b79fa911adf601741b913cd71ded145",
+    "tree": "50439b89a3b5bc6f620da395a016eaf3264b8c39"
+  },
+  "implementation_subject": {
+    "commit": "13a39d6b2919bc209f126634c1525dc0d5e8fdaa",
+    "tree": "75cb99163a105f1b5b37d689997903765a57fe0a"
+  },
+  "item_dispositions": [
+    {
+      "item": "Change 1 pytest discovery policy",
+      "disposition": "adopted",
+      "evidence": "Iris/_docs/round3/round3_pytest_source_classification.json",
+      "result": "current authority, configured current discovery, and configured full discovery remain separate fail-closed denominators"
+    },
+    {
+      "item": "Change 2 lazy lookup miss/fault separation and package identity",
+      "disposition": "adopted",
+      "evidence": "Iris/media/lua/client/Iris/Data/IrisRuntimeLookupPackageIdentity.json",
+      "result": "verified absent keys are normal misses; corrupt routing or target packages remain observable faults"
+    },
+    {
+      "item": "Change 3 runtime operation metrics",
+      "disposition": "adopted",
+      "evidence": "Iris/_docs/refactor/codebase_optimization/baseline_0.json",
+      "result": "standalone operation counters and fixed corpus identities are sealed without a Project Zomboid timing claim"
+    },
+    {
+      "item": "Change 4 sparse generated UseCase fields",
+      "disposition": "adopted",
+      "evidence": "Iris/_docs/refactor/codebase_optimization/change_4_sparse_generation.json",
+      "result": "chunk bytes 1269883 -> 1137397; 132486 bytes saved; direct facade rehydrates all 1631 compatibility rows"
+    },
+    {
+      "item": "Change 5 Alt Tooltip allocation",
+      "disposition": "adopted",
+      "evidence": "Iris/_docs/refactor/codebase_optimization/change_5_tooltip.json",
+      "result": "inactive temporary tables 1000 -> 0 and warm line copies 404 -> 0 with parity PASS"
+    },
+    {
+      "item": "Change 6A search location/copy",
+      "disposition": "adopted",
+      "evidence": "Iris/_docs/refactor/codebase_optimization/change_6a_search_location_copy.json",
+      "result": "target operations per corpus 66 -> 24, a 63.63636364% reduction, while public copy-on-read remains one per returned row"
+    },
+    {
+      "item": "Change 6B capability mask",
+      "disposition": "adopted",
+      "evidence": "Iris/_docs/refactor/codebase_optimization/change_6b_capability_mask.json",
+      "result": "engine method calls 2200 -> 1060, a 51.81818182% reduction, with fixed output plus custom-category/hybrid parity"
+    },
+    {
+      "item": "Change 6B whole/static projection cache",
+      "disposition": "no-op",
+      "evidence": "Iris/_docs/refactor/codebase_optimization/change_6b_static_projection.json",
+      "result": "generation-safe purity was not proven; same-fullType inventory-instance and ensure/fromItem order isolation pass, no ScriptItem/Browser/Wiki claim is made, and no model cache was introduced"
+    },
+    {
+      "item": "Change 6C search debounce",
+      "disposition": "deferred",
+      "evidence": "Iris/_docs/refactor/codebase_optimization/change_6c_search_debounce.json",
+      "result": "PZ-6C-SEARCH-01 has no actual Project Zomboid samples"
+    },
+    {
+      "item": "Change 6C incremental Browser build",
+      "disposition": "deferred",
+      "evidence": "Iris/_docs/refactor/codebase_optimization/change_6c_incremental_build.json",
+      "result": "PZ-6C-BUILD-01 has no actual Project Zomboid samples"
+    },
+    {
+      "item": "Change 7 Tooltip static-data attribution",
+      "disposition": "deferred",
+      "evidence": "Iris/_docs/refactor/codebase_optimization/change_7_tooltip_static.json",
+      "result": "PZ-7-TOOLTIP-01 has no actual Project Zomboid samples"
+    },
+    {
+      "item": "Change 7 LineCount attribution",
+      "disposition": "deferred",
+      "evidence": "Iris/_docs/refactor/codebase_optimization/change_7_linecount_validation.json",
+      "result": "PZ-7-LINECOUNT-01 has no actual Project Zomboid samples"
+    },
+    {
+      "item": "Change 8 repository evidence CAS",
+      "disposition": "no-op",
+      "evidence": "Iris/_docs/refactor/codebase_optimization/change_8_cas_decision.json",
+      "result": "306 duplicate groups and 113083892 gross duplicate bytes were inventoried, but zero groups passed every lifecycle/consumer/delete threshold; no mutation was performed"
+    },
+    {
+      "item": "Change 9 batched Git path state",
+      "disposition": "adopted",
+      "evidence": "Iris/build/description/v2/tests/test_round3_git_batch_contract.py",
+      "result": "tracked, ignored, untracked, missing, Unicode, and Git-failure parity are retained with a fixed batch call bound"
+    },
+    {
+      "item": "Change 10 ordering decoration",
+      "disposition": "adopted",
+      "evidence": "Iris/_docs/refactor/codebase_optimization/change_10_ordering.json",
+      "result": "sort-key derivations 64 -> 12, an 81.25% reduction, with anchor/order signature parity"
+    },
+    {
+      "item": "Change 11 Python tooling commonization",
+      "disposition": "no-op",
+      "evidence": "Iris/_docs/refactor/codebase_optimization/python_tooling_decision.json",
+      "result": "250 tracked tooling files, 106 subprocess sites, and 56 helper definitions produced zero exact current groups with at least three consumers; no abstraction was forced"
+    }
+  ],
+  "artifact_hash_bindings": {
+    "baseline_0_denominator_sha256": "54d7d638c391fd6d478516b9c8ada7c2471a772d958e7466dfe166f28bfd1ea0",
+    "baseline_0_result_sha256": "c8cd4dd453547720a716d2489ca932854fe3c6c399f49963f485d44b3e1a4690",
+    "baseline_1_denominator_sha256": "59aa546a4473151044648636067d84437a0b89e9dea73ef6039755056cd47e35",
+    "baseline_1_result_sha256": "9b7d99527cebfa440dfab7d6b3286782b35c65d70acf9fea650b26df092b2526",
+    "sparse_generation_denominator_sha256": "c905ff539ab5dd4de11439d819453264e7b8181ea320fc24053249999389ea1c",
+    "python_tooling_denominator_sha256": "34c0782492910ceb8291ec5d55a9404cdef06f3469eaf066b3102bccc9703621"
+  },
+  "validation": [
+    {
+      "command": "uv run python -m pytest -q --round3-contract=all Iris/build/description/v2/tests/test_round3_pytest_source_classification.py",
+      "exit_code": 0,
+      "result": "5 passed"
+    },
+    {
+      "command": "uv run python -m pytest -q --round3-contract=all Iris/build/description/v2/tests/test_round3_pytest_failure_classification.py",
+      "exit_code": 0,
+      "result": "5 passed"
+    },
+    {
+      "command": "uv run python -m pytest --collect-only -q --round3-contract=current --round3-enforce-denominator",
+      "exit_code": 0,
+      "result": "471 current-selected of 975 configured local items"
+    },
+    {
+      "command": "uv run python -m pytest --collect-only -q --round3-contract=all --round3-enforce-denominator",
+      "exit_code": 0,
+      "result": "975 configured local items"
+    },
+    {
+      "command": "uv run python Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure",
+      "exit_code": 0,
+      "result": "219 tests PASS in 169.586 seconds"
+    },
+    {
+      "command": "plan focused Change 2-11 validation rows",
+      "exit_code": 0,
+      "result": "lookup 5 tests + 3 subtests; metrics 11 + 4; sparse 19 + 6; Tooltip 17 + 4; 6A/6B/6C/7/10 single rows; CAS 15 + 10; Git batch 2; tooling inventory 1; adopted tooling parity N/A"
+    },
+    {
+      "command": "powershell -ExecutionPolicy Bypass -File .\\tools\\check_lua_syntax.ps1",
+      "exit_code": 0,
+      "result": "103 Lua files PASS"
+    },
+    {
+      "command": "uv run python -m pytest -q --round3-contract=current --round3-enforce-denominator",
+      "exit_code": 0,
+      "result": "470 passed, 1 not-applicable skip, 504 deselected, 112 subtests passed in 307.78 seconds"
+    },
+    {
+      "command": "uv run python -m pytest -q --round3-contract=all --round3-enforce-denominator",
+      "execution_environment": "clean disposable checkout at implementation subject",
+      "exit_code": 1,
+      "result": "644 passed, 1 not-applicable skip, 126 subtests passed, 1 historical failure in test_live_consumer_migration_execution.py in 416.61 seconds",
+      "classification": "historical_out_of_scope_for_current_optimization; configured full-suite PASS is not claimed",
+      "classifier_receipt": "Iris/_docs/refactor/codebase_optimization/advisory_full_failure_classification.json",
+      "failing_node": "Iris/build/description/v2/tests/test_live_consumer_migration_execution.py::LiveConsumerMigrationExecutionTest::test_independent_review_hash_manifest_covers_external_docs_without_self_hash",
+      "error_identity": "34 artifacts in the sealed historical independent-review manifest do not match bytes addressable at its producer commit",
+      "dependency_manifest": {
+        "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase7/independent_review_artifact_hash_manifest.json",
+        "commit": "af1d3c2727491eecaf7ac57b2396e278cb572315",
+        "artifact_count": 83,
+        "aggregate_sha256": "09b59a8cb3b3c02c77029943f563355f46b7d4154ccfcf1b6f6dfa4cd013315d"
+      },
+      "modified_dependency_intersection": [],
+      "mandatory_dependency_intersection": []
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0,
+      "result": "PASS"
+    }
+  ],
+  "validation_limits": [
+    "Actual Project Zomboid runtime was unavailable, so no PZ-6C-SEARCH-01, PZ-6C-BUILD-01, PZ-7-TOOLTIP-01, or PZ-7-LINECOUNT-01 samples exist.",
+    "Standalone Lua operation counts do not authorize frame-time, heap, Workshop, release, multiplayer, or long-session claims.",
+    "The configured full advisory execution has one historical hash-reproduction failure; full-suite PASS is not claimed.",
+    "The Python tooling adopted-parity row is not_applicable because the safe adopted consumer set is empty."
+  ],
+  "external_review": {
+    "reviewer": "Codex Reviewer",
+    "status": "pending_closeout_review"
+  },
+  "closeout_reason": "All current and focused automated contracts pass, but four plan-required Project Zomboid measurement receipts remain unavailable; item dispositions therefore reduce to partial rather than complete."
+}

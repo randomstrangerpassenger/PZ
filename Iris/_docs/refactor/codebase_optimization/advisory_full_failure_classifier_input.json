@@ -1,0 +1,43 @@
+{
+  "schema_version": "round3-pytest-failure-classification-input-v1",
+  "source_policy": "Iris/_docs/round3/round3_pytest_source_classification.json",
+  "modified_subject": {
+    "base_commit": "9dcb16288b79fa911adf601741b913cd71ded145",
+    "endpoint": "13a39d6b2919bc209f126634c1525dc0d5e8fdaa"
+  },
+  "source_classes": {
+    "Iris/build/description/v2/tests/test_live_consumer_migration_execution.py": "historical"
+  },
+  "mixed_sources": [],
+  "mandatory_test_ids": [
+    "Iris/build/description/v2/tests/test_round3_pytest_source_classification.py",
+    "Iris/build/description/v2/tests/test_round3_pytest_failure_classification.py",
+    "Iris/build/description/v2/tests/test_lookup_package_parity_contract.py",
+    "Iris/build/description/v2/tests/test_iris_runtime_optimization_metrics.py",
+    "Iris/build/description/v2/tests/test_generated_lua_sparse_fields_contract.py",
+    "Iris/build/description/v2/tests/test_repository_evidence_codec.py",
+    "Iris/build/description/v2/tests/test_repository_evidence_migration.py",
+    "Iris/build/description/v2/tests/test_round3_git_batch_contract.py",
+    "Iris/build/description/v2/tests/test_python_tooling_contract_commonization.py"
+  ],
+  "mandatory_paths": [
+    "docs/iris_codebase_optimization_consolidated_plan.md",
+    "Iris/_docs/round3/round3_test_taxonomy.json",
+    "Iris/_docs/round3/current_route_required_validations.json",
+    "Iris/_docs/round3/round3_full_discovery_denominator.json",
+    "Iris/_docs/round3/round3_pytest_source_classification.json",
+    "Iris/_docs/refactor/repository_evidence_lightweighting/protected_surface_successor_manifest.json"
+  ],
+  "failures": [
+    {
+      "nodeid": "Iris/build/description/v2/tests/test_live_consumer_migration_execution.py::LiveConsumerMigrationExecutionTest::test_independent_review_hash_manifest_covers_external_docs_without_self_hash",
+      "source_file": "Iris/build/description/v2/tests/test_live_consumer_migration_execution.py",
+      "source_level": false,
+      "error_identity": "34 artifacts in the sealed historical independent-review manifest do not match bytes addressable at its producer commit",
+      "observed_mismatch_count": 34,
+      "dependency_manifest": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase7/independent_review_artifact_hash_manifest.json",
+      "dependency_manifest_commit": "af1d3c2727491eecaf7ac57b2396e278cb572315"
+    }
+  ],
+  "requested_downgrades": {}
+}

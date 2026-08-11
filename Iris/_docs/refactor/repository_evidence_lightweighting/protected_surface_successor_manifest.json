@@ -1225,6 +1225,30 @@
           "reason": "Require the second additive reviewer-corrections protection revision in the active chain."
         }
       ]
+    },
+    {
+      "revision_id": "iris_test_precision_lightweighting_lifecycle_fixture_split_v1",
+      "track": "iris_test_precision_lightweighting",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "55bc0578cb0361cc35eb5830a859f66bb2b2872d",
+      "protection_predecessor_tree": "d7ff13ca7a61304a3d7b197eb602b31a532f6a3b",
+      "reason": "Adopt the owner-preapproved mechanics-only extraction from the exact-required artifact lifecycle test while preserving both test identities, assertions, fault signatures, and cleanup contracts.",
+      "approved_activation_deltas": [],
+      "added_protected_rows": [
+        {
+          "path": "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+          "before_git_blob_id": "56077578594dba7c9bc8cd001f0ca37cc229afdc",
+          "before_sha256_lf": "08c42b05f3d5d7e74e685ac44cae92a298ad0fe11807cb71f4bb94f11234645a",
+          "expected_git_blob_id": "c1f9e2af19d20de497f3c5e42ab9f6af9c6ae5ab",
+          "after_sha256_lf": "64c728bf65d5905e991729109b854f9673a471cfad49f4e774599771632a45e5",
+          "role": "common_track_test_contract",
+          "writer": "iris_test_precision_lightweighting",
+          "consumers": ["common_lifecycle_executor_validation", "current_route_validation", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Move fixture and Git orchestration mechanics into an explicit domain-local support module without changing either protected test identity or semantic responsibility."
+        }
+      ]
     }
   ]
 }

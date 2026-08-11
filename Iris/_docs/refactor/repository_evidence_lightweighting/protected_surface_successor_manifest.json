@@ -10,9 +10,9 @@
   },
   "protection_predecessor": {
     "path": "Iris/_docs/refactor/repository_runtime_lightweighting/protected_surface_successor_manifest.json",
-    "git_blob_id": "6b0daaa4a05e5291beacc70b2ea2fd2221b7b0a9",
-    "commit": "fb5cbdad701813dced18f39dfff3ad6e112d07b9",
-    "tree": "2504632504779df9a9ba2a95917df22fc451a6da",
+    "git_blob_id": "bf52d7c048d675a865b8978a4d6cde6e55658da4",
+    "commit": "7a3bb22fb9c3bc5327d16f4e73ca4897ab559c1d",
+    "tree": "04d14bbec11182130c71d72c3a0d14c276ac5b23",
     "interpretation": "active_predecessor_chain"
   },
   "active_revisions": [

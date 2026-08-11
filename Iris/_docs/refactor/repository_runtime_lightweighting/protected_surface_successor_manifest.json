@@ -114,27 +114,6 @@
           "reason": "Append the Tooling Track subject, receipt, inventory, audit, and canonical command-set bindings while preserving every prior checkpoint row."
         }
       ]
-    },
-    {
-      "revision_id": "iris_test_precision_lightweighting_taxonomy_successor_v1",
-      "track": "common",
-      "owner": "repository_owner_user",
-      "approved": true,
-      "protection_predecessor_commit": "55bc0578cb0361cc35eb5830a859f66bb2b2872d",
-      "protection_predecessor_tree": "d7ff13ca7a61304a3d7b197eb602b31a532f6a3b",
-      "reason": "Bind the Type A stronger-invariant removal to the successor exact-current taxonomy without changing route classification or required-validation authority.",
-      "approved_activation_deltas": [
-        {
-          "path": "Iris/_docs/round3/round3_test_taxonomy.json",
-          "before_git_blob_id": "6b8ef1e93a0b9769c6bfcf5ab072c2e36d6b581c",
-          "before_sha256_lf": "175b0a08d60af648501d4c15e69b81b77b5d285d85fb86447011fa4c763a8ccf",
-          "expected_git_blob_id": "a4b8f4ffcdfaa5cdca647fc22939525b0c42280c",
-          "after_sha256_lf": "565855151863b6acfc8968b078e0b6ce93a1b4681fcdc89c5647405732db76e5",
-          "owner": "repository_owner_user",
-          "reason": "Remove one non-required dominated current identity and bind its stronger-invariant successor mapping."
-        }
-      ],
-      "added_protected_rows": []
     }
   ]
 }

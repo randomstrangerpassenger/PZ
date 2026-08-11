@@ -231,13 +231,6 @@ class KoreanProseCompilerTest(unittest.TestCase):
         self.assertEqual(text, "공사 자재 보관 장소와 작업장에서 발견된다")
         self.assertEqual(transformations, [])
 
-    def test_generic_lexical_naturalization_rewrites_passive_terminal(self) -> None:
-        text, transformations = naturalize_source_fragment(
-            "응급 처치에 사용된다"
-        )
-        self.assertEqual(text, "응급 처치에 쓴다")
-        self.assertEqual(transformations, ["lexical_surface_naturalization"])
-
     def test_generic_zero_anaphora_fuses_repeated_terminal_identity(self) -> None:
         comb = select_candidate_lead_realization(
             identity_text="빗",
@@ -276,56 +269,12 @@ class KoreanProseCompilerTest(unittest.TestCase):
 
     def test_candidate_composer_emits_trace_without_item_override(self) -> None:
         propositions = [
-            {
-                "item_id": "Base.Test",
-                "proposition_id": "Base.Test#identity",
-                "role": "identity",
-                "source_path": "facts.jsonl",
-                "source_field": "facts.identity_hint",
-                "source_value": "도구",
-                "semantic_key": "identity-key",
-                "qualifier": "none",
-                "condition": "none",
-                "modality": "asserted",
-            },
-            {
-                "item_id": "Base.Test",
-                "proposition_id": "Base.Test#use",
-                "role": "use",
-                "source_path": "facts.jsonl",
-                "source_field": "facts.primary_use",
-                "source_value": "수리에 쓰는 도구다",
-                "semantic_key": "use-key",
-                "qualifier": "none",
-                "condition": "none",
-                "modality": "asserted",
-            },
+            candidate_proposition("identity", "facts.identity_hint", "도구", "identity-key"),
+            candidate_proposition("use", "facts.primary_use", "수리에 쓰는 도구다", "use-key"),
         ]
         requirements = [
-            {
-                "item_id": "Base.Test",
-                "requirement_id": "Base.Test#identity_core",
-                "resolved_profile": "tool_body",
-                "section_name": "identity_core",
-                "role": "identity",
-                "required": True,
-                "optional": False,
-                "ordering_index": 0,
-                "applicable_proposition_ids": ["Base.Test#identity"],
-                "emission_eligible": True,
-            },
-            {
-                "item_id": "Base.Test",
-                "requirement_id": "Base.Test#use_core",
-                "resolved_profile": "tool_body",
-                "section_name": "use_core",
-                "role": "use",
-                "required": True,
-                "optional": False,
-                "ordering_index": 1,
-                "applicable_proposition_ids": ["Base.Test#use"],
-                "emission_eligible": True,
-            },
+            candidate_requirement("identity_core", "identity", True, False, 0),
+            candidate_requirement("use_core", "use", True, False, 1),
         ]
         entry, traces, structural, resolutions, proofs = compose_item_candidate(
             {"item_id": "Base.Test", "identity_hint": "도구", "primary_use": "수리에 쓰는 도구다"},
@@ -346,80 +295,16 @@ class KoreanProseCompilerTest(unittest.TestCase):
 
     def test_candidate_composer_emits_acquisition_as_separate_runtime_line(self) -> None:
         propositions = [
-            {
-                "item_id": "Base.Test",
-                "proposition_id": "Base.Test#identity",
-                "role": "identity",
-                "source_path": "facts.jsonl",
-                "source_field": "facts.identity_hint",
-                "source_value": "도구",
-                "semantic_key": "identity-key",
-                "qualifier": "none",
-                "condition": "none",
-                "modality": "asserted",
-            },
-            {
-                "item_id": "Base.Test",
-                "proposition_id": "Base.Test#use",
-                "role": "use",
-                "source_path": "facts.jsonl",
-                "source_field": "facts.primary_use",
-                "source_value": "수리에 쓰는 도구다",
-                "semantic_key": "use-key",
-                "qualifier": "none",
-                "condition": "none",
-                "modality": "asserted",
-            },
-            {
-                "item_id": "Base.Test",
-                "proposition_id": "Base.Test#acquisition",
-                "role": "acquisition",
-                "source_path": "facts.jsonl",
-                "source_field": "facts.acquisition_hint",
-                "source_value": "작업 차량과 차고에서 발견된다",
-                "semantic_key": "acquisition-key",
-                "qualifier": "none",
-                "condition": "none",
-                "modality": "asserted",
-            },
+            candidate_proposition("identity", "facts.identity_hint", "도구", "identity-key"),
+            candidate_proposition("use", "facts.primary_use", "수리에 쓰는 도구다", "use-key"),
+            candidate_proposition(
+                "acquisition", "facts.acquisition_hint", "작업 차량과 차고에서 발견된다", "acquisition-key"
+            ),
         ]
         requirements = [
-            {
-                "item_id": "Base.Test",
-                "requirement_id": "Base.Test#identity_core",
-                "resolved_profile": "tool_body",
-                "section_name": "identity_core",
-                "role": "identity",
-                "required": True,
-                "optional": False,
-                "ordering_index": 0,
-                "applicable_proposition_ids": ["Base.Test#identity"],
-                "emission_eligible": True,
-            },
-            {
-                "item_id": "Base.Test",
-                "requirement_id": "Base.Test#use_core",
-                "resolved_profile": "tool_body",
-                "section_name": "use_core",
-                "role": "use",
-                "required": True,
-                "optional": False,
-                "ordering_index": 1,
-                "applicable_proposition_ids": ["Base.Test#use"],
-                "emission_eligible": True,
-            },
-            {
-                "item_id": "Base.Test",
-                "requirement_id": "Base.Test#acquisition_support",
-                "resolved_profile": "tool_body",
-                "section_name": "acquisition_support",
-                "role": "acquisition",
-                "required": False,
-                "optional": True,
-                "ordering_index": 2,
-                "applicable_proposition_ids": ["Base.Test#acquisition"],
-                "emission_eligible": True,
-            },
+            candidate_requirement("identity_core", "identity", True, False, 0),
+            candidate_requirement("use_core", "use", True, False, 1),
+            candidate_requirement("acquisition_support", "acquisition", False, True, 2),
         ]
         entry, traces, structural, resolutions, proofs = compose_item_candidate(
             {

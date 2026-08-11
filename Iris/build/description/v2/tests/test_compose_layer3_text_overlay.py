@@ -443,6 +443,100 @@ class ComposeLayer3TextOverlayTest(unittest.TestCase):
             if tmp_dir.exists():
                 shutil.rmtree(tmp_dir)
 
+    def test_identity_only_drops_generic_identity_echo(self) -> None:
+        tmp_dir = external_test_path("_tmp_compose_overlay_identity_only")
+        if tmp_dir.exists():
+            shutil.rmtree(tmp_dir)
+        tmp_dir.mkdir(parents=True, exist_ok=True)
+        try:
+            facts_path = tmp_dir / "facts.jsonl"
+            decisions_path = tmp_dir / "decisions.jsonl"
+            profiles_path = tmp_dir / "profiles.json"
+            overlay_path = tmp_dir / "overlay.jsonl"
+            output_path = tmp_dir / "rendered.json"
+            style_log_path = tmp_dir / "style_log.jsonl"
+            requeue_candidates_path = tmp_dir / "requeue.jsonl"
+
+            write_jsonl(
+                facts_path,
+                [{
+                    "item_id": "Base.Identity",
+                    "identity_hint": "도구",
+                    "acquisition_hint": "창고에서 발견된다",
+                    "primary_use": "도구다",
+                    "secondary_use": None,
+                    "processing_hint": None,
+                    "special_context": None,
+                    "limitation_hint": None,
+                    "notes": None,
+                    "fact_origin": {"primary_use": ["identity_fallback"]},
+                }],
+            )
+            write_jsonl(
+                decisions_path,
+                [{
+                    "item_id": "Base.Identity",
+                    "state": "active",
+                    "compose_profile": "interaction_tool",
+                    "override_mode": "none",
+                    "selected_cluster": None,
+                }],
+            )
+            write_jsonl(
+                overlay_path,
+                [{
+                    "item_id": "Base.Identity",
+                    "layer3_role_check": "IDENTITY_ONLY",
+                    "representative_slot": "identity_hint",
+                    "body_slot_hints": {
+                        "secondary_use_present": False,
+                        "distinctive_mechanic_present": False,
+                        "acquisition_should_trail": True,
+                        "item_specific_cue_required": True,
+                    },
+                    "representative_slot_override": False,
+                }],
+            )
+            profiles_path.write_text(
+                json.dumps({
+                    "interaction_tool": {
+                        "sentence_plan": [
+                            {"slots": ["identity_hint"], "required": True, "template": "{identity_hint}."},
+                            {"slots": ["primary_use"], "required": True, "template": "{primary_use}."},
+                            {"slots": ["acquisition_hint"], "required": False, "template": "{acquisition_hint}."},
+                        ]
+                    }
+                }, ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+            rendered = build_rendered(
+                facts_path,
+                decisions_path,
+                profiles_path,
+                output_path,
+                overlay_path,
+                style_log_path,
+                requeue_candidates_path,
+                compose_context=HISTORICAL_COMPOSE_CONTEXT,
+            )
+            entry = rendered["entries"]["Base.Identity"]
+            requeue_rows = [
+                json.loads(line)
+                for line in requeue_candidates_path.read_text(encoding="utf-8").splitlines()
+                if line
+            ]
+            self.assertEqual(entry["text_ko"], "도구. 창고에서 발견된다.")
+            self.assertEqual(entry["quality_flag"], "identity_only")
+            self.assertEqual(requeue_rows, [{
+                "item_id": "Base.Identity",
+                "layer3_role_check": "IDENTITY_ONLY",
+                "quality_flag": "identity_only",
+                "requeue_reason": "NEEDS_SOURCE_EXPANSION",
+            }])
+        finally:
+            if tmp_dir.exists():
+                shutil.rmtree(tmp_dir)
+
     def test_secondary_and_distinctive_slots_render_between_primary_and_acquisition(self) -> None:
         tmp_dir = external_test_path(
             "_tmp_compose_overlay_secondary_distinctive"
@@ -561,7 +655,6 @@ class ComposeLayer3TextOverlayTest(unittest.TestCase):
             overlay_path = tmp_dir / "overlay.jsonl"
             output_path = tmp_dir / "rendered.json"
             style_log_path = tmp_dir / "style_log.jsonl"
-            requeue_candidates_path = tmp_dir / "requeue.jsonl"
 
             write_jsonl(
                 facts_path,
@@ -639,22 +732,12 @@ class ComposeLayer3TextOverlayTest(unittest.TestCase):
                 output_path,
                 overlay_path,
                 style_log_path,
-                requeue_candidates_path,
                 compose_context=HISTORICAL_COMPOSE_CONTEXT,
             )
 
             entry = rendered["entries"]["Base.Identity"]
             self.assertEqual(entry["text_ko"], "도구. 창고에서 발견된다.")
             self.assertEqual(entry["quality_flag"], "identity_only")
-            self.assertEqual(
-                [json.loads(line) for line in requeue_candidates_path.read_text(encoding="utf-8").splitlines() if line],
-                [{
-                    "item_id": "Base.Identity",
-                    "layer3_role_check": "IDENTITY_ONLY",
-                    "quality_flag": "identity_only",
-                    "requeue_reason": "NEEDS_SOURCE_EXPANSION",
-                }],
-            )
         finally:
             if tmp_dir.exists():
                 shutil.rmtree(tmp_dir)

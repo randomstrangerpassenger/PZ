@@ -22,6 +22,23 @@ def main() -> int:
     for row in migrations:
         predecessor = row["predecessor_test_id"]
         successors = row.get("successor_test_ids", [])
+        authority_role = row.get("authority_role", "exact current")
+        if authority_role == "configured current non-exact":
+            if predecessor in current_ids or predecessor in required_ids:
+                errors.append(f"non-exact predecessor is exact-bound: {predecessor}")
+            exact_bound_successors = sorted(
+                value for value in successors if value in current_ids or value in required_ids
+            )
+            if exact_bound_successors:
+                errors.append(
+                    f"non-exact migration crosses exact authority for {predecessor}: "
+                    f"{exact_bound_successors}"
+                )
+            if not successors:
+                errors.append(f"non-exact migration has no successor: {predecessor}")
+            if len(successors) != len(set(successors)):
+                errors.append(f"dual successor binding for {predecessor}")
+            continue
         if predecessor in current_ids:
             errors.append(f"stale predecessor remains current: {predecessor}")
         if predecessor in required_ids:

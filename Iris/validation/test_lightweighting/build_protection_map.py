@@ -15,6 +15,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Build a conservative protection map")
     parser.add_argument("--inventory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--fault-matrix-output", type=Path)
     args = parser.parse_args()
     rows = read_jsonl(args.inventory)
     mapped = []
@@ -43,6 +44,24 @@ def main() -> int:
     if len(mapped) != len(rows):
         raise ContractError("inventory to protection-map reconciliation failed")
     write_jsonl(args.output, mapped)
+    if args.fault_matrix_output:
+        fault_to_tests: dict[str, list[str]] = {}
+        for row in mapped:
+            for key in ("failure_conditions", "fail_closed_paths"):
+                for fault_id in row[key]:
+                    fault_to_tests.setdefault(fault_id, []).append(row["exact_test_id"])
+        write_jsonl(
+            args.fault_matrix_output,
+            (
+                {
+                    "fault_id": fault_id,
+                    "injection_kind": "contract_equivalent_name_derived_v1",
+                    "detecting_test_ids": stable_set(test_ids),
+                    "critical": True,
+                }
+                for fault_id, test_ids in sorted(fault_to_tests.items())
+            ),
+        )
     return 0
 
 

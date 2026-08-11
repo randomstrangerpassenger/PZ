@@ -1,8 +1,8 @@
 {
-  "executed_case_count": 584,
+  "executed_case_count": 646,
   "files_ge_1000_count": 2,
   "files_ge_500_count": 10,
-  "input_row_count": 584,
+  "input_row_count": 646,
   "large_method_metric_definition": "python_ast_test_method_source_span_v1",
   "large_test_method_count": 22,
   "large_test_method_loc_threshold": 100,
@@ -186,11 +186,11 @@
   ],
   "max_test_method_LOC": 893,
   "physical_line_rule": "bytes_splitlines_v1",
-  "pytest_node_id_count": 584,
+  "pytest_node_id_count": 646,
   "required_validations_sha256": "55267df64c2f545265b951eacdc12a19a009e80551f26ae575b2a3b1b1650927",
   "schema_version": "iris_test_precision_lightweighting_complexity_v1",
   "selection_rule": "taxonomy_sources_plus_explicit_round_support_v1",
-  "semantic_scenario_count": 584,
+  "semantic_scenario_count": 646,
   "subject": {
     "commit": "55bc0578cb0361cc35eb5830a859f66bb2b2872d",
     "tree": "d7ff13ca7a61304a3d7b197eb602b31a532f6a3b"

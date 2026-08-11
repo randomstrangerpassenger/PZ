@@ -24,6 +24,7 @@ def main() -> int:
     parser.add_argument("--taxonomy", default="Iris/_docs/round3/round3_test_taxonomy.json")
     parser.add_argument("--required", default="Iris/_docs/round3/current_route_required_validations.json")
     parser.add_argument("--support-source", action="append", default=[])
+    parser.add_argument("--configured-node-list", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--scenario-output", type=Path, required=True)
     parser.add_argument("--complexity-output", type=Path, required=True)
@@ -72,17 +73,34 @@ def main() -> int:
         })
         methods.extend({"source_file": relative, **row} for row in file_methods)
 
+    taxonomy_by_id = {row["test_id"]: row for row in rows}
+    collected_nodes: list[tuple[str, str]] = []
+    if args.configured_node_list:
+        for line in args.configured_node_list.read_text(encoding="utf-8-sig").splitlines():
+            if not line.startswith("Iris/") or "::" not in line:
+                continue
+            parts = line.split("::")
+            if len(parts) != 3:
+                raise ContractError(f"unsupported configured node identity: {line}")
+            module = Path(parts[0]).stem
+            collected_nodes.append((line, f"{module}.{parts[1]}.{parts[2]}"))
+    else:
+        collected_nodes = [
+            (f"{row['source_file']}::{row['test_id'].rsplit('.', 2)[-2]}::{row['test_id'].rsplit('.', 1)[-1]}", row["test_id"])
+            for row in rows
+        ]
     node_rows = []
-    for row in rows:
-        test_id = row["test_id"]
+    for pytest_node_id, test_id in collected_nodes:
+        taxonomy_row = taxonomy_by_id.get(test_id, {})
+        source_file = pytest_node_id.split("::", 1)[0]
         node_rows.append({
-            "source_file": row["source_file"],
-            "pytest_node_id": f"{row['source_file']}::{test_id.rsplit('.', 2)[-2]}::{test_id.rsplit('.', 1)[-1]}",
+            "source_file": source_file,
+            "pytest_node_id": pytest_node_id,
             "exact_test_id": test_id,
-            "route": row.get("contract_class", "current"),
-            "authority_role": row.get("routing_status", "exact_current"),
+            "route": taxonomy_row.get("contract_class", "configured_policy"),
+            "authority_role": taxonomy_row.get("routing_status", "configured_non_exact"),
             "required_validation_bindings": [test_id] if test_id in required_ids else [],
-            "regression_provenance": row.get("reason", ""),
+            "regression_provenance": taxonomy_row.get("reason", "configured discovery contract"),
         })
 
     write_jsonl(args.output, node_rows)

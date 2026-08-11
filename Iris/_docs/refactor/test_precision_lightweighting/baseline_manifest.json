@@ -31,8 +31,8 @@
   "large_file_metric_definition_frozen": true,
   "large_method_metric_definition_frozen": true,
   "large_test_method_loc_threshold": 100,
-  "test_universe_sha256": "d0b6a7c8eb2647cf50c3db2d4f0d813f91e90b5eadf0ff5573065737e276c598",
-  "protection_map_sha256": "1264177204e02dceca04a90fc28f1ec7f769ce5fe388b3fbbf8275fed0ec6604",
-  "fault_matrix_sha256": "4078b07f76773cfbb5df38e009f4a00ab8423449b6244461d10e667464f20f52",
-  "detection_baseline_sha256": "8ac517e24087fb19bb10637ea26b5d7be9e26bcbd3aea71b2e5055195657c003"
+  "test_universe_sha256": "35afd7d4b42e92cd79338ba2d66d2a36b134fe1248d16f24b07c67088791db47",
+  "protection_map_sha256": "48a8f5a1843105e2026ba0897eee5b47585c0e6ea8e7b5a9c8066d154bab396b",
+  "fault_matrix_sha256": "ea6350402b3d8233f88b7b90762b31a948500c7d6ff1e2078ea4edaf95a3b65f",
+  "detection_baseline_sha256": "64b0954ee5676745a0ac75c7a38e257b789af6b5db7f9be45ff0da3eb93fcdd3"
 }

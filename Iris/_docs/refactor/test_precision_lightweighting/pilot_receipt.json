@@ -1,0 +1,17 @@
+{
+  "schema_version": "iris_test_precision_lightweighting_pilot_receipt_v1",
+  "pilot_family": "artifact_lifecycle",
+  "implementation_subject": {"commit":"8a10ac42ea6f8d5759e521ad041e5ee161bf1311","tree":"932da95829eb69e7dc5afa2b7145387979061873"},
+  "predecessor_subject": "55bc0578cb0361cc35eb5830a859f66bb2b2872d",
+  "test_source_loc_before": 1732,
+  "test_source_loc_after": 945,
+  "support_module_loc_after": 787,
+  "family_total_loc_delta": 0,
+  "files_ge_1000_delta": -1,
+  "protected_test_identity_delta": 0,
+  "helper_semantic_defaults": 0,
+  "exact_current_result": {"status":"PASS","passed":219,"exit_code":0,"elapsed_seconds":229.944},
+  "exact_current_source_mutation": 0,
+  "status": "PASS",
+  "scope_note": "The pilot extracts mechanics only; both exact-required lifecycle nodes and their assertions remain in the original source."
+}

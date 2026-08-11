@@ -1,0 +1,25 @@
+{
+  "a1_all_reduction_conditions_satisfied": true,
+  "files_ge_1000_delta": -1,
+  "files_ge_500_delta": -1,
+  "gross_removed_node_count": 1,
+  "large_file_metric_definition_matches_baseline": true,
+  "large_method_metric_definition_matches_baseline": true,
+  "large_test_method_count_delta": -2,
+  "localization_split_added_node_count": 0,
+  "losses": {
+    "branch_conditions": [],
+    "contract_ids": [],
+    "fail_closed_paths": [],
+    "input_partitions": [],
+    "interaction_states": []
+  },
+  "net_node_delta": -1,
+  "precision_regression": 0,
+  "pytest_node_count_delta": -1,
+  "reduction_axis_values_recorded": true,
+  "reduction_outcome": "reduced",
+  "removed_redundant_executed_scenario_count": 1,
+  "schema_version": "iris_test_precision_lightweighting_precision_comparison_v1",
+  "test_support_LOC_delta": -90
+}

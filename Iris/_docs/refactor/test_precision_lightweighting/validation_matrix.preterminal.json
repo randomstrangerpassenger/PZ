@@ -1,0 +1,26 @@
+{
+  "schema_version": "iris_test_precision_lightweighting_validation_matrix_preterminal_v1",
+  "implementation_subject": {"commit":"8a10ac42ea6f8d5759e521ad041e5ee161bf1311","tree":"932da95829eb69e7dc5afa2b7145387979061873"},
+  "environment_class": "clean_checkout_only",
+  "rows": [
+    {"gate":"configured_collection","status":"PASS","exit_code":0,"selected":645},
+    {"gate":"focused_affected_files","status":"FAIL_SOURCE_MUTATION","exit_code":0,"passed":35,"subtests_passed":14,"source_mutation":"existing residual-seal staging regeneration"},
+    {"gate":"exact_current","status":"PASS","exit_code":0,"passed":219,"source_mutation":0},
+    {"gate":"configured_current","status":"FAIL","exit_code":1,"passed":458,"skipped":1,"failed":3,"errors":9,"deselected":174,"subtests_passed":112,"failure_class":"existing clean-checkout reseal directory and protected-state drift"},
+    {"gate":"historical","status":"BLOCKED","exit_codes":[3,4,1],"failure_class":"configured route bootstrap and mixed-item denominator harness defect"},
+    {"gate":"diagnostic","status":"NOT_RUN_AFTER_FAIL_CLOSED_BLOCKER"},
+    {"gate":"configured_all_advisory","status":"NOT_RUN_AFTER_FAIL_CLOSED_BLOCKER"},
+    {"gate":"plan_local_static_validators","status":"PASS","exit_code":0},
+    {"gate":"terminal_retrieval_supporting_test","status":"PASS","exit_code":0,"passed":3}
+  ],
+  "reduction_axis_values_recorded": true,
+  "a1_all_reduction_conditions_satisfied": true,
+  "precision_regression": 0,
+  "fault_matrix_sha256_matches_frozen_baseline": true,
+  "large_file_metric_definition_matches_baseline": true,
+  "large_method_metric_definition_matches_baseline": true,
+  "plan_local_validator_metrics_reporting_only": true,
+  "change8_safety_exit_gate": "FAIL",
+  "terminal_entry_authorized": false,
+  "terminal_non_entry_reason": "configured-current failed and historical route could not be executed through the canonical denominator harness"
+}

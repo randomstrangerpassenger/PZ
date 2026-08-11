@@ -1,0 +1,22 @@
+{
+  "schema_version": "iris_test_precision_lightweighting_validator_dependency_manifest_v1",
+  "round_scope": "iris_test_precision_lightweighting_20260812",
+  "gate_registered_validator_count": 0,
+  "validator_dependency_closure_complete": true,
+  "post_closeout_disposition": "retain_round_reproduction_evidence",
+  "rows": [
+    {"path":"Iris/validation/test_lightweighting/collect_test_inventory.py","git_blob_id":"8410b57afe077e1d284cf0b7dbe3dcc850db3fa0","sha256":"0912ccbc509333f5659a4ac032d3db2c6da1773a0c6e686846544c1226f52099","loc":139,"role":"round_scoped_producer","gate_registered":false},
+    {"path":"Iris/validation/test_lightweighting/build_protection_map.py","git_blob_id":"d48c792162ca6c80d98bb6ba14a9524cc05d4adb","sha256":"74b367c669067666a4b7c9d43bf258fb95995af96853a8c6d70f60abc53f45a3","loc":89,"role":"round_scoped_producer","gate_registered":false},
+    {"path":"Iris/validation/test_lightweighting/build_detection_baseline.py","git_blob_id":"c97e6f5b953d479e2c47f704fcc1a0e4dcf4ff77","sha256":"6532d735dca78770e38bc81ead47c3f3636bbcf9f35bf136b8e142f90ab51726","loc":44,"role":"round_scoped_producer","gate_registered":false},
+    {"path":"Iris/validation/test_lightweighting/compare_failure_localization.py","git_blob_id":"a48b2c5d4a074c40563122451f67aadbe6b3bdbc","sha256":"9f703949ccfaa7f1962844bfb0aeff81f79f8d804635e140476eaf028bd0a98f","loc":34,"role":"round_scoped_comparator","gate_registered":false},
+    {"path":"Iris/validation/test_lightweighting/validate_dominance.py","git_blob_id":"52ce869877558bc350f7dbb781d3379988f2394b","sha256":"73d4848e5675f51c918ff9f427a01f0f87dbc81aa9637b1ac2a39b859ccea15f","loc":56,"role":"round_scoped_validator","gate_registered":false},
+    {"path":"Iris/validation/test_lightweighting/validate_identity_migration.py","git_blob_id":"0886947f9442011612b4448df60606b4b5e56ba9","sha256":"4ed003e82bff8638913733d713ee08acc2829b063eacdd1bcc50da71b3ac4d1d","loc":71,"role":"round_scoped_validator","gate_registered":false},
+    {"path":"Iris/validation/test_lightweighting/compare_precision.py","git_blob_id":"e63b71593ec96df1868f2b462979b53515f72d81","sha256":"affc080ab8b6a091b04b1803bbf50f38dec25862516276b10052e1e2703ced69","loc":75,"role":"round_scoped_comparator","gate_registered":false},
+    {"path":"Iris/validation/test_lightweighting/validate_terminal_evidence_bundle.py","git_blob_id":"5dddfd7d14e26850e841ee1fdf68187a681e4b74","sha256":"1695f41f81fde9ca8e0a08b154fc2dd47c2deb53d036597a49dce03eb9839617","loc":163,"role":"round_scoped_validator","gate_registered":false},
+    {"path":"Iris/validation/test_lightweighting/tests/test_validate_terminal_evidence_bundle.py","git_blob_id":"fb0f4da0b81618fe44340c0d6542ccf39b6a078d","sha256":"fa06984492b292e348964a1e41ae02e0245fcd68842072f13f5990aa7968ba25","loc":128,"role":"round_scoped_supporting_test","gate_registered":false}
+  ],
+  "plan_local_validator_file_count": 8,
+  "plan_local_validator_LOC": 671,
+  "plan_local_validator_metrics_reporting_only": true,
+  "round_scoped_validator_test_count": 1
+}

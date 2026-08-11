@@ -1,0 +1,18 @@
+{
+  "schema_version": "iris_test_precision_lightweighting_complexity_wave_v1",
+  "wave": "compose_fixture_and_korean_candidate_mechanics",
+  "contract_owner": "korean_prose_and_compose",
+  "compose_source_loc_before": 764,
+  "compose_source_loc_after": 747,
+  "korean_source_loc_before": 511,
+  "korean_source_loc_after": 368,
+  "korean_support_loc_after": 69,
+  "test_support_loc_delta": -91,
+  "files_ge_500_delta": -1,
+  "files_ge_1000_delta": 0,
+  "gross_removed_node_count": 1,
+  "localization_split_added_node_count": 0,
+  "net_node_delta": -1,
+  "precision_regression": 0,
+  "status": "PASS"
+}

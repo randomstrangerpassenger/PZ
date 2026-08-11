@@ -1,0 +1,14 @@
+{
+  "schema_version": "iris_test_precision_lightweighting_complexity_wave_v1",
+  "wave": "artifact_lifecycle_fixture_split",
+  "contract_owner": "artifact_lifecycle",
+  "source_loc_before": 1732,
+  "source_loc_after": 945,
+  "support_loc_after": 787,
+  "test_support_loc_delta": 0,
+  "files_ge_500_delta": 1,
+  "files_ge_1000_delta": -1,
+  "node_delta": 0,
+  "identity_preserved": true,
+  "status": "PASS"
+}

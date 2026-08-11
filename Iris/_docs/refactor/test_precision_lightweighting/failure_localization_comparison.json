@@ -1,0 +1,6 @@
+{
+  "failure_localization_regression": 0,
+  "missing_faults": [],
+  "schema_version": "iris_test_precision_lightweighting_failure_localization_comparison_v1",
+  "unlocalized_faults": []
+}

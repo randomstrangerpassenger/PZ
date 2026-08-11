@@ -1,0 +1,15 @@
+{
+  "schema_version": "iris_test_precision_lightweighting_complexity_wave_v1",
+  "wave": "runtime_residual_fixture_split",
+  "contract_owner": "runtime_payload_residual_seal",
+  "source_loc_before": 547,
+  "source_loc_after": 479,
+  "support_loc_after": 68,
+  "test_support_loc_delta": 0,
+  "files_ge_500_delta": -1,
+  "node_delta": 0,
+  "focused_combined_result": {"status":"PASS","passed":35,"subtests_passed":14,"exit_code":0,"elapsed_seconds":67.28},
+  "focused_combined_source_mutation": "existing residual-seal staging regeneration observed",
+  "exact_current_source_mutation": 0,
+  "status": "PASS_WITH_FOCUSED_MUTATION_TRACE"
+}

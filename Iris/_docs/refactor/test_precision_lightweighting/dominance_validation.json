@@ -1,0 +1,8 @@
+{
+  "candidate_count": 1,
+  "errors": [],
+  "evidence_free_elimination_candidate": 0,
+  "material_branch_evidence_gap": 0,
+  "schema_version": "iris_test_precision_lightweighting_dominance_validation_v1",
+  "status": "PASS"
+}

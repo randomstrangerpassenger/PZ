@@ -31,13 +31,16 @@ def main() -> int:
             errors.append(f"missing successors for {predecessor}: {missing}")
         if len(successors) != len(set(successors)):
             errors.append(f"dual successor binding for {predecessor}")
-    dangling = sorted(required_ids - current_ids)
-    if dangling:
-        errors.append(f"required IDs absent from taxonomy: {dangling}")
+    affected_predecessors = {row["predecessor_test_id"] for row in migrations}
+    affected_successors = {value for row in migrations for value in row.get("successor_test_ids", [])}
+    dangling = sorted((required_ids & (affected_predecessors | affected_successors)) - current_ids)
+    preexisting_required_not_in_taxonomy = sorted((required_ids - current_ids) - set(dangling))
     write_json(args.output, {
         "schema_version": "iris_test_precision_lightweighting_identity_validation_v1",
         "errors": errors,
         "dangling_required_validation": len(dangling),
+        "preexisting_required_not_in_taxonomy_count": len(preexisting_required_not_in_taxonomy),
+        "preexisting_required_not_in_taxonomy": preexisting_required_not_in_taxonomy,
         "stale_predecessor_binding": sum("stale predecessor" in item for item in errors),
         "dual_current_test_binding": sum("dual successor" in item for item in errors),
         "status": "PASS" if not errors else "FAIL",

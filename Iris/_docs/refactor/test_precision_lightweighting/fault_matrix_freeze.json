@@ -1,0 +1,10 @@
+{
+  "schema_version": "iris_test_precision_lightweighting_fault_matrix_freeze_v1",
+  "accepted_baseline_commit": "55bc0578cb0361cc35eb5830a859f66bb2b2872d",
+  "accepted_baseline_tree": "d7ff13ca7a61304a3d7b197eb602b31a532f6a3b",
+  "protection_map_sha256": "1264177204e02dceca04a90fc28f1ec7f769ce5fe388b3fbbf8275fed0ec6604",
+  "fault_matrix_sha256": "4078b07f76773cfbb5df38e009f4a00ab8423449b6244461d10e667464f20f52",
+  "protection_map_failure_conditions_not_in_matrix": 0,
+  "protection_map_fail_closed_paths_not_in_matrix": 0,
+  "freeze_precedes_disposition": true
+}

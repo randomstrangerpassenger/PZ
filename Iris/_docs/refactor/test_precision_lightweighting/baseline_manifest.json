@@ -1,0 +1,38 @@
+{
+  "schema_version": "iris_test_precision_lightweighting_baseline_manifest_v1",
+  "accepted_subject": {
+    "commit": "55bc0578cb0361cc35eb5830a859f66bb2b2872d",
+    "tree": "d7ff13ca7a61304a3d7b197eb602b31a532f6a3b"
+  },
+  "environment_class_of_accepted_baseline": "clean_checkout_only",
+  "denominator_working_overlay": {
+    "environment_class": "dirty_working_overlay_diagnostic_only",
+    "accepted_for_comparison": false,
+    "reason": "Pre-existing owner changes include production and unrelated test/evidence surfaces."
+  },
+  "denominator_clean_checkout": {
+    "configured_all_collected_nodes": 646,
+    "exact_taxonomy_nodes": 584,
+    "exact_current_nodes": 219,
+    "historical_nodes": 285,
+    "diagnostic_nodes": 80,
+    "configured_test_sources": 115,
+    "test_support_files_including_mandatory_plan_local_test": 116,
+    "test_support_LOC": 27709,
+    "files_ge_500_count": 10,
+    "files_ge_1000_count": 2,
+    "large_test_method_count": 22
+  },
+  "new_test_source_collected_by_configured_discovery": false,
+  "new_test_source_policy_classification": "not_applicable",
+  "new_test_source_registration_branch_consistent": true,
+  "new_test_source_in_test_support_file_universe": true,
+  "baseline_frozen_after_plan_local_source_registration": true,
+  "large_file_metric_definition_frozen": true,
+  "large_method_metric_definition_frozen": true,
+  "large_test_method_loc_threshold": 100,
+  "test_universe_sha256": "d0b6a7c8eb2647cf50c3db2d4f0d813f91e90b5eadf0ff5573065737e276c598",
+  "protection_map_sha256": "1264177204e02dceca04a90fc28f1ec7f769ce5fe388b3fbbf8275fed0ec6604",
+  "fault_matrix_sha256": "4078b07f76773cfbb5df38e009f4a00ab8423449b6244461d10e667464f20f52",
+  "detection_baseline_sha256": "8ac517e24087fb19bb10637ea26b5d7be9e26bcbd3aea71b2e5055195657c003"
+}

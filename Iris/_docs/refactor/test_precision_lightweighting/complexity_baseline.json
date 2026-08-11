@@ -1,0 +1,1246 @@
+{
+  "executed_case_count": 584,
+  "files_ge_1000_count": 2,
+  "files_ge_500_count": 10,
+  "input_row_count": 584,
+  "large_method_metric_definition": "python_ast_test_method_source_span_v1",
+  "large_test_method_count": 22,
+  "large_test_method_loc_threshold": 100,
+  "large_test_methods": [
+    {
+      "end_lineno": 1683,
+      "lineno": 791,
+      "loc": 893,
+      "name": "test_full_chain_is_receipt_bound_and_exact_leaf_delete_is_recoverable",
+      "owner": "ArtifactLifecycleExecutorTest",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py"
+    },
+    {
+      "end_lineno": 160,
+      "lineno": 49,
+      "loc": 112,
+      "name": "test_structural_reclassification_emits_dual_axis_default_summary",
+      "owner": "BodyPlanPhaseDETest",
+      "source_file": "Iris/build/description/v2/tests/test_body_plan_phase_d_e.py"
+    },
+    {
+      "end_lineno": 253,
+      "lineno": 33,
+      "loc": 221,
+      "name": "test_promotes_full_acquisition_bundle_into_sprint7_authority_preview",
+      "owner": "BuildAcquisitionSprint7AuthorityPromotionTest",
+      "source_file": "Iris/build/description/v2/tests/test_build_acquisition_sprint7_authority_promotion.py"
+    },
+    {
+      "end_lineno": 235,
+      "lineno": 35,
+      "loc": 201,
+      "name": "test_applies_cleanup_and_rebuilds_authority_preview",
+      "owner": "BuildBodyRoleLexicalCleanupAuthorityTest",
+      "source_file": "Iris/build/description/v2/tests/test_build_body_role_lexical_cleanup_authority.py"
+    },
+    {
+      "end_lineno": 140,
+      "lineno": 28,
+      "loc": 113,
+      "name": "test_build_rendered_applies_quality_flag_from_overlay",
+      "owner": "ComposeLayer3TextOverlayTest",
+      "source_file": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py"
+    },
+    {
+      "end_lineno": 251,
+      "lineno": 142,
+      "loc": 110,
+      "name": "test_acq_dominant_sets_flag_only_when_reordered",
+      "owner": "ComposeLayer3TextOverlayTest",
+      "source_file": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py"
+    },
+    {
+      "end_lineno": 555,
+      "lineno": 446,
+      "loc": 110,
+      "name": "test_identity_only_drops_generic_identity_echo",
+      "owner": "ComposeLayer3TextOverlayTest",
+      "source_file": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py"
+    },
+    {
+      "end_lineno": 659,
+      "lineno": 557,
+      "loc": 103,
+      "name": "test_secondary_and_distinctive_slots_render_between_primary_and_acquisition",
+      "owner": "ComposeLayer3TextOverlayTest",
+      "source_file": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py"
+    },
+    {
+      "end_lineno": 760,
+      "lineno": 661,
+      "loc": 100,
+      "name": "test_identity_only_suppresses_secondary_and_distinctive_slots",
+      "owner": "ComposeLayer3TextOverlayTest",
+      "source_file": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py"
+    },
+    {
+      "end_lineno": 233,
+      "lineno": 84,
+      "loc": 150,
+      "name": "test_successful_attempt_kernel_evidence",
+      "owner": "FoodSemanticKernelTest",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_kernel.py"
+    },
+    {
+      "end_lineno": 430,
+      "lineno": 319,
+      "loc": 112,
+      "name": "test_startup_recovery_closes_every_journal_transition",
+      "owner": "FoodSemanticRegistryCutoverTest",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_registry_cutover.py"
+    },
+    {
+      "end_lineno": 480,
+      "lineno": 375,
+      "loc": 106,
+      "name": "test_candidate_composer_emits_acquisition_as_separate_runtime_line",
+      "owner": "KoreanProseCompilerTest",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py"
+    },
+    {
+      "end_lineno": 848,
+      "lineno": 681,
+      "loc": 168,
+      "name": "test_command_order_failure_anchor_rejects_same_attempt_rewrite",
+      "owner": "RegistryAuthorityCanonicalClosureImplementationTest",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_registry_authority_canonical_closure.py"
+    },
+    {
+      "end_lineno": 1370,
+      "lineno": 1001,
+      "loc": 370,
+      "name": "test_wp6_live_denominator_closes_dependencies_and_vcs_inventory",
+      "owner": "RegistryAuthorityCanonicalClosureImplementationTest",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_registry_authority_canonical_closure.py"
+    },
+    {
+      "end_lineno": 1576,
+      "lineno": 1372,
+      "loc": 205,
+      "name": "test_frozen_fixture_isolated_materialization_contract_fails_closed",
+      "owner": "RegistryAuthorityCanonicalClosureImplementationTest",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_registry_authority_canonical_closure.py"
+    },
+    {
+      "end_lineno": 1975,
+      "lineno": 1852,
+      "loc": 124,
+      "name": "test_round3_preimport_guard_distinguishes_import_target_states",
+      "owner": "RegistryAuthorityCanonicalClosureImplementationTest",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_registry_authority_canonical_closure.py"
+    },
+    {
+      "end_lineno": 338,
+      "lineno": 166,
+      "loc": 173,
+      "name": "test_phase_d_runtime_report_passes_with_consumer_files_present",
+      "owner": "InteractionClusterPhaseDRuntimeTest",
+      "source_file": "Iris/build/description/v2/tests/test_interaction_cluster_phase_d_runtime.py"
+    },
+    {
+      "end_lineno": 196,
+      "lineno": 28,
+      "loc": 169,
+      "name": "test_registered_surfaces_preserve_architecture_and_closeout_contracts",
+      "owner": "IrisResidualContractSurfacesTest",
+      "source_file": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py"
+    },
+    {
+      "end_lineno": 149,
+      "lineno": 46,
+      "loc": 104,
+      "name": "test_fingerprints_and_raw_exit_dispositions_fail_closed",
+      "owner": "IrisResidualDiagnosticDispositionTest",
+      "source_file": "Iris/build/description/v2/tests/test_iris_residual_diagnostic_disposition.py"
+    },
+    {
+      "end_lineno": 370,
+      "lineno": 228,
+      "loc": 143,
+      "name": "test_producer_keeps_repository_and_sealed_predecessor_unchanged",
+      "owner": "LegacyActiveSilentCurrentSurfaceGuardTest",
+      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+    },
+    {
+      "end_lineno": 356,
+      "lineno": 35,
+      "loc": 322,
+      "name": "test_build_phase2_runtime_adoption_overlays_adopt_rows",
+      "owner": "PostCleanupPhase2RuntimeAdoptionTest",
+      "source_file": "Iris/build/description/v2/tests/test_post_cleanup_phase2_runtime_adoption.py"
+    },
+    {
+      "end_lineno": 543,
+      "lineno": 427,
+      "loc": 117,
+      "name": "test_supplied_author_and_external_review_can_complete",
+      "owner": "RuntimePayloadStateIntegrityResidualSealTest",
+      "source_file": "Iris/build/description/v2/tests/test_runtime_payload_state_integrity_residual_seal.py"
+    }
+  ],
+  "max_test_method_LOC": 893,
+  "physical_line_rule": "bytes_splitlines_v1",
+  "pytest_node_id_count": 584,
+  "required_validations_sha256": "55267df64c2f545265b951eacdc12a19a009e80551f26ae575b2a3b1b1650927",
+  "schema_version": "iris_test_precision_lightweighting_complexity_v1",
+  "selection_rule": "taxonomy_sources_plus_explicit_round_support_v1",
+  "semantic_scenario_count": 584,
+  "subject": {
+    "commit": "55bc0578cb0361cc35eb5830a859f66bb2b2872d",
+    "tree": "d7ff13ca7a61304a3d7b197eb602b31a532f6a3b"
+  },
+  "taxonomy_sha256": "175b0a08d60af648501d4c15e69b81b77b5d285d85fb86447011fa4c763a8ccf",
+  "test_support_LOC": 27709,
+  "test_support_file_universe": [
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 1732,
+      "sha256": "46a45215d4950638fecc36ef8d97c5a7926026cdc275804e1b7ed9a115e6245a",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py",
+      "test_method_count": 2
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 389,
+      "sha256": "592ec590c5e8fed9ba97b6d051c61be182a5d2558369d939062c9b08eed47cce",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+      "test_method_count": 6
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 677,
+      "sha256": "ea774322f013703cf42d56e914b2f14267767e022e0f306a06f661ed4db8922b",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
+      "test_method_count": 15
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 448,
+      "sha256": "785872cfaf3734b60a5c95070b62e05d9697bb9627750697cd90dbff06f11b71",
+      "source_file": "Iris/build/description/v2/tests/test_artifact_work_root_contract.py",
+      "test_method_count": 11
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 353,
+      "sha256": "676c8eaac9241ebaf0e53c907f7ecbe84334ace67ecc701e3527ad5be06e301a",
+      "source_file": "Iris/build/description/v2/tests/test_body_plan_phase_d_e.py",
+      "test_method_count": 4
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 257,
+      "sha256": "2fc6a7effd353966aae8e4536d16ffe4a15f79e95e8c0ba24741dc72ea28780b",
+      "source_file": "Iris/build/description/v2/tests/test_build_acquisition_sprint7_authority_promotion.py",
+      "test_method_count": 1
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 239,
+      "sha256": "0b02d530c0194abeffeba1de14a67c732de8c9f266a53c118924b20d009b9464",
+      "source_file": "Iris/build/description/v2/tests/test_build_body_role_lexical_cleanup_authority.py",
+      "test_method_count": 1
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 136,
+      "sha256": "31dbf0b7a2fb9eca2511dba491d7d94e39bbc426bfca88ff6162895b66b83283",
+      "source_file": "Iris/build/description/v2/tests/test_build_iris_index_data.py",
+      "test_method_count": 3
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 81,
+      "sha256": "66521d9da7150ba63b31ad70dab264eed6f7200cb9b07e7753ca8273eeee8e76",
+      "source_file": "Iris/build/description/v2/tests/test_compiler_particle_adjustment.py",
+      "test_method_count": 12
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 249,
+      "sha256": "dff3d99a76549d923a2b3a9dba19d10e3c162b20079c86c6f949ffa4a5bf751b",
+      "source_file": "Iris/build/description/v2/tests/test_compose_entrypoint_guard_hardening.py",
+      "test_method_count": 7
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 764,
+      "sha256": "cc9e84f3d2800e580ba076885ce8bbfe7e49e51a5ad22903ca317581f8adaffc",
+      "source_file": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py",
+      "test_method_count": 7
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 736,
+      "sha256": "a6a67338257429f6f7bcae3b2d76547163bccbd306db33df44044e922bff89bf",
+      "source_file": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py",
+      "test_method_count": 15
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 145,
+      "sha256": "d3233f6b588a72bb6b33cb6be682fce40423218a5fd0d22f85a2a791aa58f35a",
+      "source_file": "Iris/build/description/v2/tests/test_consumer_universe_denominator_lock.py",
+      "test_method_count": 5
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 92,
+      "sha256": "cb03d542b7a43c871b132fd7ee28a590eeee3738da0b0789927443faefed76c3",
+      "source_file": "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py",
+      "test_method_count": 6
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 674,
+      "sha256": "d9a91ddb646f4373d32c3316357a87c146816f74e7043a0f55f228cf2801f86f",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_closeout_reentry_guard_seal.py",
+      "test_method_count": 9
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 116,
+      "sha256": "dd707509beea28db5b30aecf2f05364717d9cc0554fd2ff0e2400f0d2166d12c",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py",
+      "test_method_count": 3
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 222,
+      "sha256": "accabe443bd9fb50d0b91ef5521f84c7b73780ec0b31a0f5abee6af3f18a7308",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_consumer_migration_input_normalization.py",
+      "test_method_count": 9
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 143,
+      "sha256": "126941cac06323ac15cc7001e7b2a439b3f4b742617020d5e66fb7b7ccc5e9c3",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_core_registry_boundary_claim_contract_closure.py",
+      "test_method_count": 6
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 194,
+      "sha256": "bca4f8e0974969c7fcbfda58d0dace66e2957de2e2e5df8f4d37c70d65bf0475",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_core_registry_boundary_required_gate_adoption.py",
+      "test_method_count": 6
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 272,
+      "sha256": "3cce1c1bdd467827af13647953ed18a8c4083d654d32c0694e6e8acd49ff8d11",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py",
+      "test_method_count": 12
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 229,
+      "sha256": "96ed2474a4663888406c5d244f82070e5a05319496c1402d4d218fcadc2c0c1c",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation.py",
+      "test_method_count": 9
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 239,
+      "sha256": "83e4047a800ffd46b65bbe4c064f0a76f70fb56cbeb70e047396c658d92754e9",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_current_route_baseline_source_overlay_repair.py",
+      "test_method_count": 7
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 209,
+      "sha256": "37a3555bad05a84f47f1c7e2c49bb10c6a33781c7b5f2a5f9143ba79503ef8dc",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.py",
+      "test_method_count": 5
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 235,
+      "sha256": "b445b18b8d6d6a862bdadc7693bdd400c86c3d4cf56947a86cd0ecba36c5671f",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_current_source_authority_drift_verification.py",
+      "test_method_count": 9
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 164,
+      "sha256": "35caaa56072a0146aa4e612e96e0e8659388a98c4fd7568066c8a80f87f762cc",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.py",
+      "test_method_count": 4
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 239,
+      "sha256": "4ed18903451df3cf23234c6fc72c1ce2d581dc48023baf319976b9d0aeff0e98",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_cutover_tooling_readiness.py",
+      "test_method_count": 6
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 125,
+      "sha256": "f89c7f7dd01e9c761e35dfcab3db68e6d440ec61bd7f5fea11b318ee39595e80",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_durable_current_authority_surface_alignment.py",
+      "test_method_count": 3
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 101,
+      "sha256": "b361ff235ef0305d62cf9fc973ee0c9fc6d1546506905fca3390632704b3439b",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_dvf_system_naming_realignment.py",
+      "test_method_count": 4
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 204,
+      "sha256": "61aa5751e304827a837248d7a548fe3e96d586ff2f66a3885a97080276160685",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_closeout.py",
+      "test_method_count": 6
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 264,
+      "sha256": "756cd2617747e5a21a0b8d729862441bac93b0ac06f75f1c59d0ca5054feaf47",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_curation_writer.py",
+      "test_method_count": 5
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 208,
+      "sha256": "b3e9fe3b5b7d7bea8e087990c80e57e70e9cc0c0084049982b28b17ddb27de9f",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_handoff.py",
+      "test_method_count": 4
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 237,
+      "sha256": "9ce1420c9f643aa915c2a6f2d96ce1caad103defb7bb62c791b304a7a4cfdaaf",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_kernel.py",
+      "test_method_count": 2
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 434,
+      "sha256": "36577a8156477fc787bb93a8bc8ffe36079f819da6e8bc3fe8994fe44801cd6b",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_registry_cutover.py",
+      "test_method_count": 10
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 155,
+      "sha256": "1d06df30a833db2d7da530759536b044e75e87b2e548ce2e53791ab51631a371",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_acceptance_gate.py",
+      "test_method_count": 7
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 189,
+      "sha256": "731ba8fb18853dc643d17245e79ab5bb65b34cb2e45841dcedf7a6b8dfd88ed7",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_candidate_route.py",
+      "test_method_count": 2
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 511,
+      "sha256": "73c58976cf5992bc05c74e9620d760641170430e76d9dcf20516674568c0ed7d",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py",
+      "test_method_count": 17
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 87,
+      "sha256": "32b180c59bfe5e03ca1efe85dd3b7ac6180465dda3b2e2a50b67052e865a338b",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_policy.py",
+      "test_method_count": 5
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 82,
+      "sha256": "5b8c7473dd7ca1f368f81809e0c2921cf310ab2966c9dbec2766451e41ec1199",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_semantic_preservation.py",
+      "test_method_count": 3
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 141,
+      "sha256": "9f53094dfd167ca3c883ec2247956df6a0e707cb92a3685678399ee89df1fe50",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_legacy_combined_route_axis_inventory.py",
+      "test_method_count": 6
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 208,
+      "sha256": "bd2a23da83bdd6f5c4e357776d16dd276c09397ad3f2e4b98d5e193b07a3e109",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_predecessor_stale_artifact_reentry_guard.py",
+      "test_method_count": 5
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 2009,
+      "sha256": "fffa4c7edb2dd1dd8c1607a1a9cafb07e9b0e904e3a5e647a4dbdb364e5e9f79",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_registry_authority_canonical_closure.py",
+      "test_method_count": 30
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 155,
+      "sha256": "9e6641bc949fe9d2b4542409d3053bb75de983196a8718324de0f05198d0634c",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_bridge.py",
+      "test_method_count": 5
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 56,
+      "sha256": "eca84665c9ccde4d28f0ebcaa30457d480a720d9907aacec114687307862884d",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_chunks.py",
+      "test_method_count": 3
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 193,
+      "sha256": "26e15ab5f9810de112a8b192bc5e847c3ff610323b971585229f7bee292fa0e2",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_closeout.py",
+      "test_method_count": 8
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 144,
+      "sha256": "c11376712e451f449965dfb32424ac61457a34fe43d747672a1706795fd6c6e5",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_contract.py",
+      "test_method_count": 7
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 172,
+      "sha256": "47ce28811d0863ee2e0ebf1ea1395a68614094bb1278dd668ce630ebad142bd7",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_current.py",
+      "test_method_count": 2
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 60,
+      "sha256": "cf193d679cc6c6f2cb6bb19277c47dbfaa42f31ce20e20b6c84f0c0a6208cea5",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_fixtures.py",
+      "test_method_count": 3
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 113,
+      "sha256": "ddc53d21d779bbbe3d08050254ad83a1ef0c25d260ef384941df0436df8f80a4",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_package.py",
+      "test_method_count": 3
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 40,
+      "sha256": "0a8eecfa6254feaa26e83b36f514efefb4203c869d43938e4da54bb23194e267",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_windows.py",
+      "test_method_count": 2
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 282,
+      "sha256": "252bbd73c0987efe48aa1fec974563370a706a5df64b626533af164b7ab65254",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_required_artifact_disposition_seal.py",
+      "test_method_count": 8
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 166,
+      "sha256": "4152c40f1c61bb5ccd3401d4460e7216199407359e7670cc52f37b061f0a9021",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_required_artifact_surface_preflight_census.py",
+      "test_method_count": 4
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 196,
+      "sha256": "d75686d14ae0f8f7405a42d97bd59869420d89533a2feea0e7aa39e36c2922bf",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_shared_disposition_consumption.py",
+      "test_method_count": 7
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 185,
+      "sha256": "2be78804e64ea917b3c69a0498fac527cc70ac0ba4b38b6a1a2bfb462928becd",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py",
+      "test_method_count": 5
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 109,
+      "sha256": "37778035f8608686e24d58ef14f5683f4b496a1a3a9239212a80b5daabeb0117",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_vnext_current_authority_cutover.py",
+      "test_method_count": 4
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 94,
+      "sha256": "71c462bffe35d489cc6637c2881804e581c6c4285dc8c1b20e17d476b2942310",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_vnext_delta_disposition_guard_seal.py",
+      "test_method_count": 6
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 186,
+      "sha256": "df19b6a29d3b5c9ecfeb72c7dd92053886e11e1aef421eea661f222823acc6f8",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_vnext_delta_guard_current_route_integration.py",
+      "test_method_count": 5
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 136,
+      "sha256": "9b5c6daed0a1ce1040de16376befcf36255192f60eed209a7cc7f057aff49bac",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_vnext_rejected_delta_correction_reparity.py",
+      "test_method_count": 4
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 141,
+      "sha256": "b7e9d4dab8bc036764c319566faed432ea5478f0d52ae0880e31824d32d3beef",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py",
+      "test_method_count": 5
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 156,
+      "sha256": "af3c46caca5a341b982abbf4cd7ef98b811b32c344a71da9b9e32d412f628033",
+      "source_file": "Iris/build/description/v2/tests/test_generated_lua_sparse_fields_contract.py",
+      "test_method_count": 3
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 282,
+      "sha256": "92e4fc2651a8e814bb1555750d75109bb8dd3e960f3ef1899427cb3c9189cdc0",
+      "source_file": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py",
+      "test_method_count": 7
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 356,
+      "sha256": "1c194e30d960fc95406285e1522e5257911a7ceebed16f0f1e7712a7183732fc",
+      "source_file": "Iris/build/description/v2/tests/test_interaction_cluster_phase_d_runtime.py",
+      "test_method_count": 4
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 114,
+      "sha256": "f8a83b64de054f8843d19ee70001f4aa53d325d3bcc2468a0aed957ba19aa1e6",
+      "source_file": "Iris/build/description/v2/tests/test_iris_browser_state_selection_search_acceptance.py",
+      "test_method_count": 3
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 368,
+      "sha256": "2578dacce844fe850b3e417eecfe9e80ab87160168d96068c8e2f2e5fd64cc12",
+      "source_file": "Iris/build/description/v2/tests/test_iris_core_refactor_closeout.py",
+      "test_method_count": 6
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 33,
+      "sha256": "3a93840b99e2fee03e9fd73a16d078349b24f7f7926ebad0f49efad2a7951447",
+      "source_file": "Iris/build/description/v2/tests/test_iris_description_single_path_acceptance.py",
+      "test_method_count": 1
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 109,
+      "sha256": "8ce469fefb6168c36c745505fcea1a264b9d1545c1ea6439c01445334a72c617",
+      "source_file": "Iris/build/description/v2/tests/test_iris_detail_view_model_acceptance.py",
+      "test_method_count": 3
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 107,
+      "sha256": "39d8bd6e4ed210be517dab711b3a1a7c6cf94c3629b8b3c51c2ebf396c2cfd7f",
+      "source_file": "Iris/build/description/v2/tests/test_iris_legacy_surface_acceptance.py",
+      "test_method_count": 3
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 38,
+      "sha256": "79be8c2380663b3d5fbbe98b27393115c90d55662331ac31f96ad85ec4a1c63e",
+      "source_file": "Iris/build/description/v2/tests/test_iris_pre_refactor_browser_characterization.py",
+      "test_method_count": 1
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 27,
+      "sha256": "0054c9c2fe09f23b4e41c81a31fbdca57154ca9e9d70299e48a3111934dc510f",
+      "source_file": "Iris/build/description/v2/tests/test_iris_pre_refactor_description_characterization.py",
+      "test_method_count": 1
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 36,
+      "sha256": "045e4e2959f059afc0631af5acfdf6e6c26d9c9815f9ad233cfc0186bba972ad",
+      "source_file": "Iris/build/description/v2/tests/test_iris_pre_refactor_detail_characterization.py",
+      "test_method_count": 1
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 200,
+      "sha256": "78142b5b732dd51d4a4ced3e3cfd242fd66e4713def3037060e5d76253771eeb",
+      "source_file": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+      "test_method_count": 1
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 350,
+      "sha256": "d99871a2744700c8a4073fe1bf122e65e3ab7282c59fe68d858b5bc06910b603",
+      "source_file": "Iris/build/description/v2/tests/test_iris_residual_diagnostic_disposition.py",
+      "test_method_count": 4
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 68,
+      "sha256": "24ee804d588edb325b5d5cb066d607ca42a26a80827eed651c27e9b7ecdf92a4",
+      "source_file": "Iris/build/description/v2/tests/test_iris_residual_evidence_roles.py",
+      "test_method_count": 1
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 53,
+      "sha256": "f213981a85d4fd3b80ce6b489c8721072325bb4ae1297aa3fdf1db48315a9f6b",
+      "source_file": "Iris/build/description/v2/tests/test_iris_residual_python_import_matrix.py",
+      "test_method_count": 1
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 60,
+      "sha256": "d001bc1c69d9bbd9e4764a1820f466aec82db208372a0de33d953fd49e63a25c",
+      "source_file": "Iris/build/description/v2/tests/test_iris_residual_runtime_acceptance.py",
+      "test_method_count": 1
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 212,
+      "sha256": "7791638e1b26072017962bd5b46f47b8f23f76c020dbb97a7600cfe96b335d54",
+      "source_file": "Iris/build/description/v2/tests/test_iris_runtime_optimization_metrics.py",
+      "test_method_count": 11
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 75,
+      "sha256": "050ba1ae5d4b6c96f4f13bcba012190ea04ce165b5bd5ce311c34f6df9d24fce",
+      "source_file": "Iris/build/description/v2/tests/test_layer3_current_authority_reconstruction.py",
+      "test_method_count": 2
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 244,
+      "sha256": "3d636e57ce3428d930d2e5961274f11531c06703bf0191dadbcb096908f93cee",
+      "source_file": "Iris/build/description/v2/tests/test_layer3_data_chunking_contract.py",
+      "test_method_count": 5
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 43,
+      "sha256": "55da96c95753ce9c1e1c000a6dae0cd89a69c30b7e682d6dd5cddbe0361c546d",
+      "source_file": "Iris/build/description/v2/tests/test_layer3_lazy_lookup_contract.py",
+      "test_method_count": 1
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 167,
+      "sha256": "1543eb7ea918c0004f8c0a321be80fd4848e4843fa2ef36c81b7de232f2b55bf",
+      "source_file": "Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py",
+      "test_method_count": 5
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 110,
+      "sha256": "b51d5a256e2c7a018842a04746e1260f36eb70eb17f66c3a26f6d43fbe08a4da",
+      "source_file": "Iris/build/description/v2/tests/test_layer4_trace_edge_authority_admission_round.py",
+      "test_method_count": 4
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 749,
+      "sha256": "29ca3091ceb0a758ef4112778ad3aa5fd190154be523bedd9cdf3e861a836dea",
+      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+      "test_method_count": 22
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 201,
+      "sha256": "812e7c45743113837c1ae6391f47e761cbbaa5277b5d4d8df9e1057679fe66cf",
+      "source_file": "Iris/build/description/v2/tests/test_live_consumer_migration_execution.py",
+      "test_method_count": 7
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 98,
+      "sha256": "6ebc9df1dd9582c806201156c7490426ef8ae70b7a7a4ad045df0d1e03930ed3",
+      "source_file": "Iris/build/description/v2/tests/test_lookup_package_parity_contract.py",
+      "test_method_count": 3
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 343,
+      "sha256": "483f08cd990fcfc797f95dbbf316ce73b9abbf1e87e99ce8e2de7477cd44818f",
+      "source_file": "Iris/build/description/v2/tests/test_lua_bridge_export_contract_realign.py",
+      "test_method_count": 7
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 169,
+      "sha256": "1562f7a2a8134f4a9b1296a651011a906b9d93fe32f40a3d885c59d013920a4e",
+      "source_file": "Iris/build/description/v2/tests/test_naturalization_compiler_identity.py",
+      "test_method_count": 3
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 496,
+      "sha256": "dd6475905df476539b7c243b2cf934be47400d42a3d2f621d8545ecfdeed0693",
+      "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
+      "test_method_count": 16
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 72,
+      "sha256": "25fa1dea519ea9830cad775a038624e0cbd26a61b82b06e8e797c7c63a433a9b",
+      "source_file": "Iris/build/description/v2/tests/test_phase5_array_util_contract.py",
+      "test_method_count": 4
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 67,
+      "sha256": "f36ad7cceb5a92ad5f48e3f7038245d8bdf89c097374e222a81353602c389e60",
+      "source_file": "Iris/build/description/v2/tests/test_phase5_iris_main_function_specs_contract.py",
+      "test_method_count": 4
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 360,
+      "sha256": "bf824c55bfe5919ab7c4186886f281a9f877a6efc5fcf09270992aaa1e8265bc",
+      "source_file": "Iris/build/description/v2/tests/test_post_cleanup_phase2_runtime_adoption.py",
+      "test_method_count": 1
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 644,
+      "sha256": "08f618dd82a3d7f5befe5da0eb0cfde9357ca69adc0267c06c0cf23c7d58d2e1",
+      "source_file": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py",
+      "test_method_count": 20
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 198,
+      "sha256": "9459848ecf7a90d6d2065872996be7ec533cc93458d9dd325820b323ce724099",
+      "source_file": "Iris/build/description/v2/tests/test_public_text_quality_acceptance.py",
+      "test_method_count": 6
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 277,
+      "sha256": "076f57411efaafb233bb475d4d1ebe8a7c73b6d622afdea8f85a3b1de3f91264",
+      "source_file": "Iris/build/description/v2/tests/test_public_text_quality_acceptance_current_route.py",
+      "test_method_count": 11
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 64,
+      "sha256": "5bedd7f8d58e6c3155c8fbd4cc9753283e692c3e4d4708fb619c93c7d883ca0c",
+      "source_file": "Iris/build/description/v2/tests/test_public_text_quality_acceptance_fixtures.py",
+      "test_method_count": 4
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 222,
+      "sha256": "358b47b7455c6a84f55e32aca309632b39830d1aff054309680fa9b52460f3a7",
+      "source_file": "Iris/build/description/v2/tests/test_public_text_quality_acceptance_policy.py",
+      "test_method_count": 9
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 152,
+      "sha256": "99b503f07016d16a85814f78b1372624a545a6bbcde481f9d6f4ee66026b4e8c",
+      "source_file": "Iris/build/description/v2/tests/test_public_text_quality_metric_contract.py",
+      "test_method_count": 8
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 205,
+      "sha256": "341a556b634a99893691ae5388364f9b2dfca03857e32872d3043e61bcc6a88e",
+      "source_file": "Iris/build/description/v2/tests/test_python_tooling_contract_commonization.py",
+      "test_method_count": 2
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 166,
+      "sha256": "e323cb3964e0bde19ae794a2d07578da06441d3f6281aa9a8eed25cb82698e7e",
+      "source_file": "Iris/build/description/v2/tests/test_repository_evidence_codec.py",
+      "test_method_count": 8
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 136,
+      "sha256": "5515996ce55930dc158d277a44fc133a9da35ea4cb66d3e5dc40773b7e3d82f4",
+      "source_file": "Iris/build/description/v2/tests/test_repository_evidence_migration.py",
+      "test_method_count": 7
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 175,
+      "sha256": "74af0af339f21e418d6c1976a871007c40aca5b0068a1eab8a905e9102bcad93",
+      "source_file": "Iris/build/description/v2/tests/test_repository_evidence_required_validation_adoption.py",
+      "test_method_count": 4
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 175,
+      "sha256": "75cf4b06ce8c66b0518481f11929f11407ea9917aec61c835c9d260569ef81d6",
+      "source_file": "Iris/build/description/v2/tests/test_round3_current_route_applicability.py",
+      "test_method_count": 6
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 98,
+      "sha256": "564b416ed4e59bf31ac48b5d1454d638279c7f08285bd8c3f6af818209c55a9a",
+      "source_file": "Iris/build/description/v2/tests/test_round3_git_batch_contract.py",
+      "test_method_count": 2
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 135,
+      "sha256": "7e75418b235a6282792a0de6eddc8a6c179a0d468af0f54abe37bb41fe7c9fc9",
+      "source_file": "Iris/build/description/v2/tests/test_round3_pytest_failure_classification.py",
+      "test_method_count": 5
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 95,
+      "sha256": "e2c21a30ee97eae88a929ebf0ce28f3162b570f8abda3f196c835b39f61b7729",
+      "source_file": "Iris/build/description/v2/tests/test_round3_pytest_source_classification.py",
+      "test_method_count": 5
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 93,
+      "sha256": "405392f48769247e18954006939325a27d2473931c732adfd5bd80ec7ecefb21",
+      "source_file": "Iris/build/description/v2/tests/test_runtime_payload_state_integrity.py",
+      "test_method_count": 3
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 547,
+      "sha256": "9b81b6d0e802c597694864ac964d853ae782e9dd1417ca19076d3b669547b415",
+      "source_file": "Iris/build/description/v2/tests/test_runtime_payload_state_integrity_residual_seal.py",
+      "test_method_count": 10
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 223,
+      "sha256": "9dc81564f76f9a1e3ec347741f685af9b1b410fb4df6b4ef0850d8ee42d82444",
+      "source_file": "Iris/build/description/v2/tests/test_terminal_disposition_adjudication.py",
+      "test_method_count": 12
+    },
+    {
+      "configured_source": true,
+      "exact_source": true,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 43,
+      "sha256": "7fe47318f3cc8c8c72767f9e74714f4035df3cc8a0bff73722e973628e5b60c0",
+      "source_file": "Iris/build/description/v2/tests/test_usecase_lazy_lookup_contract.py",
+      "test_method_count": 1
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 337,
+      "sha256": "1e967f5990359838b32e2c0093f66625156b7448d849128872a6ffff7281b3a6",
+      "source_file": "Iris/build/description/v2/tests/test_validated_naturalization_runtime_adoption.py",
+      "test_method_count": 16
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 217,
+      "sha256": "7e5b7c3e61ebed3008d7d24ce400b2e78a2e33748b61fcdd86b171e8449fd9c2",
+      "source_file": "Iris/build/tests/test_description_generator.py",
+      "test_method_count": 0
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 186,
+      "sha256": "34d63f158817b0a654afbbb27463973b32f1340691eaeb9929b7bab2baa7a5a9",
+      "source_file": "Iris/build/tests/test_determinism_rc.py",
+      "test_method_count": 0
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 83,
+      "sha256": "883536ae72a65a86bfacef7582de2f1a5fe322790730fee03a9330a2d995323b",
+      "source_file": "Iris/build/tests/test_evidence_pipeline_cross_track.py",
+      "test_method_count": 1
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 83,
+      "sha256": "5a368eea69e22623b4c198ba2054c920618701a38da1d3a0be61b37a07470dcd",
+      "source_file": "Iris/build/tests/test_fail_loud_coverage.py",
+      "test_method_count": 0
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 336,
+      "sha256": "0cc84ba177239428dd15b995f6366ad957e9d10113f21f8e33de838cc496400c",
+      "source_file": "Iris/build/tests/test_layer3_pipeline.py",
+      "test_method_count": 22
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 244,
+      "sha256": "d51cac80675c485d0029dfcceb79683f4053c44d3535bb390154b2b0fc42cfef",
+      "source_file": "Iris/build/tests/test_recipe_evidence.py",
+      "test_method_count": 0
+    },
+    {
+      "configured_source": true,
+      "exact_source": false,
+      "mandatory_plan_local_support": false,
+      "physical_loc": 67,
+      "sha256": "6c43a757d8536a5908fba657e5fef3a037cfa5c674c504ac8b5234fbc4405a3d",
+      "source_file": "Iris/build/tests/test_wearable_6f.py",
+      "test_method_count": 1
+    },
+    {
+      "configured_source": false,
+      "exact_source": false,
+      "mandatory_plan_local_support": true,
+      "physical_loc": 128,
+      "sha256": "fa06984492b292e348964a1e41ae02e0245fcd68842072f13f5990aa7968ba25",
+      "source_file": "Iris/validation/test_lightweighting/tests/test_validate_terminal_evidence_bundle.py",
+      "test_method_count": 3
+    }
+  ]
+}

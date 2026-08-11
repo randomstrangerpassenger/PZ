@@ -1,0 +1,18 @@
+{
+  "schema_version": "iris_test_precision_lightweighting_a1_feasibility_preassessment_v1",
+  "accepted_baseline_commit": "55bc0578cb0361cc35eb5830a859f66bb2b2872d",
+  "large_source_route_distribution_reported_to_owner": true,
+  "type_a_addressable_large_source_LOC": 4243,
+  "projected_files_ge_1000_delta": -1,
+  "projected_files_ge_500_delta": -1,
+  "required_genuine_dedup_LOC_for_joint_satisfaction": 1,
+  "per_axis_feasibility": {
+    "pytest_node_count": "high",
+    "semantic_scenario_count": "high",
+    "test_support_LOC": "high",
+    "files_ge_500_count": "high",
+    "files_ge_1000_count": "high",
+    "large_test_method_count": "high"
+  },
+  "complete_feasibility": "high"
+}

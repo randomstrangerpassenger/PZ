@@ -1,0 +1,16 @@
+{
+  "schema_version": "iris_test_precision_lightweighting_source_role_inventory_v1",
+  "accepted_baseline_commit": "55bc0578cb0361cc35eb5830a859f66bb2b2872d",
+  "configured_source_count": 115,
+  "exact_source_count": 54,
+  "configured_non_exact_source_count": 61,
+  "mandatory_plan_local_nonconfigured_test_source_count": 1,
+  "exact_route_node_counts": {
+    "current": 219,
+    "historical": 285,
+    "diagnostic": 80
+  },
+  "unknown_route": 0,
+  "unmapped_exact_current": 0,
+  "unmapped_required_binding": 0
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": "iris_test_precision_lightweighting_terminal_placement_decision_v1",
+  "closure_id": "iris-test-precision-lightweighting-20260812-01",
+  "authority": "repository_owner_user",
+  "authorization_basis": "The owner pre-approved plan-scoped owner gates in the implementation request.",
+  "ratified": true,
+  "terminal_evidence_placement": "external_bundle",
+  "external_bundle_custody": "repository_owner",
+  "external_bundle_durability": "append_only_owner_managed_file_store",
+  "external_bundle_retrieval": "tracked_pointer_plus_closure_id_and_allocator_receipt",
+  "type_b_source_set_migration_gate": "not_opened_type_a_first",
+  "large_test_method_metric_definition": "python_ast_test_method_source_span_v1",
+  "large_test_method_loc_threshold": 100,
+  "post_closeout_disposition": "retain_round_reproduction_evidence"
+}

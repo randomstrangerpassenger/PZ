@@ -42,6 +42,7 @@ def build_bundle(root: Path) -> tuple[Path, Path]:
     pointer_payload = {
         "schema_version": "iris_test_precision_lightweighting_terminal_pointer_v1",
         **SUBJECT,
+        "subject_binding_mode": "fixture_explicit",
         "retrieval_mode": "fresh-root-v1",
         "terminal_evidence_placement": "external_bundle",
         "external_retrieval_key": key,

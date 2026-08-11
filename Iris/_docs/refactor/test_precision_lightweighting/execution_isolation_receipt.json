@@ -1,0 +1,27 @@
+{
+  "schema_version": "iris_test_precision_lightweighting_execution_isolation_receipt_v1",
+  "observation_subject": {
+    "commit": "5baf9ceb145f32855ad18fc02753687e708f33b1",
+    "tree": "38d9e3796292bcfd552997ecf90803ab1e12051d"
+  },
+  "environment_class": "clean_checkout_only",
+  "repository_external_work_root_profile": "PZ_test_lightweighting_work",
+  "configured_collection": {
+    "command": "uv run python -B -m pytest --collect-only -q -p no:cacheprovider --round3-contract=all",
+    "exit_code": 0,
+    "collected_node_count": 646,
+    "new_test_source_collected_by_configured_discovery": false
+  },
+  "standalone_supporting_test": {
+    "command": "uv run python -B -m pytest -q -p no:cacheprovider Iris/validation/test_lightweighting/tests/test_validate_terminal_evidence_bundle.py",
+    "exit_code": 0,
+    "passed": 3
+  },
+  "new_test_source_policy_classification": "not_applicable",
+  "new_test_source_registration_branch_consistent": true,
+  "new_test_source_in_test_support_file_universe": true,
+  "source_policy_mutated": false,
+  "successful_execution_source_mutation": 0,
+  "unexpected_residue": 0,
+  "terminal_evidence_retrieval_capability_tests": "PASS"
+}

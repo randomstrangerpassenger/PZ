@@ -6,7 +6,7 @@ import shutil
 from pathlib import Path
 from typing import Any
 
-from _common import ContractError, canonical_bytes, read_json, require, sha256_file
+from _common import ContractError, canonical_bytes, git, read_json, require, sha256_file
 
 
 MODE = "fresh-root-v1"
@@ -33,6 +33,28 @@ def load_object(path: Path) -> dict[str, Any]:
     value = read_json(path)
     require(isinstance(value, dict), f"{path.name} must be a JSON object")
     return value
+
+
+def resolve_pointer_subject(pointer_path: Path, pointer: dict[str, Any]) -> tuple[str, str, str, str]:
+    mode = pointer.get("subject_binding_mode")
+    if mode == "fixture_explicit":
+        return (
+            str(pointer.get("closure_id", "")),
+            str(pointer.get("terminal_subject_commit", "")),
+            str(pointer.get("terminal_subject_tree", "")),
+            str(pointer.get("pointer_git_blob_id", "")),
+        )
+    require(mode == "commit_and_tree_containing_pointer", "pointer subject binding mode mismatch")
+    repo = next((parent for parent in (pointer_path.parent, *pointer_path.parents) if (parent / ".git").exists()), None)
+    require(repo is not None, "tracked pointer repository root is unavailable")
+    relative = pointer_path.relative_to(repo).as_posix()
+    require(not git(repo, "status", "--short", "--", relative), "tracked pointer has a working-tree delta")
+    return (
+        str(pointer.get("closure_id", "")),
+        git(repo, "rev-parse", "HEAD"),
+        git(repo, "rev-parse", "HEAD^{tree}"),
+        git(repo, "rev-parse", f"HEAD:{relative}"),
+    )
 
 
 def validate_bundle(pointer_path: Path, archive_root: Path, fresh_root: Path) -> dict[str, Any]:
@@ -67,12 +89,7 @@ def validate_bundle(pointer_path: Path, archive_root: Path, fresh_root: Path) ->
     seal = load_object(retrieved / REQUIRED_FILES[3])
     manifest = load_object(retrieved / REQUIRED_FILES[4])
     receipt = load_object(retrieved / REQUIRED_FILES[5])
-    expected_tuple = (
-        closure_id,
-        str(pointer.get("terminal_subject_commit", "")),
-        str(pointer.get("terminal_subject_tree", "")),
-        str(pointer.get("pointer_git_blob_id", "")),
-    )
+    expected_tuple = resolve_pointer_subject(pointer_path, pointer)
     for label, value in (
         ("attestation", attestation), ("machine manifest", machine), ("review", review),
         ("owner seal", seal), ("bundle manifest", manifest), ("closeout receipt", receipt),

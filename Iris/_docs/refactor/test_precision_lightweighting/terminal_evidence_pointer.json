@@ -1,0 +1,26 @@
+{
+  "schema_version": "iris_test_precision_lightweighting_terminal_pointer_v1",
+  "closure_id": "iris-test-precision-lightweighting-20260812-01",
+  "subject_binding_mode": "commit_and_tree_containing_pointer",
+  "retrieval_mode": "fresh-root-v1",
+  "terminal_evidence_placement": "external_bundle",
+  "custodian_role": "repository_owner",
+  "storage_profile": "append_only_owner_managed_file_store",
+  "external_retrieval_key": "iris-test-precision-lightweighting-20260812-01",
+  "allocator_receipt_sha256": "466112df00b462ecd10600929f79ac0e51499960945da6250b320558b2901689",
+  "append_only": true,
+  "deletion_prohibited": true,
+  "retention_owner": "repository_owner",
+  "machine_specific_absolute_archive_path": null,
+  "temporary_execution_root_must_be_disjoint": true,
+  "expected_terminal_filenames": [
+    "terminal_validation_attestation.json",
+    "machine_validation_manifest.json",
+    "independent_review.json",
+    "owner_seal.json",
+    "terminal_bundle_hash_manifest.json",
+    "closeout_receipt.json"
+  ],
+  "terminal_evidence_retrieval_capability_identity": "Iris/validation/test_lightweighting/validate_terminal_evidence_bundle.py@5dddfd7d14e26850e841ee1fdf68187a681e4b74:fresh-root-v1",
+  "sha256_verification_rule": "raw_file_bytes_sha256_v1"
+}

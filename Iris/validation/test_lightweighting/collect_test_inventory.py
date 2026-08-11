@@ -12,6 +12,7 @@ from _common import (
     sha256_file,
     stable_set,
     subject_identity,
+    git,
     write_json,
     write_jsonl,
 )
@@ -40,9 +41,19 @@ def main() -> int:
     required_ids = {
         row["test_id"] for row in required.get("required_tests", []) if row.get("required") is not False
     }
-    sources = stable_set(row["source_file"] for row in rows)
+    exact_sources = stable_set(row["source_file"] for row in rows)
+    configured_sources = stable_set(
+        line
+        for line in git(
+            repo,
+            "ls-files",
+            "Iris/build/description/v2/tests/*.py",
+            "Iris/build/tests/*.py",
+        ).splitlines()
+        if Path(line).name.startswith("test_")
+    )
     support_sources = stable_set(args.support_source)
-    universe_paths = stable_set([*sources, *support_sources])
+    universe_paths = stable_set([*configured_sources, *support_sources])
     inventory: list[dict[str, object]] = []
     methods: list[dict[str, object]] = []
     for relative in universe_paths:
@@ -54,7 +65,8 @@ def main() -> int:
             "source_file": relative,
             "physical_loc": physical_loc(path),
             "sha256": sha256_file(path),
-            "configured_or_exact_source": relative in sources,
+            "configured_source": relative in configured_sources,
+            "exact_source": relative in exact_sources,
             "mandatory_plan_local_support": relative in support_sources,
             "test_method_count": len(file_methods),
         })

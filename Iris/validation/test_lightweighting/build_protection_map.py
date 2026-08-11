@@ -16,6 +16,8 @@ def main() -> int:
     parser.add_argument("--inventory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--fault-matrix-output", type=Path)
+    parser.add_argument("--predecessor-protection-map", type=Path)
+    parser.add_argument("--migration", type=Path)
     args = parser.parse_args()
     rows = read_jsonl(args.inventory)
     mapped = []
@@ -43,6 +45,24 @@ def main() -> int:
         })
     if len(mapped) != len(rows):
         raise ContractError("inventory to protection-map reconciliation failed")
+    if args.predecessor_protection_map or args.migration:
+        if not args.predecessor_protection_map or not args.migration:
+            raise ContractError("predecessor protection map and migration must be supplied together")
+        predecessor = {row["exact_test_id"]: row for row in read_jsonl(args.predecessor_protection_map)}
+        by_id = {row["exact_test_id"]: row for row in mapped}
+        for migration in read_jsonl(args.migration):
+            source = predecessor.get(migration["predecessor_test_id"])
+            if source is None:
+                raise ContractError(f"migration predecessor is absent: {migration['predecessor_test_id']}")
+            for successor_id in migration.get("successor_test_ids", []):
+                successor = by_id.get(successor_id)
+                if successor is None:
+                    raise ContractError(f"migration successor is absent: {successor_id}")
+                for key in (
+                    "contract_ids", "branch_conditions", "input_partitions", "interaction_states",
+                    "failure_conditions", "fail_closed_paths",
+                ):
+                    successor[key] = stable_set([*successor.get(key, []), *source.get(key, [])])
     write_jsonl(args.output, mapped)
     if args.fault_matrix_output:
         fault_to_tests: dict[str, list[str]] = {}

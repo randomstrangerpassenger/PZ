@@ -31,6 +31,7 @@ def main() -> int:
         candidate = protection[candidate_id]
         for key in VECTOR_KEYS:
             survivor_values = {value for item in survivor_ids for value in protection[item].get(key, [])}
+            survivor_values.update(row.get("replacement_vectors", {}).get(key, []))
             missing = set(candidate.get(key, [])) - survivor_values
             if missing:
                 errors.append(f"{candidate_id} {key} not dominated: {sorted(missing)}")

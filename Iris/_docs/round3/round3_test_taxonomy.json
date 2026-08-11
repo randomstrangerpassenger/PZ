@@ -1288,19 +1288,6 @@
       "routing_status": "default unittest discovery after D1",
       "source_file": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py",
       "state": "ok",
-      "test_id": "test_compose_layer3_text_overlay.ComposeLayer3TextOverlayTest.test_identity_only_drops_generic_identity_echo"
-    },
-    {
-      "audit_status": "manual_audit_promoted",
-      "contract_class": "current",
-      "imported_build_modules": [
-        "compose_layer3_text"
-      ],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "manual audit: imports only current closure module compose_layer3_text; asserts current compose overlay/render behavior; no ignored reproduction imports",
-      "routing_status": "default unittest discovery after D1",
-      "source_file": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py",
-      "state": "ok",
       "test_id": "test_compose_layer3_text_overlay.ComposeLayer3TextOverlayTest.test_identity_only_suppresses_secondary_and_distinctive_slots"
     },
     {

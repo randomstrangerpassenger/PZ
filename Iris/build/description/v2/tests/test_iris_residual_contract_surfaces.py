@@ -184,6 +184,7 @@ class IrisResidualContractSurfacesTest(unittest.TestCase):
                 "iris_codebase_optimization_package_identity_v1",
                 "iris_codebase_optimization_reviewer_corrections_v1",
                 "iris_codebase_optimization_reviewer_corrections_v2",
+                "iris_test_precision_lightweighting_lifecycle_fixture_split_v1",
             ],
         )
         self.assertEqual(

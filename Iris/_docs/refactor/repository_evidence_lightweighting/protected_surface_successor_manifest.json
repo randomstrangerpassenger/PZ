@@ -1247,6 +1247,18 @@
           "consumers": ["common_lifecycle_executor_validation", "current_route_validation", "repository_maintainers"],
           "owner": "repository_owner_user",
           "reason": "Move fixture and Git orchestration mechanics into an explicit domain-local support module without changing either protected test identity or semantic responsibility."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+          "before_git_blob_id": "5289a5374aa6d2fed40ff3d5e3217d312d86aaca",
+          "before_sha256_lf": "88a8a6832a186a35d5f3765323b0b15b14136d69c07fcac0ddc8426af062a108",
+          "expected_git_blob_id": "111b44e5b45b30d55d04d8b4af1f3a31824f2c65",
+          "after_sha256_lf": "8c065bec9669977fd411d057cb74646a59d04b7e8b682172d43db23a6cc62af3",
+          "role": "protected_surface_current_required_test",
+          "writer": "iris_test_precision_lightweighting",
+          "consumers": ["current_route_validation", "residual_closeout"],
+          "owner": "repository_owner_user",
+          "reason": "Require the additive lifecycle fixture-split protection revision in the active revision chain."
         }
       ]
     }

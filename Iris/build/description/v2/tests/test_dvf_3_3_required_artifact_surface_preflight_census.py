@@ -1,8 +1,6 @@
 from __future__ import annotations
 
-import json
-import subprocess
-import sys
+import json, os, shutil, subprocess, sys, tempfile
 import unittest
 from pathlib import Path
 
@@ -152,13 +150,15 @@ class DvfRequiredArtifactSurfacePreflightCensusTest(unittest.TestCase):
         self.assertTrue(compatibility["does_not_claim_parent_machine_pass"])
         self.assertTrue(compatibility["does_not_claim_canonical_seal"])
 
-        result = subprocess.run(
-            [sys.executable, "-B", str(VALIDATOR)],
-            cwd=REPO,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
+        with tempfile.TemporaryDirectory(
+            prefix="iris-required-surface-", dir=os.environ.get("IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT")
+        ) as value:
+            evidence_root = Path(value) / ROOT.name
+            shutil.copytree(ROOT, evidence_root)
+            result = subprocess.run(
+                [sys.executable, "-B", str(VALIDATOR), "--root", str(evidence_root)],
+                cwd=REPO, text=True, capture_output=True, check=False,
+            )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
 

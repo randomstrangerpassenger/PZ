@@ -1,0 +1,14 @@
+{
+  "schema_version": "iris-diagnostic-validation-write-isolation-owner-decision-v1",
+  "decision_id": "D-1-external-evidence-root",
+  "authority": "repository_owner_preapproval",
+  "owner_preapproval_sha256": "3c739b1a3ab86ac01d8e23241d85e8e5f8abe6a6cc7a2c82384cccce71390bca",
+  "observed_terminal_attempt": "a7",
+  "authorized_paths": [
+    "Iris/build/description/v2/tools/build/validate_dvf_3_3_required_artifact_surface_preflight_census.py",
+    "Iris/build/description/v2/tests/test_dvf_3_3_required_artifact_surface_preflight_census.py"
+  ],
+  "decision": "preserve_validation_and_exit_semantics_while_isolating_report_write",
+  "skip_xfail_allowlist_ignore_deselection_or_reclassification_added": false,
+  "runtime_or_public_output_changed": false
+}

@@ -14,6 +14,7 @@
     {"id": "H-4", "attribution": "A5_denominator_or_subject_identity", "cause": "receipt omitted ordered node and item-disposition identity", "remediation": "additive receipt fields; selection unchanged"},
     {"id": "H-5", "attribution": "A1_preexisting", "cause": "historical route could not transition from bootstrap failure to canonical collection", "remediation": "collection companion replay required before qualification"},
     {"id": "H-6", "attribution": "A1_preexisting", "cause": "the historical live-consumer hash manifest was stale against its producer commit and its validator wrote tracked evidence", "remediation": "owner-authorized additive Git-blob successor seal plus external validator evidence isolation; predecessor bytes preserved"},
+    {"id": "D-1", "attribution": "A1_preexisting", "cause": "diagnostic required-artifact validation wrote a timestamped report into tracked staging", "remediation": "validator root parameter directs the same report and exit contract to an external copied evidence root"},
     {"id": "VAL-ACCOUNTING", "attribution": "A3_preterminal_evidence_drift", "cause": "_common.py and supporting-test LOC were omitted", "remediation": "additive successor accounting with predecessor preserved"}
   ],
   "a0_unattributed_count": 0,

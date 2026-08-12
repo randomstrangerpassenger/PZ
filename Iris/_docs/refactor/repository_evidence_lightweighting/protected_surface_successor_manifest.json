@@ -1283,6 +1283,18 @@
           "consumers": ["current_route_validation", "full_repository_gate", "repository_maintainers"],
           "owner": "repository_owner_user",
           "reason": "Consume the additive full-gate adoption receipt successor while preserving the predecessor receipt bytes and required validation identity."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+          "before_git_blob_id": "111b44e5b45b30d55d04d8b4af1f3a31824f2c65",
+          "before_sha256_lf": "8c065bec9669977fd411d057cb74646a59d04b7e8b682172d43db23a6cc62af3",
+          "expected_git_blob_id": "0e57a0304d64404030f5c5a5f9644b233b7a7450",
+          "after_sha256_lf": "9fa263c80e995ead1b91679a380ffbb3d0c23df693c8161494a38c1d3a3e9095",
+          "role": "protected_surface_current_required_test",
+          "writer": "iris_test_precision_lightweighting_terminal_closeout",
+          "consumers": ["current_route_validation", "residual_closeout", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Require the terminal closeout full-gate adoption revision in the exact active protection chain."
         }
       ]
     }

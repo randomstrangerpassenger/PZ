@@ -2577,3 +2577,26 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
   * owner attestation은 정상 동작 확인을 승인하지만 screenshot, log, raw timing 또는 benchmark 결과를 합성하지 않는다.
   * Codex Reviewer의 최초 changes-requested 항목은 hybrid item field 보존, source denominator 축소 방지, static-cache claim 축소, exact-endpoint/dependency failure classification, default-off instrumentation과 protection successor 보강으로 모두 해소했다. 구현 closeout과 owner-attestation correction의 최종 재검토는 각각 P0/P1/P2/P3 `0`으로 승인됐다.
 * Evidence: `Iris/_docs/refactor/codebase_optimization/closeout_receipt.json` 및 같은 디렉터리의 baseline/change decision receipts. 구현 subject는 `fe4bb9f6`, endpoint-bound closeout은 `b33ed2ac`, functional-attestation correction은 `89f7499c`, review seal은 `91259769`다.
+
+---
+
+## Iris test precision-preserving lightweighting — terminal closeout supersession / scoped complete
+
+* 상태: 2026-08-13 terminal machine closeout complete / governance ledger current
+* 결정:
+
+  * 기존 `blocked_before_terminal_validation` 기록은 당시 사실을 보존하는 predecessor trace로 유지하고 소급 수정하지 않는다.
+  * terminal validation authority는 commit `730849134400311a2fa10588c9adb58a8bd037e0`, tree `99dead8b472fe4a8fa6cf8288c9676db287a75de`인 `S_terminal`이다. 이 subject에서 A1 감축 조건, precision과 fault contract를 보존한 채 focused, exact-current, configured-current, historical, diagnostic/all Run A/B와 tracked full-gate Run A/B가 통과했다.
+  * Codex Reviewer의 독립 검토는 exact terminal subject에 대해 `PASS`, `P0=P1=P2=P3=0`이며 source/config 수정 요구가 없다. Owner seal은 사용자가 실행 요청에서 미리 부여한 owner 승인에 따라 machine manifest와 review를 결속한다.
+  * evidence-only carrier는 commit `07b26f1bae394f4f7e08f51ad1bbb312dbc3a491`, tree `e3a749ba3ec76b5dd5f32347c12081c0cfa97bdb`이다. 유일한 parent는 `S_terminal`이고 delta는 carrier-aware-v2 pointer와 allowed-delta manifest 두 파일의 추가뿐이다. Carrier는 code/test/config, command 또는 denominator authority가 아니며 새 terminal validation subject가 아니다.
+  * owner-managed durable bundle의 retrieval key는 `iris-test-precision-lightweighting-20260812-01`이다. External closeout receipt SHA-256은 `565831996175aa630258907f4e0f7275516b39c238edbb23f345ee474ae44f34`, fresh-root retrieval report SHA-256은 `4f65f3265af0136e5f96414de0df923cf6e59de957cbfc631380d2a4cc6ddec7`, fresh-root terminal replay receipt SHA-256은 `6d5a1efa0680ee5f1040e9620f6773eec5784c2103fb910fa9000469320287a8`이다.
+  * fresh-root retrieval은 `carrier -> pointer -> external bundle -> S_terminal` DAG, single-parent/one-generation 관계와 exact two-file carrier delta를 검증했다. 이어진 replay는 `S_terminal`에서 12개 collection/execution 단계를 모두 exit `0`으로 완료했고 source checkout은 clean이었다. 사용자 원본 worktree pre/post inventory는 59개 항목으로 동일해 `user_worktree_delta=0`이다.
+* Authority boundary:
+
+  * 이 docs-only governance successor는 `S_terminal`의 machine PASS를 자신의 PASS로 상속하거나 새 terminal subject를 만들지 않는다. Terminal 결과 authority는 외부 durable bundle과 carrier pointer에 있다.
+  * predecessor evidence, 실패 candidate와 기존 blocked 기록은 additive trace로 보존한다.
+* Non-decision:
+
+  * 이 closeout은 Iris 전체 runtime correctness, multiplayer/long-session 안정성, FPS/frame time/heap/latency 개선, release/Workshop/B42 readiness 또는 unrelated validation infrastructure 전체의 건전성을 의미하지 않는다.
+  * declared detection scope 밖의 관측되지 않은 dynamic dependency 가능성을 배제하지 않는다.
+* Evidence: `Iris/_docs/refactor/test_precision_lightweighting/terminal_closeout_recovery/{terminal_evidence_pointer.json,closeout_carrier_manifest.json}` 및 owner-managed external durable bundle retrieval key `iris-test-precision-lightweighting-20260812-01`.

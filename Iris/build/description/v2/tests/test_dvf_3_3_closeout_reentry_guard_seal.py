@@ -25,7 +25,11 @@ def load_common_module():
         raise RuntimeError("cannot load closeout reentry guard common module")
     module = importlib.util.module_from_spec(spec)
     sys.modules[spec.name] = module
-    spec.loader.exec_module(module)
+    sys.path.insert(0, str(TOOLS))
+    try:
+        spec.loader.exec_module(module)
+    finally:
+        sys.path.remove(str(TOOLS))
     return module
 
 CONTRACT_PROBE_REQUEST = {

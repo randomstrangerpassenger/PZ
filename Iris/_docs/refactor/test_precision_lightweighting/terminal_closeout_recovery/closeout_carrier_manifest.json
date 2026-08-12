@@ -1,0 +1,15 @@
+{
+  "schema_version": "iris_test_precision_lightweighting_closeout_carrier_manifest_v1",
+  "closure_id": "iris-test-precision-lightweighting-20260812-01",
+  "terminal_subject_commit": "730849134400311a2fa10588c9adb58a8bd037e0",
+  "terminal_subject_tree": "99dead8b472fe4a8fa6cf8288c9676db287a75de",
+  "pointer_path": "Iris/_docs/refactor/test_precision_lightweighting/terminal_closeout_recovery/terminal_evidence_pointer.json",
+  "pointer_git_blob_id": "353f8048826a81bc5a454570acae6547f19624b8",
+  "allowed_delta_paths": [
+    "Iris/_docs/refactor/test_precision_lightweighting/terminal_closeout_recovery/closeout_carrier_manifest.json",
+    "Iris/_docs/refactor/test_precision_lightweighting/terminal_closeout_recovery/terminal_evidence_pointer.json"
+  ],
+  "carrier_policy": "evidence_only_single_parent_single_generation",
+  "code_test_config_delta_allowed": false,
+  "command_or_denominator_semantics_delta_allowed": false
+}

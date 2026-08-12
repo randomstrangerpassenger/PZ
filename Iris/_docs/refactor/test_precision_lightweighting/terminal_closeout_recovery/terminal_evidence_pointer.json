@@ -1,0 +1,31 @@
+{
+  "schema_version": "iris_test_precision_lightweighting_terminal_pointer_v2",
+  "closure_id": "iris-test-precision-lightweighting-20260812-01",
+  "terminal_subject_commit": "730849134400311a2fa10588c9adb58a8bd037e0",
+  "terminal_subject_tree": "99dead8b472fe4a8fa6cf8288c9676db287a75de",
+  "subject_binding_mode": "carrier_parent_terminal",
+  "retrieval_mode": "carrier-aware-v2",
+  "terminal_evidence_placement": "external_bundle",
+  "custodian_role": "repository_owner",
+  "storage_profile": "append_only_owner_managed_file_store",
+  "external_retrieval_key": "iris-test-precision-lightweighting-20260812-01",
+  "allocator_receipt_sha256": "466112df00b462ecd10600929f79ac0e51499960945da6250b320558b2901689",
+  "terminal_bundle_hash_manifest_sha256": "8733e5e954db3a93fce86608282b4a838ca25bd408abb03d74a459a5a1265d8b",
+  "owner_seal_sha256": "5961db931acb0ec523c296d44fc6286d4010d37d02ad826d638ccc89847311d8",
+  "append_only": true,
+  "deletion_prohibited": true,
+  "retention_owner": "repository_owner",
+  "machine_specific_absolute_archive_path": null,
+  "temporary_execution_root_must_be_disjoint": true,
+  "expected_terminal_filenames": [
+    "terminal_validation_attestation.json",
+    "machine_validation_manifest.json",
+    "independent_review.json",
+    "owner_seal.json",
+    "terminal_bundle_hash_manifest.json",
+    "closeout_receipt.json"
+  ],
+  "carrier_manifest_path": "Iris/_docs/refactor/test_precision_lightweighting/terminal_closeout_recovery/closeout_carrier_manifest.json",
+  "terminal_evidence_retrieval_capability_identity": "b566d2f67fb825b727330194bdf05fcd0253d385:carrier-aware-v2",
+  "sha256_verification_rule": "raw_file_bytes_sha256_v1"
+}

@@ -14,7 +14,7 @@
     "sha256_file_definitions": 21,
     "exact_current_groups": 0
   },
-  "denominator_sha256": "232ee8c19a4358173cfe136bb482c961602c27fec66ba72e2f41e1b04c45e8bf",
+  "denominator_sha256": "1f3656f5f3ab35677a4c6e7c9a7fdaa363d4810bcb7cff1f34e93a9c2f3ae342",
   "fingerprint_contract": [
     "function arguments and defaults",
     "complete AST body and exception behavior",

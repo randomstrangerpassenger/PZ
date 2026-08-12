@@ -10,6 +10,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 import unittest
 from unittest import mock
 import uuid
@@ -63,6 +64,18 @@ def project_common_attempt_paths(common, *, project_repo_root: bool = False):
 
 def sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def remove_attempt_tree(path: Path) -> None:
+    """Tolerate transient Windows directory-handle release during test cleanup."""
+    for retry in range(4):
+        try:
+            shutil.rmtree(path)
+            return
+        except OSError:
+            if retry == 3:
+                raise
+            time.sleep(0.05 * (retry + 1))
 
 
 def run_script(path: Path, *args: str) -> subprocess.CompletedProcess[str]:
@@ -327,7 +340,7 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
             if root.exists():
                 resolved = root.resolve()
                 resolved.relative_to(ATTEMPTS_ROOT.resolve())
-                shutil.rmtree(resolved)
+                remove_attempt_tree(resolved)
 
     def test_validator_rejects_missing_preflight_evidence(self) -> None:
         root = self.temporary_evidence_root()
@@ -372,7 +385,7 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
             if root.exists():
                 resolved = root.resolve()
                 resolved.relative_to(ATTEMPTS_ROOT.resolve())
-                shutil.rmtree(resolved)
+                remove_attempt_tree(resolved)
 
     def test_pre_entry_exception_record_is_write_once(self) -> None:
         root = self.temporary_evidence_root()
@@ -404,7 +417,7 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
             if root.exists():
                 resolved = root.resolve()
                 resolved.relative_to(ATTEMPTS_ROOT.resolve())
-                shutil.rmtree(resolved)
+                remove_attempt_tree(resolved)
 
     def test_missing_preserved_owner_input_tree_fails_closed(self) -> None:
         common = load_common_module()
@@ -529,7 +542,7 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
             if root.exists():
                 resolved = root.resolve()
                 resolved.relative_to(ATTEMPTS_ROOT.resolve())
-                shutil.rmtree(resolved)
+                remove_attempt_tree(resolved)
 
     def test_practical_failure_record_terminates_all_same_attempt_writes(self) -> None:
         common = load_common_module()
@@ -676,7 +689,7 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
             if root.exists():
                 resolved = root.resolve()
                 resolved.relative_to(ATTEMPTS_ROOT.resolve())
-                shutil.rmtree(resolved)
+                remove_attempt_tree(resolved)
 
     def test_command_order_failure_anchor_rejects_same_attempt_rewrite(self) -> None:
         common = load_common_module()
@@ -936,7 +949,7 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
             if root.exists():
                 resolved = root.resolve()
                 resolved.relative_to(ATTEMPTS_ROOT.resolve())
-                shutil.rmtree(resolved)
+                remove_attempt_tree(resolved)
 
     def test_wp6_diagnostic_self_observation_is_not_authority_reentry(self) -> None:
         common = load_common_module()
@@ -1637,7 +1650,7 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
             if root.exists():
                 resolved = root.resolve()
                 resolved.relative_to(ATTEMPTS_ROOT.resolve())
-                shutil.rmtree(resolved)
+                remove_attempt_tree(resolved)
 
     def test_wp6_lua_module_table_requires_all_distinct_literals(self) -> None:
         common = load_common_module()
@@ -1800,7 +1813,7 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
             if fixture_root.exists():
                 resolved = fixture_root.resolve()
                 resolved.relative_to(EVIDENCE_ROOT.resolve())
-                shutil.rmtree(resolved)
+                remove_attempt_tree(resolved)
 
     def test_round3_preimport_guard_reports_missing_selected_test_precisely(
         self,
@@ -1972,7 +1985,7 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
             if fixture_root.exists():
                 resolved = fixture_root.resolve()
                 resolved.relative_to(EVIDENCE_ROOT.resolve())
-                shutil.rmtree(resolved)
+                remove_attempt_tree(resolved)
 
     def test_wp4_subprocess_targets_are_tracked_and_not_ignored(
         self,

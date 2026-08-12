@@ -1261,6 +1261,30 @@
           "reason": "Require the additive lifecycle fixture-split protection revision in the active revision chain."
         }
       ]
+    },
+    {
+      "revision_id": "iris_test_precision_lightweighting_terminal_closeout_full_gate_adoption_v1",
+      "track": "iris_test_precision_lightweighting",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "ddf7a6e5ff9196130019db4803afa58054295cb2",
+      "protection_predecessor_tree": "9209b4070a6b9e896acc8bf9d5ac014ecd45be1f",
+      "reason": "Adopt the owner-preapproved required-validation receipt successor for the plan-local terminal retrieval supporting test without changing the Round 3 terminal route denominator.",
+      "approved_activation_deltas": [],
+      "added_protected_rows": [
+        {
+          "path": "Iris/build/description/v2/tests/test_repository_evidence_required_validation_adoption.py",
+          "before_git_blob_id": "7cb55f73db2c98a3f232a306506f33fc9822bb46",
+          "before_sha256_lf": "74af0af339f21e418d6c1976a871007c40aca5b0068a1eab8a905e9102bcad93",
+          "expected_git_blob_id": "4701462f4e0624451f0dca1c8ea9421b63ac15b6",
+          "after_sha256_lf": "69be5a9eeddef656c032b57d092cc24c485dd8e2d6756c3beb892707176d8316",
+          "role": "successor_bootstrap_required_test",
+          "writer": "iris_test_precision_lightweighting_terminal_closeout",
+          "consumers": ["current_route_validation", "full_repository_gate", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Consume the additive full-gate adoption receipt successor while preserving the predecessor receipt bytes and required validation identity."
+        }
+      ]
     }
   ]
 }

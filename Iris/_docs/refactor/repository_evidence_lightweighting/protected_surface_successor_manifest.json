@@ -1267,7 +1267,7 @@
       "track": "iris_test_precision_lightweighting",
       "owner": "repository_owner_user",
       "approved": true,
-      "protection_predecessor_commit": "ddf7a6e5ff9196130019db4803afa58054295cb2",
+      "protection_predecessor_commit": "ddf7a6e5d44227b5224bd13545d910a9a6c77d6c",
       "protection_predecessor_tree": "9209b4070a6b9e896acc8bf9d5ac014ecd45be1f",
       "reason": "Adopt the owner-preapproved required-validation receipt successor for the plan-local terminal retrieval supporting test without changing the Round 3 terminal route denominator.",
       "approved_activation_deltas": [],

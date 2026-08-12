@@ -1800,11 +1800,7 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
             if fixture_root.exists():
                 resolved = fixture_root.resolve()
                 resolved.relative_to(EVIDENCE_ROOT.resolve())
-                shutil.rmtree(resolved)
-                try:
-                    resolved.parent.rmdir()
-                except OSError:
-                    pass
+                shutil.rmtree(resolved.parent)
 
     def test_round3_preimport_guard_reports_missing_selected_test_precisely(
         self,
@@ -1976,11 +1972,7 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
             if fixture_root.exists():
                 resolved = fixture_root.resolve()
                 resolved.relative_to(EVIDENCE_ROOT.resolve())
-                shutil.rmtree(resolved)
-                try:
-                    resolved.parent.rmdir()
-                except OSError:
-                    pass
+                shutil.rmtree(resolved.parent)
 
     def test_wp4_subprocess_targets_are_tracked_and_not_ignored(
         self,

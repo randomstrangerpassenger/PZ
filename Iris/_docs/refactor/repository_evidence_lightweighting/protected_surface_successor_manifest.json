@@ -1295,6 +1295,18 @@
           "consumers": ["current_route_validation", "residual_closeout", "repository_maintainers"],
           "owner": "repository_owner_user",
           "reason": "Require the terminal closeout full-gate adoption revision in the exact active protection chain."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_dvf_3_3_registry_authority_canonical_closure.py",
+          "before_git_blob_id": "d81f23221c44b2778f1935ffd18d2a8162ea4c3b",
+          "before_sha256_lf": "888c1b006e2021a98e57f272d2bb473c0bf222a5d28779aaf016420ca4482a92",
+          "expected_git_blob_id": "8f13c39cc32e5a52d7a4eea21cfcb2812eb79f4f",
+          "after_sha256_lf": "ca37e68b9cc2f3a3d8c1106f8f79c7e303db5b036d3429ef9bc69740217238f5",
+          "role": "common_track_test_contract",
+          "writer": "iris_test_precision_lightweighting_terminal_closeout",
+          "consumers": ["current_route_validation", "full_repository_gate", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Remove the empty ignored scaffold fixture parent after each preimport guard fixture so clean-checkout mutation accounting remains exact."
         }
       ]
     }

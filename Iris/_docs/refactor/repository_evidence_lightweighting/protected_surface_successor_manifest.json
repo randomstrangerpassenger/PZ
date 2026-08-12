@@ -1270,7 +1270,18 @@
       "protection_predecessor_commit": "ddf7a6e5d44227b5224bd13545d910a9a6c77d6c",
       "protection_predecessor_tree": "9209b4070a6b9e896acc8bf9d5ac014ecd45be1f",
       "reason": "Adopt the owner-preapproved required-validation receipt successor for the plan-local terminal retrieval supporting test without changing the Round 3 terminal route denominator.",
-      "approved_activation_deltas": [],
+      "approved_activation_deltas": [
+        {
+          "path": "Iris/_docs/round3/current_route_required_validations.json",
+          "predecessor_sha256": "0ea650737ab6ccdcc5a2c325c7efddc72fa376fa848e8f8ffd254498e36dc6a1",
+          "before_git_blob_id": "cb0cce9610c3f97b49f2c6ae3d7027741ef3df58",
+          "before_sha256_lf": "55267df64c2f545265b951eacdc12a19a009e80551f26ae575b2a3b1b1650927",
+          "expected_git_blob_id": "44460d3856ef11bba70e76a4436b75e9a8b10e80",
+          "after_sha256_lf": "5e256fec6a2d234a52914f6b9c93f9dc1307616b979e3f656a7795d748e3ac84",
+          "owner": "repository_owner_user",
+          "reason": "Classify the exact same-source non-taxonomy identities for full-gate reconciliation without extending the frozen Round 3 current denominator or removing their execution."
+        }
+      ],
       "added_protected_rows": [
         {
           "path": "Iris/build/description/v2/tests/test_repository_evidence_required_validation_adoption.py",
@@ -1307,18 +1318,6 @@
           "consumers": ["current_route_validation", "full_repository_gate", "repository_maintainers"],
           "owner": "repository_owner_user",
           "reason": "Remove the empty ignored scaffold fixture parent after each preimport guard fixture so clean-checkout mutation accounting remains exact."
-        },
-        {
-          "path": "Iris/_docs/round3/current_route_required_validations.json",
-          "before_git_blob_id": "cb0cce9610c3f97b49f2c6ae3d7027741ef3df58",
-          "before_sha256_lf": "55267df64c2f545265b951eacdc12a19a009e80551f26ae575b2a3b1b1650927",
-          "expected_git_blob_id": "44460d3856ef11bba70e76a4436b75e9a8b10e80",
-          "after_sha256_lf": "5e256fec6a2d234a52914f6b9c93f9dc1307616b979e3f656a7795d748e3ac84",
-          "role": "current_route_required_validation_manifest",
-          "writer": "iris_test_precision_lightweighting_terminal_closeout",
-          "consumers": ["round3_runner", "full_repository_gate", "current_route_validation", "repository_maintainers"],
-          "owner": "repository_owner_user",
-          "reason": "Classify the exact same-source non-taxonomy identities for full-gate reconciliation without extending the frozen Round 3 current denominator or removing their execution."
         }
       ]
     }

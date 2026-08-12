@@ -370,10 +370,23 @@ def _expected_sources(contract: str) -> set[str]:
     policy = _source_policy()
     if contract == "all":
         return {source for source, value in policy.items() if value != "excluded" and (REPO_ROOT / source).is_file()}
-    return {source for source, value in policy.items() if value == contract and (REPO_ROOT / source).is_file()}
+    overrides = _item_overrides()
+    return {
+        source
+        for source, value in policy.items()
+        if (REPO_ROOT / source).is_file()
+        and (value == contract or contract in overrides.get(source, {}).values())
+    }
 
 
-def _write_receipt(config, items, selected_sources: set[str], errors: list[str]) -> None:
+def _write_receipt(
+    config,
+    items,
+    deselected,
+    selected_sources: set[str],
+    expected_sources: set[str],
+    errors: list[str],
+) -> None:
     destination = config.getoption("--round3-denominator-receipt", default=None)
     if not destination:
         return
@@ -389,12 +402,22 @@ def _write_receipt(config, items, selected_sources: set[str], errors: list[str])
                 "reason": row["reason"],
                 "alternative_validation": row["alternative_validation"],
             })
+    ordered_node_ids = [item.nodeid for item in items]
     payload = {
         "schema_version": "round3-denominator-execution-receipt-v1",
         "contract": _contract(config),
         "enforced": bool(config.getoption("--round3-enforce-denominator", default=False)),
         "selected_node_count": len(items),
+        "ordered_node_ids": ordered_node_ids,
+        "ordered_node_ids_sha256": hashlib.sha256(
+            ("\n".join(ordered_node_ids) + "\n").encode("utf-8")
+        ).hexdigest(),
         "selected_sources": sorted(selected_sources),
+        "expected_sources": sorted(expected_sources),
+        "item_disposition": {
+            "selected": ordered_node_ids,
+            "deselected": [item.nodeid for item in deselected],
+        },
         "collect_reports": {key: _COLLECT_REPORTS[key] for key in sorted(_COLLECT_REPORTS)},
         "excluded_sources": excluded,
         "errors": errors,
@@ -465,6 +488,6 @@ def pytest_collection_modifyitems(config, items):
     if contract == "all" and deselected:
         errors.append(f"all-contract policy deselected {len(deselected)} items")
 
-    _write_receipt(config, items, selected_sources, errors)
+    _write_receipt(config, items, deselected, selected_sources, expected, errors)
     if errors:
         raise RuntimeError("Round 3 denominator enforcement failed: " + "; ".join(errors))

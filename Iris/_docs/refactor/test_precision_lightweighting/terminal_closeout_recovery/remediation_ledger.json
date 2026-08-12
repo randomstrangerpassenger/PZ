@@ -4,7 +4,7 @@
     {"commit": "e9dcbd68fc19d35360721c2139fca475251c9d21", "kind": "plan_infrastructure", "binding": "CAP-CARRIER-RETRIEVAL-V2"},
     {"commit": "d037811f", "kind": "historical_bootstrap", "binding": "H-1,H-2"},
     {"commit": "44021b1caee07d9528f9789a3a1c8d3868f02367", "kind": "external_evidence_isolation", "binding": "F-focused,CC-1,CC-2"},
-    {"commit": "5372b82b", "kind": "evidence_and_cleanup_stabilization", "binding": "CC-3,CC-4"},
+    {"commit": "5372b82b", "kind": "evidence_receipt_update_with_protected_cleanup_change_superseded", "binding": "CC-3"},
     {"commit": "64b7be8d", "kind": "historical_denominator_reconciliation", "binding": "H-3,H-4,H-5"}
   ],
   "runtime_product_source_changed": false,

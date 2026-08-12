@@ -9,7 +9,9 @@ from typing import Any
 from _common import ContractError, canonical_bytes, git, read_json, require, sha256_file
 
 
-MODE = "fresh-root-v1"
+LEGACY_MODE = "fresh-root-v1"
+CARRIER_MODE = "carrier-aware-v2"
+MODES = (LEGACY_MODE, CARRIER_MODE)
 REQUIRED_FILES = (
     "terminal_validation_attestation.json",
     "machine_validation_manifest.json",
@@ -35,6 +37,14 @@ def load_object(path: Path) -> dict[str, Any]:
     return value
 
 
+def pointer_repository(pointer_path: Path) -> tuple[Path, str]:
+    repo = next((parent for parent in (pointer_path.parent, *pointer_path.parents) if (parent / ".git").exists()), None)
+    require(repo is not None, "tracked pointer repository root is unavailable")
+    relative = pointer_path.relative_to(repo).as_posix()
+    require(not git(repo, "status", "--short", "--", relative), "tracked pointer has a working-tree delta")
+    return repo, relative
+
+
 def resolve_pointer_subject(pointer_path: Path, pointer: dict[str, Any]) -> tuple[str, str, str, str]:
     mode = pointer.get("subject_binding_mode")
     if mode == "fixture_explicit":
@@ -45,10 +55,7 @@ def resolve_pointer_subject(pointer_path: Path, pointer: dict[str, Any]) -> tupl
             str(pointer.get("pointer_git_blob_id", "")),
         )
     require(mode == "commit_and_tree_containing_pointer", "pointer subject binding mode mismatch")
-    repo = next((parent for parent in (pointer_path.parent, *pointer_path.parents) if (parent / ".git").exists()), None)
-    require(repo is not None, "tracked pointer repository root is unavailable")
-    relative = pointer_path.relative_to(repo).as_posix()
-    require(not git(repo, "status", "--short", "--", relative), "tracked pointer has a working-tree delta")
+    repo, relative = pointer_repository(pointer_path)
     return (
         str(pointer.get("closure_id", "")),
         git(repo, "rev-parse", "HEAD"),
@@ -57,10 +64,63 @@ def resolve_pointer_subject(pointer_path: Path, pointer: dict[str, Any]) -> tupl
     )
 
 
+def validate_carrier(pointer_path: Path, pointer: dict[str, Any]) -> dict[str, str]:
+    require(pointer.get("subject_binding_mode") == "carrier_parent_terminal", "carrier pointer subject binding mode mismatch")
+    repo, relative = pointer_repository(pointer_path)
+    carrier_commit = git(repo, "rev-parse", "HEAD")
+    carrier_tree = git(repo, "rev-parse", "HEAD^{tree}")
+    parents = git(repo, "show", "-s", "--format=%P", "HEAD").split()
+    require(len(parents) == 1, "closeout carrier must have exactly one parent")
+    terminal_commit = str(pointer.get("terminal_subject_commit", ""))
+    terminal_tree = str(pointer.get("terminal_subject_tree", ""))
+    require(parents[0] == terminal_commit, "closeout carrier parent is not the terminal subject")
+    require(git(repo, "rev-parse", f"{terminal_commit}^{{tree}}") == terminal_tree, "terminal subject tree mismatch")
+    require(git(repo, "rev-list", "--count", f"{terminal_commit}..{carrier_commit}") == "1", "closeout carrier ancestry distance is not one")
+
+    manifest_relative = str(pointer.get("carrier_manifest_path", ""))
+    require(manifest_relative, "carrier manifest path is missing")
+    manifest_path = (repo / manifest_relative).resolve()
+    try:
+        manifest_path.relative_to(repo.resolve())
+    except ValueError as error:
+        raise ContractError("carrier manifest path escapes repository") from error
+    require(manifest_path.is_file(), "carrier manifest is missing")
+    require(not git(repo, "status", "--short", "--", manifest_relative), "carrier manifest has a working-tree delta")
+    manifest = load_object(manifest_path)
+    require(manifest.get("schema_version") == "iris_test_precision_lightweighting_closeout_carrier_manifest_v1", "carrier manifest schema mismatch")
+    require(manifest.get("terminal_subject_commit") == terminal_commit, "carrier manifest terminal commit mismatch")
+    require(manifest.get("terminal_subject_tree") == terminal_tree, "carrier manifest terminal tree mismatch")
+    require(manifest.get("pointer_path") == relative, "carrier manifest pointer path mismatch")
+    pointer_blob = git(repo, "rev-parse", f"HEAD:{relative}")
+    require(manifest.get("pointer_git_blob_id") == pointer_blob, "carrier manifest pointer blob mismatch")
+    approved = sorted([relative, manifest_relative])
+    require(manifest.get("allowed_delta_paths") == approved, "carrier allowed-delta path set mismatch")
+    changed = []
+    for line in git(repo, "diff", "--name-status", terminal_commit, carrier_commit).splitlines():
+        status, path = line.split("\t", 1)
+        require(status == "A", "closeout carrier may only add evidence files")
+        changed.append(path.replace("\\", "/"))
+    require(sorted(changed) == approved, "closeout carrier contains an unapproved delta")
+    return {
+        "closure_id": str(pointer.get("closure_id", "")),
+        "terminal_subject_commit": terminal_commit,
+        "terminal_subject_tree": terminal_tree,
+        "pointer_git_blob_id": pointer_blob,
+        "carrier_commit": carrier_commit,
+        "carrier_tree": carrier_tree,
+    }
+
+
 def validate_bundle(pointer_path: Path, archive_root: Path, fresh_root: Path) -> dict[str, Any]:
     pointer = load_object(pointer_path)
-    require(pointer.get("schema_version") == "iris_test_precision_lightweighting_terminal_pointer_v1", "pointer schema mismatch")
-    require(pointer.get("retrieval_mode") == MODE, "pointer retrieval mode mismatch")
+    mode = str(pointer.get("retrieval_mode", ""))
+    require(mode in MODES, "pointer retrieval mode mismatch")
+    expected_schema = (
+        "iris_test_precision_lightweighting_terminal_pointer_v1"
+        if mode == LEGACY_MODE
+        else "iris_test_precision_lightweighting_terminal_pointer_v2"
+    )
+    require(pointer.get("schema_version") == expected_schema, "pointer schema mismatch")
     require(pointer.get("terminal_evidence_placement") == "external_bundle", "pointer placement mismatch")
     require(pointer.get("append_only") is True and pointer.get("deletion_prohibited") is True, "durability contract is incomplete")
     require(not pointer.get("machine_specific_absolute_archive_path"), "pointer must not contain an absolute archive path")
@@ -89,12 +149,26 @@ def validate_bundle(pointer_path: Path, archive_root: Path, fresh_root: Path) ->
     seal = load_object(retrieved / REQUIRED_FILES[3])
     manifest = load_object(retrieved / REQUIRED_FILES[4])
     receipt = load_object(retrieved / REQUIRED_FILES[5])
-    expected_tuple = resolve_pointer_subject(pointer_path, pointer)
+    carrier = validate_carrier(pointer_path, pointer) if mode == CARRIER_MODE else None
+    expected_tuple = (
+        (
+            carrier["closure_id"],
+            carrier["terminal_subject_commit"],
+            carrier["terminal_subject_tree"],
+            carrier["pointer_git_blob_id"],
+        )
+        if carrier
+        else resolve_pointer_subject(pointer_path, pointer)
+    )
     for label, value in (
         ("attestation", attestation), ("machine manifest", machine), ("review", review),
         ("owner seal", seal), ("bundle manifest", manifest), ("closeout receipt", receipt),
     ):
-        require(artifact_tuple(value) == expected_tuple, f"{label} subject/pointer tuple mismatch")
+        observed = artifact_tuple(value)
+        if mode == CARRIER_MODE:
+            require(observed[:3] == expected_tuple[:3], f"{label} terminal subject tuple mismatch")
+        else:
+            require(observed == expected_tuple, f"{label} subject/pointer tuple mismatch")
 
     attestation_hash = sha256_file(retrieved / REQUIRED_FILES[0])
     machine_hash = sha256_file(retrieved / REQUIRED_FILES[1])
@@ -121,10 +195,13 @@ def validate_bundle(pointer_path: Path, archive_root: Path, fresh_root: Path) ->
     require(receipt.get("terminal_bundle_hash_manifest_sha256") == manifest_hash, "closeout receipt manifest hash mismatch")
     require(receipt.get("closeout_state") in {"complete", "partial", "implemented_only", "blocked"}, "invalid closeout state")
     require(pointer.get("allocator_receipt_sha256") == manifest.get("allocator_receipt_sha256"), "allocator receipt binding mismatch")
+    if mode == CARRIER_MODE:
+        require(pointer.get("terminal_bundle_hash_manifest_sha256") == manifest_hash, "carrier pointer bundle manifest hash mismatch")
+        require(pointer.get("owner_seal_sha256") == seal_hash, "carrier pointer owner seal hash mismatch")
 
     producer = pointer.get("terminal_evidence_retrieval_capability_identity")
-    require(isinstance(producer, str) and producer.endswith(":" + MODE), "retrieval producer identity mismatch")
-    return {
+    require(isinstance(producer, str) and producer.endswith(":" + mode), "retrieval producer identity mismatch")
+    report = {
         "schema_version": "iris_test_precision_lightweighting_terminal_retrieval_report_v1",
         "status": "PASS",
         "closure_id": closure_id,
@@ -139,17 +216,29 @@ def validate_bundle(pointer_path: Path, archive_root: Path, fresh_root: Path) ->
         "terminal_bundle_hash_manifest_valid": True,
         "closeout_receipt_valid": True,
     }
+    if carrier:
+        report.update({
+            "retrieval_mode": CARRIER_MODE,
+            "closeout_carrier_commit": carrier["carrier_commit"],
+            "closeout_carrier_tree": carrier["carrier_tree"],
+            "closeout_carrier_parent": carrier["terminal_subject_commit"],
+            "closeout_carrier_ancestry_distance": 1,
+            "closeout_carrier_allowed_evidence_delta_only": True,
+        })
+    return report
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Retrieve and validate the Iris terminal evidence DAG")
-    parser.add_argument("--mode", choices=[MODE], required=True)
+    parser.add_argument("--mode", choices=MODES, required=True)
     parser.add_argument("--pointer", type=Path, required=True)
     parser.add_argument("--archive-root", type=Path, required=True)
     parser.add_argument("--fresh-root", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     require(not args.output.exists(), "retrieval report is append-only")
+    pointer = load_object(args.pointer.resolve())
+    require(pointer.get("retrieval_mode") == args.mode, "CLI mode and pointer retrieval mode mismatch")
     report = validate_bundle(args.pointer.resolve(), args.archive_root.resolve(), args.fresh_root.resolve())
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_bytes(canonical_bytes(report))

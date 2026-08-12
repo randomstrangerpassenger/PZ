@@ -1,0 +1,36 @@
+{
+  "schema_version": "iris_repository_evidence_lightweighting_required_validation_adoption_v2",
+  "adoption_id": "iris_test_lightweighting_terminal_closeout_full_gate_supporting_test_disposition_20260813",
+  "status": "adopted_pending_clean_validation",
+  "claim_id": "iris_repository_evidence_lightweighting",
+  "authority_mode": "advance_owner_preapproval_for_unattended_execution",
+  "predecessor": {
+    "path": "Iris/_docs/refactor/repository_evidence_lightweighting/required_validation_adoption_receipt.json",
+    "git_blob_id": "3b06dc22e65dfefd72a7e71d12dde458497105d9",
+    "raw_sha256": "bf5a0fc96ba1bdd6d35b903646d23ac622006c7833c4fe8772427d364383b2f4",
+    "bytes_preserved": true
+  },
+  "bound_inputs": {
+    "full_repository_gate": {
+      "path": "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+      "git_blob_id": "f7c30e664e8f51e4805d17a83df2603baee97b31",
+      "physical_raw_sha256_at_adoption": "108bdc94965006e4e04610bc97dcb665e8b1cba5b2224248e0b8fb9e3ecc9993"
+    }
+  },
+  "decision": {
+    "supporting_test": "Iris/validation/test_lightweighting/tests/test_validate_terminal_evidence_bundle.py",
+    "full_gate_disposition": "explicit_historical_optional_source_for_full_repository_gate_only",
+    "round3_terminal_route_denominator_extended": false,
+    "separate_plan_local_validation_required": true
+  },
+  "validation_status": {
+    "receipt_bound_run_a": "pending_successor_commit",
+    "receipt_bound_run_b": "pending_successor_commit",
+    "deterministic_compare": "pending_successor_commit"
+  },
+  "non_claims": [
+    "This successor does not rewrite or invalidate the predecessor receipt.",
+    "This successor does not classify the supporting test as Round 3 historical semantics.",
+    "This successor does not claim validation PASS before clean wrapper receipts exist."
+  ]
+}

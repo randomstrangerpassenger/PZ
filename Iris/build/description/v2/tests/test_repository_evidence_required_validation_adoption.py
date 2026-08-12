@@ -11,7 +11,7 @@ REPO = Path(__file__).resolve().parents[5]
 PREDECESSOR = REPO / "Iris/_docs/refactor/repository_evidence_lightweighting/predecessor_subject_manifest.json"
 POLICY = REPO / "Iris/validation/clean_checkout/contracts/repository_evidence_lightweighting_output_policy.json"
 APPROVAL = REPO / "Iris/_docs/refactor/repository_evidence_lightweighting/owner_policy_approval.json"
-ADOPTION = REPO / "Iris/_docs/refactor/repository_evidence_lightweighting/required_validation_adoption_receipt.json"
+ADOPTION = REPO / "Iris/_docs/refactor/repository_evidence_lightweighting/required_validation_adoption_receipt.successor.json"
 TAXONOMY = REPO / "Iris/_docs/round3/round3_test_taxonomy.json"
 REQUIRED = REPO / "Iris/_docs/round3/current_route_required_validations.json"
 FULL_GATE = REPO / "Iris/validation/clean_checkout/contracts/full_repository_gate.json"
@@ -122,7 +122,7 @@ class RepositoryEvidenceRequiredValidationAdoptionTest(unittest.TestCase):
         self.assertEqual(selection["state"], "ok")
         self.assertEqual(
             adoption["schema_version"],
-            "iris_repository_evidence_lightweighting_required_validation_adoption_v1",
+            "iris_repository_evidence_lightweighting_required_validation_adoption_v2",
         )
         for name, relative in adoption["bound_inputs"].items():
             revision = (

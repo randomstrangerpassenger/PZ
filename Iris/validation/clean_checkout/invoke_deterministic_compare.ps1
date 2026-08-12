@@ -307,7 +307,7 @@ try {
     $taxonomyRelative = 'Iris/_docs/round3/round3_test_taxonomy.json'
     $requiredValidationsRelative = 'Iris/_docs/round3/current_route_required_validations.json'
     $fullGateContractRelative = 'Iris/validation/clean_checkout/contracts/full_repository_gate.json'
-    $evidenceAdoptionReceiptRelative = 'Iris/_docs/refactor/repository_evidence_lightweighting/required_validation_adoption_receipt.json'
+    $evidenceAdoptionReceiptRelative = 'Iris/_docs/refactor/repository_evidence_lightweighting/required_validation_adoption_receipt.successor.json'
     $evidenceAllocatorRelative = 'Iris/validation/clean_checkout/allocate_repository_runtime_lightweighting_roots.ps1'
     $phase0Relative = 'Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json'
     $launcherRelative = 'Iris/validation/clean_checkout/invoke_deterministic_compare.ps1'

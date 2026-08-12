@@ -200,6 +200,7 @@ def _build_fake_launcher_repository(
         "Iris/_docs/refactor/repository_evidence_lightweighting/predecessor_subject_manifest.json",
         "Iris/_docs/refactor/repository_evidence_lightweighting/owner_policy_approval.json",
         "Iris/_docs/refactor/repository_evidence_lightweighting/required_validation_adoption_receipt.json",
+        "Iris/_docs/refactor/repository_evidence_lightweighting/required_validation_adoption_receipt.successor.json",
         "Iris/_docs/round3/round3_test_taxonomy.json",
         "Iris/_docs/round3/current_route_required_validations.json",
     )

@@ -94,6 +94,10 @@
     "historical_optional_class": "historical_optional_evidence",
     "explicit_historical_optional_sources": [
       {
+        "path": "Iris/validation/test_lightweighting/tests/test_validate_terminal_evidence_bundle.py",
+        "reason": "terminal-closeout plan-infrastructure supporting test is validated separately and does not extend the Round 3 terminal route denominator"
+      },
+      {
         "path": "Iris/build/description/v2/tests/test_public_text_quality_acceptance_current_route.py",
         "reason": "official attempt-0004 consumption is outside the bounded G1-to-current integration correction"
       },

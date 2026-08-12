@@ -1,0 +1,20 @@
+{
+  "schema_version": "iris-terminal-closeout-full-gate-supporting-test-disposition-owner-decision-v1",
+  "decision": "approved",
+  "authority_mode": "advance_owner_preapproval_for_unattended_execution",
+  "trigger": {
+    "reviewer_finding": "P1 mandatory terminal wrapper evidence absent",
+    "wrapper_attempt": "C:/Users/MW/IT/wra/orchestration-receipt.json",
+    "failure": "unclassified tracked test source in full gate"
+  },
+  "source": "Iris/validation/test_lightweighting/tests/test_validate_terminal_evidence_bundle.py",
+  "disposition": "explicit_historical_optional_source_for_full_repository_gate_only",
+  "round3_terminal_route_denominator_extended": false,
+  "separate_plan_local_validation_required": true,
+  "rationale": "The adopted recovery plan counts this file as plan-infrastructure supporting test and explicitly excludes it from terminal round closure while requiring its separate plan-local validation.",
+  "non_claims": [
+    "This decision does not classify the supporting test as Round 3 historical semantics.",
+    "This decision does not change current, historical, diagnostic, or all route denominators.",
+    "This decision does not inherit validation PASS from the rejected terminal candidate."
+  ]
+}

@@ -83,6 +83,346 @@
           "test_id": "test_iar_public_text_assessment.IarPublicTextAssessmentTest.test_preserved_candidate_reproduces_existing_detector_policy_result",
           "authority_basis_path": "Iris/_docs/round3/iar_public_text_assessment/subjects/dvf_3_3_korean_naturalization_candidate/",
           "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_baseline_successor_committed_cleanup_recovery_requires_exact_intent",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_baseline_successor_external_collision_rolls_back_without_overwrite",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_baseline_successor_preexisting_external_stage_is_never_overwritten",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_baseline_successor_recovers_crash_after_external_publication",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_baseline_successor_recovers_interrupted_transaction_before_fresh_rerun",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_baseline_successor_recovers_lock_only_and_preparing_backup_crashes",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_baseline_successor_rejects_concurrent_active_owner",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_baseline_successor_rejects_predecessor_head_mismatch_before_write",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_baseline_successor_replaces_generation_and_preserves_dual_receipt_identity",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_baseline_successor_rolls_back_after_each_controlled_replace_failure",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_baseline_successor_v2_transaction_semantics_are_mandatory",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_artifact_work_root_contract.ArtifactWorkRootContractTest.test_omitted_run_id_records_cryptographic_generation",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_artifact_work_root_contract.ArtifactWorkRootContractTest.test_scalar_json_preserves_multiple_protected_roots",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_consumer_universe_denominator_lock.ConsumerUniverseDenominatorLockTest.test_crosswalk_and_claim_guard_cover_inventory_only_counts",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_consumer_universe_denominator_lock.ConsumerUniverseDenominatorLockTest.test_current_route_patch_records_live_required_gate_adoption",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_consumer_universe_denominator_lock.ConsumerUniverseDenominatorLockTest.test_registry_locks_scalar_denominator_roles",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_consumer_universe_denominator_lock.ConsumerUniverseDenominatorLockTest.test_relationships_separate_count_equality_from_row_identity",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_current_authority_source_path_guard.CurrentAuthoritySourcePathGuardTest.test_default_contract_rejects_staging_overlay_input",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_current_authority_source_path_guard.CurrentAuthoritySourcePathGuardTest.test_default_entrypoint_uses_current_overlay_support",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_closeout_reentry_guard_seal.DvfCloseoutReentryGuardSealTest.test_closeout_boundary_rejects_problem7_and_readiness_promotion",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_closeout_reentry_guard_seal.DvfCloseoutReentryGuardSealTest.test_final_report_allows_canonical_seal_and_keeps_release_out_of_scope",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_closeout_reentry_guard_seal.DvfCloseoutReentryGuardSealTest.test_predecessor_reentry_negative_fixtures_fail_closed",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_closeout_reentry_guard_seal.DvfCloseoutReentryGuardSealTest.test_taxonomy_splits_allowed_and_forbidden_claim_classes",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_closeout_reentry_guard_seal.DvfCloseoutReentryGuardSealTest.test_top_doc_publish_boundary_definitions_do_not_overclaim_readiness",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_core_registry_boundary_required_gate_adoption.DvfCoreRegistryBoundaryRequiredGateAdoptionTest.test_allowed_boundary_fixtures_include_korean",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_core_registry_boundary_required_gate_adoption.DvfCoreRegistryBoundaryRequiredGateAdoptionTest.test_final_report_preserves_two_pass_boundary_and_non_claims",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_core_registry_boundary_required_gate_adoption.DvfCoreRegistryBoundaryRequiredGateAdoptionTest.test_validator_rejects_forbidden_overclaim_tamper",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_dvf_system_naming_realignment.DvfSystemNamingRealignmentCurrentRouteTest.test_current_docs_resolve_retired_core_usage",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_dvf_system_naming_realignment.DvfSystemNamingRealignmentCurrentRouteTest.test_forbidden_fixture_matrix_and_korean_cases_pass",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_dvf_system_naming_realignment.DvfSystemNamingRealignmentCurrentRouteTest.test_manifest_adoption_is_additive_when_selected",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityBootstrapScaffoldTest.test_aggregate_all_mode_is_rejected_before_writes",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityBootstrapScaffoldTest.test_bootstrap_manifest_matches_closed_scaffold_path_set",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityBootstrapScaffoldTest.test_directory_tree_hash_includes_extended_length_file",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityBootstrapScaffoldTest.test_implementation_validator_fails_closed_without_evidence",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityBootstrapScaffoldTest.test_missing_preserved_owner_input_tree_fails_closed",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityBootstrapScaffoldTest.test_non_entry_modes_are_inert_and_write_nothing",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityBootstrapScaffoldTest.test_pre_entry_exception_record_is_write_once",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityBootstrapScaffoldTest.test_preflight_without_external_authority_fails_closed",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityBootstrapScaffoldTest.test_same_attempt_cannot_overwrite_failed_preflight_evidence",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityBootstrapScaffoldTest.test_scaffold_sources_parse_and_common_uses_stdlib_only",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityBootstrapScaffoldTest.test_validator_rejects_missing_preflight_evidence",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_command_order_failure_anchor_rejects_same_attempt_rewrite",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_current_route_static_preimport_scan_passes_without_running_tests",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_focused_test_inventory_is_exact_and_unique",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_frozen_fixture_isolated_materialization_contract_fails_closed",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_partial_terminal_write_records_one_immutable_implementation_failure",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_practical_failure_record_terminates_all_same_attempt_writes",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_round3_preimport_guard_detects_bare_import_before_sentinel",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_round3_preimport_guard_distinguishes_import_target_states",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_round3_preimport_guard_reports_missing_selected_test_precisely",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_successful_implementation_attempt_cannot_gain_late_failure_record",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_wp4_subprocess_targets_are_tracked_and_not_ignored",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_wp6_diagnostic_self_observation_is_not_authority_reentry",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_wp6_lua_module_table_requires_all_distinct_literals",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_wp6_negative_fixtures_detect_path_hash_and_package_reentry",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_wp6_wp2_ledger_binding_rejects_truncated_jsonl",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_write_json_once_supports_long_nonce_consumption_path",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_shared_disposition_consumption.SharedDispositionConsumptionTest.test_docs_and_final_report_preserve_claim_boundary",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_shared_disposition_consumption.SharedDispositionConsumptionTest.test_phase1_census_is_bounded_and_covers_sealed_axis_tokens",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_shared_disposition_consumption.SharedDispositionConsumptionTest.test_phase2_packet_preserves_terminal_split_and_sealed_sources",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_shared_disposition_consumption.SharedDispositionConsumptionTest.test_phase3_negative_fixtures_are_detected_without_leaking_into_current_scan",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_shared_disposition_consumption.SharedDispositionConsumptionTest.test_phase4_and_phase5_record_live_required_gate_adoption",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_shared_disposition_consumption.SharedDispositionConsumptionTest.test_validator_accepts_complete_adopted_state",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.DvfVnextCurrentAuthorityChainSuccessorReadpointSealTest.test_final_packet_records_canonical_gate_status",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.DvfVnextCurrentAuthorityChainSuccessorReadpointSealTest.test_validator_accepts_machine_governance_packet",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_workspace_copy_flow_excludes_stale_dvf_bridge",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_repository_evidence_migration.RepositoryEvidenceMigrationTest.test_cas_consumer_scan_detects_python_path_fragment_assembly",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
+        },
+        {
+          "test_id": "test_repository_evidence_migration.RepositoryEvidenceMigrationTest.test_cas_reference_path_rejects_escape_and_absolute_forms",
+          "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
+          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
         }
       ],
       "artifacts": [

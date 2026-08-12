@@ -1,0 +1,25 @@
+{
+  "schema_version": "iris-test-lightweighting-full-gate-item-disposition-owner-decision-v1",
+  "decision_id": "iris-test-lightweighting-terminal-closeout-full-gate-item-disposition-20260813",
+  "authority": "repository_owner_user",
+  "authority_mode": "advance_owner_preapproval_for_unattended_execution",
+  "status": "approved",
+  "observed_subject": {
+    "commit": "df980800c2c3372f312ec8a60fe3a282b531304c",
+    "tree": "3e052e3f50c0b3318b441e69e50f21d72033323e"
+  },
+  "decision": {
+    "current_taxonomy_missing_identity_count": 0,
+    "same_source_non_taxonomy_identity_count": 68,
+    "disposition": "historical_optional_evidence_for_full_repository_gate_identity_reconciliation",
+    "round3_current_denominator_extended": false,
+    "full_repository_gate_execution_removed": false,
+    "required_test_execution_removed": false
+  },
+  "authority_basis": "The exact identities are additive applicability overrides bound to the existing validated current-generation descriptor; they remain executed by the full repository gate but do not silently expand the frozen Round 3 current taxonomy denominator.",
+  "non_claims": [
+    "This decision does not suppress, deselect, or skip any full-gate test.",
+    "This decision does not classify the identities as exact-current taxonomy rows.",
+    "This decision does not claim terminal PASS before fresh wrapper Run A and Run B succeed."
+  ]
+}

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import os
+import shutil
 import subprocess
 import sys
 import unittest
@@ -9,7 +11,22 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[5]
 SCRIPT = REPO / "Iris/build/description/v2/tools/build/runtime_payload_state_integrity_residual_seal.py"
-ROOT = REPO / "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal"
+SOURCE_ROOT = REPO / "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal"
+EVIDENCE_ROOT_ENV = "IRIS_RUNTIME_PAYLOAD_RESIDUAL_EVIDENCE_ROOT"
+
+
+def _external_evidence_root() -> Path:
+    from clean_checkout_test_paths import external_test_path
+
+    root = external_test_path("runtime-payload-residual-seal")
+    if root.exists():
+        shutil.rmtree(root)
+    shutil.copytree(SOURCE_ROOT, root)
+    os.environ[EVIDENCE_ROOT_ENV] = str(root)
+    return root
+
+
+ROOT = _external_evidence_root()
 
 
 def load_json(path: Path) -> dict:

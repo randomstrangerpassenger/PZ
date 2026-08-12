@@ -29,7 +29,10 @@ from _dvf_3_3_vnext_common import (
 
 
 ROUND_ID = "runtime_payload_state_integrity_residual_seal"
-EVIDENCE_ROOT = V2_ROOT / "staging" / ROUND_ID
+EVIDENCE_ROOT_ENV = "IRIS_RUNTIME_PAYLOAD_RESIDUAL_EVIDENCE_ROOT"
+EVIDENCE_ROOT = Path(
+    os.environ.get(EVIDENCE_ROOT_ENV, str(V2_ROOT / "staging" / ROUND_ID))
+).resolve()
 EXISTING_EVIDENCE_ROOT = V2_ROOT / "staging" / "runtime_payload_state_integrity"
 GENERATED_AT = "2026-06-27T00:00:00+09:00"
 
@@ -78,7 +81,9 @@ def now_iso() -> str:
 
 
 def write_json(path: str | Path, payload: Any) -> None:
-    path = resolve_repo(path)
+    path = Path(path).resolve()
+    if EVIDENCE_ROOT not in (path, *path.parents):
+        path = resolve_repo(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_name(f".{path.name}.{os.getpid()}.tmp")
     with tmp.open("w", encoding="utf-8", newline="\n") as handle:
@@ -92,6 +97,23 @@ def write_json(path: str | Path, payload: Any) -> None:
             if attempt == 7:
                 raise
             time.sleep(0.05 * (2 ** attempt))
+
+
+def write_jsonl(path: str | Path, rows: list[dict[str, Any]]) -> None:
+    resolved = Path(path).resolve()
+    if EVIDENCE_ROOT not in (resolved, *resolved.parents):
+        resolved = resolve_repo(resolved)
+    resolved.parent.mkdir(parents=True, exist_ok=True)
+    with resolved.open("w", encoding="utf-8", newline="\n") as handle:
+        for row in rows:
+            handle.write(json.dumps(row, ensure_ascii=False, sort_keys=True))
+            handle.write("\n")
+
+
+def write_text(path: str | Path, text: str) -> None:
+    resolved = resolve_repo(path)
+    resolved.parent.mkdir(parents=True, exist_ok=True)
+    resolved.write_text(text.rstrip() + "\n", encoding="utf-8", newline=None)
 
 
 def phase_dir(phase: str) -> Path:

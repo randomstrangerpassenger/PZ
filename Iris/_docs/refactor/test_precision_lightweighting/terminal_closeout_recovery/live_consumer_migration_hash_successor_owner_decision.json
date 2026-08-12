@@ -1,0 +1,20 @@
+{
+  "schema_version": "iris-live-consumer-migration-hash-successor-owner-decision-v1",
+  "decision_id": "H-6-additive-successor-seal",
+  "authority": "repository_owner_preapproval",
+  "owner_preapproval_sha256": "3c739b1a3ab86ac01d8e23241d85e8e5f8abe6a6cc7a2c82384cccce71390bca",
+  "predecessor_manifest_path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase7/independent_review_artifact_hash_manifest.json",
+  "predecessor_manifest_producer_commit": "af1d3c2727491eecaf7ac57b2396e278cb572315",
+  "observed_terminal_attempt": "a6",
+  "observed_mismatch_count": 34,
+  "decision": "authorize_additive_git_blob_successor_without_predecessor_reseal",
+  "authorized_paths": [
+    "Iris/build/description/v2/tests/test_live_consumer_migration_execution.py",
+    "Iris/_docs/refactor/test_precision_lightweighting/terminal_closeout_recovery/live_consumer_migration_hash_manifest.successor.json",
+    "Iris/_docs/refactor/test_precision_lightweighting/terminal_closeout_recovery/live_consumer_migration_hash_report.successor.json"
+  ],
+  "protected_contract_preserved": "same artifact byte/hash assertions against an additive Git-object authority; same validator assertions with writes isolated externally",
+  "predecessor_bytes_preserved": true,
+  "skip_xfail_allowlist_ignore_deselection_or_reclassification_added": false,
+  "runtime_or_public_output_changed": false
+}

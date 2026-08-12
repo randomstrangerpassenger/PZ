@@ -1,0 +1,13 @@
+{
+  "checked_artifact_count": 83,
+  "external_review_gate_status": "SATISFIED",
+  "generated_at": "2026-08-12T12:44:17.527064+00:00",
+  "manifest_path": "Iris/_docs/refactor/test_precision_lightweighting/terminal_closeout_recovery/live_consumer_migration_hash_manifest.successor.json",
+  "owner_decision_path": "Iris/_docs/refactor/test_precision_lightweighting/terminal_closeout_recovery/live_consumer_migration_hash_successor_owner_decision.json",
+  "predecessor_bytes_preserved": true,
+  "schema_version": "iris-live-consumer-migration-git-blob-hash-report-successor-v1",
+  "source_artifact_subject_commit": "e3fa0582ce1094d27046d0509e50298866434ff9",
+  "source_artifact_subject_tree": "ec29e8c28f8cf4789897adc5554904fa1e470a6d",
+  "stable_artifact_hash_mismatch_count": 0,
+  "status": "PASS"
+}

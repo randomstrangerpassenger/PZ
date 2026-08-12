@@ -2,19 +2,21 @@ from __future__ import annotations
 
 import hashlib
 import json
-import subprocess
-import sys
+import os, shutil, subprocess, sys, tempfile
 import unittest
+from contextlib import contextmanager
 from pathlib import Path
+from unittest import mock
 
 
 REPO = Path(__file__).resolve().parents[5]
 TOOLS = REPO / "Iris/build/description/v2/tools/build"
 ROOT = REPO / "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution"
-SCRIPT = TOOLS / "run_dvf_3_3_live_consumer_migration_execution.py"
+SUCCESSOR_ROOT = REPO / "Iris/_docs/refactor/test_precision_lightweighting/terminal_closeout_recovery"
 
 sys.path.insert(0, str(TOOLS))
 
+import dvf_3_3_live_consumer_migration_execution_common as live_common  # noqa: E402
 from dvf_3_3_live_consumer_migration_execution_common import materialize_line_patch, validate_all  # noqa: E402
 from _dvf_3_3_vnext_common import canonical_hash  # noqa: E402
 
@@ -50,6 +52,31 @@ def git_bytes(commit: str, path: Path) -> bytes:
         capture_output=True,
         check=True,
     ).stdout
+
+
+@contextmanager
+def isolated_live_evidence_root():
+    output_root = os.environ.get("IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT")
+    with tempfile.TemporaryDirectory(prefix="iris-live-evidence-", dir=output_root) as value:
+        isolated = Path(value) / ROOT.name
+        shutil.copytree(ROOT, isolated)
+        prefix = ROOT.relative_to(REPO)
+        original_resolve, original_rel = live_common.resolve_repo, live_common.rel
+        def resolve(path: str | Path) -> Path:
+            candidate = Path(path)
+            if candidate.is_absolute():
+                return candidate.resolve()
+            try:
+                return (isolated / candidate.relative_to(prefix)).resolve()
+            except ValueError:
+                return original_resolve(path)
+        def rel(path: str | Path) -> str:
+            try:
+                return (prefix / Path(path).resolve().relative_to(isolated.resolve())).as_posix()
+            except ValueError:
+                return original_rel(path)
+        with mock.patch.multiple(live_common, EVIDENCE_ROOT=isolated, resolve_repo=resolve, rel=rel):
+            yield
 
 
 class LiveConsumerMigrationExecutionTest(unittest.TestCase):
@@ -144,8 +171,8 @@ class LiveConsumerMigrationExecutionTest(unittest.TestCase):
         self.assertIn("no release readiness", closeout)
 
     def test_independent_review_hash_manifest_covers_external_docs_without_self_hash(self) -> None:
-        manifest_path = ROOT / "phase7/independent_review_artifact_hash_manifest.json"
-        report_path = ROOT / "phase7/independent_review_artifact_hash_report.json"
+        manifest_path = SUCCESSOR_ROOT / "live_consumer_migration_hash_manifest.successor.json"
+        report_path = SUCCESSOR_ROOT / "live_consumer_migration_hash_report.successor.json"
         producer_commit = git_last_change_commit(manifest_path)
         manifest = json.loads(git_bytes(producer_commit, manifest_path))
         report = json.loads(git_bytes(producer_commit, report_path))
@@ -190,8 +217,9 @@ class LiveConsumerMigrationExecutionTest(unittest.TestCase):
         self.assertEqual(report["stable_artifact_hash_mismatch_count"], 0)
 
     def test_validator_accepts_complete_external_seal(self) -> None:
-        report, ok = validate_all(require_complete=False)
-        complete_report, complete_ok = validate_all(require_complete=True, write_report=False)
+        with isolated_live_evidence_root():
+            report, ok = validate_all(require_complete=False)
+            complete_report, complete_ok = validate_all(require_complete=True, write_report=False)
 
         self.assertTrue(ok, report["errors"])
         self.assertTrue(complete_ok, complete_report["errors"])

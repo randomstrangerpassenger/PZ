@@ -1,0 +1,22 @@
+{
+  "schema_version": "iris-test-lightweighting-terminal-candidate-qualification-contract-v1",
+  "candidate_identity_source": "external immutable qualification receipt generated after this tree is committed",
+  "entry_requirements": {
+    "a0_unattributed_count": 0,
+    "owner_required_attribution_unaccepted_count": 0,
+    "closeout_precondition_unavailable_count": 0,
+    "focused_tracked_mutation_count": 0,
+    "configured_current_failed_count": 0,
+    "configured_current_error_count": 0,
+    "historical_r_defer_remaining_count": 0,
+    "precision_regression_count": 0,
+    "fault_matrix_delta_count": 0,
+    "unresolved_dependency_count": 0,
+    "unclassified_dependency_count": 0
+  },
+  "terminal_route_order": ["focused", "exact-current", "configured-current", "historical", "diagnostic/all"],
+  "terminal_run_count": 2,
+  "forced_test_wall_clock_cap": null,
+  "failure_policy": "fail closed per run; preserve rejected candidate evidence",
+  "terminal_name_reserved_until_both_runs_pass": true
+}

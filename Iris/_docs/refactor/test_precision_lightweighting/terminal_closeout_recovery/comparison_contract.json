@@ -1,0 +1,42 @@
+{
+  "schema_version": "iris-test-lightweighting-terminal-comparison-contract-v1",
+  "plan_subject": {
+    "commit": "ddf7a6e5d44227b5224bd13545d910a9a6c77d6c",
+    "tree": "9209b4070a6b9e896acc8bf9d5ac014ecd45be1f"
+  },
+  "comparison_subjects": [
+    {"name": "base", "commit": "55bc0578cb0361cc35eb5830a859f66bb2b2872d", "tree": "d7ff13ca7a61304a3d7b197eb602b31a532f6a3b"},
+    {"name": "implementation", "commit": "8a10ac42ea6f8d5759e521ad041e5ee161bf1311", "tree": "932da95829eb69e7dc5afa2b7145387979061873"},
+    {"name": "preterminal", "commit": "ecf9c75768ff824fdf4d441cfccb4708b3117c2b", "tree": "c4b9de587ac8698dfd865de8afc50dcf6832c15f"}
+  ],
+  "comparison_subjects_exclude_plan_subject": true,
+  "environment": {
+    "shell": "PowerShell",
+    "pythonpath_present": false,
+    "python_no_bytecode": true,
+    "pytest_capture_disabled": true,
+    "pytest_cache_plugin_disabled": true,
+    "test_timeout_or_forced_wall_clock_cap": null,
+    "long_running_process_policy": "poll progress without terminating solely for elapsed time"
+  },
+  "logical_routes": ["focused", "exact-current", "configured-current", "historical", "diagnostic/all"],
+  "logical_arm_route_count": 30,
+  "execution_invocation_receipt_count": 36,
+  "collection_invocation_receipt_count": 36,
+  "comparison_attempt": {
+    "id": "attempt-0002",
+    "status": "complete",
+    "long_path_exact_current_rows": "A4_orchestration_or_environment",
+    "short_root_preterminal_exact_current_counterfactual": "PASS",
+    "same_arm_a_b_signature_mismatch_count": 0,
+    "remaining_a6_nondeterminism_rows": 0
+  },
+  "route_reconciliation": {
+    "focused": "R-full",
+    "exact-current": "R-full_after_short_root_counterfactual",
+    "configured-current": "R-full",
+    "historical": "R-defer_pending_bootstrap_successor_receipt",
+    "diagnostic/all": "R-first_then_terminal_A_B"
+  },
+  "runtime_subtest_identity_source": "execution_receipt"
+}

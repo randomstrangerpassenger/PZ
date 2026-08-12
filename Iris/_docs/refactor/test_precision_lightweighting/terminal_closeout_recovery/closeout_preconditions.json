@@ -1,0 +1,20 @@
+{
+  "schema_version": "iris-test-lightweighting-closeout-preconditions-v1",
+  "independent_reviewer_designated": true,
+  "independent_reviewer": "Codex Reviewer",
+  "independent_reviewer_eligibility": "must not participate in planning, implementation, attribution, or owner acceptance",
+  "owner_durable_custody_root": "C:/Users/MW/IT/terminal-closeout-durable",
+  "terminal_retrieval_tool_present": true,
+  "terminal_retrieval_tool_mode_support": "carrier-aware-v2",
+  "carrier_retrieval_capability_tests": {
+    "positive": "PASS",
+    "missing": "PASS",
+    "tampered": "PASS",
+    "carrier_spoof": "PASS",
+    "terminal_subject_spoof": "PASS"
+  },
+  "exact_current_collection_capability_present": true,
+  "user_worktree_owner_controlled_freeze_accepted": true,
+  "owner_preapproval_provenance": "user-authored execution request in this task; exact record is retained outside the source tree",
+  "unavailable_count": 0
+}

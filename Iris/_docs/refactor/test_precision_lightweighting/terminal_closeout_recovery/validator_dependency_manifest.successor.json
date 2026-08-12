@@ -1,0 +1,76 @@
+{
+  "schema_version": "iris-test-lightweighting-validator-dependency-successor-v1",
+  "predecessor_preserved": "Iris/_docs/refactor/test_precision_lightweighting/validator_dependency_manifest.json",
+  "status": "superseded_for_terminal_authority",
+  "counting_rule": {
+    "root_modules": "eight command producers, comparators, and validators",
+    "supporting_tests": "reported separately and excluded from terminal round closure LOC",
+    "transitive_modules": "unique semantic dependency counted once; every consumer edge retained",
+    "package_initializers": "classified separately; one-line empty marker files do not participate in execution semantics",
+    "non_python_inputs": "CLI-declared inputs are contract edges, not hidden fixed dependencies",
+    "owner_approved": true,
+    "owner_approval_provenance": "user preapproval in the execution request"
+  },
+  "computed_accounting": {
+    "root_module_count": 8,
+    "root_module_loc": 760,
+    "transitive_python_module_count": 1,
+    "transitive_python_module_loc": 123,
+    "unique_terminal_closure_file_count": 9,
+    "unique_terminal_closure_loc": 883,
+    "supporting_test_count": 1,
+    "supporting_test_loc": 296,
+    "nonparticipating_initializer_count": 2,
+    "nonparticipating_initializer_loc": 2,
+    "gate_registered_validator_count": 0
+  },
+  "root_modules": [
+    {"path": "Iris/validation/test_lightweighting/collect_test_inventory.py", "loc": 139},
+    {"path": "Iris/validation/test_lightweighting/build_protection_map.py", "loc": 89},
+    {"path": "Iris/validation/test_lightweighting/build_detection_baseline.py", "loc": 44},
+    {"path": "Iris/validation/test_lightweighting/compare_failure_localization.py", "loc": 34},
+    {"path": "Iris/validation/test_lightweighting/validate_dominance.py", "loc": 56},
+    {"path": "Iris/validation/test_lightweighting/validate_identity_migration.py", "loc": 71},
+    {"path": "Iris/validation/test_lightweighting/compare_precision.py", "loc": 75},
+    {"path": "Iris/validation/test_lightweighting/validate_terminal_evidence_bundle.py", "loc": 252}
+  ],
+  "transitive_python_modules": [
+    {"path": "Iris/validation/test_lightweighting/_common.py", "loc": 123, "counted_once": true}
+  ],
+  "supporting_tests": [
+    {"path": "Iris/validation/test_lightweighting/tests/test_validate_terminal_evidence_bundle.py", "loc": 296}
+  ],
+  "nonparticipating_initializers": [
+    {"path": "Iris/validation/test_lightweighting/__init__.py", "loc": 1},
+    {"path": "Iris/validation/test_lightweighting/tests/__init__.py", "loc": 1}
+  ],
+  "dependency_edges": [
+    {"from": "collect_test_inventory.py", "to": "_common.py", "kind": "import"},
+    {"from": "build_protection_map.py", "to": "_common.py", "kind": "import"},
+    {"from": "build_detection_baseline.py", "to": "_common.py", "kind": "import"},
+    {"from": "compare_failure_localization.py", "to": "_common.py", "kind": "import"},
+    {"from": "validate_dominance.py", "to": "_common.py", "kind": "import"},
+    {"from": "validate_identity_migration.py", "to": "_common.py", "kind": "import"},
+    {"from": "compare_precision.py", "to": "_common.py", "kind": "import"},
+    {"from": "validate_terminal_evidence_bundle.py", "to": "_common.py", "kind": "import"},
+    {"from": "test_validate_terminal_evidence_bundle.py", "to": "_common.py", "kind": "supporting_test_import"},
+    {"from": "test_validate_terminal_evidence_bundle.py", "to": "validate_terminal_evidence_bundle.py", "kind": "supporting_test_import"},
+    {"from": "_common.py", "to": "git", "kind": "declared_subprocess_cli"}
+  ],
+  "declared_detection_scope": [
+    "static imports",
+    "declared subprocess and CLI edges",
+    "AST and string-fragment dynamic path scan",
+    "observed file-open, fixture, and schema edges"
+  ],
+  "unresolved_dependency_count": 0,
+  "unclassified_dependency_count": 0,
+  "validator_dependency_closure_complete_within_declared_detection_scope": true,
+  "known_limit": "unobserved_dynamic_dependency_possibility_not_disproven",
+  "plan_infrastructure_validator_accounting_complete": true,
+  "plan_infrastructure_validator_file_count": 1,
+  "plan_infrastructure_validator_loc": 252,
+  "plan_infrastructure_supporting_test_count": 1,
+  "plan_infrastructure_supporting_test_loc": 296,
+  "plan_infrastructure_validator_loc_not_in_a1_test_support_denominator": true
+}

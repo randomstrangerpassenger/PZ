@@ -1,0 +1,8 @@
+{
+  "schema_version": "iris-test-lightweighting-validator-accounting-known-defect-v1",
+  "predecessor_manifest": "Iris/_docs/refactor/test_precision_lightweighting/validator_dependency_manifest.json",
+  "defect": "predecessor closure omitted the imported _common.py module and reported the supporting test without a separate LOC total",
+  "predecessor_closure_complete_excluded_from_terminal_authority": true,
+  "disposition": "superseded_for_terminal_authority",
+  "successor": "validator_dependency_manifest.successor.json"
+}

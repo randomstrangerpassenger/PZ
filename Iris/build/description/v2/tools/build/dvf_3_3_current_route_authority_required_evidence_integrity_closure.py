@@ -248,7 +248,10 @@ def write_runner_order_doc() -> None:
     ]
     for entry in command_matrix_entries():
         lines.append(f"{entry['index']}. `{entry['command']}`")
-    write_text(RUNNER_ORDER_DOC, "\n".join(lines))
+    content = "\n".join(lines).rstrip() + "\n"
+    if RUNNER_ORDER_DOC.exists() and RUNNER_ORDER_DOC.read_text(encoding="utf-8") == content:
+        return
+    write_text(RUNNER_ORDER_DOC, content)
 
 
 def path_record(path: str | Path, *, role: str) -> dict[str, Any]:

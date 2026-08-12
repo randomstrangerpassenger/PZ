@@ -2,10 +2,13 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import subprocess
 import sys
 import unittest
 from pathlib import Path
+
+from clean_checkout_test_paths import external_test_path
 
 
 REPO = Path(__file__).resolve().parents[5]
@@ -18,6 +21,14 @@ INNER_CURRENT_ROUTE = os.environ.get("DVF_RESEAL_INNER_CURRENT_ROUTE") == "1"
 
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def external_validation_root() -> Path:
+    target = external_test_path("current-route-freshness-reseal-validation")
+    if target.exists():
+        shutil.rmtree(target)
+    shutil.copytree(ROOT, target)
+    return target
 
 
 class DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest(unittest.TestCase):
@@ -186,15 +197,23 @@ class DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest(unittest.Test
         self.assertEqual(review["owner_seal_status"], "PASS")
         self.assertTrue(review["canonical_complete_allowed"])
 
+        validation_root = external_validation_root()
         result = subprocess.run(
-            [sys.executable, "-B", str(VALIDATOR), "--require-complete"],
+            [
+                sys.executable,
+                "-B",
+                str(VALIDATOR),
+                "--root",
+                str(validation_root),
+                "--require-complete",
+            ],
             cwd=REPO,
             text=True,
             capture_output=True,
             check=False,
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-        report = load_json(ROOT / "phase6/validation_report.require_complete.json")
+        report = load_json(validation_root / "phase6/validation_report.require_complete.json")
         self.assertEqual(report["status"], "PASS")
         self.assertEqual(report["error_count"], 0)
         self.assertEqual(report["validation_report_scope"], "machine_pass_artifact_set_and_owner_sealed_canonical_closeout")

@@ -4,7 +4,7 @@
   "owner_acceptance": "user-authored blanket preapproval; external exact-byte record is required in the terminal bundle",
   "rows": [
     {"id": "F-focused", "attribution": "A1_preexisting", "cause": "residual-seal test support used tracked staging as its evidence output", "remediation": "external isolated evidence root with tracked staging copied as read-only input"},
-    {"id": "CC-1", "attribution": "A3_preterminal_evidence_drift", "cause": "phase6 and residual evidence output was not isolated from source checkout", "remediation": "existing clean-checkout output-root contract propagated to support and producer"},
+    {"id": "CC-1", "attribution": "A3_preterminal_evidence_drift", "cause": "phase6 validators and residual evidence output were not isolated from source checkout", "remediation": "existing clean-checkout output-root contract propagated to support, producer, and validator fixture copies"},
     {"id": "CC-2", "attribution": "A1_preexisting", "cause": "standalone subprocess observed repository-relative output state", "remediation": "external output root reused without changing subprocess exit semantics"},
     {"id": "CC-3", "attribution": "A3_preterminal_evidence_drift", "cause": "required/protected evidence receipt no longer matched the tracked tooling denominator", "remediation": "additive current receipt identity update; predecessor trace retained"},
     {"id": "CC-4", "attribution": "A4_orchestration_or_environment", "cause": "one Windows transient directory-handle release failed external fixture cleanup", "remediation": "no protected test-source change; require a clean short-root terminal rerun"},

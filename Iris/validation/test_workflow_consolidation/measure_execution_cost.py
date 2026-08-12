@@ -147,8 +147,15 @@ def tooling_identity(repo: Path, manifest_path: Path, manifest: dict[str, Any]) 
         relative = str(row.get("path", ""))
         path = resolve_within(repo, relative)
         require(path.is_file(), f"tooling dependency is missing: {relative}")
-        observed_sha = sha256_file(path)
         observed_blob = git(repo, "rev-parse", f"HEAD:{relative}")
+        blob_result = subprocess.run(
+            ["git", "-C", str(repo), "cat-file", "blob", observed_blob],
+            check=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        require(blob_result.returncode == 0, f"cannot read tooling blob: {relative}")
+        observed_sha = sha256_bytes(blob_result.stdout)
         require(row.get("raw_sha256") == observed_sha, f"tooling raw hash mismatch: {relative}")
         require(row.get("git_blob_id") == observed_blob, f"tooling blob mismatch: {relative}")
         entries.append({"path": relative, "raw_sha256": observed_sha, "git_blob_id": observed_blob})
@@ -157,6 +164,7 @@ def tooling_identity(repo: Path, manifest_path: Path, manifest: dict[str, Any]) 
         "tool_subject": subject,
         "manifest_path": manifest_path.resolve().relative_to(repo.resolve()).as_posix(),
         "manifest_raw_sha256": sha256_file(manifest_path),
+        "tool_file_raw_hash_source": "committed_git_blob_bytes_before_checkout_filters",
         "cli_schema_version": CLI_SCHEMA_VERSION,
         "tool_files": entries,
         "harness_interpreter_identity": interpreter_identity(),
@@ -475,16 +483,51 @@ def build_schedule(
     }
 
 
-def resource_estimate(schedule: dict[str, Any], qualification: dict[str, Any]) -> dict[str, Any]:
+def candidate_elapsed_samples(
+    candidate_root: Path | None, family_ids: list[str]
+) -> dict[str, list[float]]:
+    if not family_ids:
+        return {}
+    require(candidate_root is not None and candidate_root.is_dir(), "candidate receipt root is required for adopted families")
+    result: dict[str, list[float]] = {}
+    for path in sorted(candidate_root.rglob("*.json")):
+        try:
+            payload = read_json(path)
+        except ContractError:
+            continue
+        if not isinstance(payload, dict) or payload.get("status") != "PASS":
+            continue
+        for row in payload.get("samples", []):
+            workload_id = str(row.get("workload_id", ""))
+            if workload_id in family_ids and row.get("phase") == "measured":
+                result.setdefault(workload_id, []).append(
+                    float(row["observation"]["elapsed_ms"])
+                )
+    missing = sorted(set(family_ids) - result.keys())
+    require(not missing, f"candidate timing receipt is missing for adopted families: {missing}")
+    return result
+
+
+def resource_estimate(
+    schedule: dict[str, Any],
+    qualification: dict[str, Any],
+    candidate_root: Path | None,
+) -> dict[str, Any]:
     elapsed_by_workload: dict[str, list[float]] = {}
     for row in qualification.get("samples", []):
         elapsed_by_workload.setdefault(row["workload_id"], []).append(float(row["observation"]["elapsed_ms"]))
+    elapsed_by_workload.update(
+        candidate_elapsed_samples(
+            candidate_root, list(schedule.get("adopted_nonpilot_family_ids", []))
+        )
+    )
     p50_total = 0.0
     p95_total = 0.0
     timeout_total = 0.0
     workloads = {row["workload_id"]: row for row in schedule["workloads"]}
     for position in schedule["positions"]:
-        values = elapsed_by_workload.get(position["workload_id"], [1000.0])
+        values = elapsed_by_workload.get(position["workload_id"])
+        require(values, f"no qualified duration estimate for workload: {position['workload_id']}")
         p50_total += statistics.median(values)
         p95_total += percentile(values, 0.95)
         timeout_total += float(workloads[position["workload_id"]]["timeout_seconds"]) * 1000.0
@@ -520,6 +563,13 @@ def verify_tooling(args: argparse.Namespace, contract_path: Path, contract_raw: 
     return 0
 
 
+def resolved_tooling_identity(args: argparse.Namespace, contract_path: Path) -> dict[str, Any]:
+    manifest_path = args.tooling_manifest or contract_path.parent / "measurement_tooling_manifest.json"
+    manifest = read_json(manifest_path)
+    repo = Path(git(contract_path.parent, "rev-parse", "--show-toplevel"))
+    return tooling_identity(repo, manifest_path, manifest)
+
+
 def qualify_protocol(
     args: argparse.Namespace, contract: dict[str, Any], contract_path: Path, contract_raw: bytes, protocol: dict[str, str]
 ) -> int:
@@ -527,6 +577,7 @@ def qualify_protocol(
     output_root.mkdir(parents=True, exist_ok=False)
     target = args.target_repository.resolve()
     target_subject = subject_identity(target)
+    measurement_tooling = resolved_tooling_identity(args, contract_path)
     selected = [
         row for row in contract["workloads"] if row["workload_id"] in contract["qualification_workload_ids"]
     ]
@@ -575,6 +626,7 @@ def qualify_protocol(
         "target_subject_a": target_subject,
         "target_subject_b": target_subject,
         "measurement_protocol_identity": protocol,
+        "measurement_tooling_identity": measurement_tooling,
         "harness_interpreter_identity": interpreter_identity(),
         "target_execution_interpreter_identity_a": interpreter_identity(),
         "target_execution_interpreter_identity_b": interpreter_identity(),
@@ -606,7 +658,7 @@ def plan_paired_session(
     schedule["measurement_protocol_identity"] = protocol
     schedule["family_ledger_sha256"] = sha256_file(args.family_ledger)
     write_json(args.schedule_output, schedule)
-    estimate = resource_estimate(schedule, qualification)
+    estimate = resource_estimate(schedule, qualification, args.candidate_receipt_root)
     estimate["schedule_sha256"] = sha256_file(args.schedule_output)
     estimate["owner_acknowledgment_required"] = True
     write_json(args.resource_estimate_output, estimate)
@@ -638,6 +690,7 @@ def run_paired_session(
         "B": args.terminal_repository.resolve(),
     }
     subjects = {arm: subject_identity(repo) for arm, repo in repositories.items()}
+    measurement_tooling = resolved_tooling_identity(args, contract_path)
     samples, summaries = execute_schedule(schedule, repositories, output_root)
     valid = all(row["valid"] for row in summaries)
     targeted = [row for row in summaries if row["workload_id"] != "configured-current"]
@@ -653,6 +706,7 @@ def run_paired_session(
         "target_subject_a": subjects["A"],
         "target_subject_b": subjects["B"],
         "measurement_protocol_identity": protocol,
+        "measurement_tooling_identity": measurement_tooling,
         "schedule_sha256": sha256_file(args.schedule),
         "resource_estimate_sha256": sha256_file(args.resource_estimate),
         "owner_acknowledgment_sha256": sha256_file(args.owner_acknowledgment),

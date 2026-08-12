@@ -3,8 +3,11 @@ from __future__ import annotations
 from Iris.validation.test_workflow_consolidation.measure_execution_cost import (
     bootstrap_interval,
     build_schedule,
+    candidate_elapsed_samples,
     workload_schedule,
 )
+from Iris.validation.test_workflow_consolidation._common import ContractError
+import pytest
 
 
 def _contract() -> dict[str, object]:
@@ -57,3 +60,7 @@ def test_bootstrap_interval_is_seed_deterministic() -> None:
     second = bootstrap_interval([1.0, 2.0, 3.0], 1729, 10000)
     assert first == second
 
+
+def test_adopted_family_estimate_fails_closed_without_candidate_receipt() -> None:
+    with pytest.raises(ContractError):
+        candidate_elapsed_samples(None, ["family-z"])

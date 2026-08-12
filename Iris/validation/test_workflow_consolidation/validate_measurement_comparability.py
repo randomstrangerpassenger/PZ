@@ -13,6 +13,7 @@ try:
         read_json,
         read_jsonl,
         require,
+        sha256_bytes,
         sha256_file,
         subject_identity,
         write_json,
@@ -24,6 +25,7 @@ except ImportError:  # Direct script execution.
         read_json,
         read_jsonl,
         require,
+        sha256_bytes,
         sha256_file,
         subject_identity,
         write_json,
@@ -36,7 +38,7 @@ SCHEMA = "iris_test_workflow_measurement_comparability_v1"
 def changed_paths(base: Path, terminal: Path) -> list[dict[str, str]]:
     base_commit = git(base, "rev-parse", "HEAD")
     terminal_commit = git(terminal, "rev-parse", "HEAD")
-    lines = git(base, "diff", "--name-status", "--find-renames", base_commit, terminal_commit).splitlines()
+    lines = git(terminal, "diff", "--name-status", "--find-renames", base_commit, terminal_commit).splitlines()
     rows: list[dict[str, str]] = []
     for line in lines:
         fields = line.split("\t")
@@ -59,6 +61,30 @@ def allowed_path(path: str, touch_surface: dict[str, Any]) -> tuple[bool, str | 
     return False, None
 
 
+def classify_changed_rows(
+    rows: list[dict[str, str]], touch_surface: dict[str, Any]
+) -> list[dict[str, Any]]:
+    classified: list[dict[str, Any]] = []
+    for row in rows:
+        allowed, role = allowed_path(row["path"], touch_surface)
+        source_allowed = True
+        source_role = None
+        if row.get("source_path"):
+            source_allowed, source_role = allowed_path(
+                row["source_path"], touch_surface
+            )
+        classified.append(
+            {
+                **row,
+                "allowed": allowed and source_allowed,
+                "role": role,
+                "source_allowed": source_allowed,
+                "source_role": source_role,
+            }
+        )
+    return classified
+
+
 def command_contract_equal(session: dict[str, Any]) -> bool:
     by_workload: dict[str, dict[str, set[str]]] = {}
     for row in session.get("samples", []):
@@ -69,12 +95,24 @@ def command_contract_equal(session: dict[str, Any]) -> bool:
 
 def contract_map_valid(path: Path) -> bool:
     rows = read_jsonl(path)
-    return bool(rows) and all(
+    if not rows or rows[0].get("record_type") != "manifest":
+        return False
+    manifest = rows[0]
+    mappings = rows[1:]
+    predecessor_ids = sorted(str(row.get("predecessor_test_id", "")) for row in mappings)
+    encoded = ("\n".join(predecessor_ids) + "\n").encode("utf-8")
+    complete = (
+        manifest.get("expected_predecessor_count") == len(mappings)
+        and manifest.get("predecessor_id_sha256") == sha256_bytes(encoded)
+        and len(predecessor_ids) == len(set(predecessor_ids))
+        and all(predecessor_ids)
+    )
+    return complete and all(
         row.get("mapping_status") == "preserved"
         and row.get("predecessor_test_id")
         and row.get("successor_probe_ids")
         and row.get("failure_localization_preserved") is True
-        for row in rows
+        for row in mappings
     )
 
 
@@ -89,15 +127,20 @@ def validate(args: argparse.Namespace) -> dict[str, Any]:
     tooling = read_json(args.tooling_manifest)
     touch = read_json(args.touch_surface)
     rows = changed_paths(base, terminal)
-    classified: list[dict[str, Any]] = []
-    for row in rows:
-        allowed, role = allowed_path(row["path"], touch)
-        classified.append({**row, "allowed": allowed, "role": role})
+    classified = classify_changed_rows(rows, touch)
     out_of_scope = [row for row in classified if not row["allowed"]]
     protocol = session.get("measurement_protocol_identity")
+    tool_repo = Path(git(args.tooling_manifest.parent, "rev-parse", "--show-toplevel"))
+    expected_tool_subject = subject_identity(tool_repo)
+    received_tooling_identity = session.get("measurement_tooling_identity", {})
+    current_tooling_identity_matches = (
+        received_tooling_identity.get("manifest_raw_sha256")
+        == sha256_file(args.tooling_manifest)
+        and received_tooling_identity.get("tool_subject") == expected_tool_subject
+    )
     checks = {
-        "base_is_ancestor_of_terminal": git(base, "merge-base", "--is-ancestor", base_subject["commit"], terminal_subject["commit"]) == "",
-        "measurement_tooling_identity_equal": qualification.get("harness_interpreter_identity") == session.get("harness_interpreter_identity"),
+        "base_is_ancestor_of_terminal": git(terminal, "merge-base", "--is-ancestor", base_subject["commit"], terminal_subject["commit"]) == "",
+        "measurement_tooling_identity_equal": qualification.get("measurement_tooling_identity") == received_tooling_identity and bool(received_tooling_identity) and current_tooling_identity_matches,
         "measurement_contract_identity_equal_across_qualification_and_accepted_session": qualification.get("measurement_protocol_identity") == protocol,
         "machine_environment_locale_equal": qualification.get("environment_identity") == session.get("environment_identity"),
         "accepted_paired_session_single_session": bool(session.get("session_id")) and session.get("cross_session_sample_count") == 0,

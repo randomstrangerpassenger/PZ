@@ -27,37 +27,6 @@ SOURCE_CLASSES = VALID_CONTRACTS - {"all"} | {"excluded"}
 _COLLECT_REPORTS: dict[str, dict[str, Any]] = {}
 
 
-def pytest_addoption(parser):
-    parser.addoption(
-        "--round3-contract",
-        action="store",
-        default="current",
-        choices=sorted(VALID_CONTRACTS),
-        help="Round 3 source contract to collect; default: current.",
-    )
-    parser.addoption(
-        "--round3-additional-source",
-        action="append",
-        default=[],
-        help=(
-            "Exact repository-relative test source additionally selected by "
-            "a tracked validation contract."
-        ),
-    )
-    parser.addoption(
-        "--round3-enforce-denominator",
-        action="store_true",
-        default=False,
-        help="Fail closed unless collected source coverage equals the approved denominator.",
-    )
-    parser.addoption(
-        "--round3-denominator-receipt",
-        action="store",
-        default=None,
-        help="Optional external path for the collection/execution denominator receipt.",
-    )
-
-
 def _read_json(path: Path) -> dict[str, Any]:
     if not path.exists():
         raise RuntimeError(f"Required Round 3 policy file is missing: {path}")

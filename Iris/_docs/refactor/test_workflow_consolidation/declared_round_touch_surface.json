@@ -1,0 +1,55 @@
+{
+  "base_subject_commit": "671c7b928ad5a1dbf26ea76949462fa8a7287903",
+  "entries": [
+    {
+      "kind": "exact",
+      "path": "docs/iris_test_validation_workflow_consolidation_execution_lightweighting_plan.md",
+      "role": "plan_infrastructure"
+    },
+    {
+      "kind": "prefix",
+      "path": "Iris/validation/test_workflow_consolidation",
+      "role": "plan_infrastructure"
+    },
+    {
+      "kind": "prefix",
+      "path": "Iris/_docs/refactor/test_workflow_consolidation",
+      "role": "evidence"
+    },
+    {
+      "kind": "exact",
+      "path": "Iris/build/description/v2/tests/test_public_text_quality_acceptance_current_route.py",
+      "role": "application"
+    },
+    {
+      "conditional_admission": "owner-approved source registration only",
+      "kind": "exact",
+      "path": "Iris/build/description/v2/tests/conftest.py",
+      "role": "authority_transaction"
+    },
+    {
+      "conditional_admission": "identity migration only",
+      "kind": "prefix",
+      "path": "Iris/_docs/round3",
+      "role": "authority_transaction"
+    },
+    {
+      "kind": "exact",
+      "path": "docs/DECISIONS.md",
+      "role": "evidence_governance"
+    },
+    {
+      "kind": "exact",
+      "path": "docs/ROADMAP.md",
+      "role": "evidence_governance"
+    },
+    {
+      "conditional_admission": "architecture correction discovered before S_terminal only",
+      "kind": "exact",
+      "path": "docs/ARCHITECTURE.md",
+      "role": "evidence_governance"
+    }
+  ],
+  "frozen_before_protocol_qualification": true,
+  "schema_version": "iris_test_workflow_declared_touch_surface_v1"
+}

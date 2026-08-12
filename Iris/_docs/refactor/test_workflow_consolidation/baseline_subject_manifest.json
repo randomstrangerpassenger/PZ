@@ -1,0 +1,13 @@
+{
+  "base_subject": {
+    "commit": "671c7b928ad5a1dbf26ea76949462fa8a7287903",
+    "tree": "20bbbdb919fa97a44e03c1f1cb9ea0a6973fb1db"
+  },
+  "clean_checkout_required": true,
+  "owner_selection": {
+    "approved": true,
+    "basis": "2026-08-13 execution request pre-authorized owner approval gates",
+    "dirty_authoring_overlay_adopted": false
+  },
+  "schema_version": "iris_test_workflow_baseline_subject_v1"
+}

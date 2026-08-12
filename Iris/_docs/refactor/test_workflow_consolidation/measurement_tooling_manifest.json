@@ -1,0 +1,33 @@
+{
+  "cli_schema_version": "iris-test-workflow-cost-cli-v1",
+  "dependency_manifest_schema_version": "iris-test-workflow-tool-dependencies-v1",
+  "schema_version": "iris_test_workflow_measurement_tooling_manifest_v1",
+  "self_reference_policy": "containing_commit_and_tree_resolved_at_runtime",
+  "tool_files": [
+    {
+      "git_blob_id": "409733c05e4d4b65cd357644ef13fa0fb7cb6149",
+      "path": "Iris/validation/test_workflow_consolidation/_common.py",
+      "raw_sha256": "506db230ec83ebe1628e0cc92e1d3f78abf2990cc83c408d40c0f6c9119d3b1d"
+    },
+    {
+      "git_blob_id": "b806811cffe982e2071b4260f0827ed681902c6a",
+      "path": "Iris/validation/test_workflow_consolidation/measure_execution_cost.py",
+      "raw_sha256": "b83fcc7936a09f2142287d206107d1a16fa91219e8346cd7a6b747b1fec3511a"
+    },
+    {
+      "git_blob_id": "d1de2642648f59ee46159287e7ab68df3da26ede",
+      "path": "Iris/validation/test_workflow_consolidation/classify_source_policy_impact.py",
+      "raw_sha256": "6c9114abe465122bac0f0744d468a7d4fe51d34efdc95f76c1b074d3ae6df2c1"
+    },
+    {
+      "git_blob_id": "9f71d1cfd90097c0b022cc7c2a0c67450f642060",
+      "path": "Iris/validation/test_workflow_consolidation/validate_measurement_comparability.py",
+      "raw_sha256": "db751ddf6160a38ab3c75e9c94deb5c99fc87178993fde3f922b8f1656d45d57"
+    },
+    {
+      "git_blob_id": "dfef523a4f57933c447fbde576f5d46df15372fa",
+      "path": "Iris/_docs/refactor/test_workflow_consolidation/measurement_contract.json",
+      "raw_sha256": "dda8592f727da3ae23f75807d64bf5d68f4c5dabe6b34f6de1c2e5c1e4e06acc"
+    }
+  ]
+}

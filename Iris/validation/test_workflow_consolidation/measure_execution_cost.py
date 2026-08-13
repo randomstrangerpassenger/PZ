@@ -10,6 +10,7 @@ import shutil
 import statistics
 import subprocess
 import sys
+import tempfile
 import time
 from pathlib import Path
 from typing import Any
@@ -286,15 +287,32 @@ def observe_command(
     argv = render_command(workload["command"], repository, sample_root)
     env = os.environ.copy()
     env["PYTHONDONTWRITEBYTECODE"] = "1"
-    test_output_root = sample_root / "test-output"
-    legacy_output_root = test_output_root / "pytest-legacy-output" / "Iris-output"
+    execution_context = None
+    execution_parent = env.get("IRIS_WORKFLOW_EXECUTION_OUTPUT_PARENT")
+    if execution_parent:
+        execution_parent_path = Path(execution_parent).resolve()
+        require_path_outside_repositories(
+            execution_parent_path,
+            (repository,),
+            label="workflow execution output parent",
+        )
+        execution_parent_path.mkdir(parents=True, exist_ok=True)
+        execution_context = tempfile.TemporaryDirectory(
+            prefix="w-",
+            dir=execution_parent_path,
+        )
+        execution_root = Path(execution_context.name)
+    else:
+        execution_root = sample_root
+    test_output_root = execution_root / "t"
+    legacy_output_root = execution_root / "l"
     source_output_root = repository / "Iris" / "output"
     if source_output_root.is_dir():
         legacy_output_root.parent.mkdir(parents=True, exist_ok=True)
         shutil.copytree(source_output_root, legacy_output_root)
     env["IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT"] = str(test_output_root)
     env["IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"] = str(legacy_output_root)
-    env["UV_CACHE_DIR"] = str(sample_root / "uv-cache")
+    env["UV_CACHE_DIR"] = str(execution_root / "u")
     event_root = sample_root / "observer-events"
     if instrumented:
         observer_root = sample_root / "observer"
@@ -320,25 +338,26 @@ def observe_command(
         _kill_process_tree(process)
         stdout, stderr = process.communicate()
     elapsed_ms = (time.perf_counter_ns() - started) / 1_000_000.0
-    after = subject_identity(repository)
-    require(before == after, "target subject or working tree changed during observation")
-    require(
-        not ignored_worktree_entries(repository),
-        "target checkout gained ignored worktree state during observation",
-    )
-    events = _read_events(event_root)
-    subprocess_events = [row for row in events if row.get("kind") == "subprocess"]
-    producer_patterns = [value.replace("\\", "/") for value in workload.get("producer_patterns", [])]
-    eligible_patterns = [value.replace("\\", "/") for value in workload.get("eligible_subprocess_patterns", [])]
-    producer_count = count_producer_invocations(argv, subprocess_events, producer_patterns)
-    eligible_count = sum(
-        any(pattern in _argv_text(row) for pattern in eligible_patterns)
-        for row in subprocess_events
-    )
-    copied_values = [row.get("copied_bytes") for row in events if row.get("kind") == "copy"]
-    copied_observed = [int(value) for value in copied_values if isinstance(value, int)]
-    valid_exit_codes = set(workload.get("valid_exit_codes", [0]))
-    return {
+    try:
+        after = subject_identity(repository)
+        require(before == after, "target subject or working tree changed during observation")
+        require(
+            not ignored_worktree_entries(repository),
+            "target checkout gained ignored worktree state during observation",
+        )
+        events = _read_events(event_root)
+        subprocess_events = [row for row in events if row.get("kind") == "subprocess"]
+        producer_patterns = [value.replace("\\", "/") for value in workload.get("producer_patterns", [])]
+        eligible_patterns = [value.replace("\\", "/") for value in workload.get("eligible_subprocess_patterns", [])]
+        producer_count = count_producer_invocations(argv, subprocess_events, producer_patterns)
+        eligible_count = sum(
+            any(pattern in _argv_text(row) for pattern in eligible_patterns)
+            for row in subprocess_events
+        )
+        copied_values = [row.get("copied_bytes") for row in events if row.get("kind") == "copy"]
+        copied_observed = [int(value) for value in copied_values if isinstance(value, int)]
+        valid_exit_codes = set(workload.get("valid_exit_codes", [0]))
+        observation = {
         "elapsed_ms": elapsed_ms,
         "exit_code": process.returncode,
         "timed_out": timed_out,
@@ -368,7 +387,11 @@ def observe_command(
         },
         "event_count": len(events),
         "instrumented": instrumented,
-    }
+        }
+    finally:
+        if execution_context is not None:
+            execution_context.cleanup()
+    return observation
 
 
 def block_arms(block_number: int) -> list[str]:

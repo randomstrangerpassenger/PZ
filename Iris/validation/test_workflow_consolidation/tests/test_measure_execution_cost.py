@@ -187,7 +187,7 @@ def test_observation_rejects_ignored_checkout_mutation(tmp_path) -> None:
         observe_command(repository, workload, tmp_path / "result", instrumented=False)
 
 
-def test_observation_isolates_repository_output_and_uv_cache(tmp_path) -> None:
+def test_observation_isolates_repository_output_and_uv_cache(tmp_path, monkeypatch) -> None:
     repository = tmp_path / "repo"
     output = repository / "Iris" / "output"
     output.mkdir(parents=True)
@@ -214,11 +214,14 @@ def test_observation_isolates_repository_output_and_uv_cache(tmp_path) -> None:
         "valid_exit_codes": [0],
     }
 
+    execution_parent = tmp_path / "short"
+    monkeypatch.setenv("IRIS_WORKFLOW_EXECUTION_OUTPUT_PARENT", str(execution_parent))
     result_root = tmp_path / "result"
     observation = observe_command(repository, workload, result_root, instrumented=False)
 
     assert observation["contract_valid"] is True
-    assert (result_root / "test-output" / "pytest-legacy-output" / "Iris-output" / "result.txt").is_file()
+    assert list(execution_parent.iterdir()) == []
+    assert not (result_root / "t").exists()
     assert subprocess.run(
         ["git", "-C", str(repository), "status", "--short", "--ignored"],
         check=True,

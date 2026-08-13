@@ -319,31 +319,90 @@ class _WindowsKillJob:
         return self._reaped
 
 
-def _bounded_taskkill(process: subprocess.Popen[bytes]) -> bool:
+def _terminate_suspended_process(process: subprocess.Popen[bytes]) -> bool:
     try:
-        result = subprocess.run(
-            ["taskkill", "/PID", str(process.pid), "/T", "/F"],
-            check=False,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-            timeout=30.0,
-        )
-    except subprocess.TimeoutExpired:
         if process.poll() is None:
             process.kill()
+        process.wait(timeout=5.0)
+    except (OSError, subprocess.TimeoutExpired):
         return False
-    if result.returncode != 0 and process.poll() is None:
-        process.kill()
-    return result.returncode == 0
+    finally:
+        for stream in (process.stdout, process.stderr):
+            if stream is not None:
+                stream.close()
+    return process.poll() is not None
+
+
+def _resume_windows_process(process: subprocess.Popen[bytes]) -> None:
+    import ctypes
+    from ctypes import wintypes
+
+    class _ThreadEntry32(ctypes.Structure):
+        _fields_ = [
+            ("size", wintypes.DWORD),
+            ("usage_count", wintypes.DWORD),
+            ("thread_id", wintypes.DWORD),
+            ("owner_process_id", wintypes.DWORD),
+            ("base_priority", wintypes.LONG),
+            ("priority_delta", wintypes.LONG),
+            ("flags", wintypes.DWORD),
+        ]
+
+    kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+    kernel32.CreateToolhelp32Snapshot.argtypes = (wintypes.DWORD, wintypes.DWORD)
+    kernel32.CreateToolhelp32Snapshot.restype = wintypes.HANDLE
+    kernel32.Thread32First.argtypes = (wintypes.HANDLE, ctypes.POINTER(_ThreadEntry32))
+    kernel32.Thread32First.restype = wintypes.BOOL
+    kernel32.Thread32Next.argtypes = (wintypes.HANDLE, ctypes.POINTER(_ThreadEntry32))
+    kernel32.Thread32Next.restype = wintypes.BOOL
+    kernel32.OpenThread.argtypes = (wintypes.DWORD, wintypes.BOOL, wintypes.DWORD)
+    kernel32.OpenThread.restype = wintypes.HANDLE
+    kernel32.ResumeThread.argtypes = (wintypes.HANDLE,)
+    kernel32.ResumeThread.restype = wintypes.DWORD
+    kernel32.CloseHandle.argtypes = (wintypes.HANDLE,)
+    kernel32.CloseHandle.restype = wintypes.BOOL
+
+    snapshot = kernel32.CreateToolhelp32Snapshot(0x00000004, 0)
+    require(
+        snapshot not in (None, ctypes.c_void_p(-1).value),
+        "failed to enumerate suspended measurement process threads",
+    )
+    entry = _ThreadEntry32()
+    entry.size = ctypes.sizeof(entry)
+    thread_ids: list[int] = []
+    try:
+        available = bool(kernel32.Thread32First(snapshot, ctypes.byref(entry)))
+        while available:
+            if int(entry.owner_process_id) == process.pid:
+                thread_ids.append(int(entry.thread_id))
+            available = bool(kernel32.Thread32Next(snapshot, ctypes.byref(entry)))
+    finally:
+        kernel32.CloseHandle(snapshot)
+    require(len(thread_ids) == 1, "suspended measurement process thread identity is ambiguous")
+    thread_handle = kernel32.OpenThread(0x0002, False, thread_ids[0])
+    require(bool(thread_handle), "failed to open suspended measurement process thread")
+    try:
+        previous_suspend_count = int(kernel32.ResumeThread(thread_handle))
+        require(
+            previous_suspend_count not in (0, 0xFFFFFFFF),
+            "failed to resume suspended measurement process thread",
+        )
+        while previous_suspend_count > 1:
+            previous_suspend_count = int(kernel32.ResumeThread(thread_handle))
+            require(
+                previous_suspend_count != 0xFFFFFFFF,
+                "failed to fully resume suspended measurement process thread",
+            )
+    finally:
+        kernel32.CloseHandle(thread_handle)
 
 
 def _kill_process_tree(
     process: subprocess.Popen[bytes], windows_job: _WindowsKillJob | None
 ) -> bool:
     if os.name == "nt":
-        if windows_job is not None:
-            return windows_job.reap()
-        return _bounded_taskkill(process)
+        require(windows_job is not None, "Windows measurement process lacks a kill job")
+        return windows_job.reap()
     try:
         os.killpg(process.pid, signal.SIGKILL)
     except ProcessLookupError:
@@ -475,14 +534,21 @@ def observe_command(
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         start_new_session=os.name != "nt",
+        creationflags=0x00000004 if os.name == "nt" else 0,
     )
     windows_job = None
     if os.name == "nt":
         try:
             windows_job = _WindowsKillJob(process)
-        except ContractError:
-            _bounded_taskkill(process)
-            raise
+            _resume_windows_process(process)
+        except ContractError as setup_error:
+            cleanup_valid = (
+                windows_job.reap()
+                if windows_job is not None
+                else _terminate_suspended_process(process)
+            )
+            require(cleanup_valid, "suspended measurement process cleanup could not be confirmed")
+            raise setup_error
     timed_out = False
     cleanup_valid = True
     try:

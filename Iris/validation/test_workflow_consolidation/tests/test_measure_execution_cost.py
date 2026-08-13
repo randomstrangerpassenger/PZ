@@ -7,7 +7,6 @@ import time
 
 import pytest
 
-from Iris.validation.test_workflow_consolidation import measure_execution_cost as measurement_module
 from Iris.validation.test_workflow_consolidation._common import (
     ContractError,
     normalized_command_signature,
@@ -247,7 +246,7 @@ def test_observation_isolates_repository_output_and_uv_cache(tmp_path, monkeypat
     ).stdout == ""
 
 
-def test_observation_timeout_reaps_descendant_without_taskkill_dependency(tmp_path, monkeypatch) -> None:
+def test_observation_timeout_reaps_descendant_after_atomic_job_assignment(tmp_path) -> None:
     repository = tmp_path / "repo"
     repository.mkdir()
     subprocess.run(["git", "init", "-q", str(repository)], check=True)
@@ -278,16 +277,6 @@ def test_observation_timeout_reaps_descendant_without_taskkill_dependency(tmp_pa
         "input_identity": "fixture",
         "timeout_seconds": 1,
     }
-    taskkill_called = False
-
-    def unavailable_taskkill(process) -> bool:
-        nonlocal taskkill_called
-        taskkill_called = True
-        return False
-
-    if os.name == "nt":
-        monkeypatch.setattr(measurement_module, "_bounded_taskkill", unavailable_taskkill)
-
     observation = observe_command(repository, workload, tmp_path / "result", instrumented=False)
 
     assert observation["timed_out"] is True
@@ -303,8 +292,6 @@ def test_observation_timeout_reaps_descendant_without_taskkill_dependency(tmp_pa
         time.sleep(0.05)
     else:
         pytest.fail("timed-out measurement descendant remained alive")
-    if os.name == "nt":
-        assert taskkill_called is False
 
 
 def test_instrumented_observation_counts_copy2(tmp_path) -> None:

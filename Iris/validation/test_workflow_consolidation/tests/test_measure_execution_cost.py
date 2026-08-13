@@ -87,6 +87,24 @@ def test_candidate_schedule_selects_the_declared_nonpilot_workload() -> None:
     assert schedule["total_execution_positions"] == 24
 
 
+def test_candidate_schedule_rejects_missing_family_workload() -> None:
+    with pytest.raises(ContractError, match="exactly one"):
+        build_schedule(_contract(), [], "candidate-qualification")
+
+
+def test_terminal_schedule_rejects_family_collision_with_builtin_workload() -> None:
+    family = {
+        "family_id": "configured-current",
+        "disposition": "adopted",
+        "terminal_measurement_workload": {
+            "workload_id": "configured-current",
+            "command": ["{python}", "-c", "pass"],
+        },
+    }
+    with pytest.raises(ContractError, match="duplicate scheduled"):
+        build_schedule(_contract(), [family], "terminal-acceptance")
+
+
 def test_bootstrap_interval_is_seed_deterministic() -> None:
     first = bootstrap_interval([1.0, 2.0, 3.0], 1729, 10000)
     second = bootstrap_interval([1.0, 2.0, 3.0], 1729, 10000)

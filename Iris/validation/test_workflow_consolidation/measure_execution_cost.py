@@ -535,6 +535,8 @@ def execute_schedule(
 def build_schedule(
     contract: dict[str, Any], family_rows: list[dict[str, Any]], session_kind: str
 ) -> dict[str, Any]:
+    contract_ids = [row["workload_id"] for row in contract["workloads"]]
+    require(len(contract_ids) == len(set(contract_ids)), "duplicate contract workload_id")
     definitions = {row["workload_id"]: dict(row) for row in contract["workloads"]}
     workloads = [definitions["mandatory_pilot"]]
     adopted = sorted(
@@ -552,12 +554,11 @@ def build_schedule(
             for row in family_rows
             if isinstance(row.get("candidate_measurement_workload"), dict)
         ]
-        require(len(candidates) <= 1, "candidate session must select at most one family workload")
-        if candidates:
-            candidate = candidates[0]
-            workload = candidate["candidate_measurement_workload"]
-            require(workload.get("workload_id") == candidate.get("family_id"), "candidate workload identity mismatch")
-            workloads = [workload]
+        require(len(candidates) == 1, "candidate session must select exactly one family workload")
+        candidate = candidates[0]
+        workload = candidate["candidate_measurement_workload"]
+        require(workload.get("workload_id") == candidate.get("family_id"), "candidate workload identity mismatch")
+        workloads = [workload]
     elif session_kind == "terminal-acceptance":
         for row in adopted:
             workload = row.get("terminal_measurement_workload")
@@ -565,6 +566,8 @@ def build_schedule(
             require(workload.get("workload_id") == row["family_id"], "family workload identity mismatch")
             workloads.append(workload)
         workloads.append(definitions["configured-current"])
+    workload_ids = [row["workload_id"] for row in workloads]
+    require(len(workload_ids) == len(set(workload_ids)), "duplicate scheduled workload_id")
     positions: list[dict[str, Any]] = []
     family_blocks = int(contract["schedule"]["targeted_measured_blocks"])
     configured_blocks = int(contract["schedule"]["configured_measured_blocks"])

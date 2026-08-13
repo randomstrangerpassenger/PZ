@@ -7,7 +7,14 @@ from Iris.validation.test_workflow_consolidation.validate_measurement_comparabil
     allowed_path,
     classify_changed_rows,
     contract_map_valid,
+    touch_surface_frozen_for_base,
 )
+
+
+def test_touch_surface_base_binding_is_explicit() -> None:
+    surface = {"frozen_before_protocol_qualification": True, "base_subject_commit": "base-a"}
+    assert touch_surface_frozen_for_base(surface, "base-a") is True
+    assert touch_surface_frozen_for_base(surface, "base-b") is False
 
 
 def test_touch_surface_is_fail_closed() -> None:

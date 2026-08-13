@@ -122,7 +122,7 @@ def protocol_identity(contract_path: Path, contract_bytes: bytes) -> dict[str, s
         "schema_version": CONTRACT_SCHEMA,
         "canonical_contract_path": relative,
         "raw_sha256": sha256_bytes(contract_bytes),
-        "git_blob_id": git(repo, "hash-object", "--no-filters", str(contract_path)),
+        "git_blob_id": git(repo, "rev-parse", f"HEAD:{relative}"),
     }
 
 
@@ -712,6 +712,10 @@ def run_paired_session(
         "owner acknowledgment resource estimate mismatch",
     )
     family_rows = read_jsonl(args.family_ledger)
+    require(
+        schedule.get("family_ledger_sha256") == sha256_file(args.family_ledger),
+        "family ledger changed after session planning",
+    )
     expected = build_schedule(contract, family_rows, args.session_kind)
     for key in (
         "adopted_nonpilot_family_ids",

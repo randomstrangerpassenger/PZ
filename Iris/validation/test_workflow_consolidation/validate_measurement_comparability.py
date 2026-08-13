@@ -35,14 +35,22 @@ except ImportError:  # Direct script execution.
 SCHEMA = "iris_test_workflow_measurement_comparability_v1"
 
 
+def touch_surface_frozen_for_base(touch: dict[str, Any], base_commit: str) -> bool:
+    return (
+        touch.get("frozen_before_protocol_qualification") is True
+        and touch.get("base_subject_commit") == base_commit
+    )
+
+
 def current_protocol_identity(path: Path) -> dict[str, str]:
     repo = Path(git(path.parent, "rev-parse", "--show-toplevel"))
     raw = path.read_bytes()
+    relative = path.resolve().relative_to(repo.resolve()).as_posix()
     return {
         "schema_version": "iris_test_workflow_measurement_contract_v1",
-        "canonical_contract_path": path.resolve().relative_to(repo.resolve()).as_posix(),
+        "canonical_contract_path": relative,
         "raw_sha256": sha256_bytes(raw),
-        "git_blob_id": git(repo, "hash-object", "--no-filters", str(path)),
+        "git_blob_id": git(repo, "rev-parse", f"HEAD:{relative}"),
     }
 
 
@@ -179,7 +187,7 @@ def validate(args: argparse.Namespace) -> dict[str, Any]:
         "command_and_input_contract_equal": command_contract_equal(session),
         "contract_denominator_equivalent_via_preservation_map": contract_map_valid(args.contract_map),
         "accepted_session_schedule_matches_parameterized_contract_and_final_family_ledger": session.get("schedule_projection", {}).get("total_execution_positions") == 24 * session.get("schedule_projection", {}).get("n_adopted_nonpilot", 0) + 68,
-        "declared_round_touch_surface_frozen_before_protocol_qualification": touch.get("frozen_before_protocol_qualification") is True,
+        "declared_round_touch_surface_frozen_before_protocol_qualification": touch_surface_frozen_for_base(touch, base_subject["commit"]),
         "S_base_to_S_terminal_changed_paths_subset_of_declared_touch_surface": not out_of_scope,
         "out_of_scope_path_count_zero": not out_of_scope,
         "accepted_subjects_match": session.get("target_subject_a") == base_subject and session.get("target_subject_b") == terminal_subject,

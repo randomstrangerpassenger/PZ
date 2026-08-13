@@ -164,6 +164,37 @@ def subject_identity(repo: Path, *, require_clean: bool = True) -> dict[str, Any
     return identity
 
 
+def ignored_worktree_entries(repo: Path) -> tuple[str, ...]:
+    result = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(repo),
+            "ls-files",
+            "--others",
+            "--ignored",
+            "--exclude-standard",
+            "--directory",
+            "-z",
+        ],
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    if result.returncode:
+        raise ContractError(
+            result.stderr.decode("utf-8", errors="replace").strip()
+            or "cannot inventory ignored worktree entries"
+        )
+    return tuple(
+        sorted(
+            value.decode("utf-8", errors="surrogateescape").replace("\\", "/")
+            for value in result.stdout.split(b"\0")
+            if value
+        )
+    )
+
+
 def interpreter_identity() -> dict[str, str]:
     return {
         "executable": str(Path(sys.executable).resolve()),
@@ -198,8 +229,11 @@ def environment_identity() -> dict[str, Any]:
 def normalized_command_signature(
     argv: list[str], cwd: Path, environment_contract: Mapping[str, Any]
 ) -> dict[str, Any]:
+    require(bool(argv), "workload command must not be empty")
+    executable = Path(argv[0])
+    require(executable.is_absolute(), "rendered workload executable must be absolute")
     return {
-        "executable": str(Path(argv[0]).resolve()) if argv else "",
+        "executable": str(executable.resolve()),
         "ordered_argv": argv[1:],
         "cwd_role": "target_repository_root",
         "environment_contract": dict(environment_contract),

@@ -5,6 +5,7 @@ import json
 import os
 import random
 import re
+import signal
 import shutil
 import statistics
 import subprocess
@@ -19,6 +20,7 @@ try:
         ContractError,
         environment_identity,
         git,
+        ignored_worktree_entries,
         interpreter_identity,
         normalized_command_signature,
         percentile,
@@ -38,6 +40,7 @@ except ImportError:  # Direct script execution.
         ContractError,
         environment_identity,
         git,
+        ignored_worktree_entries,
         interpreter_identity,
         normalized_command_signature,
         percentile,
@@ -207,7 +210,10 @@ def _kill_process_tree(process: subprocess.Popen[bytes]) -> None:
             stderr=subprocess.DEVNULL,
         )
     else:
-        process.kill()
+        try:
+            os.killpg(process.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
 
 
 def _read_events(event_root: Path) -> list[dict[str, Any]]:
@@ -247,6 +253,8 @@ def observe_command(
 ) -> dict[str, Any]:
     sample_root.mkdir(parents=True, exist_ok=False)
     before = subject_identity(repository)
+    ignored_before = ignored_worktree_entries(repository)
+    require(not ignored_before, "target checkout contains ignored worktree state before observation")
     argv = render_command(workload["command"], repository, sample_root)
     env = os.environ.copy()
     event_root = sample_root / "observer-events"
@@ -264,6 +272,7 @@ def observe_command(
         env=env,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
+        start_new_session=os.name != "nt",
     )
     timed_out = False
     try:
@@ -275,6 +284,10 @@ def observe_command(
     elapsed_ms = (time.perf_counter_ns() - started) / 1_000_000.0
     after = subject_identity(repository)
     require(before == after, "target subject or working tree changed during observation")
+    require(
+        not ignored_worktree_entries(repository),
+        "target checkout gained ignored worktree state during observation",
+    )
     events = _read_events(event_root)
     subprocess_events = [row for row in events if row.get("kind") == "subprocess"]
     producer_patterns = [value.replace("\\", "/") for value in workload.get("producer_patterns", [])]

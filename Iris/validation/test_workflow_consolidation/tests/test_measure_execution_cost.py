@@ -7,6 +7,7 @@ import pytest
 
 from Iris.validation.test_workflow_consolidation._common import (
     ContractError,
+    normalized_command_signature,
     require_path_outside_repositories,
 )
 from Iris.validation.test_workflow_consolidation.measure_execution_cost import (
@@ -15,6 +16,7 @@ from Iris.validation.test_workflow_consolidation.measure_execution_cost import (
     candidate_elapsed_samples,
     count_producer_invocations,
     effective_regression_ceiling_ms,
+    observe_command,
     protocol_identity,
     summarize_workload,
     targeted_summary_accepted,
@@ -138,6 +140,33 @@ def test_repository_local_result_root_is_rejected_before_creation(tmp_path) -> N
         require_path_outside_repositories(output, (repository,), label="measurement output root")
 
     assert not output.exists()
+
+
+def test_relative_workload_executable_is_rejected(tmp_path) -> None:
+    with pytest.raises(ContractError):
+        normalized_command_signature(["python", "tool.py"], tmp_path, {})
+
+
+def test_observation_rejects_ignored_checkout_mutation(tmp_path) -> None:
+    repository = tmp_path / "repo"
+    repository.mkdir()
+    subprocess.run(["git", "init", "-q", str(repository)], check=True)
+    subprocess.run(["git", "-C", str(repository), "config", "user.email", "test@example.invalid"], check=True)
+    subprocess.run(["git", "-C", str(repository), "config", "user.name", "Test"], check=True)
+    (repository / ".gitignore").write_text("cache/\n", encoding="utf-8")
+    subprocess.run(["git", "-C", str(repository), "add", ".gitignore"], check=True)
+    subprocess.run(["git", "-C", str(repository), "commit", "-q", "-m", "fixture"], check=True)
+    workload = {
+        "command": [
+            "{python}",
+            "-c",
+            "from pathlib import Path; Path('cache').mkdir(); Path('cache/result').write_text('x')",
+        ],
+        "timeout_seconds": 5,
+    }
+
+    with pytest.raises(ContractError, match="ignored worktree state"):
+        observe_command(repository, workload, tmp_path / "result", instrumented=False)
 
 
 def test_first_candidate_estimate_uses_declared_timeout_without_prior_receipt() -> None:

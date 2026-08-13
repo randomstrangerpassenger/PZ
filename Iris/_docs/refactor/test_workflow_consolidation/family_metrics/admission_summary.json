@@ -1,5 +1,5 @@
 {
-  "adopted_family_ids": ["public-text-phase7-dispatch"],
+  "adopted_family_ids": [],
   "candidate_order_evaluated": [
     "runtime-payload-validation-seal",
     "artifact-lifecycle-inventory-executor-promotion",
@@ -9,6 +9,6 @@
     "table-driven-assertion-family"
   ],
   "nonpilot_adopted_count": 0,
-  "reason": "static census proved only the mandatory pilot duplicate; unmeasured families fail closed",
+  "reason": "the mandatory pilot implementation remains a candidate until same-session paired timing and observed count evidence pass; unmeasured families fail closed",
   "schema_version": "iris_test_workflow_family_admission_summary_v1"
 }

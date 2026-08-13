@@ -164,12 +164,63 @@ def classify_changed_rows(
     return classified
 
 
-def command_contract_equal(session: dict[str, Any]) -> bool:
+def _command_contracts_by_workload(receipt: dict[str, Any]) -> dict[str, set[str]] | None:
     by_workload: dict[str, dict[str, set[str]]] = {}
-    for row in session.get("samples", []):
-        signature = json.dumps(row["observation"]["command_signature"], sort_keys=True)
-        by_workload.setdefault(row["workload_id"], {"A": set(), "B": set()})[row["arm"]].add(signature)
-    return bool(by_workload) and all(value["A"] == value["B"] and len(value["A"]) == 1 for value in by_workload.values())
+    for row in receipt.get("samples", []):
+        if not isinstance(row, dict):
+            return None
+        workload_id = row.get("workload_id")
+        arm = row.get("arm")
+        observation = row.get("observation")
+        if (
+            not isinstance(workload_id, str)
+            or not workload_id
+            or arm not in {"A", "B"}
+            or not isinstance(observation, dict)
+            or not isinstance(observation.get("command_signature"), dict)
+        ):
+            return None
+        signature = json.dumps(observation["command_signature"], sort_keys=True)
+        by_workload.setdefault(workload_id, {"A": set(), "B": set()})[arm].add(signature)
+    if not by_workload or not all(
+        value["A"] == value["B"] and len(value["A"]) == 1
+        for value in by_workload.values()
+    ):
+        return None
+    return {
+        workload_id: values["A"]
+        for workload_id, values in by_workload.items()
+    }
+
+
+def command_contract_equal(
+    session: dict[str, Any], qualification: dict[str, Any] | None = None
+) -> bool:
+    accepted = _command_contracts_by_workload(session)
+    if accepted is None:
+        return False
+    if qualification is None:
+        return True
+    qualified = _command_contracts_by_workload(qualification)
+    return (
+        qualified is not None
+        and set(qualified) <= set(accepted)
+        and all(accepted[workload_id] == signatures for workload_id, signatures in qualified.items())
+    )
+
+
+def target_execution_interpreter_identity_equal(
+    qualification: dict[str, Any], session: dict[str, Any]
+) -> bool:
+    identities = [
+        qualification.get("target_execution_interpreter_identity_a"),
+        qualification.get("target_execution_interpreter_identity_b"),
+        session.get("target_execution_interpreter_identity_a"),
+        session.get("target_execution_interpreter_identity_b"),
+    ]
+    return all(isinstance(value, dict) and bool(value) for value in identities) and all(
+        value == identities[0] for value in identities[1:]
+    )
 
 
 def accepted_schedule_valid(
@@ -284,8 +335,12 @@ def validate(args: argparse.Namespace) -> dict[str, Any]:
         "machine_environment_locale_equal": present_equal(qualification.get("environment_identity"), session.get("environment_identity")),
         "accepted_paired_session_single_session": bool(session.get("session_id")) and session.get("cross_session_sample_count") == 0,
         "harness_interpreter_identity_equal": present_equal(qualification.get("harness_interpreter_identity"), session.get("harness_interpreter_identity")),
-        "target_execution_interpreter_identity_equal": present_equal(session.get("target_execution_interpreter_identity_a"), session.get("target_execution_interpreter_identity_b")),
-        "command_and_input_contract_equal": command_contract_equal(session),
+        "target_execution_interpreter_identity_equal": target_execution_interpreter_identity_equal(
+            qualification, session
+        ),
+        "command_and_input_contract_equal": command_contract_equal(
+            session, qualification
+        ),
         "contract_denominator_equivalent_via_preservation_map": contract_map_valid(args.contract_map),
         "accepted_session_schedule_matches_parameterized_contract_and_final_family_ledger": accepted_schedule_valid(session, args.accepted_schedule, args.family_ledger, contract),
         "declared_round_touch_surface_frozen_before_protocol_qualification": touch_surface_frozen_for_base(touch, base_subject["commit"]),

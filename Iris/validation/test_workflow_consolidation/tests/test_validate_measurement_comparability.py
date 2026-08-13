@@ -8,8 +8,10 @@ from Iris.validation.test_workflow_consolidation.validate_measurement_comparabil
     accepted_receipts_valid,
     allowed_path,
     classify_changed_rows,
+    command_contract_equal,
     contract_map_valid,
     present_equal,
+    target_execution_interpreter_identity_equal,
     touch_surface_identity_bound,
     touch_surface_frozen_for_base,
 )
@@ -19,6 +21,52 @@ def test_identity_equality_requires_nonempty_mapping() -> None:
     assert present_equal(None, None) is False
     assert present_equal({}, {}) is False
     assert present_equal({"python": "3.13"}, {"python": "3.13"}) is True
+
+
+def _receipt_with_command(executable: str = "python", input_id: str = "tree") -> dict[str, object]:
+    signature = {
+        "executable_identity": executable,
+        "ordered_argv": ["-m", "pytest"],
+        "cwd_contract": "target_repository",
+        "environment_contract": {},
+        "declared_input_identity": input_id,
+    }
+    return {
+        "samples": [
+            {
+                "workload_id": "mandatory_pilot",
+                "arm": arm,
+                "observation": {"command_signature": signature},
+            }
+            for arm in ("A", "B")
+        ]
+    }
+
+
+def test_command_and_input_contract_is_bound_to_qualification() -> None:
+    qualification = _receipt_with_command()
+    session = _receipt_with_command()
+    assert command_contract_equal(session, qualification)
+    qualification = _receipt_with_command(input_id="stale-tree")
+    assert not command_contract_equal(session, qualification)
+
+
+def test_target_interpreter_identity_is_bound_across_qualification_and_session() -> None:
+    identity = {"executable": "python", "version": "3.13"}
+    qualification = {
+        "target_execution_interpreter_identity_a": identity,
+        "target_execution_interpreter_identity_b": identity,
+    }
+    session = {
+        "target_execution_interpreter_identity_a": identity,
+        "target_execution_interpreter_identity_b": identity,
+    }
+    assert target_execution_interpreter_identity_equal(qualification, session)
+    qualification["target_execution_interpreter_identity_b"] = {
+        "executable": "python-other",
+        "version": "3.13",
+    }
+    assert not target_execution_interpreter_identity_equal(qualification, session)
 
 
 def test_touch_surface_identity_requires_qualification_and_session_binding() -> None:

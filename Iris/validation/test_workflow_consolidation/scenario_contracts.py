@@ -64,6 +64,22 @@ class ScenarioContext:
     workspace_owner: str
     producer_identity: FrozenMap
 
+    def __post_init__(self) -> None:
+        require(
+            self.schema_version == "iris_test_workflow_scenario_context_v1",
+            "unsupported scenario context schema",
+        )
+        for label, value in (
+            ("scenario_id", self.scenario_id),
+            ("validation_subject_commit", self.validation_subject_commit),
+            ("validation_subject_tree", self.validation_subject_tree),
+            ("route_class", self.route_class),
+            ("locale", self.locale),
+            ("workspace_mode", self.workspace_mode),
+            ("workspace_owner", self.workspace_owner),
+        ):
+            require(bool(value), f"{label} is required")
+
 
 @dataclass(frozen=True)
 class ExecutionResult:
@@ -110,8 +126,12 @@ class ProbeResult:
     blocked_by: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
+        require(bool(self.probe_id), "probe_id is required")
         require(self.status in {"PASS", "FAIL", "BLOCKED", "NOT_APPLICABLE"}, "unsupported probe status")
+        require(bool(self.reason), "probe reason is required")
+        require(bool(self.evidence_reference), "probe evidence reference is required")
         require(self.status != "BLOCKED" or bool(self.blocked_by), "BLOCKED probe requires blocked_by")
+        require(self.status == "BLOCKED" or not self.blocked_by, "only BLOCKED probes may declare blocked_by")
 
 
 @dataclass(frozen=True)
@@ -122,6 +142,13 @@ class ScenarioReport:
     probe_results: tuple[ProbeResult, ...]
     dependency_edges: tuple[tuple[str, str], ...] = ()
     execution_observations: FrozenMap = field(default_factory=lambda: FrozenMap({}))
+
+    def __post_init__(self) -> None:
+        required = self.required_probe_inventory
+        probe_ids = tuple(row.probe_id for row in self.probe_results)
+        require(len(required) == len(set(required)), "duplicate required probe")
+        require(len(probe_ids) == len(set(probe_ids)), "duplicate probe result")
+        require(set(required) == set(probe_ids), "required probe/result mismatch")
 
     def deterministic_core(self) -> dict[str, Any]:
         probes = [
@@ -149,8 +176,20 @@ class ScenarioReport:
             "required_probe_inventory": list(self.required_probe_inventory),
             "probe_results": probes,
             "dependency_edges": [list(edge) for edge in self.dependency_edges],
+            "cross_probe_adjudication": {
+                "rule": "required_probe_conjunction",
+                "authority_scope": "scenario_only",
+            },
             "scenario_disposition": "PASS" if all(row.status in {"PASS", "NOT_APPLICABLE"} for row in self.probe_results) else "FAIL",
         }
 
     def deterministic_bytes(self) -> bytes:
         return canonical_bytes(self.deterministic_core())
+
+    def to_report(self) -> dict[str, Any]:
+        return {
+            "schema_version": "iris_test_workflow_scenario_report_v1",
+            "deterministic_core": self.deterministic_core(),
+            "execution_observations": thaw(self.execution_observations),
+            "normalization_excluded_fields": [],
+        }

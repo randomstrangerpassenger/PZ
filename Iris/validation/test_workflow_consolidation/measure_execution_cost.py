@@ -740,9 +740,11 @@ def plan_paired_session(
     qualification = read_json(args.qualification_receipt)
     require(qualification.get("status") == "PASS", "qualification receipt is not PASS")
     require(qualification.get("measurement_protocol_identity") == protocol, "qualification protocol identity mismatch")
+    measurement_tooling = resolved_tooling_identity(args, contract_path)
     family_rows = read_jsonl(args.family_ledger)
     schedule = build_schedule(contract, family_rows, args.session_kind)
     schedule["measurement_protocol_identity"] = protocol
+    schedule["measurement_tooling_identity"] = measurement_tooling
     schedule["family_ledger_sha256"] = sha256_file(args.family_ledger)
     write_json(args.schedule_output, schedule)
     estimate = resource_estimate(schedule, qualification, args.candidate_receipt_root)
@@ -762,6 +764,11 @@ def run_paired_session(
     require(schedule.get("schema_version") == SCHEDULE_SCHEMA, "schedule schema mismatch")
     require(schedule.get("session_kind") == args.session_kind, "schedule kind mismatch")
     require(schedule.get("measurement_protocol_identity") == protocol, "schedule protocol identity mismatch")
+    measurement_tooling = resolved_tooling_identity(args, contract_path)
+    require(
+        schedule.get("measurement_tooling_identity") == measurement_tooling,
+        "schedule tooling identity mismatch",
+    )
     require(estimate.get("schedule_sha256") == sha256_file(args.schedule), "resource estimate schedule binding mismatch")
     require(acknowledgment.get("approved") is True, "owner resource acknowledgment is missing")
     require(acknowledgment.get("schedule_sha256") == sha256_file(args.schedule), "owner acknowledgment schedule mismatch")
@@ -796,7 +803,6 @@ def run_paired_session(
         label="paired-session output root",
     )
     subjects = {arm: subject_identity(repo) for arm, repo in repositories.items()}
-    measurement_tooling = resolved_tooling_identity(args, contract_path)
     output_root.mkdir(parents=True, exist_ok=True)
     require(not (output_root / "session-receipt.json").exists(), "result root was already consumed")
     samples, summaries = execute_schedule(schedule, repositories, output_root)

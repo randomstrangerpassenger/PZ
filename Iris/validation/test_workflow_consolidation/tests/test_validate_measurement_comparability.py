@@ -33,6 +33,27 @@ def test_touch_surface_is_fail_closed() -> None:
     assert rename[0]["allowed"] is False
 
 
+def test_touch_surface_condition_is_not_unconditionally_admitted() -> None:
+    surface = {
+        "entries": [
+            {
+                "kind": "prefix",
+                "path": "Iris/_docs/round3",
+                "role": "authority_transaction",
+                "conditional_admission": "identity migration only",
+            }
+        ]
+    }
+    assert allowed_path("Iris/_docs/round3/taxonomy.json", surface) == (
+        False,
+        "authority_transaction",
+    )
+    rows = classify_changed_rows(
+        [{"status": "M", "path": "Iris/_docs/round3/taxonomy.json"}], surface
+    )
+    assert rows[0]["conditional_admission"] == "identity migration only"
+
+
 def test_contract_map_requires_localization_and_successor_probe(tmp_path: Path) -> None:
     path = tmp_path / "mapping.jsonl"
     write_jsonl(

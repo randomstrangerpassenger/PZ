@@ -65,11 +65,25 @@ def allowed_path(path: str, touch_surface: dict[str, Any]) -> tuple[bool, str | 
     for row in touch_surface.get("entries", []):
         value = str(row.get("path", "")).rstrip("/")
         kind = row.get("kind")
-        if kind == "exact" and path == value:
-            return True, str(row.get("role"))
-        if kind == "prefix" and (path == value or path.startswith(value + "/")):
-            return True, str(row.get("role"))
+        matched = kind == "exact" and path == value
+        matched = matched or (
+            kind == "prefix" and (path == value or path.startswith(value + "/"))
+        )
+        if matched:
+            return not bool(row.get("conditional_admission")), str(row.get("role"))
     return False, None
+
+
+def conditional_admission_for(path: str, touch_surface: dict[str, Any]) -> str | None:
+    for row in touch_surface.get("entries", []):
+        value = str(row.get("path", "")).rstrip("/")
+        kind = row.get("kind")
+        if kind == "exact" and path == value or kind == "prefix" and (
+            path == value or path.startswith(value + "/")
+        ):
+            value = row.get("conditional_admission")
+            return str(value) if value else None
+    return None
 
 
 def classify_changed_rows(
@@ -91,6 +105,10 @@ def classify_changed_rows(
                 "role": role,
                 "source_allowed": source_allowed,
                 "source_role": source_role,
+                "conditional_admission": conditional_admission_for(row["path"], touch_surface),
+                "source_conditional_admission": conditional_admission_for(row["source_path"], touch_surface)
+                if row.get("source_path")
+                else None,
             }
         )
     return classified

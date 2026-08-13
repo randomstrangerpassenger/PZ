@@ -473,7 +473,19 @@ def build_schedule(
         key=lambda row: row["family_id"],
     )
     require(len({row["family_id"] for row in adopted}) == len(adopted), "duplicate adopted family_id")
-    if session_kind == "terminal-acceptance":
+    if session_kind == "candidate-qualification":
+        candidates = [
+            row
+            for row in family_rows
+            if isinstance(row.get("candidate_measurement_workload"), dict)
+        ]
+        require(len(candidates) <= 1, "candidate session must select at most one family workload")
+        if candidates:
+            candidate = candidates[0]
+            workload = candidate["candidate_measurement_workload"]
+            require(workload.get("workload_id") == candidate.get("family_id"), "candidate workload identity mismatch")
+            workloads = [workload]
+    elif session_kind == "terminal-acceptance":
         for row in adopted:
             workload = row.get("terminal_measurement_workload")
             require(isinstance(workload, dict), f"adopted family lacks terminal workload: {row['family_id']}")
@@ -535,11 +547,9 @@ def resource_estimate(
     elapsed_by_workload: dict[str, list[float]] = {}
     for row in qualification.get("samples", []):
         elapsed_by_workload.setdefault(row["workload_id"], []).append(float(row["observation"]["elapsed_ms"]))
-    elapsed_by_workload.update(
-        candidate_elapsed_samples(
-            candidate_root, list(schedule.get("adopted_nonpilot_family_ids", []))
-        )
-    )
+    scheduled_ids = {row["workload_id"] for row in schedule["workloads"]}
+    missing_ids = sorted(scheduled_ids - elapsed_by_workload.keys())
+    elapsed_by_workload.update(candidate_elapsed_samples(candidate_root, missing_ids))
     p50_total = 0.0
     p95_total = 0.0
     timeout_total = 0.0
@@ -697,6 +707,10 @@ def run_paired_session(
     require(estimate.get("schedule_sha256") == sha256_file(args.schedule), "resource estimate schedule binding mismatch")
     require(acknowledgment.get("approved") is True, "owner resource acknowledgment is missing")
     require(acknowledgment.get("schedule_sha256") == sha256_file(args.schedule), "owner acknowledgment schedule mismatch")
+    require(
+        acknowledgment.get("resource_estimate_sha256") == sha256_file(args.resource_estimate),
+        "owner acknowledgment resource estimate mismatch",
+    )
     family_rows = read_jsonl(args.family_ledger)
     expected = build_schedule(contract, family_rows, args.session_kind)
     for key in (

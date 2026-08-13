@@ -59,6 +59,20 @@ def test_terminal_schedule_resolves_parameterized_family_formula() -> None:
     assert schedule["measured_block_count"] == 20
 
 
+def test_candidate_schedule_selects_the_declared_nonpilot_workload() -> None:
+    family = {
+        "family_id": "family-z",
+        "disposition": "candidate",
+        "candidate_measurement_workload": {
+            "workload_id": "family-z",
+            "command": ["{python}", "-c", "pass"],
+        },
+    }
+    schedule = build_schedule(_contract(), [family], "candidate-qualification")
+    assert [row["workload_id"] for row in schedule["workloads"]] == ["family-z"]
+    assert schedule["total_execution_positions"] == 24
+
+
 def test_bootstrap_interval_is_seed_deterministic() -> None:
     first = bootstrap_interval([1.0, 2.0, 3.0], 1729, 10000)
     second = bootstrap_interval([1.0, 2.0, 3.0], 1729, 10000)

@@ -1,0 +1,12 @@
+{
+  "authority_changes": [],
+  "family_id": "public-text-phase7-dispatch",
+  "implementation_paths": [
+    "Iris/build/description/v2/tests/test_public_text_quality_acceptance_current_route.py",
+    "Iris/validation/test_workflow_consolidation/scenario_contracts.py"
+  ],
+  "rollback_unit": "single identity-preserving family commit sequence",
+  "schema_version": "iris_test_workflow_family_transaction_dry_run_v1",
+  "status": "PASS",
+  "transaction_members": ["implementation", "contract_mapping"]
+}

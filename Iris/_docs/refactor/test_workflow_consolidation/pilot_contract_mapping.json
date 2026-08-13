@@ -1,0 +1,25 @@
+{
+  "family_id": "public-text-phase7-dispatch",
+  "identity_model": "branch_A_predecessor_nodes_preserved",
+  "producer_identity": "validate_public_text_quality_acceptance_official_0005_phase7_v2.py",
+  "scenario_id": "public-text-phase7-dispatch",
+  "mappings": [
+    {
+      "predecessor_test_id": "test_phase7_schema_dispatch_accepts_historical_v1_and_current_v2",
+      "probe_id": "historical_v1_and_current_v2_acceptance"
+    },
+    {
+      "predecessor_test_id": "test_phase7_schema_dispatch_rejects_unknown_and_malformed",
+      "probe_id": "unknown_and_malformed_schema_rejection"
+    },
+    {
+      "predecessor_test_id": "test_phase7_schema_dispatch_rejects_successor_transaction_hash_mismatch",
+      "probe_id": "successor_transaction_hash_mismatch_rejection"
+    },
+    {
+      "predecessor_test_id": "test_phase7_freeze_document_replay_is_deterministic",
+      "probe_id": "deterministic_document_replay"
+    }
+  ],
+  "schema_version": "iris_test_workflow_pilot_contract_mapping_v1"
+}

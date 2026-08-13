@@ -1,0 +1,15 @@
+{
+  "family_id": "public-text-phase7-dispatch",
+  "implementation": {
+    "execution_owner": "PublicTextQualityAcceptanceCurrentRouteTest class lifecycle",
+    "immutable_result_type": "ExecutionResult",
+    "predecessor_node_ids_preserved": true,
+    "producer_subprocess_boundary_preserved": true
+  },
+  "planned_grouped_invocations": {
+    "after": 1,
+    "before": 4
+  },
+  "schema_version": "iris_test_workflow_pilot_receipt_v1",
+  "status": "IMPLEMENTED_PENDING_TERMINAL_VALIDATION"
+}

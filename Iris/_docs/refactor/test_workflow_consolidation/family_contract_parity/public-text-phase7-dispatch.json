@@ -6,5 +6,5 @@
     "successor_transaction_hash_mismatch_rejection"
   ],
   "schema_version": "iris_test_workflow_family_contract_parity_v1",
-  "status": "PENDING_TERMINAL_VALIDATION"
+  "status": "PASS"
 }

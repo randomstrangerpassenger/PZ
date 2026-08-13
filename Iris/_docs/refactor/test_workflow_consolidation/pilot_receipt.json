@@ -11,5 +11,9 @@
     "before": 4
   },
   "schema_version": "iris_test_workflow_pilot_receipt_v1",
-  "status": "IMPLEMENTED_PENDING_TERMINAL_VALIDATION"
+  "semantic_validation": {
+    "pilot_file": "11 passed in 31.71s",
+    "successor_tooling": "54 passed in 33.59s"
+  },
+  "status": "PASS"
 }

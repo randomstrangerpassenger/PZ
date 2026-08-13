@@ -38,6 +38,10 @@ except ImportError:  # Direct script execution.
 SCHEMA = "iris_test_workflow_measurement_comparability_v1"
 
 
+def present_equal(left: object, right: object) -> bool:
+    return isinstance(left, dict) and bool(left) and left == right
+
+
 def touch_surface_frozen_for_base(touch: dict[str, Any], base_commit: str) -> bool:
     return (
         touch.get("frozen_before_protocol_qualification") is True
@@ -263,10 +267,10 @@ def validate(args: argparse.Namespace) -> dict[str, Any]:
         "protocol_qualification_subject_matches_base": qualification.get("target_subject_a") == base_subject and qualification.get("target_subject_b") == base_subject,
         "measurement_tooling_identity_equal": qualification.get("measurement_tooling_identity") == received_tooling_identity and bool(received_tooling_identity) and current_tooling_identity_matches,
         "measurement_contract_identity_equal_across_qualification_and_accepted_session": qualification.get("measurement_protocol_identity") == protocol and protocol == supplied_protocol,
-        "machine_environment_locale_equal": qualification.get("environment_identity") == session.get("environment_identity"),
+        "machine_environment_locale_equal": present_equal(qualification.get("environment_identity"), session.get("environment_identity")),
         "accepted_paired_session_single_session": bool(session.get("session_id")) and session.get("cross_session_sample_count") == 0,
-        "harness_interpreter_identity_equal": qualification.get("harness_interpreter_identity") == session.get("harness_interpreter_identity"),
-        "target_execution_interpreter_identity_equal": session.get("target_execution_interpreter_identity_a") == session.get("target_execution_interpreter_identity_b"),
+        "harness_interpreter_identity_equal": present_equal(qualification.get("harness_interpreter_identity"), session.get("harness_interpreter_identity")),
+        "target_execution_interpreter_identity_equal": present_equal(session.get("target_execution_interpreter_identity_a"), session.get("target_execution_interpreter_identity_b")),
         "command_and_input_contract_equal": command_contract_equal(session),
         "contract_denominator_equivalent_via_preservation_map": contract_map_valid(args.contract_map),
         "accepted_session_schedule_matches_parameterized_contract_and_final_family_ledger": accepted_schedule_valid(session, args.accepted_schedule, args.family_ledger, contract),

@@ -9,8 +9,15 @@ from Iris.validation.test_workflow_consolidation.validate_measurement_comparabil
     allowed_path,
     classify_changed_rows,
     contract_map_valid,
+    present_equal,
     touch_surface_frozen_for_base,
 )
+
+
+def test_identity_equality_requires_nonempty_mapping() -> None:
+    assert present_equal(None, None) is False
+    assert present_equal({}, {}) is False
+    assert present_equal({"python": "3.13"}, {"python": "3.13"}) is True
 
 
 def _schedule_contract() -> dict[str, object]:

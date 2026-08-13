@@ -218,6 +218,16 @@ def _argv_text(event: dict[str, Any]) -> str:
     return str(argv).replace("\\", "/")
 
 
+def count_producer_invocations(
+    argv: list[str], subprocess_events: list[dict[str, Any]], patterns: list[str]
+) -> int:
+    top_level = " ".join(str(value) for value in argv).replace("\\", "/")
+    return int(any(pattern in top_level for pattern in patterns)) + sum(
+        any(pattern in _argv_text(row) for pattern in patterns)
+        for row in subprocess_events
+    )
+
+
 def observe_command(
     repository: Path,
     workload: dict[str, Any],
@@ -259,10 +269,7 @@ def observe_command(
     subprocess_events = [row for row in events if row.get("kind") == "subprocess"]
     producer_patterns = [value.replace("\\", "/") for value in workload.get("producer_patterns", [])]
     eligible_patterns = [value.replace("\\", "/") for value in workload.get("eligible_subprocess_patterns", [])]
-    producer_count = sum(
-        any(pattern in _argv_text(row) for pattern in producer_patterns)
-        for row in subprocess_events
-    )
+    producer_count = count_producer_invocations(argv, subprocess_events, producer_patterns)
     eligible_count = sum(
         any(pattern in _argv_text(row) for pattern in eligible_patterns)
         for row in subprocess_events
@@ -563,11 +570,25 @@ def resource_estimate(
         elapsed_by_workload.setdefault(row["workload_id"], []).append(float(row["observation"]["elapsed_ms"]))
     scheduled_ids = {row["workload_id"] for row in schedule["workloads"]}
     missing_ids = sorted(scheduled_ids - elapsed_by_workload.keys())
-    elapsed_by_workload.update(candidate_elapsed_samples(candidate_root, missing_ids))
+    estimation_basis = {
+        workload_id: "baseline_protocol_qualification_receipt"
+        for workload_id in scheduled_ids - set(missing_ids)
+    }
+    workloads = {row["workload_id"]: row for row in schedule["workloads"]}
+    if schedule["session_kind"] == "candidate-qualification":
+        for workload_id in missing_ids:
+            timeout_ms = float(workloads[workload_id]["timeout_seconds"]) * 1000.0
+            elapsed_by_workload[workload_id] = [timeout_ms]
+            estimation_basis[workload_id] = "declared_timeout_upper_bound_first_candidate_session"
+    else:
+        candidate_samples = candidate_elapsed_samples(candidate_root, missing_ids)
+        elapsed_by_workload.update(candidate_samples)
+        estimation_basis.update(
+            {workload_id: "accepted_candidate_receipt" for workload_id in candidate_samples}
+        )
     p50_total = 0.0
     p95_total = 0.0
     timeout_total = 0.0
-    workloads = {row["workload_id"]: row for row in schedule["workloads"]}
     for position in schedule["positions"]:
         values = elapsed_by_workload.get(position["workload_id"])
         require(values, f"no qualified duration estimate for workload: {position['workload_id']}")
@@ -585,6 +606,7 @@ def resource_estimate(
         "estimated_external_disk_bytes": schedule["total_execution_positions"] * 2_000_000,
         "full_restart_expected_p95_ms": p95_total,
         "partial_sample_reuse_allowed": False,
+        "workload_estimation_basis": estimation_basis,
     }
 
 

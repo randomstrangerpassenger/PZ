@@ -7,9 +7,11 @@ from Iris.validation.test_workflow_consolidation.measure_execution_cost import (
     bootstrap_interval,
     build_schedule,
     candidate_elapsed_samples,
+    count_producer_invocations,
     effective_regression_ceiling_ms,
     summarize_workload,
     targeted_summary_accepted,
+    resource_estimate,
     workload_schedule,
 )
 
@@ -18,11 +20,12 @@ def _contract() -> dict[str, object]:
     command = ["{python}", "-c", "pass"]
     return {
         "workloads": [
-            {"workload_id": "mandatory_pilot", "command": command},
+            {"workload_id": "mandatory_pilot", "command": command, "timeout_seconds": 1},
             {
                 "workload_id": "configured-current",
                 "role": "configured_route_performance_observation",
                 "command": command,
+                "timeout_seconds": 1,
             },
         ],
         "schedule": {
@@ -83,6 +86,32 @@ def test_bootstrap_interval_is_seed_deterministic() -> None:
 def test_adopted_family_estimate_fails_closed_without_candidate_receipt() -> None:
     with pytest.raises(ContractError):
         candidate_elapsed_samples(None, ["family-z"])
+
+
+def test_first_candidate_estimate_uses_declared_timeout_without_prior_receipt() -> None:
+    family = {
+        "family_id": "family-z",
+        "disposition": "candidate",
+        "candidate_measurement_workload": {
+            "workload_id": "family-z",
+            "command": ["{python}", "-c", "pass"],
+            "timeout_seconds": 2,
+        },
+    }
+    schedule = build_schedule(_contract(), [family], "candidate-qualification")
+    estimate = resource_estimate(schedule, {"samples": []}, None)
+    assert estimate["workload_estimation_basis"]["family-z"] == (
+        "declared_timeout_upper_bound_first_candidate_session"
+    )
+    assert estimate["expected_p50_duration_ms"] == 48_000.0
+
+
+def test_direct_producer_command_is_counted_with_child_invocations() -> None:
+    assert count_producer_invocations(
+        ["python", "tools/producer.py"],
+        [{"argv": ["python", "tools/producer.py"]}],
+        ["producer.py"],
+    ) == 2
 
 
 def _sample(arm: str, position: int, elapsed_ms: float, producer_count: int) -> dict[str, object]:

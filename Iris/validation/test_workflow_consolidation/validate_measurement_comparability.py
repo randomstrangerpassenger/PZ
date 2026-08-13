@@ -260,6 +260,7 @@ def validate(args: argparse.Namespace) -> dict[str, Any]:
     checks = {
         "base_is_ancestor_of_terminal": is_ancestor(terminal, base_subject["commit"], terminal_subject["commit"]),
         "accepted_and_qualification_receipts_valid": accepted_receipts_valid(session, qualification),
+        "protocol_qualification_subject_matches_base": qualification.get("target_subject_a") == base_subject and qualification.get("target_subject_b") == base_subject,
         "measurement_tooling_identity_equal": qualification.get("measurement_tooling_identity") == received_tooling_identity and bool(received_tooling_identity) and current_tooling_identity_matches,
         "measurement_contract_identity_equal_across_qualification_and_accepted_session": qualification.get("measurement_protocol_identity") == protocol and protocol == supplied_protocol,
         "machine_environment_locale_equal": qualification.get("environment_identity") == session.get("environment_identity"),

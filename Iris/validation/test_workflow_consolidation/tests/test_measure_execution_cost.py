@@ -244,6 +244,43 @@ def test_observation_isolates_repository_output_and_uv_cache(tmp_path, monkeypat
     ).stdout == ""
 
 
+def test_observation_timeout_returns_invalid_without_unbounded_pipe_drain(tmp_path) -> None:
+    repository = tmp_path / "repo"
+    repository.mkdir()
+    subprocess.run(["git", "init", "-q", str(repository)], check=True)
+    subprocess.run(["git", "-C", str(repository), "config", "user.email", "test@example.invalid"], check=True)
+    subprocess.run(["git", "-C", str(repository), "config", "user.name", "Test"], check=True)
+    marker = repository / "marker.txt"
+    marker.write_text("fixture", encoding="utf-8")
+    subprocess.run(["git", "-C", str(repository), "add", "marker.txt"], check=True)
+    subprocess.run(["git", "-C", str(repository), "commit", "-q", "-m", "fixture"], check=True)
+    workload = {
+        "command": [
+            "{python}",
+            "-c",
+            (
+                "import subprocess, sys; "
+                "child=subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(60)']); "
+                "child.wait()"
+            ),
+        ],
+        "canonical_input_paths": ["marker.txt"],
+        "expected_output_contract": {
+            "valid_exit_codes": [0],
+            "normalized_stdout": "fixture",
+            "normalized_stderr": "fixture",
+        },
+        "input_identity": "fixture",
+        "timeout_seconds": 0.05,
+    }
+
+    observation = observe_command(repository, workload, tmp_path / "result", instrumented=False)
+
+    assert observation["timed_out"] is True
+    assert observation["contract_valid"] is False
+    assert observation["elapsed_ms"] < 10_000
+
+
 def test_instrumented_observation_counts_copy2(tmp_path) -> None:
     repository = tmp_path / "repo"
     repository.mkdir()

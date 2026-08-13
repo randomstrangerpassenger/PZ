@@ -232,12 +232,17 @@ def _normalized_output(value: bytes) -> str:
 
 def _kill_process_tree(process: subprocess.Popen[bytes]) -> None:
     if os.name == "nt":
-        subprocess.run(
-            ["taskkill", "/PID", str(process.pid), "/T", "/F"],
-            check=False,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
+        try:
+            subprocess.run(
+                ["taskkill", "/PID", str(process.pid), "/T", "/F"],
+                check=False,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                timeout=30.0,
+            )
+        except subprocess.TimeoutExpired:
+            if process.poll() is None:
+                process.kill()
     else:
         try:
             os.killpg(process.pid, signal.SIGKILL)
@@ -373,10 +378,25 @@ def observe_command(
     timed_out = False
     try:
         stdout, stderr = process.communicate(timeout=float(workload["timeout_seconds"]))
-    except subprocess.TimeoutExpired:
+    except subprocess.TimeoutExpired as timeout_error:
         timed_out = True
         _kill_process_tree(process)
-        stdout, stderr = process.communicate()
+        try:
+            stdout, stderr = process.communicate(timeout=30.0)
+        except subprocess.TimeoutExpired as cleanup_error:
+            _kill_process_tree(process)
+            if process.poll() is None:
+                process.kill()
+            for stream in (process.stdout, process.stderr):
+                if stream is not None:
+                    stream.close()
+            try:
+                process.wait(timeout=5.0)
+            except subprocess.TimeoutExpired:
+                process.kill()
+                process.wait(timeout=5.0)
+            stdout = cleanup_error.output or timeout_error.output or b""
+            stderr = cleanup_error.stderr or timeout_error.stderr or b""
     elapsed_ms = (time.perf_counter_ns() - started) / 1_000_000.0
     try:
         after = subject_identity(repository)

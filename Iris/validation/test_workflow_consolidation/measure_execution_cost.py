@@ -285,6 +285,7 @@ def observe_command(
     require(not ignored_before, "target checkout contains ignored worktree state before observation")
     argv = render_command(workload["command"], repository, sample_root)
     env = os.environ.copy()
+    env["PYTHONDONTWRITEBYTECODE"] = "1"
     event_root = sample_root / "observer-events"
     if instrumented:
         observer_root = sample_root / "observer"

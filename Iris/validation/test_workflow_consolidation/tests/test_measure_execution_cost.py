@@ -180,6 +180,13 @@ def test_observation_rejects_ignored_checkout_mutation(tmp_path) -> None:
             "-c",
             "from pathlib import Path; Path('cache').mkdir(); Path('cache/result').write_text('x')",
         ],
+        "canonical_input_paths": [".gitignore"],
+        "expected_output_contract": {
+            "valid_exit_codes": [0],
+            "normalized_stdout": "fixture",
+            "normalized_stderr": "fixture",
+        },
+        "input_identity": "fixture",
         "timeout_seconds": 5,
     }
 
@@ -210,6 +217,13 @@ def test_observation_isolates_repository_output_and_uv_cache(tmp_path, monkeypat
                 "Path(os.environ['UV_CACHE_DIR']).mkdir()"
             ),
         ],
+        "canonical_input_paths": [".gitignore"],
+        "expected_output_contract": {
+            "valid_exit_codes": [0],
+            "normalized_stdout": "fixture",
+            "normalized_stderr": "fixture",
+        },
+        "input_identity": "fixture",
         "timeout_seconds": 5,
         "valid_exit_codes": [0],
     }
@@ -247,6 +261,13 @@ def test_instrumented_observation_counts_copy2(tmp_path) -> None:
             "from pathlib import Path; import shutil, sys; shutil.copy2('source.txt', Path(sys.argv[1]) / 'copy.txt')",
             "{result_root}",
         ],
+        "canonical_input_paths": ["source.txt"],
+        "expected_output_contract": {
+            "valid_exit_codes": [0],
+            "normalized_stdout": "fixture",
+            "normalized_stderr": "fixture",
+        },
+        "input_identity": "fixture",
         "timeout_seconds": 5,
     }
 

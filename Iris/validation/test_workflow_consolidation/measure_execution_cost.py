@@ -273,18 +273,58 @@ def count_producer_invocations(
     )
 
 
+def canonical_input_hashes(
+    repository: Path, workload: dict[str, Any]
+) -> dict[str, str]:
+    paths = workload.get("canonical_input_paths")
+    require(
+        isinstance(paths, list)
+        and bool(paths)
+        and len(paths) == len(set(paths))
+        and all(
+            isinstance(path, str)
+            and bool(path)
+            and not Path(path).is_absolute()
+            and ".." not in Path(path).parts
+            for path in paths
+        ),
+        "canonical input path contract is incomplete",
+    )
+    return {
+        path: git(repository, "rev-parse", f"HEAD:{path}") for path in paths
+    }
+
+
 def observe_command(
     repository: Path,
     workload: dict[str, Any],
     sample_root: Path,
     *,
     instrumented: bool,
+    resolved_input_hashes: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     sample_root.mkdir(parents=True, exist_ok=False)
     before = subject_identity(repository)
     ignored_before = ignored_worktree_entries(repository)
     require(not ignored_before, "target checkout contains ignored worktree state before observation")
     argv = render_command(workload["command"], repository, sample_root)
+    input_hashes = (
+        canonical_input_hashes(repository, workload)
+        if resolved_input_hashes is None
+        else dict(resolved_input_hashes)
+    )
+    expected_output_contract = workload.get("expected_output_contract")
+    require(
+        isinstance(expected_output_contract, dict)
+        and set(expected_output_contract)
+        == {"valid_exit_codes", "normalized_stdout", "normalized_stderr"},
+        "expected output contract is incomplete",
+    )
+    valid_exit_codes = set(workload.get("valid_exit_codes", [0]))
+    require(
+        expected_output_contract["valid_exit_codes"] == sorted(valid_exit_codes),
+        "expected output and valid-exit contracts disagree",
+    )
     env = os.environ.copy()
     env["PYTHONDONTWRITEBYTECODE"] = "1"
     execution_context = None
@@ -356,7 +396,6 @@ def observe_command(
         )
         copied_values = [row.get("copied_bytes") for row in events if row.get("kind") == "copy"]
         copied_observed = [int(value) for value in copied_values if isinstance(value, int)]
-        valid_exit_codes = set(workload.get("valid_exit_codes", [0]))
         observation = {
         "elapsed_ms": elapsed_ms,
         "exit_code": process.returncode,
@@ -371,6 +410,8 @@ def observe_command(
             "ordered_argv": workload["command"][1:],
             "path_normalization": "repository_and_result_roots_are_role_descriptors",
             "declared_input_identity": workload.get("input_identity", "target_subject_tree"),
+            "canonical_input_hashes": input_hashes,
+            "expected_output_contract": expected_output_contract,
         },
         "operation_counts": {
             "producer_invocations": producer_count,
@@ -552,11 +593,22 @@ def execute_schedule(
     samples: list[dict[str, Any]] = []
     summaries: list[dict[str, Any]] = []
     workloads = {row["workload_id"]: row for row in schedule["workloads"]}
+    input_hashes = {
+        (arm, workload_id): canonical_input_hashes(repositories[arm], workload)
+        for arm in {position["arm"] for position in schedule["positions"]}
+        for workload_id, workload in workloads.items()
+    }
     for ordinal, position in enumerate(schedule["positions"]):
         workload = workloads[position["workload_id"]]
         arm = position["arm"]
         sample_root = output_root / "samples" / f"{ordinal:04d}-{position['workload_id']}-{arm}"
-        observation = observe_command(repositories[arm], workload, sample_root, instrumented=True)
+        observation = observe_command(
+            repositories[arm],
+            workload,
+            sample_root,
+            instrumented=True,
+            resolved_input_hashes=input_hashes[(arm, workload["workload_id"])],
+        )
         samples.append({**position, "ordinal": ordinal, "observation": observation})
     for workload in workloads.values():
         relevant = [row for row in samples if row["workload_id"] == workload["workload_id"]]
@@ -618,6 +670,39 @@ def build_schedule(
         "positions": positions,
         "measured_block_count": sum(row["phase"] == "measured" and row["position"] == 1 for row in positions),
         "total_execution_positions": len(positions),
+        "statistics": contract["statistics"],
+    }
+
+
+def build_qualification_schedule(contract: dict[str, Any]) -> dict[str, Any]:
+    qualification_ids = contract.get("qualification_workload_ids")
+    require(
+        isinstance(qualification_ids, list)
+        and bool(qualification_ids)
+        and len(qualification_ids) == len(set(qualification_ids)),
+        "qualification workload identity is invalid",
+    )
+    definitions = {row["workload_id"]: row for row in contract["workloads"]}
+    require(
+        set(qualification_ids) <= set(definitions),
+        "qualification workload is missing from the measurement contract",
+    )
+    selected = [
+        definitions[workload_id] for workload_id in qualification_ids
+    ]
+    positions: list[dict[str, Any]] = []
+    for workload in selected:
+        blocks = (
+            int(contract["schedule"]["configured_measured_blocks"])
+            if workload["workload_id"] == "configured-current"
+            else int(contract["schedule"]["targeted_measured_blocks"])
+        )
+        positions.extend(workload_schedule(workload["workload_id"], blocks))
+    return {
+        "schema_version": SCHEDULE_SCHEMA,
+        "session_kind": "baseline-protocol-qualification",
+        "workloads": selected,
+        "positions": positions,
         "statistics": contract["statistics"],
     }
 
@@ -742,29 +827,14 @@ def qualify_protocol(
     measurement_tooling = resolved_tooling_identity(args, contract_path)
     touch_surface_identity = resolved_touch_surface_identity(args, contract_path)
     output_root.mkdir(parents=True, exist_ok=False)
-    selected = [
-        row for row in contract["workloads"] if row["workload_id"] in contract["qualification_workload_ids"]
-    ]
-    positions: list[dict[str, Any]] = []
-    for workload in selected:
-        blocks = (
-            int(contract["schedule"]["configured_measured_blocks"])
-            if workload["workload_id"] == "configured-current"
-            else int(contract["schedule"]["targeted_measured_blocks"])
-        )
-        positions.extend(workload_schedule(workload["workload_id"], blocks))
-    schedule = {
-        "schema_version": SCHEDULE_SCHEMA,
-        "session_kind": "baseline-protocol-qualification",
-        "workloads": selected,
-        "positions": positions,
-        "statistics": contract["statistics"],
-    }
+    schedule = build_qualification_schedule(contract)
+    selected = schedule["workloads"]
     samples, summaries = execute_schedule(schedule, {"A": target, "B": target}, output_root)
     companions = []
     for workload in selected:
-        instrumented = observe_command(target, workload, output_root / "companions" / f"{workload['workload_id']}-on", instrumented=True)
-        plain = observe_command(target, workload, output_root / "companions" / f"{workload['workload_id']}-off", instrumented=False)
+        input_hashes = canonical_input_hashes(target, workload)
+        instrumented = observe_command(target, workload, output_root / "companions" / f"{workload['workload_id']}-on", instrumented=True, resolved_input_hashes=input_hashes)
+        plain = observe_command(target, workload, output_root / "companions" / f"{workload['workload_id']}-off", instrumented=False, resolved_input_hashes=input_hashes)
         parity = (
             instrumented["exit_code"] == plain["exit_code"]
             and instrumented["normalized_stdout_sha256"] == plain["normalized_stdout_sha256"]

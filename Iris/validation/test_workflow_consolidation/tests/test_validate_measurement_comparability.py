@@ -4,13 +4,14 @@ from pathlib import Path
 
 from Iris.validation.test_workflow_consolidation._common import sha256_bytes, sha256_file, write_json, write_jsonl
 from Iris.validation.test_workflow_consolidation.validate_measurement_comparability import (
+    _signature_matches_workload,
     accepted_schedule_valid,
     accepted_receipts_valid,
     allowed_path,
     classify_changed_rows,
-    command_contract_equal,
     contract_map_valid,
     present_equal,
+    qualification_schedule_valid,
     target_execution_interpreter_identity_equal,
     touch_surface_identity_bound,
     touch_surface_frozen_for_base,
@@ -23,32 +24,40 @@ def test_identity_equality_requires_nonempty_mapping() -> None:
     assert present_equal({"python": "3.13"}, {"python": "3.13"}) is True
 
 
-def _receipt_with_command(executable: str = "python", input_id: str = "tree") -> dict[str, object]:
+def _workload_and_signature() -> tuple[dict[str, object], dict[str, object]]:
+    workload = {
+        "workload_id": "mandatory_pilot",
+        "command": ["{python}", "-m", "pytest"],
+        "environment_contract": {"route": "all"},
+        "input_identity": "fixture-input",
+        "canonical_input_paths": ["fixture.txt"],
+        "expected_output_contract": {
+            "valid_exit_codes": [0],
+            "normalized_stdout": "pytest",
+            "normalized_stderr": "clean",
+        },
+    }
     signature = {
-        "executable_identity": executable,
+        "executable": "C:/python.exe",
         "ordered_argv": ["-m", "pytest"],
-        "cwd_contract": "target_repository",
-        "environment_contract": {},
-        "declared_input_identity": input_id,
+        "cwd_role": "target_repository_root",
+        "environment_contract": {"route": "all"},
+        "path_normalization": "repository_and_result_roots_are_role_descriptors",
+        "declared_input_identity": "fixture-input",
+        "canonical_input_hashes": {"fixture.txt": "a" * 40},
+        "expected_output_contract": workload["expected_output_contract"],
     }
-    return {
-        "samples": [
-            {
-                "workload_id": "mandatory_pilot",
-                "arm": arm,
-                "observation": {"command_signature": signature},
-            }
-            for arm in ("A", "B")
-        ]
-    }
+    return workload, signature
 
 
 def test_command_and_input_contract_is_bound_to_qualification() -> None:
-    qualification = _receipt_with_command()
-    session = _receipt_with_command()
-    assert command_contract_equal(session, qualification)
-    qualification = _receipt_with_command(input_id="stale-tree")
-    assert not command_contract_equal(session, qualification)
+    workload, signature = _workload_and_signature()
+    interpreter = {"executable": "C:/python.exe"}
+    live_hashes = {"fixture.txt": "a" * 40}
+    assert _signature_matches_workload(signature, workload, interpreter, live_hashes)
+    assert not _signature_matches_workload({}, workload, interpreter, live_hashes)
+    signature["canonical_input_hashes"] = {"fixture.txt": "b" * 40}
+    assert not _signature_matches_workload(signature, workload, interpreter, live_hashes)
 
 
 def test_target_interpreter_identity_is_bound_across_qualification_and_session() -> None:
@@ -85,10 +94,30 @@ def _schedule_contract() -> dict[str, object]:
         "command": ["python", "-c", "pass"],
     }
     return {
+        "qualification_workload_ids": ["mandatory_pilot", "configured-current"],
         "workloads": [workload, configured],
         "schedule": {"targeted_measured_blocks": 5, "configured_measured_blocks": 10},
         "statistics": {"bootstrap_seed": 1729},
     }
+
+
+def test_qualification_schedule_requires_every_frozen_position() -> None:
+    from Iris.validation.test_workflow_consolidation.measure_execution_cost import (
+        build_qualification_schedule,
+    )
+
+    contract = _schedule_contract()
+    expected = build_qualification_schedule(contract)
+    receipt = {
+        "samples": expected["positions"],
+        "workload_summaries": [
+            {"workload_id": "mandatory_pilot"},
+            {"workload_id": "configured-current"},
+        ],
+    }
+    assert qualification_schedule_valid(receipt, contract)
+    receipt["samples"] = receipt["samples"][:-1]
+    assert not qualification_schedule_valid(receipt, contract)
 
 
 def test_schedule_validation_binds_hash_ledger_projection_and_samples(tmp_path: Path) -> None:

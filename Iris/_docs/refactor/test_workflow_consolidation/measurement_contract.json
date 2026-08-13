@@ -57,7 +57,15 @@
         "pytest_cache": false,
         "route": "all_explicit_path"
       },
-      "input_identity": "target_subject_tree_and_attempt-0005-official",
+      "canonical_input_paths": [
+        "Iris/build/description/v2/tools/build"
+      ],
+      "expected_output_contract": {
+        "normalized_stderr": "no_unhandled_error",
+        "normalized_stdout": "pytest_explicit_pilot_contract_result",
+        "valid_exit_codes": [0]
+      },
+      "input_identity": "attempt-0005-official_and_phase7_tool_tree",
       "producer_patterns": [
         "validate_public_text_quality_acceptance_official_0005_phase7_v2.py"
       ],
@@ -90,7 +98,18 @@
         "pytest_cache": false,
         "route": "configured-current"
       },
-      "input_identity": "target_subject_tree_and_round3_configured_current_denominator",
+      "canonical_input_paths": [
+        "Iris/_docs/round3/round3_pytest_source_classification.json",
+        "Iris/_docs/round3/round3_full_discovery_denominator.json",
+        "Iris/_docs/round3/round3_test_taxonomy.json",
+        "Iris/_docs/round3/current_route_required_validations.json"
+      ],
+      "expected_output_contract": {
+        "normalized_stderr": "no_unhandled_error",
+        "normalized_stdout": "pytest_configured_current_contract_and_denominator_receipt",
+        "valid_exit_codes": [0]
+      },
+      "input_identity": "round3_configured_current_authority_inputs",
       "producer_patterns": [],
       "role": "configured_route_performance_observation",
       "timeout_seconds": 1200,

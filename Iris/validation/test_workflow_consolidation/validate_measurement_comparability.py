@@ -51,6 +51,17 @@ def touch_surface_frozen_for_base(touch: dict[str, Any], base_commit: str) -> bo
     )
 
 
+def touch_surface_identity_bound(
+    qualification: dict[str, Any],
+    session: dict[str, Any],
+    current_identity: dict[str, str],
+) -> bool:
+    return (
+        qualification.get("declared_round_touch_surface_identity") == current_identity
+        and session.get("declared_round_touch_surface_identity") == current_identity
+    )
+
+
 def is_ancestor(repository: Path, base_commit: str, terminal_commit: str) -> bool:
     result = subprocess.run(
         ["git", "-C", str(repository), "merge-base", "--is-ancestor", base_commit, terminal_commit],
@@ -249,12 +260,13 @@ def validate(args: argparse.Namespace) -> dict[str, Any]:
     contract = read_json(args.measurement_contract)
     tooling = read_json(args.tooling_manifest)
     touch = read_json(args.touch_surface)
+    tool_repo = Path(git(args.tooling_manifest.parent, "rev-parse", "--show-toplevel"))
+    touch_identity = committed_blob_identity(tool_repo, args.touch_surface)
     rows = changed_paths(base, terminal)
     classified = classify_changed_rows(rows, touch)
     out_of_scope = [row for row in classified if not row["allowed"]]
     protocol = session.get("measurement_protocol_identity")
     supplied_protocol = current_protocol_identity(args.measurement_contract)
-    tool_repo = Path(git(args.tooling_manifest.parent, "rev-parse", "--show-toplevel"))
     manifest_identity = committed_blob_identity(tool_repo, args.tooling_manifest)
     expected_tool_subject = subject_identity(tool_repo)
     received_tooling_identity = session.get("measurement_tooling_identity", {})
@@ -277,6 +289,9 @@ def validate(args: argparse.Namespace) -> dict[str, Any]:
         "contract_denominator_equivalent_via_preservation_map": contract_map_valid(args.contract_map),
         "accepted_session_schedule_matches_parameterized_contract_and_final_family_ledger": accepted_schedule_valid(session, args.accepted_schedule, args.family_ledger, contract),
         "declared_round_touch_surface_frozen_before_protocol_qualification": touch_surface_frozen_for_base(touch, base_subject["commit"]),
+        "declared_round_touch_surface_identity_bound": touch_surface_identity_bound(
+            qualification, session, touch_identity
+        ),
         "S_base_to_S_terminal_changed_paths_subset_of_declared_touch_surface": not out_of_scope,
         "out_of_scope_path_count_zero": not out_of_scope,
         "accepted_subjects_match": session.get("target_subject_a") == base_subject and session.get("target_subject_b") == terminal_subject,

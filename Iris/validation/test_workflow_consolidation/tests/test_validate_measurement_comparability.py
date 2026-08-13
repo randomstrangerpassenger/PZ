@@ -10,6 +10,7 @@ from Iris.validation.test_workflow_consolidation.validate_measurement_comparabil
     classify_changed_rows,
     contract_map_valid,
     present_equal,
+    touch_surface_identity_bound,
     touch_surface_frozen_for_base,
 )
 
@@ -18,6 +19,14 @@ def test_identity_equality_requires_nonempty_mapping() -> None:
     assert present_equal(None, None) is False
     assert present_equal({}, {}) is False
     assert present_equal({"python": "3.13"}, {"python": "3.13"}) is True
+
+
+def test_touch_surface_identity_requires_qualification_and_session_binding() -> None:
+    identity = {"canonical_path": "touch.json", "git_blob_id": "abc", "raw_sha256": "def"}
+    qualification = {"declared_round_touch_surface_identity": identity}
+    session = {"declared_round_touch_surface_identity": identity}
+    assert touch_surface_identity_bound(qualification, session, identity) is True
+    assert touch_surface_identity_bound(qualification, {}, identity) is False
 
 
 def _schedule_contract() -> dict[str, object]:

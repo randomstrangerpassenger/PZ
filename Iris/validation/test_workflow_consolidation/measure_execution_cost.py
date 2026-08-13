@@ -690,6 +690,12 @@ def resolved_tooling_identity(args: argparse.Namespace, contract_path: Path) -> 
     return tooling_identity(repo, manifest_path, manifest)
 
 
+def resolved_touch_surface_identity(args: argparse.Namespace, contract_path: Path) -> dict[str, str]:
+    touch_surface_path = args.touch_surface or contract_path.parent / "declared_round_touch_surface.json"
+    repository = Path(git(contract_path.parent, "rev-parse", "--show-toplevel"))
+    return committed_blob_identity(repository, touch_surface_path)
+
+
 def qualify_protocol(
     args: argparse.Namespace, contract: dict[str, Any], contract_path: Path, contract_raw: bytes, protocol: dict[str, str]
 ) -> int:
@@ -702,6 +708,7 @@ def qualify_protocol(
     )
     target_subject = subject_identity(target)
     measurement_tooling = resolved_tooling_identity(args, contract_path)
+    touch_surface_identity = resolved_touch_surface_identity(args, contract_path)
     output_root.mkdir(parents=True, exist_ok=False)
     selected = [
         row for row in contract["workloads"] if row["workload_id"] in contract["qualification_workload_ids"]
@@ -758,6 +765,7 @@ def qualify_protocol(
         "target_subject_b": target_subject,
         "measurement_protocol_identity": protocol,
         "measurement_tooling_identity": measurement_tooling,
+        "declared_round_touch_surface_identity": touch_surface_identity,
         "harness_interpreter_identity": interpreter_identity(),
         "target_execution_interpreter_identity_a": interpreter_identity(),
         "target_execution_interpreter_identity_b": interpreter_identity(),
@@ -786,14 +794,20 @@ def plan_paired_session(
     require(qualification.get("status") == "PASS", "qualification receipt is not PASS")
     require(qualification.get("measurement_protocol_identity") == protocol, "qualification protocol identity mismatch")
     measurement_tooling = resolved_tooling_identity(args, contract_path)
+    touch_surface_identity = resolved_touch_surface_identity(args, contract_path)
     require(
         qualification.get("measurement_tooling_identity") == measurement_tooling,
         "qualification tooling identity mismatch",
+    )
+    require(
+        qualification.get("declared_round_touch_surface_identity") == touch_surface_identity,
+        "qualification touch-surface identity mismatch",
     )
     family_rows = read_jsonl(args.family_ledger)
     schedule = build_schedule(contract, family_rows, args.session_kind)
     schedule["measurement_protocol_identity"] = protocol
     schedule["measurement_tooling_identity"] = measurement_tooling
+    schedule["declared_round_touch_surface_identity"] = touch_surface_identity
     schedule["family_ledger_sha256"] = sha256_file(args.family_ledger)
     write_json(args.schedule_output, schedule)
     estimate = resource_estimate(schedule, qualification, args.candidate_receipt_root)
@@ -814,9 +828,14 @@ def run_paired_session(
     require(schedule.get("session_kind") == args.session_kind, "schedule kind mismatch")
     require(schedule.get("measurement_protocol_identity") == protocol, "schedule protocol identity mismatch")
     measurement_tooling = resolved_tooling_identity(args, contract_path)
+    touch_surface_identity = resolved_touch_surface_identity(args, contract_path)
     require(
         schedule.get("measurement_tooling_identity") == measurement_tooling,
         "schedule tooling identity mismatch",
+    )
+    require(
+        schedule.get("declared_round_touch_surface_identity") == touch_surface_identity,
+        "schedule touch-surface identity mismatch",
     )
     require(estimate.get("schedule_sha256") == sha256_file(args.schedule), "resource estimate schedule binding mismatch")
     require(acknowledgment.get("approved") is True, "owner resource acknowledgment is missing")
@@ -870,6 +889,7 @@ def run_paired_session(
         "target_subject_b": subjects["B"],
         "measurement_protocol_identity": protocol,
         "measurement_tooling_identity": measurement_tooling,
+        "declared_round_touch_surface_identity": touch_surface_identity,
         "schedule_sha256": sha256_file(args.schedule),
         "resource_estimate_sha256": sha256_file(args.resource_estimate),
         "owner_acknowledgment_sha256": sha256_file(args.owner_acknowledgment),
@@ -900,6 +920,7 @@ def parser() -> argparse.ArgumentParser:
     value.add_argument("--mode", choices=("verify-tooling", "qualify-protocol", "plan-paired-session", "run-paired-session"), required=True)
     value.add_argument("--contract", type=Path, required=True)
     value.add_argument("--tooling-manifest", type=Path)
+    value.add_argument("--touch-surface", type=Path)
     value.add_argument("--target-repository", type=Path)
     value.add_argument("--output-root", type=Path)
     value.add_argument("--output", type=Path)

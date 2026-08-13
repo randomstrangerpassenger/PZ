@@ -91,6 +91,7 @@ def census(repository: Path) -> dict[str, Any]:
         for node_id, function in function_rows(source, tree):
             calls = [dotted_name(value.func) for value in ast.walk(function) if isinstance(value, ast.Call)]
             strings = literal_strings(function)
+            referenced_names = {value.id for value in ast.walk(function) if isinstance(value, ast.Name)}
             producers = sorted(
                 {
                     value.replace("\\", "/")
@@ -98,6 +99,9 @@ def census(repository: Path) -> dict[str, Any]:
                     if value.endswith((".py", ".ps1")) and ("validat" in value.lower() or "run_" in value.lower())
                 }
             )
+            if source == PILOT_FILE and "PHASE7_V2_VALIDATOR" in referenced_names:
+                producers.append("validate_public_text_quality_acceptance_official_0005_phase7_v2.py")
+                producers = sorted(set(producers))
             for producer in producers:
                 producer_to_tests[producer].append(node_id)
             disposition, reason = classify(node_id, source, function)

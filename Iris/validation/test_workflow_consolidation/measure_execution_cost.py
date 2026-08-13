@@ -377,6 +377,7 @@ def summarize_workload(
             "after": after,
             "delta_before_minus_after": before - after,
             "strictly_reduced": before > 0 and after < before,
+            "regressed_from_zero": before == 0 and after > 0,
             "applicability": "APPLICABLE" if before > 0 else "NOT_APPLICABLE",
         }
     summary = {
@@ -397,32 +398,45 @@ def summarize_workload(
             int(statistics_contract["bootstrap_iterations"]),
             one_sided=True,
         )["upper"]
-        margin_ms = float(statistics_contract["maximum_acceptable_regression_ms"])
-        margin_pct = float(statistics_contract["maximum_acceptable_regression_pct"])
-        percent_ceiling_ms = statistics.median(arm_a) * margin_pct / 100.0
-        effective_ceiling_ms = min(margin_ms, percent_ceiling_ms)
+        margin = effective_regression_ceiling_ms(arm_a, statistics_contract)
         summary["configured_route_no_regression"] = {
             "one_sided_95_upper_bound_ms": upper,
-            "maximum_acceptable_regression_ms": margin_ms,
-            "maximum_acceptable_regression_pct": margin_pct,
-            "percent_ceiling_ms_from_before_median": percent_ceiling_ms,
-            "effective_regression_ceiling_ms": effective_ceiling_ms,
-            "status": "PASS" if upper <= effective_ceiling_ms else "FAIL",
+            **margin,
+            "status": "PASS" if upper <= margin["effective_regression_ceiling_ms"] else "FAIL",
         }
     return summary
 
 
 def targeted_summary_accepted(summary: dict[str, Any]) -> bool:
+    axes = list(summary.get("operation_axes", {}).values())
     applicable_axes = [
         row
-        for row in summary.get("operation_axes", {}).values()
+        for row in axes
         if row.get("applicability") == "APPLICABLE"
     ]
     return (
         summary.get("improved_beyond_observed_noise") is True
         and bool(applicable_axes)
         and all(row.get("strictly_reduced") is True for row in applicable_axes)
+        and not any(row.get("regressed_from_zero") is True for row in axes)
     )
+
+
+def effective_regression_ceiling_ms(
+    arm_a_elapsed_ms: list[float], statistics_contract: dict[str, Any]
+) -> dict[str, float]:
+    require(arm_a_elapsed_ms, "configured-route baseline sample is empty")
+    margin_ms = float(statistics_contract["maximum_acceptable_regression_ms"])
+    margin_pct = float(statistics_contract["maximum_acceptable_regression_pct"])
+    before_median_ms = statistics.median(arm_a_elapsed_ms)
+    percent_ceiling_ms = before_median_ms * margin_pct / 100.0
+    return {
+        "before_median_ms": before_median_ms,
+        "maximum_acceptable_regression_ms": margin_ms,
+        "maximum_acceptable_regression_pct": margin_pct,
+        "percent_ceiling_ms_from_before_median": percent_ceiling_ms,
+        "effective_regression_ceiling_ms": min(margin_ms, percent_ceiling_ms),
+    }
 
 
 def minimum_detectable_regression_ms(
@@ -639,12 +653,18 @@ def qualify_protocol(
     configured_samples = [row for row in samples if row["workload_id"] == "configured-current"]
     configured_deltas = adjacent_deltas(configured_samples, sign="B-A")
     detection = minimum_detectable_regression_ms(configured_deltas, contract["statistics"])
-    margin = float(contract["statistics"]["maximum_acceptable_regression_ms"])
+    configured_arm_a = [
+        float(row["observation"]["elapsed_ms"])
+        for row in configured_samples
+        if row["phase"] == "measured" and row["arm"] == "A"
+    ]
+    margin = effective_regression_ceiling_ms(configured_arm_a, contract["statistics"])
+    effective_margin_ms = margin["effective_regression_ceiling_ms"]
     status = (
         "PASS"
         if all(row["valid"] for row in summaries)
         and all(row["contract_result_parity"] for row in companions)
-        and detection <= margin
+        and detection <= effective_margin_ms
         else "FAIL"
     )
     receipt = {
@@ -666,8 +686,8 @@ def qualify_protocol(
         "configured_route_noise_calibration": {
             "measured_samples_per_arm": len(configured_deltas),
             "minimum_detectable_regression_ms": detection,
-            "maximum_acceptable_regression_ms": margin,
-            "status": "PASS" if detection <= margin else "UNDERPOWERED",
+            **margin,
+            "status": "PASS" if detection <= effective_margin_ms else "UNDERPOWERED",
         },
     }
     write_json(output_root / "qualification-receipt.json", receipt)

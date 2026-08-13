@@ -7,6 +7,7 @@ from Iris.validation.test_workflow_consolidation.measure_execution_cost import (
     bootstrap_interval,
     build_schedule,
     candidate_elapsed_samples,
+    effective_regression_ceiling_ms,
     summarize_workload,
     targeted_summary_accepted,
     workload_schedule,
@@ -114,6 +115,36 @@ def test_targeted_acceptance_requires_every_applicable_axis_to_reduce() -> None:
         },
     }
     assert targeted_summary_accepted(summary) is False
+
+
+def test_targeted_acceptance_rejects_work_introduced_on_zero_baseline_axis() -> None:
+    summary = {
+        "improved_beyond_observed_noise": True,
+        "operation_axes": {
+            "producer_invocations": {
+                "applicability": "APPLICABLE",
+                "strictly_reduced": True,
+                "regressed_from_zero": False,
+            },
+            "copied_files": {
+                "applicability": "NOT_APPLICABLE",
+                "strictly_reduced": False,
+                "regressed_from_zero": True,
+            },
+        },
+    }
+    assert targeted_summary_accepted(summary) is False
+
+
+def test_qualification_uses_stricter_percent_regression_cap() -> None:
+    gate = effective_regression_ceiling_ms(
+        [30_000.0, 30_000.0],
+        {
+            "maximum_acceptable_regression_ms": 20_000,
+            "maximum_acceptable_regression_pct": 10,
+        },
+    )
+    assert gate["effective_regression_ceiling_ms"] == 3_000.0
 
 
 def test_configured_route_applies_percent_and_absolute_regression_caps() -> None:

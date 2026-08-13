@@ -2,14 +2,55 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from Iris.validation.test_workflow_consolidation._common import sha256_bytes, write_jsonl
+from Iris.validation.test_workflow_consolidation._common import sha256_bytes, sha256_file, write_json, write_jsonl
 from Iris.validation.test_workflow_consolidation.validate_measurement_comparability import (
+    accepted_schedule_valid,
     accepted_receipts_valid,
     allowed_path,
     classify_changed_rows,
     contract_map_valid,
     touch_surface_frozen_for_base,
 )
+
+
+def _schedule_contract() -> dict[str, object]:
+    workload = {"workload_id": "mandatory_pilot", "command": ["python", "-c", "pass"]}
+    configured = {
+        "workload_id": "configured-current",
+        "role": "configured_route_performance_observation",
+        "command": ["python", "-c", "pass"],
+    }
+    return {
+        "workloads": [workload, configured],
+        "schedule": {"targeted_measured_blocks": 5, "configured_measured_blocks": 10},
+        "statistics": {"bootstrap_seed": 1729},
+    }
+
+
+def test_schedule_validation_binds_hash_ledger_projection_and_samples(tmp_path: Path) -> None:
+    from Iris.validation.test_workflow_consolidation.measure_execution_cost import build_schedule
+
+    ledger = tmp_path / "ledger.jsonl"
+    write_jsonl(ledger, [])
+    schedule = build_schedule(_schedule_contract(), [], "terminal-acceptance")
+    schedule["family_ledger_sha256"] = sha256_file(ledger)
+    schedule_path = tmp_path / "schedule.json"
+    write_json(schedule_path, schedule)
+    projection = {
+        "session_kind": schedule["session_kind"],
+        "adopted_nonpilot_family_ids": [],
+        "n_adopted_nonpilot": 0,
+        "total_execution_positions": schedule["total_execution_positions"],
+        "measured_block_count": schedule["measured_block_count"],
+    }
+    session = {
+        "schedule_sha256": sha256_file(schedule_path),
+        "schedule_projection": projection,
+        "samples": schedule["positions"],
+    }
+    assert accepted_schedule_valid(session, schedule_path, ledger, _schedule_contract())
+    session["schedule_projection"] = {**projection, "measured_block_count": 999}
+    assert not accepted_schedule_valid(session, schedule_path, ledger, _schedule_contract())
 
 
 def test_comparability_rejects_failed_or_nonaccepted_receipts() -> None:

@@ -19,6 +19,7 @@ try:
         subject_identity,
         write_json,
     )
+    from .measure_execution_cost import build_schedule
 except ImportError:  # Direct script execution.
     from _common import (
         ContractError,
@@ -31,6 +32,7 @@ except ImportError:  # Direct script execution.
         subject_identity,
         write_json,
     )
+    from measure_execution_cost import build_schedule
 
 
 SCHEMA = "iris_test_workflow_measurement_comparability_v1"
@@ -154,6 +156,61 @@ def command_contract_equal(session: dict[str, Any]) -> bool:
     return bool(by_workload) and all(value["A"] == value["B"] and len(value["A"]) == 1 for value in by_workload.values())
 
 
+def accepted_schedule_valid(
+    session: dict[str, Any],
+    schedule_path: Path,
+    family_ledger_path: Path,
+    contract: dict[str, Any],
+) -> bool:
+    schedule = read_json(schedule_path)
+    family_rows = read_jsonl(family_ledger_path)
+    expected = build_schedule(contract, family_rows, "terminal-acceptance")
+    compared_keys = (
+        "session_kind",
+        "adopted_nonpilot_family_ids",
+        "n_adopted_nonpilot",
+        "workloads",
+        "positions",
+        "measured_block_count",
+        "total_execution_positions",
+        "statistics",
+    )
+    projection = {
+        "session_kind": schedule.get("session_kind"),
+        "adopted_nonpilot_family_ids": schedule.get("adopted_nonpilot_family_ids", []),
+        "n_adopted_nonpilot": schedule.get("n_adopted_nonpilot", 0),
+        "total_execution_positions": schedule.get("total_execution_positions"),
+        "measured_block_count": schedule.get("measured_block_count"),
+    }
+    sample_projection = [
+        {
+            "workload_id": row.get("workload_id"),
+            "phase": row.get("phase"),
+            "block": row.get("block"),
+            "position": row.get("position"),
+            "arm": row.get("arm"),
+        }
+        for row in session.get("samples", [])
+    ]
+    position_projection = [
+        {
+            "workload_id": row.get("workload_id"),
+            "phase": row.get("phase"),
+            "block": row.get("block"),
+            "position": row.get("position"),
+            "arm": row.get("arm"),
+        }
+        for row in schedule.get("positions", [])
+    ]
+    return (
+        session.get("schedule_sha256") == sha256_file(schedule_path)
+        and schedule.get("family_ledger_sha256") == sha256_file(family_ledger_path)
+        and all(schedule.get(key) == expected.get(key) for key in compared_keys)
+        and session.get("schedule_projection") == projection
+        and sample_projection == position_projection
+    )
+
+
 def contract_map_valid(path: Path) -> bool:
     rows = read_jsonl(path)
     if not rows or rows[0].get("record_type") != "manifest":
@@ -211,7 +268,7 @@ def validate(args: argparse.Namespace) -> dict[str, Any]:
         "target_execution_interpreter_identity_equal": session.get("target_execution_interpreter_identity_a") == session.get("target_execution_interpreter_identity_b"),
         "command_and_input_contract_equal": command_contract_equal(session),
         "contract_denominator_equivalent_via_preservation_map": contract_map_valid(args.contract_map),
-        "accepted_session_schedule_matches_parameterized_contract_and_final_family_ledger": session.get("schedule_projection", {}).get("total_execution_positions") == 24 * session.get("schedule_projection", {}).get("n_adopted_nonpilot", 0) + 68,
+        "accepted_session_schedule_matches_parameterized_contract_and_final_family_ledger": accepted_schedule_valid(session, args.accepted_schedule, args.family_ledger, contract),
         "declared_round_touch_surface_frozen_before_protocol_qualification": touch_surface_frozen_for_base(touch, base_subject["commit"]),
         "S_base_to_S_terminal_changed_paths_subset_of_declared_touch_surface": not out_of_scope,
         "out_of_scope_path_count_zero": not out_of_scope,
@@ -241,6 +298,8 @@ def main() -> int:
     parser.add_argument("--base-repository", type=Path, required=True)
     parser.add_argument("--terminal-repository", type=Path, required=True)
     parser.add_argument("--accepted-session", type=Path, required=True)
+    parser.add_argument("--accepted-schedule", type=Path, required=True)
+    parser.add_argument("--family-ledger", type=Path, required=True)
     parser.add_argument("--protocol-qualification-receipt", type=Path, required=True)
     parser.add_argument("--measurement-contract", type=Path, required=True)
     parser.add_argument("--tooling-manifest", type=Path, required=True)

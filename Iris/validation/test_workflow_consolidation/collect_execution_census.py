@@ -99,7 +99,10 @@ def census(repository: Path) -> dict[str, Any]:
                     if value.endswith((".py", ".ps1")) and ("validat" in value.lower() or "run_" in value.lower())
                 }
             )
-            if source == PILOT_FILE and "PHASE7_V2_VALIDATOR" in referenced_names:
+            test_name = node_id.rsplit("::", 1)[-1]
+            if source == PILOT_FILE and (
+                "PHASE7_V2_VALIDATOR" in referenced_names or test_name in PILOT_TESTS
+            ):
                 producers.append("validate_public_text_quality_acceptance_official_0005_phase7_v2.py")
                 producers = sorted(set(producers))
             for producer in producers:

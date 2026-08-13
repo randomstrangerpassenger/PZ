@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "iris_test_workflow_scenario_report_v1",
+  "type": "object",
+  "required": ["schema_version", "deterministic_core", "execution_observations", "normalization_excluded_fields"],
+  "properties": {
+    "schema_version": {"const": "iris_test_workflow_scenario_report_v1"},
+    "deterministic_core": {"type": "object"},
+    "execution_observations": {"type": "object"},
+    "normalization_excluded_fields": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^/execution_observations/"}
+    }
+  },
+  "additionalProperties": false
+}

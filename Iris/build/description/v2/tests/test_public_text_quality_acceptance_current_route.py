@@ -1,10 +1,13 @@
 from __future__ import annotations
 
 import json
+from collections.abc import Mapping
 from pathlib import Path
 import subprocess
 import sys
 import unittest
+
+from Iris.validation.test_workflow_consolidation.scenario_contracts import ExecutionResult
 
 
 REPO_ROOT = Path(__file__).resolve().parents[5]
@@ -43,18 +46,31 @@ PHASE7_FREEZE_INVENTORY_COMPLETENESS_VALIDATOR = TOOLS_ROOT / (
 
 
 class PublicTextQualityAcceptanceCurrentRouteTest(unittest.TestCase):
+    _phase7_execution: ExecutionResult
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        super().setUpClass()
+        cls._phase7_execution = cls._run_phase7_self_test()
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        del cls._phase7_execution
+        super().tearDownClass()
+
     @staticmethod
-    def _phase7_self_test() -> dict[str, object]:
+    def _run_phase7_self_test() -> ExecutionResult:
+        command = (
+            sys.executable,
+            "-B",
+            str(PHASE7_V2_VALIDATOR),
+            "--attempt-id",
+            "attempt-0005-official",
+            "--self-test",
+            "--no-write",
+        )
         result = subprocess.run(
-            [
-                sys.executable,
-                "-B",
-                str(PHASE7_V2_VALIDATOR),
-                "--attempt-id",
-                "attempt-0005-official",
-                "--self-test",
-                "--no-write",
-            ],
+            command,
             cwd=REPO_ROOT,
             text=True,
             encoding="utf-8",
@@ -64,7 +80,25 @@ class PublicTextQualityAcceptanceCurrentRouteTest(unittest.TestCase):
         )
         if result.returncode != 0:
             raise AssertionError(result.stderr)
-        return json.loads(result.stdout)
+        try:
+            payload = json.loads(result.stdout)
+        except json.JSONDecodeError as error:
+            raise AssertionError(f"phase7 self-test emitted malformed JSON: {error}") from error
+        if not isinstance(payload, dict):
+            raise AssertionError("phase7 self-test payload must be an object")
+        return ExecutionResult.from_payload(
+            command_signature=tuple(str(value) for value in command),
+            exit_code=result.returncode,
+            stdout=result.stdout.encode("utf-8"),
+            stderr=result.stderr.encode("utf-8"),
+            payload=payload,
+            producer_invocation_count=1,
+            observation_coverage={"subprocess": "class_lifecycle_owner"},
+        )
+
+    @classmethod
+    def _phase7_self_test(cls) -> Mapping[str, object]:
+        return cls._phase7_execution.parsed_payload
 
     def test_phase7_schema_dispatch_accepts_historical_v1_and_current_v2(self) -> None:
         result = self._phase7_self_test()

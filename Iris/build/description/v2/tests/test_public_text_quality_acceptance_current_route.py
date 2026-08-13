@@ -46,12 +46,12 @@ PHASE7_FREEZE_INVENTORY_COMPLETENESS_VALIDATOR = TOOLS_ROOT / (
 
 
 class PublicTextQualityAcceptanceCurrentRouteTest(unittest.TestCase):
-    _phase7_execution: ExecutionResult
+    _phase7_execution: ExecutionResult | None
 
     @classmethod
     def setUpClass(cls) -> None:
         super().setUpClass()
-        cls._phase7_execution = cls._run_phase7_self_test()
+        cls._phase7_execution = None
 
     @classmethod
     def tearDownClass(cls) -> None:
@@ -98,6 +98,8 @@ class PublicTextQualityAcceptanceCurrentRouteTest(unittest.TestCase):
 
     @classmethod
     def _phase7_self_test(cls) -> Mapping[str, object]:
+        if cls._phase7_execution is None:
+            cls._phase7_execution = cls._run_phase7_self_test()
         return cls._phase7_execution.parsed_payload
 
     def test_phase7_schema_dispatch_accepts_historical_v1_and_current_v2(self) -> None:

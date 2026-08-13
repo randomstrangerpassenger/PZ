@@ -109,16 +109,44 @@ def _observed_mkdtemp(*args, **kwargs):
     return result
 tempfile.mkdtemp = _observed_mkdtemp
 
+_copy_depth = 0
+def _copy_bytes(src):
+    try:
+        return os.stat(src).st_size
+    except OSError:
+        return None
+
 _original_copyfile = shutil.copyfile
 def _observed_copyfile(src, dst, *args, **kwargs):
-    result = _original_copyfile(src, dst, *args, **kwargs)
+    global _copy_depth
+    outermost = _copy_depth == 0
+    _copy_depth += 1
     try:
-        copied_bytes = os.stat(src).st_size
-    except OSError:
-        copied_bytes = None
-    _emit("copy", operation="copyfile", copied_bytes=copied_bytes)
+        result = _original_copyfile(src, dst, *args, **kwargs)
+    finally:
+        _copy_depth -= 1
+    if outermost:
+        _emit("copy", operation="copyfile", copied_bytes=_copy_bytes(src))
     return result
 shutil.copyfile = _observed_copyfile
+
+try:
+    import _winapi
+    _original_copy_file_2 = _winapi.CopyFile2
+    def _observed_copy_file_2(src, dst, *args, **kwargs):
+        global _copy_depth
+        outermost = _copy_depth == 0
+        _copy_depth += 1
+        try:
+            result = _original_copy_file_2(src, dst, *args, **kwargs)
+        finally:
+            _copy_depth -= 1
+        if outermost:
+            _emit("copy", operation="CopyFile2", copied_bytes=_copy_bytes(src))
+        return result
+    _winapi.CopyFile2 = _observed_copy_file_2
+except (ImportError, AttributeError):
+    pass
 '''
 
 
@@ -754,6 +782,10 @@ def plan_paired_session(
     require(qualification.get("status") == "PASS", "qualification receipt is not PASS")
     require(qualification.get("measurement_protocol_identity") == protocol, "qualification protocol identity mismatch")
     measurement_tooling = resolved_tooling_identity(args, contract_path)
+    require(
+        qualification.get("measurement_tooling_identity") == measurement_tooling,
+        "qualification tooling identity mismatch",
+    )
     family_rows = read_jsonl(args.family_ledger)
     schedule = build_schedule(contract, family_rows, args.session_kind)
     schedule["measurement_protocol_identity"] = protocol

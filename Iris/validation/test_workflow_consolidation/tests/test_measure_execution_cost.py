@@ -169,6 +169,32 @@ def test_observation_rejects_ignored_checkout_mutation(tmp_path) -> None:
         observe_command(repository, workload, tmp_path / "result", instrumented=False)
 
 
+def test_instrumented_observation_counts_copy2(tmp_path) -> None:
+    repository = tmp_path / "repo"
+    repository.mkdir()
+    subprocess.run(["git", "init", "-q", str(repository)], check=True)
+    subprocess.run(["git", "-C", str(repository), "config", "user.email", "test@example.invalid"], check=True)
+    subprocess.run(["git", "-C", str(repository), "config", "user.name", "Test"], check=True)
+    source = repository / "source.txt"
+    source.write_text("payload", encoding="utf-8")
+    subprocess.run(["git", "-C", str(repository), "add", "source.txt"], check=True)
+    subprocess.run(["git", "-C", str(repository), "commit", "-q", "-m", "fixture"], check=True)
+    workload = {
+        "command": [
+            "{python}",
+            "-c",
+            "from pathlib import Path; import shutil, sys; shutil.copy2('source.txt', Path(sys.argv[1]) / 'copy.txt')",
+            "{result_root}",
+        ],
+        "timeout_seconds": 5,
+    }
+
+    observation = observe_command(repository, workload, tmp_path / "result", instrumented=True)
+
+    assert observation["operation_counts"]["copied_files"] == 1
+    assert observation["operation_counts"]["copied_bytes"] == len("payload")
+
+
 def test_first_candidate_estimate_uses_declared_timeout_without_prior_receipt() -> None:
     family = {
         "family_id": "family-z",

@@ -23,6 +23,12 @@ PILOT_TESTS = {
     "test_phase7_schema_dispatch_rejects_successor_transaction_hash_mismatch",
     "test_phase7_freeze_document_replay_is_deterministic",
 }
+PILOT_PROBES = {
+    "test_phase7_schema_dispatch_accepts_historical_v1_and_current_v2": "historical_v1_and_current_v2_acceptance",
+    "test_phase7_schema_dispatch_rejects_unknown_and_malformed": "unknown_and_malformed_schema_rejection",
+    "test_phase7_schema_dispatch_rejects_successor_transaction_hash_mismatch": "successor_transaction_hash_mismatch_rejection",
+    "test_phase7_freeze_document_replay_is_deterministic": "deterministic_document_replay",
+}
 MUST_ISOLATE_TERMS = (
     "tamper",
     "crash",
@@ -165,7 +171,9 @@ def census(repository: Path) -> dict[str, Any]:
             "negative_case_preserved": True,
             "expected_failure_signature": f"pytest-node::{row['node_id']}",
             "successor_scenario_id": "public-text-phase7-dispatch" if row["node_id"].rsplit("::", 1)[-1] in PILOT_TESTS and row["source_file"] == PILOT_FILE else row["node_id"],
-            "successor_probe_id": row["node_id"].rsplit("::", 1)[-1],
+            "successor_probe_id": PILOT_PROBES.get(
+                row["node_id"].rsplit("::", 1)[-1], row["node_id"].rsplit("::", 1)[-1]
+            ),
             "must_isolate": next(value["primary_disposition"] for value in classifications if value["node_id"] == row["node_id"]) == "must_isolate",
             "authority_migration_required": False,
             "failure_localization_preserved": True,

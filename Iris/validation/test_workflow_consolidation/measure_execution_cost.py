@@ -286,6 +286,15 @@ def observe_command(
     argv = render_command(workload["command"], repository, sample_root)
     env = os.environ.copy()
     env["PYTHONDONTWRITEBYTECODE"] = "1"
+    test_output_root = sample_root / "test-output"
+    legacy_output_root = test_output_root / "pytest-legacy-output" / "Iris-output"
+    source_output_root = repository / "Iris" / "output"
+    if source_output_root.is_dir():
+        legacy_output_root.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copytree(source_output_root, legacy_output_root)
+    env["IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT"] = str(test_output_root)
+    env["IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"] = str(legacy_output_root)
+    env["UV_CACHE_DIR"] = str(sample_root / "uv-cache")
     event_root = sample_root / "observer-events"
     if instrumented:
         observer_root = sample_root / "observer"

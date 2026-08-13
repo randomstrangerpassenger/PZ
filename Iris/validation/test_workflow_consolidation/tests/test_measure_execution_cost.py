@@ -187,6 +187,46 @@ def test_observation_rejects_ignored_checkout_mutation(tmp_path) -> None:
         observe_command(repository, workload, tmp_path / "result", instrumented=False)
 
 
+def test_observation_isolates_repository_output_and_uv_cache(tmp_path) -> None:
+    repository = tmp_path / "repo"
+    output = repository / "Iris" / "output"
+    output.mkdir(parents=True)
+    subprocess.run(["git", "init", "-q", str(repository)], check=True)
+    subprocess.run(["git", "-C", str(repository), "config", "user.email", "test@example.invalid"], check=True)
+    subprocess.run(["git", "-C", str(repository), "config", "user.name", "Test"], check=True)
+    (repository / ".gitignore").write_text(".tmp/\n", encoding="utf-8")
+    (output / "seed.txt").write_text("seed", encoding="utf-8")
+    subprocess.run(["git", "-C", str(repository), "add", ".gitignore", "Iris/output/seed.txt"], check=True)
+    subprocess.run(["git", "-C", str(repository), "commit", "-q", "-m", "fixture"], check=True)
+    workload = {
+        "command": [
+            "{python}",
+            "-c",
+            (
+                "import os; from pathlib import Path; "
+                "root=Path(os.environ['IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT']); "
+                "assert (root/'seed.txt').read_text() == 'seed'; "
+                "(root/'result.txt').write_text('result'); "
+                "Path(os.environ['UV_CACHE_DIR']).mkdir()"
+            ),
+        ],
+        "timeout_seconds": 5,
+        "valid_exit_codes": [0],
+    }
+
+    result_root = tmp_path / "result"
+    observation = observe_command(repository, workload, result_root, instrumented=False)
+
+    assert observation["contract_valid"] is True
+    assert (result_root / "test-output" / "pytest-legacy-output" / "Iris-output" / "result.txt").is_file()
+    assert subprocess.run(
+        ["git", "-C", str(repository), "status", "--short", "--ignored"],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout == ""
+
+
 def test_instrumented_observation_counts_copy2(tmp_path) -> None:
     repository = tmp_path / "repo"
     repository.mkdir()

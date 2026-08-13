@@ -4,11 +4,28 @@ from pathlib import Path
 
 from Iris.validation.test_workflow_consolidation._common import sha256_bytes, write_jsonl
 from Iris.validation.test_workflow_consolidation.validate_measurement_comparability import (
+    accepted_receipts_valid,
     allowed_path,
     classify_changed_rows,
     contract_map_valid,
     touch_surface_frozen_for_base,
 )
+
+
+def test_comparability_rejects_failed_or_nonaccepted_receipts() -> None:
+    qualification = {
+        "status": "PASS",
+        "receipt_kind": "baseline_protocol_qualification",
+        "accepted_before_after_sample": False,
+    }
+    session = {
+        "status": "FAIL",
+        "receipt_kind": "terminal-acceptance",
+        "accepted_before_after_sample": True,
+    }
+    assert accepted_receipts_valid(session, qualification) is False
+    session["status"] = "PASS"
+    assert accepted_receipts_valid(session, qualification) is True
 
 
 def test_touch_surface_base_binding_is_explicit() -> None:

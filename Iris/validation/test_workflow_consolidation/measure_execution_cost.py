@@ -382,7 +382,7 @@ def summarize_workload(
     summary = {
         "workload_id": workload["workload_id"],
         "measured_samples_per_arm": len(arm_a),
-        "valid": bool(measured) and all(row["observation"]["contract_valid"] for row in measured),
+        "valid": bool(measured) and all(row["observation"]["contract_valid"] for row in samples),
         "before_median_ms": statistics.median(arm_a),
         "after_median_ms": statistics.median(arm_b),
         "paired_delta_a_minus_b": {"values": deltas, "bootstrap_95_percent": interval},

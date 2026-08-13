@@ -137,3 +137,26 @@ def test_configured_route_applies_percent_and_absolute_regression_caps() -> None
     gate = summary["configured_route_no_regression"]
     assert gate["effective_regression_ceiling_ms"] == 5.0
     assert gate["status"] == "FAIL"
+
+
+def test_failed_warmup_invalidates_workload_summary() -> None:
+    samples = [
+        {
+            **_sample("A", 1, 100.0, 1),
+            "phase": "warmup",
+            "observation": {
+                **_sample("A", 1, 100.0, 1)["observation"],
+                "contract_valid": False,
+            },
+        },
+        _sample("A", 1, 100.0, 1),
+        _sample("B", 2, 90.0, 0),
+        _sample("B", 3, 90.0, 0),
+        _sample("A", 4, 100.0, 1),
+    ]
+    summary = summarize_workload(
+        samples,
+        {"workload_id": "mandatory_pilot"},
+        {"bootstrap_seed": 1729, "bootstrap_iterations": 10000},
+    )
+    assert summary["valid"] is False

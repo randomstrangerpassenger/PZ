@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 import sys
 from pathlib import Path
 from typing import Any
@@ -39,6 +40,29 @@ def touch_surface_frozen_for_base(touch: dict[str, Any], base_commit: str) -> bo
     return (
         touch.get("frozen_before_protocol_qualification") is True
         and touch.get("base_subject_commit") == base_commit
+    )
+
+
+def is_ancestor(repository: Path, base_commit: str, terminal_commit: str) -> bool:
+    result = subprocess.run(
+        ["git", "-C", str(repository), "merge-base", "--is-ancestor", base_commit, terminal_commit],
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    if result.returncode not in (0, 1):
+        raise ContractError(result.stderr.decode("utf-8", errors="replace").strip() or "git ancestry check failed")
+    return result.returncode == 0
+
+
+def accepted_receipts_valid(session: dict[str, Any], qualification: dict[str, Any]) -> bool:
+    return (
+        session.get("status") == "PASS"
+        and session.get("receipt_kind") == "terminal-acceptance"
+        and session.get("accepted_before_after_sample") is True
+        and qualification.get("status") == "PASS"
+        and qualification.get("receipt_kind") == "baseline_protocol_qualification"
+        and qualification.get("accepted_before_after_sample") is False
     )
 
 
@@ -177,7 +201,8 @@ def validate(args: argparse.Namespace) -> dict[str, Any]:
         and received_tooling_identity.get("tool_subject") == expected_tool_subject
     )
     checks = {
-        "base_is_ancestor_of_terminal": git(terminal, "merge-base", "--is-ancestor", base_subject["commit"], terminal_subject["commit"]) == "",
+        "base_is_ancestor_of_terminal": is_ancestor(terminal, base_subject["commit"], terminal_subject["commit"]),
+        "accepted_and_qualification_receipts_valid": accepted_receipts_valid(session, qualification),
         "measurement_tooling_identity_equal": qualification.get("measurement_tooling_identity") == received_tooling_identity and bool(received_tooling_identity) and current_tooling_identity_matches,
         "measurement_contract_identity_equal_across_qualification_and_accepted_session": qualification.get("measurement_protocol_identity") == protocol and protocol == supplied_protocol,
         "machine_environment_locale_equal": qualification.get("environment_identity") == session.get("environment_identity"),

@@ -31,7 +31,11 @@ def test_class_lifecycle_owns_exactly_one_phase7_execution() -> None:
         ),
         stderr="",
     )
-    with patch("subprocess.run", return_value=completed) as run:
+    with patch("subprocess.run", return_value=completed) as run, patch.object(
+        PublicTextQualityAcceptanceCurrentRouteTest,
+        "_git",
+        return_value="fixture-git-identity",
+    ):
         PublicTextQualityAcceptanceCurrentRouteTest.setUpClass()
         try:
             first = PublicTextQualityAcceptanceCurrentRouteTest._phase7_self_test()

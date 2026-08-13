@@ -398,12 +398,31 @@ def summarize_workload(
             one_sided=True,
         )["upper"]
         margin_ms = float(statistics_contract["maximum_acceptable_regression_ms"])
+        margin_pct = float(statistics_contract["maximum_acceptable_regression_pct"])
+        percent_ceiling_ms = statistics.median(arm_a) * margin_pct / 100.0
+        effective_ceiling_ms = min(margin_ms, percent_ceiling_ms)
         summary["configured_route_no_regression"] = {
             "one_sided_95_upper_bound_ms": upper,
             "maximum_acceptable_regression_ms": margin_ms,
-            "status": "PASS" if upper < margin_ms else "FAIL",
+            "maximum_acceptable_regression_pct": margin_pct,
+            "percent_ceiling_ms_from_before_median": percent_ceiling_ms,
+            "effective_regression_ceiling_ms": effective_ceiling_ms,
+            "status": "PASS" if upper <= effective_ceiling_ms else "FAIL",
         }
     return summary
+
+
+def targeted_summary_accepted(summary: dict[str, Any]) -> bool:
+    applicable_axes = [
+        row
+        for row in summary.get("operation_axes", {}).values()
+        if row.get("applicability") == "APPLICABLE"
+    ]
+    return (
+        summary.get("improved_beyond_observed_noise") is True
+        and bool(applicable_axes)
+        and all(row.get("strictly_reduced") is True for row in applicable_axes)
+    )
 
 
 def minimum_detectable_regression_ms(
@@ -680,7 +699,15 @@ def run_paired_session(
     require(acknowledgment.get("schedule_sha256") == sha256_file(args.schedule), "owner acknowledgment schedule mismatch")
     family_rows = read_jsonl(args.family_ledger)
     expected = build_schedule(contract, family_rows, args.session_kind)
-    for key in ("adopted_nonpilot_family_ids", "n_adopted_nonpilot", "workloads", "positions", "total_execution_positions"):
+    for key in (
+        "adopted_nonpilot_family_ids",
+        "n_adopted_nonpilot",
+        "workloads",
+        "positions",
+        "measured_block_count",
+        "total_execution_positions",
+        "statistics",
+    ):
         require(schedule.get(key) == expected.get(key), f"schedule drift: {key}")
     output_root = args.output_root.resolve()
     output_root.mkdir(parents=True, exist_ok=True)
@@ -694,7 +721,7 @@ def run_paired_session(
     samples, summaries = execute_schedule(schedule, repositories, output_root)
     valid = all(row["valid"] for row in summaries)
     targeted = [row for row in summaries if row["workload_id"] != "configured-current"]
-    targeted_ok = all(row["improved_beyond_observed_noise"] for row in targeted)
+    targeted_ok = all(targeted_summary_accepted(row) for row in targeted)
     configured = next((row for row in summaries if row["workload_id"] == "configured-current"), None)
     configured_ok = configured is None or configured["configured_route_no_regression"]["status"] == "PASS"
     receipt = {

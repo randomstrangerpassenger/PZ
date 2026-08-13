@@ -35,6 +35,17 @@ except ImportError:  # Direct script execution.
 SCHEMA = "iris_test_workflow_measurement_comparability_v1"
 
 
+def current_protocol_identity(path: Path) -> dict[str, str]:
+    repo = Path(git(path.parent, "rev-parse", "--show-toplevel"))
+    raw = path.read_bytes()
+    return {
+        "schema_version": "iris_test_workflow_measurement_contract_v1",
+        "canonical_contract_path": path.resolve().relative_to(repo.resolve()).as_posix(),
+        "raw_sha256": sha256_bytes(raw),
+        "git_blob_id": git(repo, "hash-object", "--no-filters", str(path)),
+    }
+
+
 def changed_paths(base: Path, terminal: Path) -> list[dict[str, str]]:
     base_commit = git(base, "rev-parse", "HEAD")
     terminal_commit = git(terminal, "rev-parse", "HEAD")
@@ -130,6 +141,7 @@ def validate(args: argparse.Namespace) -> dict[str, Any]:
     classified = classify_changed_rows(rows, touch)
     out_of_scope = [row for row in classified if not row["allowed"]]
     protocol = session.get("measurement_protocol_identity")
+    supplied_protocol = current_protocol_identity(args.measurement_contract)
     tool_repo = Path(git(args.tooling_manifest.parent, "rev-parse", "--show-toplevel"))
     expected_tool_subject = subject_identity(tool_repo)
     received_tooling_identity = session.get("measurement_tooling_identity", {})
@@ -141,7 +153,7 @@ def validate(args: argparse.Namespace) -> dict[str, Any]:
     checks = {
         "base_is_ancestor_of_terminal": git(terminal, "merge-base", "--is-ancestor", base_subject["commit"], terminal_subject["commit"]) == "",
         "measurement_tooling_identity_equal": qualification.get("measurement_tooling_identity") == received_tooling_identity and bool(received_tooling_identity) and current_tooling_identity_matches,
-        "measurement_contract_identity_equal_across_qualification_and_accepted_session": qualification.get("measurement_protocol_identity") == protocol,
+        "measurement_contract_identity_equal_across_qualification_and_accepted_session": qualification.get("measurement_protocol_identity") == protocol and protocol == supplied_protocol,
         "machine_environment_locale_equal": qualification.get("environment_identity") == session.get("environment_identity"),
         "accepted_paired_session_single_session": bool(session.get("session_id")) and session.get("cross_session_sample_count") == 0,
         "harness_interpreter_identity_equal": qualification.get("harness_interpreter_identity") == session.get("harness_interpreter_identity"),

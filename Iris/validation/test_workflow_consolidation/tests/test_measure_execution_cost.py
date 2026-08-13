@@ -1,13 +1,16 @@
 from __future__ import annotations
 
+import pytest
+
+from Iris.validation.test_workflow_consolidation._common import ContractError
 from Iris.validation.test_workflow_consolidation.measure_execution_cost import (
     bootstrap_interval,
     build_schedule,
     candidate_elapsed_samples,
+    summarize_workload,
+    targeted_summary_accepted,
     workload_schedule,
 )
-from Iris.validation.test_workflow_consolidation._common import ContractError
-import pytest
 
 
 def _contract() -> dict[str, object]:
@@ -29,6 +32,7 @@ def _contract() -> dict[str, object]:
             "bootstrap_seed": 1729,
             "bootstrap_iterations": 10000,
             "maximum_acceptable_regression_ms": 60000,
+            "maximum_acceptable_regression_pct": 10,
         },
     }
 
@@ -64,3 +68,58 @@ def test_bootstrap_interval_is_seed_deterministic() -> None:
 def test_adopted_family_estimate_fails_closed_without_candidate_receipt() -> None:
     with pytest.raises(ContractError):
         candidate_elapsed_samples(None, ["family-z"])
+
+
+def _sample(arm: str, position: int, elapsed_ms: float, producer_count: int) -> dict[str, object]:
+    return {
+        "phase": "measured",
+        "arm": arm,
+        "position": position,
+        "block": 1,
+        "observation": {
+            "elapsed_ms": elapsed_ms,
+            "contract_valid": True,
+            "operation_counts": {
+                "producer_invocations": producer_count,
+                "eligible_subprocesses": producer_count,
+                "temporary_materializations": 0,
+                "copied_files": 0,
+                "copied_bytes": 0,
+            },
+        },
+    }
+
+
+def test_targeted_acceptance_requires_every_applicable_axis_to_reduce() -> None:
+    summary = {
+        "improved_beyond_observed_noise": True,
+        "operation_axes": {
+            "producer_invocations": {"applicability": "APPLICABLE", "strictly_reduced": True},
+            "eligible_subprocesses": {"applicability": "APPLICABLE", "strictly_reduced": False},
+            "copied_files": {"applicability": "NOT_APPLICABLE", "strictly_reduced": False},
+        },
+    }
+    assert targeted_summary_accepted(summary) is False
+
+
+def test_configured_route_applies_percent_and_absolute_regression_caps() -> None:
+    samples = [
+        _sample("A", 1, 100.0, 0),
+        _sample("B", 2, 109.0, 0),
+        _sample("B", 3, 109.0, 0),
+        _sample("A", 4, 100.0, 0),
+    ]
+    statistics_contract = {
+        "bootstrap_seed": 1729,
+        "bootstrap_iterations": 10000,
+        "maximum_acceptable_regression_ms": 20,
+        "maximum_acceptable_regression_pct": 5,
+    }
+    summary = summarize_workload(
+        samples,
+        {"workload_id": "configured-current", "role": "configured_route_performance_observation"},
+        statistics_contract,
+    )
+    gate = summary["configured_route_no_regression"]
+    assert gate["effective_regression_ceiling_ms"] == 5.0
+    assert gate["status"] == "FAIL"

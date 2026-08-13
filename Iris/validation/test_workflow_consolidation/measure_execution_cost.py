@@ -140,6 +140,16 @@ def ensure_contract_unchanged(path: Path, initial: bytes) -> None:
     require(path.read_bytes() == initial, "measurement contract changed during execution")
 
 
+def write_receipt_after_contract_check(
+    output: Path,
+    receipt: dict[str, Any],
+    contract_path: Path,
+    contract_raw: bytes,
+) -> None:
+    ensure_contract_unchanged(contract_path, contract_raw)
+    write_json(output, receipt)
+
+
 def tooling_identity(repo: Path, manifest_path: Path, manifest: dict[str, Any]) -> dict[str, Any]:
     subject = subject_identity(repo)
     entries: list[dict[str, str]] = []
@@ -712,8 +722,9 @@ def qualify_protocol(
             "status": "PASS" if detection <= effective_margin_ms else "UNDERPOWERED",
         },
     }
-    write_json(output_root / "qualification-receipt.json", receipt)
-    ensure_contract_unchanged(contract_path, contract_raw)
+    write_receipt_after_contract_check(
+        output_root / "qualification-receipt.json", receipt, contract_path, contract_raw
+    )
     require(status == "PASS", "baseline protocol qualification failed")
     return 0
 
@@ -812,8 +823,9 @@ def run_paired_session(
         "samples": samples,
         "workload_summaries": summaries,
     }
-    write_json(output_root / "session-receipt.json", receipt)
-    ensure_contract_unchanged(contract_path, contract_raw)
+    write_receipt_after_contract_check(
+        output_root / "session-receipt.json", receipt, contract_path, contract_raw
+    )
     require(receipt["status"] == "PASS", f"{args.session_kind} failed")
     return 0
 

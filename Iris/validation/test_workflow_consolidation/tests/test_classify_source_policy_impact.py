@@ -25,4 +25,3 @@ def test_policy_sources_keeps_route_authority_separate() -> None:
         "Iris/build/description/v2/tests/test_a.py": "current",
         "Iris/build/description/v2/tests/test_b.py": "excluded",
     }
-

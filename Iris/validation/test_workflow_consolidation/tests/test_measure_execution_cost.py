@@ -12,6 +12,7 @@ from Iris.validation.test_workflow_consolidation.measure_execution_cost import (
     summarize_workload,
     targeted_summary_accepted,
     resource_estimate,
+    write_receipt_after_contract_check,
     workload_schedule,
 )
 
@@ -86,6 +87,20 @@ def test_bootstrap_interval_is_seed_deterministic() -> None:
 def test_adopted_family_estimate_fails_closed_without_candidate_receipt() -> None:
     with pytest.raises(ContractError):
         candidate_elapsed_samples(None, ["family-z"])
+
+
+def test_contract_drift_does_not_emit_pass_receipt(tmp_path) -> None:
+    contract = tmp_path / "measurement-contract.json"
+    contract.write_bytes(b"changed")
+    output = tmp_path / "receipt.json"
+    with pytest.raises(ContractError):
+        write_receipt_after_contract_check(
+            output,
+            {"status": "PASS"},
+            contract,
+            b"initial",
+        )
+    assert not output.exists()
 
 
 def test_first_candidate_estimate_uses_declared_timeout_without_prior_receipt() -> None:

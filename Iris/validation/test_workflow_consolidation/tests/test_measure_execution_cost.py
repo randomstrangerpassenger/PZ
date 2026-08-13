@@ -1,10 +1,13 @@
 from __future__ import annotations
 
 import hashlib
+import os
 import subprocess
+import time
 
 import pytest
 
+from Iris.validation.test_workflow_consolidation import measure_execution_cost as measurement_module
 from Iris.validation.test_workflow_consolidation._common import (
     ContractError,
     normalized_command_signature,
@@ -244,7 +247,7 @@ def test_observation_isolates_repository_output_and_uv_cache(tmp_path, monkeypat
     ).stdout == ""
 
 
-def test_observation_timeout_returns_invalid_without_unbounded_pipe_drain(tmp_path) -> None:
+def test_observation_timeout_reaps_descendant_without_taskkill_dependency(tmp_path, monkeypatch) -> None:
     repository = tmp_path / "repo"
     repository.mkdir()
     subprocess.run(["git", "init", "-q", str(repository)], check=True)
@@ -259,10 +262,12 @@ def test_observation_timeout_returns_invalid_without_unbounded_pipe_drain(tmp_pa
             "{python}",
             "-c",
             (
-                "import subprocess, sys; "
+                "import subprocess, sys; from pathlib import Path; "
                 "child=subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(60)']); "
+                "Path(sys.argv[1]).joinpath('descendant.pid').write_text(str(child.pid)); "
                 "child.wait()"
             ),
+            "{result_root}",
         ],
         "canonical_input_paths": ["marker.txt"],
         "expected_output_contract": {
@@ -271,14 +276,35 @@ def test_observation_timeout_returns_invalid_without_unbounded_pipe_drain(tmp_pa
             "normalized_stderr": "fixture",
         },
         "input_identity": "fixture",
-        "timeout_seconds": 0.05,
+        "timeout_seconds": 1,
     }
+    taskkill_called = False
+
+    def unavailable_taskkill(process) -> bool:
+        nonlocal taskkill_called
+        taskkill_called = True
+        return False
+
+    if os.name == "nt":
+        monkeypatch.setattr(measurement_module, "_bounded_taskkill", unavailable_taskkill)
 
     observation = observe_command(repository, workload, tmp_path / "result", instrumented=False)
 
     assert observation["timed_out"] is True
     assert observation["contract_valid"] is False
     assert observation["elapsed_ms"] < 10_000
+    descendant_pid = int((tmp_path / "result" / "descendant.pid").read_text(encoding="utf-8"))
+    deadline = time.monotonic() + 2.0
+    while time.monotonic() < deadline:
+        try:
+            os.kill(descendant_pid, 0)
+        except OSError:
+            break
+        time.sleep(0.05)
+    else:
+        pytest.fail("timed-out measurement descendant remained alive")
+    if os.name == "nt":
+        assert taskkill_called is False
 
 
 def test_instrumented_observation_counts_copy2(tmp_path) -> None:

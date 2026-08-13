@@ -230,24 +230,125 @@ def _normalized_output(value: bytes) -> str:
     return text
 
 
-def _kill_process_tree(process: subprocess.Popen[bytes]) -> None:
+class _WindowsKillJob:
+    def __init__(self, process: subprocess.Popen[bytes]) -> None:
+        import ctypes
+        from ctypes import wintypes
+
+        class _BasicLimitInformation(ctypes.Structure):
+            _fields_ = [
+                ("per_process_user_time_limit", ctypes.c_longlong),
+                ("per_job_user_time_limit", ctypes.c_longlong),
+                ("limit_flags", wintypes.DWORD),
+                ("minimum_working_set_size", ctypes.c_size_t),
+                ("maximum_working_set_size", ctypes.c_size_t),
+                ("active_process_limit", wintypes.DWORD),
+                ("affinity", ctypes.c_size_t),
+                ("priority_class", wintypes.DWORD),
+                ("scheduling_class", wintypes.DWORD),
+            ]
+
+        class _IoCounters(ctypes.Structure):
+            _fields_ = [
+                ("read_operation_count", ctypes.c_ulonglong),
+                ("write_operation_count", ctypes.c_ulonglong),
+                ("other_operation_count", ctypes.c_ulonglong),
+                ("read_transfer_count", ctypes.c_ulonglong),
+                ("write_transfer_count", ctypes.c_ulonglong),
+                ("other_transfer_count", ctypes.c_ulonglong),
+            ]
+
+        class _ExtendedLimitInformation(ctypes.Structure):
+            _fields_ = [
+                ("basic_limit_information", _BasicLimitInformation),
+                ("io_info", _IoCounters),
+                ("process_memory_limit", ctypes.c_size_t),
+                ("job_memory_limit", ctypes.c_size_t),
+                ("peak_process_memory_used", ctypes.c_size_t),
+                ("peak_job_memory_used", ctypes.c_size_t),
+            ]
+
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        kernel32.CreateJobObjectW.argtypes = (ctypes.c_void_p, wintypes.LPCWSTR)
+        kernel32.CreateJobObjectW.restype = wintypes.HANDLE
+        kernel32.SetInformationJobObject.argtypes = (
+            wintypes.HANDLE,
+            ctypes.c_int,
+            ctypes.c_void_p,
+            wintypes.DWORD,
+        )
+        kernel32.SetInformationJobObject.restype = wintypes.BOOL
+        kernel32.AssignProcessToJobObject.argtypes = (wintypes.HANDLE, wintypes.HANDLE)
+        kernel32.AssignProcessToJobObject.restype = wintypes.BOOL
+        kernel32.TerminateJobObject.argtypes = (wintypes.HANDLE, wintypes.UINT)
+        kernel32.TerminateJobObject.restype = wintypes.BOOL
+        kernel32.WaitForSingleObject.argtypes = (wintypes.HANDLE, wintypes.DWORD)
+        kernel32.WaitForSingleObject.restype = wintypes.DWORD
+        kernel32.CloseHandle.argtypes = (wintypes.HANDLE,)
+        kernel32.CloseHandle.restype = wintypes.BOOL
+
+        handle = kernel32.CreateJobObjectW(None, None)
+        require(bool(handle), "failed to create Windows measurement job object")
+        limits = _ExtendedLimitInformation()
+        limits.basic_limit_information.limit_flags = 0x00002000
+        configured = kernel32.SetInformationJobObject(
+            handle,
+            9,
+            ctypes.byref(limits),
+            ctypes.sizeof(limits),
+        )
+        if not configured:
+            kernel32.CloseHandle(handle)
+            raise ContractError("failed to configure Windows measurement job object")
+        assigned = kernel32.AssignProcessToJobObject(handle, int(process._handle))
+        if not assigned:
+            kernel32.CloseHandle(handle)
+            raise ContractError("failed to assign measurement process to Windows job object")
+        self._kernel32 = kernel32
+        self._handle = handle
+        self._reaped: bool | None = None
+
+    def reap(self) -> bool:
+        if self._reaped is not None:
+            return self._reaped
+        terminated = bool(self._kernel32.TerminateJobObject(self._handle, 1))
+        wait_result = int(self._kernel32.WaitForSingleObject(self._handle, 30_000))
+        closed = bool(self._kernel32.CloseHandle(self._handle))
+        self._handle = None
+        self._reaped = terminated and wait_result == 0 and closed
+        return self._reaped
+
+
+def _bounded_taskkill(process: subprocess.Popen[bytes]) -> bool:
+    try:
+        result = subprocess.run(
+            ["taskkill", "/PID", str(process.pid), "/T", "/F"],
+            check=False,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            timeout=30.0,
+        )
+    except subprocess.TimeoutExpired:
+        if process.poll() is None:
+            process.kill()
+        return False
+    if result.returncode != 0 and process.poll() is None:
+        process.kill()
+    return result.returncode == 0
+
+
+def _kill_process_tree(
+    process: subprocess.Popen[bytes], windows_job: _WindowsKillJob | None
+) -> bool:
     if os.name == "nt":
-        try:
-            subprocess.run(
-                ["taskkill", "/PID", str(process.pid), "/T", "/F"],
-                check=False,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-                timeout=30.0,
-            )
-        except subprocess.TimeoutExpired:
-            if process.poll() is None:
-                process.kill()
-    else:
-        try:
-            os.killpg(process.pid, signal.SIGKILL)
-        except ProcessLookupError:
-            pass
+        if windows_job is not None:
+            return windows_job.reap()
+        return _bounded_taskkill(process)
+    try:
+        os.killpg(process.pid, signal.SIGKILL)
+    except ProcessLookupError:
+        pass
+    return True
 
 
 def _read_events(event_root: Path) -> list[dict[str, Any]]:
@@ -375,16 +476,24 @@ def observe_command(
         stderr=subprocess.PIPE,
         start_new_session=os.name != "nt",
     )
+    windows_job = None
+    if os.name == "nt":
+        try:
+            windows_job = _WindowsKillJob(process)
+        except ContractError:
+            _bounded_taskkill(process)
+            raise
     timed_out = False
+    cleanup_valid = True
     try:
         stdout, stderr = process.communicate(timeout=float(workload["timeout_seconds"]))
     except subprocess.TimeoutExpired as timeout_error:
         timed_out = True
-        _kill_process_tree(process)
+        cleanup_valid = _kill_process_tree(process, windows_job)
         try:
             stdout, stderr = process.communicate(timeout=30.0)
         except subprocess.TimeoutExpired as cleanup_error:
-            _kill_process_tree(process)
+            cleanup_valid = _kill_process_tree(process, windows_job) and cleanup_valid
             if process.poll() is None:
                 process.kill()
             for stream in (process.stdout, process.stderr):
@@ -397,6 +506,9 @@ def observe_command(
                 process.wait(timeout=5.0)
             stdout = cleanup_error.output or timeout_error.output or b""
             stderr = cleanup_error.stderr or timeout_error.stderr or b""
+    finally:
+        cleanup_valid = _kill_process_tree(process, windows_job) and cleanup_valid
+    require(cleanup_valid, "measurement process tree cleanup could not be confirmed")
     elapsed_ms = (time.perf_counter_ns() - started) / 1_000_000.0
     try:
         after = subject_identity(repository)

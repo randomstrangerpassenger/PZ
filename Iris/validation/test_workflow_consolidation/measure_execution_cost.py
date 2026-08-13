@@ -15,6 +15,7 @@ from typing import Any
 
 try:
     from ._common import (
+        committed_blob_identity,
         ContractError,
         environment_identity,
         git,
@@ -24,6 +25,7 @@ try:
         read_json,
         read_jsonl,
         require,
+        require_path_outside_repositories,
         resolve_within,
         sha256_bytes,
         sha256_file,
@@ -32,6 +34,7 @@ try:
     )
 except ImportError:  # Direct script execution.
     from _common import (
+        committed_blob_identity,
         ContractError,
         environment_identity,
         git,
@@ -41,6 +44,7 @@ except ImportError:  # Direct script execution.
         read_json,
         read_jsonl,
         require,
+        require_path_outside_repositories,
         resolve_within,
         sha256_bytes,
         sha256_file,
@@ -115,14 +119,14 @@ shutil.copyfile = _observed_copyfile
 '''
 
 
-def protocol_identity(contract_path: Path, contract_bytes: bytes) -> dict[str, str]:
+def protocol_identity(contract_path: Path) -> dict[str, str]:
     repo = Path(git(contract_path.parent, "rev-parse", "--show-toplevel"))
-    relative = contract_path.resolve().relative_to(repo.resolve()).as_posix()
+    identity = committed_blob_identity(repo, contract_path)
     return {
         "schema_version": CONTRACT_SCHEMA,
-        "canonical_contract_path": relative,
-        "raw_sha256": sha256_bytes(contract_bytes),
-        "git_blob_id": git(repo, "rev-parse", f"HEAD:{relative}"),
+        "canonical_contract_path": identity["canonical_path"],
+        "raw_sha256": identity["raw_sha256"],
+        "git_blob_id": identity["git_blob_id"],
     }
 
 
@@ -133,7 +137,7 @@ def load_contract(path: Path) -> tuple[dict[str, Any], bytes, dict[str, str]]:
     except json.JSONDecodeError as error:
         raise ContractError(f"malformed measurement contract: {error}") from error
     require(contract.get("schema_version") == CONTRACT_SCHEMA, "measurement contract schema mismatch")
-    return contract, raw, protocol_identity(path, raw)
+    return contract, raw, protocol_identity(path)
 
 
 def ensure_contract_unchanged(path: Path, initial: bytes) -> None:
@@ -157,23 +161,19 @@ def tooling_identity(repo: Path, manifest_path: Path, manifest: dict[str, Any]) 
         relative = str(row.get("path", ""))
         path = resolve_within(repo, relative)
         require(path.is_file(), f"tooling dependency is missing: {relative}")
-        observed_blob = git(repo, "rev-parse", f"HEAD:{relative}")
-        blob_result = subprocess.run(
-            ["git", "-C", str(repo), "cat-file", "blob", observed_blob],
-            check=False,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-        )
-        require(blob_result.returncode == 0, f"cannot read tooling blob: {relative}")
-        observed_sha = sha256_bytes(blob_result.stdout)
+        observed = committed_blob_identity(repo, path)
+        observed_blob = observed["git_blob_id"]
+        observed_sha = observed["raw_sha256"]
         require(row.get("raw_sha256") == observed_sha, f"tooling raw hash mismatch: {relative}")
         require(row.get("git_blob_id") == observed_blob, f"tooling blob mismatch: {relative}")
         entries.append({"path": relative, "raw_sha256": observed_sha, "git_blob_id": observed_blob})
     require(manifest.get("cli_schema_version") == CLI_SCHEMA_VERSION, "measurement CLI schema mismatch")
+    manifest_identity = committed_blob_identity(repo, manifest_path)
     return {
         "tool_subject": subject,
         "manifest_path": manifest_path.resolve().relative_to(repo.resolve()).as_posix(),
-        "manifest_raw_sha256": sha256_file(manifest_path),
+        "manifest_raw_sha256": manifest_identity["raw_sha256"],
+        "manifest_git_blob_id": manifest_identity["git_blob_id"],
         "tool_file_raw_hash_source": "committed_git_blob_bytes_before_checkout_filters",
         "cli_schema_version": CLI_SCHEMA_VERSION,
         "tool_files": entries,
@@ -648,11 +648,16 @@ def resolved_tooling_identity(args: argparse.Namespace, contract_path: Path) -> 
 def qualify_protocol(
     args: argparse.Namespace, contract: dict[str, Any], contract_path: Path, contract_raw: bytes, protocol: dict[str, str]
 ) -> int:
-    output_root = args.output_root.resolve()
-    output_root.mkdir(parents=True, exist_ok=False)
     target = args.target_repository.resolve()
+    tool_repository = Path(git(contract_path.parent, "rev-parse", "--show-toplevel")).resolve()
+    output_root = require_path_outside_repositories(
+        args.output_root,
+        (target, tool_repository),
+        label="qualification output root",
+    )
     target_subject = subject_identity(target)
     measurement_tooling = resolved_tooling_identity(args, contract_path)
+    output_root.mkdir(parents=True, exist_ok=False)
     selected = [
         row for row in contract["workloads"] if row["workload_id"] in contract["qualification_workload_ids"]
     ]
@@ -780,15 +785,20 @@ def run_paired_session(
         "statistics",
     ):
         require(schedule.get(key) == expected.get(key), f"schedule drift: {key}")
-    output_root = args.output_root.resolve()
-    output_root.mkdir(parents=True, exist_ok=True)
-    require(not (output_root / "session-receipt.json").exists(), "result root was already consumed")
     repositories = {
         "A": args.base_repository.resolve(),
         "B": args.terminal_repository.resolve(),
     }
+    tool_repository = Path(git(contract_path.parent, "rev-parse", "--show-toplevel")).resolve()
+    output_root = require_path_outside_repositories(
+        args.output_root,
+        (*repositories.values(), tool_repository),
+        label="paired-session output root",
+    )
     subjects = {arm: subject_identity(repo) for arm, repo in repositories.items()}
     measurement_tooling = resolved_tooling_identity(args, contract_path)
+    output_root.mkdir(parents=True, exist_ok=True)
+    require(not (output_root / "session-receipt.json").exists(), "result root was already consumed")
     samples, summaries = execute_schedule(schedule, repositories, output_root)
     valid = all(row["valid"] for row in summaries)
     targeted = [row for row in summaries if row["workload_id"] != "configured-current"]

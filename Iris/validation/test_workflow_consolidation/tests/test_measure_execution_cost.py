@@ -1,14 +1,21 @@
 from __future__ import annotations
 
+import hashlib
+import subprocess
+
 import pytest
 
-from Iris.validation.test_workflow_consolidation._common import ContractError
+from Iris.validation.test_workflow_consolidation._common import (
+    ContractError,
+    require_path_outside_repositories,
+)
 from Iris.validation.test_workflow_consolidation.measure_execution_cost import (
     bootstrap_interval,
     build_schedule,
     candidate_elapsed_samples,
     count_producer_invocations,
     effective_regression_ceiling_ms,
+    protocol_identity,
     summarize_workload,
     targeted_summary_accepted,
     resource_estimate,
@@ -100,6 +107,36 @@ def test_contract_drift_does_not_emit_pass_receipt(tmp_path) -> None:
             contract,
             b"initial",
         )
+    assert not output.exists()
+
+
+def test_protocol_identity_uses_committed_blob_bytes(tmp_path) -> None:
+    repository = tmp_path / "repo"
+    repository.mkdir()
+    subprocess.run(["git", "init", "-q", str(repository)], check=True)
+    subprocess.run(["git", "-C", str(repository), "config", "user.email", "test@example.invalid"], check=True)
+    subprocess.run(["git", "-C", str(repository), "config", "user.name", "Test"], check=True)
+    contract = repository / "measurement_contract.json"
+    committed = b'{"schema_version":"iris_test_workflow_measurement_contract_v1"}\n'
+    contract.write_bytes(committed)
+    subprocess.run(["git", "-C", str(repository), "add", "measurement_contract.json"], check=True)
+    subprocess.run(["git", "-C", str(repository), "commit", "-q", "-m", "fixture"], check=True)
+    contract.write_bytes(committed.replace(b"\n", b"\r\n"))
+
+    identity = protocol_identity(contract)
+
+    assert identity["raw_sha256"] == hashlib.sha256(committed).hexdigest()
+    assert identity["raw_sha256"] != hashlib.sha256(contract.read_bytes()).hexdigest()
+
+
+def test_repository_local_result_root_is_rejected_before_creation(tmp_path) -> None:
+    repository = tmp_path / "repo"
+    repository.mkdir()
+    output = repository / "evidence"
+
+    with pytest.raises(ContractError):
+        require_path_outside_repositories(output, (repository,), label="measurement output root")
+
     assert not output.exists()
 
 

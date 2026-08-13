@@ -110,6 +110,49 @@ def repository_root(path: Path) -> Path:
     return Path(git(path, "rev-parse", "--show-toplevel")).resolve()
 
 
+def committed_blob_identity(repo: Path, path: str | Path) -> dict[str, str]:
+    resolved_repo = repo.resolve()
+    candidate = Path(path)
+    if not candidate.is_absolute():
+        candidate = resolved_repo / candidate
+    candidate = candidate.resolve()
+    try:
+        relative = candidate.relative_to(resolved_repo).as_posix()
+    except ValueError as error:
+        raise ContractError(f"committed identity path escapes repository: {path}") from error
+    blob_id = git(resolved_repo, "rev-parse", f"HEAD:{relative}")
+    result = subprocess.run(
+        ["git", "-C", str(resolved_repo), "cat-file", "blob", blob_id],
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    if result.returncode:
+        raise ContractError(
+            result.stderr.decode("utf-8", errors="replace").strip()
+            or f"cannot read committed blob: {relative}"
+        )
+    return {
+        "canonical_path": relative,
+        "git_blob_id": blob_id,
+        "raw_sha256": sha256_bytes(result.stdout),
+    }
+
+
+def require_path_outside_repositories(
+    path: Path, repositories: Iterable[Path], *, label: str
+) -> Path:
+    candidate = path.resolve()
+    for repository in repositories:
+        resolved_repository = repository.resolve()
+        try:
+            candidate.relative_to(resolved_repository)
+        except ValueError:
+            continue
+        raise ContractError(f"{label} must be outside repository: {resolved_repository}")
+    return candidate
+
+
 def subject_identity(repo: Path, *, require_clean: bool = True) -> dict[str, Any]:
     identity: dict[str, Any] = {
         "commit": git(repo, "rev-parse", "HEAD"),

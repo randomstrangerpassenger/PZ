@@ -9,6 +9,7 @@ from typing import Any
 
 try:
     from ._common import (
+        committed_blob_identity,
         ContractError,
         git,
         read_json,
@@ -22,6 +23,7 @@ try:
     from .measure_execution_cost import build_schedule
 except ImportError:  # Direct script execution.
     from _common import (
+        committed_blob_identity,
         ContractError,
         git,
         read_json,
@@ -74,13 +76,12 @@ def accepted_receipts_valid(session: dict[str, Any], qualification: dict[str, An
 
 def current_protocol_identity(path: Path) -> dict[str, str]:
     repo = Path(git(path.parent, "rev-parse", "--show-toplevel"))
-    raw = path.read_bytes()
-    relative = path.resolve().relative_to(repo.resolve()).as_posix()
+    identity = committed_blob_identity(repo, path)
     return {
         "schema_version": "iris_test_workflow_measurement_contract_v1",
-        "canonical_contract_path": relative,
-        "raw_sha256": sha256_bytes(raw),
-        "git_blob_id": git(repo, "rev-parse", f"HEAD:{relative}"),
+        "canonical_contract_path": identity["canonical_path"],
+        "raw_sha256": identity["raw_sha256"],
+        "git_blob_id": identity["git_blob_id"],
     }
 
 
@@ -254,11 +255,12 @@ def validate(args: argparse.Namespace) -> dict[str, Any]:
     protocol = session.get("measurement_protocol_identity")
     supplied_protocol = current_protocol_identity(args.measurement_contract)
     tool_repo = Path(git(args.tooling_manifest.parent, "rev-parse", "--show-toplevel"))
+    manifest_identity = committed_blob_identity(tool_repo, args.tooling_manifest)
     expected_tool_subject = subject_identity(tool_repo)
     received_tooling_identity = session.get("measurement_tooling_identity", {})
     current_tooling_identity_matches = (
         received_tooling_identity.get("manifest_raw_sha256")
-        == sha256_file(args.tooling_manifest)
+        == manifest_identity["raw_sha256"]
         and received_tooling_identity.get("tool_subject") == expected_tool_subject
     )
     checks = {
@@ -290,8 +292,8 @@ def validate(args: argparse.Namespace) -> dict[str, Any]:
         "terminal_subject": terminal_subject,
         "accepted_session_id": session.get("session_id"),
         "measurement_protocol_identity": protocol,
-        "measurement_contract_sha256": sha256_file(args.measurement_contract),
-        "tooling_manifest_sha256": sha256_file(args.tooling_manifest),
+        "measurement_contract_sha256": supplied_protocol["raw_sha256"],
+        "tooling_manifest_sha256": manifest_identity["raw_sha256"],
         "checks": checks,
         "changed_paths": classified,
         "out_of_scope_path_count": len(out_of_scope),

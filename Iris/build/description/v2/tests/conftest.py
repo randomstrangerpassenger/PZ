@@ -9,6 +9,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import shutil
 import subprocess
 from functools import lru_cache
 from pathlib import Path
@@ -259,6 +261,32 @@ def _source_file_for_path(path: Path) -> str:
     return path.resolve().relative_to(REPO_ROOT).as_posix()
 
 
+def _new_external_output_root(candidate: Path) -> Path:
+    resolved_repo = REPO_ROOT.resolve()
+    resolved = candidate.resolve()
+    try:
+        resolved.relative_to(resolved_repo)
+    except ValueError:
+        pass
+    else:
+        raise RuntimeError(
+            "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT must resolve outside the repository"
+        )
+    try:
+        resolved_repo.relative_to(resolved)
+    except ValueError:
+        pass
+    else:
+        raise RuntimeError(
+            "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT must be disjoint from the repository"
+        )
+    if resolved.exists():
+        raise RuntimeError(
+            "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT must be a new external root"
+        )
+    return resolved
+
+
 def _item_test_id(item) -> str:
     path = Path(str(item.path))
     stem = path.stem
@@ -304,6 +332,23 @@ def _is_controlled_test(path: Path) -> bool:
 def pytest_configure(config):
     _COLLECT_REPORTS.clear()
     _validate_policy_inventory()
+    # A controlled current-route execution includes legacy recipe evidence
+    # checks whose generators honour this environment contract.  Bind their
+    # generated projections to the existing repository-external test root
+    # before test modules are imported, so a clean checkout stays immutable.
+    if _contract(config) in {"current", "all"}:
+        from clean_checkout_test_paths import external_test_root
+
+        legacy_output_root = _new_external_output_root(
+            Path(
+                os.environ.get(
+                    "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
+                    str(external_test_root() / "legacy-output"),
+                )
+            )
+        )
+        shutil.copytree(REPO_ROOT / "Iris" / "output", legacy_output_root)
+        os.environ["IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"] = str(legacy_output_root)
     if config.getoption("--round3-enforce-denominator", default=False):
         denominator = _read_json(DENOMINATOR_PATH)
         if denominator.get("schema_version") != "round3-full-discovery-denominator-v1":

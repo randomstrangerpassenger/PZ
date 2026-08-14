@@ -1,0 +1,36 @@
+{
+  "schema_version": "iris-workflow-consolidation-reapplication-handoff-v1",
+  "status": "blocked_missing_predecessor_implementation_identity",
+  "implementation_identity_state": "missing",
+  "prior_machine_pass_inherited": false,
+  "old_measurement_reused": false,
+  "old_terminal_receipt_reused": false,
+  "silent_conflict_resolution_count": 0,
+  "mandatory_future_application_entry_contract": {
+    "first_operation": "invoke_baseline_admission_gate",
+    "command": [
+      "uv",
+      "run",
+      "python",
+      "-B",
+      "Iris/validation/baseline_admission/validate_iris_baseline_admission.py",
+      "admit",
+      "--repo",
+      "<exact-candidate-checkout>",
+      "--qualification",
+      "<exact-qualification-manifest>",
+      "--durable-root",
+      "<retrieved-durable-root>",
+      "--out",
+      "<same-transaction-admission-receipt>"
+    ],
+    "accepted_receipt_schema_version": "iris-baseline-admission-receipt-v1",
+    "accepted_status": "admitted",
+    "same_receipt_subject_commit_tree_required": true,
+    "same_receipt_qualification_sha256_required": true,
+    "mutation_before_admission_allowed": false,
+    "receipt_reuse_for_different_subject_allowed": false
+  },
+  "real_application_entry_binding": "pending_absent_application_entrypoint",
+  "ready_semantics": "not_claimed_until_exact_predecessor_implementation_identity_is_supplied"
+}

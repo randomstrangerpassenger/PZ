@@ -1,0 +1,7 @@
+{
+  "schema_version": "iris-baseline-admission-qualification-contract-v1",
+  "execution_context": "composite_baseline_admission_chain_stage_6",
+  "configured_current_and_full_repository_denominators_are_distinct": true,
+  "application_mutation_before_admission": false,
+  "historical_standalone_receipt_substitution": false
+}

@@ -1,0 +1,33 @@
+{
+  "schema_version": "iris-baseline-admission-pointer-v1",
+  "authority": "repository_owner_user",
+  "claim_id": "iris_current_validation_baseline_admissibility_restoration",
+  "subject_binding": {
+    "mode": "external_admission_receipt",
+    "required_schema_version": "iris-baseline-admission-receipt-v1",
+    "required_status": "admitted",
+    "same_subject_commit_tree_required": true,
+    "qualification_sha256_required": true,
+    "durable_evidence_hash_manifest_required": true,
+    "containing_commit_self_reference": false
+  },
+  "retrieval_contract": {
+    "qualification_manifest": "owner-supplied repository-external result root/qualification.json",
+    "admission_receipt": "owner-supplied repository-external result root/admission.json",
+    "durable_bundle": "owner-supplied repository-external durable root",
+    "review_record": "owner-supplied repository-external result root/independent-review.json",
+    "owner_seal": "owner-supplied repository-external result root/owner-seal.json"
+  },
+  "axes": {
+    "machine_validation": "external_receipt_required",
+    "independent_review": "external_receipt_required",
+    "owner_seal": "external_receipt_required",
+    "machine_failure_owner_override_allowed": false
+  },
+  "claim_ceiling": {
+    "baseline_admission_gate_implementation": "fail_closed",
+    "baseline_admission_gate_enforcement_proof": "synthetic_harness_only",
+    "baseline_admission_gate_real_entry_binding": "pending_absent_application_entrypoint",
+    "workflow_consolidation_terminal": "not_run"
+  }
+}

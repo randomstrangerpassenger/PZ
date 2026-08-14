@@ -21,6 +21,33 @@ $ErrorActionPreference = 'Stop'
 if ([string]::IsNullOrWhiteSpace($OutputRoot)) {
     throw 'runtime_package_explicit_output_root_required'
 }
+
+# `uv` may supply a reduced PSModulePath to child PowerShell processes.  Keep
+# this validation-only package tool independent of cmdlet autoloading.
+function Get-FileHash {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)][string]$LiteralPath,
+        [ValidateSet('SHA256')][string]$Algorithm = 'SHA256'
+    )
+
+    $hasher = [System.Security.Cryptography.SHA256]::Create()
+    $stream = $null
+    try {
+        $stream = [System.IO.File]::OpenRead($LiteralPath)
+        $hash = $hasher.ComputeHash($stream)
+        return [pscustomobject]@{
+            Algorithm = $Algorithm
+            Hash = ([System.BitConverter]::ToString($hash)).Replace('-', '').ToLowerInvariant()
+            Path = $LiteralPath
+        }
+    }
+    finally {
+        if ($null -ne $stream) { $stream.Dispose() }
+        $hasher.Dispose()
+    }
+}
+
 $scriptRoot = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
 Import-Module -Name (Join-Path $scriptRoot 'RuntimeLookupIndexIdentity.psm1') -Force
 

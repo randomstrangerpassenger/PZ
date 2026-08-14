@@ -1320,6 +1320,151 @@
           "reason": "Remove the empty ignored scaffold fixture parent after each preimport guard fixture so clean-checkout mutation accounting remains exact."
         }
       ]
+    },
+    {
+      "revision_id": "iris_current_validation_baseline_admissibility_restoration_v1",
+      "track": "iris_current_validation_baseline_admissibility_restoration",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "671c7b928ad5a1dbf26ea76949462fa8a7287903",
+      "protection_predecessor_tree": "20bbbdb919fa97a44e03c1f1cb9ea0a6973fb1db",
+      "reason": "Adopt validation-only clean-checkout composite receipt binding, isolated legacy output routing, and PowerShell hash compatibility without changing runtime or the required execution denominator.",
+      "approved_activation_deltas": [
+        {
+          "path": "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
+          "predecessor_sha256": "84582311e1aee64b8578df4f61b5ad320ef8fc770232b836e35d6a450d5a6b72",
+          "before_git_blob_id": "3331cc8bd855a2db95fb7a87e74374033396bea3",
+          "before_sha256_lf": "38af24a2b44cc2120f09f6fef35a07e0cc75ec08db4e2738293a847e8d7030b5",
+          "expected_git_blob_id": "2a90d97231fd05fa7d08b40de81583fba9ffa6cc",
+          "after_sha256_lf": "aad9c5d3c6c1837a143da723a464f972df3b39709a63008afe99d90922ca479f",
+          "owner": "repository_owner_user",
+          "reason": "Bind composite stage-6 applicability to external predecessor evidence and the qualification contract, and leave the declared legacy output destination absent so configured-current conftest owns its single external projection."
+        },
+        {
+          "path": "Iris/tools/package_iris.ps1",
+          "predecessor_sha256": "a1fca567d4ce06037dff904bf934ee1f751a9b56e79347b8c86b185f1ebfd1cb",
+          "before_git_blob_id": "c861605e83a7748502b46b0f9f6ae1988902d733",
+          "before_sha256_lf": "d7c6f211706422c8822d0512cd2546a5f73032ed31cce6d75409d57b55fda3c7",
+          "expected_git_blob_id": "553b39fc63abcdb0fdf3632ddda469831e17b37f",
+          "after_sha256_lf": "7ca22f5a678e72e664f5ed1e0b73525b35674474efc06ab956b3e705c7b9b4e8",
+          "owner": "repository_owner_user",
+          "reason": "Use .NET SHA-256 in isolated PowerShell children rather than relying on module autoload."
+        }
+      ],
+      "added_protected_rows": [
+        {
+          "path": "Iris/validation/clean_checkout/invoke_receipt_bound_full_gate.ps1",
+          "before_git_blob_id": "dc25711cb0e825350916c3ec6bca200599fe2d97",
+          "before_sha256_lf": "7d2db5907fc83f829a4eb4a9f1401e109c36d438253517c71abde0a4e279c33f",
+          "expected_git_blob_id": "61d9188ea400ac354538c8860acb813d824fa497",
+          "after_sha256_lf": "a26c0df97d95f821f2094c2cfe6081bed4fa296043f04351fd889bec23ea5996",
+          "role": "receipt_bound_full_gate_composite_context_binding",
+          "writer": "iris_current_validation_baseline_admissibility_restoration",
+          "consumers": ["baseline_qualification", "full_repository_gate", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Require and validate the external predecessor receipt set and qualification contract for composite stage-6 execution while preserving the public -ExecutionContext argv through a non-reserved parameter alias."
+        },
+        {
+          "path": "Iris/validation/clean_checkout/invoke_deterministic_compare.ps1",
+          "before_git_blob_id": "f415e3801a036c5316f5e4fdfda37cca45ed2cca",
+          "before_sha256_lf": "4323ef976654096d35ac8caede6a55498eeac42ee088a05384c20e6973523a9c",
+          "expected_git_blob_id": "c2ed6d7e317b53c8991ec104dcabf9c9cf1a62bc",
+          "after_sha256_lf": "74d6840d18a92f1fab5b8a43a91a72f6406918b3f26f3a9e5f78acd6c402644f",
+          "role": "deterministic_compare_composite_receipt_normalization",
+          "writer": "iris_current_validation_baseline_admissibility_restoration",
+          "consumers": ["baseline_qualification", "path_control_comparison", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Compare the declared semantic evidence while normalizing approved external-root and receipt-path differences and preserving the public -ExecutionContext argv through a non-reserved parameter alias."
+        },
+        {
+          "path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py",
+          "before_git_blob_id": "62c1797eeda438f9e5f1eb495678dd90c11b95b1",
+          "before_sha256_lf": "b36b2eb2118d0a33776321f61d9b08acfb00af575fcda70df96ca879d518ad30",
+          "expected_git_blob_id": "6005a5bf8c1883e57aaf0814b9f97141af34a39e",
+          "after_sha256_lf": "0218c08a5c93a5cbbb85a5e518db8567c52188b71a85f215df304c7b30cddeb9",
+          "role": "clean_checkout_composite_context_fixture_contract",
+          "writer": "iris_current_validation_baseline_admissibility_restoration",
+          "consumers": [
+            "full_repository_gate",
+            "baseline_qualification",
+            "repository_maintainers"
+          ],
+          "owner": "repository_owner_user",
+          "reason": "Make the fake full-gate runner consume and return the additive execution-context fields required by the receipt-bound composite launcher."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+          "before_git_blob_id": "0e57a0304d64404030f5c5a5f9644b233b7a7450",
+          "before_sha256_lf": "9fa263c80e995ead1b91679a380ffbb3d0c23df693c8161494a38c1d3a3e9095",
+          "expected_git_blob_id": "3c6fcbc958cb52f66ed57f8fae5b7778ceb1868a",
+          "after_sha256_lf": "3e3f268c147023ef3d52d406638d9079b468b41f265002a243df67f43605e534",
+          "role": "protected_surface_revision_inventory_assertion",
+          "writer": "iris_current_validation_baseline_admissibility_restoration",
+          "consumers": ["configured_current", "residual_closeout", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Assert the approved baseline-admissibility revision is present in the active protection chain."
+        },
+        {
+          "path": "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+          "before_git_blob_id": "f7c30e664e8f51e4805d17a83df2603baee97b31",
+          "before_sha256_lf": "2e17b304669d011efe0a145b4ee961d3503266d27b8cbc1a9b38543418717ee6",
+          "expected_git_blob_id": "82af40d5b6abb2165ed54319437a58a7904f3668",
+          "after_sha256_lf": "c69baf16a7cfa65ae76b13f657a7d6c908842312158c50f69e1ff3c9e590c6bf",
+          "role": "full_repository_dedicated_route_disposition",
+          "writer": "iris_current_validation_baseline_admissibility_restoration",
+          "consumers": ["full_repository_gate", "baseline_admission_dedicated_test_route", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Disposition baseline-admission regression tests to their dedicated route without reducing the existing full-repository denominator."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/conftest.py",
+          "before_git_blob_id": "5d46a8766e5be210bd9e983761e86fa7f96a6d09",
+          "before_sha256_lf": "1d1c64107bbbe4d878c79237d91f0239f9b77184ecaf07bd8596b55e98f9119a",
+          "expected_git_blob_id": "17f198b6c30104c2274d5ae0fc8a2bb7d9fc3a98",
+          "after_sha256_lf": "195560fdbb929d4cf1cf54abe6c7197113973a95a0ee7af2531b0237c7e36aef",
+          "role": "configured_current_external_output_binding",
+          "writer": "iris_current_validation_baseline_admissibility_restoration",
+          "consumers": ["configured_current", "source_non_mutation", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Resolve and reject repository-local or aliasing legacy projection roots before configured-current imports test modules or copies any bytes."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_dvf_3_3_registry_authority_canonical_closure.py",
+          "before_git_blob_id": "7dda0722e2bb36a6c35e8fe84fdfde6514a37731",
+          "before_sha256_lf": "eb86cf106908c768c874701433aa45bee1793abed11e05a8521cf2538fd9233a",
+          "expected_git_blob_id": "8f6c4fb2ed0b12145927f46b4897e29708ca49a8",
+          "after_sha256_lf": "feb9b43ab3bbcd6934deedbc96319ef5146ec4b264961b4b9a2fff8971ee05fd",
+          "role": "common_track_test_contract",
+          "writer": "iris_current_validation_baseline_admissibility_restoration",
+          "consumers": ["configured_current", "current_route_validation", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Make Windows fixture teardown robust to transient non-empty and read-only checkout state without changing the protected test identities or assertions."
+        },
+        {
+          "path": "Iris/test/validate_residual_refactor_surfaces.ps1",
+          "before_git_blob_id": "0f6596950b5c28ea8035c26d5e6353f0163d9d6b",
+          "before_sha256_lf": "f00b9020280eb65e2f1abc2c04490933685f44adf5c3a82058253f46d3d84bc5",
+          "expected_git_blob_id": "5caffeaad9575c1460d9cbe19d67f7f11e6ac93a",
+          "after_sha256_lf": "9e8876f83317332c2305e4d9a4da2266a09d4e34be96471865fc11c4cfcecf92",
+          "role": "validation_residual_hash_compatibility",
+          "writer": "iris_current_validation_baseline_admissibility_restoration",
+          "consumers": ["configured_current", "residual_closeout", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Use .NET SHA-256 in isolated PowerShell children rather than relying on module autoload."
+        },
+        {
+          "path": "Iris/test/run_residual_refactor_acceptance.ps1",
+          "before_git_blob_id": "245fa078db7a953c093d3af1c47930232f2f3fb9",
+          "before_sha256_lf": "94d86534d10e554e67092b9f07efc4d21d145e7646ecc0bee4cca8afbd7d0dc3",
+          "expected_git_blob_id": "3781760d58a126d8aebe9e24c23abc85ddf7be5d",
+          "after_sha256_lf": "5f724fadaecd96342c27d2b2a3dd421de28092f9cb5936f535df0ab27cb823a5",
+          "role": "validation_runtime_acceptance_hash_compatibility",
+          "writer": "iris_current_validation_baseline_admissibility_restoration",
+          "consumers": ["configured_current", "residual_runtime_acceptance", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Use .NET SHA-256 in isolated PowerShell children rather than relying on module autoload."
+        }
+      ]
     }
   ]
 }

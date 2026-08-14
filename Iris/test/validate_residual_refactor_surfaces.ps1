@@ -15,6 +15,26 @@ Set-StrictMode -Version Latest
 $Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 $Utf8Strict = New-Object System.Text.UTF8Encoding($false, $true)
 
+function Get-FileHash {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)][string]$LiteralPath,
+        [ValidateSet('SHA256')][string]$Algorithm = 'SHA256'
+    )
+
+    $hasher = [System.Security.Cryptography.SHA256]::Create()
+    $stream = $null
+    try {
+        $stream = [System.IO.File]::OpenRead($LiteralPath)
+        $hash = $hasher.ComputeHash($stream)
+        return [pscustomobject]@{ Algorithm = $Algorithm; Hash = ([System.BitConverter]::ToString($hash)).Replace('-', '').ToLowerInvariant(); Path = $LiteralPath }
+    }
+    finally {
+        if ($null -ne $stream) { $stream.Dispose() }
+        $hasher.Dispose()
+    }
+}
+
 function Write-Json([string]$Path, [object]$Value) {
     $Parent = Split-Path -Parent $Path
     if (-not (Test-Path -LiteralPath $Parent)) {
@@ -194,6 +214,8 @@ $LightweightingSuccessorRelative = 'Iris/_docs/refactor/repository_runtime_light
 $LightweightingSuccessorPath = Join-Path $RepositoryRoot $LightweightingSuccessorRelative
 $EvidenceLightweightingSuccessorRelative = 'Iris/_docs/refactor/repository_evidence_lightweighting/protected_surface_successor_manifest.json'
 $EvidenceLightweightingSuccessorPath = Join-Path $RepositoryRoot $EvidenceLightweightingSuccessorRelative
+$FollowupOverlayRelative = 'Iris/_docs/refactor/codebase_optimization_followup/protected_surface_manifest.json'
+$FollowupOverlayPath = Join-Path $RepositoryRoot $FollowupOverlayRelative
 if ($Mode -eq 'AttestationProbe') {
     if (
         [string]::IsNullOrWhiteSpace($HistoricalManifestAttestationPath) -or
@@ -239,6 +261,52 @@ $EvidenceLightweightingSuccessorWorkingBlob = (& git -C $RepositoryRoot hash-obj
 if ($LASTEXITCODE -ne 0 -or $EvidenceLightweightingSuccessorWorkingBlob -cne $EvidenceLightweightingSuccessorBlob) {
     throw 'repository evidence lightweighting protected-surface successor differs from HEAD'
 }
+$FollowupOverlayRows = @{}
+if (Test-Path -LiteralPath $FollowupOverlayPath -PathType Leaf) {
+    $FollowupOverlay = Get-Content -LiteralPath $FollowupOverlayPath -Raw | ConvertFrom-Json
+    if (
+        [string]$FollowupOverlay.schema_version -cne 'iris_codebase_optimization_followup_protected_overlay_v1' -or
+        [string]$FollowupOverlay.authority -cne 'repository_owner_preapproval' -or
+        [string]$FollowupOverlay.plan -cne 'docs/iris_codebase_optimization_comprehensive_followup_plan.md' -or
+        [string]$FollowupOverlay.base_commit -cne $SubjectCommit -or
+        [string]$FollowupOverlay.base_tree -cne $SubjectTree -or
+        [string]$FollowupOverlay.implementation_state -cne 'uncommitted_working_tree_overlay'
+    ) {
+        throw 'codebase optimization follow-up protected-surface overlay identity mismatch'
+    }
+    foreach ($Row in @($FollowupOverlay.rows)) {
+        $RowPath = [string]$Row.path
+        if (
+            [string]::IsNullOrWhiteSpace($RowPath) -or
+            [System.IO.Path]::IsPathRooted($RowPath) -or
+            $RowPath -match '(^|/)\.\.(/|$)' -or
+            $FollowupOverlayRows.ContainsKey($RowPath)
+        ) {
+            throw "codebase optimization follow-up protected row identity invalid: $RowPath"
+        }
+        $BeforeBlob = (& git -C $RepositoryRoot rev-parse ("HEAD:" + $RowPath)).Trim()
+        if ($LASTEXITCODE -ne 0 -or $BeforeBlob -cne [string]$Row.before_git_blob_id) {
+            throw "codebase optimization follow-up protected row predecessor mismatch: $RowPath"
+        }
+        if ((Get-GitBlobLfHash $BeforeBlob) -cne [string]$Row.before_sha256_lf) {
+            throw "codebase optimization follow-up protected row predecessor LF hash mismatch: $RowPath"
+        }
+        if ((Get-LfTextHashOrNull (Join-Path $RepositoryRoot $RowPath)) -cne [string]$Row.after_sha256_lf) {
+            throw "codebase optimization follow-up protected row working LF hash mismatch: $RowPath"
+        }
+        if (
+            [string]$Row.owner -cne 'repository_owner_preapproval' -or
+            [string]::IsNullOrWhiteSpace([string]$Row.reason)
+        ) {
+            throw "codebase optimization follow-up protected row authorization invalid: $RowPath"
+        }
+        $FollowupOverlayRows[$RowPath] = $Row
+    }
+}
+elseif ($Mode -eq 'Baseline') {
+    throw 'codebase optimization follow-up protected-surface overlay has no rows'
+}
+$FollowupOverlayUsed = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
 
 if ($Mode -eq 'Baseline') {
     $PredecessorSupported = Get-Content -LiteralPath $PredecessorSupportedPath -Raw | ConvertFrom-Json
@@ -720,23 +788,35 @@ if (-not $AnchorStateVerified) {
 foreach ($DeltaPath in $LightweightingDeltaPaths) {
     $Delta = $ApprovedDeltas[$DeltaPath]
     $ActualBlob = (& git -C $RepositoryRoot rev-parse ("HEAD:" + $DeltaPath)).Trim()
-    if ($LASTEXITCODE -ne 0 -or $ActualBlob -cne [string]$Delta.expected_git_blob_id) {
+    $Overlay = if ($FollowupOverlayRows.ContainsKey($DeltaPath)) { $FollowupOverlayRows[$DeltaPath] } else { $null }
+    $ExpectedBlob = if ($null -ne $Overlay) { [string]$Overlay.before_git_blob_id } else { [string]$Delta.expected_git_blob_id }
+    $ExpectedLf = if ($null -ne $Overlay) { [string]$Overlay.after_sha256_lf } else { [string]$Delta.after_sha256_lf }
+    if ($LASTEXITCODE -ne 0 -or $ActualBlob -cne $ExpectedBlob) {
         throw "repository lightweighting final delta Git blob mismatch: $DeltaPath"
     }
-    if ((Get-LfTextHashOrNull (Join-Path $RepositoryRoot $DeltaPath)) -cne [string]$Delta.after_sha256_lf) {
+    if ((Get-LfTextHashOrNull (Join-Path $RepositoryRoot $DeltaPath)) -cne $ExpectedLf) {
         throw "repository lightweighting final delta LF hash mismatch: $DeltaPath"
     }
+    if ($null -ne $Overlay) { [void]$FollowupOverlayUsed.Add($DeltaPath) }
 }
 foreach ($Entry in $AddedProtectedRows.GetEnumerator()) {
     $Added = $Entry.Value
     $AddedPath = [string]$Added.path
     $ActualBlob = (& git -C $RepositoryRoot rev-parse ("HEAD:" + $AddedPath)).Trim()
-    if ($LASTEXITCODE -ne 0 -or $ActualBlob -cne [string]$Added.expected_git_blob_id) {
+    $Overlay = if ($FollowupOverlayRows.ContainsKey($AddedPath)) { $FollowupOverlayRows[$AddedPath] } else { $null }
+    $ExpectedBlob = if ($null -ne $Overlay) { [string]$Overlay.before_git_blob_id } else { [string]$Added.expected_git_blob_id }
+    $ExpectedLf = if ($null -ne $Overlay) { [string]$Overlay.after_sha256_lf } else { [string]$Added.after_sha256_lf }
+    if ($LASTEXITCODE -ne 0 -or $ActualBlob -cne $ExpectedBlob) {
         throw "repository lightweighting final added-row Git blob mismatch: $AddedPath"
     }
-    if ((Get-LfTextHashOrNull (Join-Path $RepositoryRoot $AddedPath)) -cne [string]$Added.after_sha256_lf) {
+    if ((Get-LfTextHashOrNull (Join-Path $RepositoryRoot $AddedPath)) -cne $ExpectedLf) {
         throw "repository lightweighting final added-row LF hash mismatch: $AddedPath"
     }
+    if ($null -ne $Overlay) { [void]$FollowupOverlayUsed.Add($AddedPath) }
+}
+if ($FollowupOverlayUsed.Count -ne $FollowupOverlayRows.Count) {
+    $Unused = @($FollowupOverlayRows.Keys | Where-Object { -not $FollowupOverlayUsed.Contains([string]$_) } | Sort-Object)
+    throw ('codebase optimization follow-up protected rows are outside active protection: ' + ($Unused -join ','))
 }
 foreach ($RemovedPath in $RemovedProtectedRows.Keys) {
     $FinalTreeRows = @(& git -C $RepositoryRoot ls-tree HEAD -- ([string]$RemovedPath))
@@ -832,6 +912,9 @@ $ProtectedReport = [ordered]@{
     repository_evidence_lightweighting_successor_git_blob_id = $EvidenceLightweightingSuccessorBlob
     repository_evidence_lightweighting_successor_sha256 = Get-HashOrNull $EvidenceLightweightingSuccessorPath
     repository_evidence_lightweighting_successor_schema_version = [string]$EvidenceLightweightingSuccessor.schema_version
+    codebase_optimization_followup_overlay_manifest = $FollowupOverlayRelative
+    codebase_optimization_followup_overlay_sha256 = Get-HashOrNull $FollowupOverlayPath
+    codebase_optimization_followup_overlay_row_count = $FollowupOverlayRows.Count
     historical_manifest_attestation = [ordered]@{
         commit = $HistoricalCommit
         tree = $HistoricalTree

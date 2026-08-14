@@ -281,6 +281,13 @@ def _build_fake_launcher_repository(
             parser.add_argument("--environment-receipt", required=True)
             parser.add_argument("--work-root", required=True)
             parser.add_argument("--result-root", required=True)
+            parser.add_argument(
+                "--execution-context", default="standalone_full_gate"
+            )
+            parser.add_argument("--predecessor-stage-receipt-set-sha256")
+            parser.add_argument("--qualification-contract-sha256")
+            parser.add_argument("--predecessor-stage-receipt-set")
+            parser.add_argument("--qualification-contract")
             args = parser.parse_args()
 
             sys.stdout.buffer.write(b"fake stdout: \x00\xff\n")
@@ -325,6 +332,13 @@ def _build_fake_launcher_repository(
                 "schema_version": "iris-clean-checkout-full-run-receipt-v1",
                 "status": "PASS",
                 "subject": subject,
+                "execution_context": args.execution_context,
+                "predecessor_stage_receipt_set_sha256": (
+                    args.predecessor_stage_receipt_set_sha256
+                ),
+                "qualification_contract_sha256": (
+                    args.qualification_contract_sha256
+                ),
                 "python_executable_path": Path(sys.executable).resolve().as_posix(),
                 "environment_receipt_path": Path(
                     args.environment_receipt

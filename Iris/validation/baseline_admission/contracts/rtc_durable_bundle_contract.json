@@ -1,0 +1,9 @@
+{
+  "schema_version": "iris-baseline-admission-rtc-durable-bundle-contract-v1",
+  "canonical_live_consumer": "Iris/_docs/round3/registry_runtime_compatibility/bundles/<bundle_id>",
+  "promotion_source_role": "immutable_promotion_provenance",
+  "required_role_count": 11,
+  "required_relations": ["inventory", "bytes", "sha256", "byte_parity", "tracking_visibility", "consumer_resolution"],
+  "historical_bundle_rewrite_allowed": false,
+  "successor_selection_requires_owner_adoption": true
+}

@@ -7,6 +7,13 @@ param(
     [Parameter(Mandatory = $true)][string]$WorkRoot,
     [Parameter(Mandatory = $true)][string]$ResultRoot,
     [Parameter(Mandatory = $true)][string]$OrchestrationReceipt,
+    [Alias('ExecutionContext')]
+    [ValidateSet('standalone_full_gate', 'composite_baseline_admission_chain_stage_6')]
+    [string]$BaselineAdmissionExecutionContext = 'standalone_full_gate',
+    [string]$PredecessorStageReceiptSetSha256,
+    [string]$QualificationContractSha256,
+    [string]$PredecessorStageReceiptSet,
+    [string]$QualificationContract,
     [string]$StdoutPath,
     [string]$StderrPath,
     [ValidateSet('none', 'required_environment_apply', 'environment_restore')]
@@ -18,6 +25,10 @@ $ErrorActionPreference = 'Stop'
 
 function Get-Sha256([string]$Path) {
     return (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant()
+}
+
+function Test-Sha256([string]$Value) {
+    return $Value -match '^[0-9a-f]{64}$'
 }
 
 function Quote-NativeArgument([string]$Value) {
@@ -375,6 +386,23 @@ try {
         '--work-root', $resolvedWorkRoot,
         '--result-root', $resolvedResultRoot
     )
+    if ($BaselineAdmissionExecutionContext -eq 'composite_baseline_admission_chain_stage_6') {
+        if (-not (Test-Sha256 $PredecessorStageReceiptSetSha256) -or -not (Test-Sha256 $QualificationContractSha256)) {
+            throw 'composite baseline-admission context requires lowercase predecessor-stage and qualification-contract SHA-256 values'
+        }
+        if ([string]::IsNullOrWhiteSpace($PredecessorStageReceiptSet) -or [string]::IsNullOrWhiteSpace($QualificationContract)) { throw 'composite baseline-admission context requires predecessor-stage receipt-set and qualification-contract files' }
+        $resolvedStageReceiptSet = Assert-ExternalPath $resolvedRepository $PredecessorStageReceiptSet 'predecessor-stage receipt set'
+        $resolvedQualificationContract = Assert-ExternalPath $resolvedRepository $QualificationContract 'qualification contract'
+        if (-not [System.IO.File]::Exists($resolvedStageReceiptSet) -or -not [System.IO.File]::Exists($resolvedQualificationContract)) { throw 'composite baseline-admission identity input file is missing' }
+        if ((Get-Sha256 $resolvedStageReceiptSet) -ne $PredecessorStageReceiptSetSha256 -or (Get-Sha256 $resolvedQualificationContract) -ne $QualificationContractSha256) { throw 'composite baseline-admission identity input hash mismatch' }
+        $plannedArguments += @(
+            '--execution-context', $BaselineAdmissionExecutionContext,
+            '--predecessor-stage-receipt-set-sha256', $PredecessorStageReceiptSetSha256,
+            '--qualification-contract-sha256', $QualificationContractSha256
+            '--predecessor-stage-receipt-set', $resolvedStageReceiptSet,
+            '--qualification-contract', $resolvedQualificationContract
+        )
+    }
     $plannedArgv = @($pythonExe) + $plannedArguments
 
     $launchStage = 'configure_environment'
@@ -487,6 +515,8 @@ finally {
             if ([string]$inner.subject.commit -ne [string]$identity.subject.commit -or [string]$inner.subject.tree -ne [string]$identity.subject.tree) {
                 throw 'inner receipt subject differs from launcher subject'
             }
+            if ([string]$inner.execution_context -ne $BaselineAdmissionExecutionContext) { throw 'inner execution context differs from launcher context' }
+            if ($BaselineAdmissionExecutionContext -eq 'composite_baseline_admission_chain_stage_6' -and ([string]$inner.predecessor_stage_receipt_set_sha256 -ne $PredecessorStageReceiptSetSha256 -or [string]$inner.qualification_contract_sha256 -ne $QualificationContractSha256)) { throw 'inner composite execution context identity differs from launcher binding' }
             if ([System.IO.Path]::GetFullPath([string]$inner.python_executable_path) -ne [System.IO.Path]::GetFullPath([string]$identity.interpreter.path)) {
                 throw 'inner receipt interpreter path differs from launcher interpreter'
             }
@@ -568,6 +598,11 @@ finally {
                 work_root = $WorkRoot
                 result_root = $ResultRoot
                 orchestration_receipt = $OrchestrationReceipt
+                execution_context = $BaselineAdmissionExecutionContext
+                predecessor_stage_receipt_set_sha256 = $PredecessorStageReceiptSetSha256
+                qualification_contract_sha256 = $QualificationContractSha256
+                predecessor_stage_receipt_set = $PredecessorStageReceiptSet
+                qualification_contract = $QualificationContract
                 stdout_path = $StdoutPath
                 stderr_path = $StderrPath
                 failure_injection = $FailureInjection
@@ -581,6 +616,9 @@ finally {
                 after_restore = $environmentAfterRestore
             }
             identity = $identity
+            execution_context = $BaselineAdmissionExecutionContext
+            predecessor_stage_receipt_set_sha256 = $PredecessorStageReceiptSetSha256
+            qualification_contract_sha256 = $QualificationContractSha256
             stdout = [ordered]@{
                 path = if ([System.IO.File]::Exists($resolvedStdout)) { $resolvedStdout.Replace('\', '/') } else { $null }
                 sha256 = if ([System.IO.File]::Exists($resolvedStdout)) { Get-Sha256 $resolvedStdout } else { $null }

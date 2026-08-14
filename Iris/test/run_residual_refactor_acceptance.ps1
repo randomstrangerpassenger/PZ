@@ -13,6 +13,26 @@ $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 $Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 
+function Get-FileHash {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)][string]$LiteralPath,
+        [ValidateSet('SHA256')][string]$Algorithm = 'SHA256'
+    )
+
+    $hasher = [System.Security.Cryptography.SHA256]::Create()
+    $stream = $null
+    try {
+        $stream = [System.IO.File]::OpenRead($LiteralPath)
+        $hash = $hasher.ComputeHash($stream)
+        return [pscustomobject]@{ Algorithm = $Algorithm; Hash = ([System.BitConverter]::ToString($hash)).Replace('-', '').ToLowerInvariant(); Path = $LiteralPath }
+    }
+    finally {
+        if ($null -ne $stream) { $stream.Dispose() }
+        $hasher.Dispose()
+    }
+}
+
 function Get-TextSha256([string]$Text) {
     $algorithm = [System.Security.Cryptography.SHA256]::Create()
     try {
@@ -47,7 +67,14 @@ $Scope = @(
     'Iris/test/lua/residual_refactor_acceptance_harness.lua',
     'Iris/test/run_residual_refactor_acceptance.ps1'
 )
-$Patch = (& git -C $RepositoryRoot diff --binary -- @Scope 2>$null | Out-String)
+$PreviousErrorActionPreference = $ErrorActionPreference
+$ErrorActionPreference = 'Continue'
+try {
+    $Patch = (& git -C $RepositoryRoot diff --binary -- @Scope 2>$null | Out-String)
+}
+finally {
+    $ErrorActionPreference = $PreviousErrorActionPreference
+}
 if ($LASTEXITCODE -ne 0) { throw 'git diff failed while binding subject overlay' }
 $StatusLines = @(& git -C $RepositoryRoot status --porcelain=v1 -uall -- @Scope)
 if ($LASTEXITCODE -ne 0) { throw 'git status failed while binding subject overlay' }

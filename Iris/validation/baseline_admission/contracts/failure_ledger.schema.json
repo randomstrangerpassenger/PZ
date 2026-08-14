@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Iris baseline-admission failure ledger",
+  "type": "object",
+  "required": [
+    "schema_version", "subject", "nodes", "root_causes",
+    "observed_nonpassing_node_count", "subject_finding_count", "unknown_failure_count",
+    "evidence_absent_unclassifiable_count", "all_existing_nodes_have_evidence_bound_disposition",
+    "primary_and_propagated_relation_complete", "historical_plan_declared_raw_evidence_claimed"
+  ],
+  "properties": {
+    "schema_version":{"const":"iris-baseline-admission-failure-ledger-v1"},
+    "subject":{"type":"object","required":["commit","tree"]},
+    "nodes":{"type":"array","minItems":1},
+    "root_causes":{"type":"array","minItems":1},
+    "observed_nonpassing_node_count":{"type":"integer","minimum":1},
+    "subject_finding_count":{"type":"integer","minimum":0},
+    "unknown_failure_count":{"type":"integer","minimum":0},
+    "evidence_absent_unclassifiable_count":{"type":"integer","minimum":0},
+    "all_existing_nodes_have_evidence_bound_disposition":{"type":"boolean"},
+    "primary_and_propagated_relation_complete":{"type":"boolean"},
+    "historical_plan_declared_raw_evidence_claimed":{"const":false}
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Iris baseline admission receipt",
+  "type": "object",
+  "required": ["schema_version", "status", "subject", "qualification_sha256", "baseline_admission_gate_implementation", "baseline_admission_gate_enforcement_proof", "baseline_admission_gate_real_entry_binding"],
+  "properties": {"status":{"enum":["admitted", "rejected"]}, "baseline_admission_gate_implementation":{"const":"fail_closed"}, "baseline_admission_gate_enforcement_proof":{"const":"synthetic_harness_only"}, "baseline_admission_gate_real_entry_binding":{"const":"pending_absent_application_entrypoint"}}
+}

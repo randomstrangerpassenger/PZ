@@ -1171,14 +1171,36 @@ def live_contract_from_manifest(path: Path) -> dict[str, Any]:
 def command_required_gate(args: argparse.Namespace) -> int:
     manifest_path = Path(args.required_manifest).resolve()
     output_path = Path(args.out).resolve()
+    if args.execution_context == "current_validation":
+        if not args.temp_root:
+            raise rtc.CompatibilityError(
+                "required_gate_temp_root_missing",
+                "Current-validation required gate requires an explicit external temporary root",
+            )
+        try:
+            output_path.relative_to(REPO_ROOT.resolve())
+        except ValueError:
+            pass
+        else:
+            raise rtc.CompatibilityError(
+                "required_gate_output_not_external",
+                "Current-validation required-gate output must be repository-external",
+            )
     contract = live_contract_from_manifest(manifest_path)
-    required_gate_temp_root = (
-        V2_ROOT
-        / "staging"
-        / "dvf_3_3_registry_runtime_compatibility"
-        / "required-gate-temp"
-    )
-    required_gate_temp_root.mkdir(parents=True, exist_ok=True)
+    # This projection is transient validation output, not tracked staging
+    # evidence.  Legacy callers use the system temporary root; explicit roots
+    # must be outside the subject checkout.
+    required_gate_temp_root = Path(args.temp_root).resolve() if args.temp_root else None
+    if required_gate_temp_root is not None:
+        try:
+            required_gate_temp_root.relative_to(REPO_ROOT.resolve())
+        except ValueError:
+            required_gate_temp_root.mkdir(parents=True, exist_ok=True)
+        else:
+            raise rtc.CompatibilityError(
+                "required_gate_temp_root_not_external",
+                "Required-gate temporary output must be repository-external",
+            )
     with tempfile.TemporaryDirectory(
         prefix="iris-rtc-required-gate-",
         dir=required_gate_temp_root,
@@ -1381,6 +1403,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--disposition")
     parser.add_argument("--binding-manifest")
     parser.add_argument("--required-manifest", default=str(DEFAULT_REQUIRED_MANIFEST))
+    parser.add_argument("--temp-root")
+    parser.add_argument(
+        "--execution-context",
+        choices=("authority_adoption", "current_validation"),
+        default="authority_adoption",
+    )
     parser.add_argument("--attempt-root")
     parser.add_argument("--out")
     return parser

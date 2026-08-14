@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Iris baseline-admission evidence bundle",
+  "type": "object",
+  "required": ["subject", "attempt", "route", "command", "denominator", "environment", "checkout_path", "raw_log", "junit_state", "diagnostic_artifact", "hash", "primary_or_propagated", "root_cause", "disposition"],
+  "properties": {"subject":{"type":"object"}, "attempt":{"type":"object"}, "route":{"type":"string"}, "command":{"type":"array"}, "denominator":{"type":"object"}, "environment":{"type":"object"}, "checkout_path":{"type":"object"}, "raw_log":{"type":"object"}, "junit_state":{"type":"string"}, "diagnostic_artifact":{"type":"object"}, "hash":{"type":"string"}, "primary_or_propagated":{"enum":["primary","propagated"]}, "root_cause":{"type":"object"}, "disposition":{"type":"string"}}
+}

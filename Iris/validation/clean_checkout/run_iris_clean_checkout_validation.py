@@ -260,6 +260,18 @@ def _full_required_source_roles(
             "classification_basis": row["reason"],
         }
     for row in contract["source_disposition_policy"].get(
+        "explicit_dedicated_route_sources", []
+    ):
+        if row.get("owner_decision") != "not_applicable_dedicated_route":
+            raise CleanCheckoutError(
+                "dedicated-route source lacks explicit owner disposition"
+            )
+        roles[row["path"]] = {
+            "execution_role": "not_required",
+            "authority_class": "dedicated_route_validation",
+            "classification_basis": row["reason"],
+        }
+    for row in contract["source_disposition_policy"].get(
         "hermetic_test_fixture_sources", []
     ):
         roles[row["path"]] = {
@@ -2144,6 +2156,11 @@ def run_full_repository_gate(
     environment_receipt: Path,
     work_root: Path,
     result_root: Path,
+    execution_context: str = "standalone_full_gate",
+    predecessor_stage_receipt_set_sha256: str | None = None,
+    qualification_contract_sha256: str | None = None,
+    predecessor_stage_receipt_set: Path | None = None,
+    qualification_contract: Path | None = None,
 ) -> dict[str, Any]:
     subject = git_identity(repo, commit)
     implementation_identity = _implementation_identity(
@@ -2161,6 +2178,35 @@ def run_full_repository_gate(
             f"checkout changes:\n{before_status}"
         )
     ignored_status_before = _ignored_status_snapshot(repo)
+    if execution_context == "composite_baseline_admission_chain_stage_6":
+        identities = (
+            predecessor_stage_receipt_set_sha256,
+            qualification_contract_sha256,
+        )
+        if any(
+            not isinstance(value, str)
+            or len(value) != 64
+            or any(character not in "0123456789abcdef" for character in value)
+            for value in identities
+        ):
+            raise CleanCheckoutError(
+                "composite baseline-admission full gate requires lowercase "
+                "SHA-256 predecessor-stage and qualification-contract identities"
+            )
+        if (
+            predecessor_stage_receipt_set is None
+            or qualification_contract is None
+            or not predecessor_stage_receipt_set.is_file()
+            or not qualification_contract.is_file()
+            or sha256_file(predecessor_stage_receipt_set)
+            != predecessor_stage_receipt_set_sha256
+            or sha256_file(qualification_contract)
+            != qualification_contract_sha256
+        ):
+            raise CleanCheckoutError(
+                "composite baseline-admission identity inputs are missing or "
+                "do not match their declared SHA-256 values"
+            )
     _require_disjoint_external_roots(repo, work_root, result_root)
     _require_empty_directory(work_root, "work root")
     _require_empty_directory(result_root, "result root")
@@ -2462,10 +2508,6 @@ def run_full_repository_gate(
             parents=True,
             exist_ok=True,
         )
-        shutil.copytree(
-            checkout / "Iris" / "output",
-            pytest_legacy_output_root,
-        )
         environment[
             "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"
         ] = str(pytest_legacy_output_root)
@@ -2678,6 +2720,9 @@ def run_full_repository_gate(
         "schema_version": "iris-clean-checkout-canonical-full-result-v1",
         "status": status,
         "subject": subject,
+        "execution_context": execution_context,
+        "predecessor_stage_receipt_set_sha256": predecessor_stage_receipt_set_sha256,
+        "qualification_contract_sha256": qualification_contract_sha256,
         "full_repository_gate_blob_id": blob_id(
             repo, subject["commit"], FULL_REPOSITORY_GATE_PATH
         ),
@@ -2741,6 +2786,9 @@ def run_full_repository_gate(
         "schema_version": "iris-clean-checkout-full-run-receipt-v1",
         "status": status,
         "subject": subject,
+        "execution_context": execution_context,
+        "predecessor_stage_receipt_set_sha256": predecessor_stage_receipt_set_sha256,
+        "qualification_contract_sha256": qualification_contract_sha256,
         "python_executable_path": python_executable.as_posix(),
         "environment_receipt_path": environment_receipt.as_posix(),
         "implementation_identity": implementation_identity,
@@ -2835,6 +2883,11 @@ def _parser() -> argparse.ArgumentParser:
     full_gate.add_argument("--environment-receipt", required=True)
     full_gate.add_argument("--work-root", required=True)
     full_gate.add_argument("--result-root", required=True)
+    full_gate.add_argument("--execution-context", default="standalone_full_gate")
+    full_gate.add_argument("--predecessor-stage-receipt-set-sha256")
+    full_gate.add_argument("--qualification-contract-sha256")
+    full_gate.add_argument("--predecessor-stage-receipt-set")
+    full_gate.add_argument("--qualification-contract")
     return parser
 
 
@@ -2876,6 +2929,19 @@ def main() -> int:
                 Path(args.environment_receipt),
                 work_root,
                 result_root,
+                args.execution_context,
+                args.predecessor_stage_receipt_set_sha256,
+                args.qualification_contract_sha256,
+                (
+                    Path(args.predecessor_stage_receipt_set)
+                    if args.predecessor_stage_receipt_set
+                    else None
+                ),
+                (
+                    Path(args.qualification_contract)
+                    if args.qualification_contract
+                    else None
+                ),
             )
     except (CleanCheckoutError, OSError, ValueError, json.JSONDecodeError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)

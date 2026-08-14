@@ -90,6 +90,28 @@
         "reason": "current reusable IAR evaluator behavior is required for the G4 generic public-text assessment integration boundary"
       }
     ],
+    "explicit_dedicated_route_sources": [
+      {
+        "path": "Iris/validation/baseline_admission/tests/test_iris_baseline_admission.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Baseline-admission gate schema and synthetic-ordering route is explicitly dedicated; existing mandatory full-repository denominator remains unchanged."
+      },
+      {
+        "path": "Iris/validation/baseline_admission/tests/test_reseal_output_isolation.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Baseline-admission reseal isolation route is explicitly dedicated; existing mandatory full-repository denominator remains unchanged."
+      },
+      {
+        "path": "Iris/validation/baseline_admission/tests/test_windows_path_contract.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Baseline-admission Windows path-contract route is explicitly dedicated; existing mandatory full-repository denominator remains unchanged."
+      },
+      {
+        "path": "Iris/validation/baseline_admission/tests/test_rtc_durable_bundle_contract.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Baseline-admission RTC durable-contract route is explicitly dedicated; existing mandatory full-repository denominator remains unchanged."
+      }
+    ],
     "historical_optional_rule": "tracked Iris/build/description/v2/tests/test_*.py source with no current, ok taxonomy identity",
     "historical_optional_class": "historical_optional_evidence",
     "explicit_historical_optional_sources": [

@@ -1,0 +1,9 @@
+{
+  "schema_version": "iris-baseline-admission-scope-lock-v1",
+  "historical_s_base": {"commit":"671c7b928ad5a1dbf26ea76949462fa8a7287903", "tree":"20bbbdb919fa97a44e03c1f1cb9ea0a6973fb1db"},
+  "allowed_authority_mutations": ["rtc_successor_selection_with_owner_adoption", "baseline_gate_adoption_with_owner_adoption", "full_repository_membership_with_owner_decision"],
+  "default_membership_decision": "owner_dispositioned_not_applicable_dedicated_route",
+  "configured_current_membership": "excluded_by_declared_testpath_boundary",
+  "application_mutation_before_admission": false,
+  "bare_complete_token_allowed": false
+}

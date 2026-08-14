@@ -1,0 +1,13 @@
+{
+  "schema_version": "iris-baseline-admission-windows-path-contract-v1",
+  "claim": "A declared Windows path range fails before clone or test mutation.",
+  "budget": {
+    "longest_required_relative_path": 221,
+    "worst_case_generated_suffix": 12,
+    "separator_allowance": 2,
+    "safety_margin": 8,
+    "qualified_materialized_path_limit": 259
+  },
+  "qualified_environment": {"core_longpaths": true, "long_paths_enabled_zero_supported": true},
+  "rejection_code": "windows_path_contract_rejected"
+}

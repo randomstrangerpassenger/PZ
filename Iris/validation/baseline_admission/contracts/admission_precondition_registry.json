@@ -1,0 +1,28 @@
+{
+  "schema_version": "iris-baseline-admission-precondition-registry-v1",
+  "preconditions": [
+    {"precondition_id":"configured_current_green","axis":"machine_validation"},
+    {"precondition_id":"rtc_durable_bundle_qualification","axis":"machine_validation"},
+    {"precondition_id":"reseal_a_qualification","axis":"machine_validation"},
+    {"precondition_id":"reseal_b_qualification","axis":"machine_validation"},
+    {"precondition_id":"baseline_admission_run_a_chain","axis":"machine_validation"},
+    {"precondition_id":"baseline_admission_run_b_chain","axis":"machine_validation"},
+    {"precondition_id":"full_repository_denominator_identity_match","axis":"machine_validation"},
+    {"precondition_id":"full_repository_dependency_inventory_identity_match","axis":"machine_validation"},
+    {"precondition_id":"full_repository_canonical_result_identity_match","axis":"machine_validation"},
+    {"precondition_id":"full_repository_execution_context_identity_match","axis":"machine_validation"},
+    {"precondition_id":"near_boundary_path_control","axis":"compatibility"},
+    {"precondition_id":"baseline_admission_dedicated_test_route","axis":"machine_validation"},
+    {"precondition_id":"s_base_forensic_evidence_bound","axis":"evidence"},
+    {"precondition_id":"durable_evidence_retrievable","axis":"evidence"},
+    {"precondition_id":"negative_coverage_complete","axis":"gate"},
+    {"precondition_id":"configured_current_denominator_reduction_count","axis":"denominator"},
+    {"precondition_id":"full_repository_denominator_reduction_count","axis":"denominator"},
+    {"precondition_id":"unknown_failure_count","axis":"disposition"},
+    {"precondition_id":"evidence_absent_unclassifiable_count","axis":"disposition"},
+    {"precondition_id":"workflow_consolidation_application_delta_count","axis":"scope"},
+    {"precondition_id":"required_manifest_mutation_without_owner_adoption_count","axis":"authority"},
+    {"precondition_id":"full_repository_census_membership_added_without_adoption_count","axis":"authority"},
+    {"precondition_id":"unresolved_finding_count","axis":"disposition"}
+  ]
+}

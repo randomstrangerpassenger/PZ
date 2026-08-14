@@ -707,13 +707,22 @@ def write_phase2(root: Path) -> None:
     write_json(phase / "artifact_field_schema_report.json", schema)
 
 
-def write_phase3_update_manifest(root: Path) -> dict[str, Any]:
+def write_phase3_update_manifest(
+    root: Path,
+    *,
+    execution_context: str = "authority_adoption",
+) -> dict[str, Any]:
     phase = phase_dir(root, "phase3")
     before = read_json_object(LIVE_REQUIRED_MANIFEST)
     before_hash = sha256_file(LIVE_REQUIRED_MANIFEST)
     updated = manifest_with_round_entries(before)
-    write_json(LIVE_REQUIRED_MANIFEST, updated)
-    after = read_json_object(LIVE_REQUIRED_MANIFEST)
+    projection_path = phase / "current_route_required_validations.projection.json"
+    if execution_context == "current_validation":
+        write_json(projection_path, updated)
+        after = before
+    else:
+        write_json(LIVE_REQUIRED_MANIFEST, updated)
+        after = read_json_object(LIVE_REQUIRED_MANIFEST)
     after_hash = sha256_file(LIVE_REQUIRED_MANIFEST)
     diff = compare_manifest(before, after)
     branch_predicates = {
@@ -748,6 +757,9 @@ def write_phase3_update_manifest(root: Path) -> dict[str, Any]:
         "live_manifest_path": rel(LIVE_REQUIRED_MANIFEST),
         "live_manifest_sha256_before": before_hash,
         "live_manifest_sha256_after": after_hash,
+        "execution_context": execution_context,
+        "authority_write_performed": execution_context == "authority_adoption",
+        "external_projection_path": rel(projection_path) if execution_context == "current_validation" else None,
         "round_required_artifact_count": len(ROUND_REQUIRED_ARTIFACTS),
         "round_required_test_count": len(ROUND_REQUIRED_TESTS),
         "source_runtime_package_authority_mutated": False,
@@ -1430,13 +1442,18 @@ def validate_artifacts(root: Path = EVIDENCE_ROOT, *, require_complete: bool = F
     return report, not errors
 
 
-def generate_artifacts(root: Path = EVIDENCE_ROOT, *, run_current_route: bool = True) -> dict[str, Any]:
+def generate_artifacts(
+    root: Path = EVIDENCE_ROOT,
+    *,
+    run_current_route: bool = True,
+    execution_context: str = "authority_adoption",
+) -> dict[str, Any]:
     root.mkdir(parents=True, exist_ok=True)
     write_phase0(root)
     write_phase1_default(root)
     write_phase2(root)
     write_negative_fixture_matrix(root)
-    write_phase3_update_manifest(root)
+    write_phase3_update_manifest(root, execution_context=execution_context)
     if run_current_route:
         write_phase4_current_route(root)
     else:
@@ -1455,20 +1472,36 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--mode", choices=("generate", "validate", "all", "machine-pass", "manifest-only"), default="all")
     parser.add_argument("--root", type=Path, default=EVIDENCE_ROOT)
     parser.add_argument("--require-complete", action="store_true")
+    parser.add_argument(
+        "--execution-context",
+        choices=("authority_adoption", "current_validation"),
+        default="authority_adoption",
+    )
     args = parser.parse_args(argv)
+    if args.execution_context == "current_validation":
+        try:
+            args.root.resolve().relative_to(REPO_ROOT.resolve())
+        except ValueError:
+            pass
+        else:
+            parser.error("current_validation requires a repository-external --root")
 
     if args.mode == "manifest-only":
         write_phase0(args.root)
         write_phase1_default(args.root)
         write_phase2(args.root)
         write_negative_fixture_matrix(args.root)
-        final = write_phase3_update_manifest(args.root)
+        final = write_phase3_update_manifest(args.root, execution_context=args.execution_context)
         print(json.dumps({"status": final["status"], "mode": args.mode}, sort_keys=True))
         return 0 if final.get("status") == "PASS" else 1
 
     final: dict[str, Any] | None = None
     if args.mode in {"generate", "all", "machine-pass"}:
-        final = generate_artifacts(args.root, run_current_route=True)
+        final = generate_artifacts(
+            args.root,
+            run_current_route=True,
+            execution_context=args.execution_context,
+        )
         print(
             json.dumps(
                 {

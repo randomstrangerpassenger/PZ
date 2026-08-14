@@ -1,0 +1,7 @@
+{
+  "schema_version": "iris-baseline-admission-full-repository-test-membership-owner-decision-v1",
+  "decision": "not_applicable_dedicated_route",
+  "approved_by_owner": true,
+  "reason": "Baseline-admission tests remain outside configured-current and preserve the existing canonical full-repository execution denominator; their dedicated route is mandatory evidence.",
+  "required_conditions": ["baseline_admission_dedicated_test_route=PASS", "full_repository_census_membership_added_without_adoption_count=0", "unclassified_source_count=0"]
+}

@@ -7,6 +7,9 @@ param(
     [Parameter(Mandatory = $true)][string]$RunAOrchestrationReceipt,
     [Parameter(Mandatory = $true)][string]$RunBOrchestrationReceipt,
     [Parameter(Mandatory = $true)][string]$AttemptRoot,
+    [Alias('ExecutionContext')]
+    [ValidateSet('standalone_full_gate', 'composite_baseline_admission_chain_stage_6')]
+    [string]$BaselineAdmissionExecutionContext = 'standalone_full_gate',
     [ValidateSet('none', 'required_environment_apply', 'environment_restore')]
     [string]$FailureInjection = 'none'
 )
@@ -187,6 +190,8 @@ function Resolve-RunChain(
     Require-Equal $receipt.launch_status 'succeeded' "$Label orchestration did not succeed"
     Require-Equal $receipt.receipt_write_status 'succeeded' "$Label orchestration receipt write status mismatch"
     Require-Equal $receipt.native_exit_code 0 "$Label native exit is not zero"
+    $receiptContext = if ([string]::IsNullOrEmpty([string]$receipt.execution_context)) { 'standalone_full_gate' } else { [string]$receipt.execution_context }
+    Require-Equal $receiptContext $BaselineAdmissionExecutionContext "$Label orchestration execution context mismatch"
     if ($receipt.environment.configured -ne $true -or $receipt.environment.restored -ne $true) { throw "$Label environment lifecycle is incomplete" }
     Require-Equal $receipt.identity.subject.commit $ExpectedSubject.commit "$Label subject commit mismatch"
     Require-Equal $receipt.identity.subject.tree $ExpectedSubject.tree "$Label subject tree mismatch"
@@ -228,6 +233,8 @@ function Resolve-RunChain(
     Require-Equal $inner.status 'PASS' "$Label inner run receipt is not PASS"
     Require-Equal $inner.subject.commit $ExpectedSubject.commit "$Label inner subject commit mismatch"
     Require-Equal $inner.subject.tree $ExpectedSubject.tree "$Label inner subject tree mismatch"
+    $innerContext = if ([string]::IsNullOrEmpty([string]$inner.execution_context)) { 'standalone_full_gate' } else { [string]$inner.execution_context }
+    Require-Equal $innerContext $BaselineAdmissionExecutionContext "$Label inner execution context mismatch"
     Require-Equal ([System.IO.Path]::GetFullPath([string]$inner.python_executable_path)) ([System.IO.Path]::GetFullPath([string]$ExpectedInterpreter.path)) "$Label inner interpreter path mismatch"
     Require-Equal ([System.IO.Path]::GetFullPath([string]$inner.environment_receipt_path)) ([System.IO.Path]::GetFullPath([string]$ExpectedEnvironment.path)) "$Label inner environment receipt path mismatch"
     Require-Equal ([System.IO.Path]::GetFullPath([string]$inner.implementation_identity.runner.actual_path)) ([System.IO.Path]::GetFullPath([string]$ExpectedRunner.actual_path)) "$Label inner runner path mismatch"
@@ -246,6 +253,7 @@ function Resolve-RunChain(
         orchestration_receipt = [ordered]@{ path = $path.Replace('\', '/'); sha256 = $receiptHash; claim_id = [string]$receipt.claim_id }
         inner_run_receipt = [ordered]@{ path = $innerPath.Replace('\', '/'); sha256 = $innerHash }
         canonical_result = [ordered]@{ path = $canonicalPath.Replace('\', '/'); sha256 = $canonicalHash }
+        execution_context = $innerContext
     }
 }
 
@@ -549,6 +557,7 @@ finally {
             }
             interpreter_sha256 = $identity.interpreter.sha256
             environment_receipt_sha256 = $identity.environment_receipt.sha256
+            execution_context = $BaselineAdmissionExecutionContext
         }
         $canonicalFingerprint = Get-BytesSha256 (ConvertTo-StableJsonBytes $fingerprintPayload)
         $receipt = [ordered]@{
@@ -564,6 +573,7 @@ finally {
             actual_argv = if ($script:NativeProcessStarted) { $actualArgv } else { $null }
             environment = [ordered]@{ configured = $environmentConfigured; before = $environmentBefore; applied = $environmentApplied; after_restore = $environmentAfterRestore; restored = $environmentRestored }
             identity = $identity
+            execution_context = $BaselineAdmissionExecutionContext
             run_chains = $runChains
             stdout = [ordered]@{ path = if ($stdoutPath) { $stdoutPath.Replace('\', '/') } else { $null }; sha256 = $stdoutHash }
             stderr = [ordered]@{ path = if ($stderrPath) { $stderrPath.Replace('\', '/') } else { $null }; sha256 = $stderrHash }

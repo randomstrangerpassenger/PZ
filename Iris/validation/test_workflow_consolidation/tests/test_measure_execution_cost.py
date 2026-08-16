@@ -382,9 +382,18 @@ def test_observer_event_stream_requires_expected_python_descendant_lifecycle(tmp
                     "pid": 42,
                     "sequence": 2,
                     "child_pid": 43,
+                    "invocation_id": "a" * 32,
                     "python_observer_expected": True,
                 },
-                {"kind": "observer_complete", "pid": 42, "sequence": 3},
+                {
+                    "kind": "subprocess_complete",
+                    "pid": 42,
+                    "sequence": 3,
+                    "child_pid": 43,
+                    "invocation_id": "a" * 32,
+                    "returncode": 0,
+                },
+                {"kind": "observer_complete", "pid": 42, "sequence": 4},
             )
         )
         + "\n",
@@ -398,7 +407,13 @@ def test_observer_event_stream_requires_expected_python_descendant_lifecycle(tmp
         "\n".join(
             json.dumps(row)
             for row in (
-                {"kind": "observer_start", "pid": 43, "parent_pid": 42, "sequence": 1},
+                {
+                    "kind": "observer_start",
+                    "pid": 43,
+                    "parent_pid": 42,
+                    "sequence": 1,
+                    "invocation_id": "a" * 32,
+                },
                 {"kind": "observer_complete", "pid": 43, "sequence": 2},
             )
         )
@@ -423,27 +438,51 @@ def test_observer_event_stream_distinguishes_reused_process_ids(tmp_path) -> Non
                     "pid": 42,
                     "sequence": 2,
                     "child_pid": 43,
+                    "invocation_id": "a" * 32,
                     "python_observer_expected": True,
+                },
+                {
+                    "kind": "subprocess_complete",
+                    "pid": 42,
+                    "sequence": 3,
+                    "child_pid": 43,
+                    "invocation_id": "a" * 32,
+                    "returncode": 0,
                 },
                 {
                     "kind": "subprocess",
                     "pid": 42,
-                    "sequence": 3,
+                    "sequence": 4,
                     "child_pid": 43,
+                    "invocation_id": "b" * 32,
                     "python_observer_expected": True,
                 },
-                {"kind": "observer_complete", "pid": 42, "sequence": 4},
+                {
+                    "kind": "subprocess_complete",
+                    "pid": 42,
+                    "sequence": 5,
+                    "child_pid": 43,
+                    "invocation_id": "b" * 32,
+                    "returncode": 0,
+                },
+                {"kind": "observer_complete", "pid": 42, "sequence": 6},
             )
         )
         + "\n",
         encoding="utf-8",
     )
-    for token in ("1", "2"):
+    for token, invocation_id in (("1", "a" * 32), ("2", "b" * 32)):
         (event_root / f"events-43-{token * 32}.jsonl").write_text(
             "\n".join(
                 json.dumps(row)
                 for row in (
-                    {"kind": "observer_start", "pid": 43, "parent_pid": 42, "sequence": 1},
+                    {
+                        "kind": "observer_start",
+                        "pid": 43,
+                        "parent_pid": 42,
+                        "sequence": 1,
+                        "invocation_id": invocation_id,
+                    },
                     {"kind": "observer_complete", "pid": 43, "sequence": 2},
                 )
             )
@@ -454,6 +493,65 @@ def test_observer_event_stream_distinguishes_reused_process_ids(tmp_path) -> Non
     _, integrity = _read_events(event_root, 42, 1)
     assert integrity["observed_process_count"] == 3
     assert integrity["expected_python_descendant_count"] == 2
+
+
+def test_observer_event_stream_requires_nonzero_confirmation_for_abrupt_exit(tmp_path) -> None:
+    event_root = tmp_path / "events"
+    event_root.mkdir()
+    root_file = event_root / f"events-42-{'0' * 32}.jsonl"
+    child_file = event_root / f"events-43-{'1' * 32}.jsonl"
+
+    def write_root(returncode: int) -> None:
+        root_file.write_text(
+            "\n".join(
+                json.dumps(row)
+                for row in (
+                    {"kind": "observer_start", "pid": 42, "parent_pid": 1, "sequence": 1},
+                    {
+                        "kind": "subprocess",
+                        "pid": 42,
+                        "sequence": 2,
+                        "child_pid": 43,
+                        "invocation_id": "a" * 32,
+                        "python_observer_expected": True,
+                    },
+                    {
+                        "kind": "subprocess_complete",
+                        "pid": 42,
+                        "sequence": 3,
+                        "child_pid": 43,
+                        "invocation_id": "a" * 32,
+                        "returncode": returncode,
+                    },
+                    {"kind": "observer_complete", "pid": 42, "sequence": 4},
+                )
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+    child_file.write_text(
+        json.dumps(
+            {
+                "kind": "observer_start",
+                "pid": 43,
+                "parent_pid": 42,
+                "sequence": 1,
+                "invocation_id": "a" * 32,
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    write_root(0)
+    with pytest.raises(ContractError, match="lacks nonzero parent confirmation"):
+        _read_events(event_root, 42, 1)
+
+    write_root(84)
+    _, integrity = _read_events(event_root, 42, 1)
+    assert integrity["complete_process_count"] == 1
+    assert integrity["parent_confirmed_abrupt_process_count"] == 1
+    assert integrity["accounted_process_count"] == 2
 
 
 def test_first_candidate_estimate_uses_declared_timeout_without_prior_receipt() -> None:

@@ -80,6 +80,7 @@ import uuid
 
 _root_value = os.environ.get("IRIS_WF_OBSERVER_EVENT_ROOT")
 _root = Path(_root_value) if _root_value else None
+_observer_invocation_id = os.environ.get("IRIS_WF_OBSERVER_INVOCATION_ID")
 _instance_id = uuid.uuid4().hex
 _event_path = _root / ("events-" + str(os.getpid()) + "-" + _instance_id + ".jsonl") if _root else None
 _emit_lock = threading.Lock()
@@ -105,7 +106,7 @@ def _emit(kind, **fields):
         with _event_path.open("a", encoding="utf-8", newline="\n") as handle:
             handle.write(json.dumps(row, sort_keys=True, separators=(",", ":")) + "\n")
 
-_emit("observer_start", parent_pid=os.getppid())
+_emit("observer_start", parent_pid=os.getppid(), invocation_id=_observer_invocation_id)
 atexit.register(lambda: _emit("observer_complete"))
 
 def _python_observer_expected(args):
@@ -124,14 +125,56 @@ def _python_observer_expected(args):
 _original_popen = subprocess.Popen
 class _ObservedPopen(_original_popen):
     def __init__(self, args, *positional, **kwargs):
-        super().__init__(args, *positional, **kwargs)
+        self._observer_completion_emitted = False
+        self._observer_invocation_id = uuid.uuid4().hex
+        self._observer_python_expected = _python_observer_expected(args)
+        positional_values = list(positional)
+        if self._observer_python_expected:
+            if len(positional_values) > 9:
+                positional_env = positional_values[9]
+                child_env = dict(os.environ if positional_env is None else positional_env)
+                child_env["IRIS_WF_OBSERVER_INVOCATION_ID"] = self._observer_invocation_id
+                positional_values[9] = child_env
+            else:
+                keyword_env = kwargs.get("env")
+                child_env = dict(os.environ if keyword_env is None else keyword_env)
+                child_env["IRIS_WF_OBSERVER_INVOCATION_ID"] = self._observer_invocation_id
+                kwargs["env"] = child_env
+        super().__init__(args, *positional_values, **kwargs)
         _emit(
             "subprocess",
             argv=_safe(args),
             cwd=_safe(kwargs.get("cwd")),
             child_pid=self.pid,
-            python_observer_expected=_python_observer_expected(args),
+            invocation_id=self._observer_invocation_id,
+            python_observer_expected=self._observer_python_expected,
         )
+
+    def _record_completion(self):
+        if self._observer_completion_emitted or getattr(self, "returncode", None) is None:
+            return
+        self._observer_completion_emitted = True
+        _emit(
+            "subprocess_complete",
+            child_pid=self.pid,
+            invocation_id=self._observer_invocation_id,
+            returncode=self.returncode,
+        )
+
+    def poll(self):
+        result = super().poll()
+        self._record_completion()
+        return result
+
+    def wait(self, *args, **kwargs):
+        result = super().wait(*args, **kwargs)
+        self._record_completion()
+        return result
+
+    def communicate(self, *args, **kwargs):
+        result = super().communicate(*args, **kwargs)
+        self._record_completion()
+        return result
 subprocess.Popen = _ObservedPopen
 
 _original_mkdtemp = tempfile.mkdtemp
@@ -458,7 +501,7 @@ def _read_events(
         ),
         "observer event root contains an unexpected entry",
     )
-    observed_lifecycles: list[tuple[int, int, str]] = []
+    observed_lifecycles: list[tuple[int, int, str, bool, str | None]] = []
     for path in paths:
         name_match = re.fullmatch(r"events-([0-9]+)-([0-9a-f]{32})\.jsonl", path.name)
         require(name_match is not None, f"observer event filename is invalid: {path.name}")
@@ -480,43 +523,85 @@ def _read_events(
             [row.get("sequence") for row in process_rows] == list(range(1, len(process_rows) + 1)),
             f"observer event sequence is incomplete: {path.name}",
         )
+        start_count = sum(row.get("kind") == "observer_start" for row in process_rows)
+        complete_count = sum(row.get("kind") == "observer_complete" for row in process_rows)
         require(
             process_rows[0].get("kind") == "observer_start"
-            and process_rows[-1].get("kind") == "observer_complete"
-            and sum(row.get("kind") == "observer_start" for row in process_rows) == 1
-            and sum(row.get("kind") == "observer_complete" for row in process_rows) == 1,
-            f"observer lifecycle is incomplete: {path.name}",
+            and start_count == 1
+            and complete_count in (0, 1)
+            and (complete_count == 0 or process_rows[-1].get("kind") == "observer_complete"),
+            f"observer lifecycle framing is invalid: {path.name}",
         )
         parent_pid = process_rows[0].get("parent_pid")
         require(isinstance(parent_pid, int), f"observer parent pid is missing: {path.name}")
-        observed_lifecycles.append((pid, parent_pid, path.name))
+        invocation_id = process_rows[0].get("invocation_id")
+        require(
+            invocation_id is None
+            or isinstance(invocation_id, str)
+            and re.fullmatch(r"[0-9a-f]{32}", invocation_id),
+            f"observer invocation binding is invalid: {path.name}",
+        )
+        observed_lifecycles.append(
+            (pid, parent_pid, path.name, complete_count == 1, invocation_id)
+        )
         rows.extend(process_rows)
     root_lifecycles = [
         lifecycle
         for lifecycle in observed_lifecycles
-        if lifecycle[0] == expected_root_pid and lifecycle[1] == expected_root_parent_pid
+        if lifecycle[0] == expected_root_pid
+        and lifecycle[1] == expected_root_parent_pid
+        and lifecycle[4] is None
     ]
     require(len(root_lifecycles) == 1, "root Python observer lifecycle is missing or ambiguous")
+    require(root_lifecycles[0][3], "root Python observer lifecycle is incomplete")
+    root_lifecycle = root_lifecycles[0]
+    unbound_descendants = [
+        instance
+        for pid, parent_pid, instance, complete, invocation_id in observed_lifecycles
+        if (pid, parent_pid, instance, complete, invocation_id) != root_lifecycle
+        and invocation_id is None
+    ]
+    require(
+        not unbound_descendants,
+        f"Python descendant observer invocation binding is missing: {unbound_descendants}",
+    )
     subprocess_rows = [row for row in rows if row.get("kind") == "subprocess"]
     require(
         all(
             isinstance(row.get("child_pid"), int)
             and row["child_pid"] > 0
+            and isinstance(row.get("invocation_id"), str)
+            and re.fullmatch(r"[0-9a-f]{32}", row["invocation_id"])
             and isinstance(row.get("python_observer_expected"), bool)
             for row in subprocess_rows
         ),
         "subprocess observer expectation binding is incomplete",
     )
+    subprocess_completion_rows = [
+        row for row in rows if row.get("kind") == "subprocess_complete"
+    ]
+    require(
+        all(
+            isinstance(row.get("pid"), int)
+            and isinstance(row.get("child_pid"), int)
+            and row["child_pid"] > 0
+            and isinstance(row.get("invocation_id"), str)
+            and re.fullmatch(r"[0-9a-f]{32}", row["invocation_id"])
+            and isinstance(row.get("returncode"), int)
+            for row in subprocess_completion_rows
+        ),
+        "subprocess completion binding is incomplete",
+    )
     expected_python_lifecycles = Counter(
-        (int(row["child_pid"]), int(row["pid"]))
+        (int(row["child_pid"]), int(row["pid"]), str(row["invocation_id"]))
         for row in subprocess_rows
         if row["python_observer_expected"] is True
     )
-    root_lifecycle = root_lifecycles[0]
     observed_python_lifecycles = Counter(
-        (pid, parent_pid)
-        for pid, parent_pid, instance in observed_lifecycles
-        if (pid, parent_pid, instance) != root_lifecycle
+        (pid, parent_pid, str(invocation_id))
+        for pid, parent_pid, instance, complete, invocation_id in observed_lifecycles
+        if (pid, parent_pid, instance, complete, invocation_id) != root_lifecycle
+        and invocation_id is not None
     )
     missing_python_lifecycles = expected_python_lifecycles - observed_python_lifecycles
     unexpected_python_lifecycles = observed_python_lifecycles - expected_python_lifecycles
@@ -528,11 +613,54 @@ def _read_events(
         not unexpected_python_lifecycles,
         f"unexpected Python descendant observer lifecycle: {dict(unexpected_python_lifecycles)}",
     )
+    parent_confirmed_lifecycles = Counter(
+        (int(row["child_pid"]), int(row["pid"]), str(row["invocation_id"]))
+        for row in subprocess_completion_rows
+    )
+    python_parent_confirmations = Counter(
+        {
+            lifecycle: count
+            for lifecycle, count in parent_confirmed_lifecycles.items()
+            if lifecycle in expected_python_lifecycles
+        }
+    )
+    missing_parent_confirmations = expected_python_lifecycles - python_parent_confirmations
+    duplicate_parent_confirmations = python_parent_confirmations - expected_python_lifecycles
+    require(
+        not missing_parent_confirmations,
+        f"expected Python descendant completion is unconfirmed: {dict(missing_parent_confirmations)}",
+    )
+    require(
+        not duplicate_parent_confirmations,
+        f"Python descendant completion is duplicated: {dict(duplicate_parent_confirmations)}",
+    )
+    abrupt_python_lifecycles = Counter(
+        (pid, parent_pid, str(invocation_id))
+        for pid, parent_pid, instance, complete, invocation_id in observed_lifecycles
+        if (pid, parent_pid, instance, complete, invocation_id) != root_lifecycle
+        and invocation_id is not None
+        and not complete
+    )
+    nonzero_parent_confirmations = Counter(
+        (int(row["child_pid"]), int(row["pid"]), str(row["invocation_id"]))
+        for row in subprocess_completion_rows
+        if int(row["returncode"]) != 0
+    )
+    unconfirmed_abrupt_lifecycles = abrupt_python_lifecycles - nonzero_parent_confirmations
+    require(
+        not unconfirmed_abrupt_lifecycles,
+        f"abrupt Python descendant lifecycle lacks nonzero parent confirmation: {dict(unconfirmed_abrupt_lifecycles)}",
+    )
+    complete_process_count = sum(
+        complete for _, _, _, complete, _ in observed_lifecycles
+    )
     return rows, {
         "status": "PASS",
         "root_process_pid": expected_root_pid,
         "observed_process_count": len(observed_lifecycles),
-        "complete_process_count": len(observed_lifecycles),
+        "complete_process_count": complete_process_count,
+        "parent_confirmed_abrupt_process_count": sum(abrupt_python_lifecycles.values()),
+        "accounted_process_count": complete_process_count + sum(abrupt_python_lifecycles.values()),
         "expected_python_descendant_count": sum(expected_python_lifecycles.values()),
         "missing_python_descendant_count": 0,
         "sequence_gap_count": 0,
@@ -708,6 +836,8 @@ def observe_command(
                 "root_process_pid": process.pid,
                 "observed_process_count": 0,
                 "complete_process_count": 0,
+                "parent_confirmed_abrupt_process_count": 0,
+                "accounted_process_count": 0,
                 "expected_python_descendant_count": 0,
                 "missing_python_descendant_count": 0,
                 "sequence_gap_count": 0,

@@ -12,6 +12,7 @@ import subprocess
 import sys
 import tempfile
 import time
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -75,9 +76,12 @@ import subprocess
 import sys
 import tempfile
 import threading
+import uuid
 
 _root_value = os.environ.get("IRIS_WF_OBSERVER_EVENT_ROOT")
 _root = Path(_root_value) if _root_value else None
+_instance_id = uuid.uuid4().hex
+_event_path = _root / ("events-" + str(os.getpid()) + "-" + _instance_id + ".jsonl") if _root else None
 _emit_lock = threading.Lock()
 _sequence = 0
 
@@ -92,14 +96,13 @@ def _safe(value):
 
 def _emit(kind, **fields):
     global _sequence
-    if _root is None:
+    if _event_path is None:
         return
     with _emit_lock:
         _sequence += 1
         _root.mkdir(parents=True, exist_ok=True)
-        target = _root / ("events-" + str(os.getpid()) + ".jsonl")
         row = {"kind": kind, "pid": os.getpid(), "sequence": _sequence, **fields}
-        with target.open("a", encoding="utf-8", newline="\n") as handle:
+        with _event_path.open("a", encoding="utf-8", newline="\n") as handle:
             handle.write(json.dumps(row, sort_keys=True, separators=(",", ":")) + "\n")
 
 _emit("observer_start", parent_pid=os.getppid())
@@ -438,19 +441,28 @@ def _kill_process_tree(
     return True
 
 
-def _read_events(event_root: Path, expected_root_pid: int) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+def _read_events(
+    event_root: Path,
+    expected_root_pid: int,
+    expected_root_parent_pid: int,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     require(event_root.is_dir(), "observer event root is missing")
     paths = sorted(event_root.iterdir())
     require(paths, "observer event stream is missing")
     require(
-        all(path.is_file() and re.fullmatch(r"events-[0-9]+\.jsonl", path.name) for path in paths),
+        all(
+            path.is_file()
+            and re.fullmatch(r"events-[0-9]+-[0-9a-f]{32}\.jsonl", path.name)
+            for path in paths
+        ),
         "observer event root contains an unexpected entry",
     )
-    observed_pids: list[int] = []
-    observer_parents: dict[int, int] = {}
+    observed_lifecycles: list[tuple[int, int, str]] = []
     for path in paths:
-        pid = int(path.stem.removeprefix("events-"))
+        name_match = re.fullmatch(r"events-([0-9]+)-([0-9a-f]{32})\.jsonl", path.name)
+        require(name_match is not None, f"observer event filename is invalid: {path.name}")
+        pid = int(name_match.group(1))
         try:
             process_rows = [
                 json.loads(line)
@@ -475,12 +487,16 @@ def _read_events(event_root: Path, expected_root_pid: int) -> tuple[list[dict[st
             and sum(row.get("kind") == "observer_complete" for row in process_rows) == 1,
             f"observer lifecycle is incomplete: {path.name}",
         )
-        observed_pids.append(pid)
         parent_pid = process_rows[0].get("parent_pid")
         require(isinstance(parent_pid, int), f"observer parent pid is missing: {path.name}")
-        observer_parents[pid] = parent_pid
+        observed_lifecycles.append((pid, parent_pid, path.name))
         rows.extend(process_rows)
-    require(expected_root_pid in observed_pids, "root Python observer lifecycle is missing")
+    root_lifecycles = [
+        lifecycle
+        for lifecycle in observed_lifecycles
+        if lifecycle[0] == expected_root_pid and lifecycle[1] == expected_root_parent_pid
+    ]
+    require(len(root_lifecycles) == 1, "root Python observer lifecycle is missing or ambiguous")
     subprocess_rows = [row for row in rows if row.get("kind") == "subprocess"]
     require(
         all(
@@ -491,26 +507,33 @@ def _read_events(event_root: Path, expected_root_pid: int) -> tuple[list[dict[st
         ),
         "subprocess observer expectation binding is incomplete",
     )
-    expected_python_children = {
-        int(row["child_pid"]): int(row["pid"])
+    expected_python_lifecycles = Counter(
+        (int(row["child_pid"]), int(row["pid"]))
         for row in subprocess_rows
         if row["python_observer_expected"] is True
-    }
-    missing_python_children = sorted(set(expected_python_children) - set(observed_pids))
+    )
+    root_lifecycle = root_lifecycles[0]
+    observed_python_lifecycles = Counter(
+        (pid, parent_pid)
+        for pid, parent_pid, instance in observed_lifecycles
+        if (pid, parent_pid, instance) != root_lifecycle
+    )
+    missing_python_lifecycles = expected_python_lifecycles - observed_python_lifecycles
+    unexpected_python_lifecycles = observed_python_lifecycles - expected_python_lifecycles
     require(
-        not missing_python_children,
-        f"expected Python descendant observer lifecycle is missing: {missing_python_children}",
+        not missing_python_lifecycles,
+        f"expected Python descendant observer lifecycle is missing: {dict(missing_python_lifecycles)}",
     )
     require(
-        all(observer_parents[pid] == parent for pid, parent in expected_python_children.items()),
-        "Python descendant observer parent binding mismatch",
+        not unexpected_python_lifecycles,
+        f"unexpected Python descendant observer lifecycle: {dict(unexpected_python_lifecycles)}",
     )
     return rows, {
         "status": "PASS",
         "root_process_pid": expected_root_pid,
-        "observed_process_count": len(observed_pids),
-        "complete_process_count": len(observed_pids),
-        "expected_python_descendant_count": len(expected_python_children),
+        "observed_process_count": len(observed_lifecycles),
+        "complete_process_count": len(observed_lifecycles),
+        "expected_python_descendant_count": sum(expected_python_lifecycles.values()),
         "missing_python_descendant_count": 0,
         "sequence_gap_count": 0,
     }
@@ -677,7 +700,7 @@ def observe_command(
             "target checkout gained ignored worktree state during observation",
         )
         if instrumented:
-            events, observer_integrity = _read_events(event_root, process.pid)
+            events, observer_integrity = _read_events(event_root, process.pid, os.getpid())
         else:
             events = []
             observer_integrity = {

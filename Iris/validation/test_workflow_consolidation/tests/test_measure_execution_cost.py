@@ -344,7 +344,7 @@ def test_instrumented_observation_counts_copy2(tmp_path) -> None:
 def test_observer_event_stream_requires_complete_contiguous_lifecycle(tmp_path) -> None:
     event_root = tmp_path / "events"
     event_root.mkdir()
-    event_file = event_root / "events-42.jsonl"
+    event_file = event_root / f"events-42-{'0' * 32}.jsonl"
     event_file.write_text(
         "\n".join(
             json.dumps(row)
@@ -359,20 +359,20 @@ def test_observer_event_stream_requires_complete_contiguous_lifecycle(tmp_path) 
     )
 
     with pytest.raises(ContractError, match="sequence is incomplete"):
-        _read_events(event_root, 42)
+        _read_events(event_root, 42, 1)
 
     event_file.write_text(
         json.dumps({"kind": "observer_start", "pid": 42, "parent_pid": 1, "sequence": 1}) + "\n",
         encoding="utf-8",
     )
     with pytest.raises(ContractError, match="lifecycle is incomplete"):
-        _read_events(event_root, 42)
+        _read_events(event_root, 42, 1)
 
 
 def test_observer_event_stream_requires_expected_python_descendant_lifecycle(tmp_path) -> None:
     event_root = tmp_path / "events"
     event_root.mkdir()
-    (event_root / "events-42.jsonl").write_text(
+    (event_root / f"events-42-{'0' * 32}.jsonl").write_text(
         "\n".join(
             json.dumps(row)
             for row in (
@@ -392,9 +392,9 @@ def test_observer_event_stream_requires_expected_python_descendant_lifecycle(tmp
     )
 
     with pytest.raises(ContractError, match="expected Python descendant"):
-        _read_events(event_root, 42)
+        _read_events(event_root, 42, 1)
 
-    (event_root / "events-43.jsonl").write_text(
+    (event_root / f"events-43-{'1' * 32}.jsonl").write_text(
         "\n".join(
             json.dumps(row)
             for row in (
@@ -405,9 +405,55 @@ def test_observer_event_stream_requires_expected_python_descendant_lifecycle(tmp
         + "\n",
         encoding="utf-8",
     )
-    _, integrity = _read_events(event_root, 42)
+    _, integrity = _read_events(event_root, 42, 1)
     assert integrity["expected_python_descendant_count"] == 1
     assert integrity["missing_python_descendant_count"] == 0
+
+
+def test_observer_event_stream_distinguishes_reused_process_ids(tmp_path) -> None:
+    event_root = tmp_path / "events"
+    event_root.mkdir()
+    (event_root / f"events-42-{'0' * 32}.jsonl").write_text(
+        "\n".join(
+            json.dumps(row)
+            for row in (
+                {"kind": "observer_start", "pid": 42, "parent_pid": 1, "sequence": 1},
+                {
+                    "kind": "subprocess",
+                    "pid": 42,
+                    "sequence": 2,
+                    "child_pid": 43,
+                    "python_observer_expected": True,
+                },
+                {
+                    "kind": "subprocess",
+                    "pid": 42,
+                    "sequence": 3,
+                    "child_pid": 43,
+                    "python_observer_expected": True,
+                },
+                {"kind": "observer_complete", "pid": 42, "sequence": 4},
+            )
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    for token in ("1", "2"):
+        (event_root / f"events-43-{token * 32}.jsonl").write_text(
+            "\n".join(
+                json.dumps(row)
+                for row in (
+                    {"kind": "observer_start", "pid": 43, "parent_pid": 42, "sequence": 1},
+                    {"kind": "observer_complete", "pid": 43, "sequence": 2},
+                )
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+    _, integrity = _read_events(event_root, 42, 1)
+    assert integrity["observed_process_count"] == 3
+    assert integrity["expected_python_descendant_count"] == 2
 
 
 def test_first_candidate_estimate_uses_declared_timeout_without_prior_receipt() -> None:

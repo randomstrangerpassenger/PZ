@@ -91,6 +91,7 @@ def _schedule_contract() -> dict[str, object]:
     configured = {
         "workload_id": "configured-current",
         "role": "configured_route_performance_observation",
+        "measurement_backend": "environment_transparent_timing_only",
         "command": ["python", "-c", "pass"],
     }
     return {

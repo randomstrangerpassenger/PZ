@@ -1,0 +1,22 @@
+{
+  "base_subject": {
+    "commit": "57482f64efa6febc8e23b8790332dc9639479e1c",
+    "tree": "53b147939f6dfb52a9b8c256507312c6b55d2a4c"
+  },
+  "baseline_admission": {
+    "qualification_sha256": "5c6c5246ccc1bdbcd01d861b0d50e8d62a1fdffad0cccd9f391725fc1a040541",
+    "receipt_sha256": "a752ec91dc969f5b288f89bd9b7031e2ea90fdf7606f16745c2bd82b6fc4439e",
+    "status": "admitted"
+  },
+  "clean_checkout_required": true,
+  "owner_selection": {
+    "approved": true,
+    "basis": "2026-08-13 execution request pre-authorized owner approval gates",
+    "dirty_authoring_overlay_adopted": false
+  },
+  "historical_pre_restoration_subject": {
+    "commit": "671c7b928ad5a1dbf26ea76949462fa8a7287903",
+    "tree": "20bbbdb919fa97a44e03c1f1cb9ea0a6973fb1db"
+  },
+  "schema_version": "iris_test_workflow_baseline_subject_v1"
+}

@@ -1,7 +1,49 @@
 {
   "schema_version": "iris-workflow-consolidation-reapplication-handoff-v1",
-  "status": "blocked_missing_predecessor_implementation_identity",
-  "implementation_identity_state": "missing",
+  "status": "ready",
+  "implementation_identity_state": "supplied",
+  "predecessor_implementation": {
+    "base_subject": {
+      "commit": "671c7b928ad5a1dbf26ea76949462fa8a7287903",
+      "tree": "20bbbdb919fa97a44e03c1f1cb9ea0a6973fb1db"
+    },
+    "implementation_subject": {
+      "commit": "b11fe5c69e2bd05092307870db88cd5287c6c3a4",
+      "tree": "0d51a0f076c56f0183c9778460a26ab5196f2c9f"
+    },
+    "exact_delta_identity": {
+      "from_commit": "671c7b928ad5a1dbf26ea76949462fa8a7287903",
+      "to_commit": "b11fe5c69e2bd05092307870db88cd5287c6c3a4",
+      "changed_path_count": 44
+    },
+    "implementation_to_contract_mapping": {
+      "commit": "b11fe5c69e2bd05092307870db88cd5287c6c3a4",
+      "path": "Iris/_docs/refactor/test_workflow_consolidation/contract_preservation_matrix.jsonl",
+      "git_blob_id": "9b1cc417780784739df0246d8a0e035929b4157d"
+    },
+    "checkpoint_mapping": {
+      "commit": "b11fe5c69e2bd05092307870db88cd5287c6c3a4",
+      "path": "Iris/_docs/refactor/test_workflow_consolidation/pilot_contract_mapping.json",
+      "git_blob_id": "8ec5a9cbb5c17b2610a57747a8d70933a1ec0299"
+    },
+    "prior_application_delta_manifest": {
+      "commit": "b11fe5c69e2bd05092307870db88cd5287c6c3a4",
+      "path": "Iris/_docs/refactor/test_workflow_consolidation/declared_round_touch_surface.json",
+      "git_blob_id": "49879824c0c93cd686a34b174f56a43ee68b7166"
+    }
+  },
+  "application_entry_execution": {
+    "status": "admitted",
+    "subject": {
+      "commit": "57482f64efa6febc8e23b8790332dc9639479e1c",
+      "tree": "53b147939f6dfb52a9b8c256507312c6b55d2a4c"
+    },
+    "receipt_schema_version": "iris-baseline-admission-receipt-v1",
+    "receipt_sha256": "a752ec91dc969f5b288f89bd9b7031e2ea90fdf7606f16745c2bd82b6fc4439e",
+    "qualification_sha256": "5c6c5246ccc1bdbcd01d861b0d50e8d62a1fdffad0cccd9f391725fc1a040541",
+    "durable_evidence_file_count": 103,
+    "mutation_before_admission": false
+  },
   "prior_machine_pass_inherited": false,
   "old_measurement_reused": false,
   "old_terminal_receipt_reused": false,
@@ -32,5 +74,13 @@
     "receipt_reuse_for_different_subject_allowed": false
   },
   "real_application_entry_binding": "pending_absent_application_entrypoint",
-  "ready_semantics": "not_claimed_until_exact_predecessor_implementation_identity_is_supplied"
+  "ready_semantics": "exact_predecessor_implementation_identity_supplied_and_admission_contract_satisfied",
+  "reapplication_state": "tooling_reapplied_application_mutation_blocked_pending_tooling_review_and_protocol_qualification",
+  "fresh_successor_requirements": {
+    "prior_measurement_or_terminal_receipt_inheritance_allowed": false,
+    "measurement_tooling_review": "pending",
+    "baseline_protocol_qualification": "pending",
+    "accepted_paired_measurement_session": "pending",
+    "workflow_consolidation_terminal": "not_run"
+  }
 }

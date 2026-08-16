@@ -554,6 +554,39 @@ def test_observer_event_stream_requires_nonzero_confirmation_for_abrupt_exit(tmp
     assert integrity["accounted_process_count"] == 2
 
 
+def test_observer_event_stream_accounts_complete_indirect_python_descendant(tmp_path) -> None:
+    event_root = tmp_path / "events"
+    event_root.mkdir()
+    (event_root / f"events-42-{'0' * 32}.jsonl").write_text(
+        "\n".join(
+            json.dumps(row)
+            for row in (
+                {"kind": "observer_start", "pid": 42, "parent_pid": 1, "sequence": 1},
+                {"kind": "observer_complete", "pid": 42, "sequence": 2},
+            )
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    indirect_file = event_root / f"events-43-{'1' * 32}.jsonl"
+    indirect_file.write_text(
+        json.dumps(
+            {"kind": "observer_start", "pid": 43, "parent_pid": 99, "sequence": 1}
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ContractError, match="indirect Python descendant.*incomplete"):
+        _read_events(event_root, 42, 1)
+
+    with indirect_file.open("a", encoding="utf-8", newline="\n") as handle:
+        handle.write(json.dumps({"kind": "observer_complete", "pid": 43, "sequence": 2}) + "\n")
+    _, integrity = _read_events(event_root, 42, 1)
+    assert integrity["indirect_python_descendant_count"] == 1
+    assert integrity["accounted_process_count"] == 2
+
+
 def test_first_candidate_estimate_uses_declared_timeout_without_prior_receipt() -> None:
     family = {
         "family_id": "family-z",

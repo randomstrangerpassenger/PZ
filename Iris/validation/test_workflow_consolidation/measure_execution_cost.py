@@ -555,15 +555,20 @@ def _read_events(
     require(len(root_lifecycles) == 1, "root Python observer lifecycle is missing or ambiguous")
     require(root_lifecycles[0][3], "root Python observer lifecycle is incomplete")
     root_lifecycle = root_lifecycles[0]
-    unbound_descendants = [
-        instance
+    indirect_python_lifecycles = [
+        (pid, parent_pid, instance, complete, invocation_id)
         for pid, parent_pid, instance, complete, invocation_id in observed_lifecycles
         if (pid, parent_pid, instance, complete, invocation_id) != root_lifecycle
         and invocation_id is None
     ]
+    incomplete_indirect_lifecycles = [
+        instance
+        for _, _, instance, complete, _ in indirect_python_lifecycles
+        if not complete
+    ]
     require(
-        not unbound_descendants,
-        f"Python descendant observer invocation binding is missing: {unbound_descendants}",
+        not incomplete_indirect_lifecycles,
+        f"indirect Python descendant observer lifecycle is incomplete: {incomplete_indirect_lifecycles}",
     )
     subprocess_rows = [row for row in rows if row.get("kind") == "subprocess"]
     require(
@@ -662,6 +667,7 @@ def _read_events(
         "parent_confirmed_abrupt_process_count": sum(abrupt_python_lifecycles.values()),
         "accounted_process_count": complete_process_count + sum(abrupt_python_lifecycles.values()),
         "expected_python_descendant_count": sum(expected_python_lifecycles.values()),
+        "indirect_python_descendant_count": len(indirect_python_lifecycles),
         "missing_python_descendant_count": 0,
         "sequence_gap_count": 0,
     }
@@ -839,6 +845,7 @@ def observe_command(
                 "parent_confirmed_abrupt_process_count": 0,
                 "accounted_process_count": 0,
                 "expected_python_descendant_count": 0,
+                "indirect_python_descendant_count": 0,
                 "missing_python_descendant_count": 0,
                 "sequence_gap_count": 0,
             }

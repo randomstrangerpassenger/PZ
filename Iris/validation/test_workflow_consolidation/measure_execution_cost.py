@@ -516,14 +516,6 @@ def _read_events(event_root: Path, expected_root_pid: int) -> tuple[list[dict[st
     }
 
 
-def _tree_file_metrics(root: Path) -> dict[str, int]:
-    files = [path for path in root.rglob("*") if path.is_file()]
-    return {
-        "copied_files": len(files),
-        "copied_bytes": sum(path.stat().st_size for path in files),
-    }
-
-
 def _argv_text(event: dict[str, Any]) -> str:
     argv = event.get("argv", [])
     if isinstance(argv, list):
@@ -605,7 +597,6 @@ def observe_command(
         env["IRIS_WF_OBSERVER_EVENT_ROOT"] = str(event_root)
         existing = env.get("PYTHONPATH")
         env["PYTHONPATH"] = str(observer_root) + (os.pathsep + existing if existing else "")
-    setup_copy_metrics = {"copied_files": 0, "copied_bytes": 0}
     setup_materialization_count = 0
     started = time.perf_counter_ns()
     if execution_parent:
@@ -626,12 +617,6 @@ def observe_command(
         execution_root = sample_root
     test_output_root = execution_root / "t"
     legacy_output_root = execution_root / "l"
-    source_output_root = repository / "Iris" / "output"
-    if source_output_root.is_dir():
-        legacy_output_root.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copytree(source_output_root, legacy_output_root)
-        setup_copy_metrics = _tree_file_metrics(legacy_output_root)
-        setup_materialization_count += 1
     env["IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT"] = str(test_output_root)
     env["IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"] = str(legacy_output_root)
     env["UV_CACHE_DIR"] = str(execution_root / "u")
@@ -736,8 +721,8 @@ def observe_command(
             "eligible_subprocesses": eligible_count,
             "temporary_materializations": setup_materialization_count
             + sum(row.get("kind") == "materialization" for row in events),
-            "copied_files": setup_copy_metrics["copied_files"] + len(copied_observed),
-            "copied_bytes": setup_copy_metrics["copied_bytes"] + sum(copied_observed),
+            "copied_files": len(copied_observed),
+            "copied_bytes": sum(copied_observed),
         },
         "observation_coverage": {
             "subprocess": "python_process_tree" if instrumented else "unobserved",

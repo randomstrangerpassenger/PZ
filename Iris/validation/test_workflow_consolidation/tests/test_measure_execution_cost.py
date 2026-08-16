@@ -214,8 +214,10 @@ def test_observation_isolates_repository_output_and_uv_cache(tmp_path, monkeypat
             "{python}",
             "-c",
             (
-                "import os; from pathlib import Path; "
+                "import os, shutil; from pathlib import Path; "
                 "root=Path(os.environ['IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT']); "
+                "assert not root.exists(); "
+                "shutil.copytree('Iris/output', root); "
                 "assert (root/'seed.txt').read_text() == 'seed'; "
                 "(root/'result.txt').write_text('result'); "
                 "Path(os.environ['UV_CACHE_DIR']).mkdir()"
@@ -235,12 +237,12 @@ def test_observation_isolates_repository_output_and_uv_cache(tmp_path, monkeypat
     execution_parent = tmp_path / "short"
     monkeypatch.setenv("IRIS_WORKFLOW_EXECUTION_OUTPUT_PARENT", str(execution_parent))
     result_root = tmp_path / "result"
-    observation = observe_command(repository, workload, result_root, instrumented=False)
+    observation = observe_command(repository, workload, result_root, instrumented=True)
 
     assert observation["contract_valid"] is True
     assert observation["operation_counts"]["copied_files"] == 1
     assert observation["operation_counts"]["copied_bytes"] == len("seed")
-    assert observation["operation_counts"]["temporary_materializations"] == 2
+    assert observation["operation_counts"]["temporary_materializations"] == 1
     assert observation["measurement_boundary"] == {
         "starts_before_execution_root_and_legacy_output_materialization": True,
         "ends_after_child_process_completion": True,

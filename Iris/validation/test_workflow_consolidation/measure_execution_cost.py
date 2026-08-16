@@ -69,8 +69,10 @@ import atexit
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
+import sys
 import tempfile
 import threading
 
@@ -100,14 +102,33 @@ def _emit(kind, **fields):
         with target.open("a", encoding="utf-8", newline="\n") as handle:
             handle.write(json.dumps(row, sort_keys=True, separators=(",", ":")) + "\n")
 
-_emit("observer_start")
+_emit("observer_start", parent_pid=os.getppid())
 atexit.register(lambda: _emit("observer_complete"))
+
+def _python_observer_expected(args):
+    if isinstance(args, (list, tuple)) and args:
+        executable = os.fspath(args[0])
+    elif isinstance(args, str) and args.strip():
+        executable = args.strip().split(maxsplit=1)[0].strip('"')
+    else:
+        return False
+    normalized = os.path.normcase(os.path.abspath(executable))
+    if normalized == os.path.normcase(os.path.abspath(sys.executable)):
+        return True
+    name = os.path.basename(executable).lower()
+    return re.fullmatch(r"python(?:w)?(?:[0-9]+(?:\.[0-9]+)*)?(?:\.exe)?", name) is not None
 
 _original_popen = subprocess.Popen
 class _ObservedPopen(_original_popen):
     def __init__(self, args, *positional, **kwargs):
-        _emit("subprocess", argv=_safe(args), cwd=_safe(kwargs.get("cwd")))
         super().__init__(args, *positional, **kwargs)
+        _emit(
+            "subprocess",
+            argv=_safe(args),
+            cwd=_safe(kwargs.get("cwd")),
+            child_pid=self.pid,
+            python_observer_expected=_python_observer_expected(args),
+        )
 subprocess.Popen = _ObservedPopen
 
 _original_mkdtemp = tempfile.mkdtemp
@@ -427,6 +448,7 @@ def _read_events(event_root: Path, expected_root_pid: int) -> tuple[list[dict[st
         "observer event root contains an unexpected entry",
     )
     observed_pids: list[int] = []
+    observer_parents: dict[int, int] = {}
     for path in paths:
         pid = int(path.stem.removeprefix("events-"))
         try:
@@ -454,13 +476,42 @@ def _read_events(event_root: Path, expected_root_pid: int) -> tuple[list[dict[st
             f"observer lifecycle is incomplete: {path.name}",
         )
         observed_pids.append(pid)
+        parent_pid = process_rows[0].get("parent_pid")
+        require(isinstance(parent_pid, int), f"observer parent pid is missing: {path.name}")
+        observer_parents[pid] = parent_pid
         rows.extend(process_rows)
     require(expected_root_pid in observed_pids, "root Python observer lifecycle is missing")
+    subprocess_rows = [row for row in rows if row.get("kind") == "subprocess"]
+    require(
+        all(
+            isinstance(row.get("child_pid"), int)
+            and row["child_pid"] > 0
+            and isinstance(row.get("python_observer_expected"), bool)
+            for row in subprocess_rows
+        ),
+        "subprocess observer expectation binding is incomplete",
+    )
+    expected_python_children = {
+        int(row["child_pid"]): int(row["pid"])
+        for row in subprocess_rows
+        if row["python_observer_expected"] is True
+    }
+    missing_python_children = sorted(set(expected_python_children) - set(observed_pids))
+    require(
+        not missing_python_children,
+        f"expected Python descendant observer lifecycle is missing: {missing_python_children}",
+    )
+    require(
+        all(observer_parents[pid] == parent for pid, parent in expected_python_children.items()),
+        "Python descendant observer parent binding mismatch",
+    )
     return rows, {
         "status": "PASS",
         "root_process_pid": expected_root_pid,
         "observed_process_count": len(observed_pids),
         "complete_process_count": len(observed_pids),
+        "expected_python_descendant_count": len(expected_python_children),
+        "missing_python_descendant_count": 0,
         "sequence_gap_count": 0,
     }
 
@@ -649,6 +700,8 @@ def observe_command(
                 "root_process_pid": process.pid,
                 "observed_process_count": 0,
                 "complete_process_count": 0,
+                "expected_python_descendant_count": 0,
+                "missing_python_descendant_count": 0,
                 "sequence_gap_count": 0,
             }
         subprocess_events = [row for row in events if row.get("kind") == "subprocess"]

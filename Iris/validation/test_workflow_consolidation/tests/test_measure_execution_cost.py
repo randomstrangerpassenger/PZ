@@ -347,7 +347,7 @@ def test_observer_event_stream_requires_complete_contiguous_lifecycle(tmp_path) 
         "\n".join(
             json.dumps(row)
             for row in (
-                {"kind": "observer_start", "pid": 42, "sequence": 1},
+                {"kind": "observer_start", "pid": 42, "parent_pid": 1, "sequence": 1},
                 {"kind": "copy", "pid": 42, "sequence": 3, "copied_bytes": 1},
                 {"kind": "observer_complete", "pid": 42, "sequence": 4},
             )
@@ -360,11 +360,52 @@ def test_observer_event_stream_requires_complete_contiguous_lifecycle(tmp_path) 
         _read_events(event_root, 42)
 
     event_file.write_text(
-        json.dumps({"kind": "observer_start", "pid": 42, "sequence": 1}) + "\n",
+        json.dumps({"kind": "observer_start", "pid": 42, "parent_pid": 1, "sequence": 1}) + "\n",
         encoding="utf-8",
     )
     with pytest.raises(ContractError, match="lifecycle is incomplete"):
         _read_events(event_root, 42)
+
+
+def test_observer_event_stream_requires_expected_python_descendant_lifecycle(tmp_path) -> None:
+    event_root = tmp_path / "events"
+    event_root.mkdir()
+    (event_root / "events-42.jsonl").write_text(
+        "\n".join(
+            json.dumps(row)
+            for row in (
+                {"kind": "observer_start", "pid": 42, "parent_pid": 1, "sequence": 1},
+                {
+                    "kind": "subprocess",
+                    "pid": 42,
+                    "sequence": 2,
+                    "child_pid": 43,
+                    "python_observer_expected": True,
+                },
+                {"kind": "observer_complete", "pid": 42, "sequence": 3},
+            )
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ContractError, match="expected Python descendant"):
+        _read_events(event_root, 42)
+
+    (event_root / "events-43.jsonl").write_text(
+        "\n".join(
+            json.dumps(row)
+            for row in (
+                {"kind": "observer_start", "pid": 43, "parent_pid": 42, "sequence": 1},
+                {"kind": "observer_complete", "pid": 43, "sequence": 2},
+            )
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    _, integrity = _read_events(event_root, 42)
+    assert integrity["expected_python_descendant_count"] == 1
+    assert integrity["missing_python_descendant_count"] == 0
 
 
 def test_first_candidate_estimate_uses_declared_timeout_without_prior_receipt() -> None:

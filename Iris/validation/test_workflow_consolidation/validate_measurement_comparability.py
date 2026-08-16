@@ -20,7 +20,11 @@ try:
         subject_identity,
         write_json,
     )
-    from .measure_execution_cost import build_schedule
+    from .measure_execution_cost import (
+        build_qualification_schedule,
+        build_schedule,
+        canonical_input_hashes,
+    )
 except ImportError:  # Direct script execution.
     from _common import (
         committed_blob_identity,
@@ -34,10 +38,24 @@ except ImportError:  # Direct script execution.
         subject_identity,
         write_json,
     )
-    from measure_execution_cost import build_schedule
+    from measure_execution_cost import (
+        build_qualification_schedule,
+        build_schedule,
+        canonical_input_hashes,
+    )
 
 
 SCHEMA = "iris_test_workflow_measurement_comparability_v1"
+COMMAND_SIGNATURE_FIELDS = {
+    "executable",
+    "ordered_argv",
+    "cwd_role",
+    "environment_contract",
+    "path_normalization",
+    "declared_input_identity",
+    "canonical_input_hashes",
+    "expected_output_contract",
+}
 
 
 def present_equal(left: object, right: object) -> bool:
@@ -164,12 +182,168 @@ def classify_changed_rows(
     return classified
 
 
-def command_contract_equal(session: dict[str, Any]) -> bool:
+def _signature_matches_workload(
+    signature: object,
+    workload: dict[str, Any],
+    interpreter: dict[str, Any],
+    live_input_hashes: dict[str, str],
+) -> bool:
+    return (
+        isinstance(signature, dict)
+        and set(signature) == COMMAND_SIGNATURE_FIELDS
+        and signature.get("executable") == interpreter.get("executable")
+        and signature.get("ordered_argv") == workload.get("command", [])[1:]
+        and signature.get("cwd_role") == "target_repository_root"
+        and signature.get("environment_contract")
+        == workload.get("environment_contract")
+        and signature.get("path_normalization")
+        == "repository_and_result_roots_are_role_descriptors"
+        and signature.get("declared_input_identity") == workload.get("input_identity")
+        and signature.get("canonical_input_hashes") == live_input_hashes
+        and signature.get("expected_output_contract")
+        == workload.get("expected_output_contract")
+    )
+
+
+def _command_contracts_by_workload(
+    receipt: dict[str, Any],
+    workloads: dict[str, dict[str, Any]],
+    repositories: dict[str, Path],
+    interpreter: dict[str, Any],
+) -> dict[str, dict[str, set[str]]] | None:
     by_workload: dict[str, dict[str, set[str]]] = {}
-    for row in session.get("samples", []):
-        signature = json.dumps(row["observation"]["command_signature"], sort_keys=True)
-        by_workload.setdefault(row["workload_id"], {"A": set(), "B": set()})[row["arm"]].add(signature)
-    return bool(by_workload) and all(value["A"] == value["B"] and len(value["A"]) == 1 for value in by_workload.values())
+    live_hashes = {
+        (arm, workload_id): canonical_input_hashes(repositories[arm], workload)
+        for arm in ("A", "B")
+        for workload_id, workload in workloads.items()
+    }
+    for row in receipt.get("samples", []):
+        if not isinstance(row, dict):
+            return None
+        workload_id = row.get("workload_id")
+        arm = row.get("arm")
+        observation = row.get("observation")
+        if (
+            not isinstance(workload_id, str)
+            or not workload_id
+            or arm not in {"A", "B"}
+            or workload_id not in workloads
+            or not isinstance(observation, dict)
+            or not _signature_matches_workload(
+                observation.get("command_signature"),
+                workloads[workload_id],
+                interpreter,
+                live_hashes[(arm, workload_id)],
+            )
+        ):
+            return None
+        signature = json.dumps(observation["command_signature"], sort_keys=True)
+        by_workload.setdefault(workload_id, {"A": set(), "B": set()})[arm].add(signature)
+    if not by_workload or not all(
+        value["A"] == value["B"] and len(value["A"]) == 1
+        for value in by_workload.values()
+    ):
+        return None
+    return by_workload
+
+
+def command_contract_equal(
+    session: dict[str, Any],
+    qualification: dict[str, Any],
+    contract: dict[str, Any],
+    accepted_schedule: dict[str, Any],
+    base_repository: Path,
+    terminal_repository: Path,
+) -> bool:
+    qualification_ids = contract.get("qualification_workload_ids")
+    contract_workloads = {
+        row["workload_id"]: row for row in contract.get("workloads", [])
+    }
+    qualification_workloads = {
+        workload_id: contract_workloads[workload_id]
+        for workload_id in qualification_ids
+        if workload_id in contract_workloads
+    } if isinstance(qualification_ids, list) else {}
+    accepted_workloads = {
+        row["workload_id"]: row for row in accepted_schedule.get("workloads", [])
+        if isinstance(row, dict) and isinstance(row.get("workload_id"), str)
+    }
+    qualified = _command_contracts_by_workload(
+        qualification,
+        qualification_workloads,
+        {"A": base_repository, "B": base_repository},
+        qualification.get("target_execution_interpreter_identity_a", {}),
+    )
+    accepted = _command_contracts_by_workload(
+        session,
+        accepted_workloads,
+        {"A": base_repository, "B": terminal_repository},
+        session.get("target_execution_interpreter_identity_a", {}),
+    )
+    return (
+        qualified is not None
+        and accepted is not None
+        and set(qualified) == set(qualification_workloads)
+        and set(qualified) <= set(accepted)
+        and all(
+            qualified[workload_id]["A"]
+            == qualified[workload_id]["B"]
+            == accepted[workload_id]["A"]
+            == accepted[workload_id]["B"]
+            for workload_id in qualified
+        )
+    )
+
+
+def qualification_schedule_valid(
+    qualification: dict[str, Any], contract: dict[str, Any]
+) -> bool:
+    expected = build_qualification_schedule(contract)
+    expected_projection = [
+        {
+            "workload_id": row["workload_id"],
+            "phase": row["phase"],
+            "block": row["block"],
+            "position": row["position"],
+            "arm": row["arm"],
+        }
+        for row in expected["positions"]
+    ]
+    received_projection = [
+        {
+            "workload_id": row.get("workload_id"),
+            "phase": row.get("phase"),
+            "block": row.get("block"),
+            "position": row.get("position"),
+            "arm": row.get("arm"),
+        }
+        for row in qualification.get("samples", [])
+        if isinstance(row, dict)
+    ]
+    expected_ids = [row["workload_id"] for row in expected["workloads"]]
+    summaries = qualification.get("workload_summaries")
+    return (
+        len(received_projection) == len(qualification.get("samples", []))
+        and received_projection == expected_projection
+        and isinstance(summaries, list)
+        and sorted(row.get("workload_id") for row in summaries if isinstance(row, dict))
+        == sorted(expected_ids)
+        and len(summaries) == len(expected_ids)
+    )
+
+
+def target_execution_interpreter_identity_equal(
+    qualification: dict[str, Any], session: dict[str, Any]
+) -> bool:
+    identities = [
+        qualification.get("target_execution_interpreter_identity_a"),
+        qualification.get("target_execution_interpreter_identity_b"),
+        session.get("target_execution_interpreter_identity_a"),
+        session.get("target_execution_interpreter_identity_b"),
+    ]
+    return all(isinstance(value, dict) and bool(value) for value in identities) and all(
+        value == identities[0] for value in identities[1:]
+    )
 
 
 def accepted_schedule_valid(
@@ -259,6 +433,7 @@ def validate(args: argparse.Namespace) -> dict[str, Any]:
     qualification = read_json(args.protocol_qualification_receipt)
     contract = read_json(args.measurement_contract)
     tooling = read_json(args.tooling_manifest)
+    accepted_schedule = read_json(args.accepted_schedule)
     touch = read_json(args.touch_surface)
     tool_repo = Path(git(args.tooling_manifest.parent, "rev-parse", "--show-toplevel"))
     touch_identity = committed_blob_identity(tool_repo, args.touch_surface)
@@ -278,14 +453,26 @@ def validate(args: argparse.Namespace) -> dict[str, Any]:
     checks = {
         "base_is_ancestor_of_terminal": is_ancestor(terminal, base_subject["commit"], terminal_subject["commit"]),
         "accepted_and_qualification_receipts_valid": accepted_receipts_valid(session, qualification),
+        "protocol_qualification_schedule_matches_frozen_contract": qualification_schedule_valid(
+            qualification, contract
+        ),
         "protocol_qualification_subject_matches_base": qualification.get("target_subject_a") == base_subject and qualification.get("target_subject_b") == base_subject,
         "measurement_tooling_identity_equal": qualification.get("measurement_tooling_identity") == received_tooling_identity and bool(received_tooling_identity) and current_tooling_identity_matches,
         "measurement_contract_identity_equal_across_qualification_and_accepted_session": qualification.get("measurement_protocol_identity") == protocol and protocol == supplied_protocol,
         "machine_environment_locale_equal": present_equal(qualification.get("environment_identity"), session.get("environment_identity")),
         "accepted_paired_session_single_session": bool(session.get("session_id")) and session.get("cross_session_sample_count") == 0,
         "harness_interpreter_identity_equal": present_equal(qualification.get("harness_interpreter_identity"), session.get("harness_interpreter_identity")),
-        "target_execution_interpreter_identity_equal": present_equal(session.get("target_execution_interpreter_identity_a"), session.get("target_execution_interpreter_identity_b")),
-        "command_and_input_contract_equal": command_contract_equal(session),
+        "target_execution_interpreter_identity_equal": target_execution_interpreter_identity_equal(
+            qualification, session
+        ),
+        "command_and_input_contract_equal": command_contract_equal(
+            session,
+            qualification,
+            contract,
+            accepted_schedule,
+            base,
+            terminal,
+        ),
         "contract_denominator_equivalent_via_preservation_map": contract_map_valid(args.contract_map),
         "accepted_session_schedule_matches_parameterized_contract_and_final_family_ledger": accepted_schedule_valid(session, args.accepted_schedule, args.family_ledger, contract),
         "declared_round_touch_surface_frozen_before_protocol_qualification": touch_surface_frozen_for_base(touch, base_subject["commit"]),

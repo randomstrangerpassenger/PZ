@@ -65,15 +65,19 @@ RESOURCE_SCHEMA = "iris_test_workflow_session_resource_estimate_v1"
 
 
 OBSERVER_SOURCE = r'''from __future__ import annotations
+import atexit
 import json
 import os
 from pathlib import Path
 import shutil
 import subprocess
 import tempfile
+import threading
 
 _root_value = os.environ.get("IRIS_WF_OBSERVER_EVENT_ROOT")
 _root = Path(_root_value) if _root_value else None
+_emit_lock = threading.Lock()
+_sequence = 0
 
 def _safe(value):
     if isinstance(value, (str, int, float, bool)) or value is None:
@@ -85,16 +89,19 @@ def _safe(value):
     return repr(value)
 
 def _emit(kind, **fields):
+    global _sequence
     if _root is None:
         return
-    try:
+    with _emit_lock:
+        _sequence += 1
         _root.mkdir(parents=True, exist_ok=True)
         target = _root / ("events-" + str(os.getpid()) + ".jsonl")
-        row = {"kind": kind, "pid": os.getpid(), **fields}
+        row = {"kind": kind, "pid": os.getpid(), "sequence": _sequence, **fields}
         with target.open("a", encoding="utf-8", newline="\n") as handle:
             handle.write(json.dumps(row, sort_keys=True, separators=(",", ":")) + "\n")
-    except Exception:
-        pass
+
+_emit("observer_start")
+atexit.register(lambda: _emit("observer_complete"))
 
 _original_popen = subprocess.Popen
 class _ObservedPopen(_original_popen):
@@ -230,30 +237,240 @@ def _normalized_output(value: bytes) -> str:
     return text
 
 
-def _kill_process_tree(process: subprocess.Popen[bytes]) -> None:
-    if os.name == "nt":
-        subprocess.run(
-            ["taskkill", "/PID", str(process.pid), "/T", "/F"],
-            check=False,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
+class _WindowsKillJob:
+    def __init__(self, process: subprocess.Popen[bytes]) -> None:
+        import ctypes
+        from ctypes import wintypes
+
+        class _BasicLimitInformation(ctypes.Structure):
+            _fields_ = [
+                ("per_process_user_time_limit", ctypes.c_longlong),
+                ("per_job_user_time_limit", ctypes.c_longlong),
+                ("limit_flags", wintypes.DWORD),
+                ("minimum_working_set_size", ctypes.c_size_t),
+                ("maximum_working_set_size", ctypes.c_size_t),
+                ("active_process_limit", wintypes.DWORD),
+                ("affinity", ctypes.c_size_t),
+                ("priority_class", wintypes.DWORD),
+                ("scheduling_class", wintypes.DWORD),
+            ]
+
+        class _IoCounters(ctypes.Structure):
+            _fields_ = [
+                ("read_operation_count", ctypes.c_ulonglong),
+                ("write_operation_count", ctypes.c_ulonglong),
+                ("other_operation_count", ctypes.c_ulonglong),
+                ("read_transfer_count", ctypes.c_ulonglong),
+                ("write_transfer_count", ctypes.c_ulonglong),
+                ("other_transfer_count", ctypes.c_ulonglong),
+            ]
+
+        class _ExtendedLimitInformation(ctypes.Structure):
+            _fields_ = [
+                ("basic_limit_information", _BasicLimitInformation),
+                ("io_info", _IoCounters),
+                ("process_memory_limit", ctypes.c_size_t),
+                ("job_memory_limit", ctypes.c_size_t),
+                ("peak_process_memory_used", ctypes.c_size_t),
+                ("peak_job_memory_used", ctypes.c_size_t),
+            ]
+
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        kernel32.CreateJobObjectW.argtypes = (ctypes.c_void_p, wintypes.LPCWSTR)
+        kernel32.CreateJobObjectW.restype = wintypes.HANDLE
+        kernel32.SetInformationJobObject.argtypes = (
+            wintypes.HANDLE,
+            ctypes.c_int,
+            ctypes.c_void_p,
+            wintypes.DWORD,
         )
-    else:
-        try:
-            os.killpg(process.pid, signal.SIGKILL)
-        except ProcessLookupError:
-            pass
+        kernel32.SetInformationJobObject.restype = wintypes.BOOL
+        kernel32.AssignProcessToJobObject.argtypes = (wintypes.HANDLE, wintypes.HANDLE)
+        kernel32.AssignProcessToJobObject.restype = wintypes.BOOL
+        kernel32.TerminateJobObject.argtypes = (wintypes.HANDLE, wintypes.UINT)
+        kernel32.TerminateJobObject.restype = wintypes.BOOL
+        kernel32.WaitForSingleObject.argtypes = (wintypes.HANDLE, wintypes.DWORD)
+        kernel32.WaitForSingleObject.restype = wintypes.DWORD
+        kernel32.CloseHandle.argtypes = (wintypes.HANDLE,)
+        kernel32.CloseHandle.restype = wintypes.BOOL
+
+        handle = kernel32.CreateJobObjectW(None, None)
+        require(bool(handle), "failed to create Windows measurement job object")
+        limits = _ExtendedLimitInformation()
+        limits.basic_limit_information.limit_flags = 0x00002000
+        configured = kernel32.SetInformationJobObject(
+            handle,
+            9,
+            ctypes.byref(limits),
+            ctypes.sizeof(limits),
+        )
+        if not configured:
+            kernel32.CloseHandle(handle)
+            raise ContractError("failed to configure Windows measurement job object")
+        assigned = kernel32.AssignProcessToJobObject(handle, int(process._handle))
+        if not assigned:
+            kernel32.CloseHandle(handle)
+            raise ContractError("failed to assign measurement process to Windows job object")
+        self._kernel32 = kernel32
+        self._handle = handle
+        self._reaped: bool | None = None
+
+    def reap(self) -> bool:
+        if self._reaped is not None:
+            return self._reaped
+        terminated = bool(self._kernel32.TerminateJobObject(self._handle, 1))
+        wait_result = int(self._kernel32.WaitForSingleObject(self._handle, 30_000))
+        closed = bool(self._kernel32.CloseHandle(self._handle))
+        self._handle = None
+        self._reaped = terminated and wait_result == 0 and closed
+        return self._reaped
 
 
-def _read_events(event_root: Path) -> list[dict[str, Any]]:
+def _terminate_suspended_process(process: subprocess.Popen[bytes]) -> bool:
+    try:
+        if process.poll() is None:
+            process.kill()
+        process.wait(timeout=5.0)
+    except (OSError, subprocess.TimeoutExpired):
+        return False
+    finally:
+        for stream in (process.stdout, process.stderr):
+            if stream is not None:
+                stream.close()
+    return process.poll() is not None
+
+
+def _resume_windows_process(process: subprocess.Popen[bytes]) -> None:
+    import ctypes
+    from ctypes import wintypes
+
+    class _ThreadEntry32(ctypes.Structure):
+        _fields_ = [
+            ("size", wintypes.DWORD),
+            ("usage_count", wintypes.DWORD),
+            ("thread_id", wintypes.DWORD),
+            ("owner_process_id", wintypes.DWORD),
+            ("base_priority", wintypes.LONG),
+            ("priority_delta", wintypes.LONG),
+            ("flags", wintypes.DWORD),
+        ]
+
+    kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+    kernel32.CreateToolhelp32Snapshot.argtypes = (wintypes.DWORD, wintypes.DWORD)
+    kernel32.CreateToolhelp32Snapshot.restype = wintypes.HANDLE
+    kernel32.Thread32First.argtypes = (wintypes.HANDLE, ctypes.POINTER(_ThreadEntry32))
+    kernel32.Thread32First.restype = wintypes.BOOL
+    kernel32.Thread32Next.argtypes = (wintypes.HANDLE, ctypes.POINTER(_ThreadEntry32))
+    kernel32.Thread32Next.restype = wintypes.BOOL
+    kernel32.OpenThread.argtypes = (wintypes.DWORD, wintypes.BOOL, wintypes.DWORD)
+    kernel32.OpenThread.restype = wintypes.HANDLE
+    kernel32.ResumeThread.argtypes = (wintypes.HANDLE,)
+    kernel32.ResumeThread.restype = wintypes.DWORD
+    kernel32.CloseHandle.argtypes = (wintypes.HANDLE,)
+    kernel32.CloseHandle.restype = wintypes.BOOL
+
+    snapshot = kernel32.CreateToolhelp32Snapshot(0x00000004, 0)
+    require(
+        snapshot not in (None, ctypes.c_void_p(-1).value),
+        "failed to enumerate suspended measurement process threads",
+    )
+    entry = _ThreadEntry32()
+    entry.size = ctypes.sizeof(entry)
+    thread_ids: list[int] = []
+    try:
+        available = bool(kernel32.Thread32First(snapshot, ctypes.byref(entry)))
+        while available:
+            if int(entry.owner_process_id) == process.pid:
+                thread_ids.append(int(entry.thread_id))
+            available = bool(kernel32.Thread32Next(snapshot, ctypes.byref(entry)))
+    finally:
+        kernel32.CloseHandle(snapshot)
+    require(len(thread_ids) == 1, "suspended measurement process thread identity is ambiguous")
+    thread_handle = kernel32.OpenThread(0x0002, False, thread_ids[0])
+    require(bool(thread_handle), "failed to open suspended measurement process thread")
+    try:
+        previous_suspend_count = int(kernel32.ResumeThread(thread_handle))
+        require(
+            previous_suspend_count not in (0, 0xFFFFFFFF),
+            "failed to resume suspended measurement process thread",
+        )
+        while previous_suspend_count > 1:
+            previous_suspend_count = int(kernel32.ResumeThread(thread_handle))
+            require(
+                previous_suspend_count != 0xFFFFFFFF,
+                "failed to fully resume suspended measurement process thread",
+            )
+    finally:
+        kernel32.CloseHandle(thread_handle)
+
+
+def _kill_process_tree(
+    process: subprocess.Popen[bytes], windows_job: _WindowsKillJob | None
+) -> bool:
+    if os.name == "nt":
+        require(windows_job is not None, "Windows measurement process lacks a kill job")
+        return windows_job.reap()
+    try:
+        os.killpg(process.pid, signal.SIGKILL)
+    except ProcessLookupError:
+        pass
+    return True
+
+
+def _read_events(event_root: Path, expected_root_pid: int) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     rows: list[dict[str, Any]] = []
-    if not event_root.is_dir():
-        return rows
-    for path in sorted(event_root.glob("events-*.jsonl")):
-        for line in path.read_text(encoding="utf-8").splitlines():
-            if line.strip():
-                rows.append(json.loads(line))
-    return rows
+    require(event_root.is_dir(), "observer event root is missing")
+    paths = sorted(event_root.iterdir())
+    require(paths, "observer event stream is missing")
+    require(
+        all(path.is_file() and re.fullmatch(r"events-[0-9]+\.jsonl", path.name) for path in paths),
+        "observer event root contains an unexpected entry",
+    )
+    observed_pids: list[int] = []
+    for path in paths:
+        pid = int(path.stem.removeprefix("events-"))
+        try:
+            process_rows = [
+                json.loads(line)
+                for line in path.read_text(encoding="utf-8").splitlines()
+                if line.strip()
+            ]
+        except (OSError, json.JSONDecodeError) as error:
+            raise ContractError(f"observer event stream is unreadable: {path.name}") from error
+        require(process_rows, f"observer event stream is empty: {path.name}")
+        require(
+            all(row.get("pid") == pid for row in process_rows),
+            f"observer event pid binding mismatch: {path.name}",
+        )
+        require(
+            [row.get("sequence") for row in process_rows] == list(range(1, len(process_rows) + 1)),
+            f"observer event sequence is incomplete: {path.name}",
+        )
+        require(
+            process_rows[0].get("kind") == "observer_start"
+            and process_rows[-1].get("kind") == "observer_complete"
+            and sum(row.get("kind") == "observer_start" for row in process_rows) == 1
+            and sum(row.get("kind") == "observer_complete" for row in process_rows) == 1,
+            f"observer lifecycle is incomplete: {path.name}",
+        )
+        observed_pids.append(pid)
+        rows.extend(process_rows)
+    require(expected_root_pid in observed_pids, "root Python observer lifecycle is missing")
+    return rows, {
+        "status": "PASS",
+        "root_process_pid": expected_root_pid,
+        "observed_process_count": len(observed_pids),
+        "complete_process_count": len(observed_pids),
+        "sequence_gap_count": 0,
+    }
+
+
+def _tree_file_metrics(root: Path) -> dict[str, int]:
+    files = [path for path in root.rglob("*") if path.is_file()]
+    return {
+        "copied_files": len(files),
+        "copied_bytes": sum(path.stat().st_size for path in files),
+    }
 
 
 def _argv_text(event: dict[str, Any]) -> str:
@@ -273,22 +490,73 @@ def count_producer_invocations(
     )
 
 
+def canonical_input_hashes(
+    repository: Path, workload: dict[str, Any]
+) -> dict[str, str]:
+    paths = workload.get("canonical_input_paths")
+    require(
+        isinstance(paths, list)
+        and bool(paths)
+        and len(paths) == len(set(paths))
+        and all(
+            isinstance(path, str)
+            and bool(path)
+            and not Path(path).is_absolute()
+            and ".." not in Path(path).parts
+            for path in paths
+        ),
+        "canonical input path contract is incomplete",
+    )
+    return {
+        path: git(repository, "rev-parse", f"HEAD:{path}") for path in paths
+    }
+
+
 def observe_command(
     repository: Path,
     workload: dict[str, Any],
     sample_root: Path,
     *,
     instrumented: bool,
+    resolved_input_hashes: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     sample_root.mkdir(parents=True, exist_ok=False)
     before = subject_identity(repository)
     ignored_before = ignored_worktree_entries(repository)
     require(not ignored_before, "target checkout contains ignored worktree state before observation")
     argv = render_command(workload["command"], repository, sample_root)
+    input_hashes = (
+        canonical_input_hashes(repository, workload)
+        if resolved_input_hashes is None
+        else dict(resolved_input_hashes)
+    )
+    expected_output_contract = workload.get("expected_output_contract")
+    require(
+        isinstance(expected_output_contract, dict)
+        and set(expected_output_contract)
+        == {"valid_exit_codes", "normalized_stdout", "normalized_stderr"},
+        "expected output contract is incomplete",
+    )
+    valid_exit_codes = set(workload.get("valid_exit_codes", [0]))
+    require(
+        expected_output_contract["valid_exit_codes"] == sorted(valid_exit_codes),
+        "expected output and valid-exit contracts disagree",
+    )
     env = os.environ.copy()
     env["PYTHONDONTWRITEBYTECODE"] = "1"
     execution_context = None
     execution_parent = env.get("IRIS_WORKFLOW_EXECUTION_OUTPUT_PARENT")
+    event_root = sample_root / "observer-events"
+    if instrumented:
+        observer_root = sample_root / "observer"
+        observer_root.mkdir()
+        (observer_root / "sitecustomize.py").write_text(OBSERVER_SOURCE, encoding="utf-8", newline="\n")
+        env["IRIS_WF_OBSERVER_EVENT_ROOT"] = str(event_root)
+        existing = env.get("PYTHONPATH")
+        env["PYTHONPATH"] = str(observer_root) + (os.pathsep + existing if existing else "")
+    setup_copy_metrics = {"copied_files": 0, "copied_bytes": 0}
+    setup_materialization_count = 0
+    started = time.perf_counter_ns()
     if execution_parent:
         execution_parent_path = Path(execution_parent).resolve()
         require_path_outside_repositories(
@@ -301,6 +569,7 @@ def observe_command(
             prefix="w-",
             dir=execution_parent_path,
         )
+        setup_materialization_count += 1
         execution_root = Path(execution_context.name)
     else:
         execution_root = sample_root
@@ -310,18 +579,11 @@ def observe_command(
     if source_output_root.is_dir():
         legacy_output_root.parent.mkdir(parents=True, exist_ok=True)
         shutil.copytree(source_output_root, legacy_output_root)
+        setup_copy_metrics = _tree_file_metrics(legacy_output_root)
+        setup_materialization_count += 1
     env["IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT"] = str(test_output_root)
     env["IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"] = str(legacy_output_root)
     env["UV_CACHE_DIR"] = str(execution_root / "u")
-    event_root = sample_root / "observer-events"
-    if instrumented:
-        observer_root = sample_root / "observer"
-        observer_root.mkdir()
-        (observer_root / "sitecustomize.py").write_text(OBSERVER_SOURCE, encoding="utf-8", newline="\n")
-        env["IRIS_WF_OBSERVER_EVENT_ROOT"] = str(event_root)
-        existing = env.get("PYTHONPATH")
-        env["PYTHONPATH"] = str(observer_root) + (os.pathsep + existing if existing else "")
-    started = time.perf_counter_ns()
     process = subprocess.Popen(
         argv,
         cwd=repository,
@@ -329,14 +591,47 @@ def observe_command(
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         start_new_session=os.name != "nt",
+        creationflags=0x00000004 if os.name == "nt" else 0,
     )
+    windows_job = None
+    if os.name == "nt":
+        try:
+            windows_job = _WindowsKillJob(process)
+            _resume_windows_process(process)
+        except ContractError as setup_error:
+            cleanup_valid = (
+                windows_job.reap()
+                if windows_job is not None
+                else _terminate_suspended_process(process)
+            )
+            require(cleanup_valid, "suspended measurement process cleanup could not be confirmed")
+            raise setup_error
     timed_out = False
+    cleanup_valid = True
     try:
         stdout, stderr = process.communicate(timeout=float(workload["timeout_seconds"]))
-    except subprocess.TimeoutExpired:
+    except subprocess.TimeoutExpired as timeout_error:
         timed_out = True
-        _kill_process_tree(process)
-        stdout, stderr = process.communicate()
+        cleanup_valid = _kill_process_tree(process, windows_job)
+        try:
+            stdout, stderr = process.communicate(timeout=30.0)
+        except subprocess.TimeoutExpired as cleanup_error:
+            cleanup_valid = _kill_process_tree(process, windows_job) and cleanup_valid
+            if process.poll() is None:
+                process.kill()
+            for stream in (process.stdout, process.stderr):
+                if stream is not None:
+                    stream.close()
+            try:
+                process.wait(timeout=5.0)
+            except subprocess.TimeoutExpired:
+                process.kill()
+                process.wait(timeout=5.0)
+            stdout = cleanup_error.output or timeout_error.output or b""
+            stderr = cleanup_error.stderr or timeout_error.stderr or b""
+    finally:
+        cleanup_valid = _kill_process_tree(process, windows_job) and cleanup_valid
+    require(cleanup_valid, "measurement process tree cleanup could not be confirmed")
     elapsed_ms = (time.perf_counter_ns() - started) / 1_000_000.0
     try:
         after = subject_identity(repository)
@@ -345,7 +640,17 @@ def observe_command(
             not ignored_worktree_entries(repository),
             "target checkout gained ignored worktree state during observation",
         )
-        events = _read_events(event_root)
+        if instrumented:
+            events, observer_integrity = _read_events(event_root, process.pid)
+        else:
+            events = []
+            observer_integrity = {
+                "status": "NOT_APPLICABLE_uninstrumented_companion",
+                "root_process_pid": process.pid,
+                "observed_process_count": 0,
+                "complete_process_count": 0,
+                "sequence_gap_count": 0,
+            }
         subprocess_events = [row for row in events if row.get("kind") == "subprocess"]
         producer_patterns = [value.replace("\\", "/") for value in workload.get("producer_patterns", [])]
         eligible_patterns = [value.replace("\\", "/") for value in workload.get("eligible_subprocess_patterns", [])]
@@ -356,7 +661,6 @@ def observe_command(
         )
         copied_values = [row.get("copied_bytes") for row in events if row.get("kind") == "copy"]
         copied_observed = [int(value) for value in copied_values if isinstance(value, int)]
-        valid_exit_codes = set(workload.get("valid_exit_codes", [0]))
         observation = {
         "elapsed_ms": elapsed_ms,
         "exit_code": process.returncode,
@@ -371,19 +675,32 @@ def observe_command(
             "ordered_argv": workload["command"][1:],
             "path_normalization": "repository_and_result_roots_are_role_descriptors",
             "declared_input_identity": workload.get("input_identity", "target_subject_tree"),
+            "canonical_input_hashes": input_hashes,
+            "expected_output_contract": expected_output_contract,
         },
         "operation_counts": {
             "producer_invocations": producer_count,
             "eligible_subprocesses": eligible_count,
-            "temporary_materializations": sum(row.get("kind") == "materialization" for row in events),
-            "copied_files": len(copied_observed),
-            "copied_bytes": sum(copied_observed),
+            "temporary_materializations": setup_materialization_count
+            + sum(row.get("kind") == "materialization" for row in events),
+            "copied_files": setup_copy_metrics["copied_files"] + len(copied_observed),
+            "copied_bytes": setup_copy_metrics["copied_bytes"] + sum(copied_observed),
         },
         "observation_coverage": {
             "subprocess": "python_process_tree" if instrumented else "unobserved",
-            "temporary_materialization": "python_process_tree" if instrumented else "unobserved",
-            "copy": "python_process_tree" if instrumented else "unobserved",
+            "temporary_materialization": "measurement_wrapper_setup_and_python_process_tree"
+            if instrumented
+            else "measurement_wrapper_setup_only",
+            "copy": "measurement_wrapper_setup_and_python_process_tree"
+            if instrumented
+            else "measurement_wrapper_setup_only",
             "read_parse_hash": "unobserved",
+        },
+        "observer_integrity": observer_integrity,
+        "measurement_boundary": {
+            "starts_before_execution_root_and_legacy_output_materialization": True,
+            "ends_after_child_process_completion": True,
+            "legacy_output_copy_in_elapsed_time_and_operation_counts": True,
         },
         "event_count": len(events),
         "instrumented": instrumented,
@@ -552,11 +869,22 @@ def execute_schedule(
     samples: list[dict[str, Any]] = []
     summaries: list[dict[str, Any]] = []
     workloads = {row["workload_id"]: row for row in schedule["workloads"]}
+    input_hashes = {
+        (arm, workload_id): canonical_input_hashes(repositories[arm], workload)
+        for arm in {position["arm"] for position in schedule["positions"]}
+        for workload_id, workload in workloads.items()
+    }
     for ordinal, position in enumerate(schedule["positions"]):
         workload = workloads[position["workload_id"]]
         arm = position["arm"]
         sample_root = output_root / "samples" / f"{ordinal:04d}-{position['workload_id']}-{arm}"
-        observation = observe_command(repositories[arm], workload, sample_root, instrumented=True)
+        observation = observe_command(
+            repositories[arm],
+            workload,
+            sample_root,
+            instrumented=True,
+            resolved_input_hashes=input_hashes[(arm, workload["workload_id"])],
+        )
         samples.append({**position, "ordinal": ordinal, "observation": observation})
     for workload in workloads.values():
         relevant = [row for row in samples if row["workload_id"] == workload["workload_id"]]
@@ -618,6 +946,39 @@ def build_schedule(
         "positions": positions,
         "measured_block_count": sum(row["phase"] == "measured" and row["position"] == 1 for row in positions),
         "total_execution_positions": len(positions),
+        "statistics": contract["statistics"],
+    }
+
+
+def build_qualification_schedule(contract: dict[str, Any]) -> dict[str, Any]:
+    qualification_ids = contract.get("qualification_workload_ids")
+    require(
+        isinstance(qualification_ids, list)
+        and bool(qualification_ids)
+        and len(qualification_ids) == len(set(qualification_ids)),
+        "qualification workload identity is invalid",
+    )
+    definitions = {row["workload_id"]: row for row in contract["workloads"]}
+    require(
+        set(qualification_ids) <= set(definitions),
+        "qualification workload is missing from the measurement contract",
+    )
+    selected = [
+        definitions[workload_id] for workload_id in qualification_ids
+    ]
+    positions: list[dict[str, Any]] = []
+    for workload in selected:
+        blocks = (
+            int(contract["schedule"]["configured_measured_blocks"])
+            if workload["workload_id"] == "configured-current"
+            else int(contract["schedule"]["targeted_measured_blocks"])
+        )
+        positions.extend(workload_schedule(workload["workload_id"], blocks))
+    return {
+        "schema_version": SCHEDULE_SCHEMA,
+        "session_kind": "baseline-protocol-qualification",
+        "workloads": selected,
+        "positions": positions,
         "statistics": contract["statistics"],
     }
 
@@ -742,29 +1103,14 @@ def qualify_protocol(
     measurement_tooling = resolved_tooling_identity(args, contract_path)
     touch_surface_identity = resolved_touch_surface_identity(args, contract_path)
     output_root.mkdir(parents=True, exist_ok=False)
-    selected = [
-        row for row in contract["workloads"] if row["workload_id"] in contract["qualification_workload_ids"]
-    ]
-    positions: list[dict[str, Any]] = []
-    for workload in selected:
-        blocks = (
-            int(contract["schedule"]["configured_measured_blocks"])
-            if workload["workload_id"] == "configured-current"
-            else int(contract["schedule"]["targeted_measured_blocks"])
-        )
-        positions.extend(workload_schedule(workload["workload_id"], blocks))
-    schedule = {
-        "schema_version": SCHEDULE_SCHEMA,
-        "session_kind": "baseline-protocol-qualification",
-        "workloads": selected,
-        "positions": positions,
-        "statistics": contract["statistics"],
-    }
+    schedule = build_qualification_schedule(contract)
+    selected = schedule["workloads"]
     samples, summaries = execute_schedule(schedule, {"A": target, "B": target}, output_root)
     companions = []
     for workload in selected:
-        instrumented = observe_command(target, workload, output_root / "companions" / f"{workload['workload_id']}-on", instrumented=True)
-        plain = observe_command(target, workload, output_root / "companions" / f"{workload['workload_id']}-off", instrumented=False)
+        input_hashes = canonical_input_hashes(target, workload)
+        instrumented = observe_command(target, workload, output_root / "companions" / f"{workload['workload_id']}-on", instrumented=True, resolved_input_hashes=input_hashes)
+        plain = observe_command(target, workload, output_root / "companions" / f"{workload['workload_id']}-off", instrumented=False, resolved_input_hashes=input_hashes)
         parity = (
             instrumented["exit_code"] == plain["exit_code"]
             and instrumented["normalized_stdout_sha256"] == plain["normalized_stdout_sha256"]

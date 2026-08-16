@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import hashlib
+import json
+import os
 import subprocess
+import time
 
 import pytest
 
@@ -11,6 +14,7 @@ from Iris.validation.test_workflow_consolidation._common import (
     require_path_outside_repositories,
 )
 from Iris.validation.test_workflow_consolidation.measure_execution_cost import (
+    _read_events,
     bootstrap_interval,
     build_schedule,
     candidate_elapsed_samples,
@@ -180,6 +184,13 @@ def test_observation_rejects_ignored_checkout_mutation(tmp_path) -> None:
             "-c",
             "from pathlib import Path; Path('cache').mkdir(); Path('cache/result').write_text('x')",
         ],
+        "canonical_input_paths": [".gitignore"],
+        "expected_output_contract": {
+            "valid_exit_codes": [0],
+            "normalized_stdout": "fixture",
+            "normalized_stderr": "fixture",
+        },
+        "input_identity": "fixture",
         "timeout_seconds": 5,
     }
 
@@ -210,6 +221,13 @@ def test_observation_isolates_repository_output_and_uv_cache(tmp_path, monkeypat
                 "Path(os.environ['UV_CACHE_DIR']).mkdir()"
             ),
         ],
+        "canonical_input_paths": [".gitignore"],
+        "expected_output_contract": {
+            "valid_exit_codes": [0],
+            "normalized_stdout": "fixture",
+            "normalized_stderr": "fixture",
+        },
+        "input_identity": "fixture",
         "timeout_seconds": 5,
         "valid_exit_codes": [0],
     }
@@ -220,6 +238,14 @@ def test_observation_isolates_repository_output_and_uv_cache(tmp_path, monkeypat
     observation = observe_command(repository, workload, result_root, instrumented=False)
 
     assert observation["contract_valid"] is True
+    assert observation["operation_counts"]["copied_files"] == 1
+    assert observation["operation_counts"]["copied_bytes"] == len("seed")
+    assert observation["operation_counts"]["temporary_materializations"] == 2
+    assert observation["measurement_boundary"] == {
+        "starts_before_execution_root_and_legacy_output_materialization": True,
+        "ends_after_child_process_completion": True,
+        "legacy_output_copy_in_elapsed_time_and_operation_counts": True,
+    }
     assert list(execution_parent.iterdir()) == []
     assert not (result_root / "t").exists()
     assert subprocess.run(
@@ -228,6 +254,54 @@ def test_observation_isolates_repository_output_and_uv_cache(tmp_path, monkeypat
         capture_output=True,
         text=True,
     ).stdout == ""
+
+
+def test_observation_timeout_reaps_descendant_after_atomic_job_assignment(tmp_path) -> None:
+    repository = tmp_path / "repo"
+    repository.mkdir()
+    subprocess.run(["git", "init", "-q", str(repository)], check=True)
+    subprocess.run(["git", "-C", str(repository), "config", "user.email", "test@example.invalid"], check=True)
+    subprocess.run(["git", "-C", str(repository), "config", "user.name", "Test"], check=True)
+    marker = repository / "marker.txt"
+    marker.write_text("fixture", encoding="utf-8")
+    subprocess.run(["git", "-C", str(repository), "add", "marker.txt"], check=True)
+    subprocess.run(["git", "-C", str(repository), "commit", "-q", "-m", "fixture"], check=True)
+    workload = {
+        "command": [
+            "{python}",
+            "-c",
+            (
+                "import subprocess, sys; from pathlib import Path; "
+                "child=subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(60)']); "
+                "Path(sys.argv[1]).joinpath('descendant.pid').write_text(str(child.pid)); "
+                "child.wait()"
+            ),
+            "{result_root}",
+        ],
+        "canonical_input_paths": ["marker.txt"],
+        "expected_output_contract": {
+            "valid_exit_codes": [0],
+            "normalized_stdout": "fixture",
+            "normalized_stderr": "fixture",
+        },
+        "input_identity": "fixture",
+        "timeout_seconds": 1,
+    }
+    observation = observe_command(repository, workload, tmp_path / "result", instrumented=False)
+
+    assert observation["timed_out"] is True
+    assert observation["contract_valid"] is False
+    assert observation["elapsed_ms"] < 10_000
+    descendant_pid = int((tmp_path / "result" / "descendant.pid").read_text(encoding="utf-8"))
+    deadline = time.monotonic() + 2.0
+    while time.monotonic() < deadline:
+        try:
+            os.kill(descendant_pid, 0)
+        except OSError:
+            break
+        time.sleep(0.05)
+    else:
+        pytest.fail("timed-out measurement descendant remained alive")
 
 
 def test_instrumented_observation_counts_copy2(tmp_path) -> None:
@@ -247,6 +321,13 @@ def test_instrumented_observation_counts_copy2(tmp_path) -> None:
             "from pathlib import Path; import shutil, sys; shutil.copy2('source.txt', Path(sys.argv[1]) / 'copy.txt')",
             "{result_root}",
         ],
+        "canonical_input_paths": ["source.txt"],
+        "expected_output_contract": {
+            "valid_exit_codes": [0],
+            "normalized_stdout": "fixture",
+            "normalized_stderr": "fixture",
+        },
+        "input_identity": "fixture",
         "timeout_seconds": 5,
     }
 
@@ -254,6 +335,36 @@ def test_instrumented_observation_counts_copy2(tmp_path) -> None:
 
     assert observation["operation_counts"]["copied_files"] == 1
     assert observation["operation_counts"]["copied_bytes"] == len("payload")
+    assert observation["observer_integrity"]["status"] == "PASS"
+    assert observation["observer_integrity"]["sequence_gap_count"] == 0
+
+
+def test_observer_event_stream_requires_complete_contiguous_lifecycle(tmp_path) -> None:
+    event_root = tmp_path / "events"
+    event_root.mkdir()
+    event_file = event_root / "events-42.jsonl"
+    event_file.write_text(
+        "\n".join(
+            json.dumps(row)
+            for row in (
+                {"kind": "observer_start", "pid": 42, "sequence": 1},
+                {"kind": "copy", "pid": 42, "sequence": 3, "copied_bytes": 1},
+                {"kind": "observer_complete", "pid": 42, "sequence": 4},
+            )
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ContractError, match="sequence is incomplete"):
+        _read_events(event_root, 42)
+
+    event_file.write_text(
+        json.dumps({"kind": "observer_start", "pid": 42, "sequence": 1}) + "\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ContractError, match="lifecycle is incomplete"):
+        _read_events(event_root, 42)
 
 
 def test_first_candidate_estimate_uses_declared_timeout_without_prior_receipt() -> None:

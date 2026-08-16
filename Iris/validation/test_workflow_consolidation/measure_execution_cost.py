@@ -63,6 +63,34 @@ CONTRACT_SCHEMA = "iris_test_workflow_measurement_contract_v1"
 RECEIPT_SCHEMA = "iris_test_workflow_measurement_receipt_v1"
 SCHEDULE_SCHEMA = "iris_test_workflow_accepted_session_schedule_v1"
 RESOURCE_SCHEMA = "iris_test_workflow_session_resource_estimate_v1"
+PYTHON_PROCESS_TREE_BACKEND = "python_sitecustomize_process_tree"
+ENVIRONMENT_TRANSPARENT_TIMING_BACKEND = "environment_transparent_timing_only"
+OPERATION_AXES = (
+    "producer_invocations",
+    "eligible_subprocesses",
+    "temporary_materializations",
+    "copied_files",
+    "copied_bytes",
+)
+
+
+def measurement_backend(workload: dict[str, Any]) -> str:
+    declared = workload.get("measurement_backend")
+    configured = (
+        workload.get("workload_id") == "configured-current"
+        or workload.get("role") == "configured_route_performance_observation"
+    )
+    if configured:
+        require(
+            declared == ENVIRONMENT_TRANSPARENT_TIMING_BACKEND,
+            "configured-current must use the environment-transparent timing backend",
+        )
+        return ENVIRONMENT_TRANSPARENT_TIMING_BACKEND
+    require(
+        declared in (None, PYTHON_PROCESS_TREE_BACKEND),
+        "targeted workload must use the Python process-tree backend",
+    )
+    return PYTHON_PROCESS_TREE_BACKEND
 
 
 OBSERVER_SOURCE = r'''from __future__ import annotations
@@ -778,6 +806,10 @@ def observe_command(
     instrumented: bool,
     resolved_input_hashes: dict[str, str] | None = None,
 ) -> dict[str, Any]:
+    backend = measurement_backend(workload)
+    python_process_tree_instrumented = (
+        instrumented and backend == PYTHON_PROCESS_TREE_BACKEND
+    )
     sample_root.mkdir(parents=True, exist_ok=False)
     before = subject_identity(repository)
     ignored_before = ignored_worktree_entries(repository)
@@ -805,7 +837,7 @@ def observe_command(
     execution_context = None
     execution_parent = env.get("IRIS_WORKFLOW_EXECUTION_OUTPUT_PARENT")
     event_root = sample_root / "observer-events"
-    if instrumented:
+    if python_process_tree_instrumented:
         observer_root = sample_root / "observer"
         observer_root.mkdir()
         (observer_root / "sitecustomize.py").write_text(OBSERVER_SOURCE, encoding="utf-8", newline="\n")
@@ -891,12 +923,16 @@ def observe_command(
             not ignored_worktree_entries(repository),
             "target checkout gained ignored worktree state during observation",
         )
-        if instrumented:
+        if python_process_tree_instrumented:
             events, observer_integrity = _read_events(event_root, process.pid, os.getpid())
         else:
             events = []
             observer_integrity = {
-                "status": "NOT_APPLICABLE_uninstrumented_companion",
+                "status": (
+                    "NOT_APPLICABLE_environment_transparent_timing_only"
+                    if backend == ENVIRONMENT_TRANSPARENT_TIMING_BACKEND
+                    else "NOT_APPLICABLE_uninstrumented_companion"
+                ),
                 "root_process_pid": process.pid,
                 "observed_process_count": 0,
                 "complete_process_count": 0,
@@ -926,6 +962,23 @@ def observe_command(
         )
         copied_values = [row.get("copied_bytes") for row in events if row.get("kind") == "copy"]
         copied_observed = [int(value) for value in copied_values if isinstance(value, int)]
+        operation_counts: dict[str, int | None]
+        if python_process_tree_instrumented:
+            operation_counts = {
+                "producer_invocations": producer_count,
+                "eligible_subprocesses": eligible_count,
+                "temporary_materializations": setup_materialization_count
+                + sum(row.get("kind") == "materialization" for row in events),
+                "copied_files": len(copied_observed),
+                "copied_bytes": sum(copied_observed),
+            }
+        else:
+            operation_counts = {axis: None for axis in OPERATION_AXES}
+        unobserved_coverage = (
+            "unobserved_environment_transparent_timing_only"
+            if backend == ENVIRONMENT_TRANSPARENT_TIMING_BACKEND
+            else "unobserved_uninstrumented_companion"
+        )
         observation = {
         "elapsed_ms": elapsed_ms,
         "exit_code": process.returncode,
@@ -943,42 +996,41 @@ def observe_command(
             "canonical_input_hashes": input_hashes,
             "expected_output_contract": expected_output_contract,
         },
-        "operation_counts": {
-            "producer_invocations": producer_count,
-            "eligible_subprocesses": eligible_count,
-            "temporary_materializations": setup_materialization_count
-            + sum(row.get("kind") == "materialization" for row in events),
-            "copied_files": len(copied_observed),
-            "copied_bytes": sum(copied_observed),
-        },
+        "operation_counts": operation_counts,
         "observation_coverage": {
             "subprocess": (
                 "python_process_tree_with_parent_confirmed_uninstrumented_descendants"
                 if parent_confirmed_uninstrumented_count
                 else "python_process_tree"
-            ) if instrumented else "unobserved",
+            ) if python_process_tree_instrumented else unobserved_coverage,
             "temporary_materialization": (
                 "measurement_wrapper_setup_and_observed_python_processes; "
                 "parent-confirmed_uninstrumented_descendants_unobserved"
                 if parent_confirmed_uninstrumented_count
                 else "measurement_wrapper_setup_and_python_process_tree"
-            ) if instrumented else "measurement_wrapper_setup_only",
+            ) if python_process_tree_instrumented else unobserved_coverage,
             "copy": (
                 "measurement_wrapper_setup_and_observed_python_processes; "
                 "parent-confirmed_uninstrumented_descendants_unobserved"
                 if parent_confirmed_uninstrumented_count
                 else "measurement_wrapper_setup_and_python_process_tree"
-            ) if instrumented else "measurement_wrapper_setup_only",
+            ) if python_process_tree_instrumented else unobserved_coverage,
             "read_parse_hash": "unobserved",
         },
         "observer_integrity": observer_integrity,
         "measurement_boundary": {
             "starts_before_execution_root_and_legacy_output_materialization": True,
             "ends_after_child_process_completion": True,
-            "legacy_output_copy_in_elapsed_time_and_operation_counts": True,
+            "legacy_output_copy_in_elapsed_time_and_operation_counts": python_process_tree_instrumented,
         },
         "event_count": len(events),
-        "instrumented": instrumented,
+        "instrumented": python_process_tree_instrumented,
+        "instrumentation_requested": instrumented,
+        "measurement_backend": (
+            backend
+            if backend == ENVIRONMENT_TRANSPARENT_TIMING_BACKEND or instrumented
+            else "uninstrumented_companion"
+        ),
         }
     finally:
         if execution_context is not None:
@@ -1045,16 +1097,35 @@ def summarize_workload(
         int(statistics_contract["bootstrap_iterations"]),
     )
     improved = statistics.median(arm_b) < statistics.median(arm_a) and interval["lower"] > 0
+    backend = measurement_backend(workload)
     operation_axes: dict[str, Any] = {}
-    for axis in (
-        "producer_invocations",
-        "eligible_subprocesses",
-        "temporary_materializations",
-        "copied_files",
-        "copied_bytes",
-    ):
-        before = sum(row["observation"]["operation_counts"][axis] for row in measured if row["arm"] == "A")
-        after = sum(row["observation"]["operation_counts"][axis] for row in measured if row["arm"] == "B")
+    for axis in OPERATION_AXES:
+        if backend == ENVIRONMENT_TRANSPARENT_TIMING_BACKEND:
+            operation_axes[axis] = {
+                "before": None,
+                "after": None,
+                "delta_before_minus_after": None,
+                "strictly_reduced": False,
+                "regressed_from_zero": False,
+                "applicability": "NOT_APPLICABLE_unobserved",
+            }
+            continue
+        before_values = [
+            row["observation"]["operation_counts"][axis]
+            for row in measured
+            if row["arm"] == "A"
+        ]
+        after_values = [
+            row["observation"]["operation_counts"][axis]
+            for row in measured
+            if row["arm"] == "B"
+        ]
+        require(
+            all(isinstance(value, int) for value in (*before_values, *after_values)),
+            f"targeted operation axis is unobserved: {axis}",
+        )
+        before = sum(before_values)
+        after = sum(after_values)
         operation_axes[axis] = {
             "before": before,
             "after": after,
@@ -1207,6 +1278,7 @@ def build_schedule(
     family_blocks = int(contract["schedule"]["targeted_measured_blocks"])
     configured_blocks = int(contract["schedule"]["configured_measured_blocks"])
     for workload in workloads:
+        measurement_backend(workload)
         blocks = configured_blocks if workload["workload_id"] == "configured-current" else family_blocks
         positions.extend(workload_schedule(workload["workload_id"], blocks))
     nonpilot_count = len(adopted) if session_kind == "terminal-acceptance" else 0
@@ -1243,6 +1315,7 @@ def build_qualification_schedule(contract: dict[str, Any]) -> dict[str, Any]:
     ]
     positions: list[dict[str, Any]] = []
     for workload in selected:
+        measurement_backend(workload)
         blocks = (
             int(contract["schedule"]["configured_measured_blocks"])
             if workload["workload_id"] == "configured-current"
@@ -1391,7 +1464,19 @@ def qualify_protocol(
             and instrumented["normalized_stdout_sha256"] == plain["normalized_stdout_sha256"]
             and instrumented["normalized_stderr_sha256"] == plain["normalized_stderr_sha256"]
         )
-        companions.append({"workload_id": workload["workload_id"], "contract_result_parity": parity})
+        backend = measurement_backend(workload)
+        companions.append(
+            {
+                "workload_id": workload["workload_id"],
+                "measurement_backend": backend,
+                "comparison_kind": (
+                    "environment_transparent_backend_repeatability"
+                    if backend == ENVIRONMENT_TRANSPARENT_TIMING_BACKEND
+                    else "instrumented_vs_uninstrumented"
+                ),
+                "contract_result_parity": parity,
+            }
+        )
     configured_samples = [row for row in samples if row["workload_id"] == "configured-current"]
     configured_deltas = adjacent_deltas(configured_samples, sign="B-A")
     detection = minimum_detectable_regression_ms(configured_deltas, contract["statistics"])

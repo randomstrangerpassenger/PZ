@@ -14,12 +14,15 @@ from Iris.validation.test_workflow_consolidation._common import (
     require_path_outside_repositories,
 )
 from Iris.validation.test_workflow_consolidation.measure_execution_cost import (
+    ENVIRONMENT_TRANSPARENT_TIMING_BACKEND,
+    PYTHON_PROCESS_TREE_BACKEND,
     _read_events,
     bootstrap_interval,
     build_schedule,
     candidate_elapsed_samples,
     count_producer_invocations,
     effective_regression_ceiling_ms,
+    measurement_backend,
     observe_command,
     protocol_identity,
     summarize_workload,
@@ -34,11 +37,17 @@ def _contract() -> dict[str, object]:
     command = ["{python}", "-c", "pass"]
     return {
         "workloads": [
-            {"workload_id": "mandatory_pilot", "command": command, "timeout_seconds": 1},
+            {
+                "workload_id": "mandatory_pilot",
+                "command": command,
+                "measurement_backend": PYTHON_PROCESS_TREE_BACKEND,
+                "timeout_seconds": 1,
+            },
             {
                 "workload_id": "configured-current",
                 "role": "configured_route_performance_observation",
                 "command": command,
+                "measurement_backend": ENVIRONMENT_TRANSPARENT_TIMING_BACKEND,
                 "timeout_seconds": 1,
             },
         ],
@@ -383,6 +392,82 @@ def test_instrumented_observation_counts_copy2(tmp_path) -> None:
     assert observation["operation_counts"]["copied_bytes"] == len("payload")
     assert observation["observer_integrity"]["status"] == "PASS"
     assert observation["observer_integrity"]["sequence_gap_count"] == 0
+
+
+def test_configured_timing_backend_does_not_mutate_python_environment(
+    tmp_path, monkeypatch
+) -> None:
+    repository = tmp_path / "repo"
+    repository.mkdir()
+    subprocess.run(["git", "init", "-q", str(repository)], check=True)
+    subprocess.run(["git", "-C", str(repository), "config", "user.email", "test@example.invalid"], check=True)
+    subprocess.run(["git", "-C", str(repository), "config", "user.name", "Test"], check=True)
+    marker = repository / "marker.txt"
+    marker.write_text("fixture", encoding="utf-8")
+    subprocess.run(["git", "-C", str(repository), "add", "marker.txt"], check=True)
+    subprocess.run(["git", "-C", str(repository), "commit", "-q", "-m", "fixture"], check=True)
+    monkeypatch.delenv("IRIS_WF_OBSERVER_EVENT_ROOT", raising=False)
+    monkeypatch.delenv("IRIS_WF_OBSERVER_INVOCATION_ID", raising=False)
+    original_pythonpath = os.environ.get("PYTHONPATH")
+    workload = {
+        "workload_id": "configured-current",
+        "role": "configured_route_performance_observation",
+        "measurement_backend": ENVIRONMENT_TRANSPARENT_TIMING_BACKEND,
+        "command": [
+            "{python}",
+            "-c",
+            (
+                "import json,os,sys; from pathlib import Path; "
+                "Path(sys.argv[1]).joinpath('environment.json').write_text(json.dumps({"
+                "'pythonpath':os.environ.get('PYTHONPATH'),"
+                "'event_root':os.environ.get('IRIS_WF_OBSERVER_EVENT_ROOT'),"
+                "'invocation_id':os.environ.get('IRIS_WF_OBSERVER_INVOCATION_ID'),"
+                "'observer_paths':[value for value in sys.path if value.endswith('observer')]"
+                "}),encoding='utf-8')"
+            ),
+            "{result_root}",
+        ],
+        "canonical_input_paths": ["marker.txt"],
+        "environment_contract": {"route": "configured-current"},
+        "expected_output_contract": {
+            "valid_exit_codes": [0],
+            "normalized_stdout": "fixture",
+            "normalized_stderr": "fixture",
+        },
+        "input_identity": "fixture",
+        "timeout_seconds": 5,
+        "valid_exit_codes": [0],
+    }
+    result_root = tmp_path / "result"
+
+    observation = observe_command(repository, workload, result_root, instrumented=True)
+    snapshot = json.loads((result_root / "environment.json").read_text(encoding="utf-8"))
+
+    assert observation["contract_valid"] is True
+    assert observation["instrumented"] is False
+    assert observation["instrumentation_requested"] is True
+    assert observation["measurement_backend"] == ENVIRONMENT_TRANSPARENT_TIMING_BACKEND
+    assert observation["observer_integrity"]["status"] == (
+        "NOT_APPLICABLE_environment_transparent_timing_only"
+    )
+    assert all(value is None for value in observation["operation_counts"].values())
+    assert snapshot == {
+        "pythonpath": original_pythonpath,
+        "event_root": None,
+        "invocation_id": None,
+        "observer_paths": [],
+    }
+    assert not (result_root / "observer").exists()
+
+
+def test_targeted_workload_rejects_environment_transparent_timing_backend() -> None:
+    with pytest.raises(ContractError, match="targeted workload"):
+        measurement_backend(
+            {
+                "workload_id": "mandatory_pilot",
+                "measurement_backend": ENVIRONMENT_TRANSPARENT_TIMING_BACKEND,
+            }
+        )
 
 
 def test_observer_event_stream_requires_complete_contiguous_lifecycle(tmp_path) -> None:
@@ -785,12 +870,22 @@ def test_configured_route_applies_percent_and_absolute_regression_caps() -> None
     }
     summary = summarize_workload(
         samples,
-        {"workload_id": "configured-current", "role": "configured_route_performance_observation"},
+        {
+            "workload_id": "configured-current",
+            "role": "configured_route_performance_observation",
+            "measurement_backend": ENVIRONMENT_TRANSPARENT_TIMING_BACKEND,
+        },
         statistics_contract,
     )
     gate = summary["configured_route_no_regression"]
     assert gate["effective_regression_ceiling_ms"] == 5.0
     assert gate["status"] == "FAIL"
+    assert all(
+        row["applicability"] == "NOT_APPLICABLE_unobserved"
+        and row["before"] is None
+        and row["after"] is None
+        for row in summary["operation_axes"].values()
+    )
 
 
 def test_failed_warmup_invalidates_workload_summary() -> None:

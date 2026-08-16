@@ -109,7 +109,7 @@ def _emit(kind, **fields):
 _emit("observer_start", parent_pid=os.getppid(), invocation_id=_observer_invocation_id)
 atexit.register(lambda: _emit("observer_complete"))
 
-def _python_observer_expected(args):
+def _is_python_process(args):
     if isinstance(args, (list, tuple)) and args:
         executable = os.fspath(args[0])
     elif isinstance(args, str) and args.strip():
@@ -122,14 +122,35 @@ def _python_observer_expected(args):
     name = os.path.basename(executable).lower()
     return re.fullmatch(r"python(?:w)?(?:[0-9]+(?:\.[0-9]+)*)?(?:\.exe)?", name) is not None
 
+def _observer_bootstrap_available(args, environment):
+    if isinstance(args, (list, tuple)):
+        arguments = [os.fspath(value) for value in args[1:]]
+    elif isinstance(args, str):
+        arguments = args.split()[1:]
+    else:
+        arguments = []
+    if any(value in {"-S", "-E", "-I"} for value in arguments):
+        return False
+    event_root = os.environ.get("IRIS_WF_OBSERVER_EVENT_ROOT")
+    if not event_root:
+        return False
+    observer_root = os.path.normcase(os.path.abspath(os.fspath(Path(event_root).parent / "observer")))
+    python_path = environment.get("PYTHONPATH", "")
+    return any(
+        os.path.normcase(os.path.abspath(value)) == observer_root
+        for value in python_path.split(os.pathsep)
+        if value
+    )
+
 _original_popen = subprocess.Popen
 class _ObservedPopen(_original_popen):
     def __init__(self, args, *positional, **kwargs):
         self._observer_completion_emitted = False
         self._observer_invocation_id = uuid.uuid4().hex
-        self._observer_python_expected = _python_observer_expected(args)
+        self._observer_python_process = _is_python_process(args)
+        self._observer_python_expected = False
         positional_values = list(positional)
-        if self._observer_python_expected:
+        if self._observer_python_process:
             if len(positional_values) > 9:
                 positional_env = positional_values[9]
                 child_env = dict(os.environ if positional_env is None else positional_env)
@@ -140,6 +161,7 @@ class _ObservedPopen(_original_popen):
                 child_env = dict(os.environ if keyword_env is None else keyword_env)
                 child_env["IRIS_WF_OBSERVER_INVOCATION_ID"] = self._observer_invocation_id
                 kwargs["env"] = child_env
+            self._observer_python_expected = _observer_bootstrap_available(args, child_env)
         super().__init__(args, *positional_values, **kwargs)
         _emit(
             "subprocess",
@@ -147,6 +169,7 @@ class _ObservedPopen(_original_popen):
             cwd=_safe(kwargs.get("cwd")),
             child_pid=self.pid,
             invocation_id=self._observer_invocation_id,
+            python_process=self._observer_python_process,
             python_observer_expected=self._observer_python_expected,
         )
 
@@ -577,7 +600,9 @@ def _read_events(
             and row["child_pid"] > 0
             and isinstance(row.get("invocation_id"), str)
             and re.fullmatch(r"[0-9a-f]{32}", row["invocation_id"])
+            and isinstance(row.get("python_process"), bool)
             and isinstance(row.get("python_observer_expected"), bool)
+            and (not row["python_observer_expected"] or row["python_process"])
             for row in subprocess_rows
         ),
         "subprocess observer expectation binding is incomplete",
@@ -601,6 +626,11 @@ def _read_events(
         (int(row["child_pid"]), int(row["pid"]), str(row["invocation_id"]))
         for row in subprocess_rows
         if row["python_observer_expected"] is True
+    )
+    parent_confirmed_uninstrumented_python_lifecycles = Counter(
+        (int(row["child_pid"]), int(row["pid"]), str(row["invocation_id"]))
+        for row in subprocess_rows
+        if row["python_process"] is True and row["python_observer_expected"] is False
     )
     observed_python_lifecycles = Counter(
         (pid, parent_pid, str(invocation_id))
@@ -639,6 +669,29 @@ def _read_events(
         not duplicate_parent_confirmations,
         f"Python descendant completion is duplicated: {dict(duplicate_parent_confirmations)}",
     )
+    uninstrumented_parent_confirmations = Counter(
+        {
+            lifecycle: count
+            for lifecycle, count in parent_confirmed_lifecycles.items()
+            if lifecycle in parent_confirmed_uninstrumented_python_lifecycles
+        }
+    )
+    missing_uninstrumented_confirmations = (
+        parent_confirmed_uninstrumented_python_lifecycles
+        - uninstrumented_parent_confirmations
+    )
+    duplicate_uninstrumented_confirmations = (
+        uninstrumented_parent_confirmations
+        - parent_confirmed_uninstrumented_python_lifecycles
+    )
+    require(
+        not missing_uninstrumented_confirmations,
+        f"uninstrumented Python descendant completion is unconfirmed: {dict(missing_uninstrumented_confirmations)}",
+    )
+    require(
+        not duplicate_uninstrumented_confirmations,
+        f"uninstrumented Python descendant completion is duplicated: {dict(duplicate_uninstrumented_confirmations)}",
+    )
     abrupt_python_lifecycles = Counter(
         (pid, parent_pid, str(invocation_id))
         for pid, parent_pid, instance, complete, invocation_id in observed_lifecycles
@@ -665,9 +718,14 @@ def _read_events(
         "observed_process_count": len(observed_lifecycles),
         "complete_process_count": complete_process_count,
         "parent_confirmed_abrupt_process_count": sum(abrupt_python_lifecycles.values()),
-        "accounted_process_count": complete_process_count + sum(abrupt_python_lifecycles.values()),
+        "accounted_process_count": complete_process_count
+        + sum(abrupt_python_lifecycles.values())
+        + sum(parent_confirmed_uninstrumented_python_lifecycles.values()),
         "expected_python_descendant_count": sum(expected_python_lifecycles.values()),
         "indirect_python_descendant_count": len(indirect_python_lifecycles),
+        "parent_confirmed_uninstrumented_python_descendant_count": sum(
+            parent_confirmed_uninstrumented_python_lifecycles.values()
+        ),
         "missing_python_descendant_count": 0,
         "sequence_gap_count": 0,
     }
@@ -846,9 +904,18 @@ def observe_command(
                 "accounted_process_count": 0,
                 "expected_python_descendant_count": 0,
                 "indirect_python_descendant_count": 0,
+                "parent_confirmed_uninstrumented_python_descendant_count": 0,
                 "missing_python_descendant_count": 0,
                 "sequence_gap_count": 0,
             }
+        parent_confirmed_uninstrumented_count = int(
+            observer_integrity["parent_confirmed_uninstrumented_python_descendant_count"]
+        )
+        require(
+            parent_confirmed_uninstrumented_count == 0
+            or workload.get("allow_parent_confirmed_uninstrumented_python_descendants") is True,
+            "workload does not allow parent-confirmed uninstrumented Python descendants",
+        )
         subprocess_events = [row for row in events if row.get("kind") == "subprocess"]
         producer_patterns = [value.replace("\\", "/") for value in workload.get("producer_patterns", [])]
         eligible_patterns = [value.replace("\\", "/") for value in workload.get("eligible_subprocess_patterns", [])]
@@ -885,13 +952,23 @@ def observe_command(
             "copied_bytes": sum(copied_observed),
         },
         "observation_coverage": {
-            "subprocess": "python_process_tree" if instrumented else "unobserved",
-            "temporary_materialization": "measurement_wrapper_setup_and_python_process_tree"
-            if instrumented
-            else "measurement_wrapper_setup_only",
-            "copy": "measurement_wrapper_setup_and_python_process_tree"
-            if instrumented
-            else "measurement_wrapper_setup_only",
+            "subprocess": (
+                "python_process_tree_with_parent_confirmed_uninstrumented_descendants"
+                if parent_confirmed_uninstrumented_count
+                else "python_process_tree"
+            ) if instrumented else "unobserved",
+            "temporary_materialization": (
+                "measurement_wrapper_setup_and_observed_python_processes; "
+                "parent-confirmed_uninstrumented_descendants_unobserved"
+                if parent_confirmed_uninstrumented_count
+                else "measurement_wrapper_setup_and_python_process_tree"
+            ) if instrumented else "measurement_wrapper_setup_only",
+            "copy": (
+                "measurement_wrapper_setup_and_observed_python_processes; "
+                "parent-confirmed_uninstrumented_descendants_unobserved"
+                if parent_confirmed_uninstrumented_count
+                else "measurement_wrapper_setup_and_python_process_tree"
+            ) if instrumented else "measurement_wrapper_setup_only",
             "read_parse_hash": "unobserved",
         },
         "observer_integrity": observer_integrity,

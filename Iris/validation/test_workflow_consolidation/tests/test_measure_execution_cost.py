@@ -306,6 +306,50 @@ def test_observation_timeout_reaps_descendant_after_atomic_job_assignment(tmp_pa
         pytest.fail("timed-out measurement descendant remained alive")
 
 
+def test_observation_requires_workload_opt_in_for_parent_confirmed_uninstrumented_python(
+    tmp_path,
+) -> None:
+    repository = tmp_path / "repo"
+    repository.mkdir()
+    subprocess.run(["git", "init", "-q", str(repository)], check=True)
+    subprocess.run(["git", "-C", str(repository), "config", "user.email", "test@example.invalid"], check=True)
+    subprocess.run(["git", "-C", str(repository), "config", "user.name", "Test"], check=True)
+    marker = repository / "marker.txt"
+    marker.write_text("fixture", encoding="utf-8")
+    subprocess.run(["git", "-C", str(repository), "add", "marker.txt"], check=True)
+    subprocess.run(["git", "-C", str(repository), "commit", "-q", "-m", "fixture"], check=True)
+    workload = {
+        "command": [
+            "{python}",
+            "-c",
+            (
+                "import os,subprocess,sys; env=dict(os.environ); "
+                "env.pop('PYTHONPATH',None); "
+                "subprocess.run([sys.executable,'-B','-s','-c','pass'],env=env,check=True)"
+            ),
+        ],
+        "canonical_input_paths": ["marker.txt"],
+        "expected_output_contract": {
+            "valid_exit_codes": [0],
+            "normalized_stdout": "fixture",
+            "normalized_stderr": "fixture",
+        },
+        "input_identity": "fixture",
+        "timeout_seconds": 5,
+        "valid_exit_codes": [0],
+    }
+
+    with pytest.raises(ContractError, match="workload does not allow"):
+        observe_command(repository, workload, tmp_path / "blocked", instrumented=True)
+
+    workload["allow_parent_confirmed_uninstrumented_python_descendants"] = True
+    observation = observe_command(repository, workload, tmp_path / "allowed", instrumented=True)
+    assert observation["observer_integrity"][
+        "parent_confirmed_uninstrumented_python_descendant_count"
+    ] == 1
+    assert "parent_confirmed_uninstrumented" in observation["observation_coverage"]["subprocess"]
+
+
 def test_instrumented_observation_counts_copy2(tmp_path) -> None:
     repository = tmp_path / "repo"
     repository.mkdir()
@@ -383,6 +427,7 @@ def test_observer_event_stream_requires_expected_python_descendant_lifecycle(tmp
                     "sequence": 2,
                     "child_pid": 43,
                     "invocation_id": "a" * 32,
+                    "python_process": True,
                     "python_observer_expected": True,
                 },
                 {
@@ -439,6 +484,7 @@ def test_observer_event_stream_distinguishes_reused_process_ids(tmp_path) -> Non
                     "sequence": 2,
                     "child_pid": 43,
                     "invocation_id": "a" * 32,
+                    "python_process": True,
                     "python_observer_expected": True,
                 },
                 {
@@ -455,6 +501,7 @@ def test_observer_event_stream_distinguishes_reused_process_ids(tmp_path) -> Non
                     "sequence": 4,
                     "child_pid": 43,
                     "invocation_id": "b" * 32,
+                    "python_process": True,
                     "python_observer_expected": True,
                 },
                 {
@@ -495,6 +542,53 @@ def test_observer_event_stream_distinguishes_reused_process_ids(tmp_path) -> Non
     assert integrity["expected_python_descendant_count"] == 2
 
 
+def test_observer_event_stream_requires_parent_confirmation_when_bootstrap_is_suppressed(tmp_path) -> None:
+    event_root = tmp_path / "events"
+    event_root.mkdir()
+    root_file = event_root / f"events-42-{'0' * 32}.jsonl"
+
+    def write_root(include_completion: bool) -> None:
+        rows = [
+            {"kind": "observer_start", "pid": 42, "parent_pid": 1, "sequence": 1},
+            {
+                "kind": "subprocess",
+                "pid": 42,
+                "sequence": 2,
+                "child_pid": 43,
+                "invocation_id": "a" * 32,
+                "python_process": True,
+                "python_observer_expected": False,
+            },
+        ]
+        if include_completion:
+            rows.append(
+                {
+                    "kind": "subprocess_complete",
+                    "pid": 42,
+                    "sequence": 3,
+                    "child_pid": 43,
+                    "invocation_id": "a" * 32,
+                    "returncode": 0,
+                }
+            )
+        rows.append(
+            {"kind": "observer_complete", "pid": 42, "sequence": len(rows) + 1}
+        )
+        root_file.write_text(
+            "\n".join(json.dumps(row) for row in rows) + "\n",
+            encoding="utf-8",
+        )
+
+    write_root(False)
+    with pytest.raises(ContractError, match="uninstrumented Python descendant completion"):
+        _read_events(event_root, 42, 1)
+
+    write_root(True)
+    _, integrity = _read_events(event_root, 42, 1)
+    assert integrity["parent_confirmed_uninstrumented_python_descendant_count"] == 1
+    assert integrity["accounted_process_count"] == 2
+
+
 def test_observer_event_stream_requires_nonzero_confirmation_for_abrupt_exit(tmp_path) -> None:
     event_root = tmp_path / "events"
     event_root.mkdir()
@@ -513,6 +607,7 @@ def test_observer_event_stream_requires_nonzero_confirmation_for_abrupt_exit(tmp
                         "sequence": 2,
                         "child_pid": 43,
                         "invocation_id": "a" * 32,
+                        "python_process": True,
                         "python_observer_expected": True,
                     },
                     {

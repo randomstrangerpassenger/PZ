@@ -104,6 +104,7 @@
         "Iris/_docs/round3/round3_test_taxonomy.json",
         "Iris/_docs/round3/current_route_required_validations.json"
       ],
+      "allow_parent_confirmed_uninstrumented_python_descendants": true,
       "expected_output_contract": {
         "normalized_stderr": "no_unhandled_error",
         "normalized_stdout": "pytest_configured_current_contract_and_denominator_receipt",

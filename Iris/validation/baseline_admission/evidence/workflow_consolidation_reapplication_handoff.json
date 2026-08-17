@@ -100,6 +100,31 @@
       "P1_count": 0,
       "P2_count": 0
     },
+    "final_long_validation": {
+      "status": "PASS",
+      "planned_execution_positions": 68,
+      "child_execution_positions_reached": 25,
+      "mandatory_pilot_positions_completed": 24,
+      "configured_current_positions_completed": 1,
+      "raw_wrapper_exit_code": 2,
+      "fail_stop_disposition": "noncritical_post_execution_generated_cache_hygiene",
+      "validation_result_affected": false,
+      "configured_current_denominator_status": "PASS",
+      "generated_ignored_paths": [
+        ".tmp/uv-cache/",
+        "Iris/build/quality/__pycache__/",
+        "Iris/build/tools/common/__pycache__/"
+      ],
+      "same_exact_baseline_machine_evidence": {
+        "status": "PASS",
+        "configured_current_passed": 470,
+        "configured_current_skipped": 1,
+        "configured_current_failed": 0,
+        "configured_current_errors": 0
+      },
+      "owner_adjudication": "PASS",
+      "restart_performed": false
+    },
     "successor_workflow_disposition": "normal_no_exception_required"
   }
 }

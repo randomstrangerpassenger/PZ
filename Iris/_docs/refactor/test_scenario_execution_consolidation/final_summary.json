@@ -1,0 +1,124 @@
+{
+  "schema_version": "iris-test-scenario-execution-consolidation-final-v1",
+  "implementation_subject": {
+    "commit": "991414badc7d470c04bad2967dd26e78aff0b697",
+    "branch": "codex/iris-scenario-execution-consolidation",
+    "base_commit": "e20119631df26fb48c590062f7aa2f86e491c342"
+  },
+  "overall_status": "implementation_complete_validation_blocked",
+  "axes": {
+    "implementation_axis": "implementation_complete",
+    "entry_axis": "clean_exact_subject_locked",
+    "baseline_admission_axis": "not_run_no_current_subject_qualification",
+    "identity_axis": "identity_preserved",
+    "isolation_axis": "isolation_preserved",
+    "review_axis": "codex_reviewer_pass_p0_p1_p2_zero",
+    "validation_axis": "focused_pass_canonical_full_gate_preflight_blocked",
+    "denominator_axis": "final_exact_and_configured_receipts_match",
+    "cost_axis": "distinct_nonpilot_scenario_target_met",
+    "profiling_axis": "full_universe_baseline_observed_cost_unattributable",
+    "adoption_evidence_axis": "proxy_ranked_structural_consolidation",
+    "configured_performance_axis": "not_measured_no_comparable_baseline",
+    "full_gate_performance_axis": "not_measured_no_baseline"
+  },
+  "baseline_full_universe": {
+    "selection": "round3_contract_all",
+    "exit_code": 1,
+    "passed": 643,
+    "failed": 1,
+    "skipped": 1,
+    "subtests_passed": 126,
+    "wall_time_seconds": 793.66,
+    "failure_identity": "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_current.py::RegistryRuntimeCompatibilityCurrentRouteTest::test_required_gate_runs_standalone_subprocess",
+    "failure_disposition": "preexisting_current_identity_not_known_historical_advisory_not_remediated_in_scope"
+  },
+  "cost_adopted_nonpilot_scenarios": [
+    {
+      "scenario_group_id": "artifact-inventory-git-fixture-seed",
+      "consolidatable_invocations_before": 14,
+      "consolidatable_invocations_after": 2,
+      "consolidatable_reduction_pct": 85.71,
+      "total_invocations_before": 35,
+      "total_invocations_after": 26,
+      "total_reduction_pct": 25.71,
+      "cost_claim": "qualified_proxy_only"
+    },
+    {
+      "scenario_group_id": "registry-authority-common-source-compile",
+      "consolidatable_invocations_before": 16,
+      "consolidatable_invocations_after": 1,
+      "consolidatable_reduction_pct": 93.75,
+      "total_invocations_before": 16,
+      "total_invocations_after": 1,
+      "total_reduction_pct": 93.75,
+      "cost_claim": "qualified_proxy_only"
+    },
+    {
+      "scenario_group_id": "registry-authority-round3-runner-source-compile",
+      "consolidatable_invocations_before": 3,
+      "consolidatable_invocations_after": 1,
+      "consolidatable_reduction_pct": 66.67,
+      "total_invocations_before": 3,
+      "total_invocations_after": 1,
+      "total_reduction_pct": 66.67,
+      "cost_claim": "qualified_proxy_only"
+    }
+  ],
+  "isolation_only_corrections": [
+    {
+      "scenario_group_id": "runtime-payload-residual-seal-workspace-ownership",
+      "before_workspace_materializations": 1,
+      "after_workspace_materializations": 7,
+      "module_global_writable_root_after": 0,
+      "cost_claim": "none"
+    }
+  ],
+  "identity_evidence": {
+    "mapped_rows": 35,
+    "duplicate_new_identity_count": 0,
+    "unmapped_terminal_disposition_count": 0
+  },
+  "focused_validation": {
+    "syntax_compile_exit_code": 0,
+    "bounded_order_matrix": "pass",
+    "normal_adopted_family_batch_exit_code": 0,
+    "normal_adopted_family_batch_passed": 46,
+    "normal_adopted_family_batch_subtests_passed": 36,
+    "normal_adopted_family_batch_wall_time_seconds": 89.80,
+    "focused_delta_after_path_byte_correction": "pass"
+  },
+  "denominator_comparison": {
+    "exact_current_nodes_before": 219,
+    "exact_current_nodes_after": 219,
+    "exact_current_drift_rows": 0,
+    "configured_current_nodes_before": 471,
+    "configured_current_nodes_after": 471,
+    "configured_current_denominator_before": 645,
+    "configured_current_denominator_after": 645,
+    "configured_current_deselected_before": 174,
+    "configured_current_deselected_after": 174,
+    "configured_current_drift_rows": 0
+  },
+  "review": {
+    "reviewer": "Codex Reviewer",
+    "initial_counts": {"P0": 0, "P1": 4, "P2": 0},
+    "final_counts": {"P0": 0, "P1": 0, "P2": 0},
+    "final_verdict": "PASS",
+    "tests_run_by_reviewer": false
+  },
+  "canonical_full_gate": {
+    "invocation_count": 1,
+    "implementation_subject_commit": "991414badc7d470c04bad2967dd26e78aff0b697",
+    "wrapper_exit_code": 1,
+    "native_exit_code": 2,
+    "launch_status": "gate_failed",
+    "launch_stage": "invoke_gate",
+    "test_execution_started": false,
+    "result_receipt_exists": false,
+    "failure_identity": "windows_execution_checkout_root_path_budget_preflight",
+    "failure_message": "Windows execution checkout root is too long for the declared path budget (103 > 56)",
+    "rerun_disposition": "not_rerun_to_preserve_declared_one_full_gate_budget",
+    "orchestration_receipt": "C:/Users/MW/Downloads/coding/PZ-scenario-consolidation-results-20260817/final-full-gate-orchestration-991414ba.json"
+  },
+  "claim_ceiling": "The selected test-only implementation and three proxy-ranked structural consolidations are complete and focused-validated. Canonical validation PASS is not claimed because the single final gate invocation stopped at path-budget preflight before tests began."
+}

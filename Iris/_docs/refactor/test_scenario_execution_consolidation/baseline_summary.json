@@ -74,14 +74,14 @@
       "reason": "One import-time writable copy is exact, but per-case isolation increases copies; this is isolation-only and has no cost claim."
     },
     {
-      "scenario_group_id": "artifact-lifecycle-promotion-path-bound-fixtures",
+      "scenario_group_id": "artifact-promotion-git-fixture-seed",
       "family_observed_duration_seconds": 82.59,
-      "measurement_axis": "workspace_materialization",
-      "process_tree_observer_required": true,
-      "deterministic_before_count_without_observer": false,
-      "before_count_evidence": "none",
-      "before_count_status": "unattributable",
-      "reason": "Absolute-path receipts and mutation/crash/concurrency branches prevent a comparable shared seed without observer-backed clone attribution."
+      "measurement_axis": "producer",
+      "process_tree_observer_required": false,
+      "deterministic_before_count_without_observer": true,
+      "before_count_evidence": "deterministic_bound",
+      "before_count_status": "exact",
+      "reason": "Fifteen nodes deterministically expand to twenty make_fixture cases. Each case executes the identical tracked-scaffold git add/commit producer (40 exact producer invocations); path-bound evidence generation and mutation/crash/concurrency tails remain case-local."
     },
     {
       "scenario_group_id": "artifact-lifecycle-executor-full-chain",

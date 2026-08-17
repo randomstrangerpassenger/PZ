@@ -61,8 +61,15 @@ def produce_physical_evidence(repo: Path, evidence: Path) -> None:
         raise AssertionError(produced.stderr)
 
 
-def make_fixture(root: Path) -> tuple[Path, Path]:
-    repo = root / "checkout"
+def materialize_giant_fixtures(repo: Path) -> None:
+    for index, relative in enumerate(GIANT_RELATIVE, start=1):
+        giant = repo / relative
+        giant.parent.mkdir(parents=True, exist_ok=True)
+        giant.write_text(f"giant-{index}\n", encoding="utf-8")
+
+
+def make_fixture_seed(root: Path) -> Path:
+    repo = root / "seed"
     repo.mkdir()
     git(repo, "init")
     git(repo, "config", "user.email", "iris-tests@example.invalid")
@@ -74,12 +81,97 @@ def make_fixture(root: Path) -> tuple[Path, Path]:
         "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/\n",
         encoding="utf-8",
     )
-    for index, relative in enumerate(GIANT_RELATIVE, start=1):
-        giant = repo / relative
-        giant.parent.mkdir(parents=True, exist_ok=True)
-        giant.write_text(f"giant-{index}\n", encoding="utf-8")
     git(repo, "add", ".")
     git(repo, "commit", "-m", "fixture")
+    return repo.resolve()
+
+
+def freeze_seed_exception_value(value):
+    if isinstance(value, list):
+        return "list", tuple(freeze_seed_exception_value(item) for item in value)
+    if isinstance(value, tuple):
+        return "tuple", tuple(freeze_seed_exception_value(item) for item in value)
+    if isinstance(value, dict):
+        return "dict", tuple(
+            (freeze_seed_exception_value(key), freeze_seed_exception_value(item))
+            for key, item in value.items()
+        )
+    return "atom", value
+
+
+def thaw_seed_exception_value(frozen):
+    kind, value = frozen
+    if kind == "list":
+        return [thaw_seed_exception_value(item) for item in value]
+    if kind == "tuple":
+        return tuple(thaw_seed_exception_value(item) for item in value)
+    if kind == "dict":
+        return {
+            thaw_seed_exception_value(key): thaw_seed_exception_value(item)
+            for key, item in value
+        }
+    return value
+
+
+def freeze_seed_exception(exc: Exception):
+    attributes = tuple(
+        (name, freeze_seed_exception_value(getattr(exc, name, None)))
+        for name in (
+            "returncode",
+            "cmd",
+            "output",
+            "stdout",
+            "stderr",
+            "filename",
+            "filename2",
+            "winerror",
+        )
+        if hasattr(exc, name)
+    )
+    return (
+        type(exc),
+        tuple(freeze_seed_exception_value(arg) for arg in exc.args),
+        attributes,
+        str(exc),
+    )
+
+
+def rebuild_seed_exception(failure):
+    error_type, frozen_args, attributes, expected_message = failure
+    error_args = tuple(thaw_seed_exception_value(arg) for arg in frozen_args)
+    rebuilt = error_type(*error_args)
+    for name, frozen_value in attributes:
+        setattr(rebuilt, name, thaw_seed_exception_value(frozen_value))
+    if str(rebuilt) != expected_message:
+        rebuilt = error_type(expected_message)
+    return rebuilt
+
+
+def make_fixture(root: Path, seed_repo: Path) -> tuple[Path, Path]:
+    repo = root / "checkout"
+    cloned = subprocess.run(
+        [
+            "git",
+            "-c",
+            "core.autocrlf=false",
+            "clone",
+            "--no-hardlinks",
+            "--quiet",
+            str(seed_repo),
+            str(repo),
+        ],
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+    )
+    if cloned.returncode != 0:
+        raise AssertionError(cloned.stderr)
+    git(repo, "config", "user.email", "iris-tests@example.invalid")
+    git(repo, "config", "user.name", "Iris Tests")
+    materialize_giant_fixtures(repo)
     evidence = root / "external-evidence"
     produce_physical_evidence(repo, evidence)
     return repo.resolve(), evidence.resolve()
@@ -168,8 +260,11 @@ def promote_successor(
     )
 
 
-def make_successor_fixture(root: Path) -> tuple[Path, Path, dict[str, bytes]]:
-    repo, evidence = make_fixture(root)
+def make_successor_fixture(
+    root: Path,
+    seed_repo: Path,
+) -> tuple[Path, Path, dict[str, bytes]]:
+    repo, evidence = make_fixture(root, seed_repo)
     initial_external = root / "operator/initial-baseline-promotion.json"
     initial = promote(repo, evidence, initial_external)
     if initial.returncode != 0:
@@ -222,10 +317,33 @@ def successor_transaction_id(repo: Path, evidence: Path) -> str:
 
 
 class ArtifactLifecyclePromotionTest(unittest.TestCase):
+    _seed_directory: tempfile.TemporaryDirectory[str] | None = None
+    _seed_repo: Path | None = None
+    _seed_error = None
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        try:
+            cls._seed_directory = tempfile.TemporaryDirectory(prefix="promotion-seed-")
+            cls._seed_repo = make_fixture_seed(Path(cls._seed_directory.name))
+        except Exception as exc:  # Preserve failure attribution at each consumer node.
+            cls._seed_error = freeze_seed_exception(exc)
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        if cls._seed_directory is not None:
+            cls._seed_directory.cleanup()
+
+    def fixture_seed(self) -> Path:
+        if self._seed_error is not None:
+            raise rebuild_seed_exception(self._seed_error)
+        self.assertIsNotNone(self._seed_repo)
+        return self._seed_repo
+
     def test_baseline_promotion_preserves_bytes_and_dual_receipt_identity(self) -> None:
         with tempfile.TemporaryDirectory(prefix="b-") as temporary:
             root = Path(temporary)
-            repo, evidence = make_fixture(root)
+            repo, evidence = make_fixture(root, self.fixture_seed())
             external_receipt = root / "operator/baseline_promotion_receipt.json"
             result = promote(repo, evidence, external_receipt)
             self.assertEqual(result.returncode, 0, result.stderr)
@@ -247,7 +365,7 @@ class ArtifactLifecyclePromotionTest(unittest.TestCase):
     def test_altered_source_and_wrong_subject_are_rejected_before_durable_write(self) -> None:
         with tempfile.TemporaryDirectory(prefix="a-") as temporary:
             root = Path(temporary)
-            repo, evidence = make_fixture(root)
+            repo, evidence = make_fixture(root, self.fixture_seed())
             (evidence / "artifact_role_manifest.jsonl").write_bytes(
                 (evidence / "artifact_role_manifest.jsonl").read_bytes() + b"{}\n"
             )
@@ -258,7 +376,7 @@ class ArtifactLifecyclePromotionTest(unittest.TestCase):
 
         with tempfile.TemporaryDirectory(prefix="s-") as temporary:
             root = Path(temporary)
-            repo, evidence = make_fixture(root)
+            repo, evidence = make_fixture(root, self.fixture_seed())
             receipt_path = evidence / "physical_subject_receipt.json"
             receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
             receipt["subject_kind"] = "validation_subject"
@@ -271,7 +389,7 @@ class ArtifactLifecyclePromotionTest(unittest.TestCase):
     def test_preexisting_destination_blocks_all_promotion_outputs(self) -> None:
         with tempfile.TemporaryDirectory(prefix="e-") as temporary:
             root = Path(temporary)
-            repo, evidence = make_fixture(root)
+            repo, evidence = make_fixture(root, self.fixture_seed())
             durable = repo / DURABLE_RELATIVE
             durable.mkdir(parents=True)
             existing = durable / "baseline_inventory.json"
@@ -285,7 +403,7 @@ class ArtifactLifecyclePromotionTest(unittest.TestCase):
     def test_baseline_successor_replaces_generation_and_preserves_dual_receipt_identity(self) -> None:
         with tempfile.TemporaryDirectory(prefix="n-") as temporary:
             root = Path(temporary)
-            repo, evidence, predecessor = make_successor_fixture(root)
+            repo, evidence, predecessor = make_successor_fixture(root, self.fixture_seed())
             durable = repo / DURABLE_RELATIVE
             external = root / "operator/successor-baseline-promotion.json"
             result = promote_successor(repo, evidence, external)
@@ -309,7 +427,7 @@ class ArtifactLifecyclePromotionTest(unittest.TestCase):
     def test_baseline_successor_rejects_predecessor_head_mismatch_before_write(self) -> None:
         with tempfile.TemporaryDirectory(prefix="m-") as temporary:
             root = Path(temporary)
-            repo, evidence, _ = make_successor_fixture(root)
+            repo, evidence, _ = make_successor_fixture(root, self.fixture_seed())
             durable = repo / DURABLE_RELATIVE
             baseline = durable / "baseline_inventory.json"
             baseline.write_bytes(baseline.read_bytes() + b" ")
@@ -336,7 +454,7 @@ class ArtifactLifecyclePromotionTest(unittest.TestCase):
                 prefix=f"f{replace_index}-"
             ) as temporary:
                 root = Path(temporary)
-                repo, evidence, predecessor = make_successor_fixture(root)
+                repo, evidence, predecessor = make_successor_fixture(root, self.fixture_seed())
                 durable = repo / DURABLE_RELATIVE
                 external = root / "operator/failed-successor.json"
                 result = promote_successor(
@@ -358,7 +476,7 @@ class ArtifactLifecyclePromotionTest(unittest.TestCase):
     def test_baseline_successor_recovers_interrupted_transaction_before_fresh_rerun(self) -> None:
         with tempfile.TemporaryDirectory(prefix="c-") as temporary:
             root = Path(temporary)
-            repo, evidence, predecessor = make_successor_fixture(root)
+            repo, evidence, predecessor = make_successor_fixture(root, self.fixture_seed())
             durable = repo / DURABLE_RELATIVE
             external = root / "operator/crashed-successor.json"
             crashed = promote_successor(
@@ -389,7 +507,7 @@ class ArtifactLifecyclePromotionTest(unittest.TestCase):
     def test_baseline_successor_rejects_concurrent_active_owner(self) -> None:
         with tempfile.TemporaryDirectory(prefix="l-") as temporary:
             root = Path(temporary)
-            repo, evidence, _ = make_successor_fixture(root)
+            repo, evidence, _ = make_successor_fixture(root, self.fixture_seed())
             durable = repo / DURABLE_RELATIVE
             external = root / "operator/concurrent-successor.json"
             pause = root / "operator/active-transaction.ready"
@@ -429,7 +547,7 @@ class ArtifactLifecyclePromotionTest(unittest.TestCase):
     def test_baseline_successor_recovers_crash_after_external_publication(self) -> None:
         with tempfile.TemporaryDirectory(prefix="x-") as temporary:
             root = Path(temporary)
-            repo, evidence, predecessor = make_successor_fixture(root)
+            repo, evidence, predecessor = make_successor_fixture(root, self.fixture_seed())
             durable = repo / DURABLE_RELATIVE
             external = root / "operator/published-crash-successor.json"
             crashed = promote_successor(
@@ -461,7 +579,7 @@ class ArtifactLifecyclePromotionTest(unittest.TestCase):
                 prefix="r-"
             ) as temporary:
                 root = Path(temporary)
-                repo, evidence, predecessor = make_successor_fixture(root)
+                repo, evidence, predecessor = make_successor_fixture(root, self.fixture_seed())
                 durable = repo / DURABLE_RELATIVE
                 external = root / "operator/recovered-successor.json"
                 crashed = promote_successor(repo, evidence, external, {variable: value})
@@ -481,7 +599,7 @@ class ArtifactLifecyclePromotionTest(unittest.TestCase):
     def test_baseline_successor_external_collision_rolls_back_without_overwrite(self) -> None:
         with tempfile.TemporaryDirectory(prefix="o-") as temporary:
             root = Path(temporary)
-            repo, evidence, predecessor = make_successor_fixture(root)
+            repo, evidence, predecessor = make_successor_fixture(root, self.fixture_seed())
             durable = repo / DURABLE_RELATIVE
             external = root / "operator/collision-successor.json"
             result = promote_successor(
@@ -500,7 +618,7 @@ class ArtifactLifecyclePromotionTest(unittest.TestCase):
     def test_baseline_successor_preexisting_external_stage_is_never_overwritten(self) -> None:
         with tempfile.TemporaryDirectory(prefix="p-") as temporary:
             root = Path(temporary)
-            repo, evidence, predecessor = make_successor_fixture(root)
+            repo, evidence, predecessor = make_successor_fixture(root, self.fixture_seed())
             durable = repo / DURABLE_RELATIVE
             external = root / "operator/stage-collision-successor.json"
             transaction_id = successor_transaction_id(repo, evidence)
@@ -519,7 +637,7 @@ class ArtifactLifecyclePromotionTest(unittest.TestCase):
     def test_baseline_successor_committed_cleanup_recovery_requires_exact_intent(self) -> None:
         with tempfile.TemporaryDirectory(prefix="k-") as temporary:
             root = Path(temporary)
-            repo, evidence, predecessor = make_successor_fixture(root)
+            repo, evidence, predecessor = make_successor_fixture(root, self.fixture_seed())
             durable = repo / DURABLE_RELATIVE
             external = root / "operator/committed-successor.json"
             committed = promote_successor(
@@ -553,7 +671,7 @@ class ArtifactLifecyclePromotionTest(unittest.TestCase):
     def test_baseline_successor_v2_transaction_semantics_are_mandatory(self) -> None:
         with tempfile.TemporaryDirectory(prefix="v-") as temporary:
             root = Path(temporary)
-            repo, evidence, _ = make_successor_fixture(root)
+            repo, evidence, _ = make_successor_fixture(root, self.fixture_seed())
             durable = repo / DURABLE_RELATIVE
             external = root / "operator/v2-successor.json"
             result = promote_successor(repo, evidence, external)
@@ -594,7 +712,7 @@ class ArtifactLifecyclePromotionTest(unittest.TestCase):
     def test_terminal_promotion_rejects_semantically_tampered_transition(self) -> None:
         with tempfile.TemporaryDirectory(prefix="t-") as temporary:
             root = Path(temporary)
-            repo, evidence = make_fixture(root)
+            repo, evidence = make_fixture(root, self.fixture_seed())
             baseline_external = root / "operator/baseline-promotion.json"
             baseline_result = promote(repo, evidence, baseline_external)
             self.assertEqual(baseline_result.returncode, 0, baseline_result.stderr)

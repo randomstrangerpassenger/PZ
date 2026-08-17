@@ -1,6 +1,7 @@
 {
   "schema_version": "iris-test-scenario-execution-consolidation-review-v1",
   "reviewer": "Codex Reviewer",
+  "reviewed_subject_commit": "991414badc7d470c04bad2967dd26e78aff0b697",
   "review_mode": "one_static_review_with_delta_only_blocker_checks",
   "initial_verdict": "FAIL",
   "initial_counts": {"P0": 0, "P1": 4, "P2": 0},
@@ -16,5 +17,12 @@
   "unresolved_isolation_blocker_count": 0,
   "unresolved_process_boundary_blocker_count": 0,
   "baseline_failure_disposition": "unrelated_preexisting_current_identity_not_remediated",
-  "tests_run_by_reviewer": false
+  "tests_run_by_reviewer": false,
+  "expansion_delta_review": {
+    "initial_counts": {"P0": 0, "P1": 3, "P2": 1},
+    "final_counts": {"P0": 0, "P1": 0, "P2": 0},
+    "status": "PASS",
+    "safe_cost_reducing_candidate_exhaustion": "confirmed",
+    "tests_run_by_reviewer": false
+  }
 }

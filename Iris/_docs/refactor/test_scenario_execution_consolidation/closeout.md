@@ -4,6 +4,8 @@ Status: `implementation_complete_validation_blocked`.
 
 The test-only implementation is complete on commit `991414badc7d470c04bad2967dd26e78aff0b697`. It adopts three non-pilot qualified-proxy scenario groups, preserves the existing test identities, removes the runtime-payload module-global writable root, and does not change Iris or Pulse runtime authority.
 
+The adopted source plan is `docs/iris_test_scenario_execution_consolidation_plan.md`, SHA-256 `2e56a9c7dbda4f44f972ff9aa265b8c64d655049db1c460230619381b857a36b`. The untracked source plan was not copied into the branch; its exact hash is retained here for reproducibility.
+
 ## Structural consolidation outcome
 
 | Scenario group | Comparable consolidatable invocations | Reduction | Total invocations | Evidence category |
@@ -28,6 +30,10 @@ The full-universe baseline was observed once: 643 passed, 1 skipped, 1 failed, a
 
 ## Canonical validation blocker
 
-The one declared final canonical wrapper invocation targeted the exact implementation commit. It exited before test execution because the selected external work root exceeded the Windows checkout path budget: `103 > 56`. The wrapper recorded native exit code 2, created no full-run result receipt, and therefore cannot support a canonical PASS claim. It was not rerun, preserving the plan's single full-gate execution budget.
+The original long-path rejection was correctly reclassified as preflight rather than a canonical long execution. That receipt remains at `C:/Users/MW/Downloads/coding/PZ-scenario-consolidation-results-20260817/final-full-gate-orchestration-991414ba.json`. Two further setup attempts were also rejected before checkout/test execution: `C:/q` was not writable, and a short-root attempt against the evidence commit failed the exact-HEAD check. These attempts are disclosed but do not count as long executions.
+
+The one actual canonical long execution used a clean detached worktree at exact implementation commit `991414badc7d470c04bad2967dd26e78aff0b697`, the same immutable environment receipt, and the short work root `C:/Users/MW/q/fw991b`. Checkout succeeded and the canonical gate started. Before pytest, full-gate source-policy validation rejected the tracked source `Iris/validation/test_workflow_consolidation/tests/test_classify_source_policy_impact.py` as unclassified. The source existed at the base commit and has no base-to-implementation diff. The wrapper recorded native exit code 2 and created no full-run result receipt. Its orchestration receipt is `C:/Users/MW/q/fo991b.json`.
+
+No second canonical long execution was performed. Consequently the baseline's current registry-runtime compatibility failure was not reached by the final gate, and exact-current/configured-current collection equality remains denominator evidence rather than execution PASS evidence.
 
 Accordingly, the implementation, identity, isolation, reviewer, focused-validation, denominator, and structural cost axes are satisfied. The canonical validation axis remains blocked; configured and full-gate performance axes remain respectively `not_measured_no_comparable_baseline` and `not_measured_no_baseline`.

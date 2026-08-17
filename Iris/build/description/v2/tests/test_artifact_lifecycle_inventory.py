@@ -37,8 +37,8 @@ def git(repo: Path, *args: str) -> str:
     return completed.stdout.strip()
 
 
-def make_repo(root: Path, *, giants: bool) -> Path:
-    repo = root / "checkout"
+def make_repo_seed(root: Path) -> Path:
+    repo = root / "seed"
     repo.mkdir()
     git(repo, "init")
     git(repo, "config", "user.email", "iris-tests@example.invalid")
@@ -50,11 +50,6 @@ def make_repo(root: Path, *, giants: bool) -> Path:
     tracked = repo / "docs/contract.md"
     tracked.parent.mkdir(parents=True)
     tracked.write_text("current contract\n", encoding="utf-8")
-    if giants:
-        for index, relative in enumerate(GIANT_RELATIVE, start=1):
-            path = repo / relative
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_bytes((f"giant-{index}\n" * index).encode("utf-8"))
     fixture_policy = (
         repo
         / "Iris/_docs/refactor/repository_runtime_lightweighting/"
@@ -64,6 +59,38 @@ def make_repo(root: Path, *, giants: bool) -> Path:
     fixture_policy.write_bytes(GUARD_REFERENCE_POLICY.read_bytes())
     git(repo, "add", ".")
     git(repo, "commit", "-m", "fixture")
+    return repo.resolve()
+
+
+def make_repo(root: Path, *, giants: bool, seed_repo: Path) -> Path:
+    repo = root / "checkout"
+    completed = subprocess.run(
+        [
+            "git",
+            "-c",
+            "core.autocrlf=false",
+            "clone",
+            "--no-hardlinks",
+            "--quiet",
+            str(seed_repo),
+            str(repo),
+        ],
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+    )
+    if completed.returncode != 0:
+        raise AssertionError(completed.stderr)
+    git(repo, "config", "user.email", "iris-tests@example.invalid")
+    git(repo, "config", "user.name", "Iris Tests")
+    if giants:
+        for index, relative in enumerate(GIANT_RELATIVE, start=1):
+            path = repo / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes((f"giant-{index}\n" * index).encode("utf-8"))
     return repo.resolve()
 
 
@@ -144,10 +171,32 @@ def create_directory_reparse(link: Path, target: Path) -> None:
 
 
 class ArtifactLifecycleInventoryTest(unittest.TestCase):
+    _seed_directory: tempfile.TemporaryDirectory[str] | None = None
+    _seed_repo: Path | None = None
+    _seed_error: str | None = None
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        try:
+            cls._seed_directory = tempfile.TemporaryDirectory(prefix="inventory-seed-")
+            cls._seed_repo = make_repo_seed(Path(cls._seed_directory.name))
+        except Exception as exc:  # Preserve failure attribution at each consumer node.
+            cls._seed_error = f"artifact inventory seed preparation failed: {exc}"
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        if cls._seed_directory is not None:
+            cls._seed_directory.cleanup()
+
+    def seed_repo(self) -> Path:
+        self.assertIsNone(self._seed_error, self._seed_error)
+        self.assertIsNotNone(self._seed_repo)
+        return self._seed_repo
+
     def test_junctions_are_held_without_external_traversal(self) -> None:
         with tempfile.TemporaryDirectory(prefix="r-") as temporary:
             root = Path(temporary)
-            repo = make_repo(root, giants=True)
+            repo = make_repo(root, giants=True, seed_repo=self.seed_repo())
             external = root / "outside"
             external.mkdir()
             secret = external / "external-only-secret.txt"
@@ -192,7 +241,7 @@ class ArtifactLifecycleInventoryTest(unittest.TestCase):
     def test_same_subject_is_byte_stable_and_role_partition_is_complete(self) -> None:
         with tempfile.TemporaryDirectory(prefix="s-") as temporary:
             root = Path(temporary)
-            repo = make_repo(root, giants=True)
+            repo = make_repo(root, giants=True, seed_repo=self.seed_repo())
             first = root / "first"
             second = root / "second"
             first_result = run_inventory(repo, first)
@@ -221,8 +270,12 @@ class ArtifactLifecycleInventoryTest(unittest.TestCase):
         ) as validation_temp:
             physical_root = Path(physical_temp)
             validation_root = Path(validation_temp)
-            physical = make_repo(physical_root, giants=True)
-            validation = make_repo(validation_root, giants=False)
+            physical = make_repo(
+                physical_root, giants=True, seed_repo=self.seed_repo()
+            )
+            validation = make_repo(
+                validation_root, giants=False, seed_repo=self.seed_repo()
+            )
             physical_out = physical_root / "evidence"
             validation_out = validation_root / "evidence"
             physical_result = run_inventory(physical, physical_out)
@@ -250,7 +303,7 @@ class ArtifactLifecycleInventoryTest(unittest.TestCase):
     def test_repository_local_and_preexisting_outputs_fail_loud(self) -> None:
         with tempfile.TemporaryDirectory(prefix="o-") as temporary:
             root = Path(temporary)
-            repo = make_repo(root, giants=True)
+            repo = make_repo(root, giants=True, seed_repo=self.seed_repo())
             local = repo / "evidence"
             rejected = run_inventory(repo, local)
             self.assertNotEqual(rejected.returncode, 0)
@@ -266,7 +319,7 @@ class ArtifactLifecycleInventoryTest(unittest.TestCase):
     def test_console_temp_cache_and_ignored_consumers_are_in_scope(self) -> None:
         with tempfile.TemporaryDirectory(prefix="c-") as temporary:
             root = Path(temporary)
-            repo = make_repo(root, giants=True)
+            repo = make_repo(root, giants=True, seed_repo=self.seed_repo())
             additions = {
                 "console_log.txt": "console\n",
                 ".tmp/owner-backup.txt": "backup\n",
@@ -332,7 +385,7 @@ class ArtifactLifecycleInventoryTest(unittest.TestCase):
     def test_missing_references_and_real_tracking_transition_are_fail_loud(self) -> None:
         with tempfile.TemporaryDirectory(prefix="t-") as temporary:
             root = Path(temporary)
-            repo = make_repo(root, giants=True)
+            repo = make_repo(root, giants=True, seed_repo=self.seed_repo())
             baseline_out = root / "baseline"
             baseline_result = run_inventory(repo, baseline_out)
             self.assertEqual(baseline_result.returncode, 0, baseline_result.stderr)

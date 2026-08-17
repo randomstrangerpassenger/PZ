@@ -1,9 +1,53 @@
 from runtime_payload_residual_seal_test_support import *
 
 class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
+    _READ_ONLY_TESTS = frozenset(
+        {
+            "test_final_report_allows_residual_seal_after_author_and_external_review",
+            "test_reverification_and_residue_confinement_match_existing_guard",
+            "test_protected_manifest_and_hash_coverage_are_complete",
+            "test_author_and_external_review_gates_are_complete",
+        }
+    )
+    _read_only_root = None
+    _read_only_root_error = None
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        try:
+            cls._read_only_root = create_external_evidence_root(
+                "runtime-payload-residual-seal-read-only"
+            )
+        except Exception as exc:  # Each consumer reports this at its own node.
+            cls._read_only_root_error = str(exc)
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        if cls._read_only_root is not None and cls._read_only_root.exists():
+            shutil.rmtree(cls._read_only_root)
+
+    def setUp(self) -> None:
+        self._case_root = None
+        if self._testMethodName in self._READ_ONLY_TESTS:
+            self.assertIsNone(
+                self._read_only_root_error,
+                f"read-only evidence preparation failed: {self._read_only_root_error}",
+            )
+            self.assertIsNotNone(self._read_only_root)
+            self.root = self._read_only_root
+            return
+        self._case_root = create_external_evidence_root(
+            f"runtime-payload-residual-seal-{self._testMethodName}"
+        )
+        self.root = self._case_root
+
+    def tearDown(self) -> None:
+        if self._case_root is not None and self._case_root.exists():
+            shutil.rmtree(self._case_root)
+
     def test_final_report_allows_residual_seal_after_author_and_external_review(self) -> None:
-        final = load_json(ROOT / "phase7/final_runtime_payload_residual_seal_report.json")
-        adoption = load_json(ROOT / "phase8/current_route_governance_adoption_report.json")
+        final = load_json(self.root / "phase7/final_runtime_payload_residual_seal_report.json")
+        adoption = load_json(self.root / "phase8/current_route_governance_adoption_report.json")
         claim_boundary = (REPO / "docs/runtime_payload_state_integrity_residual_claim_boundary.md").read_text(encoding="utf-8")
         ledger = (REPO / "docs/runtime_payload_state_integrity_residual_ledger_packet.md").read_text(encoding="utf-8")
 
@@ -27,11 +71,11 @@ class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
         self.assertIn("current runtime rows: 2105", ledger)
 
     def test_reverification_and_residue_confinement_match_existing_guard(self) -> None:
-        guard = load_json(ROOT / "phase2/shape_guard_readpoint_reverification_report.json")
-        forbidden = load_json(ROOT / "phase2/current_looking_forbidden_scan_report.json")
-        disjoint = load_json(ROOT / "phase2/denominator_disjointness_report.json")
-        residue = load_json(ROOT / "phase3/residual_historical_only_confinement_report.json")
-        non_reentry = load_json(ROOT / "phase3/predecessor_residue_non_reentry_report.json")
+        guard = load_json(self.root / "phase2/shape_guard_readpoint_reverification_report.json")
+        forbidden = load_json(self.root / "phase2/current_looking_forbidden_scan_report.json")
+        disjoint = load_json(self.root / "phase2/denominator_disjointness_report.json")
+        residue = load_json(self.root / "phase3/residual_historical_only_confinement_report.json")
+        non_reentry = load_json(self.root / "phase3/predecessor_residue_non_reentry_report.json")
 
         self.assertEqual(guard["status"], "PASS")
         self.assertEqual(guard["current_runtime_entry_count"], 2105)
@@ -54,9 +98,9 @@ class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
         self.assertTrue(non_reentry["current_like_denominator_intersection_empty"])
 
     def test_protected_manifest_and_hash_coverage_are_complete(self) -> None:
-        protected = load_json(ROOT / "phase1/protected_surface_manifest.json")
-        no_mutation = load_json(ROOT / "phase5/no_mutation_report.json")
-        artifact_hash = load_json(ROOT / "phase5/artifact_hash_report.json")
+        protected = load_json(self.root / "phase1/protected_surface_manifest.json")
+        no_mutation = load_json(self.root / "phase5/no_mutation_report.json")
+        artifact_hash = load_json(self.root / "phase5/artifact_hash_report.json")
         entries = protected["entries"]
 
         self.assertGreater(len(entries), 20)
@@ -81,11 +125,11 @@ class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
         self.assertTrue(artifact_hash["residual_test_hash_covered"])
 
     def test_author_and_external_review_gates_are_complete(self) -> None:
-        options = load_json(ROOT / "phase4/author_reserved_selection_option_enumeration.json")
-        decision = load_json(ROOT / "phase4/author_reserved_selection_decision_record.json")
-        policy = load_json(ROOT / "phase4/policy_consistency_report.json")
-        review = load_json(ROOT / "phase6/external_independent_review_report.json")
-        review_gate = load_json(ROOT / "phase6/external_review_gate_report.json")
+        options = load_json(self.root / "phase4/author_reserved_selection_option_enumeration.json")
+        decision = load_json(self.root / "phase4/author_reserved_selection_decision_record.json")
+        policy = load_json(self.root / "phase4/policy_consistency_report.json")
+        review = load_json(self.root / "phase6/external_independent_review_report.json")
+        review_gate = load_json(self.root / "phase6/external_review_gate_report.json")
         author_doc = (REPO / "docs/runtime_payload_state_integrity_author_decision.md").read_text(encoding="utf-8")
 
         self.assertEqual(options["status"], "PASS")
@@ -109,32 +153,24 @@ class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
         self.assertIn("pending_author_selection", author_doc)
 
     def test_require_complete_rejects_missing_author_and_review_gates(self) -> None:
-        author_path = ROOT / "phase4/author_reserved_selection_decision_record.json"
-        review_path = ROOT / "phase6/external_independent_review_report.json"
+        author_path = self.root / "phase4/author_reserved_selection_decision_record.json"
+        review_path = self.root / "phase6/external_independent_review_report.json"
         author_backup = author_path.read_text(encoding="utf-8")
         review_backup = review_path.read_text(encoding="utf-8")
         try:
             author_path.unlink()
             review_path.unlink()
-            generate_missing_result = subprocess.run(
-                [sys.executable, "-B", str(SCRIPT), "--mode", "all"],
-                cwd=REPO,
-                text=True,
-                capture_output=True,
-                check=False,
+            generate_missing_result = run_residual_seal(
+                self.root, "--mode", "all"
             )
             self.assertEqual(generate_missing_result.returncode, 0, generate_missing_result.stdout + generate_missing_result.stderr)
 
-            result = subprocess.run(
-                [sys.executable, "-B", str(SCRIPT), "--mode", "validate", "--require-complete"],
-                cwd=REPO,
-                text=True,
-                capture_output=True,
-                check=False,
+            result = run_residual_seal(
+                self.root, "--mode", "validate", "--require-complete"
             )
 
             self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
-            report = load_json(ROOT / "phase7/validation_report.require_complete.json")
+            report = load_json(self.root / "phase7/validation_report.require_complete.json")
             error_codes = {error["code"] for error in report["errors"]}
             self.assertIn("canonical_residual_seal_not_allowed", error_codes)
             self.assertIn("author_seal_closing_decision_missing", error_codes)
@@ -142,11 +178,11 @@ class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
         finally:
             author_path.write_text(author_backup, encoding="utf-8")
             review_path.write_text(review_backup, encoding="utf-8")
-            restore_result = rebind_and_restore_complete_review()
+            restore_result = rebind_and_restore_complete_review(self.root)
             self.assertEqual(restore_result.returncode, 0, restore_result.stdout + restore_result.stderr)
 
     def test_non_seal_closing_option_metadata_cannot_complete(self) -> None:
-        author_path = ROOT / "phase4/author_reserved_selection_decision_record.json"
+        author_path = self.root / "phase4/author_reserved_selection_decision_record.json"
         author_backup = author_path.read_text(encoding="utf-8") if author_path.exists() else None
         try:
             author_decision = {
@@ -172,17 +208,13 @@ class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
             }
             write_json(author_path, author_decision)
 
-            generate_result = subprocess.run(
-                [sys.executable, "-B", str(SCRIPT), "--mode", "generate"],
-                cwd=REPO,
-                text=True,
-                capture_output=True,
-                check=False,
+            generate_result = run_residual_seal(
+                self.root, "--mode", "generate"
             )
             self.assertEqual(generate_result.returncode, 0, generate_result.stdout + generate_result.stderr)
 
-            policy = load_json(ROOT / "phase4/policy_consistency_report.json")
-            final = load_json(ROOT / "phase7/final_runtime_payload_residual_seal_report.json")
+            policy = load_json(self.root / "phase4/policy_consistency_report.json")
+            final = load_json(self.root / "phase7/final_runtime_payload_residual_seal_report.json")
             self.assertEqual(policy["status"], "BLOCKED_PENDING_AUTHOR_SELECTION")
             self.assertTrue(policy["selected_option_in_enumerated_option_space"])
             self.assertFalse(policy["selected_option_metadata_seal_closing_if_author_selected"])
@@ -190,15 +222,11 @@ class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
             self.assertFalse(final["author_seal_closing_decision_complete"])
             self.assertFalse(final["canonical_residual_seal_allowed"])
 
-            validate_result = subprocess.run(
-                [sys.executable, "-B", str(SCRIPT), "--mode", "validate"],
-                cwd=REPO,
-                text=True,
-                capture_output=True,
-                check=False,
+            validate_result = run_residual_seal(
+                self.root, "--mode", "validate"
             )
             self.assertNotEqual(validate_result.returncode, 0, validate_result.stdout + validate_result.stderr)
-            report = load_json(ROOT / "phase7/validation_report.json")
+            report = load_json(self.root / "phase7/validation_report.json")
             self.assertIn("author_gate_invalid", {error["code"] for error in report["errors"]})
         finally:
             if author_backup is None:
@@ -206,13 +234,7 @@ class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
                     author_path.unlink()
             else:
                 author_path.write_text(author_backup, encoding="utf-8")
-            restore_result = subprocess.run(
-                [sys.executable, "-B", str(SCRIPT), "--mode", "all"],
-                cwd=REPO,
-                text=True,
-                capture_output=True,
-                check=False,
-            )
+            restore_result = run_residual_seal(self.root, "--mode", "all")
             self.assertEqual(restore_result.returncode, 0, restore_result.stdout + restore_result.stderr)
 
     def test_validate_rehashes_current_primary_review_artifacts(self) -> None:
@@ -220,33 +242,21 @@ class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
         original = author_doc.read_text(encoding="utf-8")
         try:
             author_doc.write_text(original + "\nvalidate drift fixture\n", encoding="utf-8")
-            result = subprocess.run(
-                [sys.executable, "-B", str(SCRIPT), "--mode", "validate"],
-                cwd=REPO,
-                text=True,
-                capture_output=True,
-                check=False,
-            )
+            result = run_residual_seal(self.root, "--mode", "validate")
 
             self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
-            report = load_json(ROOT / "phase7/validation_report.json")
+            report = load_json(self.root / "phase7/validation_report.json")
             self.assertIn("primary_review_artifact_hash_drift", {error["code"] for error in report["errors"]})
         finally:
             author_doc.write_text(original, encoding="utf-8")
-            restore_result = subprocess.run(
-                [sys.executable, "-B", str(SCRIPT), "--mode", "all"],
-                cwd=REPO,
-                text=True,
-                capture_output=True,
-                check=False,
-            )
+            restore_result = run_residual_seal(self.root, "--mode", "all")
             self.assertEqual(restore_result.returncode, 0, restore_result.stdout + restore_result.stderr)
 
     def test_invalid_external_review_is_preserved_as_rejected(self) -> None:
-        review_path = ROOT / "phase6/external_independent_review_report.json"
+        review_path = self.root / "phase6/external_independent_review_report.json"
         review_backup = review_path.read_text(encoding="utf-8") if review_path.exists() else None
         try:
-            artifact_hash = load_json(ROOT / "phase5/artifact_hash_report.json")
+            artifact_hash = load_json(self.root / "phase5/artifact_hash_report.json")
             invalid_review = {
                 "schema_version": "runtime-payload-residual-external-independent-review-report-v1",
                 "status": "PASS",
@@ -267,19 +277,13 @@ class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
             }
             write_json(review_path, invalid_review)
 
-            generate_result = subprocess.run(
-                [sys.executable, "-B", str(SCRIPT), "--mode", "all"],
-                cwd=REPO,
-                text=True,
-                capture_output=True,
-                check=False,
-            )
+            generate_result = run_residual_seal(self.root, "--mode", "all")
             self.assertEqual(generate_result.returncode, 0, generate_result.stdout + generate_result.stderr)
 
             preserved_review = load_json(review_path)
-            gate = load_json(ROOT / "phase6/external_review_gate_report.json")
-            independent_hash = load_json(ROOT / "phase6/independent_review_artifact_hash_report.json")
-            final = load_json(ROOT / "phase7/final_runtime_payload_residual_seal_report.json")
+            gate = load_json(self.root / "phase6/external_review_gate_report.json")
+            independent_hash = load_json(self.root / "phase6/independent_review_artifact_hash_report.json")
+            final = load_json(self.root / "phase7/final_runtime_payload_residual_seal_report.json")
             self.assertEqual(preserved_review["reviewer_identity"], "self-reviewer-fixture")
             self.assertFalse(preserved_review["not_self_review"])
             self.assertEqual(gate["status"], "BLOCKED_EXTERNAL_REVIEW")
@@ -292,12 +296,8 @@ class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
             self.assertTrue(independent_hash["external_review_rejected"])
             self.assertFalse(final["canonical_residual_seal_allowed"])
 
-            validate_result = subprocess.run(
-                [sys.executable, "-B", str(SCRIPT), "--mode", "validate"],
-                cwd=REPO,
-                text=True,
-                capture_output=True,
-                check=False,
+            validate_result = run_residual_seal(
+                self.root, "--mode", "validate"
             )
             self.assertEqual(validate_result.returncode, 0, validate_result.stdout + validate_result.stderr)
         finally:
@@ -306,18 +306,12 @@ class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
                     review_path.unlink()
             else:
                 review_path.write_text(review_backup, encoding="utf-8")
-            restore_result = subprocess.run(
-                [sys.executable, "-B", str(SCRIPT), "--mode", "all"],
-                cwd=REPO,
-                text=True,
-                capture_output=True,
-                check=False,
-            )
+            restore_result = run_residual_seal(self.root, "--mode", "all")
             self.assertEqual(restore_result.returncode, 0, restore_result.stdout + restore_result.stderr)
 
     def test_validate_rejects_stale_external_review_classification_fields(self) -> None:
-        gate_path = ROOT / "phase6/external_review_gate_report.json"
-        independent_path = ROOT / "phase6/independent_review_artifact_hash_report.json"
+        gate_path = self.root / "phase6/external_review_gate_report.json"
+        independent_path = self.root / "phase6/independent_review_artifact_hash_report.json"
         gate_backup = gate_path.read_text(encoding="utf-8")
         independent_backup = independent_path.read_text(encoding="utf-8")
         try:
@@ -332,33 +326,21 @@ class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
             write_json(gate_path, gate)
             write_json(independent_path, independent_hash)
 
-            result = subprocess.run(
-                [sys.executable, "-B", str(SCRIPT), "--mode", "validate"],
-                cwd=REPO,
-                text=True,
-                capture_output=True,
-                check=False,
-            )
+            result = run_residual_seal(self.root, "--mode", "validate")
 
             self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
-            report = load_json(ROOT / "phase7/validation_report.json")
+            report = load_json(self.root / "phase7/validation_report.json")
             error_codes = {error["code"] for error in report["errors"]}
             self.assertIn("external_review_gate_classification_mismatch", error_codes)
         finally:
             gate_path.write_text(gate_backup, encoding="utf-8")
             independent_path.write_text(independent_backup, encoding="utf-8")
-            restore_result = subprocess.run(
-                [sys.executable, "-B", str(SCRIPT), "--mode", "all"],
-                cwd=REPO,
-                text=True,
-                capture_output=True,
-                check=False,
-            )
+            restore_result = run_residual_seal(self.root, "--mode", "all")
             self.assertEqual(restore_result.returncode, 0, restore_result.stdout + restore_result.stderr)
 
     def test_supplied_author_and_external_review_can_complete(self) -> None:
-        author_path = ROOT / "phase4/author_reserved_selection_decision_record.json"
-        review_path = ROOT / "phase6/external_independent_review_report.json"
+        author_path = self.root / "phase4/author_reserved_selection_decision_record.json"
+        review_path = self.root / "phase6/external_independent_review_report.json"
         author_backup = author_path.read_text(encoding="utf-8") if author_path.exists() else None
         review_backup = review_path.read_text(encoding="utf-8") if review_path.exists() else None
         try:
@@ -385,16 +367,12 @@ class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
             }
             write_json(author_path, author_decision)
 
-            generate_author_result = subprocess.run(
-                [sys.executable, "-B", str(SCRIPT), "--mode", "generate"],
-                cwd=REPO,
-                text=True,
-                capture_output=True,
-                check=False,
+            generate_author_result = run_residual_seal(
+                self.root, "--mode", "generate"
             )
             self.assertEqual(generate_author_result.returncode, 0, generate_author_result.stdout + generate_author_result.stderr)
 
-            artifact_hash = load_json(ROOT / "phase5/artifact_hash_report.json")
+            artifact_hash = load_json(self.root / "phase5/artifact_hash_report.json")
             external_review = {
                 "schema_version": "runtime-payload-residual-external-independent-review-report-v1",
                 "status": "PASS",
@@ -415,15 +393,11 @@ class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
             }
             write_json(review_path, external_review)
 
-            complete_result = subprocess.run(
-                [sys.executable, "-B", str(SCRIPT), "--mode", "all", "--require-complete"],
-                cwd=REPO,
-                text=True,
-                capture_output=True,
-                check=False,
+            complete_result = run_residual_seal(
+                self.root, "--mode", "all", "--require-complete"
             )
             self.assertEqual(complete_result.returncode, 0, complete_result.stdout + complete_result.stderr)
-            final = load_json(ROOT / "phase7/final_runtime_payload_residual_seal_report.json")
+            final = load_json(self.root / "phase7/final_runtime_payload_residual_seal_report.json")
             self.assertEqual(final["status"], "PASS")
             self.assertTrue(final["canonical_residual_seal_allowed"])
             author_doc_path = REPO / "docs/runtime_payload_state_integrity_author_decision.md"
@@ -436,15 +410,11 @@ class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
 
             try:
                 author_doc_path.write_text(author_doc + "\ncomplete path artifact drift fixture\n", encoding="utf-8")
-                drift_result = subprocess.run(
-                    [sys.executable, "-B", str(SCRIPT), "--mode", "validate"],
-                    cwd=REPO,
-                    text=True,
-                    capture_output=True,
-                    check=False,
+                drift_result = run_residual_seal(
+                    self.root, "--mode", "validate"
                 )
                 self.assertNotEqual(drift_result.returncode, 0, drift_result.stdout + drift_result.stderr)
-                drift_report = load_json(ROOT / "phase7/validation_report.json")
+                drift_report = load_json(self.root / "phase7/validation_report.json")
                 gate_errors = [
                     error
                     for error in drift_report["errors"]
@@ -468,9 +438,9 @@ class RuntimePayloadStateIntegrityResidualSealTest(unittest.TestCase):
                     review_path.unlink()
             else:
                 review_path.write_text(review_backup, encoding="utf-8")
-            restore_result = rebind_and_restore_complete_review()
+            restore_result = rebind_and_restore_complete_review(self.root)
             self.assertEqual(restore_result.returncode, 0, restore_result.stdout + restore_result.stderr)
-            restored_final = load_json(ROOT / "phase7/final_runtime_payload_residual_seal_report.json")
+            restored_final = load_json(self.root / "phase7/final_runtime_payload_residual_seal_report.json")
             self.assertEqual(restored_final["status"], "BLOCKED")
             self.assertFalse(restored_final["canonical_residual_seal_allowed"])
 

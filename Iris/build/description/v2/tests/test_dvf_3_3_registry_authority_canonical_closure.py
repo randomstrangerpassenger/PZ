@@ -39,6 +39,32 @@ COMPOSE_TOOL = TOOLS_ROOT / "compose_layer3_text.py"
 ROUND3_RUNNER = REPO_ROOT / "Iris" / "_docs" / "round3" / "round3_run_contract_tests.py"
 
 
+def compile_source_once(path: Path):
+    try:
+        return compile(path.read_bytes(), str(path), "exec"), None
+    except Exception as exc:  # Immutable descriptor; rebuilt at each consumer.
+        attributes = tuple(
+            (name, getattr(exc, name, None))
+            for name in ("filename", "filename2", "winerror")
+            if hasattr(exc, name)
+        )
+        return None, (type(exc), tuple(exc.args), attributes, str(exc))
+
+
+COMMON_CODE, COMMON_CODE_ERROR = compile_source_once(COMMON)
+ROUND3_RUNNER_CODE, ROUND3_RUNNER_CODE_ERROR = compile_source_once(ROUND3_RUNNER)
+
+
+def rebuild_source_exception(failure):
+    error_type, error_args, attributes, expected_message = failure
+    rebuilt = error_type(*error_args)
+    for name, value in attributes:
+        setattr(rebuilt, name, value)
+    if str(rebuilt) != expected_message:
+        rebuilt = error_type(expected_message)
+    return rebuilt
+
+
 def projected_repo_relative(path: Path) -> str:
     resolved = path.resolve()
     for root in (PROJECTED_REPO_ROOT, REPO_ROOT):
@@ -148,13 +174,17 @@ runpy.run_path(str(script_path), run_name="__main__")
 
 
 def load_common_module():
+    if COMMON_CODE_ERROR is not None or COMMON_CODE is None:
+        if COMMON_CODE_ERROR is None:
+            raise RuntimeError(f"cannot compile {COMMON}")
+        raise rebuild_source_exception(COMMON_CODE_ERROR)
     spec = importlib.util.spec_from_file_location(
         "registry_authority_common_for_test", COMMON
     )
     if spec is None or spec.loader is None:
         raise RuntimeError(f"cannot load {COMMON}")
     module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
+    exec(COMMON_CODE, module.__dict__)
     return module
 
 
@@ -163,7 +193,14 @@ def load_module(path: Path, name: str):
     if spec is None or spec.loader is None:
         raise RuntimeError(f"cannot load {path}")
     module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
+    if path == ROUND3_RUNNER:
+        if ROUND3_RUNNER_CODE_ERROR is not None or ROUND3_RUNNER_CODE is None:
+            if ROUND3_RUNNER_CODE_ERROR is None:
+                raise RuntimeError(f"cannot compile {ROUND3_RUNNER}")
+            raise rebuild_source_exception(ROUND3_RUNNER_CODE_ERROR)
+        exec(ROUND3_RUNNER_CODE, module.__dict__)
+    else:
+        spec.loader.exec_module(module)
     return module
 
 

@@ -1,0 +1,107 @@
+{
+  "schema_version": "iris-test-scenario-execution-consolidation-baseline-v1",
+  "subject": {
+    "commit": "e20119631df26fb48c590062f7aa2f86e491c342",
+    "tree": "5974176876c9b9c4d2aaeaab4f36e1ac3f9fca4b"
+  },
+  "entry_policy": "owner_selected_lightweight_exact_subject_lock",
+  "baseline_admission_axis": "not_run_no_current_subject_qualification",
+  "selection": "round3_contract_all",
+  "observed_wall_time_seconds": 793.66,
+  "outcome": {
+    "exit_code": 1,
+    "passed": 643,
+    "failed": 1,
+    "skipped": 1,
+    "subtests_passed": 126,
+    "failure_identity": "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_current.py::RegistryRuntimeCompatibilityCurrentRouteTest::test_required_gate_runs_standalone_subprocess",
+    "failure_disposition": "preexisting_current_identity_not_known_historical_advisory_not_remediated_in_scope"
+  },
+  "configured_current_collection": {
+    "collected": 471,
+    "denominator": 645,
+    "deselected": 174,
+    "exit_code": 0
+  },
+  "profiling": {
+    "observer": "none",
+    "ranking_mode": "static_invocation_wall_time_proxy",
+    "removable_cost_claim": "none",
+    "wall_time_claim": "none",
+    "theoretical_ceiling_round3_all": "unattributable",
+    "raw_output_location": "repository_external",
+    "family_observed_duration_note": "sum of pytest durations displayed at or above the report threshold; ranking proxy only"
+  },
+  "candidate_observability": [
+    {
+      "scenario_group_id": "artifact-inventory-git-fixture-seed",
+      "family_observed_duration_seconds": 11.07,
+      "measurement_axis": "producer",
+      "process_tree_observer_required": false,
+      "deterministic_before_count_without_observer": true,
+      "before_count_evidence": "static_straight_line",
+      "before_count_status": "exact",
+      "reason": "Seven make_repo calls each execute the identical git add/commit tracked-scaffold producer (14 exact producer invocations); all Git fixture setup is 35 invocations and is disclosed separately."
+    },
+    {
+      "scenario_group_id": "registry-authority-common-source-compile",
+      "family_observed_duration_seconds": 66.19,
+      "measurement_axis": "parse_reload",
+      "process_tree_observer_required": false,
+      "deterministic_before_count_without_observer": true,
+      "before_count_evidence": "static_straight_line",
+      "before_count_status": "exact",
+      "reason": "Sixteen consumer nodes each call load_common_module once and the loader recompiles the same source."
+    },
+    {
+      "scenario_group_id": "registry-authority-round3-runner-source-compile",
+      "family_observed_duration_seconds": 66.19,
+      "measurement_axis": "parse_reload",
+      "process_tree_observer_required": false,
+      "deterministic_before_count_without_observer": true,
+      "before_count_evidence": "static_straight_line",
+      "before_count_status": "exact",
+      "reason": "Three preimport-guard consumer nodes each call load_module once for the same Round 3 runner source."
+    },
+    {
+      "scenario_group_id": "runtime-payload-residual-seal-workspace-ownership",
+      "family_observed_duration_seconds": 23.01,
+      "measurement_axis": "workspace_materialization",
+      "process_tree_observer_required": false,
+      "deterministic_before_count_without_observer": true,
+      "before_count_evidence": "static_straight_line",
+      "before_count_status": "exact",
+      "reason": "One import-time writable copy is exact, but per-case isolation increases copies; this is isolation-only and has no cost claim."
+    },
+    {
+      "scenario_group_id": "artifact-lifecycle-promotion-path-bound-fixtures",
+      "family_observed_duration_seconds": 82.59,
+      "measurement_axis": "workspace_materialization",
+      "process_tree_observer_required": true,
+      "deterministic_before_count_without_observer": false,
+      "before_count_evidence": "none",
+      "before_count_status": "unattributable",
+      "reason": "Absolute-path receipts and mutation/crash/concurrency branches prevent a comparable shared seed without observer-backed clone attribution."
+    },
+    {
+      "scenario_group_id": "artifact-lifecycle-executor-full-chain",
+      "family_observed_duration_seconds": 67.44,
+      "measurement_axis": "subprocess",
+      "process_tree_observer_required": true,
+      "deterministic_before_count_without_observer": false,
+      "before_count_evidence": "none",
+      "before_count_status": "unattributable",
+      "reason": "The two tests do not execute the same full-chain subject and the long path contains required mutation and file-contract boundaries."
+    },
+    {
+      "scenario_group_id": "registry-runtime-compatibility-standalone",
+      "family_observed_duration_seconds": 0.92,
+      "measurement_axis": "subprocess",
+      "process_tree_observer_required": false,
+      "deterministic_before_count_without_observer": true,
+      "before_count_evidence": "static_straight_line",
+      "before_count_status": "exact",
+      "reason": "Standalone process behavior is the contract and is retained rather than consolidated."
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "contract_mapping": "Iris/_docs/refactor/test_workflow_consolidation/pilot_contract_mapping.json",
+  "failure_localization_preserved_by": "four unchanged predecessor pytest node IDs",
+  "negative_cases": [
+    "unknown_and_malformed_schema_rejection",
+    "successor_transaction_hash_mismatch_rejection"
+  ],
+  "schema_version": "iris_test_workflow_family_contract_parity_v1",
+  "status": "PASS"
+}

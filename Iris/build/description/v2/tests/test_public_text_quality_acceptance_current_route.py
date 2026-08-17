@@ -1,10 +1,23 @@
 from __future__ import annotations
 
 import json
+import locale as locale_module
+import platform
 from pathlib import Path
 import subprocess
 import sys
 import unittest
+
+from Iris.validation.test_workflow_consolidation.scenario_contracts import (
+    ExecutionResult,
+    FrozenMap,
+    ProbeResult,
+    ScenarioContext,
+    ScenarioReport,
+)
+from Iris.validation.test_workflow_consolidation.validate_scenario_report import (
+    validate as validate_scenario_report,
+)
 
 
 REPO_ROOT = Path(__file__).resolve().parents[5]
@@ -40,21 +53,70 @@ PHASE7_LONG_PATH_WRITER_VALIDATOR = TOOLS_ROOT / (
 PHASE7_FREEZE_INVENTORY_COMPLETENESS_VALIDATOR = TOOLS_ROOT / (
     "validate_public_text_quality_acceptance_official_0005_phase7_freeze_inventory_completeness.py"
 )
+PILOT_MAPPING = (
+    REPO_ROOT
+    / "Iris"
+    / "_docs"
+    / "refactor"
+    / "test_workflow_consolidation"
+    / "pilot_contract_mapping.json"
+)
+PILOT_PROBE_IDS = (
+    "historical_v1_and_current_v2_acceptance",
+    "unknown_and_malformed_schema_rejection",
+    "successor_transaction_hash_mismatch_rejection",
+    "deterministic_document_replay",
+)
 
 
 class PublicTextQualityAcceptanceCurrentRouteTest(unittest.TestCase):
+    _phase7_execution: ExecutionResult | None
+    _phase7_report: ScenarioReport | None
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        super().setUpClass()
+        cls._phase7_execution = None
+        cls._phase7_report = None
+        cls._phase7_self_test()
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        del cls._phase7_execution
+        del cls._phase7_report
+        super().tearDownClass()
+
     @staticmethod
-    def _phase7_self_test() -> dict[str, object]:
+    def _git(*args: str) -> str:
+        return subprocess.check_output(
+            ["git", "-C", str(REPO_ROOT), *args],
+            text=True,
+            encoding="utf-8",
+        ).strip()
+
+    @classmethod
+    def _committed_identity(cls, path: Path) -> FrozenMap:
+        relative = path.relative_to(REPO_ROOT).as_posix()
+        return FrozenMap(
+            {
+                "canonical_path": relative,
+                "git_blob_id": cls._git("rev-parse", f"HEAD:{relative}"),
+            }
+        )
+
+    @staticmethod
+    def _run_phase7_self_test() -> ExecutionResult:
+        command = (
+            sys.executable,
+            "-B",
+            str(PHASE7_V2_VALIDATOR),
+            "--attempt-id",
+            "attempt-0005-official",
+            "--self-test",
+            "--no-write",
+        )
         result = subprocess.run(
-            [
-                sys.executable,
-                "-B",
-                str(PHASE7_V2_VALIDATOR),
-                "--attempt-id",
-                "attempt-0005-official",
-                "--self-test",
-                "--no-write",
-            ],
+            command,
             cwd=REPO_ROOT,
             text=True,
             encoding="utf-8",
@@ -64,30 +126,134 @@ class PublicTextQualityAcceptanceCurrentRouteTest(unittest.TestCase):
         )
         if result.returncode != 0:
             raise AssertionError(result.stderr)
-        return json.loads(result.stdout)
+        try:
+            payload = json.loads(result.stdout)
+        except json.JSONDecodeError as error:
+            raise AssertionError(f"phase7 self-test emitted malformed JSON: {error}") from error
+        if not isinstance(payload, dict):
+            raise AssertionError("phase7 self-test payload must be an object")
+        return ExecutionResult.from_payload(
+            command_signature=tuple(str(value) for value in command),
+            exit_code=result.returncode,
+            stdout=result.stdout.encode("utf-8"),
+            stderr=result.stderr.encode("utf-8"),
+            payload=payload,
+            producer_invocation_count=1,
+            observation_coverage={"subprocess": "class_lifecycle_owner"},
+        )
+
+    @classmethod
+    def _phase7_self_test(cls) -> ScenarioReport:
+        if cls._phase7_report is None:
+            execution = cls._run_phase7_self_test()
+            cases = execution.parsed_payload["cases"]
+            subject_commit = cls._git("rev-parse", "HEAD")
+            subject_tree = cls._git("rev-parse", "HEAD^{tree}")
+            checks = {
+                "historical_v1_and_current_v2_acceptance": (
+                    cases["historical_v1_and_current_v2_acceptance"]["historical_dispatch"]
+                    == "historical_v1"
+                    and cases["historical_v1_and_current_v2_acceptance"]["current_dispatch"]
+                    == "current_v2_successor_0010"
+                ),
+                "unknown_and_malformed_schema_rejection": (
+                    cases["unknown_and_malformed_schema_rejection"]["status"] == "PASS"
+                ),
+                "successor_transaction_hash_mismatch_rejection": (
+                    cases["successor_transaction_hash_mismatch_rejection"]["status"]
+                    == "PASS"
+                    and cases["successor_transaction_hash_mismatch_rejection"][
+                        "mismatch_field_count"
+                    ]
+                    == 3
+                ),
+                "deterministic_document_replay": (
+                    cases["deterministic_document_replay"]["status"] == "PASS"
+                ),
+            }
+            probes = tuple(
+                ProbeResult(
+                    probe_id=probe_id,
+                    status="PASS" if checks[probe_id] else "FAIL",
+                    reason=(
+                        "phase7 contract checkpoint satisfied"
+                        if checks[probe_id]
+                        else "phase7 contract checkpoint mismatch"
+                    ),
+                    evidence_reference=f"/cases/{probe_id}",
+                )
+                for probe_id in PILOT_PROBE_IDS
+            )
+            context = ScenarioContext(
+                schema_version="iris_test_workflow_scenario_context_v1",
+                scenario_id="public-text-phase7-dispatch",
+                validation_subject_commit=subject_commit,
+                validation_subject_tree=subject_tree,
+                route_class="all_explicit_path",
+                contract_identity=cls._committed_identity(PILOT_MAPPING),
+                input_identity=FrozenMap(
+                    {
+                        "attempt_id": "attempt-0005-official",
+                        "mode": "self-test-no-write",
+                        "validation_subject_tree": subject_tree,
+                    }
+                ),
+                locale=locale_module.setlocale(locale_module.LC_ALL, None),
+                environment_contract=FrozenMap(
+                    {
+                        "python_implementation": platform.python_implementation(),
+                        "python_version": platform.python_version(),
+                        "filesystem_encoding": sys.getfilesystemencoding(),
+                    }
+                ),
+                workspace_mode="repository-read-only-producer",
+                workspace_owner="PublicTextQualityAcceptanceCurrentRouteTest.class",
+                producer_identity=cls._committed_identity(PHASE7_V2_VALIDATOR),
+            )
+            report = ScenarioReport(
+                context=context,
+                execution_result=execution,
+                required_probe_inventory=PILOT_PROBE_IDS,
+                probe_results=probes,
+                execution_observations=FrozenMap({"run_id": "class-lifecycle"}),
+            )
+            report_payload = report.to_report()
+            validate_scenario_report(
+                report_payload,
+                report_payload["deterministic_core"]["context"],
+            )
+            cls._phase7_execution = execution
+            cls._phase7_report = report
+        return cls._phase7_report
+
+    @classmethod
+    def _phase7_probe(cls, probe_id: str) -> ProbeResult:
+        report = cls._phase7_self_test()
+        return next(row for row in report.probe_results if row.probe_id == probe_id)
 
     def test_phase7_schema_dispatch_accepts_historical_v1_and_current_v2(self) -> None:
-        result = self._phase7_self_test()
-        case = result["cases"]["historical_v1_and_current_v2_acceptance"]
-        self.assertEqual(case["historical_dispatch"], "historical_v1")
-        self.assertEqual(case["current_dispatch"], "current_v2_successor_0010")
+        self.assertEqual(
+            self._phase7_probe("historical_v1_and_current_v2_acceptance").status,
+            "PASS",
+        )
 
     def test_phase7_schema_dispatch_rejects_unknown_and_malformed(self) -> None:
-        case = self._phase7_self_test()["cases"][
-            "unknown_and_malformed_schema_rejection"
-        ]
-        self.assertEqual(case["status"], "PASS")
+        self.assertEqual(
+            self._phase7_probe("unknown_and_malformed_schema_rejection").status,
+            "PASS",
+        )
 
     def test_phase7_schema_dispatch_rejects_successor_transaction_hash_mismatch(self) -> None:
-        case = self._phase7_self_test()["cases"][
-            "successor_transaction_hash_mismatch_rejection"
-        ]
-        self.assertEqual(case["status"], "PASS")
-        self.assertEqual(case["mismatch_field_count"], 3)
+        self.assertEqual(
+            self._phase7_probe("successor_transaction_hash_mismatch_rejection").status,
+            "PASS",
+        )
 
     def test_phase7_freeze_document_replay_is_deterministic(self) -> None:
-        case = self._phase7_self_test()["cases"]["deterministic_document_replay"]
-        self.assertEqual(case["status"], "PASS")
+        self.assertEqual(
+            self._phase7_probe("deterministic_document_replay").status,
+            "PASS",
+        )
 
     def test_phase7_terminal_validation_complete_dag_regressions(self) -> None:
         result = subprocess.run(

@@ -1,0 +1,132 @@
+{
+  "cli_schema_version": "iris-test-workflow-cost-cli-v1",
+  "counter_scope": {
+    "copy": "measurement_wrapper_setup_and_python_process_tree",
+    "producer_invocation": "python_process_tree_command_signature",
+    "read_parse_hash": "unobserved",
+    "subprocess": "python_process_tree",
+    "temporary_materialization": "measurement_wrapper_setup_and_python_process_tree"
+  },
+  "environment_transparent_timing_scope": {
+    "copy": "NOT_APPLICABLE_unobserved",
+    "elapsed_time": "external_parent_monotonic_clock_around_child_process_lifecycle",
+    "exit_and_streams": "external_parent_process_contract",
+    "producer_invocation": "NOT_APPLICABLE_unobserved",
+    "subprocess": "NOT_APPLICABLE_unobserved",
+    "temporary_materialization": "NOT_APPLICABLE_unobserved"
+  },
+  "invalid_sample_disposition": "fail_entire_session_without_cross_session_reuse",
+  "qualification_workload_ids": [
+    "mandatory_pilot",
+    "configured-current"
+  ],
+  "schedule": {
+    "arm_a": "before",
+    "arm_b": "after",
+    "configured_measured_blocks": 10,
+    "measured_block_orders": [
+      "A-B-B-A",
+      "B-A-A-B"
+    ],
+    "targeted_measured_blocks": 5,
+    "warmup_block_order": "A-B-B-A",
+    "warmup_blocks_per_workload": 1
+  },
+  "schema_version": "iris_test_workflow_measurement_contract_v1",
+  "statistics": {
+    "bootstrap_algorithm": "paired_adjacent_mean_resample_v1",
+    "bootstrap_iterations": 10000,
+    "bootstrap_seed": 1729,
+    "configured_route_one_sided_alpha": 0.05,
+    "maximum_acceptable_regression_ms": 20000,
+    "maximum_acceptable_regression_pct": 10,
+    "power_target": 0.8,
+    "targeted_acceptance": "after_median_less_than_before_and_bootstrap_95_lower_gt_zero"
+  },
+  "workloads": [
+    {
+      "command": [
+        "{python}",
+        "-B",
+        "-m",
+        "pytest",
+        "-s",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "--round3-contract=all",
+        "Iris/build/description/v2/tests/test_public_text_quality_acceptance_current_route.py"
+      ],
+      "eligible_subprocess_patterns": [
+        "validate_public_text_quality_acceptance_official_0005_phase7_v2.py"
+      ],
+      "environment_contract": {
+        "bytecode_write": false,
+        "pytest_cache": false,
+        "route": "all_explicit_path"
+      },
+      "canonical_input_paths": [
+        "Iris/build/description/v2/tools/build"
+      ],
+      "expected_output_contract": {
+        "normalized_stderr": "no_unhandled_error",
+        "normalized_stdout": "pytest_explicit_pilot_contract_result",
+        "valid_exit_codes": [0]
+      },
+      "input_identity": "attempt-0005-official_and_phase7_tool_tree",
+      "measurement_backend": "python_sitecustomize_process_tree",
+      "producer_patterns": [
+        "validate_public_text_quality_acceptance_official_0005_phase7_v2.py"
+      ],
+      "role": "mandatory_pilot",
+      "timeout_seconds": 120,
+      "valid_exit_codes": [
+        0
+      ],
+      "workload_id": "mandatory_pilot"
+    },
+    {
+      "command": [
+        "{python}",
+        "-B",
+        "-m",
+        "pytest",
+        "-s",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "--round3-contract=current",
+        "--round3-enforce-denominator",
+        "--round3-denominator-receipt",
+        "{denominator_receipt}"
+      ],
+      "eligible_subprocess_patterns": [],
+      "environment_contract": {
+        "bytecode_write": false,
+        "denominator_enforced": true,
+        "pytest_cache": false,
+        "route": "configured-current"
+      },
+      "canonical_input_paths": [
+        "Iris/_docs/round3/round3_pytest_source_classification.json",
+        "Iris/_docs/round3/round3_full_discovery_denominator.json",
+        "Iris/_docs/round3/round3_test_taxonomy.json",
+        "Iris/_docs/round3/current_route_required_validations.json"
+      ],
+      "expected_output_contract": {
+        "normalized_stderr": "no_unhandled_error",
+        "normalized_stdout": "pytest_configured_current_contract_and_denominator_receipt",
+        "valid_exit_codes": [0]
+      },
+      "input_identity": "round3_configured_current_authority_inputs",
+      "measurement_backend": "environment_transparent_timing_only",
+      "producer_patterns": [],
+      "role": "configured_route_performance_observation",
+      "timeout_seconds": 1200,
+      "valid_exit_codes": [
+        0
+      ],
+      "workload_id": "configured-current"
+    }
+  ]
+}

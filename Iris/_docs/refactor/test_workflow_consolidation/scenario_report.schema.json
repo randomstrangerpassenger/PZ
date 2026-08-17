@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "iris_test_workflow_scenario_report_v1",
+  "type": "object",
+  "required": ["schema_version", "deterministic_core", "execution_observations", "normalization_excluded_fields"],
+  "properties": {
+    "schema_version": {"const": "iris_test_workflow_scenario_report_v1"},
+    "deterministic_core": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "context",
+        "execution_result",
+        "required_probe_inventory",
+        "probe_results",
+        "dependency_edges",
+        "cross_probe_adjudication",
+        "scenario_disposition"
+      ],
+      "properties": {
+        "schema_version": {"const": "iris_test_workflow_scenario_report_v1"},
+        "context": {
+          "type": "object",
+          "required": [
+            "schema_version",
+            "scenario_id",
+            "validation_subject_commit",
+            "validation_subject_tree",
+            "route_class",
+            "contract_identity",
+            "input_identity",
+            "locale",
+            "environment_contract",
+            "workspace_mode",
+            "workspace_owner",
+            "producer_identity"
+          ],
+          "properties": {
+            "schema_version": {"const": "iris_test_workflow_scenario_context_v1"},
+            "scenario_id": {"type": "string", "minLength": 1},
+            "validation_subject_commit": {"type": "string", "minLength": 1},
+            "validation_subject_tree": {"type": "string", "minLength": 1},
+            "route_class": {"type": "string", "minLength": 1},
+            "contract_identity": {"type": "object", "minProperties": 1},
+            "input_identity": {"type": "object", "minProperties": 1},
+            "locale": {"type": "string", "minLength": 1},
+            "environment_contract": {"type": "object", "minProperties": 1},
+            "workspace_mode": {"type": "string", "minLength": 1},
+            "workspace_owner": {"type": "string", "minLength": 1},
+            "producer_identity": {"type": "object", "minProperties": 1}
+          },
+          "additionalProperties": false
+        },
+        "execution_result": {
+          "type": "object",
+          "required": [
+            "command_signature",
+            "exit_code",
+            "stdout_sha256",
+            "stderr_sha256",
+            "parsed_payload_identity",
+            "producer_invocation_count",
+            "observation_coverage"
+          ],
+          "properties": {
+            "command_signature": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+            "exit_code": {"type": "integer"},
+            "stdout_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "stderr_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "parsed_payload_identity": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "producer_invocation_count": {"type": "integer", "minimum": 1},
+            "observation_coverage": {"type": "object", "minProperties": 1}
+          },
+          "additionalProperties": false
+        },
+        "required_probe_inventory": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "probe_results": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["probe_id", "status", "reason", "evidence_reference", "blocked_by"],
+            "properties": {
+              "probe_id": {"type": "string", "minLength": 1},
+              "status": {"enum": ["PASS", "FAIL", "BLOCKED", "NOT_APPLICABLE"]},
+              "reason": {"type": "string", "minLength": 1},
+              "evidence_reference": {"type": "string", "minLength": 1},
+              "blocked_by": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {"type": "string", "minLength": 1}
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "dependency_edges": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "array",
+            "prefixItems": [
+              {"type": "string", "minLength": 1},
+              {"type": "string", "minLength": 1}
+            ],
+            "minItems": 2,
+            "maxItems": 2
+          }
+        },
+        "cross_probe_adjudication": {
+          "const": {
+            "rule": "required_probe_conjunction",
+            "authority_scope": "scenario_only"
+          }
+        },
+        "scenario_disposition": {"enum": ["PASS", "FAIL"]}
+      },
+      "additionalProperties": false
+    },
+    "execution_observations": {"type": "object"},
+    "normalization_excluded_fields": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^/execution_observations/"}
+    }
+  },
+  "additionalProperties": false
+}

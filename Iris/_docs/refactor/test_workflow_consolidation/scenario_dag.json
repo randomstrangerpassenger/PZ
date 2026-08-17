@@ -1,0 +1,11 @@
+{
+  "edges": [],
+  "nodes": [
+    {
+      "probe_count": 4,
+      "producer": "phase7_v2",
+      "scenario_id": "public-text-phase7-dispatch"
+    }
+  ],
+  "schema_version": "iris_test_workflow_scenario_dag_v1"
+}

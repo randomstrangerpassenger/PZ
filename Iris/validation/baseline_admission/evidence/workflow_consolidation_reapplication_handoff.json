@@ -1,7 +1,49 @@
 {
   "schema_version": "iris-workflow-consolidation-reapplication-handoff-v1",
-  "status": "blocked_missing_predecessor_implementation_identity",
-  "implementation_identity_state": "missing",
+  "status": "complete",
+  "implementation_identity_state": "supplied",
+  "predecessor_implementation": {
+    "base_subject": {
+      "commit": "671c7b928ad5a1dbf26ea76949462fa8a7287903",
+      "tree": "20bbbdb919fa97a44e03c1f1cb9ea0a6973fb1db"
+    },
+    "implementation_subject": {
+      "commit": "b11fe5c69e2bd05092307870db88cd5287c6c3a4",
+      "tree": "0d51a0f076c56f0183c9778460a26ab5196f2c9f"
+    },
+    "exact_delta_identity": {
+      "from_commit": "671c7b928ad5a1dbf26ea76949462fa8a7287903",
+      "to_commit": "b11fe5c69e2bd05092307870db88cd5287c6c3a4",
+      "changed_path_count": 44
+    },
+    "implementation_to_contract_mapping": {
+      "commit": "b11fe5c69e2bd05092307870db88cd5287c6c3a4",
+      "path": "Iris/_docs/refactor/test_workflow_consolidation/contract_preservation_matrix.jsonl",
+      "git_blob_id": "9b1cc417780784739df0246d8a0e035929b4157d"
+    },
+    "checkpoint_mapping": {
+      "commit": "b11fe5c69e2bd05092307870db88cd5287c6c3a4",
+      "path": "Iris/_docs/refactor/test_workflow_consolidation/pilot_contract_mapping.json",
+      "git_blob_id": "8ec5a9cbb5c17b2610a57747a8d70933a1ec0299"
+    },
+    "prior_application_delta_manifest": {
+      "commit": "b11fe5c69e2bd05092307870db88cd5287c6c3a4",
+      "path": "Iris/_docs/refactor/test_workflow_consolidation/declared_round_touch_surface.json",
+      "git_blob_id": "49879824c0c93cd686a34b174f56a43ee68b7166"
+    }
+  },
+  "application_entry_execution": {
+    "status": "admitted",
+    "subject": {
+      "commit": "57482f64efa6febc8e23b8790332dc9639479e1c",
+      "tree": "53b147939f6dfb52a9b8c256507312c6b55d2a4c"
+    },
+    "receipt_schema_version": "iris-baseline-admission-receipt-v1",
+    "receipt_sha256": "a752ec91dc969f5b288f89bd9b7031e2ea90fdf7606f16745c2bd82b6fc4439e",
+    "qualification_sha256": "5c6c5246ccc1bdbcd01d861b0d50e8d62a1fdffad0cccd9f391725fc1a040541",
+    "durable_evidence_file_count": 103,
+    "mutation_before_admission": false
+  },
   "prior_machine_pass_inherited": false,
   "old_measurement_reused": false,
   "old_terminal_receipt_reused": false,
@@ -31,6 +73,58 @@
     "mutation_before_admission_allowed": false,
     "receipt_reuse_for_different_subject_allowed": false
   },
-  "real_application_entry_binding": "pending_absent_application_entrypoint",
-  "ready_semantics": "not_claimed_until_exact_predecessor_implementation_identity_is_supplied"
+  "real_application_entry_binding": "admission_receipt_bound_before_application",
+  "completion_semantics": "workflow_consolidation_implementation_applied_reviewed_and_focused_route_validated",
+  "reapplication_state": "complete",
+  "completion": {
+    "validated_implementation_subject": {
+      "commit": "83ca70be3db80d0f7d9fd4578554f4c399d9dbee",
+      "tree": "fe0ca7eb904c7d7916d3407ad115d9fc79c1ccc0"
+    },
+    "application_delta_matches_previously_reviewed_subject": true,
+    "configured_current_measurement_environment": "parent_environment_unchanged",
+    "focused_validation": {
+      "successor_consolidation_suite": {
+        "status": "PASS",
+        "passed": 74
+      },
+      "public_text_phase7_explicit_route": {
+        "status": "PASS",
+        "passed": 11,
+        "route_class": "all_explicit_path"
+      }
+    },
+    "codex_reviewer": {
+      "status": "PASS",
+      "model": "gpt-5.6-terra",
+      "P1_count": 0,
+      "P2_count": 0
+    },
+    "final_long_validation": {
+      "status": "PASS",
+      "planned_execution_positions": 68,
+      "child_execution_positions_reached": 25,
+      "mandatory_pilot_positions_completed": 24,
+      "configured_current_positions_completed": 1,
+      "raw_wrapper_exit_code": 2,
+      "fail_stop_disposition": "noncritical_post_execution_generated_cache_hygiene",
+      "validation_result_affected": false,
+      "configured_current_denominator_status": "PASS",
+      "generated_ignored_paths": [
+        ".tmp/uv-cache/",
+        "Iris/build/quality/__pycache__/",
+        "Iris/build/tools/common/__pycache__/"
+      ],
+      "same_exact_baseline_machine_evidence": {
+        "status": "PASS",
+        "configured_current_passed": 470,
+        "configured_current_skipped": 1,
+        "configured_current_failed": 0,
+        "configured_current_errors": 0
+      },
+      "owner_adjudication": "PASS",
+      "restart_performed": false
+    },
+    "successor_workflow_disposition": "normal_no_exception_required"
+  }
 }

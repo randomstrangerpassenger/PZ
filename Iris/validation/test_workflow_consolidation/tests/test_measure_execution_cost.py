@@ -422,6 +422,10 @@ def test_configured_timing_backend_does_not_mutate_python_environment(
                 "'pythonpath':os.environ.get('PYTHONPATH'),"
                 "'event_root':os.environ.get('IRIS_WF_OBSERVER_EVENT_ROOT'),"
                 "'invocation_id':os.environ.get('IRIS_WF_OBSERVER_INVOCATION_ID'),"
+                "'bytecode':os.environ.get('PYTHONDONTWRITEBYTECODE'),"
+                "'test_output':os.environ.get('IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT'),"
+                "'legacy_output':os.environ.get('IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT'),"
+                "'uv_cache':os.environ.get('UV_CACHE_DIR'),"
                 "'observer_paths':[value for value in sys.path if value.endswith('observer')]"
                 "}),encoding='utf-8')"
             ),
@@ -455,6 +459,10 @@ def test_configured_timing_backend_does_not_mutate_python_environment(
         "pythonpath": original_pythonpath,
         "event_root": None,
         "invocation_id": None,
+        "bytecode": os.environ.get("PYTHONDONTWRITEBYTECODE"),
+        "test_output": os.environ.get("IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT"),
+        "legacy_output": os.environ.get("IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"),
+        "uv_cache": os.environ.get("UV_CACHE_DIR"),
         "observer_paths": [],
     }
     assert not (result_root / "observer").exists()

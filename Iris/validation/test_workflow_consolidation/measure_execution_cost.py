@@ -833,7 +833,6 @@ def observe_command(
         "expected output and valid-exit contracts disagree",
     )
     env = os.environ.copy()
-    env["PYTHONDONTWRITEBYTECODE"] = "1"
     execution_context = None
     execution_parent = env.get("IRIS_WORKFLOW_EXECUTION_OUTPUT_PARENT")
     event_root = sample_root / "observer-events"
@@ -846,7 +845,7 @@ def observe_command(
         env["PYTHONPATH"] = str(observer_root) + (os.pathsep + existing if existing else "")
     setup_materialization_count = 0
     started = time.perf_counter_ns()
-    if execution_parent:
+    if execution_parent and backend == PYTHON_PROCESS_TREE_BACKEND:
         execution_parent_path = Path(execution_parent).resolve()
         require_path_outside_repositories(
             execution_parent_path,
@@ -862,11 +861,13 @@ def observe_command(
         execution_root = Path(execution_context.name)
     else:
         execution_root = sample_root
-    test_output_root = execution_root / "t"
-    legacy_output_root = execution_root / "l"
-    env["IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT"] = str(test_output_root)
-    env["IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"] = str(legacy_output_root)
-    env["UV_CACHE_DIR"] = str(execution_root / "u")
+    if backend == PYTHON_PROCESS_TREE_BACKEND:
+        test_output_root = execution_root / "t"
+        legacy_output_root = execution_root / "l"
+        env["PYTHONDONTWRITEBYTECODE"] = "1"
+        env["IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT"] = str(test_output_root)
+        env["IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"] = str(legacy_output_root)
+        env["UV_CACHE_DIR"] = str(execution_root / "u")
     process = subprocess.Popen(
         argv,
         cwd=repository,

@@ -1,0 +1,9 @@
+{
+  "claim_id": "iris-test-workflow-consolidation-20260813",
+  "owner_approval": {
+    "approved": true,
+    "basis": "2026-08-13 execution request pre-authorized owner approval gates"
+  },
+  "round_id": "iris-test-workflow-consolidation-20260813",
+  "schema_version": "iris_test_workflow_round_identity_v1"
+}

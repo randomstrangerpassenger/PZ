@@ -1273,3 +1273,38 @@ Advisory failure classification은 exact `base..endpoint` diff와 실패 source�
 Standalone Lua fixture는 operation count와 output parity만 승인한다. 2026-08-11 repository owner가 실제 Project Zomboid에서 정상 동작을 확인해 수동 functional runtime acceptance는 완료됐다. Raw timing sample이 없는 debounce, incremental build, Tooltip first-load 및 LineCount attribution은 계속 deferred benchmark candidate이고 정량 성능 claim을 만들지 않으며, governing plan에 따른 통합 closeout 상태는 `partial`이다. 이 상태는 별도로 기록된 기능 검증 완료를 무효화하지 않는다.
 
 Closeout review authority는 implementation subject `fe4bb9f6`, endpoint-bound receipt `b33ed2ac`, owner-attestation correction `89f7499c`, review seal `91259769`로 분리한다. Codex Reviewer는 구현과 attestation 경계를 각각 재검토해 최종 P0/P1/P2/P3 모두 0으로 승인했다. Review seal은 성능 benchmark나 release 권위를 새로 만들지 않는다.
+
+## 8-14. Iris test scenario consolidation boundary
+
+Iris test consolidation의 기본 단위는 test node 삭제가 아니라 **비싼 producer 한 번과 의미가 분리된 여러 assertion**이다. 같은 canonical input에 대해 조사, parsing, deterministic generation, subprocess 또는 materialization을 반복하는 consumer는 immutable scenario result를 공유할 수 있다.
+
+허용되는 기본 흐름은 다음과 같다.
+
+```text
+canonical input
+  -> one scenario execution
+  -> immutable ScenarioResult
+     -> assertion/subcase A
+     -> assertion/subcase B
+     -> assertion/subcase C
+     -> assertion/subcase D
+     -> aggregate decision E
+```
+
+- `ScenarioResult`는 input identity, producer outcome, named probe result와 final decision을 구조화해 소유한다. Consumer는 결과를 수정하거나 서로의 실행 순서에 의존하지 않는다.
+- 기존 test node를 유지하거나 table-driven subcase로 바꿀 수 있지만, 기존 case ID와 대응 관계, negative contract, failure reason과 evidence reference를 잃지 않는다.
+- A/B/C/D가 만든 intermediate JSON을 E가 다시 읽는 구조는 외부 process/evidence contract가 아닌 한 in-memory structured result로 합친다. External artifact가 실제 소비자 계약이면 scenario 종료 시 한 번만 직렬화한다.
+- class/module/session fixture는 immutable result ownership에만 사용한다. Process-global mutable singleton, hidden memoization과 test-order cache는 허용하지 않는다.
+
+격리는 setup 전체가 아니라 의미상 변이가 시작되는 경계에 둔다.
+
+- read-only source scan, schema/index load, deterministic seed와 normal-flow generation은 공유할 수 있다.
+- mutation/tamper, rollback/recovery, authority transaction과 concurrent-owner case는 immutable seed의 독립 clone에서 실행한다.
+- bootstrap, module import cache, process environment, crash/termination 자체가 contract인 경우에만 fresh-process 실행을 유지한다.
+- `must_isolate`는 family 전체의 중복 setup을 영구히 허용한다는 뜻이 아니다. 공유 가능한 immutable prefix와 격리해야 하는 mutable suffix를 별도로 모델링한다.
+
+최적화 순서는 test count가 아니라 누적 비용을 따른다. Representative full run 한 번에서 producer/subprocess/materialization/copy/reload 비용을 수집하고, 중복 비용이 큰 family부터 consolidation한다. 새 generic framework는 최소 three concrete consumer family가 같은 contract를 공유할 때만 도입하며, 한 family를 위해 application change보다 큰 measurement/governance subsystem을 추가하지 않는다.
+
+검증 비용도 변경 위험과 기대 절감에 비례해야 한다. 기본 흐름은 representative profiling 1회, implementation, focused batch, Codex Reviewer static review, final configured/full gate 1회다. 반복 통계 session은 정량 no-regression claim이 명시적으로 필요한 경우에만 연다. Measurement wrapper는 target environment를 조용히 변경해서는 안 되며, generated cache/bytecode는 source mutation과 구분해 externalize, cleanup 또는 predeclared disposable state로 처리한다.
+
+현재 readpoint의 `public-text-phase7-dispatch`는 네 consumer의 동일 producer를 class-lifecycle immutable result 한 번으로 통합한 첫 적용이다. 이 pilot의 `4 -> 1`은 architecture pattern의 유효성을 보여주지만 Iris 전체 test consolidation 완료를 뜻하지 않는다. 나머지 family의 `deferred`/`must_isolate` 기록은 이 경계를 적용할 후속 profiling과 설계를 금지하지 않는다.

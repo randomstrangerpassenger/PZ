@@ -2600,3 +2600,28 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
   * 이 closeout은 Iris 전체 runtime correctness, multiplayer/long-session 안정성, FPS/frame time/heap/latency 개선, release/Workshop/B42 readiness 또는 unrelated validation infrastructure 전체의 건전성을 의미하지 않는다.
   * declared detection scope 밖의 관측되지 않은 dynamic dependency 가능성을 배제하지 않는다.
 * Evidence: `Iris/_docs/refactor/test_precision_lightweighting/terminal_closeout_recovery/{terminal_evidence_pointer.json,closeout_carrier_manifest.json}` 및 owner-managed external durable bundle retrieval key `iris-test-precision-lightweighting-20260812-01`.
+
+---
+
+## Iris test workflow consolidation — pilot transaction 수용 / 검증 비용 교정 / broader optimization 분리
+
+* 상태: 2026-08-17 Phase 7 pilot implementation complete / focused validation PASS / Codex Reviewer PASS / broader consolidation은 별도 successor optimization 문제
+* 결정:
+
+  * 현재 transaction의 실제 application 범위는 644개 census node 전체의 재구성이 아니라 `public-text-phase7-dispatch` 한 family다. 네 consumer test가 각각 실행하던 동일 producer를 class-lifecycle immutable `ExecutionResult` 한 번으로 공유해 grouped producer invocation을 `4 -> 1`로 줄이고 기존 test node, probe identity와 failure attribution을 보존한다.
+  * successor consolidation suite `74 passed`, public-text Phase 7 explicit route `11 passed`, route class `all_explicit_path`와 Codex Reviewer(Terra) `PASS / P1 0 / P2 0`을 현재 pilot transaction의 수용 근거로 삼는다.
+  * configured-current timing backend는 parent environment를 그대로 전달한다. `PYTHONPATH/sitecustomize`, `PYTHONDONTWRITEBYTECODE`, `IRIS_CLEAN_CHECKOUT_*`, `UV_CACHE_DIR`를 configured route에 주입하지 않으며, process-tree instrumentation과 output/cache isolation은 targeted backend에만 적용한다.
+  * 최종 68-position qualification은 24개 mandatory-pilot position과 첫 configured-current child execution까지 진행한 뒤 generated `uv-cache`/`__pycache__`를 ignored checkout state로 본 사후 hygiene guard에서 raw exit `2`로 fail-stop했다. 같은 exact baseline의 기존 configured-current machine evidence는 `470 passed / 1 skipped / 0 failed / 0 errors`이고 새 denominator도 `PASS`였으므로 owner는 이를 validation result를 뒤집지 않는 non-critical generated-cache hygiene failure로 판정하고 final disposition을 `PASS`로 승인했다. Raw wrapper exit와 owner disposition은 모두 handoff에 보존한다.
+  * 68-position baseline Q/Q는 개선 전 subject의 configured suite를 44회 반복하므로 이 pilot의 속도 개선을 직접 측정하지 않으며, 작은 consolidation의 일반 correctness gate로 재사용하지 않는다. 동일한 장기 반복 측정은 통계적 no-regression claim이 명시적으로 필요한 별도 작업에서만 owner가 비용을 승인한 뒤 사용한다.
+  * 기존 family ledger의 `deferred`와 `must_isolate`는 Iris의 나머지 테스트가 본질적으로 통합 불가능하다는 결정이 아니다. 현재 pilot transaction을 소급해 미완료로 만들지 않고, broader consolidation을 representative profiling과 cost-ranked adoption을 사용하는 별도 successor optimization으로 연다.
+* Successor direction:
+
+  * 동일 입력 조사, parsing, deterministic generation, subprocess, materialization 또는 artifact reload를 반복하는 테스트는 한 번의 immutable scenario execution과 여러 독립 assertion으로 재구성한다.
+  * mutation/tamper, rollback/recovery, authority transaction과 concurrency case는 공통 immutable seed까지 공유한 뒤 case별 복제본으로 분기한다. Fresh-process 자체가 계약인 단계만 완전한 process isolation을 유지한다.
+  * 테스트 간 실행 순서 의존성, mutable global result cache와 failure identity 소실은 금지한다. 기존 node ID 또는 대응 subcase ID, failure reason과 negative contract는 보존한다.
+  * 다음 round는 representative profiling 1회, 구현 완료 뒤 focused batch 1회, Codex Reviewer 정적 검토, 최종 configured/full gate 1회를 기본 예산으로 삼는다. Critical target assertion failure가 아닌 측정 wrapper·경로 hygiene 문제 때문에 전체 장기 suite를 처음부터 반복하지 않는다.
+* Non-decision:
+
+  * 이번 완료는 644개 Iris test 전체가 통합됐거나 전체 wall time이 75% 감소했다는 뜻이 아니다. 확정된 구조 개선은 pilot family의 producer invocation `4 -> 1`이며 repository-wide 시간 개선률은 accepted paired timing으로 봉인되지 않았다.
+  * 기존 sealed precision-lightweighting terminal authority, source denominator, fresh-process semantics 또는 mutation isolation을 축소하지 않는다.
+* Evidence: `Iris/_docs/refactor/test_workflow_consolidation/`, `Iris/validation/baseline_admission/evidence/workflow_consolidation_reapplication_handoff.json`, implementation branch closeout `492ab29d`.

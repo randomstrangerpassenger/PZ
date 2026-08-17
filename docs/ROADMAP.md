@@ -1086,3 +1086,52 @@ Historical trace / provenance index는 ROADMAP 본문에서 더 이상 관리하
 - configured full-suite PASS, release-ready, Workshop-ready 또는 정량 PZ 성능 개선 선언
 
 근거는 `Iris/_docs/refactor/codebase_optimization/closeout_receipt.json`, 같은 디렉터리의 baseline/change receipts, 2026-08-11 repository owner attestation과 `fe4bb9f6 -> b33ed2ac -> 89f7499c -> 91259769` closeout/review chain이다. 수동 functional in-game validation은 `complete`, governing plan에 따른 통합 closeout 상태는 `partial`이다.
+
+---
+
+# 15. Iris test workflow consolidation
+
+## Done
+
+- 644개 test identity를 census하고 seven candidate family를 분류했다.
+- `public-text-phase7-dispatch` pilot에서 네 consumer가 반복하던 동일 producer execution을 class-lifecycle immutable result 한 번으로 통합해 `4 -> 1`로 줄였다.
+- 기존 test node와 probe/failure identity를 보존하고 explicit route를 `all_explicit_path`로 결속했다.
+- successor consolidation suite `74 passed`, focused Phase 7 route `11 passed`, Codex Reviewer(Terra) `PASS / P1 0 / P2 0`을 기록했다.
+- configured timing backend의 observer 및 output/cache environment injection을 제거해 target parent environment를 그대로 전달하도록 수정했다.
+- 최종 long validation의 raw `25/68 / exit 2`는 child test failure가 아니라 generated UV/bytecode cache에 대한 post-execution hygiene fail-stop으로 분류했다. 동일 exact baseline의 `470 passed / 1 skipped / 0 failed / 0 errors`, 새 denominator `PASS`와 owner adjudication을 결속해 transaction 상태를 `complete / PASS`로 닫았고 재실행하지 않았다.
+- 실패 attempt의 raw result root, generated cache와 disposable baseline worktree를 제거하고 사용자 main worktree 변경은 보존했다.
+
+## Current scope boundary
+
+- 이번 완료는 Phase 7 pilot transaction의 완료다. 644개 테스트 전체 통합이나 repository-wide 정량 속도 개선의 완료를 뜻하지 않는다.
+- 실제 변경 대상은 four consumer node를 가진 family 하나이며, test node 수는 줄이지 않고 producer invocation만 75% 감소시켰다.
+- 기존 ledger의 nonpilot family는 `deferred 4 / must_isolate 3`이다. 이는 통합 불가능 판정이 아니라 현재 round에서 cost-ranked dynamic adoption을 수행하지 않았다는 기록이다.
+- 68-position baseline Q/Q는 개선 전 configured suite를 반복하므로 일반 successor correctness 또는 pilot 속도 검증의 기본 gate로 사용하지 않는다.
+
+## Next
+
+- representative configured/full run 한 번에서 subprocess, producer, parsing, materialization, copy와 artifact reload의 누적 비용을 수집하고 cost-ranked duplication map을 만든다.
+- `deferred` family를 우선 재검토하고 최소 three high-cost family 또는 관측된 중복 비용의 주요 누적 구간을 실제 통합한다.
+- 공통 read-only preparation은 immutable `ScenarioResult`로 공유하고 assertion은 기존 case/subcase identity를 유지한다.
+- mutation/tamper, rollback/recovery, authority/concurrency family는 immutable seed 이후 case별 clone으로 분기한다.
+- A/B/C/D의 intermediate file을 E가 다시 읽는 pipeline은 한 process의 structured result와 final decision으로 합치고 외부 evidence가 필요한 경우에만 마지막에 한 번 직렬화한다.
+- adopted family의 비싼 producer/subprocess invocation을 최소 50% 줄이고 configured-current 전체 wall time 20%, full validation gate 15% 단축을 목표로 삼되 representative baseline이 목표 불가능을 보이면 복잡도를 늘리지 않고 재조정한다.
+
+## Validation budget
+
+- implementation 전 representative profiling 1회
+- 모든 family 변경 완료 뒤 focused batch 1회
+- final execution 전 Codex Reviewer 정적 검토
+- configured-current 또는 full gate 최종 1회
+- target assertion, semantic parity, timeout/process leak 또는 tracked source mutation 같은 Critical failure가 아니면 full long-run restart 금지
+- 통계적 성능 certification을 별도로 요청하지 않는 한 68-position Q/Q, candidate, terminal 반복 session과 대형 hash carrier를 도입하지 않음
+
+## Hold
+
+- test order dependency 또는 mutable global scenario result 도입
+- fresh-process/bootstrap 계약을 in-process fixture로 대체
+- mutation/concurrency branch 사이의 writable state 공유
+- case ID, negative contract 또는 failure attribution을 잃는 단일 거대 assertion
+- 실질 consolidation code보다 큰 별도 measurement/governance framework 확장
+
+근거는 `Iris/_docs/refactor/test_workflow_consolidation/`, `Iris/validation/baseline_admission/evidence/workflow_consolidation_reapplication_handoff.json`과 2026-08-17 owner validation-cost disposition이다. 현재 pilot transaction은 `complete`; broader consolidation은 이를 미완료로 되돌리는 잔여 gate가 아니라 별도 successor optimization이다.

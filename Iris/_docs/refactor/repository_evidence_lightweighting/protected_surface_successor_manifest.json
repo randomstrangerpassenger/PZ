@@ -1467,6 +1467,42 @@
       ]
     },
     {
+      "revision_id": "iris_test_scenario_execution_consolidation_predecessor_protected_surface_reseal_v1",
+      "track": "iris_test_scenario_execution_consolidation",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "e20119631df26fb48c590062f7aa2f86e491c342",
+      "protection_predecessor_tree": "5974176876c9b9c4d2aaeaab4f36e1ac3f9fca4b",
+      "reason": "Adopt the two protected test-source blobs changed by the consolidation predecessor before folding the later 55-identity artifact-promotion expansion and source-classification revisions.",
+      "approved_activation_deltas": [],
+      "added_protected_rows": [
+        {
+          "path": "Iris/build/description/v2/tests/test_artifact_lifecycle_inventory.py",
+          "before_git_blob_id": "41c6e0810490d5e97274281a3cd9a61f09b305e2",
+          "before_sha256_lf": "a7fefccbcb7da346c712f6d50c68e64164a8f33d2dd3f727831874775cc86070",
+          "expected_git_blob_id": "abdcb664af09c472ba0f4a7e9d8d831badd3406b",
+          "after_sha256_lf": "acdb912bb67baf318bf7157734a77aaed7b826ffadbeadf5c7a0df6a147efa04",
+          "role": "common_track_test_contract",
+          "writer": "iris_test_scenario_execution_consolidation",
+          "consumers": ["configured_current", "full_repository_gate", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Adopt the consolidated lifecycle-inventory fixture execution model without changing its configured node identities."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_dvf_3_3_registry_authority_canonical_closure.py",
+          "before_git_blob_id": "8f6c4fb2ed0b12145927f46b4897e29708ca49a8",
+          "before_sha256_lf": "feb9b43ab3bbcd6934deedbc96319ef5146ec4b264961b4b9a2fff8971ee05fd",
+          "expected_git_blob_id": "cde11ca15e6c03cebd1187a32f4727853b841904",
+          "after_sha256_lf": "695f9f631d625629c52c938b62e177e29fa92e984ff6fbb3a7610d2e4453e6fa",
+          "role": "common_track_test_contract",
+          "writer": "iris_test_scenario_execution_consolidation",
+          "consumers": ["configured_current", "full_repository_gate", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Adopt the consolidated registry-authority fixture execution model while preserving the required gate contract and fail-closed assertions."
+        }
+      ]
+    },
+    {
       "revision_id": "iris_artifact_lifecycle_promotion_55_protected_surface_reseal_v1",
       "track": "iris_test_scenario_execution_consolidation_expansion",
       "owner": "repository_owner_user",
@@ -1511,6 +1547,30 @@
           "consumers": ["full_repository_gate", "workflow_consolidation_dedicated_route", "repository_maintainers"],
           "owner": "repository_owner_user",
           "reason": "Classify the ten workflow-consolidation test sources through the existing dedicated route without changing configured-current membership or the required-source denominator."
+        }
+      ]
+    },
+    {
+      "revision_id": "iris_clean_checkout_source_classification_regression_reseal_v1",
+      "track": "iris_canonical_full_gate_source_classification_alignment",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "c29eba99f24be459d83cd189806754041dd2cc20",
+      "protection_predecessor_tree": "a6a07f2c3e327c25505324dfad4e4078de7acb35",
+      "reason": "Adopt the extended body of the existing source-classification regression node without adding or removing clean-checkout validation identities.",
+      "approved_activation_deltas": [],
+      "added_protected_rows": [
+        {
+          "path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py",
+          "before_git_blob_id": "6005a5bf8c1883e57aaf0814b9f97141af34a39e",
+          "before_sha256_lf": "0218c08a5c93a5cbbb85a5e518db8567c52188b71a85f215df304c7b30cddeb9",
+          "expected_git_blob_id": "46026cc3e1c9a38ba7b3d2639c24101c8c7606e1",
+          "after_sha256_lf": "9f5328ec345734cdcf112fef888c2c2f3a0275f687e021fd78a88049e09802fe",
+          "role": "clean_checkout_source_classification_regression_contract",
+          "writer": "iris_canonical_full_gate_source_classification_alignment",
+          "consumers": ["full_repository_gate", "source_policy_preflight", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Verify the ten exact dedicated-route dispositions, raw-membership exclusivity, configured-policy separation, owner decisions, and resolved route ancestry inside the existing regression node."
         }
       ]
     }

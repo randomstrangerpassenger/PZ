@@ -1,0 +1,78 @@
+{
+  "schema_version": "iris-clean-checkout-full-repository-gate-manifest-v13",
+  "manifest_state": "frozen",
+  "recorded_date": "2026-08-18",
+  "status": "PASS",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "record_mode": "append_only_0012_predecessor_hash_correction_and_final_adoption",
+  "terminal_claim": "The 55-identity source-classification validation remains PASS; this successor corrects two predecessor Git-blob SHA-256 bindings recorded with working-tree byte hashes in 0012 and adopts the exact post-commit final adoption receipt without changing the validated subject.",
+  "predecessor": {
+    "path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0012.json",
+    "git_blob_id": "cde5666a74e8d3c85b53fc3cee1f4e0a3a12c56e",
+    "git_blob_raw_sha256": "8c41e15125ddd6500eda92f5a848a8661545704026da9eee2fb1d0bc26f0fc27",
+    "rewrite_permitted": false
+  },
+  "validated_subject": {
+    "commit": "ea94c19789fd33799180c4cbf1e19bde26a3a482",
+    "tree": "f1f98eb73de5c3458f0553427e1791fbd696346b",
+    "canonical_full_gate": "PASS",
+    "consolidation_identity_count": 55,
+    "unchanged_by_this_successor": true
+  },
+  "corrected_predecessor_bindings": [
+    {
+      "record_path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0012.json",
+      "field": "predecessor.git_blob_raw_sha256",
+      "referenced_path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0011.json",
+      "referenced_git_blob_id": "6b9783d44ac30c4e632bda654a7c82d6d8f4d3af",
+      "superseded_working_tree_raw_sha256": "6977a0817a4c1c89fc43c17437414288c19b7fddbe53a654240a39ef4a6e7960",
+      "correct_git_blob_raw_sha256": "13d596b6744d6e61b70178f8c6beac9b43b49d4a22046727525c60f4406ec7be",
+      "correction_method": "SHA-256 over exact bytes returned by git cat-file blob 6b9783d44ac30c4e632bda654a7c82d6d8f4d3af"
+    },
+    {
+      "record_path": "Iris/validation/clean_checkout/authority/full_repository_technical_debt_closeout_successor_0012.json",
+      "field": "predecessor.git_blob_raw_sha256",
+      "referenced_path": "Iris/validation/clean_checkout/authority/full_repository_technical_debt_closeout_successor_0011.json",
+      "referenced_git_blob_id": "2262252b3e5208e3698d3c1802cf8bd84c8e6972",
+      "superseded_working_tree_raw_sha256": "a04af2fa94037b2d4b7b8f5ee27a5b0b28c193c034241662cf99388538acf1be",
+      "correct_git_blob_raw_sha256": "5ef1ac575103928e330b77db4a0189c1399b95f29c2a638222484d593a83cb96",
+      "correction_method": "SHA-256 over exact bytes returned by git cat-file blob 2262252b3e5208e3698d3c1802cf8bd84c8e6972"
+    }
+  ],
+  "final_adoption_receipt": {
+    "path": "C:/Users/MW/Downloads/coding/PZ_alignment_55_receipts/adoption/final_adoption_receipt_0012.json",
+    "sha256": "c69b69c057199a521d51f6b2718852a0f24fdaf9b66205fcf19ce8c196dcc65c",
+    "status": "adopted",
+    "adoption_subject_commit": "f05f4ee6e1c7bc71d9df91e2ff0753af5c443e31",
+    "adoption_subject_tree": "c18d4792cca92d5802ec18fe34bd0005ddb739e0",
+    "tracked_closeout_artifact_count": 2
+  },
+  "codex_reviewer_round2": {
+    "path": "C:/Users/MW/Downloads/coding/PZ_alignment_55_receipts/final3/codex_reviewer_round2_receipt.json",
+    "sha256": "2fee2704a6e1d9219e48cb8feff2649eb8ad769aa51330866750187f856fbde9",
+    "verdict": "CHANGES_REQUESTED",
+    "severity_counts": {
+      "P0": 0,
+      "P1": 1,
+      "P2": 0,
+      "P3": 0
+    },
+    "finding_addressed_by_this_successor": true
+  },
+  "preserved_0012_adoption": {
+    "run_a_status": "PASS",
+    "run_b_status": "PASS",
+    "canonical_results_equal": true,
+    "deterministic_compare_status": "succeeded",
+    "dependency_inventory_equal": true,
+    "unclassified_source_count": 0,
+    "prior_35_identity_evidence_reused": false
+  },
+  "successor_boundary": {
+    "this_record_is_evidence_only": true,
+    "tests_rerun_for_this_successor_record": false,
+    "validated_subject_changed": false,
+    "corrected_predecessor_record_rewritten": false,
+    "self_referential_commit_fields": 0
+  }
+}

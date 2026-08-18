@@ -1,0 +1,67 @@
+{
+  "schema_version": "iris_clean_checkout_full_repository_technical_debt_closeout_successor_v13",
+  "recorded_date": "2026-08-18",
+  "status": "complete",
+  "record_mode": "append_only_0012_predecessor_hash_correction_and_final_adoption_closeout",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "predecessor": {
+    "path": "Iris/validation/clean_checkout/authority/full_repository_technical_debt_closeout_successor_0012.json",
+    "git_blob_id": "f2f45f04cc6dcd22601180d71a8ac87d57ab8fd7",
+    "git_blob_raw_sha256": "855b1dc1816c9fccd5654c932b6f0e88f1e20dc692051397f66d0196f3e8880c",
+    "rewrite_permitted": false
+  },
+  "gate_manifest_successor": {
+    "path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0013.json",
+    "git_blob_id": "eb901d7765a75acf9f187ac67896dbcac4322bd5",
+    "git_blob_raw_sha256": "fb30b6e0ba6b3e1912ab9271aca207d93fbb19f4504c2b7837498a22b42b78f4",
+    "status": "PASS"
+  },
+  "validated_subject": {
+    "commit": "ea94c19789fd33799180c4cbf1e19bde26a3a482",
+    "tree": "f1f98eb73de5c3458f0553427e1791fbd696346b",
+    "canonical_full_gate": "PASS",
+    "consolidation_identity_count": 55,
+    "unchanged_by_this_closeout": true
+  },
+  "correction_closeout": {
+    "corrected_binding_count": 2,
+    "corrected_records_rewritten": false,
+    "gate_0011_git_blob_id": "6b9783d44ac30c4e632bda654a7c82d6d8f4d3af",
+    "gate_0011_correct_git_blob_raw_sha256": "13d596b6744d6e61b70178f8c6beac9b43b49d4a22046727525c60f4406ec7be",
+    "authority_0011_git_blob_id": "2262252b3e5208e3698d3c1802cf8bd84c8e6972",
+    "authority_0011_correct_git_blob_raw_sha256": "5ef1ac575103928e330b77db4a0189c1399b95f29c2a638222484d593a83cb96",
+    "measurement_method": "SHA-256 over exact bytes returned by git cat-file blob <git_blob_id>",
+    "codex_reviewer_round2_finding_addressed": true
+  },
+  "final_adoption_receipt": {
+    "path": "C:/Users/MW/Downloads/coding/PZ_alignment_55_receipts/adoption/final_adoption_receipt_0012.json",
+    "sha256": "c69b69c057199a521d51f6b2718852a0f24fdaf9b66205fcf19ce8c196dcc65c",
+    "status": "adopted",
+    "adoption_subject_commit": "f05f4ee6e1c7bc71d9df91e2ff0753af5c443e31",
+    "adoption_subject_tree": "c18d4792cca92d5802ec18fe34bd0005ddb739e0"
+  },
+  "review_evidence": {
+    "round1_receipt": {
+      "path": "C:/Users/MW/Downloads/coding/PZ_alignment_55_receipts/final3/codex_reviewer_round1_receipt.json",
+      "sha256": "0dbecdbb5db9e741992d578f40b9252a5876d0ce1944ded5b8ff359658d36cdf",
+      "all_findings_addressed": true
+    },
+    "round2_receipt": {
+      "path": "C:/Users/MW/Downloads/coding/PZ_alignment_55_receipts/final3/codex_reviewer_round2_receipt.json",
+      "sha256": "2fee2704a6e1d9219e48cb8feff2649eb8ad769aa51330866750187f856fbde9",
+      "all_findings_addressed": true
+    }
+  },
+  "terminal_state": {
+    "clean_validation_terminal_pass": true,
+    "unclassified_source_count": 0,
+    "required_dependency_inventory_equal": true,
+    "canonical_run_a_b_equal": true,
+    "deterministic_comparator_succeeded": true,
+    "prior_35_identity_evidence_reused": false,
+    "blocking_condition_count": 0,
+    "blocking_conditions": [],
+    "tests_rerun_for_this_successor_record": false,
+    "self_referential_commit_fields": 0
+  }
+}

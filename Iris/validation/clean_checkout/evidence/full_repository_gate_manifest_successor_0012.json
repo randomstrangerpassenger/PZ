@@ -1,0 +1,184 @@
+{
+  "schema_version": "iris-clean-checkout-full-repository-gate-manifest-v12",
+  "manifest_state": "frozen",
+  "recorded_date": "2026-08-18",
+  "status": "PASS",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "record_mode": "append_only_source_classification_alignment_55_identity_validation",
+  "terminal_claim": "The source-classification alignment is applied after the 55-identity four-group expansion, all tracked test sources are classified without changing test identity or dependency inventory, and the exact combined subject passes sequential canonical Run A/B with a successful deterministic comparison.",
+  "predecessor": {
+    "path": "Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0011.json",
+    "git_blob_id": "6b9783d44ac30c4e632bda654a7c82d6d8f4d3af",
+    "git_blob_raw_sha256": "6977a0817a4c1c89fc43c17437414288c19b7fddbe53a654240a39ef4a6e7960",
+    "rewrite_permitted": false
+  },
+  "repository_reality_baseline": {
+    "commit": "c29eba99f24be459d83cd189806754041dd2cc20",
+    "tree": "a6a07f2c3e327c25505324dfad4e4078de7acb35",
+    "consolidation_identity_count": 55
+  },
+  "implementation_chronology": [
+    {
+      "role": "classification_code_only",
+      "commit": "591be9331212fd54ad5d21ce3d34b39249a5a6d5",
+      "tree": "ea421124bd6234733ae33665c6962a4ae88937a2",
+      "direct_parent": "c29eba99f24be459d83cd189806754041dd2cc20"
+    },
+    {
+      "role": "full_gate_and_adoption_blob_successor",
+      "commit": "79ea9d5e78d08597760cc4ec88628ca5fc36e369",
+      "tree": "7e534a28d6d1727a2603f65457291ed0d8340f0e"
+    },
+    {
+      "role": "promotion_protected_surface_reseal",
+      "commit": "116be9ff05305312e8d26cc27188b8197918adf0",
+      "tree": "f2d071a15f6e6c317a5fbdfbc2ee6ed047a836f8"
+    },
+    {
+      "role": "remaining_protected_surface_reseal",
+      "commit": "3e1a0a8f0f4e6a74c52f9a337f9b6d475f65962a",
+      "tree": "4db637867283046eb04af0c474c3853284dc57b4"
+    },
+    {
+      "role": "residual_revision_inventory_alignment",
+      "commit": "ea94c19789fd33799180c4cbf1e19bde26a3a482",
+      "tree": "f1f98eb73de5c3458f0553427e1791fbd696346b"
+    }
+  ],
+  "validated_subject": {
+    "role": "combined_four_group_expansion_and_source_classification_alignment",
+    "commit": "ea94c19789fd33799180c4cbf1e19bde26a3a482",
+    "tree": "f1f98eb73de5c3458f0553427e1791fbd696346b",
+    "branch": "codex/iris-source-classification-alignment-55",
+    "clean": true
+  },
+  "prior_35_identity_evidence": {
+    "commit": "06bb801eb350958517befc2d46a109bc07c87d7b",
+    "reused": false,
+    "disposition": "superseded_subject_evidence_only"
+  },
+  "source_classification": {
+    "tracked_source_count_before": 144,
+    "tracked_source_count_after": 144,
+    "unclassified_source_count_before": 10,
+    "unclassified_source_count_after": 0,
+    "multiply_classified_source_count_after": 0,
+    "absent_policy_entry_count_after": 0,
+    "aligned_source_count": 10,
+    "aligned_source_route": "dedicated_route_validation",
+    "aligned_source_execution_role": "not_required",
+    "aligned_source_path_set_sha256": "44dd61998f784cb7bb32a43a9e5e780c24a2a6f43414c451569ffd606add894d"
+  },
+  "identity_preservation": {
+    "consolidation_identity_count_before": 55,
+    "consolidation_identity_count_after": 55,
+    "consolidation_map_git_blob_id": "47e817fa8fb339ef3faf0a4d7d224638186b267e",
+    "consolidation_map_git_blob_raw_sha256": "db66313831e13a7c02e45884525e5d6529368a5a6ff67c3ca8ea50bce5d9b18d",
+    "old_test_id_delta": 0,
+    "clean_checkout_node_count_before": 33,
+    "clean_checkout_node_count_after": 33,
+    "workflow_node_count_before": 74,
+    "workflow_node_count_after": 74,
+    "configured_current_node_count_before": 471,
+    "configured_current_node_count_after": 471,
+    "configured_denominator_before": 645,
+    "configured_denominator_after": 645
+  },
+  "dependency_inventory": {
+    "required_source_count_before": 63,
+    "required_source_count_after": 63,
+    "required_dependency_path_count_before": 40,
+    "required_dependency_path_count_after": 40,
+    "added_paths": [],
+    "removed_paths": [],
+    "explicit_direct_dependency_rows_equal": true,
+    "driver_path_set_lf_sha256": "679bfa997002187d6b1fbfc3301017d82ff9d0d9db6c50f96c86db04cff94f4a",
+    "gate_canonical_json_sha256": "2598b902cf82a6eb0c5b21faa9799552b7df7683461d526467aa14682160290c",
+    "run_a_gate_match": true,
+    "run_b_gate_match": true,
+    "comparison_receipt": {
+      "path": "C:/Users/MW/Downloads/coding/PZ_alignment_55_receipts/final3/dependency_inventory_comparison.json",
+      "sha256": "99a4eb9c590da1273af1991129f9e5dafc25cf003675e682760227ff1ad5e175"
+    }
+  },
+  "execution_reproducibility": {
+    "run_a": {
+      "orchestration_receipt_path": "C:/Users/MW/iaca/r55j/o.json",
+      "orchestration_receipt_sha256": "7e49ad346cef5207d202a322ad2c798e4e323ca7f06fb87622373691c7ae0d90",
+      "status": "PASS",
+      "exit_code": 0,
+      "pytest_passed": 424,
+      "pytest_failed": 0,
+      "pytest_deselected": 2,
+      "subtests_passed": 102,
+      "standalone_validation_passed": 4,
+      "canonical_result_path": "C:/Users/MW/iaca/r55j/r/canonical_full_result.json",
+      "canonical_result_sha256": "77cd75046c01ac2fb83e316d8dcd9e68d93cb52b7e46285ce013cb091d308bcb"
+    },
+    "run_b": {
+      "orchestration_receipt_path": "C:/Users/MW/iaca/r55k/o.json",
+      "orchestration_receipt_sha256": "5b43b4ef0024da4b931f31283a396cf4cb56b7533081d388bf0965744a236e43",
+      "status": "PASS",
+      "exit_code": 0,
+      "pytest_passed": 424,
+      "pytest_failed": 0,
+      "pytest_deselected": 2,
+      "subtests_passed": 102,
+      "standalone_validation_passed": 4,
+      "canonical_result_path": "C:/Users/MW/iaca/r55k/r/canonical_full_result.json",
+      "canonical_result_sha256": "77cd75046c01ac2fb83e316d8dcd9e68d93cb52b7e46285ce013cb091d308bcb"
+    },
+    "deterministic_compare": {
+      "receipt_path": "C:/Users/MW/iaca/r55l/compare_receipt.json",
+      "receipt_sha256": "1d50f3c93f41475daa0e649aa62571eada1e48ce372c7344f2324d421ddad187",
+      "status": "succeeded",
+      "exit_code": 0,
+      "canonical_fingerprint_sha256": "60c65f596fb21d791351d8082afb9c4c49eb304e8c26f91bb9c63439ad05fe16"
+    },
+    "canonical_results_equal": true,
+    "dependency_inventory_equal": true
+  },
+  "sealed_artifact_alignment": {
+    "active_revision_count": 21,
+    "active_added_row_count": 83,
+    "final_blob_mismatch_count": 0,
+    "self_extending_revision_id_cycle": false,
+    "superseded_diagnostic_subjects": [
+      "79ea9d5e78d08597760cc4ec88628ca5fc36e369",
+      "116be9ff05305312e8d26cc27188b8197918adf0",
+      "3e1a0a8f0f4e6a74c52f9a337f9b6d475f65962a"
+    ]
+  },
+  "external_evidence": {
+    "validation_summary": {
+      "path": "C:/Users/MW/Downloads/coding/PZ_alignment_55_receipts/final3/validation_summary.json",
+      "sha256": "675034626d563ceb1ad1b753ed47a62df96cf19bd30cb1309df34dcdfb205ab6"
+    },
+    "baseline_census": {
+      "path": "C:/Users/MW/Downloads/coding/PZ_alignment_55_receipts/baseline/exhaustive_census.json",
+      "sha256": "b63fe545fe5f90884e992fc8f70c9dd4ca56a1e147072b033524b7a3f58e112f"
+    },
+    "final_census": {
+      "path": "C:/Users/MW/Downloads/coding/PZ_alignment_55_receipts/final3/exhaustive_census.json",
+      "sha256": "a3921f741260030fded65e6fe5cbf6dd27198ae1a80d5eaf95657d995ae684b2"
+    },
+    "census_driver": {
+      "path": "C:/Users/MW/Downloads/coding/PZ_alignment_receipts/exhaustive_census_driver.py",
+      "sha256": "acf63cca839ea60c23635ef1e697ea76f6163fcf363f7691268be79e19d5e2ad",
+      "role": "measurement_tool_only"
+    },
+    "codex_reviewer_round1": {
+      "path": "C:/Users/MW/Downloads/coding/PZ_alignment_55_receipts/final3/codex_reviewer_round1_receipt.json",
+      "sha256": "0dbecdbb5db9e741992d578f40b9252a5876d0ce1944ded5b8ff359658d36cdf",
+      "verdict": "CHANGES_REQUESTED",
+      "findings_addressed_by_this_successor": true
+    }
+  },
+  "successor_boundary": {
+    "validated_subject_is_unchanged_by_this_record": true,
+    "this_record_is_not_the_validated_subject": true,
+    "tests_rerun_for_this_successor_record": false,
+    "self_referential_commit_fields": 0,
+    "post_commit_adoption_and_reviewer_approval_are_recorded_by_next_successor": true
+  }
+}

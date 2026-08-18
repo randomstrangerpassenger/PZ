@@ -13,9 +13,19 @@
   "bound_inputs": {
     "full_repository_gate": {
       "path": "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
-      "git_blob_id": "82af40d5b6abb2165ed54319437a58a7904f3668",
-      "physical_raw_sha256_at_adoption": "c69baf16a7cfa65ae76b13f657a7d6c908842312158c50f69e1ff3c9e590c6bf"
+      "git_blob_id": "e85c2b63a63097780de5641d751b4c7bab06207b",
+      "physical_raw_sha256_at_adoption": "11b1a5887f9e64ab31b0a3a503524a13df43e1c88a7a39ed79ba941ab118afda"
     }
+  },
+  "binding_successor": {
+    "successor_id": "iris_canonical_full_gate_source_classification_alignment_55_20260818",
+    "classification_change_commit": "591be9331212fd54ad5d21ce3d34b39249a5a6d5",
+    "classification_change_tree": "ea421124bd6234733ae33665c6962a4ae88937a2",
+    "implementation_predecessor_commit": "c29eba99f24be459d83cd189806754041dd2cc20",
+    "implementation_predecessor_tree": "a6a07f2c3e327c25505324dfad4e4078de7acb35",
+    "predecessor_full_repository_gate_git_blob_id": "82af40d5b6abb2165ed54319437a58a7904f3668",
+    "predecessor_full_repository_gate_raw_sha256": "c69baf16a7cfa65ae76b13f657a7d6c908842312158c50f69e1ff3c9e590c6bf",
+    "scope": "Bind the additive dedicated-route source dispositions to the latest 55-identity implementation without adopting the superseded 35-identity validation evidence."
   },
   "decision": {
     "supporting_test": "Iris/validation/baseline_admission/tests/test_iris_baseline_admission.py",

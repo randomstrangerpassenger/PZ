@@ -1571,6 +1571,18 @@
           "consumers": ["full_repository_gate", "source_policy_preflight", "repository_maintainers"],
           "owner": "repository_owner_user",
           "reason": "Verify the ten exact dedicated-route dispositions, raw-membership exclusivity, configured-policy separation, owner decisions, and resolved route ancestry inside the existing regression node."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+          "before_git_blob_id": "3c6fcbc958cb52f66ed57f8fae5b7778ceb1868a",
+          "before_sha256_lf": "3e3f268c147023ef3d52d406638d9079b468b41f265002a243df67f43605e534",
+          "expected_git_blob_id": "7037624591957357450ef9b2e383ff06969c1cc9",
+          "after_sha256_lf": "e31ae37eb8707012daefb29e4f37b96c23cd22bdc0740e14fe39dddb517057fa",
+          "role": "protected_surface_revision_inventory_assertion",
+          "writer": "iris_canonical_full_gate_source_classification_alignment",
+          "consumers": ["configured_current", "residual_closeout", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Assert the four additive consolidation and source-classification protection revisions in their exact active chronology without creating a self-extending revision-ID cycle."
         }
       ]
     }

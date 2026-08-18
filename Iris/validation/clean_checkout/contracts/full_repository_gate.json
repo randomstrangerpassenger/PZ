@@ -110,6 +110,56 @@
         "path": "Iris/validation/baseline_admission/tests/test_rtc_durable_bundle_contract.py",
         "owner_decision": "not_applicable_dedicated_route",
         "reason": "Baseline-admission RTC durable-contract route is explicitly dedicated; existing mandatory full-repository denominator remains unchanged."
+      },
+      {
+        "path": "Iris/validation/test_workflow_consolidation/tests/test_classify_source_policy_impact.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Workflow-consolidation source-policy impact tests verify that the explicit workflow test route remains separate from configured discovery authority; the mandatory full-repository denominator remains unchanged."
+      },
+      {
+        "path": "Iris/validation/test_workflow_consolidation/tests/test_collect_execution_census.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Workflow-consolidation execution-census tests validate scenario identity and must-isolate classification for the dedicated consolidation analysis route; the mandatory full-repository denominator remains unchanged."
+      },
+      {
+        "path": "Iris/validation/test_workflow_consolidation/tests/test_compare_contract_parity.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Workflow-consolidation contract-parity tests preserve probe status within the dedicated consolidation comparison route; the mandatory full-repository denominator remains unchanged."
+      },
+      {
+        "path": "Iris/validation/test_workflow_consolidation/tests/test_measure_execution_cost.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Workflow-consolidation measurement tests validate the dedicated timing, process-accounting, workspace-isolation, and fail-closed qualification protocol; the mandatory full-repository denominator remains unchanged."
+      },
+      {
+        "path": "Iris/validation/test_workflow_consolidation/tests/test_public_text_phase7_scenario.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Workflow-consolidation Phase 7 scenario tests validate single-execution lifecycle ownership and malformed-output handling for the dedicated consolidation route; the mandatory full-repository denominator remains unchanged."
+      },
+      {
+        "path": "Iris/validation/test_workflow_consolidation/tests/test_scenario_contracts.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Workflow-consolidation scenario-contract tests validate immutable execution payloads and blocked-probe dependency requirements for the dedicated route; the mandatory full-repository denominator remains unchanged."
+      },
+      {
+        "path": "Iris/validation/test_workflow_consolidation/tests/test_validate_identity_transaction.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Workflow-consolidation identity-transaction tests validate no-change and migration receipt completeness for the dedicated consolidation route; the mandatory full-repository denominator remains unchanged."
+      },
+      {
+        "path": "Iris/validation/test_workflow_consolidation/tests/test_validate_measurement_comparability.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Workflow-consolidation comparability tests validate schedule, interpreter, touch-surface, and identity bindings for the dedicated measurement route; the mandatory full-repository denominator remains unchanged."
+      },
+      {
+        "path": "Iris/validation/test_workflow_consolidation/tests/test_validate_scenario_report.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Workflow-consolidation scenario-report tests validate route scope, authority isolation, semantic preservation, and fail-closed dependency reporting for the dedicated route; the mandatory full-repository denominator remains unchanged."
+      },
+      {
+        "path": "Iris/validation/test_workflow_consolidation/tests/test_validate_workflow_closeout_carrier.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Workflow-consolidation closeout-carrier tests validate committed blob binding, protected-path exclusion, and self-reference rejection for dedicated evidence adoption; the mandatory full-repository denominator remains unchanged."
       }
     ],
     "historical_optional_rule": "tracked Iris/build/description/v2/tests/test_*.py source with no current, ok taxonomy identity",

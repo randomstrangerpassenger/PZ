@@ -1295,6 +1295,13 @@ def test_full_source_policy_classifies_only_declared_fallback(
         / "full_repository_gate.json"
     )
     contract = json.loads(contract_path.read_text(encoding="utf-8"))
+    actual_repository_root = Path(__file__).resolve().parents[4]
+    taxonomy = json.loads(
+        (
+            actual_repository_root
+            / "Iris/_docs/round3/round3_test_taxonomy.json"
+        ).read_text(encoding="utf-8")
+    )
     output_projection = contract["execution_workspace"][
         "standalone_output_projection"
     ]
@@ -1356,7 +1363,7 @@ def test_full_source_policy_classifies_only_declared_fallback(
         ]
     }
     assert explicit_required_sources <= explicit_paths
-    roles = _full_required_source_roles(contract, {"rows": []})
+    roles = _full_required_source_roles(contract, taxonomy)
     required_classifications = {
         path: _classify_full_test_source(path, roles)
         for path in explicit_required_sources
@@ -1445,6 +1452,142 @@ def test_full_source_policy_classifies_only_declared_fallback(
             tool_paths,
             {next(iter(tool_paths))},
         )
+    dedicated_sources = {
+        (
+            "Iris/validation/test_workflow_consolidation/tests/"
+            "test_classify_source_policy_impact.py"
+        ),
+        (
+            "Iris/validation/test_workflow_consolidation/tests/"
+            "test_collect_execution_census.py"
+        ),
+        (
+            "Iris/validation/test_workflow_consolidation/tests/"
+            "test_compare_contract_parity.py"
+        ),
+        (
+            "Iris/validation/test_workflow_consolidation/tests/"
+            "test_measure_execution_cost.py"
+        ),
+        (
+            "Iris/validation/test_workflow_consolidation/tests/"
+            "test_public_text_phase7_scenario.py"
+        ),
+        (
+            "Iris/validation/test_workflow_consolidation/tests/"
+            "test_scenario_contracts.py"
+        ),
+        (
+            "Iris/validation/test_workflow_consolidation/tests/"
+            "test_validate_identity_transaction.py"
+        ),
+        (
+            "Iris/validation/test_workflow_consolidation/tests/"
+            "test_validate_measurement_comparability.py"
+        ),
+        (
+            "Iris/validation/test_workflow_consolidation/tests/"
+            "test_validate_scenario_report.py"
+        ),
+        (
+            "Iris/validation/test_workflow_consolidation/tests/"
+            "test_validate_workflow_closeout_carrier.py"
+        ),
+    }
+    source_policy = contract["source_disposition_policy"]
+    dedicated_rows = {
+        row["path"]: row
+        for row in source_policy["explicit_dedicated_route_sources"]
+    }
+    assert dedicated_sources <= dedicated_rows.keys()
+    for path in dedicated_sources:
+        row = dedicated_rows[path]
+        assert row["owner_decision"] == "not_applicable_dedicated_route"
+        assert row["reason"].strip()
+        assert _classify_full_test_source(path, roles) == {
+            "execution_role": "not_required",
+            "authority_class": "dedicated_route_validation",
+            "classification_basis": row["reason"],
+        }
+    disposition_surfaces = (
+        "explicit_current_required_sources",
+        "explicit_historical_optional_sources",
+        "explicit_dedicated_route_sources",
+        "hermetic_test_fixture_sources",
+        "obsolete_or_misrouted_sources",
+    )
+    for path in dedicated_sources:
+        assert sum(
+            row["path"] == path
+            for surface in disposition_surfaces
+            for row in source_policy[surface]
+        ) == 1
+    required_selection = contract["required_pytest_selection"]
+    current_taxonomy_sources = {
+        row["source_file"]
+        for row in taxonomy["rows"]
+        if row["contract_class"] == required_selection["contract_class"]
+        and row["state"] == required_selection["state"]
+    }
+    required_source_paths = {
+        *current_taxonomy_sources,
+        *required_selection["additional_source_paths"],
+        *(
+            node_id.split("::", 1)[0]
+            for node_id in required_selection["additional_node_ids"]
+        ),
+        *(
+            row["path"]
+            for row in contract["required_standalone_validations"]
+        ),
+        *(
+            row["path"]
+            for row in source_policy["explicit_current_required_sources"]
+        ),
+    }
+    assert dedicated_sources.isdisjoint(required_source_paths)
+    configured_policy = json.loads(
+        (
+            actual_repository_root
+            / "Iris/_docs/round3/round3_pytest_source_classification.json"
+        ).read_text(encoding="utf-8")
+    )
+    configured_source_paths = {
+        row["source_file"]
+        for surface in (
+            "reviewed_sources",
+            "planned_sources",
+            "mixed_sources",
+            "additional_sources",
+            "excluded_sources",
+        )
+        for row in configured_policy[surface]
+    }
+    assert dedicated_sources.isdisjoint(configured_source_paths)
+    pytest_ini = (actual_repository_root / "pytest.ini").read_text(
+        encoding="utf-8"
+    )
+    testpaths_match = re.search(
+        r"(?ms)^testpaths\s*=\s*(.*?)(?=^[^\s#;]|\Z)",
+        pytest_ini,
+    )
+    assert testpaths_match is not None
+    configured_roots = {
+        (
+            actual_repository_root
+            / (token.replace("\\", "/").rstrip("/") or ".")
+        ).resolve()
+        for token in testpaths_match.group(1).split()
+    }
+    dedicated_source_paths = {
+        (actual_repository_root / path).resolve()
+        for path in dedicated_sources
+    }
+    assert all(
+        root != path and root not in path.parents
+        for path in dedicated_source_paths
+        for root in configured_roots
+    )
     historical = _classify_full_test_source(
         "Iris/build/description/v2/tests/test_old_authority.py",
         {},

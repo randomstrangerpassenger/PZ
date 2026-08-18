@@ -1467,6 +1467,30 @@
       ]
     },
     {
+      "revision_id": "iris_artifact_lifecycle_promotion_55_protected_surface_reseal_v1",
+      "track": "iris_test_scenario_execution_consolidation_expansion",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "ce4428f773566d3fd6bb3a34c8fccd4a74bd21e5",
+      "protection_predecessor_tree": "1d99b49d4f4566528c92cbad42e06a3575b341cd",
+      "reason": "Adopt the protected test-source blob produced by the 55-identity artifact-promotion consolidation before later source-classification revisions are folded into the active protection chain.",
+      "approved_activation_deltas": [],
+      "added_protected_rows": [
+        {
+          "path": "Iris/build/description/v2/tests/test_artifact_lifecycle_promotion.py",
+          "before_git_blob_id": "308043f3cf09106a642717064b4ab5940d0eb777",
+          "before_sha256_lf": "a6c124bc31d218f24a4b53ab75cba84f2b202c65e6aa68d1bff343032b763c51",
+          "expected_git_blob_id": "c91563433d02fa98721070b3addcb8883f987148",
+          "after_sha256_lf": "88514494d8251b65f9c7e143a7ea534ab500bcca25f353784cd27fa1c8532833",
+          "role": "common_track_test_contract",
+          "writer": "iris_test_scenario_execution_consolidation_expansion",
+          "consumers": ["configured_current", "full_repository_gate", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Preserve the reviewed artifact-promotion assertions while adopting the class-owned immutable seed and case-local clone execution model represented by identity rows 36 through 55."
+        }
+      ]
+    },
+    {
       "revision_id": "iris_canonical_full_gate_source_classification_alignment_55_v1",
       "track": "iris_canonical_full_gate_source_classification_alignment",
       "owner": "repository_owner_user",

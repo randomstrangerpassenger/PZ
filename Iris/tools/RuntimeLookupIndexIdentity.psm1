@@ -53,16 +53,59 @@ function Get-UseCaseActualLineCounts {
     return $counts
 }
 
+function Get-Layer3GenerationPointerData {
+    param([Parameter(Mandatory = $true)][string]$DataRoot)
+
+    $pointerPath = Join-Path $DataRoot 'IrisLayer3DataCurrent.lua'
+    if (-not (Test-Path -LiteralPath $pointerPath -PathType Leaf)) {
+        throw 'runtime_payload_layer3_generation_pointer_missing'
+    }
+    $pointerText = Get-Content -LiteralPath $pointerPath -Raw -Encoding UTF8
+    $generationMatch = [regex]::Match(
+        $pointerText,
+        'generation_id = "(?<generation>dvf33-[0-9a-f]{64})"'
+    )
+    $indexMatch = [regex]::Match(
+        $pointerText,
+        'index_module = "(?<module>Iris/Data/IrisLayer3Generations/(?<generation>dvf33-[0-9a-f]{64})/IrisLayer3DataChunkIndex)"'
+    )
+    if (
+        -not $generationMatch.Success -or
+        -not $indexMatch.Success -or
+        $generationMatch.Groups['generation'].Value -cne $indexMatch.Groups['generation'].Value
+    ) {
+        throw 'runtime_payload_layer3_generation_pointer_invalid'
+    }
+    $generationId = [string]$generationMatch.Groups['generation'].Value
+    $indexModule = [string]$indexMatch.Groups['module'].Value
+    $generationRoot = Join-Path (Join-Path $DataRoot 'IrisLayer3Generations') $generationId
+    $indexPath = Join-Path $generationRoot 'IrisLayer3DataChunkIndex.lua'
+    $chunkRoot = Join-Path $generationRoot 'Chunks'
+    if (
+        -not (Test-Path -LiteralPath $indexPath -PathType Leaf) -or
+        -not (Test-Path -LiteralPath $chunkRoot -PathType Container)
+    ) {
+        throw 'runtime_payload_layer3_generation_pointer_target_missing'
+    }
+    return [pscustomobject]@{
+        generation_id = $generationId
+        index_module = $indexModule
+        index_path = $indexPath
+        chunk_root = $chunkRoot
+        chunk_module_prefix = "Iris/Data/IrisLayer3Generations/$generationId/Chunks/Chunk"
+    }
+}
+
 function Get-RuntimeLookupActualKeys {
     param(
         [Parameter(Mandatory = $true)][string]$DataRoot,
         [Parameter(Mandatory = $true)][ValidateSet('layer3', 'usecase')][string]$Kind
     )
-    $relativeRoot = if ($Kind -ceq 'layer3') {
-        'IrisLayer3DataChunks'
+    $root = if ($Kind -ceq 'layer3') {
+        (Get-Layer3GenerationPointerData -DataRoot $DataRoot).chunk_root
     }
     else {
-        'UseCaseDescriptions'
+        Join-Path $DataRoot 'UseCaseDescriptions'
     }
     $pattern = if ($Kind -ceq 'layer3') {
         '(?m)^    \["([^"]+)"\]\s*='
@@ -73,7 +116,6 @@ function Get-RuntimeLookupActualKeys {
     $keys = [System.Collections.Generic.HashSet[string]]::new(
         [System.StringComparer]::Ordinal
     )
-    $root = Join-Path $DataRoot $relativeRoot
     foreach ($path in @(Get-ChildItem -LiteralPath $root -File -Filter 'Chunk???.lua' | Sort-Object Name)) {
         $text = Get-Content -LiteralPath $path.FullName -Raw
         foreach ($match in [regex]::Matches($text, $pattern)) {
@@ -104,7 +146,19 @@ function Assert-RuntimeLookupIndexIdentity {
         [Parameter(Mandatory = $true)][string]$DataRoot,
         [Parameter(Mandatory = $true)][string]$IndexName
     )
-    $indexPath = Join-Path $DataRoot $IndexName
+    $isLayer3 = $IndexName -ceq 'IrisLayer3DataChunkIndex.lua'
+    $layer3Surface = if ($isLayer3) {
+        Get-Layer3GenerationPointerData -DataRoot $DataRoot
+    }
+    else {
+        $null
+    }
+    $indexPath = if ($isLayer3) {
+        $layer3Surface.index_path
+    }
+    else {
+        Join-Path $DataRoot $IndexName
+    }
     if (-not (Test-Path -LiteralPath $indexPath -PathType Leaf)) {
         throw "runtime_payload_lookup_index_missing: $indexPath"
     }
@@ -112,7 +166,6 @@ function Assert-RuntimeLookupIndexIdentity {
     $indexText = $strictUtf8.GetString([System.IO.File]::ReadAllBytes($indexPath))
     $indexText = $indexText.Replace("`r`n", "`n").Replace("`r", "`n")
 
-    $isLayer3 = $IndexName -ceq 'IrisLayer3DataChunkIndex.lua'
     $isUseCaseChunk = $IndexName -ceq 'UseCaseDescriptions/ChunkIndex.lua'
     $isUseCaseLineCount = $IndexName -ceq 'UseCaseDescriptions/LineCountIndex.lua'
     if (-not ($isLayer3 -or $isUseCaseChunk -or $isUseCaseLineCount)) {
@@ -190,7 +243,7 @@ function Assert-RuntimeLookupIndexIdentity {
     $expectedEntryCount = if ($isLayer3) { 2105 } else { 1631 }
     $expectedRowCount = if ($isLayer3) { 11 } else { 9 }
     $expectedModulePrefix = if ($isLayer3) {
-        'Iris/Data/IrisLayer3DataChunks/Chunk'
+        $layer3Surface.chunk_module_prefix
     }
     else {
         'Iris/Data/UseCaseDescriptions/Chunk'
@@ -324,7 +377,13 @@ function Assert-RuntimeLookupPackageParity {
         $identityRows.Add("usecase`t$key`t$($lineCounts[$key])")
     }
     foreach ($indexName in @('IrisLayer3DataChunkIndex.lua', 'UseCaseDescriptions/ChunkIndex.lua')) {
-        $indexText = Get-Content -LiteralPath (Join-Path $DataRoot $indexName) -Raw
+        $indexPath = if ($indexName -ceq 'IrisLayer3DataChunkIndex.lua') {
+            (Get-Layer3GenerationPointerData -DataRoot $DataRoot).index_path
+        }
+        else {
+            Join-Path $DataRoot $indexName
+        }
+        $indexText = Get-Content -LiteralPath $indexPath -Raw
         $position = 0
         foreach ($match in [regex]::Matches($indexText, 'sha256 = "([0-9a-f]{64})"')) {
             $position += 1

@@ -2625,3 +2625,19 @@ Iris — consolidated core refactor implementation / integrated-closeout boundar
   * 이번 완료는 644개 Iris test 전체가 통합됐거나 전체 wall time이 75% 감소했다는 뜻이 아니다. 확정된 구조 개선은 pilot family의 producer invocation `4 -> 1`이며 repository-wide 시간 개선률은 accepted paired timing으로 봉인되지 않았다.
   * 기존 sealed precision-lightweighting terminal authority, source denominator, fresh-process semantics 또는 mutation isolation을 축소하지 않는다.
 * Evidence: `Iris/_docs/refactor/test_workflow_consolidation/`, `Iris/validation/baseline_admission/evidence/workflow_consolidation_reapplication_handoff.json`, implementation branch closeout `492ab29d`.
+
+Iris DVF 3-3 — Stateful Artifact Registry retirement successor disposition
+
+* 상태: 2026-08-20 stateless successor installed / active product IAR consumers 0 / final validation pending
+* 결정:
+
+  * 제품 generation identity는 여섯 compose input과 이미 채택된 upstream content candidate의 raw bytes, generator/serializer/chunking identity, ordered output universe에서 파생한다. Current rendered/runtime/descriptor는 generation input으로 읽지 않는다. Descriptor는 authority/adoption token이 아니며 attempt, transaction, nonce, receipt, owner seal, absolute path와 wall-clock time을 포함하지 않는다.
+  * R2 owner decision은 B다. Runtime public module `Iris/Data/IrisLayer3DataChunks`는 유지하고 generation-qualified immutable module set을 먼저 설치한 뒤 `IrisLayer3DataCurrent.lua` 한 파일만 visibility pointer로 교체한다. Stable facade와 chunk index는 같은 pointer를 소비한다.
+  * `generation_key_identity_validation`은 exact key, ASCII-lower collision, rendered/runtime payload projection을 검증하는 stateless product claim이다. 기존 `Registry Runtime Compatibility PASS`, source authority, Publish, package/release readiness 또는 owner seal을 뜻하지 않는다.
+  * `current_runtime_payload` package는 R2-B pointer가 가리키는 generation root의 stateless descriptor와 raw-byte universe만 소비한다. Legacy stateful descriptor fallback은 제거됐으며 pointer 부재·오염은 fail-closed한다.
+  * 기존 sealed attempts, RTC bundle, source correction/cutover evidence와 repository-validation receipts는 수정하거나 삭제하지 않는다. Product retirement는 repository governance 또는 RTC history retirement가 아니다.
+* Gate:
+
+  * protected current install과 stateful product consumer 제거는 완료했다. Sealed history는 보존하며 predecessor cleanup은 terminal validation/review 뒤 별도 action으로 남긴다.
+  * 현재 RTC alignment `stale_requires_successor_rtc`는 유지한다.
+* Evidence: `Iris/_docs/round3/iar_stateful_architecture_retirement/`.

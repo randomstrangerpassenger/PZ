@@ -56,15 +56,20 @@ local function deepEqual(left, right, seen)
 end
 
 if mode == "layer3" then
+    local current = require("Iris/Data/IrisLayer3DataCurrent")
+    local expectedChunk1 = current.chunk_modules[1]
+    local expectedChunk2 = current.chunk_modules[2]
+    local missingChunk = "Iris/Data/IrisLayer3Generations/dvf33-" ..
+        string.rep("0", 64) .. "/Chunks/Chunk999"
     local realLayer3Index = require("Iris/Data/IrisLayer3DataChunkIndex")
     local lookup = require("Iris/Data/IrisLayer3DataLookup")
     local first = assert(lookup.get("Base.223Box"))
     local afterFirst = lookup.getDiagnostics()
     assert(afterFirst.loadedChunkCount == 1 and afterFirst.requireCallCount == 1)
     assert(#afterFirst.loadedChunkModules == 1)
-    assert(afterFirst.loadedChunkModules[1] == "Iris/Data/IrisLayer3DataChunks/Chunk001")
-    assert(requireCounts["Iris/Data/IrisLayer3DataChunks/Chunk001"] == 1)
-    assert(requireCounts["Iris/Data/IrisLayer3DataChunks/Chunk002"] == nil)
+    assert(afterFirst.loadedChunkModules[1] == expectedChunk1)
+    assert(requireCounts[expectedChunk1] == 1)
+    assert(requireCounts[expectedChunk2] == nil)
     local sameChunkLast = assert(lookup.get("Base.BookElectrician5"))
     local afterSameChunk = lookup.getDiagnostics()
     assert(afterSameChunk.loadedChunkCount == 1 and afterSameChunk.requireCallCount == 1)
@@ -74,15 +79,14 @@ if mode == "layer3" then
     local beforeRepeat = lookup.getDiagnostics()
     assert(beforeRepeat.loadedChunkCount == 2 and beforeRepeat.requireCallCount == 2)
     assert(#beforeRepeat.loadedChunkModules == 2)
-    assert(beforeRepeat.loadedChunkModules[1] == "Iris/Data/IrisLayer3DataChunks/Chunk001")
-    assert(beforeRepeat.loadedChunkModules[2] == "Iris/Data/IrisLayer3DataChunks/Chunk002")
-    assert(requireCounts["Iris/Data/IrisLayer3DataChunks/Chunk001"] == 1)
-    assert(requireCounts["Iris/Data/IrisLayer3DataChunks/Chunk002"] == 1)
+    assert(beforeRepeat.loadedChunkModules[1] == expectedChunk1)
+    assert(beforeRepeat.loadedChunkModules[2] == expectedChunk2)
+    assert(requireCounts[expectedChunk1] == 1)
+    assert(requireCounts[expectedChunk2] == 1)
     for moduleName, count in pairs(requireCounts) do
-        if moduleName:match("^Iris/Data/IrisLayer3DataChunks/Chunk%d%d%d$") then
+        if moduleName:match("^Iris/Data/IrisLayer3Generations/.+/Chunks/Chunk%d%d%d$") then
             assert(
-                (moduleName == "Iris/Data/IrisLayer3DataChunks/Chunk001" or
-                    moduleName == "Iris/Data/IrisLayer3DataChunks/Chunk002") and count == 1,
+                (moduleName == expectedChunk1 or moduleName == expectedChunk2) and count == 1,
                 "unexpected initial Layer3 chunk module: " .. moduleName
             )
         end
@@ -147,7 +151,7 @@ if mode == "layer3" then
     assertConsumerFallback(
         onlyRangeIndex(
             "iris_layer3_chunk_range_index_v1",
-            "Iris/Data/IrisLayer3DataChunks/Chunk999",
+            missingChunk,
             nil
         ),
         "target_module_load_failure"
@@ -155,7 +159,7 @@ if mode == "layer3" then
     assertConsumerFallback(
         onlyRangeIndex(
             "iris_layer3_chunk_range_index_v1",
-            "Iris/Data/IrisLayer3DataChunks/Chunk001"
+            expectedChunk1
         ),
         "index_content_mismatch"
     )
@@ -190,11 +194,11 @@ if mode == "layer3" then
     package.preload["Iris/Data/IrisLayer3DataChunkIndex"] = function()
         return onlyRangeIndex(
             "iris_layer3_chunk_range_index_v1",
-            "Iris/Data/IrisLayer3DataChunks/Chunk999",
+            missingChunk,
             nil
         )
     end
-    package.preload["Iris/Data/IrisLayer3DataChunks/Chunk999"] = function()
+    package.preload[missingChunk] = function()
         error("standalone target chunk failure")
     end
     local failedModuleLookup = require("Iris/Data/IrisLayer3DataLookup")

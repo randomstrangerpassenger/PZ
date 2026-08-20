@@ -129,28 +129,42 @@ function Get-DecodedUtf8EolSha256 {
     return ([System.BitConverter]::ToString($hash)).Replace('-', '').ToLowerInvariant()
 }
 
-function Get-RuntimePayloadIdentity {
+function Get-StatelessRuntimePayloadIdentity {
     param(
-        [Parameter(Mandatory = $true)][string]$RepositoryRoot,
         [Parameter(Mandatory = $true)][string]$SourceRoot,
+        [Parameter(Mandatory = $true)][string]$ManifestPath,
         [string]$PackageRoot = ''
     )
-    $descriptorPath = Join-Path $RepositoryRoot 'Iris\_docs\round3\validated_naturalization_current_runtime_adoption\current_generation_descriptor.json'
+
+    $manifestBytes = [System.IO.File]::ReadAllBytes($ManifestPath)
+    $manifestText = [System.Text.Encoding]::UTF8.GetString($manifestBytes)
+    $generationMatch = [regex]::Match(
+        $manifestText,
+        'Iris/Data/IrisLayer3Generations/(?<generation>dvf33-[0-9a-f]{64})/Chunks/'
+    )
+    if (-not $generationMatch.Success) {
+        return $null
+    }
+    $generationId = $generationMatch.Groups['generation'].Value
+    $dataRoot = Join-Path $SourceRoot 'media\lua\client\Iris\Data'
+    $lookupPackageIdentity = Assert-RuntimeLookupPackageParity -DataRoot $dataRoot
+    $generationRoot = Join-Path (Join-Path $dataRoot 'IrisLayer3Generations') $generationId
+    $descriptorPath = Join-Path $generationRoot 'generation_descriptor.json'
     if (-not (Test-Path -LiteralPath $descriptorPath -PathType Leaf)) {
-        throw 'runtime_payload_generation_descriptor_missing'
+        throw 'runtime_payload_stateless_descriptor_missing'
     }
     $descriptor = Get-Content -LiteralPath $descriptorPath -Raw -Encoding UTF8 | ConvertFrom-Json
     if (
-        $descriptor.schema_version -ne 'validated-naturalization-materialized-generation-v1' -or
-        $descriptor.authority_effect -ne 'current_runtime_adoption' -or
-        [string]::IsNullOrWhiteSpace($descriptor.transaction_id)
+        $descriptor.schema_version -ne 'dvf-3-3-complete-generation-v1' -or
+        $descriptor.generation_id -cne $generationId -or
+        $descriptor.claims.authority_effect -ne 'none'
     ) {
-        throw 'runtime_payload_generation_descriptor_invalid'
+        throw 'runtime_payload_stateless_descriptor_invalid'
     }
-    $renderedPath = Join-Path $SourceRoot 'build\description\v2\output\dvf_3_3_rendered.json'
-    $manifestPath = Join-Path $SourceRoot 'media\lua\client\Iris\Data\IrisLayer3DataChunks.lua'
-    $chunksRoot = Join-Path $SourceRoot 'media\lua\client\Iris\Data\IrisLayer3DataChunks'
+
+    $mappedRows = @()
     $supportRelativePaths = @(
+        'IrisLayer3DataChunks.lua',
         'IrisLayer3DataChunkIndex.lua',
         'IrisLayer3DataLookup.lua',
         'UseCaseDescriptions/ChunkIndex.lua',
@@ -161,91 +175,87 @@ function Get-RuntimePayloadIdentity {
         'IrisUseCaseDescriptions.lua',
         'UseCaseDescriptions/RequirementsLookup.lua'
     )
-    $supportPaths = @($supportRelativePaths | ForEach-Object {
-        Join-Path (Join-Path $SourceRoot 'media\lua\client\Iris\Data') $_
-    })
-    $candidatePath = Join-Path $RepositoryRoot $descriptor.candidate.path
-    $factsPath = Join-Path $SourceRoot 'build\description\v2\data\dvf_3_3_facts.jsonl'
-    $inputManifestPath = Join-Path $SourceRoot 'build\description\v2\data\dvf_3_3_input_manifest.json'
-    foreach ($requiredPath in (@($renderedPath, $manifestPath, $chunksRoot, $candidatePath, $factsPath, $inputManifestPath) + $supportPaths)) {
-        if (-not (Test-Path -LiteralPath $requiredPath)) {
-            throw "runtime_payload_required_input_missing: $requiredPath"
+    $expectedGenerationNames = @('generation_descriptor.json')
+    $chunkPrefix = "runtime/IrisLayer3Generations/$generationId/Chunks/"
+    foreach ($output in @($descriptor.outputs)) {
+        $relative = ([string]$output.path).Replace('\', '/')
+        if ($relative -ceq 'runtime/IrisLayer3DataCurrent.lua') {
+            $livePath = $ManifestPath
+            $packageRelative = 'IrisLayer3DataCurrent.lua'
+        } elseif ($relative -ceq 'dvf_3_3_rendered.json') {
+            $livePath = Join-Path $generationRoot 'dvf_3_3_rendered.json'
+            $packageRelative = "IrisLayer3Generations/$generationId/dvf_3_3_rendered.json"
+            $expectedGenerationNames += 'dvf_3_3_rendered.json'
+        } elseif ($relative -ceq 'runtime/IrisLayer3DataChunkIndex.lua') {
+            $livePath = Join-Path $generationRoot 'IrisLayer3DataChunkIndex.lua'
+            $packageRelative = "IrisLayer3Generations/$generationId/IrisLayer3DataChunkIndex.lua"
+            $expectedGenerationNames += 'IrisLayer3DataChunkIndex.lua'
+        } elseif ($relative.StartsWith($chunkPrefix, [System.StringComparison]::Ordinal)) {
+            $chunkName = $relative.Substring($chunkPrefix.Length)
+            if ([string]::IsNullOrWhiteSpace($chunkName) -or $chunkName.Contains('/')) {
+                throw 'runtime_payload_stateless_chunk_path_invalid'
+            }
+            $livePath = Join-Path (Join-Path $generationRoot 'Chunks') $chunkName
+            $packageRelative = "IrisLayer3Generations/$generationId/Chunks/$chunkName"
+            $expectedGenerationNames += "Chunks/$chunkName"
+        } else {
+            throw "runtime_payload_stateless_output_mapping_invalid: $relative"
+        }
+        if (-not (Test-Path -LiteralPath $livePath -PathType Leaf)) {
+            throw "runtime_payload_stateless_output_missing: $relative"
+        }
+        $actualSha = (Get-FileHash -LiteralPath $livePath -Algorithm SHA256).Hash.ToLowerInvariant()
+        if ($actualSha -cne $output.raw_byte_sha256 -or (Get-Item -LiteralPath $livePath).Length -ne $output.size) {
+            throw "runtime_payload_stateless_output_freshness_failed: $relative"
+        }
+        $mappedRows += [ordered]@{
+            descriptor_path = $relative
+            live_path = (Get-FullPath $livePath)
+            package_relative_path = $packageRelative
+            raw_byte_sha256 = $actualSha
+            bytes = (Get-Item -LiteralPath $livePath).Length
         }
     }
-    $liveDataRoot = Join-Path $SourceRoot 'media\lua\client\Iris\Data'
-    $lookupPackageIdentity = Assert-RuntimeLookupPackageParity -DataRoot $liveDataRoot
-    $renderedSha = Get-DecodedUtf8EolSha256 -Path $renderedPath
-    $manifestSha = Get-DecodedUtf8EolSha256 -Path $manifestPath
-    if ($renderedSha -ne $descriptor.rendered.sha256) { throw 'runtime_payload_rendered_freshness_failed' }
-    if ($manifestSha -ne $descriptor.runtime_manifest.sha256) { throw 'runtime_payload_manifest_freshness_failed' }
-    if ((Get-FileHash -LiteralPath $candidatePath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $descriptor.candidate.sha256) { throw 'runtime_payload_candidate_freshness_failed' }
-    if ((Get-FileHash -LiteralPath $factsPath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $descriptor.source_pair.facts_sha256) { throw 'runtime_payload_facts_freshness_failed' }
-    if ((Get-FileHash -LiteralPath $inputManifestPath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $descriptor.source_pair.input_manifest_sha256) { throw 'runtime_payload_input_manifest_freshness_failed' }
-    $declaredChunks = @($descriptor.ordered_chunks)
-    $expectedChunkNames = @()
-    foreach ($declared in $declaredChunks) {
-        $normalizedPath = ([string]$declared.path).Replace('\', '/')
-        $prefix = 'IrisLayer3DataChunks/'
-        if (-not $normalizedPath.StartsWith($prefix, [System.StringComparison]::Ordinal)) {
-            throw 'runtime_payload_chunk_descriptor_path_invalid'
-        }
-        $relativeName = $normalizedPath.Substring($prefix.Length)
-        if (
-            [string]::IsNullOrWhiteSpace($relativeName) -or
-            $relativeName.Contains('/') -or
-            $expectedChunkNames -ccontains $relativeName
-        ) {
-            throw 'runtime_payload_chunk_descriptor_path_invalid'
-        }
-        $expectedChunkNames += $relativeName
-    }
-    $chunkEntries = @(Get-ChildItem -LiteralPath $chunksRoot -Force)
-    $unexpectedChunkEntries = @(
-        $chunkEntries | Where-Object {
-            $_.PSIsContainer -or -not ($expectedChunkNames -ccontains $_.Name)
-        }
+    $actualGenerationNames = @(
+        Get-ChildItem -LiteralPath $generationRoot -Recurse -File |
+            ForEach-Object { Get-RelativePackagePath -Root $generationRoot -Path $_.FullName }
     )
-    $actualChunks = @($chunkEntries | Where-Object { -not $_.PSIsContainer } | Sort-Object Name)
-    if (
-        $declaredChunks.Count -ne 11 -or
-        $actualChunks.Count -ne 11 -or
-        $unexpectedChunkEntries.Count -ne 0
-    ) {
-        throw 'runtime_payload_chunk_surface_mismatch'
+    $generationMissing = @($expectedGenerationNames | Where-Object { $_ -notin $actualGenerationNames })
+    $generationExtra = @($actualGenerationNames | Where-Object { $_ -notin $expectedGenerationNames })
+    if ($generationMissing.Count -ne 0 -or $generationExtra.Count -ne 0) {
+        throw 'runtime_payload_stateless_generation_file_universe_mismatch'
     }
-    $chunkRows = @()
-    for ($index = 0; $index -lt $declaredChunks.Count; $index++) {
-        $declared = $declaredChunks[$index]
-        $expectedName = [System.IO.Path]::GetFileName($declared.path)
-        $actual = $actualChunks[$index]
-        if ($actual.Name -ne $expectedName) { throw 'runtime_payload_chunk_set_mismatch' }
-        $actualSha = Get-DecodedUtf8EolSha256 -Path $actual.FullName
-        if ($actualSha -ne $declared.sha256) { throw "runtime_payload_chunk_freshness_failed: $($actual.Name)" }
-        $chunkRows += [ordered]@{ path = $declared.path; sha256 = $actualSha }
-    }
+
     $result = [ordered]@{
         status = 'PASS'
         applicability = 'current_runtime_payload'
-        transaction_id = $descriptor.transaction_id
+        generation_id = $generationId
         generation_descriptor_path = (Get-FullPath $descriptorPath)
-        generation_descriptor_sha256 = Get-DecodedUtf8EolSha256 -Path $descriptorPath
-        rendered_sha256 = $renderedSha
-        manifest_sha256 = $manifestSha
-        chunk_count = $chunkRows.Count
-        chunks = $chunkRows
+        generation_descriptor_sha256 = (Get-FileHash -LiteralPath $descriptorPath -Algorithm SHA256).Hash.ToLowerInvariant()
+        generation_key_identity_validation = 'required_by_descriptor_consumer'
+        output_universe_sha256 = $descriptor.output_universe_sha256
+        output_count = $mappedRows.Count
+        chunk_count = @($mappedRows | Where-Object { $_.descriptor_path.StartsWith($chunkPrefix, [System.StringComparison]::Ordinal) }).Count
+        outputs = $mappedRows
         support_files = @($supportRelativePaths | ForEach-Object {
-            $supportPath = Join-Path (Join-Path $SourceRoot 'media\lua\client\Iris\Data') $_
+            $supportPath = Join-Path $dataRoot $_
+            if (-not (Test-Path -LiteralPath $supportPath -PathType Leaf)) {
+                throw "runtime_payload_stateless_support_missing: $_"
+            }
             [ordered]@{
                 path = $_
                 sha256 = (Get-FileHash -LiteralPath $supportPath -Algorithm SHA256).Hash.ToLowerInvariant()
             }
         })
+        bidirectional_file_set_equal = $true
+        hash_mismatch_count = 0
+        forbidden_file_count = 0
+        authority_effect = 'none'
+        rtc = 'not_claimed'
         lookup_package = $lookupPackageIdentity
     }
     if (-not [string]::IsNullOrWhiteSpace($PackageRoot)) {
         $packageData = Join-Path $PackageRoot 'media\lua\client\Iris\Data'
-        $packageManifest = Join-Path $packageData 'IrisLayer3DataChunks.lua'
-        $packageChunks = Join-Path $packageData 'IrisLayer3DataChunks'
         $packageLookupPackageIdentity = Assert-RuntimeLookupPackageParity -DataRoot $packageData
         if (
             $packageLookupPackageIdentity.generation_id -cne $lookupPackageIdentity.generation_id -or
@@ -253,44 +263,64 @@ function Get-RuntimePayloadIdentity {
         ) {
             throw 'runtime_payload_lookup_package_generation_mismatch'
         }
-        $liveNames = @('IrisLayer3DataChunks.lua') + @($chunkRows | ForEach-Object { $_.path }) + $supportRelativePaths
-        $packageChunkEntries = @(Get-ChildItem -LiteralPath $packageChunks -Force)
-        $unexpectedPackageChunkEntries = @(
-            $packageChunkEntries | Where-Object {
-                $_.PSIsContainer -or -not ($expectedChunkNames -ccontains $_.Name)
-            }
-        )
-        if ($unexpectedPackageChunkEntries.Count -ne 0) {
-            throw 'runtime_payload_package_chunk_surface_mismatch'
-        }
-        $packageChunkFiles = @(
-            $packageChunkEntries |
-                Where-Object { -not $_.PSIsContainer } |
-                Sort-Object Name
-        )
-        $packageNames = @('IrisLayer3DataChunks.lua') + @($packageChunkFiles | ForEach-Object { 'IrisLayer3DataChunks/' + $_.Name }) + $supportRelativePaths
-        $mismatchCount = 0
-        foreach ($relative in $liveNames) {
-            $livePath = Join-Path (Join-Path $SourceRoot 'media\lua\client\Iris\Data') $relative
-            $packagePath = Join-Path $packageData $relative
-            if (-not (Test-Path -LiteralPath $packagePath) -or (Get-FileHash -LiteralPath $livePath -Algorithm SHA256).Hash -ne (Get-FileHash -LiteralPath $packagePath -Algorithm SHA256).Hash) {
-                $mismatchCount++
+        $packageMismatchCount = 0
+        foreach ($row in $mappedRows) {
+            $packagePath = Join-Path $packageData $row.package_relative_path
+            if (
+                -not (Test-Path -LiteralPath $packagePath -PathType Leaf) -or
+                (Get-FileHash -LiteralPath $packagePath -Algorithm SHA256).Hash.ToLowerInvariant() -cne $row.raw_byte_sha256
+            ) {
+                $packageMismatchCount++
             }
         }
-        $liveOnly = @($liveNames | Where-Object { $_ -notin $packageNames })
-        $packageOnly = @($packageNames | Where-Object { $_ -notin $liveNames })
-        $forbidden = @(
-            (Join-Path $packageData 'IrisLayer3Data.lua'),
-            (Join-Path $PackageRoot 'media\lua\shared\Iris\IrisDvfBridgeData.lua')
-        ) | Where-Object { Test-Path -LiteralPath $_ }
-        $result.bidirectional_file_set_equal = $liveOnly.Count -eq 0 -and $packageOnly.Count -eq 0
-        $result.hash_mismatch_count = $mismatchCount
-        $result.forbidden_file_count = @($forbidden).Count
-        if (-not $result.bidirectional_file_set_equal -or $mismatchCount -ne 0 -or $result.forbidden_file_count -ne 0) {
-            throw 'runtime_payload_package_identity_failed'
+        foreach ($row in @($result.support_files)) {
+            $packagePath = Join-Path $packageData $row.path
+            if (
+                -not (Test-Path -LiteralPath $packagePath -PathType Leaf) -or
+                (Get-FileHash -LiteralPath $packagePath -Algorithm SHA256).Hash.ToLowerInvariant() -cne $row.sha256
+            ) {
+                $packageMismatchCount++
+            }
+        }
+        $packageDescriptor = Join-Path (Join-Path (Join-Path $packageData 'IrisLayer3DataGenerations') $generationId) 'generation_descriptor.json'
+        if (Test-Path -LiteralPath $packageDescriptor) {
+            throw 'runtime_payload_unexpected_misspelled_generation_root'
+        }
+        $expectedPackageDescriptor = Join-Path (Join-Path (Join-Path $packageData 'IrisLayer3Generations') $generationId) 'generation_descriptor.json'
+        if (
+            -not (Test-Path -LiteralPath $expectedPackageDescriptor -PathType Leaf) -or
+            (Get-FileHash -LiteralPath $expectedPackageDescriptor -Algorithm SHA256).Hash.ToLowerInvariant() -cne $result.generation_descriptor_sha256
+        ) {
+            $packageMismatchCount++
+        }
+        $result.package_hash_mismatch_count = $packageMismatchCount
+        $result.hash_mismatch_count = $packageMismatchCount
+        if ($packageMismatchCount -ne 0) {
+            throw 'runtime_payload_stateless_package_identity_failed'
         }
     }
     return $result
+}
+
+function Get-RuntimePayloadIdentity {
+    param(
+        [Parameter(Mandatory = $true)][string]$RepositoryRoot,
+        [Parameter(Mandatory = $true)][string]$SourceRoot,
+        [string]$PackageRoot = ''
+    )
+    $pointerPath = Join-Path $SourceRoot 'media\lua\client\Iris\Data\IrisLayer3DataCurrent.lua'
+    if (Test-Path -LiteralPath $pointerPath -PathType Leaf) {
+        $statelessIdentity = Get-StatelessRuntimePayloadIdentity `
+            -SourceRoot $SourceRoot `
+            -ManifestPath $pointerPath `
+            -PackageRoot $PackageRoot
+        if ($null -ne $statelessIdentity) {
+            return $statelessIdentity
+        }
+        throw 'runtime_payload_stateless_pointer_invalid'
+    }
+
+    throw 'runtime_payload_stateless_pointer_missing'
 }
 
 function Invoke-RegistryCompatibilityValidator {

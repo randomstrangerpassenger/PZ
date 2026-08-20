@@ -1,0 +1,21 @@
+{
+  "schema_version": "iris-iar-retirement-r2-installer-subject-binding-v1",
+  "r2_decision_path": "Iris/_docs/round3/iar_stateful_architecture_retirement/r2_runtime_layout_owner_decision.json",
+  "selection": "B",
+  "installer_subject": {
+    "commit": "8341038efe667e508099bd781e7f09f60e4fd212",
+    "tree": "8669a313aa2135290b6ce693743933ca393bf827",
+    "path": "Iris/build/description/v2/tools/build/install_dvf_3_3_complete_generation.py",
+    "raw_byte_sha256": "844b3c1ec9c97eb677b4ed590e49a509079fa949daee653a10cf46f9d5064ab8"
+  },
+  "authorized_mechanism": {
+    "immutable_generation_root": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/<generation_id>",
+    "single_visibility_switch": "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua",
+    "switch_primitive": "os.replace(single regular file)",
+    "predecessor_cleanup": "separate post-closeout action only"
+  },
+  "non_claims": [
+    "Binding the implementation subject does not prove filesystem atomicity.",
+    "Failure injection, concurrent observation, Lua cache transition, package parity, and manual in-game QA remain separate evidence axes."
+  ]
+}

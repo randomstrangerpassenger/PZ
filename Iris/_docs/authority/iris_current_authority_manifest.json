@@ -84,15 +84,16 @@
       "classification": "current",
       "paths": [
         "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
-        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/*.lua"
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/*.lua",
+        "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/<generation_id>/**"
       ],
-      "notes": "Current ROADMAP readpoint keeps Layer 3 runtime data as chunk manifest plus chunk files. Monolith/chunks dual deployment is not authorized."
+      "notes": "The fixed chunk directory is the legacy predecessor readpoint. R2-A installs an immutable generation-qualified module set and changes visibility only through the stable IrisLayer3DataChunks.lua public facade. Monolith/chunks dual deployment is not authorized."
     },
     "package_validation": {
       "classification": "current",
       "path": "Iris/tools/package_iris.ps1",
-      "command": "powershell -ExecutionPolicy Bypass -File .\\Iris\\tools\\package_iris.ps1 -Clean -Zip",
-      "notes": "This command is the package verification anchor when package/release scope is explicitly opened."
+      "command": "powershell -ExecutionPolicy Bypass -File .\\Iris\\tools\\package_iris.ps1 -OutputRoot <external-package-root> -Clean -Zip -PackageApplicability current_runtime_payload",
+      "notes": "current_runtime_payload consumes the stateless generation descriptor after R2-A installation. rtc_certified_payload remains a separate stale/fail-closed axis until generation-bound successor RTC evidence exists."
     },
     "package_output": {
       "classification": "reproduction",

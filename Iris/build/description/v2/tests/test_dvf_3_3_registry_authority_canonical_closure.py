@@ -94,6 +94,16 @@ def sha256_file(path: Path) -> str:
 
 
 def remove_tree(path: Path) -> None:
+    removal_path: str | Path = path
+    if os.name == "nt":
+        resolved = str(path.resolve())
+        if resolved.startswith("\\\\?\\"):
+            removal_path = resolved
+        elif resolved.startswith("\\\\"):
+            removal_path = "\\\\?\\UNC\\" + resolved[2:]
+        else:
+            removal_path = "\\\\?\\" + resolved
+
     def clear_readonly(func, target: str, exc) -> None:
         del exc
         os.chmod(target, stat.S_IWRITE)
@@ -103,7 +113,7 @@ def remove_tree(path: Path) -> None:
         if not path.exists():
             return
         try:
-            shutil.rmtree(path, onexc=clear_readonly)
+            shutil.rmtree(removal_path, onexc=clear_readonly)
             return
         except OSError:
             if attempt == 5:

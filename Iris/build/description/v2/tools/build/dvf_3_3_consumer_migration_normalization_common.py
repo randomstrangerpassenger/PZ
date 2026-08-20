@@ -1116,6 +1116,33 @@ def registry_responsibility_axis_anchor(lines: list[str], row: dict[str, Any]) -
     }
 
 
+def runtime_generation_pointer_anchor(lines: list[str], row: dict[str, Any]) -> dict[str, Any] | None:
+    """Relocate the retired 2105 manifest anchor to the stable generation facade."""
+    if row.get("token") != "2105":
+        return None
+    if row.get("referent") != "runtime-baseline-2105":
+        return None
+    if row.get("authority_role_target") != "successor_baseline_manifest_authority":
+        return None
+    if not str(row.get("path", "")).replace("\\", "/").endswith(
+        "/IrisLayer3DataChunks.lua"
+    ):
+        return None
+    candidates = [
+        line_no
+        for line_no, line in enumerate(lines, 1)
+        if 'require("Iris/Data/IrisLayer3DataCurrent")' in line
+    ]
+    if len(candidates) != 1:
+        return None
+    return {
+        "result": "relocated_deterministically",
+        "candidate_count": 1,
+        "anchor_line": candidates[0],
+        "basis": "stateless_generation_pointer_facade_replaces_2105_manifest_literal",
+    }
+
+
 def anchor_row(row: dict[str, Any]) -> dict[str, Any]:
     if row["path_status"] == "missing":
         result = "missing_path_non_apply"
@@ -1135,6 +1162,8 @@ def anchor_row(row: dict[str, Any]) -> dict[str, Any]:
     path = row_materialization_source(row)
     lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
     result = anchor_relocation_for_text(lines, row.get("line"), row.get("token"))
+    if result["result"] == "unresolved" and row.get("apply_eligibility"):
+        result = runtime_generation_pointer_anchor(lines, row) or result
     if result["result"] == "unresolved" and row.get("apply_eligibility"):
         result = successor_authority_context_anchor(lines, row.get("line")) or result
     if result["result"] == "unresolved" and row.get("apply_eligibility"):

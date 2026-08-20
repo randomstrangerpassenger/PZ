@@ -176,3 +176,15 @@ compose imports were updated to the package path. Frozen reproduction scripts
 retain their direct-execution bootstrap and migrate incrementally.
 Historical compose import note label:
 `docs/Iris/phase3_compose_import_contract_note.md`.
+
+## DVF 3-3 stateless complete-generation successor
+
+Run these from the repository root. Generation and reports must use explicit external roots.
+
+- Build: `uv run python -B Iris/build/description/v2/tools/build/build_dvf_3_3_complete_generation.py --repository-root . --output-root <external-generation-root>`
+- Validate: `uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_complete_generation.py --repository-root . --generation-root <external-generation-root>`
+- Validate key/runtime projection: `uv run python -B Iris/build/description/v2/tools/build/dvf_3_3_runtime_compatibility.py --generation-root <external-generation-root>`
+- Install after every R2-B gate is satisfied: `uv run python -B Iris/build/description/v2/tools/build/install_dvf_3_3_complete_generation.py --repository-root . --generation-root <external-generation-root> --expected-predecessor-generation-id <exact-id>`
+- Package current runtime: `powershell -ExecutionPolicy Bypass -File .\Iris\tools\package_iris.ps1 -OutputRoot <external-package-root> -Clean -Zip -PackageApplicability current_runtime_payload`
+
+Only the installer may change the protected `IrisLayer3DataCurrent.lua` pointer. Source facts are edited through normal Git-authored diffs and rebuilt off-live. Historical correction/cutover/adoption entrypoints remain reproducibility evidence and are not current generation commands; RTC remains separate governance.

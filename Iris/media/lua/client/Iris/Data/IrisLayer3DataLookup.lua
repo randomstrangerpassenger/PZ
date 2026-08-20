@@ -47,7 +47,9 @@ local function validIndex()
         if not validRecord(record) or (previousLast and record.first <= previousLast) then
             return false, "index_shape_invalid"
         end
-        if record.module:match("^Iris/Data/IrisLayer3DataChunks/Chunk%d%d%d$") == nil then
+        if record.module:match(
+            "^Iris/Data/IrisLayer3Generations/dvf33%-%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x/Chunks/Chunk%d%d%d$"
+        ) == nil then
             return false, "module_name_invalid"
         end
         previousLast = record.last

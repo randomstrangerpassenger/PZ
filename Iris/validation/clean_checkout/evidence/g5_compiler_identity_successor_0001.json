@@ -96,8 +96,8 @@
       "path": "Iris/build/description/v2/tools/build/compose_layer3_text.py",
       "historical_sha256_lf": "8d8c3933cd1de5b170929af1462a2a4151676861a7876434d6769508955395df",
       "current_sha256_lf": "4f2c2f05db41dd2f931fbe36b12c091cf55e8e912c64a325c9e17c389615313c",
-      "current_last_writer_commit": "4bafea47729c1fefd81f0b50beaa857da4974493",
-      "current_last_writer_tree": "362a550587b8b6185321b56e85238b9d90d90eb1"
+      "current_last_writer_commit": "5b19b04904c84b7d4bab341672dae1f2ecd857c4",
+      "current_last_writer_tree": "debf5b7f86eceb6b844e0baf1de9228f64d8f819"
     },
     {
       "path": "Iris/build/description/v2/tools/build/compose_layer3_item.py",

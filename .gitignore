@@ -157,6 +157,13 @@ Iris/build/description/v2/tools/build/*
 !Iris/build/description/v2/tools/build/build_static_report_label_cleanup_referent_recovery_round.py
 !Iris/build/description/v2/tools/build/build_legacy_active_silent_current_surface_guard_round.py
 !Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py
+!Iris/build/description/v2/tools/build/dvf_3_3_generation_contract.py
+!Iris/build/description/v2/tools/build/build_dvf_3_3_complete_generation.py
+!Iris/build/description/v2/tools/build/validate_dvf_3_3_complete_generation.py
+!Iris/build/description/v2/tools/build/install_dvf_3_3_complete_generation.py
+!Iris/build/description/v2/tools/build/dvf_3_3_runtime_compatibility.py
+!Iris/_docs/round3/iar_stateful_architecture_retirement/
+!Iris/_docs/round3/iar_stateful_architecture_retirement/**
 !Iris/build/description/v2/tools/build/dvf_vcs_tracking_policy.py
 !Iris/build/description/v2/tools/build/_dvf_3_3_vnext_common.py
 !Iris/build/description/v2/tools/build/dvf_3_3_current_route_baseline_source_overlay_repair.py
@@ -336,6 +343,9 @@ Iris/build/description/v2/tools/build/*
 !Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_work_lexeme_preservation.py
 !Iris/build/description/v2/tests/
 Iris/build/description/v2/tests/*
+!Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py
+!Iris/build/description/v2/tests/test_dvf_3_3_generation_install.py
+!Iris/build/description/v2/tests/test_dvf_3_3_runtime_compatibility.py
 !Iris/build/description/v2/tests/test_iris_pre_refactor_description_characterization.py
 !Iris/build/description/v2/tests/test_iris_pre_refactor_browser_characterization.py
 !Iris/build/description/v2/tests/test_iris_pre_refactor_detail_characterization.py

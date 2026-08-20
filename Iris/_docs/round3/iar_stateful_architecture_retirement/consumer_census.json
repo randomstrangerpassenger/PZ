@@ -1,0 +1,17 @@
+{
+  "schema_version": "iris-iar-retirement-consumer-census-v1",
+  "baseline_commit": "eaafed519afb7cd038af3d09443581957b3b478c",
+  "active_product_iar_consumer_count_by_layer": {"1": 0, "2": 0, "3": 0, "4": 0, "5": 0},
+  "active_product_iar_consumer_count_all_layers": 0,
+  "active_product_consumers": [],
+  "retired_or_non_product_consumers": [
+    {"information_layer": 3, "path": "Iris/build/description/v2/tools/build/validated_naturalization_runtime_adoption.py", "classification": "historical_reproduction"},
+    {"information_layer": 3, "path": "Iris/build/description/v2/tools/build/compose_layer3_text.py", "classification": "protected_output_validation"},
+    {"information_layer": 3, "path": "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py", "classification": "rtc_governance_adapter"},
+    {"information_layer": 3, "path": "Iris/tools/package_iris.ps1", "classification": "stateless_generation_consumer"}
+  ],
+  "cross_layer_migration_candidates": [],
+  "confirmed_cross_layer_migration_count": 0,
+  "unclassified_layer_count": 0,
+  "unclassified": 0
+}

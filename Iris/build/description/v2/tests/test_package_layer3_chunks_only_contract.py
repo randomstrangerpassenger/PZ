@@ -96,11 +96,18 @@ class PackageLayer3ChunksOnlyContractTest(unittest.TestCase):
         source = IRIS_ROOT / "media/lua/client/Iris/Data"
         data = Path(temporary) / "Data"
         data.mkdir()
-        shutil.copy2(
-            source / "IrisLayer3DataChunkIndex.lua",
-            data / "IrisLayer3DataChunkIndex.lua",
+        pointer = (source / "IrisLayer3DataCurrent.lua").read_text(encoding="utf-8")
+        generation_id = re.search(r"dvf33-[0-9a-f]{64}", pointer).group(0)
+        generation = source / "IrisLayer3Generations" / generation_id
+        index_text = (generation / "IrisLayer3DataChunkIndex.lua").read_text(encoding="utf-8")
+        index_text = index_text.replace(
+            f"Iris/Data/IrisLayer3Generations/{generation_id}/Chunks",
+            "Iris/Data/IrisLayer3DataChunks",
         )
-        shutil.copytree(source / "IrisLayer3DataChunks", data / "IrisLayer3DataChunks")
+        (data / "IrisLayer3DataChunkIndex.lua").write_text(
+            index_text, encoding="utf-8", newline="\n"
+        )
+        shutil.copytree(generation / "Chunks", data / "IrisLayer3DataChunks")
         shutil.copytree(source / "UseCaseDescriptions", data / "UseCaseDescriptions")
         return data
 
@@ -295,9 +302,9 @@ class PackageLayer3ChunksOnlyContractTest(unittest.TestCase):
                 )
 
     def test_runtime_package_rejects_undeclared_chunk_file_before_write(self) -> None:
-        chunk_root = (
-            IRIS_ROOT / "media/lua/client/Iris/Data/IrisLayer3DataChunks"
-        )
+        pointer = (IRIS_ROOT / "media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua").read_text(encoding="utf-8")
+        generation_id = re.search(r'dvf33-[0-9a-f]{64}', pointer).group(0)
+        chunk_root = IRIS_ROOT / "media/lua/client/Iris/Data/IrisLayer3Generations" / generation_id / "Chunks"
         stale = chunk_root / "stale.lua"
         self.assertFalse(stale.exists())
         with tempfile.TemporaryDirectory(dir=EXTERNAL_TEMP_ROOT) as temporary:
@@ -314,16 +321,16 @@ class PackageLayer3ChunksOnlyContractTest(unittest.TestCase):
                 stale.unlink(missing_ok=True)
             self.assertNotEqual(completed.returncode, 0)
             self.assertIn(
-                "runtime_payload_chunk_surface_mismatch",
+                "runtime_payload_stateless_generation_file_universe_mismatch",
                 completed.stdout + completed.stderr,
             )
             self.assertFalse((output / "Iris").exists())
             self.assertFalse(stale.exists())
 
     def test_runtime_package_rejects_nested_chunk_entry_before_write(self) -> None:
-        chunk_root = (
-            IRIS_ROOT / "media/lua/client/Iris/Data/IrisLayer3DataChunks"
-        )
+        pointer = (IRIS_ROOT / "media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua").read_text(encoding="utf-8")
+        generation_id = re.search(r'dvf33-[0-9a-f]{64}', pointer).group(0)
+        chunk_root = IRIS_ROOT / "media/lua/client/Iris/Data/IrisLayer3Generations" / generation_id / "Chunks"
         nested = chunk_root / "nested-fixture"
         nested_file = nested / "Chunk9999.lua"
         self.assertFalse(nested.exists())
@@ -344,7 +351,7 @@ class PackageLayer3ChunksOnlyContractTest(unittest.TestCase):
                     nested.rmdir()
             self.assertNotEqual(completed.returncode, 0)
             self.assertIn(
-                "runtime_payload_chunk_surface_mismatch",
+                "runtime_payload_stateless_generation_file_universe_mismatch",
                 completed.stdout + completed.stderr,
             )
             self.assertFalse((output / "Iris").exists())
@@ -378,6 +385,7 @@ class PackageLayer3ChunksOnlyContractTest(unittest.TestCase):
                 sha256_file(package / "IrisLayer3DataChunks.lua"),
             )
             expected_support = {
+                "IrisLayer3DataChunks.lua",
                 "IrisLayer3DataChunkIndex.lua",
                 "IrisLayer3DataLookup.lua",
                 "UseCaseDescriptions/ChunkIndex.lua",

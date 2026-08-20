@@ -1366,7 +1366,7 @@ def test_full_source_policy_classifies_only_declared_fallback(
     roles = _full_required_source_roles(contract, taxonomy)
     required_classifications = {
         path: _classify_full_test_source(path, roles)
-        for path in explicit_required_sources
+        for path in explicit_paths
     }
     expected_classification = {
         "execution_role": "required_pytest",
@@ -1374,14 +1374,14 @@ def test_full_source_policy_classifies_only_declared_fallback(
         "classification_basis": "explicit_current_required_source",
     }
     assert all(
-        row == expected_classification
-        for row in required_classifications.values()
+        required_classifications[path] == expected_classification
+        for path in explicit_required_sources
     )
     _validate_explicit_current_required_classifications(
         contract,
         required_classifications,
     )
-    direct_dependencies = _validate_explicit_required_dependencies(
+    validated_direct_dependencies = _validate_explicit_required_dependencies(
         contract,
         {
             row["path"]
@@ -1389,12 +1389,17 @@ def test_full_source_policy_classifies_only_declared_fallback(
                 "explicit_direct_dependencies"
             ]
         },
-        explicit_required_sources,
+        explicit_paths,
     )
     iar_source = (
         "Iris/build/description/v2/tests/"
         "test_iar_public_text_assessment.py"
     )
+    direct_dependencies = [
+        row
+        for row in validated_direct_dependencies
+        if row["test_source"] == iar_source
+    ]
     assert len(direct_dependencies) == 3
     assert {row["test_source"] for row in direct_dependencies} == {
         iar_source
@@ -1414,7 +1419,7 @@ def test_full_source_policy_classifies_only_declared_fallback(
         == "consumer_integration_evidence"
     )
     assert consumer_evidence[0]["path"] not in {
-        row["path"] for row in direct_dependencies
+        row["path"] for row in validated_direct_dependencies
     }
     for demoted_source in explicit_required_sources:
         demoted = dict(required_classifications)

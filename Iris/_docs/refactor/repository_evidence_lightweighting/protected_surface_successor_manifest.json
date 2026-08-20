@@ -1585,6 +1585,245 @@
           "reason": "Assert the four additive consolidation and source-classification protection revisions in their exact active chronology without creating a self-extending revision-ID cycle."
         }
       ]
+    },
+    {
+      "revision_id": "iris_iar_retirement_current_route_extension_v1",
+      "track": "iris_stateful_artifact_registry_architecture_retirement",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "eaafed519afb7cd038af3d09443581957b3b478c",
+      "protection_predecessor_tree": "9696bd992ff3a0da03cafb61529e3971793ab159",
+      "reason": "Adopt the owner-preapproved additive successor tests and artifacts required by the IAR retirement plan without rewriting predecessor evidence.",
+      "approved_activation_deltas": [
+        {
+          "path": "Iris/_docs/round3/round3_test_taxonomy.json",
+          "predecessor_sha256": "b7706d03f2372881592669f115a52cdac811df61d53dc09f162a458a77c2cac2",
+          "before_git_blob_id": "6b8ef1e93a0b9769c6bfcf5ab072c2e36d6b581c",
+          "before_sha256_lf": "175b0a08d60af648501d4c15e69b81b77b5d285d85fb86447011fa4c763a8ccf",
+          "expected_git_blob_id": "50e9fbbece0a17733028ae441e6cfb031cdeabde",
+          "after_sha256_lf": "3f076670d430651b7179980b4fe0dc0b9e8b8504a77b0ef1d99ebe46c547bf61",
+          "owner": "repository_owner_user",
+          "reason": "Register the eight additive current-route successor tests required by the IAR retirement plan."
+        },
+        {
+          "path": "Iris/_docs/round3/current_route_required_validations.json",
+          "predecessor_sha256": "0ea650737ab6ccdcc5a2c325c7efddc72fa376fa848e8f8ffd254498e36dc6a1",
+          "before_git_blob_id": "44460d3856ef11bba70e76a4436b75e9a8b10e80",
+          "before_sha256_lf": "5e256fec6a2d234a52914f6b9c93f9dc1307616b979e3f656a7795d748e3ac84",
+          "expected_git_blob_id": "bbe994f106ba3fb132415f84144385ac848b9092",
+          "after_sha256_lf": "1179a1035ebede6993d9c5b731d8add4d8ca03d12eb440bd6975f4b47093139a",
+          "owner": "repository_owner_user",
+          "reason": "Require the eight additive IAR successor tests and seven plan evidence artifacts in the current validation manifest."
+        },
+        {
+          "path": "Iris/tools/package_iris.ps1",
+          "predecessor_sha256": "a1fca567d4ce06037dff904bf934ee1f751a9b56e79347b8c86b185f1ebfd1cb",
+          "before_git_blob_id": "553b39fc63abcdb0fdf3632ddda469831e17b37f",
+          "before_sha256_lf": "7ca22f5a678e72e664f5ed1e0b73525b35674474efc06ab956b3e705c7b9b4e8",
+          "expected_git_blob_id": "185e733d03fa6f494038bd945b3157ab3617b280",
+          "after_sha256_lf": "21202a7e321e00eebf1265d2da696795a558d92a024f355032613570b619ce75",
+          "owner": "repository_owner_user",
+          "reason": "Package either the generation-qualified R2-A runtime universe or the bounded predecessor payload while keeping RTC separate and stale."
+        },
+        {
+          "path": "Iris/build/description/v2/tools/build/INVENTORY.md",
+          "predecessor_sha256": "f97414d7f65501fb6d6dc977599eea948c24558eda04649d393d277be8addc11",
+          "before_git_blob_id": "d68370d57924038d25b71118cb03a2340a02c221",
+          "before_sha256_lf": "1b6f0a409e136a543f2247b81ad7396ee2470e5609476e15e252e94ad79d57c9",
+          "expected_git_blob_id": "90fbb06df7092c5b0cf1bb92eeaf8d2cbf3a0436",
+          "after_sha256_lf": "fb095a989ec8e8e063b1aaafa91c6858f3639d08ca6d3bb4a5c6b6e428f691ce",
+          "owner": "repository_owner_user",
+          "reason": "Document the bounded successor generation, validator, installer, and runtime-identity tooling without reactivating retired IAR producers."
+        },
+        {
+          "path": "Iris/_docs/round3/round3_active_core_closure.json",
+          "predecessor_sha256": "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf",
+          "before_git_blob_id": "127f88fc80d96d74a8e5e74e6231abe946d1d0ba",
+          "before_sha256_lf": "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf",
+          "expected_git_blob_id": "a94dccfc48661adf8f5e7dce7f18d2bfb80fab3f",
+          "after_sha256_lf": "31843a14e3ef1f004d73dadf9809080aaa68e4081027578617b820af784805a3",
+          "owner": "repository_owner_user",
+          "reason": "Allow only the five non-core stateless successor modules while preserving the exact twelve-module current core closure."
+        },
+        {
+          "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+          "predecessor_sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c",
+          "before_git_blob_id": "443bc9805440c317d08fbfb2b61678ff1feb7333",
+          "before_sha256_lf": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c",
+          "expected_git_blob_id": "307b62d0ba536874e85119b7d5528ce09a05bba8",
+          "after_sha256_lf": "a2987d122d600780610c3492754329c1325b025d964ae85c78a936aaf0e4c2f5",
+          "owner": "repository_owner_user",
+          "reason": "Replace the retired stateful fixed-chunk manifest with the stable R2-B public facade that resolves the shared generation pointer."
+        }
+      ],
+      "added_protected_rows": [
+        {
+          "path": ".gitattributes",
+          "before_git_blob_id": "6918a0ee47333c59e1c61cf1a13f29d6c8aa5db9",
+          "before_sha256_lf": "383a48d41f1abc22d6dc096122d7832222372750cadaa7607ea6e9a5a8edb11c",
+          "expected_git_blob_id": "ae4236e2606625165f954c34e1486eae0e9254da",
+          "after_sha256_lf": "8073a2e862ec3d12fed97b35ebf1ed28192863e2e3be0f5af0b7bfefb804e871",
+          "role": "iar_retirement_raw_byte_identity_contract",
+          "writer": "iris_stateful_artifact_registry_architecture_retirement",
+          "consumers": ["stateless_generation", "clean_checkout_validation"],
+          "owner": "repository_owner_user",
+          "reason": "Bind the exact canonical inputs, successor sources, and evidence to explicit text and raw-byte identity policies."
+        },
+        {
+          "path": ".gitignore",
+          "before_git_blob_id": "0a968dd0bd123c25a521d15246efd4a612573c89",
+          "before_sha256_lf": "a4e8c9176c94a6ece679f0b406703ae9bd8ea5dc4200a828cb7daededf93606a",
+          "expected_git_blob_id": "284bb043fc9b547d20fb78fe4234818e2a034d92",
+          "after_sha256_lf": "2efac8e55d8e64c0f249b287092a308654d352fa84d5a3cac5dfb45e28ac48f2",
+          "role": "iar_retirement_tracking_policy",
+          "writer": "iris_stateful_artifact_registry_architecture_retirement",
+          "consumers": ["stateless_generation", "current_route_validation", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Track the exact successor tooling, tests, and authority evidence required by the retirement plan."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+          "before_git_blob_id": "7037624591957357450ef9b2e383ff06969c1cc9",
+          "before_sha256_lf": "e31ae37eb8707012daefb29e4f37b96c23cd22bdc0740e14fe39dddb517057fa",
+          "expected_git_blob_id": "88546464739a32b9af350e999e12c13257fd756b",
+          "after_sha256_lf": "1db3ba9c7d9e00b773847a211a38c47cc275397aae64bd1afd9aed2268081858",
+          "role": "protected_surface_revision_inventory_assertion",
+          "writer": "iris_stateful_artifact_registry_architecture_retirement",
+          "consumers": ["configured_current", "residual_closeout", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Assert the additive IAR retirement protection revision in exact active chronology."
+        },
+        {
+          "path": "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+          "before_git_blob_id": "e85c2b63a63097780de5641d751b4c7bab06207b",
+          "before_sha256_lf": "11b1a5887f9e64ab31b0a3a503524a13df43e1c88a7a39ed79ba941ab118afda",
+          "expected_git_blob_id": "bee8f1f144b670cc4072c7cd10ca1e1de0fe4f52",
+          "after_sha256_lf": "2c7767bbb2ba715053d337a26cc33d7d0456b3b016d57a912153ccc0d56285fb",
+          "role": "iar_retirement_full_gate_g5_provenance_reseal",
+          "writer": "iris_stateful_artifact_registry_architecture_retirement",
+          "consumers": ["full_repository_gate", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Bind the additive current G5 successor provenance after restoring the sealed compiler bytes."
+        }
+      ]
+    },
+    {
+      "revision_id": "iris_iar_retirement_shared_pointer_lookup_reseal_v1",
+      "track": "iris_stateful_artifact_registry_architecture_retirement",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "e45ed731f24473bea0cf235ffb3474828291cd0b",
+      "protection_predecessor_tree": "a4482dce39d753074d901fa6a5a3a34918f223b8",
+      "reason": "Bind the stable lazy lookup consumer to the R2-B shared generation pointer without rewriting the optimization predecessor row.",
+      "approved_activation_deltas": [],
+      "added_protected_rows": [
+        {
+          "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataLookup.lua",
+          "before_git_blob_id": "2ecd85f5bacc96a81ccee5069d65656596ec74fb",
+          "before_sha256_lf": "e98d32809261fa91de1b9d534953d066fb8f8b9ce30d3ab86829fe68adc8aa86",
+          "expected_git_blob_id": "50f88f0b5a6521192e774a7dafe11e9eb33e3d36",
+          "after_sha256_lf": "6b49503c1c3d8adccfb566f7765219de7359c40f0a0a257d1278bfc580185375",
+          "role": "runtime_layer3_shared_pointer_demand_router",
+          "writer": "iris_stateful_artifact_registry_architecture_retirement",
+          "consumers": ["runtime_callers", "browser_interaction_renderer", "compatibility_fallback"],
+          "owner": "repository_owner_user",
+          "reason": "Preserve lazy lookup behavior while resolving every chunk through the same current generation pointer as the public facade."
+        },
+        {
+          "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunkIndex.lua",
+          "before_git_blob_id": "50d48be8b5800abc68bf3b62fd49ba06675a7082",
+          "before_sha256_lf": "7ae19c3f173b01655e1b6ac54de5bb6fabc8322e24be95016e874082454c5ac5",
+          "expected_git_blob_id": "5e4d6828c8a820b2b4613268fa1ad1563a48bcb2",
+          "after_sha256_lf": "e6a4d1945653fcae5636e5cf9fa1856fd8bf2ad6e9ee6b9432fa739d5941f775",
+          "role": "runtime_layer3_shared_pointer_index_router",
+          "writer": "iris_stateful_artifact_registry_architecture_retirement",
+          "consumers": ["IrisLayer3DataLookup", "runtime_package_identity"],
+          "owner": "repository_owner_user",
+          "reason": "Resolve the public chunk index through the same current generation pointer as the facade and lazy lookup."
+        }
+      ]
+    },
+    {
+      "revision_id": "iris_iar_retirement_stateless_package_lookup_parity_reseal_v1",
+      "track": "iris_stateful_artifact_registry_architecture_retirement",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "f7f4a62157cd6fe6cbb956f08808785f79c452ef",
+      "protection_predecessor_tree": "cc12a18194b0d51bc49793a0b657ca9f3c627f99",
+      "reason": "Retain runtime lookup semantic parity checks after removing the unreachable legacy package reader.",
+      "approved_activation_deltas": [
+        {
+          "path": "Iris/tools/package_iris.ps1",
+          "predecessor_sha256": "a1fca567d4ce06037dff904bf934ee1f751a9b56e79347b8c86b185f1ebfd1cb",
+          "before_git_blob_id": "185e733d03fa6f494038bd945b3157ab3617b280",
+          "before_sha256_lf": "21202a7e321e00eebf1265d2da696795a558d92a024f355032613570b619ce75",
+          "expected_git_blob_id": "4cc62de9d53ce6f9f444562faa5b58ade734e50a",
+          "after_sha256_lf": "173e831f261a9fc966ddb25d1fbdfceb46373f87272e477f6ecfe9d1ff6fa8a6",
+          "owner": "repository_owner_user",
+          "reason": "Validate live and packaged lookup identities on the stateless pointer route without a legacy fallback."
+        }
+      ],
+      "added_protected_rows": []
+    },
+    {
+      "revision_id": "iris_iar_retirement_clean_checkout_hygiene_reseal_v1",
+      "track": "iris_stateful_artifact_registry_architecture_retirement",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "610153b37ded1f3c55f4ef8d13127cae42ae0852",
+      "protection_predecessor_tree": "08b46f76f7ced190e9616119ca1b678b602cc4e9",
+      "reason": "Make the installed R2-B bytes and validation fixtures stable in a fresh Windows checkout without changing product semantics.",
+      "approved_activation_deltas": [],
+      "added_protected_rows": [
+        {
+          "path": ".gitattributes",
+          "before_git_blob_id": "ae4236e2606625165f954c34e1486eae0e9254da",
+          "before_sha256_lf": "8073a2e862ec3d12fed97b35ebf1ed28192863e2e3be0f5af0b7bfefb804e871",
+          "expected_git_blob_id": "4d9653e0a76dd5891cd5db3c64e736fe402b59a0",
+          "after_sha256_lf": "b50db0a82f0a0861850b18459750ed5a6ad8606b637f253faf9cbcfb01c6c4d8",
+          "role": "iar_retirement_clean_checkout_raw_byte_policy",
+          "writer": "iris_stateful_artifact_registry_architecture_retirement",
+          "consumers": ["stateless_generation", "clean_checkout_validation", "runtime_package_validation"],
+          "owner": "repository_owner_user",
+          "reason": "Disable checkout line-ending conversion for the exact R2-B pointer, facade, index, lookup, and generation byte universe."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_dvf_3_3_registry_authority_canonical_closure.py",
+          "before_git_blob_id": "cde11ca15e6c03cebd1187a32f4727853b841904",
+          "before_sha256_lf": "695f9f631d625629c52c938b62e177e29fa92e984ff6fbb3a7610d2e4453e6fa",
+          "expected_git_blob_id": "c173f7b1a918b7d71e0271c3f92ac6131e296626",
+          "after_sha256_lf": "62875abf7bcd3dff5a982bd86d2725c1b96558e037f4bbdf5a1794ffb80b5123",
+          "role": "windows_long_path_fixture_cleanup",
+          "writer": "iris_stateful_artifact_registry_architecture_retirement",
+          "consumers": ["configured_current", "full_repository_gate"],
+          "owner": "repository_owner_user",
+          "reason": "Clean the projected WP6 fixture through the Windows extended-length path so teardown cannot leave a non-empty long-path directory."
+        },
+        {
+          "path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py",
+          "before_git_blob_id": "46026cc3e1c9a38ba7b3d2639c24101c8c7606e1",
+          "before_sha256_lf": "9f5328ec345734cdcf112fef888c2c2f3a0275f687e021fd78a88049e09802fe",
+          "expected_git_blob_id": "818f1911178773e6b34b4c6fc387d75bd085bdf4",
+          "after_sha256_lf": "fd95ff23b6fa79d9421d71f0210c1f0f6d7f319a01f6ef361dc1ecb527242db3",
+          "role": "full_gate_explicit_source_policy_regression",
+          "writer": "iris_stateful_artifact_registry_architecture_retirement",
+          "consumers": ["configured_current", "full_repository_gate"],
+          "owner": "repository_owner_user",
+          "reason": "Pass every declared explicit current source to the policy validator while retaining focused assertions for the original four regression sources."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+          "before_git_blob_id": "88546464739a32b9af350e999e12c13257fd756b",
+          "before_sha256_lf": "1db3ba9c7d9e00b773847a211a38c47cc275397aae64bd1afd9aed2268081858",
+          "expected_git_blob_id": "b223293cdcf12b4dd056bab164f34c0c30a16bfc",
+          "after_sha256_lf": "68a15b803651f90b6f32c823702f9aee1ec079d3abc4aeedbbe25e2aa7720567",
+          "role": "iar_retirement_active_protection_revision_regression",
+          "writer": "iris_stateful_artifact_registry_architecture_retirement",
+          "consumers": ["configured_current", "residual_closeout", "full_repository_gate"],
+          "owner": "repository_owner_user",
+          "reason": "Assert the shared-pointer, package-parity, and clean-checkout hygiene revisions in the exact active protection chronology."
+        }
+      ]
     }
   ]
 }

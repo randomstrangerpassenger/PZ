@@ -416,3 +416,17 @@ compatibility fixture and is not an extraction target.
 The 16 BOM files are all outside current Git tracking and their external hash
 consumers cannot be excluded. BOM normalization is therefore deferred with no
 file mutation. No archive/delete eligibility is created by this readpoint.
+
+## Stateful Artifact Registry retirement successor (2026-08-20)
+
+The approved successor adds five tracked, current-route tooling modules without changing the 12-module compiler core:
+
+| Module | Role |
+|---|---|
+| `dvf_3_3_generation_contract.py` | exact canonical input, generator, output-universe and protected-root contract |
+| `build_dvf_3_3_complete_generation.py` | deterministic off-live rendered + generation-qualified Lua generation |
+| `validate_dvf_3_3_complete_generation.py` | descriptor-independent input/output/file-universe validation |
+| `install_dvf_3_3_complete_generation.py` | R2-B immutable-set install and single shared generation-pointer switch |
+| `dvf_3_3_runtime_compatibility.py` | stateless exact-key/collision/payload validation; does not claim RTC |
+
+These files are `active` successor tooling, not generic Registry infrastructure and not archive candidates. Existing source correction and naturalization adoption scripts are `completed-but-reproducible`; Registry Runtime Compatibility remains separate governance. The current runtime/package path has no legacy stateful fallback. No sealed attempt/history file is deleted or rewritten.

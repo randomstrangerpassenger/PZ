@@ -1,0 +1,159 @@
+{
+  "schema_version": "iris-iar-stateful-architecture-retirement-closeout-v1",
+  "execution_contract": {
+    "execution_contract_checked": true,
+    "execution_contract_path": "docs/EXECUTION_CONTRACT.md",
+    "execution_contract_version": "v1.3",
+    "execution_contract_plan_readpoint_sha256": "a185bbd78eb849b0310d9aadc9102cb156b892513266fac0ec7903eb3d3a9493",
+    "known_conflict_count": 0,
+    "conflict_disposition": "none"
+  },
+  "subjects": {
+    "baseline": {
+      "commit": "eaafed519afb7cd038af3d09443581957b3b478c",
+      "tree": "9696bd992ff3a0da03cafb61529e3971793ab159"
+    },
+    "full_gate_subject": {
+      "commit": "c924349eae6ee7f2a077ca83899b0ec99131f6c2",
+      "tree": "90368786bfb23b05f8f79b3996529ef7bea876eb"
+    },
+    "terminal_implementation_subject": {
+      "commit": "6f362b5e284d9f05749c7f9dc6a11f13bb1fe322",
+      "tree": "348b1ba345bb509016478b923f8ad022839f15a4",
+      "delta_after_full_gate": "lookup identity manifest correction plus ordinal cross-PowerShell identity ordering",
+      "delta_validation": "cross-PowerShell identity equality and exact planned current_runtime_payload package command exit 0"
+    },
+    "closeout_carrier": "additive evidence commit following the terminal implementation subject"
+  },
+  "execution_closeout_state": "complete",
+  "retirement_outcome": "FULL_RETIREMENT",
+  "validation_ceiling": {
+    "validated": [
+      "Layer 1-5 active product IAR consumer census",
+      "successor generation inputs and no current-output backflow",
+      "complete generation determinism and idempotence",
+      "safe replacement and predecessor visibility failure matrix",
+      "exact-key and payload projection including case-collision boundaries",
+      "single-pointer runtime and package lookup parity",
+      "current contract and preimport routes",
+      "Lua syntax and load-result parity",
+      "clean-checkout full repository gate twice with deterministic comparison",
+      "current_runtime_payload package staging and zip production",
+      "manual in-game QA owner attestation"
+    ],
+    "out_of_scope": [
+      "multiplayer and dedicated server validation",
+      "long-session and memory-leak validation",
+      "all-item manual UI sweep",
+      "all external mod compatibility sweep",
+      "Steam Workshop deployment and real-user upgrade"
+    ],
+    "unvalidated_but_in_scope": []
+  },
+  "product_retirement": {
+    "active_product_iar_consumer_count_by_layer": {"1": 0, "2": 0, "3": 0, "4": 0, "5": 0},
+    "active_product_iar_consumer_count_all_layers": 0,
+    "residual_allowlist_count": 0,
+    "current_generation_id": "dvf33-2a44a0a8d9a2e7f0d9a533ad002b7f691c1bfccec9577fb3356967ec6fd8a00c",
+    "predecessor_generation_retained_for_rollback": true
+  },
+  "obligation_ledger": {
+    "total": 16,
+    "historical_read_only": 8,
+    "retain_validation_guard": 1,
+    "stateless_successor": 2,
+    "replace_stateless": 2,
+    "retain_governance": 3,
+    "unclassified": 0,
+    "unmapped_failure_protection": 0,
+    "evidence_path": "Iris/_docs/round3/iar_stateful_architecture_retirement/obligation_disposition.jsonl",
+    "evidence_sha256": "f947d5ffa7d6be54857880c6663b084727869e32a480582acffa9be0b37798db"
+  },
+  "non_layer3_migration": {
+    "candidate_count": 0,
+    "confirmed_count": 0,
+    "owner_decision_required": false,
+    "evidence_path": "Iris/_docs/round3/iar_stateful_architecture_retirement/consumer_census.json",
+    "evidence_sha256": "d020e860b0e13277b06376bfa8ddbd868cb56298fe3e87754e28ea79ab92dd5b"
+  },
+  "r2_owner_decision": {
+    "selection": "B",
+    "exact_subject_commit": "4fa04e8f3533eede895a25b60358f4d7c934cbd2",
+    "evidence_path": "Iris/_docs/round3/iar_stateful_architecture_retirement/r2_runtime_layout_owner_decision.json",
+    "evidence_sha256": "2a7041c334fa9e21dc799672bb829bc0272546f2cb709c093bbbd23f5d91adcf"
+  },
+  "machine_axes": {
+    "baseline": "PASS",
+    "canonical_inputs": "PASS",
+    "complete_generation": "PASS",
+    "determinism": "PASS",
+    "generation_key_identity": "PASS",
+    "safe_replacement": "PASS",
+    "switch_atomicity": "observed_only",
+    "switch_correctness_basis": "one current-visible pointer selects one immutable generation; failure and concurrent observation probes exposed no mixed generation",
+    "concurrent_observation": "PASS",
+    "protected_current_mutation_count_on_reapply": 0,
+    "lua_load_result_parity": "PASS",
+    "direct_writer_residual_count": 0,
+    "runtime_compatibility": "PASS",
+    "package_current_runtime_payload": "PASS",
+    "required_current_route": "PASS",
+    "preimport_route": "PASS",
+    "source_policy": "PASS",
+    "history_preservation": "PASS",
+    "documentation": "PASS"
+  },
+  "validation_evidence": {
+    "full_gate_run_a": {
+      "path": "C:/Users/MW/ir-iar-terminal3-a-receipts/orchestration.json",
+      "sha256": "b6087cc0b5cdf8ed042fdfd2753dd5fab0ad9a70e9809a035e26784eb4345fba",
+      "exit_code": 0
+    },
+    "full_gate_run_b": {
+      "path": "C:/Users/MW/irb3q/orchestration.json",
+      "sha256": "8b4143ad933c59b09b26261662a584377059af47601515fa413a3146ef2ac925",
+      "exit_code": 0
+    },
+    "deterministic_compare": {
+      "path": "C:/Users/MW/ircmp3/compare_receipt.json",
+      "sha256": "9bdc6c7ec79a512f32610527cc7debf259e270e7890537c69f69734122c7997c",
+      "exit_code": 0,
+      "canonical_fingerprint_sha256": "763f9f721efb90826b803cdb8dc4766d21523b4d38b04ff6a2e40f1cc8ac4043"
+    },
+    "terminal_package": {
+      "manifest_path": "C:/Users/MW/ir-iar-final-package-6f362b5e/Iris.package_manifest.sha256.json",
+      "manifest_sha256": "d7496e746497c588de9312efb3b93cc34bf7289f0435a22baa078d7675c9b3b2",
+      "zip_path": "C:/Users/MW/ir-iar-final-package-6f362b5e/Iris.zip",
+      "zip_sha256": "60cfbaeb437bcc42aecd70cc6e440b197fa7ff19baed49c3b0a8e92f1d7b05a3",
+      "exit_code": 0
+    },
+    "manual_in_game_qa": "PASS_OWNER_ATTESTED"
+  },
+  "governance_axes": {
+    "independent_review": {
+      "result": "completed_with_one_actionable_finding_resolved",
+      "reviewer": "Codex Reviewer",
+      "remaining_actionable_finding_count": 0,
+      "evidence_path": "Iris/_docs/round3/iar_stateful_architecture_retirement/codex_reviewer_final.json"
+    },
+    "owner_decision": "R2_B_PROVIDED",
+    "owner_seal": "not_provided",
+    "canonical_closure_eligibility": "ineligible_without_owner_seal"
+  },
+  "predecessor_cleanup": {
+    "performed": false,
+    "reason": "The inactive predecessor is retained as a bounded rollback target; cleanup is a separate post-closeout action.",
+    "active_product_reader_count": 0,
+    "rollback_available": true,
+    "sealed_history_excluded_from_cleanup": true
+  },
+  "non_claims": [
+    "No RTC PASS is claimed.",
+    "No Publish PASS is claimed.",
+    "No release, Workshop, deployment, or real-user upgrade completion is claimed.",
+    "No semantic-quality expansion is claimed.",
+    "No multiplayer, dedicated-server, long-session, or memory-leak result is claimed.",
+    "This is not an owner-sealed or canonical sealed closeout.",
+    "switch_atomicity=observed_only does not claim a filesystem-level proof or an unconditional mixing-impossibility theorem."
+  ]
+}

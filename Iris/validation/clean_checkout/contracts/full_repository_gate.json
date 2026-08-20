@@ -88,6 +88,18 @@
       {
         "path": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py",
         "reason": "current reusable IAR evaluator behavior is required for the G4 generic public-text assessment integration boundary"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py",
+        "reason": "current deterministic complete-generation and identity-only descriptor contract"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_dvf_3_3_generation_install.py",
+        "reason": "current R2-A protected installer and safe-replacement contract"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_dvf_3_3_runtime_compatibility.py",
+        "reason": "current stateless generation-key identity and runtime payload parity contract"
       }
     ],
     "explicit_dedicated_route_sources": [
@@ -269,6 +281,46 @@
   "required_test_dependency_policy": {
     "explicit_direct_dependencies": [
       {
+        "test_source": "Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py",
+        "path": "Iris/build/description/v2/tools/build/build_dvf_3_3_complete_generation.py",
+        "relationship": "direct",
+        "dependency_role": "stateless_complete_generation_builder",
+        "authority_class": "required_tracked_source",
+        "reason": "required tests invoke the off-live builder directly"
+      },
+      {
+        "test_source": "Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py",
+        "path": "Iris/build/description/v2/tools/build/dvf_3_3_generation_contract.py",
+        "relationship": "direct",
+        "dependency_role": "stateless_generation_contract",
+        "authority_class": "required_tracked_source",
+        "reason": "required tests consume the canonical input and generator identity constants"
+      },
+      {
+        "test_source": "Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py",
+        "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_complete_generation.py",
+        "relationship": "direct",
+        "dependency_role": "stateless_complete_generation_validator",
+        "authority_class": "required_tracked_source",
+        "reason": "required negative fixtures invoke the fail-closed validator directly"
+      },
+      {
+        "test_source": "Iris/build/description/v2/tests/test_dvf_3_3_generation_install.py",
+        "path": "Iris/build/description/v2/tools/build/install_dvf_3_3_complete_generation.py",
+        "relationship": "direct",
+        "dependency_role": "r2_a_protected_generation_installer",
+        "authority_class": "required_tracked_source",
+        "reason": "required failure injection and idempotence tests invoke the protected installer directly"
+      },
+      {
+        "test_source": "Iris/build/description/v2/tests/test_dvf_3_3_runtime_compatibility.py",
+        "path": "Iris/build/description/v2/tools/build/dvf_3_3_runtime_compatibility.py",
+        "relationship": "direct",
+        "dependency_role": "generation_key_identity_validation",
+        "authority_class": "required_tracked_source",
+        "reason": "required exact-key, collision, and payload parity tests invoke the stateless validator directly"
+      },
+      {
         "test_source": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py",
         "path": "Iris/build/description/v2/data/iar_public_text_assessment/iar_public_text_assessment_contract.json",
         "relationship": "direct",
@@ -348,7 +400,7 @@
       ],
       "successor_transition": {
         "path": "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0001.json",
-        "git_blob_raw_sha256": "a230d333166b5fd17b9e90d03cabf3ca29456842dd5b1cc596d6a6914842ae1c",
+        "git_blob_raw_sha256": "1d5e9de633ca0439ad9d8734767c62b8b5bbe51dc2179cd3862f1f921089973a",
         "hash_mode": "git_blob_raw_sha256"
       }
     },
@@ -457,10 +509,12 @@
     "package_runtime_mirror": {
       "source_manifest": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
       "source_directory": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+      "successor_source_directory": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/<generation_id>",
       "target_manifest": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
       "target_directory": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+      "successor_target_directory": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/<generation_id>",
       "authority_class": "deterministically_materialized_input",
-      "producer": "byte_identical_copy_from_exact_subject_tree"
+      "producer": "byte_identical_copy_from_exact_subject_tree; select legacy or generation-qualified directory from the stable manifest"
     },
     "required_environment": {
       "IRIS_DVF_CURRENT_ROUTE_FROZEN_PREDECESSOR": "1"

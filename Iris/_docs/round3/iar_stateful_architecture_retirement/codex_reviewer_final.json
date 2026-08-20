@@ -1,0 +1,35 @@
+{
+  "schema_version": "iris-iar-retirement-codex-review-v1",
+  "reviewer": "Codex Reviewer",
+  "reviewed_range": {
+    "base_commit": "eaafed519afb7cd038af3d09443581957b3b478c",
+    "reviewed_head": "c924349eae6ee7f2a077ca83899b0ec99131f6c2"
+  },
+  "result": "completed_with_one_actionable_finding_resolved",
+  "finding": {
+    "priority": "P1",
+    "surface": "current_runtime_payload package lookup identity",
+    "observed_failure": "runtime_payload_lookup_package_generation_mismatch",
+    "root_cause": "The identity row ordering used culture-sensitive Sort-Object semantics, so Windows PowerShell 5.1 and PowerShell 7 produced different digests for case-collision keys.",
+    "reviewer_suggested_disposition": "refresh the checked-in lookup identity",
+    "adopted_disposition": "make ordering ordinal and refresh the identity, because changing only the manifest would preserve the cross-runtime nondeterminism"
+  },
+  "resolution_subject": {
+    "commit": "6f362b5e284d9f05749c7f9dc6a11f13bb1fe322",
+    "tree": "348b1ba345bb509016478b923f8ad022839f15a4"
+  },
+  "resolution_evidence": {
+    "pwsh_and_windows_powershell_generation_id": "lookup-9baf951e0958ea30",
+    "pwsh_and_windows_powershell_source_digest": "9baf951e0958ea30cacde0c60005d2db6eb720fe5537dc8a26664d63deb496ba",
+    "package_command_exit_code": 0,
+    "package_manifest": "C:/Users/MW/ir-iar-final-package-6f362b5e/Iris.package_manifest.sha256.json",
+    "package_manifest_sha256": "d7496e746497c588de9312efb3b93cc34bf7289f0435a22baa078d7675c9b3b2",
+    "package_zip": "C:/Users/MW/ir-iar-final-package-6f362b5e/Iris.zip",
+    "package_zip_sha256": "60cfbaeb437bcc42aecd70cc6e440b197fa7ff19baed49c3b0a8e92f1d7b05a3"
+  },
+  "remaining_actionable_finding_count": 0,
+  "non_claims": [
+    "This review record is not an owner seal.",
+    "This review record does not claim RTC, Publish, release, Workshop, or deployment completion."
+  ]
+}

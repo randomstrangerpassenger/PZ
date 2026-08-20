@@ -1308,3 +1308,20 @@ canonical input
 검증 비용도 변경 위험과 기대 절감에 비례해야 한다. 기본 흐름은 representative profiling 1회, implementation, focused batch, Codex Reviewer static review, final configured/full gate 1회다. 반복 통계 session은 정량 no-regression claim이 명시적으로 필요한 경우에만 연다. Measurement wrapper는 target environment를 조용히 변경해서는 안 되며, generated cache/bytecode는 source mutation과 구분해 externalize, cleanup 또는 predeclared disposable state로 처리한다.
 
 현재 readpoint의 `public-text-phase7-dispatch`는 네 consumer의 동일 producer를 class-lifecycle immutable result 한 번으로 통합한 첫 적용이다. 이 pilot의 `4 -> 1`은 architecture pattern의 유효성을 보여주지만 Iris 전체 test consolidation 완료를 뜻하지 않는다. 나머지 family의 `deferred`/`must_isolate` 기록은 이 경계를 적용할 후속 profiling과 설계를 금지하지 않는다.
+
+### DVF 3-3 stateless complete-generation successor
+
+Layer 3 current successor는 다음 책임을 분리한다.
+
+`canonical source + adopted upstream content input -> deterministic off-live complete generation -> stateless generation/key validation -> immutable generation install -> single generation-pointer switch -> package projection`
+
+- Canonical input owner: Git-authored six-file compose input set과 현재 payload 의미를 만든 adopted upstream candidate. Current rendered/runtime/descriptor, receipt와 installer lifecycle state는 generation input으로 역유입되지 않는다.
+- Generation owner: `dvf_3_3_generation_contract.py`와 `build_dvf_3_3_complete_generation.py`. Rendered JSON, generation-qualified Lua chunks, stable facade candidate와 identity-only descriptor를 external root에 완성한다.
+- Validation owner: `validate_dvf_3_3_complete_generation.py`와 `dvf_3_3_runtime_compatibility.py`. Descriptor를 권위로 신뢰하지 않고 input/output identity, exact key, collision과 payload projection을 다시 계산한다.
+- Install owner: `install_dvf_3_3_complete_generation.py` 하나만 protected runtime visibility를 바꿀 수 있다. Immutable set은 `IrisLayer3Generations/<generation_id>`에 두고 `IrisLayer3DataCurrent.lua` pointer를 마지막 `os.replace`로 바꾼다. Stable facade와 index는 같은 pointer를 읽고, same-generation install은 protected write가 0인 no-op이다.
+- Package owner: `package_iris.ps1`. `current_runtime_payload`와 generation identity를 검증하며 RTC-certified applicability는 별도 exact-generation evidence 없이는 fail-closed한다.
+- Repository governance owner: `Iris/validation/clean_checkout/`. 실행 receipt와 exact-commit binding은 product generation state와 분리해 보존한다.
+
+Runtime은 계속 100% Lua다. Python은 build/validation/install tooling에만 존재한다. Public Iris behavior, Layer 3 의미, Recipe/Right-click 독립성, Browser/Wiki와 Alt tooltip surface는 이 successor가 변경하지 않는다.
+
+기존 fixed 11-chunk/stateful descriptor product 경로는 은퇴했다. Historical adoption 도구와 sealed evidence는 재현 전용이고, current package/runtime 소비자는 generation pointer와 immutable generation descriptor만 읽는다.

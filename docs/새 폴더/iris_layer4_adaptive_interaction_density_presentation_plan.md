@@ -2,11 +2,11 @@
 
 Iris Layer 4 상호작용 밀도 적응형 표시 체계
 
-> 2026-08-20 IAR retirement successor amendment: 아래의 조건부 `IAR adoption`, writer/path와 receipt 문구는 stateful IAR 재도입 권한이 아니다. Layer 4 generated mutation은 QG 소유의 별도 deterministic complete-generation/validation/install 계약과 별도 owner decision이 먼저 필요하며, DVF 3.3 전용 successor를 Layer 4로 자동 일반화하지 않는다. Presentation/UI scope와 기존 ratification gate는 그대로다.
+> 2026-08-20 IAR retirement Walkthrough synchronization: product outcome은 `FULL_RETIREMENT`, Layer 1–5 active product IAR consumer와 residual allowlist는 모두 `0`이다. closeout readpoint는 main `c91d8f79`, terminal implementation subject `6f362b5e`, full-gate subject `c924349e`다. DVF 3.3은 R2-B immutable generation + `IrisLayer3DataCurrent.lua` single pointer로 전환됐지만 이 successor는 Layer 3 전용이다. Layer 4 generated mutation에는 QG owner의 별도 deterministic complete-generation/stateless-validation/safe-install contract와 별도 owner decision이 필요하며 DVF 3.3 installer/descriptor를 자동 일반화하지 않는다. Presentation/UI scope와 기존 ratification gate는 그대로다.
 
 > 상태: CLD Round 4 Important 2건·Minor 2건 반영 / proposed / `L4-RAT-08` pending / Recipe fallback cutover blocked by planning census (`recipe_only=3`, all `qg_decided_no`) / implementation not authorized / independent review pending
 >
-> 이 계획 수정 요청은 문서 보강 승인이다. 아래 owner-reserved presentation decision, runtime behavior 변경, IAR adoption 또는 canonical document promotion의 owner seal로 해석하지 않는다.
+> 이 계획 수정 요청은 문서 보강 승인이다. 아래 owner-reserved presentation decision, runtime behavior 변경, Layer 4 generated installation 또는 canonical document promotion의 owner seal로 해석하지 않는다. Retirement closeout은 RTC PASS, Publish PASS, release readiness 또는 owner-sealed canonical closure를 제공하지 않았다.
 
 ## 1. Objective
 
@@ -59,12 +59,13 @@ owner policy seal과 source migration gate 뒤 구현이 허가되면 다음 하
    - legacy Recipe fallback과 QG projection을 합친 mixed presentation은 terminal 또는 partial runtime state로 지원하지 않는다.
 4. **Implementation and machine validation**
    - sealed policy identity와 통과한 migration-gate identity를 소비해 runtime/build/test candidate를 구현하고 Section 7의 validation을 실행한다.
-5. **Conditional IAR Derived Generation Adoption**
-   - IAR-managed Layer 4 generated artifact diff가 없으면 `not applicable`로 증명한다.
-   - diff가 있으면 off-live complete candidate, exact successor identity, IAR Derived Generation Adoption receipt 없이는 current runtime/package projection으로 진행하지 않는다.
-   - 이 gate는 Gate 3이 먼저 통과한 subject에만 적용한다. authorized adoption path/writer를 사용할 수 없으면 generated-artifact-dependent scope만 `deferred`로 분리하고 overall closeout을 `partial`로 제한한다. exact mutation-independent subject는 mixed Recipe presentation을 만들지 않는 범위에서만 계속할 수 있다.
+5. **Conditional Layer 4 Complete-Generation and Safe Installation**
+   - declared Layer 4 generated artifact diff가 없으면 inspected path/hash universe와 `not_applicable(no_generated_mutation)`으로 증명한다.
+   - diff가 있으면 QG/Layer 4 owner가 ratify한 canonical inputs, deterministic off-live complete generation, stateless validation, exact successor identity, protected visibility boundary와 rollback contract 없이는 current runtime/package projection으로 진행하지 않는다.
+   - DVF 3.3 `install_dvf_3_3_complete_generation.py`, `generation_descriptor.json`과 `IrisLayer3DataCurrent.lua`는 Layer 4 authority가 아니다.
+   - 이 gate는 Gate 3이 먼저 통과한 subject에만 적용한다. authorized Layer 4 contract/writer가 없으면 generated-artifact-dependent scope만 `deferred`로 분리하고 overall closeout을 `partial`로 제한한다. exact mutation-independent subject는 mixed Recipe presentation을 만들지 않는 범위에서만 계속할 수 있다.
 6. **Independent review and canonical promotion**
-   - exact implementation/evidence/staging-doc subject에 대한 independent review와 owner canonical seal을 machine validation 및 IAR adoption과 별도 축으로 충족한 뒤에만 canonical top documents를 갱신한다.
+   - exact implementation/evidence/staging-doc subject에 대한 independent review와 owner canonical seal을 machine validation 및 generated installation과 별도 축으로 충족한 뒤에만 canonical top documents를 갱신한다.
    - 상위 로드맵 공동 기안자의 검토는 provenance로 보존할 수 있지만 independent-review credit으로 사용하지 않는다.
 
 owner policy seal이 제공되지 않으면 이 계획은 pre-seal ceiling에서 멈추며 구현 완료나 canonical adoption을 claim하지 않는다.
@@ -74,10 +75,10 @@ owner policy seal이 제공되지 않으면 이 계획은 pre-seal ceiling에서
 | Review finding | Plan closure |
 |---|---|
 | `CLD-R4-I01` — legacy removal과 Gate 3 | producer `recipe_index` denominator 불변을 명시; `separate_legacy_removal_scope`는 책임 지정만 하며 Gate 3 해소 경로가 아님 |
-| `CLD-R4-I02` — blocked validation subset | Section 7에 Gate 3 blocked / full / post-Gate-3 IAR partial별 required와 `not_applicable(no_subject)` command set 추가 |
+| `CLD-R4-I02` — blocked validation subset | Section 7에 Gate 3 blocked / full / post-Gate-3 Layer 4 install-contract partial별 required와 `not_applicable(no_subject)` command set 추가 |
 | `CLD-R4-M01` — identity taxonomy layer | `identity_unavailable`을 producer/QG crosswalk identity 부재로 한정; runtime Lua stable-ID plumbing은 모든 mapped tuple에 적용되는 별도 공통 prerequisite로 분리 |
 | `CLD-R4-M02` — `qg_absent` owner surface | `L4-RAT-08`을 fresh `qg_absent`에도 조건부 적용하고 category별 QG coverage/reconsideration scope를 구분 |
-| 이전 라운드에서 CLOSED인 축 | IAR adoption, one lookup → two projections, capability/Recipe parity, Gate 3 strict blocked, mixed-state 금지, owner seal과 validation ceiling을 유지 |
+| 이전 라운드에서 CLOSED인 축 | generated mutation의 gated installation, one lookup → two projections, capability/Recipe parity, Gate 3 strict blocked, mixed-state 금지, owner seal과 validation ceiling을 유지. Stateful IAR adoption은 retirement 결과에 따라 제거 |
 
 ---
 
@@ -109,8 +110,8 @@ owner policy seal이 제공되지 않으면 이 계획은 pre-seal ceiling에서
 - normalized external QG row가 동일 schema를 만족할 때 같은 presentation 적용
 - offline schema/completeness validator, standalone Lua acceptance harness와 실제 PZ UI 검증
 - architecture/decision/roadmap 문서의 additive 정합성 갱신
-- generated artifact mutation 발생 시 off-live successor에서 IAR Derived Generation Adoption을 거치는 conditional lifecycle
-- Gate 3 PASS 뒤 IAR adoption만 blocked일 때 projection-dependent scope를 유예하고 non-public mutation-independent subject만 계속하는 partial closeout 경계
+- generated artifact mutation 발생 시 Layer 4-specific complete-generation/stateless-validation/safe-install contract를 거치는 conditional boundary
+- Gate 3 PASS 뒤 Layer 4 generation/install contract만 blocked일 때 projection-dependent scope를 유예하고 non-public mutation-independent subject만 계속하는 partial closeout 경계
 - staging governance text와 owner-sealed canonical write의 분리
 - disposable package projection의 Lua syntax 및 payload parity 검증
 
@@ -138,7 +139,7 @@ owner policy seal이 제공되지 않으면 이 계획은 pre-seal ceiling에서
 - producer regeneration/validation만으로 current derived generation을 채택하는 행위
 - partial generated generation의 current/runtime/package 노출
 - Gate 3 실패 상태의 mixed QG + legacy Recipe adaptive presentation 또는 projection-dependent partial runtime 설치
-- machine validation이나 package PASS를 IAR adoption, independent review 또는 owner seal로 대체하는 행위
+- machine validation이나 package PASS를 generated installation, independent review 또는 owner seal로 대체하는 행위
 - FPS, frame-time, heap 또는 latency 개선 claim
 
 ---
@@ -190,7 +191,7 @@ owner policy seal이 제공되지 않으면 이 계획은 pre-seal ceiling에서
 - 첨부 로드맵은 `Base.Tongs`를 32건으로 기술하지만 current generated snapshot은 Recipe 33건이다. 테스트는 roadmap 숫자를 하드코딩하지 않고 실행 시 source count와 presentation count의 exact parity를 검사한다.
 - `IrisUseCaseLabelMap.lua`는 KO/EN use-case label과 Source label을 제공한다. Recipe line은 original/translated name과 pre-rendered text를 함께 가진다.
 - current recipe requirement index의 `display`는 localized-neutral schema가 아니므로 locale별 requirement 표시를 지원하려면 structured `check`를 보존한 additive display projection 또는 translation key가 필요하다. runtime에서 raw display text를 분석해 번역하지 않는다.
-- `docs/ARCHITECTURE.md`는 validated candidate와 current source identity에서 derived current generation을 채택하는 책임을 IAR에 부여하고 partial generation의 current 노출을 금지한다. producer regeneration과 package projection은 IAR Derived Generation Adoption을 대신하지 않는다.
+- Retirement Walkthrough는 Layer 1–5 active product IAR consumer를 0으로 닫았고 DVF 3.3 전용 stateless successor만 설치했다. Layer 4는 해당 successor의 consumer/migration 대상이 아니었으므로 generated diff가 생기면 QG/Layer 4-specific owner decision과 generation/install contract를 별도로 열어야 한다. Producer regeneration과 package projection만으로 current installation을 주장하지 않는다.
 - `docs/EXECUTION_CONTRACT.md`에 따라 이 작업은 Authority/Runtime/Sealed Artifact/Public-Facing Output을 만지는 Heavy execution이다. machine validation, independent review, owner seal과 canonical closure eligibility는 별도 축이다.
 
 ### Proposed Policy Assumptions — Owner Seal Pending
@@ -254,7 +255,7 @@ Offline producer/validator changes:
 - `Iris/build/description_generator.py`
 - `Iris/build/convert_descriptions_to_lua.py`
 - `Iris/build/description/v2/tools/build/validate_interaction_presentation_contract.py` (new)
-- `Iris/build/description/v2/tools/build/validate_layer4_derived_generation_adoption.py` (new, generated mutation branch에서만)
+- `Iris/build/description/v2/tools/build/validate_layer4_complete_generation_install.py` (new; 별도 Layer 4 owner decision이 있는 generated mutation branch에서만)
 
 Regression-observed but not normally modified:
 
@@ -294,10 +295,10 @@ Regression-observed but not normally modified:
 - `Iris/output/recipe_index.v2.4.json` (read-only legacy Recipe stable-identity source)
 - `Iris/output/recipe_evidence_decisions.v2.4.json` (read-only `recipe_id` ↔ `rp.recipe.*` lineage source)
 - `Iris/output/recipe_nav_registry.v2.4.json` (read-only QG Recipe lineage/navigation source)
-- `Iris/build/description/v2/staging/iris_layer4_adaptive_interaction_density_presentation/` 아래의 source identity, capability/QG parity, policy-seal binding, candidate generation, successor identity, adoption/rollback과 validation report
-- focused offline census/validation report는 disposable staging/output root에 생성하고 IAR adoption 전 current-route artifact로 채택하지 않는다.
-- IAR-managed Layer 4 generated path에 diff가 없으면 no-mutation report와 `adoption_not_applicable` 근거만 남긴다.
-- diff가 있으면 complete off-live candidate manifest, exact successor identity manifest와 Registry-owned Derived Generation Adoption receipt를 남긴다. receipt의 exact canonical path는 execution preflight가 current IAR contract에서 발견·승인한 path를 사용하며 임의의 새 live authority path를 만들지 않는다.
+- `Iris/build/description/v2/staging/iris_layer4_adaptive_interaction_density_presentation/` 아래의 source identity, capability/QG parity, policy-seal binding, candidate generation, successor identity, installation/rollback과 validation report
+- focused offline census/validation report는 disposable staging/output root에 생성하고 authorized Layer 4 installation 전 current/runtime/package artifact로 취급하지 않는다.
+- declared Layer 4 generated path에 diff가 없으면 no-mutation report와 `not_applicable(no_generated_mutation)` 근거만 남긴다.
+- diff가 있으면 complete off-live candidate manifest와 exact successor identity를 남긴다. 별도 Layer 4 owner decision이 정한 validator/installer evidence만 허용하며 임의 receipt/current descriptor 또는 DVF 3.3 pointer를 만들지 않는다.
 
 ### Tests
 
@@ -514,7 +515,7 @@ QG line을 stable identity, Source, display payload와 action payload로 분리�
 - Recipe name dedupe를 제거하고 identity collision을 숨기지 않는다.
 - normal Layer 4 presentation은 QG context-menu line과 Recipe line만 사용한다. `IrisCapabilities`와 recipe connection/index는 public compatibility 및 다른 화면을 위해 남기되 missing QG line을 합성하는 fallback으로 사용하지 않는다.
 - 이 두 cutover는 Change 1의 exact crosswalk report가 현재 implementation subject에 대해 fresh하고 `capability_only == 0 AND recipe_only == 0`일 때만 함께 활성화한다. capability/Recipe count equality나 QG-only renderability는 이 hard gate를 대신하지 않는다.
-- Recipe row는 adopted generated line의 `recipe_nav_ref.recipe_id`와 structured rule lineage를 보존해야 한다. current generated schema에 이 stable field가 없어 additive generated mutation이 필요하면 Change 9의 adoption 전에는 Recipe fallback 제거를 current runtime에 활성화하지 않는다.
+- Recipe row는 installed current generated line의 `recipe_nav_ref.recipe_id`와 structured rule lineage를 보존해야 한다. current generated schema에 이 stable field가 없어 additive generated mutation이 필요하면 Change 9의 safe installation 전에는 Recipe fallback 제거를 current runtime에 활성화하지 않는다.
 - `recipe_only > 0`, `identity_unavailable`, stale Recipe crosswalk 또는 navigation-target mismatch 중 하나라도 있으면 Recipe fallback removal은 `BLOCKED`다. runtime name inference, display/localized string mapping, silent legacy-row deletion은 금지한다.
 - Gate 3 실패 시 이 projection과 Change 2 이후 policy-dependent runtime work는 시작하지 않는다. legacy fallback을 유지한 current renderer가 그대로 남으며 QG rows와 legacy-only rows를 합친 adaptive/mixed model은 생성하지 않는다.
 - total과 Source count는 projection rows에서 한 번 계산한다.
@@ -537,7 +538,7 @@ recipe_count + rightclick_count == total_count
 - capability/Recipe crosswalk report의 `capability_only == 0 AND recipe_only == 0`과 subject hash freshness를 다시 검사한다. 실패하면 해당 collector cutover 및 legacy synthesis 제거를 수행하지 않는다.
 - Gate 3 failure fixture에서 Change 2 이후 declared policy-dependent current-path diff가 0이고 existing legacy renderer/fallback hash가 유지되며 mixed projection row/count가 생성되지 않는지 검사한다.
 - legacy capability tuple 각각이 exact QG identity로 도달하는지 검사하고 capability-only public interaction loss 0을 확인한다.
-- legacy Recipe tuple 각각이 stable structured lineage를 통해 exact QG Recipe identity와 adopted `recipe_nav_ref.recipe_id`에 도달하는지 검사하고 Recipe presentation absorption loss 0을 확인한다.
+- legacy Recipe tuple 각각이 stable structured lineage를 통해 exact QG Recipe identity와 installed current `recipe_nav_ref.recipe_id`에 도달하는지 검사하고 Recipe presentation absorption loss 0을 확인한다.
 - capability/recipe-index fallback을 차단한 상태에서 legacy presentation identity set이 QG projection에 전부 흡수되고 current positive rows도 모두 표시 가능한지 확인한다.
 - Source partition union/intersection과 total count invariant를 검사한다.
 
@@ -637,7 +638,7 @@ interaction density에 맞는 초기 표시를 제공하되 모든 상태가 같
 - requirement가 없는 Recipe는 빈 requirement block/control을 만들지 않는다.
 - malformed requirement와 none을 구분한다. malformed payload는 해당 row의 requirement 상태를 unavailable로 표시하고 diagnostic을 남기며 item-global fault나 verified-empty로 바꾸지 않는다.
 - `RequirementPolicy.evalColor()`의 player-state coloring은 유지하되 Source grouping, row ordering, search score에 사용하지 않는다.
-- Recipe navigation button은 row identity에 직접 결속된 adopted original `recipe_nav_ref`만 사용하고 stable `recipe_id`/rule lineage와 target payload를 함께 검증한다. `original_name`은 current 제작 UI filter payload로 사용할 수 있지만 crosswalk identity로 승격하지 않는다.
+- Recipe navigation button은 row identity에 직접 결속된 installed current original `recipe_nav_ref`만 사용하고 stable `recipe_id`/rule lineage와 target payload를 함께 검증한다. `original_name`은 current 제작 UI filter payload로 사용할 수 있지만 crosswalk identity로 승격하지 않는다.
 - unresolved navigation reference는 다른 Recipe를 추정하지 않는다. control을 disabled/unavailable로 표시하고 machine reason을 기록한다.
 - navigation은 제작 UI를 열고 위치를 맞추는 current behavior까지만 유지하며 crafting을 실행하지 않는다.
 
@@ -718,68 +719,70 @@ item 전환, locale refresh와 detail rebuild가 이전 item의 dense/query/row 
 - header/Source count가 긴 localized text에서도 control을 덮지 않는지 manual in-game PZ UI에서 확인한다.
 - 모든 PZ locale 지원은 claim하지 않는다.
 
-### Change 9 — Gate generated Layer 4 changes through IAR Derived Generation Adoption
+### Change 9 — Gate generated Layer 4 changes through a Layer 4-specific complete-generation and safe-install contract
 
 **Purpose**
 
-Recipe stable-ID/lineage, requirement localization 또는 label/schema 변경이 IAR-managed Layer 4 generated artifact를 바꾸는 경우, validated candidate를 current generation으로 곧바로 취급하지 않고 IAR lifecycle을 완결한다.
+Recipe stable-ID/lineage, requirement localization 또는 label/schema 변경이 Layer 4 generated artifact를 바꾸는 경우, validated candidate를 current generation으로 곧바로 취급하지 않는다. QG/Layer 4 owner가 승인한 별도 complete-generation/stateless-validation/safe-install contract가 있어야 한다.
 
 **Files**
 
-- `Iris/build/description/v2/tools/build/validate_layer4_derived_generation_adoption.py` (new)
+- `Iris/build/description/v2/tools/build/validate_layer4_complete_generation_install.py` (new; 별도 owner decision 뒤에만)
 - `Iris/build/description/v2/tools/build/build_iris_recipe_index_data.py`
 - `Iris/build/convert_descriptions_to_lua.py`
 - `Iris/media/lua/client/Iris/Data/IrisRecipeIndexData.lua`
 - `Iris/build/tools/pipeline/build_recipe_requirements_index.py`
 - `Iris/media/lua/client/Iris/Data/UseCaseDescriptions/**`
 - `Iris/media/lua/client/Iris/Data/IrisUseCaseLabelMap.lua`
-- `Iris/media/lua/client/Iris/Data/IrisTranslationData.lua` (IAR classification preflight 대상)
-- `Iris/_docs/authority/iris_current_authority_manifest.json` (read-only classification/navigation input; 독립 authority로 사용하지 않음)
-- `Iris/build/description/v2/staging/iris_layer4_adaptive_interaction_density_presentation/**` (candidate/identity/adoption evidence)
+- `Iris/media/lua/client/Iris/Data/IrisTranslationData.lua` (generated-path census 대상)
+- `Iris/_docs/authority/iris_current_authority_manifest.json` (retained governance classification input; product authority가 아님)
+- `Iris/build/description/v2/staging/iris_layer4_adaptive_interaction_density_presentation/**` (candidate/identity/install evidence)
 
 **Implementation Notes**
 
-- 먼저 declared generated path의 before/after hash와 IAR role/classification을 조사한다.
-- **No-mutation branch:** IAR-managed Layer 4 generated artifact diff가 없으면 `adoption_not_applicable` report에 exact inspected path/hash set을 기록한다. 이를 IAR adoption PASS라고 부르지 않는다.
+- 먼저 declared generated path의 before/after hash, QG/Layer 4 producer ownership과 retirement consumer census disposition을 조사한다.
+- **No-mutation branch:** Layer 4 generated artifact diff가 없으면 `not_applicable(no_generated_mutation)` report에 exact inspected path/hash set을 기록한다. 이를 install PASS라고 부르지 않는다.
 - **Mutation branch:** 하나라도 diff가 있으면 다음 순서를 강제한다.
 
 ```text
 current QG/source identity
+→ Layer 4 owner decision + exact generation/install contract
 → isolated off-live complete generation A/B
 → A/B byte determinism + schema/completeness/locale validation
 → ordered path/hash complete-generation manifest
 → exact successor identity
-→ Registry-owned IAR Derived Generation Adoption authorization/receipt
-→ atomic current generation installation
-→ post-adoption runtime/package projection validation
+→ authorized fail-closed safe installation
+→ post-install runtime/package projection validation
 ```
 
 - candidate는 current generated path 밖에서 만들고 current QG/source identity, producer/converter identity, policy-seal identity, declared file universe와 ordered file hashes에 결속한다.
+- Layer 4 contract는 canonical inputs, generator/serializer identity, output universe, protected visibility boundary, predecessor check, rollback과 claim token을 자체적으로 정의한다. DVF 3.3 descriptor/installer/single pointer를 자동 재사용하지 않는다.
 - complete generation은 facade/index/requirements/chunks/label/translation 중 declared affected set 전체를 포함한다. partial candidate나 일부 파일만 current로 노출하지 않는다.
-- Recipe fallback migration을 위해 `IrisRecipeIndexData.lua` 또는 QG `recipe_nav_ref`에 stable `recipe_id`/rule-lineage field를 추가해야 하는 경우도 generated-dependent scope로 분류하고 이 mutation branch를 거친다. adoption 전 current runtime에서 그 field를 가정하거나 Recipe fallback removal을 활성화하지 않는다.
-- regeneration, candidate validation, package PASS는 각각 adoption이 아니다.
-- Derived Generation Adoption은 current QG source authority나 use-case 의미를 수정하지 않는다.
-- Registry-owned writer authorization과 adoption receipt 전에는 current generated/runtime/package path에 candidate를 설치하지 않는다.
-- adoption transaction은 predecessor exact path/hash snapshot, atomic install order, post-apply validation과 automatic rollback contract를 가진다.
-- current IAR contract에서 authorized adoption path/writer를 발견할 수 없거나 새 protected path authorization이 필요하면 mutation branch를 `blocked`로 종료한다. 임의 adoption receipt나 current descriptor를 만들지 않는다.
-- 이 계획은 Gate 3 PASS 뒤 IAR-blocked branch에서만 **B 방향**을 채택한다: generated-artifact-dependent scope는 `deferred`, exact mutation-independent scope는 별도 subject로만 계속하며 overall closeout은 `partial`이다. Gate 3 failure의 strict A와 혼동하지 않는다.
-  - generated-dependent scope: current generated Recipe stable-ID/lineage 또는 localized requirement/label/translation payload에 diff가 필요한 Change 3/8 부분, Recipe fallback removal, adopted-generation runtime/package claim.
+- Recipe fallback migration을 위해 `IrisRecipeIndexData.lua` 또는 QG `recipe_nav_ref`에 stable `recipe_id`/rule-lineage field를 추가해야 하는 경우도 generated-dependent scope로 분류하고 이 mutation branch를 거친다. safe install 전 current runtime에서 그 field를 가정하거나 Recipe fallback removal을 활성화하지 않는다.
+- regeneration, candidate validation, package PASS는 각각 current installation이 아니다.
+- generated installation은 current QG source authority나 use-case 의미를 수정하지 않는다.
+- exact owner decision, validated complete generation과 authorized installer 전에는 current generated/runtime/package path에 candidate를 설치하지 않는다.
+- installer는 predecessor exact identity, partial/mixed rejection, post-apply validation과 rollback contract를 가진다. same-generation 재적용은 protected mutation 0의 no-op이어야 한다.
+- authorized Layer 4 contract/writer가 없거나 새 protected path authorization이 필요하면 mutation branch를 `blocked`로 종료한다. 임의 receipt/current descriptor를 만들거나 DVF 3.3 installer를 재사용하지 않는다.
+- 이 계획은 Gate 3 PASS 뒤 Layer 4 install-contract-blocked branch에서만 **B 방향**을 채택한다: generated-artifact-dependent scope는 `deferred`, exact mutation-independent scope는 별도 subject로만 계속하며 overall closeout은 `partial`이다. Gate 3 failure의 strict A와 혼동하지 않는다.
+  - generated-dependent scope: current generated Recipe stable-ID/lineage 또는 localized requirement/label/translation payload에 diff가 필요한 Change 3/8 부분, Recipe fallback removal, installed-generation runtime/package claim.
   - mutation-independent continuation은 one status-bearing lookup과 legacy `useCases` compatibility projection처럼 current public presentation output을 바꾸지 않고 generated candidate field를 읽지 않는 내부 범위로 제한한다. validator/test/staging evidence는 계속할 수 있다.
   - Changes 3~8/10의 adaptive projection, Source count, disclosure/search/state/scroll UI와 Recipe fallback cutover는 하나의 projection-dependent 묶음으로 모두 deferred한다. 일부만 current 설치해 QG + legacy Recipe mixed presentation을 만들지 않는다.
-  - partial branch에서는 existing renderer와 Recipe presentation fallback의 exact hash/behavior를 유지하고, QG-only Recipe authority, adaptive density UI, lossless Recipe cutover, full KO/EN requirement localization, adopted-current/package 또는 overall `complete`를 claim하지 않는다.
+  - partial branch에서는 existing renderer와 Recipe presentation fallback의 exact hash/behavior를 유지하고, QG-only Recipe authority, adaptive density UI, lossless Recipe cutover, full KO/EN requirement localization, installed-current/package 또는 overall `complete`를 claim하지 않는다.
   - partial implementation/evidence는 staging closeout에만 기록한다. full target과 다른 partial behavior를 `DECISIONS.md`/`ARCHITECTURE.md`/`ROADMAP.md`의 완료 상태로 canonical promotion하지 않는다.
-- adoption 뒤 package validation은 adopted exact generation을 입력으로 사용한다. off-live candidate package PASS를 adopted current package evidence로 재사용하지 않는다.
+- installation 뒤 package validation은 installed exact generation을 입력으로 사용한다. off-live candidate package PASS를 current package evidence로 재사용하지 않는다.
 
 **Validation**
 
-- no-mutation fixture는 adoption N/A와 current generated path mutation 0을 증명한다.
+- no-mutation fixture는 `not_applicable(no_generated_mutation)`과 current generated path mutation 0을 증명한다.
 - mutation fixture는 candidate A/B hash parity, complete declared file set, source/policy/producer identity binding과 partial-generation rejection을 검사한다.
-- exact successor manifest와 adoption receipt의 path/hash/transaction identity가 일치하는지 검사한다.
-- adoption receipt가 없거나 stale하면 runtime/package projection 진입이 차단되는지 검사한다.
+- exact successor manifest와 owner-approved install subject의 path/hash/generation identity가 일치하는지 검사한다.
+- Layer 4 owner decision/install contract가 없거나 stale하면 runtime/package projection 진입이 차단되는지 검사한다.
 - unavailable writer/path fixture에서 projection-dependent scope 전체가 deferred되고 existing renderer/Recipe fallback hash가 유지되며, mutation-independent subject manifest 밖 current diff와 mixed projection row가 0이고 overall closeout이 `partial`인지 검사한다.
-- blocked/partial branch가 QG-only Recipe cutover, full KO/EN requirement localization, adopted-current/package 또는 canonical-complete claim을 내지 못하는지 claim guard로 검사한다.
+- blocked/partial branch가 QG-only Recipe cutover, full KO/EN requirement localization, installed-current/package 또는 canonical-complete claim을 내지 못하는지 claim guard로 검사한다.
 - injected install/post-apply failure에서 predecessor generation이 복구되고 failed successor가 current로 남지 않는지 검사한다.
-- `regeneration != adoption`, `package PASS != adoption`, `adoption != QG semantic mutation` claim guards를 검사한다.
+- same-generation reapply의 protected mutation count가 0인지 검사한다.
+- `regeneration != installation`, `package PASS != installation`, `installation != QG semantic mutation`, `DVF 3.3 successor != Layer 4 install authority` claim guards를 검사한다.
 
 ### Change 10 — Support normalized external rows and reject raw inference
 
@@ -854,15 +857,15 @@ projection의 수학적 completeness, standalone Lua state, PZ Kahlua runtime be
 
 **Implementation Notes**
 
-- **Change 12-a — staging text:** sealed policy identity, `recipe_only` category/responsibility, exact `L4-RAT-08` disposition, `qg_only`/`qg_recipe_only` 신규 노출, exact code/generated candidate 또는 adopted generation, validation ceiling과 proposed top-doc patches를 staging packet/closeout에 기록한다. 이 단계에서는 top documents를 쓰지 않는다.
+- **Change 12-a — staging text:** sealed policy identity, `recipe_only` category/responsibility, exact `L4-RAT-08` disposition, `qg_only`/`qg_recipe_only` 신규 노출, exact code/generated candidate 또는 installed current generation, validation ceiling과 proposed top-doc patches를 staging packet/closeout에 기록한다. 이 단계에서는 top documents를 쓰지 않는다.
 - staging `DECISIONS.md` patch에는 owner-sealed threshold, runtime projection ownership, Source-only grouping, identity-set completeness, fixed base order, Tooltip exclusion proposal를 담는다.
 - staging `ARCHITECTURE.md` patch에는 `QG sealed lines -> one status-bearing lookup -> legacy/useCases projection + private presentation projection -> Browser density renderer` 흐름을 담는다.
-- staging `ROADMAP.md` patch에는 구현/validation/adoption 상태, remaining limits와 `Base.Tongs`의 roadmap 32건을 planning-time snapshot으로 정정하는 additive note를 담는다. current exact count는 source parity로 계속 계산한다.
-- exact implementation, evidence, conditional IAR adoption receipt와 세 staging patches를 하나의 review subject manifest로 path/hash 결속한다.
+- staging `ROADMAP.md` patch에는 구현/validation/installation 상태, remaining limits와 `Base.Tongs`의 roadmap 32건을 planning-time snapshot으로 정정하는 additive note를 담는다. current exact count는 source parity로 계속 계산한다.
+- exact implementation, evidence, conditional Layer 4 generation/install decision과 세 staging patches를 하나의 review subject manifest로 path/hash 결속한다.
 - coauthor/self-review는 independent review를 충족하지 않는다. eligible independent reviewer의 verdict를 별도 artifact로 결속한다.
 - **Change 12-b — canonical promotion:** independent review PASS와 owner-supplied canonical seal이 exact subject manifest에 결속된 경우에만 `DECISIONS.md`, `ARCHITECTURE.md`, `ROADMAP.md`에 additive write를 수행한다.
-- Change 9의 Gate 3 PASS 후 IAR-blocked partial branch에서는 non-public mutation-independent implementation과 deferred projection-dependent scope를 staging closeout에만 기록하고 Change 12-b를 실행하지 않는다. full target과 다른 partial behavior를 canonical 완료 결정으로 봉인하지 않는다.
-- implementation/machine validation/IAR adoption 완료는 owner canonical seal이나 canonical write 완료를 함의하지 않는다.
+- Change 9의 Gate 3 PASS 후 Layer 4 install-contract-blocked partial branch에서는 non-public mutation-independent implementation과 deferred projection-dependent scope를 staging closeout에만 기록하고 Change 12-b를 실행하지 않는다. full target과 다른 partial behavior를 canonical 완료 결정으로 봉인하지 않는다.
+- implementation/machine validation/generated installation 완료는 owner canonical seal이나 canonical write 완료를 함의하지 않는다.
 - `docs/iris_item_page_information_sufficiency_plan.md`의 assessment authority, Layer 3/4 sufficiency claim과 합치거나 대체하지 않는다.
 - validation evidence, independent review 또는 owner seal이 없는 상태에서 해당 축의 완료 표시를 하지 않는다.
 
@@ -917,7 +920,7 @@ powershell -ExecutionPolicy Bypass -File .\Iris\test\run_pz_core_refactor_harnes
 
 이 명령이 실제 PZ executable을 찾지 못하거나 부팅하지 못하면 PZ runtime axis는 BLOCKED다. standalone/mock Lua 결과를 대신 `PZ runtime PASS`라고 기록하지 않는다.
 
-`V6` — adopted current generation 또는 no-generated-mutation implementation subject를 external temp root에 투영하는 disposable package 명령:
+`V6` — safely installed current generation 또는 no-generated-mutation implementation subject를 external temp root에 투영하는 disposable package 명령:
 
 ```powershell
 $repositoryRoot = (Resolve-Path '.').Path
@@ -930,14 +933,14 @@ JS/TS와 Java/Gradle 파일은 이 계획 범위에 없다. 해당 파일이 실
 
 | Execution path | Required commands/evidence | `not_applicable(no_subject)` | Closeout rule |
 |---|---|---|---|
-| Pre-seal / Gate 3 `BLOCKED` (current default) | `V1`; fresh capability/Recipe census·disjoint taxonomy·deterministic replay와 declared pre-seal no-current-mutation manifest만 required | `V2`: Change 2 subject 없음; `V3`: controlled current-denominator 변경 subject 없음; `V4`: current Lua change 없음; `V5`: 신규 production/dev harness module 및 adaptive runtime subject 없음; `V6`: adopted/no-mutation implementation projection subject 없음 | required evidence가 PASS여도 plan closeout은 `blocked`; `L4-RAT-08` packet은 허용 산출물이지만 owner response는 validation PASS 전제 아님; 나머지를 PASS로 주장하지 않음 |
-| Gate 3 PASS 후 full implementation | `V1`, `V2`, `V3`, `V4`, `V5`, `V6`; applicable manual matrix와 IAR branch evidence | 없음 | 하나라도 missing/non-zero면 해당 axis `BLOCKED`/`FAIL`; full `complete` 불가 |
-| Gate 3 PASS 후 IAR writer/path `BLOCKED` partial | `V1`, `V2`, `V3`, `V4`; projection-dependent diff 0, existing renderer/fallback hash 보존과 partial subject manifest | `V5`: adaptive production/dev harness가 current 설치되지 않음; `V6`: adopted current generation/package projection 없음 | `partial`만 가능; `V5`/`V6` N/A를 runtime/package PASS로 바꾸지 않음 |
+| Pre-seal / Gate 3 `BLOCKED` (current default) | `V1`; fresh capability/Recipe census·disjoint taxonomy·deterministic replay와 declared pre-seal no-current-mutation manifest만 required | `V2`: Change 2 subject 없음; `V3`: controlled current-denominator 변경 subject 없음; `V4`: current Lua change 없음; `V5`: 신규 production/dev harness module 및 adaptive runtime subject 없음; `V6`: installed/no-mutation implementation projection subject 없음 | required evidence가 PASS여도 plan closeout은 `blocked`; `L4-RAT-08` packet은 허용 산출물이지만 owner response는 validation PASS 전제 아님; 나머지를 PASS로 주장하지 않음 |
+| Gate 3 PASS 후 full implementation | `V1`, `V2`, `V3`, `V4`, `V5`, `V6`; applicable manual matrix와 Layer 4 generation/install branch evidence | 없음 | 하나라도 missing/non-zero면 해당 axis `BLOCKED`/`FAIL`; full `complete` 불가 |
+| Gate 3 PASS 후 Layer 4 contract/writer `BLOCKED` partial | `V1`, `V2`, `V3`, `V4`; projection-dependent diff 0, existing renderer/fallback hash 보존과 partial subject manifest | `V5`: adaptive production/dev harness가 current 설치되지 않음; `V6`: installed current generation/package projection 없음 | `partial`만 가능; `V5`/`V6` N/A를 runtime/package PASS로 바꾸지 않음 |
 
-- path selection report는 Gate 3 result, exact subject manifest hash와 IAR branch result를 기록하며 사람이 명령을 임의로 required/N/A 전환하지 못하게 한다.
+- path selection report는 Gate 3 result, exact subject manifest hash와 Layer 4 generation/install branch result를 기록하며 사람이 명령을 임의로 required/N/A 전환하지 못하게 한다.
 - Gate 3 blocked 경로의 `V1`은 census/taxonomy와 no-current-mutation manifest 중 하나라도 absent/stale이면 non-zero로 종료한다. 별도 runtime implementation이 없다는 이유로 이 required evidence를 생략하지 않는다.
 - `V5`가 required인 full path에서 실제 PZ executable/harness를 찾지 못하면 PZ runtime axis는 `BLOCKED`다. `V5`가 `not_applicable(no_subject)`인 blocked/partial path에서는 실행 대상 부재를 실패나 PASS로 바꾸지 않는다.
-- Manual Validation 12건은 full implementation path에서만 required다. Gate 3 blocked와 IAR partial path에는 adaptive UI current subject가 없으므로 `not_applicable(no_subject)`이며, 선택적 baseline 확인을 수행해도 full-path manual credit으로 사용하지 않는다.
+- Manual Validation 12건은 full implementation path에서만 required다. Gate 3 blocked와 Layer 4 install-contract partial path에는 adaptive UI current subject가 없으므로 `not_applicable(no_subject)`이며, 선택적 baseline 확인을 수행해도 full-path manual credit으로 사용하지 않는다.
 
 ### Required Automated Scenario Matrix
 
@@ -981,10 +984,11 @@ JS/TS와 Java/Gradle 파일은 이 계획 범위에 없다. 해당 파일이 실
 | raw external text | semantic inference 0 |
 | detail shrink | scroll bound/clamp 정상 |
 | policy authority parity | offline/runtime threshold와 Source order 동일 |
-| generated no-mutation | IAR adoption N/A 근거와 current generated mutation 0 |
-| generated mutation | complete successor identity + IAR adoption receipt 전 runtime/package 진입 금지 |
-| IAR writer/path blocked after Gate 3 PASS | projection-dependent Changes 3~8/10 deferred, existing renderer/fallback 유지, non-public mutation-independent subject만 진행, overall `partial`, mixed/full/canonical claim 금지 |
-| validation path selection | Gate 3/IAR result에 따라 V1~V6 required/N/A set 고정; N/A를 PASS/BLOCKED 또는 arbitrary omission으로 처리하지 않음 |
+| generated no-mutation | `not_applicable(no_generated_mutation)` 근거와 current generated mutation 0 |
+| generated mutation | Layer 4 owner decision + complete successor identity + authorized safe install 전 runtime/package 진입 금지 |
+| Layer 4 contract/writer blocked after Gate 3 PASS | projection-dependent Changes 3~8/10 deferred, existing renderer/fallback 유지, non-public mutation-independent subject만 진행, overall `partial`, mixed/full/canonical claim 금지 |
+| cross-layer generalization rejection | DVF 3.3 successor를 Layer 4 installer/descriptor authority로 자동 재사용하지 않음 |
+| validation path selection | Gate 3/Layer 4 install result에 따라 V1~V6 required/N/A set 고정; N/A를 PASS/BLOCKED 또는 arbitrary omission으로 처리하지 않음 |
 | canonical promotion | review/owner seal subject와 canonical diff exact parity |
 
 ### Manual Validation
@@ -1027,7 +1031,7 @@ JS/TS와 Java/Gradle 파일은 이 계획 범위에 없다. 해당 파일이 실
 - capability/recipe-index fallback의 presentation 역할 제거는 audited structured crosswalk와 결합 gate를 통과한 exact subject에서만 수행하며 public API는 유지한다.
 - `qg_absent`와 `qg_decided_no`는 technical identity plumbing failure와 분리된 owner-reserved legacy-row disposition이다. planning `qg_absent=0`이지만 fresh census drift에 같은 판단 표면이 필요하므로 `L4-RAT-08`을 조건부로 함께 적용한다. 이는 QG Evidence/decision authority를 Browser나 구현자에게 이전하지 않는다.
 - Source-only grouping과 threshold proposal은 owner policy seal 전 current policy가 아니다. seal 뒤에도 UI policy이며 semantic authority가 아님을 문서와 code boundary로 고정한다.
-- generated Layer 4 mutation이 있으면 IAR Derived Generation Adoption과 exact successor identity를 만진다.
+- generated Layer 4 mutation이 있으면 Layer 4-specific generation/install decision, exact successor identity와 protected installation surface를 만진다.
 - canonical top-document write는 independent review와 owner canonical seal 뒤에만 수행한다.
 
 ### Runtime
@@ -1051,8 +1055,8 @@ JS/TS와 Java/Gradle 파일은 이 계획 범위에 없다. 해당 파일이 실
 - QG semantic output, evidence와 decision을 재판정하지 않는다.
 - requirement locale payload가 필요하면 current producer를 통한 additive schema로만 생성한다.
 - generated Lua를 직접 수작업으로 고치지 않는다.
-- producer regeneration, disposable report/package와 IAR current adoption을 분리한다.
-- partial generation은 current로 노출하지 않고, mutation branch는 off-live complete candidate → exact successor → Registry-owned adoption receipt 순서를 따른다.
+- producer regeneration, disposable report/package와 current safe installation을 분리한다.
+- partial generation은 current로 노출하지 않고, mutation branch는 Layer 4 owner decision → off-live complete candidate → exact successor → authorized safe installation 순서를 따른다.
 
 ### Public-Facing Output
 
@@ -1077,7 +1081,8 @@ JS/TS와 Java/Gradle 파일은 이 계획 범위에 없다. 해당 파일이 실
 - `label_key`를 영구 public contract로 과도하게 승격할 위험이 있다. current generator contract와 private identity 사용 범위를 문서에 명시한다.
 - 향후 `surface=both`가 생길 때 자동으로 임의 Source에 넣을 위험이 있다. 현 버전에서는 fail-closed하고 multi-membership policy를 별도 결정하게 한다.
 - UI policy를 sealed semantic artifact로 만들면 offline/runtime 책임이 중복된다. threshold와 disclosure는 runtime presentation constant로 유지한다.
-- generated candidate validation을 IAR adoption으로 오독하거나 canonical staging patch를 current decision으로 오독할 수 있다. adoption receipt와 owner canonical seal을 각각 별도 gate로 둔다.
+- generated candidate validation을 current installation으로 오독하거나 canonical staging patch를 current decision으로 오독할 수 있다. Layer 4 owner-approved install subject와 owner canonical seal을 각각 별도 gate로 둔다.
+- DVF 3.3 successor를 generic artifact installer로 오독할 수 있다. Retirement consumer census의 non-Layer3 migration `0`과 Layer 4-specific owner decision을 hard gate로 둔다.
 
 ### Runtime Risk
 
@@ -1098,8 +1103,8 @@ JS/TS와 Java/Gradle 파일은 이 계획 범위에 없다. 해당 파일이 실
 - recipe name dedupe 제거로 row 수가 늘어날 수 있다. 이는 stable identity를 보존하는 의도된 변화이며 source identity parity로 판정한다.
 - requirement locale schema 변경이 package artifact와 converter test를 깨뜨릴 수 있다. additive field와 disposable package parity를 사용한다.
 - locale로 표현할 수 없는 requirement가 다른 언어 raw string으로 silent fallback할 수 있다. row-local unavailable 상태로 fail closed한다.
-- generated schema 변경이 validation 뒤 current path로 바로 복사될 수 있다. conditional IAR adoption 전 current/runtime/package write를 금지한다.
-- Gate 3 failure의 `blocked`와 Gate 3 PASS 뒤 IAR writer/path failure의 `partial`이 혼동될 수 있다. 전자는 Change 2 이후 mutation 0, 후자는 non-public mutation-independent subject만 허용하는 별도 manifest로 구분한다.
+- generated schema 변경이 validation 뒤 current path로 바로 복사될 수 있다. authorized Layer 4 safe install 전 current/runtime/package write를 금지한다.
+- Gate 3 failure의 `blocked`와 Gate 3 PASS 뒤 Layer 4 contract/writer failure의 `partial`이 혼동될 수 있다. 전자는 Change 2 이후 mutation 0, 후자는 non-public mutation-independent subject만 허용하는 별도 manifest로 구분한다.
 - Browser fallback WikiPanel은 fixed-size이므로 dense behavior가 동일하지 않다. normal Browser 경로를 primary claim으로 제한하고 fallback은 회귀/안전성만 검증한다.
 
 ### Regression Risk
@@ -1123,9 +1128,9 @@ rollback 단위는 presentation layer와 private status/projection의 additive �
 2. 새 density renderer, search/state/policy module과 translation key 사용을 되돌린다.
 3. `IrisBrowserInteractionRenderer.lua`를 이전 flat deterministic section renderer로 복구한다.
 4. private ViewModel/status fields는 caller가 없으면 제거하고 public UseCases facade는 계속 유지한다.
-5. Recipe crosswalk/adoption gate가 통과하지 않았으면 current recipe connection/index fallback을 유지하거나 복구하며, legacy-only row를 fault/empty로 치환하지 않는다.
-6. generated candidate가 IAR adoption 전이면 off-live candidate만 폐기하고 current generation을 건드리지 않는다.
-7. generated successor가 adoption된 뒤 rollback이 필요하면 predecessor exact path/hash snapshot과 adoption transaction의 Registry-owned correction/rollback 절차를 사용한다. adoption receipt와 실패 evidence는 historical trace로 보존한다.
+5. Recipe crosswalk/cutover gate가 통과하지 않았으면 current recipe connection/index fallback을 유지하거나 복구하며, legacy-only row를 fault/empty로 치환하지 않는다.
+6. generated candidate가 authorized installation 전이면 off-live candidate만 폐기하고 current generation을 건드리지 않는다.
+7. generated successor가 설치된 뒤 rollback이 필요하면 predecessor exact path/hash snapshot과 Layer 4 owner-approved installer의 correction/rollback 절차를 사용한다. Install report와 실패 evidence는 historical trace로 보존한다.
 8. canonical promotion 전이면 staging top-doc patch만 수정한다. promotion 뒤 canonical correction이 필요하면 owner-sealed additive correction으로 수행하며 기존 decision/history를 삭제하지 않는다.
 9. syntax, focused acceptance, PZ Kahlua runtime harness와 disposable package validation을 다시 실행한다.
 
@@ -1133,7 +1138,7 @@ rollback 단위는 presentation layer와 private status/projection의 additive �
 
 - QG Evidence와 current use-case decisions
 - Layer 3 body/DVF artifact
-- IAR authority/history
+- retirement closeout, retained governance/history와 inactive Layer 3 predecessor generation
 - unrelated 사용자 변경
 
 interaction omission이나 navigation mismatch가 발견되면 adaptive renderer만 비활성/rollback할 수 있다. fault를 zero로 바꾸거나 source row를 대표 subset으로 줄여 임시 통과시키지 않는다.
@@ -1160,9 +1165,10 @@ interaction omission이나 navigation mismatch가 발견되면 adaptive renderer
 - 새 semantic taxonomy, ranking, representative selection, raw mod inference를 도입하지 않는다.
 - public facade 변경은 additive compatibility를 우선하며 breaking change는 별도 승인 없이는 허용하지 않는다.
 - generated artifact는 authoritative producer를 통해서만 변경한다.
-- authoritative producer의 regeneration/validation은 IAR Derived Generation Adoption이 아니다. IAR-managed diff가 있으면 complete off-live generation, exact successor identity, Registry-owned adoption receipt가 필요하다.
-- Gate 3이 실패하면 Change 2 이후 policy-dependent implementation 전체가 `blocked`다. Gate 3 PASS 뒤 IAR adoption만 blocked인 경우에는 non-public mutation-independent subject만 진행하며 overall closeout은 `partial`이다.
-- machine validation, independent review, owner policy/canonical seal과 IAR adoption은 서로 대체하지 않는다.
+- authoritative producer의 regeneration/validation은 current installation이 아니다. Generated diff가 있으면 Layer 4-specific owner decision, complete off-live generation, stateless validation, exact successor identity와 authorized safe install이 필요하다.
+- DVF 3.3 generation/install contract를 Layer 4로 일반화하지 않는다. Cross-layer reuse는 actual obligation equivalence와 별도 owner decision 없이는 금지한다.
+- Gate 3이 실패하면 Change 2 이후 policy-dependent implementation 전체가 `blocked`다. Gate 3 PASS 뒤 Layer 4 generation/install contract만 blocked인 경우에는 non-public mutation-independent subject만 진행하며 overall closeout은 `partial`이다.
+- machine validation, independent review, owner policy/canonical seal과 generated installation은 서로 대체하지 않는다.
 - canonical top documents는 staging patch → exact subject independent review → owner canonical seal 뒤에만 additive write한다.
 - 이 계획 수정 요청, reviewer verdict 또는 구현 결과에서 owner seal을 추론하지 않는다.
 - 선택된 execution path에서 required인 validation command가 없거나 exit code가 0이 아니면 PASS가 아니라 BLOCKED/FAIL로 보고한다. `not_applicable(no_subject)` command에는 이 규칙을 오적용하지 않는다.
@@ -1203,16 +1209,16 @@ full 완료 시 다음 상태가 모두 성립해야 한다.
 - normalized external row에는 같은 contract를 적용하고 raw external text는 추론하지 않는다.
 - public UseCases facade와 existing Browser/Wiki/Tooltip entry path에 지원 범위 내 회귀가 없다.
 - required Python, Lua syntax, standalone/mock Lua, PZ Kahlua runtime, manual in-game UI와 disposable package 검증 결과가 축별로 기록된다.
-- IAR-managed generated diff가 없으면 adoption N/A 근거가 있고, diff가 있으면 complete successor의 IAR Derived Generation Adoption receipt와 adopted runtime/package identity가 있다.
+- declared generated diff가 없으면 `not_applicable(no_generated_mutation)` 근거가 있고, diff가 있으면 Layer 4-specific owner decision, complete successor, safe-install evidence와 installed runtime/package identity가 있다.
 - exact subject의 eligible independent review와 owner canonical seal 뒤 `DECISIONS.md`, `ARCHITECTURE.md`, `ROADMAP.md`가 실제 구현 상태와 일치한다.
 
 `docs/EXECUTION_CONTRACT.md`의 closeout state를 다음처럼 적용한다.
 
 - owner policy seal이 없어 pre-seal ceiling을 넘지 못하면 `blocked` 또는 실제 수행 범위에 맞는 `partial`이며 구현 완료를 claim하지 않는다.
 - Gate 3이 실패하거나 `L4-RAT-08`이 필요하지만 absent/stale이면 closeout은 `blocked`다. Change 2 이후 policy-dependent current diff, mixed projection과 canonical promotion은 모두 0이어야 한다.
-- code가 구현됐지만 required runtime/manual/adoption/review/seal 축이 남으면 `implemented_only` 또는 `partial`이며 `complete`를 사용하지 않는다.
-- generated mutation branch에서 IAR adoption이 없으면 current runtime/package adoption을 claim하지 않는다.
-- Gate 3 PASS 뒤 authorized IAR writer/path 부재로 mutation branch가 blocked이면 projection-dependent scope를 `deferred`, non-public mutation-independent subject와 overall closeout을 `partial`로 기록하고 adaptive/mixed presentation, Recipe fallback removal, full KO/EN requirement localization, adopted-current/package 및 canonical-complete claim을 하지 않는다.
+- code가 구현됐지만 required runtime/manual/installation/review/seal 축이 남으면 `implemented_only` 또는 `partial`이며 `complete`를 사용하지 않는다.
+- generated mutation branch에서 Layer 4-specific safe installation이 없으면 current runtime/package installation을 claim하지 않는다.
+- Gate 3 PASS 뒤 authorized Layer 4 contract/writer 부재로 mutation branch가 blocked이면 projection-dependent scope를 `deferred`, non-public mutation-independent subject와 overall closeout을 `partial`로 기록하고 adaptive/mixed presentation, Recipe fallback removal, full KO/EN requirement localization, installed-current/package 및 canonical-complete claim을 하지 않는다.
 - independent review 또는 owner canonical seal이 없으면 canonical/sealed closeout이 아니며 top-document promotion 완료를 claim하지 않는다.
 - `complete`는 required gate 전부와 `validated / out_of_scope / unvalidated_but_in_scope` ceiling이 기록되고 `unvalidated_but_in_scope`가 비어 있을 때만 사용할 수 있다.
 
@@ -1233,5 +1239,5 @@ interaction density에 맞는 공개/compact 상태, Source count와 lossless fu
 - performance 개선
 - package publication, deployment, release 또는 Workshop readiness
 - owner seal 없이 proposed contract가 current decision이 됨
-- candidate regeneration/validation 또는 package PASS만으로 IAR current adoption이 됨
+- candidate regeneration/validation 또는 package PASS만으로 current installation이 됨
 - machine PASS 또는 owner seal만으로 independent review가 됨

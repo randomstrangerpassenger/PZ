@@ -2,7 +2,9 @@
 
 Iris Item Page Information Sufficiency
 
-> 2026-08-20 IAR retirement successor amendment: 이 계획에서 역사적 `IAR` role/manifest를 참조하는 문구는 artifact identity의 read-only provenance로만 해석한다. 새 page assessment의 current-route 채택은 Publish Boundary와 repository required-validation owner가 소유하며, 제품 산출물이 필요할 때는 artifact registry adoption이 아니라 해당 Layer producer의 deterministic complete-generation/validation 계약을 사용한다. 이 정정은 assessment 의미나 UI scope를 바꾸지 않는다.
+> 2026-08-20 IAR retirement Walkthrough synchronization: product outcome은 `FULL_RETIREMENT`, Layer 1–5 active product IAR consumer와 residual allowlist는 모두 `0`이다. 동기화 readpoint는 main `c91d8f79`, terminal implementation subject `6f362b5e`, full-gate subject `c924349e`, current generation `dvf33-2a44a0a8d9a2e7f0d9a533ad002b7f691c1bfccec9577fb3356967ec6fd8a00c`다. 실행 시에는 이 값을 영구 상수로 사용하지 않고 `IrisLayer3DataCurrent.lua` pointer와 selected generation descriptor를 다시 읽어 drift를 봉인한다.
+>
+> Layer 3 current identity는 7개 canonical input, content-derived `generation_id`, immutable `IrisLayer3Generations/<generation_id>`와 single pointer로 증명한다. IAR attempt/nonce/receipt/adoption/current descriptor는 제품 입력이 아니다. `iar_` 이름이 남은 도구와 `iris_current_authority_manifest.json`은 closeout에서 허용된 validation/governance/history 역할로만 읽는다. 이 동기화는 assessment 의미나 UI scope를 바꾸지 않으며 RTC PASS, Publish PASS, release readiness 또는 owner-sealed canonical closure를 주장하지 않는다.
 
 ## 1. Objective
 
@@ -33,7 +35,7 @@ Iris의 current vanilla item page 전체를 독립적인 assessment unit으로 �
 - heading과 actual Layer responsibility의 mapping artifact를 남긴다.
 - anchor별 Layer state, reason code, precedence rule과 terminal disposition trace를 남긴다.
 
-policy-dependent Change 2–7은 owner policy ratification 전에는 시작하지 않는다. ratification 전 허용 범위는 current input identity inventory, denominator census, protected-surface hash baseline, anchor recensus와 명시적인 proposal-state policy materialization뿐이다. unratified policy로 evaluator, full assessment, current-route adoption 또는 canonical document successor를 만들지 않는다.
+policy-dependent Change 2–7은 owner policy ratification 전에는 시작하지 않는다. ratification 전 허용 범위는 pointer-selected generation과 Layer 4 current input identity inventory, denominator census, protected-surface hash baseline, anchor recensus와 명시적인 proposal-state policy materialization뿐이다. unratified policy로 evaluator, full assessment, required-route registration 또는 canonical document successor를 만들지 않는다.
 
 owner가 ratify할 단일 목록은 다음 열 항목이다. `IPS-RAT-*` 접두는 review 문서의 `R#` revision ID와 혼동되지 않는 stable policy identifier다.
 
@@ -105,7 +107,7 @@ owner가 ratify할 단일 목록은 다음 열 항목이다. `IPS-RAT-*` 접두�
 - per-item state ledger를 DVF System / QG와 병렬하는 semantic authority로 만들지 않는다.
 - 문자열 길이, 문장 수, category 반복 여부만으로 semantic fact, requiredness 또는 applicability를 확정하지 않는다.
 - Layer 4가 풍부하다는 이유로 Layer 3 known missing을 상쇄하거나 그 반대의 상쇄를 허용하지 않는다.
-- assessment execution PASS를 Public Text Quality PASS, Publish Boundary PASS, Registry Authority PASS, Registry Runtime Compatibility PASS 또는 release readiness로 부르지 않는다.
+- assessment execution PASS를 Public Text Quality PASS, Publish Boundary PASS, retired Registry Authority PASS, Registry Runtime Compatibility PASS 또는 release readiness로 부르지 않는다.
 - information-gap inventory를 자동 수정 backlog나 content authoring 승인으로 승격하지 않는다.
 - 로드맵의 anchor를 item-specific 예외로 하드코딩하지 않는다.
 
@@ -116,8 +118,8 @@ owner가 ratify할 단일 목록은 다음 열 항목이다. `IPS-RAT-*` 접두�
 ### Codebase Inspection Summary
 
 - `Iris/input/items_itemscript.json`은 계획 작성 시 exact case-sensitive FullType `2,285`개를 포함한다. `Base.LemonGrass` / `Base.Lemongrass`처럼 case만 다른 identity가 있으므로 Windows PowerShell의 case-insensitive object materialization을 authoritative reader로 사용하지 않는다.
-- `Iris/build/description/v2/data/dvf_3_3_input_manifest.json`은 current Layer 3 facts / decisions / rendered universe를 `2,105`개로 결속한다.
-- `Iris/build/description/v2/output/dvf_3_3_rendered.json`은 `2,084`개 emitted row와 `21`개 unadopted row를 가진다. ItemScript universe 기준으로는 Layer 3 row가 없는 FullType이 계획 작성 시 `180`개다.
+- retirement 이전 `dvf_3_3_input_manifest.json`은 Layer 3 facts/decisions/rendered universe를 결속했지만 current generation input authority가 아니다. 현재 generation descriptor는 facts, decisions, overlay support, compose profile, identity-hint rules, conflict-precedence rules와 approved upstream `candidate_rendered.json`의 7개 raw-byte identity를 열거한다.
+- 실행 시 `IrisLayer3DataCurrent.lua`가 선택한 generation의 `generation_descriptor.json`과 `dvf_3_3_rendered.json`을 current Layer 3 readpoint로 사용한다. planning-time `2,084` body/`21` legacy unadopted/`180` absent 수치는 다시 census하며 영구 denominator로 사용하지 않는다.
 - `Iris/build/description/v2/data/upstream_usecases_by_fulltype.json`은 `1,606`개 FullType을 포함한다. ItemScript universe의 나머지 `679`개에 output이 없다는 사실은 `not_applicable`의 증거가 아니다.
 - `IrisItemDetailViewModel.fromItem()`은 DisplayName, weight, type/category/subcategory, food / weapon / literature / moveable 정적 사실, Layer 3, recipe connections와 use_case를 하나의 read-only view model로 모은다.
 - current ItemScript snapshot의 field universe와 runtime consumer surface는 동일하지 않다. `IrisWikiSections.renderCoreInfoSection()`은 weight / type / damage / condition / thirst / hunger를 소비하지만 current `items_itemscript.json`은 그중 일부만 보존한다. 따라서 baseline authority는 owner-ratified ItemScript field registry이며 runtime function은 registry coverage / drift cross-check로만 사용한다.
@@ -125,7 +127,7 @@ owner가 ratify할 단일 목록은 다음 열 항목이다. `IPS-RAT-*` 접두�
 - `IrisBrowserItemIndex.build()`은 runtime `getAllItems()`를 전수 인덱싱하므로 Browser는 static quality-filtered 목록이 아니다. 이 계획의 전수 denominator는 재현 가능한 vanilla offline snapshot이며 runtime 외부 모드 universe 전체를 대표하지 않는다.
 - runtime Layer 3는 `layer3_renderer.lua`가 current chunk lookup을 읽고 text가 없으면 침묵한다. runtime은 requiredness나 sufficiency를 판정하지 않는다.
 - runtime Layer 4 chunk는 positive `lines`와 `exclusion_lines`를 분리한다. evaluator는 `decision=PASS`에 결속된 positive evidence와 실제 public representation만 contribution으로 계산하고 exclusion을 positive information이나 `not_applicable` 증거로 계산하지 않는다.
-- reusable public-text evaluator는 `iar_public_text_assessment.py`에서 subject finding과 technical failure를 분리하고, runner / read-only validator / canonical JSON hash / deterministic replay 패턴을 제공한다. 새 evaluator는 이 infrastructure pattern을 재사용하되 public-text metric이나 PASS를 가져오지 않는다.
+- `iar_public_text_assessment.py`는 역사적 이름과 무관하게 retained validation utility로만 취급한다. 새 evaluator는 subject finding/technical failure 분리, runner/read-only validator, canonical JSON hash와 deterministic replay pattern만 재사용하며 stateful lifecycle, public-text metric 또는 PASS를 가져오지 않는다.
 - 현재 두 anchor는 로드맵 작성 시점의 결함을 그대로 나타내지 않는다.
   - `Base.223BulletsMold`의 current rendered text는 탄약 주조 용도와 제작 경로를 포함하고, current Layer 4에는 positive Recipe use_case가 있다.
   - `Base.Tongs`의 current rendered text는 금속 단조 용도와 제작 경로를 포함하고, current Layer 4에는 다수의 positive Recipe use_case가 있다.
@@ -143,11 +145,11 @@ owner가 ratify할 단일 목록은 다음 열 항목이다. `IPS-RAT-*` 접두�
 
 - Layer 3 semantic production은 DVF System / DVF Body Compiler가 계속 소유한다.
 - Layer 4 interaction-information production은 QG가 계속 소유한다.
-- IAR은 artifact role / lifecycle / authority / identity를 관리하며 page assessment가 producer responsibility를 흡수하지 않게 한다.
+- Layer 3 artifact identity는 stateless generation contract/validator와 pointer-selected immutable generation이 증명한다. Page assessment는 이를 read-only로 소비하며 DVF producer, installer 또는 package responsibility를 흡수하지 않는다.
 - Page assessment result는 Publish Boundary component evidence이며 자체 bare acceptance authority가 아니다.
 - owner ratification 전에 `IPS-RAT-01`~`IPS-RAT-10` 중 어느 항목도 current authority로 채택하지 않고 read-only preflight ceiling을 넘지 않는다.
 - Layer 3 / 4 states는 current producer provenance에서 파생한다. exception ledger는 assessment routing 기록이며 `authority_effect=none`, `semantic_production=false`다.
-- current authority에는 world-level closed-negative provider가 없다고 가정한다. 그 provider가 별도 adoption되기 전에는 evaluator가 `not_applicable`을 생성하지 않는다.
+- current authority에는 world-level closed-negative provider가 없다고 가정한다. 그 provider가 별도 owner decision과 exact source identity로 승인되기 전에는 evaluator가 `not_applicable`을 생성하지 않는다.
 - machine result, independent review와 owner seal은 서로 대체하지 않는다.
 
 ---
@@ -171,7 +173,7 @@ owner가 ratify할 단일 목록은 다음 열 항목이다. `IPS-RAT-*` 접두�
 - `Iris/media/lua/client/Iris/UI/Tooltip/IrisTooltipSummary.lua`
 - `Iris/media/lua/client/Iris/UI/Browser/IrisBrowserItemIndex.lua`
 - `Iris/media/lua/client/Iris/Data/layer3_renderer.lua`
-- `Iris/build/description/v2/tools/build/iar_public_text_assessment.py`
+- `Iris/build/description/v2/tools/build/iar_public_text_assessment.py` (retained validation utility; product IAR authority 없음)
 
 ### Docs
 
@@ -193,7 +195,7 @@ owner가 ratify할 단일 목록은 다음 열 항목이다. `IPS-RAT-*` 접두�
 - `Iris/build/description/v2/data/item_page_information_sufficiency/layer4_state_derivation_contract.json` (new)
 - `Iris/build/description/v2/data/item_page_information_sufficiency/state_exception_ledger.jsonl` (new)
 - `Iris/build/description/v2/data/item_page_information_sufficiency/representative_cases.json` (new)
-- `Iris/_docs/authority/iris_current_authority_manifest.json` (새 policy input과 generated evidence 역할을 additive하게 분류)
+- `Iris/_docs/authority/iris_current_authority_manifest.json` (retained repository-governance container로서 새 policy input/evidence 역할만 additive하게 분류)
 - `Iris/_docs/round3/current_route_required_validations.json` (policy adoption 후 별도 owner의 required validation으로 추가)
 
 ### Generated Artifacts
@@ -238,7 +240,7 @@ Implementation Notes:
 
 - denominator는 `items_itemscript.json`의 exact case-sensitive FullType set으로 materialize하고 input byte hash, sorted-key hash, row count를 함께 봉인한다.
 - Layer 3 `2,105`, Layer 4 `1,606` 같은 planning-time subset count와 set difference를 inventory에 기록하되 이를 자동 missing / not-applicable 판정으로 사용하지 않는다.
-- source / rendered / runtime / staging / diagnostic / historical role을 IAR manifest와 current top-level docs 기준으로 분리한다.
+- source/rendered/runtime/staging/diagnostic/historical role을 retirement `closeout.json`, `obligation_disposition.jsonl`, pointer-selected generation descriptor와 current top-level docs 기준으로 분리한다. `iris_current_authority_manifest.json`은 retained governance classification만 제공하고 product lifecycle authority가 아니다.
 - baseline registry는 `items_itemscript.json`에 실제 존재하는 field만 exact name / type / null semantics / normalization rule과 함께 열거하고 owner가 registry hash를 ratify한다. `DisplayName`은 identity baseline으로 별도 표기한다. contract에는 이 registry가 actual vanilla Layer 1의 하한이며 미보존 runtime field가 `information_sufficient` 방향의 편향을 만들 수 있다는 `lower_bound_bias` limitation을 기록한다.
 - `IrisItemDetailViewModel` / `IrisWikiSections.renderCoreInfoSection()`은 baseline source가 아니라 consumer cross-check다. runtime-only field 또는 ItemScript에 없는 field를 registry에 자동 추가하지 않는다.
 - cross-check는 ItemScript registry에는 없지만 runtime consumer가 표시할 수 있는 drift field, 해당 field의 observable source, 영향을 받을 수 있는 item family와 영향 방향을 `baseline_runtime_drift_report.json`에 기록한다. 최소 family 분류에는 food / weapon이 포함되며 확인되지 않은 item별 runtime 값을 생성하지 않는다.
@@ -383,10 +385,10 @@ Files:
 
 Implementation Notes:
 
-- evaluator는 existing IAR public-text evaluator의 canonical hashing, subject / technical failure 분리, runner / validator separation과 no-write validation pattern만 재사용한다.
+- evaluator는 retained public-text validation utility의 canonical hashing, subject/technical failure 분리, runner/validator separation과 no-write validation pattern만 재사용한다. 역사적 `iar_` 파일명에서 lifecycle 권한을 추론하지 않는다.
 - evaluator는 `IPS-RAT-01`~`IPS-RAT-10` ratification record, `ratification_state=ratified`와 exact policy / baseline / derivation contract hashes가 없으면 실행을 거부한다.
 - public-text metric, PASS, waiver, denominator 또는 human-review 결과를 page sufficiency input으로 재사용하지 않는다.
-- default input은 current authority path를 contract에서 명시하고 각 파일의 raw SHA-256, schema / row count와 set identity를 검증한다.
+- default input은 `IrisLayer3DataCurrent.lua` pointer, selected `IrisLayer3Generations/<generation_id>/generation_descriptor.json`, 그 generation의 rendered/runtime universe와 Layer 4 producer identity를 contract에 명시한다. 7개 canonical input, output universe, raw SHA-256, schema/row count와 set identity를 검증한다.
 - source facts, rendered Layer 3, Layer 4 structured use_case / requirements, public description / runtime projection identity를 분리해 로드한다.
 - assessment row는 최소한 `fulltype`, input identities, baseline registry/hash와 observation, producer별 `artifact_set_materialization`, Layer 3 fact availability / contribution / requiredness / representation / provenance / reasons, Layer 4 fact availability / applicability / representation / scope limitation / provenance / reasons, exception-routing state, applied precedence rule, page disposition / reasons와 scope limitations를 포함한다.
 - result ordering은 exact case-sensitive FullType 순서, object serialization은 canonical JSON, JSONL은 LF / UTF-8로 고정한다.
@@ -472,7 +474,7 @@ Validation:
 
 ---
 
-### Change 7 — Current Route Adoption, Independent Review and Top-Level Closure
+### Change 7 — Required-Route Registration, Independent Review and Top-Level Closure
 
 Purpose:
 
@@ -492,7 +494,7 @@ Files:
 
 Implementation Notes:
 
-- required-validation entry는 `Publish Boundary / Item Page Information Sufficiency evidence` owner를 명시하고 DVF System / QG / IAR semantic responsibility로 귀속하지 않는다.
+- required-validation entry는 `Publish Boundary / Item Page Information Sufficiency evidence` owner를 명시하고 DVF System, QG, stateless generation/installer 또는 package semantic responsibility로 귀속하지 않는다.
 - canonical successor subject manifest는 policy / baseline / derivation contract, evaluator source, input / result와 함께 `current_route_required_validations.json`, `iris_current_authority_manifest.json`, `DECISIONS.md`, `ARCHITECTURE.md`, `ROADMAP.md`의 이 workstream additive successor entry identity를 포함한다.
 - shared governance file 결속 단위는 전체-file raw hash가 아니라 exact additive entry다. JSON은 stable `entry_id`로 선택한 canonical object hash, Markdown은 unique start / end marker로 경계 지은 canonical UTF-8 segment hash를 사용한다. manifest에는 path, entry ID, selector / boundary rule, entry hash와 freeze 시 container raw hash를 함께 기록하되 staleness gate는 entry identity에 적용한다.
 - bound entry의 내용 변경, 삭제, duplicate ID 또는 경계 ambiguity는 review / seal을 stale 처리한다. bound entry 밖의 unrelated additive edit는 container raw hash drift로 보고하되 entry hash가 그대로면 이 workstream review / seal을 무효화하지 않는다.
@@ -504,7 +506,7 @@ Implementation Notes:
 - `DECISIONS.md` additive entry와 `ROADMAP.md` Hold에는 다음 regression guard를 직접 기록한다: all-item universe를 모든 item의 독립 장문 Layer 3 authoring 의무로 해석하지 않으며, disposition distribution을 content authoring / extraction expansion / Evidence Allowlist expansion / taxonomy repartition 승인으로 해석하지 않는다.
 - `ROADMAP.md`에는 full assessment의 실제 disposition 분포, gap inventory의 후속 remediation 비승인과 remaining next gate만 요약한다.
 - independent review / owner seal 이후 다섯 claim-bearing governance successor의 bound entry identity 중 하나라도 변경되면 기존 review / seal을 자동 승계하지 않고 stale로 판정한다.
-- current route validation PASS를 Publish Boundary PASS, package publication 또는 release readiness로 확대하지 않는다.
+- required-route validation PASS를 Publish Boundary PASS, package publication 또는 release readiness로 확대하지 않는다.
 
 Validation:
 
@@ -593,10 +595,10 @@ git status --short
 
 evaluator가 기록한 pre / post protected-surface hash report에서 다음이 byte-identical인지 확인한다.
 
-- current DVF facts / decisions / input manifest
-- current rendered Layer 3
+- current descriptor가 열거한 7개 Layer 3 canonical inputs
+- `IrisLayer3DataCurrent.lua` pointer와 selected generation descriptor/rendered JSON
 - current Layer 4 use_case / requirements / descriptions
-- Layer 3 runtime chunk manifest와 chunks
+- Layer 3 stable facade/index/lookup과 selected immutable generation chunks
 - Layer 4 runtime facade, lookup indexes와 chunks
 - Browser / Wiki / Tooltip Lua
 - package snapshot이 존재할 경우 해당 projection
@@ -635,7 +637,7 @@ evaluator가 기록한 pre / post protected-surface hash report에서 다음이 
 
 변경 있음.
 
-새 page-level assessment policy와 component evidence가 추가된다. 다만 Layer 3 facts / body production, Layer 4 interaction production과 IAR artifact authority는 변경하지 않는다. Publish Boundary만 결과를 component evidence로 소비한다.
+새 page-level assessment policy와 component evidence가 추가된다. 다만 Layer 3 facts/body production, Layer 4 interaction production, stateless generation/validation/install과 package 책임은 변경하지 않는다. Publish Boundary만 결과를 component evidence로 소비한다.
 
 ### Runtime Behavior Surface
 
@@ -683,7 +685,7 @@ heading과 text는 검토만 하며 실제 UI, Tooltip, Browser visibility와 qu
 - assessment contract에 `authority_effect=none`, `fact_generation_allowed=false`, `publish_verdict=false`를 명시한다.
 - Layer state는 sealed producer provenance에서 derivation하고 exception ledger에는 `semantic_production=false`, `terminal_state_override_allowed=false`를 강제한다.
 - `not_required`는 `sealed_complete`로 materialize된 declared Layer 3 set의 zero-result query에만 결속하고 reason code에 artifact-set scope를 노출한다.
-- `IPS-RAT-01`~`IPS-RAT-10` ratification 전에는 census, hash, anchor capture와 immutable proposal packet만 허용하고 policy-dependent implementation / full run / current-route adoption을 차단한다.
+- `IPS-RAT-01`~`IPS-RAT-10` ratification 전에는 census, hash, anchor capture와 immutable proposal packet만 허용하고 policy-dependent implementation/full run/required-route registration을 차단한다.
 - matrix totality와 producer-to-disposition derivation reachability를 별도 검증하고 full-universe `evidence_limited=0`을 silent PASS로 처리하지 않는다.
 - denominator set identity와 subset cross-tab을 별도 산출한다.
 - public-text input / result는 page evaluator의 dependency에서 금지한다.
@@ -777,7 +779,7 @@ heading과 text는 검토만 하며 실제 UI, Tooltip, Browser visibility와 qu
 - PZ runtime Iris는 100% Lua로 유지하며 새 runtime JVM / Python dependency를 만들지 않는다.
 - runtime / build-time separation을 유지한다.
 - DVF System은 Layer 3 body production만, QG는 Layer 4 production만 소유한다.
-- IAR은 artifact role / lifecycle / authority / identity만 소유하며 semantic producer가 되지 않는다.
+- Layer 3 artifact identity는 content-derived descriptor와 stateless validation이 증명하고 protected current visibility는 `install_dvf_3_3_complete_generation.py`가 `IrisLayer3DataCurrent.lua` 한 파일로만 전환한다. 어느 메커니즘도 semantic producer가 되지 않는다.
 - Page assessment는 Publish Boundary component evidence이고 bare acceptance / release claim이 아니다.
 - `IPS-RAT-01`~`IPS-RAT-10` owner ratification은 하나의 authoritative list와 하나의 exact identity로 관리하며 중복 policy list를 만들지 않는다.
 - policy-dependent Change 2–7은 ratification 이전에 실행하지 않는다. preflight census / hash / anchor capture / policy proposal은 채택·완료 claim 없이 수행할 수 있다.
@@ -794,6 +796,7 @@ heading과 text는 검토만 하며 실제 UI, Tooltip, Browser visibility와 qu
 - unsupported fact, unsupported negative conclusion과 lexical semantic inference를 생성하지 않는다.
 - additive amendment와 minimal diff를 우선하고 기존 sealed historical decision을 rewrite하지 않는다.
 - current source / rendered / runtime / package artifact는 assessment를 위해 mutate하지 않는다.
+- current Layer 3 protected surface는 stable facade/index/lookup, `IrisLayer3DataCurrent.lua` pointer와 pointer-selected immutable generation 전체다. Assessment는 어느 것도 설치·교체하거나 predecessor pointer를 복구하지 않는다.
 - generated assessment와 gap inventory를 reverse-merge authority로 사용하지 않는다.
 - item-specific exception, score, ranking, minimum length / sentence threshold를 도입하지 않는다.
 - execution PASS, subject disposition, independent review, owner seal과 final claim을 서로 분리한다.
@@ -819,7 +822,7 @@ Expected closeout target: `page_sufficiency_assessment_complete`
 `page_sufficiency_assessment_complete`는 다음 조건을 모두 충족한 경우에만 사용한다.
 
 - `IPS-RAT-01`~`IPS-RAT-10` policy가 single authoritative ratification contract의 exact identity로 ratified되고 adopted contract가 proposal hash / ratification state에 정확히 결속됨
-- exact current vanilla denominator와 input identities sealed
+- exact current vanilla denominator, Layer 3 pointer/generation ID/7 canonical inputs/output universe와 Layer 4 input identities sealed
 - explicit `items_itemscript.json` baseline field registry가 adopted되고 runtime consumer cross-check와 분리되며 lower-bound bias / drift field / affected family가 공시됨
 - Layer 3 / 4 provenance derivation contract와 non-authoritative exception ledger contract가 adopted되고 ledger coverage가 summary에 보고됨
 - Layer 3 `not_required`가 sealed-set zero query에서 파생되고 representation 축에서 제거됨
@@ -854,7 +857,7 @@ Expected closeout target: `page_sufficiency_assessment_complete`
 - 모든 known gap 또는 unresolved state가 해결됨
 - DVF / QG content remediation 완료
 - Public Text Quality PASS
-- DVF Body Compiler, Registry Authority, Registry Runtime Compatibility 또는 Publish Boundary PASS
+- DVF Body Compiler, retired Registry Authority, Registry Runtime Compatibility 또는 Publish Boundary PASS
 - package publication, release / Workshop / B42 readiness
 - external mod universe coverage
 - actual UI / Tooltip 변경 또는 인게임 QA 완료

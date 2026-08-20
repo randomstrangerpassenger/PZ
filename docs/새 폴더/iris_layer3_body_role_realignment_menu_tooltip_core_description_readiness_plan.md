@@ -2,7 +2,7 @@
 
 Iris Layer 3 Body Role Realignment / Menu·Tooltip Core Description Readiness
 
-> 2026-08-20 IAR retirement successor amendment: 아래의 `current IAR adoption` 조건은 더 이상 stateful registry writer/receipt를 요구하지 않는다. Layer 3 public mutation이 승인되면 DVF 3.3의 external deterministic complete-generation, stateless key/payload validation, R2-B generation-pointer install과 package projection이 후속 책임을 소유한다. Owner authorization과 Menu/Tooltip 범위는 기존 본문대로 별도다.
+> 2026-08-20 Walkthrough synchronization: Stateful Artifact Registry는 `FULL_RETIREMENT`로 폐기되었고 Layer 1~5 active product consumer와 residual allowlist는 모두 `0`이다. 구현 closeout은 main `c91d8f79`, terminal implementation subject `6f362b5e`, full-gate subject `c924349e`, current Layer 3 generation `dvf33-2a44a0a8d9a2e7f0d9a533ad002b7f691c1bfccec9577fb3356967ec6fd8a00c`를 readpoint로 삼는다. 이 계획의 조건부 public 전환은 더 이상 IAR transaction·receipt·stateful descriptor를 사용하지 않고, DVF 3.3의 정확히 7개 canonical input으로 complete generation을 만든 뒤 검증하고 R2-B의 단일 generation pointer로 설치하는 현재 경로만 사용한다. 실행 시에는 pointer와 generation identity를 다시 census하며 이 readpoint를 상수로 하드코딩하지 않는다.
 
 ## 1. Objective
 
@@ -19,7 +19,7 @@ Iris의 current canonical item universe와 current Layer 3 corpus를 대상으�
 - Menu와 Tooltip이 같은 confirmed facts에서 서로 다른 깊이의 projection을 소비할 준비 상태를 만든다.
 - Change 1~8이 만든 exact tracked terminal subject를 mandatory full-repository Clean-Checkout Run A/B로 검증한 뒤에만 staging-scoped completion을 선언한다.
 
-본 계획의 기본 closeout은 **staging-only**다. 이 표현은 public adoption 범위를 제한할 뿐 tracked repository validation을 줄이지 않는다. current IAR adoption, runtime payload 교체와 Menu public text 교체는 별도 owner authorization과 선행 계약 충족 후 열리는 조건부 후속 실행으로 분리한다. Tooltip은 role-labeled input readiness까지만 다루며 실제 UI나 줄 배치는 변경하지 않는다.
+본 계획의 기본 closeout은 **staging-only**다. 이 표현은 public 설치 범위를 제한할 뿐 tracked repository validation을 줄이지 않는다. current complete-generation 설치, runtime payload 교체와 Menu public text 교체는 별도 owner authorization과 선행 계약 충족 후 열리는 조건부 후속 실행으로 분리한다. Tooltip은 role-labeled input readiness까지만 다루며 실제 UI나 줄 배치는 변경하지 않는다.
 
 ### Review Feedback Adjudication
 
@@ -40,11 +40,11 @@ Iris의 current canonical item universe와 current Layer 3 corpus를 대상으�
 | Tooling allowlist | 채택 | 새 tool/test/dependency의 current-route/full-gate role을 terminal freeze 전에 explicit disposition |
 | Clean-Checkout durable pointer | 채택 | terminal subject에는 pre-run external retrieval contract만 포함; result hash pointer는 post-validation evidence-only successor이며 validated subject가 아님 |
 | Review completion semantics | 채택 | review 수행 완료와 semantic resolution을 분리; 근거 있는 `review_hold/review_required` 유지도 completed review로 인정 |
-| Current-route manifest condition | 채택 | staging/adoption label이 아니라 actual required-dependency disposition에 따라 terminal freeze 전 additive update |
+| Current-route manifest condition | 채택 | staging/install label이 아니라 actual required-dependency disposition에 따라 terminal freeze 전 additive update |
 | Menu flat projection | 채택 | canonical acquisition 보존 set과 Menu public set을 분리하고 core/acquisition 존재 조합별 flat rule 및 신규 표면화 branch를 ratify |
 | Defect/transformation content | 채택 | 로드맵의 다섯 bounded transform과 최소 defect family를 proposal로 명시 |
 | Candidate replay identity | 채택 | artifact class별 byte parity와 canonical semantic-projection parity를 사전 고정; 실행 후 완화 금지 |
-| Registry Authority non-claim | 채택 | staging closeout 비주장 목록에 Registry Authority PASS 추가 |
+| Retired Registry non-claim | 채택 | 폐기된 Registry의 authority/lifecycle/receipt를 staging closeout 근거로 주장하지 않음 |
 
 Clean-Checkout 판정 근거는 `docs/DECISIONS.md`의 current contract다. 이 계약은 full-repository PASS를 exact tracked subject에 결속하고 repository HEAD가 바뀌면 predecessor PASS 상속을 금지한다. 따라서 staging candidate 자체가 off-live라는 사실은 Change 1~8의 tracked code/test/policy/config/docs 변경에 대한 repository terminal gate를 면제하지 않는다.
 
@@ -64,7 +64,7 @@ Clean-Checkout 판정 근거는 `docs/DECISIONS.md`의 current contract다. 이 
 - stale-safe, exact-input-bound human exception ledger
 - core description / acquisition information 분리와 fact-preservation receipt
 - canonical DVF composition 경로를 재사용하는 off-live successor compiler
-- reusable IAR public-text assessment와 successor-specific regression rule 연결
+- historical 이름을 유지한 `iar_public_text_assessment.py` 검증 utility와 successor-specific regression rule 연결; Registry lifecycle/authority 의미는 부여하지 않음
 - Problem 5A candidate projection
 - candidate replay A/B deterministic regeneration과 current-vs-staging delta
 - exact tracked staging terminal subject의 mandatory full-repository Clean-Checkout Run A/B, denominator/dependency/result parity와 source-checkout non-mutation
@@ -97,7 +97,7 @@ Clean-Checkout 판정 근거는 `docs/DECISIONS.md`의 current contract다. 이 
 - Layer 4 richness를 Layer 3 suitability의 대체 지표로 사용하지 않는다.
 - `검토 필요`를 `설명 재료 부족` 또는 Problem 5A candidate로 자동 변환하지 않는다.
 - human exception을 새 fact, 자유로운 rewrite 권한 또는 shadow policy로 사용하지 않는다.
-- candidate generation, public-text assessment, IAR adoption, runtime compatibility와 release readiness를 하나의 PASS로 합치지 않는다.
+- candidate generation, public-text assessment, complete-generation 설치, runtime compatibility와 release readiness를 하나의 PASS로 합치지 않는다.
 - predecessor artifact, 실패 evidence 또는 이전 exception을 successor에 맞춰 수정하지 않는다.
 - 계획 작성 시 관찰한 `2,285 / 2,105 / 2,084 / 21` 수치를 실행 시 denominator 상수로 하드코딩하지 않는다.
 
@@ -108,23 +108,32 @@ Clean-Checkout 판정 근거는 `docs/DECISIONS.md`의 current contract다. 이 
 ### Codebase Inspection Summary
 
 - `Iris/input/items_itemscript.json`은 계획 작성 시 case-sensitive FullType `2,285`개를 가진다. Windows의 case-insensitive map 동작을 authoritative census에 사용하지 않는다.
-- `Iris/build/description/v2/data/dvf_3_3_input_manifest.json`은 current facts와 decisions 각각 `2,105`개 row를 결속한다.
-- `Iris/build/description/v2/output/dvf_3_3_rendered.json`은 `2,105`개 entry 중 `2,084`개 `text_ko`와 `21`개 `text_ko=null` entry를 가진다. 실행 시 `existing_body_denominator`는 실제 non-empty current body set에서 다시 계산한다.
+- current DVF 3.3 complete generation은 정확히 7개 canonical input만 결속한다: facts, decisions, overlay support, compose profile, identity hint rules, conflict precedence rules, approved upstream `candidate_rendered.json`. current output/readback, runtime, generation descriptor와 attempt/receipt는 generation input이 아니다.
+- planning-time pointer-selected generation의 `dvf_3_3_rendered.json`은 `2,105`개 entry 중 `2,084`개 `text_ko`와 `21`개 `text_ko=null` entry를 가진다. `Iris/build/description/v2/output/dvf_3_3_rendered.json`을 current readback authority로 사용하지 않으며, 실행 시 `existing_body_denominator`는 다시 읽은 pointer가 선택한 generation의 실제 non-empty body set에서 계산한다.
 - current fact slot 관찰값은 `identity_hint=2,105`, `primary_use=2,030`, `acquisition_hint=1,050`, `special_context=12`다. `secondary_use`, `processing_hint`, `limitation_hint`, `notes`는 현재 non-empty row가 없다.
 - current flat body 중 literal `획득 방법:` block을 가진 body는 계획 작성 시 `284`개다. 이는 전체 acquisition fact coverage를 뜻하지 않으며 분리 구현은 label string parsing이 아니라 source proposition/slot binding을 사용해야 한다.
 - current rendered text에는 계획 작성 시 exact duplicate text group `232`개, 해당 group 소속 row `1,594`개가 관찰된다. 이 수치는 audit signal이며 registered rule 및 provenance 판정 전에는 자동 defect count가 아니다.
 - `fact_origin.primary_use`는 계획 작성 시 `cluster_summary=1,275`, `identity_fallback=718`, `role_fallback=100`, `direct_use=12`다. 특히 `cluster_summary`는 existing approved Layer 3 lineage인지 exact authority binding을 확인한 뒤에만 입력으로 유지하며, 이번 작업에서 새로운 Layer 4 → Layer 3 승격을 만들지 않는다.
 - current facts와 latest staging proposition inventory는 `identity/use/acquisition/food_semantic/context` role을 제공하지만 로드맵의 `target/action/result/consumption_or_retention/condition/restriction`을 current canonical fact-kind로 직접 제공하지 않는다. `primary_use` prose를 파싱해 이 세부 kind를 추정하는 것은 금지한다.
 - non-empty current slot의 planning-time provenance 조합은 `identity_hint × seed`, `acquisition_hint × seed`, `primary_use × cluster_summary/direct_use/identity_fallback/role_fallback`, `special_context × origin_missing`과 structured food-semantic lineage다. `fact_origin` field가 존재한다는 이유만으로 null slot까지 mapping coverage에 포함하거나 eligibility를 부여하지 않는다.
-- latest `source_proposition_inventory.jsonl`과 `body_plan_requirement_inventory.jsonl`은 naturalization staging 경로에 있으며 current input manifest의 직접 source path가 아니다. exact source identity와 derivation을 재구축하지 않고 current authority처럼 소비하지 않는다.
+- latest `source_proposition_inventory.jsonl`과 `body_plan_requirement_inventory.jsonl`은 naturalization staging 경로에 있으며 current 7-input complete-generation contract의 직접 canonical source path가 아니다. exact source identity와 derivation을 재구축하지 않고 current authority처럼 소비하지 않는다.
 - new inventory의 scalar fact ID는 ratified deterministic algorithm으로 current `item_id + source_slot + source_value_hash + fact_origin`에서 파생하고 derivation trace를 남긴다. 이 derived ID는 source authority를 새로 만들지 않으며 latest naturalization staging proposition ID를 current처럼 복사하지 않는다.
 - current `compose_layer3_body_profile.py`는 `identity_core`, `use_core`, `context_support`, `limitation_support`, `acquisition_support`를 한 body plan에서 조합하고, `compose_layer3_item.py`는 acquisition proposition 앞에 paragraph split을 적용해 flat `text_ko`를 만든다.
-- current runtime manifest는 `2,105`개 entry를 `11`개 chunk로 투영한다. `layer3_renderer.lua`는 body를 생성·수정하지 않고 `text_ko`가 없거나 lookup miss이면 `nil`로 침묵하므로 Layer 3 absence의 표시 기반은 이미 존재한다.
-- current runtime vocabulary는 `adopted / unadopted`이며 body disposition의 `숨김`과 같은 의미가 아니다. successor offline disposition을 이 vocabulary로 재사용하지 않는다.
+- planning-time current pointer는 `IrisLayer3DataCurrent.lua`를 통해 위 readpoint generation의 `2,105`개 entry와 `11`개 chunk를 선택한다. stable `IrisLayer3DataChunks.lua`, `IrisLayer3DataChunkIndex.lua`, `IrisLayer3DataLookup.lua`도 같은 pointer를 따른다. chunk 수와 generation ID는 구조 상수가 아니며 실행 시 다시 읽는다. `layer3_renderer.lua`는 body를 생성·수정하지 않고 `text_ko`가 없거나 lookup miss이면 `nil`로 침묵하므로 Layer 3 absence의 표시 기반은 이미 존재한다.
+- historical payload의 `adopted / unadopted` vocabulary는 body disposition의 `숨김`과 같은 의미가 아니다. successor offline disposition이나 current 설치 상태를 이 vocabulary로 표현하지 않는다.
 - `IrisTooltipSummary.lua`와 `IrisAltTooltip.lua`는 현재 classification tag, Recipe/Moveables/Fixing 연결, use-case count와 Menu 안내를 소비하며 Layer 3 description 또는 acquisition projection을 소비하지 않는다. 따라서 이번 staging closeout은 Tooltip input readiness이며 Tooltip completion이 아니다.
-- `iar_public_text_assessment.py`는 subject finding과 technical failure를 분리하는 reusable assessment component다. 새 rule adapter는 이 component를 재사용하되 기존 naturalization PASS를 successor에 상속하지 않는다.
+- `iar_public_text_assessment.py`는 historical filename을 유지한 validation-only assessment utility다. 새 rule adapter는 subject finding과 technical failure를 분리하는 기능만 재사용하고, 폐기된 Registry authority/lifecycle 또는 기존 naturalization PASS를 successor에 부여하지 않는다.
 - current canonical docs에는 historical `docs/dvf_3_3_body_role_policy.md`와 `docs/dvf_3_3_body_role_execution_plan.md`이 존재하지 않는다. 삭제된 historical 문서를 current authority로 복원하거나 참조하지 않고 새 successor policy를 명시적으로 ratify한다.
-- 현재 작업 트리의 `docs/새 폴더/iris_item_page_information_sufficiency_plan.md`는 Layer 3 requiredness/optionality를 다루는 선행 계획이지만 계획 문서 자체는 adopted authority가 아니다. 이 physical path는 planning-time observation일 뿐 canonical location을 승인하지 않는다. 실행은 `problem1_authority_binding.json`에 exact path/hash로 결속된 owner-ratified policy/result identity를 요구한다. 다른 authority를 동등하다고 취급하려면 별도 owner-ratified `problem1_equivalence_decision.json`이 두 exact identity와 허용 범위를 hash-bound로 선언해야 한다.
+- 현재 작업 트리의 `docs/새 폴더/iris_item_page_information_sufficiency_plan.md`는 Layer 3 requiredness/optionality를 다루는 선행 계획이지만 계획 문서 자체는 ratified authority가 아니다. 이 physical path는 planning-time observation일 뿐 canonical location을 승인하지 않는다. 실행은 `problem1_authority_binding.json`에 exact path/hash로 결속된 owner-ratified policy/result identity를 요구한다. 다른 authority를 동등하다고 취급하려면 별도 owner-ratified `problem1_equivalence_decision.json`이 두 exact identity와 허용 범위를 hash-bound로 선언해야 한다.
+
+### Walkthrough-Bound Runtime Assumptions
+
+- R2 owner decision `B`는 complete immutable generation과 single pointer visibility model을 확정했다. 이 계획은 그 결정을 재설계하거나 Layer 4의 일반 계약으로 확대하지 않는다.
+- `build_dvf_3_3_complete_generation.py`가 off-live generation을 만들고, `validate_dvf_3_3_complete_generation.py`와 `dvf_3_3_runtime_compatibility.py`가 각각 complete-generation 및 stateless key/collision/payload 검증을 담당한다. 후자는 RTC PASS를 주장하지 않는다.
+- `install_dvf_3_3_complete_generation.py`만 protected current writer이며 `IrisLayer3DataCurrent.lua`만 최대 한 번 바꿀 수 있다. generation descriptor는 content-derived identity/검증 자료일 뿐 authority 또는 설치 상태를 결정하지 않는다.
+- correctness basis는 하나의 pointer가 하나의 immutable generation을 선택한다는 사실이다. `switch_atomicity=observed_only`이며 filesystem atomicity나 모든 환경에서의 무조건적인 혼합 불가능성을 주장하지 않는다.
+- predecessor generation은 bounded rollback을 위해 inactive 상태로 보존한다. `validated_naturalization_runtime_adoption.py`의 current invocation은 금지되고 historical reproduction에만 남는다. `compose_layer3_text.py`는 protected-output guard 범위에서 validation-only이며, `export_dvf_3_3_lua_bridge.py`는 stateless export/RTC governance adapter일 뿐 current writer가 아니다.
+- Walkthrough closeout은 RTC PASS, Publish PASS, release readiness, Workshop/deployment 또는 owner-sealed canonical closure를 주장하지 않았다. 이 계획도 별도 근거 없이 이를 상속하지 않는다.
 - `docs/DECISIONS.md`의 current repository validation contract는 terminal PASS를 exact tracked subject에만 귀속하고 후속 HEAD 상속을 금지한다. 따라서 Change 1~8 tracked terminal subject의 `layer3_role_realign_staging_complete`에도 canonical full-repository Clean-Checkout Run A/B가 필요하다.
 
 ### Repository and Environment Assumptions
@@ -142,18 +151,18 @@ Clean-Checkout 판정 근거는 `docs/DECISIONS.md`의 current contract다. 이 
 
 | ID | Ratification subject | 계획상 proposal |
 |---|---|---|
-| `L3R-RAT-01` | execution closeout | default `staging_only`; current adoption은 별도 authorization |
-| `L3R-RAT-02` | Problem 1 dependency | exact adopted requiredness/optionality policy와 result identity 필수 |
+| `L3R-RAT-01` | execution closeout | default `staging_only`; current complete-generation 설치는 별도 authorization |
+| `L3R-RAT-02` | Problem 1 dependency | exact ratified requiredness/optionality policy와 result identity 필수 |
 | `L3R-RAT-03` | denominator | item=`items_itemscript.json` exact FullType set; existing body=current non-empty Layer 3 text set |
 | `L3R-RAT-04` | disposition/readiness vocabulary | 로드맵의 각 5개 state를 closed enum으로 채택 |
 | `L3R-RAT-05` | fact-kind mapping | 최소 `(source_slot, fact_origin)` key, structured lineage 추가 key; closed 10-kind vocabulary; observed non-empty 조합 unresolved `0`; prose parsing 금지 |
-| `L3R-RAT-06` | artifact/Menu projection | canonical role-material record + four-case Menu flat rule + acquisition publicity branch; current facade는 adoption 전 불변 |
+| `L3R-RAT-06` | artifact/Menu projection | canonical role-material record + four-case Menu flat rule + acquisition publicity branch; current facade와 pointer는 설치 전 불변 |
 | `L3R-RAT-07` | Tooltip boundary | `core_description` / `acquisition_information` input readiness까지만 봉인 |
 | `L3R-RAT-08` | existing cross-layer lineage | exact prior Layer 3-approved provenance만 eligible; 신규 승격 0 |
-| `L3R-RAT-09` | hide representation | offline disposition으로만 기록; `adopted/unadopted` 의미 재사용 금지 |
+| `L3R-RAT-09` | hide representation | offline disposition으로만 기록; historical `adopted/unadopted` 의미 재사용 금지 |
 | `L3R-RAT-10` | human exception | exact input/policy/rule hash binding, fact addition 금지, stale 시 re-review |
 | `L3R-RAT-11` | rule/public assessment gate | exact defect/transformation registry hashes, five-transform minimum proposal, closed transform set, duplicate signal/blocking 분리와 bounded manual review |
-| `L3R-RAT-12` | conditional current adoption | 별도 execution authorization, IAR transaction과 clean-checkout Run A/B 필수 |
+| `L3R-RAT-12` | conditional current installation | 별도 execution authorization, expected predecessor binding, official build/validate/install 경로와 clean-checkout Run A/B 필수 |
 | `L3R-RAT-13` | review capacity | exact capacity/partition contract; review record 미완료 또는 capacity 초과 시 `blocked_review_capacity`; legitimate review state 유지 허용 |
 | `L3R-RAT-14` | acquisition conservation | source-bound acquisition proposition set을 conservation denominator로 사용; current 표현과 successor projection은 별도 set |
 | `L3R-RAT-15` | tooling disposition | 모든 새 tool/test/direct dependency의 current-route/full-gate role을 explicit/hash-bound로 분류 |
@@ -173,7 +182,7 @@ Clean-Checkout 판정 근거는 `docs/DECISIONS.md`의 current contract다. 이 
 | `primary_use × identity_fallback` | `not_eligible` | none | false | identity fact는 `identity_hint`에서만 유지 |
 | `primary_use × role_fallback` | `eligible_kind` | `role` | true | non-empty exact origin binding |
 | `primary_use × direct_use` | `eligible_kind` | `role` | true | `action/result/target` 세분화 금지 |
-| `primary_use × cluster_summary × layer3_approval_bound` | `eligible_kind` | `role` | true | exact existing Layer 3 facts-authority/adoption lineage 필요 |
+| `primary_use × cluster_summary × layer3_approval_bound` | `eligible_kind` | `role` | true | exact existing Layer 3 facts-authority/approval lineage 필요 |
 | `primary_use × cluster_summary × layer3_approval_unbound` | `review_required` | none | false | 신규 Layer 4 승격 금지 |
 | `special_context × origin_missing` | `review_required` | none | false | explicit provenance successor 없이는 eligibility 금지 |
 | food `consumption_form` | `eligible_kind` | `consumption_or_retention` | true | approved structured lineage |
@@ -183,7 +192,7 @@ Clean-Checkout 판정 근거는 `docs/DECISIONS.md`의 current contract다. 이 
 | food `preservation_form` | `eligible_kind` | `condition` | true | approved structured lineage |
 | food `preparation_state` | `eligible_kind` | `condition` | true | approved structured lineage |
 
-이 표는 prose 의미를 읽지 않고 current provenance/structured axis만 사용한다. execution census에서 새 origin, food axis, authority state 또는 lineage shape가 발견되면 default mapping을 적용하지 않고 `blocked_mapping_contract`로 닫는다. `cluster_summary`의 `layer3_approval_bound`는 current facts path에 존재한다는 사실만으로 참이 되지 않으며 exact adoption/source-lineage binding을 검증해야 한다.
+이 표는 prose 의미를 읽지 않고 current provenance/structured axis만 사용한다. execution census에서 새 origin, food axis, authority state 또는 lineage shape가 발견되면 default mapping을 적용하지 않고 `blocked_mapping_contract`로 닫는다. `cluster_summary`의 `layer3_approval_bound`는 current facts path에 존재한다는 사실만으로 참이 되지 않으며 exact approval/source-lineage binding을 검증해야 한다.
 
 #### Minimum Menu Flat Projection Proposal
 
@@ -245,7 +254,7 @@ initial defect registry proposal은 다음 family를 분리한다.
 - `Iris/build/description/v2/tools/build/compose_layer3_role_material.py` (new; canonical role-material compiler helper)
 - `Iris/build/description/v2/tools/build/compose_layer3_text.py` (candidate-mode integration only; default current path byte-preserved)
 - `Iris/build/description/v2/tools/build/compose_layer3_item.py` (candidate-mode delegation only; current compose behavior preserved)
-- `Iris/build/description/v2/tools/build/iar_public_text_assessment.py` (새 subject adapter가 필요한 최소 확장만)
+- `Iris/build/description/v2/tools/build/iar_public_text_assessment.py` (historical filename의 validation utility; 새 subject adapter가 필요한 최소 확장만)
 - `Iris/build/description/v2/tests/test_layer3_body_role_realign.py` (new)
 - `Iris/build/description/v2/tests/fixtures/layer3_body_role_realign/**` (new)
 - `Iris/build/description/v2/tools/build/INVENTORY.md` (new entrypoint/role 기록)
@@ -254,22 +263,28 @@ initial defect registry proposal은 다음 family를 분리한다.
 
 - `Iris/build/description/v2/tools/build/compose_layer3_body_profile.py`
 - `Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py`
+- `Iris/build/description/v2/tools/build/build_dvf_3_3_complete_generation.py`
+- `Iris/build/description/v2/tools/build/validate_dvf_3_3_complete_generation.py`
+- `Iris/build/description/v2/tools/build/dvf_3_3_runtime_compatibility.py`
+- `Iris/build/description/v2/tools/build/install_dvf_3_3_complete_generation.py`
 - `Iris/media/lua/client/Iris/Data/layer3_renderer.lua`
+- `Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua`
 - `Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua`
 - `Iris/media/lua/client/Iris/Data/IrisLayer3DataChunkIndex.lua`
-- `Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/**`
+- `Iris/media/lua/client/Iris/Data/IrisLayer3DataLookup.lua`
+- `Iris/media/lua/client/Iris/Data/IrisLayer3Generations/**`
 - `Iris/media/lua/client/Iris/UI/Detail/IrisItemDetailViewModel.lua`
 - `Iris/media/lua/client/Iris/UI/Tooltip/IrisTooltipSummary.lua`
 - `Iris/media/lua/client/Iris/UI/Tooltip/IrisAltTooltip.lua`
 
-조건부 current-adoption follow-up에서만 `export_dvf_3_3_lua_bridge.py`, runtime projection과 관련 compatibility test 변경을 연다.
+조건부 current-install follow-up에서만 approved upstream `candidate_rendered.json`을 official complete-generation input으로 연결하고 관련 runtime/package compatibility test 변경을 연다. current write는 `install_dvf_3_3_complete_generation.py`만 수행하며 `export_dvf_3_3_lua_bridge.py`는 stateless adapter로 남긴다.
 
 ### Docs
 
 - `docs/iris_layer3_body_role_realignment_policy.md` (new; ratification 시)
 - `docs/iris_layer3_body_role_realignment_menu_tooltip_core_description_readiness_plan.md` (이 계획)
-- `docs/DECISIONS.md` (policy/adoption 시 additive decision)
-- `docs/ARCHITECTURE.md` (role material과 producer/IAR/runtime flow 정렬)
+- `docs/DECISIONS.md` (policy/current install authorization 시 additive decision)
+- `docs/ARCHITECTURE.md` (role material과 canonical source/generation/validation/install/runtime flow 정렬)
 - `docs/ROADMAP.md` (scoped status, non-claim과 후속 5A handoff)
 
 `docs/Philosophy.md`는 수정하지 않는다.
@@ -291,7 +306,7 @@ initial defect registry proposal은 다음 family를 분리한다.
 - `Iris/build/description/v2/data/layer3_body_role_realign/candidate_replay_identity_contract.json` (new)
 - `Iris/build/description/v2/data/layer3_body_role_realign/clean_checkout_external_evidence_location_contract.json` (new; pre-run retrieval coordinate/schema only, no result hash)
 - `Iris/_docs/authority/iris_current_authority_manifest.json` (ratified policy와 artifact role의 additive classification)
-- `Iris/_docs/round3/current_route_required_validations.json` (staging/adoption label이 아니라 actual required-dependency disposition에 따라 필요한 경우 terminal freeze 전에 additive update)
+- `Iris/_docs/round3/current_route_required_validations.json` (staging/install label이 아니라 actual required-dependency disposition에 따라 필요한 경우 terminal freeze 전에 additive update)
 
 ### Generated Artifacts
 
@@ -323,7 +338,7 @@ initial defect registry proposal은 다음 family를 분리한다.
 - `Iris/_docs/round3/layer3_body_role_realign/<subject_sha256>/owner_seal.json` (governance가 요구할 때)
 - `Iris/_docs/round3/layer3_body_role_realign/<subject_sha256>/axis_qualified_closeout.json`
 
-Generated staging artifact는 facts, decisions, rendered current, runtime 또는 package authority가 아니며 reverse-merge input으로 사용할 수 없다.
+Generated staging artifact는 facts, decisions, rendered current, runtime 또는 package authority가 아니며 reverse-merge input으로 사용할 수 없다. 조건부 설치용 successor가 되려면 owner-approved upstream `candidate_rendered.json`으로 명시적으로 승격된 뒤 official 7-input complete-generation 경로를 통과해야 한다.
 
 ---
 
@@ -347,7 +362,7 @@ Implementation Notes:
 
 - current item universe는 `items_itemscript.json`의 exact case-sensitive FullType set에서 생성한다.
 - existing body universe는 current rendered entry 중 non-empty `text_ko` set으로 생성하고 current source/decisions/runtime set과 차이를 별도 기록한다.
-- facts, decisions, profiles, overlay, rendered, runtime chunk manifest/index, Problem 1 result, policy/rules/exception identities를 SHA-256으로 봉인한다.
+- facts, decisions, overlay support, compose profile, identity hint rules, conflict precedence rules, approved upstream candidate identity, current pointer, pointer-selected generation descriptor/rendered/index/chunks, stable facade/index/lookup, Problem 1 result와 policy/rules/exception identities를 SHA-256으로 봉인한다. current output/readback, runtime와 descriptor/attempt/receipt는 generation input으로 분류하지 않는다.
 - `problem1_authority_binding.json`은 exact ratified policy/result path, raw hash, semantic result hash와 lifecycle state를 요구한다. alternate authority는 explicit `problem1_equivalence_decision.json` 없이는 허용하지 않는다.
 - Problem 1 result가 없거나 proposal/unratified/stale 상태면 `설명 생략 가능`과 `설명 재료 부족`을 추정하지 않고 policy-dependent phases를 중단한다.
 - pre-ratification runner는 read-only inventory 이외의 candidate generation을 거부한다.
@@ -510,8 +525,8 @@ Implementation Notes:
 - existing compose entrypoint에 explicit `role_realign_staging` context를 추가하고 default current composition의 input/output bytes와 behavior를 보존한다.
 - direct editing of rendered JSON은 금지한다. 모든 successor text는 bound facts, policy, mapping, transformation과 exception으로 재생성한다.
 - `keep/reduce/revise`는 각각 unchanged/registered reduction/rule-bounded revision trace를 요구한다.
-- `hide`는 staging successor의 public body absence로 표현하되 offline reason은 ledger에 보존한다. current `unadopted` vocabulary로 자동 변환하지 않는다.
-- `review_hold`는 public successor adoption 대상에서 제외하며 generic fallback을 만들지 않는다.
+- `hide`는 staging successor의 public body absence로 표현하되 offline reason은 ledger에 보존한다. historical `unadopted` vocabulary로 자동 변환하지 않는다.
+- `review_hold`는 public successor installation 대상에서 제외하며 generic fallback을 만들지 않는다.
 - predecessor identity, current-vs-successor row/field delta와 successor public-body denominator를 별도 산출한다.
 
 Validation:
@@ -533,7 +548,7 @@ successor generation 성공과 public-text suitability를 분리하고 registere
 
 Files:
 
-- `iar_public_text_assessment.py`
+- `iar_public_text_assessment.py` (historical filename; validation-only)
 - `public_text_assessment_input.json`
 - `public_text_assessment_result.json`
 - review evidence under `Iris/_docs/round3/layer3_body_role_realign/**`
@@ -542,7 +557,7 @@ Implementation Notes:
 
 - assessment subject는 exact successor text constituent identity, policy/ruleset, mapping과 source manifest에 결속한다.
 - existing evaluator infrastructure를 재사용하되 predecessor result/PASS를 상속하지 않는다.
-- `iar_public_text_assessment.py` 또는 generic runner/validator/contract를 변경하면 모든 existing required subject를 predecessor-bound input으로 재실행해 canonical finding/result identity regression `0`을 확인한다. 새 subject adapter는 기존 subject default behavior를 바꾸지 않는다.
+- historical filename의 `iar_public_text_assessment.py` 또는 generic runner/validator/contract를 변경하면 모든 existing required subject를 predecessor-bound input으로 재실행해 canonical finding/result identity regression `0`을 확인한다. 새 subject adapter는 기존 subject default behavior를 바꾸거나 폐기된 Registry lifecycle을 복원하지 않는다.
 - exact duplicate는 detector signal로만 수집한다. blocking metric은 ratified bad-duplicate rule, differing consumed fact/proposition set inconsistency, explicit eligibility violation, registered bad skeleton/awkward family와 known specimen regression에 한정한다.
 - unregistered frequency signal은 review queue만 생성한다.
 - manual review는 모든 `review_hold/review_required`, 모든 exception, registered rule의 representative sample과 current-vs-successor high-impact delta를 포함한다.
@@ -645,41 +660,54 @@ Validation:
 
 ---
 
-### Change 9 — Conditional IAR Adoption and Runtime Projection
+### Change 9 — Conditional Complete-Generation Installation and Runtime Projection
 
 Purpose:
 
-별도 owner authorization이 있을 때만 exact staging successor를 current generation으로 채택한다. 이 Change는 default staging-only execution에서는 실행하지 않는다.
+별도 owner authorization이 있을 때만 exact staging successor를 approved upstream `candidate_rendered.json`으로 승격하고, 현재 DVF 3.3 complete-generation 경로를 통해 current generation으로 설치한다. 이 Change는 default staging-only execution에서는 실행하지 않는다.
 
 Files:
 
-- `Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py`
-- `Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json`의 additive successor
+- `Iris/build/description/v2/tools/build/build_dvf_3_3_complete_generation.py`
+- `Iris/build/description/v2/tools/build/validate_dvf_3_3_complete_generation.py`
+- `Iris/build/description/v2/tools/build/dvf_3_3_runtime_compatibility.py`
+- `Iris/build/description/v2/tools/build/install_dvf_3_3_complete_generation.py`
+- `Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py` (stateless adapter only)
+- `Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua`
 - `Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua`
 - `Iris/media/lua/client/Iris/Data/IrisLayer3DataChunkIndex.lua`
-- `Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/**`
+- `Iris/media/lua/client/Iris/Data/IrisLayer3DataLookup.lua`
+- `Iris/media/lua/client/Iris/Data/IrisLayer3Generations/<generation_id>/**`
+- `Iris/tools/package_iris.ps1`의 `current_runtime_payload` validation
 - related runtime/package identity and compatibility tests
 
 Implementation Notes:
 
-- exact validated candidate identity와 upstream policy/fact/decision identity를 IAR transaction에 결속한다.
-- predecessor generation과 rollback target을 보존하고 partial/dual-current adoption을 금지한다.
-- `text_ko` compatibility facade와 optional body behavior를 보존한다.
-- separated role material의 runtime physical shape는 RTC impact review와 owner-ratified artifact-shape contract 이후에만 정한다.
-- runtime Lua는 disposition/readiness 또는 semantic summarization을 수행하지 않는다.
-- Tooltip runtime consumption은 별도 UI plan 없이는 추가하지 않는다.
-- adoption이 tracked gate input, runtime/package projection, test 또는 required dependency를 변경하면 staging terminal subject의 repository PASS는 새 adoption subject에 상속되지 않는다. adoption subject를 다시 고정해 full-repository Clean-Checkout Run A/B와 deterministic comparison을 재실행한다.
+- 설치 시작 시 `IrisLayer3DataCurrent.lua`에서 current generation을 다시 읽고 owner-ratified expected predecessor에 결속한다. planning-time generation ID를 설치 상수로 사용하지 않는다.
+- exact validated staging successor는 직접 live 경로로 복사하지 않는다. owner-approved upstream `candidate_rendered.json`으로 승격하고 facts, decisions, overlay support, compose profile, identity hint rules, conflict precedence rules와 함께 정확히 7개 generation input을 이룬다.
+- current output/readback, runtime, generation descriptor, attempt/receipt는 generation input에서 제외한다. descriptor와 generation ID는 content-derived이며 authority 또는 설치 상태를 부여하지 않는다.
+- `build_dvf_3_3_complete_generation.py`가 off-live immutable generation을 만들고 `validate_dvf_3_3_complete_generation.py`가 complete-generation identity와 payload를 검증한다. `dvf_3_3_runtime_compatibility.py`는 stateless key/collision/payload 검증만 하며 RTC PASS를 주장하지 않는다.
+- `install_dvf_3_3_complete_generation.py`만 protected current writer다. 완전한 generation을 `IrisLayer3Generations/<generation_id>` 아래 설치한 뒤 `IrisLayer3DataCurrent.lua`만 최대 한 번 바꾼다. stable facade/index/lookup은 같은 pointer를 따르며 public loader path는 유지한다.
+- same-generation install은 protected mutation `0`의 no-op이어야 한다. predecessor generation은 bounded rollback을 위해 inactive 상태로 보존하고 cleanup은 이 계획에서 수행하지 않는다.
+- `text_ko` compatibility facade와 optional body behavior를 보존한다. separated role material의 runtime physical shape는 별도 RTC impact review와 owner-ratified artifact-shape contract 이후에만 정한다.
+- runtime Lua는 disposition/readiness 또는 semantic summarization을 수행하지 않는다. Tooltip runtime consumption은 별도 UI plan 없이는 추가하지 않는다.
+- pointer switch correctness는 한 pointer가 한 immutable generation을 선택한다는 데 근거한다. 관찰 근거를 넘어 filesystem atomicity나 모든 환경에서의 무조건적인 혼합 불가능성을 주장하지 않는다.
+- 설치가 tracked gate input, runtime/package projection, test 또는 required dependency를 변경하면 staging terminal subject의 repository PASS는 새 install subject에 상속되지 않는다. install subject를 다시 고정해 full-repository Clean-Checkout Run A/B와 deterministic comparison을 재실행한다.
 
 Validation:
 
-- exact candidate == adopted identity
-- partial/dual-current generation 0
+- exact accepted staging successor == approved upstream candidate == generated/installed rendered identity
+- generation descriptor의 canonical 7-input set equality; output/readback/runtime/descriptor/attempt/receipt input leakage 0
+- expected predecessor binding, complete immutable generation validation과 visibility switch count `<= 1`
+- same-generation reinstall protected mutation 0
+- partial/dual-current generation 0; stable facade/index/lookup가 pointer-selected generation과 일치
 - Layer 3 absent page and Layer 4-only page compatibility
 - stale predecessor public text reentry 0
 - runtime semantic inference path 0
 - current/historical/diagnostic route separation
-- exact adoption terminal tracked subject에서 fresh mandatory full-repository Clean-Checkout Run A/B
-- Lua syntax, package projection identity와 required runtime compatibility tests
+- exact install terminal tracked subject에서 fresh mandatory full-repository Clean-Checkout Run A/B
+- `switch_atomicity=observed_only` non-claim 유지
+- Lua syntax, `current_runtime_payload` package projection identity와 required runtime compatibility tests; Windows PowerShell 5.1/PowerShell 7의 ordinal path ordering parity
 
 ---
 
@@ -725,10 +753,11 @@ Validation:
   - `Iris/validation/clean_checkout/invoke_receipt_bound_full_gate.ps1`를 통한 fresh Clean-Checkout Run A/B
   - `Iris/validation/clean_checkout/invoke_deterministic_compare.ps1`를 통한 denominator/dependency/canonical result receipt parity
   - source checkout mutation/residue 0
-- conditional adoption이 실행된 경우에만:
+- conditional installation이 실행된 경우에만:
   - `powershell -ExecutionPolicy Bypass -File .\tools\check_lua_syntax.ps1`
-  - adopted required-validation wrapper
-  - adoption changes를 포함한 새 exact terminal subject의 fresh Clean-Checkout Run A/B와 deterministic comparison 재실행
+  - official complete-generation build/validate/stateless compatibility/install validation
+  - `package_iris.ps1`의 `current_runtime_payload` validation과 ordinal path ordering parity
+  - install changes를 포함한 새 exact terminal subject의 fresh Clean-Checkout Run A/B와 deterministic comparison 재실행
 
 모든 PASS 주장은 exact relevant command가 exit `0`인 경우에만 허용한다. `rg` absence probe나 count 관찰 자체는 PASS가 아니다.
 
@@ -742,7 +771,7 @@ Validation:
 - Menu candidate에서 core description과 acquisition의 역할 분리가 자연스럽고 정보 손실이 없는지 확인
 - ratified review capacity 안에서 required review record를 모두 작성하지 못하면 `blocked_review_capacity`로 중단한다. 검토 결과가 정당한 `review_hold/review_required` 유지인 것은 blocker가 아니다.
 - default staging-only에서는 in-game UI 검증을 수행하지 않는다.
-- conditional adoption이 실행된 경우에만 representative Menu page, Layer 3-absent page, acquisition retention과 stale-text absence를 PZ에서 검증한다.
+- conditional installation이 실행된 경우에만 representative Menu page, Layer 3-absent page, acquisition retention과 stale-text absence를 PZ에서 검증한다.
 
 ### Validation Limits
 
@@ -759,23 +788,23 @@ Validation:
 
 ### Authority Surface
 
-높음. Layer 3 role policy, fact-kind mapping, disposition/readiness와 exception contract를 새로 봉인한다. DVF System의 semantic production, IAR lifecycle, Publish Boundary assessment를 분리하고 owner ratification 전 mutation을 금지한다.
+높음. Layer 3 role policy, fact-kind mapping, disposition/readiness와 exception contract를 새로 봉인한다. DVF System의 semantic production, stateless generation/install, RTC와 Publish Boundary assessment를 분리하고 owner ratification 전 mutation을 금지한다.
 
 ### Runtime Behavior Surface
 
-staging-only에서는 없음. conditional adoption 시 Layer 3 body presence와 Menu text가 바뀔 수 있으나 runtime은 계속 precompiled text만 표시한다. Tooltip behavior는 변경하지 않는다.
+staging-only에서는 없음. conditional installation 시 Layer 3 body presence와 Menu text가 바뀔 수 있으나 runtime은 계속 precompiled text만 표시한다. Tooltip behavior는 변경하지 않는다.
 
 ### Compatibility Surface
 
-staging-only에서는 observation only다. conditional adoption 시 `text_ko` facade, nil body, key-level chunk lookup, Layer 4-only page와 package projection compatibility가 영향을 받을 수 있다.
+staging-only에서는 observation only다. conditional installation 시 `text_ko` facade, nil body, key-level chunk lookup, Layer 4-only page와 package projection compatibility가 영향을 받을 수 있다.
 
 ### Sealed Artifact Surface
 
-높음. facts, decisions, profile, rendered generation, runtime chunks, public-text assessment, IAR generation descriptor와 clean-checkout evidence의 exact identity를 다룬다. predecessor는 immutable하게 보존한다.
+높음. canonical 7-input set, pointer-selected rendered generation, runtime chunks, public-text assessment, content-derived generation descriptor와 clean-checkout evidence의 exact identity를 다룬다. predecessor는 immutable하게 보존한다.
 
 ### Public-Facing Output Surface
 
-staging-only에서는 current output 변화가 없다. conditional adoption 시 Layer 3 Menu body의 유지/축소/수정/숨김과 acquisition 재배치가 사용자에게 보일 수 있다. `surface_all_confirmed` branch가 ratify되면 current-unexpressed confirmed acquisition의 신규 표면화도 포함될 수 있으므로 exact newly-surfaced set과 public delta review를 별도로 기록한다. internal disposition/readiness vocabulary는 노출하지 않는다.
+staging-only에서는 current output 변화가 없다. conditional installation 시 Layer 3 Menu body의 유지/축소/수정/숨김과 acquisition 재배치가 사용자에게 보일 수 있다. `surface_all_confirmed` branch가 ratify되면 current-unexpressed confirmed acquisition의 신규 표면화도 포함될 수 있으므로 exact newly-surfaced set과 public delta review를 별도로 기록한다. internal disposition/readiness vocabulary는 노출하지 않는다.
 
 ---
 
@@ -783,7 +812,7 @@ staging-only에서는 current output 변화가 없다. conditional adoption 시 
 
 ### Architecture Risk
 
-- body assessment, semantic production과 IAR adoption을 하나의 새 subsystem이 소유할 위험
+- body assessment, semantic production과 complete-generation install을 하나의 새 subsystem이 임의로 소유할 위험
 - staging proposition artifact를 current facts authority로 오인할 위험
 - current canonical body-role policy가 없는 상태에서 historical deleted policy를 복원·상속할 위험
 - Problem 1 optionality가 ratify되지 않았는데 omission/readiness를 결정할 위험
@@ -793,10 +822,10 @@ staging-only에서는 current output 변화가 없다. conditional adoption 시 
 
 ### Runtime Risk
 
-- hidden disposition을 `unadopted`로 재사용해 기존 runtime vocabulary 의미를 변경할 위험
+- hidden disposition을 historical `unadopted`로 재사용해 기존 payload vocabulary 의미를 변경할 위험
 - nil body가 renderer/Detail/Menu fallback을 통해 stale predecessor text로 되돌아올 위험
 - separated projection을 runtime에서 다시 조합·요약하면서 semantic inference가 생길 위험
-- conditional adoption 중 partial chunk replacement 또는 index/chunk identity mismatch가 생길 위험
+- conditional installation 중 protected installer를 우회한 partial chunk replacement 또는 pointer/index/chunk identity mismatch가 생길 위험
 
 ### Compatibility Risk
 
@@ -831,19 +860,19 @@ policy/rule/exception correction은 기존 record를 고치지 않고 additive s
 
 observed source/origin mapping 조합이 ratified contract에 없으면 `blocked_mapping_contract`로 중단한다. required manual review가 ratified capacity를 넘거나 required review record가 누락되면 `blocked_review_capacity`로 중단한다. completed review의 결론이 `review_hold/review_required`인 것은 누락이 아니다. Change 1~8 exact tracked terminal subject의 mandatory Clean-Checkout Run A/B 또는 comparator가 실패하면 `blocked_repository_validation`이며 candidate replay/focused PASS로 완화하지 않는다.
 
-conditional current adoption이 별도로 승인된 경우에는 adoption 전에 predecessor rendered generation, runtime payload, package projection, exact candidate identity와 rollback target을 봉인한다. 실패 시 다음 중 하나만 허용한다.
+conditional current installation이 별도로 승인된 경우에는 install 전에 pointer-selected predecessor generation, runtime payload, package projection, exact candidate identity와 rollback target을 봉인한다. 실패 시 다음 중 하나만 허용한다.
 
-1. sealed predecessor generation으로 explicit IAR rollback
+1. protected installer가 retained immutable predecessor를 가리키도록 pointer를 복원하는 explicit rollback
 2. corrected policy/rule/exception을 가진 additive successor 생성 및 재검증
 
-partial adoption, dual-current generation, historical artifact rewrite, failed evidence 삭제, stale runtime fallback의 암묵적 복귀는 금지한다.
+partial install, dual-current generation, direct live-chunk overwrite, historical artifact rewrite, failed evidence 삭제, stale runtime fallback의 암묵적 복귀는 금지한다. rollback 또한 expected-current binding과 installer 검증을 거쳐 한 번의 pointer switch로 수행하며 predecessor cleanup은 하지 않는다.
 
 다음이 발견되면 affected execution을 즉시 중단한다.
 
 - rendered direct edit 또는 semantic reverse parsing
 - unsupported fact/fact strengthening
 - unregistered rewrite/template 또는 exception-mediated fact addition
-- Problem 1 prerequisite 미충족 상태의 omission/adoption
+- Problem 1 prerequisite 미충족 상태의 omission/install
 - unmapped non-empty `(source_slot, fact_origin)` 또는 structured lineage
 - unregistered transformation/defect rule application
 - required review capacity 초과 또는 incomplete review record; legitimate completed `review_hold/review_required`는 제외
@@ -857,9 +886,9 @@ partial adoption, dual-current generation, historical artifact rewrite, failed e
 
 - `docs/Philosophy.md`의 evidence, neutrality, silence-on-insufficient-evidence, viewer-only와 100% Lua runtime 원칙을 보존한다.
 - Iris는 Pulse 외 다른 spoke를 참조하지 않으며 이번 작업은 Pulse 또는 타 모듈 dependency를 추가하지 않는다.
-- DVF System은 facts/decisions/profile/body plan에서 Layer 3 body를 생산하는 책임만 가진다.
-- IAR은 source/rendered/runtime/package artifact identity, lifecycle과 adoption만 소유한다.
-- Registry Runtime Compatibility와 Publish Boundary는 DVF/IAR PASS로 대체하지 않는다.
+- DVF System은 canonical 7-input contract에서 Layer 3 complete generation을 생산하고 검증하는 책임을 가진다.
+- 폐기된 Registry는 source/rendered/runtime/package authority, lifecycle, writer 또는 receipt를 소유하지 않는다. generation identity는 content-derived이고 current visibility는 `IrisLayer3DataCurrent.lua`가 선택한다.
+- stateless runtime compatibility validation은 Registry Runtime Compatibility PASS가 아니며 Publish Boundary도 DVF generation/install PASS로 대체하지 않는다.
 - Layer 4/QG authority를 Layer 3 production으로 흡수하지 않는다.
 - Menu와 Tooltip은 같은 confirmed facts의 다른 depth projection이며 별도 knowledge authority가 아니다.
 - Runtime Lua는 disposition, readiness, fact-kind, rewrite 또는 summarization을 계산하지 않는다.
@@ -870,11 +899,11 @@ partial adoption, dual-current generation, historical artifact rewrite, failed e
 - page/Layer 4 information은 readiness optionality branch에만 사용할 수 있고 body disposition/description eligibility에는 사용할 수 없다.
 - every exact tracked terminal completion subject는 current clean-checkout contract의 mandatory full-repository Run A/B를 통과해야 한다. staging-only는 이 gate의 면제가 아니다.
 - 신규 tooling의 current-route/full-gate role은 terminal freeze 전에 explicit disposition하며 required dependency를 allowlist에서 누락하거나 자동 편입하지 않는다.
-- current-route manifest 변경 여부는 staging/current-adoption label이 아니라 actual required-dependency disposition으로 결정한다.
+- current-route manifest 변경 여부는 staging/current-install label이 아니라 actual required-dependency disposition으로 결정한다.
 - terminal subject에는 pre-run external retrieval contract만 포함하며 Run A/B result-hash pointer는 post-validation evidence-only successor로 분리한다.
 - canonical acquisition material conservation은 Menu publication authority가 아니다. Menu public set과 신규 표면화 branch는 별도 owner-ratified projection contract를 따른다.
 - candidate replay identity class와 semantic projection exclusions는 실행 전 봉인하며 실패 후 완화하지 않는다.
-- current adoption은 Problem 1 prerequisite, owner authorization, IAR transaction, RTC checks와 adoption subject의 fresh mandatory clean-checkout Run A/B 없이 진행하지 않는다.
+- current installation은 Problem 1 prerequisite, owner authorization, expected predecessor binding, official 7-input build/validate/install, 필요한 별도 RTC checks와 install subject의 fresh mandatory clean-checkout Run A/B 없이 진행하지 않는다.
 - Problem 5A candidate set은 handoff evidence일 뿐 enrichment나 실행 승인으로 사용하지 않는다.
 
 ---
@@ -896,14 +925,14 @@ Expected closeout token: **`layer3_role_realign_staging_complete`**
 
 다음은 주장하지 않는다.
 
-- current Layer 3 successor adoption
+- current Layer 3 successor installation
 - current runtime 또는 package projection update
 - current Menu public text replacement
 - Tooltip UI, exact Tooltip line assignment 또는 4-line layout 완료
 - Problem 5A 해결 또는 실행 승인
-- Registry Authority PASS
+- 폐기된 Registry의 Authority/lifecycle/receipt PASS
 - Registry Runtime Compatibility PASS, Publish Boundary PASS 또는 release readiness
 
 owner ratification 또는 exact Problem 1 binding이 없으면 policy-dependent 실행은 `blocked_policy_prerequisite`로 닫는다. observed mapping coverage가 불완전하면 `blocked_mapping_contract`, required review가 capacity를 초과하거나 review record가 미완료면 `blocked_review_capacity`, exact terminal repository gate가 실패하거나 실행되지 않으면 `blocked_repository_validation`로 닫는다. completed review가 semantic 결론으로 `review_hold/review_required`를 유지하는 것은 `blocked_review_capacity` 사유가 아니다. 이 blocked token들은 partial success나 PASS가 아니다.
 
-별도 current-adoption authorization이 주어지면 Change 9를 새 exact tracked terminal subject에 대해 실행한다. 해당 IAR/RTC/Lua/package validation과 fresh repository Clean-Checkout Run A/B를 모두 exit `0`으로 통과한 경우에만 별도 token `layer3_role_realign_current_adoption_complete`를 기록할 수 있다.
+별도 current-install authorization이 주어지면 Change 9를 새 exact tracked terminal subject에 대해 실행한다. official complete-generation/installer, 필요한 별도 RTC, Lua/package validation과 fresh repository Clean-Checkout Run A/B를 모두 exit `0`으로 통과한 경우에만 별도 token `layer3_role_realign_current_install_complete`를 기록할 수 있다. 이 token도 Publish PASS, release readiness, Workshop/deployment 또는 owner-sealed canonical closure를 뜻하지 않는다.

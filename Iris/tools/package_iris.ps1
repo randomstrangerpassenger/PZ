@@ -147,6 +147,7 @@ function Get-StatelessRuntimePayloadIdentity {
     }
     $generationId = $generationMatch.Groups['generation'].Value
     $dataRoot = Join-Path $SourceRoot 'media\lua\client\Iris\Data'
+    $lookupPackageIdentity = Assert-RuntimeLookupPackageParity -DataRoot $dataRoot
     $generationRoot = Join-Path (Join-Path $dataRoot 'IrisLayer3Generations') $generationId
     $descriptorPath = Join-Path $generationRoot 'generation_descriptor.json'
     if (-not (Test-Path -LiteralPath $descriptorPath -PathType Leaf)) {
@@ -251,9 +252,17 @@ function Get-StatelessRuntimePayloadIdentity {
         forbidden_file_count = 0
         authority_effect = 'none'
         rtc = 'not_claimed'
+        lookup_package = $lookupPackageIdentity
     }
     if (-not [string]::IsNullOrWhiteSpace($PackageRoot)) {
         $packageData = Join-Path $PackageRoot 'media\lua\client\Iris\Data'
+        $packageLookupPackageIdentity = Assert-RuntimeLookupPackageParity -DataRoot $packageData
+        if (
+            $packageLookupPackageIdentity.generation_id -cne $lookupPackageIdentity.generation_id -or
+            $packageLookupPackageIdentity.source_digest -cne $lookupPackageIdentity.source_digest
+        ) {
+            throw 'runtime_payload_lookup_package_generation_mismatch'
+        }
         $packageMismatchCount = 0
         foreach ($row in $mappedRows) {
             $packagePath = Join-Path $packageData $row.package_relative_path

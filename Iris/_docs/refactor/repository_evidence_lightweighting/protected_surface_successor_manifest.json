@@ -1696,6 +1696,64 @@
           "reason": "Bind the additive current G5 successor provenance after restoring the sealed compiler bytes."
         }
       ]
+    },
+    {
+      "revision_id": "iris_iar_retirement_shared_pointer_lookup_reseal_v1",
+      "track": "iris_stateful_artifact_registry_architecture_retirement",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "e45ed731f24473bea0cf235ffb3474828291cd0b",
+      "protection_predecessor_tree": "a4482dce39d753074d901fa6a5a3a34918f223b8",
+      "reason": "Bind the stable lazy lookup consumer to the R2-B shared generation pointer without rewriting the optimization predecessor row.",
+      "approved_activation_deltas": [],
+      "added_protected_rows": [
+        {
+          "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataLookup.lua",
+          "before_git_blob_id": "2ecd85f5bacc96a81ccee5069d65656596ec74fb",
+          "before_sha256_lf": "e98d32809261fa91de1b9d534953d066fb8f8b9ce30d3ab86829fe68adc8aa86",
+          "expected_git_blob_id": "50f88f0b5a6521192e774a7dafe11e9eb33e3d36",
+          "after_sha256_lf": "6b49503c1c3d8adccfb566f7765219de7359c40f0a0a257d1278bfc580185375",
+          "role": "runtime_layer3_shared_pointer_demand_router",
+          "writer": "iris_stateful_artifact_registry_architecture_retirement",
+          "consumers": ["runtime_callers", "browser_interaction_renderer", "compatibility_fallback"],
+          "owner": "repository_owner_user",
+          "reason": "Preserve lazy lookup behavior while resolving every chunk through the same current generation pointer as the public facade."
+        },
+        {
+          "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunkIndex.lua",
+          "before_git_blob_id": "50d48be8b5800abc68bf3b62fd49ba06675a7082",
+          "before_sha256_lf": "7ae19c3f173b01655e1b6ac54de5bb6fabc8322e24be95016e874082454c5ac5",
+          "expected_git_blob_id": "5e4d6828c8a820b2b4613268fa1ad1563a48bcb2",
+          "after_sha256_lf": "e6a4d1945653fcae5636e5cf9fa1856fd8bf2ad6e9ee6b9432fa739d5941f775",
+          "role": "runtime_layer3_shared_pointer_index_router",
+          "writer": "iris_stateful_artifact_registry_architecture_retirement",
+          "consumers": ["IrisLayer3DataLookup", "runtime_package_identity"],
+          "owner": "repository_owner_user",
+          "reason": "Resolve the public chunk index through the same current generation pointer as the facade and lazy lookup."
+        }
+      ]
+    },
+    {
+      "revision_id": "iris_iar_retirement_stateless_package_lookup_parity_reseal_v1",
+      "track": "iris_stateful_artifact_registry_architecture_retirement",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "f7f4a62157cd6fe6cbb956f08808785f79c452ef",
+      "protection_predecessor_tree": "cc12a18194b0d51bc49793a0b657ca9f3c627f99",
+      "reason": "Retain runtime lookup semantic parity checks after removing the unreachable legacy package reader.",
+      "approved_activation_deltas": [
+        {
+          "path": "Iris/tools/package_iris.ps1",
+          "predecessor_sha256": "a1fca567d4ce06037dff904bf934ee1f751a9b56e79347b8c86b185f1ebfd1cb",
+          "before_git_blob_id": "185e733d03fa6f494038bd945b3157ab3617b280",
+          "before_sha256_lf": "21202a7e321e00eebf1265d2da696795a558d92a024f355032613570b619ce75",
+          "expected_git_blob_id": "4cc62de9d53ce6f9f444562faa5b58ade734e50a",
+          "after_sha256_lf": "173e831f261a9fc966ddb25d1fbdfceb46373f87272e477f6ecfe9d1ff6fa8a6",
+          "owner": "repository_owner_user",
+          "reason": "Validate live and packaged lookup identities on the stateless pointer route without a legacy fallback."
+        }
+      ],
+      "added_protected_rows": []
     }
   ]
 }

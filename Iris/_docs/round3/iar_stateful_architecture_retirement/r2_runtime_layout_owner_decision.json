@@ -1,15 +1,15 @@
 {
   "schema_version": "iris-iar-retirement-r2-owner-decision-v1",
-  "selection": "A",
-  "decision": "generation-qualified immutable Lua module set with a single atomic public-manifest visibility switch",
+  "selection": "B",
+  "decision": "generation-qualified immutable Lua module set with one shared runtime pointer switched atomically",
   "authority_source": {
     "kind": "direct_owner_instruction",
     "session_date": "2026-08-20",
     "instruction": "Owner pre-authorized all owner approvals required by the adopted plan and instructed execution to approve them automatically."
   },
   "exact_subject": {
-    "commit": "d26812a0bf1548f5a463975841a826fe08981bb3",
-    "tree": "1f71c888e2dbd2b7d232a25209b9cf88e54e0ec7",
+    "commit": "8341038efe667e508099bd781e7f09f60e4fd212",
+    "tree": "8669a313aa2135290b6ce693743933ca393bf827",
     "implementation_files": [
       {
         "path": "Iris/build/description/v2/tools/build/compose_layer3_text.py",
@@ -17,11 +17,11 @@
       },
       {
         "path": "Iris/build/description/v2/tools/build/dvf_3_3_generation_contract.py",
-        "raw_byte_sha256": "05b946ca18a890a30e2ca5335693e5672bf9acf01b4e46fb454ae22e54117e08"
+        "raw_byte_sha256": "21c8a3e20c7dcc0de3294d20c99cb48816504491292ed6e22e6e2c684002d860"
       },
       {
         "path": "Iris/build/description/v2/tools/build/build_dvf_3_3_complete_generation.py",
-        "raw_byte_sha256": "db165048e360fb41b31f64d2698e28f12bf78d55edfb29244fe23863a57bf6b7"
+        "raw_byte_sha256": "43e6f6a840eaa6aefc479fe5d291e7f9d11f85a8adbea8dab10627cdf61dfc68"
       },
       {
         "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_complete_generation.py",

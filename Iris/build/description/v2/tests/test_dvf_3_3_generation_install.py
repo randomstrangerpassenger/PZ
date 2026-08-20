@@ -22,7 +22,7 @@ def prepare_repository(root: Path) -> tuple[Path, Path, bytes]:
     decision.parent.mkdir(parents=True, exist_ok=True)
     decision.write_text(json.dumps({
         "schema_version": "iris-iar-retirement-r2-owner-decision-v1",
-        "selection": "A",
+        "selection": "B",
         "exact_subject": {"commit": "fixture-commit", "tree": "fixture-tree", "implementation_files": []},
     }), encoding="utf-8")
     legacy_manifest = b'return require("Iris/Data/IrisLayer3DataChunks/Chunk001")\n'
@@ -69,7 +69,9 @@ class DvfGenerationInstallTest(unittest.TestCase):
                         inject_failure=failure_step,
                     )
                 manifest = repository / "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua"
+                pointer = repository / "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua"
                 self.assertEqual(manifest.read_bytes(), legacy_manifest)
+                self.assertFalse(pointer.exists())
                 self.assertEqual(current_generation_id(repository), "legacy:test")
 
     def test_expected_predecessor_and_concurrent_install_fail_closed(self) -> None:

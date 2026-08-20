@@ -162,13 +162,25 @@ function Get-StatelessRuntimePayloadIdentity {
     }
 
     $mappedRows = @()
+    $supportRelativePaths = @(
+        'IrisLayer3DataChunks.lua',
+        'IrisLayer3DataChunkIndex.lua',
+        'IrisLayer3DataLookup.lua',
+        'UseCaseDescriptions/ChunkIndex.lua',
+        'UseCaseDescriptions/LineCountIndex.lua',
+        'IrisRuntimeLookupPackageIdentity.json',
+        'IrisUseCaseDescriptionsLookup.lua',
+        'IrisRuntimeLookupDiagnostics.lua',
+        'IrisUseCaseDescriptions.lua',
+        'UseCaseDescriptions/RequirementsLookup.lua'
+    )
     $expectedGenerationNames = @('generation_descriptor.json')
     $chunkPrefix = "runtime/IrisLayer3Generations/$generationId/Chunks/"
     foreach ($output in @($descriptor.outputs)) {
         $relative = ([string]$output.path).Replace('\', '/')
-        if ($relative -ceq 'runtime/IrisLayer3DataChunks.lua') {
+        if ($relative -ceq 'runtime/IrisLayer3DataCurrent.lua') {
             $livePath = $ManifestPath
-            $packageRelative = 'IrisLayer3DataChunks.lua'
+            $packageRelative = 'IrisLayer3DataCurrent.lua'
         } elseif ($relative -ceq 'dvf_3_3_rendered.json') {
             $livePath = Join-Path $generationRoot 'dvf_3_3_rendered.json'
             $packageRelative = "IrisLayer3Generations/$generationId/dvf_3_3_rendered.json"
@@ -222,7 +234,21 @@ function Get-StatelessRuntimePayloadIdentity {
         generation_key_identity_validation = 'required_by_descriptor_consumer'
         output_universe_sha256 = $descriptor.output_universe_sha256
         output_count = $mappedRows.Count
+        chunk_count = @($mappedRows | Where-Object { $_.descriptor_path.StartsWith($chunkPrefix, [System.StringComparison]::Ordinal) }).Count
         outputs = $mappedRows
+        support_files = @($supportRelativePaths | ForEach-Object {
+            $supportPath = Join-Path $dataRoot $_
+            if (-not (Test-Path -LiteralPath $supportPath -PathType Leaf)) {
+                throw "runtime_payload_stateless_support_missing: $_"
+            }
+            [ordered]@{
+                path = $_
+                sha256 = (Get-FileHash -LiteralPath $supportPath -Algorithm SHA256).Hash.ToLowerInvariant()
+            }
+        })
+        bidirectional_file_set_equal = $true
+        hash_mismatch_count = 0
+        forbidden_file_count = 0
         authority_effect = 'none'
         rtc = 'not_claimed'
     }
@@ -234,6 +260,15 @@ function Get-StatelessRuntimePayloadIdentity {
             if (
                 -not (Test-Path -LiteralPath $packagePath -PathType Leaf) -or
                 (Get-FileHash -LiteralPath $packagePath -Algorithm SHA256).Hash.ToLowerInvariant() -cne $row.raw_byte_sha256
+            ) {
+                $packageMismatchCount++
+            }
+        }
+        foreach ($row in @($result.support_files)) {
+            $packagePath = Join-Path $packageData $row.path
+            if (
+                -not (Test-Path -LiteralPath $packagePath -PathType Leaf) -or
+                (Get-FileHash -LiteralPath $packagePath -Algorithm SHA256).Hash.ToLowerInvariant() -cne $row.sha256
             ) {
                 $packageMismatchCount++
             }
@@ -250,6 +285,7 @@ function Get-StatelessRuntimePayloadIdentity {
             $packageMismatchCount++
         }
         $result.package_hash_mismatch_count = $packageMismatchCount
+        $result.hash_mismatch_count = $packageMismatchCount
         if ($packageMismatchCount -ne 0) {
             throw 'runtime_payload_stateless_package_identity_failed'
         }
@@ -263,16 +299,20 @@ function Get-RuntimePayloadIdentity {
         [Parameter(Mandatory = $true)][string]$SourceRoot,
         [string]$PackageRoot = ''
     )
+    $pointerPath = Join-Path $SourceRoot 'media\lua\client\Iris\Data\IrisLayer3DataCurrent.lua'
+    if (Test-Path -LiteralPath $pointerPath -PathType Leaf) {
+        $statelessIdentity = Get-StatelessRuntimePayloadIdentity `
+            -SourceRoot $SourceRoot `
+            -ManifestPath $pointerPath `
+            -PackageRoot $PackageRoot
+        if ($null -ne $statelessIdentity) {
+            return $statelessIdentity
+        }
+    }
+
     $manifestPath = Join-Path $SourceRoot 'media\lua\client\Iris\Data\IrisLayer3DataChunks.lua'
     if (-not (Test-Path -LiteralPath $manifestPath -PathType Leaf)) {
         throw 'runtime_payload_manifest_missing'
-    }
-    $statelessIdentity = Get-StatelessRuntimePayloadIdentity `
-        -SourceRoot $SourceRoot `
-        -ManifestPath $manifestPath `
-        -PackageRoot $PackageRoot
-    if ($null -ne $statelessIdentity) {
-        return $statelessIdentity
     }
 
     # Bounded legacy read: retained only until the R2-A public manifest is installed.

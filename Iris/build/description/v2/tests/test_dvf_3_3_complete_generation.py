@@ -93,7 +93,7 @@ class DvfCompleteGenerationTest(unittest.TestCase):
                 elif mutation == "missing_file":
                     (generation / descriptor["outputs"][0]["path"]).unlink()
                 elif mutation == "chunk_reorder":
-                    manifest = generation / "runtime" / "IrisLayer3DataChunks.lua"
+                    manifest = generation / "runtime" / "IrisLayer3DataCurrent.lua"
                     lines = manifest.read_bytes().splitlines(keepends=True)
                     indexes = [index for index, line in enumerate(lines) if b"/Chunks/Chunk" in line]
                     lines[indexes[0]], lines[indexes[1]] = lines[indexes[1]], lines[indexes[0]]

@@ -16,7 +16,7 @@ RUNTIME_GENERATION_ROOT_MODULE = "Iris/Data/IrisLayer3Generations"
 DEFAULT_CHUNK_SIZE = 200
 DESCRIPTOR_NAME = "generation_descriptor.json"
 RENDERED_NAME = "dvf_3_3_rendered.json"
-RUNTIME_MANIFEST_NAME = "runtime/IrisLayer3DataChunks.lua"
+RUNTIME_MANIFEST_NAME = "runtime/IrisLayer3DataCurrent.lua"
 DETERMINISTIC_GENERATED_AT = "content-derived-generation"
 
 CANONICAL_INPUTS = (
@@ -26,6 +26,7 @@ CANONICAL_INPUTS = (
     "Iris/build/description/v2/data/compose_profiles_v2.json",
     "Iris/build/description/v2/data/compose_profile_identity_hint_rules.json",
     "Iris/build/description/v2/data/compose_profile_conflict_precedence_rules.json",
+    "Iris/build/description/v2/output/dvf_3_3_rendered.json",
 )
 
 GENERATOR_IMPLEMENTATION_FILES = (
@@ -41,6 +42,7 @@ GENERATOR_IMPLEMENTATION_FILES = (
 PROTECTED_CURRENT_PATHS = (
     "Iris/build/description/v2/output/dvf_3_3_rendered.json",
     "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua",
     "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
     "Iris/media/lua/client/Iris/Data/IrisLayer3Generations",
     "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",

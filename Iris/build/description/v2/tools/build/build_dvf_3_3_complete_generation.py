@@ -10,7 +10,6 @@ from typing import Any, Sequence
 
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-    from tools.build.compose_layer3_text import build_rendered
     from tools.build.dvf_3_3_generation_contract import (
         CANONICAL_INPUTS,
         DEFAULT_CHUNK_SIZE,
@@ -36,7 +35,6 @@ if __package__ in {None, ""}:
         write_chunked_lua_bridge,
     )
 else:
-    from .compose_layer3_text import build_rendered
     from .dvf_3_3_generation_contract import (
         CANONICAL_INPUTS,
         DEFAULT_CHUNK_SIZE,
@@ -69,6 +67,24 @@ def _stable_pretty_json(path: Path, payload: Any) -> None:
     )
 
 
+def _write_runtime_pointer(path: Path, generation_id: str, chunk_count: int) -> None:
+    prefix = generation_module_prefix(generation_id)
+    lines = [
+        "-- Generated generation pointer. This is the single runtime visibility switch.",
+        "return {",
+        '    schema_version = "iris_layer3_generation_pointer_v1",',
+        f'    generation_id = "{generation_id}",',
+        f'    index_module = "{prefix}/IrisLayer3DataChunkIndex",',
+        "    chunk_modules = {",
+    ]
+    lines.extend(
+        f'        "{prefix}/Chunks/Chunk{ordinal:03d}",'
+        for ordinal in range(1, chunk_count + 1)
+    )
+    lines.extend(["    },", "}", ""])
+    path.write_text("\n".join(lines), encoding="utf-8", newline="\n")
+
+
 def _paths(repository_root: Path) -> dict[str, Path]:
     return {
         "facts": repository_path(repository_root, CANONICAL_INPUTS[0]),
@@ -77,6 +93,7 @@ def _paths(repository_root: Path) -> dict[str, Path]:
         "profiles": repository_path(repository_root, CANONICAL_INPUTS[3]),
         "identity_rules": repository_path(repository_root, CANONICAL_INPUTS[4]),
         "precedence_rules": repository_path(repository_root, CANONICAL_INPUTS[5]),
+        "rendered_source": repository_path(repository_root, CANONICAL_INPUTS[6]),
     }
 
 
@@ -122,24 +139,11 @@ def build_complete_generation(
     )
     generation_root = temporary_parent / "generation"
     generation_root.mkdir()
-    scratch_root = temporary_parent / "diagnostics"
-    scratch_root.mkdir()
     try:
         paths = _paths(repository_root)
         rendered_path = generation_root / RENDERED_NAME
-        rendered = build_rendered(
-            paths["facts"],
-            paths["decisions"],
-            paths["profiles"],
-            rendered_path,
-            overlay_path=paths["overlay"],
-            style_log_path=scratch_root / "style_normalization_changes.jsonl",
-            identity_rules_path=paths["identity_rules"],
-            precedence_rules_path=paths["precedence_rules"],
-            compose_context="historical",
-        )
+        rendered = json.loads(paths["rendered_source"].read_text(encoding="utf-8"))
         rendered["meta"]["generated_at"] = DETERMINISTIC_GENERATED_AT
-        rendered["meta"]["overlay_path"] = CANONICAL_INPUTS[2]
         _stable_pretty_json(rendered_path, rendered)
 
         runtime_entries, _ = with_runtime_aliases(rendered["entries"])
@@ -154,6 +158,11 @@ def build_complete_generation(
             chunk_size=DEFAULT_CHUNK_SIZE,
             chunk_module_prefix=generation_module_prefix(generation_id),
             bridge_context="historical",
+        )
+        _write_runtime_pointer(
+            runtime_manifest,
+            generation_id,
+            (len(runtime_entries) + DEFAULT_CHUNK_SIZE - 1) // DEFAULT_CHUNK_SIZE,
         )
 
         outputs = output_records(generation_root)

@@ -31,7 +31,8 @@ else:
 
 
 LIVE_DATA_RELATIVE = "Iris/media/lua/client/Iris/Data"
-LIVE_MANIFEST_RELATIVE = f"{LIVE_DATA_RELATIVE}/IrisLayer3DataChunks.lua"
+LIVE_MANIFEST_RELATIVE = f"{LIVE_DATA_RELATIVE}/IrisLayer3DataCurrent.lua"
+LEGACY_MANIFEST_RELATIVE = f"{LIVE_DATA_RELATIVE}/IrisLayer3DataChunks.lua"
 LIVE_GENERATIONS_RELATIVE = f"{LIVE_DATA_RELATIVE}/IrisLayer3Generations"
 LEGACY_DESCRIPTOR_RELATIVE = (
     "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/"
@@ -80,8 +81,8 @@ def validate_r2_decision(repository_root: Path, decision_path: Path) -> dict[str
     decision = _load_json(decision_path)
     if decision.get("schema_version") != "iris-iar-retirement-r2-owner-decision-v1":
         raise GenerationInstallError("R2_DECISION_SCHEMA_INVALID")
-    if decision.get("selection") != "A":
-        raise GenerationInstallError("R2_DECISION_SELECTION_NOT_A")
+    if decision.get("selection") != "B":
+        raise GenerationInstallError("R2_DECISION_SELECTION_NOT_B")
     subject = decision.get("exact_subject", {})
     if not subject.get("commit") or not subject.get("tree"):
         raise GenerationInstallError("R2_DECISION_SUBJECT_MISSING")
@@ -93,7 +94,7 @@ def validate_r2_decision(repository_root: Path, decision_path: Path) -> dict[str
                 record["path"],
             )
     return {
-        "selection": "A",
+        "selection": "B",
         "path": decision_path.as_posix(),
         "raw_byte_sha256": sha256_file(decision_path),
         "subject_commit": subject["commit"],
@@ -108,18 +109,24 @@ def _manifest_generation_id(manifest_bytes: bytes) -> str | None:
 
 def current_generation_id(repository_root: Path) -> str:
     manifest = _contained(repository_root, LIVE_MANIFEST_RELATIVE)
-    if not manifest.is_file():
-        return "absent"
-    generation_id = _manifest_generation_id(manifest.read_bytes())
-    if generation_id:
-        return generation_id
+    if manifest.is_file():
+        generation_id = _manifest_generation_id(manifest.read_bytes())
+        if generation_id:
+            return generation_id
+    legacy_manifest = _contained(repository_root, LEGACY_MANIFEST_RELATIVE)
+    if legacy_manifest.is_file():
+        generation_id = _manifest_generation_id(legacy_manifest.read_bytes())
+        if generation_id:
+            return generation_id
     legacy_descriptor = _contained(repository_root, LEGACY_DESCRIPTOR_RELATIVE)
     if legacy_descriptor.is_file():
         payload = _load_json(legacy_descriptor)
         identity = payload.get("transaction_id") or payload.get("schema_version")
         if identity:
             return f"legacy:{identity}"
-    return f"legacy-manifest:{sha256_file(manifest)}"
+    if legacy_manifest.is_file():
+        return f"legacy-manifest:{sha256_file(legacy_manifest)}"
+    return "absent"
 
 
 def _candidate_mapping(

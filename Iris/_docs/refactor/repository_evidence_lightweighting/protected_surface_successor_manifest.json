@@ -1634,6 +1634,16 @@
           "after_sha256_lf": "91975277f9939705d05f0204c0fe8eb86099552a78917005f8513c83f27b15cd",
           "owner": "repository_owner_user",
           "reason": "Document the bounded successor generation, validator, installer, and runtime-identity tooling without reactivating retired IAR producers."
+        },
+        {
+          "path": "Iris/_docs/round3/round3_active_core_closure.json",
+          "predecessor_sha256": "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf",
+          "before_git_blob_id": "127f88fc80d96d74a8e5e74e6231abe946d1d0ba",
+          "before_sha256_lf": "4584fc2fee13b45271ee3d689447db6dc52437987caa119fa139f2dc23193dcf",
+          "expected_git_blob_id": "a94dccfc48661adf8f5e7dce7f18d2bfb80fab3f",
+          "after_sha256_lf": "31843a14e3ef1f004d73dadf9809080aaa68e4081027578617b820af784805a3",
+          "owner": "repository_owner_user",
+          "reason": "Allow only the five non-core stateless successor modules while preserving the exact twelve-module current core closure."
         }
       ],
       "added_protected_rows": [

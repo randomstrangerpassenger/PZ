@@ -76,7 +76,7 @@
     {"source_file": "Iris/build/description/v2/tests/test_public_text_quality_metric_contract.py", "classification": "diagnostic", "reason": "Audits metric registry shape without defining current release success."},
     {"source_file": "Iris/build/description/v2/tests/test_runtime_payload_state_integrity_residual_seal.py", "classification": "current", "reason": "Guards the residual seal consumed by the current runtime payload."},
     {"source_file": "Iris/build/description/v2/tests/test_terminal_disposition_adjudication.py", "classification": "historical", "reason": "Reproduces a closed terminal-disposition adjudication."},
-    {"source_file": "Iris/build/description/v2/tests/test_validated_naturalization_runtime_adoption.py", "classification": "current", "reason": "Validates the naturalization payload adopted by the current runtime."}
+    {"source_file": "Iris/build/description/v2/tests/test_validated_naturalization_runtime_adoption.py", "classification": "historical", "reason": "Reproduces the retired stateful naturalization adoption writer; current runtime uses the stateless generation pointer."}
   ],
   "planned_sources": [
     {"source_file": "Iris/build/description/v2/tests/test_round3_pytest_source_classification.py", "classification": "current"},

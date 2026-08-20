@@ -94,7 +94,7 @@ def _paths(repository_root: Path) -> dict[str, Path]:
         "profiles": repository_path(repository_root, CANONICAL_INPUTS[3]),
         "identity_rules": repository_path(repository_root, CANONICAL_INPUTS[4]),
         "precedence_rules": repository_path(repository_root, CANONICAL_INPUTS[5]),
-        "rendered_source": repository_path(repository_root, CANONICAL_INPUTS[6]),
+        "adopted_candidate": repository_path(repository_root, CANONICAL_INPUTS[6]),
     }
 
 
@@ -143,7 +143,7 @@ def build_complete_generation(
     try:
         paths = _paths(repository_root)
         rendered_path = generation_root / RENDERED_NAME
-        rendered = json.loads(paths["rendered_source"].read_text(encoding="utf-8"))
+        rendered = json.loads(paths["adopted_candidate"].read_text(encoding="utf-8"))
         rendered["meta"]["generated_at"] = DETERMINISTIC_GENERATED_AT
         _stable_pretty_json(rendered_path, rendered)
 

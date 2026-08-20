@@ -2741,13 +2741,13 @@
     {
       "path": "Iris/_docs/round3/iar_stateful_architecture_retirement/r2_runtime_layout_owner_decision.json",
       "checks": [
-        {"field": "selection", "equals": "A"}
+        {"field": "selection", "equals": "B"}
       ]
     },
     {
       "path": "Iris/_docs/round3/iar_stateful_architecture_retirement/r2_installer_subject_binding.json",
       "checks": [
-        {"field": "selection", "equals": "A"}
+        {"field": "selection", "equals": "B"}
       ]
     }
   ],

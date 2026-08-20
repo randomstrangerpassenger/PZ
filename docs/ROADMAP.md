@@ -1138,13 +1138,13 @@ Historical trace / provenance index는 ROADMAP 본문에서 더 이상 관리하
 
 ## Iris Stateful Artifact Registry architecture retirement (2026-08-20)
 
-현재 상태는 `successor_implemented_prevalidation`이다.
+현재 상태는 `successor_installed_final_validation_pending`이다.
 
-- 여섯 canonical input과 generator contract에 결속된 deterministic off-live complete-generation builder, stateless descriptor validator와 `generation_key_identity_validation`을 구현했다.
-- R2 owner decision A를 exact generation subject에 결속했고, immutable generation-qualified Lua set + stable public manifest single-switch installer를 구현했다.
-- Package current-runtime identity는 successor stateless descriptor를 우선하고 legacy descriptor는 current migration 전 bounded predecessor read로 남긴다.
+- 여섯 compose input과 adopted upstream content input, generator contract에 결속된 deterministic off-live complete-generation builder, stateless descriptor validator와 `generation_key_identity_validation`을 구현했다. Current output readback은 0이다.
+- R2 owner decision B를 exact generation subject에 결속했고, immutable generation-qualified Lua set + shared current-generation pointer single-switch installer를 설치했다.
+- Package current-runtime identity는 successor pointer와 stateless descriptor만 읽고 legacy descriptor fallback은 제거했다.
 - successor tests와 source/dependency policy를 current required route에 추가했다.
-- protected current install, predecessor cleanup, legacy IAR product consumer removal은 아직 수행하지 않았다. Existing current rendered/runtime/descriptor와 sealed history는 그대로다.
-- `stale_requires_successor_rtc`, Publish, release/Workshop, manual in-game QA, owner seal과 canonical closure는 닫지 않았다.
+- protected current install과 legacy IAR product consumer 제거를 완료했으며 Layer 1–5 active product IAR consumer는 0이다. Sealed history는 그대로 보존한다.
+- 수동 인게임 QA는 owner-attested PASS다. `stale_requires_successor_rtc`, Publish, release/Workshop, owner seal과 canonical sealed closure는 별도 축으로 남는다.
 
-다음 gate는 계획의 consolidated validation matrix, Codex Reviewer, R2-A Lua load/cache/package/manual QA와 exact terminal subject binding이다. 이 증거 전에는 `FULL_RETIREMENT` 또는 `MINIMAL_RESIDUAL`을 선언하지 않는다.
+다음 gate는 계획의 consolidated validation matrix, Codex Reviewer와 exact terminal subject binding이다. 이를 통과한 뒤 제품 outcome을 `FULL_RETIREMENT`로 닫고 predecessor cleanup을 별도 post-closeout action으로 판단한다.

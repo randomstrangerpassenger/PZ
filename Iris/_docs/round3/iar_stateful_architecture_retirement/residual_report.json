@@ -1,26 +1,24 @@
 {
   "schema_version": "iris-iar-retirement-residual-report-v1",
-  "status": "prevalidation_bounded_predecessor_retained",
-  "active_product_iar_consumer_count_by_layer": {"1": 0, "2": 0, "3": 4, "4": 0, "5": 0},
-  "active_product_iar_consumer_count_all_layers": 4,
-  "residual_allowlist": [
-    {"path": "Iris/build/description/v2/tools/build/validated_naturalization_runtime_adoption.py", "symbol": "apply_generation_transaction", "invariant": "preserve current until successor install evidence closes"},
-    {"path": "Iris/build/description/v2/tools/build/compose_layer3_text.py", "symbol": "registry_current_write_authorization_receipt", "invariant": "real current direct compose write remains disabled"},
-    {"path": "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py", "symbol": "RegistryCompatibilityInvocation", "invariant": "RTC governance cannot grant generation authority"},
-    {"path": "Iris/tools/package_iris.ps1", "symbol": "legacy Get-RuntimePayloadIdentity branch", "invariant": "bounded fallback only when R2-A manifest is absent"}
+  "status": "successor_installed_validation_pending",
+  "active_product_iar_consumer_count_by_layer": {"1": 0, "2": 0, "3": 0, "4": 0, "5": 0},
+  "active_product_iar_consumer_count_all_layers": 0,
+  "residual_allowlist": [],
+  "historical_or_governance_allowlist": [
+    {"path": "Iris/build/description/v2/tools/build/validated_naturalization_runtime_adoption.py", "role": "historical_reproduction", "current_invocation": "forbidden"},
+    {"path": "Iris/build/description/v2/tools/build/compose_layer3_text.py", "role": "protected_output_guard", "current_invocation": "validation_only"},
+    {"path": "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py", "role": "rtc_governance_adapter", "current_invocation": "stateless_export_only"}
   ],
   "successor_protected_writer_allowlist": [
-    {"path": "Iris/build/description/v2/tools/build/install_dvf_3_3_complete_generation.py", "symbol": "install_complete_generation", "allowed_target": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua", "maximum_visibility_switch_count": 1}
+    {"path": "Iris/build/description/v2/tools/build/install_dvf_3_3_complete_generation.py", "symbol": "install_complete_generation", "allowed_target": "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua", "maximum_visibility_switch_count": 1}
   ],
   "blocked_cleanup_reasons": [
-    "final automated validation not yet executed",
-    "manual in-game QA unavailable in this execution environment",
-    "downstream plan amendments exist only in the preserved dirty owner worktree",
-    "protected-current successor generation not installed"
+    "final automated validation and independent review not yet complete"
   ],
+  "manual_in_game_qa": "PASS_OWNER_ATTESTED",
   "owner": "Iris Layer 3 generation/package boundary",
   "forbidden_expansion": "Do not generalize the DVF 3.3 generation contract into a Layer 1-5 registry or make lifecycle receipts a default for new artifacts.",
-  "retirement_reevaluation_condition": "All R2-A automatic/manual evidence and exact terminal subject binding are available; then install, recensus, and remove the bounded legacy consumers in a separate commit.",
+  "retirement_reevaluation_condition": "none_after_full_closeout",
   "predecessor_cleanup_performed": false,
   "rollback_available": true
 }

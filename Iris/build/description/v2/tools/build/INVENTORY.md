@@ -426,7 +426,7 @@ The approved successor adds five tracked, current-route tooling modules without 
 | `dvf_3_3_generation_contract.py` | exact canonical input, generator, output-universe and protected-root contract |
 | `build_dvf_3_3_complete_generation.py` | deterministic off-live rendered + generation-qualified Lua generation |
 | `validate_dvf_3_3_complete_generation.py` | descriptor-independent input/output/file-universe validation |
-| `install_dvf_3_3_complete_generation.py` | R2-A immutable-set install and single stable-manifest switch |
+| `install_dvf_3_3_complete_generation.py` | R2-B immutable-set install and single shared generation-pointer switch |
 | `dvf_3_3_runtime_compatibility.py` | stateless exact-key/collision/payload validation; does not claim RTC |
 
-These files are `active` successor tooling, not generic Registry infrastructure and not archive candidates. Existing source correction, naturalization adoption and Registry Runtime Compatibility lifecycle scripts remain `completed-but-reproducible` or bounded predecessor paths until the protected-current migration and final residual scan close. No sealed attempt/history file is deleted or rewritten.
+These files are `active` successor tooling, not generic Registry infrastructure and not archive candidates. Existing source correction and naturalization adoption scripts are `completed-but-reproducible`; Registry Runtime Compatibility remains separate governance. The current runtime/package path has no legacy stateful fallback. No sealed attempt/history file is deleted or rewritten.

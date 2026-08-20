@@ -6,7 +6,8 @@
     {"path": "Iris/build/description/v2/data/dvf_3_3_overlay_support.jsonl", "raw_byte_sha256": "0d1fe36e0e4c17c48e2592f052d796ce6859d38a40ff58e638658930097e3327", "size": 988966},
     {"path": "Iris/build/description/v2/data/compose_profiles_v2.json", "raw_byte_sha256": "55ef3b3aa504c9cef60bd57da389328953c79742884de29b69662be3604909b9", "size": 5358},
     {"path": "Iris/build/description/v2/data/compose_profile_identity_hint_rules.json", "raw_byte_sha256": "d0f235f60036d66feb30011ea64fffa7943f8dca97a9c96a15ad199907f2a5cb", "size": 1864},
-    {"path": "Iris/build/description/v2/data/compose_profile_conflict_precedence_rules.json", "raw_byte_sha256": "c0827f940cb65770daffff35f52349e796573e766afd975b7f358000fd510ad7", "size": 171}
+    {"path": "Iris/build/description/v2/data/compose_profile_conflict_precedence_rules.json", "raw_byte_sha256": "c0827f940cb65770daffff35f52349e796573e766afd975b7f358000fd510ad7", "size": 171},
+    {"path": "Iris/build/description/v2/staging/dvf_acquisition_list_runtime/attempt-0001/candidate_rendered.json", "raw_byte_sha256": "af81aee4ac7d942faea3b4c588f9fa6c006877e78811fda9a302c2567e53f2ed", "size": 1968529, "role": "adopted_upstream_content_input"}
   ],
   "excluded_lifecycle_inputs": [
     "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
@@ -16,13 +17,14 @@
     "attempt_id", "transaction_id", "nonce", "receipt", "candidate_path", "wall_clock", "absolute_path"
   ],
   "role_disposition": {
-    "generation_content_input": "superseded_by_six_exact_canonical_inputs",
+    "generation_content_input": "six_direct_compose_inputs_plus_one_adopted_upstream_content_input",
     "source_history_or_adoption_record": "historical_read_only",
-    "package_consumer": "bounded_legacy_read_until_r2_a_install",
-    "required_validation_consumer": "active_predecessor_then_replaced_by_generation_descriptor",
+    "package_consumer": "stateless_generation_pointer_only",
+    "required_validation_consumer": "replaced_by_generation_descriptor",
     "historical_trace": "preserved"
   },
   "output_reads_by_successor_builder": [],
+  "current_output_readback_count": 0,
   "environment_identity_inputs": [],
   "unresolved": 0
 }

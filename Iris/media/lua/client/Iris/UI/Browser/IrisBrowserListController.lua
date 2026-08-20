@@ -37,6 +37,7 @@ local function stableIdentity(payload, field)
 end
 
 local function logSelection(debug, axis, fromValue, toValue, reason)
+    if not debug then return end
     debug("[IrisBrowser] selection axis=" .. axis ..
         " from=" .. tostring(fromValue) ..
         " to=" .. tostring(toValue) ..
@@ -46,6 +47,8 @@ end
 function IrisBrowserListController.install(IrisBrowser, context)
     local debug = context.debug
     local logError = context.logError
+    local debugEnabled = context.isDebugEnabled and context.isDebugEnabled() or false
+    local dynamicDebug = debugEnabled and debug or nil
 
     function IrisBrowser:loadCategories()
         debug("[IrisBrowser] ========== loadCategories() START ==========")
@@ -59,20 +62,28 @@ function IrisBrowserListController.install(IrisBrowser, context)
 
         debug("[IrisBrowser] Calling IrisBrowserData.getCategories()...")
         local categories = IrisBrowserData.getCategories()
-        debug("[IrisBrowser] Got " .. #categories .. " categories")
+        if dynamicDebug then
+            dynamicDebug("[IrisBrowser] Got " .. #categories .. " categories")
+        end
 
         for i, cat in ipairs(categories) do
             local displayLabel = cat.label or cat.name
-            debug("[IrisBrowser] Adding category " .. i .. ": '" .. displayLabel .. "' (code=" .. cat.name .. ")")
+            if dynamicDebug then
+                dynamicDebug("[IrisBrowser] Adding category " .. i .. ": '" .. displayLabel .. "' (code=" .. cat.name .. ")")
+            end
             self.categoryList:addItem(displayLabel, cat)
         end
 
-        debug("[IrisBrowser] categoryList.items count = " .. #self.categoryList.items)
+        if dynamicDebug then
+            dynamicDebug("[IrisBrowser] categoryList.items count = " .. #self.categoryList.items)
+        end
         debug("[IrisBrowser] ========== loadCategories() END ==========")
     end
 
     function IrisBrowser:loadSubcategories(categoryName)
-        debug("[IrisBrowser] loadSubcategories called for: " .. tostring(categoryName))
+        if dynamicDebug then
+            dynamicDebug("[IrisBrowser] loadSubcategories called for: " .. tostring(categoryName))
+        end
         self.subcategoryList:clear()
 
         local IrisBrowserData = BrowserBase.getBrowserData(context)
@@ -82,7 +93,9 @@ function IrisBrowserListController.install(IrisBrowser, context)
         end
 
         local subcategories = IrisBrowserData.getSubcategories(categoryName)
-        debug("[IrisBrowser] getSubcategories returned: " .. #subcategories .. " items")
+        if dynamicDebug then
+            dynamicDebug("[IrisBrowser] getSubcategories returned: " .. #subcategories .. " items")
+        end
 
         local filterText = self.subcategorySearchBar:getText():lower()
 
@@ -96,11 +109,15 @@ function IrisBrowserListController.install(IrisBrowser, context)
                 addedCount = addedCount + 1
             end
         end
-        debug("[IrisBrowser] Added " .. addedCount .. " subcategories to list")
+        if dynamicDebug then
+            dynamicDebug("[IrisBrowser] Added " .. addedCount .. " subcategories to list")
+        end
     end
 
     function IrisBrowser:loadItems(categoryName, subcategoryName)
-        debug("[IrisBrowser] loadItems called: " .. tostring(categoryName) .. "." .. tostring(subcategoryName))
+        if dynamicDebug then
+            dynamicDebug("[IrisBrowser] loadItems called: " .. tostring(categoryName) .. "." .. tostring(subcategoryName))
+        end
         self.itemList:clear()
 
         local IrisBrowserData = BrowserBase.getBrowserData(context)
@@ -110,7 +127,9 @@ function IrisBrowserListController.install(IrisBrowser, context)
         end
 
         local items = IrisBrowserData.getItems(categoryName, subcategoryName)
-        debug("[IrisBrowser] getItems returned " .. #items .. " items")
+        if dynamicDebug then
+            dynamicDebug("[IrisBrowser] getItems returned " .. #items .. " items")
+        end
 
         local filterText = self.itemSearchBar:getText():lower()
         local addedCount = 0
@@ -121,13 +140,15 @@ function IrisBrowserListController.install(IrisBrowser, context)
                 addedCount = addedCount + 1
             end
         end
-        debug("[IrisBrowser] Added " .. addedCount .. " items to list")
+        if dynamicDebug then
+            dynamicDebug("[IrisBrowser] Added " .. addedCount .. " items to list")
+        end
     end
 
     function IrisBrowser:onCategorySelected(item)
         local catData, reason = IrisBrowserListController.resolveSelectedPayload(self.categoryList, item)
         if not catData then
-            logSelection(debug, "category", self.currentCategory, nil, reason)
+            logSelection(dynamicDebug, "category", self.currentCategory, nil, reason)
             return
         end
 
@@ -135,7 +156,7 @@ function IrisBrowserListController.install(IrisBrowser, context)
         self.currentCategory = catData.name
         self.currentSubcategory = nil
         self.currentSelectedFullType = nil
-        logSelection(debug, "category", previous, stableIdentity(catData, "name"), reason)
+        logSelection(dynamicDebug, "category", previous, stableIdentity(catData, "name"), reason)
 
         self:loadSubcategories(self.currentCategory)
         self.itemList:clear()
@@ -145,14 +166,14 @@ function IrisBrowserListController.install(IrisBrowser, context)
     function IrisBrowser:onSubcategorySelected(item)
         local subData, reason = IrisBrowserListController.resolveSelectedPayload(self.subcategoryList, item)
         if not subData then
-            logSelection(debug, "subcategory", self.currentSubcategory, nil, reason)
+            logSelection(dynamicDebug, "subcategory", self.currentSubcategory, nil, reason)
             return
         end
 
         local previous = self.currentSubcategory
         self.currentSubcategory = subData.name
         self.currentSelectedFullType = nil
-        logSelection(debug, "subcategory", previous, stableIdentity(subData, "name"), reason)
+        logSelection(dynamicDebug, "subcategory", previous, stableIdentity(subData, "name"), reason)
 
         self:loadItems(self.currentCategory, self.currentSubcategory)
         self:showDetail(nil)
@@ -161,7 +182,7 @@ function IrisBrowserListController.install(IrisBrowser, context)
     function IrisBrowser:onItemSelected(item)
         local itemData, reason = IrisBrowserListController.resolveSelectedPayload(self.itemList, item)
         if not itemData then
-            logSelection(debug, "item", self.currentSelectedFullType, nil, reason)
+            logSelection(dynamicDebug, "item", self.currentSelectedFullType, nil, reason)
             return
         end
 
@@ -169,7 +190,7 @@ function IrisBrowserListController.install(IrisBrowser, context)
         self.detailScrollY = 0
         self.currentSelectedFullType = itemData.fullType
         self.currentSelectedVariants = itemData.variants
-        logSelection(debug, "item", previous, stableIdentity(itemData, "fullType"), reason)
+        logSelection(dynamicDebug, "item", previous, stableIdentity(itemData, "fullType"), reason)
         self:showDetail(self.currentSelectedFullType)
     end
 
@@ -230,12 +251,16 @@ function IrisBrowserListController.install(IrisBrowser, context)
             self.currentSelectedFullType = fullType
             self:showDetail(fullType)
 
-            debug("[IrisBrowser] Selected item: " .. fullType .. " in " .. targetCat .. "." .. targetSub)
+            if dynamicDebug then
+                dynamicDebug("[IrisBrowser] Selected item: " .. fullType .. " in " .. targetCat .. "." .. targetSub)
+            end
         else
             self.detailScrollY = 0
             self.currentSelectedFullType = fullType
             self:showDetail(fullType)
-            debug("[IrisBrowser] Item not classified: " .. fullType)
+            if dynamicDebug then
+                dynamicDebug("[IrisBrowser] Item not classified: " .. fullType)
+            end
         end
     end
 end

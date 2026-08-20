@@ -54,6 +54,12 @@ local function newInstrumentation()
         lastColdOpenElapsedMilliseconds = 0,
         lastWarmReopenElapsedMilliseconds = 0,
         generationInvalidationCount = 0,
+        postIndexMaterializationPassCount = 0,
+        materializedRowCount = 0,
+        retainedItemReferenceCount = 0,
+        tagArrayToSetConversionCount = 0,
+        chooseLocationComparisonCount = 0,
+        initialSearchSortCount = 0,
     }
 end
 
@@ -138,16 +144,43 @@ function IrisBrowserData.isReady()
     return READY_STATES[buildState] == true
 end
 
-local function createSearchKeys(itemIndex)
-    local keys = {}
-    for fullType, item in pairs(itemIndex.itemsByFullType or {}) do
-        local displayName = ItemAccess.getDisplayName(item, fullType)
-        keys[fullType] = {
-            displayName = displayName,
-            folded = displayName:lower() .. "\0" .. fullType:lower(),
-        }
+local function createPresentationRanks()
+    local ranks = {}
+    local rank = 0
+    for _, categoryName in ipairs(IrisBrowserData.CATEGORY_ORDER or {}) do
+        for _, subcategoryName in ipairs(
+            IrisBrowserData.SUBCATEGORY_MAP[categoryName] or {}
+        ) do
+            rank = rank + 1
+            ranks[categoryName .. "." .. subcategoryName] = rank
+        end
     end
-    return keys
+    return ranks
+end
+
+local function searchRowLess(a, b)
+    if a.displayName ~= b.displayName then
+        return a.displayName < b.displayName
+    end
+    return a.fullType < b.fullType
+end
+
+local function betterDescriptionTag(tag, currentTag, currentPriority, currentCode)
+    local category = nil
+    local code = nil
+    if type(tag) == "string" then
+        category, code = tag:match("^([^%.]+)%.(.+)$")
+    end
+    if not category or not code then
+        return currentTag, currentPriority, currentCode
+    end
+
+    local priority = IrisBrowserCategoryIndex.getDescriptionPriority(category)
+    if priority < currentPriority or
+        (priority == currentPriority and code < currentCode) then
+        return tag, priority, code
+    end
+    return currentTag, currentPriority, currentCode
 end
 
 local function buildCandidateCache(itemIndex)
@@ -156,15 +189,16 @@ local function buildCandidateCache(itemIndex)
         IrisBrowserData.SUBCATEGORY_MAP
     )
 
+    local nextGeneration = buildGeneration + 1
+    local normalizedLocale = TranslationResolver.getLangKey("EN")
     local candidate = {
         itemIndex = itemIndex,
         classificationIndex = classificationIndex,
         itemsByFullType = itemIndex.itemsByFullType,
+        rowsByFullType = {},
         categories = classificationIndex.categories,
         itemLocationsByFullType = classificationIndex.itemLocationsByFullType,
-        primaryLocationByFullType = {},
-        searchKeysByFullType = createSearchKeys(itemIndex),
-        searchKeysLocale = TranslationResolver.getLangKey("EN"),
+        searchSnapshot = nil,
         foldedCountsByGrouping = {},
         displayNameGroupsByGrouping = {},
         searchMetrics = instrumentationEnabled and {
@@ -172,46 +206,105 @@ local function buildCandidateCache(itemIndex)
             totalScanRows = 0,
             lastScanRows = 0,
             prefixReuseCount = 0,
+            fullSortCount = 0,
         } or nil,
-        generation = buildGeneration + 1,
+        generation = nextGeneration,
     }
 
     local taggedCount = 0
     local errorCount = 0
     local maxErrors = 5
+    local locationRanks = createPresentationRanks()
+    local searchRows = {}
+    local classifications = StaticData.get("classifications")
+    local classificationsMalformed = classifications ~= nil and
+        type(classifications) ~= "table"
+
+    if instrumentationEnabled then
+        instrumentation.postIndexMaterializationPassCount =
+            instrumentation.postIndexMaterializationPassCount + 1
+    end
 
     for fullType, item in pairs(itemIndex.itemsByFullType or {}) do
-        local tags = {}
-        local tagOk, tagResult = ProtectedCall.data(function()
-            return IrisAPI.Tags.getTagsForItem(item)
-        end)
-        if not tagOk then
-            if IrisLogger.isDebugEnabled() and errorCount < maxErrors then
-                debug("[IrisBrowserData] DEBUG: IrisAPI.Tags.getTagsForItem() failed for " .. fullType .. ": " .. tostring(tagResult))
-            end
-            errorCount = errorCount + 1
-        elseif tagResult and type(tagResult) == "table" then
-            tags = tagResult
+        local displayName = ItemAccess.getDisplayName(item, fullType)
+        local row = {
+            fullType = fullType,
+            item = item,
+            displayName = displayName,
+            folded = displayName:lower() .. "\0" .. fullType:lower(),
+            primaryLocation = nil,
+            primaryTag = nil,
+        }
+        candidate.rowsByFullType[fullType] = row
+        if instrumentationEnabled then
+            instrumentation.materializedRowCount =
+                instrumentation.materializedRowCount + 1
+            instrumentation.retainedItemReferenceCount =
+                instrumentation.retainedItemReferenceCount + 1
         end
 
-        if IrisBrowserClassificationIndex.addItem(classificationIndex, fullType, tags) then
+        local rawTags = nil
+        local tagReadFailed = classificationsMalformed
+        if not classificationsMalformed and classifications then
+            rawTags = classifications[fullType]
+            tagReadFailed = rawTags ~= nil and type(rawTags) ~= "table"
+        end
+
+        if tagReadFailed then
+            if IrisLogger.isDebugEnabled() and errorCount < maxErrors then
+                debug("[IrisBrowserData] DEBUG: classification tags malformed for " .. fullType)
+            end
+            errorCount = errorCount + 1
+        end
+
+        local hasAnyTag = false
+        local primaryLocationRank = math.huge
+        local primaryPriority = math.huge
+        local primaryCode = "\255"
+        if type(rawTags) == "table" then
+            for _, tag in ipairs(rawTags) do
+                hasAnyTag = true
+                local accepted = IrisBrowserClassificationIndex.addTag(
+                    classificationIndex,
+                    fullType,
+                    tag
+                )
+                local rank = accepted and locationRanks[tag] or nil
+                if rank and rank < primaryLocationRank then
+                    local category, subcategory = tag:match("^([^%.]+)%.(.+)$")
+                    primaryLocationRank = rank
+                    row.primaryLocation = {
+                        category = category,
+                        subcategory = subcategory,
+                    }
+                end
+                row.primaryTag, primaryPriority, primaryCode = betterDescriptionTag(
+                    tag,
+                    row.primaryTag,
+                    primaryPriority,
+                    primaryCode
+                )
+            end
+        end
+        if IrisPrimarySubcategory and IrisPrimarySubcategory[fullType] then
+            row.primaryTag = IrisPrimarySubcategory[fullType]
+        end
+        searchRows[#searchRows + 1] = row
+        if hasAnyTag then
             taggedCount = taggedCount + 1
         end
     end
 
-    -- Materialize the same presentation-order choice once per generation.
-    -- An empty record is an authoritative "no browser location" result.
-    for fullType, _ in pairs(itemIndex.itemsByFullType or {}) do
-        local category, subcategory = IrisBrowserClassificationIndex.chooseLocation(
-            classificationIndex,
-            fullType,
-            IrisBrowserData.CATEGORY_ORDER,
-            IrisBrowserData.SUBCATEGORY_MAP
-        )
-        candidate.primaryLocationByFullType[fullType] = {
-            category = category,
-            subcategory = subcategory,
-        }
+    table.sort(searchRows, searchRowLess)
+    candidate.searchSnapshot = {
+        generation = nextGeneration,
+        locale = normalizedLocale,
+        rows = searchRows,
+    }
+    if candidate.searchMetrics then
+        candidate.searchMetrics.fullSortCount = 1
+        instrumentation.initialSearchSortCount =
+            instrumentation.initialSearchSortCount + 1
     end
     
     return candidate, taggedCount, errorCount
@@ -340,6 +433,12 @@ function IrisBrowserData.getInstrumentation()
         lastColdOpenElapsedMilliseconds = instrumentation.lastColdOpenElapsedMilliseconds,
         lastWarmReopenElapsedMilliseconds = instrumentation.lastWarmReopenElapsedMilliseconds,
         generationInvalidationCount = instrumentation.generationInvalidationCount,
+        postIndexMaterializationPassCount = instrumentation.postIndexMaterializationPassCount,
+        materializedRowCount = instrumentation.materializedRowCount,
+        retainedItemReferenceCount = instrumentation.retainedItemReferenceCount,
+        tagArrayToSetConversionCount = instrumentation.tagArrayToSetConversionCount,
+        chooseLocationComparisonCount = instrumentation.chooseLocationComparisonCount,
+        initialSearchSortCount = instrumentation.initialSearchSortCount,
     }
 end
 
@@ -397,10 +496,16 @@ end
 --- @return number foldedCount
 function IrisBrowserData._calculateFoldedCount(categoryName, subCode, subData)
     if not IrisBrowserData._cache then return 0 end
-    local groupingKey = IrisBrowserVariantIndex.getFoldedCountCacheKey(subData)
+    local groupingKey = IrisBrowserVariantIndex.getFoldedCountCacheKey(categoryName, subCode)
     local cached = IrisBrowserData._cache.foldedCountsByGrouping[groupingKey]
     if cached ~= nil then return cached end
-    local count = IrisBrowserVariantIndex.calculateFoldedCount(IrisBrowserData._cache, subData, IrisAPI)
+    local count = IrisBrowserVariantIndex.calculateFoldedCount(
+        IrisBrowserData._cache,
+        categoryName,
+        subCode,
+        subData,
+        IrisAPI
+    )
     IrisBrowserData._cache.foldedCountsByGrouping[groupingKey] = count
     return count
 end
@@ -422,6 +527,10 @@ function IrisBrowserData.getSubcategories(categoryName)
         if debugEnabled then debug("[IrisBrowserData] categoryName is nil, returning empty") end
         return {}
     end
+    IrisBrowserQuery.ensureLocale(
+        IrisBrowserData._cache,
+        TranslationResolver.getLangKey("EN")
+    )
     
     local result = IrisBrowserFilters.getSubcategories(
         IrisBrowserData._cache,
@@ -440,7 +549,9 @@ end
 --- @param currentTag string 현재 보고 있는 태그 (예: "Consumable.3-A")
 --- @return boolean isPrimary
 function IrisBrowserData._calculatePrimary(item, fullType, currentTag)
-    return IrisBrowserVariantIndex.calculatePrimary(item, fullType, currentTag, IrisAPI)
+    local row = IrisBrowserData._cache and IrisBrowserData._cache.rowsByFullType and
+        IrisBrowserData._cache.rowsByFullType[fullType] or nil
+    return IrisBrowserVariantIndex.calculatePrimary(item, fullType, currentTag, IrisAPI, row)
 end
 
 --- 특정 소분류의 아이템 목록 반환
@@ -461,6 +572,10 @@ function IrisBrowserData.getItems(categoryName, subcategoryName)
         if debugEnabled then debug("[IrisBrowserData] getItems - not built or missing params") end
         return {}
     end
+    IrisBrowserQuery.ensureLocale(
+        IrisBrowserData._cache,
+        TranslationResolver.getLangKey("EN")
+    )
     
     local result = IrisBrowserVariantIndex.getItems(
         IrisBrowserData._cache,

@@ -41,39 +41,41 @@ function IrisBrowserClassificationIndex.createEmpty(categoryOrder, subcategoryMa
     return index
 end
 
-function IrisBrowserClassificationIndex.addItem(index, fullType, tags)
-    if not index or not fullType or type(tags) ~= "table" then
-        return false
+function IrisBrowserClassificationIndex.addTag(index, fullType, tag)
+    if not index or not fullType then
+        return false, nil, nil
     end
 
-    local hasAnyTag = false
-    for tag, _ in pairs(tags) do
-        hasAnyTag = true
+    local category, subcategory = parseTag(tag)
+    if not category or not subcategory then
+        return false, category, subcategory
+    end
 
-        local category, subcategory = parseTag(tag)
-        if category and subcategory then
-            local catData = index.categories[category]
-            if catData and catData.subcategories and catData.subcategories[subcategory] then
-                local subData = catData.subcategories[subcategory]
-                if not subData.items[fullType] then
-                    subData.items[fullType] = true
-                    subData.count = subData.count + 1
+    local catData = index.categories[category]
+    local subData = catData and catData.subcategories and
+        catData.subcategories[subcategory] or nil
+    if not subData then
+        return false, category, subcategory
+    end
 
-                    local locations = index.itemLocationsByFullType[fullType]
-                    if not locations then
-                        locations = {}
-                        index.itemLocationsByFullType[fullType] = locations
-                    end
-                    table.insert(locations, {
-                        category = category,
-                        subcategory = subcategory,
-                    })
-                end
-            end
+    if not subData.items[fullType] then
+        -- The bucket retains only the fullType membership key. It never
+        -- contains or exposes the backing classification tag array.
+        subData.items[fullType] = true
+        subData.count = subData.count + 1
+
+        local locations = index.itemLocationsByFullType[fullType]
+        if not locations then
+            locations = {}
+            index.itemLocationsByFullType[fullType] = locations
         end
+        table.insert(locations, {
+            category = category,
+            subcategory = subcategory,
+        })
     end
 
-    return hasAnyTag
+    return true, category, subcategory
 end
 
 function IrisBrowserClassificationIndex.chooseLocation(index, fullType, categoryOrder, subcategoryMap)

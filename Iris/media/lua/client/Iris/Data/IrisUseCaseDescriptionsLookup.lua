@@ -3,8 +3,9 @@ local IrisUseCaseDescriptionsLookup = {}
 
 local safeRequire = require("Iris/Util/IrisRequire").safeRequire
 local RuntimeLookupDiagnostics = require("Iris/Data/IrisRuntimeLookupDiagnostics")
-local chunkIndexOk, chunkIndex = safeRequire("Iris/Data/UseCaseDescriptions/ChunkIndex")
-local lineCountIndexOk, lineCountIndex = safeRequire("Iris/Data/UseCaseDescriptions/LineCountIndex")
+local chunkIndex = nil
+local lineCountIndex = nil
+local indexMetadataSnapshot = nil
 local chunkCache = {}
 local requirements = nil
 local diagnostics = {
@@ -15,6 +16,12 @@ local diagnostics = {
     lookupMissCount = 0,
     fallbackCount = 0,
     fallbackReasons = {},
+    indexMetadataMaterializationCount = 0,
+    chunkIndexRequireCallCount = 0,
+    lineCountIndexRequireCallCount = 0,
+    chunkIndexSelfValidationCount = 0,
+    lineCountIndexSelfValidationCount = 0,
+    indexEntryCountCrossCheckCount = 0,
 }
 
 local function recordMiss(surface)
@@ -38,15 +45,15 @@ local function validRecord(record)
         type(record.sha256) == "string" and #record.sha256 == 64
 end
 
-local function validChunkIndex()
-    if not chunkIndexOk or type(chunkIndex) ~= "table" or
-        chunkIndex.schema_version ~= "iris_usecase_chunk_range_index_v1" or
-        type(chunkIndex.chunks) ~= "table" then
+local function validChunkIndex(indexOk, index)
+    if not indexOk or type(index) ~= "table" or
+        index.schema_version ~= "iris_usecase_chunk_range_index_v1" or
+        type(index.chunks) ~= "table" then
         return false, "index_shape_invalid"
     end
     local previousLast = nil
     local total = 0
-    for _, record in ipairs(chunkIndex.chunks) do
+    for _, record in ipairs(index.chunks) do
         if not validRecord(record) or (previousLast and record.first <= previousLast) then
             return false, "index_shape_invalid"
         end
@@ -56,38 +63,93 @@ local function validChunkIndex()
         previousLast = record.last
         total = total + record.count
     end
-    if total ~= chunkIndex.entry_count then return false, "index_shape_invalid" end
+    if total ~= index.entry_count then return false, "index_shape_invalid" end
     return true, nil
 end
 
-local function validLineCountIndex()
-    if not lineCountIndexOk or type(lineCountIndex) ~= "table" or
-        lineCountIndex.schema_version ~= "iris_usecase_line_count_index_v1" or
-        type(lineCountIndex.lineCounts) ~= "table" or
-        type(lineCountIndex.entry_count) ~= "number" then
+local function validLineCountIndex(indexOk, index)
+    if not indexOk or type(index) ~= "table" or
+        index.schema_version ~= "iris_usecase_line_count_index_v1" or
+        type(index.lineCounts) ~= "table" or
+        type(index.entry_count) ~= "number" then
         return false, "index_shape_invalid"
     end
     local lineCountEntries = 0
-    for fullType, count in pairs(lineCountIndex.lineCounts) do
+    for fullType, count in pairs(index.lineCounts) do
         if type(fullType) ~= "string" or type(count) ~= "number" or
             count < 0 or count ~= math.floor(count) then
             return false, "index_shape_invalid"
         end
         lineCountEntries = lineCountEntries + 1
     end
-    if lineCountEntries ~= lineCountIndex.entry_count then return false, "index_shape_invalid" end
+    if lineCountEntries ~= index.entry_count then return false, "index_shape_invalid" end
     return true, nil
 end
 
-local chunkIndexValid, chunkIndexInvalidReason = validChunkIndex()
-local lineCountIndexValid, lineCountIndexInvalidReason = validLineCountIndex()
+local function state(status, reason)
+    return { status = status, reason = reason }
+end
 
-if chunkIndexValid and lineCountIndexValid and
-    chunkIndex.entry_count ~= lineCountIndex.entry_count then
-    chunkIndexValid = false
-    lineCountIndexValid = false
-    chunkIndexInvalidReason = "index_content_mismatch"
-    lineCountIndexInvalidReason = "index_content_mismatch"
+local function ensureIndexMetadataSnapshot()
+    if indexMetadataSnapshot then return indexMetadataSnapshot end
+
+    diagnostics.indexMetadataMaterializationCount =
+        diagnostics.indexMetadataMaterializationCount + 1
+    diagnostics.chunkIndexRequireCallCount =
+        diagnostics.chunkIndexRequireCallCount + 1
+    local chunkOk, loadedChunkIndex = safeRequire(
+        "Iris/Data/UseCaseDescriptions/ChunkIndex"
+    )
+    diagnostics.lineCountIndexRequireCallCount =
+        diagnostics.lineCountIndexRequireCallCount + 1
+    local lineCountOk, loadedLineCountIndex = safeRequire(
+        "Iris/Data/UseCaseDescriptions/LineCountIndex"
+    )
+
+    diagnostics.chunkIndexSelfValidationCount =
+        diagnostics.chunkIndexSelfValidationCount + 1
+    local chunkValid, chunkReason = validChunkIndex(chunkOk, loadedChunkIndex)
+    diagnostics.lineCountIndexSelfValidationCount =
+        diagnostics.lineCountIndexSelfValidationCount + 1
+    local lineCountValid, lineCountReason = validLineCountIndex(
+        lineCountOk,
+        loadedLineCountIndex
+    )
+
+    local crossCheckState = state("not_applicable", nil)
+    if chunkValid and lineCountValid then
+        diagnostics.indexEntryCountCrossCheckCount =
+            diagnostics.indexEntryCountCrossCheckCount + 1
+        if loadedChunkIndex.entry_count == loadedLineCountIndex.entry_count then
+            crossCheckState = state("valid", nil)
+        else
+            crossCheckState = state("invalid", "index_content_mismatch")
+        end
+    end
+
+    local candidate = {
+        chunkState = chunkValid and state("valid", nil) or state(
+            "invalid",
+            chunkOk and chunkReason or "router_unavailable"
+        ),
+        lineCountState = lineCountValid and state("valid", nil) or state(
+            "invalid",
+            lineCountOk and lineCountReason or "router_unavailable"
+        ),
+        crossCheckState = crossCheckState,
+    }
+
+    -- Publish references and the complete state together. No caller can see a
+    -- partially refreshed pair, while each index keeps independent validity.
+    chunkIndex = loadedChunkIndex
+    lineCountIndex = loadedLineCountIndex
+    indexMetadataSnapshot = candidate
+    RuntimeLookupDiagnostics.recordMetric(
+        "usecase_index_metadata",
+        "materializations",
+        1
+    )
+    return indexMetadataSnapshot
 end
 
 local function validLoadedChunk(chunk, record)
@@ -126,11 +188,15 @@ function IrisUseCaseDescriptionsLookup.get(fullType)
     if type(fullType) ~= "string" or fullType == "" then
         return recordMiss("usecase")
     end
-    if not chunkIndexValid then
-        return recordFallback(chunkIndexOk and chunkIndexInvalidReason or "router_unavailable")
+    local snapshot = ensureIndexMetadataSnapshot()
+    if snapshot.chunkState.status ~= "valid" then
+        return recordFallback(snapshot.chunkState.reason)
     end
-    if not lineCountIndexValid then
-        return recordFallback(lineCountIndexOk and lineCountIndexInvalidReason or "router_unavailable")
+    if snapshot.lineCountState.status ~= "valid" then
+        return recordFallback(snapshot.lineCountState.reason)
+    end
+    if snapshot.crossCheckState.status ~= "valid" then
+        return recordFallback(snapshot.crossCheckState.reason or "index_content_mismatch")
     end
     local record = findRecord(fullType)
     if not record then
@@ -169,10 +235,12 @@ function IrisUseCaseDescriptionsLookup.get(fullType)
 end
 
 function IrisUseCaseDescriptionsLookup.getLineCount(fullType)
-    if not lineCountIndexValid then
-        return recordFallback(
-            lineCountIndexOk and lineCountIndexInvalidReason or "router_unavailable"
-        )
+    local snapshot = ensureIndexMetadataSnapshot()
+    if snapshot.lineCountState.status ~= "valid" then
+        return recordFallback(snapshot.lineCountState.reason)
+    end
+    if snapshot.crossCheckState.status == "invalid" then
+        return recordFallback(snapshot.crossCheckState.reason)
     end
     local count = lineCountIndex.lineCounts[fullType]
     -- A valid line-count index is authoritative for the negative case too.
@@ -207,10 +275,27 @@ function IrisUseCaseDescriptionsLookup.getDiagnostics()
         table.insert(loadedDescriptionChunkModules, moduleName)
     end
     table.sort(loadedDescriptionChunkModules)
+    local snapshot = indexMetadataSnapshot
+    local chunkStatus = snapshot and snapshot.chunkState.status or "unloaded"
+    local lineCountStatus = snapshot and snapshot.lineCountState.status or "unloaded"
+    local crossCheckStatus = snapshot and snapshot.crossCheckState.status or "not_applicable"
     return {
-        indexValid = chunkIndexValid and lineCountIndexValid,
-        chunkIndexValid = chunkIndexValid,
-        lineCountIndexValid = lineCountIndexValid,
+        indexValid = chunkStatus == "valid" and lineCountStatus == "valid" and
+            crossCheckStatus == "valid",
+        chunkIndexValid = chunkStatus == "valid",
+        lineCountIndexValid = lineCountStatus == "valid",
+        chunkIndexState = chunkStatus,
+        chunkIndexReason = snapshot and snapshot.chunkState.reason or nil,
+        lineCountIndexState = lineCountStatus,
+        lineCountIndexReason = snapshot and snapshot.lineCountState.reason or nil,
+        crossCheckState = crossCheckStatus,
+        crossCheckReason = snapshot and snapshot.crossCheckState.reason or nil,
+        indexMetadataMaterializationCount = diagnostics.indexMetadataMaterializationCount,
+        chunkIndexRequireCallCount = diagnostics.chunkIndexRequireCallCount,
+        lineCountIndexRequireCallCount = diagnostics.lineCountIndexRequireCallCount,
+        chunkIndexSelfValidationCount = diagnostics.chunkIndexSelfValidationCount,
+        lineCountIndexSelfValidationCount = diagnostics.lineCountIndexSelfValidationCount,
+        indexEntryCountCrossCheckCount = diagnostics.indexEntryCountCrossCheckCount,
         descriptionRequireCallCount = diagnostics.descriptionRequireCallCount,
         loadedDescriptionChunkCount = diagnostics.loadedDescriptionChunkCount,
         loadedDescriptionChunkModules = loadedDescriptionChunkModules,
@@ -223,6 +308,9 @@ function IrisUseCaseDescriptionsLookup.getDiagnostics()
 end
 
 function IrisUseCaseDescriptionsLookup.reset()
+    chunkIndex = nil
+    lineCountIndex = nil
+    indexMetadataSnapshot = nil
     chunkCache = {}
     requirements = nil
     diagnostics.descriptionRequireCallCount = 0
@@ -232,6 +320,12 @@ function IrisUseCaseDescriptionsLookup.reset()
     diagnostics.lookupMissCount = 0
     diagnostics.fallbackCount = 0
     diagnostics.fallbackReasons = {}
+    diagnostics.indexMetadataMaterializationCount = 0
+    diagnostics.chunkIndexRequireCallCount = 0
+    diagnostics.lineCountIndexRequireCallCount = 0
+    diagnostics.chunkIndexSelfValidationCount = 0
+    diagnostics.lineCountIndexSelfValidationCount = 0
+    diagnostics.indexEntryCountCrossCheckCount = 0
 end
 
 return IrisUseCaseDescriptionsLookup

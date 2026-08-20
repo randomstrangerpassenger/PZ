@@ -1,0 +1,117 @@
+{
+  "schema_version": "iris-codebase-optimization-followup-dispositions-v1",
+  "plan": "docs/iris_codebase_optimization_comprehensive_followup_plan.md",
+  "overall_state_before_terminal_validation": "partial",
+  "rows": [
+    {
+      "change": "1a",
+      "disposition": "adopted",
+      "reason": "PZ-independent baseline, consumer, classification, cache-lifetime, and cache-owner censuses are sealed."
+    },
+    {
+      "change": "1b",
+      "disposition": "deferred_by_design",
+      "validation_ceiling": "out_of_scope",
+      "reason": "The named PZ timing environment and raw samples were not supplied."
+    },
+    {
+      "change": "2",
+      "disposition": "complete/no-op",
+      "candidate_count": 0,
+      "production_diff": 0,
+      "reason": "The exact cache-field census found no session-dependent engine object."
+    },
+    {
+      "change": "3",
+      "disposition": "adopted",
+      "reason": "Browser classification, primary derivation, and search-source construction share one row materialization pass; item identity and public copies remain intact."
+    },
+    {
+      "change": "3-item-non-retaining",
+      "disposition": "complete/no-op",
+      "reason": "No trustworthy PZ heap/lifetime evidence justified changing getItem identity or lookup failure contracts."
+    },
+    {
+      "change": "4-viewmodel",
+      "disposition": "adopted",
+      "reason": "Method-name tables are module constants and capability hints are computed once per item without a fullType model cache."
+    },
+    {
+      "change": "4-object-access",
+      "disposition": "deferred_by_design",
+      "implementation_state": "implemented_only",
+      "production_generic_routing_diff": 0,
+      "validation_ceiling": "unvalidated_but_in_scope",
+      "reason": "Lua call0/call1 eligibility exists, but representative Java/Kahlua functional evidence is unavailable; the generic production path remains unchanged."
+    },
+    {
+      "change": "5-debug-and-display-cache",
+      "disposition": "adopted",
+      "reason": "Dynamic DEBUG work is caller-guarded and Alt display cache retains one locale/revision entry per fullType."
+    },
+    {
+      "change": "5-active-derived-key-and-lru",
+      "disposition": "complete/no-op",
+      "reason": "No material active-path counter or retained-entry growth evidence met the adoption gate."
+    },
+    {
+      "change": "6-line-count-lazy-validation",
+      "disposition": "adopted",
+      "reason": "Chunk and line-count metadata are first-demand, independently validated, and atomically published with a separate cross-check state."
+    },
+    {
+      "change": "6-tooltip-static-projection",
+      "disposition": "deferred_by_design",
+      "reason": "PZ first-use timing evidence and a new current generator admission were unavailable."
+    },
+    {
+      "change": "7",
+      "disposition": "deferred_by_design",
+      "candidate": {
+        "baseline_bytes": 75143,
+        "candidate_bytes": 40470,
+        "saved_bytes": 34673,
+        "saved_percent": 46.14,
+        "baseline_materialization_operations": 3078,
+        "candidate_materialization_operations": 3078
+      },
+      "production_diff": 0,
+      "reason": "The byte threshold was met, but the required clean external source/package promotion transaction had no exact in-scope output path under the repository-only execution boundary."
+    },
+    {
+      "change": "8",
+      "disposition": "complete/no-op",
+      "reason": "Current generated consumers already use direct named shapes; no safe compact compatibility adapter transaction was required."
+    },
+    {
+      "change": "9",
+      "disposition": "complete/no-op",
+      "candidate_cardinality": {"groups": 1, "items": 1},
+      "reason": "Recipe Set conversion and additional bootstrap removal did not meet the low-cardinality/materiality gate."
+    },
+    {
+      "change": "10",
+      "disposition": "complete/no-op",
+      "reason": "No repeated immutable same-process exact-path I/O/hash group satisfied the local cache gate; cross-script contract commonization remains unchanged."
+    },
+    {
+      "change": "11",
+      "disposition": "complete/no-op",
+      "safe_candidate_count": 0,
+      "reason": "The predecessor-safe lifecycle/CAS candidate set remains empty and no consumer closure changed."
+    },
+    {
+      "change": "12",
+      "disposition": "adopted",
+      "terminal_validation": "pass",
+      "independent_review": "APPROVE",
+      "overall_effect": "partial",
+      "reason": "Terminal current validation passed and independent review approved the closeout; the ObjectAccess engine-bound branch remains unvalidated_but_in_scope, so the overall effect remains partial."
+    }
+  ],
+  "non_claims": [
+    "No PZ latency, heap, FPS, frame-time, release, Workshop, multiplayer, or long-session improvement is claimed.",
+    "Standalone operation/allocation/byte evidence is not a Project Zomboid performance measurement.",
+    "Configured full advisory is not a substitute for exact current authority."
+  ]
+}

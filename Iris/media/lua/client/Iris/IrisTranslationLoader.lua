@@ -30,6 +30,7 @@ IrisTranslations = nil
 local _cachedLangKey = nil
 
 function IrisTranslationLoader.init()
+    local debugEnabled = bootstrap.isDebugEnabled()
     debug("[IrisTranslation] Initializing translations...")
     
     -- 현재 언어 감지
@@ -41,7 +42,9 @@ function IrisTranslationLoader.init()
         end
     end
     
-    debug("[IrisTranslation] Detected language: " .. lang)
+    if debugEnabled then
+        debug("[IrisTranslation] Detected language: " .. lang)
+    end
     
     -- 언어 키 캐시 (getLangKey()의 SSOT)
     _cachedLangKey = lang
@@ -49,8 +52,10 @@ function IrisTranslationLoader.init()
     -- 해당 언어의 번역 테이블 로드
     IrisTranslations = TRANSLATIONS[lang] or TRANSLATIONS.EN
     
-    debug("[IrisTranslation] Loaded " .. (lang == "KO" and "Korean" or "English") .. " translations")
-    debug("[IrisTranslation] Total keys: " .. tostring(IrisTranslationLoader.countKeys(IrisTranslations)))
+    if debugEnabled then
+        debug("[IrisTranslation] Loaded " .. (lang == "KO" and "Korean" or "English") .. " translations")
+        debug("[IrisTranslation] Total keys: " .. tostring(IrisTranslationLoader.countKeys(IrisTranslations)))
+    end
     
     return true
 end

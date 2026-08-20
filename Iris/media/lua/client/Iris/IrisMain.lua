@@ -16,6 +16,7 @@ local bootstrap = require("Iris/Util/IrisModuleBootstrap").create({ printFallbac
 local safeRequire = bootstrap.safeRequire
 local ProtectedCall = require("Iris/Util/IrisProtectedCall")
 local debug = bootstrap.debug
+local isDebugEnabled = bootstrap.isDebugEnabled
 local warn = bootstrap.warn
 local logError = bootstrap.logError
 
@@ -99,7 +100,9 @@ local function loadConfig()
     local configOk, configResult = safeRequire("Iris/IrisConfig")
     if configOk then
         Iris.Config = configResult
-        debug("[Iris:initialize] Step 1: IrisConfig loaded, DEBUG=" .. tostring(Iris.Config.DEBUG))
+        if isDebugEnabled() then
+            debug("[Iris:initialize] Step 1: IrisConfig loaded, DEBUG=" .. tostring(Iris.Config.DEBUG))
+        end
         return
     end
 
@@ -108,7 +111,10 @@ local function loadConfig()
 end
 
 local function runModuleSpec(spec)
-    debug("[Iris:initialize] " .. spec.step .. ": Loading " .. spec.label .. "...")
+    local debugEnabled = isDebugEnabled()
+    if debugEnabled then
+        debug("[Iris:initialize] " .. spec.step .. ": Loading " .. spec.label .. "...")
+    end
 
     local moduleOk, moduleResult = spec.load()
     if not moduleOk then
@@ -116,12 +122,16 @@ local function runModuleSpec(spec)
         return nil
     end
 
-    debug("[Iris:initialize] " .. spec.step .. ": " .. spec.label .. " loaded")
+    if debugEnabled then
+        debug("[Iris:initialize] " .. spec.step .. ": " .. spec.label .. " loaded")
+    end
     if spec.onLoaded then
         spec.onLoaded(moduleResult)
     end
     if spec.ready then
-        debug("[Iris:initialize] " .. spec.step .. ": " .. spec.ready)
+        if debugEnabled then
+            debug("[Iris:initialize] " .. spec.step .. ": " .. spec.ready)
+        end
     end
 
     if spec.invoke then
@@ -130,7 +140,9 @@ local function runModuleSpec(spec)
             return spec.invoke(moduleResult)
         end)
         if callOk and callResult ~= false then
-            debug("[Iris:initialize] " .. spec.step .. ": " .. spec.success)
+            if debugEnabled then
+                debug("[Iris:initialize] " .. spec.step .. ": " .. spec.success)
+            end
         elseif callOk then
             warn("[Iris:initialize] " .. spec.step .. ": " .. spec.label .. "." .. spec.unavailable)
         else

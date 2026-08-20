@@ -80,6 +80,13 @@ class RuntimeOptimizationMetricsTest(unittest.TestCase):
             self.assertEqual(0, int(after[key]), key)
         self.assertEqual(1, int(after["warm_display_builds"]))
         self.assertEqual(0, int(after["warm_line_copies"]))
+        self.assertEqual(100, int(after["warm_fulltype_resolutions"]))
+        self.assertEqual(100, int(after["warm_locale_resolutions"]))
+        self.assertEqual(300, int(after["warm_key_string_conversions"]))
+        self.assertEqual(100, int(after["warm_detail_line_lookups"]))
+        self.assertEqual(1, int(after["warm_cache_entry_allocations"]))
+        self.assertEqual(1, int(after["retained_fulltype_entries"]))
+        self.assertEqual(1, int(after["retained_projection_entries"]))
         self.assertEqual("adopted", receipt["disposition"])
 
     def test_change_6a_search_location_copy_receipt(self) -> None:

@@ -34,6 +34,11 @@ local function newDisplayLineCacheMetrics()
         temporaryDetailTables = 0,
         displayLineBuilds = 0,
         lineCopies = 0,
+        fullTypeResolutions = 0,
+        localeResolutions = 0,
+        keyStringConversions = 0,
+        detailLineCacheLookups = 0,
+        cacheEntryAllocations = 0,
     }
 end
 
@@ -119,31 +124,40 @@ local function buildDetailLines(summary)
 end
 
 local function getDetailLines(fullType, summary)
+    if instrumentationEnabled then
+        displayLineCacheMetrics.localeResolutions =
+            displayLineCacheMetrics.localeResolutions + 1
+        displayLineCacheMetrics.keyStringConversions =
+            displayLineCacheMetrics.keyStringConversions + 3
+        displayLineCacheMetrics.detailLineCacheLookups =
+            displayLineCacheMetrics.detailLineCacheLookups + 1
+    end
     local fullTypeKey = tostring(fullType)
     local localeKey = tostring(TranslationResolver.getLangKey("EN"))
     local revisionKey = tostring(summary and summary.revision or "missing")
-    local byLocale = displayLineCache[fullTypeKey]
-    if not byLocale then
-        byLocale = {}
-        displayLineCache[fullTypeKey] = byLocale
-    end
-    local byRevision = byLocale[localeKey]
-    if not byRevision then
-        byRevision = {}
-        byLocale[localeKey] = byRevision
-    end
-    local cached = byRevision[revisionKey]
-    if cached then
+    local cached = displayLineCache[fullTypeKey]
+    if cached and cached.locale == localeKey and
+        cached.revision == revisionKey then
         if instrumentationEnabled then
             displayLineCacheMetrics.hits = displayLineCacheMetrics.hits + 1
         end
-        return cached
+        return cached.lines
     end
     if instrumentationEnabled then
         displayLineCacheMetrics.misses = displayLineCacheMetrics.misses + 1
     end
     local lines = buildDetailLines(summary)
-    byRevision[revisionKey] = lines
+    -- Retain only the current locale/revision projection for each fullType.
+    -- A locale or authority revision transition replaces the old entry.
+    displayLineCache[fullTypeKey] = {
+        locale = localeKey,
+        revision = revisionKey,
+        lines = lines,
+    }
+    if instrumentationEnabled then
+        displayLineCacheMetrics.cacheEntryAllocations =
+            displayLineCacheMetrics.cacheEntryAllocations + 1
+    end
     return lines
 end
 
@@ -156,6 +170,10 @@ function IrisAltTooltip.resetDisplayLineCache()
 end
 
 function IrisAltTooltip.getDisplayLineCacheMetrics()
+    local retainedFullTypeEntries = 0
+    for _, _ in pairs(displayLineCache) do
+        retainedFullTypeEntries = retainedFullTypeEntries + 1
+    end
     return {
         enabled = instrumentationEnabled,
         hits = displayLineCacheMetrics.hits,
@@ -166,6 +184,13 @@ function IrisAltTooltip.getDisplayLineCacheMetrics()
         temporaryDetailTables = displayLineCacheMetrics.temporaryDetailTables,
         displayLineBuilds = displayLineCacheMetrics.displayLineBuilds,
         lineCopies = displayLineCacheMetrics.lineCopies,
+        fullTypeResolutions = displayLineCacheMetrics.fullTypeResolutions,
+        localeResolutions = displayLineCacheMetrics.localeResolutions,
+        keyStringConversions = displayLineCacheMetrics.keyStringConversions,
+        detailLineCacheLookups = displayLineCacheMetrics.detailLineCacheLookups,
+        cacheEntryAllocations = displayLineCacheMetrics.cacheEntryAllocations,
+        retainedFullTypeEntries = retainedFullTypeEntries,
+        retainedProjectionEntries = retainedFullTypeEntries,
     }
 end
 
@@ -199,6 +224,10 @@ function IrisAltTooltip.addIrisOverlay(tooltipInv)
     if not tooltipInv.item then return end
 
     local summaryModule = ensureSummary()
+    if instrumentationEnabled then
+        displayLineCacheMetrics.fullTypeResolutions =
+            displayLineCacheMetrics.fullTypeResolutions + 1
+    end
     local fullType = ItemKey.getFullTypeFromItem(tooltipInv.item)
     if instrumentationEnabled then
         displayLineCacheMetrics.summaryGetCalls =

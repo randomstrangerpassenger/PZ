@@ -22,8 +22,8 @@
       "sha256": "36bad35de7ccc1e48c837263c5fa5e297678e67bfbba4e22bdc265eb26ccba5d"
     },
     "approved_clean_checkout_absent_policy_sources": {
-      "count": 176,
-      "sha256": "30bea066ca2147cb8d09bccc862f57846d13b5ea5764835d97c014be53aa11be",
+      "count": 183,
+      "sha256": "525f6883a51c033fb49f28ee43d4e84929ef08192c381953cfce68f95ee9bea0",
       "basis": "Exact policy sources that were not Git-tracked at owner approval; this set may exist in an ignored local checkout but may be absent from a clean checkout."
     }
   },
@@ -85,6 +85,13 @@
     {"source_file": "Iris/build/description/v2/tests/test_generated_lua_sparse_fields_contract.py", "classification": "current"},
     {"source_file": "Iris/build/description/v2/tests/test_round3_git_batch_contract.py", "classification": "current"},
     {"source_file": "Iris/build/description/v2/tests/test_iris_runtime_optimization_metrics.py", "classification": "current"},
+    {"source_file": "Iris/build/description/v2/tests/test_iris_session_cache_ownership.py", "classification": "current"},
+    {"source_file": "Iris/build/description/v2/tests/test_iris_browser_single_pass_cache_contract.py", "classification": "current"},
+    {"source_file": "Iris/build/description/v2/tests/test_iris_tags_public_surface_isolation.py", "classification": "current"},
+    {"source_file": "Iris/build/description/v2/tests/test_iris_object_access_fast_path.py", "classification": "current"},
+    {"source_file": "Iris/build/description/v2/tests/test_iris_viewmodel_allocation_contract.py", "classification": "current"},
+    {"source_file": "Iris/build/description/v2/tests/test_iris_line_count_lazy_validation.py", "classification": "current"},
+    {"source_file": "Iris/build/description/v2/tests/test_iris_classification_baseline_receipt.py", "classification": "current"},
     {"source_file": "Iris/build/description/v2/tests/test_python_tooling_contract_commonization.py", "classification": "current"}
   ],
   "mixed_sources": [

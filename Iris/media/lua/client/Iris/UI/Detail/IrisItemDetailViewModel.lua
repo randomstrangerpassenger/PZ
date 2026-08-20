@@ -15,6 +15,44 @@ local ObjectAccess = require("Iris/Util/IrisObjectAccess")
 local Layer3DisplayFormatter = require("Iris/UI/Layer3/IrisLayer3DisplayFormatter")
 local TranslationResolver = require("Iris/Util/IrisTranslationResolver")
 
+local CORE_WEIGHT_METHODS = { "getActualWeight", "getWeight" }
+local CORE_CATEGORY_METHODS = { "getDisplayCategory", "getCategory" }
+local CORE_SUBCATEGORY_METHODS = { "getSubCategory" }
+local FOOD_METHODS = {
+    "getHungerChange", "getThirstChange", "getStressChange",
+    "getBoredomChange", "getCalories",
+}
+local WEAPON_METHODS = {
+    "getMinDamage", "getMaxDamage", "getMinRange", "getMaxRange",
+    "getCriticalChance", "getConditionMax",
+}
+local LITERATURE_METHODS = {
+    "getNumberOfPages", "getSkillTrained", "getLvlSkillTrained",
+    "getNumLevelsTrained",
+}
+local MOVEABLE_METHODS = {
+    "getCapacity", "getLightStrength", "isWaterproof", "getInsulation",
+}
+local GET_HUNGER_CHANGE = { "getHungerChange" }
+local GET_THIRST_CHANGE = { "getThirstChange" }
+local GET_STRESS_CHANGE = { "getStressChange" }
+local GET_BOREDOM_CHANGE = { "getBoredomChange" }
+local GET_CALORIES = { "getCalories" }
+local GET_MIN_DAMAGE = { "getMinDamage" }
+local GET_MAX_DAMAGE = { "getMaxDamage" }
+local GET_MIN_RANGE = { "getMinRange" }
+local GET_MAX_RANGE = { "getMaxRange" }
+local GET_CRITICAL_CHANCE = { "getCriticalChance" }
+local GET_CONDITION_MAX = { "getConditionMax" }
+local GET_NUMBER_OF_PAGES = { "getNumberOfPages" }
+local GET_SKILL_TRAINED = { "getSkillTrained" }
+local GET_LEVEL_SKILL_TRAINED = { "getLvlSkillTrained" }
+local GET_NUM_LEVELS_TRAINED = { "getNumLevelsTrained" }
+local GET_CAPACITY = { "getCapacity" }
+local GET_LIGHT_STRENGTH = { "getLightStrength" }
+local IS_WATERPROOF = { "isWaterproof" }
+local GET_INSULATION = { "getInsulation" }
+
 local instrumentationEnabled = false
 
 local function newMetrics()
@@ -27,6 +65,8 @@ local function newMetrics()
         groupSkips = {},
         staticCacheHits = 0,
         staticCacheMisses = 0,
+        capabilityHintBuilds = 0,
+        methodListAllocations = 0,
     }
 end
 
@@ -56,6 +96,9 @@ local function read(item, methodNames, group)
 end
 
 local function capabilityHints(category, itemType)
+    if instrumentationEnabled then
+        metrics.capabilityHintBuilds = metrics.capabilityHintBuilds + 1
+    end
     local hints = {}
     -- Category/type text is positive evidence only. Matching canonical labels
     -- are not closed negative evidence because a mod item can expose hybrid
@@ -73,8 +116,7 @@ local function capabilityHints(category, itemType)
     return hints
 end
 
-local function groupApplicable(item, methodNames, group, category, itemType)
-    local hints = capabilityHints(category, itemType)
+local function groupApplicable(item, methodNames, group, hints)
     if hints[group] then return true end
     for _, methodName in ipairs(methodNames or {}) do
         local ok, method = pcall(function() return item[methodName] end)
@@ -179,28 +221,14 @@ function ViewModel.fromItem(item)
     local Index = IrisAPI and IrisAPI.Index
     local layer3 = layer3Payload(fullType)
     local itemType = ItemAccess.getType(item)
-    local weight = read(item, {"getActualWeight", "getWeight"}, "core")
-    local category = read(item, {"getDisplayCategory", "getCategory"}, "core")
-    local subcategory = read(item, {"getSubCategory"}, "core")
-    local foodMethods = {
-        "getHungerChange", "getThirstChange", "getStressChange",
-        "getBoredomChange", "getCalories",
-    }
-    local weaponMethods = {
-        "getMinDamage", "getMaxDamage", "getMinRange", "getMaxRange",
-        "getCriticalChance", "getConditionMax",
-    }
-    local literatureMethods = {
-        "getNumberOfPages", "getSkillTrained", "getLvlSkillTrained",
-        "getNumLevelsTrained",
-    }
-    local moveableMethods = {
-        "getCapacity", "getLightStrength", "isWaterproof", "getInsulation",
-    }
-    local foodApplicable = groupApplicable(item, foodMethods, "food", category, itemType)
-    local weaponApplicable = groupApplicable(item, weaponMethods, "weapon", category, itemType)
-    local literatureApplicable = groupApplicable(item, literatureMethods, "literature", category, itemType)
-    local moveableApplicable = groupApplicable(item, moveableMethods, "moveable", category, itemType)
+    local weight = read(item, CORE_WEIGHT_METHODS, "core")
+    local category = read(item, CORE_CATEGORY_METHODS, "core")
+    local subcategory = read(item, CORE_SUBCATEGORY_METHODS, "core")
+    local hints = capabilityHints(category, itemType)
+    local foodApplicable = groupApplicable(item, FOOD_METHODS, "food", hints)
+    local weaponApplicable = groupApplicable(item, WEAPON_METHODS, "weapon", hints)
+    local literatureApplicable = groupApplicable(item, LITERATURE_METHODS, "literature", hints)
+    local moveableApplicable = groupApplicable(item, MOVEABLE_METHODS, "moveable", hints)
 
     local values = {
         __irisItemDetailViewModel = true,
@@ -215,31 +243,31 @@ function ViewModel.fromItem(item)
         subcategory = subcategory,
         tags = sortedTags(IrisAPI, item),
         food = {
-            hunger = readIfApplicable(foodApplicable, item, {"getHungerChange"}, "food"),
-            thirst = readIfApplicable(foodApplicable, item, {"getThirstChange"}, "food"),
-            stress = readIfApplicable(foodApplicable, item, {"getStressChange"}, "food"),
-            boredom = readIfApplicable(foodApplicable, item, {"getBoredomChange"}, "food"),
-            calories = readIfApplicable(foodApplicable, item, {"getCalories"}, "food"),
+            hunger = readIfApplicable(foodApplicable, item, GET_HUNGER_CHANGE, "food"),
+            thirst = readIfApplicable(foodApplicable, item, GET_THIRST_CHANGE, "food"),
+            stress = readIfApplicable(foodApplicable, item, GET_STRESS_CHANGE, "food"),
+            boredom = readIfApplicable(foodApplicable, item, GET_BOREDOM_CHANGE, "food"),
+            calories = readIfApplicable(foodApplicable, item, GET_CALORIES, "food"),
         },
         weapon = {
-            minDamage = readIfApplicable(weaponApplicable, item, {"getMinDamage"}, "weapon"),
-            maxDamage = readIfApplicable(weaponApplicable, item, {"getMaxDamage"}, "weapon"),
-            minRange = readIfApplicable(weaponApplicable, item, {"getMinRange"}, "weapon"),
-            maxRange = readIfApplicable(weaponApplicable, item, {"getMaxRange"}, "weapon"),
-            criticalChance = readIfApplicable(weaponApplicable, item, {"getCriticalChance"}, "weapon"),
-            conditionMax = readIfApplicable(weaponApplicable, item, {"getConditionMax"}, "weapon"),
+            minDamage = readIfApplicable(weaponApplicable, item, GET_MIN_DAMAGE, "weapon"),
+            maxDamage = readIfApplicable(weaponApplicable, item, GET_MAX_DAMAGE, "weapon"),
+            minRange = readIfApplicable(weaponApplicable, item, GET_MIN_RANGE, "weapon"),
+            maxRange = readIfApplicable(weaponApplicable, item, GET_MAX_RANGE, "weapon"),
+            criticalChance = readIfApplicable(weaponApplicable, item, GET_CRITICAL_CHANCE, "weapon"),
+            conditionMax = readIfApplicable(weaponApplicable, item, GET_CONDITION_MAX, "weapon"),
         },
         literature = {
-            numberOfPages = readIfApplicable(literatureApplicable, item, {"getNumberOfPages"}, "literature"),
-            skillTrained = readIfApplicable(literatureApplicable, item, {"getSkillTrained"}, "literature"),
-            level = readIfApplicable(literatureApplicable, item, {"getLvlSkillTrained"}, "literature"),
-            levelCount = readIfApplicable(literatureApplicable, item, {"getNumLevelsTrained"}, "literature"),
+            numberOfPages = readIfApplicable(literatureApplicable, item, GET_NUMBER_OF_PAGES, "literature"),
+            skillTrained = readIfApplicable(literatureApplicable, item, GET_SKILL_TRAINED, "literature"),
+            level = readIfApplicable(literatureApplicable, item, GET_LEVEL_SKILL_TRAINED, "literature"),
+            levelCount = readIfApplicable(literatureApplicable, item, GET_NUM_LEVELS_TRAINED, "literature"),
         },
         moveable = {
-            capacity = readIfApplicable(moveableApplicable, item, {"getCapacity"}, "moveable"),
-            lightStrength = readIfApplicable(moveableApplicable, item, {"getLightStrength"}, "moveable"),
-            waterproof = readIfApplicable(moveableApplicable, item, {"isWaterproof"}, "moveable"),
-            insulation = readIfApplicable(moveableApplicable, item, {"getInsulation"}, "moveable"),
+            capacity = readIfApplicable(moveableApplicable, item, GET_CAPACITY, "moveable"),
+            lightStrength = readIfApplicable(moveableApplicable, item, GET_LIGHT_STRENGTH, "moveable"),
+            waterproof = readIfApplicable(moveableApplicable, item, IS_WATERPROOF, "moveable"),
+            insulation = readIfApplicable(moveableApplicable, item, GET_INSULATION, "moveable"),
         },
         layer3 = layer3,
         connections = {
@@ -298,6 +326,8 @@ function ViewModel.getInstrumentation()
         groupSkips = copyCounts(metrics.groupSkips),
         staticCacheHits = metrics.staticCacheHits,
         staticCacheMisses = metrics.staticCacheMisses,
+        capabilityHintBuilds = metrics.capabilityHintBuilds,
+        methodListAllocations = metrics.methodListAllocations,
     }
 end
 

@@ -1,0 +1,50 @@
+{
+  "schema_version": "iris-cache-lifetime-baseline-v1",
+  "corpus": "standalone generated authority plus Browser/Tooltip fixed fixtures",
+  "full_type_set_sha256": "db7489a569d4a2fb4cf3b9d9b035f6b91590c7e72bb984160395557f70c75f23",
+  "owners": {
+    "browser": {
+      "predecessor_post_index_full_map_passes": 3,
+      "predecessor_tag_array_to_set_conversion_per_item": 1,
+      "predecessor_search_sort_per_nonempty_query": 1,
+      "item_reference_policy": "retained"
+    },
+    "tooltip": {
+      "predecessor_display_line_key_axes": [
+        "fullType",
+        "locale",
+        "revision"
+      ],
+      "retention_issue": "historical locale and revision entries remain nested per fullType"
+    },
+    "lookup": {
+      "predecessor_chunk_index_module_load": "eager",
+      "predecessor_line_count_index_module_load": "eager",
+      "predecessor_line_count_validation_rows": 1631
+    }
+  },
+  "alt_hover_corpus": {
+    "identity": "tooltip-v1|inactive:1000|warm-active:100|locale-transition:EN-KO|revision-transition:r1-r2",
+    "sha256": "befc09cadfaa211822f987cd537c73599d5685b8f6d3b483b0b7ba43d23fb01b",
+    "default_off_counter_expectation": 0,
+    "active_counter_schema": [
+      "fullTypeResolutions",
+      "localeResolutions",
+      "keyStringConversions",
+      "detailLineCacheLookups",
+      "temporaryDetailTables",
+      "cacheEntryAllocations"
+    ]
+  },
+  "legacy_cold_materialization": {
+    "harness_identity": "ordinal-regex-assignment-v1|legacy-input-17ed88f3|expanded-public-table-proxy-v1",
+    "runs": [
+      {"run":1,"publicTopLevelTableAllocations":1,"publicNestedArrayAllocations":1360,"publicTagScalarWrites":1717,"auxiliaryTableAllocations":0,"decodeIterations":0,"materializationOps":3078},
+      {"run":2,"publicTopLevelTableAllocations":1,"publicNestedArrayAllocations":1360,"publicTagScalarWrites":1717,"auxiliaryTableAllocations":0,"decodeIterations":0,"materializationOps":3078}
+    ],
+    "repeat_exact": true,
+    "claim_limit": "structural operation proxy; the IrisData compatibility namespace shell is outside the gated classification payload counter"
+  },
+  "heap_claim_authorized": false,
+  "timing_claim_authorized": false
+}

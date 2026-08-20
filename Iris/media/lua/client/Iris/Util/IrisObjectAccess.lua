@@ -16,6 +16,31 @@ local function callMethod(method, target, args)
     return method(target, args[1], args[2], args[3], args[4], args[5])
 end
 
+--- Fixed-arity eligibility paths. These avoid the vararg table and wrapper
+--- closure, but generic production routing remains on the predecessor path
+--- until representative Project Zomboid/Kahlua functional evidence exists.
+function IrisObjectAccess.call0(target, methodName)
+    if not target or not methodName then
+        return false, nil
+    end
+    local method = target[methodName]
+    if not method then
+        return false, nil
+    end
+    return ProtectedCall.engine(method, target)
+end
+
+function IrisObjectAccess.call1(target, methodName, argument)
+    if not target or not methodName then
+        return false, nil
+    end
+    local method = target[methodName]
+    if not method then
+        return false, nil
+    end
+    return ProtectedCall.engine(method, target, argument)
+end
+
 function IrisObjectAccess.call(target, methodName, ...)
     if not target or not methodName then
         return false, nil

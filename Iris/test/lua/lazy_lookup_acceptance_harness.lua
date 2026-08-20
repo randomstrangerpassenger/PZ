@@ -323,7 +323,8 @@ elseif mode == "usecase" then
         assert(type(splitDiagnostics.chunkIndexValid) == "boolean")
         assert(type(splitDiagnostics.lineCountIndexValid) == "boolean")
         assert(splitDiagnostics.indexValid ==
-            (splitDiagnostics.chunkIndexValid and splitDiagnostics.lineCountIndexValid))
+            (splitDiagnostics.chunkIndexValid and splitDiagnostics.lineCountIndexValid and
+                splitDiagnostics.crossCheckState == "valid"))
     end
 
     local function assertLineCountFallback(indexValue, expectedReason)
@@ -338,13 +339,15 @@ elseif mode == "usecase" then
         local fallbackSummary = require("Iris/UI/Tooltip/IrisTooltipSummary")
         assert(fallbackSummary.get("Base.223Box").useCaseCount == #facade["Base.223Box"].lines)
         local shared = RuntimeDiagnostics.getDiagnostics()
-        assert(shared.fallbackCount == 1)
+        assert(shared.fallbackCount == 2)
         assert(shared.surfaces.usecase.fallbackReasons[expectedReason] == 1)
+        assert(shared.surfaces.usecase_tooltip_line_count.fallbackReasons[expectedReason] == 1)
         local splitDiagnostics = require("Iris/Data/IrisUseCaseDescriptionsLookup").getDiagnostics()
         assert(type(splitDiagnostics.chunkIndexValid) == "boolean")
         assert(type(splitDiagnostics.lineCountIndexValid) == "boolean")
         assert(splitDiagnostics.indexValid ==
-            (splitDiagnostics.chunkIndexValid and splitDiagnostics.lineCountIndexValid))
+            (splitDiagnostics.chunkIndexValid and splitDiagnostics.lineCountIndexValid and
+                splitDiagnostics.crossCheckState == "valid"))
     end
 
     local malformedLineCounts = onlyLineCountIndex(

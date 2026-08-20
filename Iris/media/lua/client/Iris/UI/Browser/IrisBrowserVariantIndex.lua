@@ -40,24 +40,21 @@ local function groupsCanFold(group)
     return true
 end
 
-local function groupingKey(subData)
-    local fullTypes = {}
-    for fullType, _ in pairs((subData and subData.items) or {}) do
-        if type(fullType) ~= "string" or fullType == "" then
-            error("Iris Browser grouping requires a non-empty fullType key")
-        end
-        fullTypes[#fullTypes + 1] = fullType
+local function groupingKey(categoryName, subcategoryName)
+    if type(categoryName) ~= "string" or categoryName == "" or
+        type(subcategoryName) ~= "string" or subcategoryName == "" then
+        error("Iris Browser grouping requires exact category/subcategory owners")
     end
-    table.sort(fullTypes)
-    return table.concat(fullTypes, "\0")
+    return categoryName .. "." .. subcategoryName
 end
 
 local function buildDisplayNameGroups(cache, subData, IrisAPI)
     local itemsByDisplayName = {}
 
     for fullType, _ in pairs((subData and subData.items) or {}) do
-        local item = cache.itemsByFullType[fullType]
-        local displayName = ItemAccess.getDisplayName(item, fullType)
+        local row = cache.rowsByFullType and cache.rowsByFullType[fullType] or nil
+        local item = row and row.item or cache.itemsByFullType[fullType]
+        local displayName = row and row.displayName or ItemAccess.getDisplayName(item, fullType)
 
         if not itemsByDisplayName[displayName] then
             itemsByDisplayName[displayName] = {}
@@ -68,6 +65,7 @@ local function buildDisplayNameGroups(cache, subData, IrisAPI)
             item = item,
             itemType = ItemAccess.getType(item, "Normal"),
             hasRecipe = hasRecipeConnections(item, IrisAPI),
+            row = row,
         })
     end
 
@@ -80,9 +78,9 @@ local function buildDisplayNameGroups(cache, subData, IrisAPI)
     return itemsByDisplayName
 end
 
-local function getDisplayNameGroups(cache, subData, IrisAPI)
+local function getDisplayNameGroups(cache, categoryName, subcategoryName, subData, IrisAPI)
     cache.displayNameGroupsByGrouping = cache.displayNameGroupsByGrouping or {}
-    local key = groupingKey(subData)
+    local key = groupingKey(categoryName, subcategoryName)
     local cached = cache.displayNameGroupsByGrouping[key]
     if cached then
         return cached
@@ -94,17 +92,29 @@ end
 
 --- Canonical identity for a subcategory's grouping inputs. The owning cache is
 --- generation-scoped, so identical keys are never reused across rebuilds.
-function IrisBrowserVariantIndex.getFoldedCountCacheKey(subData)
-    return groupingKey(subData)
+function IrisBrowserVariantIndex.getFoldedCountCacheKey(categoryName, subcategoryName)
+    return groupingKey(categoryName, subcategoryName)
 end
 
-function IrisBrowserVariantIndex.calculateFoldedCount(cache, subData, IrisAPI)
+function IrisBrowserVariantIndex.calculateFoldedCount(
+    cache,
+    categoryName,
+    subcategoryName,
+    subData,
+    IrisAPI
+)
     if not cache or not cache.itemsByFullType or not subData then
         return 0
     end
 
     local foldedCount = 0
-    local itemsByDisplayName = getDisplayNameGroups(cache, subData, IrisAPI)
+    local itemsByDisplayName = getDisplayNameGroups(
+        cache,
+        categoryName,
+        subcategoryName,
+        subData,
+        IrisAPI
+    )
 
     for _, group in pairs(itemsByDisplayName) do
         if #group == 1 or groupsCanFold(group) then
@@ -117,10 +127,12 @@ function IrisBrowserVariantIndex.calculateFoldedCount(cache, subData, IrisAPI)
     return foldedCount
 end
 
-function IrisBrowserVariantIndex.calculatePrimary(item, fullType, currentTag, IrisAPI)
+function IrisBrowserVariantIndex.calculatePrimary(item, fullType, currentTag, IrisAPI, row)
     local primaryTag = nil
 
-    if IrisPrimarySubcategory and IrisPrimarySubcategory[fullType] then
+    if row then
+        primaryTag = row.primaryTag
+    elseif IrisPrimarySubcategory and IrisPrimarySubcategory[fullType] then
         primaryTag = IrisPrimarySubcategory[fullType]
     elseif IrisAPI and IrisAPI.Tags and IrisAPI.Tags.getTagsForItem then
         local ok, tags = ProtectedCall.data(function() return IrisAPI.Tags.getTagsForItem(item) end)
@@ -178,7 +190,13 @@ function IrisBrowserVariantIndex.getItems(cache, categoryName, subcategoryName, 
     end
 
     local currentTag = categoryName .. "." .. subcategoryName
-    local itemsByDisplayName = getDisplayNameGroups(cache, subData, IrisAPI)
+    local itemsByDisplayName = getDisplayNameGroups(
+        cache,
+        categoryName,
+        subcategoryName,
+        subData,
+        IrisAPI
+    )
 
     for displayName, group in pairs(itemsByDisplayName) do
         if #group == 1 then
@@ -186,7 +204,9 @@ function IrisBrowserVariantIndex.getItems(cache, categoryName, subcategoryName, 
             table.insert(result, {
                 fullType = entry.fullType,
                 displayName = displayName,
-                isPrimary = IrisBrowserVariantIndex.calculatePrimary(entry.item, entry.fullType, currentTag, IrisAPI),
+                isPrimary = IrisBrowserVariantIndex.calculatePrimary(
+                    entry.item, entry.fullType, currentTag, IrisAPI, entry.row
+                ),
                 variants = nil,
             })
         elseif groupsCanFold(group) then
@@ -200,7 +220,10 @@ function IrisBrowserVariantIndex.getItems(cache, categoryName, subcategoryName, 
             table.insert(result, {
                 fullType = representative.fullType,
                 displayName = displayName,
-                isPrimary = IrisBrowserVariantIndex.calculatePrimary(representative.item, representative.fullType, currentTag, IrisAPI),
+                isPrimary = IrisBrowserVariantIndex.calculatePrimary(
+                    representative.item, representative.fullType, currentTag, IrisAPI,
+                    representative.row
+                ),
                 variants = variants,
             })
         else
@@ -208,7 +231,9 @@ function IrisBrowserVariantIndex.getItems(cache, categoryName, subcategoryName, 
                 table.insert(result, {
                     fullType = entry.fullType,
                     displayName = displayName,
-                    isPrimary = IrisBrowserVariantIndex.calculatePrimary(entry.item, entry.fullType, currentTag, IrisAPI),
+                    isPrimary = IrisBrowserVariantIndex.calculatePrimary(
+                        entry.item, entry.fullType, currentTag, IrisAPI, entry.row
+                    ),
                     variants = nil,
                 })
             end

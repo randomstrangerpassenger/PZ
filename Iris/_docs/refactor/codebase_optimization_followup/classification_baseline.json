@@ -1,0 +1,46 @@
+{
+  "schema_version": "iris-classification-ordinal-baseline-v1",
+  "parser": {
+    "comparison": "ordinal_case_sensitive",
+    "algorithm": "utf8-lines|ordinal-regex-assignment-v1|quoted-tag-array-v1|sorted-key-newline-sha256",
+    "implementation_sha256": "99e1b7d42bbfcf467c456e03848e05be7bfe5b086ea89900d3f01523c970b9ae",
+    "fail_closed_consumption": "every generated assignment line exactly once"
+  },
+  "legacy": {
+    "path": "Iris/media/lua/client/Iris/Data/IrisData.lua",
+    "input_sha256": "17ed88f3fb1ed5b6ab96b021442dfb8e34b757d34b0c0ea05508876f855296b1",
+    "assignment_count": 1360,
+    "unique_key_count": 1360,
+    "duplicate_keys": [],
+    "tag_scalar_writes": 1717,
+    "Base.LemonGrass_occurrences": 1,
+    "Base.Lemongrass_occurrences": 1
+  },
+  "current": {
+    "path": "Iris/media/lua/client/Iris/Data/IrisClassifications.lua",
+    "input_sha256": "98d9ce3162703333b02dd48d62f8739e4606eada321a7731a35e2e586f033563",
+    "assignment_count": 2079,
+    "unique_key_count": 2079,
+    "duplicate_keys": [],
+    "Base.LemonGrass_occurrences": 1,
+    "Base.Lemongrass_occurrences": 1
+  },
+  "sets": {
+    "common_count": 1360,
+    "common_sha256": "db7489a569d4a2fb4cf3b9d9b035f6b91590c7e72bb984160395557f70c75f23",
+    "current_only_count": 719,
+    "current_only_sha256": "8104c6e1372325ce5d19e4c0f3f1f230391ef689b9416d5ce1b1569064d7d4f9",
+    "legacy_only_count": 0,
+    "legacy_only_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "differing_common_keys": {
+    "count": 4,
+    "sha256": "4141c582b35fa7abfb725004f1a40060e13f3cb03ed43b096b2092a3dbef55ba",
+    "keys": [
+      "Base.Bag_JanitorToolbox",
+      "Base.Bag_PistolCase",
+      "Base.FirstAidKit",
+      "Base.Hairspray"
+    ]
+  }
+}

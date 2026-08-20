@@ -1,0 +1,26 @@
+{
+  "schema_version": "iris-cache-owner-census-v1",
+  "actual_field_set_version": "followup-row-cache-v1",
+  "fields": [
+    {"id":"BrowserData.IrisAPI","category":"process_stable_static","owner":"IrisBrowserData","construction_input":"Iris/IrisAPI module","invalidation_trigger":"explicit dev reload only","evidence":"module facade has no save-bound state"},
+    {"id":"BrowserData.itemsByFullType","category":"process_stable_static","owner":"IrisBrowserData generation","construction_input":"getAllItems ScriptItem set","invalidation_trigger":"explicit dev reload only","evidence":"ScriptItem/static metadata; no InventoryItem instance facts"},
+    {"id":"BrowserData.rowsByFullType.row.item","category":"process_stable_static","owner":"IrisBrowserData generation","construction_input":"ScriptItem identity","invalidation_trigger":"generation rebuild","evidence":"same identity contract as getItem"},
+    {"id":"BrowserData.rowsByFullType.derivedScalars","category":"locale_dependent","owner":"IrisBrowserQuery (generation,locale)","construction_input":"fullType/classification/presentation order/localized displayName","invalidation_trigger":"generation or normalized locale mismatch","evidence":"candidate row map and sorted snapshot publish together"},
+    {"id":"BrowserData.classificationIndex","category":"process_stable_static","owner":"IrisBrowserData generation","construction_input":"generated classifications","invalidation_trigger":"generation rebuild","evidence":"static authority projection"},
+    {"id":"BrowserData.foldedVariantCaches","category":"locale_dependent","owner":"IrisBrowserData (generation,locale)","construction_input":"category/subcategory/fullType/localized displayName/item type/recipe index","invalidation_trigger":"generation rebuild or normalized locale mismatch","evidence":"locale transaction clears display-name grouping and folded-count projections"},
+    {"id":"BrowserData.searchSnapshot","category":"locale_dependent","owner":"IrisBrowserQuery (generation,locale)","construction_input":"row item displayName/fullType","invalidation_trigger":"generation or normalized locale mismatch","evidence":"locale transaction rebuilds and sorts before publish"},
+    {"id":"BrowserData.searchPrefixState","category":"locale_dependent","owner":"IrisBrowserQuery (generation,locale)","construction_input":"search snapshot and query prefix","invalidation_trigger":"empty query/generation/locale/non-prefix query","evidence":"prefix state carries generation and locale"},
+    {"id":"StaticData.cache","category":"process_stable_static","owner":"StaticData","construction_input":"generated module require","invalidation_trigger":"explicit dev reset only","evidence":"generated authority is process stable"},
+    {"id":"StaticData.failuresAndWarnings","category":"process_stable_static","owner":"StaticData","construction_input":"generated module load result","invalidation_trigger":"explicit dev reset only","evidence":"retry suppression is module-load scoped"},
+    {"id":"TooltipSummary.authorityModules","category":"process_stable_static","owner":"IrisTooltipSummary","construction_input":"generated authority modules","invalidation_trigger":"explicit dev reset only","evidence":"static wiki inputs"},
+    {"id":"TooltipSummary.summaryByFullType","category":"process_stable_static","owner":"IrisTooltipSummary","construction_input":"static authority and fullType","invalidation_trigger":"explicit dev reset only","evidence":"no InventoryItem/session facts"},
+    {"id":"AltTooltip.IrisTooltipSummaryLocal","category":"process_stable_static","owner":"IrisAltTooltip","construction_input":"module require","invalidation_trigger":"process/module reload","evidence":"module reference only"},
+    {"id":"AltTooltip.displayLineCache","category":"locale_dependent","owner":"IrisAltTooltip (fullType,locale,revision)","construction_input":"summary revision and translations","invalidation_trigger":"locale/revision replacement or explicit dev reset","evidence":"one retained locale/revision entry per fullType"},
+    {"id":"UseCaseLookup.indexMetadataSnapshot","category":"process_stable_static","owner":"IrisUseCaseDescriptionsLookup","construction_input":"ChunkIndex and LineCountIndex","invalidation_trigger":"explicit dev reset only","evidence":"generated routing metadata"},
+    {"id":"UseCaseLookup.chunkCache","category":"process_stable_static","owner":"IrisUseCaseDescriptionsLookup","construction_input":"generated target chunks","invalidation_trigger":"explicit dev reset only","evidence":"static descriptions"}
+  ],
+  "session_dependent_engine_object_candidates": 0,
+  "change_2_disposition": "complete/no-op",
+  "production_session_wiring_diff": 0,
+  "p_z_functional_requirement": "not_applicable_candidate_zero"
+}

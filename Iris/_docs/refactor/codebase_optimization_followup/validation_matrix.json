@@ -1,0 +1,144 @@
+{
+  "schema_version": "iris-codebase-optimization-followup-validation-matrix-v1",
+  "plan": "docs/iris_codebase_optimization_comprehensive_followup_plan.md",
+  "subject": {
+    "base_commit": "5b19a5fa58cb883f6b27f433371434a85b41ba0d",
+    "base_tree": "2e31cf96827a7b5929419ed555f1c2f89273dbc7",
+    "implementation_state": "uncommitted_working_tree_overlay",
+    "durable_commit_binding": false
+  },
+  "terminal_rows": [
+    {
+      "axis": "plan_focused",
+      "command": "uv run python -m pytest -q --round3-contract=all <16 plan-focused-test-files>",
+      "attempt": 2,
+      "status": "pass",
+      "exit_code": 0,
+      "passed": 64,
+      "subtests_passed": 13,
+      "wall_clock_seconds": 25.84,
+      "notes": "Attempt 1 exposed an outdated fixture subcategory and was corrected before this final focused pass."
+    },
+    {
+      "axis": "exact_current",
+      "command": "uv run python Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure",
+      "attempt": 3,
+      "status": "pass",
+      "exit_code": 0,
+      "passed": 219,
+      "wall_clock_seconds": 198.744,
+      "prior_attempts": [
+        {
+          "attempt": 1,
+          "exit_code": 1,
+          "failed": 3,
+          "wall_clock_seconds": 193.382,
+          "disposition": "Fixture inventory placement, protected working-overlay admission, and a PowerShell native-stderr classification were corrected."
+        },
+        {
+          "attempt": 2,
+          "exit_code": 1,
+          "failed": 1,
+          "wall_clock_seconds": 199.775,
+          "disposition": "The residual acceptance harness was migrated to the exact category/subcategory folded-count signature."
+        }
+      ]
+    },
+    {
+      "axis": "configured_current",
+      "command": "uv run python -m pytest -q --round3-contract=current --round3-enforce-denominator",
+      "status": "pass",
+      "exit_code": 0,
+      "passed": 486,
+      "skipped": 1,
+      "deselected": 504,
+      "subtests_passed": 112,
+      "wall_clock_seconds": 360.77,
+      "warnings": [
+        "Pytest cache nodeids could not be written because the repository cache path denied access."
+      ],
+      "skip_reason": "not_applicable: decision receipt adopted zero consumers"
+    },
+    {
+      "axis": "lua_syntax",
+      "command": "powershell -ExecutionPolicy Bypass -File .\\tools\\check_lua_syntax.ps1",
+      "status": "pass",
+      "exit_code": 0,
+      "validated_files": 103
+    },
+    {
+      "axis": "working_diff_whitespace",
+      "command": "git diff --check",
+      "status": "pass",
+      "exit_code": 0,
+      "notes": "Only Git line-ending conversion warnings were emitted."
+    },
+    {
+      "axis": "configured_full_advisory",
+      "command": "uv run python -m pytest -q --round3-contract=all",
+      "status": "deferred_by_design",
+      "exit_code": null,
+      "validation_ceiling": "out_of_scope",
+      "reason": "The plan requires a clean disposable checkout and the user restricted all filesystem work to the selected repository. No full-suite PASS is claimed."
+    },
+    {
+      "axis": "generated_dual_external_output",
+      "status": "not_applicable",
+      "reason": "No generated-data representation candidate was promoted to the live source/package transaction."
+    },
+    {
+      "axis": "project_zomboid_functional",
+      "status": "not_executed",
+      "validation_ceiling": "unvalidated_but_in_scope",
+      "affected_branch": "change_4_object_access_fixed_arity",
+      "overall_effect": "partial",
+      "reason": "No representative Project Zomboid B41 Java/Kahlua runtime was available. Generic production routing remains unchanged."
+    }
+  ],
+  "required_axis_coverage": {
+    "cache_owner_and_session_disposition": "pass",
+    "browser_row_classification_primary_search_variant": "pass",
+    "public_tags_copy_and_backing_isolation": "pass",
+    "viewmodel_instance_and_fixed_arity_lua_parity": "pass",
+    "debug_false_true_behavior": "pass",
+    "line_count_lazy_state_matrix": "pass",
+    "fallback_owner_instrumentation": "pass",
+    "ordinal_classification_baseline": "pass",
+    "legacy_exact_semantics": "pass_no_production_change",
+    "python_reuse_disposition": "pass_no_op",
+    "lifecycle_disposition": "pass_no_op"
+  },
+  "ignored_planned_wrapper_binding": {
+    "policy": "approved_clean_checkout_absent_policy_sources",
+    "count": 7,
+    "configured_current_execution": "included_and_passed",
+    "paths": [
+      "Iris/build/description/v2/tests/test_iris_session_cache_ownership.py",
+      "Iris/build/description/v2/tests/test_iris_browser_single_pass_cache_contract.py",
+      "Iris/build/description/v2/tests/test_iris_tags_public_surface_isolation.py",
+      "Iris/build/description/v2/tests/test_iris_object_access_fast_path.py",
+      "Iris/build/description/v2/tests/test_iris_viewmodel_allocation_contract.py",
+      "Iris/build/description/v2/tests/test_iris_line_count_lazy_validation.py",
+      "Iris/build/description/v2/tests/test_iris_classification_baseline_receipt.py"
+    ],
+    "lua_fixture_paths": [
+      "Iris/test/lua/fixtures/tags_public_surface_isolation_harness.lua",
+      "Iris/test/lua/fixtures/object_access_fast_path_harness.lua",
+      "Iris/test/lua/fixtures/line_count_lazy_validation_harness.lua"
+    ]
+  },
+  "review": {
+    "reviewer": "external Codex CLI reviewer",
+    "model": "gpt-5.5",
+    "mode": "read-only",
+    "initial_verdict": "CHANGES_REQUESTED",
+    "initial_findings": {
+      "P2": "Reviewer discovery omitted ignored-but-present planned pytest wrappers.",
+      "P3": "Terminal validation and closeout receipts had not yet been written."
+    },
+    "resolution": "The seven exact wrapper paths are explicitly bound above and the missing terminal receipts were added.",
+    "final_verdict": "APPROVE",
+    "final_finding_counts": {"P0": 0, "P1": 0, "P2": 0, "P3": 0}
+  },
+  "overall_state": "partial"
+}

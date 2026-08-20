@@ -47,23 +47,26 @@ assert(missingReady == false and missingState.state == "retryable_failed" and mi
 assert(BrowserData._cache == nil and BrowserData._built == false)
 assert(BrowserData.getInstrumentation().getAllItemsCallCount == 0)
 
-local nested = nil
+local publicTagCalls = 0
 api = {
     Tags={getTagsForItem=function()
-        if not nested then
-            local ready, state = BrowserData.ensureReady()
-            nested = {ready=ready,state=state.state}
-        end
+        publicTagCalls = publicTagCalls + 1
         return { ["Tool.1-A"]=true }
     end},
     Index={getRecipeConnectionsForItem=function() return {} end},
 }
 local ready, readyState = BrowserData.ensureReady()
-assert(ready and readyState.state == "ready" and nested and nested.ready == false and nested.state == "building")
+assert(ready and readyState.state == "ready")
+assert(publicTagCalls == 0, "Browser build must not reconstruct public tag Sets")
 assert(BrowserData._built == true and BrowserData.getItem("Base.Hammer") == item)
 local readyInstrumentation = BrowserData.getInstrumentation()
 assert(readyInstrumentation.buildAttempts == 2 and readyInstrumentation.getAllItemsCallCount == 1)
 assert(readyInstrumentation.scannedItemCount == 1 and readyInstrumentation.generation == 1)
+assert(readyInstrumentation.postIndexMaterializationPassCount == 1)
+assert(readyInstrumentation.materializedRowCount == 1)
+assert(readyInstrumentation.retainedItemReferenceCount == 1)
+assert(readyInstrumentation.tagArrayToSetConversionCount == 0)
+assert(readyInstrumentation.chooseLocationComparisonCount == 0)
 assert(readyInstrumentation.lastBuildElapsedMilliseconds >= readyInstrumentation.lastScanElapsedMilliseconds)
 assert(BrowserData.ensureReady() == true)
 assert(BrowserData.getInstrumentation().getAllItemsCallCount == 1)
@@ -71,10 +74,14 @@ assert(BrowserData.getInstrumentation().getAllItemsCallCount == 1)
 local realClassificationIndex = require("Iris/UI/Browser/IrisBrowserClassificationIndex")
 package.loaded["Iris/UI/Browser/IrisBrowserData"] = nil
 package.loaded["Iris/UI/Browser/IrisBrowserClassificationIndex"] = nil
+local injectedAddTagCalls = 0
 package.preload["Iris/UI/Browser/IrisBrowserClassificationIndex"] = function()
     return {
         createEmpty = realClassificationIndex.createEmpty,
-        addItem = function() error("standalone post-scan classification failure") end,
+        addTag = function()
+            injectedAddTagCalls = injectedAddTagCalls + 1
+            error("standalone post-scan classification failure")
+        end,
     }
 end
 local PostScanFailBrowserData = require("Iris/UI/Browser/IrisBrowserData")
@@ -82,6 +89,7 @@ PostScanFailBrowserData.setInstrumentationEnabled(true)
 local postScanReady, postScanState = PostScanFailBrowserData.ensureReady()
 assert(postScanReady == false and postScanState.state == "retryable_failed")
 assert(postScanState.reason == "cache_build_failed" and PostScanFailBrowserData._cache == nil)
+assert(injectedAddTagCalls > 0, "addTag failure fixture did not reach the revised boundary")
 local postScanInstrumentation = PostScanFailBrowserData.getInstrumentation()
 assert(postScanInstrumentation.buildAttempts == 1)
 assert(postScanInstrumentation.getAllItemsCallCount == 1)
@@ -107,11 +115,11 @@ local recoveryInstrumentation = BrowserData.getInstrumentation()
 assert(recoveryInstrumentation.buildAttempts == 3 and recoveryInstrumentation.getAllItemsCallCount == 2)
 assert(recoveryInstrumentation.scannedItemCount == 1 and recoveryInstrumentation.generation == 2)
 
-local foldedSubcategory = BrowserData._cache.categories.Tool.subcategories["1-A"]
-local firstFoldedCount = BrowserData._calculateFoldedCount("Tool", "1-A", foldedSubcategory)
+local foldedSubcategory = BrowserData._cache.categories.Tool.subcategories["1-B"]
+local firstFoldedCount = BrowserData._calculateFoldedCount("Tool", "1-B", foldedSubcategory)
 local cachedGroupCount = 0
 for _, _ in pairs(BrowserData._cache.foldedCountsByGrouping) do cachedGroupCount = cachedGroupCount + 1 end
-local secondFoldedCount = BrowserData._calculateFoldedCount("Tool", "1-A", foldedSubcategory)
+local secondFoldedCount = BrowserData._calculateFoldedCount("Tool", "1-B", foldedSubcategory)
 local repeatedGroupCount = 0
 for _, _ in pairs(BrowserData._cache.foldedCountsByGrouping) do repeatedGroupCount = repeatedGroupCount + 1 end
 assert(firstFoldedCount == 1 and secondFoldedCount == firstFoldedCount)
@@ -120,13 +128,18 @@ assert(cachedGroupCount == 1 and repeatedGroupCount == cachedGroupCount)
 local Query = require("Iris/UI/Browser/IrisBrowserQuery")
 local cache = {
     itemsByFullType={ ["Base.Hammer"]=item, ["Base.HandAxe"]=handAxeItem },
-    searchKeysByFullType={
-        ["Base.Hammer"]={displayName="Hammer",folded="hammer\0base.hammer"},
-        ["Base.HandAxe"]={displayName="Hand Axe",folded="hand axe\0base.handaxe"},
+    rowsByFullType={
+        ["Base.Hammer"]={fullType="Base.Hammer",item=item,displayName="Hammer",
+            folded="hammer\0base.hammer",primaryLocation={category="Tool",subcategory="1-A"}},
+        ["Base.HandAxe"]={fullType="Base.HandAxe",item=handAxeItem,displayName="Hand Axe",
+            folded="hand axe\0base.handaxe",primaryLocation={category="Tool",subcategory="1-A"}},
     },
-    searchKeysLocale="EN",
     generation=1,
-    searchMetrics={searchCalls=0,totalScanRows=0,lastScanRows=0,prefixReuseCount=0},
+    searchSnapshot={generation=1,locale="EN",rows={
+        {fullType="Base.Hammer",displayName="Hammer",folded="hammer\0base.hammer",category="Tool",subcategory="1-A"},
+        {fullType="Base.HandAxe",displayName="Hand Axe",folded="hand axe\0base.handaxe",category="Tool",subcategory="1-A"},
+    }},
+    searchMetrics={searchCalls=0,totalScanRows=0,lastScanRows=0,prefixReuseCount=0,fullSortCount=1},
 }
 displayNameCalls = 0
 local first = Query.searchAll(cache, "HA", function() return "Tool", "1-A" end, "EN")
@@ -141,9 +154,28 @@ assert(cache.searchMetrics.prefixReuseCount == 1 and cache.searchMetrics.lastSca
 local unrelated = Query.searchAll(cache, "AXE", function() return "Tool", "1-A" end, "EN")
 assert(#unrelated == 1 and unrelated[1].displayName == "Hand Axe")
 currentLocale = "KO"
+local previousSnapshot = cache.searchSnapshot
+local previousRowsByFullType = cache.rowsByFullType
+local nativeSort = table.sort
+local reentrantObservedOldSnapshot = false
+table.sort = function(rows, comparator)
+    local nested = Query.searchAll(cache, "HAM", function() return "Tool", "1-A" end, "EN")
+    reentrantObservedOldSnapshot = cache.searchSnapshot == previousSnapshot and
+        cache.rowsByFullType == previousRowsByFullType and
+        #nested == 1 and nested[1].displayName == "Hammer"
+    error("injected locale candidate sort failure")
+end
+local failedLocaleRefresh = pcall(function()
+    Query.searchAll(cache, "손도끼", function() return "Tool", "1-A" end, "KO")
+end)
+table.sort = nativeSort
+assert(failedLocaleRefresh == false and reentrantObservedOldSnapshot == true)
+assert(cache.searchSnapshot == previousSnapshot and cache.rowsByFullType == previousRowsByFullType)
+displayNameCalls = 0
 local localeChanged = Query.searchAll(cache, "손도끼", function() return "Tool", "1-A" end, "KO")
 assert(#localeChanged == 1 and localeChanged[1].displayName == "손도끼")
 assert(cache.searchMetrics.lastScanRows == 2 and displayNameCalls == 2)
+assert(cache.searchMetrics.fullSortCount == 2)
 local noResult = Query.searchAll(cache, "ZZZ", function() return "Tool", "1-A" end, "KO")
 assert(#noResult == 0 and cache.searchMetrics.lastScanRows == 2)
 currentLocale = "EN"
@@ -152,7 +184,8 @@ cache.generation = 2
 local generationChanged = Query.searchAll(cache, "HAM", function() return "Tool", "1-A" end, "EN")
 assert(#generationChanged == 1 and cache.searchMetrics.lastScanRows == 2)
 assert(cache.searchMetrics.prefixReuseCount == 1)
-assert(displayNameCalls == 4)
+assert(displayNameCalls == 6)
+assert(cache.searchMetrics.fullSortCount == 4)
 
 package.preload["Iris/UI/Tooltip/IrisTooltipSummary"] = function()
     return {

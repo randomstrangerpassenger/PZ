@@ -1,0 +1,69 @@
+{
+  "schema_version": "iris-codebase-optimization-followup-consumer-census-v1",
+  "source_set": [
+    "Iris/media/lua/client/Iris",
+    "Iris/test/lua",
+    "Iris/build/description/v2/tests",
+    "Iris/build/main.py",
+    "Iris/build/convert_descriptions_to_lua.py"
+  ],
+  "baseline_source_set_binding": {
+    "canonicalization": "ordinal-sorted repository-relative paths joined with LF and a terminal LF",
+    "files": 378,
+    "sha256": "b62eef7f8b169a6d5004ec6fefc7f2aad9305a1ba356ea324079ba4b5447a982",
+    "excludes": "plan-added focused test and harness files"
+  },
+  "surfaces": [
+    {
+      "surface": "legacy_IrisData",
+      "runtime_owner": "Iris/API/StaticData.lua#getLegacyIrisData",
+      "public_or_external": true,
+      "dynamic_require_relevant": true,
+      "disposition": "permanent_named_compatibility_adapter"
+    },
+    {
+      "surface": "IrisBrowserData.getGroupVariants",
+      "runtime_owner": "Iris/UI/Browser/IrisBrowserData.lua",
+      "public_or_external": true,
+      "dynamic_require_relevant": true,
+      "disposition": "permanent_named_compatibility_adapter"
+    },
+    {
+      "surface": "UseCaseDescriptions.LineCountIndex",
+      "runtime_owner": "Iris/Data/IrisUseCaseDescriptionsLookup.lua",
+      "public_or_external": false,
+      "dynamic_require_relevant": true,
+      "disposition": "routing_authority_retained"
+    },
+    {
+      "surface": "UseCaseDescriptions direct_facade",
+      "runtime_owner": "Iris/Data/IrisUseCaseDescriptions.lua",
+      "public_or_external": true,
+      "dynamic_require_relevant": true,
+      "disposition": "named_table_shape_retained"
+    },
+    {
+      "surface": "UseCaseDescriptions direct_chunk",
+      "runtime_owner": "Iris/Data/IrisUseCaseDescriptionsLookup.lua",
+      "public_or_external": false,
+      "dynamic_require_relevant": true,
+      "disposition": "internal_named_shape_retained_for_current_consumers"
+    },
+    {
+      "surface": "Layer3 direct_facade_and_chunk",
+      "runtime_owner": "Iris/Data/layer3_renderer.lua",
+      "public_or_external": true,
+      "dynamic_require_relevant": true,
+      "disposition": "named_shape_retained"
+    }
+  ],
+  "fallback_owners": [
+    "layer3_renderer",
+    "IrisBrowserInteractionRenderer",
+    "IrisTooltipSummary.countUseCaseLines"
+  ],
+  "compact_chunk_adoption": {
+    "disposition": "complete/no-op",
+    "reason": "named direct facade/chunk consumer shapes remain live; no adapter transaction was authorized"
+  }
+}

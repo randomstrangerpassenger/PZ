@@ -33,6 +33,7 @@ function IrisModuleBootstrap.create(options)
     return {
         safeRequire = safeRequire,
         debug = logger and logger.debug or debugFallback,
+        isDebugEnabled = logger and logger.isDebugEnabled or function() return false end,
         info = logger and logger.info or infoFallback,
         warn = logger and logger.warn or warnFallback,
         logError = logger and logger.error or errorFallback,

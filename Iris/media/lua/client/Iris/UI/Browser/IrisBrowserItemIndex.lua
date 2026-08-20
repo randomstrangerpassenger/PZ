@@ -52,6 +52,7 @@ end
 function IrisBrowserItemIndex.build()
     local index = emptyIndex()
     local startedAt = instrumentationEnabled and nowMilliseconds() or 0
+    local debugEnabled = bootstrap.isDebugEnabled()
 
     if not getAllItems then
         warn("[IrisBrowserItemIndex] getAllItems not available")
@@ -91,7 +92,7 @@ function IrisBrowserItemIndex.build()
         if instrumentationEnabled then
             index.scannedItemCount = index.scannedItemCount + 1
         end
-        if i % 1000 == 0 then
+        if debugEnabled and i % 1000 == 0 then
             debug("[IrisBrowserItemIndex] Processing item " .. i .. "/" .. itemsSize)
         end
 
@@ -103,7 +104,7 @@ function IrisBrowserItemIndex.build()
                 index.itemCount = index.itemCount + 1
             end
         else
-            if index.errorCount < maxErrors then
+            if debugEnabled and index.errorCount < maxErrors then
                 debug("[IrisBrowserItemIndex] allItems:get(" .. i .. ") failed: " .. tostring(item))
             end
             index.errorCount = index.errorCount + 1
@@ -117,7 +118,9 @@ function IrisBrowserItemIndex.build()
         warn("[IrisBrowserItemIndex] no usable item was indexed")
         return failed(index, startedAt, "item_collection_unusable")
     end
-    debug("[IrisBrowserItemIndex] Built " .. tostring(index.itemCount) .. " items, errors=" .. tostring(index.errorCount))
+    if debugEnabled then
+        debug("[IrisBrowserItemIndex] Built " .. tostring(index.itemCount) .. " items, errors=" .. tostring(index.errorCount))
+    end
     return index
 end
 

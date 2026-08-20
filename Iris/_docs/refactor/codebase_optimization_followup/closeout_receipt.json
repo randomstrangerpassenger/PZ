@@ -1,0 +1,99 @@
+{
+  "schema_version": "iris-codebase-optimization-followup-closeout-v1",
+  "plan": "docs/iris_codebase_optimization_comprehensive_followup_plan.md",
+  "generated_at": "2026-08-11T08:12:00+09:00",
+  "overall_state": "partial",
+  "implementation_subject": {
+    "base_commit": "5b19a5fa58cb883f6b27f433371434a85b41ba0d",
+    "base_tree": "2e31cf96827a7b5929419ed555f1c2f89273dbc7",
+    "implementation_commit": null,
+    "implementation_tree": null,
+    "implementation_state": "uncommitted_working_tree_overlay",
+    "durable_commit_binding": false,
+    "protected_overlay_manifest": "Iris/_docs/refactor/codebase_optimization_followup/protected_surface_manifest.json"
+  },
+  "adopted": [
+    "PZ-independent baseline, consumer, classification, cache-lifetime, and cache-owner censuses",
+    "Browser generation-local row materialization with scalar private classification iteration",
+    "Atomic generation/locale search row-map and sorted-snapshot publication",
+    "Module-constant ItemDetail method lists and once-per-item capability hints",
+    "Caller-side dynamic DEBUG guards and one-entry-per-fullType Alt display cache",
+    "First-demand independent ChunkIndex and LineCountIndex validation with cross-check state"
+  ],
+  "complete_no_op": [
+    "Production session invalidation: zero session-dependent cache candidates",
+    "Browser item non-retention",
+    "Alt active derived-key/LRU expansion",
+    "Generated compact representation",
+    "Recipe Set conversion",
+    "Python run-local I/O/hash reuse",
+    "Lifecycle/CAS mutation"
+  ],
+  "deferred_by_design": [
+    "PZ timing and heap branches",
+    "Tooltip static projection",
+    "Legacy IrisData compact promotion transaction",
+    "Configured full advisory requiring a clean disposable checkout outside the repository"
+  ],
+  "unvalidated_but_in_scope": [
+    {
+      "branch": "IrisObjectAccess.call0/call1 representative Java/Kahlua functional parity",
+      "implementation_state": "implemented_only",
+      "production_generic_routing_diff": 0,
+      "overall_effect": "partial"
+    }
+  ],
+  "terminal_validation": {
+    "matrix": "Iris/_docs/refactor/codebase_optimization_followup/validation_matrix.json",
+    "focused": "64 passed, 13 subtests passed, exit 0",
+    "exact_current": "219 passed, exit 0",
+    "configured_current": "486 passed, 1 not-applicable skipped, 504 deselected, 112 subtests passed, exit 0",
+    "lua_syntax": "103 files, exit 0",
+    "configured_full_advisory": "not executed; no PASS claim"
+  },
+  "review": {
+    "reviewer": "external Codex CLI reviewer",
+    "model": "gpt-5.5",
+    "initial_verdict": "CHANGES_REQUESTED",
+    "initial_finding_counts": {"P0": 0, "P1": 0, "P2": 1, "P3": 1},
+    "resolution_state": "resolved_approved",
+    "final_verdict": "APPROVE",
+    "final_finding_counts": {"P0": 0, "P1": 0, "P2": 0, "P3": 0}
+  },
+  "artifact_hashes": {
+    "Iris/_docs/refactor/codebase_optimization_followup/baseline_manifest.json": "55e52091a8aa781d0fa04eca76560ba44cb14b3de766d6adbd801ddbd3907391",
+    "Iris/_docs/refactor/codebase_optimization_followup/classification_baseline.json": "f9589017fbfec937320b45c19aecd2235281f2103119c70707b42aec2a8e52d9",
+    "Iris/_docs/refactor/codebase_optimization_followup/consumer_census.json": "3f32e3da80112acae86d28230ee13d3a1bf7a4834959dbb845e8746e81a5a67d",
+    "Iris/_docs/refactor/codebase_optimization_followup/cache_lifetime_baseline.json": "01d92079e7e1b334a6413b227a56cd56e3d34b2dfda0a5f2f7a2c35075007d10",
+    "Iris/_docs/refactor/codebase_optimization_followup/cache_owner_census.json": "3a74b98b3eecc944346c81cfbbe37f7f2c0d8cdf7fa58e57ab1ee27e7d07f7ec",
+    "Iris/_docs/refactor/codebase_optimization_followup/branch_dispositions.json": "1870cc4609f99903daeb1c5e67fc7208e3d4d1e7230e5802d9674290fffc9250",
+    "Iris/_docs/refactor/codebase_optimization_followup/protected_surface_manifest.json": "ab028843241cbd3df56de0e7f9c010edc57852fc7fbcb2fd5cf09ee78662f0d7",
+    "Iris/_docs/refactor/codebase_optimization_followup/validation_matrix.json": "f7872d05f64c01be88e6fd12b9686d35e618a744073cfe550bd247473c25d451"
+  },
+  "validation_ceiling": {
+    "validated": [
+      "Focused pure-Lua and Python contract axes",
+      "Exact current authority with current build closure",
+      "Configured current denominator",
+      "Lua syntax",
+      "Protected working-tree overlay identity"
+    ],
+    "out_of_scope": [
+      "Configured full advisory in an external clean disposable checkout",
+      "Multiplayer and dedicated server",
+      "B42",
+      "Third-party mod sweep",
+      "Long-session soak",
+      "Workshop upload and deployment"
+    ],
+    "unvalidated_but_in_scope": [
+      "Representative PZ B41 Java/Kahlua call0/call1 functional parity"
+    ]
+  },
+  "non_claims": [
+    "No PZ latency, heap, FPS, frame-time, tick, release, Workshop, multiplayer, long-session, or B42 improvement is claimed.",
+    "Standalone operation, allocation, byte, or parity evidence is not a Project Zomboid performance benchmark.",
+    "Configured full-suite PASS is not claimed.",
+    "No durable implementation commit or tree is claimed for this uncommitted working overlay."
+  ]
+}

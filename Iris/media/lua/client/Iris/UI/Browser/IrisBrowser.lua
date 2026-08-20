@@ -17,6 +17,7 @@ local TranslationResolver = require("Iris/Util/IrisTranslationResolver")
 local bootstrap = require("Iris/Util/IrisModuleBootstrap").create()
 local safeRequire = bootstrap.safeRequire
 local debug = bootstrap.debug
+local isDebugEnabled = bootstrap.isDebugEnabled
 local warn = bootstrap.warn
 local logError = bootstrap.logError
 
@@ -39,6 +40,7 @@ local BrowserModuleContext = {
     warn = warn,
     logError = logError,
     safeRequire = safeRequire,
+    isDebugEnabled = isDebugEnabled,
     ensureDeps = ensureDeps,
     getBrowserData = function() return IrisBrowserData end,
     getWikiSections = function() return IrisWikiSections end,
@@ -57,22 +59,31 @@ end
 IrisBrowser._instance = nil
 
 function IrisBrowser.openSearch()
+    local debugEnabled = isDebugEnabled()
     debug("[IrisBrowser] ########## openSearch() START ##########")
     ensureDeps()
 
-    debug("[IrisBrowser] IrisBrowserData exists = " .. tostring(IrisBrowserData ~= nil))
-    if IrisBrowserData then
+    if debugEnabled then
+        debug("[IrisBrowser] IrisBrowserData exists = " .. tostring(IrisBrowserData ~= nil))
+    end
+    if debugEnabled and IrisBrowserData then
         local state = IrisBrowserData.getBuildState()
         debug("[IrisBrowser] BrowserData state=" .. tostring(state.state) ..
             " reason=" .. tostring(state.reason) ..
             " dependency=" .. tostring(state.dependency))
     end
 
-    BrowserBase.ensureBrowserDataBuilt(BrowserModuleContext, debug)
+    BrowserBase.ensureBrowserDataBuilt(
+        BrowserModuleContext,
+        debugEnabled and debug or nil
+    )
 
     BrowserBase.closeVisibleInstance(IrisBrowser)
 
-    local browser = BrowserBase.createCenteredPanel(IrisBrowser, debug)
+    local browser = BrowserBase.createCenteredPanel(
+        IrisBrowser,
+        debugEnabled and debug or nil
+    )
     IrisBrowser._instance = browser
     debug("[IrisBrowser] ########## openSearch() END ##########")
 end
@@ -90,7 +101,9 @@ function IrisBrowser.openForItem(item)
     browser:selectItem(item)
 
     IrisBrowser._instance = browser
-    debug("[IrisBrowser] Opened for item: " .. tostring(ItemAccess.getFullType(item)))
+    if isDebugEnabled() then
+        debug("[IrisBrowser] Opened for item: " .. tostring(ItemAccess.getFullType(item)))
+    end
 end
 
 function IrisBrowser:new(x, y, width, height)

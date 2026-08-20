@@ -1,0 +1,76 @@
+{
+  "schema_version": "iris_codebase_optimization_followup_protected_overlay_v1",
+  "authority": "repository_owner_preapproval",
+  "plan": "docs/iris_codebase_optimization_comprehensive_followup_plan.md",
+  "base_commit": "5b19a5fa58cb883f6b27f433371434a85b41ba0d",
+  "base_tree": "2e31cf96827a7b5929419ed555f1c2f89273dbc7",
+  "implementation_state": "uncommitted_working_tree_overlay",
+  "durable_commit_binding": false,
+  "validation_ceiling": "uncommitted_working_tree_overlay",
+  "rows": [
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisUseCaseDescriptionsLookup.lua",
+      "before_git_blob_id": "2e991f00f64eb5cedb7a1b6c48a6ab47068f7556",
+      "before_sha256_lf": "40f131907c16e898cd68ecd896b0c8fca1b78bb1d9f9ac6704030bf61899ca22",
+      "after_sha256_lf": "c0ba59097b2624f2eb75fe89153e7f82bc45ac2da7766a584aeeefe08bf96361",
+      "owner": "repository_owner_preapproval",
+      "reason": "Approved implementation of the adopted codebase optimization follow-up plan."
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/IrisMain.lua",
+      "before_git_blob_id": "0dd88ab5827b3a59d6c8c76ea4cb6ce8dd8800e3",
+      "before_sha256_lf": "b723eef9be570566a677bba6915db29dfc334de9d67ec56b9a3769947e4ec4ca",
+      "after_sha256_lf": "ccbb9fd4f37cb5f106159df7cfffc4e84ba358dcd2c7dddc190d3fe2f5d4574b",
+      "owner": "repository_owner_preapproval",
+      "reason": "Approved implementation of the adopted codebase optimization follow-up plan."
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserData.lua",
+      "before_git_blob_id": "d3a35dd131803372f48dae971e57f25c09b0dea2",
+      "before_sha256_lf": "add496651819f776076bbb2ee6dbfc3012370585bbca8fe7962010a501e935bc",
+      "after_sha256_lf": "b7bc1a97fc042ba6baa2c0a3c26556696613cafcfa27cf310e006910ef0bab56",
+      "owner": "repository_owner_preapproval",
+      "reason": "Approved implementation of the adopted codebase optimization follow-up plan."
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserItemIndex.lua",
+      "before_git_blob_id": "10745e762419468e8639f15119baa25f6c3f1d06",
+      "before_sha256_lf": "72478e915b723be08dcdb0cef72a4ba082a559b70e62c5e4673800a81c0a704e",
+      "after_sha256_lf": "8d675b8684955222cc4fee6ee79c77aa0b880bdfa708de271e6cd3276d05e8d8",
+      "owner": "repository_owner_preapproval",
+      "reason": "Approved implementation of the adopted codebase optimization follow-up plan."
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserQuery.lua",
+      "before_git_blob_id": "d29abee63c72fb18ba8e0ce0c46dd77bd9d03d4e",
+      "before_sha256_lf": "17fcecb3bf5ddf79d8f911d0a5919a327b87f0f237aac437008084efc651b92f",
+      "after_sha256_lf": "afeeb063a1e69519bed08f50f9234d44fce11eefef6307d749784721a245f1cf",
+      "owner": "repository_owner_preapproval",
+      "reason": "Approved implementation of the adopted codebase optimization follow-up plan."
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/UI/Tooltip/IrisAltTooltip.lua",
+      "before_git_blob_id": "cac3b80a9824b1cf8b695802eb2dd17508cc5669",
+      "before_sha256_lf": "496ad0c394a29af3d3de421c1361a56e2b7580bb6c8d3444d6426f602a6077bf",
+      "after_sha256_lf": "cf6f14e9e5502e39b204d4e58cd22345d2da81eab700837ae95d8290c8c70ecd",
+      "owner": "repository_owner_preapproval",
+      "reason": "Approved implementation of the adopted codebase optimization follow-up plan."
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/UI/Tooltip/IrisTooltipSummary.lua",
+      "before_git_blob_id": "85bc83f36070713288d66830885a6a7a265a71a0",
+      "before_sha256_lf": "306bf4dfd8d0788123ea2d38437722d6d5aa889612da1dcd48428809606c79c0",
+      "after_sha256_lf": "73297053e5050c8fcdb273a6d4621fda3a7af576588c19f68af3e60f423279a6",
+      "owner": "repository_owner_preapproval",
+      "reason": "Approved implementation of the adopted codebase optimization follow-up plan."
+    },
+    {
+      "path": "Iris/test/validate_residual_refactor_surfaces.ps1",
+      "before_git_blob_id": "0f6596950b5c28ea8035c26d5e6353f0163d9d6b",
+      "before_sha256_lf": "f00b9020280eb65e2f1abc2c04490933685f44adf5c3a82058253f46d3d84bc5",
+      "after_sha256_lf": "f336a4aabc3c6c11d836c4c0ba006227beea56da768695b6008b871cc9450500",
+      "owner": "repository_owner_preapproval",
+      "reason": "Approved validator support for the plan-local uncommitted protected-surface overlay."
+    }
+  ]
+}

@@ -153,7 +153,13 @@ for index, order in ipairs({
 end
 local deterministic = representatives[1] == "Base.Alpha" and representatives[2] == "Base.Alpha" and
     representatives[3] == "Base.Alpha"
-local foldedCount = VariantIndex.calculateFoldedCount(cache, cache.categories.Tool.subcategories["1-A"], variantApi)
+local foldedCount = VariantIndex.calculateFoldedCount(
+    cache,
+    "Tool",
+    "1-A",
+    cache.categories.Tool.subcategories["1-A"],
+    variantApi
+)
 local emptyKeyOk = pcall(VariantIndex.getFoldedCountCacheKey, {items={[""]=true}})
 local groupingDerivedOnce = recipeLookupCalls == 3 and foldedCount == 1
 emit("browser.variant_representative_permutations", "browser_determinism",

@@ -121,6 +121,10 @@ local function countUseCaseLines(fullType)
     if IrisUseCaseDescriptionsLookup and IrisUseCaseDescriptionsLookup.getLineCount then
         local count, reason = IrisUseCaseDescriptionsLookup.getLineCount(fullType)
         if reason == nil then return count end
+        RuntimeLookupDiagnostics.recordFallback(
+            "usecase_tooltip_line_count",
+            reason
+        )
     else
         RuntimeLookupDiagnostics.recordFallback("usecase_tooltip_line_count", "router_unavailable")
     end

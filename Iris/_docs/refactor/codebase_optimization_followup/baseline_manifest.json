@@ -1,0 +1,99 @@
+{
+  "schema_version": "iris-codebase-optimization-followup-baseline-v1",
+  "plan": "docs/iris_codebase_optimization_comprehensive_followup_plan.md",
+  "phase": "0a",
+  "base": {
+    "commit": "5b19a5fa58cb883f6b27f433371434a85b41ba0d",
+    "tree": "2e31cf96827a7b5929419ed555f1c2f89273dbc7"
+  },
+  "logical_byte_census": {
+    "method": "PowerShell Get-ChildItem -File -Recurse Length sum",
+    "rows": [
+      {
+        "denominator_id": "PHYSICAL-IRIS-BUILD",
+        "root": "Iris/build",
+        "files": 6456,
+        "bytes": 777898055
+      },
+      {
+        "denominator_id": "PHYSICAL-STAGING",
+        "root": "Iris/build/description/v2/staging",
+        "files": 4553,
+        "bytes": 547828971
+      },
+      {
+        "denominator_id": "PHYSICAL-EVIDENCE",
+        "root": "Iris/build/description/v2/evidence",
+        "files": 240,
+        "bytes": 186373483
+      },
+      {
+        "denominator_id": "GIT-TRACKED-IRIS",
+        "root": "Iris",
+        "files": 5154,
+        "bytes": 655872180,
+        "source_set_sha256": "23b5c9075a7b5447a280274cbd3b97ec286acb51d7a52d18cc585952ae8de16b"
+      },
+      {
+        "denominator_id": "PHYSICAL-RUNTIME-DATA",
+        "root": "Iris/media/lua/client/Iris/Data",
+        "files": 43,
+        "bytes": 2528303
+      }
+    ]
+  },
+  "generated_payloads": [
+    {"id":"USECASE-CHUNKS","path":"Iris/media/lua/client/Iris/Data/UseCaseDescriptions","files":12,"bytes":1230589},
+    {"id":"LAYER3-CHUNKS","path":"Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks","files":11,"bytes":968181},
+    {"id":"CURRENT-CLASSIFICATIONS","path":"Iris/media/lua/client/Iris/Data/IrisClassifications.lua","bytes":111083,"assignments":2079,"unique_keys":2079},
+    {"id":"LEGACY-IRISDATA","path":"Iris/media/lua/client/Iris/Data/IrisData.lua","bytes":75143,"assignments":1360,"unique_keys":1360},
+    {"id":"RECIPE-INDEX-DATA","path":"Iris/media/lua/client/Iris/Data/IrisRecipeIndexData.lua","bytes":78265},
+    {"id":"USECASE-LINE-COUNT-INDEX","path":"Iris/media/lua/client/Iris/Data/UseCaseDescriptions/LineCountIndex.lua","bytes":61527}
+  ],
+  "python_denominators": [
+    {"id":"PY-PHYSICAL-TOOLS-BUILD","scope":"Iris/build/description/v2/tools/build/**/*.py","files":497,"source_set_sha256":"35e5f6402e1b5a45df28ac3bffa688a228e642c6d5ffdcf018bbbf29334f0180"},
+    {"id":"PY-TRACKED-TOOLS-BUILD","scope":"git ls-files Iris/build under tools/build","files":250,"source_set_sha256":"29101067a7e9f2c3cc9a1339fee2a4706a2ea4d2f09cb6c4334cd26a07f1c675"},
+    {"id":"PY-PHYSICAL-IRIS-BUILD","scope":"Iris/build/**/*.py","files":928,"source_set_sha256":"577b493135d67da33cbf356329a40e2ed671ad1f279f8f70fa3bb469912b5c77"},
+    {"id":"PY-TRACKED-IRIS-BUILD","scope":"git ls-files Iris/build","files":483,"source_set_sha256":"140c10214d4c3a04612d80f57f6b3aedc98ca1aaa0f72bf2f29ed1890dd3c903"}
+  ],
+  "subprocess_census": {
+    "denominator_id": "PY-PHYSICAL-IRIS-BUILD",
+    "reference_pattern": "(?m)^\\s*(?:import\\s+subprocess\\b|from\\s+subprocess\\s+import\\b)",
+    "reference_files": 119,
+    "reference_source_set_sha256": "d921064b95760a55cb8fa5f8517c0b8f63f823373e2e996b4ec6aa8d8bf3a28a",
+    "explicit_call_pattern": "subprocess\\.(?:run|check_output)\\(",
+    "explicit_call_sites": 271
+  },
+  "denominator_identity": {
+    "runtime_corpus": "repository generated classification authority; no PZ mod set",
+    "current_full_type_count": 2079,
+    "full_type_canonicalization": "ordinal-sorted keys joined with LF without a terminal LF",
+    "current_full_type_set_sha256": "a03597606ddae1a39bfbedb43ebdb06fad0351a460367becf95595e1d7365189",
+    "mod_set_identity": "not_applicable_without_pz_runtime"
+  },
+  "classification_source_set": {
+    "sha256": "70ff4c148b309aac284ca5cafb6f157d7a5d447c2a30ecc59949cf44ca1e74ae",
+    "files": [
+      "Iris/media/lua/client/Iris/Data/IrisData.lua",
+      "Iris/media/lua/client/Iris/Data/IrisClassifications.lua"
+    ]
+  },
+  "instrumentation": {
+    "default_enabled": false,
+    "owners": [
+      "IrisBrowserData",
+      "IrisBrowserItemIndex",
+      "IrisBrowserQuery",
+      "IrisItemDetailViewModel",
+      "IrisAltTooltip",
+      "IrisTooltipSummary",
+      "IrisRuntimeLookupDiagnostics"
+    ],
+    "counter_scope": "operation/allocation proxy only; no latency or heap claim"
+  },
+  "phase_0b": {
+    "executed": false,
+    "reason": "named Project Zomboid raw timing environment was not supplied",
+    "dependent_branches": "deferred_by_design"
+  }
+}

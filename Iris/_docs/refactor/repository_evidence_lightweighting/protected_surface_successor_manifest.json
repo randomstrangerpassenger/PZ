@@ -1644,6 +1644,16 @@
           "after_sha256_lf": "31843a14e3ef1f004d73dadf9809080aaa68e4081027578617b820af784805a3",
           "owner": "repository_owner_user",
           "reason": "Allow only the five non-core stateless successor modules while preserving the exact twelve-module current core closure."
+        },
+        {
+          "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+          "predecessor_sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c",
+          "before_git_blob_id": "443bc9805440c317d08fbfb2b61678ff1feb7333",
+          "before_sha256_lf": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c",
+          "expected_git_blob_id": "307b62d0ba536874e85119b7d5528ce09a05bba8",
+          "after_sha256_lf": "a2987d122d600780610c3492754329c1325b025d964ae85c78a936aaf0e4c2f5",
+          "owner": "repository_owner_user",
+          "reason": "Replace the retired stateful fixed-chunk manifest with the stable R2-B public facade that resolves the shared generation pointer."
         }
       ],
       "added_protected_rows": [

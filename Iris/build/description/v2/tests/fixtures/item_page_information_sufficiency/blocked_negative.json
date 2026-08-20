@@ -1,0 +1,1 @@
+{"fact":null,"decision":null,"rendered":null,"emitted_sections":[],"usecase":{"use_cases":[{"use_case_id":"uc.blocked","line_kind":"exclusion","evidence_sources":[{"source_type":"recipe_evidence","decision":"NO"}]}]},"description":{"use_case_block":{"items":[{"use_case_id":"uc.blocked","line_kind":"evidence"}]}},"expected":"evidence_limited","expected_rule":"IPS-PREC-04"}

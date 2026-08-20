@@ -1,0 +1,1 @@
+{"fact":null,"decision":null,"rendered":null,"emitted_sections":[],"usecase":{"use_cases":[{"use_case_id":"uc.unresolved","line_kind":"evidence","evidence_sources":[{"source_type":"rightclick","decision":"NO"}]}]},"description":{"use_case_block":{"items":[{"use_case_id":"uc.unresolved","line_kind":"evidence"}]}},"expected":"unresolved","expected_rule":"IPS-PREC-02"}

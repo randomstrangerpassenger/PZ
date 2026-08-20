@@ -1,0 +1,21 @@
+{
+  "schema_version": "item-page-information-sufficiency-representative-cases-v1",
+  "authority_effect": "none",
+  "cases": [
+    {"case_id": "anchor-ammo-mold", "fulltype": "Base.223BulletsMold", "coverage": ["layer3 represented", "layer4 recipe represented"]},
+    {"case_id": "anchor-tongs", "fulltype": "Base.Tongs", "coverage": ["layer3 represented", "layer4 multiple recipe represented"]},
+    {"case_id": "current-unadopted", "fulltype": "Base.Broom", "coverage": ["unresolved producer provenance", "exception routing"]},
+    {"case_id": "synthetic-short-substantive", "fixture": "Iris/build/description/v2/tests/fixtures/item_page_information_sufficiency/short_substantive.json", "coverage": ["no length threshold"]},
+    {"case_id": "synthetic-identity-only", "fixture": "Iris/build/description/v2/tests/fixtures/item_page_information_sufficiency/identity_only.json", "coverage": ["identity restatement is not marginal contribution"]},
+    {"case_id": "synthetic-sealed-empty", "fixture": "Iris/build/description/v2/tests/fixtures/item_page_information_sufficiency/sealed_empty.json", "coverage": ["evidence_limited derivation reachability", "blocked-negative Layer 4"]},
+    {"case_id": "synthetic-known-missing", "fixture": "Iris/build/description/v2/tests/fixtures/item_page_information_sufficiency/known_missing.json", "coverage": ["required Layer 3 missing precedence"]},
+    {"case_id": "synthetic-unresolved", "fixture": "Iris/build/description/v2/tests/fixtures/item_page_information_sufficiency/unresolved.json", "coverage": ["total-function fail-closed default"]},
+    {"case_id": "synthetic-recipe-only", "fixture": "Iris/build/description/v2/tests/fixtures/item_page_information_sufficiency/recipe_only.json", "coverage": ["Recipe-only Layer 4 PASS"]},
+    {"case_id": "synthetic-rightclick-only", "fixture": "Iris/build/description/v2/tests/fixtures/item_page_information_sufficiency/rightclick_only.json", "coverage": ["Right-click-only Layer 4 PASS"]},
+    {"case_id": "synthetic-both-layer4-sources", "fixture": "Iris/build/description/v2/tests/fixtures/item_page_information_sufficiency/both_sources.json", "coverage": ["Recipe and Right-click independent equal sources"]},
+    {"case_id": "synthetic-layer4-missing", "fixture": "Iris/build/description/v2/tests/fixtures/item_page_information_sufficiency/layer4_missing.json", "coverage": ["applicable Layer 4 missing precedence"]},
+    {"case_id": "synthetic-layer4-unresolved", "fixture": "Iris/build/description/v2/tests/fixtures/item_page_information_sufficiency/layer4_unresolved.json", "coverage": ["Layer 4 source-to-rendered mismatch"]},
+    {"case_id": "synthetic-blocked-negative", "fixture": "Iris/build/description/v2/tests/fixtures/item_page_information_sufficiency/blocked_negative.json", "coverage": ["blocked-negative Layer 4 is nonpositive"]},
+    {"case_id": "synthetic-optional-layer3", "fixture": "Iris/build/description/v2/tests/fixtures/item_page_information_sufficiency/optional_layer3.json", "coverage": ["owner-approved optional Layer 3 matrix state"]}
+  ]
+}

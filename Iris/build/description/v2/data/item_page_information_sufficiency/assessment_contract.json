@@ -1,0 +1,52 @@
+{
+  "schema_version": "item-page-information-sufficiency-contract-v1",
+  "contract_path": "Iris/build/description/v2/data/item_page_information_sufficiency/assessment_contract.json",
+  "ratification_state": "ratified",
+  "proposal_subject_sha256": "623c2b447346a56326d3cefb68440a47ab3293a07135225effdee26a3362c752",
+  "ratification_record_identity": "0e9245d51a91a7ede27905225068c0b7b17489ccd8f5ffb224b5e64f65de57d8",
+  "authority_effect": "none",
+  "fact_generation_allowed": false,
+  "publish_verdict": false,
+  "dispositions": ["information_sufficient", "evidence_limited", "known_information_missing", "unresolved"],
+  "inputs": {
+    "denominator": "Iris/input/items_itemscript.json",
+    "layer3_current_pointer": "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua",
+    "layer4_usecases": "Iris/build/description/v2/data/upstream_usecases_by_fulltype.json",
+    "layer4_descriptions": "Iris/output/descriptions_by_fulltype.v2.4.json",
+    "exception_ledger": "Iris/build/description/v2/data/item_page_information_sufficiency/state_exception_ledger.jsonl",
+    "representative_cases": "Iris/build/description/v2/data/item_page_information_sufficiency/representative_cases.json"
+  },
+  "layer3_input_identity_policy": {
+    "json": "sha256_canonical_json_lf_v1",
+    "jsonl": "sha256_canonical_jsonl_records_lf_v1",
+    "generator_source": "sha256_utf8_lf_normalized_text_v1",
+    "legacy_descriptor_bridge": "accept only when current UTF-8 content reproduces the descriptor raw hash by LF/CRLF conversion alone",
+    "runtime_and_generated_outputs": "sha256_raw_bytes_v1",
+    "semantic_content_mismatch": "fail_closed"
+  },
+  "layer3_generator_source_subjects": [
+    {"path": "Iris/build/description/v2/tools/build/dvf_3_3_generation_contract.py", "identity_algorithm": "sha256_utf8_lf_normalized_text_v1", "sha256": "0ecd9f9c31832a5ef624c8aeb14ed99419d5ef243008a0c72f8c952a520bf558"},
+    {"path": "Iris/build/description/v2/tools/build/build_dvf_3_3_complete_generation.py", "identity_algorithm": "sha256_utf8_lf_normalized_text_v1", "sha256": "9574b083a88e83c8e1b2298cf35879d7c17201eb76b4e74568ff5c849531036f"},
+    {"path": "Iris/build/description/v2/tools/build/compose_layer3_io.py", "identity_algorithm": "sha256_utf8_lf_normalized_text_v1", "sha256": "1b8e62550e0d40e66391817820a0f32a22fab99b6678a723967cec14ba30fbaf"},
+    {"path": "Iris/build/description/v2/tools/build/compose_layer3_text.py", "identity_algorithm": "sha256_utf8_lf_normalized_text_v1", "sha256": "4f2c2f05db41dd2f931fbe36b12c091cf55e8e912c64a325c9e17c389615313c"},
+    {"path": "Iris/build/description/v2/tools/build/compose_layer3_body_profile.py", "identity_algorithm": "sha256_utf8_lf_normalized_text_v1", "sha256": "88aae7c9175a342e294c9667c71e53c0f03d41626507d02cc9c510e92a8362ba"},
+    {"path": "Iris/build/description/v2/tools/build/compose_layer3_render.py", "identity_algorithm": "sha256_utf8_lf_normalized_text_v1", "sha256": "0b588bcafa6b31e3920ef2e7672bef10462b2a6f2729d7169b53c77d57a19b34"},
+    {"path": "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py", "identity_algorithm": "sha256_utf8_lf_normalized_text_v1", "sha256": "dabc287f643b3e0f5f806620ba2ec823edab9068f06c0c988117f27d56709853"}
+  ],
+  "adopted_contracts": {
+    "baseline_field_registry": {"path": "Iris/build/description/v2/data/item_page_information_sufficiency/baseline_field_registry.json", "canonical_json_sha256": "26a8f8dad6f5a2ab63ea83a66a965aa29b23b95e6a95a97ddae3f3a65f0d6279"},
+    "layer3_state_derivation_contract": {"path": "Iris/build/description/v2/data/item_page_information_sufficiency/layer3_state_derivation_contract.json", "canonical_json_sha256": "3f4cffa5c46eb7c40eae4b307f803e3e3904858b971c0e0ba268db97dad658bc"},
+    "layer4_state_derivation_contract": {"path": "Iris/build/description/v2/data/item_page_information_sufficiency/layer4_state_derivation_contract.json", "canonical_json_sha256": "cff2ee584f15b30ada7e24ec57cc6187378e1885963e919eaed75f8f08e7444b"}
+  },
+  "decision_precedence": [
+    {"rule_id": "IPS-PREC-01", "outcome": "known_information_missing", "condition": "required Layer 3 or applicable Layer 4 confirmed fact is missing"},
+    {"rule_id": "IPS-PREC-02", "outcome": "unresolved", "condition": "material producer, requiredness, representation or applicability state is unresolved, excluding the closed blocked-negative tuple"},
+    {"rule_id": "IPS-PREC-03", "outcome": "information_sufficient", "condition": "at least one confirmed non-baseline fact is represented and no higher-precedence condition applies"},
+    {"rule_id": "IPS-PREC-04", "outcome": "evidence_limited", "condition": "both sealed sets are empty, Layer 3 is optional or set-scoped not_required, and no non-baseline fact is represented"},
+    {"rule_id": "IPS-PREC-05", "outcome": "unresolved", "condition": "total-function default"}
+  ],
+  "anchors": ["Base.223BulletsMold", "Base.Tongs", "Base.Broom"],
+  "public_text_axis_dependency": false,
+  "runtime_mutation": false,
+  "current_vanilla_offline_snapshot_only": true
+}

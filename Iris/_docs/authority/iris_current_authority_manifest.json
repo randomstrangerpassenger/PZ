@@ -419,6 +419,15 @@
       "classification": "current",
       "authority_role": "package workflow entrypoint",
       "delete_move_policy": "protected"
+    },
+    {
+      "entry_id": "IPS-GOV-AUTHORITY-01",
+      "path": "Iris/build/description/v2/data/item_page_information_sufficiency/policy_ratification_contract.json",
+      "classification": "current",
+      "authority_role": "owner-ratified offline item-page information-sufficiency policy input and Publish Boundary component-evidence contract; not product IAR lifecycle authority",
+      "delete_move_policy": "protected; supersede additively with exact policy, assessment, review and owner-seal binding",
+      "result_sha256": "63077bf221b5af4874bbeb78fecd02708a7472564942b8e7e4d129df9a77b480",
+      "closeout_path": "Iris/_docs/round3/item_page_information_sufficiency/63077bf221b5af4874bbeb78fecd02708a7472564942b8e7e4d129df9a77b480/axis_qualified_closeout.json"
     }
   ],
   "validation": {

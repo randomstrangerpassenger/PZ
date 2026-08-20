@@ -1,0 +1,27 @@
+{
+  "schema_version": "item-page-layer4-state-derivation-v1",
+  "ratification_state": "ratified",
+  "proposal_subject_sha256": "623c2b447346a56326d3cefb68440a47ab3293a07135225effdee26a3362c752",
+  "ratification_record_identity": "0e9245d51a91a7ede27905225068c0b7b17489ccd8f5ffb224b5e64f65de57d8",
+  "authority_effect": "none",
+  "semantic_producer": "QG",
+  "artifact_set_materialization": {
+    "sealed_complete": "Declared QG records are identity-bound and exhaustively queried; no extraction, semantic or world coverage is claimed."
+  },
+  "axes": {
+    "fact_availability": ["approved_fact_present", "approved_fact_set_empty", "unresolved"],
+    "applicability": ["applicable", "unresolved"],
+    "representation": ["represented", "missing", "unresolved"],
+    "scope_limitation": ["none", "blocked_by_negative_authority"]
+  },
+  "positive_evidence": "A structured use_case with PASS evidence bound to a public positive line.",
+  "empty_set_derivation": {
+    "fact_availability": "approved_fact_set_empty",
+    "applicability": "unresolved",
+    "representation": "missing",
+    "scope_limitation": "blocked_by_negative_authority",
+    "dispositive": false
+  },
+  "source_equality": ["Recipe", "Right-click"],
+  "forbidden": ["world_level_closed_negative", "empty_output_to_non_applicability", "NO_or_exclusion_as_positive", "debug_or_review_as_positive"]
+}

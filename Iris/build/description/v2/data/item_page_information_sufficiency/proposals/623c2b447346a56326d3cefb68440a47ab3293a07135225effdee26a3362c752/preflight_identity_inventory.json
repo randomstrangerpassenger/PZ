@@ -1,0 +1,21 @@
+{
+  "schema_version": "item-page-information-sufficiency-preflight-identity-inventory-v1",
+  "status": "page_sufficiency_policy_adopted",
+  "observed_at": "2026-08-20T00:00:00+09:00",
+  "generation_id": "dvf33-2a44a0a8d9a2e7f0d9a533ad002b7f691c1bfccec9577fb3356967ec6fd8a00c",
+  "generation_pointer_path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua",
+  "generation_descriptor_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-2a44a0a8d9a2e7f0d9a533ad002b7f691c1bfccec9577fb3356967ec6fd8a00c/generation_descriptor.json",
+  "denominator_count": 2285,
+  "layer3_rendered_count": 2105,
+  "layer4_declared_usecase_count": 1606,
+  "drift": [
+    {"path": "Iris/build/description/v2/data/dvf_3_3_overlay_support.jsonl", "expected_raw_sha256": "0d1fe36e0e4c17c48e2592f052d796ce6859d38a40ff58e638658930097e3327", "expected_size": 988966, "observed_raw_sha256": "c16947429ccf0d07bd8df0b4a10c9c9ccae057e5407241414bfbf88628d04464", "observed_size": 986861},
+    {"path": "Iris/build/description/v2/data/compose_profiles_v2.json", "expected_raw_sha256": "55ef3b3aa504c9cef60bd57da389328953c79742884de29b69662be3604909b9", "expected_size": 5358, "observed_raw_sha256": "ba986a2f267a2d7f450474a903867b0120221fdd135dab93d2f3e6332dd92b14", "observed_size": 5112},
+    {"path": "Iris/build/description/v2/data/compose_profile_identity_hint_rules.json", "expected_raw_sha256": "d0f235f60036d66feb30011ea64fffa7943f8dca97a9c96a15ad199907f2a5cb", "expected_size": 1864, "observed_raw_sha256": "254a088e885ec905680a8830e78ff6e761a272f9002afa9c55b9093118c32c97", "observed_size": 1809},
+    {"path": "Iris/build/description/v2/data/compose_profile_conflict_precedence_rules.json", "expected_raw_sha256": "c0827f940cb65770daffff35f52349e796573e766afd975b7f358000fd510ad7", "expected_size": 171, "observed_raw_sha256": "d108c7e6a80b109d8947be6e9a8efe936ded2bd40e5b48943fbcc5327986c67d", "observed_size": 163}
+  ],
+  "execution_disposition": "fail_closed_before_assessment_output",
+  "blocking_reason": "pointer-selected generation descriptor raw identity mismatches four current canonical input files",
+  "allowed_next_action": "separate owner-authorized current generation regeneration or exact input restoration; neither is authorized by this workstream",
+  "non_claims": ["no_assessment_pass", "no_current_route_registration", "no_canonical_successor_manifest", "no_independent_review_credit", "no_owner_seal", "no_runtime_or_source_mutation"]
+}

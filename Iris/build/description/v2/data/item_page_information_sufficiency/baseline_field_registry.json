@@ -1,0 +1,28 @@
+{
+  "schema_version": "item-page-baseline-field-registry-v1",
+  "ratification_state": "ratified",
+  "proposal_subject_sha256": "623c2b447346a56326d3cefb68440a47ab3293a07135225effdee26a3362c752",
+  "ratification_record_identity": "0e9245d51a91a7ede27905225068c0b7b17489ccd8f5ffb224b5e64f65de57d8",
+  "authority_source": "Iris/input/items_itemscript.json",
+  "registry_scope": "ItemScript-preserved fields consumed by the current Layer 1/detail observation surface",
+  "identity_fields": ["FullType", "DisplayName"],
+  "fields": [
+    {"name": "DisplayCategory", "role": "classification baseline", "observed_types": ["string"], "null_semantics": "absent means unavailable", "normalization": "none"},
+    {"name": "DisplayName", "role": "identity baseline", "observed_types": ["string"], "null_semantics": "absent means FullType fallback at runtime", "normalization": "none"},
+    {"name": "FullType", "role": "case-sensitive identity baseline", "observed_types": ["string"], "null_semantics": "forbidden", "normalization": "none"},
+    {"name": "HungerChange", "role": "food core baseline", "observed_types": ["integer"], "null_semantics": "absent means not preserved", "normalization": "numeric identity"},
+    {"name": "LightStrength", "role": "moveable core baseline", "observed_types": ["integer", "number"], "null_semantics": "absent means not preserved", "normalization": "numeric identity"},
+    {"name": "SkillTrained", "role": "literature core baseline", "observed_types": ["string"], "null_semantics": "absent means not preserved", "normalization": "none"},
+    {"name": "StressChange", "role": "food core baseline", "observed_types": ["integer"], "null_semantics": "absent means not preserved", "normalization": "numeric identity"},
+    {"name": "SubCategory", "role": "subcategory baseline", "observed_types": ["string"], "null_semantics": "absent means unavailable", "normalization": "none"},
+    {"name": "ThirstChange", "role": "food core baseline", "observed_types": ["integer"], "null_semantics": "absent means not preserved", "normalization": "numeric identity"},
+    {"name": "Type", "role": "type baseline", "observed_types": ["string"], "null_semantics": "forbidden", "normalization": "none"},
+    {"name": "Weight", "role": "weight baseline", "observed_types": ["integer", "number"], "null_semantics": "absent means not preserved", "normalization": "numeric identity"}
+  ],
+  "layer2_boundary": {"primary_subcategory_positive_contribution": false, "diagnostic_use": "identity_restatement_comparison_only"},
+  "lower_bound_bias": {
+    "direction": "information_sufficient",
+    "affected_families": ["food", "weapon", "literature", "moveable"],
+    "limitation": "Runtime-only fields are not added to this registry and can appear as marginal information."
+  }
+}

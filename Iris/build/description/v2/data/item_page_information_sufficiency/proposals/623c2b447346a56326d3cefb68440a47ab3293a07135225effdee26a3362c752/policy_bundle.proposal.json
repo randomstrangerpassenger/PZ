@@ -1,0 +1,24 @@
+{
+  "schema_version": "item-page-information-sufficiency-policy-proposal-v1",
+  "ratification_state": "proposal",
+  "authority_effect": "none",
+  "publish_verdict": false,
+  "subjects": [
+    {"id": "IPS-RAT-01", "proposal": "information_sufficient / evidence_limited / known_information_missing / unresolved", "subject": "canonical disposition vocabulary"},
+    {"id": "IPS-RAT-02", "proposal": "execution-time items_itemscript.json exact case-sensitive FullType set", "subject": "exact denominator"},
+    {"id": "IPS-RAT-03", "proposal": "explicit ItemScript-preserved baseline lower bound with information_sufficient-direction limitation", "subject": "exact baseline"},
+    {"id": "IPS-RAT-04", "proposal": "provenance-derived required / optional / not_required / unresolved; ledger has no authority", "subject": "state derivation"},
+    {"id": "IPS-RAT-05", "proposal": "sealed artifact-set materialization separated from coverage and world negatives; current not_applicable is forbidden", "subject": "negative and completeness semantics"},
+    {"id": "IPS-RAT-06", "proposal": "Publish Boundary component evidence without a publish verdict", "subject": "assessment authority"},
+    {"id": "IPS-RAT-07", "proposal": "current vanilla universe full assessment", "subject": "execution closure"},
+    {"id": "IPS-RAT-08", "proposal": "heavy matrix-totality and provenance-derivation reachability validation", "subject": "validation depth"},
+    {"id": "IPS-RAT-09", "proposal": "machine validation, independent review, owner seal and successor-entry binding remain separate", "subject": "closure governance"},
+    {"id": "IPS-RAT-10", "proposal": "primary_subcategory is identity-restatement diagnostic only", "subject": "Layer 2 contribution boundary"}
+  ],
+  "proposed_contracts": {
+    "assessment_contract": "item-page-information-sufficiency-contract-v1",
+    "baseline_field_registry": "item-page-baseline-field-registry-v1",
+    "layer3_state_derivation_contract": "item-page-layer3-state-derivation-v1",
+    "layer4_state_derivation_contract": "item-page-layer4-state-derivation-v1"
+  }
+}

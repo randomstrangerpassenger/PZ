@@ -926,3 +926,31 @@ Historical trace / provenance index는 ROADMAP 본문에서 더 이상 관리하
 IAR retirement에 남은 구현 gate는 없다. Inactive predecessor generation cleanup은 rollback 필요성과 reader liveness를 다시 확인한 뒤에만 수행할 수 있는 선택적 post-closeout action이며, 수행하지 않은 현재 상태도 active product dependency가 아니다.
 
 근거는 `Iris/_docs/round3/iar_stateful_architecture_retirement/{closeout.json,residual_report.json,codex_reviewer_final.json}`이다.
+
+<!-- IPS-GOV-ROADMAP-01-START -->
+
+## Iris item-page information sufficiency (2026-08-21)
+
+Entry ID: `IPS-GOV-ROADMAP-01`
+
+Current state: `page_sufficiency_assessment_validated` for result `63077bf221b5af4874bbeb78fecd02708a7472564942b8e7e4d129df9a77b480`.
+
+- `IPS-RAT-*` policy는 immutable proposal subject와 single ratification contract로 채택됐다. Explicit ItemScript baseline, Layer 3/4 provenance derivation, non-authoritative exception routing, total decision precedence, deterministic evaluator/runner/no-write validator와 representative fixtures가 구현됐다.
+- denominator preflight는 exact case-sensitive 2,285 FullType, pointer-selected Layer 3 2,105 rows(2,084 emitted / 21 unadopted), current Layer 4 declared set 1,606 rows를 관찰했다. 이 수치는 evaluator 상수가 아니다.
+- producer JSON/JSONL은 canonical content로 검증하고 generator source 7개는 exact path/contract + ratified LF-normalized identity로 검증한다. Legacy descriptor raw hash는 diagnostic이며 generated runtime/Lua/package output raw identity는 유지한다.
+- Run A/B는 byte-identical result `63077bf221b5af4874bbeb78fecd02708a7472564942b8e7e4d129df9a77b480`를 생성했다. 분포는 `information_sufficient=2081`, `evidence_limited=180`, `known_information_missing=2`, `unresolved=22`이고 protected source/rendered/runtime/package mutation은 0이다.
+- required-route와 current authority에는 Publish Boundary / Item Page Information Sufficiency evidence owner로 additive entry를 등록했다. Stable closeout path는 `Iris/_docs/round3/item_page_information_sufficiency/63077bf221b5af4874bbeb78fecd02708a7472564942b8e7e4d129df9a77b480/axis_qualified_closeout.json`이다.
+
+Next gate: exact five-entry successor manifest에 대한 Codex Reviewer independent review, owner seal, axis-qualified closeout과 no-write/current-route binding validation을 완료한다.
+
+### Hold
+
+- newline 변환 외의 semantic/path/order 변화에 legacy bridge를 적용하거나 stale source를 current처럼 읽기
+- assessment를 통과시키기 위한 current source, rendered, runtime, pointer, generation 또는 package mutation
+- all-item universe를 모든 item의 독립 장문 Layer 3 authoring 의무로 해석하기
+- disposition distribution을 content authoring, extraction expansion, Evidence Allowlist expansion 또는 taxonomy repartition 승인으로 해석하기
+- exact result/subject identity 없이 canonical review/seal을 주장하거나 이 component evidence를 Public Text Quality PASS, Publish Boundary PASS 또는 release readiness로 확대하기
+
+근거는 `Iris/build/description/v2/data/item_page_information_sufficiency/`의 ratified contracts와 proposal-scoped `preflight_identity_inventory.json`이다.
+
+<!-- IPS-GOV-ROADMAP-01-END -->

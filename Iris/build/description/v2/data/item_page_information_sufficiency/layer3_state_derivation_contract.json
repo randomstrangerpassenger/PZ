@@ -1,0 +1,33 @@
+{
+  "schema_version": "item-page-layer3-state-derivation-v1",
+  "ratification_state": "ratified",
+  "proposal_subject_sha256": "623c2b447346a56326d3cefb68440a47ab3293a07135225effdee26a3362c752",
+  "ratification_record_identity": "0e9245d51a91a7ede27905225068c0b7b17489ccd8f5ffb224b5e64f65de57d8",
+  "authority_effect": "none",
+  "semantic_producer": "DVF System",
+  "input_identity": {
+    "json": "canonical JSON content",
+    "jsonl": "ordered canonical JSON record content",
+    "generator_source": "UTF-8 LF-normalized source text with exact declared paths and generator contract",
+    "newline_policy": "UTF-8 CRLF and LF are semantically equivalent",
+    "legacy_descriptor_bridge": "raw descriptor identity must be reproducible from current content by newline conversion alone",
+    "generated_output_identity": "raw bytes"
+  },
+  "artifact_set_materialization": {
+    "sealed_complete": "Descriptor-declared records are identity-bound and exhaustively queried; no extraction, authoring, semantic or world coverage is claimed."
+  },
+  "axes": {
+    "fact_availability": ["approved_fact_present", "approved_fact_set_empty", "unresolved"],
+    "contribution": ["self_sufficient", "supporting_context", "identity_only", "absent", "unresolved"],
+    "requiredness": ["required", "optional", "not_required", "unresolved"],
+    "representation": ["represented", "missing", "unresolved"]
+  },
+  "derivation": {
+    "required": "one or more approved non-baseline propositions in the exact sealed set",
+    "not_required": "zero approved non-baseline propositions in the exact sealed set",
+    "optional": "exact owner-approved optionality provenance only",
+    "unresolved": "producer decision or binding is not closed",
+    "identity_only": "rendered propositions bind only to baseline or identity propositions"
+  },
+  "forbidden": ["length_threshold", "sentence_threshold", "numeric_score", "lexical_terminal_classifier", "world_level_negative"]
+}

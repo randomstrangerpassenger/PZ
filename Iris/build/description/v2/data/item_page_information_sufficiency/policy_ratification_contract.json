@@ -1,0 +1,35 @@
+{
+  "schema_version": "item-page-information-sufficiency-ratification-v1",
+  "ratification_state": "ratified",
+  "proposal_path": "Iris/build/description/v2/data/item_page_information_sufficiency/proposals/623c2b447346a56326d3cefb68440a47ab3293a07135225effdee26a3362c752/policy_bundle.proposal.json",
+  "proposal_subject_sha256": "623c2b447346a56326d3cefb68440a47ab3293a07135225effdee26a3362c752",
+  "proposal_subject_hash_algorithm": "sha256_canonical_json_lf_v1",
+  "owner_identity": "repository-owner-via-explicit-user-direction-2026-08-21",
+  "decision_timestamp": "2026-08-21T00:00:00+09:00",
+  "ratifications": [
+    {"id": "IPS-RAT-01", "decision": "ratified", "amendment": null},
+    {"id": "IPS-RAT-02", "decision": "ratified", "amendment": null},
+    {"id": "IPS-RAT-03", "decision": "ratified", "amendment": null},
+    {"id": "IPS-RAT-04", "decision": "ratified", "amendment": null},
+    {"id": "IPS-RAT-05", "decision": "ratified", "amendment": null},
+    {"id": "IPS-RAT-06", "decision": "ratified", "amendment": null},
+    {"id": "IPS-RAT-07", "decision": "ratified", "amendment": null},
+    {"id": "IPS-RAT-08", "decision": "ratified", "amendment": "Producer JSON/JSONL inputs use canonical content identity and generator source uses LF-normalized text identity with exact paths/contract; legacy raw descriptors may bridge LF/CRLF-only checkout normalization. Generated runtime/package outputs retain raw-byte identity."},
+    {"id": "IPS-RAT-09", "decision": "ratified", "amendment": null},
+    {"id": "IPS-RAT-10", "decision": "ratified", "amendment": null}
+  ],
+  "adopted_contract_subjects": {
+    "assessment_contract": "810fc106d61b2b0f529b56e0bfc1ce92064f4ab80382bf3deb403dc49f54cda8",
+    "baseline_field_registry": "c8a1796e0f8237fbea9b180b6e938e2d3031f62df7448b20492bff75739ba038",
+    "layer3_state_derivation_contract": "526bbd41015ca26c4a2a873e9031a05412ca72312d4a422ca3158eadb60166ac",
+    "layer4_state_derivation_contract": "f616ccbb50ce0d6b12f17024d6601bf5ac9ed3cb5ed0da9973e7e0aea1a16764"
+  },
+  "ratification_record_identity": "0e9245d51a91a7ede27905225068c0b7b17489ccd8f5ffb224b5e64f65de57d8",
+  "adopted_contracts": {
+    "assessment_contract": {"path": "Iris/build/description/v2/data/item_page_information_sufficiency/assessment_contract.json", "canonical_json_sha256": "3b0c690d4a1ca586c3c17ac686f6631124252e2f947477ca85baf867f0ca14fe"},
+    "baseline_field_registry": {"path": "Iris/build/description/v2/data/item_page_information_sufficiency/baseline_field_registry.json", "canonical_json_sha256": "26a8f8dad6f5a2ab63ea83a66a965aa29b23b95e6a95a97ddae3f3a65f0d6279"},
+    "layer3_state_derivation_contract": {"path": "Iris/build/description/v2/data/item_page_information_sufficiency/layer3_state_derivation_contract.json", "canonical_json_sha256": "3f4cffa5c46eb7c40eae4b307f803e3e3904858b971c0e0ba268db97dad658bc"},
+    "layer4_state_derivation_contract": {"path": "Iris/build/description/v2/data/item_page_information_sufficiency/layer4_state_derivation_contract.json", "canonical_json_sha256": "cff2ee584f15b30ada7e24ec57cc6187378e1885963e919eaed75f8f08e7444b"}
+  },
+  "owner_scope": "Policy ratification only; independent review and final owner seal remain separate evidence."
+}

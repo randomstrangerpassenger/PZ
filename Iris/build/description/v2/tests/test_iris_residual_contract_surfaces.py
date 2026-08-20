@@ -26,6 +26,60 @@ def load_json(path: Path) -> dict:
 
 class IrisResidualContractSurfacesTest(unittest.TestCase):
     def test_registered_surfaces_preserve_architecture_and_closeout_contracts(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="iris-overlay-probe-") as temp:
+            completed = subprocess.run(
+                [
+                    "powershell",
+                    "-NoProfile",
+                    "-ExecutionPolicy",
+                    "Bypass",
+                    "-File",
+                    str(REPO / "Iris/test/validate_residual_refactor_surfaces.ps1"),
+                    "-Mode",
+                    "OverlayDispositionProbe",
+                    "-RepositoryRoot",
+                    str(REPO),
+                    "-EvidenceRoot",
+                    temp,
+                ],
+                cwd=REPO,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                capture_output=True,
+                check=False,
+            )
+        self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)
+        probe = json.loads(completed.stdout.strip().splitlines()[-1])
+        self.assertEqual(probe["clean_tracked"], "tracked_historical_evidence")
+        self.assertEqual(probe["dirty_tracked"], "active_working_overlay")
+        self.assertEqual(probe["untracked"], "active_working_overlay")
+        self.assertEqual(probe["absent"], "absent")
+        self.assertEqual(probe["clean_tracked_active_row_count"], 0)
+        self.assertEqual(probe["codebase_active_row"], "active_working_overlay")
+        self.assertEqual(probe["codebase_historical_row"], "tracked_historical_evidence")
+        self.assertEqual(probe["codebase_mismatched_row"], "blocked")
+        self.assertEqual(probe["protected_working_match"], "clean")
+        self.assertEqual(probe["protected_working_drift"], "blocked")
+        self.assertEqual(probe["protected_overlay_change"], "authorized")
+        self.assertEqual(probe["protected_durable_change"], "authorized")
+        self.assertEqual(probe["protected_unmatched_change"], "unauthorized")
+        self.assertEqual(probe["item_page_active"], "active_working_overlay")
+        self.assertEqual(probe["item_page_durable"], "tracked_durable_successor")
+        self.assertEqual(probe["item_page_wrong_active_base"], "blocked")
+        self.assertEqual(probe["item_page_wrong_durable_base"], "blocked")
+        self.assertEqual(
+            probe["item_page_durable_after_unrelated_commit"],
+            "tracked_durable_successor",
+        )
+        self.assertEqual(probe["item_page_exact_base"], "exact_approved_base")
+        self.assertEqual(probe["item_page_rewritten_future_base"], "blocked")
+        self.assertEqual(probe["item_page_exact_scope"], "exact_six_path_scope")
+        self.assertEqual(probe["item_page_missing_scope"], "blocked")
+        self.assertEqual(probe["item_page_added_scope"], "blocked")
+        self.assertEqual(probe["item_page_substituted_scope"], "blocked")
+        self.assertEqual(probe["item_page_case_mutated_scope"], "blocked")
+
         taxonomy = load_json(REPO / "Iris/_docs/round3/round3_test_taxonomy.json")
         required = load_json(REPO / "Iris/_docs/round3/current_route_required_validations.json")
         taxonomy_ids = {row["test_id"] for row in taxonomy["rows"]}
@@ -127,6 +181,21 @@ class IrisResidualContractSurfacesTest(unittest.TestCase):
         self.assertEqual(supported["surface_count"], 20)
         self.assertEqual(protected["validation_status"], "passed")
         self.assertEqual(protected["unauthorized_changed_count"], 0)
+        self.assertEqual(
+            protected["codebase_optimization_followup_overlay_disposition"],
+            "tracked_historical_evidence",
+        )
+        self.assertEqual(protected["codebase_optimization_followup_overlay_row_count"], 7)
+        self.assertEqual(protected["codebase_optimization_followup_historical_row_count"], 7)
+        self.assertEqual(
+            protected["codebase_optimization_followup_superseded_paths"],
+            ["Iris/test/validate_residual_refactor_surfaces.ps1"],
+        )
+        self.assertIn(
+            protected["item_page_information_sufficiency_overlay_disposition"],
+            {"active_working_overlay", "tracked_durable_successor"},
+        )
+        self.assertEqual(protected["item_page_information_sufficiency_overlay_row_count"], 6)
         attested_blob = subprocess.run(
             ["git", "-C", str(REPO), "rev-parse", f"{attestation['commit']}:{attestation['path']}"],
             text=True,

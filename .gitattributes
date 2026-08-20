@@ -135,3 +135,13 @@ Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua -text
 Iris/media/lua/client/Iris/Data/IrisLayer3DataChunkIndex.lua -text
 Iris/media/lua/client/Iris/Data/IrisLayer3DataLookup.lua -text
 Iris/media/lua/client/Iris/Data/IrisLayer3Generations/** -text
+Iris/build/description/v2/output/item_page_information_sufficiency/anchor_assessment.json -text
+Iris/build/description/v2/output/item_page_information_sufficiency/assessment_input_manifest.json -text
+Iris/build/description/v2/output/item_page_information_sufficiency/assessment_summary.json -text
+Iris/build/description/v2/output/item_page_information_sufficiency/baseline_runtime_drift_report.json -text
+Iris/build/description/v2/output/item_page_information_sufficiency/information_gap_inventory.jsonl -text
+Iris/build/description/v2/output/item_page_information_sufficiency/page_assessment.jsonl -text
+Iris/build/description/v2/output/item_page_information_sufficiency/protected_surface_hash_report.json -text
+Iris/build/description/v2/output/item_page_information_sufficiency/terminology_responsibility_mapping.json -text
+Iris/build/description/v2/output/item_page_information_sufficiency/validation_report.json -text
+docs/iris_item_page_information_sufficiency_policy.md -text

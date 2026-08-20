@@ -293,13 +293,14 @@
     "build_dvf_3_3_complete_generation",
     "validate_dvf_3_3_complete_generation",
     "install_dvf_3_3_complete_generation",
-    "dvf_3_3_runtime_compatibility"
+    "dvf_3_3_runtime_compatibility",
+    "item_page_information_sufficiency"
   ],
   "current_route_allowed_tooling_policy": {
     "allowed_owner_class": "current_regeneration_tooling",
     "core_closure_count_must_remain": 12,
     "expansion_requires": "separate reviewed scope; do not add modules here as a convenience bypass for current core closure",
-    "max_allowed_modules": 9,
+    "max_allowed_modules": 10,
     "modules_are_not_current_core": true
   },
   "current_route_allowed_tooling_rows": [
@@ -374,6 +375,14 @@
       "owner_class": "generation_key_identity_validation",
       "path": "Iris/build/description/v2/tools/build/dvf_3_3_runtime_compatibility.py",
       "reason": "Exact key and payload projection validation is stateless and explicitly does not claim Registry Runtime Compatibility."
+    },
+    {
+      "in_current_closure": false,
+      "import_allowed_for_current_route": true,
+      "module": "item_page_information_sufficiency",
+      "owner_class": "publish_boundary_component_evidence",
+      "path": "Iris/build/description/v2/tools/build/item_page_information_sufficiency.py",
+      "reason": "The separately reviewed item-page assessment required validation executes exact offline Publish Boundary component evidence without promoting the evaluator into the 12-module compiler core."
     }
   ],
   "current_contract_imports": [
@@ -385,6 +394,7 @@
     "compose_layer3_text",
     "dvf_3_3_generation_contract",
     "dvf_3_3_runtime_compatibility",
+    "item_page_information_sufficiency",
     "install_dvf_3_3_complete_generation",
     "validate_dvf_3_3_complete_generation"
   ],
@@ -395,6 +405,7 @@
     "Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py",
     "Iris/build/description/v2/tests/test_dvf_3_3_generation_install.py",
     "Iris/build/description/v2/tests/test_dvf_3_3_runtime_compatibility.py",
+    "Iris/build/description/v2/tests/test_item_page_information_sufficiency.py",
     "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py",
     "Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py",
     "Iris/build/description/v2/tests/test_layer4_trace_edge_authority_admission_round.py",

@@ -430,6 +430,48 @@ class DvfCloseoutReentryGuardSealTest(unittest.TestCase):
         self.assertFalse(blocked["definition_context"])
         self.assertEqual(blocked["classification"], "blocked")
 
+        common = load_common_module()
+        fixtures = (
+            (
+                common.ARCHITECTURE_DOC,
+                "  * Reusable public-text assessment는 DVF/QG subject에 적용되는 오프라인 evidence producer로 유지하며 Publish Boundary가 그 결과의 acceptance를 별도로 판단한다.",
+            ),
+            (
+                common.ARCHITECTURE_DOC,
+                "  * public-text acceptance와 publication / release acceptance를 소유한다.",
+            ),
+            (
+                common.DECISIONS_DOC,
+                "  * `PublicTextQualityAcceptanceCurrentRouteTest._phase7_self_test()`는 동일 self-test producer를 여러 test가 다시 실행한 뒤 서로 다른 result case만 읽는 명시적 우선 후보다.",
+            ),
+            (
+                common.ROADMAP_DOC,
+                "- exact result/subject identity 없이 canonical review/seal을 주장하거나 이 component evidence를 Public Text Quality PASS, Publish Boundary PASS 또는 release readiness로 확대하기",
+            ),
+        )
+        for path, line in fixtures:
+            with self.subTest(path=path.name, line=line):
+                row = common.classify_surface_line(path, line)
+                self.assertIsNotNone(row)
+                self.assertEqual(row["classification"], "classified")
+                self.assertTrue(row["definition_context"])
+
+        blocked_fixtures = (
+            (common.ROADMAP_DOC, "검토 없이 release readiness achieved"),
+            (common.ROADMAP_DOC, "release readiness achieved without review"),
+            (common.ROADMAP_DOC, "not only reviewed but release readiness complete"),
+            (common.ROADMAP_DOC, "not only release readiness but package readiness"),
+            (common.ARCHITECTURE_DOC, "이 evaluator가 public-text acceptance authority를 소유한다."),
+            (common.DECISIONS_DOC, "`BadTest` producer가 public-text acceptance를 결정하고 승인한다."),
+            (common.ARCHITECTURE_DOC, "Publish Boundary가 public-text acceptance 완료를 소유한다."),
+        )
+        for path, line in blocked_fixtures:
+            with self.subTest(blocked_path=path.name, line=line):
+                row = common.classify_surface_line(path, line)
+                self.assertIsNotNone(row)
+                self.assertEqual(row["classification"], "blocked")
+                self.assertFalse(row["definition_context"])
+
     def test_predecessor_reentry_negative_fixtures_fail_closed(self) -> None:
         guard = load_json(ROOT / "phase3/predecessor_reentry_guard_report.json")
         raw = load_json(ROOT / "phase3/raw_predecessor_authority_read_report.json")

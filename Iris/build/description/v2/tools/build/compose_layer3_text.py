@@ -873,8 +873,6 @@ def build_rendered(
     resolver_authority_mode: str = DEFAULT_RESOLVER_AUTHORITY_MODE,
     compose_context: str | None = None,
     registry_current_write_authorization_receipt: Path | None = None,
-    deterministic_generated_at: str | None = None,
-    overlay_display_path: str | None = None,
 ) -> dict[str, Any]:
     require_compose_context(compose_context)
     enforce_resolver_authority_output_contract(
@@ -990,20 +988,12 @@ def build_rendered(
             "generated_at": (
                 receipt_payload["rendered_generated_at"]
                 if receipt_payload is not None
-                else (
-                    deterministic_generated_at
-                    if deterministic_generated_at is not None
-                    else datetime.now(timezone.utc).isoformat()
-                )
+                else datetime.now(timezone.utc).isoformat()
             ),
             "facts_sha256": file_sha256(facts_path),
             "decisions_sha256": file_sha256(decisions_path),
             "profiles_sha256": file_sha256(profiles_path),
-            "overlay_path": (
-                overlay_display_path
-                if overlay_display_path is not None
-                else (str(overlay_path) if overlay_path is not None else None)
-            ),
+            "overlay_path": str(overlay_path) if overlay_path is not None else None,
             "overlay_sha256": file_sha256(overlay_path) if overlay_path is not None and overlay_path.exists() else None,
             "entries_sha256": entries_sha256(entries),
             "stats": stats,

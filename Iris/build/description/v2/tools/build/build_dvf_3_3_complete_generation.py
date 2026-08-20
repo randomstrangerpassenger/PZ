@@ -137,9 +137,9 @@ def build_complete_generation(
             identity_rules_path=paths["identity_rules"],
             precedence_rules_path=paths["precedence_rules"],
             compose_context="historical",
-            deterministic_generated_at=DETERMINISTIC_GENERATED_AT,
-            overlay_display_path=CANONICAL_INPUTS[2],
         )
+        rendered["meta"]["generated_at"] = DETERMINISTIC_GENERATED_AT
+        rendered["meta"]["overlay_path"] = CANONICAL_INPUTS[2]
         _stable_pretty_json(rendered_path, rendered)
 
         runtime_entries, _ = with_runtime_aliases(rendered["entries"])

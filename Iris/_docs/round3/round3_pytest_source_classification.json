@@ -4,12 +4,12 @@
   "exact_taxonomy_projection": "Iris/_docs/round3/round3_test_taxonomy.json",
   "owner_approval": {
     "approved": true,
-    "owner": "repository-owner-preapproval-2026-08-10",
-    "reviewed_at": "2026-08-10",
-    "scope": "All source classifications, exclusions, mixed overrides, and planned optimization contract sources in this manifest."
+    "owner": "repository-owner-preapproval-2026-08-20",
+    "reviewed_at": "2026-08-20",
+    "scope": "All source classifications, exclusions, mixed overrides, planned optimization sources, and the three adopted IAR retirement successor test sources in this manifest."
   },
   "baseline_inventory": {
-    "description_v2_test_sources": 263,
+    "description_v2_test_sources": 266,
     "taxonomy_unknown_sources_reviewed": 49,
     "pytest_ini_ignored_sources_reviewed": 6,
     "known_collection_blockers_reviewed": 2,
@@ -18,8 +18,8 @@
   "source_set_binding": {
     "canonicalization": "sorted repository-relative source paths joined with LF and a terminal LF",
     "tracked_policy_sources": {
-      "count": 115,
-      "sha256": "9bd0f832a9de93005decc397e38f49b5df05aa58cc6e3f5375ff2d8c89de6ead"
+      "count": 118,
+      "sha256": "36bad35de7ccc1e48c837263c5fa5e297678e67bfbba4e22bdc265eb26ccba5d"
     },
     "approved_clean_checkout_absent_policy_sources": {
       "count": 176,

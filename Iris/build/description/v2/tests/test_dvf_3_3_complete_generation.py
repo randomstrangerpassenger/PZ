@@ -3,8 +3,13 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import shutil
+import sys
 import tempfile
 import unittest
+
+V2_ROOT = Path(__file__).resolve().parents[1]
+if str(V2_ROOT) not in sys.path:
+    sys.path.insert(0, str(V2_ROOT))
 
 from tools.build.build_dvf_3_3_complete_generation import build_complete_generation
 from tools.build.dvf_3_3_generation_contract import CANONICAL_INPUTS, DESCRIPTOR_NAME, GENERATOR_IMPLEMENTATION_FILES
@@ -80,17 +85,19 @@ class DvfCompleteGenerationTest(unittest.TestCase):
                     descriptor_path.write_text(json.dumps(descriptor), encoding="utf-8")
                 elif mutation == "output_hash":
                     target = generation / descriptor["outputs"][0]["path"]
-                    target.write_bytes(target.read_bytes() + b"tamper")
+                    payload = bytearray(target.read_bytes())
+                    payload[0] ^= 0x01
+                    target.write_bytes(payload)
                 elif mutation == "extra_file":
                     (generation / "extra.lua").write_text("return {}", encoding="utf-8")
                 elif mutation == "missing_file":
                     (generation / descriptor["outputs"][0]["path"]).unlink()
                 elif mutation == "chunk_reorder":
                     manifest = generation / "runtime" / "IrisLayer3DataChunks.lua"
-                    lines = manifest.read_text(encoding="utf-8").splitlines()
-                    indexes = [index for index, line in enumerate(lines) if "/Chunks/Chunk" in line]
+                    lines = manifest.read_bytes().splitlines(keepends=True)
+                    indexes = [index for index, line in enumerate(lines) if b"/Chunks/Chunk" in line]
                     lines[indexes[0]], lines[indexes[1]] = lines[indexes[1]], lines[indexes[0]]
-                    manifest.write_text("\n".join(lines) + "\n", encoding="utf-8")
+                    manifest.write_bytes(b"".join(lines))
                 with self.assertRaises(CompleteGenerationValidationError) as raised:
                     validate_complete_generation(repository_root=repository, generation_root=generation)
                 self.assertEqual(raised.exception.code, code)

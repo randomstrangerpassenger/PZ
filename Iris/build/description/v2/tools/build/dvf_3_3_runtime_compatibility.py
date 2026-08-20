@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+import re
 import sys
 from typing import Any, Sequence
 
@@ -62,6 +63,9 @@ def validate_generation_runtime_compatibility(
         manifest_path=manifest_path,
         chunk_dir=chunk_dir,
         repo=generation_root,
+        manifest_module_re=re.compile(
+            rf'"(?P<module>Iris/Data/IrisLayer3Generations/{re.escape(generation_id)}/Chunks/Chunk\d{{3}})"'
+        ),
     )
     rendered_duplicates = legacy_pure.exact_duplicates(rendered_records)
     runtime_duplicates = legacy_pure.exact_duplicates(runtime_records)

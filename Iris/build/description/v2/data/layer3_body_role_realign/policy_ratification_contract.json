@@ -1,0 +1,32 @@
+{
+  "schema_version": "iris-layer3-role-realign-policy-ratification-v1",
+  "ratification_status": "owner_approved_by_execution_request",
+  "owner_approval_source": "2026-08-21 implementation request pre-approving plan/document owner gates",
+  "execution_scope": "staging_only",
+  "conditional_current_install_authorized": true,
+  "menu_acquisition_publicity_branch": "preserve_current_publicity",
+  "ratifications": [
+    "L3R-RAT-01", "L3R-RAT-02", "L3R-RAT-03", "L3R-RAT-04", "L3R-RAT-05", "L3R-RAT-06", "L3R-RAT-07", "L3R-RAT-08", "L3R-RAT-09", "L3R-RAT-10", "L3R-RAT-11", "L3R-RAT-12", "L3R-RAT-13", "L3R-RAT-14", "L3R-RAT-15", "L3R-RAT-16", "L3R-RAT-17"
+  ],
+  "bound_contracts": [
+    {"path": "Iris/build/description/v2/data/layer3_body_role_realign/problem1_evidence_binding.json", "raw_byte_sha256": "377fce0830861595d20f297fbd0630ebd309a7f983248f842e3e619c14756d36"},
+    {"path": "Iris/build/description/v2/data/layer3_body_role_realign/problem1_evidence_consumption_contract.json", "raw_byte_sha256": "d08257e04260122779fc635a988f8bd82ba522dc2d1391ac2c04ea6fbc3b7ea7"},
+    {"path": "Iris/build/description/v2/data/layer3_body_role_realign/fact_kind_mapping_contract.json", "raw_byte_sha256": "e7c6fbdcee6a36aa0db0b12ab0763c1f35aada3287c642d9d0001687adcc62ed"},
+    {"path": "Iris/build/description/v2/data/layer3_body_role_realign/disposition_readiness_contract.json", "raw_byte_sha256": "1a504a6028c0323841f2ab22afcd48f569d15dd3d7a13dc086252833c617f7d5"},
+    {"path": "Iris/build/description/v2/data/layer3_body_role_realign/registered_defect_rules.json", "raw_byte_sha256": "2b2ed67227bced57426a1dc3f6a0be6a4ed64773466834e88008a1252c4aa74f"},
+    {"path": "Iris/build/description/v2/data/layer3_body_role_realign/transformation_rules.json", "raw_byte_sha256": "fff857787a29006a11c8b279a519379fd97ad4e062fd217a79c80820333f8db5"},
+    {"path": "Iris/build/description/v2/data/layer3_body_role_realign/human_exception_ledger.jsonl", "raw_byte_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+    {"path": "Iris/build/description/v2/data/layer3_body_role_realign/review_capacity_contract.json", "raw_byte_sha256": "3b001b27d1ebfdd15d7f73a7f75f656e392eb2e176b8941aaeb6ad7cf39215ca"},
+    {"path": "Iris/build/description/v2/data/layer3_body_role_realign/tool_disposition_contract.json", "raw_byte_sha256": "0ccf5dc08fd5c9c343c2e182ddfe42be5755b1dfc0e6add127c32911ce351962"},
+    {"path": "Iris/build/description/v2/data/layer3_body_role_realign/candidate_replay_identity_contract.json", "raw_byte_sha256": "678f04a9d1f2f65cb03ea74bade15bfc8da5661131a8def917bfc12d943d445b"},
+    {"path": "Iris/build/description/v2/data/layer3_body_role_realign/clean_checkout_external_evidence_location_contract.json", "raw_byte_sha256": "e963f4b329c35d0acf38b5fdbe74d2dba8d164ef1b29681018b0a7f04b62092e"}
+  ],
+  "constraints": {
+    "semantic_rendered_string_parsing_allowed": false,
+    "new_layer4_promotion_allowed": false,
+    "unregistered_transformation_allowed": false,
+    "runtime_semantic_inference_allowed": false,
+    "tooltip_ui_change_allowed": false,
+    "stateful_registry_claim_allowed": false
+  }
+}

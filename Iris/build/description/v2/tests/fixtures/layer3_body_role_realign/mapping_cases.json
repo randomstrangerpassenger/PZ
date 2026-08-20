@@ -1,0 +1,12 @@
+{
+  "facts": [
+    {"item_id": "Base.Role", "identity_hint": "도구", "primary_use": "작업에 쓴다", "acquisition_hint": null, "secondary_use": null, "processing_hint": null, "limitation_hint": null, "notes": null, "special_context": null, "fact_origin": {"identity_hint": ["seed"], "primary_use": ["direct_use"]}},
+    {"item_id": "Base.Acquisition", "identity_hint": "물품", "primary_use": "물품", "acquisition_hint": "상자에서 얻는다", "secondary_use": null, "processing_hint": null, "limitation_hint": null, "notes": null, "special_context": null, "fact_origin": {"identity_hint": ["seed"], "primary_use": ["identity_fallback"], "acquisition_hint": ["seed"]}},
+    {"item_id": "Base.Review", "identity_hint": "물품", "primary_use": "역할", "acquisition_hint": null, "secondary_use": null, "processing_hint": null, "limitation_hint": null, "notes": null, "special_context": "상황", "fact_origin": {"identity_hint": ["seed"], "primary_use": ["role_fallback"]}}
+  ],
+  "decisions": [
+    {"item_id": "Base.Role", "facts_ref": "Base.Role", "state": "adopted", "cluster_used": false, "use_source": "direct_use"},
+    {"item_id": "Base.Acquisition", "facts_ref": "Base.Acquisition", "state": "adopted", "cluster_used": false, "use_source": "identity_fallback"},
+    {"item_id": "Base.Review", "facts_ref": "Base.Review", "state": "adopted", "cluster_used": false, "use_source": "role_fallback"}
+  ]
+}

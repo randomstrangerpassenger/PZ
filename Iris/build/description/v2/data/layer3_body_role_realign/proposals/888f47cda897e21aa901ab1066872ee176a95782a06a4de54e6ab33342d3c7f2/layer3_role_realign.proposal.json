@@ -1,0 +1,11 @@
+{
+  "schema_version": "iris-layer3-role-realign-proposal-v1",
+  "proposal_id": "888f47cda897e21aa901ab1066872ee176a95782a06a4de54e6ab33342d3c7f2",
+  "ratified_contract_path": "Iris/build/description/v2/data/layer3_body_role_realign/policy_ratification_contract.json",
+  "ratified_contract_raw_byte_sha256": "888f47cda897e21aa901ab1066872ee176a95782a06a4de54e6ab33342d3c7f2",
+  "selected_menu_branch": "preserve_current_publicity",
+  "default_closeout_scope": "staging_only",
+  "conditional_current_install_authorized": true,
+  "owner_gate_source": "2026-08-21 implementation request",
+  "authority_effect_before_ratification": "none"
+}

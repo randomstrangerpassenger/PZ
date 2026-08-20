@@ -2587,3 +2587,23 @@
   * current route, current authority, active core closure와 기존 회귀 테스트에는 이 평가를 등록하지 않는다.
   * Iris runtime, public text와 package에는 변경이 없다.
 * Evidence: `Iris/build/description/v2/output/item_page_information_sufficiency/` 및 `docs/iris_item_page_information_sufficiency_walkthrough.md`.
+
+---
+
+## Iris Layer 3 — optional body role realignment and role-material staging
+
+* 상태: 2026-08-21 policy ratified / implementation route adopted / exact terminal repository validation pending
+* 결정:
+
+  * Layer 3는 모든 item에 강제되는 상세 설명이 아니라, 확인된 description-eligible material이 있을 때 제공하는 선택적 overview/explanation 계층이다. 근거가 부족하면 identity, classification, acquisition, Layer 4 또는 rendered prose에서 의미를 보충하지 않고 침묵한다.
+  * 모든 current existing body는 `keep/reduce/revise/hide/review_hold` 중 하나를, 모든 canonical FullType은 body 유무와 독립적으로 `description_ready/acquisition_only/omission_allowed/insufficient_material/review_required` 중 하나를 갖는다.
+  * fact kind는 exact source slot/provenance와 registered structured lineage로만 결정한다. `cluster_summary`는 matching adopted Layer 3 decision lineage가 있을 때만 role material이 되며 new Layer 4 promotion과 rendered-string semantic parsing은 금지한다.
+  * canonical staging material은 `core_description`과 `acquisition_information`을 분리한다. Source-bound acquisition conservation과 Menu public acquisition coverage는 다른 set이다. Initial Menu branch는 `preserve_current_publicity`이고 Tooltip은 role-labeled input readiness까지만 다룬다.
+  * 보존된 Item-Page Information Sufficiency 결과는 authority effect와 regular-gate role이 없는 one-off snapshot이다. Exact current snapshot일 때 per-item Layer 3 axes만 readiness prerequisite에 보조적으로 사용할 수 있고 top-level page disposition, Layer 4 axes 또는 gap inventory를 body disposition/readiness/Problem 5A로 직접 변환하지 않는다.
+  * staging runner와 validator는 dedicated off-live route다. Existing compose entrypoint와 reusable public-text evaluator는 변경하지 않으며 Stateful Artifact Registry lifecycle/receipt/PASS를 복원하지 않는다.
+  * default closeout은 staging-only다. 별도 승인된 current install은 exact staging successor를 adopted upstream candidate로 승격한 뒤 canonical seven-input complete-generation build/validate/stateless compatibility/protected installer와 새 exact subject의 repository validation을 모두 통과해야 한다.
+* Non-decision:
+
+  * Tooltip UI/line allocation, RTC, Publish, release/Workshop/deployment 또는 Problem 5A enrichment를 완료로 결정하지 않는다.
+  * Staging candidate completion을 current Menu/runtime/package mutation으로 읽지 않는다.
+* Evidence: `docs/iris_layer3_body_role_realignment_policy.md`와 `Iris/build/description/v2/data/layer3_body_role_realign/`.

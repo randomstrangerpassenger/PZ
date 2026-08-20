@@ -172,6 +172,11 @@
         "path": "Iris/validation/test_workflow_consolidation/tests/test_validate_workflow_closeout_carrier.py",
         "owner_decision": "not_applicable_dedicated_route",
         "reason": "Workflow-consolidation closeout-carrier tests validate committed blob binding, protected-path exclusion, and self-reference rejection for dedicated evidence adoption; the mandatory full-repository denominator remains unchanged."
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_layer3_body_role_realign.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Layer 3 role-realignment focused tests validate the isolated off-live staging route; they run through the plan's dedicated focused command and do not extend the pre-existing current product-route denominator."
       }
     ],
     "historical_optional_rule": "tracked Iris/build/description/v2/tests/test_*.py source with no current, ok taxonomy identity",

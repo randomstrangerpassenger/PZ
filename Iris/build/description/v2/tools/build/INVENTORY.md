@@ -430,3 +430,16 @@ The approved successor adds five tracked, current-route tooling modules without 
 | `dvf_3_3_runtime_compatibility.py` | stateless exact-key/collision/payload validation; does not claim RTC |
 
 These files are `active` successor tooling, not generic Registry infrastructure and not archive candidates. Existing source correction and naturalization adoption scripts are `completed-but-reproducible`; Registry Runtime Compatibility remains separate governance. The current runtime/package path has no legacy stateful fallback. No sealed attempt/history file is deleted or rewritten.
+
+## Layer 3 body-role realignment staging route (2026-08-21)
+
+The body-role realignment is an isolated, off-live staging route. It does not join the existing compiler core or silently become a dependency of the current product route.
+
+| Module | Role |
+|---|---|
+| `layer3_body_role_realign.py` | pure mapping, readiness, disposition and projection core |
+| `compose_layer3_role_material.py` | source-bound core/acquisition material compiler |
+| `run_layer3_body_role_realign.py` | deterministic isolated staging and candidate replay entrypoint |
+| `validate_layer3_body_role_realign.py` | read-only staging-subject validator |
+
+The first two modules are required tracked source for this dedicated route. The runner, validator, focused test and fixtures are `dedicated_route_validation`. `compose_layer3_text.py`, `compose_layer3_item.py` and `iar_public_text_assessment.py` are byte-preserved and remain historical/current utilities in their pre-existing roles; the realignment does not assign Stateful Artifact Registry lifecycle or authority semantics to them.

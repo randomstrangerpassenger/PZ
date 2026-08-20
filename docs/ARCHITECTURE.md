@@ -883,3 +883,17 @@ Runtime은 계속 100% Lua다. Python은 build/validation/install tooling에만 
 기존 fixed 11-chunk/stateful descriptor product 경로는 은퇴했다. Historical adoption 도구와 sealed evidence는 재현 전용이고, current package/runtime 소비자는 generation pointer와 immutable generation descriptor만 읽는다. Layer 1–5 active product IAR consumer가 0이므로 이 product architecture의 상태는 `FULL_RETIREMENT`다.
 
 Clean-checkout canonical Run A/B와 deterministic compare의 validated implementation subject는 `c924349eae6ee7f2a077ca83899b0ec99131f6c2`다. Codex Reviewer가 발견한 cross-PowerShell package identity nondeterminism은 terminal implementation subject `6f362b5e284d9f05749c7f9dc6a11f13bb1fe322`에서 ordinal ordering으로 교정했고 실제 `current_runtime_payload` ZIP projection이 exit `0`으로 완료됐다. Closeout carrier는 `5ce69e2a3bbf02d453e874af740a312e37b74bff`다.
+
+### Layer 3 optional-description role material
+
+Layer 3 body-role realignment은 current producer/install architecture 위의 off-live semantic staging route다.
+
+`current exact facts + exact provenance mapping + optional IPS Layer 3 snapshot axes -> readiness/disposition ledgers -> source-bound core/acquisition role material -> flat Menu candidate + Tooltip input readiness`
+
+- `layer3_body_role_realign.py`는 source/provenance mapping, total readiness/disposition과 exact duplicate signal/blocking separation을 소유한다. Rendered text를 source fact로 읽지 않는다.
+- `compose_layer3_role_material.py`는 confirmed description-eligible fact와 acquisition fact를 물리적으로 분리하고 fact IDs와 transformation trace를 보존한다. Acquisition-only projection은 core description이 아니다.
+- `run_layer3_body_role_realign.py`는 pointer-selected current generation을 execution time에 읽고 isolated roots 두 곳에서 byte-identical candidate를 재생성한다. Current facts/rendered/runtime/package와 one-off predecessor evidence는 protected observation surface다.
+- `validate_layer3_body_role_realign.py`는 staging subject만 read-only로 검증한다. Repository Clean-Checkout, current install, RTC, Publish 또는 release claim을 만들지 않는다.
+- Runtime Lua는 계속 precompiled `text_ko`만 표시하고 readiness, disposition, fact-kind, rewrite 또는 summarization을 계산하지 않는다. Tooltip runtime consumer는 이 architecture change에 포함되지 않는다.
+
+One-off Item-Page Information Sufficiency row는 exact snapshot이 current일 때 Layer 3 `fact_availability/contribution/requiredness/representation` axes만 readiness prerequisite에 보조적으로 제공한다. Page disposition과 Layer 4 axes는 semantic production input이 아니다. Drift 시 evidence를 stale로 격리하며 제거된 evaluator나 authority chain을 복원하지 않는다.

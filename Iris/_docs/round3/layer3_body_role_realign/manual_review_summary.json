@@ -1,0 +1,39 @@
+{
+  "schema_version": "iris-layer3-role-realign-manual-review-summary-v1",
+  "reviewer_id": "codex_implementation_reviewer",
+  "reviewed_subject": "current exact facts, decisions, pointer-selected rendered generation, and one-off IPS Layer 3 axes",
+  "required_row_count": 33,
+  "completed_row_count": 33,
+  "retained_review_hold_count": 12,
+  "retained_review_required_count": 21,
+  "semantic_resolution_required": false,
+  "representative_cases": [
+    {"item_id": "Base.223Box", "result": "core and acquisition remain distinct; both are source-bound"},
+    {"item_id": "Base.Acorn", "result": "short valid role remains eligible without a length floor"},
+    {"item_id": "Base.Broom", "result": "acquisition is preserved canonically while unresolved public output remains silent"}
+  ],
+  "human_exception_count": 0,
+  "exact_duplicate_group_representative_review": {
+    "group_count": 184,
+    "representative_count": 184,
+    "all_groups_single_semantic_consumed_fact_set": true,
+    "blocking_group_count": 0,
+    "registered_bad_skeleton_group_count": 0,
+    "review_result": "retain_as_nonblocking_exact-duplicate_signal"
+  },
+  "acquisition_review": {
+    "source_bound_count": 1050,
+    "successor_projected_count": 1050,
+    "menu_public_count": 1029,
+    "preserved_nonpublic_count": 21,
+    "newly_surfaced_count": 0,
+    "loss_count": 0
+  },
+  "problem_5a_review": {
+    "candidate_count": 2,
+    "item_ids": ["Base.Bleach", "Base.Rope"],
+    "manual_insertion_count": 0
+  },
+  "owner_approval_gate": "pre_approved_by_2026_08_21_execution_request",
+  "non_claims": ["no_new_fact", "no_tooltip_ui_review", "no_current_install_acceptance"]
+}

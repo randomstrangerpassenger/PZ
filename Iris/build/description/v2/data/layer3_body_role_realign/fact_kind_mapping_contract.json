@@ -1,0 +1,42 @@
+{
+  "schema_version": "iris-layer3-role-realign-fact-kind-mapping-v1",
+  "closed_fact_kinds": [
+    "identity",
+    "classification",
+    "acquisition",
+    "role",
+    "target",
+    "action",
+    "result",
+    "consumption_or_retention",
+    "condition",
+    "restriction"
+  ],
+  "scalar_mappings": [
+    {"source_slot": "identity_hint", "fact_origin": "seed", "outcome": "eligible_kind", "fact_kind": "identity", "description_eligible": false, "acquisition_eligible": false, "rule_id": "L3R-MAP-001"},
+    {"source_slot": "acquisition_hint", "fact_origin": "seed", "outcome": "eligible_kind", "fact_kind": "acquisition", "description_eligible": false, "acquisition_eligible": true, "rule_id": "L3R-MAP-002"},
+    {"source_slot": "primary_use", "fact_origin": "identity_fallback", "outcome": "not_eligible", "fact_kind": null, "description_eligible": false, "acquisition_eligible": false, "rule_id": "L3R-MAP-003"},
+    {"source_slot": "primary_use", "fact_origin": "role_fallback", "outcome": "eligible_kind", "fact_kind": "role", "description_eligible": true, "acquisition_eligible": false, "rule_id": "L3R-MAP-004"},
+    {"source_slot": "primary_use", "fact_origin": "direct_use", "outcome": "eligible_kind", "fact_kind": "role", "description_eligible": true, "acquisition_eligible": false, "rule_id": "L3R-MAP-005"},
+    {"source_slot": "primary_use", "fact_origin": "cluster_summary", "lineage_state": "layer3_approval_bound", "outcome": "eligible_kind", "fact_kind": "role", "description_eligible": true, "acquisition_eligible": false, "rule_id": "L3R-MAP-006"},
+    {"source_slot": "primary_use", "fact_origin": "cluster_summary", "lineage_state": "layer3_approval_unbound", "outcome": "review_required", "fact_kind": null, "description_eligible": false, "acquisition_eligible": false, "rule_id": "L3R-MAP-007"},
+    {"source_slot": "special_context", "fact_origin": "origin_missing", "outcome": "review_required", "fact_kind": null, "description_eligible": false, "acquisition_eligible": false, "rule_id": "L3R-MAP-008"}
+  ],
+  "structured_mappings": [
+    {"authority_class": "food_semantic", "authority_state": "approved", "fact_axis": "consumption_form", "outcome": "eligible_kind", "fact_kind": "consumption_or_retention", "description_eligible": true, "rule_id": "L3R-MAP-F001"},
+    {"authority_class": "food_semantic", "authority_state": "approved", "fact_axis": "meal_role", "outcome": "eligible_kind", "fact_kind": "role", "description_eligible": true, "rule_id": "L3R-MAP-F002"},
+    {"authority_class": "food_semantic", "authority_state": "approved", "fact_axis": "culinary_role", "outcome": "eligible_kind", "fact_kind": "role", "description_eligible": true, "rule_id": "L3R-MAP-F003"},
+    {"authority_class": "food_semantic", "authority_state": "approved", "fact_axis": "preparation_requirement", "outcome": "eligible_kind", "fact_kind": "condition", "description_eligible": true, "rule_id": "L3R-MAP-F004"},
+    {"authority_class": "food_semantic", "authority_state": "approved", "fact_axis": "preservation_form", "outcome": "eligible_kind", "fact_kind": "condition", "description_eligible": true, "rule_id": "L3R-MAP-F005"},
+    {"authority_class": "food_semantic", "authority_state": "approved", "fact_axis": "preparation_state", "outcome": "eligible_kind", "fact_kind": "condition", "description_eligible": true, "rule_id": "L3R-MAP-F006"}
+  ],
+  "cluster_summary_lineage_rule": {
+    "rule_id": "L3R-LINEAGE-001",
+    "required_decision_state": "adopted",
+    "required_cluster_used": true,
+    "required_use_source": "cluster_summary",
+    "require_matching_facts_ref": true,
+    "new_layer4_promotion_allowed": false
+  },
+  "semantic_rendered_string_parsing_allowed": false
+}

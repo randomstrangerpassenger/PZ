@@ -1,0 +1,22 @@
+{
+  "schema_version": "iris-layer3-role-realign-problem1-binding-v1",
+  "authority_effect": "none",
+  "replay_required": false,
+  "regular_gate": false,
+  "bound_files": [
+    {"path": "docs/iris_item_page_information_sufficiency_walkthrough.md", "raw_byte_sha256": "15f2383b3679721d2ee04cd8732acf2db683331b562464160a2f27d36f69e235", "size": 4253},
+    {"path": "docs/iris_item_page_information_sufficiency_policy.md", "raw_byte_sha256": "65beea6d01b646e19e53894597132a869d8cbaf4cbebe6a0076af6213f10962a", "size": 4803},
+    {"path": "Iris/build/description/v2/output/item_page_information_sufficiency/page_assessment.jsonl", "raw_byte_sha256": "63077bf221b5af4874bbeb78fecd02708a7472564942b8e7e4d129df9a77b480", "size": 7660637},
+    {"path": "Iris/build/description/v2/output/item_page_information_sufficiency/assessment_summary.json", "raw_byte_sha256": "8919bea241bbd1a36df095ece75057db6222e5a80d8cd63736a1e222392bf06c", "size": 3253},
+    {"path": "Iris/build/description/v2/output/item_page_information_sufficiency/information_gap_inventory.jsonl", "raw_byte_sha256": "9f5e19f936eecdf9615052a575fd1d114a3bec9bdf02218ffac9a8b991933148", "size": 5613},
+    {"path": "Iris/build/description/v2/output/item_page_information_sufficiency/anchor_assessment.json", "raw_byte_sha256": "54f648cc0debb171f84bb79b7f9bc28a664fde9f84797fceecda03a458966ea2", "size": 11889},
+    {"path": "Iris/build/description/v2/output/item_page_information_sufficiency/baseline_runtime_drift_report.json", "raw_byte_sha256": "742d8b09a2ed86a6f17ddfe34e6357a6a8bb5aaf836cd957104dcb8de8b4206d", "size": 925},
+    {"path": "Iris/build/description/v2/output/item_page_information_sufficiency/terminology_responsibility_mapping.json", "raw_byte_sha256": "a4a1b4acf9f348c4f68bd93fd03b6b6a8b11179f43ddc08d55d45eb53ff7a50a", "size": 1355}
+  ],
+  "expected_result": {
+    "denominator_count": 2285,
+    "disposition_counts": {"evidence_limited": 180, "information_sufficient": 2081, "known_information_missing": 2, "unresolved": 22},
+    "result_sha256": "63077bf221b5af4874bbeb78fecd02708a7472564942b8e7e4d129df9a77b480"
+  },
+  "removed_dependencies_required": false
+}

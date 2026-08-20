@@ -419,6 +419,30 @@
       "classification": "current",
       "authority_role": "package workflow entrypoint",
       "delete_move_policy": "protected"
+    },
+    {
+      "path": "docs/iris_layer3_body_role_realignment_policy.md",
+      "classification": "current",
+      "authority_role": "owner-ratified Layer 3 optional-description, role-material and staging boundary policy",
+      "delete_move_policy": "protected; additive policy successor required"
+    },
+    {
+      "path_glob": "Iris/build/description/v2/data/layer3_body_role_realign/**",
+      "classification": "current",
+      "authority_role": "hash-bound Layer 3 role realignment policy, mapping, rule and execution contracts",
+      "delete_move_policy": "protected; exact contract identity and successor ratification required"
+    },
+    {
+      "path_glob": "Iris/build/description/v2/tools/build/*layer3_body_role_realign.py",
+      "classification": "current",
+      "authority_role": "dedicated off-live Layer 3 role realignment build and validation tooling",
+      "delete_move_policy": "protected by dedicated route validation"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_role_material.py",
+      "classification": "current",
+      "authority_role": "source-bound Layer 3 core/acquisition role-material compiler helper",
+      "delete_move_policy": "protected by dedicated route validation"
     }
   ],
   "validation": {

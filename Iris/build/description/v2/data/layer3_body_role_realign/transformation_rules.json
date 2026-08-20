@@ -1,0 +1,13 @@
+{
+  "schema_version": "iris-layer3-role-realign-transformations-v1",
+  "closed_set": true,
+  "rules": [
+    {"transform_id": "separate_acquisition_role_v1", "operation": "move acquisition material out of core without changing bound source fact IDs"},
+    {"transform_id": "remove_exact_identity_classification_repetition_v1", "operation": "omit exact identity/classification support from role-only core projection"},
+    {"transform_id": "replace_registered_skeleton_v1", "operation": "replace only an exact registered skeleton with its registered successor"},
+    {"transform_id": "place_confirmed_fact_frame_v1", "operation": "place a byte-bound confirmed fact fragment in its registered fact-kind frame"},
+    {"transform_id": "delete_exact_duplicate_clause_v1", "operation": "delete one exact duplicate clause only when semantic consumed fact sets match"}
+  ],
+  "unrestricted_rewrite_allowed": false,
+  "fact_strengthening_allowed": false
+}

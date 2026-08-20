@@ -940,3 +940,18 @@ Current state: one-off assessment complete.
 - 이 평가로 인한 runtime, public text 또는 package 변경은 없다.
 
 후속 정보 보강은 결과를 참고해 별도 작업으로 결정한다. 이 일회성 평가 자체에는 유지보수할 정규 검사기나 추가 architecture gate가 없다.
+
+---
+
+## Iris Layer 3 body-role realignment (2026-08-21)
+
+Current state: staging candidate validation complete; exact-subject repository validation pending.
+
+- Layer 3를 confirmed description material이 있을 때만 제공하는 선택적 설명 계층으로 정렬하는 hash-bound policy/mapping/rule contract를 채택했다.
+- exact current body denominator에는 5-state disposition, canonical FullType denominator에는 독립 5-state readiness를 생성하는 pure core를 추가했다.
+- core description과 acquisition information을 source-bound fact ID로 분리하고, Menu는 `preserve_current_publicity` four-case projection을 사용하며 Tooltip은 input readiness까지만 다룬다.
+- one-off IPS snapshot은 exact identity/current drift를 확인한 뒤 per-item Layer 3 axes만 advisory prerequisite로 소비한다. Page disposition과 Layer 4 axes는 disposition/readiness/Problem 5A로 직접 변환하지 않는다.
+- attempt-0002 candidate replay A/B, protected-surface non-mutation, acquisition conservation, public-text blocking separation, exact Problem 5A projection과 read-only terminal validator가 exit `0`으로 완료됐다. Current-snapshot denominator는 item `2,285`, existing body `2,084`이며 Problem 5A projection은 `2`다.
+- existing current compose, reusable public-text evaluator, runtime Lua와 package path는 이 staging implementation에서 변경하지 않았다.
+
+Focused test `8 passed`, required manual review `33/33`, exact duplicate group representative review `184/184`, staging runner와 read-only validator는 완료됐다. 남은 gate는 exact tracked subject의 Clean-Checkout Run A/B와 deterministic compare다. 이 gate 전에는 `layer3_role_realign_staging_complete`를 주장하지 않는다. 별도 승인된 current install은 staging closeout 이후 canonical seven-input generation/install 및 install subject의 fresh repository gate를 요구한다.

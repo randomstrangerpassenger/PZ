@@ -1,0 +1,15 @@
+{
+  "schema_version": "iris-layer3-role-realign-defect-rules-v1",
+  "rules": [
+    {"rule_id": "L3R-DEF-001", "family": "exact_duplicate_detector_signal", "severity": "signal", "matcher": "exact_public_text", "blocking": false, "allowed_transform_ids": ["delete_exact_duplicate_clause_v1"]},
+    {"rule_id": "L3R-DEF-002", "family": "registered_bad_duplicate", "severity": "blocking", "matcher": "exact_text_and_registered_bad_semantic_fact_set", "blocking": true, "allowed_transform_ids": ["delete_exact_duplicate_clause_v1"]},
+    {"rule_id": "L3R-DEF-003", "family": "differing_consumed_fact_set", "severity": "blocking", "matcher": "exact_text_and_different_semantic_fact_sets", "blocking": true, "allowed_transform_ids": []},
+    {"rule_id": "L3R-DEF-004", "family": "identity_classification_repetition", "severity": "blocking", "matcher": "identity_or_classification_only_core_clause", "blocking": true, "allowed_transform_ids": ["remove_exact_identity_classification_repetition_v1"]},
+    {"rule_id": "L3R-DEF-005", "family": "registered_bad_skeleton", "severity": "blocking", "matcher": "registered_template_id", "registered_template_ids": [], "blocking": true, "allowed_transform_ids": ["replace_registered_skeleton_v1"]},
+    {"rule_id": "L3R-DEF-006", "family": "registered_awkward_expression", "severity": "blocking", "matcher": "registered_exact_specimen", "registered_specimens": [], "blocking": true, "allowed_transform_ids": ["replace_registered_skeleton_v1"]},
+    {"rule_id": "L3R-DEF-007", "family": "description_acquisition_cross_role_leakage", "severity": "blocking", "matcher": "fact_kind_role_mismatch", "blocking": true, "allowed_transform_ids": ["separate_acquisition_role_v1"]},
+    {"rule_id": "L3R-DEF-008", "family": "unregistered_high_frequency_skeleton", "severity": "advisory", "matcher": "frequency_signal_only", "blocking": false, "allowed_transform_ids": []}
+  ],
+  "exact_duplicate_semantic_set_algorithm": "sorted_fact_kind_value_hash_origin_v1",
+  "text_frequency_alone_is_blocking": false
+}

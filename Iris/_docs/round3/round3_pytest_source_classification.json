@@ -18,8 +18,8 @@
   "source_set_binding": {
     "canonicalization": "sorted repository-relative source paths joined with LF and a terminal LF",
     "tracked_policy_sources": {
-      "count": 118,
-      "sha256": "36bad35de7ccc1e48c837263c5fa5e297678e67bfbba4e22bdc265eb26ccba5d"
+      "count": 119,
+      "sha256": "ac6837c8ef7eca401e2cd3da3bf7646cdb0bc63863eb6c67a187eb7f0490ea04"
     },
     "approved_clean_checkout_absent_policy_sources": {
       "count": 183,
@@ -76,7 +76,8 @@
     {"source_file": "Iris/build/description/v2/tests/test_public_text_quality_metric_contract.py", "classification": "diagnostic", "reason": "Audits metric registry shape without defining current release success."},
     {"source_file": "Iris/build/description/v2/tests/test_runtime_payload_state_integrity_residual_seal.py", "classification": "current", "reason": "Guards the residual seal consumed by the current runtime payload."},
     {"source_file": "Iris/build/description/v2/tests/test_terminal_disposition_adjudication.py", "classification": "historical", "reason": "Reproduces a closed terminal-disposition adjudication."},
-    {"source_file": "Iris/build/description/v2/tests/test_validated_naturalization_runtime_adoption.py", "classification": "historical", "reason": "Reproduces the retired stateful naturalization adoption writer; current runtime uses the stateless generation pointer."}
+    {"source_file": "Iris/build/description/v2/tests/test_validated_naturalization_runtime_adoption.py", "classification": "historical", "reason": "Reproduces the retired stateful naturalization adoption writer; current runtime uses the stateless generation pointer."},
+    {"source_file": "Iris/build/description/v2/tests/test_layer3_body_role_realign.py", "classification": "current", "reason": "Focused tests for the owner-ratified off-live Layer 3 role-realignment route; full-gate disposition remains explicitly dedicated."}
   ],
   "planned_sources": [
     {"source_file": "Iris/build/description/v2/tests/test_round3_pytest_source_classification.py", "classification": "current"},

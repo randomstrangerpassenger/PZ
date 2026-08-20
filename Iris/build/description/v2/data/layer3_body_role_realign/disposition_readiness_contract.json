@@ -1,0 +1,12 @@
+{
+  "schema_version": "iris-layer3-role-realign-disposition-readiness-v1",
+  "dispositions": ["keep", "reduce", "revise", "hide", "review_hold"],
+  "disposition_labels_ko": {"keep": "유지", "reduce": "축소", "revise": "수정", "hide": "숨김", "review_hold": "검토 보류"},
+  "readiness_states": ["description_ready", "acquisition_only", "omission_allowed", "insufficient_material", "review_required"],
+  "readiness_labels_ko": {"description_ready": "설명 준비 완료", "acquisition_only": "획득 정보만 있음", "omission_allowed": "설명 생략 가능", "insufficient_material": "설명 재료 부족", "review_required": "검토 필요"},
+  "description_eligible_kinds": ["role", "target", "action", "result", "consumption_or_retention", "condition", "restriction"],
+  "identity_classification_acquisition_only_is_description_ready": false,
+  "page_disposition_direct_mapping_allowed": false,
+  "layer4_input_allowed_for_body_disposition": false,
+  "insufficient_material_projection_rule": "readiness_equals_insufficient_material_v1"
+}

@@ -1,0 +1,9 @@
+{
+  "schema_version": "iris-layer3-role-realign-replay-identity-v1",
+  "default_class": "byte_exact",
+  "classes": ["byte_exact", "canonical_semantic_projection"],
+  "canonical_semantic_projection": {"algorithm": "remove_predeclared_run_local_fields_then_canonical_json_v1", "excluded_fields": []},
+  "serialization": {"encoding": "utf-8", "newline": "lf", "json_keys": "sorted", "jsonl_rows": "item_id_ordinal", "terminal_newline": true},
+  "post_run_relaxation_allowed": false,
+  "unclassified_artifact_allowed": false
+}

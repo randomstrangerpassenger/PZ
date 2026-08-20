@@ -1,0 +1,9 @@
+{
+  "schema_version": "iris-layer3-role-realign-clean-checkout-location-v1",
+  "retrieval_coordinate": "receipt-bound-clean-checkout-orchestrator-output",
+  "required_receipts": ["run_a", "run_b", "deterministic_compare"],
+  "containment": "repository_external_disposable_roots",
+  "retention": "append_only_external_evidence",
+  "result_hashes": [],
+  "validated_subject_recursive_binding_allowed": false
+}

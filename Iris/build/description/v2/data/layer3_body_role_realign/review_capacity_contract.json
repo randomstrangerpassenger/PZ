@@ -1,0 +1,8 @@
+{
+  "schema_version": "iris-layer3-role-realign-review-capacity-v1",
+  "ratified_capacity_ceiling": 2285,
+  "required_partitions": ["review_hold", "review_required", "human_exception", "registered_rule_representative", "high_impact_delta"],
+  "eligible_reviewer_roles": ["codex_implementation_reviewer", "owner"],
+  "semantic_resolution_required_for_completion": false,
+  "completed_review_may_retain_states": ["review_hold", "review_required"]
+}

@@ -1,0 +1,12 @@
+{
+  "schema_version": "iris-layer3-role-realign-problem1-consumption-v1",
+  "ratification_id": "L3R-RAT-02",
+  "owner_decision": "advisory_layer3_axes_only",
+  "required_evidence_status": "current_snapshot",
+  "allowed_axes": ["fact_availability", "contribution", "requiredness", "representation"],
+  "allowed_effect": "readiness_prerequisite_only",
+  "forbidden_inputs": ["page_disposition", "layer4.applicability", "layer4.fact_availability", "layer4.representation", "information_gap_inventory_union"],
+  "top_level_disposition_direct_mapping_allowed": false,
+  "stale_evidence_effect": "ignore_for_readiness_and_continue_from_current_dvf_source",
+  "authority_effect": "none"
+}

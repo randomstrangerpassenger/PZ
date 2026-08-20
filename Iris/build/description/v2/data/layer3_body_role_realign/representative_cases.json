@@ -1,0 +1,8 @@
+{
+  "schema_version": "iris-layer3-role-realign-representative-cases-v1",
+  "cases": [
+    {"item_id": "Base.223Box", "coverage": ["core_and_acquisition", "cluster_summary"]},
+    {"item_id": "Base.Acorn", "coverage": ["core_only", "cluster_summary"]},
+    {"item_id": "Base.Broom", "coverage": ["layer3_absent", "acquisition_preservation"]}
+  ]
+}

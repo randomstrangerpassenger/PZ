@@ -386,11 +386,16 @@ function Assert-RuntimeLookupPackageParity {
         }
     }
 
+    $layer3SortedKeys = [string[]]@($layer3Keys)
+    $useCaseSortedKeys = [string[]]@($useCaseKeys)
+    [System.Array]::Sort($layer3SortedKeys, [System.StringComparer]::Ordinal)
+    [System.Array]::Sort($useCaseSortedKeys, [System.StringComparer]::Ordinal)
+
     $identityRows = [System.Collections.Generic.List[string]]::new()
-    foreach ($key in @($layer3Keys | Sort-Object)) {
+    foreach ($key in $layer3SortedKeys) {
         $identityRows.Add("layer3`t$key")
     }
-    foreach ($key in @($useCaseKeys | Sort-Object)) {
+    foreach ($key in $useCaseSortedKeys) {
         $identityRows.Add("usecase`t$key`t$($lineCounts[$key])")
     }
     foreach ($indexName in @('IrisLayer3DataChunkIndex.lua', 'UseCaseDescriptions/ChunkIndex.lua')) {

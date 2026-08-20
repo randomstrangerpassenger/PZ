@@ -1,30 +1,34 @@
 {
   "schema_version": "iris-test-scenario-execution-consolidation-final-v1",
   "implementation_subject": {
-    "commit": "991414badc7d470c04bad2967dd26e78aff0b697",
-    "branch": "codex/iris-scenario-execution-consolidation",
-    "base_commit": "e20119631df26fb48c590062f7aa2f86e491c342"
+    "commit": "ea94c19789fd33799180c4cbf1e19bde26a3a482",
+    "tree": "f1f98eb73de5c3458f0553427e1791fbd696346b",
+    "branch": "codex/iris-source-classification-alignment-55",
+    "expansion_base_commit": "c29eba99f24be459d83cd189806754041dd2cc20",
+    "prior_three_group_commit": "991414badc7d470c04bad2967dd26e78aff0b697"
   },
   "plan_provenance": {
     "source_path": "docs/iris_test_scenario_execution_consolidation_plan.md",
     "sha256": "2e56a9c7dbda4f44f972ff9aa265b8c64d655049db1c460230619381b857a36b",
     "branch_copy_status": "not_copied_hash_recorded"
   },
-  "overall_status": "implementation_complete_validation_blocked",
+  "overall_status": "implementation_complete_canonical_validation_pass",
   "axes": {
     "implementation_axis": "implementation_complete",
     "entry_axis": "clean_exact_subject_locked",
     "baseline_admission_axis": "not_run_no_current_subject_qualification",
-    "identity_axis": "identity_preserved",
+    "identity_axis": "55_identity_preserved",
     "isolation_axis": "isolation_preserved",
-    "review_axis": "codex_reviewer_pass_p0_p1_p2_zero",
-    "validation_axis": "focused_pass_canonical_full_gate_source_policy_blocked",
+    "review_axis": "codex_reviewer_round3_approved_p0_p1_p2_p3_zero",
+    "validation_axis": "combined_55_identity_canonical_full_gate_run_a_b_pass_deterministic_equal",
     "denominator_axis": "final_exact_and_configured_receipts_match",
-    "cost_axis": "distinct_nonpilot_scenario_target_met",
+    "dependency_axis": "required_inventory_63_sources_40_paths_unchanged",
+    "sealed_artifact_axis": "protected_surface_blob_mismatch_zero",
+    "cost_axis": "four_distinct_nonpilot_scenario_groups_adopted",
     "profiling_axis": "full_universe_baseline_observed_cost_unattributable",
     "adoption_evidence_axis": "proxy_ranked_structural_consolidation",
     "configured_performance_axis": "not_measured_no_comparable_baseline",
-    "full_gate_performance_axis": "not_measured_no_baseline"
+    "full_gate_performance_axis": "validation_pass_no_performance_claim"
   },
   "baseline_full_universe": {
     "selection": "round3_contract_all",
@@ -35,7 +39,7 @@
     "subtests_passed": 126,
     "wall_time_seconds": 793.66,
     "failure_identity": "Iris/build/description/v2/tests/test_dvf_3_3_registry_runtime_compatibility_current.py::RegistryRuntimeCompatibilityCurrentRouteTest::test_required_gate_runs_standalone_subprocess",
-    "failure_disposition": "preexisting_current_identity_not_known_historical_advisory_not_remediated_in_scope"
+    "failure_disposition": "historical_baseline_observation_superseded_by_combined_subject_canonical_pass"
   },
   "cost_adopted_nonpilot_scenarios": [
     {
@@ -67,8 +71,37 @@
       "total_invocations_after": 1,
       "total_reduction_pct": 66.67,
       "cost_claim": "qualified_proxy_only"
+    },
+    {
+      "scenario_group_id": "artifact-promotion-git-fixture-seed",
+      "consumer_test_count": 15,
+      "case_instance_count": 20,
+      "consolidatable_invocations_before": 40,
+      "consolidatable_invocations_after": 2,
+      "consolidatable_reduction_pct": 95.0,
+      "total_invocations_before": 133,
+      "total_invocations_after": 98,
+      "total_reduction_pct": 26.32,
+      "cost_claim": "qualified_proxy_only",
+      "validation_status": "focused_pass"
     }
   ],
+  "aggregate_structural_scope": {
+    "cost_adopted_scenario_group_count": 4,
+    "cost_adopted_unique_consumer_node_count": 40,
+    "isolation_corrected_unique_consumer_node_count": 10,
+    "concrete_node_and_subcase_identity_count": 55,
+    "configured_denominator": 645,
+    "cost_adopted_node_share_pct": 6.2,
+    "consolidatable_invocations_before": 73,
+    "consolidatable_invocations_after": 6,
+    "consolidatable_reduction_pct": 91.78,
+    "disclosed_total_invocations_before": 187,
+    "disclosed_total_invocations_after": 126,
+    "disclosed_total_reduction_pct": 32.62,
+    "aggregate_count_caveat": "The aggregate sums heterogeneous Git-producer and source-compilation signatures and is structural disclosure, not a wall-time or measured-cost claim.",
+    "additional_safe_proportional_candidate_exhaustion": "confirmed_by_codex_reviewer"
+  },
   "isolation_only_corrections": [
     {
       "scenario_group_id": "runtime-payload-residual-seal-workspace-ownership",
@@ -79,18 +112,23 @@
     }
   ],
   "identity_evidence": {
-    "mapped_rows": 35,
+    "mapped_rows_before_classification_alignment": 55,
+    "mapped_rows_after_classification_alignment": 55,
+    "map_git_blob_id": "47e817fa8fb339ef3faf0a4d7d224638186b267e",
+    "map_git_blob_raw_sha256": "db66313831e13a7c02e45884525e5d6529368a5a6ff67c3ca8ea50bce5d9b18d",
     "duplicate_new_identity_count": 0,
-    "unmapped_terminal_disposition_count": 0
+    "unmapped_terminal_disposition_count": 0,
+    "old_test_id_delta": 0
   },
-  "focused_validation": {
+  "expanded_focused_validation": {
+    "subject_commit": "c29eba99f24be459d83cd189806754041dd2cc20",
+    "status": "PASS",
     "syntax_compile_exit_code": 0,
-    "bounded_order_matrix": "pass",
+    "promotion_order_matrix": "PASS",
     "normal_adopted_family_batch_exit_code": 0,
-    "normal_adopted_family_batch_passed": 46,
-    "normal_adopted_family_batch_subtests_passed": 36,
-    "normal_adopted_family_batch_wall_time_seconds": 89.80,
-    "focused_delta_after_path_byte_correction": "pass"
+    "normal_adopted_family_batch_passed": 61,
+    "normal_adopted_family_batch_subtests_passed": 42,
+    "normal_adopted_family_batch_wall_time_seconds": 178.42
   },
   "denominator_comparison": {
     "exact_current_nodes_before": 219,
@@ -104,42 +142,79 @@
     "configured_current_deselected_after": 174,
     "configured_current_drift_rows": 0
   },
-  "review": {
-    "reviewer": "Codex Reviewer",
-    "initial_counts": {"P0": 0, "P1": 4, "P2": 0},
-    "final_counts": {"P0": 0, "P1": 0, "P2": 0},
-    "final_verdict": "PASS",
-    "tests_run_by_reviewer": false
+  "dependency_inventory": {
+    "required_source_count_before": 63,
+    "required_source_count_after": 63,
+    "required_path_count_before": 40,
+    "required_path_count_after": 40,
+    "added_paths": [],
+    "removed_paths": [],
+    "path_set_lf_sha256": "679bfa997002187d6b1fbfc3301017d82ff9d0d9db6c50f96c86db04cff94f4a",
+    "gate_canonical_json_sha256": "2598b902cf82a6eb0c5b21faa9799552b7df7683461d526467aa14682160290c",
+    "comparison_receipt": "C:/Users/MW/Downloads/coding/PZ_alignment_55_receipts/final3/dependency_inventory_comparison.json",
+    "comparison_receipt_sha256": "99a4eb9c590da1273af1991129f9e5dafc25cf003675e682760227ff1ad5e175"
   },
   "canonical_full_gate": {
-    "wrapper_attempt_count": 4,
-    "preflight_rejection_count": 3,
-    "canonical_long_execution_count": 1,
-    "implementation_subject_commit": "991414badc7d470c04bad2967dd26e78aff0b697",
-    "wrapper_exit_code": 1,
-    "native_exit_code": 2,
-    "launch_status": "gate_failed",
-    "launch_stage": "invoke_gate",
-    "checkout_created": true,
-    "canonical_gate_started": true,
-    "pytest_execution_started": false,
-    "result_receipt_exists": false,
-    "failure_identity": "unclassified_tracked_test_source_in_full_gate",
-    "failure_message": "unclassified tracked test source in full gate: Iris/validation/test_workflow_consolidation/tests/test_classify_source_policy_impact.py",
-    "failure_source_present_at_base": true,
-    "failure_source_changed_by_implementation": false,
-    "rerun_disposition": "not_rerun_after_one_actual_canonical_long_execution",
-    "orchestration_receipt": "C:/Users/MW/q/fo991b.json",
-    "stderr_receipt": "C:/Users/MW/q/fo991b.stderr.bin",
-    "preserved_preflight_receipts": [
-      "C:/Users/MW/Downloads/coding/PZ-scenario-consolidation-results-20260817/final-full-gate-orchestration-991414ba.json",
-      "C:/Users/MW/q/fo991.json"
-    ],
-    "preflight_notes": [
-      "The first work root exceeded the Windows checkout path budget before checkout creation.",
-      "C:/q could not be created by the current account; the wrapper emitted its writer fallback record to stderr.",
-      "The short root attempt against the evidence commit was rejected because HEAD did not equal the exact implementation commit."
-    ]
+    "scope": "combined_four_group_expansion_and_source_classification_alignment",
+    "validation_subject_commit": "ea94c19789fd33799180c4cbf1e19bde26a3a482",
+    "validation_subject_tree": "f1f98eb73de5c3458f0553427e1791fbd696346b",
+    "status": "PASS",
+    "run_a": {
+      "orchestration_receipt": "C:/Users/MW/iaca/r55j/o.json",
+      "orchestration_receipt_sha256": "7e49ad346cef5207d202a322ad2c798e4e323ca7f06fb87622373691c7ae0d90",
+      "native_exit_code": 0,
+      "passed": 424,
+      "failed": 0,
+      "deselected": 2,
+      "subtests_passed": 102,
+      "standalone_passed": 4,
+      "canonical_result_sha256": "77cd75046c01ac2fb83e316d8dcd9e68d93cb52b7e46285ce013cb091d308bcb"
+    },
+    "run_b": {
+      "orchestration_receipt": "C:/Users/MW/iaca/r55k/o.json",
+      "orchestration_receipt_sha256": "5b43b4ef0024da4b931f31283a396cf4cb56b7533081d388bf0965744a236e43",
+      "native_exit_code": 0,
+      "passed": 424,
+      "failed": 0,
+      "deselected": 2,
+      "subtests_passed": 102,
+      "standalone_passed": 4,
+      "canonical_result_sha256": "77cd75046c01ac2fb83e316d8dcd9e68d93cb52b7e46285ce013cb091d308bcb"
+    },
+    "deterministic_compare": {
+      "status": "succeeded",
+      "native_exit_code": 0,
+      "receipt": "C:/Users/MW/iaca/r55l/compare_receipt.json",
+      "receipt_sha256": "1d50f3c93f41475daa0e649aa62571eada1e48ce372c7344f2324d421ddad187",
+      "canonical_fingerprint_sha256": "60c65f596fb21d791351d8082afb9c4c49eb304e8c26f91bb9c63439ad05fe16"
+    },
+    "sealed_artifact_blob_mismatch_count": 0,
+    "source_checkout_mutation_count": 0
   },
-  "claim_ceiling": "The selected test-only implementation and three proxy-ranked structural consolidations are complete and focused-validated. Canonical validation PASS is not claimed because the one actual canonical long execution stopped at the pre-existing full-gate source-policy classification blocker before pytest began."
+  "prior_blocked_validation": {
+    "subject_commit": "991414badc7d470c04bad2967dd26e78aff0b697",
+    "failure_identity": "unclassified_tracked_test_source_in_full_gate",
+    "status": "historical_superseded_not_reused_as_pass_evidence"
+  },
+  "review": {
+    "reviewer": "Codex Reviewer",
+    "final_review_round": 3,
+    "final_counts": {
+      "P0": 0,
+      "P1": 0,
+      "P2": 0,
+      "P3": 0
+    },
+    "final_verdict": "APPROVED",
+    "tests_run_by_reviewer": false,
+    "receipt": "C:/Users/MW/Downloads/coding/PZ_alignment_55_receipts/final3/codex_reviewer_round3_receipt.json",
+    "receipt_sha256": "eee22d944147fd49a73038bd5c0db1c3a3e5ef7ffe300999182d78ba2508cc7b"
+  },
+  "evidence_closeout": {
+    "authority_commit": "c41464fe9ee67974a0ffb43579dea4d5a93b6527",
+    "authority_tree": "182afc4a09c6b88073e23e0f5108c5edcecd53be",
+    "final_adoption_receipt": "C:/Users/MW/Downloads/coding/PZ_alignment_55_receipts/adoption/final_adoption_receipt_0012.json",
+    "final_adoption_receipt_sha256": "c69b69c057199a521d51f6b2718852a0f24fdaf9b66205fcf19ce8c196dcc65c"
+  },
+  "claim_ceiling": "Four proxy-ranked structural consolidation groups are implementation-complete with 55 identities preserved. The combined four-group expansion and source-classification subject passes independent canonical Run A and Run B with identical canonical results and a successful deterministic comparison. Structural proxy reductions are retained without a wall-time or removable-cost claim."
 }

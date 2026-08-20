@@ -507,8 +507,13 @@ def classify_predecessor_context(text: str) -> list[str]:
 
 
 def classify_claim_text(text: str) -> list[str]:
-    lowered = text.lower()
-    if is_negated_or_policy_definition(text):
+    semantic_text = re.sub(
+        r"`[A-Za-z_][A-Za-z0-9_.:()/\\-]*`",
+        "",
+        text,
+    )
+    lowered = semantic_text.lower()
+    if is_negated_or_policy_definition(semantic_text):
         return []
     hits: list[str] = []
     forbidden_patterns = [
@@ -588,6 +593,10 @@ def is_top_doc_boundary_routing_definition(path: Path, line: str) -> bool:
         "public-text acceptance" in lowered
         or "public text acceptance" in lowered
     )
+    public_text_assessment_acceptance = (
+        "public-text assessment" in lowered
+        and "acceptance" in lowered
+    )
     positive_completion_markers = (
         "achieved",
         "accepted",
@@ -600,7 +609,7 @@ def is_top_doc_boundary_routing_definition(path: Path, line: str) -> bool:
     )
     if (
         top_doc == "docs/ARCHITECTURE.md"
-        and public_text_acceptance
+        and (public_text_acceptance or public_text_assessment_acceptance)
         and not any(marker in lowered for marker in positive_completion_markers)
         and (
             stripped.startswith(("->", "→"))
@@ -613,6 +622,14 @@ def is_top_doc_boundary_routing_definition(path: Path, line: str) -> bool:
                 )
             )
         )
+    ):
+        return True
+    if (
+        top_doc == "docs/ARCHITECTURE.md"
+        and public_text_acceptance
+        and "publication / release acceptance" in lowered
+        and "소유" in lowered
+        and not any(marker in lowered for marker in positive_completion_markers)
     ):
         return True
     if "-> publish boundary closure" in lowered or "→ publish boundary closure" in lowered:

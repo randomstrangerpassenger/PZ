@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import importlib.util
 import os
 import shutil
 import subprocess
@@ -19,6 +20,24 @@ ROOT = (
 )
 TOOLS = REPO / "Iris/build/description/v2/tools/build"
 NORMALIZATION_VALIDATOR = TOOLS / "validate_dvf_3_3_consumer_migration_input_normalization.py"
+
+
+def load_normalization_common_module():
+    path = TOOLS / "dvf_3_3_consumer_migration_normalization_common.py"
+    spec = importlib.util.spec_from_file_location(
+        "dvf_3_3_consumer_migration_normalization_common_for_test",
+        path,
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError("cannot load consumer migration normalization common module")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    sys.path.insert(0, str(TOOLS))
+    try:
+        spec.loader.exec_module(module)
+    finally:
+        sys.path.remove(str(TOOLS))
+    return module
 
 
 def load_json(path: Path) -> dict:
@@ -139,6 +158,37 @@ class DvfConsumerMigrationInputNormalizationTest(unittest.TestCase):
         self.assertEqual(freshness["status"], "PASS")
         self.assertEqual(freshness["apply_eligible_rows_with_target_file_hash"], 163)
         self.assertEqual(freshness["apply_eligible_rows_with_bounded_context_hash"], 163)
+
+    def test_current_generation_authority_anchors_are_unique_and_semantic(self) -> None:
+        common = load_normalization_common_module()
+        fixtures = (
+            (
+                "docs/ARCHITECTURE.md",
+                "2105",
+                "current_generation_pointer_install_authority",
+            ),
+            (
+                "docs/ROADMAP.md",
+                "2084",
+                "current_generation_pointer_roadmap_authority",
+            ),
+        )
+        for relative_path, token, basis in fixtures:
+            with self.subTest(path=relative_path):
+                lines = (REPO / relative_path).read_text(encoding="utf-8").splitlines()
+                result = common.current_generation_authority_anchor(
+                    lines,
+                    {
+                        "path": relative_path,
+                        "token": token,
+                        "referent": "current-readpoint-triple",
+                        "authority_role_target": "successor_baseline_manifest_authority",
+                    },
+                )
+                self.assertIsNotNone(result)
+                self.assertEqual(result["result"], "relocated_deterministically")
+                self.assertEqual(result["candidate_count"], 1)
+                self.assertEqual(result["basis"], basis)
 
     def test_phase4_rule_seed_is_authority_role_not_numeric_replacement(self) -> None:
         summary = load_json(ROOT / "phase4/authority_role_rule_seed_summary.json")

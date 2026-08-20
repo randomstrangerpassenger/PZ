@@ -1824,6 +1824,77 @@
           "reason": "Assert the shared-pointer, package-parity, and clean-checkout hygiene revisions in the exact active protection chronology."
         }
       ]
+    },
+    {
+      "revision_id": "iris_layer3_body_role_realign_full_gate_blocker_repair_v1",
+      "track": "iris_layer3_body_role_realign",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "eea98dc181444311ef2088e738ace17c9e7632a2",
+      "protection_predecessor_tree": "3b9461b11a51018c681c04ca8a093bbeebaff0ef",
+      "reason": "Authorize the Layer 3 inventory update and the focused residual full-gate blocker repair without changing runtime product surfaces.",
+      "approved_activation_deltas": [
+        {
+          "path": "Iris/build/description/v2/tools/build/INVENTORY.md",
+          "predecessor_sha256": "f97414d7f65501fb6d6dc977599eea948c24558eda04649d393d277be8addc11",
+          "before_git_blob_id": "90fbb06df7092c5b0cf1bb92eeaf8d2cbf3a0436",
+          "before_sha256_lf": "fb095a989ec8e8e063b1aaafa91c6858f3639d08ca6d3bb4a5c6b6e428f691ce",
+          "expected_git_blob_id": "53c38d8b8f621443ccf761f1b8b2551c966129c1",
+          "after_sha256_lf": "5609a8adc899af36ff62432158babc33362f33aad66bc514f19100312572ebfd",
+          "owner": "repository_owner_user",
+          "reason": "Bind the already-staged Layer 3 body-role realignment tooling inventory entry to active protected-surface chronology."
+        }
+      ],
+      "added_protected_rows": [
+        {
+          "path": ".gitattributes",
+          "before_git_blob_id": "4d9653e0a76dd5891cd5db3c64e736fe402b59a0",
+          "before_sha256_lf": "b50db0a82f0a0861850b18459750ed5a6ad8606b637f253faf9cbcfb01c6c4d8",
+          "expected_git_blob_id": "860b8a4563c5c99784c3fbe0782ba9361f6ff8b1",
+          "after_sha256_lf": "71fa2fdbef75c86adb62887307d545f25642c81956107b0d2ca1d31b760aa7c7",
+          "role": "layer3_clean_checkout_raw_byte_policy",
+          "writer": "iris_layer3_body_role_realign_full_gate_blocker_repair",
+          "consumers": ["layer3_candidate_replay", "clean_checkout_validation", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Preserve the pre-ratified Layer 3 policy and replay contract bytes across Windows clean checkouts."
+        },
+        {
+          "path": "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+          "before_git_blob_id": "bee8f1f144b670cc4072c7cd10ca1e1de0fe4f52",
+          "before_sha256_lf": "2c7767bbb2ba715053d337a26cc33d7d0456b3b016d57a912153ccc0d56285fb",
+          "expected_git_blob_id": "b0e2b3d15e75b53be4eae48675f0d1fd1f8fbeb7",
+          "after_sha256_lf": "f7b49f09f9e49e9515fdee10ee4db6e839271af40ea976c6b8795161a6bf46ce",
+          "role": "layer3_full_repository_gate_contract",
+          "writer": "iris_layer3_body_role_realign",
+          "consumers": ["full_repository_gate", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Bind the Layer 3 focused test to the canonical full-repository gate source set."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+          "before_git_blob_id": "b223293cdcf12b4dd056bab164f34c0c30a16bfc",
+          "before_sha256_lf": "68a15b803651f90b6f32c823702f9aee1ec079d3abc4aeedbbe25e2aa7720567",
+          "expected_git_blob_id": "afead81edcb553f26c245eefc9a8766e95530fb7",
+          "after_sha256_lf": "f4c8a7b58f10e10e11d1bf62744dac0a2550ef2214ba3765d0997f6f70cf594f",
+          "role": "layer3_full_gate_residual_lifecycle_regression",
+          "writer": "iris_layer3_body_role_realign_full_gate_blocker_repair",
+          "consumers": ["configured_current", "residual_closeout", "full_repository_gate"],
+          "owner": "repository_owner_user",
+          "reason": "Assert the tracked historical overlay disposition and its single superseded validator row."
+        },
+        {
+          "path": "Iris/test/validate_residual_refactor_surfaces.ps1",
+          "before_git_blob_id": "5caffeaad9575c1460d9cbe19d67f7f11e6ac93a",
+          "before_sha256_lf": "9e8876f83317332c2305e4d9a4da2266a09d4e34be96471865fc11c4cfcecf92",
+          "expected_git_blob_id": "29f06bb8060ab73f6423673f3c709ebe2522efda",
+          "after_sha256_lf": "72d82c2b61108ce0949b024f5de0d0fb48fbf5b0f0a82f93cf3d52f0ff4115da",
+          "role": "layer3_full_gate_residual_lifecycle_validator",
+          "writer": "iris_layer3_body_role_realign_full_gate_blocker_repair",
+          "consumers": ["configured_current", "residual_closeout", "full_repository_gate"],
+          "owner": "repository_owner_user",
+          "reason": "Restore fail-closed recognition of the clean tracked historical codebase-optimization overlay lifecycle."
+        }
+      ]
     }
   ]
 }

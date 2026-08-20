@@ -127,6 +127,18 @@ class IrisResidualContractSurfacesTest(unittest.TestCase):
         self.assertEqual(supported["surface_count"], 20)
         self.assertEqual(protected["validation_status"], "passed")
         self.assertEqual(protected["unauthorized_changed_count"], 0)
+        self.assertEqual(
+            protected["codebase_optimization_followup_overlay_disposition"],
+            "tracked_historical_evidence",
+        )
+        self.assertEqual(
+            protected["codebase_optimization_followup_historical_row_count"],
+            7,
+        )
+        self.assertEqual(
+            protected["codebase_optimization_followup_superseded_paths"],
+            ["Iris/test/validate_residual_refactor_surfaces.ps1"],
+        )
         attested_blob = subprocess.run(
             ["git", "-C", str(REPO), "rev-parse", f"{attestation['commit']}:{attestation['path']}"],
             text=True,
@@ -195,6 +207,7 @@ class IrisResidualContractSurfacesTest(unittest.TestCase):
                 "iris_iar_retirement_shared_pointer_lookup_reseal_v1",
                 "iris_iar_retirement_stateless_package_lookup_parity_reseal_v1",
                 "iris_iar_retirement_clean_checkout_hygiene_reseal_v1",
+                "iris_layer3_body_role_realign_full_gate_blocker_repair_v1",
             ],
         )
         self.assertEqual(

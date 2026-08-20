@@ -888,7 +888,8 @@ Historical trace / provenance index는 ROADMAP 본문에서 더 이상 관리하
 - 전체 suite 속도 개선률이 필요하면 같은 machine/environment/command의 comparable before/after full-gate wall time을 별도 campaign에서 측정한다. 이 측정은 완료된 구조 통합의 잔여 구현 gate가 아니다.
 - `73 -> 6`과 `187 -> 126`은 invocation-count 구조 지표다. Heterogeneous total을 wall-time, removable cost, PZ runtime 성능 또는 release/Workshop readiness 수치로 해석하지 않는다.
 
-<<<<<<< Updated upstream
+근거는 `Iris/_docs/refactor/test_scenario_execution_consolidation/{candidate_ledger.json,identity_map.jsonl,final_summary.json,closeout.md}`와 clean-checkout authority/evidence successor `0012`/`0013`이다.
+
 ## Validation budget
 
 - implementation 전 representative profiling 1회
@@ -910,16 +911,18 @@ Historical trace / provenance index는 ROADMAP 본문에서 더 이상 관리하
 
 ## Iris Stateful Artifact Registry architecture retirement (2026-08-20)
 
-현재 상태는 `successor_installed_final_validation_pending`이다.
+현재 상태는 `complete`이며 제품 결과는 `FULL_RETIREMENT`다.
 
 - 여섯 compose input과 adopted upstream content input, generator contract에 결속된 deterministic off-live complete-generation builder, stateless descriptor validator와 `generation_key_identity_validation`을 구현했다. Current output readback은 0이다.
 - R2 owner decision B를 exact generation subject에 결속했고, immutable generation-qualified Lua set + shared current-generation pointer single-switch installer를 설치했다.
 - Package current-runtime identity는 successor pointer와 stateless descriptor만 읽고 legacy descriptor fallback은 제거했다.
 - successor tests와 source/dependency policy를 current required route에 추가했다.
 - protected current install과 legacy IAR product consumer 제거를 완료했으며 Layer 1–5 active product IAR consumer는 0이다. Sealed history는 그대로 보존한다.
-- 수동 인게임 QA는 owner-attested PASS다. `stale_requires_successor_rtc`, Publish, release/Workshop, owner seal과 canonical sealed closure는 별도 축으로 남는다.
+- clean-checkout full repository gate Run A/B와 deterministic comparator는 implementation subject `c924349e`에서 통과했다. 수동 인게임 QA는 owner-attested PASS다.
+- Codex Reviewer가 current-runtime package identity 불일치 P1을 발견했다. Root cause는 case-collision key에 대한 Windows PowerShell 5.1/PowerShell 7의 culture-sensitive ordering 차이였고, `6f362b5e`에서 ordinal ordering으로 교정했다. 두 shell의 digest가 일치하며 계획된 current-runtime ZIP package가 exit `0`으로 완료됐다.
+- 종료 기록은 `5ce69e2a`에 추가됐고 `a55a2999`에서 main에 병합됐다. 현재 main readpoint는 `c91d8f79`다.
+- `stale_requires_successor_rtc`, Publish, release/Workshop/deployment, owner seal과 canonical sealed closure는 제품 retirement와 별도 축으로 남는다.
 
-다음 gate는 계획의 consolidated validation matrix, Codex Reviewer와 exact terminal subject binding이다. 이를 통과한 뒤 제품 outcome을 `FULL_RETIREMENT`로 닫고 predecessor cleanup을 별도 post-closeout action으로 판단한다.
-=======
-근거는 `Iris/_docs/refactor/test_scenario_execution_consolidation/{candidate_ledger.json,identity_map.jsonl,final_summary.json,closeout.md}`와 clean-checkout authority/evidence successor `0012`/`0013`이다.
->>>>>>> Stashed changes
+IAR retirement에 남은 구현 gate는 없다. Inactive predecessor generation cleanup은 rollback 필요성과 reader liveness를 다시 확인한 뒤에만 수행할 수 있는 선택적 post-closeout action이며, 수행하지 않은 현재 상태도 active product dependency가 아니다.
+
+근거는 `Iris/_docs/round3/iar_stateful_architecture_retirement/{closeout.json,residual_report.json,codex_reviewer_final.json}`이다.

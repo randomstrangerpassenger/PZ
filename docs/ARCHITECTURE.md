@@ -327,44 +327,13 @@ Iris는 정보의 생산, artifact 관리, 검증, 표시와 배포를 서로 �
 
   * Iris 4계층의 상호작용 정보 생산·검문 파이프라인을 소유한다.
 
-* **Iris Artifact Registry (IAR)**
+* **Iris Artifact Registry (IAR) — retired product architecture / retained history and governance**
 
-  * Iris 1~5계층 artifact의 role / lifecycle / authority / identity를 관리한다.
-
-  * 각 계층의 producer가 만든 artifact가 어떤 역할과 authority를 가지는지 결속하고, current 상태로의 채택과 downstream projection을 관리한다.
-
-  * DVF Core와 QG의 산출물 역시 각각의 생산 책임과 별개로 IAR의 artifact 관리 대상이 된다.
-
-  * **Source Authority Adoption**
-
-    * 검증된 non-current successor를 별도의 adoption을 통해 current source authority로 채택한다.
-    * artifact의 내용이 current artifact와 동일하다는 사실만으로 current authority role이 부여되지는 않는다.
-
-  * **Derived Generation Adoption**
-
-    * validated candidate와 current source identity로부터 derived current generation을 채택한다.
-    * derived-generation adoption은 current source authority 자체를 변경하지 않는다.
-    * 부분적으로 생성된 generation은 current authority로 노출하지 않는다.
-
-  * **Runtime Compatibility**
-
-    * 확정된 current artifact identity가 runtime과 package의 consumer transport를 거치면서 손실 없이 보존되는지를 검증한다.
-    * compatibility 검증은 current artifact authority를 다시 판정하지 않는다.
-    * comparison이나 collision 검출을 위해 만든 파생 identity는 exact identity를 normalize / rename / merge하거나 winner를 선택하는 권한을 갖지 않는다.
-    * compatibility failure가 확인된 artifact는 downstream projection으로 진행시키지 않는다.
-
-  * **Runtime / Package Projection**
-
-    * adopted current artifact를 runtime과 package가 소비할 수 있는 derived representation으로 투영한다.
-    * 3-3 설명의 runtime 경로는 `rendered body -> Lua bridge -> runtime chunks`다.
-    * source, rendered artifact, runtime representation과 package projection은 서로 다른 역할이며 서로의 authority를 대체하지 않는다.
-    * package projection은 current authority에서 파생되는 단방향 read-only projection이며 source writer나 reverse-merge authority가 될 수 없다.
-
-  * **Reusable public-text assessment**
-
-    * DVF / QG subject에 반복 적용할 수 있는 오프라인 assessment component다.
-    * subject와 policy / ruleset identity에 결속된 structured assessment result를 생성한다.
-    * assessment result는 public-text acceptance 자체가 아니라 Publish Boundary가 소비하는 evidence다.
+  * IAR의 attempt, candidate, nonce, receipt, adoption, predecessor/successor lifecycle은 더 이상 Iris 1~5계층의 활성 제품 dependency가 아니다. Active product IAR consumer count는 모든 계층에서 0이다.
+  * 기존 sealed attempt, source correction/cutover evidence, RTC bundle과 repository-validation receipt는 historical trace 또는 독립 governance evidence로 보존한다. 이 보존은 IAR product architecture의 존속을 뜻하지 않는다.
+  * Source authority 변경은 reviewed Git-authored source diff와 해당 owner 경계가 담당한다. Derived Layer 3 runtime은 stateless complete-generation contract가 생산·검증하며 descriptor 자체는 authority/adoption token이 아니다.
+  * Runtime Compatibility, Publish Boundary, package applicability와 Repository Validation은 계속 서로 다른 owner를 가진다. 어느 축의 PASS도 다른 축의 authority나 acceptance를 생성하지 않는다.
+  * Reusable public-text assessment는 DVF/QG subject에 적용되는 오프라인 evidence producer로 유지하며 Publish Boundary가 그 결과의 acceptance를 별도로 판단한다.
 
 * **Publish Boundary**
 
@@ -892,8 +861,9 @@ immutable seed / explicit isolated workspace
 
 Validation authority는 execution architecture와 source taxonomy를 함께 닫는다. 추적 workflow test source 10개는 exact-path `dedicated_route_validation`으로 분류되고 taxonomy, configured policy와 normalized pytest testpath ancestry가 fail-closed로 일치해야 한다. Exact/configured collection은 denominator와 route binding을 확인하지만 실행 PASS를 대신하지 않는다. 결합 subject `ea94c19789fd33799180c4cbf1e19bde26a3a482`의 clean-checkout canonical Run A/B가 각각 `424 passed / 0 failed / 2 deselected / 102 subtests passed`, standalone `4/4 PASS`를 기록하고 deterministic comparator가 같은 결과를 확인한 것이 current execution authority다.
 
-<<<<<<< Updated upstream
 현재 readpoint의 `public-text-phase7-dispatch`는 네 consumer의 동일 producer를 class-lifecycle immutable result 한 번으로 통합한 첫 적용이다. 이 pilot의 `4 -> 1`은 architecture pattern의 유효성을 보여주지만 Iris 전체 test consolidation 완료를 뜻하지 않는다. 나머지 family의 `deferred`/`must_isolate` 기록은 이 경계를 적용할 후속 profiling과 설계를 금지하지 않는다.
+
+이 readpoint의 structural result는 consolidatable invocation `73 -> 6`과 disclosed heterogeneous total `187 -> 126`이다. 전자는 동일 producer signature의 반복 제거이고 후자는 clone/configuration을 포함한 투명한 총계다. Comparable full-gate before/after wall-time이 없으므로 architecture는 이 수치를 전체 suite 속도 개선률로 전파하지 않는다.
 
 ### DVF 3-3 stateless complete-generation successor
 
@@ -905,12 +875,11 @@ Layer 3 current successor는 다음 책임을 분리한다.
 - Generation owner: `dvf_3_3_generation_contract.py`와 `build_dvf_3_3_complete_generation.py`. Rendered JSON, generation-qualified Lua chunks, stable facade candidate와 identity-only descriptor를 external root에 완성한다.
 - Validation owner: `validate_dvf_3_3_complete_generation.py`와 `dvf_3_3_runtime_compatibility.py`. Descriptor를 권위로 신뢰하지 않고 input/output identity, exact key, collision과 payload projection을 다시 계산한다.
 - Install owner: `install_dvf_3_3_complete_generation.py` 하나만 protected runtime visibility를 바꿀 수 있다. Immutable set은 `IrisLayer3Generations/<generation_id>`에 두고 `IrisLayer3DataCurrent.lua` pointer를 마지막 `os.replace`로 바꾼다. Stable facade와 index는 같은 pointer를 읽고, same-generation install은 protected write가 0인 no-op이다.
-- Package owner: `package_iris.ps1`. `current_runtime_payload`와 generation identity를 검증하며 RTC-certified applicability는 별도 exact-generation evidence 없이는 fail-closed한다.
+- Package owner: `package_iris.ps1`. `current_runtime_payload`와 generation identity를 검증하며 RTC-certified applicability는 별도 exact-generation evidence 없이는 fail-closed한다. Lookup identity row는 ordinal exact-key ordering을 사용해 Windows PowerShell 5.1과 PowerShell 7에서 같은 digest를 만든다.
 - Repository governance owner: `Iris/validation/clean_checkout/`. 실행 receipt와 exact-commit binding은 product generation state와 분리해 보존한다.
 
 Runtime은 계속 100% Lua다. Python은 build/validation/install tooling에만 존재한다. Public Iris behavior, Layer 3 의미, Recipe/Right-click 독립성, Browser/Wiki와 Alt tooltip surface는 이 successor가 변경하지 않는다.
 
-기존 fixed 11-chunk/stateful descriptor product 경로는 은퇴했다. Historical adoption 도구와 sealed evidence는 재현 전용이고, current package/runtime 소비자는 generation pointer와 immutable generation descriptor만 읽는다.
-=======
-이 readpoint의 structural result는 consolidatable invocation `73 -> 6`과 disclosed heterogeneous total `187 -> 126`이다. 전자는 동일 producer signature의 반복 제거이고 후자는 clone/configuration을 포함한 투명한 총계다. Comparable full-gate before/after wall-time이 없으므로 architecture는 이 수치를 전체 suite 속도 개선률로 전파하지 않는다.
->>>>>>> Stashed changes
+기존 fixed 11-chunk/stateful descriptor product 경로는 은퇴했다. Historical adoption 도구와 sealed evidence는 재현 전용이고, current package/runtime 소비자는 generation pointer와 immutable generation descriptor만 읽는다. Layer 1–5 active product IAR consumer가 0이므로 이 product architecture의 상태는 `FULL_RETIREMENT`다.
+
+Clean-checkout canonical Run A/B와 deterministic compare의 validated implementation subject는 `c924349eae6ee7f2a077ca83899b0ec99131f6c2`다. Codex Reviewer가 발견한 cross-PowerShell package identity nondeterminism은 terminal implementation subject `6f362b5e284d9f05749c7f9dc6a11f13bb1fe322`에서 ordinal ordering으로 교정했고 실제 `current_runtime_payload` ZIP projection이 exit `0`으로 완료됐다. Closeout carrier는 `5ce69e2a3bbf02d453e874af740a312e37b74bff`다.

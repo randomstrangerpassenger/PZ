@@ -6,17 +6,17 @@
 local data = {}
 
 local chunkModules = {
-    "Iris/Data/IrisLayer3DataChunks/Chunk001",
-    "Iris/Data/IrisLayer3DataChunks/Chunk002",
-    "Iris/Data/IrisLayer3DataChunks/Chunk003",
-    "Iris/Data/IrisLayer3DataChunks/Chunk004",
-    "Iris/Data/IrisLayer3DataChunks/Chunk005",
-    "Iris/Data/IrisLayer3DataChunks/Chunk006",
-    "Iris/Data/IrisLayer3DataChunks/Chunk007",
-    "Iris/Data/IrisLayer3DataChunks/Chunk008",
-    "Iris/Data/IrisLayer3DataChunks/Chunk009",
-    "Iris/Data/IrisLayer3DataChunks/Chunk010",
-    "Iris/Data/IrisLayer3DataChunks/Chunk011",
+    "Iris/Data/IrisLayer3Generations/dvf33-c94fb38a933da21b61dee338183652bf486876da6cd36f228c121bd72e1a5925/Chunks/Chunk001",
+    "Iris/Data/IrisLayer3Generations/dvf33-c94fb38a933da21b61dee338183652bf486876da6cd36f228c121bd72e1a5925/Chunks/Chunk002",
+    "Iris/Data/IrisLayer3Generations/dvf33-c94fb38a933da21b61dee338183652bf486876da6cd36f228c121bd72e1a5925/Chunks/Chunk003",
+    "Iris/Data/IrisLayer3Generations/dvf33-c94fb38a933da21b61dee338183652bf486876da6cd36f228c121bd72e1a5925/Chunks/Chunk004",
+    "Iris/Data/IrisLayer3Generations/dvf33-c94fb38a933da21b61dee338183652bf486876da6cd36f228c121bd72e1a5925/Chunks/Chunk005",
+    "Iris/Data/IrisLayer3Generations/dvf33-c94fb38a933da21b61dee338183652bf486876da6cd36f228c121bd72e1a5925/Chunks/Chunk006",
+    "Iris/Data/IrisLayer3Generations/dvf33-c94fb38a933da21b61dee338183652bf486876da6cd36f228c121bd72e1a5925/Chunks/Chunk007",
+    "Iris/Data/IrisLayer3Generations/dvf33-c94fb38a933da21b61dee338183652bf486876da6cd36f228c121bd72e1a5925/Chunks/Chunk008",
+    "Iris/Data/IrisLayer3Generations/dvf33-c94fb38a933da21b61dee338183652bf486876da6cd36f228c121bd72e1a5925/Chunks/Chunk009",
+    "Iris/Data/IrisLayer3Generations/dvf33-c94fb38a933da21b61dee338183652bf486876da6cd36f228c121bd72e1a5925/Chunks/Chunk010",
+    "Iris/Data/IrisLayer3Generations/dvf33-c94fb38a933da21b61dee338183652bf486876da6cd36f228c121bd72e1a5925/Chunks/Chunk011",
 }
 
 for _, moduleName in ipairs(chunkModules) do

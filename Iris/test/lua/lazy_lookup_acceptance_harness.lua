@@ -59,6 +59,8 @@ if mode == "layer3" then
     local current = require("Iris/Data/IrisLayer3DataCurrent")
     local expectedChunk1 = current.chunk_modules[1]
     local expectedChunk2 = current.chunk_modules[2]
+    local missingChunk = "Iris/Data/IrisLayer3Generations/dvf33-" ..
+        string.rep("0", 64) .. "/Chunks/Chunk999"
     local realLayer3Index = require("Iris/Data/IrisLayer3DataChunkIndex")
     local lookup = require("Iris/Data/IrisLayer3DataLookup")
     local first = assert(lookup.get("Base.223Box"))
@@ -149,7 +151,7 @@ if mode == "layer3" then
     assertConsumerFallback(
         onlyRangeIndex(
             "iris_layer3_chunk_range_index_v1",
-            "Iris/Data/IrisLayer3DataChunks/Chunk999",
+            missingChunk,
             nil
         ),
         "target_module_load_failure"
@@ -157,7 +159,7 @@ if mode == "layer3" then
     assertConsumerFallback(
         onlyRangeIndex(
             "iris_layer3_chunk_range_index_v1",
-            "Iris/Data/IrisLayer3DataChunks/Chunk001"
+            expectedChunk1
         ),
         "index_content_mismatch"
     )
@@ -192,11 +194,11 @@ if mode == "layer3" then
     package.preload["Iris/Data/IrisLayer3DataChunkIndex"] = function()
         return onlyRangeIndex(
             "iris_layer3_chunk_range_index_v1",
-            "Iris/Data/IrisLayer3DataChunks/Chunk999",
+            missingChunk,
             nil
         )
     end
-    package.preload["Iris/Data/IrisLayer3DataChunks/Chunk999"] = function()
+    package.preload[missingChunk] = function()
         error("standalone target chunk failure")
     end
     local failedModuleLookup = require("Iris/Data/IrisLayer3DataLookup")

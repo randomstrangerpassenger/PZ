@@ -25,15 +25,17 @@ class Layer3LazyLookupContractTest(unittest.TestCase):
         self.assertIn("IRIS_LAYER3_LAZY_LOOKUP_PASS", completed.stdout)
         self.assertIn("parity_count=2105", completed.stdout)
         self.assertIn("first_lookup_loaded_chunks=1", completed.stdout)
-        self.assertIn(
-            "first_lookup_loaded_modules=Iris/Data/IrisLayer3DataChunks/Chunk001",
+        self.assertRegex(
             completed.stdout,
+            r"first_lookup_loaded_modules=Iris/Data/IrisLayer3Generations/"
+            r"dvf33-[0-9a-f]{64}/Chunks/Chunk001",
         )
         self.assertIn("initial_loaded_chunks=2", completed.stdout)
-        self.assertIn(
-            "initial_loaded_modules=Iris/Data/IrisLayer3DataChunks/Chunk001,"
-            "Iris/Data/IrisLayer3DataChunks/Chunk002",
+        self.assertRegex(
             completed.stdout,
+            r"initial_loaded_modules=Iris/Data/IrisLayer3Generations/"
+            r"(dvf33-[0-9a-f]{64})/Chunks/Chunk001,"
+            r"Iris/Data/IrisLayer3Generations/\1/Chunks/Chunk002",
         )
         self.assertIn("router_unavailable_count=1", completed.stdout)
         self.assertIn("normal_miss_facade_loads=0", completed.stdout)

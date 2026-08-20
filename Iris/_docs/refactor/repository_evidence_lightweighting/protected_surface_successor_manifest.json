@@ -1764,6 +1764,66 @@
         }
       ],
       "added_protected_rows": []
+    },
+    {
+      "revision_id": "iris_iar_retirement_clean_checkout_hygiene_reseal_v1",
+      "track": "iris_stateful_artifact_registry_architecture_retirement",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "610153b37ded1f3c55f4ef8d13127cae42ae0852",
+      "protection_predecessor_tree": "08b46f76f7ced190e9616119ca1b678b602cc4e9",
+      "reason": "Make the installed R2-B bytes and validation fixtures stable in a fresh Windows checkout without changing product semantics.",
+      "approved_activation_deltas": [],
+      "added_protected_rows": [
+        {
+          "path": ".gitattributes",
+          "before_git_blob_id": "ae4236e2606625165f954c34e1486eae0e9254da",
+          "before_sha256_lf": "8073a2e862ec3d12fed97b35ebf1ed28192863e2e3be0f5af0b7bfefb804e871",
+          "expected_git_blob_id": "4d9653e0a76dd5891cd5db3c64e736fe402b59a0",
+          "after_sha256_lf": "b50db0a82f0a0861850b18459750ed5a6ad8606b637f253faf9cbcfb01c6c4d8",
+          "role": "iar_retirement_clean_checkout_raw_byte_policy",
+          "writer": "iris_stateful_artifact_registry_architecture_retirement",
+          "consumers": ["stateless_generation", "clean_checkout_validation", "runtime_package_validation"],
+          "owner": "repository_owner_user",
+          "reason": "Disable checkout line-ending conversion for the exact R2-B pointer, facade, index, lookup, and generation byte universe."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_dvf_3_3_registry_authority_canonical_closure.py",
+          "before_git_blob_id": "cde11ca15e6c03cebd1187a32f4727853b841904",
+          "before_sha256_lf": "695f9f631d625629c52c938b62e177e29fa92e984ff6fbb3a7610d2e4453e6fa",
+          "expected_git_blob_id": "c173f7b1a918b7d71e0271c3f92ac6131e296626",
+          "after_sha256_lf": "62875abf7bcd3dff5a982bd86d2725c1b96558e037f4bbdf5a1794ffb80b5123",
+          "role": "windows_long_path_fixture_cleanup",
+          "writer": "iris_stateful_artifact_registry_architecture_retirement",
+          "consumers": ["configured_current", "full_repository_gate"],
+          "owner": "repository_owner_user",
+          "reason": "Clean the projected WP6 fixture through the Windows extended-length path so teardown cannot leave a non-empty long-path directory."
+        },
+        {
+          "path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py",
+          "before_git_blob_id": "46026cc3e1c9a38ba7b3d2639c24101c8c7606e1",
+          "before_sha256_lf": "9f5328ec345734cdcf112fef888c2c2f3a0275f687e021fd78a88049e09802fe",
+          "expected_git_blob_id": "818f1911178773e6b34b4c6fc387d75bd085bdf4",
+          "after_sha256_lf": "fd95ff23b6fa79d9421d71f0210c1f0f6d7f319a01f6ef361dc1ecb527242db3",
+          "role": "full_gate_explicit_source_policy_regression",
+          "writer": "iris_stateful_artifact_registry_architecture_retirement",
+          "consumers": ["configured_current", "full_repository_gate"],
+          "owner": "repository_owner_user",
+          "reason": "Pass every declared explicit current source to the policy validator while retaining focused assertions for the original four regression sources."
+        },
+        {
+          "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+          "before_git_blob_id": "88546464739a32b9af350e999e12c13257fd756b",
+          "before_sha256_lf": "1db3ba9c7d9e00b773847a211a38c47cc275397aae64bd1afd9aed2268081858",
+          "expected_git_blob_id": "b223293cdcf12b4dd056bab164f34c0c30a16bfc",
+          "after_sha256_lf": "68a15b803651f90b6f32c823702f9aee1ec079d3abc4aeedbbe25e2aa7720567",
+          "role": "iar_retirement_active_protection_revision_regression",
+          "writer": "iris_stateful_artifact_registry_architecture_retirement",
+          "consumers": ["configured_current", "residual_closeout", "full_repository_gate"],
+          "owner": "repository_owner_user",
+          "reason": "Assert the shared-pointer, package-parity, and clean-checkout hygiene revisions in the exact active protection chronology."
+        }
+      ]
     }
   ]
 }

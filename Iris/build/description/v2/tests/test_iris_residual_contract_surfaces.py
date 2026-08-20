@@ -192,6 +192,9 @@ class IrisResidualContractSurfacesTest(unittest.TestCase):
                 "iris_canonical_full_gate_source_classification_alignment_55_v1",
                 "iris_clean_checkout_source_classification_regression_reseal_v1",
                 "iris_iar_retirement_current_route_extension_v1",
+                "iris_iar_retirement_shared_pointer_lookup_reseal_v1",
+                "iris_iar_retirement_stateless_package_lookup_parity_reseal_v1",
+                "iris_iar_retirement_clean_checkout_hygiene_reseal_v1",
             ],
         )
         self.assertEqual(

@@ -117,14 +117,13 @@ class DvfVcsTrackingPolicyTest(unittest.TestCase):
                 "validate_dvf_3_3_complete_generation",
                 "install_dvf_3_3_complete_generation",
                 "dvf_3_3_runtime_compatibility",
-                "item_page_information_sufficiency",
             ],
         )
-        self.assertEqual(policy["max_allowed_modules"], 10)
+        self.assertEqual(policy["max_allowed_modules"], 9)
         self.assertEqual(policy["core_closure_count_must_remain"], 12)
         self.assertTrue(policy["modules_are_not_current_core"])
         self.assertTrue(set(tooling_modules).isdisjoint(core_modules))
-        self.assertEqual(len(tooling_rows), 10)
+        self.assertEqual(len(tooling_rows), 9)
         self.assertEqual(tooling_rows[0]["module"], "export_dvf_3_3_lua_bridge")
         self.assertEqual(tooling_rows[0]["owner_class"], "current_regeneration_tooling")
         self.assertFalse(tooling_rows[0]["in_current_closure"])
@@ -147,7 +146,6 @@ class DvfVcsTrackingPolicyTest(unittest.TestCase):
                 "stateless_generation_validation",
                 "protected_generation_installer",
                 "generation_key_identity_validation",
-                "publish_boundary_component_evidence",
             ],
         )
         for row in tooling_rows[4:]:

@@ -3530,16 +3530,6 @@
       "required": true,
       "role": "dvf_3_3_generation_key_identity_required_validation",
       "test_id": "test_dvf_3_3_runtime_compatibility.DvfRuntimeCompatibilityTest.test_case_collision_boundary_preserves_exact_keys"
-    },
-    {
-      "entry_id": "IPS-GOV-ROUTE-01",
-      "required": true,
-      "role": "publish_boundary_item_page_information_sufficiency_evidence",
-      "owner": "Publish Boundary / Item Page Information Sufficiency evidence",
-      "test_id": "test_item_page_information_sufficiency.ItemPageInformationSufficiencyTest.test_full_current_universe_build_is_exact_and_keeps_axes_separate",
-      "result_sha256": "63077bf221b5af4874bbeb78fecd02708a7472564942b8e7e4d129df9a77b480",
-      "closeout_path": "Iris/_docs/round3/item_page_information_sufficiency/63077bf221b5af4874bbeb78fecd02708a7472564942b8e7e4d129df9a77b480/axis_qualified_closeout.json",
-      "claim_boundary": "read-only Publish Boundary component evidence; no Public Text Quality, Publish Boundary, package, release or runtime-mutation PASS"
     }
   ],
   "route": "current",

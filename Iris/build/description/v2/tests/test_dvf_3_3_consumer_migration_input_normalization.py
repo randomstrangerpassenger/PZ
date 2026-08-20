@@ -216,27 +216,6 @@ class DvfConsumerMigrationInputNormalizationTest(unittest.TestCase):
         deterministic = payload["deterministic_anchor"]
         self.assertEqual(deterministic["result"], "relocated_deterministically")
         self.assertEqual(deterministic["basis"], "nearest_tie_lowest_line_deterministic")
-        for key in (
-            "architecture_responsibility_anchor",
-            "roadmap_responsibility_anchor",
-        ):
-            with self.subTest(key=key):
-                anchor = payload[key]
-                self.assertEqual(anchor["result"], "relocated_deterministically")
-                self.assertEqual(anchor["candidate_count"], 1)
-                self.assertEqual(anchor["anchor_line"], 2)
-        self.assertEqual(
-            payload["responsibility_negative_anchors"],
-            {
-                "cross_pair": None,
-                "wrong_path": None,
-                "wrong_token": None,
-                "wrong_referent": None,
-                "wrong_role": None,
-                "duplicate_sentence": None,
-                "semantic_mutation": None,
-            },
-        )
 
 
 if __name__ == "__main__":

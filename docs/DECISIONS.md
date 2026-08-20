@@ -2576,27 +2576,14 @@
 
 ---
 
-<!-- IPS-GOV-DECISIONS-01-START -->
+## Iris — one-off item-page information sufficiency assessment
 
-## Iris — item-page information sufficiency component evidence
-
-* Entry ID: `IPS-GOV-DECISIONS-01`
-* 상태: 2026-08-21 `page_sufficiency_assessment_validated`; exact result `63077bf221b5af4874bbeb78fecd02708a7472564942b8e7e4d129df9a77b480`
+* 상태: 2026-08-21 평가 완료
 * 결정:
 
-  * current vanilla item page를 case-sensitive FullType별 독립 assessment unit으로 다루고, Layer 3 contribution/requiredness와 Layer 4 applicability/representation을 producer provenance에서 파생한다.
-  * canonical disposition은 `information_sufficient`, `evidence_limited`, `known_information_missing`, `unresolved`이며 exact precedence와 baseline lower-bound limitation은 단일 owner-ratified policy contract에 결속한다.
-  * assessment는 Publish Boundary가 소비할 read-only component evidence다. DVF System, QG, stateless generation/install, runtime/package 또는 product IAR lifecycle authority를 흡수하지 않고 Publish Boundary verdict를 발행하지 않는다.
-  * `approved_fact_set_empty`와 world-level negative를 분리한다. current closed-negative provider가 없으므로 non-applicability token을 산출하지 않으며 `blocked_by_negative_authority`는 non-dispositive scope limitation으로만 보존한다.
-  * all-item universe를 모든 item의 독립 장문 Layer 3 authoring 의무로 해석하지 않는다. disposition distribution은 content authoring, extraction expansion, Evidence Allowlist expansion 또는 taxonomy repartition 승인이 아니다.
-  * producer JSON/JSONL input은 canonical content identity로 검증하고 generator source는 exact path/contract와 LF-normalized UTF-8 identity를 사용한다. canonical identity가 없는 legacy descriptor는 현재 content가 newline conversion만으로 descriptor raw hash/size를 정확히 재현할 때만 호환한다. Generated runtime/Lua/package output은 raw-byte identity를 유지한다.
-* 현재 gate:
-
-  * producer JSON/JSONL은 canonical content identity로 검증되고 generator source 7개는 exact path와 ratified LF-normalized identity에 결속된다. Legacy descriptor raw identity는 diagnostic으로 보존하며 semantic/path/order drift는 fail-closed한다.
-  * exact denominator 2,285 rows의 분포는 `information_sufficient=2081`, `evidence_limited=180`, `known_information_missing=2`, `unresolved=22`다. 이 분포는 remediation, authoring, extraction 또는 release 승인이 아니다.
-  * stable result-qualified closeout path는 `Iris/_docs/round3/item_page_information_sufficiency/63077bf221b5af4874bbeb78fecd02708a7472564942b8e7e4d129df9a77b480/axis_qualified_closeout.json`이다.
-* Non-decision:
-
-  * 이 policy adoption은 assessment PASS, Public Text Quality PASS, Publish Boundary PASS, Registry/RTC PASS, package/release/Workshop/B42 readiness 또는 in-game QA를 뜻하지 않는다.
-
-<!-- IPS-GOV-DECISIONS-01-END -->
+  * current vanilla 2,285개 FullType에 대한 일회성 정보 충분성 평가 결과를 보존한다.
+  * 결과 분포는 `information_sufficient=2081`, `evidence_limited=180`, `known_information_missing=2`, `unresolved=22`다.
+  * 이 평가를 위해 사용한 임시 evaluator, validator와 fixture는 Iris의 정규 검사기나 제품 아키텍처로 채택하지 않는다.
+  * current route, current authority, active core closure와 기존 회귀 테스트에는 이 평가를 등록하지 않는다.
+  * Iris runtime, public text와 package에는 변경이 없다.
+* Evidence: `Iris/build/description/v2/output/item_page_information_sufficiency/` 및 `docs/iris_item_page_information_sufficiency_walkthrough.md`.

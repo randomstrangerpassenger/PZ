@@ -1,1 +1,0 @@
-{"fact":{"item_id":"Base.Fixture","primary_use":"confirmed use"},"decision":null,"rendered":{"text_ko":"confirmed use","body_plan":{"emitted_section_names":["use_core"]}},"emitted_sections":[{"section":"use_core","slots":["primary_use"],"source_fields":["facts.primary_use"]}],"usecase":null,"description":null,"expected":"unresolved","expected_rule":"IPS-PREC-02"}

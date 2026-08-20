@@ -883,23 +883,3 @@ Runtime은 계속 100% Lua다. Python은 build/validation/install tooling에만 
 기존 fixed 11-chunk/stateful descriptor product 경로는 은퇴했다. Historical adoption 도구와 sealed evidence는 재현 전용이고, current package/runtime 소비자는 generation pointer와 immutable generation descriptor만 읽는다. Layer 1–5 active product IAR consumer가 0이므로 이 product architecture의 상태는 `FULL_RETIREMENT`다.
 
 Clean-checkout canonical Run A/B와 deterministic compare의 validated implementation subject는 `c924349eae6ee7f2a077ca83899b0ec99131f6c2`다. Codex Reviewer가 발견한 cross-PowerShell package identity nondeterminism은 terminal implementation subject `6f362b5e284d9f05749c7f9dc6a11f13bb1fe322`에서 ordinal ordering으로 교정했고 실제 `current_runtime_payload` ZIP projection이 exit `0`으로 완료됐다. Closeout carrier는 `5ce69e2a3bbf02d453e874af740a312e37b74bff`다.
-
-<!-- IPS-GOV-ARCHITECTURE-01-START -->
-
-## 8-15. Iris item-page information-sufficiency assessment
-
-Entry ID: `IPS-GOV-ARCHITECTURE-01`
-
-The adopted flow is:
-
-`current ItemScript baseline + pointer-selected Layer 3 producer provenance + current Layer 4 producer provenance -> read-only page assessment -> Publish Boundary component evidence`
-
-Layer 3 semantic production remains owned by DVF System and Layer 4 interaction-information production remains owned by QG. The page assessor reads exact producer identities and combines already-derived states through a total precedence matrix; it cannot create a fact, a negative, applicability, authoring obligation, recommendation, public visibility rule, or publish/release verdict. Runtime Lua does not calculate or rejudge the assessment.
-
-The baseline is an explicit ItemScript-preserved lower bound. `IrisItemDetailViewModel` and `IrisWikiSections.renderCoreInfoSection()` are consumer drift cross-checks only. Runtime-only food, weapon, literature, and moveable fields can bias the page toward `information_sufficient`; the assessor records that limitation and does not synthesize missing runtime values. Layer 2 `primary_subcategory` is diagnostic identity comparison only.
-
-`artifact_set_materialization=sealed_complete` closes only the identity and exhaustive query of a producer-declared record set. It does not close extraction coverage, semantic completeness, denominator-wide authoring or world absence. Recipe and Right-click stay independent and equal Layer 4 sources. Menu remains detailed, Tooltip remains the maximum-four-line projection of the same confirmed facts, and no Lua/translation/public-heading mutation is part of this architecture.
-
-Producer JSON/JSONL identity is canonical-content based; all seven generator sources retain exact paths/contract with ratified LF-normalized UTF-8 identity. Legacy descriptor raw identities remain diagnostics and do not override a semantic/path/order mismatch. Generated runtime, Lua and package outputs retain raw-byte identity. The validated result is `63077bf221b5af4874bbeb78fecd02708a7472564942b8e7e4d129df9a77b480`; its axis-qualified closeout path is `Iris/_docs/round3/item_page_information_sufficiency/63077bf221b5af4874bbeb78fecd02708a7472564942b8e7e4d129df9a77b480/axis_qualified_closeout.json`.
-
-<!-- IPS-GOV-ARCHITECTURE-01-END -->

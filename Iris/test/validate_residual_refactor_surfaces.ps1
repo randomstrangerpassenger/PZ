@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
-    [ValidateSet('Baseline', 'Closeout', 'AttestationProbe', 'OverlayDispositionProbe')]
+    [ValidateSet('Baseline', 'Closeout', 'AttestationProbe')]
     [string]$Mode,
     [Parameter(Mandatory = $true)]
     [string]$RepositoryRoot,
@@ -191,91 +191,6 @@ function Get-TreeRows([string]$Root) {
     return $Rows
 }
 
-function Get-FollowupOverlayDisposition(
-    [bool]$Exists,
-    [AllowNull()][string]$TrackedBlob,
-    [AllowNull()][string]$WorkingBlob
-) {
-    if (-not $Exists) { return 'absent' }
-    if (
-        -not [string]::IsNullOrWhiteSpace($TrackedBlob) -and
-        $WorkingBlob -ceq $TrackedBlob
-    ) { return 'tracked_historical_evidence' }
-    return 'active_working_overlay'
-}
-
-function Get-CodebaseOverlayRowDisposition(
-    [bool]$HeadMatchesBefore,
-    [bool]$HeadMatchesAfterLf,
-    [bool]$WorkingMatchesAfterLf
-) {
-    if ($HeadMatchesBefore -and $WorkingMatchesAfterLf) { return 'active_working_overlay' }
-    if ($HeadMatchesAfterLf) { return 'tracked_historical_evidence' }
-    return 'blocked'
-}
-
-function Get-ProtectedWorkingDriftDisposition([bool]$MatchesExpectedLf) {
-    if ($MatchesExpectedLf) { return 'clean' }
-    return 'blocked'
-}
-
-function Get-ProtectedChangeAuthorizationDisposition(
-    [bool]$Changed,
-    [bool]$OverlayAfterMatches,
-    [bool]$DurableDeltaAfterMatches
-) {
-    if (-not $Changed) { return 'unchanged' }
-    if ($OverlayAfterMatches -or $DurableDeltaAfterMatches) { return 'authorized' }
-    return 'unauthorized'
-}
-
-$ItemPageApprovedBaseCommit = '8a11894b9352752e81d2059feb7b5ef67cfe18a4'
-$ItemPageApprovedBaseTree = 'ea20a31e40e67404f7556ff2b10d839de856eaf7'
-
-function Get-ItemPageOverlayBaseDisposition([string]$DeclaredCommit, [string]$DeclaredTree) {
-    if ($DeclaredCommit -ceq $ItemPageApprovedBaseCommit -and $DeclaredTree -ceq $ItemPageApprovedBaseTree) {
-        return 'exact_approved_base'
-    }
-    return 'blocked'
-}
-
-function Get-ItemPageOverlayScopeDisposition([object[]]$Rows) {
-    $ExpectedReasons = [System.Collections.Generic.Dictionary[string,string]]::new([System.StringComparer]::Ordinal)
-    $ExpectedReasons.Add('Iris/_docs/round3/current_route_required_validations.json', 'Register the exact item-page information-sufficiency result and closeout path as current-route component evidence in the approved active-or-durable successor.')
-    $ExpectedReasons.Add('Iris/_docs/round3/round3_active_core_closure.json', 'Register the approved evaluator in the exact offline-tooling closure while preserving the twelve-module current core.')
-    $ExpectedReasons.Add('Iris/build/description/v2/tools/build/INVENTORY.md', 'Register the approved item-page information-sufficiency evaluator in the bounded tooling inventory without expanding runtime authority.')
-    $ExpectedReasons.Add('.gitattributes', 'Preserve exact raw-byte item-page information-sufficiency policy and generated evidence identities across Windows clean checkouts.')
-    $ExpectedReasons.Add('Iris/test/validate_residual_refactor_surfaces.ps1', 'Validate the plan-local active-or-durable protected successor while retaining exact predecessor and current LF and Git identities.')
-    $ExpectedReasons.Add('Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py', 'Exercise the approved active and tracked-durable successor dispositions through the existing registered residual current-route test.')
-    if ($Rows.Count -ne $ExpectedReasons.Count) { return 'blocked' }
-    $Seen = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
-    foreach ($Row in $Rows) {
-        $RowPath = [string]$Row.path
-        if (
-            -not $ExpectedReasons.ContainsKey($RowPath) -or
-            -not $Seen.Add($RowPath) -or
-            [string]$Row.reason -cne [string]$ExpectedReasons[$RowPath]
-        ) { return 'blocked' }
-    }
-    return 'exact_six_path_scope'
-}
-
-function Get-ItemPageOverlayDisposition(
-    [bool]$Exists,
-    [AllowNull()][string]$TrackedBlob,
-    [AllowNull()][string]$WorkingBlob,
-    [bool]$BaseMatchesCurrentHead,
-    [bool]$ApprovedBaseIsAncestorOfCurrentHead
-) {
-    if (-not $Exists) { return 'absent' }
-    if (-not [string]::IsNullOrWhiteSpace($TrackedBlob) -and $WorkingBlob -ceq $TrackedBlob) {
-        if ($ApprovedBaseIsAncestorOfCurrentHead) { return 'tracked_durable_successor' }
-        return 'blocked'
-    }
-    if ($BaseMatchesCurrentHead) { return 'active_working_overlay' }
-    return 'blocked'
-}
-
 $RepositoryRoot = [System.IO.Path]::GetFullPath($RepositoryRoot).TrimEnd('\','/')
 $GitRoot = (& git -C $RepositoryRoot rev-parse --show-toplevel 2>&1 | Out-String).Trim()
 if ($LASTEXITCODE -ne 0 -or -not $RepositoryRoot.Equals(
@@ -286,45 +201,6 @@ $EvidenceRoot = if ([System.IO.Path]::IsPathRooted($EvidenceRoot)) {
     [System.IO.Path]::GetFullPath($EvidenceRoot)
 } else {
     [System.IO.Path]::GetFullPath((Join-Path $RepositoryRoot $EvidenceRoot))
-}
-if ($Mode -eq 'OverlayDispositionProbe') {
-    $ExactRows = @(
-        [pscustomobject]@{ path = 'Iris/_docs/round3/current_route_required_validations.json'; reason = 'Register the exact item-page information-sufficiency result and closeout path as current-route component evidence in the approved active-or-durable successor.' },
-        [pscustomobject]@{ path = 'Iris/_docs/round3/round3_active_core_closure.json'; reason = 'Register the approved evaluator in the exact offline-tooling closure while preserving the twelve-module current core.' },
-        [pscustomobject]@{ path = 'Iris/build/description/v2/tools/build/INVENTORY.md'; reason = 'Register the approved item-page information-sufficiency evaluator in the bounded tooling inventory without expanding runtime authority.' },
-        [pscustomobject]@{ path = '.gitattributes'; reason = 'Preserve exact raw-byte item-page information-sufficiency policy and generated evidence identities across Windows clean checkouts.' },
-        [pscustomobject]@{ path = 'Iris/test/validate_residual_refactor_surfaces.ps1'; reason = 'Validate the plan-local active-or-durable protected successor while retaining exact predecessor and current LF and Git identities.' },
-        [pscustomobject]@{ path = 'Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py'; reason = 'Exercise the approved active and tracked-durable successor dispositions through the existing registered residual current-route test.' }
-    )
-    $Probe = [ordered]@{
-        clean_tracked = Get-FollowupOverlayDisposition $true 'blob-a' 'blob-a'
-        dirty_tracked = Get-FollowupOverlayDisposition $true 'blob-a' 'blob-b'
-        untracked = Get-FollowupOverlayDisposition $true $null 'blob-b'
-        absent = Get-FollowupOverlayDisposition $false $null $null
-        clean_tracked_active_row_count = 0
-        codebase_active_row = Get-CodebaseOverlayRowDisposition $true $false $true
-        codebase_historical_row = Get-CodebaseOverlayRowDisposition $false $true $false
-        codebase_mismatched_row = Get-CodebaseOverlayRowDisposition $false $false $true
-        protected_working_match = Get-ProtectedWorkingDriftDisposition $true
-        protected_working_drift = Get-ProtectedWorkingDriftDisposition $false
-        protected_overlay_change = Get-ProtectedChangeAuthorizationDisposition $true $true $false
-        protected_durable_change = Get-ProtectedChangeAuthorizationDisposition $true $false $true
-        protected_unmatched_change = Get-ProtectedChangeAuthorizationDisposition $true $false $false
-        item_page_active = Get-ItemPageOverlayDisposition $true $null 'working' $true $false
-        item_page_durable = Get-ItemPageOverlayDisposition $true 'tracked' 'tracked' $false $true
-        item_page_wrong_active_base = Get-ItemPageOverlayDisposition $true $null 'working' $false $false
-        item_page_wrong_durable_base = Get-ItemPageOverlayDisposition $true 'tracked' 'tracked' $true $false
-        item_page_durable_after_unrelated_commit = Get-ItemPageOverlayDisposition $true 'tracked' 'tracked' $false $true
-        item_page_exact_base = Get-ItemPageOverlayBaseDisposition $ItemPageApprovedBaseCommit $ItemPageApprovedBaseTree
-        item_page_rewritten_future_base = Get-ItemPageOverlayBaseDisposition ('f' * 40) ('e' * 40)
-        item_page_exact_scope = Get-ItemPageOverlayScopeDisposition $ExactRows
-        item_page_missing_scope = Get-ItemPageOverlayScopeDisposition @($ExactRows[0], $ExactRows[1], $ExactRows[2], $ExactRows[3], $ExactRows[4])
-        item_page_added_scope = Get-ItemPageOverlayScopeDisposition @($ExactRows + [pscustomobject]@{ path = 'Iris/extra'; reason = 'extra' })
-        item_page_substituted_scope = Get-ItemPageOverlayScopeDisposition @($ExactRows[0], $ExactRows[1], $ExactRows[2], $ExactRows[3], $ExactRows[4], [pscustomobject]@{ path = 'Iris/substitute'; reason = $ExactRows[5].reason })
-        item_page_case_mutated_scope = Get-ItemPageOverlayScopeDisposition @([pscustomobject]@{ path = 'iris/_docs/round3/current_route_required_validations.json'; reason = $ExactRows[0].reason }, $ExactRows[1], $ExactRows[2], $ExactRows[3], $ExactRows[4], $ExactRows[5])
-    }
-    Write-Output ($Probe | ConvertTo-Json -Compress)
-    exit 0
 }
 $SubjectCommit = (& git -C $RepositoryRoot rev-parse HEAD).Trim()
 $SubjectTree = (& git -C $RepositoryRoot rev-parse 'HEAD^{tree}').Trim()
@@ -340,8 +216,6 @@ $EvidenceLightweightingSuccessorRelative = 'Iris/_docs/refactor/repository_evide
 $EvidenceLightweightingSuccessorPath = Join-Path $RepositoryRoot $EvidenceLightweightingSuccessorRelative
 $FollowupOverlayRelative = 'Iris/_docs/refactor/codebase_optimization_followup/protected_surface_manifest.json'
 $FollowupOverlayPath = Join-Path $RepositoryRoot $FollowupOverlayRelative
-$ItemPageInformationSufficiencyOverlayRelative = 'Iris/_docs/round3/item_page_information_sufficiency/63077bf221b5af4874bbeb78fecd02708a7472564942b8e7e4d129df9a77b480/protected_surface_working_overlay.json'
-$ItemPageInformationSufficiencyOverlayPath = Join-Path $RepositoryRoot $ItemPageInformationSufficiencyOverlayRelative
 if ($Mode -eq 'AttestationProbe') {
     if (
         [string]::IsNullOrWhiteSpace($HistoricalManifestAttestationPath) -or
@@ -388,49 +262,17 @@ if ($LASTEXITCODE -ne 0 -or $EvidenceLightweightingSuccessorWorkingBlob -cne $Ev
     throw 'repository evidence lightweighting protected-surface successor differs from HEAD'
 }
 $FollowupOverlayRows = @{}
-$OverlayExpectedHeadBlobs = @{}
-$FollowupOverlayHistoricalPaths = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
-$FollowupOverlaySupersededPaths = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
-$FollowupOverlayTrackedBlob = $null
-$FollowupOverlayWorkingBlob = $null
-$FollowupOverlayDisposition = 'absent'
-$FollowupOverlayIsCleanTrackedHistory = $false
-if (Test-Path -LiteralPath $FollowupOverlayPath -PathType Leaf) {
-    $FollowupOverlayTrackedOutput = & git -C $RepositoryRoot rev-parse ("HEAD:" + $FollowupOverlayRelative) 2>$null
-    if ($LASTEXITCODE -eq 0) {
-        $FollowupOverlayTrackedBlob = ([string]$FollowupOverlayTrackedOutput).Trim()
-    }
-    $FollowupOverlayWorkingBlob = (& git -C $RepositoryRoot hash-object ("--path=" + $FollowupOverlayRelative) $FollowupOverlayPath).Trim()
-    if ($LASTEXITCODE -ne 0) {
-        throw 'codebase optimization follow-up protected-surface overlay working blob could not be computed'
-    }
-    $FollowupOverlayDisposition = Get-FollowupOverlayDisposition $true $FollowupOverlayTrackedBlob $FollowupOverlayWorkingBlob
-    $FollowupOverlayIsCleanTrackedHistory = $FollowupOverlayDisposition -ceq 'tracked_historical_evidence'
-}
 if (Test-Path -LiteralPath $FollowupOverlayPath -PathType Leaf) {
     $FollowupOverlay = Get-Content -LiteralPath $FollowupOverlayPath -Raw | ConvertFrom-Json
     if (
         [string]$FollowupOverlay.schema_version -cne 'iris_codebase_optimization_followup_protected_overlay_v1' -or
         [string]$FollowupOverlay.authority -cne 'repository_owner_preapproval' -or
         [string]$FollowupOverlay.plan -cne 'docs/iris_codebase_optimization_comprehensive_followup_plan.md' -or
+        [string]$FollowupOverlay.base_commit -cne $SubjectCommit -or
+        [string]$FollowupOverlay.base_tree -cne $SubjectTree -or
         [string]$FollowupOverlay.implementation_state -cne 'uncommitted_working_tree_overlay'
     ) {
         throw 'codebase optimization follow-up protected-surface overlay identity mismatch'
-    }
-    $FollowupBaseCommit = [string]$FollowupOverlay.base_commit
-    $FollowupBaseTree = (& git -C $RepositoryRoot rev-parse ($FollowupBaseCommit + '^{tree}') 2>$null | Out-String).Trim()
-    if ($LASTEXITCODE -ne 0 -or $FollowupBaseTree -cne [string]$FollowupOverlay.base_tree) {
-        throw 'codebase optimization follow-up protected-surface overlay base mismatch'
-    }
-    & git -C $RepositoryRoot merge-base --is-ancestor $FollowupBaseCommit $SubjectCommit 2>$null
-    if ($LASTEXITCODE -ne 0) {
-        throw 'codebase optimization follow-up protected-surface overlay base is not an ancestor'
-    }
-    if (
-        $FollowupOverlayDisposition -ceq 'active_working_overlay' -and
-        ($FollowupBaseCommit -cne $SubjectCommit -or $FollowupBaseTree -cne $SubjectTree)
-    ) {
-        throw 'codebase optimization follow-up active overlay does not bind current HEAD'
     }
     foreach ($Row in @($FollowupOverlay.rows)) {
         $RowPath = [string]$Row.path
@@ -442,12 +284,15 @@ if (Test-Path -LiteralPath $FollowupOverlayPath -PathType Leaf) {
         ) {
             throw "codebase optimization follow-up protected row identity invalid: $RowPath"
         }
-        $BaseBlob = (& git -C $RepositoryRoot rev-parse ($FollowupBaseCommit + ':' + $RowPath)).Trim()
-        if ($LASTEXITCODE -ne 0 -or $BaseBlob -cne [string]$Row.before_git_blob_id) {
-            throw "codebase optimization follow-up protected row base predecessor mismatch: $RowPath"
+        $BeforeBlob = (& git -C $RepositoryRoot rev-parse ("HEAD:" + $RowPath)).Trim()
+        if ($LASTEXITCODE -ne 0 -or $BeforeBlob -cne [string]$Row.before_git_blob_id) {
+            throw "codebase optimization follow-up protected row predecessor mismatch: $RowPath"
         }
-        if ((Get-GitBlobLfHash $BaseBlob) -cne [string]$Row.before_sha256_lf) {
+        if ((Get-GitBlobLfHash $BeforeBlob) -cne [string]$Row.before_sha256_lf) {
             throw "codebase optimization follow-up protected row predecessor LF hash mismatch: $RowPath"
+        }
+        if ((Get-LfTextHashOrNull (Join-Path $RepositoryRoot $RowPath)) -cne [string]$Row.after_sha256_lf) {
+            throw "codebase optimization follow-up protected row working LF hash mismatch: $RowPath"
         }
         if (
             [string]$Row.owner -cne 'repository_owner_preapproval' -or
@@ -455,123 +300,11 @@ if (Test-Path -LiteralPath $FollowupOverlayPath -PathType Leaf) {
         ) {
             throw "codebase optimization follow-up protected row authorization invalid: $RowPath"
         }
-        $HeadBlob = (& git -C $RepositoryRoot rev-parse ("HEAD:" + $RowPath)).Trim()
-        if ($LASTEXITCODE -ne 0) { throw "codebase optimization follow-up protected row HEAD missing: $RowPath" }
-        $HeadLf = Get-GitBlobLfHash $HeadBlob
-        $WorkingLf = Get-LfTextHashOrNull (Join-Path $RepositoryRoot $RowPath)
-        $RowDisposition = Get-CodebaseOverlayRowDisposition ($HeadBlob -ceq [string]$Row.before_git_blob_id) ($HeadLf -ceq [string]$Row.after_sha256_lf) ($WorkingLf -ceq [string]$Row.after_sha256_lf)
-        if (
-            $FollowupOverlayDisposition -ceq 'tracked_historical_evidence' -and
-            $RowDisposition -ceq 'blocked' -and
-            $RowPath -ceq 'Iris/test/validate_residual_refactor_surfaces.ps1'
-        ) {
-            [void]$FollowupOverlaySupersededPaths.Add($RowPath)
-            continue
-        }
-        if ($RowDisposition -cne $FollowupOverlayDisposition) {
-            throw "codebase optimization follow-up protected row lifecycle mismatch: $RowPath"
-        }
         $FollowupOverlayRows[$RowPath] = $Row
-        $OverlayExpectedHeadBlobs[$RowPath] = $HeadBlob
-        if ($RowDisposition -ceq 'tracked_historical_evidence') {
-            [void]$FollowupOverlayHistoricalPaths.Add($RowPath)
-        }
-    }
-    if (
-        $FollowupOverlayDisposition -ceq 'tracked_historical_evidence' -and
-        (
-            $FollowupOverlaySupersededPaths.Count -ne 1 -or
-            -not $FollowupOverlaySupersededPaths.Contains('Iris/test/validate_residual_refactor_surfaces.ps1')
-        )
-    ) {
-        throw 'codebase optimization follow-up superseded historical row set mismatch'
     }
 }
 elseif ($Mode -eq 'Baseline') {
     throw 'codebase optimization follow-up protected-surface overlay has no rows'
-}
-$CodebaseFollowupOverlayRowCount = $FollowupOverlayRows.Count
-$ItemPageInformationSufficiencyOverlayRowCount = 0
-$ItemPageInformationSufficiencyOverlayDisposition = 'absent'
-if (Test-Path -LiteralPath $ItemPageInformationSufficiencyOverlayPath -PathType Leaf) {
-    $ItemPageOverlay = Get-Content -LiteralPath $ItemPageInformationSufficiencyOverlayPath -Raw | ConvertFrom-Json
-    $ItemPageOverlayTrackedPaths = @(& git -C $RepositoryRoot ls-tree -r --name-only HEAD -- $ItemPageInformationSufficiencyOverlayRelative)
-    if ($LASTEXITCODE -ne 0) {
-        throw 'item-page information-sufficiency protected overlay tracking query failed'
-    }
-    $ItemPageOverlayIsTracked = @($ItemPageOverlayTrackedPaths | Where-Object { [string]$_ -ceq $ItemPageInformationSufficiencyOverlayRelative }).Count -eq 1
-    $ItemPageOverlayTrackedBlob = if ($ItemPageOverlayIsTracked) {
-        (& git -C $RepositoryRoot rev-parse ("HEAD:" + $ItemPageInformationSufficiencyOverlayRelative)).Trim()
-    } else { $null }
-    $ItemPageOverlayWorkingBlob = (& git -C $RepositoryRoot hash-object ("--path=" + $ItemPageInformationSufficiencyOverlayRelative) $ItemPageInformationSufficiencyOverlayPath).Trim()
-    if ($LASTEXITCODE -ne 0) {
-        throw 'item-page information-sufficiency protected overlay working blob could not be computed'
-    }
-    if (
-        [string]$ItemPageOverlay.schema_version -cne 'iris-item-page-information-sufficiency-protected-surface-successor-v1' -or
-        [string]$ItemPageOverlay.authority -cne 'repository_owner_preapproval' -or
-        [string]$ItemPageOverlay.plan -cne 'docs/새 폴더/iris_item_page_information_sufficiency_plan.md' -or
-        [string]$ItemPageOverlay.implementation_state -cne 'active_or_tracked_durable_successor' -or
-        (Get-ItemPageOverlayScopeDisposition @($ItemPageOverlay.rows)) -cne 'exact_six_path_scope'
-    ) {
-        throw 'item-page information-sufficiency protected overlay identity or scope mismatch'
-    }
-    $DeclaredBaseCommit = [string]$ItemPageOverlay.base_commit
-    $DeclaredBaseTree = [string]$ItemPageOverlay.base_tree
-    if ((Get-ItemPageOverlayBaseDisposition $DeclaredBaseCommit $DeclaredBaseTree) -cne 'exact_approved_base') {
-        throw 'item-page information-sufficiency protected overlay approved base mismatch'
-    }
-    $ObservedBaseTree = (& git -C $RepositoryRoot rev-parse ($DeclaredBaseCommit + '^{tree}') 2>$null | Out-String).Trim()
-    if ($LASTEXITCODE -ne 0 -or $ObservedBaseTree -cne $DeclaredBaseTree) {
-        throw 'item-page information-sufficiency protected overlay base tree mismatch'
-    }
-    $BaseOverlayTreeRows = @(& git -C $RepositoryRoot ls-tree $DeclaredBaseCommit -- $ItemPageInformationSufficiencyOverlayRelative)
-    if ($LASTEXITCODE -ne 0 -or $BaseOverlayTreeRows.Count -ne 0) {
-        throw 'item-page information-sufficiency protected overlay unexpectedly exists in approved base tree'
-    }
-    $BaseMatchesCurrentHead = $DeclaredBaseCommit -ceq $SubjectCommit -and $DeclaredBaseTree -ceq $SubjectTree
-    & git -C $RepositoryRoot merge-base --is-ancestor $DeclaredBaseCommit $SubjectCommit 2>$null
-    $ApprovedBaseIsAncestorOfCurrentHead = $LASTEXITCODE -eq 0
-    $ItemPageInformationSufficiencyOverlayDisposition = Get-ItemPageOverlayDisposition $true $ItemPageOverlayTrackedBlob $ItemPageOverlayWorkingBlob $BaseMatchesCurrentHead $ApprovedBaseIsAncestorOfCurrentHead
-    if ($ItemPageInformationSufficiencyOverlayDisposition -ceq 'blocked') {
-        throw 'item-page information-sufficiency protected overlay lifecycle mismatch'
-    }
-    foreach ($Row in @($ItemPageOverlay.rows)) {
-        $RowPath = [string]$Row.path
-        if (
-            [System.IO.Path]::IsPathRooted($RowPath) -or
-            $RowPath -match '(^|/)\.\.(/|$)' -or
-            $FollowupOverlayRows.ContainsKey($RowPath) -or
-            [string]$Row.after_git_blob_id -notmatch '^[0-9a-f]{40,64}$'
-        ) {
-            throw "item-page information-sufficiency protected row identity invalid: $RowPath"
-        }
-        $BeforeBlob = (& git -C $RepositoryRoot rev-parse ($DeclaredBaseCommit + ':' + $RowPath)).Trim()
-        if ($LASTEXITCODE -ne 0 -or $BeforeBlob -cne [string]$Row.before_git_blob_id) {
-            throw "item-page information-sufficiency protected row predecessor mismatch: $RowPath"
-        }
-        if ((Get-GitBlobLfHash $BeforeBlob) -cne [string]$Row.before_sha256_lf) {
-            throw "item-page information-sufficiency protected row predecessor LF hash mismatch: $RowPath"
-        }
-        $WorkingAfterBlob = (& git -C $RepositoryRoot hash-object ("--path=" + $RowPath) (Join-Path $RepositoryRoot $RowPath)).Trim()
-        if ($LASTEXITCODE -ne 0 -or $WorkingAfterBlob -cne [string]$Row.after_git_blob_id) {
-            throw "item-page information-sufficiency protected row working Git blob mismatch: $RowPath"
-        }
-        if ((Get-LfTextHashOrNull (Join-Path $RepositoryRoot $RowPath)) -cne [string]$Row.after_sha256_lf) {
-            throw "item-page information-sufficiency protected row working LF hash mismatch: $RowPath"
-        }
-        $ExpectedHeadBlob = if ($ItemPageInformationSufficiencyOverlayDisposition -ceq 'tracked_durable_successor') { [string]$Row.after_git_blob_id } else { [string]$Row.before_git_blob_id }
-        $ObservedHeadBlob = (& git -C $RepositoryRoot rev-parse ("HEAD:" + $RowPath)).Trim()
-        if ($LASTEXITCODE -ne 0 -or $ObservedHeadBlob -cne $ExpectedHeadBlob) {
-            throw "item-page information-sufficiency protected row HEAD lifecycle mismatch: $RowPath"
-        }
-        if ([string]$Row.owner -cne 'repository_owner_preapproval') {
-            throw "item-page information-sufficiency protected row authorization invalid: $RowPath"
-        }
-        $FollowupOverlayRows[$RowPath] = $Row
-        $OverlayExpectedHeadBlobs[$RowPath] = $ExpectedHeadBlob
-        $ItemPageInformationSufficiencyOverlayRowCount += 1
-    }
 }
 $FollowupOverlayUsed = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
 
@@ -1056,12 +789,12 @@ foreach ($DeltaPath in $LightweightingDeltaPaths) {
     $Delta = $ApprovedDeltas[$DeltaPath]
     $ActualBlob = (& git -C $RepositoryRoot rev-parse ("HEAD:" + $DeltaPath)).Trim()
     $Overlay = if ($FollowupOverlayRows.ContainsKey($DeltaPath)) { $FollowupOverlayRows[$DeltaPath] } else { $null }
-    $ExpectedBlob = if ($null -ne $Overlay) { [string]$OverlayExpectedHeadBlobs[$DeltaPath] } else { [string]$Delta.expected_git_blob_id }
+    $ExpectedBlob = if ($null -ne $Overlay) { [string]$Overlay.before_git_blob_id } else { [string]$Delta.expected_git_blob_id }
     $ExpectedLf = if ($null -ne $Overlay) { [string]$Overlay.after_sha256_lf } else { [string]$Delta.after_sha256_lf }
     if ($LASTEXITCODE -ne 0 -or $ActualBlob -cne $ExpectedBlob) {
         throw "repository lightweighting final delta Git blob mismatch: $DeltaPath"
     }
-    if ((Get-ProtectedWorkingDriftDisposition ((Get-LfTextHashOrNull (Join-Path $RepositoryRoot $DeltaPath)) -ceq $ExpectedLf)) -ceq 'blocked') {
+    if ((Get-LfTextHashOrNull (Join-Path $RepositoryRoot $DeltaPath)) -cne $ExpectedLf) {
         throw "repository lightweighting final delta LF hash mismatch: $DeltaPath"
     }
     if ($null -ne $Overlay) { [void]$FollowupOverlayUsed.Add($DeltaPath) }
@@ -1071,12 +804,12 @@ foreach ($Entry in $AddedProtectedRows.GetEnumerator()) {
     $AddedPath = [string]$Added.path
     $ActualBlob = (& git -C $RepositoryRoot rev-parse ("HEAD:" + $AddedPath)).Trim()
     $Overlay = if ($FollowupOverlayRows.ContainsKey($AddedPath)) { $FollowupOverlayRows[$AddedPath] } else { $null }
-    $ExpectedBlob = if ($null -ne $Overlay) { [string]$OverlayExpectedHeadBlobs[$AddedPath] } else { [string]$Added.expected_git_blob_id }
+    $ExpectedBlob = if ($null -ne $Overlay) { [string]$Overlay.before_git_blob_id } else { [string]$Added.expected_git_blob_id }
     $ExpectedLf = if ($null -ne $Overlay) { [string]$Overlay.after_sha256_lf } else { [string]$Added.after_sha256_lf }
     if ($LASTEXITCODE -ne 0 -or $ActualBlob -cne $ExpectedBlob) {
         throw "repository lightweighting final added-row Git blob mismatch: $AddedPath"
     }
-    if ((Get-ProtectedWorkingDriftDisposition ((Get-LfTextHashOrNull (Join-Path $RepositoryRoot $AddedPath)) -ceq $ExpectedLf)) -ceq 'blocked') {
+    if ((Get-LfTextHashOrNull (Join-Path $RepositoryRoot $AddedPath)) -cne $ExpectedLf) {
         throw "repository lightweighting final added-row LF hash mismatch: $AddedPath"
     }
     if ($null -ne $Overlay) { [void]$FollowupOverlayUsed.Add($AddedPath) }
@@ -1114,12 +847,11 @@ foreach ($Row in $ProtectedBaseline.rows) {
     )
     $Changed = $RawChanged -and -not $LineEndingEquivalent -and -not $OptionalProjectionAbsent
     $AfterLf = Get-LfTextHashOrNull $FullPath
-    $OverlayAuthorization = if ($FollowupOverlayRows.ContainsKey($RowPath)) { $FollowupOverlayRows[$RowPath] } else { $null }
-    $OverlayAfterMatches = $null -ne $OverlayAuthorization -and $AfterLf -ceq [string]$OverlayAuthorization.after_sha256_lf
-    $DurableDeltaAfterMatches = $ApprovedDeltas.ContainsKey($RowPath) -and $AfterLf -ceq [string]$ApprovedDeltas[$RowPath].after_sha256_lf
-    $AuthorizationDisposition = Get-ProtectedChangeAuthorizationDisposition $Changed $OverlayAfterMatches $DurableDeltaAfterMatches
-    $Authorized = $AuthorizationDisposition -ceq 'authorized'
-    $AuthorizationRecord = if ($OverlayAfterMatches) { $OverlayAuthorization } elseif ($DurableDeltaAfterMatches) { $ApprovedDeltas[$RowPath] } else { $null }
+    $Authorized = (
+        $Changed -and
+        $ApprovedDeltas.ContainsKey($RowPath) -and
+        $AfterLf -ceq [string]$ApprovedDeltas[$RowPath].after_sha256_lf
+    )
     if ($Authorized) { $AuthorizedChanged += 1 }
     elseif ($Changed) { $Unauthorized += 1 }
     $ProtectedRows += [ordered]@{
@@ -1132,8 +864,8 @@ foreach ($Row in $ProtectedBaseline.rows) {
         optional_untracked_projection_absent = $OptionalProjectionAbsent
         changed = $Changed
         authorized = $Authorized
-        authorization_owner = if ($Authorized) { [string]$AuthorizationRecord.owner } else { $null }
-        authorization_reason = if ($Authorized) { [string]$AuthorizationRecord.reason } else { $null }
+        authorization_owner = if ($Authorized) { [string]$ApprovedDeltas[$RowPath].owner } else { $null }
+        authorization_reason = if ($Authorized) { [string]$ApprovedDeltas[$RowPath].reason } else { $null }
     }
 }
 foreach ($Entry in @($AddedProtectedRows.GetEnumerator() | Sort-Object Key)) {
@@ -1182,14 +914,7 @@ $ProtectedReport = [ordered]@{
     repository_evidence_lightweighting_successor_schema_version = [string]$EvidenceLightweightingSuccessor.schema_version
     codebase_optimization_followup_overlay_manifest = $FollowupOverlayRelative
     codebase_optimization_followup_overlay_sha256 = Get-HashOrNull $FollowupOverlayPath
-    codebase_optimization_followup_overlay_row_count = $CodebaseFollowupOverlayRowCount
-    codebase_optimization_followup_overlay_disposition = $FollowupOverlayDisposition
-    codebase_optimization_followup_historical_row_count = $FollowupOverlayHistoricalPaths.Count
-    codebase_optimization_followup_superseded_paths = @($FollowupOverlaySupersededPaths | Sort-Object)
-    item_page_information_sufficiency_overlay_manifest = $ItemPageInformationSufficiencyOverlayRelative
-    item_page_information_sufficiency_overlay_sha256 = Get-HashOrNull $ItemPageInformationSufficiencyOverlayPath
-    item_page_information_sufficiency_overlay_disposition = $ItemPageInformationSufficiencyOverlayDisposition
-    item_page_information_sufficiency_overlay_row_count = $ItemPageInformationSufficiencyOverlayRowCount
+    codebase_optimization_followup_overlay_row_count = $FollowupOverlayRows.Count
     historical_manifest_attestation = [ordered]@{
         commit = $HistoricalCommit
         tree = $HistoricalTree

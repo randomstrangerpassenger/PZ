@@ -430,15 +430,3 @@ The approved successor adds five tracked, current-route tooling modules without 
 | `dvf_3_3_runtime_compatibility.py` | stateless exact-key/collision/payload validation; does not claim RTC |
 
 These files are `active` successor tooling, not generic Registry infrastructure and not archive candidates. Existing source correction and naturalization adoption scripts are `completed-but-reproducible`; Registry Runtime Compatibility remains separate governance. The current runtime/package path has no legacy stateful fallback. No sealed attempt/history file is deleted or rewritten.
-
-## Item-page information-sufficiency assessment (2026-08-21)
-
-The following tracked modules are offline Publish Boundary component-evidence tooling. They do not join the DVF compiler core, generate semantic facts, mutate runtime Lua, or reactivate product IAR lifecycle authority.
-
-| Module | Role |
-|---|---|
-| `item_page_information_sufficiency.py` | strict case-sensitive input loading, provenance-derived Layer 3/4 states, total page matrix, deterministic artifact assembly and no-write recomputation |
-| `run_item_page_information_sufficiency_assessment.py` | ratified-policy runner restricted to an explicit repository-local output root |
-| `validate_item_page_information_sufficiency_assessment.py` | independent no-write replay, Run A/B byte comparison and canonical successor binding validation |
-
-The exact denominator, current Layer 3 generation pointer, producer identities, baseline registry and ratification identity are re-read on every run. Producer JSON/JSONL uses canonical content identity and generator source retains exact paths/contract with LF-normalized UTF-8 identity; a legacy raw-only descriptor is accepted across LF/CRLF checkout normalization only when newline conversion reproduces its exact hash and size. Generated runtime/Lua/package outputs retain raw-byte identity. `iar_public_text_assessment.py` remains a separate retained public-text validation utility and is not an input to the page assessment.

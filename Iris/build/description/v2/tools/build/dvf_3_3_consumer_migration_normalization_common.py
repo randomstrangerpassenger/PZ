@@ -1086,42 +1086,33 @@ def successor_authority_context_anchor(lines: list[str], original_line: int | No
 
 def registry_responsibility_axis_anchor(lines: list[str], row: dict[str, Any]) -> dict[str, Any] | None:
     """Bind stale numeric authority anchors to the successor Registry responsibility list."""
-    normalized_path = str(row.get("path", "")).replace("\\", "/")
-    allowed_path_tokens = {
-        "docs/ARCHITECTURE.md": {"2105"},
-        "docs/ROADMAP.md": {"2105", "2084"},
-    }
-    if row.get("token") not in allowed_path_tokens.get(normalized_path, set()):
+    original_line = row.get("line")
+    if original_line is None or original_line < 1 or original_line > len(lines):
+        return None
+    if row.get("path") != "docs/ARCHITECTURE.md":
+        return None
+    if row.get("token") != "2105":
         return None
     if row.get("referent") != "current-readpoint-triple":
         return None
     if row.get("authority_role_target") != "successor_baseline_manifest_authority":
         return None
-
-    expected_lines = {
-        "docs/ARCHITECTURE.md": (
-            "* Source authority 변경은 reviewed Git-authored source diff와 해당 owner 경계가 담당한다. "
-            "Derived Layer 3 runtime은 stateless complete-generation contract가 생산·검증하며 "
-            "descriptor 자체는 authority/adoption token이 아니다."
-        ),
-        "docs/ROADMAP.md": (
-            "* Iris Artifact Registry는 source / rendered / runtime / package identity와 artifact "
-            "lifecycle, validation, seal, cutover, stale reentry guard, runtime compatibility를 관리한다."
-        ),
+    line = lines[original_line - 1].lower()
+    responsibility_markers = {
+        "artifact role classification",
+        "artifact authority",
+        "source / rendered / runtime / package identity",
+        "staging evidence",
+        "required validation",
+        "seal / cutover",
     }
-    expected = expected_lines[normalized_path]
-    candidates = [
-        line_no
-        for line_no, line in enumerate(lines, 1)
-        if " ".join(line.split()) == expected
-    ]
-    if len(candidates) != 1:
+    if not any(marker in line for marker in responsibility_markers):
         return None
     return {
         "result": "relocated_deterministically",
         "candidate_count": 1,
-        "anchor_line": candidates[0],
-        "basis": "successor_registry_responsibility_axis_replaces_stale_numeric_anchor",
+        "anchor_line": original_line,
+        "basis": "successor_registry_responsibility_axis_replaces_stale_2105_anchor",
     }
 
 

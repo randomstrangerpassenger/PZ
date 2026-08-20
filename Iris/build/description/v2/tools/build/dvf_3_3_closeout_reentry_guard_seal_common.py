@@ -432,12 +432,6 @@ def protected_surface_diff(before: dict[str, Any], after: dict[str, Any]) -> dic
 
 def is_negated_or_policy_definition(text: str) -> bool:
     lowered = text.lower()
-    assertion_predicate = re.search(
-        r"\b(complete(?:d)?|pass(?:ed)?|achiev(?:e|ed|ement)|approved?|satisfied|ready|sealed?|established|succeeded|fulfilled)\b",
-        lowered,
-    )
-    if "not only" in lowered or (assertion_predicate and "without" in lowered):
-        return False
     policy_tokens = (
         "cannot",
         "must not",
@@ -456,6 +450,7 @@ def is_negated_or_policy_definition(text: str) -> bool:
         "do not",
         "is not",
         "are not",
+        "without",
         "non-decision",
         "아니다",
         "아님",
@@ -589,25 +584,10 @@ def is_top_doc_boundary_routing_definition(path: Path, line: str) -> bool:
         return False
     lowered = line.lower()
     stripped = lowered.strip()
-    normalized_line = " ".join(line.split())
-    exact_current_nonclaim_lines = {
-        "docs/ARCHITECTURE.md": {
-            "* Reusable public-text assessment는 DVF/QG subject에 적용되는 오프라인 evidence producer로 유지하며 Publish Boundary가 그 결과의 acceptance를 별도로 판단한다.",
-            "* public-text acceptance와 publication / release acceptance를 소유한다.",
-        },
-        "docs/DECISIONS.md": {
-            "* `PublicTextQualityAcceptanceCurrentRouteTest._phase7_self_test()`는 동일 self-test producer를 여러 test가 다시 실행한 뒤 서로 다른 result case만 읽는 명시적 우선 후보다.",
-        },
-        "docs/ROADMAP.md": {
-            "- exact result/subject identity 없이 canonical review/seal을 주장하거나 이 component evidence를 Public Text Quality PASS, Publish Boundary PASS 또는 release readiness로 확대하기",
-        },
-    }
-    if normalized_line in exact_current_nonclaim_lines.get(top_doc, set()):
-        return True
-    public_text_acceptance = re.search(
-        r"public[_ -]?(?:facing[_ -]?)?text.*accept",
-        lowered,
-    ) is not None
+    public_text_acceptance = (
+        "public-text acceptance" in lowered
+        or "public text acceptance" in lowered
+    )
     positive_completion_markers = (
         "achieved",
         "accepted",

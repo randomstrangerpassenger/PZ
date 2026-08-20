@@ -1,6 +1,6 @@
 {
   "schema_version": "iris-iar-retirement-residual-report-v1",
-  "status": "successor_installed_validation_pending",
+  "status": "full_retirement_machine_validated",
   "active_product_iar_consumer_count_by_layer": {"1": 0, "2": 0, "3": 0, "4": 0, "5": 0},
   "active_product_iar_consumer_count_all_layers": 0,
   "residual_allowlist": [],
@@ -12,13 +12,12 @@
   "successor_protected_writer_allowlist": [
     {"path": "Iris/build/description/v2/tools/build/install_dvf_3_3_complete_generation.py", "symbol": "install_complete_generation", "allowed_target": "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua", "maximum_visibility_switch_count": 1}
   ],
-  "blocked_cleanup_reasons": [
-    "final automated validation and independent review not yet complete"
-  ],
+  "blocked_cleanup_reasons": [],
   "manual_in_game_qa": "PASS_OWNER_ATTESTED",
   "owner": "Iris Layer 3 generation/package boundary",
   "forbidden_expansion": "Do not generalize the DVF 3.3 generation contract into a Layer 1-5 registry or make lifecycle receipts a default for new artifacts.",
   "retirement_reevaluation_condition": "none_after_full_closeout",
   "predecessor_cleanup_performed": false,
+  "predecessor_cleanup_reason": "The predecessor generation is inactive and retained only as a bounded rollback target; no active product consumer resolves it.",
   "rollback_available": true
 }

@@ -1,0 +1,19 @@
+{
+  "schema_version": "iris-iar-retirement-protection-mapping-v1",
+  "mappings": [
+    {"failure_protection_id": "deterministic_complete_generation", "successor_test_id": "test_dvf_3_3_complete_generation.DvfCompleteGenerationTest.test_complete_generation_is_path_independent_and_idempotent"},
+    {"failure_protection_id": "descriptor_not_authority", "successor_test_id": "test_dvf_3_3_complete_generation.DvfCompleteGenerationTest.test_descriptor_is_content_identity_not_lifecycle_authority"},
+    {"failure_protection_id": "descriptor_input_output_universe_fail_closed", "successor_test_id": "test_dvf_3_3_complete_generation.DvfCompleteGenerationTest.test_complete_generation_failure_matrix_fails_closed"},
+    {"failure_protection_id": "single_visibility_switch_and_idempotence", "successor_test_id": "test_dvf_3_3_generation_install.DvfGenerationInstallTest.test_install_uses_one_manifest_switch_and_reapply_is_noop"},
+    {"failure_protection_id": "install_failure_rollback", "successor_test_id": "test_dvf_3_3_generation_install.DvfGenerationInstallTest.test_failure_injection_preserves_predecessor_visibility"},
+    {"failure_protection_id": "stale_predecessor_and_concurrent_install", "successor_test_id": "test_dvf_3_3_generation_install.DvfGenerationInstallTest.test_expected_predecessor_and_concurrent_install_fail_closed"},
+    {"failure_protection_id": "full_exact_key_and_payload_projection", "successor_test_id": "test_dvf_3_3_runtime_compatibility.DvfRuntimeCompatibilityTest.test_runtime_full_universe_and_payload_projection_match"},
+    {"failure_protection_id": "case_collision_exact_identity", "successor_test_id": "test_dvf_3_3_runtime_compatibility.DvfRuntimeCompatibilityTest.test_case_collision_boundary_preserves_exact_keys"}
+  ],
+  "retained_separate_routes": [
+    {"failure_protection_id": "rtc_policy_owner_binding", "disposition": "retain_governance", "route": "Registry Runtime Compatibility"},
+    {"failure_protection_id": "clean_checkout_failure_laundering_guard", "disposition": "retain_governance", "route": "Iris repository validation"},
+    {"failure_protection_id": "sealed_history_reproduction", "disposition": "historical_read_only", "route": "historical tests and artifacts"}
+  ],
+  "unmapped_failure_protection": 0
+}

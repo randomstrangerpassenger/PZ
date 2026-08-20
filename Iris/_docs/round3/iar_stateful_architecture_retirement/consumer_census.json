@@ -1,0 +1,22 @@
+{
+  "schema_version": "iris-iar-retirement-consumer-census-v1",
+  "baseline_commit": "eaafed519afb7cd038af3d09443581957b3b478c",
+  "active_product_iar_consumer_count_by_layer": {"1": 0, "2": 0, "3": 4, "4": 0, "5": 0},
+  "active_product_iar_consumer_count_all_layers": 4,
+  "active_product_consumers": [
+    {"information_layer": 3, "path": "Iris/build/description/v2/tools/build/validated_naturalization_runtime_adoption.py", "symbol": "apply_generation_transaction", "disposition": "remove_after_successor_install_gate"},
+    {"information_layer": 3, "path": "Iris/build/description/v2/tools/build/compose_layer3_text.py", "symbol": "registry_current_write_authorization_receipt", "disposition": "retain_guard_until_successor_install_then_remove_lifecycle_receipt"},
+    {"information_layer": 3, "path": "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py", "symbol": "RegistryCompatibilityInvocation", "disposition": "split_pure_generation_from_rtc_governance"},
+    {"information_layer": 3, "path": "Iris/tools/package_iris.ps1", "symbol": "Get-RuntimePayloadIdentity legacy descriptor branch", "disposition": "bounded_dual_read_until_r2_a_install"}
+  ],
+  "non_product_classifications": {
+    "active_governance": ["Iris/build/description/v2/tools/build/dvf_3_3_registry_runtime_compatibility.py"],
+    "active_validation": ["Iris/_docs/round3/current_route_required_validations.json", "Iris/validation/clean_checkout/"],
+    "historical_reproduction": ["dvf_3_3_current_facts_correction*.py", "dvf_3_3_food_semantic_registry_cutover.py", "sealed attempt roots"],
+    "sealed_evidence": ["Iris/_docs/round3/registry_runtime_compatibility/bundles/", "Iris/build/description/v2/staging/"]
+  },
+  "cross_layer_migration_candidates": [],
+  "confirmed_cross_layer_migration_count": 0,
+  "unclassified_layer_count": 0,
+  "unclassified": 0
+}

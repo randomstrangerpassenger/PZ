@@ -1,0 +1,36 @@
+{
+  "schema_version": "iris-iar-retirement-baseline-readpoint-v1",
+  "execution_contract": {
+    "execution_contract_checked": true,
+    "execution_contract_path": "docs/EXECUTION_CONTRACT.md",
+    "execution_contract_version": "v1.3",
+    "execution_contract_sha256": "a185bbd78eb849b0310d9aadc9102cb156b892513266fac0ec7903eb3d3a9493",
+    "known_conflict_count": 0,
+    "conflict_disposition": "none"
+  },
+  "selected_baseline": {
+    "commit": "eaafed519afb7cd038af3d09443581957b3b478c",
+    "tree": "9696bd992ff3a0da03cafb61529e3971793ab159",
+    "tracked_file_count": 9813,
+    "tracked_path_universe_sha256": "0c93a5731b4a1076fbb76730785137852058cca45ab2a3495b091a6a26c4eba8",
+    "source_working_tree_dirty": true,
+    "execution_worktree_clean_at_creation": true,
+    "user_dirty_changes_included": false
+  },
+  "current_readpoint": {
+    "facts_row_count": 2105,
+    "rendered_entry_count": 2105,
+    "runtime_chunk_count": 11,
+    "current_generation_descriptor_raw_byte_sha256": "984e6e153ac0144870a6d01610ebb6f3f659651a1f6b5462570cd02818ed9172",
+    "rtc_source_alignment": "stale_requires_successor_rtc"
+  },
+  "required_validation_denominators": {
+    "sealed_baseline": {"required_test_count": 148, "required_artifact_count": 155},
+    "operational_successor": {"required_test_count": 156, "required_artifact_count": 162},
+    "divergence": {
+      "owner_visible_finding": true,
+      "reason": "Eight successor test nodes and seven successor code/decision artifacts were additively adopted; sealed predecessor denominator was not rewritten."
+    }
+  },
+  "protected_current_mutation_count": 0
+}

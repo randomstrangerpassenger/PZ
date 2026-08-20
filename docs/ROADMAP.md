@@ -1135,3 +1135,16 @@ Historical trace / provenance index는 ROADMAP 본문에서 더 이상 관리하
 - 실질 consolidation code보다 큰 별도 measurement/governance framework 확장
 
 근거는 `Iris/_docs/refactor/test_workflow_consolidation/`, `Iris/validation/baseline_admission/evidence/workflow_consolidation_reapplication_handoff.json`과 2026-08-17 owner validation-cost disposition이다. 현재 pilot transaction은 `complete`; broader consolidation은 이를 미완료로 되돌리는 잔여 gate가 아니라 별도 successor optimization이다.
+
+## Iris Stateful Artifact Registry architecture retirement (2026-08-20)
+
+현재 상태는 `successor_implemented_prevalidation`이다.
+
+- 여섯 canonical input과 generator contract에 결속된 deterministic off-live complete-generation builder, stateless descriptor validator와 `generation_key_identity_validation`을 구현했다.
+- R2 owner decision A를 exact generation subject에 결속했고, immutable generation-qualified Lua set + stable public manifest single-switch installer를 구현했다.
+- Package current-runtime identity는 successor stateless descriptor를 우선하고 legacy descriptor는 current migration 전 bounded predecessor read로 남긴다.
+- successor tests와 source/dependency policy를 current required route에 추가했다.
+- protected current install, predecessor cleanup, legacy IAR product consumer removal은 아직 수행하지 않았다. Existing current rendered/runtime/descriptor와 sealed history는 그대로다.
+- `stale_requires_successor_rtc`, Publish, release/Workshop, manual in-game QA, owner seal과 canonical closure는 닫지 않았다.
+
+다음 gate는 계획의 consolidated validation matrix, Codex Reviewer, R2-A Lua load/cache/package/manual QA와 exact terminal subject binding이다. 이 증거 전에는 `FULL_RETIREMENT` 또는 `MINIMAL_RESIDUAL`을 선언하지 않는다.

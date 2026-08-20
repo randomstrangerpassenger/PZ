@@ -111,9 +111,10 @@ REQUIREMENTS_BY_FT_PATH = OUTPUT_DIR / f"requirements_by_fulltype.{BUILD_VERSION
 REQUIRE_ATOM_KINDS = frozenset(["perk", "near_item", "flag"])
 REQUIRE_FIELDS_PATH = OUTPUT_DIR / versioned_name("recipe_require_fields", REQUIRE_FIELDS_VERSION)
 
-# ── PASS-eligible roles (행동 증거) ──
-# keep/require는 조건/도구이지 행동 참여가 아님 → NO
-PASS_ROLES = frozenset(["input"])
+# ── PASS-eligible explicit recipe relations (행동 증거) ──
+# input은 소비 참여, keep은 보존 참여다. keep은 보통 input이 있는 PASS recipe의
+# 조건/도구지만, keep-only recipe에서는 유일하게 확인 가능한 행동 대상이다.
+PASS_ROLES = frozenset(["input", "keep"])
 # Note: "output" would also be PASS, but recipes_index_full.json에는 output 역할 없음.
 # 향후 output이 추가되면 여기에 포함.
 
@@ -546,7 +547,7 @@ def phase_r3_decisions(
             else:
                 keep_unresolved.append(ft)
 
-        # Check if recipe has no inputs (only keeps) — still a valid recipe but NO evidence
+        # A recipe with neither input nor keep has no item relation to expose.
         if not recipe["inputs"] and not recipe["keeps"]:
             review_reasons_for_rule.append({
                 "fulltype": None,
@@ -556,10 +557,10 @@ def phase_r3_decisions(
         # Determine rule-level decision
         if review_reasons_for_rule:
             decision = "REVIEW"
-        elif matched_fulltypes:
+        elif matched_fulltypes or matched_keep_fulltypes:
             decision = "PASS"
         else:
-            # Recipe exists but no matched fulltypes (empty inputs, only keeps)
+            # Recipe exists but no valid item relation was resolved.
             decision = "NO"
 
         rules[rule_id] = {

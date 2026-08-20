@@ -152,12 +152,6 @@
   "Base.Tweezers": [
     "can_remove_embedded_object"
   ],
-  "Base.UnusableMetal": [
-    "can_scrap_moveables"
-  ],
-  "Base.UnusableWood": [
-    "can_scrap_moveables"
-  ],
   "Base.WaterBleachBottle": [
     "can_extinguish_fire"
   ],
@@ -199,9 +193,6 @@
   ],
   "Base.WaterTeacup": [
     "can_extinguish_fire"
-  ],
-  "Base.WeldingMask": [
-    "can_scrap_moveables"
   ],
   "Base.WhiskeyEmpty": [
     "can_extinguish_fire"

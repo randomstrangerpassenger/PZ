@@ -3814,7 +3814,7 @@
       "matched_keep_fulltypes": []
     },
     "rp.recipe.remove_battery": {
-      "decision": "NO",
+      "decision": "PASS",
       "recipe_id": "remove_battery",
       "recipe_name": "Remove Battery",
       "category": null,
@@ -5854,6 +5854,10 @@
         {
           "rule_id": "rp.recipe.insert_battery_into_flashlight",
           "role": "consume"
+        },
+        {
+          "rule_id": "rp.recipe.remove_battery",
+          "role": "keep"
         }
       ]
     },
@@ -7058,6 +7062,10 @@
         {
           "rule_id": "rp.recipe.insert_battery_into_duck",
           "role": "consume"
+        },
+        {
+          "rule_id": "rp.recipe.remove_battery",
+          "role": "keep"
         }
       ]
     },
@@ -7890,6 +7898,10 @@
         {
           "rule_id": "rp.recipe.insert_battery_into_flashlight",
           "role": "consume"
+        },
+        {
+          "rule_id": "rp.recipe.remove_battery",
+          "role": "keep"
         }
       ]
     },
@@ -8652,11 +8664,11 @@
   },
   "stats": {
     "total_rules": 322,
-    "pass_rules": 321,
-    "no_rules": 1,
+    "pass_rules": 322,
+    "no_rules": 0,
     "review_rules": 0,
     "pass_fulltypes": 349,
     "keep_unresolved_count": 0,
-    "recipe_keep_link_count": 129
+    "recipe_keep_link_count": 132
   }
 }

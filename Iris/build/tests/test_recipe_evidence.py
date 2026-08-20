@@ -118,6 +118,25 @@ assert stats.get("recipe_keep_link_count", 0) > 0, \
 print(f"  OK: keep_unresolved_count=0, recipe_keep_link_count={stats['recipe_keep_link_count']}")
 print()
 
+# Every recipe whose only explicit item relation is keep must remain positive.
+# Otherwise the sole acted-on/preserved item silently disappears from QG.
+recipe_index = json.loads((OUTPUT_DIR / "recipe_index.v2.4.json").read_text("utf-8"))
+keep_only_recipes = {
+    recipe_id: recipe
+    for recipe_id, recipe in recipe_index["recipes"].items()
+    if not recipe["inputs"] and recipe["keeps"]
+}
+for recipe_id, recipe in keep_only_recipes.items():
+    rule_id = f"rp.recipe.{recipe_id}"
+    assert dec["rules"][rule_id]["decision"] == "PASS", \
+        f"keep-only recipe must be PASS: {rule_id}"
+    for fulltype in recipe["keeps"]:
+        links = dec["by_fulltype"].get(fulltype, {}).get("rule_ids", [])
+        assert {"rule_id": rule_id, "role": "keep"} in links, \
+            f"keep-only recipe link missing: {fulltype} -> {rule_id}"
+print(f"  OK: {len(keep_only_recipes)} keep-only recipes remain positive and linked")
+print()
+
 # ── 5. Review queue reason validation ──
 print("=== 5. Review Queue Validation ===")
 rq = json.loads((OUTPUT_DIR / "recipe_review_queue.v2.4.json").read_text("utf-8"))

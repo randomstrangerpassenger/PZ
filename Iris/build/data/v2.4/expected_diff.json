@@ -77,7 +77,7 @@
     "frozen_no_count": 1400,
     "frozen_no_hash": "36198401530faa71b3af91877f51fdeb8081eb736e8f72b38b3cac5d573f708c",
     "frozen_usecase_count": 1607,
-    "frozen_usecase_hash": "134d812c8bcd57e42c8da4ba1da6135b67db7dbeec54db99f879cf9b50e8bf11",
+    "frozen_usecase_hash": "a8df9dedc26404944cc5796fde80069fd213f7d34d7bd56a51db415a7207d1e0",
     "frozen_description_count": 1631,
     "frozen_description_hash": "5e3fb248caa10fb2f483d6894ae0d300399a4a15c480bd2568da8a9e3198d8db",
     "frozen_requirements_count": 59,
@@ -102,11 +102,11 @@
     "override_strong_count": 8,
     "frozen_override_action_count": 11,
     "frozen_override_strong_count": 8,
-    "frozen_nav_eligible_count": 321,
+    "frozen_nav_eligible_count": 322,
     "frozen_req_with_requirements_count": 79,
     "frozen_req_atoms_total": 172,
     "frozen_req_atoms_with_check": 172,
     "frozen_req_dangling_non_suffixed_count": 1,
     "frozen_req_base_slug_fallback_count": 8,
-    "frozen_recipe_keep_link_count": 129
+    "frozen_recipe_keep_link_count": 132
 }

@@ -2114,6 +2114,13 @@
       "recipe_id": "uc.recipe.refill_blow_torch",
       "translated_name": "용접가스 충전하기"
     },
+    "uc.recipe.remove_battery": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Remove Battery",
+      "recipe_id": "uc.recipe.remove_battery",
+      "translated_name": "건전지 꺼내기"
+    },
     "uc.recipe.saw_logs": {
       "category": "Carpentry",
       "nav_eligible": true,
@@ -2249,10 +2256,10 @@
     }
   },
   "stats": {
-    "nav_eligible_count": 321,
+    "nav_eligible_count": 322,
     "nav_ineligible_count": 0,
     "nav_missing_index_count": 0,
-    "total_recipe_ucids": 321,
+    "total_recipe_ucids": 322,
     "uid_collision_count": 0
   },
   "version": "v2.4"

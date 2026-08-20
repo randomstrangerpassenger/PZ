@@ -309,12 +309,6 @@ def parse_scrap_moveables(media_root: Path, indices: Dict, logger: logging.Logge
     # 주석 제거
     content = preprocess_lua(raw_content)
     
-    # 라인별 분할 (원본 라인 번호 추적용)
-    raw_lines = raw_content.split('\n')
-    
-    # 앵커 범위: load() 함수 (231-454)
-    expected_range = (231, 454)
-    
     tools = set()
     
     # addScrapDefinition 호출 패턴
@@ -322,21 +316,40 @@ def parse_scrap_moveables(media_root: Path, indices: Dict, logger: logging.Logge
     pattern = r'addScrapDefinition\s*\([^)]*\)'
     
     for match in re.finditer(pattern, content):
-        # 호출 내용에서 도구 추출
+        # addScrapDefinition(_material, _tools, _tools2, ..., _unusableItem)의
+        # 두 tool slot만 읽는다. 이전 구현은 호출 전체의 Base.* reference를
+        # 수집해 _unusableItem 산출물까지 실행 도구로 오분류했다.
         call = match.group(0)
-        
-        # "Base.XXX" 또는 "Tag.XXX" 추출
+        if not re.match(r'addScrapDefinition\s*\(\s*"', call):
+            # Function declaration, not a material definition call.
+            continue
+        tool_slots_match = re.match(
+            r'addScrapDefinition\s*\(\s*"[^"]+"\s*,\s*(\{[^}]*\}|nil)\s*,\s*(\{[^}]*\}|nil)',
+            call,
+        )
+        if not tool_slots_match:
+            raise ValueError(f"[FAIL] Unparseable addScrapDefinition tool slots: {call}")
+
+        tool_slots = " ".join(tool_slots_match.groups())
         ref_pattern = r'"(Base\.[^"]+|Tag\.[^"]+)"'
-        refs = re.findall(ref_pattern, call)
+        refs = re.findall(ref_pattern, tool_slots)
         
         for ref in refs:
             if ref.startswith("Base."):
-                tools.add(ref)
+                item = indices["by_fulltype"].get(ref, {})
+                # _tools2 also contains required protective clothing such as a
+                # welding mask. It is not the item executing the interaction.
+                if item.get("Type") != "Clothing":
+                    tools.add(ref)
             elif ref.startswith("Tag."):
                 tag_name = ref[4:]  # "Tag." 제거
                 # by_tag 인덱스로 확장
                 if tag_name in indices["by_tag"]:
-                    tools.update(indices["by_tag"][tag_name])
+                    tools.update(
+                        fulltype
+                        for fulltype in indices["by_tag"][tag_name]
+                        if indices["by_fulltype"].get(fulltype, {}).get("Type") != "Clothing"
+                    )
     
     if len(tools) == 0:
         raise ValueError("[FAIL] can_scrap_moveables: 0 tools extracted (Fail-loud #6)")

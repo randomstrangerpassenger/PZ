@@ -22,6 +22,7 @@ from pipeline import (
     gate1_validate,
     gate2_validate,
     build_indices,
+    parse_scrap_moveables,
     resolve_criteria,
     invert_to_fulltype,
     output_gate_validate,
@@ -203,13 +204,26 @@ def test_tc4_duplicate_capability_fails_output_gate(mock_logger):
 # ============================================================================
 
 def test_tc5_scrap_moveables_contains_expected_tools(sample_indices, mock_logger):
-    """TC-5: can_scrap_moveables에 주요 도구 포함"""
-    # 실제 파싱 결과 대신 존재 검증
-    expected_tools = {"Base.Hammer", "Base.Screwdriver", "Base.Saw"}
-    
-    # 이 테스트는 실제 파이프라인 실행 후 결과로 검증
-    # 여기서는 구조만 확인
-    assert "Hammer" in sample_indices["by_type"]
+    """TC-5: scrap 실행 도구만 포함하고 재료/보호장비는 제외한다."""
+    repo_root = Path(__file__).resolve().parents[2]
+    with (repo_root / "Iris" / "input" / "items_itemscript.json").open(
+        "r", encoding="utf-8"
+    ) as handle:
+        indices = build_indices(json.load(handle), mock_logger)
+
+    actual = parse_scrap_moveables(repo_root, indices, mock_logger)
+
+    assert actual == {
+        "Base.BlowTorch",
+        "Base.Hammer",
+        "Base.Saw",
+        "Base.Screwdriver",
+    }
+    assert {
+        "Base.UnusableMetal",
+        "Base.UnusableWood",
+        "Base.WeldingMask",
+    }.isdisjoint(actual)
 
 
 # ============================================================================

@@ -288,13 +288,18 @@
     "export_dvf_3_3_lua_bridge",
     "iar_public_text_assessment",
     "public_text_quality_acceptance",
-    "naturalization_compiler_identity"
+    "naturalization_compiler_identity",
+    "dvf_3_3_generation_contract",
+    "build_dvf_3_3_complete_generation",
+    "validate_dvf_3_3_complete_generation",
+    "install_dvf_3_3_complete_generation",
+    "dvf_3_3_runtime_compatibility"
   ],
   "current_route_allowed_tooling_policy": {
     "allowed_owner_class": "current_regeneration_tooling",
     "core_closure_count_must_remain": 12,
     "expansion_requires": "separate reviewed scope; do not add modules here as a convenience bypass for current core closure",
-    "max_allowed_modules": 4,
+    "max_allowed_modules": 9,
     "modules_are_not_current_core": true
   },
   "current_route_allowed_tooling_rows": [
@@ -329,19 +334,67 @@
       "owner_class": "reusable_iar_validation_tooling",
       "path": "Iris/build/description/v2/tools/build/naturalization_compiler_identity.py",
       "reason": "The established public-text evaluator directly imports the canonical compiler-identity helper; current-route inclusion is limited to that transitive dependency."
+    },
+    {
+      "in_current_closure": false,
+      "import_allowed_for_current_route": true,
+      "module": "dvf_3_3_generation_contract",
+      "owner_class": "stateless_generation_contract",
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_generation_contract.py",
+      "reason": "The approved IAR retirement scope adopts the exact canonical-input, generator, output-universe, and protected-root contract without adding it to the 12-module compiler core."
+    },
+    {
+      "in_current_closure": false,
+      "import_allowed_for_current_route": true,
+      "module": "build_dvf_3_3_complete_generation",
+      "owner_class": "stateless_generation_tooling",
+      "path": "Iris/build/description/v2/tools/build/build_dvf_3_3_complete_generation.py",
+      "reason": "Current-route tests require deterministic off-live complete generation; the builder remains tooling rather than compiler core."
+    },
+    {
+      "in_current_closure": false,
+      "import_allowed_for_current_route": true,
+      "module": "validate_dvf_3_3_complete_generation",
+      "owner_class": "stateless_generation_validation",
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_complete_generation.py",
+      "reason": "The successor descriptor and output universe require an independent fail-closed validator."
+    },
+    {
+      "in_current_closure": false,
+      "import_allowed_for_current_route": true,
+      "module": "install_dvf_3_3_complete_generation",
+      "owner_class": "protected_generation_installer",
+      "path": "Iris/build/description/v2/tools/build/install_dvf_3_3_complete_generation.py",
+      "reason": "R2-A authorizes one protected writer with an immutable generation root and single public-manifest switch."
+    },
+    {
+      "in_current_closure": false,
+      "import_allowed_for_current_route": true,
+      "module": "dvf_3_3_runtime_compatibility",
+      "owner_class": "generation_key_identity_validation",
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_runtime_compatibility.py",
+      "reason": "Exact key and payload projection validation is stateless and explicitly does not claim Registry Runtime Compatibility."
     }
   ],
   "current_contract_imports": [
     "build_iris_fixing_index_data",
     "build_iris_moveables_index_data",
     "build_iris_recipe_index_data",
+    "build_dvf_3_3_complete_generation",
     "compose_layer3_body_profile",
-    "compose_layer3_text"
+    "compose_layer3_text",
+    "dvf_3_3_generation_contract",
+    "dvf_3_3_runtime_compatibility",
+    "install_dvf_3_3_complete_generation",
+    "validate_dvf_3_3_complete_generation"
   ],
   "current_contract_tests": [
     "Iris/build/description/v2/tests/test_build_iris_index_data.py",
     "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py",
     "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py",
+    "Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py",
+    "Iris/build/description/v2/tests/test_dvf_3_3_generation_install.py",
+    "Iris/build/description/v2/tests/test_dvf_3_3_runtime_compatibility.py",
     "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py",
     "Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py",
     "Iris/build/description/v2/tests/test_layer4_trace_edge_authority_admission_round.py",

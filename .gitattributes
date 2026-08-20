@@ -32,6 +32,21 @@ docs/dvf_3_3_food_semantic_claim_boundary.md -text
 docs/dvf_3_3_food_semantic_schema.md -text
 Iris/build/description/v2/data/dvf_3_3_facts.jsonl -text
 Iris/build/description/v2/data/dvf_3_3_input_manifest.json -text
+Iris/build/description/v2/data/dvf_3_3_decisions.jsonl -text
+Iris/build/description/v2/data/dvf_3_3_overlay_support.jsonl -text
+Iris/build/description/v2/data/compose_profiles_v2.json -text
+Iris/build/description/v2/data/compose_profile_identity_hint_rules.json -text
+Iris/build/description/v2/data/compose_profile_conflict_precedence_rules.json -text
+Iris/build/description/v2/tools/build/dvf_3_3_generation_contract.py text eol=lf
+Iris/build/description/v2/tools/build/build_dvf_3_3_complete_generation.py text eol=lf
+Iris/build/description/v2/tools/build/validate_dvf_3_3_complete_generation.py text eol=lf
+Iris/build/description/v2/tools/build/install_dvf_3_3_complete_generation.py text eol=lf
+Iris/build/description/v2/tools/build/dvf_3_3_runtime_compatibility.py text eol=lf
+Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py text eol=lf
+Iris/build/description/v2/tests/test_dvf_3_3_generation_install.py text eol=lf
+Iris/build/description/v2/tests/test_dvf_3_3_runtime_compatibility.py text eol=lf
+Iris/_docs/round3/iar_stateful_architecture_retirement/*.json text eol=lf
+Iris/_docs/round3/iar_stateful_architecture_retirement/*.jsonl text eol=lf
 Iris/_docs/authority/current_facts_correction/** -text
 Iris/build/description/v2/staging/dvf_3_3_current_facts_correction_successor/** -text
 Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0010/** -text

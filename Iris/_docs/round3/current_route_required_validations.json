@@ -2717,6 +2717,38 @@
     {
       "path": "Iris/build/description/v2/tools/build/naturalization_compiler_identity.py",
       "checks": []
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_generation_contract.py",
+      "checks": []
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/build_dvf_3_3_complete_generation.py",
+      "checks": []
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_complete_generation.py",
+      "checks": []
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/install_dvf_3_3_complete_generation.py",
+      "checks": []
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_runtime_compatibility.py",
+      "checks": []
+    },
+    {
+      "path": "Iris/_docs/round3/iar_stateful_architecture_retirement/r2_runtime_layout_owner_decision.json",
+      "checks": [
+        {"field": "selection", "equals": "A"}
+      ]
+    },
+    {
+      "path": "Iris/_docs/round3/iar_stateful_architecture_retirement/r2_installer_subject_binding.json",
+      "checks": [
+        {"field": "selection", "equals": "A"}
+      ]
     }
   ],
   "required_tests": [
@@ -3458,6 +3490,46 @@
       "required": true,
       "role": "repository_evidence_lightweighting_lifecycle_v2_required_validation",
       "test_id": "test_repository_evidence_migration.RepositoryEvidenceMigrationTest.test_codec_materializer_rejects_representation_mixing_by_construction"
+    },
+    {
+      "required": true,
+      "role": "dvf_3_3_stateless_generation_required_validation",
+      "test_id": "test_dvf_3_3_complete_generation.DvfCompleteGenerationTest.test_complete_generation_is_path_independent_and_idempotent"
+    },
+    {
+      "required": true,
+      "role": "dvf_3_3_stateless_generation_required_validation",
+      "test_id": "test_dvf_3_3_complete_generation.DvfCompleteGenerationTest.test_descriptor_is_content_identity_not_lifecycle_authority"
+    },
+    {
+      "required": true,
+      "role": "dvf_3_3_stateless_generation_required_validation",
+      "test_id": "test_dvf_3_3_complete_generation.DvfCompleteGenerationTest.test_complete_generation_failure_matrix_fails_closed"
+    },
+    {
+      "required": true,
+      "role": "dvf_3_3_safe_replacement_required_validation",
+      "test_id": "test_dvf_3_3_generation_install.DvfGenerationInstallTest.test_install_uses_one_manifest_switch_and_reapply_is_noop"
+    },
+    {
+      "required": true,
+      "role": "dvf_3_3_safe_replacement_required_validation",
+      "test_id": "test_dvf_3_3_generation_install.DvfGenerationInstallTest.test_failure_injection_preserves_predecessor_visibility"
+    },
+    {
+      "required": true,
+      "role": "dvf_3_3_safe_replacement_required_validation",
+      "test_id": "test_dvf_3_3_generation_install.DvfGenerationInstallTest.test_expected_predecessor_and_concurrent_install_fail_closed"
+    },
+    {
+      "required": true,
+      "role": "dvf_3_3_generation_key_identity_required_validation",
+      "test_id": "test_dvf_3_3_runtime_compatibility.DvfRuntimeCompatibilityTest.test_runtime_full_universe_and_payload_projection_match"
+    },
+    {
+      "required": true,
+      "role": "dvf_3_3_generation_key_identity_required_validation",
+      "test_id": "test_dvf_3_3_runtime_compatibility.DvfRuntimeCompatibilityTest.test_case_collision_boundary_preserves_exact_keys"
     }
   ],
   "route": "current",

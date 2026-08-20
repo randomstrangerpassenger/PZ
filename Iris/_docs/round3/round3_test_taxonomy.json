@@ -7939,6 +7939,94 @@
       "source_file": "Iris/build/description/v2/tests/test_repository_evidence_migration.py",
       "state": "ok",
       "test_id": "test_repository_evidence_migration.RepositoryEvidenceMigrationTest.test_codec_materializer_rejects_representation_mixing_by_construction"
+    },
+    {
+      "audit_status": "required_manifest_current",
+      "contract_class": "current",
+      "imported_build_modules": ["build_dvf_3_3_complete_generation", "dvf_3_3_generation_contract", "validate_dvf_3_3_complete_generation"],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "stateless complete generation determinism, identity-only descriptor, and failure matrix are current-required",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py",
+      "state": "ok",
+      "test_id": "test_dvf_3_3_complete_generation.DvfCompleteGenerationTest.test_complete_generation_is_path_independent_and_idempotent"
+    },
+    {
+      "audit_status": "required_manifest_current",
+      "contract_class": "current",
+      "imported_build_modules": ["build_dvf_3_3_complete_generation", "dvf_3_3_generation_contract", "validate_dvf_3_3_complete_generation"],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "stateless complete generation determinism, identity-only descriptor, and failure matrix are current-required",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py",
+      "state": "ok",
+      "test_id": "test_dvf_3_3_complete_generation.DvfCompleteGenerationTest.test_descriptor_is_content_identity_not_lifecycle_authority"
+    },
+    {
+      "audit_status": "required_manifest_current",
+      "contract_class": "current",
+      "imported_build_modules": ["build_dvf_3_3_complete_generation", "dvf_3_3_generation_contract", "validate_dvf_3_3_complete_generation"],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "stateless complete generation determinism, identity-only descriptor, and failure matrix are current-required",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py",
+      "state": "ok",
+      "test_id": "test_dvf_3_3_complete_generation.DvfCompleteGenerationTest.test_complete_generation_failure_matrix_fails_closed"
+    },
+    {
+      "audit_status": "required_manifest_current",
+      "contract_class": "current",
+      "imported_build_modules": ["build_dvf_3_3_complete_generation", "install_dvf_3_3_complete_generation"],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "R2-A single-switch install, rollback, idempotence, predecessor, and concurrency guards are current-required",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_generation_install.py",
+      "state": "ok",
+      "test_id": "test_dvf_3_3_generation_install.DvfGenerationInstallTest.test_install_uses_one_manifest_switch_and_reapply_is_noop"
+    },
+    {
+      "audit_status": "required_manifest_current",
+      "contract_class": "current",
+      "imported_build_modules": ["build_dvf_3_3_complete_generation", "install_dvf_3_3_complete_generation"],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "R2-A single-switch install, rollback, idempotence, predecessor, and concurrency guards are current-required",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_generation_install.py",
+      "state": "ok",
+      "test_id": "test_dvf_3_3_generation_install.DvfGenerationInstallTest.test_failure_injection_preserves_predecessor_visibility"
+    },
+    {
+      "audit_status": "required_manifest_current",
+      "contract_class": "current",
+      "imported_build_modules": ["build_dvf_3_3_complete_generation", "install_dvf_3_3_complete_generation"],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "R2-A single-switch install, rollback, idempotence, predecessor, and concurrency guards are current-required",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_generation_install.py",
+      "state": "ok",
+      "test_id": "test_dvf_3_3_generation_install.DvfGenerationInstallTest.test_expected_predecessor_and_concurrent_install_fail_closed"
+    },
+    {
+      "audit_status": "required_manifest_current",
+      "contract_class": "current",
+      "imported_build_modules": ["build_dvf_3_3_complete_generation", "dvf_3_3_runtime_compatibility"],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "generation-key exact identity, case collision, and runtime payload parity are current-required and do not imply RTC",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_runtime_compatibility.py",
+      "state": "ok",
+      "test_id": "test_dvf_3_3_runtime_compatibility.DvfRuntimeCompatibilityTest.test_runtime_full_universe_and_payload_projection_match"
+    },
+    {
+      "audit_status": "required_manifest_current",
+      "contract_class": "current",
+      "imported_build_modules": ["build_dvf_3_3_complete_generation", "dvf_3_3_runtime_compatibility"],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "generation-key exact identity, case collision, and runtime payload parity are current-required and do not imply RTC",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_runtime_compatibility.py",
+      "state": "ok",
+      "test_id": "test_dvf_3_3_runtime_compatibility.DvfRuntimeCompatibilityTest.test_case_collision_boundary_preserves_exact_keys"
     }
   ],
   "schema_version": "round3-test-taxonomy-v1"

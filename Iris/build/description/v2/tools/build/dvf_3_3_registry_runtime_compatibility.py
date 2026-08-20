@@ -1133,14 +1133,9 @@ def decode_lua_string(token: str) -> str:
         ) from exc
 
 
-def lua_chunk_paths(
-    manifest_path: Path,
-    chunk_dir: Path,
-    *,
-    manifest_module_re: re.Pattern[str] = LUA_MANIFEST_MODULE_RE,
-) -> list[Path]:
+def lua_chunk_paths(manifest_path: Path, chunk_dir: Path) -> list[Path]:
     text = manifest_path.read_text(encoding="utf-8")
-    modules = manifest_module_re.findall(text)
+    modules = LUA_MANIFEST_MODULE_RE.findall(text)
     if not modules:
         raise CompatibilityError(
             "lua_chunk_manifest_empty",
@@ -1162,14 +1157,9 @@ def load_lua_surface(
     manifest_path: Path,
     chunk_dir: Path,
     repo: Path,
-    manifest_module_re: re.Pattern[str] = LUA_MANIFEST_MODULE_RE,
 ) -> tuple[list[SurfaceRecord], dict[str, Any]]:
     records: list[SurfaceRecord] = []
-    chunk_paths = lua_chunk_paths(
-        manifest_path,
-        chunk_dir,
-        manifest_module_re=manifest_module_re,
-    )
+    chunk_paths = lua_chunk_paths(manifest_path, chunk_dir)
     for chunk_path in chunk_paths:
         current_key: str | None = None
         current_raw_token = ""

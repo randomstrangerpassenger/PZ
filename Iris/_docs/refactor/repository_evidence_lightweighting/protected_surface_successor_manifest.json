@@ -1585,6 +1585,41 @@
           "reason": "Assert the four additive consolidation and source-classification protection revisions in their exact active chronology without creating a self-extending revision-ID cycle."
         }
       ]
+    },
+    {
+      "revision_id": "iris_iar_retirement_current_route_extension_v1",
+      "track": "iris_stateful_artifact_registry_architecture_retirement",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "eaafed519afb7cd038af3d09443581957b3b478c",
+      "protection_predecessor_tree": "9696bd992ff3a0da03cafb61529e3971793ab159",
+      "reason": "Adopt the owner-preapproved additive successor tests and artifacts required by the IAR retirement plan without rewriting predecessor evidence.",
+      "approved_activation_deltas": [
+        {
+          "path": "Iris/_docs/round3/round3_test_taxonomy.json",
+          "predecessor_sha256": "b7706d03f2372881592669f115a52cdac811df61d53dc09f162a458a77c2cac2",
+          "before_git_blob_id": "6b8ef1e93a0b9769c6bfcf5ab072c2e36d6b581c",
+          "before_sha256_lf": "175b0a08d60af648501d4c15e69b81b77b5d285d85fb86447011fa4c763a8ccf",
+          "expected_git_blob_id": "50e9fbbece0a17733028ae441e6cfb031cdeabde",
+          "after_sha256_lf": "3f076670d430651b7179980b4fe0dc0b9e8b8504a77b0ef1d99ebe46c547bf61",
+          "owner": "repository_owner_user",
+          "reason": "Register the eight additive current-route successor tests required by the IAR retirement plan."
+        }
+      ],
+      "added_protected_rows": [
+        {
+          "path": "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+          "before_git_blob_id": "e85c2b63a63097780de5641d751b4c7bab06207b",
+          "before_sha256_lf": "11b1a5887f9e64ab31b0a3a503524a13df43e1c88a7a39ed79ba941ab118afda",
+          "expected_git_blob_id": "ec77e5aa86e3e0882658944b8fa8809c3be24e83",
+          "after_sha256_lf": "31a90ba523986e411b7e702bcf2c1536a7fd2d98b9aa93ab89f6752e3f286e82",
+          "role": "iar_retirement_full_repository_gate_extension",
+          "writer": "iris_stateful_artifact_registry_architecture_retirement",
+          "consumers": ["full_repository_gate", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Require the IAR successor artifacts in clean-checkout validation while preserving the predecessor gate contract."
+        }
+      ]
     }
   ]
 }

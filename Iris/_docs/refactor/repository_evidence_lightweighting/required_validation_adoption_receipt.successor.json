@@ -13,12 +13,12 @@
   "bound_inputs": {
     "full_repository_gate": {
       "path": "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
-      "git_blob_id": "e85c2b63a63097780de5641d751b4c7bab06207b",
-      "physical_raw_sha256_at_adoption": "11b1a5887f9e64ab31b0a3a503524a13df43e1c88a7a39ed79ba941ab118afda"
+      "git_blob_id": "ec77e5aa86e3e0882658944b8fa8809c3be24e83",
+      "physical_raw_sha256_at_adoption": "31a90ba523986e411b7e702bcf2c1536a7fd2d98b9aa93ab89f6752e3f286e82"
     }
   },
   "binding_successor": {
-    "successor_id": "iris_canonical_full_gate_source_classification_alignment_55_20260818",
+    "successor_id": "iris_iar_retirement_current_route_extension_20260820",
     "classification_change_commit": "591be9331212fd54ad5d21ce3d34b39249a5a6d5",
     "classification_change_tree": "ea421124bd6234733ae33665c6962a4ae88937a2",
     "implementation_predecessor_commit": "c29eba99f24be459d83cd189806754041dd2cc20",

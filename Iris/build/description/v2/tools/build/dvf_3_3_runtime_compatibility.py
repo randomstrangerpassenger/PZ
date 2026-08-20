@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -9,16 +10,33 @@ from typing import Any, Sequence
 
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-    from tools.build import dvf_3_3_registry_runtime_compatibility as legacy_pure
     from tools.build.dvf_3_3_generation_contract import (
         RENDERED_NAME,
         RUNTIME_MANIFEST_NAME,
+        sha256_file,
     )
     from tools.build.export_dvf_3_3_lua_bridge import with_runtime_aliases
 else:
-    from . import dvf_3_3_registry_runtime_compatibility as legacy_pure
-    from .dvf_3_3_generation_contract import RENDERED_NAME, RUNTIME_MANIFEST_NAME
+    from .dvf_3_3_generation_contract import (
+        RENDERED_NAME,
+        RUNTIME_MANIFEST_NAME,
+        sha256_file,
+    )
     from .export_dvf_3_3_lua_bridge import with_runtime_aliases
+
+
+RUNTIME_PAYLOAD_FIELDS = ("source", "text_ko", "publish_state")
+LUA_ENTRY_RE = re.compile(
+    r'^\s{4}\[(?P<token>"(?:\\.|[^"\\])*")\]\s*=\s*\{\s*$'
+)
+LUA_FIELD_RE = re.compile(
+    r'^\s{8}\["(?P<field>source|text_ko|publish_state)"\]\s*=\s*'
+    r'(?P<token>"(?:\\.|[^"\\])*")\s*,\s*$'
+)
+
+
+class _ObjectPairs(list[tuple[str, Any]]):
+    pass
 
 
 class RuntimeCompatibilityError(RuntimeError):
@@ -29,8 +47,202 @@ class RuntimeCompatibilityError(RuntimeError):
         self.details = details
 
 
-def _record_map(records: Sequence[Any]) -> dict[str, dict[str, Any]]:
-    return {record.decoded_key: record.payload for record in records}
+def _pairs_to_value(value: Any) -> Any:
+    if isinstance(value, _ObjectPairs):
+        return {key: _pairs_to_value(member) for key, member in value}
+    if isinstance(value, list):
+        return [_pairs_to_value(member) for member in value]
+    return value
+
+
+def _load_rendered_records(path: Path) -> list[tuple[str, dict[str, Any]]]:
+    try:
+        document = json.loads(
+            path.read_bytes().decode("utf-8"),
+            object_pairs_hook=_ObjectPairs,
+        )
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise RuntimeCompatibilityError("RENDERED_JSON_INVALID", str(exc)) from exc
+    if not isinstance(document, _ObjectPairs):
+        raise RuntimeCompatibilityError("RENDERED_ROOT_INVALID")
+    entries_values = [value for key, value in document if key == "entries"]
+    if len(entries_values) != 1 or not isinstance(entries_values[0], _ObjectPairs):
+        raise RuntimeCompatibilityError("RENDERED_ENTRIES_INVALID")
+    records: list[tuple[str, dict[str, Any]]] = []
+    for key, payload in entries_values[0]:
+        converted = _pairs_to_value(payload)
+        if not isinstance(key, str) or not isinstance(converted, dict):
+            raise RuntimeCompatibilityError("RENDERED_ENTRY_INVALID", key)
+        records.append((key, converted))
+    return records
+
+
+def _decode_lua_string(token: str) -> str:
+    if len(token) < 2 or token[0] != '"' or token[-1] != '"':
+        raise RuntimeCompatibilityError("LUA_STRING_TOKEN_INVALID", token)
+    output = bytearray()
+    simple = {
+        "a": 0x07,
+        "b": 0x08,
+        "f": 0x0C,
+        "n": 0x0A,
+        "r": 0x0D,
+        "t": 0x09,
+        "v": 0x0B,
+        "\\": 0x5C,
+        '"': 0x22,
+        "'": 0x27,
+    }
+    index = 1
+    while index < len(token) - 1:
+        character = token[index]
+        if character != "\\":
+            output.extend(character.encode("utf-8"))
+            index += 1
+            continue
+        index += 1
+        if index >= len(token) - 1:
+            raise RuntimeCompatibilityError("LUA_STRING_ESCAPE_TRUNCATED", token)
+        escaped = token[index]
+        if escaped in simple:
+            output.append(simple[escaped])
+            index += 1
+            continue
+        if escaped.isdigit():
+            end = index
+            while end < min(index + 3, len(token) - 1) and token[end].isdigit():
+                end += 1
+            value = int(token[index:end], 10)
+            if value > 255:
+                raise RuntimeCompatibilityError("LUA_DECIMAL_ESCAPE_OUT_OF_RANGE", token)
+            output.append(value)
+            index = end
+            continue
+        if escaped == "x":
+            digits = token[index + 1 : index + 3]
+            if len(digits) != 2 or not all(
+                character in "0123456789abcdefABCDEF" for character in digits
+            ):
+                raise RuntimeCompatibilityError("LUA_HEX_ESCAPE_INVALID", token)
+            output.append(int(digits, 16))
+            index += 3
+            continue
+        raise RuntimeCompatibilityError("LUA_ESCAPE_UNSUPPORTED", escaped)
+    try:
+        return output.decode("utf-8")
+    except UnicodeDecodeError as exc:
+        raise RuntimeCompatibilityError("LUA_STRING_UTF8_INVALID", token) from exc
+
+
+def _load_runtime_records(
+    *,
+    generation_root: Path,
+    manifest_path: Path,
+    chunk_dir: Path,
+    generation_id: str,
+) -> tuple[list[tuple[str, dict[str, Any]]], dict[str, Any]]:
+    module_re = re.compile(
+        rf'"(?P<module>Iris/Data/IrisLayer3Generations/{re.escape(generation_id)}/Chunks/Chunk\d{{3}})"'
+    )
+    modules = module_re.findall(manifest_path.read_text(encoding="utf-8"))
+    if not modules:
+        raise RuntimeCompatibilityError("RUNTIME_MANIFEST_EMPTY")
+    chunk_paths = [chunk_dir / f"{module.rsplit('/', 1)[-1]}.lua" for module in modules]
+    missing = [path.as_posix() for path in chunk_paths if not path.is_file()]
+    if missing:
+        raise RuntimeCompatibilityError("RUNTIME_CHUNK_MISSING", missing)
+
+    records: list[tuple[str, dict[str, Any]]] = []
+    for chunk_path in chunk_paths:
+        current_key: str | None = None
+        current_payload: dict[str, Any] = {}
+        for line_number, line in enumerate(
+            chunk_path.read_text(encoding="utf-8").splitlines(),
+            start=1,
+        ):
+            entry_match = LUA_ENTRY_RE.match(line)
+            if entry_match:
+                if current_key is not None:
+                    raise RuntimeCompatibilityError(
+                        "RUNTIME_ENTRY_NESTED", f"{chunk_path}:{line_number}"
+                    )
+                current_key = _decode_lua_string(entry_match.group("token"))
+                current_payload = {}
+                continue
+            if current_key is None:
+                continue
+            field_match = LUA_FIELD_RE.match(line)
+            if field_match:
+                field = field_match.group("field")
+                if field in current_payload:
+                    raise RuntimeCompatibilityError(
+                        "RUNTIME_PAYLOAD_FIELD_DUPLICATE",
+                        f"{chunk_path}:{line_number}:{field}",
+                    )
+                current_payload[field] = _decode_lua_string(field_match.group("token"))
+                continue
+            if line.strip() == "},":
+                records.append((current_key, current_payload))
+                current_key = None
+                current_payload = {}
+        if current_key is not None:
+            raise RuntimeCompatibilityError("RUNTIME_ENTRY_UNCLOSED", chunk_path.as_posix())
+
+    return records, {
+        "manifest_path": manifest_path.relative_to(generation_root).as_posix(),
+        "manifest_sha256": sha256_file(manifest_path),
+        "chunk_count": len(chunk_paths),
+        "chunk_paths": [path.relative_to(generation_root).as_posix() for path in chunk_paths],
+        "chunk_hashes": [sha256_file(path) for path in chunk_paths],
+    }
+
+
+def _duplicates(records: Sequence[tuple[str, dict[str, Any]]]) -> list[dict[str, Any]]:
+    grouped: dict[str, list[int]] = {}
+    for ordinal, (key, _) in enumerate(records, start=1):
+        grouped.setdefault(key, []).append(ordinal)
+    return [
+        {"decoded_key": key, "occurrence_count": len(ordinals), "ordinals": ordinals}
+        for key, ordinals in sorted(grouped.items())
+        if len(ordinals) > 1
+    ]
+
+
+def _record_map(
+    records: Sequence[tuple[str, dict[str, Any]]],
+) -> dict[str, dict[str, Any]]:
+    return {key: payload for key, payload in records}
+
+
+def _runtime_projection(payload: dict[str, Any]) -> dict[str, Any]:
+    return {field: payload[field] for field in RUNTIME_PAYLOAD_FIELDS if field in payload}
+
+
+def _payload_hash(payload: dict[str, Any]) -> str:
+    encoded = json.dumps(
+        payload,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
+def _ascii_lower(value: str) -> str:
+    return value.translate(str.maketrans("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"))
+
+
+def _collision_groups(
+    records: Sequence[tuple[str, dict[str, Any]]],
+) -> list[dict[str, Any]]:
+    grouped: dict[str, set[str]] = {}
+    for key, _ in records:
+        grouped.setdefault(_ascii_lower(key), set()).add(key)
+    return [
+        {"ascii_lower_key": key, "members": sorted(members)}
+        for key, members in sorted(grouped.items())
+        if len(members) > 1
+    ]
 
 
 def validate_generation_runtime_compatibility(
@@ -54,21 +266,15 @@ def validate_generation_runtime_compatibility(
         / generation_id
         / "Chunks"
     )
-    rendered_records = legacy_pure.load_rendered_surface(
-        rendered_path,
-        repo=generation_root,
-    )
-    runtime_records, runtime_meta = legacy_pure.load_lua_surface(
-        surface="runtime",
+    rendered_records = _load_rendered_records(rendered_path)
+    runtime_records, runtime_meta = _load_runtime_records(
+        generation_root=generation_root,
         manifest_path=manifest_path,
         chunk_dir=chunk_dir,
-        repo=generation_root,
-        manifest_module_re=re.compile(
-            rf'"(?P<module>Iris/Data/IrisLayer3Generations/{re.escape(generation_id)}/Chunks/Chunk\d{{3}})"'
-        ),
+        generation_id=generation_id,
     )
-    rendered_duplicates = legacy_pure.exact_duplicates(rendered_records)
-    runtime_duplicates = legacy_pure.exact_duplicates(runtime_records)
+    rendered_duplicates = _duplicates(rendered_records)
+    runtime_duplicates = _duplicates(runtime_records)
     if rendered_duplicates:
         raise RuntimeCompatibilityError(
             "RENDERED_EXACT_KEY_DUPLICATE",
@@ -96,14 +302,14 @@ def validate_generation_runtime_compatibility(
 
     mismatches: list[dict[str, str]] = []
     for key in sorted(expected_keys):
-        expected = legacy_pure.runtime_projection(expected_runtime_map[key])
-        actual = legacy_pure.runtime_projection(runtime_map[key])
+        expected = _runtime_projection(expected_runtime_map[key])
+        actual = _runtime_projection(runtime_map[key])
         if expected != actual:
             mismatches.append(
                 {
                     "full_type": key,
-                    "expected_sha256": legacy_pure.payload_hash(expected),
-                    "actual_sha256": legacy_pure.payload_hash(actual),
+                    "expected_sha256": _payload_hash(expected),
+                    "actual_sha256": _payload_hash(actual),
                 }
             )
     if mismatches:
@@ -112,7 +318,7 @@ def validate_generation_runtime_compatibility(
             mismatches,
         )
 
-    collision_groups = legacy_pure.collision_groups(runtime_records)
+    collision_groups = _collision_groups(runtime_records)
     return {
         "schema_version": "dvf-3-3-generation-key-identity-validation-v1",
         "generation_id": generation_id,

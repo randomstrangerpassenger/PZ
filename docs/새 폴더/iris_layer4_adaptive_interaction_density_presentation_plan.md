@@ -4,6 +4,8 @@ Iris Layer 4 상호작용 밀도 적응형 표시 체계
 
 > 2026-08-20 IAR retirement Walkthrough synchronization: product outcome은 `FULL_RETIREMENT`, Layer 1–5 active product IAR consumer와 residual allowlist는 모두 `0`이다. closeout readpoint는 main `c91d8f79`, terminal implementation subject `6f362b5e`, full-gate subject `c924349e`다. DVF 3.3은 R2-B immutable generation + `IrisLayer3DataCurrent.lua` single pointer로 전환됐지만 이 successor는 Layer 3 전용이다. Layer 4 generated mutation에는 QG owner의 별도 deterministic complete-generation/stateless-validation/safe-install contract와 별도 owner decision이 필요하며 DVF 3.3 installer/descriptor를 자동 일반화하지 않는다. Presentation/UI scope와 기존 ratification gate는 그대로다.
 
+> 2026-08-21 Item-Page Information Sufficiency Walkthrough synchronization: read-only assessment component는 main `009982ef83ebbf46ec0a7da80182f5b868c7c5c8`, result `63077bf221b5af4874bbeb78fecd02708a7472564942b8e7e4d129df9a77b480`, stable closeout `Iris/_docs/round3/item_page_information_sufficiency/63077bf221b5af4874bbeb78fecd02708a7472564942b8e7e4d129df9a77b480/axis_qualified_closeout.json`으로 terminal component PASS를 완료했다. 이 결과는 current Layer 4 producer/public/runtime provenance를 입력으로 읽었지만 QG authority, Gate 3 migration, density policy 또는 content remediation을 승인하지 않았다. 이 계획이 assessment-bound Layer 4 input이나 protected consumer를 바꾸면 predecessor result PASS를 상속하지 않고 required-route regression과 additive successor disposition을 수행한다.
+
 > 상태: CLD Round 4 Important 2건·Minor 2건 반영 / proposed / `L4-RAT-08` pending / Recipe fallback cutover blocked by planning census (`recipe_only=3`, all `qg_decided_no`) / implementation not authorized / independent review pending
 >
 > 이 계획 수정 요청은 문서 보강 승인이다. 아래 owner-reserved presentation decision, runtime behavior 변경, Layer 4 generated installation 또는 canonical document promotion의 owner seal로 해석하지 않는다. Retirement closeout은 RTC PASS, Publish PASS, release readiness 또는 owner-sealed canonical closure를 제공하지 않았다.
@@ -114,11 +116,12 @@ owner policy seal이 제공되지 않으면 이 계획은 pre-seal ceiling에서
 - Gate 3 PASS 뒤 Layer 4 generation/install contract만 blocked일 때 projection-dependent scope를 유예하고 non-public mutation-independent subject만 계속하는 partial closeout 경계
 - staging governance text와 owner-sealed canonical write의 분리
 - disposable package projection의 Lua syntax 및 payload parity 검증
+- terminal Item-Page Information Sufficiency component와의 dependency-intersection 분류, required-route regression 및 필요한 additive successor disposition
 
 ### Explicitly Out Of Scope
 
 - QG Evidence, classification, use-case 결정 또는 requirement 의미의 변경
-- Layer 3 body, DVF System 또는 item-page information sufficiency assessment 변경
+- Layer 3 body, DVF System 또는 item-page information sufficiency evaluator/policy/semantic contract 변경; 이 계획의 diff가 기존 assessment-bound input을 건드릴 때 필요한 regression/successor 갱신은 제외하지 않음
 - 새 Recipe/Right-click 사실 추출 또는 current Layer 4 coverage 확대
 - `qg_absent`에 대한 QG coverage 추가, `qg_decided_no`에 대한 QG 재판정, 또는 exact legacy-row 제거 교정의 실행; 각각 별도 authority/scope/validation subject다.
 - output 부재에서 실제 게임 기능 부재를 추론하는 closed-world authority 생성
@@ -192,6 +195,9 @@ owner policy seal이 제공되지 않으면 이 계획은 pre-seal ceiling에서
 - `IrisUseCaseLabelMap.lua`는 KO/EN use-case label과 Source label을 제공한다. Recipe line은 original/translated name과 pre-rendered text를 함께 가진다.
 - current recipe requirement index의 `display`는 localized-neutral schema가 아니므로 locale별 requirement 표시를 지원하려면 structured `check`를 보존한 additive display projection 또는 translation key가 필요하다. runtime에서 raw display text를 분석해 번역하지 않는다.
 - Retirement Walkthrough는 Layer 1–5 active product IAR consumer를 0으로 닫았고 DVF 3.3 전용 stateless successor만 설치했다. Layer 4는 해당 successor의 consumer/migration 대상이 아니었으므로 generated diff가 생기면 QG/Layer 4-specific owner decision과 generation/install contract를 별도로 열어야 한다. Producer regeneration과 package projection만으로 current installation을 주장하지 않는다.
+- terminal Item-Page Information Sufficiency component는 exact 2,285 FullType에서 `information_sufficient=2,081`, `evidence_limited=180`, `known_information_missing=2`, `unresolved=22`를 보고했다. 이 distribution과 gap inventory는 density threshold, Recipe fallback cutover, QG coverage expansion, representative selection 또는 remediation 우선순위의 근거가 아니다.
+- IPS assessment는 `upstream_usecases_by_fulltype.json`, `descriptions_by_fulltype.v2.4.json`과 current Layer 4 public/runtime coherence를 exact input으로 소비한다. 이 계획의 actual diff가 해당 input, generator/consumer identity 또는 protected successor와 교차하면 기존 result/owner seal/current-route PASS는 predecessor-only다.
+- 교차가 없으면 path/hash dependency-disposition evidence와 current-route regression으로 기존 result 비변경을 확인한다. 교차가 있으면 ratified IPS runner/validator로 Run A/B를 다시 수행하고 result/manifest 변화에 맞는 additive governance successor를 별도 완료한다. IPS evaluator 의미나 policy를 이 계획에서 수정하지 않는다.
 - `docs/EXECUTION_CONTRACT.md`에 따라 이 작업은 Authority/Runtime/Sealed Artifact/Public-Facing Output을 만지는 Heavy execution이다. machine validation, independent review, owner seal과 canonical closure eligibility는 별도 축이다.
 
 ### Proposed Policy Assumptions — Owner Seal Pending
@@ -266,17 +272,22 @@ Regression-observed but not normally modified:
 - `Iris/media/lua/client/Iris/UI/Wiki/IrisWikiUseCaseLineRenderer.lua`
 - `Iris/media/lua/client/Iris/UI/Tooltip/IrisAltTooltip.lua`
 - `Iris/media/lua/client/Iris/UI/Tooltip/IrisTooltipSummary.lua`
+- `Iris/build/description/v2/tools/build/item_page_information_sufficiency.py`
+- `Iris/build/description/v2/tools/build/run_item_page_information_sufficiency_assessment.py`
+- `Iris/build/description/v2/tools/build/validate_item_page_information_sufficiency_assessment.py`
+- `Iris/build/description/v2/data/item_page_information_sufficiency/**`
+- `Iris/_docs/round3/current_route_required_validations.json`
 
 ### Docs
 
-- `docs/iris_layer4_adaptive_interaction_density_presentation_plan.md` (이 계획)
+- `docs/새 폴더/iris_layer4_adaptive_interaction_density_presentation_plan.md` (이 계획)
 - `docs/iris_layer4_adaptive_interaction_density_presentation_decision_packet.md` (new, STAGING DRAFT; owner policy seal input)
 - `docs/iris_layer4_adaptive_interaction_density_presentation_closeout.md` (new, staging/evidence-bounded closeout)
 - `docs/DECISIONS.md` (independent review와 owner canonical seal 뒤에만 additive canonical 결정)
 - `docs/ARCHITECTURE.md` (같은 canonical promotion gate 뒤 QG line → single lookup → private projection → Browser renderer 흐름)
 - `docs/ROADMAP.md` (같은 gate 뒤 완료 상태, `Base.Tongs` current-count 정정과 remaining validation limits)
 
-`docs/iris_item_page_information_sufficiency_plan.md`는 별도 assessment 계획이며 수정하거나 결합하지 않는다.
+`docs/새 폴더/iris_item_page_information_sufficiency_plan.md`와 `docs/iris_item_page_information_sufficiency_walkthrough.md`는 별도 terminal assessment의 plan/readpoint다. evaluator 의미나 policy를 이 계획과 결합하지 않되, actual diff가 assessment-bound input과 교차하면 predecessor result의 regression/successor disposition을 생략하지 않는다.
 
 ### Config
 
@@ -866,7 +877,8 @@ projection의 수학적 completeness, standalone Lua state, PZ Kahlua runtime be
 - **Change 12-b — canonical promotion:** independent review PASS와 owner-supplied canonical seal이 exact subject manifest에 결속된 경우에만 `DECISIONS.md`, `ARCHITECTURE.md`, `ROADMAP.md`에 additive write를 수행한다.
 - Change 9의 Gate 3 PASS 후 Layer 4 install-contract-blocked partial branch에서는 non-public mutation-independent implementation과 deferred projection-dependent scope를 staging closeout에만 기록하고 Change 12-b를 실행하지 않는다. full target과 다른 partial behavior를 canonical 완료 결정으로 봉인하지 않는다.
 - implementation/machine validation/generated installation 완료는 owner canonical seal이나 canonical write 완료를 함의하지 않는다.
-- `docs/iris_item_page_information_sufficiency_plan.md`의 assessment authority, Layer 3/4 sufficiency claim과 합치거나 대체하지 않는다.
+- terminal IPS result `63077bf221b5af4874bbeb78fecd02708a7472564942b8e7e4d129df9a77b480`와 actual implementation diff의 dependency intersection을 staging closeout에 기록한다. 교차가 없으면 exact non-intersection/current-route evidence를, 교차가 있으면 regenerated Run A/B result, no-write validation과 additive successor governance identity를 결속한다.
+- `docs/새 폴더/iris_item_page_information_sufficiency_plan.md`의 assessment authority, Layer 3/4 sufficiency claim과 합치거나 대체하지 않는다. IPS의 네 disposition 또는 gap count를 presentation owner seal 입력으로 사용하지 않는다.
 - validation evidence, independent review 또는 owner seal이 없는 상태에서 해당 축의 완료 표시를 하지 않는다.
 
 **Validation**
@@ -874,6 +886,7 @@ projection의 수학적 completeness, standalone Lua state, PZ Kahlua runtime be
 - Philosophy의 Menu/Tooltip, silence/evidence, read-only 원칙과 상충하지 않는지 검토한다.
 - staging patch와 canonical diff의 exact text/hash parity를 검사한다.
 - independent review subject, owner seal subject와 실제 canonical diff가 동일한지 검사한다. 변경되면 기존 review/seal을 stale로 판정한다.
+- IPS dependency-intersection disposition이 complete하고, required인 predecessor regression 또는 additive successor validation이 exit `0`인지 검사한다.
 - DECISIONS/ARCHITECTURE/ROADMAP 사이에 Source authority나 surface 수에 관한 모순이 없는지 검사한다.
 - partial branch fixture에서 canonical top-document diff가 0이고 staging closeout만 `partial`을 기록하는지 검사한다.
 - claim boundary가 package publication, factual completeness, performance로 확대되지 않았는지 확인한다.
@@ -927,15 +940,23 @@ $repositoryRoot = (Resolve-Path '.').Path
 powershell -ExecutionPolicy Bypass -File .\Iris\test\validate_disposable_package.ps1 -RepositoryRoot $repositoryRoot
 ```
 
+`V7` — terminal Item-Page Information Sufficiency required-route regression과 dependency-intersection disposition:
+
+```powershell
+uv run python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure --out Iris/build/description/v2/staging/iris_layer4_adaptive_interaction_density_presentation/validation/ips-current-route-result.json
+```
+
+actual diff가 IPS assessment-bound Layer 4 input, generator/consumer identity 또는 protected successor와 교차하면 V7에는 ratified assessment Run A/B, no-write validator, predecessor result 비교와 additive successor governance evidence도 포함한다. 교차하지 않으면 exact path/hash non-intersection record를 남기며, tracked implementation subject가 전혀 없는 pre-seal path에서만 `not_applicable(no_subject)`가 가능하다.
+
 JS/TS와 Java/Gradle 파일은 이 계획 범위에 없다. 해당 파일이 실제 diff에 생길 경우 AGENTS.md의 exact validation을 추가하고, tooling 부재 시 BLOCKED로 보고한다.
 
 #### Execution-Path Required Validation Set
 
 | Execution path | Required commands/evidence | `not_applicable(no_subject)` | Closeout rule |
 |---|---|---|---|
-| Pre-seal / Gate 3 `BLOCKED` (current default) | `V1`; fresh capability/Recipe census·disjoint taxonomy·deterministic replay와 declared pre-seal no-current-mutation manifest만 required | `V2`: Change 2 subject 없음; `V3`: controlled current-denominator 변경 subject 없음; `V4`: current Lua change 없음; `V5`: 신규 production/dev harness module 및 adaptive runtime subject 없음; `V6`: installed/no-mutation implementation projection subject 없음 | required evidence가 PASS여도 plan closeout은 `blocked`; `L4-RAT-08` packet은 허용 산출물이지만 owner response는 validation PASS 전제 아님; 나머지를 PASS로 주장하지 않음 |
-| Gate 3 PASS 후 full implementation | `V1`, `V2`, `V3`, `V4`, `V5`, `V6`; applicable manual matrix와 Layer 4 generation/install branch evidence | 없음 | 하나라도 missing/non-zero면 해당 axis `BLOCKED`/`FAIL`; full `complete` 불가 |
-| Gate 3 PASS 후 Layer 4 contract/writer `BLOCKED` partial | `V1`, `V2`, `V3`, `V4`; projection-dependent diff 0, existing renderer/fallback hash 보존과 partial subject manifest | `V5`: adaptive production/dev harness가 current 설치되지 않음; `V6`: installed current generation/package projection 없음 | `partial`만 가능; `V5`/`V6` N/A를 runtime/package PASS로 바꾸지 않음 |
+| Pre-seal / Gate 3 `BLOCKED` (current default) | `V1`; fresh capability/Recipe census·disjoint taxonomy·deterministic replay와 declared pre-seal no-current-mutation manifest만 required | `V2`: Change 2 subject 없음; `V3`: controlled current-denominator 변경 subject 없음; `V4`: current Lua change 없음; `V5`: 신규 production/dev harness module 및 adaptive runtime subject 없음; `V6`: installed/no-mutation implementation projection subject 없음; `V7`: tracked implementation/dependency-intersection subject 없음 | required evidence가 PASS여도 plan closeout은 `blocked`; `L4-RAT-08` packet은 허용 산출물이지만 owner response는 validation PASS 전제 아님; 나머지를 PASS로 주장하지 않음 |
+| Gate 3 PASS 후 full implementation | `V1`, `V2`, `V3`, `V4`, `V5`, `V6`, `V7`; applicable manual matrix와 Layer 4 generation/install branch evidence | 없음 | 하나라도 missing/non-zero면 해당 axis `BLOCKED`/`FAIL`; full `complete` 불가 |
+| Gate 3 PASS 후 Layer 4 contract/writer `BLOCKED` partial | `V1`, `V2`, `V3`, `V4`, `V7`; projection-dependent diff 0, existing renderer/fallback hash 보존과 partial subject manifest | `V5`: adaptive production/dev harness가 current 설치되지 않음; `V6`: installed current generation/package projection 없음 | `partial`만 가능; `V5`/`V6` N/A를 runtime/package PASS로 바꾸지 않음 |
 
 - path selection report는 Gate 3 result, exact subject manifest hash와 Layer 4 generation/install branch result를 기록하며 사람이 명령을 임의로 required/N/A 전환하지 못하게 한다.
 - Gate 3 blocked 경로의 `V1`은 census/taxonomy와 no-current-mutation manifest 중 하나라도 absent/stale이면 non-zero로 종료한다. 별도 runtime implementation이 없다는 이유로 이 required evidence를 생략하지 않는다.
@@ -1016,7 +1037,7 @@ JS/TS와 Java/Gradle 파일은 이 계획 범위에 없다. 해당 파일이 실
 - 모든 resolution/UI scale 조합을 검증하지 않는다.
 - multiplayer와 long-session behavior를 검증하지 않는다.
 - QG Evidence coverage completeness나 실제 게임의 모든 interaction 존재 여부를 검증하지 않는다.
-- Layer 3 prose quality 또는 item-page information sufficiency를 검증하지 않는다.
+- Layer 3 prose quality나 item-page information sufficiency 의미를 재판정하지 않는다. V7은 기존 terminal component의 dependency regression/successor 정합성만 검증한다.
 - performance, memory, FPS/frame-time 개선을 claim하지 않는다.
 - disposable package projection PASS는 package publication/release/Workshop readiness가 아니다.
 
@@ -1169,11 +1190,12 @@ interaction omission이나 navigation mismatch가 발견되면 adaptive renderer
 - DVF 3.3 generation/install contract를 Layer 4로 일반화하지 않는다. Cross-layer reuse는 actual obligation equivalence와 별도 owner decision 없이는 금지한다.
 - Gate 3이 실패하면 Change 2 이후 policy-dependent implementation 전체가 `blocked`다. Gate 3 PASS 뒤 Layer 4 generation/install contract만 blocked인 경우에는 non-public mutation-independent subject만 진행하며 overall closeout은 `partial`이다.
 - machine validation, independent review, owner policy/canonical seal과 generated installation은 서로 대체하지 않는다.
+- terminal IPS component PASS는 density policy, Gate 3, QG coverage 또는 presentation completion을 대체하지 않는다. 반대로 이 계획의 PASS도 predecessor IPS result를 자동 승계하거나 Publish Boundary verdict를 발행하지 않는다.
 - canonical top documents는 staging patch → exact subject independent review → owner canonical seal 뒤에만 additive write한다.
 - 이 계획 수정 요청, reviewer verdict 또는 구현 결과에서 owner seal을 추론하지 않는다.
 - 선택된 execution path에서 required인 validation command가 없거나 exit code가 0이 아니면 PASS가 아니라 BLOCKED/FAIL로 보고한다. `not_applicable(no_subject)` command에는 이 규칙을 오적용하지 않는다.
 - package projection 검증과 release/publish readiness를 구분한다.
-- `docs/iris_item_page_information_sufficiency_plan.md`의 assessment scope와 이 presentation implementation scope를 합치지 않는다.
+- `docs/새 폴더/iris_item_page_information_sufficiency_plan.md`와 terminal Walkthrough의 assessment scope를 이 presentation implementation scope와 합치지 않는다. 다만 exact dependency intersection과 required-route successor 책임은 분리된 채 이 계획의 closeout 전에 닫는다.
 
 ---
 
@@ -1210,6 +1232,7 @@ full 완료 시 다음 상태가 모두 성립해야 한다.
 - public UseCases facade와 existing Browser/Wiki/Tooltip entry path에 지원 범위 내 회귀가 없다.
 - required Python, Lua syntax, standalone/mock Lua, PZ Kahlua runtime, manual in-game UI와 disposable package 검증 결과가 축별로 기록된다.
 - declared generated diff가 없으면 `not_applicable(no_generated_mutation)` 근거가 있고, diff가 있으면 Layer 4-specific owner decision, complete successor, safe-install evidence와 installed runtime/package identity가 있다.
+- terminal IPS result와 actual diff의 dependency-intersection disposition이 존재하고, V7 required-route regression 또는 필요한 additive IPS successor validation이 완료된다.
 - exact subject의 eligible independent review와 owner canonical seal 뒤 `DECISIONS.md`, `ARCHITECTURE.md`, `ROADMAP.md`가 실제 구현 상태와 일치한다.
 
 `docs/EXECUTION_CONTRACT.md`의 closeout state를 다음처럼 적용한다.
@@ -1235,6 +1258,7 @@ interaction density에 맞는 공개/compact 상태, Source count와 lossless fu
 - verified-empty가 world-level 기능 부재를 증명함
 - QG Evidence coverage completeness
 - Layer 3 또는 item-page information sufficiency 해결
+- predecessor IPS의 `known_information_missing=2`, `unresolved=22`, `evidence_limited=180` remediation 또는 우선순위 승인
 - 모든 외부 모드/locale/resolution 호환
 - performance 개선
 - package publication, deployment, release 또는 Workshop readiness

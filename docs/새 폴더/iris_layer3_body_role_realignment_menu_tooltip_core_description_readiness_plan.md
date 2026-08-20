@@ -4,6 +4,8 @@ Iris Layer 3 Body Role Realignment / Menu·Tooltip Core Description Readiness
 
 > 2026-08-20 Walkthrough synchronization: Stateful Artifact Registry는 `FULL_RETIREMENT`로 폐기되었고 Layer 1~5 active product consumer와 residual allowlist는 모두 `0`이다. 구현 closeout은 main `c91d8f79`, terminal implementation subject `6f362b5e`, full-gate subject `c924349e`, current Layer 3 generation `dvf33-2a44a0a8d9a2e7f0d9a533ad002b7f691c1bfccec9577fb3356967ec6fd8a00c`를 readpoint로 삼는다. 이 계획의 조건부 public 전환은 더 이상 IAR transaction·receipt·stateful descriptor를 사용하지 않고, DVF 3.3의 정확히 7개 canonical input으로 complete generation을 만든 뒤 검증하고 R2-B의 단일 generation pointer로 설치하는 현재 경로만 사용한다. 실행 시에는 pointer와 generation identity를 다시 census하며 이 readpoint를 상수로 하드코딩하지 않는다.
 
+> 2026-08-21 Item-Page Information Sufficiency Walkthrough synchronization: 선행 Problem 1 component는 main `009982ef83ebbf46ec0a7da80182f5b868c7c5c8`, result `63077bf221b5af4874bbeb78fecd02708a7472564942b8e7e4d129df9a77b480`, stable closeout `Iris/_docs/round3/item_page_information_sufficiency/63077bf221b5af4874bbeb78fecd02708a7472564942b8e7e4d129df9a77b480/axis_qualified_closeout.json`으로 terminal component PASS를 완료했다. 따라서 이 계획은 Problem 1의 정책 존재 여부를 다시 결정하지 않고 exact terminal result와 ratified Layer 3 state-derivation contract를 재현·결속한다. 다만 page disposition을 Layer 3 본문 품질이나 authoring 명령으로 직접 변환하지 않으며, source drift 시 predecessor PASS를 상속하지 않는다.
+
 ## 1. Objective
 
 Iris의 current canonical item universe와 current Layer 3 corpus를 대상으로, Layer 3를 모든 item에 강제되는 상세 설명이 아니라 확인된 설명 재료가 있을 때 제공하는 선택적 개요·해설 계층으로 재정렬한다.
@@ -36,7 +38,7 @@ Iris의 current canonical item universe와 current Layer 3 corpus를 대상으�
 | Acquisition denominator | 채택 | source-bound/current-expressed/successor-projected set을 분리하고 source-bound proposition conservation을 검증 |
 | Evaluator regression | 채택 | generic evaluator 변경 시 existing subject canonical result regression `0` 필수 |
 | Closeout token | 채택 | `layer3_role_realign_staging_complete`처럼 scope를 token 자체에 포함 |
-| Problem 1 equivalence | 채택 | exact authority identity만 허용; 대안은 별도 hash-bound equivalence decision이 있어야 함 |
+| Problem 1 terminal consumption | 채택 | terminal IPS result와 ratified Layer 3 state vector만 exact binding; page disposition 단독 변환과 임의 equivalence waiver 금지 |
 | Tooling allowlist | 채택 | 새 tool/test/dependency의 current-route/full-gate role을 terminal freeze 전에 explicit disposition |
 | Clean-Checkout durable pointer | 채택 | terminal subject에는 pre-run external retrieval contract만 포함; result hash pointer는 post-validation evidence-only successor이며 validated subject가 아님 |
 | Review completion semantics | 채택 | review 수행 완료와 semantic resolution을 분리; 근거 있는 `review_hold/review_required` 유지도 completed review로 인정 |
@@ -55,7 +57,7 @@ Clean-Checkout 판정 근거는 `docs/DECISIONS.md`의 current contract다. 이 
 다음을 구현 범위로 한다.
 
 - execution-time `item_denominator`, `existing_body_denominator`와 source/rendered/runtime identity materialization
-- Problem 1 Layer 3 optionality 결과의 exact identity binding과 fail-closed prerequisite gate
+- terminal Item-Page Information Sufficiency result의 per-item Layer 3 state-vector identity binding과 fail-closed drift gate
 - body disposition vocabulary와 full coverage ledger
 - description readiness vocabulary와 full item coverage ledger
 - 로드맵의 closed fact-kind vocabulary와 current source slot/provenance 사이의 명시적 mapping contract
@@ -124,7 +126,9 @@ Clean-Checkout 판정 근거는 `docs/DECISIONS.md`의 current contract다. 이 
 - `IrisTooltipSummary.lua`와 `IrisAltTooltip.lua`는 현재 classification tag, Recipe/Moveables/Fixing 연결, use-case count와 Menu 안내를 소비하며 Layer 3 description 또는 acquisition projection을 소비하지 않는다. 따라서 이번 staging closeout은 Tooltip input readiness이며 Tooltip completion이 아니다.
 - `iar_public_text_assessment.py`는 historical filename을 유지한 validation-only assessment utility다. 새 rule adapter는 subject finding과 technical failure를 분리하는 기능만 재사용하고, 폐기된 Registry authority/lifecycle 또는 기존 naturalization PASS를 successor에 부여하지 않는다.
 - current canonical docs에는 historical `docs/dvf_3_3_body_role_policy.md`와 `docs/dvf_3_3_body_role_execution_plan.md`이 존재하지 않는다. 삭제된 historical 문서를 current authority로 복원하거나 참조하지 않고 새 successor policy를 명시적으로 ratify한다.
-- 현재 작업 트리의 `docs/새 폴더/iris_item_page_information_sufficiency_plan.md`는 Layer 3 requiredness/optionality를 다루는 선행 계획이지만 계획 문서 자체는 ratified authority가 아니다. 이 physical path는 planning-time observation일 뿐 canonical location을 승인하지 않는다. 실행은 `problem1_authority_binding.json`에 exact path/hash로 결속된 owner-ratified policy/result identity를 요구한다. 다른 authority를 동등하다고 취급하려면 별도 owner-ratified `problem1_equivalence_decision.json`이 두 exact identity와 허용 범위를 hash-bound로 선언해야 한다.
+- `docs/새 폴더/iris_item_page_information_sufficiency_plan.md` 자체가 아니라 구현된 ratified contracts, required-route registration과 result-qualified closeout이 선행 authority identity다. current terminal result는 exact 2,285 FullType을 평가해 `information_sufficient=2,081`, `evidence_limited=180`, `known_information_missing=2`, `unresolved=22`를 산출했다. 이 네 count는 관찰된 page-level distribution이며 Layer 3 disposition/readiness 또는 Problem 5A candidate count가 아니다.
+- IPS의 Layer 3 state vector는 `fact_availability`, `contribution`, `requiredness`, `representation`을 분리한다. 이 계획은 해당 per-item axes만 readiness prerequisite로 소비하고 top-level page disposition은 contextual cross-check로만 사용한다. `information_sufficient`는 좋은 Layer 3 본문, `evidence_limited`는 world-level 생략 허가, `known_information_missing`은 곧바로 Layer 3 authoring 대상이라는 뜻이 아니다.
+- final assessment outputs는 재실행 가능한 operational artifact이고 stable closeout은 result identity와 governance chain을 보존한다. 실행은 ratified runner로 isolated Run A/B를 재생성하고 no-write validator로 terminal result identity를 확인해야 한다. input drift로 identity가 달라지면 임의 equivalence decision을 만들지 않고 additive IPS successor 또는 명시적인 upstream 재평가를 요구한다.
 
 ### Walkthrough-Bound Runtime Assumptions
 
@@ -152,7 +156,7 @@ Clean-Checkout 판정 근거는 `docs/DECISIONS.md`의 current contract다. 이 
 | ID | Ratification subject | 계획상 proposal |
 |---|---|---|
 | `L3R-RAT-01` | execution closeout | default `staging_only`; current complete-generation 설치는 별도 authorization |
-| `L3R-RAT-02` | Problem 1 dependency | exact ratified requiredness/optionality policy와 result identity 필수 |
+| `L3R-RAT-02` | Problem 1 dependency projection | IPS terminal result/closeout, ratified Layer 3 derivation contract와 per-item state-vector projection rule을 exact binding; top-level disposition 단독 매핑 금지 |
 | `L3R-RAT-03` | denominator | item=`items_itemscript.json` exact FullType set; existing body=current non-empty Layer 3 text set |
 | `L3R-RAT-04` | disposition/readiness vocabulary | 로드맵의 각 5개 state를 closed enum으로 채택 |
 | `L3R-RAT-05` | fact-kind mapping | 최소 `(source_slot, fact_origin)` key, structured lineage 추가 key; closed 10-kind vocabulary; observed non-empty 조합 unresolved `0`; prose parsing 금지 |
@@ -282,7 +286,8 @@ initial defect registry proposal은 다음 family를 분리한다.
 ### Docs
 
 - `docs/iris_layer3_body_role_realignment_policy.md` (new; ratification 시)
-- `docs/iris_layer3_body_role_realignment_menu_tooltip_core_description_readiness_plan.md` (이 계획)
+- `docs/새 폴더/iris_layer3_body_role_realignment_menu_tooltip_core_description_readiness_plan.md` (이 계획)
+- `docs/iris_item_page_information_sufficiency_walkthrough.md` (terminal predecessor readpoint; 수정하지 않음)
 - `docs/DECISIONS.md` (policy/current install authorization 시 additive decision)
 - `docs/ARCHITECTURE.md` (role material과 canonical source/generation/validation/install/runtime flow 정렬)
 - `docs/ROADMAP.md` (scoped status, non-claim과 후속 5A handoff)
@@ -294,7 +299,7 @@ initial defect registry proposal은 다음 family를 분리한다.
 - `Iris/build/description/v2/data/layer3_body_role_realign/proposals/<proposal_sha256>/*.proposal.json` (new)
 - `Iris/build/description/v2/data/layer3_body_role_realign/policy_ratification_contract.json` (new)
 - `Iris/build/description/v2/data/layer3_body_role_realign/problem1_authority_binding.json` (new)
-- `Iris/build/description/v2/data/layer3_body_role_realign/problem1_equivalence_decision.json` (new only if an alternate exact authority is selected)
+- `Iris/build/description/v2/data/layer3_body_role_realign/problem1_result_projection_contract.json` (new; IPS Layer 3 axes → readiness prerequisite의 closed mapping)
 - `Iris/build/description/v2/data/layer3_body_role_realign/fact_kind_mapping_contract.json` (new)
 - `Iris/build/description/v2/data/layer3_body_role_realign/disposition_readiness_contract.json` (new)
 - `Iris/build/description/v2/data/layer3_body_role_realign/registered_defect_rules.json` (new)
@@ -344,16 +349,18 @@ Generated staging artifact는 facts, decisions, rendered current, runtime 또는
 
 ## 6. Planned Changes
 
-### Change 1 — Execution Contract, Problem 1 Gate and Denominator Lock
+### Change 1 — Execution Contract, Terminal IPS Binding and Denominator Lock
 
 Purpose:
 
-current subject와 실행 가능한 정책 범위를 먼저 고정해 historical/staging artifact 혼입, denominator substitution과 optionality 추정을 차단한다.
+current subject와 실행 가능한 정책 범위를 먼저 고정하고 terminal Item-Page Information Sufficiency result를 재현해 historical/staging artifact 혼입, denominator substitution과 page-disposition 오용을 차단한다.
 
 Files:
 
 - `policy_ratification_contract.json`
 - `run_layer3_body_role_realign.py`
+- `problem1_authority_binding.json`
+- `problem1_result_projection_contract.json`
 - `input_identity_manifest.json`
 - `item_denominator.jsonl`
 - `existing_body_denominator.jsonl`
@@ -362,9 +369,11 @@ Implementation Notes:
 
 - current item universe는 `items_itemscript.json`의 exact case-sensitive FullType set에서 생성한다.
 - existing body universe는 current rendered entry 중 non-empty `text_ko` set으로 생성하고 current source/decisions/runtime set과 차이를 별도 기록한다.
-- facts, decisions, overlay support, compose profile, identity hint rules, conflict precedence rules, approved upstream candidate identity, current pointer, pointer-selected generation descriptor/rendered/index/chunks, stable facade/index/lookup, Problem 1 result와 policy/rules/exception identities를 SHA-256으로 봉인한다. current output/readback, runtime와 descriptor/attempt/receipt는 generation input으로 분류하지 않는다.
-- `problem1_authority_binding.json`은 exact ratified policy/result path, raw hash, semantic result hash와 lifecycle state를 요구한다. alternate authority는 explicit `problem1_equivalence_decision.json` 없이는 허용하지 않는다.
-- Problem 1 result가 없거나 proposal/unratified/stale 상태면 `설명 생략 가능`과 `설명 재료 부족`을 추정하지 않고 policy-dependent phases를 중단한다.
+- facts, decisions, overlay support, compose profile, identity hint rules, conflict precedence rules, approved upstream candidate identity, current pointer, pointer-selected generation descriptor/rendered/index/chunks, stable facade/index/lookup, terminal IPS result/closeout/ratified contract와 policy/rules/exception identities를 SHA-256으로 봉인한다. current output/readback, runtime와 descriptor/attempt/receipt는 generation input으로 분류하지 않는다.
+- `problem1_authority_binding.json`은 IPS main implementation commit, result SHA-256, stable closeout, canonical successor manifest, ratification contract, assessment contract와 Layer 3 state-derivation contract의 exact identity를 요구한다.
+- ratified IPS runner로 isolated Run A/B를 재생성하고 no-write validator로 exact 2,285 denominator, byte-identical result와 terminal result identity를 확인한다. stable closeout만 읽고 per-item state vector를 추정하지 않는다.
+- `problem1_result_projection_contract.json`은 IPS per-item Layer 3 axes만 이 계획의 readiness prerequisite로 투영한다. top-level `information_sufficient / evidence_limited / known_information_missing / unresolved`를 Layer 3 body disposition이나 readiness로 직접 바꾸는 rule은 금지한다.
+- terminal result가 absent, stale, unreproducible하거나 current input drift로 다른 result identity가 나오면 `설명 생략 가능`과 `설명 재료 부족`을 추정하지 않고 additive IPS successor 또는 upstream 재평가 전까지 policy-dependent phases를 중단한다. equivalence waiver로 우회하지 않는다.
 - pre-ratification runner는 read-only inventory 이외의 candidate generation을 거부한다.
 
 Validation:
@@ -372,8 +381,10 @@ Validation:
 - duplicate/case-collision/missing FullType fail-close
 - item/body denominator exact set and count receipt
 - current/staging/historical path-role classification
-- missing or unratified Problem 1 negative fixture
-- missing/stale/implicit Problem 1 equivalence negative fixture
+- missing/unratified IPS contract 또는 missing stable closeout negative fixture
+- stale result, altered per-item vector, result-only hash와 implicit equivalence negative fixture
+- page disposition은 같지만 Layer 3 state vector가 다른 paired fixture
+- IPS Run A/B exact terminal result parity와 no-write validator exit `0`
 - protected current source/rendered/runtime baseline hash
 
 ---
@@ -445,7 +456,10 @@ Implementation Notes:
 - 새 high-frequency skeleton은 advisory review signal이며 ratified successor rule 없이는 즉시 blocking rule로 승격하지 않는다.
 - exception은 `item_id`, input fact identity, predecessor body identity, policy/rule identity, decision, reason, reviewer/owner identity와 expiry/revalidation condition을 요구한다.
 - exception은 새 fact나 source text를 포함할 수 없고 input identity가 바뀌면 자동 invalidation한다.
-- page-level/Layer 4 information은 exact Problem 1 binding이 허용하는 `omission_allowed` 대 `insufficient_material` readiness 분기에만 입력될 수 있다. Layer 4 presence, count, richness 또는 page sufficiency는 body disposition, core-description eligibility나 public-text quality의 입력이 아니다.
+- terminal IPS binding은 per-item Layer 3 `requiredness/representation/fact_availability/contribution` axes만 readiness prerequisite로 제공한다. Layer 4 presence, count, richness와 top-level page disposition은 body disposition, core-description eligibility나 public-text quality의 입력이 아니다.
+- `requiredness=unresolved` 또는 필요한 Layer 3 axis의 incoherence는 `review_required`로 fail-close한다. `required + representation=missing`은 Layer 3의 missing axis를 확인하지만, eligible core-description fact인지 acquisition-only material인지 분리한 뒤에만 `insufficient_material`을 결정한다.
+- `optional` 또는 sealed-set-scoped `not_required`는 eligible core-description material이 없을 때만 `omission_allowed` 분기의 전제가 될 수 있다. 이는 current producer-declared set 안의 판정이며 world-level 불필요·부재 증명이 아니다.
+- `information_sufficient=2,081`, `evidence_limited=180`, `known_information_missing=2`, `unresolved=22`의 page counts나 `information_gap_inventory` row를 readiness enum 또는 Problem 5A candidate로 직접 복사하지 않는다.
 - required manual-review universe와 partition/capacity는 `review_capacity_contract.json`에 봉인한다. 여기서 review completion은 eligible reviewer가 bound subject를 실제 검토하고 decision/reason/next-condition record를 남겼다는 뜻이며 semantic resolution을 강제하지 않는다. 검토 결과가 근거 있는 `review_hold` 또는 `review_required` 유지여도 review는 completed일 수 있다. review record가 누락되거나 ratified capacity ceiling을 넘어 required review를 수행하지 못하면 closeout은 `blocked_review_capacity`이며 PASS/partial success로 표현하지 않는다.
 
 Validation:
@@ -454,6 +468,9 @@ Validation:
 - unknown enum/reason/rule rejection
 - identity/classification/acquisition-only fixtures
 - page/Layer 4 input이 readiness에만 영향을 주고 disposition에는 영향을 주지 않는 paired fixture
+- 동일 page disposition에서 서로 다른 Layer 3 axes가 서로 다른 readiness prerequisite를 만드는 paired fixture
+- Layer 4 원인 `known_information_missing/unresolved`가 Layer 3 `insufficient_material/review_required`로 오염되지 않는 fixture
+- `optional/not_required`가 world-level negative 또는 automatic hide로 승격되지 않는 fixture
 - short valid role fixture가 길이 때문에 제거되지 않음
 - high-frequency unregistered skeleton이 auto-hide되지 않음
 - exact duplicate signal/non-blocking, registered-bad duplicate, differing-consumed-fact-set blocking fixtures
@@ -632,6 +649,7 @@ Implementation Notes:
 
 - candidate set은 `readiness == insufficient_material`의 pure deterministic projection이다.
 - `review_required`, `acquisition_only`, `omission_allowed`는 5A set에 포함하지 않는다.
+- predecessor IPS의 `known_information_missing=2`, `unresolved=22`, `evidence_limited=180`과 `information_gap_inventory`는 조사 입력일 뿐 이 candidate set의 seed/union/override가 아니다. 각 IPS row의 Layer 3 axes를 projection contract로 소비한 뒤 이 계획이 독립 산출한 readiness만 사용한다.
 - artifact는 source identities, readiness-ledger identity, item set hash와 projection rule ID를 기록한다.
 - artifact 존재는 Problem 5A execution 또는 fact-enrichment authorization이 아니다.
 - 모든 new/changed tool, test, config, policy, runner, validator와 direct dependency에 `required_tracked_source / dedicated_route_validation / historical_optional_evidence / not_required` 등 current contract가 허용하는 explicit role을 부여한다. 경로나 naming으로 current-route/full-gate 편입을 추정하지 않는다.
@@ -693,6 +711,7 @@ Implementation Notes:
 - runtime Lua는 disposition/readiness 또는 semantic summarization을 수행하지 않는다. Tooltip runtime consumption은 별도 UI plan 없이는 추가하지 않는다.
 - pointer switch correctness는 한 pointer가 한 immutable generation을 선택한다는 데 근거한다. 관찰 근거를 넘어 filesystem atomicity나 모든 환경에서의 무조건적인 혼합 불가능성을 주장하지 않는다.
 - 설치가 tracked gate input, runtime/package projection, test 또는 required dependency를 변경하면 staging terminal subject의 repository PASS는 새 install subject에 상속되지 않는다. install subject를 다시 고정해 full-repository Clean-Checkout Run A/B와 deterministic comparison을 재실행한다.
+- current Layer 3 generation은 IPS의 exact producer/runtime input이므로 설치 뒤 predecessor IPS result를 current evidence로 상속하지 않는다. 새 pointer-selected generation에서 IPS assessment Run A/B와 no-write validator를 재실행하고, result/manifest가 달라지면 additive IPS successor governance를 별도 완료한다.
 
 Validation:
 
@@ -706,6 +725,7 @@ Validation:
 - runtime semantic inference path 0
 - current/historical/diagnostic route separation
 - exact install terminal tracked subject에서 fresh mandatory full-repository Clean-Checkout Run A/B
+- post-install IPS Run A/B/no-write validation과 required-route successor disposition; predecessor result 무조건 상속 0
 - `switch_atomicity=observed_only` non-claim 유지
 - Lua syntax, `current_runtime_payload` package projection identity와 required runtime compatibility tests; Windows PowerShell 5.1/PowerShell 7의 ordinal path ordering parity
 
@@ -715,6 +735,11 @@ Validation:
 
 ### Automated Validation
 
+- terminal IPS prerequisite replay:
+  - `uv run python -B Iris/build/description/v2/tools/build/run_item_page_information_sufficiency_assessment.py --contract Iris/build/description/v2/data/item_page_information_sufficiency/assessment_contract.json --ratification-contract Iris/build/description/v2/data/item_page_information_sufficiency/policy_ratification_contract.json --require-ratified-policy --output-root <ips-run-a>`
+  - 동일 sealed input으로 `<ips-run-b>` 생성
+  - `uv run python -B Iris/build/description/v2/tools/build/validate_item_page_information_sufficiency_assessment.py --contract Iris/build/description/v2/data/item_page_information_sufficiency/assessment_contract.json --ratification-contract Iris/build/description/v2/data/item_page_information_sufficiency/policy_ratification_contract.json --result-root <ips-run-a> --compare-result-root <ips-run-b> --require-full-universe --require-matrix-totality --require-derivation-reachability --require-canonical-successor-binding --no-write`
+  - staging-only 시작 readpoint에서는 result `63077bf221b5af4874bbeb78fecd02708a7472564942b8e7e4d129df9a77b480`와 exact parity; drift면 predecessor binding 중단
 - focused unit/contract tests:
   - `uv run python -B -m pytest Iris/build/description/v2/tests/test_layer3_body_role_realign.py -q`
 - isolated staging generation:
@@ -758,6 +783,7 @@ Validation:
   - official complete-generation build/validate/stateless compatibility/install validation
   - `package_iris.ps1`의 `current_runtime_payload` validation과 ordinal path ordering parity
   - install changes를 포함한 새 exact terminal subject의 fresh Clean-Checkout Run A/B와 deterministic comparison 재실행
+  - installed generation을 입력으로 terminal IPS assessment Run A/B/no-write validator와 required-route successor disposition 재실행
 
 모든 PASS 주장은 exact relevant command가 exit `0`인 경우에만 허용한다. `rg` absence probe나 count 관찰 자체는 PASS가 아니다.
 
@@ -815,7 +841,7 @@ staging-only에서는 current output 변화가 없다. conditional installation 
 - body assessment, semantic production과 complete-generation install을 하나의 새 subsystem이 임의로 소유할 위험
 - staging proposition artifact를 current facts authority로 오인할 위험
 - current canonical body-role policy가 없는 상태에서 historical deleted policy를 복원·상속할 위험
-- Problem 1 optionality가 ratify되지 않았는데 omission/readiness를 결정할 위험
+- terminal IPS의 top-level page disposition을 Layer 3 optionality/readiness로 직접 오독하거나 stale predecessor result를 상속할 위험
 - `primary_use` 전체를 단일 `role`로 mapping해 `identity_fallback`까지 description-eligible로 승격할 위험
 - observed mapping 조합을 output distribution 확인 후 사후 분류할 위험
 - flat `text_ko` reverse parsing으로 single-writer와 provenance boundary를 깨뜨릴 위험
@@ -872,7 +898,7 @@ partial install, dual-current generation, direct live-chunk overwrite, historica
 - rendered direct edit 또는 semantic reverse parsing
 - unsupported fact/fact strengthening
 - unregistered rewrite/template 또는 exception-mediated fact addition
-- Problem 1 prerequisite 미충족 상태의 omission/install
+- terminal IPS result/Layer 3 axes binding이 absent·stale·unreproducible한 상태의 omission/install
 - unmapped non-empty `(source_slot, fact_origin)` 또는 structured lineage
 - unregistered transformation/defect rule application
 - required review capacity 초과 또는 incomplete review record; legitimate completed `review_hold/review_required`는 제외
@@ -896,14 +922,14 @@ partial install, dual-current generation, direct live-chunk overwrite, historica
 - predecessor source, artifact, validation evidence와 exception은 immutable하게 보존하고 additive amendment를 선호한다.
 - exact hash가 없는 owner decision, review 또는 exception은 execution authority가 아니다.
 - defect/transformation registry, review capacity와 tooling disposition은 exact hash-bound ratification input이며 실행 중 암묵 확장하지 않는다.
-- page/Layer 4 information은 readiness optionality branch에만 사용할 수 있고 body disposition/description eligibility에는 사용할 수 없다.
+- terminal IPS의 per-item Layer 3 axes는 readiness prerequisite에만 사용할 수 있고 top-level page disposition/Layer 4 axes는 body disposition/description eligibility에 사용할 수 없다.
 - every exact tracked terminal completion subject는 current clean-checkout contract의 mandatory full-repository Run A/B를 통과해야 한다. staging-only는 이 gate의 면제가 아니다.
 - 신규 tooling의 current-route/full-gate role은 terminal freeze 전에 explicit disposition하며 required dependency를 allowlist에서 누락하거나 자동 편입하지 않는다.
 - current-route manifest 변경 여부는 staging/current-install label이 아니라 actual required-dependency disposition으로 결정한다.
 - terminal subject에는 pre-run external retrieval contract만 포함하며 Run A/B result-hash pointer는 post-validation evidence-only successor로 분리한다.
 - canonical acquisition material conservation은 Menu publication authority가 아니다. Menu public set과 신규 표면화 branch는 별도 owner-ratified projection contract를 따른다.
 - candidate replay identity class와 semantic projection exclusions는 실행 전 봉인하며 실패 후 완화하지 않는다.
-- current installation은 Problem 1 prerequisite, owner authorization, expected predecessor binding, official 7-input build/validate/install, 필요한 별도 RTC checks와 install subject의 fresh mandatory clean-checkout Run A/B 없이 진행하지 않는다.
+- current installation은 terminal IPS prerequisite binding, owner authorization, expected predecessor binding, official 7-input build/validate/install, 필요한 별도 RTC checks, install subject의 fresh mandatory clean-checkout Run A/B와 post-install IPS successor disposition 없이 진행하지 않는다.
 - Problem 5A candidate set은 handoff evidence일 뿐 enrichment나 실행 승인으로 사용하지 않는다.
 
 ---
@@ -922,6 +948,7 @@ Expected closeout token: **`layer3_role_realign_staging_complete`**
 - Change 1~8 exact tracked terminal subject mandatory full-repository Clean-Checkout Run A/B 및 deterministic comparison 완료
 - `설명 재료 부족`의 exact Problem 5A candidate handoff 완료
 - Menu candidate와 Tooltip input readiness 완료
+- terminal IPS result/Layer 3 axes의 exact predecessor binding과 page-disposition 비오용 검증 완료
 
 다음은 주장하지 않는다.
 
@@ -930,9 +957,10 @@ Expected closeout token: **`layer3_role_realign_staging_complete`**
 - current Menu public text replacement
 - Tooltip UI, exact Tooltip line assignment 또는 4-line layout 완료
 - Problem 5A 해결 또는 실행 승인
+- predecessor IPS의 `2/22/180` gap distribution 해결 또는 해당 row의 자동 authoring 승인
 - 폐기된 Registry의 Authority/lifecycle/receipt PASS
 - Registry Runtime Compatibility PASS, Publish Boundary PASS 또는 release readiness
 
-owner ratification 또는 exact Problem 1 binding이 없으면 policy-dependent 실행은 `blocked_policy_prerequisite`로 닫는다. observed mapping coverage가 불완전하면 `blocked_mapping_contract`, required review가 capacity를 초과하거나 review record가 미완료면 `blocked_review_capacity`, exact terminal repository gate가 실패하거나 실행되지 않으면 `blocked_repository_validation`로 닫는다. completed review가 semantic 결론으로 `review_hold/review_required`를 유지하는 것은 `blocked_review_capacity` 사유가 아니다. 이 blocked token들은 partial success나 PASS가 아니다.
+이 계획의 owner ratification이 없거나 terminal IPS result/Layer 3 axes를 exact replay·binding할 수 없으면 policy-dependent 실행은 `blocked_policy_prerequisite`로 닫는다. 이는 Problem 1 구현이 미완료라는 뜻이 아니라 predecessor drift/consumption failure다. observed mapping coverage가 불완전하면 `blocked_mapping_contract`, required review가 capacity를 초과하거나 review record가 미완료면 `blocked_review_capacity`, exact terminal repository gate가 실패하거나 실행되지 않으면 `blocked_repository_validation`로 닫는다. completed review가 semantic 결론으로 `review_hold/review_required`를 유지하는 것은 `blocked_review_capacity` 사유가 아니다. 이 blocked token들은 partial success나 PASS가 아니다.
 
 별도 current-install authorization이 주어지면 Change 9를 새 exact tracked terminal subject에 대해 실행한다. official complete-generation/installer, 필요한 별도 RTC, Lua/package validation과 fresh repository Clean-Checkout Run A/B를 모두 exit `0`으로 통과한 경우에만 별도 token `layer3_role_realign_current_install_complete`를 기록할 수 있다. 이 token도 Publish PASS, release readiness, Workshop/deployment 또는 owner-sealed canonical closure를 뜻하지 않는다.

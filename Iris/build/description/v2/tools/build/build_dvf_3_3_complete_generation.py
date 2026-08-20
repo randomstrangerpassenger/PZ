@@ -68,17 +68,18 @@ def _stable_pretty_json(path: Path, payload: Any) -> None:
 
 
 def _write_runtime_pointer(path: Path, generation_id: str, chunk_count: int) -> None:
-    prefix = generation_module_prefix(generation_id)
+    chunk_prefix = generation_module_prefix(generation_id)
+    generation_prefix = chunk_prefix.rsplit("/", 1)[0]
     lines = [
         "-- Generated generation pointer. This is the single runtime visibility switch.",
         "return {",
         '    schema_version = "iris_layer3_generation_pointer_v1",',
         f'    generation_id = "{generation_id}",',
-        f'    index_module = "{prefix}/IrisLayer3DataChunkIndex",',
+        f'    index_module = "{generation_prefix}/IrisLayer3DataChunkIndex",',
         "    chunk_modules = {",
     ]
     lines.extend(
-        f'        "{prefix}/Chunks/Chunk{ordinal:03d}",'
+        f'        "{chunk_prefix}/Chunk{ordinal:03d}",'
         for ordinal in range(1, chunk_count + 1)
     )
     lines.extend(["    },", "}", ""])

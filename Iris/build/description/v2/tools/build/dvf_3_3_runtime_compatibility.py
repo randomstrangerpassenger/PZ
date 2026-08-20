@@ -215,7 +215,11 @@ def _record_map(
 
 
 def _runtime_projection(payload: dict[str, Any]) -> dict[str, Any]:
-    return {field: payload[field] for field in RUNTIME_PAYLOAD_FIELDS if field in payload}
+    return {
+        field: payload[field]
+        for field in RUNTIME_PAYLOAD_FIELDS
+        if field in payload and payload[field] is not None
+    }
 
 
 def _payload_hash(payload: dict[str, Any]) -> str:

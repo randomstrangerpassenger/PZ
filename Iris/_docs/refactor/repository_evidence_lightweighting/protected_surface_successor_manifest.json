@@ -1624,6 +1624,16 @@
           "after_sha256_lf": "b53266890e8b09336634717d73d94189154caa1a757cded3b6168791fcbfe33a",
           "owner": "repository_owner_user",
           "reason": "Package either the generation-qualified R2-A runtime universe or the bounded predecessor payload while keeping RTC separate and stale."
+        },
+        {
+          "path": "Iris/build/description/v2/tools/build/INVENTORY.md",
+          "predecessor_sha256": "f97414d7f65501fb6d6dc977599eea948c24558eda04649d393d277be8addc11",
+          "before_git_blob_id": "d68370d57924038d25b71118cb03a2340a02c221",
+          "before_sha256_lf": "1b6f0a409e136a543f2247b81ad7396ee2470e5609476e15e252e94ad79d57c9",
+          "expected_git_blob_id": "5653e22fdd6e2fa8367aa0da03d18fb079fd9e83",
+          "after_sha256_lf": "91975277f9939705d05f0204c0fe8eb86099552a78917005f8513c83f27b15cd",
+          "owner": "repository_owner_user",
+          "reason": "Document the bounded successor generation, validator, installer, and runtime-identity tooling without reactivating retired IAR producers."
         }
       ],
       "added_protected_rows": [

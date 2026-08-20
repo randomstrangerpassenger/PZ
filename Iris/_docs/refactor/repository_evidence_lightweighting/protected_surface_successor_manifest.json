@@ -1672,6 +1672,18 @@
           "reason": "Track the exact successor tooling, tests, and authority evidence required by the retirement plan."
         },
         {
+          "path": "Iris/build/description/v2/tests/test_iris_residual_contract_surfaces.py",
+          "before_git_blob_id": "7037624591957357450ef9b2e383ff06969c1cc9",
+          "before_sha256_lf": "e31ae37eb8707012daefb29e4f37b96c23cd22bdc0740e14fe39dddb517057fa",
+          "expected_git_blob_id": "88546464739a32b9af350e999e12c13257fd756b",
+          "after_sha256_lf": "1db3ba9c7d9e00b773847a211a38c47cc275397aae64bd1afd9aed2268081858",
+          "role": "protected_surface_revision_inventory_assertion",
+          "writer": "iris_stateful_artifact_registry_architecture_retirement",
+          "consumers": ["configured_current", "residual_closeout", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Assert the additive IAR retirement protection revision in exact active chronology."
+        },
+        {
           "path": "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
           "before_git_blob_id": "e85c2b63a63097780de5641d751b4c7bab06207b",
           "before_sha256_lf": "11b1a5887f9e64ab31b0a3a503524a13df43e1c88a7a39ed79ba941ab118afda",

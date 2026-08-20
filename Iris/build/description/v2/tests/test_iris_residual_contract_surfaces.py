@@ -191,6 +191,7 @@ class IrisResidualContractSurfacesTest(unittest.TestCase):
                 "iris_artifact_lifecycle_promotion_55_protected_surface_reseal_v1",
                 "iris_canonical_full_gate_source_classification_alignment_55_v1",
                 "iris_clean_checkout_source_classification_regression_reseal_v1",
+                "iris_iar_retirement_current_route_extension_v1",
             ],
         )
         self.assertEqual(

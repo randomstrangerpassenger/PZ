@@ -138,8 +138,17 @@ class DvfVcsTrackingPolicyTest(unittest.TestCase):
         )
         for row in tooling_rows[1:4]:
             self.assertEqual(row["owner_class"], "reusable_iar_validation_tooling")
+        self.assertEqual(
+            [row["owner_class"] for row in tooling_rows[4:]],
+            [
+                "stateless_generation_contract",
+                "stateless_generation_tooling",
+                "stateless_generation_validation",
+                "protected_generation_installer",
+                "generation_key_identity_validation",
+            ],
+        )
         for row in tooling_rows[4:]:
-            self.assertEqual(row["owner_class"], "iar_retirement_successor_tooling")
             self.assertFalse(row["in_current_closure"])
             self.assertTrue(row["import_allowed_for_current_route"])
             self.assertFalse(row["in_current_closure"])

@@ -1604,6 +1604,16 @@
           "after_sha256_lf": "3f076670d430651b7179980b4fe0dc0b9e8b8504a77b0ef1d99ebe46c547bf61",
           "owner": "repository_owner_user",
           "reason": "Register the eight additive current-route successor tests required by the IAR retirement plan."
+        },
+        {
+          "path": "Iris/_docs/round3/current_route_required_validations.json",
+          "predecessor_sha256": "0ea650737ab6ccdcc5a2c325c7efddc72fa376fa848e8f8ffd254498e36dc6a1",
+          "before_git_blob_id": "44460d3856ef11bba70e76a4436b75e9a8b10e80",
+          "before_sha256_lf": "5e256fec6a2d234a52914f6b9c93f9dc1307616b979e3f656a7795d748e3ac84",
+          "expected_git_blob_id": "ee01eb28012d21f247768cc29a648dac39cf36f0",
+          "after_sha256_lf": "89e95d1aa1efac2bd525ee97294eaedd78fc263b02ed2c4cdb0d4bbaa1abae58",
+          "owner": "repository_owner_user",
+          "reason": "Require the eight additive IAR successor tests and seven plan evidence artifacts in the current validation manifest."
         }
       ],
       "added_protected_rows": [

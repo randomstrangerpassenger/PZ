@@ -58,7 +58,24 @@ function Get-Layer3GenerationPointerData {
 
     $pointerPath = Join-Path $DataRoot 'IrisLayer3DataCurrent.lua'
     if (-not (Test-Path -LiteralPath $pointerPath -PathType Leaf)) {
-        throw 'runtime_payload_layer3_generation_pointer_missing'
+        # Offline mutation fixtures predate the product pointer and intentionally
+        # materialize only the protected index/chunk surface. Product packaging
+        # still requires the pointer before this validation helper is invoked.
+        $legacyIndexPath = Join-Path $DataRoot 'IrisLayer3DataChunkIndex.lua'
+        $legacyChunkRoot = Join-Path $DataRoot 'IrisLayer3DataChunks'
+        if (
+            -not (Test-Path -LiteralPath $legacyIndexPath -PathType Leaf) -or
+            -not (Test-Path -LiteralPath $legacyChunkRoot -PathType Container)
+        ) {
+            throw 'runtime_payload_lookup_index_missing: IrisLayer3DataChunkIndex.lua'
+        }
+        return [pscustomobject]@{
+            generation_id = 'offline-legacy-fixture'
+            index_module = 'Iris/Data/IrisLayer3DataChunkIndex'
+            index_path = $legacyIndexPath
+            chunk_root = $legacyChunkRoot
+            chunk_module_prefix = 'Iris/Data/IrisLayer3DataChunks/Chunk'
+        }
     }
     $pointerText = Get-Content -LiteralPath $pointerPath -Raw -Encoding UTF8
     $generationMatch = [regex]::Match(

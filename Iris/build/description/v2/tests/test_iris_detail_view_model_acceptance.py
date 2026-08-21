@@ -102,8 +102,9 @@ class DetailViewModelAcceptanceTest(unittest.TestCase):
         collector = (REPO / "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserInteractionCollector.lua").read_text(encoding="utf-8")
         self.assertIn("DetailViewModel.ensure(item)", wiki)
         self.assertIn("DetailViewModel.ensure(item)", sections)
-        self.assertIn("model.connections", collector)
-        self.assertIn("model.capabilities", collector)
+        self.assertIn("interactionState", collector)
+        self.assertNotIn("model.connections", collector)
+        self.assertNotIn("model.capabilities", collector)
 
 if __name__ == "__main__":
     unittest.main()

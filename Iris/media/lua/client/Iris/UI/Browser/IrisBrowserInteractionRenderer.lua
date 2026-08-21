@@ -1,131 +1,163 @@
---[[
-    IrisBrowserInteractionRenderer.lua
-
-    Interaction/usecase rendering for IrisBrowser detail panel.
-
-    Change 9b: interaction *collection* moved to IrisBrowserInteractionCollector;
-    this module keeps UI row rendering only and delegates collection. Public
-    interface (IrisBrowserInteractionRenderer.render) and callers unchanged.
-]]
-
 require "ISUI/ISButton"
 require "ISUI/ISLabel"
+require "ISUI/ISTextEntryBox"
+
+local Collector = require("Iris/UI/Browser/IrisBrowserInteractionCollector")
+local Policy = require("Iris/UI/Browser/IrisBrowserInteractionPolicy")
+local Projection = require("Iris/UI/Browser/IrisBrowserInteractionProjection")
+local RequirementPolicy = require("Iris/UI/Browser/IrisRequirementPolicy")
+local State = require("Iris/UI/Browser/IrisBrowserInteractionState")
+local Theme = require("Iris/UI/Browser/IrisBrowserTheme")
 
 local IrisBrowserInteractionRenderer = {}
-local RequirementPolicy = require("Iris/UI/Browser/IrisRequirementPolicy")
-local Theme = require("Iris/UI/Browser/IrisBrowserTheme")
-local Collector = require("Iris/UI/Browser/IrisBrowserInteractionCollector")
 
-function IrisBrowserInteractionRenderer.render(browser, browserClass, fullType, item, yOffset, deps)
-    local safeRequire = deps.safeRequire
-    local tr = deps.tr
-    local IrisAPI = deps.IrisAPI
+local function addLabel(browser, x, y, text, r, g, b)
+    local label = ISLabel:new(x, y, 16, text, r, g, b, 1, UIFont.Small, true)
+    browser.detailPanel:addChild(label)
+    return label
+end
 
-    local useCases = IrisAPI and IrisAPI.UseCases or nil
-    local ucDescEntry = useCases and useCases._getDescriptionEntry and
-        useCases._getDescriptionEntry(fullType) or nil
-    local requirementsGetter = useCases and useCases._getRequirements or nil
-    if not useCases or not useCases._getDescriptionEntry then
-        local ucOk, ucResult = safeRequire("Iris/Data/IrisUseCaseDescriptions")
-        if ucOk and ucResult then
-            ucDescEntry = ucResult[fullType]
-            requirementsGetter = function(recipeName)
-                return ucResult._requirementsLookup and ucResult._requirementsLookup[recipeName] or nil
-            end
-        end
-    end
+local function headerText(projection, tr)
+    local interaction = tr("Iris_Detail_Interaction", "Interactions")
+    local recipe = tr("Iris_Interaction_SourceRecipe", "Recipe")
+    local rightclick = tr("Iris_Interaction_SourceRightClick", "Right-click")
+    return interaction .. " " .. tostring(projection.total) ..
+        "  |  " .. recipe .. " " .. tostring(projection.recipeCount) ..
+        "  |  " .. rightclick .. " " .. tostring(projection.rightclickCount)
+end
 
-    local interactionItems = Collector.collectRecipeInteractions(
-        fullType, item, IrisAPI, ucDescEntry, deps.model, requirementsGetter
-    )
-    local capabilityItems = Collector.collectCapabilityInteractions(fullType, IrisAPI, tr, deps.model)
-    for _, capabilityItem in ipairs(capabilityItems) do
-        table.insert(interactionItems, capabilityItem)
-    end
+local function renderRequirements(browser, row, yOffset, deps, state, stateKey)
+    local requirements = row.recipe_requirements or {}
+    if #requirements == 0 then return yOffset end
+    local defaultExpanded = deps.projection.density ~= "dense"
+    local expanded = state.requirements[row.identity]
+    if expanded == nil then expanded = defaultExpanded end
+    local marker = expanded and "[-] " or "[+] "
+    local text = marker .. deps.tr("Iris_Interaction_Requirements", "Requirements") ..
+        " " .. tostring(#requirements)
+    local button = ISButton:new(28, yOffset, 180, 16, text, browser,
+        deps.browserClass.onToggleInteractionRequirements)
+    button:initialise()
+    button.interactionStateKey = stateKey
+    button.interactionIdentity = row.identity
+    button.defaultExpanded = defaultExpanded
+    button.backgroundColor = Theme.color("transparent")
+    button.backgroundColorMouseOver = Theme.color("sectionButtonHover")
+    button.borderColor = Theme.color("transparent")
+    browser.detailPanel:addChild(button)
+    yOffset = yOffset + 16
+    if not expanded then return yOffset end
 
-    local totalCount = #interactionItems
-    if totalCount <= 0 then
-        return yOffset
-    end
-
-    table.sort(interactionItems, function(a, b) return a.sortKey < b.sortKey end)
-
-    local expandKey = fullType .. "_interactions"
-    local expanded = browser.recipeExpandedByFullType[expandKey] == true
-    local arrow = expanded and " [-]" or " [+]"
-    local interactionLabel = tr("Iris_Detail_Interaction", "Interactions")
-    local headerText = interactionLabel .. " (" .. tostring(totalCount) .. ")" .. arrow
-
-    local btn = ISButton:new(10, yOffset, 250, 18, headerText, browser, browserClass.onToggleRecipeSection)
-    btn:initialise()
-    btn.expandKey = expandKey
-    btn.backgroundColor = Theme.color("transparent")
-    btn.backgroundColorMouseOver = Theme.color("sectionButtonHover")
-    btn.borderColor = Theme.color("transparent")
-    btn.textColor = Theme.color("interactionButtonText")
-    browser.detailPanel:addChild(btn)
-    yOffset = yOffset + 20
-
-    if not expanded then
-        return yOffset
-    end
-
-    local prefixRecipe = tr("Iris_Prefix_Recipe", "[Recipe]")
-    local prefixRightClick = tr("Iris_Prefix_RightClick", "[Action]")
-
-    for _, itm in ipairs(interactionItems) do
-        local r, g, b = 0.85, 0.85, 0.85
-        local displayStr
-        if itm.type == "rightclick" then
-            r, g, b = 0.7, 0.9, 0.7
-            displayStr = prefixRightClick .. " " .. itm.name
-        else
-            displayStr = prefixRecipe .. " " .. itm.name
-        end
-
-        local textW = getTextManager():MeasureStringX(UIFont.Small, displayStr)
-        local lbl = ISLabel:new(20, yOffset, 16, displayStr, r, g, b, 1, UIFont.Small, true)
-        browser.detailPanel:addChild(lbl)
-
-        local curX = 20 + textW + 4
-
-        if itm.recipe_nav_ref then
-            local btnText = "[" .. tr("Iris_Nav_Go", "Go") .. "]"
-            local btnW = getTextManager():MeasureStringX(UIFont.Small, btnText) + 8
-            local goBtn = ISButton:new(curX, yOffset, btnW, 16,
-                btnText, browser, browserClass.onRecipeGoToCrafting)
-            goBtn:initialise()
-            goBtn.recipe_nav_ref = itm.recipe_nav_ref
-            goBtn.backgroundColor = Theme.color("transparent")
-            goBtn.backgroundColorMouseOver = Theme.color("navButtonHover")
-            goBtn.borderColor = Theme.color("navButtonBorder")
-            goBtn.textColor = Theme.color("navButtonText")
-            browser.detailPanel:addChild(goBtn)
-            curX = curX + btnW + 4
-        end
-
-        if itm.recipe_requirements then
-            local player = getSpecificPlayer(browser.playerNum or 0)
-            for ri, req in ipairs(itm.recipe_requirements) do
-                if ri > 1 then
-                    local sep = ", "
-                    local sepW = getTextManager():MeasureStringX(UIFont.Small, sep)
-                    local sepLbl = ISLabel:new(curX, yOffset, 16, sep, 0.5, 0.5, 0.5, 0.6, UIFont.Small, true)
-                    browser.detailPanel:addChild(sepLbl)
-                    curX = curX + sepW
-                end
-                local color = RequirementPolicy.evalColor(req.check, player)
-                local reqDisplay = RequirementPolicy.displayText(req, color, tr)
-                local reqW = getTextManager():MeasureStringX(UIFont.Small, reqDisplay)
-                local reqLbl = ISLabel:new(curX, yOffset, 16, reqDisplay, color.r, color.g, color.b, color.a, UIFont.Small, true)
-                browser.detailPanel:addChild(reqLbl)
-                curX = curX + reqW
-            end
-        end
-
+    local player = getSpecificPlayer(browser.playerNum or 0)
+    for _, requirement in ipairs(requirements) do
+        local color = RequirementPolicy.evalColor(requirement.check, player)
+        local display = RequirementPolicy.displayText(requirement, color, deps.tr, deps.locale)
+        addLabel(browser, 36, yOffset, "- " .. display, color.r, color.g, color.b)
         yOffset = yOffset + 16
     end
+    return yOffset
+end
 
+local function renderRow(browser, row, yOffset, deps, state, stateKey)
+    local prefix = row.source == "recipe"
+        and deps.tr("Iris_Prefix_Recipe", "[Recipe]")
+        or deps.tr("Iris_Prefix_RightClick", "[Action]")
+    local r, g, b = 0.85, 0.85, 0.85
+    if row.source == "rightclick" then r, g, b = 0.7, 0.9, 0.7 end
+    if row.displayUnavailable then r, g, b = 0.75, 0.55, 0.35 end
+    local display = prefix .. " " .. row.display
+    addLabel(browser, 20, yOffset, display, r, g, b)
+    local currentX = 24 + getTextManager():MeasureStringX(UIFont.Small, display)
+    if row.recipe_nav_ref then
+        local buttonText = "[" .. deps.tr("Iris_Nav_Go", "Go") .. "]"
+        local width = getTextManager():MeasureStringX(UIFont.Small, buttonText) + 8
+        local button = ISButton:new(currentX, yOffset, width, 16, buttonText, browser,
+            deps.browserClass.onRecipeGoToCrafting)
+        button:initialise()
+        button.recipe_nav_ref = row.recipe_nav_ref
+        button.backgroundColor = Theme.color("transparent")
+        button.backgroundColorMouseOver = Theme.color("navButtonHover")
+        button.borderColor = Theme.color("navButtonBorder")
+        button.textColor = Theme.color("navButtonText")
+        browser.detailPanel:addChild(button)
+    end
+    yOffset = yOffset + 16
+    return renderRequirements(browser, row, yOffset, deps, state, stateKey)
+end
+
+function IrisBrowserInteractionRenderer.render(browser, browserClass, fullType, item, yOffset, deps)
+    local projection = Collector.collect(deps.model.interactionState, deps.model.locale, deps.tr)
+    if projection.status == "fault" then
+        addLabel(browser, 10, yOffset,
+            deps.tr("Iris_Interaction_Unavailable", "Interaction data unavailable"),
+            0.85, 0.4, 0.35)
+        return yOffset + 20
+    end
+
+    addLabel(browser, 10, yOffset, headerText(projection, deps.tr), 0.65, 0.85, 1.0)
+    yOffset = yOffset + 20
+    if projection.status == "verified_empty" then
+        addLabel(browser, 20, yOffset,
+            deps.tr("Iris_Interaction_VerifiedEmpty", "No interactions in verified Iris data"),
+            0.65, 0.65, 0.65)
+        return yOffset + 18
+    end
+
+    local state, stateKey = State.forItem(
+        browser, deps.browserGeneration, deps.model.locale, fullType, projection.density
+    )
+    if projection.density == "dense" then
+        local modeText = state.full
+            and deps.tr("Iris_Interaction_Compact", "Compact")
+            or deps.tr("Iris_Interaction_Full", "Full")
+        local modeButton = ISButton:new(10, yOffset, 110, 18, modeText, browser,
+            browserClass.onToggleInteractionDensity)
+        modeButton:initialise()
+        modeButton.interactionStateKey = stateKey
+        browser.detailPanel:addChild(modeButton)
+
+        local search = ISTextEntryBox:new(state.query or "", 125, yOffset, 190, 18)
+        search:initialise()
+        search:instantiate()
+        search.interactionStateKey = stateKey
+        search.onTextChange = function()
+            local value = search:getInternalText() or ""
+            if state.query ~= value then
+                state.query = value
+                browser:showDetail(fullType, true)
+            end
+        end
+        browser.detailPanel:addChild(search)
+        yOffset = yOffset + 22
+    end
+
+    local visible = Projection.visibleRows(projection, state.full, state.query)
+    addLabel(browser, 20, yOffset,
+        deps.tr("Iris_Interaction_Visible", "Visible") .. " " .. tostring(#visible) ..
+        "/" .. tostring(projection.total), 0.55, 0.65, 0.75)
+    yOffset = yOffset + 16
+
+    local visibleBySource = {recipe = {}, rightclick = {}}
+    for _, row in ipairs(visible) do table.insert(visibleBySource[row.source], row) end
+    local sourceLabels = {
+        recipe = deps.tr("Iris_Interaction_SourceRecipe", "Recipe"),
+        rightclick = deps.tr("Iris_Interaction_SourceRightClick", "Right-click"),
+    }
+    for _, source in ipairs(Policy.SOURCE_ORDER) do
+        local sourceRows = projection.bySource[source]
+        if #sourceRows > 0 then
+            addLabel(browser, 20, yOffset,
+                sourceLabels[source] .. " (" .. tostring(#sourceRows) .. ")",
+                0.75, 0.8, 0.9)
+            yOffset = yOffset + 16
+            for _, row in ipairs(visibleBySource[source]) do
+                yOffset = renderRow(browser, row, yOffset, {
+                    tr = deps.tr, locale = deps.model.locale, browserClass = browserClass,
+                    projection = projection,
+                }, state, stateKey)
+            end
+        end
+    end
     return yOffset
 end
 

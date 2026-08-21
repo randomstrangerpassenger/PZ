@@ -15,6 +15,7 @@ local ObjectAccess = require("Iris/Util/IrisObjectAccess")
 local ItemAccess = require("Iris/Util/IrisItemAccess")
 local DetailViewModel = require("Iris/UI/Detail/IrisItemDetailViewModel")
 local TranslationResolver = require("Iris/Util/IrisTranslationResolver")
+local InteractionState = require("Iris/UI/Browser/IrisBrowserInteractionState")
 
 local IrisBrowserDetail = {}
 
@@ -250,11 +251,14 @@ function IrisBrowserDetail.install(IrisBrowser, context)
             yOffset = addSeparatedMultilineSection(self.detailPanel, layer3Text, yOffset, 0.92, 0.92, 0.92)
         end
 
+        local browserState = IrisBrowserData and IrisBrowserData.getBuildState and
+            IrisBrowserData.getBuildState() or {generation = 0}
         yOffset = InteractionRenderer.render(self, IrisBrowser, fullType, item, yOffset, {
             safeRequire = safeRequire,
             tr = tr,
             IrisAPI = IrisAPI,
             model = model,
+            browserGeneration = browserState.generation,
         })
 
         yOffset = addVariantList(self, IrisBrowser, IrisBrowserData, fullType, yOffset)
@@ -265,17 +269,24 @@ function IrisBrowserDetail.install(IrisBrowser, context)
         end
 
         self.detailContentHeight = yOffset + 20
+        local maxScroll = math.max(0, self.detailContentHeight - self.detailPanel.height)
+        self.detailScrollY = math.max(0, math.min(self.detailScrollY, maxScroll))
         captureDetailChildPositions(self)
         applyDetailScrollOffset(self)
     end
 
     function IrisBrowser:showDetail(fullType, forceRebuild)
         local locale = TranslationResolver.getLangKey("EN")
+        local IrisBrowserData = BrowserBase.getBrowserData(context)
+        local buildState = IrisBrowserData and IrisBrowserData.getBuildState and
+            IrisBrowserData.getBuildState() or {generation = 0}
         if not forceRebuild and fullType and self.detailBuiltFullType == fullType and
-            self.detailBuiltLocale == locale and self.currentDetailModel then
+            self.detailBuiltLocale == locale and self.detailBuiltGeneration == buildState.generation and
+            self.currentDetailModel then
             applyDetailScrollOffset(self)
             return
         end
+        self.detailBuiltGeneration = buildState.generation
         self:rebuildDetailContent(fullType)
     end
 
@@ -301,6 +312,20 @@ function IrisBrowserDetail.install(IrisBrowser, context)
         if not expandKey then return end
 
         self.recipeExpandedByFullType[expandKey] = not (self.recipeExpandedByFullType[expandKey] == true)
+        self:showDetail(self.currentSelectedFullType, true)
+    end
+
+    function IrisBrowser:onToggleInteractionDensity(button)
+        if not button.interactionStateKey then return end
+        InteractionState.toggleFull(self, button.interactionStateKey)
+        self:showDetail(self.currentSelectedFullType, true)
+    end
+
+    function IrisBrowser:onToggleInteractionRequirements(button)
+        if not button.interactionStateKey or not button.interactionIdentity then return end
+        InteractionState.toggleRequirements(
+            self, button.interactionStateKey, button.interactionIdentity, button.defaultExpanded
+        )
         self:showDetail(self.currentSelectedFullType, true)
     end
 end

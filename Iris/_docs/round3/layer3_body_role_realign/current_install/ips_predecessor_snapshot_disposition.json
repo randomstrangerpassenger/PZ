@@ -1,0 +1,9 @@
+{
+  "schema_version": "iris-layer3-role-realign-ips-snapshot-disposition-v1",
+  "disposition": "predecessor_snapshot_stale_after_install",
+  "predecessor_generation_id": "dvf33-2a44a0a8d9a2e7f0d9a533ad002b7f691c1bfccec9577fb3356967ec6fd8a00c",
+  "installed_generation_id": "dvf33-aa138aa4896b68ac53609a4b1cb6e5346245e74f544db28eb2ee924dc7b3e814",
+  "ips_evaluator_restored_or_reexecuted": false,
+  "predecessor_result_inherited_as_current_sufficiency_claim": false,
+  "follow_up": "A refreshed page-sufficiency assessment requires a separately authorized one-off assessment using the installed generation."
+}

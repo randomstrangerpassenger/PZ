@@ -12,6 +12,10 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[5]
 DATA = REPO / "Iris/media/lua/client/Iris/Data"
 VALIDATOR = REPO / "Iris/tools/validate_runtime_lookup_indexes.ps1"
+LAYER3_GENERATION = re.search(
+    r"dvf33-[0-9a-f]{64}",
+    (DATA / "IrisLayer3DataCurrent.lua").read_text(encoding="utf-8"),
+).group(0)
 
 
 class LookupPackageParityContractTest(unittest.TestCase):
@@ -39,11 +43,11 @@ class LookupPackageParityContractTest(unittest.TestCase):
         target = destination / "Data"
         target.mkdir()
         for name in (
-            "IrisLayer3DataChunkIndex.lua",
+            "IrisLayer3DataCurrent.lua",
             "IrisRuntimeLookupPackageIdentity.json",
         ):
             shutil.copy2(DATA / name, target / name)
-        shutil.copytree(DATA / "IrisLayer3DataChunks", target / "IrisLayer3DataChunks")
+        shutil.copytree(DATA / "IrisLayer3Generations", target / "IrisLayer3Generations")
         shutil.copytree(DATA / "UseCaseDescriptions", target / "UseCaseDescriptions")
         return target
 
@@ -77,7 +81,11 @@ class LookupPackageParityContractTest(unittest.TestCase):
 
     def test_chunk_hash_boundary_and_line_count_key_mismatches_fail_closed(self) -> None:
         mutations = (
-            ("IrisLayer3DataChunks/Chunk001.lua", r'\["Base\.223Box"\]', '["Base.223BoxX"]'),
+            (
+                f"IrisLayer3Generations/{LAYER3_GENERATION}/Chunks/Chunk001.lua",
+                r'\["Base\.223Box"\]',
+                '["Base.223BoxX"]',
+            ),
             ("UseCaseDescriptions/Chunk001.lua", r'chunk\["Base\.223Box"\]', 'chunk["Base.223BoxX"]'),
             ("UseCaseDescriptions/LineCountIndex.lua", r'\["Base\.223Box"\] = 1', '["Base.223BoxX"] = 1'),
         )

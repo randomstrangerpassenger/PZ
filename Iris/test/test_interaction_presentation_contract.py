@@ -49,7 +49,7 @@ def test_current_census_is_contract_clean_and_gate3_is_unblocked(report: dict) -
     assert report["gate3"]["status"] == "PASS"
     assert report["gate3"]["capability_only_count"] == 0
     assert report["gate3"]["recipe_only_count"] == 0
-    assert report["closeout_state_ceiling"] == "partial"
+    assert report["closeout_state_ceiling"] == "full_implementation_validation_required"
 
 
 def test_density_parameters_are_bound_to_fresh_owner_policy_seal(
@@ -122,7 +122,8 @@ def test_recipe_crosswalk_taxonomy_is_exhaustive_disjoint_and_structured(report:
     assert crosswalk["mapped_recipe_intersection_count"] == 794
     assert crosswalk["qg_recipe_only_count"] == 0
     assert crosswalk["runtime_stable_id_plumbing"]["common_prerequisite_not_taxonomy_bucket"] is True
-    assert crosswalk["runtime_stable_id_plumbing"]["required"] is True
+    assert crosswalk["runtime_stable_id_plumbing"]["required"] is False
+    assert crosswalk["runtime_stable_id_plumbing"]["current_recipe_nav_ref_has_recipe_id_field"] is True
 
 
 def test_rat08_is_not_applicable_and_only_fresh_seal_is_consumed(
@@ -234,28 +235,25 @@ def test_source_correction_scope_report_does_not_hide_unrelated_changes(
     assert manifest["unrelated_or_permitted_changes_are_not_hidden"] is True
 
 
-def test_gate3_owner_sealed_path_stops_at_layer4_generation_contract_boundary(report: dict) -> None:
+def test_gate3_owner_sealed_path_enters_validated_layer4_successor(report: dict) -> None:
     selection = json.loads(validator.PATH_SELECTION_PATH.read_text(encoding="utf-8"))
     assert selection["gate3_status"] == "PASS"
-    assert selection["selected_execution_path"] == "gate3_owner_sealed_layer4_generation_contract_blocked_partial"
+    assert selection["selected_execution_path"] == "gate3_owner_policy_sealed_full_implementation"
     assert selection["owner_policy_seal_status"] == "approved"
     assert selection["rat08_binding_status"] == "not_applicable_no_recipe_only"
-    assert selection["change2_and_later_policy_dependent_current_implementation"] == "change2_mutation_independent_only_projection_dependent_deferred"
-    assert selection["layer4_generation_contract_available"] is False
-    assert selection["generated_stable_id_plumbing_required"] is True
-    assert selection["projection_dependent_scope"] == "deferred"
-    assert selection["existing_renderer_and_recipe_fallback"] == "preserve"
-    assert all(
-        entry["byte_identical"]
+    assert selection["change2_and_later_policy_dependent_current_implementation"] == "authorized"
+    assert selection["layer4_generation_contract_available"] is True
+    assert selection["generated_stable_id_plumbing_required"] is False
+    assert selection["projection_dependent_scope"] == "authorized"
+    assert selection["existing_renderer_and_recipe_fallback"] == "cutover_authorized"
+    assert any(
+        not entry["byte_identical"]
         for entry in selection["preserved_projection_paths"].values()
     )
-    assert selection["required_validation"] == ["V1", "V2", "V3", "V4", "V7"]
+    assert selection["required_validation"] == ["V1", "V2", "V3", "V4", "V5", "V6", "V7"]
     assert selection["mixed_qg_legacy_recipe_projection"] == "forbidden"
-    assert selection["not_applicable"] == {
-        "V5": "adaptive_projection_and_dev_harness_not_installed",
-        "V6": "installed_current_generation_package_projection_absent",
-    }
-    assert selection["closeout_ceiling"] == "partial"
+    assert selection["not_applicable"] == {}
+    assert selection["closeout_ceiling"] == "full_implementation_validation_required"
 
 
 def test_change2_status_projection_is_additive_and_single_lookup_owned() -> None:

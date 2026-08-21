@@ -27,12 +27,19 @@ class GeneratedLuaSparseFieldsContractTest(unittest.TestCase):
         cls.descriptions = cls.generator.load_json(cls.generator.DESCRIPTIONS_PATH)
         cls.nav = cls.generator.load_json(cls.generator.NAV_REGISTRY_PATH)
         cls.requirements = cls.generator.load_json(cls.generator.RECIPE_REQ_INDEX_PATH)
+        decisions = cls.generator.load_json(
+            REPO / "Iris/output/recipe_evidence_decisions.v2.4.json"
+        )["rules"]
+        for use_case_id, entry in cls.nav["entries"].items():
+            rule_id = "rp.recipe." + use_case_id.removeprefix("uc.recipe.")
+            entry["stable_recipe_id"] = decisions[rule_id]["recipe_id"]
 
     def generate(self):
         return self.generator.convert_to_lua(
             self.descriptions,
             self.nav,
             self.requirements,
+            require_stable_recipe_id=True,
         )
 
     def test_sparse_fields_are_deterministic_and_tracked_outputs_are_current(self) -> None:

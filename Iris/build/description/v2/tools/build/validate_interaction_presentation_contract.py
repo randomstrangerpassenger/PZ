@@ -699,10 +699,11 @@ def build_recipe_crosswalk_report(
             re.search(r"recipe_nav_ref\s*=\s*\{[^\n}]*\brecipe_id\s*=", chunks_text)
         ),
     }
-    runtime_plumbing["required"] = not (
-        runtime_plumbing["current_recipe_index_data_has_recipe_id_field"]
-        and runtime_plumbing["current_recipe_nav_ref_has_recipe_id_field"]
-    )
+    # Layer 4 consumes the QG navigation projection directly. The retained
+    # RecipeIndex facade remains public compatibility, not presentation input.
+    runtime_plumbing["required"] = not runtime_plumbing[
+        "current_recipe_nav_ref_has_recipe_id_field"
+    ]
 
     report = {
         "legacy_recipe_tuple_count": len(legacy_keys),
@@ -1011,15 +1012,15 @@ def build_contract_report(*, small_max: int, dense_min: int) -> tuple[dict[str, 
         else "required_but_unapproved"
     )
     owner_sealed = not owner_policy_errors and gate3_pass
-    generation_contract_available = (
-        IRIS_ROOT
-        / "build"
-        / "description"
-        / "v2"
-        / "tools"
-        / "build"
-        / "validate_layer4_complete_generation_install.py"
-    ).is_file()
+    layer4_build_root = IRIS_ROOT / "build" / "description" / "v2" / "tools" / "build"
+    generation_contract_available = all(
+        (layer4_build_root / name).is_file()
+        for name in (
+            "generate_layer4_runtime_projection.py",
+            "validate_layer4_runtime_projection.py",
+            "update_layer4_runtime_projection.py",
+        )
+    )
     generated_plumbing_required = recipe_report["runtime_stable_id_plumbing"]["required"]
     partial_generated_boundary = owner_sealed and generated_plumbing_required and not generation_contract_available
     path_selection = {

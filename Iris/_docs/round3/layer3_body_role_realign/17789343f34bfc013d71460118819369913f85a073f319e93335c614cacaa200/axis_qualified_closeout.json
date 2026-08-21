@@ -1,0 +1,45 @@
+{
+  "schema_version": "iris-layer3-role-realign-axis-qualified-closeout-v1",
+  "status": "staging_complete",
+  "closeout_token": "layer3_role_realign_staging_complete",
+  "execution_scope": "staging_only",
+  "staging_subject": {
+    "successor_entries_sha256": "17789343f34bfc013d71460118819369913f85a073f319e93335c614cacaa200",
+    "validated_terminal_commit": "1197ccc99085666d336e3ed493555e26810104e5",
+    "validated_terminal_tree": "da2bf2e5ec595b8de1ea41ee2fafb7e433c058db"
+  },
+  "counts": {
+    "item_count": 2285,
+    "existing_body_count": 2084,
+    "problem_5a_count": 2,
+    "review_required_count": 33,
+    "completed_review_count": 33,
+    "blocking_finding_count": 0
+  },
+  "qualified_axes": {
+    "existing_body_disposition": "complete",
+    "canonical_item_description_readiness": "complete",
+    "core_description_acquisition_separation": "complete",
+    "deterministic_staging_successor": "complete",
+    "candidate_replay": "complete",
+    "problem_5a_handoff": "complete",
+    "menu_candidate": "ready",
+    "tooltip_role_labeled_input": "ready",
+    "one_off_ips_snapshot_binding": "current_snapshot",
+    "exact_terminal_repository_validation": "PASS"
+  },
+  "clean_checkout_result_pointer": "Iris/_docs/round3/layer3_body_role_realign/evidence_carriers/1197ccc99085666d336e3ed493555e26810104e5/clean_checkout_result_pointer.json",
+  "result_pointer_is_post_validation_evidence_only": true,
+  "validated_terminal_subject_redefined": false,
+  "non_claims": [
+    "current_layer3_installation",
+    "current_runtime_or_package_projection_update",
+    "menu_public_text_replacement",
+    "tooltip_ui_or_line_layout_completion",
+    "problem_5a_resolution_or_execution_authorization",
+    "stateful_registry_authority_or_lifecycle_pass",
+    "registry_runtime_compatibility_pass",
+    "publish_pass",
+    "release_readiness"
+  ]
+}

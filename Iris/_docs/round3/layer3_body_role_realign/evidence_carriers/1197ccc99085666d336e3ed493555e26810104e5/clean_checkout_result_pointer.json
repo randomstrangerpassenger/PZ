@@ -1,0 +1,45 @@
+{
+  "schema_version": "iris-layer3-role-realign-clean-checkout-result-pointer-v1",
+  "carrier_id": "1197ccc99085666d336e3ed493555e26810104e5",
+  "evidence_role": "post_validation_evidence_only_successor",
+  "validated_terminal_subject": {
+    "commit": "1197ccc99085666d336e3ed493555e26810104e5",
+    "tree": "da2bf2e5ec595b8de1ea41ee2fafb7e433c058db"
+  },
+  "retrieval_contract": {
+    "path": "Iris/build/description/v2/data/layer3_body_role_realign/clean_checkout_external_evidence_location_contract.json",
+    "raw_byte_sha256": "e963f4b329c35d0acf38b5fdbe74d2dba8d164ef1b29681018b0a7f04b62092e"
+  },
+  "external_results": {
+    "run_a": {
+      "orchestration_receipt_path": "C:/Users/MW/l3pa_orch/orchestration_receipt.json",
+      "orchestration_receipt_sha256": "aadfe568074567bf8509d923ce7bf0458cae2dcd5e1faddd1de34b772619b109",
+      "inner_run_receipt_path": "C:/Users/MW/l3pa_result/full_run_receipt.json",
+      "inner_run_receipt_sha256": "5092fdf048ef0babb3a77e6e4ef2687e809e44608a04d47ea4080d56c2a4d9dc",
+      "canonical_result_path": "C:/Users/MW/l3pa_result/canonical_full_result.json",
+      "canonical_result_sha256": "75775172c99a198f5df6a45dbee30a8836f03ded4fba4098686d2d8be7887333",
+      "status": "PASS"
+    },
+    "run_b": {
+      "orchestration_receipt_path": "C:/Users/MW/l3pb_orch/orchestration_receipt.json",
+      "orchestration_receipt_sha256": "7557bb860eb4cd3666aedee3080cce7d328a0851bc2845de0ca98e7e380a533b",
+      "inner_run_receipt_path": "C:/Users/MW/l3pb_result/full_run_receipt.json",
+      "inner_run_receipt_sha256": "c7470f43b8290f026c4677805a58194693cbda50b70ab8e78f1d59c27e8c6252",
+      "canonical_result_path": "C:/Users/MW/l3pb_result/canonical_full_result.json",
+      "canonical_result_sha256": "75775172c99a198f5df6a45dbee30a8836f03ded4fba4098686d2d8be7887333",
+      "status": "PASS"
+    },
+    "deterministic_compare": {
+      "compare_receipt_path": "C:/Users/MW/l3pc_compare/compare_receipt.json",
+      "compare_receipt_sha256": "9fe5230e53c0441bd38b789d98b15ef723fcee91631e815033cb777624a459d8",
+      "comparison_result_path": "C:/Users/MW/l3pc_compare/compare-results.stdout.bin",
+      "comparison_result_sha256": "983bc15786355bdd786cee1bc6e1d7f47f5c9d541a647adbb3f5b19379155b52",
+      "canonical_fingerprint_sha256": "978c20b42af8f71ab5d8626fdc4997206138425c398a9e2ef6baa1451cb3f3f4",
+      "status": "PASS"
+    }
+  },
+  "canonical_result_raw_bytes_equal": true,
+  "source_checkout_mutation_count": 0,
+  "validated_subject_redefined": false,
+  "machine_pass_inherited_by_carrier": false
+}

@@ -13,7 +13,7 @@
     "implementation_files": [
       {
         "path": "Iris/build/description/v2/tools/build/compose_layer3_text.py",
-        "raw_byte_sha256": "836d46ba647976457c6f5bf39ab25885e0c2dc1b6b67a3617339f812a135e075"
+        "raw_byte_sha256": "b330a7b1890620962d26aae44b36b3aed52e178bd121e899b766e9beb38f0aff"
       },
       {
         "path": "Iris/build/description/v2/tools/build/dvf_3_3_generation_contract.py",

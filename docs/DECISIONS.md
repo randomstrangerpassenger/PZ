@@ -2638,3 +2638,4 @@
   * 일회성 localization producer나 이번 작업의 ad hoc 검사를 canonical validator, 정규 검사기 또는 후속 validation authority로 승격하지 않는다.
   * main 통합은 push, RTC, Publish, release/Workshop/deployment readiness를 뜻하지 않는다.
 * 구현 readpoint: Layer 4 main merge `e7508c0c`, Layer 2–3 EN locale projection `de146b73`. EN Layer 2–3 hide 동작을 포함했던 `1524d72a`는 `de146b73`에 의해 superseded됐다.
+* 통합 제품 readpoint: Layer 3 install terminal subject `d006f6108093886751e538d36c92de3627a9e76f` / tree `5e2370f8e5720e830b8ef62c87b6c51c45bfaa4a`는 `e7508c0c`와 `de146b73`을 모두 조상으로 포함한다. 세 결과는 별도 HEAD가 아니라 이 단일 tree에 동시에 존재하며, DVF 동결 검증의 Phase 0은 이 ancestry와 선택한 current observation subject를 확인해 통합 조건을 닫는다. 이미 선형 통합된 조상들을 대상으로 합성 merge commit이나 새 제품 authority를 만들지 않는다.

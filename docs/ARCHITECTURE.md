@@ -908,6 +908,8 @@ Validated staging terminal subject는 commit `1197ccc99085666d336e3ed493555e2681
 
 Validated install terminal subject는 commit `d006f6108093886751e538d36c92de3627a9e76f`, tree `5e2370f8e5720e830b8ef62c87b6c51c45bfaa4a`다. Focused regression, Lua syntax와 두 PowerShell package projection이 PASS했고 mandatory Run A/B는 각각 pytest identity `433`, standalone validation `4`, source mutation `0`으로 PASS했다. Comparator의 canonical result SHA-256은 양쪽 모두 `f110c14471bd5e8f3cd0d76afeaa8533ea6bb6deaf147b17764e192f377c37b6`이다. Post-validation `current_install_closeout.json`은 token `layer3_role_realign_current_install_complete`를 기록하지만 terminal subject나 product authority를 재정의하지 않는다.
 
+`d006f6108093886751e538d36c92de3627a9e76f`는 Layer 4 adaptive presentation merge `e7508c0ce474fac6507fef79e425a02fc9de4b24`와 Layer 2–3 EN locale projection `de146b735219d0ab6cf6a23d326ac07ab60b25bd`을 모두 조상으로 포함하는 단일 통합 제품 readpoint다. 따라서 Layer 3 current generation, Layer 4 presentation과 KO/EN projection은 실제로 존재한 동일 tree에서 관찰할 수 있다. 이후 documentation-only synchronization commit은 이 제품 경로를 다시 병합하거나 별도 제품 HEAD를 만들지 않는다.
+
 Install full-gate source policy는 이미 tracked된 `test_interaction_presentation_contract.py`, `test_adaptive_interaction_presentation.py`, `test_layer4_runtime_projection.py`를 Layer 4 dedicated focused route로 유지한다. 이 classification과 adoption-binding refresh는 full-repository current denominator를 늘리거나 Layer 4 product semantics를 변경하지 않는다.
 
 ### Layer 2–3 locale projection and Layer 4 adaptive presentation

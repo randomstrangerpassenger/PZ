@@ -964,6 +964,7 @@ Focused test `8 passed`, required manual review `33/33`, exact duplicate group r
 - Current package lookup identity를 `lookup-f088127352730047`로 정렬했다. Windows PowerShell 5.1과 PowerShell 7의 `current_runtime_payload` generation, lookup digest와 output universe가 일치하고 hash mismatch는 `0`이다.
 - Current 전환으로 predecessor one-off IPS snapshot을 `predecessor_snapshot_stale_after_install`로 표시했다. Evaluator 재실행이나 predecessor sufficiency claim 상속은 없다.
 - Install terminal subject `d006f6108093886751e538d36c92de3627a9e76f` / tree `5e2370f8e5720e830b8ef62c87b6c51c45bfaa4a`의 focused validation은 `23 passed, 14 subtests passed`, Lua syntax는 `157 files`로 PASS했다.
+- Install terminal subject `d006f610`은 Layer 4 main merge `e7508c0c`와 Layer 2–3 EN locale projection `de146b73`을 모두 조상으로 포함하는 단일 통합 제품 readpoint다. Layer 3 current generation, Layer 4 adaptive presentation과 KO/EN projection은 동일한 실제 tree에 함께 존재하므로 별도 합성 merge는 필요하지 않다.
 - Fresh Clean-Checkout Run A/B는 각각 `433 passed, 2 deselected, 117 subtests passed`, standalone `4/4 PASS`, external mutation `0`, cleanup PASS다. Comparator는 required execution unit `437`, test identity `433`, canonical raw-byte equality와 result SHA-256 `f110c14471bd5e8f3cd0d76afeaa8533ea6bb6deaf147b17764e192f377c37b6`을 확인했다.
 - Full-gate source census가 드러낸 Layer 4 adaptive-presentation/runtime-projection test source 누락은 기존 interaction-presentation test와 같은 dedicated focused route로 분류했다. Adoption bindings만 current contract bytes로 갱신했으며 canonical denominator는 변경하지 않았다.
 - Current-install closeout token은 `layer3_role_realign_current_install_complete`다.

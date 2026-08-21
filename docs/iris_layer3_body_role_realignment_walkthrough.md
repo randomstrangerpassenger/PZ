@@ -185,12 +185,22 @@ Result pointer는 external receipt의 path/hash를 가리키는 evidence-only ca
 
 모든 commit은 local `main`에 있고 원격 push는 수행하지 않았다.
 
-## 9. Explicit Non-Claims
+## 9. Current Installation Walkthrough
+
+2026-08-21 owner authorization에 따라 Change 9를 실행했다. Accepted staging successor를 raw bytes 그대로 `approved_upstream/candidate_rendered.json`으로 승격하고, 기존 6개 source input과 합쳐 canonical input을 정확히 7개로 유지했다.
+
+Official complete-generation builder가 immutable generation `dvf33-aa138aa4896b68ac53609a4b1cb6e5346245e74f544db28eb2ee924dc7b3e814`를 만들었다. Validator와 stateless runtime compatibility는 각각 exit `0`이었고, candidate와 generated/installed rendered payload는 semantic equality와 `entries_sha256=17789343f34bfc013d71460118819369913f85a073f319e93335c614cacaa200`으로 일치했다.
+
+Installer는 시작 시 current pointer를 predecessor `dvf33-2a44a0a8d9a2e7f0d9a533ad002b7f691c1bfccec9577fb3356967ec6fd8a00c`로 다시 읽어 결속했다. 새 generation을 publish한 뒤 `IrisLayer3DataCurrent.lua`만 한 번 전환했으며 predecessor는 inactive rollback generation으로 보존했다. 같은 generation 재설치는 `NOOP_ALREADY_CURRENT`, protected mutation `0`, visibility switch `0`이었다.
+
+Preserved one-off IPS assessment는 `predecessor_snapshot_stale_after_install`로 표시했다. IPS evaluator를 복원하거나 재실행하지 않았고 predecessor 결과를 current sufficiency claim으로 상속하지 않았다.
+
+이 시점의 install implementation은 완료됐지만 `layer3_role_realign_current_install_complete` token은 아직 기록하지 않는다. Lua/package/runtime checks와 exact install terminal subject의 fresh Clean-Checkout Run A/B 및 comparator가 모두 exit `0`인 뒤에만 별도 post-validation closeout으로 기록한다.
+
+## 10. Explicit Non-Claims
 
 이번 closeout은 다음을 의미하지 않는다.
 
-- Current Layer 3 generation installation
-- Current runtime 또는 package projection update
 - Menu public text replacement
 - Tooltip UI, line allocation 또는 4-line layout completion
 - Problem 5A enrichment 완료 또는 실행 승인

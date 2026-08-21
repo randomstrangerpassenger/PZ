@@ -70,6 +70,7 @@ class DetailViewModelAcceptanceTest(unittest.TestCase):
         self.assertIn("IRIS_DETAIL_LOCALE_PASS", completed.stdout)
         self.assertIn("raw_equal=true", completed.stdout)
         self.assertIn("availability_equal=true", completed.stdout)
+        self.assertIn("ko_only_layer3_display=true", completed.stdout)
         self.assertIn("labels_differ=true", completed.stdout)
         self.assertIn("nested_readonly=true", completed.stdout)
         self.assertIn("interaction_lookup_once_per_build=true", completed.stdout)
@@ -96,6 +97,7 @@ class DetailViewModelAcceptanceTest(unittest.TestCase):
         self.assertNotIn("rebuildDetailContent", wheel)
         self.assertIn("applyDetailScrollOffset", wheel)
         self.assertIn("DetailViewModel.fromItem(item)", detail)
+        self.assertIn('local koPresentation = tostring(model.locale or "EN"):upper() == "KO"', detail)
 
         wiki = (REPO / "Iris/media/lua/client/Iris/UI/Wiki/IrisWikiPanel.lua").read_text(encoding="utf-8")
         sections = (REPO / "Iris/media/lua/client/Iris/UI/Wiki/IrisWikiSections.lua").read_text(encoding="utf-8")

@@ -239,7 +239,8 @@ function IrisBrowserDetail.install(IrisBrowser, context)
         local apiOk, apiResult = safeRequire("Iris/IrisAPI")
         if apiOk then IrisAPI = apiResult end
 
-        if IrisAPI and IrisAPI.Description and IrisAPI.Description.getDescription then
+        local koPresentation = tostring(model.locale or "EN"):upper() == "KO"
+        if koPresentation and IrisAPI and IrisAPI.Description and IrisAPI.Description.getDescription then
             local descOk, descText = ProtectedCall.data(function() return IrisAPI.Description.getDescription(fullType, nil) end)
             if descOk then
                 yOffset = addSeparatedMultilineSection(self.detailPanel, descText, yOffset, 0.85, 0.85, 0.85)

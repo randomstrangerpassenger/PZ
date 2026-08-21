@@ -190,7 +190,7 @@ local function safeInteractionState(UseCases, fullType)
     }
 end
 
-local function layer3Payload(fullType)
+local function layer3Payload(fullType, locale)
     local ok, renderer = safeRequire("Iris/Data/layer3_renderer")
     if not ok or not renderer or not renderer.getText or not fullType then
         return {available=false,adoptionState="unavailable",publishState=nil,raw=nil,display=nil}
@@ -200,8 +200,12 @@ local function layer3Payload(fullType)
     if not callOk or not raw or raw == "" then
         return {available=false,adoptionState=publishState or "unavailable",publishState=publishState,raw=nil,display=nil}
     end
+    local display = nil
+    if tostring(locale or "EN"):upper() == "KO" then
+        display = Layer3DisplayFormatter.format(raw)
+    end
     return {available=true,adoptionState=publishState or "public_legacy",publishState=publishState,
-        raw=raw,display=Layer3DisplayFormatter.format(raw)}
+        raw=raw,display=display}
 end
 
 local function readonly(values)
@@ -259,7 +263,8 @@ function ViewModel.fromItem(item)
     }
     local capabilities = safeUseCaseCall(IrisAPI and IrisAPI.UseCases, "getCapabilities", fullType, {})
     local Index = IrisAPI and IrisAPI.Index
-    local layer3 = layer3Payload(fullType)
+    local locale = TranslationResolver.getLangKey("EN")
+    local layer3 = layer3Payload(fullType, locale)
     local itemType = ItemAccess.getType(item)
     local weight = read(item, CORE_WEIGHT_METHODS, "core")
     local category = read(item, CORE_CATEGORY_METHODS, "core")
@@ -273,7 +278,7 @@ function ViewModel.fromItem(item)
     local values = {
         __irisItemDetailViewModel = true,
         sourceItem = item,
-        locale = TranslationResolver.getLangKey("EN"),
+        locale = locale,
         fullType = fullType,
         displayName = ItemAccess.getDisplayName(item, fullType or "Unknown"),
         moduleName = ItemAccess.getModuleName(item),

@@ -1668,6 +1668,17 @@
       "routing_status": "current route required validation or current cutover evidence test",
       "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_consumer_migration_input_normalization.py",
       "state": "ok",
+      "test_id": "test_dvf_3_3_consumer_migration_input_normalization.DvfConsumerMigrationInputNormalizationTest.test_current_generation_authority_anchors_are_unique_and_semantic"
+    },
+    {
+      "audit_status": "manual_audit_current_cutover_taxonomy_refresh",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "current cutover validation taxonomy refresh; collected by guarded pytest route after current authority migration",
+      "routing_status": "current route required validation or current cutover evidence test",
+      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_consumer_migration_input_normalization.py",
+      "state": "ok",
       "test_id": "test_dvf_3_3_consumer_migration_input_normalization.DvfConsumerMigrationInputNormalizationTest.test_negative_helpers_keep_fail_loud_classifications"
     },
     {

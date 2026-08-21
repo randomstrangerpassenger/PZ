@@ -1832,8 +1832,18 @@
       "approved": true,
       "protection_predecessor_commit": "eea98dc181444311ef2088e738ace17c9e7632a2",
       "protection_predecessor_tree": "3b9461b11a51018c681c04ca8a093bbeebaff0ef",
-      "reason": "Authorize the Layer 3 inventory update and the focused residual full-gate blocker repair without changing runtime product surfaces.",
+      "reason": "Authorize the Layer 3 inventory and taxonomy updates plus the focused residual full-gate blocker repair without changing runtime product surfaces.",
       "approved_activation_deltas": [
+        {
+          "path": "Iris/_docs/round3/round3_test_taxonomy.json",
+          "predecessor_sha256": "b7706d03f2372881592669f115a52cdac811df61d53dc09f162a458a77c2cac2",
+          "before_git_blob_id": "50e9fbbece0a17733028ae441e6cfb031cdeabde",
+          "before_sha256_lf": "3f076670d430651b7179980b4fe0dc0b9e8b8504a77b0ef1d99ebe46c547bf61",
+          "expected_git_blob_id": "4635ba80d893ed5c96a7c4f289ccecedfd670ebd",
+          "after_sha256_lf": "020d165392e74390de049c08f0c64c20033af20d6017e89b5aaae485901807d5",
+          "owner": "repository_owner_user",
+          "reason": "Register the focused current-route anchor relocation regression in the exact taxonomy identity set."
+        },
         {
           "path": "Iris/build/description/v2/tools/build/INVENTORY.md",
           "predecessor_sha256": "f97414d7f65501fb6d6dc977599eea948c24558eda04649d393d277be8addc11",

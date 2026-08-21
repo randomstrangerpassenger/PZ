@@ -6,7 +6,8 @@ param(
     [string]$RepositoryRoot,
     [string]$PzExecutable = 'G:/Program Files (x86)/Steam/steamapps/common/ProjectZomboid/ProjectZomboid64.exe',
     [string]$AcceptedOptionsPath = 'C:/Users/MW/Zomboid/options.ini',
-    [int]$TimeoutSeconds = 240
+    [ValidateRange(0, 2147483)][int]$TimeoutSeconds = 240,
+    [ValidateRange(1, 300)][int]$ProgressCheckSeconds = 30
 )
 
 $ErrorActionPreference = 'Stop'
@@ -82,12 +83,38 @@ try {
     [System.IO.File]::WriteAllText($resetSentinel, "If this file does not exist, default.txt will be reset to empty (no mods active).`r`n", $utf8NoBom)
 
     $arguments = @("-cachedir=$cacheRoot",'-nosteam','-nosound','-novoip','-debug')
+    $consolePath = Join-Path $cacheRoot 'console.txt'
     $process = Start-Process -FilePath $PzExecutable -ArgumentList $arguments -WorkingDirectory (Split-Path -Parent $PzExecutable) -WindowStyle Hidden -PassThru
-    if (-not $process.WaitForExit($TimeoutSeconds * 1000)) {
+    if ($TimeoutSeconds -eq 0) {
+        $startedAt = [System.DateTime]::UtcNow
+        $lastCpuSeconds = 0.0
+        $lastConsoleBytes = 0L
+        Write-Output "PZ harness running without a time limit: progress_check_seconds=$ProgressCheckSeconds"
+        while (-not $process.WaitForExit($ProgressCheckSeconds * 1000)) {
+            $process.Refresh()
+            $cpuSeconds = $process.TotalProcessorTime.TotalSeconds
+            $consoleBytes = if (Test-Path -LiteralPath $consolePath -PathType Leaf) {
+                (Get-Item -LiteralPath $consolePath).Length
+            } else {
+                0L
+            }
+            $cpuDelta = [Math]::Round($cpuSeconds - $lastCpuSeconds, 2)
+            $consoleDelta = $consoleBytes - $lastConsoleBytes
+            $elapsedSeconds = [Math]::Round(([System.DateTime]::UtcNow - $startedAt).TotalSeconds)
+            $loopSignal = if ($cpuDelta -ge ($ProgressCheckSeconds * 0.9) -and $consoleDelta -eq 0) {
+                'high_cpu_without_console_growth'
+            } else {
+                'none'
+            }
+            Write-Output "PZ harness progress: elapsed_seconds=$elapsedSeconds cpu_delta_seconds=$cpuDelta console_bytes=$consoleBytes console_delta_bytes=$consoleDelta loop_signal=$loopSignal"
+            $lastCpuSeconds = $cpuSeconds
+            $lastConsoleBytes = $consoleBytes
+        }
+    }
+    elseif (-not $process.WaitForExit($TimeoutSeconds * 1000)) {
         try { $process.Kill() } catch {}
         throw "PZ harness timed out after $TimeoutSeconds seconds"
     }
-    $consolePath = Join-Path $cacheRoot 'console.txt'
     if (-not (Test-Path -LiteralPath $consolePath -PathType Leaf)) { throw "PZ console.txt was not produced; process_exit=$($process.ExitCode)" }
     $consoleLines = Get-Content -LiteralPath $consolePath
     $rawRows = @()

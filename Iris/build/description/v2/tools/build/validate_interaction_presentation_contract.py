@@ -14,6 +14,20 @@ REPOSITORY_ROOT = Path(__file__).resolve().parents[6]
 IRIS_ROOT = REPOSITORY_ROOT / "Iris"
 PLAN_PATH = REPOSITORY_ROOT / "docs" / "새 폴더" / "iris_layer4_adaptive_interaction_density_presentation_plan.md"
 WALKTHROUGH_PATH = REPOSITORY_ROOT / "docs" / "iris_layer4_gate3_source_migration_unblock_walkthrough.md"
+OWNER_PACKET_PATH = (
+    REPOSITORY_ROOT
+    / "docs"
+    / "iris_layer4_adaptive_interaction_density_presentation_owner_decision_packet.md"
+)
+OWNER_SEAL_PATH = (
+    IRIS_ROOT
+    / "build"
+    / "description"
+    / "v2"
+    / "owner_inputs"
+    / "iris_layer4_adaptive_interaction_density_presentation"
+    / "owner_policy_seal.json"
+)
 STAGING_ROOT = (
     IRIS_ROOT
     / "build"
@@ -50,6 +64,8 @@ DECLARED_IMPLEMENTATION_SUBJECT_PATHS = {
     "docs/iris_layer4_adaptive_interaction_density_presentation_decision_packet.md",
     "docs/iris_layer4_adaptive_interaction_density_presentation_closeout.md",
     "docs/iris_layer4_gate3_source_migration_unblock_walkthrough.md",
+    "docs/iris_layer4_adaptive_interaction_density_presentation_owner_decision_packet.md",
+    "Iris/build/description/v2/owner_inputs/iris_layer4_adaptive_interaction_density_presentation/owner_policy_seal.json",
     "docs/\uc0c8 \ud3f4\ub354/iris_layer4_adaptive_interaction_density_presentation_plan.md",
     *SELF_GENERATED_REPORT_PATHS,
 }
@@ -137,6 +153,20 @@ PLANNING_RECIPE_ONLY = {
     ("Base.Torch", "remove_battery"),
 }
 
+APPROVED_EXECUTION_BASE_COMMIT = "bfdee1c29f82181e15b5924c750e6d44acf41fcc"
+APPROVED_EXECUTION_BASE_TREE = "aee455bd36881e1167d454d470300a4f67fa3cf4"
+APPROVED_PLAN_SHA256 = "f38d8bf976ec3b8b3d219e2c5e73090a0566a6113b2d658366f26dbdea116580"
+APPROVED_WALKTHROUGH_SHA256 = "a96a3a6e453d8df0f7549450020dd33b58f2f70cb748038c2bee369f88b376af"
+APPROVED_OWNER_MESSAGE_SHA256 = "66a65dabef10bf9839e9d94871e092c33bf4a900fea88d0db0f905997e8ff9ce"
+APPROVED_OWNER_SEAL_SHA256 = "2ed2fda9de08ee71694e7c793ec6db7ba811755263dc0a5b0f7b1d140a2345a5"
+APPROVED_QG_ONLY = {
+    ("Base.BallPeenHammer", "uc.action.construction"),
+    ("Base.GardenSaw", "uc.action.wood_cutting"),
+    ("Base.HammerStone", "uc.action.construction"),
+}
+EXISTING_RENDERER_PATH = "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserInteractionRenderer.lua"
+EXISTING_COLLECTOR_PATH = "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserInteractionCollector.lua"
+
 
 def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -148,6 +178,82 @@ def sha256_path(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def git_blob_sha256(ref: str, repository_path: str) -> str:
+    content = subprocess.check_output(
+        ["git", "show", f"{ref}:{repository_path}"], cwd=REPOSITORY_ROOT
+    )
+    return hashlib.sha256(content).hexdigest()
+
+
+def validate_owner_policy_seal(
+    *, capability_report: dict[str, Any], recipe_report: dict[str, Any]
+) -> tuple[dict[str, Any], list[str]]:
+    seal = load_json(OWNER_SEAL_PATH)
+    resolved_tree = subprocess.run(
+        ["git", "rev-parse", f"{APPROVED_EXECUTION_BASE_COMMIT}^{{tree}}"],
+        cwd=REPOSITORY_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    ).stdout.strip()
+    qg_only = {
+        (entry.get("fulltype"), entry.get("use_case_id"))
+        for entry in seal.get("qg_only_publication", {}).get("relations", [])
+    }
+    current_qg_only = {
+        (entry.get("fulltype"), entry.get("use_case_id"))
+        for entry in capability_report.get("qg_only", [])
+    }
+    checks = {
+        "owner_seal_identity": sha256_path(OWNER_SEAL_PATH) == APPROVED_OWNER_SEAL_SHA256,
+        "owner_seal_schema_status": seal.get("schema_version") == "iris-layer4-owner-policy-seal-v2"
+        and seal.get("status") == "approved",
+        "owner_seal_approval_source": seal.get("approval_source", {}).get("sha256")
+        == APPROVED_OWNER_MESSAGE_SHA256,
+        "owner_seal_execution_base": seal.get("execution_base")
+        == {"commit": APPROVED_EXECUTION_BASE_COMMIT, "tree": APPROVED_EXECUTION_BASE_TREE}
+        and resolved_tree == APPROVED_EXECUTION_BASE_TREE,
+        "owner_seal_plan": seal.get("plan", {}).get("sha256") == sha256_path(PLAN_PATH)
+        == APPROVED_PLAN_SHA256,
+        "owner_seal_walkthrough": seal.get("gate3_walkthrough", {}).get("sha256")
+        == sha256_path(WALKTHROUGH_PATH)
+        == APPROVED_WALKTHROUGH_SHA256,
+        "owner_seal_packet": seal.get("decision_packet", {}).get("sha256")
+        == sha256_path(OWNER_PACKET_PATH),
+        "owner_seal_gate3": capability_report.get("capability_only_count") == 0
+        and recipe_report.get("recipe_only_count") == 0,
+        "owner_seal_qg_only": qg_only == current_qg_only == APPROVED_QG_ONLY,
+        "owner_seal_rat08": seal.get("ratifications", {}).get("L4-RAT-08", {}).get("status")
+        == "not_applicable",
+        "historical_owner_seal_consumed": seal.get("historical_artifacts", {}).get(
+            "historical_staging_seal_consumed"
+        )
+        is False,
+    }
+    errors = sorted(name for name, passed in checks.items() if not passed)
+
+    return (
+        {
+            "status": "approved" if not errors else "invalid",
+            "path": repository_relative(OWNER_SEAL_PATH),
+            "sha256": sha256_path(OWNER_SEAL_PATH),
+            "decision_packet_path": repository_relative(OWNER_PACKET_PATH),
+            "decision_packet_sha256": sha256_path(OWNER_PACKET_PATH),
+            "execution_base_commit": APPROVED_EXECUTION_BASE_COMMIT,
+            "execution_base_tree": APPROVED_EXECUTION_BASE_TREE,
+            "ratifications": seal.get("ratifications", {}),
+            "qg_only_publication": [
+                {"fulltype": fulltype, "use_case_id": use_case_id}
+                for fulltype, use_case_id in sorted(qg_only)
+            ],
+            "historical_staging_seal_consumed": False,
+            "errors": sorted(errors),
+        },
+        errors,
+    )
 
 
 def canonical_json_bytes(value: Any) -> bytes:
@@ -855,6 +961,10 @@ def build_contract_report(*, small_max: int, dense_min: int) -> tuple[dict[str, 
         load_json(RECIPE_NAV_PATH),
         qg_rows_by_surface["recipe_ui"],
     )
+    owner_policy, owner_policy_errors = validate_owner_policy_seal(
+        capability_report=capability_report,
+        recipe_report=recipe_report,
+    )
     runtime_report = build_runtime_projection_report(installed_fulltypes)
     no_mutation = build_no_mutation_report()
 
@@ -891,6 +1001,7 @@ def build_contract_report(*, small_max: int, dense_min: int) -> tuple[dict[str, 
         contract_errors.append("runtime_chunk_identity_order_mismatch")
     if runtime_report["line_count_mismatch_count"]:
         contract_errors.append("runtime_line_count_mismatch")
+    contract_errors.extend(owner_policy_errors)
     if not gate3_pass and no_mutation["policy_dependent_current_mutation_count"]:
         contract_errors.append("preseal_policy_dependent_current_mutation")
 
@@ -899,22 +1010,76 @@ def build_contract_report(*, small_max: int, dense_min: int) -> tuple[dict[str, 
         if recipe_report["recipe_only_count"] == 0
         else "required_but_unapproved"
     )
+    owner_sealed = not owner_policy_errors and gate3_pass
+    generation_contract_available = (
+        IRIS_ROOT
+        / "build"
+        / "description"
+        / "v2"
+        / "tools"
+        / "build"
+        / "validate_layer4_complete_generation_install.py"
+    ).is_file()
+    generated_plumbing_required = recipe_report["runtime_stable_id_plumbing"]["required"]
+    partial_generated_boundary = owner_sealed and generated_plumbing_required and not generation_contract_available
     path_selection = {
-        "schema_version": "iris-layer4-execution-path-selection-v1",
-        "owner_policy_seal_status": "unapproved_new_seal_required",
+        "schema_version": "iris-layer4-execution-path-selection-v2",
+        "owner_policy_seal_status": owner_policy["status"],
+        "owner_policy_seal_sha256": owner_policy["sha256"],
         "rat08_binding_status": rat08_binding_status,
         "capability_only_count": capability_report["capability_only_count"],
         "recipe_only_count": recipe_report["recipe_only_count"],
         "gate3_status": "PASS" if gate3_pass else "BLOCKED",
         "selected_execution_path": (
-            "gate3_source_migration_unblocked" if gate3_pass else "preseal_gate3_blocked"
+            "gate3_owner_sealed_layer4_generation_contract_blocked_partial"
+            if partial_generated_boundary
+            else "gate3_owner_policy_sealed_full_implementation"
+            if owner_sealed
+            else "gate3_source_migration_unblocked_owner_seal_invalid"
+            if gate3_pass
+            else "preseal_gate3_blocked"
         ),
         "change2_and_later_policy_dependent_current_implementation": (
-            "blocked_pending_owner_policy_seal" if gate3_pass else "blocked_by_gate3"
+            "change2_mutation_independent_only_projection_dependent_deferred"
+            if partial_generated_boundary
+            else "authorized"
+            if owner_sealed
+            else "blocked_pending_valid_owner_policy_seal"
+            if gate3_pass
+            else "blocked_by_gate3"
         ),
         "mixed_qg_legacy_recipe_projection": "forbidden",
-        "required_validation": ["V1", "V4"] if gate3_pass else ["V1"],
+        "layer4_generation_contract_available": generation_contract_available,
+        "generated_stable_id_plumbing_required": generated_plumbing_required,
+        "projection_dependent_scope": "deferred" if partial_generated_boundary else "authorized",
+        "existing_renderer_and_recipe_fallback": "preserve" if partial_generated_boundary else "cutover_authorized",
+        "preserved_projection_paths": {
+            path: {
+                "execution_base_sha256": git_blob_sha256(APPROVED_EXECUTION_BASE_COMMIT, path),
+                "current_sha256": git_blob_sha256("HEAD", path),
+                "byte_identical": git_blob_sha256(APPROVED_EXECUTION_BASE_COMMIT, path)
+                == git_blob_sha256("HEAD", path),
+            }
+            for path in (EXISTING_RENDERER_PATH, EXISTING_COLLECTOR_PATH)
+        },
+        "required_validation": (
+            ["V1", "V2", "V3", "V4", "V7"]
+            if partial_generated_boundary
+            else ["V1", "V2", "V3", "V4", "V5", "V6", "V7"]
+            if owner_sealed
+            else ["V1", "V4"]
+            if gate3_pass
+            else ["V1"]
+        ),
         "not_applicable": (
+            {
+                "V5": "adaptive_projection_and_dev_harness_not_installed",
+                "V6": "installed_current_generation_package_projection_absent",
+            }
+            if partial_generated_boundary
+            else {}
+            if owner_sealed
+            else
             {
                 "V2": "no_change2_or_adaptive_ui_subject",
                 "V3": "no_controlled_current_denominator_change_subject",
@@ -933,7 +1098,13 @@ def build_contract_report(*, small_max: int, dense_min: int) -> tuple[dict[str, 
             }
         ),
         "closeout_ceiling": (
-            "gate3_pass_owner_approval_required" if gate3_pass else "blocked"
+            "partial"
+            if partial_generated_boundary
+            else "full_implementation_validation_required"
+            if owner_sealed
+            else "gate3_pass_owner_approval_required"
+            if gate3_pass
+            else "blocked"
         ),
     }
 
@@ -944,6 +1115,9 @@ def build_contract_report(*, small_max: int, dense_min: int) -> tuple[dict[str, 
             "plan_sha256": sha256_path(PLAN_PATH),
             "walkthrough_path": repository_relative(WALKTHROUGH_PATH),
             "walkthrough_sha256": sha256_path(WALKTHROUGH_PATH),
+            "execution_base_commit": APPROVED_EXECUTION_BASE_COMMIT,
+            "execution_base_tree": APPROVED_EXECUTION_BASE_TREE,
+            "owner_policy_seal": owner_policy,
             "runtime_fact_correction_approval": {
                 "status": "explicitly_approved",
                 "source": "user_instruction_2026-08-21",
@@ -956,14 +1130,14 @@ def build_contract_report(*, small_max: int, dense_min: int) -> tuple[dict[str, 
         "threshold_binding": {
             "small_max": small_max,
             "dense_min": dense_min,
-            "source": "non_authoritative_gate3_schema_diagnostic_parameters",
-            "proposal_not_sealed": True,
+            "source": "owner_policy_seal:L4-RAT-01",
+            "proposal_not_sealed": False,
             "validator_or_test_literal_is_authority": False,
-            "owner_policy_status": "unapproved",
+            "owner_policy_status": owner_policy["status"],
         },
         "source_order_binding": {
-            "source_order": None,
-            "source": "unapproved_L4-RAT-04",
+            "source_order": ["recipe", "rightclick"],
+            "source": "owner_policy_seal:L4-RAT-04",
         },
         "density_and_schema": density,
         "canonical_qg_source_schema": qg_source_schema,
@@ -972,12 +1146,13 @@ def build_contract_report(*, small_max: int, dense_min: int) -> tuple[dict[str, 
         "rat08_dispositions": [],
         "rat08_status": rat08_binding_status,
         "policy_authorization": {
-            "status": "unapproved",
+            "status": owner_policy["status"],
             "required_ratifications": [f"L4-RAT-{number:02d}" for number in range(1, 8)],
             "rat08": rat08_binding_status,
-            "qg_only_publication_status": "owner_approval_required",
+            "qg_only_publication_status": "approved",
             "qg_only_count": capability_report["qg_only_count"],
             "existing_owner_seal_eligible": False,
+            "fresh_owner_seal_sha256": owner_policy["sha256"],
         },
         "runtime_projection_parity": runtime_report,
         "gate3": {

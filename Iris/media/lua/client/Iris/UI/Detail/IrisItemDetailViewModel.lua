@@ -157,6 +157,39 @@ local function safeUseCaseCall(UseCases, methodName, argument, fallback)
     return fallback
 end
 
+local function safeInteractionState(UseCases, fullType)
+    if UseCases and UseCases._getDescriptionState then
+        local ok, value = ProtectedCall.data(function()
+            return UseCases._getDescriptionState(fullType)
+        end)
+        if ok and type(value) == "table" and
+            (value.status == "available" or value.status == "verified_empty" or value.status == "fault") then
+            return value
+        end
+        return {
+            status = "fault", reason = "status_lookup_failed", fallback_used = false,
+            entry = nil, lines = {}, exclusion_lines = {}, debug_lines = {},
+        }
+    end
+
+    -- Compatibility for injected/older facades. Production Iris always owns
+    -- the private status-bearing path; absence is not treated as verified empty.
+    local legacy = safeUseCaseCall(
+        UseCases, "getUseCaseLines", fullType, {lines={}, debug_lines={}}
+    )
+    local lines = legacy.lines or {}
+    local debugLines = legacy.debug_lines or {}
+    return {
+        status = #lines > 0 and "available" or "fault",
+        reason = "status_api_unavailable",
+        fallback_used = true,
+        entry = nil,
+        lines = lines,
+        exclusion_lines = {},
+        debug_lines = debugLines,
+    }
+end
+
 local function layer3Payload(fullType)
     local ok, renderer = safeRequire("Iris/Data/layer3_renderer")
     if not ok or not renderer or not renderer.getText or not fullType then
@@ -216,7 +249,14 @@ function ViewModel.fromItem(item)
     local apiOk, IrisAPI = safeRequire("Iris/IrisAPI")
     if not apiOk then IrisAPI = nil end
     local fullType = ItemAccess.getFullType(item)
-    local useCaseData = safeUseCaseCall(IrisAPI and IrisAPI.UseCases, "getUseCaseLines", fullType, {lines={},debug_lines={}})
+    local interactionState = safeInteractionState(IrisAPI and IrisAPI.UseCases, fullType)
+    local useCaseData = {
+        lines = interactionState.lines or {},
+        debug_lines = interactionState.debug_lines or {},
+        status = interactionState.status,
+        reason = interactionState.reason,
+        fallback_used = interactionState.fallback_used == true,
+    }
     local capabilities = safeUseCaseCall(IrisAPI and IrisAPI.UseCases, "getCapabilities", fullType, {})
     local Index = IrisAPI and IrisAPI.Index
     local layer3 = layer3Payload(fullType)
@@ -276,6 +316,7 @@ function ViewModel.fromItem(item)
             fixing = safeIndexCall(Index, "getFixingInfoForItem", item),
         },
         useCases = useCaseData,
+        interactionState = interactionState,
         capabilities = capabilities,
     }
     values.availability = {
@@ -303,6 +344,26 @@ function ViewModel.fromItem(item)
     values.useCases = readonly({
         lines = readonlyArray(values.useCases.lines),
         debug_lines = readonlyArray(values.useCases.debug_lines),
+        status = values.useCases.status,
+        reason = values.useCases.reason,
+        fallback_used = values.useCases.fallback_used,
+    })
+    local interactionEntry = values.interactionState.entry
+    if interactionEntry then
+        interactionEntry = readonly({
+            lines = readonlyArray(interactionEntry.lines),
+            exclusion_lines = readonlyArray(interactionEntry.exclusion_lines),
+            debug_lines = readonlyArray(interactionEntry.debug_lines),
+        })
+    end
+    values.interactionState = readonly({
+        status = values.interactionState.status,
+        reason = values.interactionState.reason,
+        fallback_used = values.interactionState.fallback_used == true,
+        entry = interactionEntry,
+        lines = readonlyArray(values.interactionState.lines),
+        exclusion_lines = readonlyArray(values.interactionState.exclusion_lines),
+        debug_lines = readonlyArray(values.interactionState.debug_lines),
     })
     values.capabilities = readonlyArray(values.capabilities)
     values.availability = readonly(values.availability)

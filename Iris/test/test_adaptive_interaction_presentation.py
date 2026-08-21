@@ -90,6 +90,28 @@ def test_full_qg_positive_identity_set_is_projection_compatible() -> None:
     assert observed == 877
 
 
+def test_named_density_anchors_match_current_qg_source() -> None:
+    fulltypes = json.loads(
+        (REPOSITORY_ROOT / "Iris/output/descriptions_by_fulltype.v2.4.json").read_text(encoding="utf-8")
+    )["fulltypes"]
+
+    def positive_rows(fulltype: str) -> list[dict[str, object]]:
+        return [
+            row
+            for row in fulltypes[fulltype]["use_case_block"]["items"]
+            if not row["use_case_id"].startswith("uc.exclusion.")
+        ]
+
+    mold = positive_rows("Base.223BulletsMold")
+    assert [(row["use_case_id"], row["surface"]) for row in mold] == [
+        ("uc.recipe.make_223_bullets", "recipe_ui")
+    ]
+
+    tongs = positive_rows("Base.Tongs")
+    assert len(tongs) == 33
+    assert all(row["surface"] == "recipe_ui" for row in tongs)
+
+
 def test_ko_en_adaptive_keys_are_complete() -> None:
     required = {
         "Iris_Interaction_SourceRecipe",

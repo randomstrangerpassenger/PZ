@@ -26,7 +26,7 @@ CANONICAL_INPUTS = (
     "Iris/build/description/v2/data/compose_profiles_v2.json",
     "Iris/build/description/v2/data/compose_profile_identity_hint_rules.json",
     "Iris/build/description/v2/data/compose_profile_conflict_precedence_rules.json",
-    "Iris/build/description/v2/staging/dvf_acquisition_list_runtime/attempt-0001/candidate_rendered.json",
+    "Iris/build/description/v2/data/layer3_body_role_realign/approved_upstream/candidate_rendered.json",
 )
 
 GENERATOR_IMPLEMENTATION_FILES = (

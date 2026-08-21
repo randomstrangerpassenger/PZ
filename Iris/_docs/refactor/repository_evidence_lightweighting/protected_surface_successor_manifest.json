@@ -1929,6 +1929,30 @@
           "reason": "Register the tracked adaptive presentation acceptance source without extending the current product-route denominator."
         }
       ]
+    },
+    {
+      "revision_id": "iris_layer4_runtime_projection_full_gate_disposition_v1",
+      "track": "iris_layer4_adaptive_interaction_presentation",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "0c1217fe40bfdd9bdf435be37e13c525cae2984a",
+      "protection_predecessor_tree": "1eea8004541010d8a5c4becbfebfcb712b677d36",
+      "reason": "Complete the dedicated-route disposition for the Layer 4 integration's tracked runtime-projection acceptance source.",
+      "approved_activation_deltas": [],
+      "added_protected_rows": [
+        {
+          "path": "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+          "before_git_blob_id": "cb7da81c974437424597c210680a971c3e0c323d",
+          "before_sha256_lf": "453338d834ace8624de993eb39b63da48ebdb0dd514afc49bfd2d7514e64da24",
+          "expected_git_blob_id": "56c62cbc2aa02254d3ab6d2e4f9aafe6e4051aa1",
+          "after_sha256_lf": "cf4130804c84835b3944707a9462e6814bea0b926764fff807b5d0b16fd7e107",
+          "role": "layer4_runtime_projection_dedicated_route_disposition",
+          "writer": "iris_layer4_adaptive_interaction_presentation",
+          "consumers": ["full_repository_gate", "layer4_runtime_projection_focused_route", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Register the tracked runtime-projection acceptance source without extending the current product-route denominator."
+        }
+      ]
     }
   ]
 }

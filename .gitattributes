@@ -139,3 +139,5 @@ Iris/build/description/v2/data/layer3_body_role_realign/** -text
 docs/iris_item_page_information_sufficiency_walkthrough.md -text
 docs/iris_item_page_information_sufficiency_policy.md -text
 Iris/build/description/v2/output/item_page_information_sufficiency/** -text
+Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase10/claim_boundary_report.json -text
+Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase4/old_new_dual_current_absence_report.json -text

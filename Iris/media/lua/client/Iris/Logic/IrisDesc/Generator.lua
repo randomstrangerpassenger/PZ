@@ -14,6 +14,7 @@
 local TagParser = require("Iris/Logic/IrisDesc/TagParser")
 local Ordering = require("Iris/Logic/IrisDesc/Ordering")
 local Templates = require("Iris/Logic/IrisDesc/Templates")
+local TemplatesEn = require("Iris/Logic/IrisDesc/TemplatesEn")
 local Renderer = require("Iris/Logic/IrisDesc/Renderer")
 
 local Logger = require("Iris/Logic/IrisDesc/Logger")
@@ -26,7 +27,7 @@ local IrisDescGenerator = {}
 ---@param tags table 소분류 태그 배열
 ---@param meta_primary_opt string|nil 주 소분류 메타 (선택)
 ---@return table blocks 렌더링된 블록 문자열 배열
-function IrisDescGenerator.generate(item_fulltype, tags, meta_primary_opt)
+function IrisDescGenerator.generate(item_fulltype, tags, meta_primary_opt, locale)
     local debugEnabled = Logger.isDebugEnabled and Logger.isDebugEnabled()
 
     if debugEnabled then
@@ -97,7 +98,8 @@ function IrisDescGenerator.generate(item_fulltype, tags, meta_primary_opt)
             Logger.debug("[IrisDescGenerator.generate] Processing subcat[" .. i .. "] = '" .. subcat .. "'")
         end
         
-        local template = Templates.getTemplate(subcat)
+        local localeTemplates = tostring(locale or "KO"):upper() == "EN" and TemplatesEn or Templates
+        local template = localeTemplates.getTemplate(subcat)
         if debugEnabled then
             Logger.debug("[IrisDescGenerator.generate]   template exists = " .. tostring(template ~= nil))
         end
@@ -139,8 +141,8 @@ end
 ---@param tags table 소분류 태그 배열
 ---@param meta_primary_opt string|nil 주 소분류 메타 (선택)
 ---@return string 전체 설명 문자열
-function IrisDescGenerator.generateString(item_fulltype, tags, meta_primary_opt)
-    local blocks = IrisDescGenerator.generate(item_fulltype, tags, meta_primary_opt)
+function IrisDescGenerator.generateString(item_fulltype, tags, meta_primary_opt, locale)
+    local blocks = IrisDescGenerator.generate(item_fulltype, tags, meta_primary_opt, locale)
     return Renderer.joinBlocks(blocks)
 end
 

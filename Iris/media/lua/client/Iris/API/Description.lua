@@ -51,7 +51,7 @@ end
 --- @param fullType string 아이템 FullType
 --- @param primarySubcategory string|nil 주 소분류 메타 (선택)
 --- @return table 블록 문자열 배열
-function Description.getDescriptionBlocks(fullType, primarySubcategory)
+function Description.getDescriptionBlocks(fullType, primarySubcategory, locale)
     local devLog = isDevLogEnabled()
     if devLog then
         debug("[IrisAPI.getDescriptionBlocks] ========== START ==========")
@@ -109,7 +109,7 @@ function Description.getDescriptionBlocks(fullType, primarySubcategory)
     end
 
     local ok, result = ProtectedCall.data(function()
-        return IrisDescGenerator.generate(fullType, tags, primarySubcategory)
+        return IrisDescGenerator.generate(fullType, tags, primarySubcategory, locale)
     end)
 
     if devLog then
@@ -142,8 +142,8 @@ end
 --- @param fullType string 아이템 FullType
 --- @param primarySubcategory string|nil 주 소분류 메타 (선택)
 --- @return string 설명 문자열 또는 빈 문자열
-function Description.getDescription(fullType, primarySubcategory)
-    local blocks = Description.getDescriptionBlocks(fullType, primarySubcategory)
+function Description.getDescription(fullType, primarySubcategory, locale)
+    local blocks = Description.getDescriptionBlocks(fullType, primarySubcategory, locale)
     if #blocks == 0 then return "" end
     return table.concat(blocks, "\n\n")
 end
@@ -152,13 +152,13 @@ end
 --- @param item InventoryItem|ScriptItem
 --- @param primarySubcategory string|nil 주 소분류 메타 (선택)
 --- @return string 전체 설명 문자열
-function Description.getDescriptionForItem(item, primarySubcategory)
+function Description.getDescriptionForItem(item, primarySubcategory, locale)
     if not item then return "" end
 
     local fullType = ItemKey.getFullTypeFromItem(item)
     if not fullType then return "" end
 
-    return Description.getDescription(fullType, primarySubcategory)
+    return Description.getDescription(fullType, primarySubcategory, locale)
 end
 
 return Description

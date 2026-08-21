@@ -33,7 +33,10 @@ end
 package.preload["Iris/Data/layer3_renderer"] = function()
     return {
         getPublishState=function() return "published" end,
-        getText=function() return "한국어 전용 3계층 설명" end,
+        getText=function(_, options)
+            if options and options.locale == "EN" then return "English Layer 3 description" end
+            return "한국어 3계층 설명"
+        end,
     }
 end
 
@@ -65,8 +68,9 @@ assert(english.fullType == korean.fullType and english.weight == korean.weight)
 assert(english.food.hunger == korean.food.hunger and english.food.thirst == korean.food.thirst)
 assert(english.availability.food == korean.availability.food)
 assert(english.availability.layer3 == korean.availability.layer3)
-assert(english.layer3.raw == korean.layer3.raw)
-assert(english.layer3.display == nil)
+assert(english.layer3.raw == "English Layer 3 description")
+assert(korean.layer3.raw == "한국어 3계층 설명")
+assert(english.layer3.display ~= nil)
 assert(korean.layer3.display ~= nil)
 assert(english.interactionState.status == "verified_empty")
 assert(english.useCases.status == english.interactionState.status)
@@ -78,4 +82,13 @@ assert(not pcall(function() english.fullType = "Base.Mutated" end))
 assert(not pcall(function() english.food.hunger = 0 end))
 assert(not pcall(function() english.tags[1] = "Mutated" end))
 
-print("IRIS_DETAIL_LOCALE_PASS raw_equal=true availability_equal=true ko_only_layer3_display=true labels_differ=true nested_readonly=true interaction_lookup_once_per_build=true")
+local englishLookup = require("Iris/Data/IrisLayer3EnglishLookup")
+local hammerText = englishLookup.get("Base.HammerStone")
+assert(hammerText and hammerText:find("construction", 1, true))
+for index = 1, #hammerText do assert(string.byte(hammerText, index) < 128) end
+local TemplatesKo = require("Iris/Logic/IrisDesc/Templates")
+local TemplatesEn = require("Iris/Logic/IrisDesc/TemplatesEn")
+assert(TemplatesKo.getTemplate("Combat.2-C").header ~= TemplatesEn.getTemplate("Combat.2-C").header)
+assert(TemplatesEn.getTemplate("Combat.2-C").header == "Combat - Short Blunt")
+
+print("IRIS_DETAIL_LOCALE_PASS localized_layer2=true localized_layer3=true availability_equal=true labels_differ=true nested_readonly=true interaction_lookup_once_per_build=true")

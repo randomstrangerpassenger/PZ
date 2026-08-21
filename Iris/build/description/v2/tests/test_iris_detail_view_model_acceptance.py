@@ -56,7 +56,7 @@ class DetailViewModelAcceptanceTest(unittest.TestCase):
         self.assertGreater(new_scroll["scroll_after_first"], 0)
         self.assertLessEqual(new_scroll["scroll_after_second"], new_scroll["max_scroll"])
 
-    def test_actual_standalone_en_ko_raw_and_availability_parity(self) -> None:
+    def test_actual_standalone_en_ko_localized_payload_and_availability_parity(self) -> None:
         lua = shutil.which("lua")
         self.assertIsNotNone(lua, "required standalone Lua executable is unavailable")
         completed = subprocess.run(
@@ -68,9 +68,9 @@ class DetailViewModelAcceptanceTest(unittest.TestCase):
         )
         self.assertEqual(0, completed.returncode, completed.stdout + completed.stderr)
         self.assertIn("IRIS_DETAIL_LOCALE_PASS", completed.stdout)
-        self.assertIn("raw_equal=true", completed.stdout)
+        self.assertIn("localized_layer2=true", completed.stdout)
+        self.assertIn("localized_layer3=true", completed.stdout)
         self.assertIn("availability_equal=true", completed.stdout)
-        self.assertIn("ko_only_layer3_display=true", completed.stdout)
         self.assertIn("labels_differ=true", completed.stdout)
         self.assertIn("nested_readonly=true", completed.stdout)
         self.assertIn("interaction_lookup_once_per_build=true", completed.stdout)
@@ -97,7 +97,6 @@ class DetailViewModelAcceptanceTest(unittest.TestCase):
         self.assertNotIn("rebuildDetailContent", wheel)
         self.assertIn("applyDetailScrollOffset", wheel)
         self.assertIn("DetailViewModel.fromItem(item)", detail)
-        self.assertIn('local koPresentation = tostring(model.locale or "EN"):upper() == "KO"', detail)
 
         wiki = (REPO / "Iris/media/lua/client/Iris/UI/Wiki/IrisWikiPanel.lua").read_text(encoding="utf-8")
         sections = (REPO / "Iris/media/lua/client/Iris/UI/Wiki/IrisWikiSections.lua").read_text(encoding="utf-8")

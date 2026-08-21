@@ -2,7 +2,8 @@
     Layer 3 Renderer — 3계층 개별 아이템 설명 렌더
     
     ⚠️ 헌법:
-    - text_ko가 있으면 출력, 없으면 건너뜀
+    - 현재 locale의 precompiled text가 있으면 출력, 없으면 건너뜀
+    - locale 간 raw-text fallback 금지
     - 문장 수정/필터링/재정렬/추가/폴백 절대 금지
     - protected call로 감싸서 개별 실패 시 무시
 ]]
@@ -23,6 +24,8 @@ local dataLoaded = false
 local loadStatusLogged = false
 local layer3Lookup = nil
 local lookupAttempted = false
+local englishLookup = nil
+local englishLookupAttempted = false
 
 -- validation anchor: require, "Iris/Data/IrisLayer3DataChunks"
 
@@ -107,6 +110,16 @@ local function getEntry(fullType)
     return nil
 end
 
+local function ensureEnglishLookup()
+    if englishLookupAttempted then return englishLookup end
+    englishLookupAttempted = true
+    local ok, loaded = safeRequire("Iris/Data/IrisLayer3EnglishLookup")
+    if ok and loaded and type(loaded.get) == "function" then
+        englishLookup = loaded
+    end
+    return englishLookup
+end
+
 function Layer3Renderer.getPublishState(fullType)
     local entry = getEntry(fullType)
     if entry and entry.publish_state then
@@ -115,7 +128,11 @@ function Layer3Renderer.getPublishState(fullType)
     return nil
 end
 
-function Layer3Renderer.getRawText(fullType)
+function Layer3Renderer.getRawText(fullType, options)
+    if tostring(options and options.locale or "KO"):upper() == "EN" then
+        local lookup = ensureEnglishLookup()
+        return lookup and lookup.get(fullType) or nil
+    end
     local entry = getEntry(fullType)
     if entry and entry.text_ko then
         return entry.text_ko
@@ -133,6 +150,11 @@ function Layer3Renderer.getText(fullType, options)
     local includeInternalOnly = options and options.include_internal_only == true
     if publishState == "internal_only" and not includeInternalOnly then
         return nil
+    end
+
+    if tostring(options and options.locale or "KO"):upper() == "EN" then
+        local lookup = ensureEnglishLookup()
+        return lookup and lookup.get(fullType) or nil
     end
 
     if entry.text_ko then

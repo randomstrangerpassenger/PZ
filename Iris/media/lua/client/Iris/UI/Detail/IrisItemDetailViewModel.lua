@@ -196,14 +196,13 @@ local function layer3Payload(fullType, locale)
         return {available=false,adoptionState="unavailable",publishState=nil,raw=nil,display=nil}
     end
     local publishState = renderer.getPublishState and renderer.getPublishState(fullType) or nil
-    local callOk, raw = ProtectedCall.data(function() return renderer.getText(fullType) end)
+    local callOk, raw = ProtectedCall.data(function()
+        return renderer.getText(fullType, {locale=locale})
+    end)
     if not callOk or not raw or raw == "" then
         return {available=false,adoptionState=publishState or "unavailable",publishState=publishState,raw=nil,display=nil}
     end
-    local display = nil
-    if tostring(locale or "EN"):upper() == "KO" then
-        display = Layer3DisplayFormatter.format(raw)
-    end
+    local display = Layer3DisplayFormatter.format(raw)
     return {available=true,adoptionState=publishState or "public_legacy",publishState=publishState,
         raw=raw,display=display}
 end

@@ -1,31 +1,52 @@
 # ROADMAP_TEMPLATE.md
 
+## Template Use Rule
+
+This template assumes the author has already read `Philosophy.md`, `EXECUTION_CONTRACT.md`, and the task-relevant ecosystem authority documents.
+
+Apply `EXECUTION_CONTRACT.md` only within its declared scope and authority position: ecosystem-wide disclosure, evidence, and closeout obligations.
+
+Do not restate inherited requirements that are already binding through applicable authorities.
+
+Include an inherited requirement only when:
+
+* its task-specific consequence must be made explicit
+* it is necessary to define scope, sequencing, correctness, validation, or a claim boundary
+
+An inherited requirement remains binding even when it is not repeated in this roadmap.
+
+---
+
 ## 1. Problem Statement
 
 Describe the core problem this roadmap is intended to solve.
 
-Include:
+Include relevant:
 
 * current limitation
 * operational pain point
 * architectural pressure
 * workflow bottleneck
-* validation or governance concern
+* task-specific validation or governance concern
+
+Do not use this section to restate inherited requirements.
 
 ---
 
 ## 2. Current State
 
-Describe the current ecosystem or module state.
+Describe the current ecosystem or module state relevant to the problem.
 
 Include relevant:
 
 * existing implementation state
 * known limitations
-* existing constraints
+* task-relevant constraints
 * sealed decisions
 * active dependencies
 * current validation confidence
+
+Reference inherited authority by document or decision when useful; do not reproduce it unless its task-specific effect matters here.
 
 ---
 
@@ -42,24 +63,23 @@ Focus on:
 * validation improvement
 * architectural clarity
 
-Avoid implementation detail.
+Avoid implementation detail and generic compliance statements.
 
 ---
 
 ## 4. Constraints
 
-List constraints that must remain preserved.
+List only constraints that are specific to this roadmap, or inherited constraints whose concrete effect on this task must be explicit.
+
+Do not duplicate requirements already guaranteed by applicable authority documents, including `EXECUTION_CONTRACT.md` within its declared scope.
 
 Examples:
 
-* Philosophy.md compliance
-* Hub & Spoke preservation
-* SPI preservation
-* runtime/build-time separation
-* FAIL-LOUD preservation
-* compatibility preservation
-* authority ownership preservation
-* Pulse must not depend on submods
+* a named authority must remain the sole owner of a specific surface
+* migration must not begin before a task-specific gate is satisfied
+* a compatibility surface affected by this roadmap must remain unchanged
+* a sealed artifact or decision relevant to this task must not be modified
+* a task-specific boundary inherited from an applicable authority materially constrains execution
 
 ---
 
@@ -70,10 +90,12 @@ List work intentionally excluded from this roadmap.
 Examples:
 
 * unrelated refactor
-* architecture redesign
+* architecture redesign outside the approved direction
 * release strategy changes
 * migration outside approved scope
-* optimization outside target area
+* optimization outside the target area
+
+Do not repeat exclusions that already apply through inherited authority unless they materially define this roadmap's boundary.
 
 ---
 
@@ -87,13 +109,15 @@ Focus on:
 * sequencing
 * decomposition
 * risk reduction
-* validation strategy
+* task-specific validation strategy
 
-Avoid low-level implementation detail.
+Avoid low-level implementation detail and inherited requirements that do not need task-specific restatement.
 
 ---
 
 ## 7. Authority / Surface Impact
+
+Describe only surfaces materially affected by this roadmap.
 
 ### Authority Surface
 
@@ -149,9 +173,19 @@ Expected Deliverables:
 
 (Repeat as needed)
 
+For `Expected Validation`, name validation specific to the phase or necessary to support a task-specific claim or gate.
+
+Do not restate inherited evidence or closeout obligations merely to make the roadmap self-contained.
+
 ---
 
 ## 9. Validation Expectations
+
+Describe the validation needed to support this roadmap's task-specific claims and gates.
+
+Apply inherited evidence and validation-ceiling obligations from `EXECUTION_CONTRACT.md` without reproducing them unless their task-specific consequence must be explicit.
+
+If the roadmap requires a validation checkpoint at a specific phase boundary, state it explicitly here or in the relevant phase.
 
 ### Expected Validation Depth
 
@@ -160,6 +194,8 @@ Expected Deliverables:
 * heavy
 
 ### Expected Validation Areas
+
+Select only applicable areas:
 
 * runtime
 * compatibility
@@ -170,18 +206,17 @@ Expected Deliverables:
 
 ### Known Validation Limits
 
-List validation that is not expected during this roadmap.
+List task-specific validation that is intentionally not expected and that materially limits what may be claimed.
 
-Examples:
-
-* no multiplayer validation
-* no deployment validation
-* no long-session runtime validation
-* no external ecosystem compatibility sweep
+Do not add generic non-claims merely as boilerplate.
 
 ---
 
 ## 10. Risk Assessment
+
+List risks created or materially changed by this roadmap.
+
+Do not repeat generic ecosystem risks that are unchanged by the task.
 
 ### High Risk
 
@@ -199,36 +234,36 @@ Examples:
 
 ## 11. Rollback Strategy
 
-Describe how roadmap execution can be reverted or contained if major regressions or invalid assumptions appear.
+Describe the task-specific rollback, containment, or stop condition needed if major regressions or invalid assumptions appear.
+
+If applicable inherited authority already defines everything needed and this roadmap adds nothing task-specific, state that no additional task-specific rollback rule is required rather than reproducing the inherited requirement.
 
 ---
 
 ## 12. Success Criteria
 
-Describe the conditions required for roadmap success.
+Describe concrete conditions required for roadmap success.
+
+Success criteria should be task-specific, observable, and supportable by the planned validation.
 
 Examples:
 
-* determinism preserved
-* no major regression
-* validation completed
-* runtime parity preserved
-* compatibility maintained
-* workflow simplification achieved
+* the intended authority transition is completed without mixed ownership
+* the target workflow no longer requires the identified redundant step
+* the affected runtime behavior matches the explicitly defined expected state
+* the task-specific compatibility boundary remains satisfied
+* the required validation gates pass
+
+Do not use generic compliance with inherited requirements as a substitute for task-specific success criteria.
 
 ---
 
 ## 13. Expected Claim Boundary
 
-This roadmap does NOT automatically imply:
+State only claim boundaries that are specific to this roadmap and materially follow from its validation limits.
 
-* full runtime equivalence
-* full compatibility preservation
-* release readiness
-* deployment readiness
-* production validation
-* architectural correctness
+Apply the claim-evidence and validation-ceiling obligations inherited from `EXECUTION_CONTRACT.md` without restating generic contract language.
 
-unless explicitly validated later.
+Do not repeat generic disclaimers merely as boilerplate.
 
-Do not claim success beyond validated scope.
+Each positive claim must remain within the evidence planned by this roadmap.

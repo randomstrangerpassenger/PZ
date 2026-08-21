@@ -182,6 +182,11 @@
         "path": "Iris/test/test_interaction_presentation_contract.py",
         "owner_decision": "not_applicable_dedicated_route",
         "reason": "Layer 4 interaction-presentation contract tests run through their dedicated focused route and do not extend the pre-existing current product-route denominator."
+      },
+      {
+        "path": "Iris/test/test_adaptive_interaction_presentation.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Layer 4 adaptive interaction-presentation acceptance tests run through their dedicated focused route and do not extend the pre-existing current product-route denominator."
       }
     ],
     "historical_optional_rule": "tracked Iris/build/description/v2/tests/test_*.py source with no current, ok taxonomy identity",

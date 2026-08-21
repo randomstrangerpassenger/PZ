@@ -1905,6 +1905,30 @@
           "reason": "Restore fail-closed recognition of the clean tracked historical codebase-optimization overlay lifecycle."
         }
       ]
+    },
+    {
+      "revision_id": "iris_layer4_adaptive_presentation_full_gate_disposition_v1",
+      "track": "iris_layer4_adaptive_interaction_presentation",
+      "owner": "repository_owner_user",
+      "approved": true,
+      "protection_predecessor_commit": "6311d7224ea46cae87ea2ce5d01be3a3a2cfc2bd",
+      "protection_predecessor_tree": "442775b7fd2000504fea8d72d1866381b2244589",
+      "reason": "Classify the already-tracked Layer 4 adaptive interaction-presentation acceptance source on its dedicated focused route so the canonical full gate remains fail-closed and denominator-neutral.",
+      "approved_activation_deltas": [],
+      "added_protected_rows": [
+        {
+          "path": "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+          "before_git_blob_id": "7bd4669fbdd300155667c8ad6f90b75376b6089b",
+          "before_sha256_lf": "e7f05d191011d83dc84ed4d374702e57bbabe299d07f0be5991e3cdc2a42bf0c",
+          "expected_git_blob_id": "cb7da81c974437424597c210680a971c3e0c323d",
+          "after_sha256_lf": "453338d834ace8624de993eb39b63da48ebdb0dd514afc49bfd2d7514e64da24",
+          "role": "layer4_adaptive_presentation_dedicated_route_disposition",
+          "writer": "iris_layer4_adaptive_interaction_presentation",
+          "consumers": ["full_repository_gate", "layer4_adaptive_presentation_focused_route", "repository_maintainers"],
+          "owner": "repository_owner_user",
+          "reason": "Register the tracked adaptive presentation acceptance source without extending the current product-route denominator."
+        }
+      ]
     }
   ]
 }

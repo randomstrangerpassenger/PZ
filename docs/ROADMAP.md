@@ -945,7 +945,7 @@ Current state: one-off assessment complete.
 
 ## Iris Layer 3 body-role realignment (2026-08-21)
 
-Current state: staging closeout complete.
+Current state: staging closeout and Change 9 current installation complete.
 
 - Layer 3를 confirmed description material이 있을 때만 제공하는 선택적 설명 계층으로 정렬하는 hash-bound policy/mapping/rule contract를 채택했다.
 - exact current body denominator에는 5-state disposition, canonical FullType denominator에는 독립 5-state readiness를 생성하는 pure core를 추가했다.
@@ -955,6 +955,33 @@ Current state: staging closeout complete.
 - Full-repository blocker repair는 current-generation authority anchor의 exact semantic relocation, Markdown inline identifier의 closeout-claim false positive 제거, tracked historical overlay lifecycle recognition 복원, Windows clean-checkout raw-byte 보존과 current taxonomy identity 결속으로 한정했다. Layer 4 dedicated test route의 제품 구현은 변경하지 않았다.
 - existing current compose, reusable public-text evaluator, runtime Lua와 package path는 이 staging implementation에서 변경하지 않았다.
 
-Focused test `8 passed`, required manual review `33/33`, exact duplicate group representative review `184/184`를 완료했다. Exact terminal subject `1197ccc99085666d336e3ed493555e26810104e5` / tree `da2bf2e5ec595b8de1ea41ee2fafb7e433c058db`의 mandatory full-repository Clean-Checkout Run A/B는 각각 `433 passed, 2 deselected, 117 subtests passed`와 standalone `4/4`로 exit `0`이며 canonical result raw bytes가 일치한다. Deterministic comparator도 exit `0`이고 source checkout mutation은 `0`이다. Post-validation result pointer는 `Iris/_docs/round3/layer3_body_role_realign/evidence_carriers/1197ccc99085666d336e3ed493555e26810104e5/clean_checkout_result_pointer.json`에 분리했으며 validated terminal subject를 재정의하지 않는다. Closeout token은 `layer3_role_realign_staging_complete`다. 별도 승인된 current install은 canonical seven-input generation/install 및 install subject의 fresh repository gate를 여전히 요구한다.
+Focused test `8 passed`, required manual review `33/33`, exact duplicate group representative review `184/184`를 완료했다. Exact staging terminal subject `1197ccc99085666d336e3ed493555e26810104e5` / tree `da2bf2e5ec595b8de1ea41ee2fafb7e433c058db`의 mandatory full-repository Clean-Checkout Run A/B는 각각 `433 passed, 2 deselected, 117 subtests passed`와 standalone `4/4`로 exit `0`이며 canonical result raw bytes가 일치한다. Deterministic comparator도 exit `0`이고 source checkout mutation은 `0`이다. Post-validation result pointer는 `Iris/_docs/round3/layer3_body_role_realign/evidence_carriers/1197ccc99085666d336e3ed493555e26810104e5/clean_checkout_result_pointer.json`에 분리했으며 validated terminal subject를 재정의하지 않는다. Staging closeout token은 `layer3_role_realign_staging_complete`다.
 
-Staging closeout에 남은 구현 gate는 없다. Current installation, runtime/package projection, Tooltip UI, Problem 5A enrichment, RTC, Publish와 release readiness는 이 완료 상태의 잔여 gate가 아니라 별도 successor 범위다.
+별도 승인된 Change 9 current installation도 완료했다.
+
+- Accepted staging successor를 raw bytes 그대로 approved upstream candidate로 승격하고 canonical seven-input complete-generation을 생성·검증했다.
+- Current pointer는 predecessor `dvf33-2a44a0a8d9a2e7f0d9a533ad002b7f691c1bfccec9577fb3356967ec6fd8a00c`에서 generation `dvf33-aa138aa4896b68ac53609a4b1cb6e5346245e74f544db28eb2ee924dc7b3e814`로 한 번 전환됐다. 동일 generation 재설치는 protected mutation `0`의 no-op이다.
+- Current package lookup identity를 `lookup-f088127352730047`로 정렬했다. Windows PowerShell 5.1과 PowerShell 7의 `current_runtime_payload` generation, lookup digest와 output universe가 일치하고 hash mismatch는 `0`이다.
+- Current 전환으로 predecessor one-off IPS snapshot을 `predecessor_snapshot_stale_after_install`로 표시했다. Evaluator 재실행이나 predecessor sufficiency claim 상속은 없다.
+- Install terminal subject `d006f6108093886751e538d36c92de3627a9e76f` / tree `5e2370f8e5720e830b8ef62c87b6c51c45bfaa4a`의 focused validation은 `23 passed, 14 subtests passed`, Lua syntax는 `157 files`로 PASS했다.
+- Fresh Clean-Checkout Run A/B는 각각 `433 passed, 2 deselected, 117 subtests passed`, standalone `4/4 PASS`, external mutation `0`, cleanup PASS다. Comparator는 required execution unit `437`, test identity `433`, canonical raw-byte equality와 result SHA-256 `f110c14471bd5e8f3cd0d76afeaa8533ea6bb6deaf147b17764e192f377c37b6`을 확인했다.
+- Full-gate source census가 드러낸 Layer 4 adaptive-presentation/runtime-projection test source 누락은 기존 interaction-presentation test와 같은 dedicated focused route로 분류했다. Adoption bindings만 current contract bytes로 갱신했으며 canonical denominator는 변경하지 않았다.
+- Current-install closeout token은 `layer3_role_realign_current_install_complete`다.
+
+Staging과 current installation에 남은 구현 gate는 없다. Tooltip UI, Problem 5A enrichment, RTC, Publish와 release/Workshop/deployment readiness는 별도 successor 범위다.
+
+---
+
+## Iris Layer 4 adaptive presentation and KO/EN detail localization (2026-08-21)
+
+Current state: implementation and owner in-game acceptance complete on `main`.
+
+- Layer 4 adaptive interaction presentation을 main에 통합했다. 단일·소규모·고밀도 row, compact/full 전환, 검색, Recipe 제작 UI 이동과 item/locale별 UI state ownership이 current runtime에 적용됐다.
+- Recipe와 Right-click은 독립 surface로 유지되며 QG-only 수용 대상 Ball Peen Hammer, Garden Saw, Stone Hammer가 모두 표시된다. Stone Hammer의 우클릭 행동도 owner가 최종 확인했다.
+- EN 전환 시 Layer 2–3 글자가 깨지던 문제를 교정했다. Layer 2는 KO와 ID parity를 갖는 EN template 50개를, Layer 3는 exact current facts에 결속된 EN payload 2,084개를 lazy chunk lookup으로 제공한다.
+- 지원 locale에서 알려진 정보를 숨기는 방식은 채택하지 않는다. Runtime은 같은 semantic source의 locale payload를 선택하며 KO raw text를 EN 화면에 노출하는 fallback도 사용하지 않는다.
+- Owner in-game 확인 결과는 부팅, Iris Browser, 223 Bullets Mold, Tongs compact/full/search, Recipe 제작 UI 이동, item 전환 상태, 세 QG-only 항목, 기존 context menu/Wiki/Alt Tooltip 동작과 화면 layout이 정상이다. 기존 surface의 fallback 분기 자체는 관찰 가능하지 않아 별도 PASS로 주장하지 않는다.
+- 구현 중 focused test는 `9 passed, 5 deselected`, Lua syntax validation은 `145 files`에서 exit `0`이었다. 이 결과와 localization builder를 새로운 validation authority로 확장하지 않는다.
+- Layer 4 통합 readpoint는 `e7508c0c`, current KO/EN detail localization readpoint는 `de146b73`다.
+
+이 범위에 남은 구현 또는 인게임 수용 gate는 없다. Push, RTC, Publish, release/Workshop/deployment는 이번 완료 상태의 일부가 아니며 필요할 때 별도 successor로 다룬다.

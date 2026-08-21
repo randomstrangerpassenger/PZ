@@ -884,21 +884,42 @@ Runtime은 계속 100% Lua다. Python은 build/validation/install tooling에만 
 
 Clean-checkout canonical Run A/B와 deterministic compare의 validated implementation subject는 `c924349eae6ee7f2a077ca83899b0ec99131f6c2`다. Codex Reviewer가 발견한 cross-PowerShell package identity nondeterminism은 terminal implementation subject `6f362b5e284d9f05749c7f9dc6a11f13bb1fe322`에서 ordinal ordering으로 교정했고 실제 `current_runtime_payload` ZIP projection이 exit `0`으로 완료됐다. Closeout carrier는 `5ce69e2a3bbf02d453e874af740a312e37b74bff`다.
 
-### Layer 3 optional-description role material
+### Layer 3 optional-description role material and current adoption
 
-Layer 3 body-role realignment은 current producer/install architecture 위의 off-live semantic staging route다.
+Layer 3 body-role realignment은 current producer/install architecture 위에서 off-live semantic staging과 owner-authorized current adoption을 분리한다.
 
-`current exact facts + exact provenance mapping + optional IPS Layer 3 snapshot axes -> readiness/disposition ledgers -> source-bound core/acquisition role material -> flat Menu candidate + Tooltip input readiness`
+`current exact facts + exact provenance mapping + optional IPS Layer 3 snapshot axes -> readiness/disposition ledgers -> source-bound core/acquisition role material -> flat Menu candidate + Tooltip input readiness -> approved upstream candidate -> canonical seven-input complete generation -> immutable install -> current pointer`
 
 - `layer3_body_role_realign.py`는 source/provenance mapping, total readiness/disposition과 exact duplicate signal/blocking separation을 소유한다. Rendered text를 source fact로 읽지 않는다.
 - `compose_layer3_role_material.py`는 confirmed description-eligible fact와 acquisition fact를 물리적으로 분리하고 fact IDs와 transformation trace를 보존한다. Acquisition-only projection은 core description이 아니다.
 - `run_layer3_body_role_realign.py`는 pointer-selected current generation을 execution time에 읽고 isolated roots 두 곳에서 byte-identical candidate를 재생성한다. Current facts/rendered/runtime/package와 one-off predecessor evidence는 protected observation surface다.
 - `validate_layer3_body_role_realign.py`는 staging subject만 read-only로 검증한다. Repository Clean-Checkout, current install, RTC, Publish 또는 release claim을 만들지 않는다.
 - Repository validation owner는 `Iris/validation/clean_checkout/`다. Staging focused test와 candidate replay 뒤 exact tracked terminal subject를 fresh disposable checkout 두 곳에서 full-repository Run A/B로 실행하고 canonical result raw-byte identity와 deterministic comparison을 확인한다. 이 gate만 `layer3_role_realign_staging_complete`의 repository-validation axis를 닫을 수 있다.
-- Runtime Lua는 계속 precompiled `text_ko`만 표시하고 readiness, disposition, fact-kind, rewrite 또는 summarization을 계산하지 않는다. Tooltip runtime consumer는 이 architecture change에 포함되지 않는다.
+- Current adoption owner는 explicit authorization과 `dvf_3_3_generation_contract.py`의 exact seven-input set이다. Approved candidate는 staging successor와 semantic identity가 같고 authorization, current readback, descriptor, receipt와 installer state는 generation input에서 제외된다.
+- Current visibility owner는 `install_dvf_3_3_complete_generation.py` 하나다. Generation `dvf33-aa138aa4896b68ac53609a4b1cb6e5346245e74f544db28eb2ee924dc7b3e814`는 immutable generation root에 설치되고 `IrisLayer3DataCurrent.lua`만 predecessor에서 한 번 전환됐다. Same-generation reinstall은 mutation `0`이며 stable facade/index/lookup은 같은 pointer-selected generation을 따른다.
+- Package projection은 `IrisRuntimeLookupPackageIdentity.json`의 ordinal identity `lookup-f088127352730047`과 generation descriptor의 output universe를 함께 검증한다. Windows PowerShell 5.1과 PowerShell 7의 digest parity는 current package identity의 재현성만 뜻하며 RTC나 publication authority를 만들지 않는다.
+- Runtime Lua는 precompiled locale payload만 표시하고 readiness, disposition, fact-kind, rewrite 또는 summarization을 계산하지 않는다. KO는 pointer-selected `text_ko`를 사용하고, EN은 같은 current facts에 결속된 companion localization chunk를 사용한다. Tooltip runtime consumer는 이 architecture change에 포함되지 않는다.
 
-One-off Item-Page Information Sufficiency row는 exact snapshot이 current일 때 Layer 3 `fact_availability/contribution/requiredness/representation` axes만 readiness prerequisite에 보조적으로 제공한다. Page disposition과 Layer 4 axes는 semantic production input이 아니다. Drift 시 evidence를 stale로 격리하며 제거된 evaluator나 authority chain을 복원하지 않는다.
+One-off Item-Page Information Sufficiency row는 exact snapshot이 current일 때 Layer 3 `fact_availability/contribution/requiredness/representation` axes만 readiness prerequisite에 보조적으로 제공한다. Page disposition과 Layer 4 axes는 semantic production input이 아니다. Current generation 전환 뒤 predecessor snapshot은 `predecessor_snapshot_stale_after_install`이며 제거된 evaluator나 authority chain을 복원하지 않고 predecessor result를 current sufficiency claim으로 상속하지 않는다.
 
 Validated staging terminal subject는 commit `1197ccc99085666d336e3ed493555e26810104e5`, tree `da2bf2e5ec595b8de1ea41ee2fafb7e433c058db`다. 이 subject의 candidate replay는 item `2,285`, existing body `2,084`, Problem 5A `2`와 successor entries identity `17789343f34bfc013d71460118819369913f85a073f319e93335c614cacaa200`을 재현했다. Mandatory Run A/B는 각각 pytest identity `433`, standalone validation `4`로 PASS했고 canonical result raw bytes가 일치했으며 source checkout mutation은 `0`이다.
 
 `Iris/_docs/round3/layer3_body_role_realign/evidence_carriers/1197ccc99085666d336e3ed493555e26810104e5/clean_checkout_result_pointer.json`은 external receipt hash를 가리키는 post-validation evidence-only carrier다. `Iris/_docs/round3/layer3_body_role_realign/17789343f34bfc013d71460118819369913f85a073f319e93335c614cacaa200/axis_qualified_closeout.json`은 staging axes와 non-claim을 기록한다. 둘 다 validated terminal subject, current generation pointer, runtime/package authority 또는 새 validation authority가 아니다.
+
+Validated install terminal subject는 commit `d006f6108093886751e538d36c92de3627a9e76f`, tree `5e2370f8e5720e830b8ef62c87b6c51c45bfaa4a`다. Focused regression, Lua syntax와 두 PowerShell package projection이 PASS했고 mandatory Run A/B는 각각 pytest identity `433`, standalone validation `4`, source mutation `0`으로 PASS했다. Comparator의 canonical result SHA-256은 양쪽 모두 `f110c14471bd5e8f3cd0d76afeaa8533ea6bb6deaf147b17764e192f377c37b6`이다. Post-validation `current_install_closeout.json`은 token `layer3_role_realign_current_install_complete`를 기록하지만 terminal subject나 product authority를 재정의하지 않는다.
+
+Install full-gate source policy는 이미 tracked된 `test_interaction_presentation_contract.py`, `test_adaptive_interaction_presentation.py`, `test_layer4_runtime_projection.py`를 Layer 4 dedicated focused route로 유지한다. 이 classification과 adoption-binding refresh는 full-repository current denominator를 늘리거나 Layer 4 product semantics를 변경하지 않는다.
+
+### Layer 2–3 locale projection and Layer 4 adaptive presentation
+
+Iris Browser의 current detail path는 지원 locale에서 알려진 정보를 숨기지 않고, 같은 semantic source를 locale별 presentation payload로 투영한다.
+
+`locale -> Detail ViewModel -> Layer 2 template selection + Layer 3 locale lookup + Layer 4 interaction projection -> Browser detail renderer`
+
+- Layer 2는 동일한 50개 template ID에 대해 `Templates.lua`와 `TemplatesEn.lua`를 병렬로 유지한다. `Generator.lua`가 locale을 받아 같은 분류 ID의 KO/EN 문장을 선택하며, locale 전환은 분류 의미나 ID를 바꾸지 않는다.
+- Layer 3의 KO payload는 current generation의 `text_ko`다. EN payload는 exact current facts의 `primary_use`, `acquisition_hint`, `special_context` vocabulary에서 생성된 companion localization이며, `IrisLayer3EnglishLookup.lua -> Layer3English/Index.lua -> companion lazy chunk` 경로로 필요한 chunk만 읽는다.
+- Layer 3 EN chunk와 index는 presentation lookup이다. KO body, current facts, provenance, disposition/readiness 또는 Layer 4 authority를 대체하지 않으며 runtime에서 새 사실을 추론하거나 원문을 다시 요약하지 않는다.
+- `layer3_renderer.lua`는 요청 locale의 payload만 반환한다. KO raw text를 EN 화면에 노출하거나 EN 미지원 상태를 이유로 이미 알려진 Layer 2–3 정보를 숨기는 cross-locale fallback은 허용하지 않는다.
+- Layer 4는 `UseCases._getDescriptionState()`의 status-bearing 결과를 Detail ViewModel의 `interactionState`로 전달한다. collector/projection은 이를 표시 row로 정규화하고 policy/state/renderer가 단일·소규모·고밀도 표시, compact/full 전환, 검색, recipe navigation을 담당한다.
+- Layer 4 UI state는 item과 locale owner에 결속된다. item 또는 locale이 바뀌면 이전 검색·확장 상태가 새 detail에 누출되지 않으며, Recipe와 Right-click은 독립된 동등 surface로 유지된다.
+- Python localization builder와 Layer 4 projection tooling은 offline producer다. PZ runtime은 Lua만 사용하며, 이 producer를 runtime semantic authority나 새 validation authority로 해석하지 않는다.

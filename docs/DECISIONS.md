@@ -2590,9 +2590,9 @@
 
 ---
 
-## Iris Layer 3 — optional body role realignment and role-material staging
+## Iris Layer 3 — optional body role realignment, role-material staging and current installation
 
-* 상태: 2026-08-21 staging closeout complete
+* 상태: 2026-08-21 staging closeout complete / Change 9 current installation complete
 * 결정:
 
   * Layer 3는 모든 item에 강제되는 상세 설명이 아니라, 확인된 description-eligible material이 있을 때 제공하는 선택적 overview/explanation 계층이다. 근거가 부족하면 identity, classification, acquisition, Layer 4 또는 rendered prose에서 의미를 보충하지 않고 침묵한다.
@@ -2604,9 +2604,37 @@
   * staging focused test와 candidate replay는 mandatory repository validation을 대신하지 않는다. Exact terminal subject `1197ccc99085666d336e3ed493555e26810104e5` / tree `da2bf2e5ec595b8de1ea41ee2fafb7e433c058db`가 full-repository Clean-Checkout Run A/B와 deterministic comparison을 exit `0`으로 통과한 경우에만 staging closeout을 선언한다.
   * Run A/B result identity는 validated terminal subject에 역으로 넣지 않는다. `clean_checkout_result_pointer.json`은 post-validation evidence-only successor이며 terminal subject를 재정의하거나 자신의 machine PASS로 상속하지 않는다.
   * 이 범위의 완료 token은 `layer3_role_realign_staging_complete`다. 이는 disposition/readiness, role-material separation, deterministic staging successor, Problem 5A handoff, Menu candidate, Tooltip input readiness와 exact terminal repository validation까지만 의미한다.
-  * default closeout은 staging-only다. 별도 승인된 current install은 exact staging successor를 adopted upstream candidate로 승격한 뒤 canonical seven-input complete-generation build/validate/stateless compatibility/protected installer와 새 exact subject의 repository validation을 모두 통과해야 한다.
+  * Staging closeout 뒤 별도 owner authorization에 따라 Change 9를 실행했다. Exact staging successor를 `approved_upstream/candidate_rendered.json`으로 raw-byte 승격하고, 기존 six-file compose input과 합쳐 canonical generation input을 정확히 7개로 유지한다. Authorization과 installer lifecycle state는 generation input이 아니다.
+  * Official complete-generation route가 immutable generation `dvf33-aa138aa4896b68ac53609a4b1cb6e5346245e74f544db28eb2ee924dc7b3e814`를 생성·검증했다. Installer는 시작 시 predecessor `dvf33-2a44a0a8d9a2e7f0d9a533ad002b7f691c1bfccec9577fb3356967ec6fd8a00c`를 다시 읽어 결속하고 current pointer를 한 번 전환했다. Predecessor는 inactive rollback generation으로 보존하며 same-generation reinstall은 protected mutation `0`, visibility switch `0`의 no-op이다.
+  * `current_runtime_payload`는 새 generation과 lookup identity `lookup-f088127352730047`을 검증한다. Ordinal source digest는 Windows PowerShell 5.1과 PowerShell 7에서 동일하고 package hash mismatch는 `0`이다. 이는 RTC certification이나 package publication을 뜻하지 않는다.
+  * Install terminal subject `d006f6108093886751e538d36c92de3627a9e76f` / tree `5e2370f8e5720e830b8ef62c87b6c51c45bfaa4a`는 focused regression, Lua syntax, package parity와 fresh full-repository Clean-Checkout Run A/B 및 deterministic comparison을 모두 exit `0`으로 통과했다. 이 별도 완료 token은 `layer3_role_realign_current_install_complete`다.
+  * Install terminal source census에서 이미 tracked된 Layer 4 adaptive-presentation/runtime-projection test source는 기존 interaction-presentation test와 같은 dedicated focused route로 분류한다. 이 분류와 adoption binding 갱신은 current full-gate denominator `433`을 늘리거나 Layer 4 product semantics를 변경하지 않는다.
+  * Current generation 전환으로 predecessor generation에 결속된 one-off IPS snapshot은 `predecessor_snapshot_stale_after_install`이다. 제거된 evaluator를 복원·재실행하지 않고 predecessor 결과를 current sufficiency claim으로 상속하지 않는다.
 * Non-decision:
 
   * Tooltip UI/line allocation, RTC, Publish, release/Workshop/deployment 또는 Problem 5A enrichment를 완료로 결정하지 않는다.
-  * Staging candidate completion을 current Menu/runtime/package mutation으로 읽지 않는다.
-* Evidence: `docs/iris_layer3_body_role_realignment_policy.md`, `Iris/build/description/v2/data/layer3_body_role_realign/`, `Iris/_docs/round3/layer3_body_role_realign/17789343f34bfc013d71460118819369913f85a073f319e93335c614cacaa200/axis_qualified_closeout.json`, `Iris/_docs/round3/layer3_body_role_realign/evidence_carriers/1197ccc99085666d336e3ed493555e26810104e5/clean_checkout_result_pointer.json`.
+  * Staging candidate completion 자체를 current mutation으로 읽지 않는다. Current mutation은 별도 Change 9 authorization, official installer와 install-subject validation에 의해서만 성립한다.
+  * `layer3_role_realign_current_install_complete`는 Publish PASS, RTC, release/Workshop/deployment readiness 또는 owner-sealed canonical closure가 아니다.
+* Evidence: `docs/iris_layer3_body_role_realignment_policy.md`, `docs/iris_layer3_body_role_realignment_walkthrough.md`, `Iris/build/description/v2/data/layer3_body_role_realign/`, `Iris/_docs/round3/layer3_body_role_realign/17789343f34bfc013d71460118819369913f85a073f319e93335c614cacaa200/axis_qualified_closeout.json`, `Iris/_docs/round3/layer3_body_role_realign/evidence_carriers/1197ccc99085666d336e3ed493555e26810104e5/clean_checkout_result_pointer.json`, `Iris/_docs/round3/layer3_body_role_realign/current_install/ips_predecessor_snapshot_disposition.json`, `Iris/_docs/round3/layer3_body_role_realign/current_install/current_install_closeout.json`.
+
+---
+
+### Iris — Layer 4 adaptive presentation and Layer 2–3 locale projection
+
+* 상태: 2026-08-21 implementation complete / main integrated / owner in-game acceptance complete
+* 결정:
+
+  * Layer 4는 status-bearing interaction state를 단일 detail ViewModel 경계로 전달하고, presentation projection과 UI state를 분리한다. 단일·소규모·고밀도 row를 적응형으로 표시하며 고밀도 항목은 compact/full 전환과 검색을 제공한다.
+  * Recipe와 Right-click은 독립된 동등 surface다. Recipe row의 제작 UI 이동, item 전환 시 상태 초기화, 기존 context menu/Wiki/Alt Tooltip 경계는 유지한다.
+  * QG-only 수용 대상 `Base.BallPeenHammer`, `Base.GardenSaw`, `Base.HammerStone`은 public Layer 4 row를 제공한다. 특히 Stone Hammer의 우클릭 행동 누락은 current projection에서 교정됐다.
+  * 지원 locale에서 번역 부재를 이유로 알려진 Layer 2–3 정보를 숨기지 않는다. 이 원칙에 어긋난 EN hide 동작은 폐기됐고, current behavior는 KO/EN 양쪽에 정보 계층을 표시한다.
+  * Layer 2는 동일한 50개 classification template ID에 KO/EN 문장을 제공한다. Layer 3 EN payload는 exact current facts에 결속된 2,084개 companion localization entry이며 KO current body와 source semantics를 바꾸지 않는다.
+  * Layer 3 runtime은 요청 locale의 precompiled payload만 선택한다. cross-locale raw-text fallback은 금지하며, EN lazy chunk/index는 presentation routing일 뿐 semantic authority, fact inference 또는 새 validator가 아니다.
+  * item/locale 전환은 detail과 interaction UI state의 owner를 함께 바꾼다. 이전 item의 검색·compact/full 상태나 이전 locale의 text가 다음 화면에 남지 않는다.
+  * Owner in-game acceptance에서 부팅, Iris Browser, 223 Bullets Mold, Tongs compact/full/search, Recipe 제작 UI 이동, item 전환, 세 QG-only 항목, 기존 context menu/Wiki/Alt Tooltip의 정상 동작과 화면 겹침/잘림 없음이 확인됐다. KO/EN 전환 뒤 Layer 2–3 EN 표시와 Stone Hammer 우클릭 행동도 별도로 확인됐다. 기존 surface의 fallback 분기 자체는 수동으로 구별해 검증한 것으로 주장하지 않는다.
+* Non-decision:
+
+  * locale projection은 새로운 사실 생성, 추천, 추론 또는 Layer 3 semantic authority 변경을 승인하지 않는다.
+  * 일회성 localization producer나 이번 작업의 ad hoc 검사를 canonical validator, 정규 검사기 또는 후속 validation authority로 승격하지 않는다.
+  * main 통합은 push, RTC, Publish, release/Workshop/deployment readiness를 뜻하지 않는다.
+* 구현 readpoint: Layer 4 main merge `e7508c0c`, Layer 2–3 EN locale projection `de146b73`. EN Layer 2–3 hide 동작을 포함했던 `1524d72a`는 `de146b73`에 의해 superseded됐다.

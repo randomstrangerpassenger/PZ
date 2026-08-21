@@ -94,12 +94,14 @@ implementation.
 | V3 exact current Round 3 denominator | 0 | `471 passed, 1 skipped, 190 deselected, 124 subtests passed`. The skip is the adopted zero-consumer tooling-receipt disposition. |
 | V4 production/package Lua syntax | 0 | `Lua syntax validation OK: 131 files`. |
 | Current Gate 5 stateless validator | 0 | 1,631 FullTypes, 13 files, 877 positive rows, 791 Recipe rows, 321 Recipe identities. |
-| V5 actual PZ Kahlua runtime | 1 | `ProjectZomboid64.exe` launched but the exact harness timed out after 240 seconds. The final run had the required bridge installed; no evidence rows were produced. `BLOCKED`. |
+| V5 actual PZ Kahlua runtime | 1 | Historical assistant run: `ProjectZomboid64.exe` launched but the exact harness timed out after 240 seconds and produced no evidence rows. No PASS credit. Further PZ execution is handed to the repository owner. |
 | V6 disposable package | 0 | `candidate_lua=131`, 12 Layer 3 payload files, existing package peer unchanged. |
 | Layer 4 disposable package/live parity | 0 | The existing Gate 5 validator accepted the temporary package and live parity root with the same 13-file metrics. The temporary root was deleted. |
-| Manual 12-case in-game matrix | — | Not performed; `unvalidated_but_in_scope`. |
+| Manual 12-case in-game matrix | — | Handed to the repository owner; `unvalidated_but_in_scope`. |
 
-No standalone/mock result is credited as a PZ runtime PASS. No additional
+The assistant will not relaunch PZ for V5 or attempt to substitute automation
+for the owner-run in-game matrix. No standalone/mock result is credited as a
+PZ runtime PASS. No additional
 validator, receipt, manifest, seal, or validation-of-validation artifact was
 introduced for closeout.
 
@@ -118,7 +120,7 @@ syntax, and disposable package parity. Out of scope are QG fact changes,
 Layer 3/Tooltip redesign, IPS reassessment, performance, multiplayer,
 all-locale/all-resolution support, publication, release, and deployment.
 
-`unvalidated_but_in_scope` contains the actual PZ Kahlua runtime axis and all
-12 manual in-game cases. Independent review and final owner canonical seal are
-also pending. Therefore this subject is `implemented_only`, not `complete`,
-canonical, sealed, or release-ready.
+`unvalidated_but_in_scope` contains the owner-handoff actual PZ Kahlua runtime
+axis and all 12 owner-run manual in-game cases. Independent review and final
+owner canonical seal are also pending. Therefore this subject is
+`implemented_only`, not `complete`, canonical, sealed, or release-ready.

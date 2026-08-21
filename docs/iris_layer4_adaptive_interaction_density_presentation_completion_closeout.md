@@ -16,9 +16,11 @@ V1, V2, V3, V4, focused adaptive/Gate 5 tests, and V6 disposable package/live
 parity pass. The final exact V3 result is 471 passed, one adopted skip, 190
 deselected, and 124 subtests passed.
 
-Completion is not claimed. V5 launched the actual PZ executable but timed out
-after 240 seconds and produced no evidence rows, so that required axis is
-`BLOCKED`. The 12-case in-game manual matrix was not performed. V7 is
+Completion is not claimed. The historical assistant V5 run launched the actual
+PZ executable but timed out after 240 seconds and produced no evidence rows, so
+it receives no PASS credit. Further V5 execution and the 12-case in-game manual
+matrix are handed to the repository owner and remain
+`unvalidated_but_in_scope`; the assistant will not relaunch PZ. V7 is
 `stale_due_to_layer4_change`, not a refreshed IPS result. Independent review
 and the final owner canonical seal are pending, so canonical top documents
 remain unchanged.

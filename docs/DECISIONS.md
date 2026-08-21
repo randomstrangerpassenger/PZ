@@ -2592,7 +2592,7 @@
 
 ## Iris Layer 3 — optional body role realignment and role-material staging
 
-* 상태: 2026-08-21 policy ratified / implementation route adopted / exact terminal repository validation pending
+* 상태: 2026-08-21 staging closeout complete
 * 결정:
 
   * Layer 3는 모든 item에 강제되는 상세 설명이 아니라, 확인된 description-eligible material이 있을 때 제공하는 선택적 overview/explanation 계층이다. 근거가 부족하면 identity, classification, acquisition, Layer 4 또는 rendered prose에서 의미를 보충하지 않고 침묵한다.
@@ -2601,9 +2601,12 @@
   * canonical staging material은 `core_description`과 `acquisition_information`을 분리한다. Source-bound acquisition conservation과 Menu public acquisition coverage는 다른 set이다. Initial Menu branch는 `preserve_current_publicity`이고 Tooltip은 role-labeled input readiness까지만 다룬다.
   * 보존된 Item-Page Information Sufficiency 결과는 authority effect와 regular-gate role이 없는 one-off snapshot이다. Exact current snapshot일 때 per-item Layer 3 axes만 readiness prerequisite에 보조적으로 사용할 수 있고 top-level page disposition, Layer 4 axes 또는 gap inventory를 body disposition/readiness/Problem 5A로 직접 변환하지 않는다.
   * staging runner와 validator는 dedicated off-live route다. Existing compose entrypoint와 reusable public-text evaluator는 변경하지 않으며 Stateful Artifact Registry lifecycle/receipt/PASS를 복원하지 않는다.
+  * staging focused test와 candidate replay는 mandatory repository validation을 대신하지 않는다. Exact terminal subject `1197ccc99085666d336e3ed493555e26810104e5` / tree `da2bf2e5ec595b8de1ea41ee2fafb7e433c058db`가 full-repository Clean-Checkout Run A/B와 deterministic comparison을 exit `0`으로 통과한 경우에만 staging closeout을 선언한다.
+  * Run A/B result identity는 validated terminal subject에 역으로 넣지 않는다. `clean_checkout_result_pointer.json`은 post-validation evidence-only successor이며 terminal subject를 재정의하거나 자신의 machine PASS로 상속하지 않는다.
+  * 이 범위의 완료 token은 `layer3_role_realign_staging_complete`다. 이는 disposition/readiness, role-material separation, deterministic staging successor, Problem 5A handoff, Menu candidate, Tooltip input readiness와 exact terminal repository validation까지만 의미한다.
   * default closeout은 staging-only다. 별도 승인된 current install은 exact staging successor를 adopted upstream candidate로 승격한 뒤 canonical seven-input complete-generation build/validate/stateless compatibility/protected installer와 새 exact subject의 repository validation을 모두 통과해야 한다.
 * Non-decision:
 
   * Tooltip UI/line allocation, RTC, Publish, release/Workshop/deployment 또는 Problem 5A enrichment를 완료로 결정하지 않는다.
   * Staging candidate completion을 current Menu/runtime/package mutation으로 읽지 않는다.
-* Evidence: `docs/iris_layer3_body_role_realignment_policy.md`와 `Iris/build/description/v2/data/layer3_body_role_realign/`.
+* Evidence: `docs/iris_layer3_body_role_realignment_policy.md`, `Iris/build/description/v2/data/layer3_body_role_realign/`, `Iris/_docs/round3/layer3_body_role_realign/17789343f34bfc013d71460118819369913f85a073f319e93335c614cacaa200/axis_qualified_closeout.json`, `Iris/_docs/round3/layer3_body_role_realign/evidence_carriers/1197ccc99085666d336e3ed493555e26810104e5/clean_checkout_result_pointer.json`.

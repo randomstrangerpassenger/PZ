@@ -1116,6 +1116,47 @@ def registry_responsibility_axis_anchor(lines: list[str], row: dict[str, Any]) -
     }
 
 
+def current_generation_authority_anchor(lines: list[str], row: dict[str, Any]) -> dict[str, Any] | None:
+    """Relocate retired numeric anchors to their unique current-generation authority text."""
+    if row.get("referent") != "current-readpoint-triple":
+        return None
+    if row.get("authority_role_target") != "successor_baseline_manifest_authority":
+        return None
+
+    normalized_path = str(row.get("path", "")).replace("\\", "/")
+    token = row.get("token")
+    if normalized_path == "docs/ARCHITECTURE.md" and token == "2105":
+        markers = (
+            "Install owner:",
+            "protected runtime visibility",
+            "IrisLayer3DataCurrent.lua",
+        )
+        basis = "current_generation_pointer_install_authority"
+    elif normalized_path == "docs/ROADMAP.md" and token == "2084":
+        markers = (
+            "R2 owner decision B",
+            "current-generation pointer",
+            "single-switch installer",
+        )
+        basis = "current_generation_pointer_roadmap_authority"
+    else:
+        return None
+
+    candidates = [
+        line_no
+        for line_no, line in enumerate(lines, 1)
+        if all(marker in line for marker in markers)
+    ]
+    if len(candidates) != 1:
+        return None
+    return {
+        "result": "relocated_deterministically",
+        "candidate_count": 1,
+        "anchor_line": candidates[0],
+        "basis": basis,
+    }
+
+
 def runtime_generation_pointer_anchor(lines: list[str], row: dict[str, Any]) -> dict[str, Any] | None:
     """Relocate the retired 2105 manifest anchor to the stable generation facade."""
     if row.get("token") != "2105":
@@ -1164,6 +1205,8 @@ def anchor_row(row: dict[str, Any]) -> dict[str, Any]:
     result = anchor_relocation_for_text(lines, row.get("line"), row.get("token"))
     if result["result"] == "unresolved" and row.get("apply_eligibility"):
         result = runtime_generation_pointer_anchor(lines, row) or result
+    if result["result"] == "unresolved" and row.get("apply_eligibility"):
+        result = current_generation_authority_anchor(lines, row) or result
     if result["result"] == "unresolved" and row.get("apply_eligibility"):
         result = successor_authority_context_anchor(lines, row.get("line")) or result
     if result["result"] == "unresolved" and row.get("apply_eligibility"):

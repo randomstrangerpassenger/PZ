@@ -6,6 +6,8 @@ Iris Layer 3 Body Role Realignment / Menu·Tooltip Core Description Readiness
 
 > 2026-08-21 Item-Page Information Sufficiency Walkthrough synchronization: 선행 Problem 1은 current vanilla item 2,285개를 평가한 **일회성 분석**으로 완료됐고 결과는 `Iris/build/description/v2/output/item_page_information_sufficiency/`에 보존됐다. 임시 evaluator·runner·validator, current-route/active-core/authority 등록, canonical subject·reviewer·owner seal·protected successor는 제거됐으므로 이를 재실행 가능한 terminal component나 상시 gate로 취급하지 않는다. 이 계획은 보존된 row와 정책을 snapshot evidence로만 결속하고, Layer 3 readiness에 사용할 범위는 이 계획의 별도 owner-ratified consumption rule로 결정한다. page disposition을 본문 품질·생략 허가·authoring 명령으로 직접 변환하지 않으며 input drift가 있으면 결과를 stale로 표시하고 별도의 새 평가 없이는 갱신된 IPS 결과를 주장하지 않는다.
 
+> 2026-08-21 implementation closeout synchronization: exact terminal subject `1197ccc99085666d336e3ed493555e26810104e5` / tree `da2bf2e5ec595b8de1ea41ee2fafb7e433c058db`의 focused replay, mandatory full-repository Clean-Checkout Run A/B와 deterministic comparison이 모두 exit `0`으로 완료됐다. Post-validation evidence-only pointer와 axis-qualified closeout은 각각 `Iris/_docs/round3/layer3_body_role_realign/evidence_carriers/1197ccc99085666d336e3ed493555e26810104e5/clean_checkout_result_pointer.json`, `Iris/_docs/round3/layer3_body_role_realign/17789343f34bfc013d71460118819369913f85a073f319e93335c614cacaa200/axis_qualified_closeout.json`에 기록한다. 이 successor는 validated terminal subject를 재정의하지 않으며 closeout token은 `layer3_role_realign_staging_complete`다. Current installation, Tooltip UI, RTC, Publish와 release readiness는 주장하지 않는다.
+
 ## 1. Objective
 
 Iris의 current canonical item universe와 current Layer 3 corpus를 대상으로, Layer 3를 모든 item에 강제되는 상세 설명이 아니라 확인된 설명 재료가 있을 때 제공하는 선택적 개요·해설 계층으로 재정렬한다.

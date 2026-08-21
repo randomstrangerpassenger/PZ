@@ -72,6 +72,30 @@ CONTRACT_PROBE_REQUEST = {
             "path": "docs/ARCHITECTURE.md",
             "text": "Release readiness is achieved by this closeout.",
         },
+        {
+            "fixture_id": "architecture_assessment_acceptance_routing",
+            "path": "docs/ARCHITECTURE.md",
+            "text": (
+                "Reusable public-text assessment는 DVF/QG subject에 적용되는 "
+                "오프라인 evidence producer로 유지하며 Publish Boundary가 그 결과의 "
+                "acceptance를 별도로 판단한다."
+            ),
+        },
+        {
+            "fixture_id": "architecture_acceptance_ownership_routing",
+            "path": "docs/ARCHITECTURE.md",
+            "text": "public-text acceptance와 publication / release acceptance를 소유한다.",
+        },
+        {
+            "fixture_id": "decisions_inline_test_identifier",
+            "path": "docs/DECISIONS.md",
+            "text": "`PublicTextQualityAcceptanceCurrentRouteTest._phase7_self_test()`는 우선 후보다.",
+        },
+        {
+            "fixture_id": "blocked_public_text_acceptance_complete",
+            "path": "docs/ARCHITECTURE.md",
+            "text": "public text acceptance complete",
+        },
     ],
     "predecessor_contexts": [
         "2105 is current hard gate",
@@ -413,6 +437,8 @@ class DvfCloseoutReentryGuardSealTest(unittest.TestCase):
             "decisions_publish_boundary",
             "architecture_quality_heading",
             "roadmap_followup_routing",
+            "architecture_assessment_acceptance_routing",
+            "architecture_acceptance_ownership_routing",
         ):
             with self.subTest(fixture_id=fixture_id):
                 row = surface_lines[fixture_id]
@@ -429,6 +455,15 @@ class DvfCloseoutReentryGuardSealTest(unittest.TestCase):
         self.assertEqual(blocked["role"], "forbidden_overclaim_violation")
         self.assertFalse(blocked["definition_context"])
         self.assertEqual(blocked["classification"], "blocked")
+
+        identifier = surface_lines["decisions_inline_test_identifier"]
+        self.assertIsNone(identifier)
+
+        blocked_acceptance = surface_lines["blocked_public_text_acceptance_complete"]
+        self.assertIsNotNone(blocked_acceptance)
+        self.assertEqual(blocked_acceptance["role"], "forbidden_overclaim_violation")
+        self.assertFalse(blocked_acceptance["definition_context"])
+        self.assertEqual(blocked_acceptance["classification"], "blocked")
 
     def test_predecessor_reentry_negative_fixtures_fail_closed(self) -> None:
         guard = load_json(ROOT / "phase3/predecessor_reentry_guard_report.json")

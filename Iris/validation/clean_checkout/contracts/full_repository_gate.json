@@ -177,6 +177,11 @@
         "path": "Iris/build/description/v2/tests/test_layer3_body_role_realign.py",
         "owner_decision": "not_applicable_dedicated_route",
         "reason": "Layer 3 role-realignment focused tests validate the isolated off-live staging route; they run through the plan's dedicated focused command and do not extend the pre-existing current product-route denominator."
+      },
+      {
+        "path": "Iris/test/test_interaction_presentation_contract.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "Layer 4 interaction-presentation contract tests run through their dedicated focused route and do not extend the pre-existing current product-route denominator."
       }
     ],
     "historical_optional_rule": "tracked Iris/build/description/v2/tests/test_*.py source with no current, ok taxonomy identity",

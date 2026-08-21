@@ -21,7 +21,7 @@ class Round3PytestSourceClassificationTest(unittest.TestCase):
         payload = POLICY._source_policy_payload()
         POLICY._validate_policy_inventory()
         self.assertTrue(payload["owner_approval"]["approved"])
-        self.assertEqual(49, len(payload["reviewed_sources"]))
+        self.assertEqual(50, len(payload["reviewed_sources"]))
         self.assertEqual(2, payload["baseline_inventory"]["known_collection_blockers_reviewed"])
         self.assertEqual(6, payload["baseline_inventory"]["pytest_ini_ignored_sources_reviewed"])
         binding = payload["source_set_binding"]

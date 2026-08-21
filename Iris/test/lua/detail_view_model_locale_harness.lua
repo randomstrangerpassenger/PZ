@@ -2,6 +2,7 @@ local repositoryRoot = assert(arg and arg[1], "repository root argument is requi
 package.path = repositoryRoot .. "/Iris/media/lua/client/?.lua;" .. package.path
 
 local locale = "EN"
+local interactionLookupCount = 0
 package.preload["Iris/Util/IrisTranslationResolver"] = function()
     return {
         getLangKey=function() return locale end,
@@ -17,7 +18,14 @@ package.preload["Iris/IrisAPI"] = function()
             getFixingInfoForItem=function() return nil end,
         },
         UseCases={
-            getUseCaseLines=function() return {lines={},debug_lines={}} end,
+            _getDescriptionState=function()
+                interactionLookupCount = interactionLookupCount + 1
+                return {
+                    status="verified_empty", reason="lookup_miss", fallback_used=false,
+                    entry=nil, lines={}, exclusion_lines={}, debug_lines={},
+                }
+            end,
+            getUseCaseLines=function() error("ViewModel must consume the status-bearing lookup") end,
             getCapabilities=function() return {} end,
         },
     }
@@ -51,10 +59,14 @@ assert(english.fullType == korean.fullType and english.weight == korean.weight)
 assert(english.food.hunger == korean.food.hunger and english.food.thirst == korean.food.thirst)
 assert(english.availability.food == korean.availability.food)
 assert(english.availability.layer3 == korean.availability.layer3)
+assert(english.interactionState.status == "verified_empty")
+assert(english.useCases.status == english.interactionState.status)
+assert(english.useCases.reason == english.interactionState.reason)
+assert(interactionLookupCount == 2)
 assert(englishCore ~= koreanCore)
 assert(Sections.renderFoodSection(english):find("%-1600") ~= nil)
 assert(not pcall(function() english.fullType = "Base.Mutated" end))
 assert(not pcall(function() english.food.hunger = 0 end))
 assert(not pcall(function() english.tags[1] = "Mutated" end))
 
-print("IRIS_DETAIL_LOCALE_PASS raw_equal=true availability_equal=true labels_differ=true nested_readonly=true")
+print("IRIS_DETAIL_LOCALE_PASS raw_equal=true availability_equal=true labels_differ=true nested_readonly=true interaction_lookup_once_per_build=true")

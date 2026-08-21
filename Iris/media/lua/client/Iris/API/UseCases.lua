@@ -28,6 +28,15 @@ local function emptyUseCaseLines()
     return { lines = {}, debug_lines = {} }
 end
 
+local function copyDescriptionEntry(entry)
+    if type(entry) ~= "table" or type(entry.lines) ~= "table" then return nil end
+    return {
+        lines = Array.copy(entry.lines),
+        exclusion_lines = Array.copy(entry.exclusion_lines),
+        debug_lines = Array.copy(entry.debug_lines),
+    }
+end
+
 local function rawArray(datasetName, fullType)
     if not fullType then return nil end
     local dataset = StaticData.get(datasetName)
@@ -39,52 +48,104 @@ end
 --- API 반환 형태 정규화: 항상 {lines={}, debug_lines={}} 반환. nil 반환 금지.
 --- @param fullType string 아이템 FullType
 --- @return table {lines={...}, debug_lines={...}}
-function UseCases.getUseCaseLines(fullType)
-    if not fullType then return emptyUseCaseLines() end
+function UseCases._getDescriptionState(fullType)
+    if type(fullType) ~= "string" or fullType == "" then
+        return {
+            status = "fault",
+            reason = "invalid_fulltype",
+            fallback_used = false,
+            entry = nil,
+            lines = {},
+            exclusion_lines = {},
+            debug_lines = {},
+        }
+    end
 
-    local entry = nil
+    local entry, primaryReason = nil, nil
+    local fallbackUsed = false
     local lookup = getDescriptionLookup()
     if lookup and lookup.get then
         local loaded, reason = lookup.get(fullType)
         if reason == nil then
             entry = loaded
         elseif AUTHORITATIVE_NEGATIVE[reason] then
-            return emptyUseCaseLines()
+            return {
+                status = "verified_empty",
+                reason = reason,
+                fallback_used = false,
+                entry = nil,
+                lines = {},
+                exclusion_lines = {},
+                debug_lines = {},
+            }
+        else
+            primaryReason = reason or "lookup_fault"
         end
     else
+        primaryReason = "router_unavailable"
         RuntimeLookupDiagnostics.recordFallback("usecase", "router_unavailable")
     end
-    if not entry then entry = rawArray("useCaseDescriptions", fullType) end
-    if not entry then return emptyUseCaseLines() end
+
+    if not entry and primaryReason then
+        entry = rawArray("useCaseDescriptions", fullType)
+        fallbackUsed = entry ~= nil
+    end
+    if not entry then
+        return {
+            status = primaryReason and "fault" or "verified_empty",
+            reason = primaryReason or "lookup_miss",
+            fallback_used = false,
+            entry = nil,
+            lines = {},
+            exclusion_lines = {},
+            debug_lines = {},
+        }
+    end
+
+    local copied = copyDescriptionEntry(entry)
+    if not copied then
+        return {
+            status = "fault",
+            reason = fallbackUsed and "fallback_entry_malformed" or "entry_malformed",
+            fallback_used = fallbackUsed,
+            entry = nil,
+            lines = {},
+            exclusion_lines = {},
+            debug_lines = {},
+        }
+    end
+
+    local status = #copied.lines > 0 and "available" or "verified_empty"
+    local reason = primaryReason
+    if status == "verified_empty" then
+        reason = fallbackUsed and "fallback_positive_lines_empty" or "positive_lines_empty"
+    end
+    return {
+        status = status,
+        reason = reason,
+        fallback_used = fallbackUsed,
+        entry = copied,
+        lines = copied.lines,
+        exclusion_lines = copied.exclusion_lines,
+        debug_lines = copied.debug_lines,
+    }
+end
+
+function UseCases.getUseCaseLines(fullType)
+    if not fullType then return emptyUseCaseLines() end
+    local state = UseCases._getDescriptionState(fullType)
 
     return {
-        lines = Array.copy(entry.lines),
-        debug_lines = Array.copy(entry.debug_lines),
+        lines = Array.copy(state.lines),
+        debug_lines = Array.copy(state.debug_lines),
     }
 end
 
 -- Internal runtime consumers use these focused adapters; public facade shapes above remain unchanged.
 function UseCases._getDescriptionEntry(fullType)
     if not fullType then return nil end
-    local entry = nil
-    local lookup = getDescriptionLookup()
-    if lookup and lookup.get then
-        local loaded, reason = lookup.get(fullType)
-        if reason == nil then
-            entry = loaded
-        elseif AUTHORITATIVE_NEGATIVE[reason] then
-            return nil
-        end
-    else
-        RuntimeLookupDiagnostics.recordFallback("usecase", "router_unavailable")
-    end
-    if not entry then entry = rawArray("useCaseDescriptions", fullType) end
-    if not entry then return nil end
-    return {
-        lines = Array.copy(entry.lines),
-        exclusion_lines = Array.copy(entry.exclusion_lines),
-        debug_lines = Array.copy(entry.debug_lines),
-    }
+    local state = UseCases._getDescriptionState(fullType)
+    return state.entry
 end
 
 function UseCases._getRequirements(recipeName)

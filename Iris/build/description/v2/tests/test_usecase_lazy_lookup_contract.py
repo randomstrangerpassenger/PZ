@@ -35,7 +35,7 @@ class UseCaseLazyLookupContractTest(unittest.TestCase):
             "Iris/Data/UseCaseDescriptions/Chunk002",
             completed.stdout,
         )
-        self.assertIn("router_unavailable_count=1", completed.stdout)
+        self.assertIn("router_unavailable_count=2", completed.stdout)
         self.assertIn("normal_miss_facade_loads=0", completed.stdout)
 
 

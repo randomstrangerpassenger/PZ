@@ -49,24 +49,29 @@ def test_current_census_is_contract_clean_and_gate3_is_unblocked(report: dict) -
     assert report["gate3"]["status"] == "PASS"
     assert report["gate3"]["capability_only_count"] == 0
     assert report["gate3"]["recipe_only_count"] == 0
-    assert report["closeout_state_ceiling"] == "gate3_pass_owner_approval_required"
+    assert report["closeout_state_ceiling"] == "full_implementation_validation_required"
 
 
-def test_density_parameters_are_non_authoritative_until_owner_policy_seal(
+def test_density_parameters_are_bound_to_fresh_owner_policy_seal(
     report: dict, diagnostic_thresholds: dict
 ) -> None:
     assert report["threshold_binding"]["small_max"] == diagnostic_thresholds["small_max"]
     assert report["threshold_binding"]["dense_min"] == diagnostic_thresholds["dense_min"]
-    assert report["threshold_binding"]["proposal_not_sealed"] is True
+    assert report["threshold_binding"]["proposal_not_sealed"] is False
     assert report["threshold_binding"]["validator_or_test_literal_is_authority"] is False
-    assert report["threshold_binding"]["owner_policy_status"] == "unapproved"
+    assert report["threshold_binding"]["owner_policy_status"] == "approved"
     assert report["policy_authorization"] == {
-        "status": "unapproved",
+        "status": "approved",
         "required_ratifications": [f"L4-RAT-{number:02d}" for number in range(1, 8)],
         "rat08": "not_applicable_no_recipe_only",
-        "qg_only_publication_status": "owner_approval_required",
+        "qg_only_publication_status": "approved",
         "qg_only_count": 3,
         "existing_owner_seal_eligible": False,
+        "fresh_owner_seal_sha256": report["execution_subject"]["owner_policy_seal"]["sha256"],
+    }
+    assert report["source_order_binding"] == {
+        "source_order": ["recipe", "rightclick"],
+        "source": "owner_policy_seal:L4-RAT-04",
     }
     assert report["density_and_schema"]["exact_small_boundary_fulltypes"]
     assert report["density_and_schema"]["exact_dense_boundary_fulltypes"]
@@ -117,10 +122,11 @@ def test_recipe_crosswalk_taxonomy_is_exhaustive_disjoint_and_structured(report:
     assert crosswalk["mapped_recipe_intersection_count"] == 794
     assert crosswalk["qg_recipe_only_count"] == 0
     assert crosswalk["runtime_stable_id_plumbing"]["common_prerequisite_not_taxonomy_bucket"] is True
-    assert crosswalk["runtime_stable_id_plumbing"]["required"] is True
+    assert crosswalk["runtime_stable_id_plumbing"]["required"] is False
+    assert crosswalk["runtime_stable_id_plumbing"]["current_recipe_nav_ref_has_recipe_id_field"] is True
 
 
-def test_rat08_is_not_applicable_and_no_old_seal_is_consumed(
+def test_rat08_is_not_applicable_and_only_fresh_seal_is_consumed(
     report: dict,
 ) -> None:
     assert report["rat08_dispositions"] == []
@@ -134,6 +140,20 @@ def test_rat08_is_not_applicable_and_no_old_seal_is_consumed(
     }
     assert report["gate3"]["owner_disposition_does_not_override_raw_gate"] is True
     assert report["gate3"]["status"] == "PASS"
+    seal = report["execution_subject"]["owner_policy_seal"]
+    assert seal["status"] == "approved"
+    assert seal["historical_staging_seal_consumed"] is False
+    assert seal["errors"] == []
+    assert seal["execution_base_commit"] == "bfdee1c29f82181e15b5924c750e6d44acf41fcc"
+    assert seal["execution_base_tree"] == "aee455bd36881e1167d454d470300a4f67fa3cf4"
+    assert {
+        (entry["fulltype"], entry["use_case_id"])
+        for entry in seal["qg_only_publication"]
+    } == {
+        ("Base.BallPeenHammer", "uc.action.construction"),
+        ("Base.GardenSaw", "uc.action.wood_cutting"),
+        ("Base.HammerStone", "uc.action.construction"),
+    }
 
 
 def test_keep_only_remove_battery_recipe_is_positive_qg_evidence(report: dict) -> None:
@@ -215,16 +235,43 @@ def test_source_correction_scope_report_does_not_hide_unrelated_changes(
     assert manifest["unrelated_or_permitted_changes_are_not_hidden"] is True
 
 
-def test_gate3_source_migration_path_stops_before_adaptive_implementation(report: dict) -> None:
+def test_gate3_owner_sealed_path_enters_validated_layer4_successor(report: dict) -> None:
     selection = json.loads(validator.PATH_SELECTION_PATH.read_text(encoding="utf-8"))
     assert selection["gate3_status"] == "PASS"
-    assert selection["selected_execution_path"] == "gate3_source_migration_unblocked"
-    assert selection["owner_policy_seal_status"] == "unapproved_new_seal_required"
+    assert selection["selected_execution_path"] == "gate3_owner_policy_sealed_full_implementation"
+    assert selection["owner_policy_seal_status"] == "approved"
     assert selection["rat08_binding_status"] == "not_applicable_no_recipe_only"
-    assert selection["change2_and_later_policy_dependent_current_implementation"] == "blocked_pending_owner_policy_seal"
-    assert selection["required_validation"] == ["V1", "V4"]
+    assert selection["change2_and_later_policy_dependent_current_implementation"] == "authorized"
+    assert selection["layer4_generation_contract_available"] is True
+    assert selection["generated_stable_id_plumbing_required"] is False
+    assert selection["projection_dependent_scope"] == "authorized"
+    assert selection["existing_renderer_and_recipe_fallback"] == "cutover_authorized"
+    assert any(
+        not entry["byte_identical"]
+        for entry in selection["preserved_projection_paths"].values()
+    )
+    assert selection["required_validation"] == ["V1", "V2", "V3", "V4", "V5", "V6", "V7"]
     assert selection["mixed_qg_legacy_recipe_projection"] == "forbidden"
-    assert set(selection["not_applicable"]) == {"V2", "V3", "V5", "V6", "V7"}
+    assert selection["not_applicable"] == {}
+    assert selection["closeout_ceiling"] == "full_implementation_validation_required"
+
+
+def test_change2_status_projection_is_additive_and_single_lookup_owned() -> None:
+    use_cases = (
+        REPOSITORY_ROOT / "Iris/media/lua/client/Iris/API/UseCases.lua"
+    ).read_text(encoding="utf-8")
+    model = (
+        REPOSITORY_ROOT
+        / "Iris/media/lua/client/Iris/UI/Detail/IrisItemDetailViewModel.lua"
+    ).read_text(encoding="utf-8")
+    assert "function UseCases._getDescriptionState(fullType)" in use_cases
+    for status in ('"available"', '"verified_empty"', '"fault"'):
+        assert status in use_cases
+    assert "fallback_used" in use_cases
+    assert model.count("safeInteractionState(IrisAPI and IrisAPI.UseCases, fullType)") == 1
+    assert "interactionState = interactionState" in model
+    assert "lines = interactionState.lines or {}" in model
+    assert "status = interactionState.status" in model
 
 
 def test_off_live_stable_id_candidate_is_not_an_installation(report: dict) -> None:

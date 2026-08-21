@@ -72,6 +72,7 @@ class DetailViewModelAcceptanceTest(unittest.TestCase):
         self.assertIn("availability_equal=true", completed.stdout)
         self.assertIn("labels_differ=true", completed.stdout)
         self.assertIn("nested_readonly=true", completed.stdout)
+        self.assertIn("interaction_lookup_once_per_build=true", completed.stdout)
 
     def test_shared_model_and_scroll_source_guards(self) -> None:
         model_path = REPO / "Iris/media/lua/client/Iris/UI/Detail/IrisItemDetailViewModel.lua"
@@ -79,7 +80,7 @@ class DetailViewModelAcceptanceTest(unittest.TestCase):
         for field in (
             "fullType", "displayName", "moduleName", "itemType", "weight", "category",
             "subcategory", "tags", "food", "weapon", "literature", "moveable", "layer3",
-            "connections", "useCases", "capabilities", "availability",
+            "connections", "useCases", "interactionState", "capabilities", "availability",
         ):
             self.assertIn(field, model)
         for forbidden in ("recommendation", "compareScore", "qualityScore", "priorityScore"):
@@ -101,9 +102,9 @@ class DetailViewModelAcceptanceTest(unittest.TestCase):
         collector = (REPO / "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserInteractionCollector.lua").read_text(encoding="utf-8")
         self.assertIn("DetailViewModel.ensure(item)", wiki)
         self.assertIn("DetailViewModel.ensure(item)", sections)
-        self.assertIn("model.connections", collector)
-        self.assertIn("model.capabilities", collector)
-
+        self.assertIn("interactionState", collector)
+        self.assertNotIn("model.connections", collector)
+        self.assertNotIn("model.capabilities", collector)
 
 if __name__ == "__main__":
     unittest.main()

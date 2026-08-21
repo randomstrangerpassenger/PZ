@@ -112,6 +112,7 @@ def convert_to_lua(
     descriptions_data: dict,
     nav_registry: dict | None = None,
     req_index: dict | None = None,
+    require_stable_recipe_id: bool = False,
 ) -> tuple[str, list[tuple[int, str, int]], str | None, int, int, list[str]]:
     """
     descriptions_by_fulltype → Lua facade + chunk table 문자열 변환.
@@ -189,6 +190,11 @@ def convert_to_lua(
                 if nav_entry is None:
                     nav_errors.append(f"{ucid}: not found in recipe_nav_registry")
                 else:
+                    stable_recipe_id = nav_entry.get("stable_recipe_id")
+                    if require_stable_recipe_id and not stable_recipe_id:
+                        nav_errors.append(f"{ucid}: stable_recipe_id is required")
+                    if stable_recipe_id:
+                        nav_ref_str += f", recipe_id = {lua_str(stable_recipe_id)}"
                     # original_name + translated_name은 모든 recipe 라인에 삽입 (표시용)
                     orig_name = nav_entry.get("original_name")
                     tr_name = nav_entry.get("translated_name")
@@ -203,6 +209,7 @@ def convert_to_lua(
                         )
                         nav_ref_str += (
                             f", recipe_nav_ref = {{ "
+                            f"{optional_lua_field('recipe_id', stable_recipe_id)}"
                             f"original_name = {lua_str(nav_entry['original_name'])}, "
                             f"translated_name = {lua_str(tr_name) if tr_name else 'nil'}, "
                             f"{category_field}}}"

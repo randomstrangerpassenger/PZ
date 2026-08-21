@@ -126,7 +126,11 @@ function IrisBrowser:new(x, y, width, height)
     o.detailChildBaseY = {}
     o.detailBuiltFullType = nil
     o.detailBuiltLocale = nil
+    o.detailBuiltGeneration = nil
     o.currentDetailModel = nil
+    o._interactionStateOwner = nil
+    o._interactionStateByItem = {}
+    o._interactionActiveKey = nil
 
     return o
 end

@@ -313,9 +313,11 @@ elseif mode == "usecase" then
         package.preload["Iris/Data/UseCaseDescriptions/ChunkIndex"] = function() return indexValue end
         package.preload["Iris/Data/UseCaseDescriptions/LineCountIndex"] = function() return lineCountValue end
         local fallbackUseCases = require("Iris/API/UseCases")
-        local actual = fallbackUseCases.getUseCaseLines("Base.223Box")
-        assert(deepEqual(actual.lines, facade["Base.223Box"].lines))
-        assert(deepEqual(actual.debug_lines, facade["Base.223Box"].debug_lines))
+        local state = fallbackUseCases._getDescriptionState("Base.223Box")
+        assert(state.status == "available" and state.fallback_used == true)
+        assert(state.reason == expectedReason)
+        assert(deepEqual(state.lines, facade["Base.223Box"].lines))
+        assert(deepEqual(state.debug_lines, facade["Base.223Box"].debug_lines))
         local shared = RuntimeDiagnostics.getDiagnostics()
         assert(shared.fallbackCount == 1)
         assert(shared.surfaces.usecase.fallbackReasons[expectedReason] == 1)
@@ -394,6 +396,9 @@ elseif mode == "usecase" then
         end}
     end
     local missUseCases = require("Iris/API/UseCases")
+    local missState = missUseCases._getDescriptionState("Missing.DoesNotExist")
+    assert(missState.status == "verified_empty" and missState.reason == "lookup_miss")
+    assert(missState.fallback_used == false)
     assert(#missUseCases.getUseCaseLines("Missing.DoesNotExist").lines == 0)
     assert(missUseCases._getDescriptionEntry("Missing.DoesNotExist") == nil)
     assert(missUseCases._getUseCaseLineCount("Missing.DoesNotExist") == 0)
@@ -426,6 +431,8 @@ elseif mode == "usecase" then
     assert(coldRequirementsDiagnostics.requirementsRequireCallCount == 1)
 
     local useCases = require("Iris/API/UseCases")
+    local availableState = useCases._getDescriptionState("Base.223Box")
+    assert(availableState.status == "available" and availableState.fallback_used == false)
     local copied = useCases.getUseCaseLines("Base.223Box")
     assert(deepEqual(copied.lines, facade["Base.223Box"].lines))
     assert(coldLookup.getDiagnostics().loadedDescriptionChunkCount == 1)
@@ -497,11 +504,16 @@ elseif mode == "usecase" then
         error("standalone router unavailable")
     end
     local unavailableUseCases = require("Iris/API/UseCases")
-    assert(#unavailableUseCases.getUseCaseLines("Base.223Box").lines == #facade["Base.223Box"].lines)
+    local unavailableState = unavailableUseCases._getDescriptionState("Base.223Box")
+    assert(unavailableState.status == "available" and unavailableState.fallback_used == true)
+    assert(#unavailableState.lines == #facade["Base.223Box"].lines)
+    local faultState = unavailableUseCases._getDescriptionState("Missing.DoesNotExist")
+    assert(faultState.status == "fault" and faultState.reason == "router_unavailable")
+    assert(faultState.fallback_used == false)
     local unavailableSummary = require("Iris/UI/Tooltip/IrisTooltipSummary")
     assert(unavailableSummary.get("Base.223Box").useCaseCount == #facade["Base.223Box"].lines)
     local unavailableDiagnostics = RuntimeDiagnostics.getDiagnostics()
-    assert(unavailableDiagnostics.surfaces.usecase.fallbackReasons.router_unavailable == 1)
+    assert(unavailableDiagnostics.surfaces.usecase.fallbackReasons.router_unavailable == 2)
     assert(unavailableDiagnostics.surfaces.usecase_tooltip_line_count.fallbackReasons.router_unavailable == 1)
     print("IRIS_USECASE_LAZY_LOOKUP_PASS parity_count=" .. tostring(parityCount) ..
         " line_count_loaded_chunks=" .. tostring(afterLineCount.loadedDescriptionChunkCount) ..

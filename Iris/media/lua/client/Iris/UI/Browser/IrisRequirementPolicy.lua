@@ -47,15 +47,27 @@ function IrisRequirementPolicy.evalColor(check, player)
     return result and IrisRequirementPolicy.COLOR_MET or IrisRequirementPolicy.COLOR_UNMET
 end
 
-function IrisRequirementPolicy.displayText(req, color, tr)
-    local reqDisplay = req.display or "?"
+function IrisRequirementPolicy.displayText(req, color, tr, locale)
     local check = req.check
     if check and check.type == "flag"
         and check.flag_id == "NeedToBeLearn"
         and color == IrisRequirementPolicy.COLOR_MET then
         return tr("Iris_Requirement_Learned", "Learned")
     end
-    return reqDisplay
+    local lang = tostring(locale or "EN"):upper() == "KO" and "KO" or "EN"
+    if lang == "KO" and type(req.display) == "string" and req.display ~= "" then
+        return req.display
+    end
+    if check and check.type == "perk" and check.perk_id and check.level ~= nil then
+        return tostring(check.perk_id) .. " >= " .. tostring(check.level)
+    end
+    if check and check.type == "near_item" and check.near_token then
+        return tr("Iris_Requirement_Near", "Near") .. ": " .. tostring(check.near_token)
+    end
+    if check and check.type == "flag" and check.flag_id == "NeedToBeLearn" then
+        return tr("Iris_Requirement_MustLearn", "Recipe must be learned")
+    end
+    return tr("Iris_Requirement_Unavailable", "Requirement unavailable")
 end
 
 return IrisRequirementPolicy

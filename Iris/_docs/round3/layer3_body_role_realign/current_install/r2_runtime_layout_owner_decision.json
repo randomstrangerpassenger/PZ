@@ -1,0 +1,47 @@
+{
+  "schema_version": "iris-iar-retirement-r2-owner-decision-v1",
+  "selection": "B",
+  "decision": "generation-qualified immutable Lua module set with one shared runtime pointer switched atomically",
+  "authority_source": {
+    "kind": "direct_owner_instruction",
+    "session_date": "2026-08-21",
+    "instruction": "Complete Layer 3 installation and treat plan/document owner approval gates as approved."
+  },
+  "exact_subject": {
+    "commit": "72b29d69f20eb7733b41063987d26ad44c72e26b",
+    "tree": "f6efe94d8613ceff71334c4e4061199cd2876a65",
+    "implementation_files": [
+      {
+        "path": "Iris/build/description/v2/tools/build/compose_layer3_text.py",
+        "raw_byte_sha256": "836d46ba647976457c6f5bf39ab25885e0c2dc1b6b67a3617339f812a135e075"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/dvf_3_3_generation_contract.py",
+        "raw_byte_sha256": "bb340b5963d1320ff72012662688a2b595a7537c90e96ffba747337c04a620e9"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/build_dvf_3_3_complete_generation.py",
+        "raw_byte_sha256": "9574b083a88e83c8e1b2298cf35879d7c17201eb76b4e74568ff5c849531036f"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_complete_generation.py",
+        "raw_byte_sha256": "6c1faaa41cb94aa408129efc5b2f8f9752d81931390350479febd2bfc1e6e0ea"
+      },
+      {
+        "path": "Iris/build/description/v2/tools/build/dvf_3_3_runtime_compatibility.py",
+        "raw_byte_sha256": "3f82a7941d899443c53448ef78f2ce3169cbc07506c47d626099a60e17dc4fd3"
+      }
+    ]
+  },
+  "required_evidence": [
+    "complete-generation validation",
+    "runtime compatibility",
+    "same-generation install no-op",
+    "package parity",
+    "fresh clean-checkout repository gate"
+  ],
+  "non_claims": [
+    "This decision is not an owner seal.",
+    "This decision does not claim RTC, Publish, release readiness, deployment, or canonical closure."
+  ]
+}

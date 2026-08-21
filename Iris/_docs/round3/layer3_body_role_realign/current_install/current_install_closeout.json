@@ -1,0 +1,24 @@
+{
+  "schema_version": "iris-layer3-role-realign-current-install-closeout-v1",
+  "token": "layer3_role_realign_current_install_complete",
+  "validated_subject": {
+    "commit": "d006f6108093886751e538d36c92de3627a9e76f",
+    "tree": "5e2370f8e5720e830b8ef62c87b6c51c45bfaa4a"
+  },
+  "installed_generation_id": "dvf33-aa138aa4896b68ac53609a4b1cb6e5346245e74f544db28eb2ee924dc7b3e814",
+  "validation": {
+    "focused": "PASS",
+    "lua_syntax": "PASS",
+    "current_runtime_payload_ps51_ps7_parity": "PASS",
+    "clean_checkout_run_a": "PASS",
+    "clean_checkout_run_b": "PASS",
+    "deterministic_comparison": "PASS",
+    "canonical_result_sha256": "f110c14471bd5e8f3cd0d76afeaa8533ea6bb6deaf147b17764e192f377c37b6"
+  },
+  "non_claims": [
+    "publish_pass",
+    "release_readiness",
+    "workshop_or_deployment_complete",
+    "owner_sealed_canonical_closure"
+  ]
+}

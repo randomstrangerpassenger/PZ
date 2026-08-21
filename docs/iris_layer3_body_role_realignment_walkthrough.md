@@ -195,7 +195,16 @@ Installer는 시작 시 current pointer를 predecessor `dvf33-2a44a0a8d9a2e7f0d9
 
 Preserved one-off IPS assessment는 `predecessor_snapshot_stale_after_install`로 표시했다. IPS evaluator를 복원하거나 재실행하지 않았고 predecessor 결과를 current sufficiency claim으로 상속하지 않았다.
 
-이 시점의 install implementation은 완료됐지만 `layer3_role_realign_current_install_complete` token은 아직 기록하지 않는다. Lua/package/runtime checks와 exact install terminal subject의 fresh Clean-Checkout Run A/B 및 comparator가 모두 exit `0`인 뒤에만 별도 post-validation closeout으로 기록한다.
+Exact install terminal subject `d006f6108093886751e538d36c92de3627a9e76f` / tree `5e2370f8e5720e830b8ef62c87b6c51c45bfaa4a`에서 최종 검증을 완료했다.
+
+- Focused runtime/install/authority regression: `23 passed, 14 subtests passed`
+- Lua syntax: `157 files`, exit `0`
+- Windows PowerShell 5.1 / PowerShell 7 `current_runtime_payload`: 양쪽 PASS, generation·lookup digest·output universe parity, hash mismatch `0`
+- Clean-Checkout Run A/B: 각각 `433 passed, 2 deselected, 117 subtests passed`, standalone `4/4 PASS`, external mutation `0`, cleanup PASS
+- Run A/B canonical result SHA-256: `f110c14471bd5e8f3cd0d76afeaa8533ea6bb6deaf147b17764e192f377c37b6`
+- Deterministic comparison: exit `0`, required execution units `437`, test identities `433`, canonical raw bytes equal
+
+따라서 post-validation closeout에 `layer3_role_realign_current_install_complete` token을 기록했다. 이 token은 exact install subject의 Change 9 완료만 뜻하며 Publish, release, Workshop/deployment 또는 owner-sealed canonical closure는 뜻하지 않는다.
 
 ## 10. Explicit Non-Claims
 

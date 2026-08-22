@@ -1,0 +1,112 @@
+{
+  "schema_version": "iris-validation-final-composition-v1",
+  "implementation_subject": {
+    "commit": "4b808751da39871f9bda68a7dc4b1ab4ec055201",
+    "tree": "2171431e157baac62eb6a4e794003491a5852205",
+    "validated_terminal_subject": false
+  },
+  "executable_unit_coverage": {
+    "inventory_count": 1167,
+    "contract_row_count": 1167,
+    "disposition_count": 1167,
+    "coverage_percent": 100,
+    "needs_decision_count": 0,
+    "disposition_counts": {
+      "regular_product_contract": 445,
+      "regular_validation_system_contract": 154,
+      "reproduction_only": 434,
+      "evidence_only": 133,
+      "expired_or_duplicate_remove": 1,
+      "migrate_then_remove": 0,
+      "needs_decision": 0
+    }
+  },
+  "authority_composition": {
+    "tracked_test_source_count": 151,
+    "required_source_count": 66,
+    "historical_optional_source_count": 62,
+    "diagnostic_identity_count": 80,
+    "hermetic_test_fixture_source_count": 2,
+    "evidence_only_executable_source_count": 3,
+    "obsolete_or_misrouted_source_count": 0,
+    "current_pytest_identity_count": 433,
+    "standalone_validation_count": 4,
+    "required_execution_unit_count": 437,
+    "current_taxonomy_identity_set_equal": true,
+    "selected_source_set_equal": true,
+    "unclassified_source_count": 0,
+    "conflicting_classification_count": 0,
+    "missing_manifest_target_count": 0
+  },
+  "evidence_only_sources": [
+    "Iris/build/tests/test_description_generator.py",
+    "Iris/build/tests/test_layer3_pipeline.py",
+    "Iris/build/tests/test_wearable_6f.py"
+  ],
+  "standalone_regular_contracts": [
+    "Iris/build/tests/test_determinism_rc.py",
+    "Iris/build/tests/test_recipe_evidence.py",
+    "Iris/build/tests/test_fail_loud_coverage.py",
+    "Iris/build/test_require_render.py"
+  ],
+  "cleanup": {
+    "removed_identity": "Iris/test/test_rightclick_pipeline.py::test_rightclick_pipeline.test_tc8_full_pipeline_snapshot",
+    "removed_identity_current_contract_absent": true,
+    "current_regular_membership_loss_count": 0,
+    "contract_row_preservation_receipt_count": 29,
+    "orphan_support_count": 0,
+    "owner_written_artifact_mutation_count": 0,
+    "owner_action_required": false,
+    "runtime_or_product_artifact_change_count": 0
+  },
+  "validation": {
+    "full_gate_status": "FAIL",
+    "pytest_passed": 432,
+    "pytest_failed": 1,
+    "standalone_passed": 4,
+    "standalone_failed": 0,
+    "source_checkout_mutation_count": 0,
+    "external_cleanup_status": "PASS",
+    "run_b_and_comparator_executed": false,
+    "run_b_and_comparator_nonexecution_reason": "Run A failed at a baseline-reproducible current-valid contract; cadence cannot advance to deterministic comparison.",
+    "blocking_failure_attribution": "pre_existing_non_attributable_current_validation_defect",
+    "closeout_state": "blocked"
+  },
+  "artifact_bindings": {
+    "validation_unit_inventory_sha256": "6c55b5602466a29ff7919bc3f34a83e6b6a4599c252595c38fb0faaa9144e38d",
+    "support_dependency_inventory_sha256": "267f9f8625497bd6d3c47ecf62c0fad88a5b7c38330383e9665975ca920dafc2",
+    "contract_ledger_sha256": "9e77ebaface30df7a1dc8d425a36f56d80137fda97536576eabddf78abe9565a",
+    "disposition_ledger_sha256": "2e48657ae91161f3347db76f10687b29654e137b4d6dc35ab8af9b92c7b3bf92",
+    "contract_row_preservation_receipts_sha256": "c08c89fbbacb2706dd19c7b1e78694ff07758303eed26266b8d269e41da7668d",
+    "duplicate_inclusion_proof_sha256": "a2c02757297735d262642e87e111360118d0cbddf57a0e99304c570cdb2aae87",
+    "meta_validator_rule_diff_sha256": "32502d055bfb2f6bc09358fe9b3151faf8e8d56323e558cc2b96065cf0e99508",
+    "removal_transaction_sha256": "29d7fb264c16c88a2c4ee350e9ab7f92c0a809b47c17c58982134799b0bf1805",
+    "external_full_run_receipt_sha256": "48608df0cb53bf1bed8bf097e704d4602051efc9d41a2917ce9f364063ca6af3",
+    "external_canonical_result_sha256": "387f02f12db53ad5f4170949c7197944b6e1154d040d368d9c627d4f35918883"
+  },
+  "repository_external_evidence": {
+    "full_gate_root": "C:/Users/MW/ivrc/p5b",
+    "full_run_receipt": {
+      "path": "C:/Users/MW/ivrc/p5b/r/full_run_receipt.json",
+      "sha256": "48608df0cb53bf1bed8bf097e704d4602051efc9d41a2917ce9f364063ca6af3"
+    },
+    "canonical_full_result": {
+      "path": "C:/Users/MW/ivrc/p5b/r/canonical_full_result.json",
+      "sha256": "387f02f12db53ad5f4170949c7197944b6e1154d040d368d9c627d4f35918883"
+    },
+    "full_pytest_result": {
+      "path": "C:/Users/MW/ivrc/p5b/r/full_pytest_result.json",
+      "sha256": "e9f057f53f2600941f4b23d741536e2c39ebfef26217cdfc65bb9767ff8dad1e"
+    },
+    "stdout": {
+      "path": "C:/Users/MW/ivrc/p5b/full-gate.stdout.bin",
+      "sha256": "480dba580efd0614fa3a5112e261f8ea326b3045caf3193b2bd2adb9dfa564fb"
+    },
+    "stderr": {
+      "path": "C:/Users/MW/ivrc/p5b/full-gate.stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "route_result_root": "C:/Users/MW/Downloads/coding/PZ-validation-authority-evidence/routes"
+  },
+  "durable_readpoint_scope": "membership-only module-local composition; no route semantics, authority ownership, or governing principle changed"
+}

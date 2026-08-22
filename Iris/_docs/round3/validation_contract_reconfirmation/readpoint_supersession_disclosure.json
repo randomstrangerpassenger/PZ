@@ -1,0 +1,68 @@
+{
+  "schema_version": "iris-validation-readpoint-supersession-disclosure-v1",
+  "implementation_subject": {
+    "commit": "4b808751da39871f9bda68a7dc4b1ab4ec055201",
+    "tree": "2171431e157baac62eb6a4e794003491a5852205",
+    "validated_terminal_subject": false
+  },
+  "readpoints": [
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "section": "8-13",
+      "predecessor_readpoint_identity": {
+        "kind": "architecture_closeout_chain",
+        "implementation_subject": "fe4bb9f6",
+        "endpoint_bound_receipt": "b33ed2ac",
+        "owner_attestation_correction": "89f7499c",
+        "review_seal": "91259769"
+      },
+      "successor_readpoint_identity": null,
+      "blocked_successor_identity": null,
+      "superseded": false,
+      "reason": "The execution does not reopen or change the governing runtime-optimization boundary or its closeout chain."
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "section": "8-15",
+      "predecessor_readpoint_identity": {
+        "kind": "test_workflow_and_dvf_successor_chain",
+        "workflow_execution_subject": "ea94c19789fd33799180c4cbf1e19bde26a3a482",
+        "dvf_validated_implementation_subject": "c924349eae6ee7f2a077ca83899b0ec99131f6c2",
+        "dvf_terminal_implementation_subject": "6f362b5e284d9f05749c7f9dc6a11f13bb1fe322",
+        "dvf_closeout_carrier": "5ce69e2a3bbf02d453e874af740a312e37b74bff"
+      },
+      "successor_readpoint_identity": null,
+      "blocked_successor_identity": {
+        "commit": "4b808751da39871f9bda68a7dc4b1ab4ec055201",
+        "tree": "2171431e157baac62eb6a4e794003491a5852205",
+        "reason": "required final full gate did not pass"
+      },
+      "superseded": false,
+      "reason": "The implementation subject did not obtain required final full-gate PASS and is not a validated successor readpoint."
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "section": "16",
+      "predecessor_readpoint_identity": {
+        "kind": "test_workflow_consolidation_current_readpoint",
+        "status": "complete",
+        "workflow_execution_subject": "ea94c19789fd33799180c4cbf1e19bde26a3a482",
+        "authority_evidence_successors": [
+          "0012",
+          "0013"
+        ]
+      },
+      "successor_readpoint_identity": null,
+      "blocked_successor_identity": {
+        "commit": "4b808751da39871f9bda68a7dc4b1ab4ec055201",
+        "tree": "2171431e157baac62eb6a4e794003491a5852205",
+        "reason": "blocked validation-authority cleanup carrier cannot replace a complete roadmap readpoint"
+      },
+      "superseded": false,
+      "reason": "The implementation subject remains blocked and therefore does not replace the documented current subject/result identity."
+    }
+  ],
+  "owner_action_required": false,
+  "owner_action_summary": "No top-level readpoint update is proposed; existing current identities remain in force.",
+  "authority_boundary": "This disclosure does not adopt the implementation subject or redefine product or validation authority."
+}

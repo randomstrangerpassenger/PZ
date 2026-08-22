@@ -7,8 +7,8 @@
     "disposition_counts":  {
                                "evidence_only":  133,
                                "expired_or_duplicate_remove":  1,
-                               "regular_product_contract":  446,
-                               "regular_validation_system_contract":  153,
+                               "regular_product_contract":  445,
+                               "regular_validation_system_contract":  154,
                                "reproduction_only":  434
                            }
 }

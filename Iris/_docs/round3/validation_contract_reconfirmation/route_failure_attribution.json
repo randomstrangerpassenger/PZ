@@ -1,16 +1,68 @@
 {
-    "schema_version":  "iris-validation-route-failure-attribution-v1",
-    "baseline_subject":  {
-                             "commit":  "a570f34065fa96a459f946171330f080a8f1c8d1",
-                             "tree":  "2e2b4fa729b74c74d2ac1e64131d487074f81ac1",
-                             "selection":  "owner_selected_tracked_HEAD"
-                         },
-    "final_subject":  null,
-    "routes":  {
-                   "current":  "pending",
-                   "historical":  "pending",
-                   "diagnostic":  "pending"
-               },
-    "cleanup_attributable_failure_count":  null,
-    "attribution_unknown_count":  null
+  "schema_version": "iris-validation-route-failure-attribution-v1",
+  "baseline_subject": {
+    "commit": "a570f34065fa96a459f946171330f080a8f1c8d1",
+    "tree": "2e2b4fa729b74c74d2ac1e64131d487074f81ac1",
+    "selection": "owner_selected_tracked_HEAD"
+  },
+  "final_subject": {
+    "commit": "4b808751da39871f9bda68a7dc4b1ab4ec055201",
+    "tree": "2171431e157baac62eb6a4e794003491a5852205",
+    "qualification": "implementation_subject_not_validated_terminal_subject"
+  },
+  "routes": {
+    "current": {
+      "baseline_result": "FAIL",
+      "final_result": "FAIL",
+      "baseline_and_final_failure_identity": "Iris/build/description/v2/tests/test_dvf_3_3_closeout_reentry_guard_seal.py::DvfCloseoutReentryGuardSealTest::test_validator_requires_full_current_route_result_for_complete_contract",
+      "failure_shape": "--probe-route-shapes reports FAIL for the valid fixture because blocked claim-surface and machine-contract guards remain nonzero",
+      "attribution": "pre_existing_non_attributable_current_validation_defect",
+      "closeout_effect": "blocked_until_successor_restores_required_current_gate"
+    },
+    "historical": {
+      "baseline": {
+        "selected_identity_count": 285,
+        "test_count": 285,
+        "failure_count": 0,
+        "error_count": 0,
+        "result": "PASS",
+        "evidence_path": "C:/Users/MW/Downloads/coding/PZ-validation-authority-evidence/routes/baseline-historical.json",
+        "evidence_sha256": "f1e559ef4408975856d03b75d42e065a61f22227b42dfeacd5e12af5168fd1de"
+      },
+      "final": {
+        "selected_identity_count": 285,
+        "test_count": 285,
+        "failure_count": 0,
+        "error_count": 0,
+        "result": "PASS",
+        "evidence_path": "C:/Users/MW/Downloads/coding/PZ-validation-authority-evidence/routes/final-historical.json",
+        "evidence_sha256": "873d595ca343d2aa55ac7029e7e75561ec3d4254acb74193dd84246f103ac940"
+      },
+      "attribution": "no_regression"
+    },
+    "diagnostic": {
+      "baseline": {
+        "selected_identity_count": 80,
+        "test_count": 76,
+        "failure_count": 3,
+        "error_count": 25,
+        "result": "FAIL",
+        "evidence_path": "C:/Users/MW/Downloads/coding/PZ-validation-authority-evidence/routes/baseline-diagnostic.json",
+        "evidence_sha256": "99416235193c821298fd94a38d0d73d75bc2e0e98286d96e1164d5b1e68dd567"
+      },
+      "final": {
+        "selected_identity_count": 80,
+        "test_count": 76,
+        "failure_count": 3,
+        "error_count": 25,
+        "result": "FAIL",
+        "evidence_path": "C:/Users/MW/Downloads/coding/PZ-validation-authority-evidence/routes/final-diagnostic.json",
+        "evidence_sha256": "6d2084b344f87bc95a70c0fdde05622aa1f93a2c0432710b248af473d4f1983c"
+      },
+      "attribution": "pre_existing_non_attributable_route_local_ceiling"
+    }
+  },
+  "cleanup_attributable_failure_count": 0,
+  "attribution_unknown_count": 0,
+  "claim_ceiling": "Historical PASS does not replace current PASS. Diagnostic failures are baseline-identical in result and count and remain advisory evidence only."
 }

@@ -121,8 +121,8 @@
                                                },
                                   "working":  {
                                                   "exists":  true,
-                                                  "git_blob_id":  "6bc40cda58912165a0ec5c10c5692123ee3ba723",
-                                                  "sha256":  "11f852e69bdb19fed4fc0865ee96c5d7fed2aece7460118b77dedaad3411f18f",
+                                                  "git_blob_id":  "ac5600bef8abe622cc69d8e4741212725ca432a0",
+                                                  "sha256":  "e418b4b04079fa27d93ab3257fcf941654545e06d9dc8e615d5359e8656d3570",
                                                   "sha256_basis":  "git_blob_content"
                                               }
                               },
@@ -204,9 +204,26 @@
                           ],
     "planning_worktree_is_baseline":  false,
     "baseline_route_receipts":  {
-                                    "current":  null,
-                                    "historical":  null,
-                                    "diagnostic":  null,
-                                    "status":  "pending_final_validation_batch"
+                                    "current":  {
+                                                    "result":  "FAIL",
+                                                    "scope":  "focused_required_gate_blocker_reproduction",
+                                                    "identity":  "Iris/build/description/v2/tests/test_dvf_3_3_closeout_reentry_guard_seal.py::DvfCloseoutReentryGuardSealTest::test_validator_requires_full_current_route_result_for_complete_contract",
+                                                    "failure_shape":  "--probe-route-shapes valid fixture returns FAIL"
+                                                },
+                                    "historical":  {
+                                                       "result":  "PASS",
+                                                       "selected_identity_count":  285,
+                                                       "test_count":  285,
+                                                       "evidence_sha256":  "f1e559ef4408975856d03b75d42e065a61f22227b42dfeacd5e12af5168fd1de"
+                                                   },
+                                    "diagnostic":  {
+                                                       "result":  "FAIL",
+                                                       "selected_identity_count":  80,
+                                                       "test_count":  76,
+                                                       "failure_count":  3,
+                                                       "error_count":  25,
+                                                       "evidence_sha256":  "99416235193c821298fd94a38d0d73d75bc2e0e98286d96e1164d5b1e68dd567"
+                                                   },
+                                    "status":  "recorded_with_current_route_blocker_ceiling"
                                 }
 }

@@ -635,6 +635,23 @@ def is_top_doc_boundary_routing_definition(path: Path, line: str) -> bool:
     if "-> publish boundary closure" in lowered or "→ publish boundary closure" in lowered:
         return True
     if (
+        top_doc == "docs/ROADMAP.md"
+        and "별도 successor 범위" in lowered
+        and not any(
+            marker in lowered
+            for marker in positive_completion_markers
+        )
+        and any(
+            marker in lowered
+            for marker in (
+                "release",
+                "workshop",
+                "deployment readiness",
+            )
+        )
+    ):
+        return True
+    if (
         top_doc == "docs/ARCHITECTURE.md"
         and "public text quality" in lowered
         and "public acceptance" in lowered

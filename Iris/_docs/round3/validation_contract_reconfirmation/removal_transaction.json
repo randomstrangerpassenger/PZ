@@ -22,6 +22,9 @@
                               "Iris/build/tests/test_layer3_pipeline.py",
                               "Iris/build/tests/test_wearable_6f.py"
                           ],
+    "reconciled_bindings":  [
+                                 "Iris/_docs/refactor/repository_evidence_lightweighting/required_validation_adoption_receipt.successor.json::bound_inputs.full_repository_gate"
+                             ],
     "owner_written_artifact_mutations":  [
 
                                          ],

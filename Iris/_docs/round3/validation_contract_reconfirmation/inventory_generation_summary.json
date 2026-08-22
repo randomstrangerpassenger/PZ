@@ -1,0 +1,14 @@
+{
+    "inventory_count":  1167,
+    "contract_row_count":  1167,
+    "disposition_count":  1167,
+    "script_case_count":  5,
+    "preservation_receipt_count":  29,
+    "disposition_counts":  {
+                               "evidence_only":  133,
+                               "expired_or_duplicate_remove":  1,
+                               "regular_product_contract":  446,
+                               "regular_validation_system_contract":  153,
+                               "reproduction_only":  434
+                           }
+}

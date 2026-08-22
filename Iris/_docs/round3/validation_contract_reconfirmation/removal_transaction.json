@@ -1,0 +1,40 @@
+{
+    "schema_version":  "iris-validation-removal-transaction-v1",
+    "state":  "applied",
+    "predecessor_subject":  {
+                                "commit":  "a570f34065fa96a459f946171330f080a8f1c8d1",
+                                "tree":  "2e2b4fa729b74c74d2ac1e64131d487074f81ac1",
+                                "selection":  "owner_selected_tracked_HEAD"
+                            },
+    "removals":  [
+                     {
+                         "identity":  "Iris/test/test_rightclick_pipeline.py::test_rightclick_pipeline.test_tc8_full_pipeline_snapshot",
+                         "source_path":  "Iris/test/test_rightclick_pipeline.py",
+                         "disposition":  "expired_or_duplicate_remove",
+                         "current_contract_absent":  true,
+                         "support_removal":  [
+
+                                             ]
+                     }
+                 ],
+    "reclassifications":  [
+                              "Iris/build/tests/test_description_generator.py",
+                              "Iris/build/tests/test_layer3_pipeline.py",
+                              "Iris/build/tests/test_wearable_6f.py"
+                          ],
+    "owner_written_artifact_mutations":  [
+
+                                         ],
+    "independent_review_required":  true,
+    "pre_destructive_review":  {
+                                    "reviewer":  "Codex Reviewer",
+                                    "result":  "approved",
+                                    "finding_counts":  {
+                                                           "P0":  0,
+                                                           "P1":  0,
+                                                           "P2":  0,
+                                                           "P3":  0
+                                                       },
+                                    "reviewed_surface":  "disposition, preservation receipts, meta-validator semantic diff, and owner-action boundary"
+                                }
+}

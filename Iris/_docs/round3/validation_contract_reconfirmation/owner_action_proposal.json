@@ -1,0 +1,10 @@
+{
+    "schema_version":  "iris-validation-owner-action-proposal-v1",
+    "owner_action_required":  false,
+    "adopted_owner_prompt":  "repository_owner_prompt_preapproval_2026-08-22",
+    "owner_written_artifact_mutations":  [
+
+                                         ],
+    "proposed_delta":  "none",
+    "reason":  "Configured-current and dedicated baseline-admission membership do not change."
+}

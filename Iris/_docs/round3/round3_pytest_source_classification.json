@@ -131,45 +131,60 @@
     },
     {
       "source_file": "Iris/build/tests/test_description_generator.py",
-      "reason": "Legacy script-style generator test is outside the supported description-v2 route and is superseded by current package/generator contracts.",
+      "reason": "Executable provenance for the retired script-style generator route; preserved outside regular discovery because its observable contract no longer matches the supported description-v2 route.",
       "alternative_validation": "test_generated_lua_sparse_fields_contract.py and test_package_layer3_chunks_only_contract.py",
       "owner": "repository-owner-preapproval-2026-08-10",
-      "reviewed_at": "2026-08-10"
+      "reviewed_at": "2026-08-10",
+      "semantic_disposition": "evidence_only",
+      "physical_preservation": "executable_source",
+      "target_regular_membership": false
     },
     {
       "source_file": "Iris/build/tests/test_determinism_rc.py",
-      "reason": "Legacy release-candidate script mutates/produces historical build outputs and is outside the configured current denominator.",
-      "alternative_validation": "Current exact route plus deterministic generated-package Run A/B contracts",
+      "reason": "Regular product-contract validation executed only through the full-repository standalone route; excluded from general pytest discovery to preserve its CLI and output-isolation contract.",
+      "alternative_validation": "full_repository_gate.required_standalone_validations[legacy_rightclick_determinism]",
       "owner": "repository-owner-preapproval-2026-08-10",
-      "reviewed_at": "2026-08-10"
+      "reviewed_at": "2026-08-10",
+      "semantic_disposition": "regular_product_contract",
+      "target_regular_membership": true
     },
     {
       "source_file": "Iris/build/tests/test_fail_loud_coverage.py",
-      "reason": "Legacy labelmap coverage route is superseded by the current description-v2/package validation surface.",
-      "alternative_validation": "Current exact route and generated package parity contract",
+      "reason": "Regular product-contract validation executed only through the full-repository standalone route; excluded from general pytest discovery to preserve its fail-loud CLI contract.",
+      "alternative_validation": "full_repository_gate.required_standalone_validations[labelmap_fail_loud_coverage]",
       "owner": "repository-owner-preapproval-2026-08-10",
-      "reviewed_at": "2026-08-10"
+      "reviewed_at": "2026-08-10",
+      "semantic_disposition": "regular_product_contract",
+      "target_regular_membership": true
     },
     {
       "source_file": "Iris/build/tests/test_layer3_pipeline.py",
-      "reason": "Legacy monolithic Layer3 pipeline route is outside the chunked current runtime authority.",
+      "reason": "Executable provenance for the retired monolithic Layer 3 pipeline route; preserved outside regular discovery because its implementation dependency is no longer tracked.",
       "alternative_validation": "test_lookup_package_parity_contract.py and exact current route",
       "owner": "repository-owner-preapproval-2026-08-10",
-      "reviewed_at": "2026-08-10"
+      "reviewed_at": "2026-08-10",
+      "semantic_disposition": "evidence_only",
+      "physical_preservation": "executable_source",
+      "target_regular_membership": false
     },
     {
       "source_file": "Iris/build/tests/test_recipe_evidence.py",
-      "reason": "Legacy recipe-evidence script is superseded by the current cross-track evidence regression and description-v2 contracts.",
-      "alternative_validation": "Iris/build/tests/test_evidence_pipeline_cross_track.py",
+      "reason": "Regular product-contract validation executed only through the full-repository standalone route; excluded from general pytest discovery to preserve its recipe-evidence CLI contract.",
+      "alternative_validation": "full_repository_gate.required_standalone_validations[legacy_recipe_evidence_determinism]",
       "owner": "repository-owner-preapproval-2026-08-10",
-      "reviewed_at": "2026-08-10"
+      "reviewed_at": "2026-08-10",
+      "semantic_disposition": "regular_product_contract",
+      "target_regular_membership": true
     },
     {
       "source_file": "Iris/build/tests/test_wearable_6f.py",
-      "reason": "Legacy phase-specific wearable script is not a current description-v2 runtime/package contract.",
+      "reason": "Executable provenance for the retired Wearable.6-F workstation route; preserved outside regular discovery because its implementation dependencies are not tracked.",
       "alternative_validation": "Current exact route and current generated description/package contracts",
       "owner": "repository-owner-preapproval-2026-08-10",
-      "reviewed_at": "2026-08-10"
+      "reviewed_at": "2026-08-10",
+      "semantic_disposition": "evidence_only",
+      "physical_preservation": "executable_source",
+      "target_regular_membership": false
     }
   ]
 }

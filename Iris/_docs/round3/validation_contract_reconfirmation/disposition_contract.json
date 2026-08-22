@@ -1,0 +1,273 @@
+{
+    "schema_version":  "iris-validation-disposition-contract-v1",
+    "adopted_plan":  {
+                         "path":  "docs/iris_regular_validation_authority_contract_reconfirmation_and_temporary_legacy_cleanup_plan.md",
+                         "approval_basis":  "repository_owner_prompt_preapproval_2026-08-22",
+                         "working_identity":  {
+                                                  "exists":  true,
+                                                  "git_blob_id":  "79785bf1f85383ab59bad4f90b428e1b9fd35896",
+                                                  "sha256":  "82ce2a72f5c6ed723ae662b8910c3a55e93997a89a7558413b80f87b8c4d79f4"
+                                              }
+                     },
+    "baseline_subject":  {
+                             "commit":  "a570f34065fa96a459f946171330f080a8f1c8d1",
+                             "tree":  "2e2b4fa729b74c74d2ac1e64131d487074f81ac1",
+                             "selection":  "owner_selected_tracked_HEAD"
+                         },
+    "disposition_tokens":  [
+                               "regular_product_contract",
+                               "regular_validation_system_contract",
+                               "migrate_then_remove",
+                               "reproduction_only",
+                               "evidence_only",
+                               "expired_or_duplicate_remove",
+                               "needs_decision"
+                           ],
+    "support_lifecycle_tokens":  [
+                                     "shared_current_support",
+                                     "historical_support",
+                                     "evidence_support",
+                                     "removal_candidate",
+                                     "non_validation_consumer_out_of_scope",
+                                     "unresolved_dependency"
+                                 ],
+    "route_mapping":  {
+                          "current":  [
+                                          "regular_product_contract",
+                                          "regular_validation_system_contract"
+                                      ],
+                          "historical":  [
+                                             "reproduction_only"
+                                         ],
+                          "diagnostic":  [
+                                             "evidence_only"
+                                         ],
+                          "regular_absent":  [
+                                                 "evidence_only",
+                                                 "reproduction_only",
+                                                 "expired_or_duplicate_remove"
+                                             ]
+                      },
+    "proof_standard":  "Proof A",
+    "needs_decision_closeout":  "Option A",
+    "pending_disposition_policy_landing":  {
+                                               "availability":  false,
+                                               "fallback":  "retain_unresolved_inherited_membership",
+                                               "reason":  "No unresolved non-current-only unit is admitted by this execution; no new source-policy landing is required."
+                                           },
+    "owner_writer_boundary":  {
+                                  "owner_written_read_only":  [
+                                                                  "Iris/validation/baseline_admission/authority/full_repository_test_membership_owner_decision.json",
+                                                                  "Iris/validation/baseline_admission/authority/scope_and_conflict_decisions.json"
+                                                              ],
+                                  "executor_writes":  "forbidden",
+                                  "owner_prompt_gate_preapproved":  true
+                              },
+    "independent_review_gate":  {
+                                    "required_before_destructive_change":  true,
+                                    "required_final_counts":  {
+                                                                  "P0":  0,
+                                                                  "P1":  0,
+                                                                  "P2":  0,
+                                                                  "P3":  0
+                                                              },
+                                    "reviewer":  "Codex Reviewer"
+                                },
+    "pinned_identities":  [
+                              {
+                                  "path":  "pytest.ini",
+                                  "baseline":  {
+                                                   "exists":  true,
+                                                   "git_blob_id":  "6e59520180cdbf1a92b132347465ddc0abbbfe55",
+                                                   "sha256":  "653812836e438887510eaa1befb2828c0d0c86c1613a811efd82e85afabec6cd",
+                                                   "sha256_basis":  "git_blob_content"
+                                               },
+                                  "working":  {
+                                                  "exists":  true,
+                                                  "git_blob_id":  "6e59520180cdbf1a92b132347465ddc0abbbfe55",
+                                                  "sha256":  "653812836e438887510eaa1befb2828c0d0c86c1613a811efd82e85afabec6cd",
+                                                  "sha256_basis":  "git_blob_content"
+                                              }
+                              },
+                              {
+                                  "path":  "Iris/_docs/round3/round3_test_taxonomy.json",
+                                  "baseline":  {
+                                                   "exists":  true,
+                                                   "git_blob_id":  "4635ba80d893ed5c96a7c4f289ccecedfd670ebd",
+                                                   "sha256":  "020d165392e74390de049c08f0c64c20033af20d6017e89b5aaae485901807d5",
+                                                   "sha256_basis":  "git_blob_content"
+                                               },
+                                  "working":  {
+                                                  "exists":  true,
+                                                  "git_blob_id":  "4635ba80d893ed5c96a7c4f289ccecedfd670ebd",
+                                                  "sha256":  "020d165392e74390de049c08f0c64c20033af20d6017e89b5aaae485901807d5",
+                                                  "sha256_basis":  "git_blob_content"
+                                              }
+                              },
+                              {
+                                  "path":  "Iris/_docs/round3/round3_pytest_source_classification.json",
+                                  "baseline":  {
+                                                   "exists":  true,
+                                                   "git_blob_id":  "f409d16774f4628756b76f3932241ccdfd2cdff3",
+                                                   "sha256":  "6aa4fe4bea48890219b8a7ab77a0066ce5dfcdea11c7aef5d461a2eec0692b8d",
+                                                   "sha256_basis":  "git_blob_content"
+                                               },
+                                  "working":  {
+                                                  "exists":  true,
+                                                  "git_blob_id":  "eb72a1457039501b3ae2819d142108b6599fc3df",
+                                                  "sha256":  "feb32ebf6d3bf514f6413960b997fae9efa5eebf90bab5e9090351f1138c7456",
+                                                  "sha256_basis":  "git_blob_content"
+                                              }
+                              },
+                              {
+                                  "path":  "Iris/_docs/round3/round3_full_discovery_denominator.json",
+                                  "baseline":  {
+                                                   "exists":  true,
+                                                   "git_blob_id":  "c9a8df0b18ab98383854e577abf042f05323f6fb",
+                                                   "sha256":  "0043088d9fcd7d3889ea045fb212017f322b86bfe7ec64a3978f5baef26d392e",
+                                                   "sha256_basis":  "git_blob_content"
+                                               },
+                                  "working":  {
+                                                  "exists":  true,
+                                                  "git_blob_id":  "c9a8df0b18ab98383854e577abf042f05323f6fb",
+                                                  "sha256":  "0043088d9fcd7d3889ea045fb212017f322b86bfe7ec64a3978f5baef26d392e",
+                                                  "sha256_basis":  "git_blob_content"
+                                              }
+                              },
+                              {
+                                  "path":  "Iris/_docs/round3/current_route_required_validations.json",
+                                  "baseline":  {
+                                                   "exists":  true,
+                                                   "git_blob_id":  "bbe994f106ba3fb132415f84144385ac848b9092",
+                                                   "sha256":  "1179a1035ebede6993d9c5b731d8add4d8ca03d12eb440bd6975f4b47093139a",
+                                                   "sha256_basis":  "git_blob_content"
+                                               },
+                                  "working":  {
+                                                  "exists":  true,
+                                                  "git_blob_id":  "bbe994f106ba3fb132415f84144385ac848b9092",
+                                                  "sha256":  "1179a1035ebede6993d9c5b731d8add4d8ca03d12eb440bd6975f4b47093139a",
+                                                  "sha256_basis":  "git_blob_content"
+                                              }
+                              },
+                              {
+                                  "path":  "Iris/_docs/round3/round3_run_contract_tests.py",
+                                  "baseline":  {
+                                                   "exists":  true,
+                                                   "git_blob_id":  "dcd0849e15d6256a46606cfabf1a7abc42214471",
+                                                   "sha256":  "c893844943e30bfdd9a3d572aae663e4b71621696ce71eddde9f8419084e1757",
+                                                   "sha256_basis":  "git_blob_content"
+                                               },
+                                  "working":  {
+                                                  "exists":  true,
+                                                  "git_blob_id":  "dcd0849e15d6256a46606cfabf1a7abc42214471",
+                                                  "sha256":  "c893844943e30bfdd9a3d572aae663e4b71621696ce71eddde9f8419084e1757",
+                                                  "sha256_basis":  "git_blob_content"
+                                              }
+                              },
+                              {
+                                  "path":  "Iris/validation/clean_checkout/contracts/canonical_gate.json",
+                                  "baseline":  {
+                                                   "exists":  true,
+                                                   "git_blob_id":  "e1404aa8d4deae018e4866fe25f51732174a82ae",
+                                                   "sha256":  "dbbe3d5441d4e73e6301d6551fc9d52ebee104720bcc30d4534eb3e1210f6d94",
+                                                   "sha256_basis":  "git_blob_content"
+                                               },
+                                  "working":  {
+                                                  "exists":  true,
+                                                  "git_blob_id":  "e1404aa8d4deae018e4866fe25f51732174a82ae",
+                                                  "sha256":  "dbbe3d5441d4e73e6301d6551fc9d52ebee104720bcc30d4534eb3e1210f6d94",
+                                                  "sha256_basis":  "git_blob_content"
+                                              }
+                              },
+                              {
+                                  "path":  "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+                                  "baseline":  {
+                                                   "exists":  true,
+                                                   "git_blob_id":  "56c62cbc2aa02254d3ab6d2e4f9aafe6e4051aa1",
+                                                   "sha256":  "cf4130804c84835b3944707a9462e6814bea0b926764fff807b5d0b16fd7e107",
+                                                   "sha256_basis":  "git_blob_content"
+                                               },
+                                  "working":  {
+                                                  "exists":  true,
+                                                  "git_blob_id":  "6bc40cda58912165a0ec5c10c5692123ee3ba723",
+                                                  "sha256":  "11f852e69bdb19fed4fc0865ee96c5d7fed2aece7460118b77dedaad3411f18f",
+                                                  "sha256_basis":  "git_blob_content"
+                                              }
+                              },
+                              {
+                                  "path":  "Iris/build/description/v2/tests/conftest.py",
+                                  "baseline":  {
+                                                   "exists":  true,
+                                                   "git_blob_id":  "17f198b6c30104c2274d5ae0fc8a2bb7d9fc3a98",
+                                                   "sha256":  "195560fdbb929d4cf1cf54abe6c7197113973a95a0ee7af2531b0237c7e36aef",
+                                                   "sha256_basis":  "git_blob_content"
+                                               },
+                                  "working":  {
+                                                  "exists":  true,
+                                                  "git_blob_id":  "17f198b6c30104c2274d5ae0fc8a2bb7d9fc3a98",
+                                                  "sha256":  "195560fdbb929d4cf1cf54abe6c7197113973a95a0ee7af2531b0237c7e36aef",
+                                                  "sha256_basis":  "git_blob_content"
+                                              }
+                              },
+                              {
+                                  "path":  "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
+                                  "baseline":  {
+                                                   "exists":  true,
+                                                   "git_blob_id":  "2a90d97231fd05fa7d08b40de81583fba9ffa6cc",
+                                                   "sha256":  "aad9c5d3c6c1837a143da723a464f972df3b39709a63008afe99d90922ca479f",
+                                                   "sha256_basis":  "git_blob_content"
+                                               },
+                                  "working":  {
+                                                  "exists":  true,
+                                                  "git_blob_id":  "1ebdc93e16f4943fb2b0086a07a254dbb39d3835",
+                                                  "sha256":  "1e291df58ebb1d04b27ba1670969a1f9814997ffb289704b1f0db291f43d03dc",
+                                                  "sha256_basis":  "git_blob_content"
+                                              }
+                              },
+                              {
+                                  "path":  "Iris/validation/clean_checkout/validate_iris_clean_checkout_validation.py",
+                                  "baseline":  {
+                                                   "exists":  true,
+                                                   "git_blob_id":  "47b82a7c1a8b62ddd7a496477bd5615b428e4cfc",
+                                                   "sha256":  "57f71e4df232dd3b41ebc92f3c198f9f9777dd060d3fbe98f1d839c7cab4d055",
+                                                   "sha256_basis":  "git_blob_content"
+                                               },
+                                  "working":  {
+                                                  "exists":  true,
+                                                  "git_blob_id":  "47b82a7c1a8b62ddd7a496477bd5615b428e4cfc",
+                                                  "sha256":  "57f71e4df232dd3b41ebc92f3c198f9f9777dd060d3fbe98f1d839c7cab4d055",
+                                                  "sha256_basis":  "git_blob_content"
+                                              }
+                              },
+                              {
+                                  "path":  "Iris/validation/baseline_admission/authority/full_repository_test_membership_owner_decision.json",
+                                  "baseline":  {
+                                                   "exists":  true,
+                                                   "git_blob_id":  "83a32aa000d3bd0b81f91afac3f6b8d76ff86410",
+                                                   "sha256":  "f7dfbd5d90dc10a3528771986121925e0ad1e4b0451ea30a0e6f93988ac43d86",
+                                                   "sha256_basis":  "git_blob_content"
+                                               },
+                                  "working":  {
+                                                  "exists":  true,
+                                                  "git_blob_id":  "83a32aa000d3bd0b81f91afac3f6b8d76ff86410",
+                                                  "sha256":  "f7dfbd5d90dc10a3528771986121925e0ad1e4b0451ea30a0e6f93988ac43d86",
+                                                  "sha256_basis":  "git_blob_content"
+                                              }
+                              },
+                              {
+                                  "path":  "Iris/validation/baseline_admission/authority/scope_and_conflict_decisions.json",
+                                  "baseline":  {
+                                                   "exists":  true,
+                                                   "git_blob_id":  "1e1402d940006c48c48b987635b78d303458e313",
+                                                   "sha256":  "98a9fc8e61ad6d4a0a6895f49a9bb87c0d02b9aa6720bb09fe95e64d930491e1",
+                                                   "sha256_basis":  "git_blob_content"
+                                               },
+                                  "working":  {
+                                                  "exists":  true,
+                                                  "git_blob_id":  "1e1402d940006c48c48b987635b78d303458e313",
+                                                  "sha256":  "98a9fc8e61ad6d4a0a6895f49a9bb87c0d02b9aa6720bb09fe95e64d930491e1",
+                                                  "sha256_basis":  "git_blob_content"
+                                              }
+                              }
+                          ]
+}

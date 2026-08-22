@@ -1514,11 +1514,28 @@ def test_full_source_policy_classifies_only_declared_fallback(
             "authority_class": "dedicated_route_validation",
             "classification_basis": row["reason"],
         }
+    evidence_rows = {
+        row["path"]: row
+        for row in source_policy["evidence_only_sources"]
+    }
+    assert set(evidence_rows) == {
+        "Iris/build/tests/test_description_generator.py",
+        "Iris/build/tests/test_layer3_pipeline.py",
+        "Iris/build/tests/test_wearable_6f.py",
+    }
+    for path, row in evidence_rows.items():
+        assert row["physical_preservation"] == "executable_source"
+        assert _classify_full_test_source(path, roles) == {
+            "execution_role": "not_required",
+            "authority_class": "evidence_only_executable_source",
+            "classification_basis": row["reason"],
+        }
     disposition_surfaces = (
         "explicit_current_required_sources",
         "explicit_historical_optional_sources",
         "explicit_dedicated_route_sources",
         "hermetic_test_fixture_sources",
+        "evidence_only_sources",
         "obsolete_or_misrouted_sources",
     )
     for path in dedicated_sources:

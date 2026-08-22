@@ -1,5 +1,5 @@
 {
-  "schema_version": "iris-clean-checkout-full-repository-gate-v7",
+  "schema_version": "iris-clean-checkout-full-repository-gate-v8",
   "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
   "claim": "Iris mandatory full-required-repository validation is reproducible from an exact tracked commit",
   "claim_boundary": {
@@ -276,26 +276,25 @@
         "reason": "tracked D16 candidate-source fixture whose identity is verified by the Food closeout test"
       }
     ],
-    "obsolete_or_misrouted_sources": [
+    "evidence_only_sources": [
       {
         "path": "Iris/build/tests/test_description_generator.py",
-        "reason": "legacy assertion contract no longer matches the tracked description generator output contract"
+        "reason": "preserved executable provenance for the retired script-style description-generator route; it is not regular validation authority",
+        "physical_preservation": "executable_source"
       },
       {
         "path": "Iris/build/tests/test_layer3_pipeline.py",
-        "reason": "imports a removed untracked pipeline.description implementation"
+        "reason": "preserved executable provenance for the retired monolithic Layer 3 pipeline route; its removed implementation dependency prevents regular execution",
+        "physical_preservation": "executable_source"
       },
       {
         "path": "Iris/build/tests/test_wearable_6f.py",
-        "reason": "imports ignored workstation-only phase1_extraction and phase2_rules modules with no tracked provenance"
+        "reason": "preserved executable provenance for the retired Wearable.6-F workstation route; its ignored dependencies prevent regular execution",
+        "physical_preservation": "executable_source"
       }
     ],
-    "obsolete_or_misrouted_identities": [
-      {
-        "node_id": "Iris/test/test_rightclick_pipeline.py::test_tc8_full_pipeline_snapshot",
-        "reason": "placeholder contains no comparison and unconditionally skips when its undeclared baseline is absent"
-      }
-    ],
+    "obsolete_or_misrouted_sources": [],
+    "obsolete_or_misrouted_identities": [],
     "unclassified_source_policy": "fail"
   },
   "required_test_dependency_policy": {

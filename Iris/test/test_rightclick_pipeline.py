@@ -1,7 +1,7 @@
 """
 Right-Click Capability Pipeline Tests
 =====================================
-TC-1 ~ TC-8 테스트 케이스
+TC-1 ~ TC-7 테스트 케이스
 """
 
 import pytest
@@ -263,27 +263,6 @@ def test_tc7_property_mapping_works(sample_indices, mock_logger):
     # CanStoreWater 인덱스 값이 반환되어야 함
     assert "Base.Bowl" in result
     assert "Base.BucketEmpty" in result
-
-
-# ============================================================================
-# TC-8: 스냅샷 검증 (baseline과 diff)
-# ============================================================================
-
-def test_tc8_full_pipeline_snapshot():
-    """TC-8: 전체 파이프라인 스냅샷 검증 (수동 baseline 비교)"""
-    # 이 테스트는 baseline 생성 후 활성화
-    # 현재는 구조만 확인
-    baseline_path = Path(__file__).parent.parent / "baseline" / "capability_by_fulltype.json"
-    
-    if baseline_path.exists():
-        with open(baseline_path, "r", encoding="utf-8") as f:
-            baseline = json.load(f)
-        
-        # 프로덕션 실행 결과와 비교
-        # assert result == baseline
-        pass
-    else:
-        pytest.skip("Baseline not yet created")
 
 
 # ============================================================================

@@ -1,0 +1,16 @@
+{
+    "schema_version":  "iris-validation-route-failure-attribution-v1",
+    "baseline_subject":  {
+                             "commit":  "a570f34065fa96a459f946171330f080a8f1c8d1",
+                             "tree":  "2e2b4fa729b74c74d2ac1e64131d487074f81ac1",
+                             "selection":  "owner_selected_tracked_HEAD"
+                         },
+    "final_subject":  null,
+    "routes":  {
+                   "current":  "pending",
+                   "historical":  "pending",
+                   "diagnostic":  "pending"
+               },
+    "cleanup_attributable_failure_count":  null,
+    "attribution_unknown_count":  null
+}

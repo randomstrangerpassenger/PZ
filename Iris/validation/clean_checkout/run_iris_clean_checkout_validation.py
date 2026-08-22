@@ -279,6 +279,18 @@ def _full_required_source_roles(
             "authority_class": "hermetic_test_fixture",
             "classification_basis": row["reason"],
         }
+    for row in contract["source_disposition_policy"].get(
+        "evidence_only_sources", []
+    ):
+        if row.get("physical_preservation") != "executable_source":
+            raise CleanCheckoutError(
+                "evidence-only executable source lacks physical preservation"
+            )
+        roles[row["path"]] = {
+            "execution_role": "not_required",
+            "authority_class": "evidence_only_executable_source",
+            "classification_basis": row["reason"],
+        }
     for row in contract["source_disposition_policy"][
         "obsolete_or_misrouted_sources"
     ]:
@@ -1440,6 +1452,11 @@ def build_source_census(
             "obsolete_or_misrouted_source_count": sum(
                 row.get("authority_class")
                 == "obsolete_or_misrouted_test_dependency"
+                for row in source_rows
+            ),
+            "evidence_only_source_count": sum(
+                row.get("authority_class")
+                == "evidence_only_executable_source"
                 for row in source_rows
             ),
             "hermetic_test_fixture_source_count": sum(
@@ -2700,6 +2717,11 @@ def run_full_repository_gate(
         "obsolete_or_misrouted_source_count": sum(
             row["authority_class"]
             == "obsolete_or_misrouted_test_dependency"
+            for row in source_classifications.values()
+        ),
+        "evidence_only_source_count": sum(
+            row["authority_class"]
+            == "evidence_only_executable_source"
             for row in source_classifications.values()
         ),
         "hermetic_test_fixture_source_count": sum(

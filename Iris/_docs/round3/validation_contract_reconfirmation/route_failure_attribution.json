@@ -6,18 +6,20 @@
     "selection": "owner_selected_tracked_HEAD"
   },
   "final_subject": {
-    "commit": "4b808751da39871f9bda68a7dc4b1ab4ec055201",
-    "tree": "2171431e157baac62eb6a4e794003491a5852205",
-    "qualification": "implementation_subject_not_validated_terminal_subject"
+    "commit": "18d0c2ff9de97a71ddf7aa6b03fb059ffbb35089",
+    "tree": "56250ea400511eaf84ff84ee19ee8550f89b8492",
+    "qualification": "validated_terminal_subject"
   },
   "routes": {
     "current": {
       "baseline_result": "FAIL",
-      "final_result": "FAIL",
-      "baseline_and_final_failure_identity": "Iris/build/description/v2/tests/test_dvf_3_3_closeout_reentry_guard_seal.py::DvfCloseoutReentryGuardSealTest::test_validator_requires_full_current_route_result_for_complete_contract",
-      "failure_shape": "--probe-route-shapes reports FAIL for the valid fixture because blocked claim-surface and machine-contract guards remain nonzero",
-      "attribution": "pre_existing_non_attributable_current_validation_defect",
-      "closeout_effect": "blocked_until_successor_restores_required_current_gate"
+      "cleanup_implementation_result": "FAIL",
+      "final_result": "PASS",
+      "baseline_failure_identity": "Iris/build/description/v2/tests/test_dvf_3_3_closeout_reentry_guard_seal.py::DvfCloseoutReentryGuardSealTest::test_validator_requires_full_current_route_result_for_complete_contract",
+      "baseline_failure_shape": "--probe-route-shapes rejected the valid fixture because an explicit successor-scope top-document boundary was misclassified as a current-completion overclaim",
+      "attribution": "pre_existing_current_validation_defect_resolved_by_successor",
+      "resolution": "The successor recognizes explicit release/Workshop/deployment-readiness successor boundaries only when no positive completion marker is present.",
+      "closeout_effect": "resolved_current_gate_pass"
     },
     "historical": {
       "baseline": {

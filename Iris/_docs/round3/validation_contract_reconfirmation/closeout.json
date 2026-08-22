@@ -1,21 +1,27 @@
 {
   "schema_version": "iris-validation-contract-reconfirmation-closeout-v1",
-  "state": "blocked",
+  "state": "complete",
   "implementation_subject": {
-    "commit": "4b808751da39871f9bda68a7dc4b1ab4ec055201",
-    "tree": "2171431e157baac62eb6a4e794003491a5852205"
+    "commit": "18d0c2ff9de97a71ddf7aa6b03fb059ffbb35089",
+    "tree": "56250ea400511eaf84ff84ee19ee8550f89b8492"
   },
-  "validated_subject": null,
+  "validated_subject": {
+    "commit": "18d0c2ff9de97a71ddf7aa6b03fb059ffbb35089",
+    "tree": "56250ea400511eaf84ff84ee19ee8550f89b8492",
+    "full_gate_status": "PASS",
+    "deterministic_comparator_status": "PASS",
+    "independent_review_status": "approved"
+  },
   "post_validation_carrier_identity": {
-    "git_ref": "refs/heads/codex/iris-validation-authority-reconfirmation",
+    "git_ref": "refs/heads/codex/iris-validation-authority-successor",
     "resolution": "the branch tip containing this closeout carrier",
     "validated_subject_redefined": false
   },
   "blocking_summary": {
-    "count": 1,
-    "reason": "A confirmed-current validation-system defect remains in the required full gate.",
-    "identity": "Iris/build/description/v2/tests/test_dvf_3_3_closeout_reentry_guard_seal.py::DvfCloseoutReentryGuardSealTest::test_validator_requires_full_current_route_result_for_complete_contract",
-    "successor_scope": "Repair the isolated DVF 3.3 route-shape fixture/validator contract in a separate validation successor scope, then rerun the required exact-subject cadence."
+    "count": 0,
+    "reason": null,
+    "identity": null,
+    "resolution": "The baseline validation-system defect was resolved in the validated successor and exact-subject cadence B passed."
   },
   "non_blocking_summary": {
     "needs_decision_count": 0,
@@ -26,31 +32,31 @@
     "runtime_or_product_artifact_change_count": 0
   },
   "validation_summary": {
-    "full_gate": "FAIL",
-    "current_pytest": "432 passed, 1 failed",
+    "full_gate": "PASS",
+    "current_pytest": "433 passed, 0 failed",
     "standalone": "4 passed, 0 failed",
     "historical": "baseline and final: 285 passed",
     "diagnostic": "baseline and final: 3 failures, 25 errors across 76 executed tests",
     "source_checkout_mutation_count": 0,
     "external_cleanup_status": "PASS",
-    "run_b_and_comparator": "not executed because Run A did not pass"
+    "run_b_and_comparator": "PASS; Run A/B canonical results are raw-byte equal"
   },
   "artifact_references": {
     "final_composition": {
       "path": "Iris/_docs/round3/validation_contract_reconfirmation/final_composition.json",
-      "sha256": "cb4b2b63fe17fe9a8158c3ac88e78ce86ed150de8b06913ac08ee1097d4b5b40"
+      "sha256": "09430726bc2960e90579f564cbdcd53643f1bae685b1672ecabf144b8d62c87a"
     },
     "route_failure_attribution": {
       "path": "Iris/_docs/round3/validation_contract_reconfirmation/route_failure_attribution.json",
-      "sha256": "e56eb43f5fcd63d8275e99167afa74f31896b216357f37f03a333c20bcdc1098"
+      "sha256": "005af58f30346697782b5093b0d0559cb3eb390f4a05cfa1fdd6583464fa82d5"
     },
     "readpoint_supersession_disclosure": {
       "path": "Iris/_docs/round3/validation_contract_reconfirmation/readpoint_supersession_disclosure.json",
-      "sha256": "c769789ef519ebc40d30e694412142cfee57f4854e82c358b22233cc983d84d1"
+      "sha256": "9772caadf78ad57fc8f998e843dbb2f3f565e200d1a55a6378cb4935f05dfeb4"
     },
     "independent_review": {
       "path": "Iris/_docs/round3/validation_contract_reconfirmation/independent_review.json",
-      "sha256": "9db9ac6cea2f4873170786e77e49976da359d0a649edae7ed647a8c09fb5ae2e"
+      "sha256": "48749880a522e6e4132d92e2c7b8a11bbd81b4917d9f7962f5d60726ba61602b"
     }
   },
   "scope_exclusions": [
@@ -65,5 +71,5 @@
     "Implicit contracts absent from the contract ledger are not claimed complete.",
     "Quantitative regression-detection parity is not claimed."
   ],
-  "claim": "The regular validation authority-to-observed-contract mapping and temporary/legacy roles were implemented and reconciled, but completion is not claimed until the separate successor restores the required current gate."
+  "claim": "PASS: the regular validation authority-to-observed-contract mapping and temporary/legacy roles are implemented and reconciled; the confirmed validation-system blocker is resolved; exact-subject Run A/B, deterministic comparator, and independent review all passed. This does not claim product-runtime, in-game, release, Workshop, deployment, or package readiness."
 }

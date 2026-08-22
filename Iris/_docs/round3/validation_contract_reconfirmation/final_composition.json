@@ -1,9 +1,9 @@
 {
   "schema_version": "iris-validation-final-composition-v1",
   "implementation_subject": {
-    "commit": "4b808751da39871f9bda68a7dc4b1ab4ec055201",
-    "tree": "2171431e157baac62eb6a4e794003491a5852205",
-    "validated_terminal_subject": false
+    "commit": "18d0c2ff9de97a71ddf7aa6b03fb059ffbb35089",
+    "tree": "56250ea400511eaf84ff84ee19ee8550f89b8492",
+    "validated_terminal_subject": true
   },
   "executable_unit_coverage": {
     "inventory_count": 1167,
@@ -60,51 +60,53 @@
     "runtime_or_product_artifact_change_count": 0
   },
   "validation": {
-    "full_gate_status": "FAIL",
-    "pytest_passed": 432,
-    "pytest_failed": 1,
+    "full_gate_status": "PASS",
+    "pytest_passed": 433,
+    "pytest_failed": 0,
     "standalone_passed": 4,
     "standalone_failed": 0,
     "source_checkout_mutation_count": 0,
     "external_cleanup_status": "PASS",
-    "run_b_and_comparator_executed": false,
-    "run_b_and_comparator_nonexecution_reason": "Run A failed at a baseline-reproducible current-valid contract; cadence cannot advance to deterministic comparison.",
-    "blocking_failure_attribution": "pre_existing_non_attributable_current_validation_defect",
-    "closeout_state": "blocked"
+    "run_b_and_comparator_executed": true,
+    "canonical_run_a_b_raw_bytes_equal": true,
+    "resolved_failure_attribution": "pre_existing_current_validation_defect_resolved_by_successor",
+    "closeout_state": "complete"
   },
   "artifact_bindings": {
     "validation_unit_inventory_sha256": "6c55b5602466a29ff7919bc3f34a83e6b6a4599c252595c38fb0faaa9144e38d",
     "support_dependency_inventory_sha256": "267f9f8625497bd6d3c47ecf62c0fad88a5b7c38330383e9665975ca920dafc2",
-    "contract_ledger_sha256": "9e77ebaface30df7a1dc8d425a36f56d80137fda97536576eabddf78abe9565a",
-    "disposition_ledger_sha256": "2e48657ae91161f3347db76f10687b29654e137b4d6dc35ab8af9b92c7b3bf92",
+    "contract_ledger_sha256": "4d6b4c7fa19beea17cdaa303b765a69936d1d06efdfbd21986031bd438fc1393",
+    "disposition_ledger_sha256": "f3326b1275250aee30e2e91458c3e358d9f4e53eb1a4c9291a7e01adf3d6dd15",
     "contract_row_preservation_receipts_sha256": "c08c89fbbacb2706dd19c7b1e78694ff07758303eed26266b8d269e41da7668d",
     "duplicate_inclusion_proof_sha256": "a2c02757297735d262642e87e111360118d0cbddf57a0e99304c570cdb2aae87",
     "meta_validator_rule_diff_sha256": "32502d055bfb2f6bc09358fe9b3151faf8e8d56323e558cc2b96065cf0e99508",
     "removal_transaction_sha256": "29d7fb264c16c88a2c4ee350e9ab7f92c0a809b47c17c58982134799b0bf1805",
-    "external_full_run_receipt_sha256": "48608df0cb53bf1bed8bf097e704d4602051efc9d41a2917ce9f364063ca6af3",
-    "external_canonical_result_sha256": "387f02f12db53ad5f4170949c7197944b6e1154d040d368d9c627d4f35918883"
+    "external_run_a_full_run_receipt_sha256": "58c595452c2a031f653349b41399c827d9a35a1476c367db69999c09e836c00e",
+    "external_run_b_full_run_receipt_sha256": "9c00107536dea7fd47b556143bb6d82c8e6f72301daa1bd9f8daa0d9cf19b918",
+    "external_canonical_result_sha256": "ad98bbb6e1943a2ec2096b06f81ab445daabed30810077e968c6e3b9023cb74c",
+    "external_comparator_receipt_sha256": "3707d0ec20e10cc2d95b979e38c33585871a4f12948d98dcc82a73f9b0ce4336"
   },
   "repository_external_evidence": {
-    "full_gate_root": "C:/Users/MW/ivrc/p5b",
-    "full_run_receipt": {
-      "path": "C:/Users/MW/ivrc/p5b/r/full_run_receipt.json",
-      "sha256": "48608df0cb53bf1bed8bf097e704d4602051efc9d41a2917ce9f364063ca6af3"
+    "claim_id": "iris-validation-contract-reconfirmation-successor-final",
+    "run_a": {
+      "root": "C:/Users/MW/ivrc/p8a",
+      "orchestration_receipt": {"path": "C:/Users/MW/ivrc/p8a/o.json", "sha256": "bb414fce26c15be4cfa4cb456df35f5ce4b68ec984fc8f8025eb5176c9489eb1"},
+      "full_run_receipt": {"path": "C:/Users/MW/ivrc/p8a/r/full_run_receipt.json", "sha256": "58c595452c2a031f653349b41399c827d9a35a1476c367db69999c09e836c00e"},
+      "canonical_full_result": {"path": "C:/Users/MW/ivrc/p8a/r/canonical_full_result.json", "sha256": "ad98bbb6e1943a2ec2096b06f81ab445daabed30810077e968c6e3b9023cb74c"},
+      "full_pytest_result": {"path": "C:/Users/MW/ivrc/p8a/r/full_pytest_result.json", "sha256": "4abc684183dfabad254f9e0dc0e3e75ffe42e25ca19351768182d6297579f337"}
     },
-    "canonical_full_result": {
-      "path": "C:/Users/MW/ivrc/p5b/r/canonical_full_result.json",
-      "sha256": "387f02f12db53ad5f4170949c7197944b6e1154d040d368d9c627d4f35918883"
+    "run_b": {
+      "root": "C:/Users/MW/ivrc/p8b",
+      "orchestration_receipt": {"path": "C:/Users/MW/ivrc/p8b/o.json", "sha256": "8d36bf5733bd0d729272990c225f94a534f2492818dd45e95f53f55ba7867f33"},
+      "full_run_receipt": {"path": "C:/Users/MW/ivrc/p8b/r/full_run_receipt.json", "sha256": "9c00107536dea7fd47b556143bb6d82c8e6f72301daa1bd9f8daa0d9cf19b918"},
+      "canonical_full_result": {"path": "C:/Users/MW/ivrc/p8b/r/canonical_full_result.json", "sha256": "ad98bbb6e1943a2ec2096b06f81ab445daabed30810077e968c6e3b9023cb74c"},
+      "full_pytest_result": {"path": "C:/Users/MW/ivrc/p8b/r/full_pytest_result.json", "sha256": "4abc684183dfabad254f9e0dc0e3e75ffe42e25ca19351768182d6297579f337"}
     },
-    "full_pytest_result": {
-      "path": "C:/Users/MW/ivrc/p5b/r/full_pytest_result.json",
-      "sha256": "e9f057f53f2600941f4b23d741536e2c39ebfef26217cdfc65bb9767ff8dad1e"
-    },
-    "stdout": {
-      "path": "C:/Users/MW/ivrc/p5b/full-gate.stdout.bin",
-      "sha256": "480dba580efd0614fa3a5112e261f8ea326b3045caf3193b2bd2adb9dfa564fb"
-    },
-    "stderr": {
-      "path": "C:/Users/MW/ivrc/p5b/full-gate.stderr.bin",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    "comparator": {
+      "root": "C:/Users/MW/ivrc/p8cmp",
+      "receipt": {"path": "C:/Users/MW/ivrc/p8cmp/compare_receipt.json", "sha256": "3707d0ec20e10cc2d95b979e38c33585871a4f12948d98dcc82a73f9b0ce4336"},
+      "stdout": {"path": "C:/Users/MW/ivrc/p8cmp/compare-results.stdout.bin", "sha256": "99e3adeac21f7ffefc98f949a8ec0ee39a3fa1e1cd725af59b239afb8a41e1c8"},
+      "stderr": {"path": "C:/Users/MW/ivrc/p8cmp/compare-results.stderr.bin", "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}
     },
     "route_result_root": "C:/Users/MW/Downloads/coding/PZ-validation-authority-evidence/routes"
   },

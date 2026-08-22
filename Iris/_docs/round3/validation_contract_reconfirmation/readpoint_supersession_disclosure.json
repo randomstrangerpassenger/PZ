@@ -1,9 +1,9 @@
 {
   "schema_version": "iris-validation-readpoint-supersession-disclosure-v1",
   "implementation_subject": {
-    "commit": "4b808751da39871f9bda68a7dc4b1ab4ec055201",
-    "tree": "2171431e157baac62eb6a4e794003491a5852205",
-    "validated_terminal_subject": false
+    "commit": "18d0c2ff9de97a71ddf7aa6b03fb059ffbb35089",
+    "tree": "56250ea400511eaf84ff84ee19ee8550f89b8492",
+    "validated_terminal_subject": true
   },
   "readpoints": [
     {
@@ -16,7 +16,11 @@
         "owner_attestation_correction": "89f7499c",
         "review_seal": "91259769"
       },
-      "successor_readpoint_identity": null,
+      "successor_readpoint_identity": {
+        "commit": "18d0c2ff9de97a71ddf7aa6b03fb059ffbb35089",
+        "tree": "56250ea400511eaf84ff84ee19ee8550f89b8492",
+        "validation_status": "PASS"
+      },
       "blocked_successor_identity": null,
       "superseded": false,
       "reason": "The execution does not reopen or change the governing runtime-optimization boundary or its closeout chain."
@@ -31,14 +35,14 @@
         "dvf_terminal_implementation_subject": "6f362b5e284d9f05749c7f9dc6a11f13bb1fe322",
         "dvf_closeout_carrier": "5ce69e2a3bbf02d453e874af740a312e37b74bff"
       },
-      "successor_readpoint_identity": null,
-      "blocked_successor_identity": {
-        "commit": "4b808751da39871f9bda68a7dc4b1ab4ec055201",
-        "tree": "2171431e157baac62eb6a4e794003491a5852205",
-        "reason": "required final full gate did not pass"
+      "successor_readpoint_identity": {
+        "commit": "18d0c2ff9de97a71ddf7aa6b03fb059ffbb35089",
+        "tree": "56250ea400511eaf84ff84ee19ee8550f89b8492",
+        "validation_status": "PASS"
       },
+      "blocked_successor_identity": null,
       "superseded": false,
-      "reason": "The implementation subject did not obtain required final full-gate PASS and is not a validated successor readpoint."
+      "reason": "The validated execution changes module-local validation membership and a DVF boundary-classification defect only; it does not replace the broader test-workflow and DVF successor chain."
     },
     {
       "path": "docs/ROADMAP.md",
@@ -52,17 +56,17 @@
           "0013"
         ]
       },
-      "successor_readpoint_identity": null,
-      "blocked_successor_identity": {
-        "commit": "4b808751da39871f9bda68a7dc4b1ab4ec055201",
-        "tree": "2171431e157baac62eb6a4e794003491a5852205",
-        "reason": "blocked validation-authority cleanup carrier cannot replace a complete roadmap readpoint"
+      "successor_readpoint_identity": {
+        "commit": "18d0c2ff9de97a71ddf7aa6b03fb059ffbb35089",
+        "tree": "56250ea400511eaf84ff84ee19ee8550f89b8492",
+        "validation_status": "PASS"
       },
+      "blocked_successor_identity": null,
       "superseded": false,
-      "reason": "The implementation subject remains blocked and therefore does not replace the documented current subject/result identity."
+      "reason": "The validated execution completes a module-local authority membership cleanup without replacing ROADMAP section 16's broader workflow-consolidation result identity."
     }
   ],
   "owner_action_required": false,
   "owner_action_summary": "No top-level readpoint update is proposed; existing current identities remain in force.",
-  "authority_boundary": "This disclosure does not adopt the implementation subject or redefine product or validation authority."
+  "authority_boundary": "This disclosure records the validated subject for comparison only. It does not adopt it as a top-level readpoint or redefine product or validation authority."
 }

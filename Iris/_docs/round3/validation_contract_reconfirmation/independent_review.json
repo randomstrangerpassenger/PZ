@@ -2,9 +2,9 @@
   "schema_version": "iris-validation-independent-review-v1",
   "reviewer": "Codex Reviewer",
   "implementation_subject": {
-    "commit": "4b808751da39871f9bda68a7dc4b1ab4ec055201",
-    "tree": "2171431e157baac62eb6a4e794003491a5852205",
-    "validated_terminal_subject": false
+    "commit": "18d0c2ff9de97a71ddf7aa6b03fb059ffbb35089",
+    "tree": "56250ea400511eaf84ff84ee19ee8550f89b8492",
+    "validated_terminal_subject": true
   },
   "pre_destructive_review": {
     "result": "approved",
@@ -42,6 +42,20 @@
     "review_command": "codex review -c service_tier=fast -c model=gpt-5.5 --uncommitted",
     "review_command_exit_code": 0
   },
+  "successor_final_review": {
+    "result": "approved",
+    "finding_counts": {
+      "P0": 0,
+      "P1": 0,
+      "P2": 0,
+      "P3": 0
+    },
+    "resolved_prior_finding": "An initial P2 finding identified a mixed-assertion false-negative risk in the successor-boundary allowlist. The validated subject added a positive-completion-marker guard before this final review.",
+    "reviewed_surface": "exact validated subject 18d0c2ff; narrow DVF successor-boundary classification; mixed completion/successor assertion fail-closed behavior; focused DVF test contract",
+    "reviewer_statement": "No actionable regressions were identified in the commit. The targeted Python unit test for the closeout reentry guard seal passes.",
+    "review_command": "codex -c 'service_tier=\"fast\"' -c 'review_model=\"gpt-5.5\"' review --commit 18d0c2ff9de97a71ddf7aa6b03fb059ffbb35089",
+    "review_command_exit_code": 0
+  },
   "gate_satisfied": true,
-  "claim_boundary": "Review approval covers the ledger, pointer, identity-binding, and blocked-closeout corrections. It does not convert the failing required current gate into PASS or make the implementation subject a validated terminal subject."
+  "claim_boundary": "Final review approval covers the exact validated subject and its narrow validation-system fix. PASS remains bound to the exact-subject Run A/B and comparator evidence; the post-validation carrier does not redefine that subject."
 }

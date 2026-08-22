@@ -865,6 +865,29 @@ Validation authority는 execution architecture와 source taxonomy를 함께 닫�
 
 이 readpoint의 structural result는 consolidatable invocation `73 -> 6`과 disclosed heterogeneous total `187 -> 126`이다. 전자는 동일 producer signature의 반복 제거이고 후자는 clone/configuration을 포함한 투명한 총계다. Comparable full-gate before/after wall-time이 없으므로 architecture는 이 수치를 전체 suite 속도 개선률로 전파하지 않는다.
 
+### Regular-authority census and physical cleanup successor boundary
+
+Validation unit의 **authority role**, **execution registration**, **physical durability**는 서로 다른 축이다. Current/historical/diagnostic 분류는 어떤 claim에 참여하는지를 정하지만 executable source를 저장소에 영구 보존해야 하는지를 자동 결정하지 않는다.
+
+```text
+1,167-unit authority census
+-> current regular contract: preserve in current gate
+-> non-current contract: require explicit retention obligation
+   -> source execution is still required: preserve narrowly
+   -> evidence bytes are sufficient: compact seal or external durable evidence
+   -> no current consumer/reproduction obligation: archive or remove
+-> mixed source: split current contract from non-current contract before disposition
+```
+
+- Exact census/baseline-recovery subject는 commit `18d0c2ff9de97a71ddf7aa6b03fb059ffbb35089`, tree `56250ea400511eaf84ff84ee19ee8550f89b8492`다. Current composition은 pytest `433` + standalone `4`이고 Run A/B 및 comparator가 PASS했다.
+- 이 subject의 PASS는 current validation authority의 실행 가능성과 DVF validation-system blocker 복구를 증명한다. Temporary·legacy executable source의 physical cleanup이나 repository lightweighting은 증명하지 않는다.
+- 현재 pure non-current live surface는 `37 files / 216 identities / 329,344 bytes`다. 이 중 `reproduction_only`는 `24/153/268,519`, `evidence_only`는 `13/63/60,825`다.
+- `reproduction_only` 보존에는 historical taxonomy 재인용이 아니라 현재도 필요한 exact reproduction obligation, consumer, input과 failure meaning이 필요하다. 의무가 없으면 executable source 형태를 유지하지 않는다.
+- `evidence_only`는 compact immutable evidence 또는 repository-external durable bytes와 in-repo hash-bound pointer를 기본으로 한다. Evidence가 Python test source로 실행 가능하다는 사실 자체는 보존 근거가 아니다.
+- Mixed source는 current/non-current callable을 분리한 뒤 current source만 current gate에 남긴다. Split이 contract identity, input partition, fail-closed branch 또는 failure attribution을 잃으면 수행하지 않는다.
+- 기존 1,167행 census는 successor input이다. 후속 작업은 이를 재생성하지 않고 retention obligation과 physical disposition만 추가하며, 대형 ledger는 exact retrieval path/SHA-256를 가진 compact summary로 외부화할 수 있다.
+- Physical cleanup 완료는 removed files/identities/bytes와 repository-wide net byte/LOC 감소가 실제로 양수이고, current `433 + 4` exact-subject gate가 보존됐을 때만 선언한다. Comparable wall-time evidence가 없으면 실행속도 개선률은 계속 미측정이다.
+
 ### DVF 3-3 stateless complete-generation successor
 
 Layer 3 current successor는 다음 책임을 분리한다.

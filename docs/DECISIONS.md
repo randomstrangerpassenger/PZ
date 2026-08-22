@@ -2639,3 +2639,42 @@
   * main 통합은 push, RTC, Publish, release/Workshop/deployment readiness를 뜻하지 않는다.
 * 구현 readpoint: Layer 4 main merge `e7508c0c`, Layer 2–3 EN locale projection `de146b73`. EN Layer 2–3 hide 동작을 포함했던 `1524d72a`는 `de146b73`에 의해 superseded됐다.
 * 통합 제품 readpoint: Layer 3 install terminal subject `d006f6108093886751e538d36c92de3627a9e76f` / tree `5e2370f8e5720e830b8ef62c87b6c51c45bfaa4a`는 `e7508c0c`와 `de146b73`을 모두 조상으로 포함한다. 세 결과는 별도 HEAD가 아니라 이 단일 tree에 동시에 존재하며, DVF 동결 검증의 Phase 0은 이 ancestry와 선택한 current observation subject를 확인해 통합 조건을 닫는다. 이미 선형 통합된 조상들을 대상으로 합성 merge commit이나 새 제품 authority를 만들지 않는다.
+
+---
+
+## Iris regular validation authority census — baseline recovery complete / physical legacy cleanup pending
+
+* 날짜: 2026-08-23
+* 상태: authority census와 validation baseline recovery 완료 / temporary·legacy executable source cleanup 미완료
+* 결정:
+
+  * commit `18d0c2ff9de97a71ddf7aa6b03fb059ffbb35089`, tree `56250ea400511eaf84ff84ee19ee8550f89b8492`는 regular validation authority census, 역할 재분류와 DVF validation-system blocker 복구를 검증한 exact subject다. Post-validation carrier는 `6a4cf63c001ec708929e57da64347e3e7a040d91`이다.
+  * 이 subject의 current pytest `433`과 standalone validation `4`는 Run A/B 및 deterministic comparator에서 PASS했다. 이 PASS는 current authority와 baseline 복구에 귀속하며 temporary·legacy physical cleanup 완료를 뜻하지 않는다.
+  * 기존 `closeout.json`의 `state=complete`는 채택된 authority-reconfirmation 계획의 scoped closeout으로만 읽는다. 이를 repository lightweighting 또는 temporary-test cleanup Problem 1 전체의 완료로 승격하지 않는다.
+  * 기존 1,167행 inventory/contract/disposition은 후속 physical cleanup의 입력 census로 재사용한다. 같은 대상을 다시 세는 대형 ledger나 validation-of-validation artifact를 만들지 않는다.
+  * `historical` taxonomy 또는 `reproduction_only` 분류만으로 executable Python source의 물리 보존을 정당화하지 않는다. 보존에는 현재도 유효한 명시적 reproduction obligation, exact consumer와 input, 또는 source 형태가 필요한 실행 계약이 있어야 한다.
+  * `evidence_only`의 기본 physical disposition은 executable source 보존이 아니라 compact sealed evidence 또는 repository-external durable evidence와 hash-bound pointer다. Executable source 보존은 현재 소비자나 재현 의무가 별도로 입증된 예외다.
+  * regular contract와 non-current contract가 같은 source에 섞여 있으면 current contract를 독립 source로 보존하고 non-current contract는 split 후 같은 물리 disposition 기준으로 재심사한다.
+
+* 관측된 successor input:
+
+  * current regular composition은 pytest `433` + standalone `4`이며 census 전후 execution-unit 감소는 `0`이다.
+  * 물리 제거는 current contract가 없던 `test_tc8_full_pipeline_snapshot` 1개뿐이다.
+  * 현재 존재하면서 regular contract가 하나도 없는 source는 `37`개, executable identity는 `216`개, raw source bytes는 `329,344`다. `reproduction_only`는 `24 files / 153 identities / 268,519 bytes`, `evidence_only`는 `13 files / 63 identities / 60,825 bytes`다.
+  * Ledger상 regular와 non-current disposition이 함께 있는 source는 3개다. 이 중 두 source에는 live non-current identity가 남아 있고, `Iris/test/test_rightclick_pipeline.py`의 non-current TC8은 이미 제거됐다.
+  * Baseline `a570f34065fa96a459f946171330f080a8f1c8d1`에서 carrier까지 tracked tree는 약 `6.15 MiB` 증가했다. 따라서 이 lifecycle의 채택 성과는 authority census와 baseline recovery이며 repository byte/LOC lightweighting은 달성되지 않았다.
+
+* 후속 완료 기준:
+
+  * 37개 pure non-current source와 live mixed-source non-current identity를 개별 retention obligation으로 재심사한다.
+  * 제거·외부화·compact sealed evidence 전환 뒤 실제 removed file, identity, byte와 repository-wide net byte/LOC를 기록한다.
+  * Current pytest `433`, standalone `4`, source taxonomy/manifest binding과 fail-closed contract를 보존하고 exact-subject Run A/B 및 comparator가 exit `0`이어야 한다.
+  * 대형 ledger를 외부화할 때 compact in-repo summary는 exact retrieval path, SHA-256와 claim boundary를 유지하되 external ledger 자체를 새 validation authority로 승격하지 않는다.
+
+* Non-decision:
+
+  * wall-time, CPU, memory 개선률은 comparable before/after benchmark가 없으므로 결정하지 않는다.
+  * Historical evidence 삭제, current contract 축소, product runtime 변경, release/Workshop/deployment readiness를 승인하지 않는다.
+  * Census PASS를 이용해 물리 cleanup residue를 숨기거나 Problem 1을 완료로 닫지 않는다.
+
+* Evidence: `Iris/_docs/round3/validation_contract_reconfirmation/`의 inventory, disposition, final composition, route attribution, independent review와 closeout carrier.

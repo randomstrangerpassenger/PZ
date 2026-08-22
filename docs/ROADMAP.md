@@ -986,3 +986,44 @@ Current state: implementation and owner in-game acceptance complete on `main`.
 - Layer 4 통합 readpoint는 `e7508c0c`, current KO/EN detail localization readpoint는 `de146b73`다.
 
 이 범위에 남은 구현 또는 인게임 수용 gate는 없다. Push, RTC, Publish, release/Workshop/deployment는 이번 완료 상태의 일부가 아니며 필요할 때 별도 successor로 다룬다.
+
+---
+
+## Iris regular validation authority census and temporary/legacy physical cleanup (2026-08-23)
+
+Current state: authority census and validation baseline recovery complete; physical cleanup remains in progress.
+
+### Done
+
+- 1,167개 executable validation identity의 inventory, contract role과 disposition을 기록하고 current/non-current authority를 분리했다.
+- Current regular composition을 pytest `433` + standalone `4`로 재확정했다.
+- DVF closeout/reentry guard가 명시적 successor-scope 문장을 current-completion overclaim으로 오인하던 validation-system defect를 교정했다.
+- Exact subject `18d0c2ff9de97a71ddf7aa6b03fb059ffbb35089` / tree `56250ea400511eaf84ff84ee19ee8550f89b8492`에서 Run A/B, standalone `4/4`, deterministic comparator가 PASS했고 Codex Reviewer의 P0/P1/P2/P3는 모두 `0`이다.
+- Current contract가 없던 `test_tc8_full_pipeline_snapshot` 1개를 제거했다.
+- Post-validation carrier `6a4cf63c001ec708929e57da64347e3e7a040d91`은 census와 baseline-recovery PASS를 기록한다. 이 carrier는 temporary-test cleanup 전체 완료 authority가 아니다.
+
+### Remaining physical cleanup
+
+- Regular contract가 하나도 없는 live source `37`개, executable identity `216`개, raw source `329,344 bytes`를 retention obligation 기준으로 재심사한다.
+- `reproduction_only` `24 files / 153 identities / 268,519 bytes`는 현재도 필요한 exact reproduction obligation이 있는 경우에만 executable source로 유지한다.
+- `evidence_only` `13 files / 63 identities / 60,825 bytes`는 compact sealed evidence 또는 repository-external durable evidence + hash-bound pointer를 기본 disposition으로 삼는다.
+- Ledger상 mixed source 3개를 검토한다. 이미 TC8이 제거된 Right-click source를 제외한 두 live mixed source는 current/non-current callable을 분리하고 non-current 부분을 다시 disposition한다.
+- 기존 1,167행 inventory를 재작성하지 않는다. 현재 대형 ledger는 successor 작업 입력으로 재사용하고, compact in-repo summary와 durable external hash-bound ledger로 전환해 중복 repository payload를 줄인다.
+
+### Exit criteria
+
+- 실제 removed source, executable identity와 raw bytes가 모두 양수다.
+- Repository-wide tracked byte와 test/tooling LOC가 baseline보다 순감소한다.
+- Current pytest `433`, standalone `4`, required manifest, taxonomy/source-policy binding과 failure localization이 보존된다.
+- Exact terminal subject의 clean-checkout Run A/B와 deterministic comparator가 모두 exit `0`이고 source mutation은 `0`이다.
+- 보존된 non-current executable source마다 taxonomy 순환 인용이 아닌 현재도 유효한 명시적 reproduction obligation과 consumer가 있다.
+- 위 조건 전에는 temporary/legacy cleanup Problem 1을 `complete`로 닫지 않는다.
+
+### Non-claims / Hold
+
+- Current test count가 유지된다는 사실은 physical cleanup 실패 사유가 아니다. 제거 대상은 원래 current gate 밖에 있을 수 있다.
+- Census/role-reclassification PASS를 repository lightweighting, wall-time 개선 또는 physical cleanup 완료로 표현하지 않는다.
+- Historical evidence bytes를 무근거로 삭제하거나 current contract, fail-closed branch, standalone boundary를 감축하지 않는다.
+- Comparable before/after timing이 없으므로 suite 속도 개선률은 claim하지 않는다.
+
+근거는 `Iris/_docs/round3/validation_contract_reconfirmation/`의 기존 1,167행 census와 validated subject/carrier record다. 이 산출물은 앞으로 temporary-test cleanup 완료본이 아니라 physical cleanup을 위한 authority census 및 validation baseline으로 사용한다.

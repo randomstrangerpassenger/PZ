@@ -18,7 +18,7 @@
   "affected_scope": {
     "survival_overlay": {
       "path": "Iris/_docs/round3/temporary_validation_physical_retirement/survival_overlay.index.json",
-      "sha256": "078ad9564f1135c3bf8922a0f2f77f18a85ab099ce777edbef8f835c2c396272",
+      "sha256": "925182511bc011a561be524e4b11adb6a86bf605419ac743398666c6d3ed6889",
       "regular_reviewed": 599,
       "regular_surviving": 328,
       "regularized_temporary_retired": 271
@@ -36,13 +36,18 @@
       "round3_run_contract_tests.py --class all"
     ],
     "preserved_command": "round3_run_contract_tests.py --class current",
-    "tracked_candidate_path_set_sha256": "ed1671b8fb4916b281e6ab6e94df7706231986bf21babcf044557774585bdae5",
+    "tracked_candidate_path_set_sha256": "6b58ac1484d50b887226c2674da24fb4d58260946a59297480bba26f9d3930a5",
+    "tracked_candidate_path_set_encoding": "84 sorted unique repository-relative source paths, UTF-8, LF-delimited and LF-terminated; includes 48 regular full-source, 34 non-current pure-source, and 2 mixed-callable source paths",
     "tracked_noncurrent_pure_candidate_files": 34,
     "tracked_noncurrent_pure_candidate_identities": 177,
-    "tracked_regularized_temporary_source_families": 49,
-    "tracked_regularized_temporary_identities": 271,
-    "local_candidate_files": 162,
-    "local_candidate_identities": 332,
+    "tracked_regularized_temporary_source_families": 48,
+    "tracked_regularized_temporary_identities": 268,
+    "local_candidate_files": 163,
+    "local_candidate_identities": 335,
+    "dirty_main_regularized_temporary_source_families": 1,
+    "dirty_main_regularized_temporary_identities": 3,
+    "dirty_main_surviving_source_families": 6,
+    "dirty_main_surviving_identities": 13,
     "mixed_callable_removals": 2,
     "full_gate_conflict_retired": 17,
     "full_gate_conflict_preserved_as_current": 39

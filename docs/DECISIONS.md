@@ -1937,11 +1937,13 @@
 
 * 판정: `fd0504817af8c1031ac794391cf67d129c8db54c`의 predecessor regular 599 identity를 registration 밖의 current contract 기준으로 전량 재심사했다. 그 결과 234개는 `keep_regular_product_contract`, 94개는 `keep_regular_validation_system_contract`, 271개는 `remove_regularized_temporary`다. 이 수치는 보존 목표 상수가 아니라 이번 exact-subject 판정 결과다.
 
-* non-current 판정: predecessor reproduction/evidence/expired 568 identity 중 public-text constituent 20개, Korean-prose compiler 16개, naturalization compiler identity 3개는 독립 current product authority와 actual full-gate consumer가 있어 `keep_regular_product_contract`로 승격한다. 나머지 529개는 repository-local executable obligation이 없는 lifecycle evidence로 판정해 `remove_regularized_temporary`로 닫는다.
+* non-current 판정: predecessor reproduction/evidence/expired 568 identity 중 3개 source family에 속한 public-text constituent 20 identity, Korean-prose compiler 16 identity, naturalization compiler identity 3 identity는 독립 current product authority와 actual full-gate consumer가 있어 `keep_regular_product_contract`로 승격한다. 나머지 529 identity는 repository-local executable obligation이 없는 lifecycle evidence로 판정해 `remove_regularized_temporary`로 닫는다.
 
-* 역사 route 교정: `a8b03729124f8b08eeacc75c27626a285036a5f9`는 위 survival 판정 전에는 destructive authority가 아니었다. 이 successor가 허용하는 historical/diagnostic route 종료 범위는 `reproduction_retention_overlay.index.json`에서 `remove_regularized_temporary`로 닫힌 identity와 그 exclusive support뿐이다. 39개 current product 승격 source와 `survival_overlay.index.json`의 328개 surviving regular identity는 route 종료 범위에서 제외한다.
+* 역사 route 교정: `a8b03729124f8b08eeacc75c27626a285036a5f9`는 위 survival 판정 전에는 destructive authority가 아니었다. 이 successor가 허용하는 historical/diagnostic route 종료 범위는 `reproduction_retention_overlay.index.json`에서 `remove_regularized_temporary`로 닫힌 identity와 그 exclusive support뿐이다. 3개 source family의 39 current-product 승격 identity와 `survival_overlay.index.json`의 328 surviving regular identity는 route 종료 범위에서 제외한다.
 
-* 물리 퇴역 범위: clean tracked transaction은 49개 regularized-temporary source family, non-current tracked pure source 34개, mixed callable 2개와 exact exclusive support를 대상으로 한다. Dirty-main transaction은 predecessor hash와 일치하는 present ignored/untracked source 162개만, 외부 복구 archive 검증 뒤 exact `LiteralPath` 단위로 처리한다. 이미 부재한 14개 local candidate와 관련 17 identity는 삭제 성과로 계상하지 않는다.
+* 물리 퇴역 범위: clean tracked transaction은 48 regularized-temporary source family의 268 identity, non-current tracked pure source 34개의 177 identity, mixed callable 2 identity와 exact exclusive support를 대상으로 한다. Dirty-main transaction은 predecessor hash와 일치하는 present ignored/untracked removal source 163개의 335 identity만, 외부 복구 archive 검증 뒤 exact `LiteralPath` 단위로 처리한다. clean/S0에는 없고 dirty main에만 있는 6 surviving product source family의 13 identity는 removal transaction에서 명시적으로 제외한다. 이미 부재한 14 local candidate와 관련 17 identity는 삭제 성과로 계상하지 않는다.
+
+* 물리 도메인 정정: clean/S0 부재를 곧 source 부재로 간주하지 않는다. `test_iris_classification_baseline_receipt.py`는 dirty-main ignored removal candidate로 재분류했고, 같은 도메인에 있는 6 product-contract survivor는 hash-matched 생존 대상으로 기록했다. 이 정정 뒤 clean tracked와 dirty-main transaction의 path 집합은 서로 겹치지 않는다.
 
 * 보존: predecessor 1,167-row ledger, immutable denominator/identity, sealed receipt와 Git history는 rewrite하지 않는다. 이 보존은 repository-local historical/diagnostic Python replay route의 존속을 요구하지 않는다. Current/historical/diagnostic 결과의 상호 대체 금지는 유지한다.
 

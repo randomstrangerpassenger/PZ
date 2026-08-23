@@ -888,6 +888,16 @@ Validation unit의 **authority role**, **execution registration**, **physical du
 - 기존 1,167행 census는 successor input이다. 후속 작업은 이를 재생성하지 않고 retention obligation과 physical disposition만 추가하며, 대형 ledger는 exact retrieval path/SHA-256를 가진 compact summary로 외부화할 수 있다.
 - Physical cleanup 완료는 removed files/identities/bytes와 repository-wide net byte/LOC 감소가 실제로 양수이고, current `433 + 4` exact-subject gate가 보존됐을 때만 선언한다. Comparable wall-time evidence가 없으면 실행속도 개선률은 계속 미측정이다.
 
+#### Adjudicated executable-retirement implementation
+
+Regular membership은 더 이상 자기 survival authority가 아니다. S0의 regular 599 identity를 registration 밖의 current product/validation-system contract로 다시 심사한 결과 328 identity만 current로 유지하고, lifecycle-bound 271 identity를 퇴역 대상으로 확정했다. Non-current 568 identity에서는 실제 current product consumer가 있는 3 source family/39 identity를 current로 승격하고 나머지 529 identity의 repository-local executable obligation을 종료했다.
+
+Tracked transaction은 48 regularized-temporary source family/268 identity, 34 pure non-current source/177 identity, mixed callable 2개와 그 removal set에만 독점적인 support를 제거했다. `round3_run_contract_tests.py`는 `current` selector와 fail-closed closure를 유지하고 `historical`, `diagnostic`, `all` selector 및 repository-local historical corpus materialization을 제거했다. Immutable predecessor ledger, sealed receipt와 Git history는 non-executing provenance로 유지되며 과거 PASS를 current 결과로 대체하지 않는다.
+
+Dirty-main ignored/untracked transaction은 tracked tree와 분리했다. Exact hash와 consumer를 확인한 163 file/335 identity/901,270 raw bytes만 외부 archive verify와 fresh-root restore 뒤 제거했고, 같은 dirty domain의 current product survivor 6 family/13 identity는 보존했다. 이 local byte 감소와 외부 archive bytes는 tracked repository metric에 합산하지 않는다.
+
+구현 readpoint는 authority-only `145b1dd2`가 first destructive commit `4e527b84`보다 앞선다. Terminal subject와 exact Clean-Checkout 결과는 `Iris/_docs/round3/temporary_validation_physical_retirement/{retirement_summary.json,closeout.json}`의 additive closeout으로 기록한다. 이 경계는 runtime Lua, product data, public text 또는 package product architecture를 변경하지 않는다.
+
 ### DVF 3-3 stateless complete-generation successor
 
 Layer 3 current successor는 다음 책임을 분리한다.

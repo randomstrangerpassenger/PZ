@@ -1,0 +1,27 @@
+{
+  "schema_version": "iris-temporary-validation-physical-retirement-closeout-v1",
+  "state": "implemented_only",
+  "completion_token": null,
+  "terminal_subject": "the first commit containing retirement_summary.json and this file",
+  "implementation": {
+    "authority_ordering": "PASS",
+    "survival_and_retention_coverage": "PASS",
+    "tracked_retirement": "applied",
+    "dirty_main_retirement": "applied_after_archive_verify_and_fresh_root_restore",
+    "current_contract_loss": 0,
+    "active_target_residue": 0,
+    "unresolved_or_unauthorized_mutation": 0
+  },
+  "terminal_validation": {
+    "state": "pending",
+    "focused_commands": "pending",
+    "clean_checkout_run_a": "pending",
+    "clean_checkout_run_b": "pending",
+    "deterministic_comparator": "pending",
+    "guard_and_mixed_negative_probes": "pending",
+    "source_checkout_mutation": "pending",
+    "codex_reviewer": "pending"
+  },
+  "post_validation_rule": "An additive closeout may record the exact terminal subject and results but does not redefine that subject.",
+  "claim_ceiling": "No product/runtime, historical replay, performance, release, Workshop, deployment, RTC, Publish, B42, in-game, or public-text quality claim."
+}

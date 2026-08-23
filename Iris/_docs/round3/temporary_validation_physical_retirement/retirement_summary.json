@@ -1,0 +1,92 @@
+{
+  "schema_version": "iris-temporary-validation-physical-retirement-summary-v1",
+  "state": "implementation_complete_terminal_validation_pending",
+  "authority": {
+    "s0_commit": "fd0504817af8c1031ac794391cf67d129c8db54c",
+    "s0_tree": "395ec36de921987299fa9a9d9bb46118b74160a5",
+    "corrective_authority_commit": "9739b389f0076903a3494f3d78edc3193fded458",
+    "physical_domain_authority_commit": "145b1dd2e21afa957be3ffe87ab8ea3bde069ce0",
+    "first_destructive_commit": "4e527b845d2cb6e05a6694e425e607fc95b42ead",
+    "decision_heading": "Iris validation — regular membership non-self-authorization and survival adjudication",
+    "governing_binding": "governing_roadmap_binding.json",
+    "decision_binding": "decision_binding.json"
+  },
+  "adjudication": {
+    "regular": {
+      "reviewed": 599,
+      "family_count": 120,
+      "keep_regular_product_contract": 234,
+      "keep_regular_validation_system_contract": 94,
+      "remove_regularized_temporary": 271,
+      "migrate_then_remove": 0,
+      "blocked_needs_owner_authority": 0,
+      "registration_only_survivor": 0
+    },
+    "noncurrent": {
+      "reviewed": 568,
+      "promoted_current_product_contract": 39,
+      "remove_regularized_temporary": 529,
+      "unresolved": 0
+    },
+    "full_gate_conflict": {
+      "reviewed": 56,
+      "preserved_as_current": 39,
+      "retired": 17
+    }
+  },
+  "tracked_transaction": {
+    "full_source_and_exclusive_support_deletions": 92,
+    "regularized_temporary_source_families_removed": 48,
+    "regularized_temporary_identities_removed": 268,
+    "noncurrent_pure_sources_removed": 34,
+    "noncurrent_pure_identities_removed": 177,
+    "mixed_callable_removals": 2,
+    "adjudicated_deletion_set_sha256": "12bed4147a0632d65f4d62a65ddbaaccb64b5511d3efdd491bd15a9dcb6004d9",
+    "registration_and_toolchain_path_set_sha256": "15ab94186759fe84477db926010d966701404455316f543ce580464baffad407",
+    "active_target_residue": 0,
+    "unfinished_migration": 0
+  },
+  "dirty_main_transaction": {
+    "removed_files": 163,
+    "removed_identities": 335,
+    "removed_raw_bytes": 901270,
+    "already_absent_files_not_counted": 14,
+    "already_absent_identities_not_counted": 17,
+    "surviving_product_source_families": 6,
+    "surviving_product_identities": 13,
+    "survivor_hash_mismatch": 0,
+    "archive_manifest_sha256": "c96384833086afda99fe9181af1dcb15c70526d8f05c4a2e9db36ff87f9d0526",
+    "fresh_root_restore_receipt_sha256": "7b05dd6e8ee1943684c98a8e11a6998852bfc7448c5f9f674c13396321ffbf6c",
+    "active_target_residue": 0,
+    "metric_domain": "ignored_or_untracked_dirty_main_only"
+  },
+  "route_transition": {
+    "retired_commands": [
+      "round3_run_contract_tests.py --class historical",
+      "round3_run_contract_tests.py --class diagnostic",
+      "round3_run_contract_tests.py --class all"
+    ],
+    "preserved_command": "round3_run_contract_tests.py --class current",
+    "repository_local_historical_and_diagnostic_replay_available": false,
+    "sealed_predecessor_denominator_and_receipts_rewritten": false
+  },
+  "metrics": {
+    "method": "metric_scope.json",
+    "s0_tracked_blob_bytes": 801868754,
+    "s1_tracked_blob_bytes": 793640069,
+    "tracked_blob_byte_delta": -8228685,
+    "s0_test_tooling_loc": 259483,
+    "s1_test_tooling_loc": 235409,
+    "test_tooling_loc_delta": -24074,
+    "in_repository_retirement_evidence_bytes": 1019351,
+    "projection_tracked_blob_bytes": 793624363,
+    "projection_error_bytes": 15706,
+    "tracked_dirty_main_and_external_archive_domains_combined": false
+  },
+  "terminal_subject": {
+    "definition": "the first commit containing this summary and closeout.json",
+    "exact_commit": "recorded by additive post-validation closeout",
+    "validation": "pending"
+  },
+  "claim_ceiling": "Validation executable retirement only. This does not claim product runtime correctness, historical replay PASS, performance improvement, in-game QA, release, Workshop, deployment, Publish, RTC, B42 readiness, or public-text quality acceptance."
+}

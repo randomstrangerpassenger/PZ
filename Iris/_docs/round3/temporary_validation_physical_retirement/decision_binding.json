@@ -17,6 +17,6 @@
     {"governing_id":"P8","decision":"codex_reviewer_required","scope":"independent review","subject":"final physical-retirement diff","status":"approved","authority":"owner prompt","evidence_pointer":"final reviewer result"},
     {"governing_id":"P9","decision":"out_of_scope_not_adopted","scope":"multi-registry unification","subject":"validation architecture","status":"approved","authority":"owner prompt","evidence_pointer":"retirement plan non-goals"},
     {"governing_id":"P10","decision":"temporary_validation_physical_retirement__complete","scope":"round identifier/completion token","subject":"terminal closeout","status":"approved","authority":"owner prompt","evidence_pointer":"closeout.json"},
-    {"governing_id":"local","decision":"delete_after_exact_archive_verify_and_restore","scope":"ignored/untracked local deletion","subject":"resolved repository root plus adjudicated 162-path set","status":"approved","authority":"owner prompt","evidence_pointer":"local cleanup manifest"}
+    {"governing_id":"local","decision":"delete_after_exact_archive_verify_and_restore","scope":"ignored/untracked local deletion","subject":"resolved repository root plus adjudicated 163-path set","status":"approved","authority":"owner prompt","evidence_pointer":"local cleanup manifest"}
   ]
 }

@@ -2762,3 +2762,22 @@
   * Census PASS를 이용해 물리 cleanup residue를 숨기거나 Problem 1을 완료로 닫지 않는다.
 
 * Evidence: `Iris/_docs/round3/validation_contract_reconfirmation/`의 inventory, disposition, final composition, route attribution, independent review와 closeout carrier.
+
+---
+
+## Iris temporary/one-off validation executable retirement — implementation complete / terminal validation pending
+
+* 날짜: 2026-08-23
+* 상태: adjudicated physical implementation complete / exact-subject terminal validation pending
+* 결정:
+
+  * Corrective survival authority `9739b389f0076903a3494f3d78edc3193fded458`와 physical-domain authority `145b1dd2e21afa957be3ffe87ab8ea3bde069ce0`를 적용한다. Authority-only readpoint는 first destructive commit `4e527b845d2cb6e05a6694e425e607fc95b42ead`보다 앞선다.
+  * Regular 599 identity는 `keep_regular_product_contract=234`, `keep_regular_validation_system_contract=94`, `remove_regularized_temporary=271`로 닫는다. Registration-only survivor, unfinished migration과 owner-blocked identity는 각각 `0`이다.
+  * Non-current 568 identity 중 current consumer가 확인된 3 family/39 identity는 current product contract로 승격하고, repository-local executable obligation이 없는 529 identity는 퇴역한다. Full-gate conflict 56 identity는 current 39 보존/17 퇴역으로 닫는다.
+  * Tracked transaction은 92개 full source/exclusive support file과 mixed callable 2개를 제거한다. Dirty-main transaction은 exact archive verify/fresh-root restore가 끝난 ignored/untracked 163 file/335 identity/901,270 raw bytes만 제거하고 current product survivor 6 family/13 identity는 보존한다.
+  * Repository-local `historical`, `diagnostic`, `all` 실행 selector와 corpus materialization availability를 종료하고 `current` selector와 current fail-closed validation contract를 유지한다. Predecessor ledger, sealed receipt와 Git history는 rewrite하지 않는다.
+  * Terminal `complete` 판정과 P10 token은 exact subject의 계획상 focused validation, Clean-Checkout Run A/B, deterministic comparator, negative probes와 P8 Codex Reviewer가 모두 PASS한 뒤 additive closeout에서만 기록한다.
+
+* Metric boundary: tracked repository, dirty-main ignored/untracked, external archive를 서로 다른 domain으로 유지한다. Comparable timing benchmark가 없으므로 속도·CPU·memory 개선은 주장하지 않는다.
+* Non-decision: runtime Lua/product data/public text/package 변경, historical replay PASS, in-game QA, RTC/Publish, release/Workshop/deployment/B42 readiness 또는 public-text quality acceptance가 아니다.
+* Evidence: `Iris/_docs/round3/temporary_validation_physical_retirement/{retirement_summary.json,closeout.json}`.

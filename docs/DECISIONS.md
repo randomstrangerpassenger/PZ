@@ -1929,6 +1929,25 @@
 * authority ordering: `a8b03729124f8b08eeacc75c27626a285036a5f9`의 historical-route transition은 이 survival adjudication을 대체하지 않으며, 교정된 identity disposition과 registration delta가 닫히기 전에 destructive authority로 사용하지 않는다.
 
 
+### Iris validation — adjudicated survival and bounded executable retirement
+
+* 날짜: 2026-08-23
+
+* 상태: current readpoint / additive successor to `a8b03729124f8b08eeacc75c27626a285036a5f9` / authority-only before destructive mutation
+
+* 판정: `fd0504817af8c1031ac794391cf67d129c8db54c`의 predecessor regular 599 identity를 registration 밖의 current contract 기준으로 전량 재심사했다. 그 결과 234개는 `keep_regular_product_contract`, 94개는 `keep_regular_validation_system_contract`, 271개는 `remove_regularized_temporary`다. 이 수치는 보존 목표 상수가 아니라 이번 exact-subject 판정 결과다.
+
+* non-current 판정: predecessor reproduction/evidence/expired 568 identity 중 public-text constituent 20개, Korean-prose compiler 16개, naturalization compiler identity 3개는 독립 current product authority와 actual full-gate consumer가 있어 `keep_regular_product_contract`로 승격한다. 나머지 529개는 repository-local executable obligation이 없는 lifecycle evidence로 판정해 `remove_regularized_temporary`로 닫는다.
+
+* 역사 route 교정: `a8b03729124f8b08eeacc75c27626a285036a5f9`는 위 survival 판정 전에는 destructive authority가 아니었다. 이 successor가 허용하는 historical/diagnostic route 종료 범위는 `reproduction_retention_overlay.index.json`에서 `remove_regularized_temporary`로 닫힌 identity와 그 exclusive support뿐이다. 39개 current product 승격 source와 `survival_overlay.index.json`의 328개 surviving regular identity는 route 종료 범위에서 제외한다.
+
+* 물리 퇴역 범위: clean tracked transaction은 49개 regularized-temporary source family, non-current tracked pure source 34개, mixed callable 2개와 exact exclusive support를 대상으로 한다. Dirty-main transaction은 predecessor hash와 일치하는 present ignored/untracked source 162개만, 외부 복구 archive 검증 뒤 exact `LiteralPath` 단위로 처리한다. 이미 부재한 14개 local candidate와 관련 17 identity는 삭제 성과로 계상하지 않는다.
+
+* 보존: predecessor 1,167-row ledger, immutable denominator/identity, sealed receipt와 Git history는 rewrite하지 않는다. 이 보존은 repository-local historical/diagnostic Python replay route의 존속을 요구하지 않는다. Current/historical/diagnostic 결과의 상호 대체 금지는 유지한다.
+
+* claim ceiling: 이 결정은 adjudicated executable과 exclusive support의 retirement만 승인한다. Product runtime 변경, release/Workshop/B42 readiness, historical replay PASS 또는 public-text quality acceptance를 새로 주장하지 않는다.
+
+
 ### Iris Repository Validation — Clean-Checkout full-repository reproducibility contract
 
 * 날짜: 2026-07-28 → successor validation readpoints

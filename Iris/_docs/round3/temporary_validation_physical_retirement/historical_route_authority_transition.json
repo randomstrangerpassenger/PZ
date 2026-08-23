@@ -1,6 +1,6 @@
 {
   "schema_version": "iris-historical-route-authority-transition-v1",
-  "state": "authority_active_deletion_not_started",
+  "state": "survival_corrected_authority_active_deletion_not_started",
   "predecessor": {
     "heading": "Iris validation — current / historical / diagnostic route separation",
     "required_invariant": "historical denominator preservation: required",
@@ -9,13 +9,27 @@
     "decisions_blob": "9fc1a6863bb01fd142eda25f48e8c6da25eba818"
   },
   "successor": {
-    "heading": "Iris validation — temporary/nonregular executable physical retirement authority",
+    "heading": "Iris validation — adjudicated survival and bounded executable retirement",
     "effective_state": "repository_local_historical_and_diagnostic_replay_retired",
     "authority": "repository-owner prompt preapproval 2026-08-23",
     "p2_p3_binding": "decision_binding.json",
     "exact_readpoint_resolution": "the authority-only commit containing this artifact; recorded by the first destructive commit and terminal closeout"
   },
   "affected_scope": {
+    "survival_overlay": {
+      "path": "Iris/_docs/round3/temporary_validation_physical_retirement/survival_overlay.index.json",
+      "sha256": "078ad9564f1135c3bf8922a0f2f77f18a85ab099ce777edbef8f835c2c396272",
+      "regular_reviewed": 599,
+      "regular_surviving": 328,
+      "regularized_temporary_retired": 271
+    },
+    "reproduction_retention_overlay": {
+      "path": "Iris/_docs/round3/temporary_validation_physical_retirement/reproduction_retention_overlay.index.json",
+      "sha256": "2195953b285b0a69e96f65e1395ec49206ce2f4f301c04a1417befa0043d6d06",
+      "noncurrent_reviewed": 568,
+      "promoted_current": 39,
+      "retired": 529
+    },
     "retired_commands": [
       "round3_run_contract_tests.py --class historical",
       "round3_run_contract_tests.py --class diagnostic",
@@ -23,8 +37,10 @@
     ],
     "preserved_command": "round3_run_contract_tests.py --class current",
     "tracked_candidate_path_set_sha256": "ed1671b8fb4916b281e6ab6e94df7706231986bf21babcf044557774585bdae5",
-    "tracked_candidate_files": 34,
-    "tracked_candidate_identities": 177,
+    "tracked_noncurrent_pure_candidate_files": 34,
+    "tracked_noncurrent_pure_candidate_identities": 177,
+    "tracked_regularized_temporary_source_families": 49,
+    "tracked_regularized_temporary_identities": 271,
     "local_candidate_files": 162,
     "local_candidate_identities": 332,
     "mixed_callable_removals": 2,

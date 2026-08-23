@@ -896,7 +896,7 @@ Tracked transaction은 48 regularized-temporary source family/268 identity, 34 p
 
 Dirty-main ignored/untracked transaction은 tracked tree와 분리했다. Exact hash와 consumer를 확인한 163 file/335 identity/901,270 raw bytes만 외부 archive verify와 fresh-root restore 뒤 제거했고, 같은 dirty domain의 current product survivor 6 family/13 identity는 보존했다. 이 local byte 감소와 외부 archive bytes는 tracked repository metric에 합산하지 않는다.
 
-구현 readpoint는 authority-only `145b1dd2`가 first destructive commit `4e527b84`보다 앞선다. Terminal subject와 exact Clean-Checkout 결과는 `Iris/_docs/round3/temporary_validation_physical_retirement/{retirement_summary.json,closeout.json}`의 additive closeout으로 기록한다. 이 경계는 runtime Lua, product data, public text 또는 package product architecture를 변경하지 않는다.
+구현 readpoint는 authority-only `145b1dd2`가 first destructive commit `4e527b84`보다 앞선다. Exact terminal subject `b0fe69b1` / tree `2e7f2c8e`의 focused/current/collection 검증과 Clean-Checkout Run A/B/comparator/negative probe는 PASS했고 canonical result SHA-256은 `1baca45c...07964`, source/external mutation은 `0`이다. P8 Codex Reviewer가 platform usage limit으로 blocked됐으므로 completion token은 보류한다. `Iris/_docs/round3/temporary_validation_physical_retirement/{retirement_summary.json,closeout.json}`의 post-validation update는 이 terminal subject를 재정의하지 않는다. 이 경계는 runtime Lua, product data, public text 또는 package product architecture를 변경하지 않는다.
 
 ### DVF 3-3 stateless complete-generation successor
 

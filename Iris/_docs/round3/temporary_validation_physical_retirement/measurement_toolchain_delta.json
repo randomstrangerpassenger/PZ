@@ -6,10 +6,13 @@
   "semantic_change": "Retire historical, diagnostic, and all selectors plus their repository-local corpus materialization path; retain the current selector, current closure enforcement, required-validation projection, result attribution, and fail-closed behavior.",
   "retirement_delta_separation": "The runner remains outside the deletion set; its modification is counted in the projection tree, not as retired source bytes or LOC.",
   "focused_validation": {
-    "status": "pending_terminal_validation_before_external_run_evidence",
+    "status": "PASS",
+    "terminal_subject_commit": "b0fe69b1406d4f8353a2278cff6cc9b71738f0b8",
+    "terminal_subject_tree": "2e7f2c8e1693586284d5aedb3f8cc05cce29f12e",
     "commands": [
       "uv run python -m py_compile Iris/_docs/round3/round3_run_contract_tests.py",
       "uv run python Iris/_docs/round3/round3_run_contract_tests.py --class current"
-    ]
+    ],
+    "current_runner_result": "118 tests, OK, exit 0"
   }
 }

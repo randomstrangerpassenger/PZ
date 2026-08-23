@@ -1,6 +1,6 @@
 {
   "schema_version": "iris-temporary-validation-physical-retirement-summary-v1",
-  "state": "implementation_complete_terminal_validation_pending",
+  "state": "terminal_validation_pass_independent_review_blocked",
   "authority": {
     "s0_commit": "fd0504817af8c1031ac794391cf67d129c8db54c",
     "s0_tree": "395ec36de921987299fa9a9d9bb46118b74160a5",
@@ -85,8 +85,10 @@
   },
   "terminal_subject": {
     "definition": "the first commit containing this summary and closeout.json",
-    "exact_commit": "recorded by additive post-validation closeout",
-    "validation": "pending"
+    "exact_commit": "b0fe69b1406d4f8353a2278cff6cc9b71738f0b8",
+    "exact_tree": "2e7f2c8e1693586284d5aedb3f8cc05cce29f12e",
+    "validation": "PASS",
+    "independent_review": "BLOCKED_EXTERNAL_PLATFORM_USAGE_LIMIT"
   },
   "claim_ceiling": "Validation executable retirement only. This does not claim product runtime correctness, historical replay PASS, performance improvement, in-game QA, release, Workshop, deployment, Publish, RTC, B42 readiness, or public-text quality acceptance."
 }

@@ -1030,13 +1030,14 @@ Current state: authority census and validation baseline recovery complete; physi
 
 ### Physical retirement successor (2026-08-23)
 
-Current state: adjudicated implementation complete; exact-subject terminal validation pending.
+Current state: adjudicated implementation and exact-subject terminal validation PASS; P8 Codex Reviewer blocked by platform usage limit.
 
 - Regular 599 identity의 blanket keep을 폐기하고 independent survival basis로 전량 심사했다. Current product 234와 validation-system 94를 보존하고 lifecycle-bound 271을 퇴역시켰다.
 - Non-current 568 identity는 actual current consumer가 있는 39를 승격·보존하고 529를 퇴역시켰다. Full-gate 56 conflict는 current 39/retired 17로 닫혔다.
 - Tracked tree에서 full source/exclusive support 92개와 mixed callable 2개를 제거했다. Dirty main에서는 archive verify와 fresh-root restore가 끝난 ignored/untracked 163 file/335 identity/901,270 bytes만 제거하고 product survivor 6 family/13 identity를 보존했다.
 - `historical`, `diagnostic`, `all` repository-local replay selector는 종료됐고 `current` selector와 fail-closed current contract는 남는다. Predecessor ledger, sealed receipt와 Git history는 보존한다.
-- 남은 gate는 exact terminal subject에 대한 계획상 focused validation, Clean-Checkout Run A/B, deterministic comparator, negative probes와 Codex Reviewer뿐이다. 이들이 모두 PASS하기 전에는 P10 completion token을 발행하지 않는다.
+- Exact terminal subject `b0fe69b1` / tree `2e7f2c8e`에서 focused/current/collection 검증, Clean-Checkout Run A/B, comparator와 undeclared-source negative probe가 PASS했다. Canonical result SHA-256은 `1baca45c...07964`, pytest identity는 `230`, standalone은 `4`, required execution unit은 `234`, source/external mutation은 `0`이다.
+- 남은 gate는 P8 Codex Reviewer 하나다. 최종 reviewer 실행은 platform usage limit으로 blocked됐으므로 P10 completion token은 발행하지 않는다. Reviewer PASS 뒤 additive closeout만 갱신하고 validated terminal subject는 재정의하지 않는다.
 - Runtime Lua, product data/public text/package, in-game QA, RTC/Publish, release/Workshop/deployment/B42와 performance claim은 이 successor 범위가 아니다.
 
 집계와 terminal state는 `Iris/_docs/round3/temporary_validation_physical_retirement/{retirement_summary.json,closeout.json}`에 둔다. Ad hoc cleanup 검사는 canonical validator나 새 validation authority가 아니다.

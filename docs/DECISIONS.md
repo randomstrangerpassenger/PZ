@@ -1901,6 +1901,34 @@
 * claim ceiling: 이 결정은 승인된 validation executable의 물리 퇴역과 repository-local replay availability 종료만 권한화한다. Iris runtime correctness, release, Workshop, B42 readiness, public-text quality acceptance 또는 과거 historical replay PASS를 새로 주장하지 않는다.
 
 
+### Iris validation — regular membership non-self-authorization and survival adjudication
+
+* 날짜: 2026-08-23
+
+* 상태: current readpoint / additive correction to the temporary/nonregular executable retirement authority / destructive mutation not authorized by membership alone
+
+* 결정: regular membership은 survival authority를 자기 승인할 수 없다. Predecessor에서 regular로 분류된 모든 executable identity를 survival candidate로 다시 심사하고, registry 밖의 독립 current authority·반복 실행 필요성·lifecycle 독립성·비중복성이 확인된 경우에만 regular로 유지한다.
+
+* 필수 판정 규칙:
+
+  1. taxonomy, manifest, pytest discovery, regular gate, required-validation registration, predecessor ledger와 기존 regular disposition은 membership을 보여주는 discovery evidence일 뿐, 영구 regular authority 존속의 독립 근거가 아니다.
+  2. predecessor regular identity 전체는 자동 `keep`이 아니라 survival candidate다.
+  3. `keep`은 registry 밖의 정확한 current contract authority, recurring execution obligation, lifecycle independence와 duplicate/superset 부재를 모두 요구한다.
+  4. migration, roadmap, defect reproduction, closeout, seal, snapshot 또는 legacy DVF 단계에 결속된 검사는 current registry membership만으로 regular authority를 유지할 수 없다.
+  5. 다른 surviving test가 동일하거나 더 넓은 input/observable/failure contract를 보호하면, 중복 검사는 필요한 최소 contract migration 후 제거하거나 직접 제거한다.
+  6. predecessor regular `599` identity의 blanket keep을 금지한다.
+  7. baseline pytest `433`, standalone `4`, regular identity `599`는 보존 목표값이 아니다. Final denominator는 survival adjudication과 실제 cleanup 결과에서 다시 생성한다.
+  8. historical denominator/evidence 보존은 sealed ledger, receipt, immutable corpus reference와 Git history 같은 non-executing evidence를 보존한다는 뜻이며, 모든 historical/diagnostic executable source나 repository-local replay route의 영구 보존을 뜻하지 않는다.
+  9. historical executable removal만으로 current regular authority 오승격 cleanup이 완료되지 않는다.
+  10. predecessor regular identity 전체의 survival adjudication이 닫히기 전에 taxonomy, manifest, discovery, gate를 final state로 변경하거나 대규모 source 삭제를 시작하지 않는다.
+
+* terminal disposition: `keep_regular_product_contract`, `keep_regular_validation_system_contract`, `migrate_then_remove`, `remove_regularized_temporary`, `blocked_needs_owner_authority` 중 하나만 identity에 부여한다.
+
+* transaction boundary: canonical tracked cleanup과 dirty workspace test cleanup은 같은 survival 기준을 사용하되 별도 transaction으로 실행·측정한다. Dirty workspace의 non-test 사용자 변경은 조사·수정·stage·commit하지 않는다.
+
+* authority ordering: `a8b03729124f8b08eeacc75c27626a285036a5f9`의 historical-route transition은 이 survival adjudication을 대체하지 않으며, 교정된 identity disposition과 registration delta가 닫히기 전에 destructive authority로 사용하지 않는다.
+
+
 ### Iris Repository Validation — Clean-Checkout full-repository reproducibility contract
 
 * 날짜: 2026-07-28 → successor validation readpoints

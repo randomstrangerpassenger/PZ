@@ -23,7 +23,6 @@ from tools.build.compose_layer3_text import (
     COMPOSE_PROFILE_CLASS_ERROR_CODE,
     CURRENT_COMPOSE_CONTEXT,
     DATA_DIR,
-    HISTORICAL_COMPOSE_CONTEXT,
     IDENTITY_RULES_PATH,
     OUTPUT_DIR,
     PRECEDENCE_RULES_PATH,
@@ -226,24 +225,6 @@ class ComposeEntrypointGuardHardeningTest(unittest.TestCase):
         )
 
         self.assertEqual(before_hash, file_hash(shadow_output))
-
-    def test_legacy_profile_explicit_historical_output_passes(self) -> None:
-        facts_path, decisions_path, profiles_path, overlay_path = self.write_legacy_inputs()
-        output_path = self.tmp_dir / "historical_rendered.json"
-
-        rendered = build_rendered(
-            facts_path,
-            decisions_path,
-            profiles_path,
-            output_path,
-            overlay_path,
-            self.tmp_dir / "historical_style_log.jsonl",
-            compose_context=HISTORICAL_COMPOSE_CONTEXT,
-        )
-
-        self.assertIn("Base.GuardTool", rendered["entries"])
-        self.assertTrue(output_path.exists())
-
 
 if __name__ == "__main__":
     unittest.main()

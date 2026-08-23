@@ -1,7 +1,7 @@
 {
   "schema_version": "iris-clean-checkout-full-repository-gate-v8",
   "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
-  "claim": "Iris mandatory full-required-repository validation is reproducible from an exact tracked commit",
+  "claim": "Exact clean-checkout gate over adjudicated surviving current validation contracts.",
   "claim_boundary": {
     "historical_authority_reenactment_required": false,
     "diagnostic_authority_reenactment_required": false,
@@ -30,13 +30,8 @@
     "state": "ok",
     "additional_source_option": "--round3-additional-source",
     "additional_source_paths": [
-      "Iris/_docs/round3/registry_runtime_compatibility/bootstrap/test_reserve_registry_runtime_compatibility_attempt.py",
       "Iris/build/tests/test_evidence_pipeline_cross_track.py",
       "Iris/build/description/v2/tests/test_compiler_particle_adjustment.py",
-      "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_acceptance_gate.py",
-      "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_candidate_route.py",
-      "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_policy.py",
-      "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_semantic_preservation.py",
       "Iris/validation/clean_checkout/tests/test_current_route_output_isolation_audit.py",
       "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py",
       "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py"
@@ -124,26 +119,6 @@
         "reason": "Baseline-admission RTC durable-contract route is explicitly dedicated; existing mandatory full-repository denominator remains unchanged."
       },
       {
-        "path": "Iris/validation/test_workflow_consolidation/tests/test_classify_source_policy_impact.py",
-        "owner_decision": "not_applicable_dedicated_route",
-        "reason": "Workflow-consolidation source-policy impact tests verify that the explicit workflow test route remains separate from configured discovery authority; the mandatory full-repository denominator remains unchanged."
-      },
-      {
-        "path": "Iris/validation/test_workflow_consolidation/tests/test_collect_execution_census.py",
-        "owner_decision": "not_applicable_dedicated_route",
-        "reason": "Workflow-consolidation execution-census tests validate scenario identity and must-isolate classification for the dedicated consolidation analysis route; the mandatory full-repository denominator remains unchanged."
-      },
-      {
-        "path": "Iris/validation/test_workflow_consolidation/tests/test_compare_contract_parity.py",
-        "owner_decision": "not_applicable_dedicated_route",
-        "reason": "Workflow-consolidation contract-parity tests preserve probe status within the dedicated consolidation comparison route; the mandatory full-repository denominator remains unchanged."
-      },
-      {
-        "path": "Iris/validation/test_workflow_consolidation/tests/test_measure_execution_cost.py",
-        "owner_decision": "not_applicable_dedicated_route",
-        "reason": "Workflow-consolidation measurement tests validate the dedicated timing, process-accounting, workspace-isolation, and fail-closed qualification protocol; the mandatory full-repository denominator remains unchanged."
-      },
-      {
         "path": "Iris/validation/test_workflow_consolidation/tests/test_public_text_phase7_scenario.py",
         "owner_decision": "not_applicable_dedicated_route",
         "reason": "Workflow-consolidation Phase 7 scenario tests validate single-execution lifecycle ownership and malformed-output handling for the dedicated consolidation route; the mandatory full-repository denominator remains unchanged."
@@ -154,24 +129,9 @@
         "reason": "Workflow-consolidation scenario-contract tests validate immutable execution payloads and blocked-probe dependency requirements for the dedicated route; the mandatory full-repository denominator remains unchanged."
       },
       {
-        "path": "Iris/validation/test_workflow_consolidation/tests/test_validate_identity_transaction.py",
-        "owner_decision": "not_applicable_dedicated_route",
-        "reason": "Workflow-consolidation identity-transaction tests validate no-change and migration receipt completeness for the dedicated consolidation route; the mandatory full-repository denominator remains unchanged."
-      },
-      {
-        "path": "Iris/validation/test_workflow_consolidation/tests/test_validate_measurement_comparability.py",
-        "owner_decision": "not_applicable_dedicated_route",
-        "reason": "Workflow-consolidation comparability tests validate schedule, interpreter, touch-surface, and identity bindings for the dedicated measurement route; the mandatory full-repository denominator remains unchanged."
-      },
-      {
         "path": "Iris/validation/test_workflow_consolidation/tests/test_validate_scenario_report.py",
         "owner_decision": "not_applicable_dedicated_route",
         "reason": "Workflow-consolidation scenario-report tests validate route scope, authority isolation, semantic preservation, and fail-closed dependency reporting for the dedicated route; the mandatory full-repository denominator remains unchanged."
-      },
-      {
-        "path": "Iris/validation/test_workflow_consolidation/tests/test_validate_workflow_closeout_carrier.py",
-        "owner_decision": "not_applicable_dedicated_route",
-        "reason": "Workflow-consolidation closeout-carrier tests validate committed blob binding, protected-path exclusion, and self-reference rejection for dedicated evidence adoption; the mandatory full-repository denominator remains unchanged."
       },
       {
         "path": "Iris/build/description/v2/tests/test_layer3_body_role_realign.py",
@@ -204,42 +164,6 @@
       {
         "path": "Iris/build/description/v2/tests/test_public_text_quality_acceptance_current_route.py",
         "reason": "official attempt-0004 consumption is outside the bounded G1-to-current integration correction"
-      },
-      {
-        "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_closeout.py",
-        "reason": "attempt-0022 test is superseded by the correction-0003 current lineage"
-      },
-      {
-        "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_curation_writer.py",
-        "reason": "attempt-0022 byte-layout test is superseded by the correction-0003 current lineage"
-      },
-      {
-        "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_handoff.py",
-        "reason": "D16 candidate-patch test is superseded after current Naturalization adoption"
-      },
-      {
-        "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_kernel.py",
-        "reason": "attempt-0022 kernel evidence test is preserved as historical evidence after correction-0003"
-      },
-      {
-        "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_registry_cutover.py",
-        "reason": "attempt-0009 cutover test is superseded by the attempt-0012 correction-0003 cutover"
-      },
-      {
-        "path": "Iris/build/description/v2/tests/test_public_text_quality_acceptance.py",
-        "reason": "original G4 Foundation build test is superseded for current inputs by the correction-0003 readiness successor validator"
-      },
-      {
-        "path": "Iris/build/description/v2/tests/test_public_text_quality_acceptance_fixtures.py",
-        "reason": "original G4 Foundation fixture test is preserved with its immutable predecessor input binding"
-      },
-      {
-        "path": "Iris/build/description/v2/tests/test_public_text_quality_acceptance_policy.py",
-        "reason": "original G4 Foundation policy test is preserved with its immutable predecessor input binding"
-      },
-      {
-        "path": "Iris/build/description/v2/tests/test_public_text_quality_metric_contract.py",
-        "reason": "original G4 Foundation metric test is preserved with its immutable predecessor input binding"
       },
       {
         "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0020/phase12_phase2_handoff/d16_candidate_patch/test_dvf_3_3_korean_prose_acceptance_gate.py",
@@ -276,23 +200,7 @@
         "reason": "tracked D16 candidate-source fixture whose identity is verified by the Food closeout test"
       }
     ],
-    "evidence_only_sources": [
-      {
-        "path": "Iris/build/tests/test_description_generator.py",
-        "reason": "preserved executable provenance for the retired script-style description-generator route; it is not regular validation authority",
-        "physical_preservation": "executable_source"
-      },
-      {
-        "path": "Iris/build/tests/test_layer3_pipeline.py",
-        "reason": "preserved executable provenance for the retired monolithic Layer 3 pipeline route; its removed implementation dependency prevents regular execution",
-        "physical_preservation": "executable_source"
-      },
-      {
-        "path": "Iris/build/tests/test_wearable_6f.py",
-        "reason": "preserved executable provenance for the retired Wearable.6-F workstation route; its ignored dependencies prevent regular execution",
-        "physical_preservation": "executable_source"
-      }
-    ],
+    "evidence_only_sources": [],
     "obsolete_or_misrouted_sources": [],
     "obsolete_or_misrouted_identities": [],
     "unclassified_source_policy": "fail"

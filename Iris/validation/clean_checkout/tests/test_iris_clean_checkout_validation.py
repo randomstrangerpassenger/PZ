@@ -1460,22 +1460,6 @@ def test_full_source_policy_classifies_only_declared_fallback(
     dedicated_sources = {
         (
             "Iris/validation/test_workflow_consolidation/tests/"
-            "test_classify_source_policy_impact.py"
-        ),
-        (
-            "Iris/validation/test_workflow_consolidation/tests/"
-            "test_collect_execution_census.py"
-        ),
-        (
-            "Iris/validation/test_workflow_consolidation/tests/"
-            "test_compare_contract_parity.py"
-        ),
-        (
-            "Iris/validation/test_workflow_consolidation/tests/"
-            "test_measure_execution_cost.py"
-        ),
-        (
-            "Iris/validation/test_workflow_consolidation/tests/"
             "test_public_text_phase7_scenario.py"
         ),
         (
@@ -1484,19 +1468,7 @@ def test_full_source_policy_classifies_only_declared_fallback(
         ),
         (
             "Iris/validation/test_workflow_consolidation/tests/"
-            "test_validate_identity_transaction.py"
-        ),
-        (
-            "Iris/validation/test_workflow_consolidation/tests/"
-            "test_validate_measurement_comparability.py"
-        ),
-        (
-            "Iris/validation/test_workflow_consolidation/tests/"
             "test_validate_scenario_report.py"
-        ),
-        (
-            "Iris/validation/test_workflow_consolidation/tests/"
-            "test_validate_workflow_closeout_carrier.py"
         ),
     }
     source_policy = contract["source_disposition_policy"]
@@ -1518,11 +1490,7 @@ def test_full_source_policy_classifies_only_declared_fallback(
         row["path"]: row
         for row in source_policy["evidence_only_sources"]
     }
-    assert set(evidence_rows) == {
-        "Iris/build/tests/test_description_generator.py",
-        "Iris/build/tests/test_layer3_pipeline.py",
-        "Iris/build/tests/test_wearable_6f.py",
-    }
+    assert set(evidence_rows) == set()
     for path, row in evidence_rows.items():
         assert row["physical_preservation"] == "executable_source"
         assert _classify_full_test_source(path, roles) == {

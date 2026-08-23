@@ -21,19 +21,12 @@
     "taxonomy_path": "Iris/_docs/round3/round3_test_taxonomy.json",
     "contract_class": "current",
     "state": "ok",
-    "excluded_paths": [
-      "Iris/build/description/v2/tests/test_dvf_3_3_consumer_migration_input_normalization.py",
-      "Iris/build/description/v2/tests/test_dvf_3_3_cutover_tooling_readiness.py",
-      "Iris/build/description/v2/tests/test_dvf_3_3_vnext_delta_disposition_guard_seal.py",
-      "Iris/build/description/v2/tests/test_dvf_3_3_vnext_delta_guard_current_route_integration.py",
-      "Iris/build/description/v2/tests/test_dvf_3_3_vnext_rejected_delta_correction_reparity.py",
-      "Iris/build/description/v2/tests/test_runtime_payload_state_integrity.py"
-    ],
+    "excluded_paths": [],
     "additional_paths": [
       "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
     ]
   },
-  "collection_scope": "active current taxonomy tests that directly exercise clean-checkout code and read-only current inputs, plus focused clean-checkout contract tests; evidence-regeneration workflows are excluded",
+  "collection_scope": "Adjudicated surviving current taxonomy tests plus focused clean-checkout contract tests.",
   "pytest_cache_mode": "disabled",
   "result_plugin": "Iris.validation.clean_checkout.pytest_result_plugin",
   "generated_state_policy": "external_only"

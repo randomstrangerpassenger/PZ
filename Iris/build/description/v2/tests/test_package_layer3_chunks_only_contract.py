@@ -14,15 +14,6 @@ from pathlib import Path
 IRIS_ROOT = Path(__file__).resolve().parents[4]
 PACKAGE_SCRIPT_PATH = IRIS_ROOT / "tools" / "package_iris.ps1"
 LOOKUP_VALIDATOR_PATH = IRIS_ROOT / "tools" / "validate_runtime_lookup_indexes.ps1"
-ACTIVE_LAYER3_MONOLITH_PATH = (
-    IRIS_ROOT
-    / "media"
-    / "lua"
-    / "client"
-    / "Iris"
-    / "Data"
-    / "IrisLayer3Data.lua"
-)
 REPO_ROOT = IRIS_ROOT.parent
 ROOT_STALE_DVF_BRIDGE_PATH = (
     REPO_ROOT / "media" / "lua" / "shared" / "Iris" / "IrisDvfBridgeData.lua"
@@ -476,9 +467,6 @@ class PackageLayer3ChunksOnlyContractTest(unittest.TestCase):
         self.assertIn("Forbidden Iris package monolith output detected", script)
         self.assertNotIn("Remove-Item -LiteralPath $candidate -Force", script)
         self.assertIn("forbidden_files = $forbiddenPackageFiles", script)
-
-    def test_workspace_copy_flow_excludes_layer3_monolith(self) -> None:
-        self.assertFalse(ACTIVE_LAYER3_MONOLITH_PATH.exists())
 
     def test_package_script_fails_loud_on_stale_dvf_bridge_surface(self) -> None:
         script = PACKAGE_SCRIPT_PATH.read_text(encoding="utf-8")

@@ -1,0 +1,15 @@
+{
+  "schema_version": "iris-validation-retirement-measurement-toolchain-delta-v1",
+  "tool": "Iris/_docs/round3/round3_run_contract_tests.py",
+  "before_git_blob": "dcd0849e15d6256a46606cfabf1a7abc42214471",
+  "projected_after_git_blob": "f5e6f4885d5bf037e5657ec3fd7deb55d294e63a",
+  "semantic_change": "Retire historical, diagnostic, and all selectors plus their repository-local corpus materialization path; retain the current selector, current closure enforcement, required-validation projection, result attribution, and fail-closed behavior.",
+  "retirement_delta_separation": "The runner remains outside the deletion set; its modification is counted in the projection tree, not as retired source bytes or LOC.",
+  "focused_validation": {
+    "status": "pending_terminal_validation_before_external_run_evidence",
+    "commands": [
+      "uv run python -m py_compile Iris/_docs/round3/round3_run_contract_tests.py",
+      "uv run python Iris/_docs/round3/round3_run_contract_tests.py --class current"
+    ]
+  }
+}

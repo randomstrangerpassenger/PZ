@@ -1,0 +1,44 @@
+{
+  "schema_version": "iris-validation-retirement-tracked-byte-budget-preflight-v1",
+  "status": "PASS",
+  "s0": {
+    "commit": "fd0504817af8c1031ac794391cf67d129c8db54c",
+    "tree": "395ec36de921987299fa9a9d9bb46118b74160a5",
+    "tracked_blob_bytes": 801868754,
+    "test_tooling_loc": 259483
+  },
+  "authority_commit": "145b1dd2e21afa957be3ffe87ab8ea3bde069ce0",
+  "projection": {
+    "tree": "5dcf53ba3247d774bdda5b1141920888fe3d4a24",
+    "tracked_blob_bytes": 793624363,
+    "test_tooling_loc": 235409,
+    "full_source_and_support_deletions": 92,
+    "mixed_callable_removals": 2,
+    "modified_registration_and_toolchain_files": 10
+  },
+  "set_binding": {
+    "canonicalization": "sorted unique UTF-8 records joined with LF and a terminal LF",
+    "adjudicated_deletion_set_sha256": "12bed4147a0632d65f4d62a65ddbaaccb64b5511d3efdd491bd15a9dcb6004d9",
+    "registration_and_toolchain_path_set_sha256": "15ab94186759fe84477db926010d966701404455316f543ce580464baffad407"
+  },
+  "reserve": {
+    "remaining_tracked_byte_reserve": 131072,
+    "rows": [
+      {"carrier": "metric_scope.json", "accounted_in": "reserve", "upper_bound_bytes": 16384},
+      {"carrier": "tracked_byte_budget_preflight.json", "accounted_in": "reserve", "upper_bound_bytes": 16384},
+      {"carrier": "measurement_toolchain_delta.json", "accounted_in": "reserve", "upper_bound_bytes": 16384},
+      {"carrier": "retirement_summary.json", "accounted_in": "reserve", "upper_bound_bytes": 32768},
+      {"carrier": "closeout and additive governance trace", "accounted_in": "reserve", "upper_bound_bytes": 49152}
+    ],
+    "coverage_percent": 100,
+    "overlap_count": 0,
+    "unaccounted_count": 0
+  },
+  "projected_tracked_delta": -8113319,
+  "projected_test_tooling_loc_delta": -24074,
+  "gates": {
+    "projected_tracked_delta_negative": true,
+    "projected_test_tooling_loc_below_s0": true
+  },
+  "measurement_method": "Iris/_docs/round3/temporary_validation_physical_retirement/metric_scope.json"
+}

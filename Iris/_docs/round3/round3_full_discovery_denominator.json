@@ -1,9 +1,11 @@
 {
   "schema_version": "round3-full-discovery-denominator-v1",
   "source_classification": "Iris/_docs/round3/round3_pytest_source_classification.json",
-  "included_classifications": ["current", "historical", "diagnostic"],
+  "included_classifications": [
+    "current"
+  ],
   "excluded_classification": "excluded",
-  "derivation": "All existing sources resolved by the approved source classification; current selection applies exact mixed-item overrides, while all selection admits every included item.",
+  "derivation": "All and only actual sources resolved as current by the adjudicated surviving policy; retired historical and diagnostic repository-local execution routes are absent.",
   "enforcement": {
     "bidirectional_source_equality": true,
     "included_source_collection_errors": 0,
@@ -11,8 +13,10 @@
     "unknown_sources": 0,
     "exclusions_are_import_skipped": true
   },
-  "exact_authority_unchanged": {
+  "exact_authority_unchanged": {},
+  "exact_authority_reanchored": {
     "taxonomy": "Iris/_docs/round3/round3_test_taxonomy.json",
-    "required_validations": "Iris/_docs/round3/current_route_required_validations.json"
+    "required_validations": "Iris/_docs/round3/current_route_required_validations.json",
+    "survival_overlay": "Iris/_docs/round3/temporary_validation_physical_retirement/survival_overlay.index.json"
   }
 }

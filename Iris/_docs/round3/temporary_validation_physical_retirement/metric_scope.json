@@ -1,0 +1,20 @@
+{
+  "schema_version": "iris-validation-retirement-metric-scope-v1",
+  "s0_commit": "fd0504817af8c1031ac794391cf67d129c8db54c",
+  "tracked_byte_method": "sum Git blob object sizes from git ls-tree -r -l for the exact tree",
+  "test_tooling_loc_method": "count every line matched by git grep -I -n -e ^ for the exact tree and pathspec set",
+  "test_tooling_pathspecs": [
+    ":(glob)Iris/_docs/round3/**/*.py",
+    ":(glob)Iris/_docs/round3/**/*.ps1",
+    ":(glob)Iris/build/**/*.py",
+    ":(glob)Iris/build/**/*.ps1",
+    ":(glob)Iris/test/**/*.py",
+    ":(glob)Iris/test/**/*.ps1",
+    ":(glob)Iris/validation/**/*.py",
+    ":(glob)Iris/validation/**/*.ps1",
+    ":(glob)tools/**/*.py",
+    ":(glob)tools/**/*.ps1",
+    "conftest.py"
+  ],
+  "domain_rule": "Tracked repository, dirty-main ignored/untracked files, and external archive bytes are never combined."
+}

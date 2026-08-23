@@ -1866,6 +1866,41 @@
   * COMMON-EVIDENCE-TRACE.
 
 
+### Iris validation — temporary/nonregular executable physical retirement authority
+
+* 날짜: 2026-08-23
+
+* 상태: current readpoint / owner-approved authority-only transition / destructive mutation not yet applied
+
+* 결정: current product 또는 validation-system contract가 없는 historical reproduction과 diagnostic/evidence executable의 repository-local replay route를 종료하고, 불변 predecessor ledger·sealed receipt·Git history를 non-executing evidence로 보존한다. 실제 current contract가 다시 확인된 source는 기존 분류와 무관하게 current로 보존한다.
+
+* 권한 binding:
+
+  * owner authority: 2026-08-23 repository-owner prompt preapproval
+  * governing roadmap attachment: `739c27fb-cef7-4206-a29e-0c99e722d55a`
+  * roadmap raw SHA-256: `a379baf8be5563631c5d7c5ce00ea50d109600a344e3ca0d2c2407179a06b551`
+  * P1~P10 table SHA-256: `c0cd36edbcf25706e2f3cdf0661933df6a3d6c3da758a600807ff3908f9f65bb`
+  * predecessor decision blob: `9fc1a6863bb01fd142eda25f48e8c6da25eba818`
+  * S0 commit/tree: `fd0504817af8c1031ac794391cf67d129c8db54c` / `395ec36de921987299fa9a9d9bb46118b74160a5`
+
+* 적용 범위:
+
+  * `round3_run_contract_tests.py --class historical|diagnostic|all`의 repository-local executable availability를 종료하고 `--class current`만 유지한다.
+  * 심사 결과 `remove_executable` 또는 `externalize_nonexecuting_evidence`로 닫힌 source, mixed callable, exact membership을 제거한다.
+  * full-gate conflict 7-source/56-identity 중 current compiler/constituent contract 3-source/39-identity는 current authority로 보존하고, lifecycle-bound 4-source/17-identity만 제거한다.
+  * ignored/untracked local source 삭제는 exact path/hash archive·restore gate를 통과한 owner-approved set에만 적용한다.
+
+* 보존 불변식:
+
+  * sealed historical denominator/identity set, predecessor census ledger, historical corpus/receipt를 rewrite하지 않는다.
+  * current/historical/diagnostic result cross-substitution 금지를 유지한다.
+  * repository-local replay availability 종료는 과거 receipt의 historical 사실을 취소하지 않는다.
+  * current runtime Lua, product data, public text, package output은 변경하지 않는다.
+  * 삭제 transaction이 중단되면 source·membership·route를 같은 batch로 복구하고, 이 authority를 history에서 rewrite하지 않는다.
+
+* claim ceiling: 이 결정은 승인된 validation executable의 물리 퇴역과 repository-local replay availability 종료만 권한화한다. Iris runtime correctness, release, Workshop, B42 readiness, public-text quality acceptance 또는 과거 historical replay PASS를 새로 주장하지 않는다.
+
+
 ### Iris Repository Validation — Clean-Checkout full-repository reproducibility contract
 
 * 날짜: 2026-07-28 → successor validation readpoints

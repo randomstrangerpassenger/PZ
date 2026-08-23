@@ -1,0 +1,26 @@
+{
+  "schema_version": "iris-temporary-validation-governing-roadmap-binding-v1",
+  "attachment_id": "739c27fb-cef7-4206-a29e-0c99e722d55a",
+  "title": "ROADMAP — Iris 임시·일회성 검증기의 정규 Validation Authority 오승격 제거 및 물리 퇴역",
+  "raw_identity": {
+    "bytes": 47794,
+    "lines": 1687,
+    "sha256": "a379baf8be5563631c5d7c5ce00ea50d109600a344e3ca0d2c2407179a06b551"
+  },
+  "decision_table_identity": {
+    "source_lines": "483-496",
+    "normalization": "LF join with terminal LF",
+    "bytes": 1895,
+    "sha256": "c0cd36edbcf25706e2f3cdf0661933df6a3d6c3da758a600807ff3908f9f65bb"
+  },
+  "durable_store": {
+    "identity": "codex-attachment://739c27fb-cef7-4206-a29e-0c99e722d55a/pasted-text.txt",
+    "retrieval_contract": "retrieve by logical attachment id and verify both recorded SHA-256 identities",
+    "machine_local_discovery_path_is_authority": false
+  },
+  "execution_verification": {
+    "verified_at": "2026-08-23",
+    "result": "PASS",
+    "mismatch_count": 0
+  }
+}

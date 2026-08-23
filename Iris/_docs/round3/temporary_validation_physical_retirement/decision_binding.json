@@ -1,0 +1,22 @@
+{
+  "schema_version": "iris-temporary-validation-decision-binding-v1",
+  "authority": "repository-owner prompt preapproval 2026-08-23",
+  "roadmap_binding": "governing_roadmap_binding.json",
+  "subject": {
+    "s0_commit": "fd0504817af8c1031ac794391cf67d129c8db54c",
+    "s0_tree": "395ec36de921987299fa9a9d9bb46118b74160a5"
+  },
+  "decisions": [
+    {"governing_id":"P1","decision":"s0_measurement_only_final_s1_full_gate","scope":"baseline execution","subject":"S0/S1","status":"approved","authority":"owner prompt","evidence_pointer":"governing_roadmap_binding.json"},
+    {"governing_id":"P2","decision":"remove_executable_without_independent_obligation_after_route_termination","scope":"reproduction-only physical removal","subject":"adjudicated reproduction set","status":"approved","authority":"owner prompt","evidence_pointer":"docs/DECISIONS.md successor"},
+    {"governing_id":"P3","decision":"in_repository_nonexecuting_git_history_and_predecessor_ledgers","scope":"tracked reproduction material","subject":"immutable predecessor corpus/ledger/history","status":"approved","authority":"owner prompt","evidence_pointer":"validation_contract_reconfirmation/final_composition.json"},
+    {"governing_id":"P4","decision":"in_repository_compact_predecessor_ledger_pointer","scope":"evidence-only material","subject":"immutable predecessor ledger/receipts","status":"approved","authority":"owner prompt","evidence_pointer":"validation_contract_reconfirmation/contract_row_preservation_receipts.jsonl"},
+    {"governing_id":"P5","decision":"hash_bound_read_only","scope":"predecessor census provenance","subject":"1167-row predecessor ledgers","status":"approved","authority":"owner prompt","evidence_pointer":"validation_contract_reconfirmation/final_composition.json"},
+    {"governing_id":"P6","decision":"atomic_single_transaction","scope":"tracked destructive execution","subject":"contract-family dependency closures","status":"approved","authority":"owner prompt","evidence_pointer":"retirement plan Change 5"},
+    {"governing_id":"P7","decision":"adjudicate_all_and_block_on_unresolved","scope":"disposition closure","subject":"current and non-current universes","status":"approved","authority":"owner prompt","evidence_pointer":"retirement overlays"},
+    {"governing_id":"P8","decision":"codex_reviewer_required","scope":"independent review","subject":"final physical-retirement diff","status":"approved","authority":"owner prompt","evidence_pointer":"final reviewer result"},
+    {"governing_id":"P9","decision":"out_of_scope_not_adopted","scope":"multi-registry unification","subject":"validation architecture","status":"approved","authority":"owner prompt","evidence_pointer":"retirement plan non-goals"},
+    {"governing_id":"P10","decision":"temporary_validation_physical_retirement__complete","scope":"round identifier/completion token","subject":"terminal closeout","status":"approved","authority":"owner prompt","evidence_pointer":"closeout.json"},
+    {"governing_id":"local","decision":"delete_after_exact_archive_verify_and_restore","scope":"ignored/untracked local deletion","subject":"resolved repository root plus adjudicated 162-path set","status":"approved","authority":"owner prompt","evidence_pointer":"local cleanup manifest"}
+  ]
+}

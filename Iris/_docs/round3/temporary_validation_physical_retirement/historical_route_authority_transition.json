@@ -1,0 +1,43 @@
+{
+  "schema_version": "iris-historical-route-authority-transition-v1",
+  "state": "authority_active_deletion_not_started",
+  "predecessor": {
+    "heading": "Iris validation — current / historical / diagnostic route separation",
+    "required_invariant": "historical denominator preservation: required",
+    "s0_commit": "fd0504817af8c1031ac794391cf67d129c8db54c",
+    "s0_tree": "395ec36de921987299fa9a9d9bb46118b74160a5",
+    "decisions_blob": "9fc1a6863bb01fd142eda25f48e8c6da25eba818"
+  },
+  "successor": {
+    "heading": "Iris validation — temporary/nonregular executable physical retirement authority",
+    "effective_state": "repository_local_historical_and_diagnostic_replay_retired",
+    "authority": "repository-owner prompt preapproval 2026-08-23",
+    "p2_p3_binding": "decision_binding.json",
+    "exact_readpoint_resolution": "the authority-only commit containing this artifact; recorded by the first destructive commit and terminal closeout"
+  },
+  "affected_scope": {
+    "retired_commands": [
+      "round3_run_contract_tests.py --class historical",
+      "round3_run_contract_tests.py --class diagnostic",
+      "round3_run_contract_tests.py --class all"
+    ],
+    "preserved_command": "round3_run_contract_tests.py --class current",
+    "tracked_candidate_path_set_sha256": "ed1671b8fb4916b281e6ab6e94df7706231986bf21babcf044557774585bdae5",
+    "tracked_candidate_files": 34,
+    "tracked_candidate_identities": 177,
+    "local_candidate_files": 162,
+    "local_candidate_identities": 332,
+    "mixed_callable_removals": 2,
+    "full_gate_conflict_retired": 17,
+    "full_gate_conflict_preserved_as_current": 39
+  },
+  "preservation": {
+    "immutable_historical_denominator_and_identity_set": true,
+    "sealed_receipts_rewritten": false,
+    "predecessor_ledgers_rewritten": false,
+    "historical_corpus_rewritten": false,
+    "result_cross_substitution_forbidden": true,
+    "repository_local_replay_availability_after_s1": false
+  },
+  "rollback": "Restore route, membership, source, and exclusive support as one atomic batch; retain this additive authority record and document the aborted execution."
+}

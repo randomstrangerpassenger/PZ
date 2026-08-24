@@ -114,11 +114,6 @@
         "reason": "Baseline-admission Windows path-contract route is explicitly dedicated; existing mandatory full-repository denominator remains unchanged."
       },
       {
-        "path": "Iris/validation/baseline_admission/tests/test_rtc_durable_bundle_contract.py",
-        "owner_decision": "not_applicable_dedicated_route",
-        "reason": "Baseline-admission RTC durable-contract route is explicitly dedicated; existing mandatory full-repository denominator remains unchanged."
-      },
-      {
         "path": "Iris/validation/test_workflow_consolidation/tests/test_public_text_phase7_scenario.py",
         "owner_decision": "not_applicable_dedicated_route",
         "reason": "Workflow-consolidation Phase 7 scenario tests validate single-execution lifecycle ownership and malformed-output handling for the dedicated consolidation route; the mandatory full-repository denominator remains unchanged."

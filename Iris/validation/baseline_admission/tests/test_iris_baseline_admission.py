@@ -196,7 +196,6 @@ def test_full_gate_declares_dedicated_route_disposition() -> None:
         "Iris/validation/baseline_admission/tests/test_iris_baseline_admission.py",
         "Iris/validation/baseline_admission/tests/test_reseal_output_isolation.py",
         "Iris/validation/baseline_admission/tests/test_windows_path_contract.py",
-        "Iris/validation/baseline_admission/tests/test_rtc_durable_bundle_contract.py",
     }
     assert {row["owner_decision"] for row in rows} == {"not_applicable_dedicated_route"}
     environment = _windows_powershell_environment({

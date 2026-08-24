@@ -397,7 +397,6 @@
     "Iris/build/description/v2/tests/test_dvf_3_3_runtime_compatibility.py",
     "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py",
     "Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py",
-    "Iris/build/description/v2/tests/test_layer4_trace_edge_authority_admission_round.py",
     "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
   ],
   "current_test_seeds": [
@@ -405,7 +404,6 @@
     "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py",
     "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py",
     "Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py",
-    "Iris/build/description/v2/tests/test_layer4_trace_edge_authority_admission_round.py",
     "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
   ],
   "generated_at": "2026-06-11T12:14:22+00:00",

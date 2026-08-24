@@ -432,16 +432,7 @@
       "Iris/build/description/v2/tools/build/run_public_text_quality_acceptance.py",
       "Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py",
       "Iris/build/description/v2/tools/build/validate_public_text_quality_acceptance.py",
-      "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0001.json",
-      "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
-      "docs/iris_publish_boundary_public_text_quality_acceptance_policy_closure_plan.md",
-      "docs/public_text_quality_acceptance_claim_boundary.md",
-      "docs/public_text_quality_acceptance_policy.md",
-      "docs/public_text_quality_denominator_contract.md",
-      "docs/public_text_quality_exception_policy.md",
-      "docs/public_text_quality_freshness_policy.md",
-      "docs/public_text_quality_metric_contract.md",
-      "docs/public_text_quality_waiver_policy.md"
+      "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0001.json"
     ]
   },
   "bootstrap": {

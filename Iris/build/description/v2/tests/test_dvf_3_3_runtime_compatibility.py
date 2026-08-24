@@ -33,6 +33,9 @@ class DvfRuntimeCompatibilityTest(unittest.TestCase):
             except Exception as error:  # producer failure is distinct from blocked checks
                 self.fail(f"runtime compatibility producer failed: {error}")
         if report is None:
+            for check_id in ("full_universe_and_payload_projection", "case_collision_boundary"):
+                with self.subTest(check_id=check_id):
+                    self.skipTest("blocked_by:shared_generation_and_runtime_report")
             return
 
         with self.subTest(check_id="full_universe_and_payload_projection"):

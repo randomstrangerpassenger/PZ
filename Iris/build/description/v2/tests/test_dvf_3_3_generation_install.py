@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import shutil
 import sys
 import tempfile
 import unittest
@@ -58,21 +59,41 @@ class DvfGenerationInstallTest(unittest.TestCase):
             self.assertEqual(noop["protected_current_mutation_count"], 0)
 
     def test_failure_injection_preserves_predecessor_visibility(self) -> None:
-        for failure_step in ("candidate_copy", "generation_publish", "before_visibility_switch", "visibility_switch", "after_visibility_switch"):
-            with self.subTest(step=failure_step), tempfile.TemporaryDirectory(prefix="iris-iar-injection-") as temporary:
-                repository, generation, legacy_manifest = prepare_repository(Path(temporary))
-                with self.assertRaises(GenerationInstallError):
-                    install_complete_generation(
-                        repository_root=repository,
-                        generation_root=generation,
-                        expected_predecessor_generation_id="legacy:test",
-                        inject_failure=failure_step,
-                    )
-                manifest = repository / "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua"
-                pointer = repository / "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua"
-                self.assertEqual(manifest.read_bytes(), legacy_manifest)
-                self.assertFalse(pointer.exists())
-                self.assertEqual(current_generation_id(repository), "legacy:test")
+        failure_steps = ("candidate_copy", "generation_publish", "before_visibility_switch", "visibility_switch", "after_visibility_switch")
+        with tempfile.TemporaryDirectory(prefix="iris-iar-injection-") as temporary:
+            root = Path(temporary)
+            seed_ready = False
+            with self.subTest(step="shared_immutable_seed"):
+                try:
+                    seed_repository, seed_generation, legacy_manifest = prepare_repository(root / "seed")
+                    seed_ready = True
+                except Exception as error:
+                    self.fail(f"generation install negative seed failed: {error}")
+            if not seed_ready:
+                for failure_step in failure_steps:
+                    with self.subTest(step=failure_step):
+                        self.skipTest("blocked_by:shared_immutable_seed")
+                return
+
+            for failure_step in failure_steps:
+                with self.subTest(step=failure_step):
+                    case_root = root / "cases" / failure_step
+                    repository = case_root / "repository"
+                    generation = case_root / "candidate"
+                    shutil.copytree(seed_repository, repository)
+                    shutil.copytree(seed_generation, generation)
+                    with self.assertRaises(GenerationInstallError):
+                        install_complete_generation(
+                            repository_root=repository,
+                            generation_root=generation,
+                            expected_predecessor_generation_id="legacy:test",
+                            inject_failure=failure_step,
+                        )
+                    manifest = repository / "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua"
+                    pointer = repository / "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua"
+                    self.assertEqual(manifest.read_bytes(), legacy_manifest)
+                    self.assertFalse(pointer.exists())
+                    self.assertEqual(current_generation_id(repository), "legacy:test")
 
     def test_expected_predecessor_and_concurrent_install_fail_closed(self) -> None:
         with tempfile.TemporaryDirectory(prefix="iris-iar-guards-") as temporary:

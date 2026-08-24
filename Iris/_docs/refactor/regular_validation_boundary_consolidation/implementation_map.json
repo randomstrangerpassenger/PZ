@@ -1,7 +1,7 @@
 {
   "schema_version":"iris-regular-validation-consolidation-map-v1",
   "s0":{"commit":"64754c38147233c4f5e04a7469b45163c2c55ebe","tree":"92810ce35f021bd3dfa65ceafb782a32c2b86258","canonical_result":"C:\\Users\\MW\\iccv\\rr1\\canonical_full_result.json","canonical_result_sha256":"f7ff1095d21d3942e2377441b059b371cbf3d95493c1089c2035b6a902634bd7","execution":238,"taxonomy":123,"manifest":70},
-  "external_item_closure":{"path":"C:\\Users\\MW\\iccv\\regular-consolidation-terminal\\item-level-closure-v2.json","sha256":"4e22c40a8482c397624d76136841a258cbd1c520254d09e20cbff909c8016432","execution":238,"taxonomy":123,"manifest":70,"unmapped":0},
+  "external_item_closure":{"path":"C:\\Users\\MW\\iccv\\regular-consolidation-terminal\\item-level-closure-v3.json","sha256":"aa2238b31d6cc942342d153e46c8db4e139efac8d3d4210b0d2930d4632a7f74","execution":238,"taxonomy":123,"manifest":70,"unmapped":0},
   "mapping_rule":"predecessors[i] maps to successor subTest checks[i]",
   "closure":{"execution":{"preserved":203,"mapped":35,"successors":10,"final":213},"taxonomy":{"preserved":108,"mapped":15,"successors":7,"final":115},"manifest":{"preserved":63,"mapped":7,"successors":4,"final":67}},
   "groups":[
@@ -56,6 +56,6 @@
       "successor":"allowlist_rejects_named_overbroad_rules","checks":["too_broad_path","current_occurrence_kind"]
     }
   ],
-  "reuse":[{"family":"public_text_review_fixture","identity":"class 20->14; review cases 6->1; snapshot cases 2->1","operation":"strict_json_load","before":26,"after":2},{"family":"round3_applicability","identity":"5->5","operation":"runner_import","before":5,"after":1},{"family":"package_forbidden_surface","identity":"2->1","operation":"package_script_read","before":2,"after":1},{"family":"dvf_runtime_compatibility","identity":"2->1","operation":"generation_and_runtime_report","before":2,"after":1},{"family":"dvf_complete_generation","identity":"2->1","operation":"input_copy_and_initial_generation","before":2,"after":1}],
+  "reuse":[{"family":"public_text_review_fixture","identity":"class 20->14; review cases 6->1; snapshot cases 2->1","operation":"strict_json_load","before":26,"after":2},{"family":"round3_applicability","identity":"5->5","operation":"runner_import","before":5,"after":1},{"family":"package_forbidden_surface","identity":"2->1","operation":"package_script_read","before":2,"after":1},{"family":"dvf_runtime_compatibility","identity":"2->1","operation":"generation_and_runtime_report","before":2,"after":1},{"family":"dvf_complete_generation","identity":"2->1","operation":"input_copy_and_initial_generation","before":2,"after":1},{"family":"dvf_complete_generation_failure_matrix","identity":"1->1","operation":"input_copy_and_generation_seed","before":6,"after":1},{"family":"dvf_generation_install_failure_matrix","identity":"1->1","operation":"prepared_repository_and_generation_seed","before":5,"after":1}],
   "residual_keeps":{"membership":"external_item_closure.execution rows with disposition keep_independent","mutable":"case-local mutation/tamper/recovery/concurrency/workspace","process":"Lua, CLI, stdout/stderr and fresh-process","oracle":"distinct compose/package/lifecycle/source/gate observables"}
 }

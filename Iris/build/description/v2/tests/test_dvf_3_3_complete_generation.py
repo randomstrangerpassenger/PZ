@@ -46,6 +46,9 @@ class DvfCompleteGenerationTest(unittest.TestCase):
                 except Exception as error:  # producer failure is distinct from blocked checks
                     self.fail(f"complete generation producer failed: {error}")
             if first is None:
+                for check_id in ("path_independence_and_idempotence", "descriptor_content_identity"):
+                    with self.subTest(check_id=check_id):
+                        self.skipTest("blocked_by:shared_generation_producer")
                 return
 
             with self.subTest(check_id="path_independence_and_idempotence"):
@@ -79,39 +82,57 @@ class DvfCompleteGenerationTest(unittest.TestCase):
             ("missing_file", "OUTPUT_FILE_MISSING"),
             ("chunk_reorder", "OUTPUT_RAW_HASH_MISMATCH"),
         ]
-        for mutation, code in cases:
-            with self.subTest(mutation=mutation), tempfile.TemporaryDirectory(prefix="iris-iar-negative-") as temporary:
-                root = Path(temporary)
-                repository = root / "repository"
-                copy_generation_inputs(repository)
-                generation = root / "generation"
-                build_complete_generation(repository_root=repository, output_root=generation)
-                descriptor_path = generation / DESCRIPTOR_NAME
-                descriptor = json.loads(descriptor_path.read_text(encoding="utf-8"))
-                if mutation == "descriptor_field":
-                    descriptor["transaction_id"] = "forbidden"
-                    descriptor_path.write_text(json.dumps(descriptor), encoding="utf-8")
-                elif mutation == "input_hash":
-                    descriptor["canonical_inputs"][0]["raw_byte_sha256"] = "0" * 64
-                    descriptor_path.write_text(json.dumps(descriptor), encoding="utf-8")
-                elif mutation == "output_hash":
-                    target = generation / descriptor["outputs"][0]["path"]
-                    payload = bytearray(target.read_bytes())
-                    payload[0] ^= 0x01
-                    target.write_bytes(payload)
-                elif mutation == "extra_file":
-                    (generation / "extra.lua").write_text("return {}", encoding="utf-8")
-                elif mutation == "missing_file":
-                    (generation / descriptor["outputs"][0]["path"]).unlink()
-                elif mutation == "chunk_reorder":
-                    manifest = generation / "runtime" / "IrisLayer3DataCurrent.lua"
-                    lines = manifest.read_bytes().splitlines(keepends=True)
-                    indexes = [index for index, line in enumerate(lines) if b"/Chunks/Chunk" in line]
-                    lines[indexes[0]], lines[indexes[1]] = lines[indexes[1]], lines[indexes[0]]
-                    manifest.write_bytes(b"".join(lines))
-                with self.assertRaises(CompleteGenerationValidationError) as raised:
-                    validate_complete_generation(repository_root=repository, generation_root=generation)
-                self.assertEqual(raised.exception.code, code)
+        with tempfile.TemporaryDirectory(prefix="iris-iar-negative-") as temporary:
+            root = Path(temporary)
+            seed_repository = root / "seed" / "repository"
+            seed_generation = root / "seed" / "generation"
+            seed_ready = False
+            with self.subTest(mutation="shared_immutable_seed"):
+                try:
+                    copy_generation_inputs(seed_repository)
+                    build_complete_generation(repository_root=seed_repository, output_root=seed_generation)
+                    seed_ready = True
+                except Exception as error:
+                    self.fail(f"complete generation negative seed failed: {error}")
+            if not seed_ready:
+                for mutation, _ in cases:
+                    with self.subTest(mutation=mutation):
+                        self.skipTest("blocked_by:shared_immutable_seed")
+                return
+
+            for mutation, code in cases:
+                with self.subTest(mutation=mutation):
+                    case_root = root / "cases" / mutation
+                    repository = case_root / "repository"
+                    generation = case_root / "generation"
+                    shutil.copytree(seed_repository, repository)
+                    shutil.copytree(seed_generation, generation)
+                    descriptor_path = generation / DESCRIPTOR_NAME
+                    descriptor = json.loads(descriptor_path.read_text(encoding="utf-8"))
+                    if mutation == "descriptor_field":
+                        descriptor["transaction_id"] = "forbidden"
+                        descriptor_path.write_text(json.dumps(descriptor), encoding="utf-8")
+                    elif mutation == "input_hash":
+                        descriptor["canonical_inputs"][0]["raw_byte_sha256"] = "0" * 64
+                        descriptor_path.write_text(json.dumps(descriptor), encoding="utf-8")
+                    elif mutation == "output_hash":
+                        target = generation / descriptor["outputs"][0]["path"]
+                        payload = bytearray(target.read_bytes())
+                        payload[0] ^= 0x01
+                        target.write_bytes(payload)
+                    elif mutation == "extra_file":
+                        (generation / "extra.lua").write_text("return {}", encoding="utf-8")
+                    elif mutation == "missing_file":
+                        (generation / descriptor["outputs"][0]["path"]).unlink()
+                    elif mutation == "chunk_reorder":
+                        manifest = generation / "runtime" / "IrisLayer3DataCurrent.lua"
+                        lines = manifest.read_bytes().splitlines(keepends=True)
+                        indexes = [index for index, line in enumerate(lines) if b"/Chunks/Chunk" in line]
+                        lines[indexes[0]], lines[indexes[1]] = lines[indexes[1]], lines[indexes[0]]
+                        manifest.write_bytes(b"".join(lines))
+                    with self.assertRaises(CompleteGenerationValidationError) as raised:
+                        validate_complete_generation(repository_root=repository, generation_root=generation)
+                    self.assertEqual(raised.exception.code, code)
 
 
 if __name__ == "__main__":

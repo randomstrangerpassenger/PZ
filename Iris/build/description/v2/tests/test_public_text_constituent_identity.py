@@ -301,30 +301,29 @@ class PublicTextConstituentIdentityTest(unittest.TestCase):
 
     def test_protected_snapshot_lf_crlf_and_lone_cr_are_equivalent(self) -> None:
         blob_lf = b'{\n  "value": 1\n}\n'
-        variants = (
-            blob_lf,
-            blob_lf.replace(b"\n", b"\r\n"),
-            blob_lf.replace(b"\n", b"\r"),
-        )
-        rows = [
-            protected_snapshot_row(
-                declared_sha256=sha256(blob_lf),
-                head_blob_raw=blob_lf,
-                working_raw=variant,
-            )
-            for variant in variants
-        ]
-        self.assertEqual(
-            rows,
-            [
-                {
-                    "path": RELATIVE_PATH,
-                    "present": True,
-                    "sha256": sha256(blob_lf),
-                }
-            ]
-            * 3,
-        )
+        variants = {
+            "lf": blob_lf,
+            "crlf": blob_lf.replace(b"\n", b"\r\n"),
+            "lone_cr": blob_lf.replace(b"\n", b"\r"),
+        }
+        for case_id, working_raw in variants.items():
+            with self.subTest(case_id=case_id):
+                row = protected_snapshot_row(
+                    declared_sha256=sha256(blob_lf),
+                    head_blob_raw=blob_lf,
+                    working_raw=working_raw,
+                )
+                self.assertEqual(
+                    row,
+                    {
+                        "path": RELATIVE_PATH,
+                        "present": True,
+                        "sha256": sha256(blob_lf),
+                    },
+                )
+                if case_id == "crlf":
+                    self.assertNotEqual(sha256(blob_lf), sha256(working_raw))
+                    self.assertNotEqual(row["sha256"], sha256(working_raw))
 
     def test_protected_snapshot_invalid_text_identities_are_stale(self) -> None:
         blob_lf = b'{"value":1}\n'
@@ -362,24 +361,6 @@ class PublicTextConstituentIdentityTest(unittest.TestCase):
                 head_blob_raw=blob,
                 working_raw=b"\x00\x01\n\xff",
             )
-
-    def test_protected_snapshot_returns_head_authority_raw_sha(self) -> None:
-        blob_lf = b'{"value":1}\n'
-        working_crlf = blob_lf.replace(b"\n", b"\r\n")
-        row = protected_snapshot_row(
-            declared_sha256=sha256(blob_lf),
-            head_blob_raw=blob_lf,
-            working_raw=working_crlf,
-        )
-        self.assertNotEqual(sha256(blob_lf), sha256(working_crlf))
-        self.assertEqual(
-            row["sha256"],
-            sha256(blob_lf),
-        )
-        self.assertNotEqual(
-            row["sha256"],
-            sha256(working_crlf),
-        )
 
     def test_phase0_no_write_and_real_required_path_sets_are_identical(
         self,

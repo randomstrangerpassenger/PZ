@@ -61,18 +61,24 @@ def is_forbidden_current_looking_path(path: str) -> bool:
 
 
 class DvfVcsTrackingPolicyTest(unittest.TestCase):
-    def test_current_required_paths_are_tracked_and_not_ignored(self) -> None:
-        for path in CURRENT_REQUIRED:
-            with self.subTest(path=path):
-                self.assertTrue(git_ls_files(path), f"{path} must be tracked")
-                ignored, pattern = git_check_ignore_no_index(path)
-                self.assertFalse(ignored, f"{path} is still ignored by {pattern!r}")
-
-    def test_forbidden_current_looking_stale_paths_absent(self) -> None:
-        for path in FORBIDDEN_CURRENT_LOOKING:
-            with self.subTest(path=path):
-                self.assertFalse(git_ls_files(path), f"{path} must not remain tracked")
-                self.assertFalse((REPO / path).exists(), f"{path} must not remain in the working tree")
+    def test_vcs_path_dispositions(self) -> None:
+        cases = (
+            *(("required", path) for path in CURRENT_REQUIRED),
+            *(("forbidden", path) for path in FORBIDDEN_CURRENT_LOOKING),
+        )
+        for disposition, path in cases:
+            with self.subTest(disposition=disposition, path=path):
+                tracked = git_ls_files(path)
+                if disposition == "required":
+                    self.assertTrue(tracked, f"{path} must be tracked")
+                    ignored, pattern = git_check_ignore_no_index(path)
+                    self.assertFalse(ignored, f"{path} is still ignored by {pattern!r}")
+                else:
+                    self.assertFalse(tracked, f"{path} must not remain tracked")
+                    self.assertFalse(
+                        (REPO / path).exists(),
+                        f"{path} must not remain in the working tree",
+                    )
 
     def test_path_form_normalization_finds_stale_surfaces_only(self) -> None:
         positive_cases = [
@@ -84,17 +90,6 @@ class DvfVcsTrackingPolicyTest(unittest.TestCase):
             with self.subTest(path=path):
                 self.assertTrue(is_forbidden_current_looking_path(path))
         self.assertFalse(is_forbidden_current_looking_path("Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua"))
-
-    def test_package_script_keeps_stale_bridge_guard_surface(self) -> None:
-        script = (REPO / "Iris/tools/package_iris.ps1").read_text(encoding="utf-8")
-        for marker in [
-            "IrisDvfBridgeData.lua",
-            "c5ec93914f4a13c227bf1b3958908b860af768113700cecb4c4496b46ad411aa",
-            "legacy_6_entry_payload_shape",
-            "IrisLayer3Data.lua",
-        ]:
-            with self.subTest(marker=marker):
-                self.assertIn(marker, script)
 
     def test_round3_current_route_tooling_allowlist_stays_narrow(self) -> None:
         closure = json.loads((REPO / ROUND3_CLOSURE_PATH).read_text(encoding="utf-8"))

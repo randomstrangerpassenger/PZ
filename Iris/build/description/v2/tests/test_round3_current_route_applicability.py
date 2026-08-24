@@ -114,34 +114,45 @@ class Round3CurrentRouteApplicabilityTest(unittest.TestCase):
             runner.historical_optional_test_ids(manifest), ["historical.test"]
         )
 
-    def test_historical_optional_artifact_is_not_synthesized_or_required(self) -> None:
+    def test_missing_artifact_applicability_named_cases(self) -> None:
         runner = self.runner
-        with tempfile.TemporaryDirectory() as temporary:
-            missing = Path(temporary) / "missing.json"
-            relative = missing.relative_to(missing.anchor).as_posix()
-            manifest = {
-                "required_artifacts": [
-                    {
-                        "path": relative,
-                        "applicability": "historical_optional_evidence",
-                        "authority_basis_path": "history/manifest.json",
-                        "current_authority_sha256": "b" * 64,
-                    }
-                ]
-            }
-            original_repo = runner.REPO
-            runner.REPO = Path(missing.anchor)
-            try:
-                self.assertEqual(runner.artifact_check_errors(manifest), [])
-                self.assertFalse(missing.exists())
-            finally:
-                runner.REPO = original_repo
-
-    def test_unclassified_missing_artifact_remains_fail_closed(self) -> None:
-        runner = self.runner
-        manifest = {"required_artifacts": [{"path": "missing-current.json"}]}
-        errors = runner.artifact_check_errors(manifest)
-        self.assertEqual(errors[0]["code"], "missing_required_artifact")
+        cases = {
+            "historical_optional": {
+                "path": "missing-history.json",
+                "applicability": "historical_optional_evidence",
+                "expected_code": None,
+            },
+            "unclassified_current": {
+                "path": "missing-current.json",
+                "applicability": None,
+                "expected_code": "missing_required_artifact",
+            },
+        }
+        for case_id, case in cases.items():
+            with self.subTest(case_id=case_id), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                missing = root / case["path"]
+                artifact = {"path": case["path"]}
+                if case["applicability"] is not None:
+                    artifact.update(
+                        {
+                            "applicability": case["applicability"],
+                            "authority_basis_path": "history/manifest.json",
+                            "current_authority_sha256": "b" * 64,
+                        }
+                    )
+                manifest = {"required_artifacts": [artifact]}
+                original_repo = runner.REPO
+                runner.REPO = root
+                try:
+                    errors = runner.artifact_check_errors(manifest)
+                    if case["expected_code"] is None:
+                        self.assertEqual(errors, [])
+                        self.assertFalse(missing.exists())
+                    else:
+                        self.assertEqual(errors[0]["code"], case["expected_code"])
+                finally:
+                    runner.REPO = original_repo
 
 
 if __name__ == "__main__":

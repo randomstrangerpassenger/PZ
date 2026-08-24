@@ -167,69 +167,32 @@ class KoreanProseCompilerTest(unittest.TestCase):
         )
         self.assertEqual(by_role["limitation"]["applicable_proposition_ids"], [])
 
-    def test_generic_lexical_naturalization_realizes_source_work_context(
-        self,
-    ) -> None:
-        grammatical_cohorts = {
-            "action_context": (
-                "장전 준비 작업에서 탄약을 상자에 담을 때 다룬다",
-                "장전 준비하며 탄약을 상자에 담을 때 다룬다",
-            ),
-            "electronic_context": (
-                "전자 작업에서 기기를 분해할 때 다룬다",
-                "전자 기기를 분해할 때 다룬다",
-            ),
-            "kitchen_context": (
-                "주방 작업에서 식기를 꺼낼 때 다룬다",
-                "주방에서 식기를 꺼낼 때 다룬다",
-            ),
-            "relative_use": (
-                "칠하거나 표식을 남기는 작업에 쓰는 도료다",
-                "칠하거나 표식을 남기는 데 쓰는 도료다",
-            ),
-            "nominal_use": (
-                "상처 처치 작업에 쓰는 의료 용품이다",
-                "상처 처치에 쓰는 의료 용품이다",
-            ),
-            "coordinated_material_use": (
-                "재배와 흙 작업에 쓰는 도구다",
-                "재배하거나 흙을 다룰 때 쓰는 도구다",
-            ),
-            "part_context": (
-                "총기 개조 작업에 들어가는 부품이다",
-                "총기 개조에 들어가는 구성품이다",
-            ),
-            "during_context": (
-                "차량 정비 작업 중 배터리를 다룰 때 사용된다",
-                "차량 정비 중 배터리를 다룰 때 쓴다",
-            ),
-            "workplace": (
-                "금속 작업 장소와 작업 현장에서 발견된다",
-                "금속 작업장과 현장에서 발견된다",
-            ),
-            "vehicle": (
-                "작업 차량과 차고에서 발견된다",
-                "현장 차량과 차고에서 발견된다",
-            ),
-            "alternative_use": (
-                "근접 전투나 작업에 함께 쓰는 도구다",
-                "근접 전투에서뿐 아니라 다른 쓰임으로도 쓰는 도구다",
-            ),
+    def test_generic_lexical_naturalization_named_cases(self) -> None:
+        cases = {
+            "action_context": ("장전 준비 작업에서 탄약을 상자에 담을 때 다룬다", "장전 준비하며 탄약을 상자에 담을 때 다룬다", True),
+            "electronic_context": ("전자 작업에서 기기를 분해할 때 다룬다", "전자 기기를 분해할 때 다룬다", True),
+            "kitchen_context": ("주방 작업에서 식기를 꺼낼 때 다룬다", "주방에서 식기를 꺼낼 때 다룬다", True),
+            "relative_use": ("칠하거나 표식을 남기는 작업에 쓰는 도료다", "칠하거나 표식을 남기는 데 쓰는 도료다", True),
+            "nominal_use": ("상처 처치 작업에 쓰는 의료 용품이다", "상처 처치에 쓰는 의료 용품이다", True),
+            "coordinated_material_use": ("재배와 흙 작업에 쓰는 도구다", "재배하거나 흙을 다룰 때 쓰는 도구다", True),
+            "part_context": ("총기 개조 작업에 들어가는 부품이다", "총기 개조에 들어가는 구성품이다", True),
+            "during_context": ("차량 정비 작업 중 배터리를 다룰 때 사용된다", "차량 정비 중 배터리를 다룰 때 쓴다", True),
+            "workplace": ("금속 작업 장소와 작업 현장에서 발견된다", "금속 작업장과 현장에서 발견된다", True),
+            "vehicle": ("작업 차량과 차고에서 발견된다", "현장 차량과 차고에서 발견된다", True),
+            "alternative_use": ("근접 전투나 작업에 함께 쓰는 도구다", "근접 전투에서뿐 아니라 다른 쓰임으로도 쓰는 도구다", True),
+            "preserved_workplace_noun": ("공사 자재 보관 장소와 작업장에서 발견된다", "공사 자재 보관 장소와 작업장에서 발견된다", False),
+            "minimum_form_genitive": ("끈 형태의 재료다", "끈 형태로 된 재료다", True),
         }
-        for cohort, (source, expected) in grammatical_cohorts.items():
+        for cohort, (source, expected, transformed) in cases.items():
             with self.subTest(cohort=cohort):
                 text, transformations = naturalize_source_fragment(source)
                 self.assertEqual(text, expected)
                 self.assertNotRegex(text, r"작업(?!장)")
                 self.assertNotIn("과정", text)
-                self.assertIn("lexical_surface_naturalization", transformations)
-
-    def test_generic_lexical_naturalization_preserves_workplace_noun(self) -> None:
-        text, transformations = naturalize_source_fragment(
-            "공사 자재 보관 장소와 작업장에서 발견된다"
-        )
-        self.assertEqual(text, "공사 자재 보관 장소와 작업장에서 발견된다")
-        self.assertEqual(transformations, [])
+                if transformed:
+                    self.assertIn("lexical_surface_naturalization", transformations)
+                else:
+                    self.assertEqual(transformations, [])
 
     def test_generic_zero_anaphora_fuses_repeated_terminal_identity(self) -> None:
         comb = select_candidate_lead_realization(
@@ -244,11 +207,6 @@ class KoreanProseCompilerTest(unittest.TestCase):
         self.assertEqual(stone[0], "돌망치를 만드는 재료로 쓴다.")
         self.assertIn("suppress_duplicate", comb[1])
         self.assertIn("suppress_duplicate", stone[1])
-
-    def test_generic_minimum_fragment_fuses_form_genitive(self) -> None:
-        text, transformations = naturalize_source_fragment("끈 형태의 재료다")
-        self.assertEqual(text, "끈 형태로 된 재료다")
-        self.assertIn("lexical_surface_naturalization", transformations)
 
     def test_candidate_lead_uses_zero_anaphora_when_identity_is_present(self) -> None:
         text, transformations = render_candidate_lead(

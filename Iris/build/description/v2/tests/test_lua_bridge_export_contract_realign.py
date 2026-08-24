@@ -129,55 +129,42 @@ class LuaBridgeExportContractRealignTest(unittest.TestCase):
             if tmp.exists():
                 shutil.rmtree(tmp)
 
-    def test_protected_live_chunk_destination_is_rejected_before_write(self) -> None:
-        tmp = reset_tmp_dir(
-            external_test_path("_tmp_lua_bridge_live_chunk_rejection")
-        )
+    def test_rejected_destinations_are_named_cases(self) -> None:
+        tmp = reset_tmp_dir(external_test_path("_tmp_lua_bridge_rejection_cases"))
         try:
             rendered_path = tmp / "rendered.json"
             write_rendered(rendered_path)
-
-            with self.assertRaises(BridgeExportContractError):
-                export_lua_bridge_under_test(
-                    rendered_path=rendered_path,
-                    report_path=tmp / "bridge_report.json",
-                    chunk_manifest_path=BRIDGE_CHUNK_MANIFEST_PATH,
-                    chunk_output_dir=BRIDGE_CHUNK_DIR,
-                )
-        finally:
-            if tmp.exists():
-                shutil.rmtree(tmp)
-
-    def test_current_context_and_current_monolith_destination_are_rejected(self) -> None:
-        tmp = reset_tmp_dir(
-            external_test_path("_tmp_lua_bridge_current_rejection")
-        )
-        try:
-            rendered_path = tmp / "rendered.json"
-            write_rendered(rendered_path)
-
-            with self.assertRaises(BridgeExportContractError):
-                export_lua_bridge_under_test(
-                    rendered_path=rendered_path,
-                    report_path=tmp / "current_context_report.json",
-                    bridge_context="current",
-                )
-            with self.assertRaises(BridgeExportContractError):
-                export_lua_bridge_under_test(
-                    rendered_path=rendered_path,
-                    report_path=tmp / "live_monolith_report.json",
-                    bridge_context="historical",
-                    output_format="monolith",
-                    lua_output_path=BRIDGE_DATA_PATH,
-                )
-            with self.assertRaises(BridgeExportContractError):
-                export_lua_bridge_under_test(
-                    rendered_path=rendered_path,
-                    report_path=tmp / "staging_monolith_report.json",
-                    bridge_context="staging",
-                    output_format="monolith",
-                    lua_output_path=tmp / "IrisLayer3Data.lua",
-                )
+            cases = {
+                "protected_live_chunks": {
+                    "report_path": tmp / "bridge_report.json",
+                    "chunk_manifest_path": BRIDGE_CHUNK_MANIFEST_PATH,
+                    "chunk_output_dir": BRIDGE_CHUNK_DIR,
+                },
+                "current_context": {
+                    "report_path": tmp / "current_context_report.json",
+                    "bridge_context": "current",
+                },
+                "live_monolith": {
+                    "report_path": tmp / "live_monolith_report.json",
+                    "bridge_context": "historical",
+                    "output_format": "monolith",
+                    "lua_output_path": BRIDGE_DATA_PATH,
+                },
+                "staging_monolith": {
+                    "report_path": tmp / "staging_monolith_report.json",
+                    "bridge_context": "staging",
+                    "output_format": "monolith",
+                    "lua_output_path": tmp / "IrisLayer3Data.lua",
+                },
+            }
+            for case_id, arguments in cases.items():
+                with self.subTest(case_id=case_id), self.assertRaises(
+                    BridgeExportContractError
+                ):
+                    export_lua_bridge_under_test(
+                        rendered_path=rendered_path,
+                        **arguments,
+                    )
         finally:
             if tmp.exists():
                 shutil.rmtree(tmp)

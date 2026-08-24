@@ -71,23 +71,28 @@ class CurrentAuthoritySourcePathGuardTest(unittest.TestCase):
                     current_authority_paths(**overrides),
                 )
 
-    def test_default_contract_accepts_data_current_authority_inputs(self) -> None:
-        enforce_current_authority_input_contract(DEFAULT_MODE, current_authority_paths())
+    def test_contract_accepts_named_authority_inputs(self) -> None:
+        cases = {
+            "current_data": (DEFAULT_MODE, {}),
+            "diagnostic_non_data": (
+                DIAGNOSTIC_RESOLVER_MODE,
+                {
+                    "facts_path": ROOT / "staging" / "diagnostic" / "facts.jsonl",
+                    "decisions_path": ROOT / "tests" / "fixtures" / "decisions.jsonl",
+                },
+            ),
+        }
+        for case_id, (mode, overrides) in cases.items():
+            with self.subTest(case_id=case_id):
+                enforce_current_authority_input_contract(
+                    mode,
+                    current_authority_paths(**overrides),
+                )
 
     def test_default_entrypoint_uses_current_overlay_support(self) -> None:
         defaults = default_entrypoint_paths(DEFAULT_MODE)
 
         self.assertEqual(defaults["overlay_path"], DATA_DIR / "dvf_3_3_overlay_support.jsonl")
-
-    def test_diagnostic_contract_allows_non_data_diagnostic_readpoint(self) -> None:
-        enforce_current_authority_input_contract(
-            DIAGNOSTIC_RESOLVER_MODE,
-            current_authority_paths(
-                facts_path=ROOT / "staging" / "diagnostic" / "facts.jsonl",
-                decisions_path=ROOT / "tests" / "fixtures" / "decisions.jsonl",
-            ),
-        )
-
 
 if __name__ == "__main__":
     unittest.main()

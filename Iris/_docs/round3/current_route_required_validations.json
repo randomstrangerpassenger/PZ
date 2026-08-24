@@ -2736,12 +2736,8 @@
     {
       "required": true,
       "role": "current_authority_cutover_required_validation",
-      "test_id": "test_lua_bridge_export_contract_realign.LuaBridgeExportContractRealignTest.test_current_context_and_current_monolith_destination_are_rejected"
-    },
-    {
-      "required": true,
-      "role": "current_authority_cutover_required_validation",
-      "test_id": "test_lua_bridge_export_contract_realign.LuaBridgeExportContractRealignTest.test_protected_live_chunk_destination_is_rejected_before_write"
+      "test_id": "test_lua_bridge_export_contract_realign.LuaBridgeExportContractRealignTest.test_rejected_destinations_are_named_cases",
+      "source_file": "Iris/build/description/v2/tests/test_lua_bridge_export_contract_realign.py"
     },
     {
       "required": true,
@@ -2820,12 +2816,8 @@
     {
       "required": true,
       "role": "current_route_applicability_required_validation",
-      "test_id": "test_round3_current_route_applicability.Round3CurrentRouteApplicabilityTest.test_historical_optional_artifact_is_not_synthesized_or_required"
-    },
-    {
-      "required": true,
-      "role": "current_route_applicability_required_validation",
-      "test_id": "test_round3_current_route_applicability.Round3CurrentRouteApplicabilityTest.test_unclassified_missing_artifact_remains_fail_closed"
+      "test_id": "test_round3_current_route_applicability.Round3CurrentRouteApplicabilityTest.test_missing_artifact_applicability_named_cases",
+      "source_file": "Iris/build/description/v2/tests/test_round3_current_route_applicability.py"
     },
     {
       "required": true,
@@ -2835,7 +2827,8 @@
     {
       "required": true,
       "role": "repository_runtime_lightweighting_guard_single_serialization_required_validation",
-      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_allow_path_with_unapproved_current_occurrence_kind_fails"
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_synthetic_guard_scenarios_are_named_cases",
+      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
     },
     {
       "required": true,
@@ -2925,37 +2918,19 @@
     {
       "required": true,
       "role": "repository_runtime_lightweighting_runtime_lookup_identity_required_validation",
-      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_offline_guard_rejects_index_contract_metadata_mutations"
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_lookup_validator_rejects_named_failure_variants",
+      "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py"
     },
     {
       "required": true,
       "role": "repository_runtime_lightweighting_runtime_lookup_identity_required_validation",
-      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_in_repository_output_root_without_write"
-    },
-    {
-      "required": true,
-      "role": "repository_runtime_lightweighting_runtime_lookup_identity_required_validation",
-      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_mutated_layer3_chunk_before_write"
-    },
-    {
-      "required": true,
-      "role": "repository_runtime_lightweighting_runtime_lookup_identity_required_validation",
-      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_mutated_usecase_chunk_before_write"
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_named_output_root_guards_without_write",
+      "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py"
     },
     {
       "required": true,
       "role": "repository_runtime_lightweighting_runtime_lookup_identity_required_validation",
       "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_reparse_alias_into_repository_without_write"
-    },
-    {
-      "required": true,
-      "role": "repository_runtime_lightweighting_runtime_lookup_identity_required_validation",
-      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_stale_layer3_index_hash_before_write"
-    },
-    {
-      "required": true,
-      "role": "repository_runtime_lightweighting_runtime_lookup_identity_required_validation",
-      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_requires_explicit_output_root_without_repository_write"
     },
     {
       "required": true,

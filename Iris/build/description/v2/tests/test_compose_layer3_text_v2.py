@@ -426,33 +426,26 @@ class ComposeLayer3TextV2Test(unittest.TestCase):
         self.assertIn("body_plan", entry)
         self.assertNotIn("quality_flag", entry)
 
-    def test_default_resolver_rejects_legacy_compat_fallback_labels(self) -> None:
-        for legacy_label in ("interaction_tool", "interaction_component", "interaction_output"):
-            with self.subTest(legacy_label=legacy_label):
+    def test_default_resolver_rejects_named_legacy_compat_labels(self) -> None:
+        cases = {
+            "interaction_tool": ("Base.interaction_tool", "interaction_tool"),
+            "interaction_component": ("Base.interaction_component", "interaction_component"),
+            "interaction_output": ("Base.interaction_output", "interaction_output"),
+            "malformed": ("Base.MalformedLegacy", "interaction_tool:malformed"),
+        }
+        for case_id, (item_id, compose_profile) in cases.items():
+            with self.subTest(case_id=case_id):
                 with self.assertRaisesRegex(ValueError, DEFAULT_LEGACY_COMPAT_LABEL_ERROR_CODE):
                     resolve_body_profile(
-                        facts={"item_id": f"Base.{legacy_label}", "identity_hint": "미분류"},
+                        facts={"item_id": item_id, "identity_hint": "미분류"},
                         decision={
-                            "item_id": f"Base.{legacy_label}",
-                            "compose_profile": legacy_label,
+                            "item_id": item_id,
+                            "compose_profile": compose_profile,
                             "selected_role": None,
                         },
                         identity_hint_target_map={},
                         precedence_rules={},
                     )
-
-    def test_default_resolver_rejects_malformed_legacy_compat_label(self) -> None:
-        with self.assertRaisesRegex(ValueError, DEFAULT_LEGACY_COMPAT_LABEL_ERROR_CODE):
-            resolve_body_profile(
-                facts={"item_id": "Base.MalformedLegacy", "identity_hint": "미분류"},
-                decision={
-                    "item_id": "Base.MalformedLegacy",
-                    "compose_profile": "interaction_tool:malformed",
-                    "selected_role": None,
-                },
-                identity_hint_target_map={},
-                precedence_rules={},
-            )
 
     def test_diagnostic_resolver_allows_explicit_legacy_mapping(self) -> None:
         resolved_profile, resolution_source, trace = resolve_body_profile(

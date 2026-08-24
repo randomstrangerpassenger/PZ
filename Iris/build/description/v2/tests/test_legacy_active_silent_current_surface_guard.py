@@ -226,40 +226,73 @@ class LegacyActiveSilentCurrentSurfaceGuardTest(unittest.TestCase):
             census.receipt["excluded_role_counts"]["current_guard_run_output"],
         )
 
-    def test_positive_allowed_surfaces_and_non_label_words_pass(self) -> None:
-        write_text(
-            self.tmp_dir / "docs" / "Iris" / "history.md",
-            "Historical active/silent text and a silent failure note stay quoted.\n",
-        )
-        write_text(
-            self.tmp_dir / "Iris" / "output" / "layer3_stats.json",
-            json.dumps({"active_count": 2084, "silent_count": 21}, indent=2),
-        )
-        write_text(
-            self.tmp_dir / "Iris" / "build" / "description" / "v2" / "staging" / "round" / "report.json",
-            json.dumps({"diagnostic_alias": "active/silent read-only legacy alias"}, indent=2),
-        )
-        write_text(
-            self.tmp_dir / "Iris" / "media" / "lua" / "client" / "Iris" / "Data" / "View.lua",
-            "local activeView = true\n",
-        )
-
-        report = validate_repo(self.tmp_dir, self.manifest(), scan_backend="python")
-
-        self.assertEqual(report["status"], "pass")
-        self.assertTrue(report["summary"]["gate_a_pass"])
-
-    def test_runtime_state_legacy_value_is_owned_by_existing_guard_only(self) -> None:
-        write_text(
-            self.tmp_dir / "Iris" / "build" / "description" / "v2" / "data" / "decisions.jsonl",
-            '{"item_id":"Base.Legacy","state":"active"}\n',
-        )
-
-        report = validate_repo(self.tmp_dir, self.manifest(), scan_backend="python")
-        codes = [error["code"] for error in report["errors"]]
-
-        self.assertIn(DEFAULT_RUNTIME_STATE_ERROR_CODE, codes)
-        self.assertNotIn(CURRENT_SURFACE_ERROR_CODE, codes)
+    def test_synthetic_guard_scenarios_are_named_cases(self) -> None:
+        cases = {
+            "allowed_surfaces": {
+                "files": (
+                    (
+                        self.tmp_dir / "docs" / "Iris" / "history.md",
+                        "Historical active/silent text and a silent failure note stay quoted.\n",
+                    ),
+                    (
+                        self.tmp_dir / "Iris" / "output" / "layer3_stats.json",
+                        json.dumps({"active_count": 2084, "silent_count": 21}, indent=2),
+                    ),
+                    (
+                        self.tmp_dir / "Iris" / "build" / "description" / "v2" / "staging" / "round" / "report.json",
+                        json.dumps({"diagnostic_alias": "active/silent read-only legacy alias"}, indent=2),
+                    ),
+                    (
+                        self.tmp_dir / "Iris" / "media" / "lua" / "client" / "Iris" / "Data" / "View.lua",
+                        "local activeView = true\n",
+                    ),
+                ),
+                "status": "pass",
+                "gate_a_pass": True,
+                "present_codes": (),
+                "absent_codes": (),
+            },
+            "runtime_state_owner": {
+                "files": ((
+                    self.tmp_dir / "Iris" / "build" / "description" / "v2" / "data" / "decisions.jsonl",
+                    '{"item_id":"Base.Legacy","state":"active"}\n',
+                ),),
+                "present_codes": (DEFAULT_RUNTIME_STATE_ERROR_CODE,),
+                "absent_codes": (CURRENT_SURFACE_ERROR_CODE,),
+            },
+            "legacy_metric_rendered": {
+                "files": ((
+                    self.tmp_dir / "Iris" / "output" / "layer3_stats.json",
+                    json.dumps({"label": "active_count"}, indent=2),
+                ),),
+                "present_codes": (LEGACY_METRIC_RENDERED_ERROR_CODE,),
+                "absent_codes": (),
+            },
+            "unapproved_current_occurrence": {
+                "files": ((
+                    self.tmp_dir / "Iris" / "output" / "operator.json",
+                    '{"source":"active"}\n',
+                ),),
+                "gate_a_pass": False,
+                "present_codes": (UNALLOWLISTED_ERROR_CODE,),
+                "absent_codes": (),
+            },
+        }
+        for case_id, case in cases.items():
+            with self.subTest(case_id=case_id):
+                self.reset_workspace()
+                for path, text in case["files"]:
+                    write_text(path, text)
+                report = validate_repo(self.tmp_dir, self.manifest(), scan_backend="python")
+                codes = [error["code"] for error in report["errors"]]
+                if "status" in case:
+                    self.assertEqual(report["status"], case["status"])
+                if "gate_a_pass" in case:
+                    self.assertEqual(report["summary"]["gate_a_pass"], case["gate_a_pass"])
+                for code in case["present_codes"]:
+                    self.assertIn(code, codes)
+                for code in case["absent_codes"]:
+                    self.assertNotIn(code, codes)
 
     def test_current_surface_guard_rejects_named_fixture_variants(self) -> None:
         cases = {
@@ -279,29 +312,6 @@ class LegacyActiveSilentCurrentSurfaceGuardTest(unittest.TestCase):
                 report = validate_repo(self.tmp_dir, self.manifest(), scan_backend="python")
                 codes = [error["code"] for error in report["errors"]]
                 self.assertIn(CURRENT_SURFACE_ERROR_CODE, codes)
-
-    def test_legacy_metric_key_rendered_as_current_label_fails(self) -> None:
-        write_text(
-            self.tmp_dir / "Iris" / "output" / "layer3_stats.json",
-            json.dumps({"label": "active_count"}, indent=2),
-        )
-
-        report = validate_repo(self.tmp_dir, self.manifest(), scan_backend="python")
-        codes = [error["code"] for error in report["errors"]]
-
-        self.assertIn(LEGACY_METRIC_RENDERED_ERROR_CODE, codes)
-
-    def test_allow_path_with_unapproved_current_occurrence_kind_fails(self) -> None:
-        write_text(
-            self.tmp_dir / "Iris" / "output" / "operator.json",
-            '{"source":"active"}\n',
-        )
-
-        report = validate_repo(self.tmp_dir, self.manifest(), scan_backend="python")
-        codes = [error["code"] for error in report["errors"]]
-
-        self.assertIn(UNALLOWLISTED_ERROR_CODE, codes)
-        self.assertFalse(report["summary"]["gate_a_pass"])
 
     def test_allowlist_rejects_named_overbroad_rules(self) -> None:
         cases = {

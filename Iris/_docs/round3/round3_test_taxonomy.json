@@ -18,7 +18,7 @@
   "generated_at": "2026-08-23T00:00:00+09:00",
   "identity_source": "Iris/_docs/round3/round3_legacy_test_identities.json",
   "matrix": {
-    "current+ok": 115
+    "current+ok": 102
   },
   "rows": [
     {
@@ -299,25 +299,11 @@
         "compose_layer3_text"
       ],
       "imports_ignored_reproduction_modules": [],
-      "reason": "tracked current-contract seed",
+      "reason": "regular validation consolidation correction; predecessor checks preserved as named cases",
       "routing_status": "default unittest discovery after D1",
       "source_file": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py",
       "state": "ok",
-      "test_id": "test_compose_layer3_text_v2.ComposeLayer3TextV2Test.test_default_resolver_rejects_legacy_compat_fallback_labels"
-    },
-    {
-      "audit_status": "seed",
-      "contract_class": "current",
-      "imported_build_modules": [
-        "compose_layer3_body_profile",
-        "compose_layer3_text"
-      ],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "tracked current-contract seed",
-      "routing_status": "default unittest discovery after D1",
-      "source_file": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py",
-      "state": "ok",
-      "test_id": "test_compose_layer3_text_v2.ComposeLayer3TextV2Test.test_default_resolver_rejects_malformed_legacy_compat_label"
+      "test_id": "test_compose_layer3_text_v2.ComposeLayer3TextV2Test.test_default_resolver_rejects_named_legacy_compat_labels"
     },
     {
       "audit_status": "seed",
@@ -452,11 +438,11 @@
         "compose_layer3_text"
       ],
       "imports_ignored_reproduction_modules": [],
-      "reason": "tracked current-contract seed",
+      "reason": "regular validation consolidation correction; predecessor checks preserved as named cases",
       "routing_status": "default unittest discovery after D1",
       "source_file": "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py",
       "state": "ok",
-      "test_id": "test_current_authority_source_path_guard.CurrentAuthoritySourcePathGuardTest.test_default_contract_accepts_data_current_authority_inputs"
+      "test_id": "test_current_authority_source_path_guard.CurrentAuthoritySourcePathGuardTest.test_contract_accepts_named_authority_inputs"
     },
     {
       "audit_status": "seed",
@@ -485,50 +471,15 @@
       "test_id": "test_current_authority_source_path_guard.CurrentAuthoritySourcePathGuardTest.test_default_entrypoint_rejects_staging_current_authority_input"
     },
     {
-      "audit_status": "seed",
-      "contract_class": "current",
-      "imported_build_modules": [
-        "compose_layer3_text"
-      ],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "tracked current-contract seed",
-      "routing_status": "default unittest discovery after D1",
-      "source_file": "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py",
-      "state": "ok",
-      "test_id": "test_current_authority_source_path_guard.CurrentAuthoritySourcePathGuardTest.test_diagnostic_contract_allows_non_data_diagnostic_readpoint"
-    },
-    {
       "audit_status": "manual_audit_current_cutover_taxonomy_refresh",
       "contract_class": "current",
       "imported_build_modules": [],
       "imports_ignored_reproduction_modules": [],
-      "reason": "current cutover validation taxonomy refresh; collected by guarded pytest route after current authority migration",
+      "reason": "regular validation consolidation correction; predecessor checks preserved as named cases",
       "routing_status": "current route required validation or current cutover evidence test",
       "source_file": "Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py",
       "state": "ok",
-      "test_id": "test_dvf_vcs_tracking_policy.DvfVcsTrackingPolicyTest.test_current_required_paths_are_tracked_and_not_ignored"
-    },
-    {
-      "audit_status": "manual_audit_current_cutover_taxonomy_refresh",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "current cutover validation taxonomy refresh; collected by guarded pytest route after current authority migration",
-      "routing_status": "current route required validation or current cutover evidence test",
-      "source_file": "Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py",
-      "state": "ok",
-      "test_id": "test_dvf_vcs_tracking_policy.DvfVcsTrackingPolicyTest.test_forbidden_current_looking_stale_paths_absent"
-    },
-    {
-      "audit_status": "manual_audit_current_cutover_taxonomy_refresh",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "current cutover validation taxonomy refresh; collected by guarded pytest route after current authority migration",
-      "routing_status": "current route required validation or current cutover evidence test",
-      "source_file": "Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py",
-      "state": "ok",
-      "test_id": "test_dvf_vcs_tracking_policy.DvfVcsTrackingPolicyTest.test_package_script_keeps_stale_bridge_guard_surface"
+      "test_id": "test_dvf_vcs_tracking_policy.DvfVcsTrackingPolicyTest.test_vcs_path_dispositions"
     },
     {
       "audit_status": "manual_audit_current_cutover_taxonomy_refresh",
@@ -579,11 +530,11 @@
       "contract_class": "current",
       "imported_build_modules": [],
       "imports_ignored_reproduction_modules": [],
-      "reason": "manual audit: Common Change 3 guard single-serialization and fail-closed scan fixture",
+      "reason": "regular validation consolidation correction; predecessor checks preserved as named cases",
       "routing_status": "current route required validation",
       "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
       "state": "ok",
-      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_allow_path_with_unapproved_current_occurrence_kind_fails"
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_synthetic_guard_scenarios_are_named_cases"
     },
     {
       "audit_status": "manual_current",
@@ -641,17 +592,6 @@
       "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_interrupted_object_write_leaves_no_canonical_object"
     },
     {
-      "audit_status": "seed",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "tracked current-contract seed",
-      "routing_status": "default unittest discovery after D1",
-      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
-      "state": "ok",
-      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_legacy_metric_key_rendered_as_current_label_fails"
-    },
-    {
       "audit_status": "manual_current",
       "contract_class": "current",
       "imported_build_modules": [],
@@ -661,17 +601,6 @@
       "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
       "state": "ok",
       "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_old_full_payload_and_new_stream_verdict_parity_on_frozen_named_census"
-    },
-    {
-      "audit_status": "seed",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "tracked current-contract seed",
-      "routing_status": "default unittest discovery after D1",
-      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
-      "state": "ok",
-      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_positive_allowed_surfaces_and_non_label_words_pass"
     },
     {
       "audit_status": "manual_current",
@@ -716,17 +645,6 @@
       "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
       "state": "ok",
       "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_rg_missing_timeout_and_abnormal_exit_fail_loud_without_fallback"
-    },
-    {
-      "audit_status": "seed",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "tracked current-contract seed",
-      "routing_status": "default unittest discovery after D1",
-      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
-      "state": "ok",
-      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_runtime_state_legacy_value_is_owned_by_existing_guard_only"
     },
     {
       "audit_status": "manual_current",
@@ -807,11 +725,11 @@
         "export_dvf_3_3_lua_bridge"
       ],
       "imports_ignored_reproduction_modules": [],
-      "reason": "manual audit: lua bridge export contract realign current default chunk route",
+      "reason": "regular validation consolidation correction; predecessor checks preserved as named cases",
       "routing_status": "current route",
       "source_file": "Iris/build/description/v2/tests/test_lua_bridge_export_contract_realign.py",
       "state": "ok",
-      "test_id": "test_lua_bridge_export_contract_realign.LuaBridgeExportContractRealignTest.test_current_context_and_current_monolith_destination_are_rejected"
+      "test_id": "test_lua_bridge_export_contract_realign.LuaBridgeExportContractRealignTest.test_rejected_destinations_are_named_cases"
     },
     {
       "audit_status": "manual_current",
@@ -838,19 +756,6 @@
       "source_file": "Iris/build/description/v2/tests/test_lua_bridge_export_contract_realign.py",
       "state": "ok",
       "test_id": "test_lua_bridge_export_contract_realign.LuaBridgeExportContractRealignTest.test_explicit_historical_and_diagnostic_monolith_routes_are_preserved"
-    },
-    {
-      "audit_status": "manual_current",
-      "contract_class": "current",
-      "imported_build_modules": [
-        "export_dvf_3_3_lua_bridge"
-      ],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "manual audit: lua bridge export contract realign current default chunk route",
-      "routing_status": "current route",
-      "source_file": "Iris/build/description/v2/tests/test_lua_bridge_export_contract_realign.py",
-      "state": "ok",
-      "test_id": "test_lua_bridge_export_contract_realign.LuaBridgeExportContractRealignTest.test_protected_live_chunk_destination_is_rejected_before_write"
     },
     {
       "audit_status": "manual_current",
@@ -1022,11 +927,11 @@
       "contract_class": "current",
       "imported_build_modules": [],
       "imports_ignored_reproduction_modules": [],
-      "reason": "current required validation manifest classifies this tracked test as current_product_required",
+      "reason": "regular validation consolidation correction; predecessor checks preserved as named cases",
       "routing_status": "current route required validation",
       "source_file": "Iris/build/description/v2/tests/test_round3_current_route_applicability.py",
       "state": "ok",
-      "test_id": "test_round3_current_route_applicability.Round3CurrentRouteApplicabilityTest.test_historical_optional_artifact_is_not_synthesized_or_required"
+      "test_id": "test_round3_current_route_applicability.Round3CurrentRouteApplicabilityTest.test_missing_artifact_applicability_named_cases"
     },
     {
       "audit_status": "required_manifest_current",
@@ -1049,17 +954,6 @@
       "source_file": "Iris/build/description/v2/tests/test_round3_current_route_applicability.py",
       "state": "ok",
       "test_id": "test_round3_current_route_applicability.Round3CurrentRouteApplicabilityTest.test_required_validation_payload_reports_both_applicability_denominators"
-    },
-    {
-      "audit_status": "required_manifest_current",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "current required validation manifest classifies this tracked test as current_product_required",
-      "routing_status": "current route required validation",
-      "source_file": "Iris/build/description/v2/tests/test_round3_current_route_applicability.py",
-      "state": "ok",
-      "test_id": "test_round3_current_route_applicability.Round3CurrentRouteApplicabilityTest.test_unclassified_missing_artifact_remains_fail_closed"
     },
     {
       "audit_status": "required_manifest_current",
@@ -1099,44 +993,22 @@
       "contract_class": "current",
       "imported_build_modules": [],
       "imports_ignored_reproduction_modules": [],
-      "reason": "current required validation manifest classifies this tracked test as current_product_required",
+      "reason": "regular validation consolidation correction; predecessor checks preserved as named cases",
       "routing_status": "current route required validation",
       "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
       "state": "ok",
-      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_offline_guard_rejects_index_contract_metadata_mutations"
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_lookup_validator_rejects_named_failure_variants"
     },
     {
       "audit_status": "required_manifest_current",
       "contract_class": "current",
       "imported_build_modules": [],
       "imports_ignored_reproduction_modules": [],
-      "reason": "current required validation manifest classifies this tracked test as current_product_required",
+      "reason": "regular validation consolidation correction; predecessor checks preserved as named cases",
       "routing_status": "current route required validation",
       "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
       "state": "ok",
-      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_in_repository_output_root_without_write"
-    },
-    {
-      "audit_status": "required_manifest_current",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "current required validation manifest classifies this tracked test as current_product_required",
-      "routing_status": "current route required validation",
-      "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
-      "state": "ok",
-      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_mutated_layer3_chunk_before_write"
-    },
-    {
-      "audit_status": "required_manifest_current",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "current required validation manifest classifies this tracked test as current_product_required",
-      "routing_status": "current route required validation",
-      "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
-      "state": "ok",
-      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_mutated_usecase_chunk_before_write"
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_named_output_root_guards_without_write"
     },
     {
       "audit_status": "required_manifest_current",
@@ -1148,28 +1020,6 @@
       "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
       "state": "ok",
       "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_reparse_alias_into_repository_without_write"
-    },
-    {
-      "audit_status": "required_manifest_current",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "current required validation manifest classifies this tracked test as current_product_required",
-      "routing_status": "current route required validation",
-      "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
-      "state": "ok",
-      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_stale_layer3_index_hash_before_write"
-    },
-    {
-      "audit_status": "required_manifest_current",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "current required validation manifest classifies this tracked test as current_product_required",
-      "routing_status": "current route required validation",
-      "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
-      "state": "ok",
-      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_requires_explicit_output_root_without_repository_write"
     },
     {
       "audit_status": "required_manifest_current",

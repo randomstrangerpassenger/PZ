@@ -557,11 +557,11 @@
       "contract_class": "current",
       "imported_build_modules": [],
       "imports_ignored_reproduction_modules": [],
-      "reason": "tracked current-contract seed",
+      "reason": "table-driven successor preserves the four synthetic allow/fail surface contracts as named subtests",
       "routing_status": "default unittest discovery after D1",
       "source_file": "Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py",
       "state": "ok",
-      "test_id": "test_layer4_absorption_current_surface_guard.Layer4AbsorptionCurrentSurfaceGuardTest.test_current_build_script_consumption_fails_without_explicit_allow"
+      "test_id": "test_layer4_absorption_current_surface_guard.Layer4AbsorptionCurrentSurfaceGuardTest.test_synthetic_surface_dispositions"
     },
     {
       "audit_status": "seed",
@@ -573,39 +573,6 @@
       "source_file": "Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py",
       "state": "ok",
       "test_id": "test_layer4_absorption_current_surface_guard.Layer4AbsorptionCurrentSurfaceGuardTest.test_current_repo_has_no_unauthorized_consumption"
-    },
-    {
-      "audit_status": "seed",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "tracked current-contract seed",
-      "routing_status": "default unittest discovery after D1",
-      "source_file": "Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py",
-      "state": "ok",
-      "test_id": "test_layer4_absorption_current_surface_guard.Layer4AbsorptionCurrentSurfaceGuardTest.test_docs_staging_tests_and_historical_predecessor_are_allowed"
-    },
-    {
-      "audit_status": "seed",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "tracked current-contract seed",
-      "routing_status": "default unittest discovery after D1",
-      "source_file": "Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py",
-      "state": "ok",
-      "test_id": "test_layer4_absorption_current_surface_guard.Layer4AbsorptionCurrentSurfaceGuardTest.test_runtime_lua_consumption_fails"
-    },
-    {
-      "audit_status": "seed",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "tracked current-contract seed",
-      "routing_status": "default unittest discovery after D1",
-      "source_file": "Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py",
-      "state": "ok",
-      "test_id": "test_layer4_absorption_current_surface_guard.Layer4AbsorptionCurrentSurfaceGuardTest.test_source_or_rendered_payload_consumption_fails"
     },
     {
       "audit_status": "manual_current",

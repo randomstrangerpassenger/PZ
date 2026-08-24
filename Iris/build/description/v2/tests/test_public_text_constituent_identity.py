@@ -126,19 +126,18 @@ def protected_snapshot_row(
 
 
 class PublicTextConstituentIdentityTest(unittest.TestCase):
-    def load_attempt_0023_review_fixture(
-        self,
-    ) -> tuple[dict[str, object], dict[str, object]]:
+    @classmethod
+    def setUpClass(cls) -> None:
         attempt_root = (
             V2_ROOT
             / "staging"
             / "dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure"
             / "attempt-0023-compiler-identity-v2-a"
         )
-        sample = acceptance.load_json_strict(
+        cls.review_sample = acceptance.load_json_strict(
             attempt_root / "phase7" / "human_review_sample_manifest.json"
         )
-        decision = acceptance.load_json_strict(
+        cls.review_decision = acceptance.load_json_strict(
             acceptance.REPO_ROOT
             / "Iris"
             / "_docs"
@@ -146,84 +145,56 @@ class PublicTextConstituentIdentityTest(unittest.TestCase):
             / "dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure"
             / "attempt_0023_human_review_decision.json"
         )
-        return sample, decision
-
-    def assert_human_review_technical_blocker(
-        self,
-        decision: dict[str, object],
-    ) -> None:
-        sample, _ = self.load_attempt_0023_review_fixture()
-        with self.assertRaisesRegex(
-            acceptance.FoundationContractError,
-            "human review schema technical blocker",
-        ):
-            acceptance._human_review_blocker_count(
-                review_sample=sample,
-                review_decision=decision,
-                required_denominator=2084,
-            )
 
     def test_attempt_0023_exact_full_review_has_zero_human_review_numerator(
         self,
     ) -> None:
-        sample, decision = self.load_attempt_0023_review_fixture()
         self.assertEqual(
             acceptance._human_review_blocker_count(
-                review_sample=sample,
-                review_decision=decision,
+                review_sample=self.review_sample,
+                review_decision=self.review_decision,
                 required_denominator=2084,
             ),
             0,
         )
 
-    def test_exact_full_review_aggregate_failure_is_technical_blocker(
+    def test_exact_full_review_invalid_variants_are_technical_blockers(
         self,
     ) -> None:
-        _, decision = self.load_attempt_0023_review_fixture()
-        changed = deepcopy(decision)
-        changed["rubric_aggregate"]["readability"] = {
-            "pass": 2083,
-            "fail": 1,
-        }
-        self.assert_human_review_technical_blocker(changed)
-
-    def test_exact_full_review_denominator_mismatch_is_technical_blocker(
-        self,
-    ) -> None:
-        _, decision = self.load_attempt_0023_review_fixture()
-        changed = deepcopy(decision)
-        changed["reviewed_denominator"] = 2083
-        self.assert_human_review_technical_blocker(changed)
-
-    def test_exact_full_review_digest_mismatch_is_technical_blocker(
-        self,
-    ) -> None:
-        _, decision = self.load_attempt_0023_review_fixture()
-        changed = deepcopy(decision)
-        changed["selected_ordered_digest"] = "0" * 64
-        self.assert_human_review_technical_blocker(changed)
-
-    def test_exact_full_review_blocker_list_mismatch_is_technical_blocker(
-        self,
-    ) -> None:
-        _, decision = self.load_attempt_0023_review_fixture()
-        changed = deepcopy(decision)
-        changed["blocker_item_ids"] = ["Base.Axe"]
-        self.assert_human_review_technical_blocker(changed)
-
-    def test_exact_full_review_incomplete_aggregate_is_technical_blocker(
-        self,
-    ) -> None:
-        _, decision = self.load_attempt_0023_review_fixture()
-        changed = deepcopy(decision)
-        del changed["rubric_aggregate"]["public_suitability"]
-        self.assert_human_review_technical_blocker(changed)
-
-    def test_unknown_review_schema_is_technical_blocker(self) -> None:
-        _, decision = self.load_attempt_0023_review_fixture()
-        changed = deepcopy(decision)
-        changed["decision_mode"] = "unknown_future_review_schema"
-        self.assert_human_review_technical_blocker(changed)
+        for case_id in (
+            "aggregate_failure",
+            "denominator_mismatch",
+            "digest_mismatch",
+            "blocker_list_mismatch",
+            "incomplete_aggregate",
+            "unknown_review_schema",
+        ):
+            with self.subTest(case_id=case_id):
+                changed = deepcopy(self.review_decision)
+                if case_id == "aggregate_failure":
+                    changed["rubric_aggregate"]["readability"] = {
+                        "pass": 2083,
+                        "fail": 1,
+                    }
+                elif case_id == "denominator_mismatch":
+                    changed["reviewed_denominator"] = 2083
+                elif case_id == "digest_mismatch":
+                    changed["selected_ordered_digest"] = "0" * 64
+                elif case_id == "blocker_list_mismatch":
+                    changed["blocker_item_ids"] = ["Base.Axe"]
+                elif case_id == "incomplete_aggregate":
+                    del changed["rubric_aggregate"]["public_suitability"]
+                else:
+                    changed["decision_mode"] = "unknown_future_review_schema"
+                with self.assertRaisesRegex(
+                    acceptance.FoundationContractError,
+                    "human review schema technical blocker",
+                ):
+                    acceptance._human_review_blocker_count(
+                        review_sample=self.review_sample,
+                        review_decision=changed,
+                        required_denominator=2084,
+                    )
 
     def test_sampled_uniform_review_contract_is_preserved(self) -> None:
         sample = {"selected_ordered_digest": "a" * 64}

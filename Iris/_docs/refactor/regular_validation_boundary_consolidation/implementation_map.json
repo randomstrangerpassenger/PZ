@@ -1,0 +1,24 @@
+{
+  "schema_version":"iris-regular-validation-consolidation-map-v1",
+  "s0":{"commit":"64754c38147233c4f5e04a7469b45163c2c55ebe","tree":"92810ce35f021bd3dfa65ceafb782a32c2b86258","canonical_result_sha256":"f7ff1095d21d3942e2377441b059b371cbf3d95493c1089c2035b6a902634bd7","execution":238,"taxonomy":123,"manifest":70},
+  "closure":{"execution":{"preserved":217,"mapped":21,"successors":3,"final":220},"taxonomy":{"preserved":119,"mapped":4,"successors":1,"final":120},"manifest":{"preserved":70,"final":70}},
+  "groups":[
+    {
+      "source":"Iris/build/description/v2/tests/test_compiler_particle_adjustment.py","disposition":"table_driven_conversion",
+      "predecessors":["parenthesized_open_uses_euro","parenthesized_sawn_barrel_uses_euro","parenthesized_black_uses_euro","parenthesized_brown_uses_euro","parenthesized_gold_uses_euro","parenthesized_red_uses_euro","parenthesized_rieul_uses_ro","unparenthesized_no_final_consonant_uses_ro","unparenthesized_final_consonant_uses_euro","unparenthesized_rieul_uses_ro","tail_ignores_whitespace_sentence_punctuation_and_closer"],
+      "successor":"append_instrumental_cases","checks":11
+    },
+    {
+      "source":"Iris/build/description/v2/tests/test_public_text_constituent_identity.py","disposition":"same_input_merge",
+      "predecessors":["exact_full_review_aggregate_failure_is_technical_blocker","exact_full_review_denominator_mismatch_is_technical_blocker","exact_full_review_digest_mismatch_is_technical_blocker","exact_full_review_blocker_list_mismatch_is_technical_blocker","exact_full_review_incomplete_aggregate_is_technical_blocker","unknown_review_schema_is_technical_blocker"],
+      "successor":"exact_full_review_invalid_variants_are_technical_blockers","checks":6
+    },
+    {
+      "source":"Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py","disposition":"table_driven_conversion",
+      "predecessors":["docs_staging_tests_and_historical_predecessor_are_allowed","runtime_lua_consumption_fails","source_or_rendered_payload_consumption_fails","current_build_script_consumption_fails_without_explicit_allow"],
+      "successor":"synthetic_surface_dispositions","checks":4
+    }
+  ],
+  "reuse":[{"family":"public_text_review_fixture","operation":"strict_json_load","before":26,"after":2},{"family":"round3_applicability","operation":"runner_import","before":5,"after":1}],
+  "residual_keeps":{"mutable":"case-local mutation/tamper/recovery/concurrency/workspace","process":"Lua, CLI, stdout/stderr and fresh-process","oracle":"distinct compose/package/lifecycle/source/gate observables"}
+}

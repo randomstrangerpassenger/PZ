@@ -24,8 +24,12 @@ def load_runner():
 
 
 class Round3CurrentRouteApplicabilityTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.runner = load_runner()
+
     def test_applicability_authority_hash_uses_decoded_eol_identity(self) -> None:
-        runner = load_runner()
+        runner = self.runner
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             authority = root / "authority.json"
@@ -52,7 +56,7 @@ class Round3CurrentRouteApplicabilityTest(unittest.TestCase):
                 runner.REPO = original_repo
 
     def test_required_validation_payload_reports_both_applicability_denominators(self) -> None:
-        runner = load_runner()
+        runner = self.runner
         manifest = {
             "required_tests": [
                 {"test_id": "current.test", "applicability": "current_product_required"},
@@ -87,7 +91,7 @@ class Round3CurrentRouteApplicabilityTest(unittest.TestCase):
         )
 
     def test_historical_optional_tests_are_retained_but_not_selected(self) -> None:
-        runner = load_runner()
+        runner = self.runner
         manifest = {
             "required_tests": [
                 {"test_id": "current.test", "applicability": "current_product_required"},
@@ -111,7 +115,7 @@ class Round3CurrentRouteApplicabilityTest(unittest.TestCase):
         )
 
     def test_historical_optional_artifact_is_not_synthesized_or_required(self) -> None:
-        runner = load_runner()
+        runner = self.runner
         with tempfile.TemporaryDirectory() as temporary:
             missing = Path(temporary) / "missing.json"
             relative = missing.relative_to(missing.anchor).as_posix()
@@ -134,7 +138,7 @@ class Round3CurrentRouteApplicabilityTest(unittest.TestCase):
                 runner.REPO = original_repo
 
     def test_unclassified_missing_artifact_remains_fail_closed(self) -> None:
-        runner = load_runner()
+        runner = self.runner
         manifest = {"required_artifacts": [{"path": "missing-current.json"}]}
         errors = runner.artifact_check_errors(manifest)
         self.assertEqual(errors[0]["code"], "missing_required_artifact")

@@ -48,6 +48,9 @@ class LegacyActiveSilentCurrentSurfaceGuardTest(unittest.TestCase):
         self.tmp_dir = external_test_path(
             "_tmp_legacy_active_silent_guard"
         )
+        self.reset_workspace()
+
+    def reset_workspace(self) -> None:
         if self.tmp_dir.exists():
             shutil.rmtree(self.tmp_dir)
         self.tmp_dir.mkdir(parents=True, exist_ok=True)
@@ -258,27 +261,24 @@ class LegacyActiveSilentCurrentSurfaceGuardTest(unittest.TestCase):
         self.assertIn(DEFAULT_RUNTIME_STATE_ERROR_CODE, codes)
         self.assertNotIn(CURRENT_SURFACE_ERROR_CODE, codes)
 
-    def test_lua_source_silent_current_surface_fails_with_new_guard(self) -> None:
-        write_text(
-            self.tmp_dir / "Iris" / "media" / "lua" / "client" / "Iris" / "Data" / "IrisLayer3DataChunks" / "Chunk001.lua",
-            'return { ["source"] = "silent" }\n',
-        )
-
-        report = validate_repo(self.tmp_dir, self.manifest(), scan_backend="python")
-        codes = [error["code"] for error in report["errors"]]
-
-        self.assertIn(CURRENT_SURFACE_ERROR_CODE, codes)
-
-    def test_generated_operator_current_label_fails_with_new_guard(self) -> None:
-        write_text(
-            self.tmp_dir / "Iris" / "build" / "description" / "v2" / "output" / "operator_report.json",
-            json.dumps({"current_report_label": "active"}, indent=2),
-        )
-
-        report = validate_repo(self.tmp_dir, self.manifest(), scan_backend="python")
-        codes = [error["code"] for error in report["errors"]]
-
-        self.assertIn(CURRENT_SURFACE_ERROR_CODE, codes)
+    def test_current_surface_guard_rejects_named_fixture_variants(self) -> None:
+        cases = {
+            "lua_source_silent": (
+                self.tmp_dir / "Iris" / "media" / "lua" / "client" / "Iris" / "Data" / "IrisLayer3DataChunks" / "Chunk001.lua",
+                'return { ["source"] = "silent" }\n',
+            ),
+            "generated_operator_current_label": (
+                self.tmp_dir / "Iris" / "build" / "description" / "v2" / "output" / "operator_report.json",
+                json.dumps({"current_report_label": "active"}, indent=2),
+            ),
+        }
+        for case_id, (path, text) in cases.items():
+            with self.subTest(case_id=case_id):
+                self.reset_workspace()
+                write_text(path, text)
+                report = validate_repo(self.tmp_dir, self.manifest(), scan_backend="python")
+                codes = [error["code"] for error in report["errors"]]
+                self.assertIn(CURRENT_SURFACE_ERROR_CODE, codes)
 
     def test_legacy_metric_key_rendered_as_current_label_fails(self) -> None:
         write_text(
@@ -290,23 +290,6 @@ class LegacyActiveSilentCurrentSurfaceGuardTest(unittest.TestCase):
         codes = [error["code"] for error in report["errors"]]
 
         self.assertIn(LEGACY_METRIC_RENDERED_ERROR_CODE, codes)
-
-    def test_too_broad_allowlist_rule_fails(self) -> None:
-        manifest = self.manifest()
-        manifest["allow_surfaces"].append(
-            {
-                "id": "bad",
-                "path_globs": ["Iris/**"],
-                "occurrence_kinds": ["plain_text"],
-                "reason": "too broad",
-                "must_not_be_current_output": True,
-            }
-        )
-
-        report = validate_repo(self.tmp_dir, manifest, scan_backend="python")
-        codes = [error["code"] for error in report["errors"]]
-
-        self.assertIn(ALLOWLIST_TOO_BROAD_ERROR_CODE, codes)
 
     def test_allow_path_with_unapproved_current_occurrence_kind_fails(self) -> None:
         write_text(
@@ -320,22 +303,31 @@ class LegacyActiveSilentCurrentSurfaceGuardTest(unittest.TestCase):
         self.assertIn(UNALLOWLISTED_ERROR_CODE, codes)
         self.assertFalse(report["summary"]["gate_a_pass"])
 
-    def test_allow_rule_cannot_admit_current_label_occurrence_kind(self) -> None:
-        manifest = self.manifest()
-        manifest["allow_surfaces"].append(
-            {
+    def test_allowlist_rejects_named_overbroad_rules(self) -> None:
+        cases = {
+            "too_broad_path": {
+                "id": "bad",
+                "path_globs": ["Iris/**"],
+                "occurrence_kinds": ["plain_text"],
+                "reason": "too broad",
+                "must_not_be_current_output": True,
+            },
+            "current_occurrence_kind": {
                 "id": "forged-current-allow",
                 "path_globs": ["Iris/special/**/*.json"],
                 "occurrence_kinds": ["source_value"],
                 "reason": "forged narrow allow",
                 "must_not_be_current_output": True,
-            }
-        )
-
-        report = validate_repo(self.tmp_dir, manifest, scan_backend="python")
-        codes = [error["code"] for error in report["errors"]]
-
-        self.assertIn(ALLOWLIST_TOO_BROAD_ERROR_CODE, codes)
+            },
+        }
+        for case_id, rule in cases.items():
+            with self.subTest(case_id=case_id):
+                self.reset_workspace()
+                manifest = self.manifest()
+                manifest["allow_surfaces"].append(rule)
+                report = validate_repo(self.tmp_dir, manifest, scan_backend="python")
+                codes = [error["code"] for error in report["errors"]]
+                self.assertIn(ALLOWLIST_TOO_BROAD_ERROR_CODE, codes)
 
     def test_scan_surface_includes_current_historical_and_diagnostic_roles(self) -> None:
         current = self.tmp_dir / "Iris" / "build" / "description" / "v2" / "data" / "decisions.jsonl"

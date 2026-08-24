@@ -18,7 +18,7 @@
   "generated_at": "2026-08-23T00:00:00+09:00",
   "identity_source": "Iris/_docs/round3/round3_legacy_test_identities.json",
   "matrix": {
-    "current+ok": 119
+    "current+ok": 115
   },
   "rows": [
     {
@@ -590,11 +590,11 @@
       "contract_class": "current",
       "imported_build_modules": [],
       "imports_ignored_reproduction_modules": [],
-      "reason": "manual audit: Common Change 3 manifest authorization fixture rejects allow rules that admit current-label kinds",
+      "reason": "table-driven successor resets the workspace and rejects broad path and current-kind allow rules as named cases",
       "routing_status": "current route required validation",
       "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
       "state": "ok",
-      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_allow_rule_cannot_admit_current_label_occurrence_kind"
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_allowlist_rejects_named_overbroad_rules"
     },
     {
       "audit_status": "manual_current",
@@ -623,11 +623,11 @@
       "contract_class": "current",
       "imported_build_modules": [],
       "imports_ignored_reproduction_modules": [],
-      "reason": "tracked current-contract seed",
+      "reason": "table-driven successor resets the workspace and rejects Lua-source and generated-operator current labels as named cases",
       "routing_status": "default unittest discovery after D1",
       "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
       "state": "ok",
-      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_generated_operator_current_label_fails_with_new_guard"
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_current_surface_guard_rejects_named_fixture_variants"
     },
     {
       "audit_status": "manual_current",
@@ -650,17 +650,6 @@
       "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
       "state": "ok",
       "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_legacy_metric_key_rendered_as_current_label_fails"
-    },
-    {
-      "audit_status": "seed",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "tracked current-contract seed",
-      "routing_status": "default unittest discovery after D1",
-      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
-      "state": "ok",
-      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_lua_source_silent_current_surface_fails_with_new_guard"
     },
     {
       "audit_status": "manual_current",
@@ -771,17 +760,6 @@
       "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
       "state": "ok",
       "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_stream_count_and_phase_summary_tampering_fail_loud"
-    },
-    {
-      "audit_status": "seed",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "tracked current-contract seed",
-      "routing_status": "default unittest discovery after D1",
-      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
-      "state": "ok",
-      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_too_broad_allowlist_rule_fails"
     },
     {
       "audit_status": "manual_current",
@@ -1213,26 +1191,11 @@
         "validate_dvf_3_3_complete_generation"
       ],
       "imports_ignored_reproduction_modules": [],
-      "reason": "stateless complete generation determinism, identity-only descriptor, and failure matrix are current-required",
+      "reason": "shared-generation successor preserves path/idempotence and descriptor identity as named checks",
       "routing_status": "current route required validation",
       "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py",
       "state": "ok",
-      "test_id": "test_dvf_3_3_complete_generation.DvfCompleteGenerationTest.test_complete_generation_is_path_independent_and_idempotent"
-    },
-    {
-      "audit_status": "required_manifest_current",
-      "contract_class": "current",
-      "imported_build_modules": [
-        "build_dvf_3_3_complete_generation",
-        "dvf_3_3_generation_contract",
-        "validate_dvf_3_3_complete_generation"
-      ],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "stateless complete generation determinism, identity-only descriptor, and failure matrix are current-required",
-      "routing_status": "current route required validation",
-      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py",
-      "state": "ok",
-      "test_id": "test_dvf_3_3_complete_generation.DvfCompleteGenerationTest.test_descriptor_is_content_identity_not_lifecycle_authority"
+      "test_id": "test_dvf_3_3_complete_generation.DvfCompleteGenerationTest.test_complete_generation_successor_checks"
     },
     {
       "audit_status": "required_manifest_current",
@@ -1299,25 +1262,11 @@
         "dvf_3_3_runtime_compatibility"
       ],
       "imports_ignored_reproduction_modules": [],
-      "reason": "generation-key exact identity, case collision, and runtime payload parity are current-required and do not imply RTC",
+      "reason": "shared-report successor preserves runtime payload and exact case-collision observables as named checks",
       "routing_status": "current route required validation",
       "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_runtime_compatibility.py",
       "state": "ok",
-      "test_id": "test_dvf_3_3_runtime_compatibility.DvfRuntimeCompatibilityTest.test_runtime_full_universe_and_payload_projection_match"
-    },
-    {
-      "audit_status": "required_manifest_current",
-      "contract_class": "current",
-      "imported_build_modules": [
-        "build_dvf_3_3_complete_generation",
-        "dvf_3_3_runtime_compatibility"
-      ],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "generation-key exact identity, case collision, and runtime payload parity are current-required and do not imply RTC",
-      "routing_status": "current route required validation",
-      "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_runtime_compatibility.py",
-      "state": "ok",
-      "test_id": "test_dvf_3_3_runtime_compatibility.DvfRuntimeCompatibilityTest.test_case_collision_boundary_preserves_exact_keys"
+      "test_id": "test_dvf_3_3_runtime_compatibility.DvfRuntimeCompatibilityTest.test_runtime_compatibility_named_checks"
     },
     {
       "audit_status": "p10_successor_promoted_regular_product_contract",

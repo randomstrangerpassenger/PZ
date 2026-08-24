@@ -2840,7 +2840,7 @@
     {
       "required": true,
       "role": "repository_runtime_lightweighting_guard_single_serialization_required_validation",
-      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_allow_rule_cannot_admit_current_label_occurrence_kind"
+      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_allowlist_rejects_named_overbroad_rules"
     },
     {
       "required": true,
@@ -2965,12 +2965,7 @@
     {
       "required": true,
       "role": "dvf_3_3_stateless_generation_required_validation",
-      "test_id": "test_dvf_3_3_complete_generation.DvfCompleteGenerationTest.test_complete_generation_is_path_independent_and_idempotent"
-    },
-    {
-      "required": true,
-      "role": "dvf_3_3_stateless_generation_required_validation",
-      "test_id": "test_dvf_3_3_complete_generation.DvfCompleteGenerationTest.test_descriptor_is_content_identity_not_lifecycle_authority"
+      "test_id": "test_dvf_3_3_complete_generation.DvfCompleteGenerationTest.test_complete_generation_successor_checks"
     },
     {
       "required": true,
@@ -2995,12 +2990,7 @@
     {
       "required": true,
       "role": "dvf_3_3_generation_key_identity_required_validation",
-      "test_id": "test_dvf_3_3_runtime_compatibility.DvfRuntimeCompatibilityTest.test_runtime_full_universe_and_payload_projection_match"
-    },
-    {
-      "required": true,
-      "role": "dvf_3_3_generation_key_identity_required_validation",
-      "test_id": "test_dvf_3_3_runtime_compatibility.DvfRuntimeCompatibilityTest.test_case_collision_boundary_preserves_exact_keys"
+      "test_id": "test_dvf_3_3_runtime_compatibility.DvfRuntimeCompatibilityTest.test_runtime_compatibility_named_checks"
     },
     {
       "required": true,

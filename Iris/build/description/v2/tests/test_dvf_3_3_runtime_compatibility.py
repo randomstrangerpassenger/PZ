@@ -25,17 +25,25 @@ class DvfRuntimeCompatibilityTest(unittest.TestCase):
         build_complete_generation(repository_root=repository, output_root=generation)
         return validate_generation_runtime_compatibility(generation_root=generation)
 
-    def test_runtime_full_universe_and_payload_projection_match(self) -> None:
-        report = self._report()
-        self.assertEqual(report["generation_key_identity_validation"], "PASS")
-        self.assertEqual(report["runtime_projection_payload_mismatch_count"], 0)
-        self.assertEqual(report["exact_duplicate_count"], 0)
-        self.assertEqual(report["claims"]["rtc"], "not_claimed")
+    def test_runtime_compatibility_named_checks(self) -> None:
+        report = None
+        with self.subTest(check_id="shared_generation_and_runtime_report"):
+            try:
+                report = self._report()
+            except Exception as error:  # producer failure is distinct from blocked checks
+                self.fail(f"runtime compatibility producer failed: {error}")
+        if report is None:
+            return
 
-    def test_case_collision_boundary_preserves_exact_keys(self) -> None:
-        report = self._report()
-        groups = [set(group["members"]) for group in report["ascii_lower_collision_groups"]]
-        self.assertIn({"Base.LemonGrass", "Base.Lemongrass"}, groups)
+        with self.subTest(check_id="full_universe_and_payload_projection"):
+            self.assertEqual(report["generation_key_identity_validation"], "PASS")
+            self.assertEqual(report["runtime_projection_payload_mismatch_count"], 0)
+            self.assertEqual(report["exact_duplicate_count"], 0)
+            self.assertEqual(report["claims"]["rtc"], "not_claimed")
+
+        with self.subTest(check_id="case_collision_boundary"):
+            groups = [set(group["members"]) for group in report["ascii_lower_collision_groups"]]
+            self.assertIn({"Base.LemonGrass", "Base.Lemongrass"}, groups)
 
 
 if __name__ == "__main__":

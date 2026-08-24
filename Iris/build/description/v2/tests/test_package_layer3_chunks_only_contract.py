@@ -482,7 +482,7 @@ class PackageLayer3ChunksOnlyContractTest(unittest.TestCase):
             with self.subTest(case_id=case_id):
                 for marker in markers:
                     self.assertIn(marker, script)
-        self.assertNotIn("Remove-Item -LiteralPath $candidate -Force", script)
+                self.assertNotIn("Remove-Item -LiteralPath $candidate -Force", script)
 
     def test_workspace_copy_flow_excludes_stale_dvf_bridge(self) -> None:
         self.assertFalse(ROOT_STALE_DVF_BRIDGE_PATH.exists())

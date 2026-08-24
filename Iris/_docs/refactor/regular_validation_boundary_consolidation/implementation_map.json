@@ -1,9 +1,9 @@
 {
   "schema_version":"iris-regular-validation-consolidation-map-v1",
   "s0":{"commit":"64754c38147233c4f5e04a7469b45163c2c55ebe","tree":"92810ce35f021bd3dfa65ceafb782a32c2b86258","canonical_result":"C:\\Users\\MW\\iccv\\rr1\\canonical_full_result.json","canonical_result_sha256":"f7ff1095d21d3942e2377441b059b371cbf3d95493c1089c2035b6a902634bd7","execution":238,"taxonomy":123,"manifest":70},
-  "external_item_closure":{"path":"C:\\Users\\MW\\iccv\\regular-consolidation-terminal\\item-level-closure.json","sha256":"19f565844feb8beaba02bb05c022b167b56f01b5b6ee57edcb607bce819635ef","execution":238,"taxonomy":123,"manifest":70,"unmapped":0},
+  "external_item_closure":{"path":"C:\\Users\\MW\\iccv\\regular-consolidation-terminal\\item-level-closure-v2.json","sha256":"4e22c40a8482c397624d76136841a258cbd1c520254d09e20cbff909c8016432","execution":238,"taxonomy":123,"manifest":70,"unmapped":0},
   "mapping_rule":"predecessors[i] maps to successor subTest checks[i]",
-  "closure":{"execution":{"preserved":211,"mapped":27,"successors":6,"final":217},"taxonomy":{"preserved":116,"mapped":7,"successors":3,"final":119},"manifest":{"preserved":68,"mapped":2,"successors":1,"final":69}},
+  "closure":{"execution":{"preserved":203,"mapped":35,"successors":10,"final":213},"taxonomy":{"preserved":108,"mapped":15,"successors":7,"final":115},"manifest":{"preserved":63,"mapped":7,"successors":4,"final":67}},
   "groups":[
     {
       "source":"Iris/build/description/v2/tests/test_compiler_particle_adjustment.py","disposition":"table_driven_conversion",
@@ -34,8 +34,28 @@
       "source":"Iris/build/description/v2/tests/test_public_text_constituent_identity.py","disposition":"table_driven_conversion",
       "predecessors":["protected_snapshot_declared_sha_must_match_head_raw","protected_snapshot_non_line_ending_one_byte_change_is_stale"],
       "successor":"protected_snapshot_invalid_text_identities_are_stale","checks":["declared_sha_mismatch","semantic_byte_change"]
+    },
+    {
+      "source":"Iris/build/description/v2/tests/test_dvf_3_3_runtime_compatibility.py","disposition":"shared_core_replacement",
+      "predecessors":["runtime_full_universe_and_payload_projection_match","case_collision_boundary_preserves_exact_keys"],
+      "successor":"runtime_compatibility_named_checks","checks":["full_universe_and_payload_projection","case_collision_boundary"]
+    },
+    {
+      "source":"Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py","disposition":"pipeline_merge",
+      "predecessors":["complete_generation_is_path_independent_and_idempotent","descriptor_is_content_identity_not_lifecycle_authority"],
+      "successor":"complete_generation_successor_checks","checks":["path_independence_and_idempotence","descriptor_content_identity"]
+    },
+    {
+      "source":"Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py","disposition":"table_driven_conversion",
+      "predecessors":["lua_source_silent_current_surface_fails_with_new_guard","generated_operator_current_label_fails_with_new_guard"],
+      "successor":"current_surface_guard_rejects_named_fixture_variants","checks":["lua_source_silent","generated_operator_current_label"]
+    },
+    {
+      "source":"Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py","disposition":"table_driven_conversion",
+      "predecessors":["too_broad_allowlist_rule_fails","allow_rule_cannot_admit_current_label_occurrence_kind"],
+      "successor":"allowlist_rejects_named_overbroad_rules","checks":["too_broad_path","current_occurrence_kind"]
     }
   ],
-  "reuse":[{"family":"public_text_review_fixture","identity":"class 20->14; review cases 6->1; snapshot cases 2->1","operation":"strict_json_load","before":26,"after":2},{"family":"round3_applicability","identity":"5->5","operation":"runner_import","before":5,"after":1},{"family":"package_forbidden_surface","identity":"2->1","operation":"package_script_read","before":2,"after":1}],
+  "reuse":[{"family":"public_text_review_fixture","identity":"class 20->14; review cases 6->1; snapshot cases 2->1","operation":"strict_json_load","before":26,"after":2},{"family":"round3_applicability","identity":"5->5","operation":"runner_import","before":5,"after":1},{"family":"package_forbidden_surface","identity":"2->1","operation":"package_script_read","before":2,"after":1},{"family":"dvf_runtime_compatibility","identity":"2->1","operation":"generation_and_runtime_report","before":2,"after":1},{"family":"dvf_complete_generation","identity":"2->1","operation":"input_copy_and_initial_generation","before":2,"after":1}],
   "residual_keeps":{"membership":"external_item_closure.execution rows with disposition keep_independent","mutable":"case-local mutation/tamper/recovery/concurrency/workspace","process":"Lua, CLI, stdout/stderr and fresh-process","oracle":"distinct compose/package/lifecycle/source/gate observables"}
 }

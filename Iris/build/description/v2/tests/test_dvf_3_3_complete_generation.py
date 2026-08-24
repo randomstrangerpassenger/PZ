@@ -32,32 +32,43 @@ def file_bytes(root: Path) -> dict[str, bytes]:
 
 
 class DvfCompleteGenerationTest(unittest.TestCase):
-    def test_complete_generation_is_path_independent_and_idempotent(self) -> None:
+    def test_complete_generation_successor_checks(self) -> None:
         with tempfile.TemporaryDirectory(prefix="iris-iar-generation-") as temporary:
             root = Path(temporary)
             repository = root / "repository"
             copy_generation_inputs(repository)
             run_a = root / "a" / "generation"
             run_b = root / "long-unicode-경로" / "generation"
-            first = build_complete_generation(repository_root=repository, output_root=run_a)
-            second = build_complete_generation(repository_root=repository, output_root=run_b)
-            self.assertEqual(first["generation_id"], second["generation_id"])
-            self.assertEqual(file_bytes(run_a), file_bytes(run_b))
-            noop = build_complete_generation(repository_root=repository, output_root=run_a)
-            self.assertEqual(noop["status"], "NOOP_ALREADY_GENERATED")
-            self.assertEqual(noop["protected_current_mutation_count"], 0)
+            first = None
+            with self.subTest(check_id="shared_generation_producer"):
+                try:
+                    first = build_complete_generation(repository_root=repository, output_root=run_a)
+                except Exception as error:  # producer failure is distinct from blocked checks
+                    self.fail(f"complete generation producer failed: {error}")
+            if first is None:
+                return
 
-    def test_descriptor_is_content_identity_not_lifecycle_authority(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="iris-iar-descriptor-") as temporary:
-            root = Path(temporary)
-            repository = root / "repository"
-            copy_generation_inputs(repository)
-            generation = root / "generation"
-            build_complete_generation(repository_root=repository, output_root=generation)
-            descriptor = json.loads((generation / DESCRIPTOR_NAME).read_text(encoding="utf-8"))
-            forbidden = {"attempt_id", "transaction_id", "nonce", "receipt_path", "owner_seal", "candidate_path", "generated_at"}
-            self.assertTrue(forbidden.isdisjoint(descriptor))
-            self.assertEqual(descriptor["claims"]["authority_effect"], "none")
+            with self.subTest(check_id="path_independence_and_idempotence"):
+                second = build_complete_generation(repository_root=repository, output_root=run_b)
+                self.assertEqual(first["generation_id"], second["generation_id"])
+                self.assertEqual(file_bytes(run_a), file_bytes(run_b))
+                noop = build_complete_generation(repository_root=repository, output_root=run_a)
+                self.assertEqual(noop["status"], "NOOP_ALREADY_GENERATED")
+                self.assertEqual(noop["protected_current_mutation_count"], 0)
+
+            with self.subTest(check_id="descriptor_content_identity"):
+                descriptor = json.loads((run_a / DESCRIPTOR_NAME).read_text(encoding="utf-8"))
+                forbidden = {
+                    "attempt_id",
+                    "transaction_id",
+                    "nonce",
+                    "receipt_path",
+                    "owner_seal",
+                    "candidate_path",
+                    "generated_at",
+                }
+                self.assertTrue(forbidden.isdisjoint(descriptor))
+                self.assertEqual(descriptor["claims"]["authority_effect"], "none")
 
     def test_complete_generation_failure_matrix_fails_closed(self) -> None:
         cases = [

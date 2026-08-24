@@ -343,6 +343,12 @@ Iris/build/description/v2/tools/build/*
 !Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_work_lexeme_preservation.py
 !Iris/build/description/v2/tests/
 Iris/build/description/v2/tests/*
+!Iris/build/description/v2/tests/test_iris_browser_single_pass_cache_contract.py
+!Iris/build/description/v2/tests/test_iris_line_count_lazy_validation.py
+!Iris/build/description/v2/tests/test_iris_object_access_fast_path.py
+!Iris/build/description/v2/tests/test_iris_session_cache_ownership.py
+!Iris/build/description/v2/tests/test_iris_tags_public_surface_isolation.py
+!Iris/build/description/v2/tests/test_iris_viewmodel_allocation_contract.py
 !Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py
 !Iris/build/description/v2/tests/test_dvf_3_3_generation_install.py
 !Iris/build/description/v2/tests/test_dvf_3_3_runtime_compatibility.py

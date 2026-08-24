@@ -1,6 +1,7 @@
 {
   "schema_version": "iris-temporary-validation-physical-retirement-summary-v1",
-  "state": "survivor_correction_terminal_validation_and_full_range_review_pass_p10_blocked_dirty_main_evidence",
+  "state": "temporary_validation_physical_retirement_complete_p10_owner_waiver",
+  "completion_token": "temporary_validation_physical_retirement__complete",
   "authority": {
     "s0_commit": "fd0504817af8c1031ac794391cf67d129c8db54c",
     "s0_tree": "395ec36de921987299fa9a9d9bb46118b74160a5",
@@ -45,7 +46,10 @@
     "predecessor_registration_and_toolchain_path_set_sha256": "15ab94186759fe84477db926010d966701404455316f543ce580464baffad407",
     "active_target_residue": 0,
     "unfinished_migration": 0,
-    "outside_predecessor_inventory_callable_removals": 1
+    "outside_predecessor_inventory_callable_removals": 1,
+    "promoted_regular_product_contract_source_families": 6,
+    "promoted_regular_product_contract_identities": 13,
+    "canonical_keep_source_missing_from_clean_checkout": 0
   },
   "dirty_main_transaction": {
     "removed_files": 163,
@@ -53,15 +57,24 @@
     "removed_raw_bytes": 901270,
     "already_absent_files_not_counted": 14,
     "already_absent_identities_not_counted": 17,
-    "surviving_product_source_families": 6,
-    "surviving_product_identities": 13,
+    "formerly_local_only_product_source_families_promoted_canonical": 6,
+    "formerly_local_only_product_identities_promoted_canonical": 13,
+    "local_only_canonical_regular_source_families": 0,
+    "local_only_canonical_regular_identities": 0,
     "survivor_hash_mismatch": 0,
     "archive_manifest_sha256": "c96384833086afda99fe9181af1dcb15c70526d8f05c4a2e9db36ff87f9d0526",
     "fresh_root_restore_receipt_sha256": "7b05dd6e8ee1943684c98a8e11a6998852bfc7448c5f9f674c13396321ffbf6c",
+    "archive_manifest_hash_reference_classification": "historical_unresolved_hash_reference",
+    "fresh_root_restore_receipt_hash_reference_classification": "historical_unresolved_hash_reference",
+    "archive_locator": null,
+    "restore_receipt_locator": null,
     "active_target_residue": 0,
     "metric_domain": "ignored_or_untracked_dirty_main_only",
-    "evidence_binding_state": "BLOCKED_MISSING_DISCOVERABLE_ARCHIVE_AND_RESTORE_LOCATORS",
+    "evidence_binding_state": "WAIVED_NOT_REQUIRED_FOR_P10_BY_PROJECT_OWNER",
     "prior_counts_are_historical_report_only": true,
+    "canonical_metric_eligible": false,
+    "archive_and_restore_requirements": "waived_by_project_owner",
+    "restoration_intent": "none",
     "outside_overlay_not_regular_not_registered_files": 32,
     "additional_physical_action": "none"
   },
@@ -91,14 +104,32 @@
     "correction_terminal_test_tooling_loc": 233510,
     "s0_to_correction_terminal_test_tooling_loc_delta": -25973,
     "correction_current_taxonomy_rows": 110,
-    "correction_terminal_execution_units": 225
+    "correction_terminal_execution_units": 225,
+    "successor_current_taxonomy_rows": 123,
+    "successor_required_validation_rows": 70,
+    "successor_configured_pytest_collection": 244,
+    "successor_full_gate_pytest_identities": 234,
+    "successor_standalone_validations": 4,
+    "successor_required_execution_units": 238
   },
   "terminal_subject": {
     "definition": "exact survivor-correction implementation commit; this additive post-validation carrier does not redefine it",
-    "exact_commit": "99585ff2a4738055d12aa2f7b42cf74d06f13860",
-    "exact_tree": "944f7e66692ab30453f3ddf39ce71f2461f2e43d",
+    "exact_commit": "052ef0e5c90282ef9afac830bb4491b36d4e92fc",
+    "exact_tree": "9a952fab3442bea45cada05a4b660245f978a27e",
     "validation": "PASS",
-    "independent_review": "PASS_FULL_RANGE_S0_TO_S1_ZERO_ACTIONABLE_FINDINGS"
+    "independent_review": "PASS_FULL_RANGE_S0_TO_WALKTHROUGH_CORRECTION_ZERO_ACTIONABLE_FINDINGS"
   },
-  "claim_ceiling": "Validation executable survivor correction only. Dirty-main archive/restore safety is not independently re-claimed until discoverable external locators are rebound. No runtime, performance, token, release, Publish, RTC, B42, or public-text acceptance claim is made."
+  "p10": {
+    "status": "PASS",
+    "authority": "project_owner_explicit_waiver",
+    "waived_requirements": [
+      "archive_manifest",
+      "per_file_deletion_rationale",
+      "predeletion_source_retention",
+      "fresh_root_restore_receipt"
+    ],
+    "canonical_baseline": "052ef0e5c90282ef9afac830bb4491b36d4e92fc",
+    "canonical_required_execution_units": 238
+  },
+  "claim_ceiling": "Validation executable physical retirement complete on canonical baseline 052ef0e5. Dirty-main 163-file/335-identity/901270-byte figures remain non-canonical historical observations and are not merged into tracked retirement metrics. No archive or restoration success is claimed. No runtime, performance, token, release, Publish, RTC, B42, or public-text acceptance claim is made."
 }

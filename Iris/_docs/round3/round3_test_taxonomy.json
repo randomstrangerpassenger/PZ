@@ -18,7 +18,7 @@
   "generated_at": "2026-08-23T00:00:00+09:00",
   "identity_source": "Iris/_docs/round3/round3_legacy_test_identities.json",
   "matrix": {
-    "current+ok": 110
+    "current+ok": 123
   },
   "rows": [
     {
@@ -1362,6 +1362,149 @@
       "source_file": "Iris/build/description/v2/tests/test_dvf_3_3_runtime_compatibility.py",
       "state": "ok",
       "test_id": "test_dvf_3_3_runtime_compatibility.DvfRuntimeCompatibilityTest.test_case_collision_boundary_preserves_exact_keys"
+    },
+    {
+      "audit_status": "p10_successor_promoted_regular_product_contract",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "promoted from an exact-hash-matched ignored local survivor to a clean-checkout recurring Browser product contract",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_browser_single_pass_cache_contract.py",
+      "state": "ok",
+      "test_id": "test_iris_browser_single_pass_cache_contract.IrisBrowserSinglePassCacheContractTest.test_browser_acceptance_harness_exercises_single_pass_and_locale_owner"
+    },
+    {
+      "audit_status": "p10_successor_promoted_regular_product_contract",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "promoted from an exact-hash-matched ignored local survivor to a clean-checkout recurring Browser product contract",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_browser_single_pass_cache_contract.py",
+      "state": "ok",
+      "test_id": "test_iris_browser_single_pass_cache_contract.IrisBrowserSinglePassCacheContractTest.test_row_cache_and_scalar_classification_contract"
+    },
+    {
+      "audit_status": "p10_successor_promoted_regular_product_contract",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "promoted from an exact-hash-matched ignored local survivor to a clean-checkout recurring lazy metadata validation contract",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_line_count_lazy_validation.py",
+      "state": "ok",
+      "test_id": "test_iris_line_count_lazy_validation.IrisLineCountLazyValidationTest.test_first_demand_metadata_state_matrix"
+    },
+    {
+      "audit_status": "p10_successor_promoted_regular_product_contract",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "promoted from an exact-hash-matched ignored local survivor to a clean-checkout recurring lazy metadata validation contract",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_line_count_lazy_validation.py",
+      "state": "ok",
+      "test_id": "test_iris_line_count_lazy_validation.IrisLineCountLazyValidationTest.test_lookup_module_has_no_top_level_index_require"
+    },
+    {
+      "audit_status": "p10_successor_promoted_regular_product_contract",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "promoted from an exact-hash-matched ignored local survivor to a clean-checkout recurring Lua object-access compatibility contract",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_object_access_fast_path.py",
+      "state": "ok",
+      "test_id": "test_iris_object_access_fast_path.IrisObjectAccessFastPathTest.test_fixed_arity_lua_result_shape_parity"
+    },
+    {
+      "audit_status": "p10_successor_promoted_regular_product_contract",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "promoted from an exact-hash-matched ignored local survivor to a clean-checkout recurring Lua object-access compatibility contract",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_object_access_fast_path.py",
+      "state": "ok",
+      "test_id": "test_iris_object_access_fast_path.IrisObjectAccessFastPathTest.test_generic_production_path_is_not_routed_without_new_pz_evidence"
+    },
+    {
+      "audit_status": "p10_successor_promoted_regular_product_contract",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "promoted from an exact-hash-matched ignored local survivor to a clean-checkout recurring session-cache ownership contract",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_session_cache_ownership.py",
+      "state": "ok",
+      "test_id": "test_iris_session_cache_ownership.IrisSessionCacheOwnershipTest.test_cache_field_census_is_complete_and_session_candidate_free"
+    },
+    {
+      "audit_status": "p10_successor_promoted_regular_product_contract",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "promoted from an exact-hash-matched ignored local survivor to a clean-checkout recurring session-cache ownership contract",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_session_cache_ownership.py",
+      "state": "ok",
+      "test_id": "test_iris_session_cache_ownership.IrisSessionCacheOwnershipTest.test_no_production_session_reset_wiring_was_added"
+    },
+    {
+      "audit_status": "p10_successor_promoted_regular_product_contract",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "promoted from an exact-hash-matched ignored local survivor to a clean-checkout recurring session-cache ownership contract",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_session_cache_ownership.py",
+      "state": "ok",
+      "test_id": "test_iris_session_cache_ownership.IrisSessionCacheOwnershipTest.test_phase_0b_absence_only_defers_timing_branches"
+    },
+    {
+      "audit_status": "p10_successor_promoted_regular_product_contract",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "promoted from an exact-hash-matched ignored local survivor to a clean-checkout recurring public Tags API isolation contract",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_tags_public_surface_isolation.py",
+      "state": "ok",
+      "test_id": "test_iris_tags_public_surface_isolation.IrisTagsPublicSurfaceIsolationTest.test_public_exports_remain_frozen_and_backing_tables_are_unreachable"
+    },
+    {
+      "audit_status": "p10_successor_promoted_regular_product_contract",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "promoted from an exact-hash-matched ignored local survivor to a clean-checkout recurring public Tags API isolation contract",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_tags_public_surface_isolation.py",
+      "state": "ok",
+      "test_id": "test_iris_tags_public_surface_isolation.IrisTagsPublicSurfaceIsolationTest.test_tags_and_iris_api_do_not_export_browser_raw_accessors"
+    },
+    {
+      "audit_status": "p10_successor_promoted_regular_product_contract",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "promoted from an exact-hash-matched ignored local survivor to a clean-checkout recurring ViewModel allocation contract",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_viewmodel_allocation_contract.py",
+      "state": "ok",
+      "test_id": "test_iris_viewmodel_allocation_contract.IrisViewModelAllocationContractTest.test_dynamic_debug_owners_have_caller_side_guards"
+    },
+    {
+      "audit_status": "p10_successor_promoted_regular_product_contract",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "promoted from an exact-hash-matched ignored local survivor to a clean-checkout recurring ViewModel allocation contract",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_iris_viewmodel_allocation_contract.py",
+      "state": "ok",
+      "test_id": "test_iris_viewmodel_allocation_contract.IrisViewModelAllocationContractTest.test_method_lists_are_module_constants_and_hints_are_once_per_item"
     }
   ],
   "schema_version": "round3-test-taxonomy-v1"

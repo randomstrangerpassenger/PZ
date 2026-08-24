@@ -95,6 +95,30 @@
       {
         "path": "Iris/build/description/v2/tests/test_dvf_3_3_runtime_compatibility.py",
         "reason": "current stateless generation-key identity and runtime payload parity contract"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_iris_browser_single_pass_cache_contract.py",
+        "reason": "promoted recurring Browser single-pass cache and locale-owner product contract"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_iris_line_count_lazy_validation.py",
+        "reason": "promoted recurring lazy metadata validation product contract"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_iris_object_access_fast_path.py",
+        "reason": "promoted recurring Lua object-access result-shape and routing product contract"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_iris_session_cache_ownership.py",
+        "reason": "promoted recurring cache ownership and session-reset product contract"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_iris_tags_public_surface_isolation.py",
+        "reason": "promoted recurring public Tags API isolation product contract"
+      },
+      {
+        "path": "Iris/build/description/v2/tests/test_iris_viewmodel_allocation_contract.py",
+        "reason": "promoted recurring ViewModel allocation and debug-guard product contract"
       }
     ],
     "explicit_dedicated_route_sources": [

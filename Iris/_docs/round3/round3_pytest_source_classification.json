@@ -13,18 +13,18 @@
     "taxonomy_unknown_sources_reviewed": 18,
     "pytest_ini_ignored_sources_reviewed": 3,
     "known_collection_blockers_reviewed": 0,
-    "taxonomy_sources_missing_from_current_tree": 6
+    "taxonomy_sources_missing_from_current_tree": 0
   },
   "source_set_binding": {
     "canonicalization": "sorted repository-relative source paths joined with LF and a terminal LF",
     "tracked_policy_sources": {
-      "count": 43,
-      "sha256": "039dfb2b9e8048732642fcfbcda9ae370835f351bcdfb7025f2d4a3675a82337"
+      "count": 49,
+      "sha256": "880d58eca60b2786794fd9a96ca7dd22e072219d0ca8f552ed4011eeefb6b40c"
     },
     "approved_clean_checkout_absent_policy_sources": {
-      "count": 6,
-      "sha256": "51ace6f8abddb29965a0a836f3d58850d9cd317e706fc5e09ea200a7b1bf7e78",
-      "basis": "Exact policy sources that were not Git-tracked at owner approval; this set may exist in an ignored local checkout but may be absent from a clean checkout."
+      "count": 0,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "basis": "No approved absent policy source remains after exact promotion of the six recurring Iris product-contract families."
     }
   },
   "reviewed_sources": [

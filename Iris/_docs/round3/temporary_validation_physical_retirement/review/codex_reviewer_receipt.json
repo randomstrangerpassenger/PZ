@@ -1,0 +1,34 @@
+{
+  "schema_version": "iris-codex-reviewer-receipt-v1",
+  "captured_at_utc": "2026-08-24T05:36:34.6883520Z",
+  "captured_at_kst": "2026-08-24T14:36:34.6910673+09:00",
+  "reviewer": "Codex Reviewer",
+  "execution": {
+    "model": "gpt-5.5",
+    "reasoning_effort": "high",
+    "service_tier": "fast",
+    "sandbox": "read-only",
+    "exit_code": 0,
+    "tests_builds_validators_formatters_generators_package_managers_or_scripts_run": false
+  },
+  "subject": {
+    "range": "fd0504817af8c1031ac794391cf67d129c8db54c..f1130bdcf0904684873b62430a3ed3e053508b36",
+    "implementation_terminal_commit": "052ef0e5c90282ef9afac830bb4491b36d4e92fc",
+    "implementation_terminal_tree": "9a952fab3442bea45cada05a4b660245f978a27e",
+    "review_endpoint_commit": "f1130bdcf0904684873b62430a3ed3e053508b36",
+    "review_endpoint_tree": "abd3bee6dfec3ece44c583094923a1fdd18d0f28"
+  },
+  "result": {
+    "verdict": "PASS",
+    "actionable_finding_count": 0,
+    "findings": [],
+    "prior_actionable_findings_resolved": 4,
+    "p8": "PASS",
+    "p10": "WITHHELD_MISSING_DISCOVERABLE_ARCHIVE_AND_RESTORE_LOCATORS"
+  },
+  "raw_output": {
+    "locator": "Iris/_docs/round3/temporary_validation_physical_retirement/review/codex_reviewer_s0_to_walkthrough_correction.txt",
+    "sha256": "7e5af35f8cbaf4fcb26c6cdc9213192d76273c95f3e1cd9a188cd94b7ab1c1ac"
+  },
+  "claim_boundary": "Independent read-only review of the bounded physical-retirement implementation and closeout correction. This receipt is not a validator, does not redefine implementation S1, and does not complete the unresolved dirty-main archive/restore safety domain."
+}

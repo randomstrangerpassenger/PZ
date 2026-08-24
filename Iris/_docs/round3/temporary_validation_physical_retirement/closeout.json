@@ -1,7 +1,7 @@
 {
   "schema_version": "iris-temporary-validation-physical-retirement-closeout-v1",
-  "state": "survivor_correction_terminal_validation_and_full_range_review_pass_p10_blocked_dirty_main_evidence",
-  "completion_token": null,
+  "state": "temporary_validation_physical_retirement_complete_p10_owner_waiver",
+  "completion_token": "temporary_validation_physical_retirement__complete",
   "predecessor_terminal_subject": {
     "commit": "b0fe69b1406d4f8353a2278cff6cc9b71738f0b8",
     "tree": "2e7f2c8e1693586284d5aedb3f8cc05cce29f12e"
@@ -14,7 +14,11 @@
     "predecessor_current_contract_loss": 0,
     "active_target_residue": 0,
     "unresolved_or_unauthorized_mutation": 0,
-    "survivor_correction": "terminal_validation_and_full_range_review_pass"
+    "survivor_correction": "six_local_only_families_promoted_to_canonical_tracked_regular_product_contract",
+    "promoted_regular_product_contract_files": 6,
+    "promoted_regular_product_contract_identities": 13,
+    "canonical_keep_source_missing_from_clean_checkout": 0,
+    "local_nonregistered_validator_like_sources": 32
   },
   "predecessor_terminal_validation": {
     "state": "PASS",
@@ -87,25 +91,107 @@
     "source_checkout_mutation": 0,
     "external_execution_mutation": 0
   },
+  "successor_terminal_subject": {
+    "commit": "052ef0e5c90282ef9afac830bb4491b36d4e92fc",
+    "tree": "9a952fab3442bea45cada05a4b660245f978a27e"
+  },
+  "successor_terminal_validation": {
+    "state": "PASS",
+    "python_syntax": "6_promoted_surviving_python_files_exit_0",
+    "focused_clean_checkout_tests": "47_passed_exit_0",
+    "current_runner": "123_tests_OK_exit_0",
+    "configured_collection": "244_collected_exit_0",
+    "current_taxonomy_rows": 123,
+    "required_validation_rows": 70,
+    "clean_checkout_run_a": {
+      "status": "PASS",
+      "native_exit_code": 0,
+      "orchestration_receipt_sha256": "7495018a194c455a4d025e0bf5f0cf0d5dfb8d0645dcb5ac0d200cf076521a3b",
+      "inner_run_receipt_sha256": "47362794f6655487c9dd0e1ae7e277b256c25873ac37431b8709ec27132d2f06"
+    },
+    "clean_checkout_run_b": {
+      "status": "PASS",
+      "native_exit_code": 0,
+      "orchestration_receipt_sha256": "821100d5eaa532b10be2f2f5454af9d63e2749aa0e3224b082c38d99b318453a",
+      "inner_run_receipt_sha256": "3cb64be12d9c33a0e711c86c10f11f7e4754d7fc1964b12d894b626c7f1b78be"
+    },
+    "deterministic_comparator": {
+      "status": "PASS",
+      "exit_code": 0,
+      "receipt_sha256": "a534f5da785864e2b40783a5ae0035f2d0121a6319535ee9f9d967ddf92e9d1e",
+      "canonical_result_sha256": "2c364aeb7ee9b322060ba6080f780b85a0f7fc38e2f506cf047064b888687d61",
+      "canonical_fingerprint_sha256": "aee95b7a7fd36df95bcd9f76028e55c9a2512da40c7f36a0cadc5c3644817dbb",
+      "pytest_identity_count": 234,
+      "standalone_validation_count": 4,
+      "required_execution_unit_count": 238
+    },
+    "guard_negative_probe": "expected_nonzero_exit_3_after_one_promoted_current_source_deletion_expected_49_observed_48",
+    "fully_retired_source_targets": 262,
+    "tracked_target_residue": 0,
+    "dirty_main_target_residue": 0,
+    "source_checkout_mutation": 0,
+    "external_execution_mutation": 0,
+    "git_diff_check": "exit_0"
+  },
   "independent_review": {
     "required_by": "P8",
     "reviewer": "Codex Reviewer",
-    "state": "PASS_FULL_RANGE_S0_TO_S1",
-    "subject_range": "fd0504817af8c1031ac794391cf67d129c8db54c..99585ff2a4738055d12aa2f7b42cf74d06f13860",
+    "state": "PASS_FULL_RANGE_S0_TO_WALKTHROUGH_CORRECTION_ZERO_ACTIONABLE_FINDINGS",
+    "subject_range": "fd0504817af8c1031ac794391cf67d129c8db54c..f1130bdcf0904684873b62430a3ed3e053508b36",
     "exit_code": 0,
     "actionable_finding_count": 0,
-    "prior_findings_resolved": 2,
-    "completion_token_withheld": true,
-    "completion_token_withheld_reason": "P10 remains blocked by missing discoverable dirty-main archive and restore locators"
+    "finding_ids": [],
+    "finding_resolution": "all four prior actionable findings are resolved; predecessor 99585ff2/110/225 is historical and successor 052ef0e5/123/244/238 is current",
+    "raw_output_locator": "Iris/_docs/round3/temporary_validation_physical_retirement/review/codex_reviewer_s0_to_walkthrough_correction.txt",
+    "raw_output_sha256": "7e5af35f8cbaf4fcb26c6cdc9213192d76273c95f3e1cd9a188cd94b7ab1c1ac",
+    "receipt_locator": "Iris/_docs/round3/temporary_validation_physical_retirement/review/codex_reviewer_receipt.json",
+    "prior_findings_resolved": 4,
+    "completion_token_withheld": false,
+    "completion_token_withheld_reason": null
   },
   "post_validation_rule": "An additive closeout may record the exact terminal subject and results but does not redefine that subject.",
   "claim_ceiling": "No product/runtime, historical replay, performance, release, Workshop, deployment, RTC, Publish, B42, in-game, or public-text quality claim.",
+  "owner_completion_decision": {
+    "p10": "PASS",
+    "authority": "project_owner_explicit_waiver",
+    "decision": "archive manifest, per-file deletion rationale, pre-deletion source retention, and fresh-root restoration receipt are not completion requirements for already-deleted ignored/untracked dirty-main validation artifacts",
+    "restoration_intent": "none",
+    "historical_dirty_main_observation": {
+      "ignored_or_untracked_local_files": 163,
+      "validation_identities": 335,
+      "raw_bytes": 901270,
+      "canonical_metric_eligible": false
+    },
+    "canonical_completion_basis": {
+      "successor_implementation_baseline": "052ef0e5c90282ef9afac830bb4491b36d4e92fc",
+      "retired_target_registered_in_current_authority": 0,
+      "pytest_identities": 234,
+      "standalone_checks": 4,
+      "required_execution_units": 238,
+      "terminal_validation": "PASS",
+      "p8_independent_review": "PASS"
+    }
+  },
   "dirty_main_evidence_binding": {
-    "state": "BLOCKED_MISSING_DISCOVERABLE_ARCHIVE_AND_RESTORE_LOCATORS",
+    "state": "WAIVED_NOT_REQUIRED_FOR_P10_BY_PROJECT_OWNER",
     "archive_manifest_sha256": "c96384833086afda99fe9181af1dcb15c70526d8f05c4a2e9db36ff87f9d0526",
     "fresh_root_restore_receipt_sha256": "7b05dd6e8ee1943684c98a8e11a6998852bfc7448c5f9f674c13396321ffbf6c",
+    "archive_manifest_hash_reference_classification": "historical_unresolved_hash_reference",
+    "fresh_root_restore_receipt_hash_reference_classification": "historical_unresolved_hash_reference",
     "archive_locator": null,
     "restore_receipt_locator": null,
-    "claim": "prior hashes retained as historical report; safe archive/restore completion is not independently re-claimed"
+    "archive_manifest_requirement": "waived",
+    "fresh_root_restore_requirement": "waived",
+    "individual_deletion_rationale_requirement": "waived",
+    "predeletion_source_retention_requirement": "waived",
+    "restoration_intent": "none",
+    "canonical_metric_eligible": false,
+    "bounded_search": {
+      "repository_candidate_files_hashed": 2199,
+      "exact_hash_matches": 0,
+      "known_external_roots_found": 0,
+      "summary_string_references_are_not_locators": true
+    },
+    "claim": "prior hashes and null locators remain historical unresolved references; they are not claimed as found or verified and are no longer P10 completion requirements"
   }
 }

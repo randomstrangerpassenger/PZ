@@ -964,3 +964,13 @@ Iris Browser의 current detail path는 지원 locale에서 알려진 정보를 �
 - Layer 4는 `UseCases._getDescriptionState()`의 status-bearing 결과를 Detail ViewModel의 `interactionState`로 전달한다. collector/projection은 이를 표시 row로 정규화하고 policy/state/renderer가 단일·소규모·고밀도 표시, compact/full 전환, 검색, recipe navigation을 담당한다.
 - Layer 4 UI state는 item과 locale owner에 결속된다. item 또는 locale이 바뀌면 이전 검색·확장 상태가 새 detail에 누출되지 않으며, Recipe와 Right-click은 독립된 동등 surface로 유지된다.
 - Python localization builder와 Layer 4 projection tooling은 offline producer다. PZ runtime은 Lua만 사용하며, 이 producer를 runtime semantic authority나 새 validation authority로 해석하지 않는다.
+
+### Iris validation successor canonical-presence boundary
+
+Iris retirement successor는 product/runtime architecture를 바꾸지 않는다. 기존 dirty-main local-only 상태였던 6 family/13 product-contract identity를 exact source bytes 그대로 tracked canonical source로 승격하고, taxonomy·required manifest·full-gate source classification을 같은 집합에 맞춘다.
+
+`dirty local survivor (6 families / 13 identities) -> exact .gitignore allow rules -> tracked canonical product-contract source (6 / 13) -> current taxonomy 123 -> required manifest 70 -> configured collection 244 -> full gate 234 pytest + 4 standalone`
+
+이 경로는 source presence와 current execution denominator를 결속하지만 product semantics나 regular survivor classification을 새로 정의하지 않는다. Outside-overlay validator-like source 32개는 taxonomy, required manifest와 full gate에 등록되지 않은 `not_regular_not_registered`이며, archive/restore locator가 발견되지 않은 dirty-main 163-file domain과도 분리한다. 일회성 hash search와 negative probe는 이 architecture의 canonical validator가 아니다.
+
+P10 completion은 canonical tracked boundary로 판정한다. Project owner는 이미 삭제된 ignored/untracked dirty-main material의 복구 의도를 포기하고 archive manifest, 파일별 삭제 사유, 삭제 전 원문 보관과 fresh-root restore receipt를 completion architecture에서 면제했다. 기존 hash와 `null` locator는 발견·검증 성공을 뜻하지 않으며 historical unresolved reference로 유지한다. `163` local file / `335` identity / `901,270` bytes는 non-canonical historical observation이므로 tracked retirement metric에 합산하지 않는다. Canonical baseline은 `052ef0e5`, execution boundary는 pytest `234` + standalone `4` = `238`이며 이 기준으로 P10은 PASS다.

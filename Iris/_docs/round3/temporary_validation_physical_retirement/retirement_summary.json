@@ -1,6 +1,6 @@
 {
   "schema_version": "iris-temporary-validation-physical-retirement-summary-v1",
-  "state": "p10_successor_terminal_validation_pass_second_review_finding_resolved_rerun_pending_and_dirty_main_evidence_blocked",
+  "state": "p8_successor_full_range_review_pass_p10_dirty_main_evidence_blocked",
   "completion_token": null,
   "authority": {
     "s0_commit": "fd0504817af8c1031ac794391cf67d129c8db54c",
@@ -114,7 +114,7 @@
     "exact_commit": "052ef0e5c90282ef9afac830bb4491b36d4e92fc",
     "exact_tree": "9a952fab3442bea45cada05a4b660245f978a27e",
     "validation": "PASS",
-    "independent_review": "SECOND_MEDIUM_WALKTHROUGH_CURRENT_STATE_FINDING_RESOLVED_IN_ADDITIVE_CARRIER_RERUN_PENDING"
+    "independent_review": "PASS_FULL_RANGE_S0_TO_WALKTHROUGH_CORRECTION_ZERO_ACTIONABLE_FINDINGS"
   },
   "claim_ceiling": "Validation executable survivor correction only. Dirty-main archive/restore safety is not independently re-claimed until discoverable external locators are rebound. No runtime, performance, token, release, Publish, RTC, B42, or public-text acceptance claim is made."
 }

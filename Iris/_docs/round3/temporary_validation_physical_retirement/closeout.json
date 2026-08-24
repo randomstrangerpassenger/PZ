@@ -1,6 +1,6 @@
 {
   "schema_version": "iris-temporary-validation-physical-retirement-closeout-v1",
-  "state": "p10_successor_terminal_validation_pass_second_review_finding_resolved_rerun_pending_and_dirty_main_evidence_blocked",
+  "state": "p8_successor_full_range_review_pass_p10_dirty_main_evidence_blocked",
   "completion_token": null,
   "predecessor_terminal_subject": {
     "commit": "b0fe69b1406d4f8353a2278cff6cc9b71738f0b8",
@@ -136,17 +136,16 @@
   "independent_review": {
     "required_by": "P8",
     "reviewer": "Codex Reviewer",
-    "state": "SECOND_REVIEW_MEDIUM_1_RESOLVED_BY_WALKTHROUGH_CURRENT_STATE_CORRECTION_RERUN_PENDING",
-    "subject_range": "fd0504817af8c1031ac794391cf67d129c8db54c..c20a19ba73e5efe096c9ab97681b198118f0d6d2",
+    "state": "PASS_FULL_RANGE_S0_TO_WALKTHROUGH_CORRECTION_ZERO_ACTIONABLE_FINDINGS",
+    "subject_range": "fd0504817af8c1031ac794391cf67d129c8db54c..f1130bdcf0904684873b62430a3ed3e053508b36",
     "exit_code": 0,
-    "actionable_finding_count": 1,
-    "finding_ids": [
-      "MEDIUM_WALKTHROUGH_STALE_PREDECESSOR_CURRENT_STATE"
-    ],
-    "finding_resolution": "walkthrough header, current metric table, synchronized status, repository state, and final claim now distinguish historical 99585ff2/110/225 from successor 052ef0e5/123/238; full-range reviewer rerun required",
-    "raw_output_locator": "Iris/_docs/round3/temporary_validation_physical_retirement/review/codex_reviewer_s0_to_closeout_carrier.txt",
-    "raw_output_sha256": "02f00a68cb071f48db9f866aa3db13592586253d532b030fbb9a1d5978d68e98",
-    "prior_findings_resolved": 3,
+    "actionable_finding_count": 0,
+    "finding_ids": [],
+    "finding_resolution": "all four prior actionable findings are resolved; predecessor 99585ff2/110/225 is historical and successor 052ef0e5/123/244/238 is current",
+    "raw_output_locator": "Iris/_docs/round3/temporary_validation_physical_retirement/review/codex_reviewer_s0_to_walkthrough_correction.txt",
+    "raw_output_sha256": "7e5af35f8cbaf4fcb26c6cdc9213192d76273c95f3e1cd9a188cd94b7ab1c1ac",
+    "receipt_locator": "Iris/_docs/round3/temporary_validation_physical_retirement/review/codex_reviewer_receipt.json",
+    "prior_findings_resolved": 4,
     "completion_token_withheld": true,
     "completion_token_withheld_reason": "P10 remains blocked by missing discoverable dirty-main archive and restore locators"
   },

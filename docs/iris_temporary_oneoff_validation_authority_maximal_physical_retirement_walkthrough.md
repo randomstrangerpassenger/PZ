@@ -1,7 +1,7 @@
 # Iris Temporary/One-Off Validation Authority Maximal Physical Retirement Walkthrough
 
 > Session dates: 2026-08-23–2026-08-24 KST
-> Current status: six-family canonical-presence successor terminal validation PASS; closeout-carrier review finding under correction; P10 withheld by dirty-main evidence-locator blocker
+> Current status: six-family canonical-presence successor terminal validation and exact S0→correction-carrier P8 review PASS; P10 withheld by dirty-main evidence-locator blocker
 > S0 commit: `fd0504817af8c1031ac794391cf67d129c8db54c`
 > S0 tree: `395ec36de921987299fa9a9d9bb46118b74160a5`
 > Predecessor correction terminal: `99585ff2a4738055d12aa2f7b42cf74d06f13860` / tree `944f7e66692ab30453f3ddf39ce71f2461f2e43d`
@@ -225,7 +225,7 @@ Exact carrier-commit review 결과와 정량 해석을 반영하기 위해 다�
 - Physical implementation: PASS
 - Exact-subject terminal validation: PASS
 - Exact successor terminal validation: PASS
-- Closeout-carrier Reviewer: predecessor counts를 남긴 첫 finding은 JSON/top docs에서 해소했으나 Walkthrough current-state ambiguity Medium `1`건을 이 carrier에서 교정하며 final rerun은 pending
+- Closeout-carrier Reviewer: predecessor counts와 Walkthrough current-state ambiguity를 교정한 뒤 exact range `fd050481..f1130bdc`가 PASS, actionable finding `0`
 - Exact successor S1/tree: `052ef0e5c90282ef9afac830bb4491b36d4e92fc` / `9a952fab3442bea45cada05a4b660245f978a27e`
 - Structural efficiency metrics: recorded with separate denominators
 - Runtime and GPT/Codex token efficiency: unmeasured
@@ -248,7 +248,7 @@ Post-validation carrier update는 exact successor S1 이후의 product code, val
 - Adjudicated temporary/one-off validation executable physical retirement
 - Current product/validation-system survivor preservation
 - Exact successor S1 terminal validation PASS at `052ef0e5` / tree `9a952fab`
-- S0→successor implementation 및 closeout-carrier Codex Reviewer correction chain; final actionable-finding-zero 판정은 이 correction carrier의 rerun에서 결정
+- S0→successor implementation 및 closeout-carrier Codex Reviewer correction chain PASS, final actionable finding `0`
 - Tracked repository bytes와 test/tooling LOC의 net 감소
 - Gate/taxonomy execution surface의 구조적 감소
 
@@ -316,5 +316,7 @@ Terminal batch 결과는 다음과 같다.
 - 합성 retired target `262`에 대한 tracked clean/dirty-main residue: 각각 `0`
 
 첫 successor full-range Reviewer는 implementation이 아니라 closeout/summary가 predecessor terminal `99585ff2`, taxonomy `110`, gate `225`를 계속 current 값으로 표시한 점을 Medium finding `1`건으로 지적했다. 첫 carrier가 JSON과 top docs를 고쳤지만, 두 번째 Reviewer는 Walkthrough 표제와 요약표에 같은 predecessor/current ambiguity가 남았음을 Medium `1`건으로 지적했다. 현재 carrier는 표제·metric table·동기화 상태·repository state·final claim을 successor S1의 `052ef0e5` / `123` / `238`로 교정한다. 두 raw review는 모두 보존하며, 이 correction carrier를 exact endpoint로 다시 read-only review한다.
+
+Final bounded Codex Reviewer는 exact range `fd0504817af8c1031ac794391cf67d129c8db54c..f1130bdcf0904684873b62430a3ed3e053508b36`을 read-only로 검토해 PASS, actionable finding `0`으로 종료했다. 검토 중 테스트·빌드·validator·generator·package manager·script는 실행하지 않았다. Raw SHA-256은 `7e5af35f8cbaf4fcb26c6cdc9213192d76273c95f3e1cd9a188cd94b7ab1c1ac`이며 receipt는 `Iris/_docs/round3/temporary_validation_physical_retirement/review/codex_reviewer_receipt.json`이다. 이 결과로 P8은 닫히지만 archive/restore locator 부재와 P10 withheld/null 상태는 바뀌지 않는다.
 
 Canonical correction과 dirty-main safety completion은 별개다. Archive/restore hash의 discoverable locator가 없어 163-file binding은 검증되지 않았고, 두 hash는 `historical_unresolved_hash_reference`로만 남는다. 따라서 P10 completion token은 `null`이며, bounded search·negative probe·임시 스크립트는 canonical validator로 승격하지 않는다.

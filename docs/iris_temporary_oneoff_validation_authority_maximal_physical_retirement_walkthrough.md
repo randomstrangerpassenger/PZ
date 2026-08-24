@@ -1,7 +1,7 @@
 # Iris Temporary/One-Off Validation Authority Maximal Physical Retirement Walkthrough
 
 > Session dates: 2026-08-23–2026-08-24 KST
-> Current status: six-family canonical-presence successor terminal validation and exact S0→correction-carrier P8 review PASS; P10 withheld by dirty-main evidence-locator blocker
+> Current status: six-family canonical-presence successor terminal validation and exact S0→correction-carrier P8 review PASS; project-owner archive/restore waiver로 P10 PASS 및 physical retirement complete
 > S0 commit: `fd0504817af8c1031ac794391cf67d129c8db54c`
 > S0 tree: `395ec36de921987299fa9a9d9bb46118b74160a5`
 > Predecessor correction terminal: `99585ff2a4738055d12aa2f7b42cf74d06f13860` / tree `944f7e66692ab30453f3ddf39ce71f2461f2e43d`
@@ -18,7 +18,7 @@
 - Canonical validator 또는 새 validation authority가 아니다.
 - S0, S1, predecessor ledger, terminal receipt 또는 `closeout.json`을 대체하지 않는다.
 - 현재 세션의 ad hoc 조회나 계산을 새로운 gate로 승격하지 않는다.
-- P10 completion token을 발행하지 않는다.
+- Completion token을 독립적으로 발행하는 authority가 아니라 project-owner P10 decision과 canonical closeout을 설명한다.
 - Runtime, release, Workshop, Publish/RTC, B42 또는 public-text quality를 승인하지 않는다.
 
 ## 2. Starting Point
@@ -229,7 +229,7 @@ Exact carrier-commit review 결과와 정량 해석을 반영하기 위해 다�
 - Exact successor S1/tree: `052ef0e5c90282ef9afac830bb4491b36d4e92fc` / `9a952fab3442bea45cada05a4b660245f978a27e`
 - Structural efficiency metrics: recorded with separate denominators
 - Runtime and GPT/Codex token efficiency: unmeasured
-- Canonical post-validation carrier synchronization: complete; P10 token은 dirty-main evidence-locator blocker로 withheld
+- Canonical post-validation carrier synchronization: complete; project-owner waiver에 따라 P10 PASS와 completion token 기록
 
 Architecture 문서는 S0 `433 + 4` criterion, predecessor correction terminal `221 + 4`, canonical-presence successor terminal `234 + 4`를 분리한다. 이는 과거 PASS를 rewrite하는 것이 아니라 registration membership을 survival authority로 삼지 않는 successor decision과 canonical source 승격을 설명한다.
 
@@ -237,7 +237,7 @@ Architecture 문서는 S0 `433 + 4` criterion, predecessor correction terminal `
 
 Post-validation carrier update는 exact successor S1 이후의 product code, validator 또는 test를 수정하지 않았다. 변경 범위는 기존 closeout/summary JSON, 세 top-level 문서와 이 Walkthrough 및 required Reviewer raw/receipt이며 exact successor S1을 재정의하지 않는다.
 
-`Iris/_docs/round3/temporary_validation_physical_retirement/closeout.json`은 successor terminal validation PASS와 closeout-carrier review correction 상태를 기록한다. P10 token은 발행하지 않으며, dirty-main archive/restore locator 부재를 유일한 completion blocker로 유지한다.
+`Iris/_docs/round3/temporary_validation_physical_retirement/closeout.json`은 successor terminal validation PASS, closeout-carrier review PASS와 project-owner P10 waiver를 기록한다. Archive/restore locator는 계속 `null`이며 발견·복원 성공을 주장하지 않지만 더 이상 completion blocker가 아니다.
 
 사용자 지시에 따라 top-document 및 Walkthrough 작성 과정에서는 테스트를 실행하지 않았다. 별도 seal, receipt, manifest, census, proof artifact 또는 validation-of-validation도 만들지 않았다.
 
@@ -261,7 +261,7 @@ Post-validation carrier update는 exact successor S1 이후의 product code, val
 - In-game QA, RTC, Publish, release, Workshop, deployment or B42 readiness
 - Public-text quality acceptance
 
-이 Walkthrough의 완료는 narrative 기록 완료만 뜻한다. Correction terminal validation과 full-range P8 review는 PASS했지만, canonical P10 token은 dirty-main evidence binding까지 충족된 뒤에만 발행할 수 있다.
+이 Walkthrough 자체는 token authority가 아니다. Canonical closeout은 correction terminal validation과 full-range P8 review PASS, project-owner archive/restore requirement waiver에 근거해 P10 token을 발행한다.
 
 ## 13. Survivor Correction Addendum
 
@@ -296,7 +296,7 @@ Canonical-presence successor 직전의 predecessor correction terminal은 commit
 
 Exact gate는 S0의 `437` unit에서 `225` unit으로 `212` (`48.513%`) 감소했고 current taxonomy는 `228`에서 `110`으로 `118` (`51.754%`) 감소했다. Tracked executable identity removal은 합계 `460`, full source/exclusive support deletion은 `96`이다. Exact S1 tracked blob은 S0 대비 `8,217,910` bytes (`1.025%`), test/tooling LOC는 `25,973` (`10.010%`) 감소했다. 이 값은 구조적 workload proxy이며 실제 token, wall-time, CPU 또는 memory 개선률이 아니다.
 
-Post-validation 문서/JSON carrier는 위 S1을 재정의하지 않는다. P8은 충족됐지만 dirty-main archive manifest와 fresh-root restore receipt의 discoverable locator가 없으므로 해당 safety claim과 P10 completion token은 계속 blocked/withheld다.
+Post-validation 문서/JSON carrier는 위 S1을 재정의하지 않는다. Dirty-main archive manifest와 fresh-root restore receipt의 discoverable locator는 여전히 없고 그 성공을 주장하지 않는다. Project owner가 해당 요구를 completion condition에서 면제했으므로 P10은 별도의 canonical-state 기준으로 닫힌다.
 
 ## 15. Six-Family Canonical-Presence Successor Correction
 
@@ -317,6 +317,21 @@ Terminal batch 결과는 다음과 같다.
 
 첫 successor full-range Reviewer는 implementation이 아니라 closeout/summary가 predecessor terminal `99585ff2`, taxonomy `110`, gate `225`를 계속 current 값으로 표시한 점을 Medium finding `1`건으로 지적했다. 첫 carrier가 JSON과 top docs를 고쳤지만, 두 번째 Reviewer는 Walkthrough 표제와 요약표에 같은 predecessor/current ambiguity가 남았음을 Medium `1`건으로 지적했다. 현재 carrier는 표제·metric table·동기화 상태·repository state·final claim을 successor S1의 `052ef0e5` / `123` / `238`로 교정한다. 두 raw review는 모두 보존하며, 이 correction carrier를 exact endpoint로 다시 read-only review한다.
 
-Final bounded Codex Reviewer는 exact range `fd0504817af8c1031ac794391cf67d129c8db54c..f1130bdcf0904684873b62430a3ed3e053508b36`을 read-only로 검토해 PASS, actionable finding `0`으로 종료했다. 검토 중 테스트·빌드·validator·generator·package manager·script는 실행하지 않았다. Raw SHA-256은 `7e5af35f8cbaf4fcb26c6cdc9213192d76273c95f3e1cd9a188cd94b7ab1c1ac`이며 receipt는 `Iris/_docs/round3/temporary_validation_physical_retirement/review/codex_reviewer_receipt.json`이다. 이 결과로 P8은 닫히지만 archive/restore locator 부재와 P10 withheld/null 상태는 바뀌지 않는다.
+Final bounded Codex Reviewer는 exact range `fd0504817af8c1031ac794391cf67d129c8db54c..f1130bdcf0904684873b62430a3ed3e053508b36`을 read-only로 검토해 PASS, actionable finding `0`으로 종료했다. 검토 중 테스트·빌드·validator·generator·package manager·script는 실행하지 않았다. Raw SHA-256은 `7e5af35f8cbaf4fcb26c6cdc9213192d76273c95f3e1cd9a188cd94b7ab1c1ac`이며 receipt는 `Iris/_docs/round3/temporary_validation_physical_retirement/review/codex_reviewer_receipt.json`이다. 이 결과로 P8은 닫혔다. 뒤이은 project-owner decision은 archive/restore 증빙을 발견했다고 소급 주장하지 않고 그 요구를 P10 완료 조건에서 면제한다.
 
-Canonical correction과 dirty-main safety completion은 별개다. Archive/restore hash의 discoverable locator가 없어 163-file binding은 검증되지 않았고, 두 hash는 `historical_unresolved_hash_reference`로만 남는다. 따라서 P10 completion token은 `null`이며, bounded search·negative probe·임시 스크립트는 canonical validator로 승격하지 않는다.
+Canonical correction과 dirty-main historical observation은 별개다. Archive/restore hash의 discoverable locator가 없어 163-file binding은 검증되지 않았고, 두 hash는 `historical_unresolved_hash_reference`로만 남는다. Bounded search·negative probe·임시 스크립트는 canonical validator로 승격하지 않는다.
+
+## 16. P10 Owner Waiver and Completion
+
+Project owner는 이미 삭제된 dirty-main 임시 validation material을 복구 대상에서 제외했다. 이에 따라 archive manifest, 163개 파일 각각의 삭제 사유, 삭제 전 원문 보관과 fresh-root restore receipt는 P10 completion requirement가 아니다. 이는 누락된 영수증을 존재한다고 간주한 것이 아니며 locator는 계속 `null`, hash는 historical unresolved reference다.
+
+Dirty-main 수치의 의미는 다음으로 제한한다.
+
+- `163`: ignored/untracked local file의 historical observation
+- `335`: 위 파일 안에서 당시 집계된 validation identity의 historical observation
+- `901,270`: 위 local domain의 historical raw-byte observation
+- 세 값 모두 canonical tracked retirement metric 또는 정규 test 제거 수가 아니며 tracked 성과에 합산하지 않음
+
+Completion basis는 canonical tracked state다. Exact successor implementation baseline은 `052ef0e5c90282ef9afac830bb4491b36d4e92fc`, retired target의 current authority 등록은 `0`, current validation boundary는 pytest identity `234` + standalone `4` = `238`이다. Terminal validation과 P8 independent review는 PASS다.
+
+따라서 P10은 PASS이며 physical retirement를 완료한다. Completion token은 `temporary_validation_physical_retirement__complete`다. Owner-waived archive/restore 요구와 dirty-main historical reduction 수치는 이후 test merge에서 completion gate로 다시 열지 않는다.

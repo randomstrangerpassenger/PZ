@@ -1048,10 +1048,12 @@ Current state: survivor correction exact-subject terminal validation and S0→S1
 
 ### Physical retirement P10 successor correction (2026-08-24)
 
-Current state: exact 6-family canonical-presence correction implemented, terminal validation PASS, exact S0→correction-carrier Codex Reviewer PASS with actionable finding `0`; archive/restore locator blocker 때문에 P10 withheld.
+Current state: exact 6-family canonical-presence correction implemented, terminal validation PASS, exact S0→correction-carrier Codex Reviewer PASS with actionable finding `0`; project-owner archive/restore waiver로 P10 PASS 및 physical retirement complete.
 
 - Implementation S1 `052ef0e5` / tree `9a952fab`: dirty-local product-contract source 6 family/13 identity를 tracked canonical source로 승격했다. Product/runtime code는 변경하지 않았다.
 - Successor current taxonomy `123`, required manifest `70`, runner `123`, configured collection `244`; focused `47 passed`, clean A/B comparator `234 + 4 = 238` unit PASS, mutation `0`, negative missing-source probe는 expected `49` / observed `48`로 fail-closed했다.
 - Retired tracked residue는 합성 대상 `262`개에 대해 `0`; dirty-main residue도 `0`이다. Outside-overlay local validator-like source `32`개는 계속 미등록 상태다.
-- Archive/restore exact hash는 bounded search에서 locator를 찾지 못했다. 따라서 이 둘은 historical unresolved reference이고 163-file safety binding과 P10 completion token은 계속 blocked/null이다.
+- Archive/restore exact hash는 bounded search에서 locator를 찾지 못했으며 계속 historical unresolved reference다. Project owner는 이미 삭제된 ignored/untracked local material의 복원을 의도하지 않으므로 archive manifest, 파일별 삭제 사유, 원문 보관과 fresh-root restore receipt를 P10 완료 조건에서 면제했다. 발견·복원 성공 claim은 없다.
 - Successor 검증 뒤 변경은 closeout·summary·top-level docs·walkthrough·Reviewer raw/receipt만 담는 additive carrier이며 implementation S1이나 terminal denominator를 재정의하지 않는다. Exact range `fd050481..f1130bdc`의 final bounded Codex Reviewer는 PASS, actionable finding `0`으로 P8을 닫았다.
+- `163` ignored/untracked local file, `335` historical validation identity, `901,270` raw bytes는 non-canonical historical observation이며 tracked retirement metric에 합산하지 않는다. Canonical baseline은 `052ef0e5`, current boundary는 `234 + 4 = 238`이다.
+- P10: PASS. Completion token: `temporary_validation_physical_retirement__complete`. 이 owner-waived archive/restore 요구는 이후 test merge completion gate로 다시 열지 않는다.

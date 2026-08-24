@@ -1,7 +1,7 @@
 {
   "schema_version": "iris-temporary-validation-physical-retirement-summary-v1",
-  "state": "p8_successor_full_range_review_pass_p10_dirty_main_evidence_blocked",
-  "completion_token": null,
+  "state": "temporary_validation_physical_retirement_complete_p10_owner_waiver",
+  "completion_token": "temporary_validation_physical_retirement__complete",
   "authority": {
     "s0_commit": "fd0504817af8c1031ac794391cf67d129c8db54c",
     "s0_tree": "395ec36de921987299fa9a9d9bb46118b74160a5",
@@ -70,8 +70,11 @@
     "restore_receipt_locator": null,
     "active_target_residue": 0,
     "metric_domain": "ignored_or_untracked_dirty_main_only",
-    "evidence_binding_state": "BLOCKED_MISSING_DISCOVERABLE_ARCHIVE_AND_RESTORE_LOCATORS",
+    "evidence_binding_state": "WAIVED_NOT_REQUIRED_FOR_P10_BY_PROJECT_OWNER",
     "prior_counts_are_historical_report_only": true,
+    "canonical_metric_eligible": false,
+    "archive_and_restore_requirements": "waived_by_project_owner",
+    "restoration_intent": "none",
     "outside_overlay_not_regular_not_registered_files": 32,
     "additional_physical_action": "none"
   },
@@ -116,5 +119,17 @@
     "validation": "PASS",
     "independent_review": "PASS_FULL_RANGE_S0_TO_WALKTHROUGH_CORRECTION_ZERO_ACTIONABLE_FINDINGS"
   },
-  "claim_ceiling": "Validation executable survivor correction only. Dirty-main archive/restore safety is not independently re-claimed until discoverable external locators are rebound. No runtime, performance, token, release, Publish, RTC, B42, or public-text acceptance claim is made."
+  "p10": {
+    "status": "PASS",
+    "authority": "project_owner_explicit_waiver",
+    "waived_requirements": [
+      "archive_manifest",
+      "per_file_deletion_rationale",
+      "predeletion_source_retention",
+      "fresh_root_restore_receipt"
+    ],
+    "canonical_baseline": "052ef0e5c90282ef9afac830bb4491b36d4e92fc",
+    "canonical_required_execution_units": 238
+  },
+  "claim_ceiling": "Validation executable physical retirement complete on canonical baseline 052ef0e5. Dirty-main 163-file/335-identity/901270-byte figures remain non-canonical historical observations and are not merged into tracked retirement metrics. No archive or restoration success is claimed. No runtime, performance, token, release, Publish, RTC, B42, or public-text acceptance claim is made."
 }

@@ -2796,3 +2796,11 @@
 * Successor denominator는 taxonomy `123`, required manifest `70`, configured collection `244`, current runner `123`이다. Clean-checkout A/B와 comparator는 pytest identity `234` + standalone `4` = `238` unit으로 PASS했고 source/external mutation은 `0`이다.
 * Dirty-main의 validator-like source `32`개는 계속 `not_regular_not_registered`다. Archive SHA-256 `c9638483...526`과 restore SHA-256 `7b05dd6e...bf6c`는 discoverable locator가 없는 `historical_unresolved_hash_reference`이므로 163-file archive/restore claim은 재주장하지 않는다.
 * 따라서 canonical tracked correction과 exact S0→correction-carrier Codex Reviewer PASS(actionable finding `0`)로 P8은 닫는다. P10 completion은 여전히 withheld이고 completion token은 `null`이다. 이 correction의 일회성 검사나 검색은 새 validation authority가 아니다.
+
+### Iris validation — P10 owner waiver and completion (2026-08-24)
+
+* 상태: **P10 PASS / physical retirement complete**. 이 항목은 바로 위 successor correction의 P10 withheld 판정을 supersede한다.
+* 소유자 결정: 이미 삭제된 dirty-main 임시 validation material은 복구 대상이 아니다. Archive manifest, 파일별 삭제 사유, 삭제 전 원문 보관과 fresh-root restore receipt를 완료 조건에서 명시적으로 면제한다. 존재하지 않는 증빙을 발견·검증된 것으로 간주하지 않으며 기존 hash와 `null` locator는 historical unresolved reference로만 남긴다.
+* `163`은 ignored/untracked 로컬 파일 수, `335`는 그 안에서 과거 집계된 validation identity 수, `901,270`은 raw-byte 과거 관측치다. 이 값은 canonical tracked retirement metric이나 정규 테스트 제거 수가 아니며 tracked 성과 수치에 합산하지 않는다.
+* 완료 기준은 canonical tracked state다. Exact successor baseline은 `052ef0e5c90282ef9afac830bb4491b36d4e92fc`; retired target의 current authority 등록은 `0`; current boundary는 pytest identity `234` + standalone `4` = `238`; terminal validation과 P8 independent review는 PASS다.
+* 결정: P10을 PASS로 닫고 completion token `temporary_validation_physical_retirement__complete`를 발행한다. Archive/restore 요구나 dirty-main historical reduction 수치를 이후 test merge에서 다시 completion gate로 열지 않는다.

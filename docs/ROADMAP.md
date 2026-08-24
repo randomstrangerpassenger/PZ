@@ -1102,4 +1102,13 @@ Current state: **P8 PASS, P10 PASS, physical retirement complete, main integrati
 
 ## Regular validation consolidation closeout (2026-08-24)
 
-Complete at terminal `4f80540f`: execution `238 -> 213`, taxonomy `123 -> 115`, manifest `70 -> 67`; Run A/B, comparator, and non-author review passed with findings/candidates `0`. The child carrier is evidence-only and receives no machine PASS.
+Current state: **complete** at `S_terminal 4f80540f`; documentation/evidence carrier는 `3a6564e3`이다.
+
+- Public-text, particle adjustment, Layer 4, current-authority path, package forbidden-surface, legacy active-silent guard, DVF runtime/complete-generation/install lifecycle consolidation을 구현했다.
+- Final boundary는 pytest `209` + standalone `4` = execution unit `213`이며 taxonomy `115`, required manifest `67`이다. Starting boundary `238/123/70`과 exact-set closure했을 때 bidirectional delta와 unmapped row는 `0`이다.
+- Focused family, constituent replay `35/35`, Round 3 reverse/repeat/state restoration, clean-checkout Run A/B, deterministic comparator를 완료했다. Terminal implementation review와 bounded carrier review의 actionable finding은 둘 다 `0`이다.
+- Second exhaustive sweep는 same-input, named-check absorption, table-driven, pipeline, shared-core, duplicate authority, one-use wrapper, traversal/assertion/comparison, parse/load/materialization, registration, pytest/standalone 중복 축을 모두 닫았다. Remaining eligible candidate는 `0`이다.
+- Tracked source는 `72 -> 72`, LOC `15,289 -> 15,254`, bytes `597,477 -> 599,090`이다. Exact carrier `3a6564e3` measurement에서 validation/tooling closure의 순감소는 `3,946` bytes, carrier documentation을 포함한 proxy는 `-372` bytes다. 후속 roadmap 서술은 이 measured subject를 재정의하지 않는다.
+- Local `main`은 carrier commit을 포함하지만 remote push는 이 closeout의 일부로 수행하지 않았다. 사용자 소유 `.codex-worktrees/iris-validation-retirement-p10-successor` dirty state는 변경·stage·commit하지 않았다.
+
+이 roadmap item에 남은 구현·validation gate는 없다. Wall-clock performance, 실제 tokenizer/Codex token usage, in-game behavior, RTC/Publish와 deployment는 이 완료 판정으로 승계하지 않는 별도 범위다.

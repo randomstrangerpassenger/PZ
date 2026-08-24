@@ -2862,4 +2862,15 @@
 
 ## Iris regular validation boundary consolidation (2026-08-24)
 
-`S_terminal` `4f80540f`/tree `266eb7fd` alone owns machine PASS. Its boundary is pytest `209` + standalone `4` = `213`, taxonomy `115`, manifest `67`; Codex Reviewer found `0` actionable and `0` remaining eligible candidates. The documentation-only child records, but does not inherit, that PASS.
+* 상태: **complete**. Machine PASS는 `S_terminal` `4f80540f13f64b36929fece13e2ca46978df101f` / tree `266eb7fdee96d4749fa816346abd862d648d3423`에만 귀속한다. Documentation/evidence-only carrier는 `3a6564e3af87f834ad7f9de224b25fd5fed9280b` / tree `92332ec4c9206e7717b97aba3eaa52e5424451df`이며 sole parent는 `S_terminal`이다.
+* 결정:
+
+  * Regular boundary를 pytest `234 -> 209`, standalone `4 -> 4`, 전체 execution unit `238 -> 213`으로 consolidation한다. Taxonomy는 `123 -> 115`, required manifest는 `70 -> 67`이다.
+  * Round 3는 identity merge가 아니라 pytest identity `5 -> 5`를 유지하면서 runner import만 `5 -> 1`로 공유한다.
+  * Public-text/particle/Layer 4/current-authority/package/legacy guard와 DVF runtime·complete-generation·install lifecycle에 named subtest, shared immutable seed, case-local writable clone을 적용한다. Producer failure는 독립 check로 보고하고 dependent check는 명시적 blocked skip으로 localize한다.
+  * Focused `67 passed / 58 subtests`, Round 3 reverse `5 passed`, same-process repeat `10 passed`, clean-checkout Run A/B, deterministic comparator와 exact-set closure가 모두 PASS했다. Codex Reviewer의 terminal/carrier actionable finding과 remaining eligible candidate는 각각 `0`이다.
+  * Exact `S_carrier 3a6564e3` 기준 validation/tooling closure는 `3,946` bytes 순감소했고 analysis/documentation `3,574` bytes를 포함한 context proxy는 `-372` bytes다. 후속 서술 문서는 이 exact carrier measurement를 재정의하지 않는다.
+* Non-decision:
+
+  * Execution identity `10.5%` 감소를 wall-clock 속도나 실제 token 사용량 `10.5%` 감소로 해석하지 않는다. 이 작업에서 통제된 before/after 시간·token 계측은 수행하지 않았다.
+  * Product/runtime/public output, PZ in-game behavior, RTC/Publish, release/Workshop/deployment authority를 변경하지 않는다.

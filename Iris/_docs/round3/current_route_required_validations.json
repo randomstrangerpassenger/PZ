@@ -3006,6 +3006,71 @@
       "required": true,
       "role": "dvf_3_3_generation_key_identity_required_validation",
       "test_id": "test_dvf_3_3_runtime_compatibility.DvfRuntimeCompatibilityTest.test_case_collision_boundary_preserves_exact_keys"
+    },
+    {
+      "required": true,
+      "role": "promoted_recurring_iris_product_contract",
+      "test_id": "test_iris_browser_single_pass_cache_contract.IrisBrowserSinglePassCacheContractTest.test_browser_acceptance_harness_exercises_single_pass_and_locale_owner"
+    },
+    {
+      "required": true,
+      "role": "promoted_recurring_iris_product_contract",
+      "test_id": "test_iris_browser_single_pass_cache_contract.IrisBrowserSinglePassCacheContractTest.test_row_cache_and_scalar_classification_contract"
+    },
+    {
+      "required": true,
+      "role": "promoted_recurring_iris_product_contract",
+      "test_id": "test_iris_line_count_lazy_validation.IrisLineCountLazyValidationTest.test_first_demand_metadata_state_matrix"
+    },
+    {
+      "required": true,
+      "role": "promoted_recurring_iris_product_contract",
+      "test_id": "test_iris_line_count_lazy_validation.IrisLineCountLazyValidationTest.test_lookup_module_has_no_top_level_index_require"
+    },
+    {
+      "required": true,
+      "role": "promoted_recurring_iris_product_contract",
+      "test_id": "test_iris_object_access_fast_path.IrisObjectAccessFastPathTest.test_fixed_arity_lua_result_shape_parity"
+    },
+    {
+      "required": true,
+      "role": "promoted_recurring_iris_product_contract",
+      "test_id": "test_iris_object_access_fast_path.IrisObjectAccessFastPathTest.test_generic_production_path_is_not_routed_without_new_pz_evidence"
+    },
+    {
+      "required": true,
+      "role": "promoted_recurring_iris_product_contract",
+      "test_id": "test_iris_session_cache_ownership.IrisSessionCacheOwnershipTest.test_cache_field_census_is_complete_and_session_candidate_free"
+    },
+    {
+      "required": true,
+      "role": "promoted_recurring_iris_product_contract",
+      "test_id": "test_iris_session_cache_ownership.IrisSessionCacheOwnershipTest.test_no_production_session_reset_wiring_was_added"
+    },
+    {
+      "required": true,
+      "role": "promoted_recurring_iris_product_contract",
+      "test_id": "test_iris_session_cache_ownership.IrisSessionCacheOwnershipTest.test_phase_0b_absence_only_defers_timing_branches"
+    },
+    {
+      "required": true,
+      "role": "promoted_recurring_iris_product_contract",
+      "test_id": "test_iris_tags_public_surface_isolation.IrisTagsPublicSurfaceIsolationTest.test_public_exports_remain_frozen_and_backing_tables_are_unreachable"
+    },
+    {
+      "required": true,
+      "role": "promoted_recurring_iris_product_contract",
+      "test_id": "test_iris_tags_public_surface_isolation.IrisTagsPublicSurfaceIsolationTest.test_tags_and_iris_api_do_not_export_browser_raw_accessors"
+    },
+    {
+      "required": true,
+      "role": "promoted_recurring_iris_product_contract",
+      "test_id": "test_iris_viewmodel_allocation_contract.IrisViewModelAllocationContractTest.test_dynamic_debug_owners_have_caller_side_guards"
+    },
+    {
+      "required": true,
+      "role": "promoted_recurring_iris_product_contract",
+      "test_id": "test_iris_viewmodel_allocation_contract.IrisViewModelAllocationContractTest.test_method_lists_are_module_constants_and_hints_are_once_per_item"
     }
   ],
   "route": "current",

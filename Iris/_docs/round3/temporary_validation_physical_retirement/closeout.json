@@ -1,6 +1,6 @@
 {
   "schema_version": "iris-temporary-validation-physical-retirement-closeout-v1",
-  "state": "survivor_correction_implemented_terminal_validation_and_full_range_review_pending",
+  "state": "survivor_correction_terminal_validation_and_full_range_review_pass_p10_blocked_dirty_main_evidence",
   "completion_token": null,
   "predecessor_terminal_subject": {
     "commit": "b0fe69b1406d4f8353a2278cff6cc9b71738f0b8",
@@ -14,7 +14,7 @@
     "predecessor_current_contract_loss": 0,
     "active_target_residue": 0,
     "unresolved_or_unauthorized_mutation": 0,
-    "survivor_correction": "implemented_pending_terminal_validation"
+    "survivor_correction": "terminal_validation_and_full_range_review_pass"
   },
   "predecessor_terminal_validation": {
     "state": "PASS",
@@ -49,21 +49,54 @@
     "external_execution_mutation": 0
   },
   "correction_terminal_subject": {
-    "commit": null,
-    "tree": null
+    "commit": "99585ff2a4738055d12aa2f7b42cf74d06f13860",
+    "tree": "944f7e66692ab30453f3ddf39ce71f2461f2e43d"
   },
   "correction_terminal_validation": {
-    "state": "PENDING",
+    "state": "PASS",
+    "python_syntax": "12_modified_surviving_python_files_exit_0",
+    "focused_clean_checkout_tests": "33_passed",
+    "current_runner": "110_tests_OK_exit_0",
+    "configured_collection": "231_collected_exit_0",
     "current_taxonomy_rows": 110,
     "regular_survivors": 316,
     "newly_retired_predecessor_survivors": 12,
-    "outside_predecessor_inventory_callable_removals": 1
+    "outside_predecessor_inventory_callable_removals": 1,
+    "clean_checkout_run_a": {
+      "status": "PASS",
+      "native_exit_code": 0,
+      "orchestration_receipt_sha256": "768b0347d46f9f16e3efc412de95878887c057f86a67cee194c3a730941fe83f",
+      "inner_run_receipt_sha256": "a1bb26173522391092605ef3effbfe080bafa89aecb8bcf15e080def57e3e518"
+    },
+    "clean_checkout_run_b": {
+      "status": "PASS",
+      "native_exit_code": 0,
+      "orchestration_receipt_sha256": "71ba82f45f00402ac57ef6178fa657a444ec96462a8ce5cb2dc09343b1744adf",
+      "inner_run_receipt_sha256": "ee2253bfd1f0de04c8e09125bd86ed877362d534eb1caa04db5e4a7061e14163"
+    },
+    "deterministic_comparator": {
+      "status": "PASS",
+      "exit_code": 0,
+      "receipt_sha256": "9f89724e99df92d24c222f373323dffd96c4368be27ea909a4109d1c17c4cc8f",
+      "canonical_result_sha256": "a1ce7cd24073f1b2383e0cdd3b12c18871ebb9ed436c9b19486e6b88d5a72f66",
+      "canonical_fingerprint_sha256": "8b6ae41190cbb645544dfc4d00e3511e5ac82a18d7d243feeeab40206f6d6d42",
+      "pytest_identity_count": 221,
+      "standalone_validation_count": 4,
+      "required_execution_unit_count": 225
+    },
+    "source_checkout_mutation": 0,
+    "external_execution_mutation": 0
   },
   "independent_review": {
     "required_by": "P8",
     "reviewer": "Codex Reviewer",
-    "state": "PENDING_FULL_RANGE_S0_TO_NEW_S1_REVIEW",
-    "completion_token_withheld": true
+    "state": "PASS_FULL_RANGE_S0_TO_S1",
+    "subject_range": "fd0504817af8c1031ac794391cf67d129c8db54c..99585ff2a4738055d12aa2f7b42cf74d06f13860",
+    "exit_code": 0,
+    "actionable_finding_count": 0,
+    "prior_findings_resolved": 2,
+    "completion_token_withheld": true,
+    "completion_token_withheld_reason": "P10 remains blocked by missing discoverable dirty-main archive and restore locators"
   },
   "post_validation_rule": "An additive closeout may record the exact terminal subject and results but does not redefine that subject.",
   "claim_ceiling": "No product/runtime, historical replay, performance, release, Workshop, deployment, RTC, Publish, B42, in-game, or public-text quality claim.",

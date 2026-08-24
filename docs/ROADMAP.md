@@ -1030,17 +1030,17 @@ Current state: authority census and validation baseline recovery complete; physi
 
 ### Physical retirement successor (2026-08-23)
 
-Current state: predecessor implementation and exact-subject validation PASS; survivor correction implemented, correction terminal validation and S0→new-S1 full-range P8 review pending; P10 withheld.
+Current state: survivor correction exact-subject terminal validation and S0→S1 full-range P8 review PASS; dirty-main evidence-locator blocker 때문에 P10 withheld.
 
-- Regular 599 identity의 blanket keep을 폐기하고 independent survival basis로 전량 심사했다. Current product 234와 validation-system 94를 보존하고 lifecycle-bound 271을 퇴역시켰다.
+- Regular 599 identity의 blanket keep을 폐기하고 independent survival basis로 전량 심사·교정했다. Current product 224와 validation-system 92를 보존하고 lifecycle-bound 283을 퇴역시켰다.
 - Non-current 568 identity는 actual current consumer가 있는 39를 승격·보존하고 529를 퇴역시켰다. Full-gate 56 conflict는 current 39/retired 17로 닫혔다.
-- Tracked tree에서 full source/exclusive support 92개와 mixed callable 2개를 제거했다. Dirty main에서는 archive verify와 fresh-root restore가 끝난 ignored/untracked 163 file/335 identity/901,270 bytes만 제거하고 product survivor 6 family/13 identity를 보존했다.
+- Tracked tree에서 full source/exclusive support 96개와 mixed callable 9개를 제거했다. Dirty-main 163 file/335 identity/901,270 bytes는 historical report로만 남기며, product survivor 6 family/13 identity는 보존했다. Discoverable archive/restore locator가 없어 dirty-main safety completion은 blocked다.
 - `historical`, `diagnostic`, `all` repository-local replay selector는 종료됐고 `current` selector와 fail-closed current contract는 남는다. Predecessor ledger, sealed receipt와 Git history는 보존한다.
-- Exact terminal subject `b0fe69b1` / tree `2e7f2c8e`에서 focused/current/collection 검증, Clean-Checkout Run A/B, comparator와 undeclared-source negative probe가 PASS했다. Canonical result SHA-256은 `1baca45c...07964`, pytest identity는 `230`, standalone은 `4`, required execution unit은 `234`, source/external mutation은 `0`이다.
-- Exact `b0fe69b1` closeout-carrier commit review는 exit `0`, actionable finding `0`이었다. 이 결과는 부모 `4e527b84`의 destructive diff 전체를 formal subject로 삼지 않았으므로 P8 full-range PASS가 아니다.
-- Exact gate는 `437` unit에서 `234` unit으로 `203` (`46.453%`), current taxonomy는 `228` identity에서 `118` identity로 `110` (`48.246%`) 감소했다. Tracked executable identity `447`과 full source/exclusive support file `92`를 제거했고 net tracked blob `8,228,685` bytes (`1.026%`), test/tooling LOC `24,074` (`9.278%`)를 줄였다.
-- Correction pass에서 predecessor survivor `328` identity를 재심사해 lifecycle-only regular `12`와 predecessor inventory 밖 callable `1`을 추가 제거했다. Regular survivor는 product `224` + validation-system `92` = `316`, current taxonomy는 terminal execution 전 `110`이다.
-- 남은 필수 작업은 correction terminal validation, S0→new-S1 full-range Codex Reviewer, 그리고 그 결과를 반영한 canonical closeout이다. Dirty-main archive/restore locator 부재가 해소되지 않으면 해당 domain과 P10은 blocked로 유지한다.
+- Exact terminal subject `99585ff2` / tree `944f7e66`에서 Python syntax, focused `33`, current `110`, collection `231`, Clean-Checkout Run A/B와 comparator가 PASS했다. Canonical result SHA-256은 `a1ce7cd2...72f66`, pytest identity는 `221`, standalone은 `4`, required execution unit은 `225`, source/external mutation은 `0`이다.
+- 첫 full-range review의 Medium stale-reference finding `2`건을 제거한 뒤 exact S0→S1 Codex Reviewer가 exit `0`, actionable finding `0`으로 PASS했다. P8은 충족됐다.
+- Exact gate는 `437` unit에서 `225` unit으로 `212` (`48.513%`), current taxonomy는 `228` identity에서 `110` identity로 `118` (`51.754%`) 감소했다. Tracked executable identity `460`과 full source/exclusive support file `96`을 제거했고 net tracked blob `8,217,910` bytes (`1.025%`), test/tooling LOC `25,973` (`10.010%`)를 줄였다.
+- Correction pass에서 predecessor survivor `328` identity를 재심사해 lifecycle-only regular `12`와 predecessor inventory 밖 callable `1`을 추가 제거했다. Regular survivor는 product `224` + validation-system `92` = `316`이고 current taxonomy는 terminal `110`이다.
+- 구현·terminal validation·P8 review·canonical carrier 동기화는 끝났다. Dirty-main archive/restore locator 부재가 해소되지 않으면 해당 safety domain과 P10만 blocked로 유지한다.
 - 실제 GPT/Codex token 효율은 미측정이다. Repository bytes, test/tooling LOC와 gate/taxonomy 감소는 workload별 context proxy일 뿐이며 tokenizer, prompt selection, cache hit와 input/output/tool token telemetry가 없는 상태에서 token 절감률로 대체하지 않는다.
 - Runtime Lua, product data/public text/package, in-game QA, RTC/Publish, release/Workshop/deployment/B42와 performance claim은 이 successor 범위가 아니다.
 

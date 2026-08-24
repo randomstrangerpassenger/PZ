@@ -1,6 +1,6 @@
 {
   "schema_version": "iris-temporary-validation-physical-retirement-summary-v1",
-  "state": "survivor_correction_implemented_terminal_validation_and_full_range_review_pending",
+  "state": "survivor_correction_terminal_validation_and_full_range_review_pass_p10_blocked_dirty_main_evidence",
   "authority": {
     "s0_commit": "fd0504817af8c1031ac794391cf67d129c8db54c",
     "s0_tree": "395ec36de921987299fa9a9d9bb46118b74160a5",
@@ -78,27 +78,27 @@
   "metrics": {
     "method": "metric_scope.json",
     "s0_tracked_blob_bytes": 801868754,
-    "s1_tracked_blob_bytes": 793640069,
-    "tracked_blob_byte_delta": -8228685,
+    "s1_tracked_blob_bytes": 793650844,
+    "tracked_blob_byte_delta": -8217910,
     "s0_test_tooling_loc": 259483,
-    "s1_test_tooling_loc": 235409,
-    "test_tooling_loc_delta": -24074,
+    "s1_test_tooling_loc": 233510,
+    "test_tooling_loc_delta": -25973,
     "in_repository_retirement_evidence_bytes": 1019351,
     "projection_tracked_blob_bytes": 793624363,
-    "projection_error_bytes": 15706,
+    "projection_error_bytes": 26481,
     "tracked_dirty_main_and_external_archive_domains_combined": false,
     "correction_test_tooling_lines_removed": 1906,
-    "projected_correction_test_tooling_loc": 233503,
-    "projected_s0_to_correction_test_tooling_loc_delta": -25980,
+    "correction_terminal_test_tooling_loc": 233510,
+    "s0_to_correction_terminal_test_tooling_loc_delta": -25973,
     "correction_current_taxonomy_rows": 110,
-    "correction_terminal_execution_units": null
+    "correction_terminal_execution_units": 225
   },
   "terminal_subject": {
-    "definition": "new correction implementation commit; exact commit/tree bound by the additive post-validation carrier",
-    "exact_commit": null,
-    "exact_tree": null,
-    "validation": "PENDING",
-    "independent_review": "PENDING_FULL_RANGE_S0_TO_NEW_S1"
+    "definition": "exact survivor-correction implementation commit; this additive post-validation carrier does not redefine it",
+    "exact_commit": "99585ff2a4738055d12aa2f7b42cf74d06f13860",
+    "exact_tree": "944f7e66692ab30453f3ddf39ce71f2461f2e43d",
+    "validation": "PASS",
+    "independent_review": "PASS_FULL_RANGE_S0_TO_S1_ZERO_ACTIONABLE_FINDINGS"
   },
   "claim_ceiling": "Validation executable survivor correction only. Dirty-main archive/restore safety is not independently re-claimed until discoverable external locators are rebound. No runtime, performance, token, release, Publish, RTC, B42, or public-text acceptance claim is made."
 }

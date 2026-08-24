@@ -1,11 +1,11 @@
 # Iris Temporary/One-Off Validation Authority Maximal Physical Retirement Walkthrough
 
 > Session dates: 2026-08-23–2026-08-24 KST
-> Current status: predecessor physical implementation and exact-subject validation PASS; closeout-carrier commit review PASS; survivor correction terminal validation and S0→new-S1 full-range P8 review pending; P10 withheld
+> Current status: survivor correction terminal validation and S0→S1 full-range P8 review PASS; P10 withheld by dirty-main evidence-locator blocker
 > S0 commit: `fd0504817af8c1031ac794391cf67d129c8db54c`
 > S0 tree: `395ec36de921987299fa9a9d9bb46118b74160a5`
-> Terminal S1 commit: `b0fe69b1406d4f8353a2278cff6cc9b71738f0b8`
-> Terminal S1 tree: `2e7f2c8e1693586284d5aedb3f8cc05cce29f12e`
+> Terminal S1 commit: `99585ff2a4738055d12aa2f7b42cf74d06f13860`
+> Terminal S1 tree: `944f7e66692ab30453f3ddf39ce71f2461f2e43d`
 > Existing post-validation carrier: `8b9f779970c44d87914a9082a0c2da9a8efbd86e`
 
 ## 1. Document Role
@@ -176,21 +176,21 @@ Reviewer는 S1이 추가·수정한 pending retirement closeout 문서와 eviden
 
 | Metric | Before | After | Reduction |
 | --- | ---: | ---: | ---: |
-| Exact gate execution units | 437 | 234 | 203 (`46.453%`) |
-| Pytest identity in exact gate | 433 | 230 | 203 (`46.882%`) |
+| Exact gate execution units | 437 | 225 | 212 (`48.513%`) |
+| Pytest identity in exact gate | 433 | 221 | 212 (`48.961%`) |
 | Standalone validation | 4 | 4 | 0 |
-| Round 3 current taxonomy identity | 228 | 118 | 110 (`48.246%`) |
+| Round 3 current taxonomy identity | 228 | 110 | 118 (`51.754%`) |
 
-The exact gate comparison uses predecessor pytest `433` + standalone `4` and terminal pytest `230` + standalone `4`. Configured collection `243` and current runner `118` have different semantics and are not substituted for the comparator's required execution unit denominator.
+The exact gate comparison uses predecessor pytest `433` + standalone `4` and terminal pytest `221` + standalone `4`. Configured collection `231` and current runner `110` have different semantics and are not substituted for the comparator's required execution unit denominator.
 
 ### Repository surface
 
 | Metric | S0 | S1 | Net change |
 | --- | ---: | ---: | ---: |
-| Tracked blob bytes | 801,868,754 | 793,640,069 | -8,228,685 (`-1.026%`) |
-| Test/tooling LOC | 259,483 | 235,409 | -24,074 (`-9.278%`) |
+| Tracked blob bytes | 801,868,754 | 793,650,844 | -8,217,910 (`-1.025%`) |
+| Test/tooling LOC | 259,483 | 233,510 | -25,973 (`-10.010%`) |
 
-Tracked byte 감소량은 약 `7.85 MiB`다. 새 retirement summary와 evidence가 repository에 포함된 뒤의 net result이므로 projection이나 deleted-source gross bytes가 아니다.
+Tracked byte 감소량은 약 `7.84 MiB`다. 새 retirement summary와 evidence가 repository에 포함된 뒤의 net result이므로 projection이나 deleted-source gross bytes가 아니다.
 
 ### Performance claim ceiling
 
@@ -202,10 +202,10 @@ Comparable S0/S1 wall-time, CPU와 memory benchmark는 수행되지 않았다. �
 
 다음 값은 workload별 static proxy로만 사용할 수 있다.
 
-- Full-repository byte surface: `1.026%` 감소
-- Test/tooling LOC surface: `9.278%` 감소
-- Exact gate identity-heavy surface: `46.453%` 감소
-- Current taxonomy identity-heavy surface: `48.246%` 감소
+- Full-repository byte surface: `1.025%` 감소
+- Test/tooling LOC surface: `10.010%` 감소
+- Exact gate identity-heavy surface: `48.513%` 감소
+- Current taxonomy identity-heavy surface: `51.754%` 감소
 
 이 proxy는 동일 token budget에서 실제 처리량이 같은 비율로 증가했다는 증거가 아니다. Narrow product-code 작업은 제거된 테스트를 읽지 않으므로 token 변화가 거의 없을 수 있고, taxonomy/inventory/gate result를 모두 읽는 작업은 반복 identity text 감소의 영향을 더 크게 받을 수 있다. 반대로 retirement overlay를 통째로 읽는 authority-review workload는 compact product-code 작업보다 많은 context를 계속 요구한다.
 
@@ -213,7 +213,7 @@ Comparable S0/S1 wall-time, CPU와 memory benchmark는 수행되지 않았다. �
 
 ## 10. Top-Document Synchronization
 
-Exact carrier-commit review 결과와 정량 해석을 반영하기 위해 다음 top-level 문서를 수정했다. 이후 survivor correction에서 이 표현을 full-range P8 pending으로 교정했다.
+Exact carrier-commit review 결과와 정량 해석을 반영하기 위해 다음 top-level 문서를 수정했다. 이후 survivor correction에서 이 표현을 full-range P8 pending으로 교정했고, correction terminal validation과 exact S0→S1 review PASS 뒤 최종 상태로 다시 동기화했다.
 
 - `docs/DECISIONS.md`
 - `docs/ROADMAP.md`
@@ -223,19 +223,19 @@ Exact carrier-commit review 결과와 정량 해석을 반영하기 위해 다�
 
 - Physical implementation: PASS
 - Exact-subject terminal validation: PASS
-- Exact `b0fe69b1` carrier review: PASS, exit `0`, actionable finding `0`; full-range P8 pending
-- Exact S1/tree: unchanged
+- Exact S0→S1 Codex Reviewer: PASS, exit `0`, actionable finding `0`; prior Medium finding `2`건 해소 확인
+- Exact S1/tree: `99585ff2a4738055d12aa2f7b42cf74d06f13860` / `944f7e66692ab30453f3ddf39ce71f2461f2e43d`
 - Structural efficiency metrics: recorded with separate denominators
 - Runtime and GPT/Codex token efficiency: unmeasured
-- Canonical P10 closeout carrier synchronization: pending
+- Canonical post-validation carrier synchronization: complete; P10 token은 dirty-main evidence-locator blocker로 withheld
 
-Architecture 문서는 predecessor `433 + 4` criterion과 successor adjudication 후 terminal `230 + 4` gate를 분리했다. 이는 과거 PASS를 rewrite하는 것이 아니라 registration membership을 survival authority로 삼지 않는 successor decision을 설명한다.
+Architecture 문서는 predecessor `433 + 4` criterion과 successor adjudication 후 terminal `221 + 4` gate를 분리했다. 이는 과거 PASS를 rewrite하는 것이 아니라 registration membership을 survival authority로 삼지 않는 successor decision을 설명한다.
 
 ## 11. Current Repository State
 
-이번 documentation update는 product code, validator, test, JSON closeout carrier를 수정하지 않았다. 현재 작업으로 변경된 파일은 세 top-level 문서와 이 Walkthrough다.
+Post-validation carrier update는 exact S1 이후의 product code, validator 또는 test를 수정하지 않았다. 변경 범위는 기존 closeout/summary JSON, 세 top-level 문서와 이 Walkthrough이며 exact S1을 재정의하지 않는다.
 
-`Iris/_docs/round3/temporary_validation_physical_retirement/closeout.json`은 survivor correction terminal validation과 S0→new-S1 full-range review를 pending으로 기록하며 P10 token을 발행하지 않는다. Dirty-main archive/restore locator 부재도 별도 blocker로 유지한다.
+`Iris/_docs/round3/temporary_validation_physical_retirement/closeout.json`은 survivor correction terminal validation과 S0→S1 full-range review PASS를 기록한다. P10 token은 발행하지 않으며, dirty-main archive/restore locator 부재를 유일한 잔여 blocker로 유지한다.
 
 사용자 지시에 따라 top-document 및 Walkthrough 작성 과정에서는 테스트를 실행하지 않았다. 별도 seal, receipt, manifest, census, proof artifact 또는 validation-of-validation도 만들지 않았다.
 
@@ -246,7 +246,7 @@ Architecture 문서는 predecessor `433 + 4` criterion과 successor adjudication
 - Adjudicated temporary/one-off validation executable physical retirement
 - Current product/validation-system survivor preservation
 - Exact S1 terminal validation PASS
-- Exact `b0fe69b1` carrier review zero-finding; full-range P8 pending
+- Exact S0→S1 full-range Codex Reviewer PASS, actionable finding `0`
 - Tracked repository bytes와 test/tooling LOC의 net 감소
 - Gate/taxonomy execution surface의 구조적 감소
 
@@ -259,9 +259,9 @@ Architecture 문서는 predecessor `433 + 4` criterion과 successor adjudication
 - In-game QA, RTC, Publish, release, Workshop, deployment or B42 readiness
 - Public-text quality acceptance
 
-이 Walkthrough의 완료는 narrative 기록 완료만 뜻한다. Canonical completion state와 P10 token은 correction terminal validation, full-range P8 review, dirty-main evidence binding을 모두 충족한 뒤에만 변경할 수 있다.
+이 Walkthrough의 완료는 narrative 기록 완료만 뜻한다. Correction terminal validation과 full-range P8 review는 PASS했지만, canonical P10 token은 dirty-main evidence binding까지 충족된 뒤에만 발행할 수 있다.
 
-## 12. Survivor Correction Addendum
+## 13. Survivor Correction Addendum
 
 외부 지적을 반영해 predecessor keep `328` identity / `71` family를 다시 열었다. 실제 source의 import, subprocess target, repository path literal과 lifecycle label을 확인했으며, 단순히 `staging`, `historical`, `legacy` 문자열이 있다는 이유로 현재 negative-boundary test를 제거하지 않았다.
 
@@ -276,3 +276,22 @@ Architecture 문서는 predecessor `433 + 4` criterion과 successor adjudication
 기존 dirty-main inventory 밖 validator-like ignored source는 더 넓은 파일명 기준으로 `32`개가 확인됐다. 이들은 taxonomy, required validation manifest, full-gate selection과 두 predecessor overlay 어디에도 없으므로 `not_regular_not_registered`로 분류했다. 기존 archive/restore hash 두 개의 discoverable locator가 없기 때문에 이 correction에서는 해당 local source를 삭제하지 않았고, 기존 `163`-path 안전 archive/restore claim도 independently reverified로 승격하지 않았다.
 
 Correction의 one-off JSON mutation script는 실행 직후 삭제했다. 이 스크립트는 canonical validator, 정규 검사기 또는 새 validation authority가 아니다. Correction 과정에서는 중간 test/gate를 실행하지 않았다. 계획에 명시된 terminal validation은 correction implementation commit을 만든 뒤 마지막에 한 번만 실행한다.
+
+## 14. Correction Terminal Validation and Review
+
+최종 correction subject는 commit `99585ff2a4738055d12aa2f7b42cf74d06f13860`, tree `944f7e66692ab30453f3ddf39ce71f2461f2e43d`다. 이 subject에서 계획의 종단 배치를 실행한 결과는 다음과 같다.
+
+- 수정 후 생존한 Python executable `12`개 `py_compile`: exit `0`
+- Clean-checkout focused tests: `33 passed`
+- Round 3 current contract runner: `110 tests`, exit `0`
+- Configured current collection/denominator: `231 collected`, exit `0`
+- Fresh clean-checkout Run A/B: 각각 exit `0`, source/external execution mutation `0`
+- Deterministic comparator: exit `0`; pytest identity `221` + standalone `4` = required execution unit `225`
+- A/B canonical result SHA-256: `a1ce7cd24073f1b2383e0cdd3b12c18871ebb9ed436c9b19486e6b88d5a72f66`
+- Comparator receipt SHA-256: `9f89724e99df92d24c222f373323dffd96c4368be27ea909a4109d1c17c4cc8f`
+
+첫 full-range Codex review는 active closure와 clean-checkout source-disposition contract에 남은 retired-source reference `2`건을 Medium finding으로 보고했다. Commit `99585ff2`에서 Layer 4 retired source의 current closure/seed reference와 RTC retired test의 dedicated-route/assertion reference를 제거했다. 수정 후 exact range `fd0504817af8c1031ac794391cf67d129c8db54c..99585ff2a4738055d12aa2f7b42cf74d06f13860`을 재검토한 Codex Reviewer의 최종 판정은 exit `0`, actionable finding `0`, PASS다.
+
+Exact gate는 S0의 `437` unit에서 `225` unit으로 `212` (`48.513%`) 감소했고 current taxonomy는 `228`에서 `110`으로 `118` (`51.754%`) 감소했다. Tracked executable identity removal은 합계 `460`, full source/exclusive support deletion은 `96`이다. Exact S1 tracked blob은 S0 대비 `8,217,910` bytes (`1.025%`), test/tooling LOC는 `25,973` (`10.010%`) 감소했다. 이 값은 구조적 workload proxy이며 실제 token, wall-time, CPU 또는 memory 개선률이 아니다.
+
+Post-validation 문서/JSON carrier는 위 S1을 재정의하지 않는다. P8은 충족됐지만 dirty-main archive manifest와 fresh-root restore receipt의 discoverable locator가 없으므로 해당 safety claim과 P10 completion token은 계속 blocked/withheld다.

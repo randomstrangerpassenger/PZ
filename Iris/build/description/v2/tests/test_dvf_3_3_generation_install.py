@@ -39,9 +39,44 @@ def prepare_repository(root: Path) -> tuple[Path, Path, bytes]:
 
 
 class DvfGenerationInstallTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls._seed_temporary = tempfile.TemporaryDirectory(prefix="iris-iar-install-seed-")
+        cls._seed_error: Exception | None = None
+        try:
+            cls._seed_repository, cls._seed_generation, cls._legacy_manifest = prepare_repository(
+                Path(cls._seed_temporary.name)
+            )
+        except Exception as error:
+            cls._seed_error = error
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        cls._seed_temporary.cleanup()
+
+    def _clone_seed(self, root: Path) -> tuple[Path, Path, bytes]:
+        repository = root / "r"
+        generation = root / "g"
+        shutil.copytree(self._seed_repository, repository)
+        shutil.copytree(self._seed_generation, generation)
+        return repository, generation, self._legacy_manifest
+
+    def _prepared_case(self, root: Path, dependent_check_id: str) -> tuple[Path, Path, bytes] | None:
+        with self.subTest(check_id="shared_prepared_seed"):
+            if self._seed_error is not None:
+                self.fail(f"generation install shared seed failed: {self._seed_error}")
+        if self._seed_error is not None:
+            with self.subTest(check_id=dependent_check_id):
+                self.skipTest("blocked_by:shared_prepared_seed")
+            return None
+        return self._clone_seed(root)
+
     def test_install_uses_one_manifest_switch_and_reapply_is_noop(self) -> None:
         with tempfile.TemporaryDirectory(prefix="iris-iar-install-") as temporary:
-            repository, generation, _ = prepare_repository(Path(temporary))
+            prepared = self._prepared_case(Path(temporary), "install_and_reapply")
+            if prepared is None:
+                return
+            repository, generation, _ = prepared
             result = install_complete_generation(
                 repository_root=repository,
                 generation_root=generation,
@@ -62,26 +97,19 @@ class DvfGenerationInstallTest(unittest.TestCase):
         failure_steps = ("candidate_copy", "generation_publish", "before_visibility_switch", "visibility_switch", "after_visibility_switch")
         with tempfile.TemporaryDirectory(prefix="iris-iar-injection-") as temporary:
             root = Path(temporary)
-            seed_ready = False
-            with self.subTest(step="shared_immutable_seed"):
-                try:
-                    seed_repository, seed_generation, legacy_manifest = prepare_repository(root / "seed")
-                    seed_ready = True
-                except Exception as error:
-                    self.fail(f"generation install negative seed failed: {error}")
-            if not seed_ready:
+            with self.subTest(check_id="shared_prepared_seed"):
+                if self._seed_error is not None:
+                    self.fail(f"generation install shared seed failed: {self._seed_error}")
+            if self._seed_error is not None:
                 for failure_step in failure_steps:
                     with self.subTest(step=failure_step):
-                        self.skipTest("blocked_by:shared_immutable_seed")
+                        self.skipTest("blocked_by:shared_prepared_seed")
                 return
 
             for case_index, failure_step in enumerate(failure_steps):
                 with self.subTest(step=failure_step):
                     case_root = root / f"c{case_index}"
-                    repository = case_root / "r"
-                    generation = case_root / "g"
-                    shutil.copytree(seed_repository, repository)
-                    shutil.copytree(seed_generation, generation)
+                    repository, generation, _ = self._clone_seed(case_root)
                     with self.assertRaises(GenerationInstallError):
                         install_complete_generation(
                             repository_root=repository,
@@ -91,13 +119,16 @@ class DvfGenerationInstallTest(unittest.TestCase):
                         )
                     manifest = repository / "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua"
                     pointer = repository / "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua"
-                    self.assertEqual(manifest.read_bytes(), legacy_manifest)
+                    self.assertEqual(manifest.read_bytes(), self._legacy_manifest)
                     self.assertFalse(pointer.exists())
                     self.assertEqual(current_generation_id(repository), "legacy:test")
 
     def test_expected_predecessor_and_concurrent_install_fail_closed(self) -> None:
         with tempfile.TemporaryDirectory(prefix="iris-iar-guards-") as temporary:
-            repository, generation, _ = prepare_repository(Path(temporary))
+            prepared = self._prepared_case(Path(temporary), "predecessor_and_concurrency_guards")
+            if prepared is None:
+                return
+            repository, generation, _ = prepared
             with self.assertRaises(GenerationInstallError) as stale:
                 install_complete_generation(
                     repository_root=repository,

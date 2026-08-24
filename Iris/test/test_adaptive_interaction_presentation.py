@@ -2,11 +2,17 @@ from __future__ import annotations
 
 import json
 import subprocess
+import sys
 from pathlib import Path
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 LUA_ROOT = REPOSITORY_ROOT / "Iris/media/lua/client/Iris/UI/Browser"
+BUILD_ROOT = REPOSITORY_ROOT / "Iris/build/description/v2/tools/build"
+if str(BUILD_ROOT) not in sys.path:
+    sys.path.insert(0, str(BUILD_ROOT))
+
+import build_layer3_english_localization as layer3_english  # noqa: E402
 
 
 def test_standalone_projection_and_state_harness() -> None:
@@ -130,3 +136,19 @@ def test_ko_en_adaptive_keys_are_complete() -> None:
             encoding="utf-8"
         )
         assert all(f"{key} = " in text for key in required)
+
+
+def test_layer3_english_keys_follow_current_public_ko_projection() -> None:
+    english_entries, _generation_id, _metrics = layer3_english.build_english_entries(
+        REPOSITORY_ROOT
+    )
+    projection = json.loads(
+        (
+            REPOSITORY_ROOT
+            / "Iris/build/description/v2/data/layer3_body_role_realign/approved_upstream/candidate_rendered.json"
+        ).read_text(encoding="utf-8")
+    )["entries"]
+    public_ko_keys = {fulltype for fulltype, entry in projection.items() if entry.get("text_ko")}
+
+    assert set(english_entries) == public_ko_keys
+    assert len(english_entries) == 2072

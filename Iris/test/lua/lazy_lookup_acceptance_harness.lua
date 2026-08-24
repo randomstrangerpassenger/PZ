@@ -105,6 +105,22 @@ if mode == "layer3" then
     end
     assert(parityCount == 2105 and IrisLayer3Data == facade)
 
+    package.loaded["Iris/Data/layer3_renderer"] = nil
+    package.loaded["Iris/Data/IrisLayer3EnglishLookup"] = nil
+    package.preload["Iris/Data/IrisLayer3EnglishLookup"] = function()
+        return { get=function(fullType)
+            if fullType == "Base.BarbedWire" then return "stale English text" end
+            return nil
+        end }
+    end
+    local silentRenderer = require("Iris/Data/layer3_renderer")
+    assert(facade["Base.BarbedWire"] and facade["Base.BarbedWire"].text_ko == nil)
+    assert(silentRenderer.getRawText("Base.BarbedWire", { locale = "EN" }) == nil)
+    assert(silentRenderer.getText("Base.BarbedWire", { locale = "EN" }) == nil)
+    package.loaded["Iris/Data/layer3_renderer"] = nil
+    package.loaded["Iris/Data/IrisLayer3EnglishLookup"] = nil
+    package.preload["Iris/Data/IrisLayer3EnglishLookup"] = nil
+
     RuntimeDiagnostics.reset()
     package.loaded["Iris/Data/IrisLayer3DataLookup"] = nil
     package.loaded["Iris/Data/IrisLayer3DataChunkIndex"] = nil

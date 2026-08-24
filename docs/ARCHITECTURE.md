@@ -935,9 +935,9 @@ Layer 3 body-role realignment은 current producer/install architecture 위에서
 - `validate_layer3_body_role_realign.py`는 staging subject만 read-only로 검증한다. Repository Clean-Checkout, current install, RTC, Publish 또는 release claim을 만들지 않는다.
 - Repository validation owner는 `Iris/validation/clean_checkout/`다. Staging focused test와 candidate replay 뒤 exact tracked terminal subject를 fresh disposable checkout 두 곳에서 full-repository Run A/B로 실행하고 canonical result raw-byte identity와 deterministic comparison을 확인한다. 이 gate만 `layer3_role_realign_staging_complete`의 repository-validation axis를 닫을 수 있다.
 - Current adoption owner는 explicit authorization과 `dvf_3_3_generation_contract.py`의 exact seven-input set이다. Approved candidate는 staging successor와 semantic identity가 같고 authorization, current readback, descriptor, receipt와 installer state는 generation input에서 제외된다.
-- Current visibility owner는 `install_dvf_3_3_complete_generation.py` 하나다. Generation `dvf33-aa138aa4896b68ac53609a4b1cb6e5346245e74f544db28eb2ee924dc7b3e814`는 immutable generation root에 설치되고 `IrisLayer3DataCurrent.lua`만 predecessor에서 한 번 전환됐다. Same-generation reinstall은 mutation `0`이며 stable facade/index/lookup은 같은 pointer-selected generation을 따른다.
-- Package projection은 `IrisRuntimeLookupPackageIdentity.json`의 ordinal identity `lookup-f088127352730047`과 generation descriptor의 output universe를 함께 검증한다. Windows PowerShell 5.1과 PowerShell 7의 digest parity는 current package identity의 재현성만 뜻하며 RTC나 publication authority를 만들지 않는다.
-- Runtime Lua는 precompiled locale payload만 표시하고 readiness, disposition, fact-kind, rewrite 또는 summarization을 계산하지 않는다. KO는 pointer-selected `text_ko`를 사용하고, EN은 같은 current facts에 결속된 companion localization chunk를 사용한다. Tooltip runtime consumer는 이 architecture change에 포함되지 않는다.
+- Current visibility owner는 `install_dvf_3_3_complete_generation.py` 하나다. Generation `dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9`는 immutable generation root에 설치되고 `IrisLayer3DataCurrent.lua`만 predecessor `dvf33-aa138aa4896b68ac53609a4b1cb6e5346245e74f544db28eb2ee924dc7b3e814`에서 한 번 전환됐다. Same-generation reinstall은 mutation `0`이며 stable facade/index/lookup은 같은 pointer-selected generation을 따른다.
+- Package projection은 `IrisRuntimeLookupPackageIdentity.json`의 ordinal identity `lookup-386573f6b917d499`과 generation descriptor의 output universe를 함께 검증한다. Windows PowerShell 5.1과 PowerShell 7의 digest parity는 current package identity의 재현성만 뜻하며 RTC나 publication authority를 만들지 않는다.
+- Runtime Lua는 precompiled locale payload만 표시하고 readiness, disposition, fact-kind, rewrite 또는 summarization을 계산하지 않는다. KO는 pointer-selected `text_ko`를 사용하고, EN은 같은 current facts에 결속되면서 current non-empty KO public key set에 제한된 companion localization chunk를 사용한다. Tooltip runtime consumer는 이 architecture change에 포함되지 않는다.
 
 One-off Item-Page Information Sufficiency row는 exact snapshot이 current일 때 Layer 3 `fact_availability/contribution/requiredness/representation` axes만 readiness prerequisite에 보조적으로 제공한다. Page disposition과 Layer 4 axes는 semantic production input이 아니다. Current generation 전환 뒤 predecessor snapshot은 `predecessor_snapshot_stale_after_install`이며 제거된 evaluator나 authority chain을 복원하지 않고 predecessor result를 current sufficiency claim으로 상속하지 않는다.
 
@@ -958,7 +958,7 @@ Iris Browser의 current detail path는 지원 locale에서 알려진 정보를 �
 `locale -> Detail ViewModel -> Layer 2 template selection + Layer 3 locale lookup + Layer 4 interaction projection -> Browser detail renderer`
 
 - Layer 2는 동일한 50개 template ID에 대해 `Templates.lua`와 `TemplatesEn.lua`를 병렬로 유지한다. `Generator.lua`가 locale을 받아 같은 분류 ID의 KO/EN 문장을 선택하며, locale 전환은 분류 의미나 ID를 바꾸지 않는다.
-- Layer 3의 KO payload는 current generation의 `text_ko`다. EN payload는 exact current facts의 `primary_use`, `acquisition_hint`, `special_context` vocabulary에서 생성된 companion localization이며, `IrisLayer3EnglishLookup.lua -> Layer3English/Index.lua -> companion lazy chunk` 경로로 필요한 chunk만 읽는다.
+- Layer 3의 KO payload는 current generation의 `text_ko`다. EN payload는 exact current facts의 `primary_use`, `acquisition_hint`, `special_context` vocabulary에서 생성하되 pointer-selected generation의 non-empty `text_ko` 공개 키 집합에 정확히 제한되는 companion localization이며, `IrisLayer3EnglishLookup.lua -> Layer3English/Index.lua -> companion lazy chunk` 경로로 필요한 chunk만 읽는다. Runtime도 current entry의 공개 KO 본문이 비어 있으면 stale EN lookup 값을 노출하지 않는다.
 - Layer 3 EN chunk와 index는 presentation lookup이다. KO body, current facts, provenance, disposition/readiness 또는 Layer 4 authority를 대체하지 않으며 runtime에서 새 사실을 추론하거나 원문을 다시 요약하지 않는다.
 - `layer3_renderer.lua`는 요청 locale의 payload만 반환한다. KO raw text를 EN 화면에 노출하거나 EN 미지원 상태를 이유로 이미 알려진 Layer 2–3 정보를 숨기는 cross-locale fallback은 허용하지 않는다.
 - Layer 4는 `UseCases._getDescriptionState()`의 status-bearing 결과를 Detail ViewModel의 `interactionState`로 전달한다. collector/projection은 이를 표시 row로 정규화하고 policy/state/renderer가 단일·소규모·고밀도 표시, compact/full 전환, 검색, recipe navigation을 담당한다.
@@ -974,3 +974,37 @@ Iris retirement successor는 product/runtime architecture를 바꾸지 않는다
 이 경로는 source presence와 current execution denominator를 결속하지만 product semantics나 regular survivor classification을 새로 정의하지 않는다. Outside-overlay validator-like source 32개는 taxonomy, required manifest와 full gate에 등록되지 않은 `not_regular_not_registered`이며, archive/restore locator가 발견되지 않은 dirty-main 163-file domain과도 분리한다. 일회성 hash search와 negative probe는 이 architecture의 canonical validator가 아니다.
 
 P10 completion은 canonical tracked boundary로 판정한다. Project owner는 이미 삭제된 ignored/untracked dirty-main material의 복구 의도를 포기하고 archive manifest, 파일별 삭제 사유, 삭제 전 원문 보관과 fresh-root restore receipt를 completion architecture에서 면제했다. 기존 hash와 `null` locator는 발견·검증 성공을 뜻하지 않으며 historical unresolved reference로 유지한다. `163` local file / `335` identity / `901,270` bytes는 non-canonical historical observation이므로 tracked retirement metric에 합산하지 않는다. Canonical baseline은 `052ef0e5`, execution boundary는 pytest `234` + standalone `4` = `238`이며 이 기준으로 P10은 PASS다.
+#### Layer 3 locale key-set correction boundary
+
+Blocker 6 correction 이후 EN companion의 visibility flow는 다음과 같다.
+
+`current pointer -> immutable generation descriptor -> descriptor-bound facts + approved candidate -> non-empty text_ko public keys -> EN lazy chunks/index -> runtime current-entry visibility guard`
+
+- `build_layer3_english_localization.py`는 predecessor rendered output을 locale visibility source로 사용하지 않는다. Current pointer가 선택한 immutable descriptor에서 producer가 실제 소비하는 facts와 approved candidate identity를 확인한 뒤, candidate의 non-empty `text_ko` key set만 번역한다.
+- Generator implementation 전체나 producer가 소비하지 않는 decision input의 후속 변화로 current generation ID를 다시 파생하지 않는다. Locale producer의 fail-closed binding은 current descriptor와 실제 semantic inputs에 한정한다.
+- `Layer3English/Index.lua`와 companion chunks는 current public key set `2,072`개를 제공한다. KO body가 silent인 33개 entry는 EN visibility source가 아니며, predecessor에서 남은 EN-only entry는 payload에 존재하지 않는다.
+- `layer3_renderer.lua`는 raw/display 두 경로 모두 current entry의 non-empty `text_ko`를 locale visibility prerequisite로 확인한다. 따라서 stale EN chunk/index가 실수로 남아도 current KO public projection보다 넓은 정보를 공개하지 않는다.
+- 이 guard는 locale 간 raw-text fallback, semantic inference 또는 KO text를 EN으로 재사용하는 동작이 아니다. Current public-body 존재 여부만 확인하고 요청 locale의 precompiled payload만 반환한다.
+- Locale payload correction은 current Layer 3 immutable generation/pointer, fact/role authority, Layer 4 projection과 historical Problem 4 evidence를 mutation하거나 재정의하지 않는다.
+
+### Problem 5A two-item source-material successor
+
+Blocker 11 correction은 새 semantic subsystem을 만들지 않고 기존 source-to-generation 경계를 그대로 따른다.
+
+`ItemScript/dynamic recipe evidence -> reviewed direct_use facts + adopted decisions -> approved candidate target projection -> canonical seven-input complete generation -> immutable install -> KO/EN current public parity -> package lookup identity`
+
+- Facts authority는 `Base.Bleach`, `Base.Rope`의 기존 primary-use 문구와 item identity를 유지하고 exact repository evidence가 확인된 provenance만 `direct_use`로 승격한다. Layer 4 evidence와 rendered-string parsing은 이 경로의 source가 아니다.
+- Role-material projection은 두 target의 deterministic scalar fact ID를 `core_source_fact_ids`로 소비한다. Approved candidate의 다른 2,103개 entry는 successor에서 구조와 값이 유지된다.
+- Current public projection은 KO와 EN 각각 2,072개이고 silent entry는 33개다. Runtime locale guard와 precompiled companion lookup 경계는 바뀌지 않는다.
+- Generation `dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9`와 package lookup identity `lookup-386573f6b917d499`가 current pointer/package projection을 결속한다. Predecessor generation은 inactive rollback material로 보존한다.
+- Complete-generation validator, stateless runtime compatibility, Lua syntax와 two-shell package projection은 기존 owners를 그대로 사용한다. 이번 correction의 일회성 target 변환이나 비교 명령은 새 producer/validator authority가 아니다.
+
+## Iris validation retirement integrated baseline
+
+Physical-retirement architecture의 canonical product/validation readpoint는 implementation commit `052ef0e5c90282ef9afac830bb4491b36d4e92fc` / tree `9a952fab3442bea45cada05a4b660245f978a27e`다. Repository integration readpoint는 merge commit `992f45645855830bb9c169827ae4bc60b7938f56`이며 `main`과 `origin/main`이 이 commit을 공유한다. Merge carrier는 implementation readpoint를 재정의하지 않는다.
+
+`tracked canonical sources -> taxonomy/runner 123 -> configured collection 244 -> 234 pytest identities + 4 standalone checks = 238 -> terminal validation PASS -> P8 review PASS -> P10 owner-waived completion`
+
+Six formerly local product-contract sources/13 identities는 tracked canonical presence를 갖는다. Retired target의 current-authority registration은 `0`이고 outside-overlay local validator-like source `32`개는 미등록이다. Project-owner waiver는 이미 삭제된 ignored/untracked material의 복구 의도를 제거할 뿐 canonical registration이나 validation 결과를 대신하지 않는다.
+
+Dirty-main `163` file / `335` identity / `901,270` bytes는 historical local-domain observation이며 canonical tracked metric이 아니다. Archive/restore locator는 `null`이고 unresolved hash는 복구 성공 증거가 아니다. P10 completion token `temporary_validation_physical_retirement__complete`는 canonical tracked boundary와 owner waiver에 근거한다. Main worktree의 별도 unstaged product/document 변경과 safety stash는 이 integrated baseline의 commit tree에 포함되지 않는다.

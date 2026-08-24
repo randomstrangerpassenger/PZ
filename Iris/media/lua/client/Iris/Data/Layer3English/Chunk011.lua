@@ -1,17 +1,5 @@
 -- Generated Layer 3 English localization payload.
 return {
-    ["Base.WristWatch_Right_ClassicGold"] = "A device used to check the time or set an alarm.\n\nCan be obtained from watch retailers, foraging.",
-    ["Base.WristWatch_Right_ClassicMilitary"] = "Worn on the wrist to check the time or set an alarm.",
-    ["Base.WristWatch_Right_DigitalBlack"] = "A device used to check the time or set an alarm.\n\nCan be obtained from watch retailers, foraging.",
-    ["Base.WristWatch_Right_DigitalDress"] = "A device used to check the time or set an alarm.\n\nCan be obtained from watch retailers, foraging.",
-    ["Base.WristWatch_Right_DigitalRed"] = "A device used to check the time or set an alarm.\n\nCan be obtained from watch retailers, foraging.",
-    ["Base.Yarn"] = "A material.\n\nFound in construction-material storage, workshops.",
-    ["Base.Yeast"] = "Cookware used to hold or mix ingredients before cooking.",
-    ["Base.Yoghurt"] = "Food used while preparing or eating a meal.",
-    ["Base.Yoyo"] = "Handled during play with boards, cards, pieces, or small toys.",
-    ["Base.Zucchini"] = "Food used while preparing or eating a meal.",
-    ["Base.brokenglass_1_0"] = "Broken glass that requires care when approached or cleared.",
-    ["Base.brokenglass_1_1"] = "Broken glass that requires care when approached or cleared.",
     ["Base.brokenglass_1_2"] = "Broken glass that requires care when approached or cleared.",
     ["Base.brokenglass_1_3"] = "Broken glass that requires care when approached or cleared.",
     ["Base.x2Scope"] = "A part used to modify firearms.\n\nFound in military areas, police weapon storage, gun stores, garages.",

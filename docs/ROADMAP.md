@@ -979,7 +979,7 @@ Current state: implementation and owner in-game acceptance complete on `main`.
 
 - Layer 4 adaptive interaction presentation을 main에 통합했다. 단일·소규모·고밀도 row, compact/full 전환, 검색, Recipe 제작 UI 이동과 item/locale별 UI state ownership이 current runtime에 적용됐다.
 - Recipe와 Right-click은 독립 surface로 유지되며 QG-only 수용 대상 Ball Peen Hammer, Garden Saw, Stone Hammer가 모두 표시된다. Stone Hammer의 우클릭 행동도 owner가 최종 확인했다.
-- EN 전환 시 Layer 2–3 글자가 깨지던 문제를 교정했다. Layer 2는 KO와 ID parity를 갖는 EN template 50개를, Layer 3는 exact current facts에 결속된 EN payload 2,084개를 lazy chunk lookup으로 제공한다.
+- EN 전환 시 Layer 2–3 글자가 깨지던 문제를 교정했다. Layer 2는 KO와 ID parity를 갖는 EN template 50개를, Layer 3는 exact current facts와 current non-empty KO public key set에 결속된 EN payload 2,072개를 lazy chunk lookup으로 제공한다.
 - 지원 locale에서 알려진 정보를 숨기는 방식은 채택하지 않는다. Runtime은 같은 semantic source의 locale payload를 선택하며 KO raw text를 EN 화면에 노출하는 fallback도 사용하지 않는다.
 - Owner in-game 확인 결과는 부팅, Iris Browser, 223 Bullets Mold, Tongs compact/full/search, Recipe 제작 UI 이동, item 전환 상태, 세 QG-only 항목, 기존 context menu/Wiki/Alt Tooltip 동작과 화면 layout이 정상이다. 기존 surface의 fallback 분기 자체는 관찰 가능하지 않아 별도 PASS로 주장하지 않는다.
 - 구현 중 focused test는 `9 passed, 5 deselected`, Lua syntax validation은 `145 files`에서 exit `0`이었다. 이 결과와 localization builder를 새로운 validation authority로 확장하지 않는다.
@@ -1057,3 +1057,45 @@ Current state: exact 6-family canonical-presence correction implemented, termina
 - Successor 검증 뒤 변경은 closeout·summary·top-level docs·walkthrough·Reviewer raw/receipt만 담는 additive carrier이며 implementation S1이나 terminal denominator를 재정의하지 않는다. Exact range `fd050481..f1130bdc`의 final bounded Codex Reviewer는 PASS, actionable finding `0`으로 P8을 닫았다.
 - `163` ignored/untracked local file, `335` historical validation identity, `901,270` raw bytes는 non-canonical historical observation이며 tracked retirement metric에 합산하지 않는다. Canonical baseline은 `052ef0e5`, current boundary는 `234 + 4 = 238`이다.
 - P10: PASS. Completion token: `temporary_validation_physical_retirement__complete`. 이 owner-waived archive/restore 요구는 이후 test merge completion gate로 다시 열지 않는다.
+---
+
+## Iris DVF freeze Blocker 6 correction (2026-08-22)
+
+Current state: Layer 3 KO/EN public key-set correction complete; freeze verdict not reassessed.
+
+- Problem 4가 확인한 KO `2,070` / EN `2,084` 불일치의 root cause는 EN producer가 predecessor rendered output을 locale visibility input으로 계속 사용한 것이었다.
+- Producer를 current pointer-selected generation descriptor의 facts와 approved candidate에 결속하고 non-empty KO public keys만 EN payload로 생성하도록 수정했다.
+- EN-only 14개를 제거해 current Layer 3 public key set을 KO `2,070` / EN `2,070`으로 정렬했다.
+- Runtime raw/display 경로에 current public KO body prerequisite를 추가해 stale EN lookup이 current projection보다 넓게 노출되지 않도록 했다.
+- 직접 관련 focused tests는 `8 passed`, Lua syntax는 `157 files`, PowerShell 5.1/7 `current_runtime_payload` package는 모두 exit `0`이다. Package content row `170`개는 shell 간 delta `0`이다.
+- 이 작업은 current Layer 3 immutable generation과 pointer, KO body, fact/role authority 또는 Layer 4 projection을 변경하지 않았다.
+
+Blocker 6 correction에 남은 구현 gate는 없다. 다만 과거 Problem 4의 exact-subject `동결 불가` verdict와 evidence는 historical state로 유지한다. 그 평가의 다른 finding, 특히 Blocker 11은 이번 locale correction으로 disposition되지 않았다. Freeze readiness를 다시 판정할 때는 correction이 포함된 새 protected product/runtime/package/installed-copy subject를 결속하고 Problem 4의 required hard-gate chain을 처음부터 다시 실행해야 하며, 과거 PASS나 이번 focused/package 결과를 새 freeze verdict로 승계하지 않는다.
+
+---
+
+## Iris DVF freeze Blocker 11 two-item resolution (2026-08-22)
+
+Current state: known Problem 5A two-item material gap resolved and successor installed; freeze verdict not reassessed.
+
+- `Base.Bleach`, `Base.Rope`의 기존 primary-use 문구를 exact repository evidence에 결속해 `direct_use` source material로 승격했다.
+- Approved candidate에서 두 항목만 silent 상태를 벗어났다. Public/silent count는 `2,072 / 33`이며 non-target 2,103개 entry는 유지됐다.
+- Official seven-input generation `dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9`를 생성·검증·설치하고 EN companion도 current KO public set과 같은 2,072개로 재생성했다.
+- Package lookup identity는 `lookup-386573f6b917d499`다. Windows PowerShell 5.1/7 package content row 184개는 delta 0이다.
+- Focused complete-generation/adaptive-presentation tests, stateless runtime compatibility, Lua syntax 169 files와 두 package command가 모두 exit `0`이다.
+
+Known two-item Problem 5A implementation에는 남은 gate가 없다. Historical Problem 4 verdict는 수정하지 않았으며, freeze readiness 재판정·대표 인게임 검증·RTC·Publish·release/Workshop/deployment는 후속 exact-subject 실행 범위다.
+
+---
+
+## Iris temporary/one-off validation physical retirement — completed and published (2026-08-24)
+
+Current state: **P8 PASS, P10 PASS, physical retirement complete, main integration and origin push complete.**
+
+- Canonical implementation baseline은 `052ef0e5` / tree `9a952fab`다. Six-family canonical-presence correction으로 product-contract source 6개/identity 13개를 tracked current authority에 결속했다.
+- Current taxonomy/runner는 `123`, configured collection은 `244`, exact full gate는 pytest identity `234` + standalone `4` = `238`이다. Terminal validation과 bounded Codex Reviewer는 PASS, actionable finding `0`이다.
+- Current authority에 등록된 retired target은 `0`; outside-overlay local validator-like source `32`개는 `not_regular_not_registered`다.
+- Project owner가 이미 삭제된 ignored/untracked dirty-main material의 archive/restore 요구를 면제했다. `163` file / `335` identity / `901,270` bytes는 non-canonical historical observation이며 tracked 성과에 합산하지 않는다. Missing locator/hash를 발견 또는 복원 성공으로 취급하지 않는다.
+- P10 completion token은 `temporary_validation_physical_retirement__complete`다. 면제된 archive manifest·개별 삭제 사유·원문 보관·fresh-root restore receipt는 이후 test merge completion gate로 다시 열지 않는다.
+- Successor branch는 `992f4564` merge commit으로 `main`에 통합됐고 `origin/main`도 같은 commit으로 push됐다. 기존 dirty-main 변경은 unstaged로 보존했고 merge conflict나 staged residue는 `0`이다.
+- Owner-decision 및 main-integration 문서 변경 뒤 추가 테스트는 실행하지 않았다. 이 closeout은 product runtime, freeze readiness, RTC/Publish, release/Workshop/deployment 또는 실제 token-efficiency claim이 아니다.

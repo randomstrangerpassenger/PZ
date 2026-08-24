@@ -1,5 +1,5 @@
 {
-  "authority_date": "2026-06-18",
+  "authority_date": "2026-08-22",
   "authority_role": "successor_current_source_authority",
   "baseline_identity": "dvf_3_3_vnext_current_authority_implementation_2105_consumer_migration",
   "compose_authority": {
@@ -121,7 +121,7 @@
       "adopted",
       "unadopted"
     ],
-    "sha256": "c0d6c253d9d7041fb072383c253ec8f438f9211a039ee1cf91b17e5c3418df46"
+    "sha256": "5b68d658729ebe0dfae68aa2a8e842b7303c8f70597db0804f5ecee741912443"
   },
   "expected_universe": {
     "decisions_count": 2105,
@@ -133,7 +133,7 @@
     "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
     "role": "current_source_authority",
     "row_count": 2105,
-    "sha256": "50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120"
+    "sha256": "e784cf76d2f7d51273eda44906c202c0548f0043027f60cf1af817336c03a6e9"
   },
   "fixture_exclusion_rule": {
     "excluded_paths": [
@@ -180,6 +180,35 @@
       "source": "fresh_generated_from_current_facts"
     }
   ],
+  "problem5a_two_item_resolution": {
+    "authority_source": "repository_owner_preapproval_and_reviewed_git_diff",
+    "corrected_item_count": 2,
+    "current_decisions_sha256": "5b68d658729ebe0dfae68aa2a8e842b7303c8f70597db0804f5ecee741912443",
+    "current_facts_sha256": "e784cf76d2f7d51273eda44906c202c0548f0043027f60cf1af817336c03a6e9",
+    "direct_use_evidence": [
+      {
+        "item_id": "Base.Bleach",
+        "path": "Iris/input/items_itemscript.json",
+        "raw_byte_sha256": "ce52d8fe38302c5dca5b7c28d2258155c5f91b6aee52ebe2b82276a8bb28b22e",
+        "selector": "CustomContextMenu=Drink"
+      },
+      {
+        "item_id": "Base.Rope",
+        "path": "Iris/output/dynamic_expr_catalog.v2.4.json",
+        "raw_byte_sha256": "f8fbdd501b7f67b527824af651b247a071cc9a3d801cc4d14f641f8a65349a8f",
+        "selector": "CraftLogStack resolved lua_tag_alias Rope includes Base.Rope"
+      }
+    ],
+    "item_ids": [
+      "Base.Bleach",
+      "Base.Rope"
+    ],
+    "layer4_evidence_consumed_count": 0,
+    "predecessor_decisions_sha256": "c0d6c253d9d7041fb072383c253ec8f438f9211a039ee1cf91b17e5c3418df46",
+    "predecessor_facts_sha256": "50c5d4901220d7eb43d14d2f8bc35f3e65f983a4326035a4477d7f6319e39120",
+    "rendered_string_semantic_parsing_count": 0,
+    "schema_version": "dvf-3-3-problem5a-two-item-resolution-binding-v1"
+  },
   "runtime_authority": {
     "chunk_dir_path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
     "chunk_manifest_path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",

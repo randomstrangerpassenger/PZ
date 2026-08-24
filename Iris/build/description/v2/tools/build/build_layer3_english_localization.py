@@ -6,6 +6,18 @@ from pathlib import Path
 import re
 import shutil
 
+from dvf_3_3_generation_contract import (
+    CANONICAL_INPUTS,
+    canonical_input_identity,
+    repository_path,
+)
+
+
+CURRENT_POINTER_RELATIVE_PATH = "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua"
+CURRENT_GENERATION_ROOT_RELATIVE_PATH = (
+    "Iris/media/lua/client/Iris/Data/IrisLayer3Generations"
+)
+
 
 PRIMARY_USE_SOURCE_SHA256 = "458d62d474b2e2295a3f591083fd65b6ff8883293fa7658b2b9aad4a3ac28799"
 
@@ -689,8 +701,50 @@ def _write_runtime(entries: dict[str, str], output_root: Path, chunk_size: int =
     (output_root / "Index.lua").write_text("\n".join(lines), encoding="utf-8", newline="\n")
 
 
-def main() -> int:
-    repository_root = Path(__file__).resolve().parents[6]
+def _current_projection(repository_root: Path) -> tuple[dict[str, dict[str, object]], str]:
+    pointer_path = repository_path(repository_root, CURRENT_POINTER_RELATIVE_PATH)
+    pointer_text = pointer_path.read_text(encoding="utf-8")
+    generation_matches = re.findall(
+        r'^\s*generation_id\s*=\s*"(dvf33-[0-9a-f]{64})",?\s*$',
+        pointer_text,
+        re.MULTILINE,
+    )
+    if len(generation_matches) != 1:
+        raise RuntimeError("LAYER3_EN_CURRENT_GENERATION_POINTER_INVALID")
+
+    current_generation_id = generation_matches[0]
+    descriptor_path = repository_path(
+        repository_root,
+        f"{CURRENT_GENERATION_ROOT_RELATIVE_PATH}/{current_generation_id}/generation_descriptor.json",
+    )
+    descriptor = json.loads(descriptor_path.read_text(encoding="utf-8"))
+    if descriptor.get("generation_id") != current_generation_id:
+        raise RuntimeError("LAYER3_EN_CURRENT_GENERATION_DESCRIPTOR_MISMATCH")
+    required_input_paths = {CANONICAL_INPUTS[0], CANONICAL_INPUTS[6]}
+    descriptor_inputs = {
+        row.get("path"): row
+        for row in descriptor.get("canonical_inputs", [])
+        if row.get("path") in required_input_paths
+    }
+    current_inputs = {
+        row["path"]: row
+        for row in canonical_input_identity(repository_root)
+        if row["path"] in required_input_paths
+    }
+    if descriptor_inputs != current_inputs:
+        raise RuntimeError("LAYER3_EN_CURRENT_GENERATION_INPUT_MISMATCH")
+
+    projection_path = repository_path(repository_root, CANONICAL_INPUTS[6])
+    projection = json.loads(projection_path.read_text(encoding="utf-8"))
+    entries = projection.get("entries")
+    if not isinstance(entries, dict):
+        raise RuntimeError("LAYER3_EN_CURRENT_PROJECTION_INVALID")
+    return entries, current_generation_id
+
+
+def build_english_entries(
+    repository_root: Path,
+) -> tuple[dict[str, str], str, dict[str, int]]:
     facts_path = repository_root / "Iris/build/description/v2/data/dvf_3_3_facts.jsonl"
     rows = [json.loads(line) for line in facts_path.read_text(encoding="utf-8").splitlines() if line]
     translations = primary_use_translations(rows)
@@ -706,14 +760,16 @@ def main() -> int:
         raise RuntimeError(f"LAYER3_EN_ACQUISITION_UNRESOLVED:{len(unresolved)}")
 
     facts_by_item = {str(row["item_id"]): row for row in rows}
-    rendered = json.loads(
-        (repository_root / "Iris/build/description/v2/output/dvf_3_3_rendered.json").read_text(encoding="utf-8")
-    )["entries"]
+    rendered, generation_id = _current_projection(repository_root)
     english_entries: dict[str, str] = {}
     for item_id, rendered_entry in rendered.items():
+        if not isinstance(rendered_entry, dict):
+            raise RuntimeError(f"LAYER3_EN_CURRENT_PROJECTION_ENTRY_INVALID:{item_id}")
         if not rendered_entry.get("text_ko"):
             continue
-        facts = facts_by_item[item_id]
+        facts = facts_by_item.get(item_id)
+        if facts is None:
+            raise RuntimeError(f"LAYER3_EN_CURRENT_PUBLIC_FACT_MISSING:{item_id}")
         primary_use = facts.get("primary_use")
         body = ""
         if primary_use:
@@ -725,15 +781,24 @@ def main() -> int:
         if facts.get("acquisition_hint"):
             body += "\n\n" + localized_acquisition[str(facts["acquisition_hint"])]
         english_entries[item_id] = body
+    return english_entries, generation_id, {
+        "primary_use": len(translations),
+        "special_context": len(special),
+        "acquisition": len(localized_acquisition),
+    }
+
+
+def main() -> int:
+    repository_root = Path(__file__).resolve().parents[6]
+    english_entries, generation_id, metrics = build_english_entries(repository_root)
 
     output_root = repository_root / "Iris/media/lua/client/Iris/Data/Layer3English"
     _write_runtime(english_entries, output_root)
     print(json.dumps({
         "status": "BUILT",
-        "primary_use": len(translations),
-        "special_context": len(special),
-        "acquisition": len(localized_acquisition),
+        **metrics,
         "runtime_entries": len(english_entries),
+        "generation_id": generation_id,
         "output_root": str(output_root),
     }, ensure_ascii=False, sort_keys=True))
     return 0

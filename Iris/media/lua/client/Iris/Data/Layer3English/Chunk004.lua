@@ -1,7 +1,5 @@
 -- Generated Layer 3 English localization payload.
 return {
-    ["Base.FishingTackle"] = "Fishing equipment.\n\nFound in fishing-supply retailers.",
-    ["Base.FishingTackle2"] = "Fishing equipment.\n\nFound in fishing-supply retailers.",
     ["Base.FlameTrap"] = "Used to complete an improvised explosive by attaching its trigger.\n\nMade by combining gasoline, a ripped sheet, and an empty bottle.",
     ["Base.FlameTrapRemote"] = "An explosive used in combat by placing or throwing it before detonation.\n\nObtained by modifying an explosive.",
     ["Base.FlameTrapSensorV1"] = "An explosive used in combat by placing or throwing it before detonation.\n\nObtained by modifying an explosive.",
@@ -200,4 +198,6 @@ return {
     ["Base.Hat_Jay"] = "An accessory worn on the body.\n\nCan be obtained from urban areas, trailer parks, foraging in vegetation zones.",
     ["Base.Hat_JockeyHelmet01"] = "An accessory worn on the body.\n\nCan be obtained from urban areas, trailer parks, foraging in vegetation zones.",
     ["Base.Hat_JockeyHelmet02"] = "An accessory worn on the body.\n\nCan be obtained from urban areas, trailer parks, foraging in vegetation zones.",
+    ["Base.Hat_JockeyHelmet03"] = "An accessory worn on the body.\n\nCan be obtained from urban areas, trailer parks, foraging in vegetation zones.",
+    ["Base.Hat_JockeyHelmet04"] = "An accessory worn on the body.\n\nCan be obtained from urban areas, trailer parks, foraging in vegetation zones.",
 }

@@ -120,6 +120,10 @@ local function ensureEnglishLookup()
     return englishLookup
 end
 
+local function hasPublicText(entry)
+    return type(entry) == "table" and type(entry.text_ko) == "string" and entry.text_ko ~= ""
+end
+
 function Layer3Renderer.getPublishState(fullType)
     local entry = getEntry(fullType)
     if entry and entry.publish_state then
@@ -129,15 +133,15 @@ function Layer3Renderer.getPublishState(fullType)
 end
 
 function Layer3Renderer.getRawText(fullType, options)
+    local entry = getEntry(fullType)
+    if not hasPublicText(entry) then
+        return nil
+    end
     if tostring(options and options.locale or "KO"):upper() == "EN" then
         local lookup = ensureEnglishLookup()
         return lookup and lookup.get(fullType) or nil
     end
-    local entry = getEntry(fullType)
-    if entry and entry.text_ko then
-        return entry.text_ko
-    end
-    return nil
+    return entry.text_ko
 end
 
 function Layer3Renderer.getText(fullType, options)
@@ -152,15 +156,16 @@ function Layer3Renderer.getText(fullType, options)
         return nil
     end
 
+    if not hasPublicText(entry) then
+        return nil
+    end
+
     if tostring(options and options.locale or "KO"):upper() == "EN" then
         local lookup = ensureEnglishLookup()
         return lookup and lookup.get(fullType) or nil
     end
 
-    if entry.text_ko then
-        return entry.text_ko
-    end
-    return nil
+    return entry.text_ko
 end
 
 

@@ -1,7 +1,5 @@
 -- Generated Layer 3 English localization payload.
 return {
-    ["Base.ChocolateCoveredCoffeeBeans"] = "Food used while preparing or eating a meal.",
-    ["Base.ChokeTubeFull"] = "A part used to modify firearms.\n\nFound in gun stores, garage firearm storage.",
     ["Base.ChokeTubeImproved"] = "A part used to modify firearms.\n\nFound in gun stores, garage firearm storage.",
     ["Base.Chopsticks"] = "Handled during food preparation or cooking.",
     ["Base.ChrisPic"] = "Handled during leisure when viewing or collecting photos, recordings, souvenirs, or toys.",
@@ -200,4 +198,6 @@ return {
     ["Base.FishingRod"] = "A fishing rod.\n\nFound in fishing-equipment crates, fishing-supply stores, vehicles.",
     ["Base.FishingRodBreak"] = "Used to reconnect or repair damaged equipment.",
     ["Base.FishingRodTwineLine"] = "A fishing rod.\n\nMade by repairing a broken fishing rod with cord and a paperclip or nail.",
+    ["Base.FishingTackle"] = "Fishing equipment.\n\nFound in fishing-supply retailers.",
+    ["Base.FishingTackle2"] = "Fishing equipment.\n\nFound in fishing-supply retailers.",
 }

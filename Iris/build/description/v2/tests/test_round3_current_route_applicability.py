@@ -5,14 +5,11 @@ import hashlib
 import json
 import tempfile
 import unittest
-import uuid
-import sys
 from pathlib import Path
 
 
 REPO = Path(__file__).resolve().parents[5]
 RUNNER_PATH = REPO / "Iris/_docs/round3/round3_run_contract_tests.py"
-FRESHNESS_TOOL_PATH = REPO / "Iris/build/description/v2/tools/build/dvf_3_3_current_route_required_validation_evidence_freshness_reseal.py"
 
 
 def load_runner():
@@ -21,20 +18,6 @@ def load_runner():
     )
     if spec is None or spec.loader is None:
         raise AssertionError("current-route runner is not importable")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
-
-def load_freshness_tool():
-    tools_root = str(FRESHNESS_TOOL_PATH.parent)
-    if tools_root not in sys.path:
-        sys.path.insert(0, tools_root)
-    spec = importlib.util.spec_from_file_location(
-        "freshness_reseal_cleanup_for_test", FRESHNESS_TOOL_PATH
-    )
-    if spec is None or spec.loader is None:
-        raise AssertionError("freshness reseal tool is not importable")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -102,20 +85,6 @@ class Round3CurrentRouteApplicabilityTest(unittest.TestCase):
                 "artifacts": ["missing-history.json"],
             },
         )
-
-    def test_windows_disposable_cleanup_removes_long_path_without_residue(self) -> None:
-        tool = load_freshness_tool()
-        root = (
-            Path(r"C:\Users\Public\Documents\ESTsoft\CreatorTemp")
-            / f"route-cleanup-{uuid.uuid4().hex[:8]}"
-        )
-        long_file = root / ("n" * 120) / ("e" * 110 + ".json")
-        extended_parent = Path("\\\\?\\" + str(long_file.parent))
-        extended_file = Path("\\\\?\\" + str(long_file))
-        extended_parent.mkdir(parents=True)
-        extended_file.write_text("{}\n", encoding="utf-8")
-        tool.remove_disposable_tree(root)
-        self.assertFalse(root.exists())
 
     def test_historical_optional_tests_are_retained_but_not_selected(self) -> None:
         runner = load_runner()

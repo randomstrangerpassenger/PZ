@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-from argparse import Namespace
 import shutil
 import subprocess
 import sys
@@ -17,7 +16,6 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from clean_checkout_test_paths import external_test_path
-from tools.build import build_legacy_active_silent_current_surface_guard_round as guard_builder
 from tools.validate_legacy_active_silent_current_surface_guard import (
     ALLOWLIST_TOO_BROAD_ERROR_CODE,
     CURRENT_SURFACE_ERROR_CODE,
@@ -224,150 +222,6 @@ class LegacyActiveSilentCurrentSurfaceGuardTest(unittest.TestCase):
             1,
             census.receipt["excluded_role_counts"]["current_guard_run_output"],
         )
-
-    def test_producer_keeps_repository_and_sealed_predecessor_unchanged(self) -> None:
-        predecessor = (
-            ROOT
-            / "staging/compose_contract_migration"
-            / "legacy_active_silent_current_surface_guard_round/phase1_manifest"
-            / "current_surface_guard_referent_manifest.json"
-        )
-        predecessor_sha256 = hashlib.sha256(predecessor.read_bytes()).hexdigest()
-        status_before = subprocess.run(
-            ["git", "status", "--porcelain=v1", "--untracked-files=all"],
-            cwd=ROOT.parents[3],
-            text=True,
-            capture_output=True,
-            check=True,
-        ).stdout
-        run_root = external_test_path("_tmp_guard_producer_external_only")
-        if run_root.exists():
-            shutil.rmtree(run_root)
-        work_root = run_root / "work"
-        result_root = run_root / "result"
-        work_root.mkdir(parents=True)
-        result_root.mkdir()
-        allocation_receipt = run_root / "allocation.json"
-        allocation_receipt.write_text("{}\n", encoding="utf-8", newline="\n")
-
-        digest = hashlib.sha256(b"").hexdigest()
-        occurrence_reference = {
-            "schema_version": "legacy-active-silent-occurrence-stream-reference-v1",
-            "logical_id": "legacy-active-silent-current-surface-occurrences",
-            "sha256": digest,
-            "bytes": 0,
-            "row_count": 0,
-            "media_type": "application/x-ndjson",
-            "producer_version": "legacy-active-silent-current-surface-guard-v1",
-            "disposition_counts": {},
-            "error_code_counts": {},
-            "object": {
-                "algorithm": "sha256",
-                "relative_path": f"objects/sha256/{digest[:2]}/{digest}",
-                "lifecycle_role": "retained_current_required",
-            },
-        }
-        report = {
-            "schema_version": "legacy-active-silent-current-surface-guard-report-v1",
-            "status": "pass",
-            "summary": {
-                "occurrence_count": 0,
-                "hard_fail_current_label_occurrence_count": 0,
-                "unclassified_occurrence_count": 0,
-                "allowed_occurrence_count": 0,
-                "non_label_occurrence_count": 0,
-                "covered_by_existing_guard_count": 0,
-                "manifest_error_count": 0,
-                "gate_a_pass": True,
-            },
-            "errors": [],
-            "error_summary": {"count": 0, "code_counts": {}},
-            "occurrence_stream": occurrence_reference,
-            "scan_receipt": {"backend": "python", "denominator_count": 0},
-        }
-
-        def fake_validate_repo(*_args: object, **_kwargs: object) -> dict:
-            object_path = result_root / occurrence_reference["object"]["relative_path"]
-            object_path.parent.mkdir(parents=True, exist_ok=True)
-            object_path.write_bytes(b"")
-            return report
-
-        arguments = Namespace(
-            work_root=str(work_root),
-            result_root=str(result_root),
-            allocation_receipt=str(allocation_receipt),
-            scan_backend="python",
-            scan_timeout=60,
-        )
-        allocation = {
-            "run_id": "0" * 32,
-            "claim_id": "guard-producer-test",
-            "attempt_id": "external-only",
-            "allocation_profile": "checkpoint",
-            "allocation_ledger": {"path": str(run_root / "ledger.jsonl")},
-        }
-        try:
-            with (
-                mock.patch.object(guard_builder, "parse_args", return_value=arguments),
-                mock.patch.object(
-                    guard_builder,
-                    "load_and_validate_output_policy",
-                    return_value={
-                        "external_subroots": guard_builder.AUTHORIZED_RESULT_SUBROOTS,
-                        "approval": "owner_approved",
-                    },
-                ),
-                mock.patch.object(
-                    guard_builder,
-                    "load_and_validate_allocation_receipt",
-                    return_value=allocation,
-                ),
-                mock.patch.object(guard_builder, "validate_repo", side_effect=fake_validate_repo),
-            ):
-                self.assertEqual(0, guard_builder.main())
-
-            self.assertEqual(
-                predecessor_sha256,
-                hashlib.sha256(predecessor.read_bytes()).hexdigest(),
-            )
-            load_manifest(DEFAULT_MANIFEST)
-            phase_root = (
-                result_root
-                / "phases/legacy_active_silent_current_surface_guard_round"
-            )
-            closeout = json.loads(
-                (phase_root / "phase7_closeout/closeout.json").read_text(encoding="utf-8")
-            )
-            hard_gate = json.loads(
-                (phase_root / "phase6_validation/phase6_hard_gate_report.json").read_text(
-                    encoding="utf-8"
-                )
-            )
-            producer_receipt = json.loads(
-                (result_root / "logs/legacy_active_silent_guard_producer_receipt.json").read_text(
-                    encoding="utf-8"
-                )
-            )
-            self.assertEqual("implemented_pending_external_checkpoint", closeout["closeout_state"])
-            self.assertEqual("pending_external_checkpoint", hard_gate["overall_status"])
-            self.assertEqual(0, hard_gate["nested_native_process_count"])
-            self.assertEqual("PENDING_EXTERNAL_CHECKPOINT", producer_receipt["status"])
-            self.assertEqual("PASS", producer_receipt["execution_status"])
-            self.assertEqual(
-                "pending_external_checkpoint",
-                producer_receipt["adoption_validation_status"],
-            )
-            status_after = subprocess.run(
-                ["git", "status", "--porcelain=v1", "--untracked-files=all"],
-                cwd=ROOT.parents[3],
-                text=True,
-                capture_output=True,
-                check=True,
-            ).stdout
-            self.assertEqual(status_before, status_after)
-        finally:
-            if run_root.exists():
-                shutil.rmtree(run_root)
 
     def test_positive_allowed_surfaces_and_non_label_words_pass(self) -> None:
         write_text(

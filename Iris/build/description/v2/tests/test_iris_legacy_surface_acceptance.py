@@ -3,53 +3,13 @@ from __future__ import annotations
 import json
 import shutil
 import subprocess
-import sys
 import unittest
 from pathlib import Path
 
 REPO = next(parent for parent in Path(__file__).resolve().parents if (parent / ".git").exists())
-sys.path.insert(0, str(REPO / "Iris" / "test"))
-from core_refactor_evidence import load_bound_evidence, require_case_fixtures  # noqa: E402
 
 
 class LegacySurfaceAcceptanceTest(unittest.TestCase):
-    def test_pz_capability_tooltip_taxonomy_and_variant_adapter(self) -> None:
-        before = load_bound_evidence(
-            REPO, "Iris/_docs/refactor/core_refactor/phase1_pre_refactor_pz_baseline.jsonl"
-        )
-        after = load_bound_evidence(
-            REPO, "Iris/_docs/refactor/core_refactor/phase5_legacy_surface_acceptance.jsonl"
-        )
-        require_case_fixtures(after, {
-            "legacy_acceptance.capability_tooltip": "Base.Hammer",
-            "legacy_acceptance.taxonomy_projection": "Base.Hammer",
-            "legacy_acceptance.variant_adapter": "legacy_global_only_group",
-        })
-        rows = {row["case_id"]: row for row in after}
-        self.assertEqual(
-            {
-                "legacy_acceptance.capability_tooltip",
-                "legacy_acceptance.taxonomy_projection",
-                "legacy_acceptance.variant_adapter",
-            },
-            rows.keys(),
-        )
-        self.assertTrue(all(row["owner_change"] == 6 for row in after))
-        self.assertTrue(all(row["status"] == "pass" for row in after))
-        self.assertTrue(all(row["time_axis"] == "post_refactor_acceptance" for row in after))
-
-        old = next(row for row in before if row["case_id"] == "legacy.pz_surface")["observed"]
-        new = rows["legacy_acceptance.capability_tooltip"]["observed"]
-        self.assertEqual(old["capabilities"], new["capabilities"])
-        self.assertEqual(old["tags"], new["tags"])
-        self.assertEqual(old["tooltip_tags"], new["tooltip_tags"])
-        self.assertTrue(new["has_scrap_capability"])
-
-        taxonomy = rows["legacy_acceptance.taxonomy_projection"]["observed"]
-        self.assertEqual(("Tool", "1-B"), (taxonomy["category"], taxonomy["subcategory"]))
-        self.assertGreaterEqual(taxonomy["tag_count"], 2)
-        self.assertTrue(rows["legacy_acceptance.variant_adapter"]["observed"]["sorted_by_display"])
-
     def test_actual_standalone_missing_module_and_global_fallback(self) -> None:
         lua = shutil.which("lua")
         self.assertIsNotNone(lua, "required standalone Lua executable is unavailable")

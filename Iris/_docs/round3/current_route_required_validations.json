@@ -50,11 +50,6 @@
           "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
         },
         {
-          "test_id": "test_iar_public_text_assessment.IarPublicTextAssessmentTest.test_preserved_candidate_reproduces_existing_detector_policy_result",
-          "authority_basis_path": "Iris/_docs/round3/iar_public_text_assessment/subjects/dvf_3_3_korean_naturalization_candidate/",
-          "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
-        },
-        {
           "test_id": "test_artifact_lifecycle_promotion.ArtifactLifecyclePromotionTest.test_baseline_successor_committed_cleanup_recovery_requires_exact_intent",
           "authority_basis_path": "Iris/_docs/round3/validated_naturalization_current_runtime_adoption/current_generation_descriptor.json",
           "current_authority_sha256": "4b466d0d3c5c5e54ddfe3b88438215460a45bc617f009a29a368a5ceeb689051"
@@ -2789,16 +2784,6 @@
     },
     {
       "required": true,
-      "role": "iar_public_text_assessment_required_validation",
-      "test_id": "test_iar_public_text_assessment.IarPublicTextAssessmentTest.test_preserved_candidate_reproduces_existing_detector_policy_result"
-    },
-    {
-      "required": true,
-      "role": "iar_public_text_assessment_required_validation",
-      "test_id": "test_iar_public_text_assessment.IarPublicTextAssessmentTest.test_existing_metric_policy_detector_projections_are_unchanged"
-    },
-    {
-      "required": true,
       "role": "validated_naturalization_package_applicability_required_validation",
       "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_undeclared_chunk_file_before_write"
     },
@@ -2846,11 +2831,6 @@
       "required": true,
       "role": "current_route_applicability_required_validation",
       "test_id": "test_round3_current_route_applicability.Round3CurrentRouteApplicabilityTest.test_unclassified_missing_artifact_remains_fail_closed"
-    },
-    {
-      "required": true,
-      "role": "current_route_harness_required_validation",
-      "test_id": "test_round3_current_route_applicability.Round3CurrentRouteApplicabilityTest.test_windows_disposable_cleanup_removes_long_path_without_residue"
     },
     {
       "required": true,
@@ -2934,11 +2914,6 @@
     },
     {
       "required": true,
-      "role": "repository_runtime_lightweighting_guard_single_serialization_required_validation",
-      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_producer_keeps_repository_and_sealed_predecessor_unchanged"
-    },
-    {
-      "required": true,
       "role": "repository_runtime_lightweighting_browser_demand_build_required_validation",
       "test_id": "test_iris_browser_state_selection_search_acceptance.BrowserStateSelectionSearchAcceptanceTest.test_actual_standalone_lua_state_and_cache_contracts"
     },
@@ -2946,11 +2921,6 @@
       "required": true,
       "role": "repository_runtime_lightweighting_browser_demand_build_required_validation",
       "test_id": "test_iris_browser_state_selection_search_acceptance.BrowserStateSelectionSearchAcceptanceTest.test_browserdata_compatibility_and_logging_source_guards"
-    },
-    {
-      "required": true,
-      "role": "repository_runtime_lightweighting_browser_demand_build_required_validation",
-      "test_id": "test_iris_browser_state_selection_search_acceptance.BrowserStateSelectionSearchAcceptanceTest.test_pz_acceptance_and_pre_refactor_relations"
     },
     {
       "required": true,

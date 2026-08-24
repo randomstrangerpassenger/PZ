@@ -1,6 +1,6 @@
 {
   "schema_version": "iris-temporary-validation-physical-retirement-summary-v1",
-  "state": "terminal_validation_pass_independent_review_blocked",
+  "state": "survivor_correction_implemented_terminal_validation_and_full_range_review_pending",
   "authority": {
     "s0_commit": "fd0504817af8c1031ac794391cf67d129c8db54c",
     "s0_tree": "395ec36de921987299fa9a9d9bb46118b74160a5",
@@ -15,9 +15,9 @@
     "regular": {
       "reviewed": 599,
       "family_count": 120,
-      "keep_regular_product_contract": 234,
-      "keep_regular_validation_system_contract": 94,
-      "remove_regularized_temporary": 271,
+      "keep_regular_product_contract": 224,
+      "keep_regular_validation_system_contract": 92,
+      "remove_regularized_temporary": 283,
       "migrate_then_remove": 0,
       "blocked_needs_owner_authority": 0,
       "registration_only_survivor": 0
@@ -35,16 +35,17 @@
     }
   },
   "tracked_transaction": {
-    "full_source_and_exclusive_support_deletions": 92,
-    "regularized_temporary_source_families_removed": 48,
-    "regularized_temporary_identities_removed": 268,
+    "full_source_and_exclusive_support_deletions": 96,
+    "regularized_temporary_source_families_removed": 51,
+    "regularized_temporary_identities_removed": 274,
     "noncurrent_pure_sources_removed": 34,
     "noncurrent_pure_identities_removed": 177,
-    "mixed_callable_removals": 2,
-    "adjudicated_deletion_set_sha256": "12bed4147a0632d65f4d62a65ddbaaccb64b5511d3efdd491bd15a9dcb6004d9",
-    "registration_and_toolchain_path_set_sha256": "15ab94186759fe84477db926010d966701404455316f543ce580464baffad407",
+    "mixed_callable_removals": 9,
+    "predecessor_adjudicated_deletion_set_sha256": "12bed4147a0632d65f4d62a65ddbaaccb64b5511d3efdd491bd15a9dcb6004d9",
+    "predecessor_registration_and_toolchain_path_set_sha256": "15ab94186759fe84477db926010d966701404455316f543ce580464baffad407",
     "active_target_residue": 0,
-    "unfinished_migration": 0
+    "unfinished_migration": 0,
+    "outside_predecessor_inventory_callable_removals": 1
   },
   "dirty_main_transaction": {
     "removed_files": 163,
@@ -58,7 +59,11 @@
     "archive_manifest_sha256": "c96384833086afda99fe9181af1dcb15c70526d8f05c4a2e9db36ff87f9d0526",
     "fresh_root_restore_receipt_sha256": "7b05dd6e8ee1943684c98a8e11a6998852bfc7448c5f9f674c13396321ffbf6c",
     "active_target_residue": 0,
-    "metric_domain": "ignored_or_untracked_dirty_main_only"
+    "metric_domain": "ignored_or_untracked_dirty_main_only",
+    "evidence_binding_state": "BLOCKED_MISSING_DISCOVERABLE_ARCHIVE_AND_RESTORE_LOCATORS",
+    "prior_counts_are_historical_report_only": true,
+    "outside_overlay_not_regular_not_registered_files": 32,
+    "additional_physical_action": "none"
   },
   "route_transition": {
     "retired_commands": [
@@ -81,14 +86,19 @@
     "in_repository_retirement_evidence_bytes": 1019351,
     "projection_tracked_blob_bytes": 793624363,
     "projection_error_bytes": 15706,
-    "tracked_dirty_main_and_external_archive_domains_combined": false
+    "tracked_dirty_main_and_external_archive_domains_combined": false,
+    "correction_test_tooling_lines_removed": 1906,
+    "projected_correction_test_tooling_loc": 233503,
+    "projected_s0_to_correction_test_tooling_loc_delta": -25980,
+    "correction_current_taxonomy_rows": 110,
+    "correction_terminal_execution_units": null
   },
   "terminal_subject": {
-    "definition": "the first commit containing this summary and closeout.json",
-    "exact_commit": "b0fe69b1406d4f8353a2278cff6cc9b71738f0b8",
-    "exact_tree": "2e7f2c8e1693586284d5aedb3f8cc05cce29f12e",
-    "validation": "PASS",
-    "independent_review": "BLOCKED_EXTERNAL_PLATFORM_USAGE_LIMIT"
+    "definition": "new correction implementation commit; exact commit/tree bound by the additive post-validation carrier",
+    "exact_commit": null,
+    "exact_tree": null,
+    "validation": "PENDING",
+    "independent_review": "PENDING_FULL_RANGE_S0_TO_NEW_S1"
   },
-  "claim_ceiling": "Validation executable retirement only. This does not claim product runtime correctness, historical replay PASS, performance improvement, in-game QA, release, Workshop, deployment, Publish, RTC, B42 readiness, or public-text quality acceptance."
+  "claim_ceiling": "Validation executable survivor correction only. Dirty-main archive/restore safety is not independently re-claimed until discoverable external locators are rebound. No runtime, performance, token, release, Publish, RTC, B42, or public-text acceptance claim is made."
 }

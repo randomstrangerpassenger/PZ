@@ -349,7 +349,6 @@ Iris/build/description/v2/tests/*
 !Iris/build/description/v2/tests/test_iris_pre_refactor_description_characterization.py
 !Iris/build/description/v2/tests/test_iris_pre_refactor_browser_characterization.py
 !Iris/build/description/v2/tests/test_iris_pre_refactor_detail_characterization.py
-!Iris/build/description/v2/tests/test_iris_description_single_path_acceptance.py
 !Iris/build/description/v2/tests/test_iris_browser_state_selection_search_acceptance.py
 !Iris/build/description/v2/tests/test_layer3_lazy_lookup_contract.py
 !Iris/build/description/v2/tests/test_usecase_lazy_lookup_contract.py
@@ -364,7 +363,6 @@ Iris/build/description/v2/tests/*
 !Iris/build/description/v2/tests/test_compose_layer3_text_v2.py
 !Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py
 !Iris/build/description/v2/tests/test_current_authority_source_path_guard.py
-!Iris/build/description/v2/tests/test_layer4_trace_edge_authority_admission_round.py
 !Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py
 !Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py
 !Iris/build/description/v2/tests/test_dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation.py

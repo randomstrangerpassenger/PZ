@@ -2,56 +2,13 @@ from __future__ import annotations
 
 import shutil
 import subprocess
-import sys
 import unittest
 from pathlib import Path
 
 REPO = next(parent for parent in Path(__file__).resolve().parents if (parent / ".git").exists())
-sys.path.insert(0, str(REPO / "Iris" / "test"))
-from core_refactor_evidence import load_bound_evidence, require_case_fixtures  # noqa: E402
 
 
 class BrowserStateSelectionSearchAcceptanceTest(unittest.TestCase):
-    def test_pz_acceptance_and_pre_refactor_relations(self) -> None:
-        before = load_bound_evidence(
-            REPO, "Iris/_docs/refactor/core_refactor/phase1_pre_refactor_pz_baseline.jsonl"
-        )
-        after = load_bound_evidence(
-            REPO, "Iris/_docs/refactor/core_refactor/phase3_browser_acceptance.jsonl"
-        )
-        require_case_fixtures(after, {
-            "browser_acceptance.pz_startup": "browser_open_startup",
-            "browser_acceptance.state_machine": "uninitialized_building_ready",
-            "browser_acceptance.required_retry": "missing_tags_then_browser_open",
-            "browser_acceptance.optional_degraded": "missing_optional_index",
-            "browser_acceptance.selection_matrix": "event_fallback_invalid",
-            "browser_acceptance.search_pz": "hammer_casefold_repeat",
-            "browser_acceptance.folded_count_pz": "tool_repeat",
-        })
-        rows = {row["case_id"]: row for row in after}
-        required = {
-            "browser_acceptance.pz_startup",
-            "browser_acceptance.state_machine",
-            "browser_acceptance.required_retry",
-            "browser_acceptance.optional_degraded",
-            "browser_acceptance.selection_matrix",
-            "browser_acceptance.search_pz",
-            "browser_acceptance.folded_count_pz",
-        }
-        self.assertEqual(required, rows.keys())
-        self.assertTrue(all(row["owner_change"] == 4 for row in after))
-        self.assertTrue(all(row["status"] == "pass" for row in after))
-        self.assertTrue(all(row["time_axis"] == "post_refactor_acceptance" for row in after))
-
-        before_by_id = {row["case_id"]: row for row in before}
-        selection = rows["browser_acceptance.selection_matrix"]["observed"]
-        self.assertEqual(before_by_id["selection.pz_payloads"]["observed"]["event"], selection["event"])
-        self.assertEqual(before_by_id["selection.pz_payloads"]["observed"]["fallback"], selection["fallback"])
-        self.assertEqual(
-            before_by_id["browser_build.pz_lifecycle"]["observed"]["search_count"],
-            rows["browser_acceptance.search_pz"]["observed"]["search_count"],
-        )
-
     def test_actual_standalone_lua_state_and_cache_contracts(self) -> None:
         lua = shutil.which("lua")
         self.assertIsNotNone(lua, "required standalone Lua executable is unavailable")

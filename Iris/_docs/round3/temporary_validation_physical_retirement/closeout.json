@@ -1,8 +1,8 @@
 {
   "schema_version": "iris-temporary-validation-physical-retirement-closeout-v1",
-  "state": "terminal_validation_pass_independent_review_blocked",
+  "state": "survivor_correction_implemented_terminal_validation_and_full_range_review_pending",
   "completion_token": null,
-  "terminal_subject": {
+  "predecessor_terminal_subject": {
     "commit": "b0fe69b1406d4f8353a2278cff6cc9b71738f0b8",
     "tree": "2e7f2c8e1693586284d5aedb3f8cc05cce29f12e"
   },
@@ -10,12 +10,13 @@
     "authority_ordering": "PASS",
     "survival_and_retention_coverage": "PASS",
     "tracked_retirement": "applied",
-    "dirty_main_retirement": "applied_after_archive_verify_and_fresh_root_restore",
-    "current_contract_loss": 0,
+    "dirty_main_retirement": "prior_applied_claim_retained_as_historical_report_only_missing_discoverable_locator",
+    "predecessor_current_contract_loss": 0,
     "active_target_residue": 0,
-    "unresolved_or_unauthorized_mutation": 0
+    "unresolved_or_unauthorized_mutation": 0,
+    "survivor_correction": "implemented_pending_terminal_validation"
   },
-  "terminal_validation": {
+  "predecessor_terminal_validation": {
     "state": "PASS",
     "python_syntax": "exit_0",
     "focused_clean_checkout_tests": "33_passed",
@@ -47,13 +48,31 @@
     "source_checkout_mutation": 0,
     "external_execution_mutation": 0
   },
+  "correction_terminal_subject": {
+    "commit": null,
+    "tree": null
+  },
+  "correction_terminal_validation": {
+    "state": "PENDING",
+    "current_taxonomy_rows": 110,
+    "regular_survivors": 316,
+    "newly_retired_predecessor_survivors": 12,
+    "outside_predecessor_inventory_callable_removals": 1
+  },
   "independent_review": {
     "required_by": "P8",
     "reviewer": "Codex Reviewer",
-    "state": "BLOCKED_EXTERNAL_PLATFORM_USAGE_LIMIT",
-    "retry_available_after": "2026-08-27T13:17:00+09:00",
+    "state": "PENDING_FULL_RANGE_S0_TO_NEW_S1_REVIEW",
     "completion_token_withheld": true
   },
   "post_validation_rule": "An additive closeout may record the exact terminal subject and results but does not redefine that subject.",
-  "claim_ceiling": "No product/runtime, historical replay, performance, release, Workshop, deployment, RTC, Publish, B42, in-game, or public-text quality claim."
+  "claim_ceiling": "No product/runtime, historical replay, performance, release, Workshop, deployment, RTC, Publish, B42, in-game, or public-text quality claim.",
+  "dirty_main_evidence_binding": {
+    "state": "BLOCKED_MISSING_DISCOVERABLE_ARCHIVE_AND_RESTORE_LOCATORS",
+    "archive_manifest_sha256": "c96384833086afda99fe9181af1dcb15c70526d8f05c4a2e9db36ff87f9d0526",
+    "fresh_root_restore_receipt_sha256": "7b05dd6e8ee1943684c98a8e11a6998852bfc7448c5f9f674c13396321ffbf6c",
+    "archive_locator": null,
+    "restore_receipt_locator": null,
+    "claim": "prior hashes retained as historical report; safe archive/restore completion is not independently re-claimed"
+  }
 }

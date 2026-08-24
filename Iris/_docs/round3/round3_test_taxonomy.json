@@ -18,7 +18,7 @@
   "generated_at": "2026-08-23T00:00:00+09:00",
   "identity_source": "Iris/_docs/round3/round3_legacy_test_identities.json",
   "matrix": {
-    "current+ok": 118
+    "current+ok": 110
   },
   "rows": [
     {
@@ -608,50 +608,6 @@
       "test_id": "test_layer4_absorption_current_surface_guard.Layer4AbsorptionCurrentSurfaceGuardTest.test_source_or_rendered_payload_consumption_fails"
     },
     {
-      "audit_status": "seed",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "tracked current-contract seed",
-      "routing_status": "default unittest discovery after D1",
-      "source_file": "Iris/build/description/v2/tests/test_layer4_trace_edge_authority_admission_round.py",
-      "state": "ok",
-      "test_id": "test_layer4_trace_edge_authority_admission_round.Layer4TraceEdgeAuthorityAdmissionRoundTests.test_admission_fields_are_rejected_from_edge_rows"
-    },
-    {
-      "audit_status": "seed",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "tracked current-contract seed",
-      "routing_status": "default unittest discovery after D1",
-      "source_file": "Iris/build/description/v2/tests/test_layer4_trace_edge_authority_admission_round.py",
-      "state": "ok",
-      "test_id": "test_layer4_trace_edge_authority_admission_round.Layer4TraceEdgeAuthorityAdmissionRoundTests.test_branch_decision_requires_generation_evidence_for_production"
-    },
-    {
-      "audit_status": "seed",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "tracked current-contract seed",
-      "routing_status": "default unittest discovery after D1",
-      "source_file": "Iris/build/description/v2/tests/test_layer4_trace_edge_authority_admission_round.py",
-      "state": "ok",
-      "test_id": "test_layer4_trace_edge_authority_admission_round.Layer4TraceEdgeAuthorityAdmissionRoundTests.test_forbidden_basis_fails_loud"
-    },
-    {
-      "audit_status": "seed",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "tracked current-contract seed",
-      "routing_status": "default unittest discovery after D1",
-      "source_file": "Iris/build/description/v2/tests/test_layer4_trace_edge_authority_admission_round.py",
-      "state": "ok",
-      "test_id": "test_layer4_trace_edge_authority_admission_round.Layer4TraceEdgeAuthorityAdmissionRoundTests.test_generated_edges_are_relation_only_and_deterministic"
-    },
-    {
       "audit_status": "manual_current",
       "contract_class": "current",
       "imported_build_modules": [],
@@ -996,17 +952,6 @@
       "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_default_manifest_includes_docs_json_authority_and_excludes_guard_output"
     },
     {
-      "audit_status": "manual_current",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "producer fixture proves all phase output is external, sealed repository evidence stays unchanged, and adoption remains pending receipt-bound checkpoints",
-      "routing_status": "current route required validation",
-      "source_file": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
-      "state": "ok",
-      "test_id": "test_legacy_active_silent_current_surface_guard.LegacyActiveSilentCurrentSurfaceGuardTest.test_producer_keeps_repository_and_sealed_predecessor_unchanged"
-    },
-    {
       "audit_status": "required_manifest_current",
       "contract_class": "current",
       "imported_build_modules": [],
@@ -1027,17 +972,6 @@
       "source_file": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py",
       "state": "ok",
       "test_id": "test_iar_public_text_assessment.IarPublicTextAssessmentTest.test_dvf_and_qg_subject_type_fixtures"
-    },
-    {
-      "audit_status": "required_manifest_current",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "current required validation manifest classifies this tracked test as current_product_required",
-      "routing_status": "current route required validation",
-      "source_file": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py",
-      "state": "ok",
-      "test_id": "test_iar_public_text_assessment.IarPublicTextAssessmentTest.test_existing_metric_policy_detector_projections_are_unchanged"
     },
     {
       "audit_status": "required_manifest_current",
@@ -1200,17 +1134,6 @@
       "imports_ignored_reproduction_modules": [],
       "reason": "current required validation manifest classifies this tracked test as current_product_required",
       "routing_status": "current route required validation",
-      "source_file": "Iris/build/description/v2/tests/test_round3_current_route_applicability.py",
-      "state": "ok",
-      "test_id": "test_round3_current_route_applicability.Round3CurrentRouteApplicabilityTest.test_windows_disposable_cleanup_removes_long_path_without_residue"
-    },
-    {
-      "audit_status": "required_manifest_current",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "current required validation manifest classifies this tracked test as current_product_required",
-      "routing_status": "current route required validation",
       "source_file": "Iris/build/description/v2/tests/test_iris_browser_state_selection_search_acceptance.py",
       "state": "ok",
       "test_id": "test_iris_browser_state_selection_search_acceptance.BrowserStateSelectionSearchAcceptanceTest.test_actual_standalone_lua_state_and_cache_contracts"
@@ -1225,17 +1148,6 @@
       "source_file": "Iris/build/description/v2/tests/test_iris_browser_state_selection_search_acceptance.py",
       "state": "ok",
       "test_id": "test_iris_browser_state_selection_search_acceptance.BrowserStateSelectionSearchAcceptanceTest.test_browserdata_compatibility_and_logging_source_guards"
-    },
-    {
-      "audit_status": "required_manifest_current",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "current required validation manifest classifies this tracked test as current_product_required",
-      "routing_status": "current route required validation",
-      "source_file": "Iris/build/description/v2/tests/test_iris_browser_state_selection_search_acceptance.py",
-      "state": "ok",
-      "test_id": "test_iris_browser_state_selection_search_acceptance.BrowserStateSelectionSearchAcceptanceTest.test_pz_acceptance_and_pre_refactor_relations"
     },
     {
       "audit_status": "required_manifest_current",

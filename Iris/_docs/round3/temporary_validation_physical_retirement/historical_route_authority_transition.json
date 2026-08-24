@@ -1,6 +1,6 @@
 {
   "schema_version": "iris-historical-route-authority-transition-v1",
-  "state": "authorized_retirement_applied_terminal_validation_pass_independent_review_blocked",
+  "state": "authorized_retirement_applied_survivor_correction_terminal_validation_and_full_range_review_pending",
   "predecessor": {
     "heading": "Iris validation — current / historical / diagnostic route separation",
     "required_invariant": "historical denominator preservation: required",
@@ -63,14 +63,20 @@
   "execution": {
     "authority_only_commit": "145b1dd2e21afa957be3ffe87ab8ea3bde069ce0",
     "first_destructive_commit": "4e527b845d2cb6e05a6694e425e607fc95b42ead",
-    "tracked_full_source_and_exclusive_support_deletions": 92,
-    "mixed_callable_removals": 2,
-    "terminal_subject": {
+    "tracked_full_source_and_exclusive_support_deletions": 96,
+    "mixed_callable_removals": 9,
+    "predecessor_terminal_subject": {
       "commit": "b0fe69b1406d4f8353a2278cff6cc9b71738f0b8",
       "tree": "2e7f2c8e1693586284d5aedb3f8cc05cce29f12e"
     },
-    "terminal_validation": "PASS",
-    "independent_review": "BLOCKED_EXTERNAL_PLATFORM_USAGE_LIMIT"
+    "predecessor_terminal_validation": "PASS",
+    "predecessor_independent_review": "BLOCKED_EXTERNAL_PLATFORM_USAGE_LIMIT",
+    "correction_terminal_subject": {
+      "commit": null,
+      "tree": null
+    },
+    "correction_terminal_validation": "PENDING",
+    "full_range_independent_review": "PENDING_S0_TO_NEW_S1"
   },
   "rollback": "Restore route, membership, source, and exclusive support as one atomic batch; retain this additive authority record and document the aborted execution."
 }

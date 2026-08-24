@@ -1,7 +1,7 @@
 # Iris Temporary/One-Off Validation Authority Maximal Physical Retirement Walkthrough
 
 > Session dates: 2026-08-23–2026-08-24 KST  
-> Current status: physical implementation, exact-subject terminal validation and P8 Codex Reviewer PASS; canonical P10 closeout carrier synchronization pending  
+> Current status: predecessor physical implementation and exact-subject validation PASS; closeout-carrier commit review PASS; survivor correction terminal validation and S0→new-S1 full-range P8 review pending; P10 withheld  
 > S0 commit: `fd0504817af8c1031ac794391cf67d129c8db54c`  
 > S0 tree: `395ec36de921987299fa9a9d9bb46118b74160a5`  
 > Terminal S1 commit: `b0fe69b1406d4f8353a2278cff6cc9b71738f0b8`  
@@ -158,7 +158,7 @@ Reviewer가 current runner를 실행하던 중 사용자가 일시 중단을 요
 
 중단된 Reviewer session은 rollout을 보존하지 않아 resume할 수 없었다. 따라서 같은 exact S1에 새 Reviewer를 시작했다. 두 번째 완료 run에서는 테스트를 추가 실행하지 않았고 repository-local diff, JSON syntax, count/hash와 authority consistency만 확인했다.
 
-### Final independent-review result
+### Exact closeout-carrier commit review result
 
 - Command subject: exact commit `b0fe69b1406d4f8353a2278cff6cc9b71738f0b8`
 - Command exit: `0`
@@ -168,7 +168,7 @@ Reviewer가 current runner를 실행하던 중 사용자가 일시 중단을 요
 
 Reviewer는 S1이 추가·수정한 pending retirement closeout 문서와 evidence record가 syntactically valid하고, repository에서 직접 재확인할 수 있는 count/hash가 surrounding artifact와 일치한다고 판정했다.
 
-이 PASS는 exact S1 검토 결과다. Product runtime, in-game QA, release, Workshop, Publish/RTC, B42 readiness, performance 또는 public-text quality에 대한 review PASS가 아니다.
+이 PASS는 `b0fe69b1`이 부모 destructive commit에 추가한 closeout-carrier diff 검토 결과다. `4e527b84`의 destructive diff를 포함한 P8 final physical-retirement change-set PASS가 아니며, Product runtime, in-game QA, release, Workshop, Publish/RTC, B42 readiness, performance 또는 public-text quality에 대한 review PASS도 아니다.
 
 ## 8. Quantified Lightweighting
 
@@ -213,7 +213,7 @@ Comparable S0/S1 wall-time, CPU와 memory benchmark는 수행되지 않았다. �
 
 ## 10. Top-Document Synchronization
 
-Reviewer PASS와 정량 해석을 반영하기 위해 다음 top-level 문서를 수정했다.
+Exact carrier-commit review 결과와 정량 해석을 반영하기 위해 다음 top-level 문서를 수정했다. 이후 survivor correction에서 이 표현을 full-range P8 pending으로 교정했다.
 
 - `docs/DECISIONS.md`
 - `docs/ROADMAP.md`
@@ -223,7 +223,7 @@ Reviewer PASS와 정량 해석을 반영하기 위해 다음 top-level 문서를
 
 - Physical implementation: PASS
 - Exact-subject terminal validation: PASS
-- P8 Codex Reviewer: PASS, exit `0`, actionable finding `0`
+- Exact `b0fe69b1` carrier review: PASS, exit `0`, actionable finding `0`; full-range P8 pending
 - Exact S1/tree: unchanged
 - Structural efficiency metrics: recorded with separate denominators
 - Runtime and GPT/Codex token efficiency: unmeasured
@@ -235,7 +235,7 @@ Architecture 문서는 predecessor `433 + 4` criterion과 successor adjudication
 
 이번 documentation update는 product code, validator, test, JSON closeout carrier를 수정하지 않았다. 현재 작업으로 변경된 파일은 세 top-level 문서와 이 Walkthrough다.
 
-`Iris/_docs/round3/temporary_validation_physical_retirement/closeout.json`은 아직 earlier Reviewer platform-blocked state를 기록한다. 따라서 이 Walkthrough와 top-document update는 P10 token이 이미 발행됐다고 주장하지 않는다. 남은 canonical record step은 existing closeout carrier가 Reviewer PASS를 반영하도록 동기화하는 것이다.
+`Iris/_docs/round3/temporary_validation_physical_retirement/closeout.json`은 survivor correction terminal validation과 S0→new-S1 full-range review를 pending으로 기록하며 P10 token을 발행하지 않는다. Dirty-main archive/restore locator 부재도 별도 blocker로 유지한다.
 
 사용자 지시에 따라 top-document 및 Walkthrough 작성 과정에서는 테스트를 실행하지 않았다. 별도 seal, receipt, manifest, census, proof artifact 또는 validation-of-validation도 만들지 않았다.
 
@@ -246,7 +246,7 @@ Architecture 문서는 predecessor `433 + 4` criterion과 successor adjudication
 - Adjudicated temporary/one-off validation executable physical retirement
 - Current product/validation-system survivor preservation
 - Exact S1 terminal validation PASS
-- Codex Reviewer zero-finding PASS
+- Exact `b0fe69b1` carrier review zero-finding; full-range P8 pending
 - Tracked repository bytes와 test/tooling LOC의 net 감소
 - Gate/taxonomy execution surface의 구조적 감소
 
@@ -259,4 +259,20 @@ Architecture 문서는 predecessor `433 + 4` criterion과 successor adjudication
 - In-game QA, RTC, Publish, release, Workshop, deployment or B42 readiness
 - Public-text quality acceptance
 
-이 Walkthrough의 완료는 narrative 기록 완료만 뜻한다. Canonical completion state와 P10 token은 existing closeout authority가 Reviewer PASS를 반영한 뒤에만 변경할 수 있다.
+이 Walkthrough의 완료는 narrative 기록 완료만 뜻한다. Canonical completion state와 P10 token은 correction terminal validation, full-range P8 review, dirty-main evidence binding을 모두 충족한 뒤에만 변경할 수 있다.
+
+## 12. Survivor Correction Addendum
+
+외부 지적을 반영해 predecessor keep `328` identity / `71` family를 다시 열었다. 실제 source의 import, subprocess target, repository path literal과 lifecycle label을 확인했으며, 단순히 `staging`, `historical`, `legacy` 문자열이 있다는 이유로 현재 negative-boundary test를 제거하지 않았다.
+
+추가 퇴역은 다음 `13` identity다.
+
+- Predecessor regular survivor에서 full-source `6`: Layer 4 admission-round `4`, description phase acceptance `1`, RTC orchestration-context literal `1`.
+- Predecessor regular survivor에서 mixed callable `6`: Browser phase acceptance, Detail phase acceptance, Legacy phase acceptance, IAR policy-closure projection, legacy-active/silent round producer, freshness-reseal cleanup helper 각각 `1`.
+- Predecessor inventory 밖이지만 current required manifest의 historical-optional row로 남았던 IAR preserved-candidate replay callable `1`.
+
+물리 변경은 test source `3`, 해당 Layer 4 round의 exclusive executable generator `1`, mixed source 내부 callable `7` 제거다. Non-executable historical round artifacts는 Git history/provenance carrier로 남기고 generator를 regular validator로 유지하지 않는다. Regular disposition은 product `224`, validation-system `92`, remove `283`, survivor 합계 `316`으로 교정했다. Outside-predecessor callable `1`은 이 599 regular denominator에 소급 산입하지 않고 별도 inventory correction으로 기록했다.
+
+기존 dirty-main inventory 밖 validator-like ignored source는 더 넓은 파일명 기준으로 `32`개가 확인됐다. 이들은 taxonomy, required validation manifest, full-gate selection과 두 predecessor overlay 어디에도 없으므로 `not_regular_not_registered`로 분류했다. 기존 archive/restore hash 두 개의 discoverable locator가 없기 때문에 이 correction에서는 해당 local source를 삭제하지 않았고, 기존 `163`-path 안전 archive/restore claim도 independently reverified로 승격하지 않았다.
+
+Correction의 one-off JSON mutation script는 실행 직후 삭제했다. 이 스크립트는 canonical validator, 정규 검사기 또는 새 validation authority가 아니다. Correction 과정에서는 중간 test/gate를 실행하지 않았다. 계획에 명시된 terminal validation은 correction implementation commit을 만든 뒤 마지막에 한 번만 실행한다.

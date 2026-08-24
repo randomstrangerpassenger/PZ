@@ -20,31 +20,10 @@ CONTRACT = (
     / "iar_public_text_assessment"
     / "iar_public_text_assessment_contract.json"
 )
-INTEGRATION_INPUT = (
-    REPO_ROOT
-    / "Iris"
-    / "_docs"
-    / "round3"
-    / "iar_public_text_assessment"
-    / "subjects"
-    / "dvf_3_3_korean_naturalization_candidate"
-    / "ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437"
-    / "assessment_input.json"
-)
-HANDOFF = (
-    V2_ROOT
-    / "staging"
-    / "dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure"
-    / "attempt-0024-publish-remediation-a"
-    / "phase8"
-    / "publish_acceptance_handoff_manifest.json"
-)
-
 if str(V2_ROOT) not in sys.path:
     sys.path.insert(0, str(V2_ROOT))
 
 from tools.build import iar_public_text_assessment as iar
-from tools.build import public_text_quality_acceptance as ptqa
 
 
 class IarPublicTextAssessmentTest(unittest.TestCase):
@@ -215,68 +194,6 @@ class IarPublicTextAssessmentTest(unittest.TestCase):
             validation = json.loads(validate.stdout)
             self.assertEqual(validation["status"], "PASS")
             self.assertEqual(validation["assessment_status"], "FAIL")
-
-    def test_preserved_candidate_reproduces_existing_detector_policy_result(self) -> None:
-        generic = iar.build_assessment(INTEGRATION_INPUT, contract_path=CONTRACT)
-        handoff = ptqa.validate_candidate_handoff(HANDOFF)
-        existing = ptqa.compute_candidate_metric_snapshot(handoff)
-        generic_projection = [
-            {
-                key: row[key]
-                for key in (
-                    "metric_id",
-                    "denominator_id",
-                    "disposition_class",
-                    "numerator",
-                    "denominator",
-                    "exact_ratio",
-                )
-            }
-            for row in generic["metrics"]
-        ]
-        self.assertEqual(generic_projection, existing["metric_rows"])
-        self.assertEqual(
-            generic["subject"]["sha256"],
-            "ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437",
-        )
-        self.assertEqual(generic["metric_count"], 12)
-        self.assertEqual(generic["finding_count"], 0)
-        self.assertEqual(generic["status"], "PASS")
-        self.assertTrue(all(row["threshold_satisfied"] for row in generic["metrics"]))
-        self.assertEqual(generic["authority_effect"], "none")
-
-    def test_existing_metric_policy_detector_projections_are_unchanged(self) -> None:
-        foundation_path = (
-            REPO_ROOT
-            / "Iris"
-            / "_docs"
-            / "round3"
-            / "iris_publish_boundary_public_text_quality_acceptance_policy_closure"
-            / "foundation"
-            / "public_text_quality_foundation_contract.json"
-        )
-        foundation = ptqa.load_json_strict(foundation_path)
-        projections = (
-            (
-                ptqa.metric_registry_candidate(),
-                foundation["metric_registry_candidate_hash"],
-            ),
-            (
-                ptqa.denominator_registry_candidate(),
-                foundation["denominator_registry_candidate_hash"],
-            ),
-            (
-                ptqa.policy_candidate(),
-                foundation["policy_candidate_hash"],
-            ),
-            (
-                ptqa.detector_mapping_candidate(),
-                foundation["detector_mapping_candidate_hash"],
-            ),
-        )
-        for projection, expected_hash in projections:
-            self.assertEqual(ptqa.canonical_hash(projection), expected_hash)
-
 
 if __name__ == "__main__":
     unittest.main()

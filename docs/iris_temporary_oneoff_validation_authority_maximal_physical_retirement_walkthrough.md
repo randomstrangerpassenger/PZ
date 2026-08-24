@@ -1,12 +1,13 @@
 # Iris Temporary/One-Off Validation Authority Maximal Physical Retirement Walkthrough
 
 > Session dates: 2026-08-23–2026-08-24 KST
-> Current status: survivor correction terminal validation and S0→S1 full-range P8 review PASS; P10 withheld by dirty-main evidence-locator blocker
+> Current status: six-family canonical-presence successor terminal validation PASS; closeout-carrier review finding under correction; P10 withheld by dirty-main evidence-locator blocker
 > S0 commit: `fd0504817af8c1031ac794391cf67d129c8db54c`
 > S0 tree: `395ec36de921987299fa9a9d9bb46118b74160a5`
-> Terminal S1 commit: `99585ff2a4738055d12aa2f7b42cf74d06f13860`
-> Terminal S1 tree: `944f7e66692ab30453f3ddf39ce71f2461f2e43d`
-> Existing post-validation carrier: `8b9f779970c44d87914a9082a0c2da9a8efbd86e`
+> Predecessor correction terminal: `99585ff2a4738055d12aa2f7b42cf74d06f13860` / tree `944f7e66692ab30453f3ddf39ce71f2461f2e43d`
+> Successor terminal S1 commit: `052ef0e5c90282ef9afac830bb4491b36d4e92fc`
+> Successor terminal S1 tree: `9a952fab3442bea45cada05a4b660245f978a27e`
+> Predecessor post-validation carrier: `8b9f779970c44d87914a9082a0c2da9a8efbd86e`
 
 ## 1. Document Role
 
@@ -45,8 +46,8 @@ Destructive work보다 authority가 먼저 존재하도록 commit ordering을 �
 | Survival adjudication | `462806ca` | Regular/non-current identity disposition 반영 |
 | Physical-domain authority | `145b1dd2e21afa957be3ffe87ab8ea3bde069ce0` | Tracked, dirty-main과 archive domain 및 destructive boundary 고정 |
 | First destructive commit | `4e527b845d2cb6e05a6694e425e607fc95b42ead` | Adjudicated executable source와 exclusive support 제거 |
-| Terminal S1 | `b0fe69b1406d4f8353a2278cff6cc9b71738f0b8` | Retirement summary와 implemented-only closeout을 처음 포함한 exact subject |
-| Existing carrier | `8b9f779970c44d87914a9082a0c2da9a8efbd86e` | S1 terminal validation PASS와 당시 Reviewer platform block 기록 |
+| Initial retirement S1 | `b0fe69b1406d4f8353a2278cff6cc9b71738f0b8` | Retirement summary와 implemented-only closeout을 처음 포함한 historical exact subject |
+| Initial post-validation carrier | `8b9f779970c44d87914a9082a0c2da9a8efbd86e` | Initial S1 terminal validation PASS와 당시 Reviewer platform block 기록 |
 
 Authority-only readpoint `145b1dd2...`는 first destructive commit `4e527b84...`보다 앞선다. Post-validation carrier와 현재 문서 수정은 exact S1을 재정의하지 않는다.
 
@@ -176,12 +177,12 @@ Reviewer는 S1이 추가·수정한 pending retirement closeout 문서와 eviden
 
 | Metric | Before | After | Reduction |
 | --- | ---: | ---: | ---: |
-| Exact gate execution units | 437 | 225 | 212 (`48.513%`) |
-| Pytest identity in exact gate | 433 | 221 | 212 (`48.961%`) |
+| Successor exact gate execution units | 437 | 238 | 199 (`45.538%`) |
+| Successor pytest identity in exact gate | 433 | 234 | 199 (`45.958%`) |
 | Standalone validation | 4 | 4 | 0 |
-| Round 3 current taxonomy identity | 228 | 110 | 118 (`51.754%`) |
+| Successor Round 3 current taxonomy identity | 228 | 123 | 105 (`46.053%`) |
 
-The exact gate comparison uses predecessor pytest `433` + standalone `4` and terminal pytest `221` + standalone `4`. Configured collection `231` and current runner `110` have different semantics and are not substituted for the comparator's required execution unit denominator.
+The successor exact gate comparison uses S0 pytest `433` + standalone `4` and successor terminal pytest `234` + standalone `4`. Configured collection `244` and current runner/taxonomy `123` have different semantics and are not substituted for the comparator's required execution unit denominator. The earlier `99585ff2` correction terminal's `221 + 4 = 225` gate and taxonomy `110` remain historical intermediate values, not the current successor result.
 
 ### Repository surface
 
@@ -223,19 +224,20 @@ Exact carrier-commit review 결과와 정량 해석을 반영하기 위해 다�
 
 - Physical implementation: PASS
 - Exact-subject terminal validation: PASS
-- Exact S0→S1 Codex Reviewer: PASS, exit `0`, actionable finding `0`; prior Medium finding `2`건 해소 확인
-- Exact S1/tree: `99585ff2a4738055d12aa2f7b42cf74d06f13860` / `944f7e66692ab30453f3ddf39ce71f2461f2e43d`
+- Exact successor terminal validation: PASS
+- Closeout-carrier Reviewer: predecessor counts를 남긴 첫 finding은 JSON/top docs에서 해소했으나 Walkthrough current-state ambiguity Medium `1`건을 이 carrier에서 교정하며 final rerun은 pending
+- Exact successor S1/tree: `052ef0e5c90282ef9afac830bb4491b36d4e92fc` / `9a952fab3442bea45cada05a4b660245f978a27e`
 - Structural efficiency metrics: recorded with separate denominators
 - Runtime and GPT/Codex token efficiency: unmeasured
 - Canonical post-validation carrier synchronization: complete; P10 token은 dirty-main evidence-locator blocker로 withheld
 
-Architecture 문서는 predecessor `433 + 4` criterion과 successor adjudication 후 terminal `221 + 4` gate를 분리했다. 이는 과거 PASS를 rewrite하는 것이 아니라 registration membership을 survival authority로 삼지 않는 successor decision을 설명한다.
+Architecture 문서는 S0 `433 + 4` criterion, predecessor correction terminal `221 + 4`, canonical-presence successor terminal `234 + 4`를 분리한다. 이는 과거 PASS를 rewrite하는 것이 아니라 registration membership을 survival authority로 삼지 않는 successor decision과 canonical source 승격을 설명한다.
 
 ## 11. Current Repository State
 
-Post-validation carrier update는 exact S1 이후의 product code, validator 또는 test를 수정하지 않았다. 변경 범위는 기존 closeout/summary JSON, 세 top-level 문서와 이 Walkthrough이며 exact S1을 재정의하지 않는다.
+Post-validation carrier update는 exact successor S1 이후의 product code, validator 또는 test를 수정하지 않았다. 변경 범위는 기존 closeout/summary JSON, 세 top-level 문서와 이 Walkthrough 및 required Reviewer raw/receipt이며 exact successor S1을 재정의하지 않는다.
 
-`Iris/_docs/round3/temporary_validation_physical_retirement/closeout.json`은 survivor correction terminal validation과 S0→S1 full-range review PASS를 기록한다. P10 token은 발행하지 않으며, dirty-main archive/restore locator 부재를 유일한 잔여 blocker로 유지한다.
+`Iris/_docs/round3/temporary_validation_physical_retirement/closeout.json`은 successor terminal validation PASS와 closeout-carrier review correction 상태를 기록한다. P10 token은 발행하지 않으며, dirty-main archive/restore locator 부재를 유일한 completion blocker로 유지한다.
 
 사용자 지시에 따라 top-document 및 Walkthrough 작성 과정에서는 테스트를 실행하지 않았다. 별도 seal, receipt, manifest, census, proof artifact 또는 validation-of-validation도 만들지 않았다.
 
@@ -245,8 +247,8 @@ Post-validation carrier update는 exact S1 이후의 product code, validator 또
 
 - Adjudicated temporary/one-off validation executable physical retirement
 - Current product/validation-system survivor preservation
-- Exact S1 terminal validation PASS
-- Exact S0→S1 full-range Codex Reviewer PASS, actionable finding `0`
+- Exact successor S1 terminal validation PASS at `052ef0e5` / tree `9a952fab`
+- S0→successor implementation 및 closeout-carrier Codex Reviewer correction chain; final actionable-finding-zero 판정은 이 correction carrier의 rerun에서 결정
 - Tracked repository bytes와 test/tooling LOC의 net 감소
 - Gate/taxonomy execution surface의 구조적 감소
 
@@ -279,7 +281,7 @@ Correction의 one-off JSON mutation script는 실행 직후 삭제했다. 이 �
 
 ## 14. Correction Terminal Validation and Review
 
-최종 correction subject는 commit `99585ff2a4738055d12aa2f7b42cf74d06f13860`, tree `944f7e66692ab30453f3ddf39ce71f2461f2e43d`다. 이 subject에서 계획의 종단 배치를 실행한 결과는 다음과 같다.
+Canonical-presence successor 직전의 predecessor correction terminal은 commit `99585ff2a4738055d12aa2f7b42cf74d06f13860`, tree `944f7e66692ab30453f3ddf39ce71f2461f2e43d`다. 아래 결과는 이 historical intermediate subject에 대한 것이며 현재 successor terminal 수치는 §15에 둔다.
 
 - 수정 후 생존한 Python executable `12`개 `py_compile`: exit `0`
 - Clean-checkout focused tests: `33 passed`
@@ -313,6 +315,6 @@ Terminal batch 결과는 다음과 같다.
 - Missing-source negative probe: expected tracked source `49`, observed `48`, exit `3` (의도한 fail-closed)
 - 합성 retired target `262`에 대한 tracked clean/dirty-main residue: 각각 `0`
 
-첫 successor full-range Reviewer는 implementation이 아니라 closeout/summary가 predecessor terminal `99585ff2`, taxonomy `110`, gate `225`를 계속 terminal 값으로 표시한 점을 Medium finding `1`건으로 지적했다. 이 section과 closeout carrier는 해당 stale reference를 S1의 `123/238` 수치와 정확한 canonical-presence 상태로 교정한다. Initial raw review는 보존하며, correction carrier를 exact endpoint로 다시 read-only review한다.
+첫 successor full-range Reviewer는 implementation이 아니라 closeout/summary가 predecessor terminal `99585ff2`, taxonomy `110`, gate `225`를 계속 current 값으로 표시한 점을 Medium finding `1`건으로 지적했다. 첫 carrier가 JSON과 top docs를 고쳤지만, 두 번째 Reviewer는 Walkthrough 표제와 요약표에 같은 predecessor/current ambiguity가 남았음을 Medium `1`건으로 지적했다. 현재 carrier는 표제·metric table·동기화 상태·repository state·final claim을 successor S1의 `052ef0e5` / `123` / `238`로 교정한다. 두 raw review는 모두 보존하며, 이 correction carrier를 exact endpoint로 다시 read-only review한다.
 
 Canonical correction과 dirty-main safety completion은 별개다. Archive/restore hash의 discoverable locator가 없어 163-file binding은 검증되지 않았고, 두 hash는 `historical_unresolved_hash_reference`로만 남는다. 따라서 P10 completion token은 `null`이며, bounded search·negative probe·임시 스크립트는 canonical validator로 승격하지 않는다.

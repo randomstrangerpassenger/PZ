@@ -1011,13 +1011,9 @@ Dirty-main `163` file / `335` identity / `901,270` bytes는 historical local-dom
 
 ## Regular validation consolidation boundary
 
-Canonical lineage는 다음과 같다.
+`S0 64754c38 (238/123/70) -> corrected terminal b7c4fa54 (196/102/61) -> documentation-only carrier`
 
-`S0 64754c38 (238 execution / 123 taxonomy / 70 manifest) -> S_terminal 4f80540f (213 / 115 / 67) -> documentation-only carrier 3a6564e3`
-
-- Exact predecessor/successor membership은 compact implementation map이 가리키는 external item-level closure로 재구성한다. Carrier는 terminal PASS를 기록할 뿐 상속하거나 validation subject를 재정의하지 않는다.
-- Same-input/table/pipeline group은 `one preparation or producer -> named constituent checks`로 실행한다. Named checks는 predecessor contract와 일대일로 mapping되며 sibling continuation과 failure localization을 유지한다.
-- Mutable negative/lifecycle family는 `class/test immutable seed -> per-case writable clone -> mutation/tamper/recovery assertion`을 사용한다. Shared producer가 실패하면 producer check를 FAIL하고 종속 check를 `blocked_by:<producer>` skip으로 보고한다.
-- Round 3는 pytest identity `5 -> 5`, imported runner module `5 -> 1`이다. 각 check의 mutable `runner.REPO`는 case 종료 시 복원되며 reverse-order와 same-process repeat로 검증했다.
-- Static M6에서 repository scan `27/22 -> 22/17`, artifact generation `128/124 -> 125/121`, producer invocation `65/58 -> 62/55`로 감소했다. Isolation을 위한 setup `8/5 -> 11/8`과 workspace/materialization `117/113 -> 121/117` 증가는 숨기지 않고 safety cost로 유지한다.
-- Product/runtime Lua, product data, package source, public output mutation은 `0`이다. One-off measurement/inspection command는 canonical validator, policy authority 또는 후속 validation boundary가 아니다.
+- Compact implementation map이 external 238/123/70 item-level closure, exact terminal validation과 독립 review를 연결한다. Carrier는 terminal PASS를 기록할 뿐 새 validation subject가 아니다.
+- Consolidated family는 `shared immutable preparation/producer -> named checks` 구조다. Mutable negative/lifecycle case는 매번 reset 또는 writable clone을 사용하고, Round 3의 shared runner state는 `finally`에서 복원한다.
+- Duplicate authority는 더 강한 기존 successor로 이관한다. Taxonomy/manifest는 successor identity만 등록하며 execution, taxonomy, manifest 집합은 각각 독립적으로 closure한다.
+- Product/runtime Lua, product data, package source와 public output mutation은 `0`이다. 일회성 측정·inspection 명령은 canonical validator나 policy authority가 아니다.

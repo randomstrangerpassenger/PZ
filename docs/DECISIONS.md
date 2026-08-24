@@ -2860,17 +2860,13 @@
   * 이 closeout을 runtime/in-game QA, RTC, Publish product action, release/Workshop/deployment, performance 또는 실제 GPT/Codex token 개선 claim으로 확대하지 않는다.
   * Owner decision·문서 통합 뒤 추가 테스트나 validation-of-validation을 실행하지 않았다.
 
-## Iris regular validation boundary consolidation (2026-08-24)
+## Iris regular validation boundary consolidation (2026-08-25 correction)
 
-* 상태: **complete**. Machine PASS는 `S_terminal` `4f80540f13f64b36929fece13e2ca46978df101f` / tree `266eb7fdee96d4749fa816346abd862d648d3423`에만 귀속한다. Documentation/evidence-only carrier는 `3a6564e3af87f834ad7f9de224b25fd5fed9280b` / tree `92332ec4c9206e7717b97aba3eaa52e5424451df`이며 sole parent는 `S_terminal`이다.
+* 상태: **complete**. Machine PASS subject는 `b7c4fa54acd43b0d64b51089ed34357c18a6c469` / tree `d6a6a8feef9724482ca3e2004161a66bd6633f92`다.
 * 결정:
 
-  * Regular boundary를 pytest `234 -> 209`, standalone `4 -> 4`, 전체 execution unit `238 -> 213`으로 consolidation한다. Taxonomy는 `123 -> 115`, required manifest는 `70 -> 67`이다.
-  * Round 3는 identity merge가 아니라 pytest identity `5 -> 5`를 유지하면서 runner import만 `5 -> 1`로 공유한다.
-  * Public-text/particle/Layer 4/current-authority/package/legacy guard와 DVF runtime·complete-generation·install lifecycle에 named subtest, shared immutable seed, case-local writable clone을 적용한다. Producer failure는 독립 check로 보고하고 dependent check는 명시적 blocked skip으로 localize한다.
-  * Focused `67 passed / 58 subtests`, Round 3 reverse `5 passed`, same-process repeat `10 passed`, clean-checkout Run A/B, deterministic comparator와 exact-set closure가 모두 PASS했다. Codex Reviewer의 terminal/carrier actionable finding과 remaining eligible candidate는 각각 `0`이다.
-  * Exact `S_carrier 3a6564e3` 기준 validation/tooling closure는 `3,946` bytes 순감소했고 analysis/documentation `3,574` bytes를 포함한 context proxy는 `-372` bytes다. 후속 서술 문서는 이 exact carrier measurement를 재정의하지 않는다.
-* Non-decision:
-
-  * Execution identity `10.5%` 감소를 wall-clock 속도나 실제 token 사용량 `10.5%` 감소로 해석하지 않는다. 이 작업에서 통제된 before/after 시간·token 계측은 수행하지 않았다.
-  * Product/runtime/public output, PZ in-game behavior, RTC/Publish, release/Workshop/deployment authority를 변경하지 않는다.
+  * S0의 pytest `234`, standalone `4`, execution `238`, taxonomy `123`, manifest `70`을 각각 `192/4/196/102/61`로 consolidation한다. Round 3는 pytest identity `5 -> 4`, runner import `5 -> 1`이다.
+  * Predecessor contract는 named subtest/check, immutable shared seed와 case-local reset/clone으로 보존한다. Exact 238/123/70 row closure와 최종 검증·review locator는 compact implementation map을 따른다.
+  * Focused `83 passed / 73 subtests`, Round 3 역순 동일-process 2회 `8 tests`, clean Run A/B와 deterministic comparator가 exit `0`이다. Codex Reviewer 결과는 actionable/unsupported/unimplemented/remaining eligible 모두 `0`이다.
+  * Validation/tooling은 S0 대비 `15,151` bytes 순감소했다. 최종 documentation 증가와 `<= 0` context proxy는 compact map의 exact carrier 측정을 따른다.
+* Non-decision: wall-clock·실제 tokenizer/Codex token 절감, product/runtime/public output, in-game, RTC/Publish, release/Workshop/deployment authority는 측정하거나 변경하지 않았다. 일회성 검사 명령은 새 validator가 아니다.

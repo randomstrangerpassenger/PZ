@@ -1100,15 +1100,14 @@ Current state: **P8 PASS, P10 PASS, physical retirement complete, main integrati
 - Successor branch는 `992f4564` merge commit으로 `main`에 통합됐고 `origin/main`도 같은 commit으로 push됐다. 기존 dirty-main 변경은 unstaged로 보존했고 merge conflict나 staged residue는 `0`이다.
 - Owner-decision 및 main-integration 문서 변경 뒤 추가 테스트는 실행하지 않았다. 이 closeout은 product runtime, freeze readiness, RTC/Publish, release/Workshop/deployment 또는 실제 token-efficiency claim이 아니다.
 
-## Regular validation consolidation closeout (2026-08-24)
+## Regular validation consolidation closeout (2026-08-25 correction)
 
-Current state: **complete** at `S_terminal 4f80540f`; documentation/evidence carrier는 `3a6564e3`이다.
+Current state: **complete** at corrected terminal `b7c4fa54`.
 
-- Public-text, particle adjustment, Layer 4, current-authority path, package forbidden-surface, legacy active-silent guard, DVF runtime/complete-generation/install lifecycle consolidation을 구현했다.
-- Final boundary는 pytest `209` + standalone `4` = execution unit `213`이며 taxonomy `115`, required manifest `67`이다. Starting boundary `238/123/70`과 exact-set closure했을 때 bidirectional delta와 unmapped row는 `0`이다.
-- Focused family, constituent replay `35/35`, Round 3 reverse/repeat/state restoration, clean-checkout Run A/B, deterministic comparator를 완료했다. Terminal implementation review와 bounded carrier review의 actionable finding은 둘 다 `0`이다.
-- Second exhaustive sweep는 same-input, named-check absorption, table-driven, pipeline, shared-core, duplicate authority, one-use wrapper, traversal/assertion/comparison, parse/load/materialization, registration, pytest/standalone 중복 축을 모두 닫았다. Remaining eligible candidate는 `0`이다.
-- Tracked source는 `72 -> 72`, LOC `15,289 -> 15,254`, bytes `597,477 -> 599,090`이다. Exact carrier `3a6564e3` measurement에서 validation/tooling closure의 순감소는 `3,946` bytes, carrier documentation을 포함한 proxy는 `-372` bytes다. 후속 roadmap 서술은 이 measured subject를 재정의하지 않는다.
-- Local `main`은 carrier commit을 포함하지만 remote push는 이 closeout의 일부로 수행하지 않았다. 사용자 소유 `.codex-worktrees/iris-validation-retirement-p10-successor` dirty state는 변경·stage·commit하지 않았다.
+- Final boundary는 pytest `192` + standalone `4` = execution `196`, taxonomy `102`, manifest `61`이다. S0 `238/123/70`과의 exact-set missing/extra/unmapped는 모두 `0`이다.
+- Focused `83 passed / 73 subtests`, Round 3 역순·반복·state restoration, clean Run A/B와 comparator가 PASS했다.
+- Codex Reviewer는 238 predecessor, 172 keep, 66 non-keep과 모든 consolidation axis를 검토했다. Actionable, unsupported keep, unimplemented non-keep, remaining eligible candidate는 모두 `0`이다.
+- Validation/tooling은 `15,151` bytes 순감소했다. Documentation을 포함한 최종 context proxy와 evidence hash는 compact map에 기록한다.
+- Product/runtime/public-output 변경과 remote push는 없다. 기존 `.codex-worktrees/iris-validation-retirement-p10-successor` dirty state는 보존한다.
 
-이 roadmap item에 남은 구현·validation gate는 없다. Wall-clock performance, 실제 tokenizer/Codex token usage, in-game behavior, RTC/Publish와 deployment는 이 완료 판정으로 승계하지 않는 별도 범위다.
+남은 구현·validation gate는 없다. Wall-clock, 실제 token usage, in-game, RTC/Publish와 deployment는 별도 범위다.

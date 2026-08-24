@@ -1,11 +1,11 @@
 # Iris Temporary/One-Off Validation Authority Maximal Physical Retirement Walkthrough
 
-> Session dates: 2026-08-23–2026-08-24 KST  
-> Current status: predecessor physical implementation and exact-subject validation PASS; closeout-carrier commit review PASS; survivor correction terminal validation and S0→new-S1 full-range P8 review pending; P10 withheld  
-> S0 commit: `fd0504817af8c1031ac794391cf67d129c8db54c`  
-> S0 tree: `395ec36de921987299fa9a9d9bb46118b74160a5`  
-> Terminal S1 commit: `b0fe69b1406d4f8353a2278cff6cc9b71738f0b8`  
-> Terminal S1 tree: `2e7f2c8e1693586284d5aedb3f8cc05cce29f12e`  
+> Session dates: 2026-08-23–2026-08-24 KST
+> Current status: predecessor physical implementation and exact-subject validation PASS; closeout-carrier commit review PASS; survivor correction terminal validation and S0→new-S1 full-range P8 review pending; P10 withheld
+> S0 commit: `fd0504817af8c1031ac794391cf67d129c8db54c`
+> S0 tree: `395ec36de921987299fa9a9d9bb46118b74160a5`
+> Terminal S1 commit: `b0fe69b1406d4f8353a2278cff6cc9b71738f0b8`
+> Terminal S1 tree: `2e7f2c8e1693586284d5aedb3f8cc05cce29f12e`
 > Existing post-validation carrier: `8b9f779970c44d87914a9082a0c2da9a8efbd86e`
 
 ## 1. Document Role

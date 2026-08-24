@@ -1008,3 +1008,7 @@ Physical-retirement architecture의 canonical product/validation readpoint는 im
 Six formerly local product-contract sources/13 identities는 tracked canonical presence를 갖는다. Retired target의 current-authority registration은 `0`이고 outside-overlay local validator-like source `32`개는 미등록이다. Project-owner waiver는 이미 삭제된 ignored/untracked material의 복구 의도를 제거할 뿐 canonical registration이나 validation 결과를 대신하지 않는다.
 
 Dirty-main `163` file / `335` identity / `901,270` bytes는 historical local-domain observation이며 canonical tracked metric이 아니다. Archive/restore locator는 `null`이고 unresolved hash는 복구 성공 증거가 아니다. P10 completion token `temporary_validation_physical_retirement__complete`는 canonical tracked boundary와 owner waiver에 근거한다. Main worktree의 별도 unstaged product/document 변경과 safety stash는 이 integrated baseline의 commit tree에 포함되지 않는다.
+
+## Regular validation consolidation boundary
+
+`S0 64754c38 (238/123/70) -> S_terminal 4f80540f (213/115/67) -> documentation-only carrier`. Exact membership is reconstructed from the compact map's external closure; machine PASS remains attached only to `S_terminal`.

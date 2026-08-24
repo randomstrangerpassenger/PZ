@@ -1099,3 +1099,7 @@ Current state: **P8 PASS, P10 PASS, physical retirement complete, main integrati
 - P10 completion token은 `temporary_validation_physical_retirement__complete`다. 면제된 archive manifest·개별 삭제 사유·원문 보관·fresh-root restore receipt는 이후 test merge completion gate로 다시 열지 않는다.
 - Successor branch는 `992f4564` merge commit으로 `main`에 통합됐고 `origin/main`도 같은 commit으로 push됐다. 기존 dirty-main 변경은 unstaged로 보존했고 merge conflict나 staged residue는 `0`이다.
 - Owner-decision 및 main-integration 문서 변경 뒤 추가 테스트는 실행하지 않았다. 이 closeout은 product runtime, freeze readiness, RTC/Publish, release/Workshop/deployment 또는 실제 token-efficiency claim이 아니다.
+
+## Regular validation consolidation closeout (2026-08-24)
+
+Complete at terminal `4f80540f`: execution `238 -> 213`, taxonomy `123 -> 115`, manifest `70 -> 67`; Run A/B, comparator, and non-author review passed with findings/candidates `0`. The child carrier is evidence-only and receives no machine PASS.

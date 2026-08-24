@@ -2859,3 +2859,7 @@
   * Merge/publish carrier는 implementation baseline `052ef0e5`나 validation denominator `238`을 재정의하지 않는다.
   * 이 closeout을 runtime/in-game QA, RTC, Publish product action, release/Workshop/deployment, performance 또는 실제 GPT/Codex token 개선 claim으로 확대하지 않는다.
   * Owner decision·문서 통합 뒤 추가 테스트나 validation-of-validation을 실행하지 않았다.
+
+## Iris regular validation boundary consolidation (2026-08-24)
+
+`S_terminal` `4f80540f`/tree `266eb7fd` alone owns machine PASS. Its boundary is pytest `209` + standalone `4` = `213`, taxonomy `115`, manifest `67`; Codex Reviewer found `0` actionable and `0` remaining eligible candidates. The documentation-only child records, but does not inherit, that PASS.

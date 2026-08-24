@@ -295,3 +295,24 @@ Correction의 one-off JSON mutation script는 실행 직후 삭제했다. 이 �
 Exact gate는 S0의 `437` unit에서 `225` unit으로 `212` (`48.513%`) 감소했고 current taxonomy는 `228`에서 `110`으로 `118` (`51.754%`) 감소했다. Tracked executable identity removal은 합계 `460`, full source/exclusive support deletion은 `96`이다. Exact S1 tracked blob은 S0 대비 `8,217,910` bytes (`1.025%`), test/tooling LOC는 `25,973` (`10.010%`) 감소했다. 이 값은 구조적 workload proxy이며 실제 token, wall-time, CPU 또는 memory 개선률이 아니다.
 
 Post-validation 문서/JSON carrier는 위 S1을 재정의하지 않는다. P8은 충족됐지만 dirty-main archive manifest와 fresh-root restore receipt의 discoverable locator가 없으므로 해당 safety claim과 P10 completion token은 계속 blocked/withheld다.
+
+## 15. Six-Family Canonical-Presence Successor Correction
+
+마지막 correction은 이전 closeout의 “6 family/13 identity를 dirty-main local survivor로 보존”한 상태를 canonical tracked presence로 바꿨다. Exact implementation subject는 `052ef0e5c90282ef9afac830bb4491b36d4e92fc`, tree는 `9a952fab3442bea45cada05a4b660245f978a27e`다. Browser use-case, line-count CLI, object-access compatibility, session-cache, tag-precision, view-model contract source를 exact bytes로 추적하고, 각 source에 대한 exact `.gitignore` allow rule과 current taxonomy/required/full-gate binding만 추가했다. Product/runtime code는 변경하지 않았다.
+
+Terminal batch 결과는 다음과 같다.
+
+- promoted Python source `6`개 `py_compile`: exit `0`
+- Clean-checkout focused tests: `47 passed`
+- Round 3 current runner: `123 tests OK`
+- Configured collection: `244 collected`
+- Clean-checkout Run A/B: 각각 exit `0`, source/external mutation `0`
+- Comparator: pytest identity `234` + standalone `4` = `238` unit, exit `0`
+- A/B canonical result SHA-256: `2c364aeb7ee9b322060ba6080f780b85a0f7fc38e2f506cf047064b888687d61`
+- Comparator receipt SHA-256: `a534f5da785864e2b40783a5ae0035f2d0121a6319535ee9f9d967ddf92e9d1e`
+- Missing-source negative probe: expected tracked source `49`, observed `48`, exit `3` (의도한 fail-closed)
+- 합성 retired target `262`에 대한 tracked clean/dirty-main residue: 각각 `0`
+
+첫 successor full-range Reviewer는 implementation이 아니라 closeout/summary가 predecessor terminal `99585ff2`, taxonomy `110`, gate `225`를 계속 terminal 값으로 표시한 점을 Medium finding `1`건으로 지적했다. 이 section과 closeout carrier는 해당 stale reference를 S1의 `123/238` 수치와 정확한 canonical-presence 상태로 교정한다. Initial raw review는 보존하며, correction carrier를 exact endpoint로 다시 read-only review한다.
+
+Canonical correction과 dirty-main safety completion은 별개다. Archive/restore hash의 discoverable locator가 없어 163-file binding은 검증되지 않았고, 두 hash는 `historical_unresolved_hash_reference`로만 남는다. 따라서 P10 completion token은 `null`이며, bounded search·negative probe·임시 스크립트는 canonical validator로 승격하지 않는다.

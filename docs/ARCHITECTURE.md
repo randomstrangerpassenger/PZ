@@ -964,3 +964,11 @@ Iris Browser의 current detail path는 지원 locale에서 알려진 정보를 �
 - Layer 4는 `UseCases._getDescriptionState()`의 status-bearing 결과를 Detail ViewModel의 `interactionState`로 전달한다. collector/projection은 이를 표시 row로 정규화하고 policy/state/renderer가 단일·소규모·고밀도 표시, compact/full 전환, 검색, recipe navigation을 담당한다.
 - Layer 4 UI state는 item과 locale owner에 결속된다. item 또는 locale이 바뀌면 이전 검색·확장 상태가 새 detail에 누출되지 않으며, Recipe와 Right-click은 독립된 동등 surface로 유지된다.
 - Python localization builder와 Layer 4 projection tooling은 offline producer다. PZ runtime은 Lua만 사용하며, 이 producer를 runtime semantic authority나 새 validation authority로 해석하지 않는다.
+
+### Iris validation successor canonical-presence boundary
+
+Iris retirement successor는 product/runtime architecture를 바꾸지 않는다. 기존 dirty-main local-only 상태였던 6 family/13 product-contract identity를 exact source bytes 그대로 tracked canonical source로 승격하고, taxonomy·required manifest·full-gate source classification을 같은 집합에 맞춘다.
+
+`dirty local survivor (6 families / 13 identities) -> exact .gitignore allow rules -> tracked canonical product-contract source (6 / 13) -> current taxonomy 123 -> required manifest 70 -> configured collection 244 -> full gate 234 pytest + 4 standalone`
+
+이 경로는 source presence와 current execution denominator를 결속하지만 product semantics나 regular survivor classification을 새로 정의하지 않는다. Outside-overlay validator-like source 32개는 taxonomy, required manifest와 full gate에 등록되지 않은 `not_regular_not_registered`이며, archive/restore locator가 발견되지 않은 dirty-main 163-file domain과도 분리한다. 일회성 hash search와 negative probe는 이 architecture의 canonical validator가 아니다.

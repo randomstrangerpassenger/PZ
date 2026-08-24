@@ -2788,3 +2788,11 @@
 * Metric boundary: tracked repository, dirty-main ignored/untracked, external archive를 서로 다른 domain으로 유지한다. Comparable timing/CPU/memory benchmark와 S0/S1 prompt, cached-input, output, tool-output token telemetry가 없으므로 runtime 또는 실제 GPT/Codex token 개선률은 주장하지 않는다. Byte `1.025%`, test/tooling LOC `10.010%`, gate/taxonomy `48.513~51.754%` 감소는 workload별 정적 proxy이지 token usage 측정값이 아니다.
 * Non-decision: runtime Lua/product data/public text/package 변경, historical replay PASS, in-game QA, RTC/Publish, release/Workshop/deployment/B42 readiness 또는 public-text quality acceptance가 아니다.
 * Evidence: `Iris/_docs/round3/temporary_validation_physical_retirement/{retirement_summary.json,closeout.json}`.
+
+### Iris validation — six-family canonical-presence successor correction (2026-08-24)
+
+* 결정: dirty-main에서만 보존되던 exact 6 family/13 identity를 disposition A (`promote_tracked_regular_product_contract`)로 canonical tracked source에 승격한다. 승격 대상은 browser use-case, line-count CLI, object-access compatibility, session-cache, tag-precision, view-model contract이며 `.gitignore`에는 이 6개 source에 대한 exact allow rule만 추가한다.
+* Exact implementation subject는 `052ef0e5c90282ef9afac830bb4491b36d4e92fc` / tree `9a952fab3442bea45cada05a4b660245f978a27e`다. Product/runtime code와 regular survivor 분류(product `224` + validation-system `92` = `316`)는 바뀌지 않는다. 물리적 canonical presence만 dirty-local `6/13`에서 tracked `6/13`으로 이동한다.
+* Successor denominator는 taxonomy `123`, required manifest `70`, configured collection `244`, current runner `123`이다. Clean-checkout A/B와 comparator는 pytest identity `234` + standalone `4` = `238` unit으로 PASS했고 source/external mutation은 `0`이다.
+* Dirty-main의 validator-like source `32`개는 계속 `not_regular_not_registered`다. Archive SHA-256 `c9638483...526`과 restore SHA-256 `7b05dd6e...bf6c`는 discoverable locator가 없는 `historical_unresolved_hash_reference`이므로 163-file archive/restore claim은 재주장하지 않는다.
+* 따라서 canonical tracked correction과 P8 review는 닫을 수 있지만 P10 completion은 여전히 withheld이고 completion token은 `null`이다. 이 correction의 일회성 검사나 검색은 새 validation authority가 아니다.

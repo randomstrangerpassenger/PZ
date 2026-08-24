@@ -886,7 +886,7 @@ Validation unit의 **authority role**, **execution registration**, **physical du
 - `evidence_only`는 compact immutable evidence 또는 repository-external durable bytes와 in-repo hash-bound pointer를 기본으로 한다. Evidence가 Python test source로 실행 가능하다는 사실 자체는 보존 근거가 아니다.
 - Mixed source는 current/non-current callable을 분리한 뒤 current source만 current gate에 남긴다. Split이 contract identity, input partition, fail-closed branch 또는 failure attribution을 잃으면 수행하지 않는다.
 - 기존 1,167행 census는 successor input이다. 후속 작업은 이를 재생성하지 않고 retention obligation과 physical disposition만 추가하며, 대형 ledger는 exact retrieval path/SHA-256를 가진 compact summary로 외부화할 수 있다.
-- Physical cleanup 완료는 removed files/identities/bytes와 repository-wide net byte/LOC 감소가 실제로 양수이고, current `433 + 4` exact-subject gate가 보존됐을 때만 선언한다. Comparable wall-time evidence가 없으면 실행속도 개선률은 계속 미측정이다.
+- Predecessor 단계의 physical-cleanup criterion은 removed files/identities/bytes와 repository-wide net byte/LOC 감소가 실제로 양수이고 current `433 + 4` exact-subject gate가 보존되는 것이었다. 아래 successor는 registration membership 자체를 survival authority로 사용하지 않고 identity별 independent obligation을 adjudicate한 뒤 terminal exact gate를 `230 + 4`로 다시 결속한다. Comparable wall-time evidence가 없으면 실행속도 개선률은 계속 미측정이다.
 
 #### Adjudicated executable-retirement implementation
 
@@ -896,7 +896,11 @@ Tracked transaction은 48 regularized-temporary source family/268 identity, 34 p
 
 Dirty-main ignored/untracked transaction은 tracked tree와 분리했다. Exact hash와 consumer를 확인한 163 file/335 identity/901,270 raw bytes만 외부 archive verify와 fresh-root restore 뒤 제거했고, 같은 dirty domain의 current product survivor 6 family/13 identity는 보존했다. 이 local byte 감소와 외부 archive bytes는 tracked repository metric에 합산하지 않는다.
 
-구현 readpoint는 authority-only `145b1dd2`가 first destructive commit `4e527b84`보다 앞선다. Exact terminal subject `b0fe69b1` / tree `2e7f2c8e`의 focused/current/collection 검증과 Clean-Checkout Run A/B/comparator/negative probe는 PASS했고 canonical result SHA-256은 `1baca45c...07964`, source/external mutation은 `0`이다. P8 Codex Reviewer가 platform usage limit으로 blocked됐으므로 completion token은 보류한다. `Iris/_docs/round3/temporary_validation_physical_retirement/{retirement_summary.json,closeout.json}`의 post-validation update는 이 terminal subject를 재정의하지 않는다. 이 경계는 runtime Lua, product data, public text 또는 package product architecture를 변경하지 않는다.
+구현 readpoint는 authority-only `145b1dd2`가 first destructive commit `4e527b84`보다 앞선다. Exact terminal subject `b0fe69b1` / tree `2e7f2c8e`의 focused/current/collection 검증과 Clean-Checkout Run A/B/comparator/negative probe는 PASS했고 canonical result SHA-256은 `1baca45c...07964`, source/external mutation은 `0`이다. 2026-08-24 P8 Codex Reviewer를 exact S1에 재실행한 결과 exit `0`, actionable finding `0`으로 PASS했으며 JSON syntax, 직접 확인 가능한 count/hash와 surrounding authority consistency에서 regression을 찾지 않았다. 이 top-document synchronization은 `closeout.json` 또는 P10 token을 변경하지 않으며, additive closeout update도 terminal subject를 재정의하지 않는다. 이 경계는 runtime Lua, product data, public text 또는 package product architecture를 변경하지 않는다.
+
+물리 경량화의 서로 다른 domain은 합산하지 않는다. Tracked tree에서는 regularized-temporary `268`, pure non-current `177`, mixed callable `2`를 합한 executable identity `447`과 full source/exclusive support file `92`를 제거했다. Dirty-main ignored/untracked domain에서는 별도로 file `163`, identity `335`, raw bytes `901,270`을 제거했다. Exact gate는 `437` unit에서 `234` unit으로 `203` (`46.453%`), current taxonomy는 `228` identity에서 `118` identity로 `110` (`48.246%`) 감소했다. Net tracked blob은 `8,228,685` bytes (`1.026%`), test/tooling LOC는 `24,074` (`9.278%`) 감소했다.
+
+이 구조적 감소를 실제 token 절감률로 승격하지 않는다. S0/S1의 tokenizer, prompt selection, cache hit, input/cached-input/output/tool-output token telemetry와 context-compaction 비교가 없으므로 GPT/Codex token 효율은 미측정이다. Repository bytes `1.026%`, test/tooling LOC `9.278%`, identity-heavy gate/taxonomy `46.453~48.246%` 감소는 workload별 static context proxy일 뿐이며 실제 wall-time, CPU, memory 또는 token 개선률이 아니다.
 
 ### DVF 3-3 stateless complete-generation successor
 

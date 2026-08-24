@@ -1030,14 +1030,17 @@ Current state: authority census and validation baseline recovery complete; physi
 
 ### Physical retirement successor (2026-08-23)
 
-Current state: adjudicated implementation and exact-subject terminal validation PASS; P8 Codex Reviewer blocked by platform usage limit.
+Current state: adjudicated implementation, exact-subject terminal validation and P8 Codex Reviewer PASS; canonical P10 closeout carrier synchronization pending.
 
 - Regular 599 identity의 blanket keep을 폐기하고 independent survival basis로 전량 심사했다. Current product 234와 validation-system 94를 보존하고 lifecycle-bound 271을 퇴역시켰다.
 - Non-current 568 identity는 actual current consumer가 있는 39를 승격·보존하고 529를 퇴역시켰다. Full-gate 56 conflict는 current 39/retired 17로 닫혔다.
 - Tracked tree에서 full source/exclusive support 92개와 mixed callable 2개를 제거했다. Dirty main에서는 archive verify와 fresh-root restore가 끝난 ignored/untracked 163 file/335 identity/901,270 bytes만 제거하고 product survivor 6 family/13 identity를 보존했다.
 - `historical`, `diagnostic`, `all` repository-local replay selector는 종료됐고 `current` selector와 fail-closed current contract는 남는다. Predecessor ledger, sealed receipt와 Git history는 보존한다.
 - Exact terminal subject `b0fe69b1` / tree `2e7f2c8e`에서 focused/current/collection 검증, Clean-Checkout Run A/B, comparator와 undeclared-source negative probe가 PASS했다. Canonical result SHA-256은 `1baca45c...07964`, pytest identity는 `230`, standalone은 `4`, required execution unit은 `234`, source/external mutation은 `0`이다.
-- 남은 gate는 P8 Codex Reviewer 하나다. 최종 reviewer 실행은 platform usage limit으로 blocked됐으므로 P10 completion token은 발행하지 않는다. Reviewer PASS 뒤 additive closeout만 갱신하고 validated terminal subject는 재정의하지 않는다.
+- P8 Codex Reviewer를 exact S1 `b0fe69b1`에 재실행했고 exit `0`, actionable finding `0`으로 PASS했다. Reviewer는 S1의 JSON syntax, count/hash binding과 surrounding authority consistency에서 actionable regression을 찾지 않았다.
+- Exact gate는 `437` unit에서 `234` unit으로 `203` (`46.453%`), current taxonomy는 `228` identity에서 `118` identity로 `110` (`48.246%`) 감소했다. Tracked executable identity `447`과 full source/exclusive support file `92`를 제거했고 net tracked blob `8,228,685` bytes (`1.026%`), test/tooling LOC `24,074` (`9.278%`)를 줄였다.
+- P8 이후 남은 기록 작업은 canonical closeout carrier에 reviewer PASS와 P10 token을 동기화하는 것뿐이다. 이 top-document update 자체는 token을 발행하지 않으며 validated terminal subject를 재정의하지 않는다.
+- 실제 GPT/Codex token 효율은 미측정이다. Repository bytes, test/tooling LOC와 gate/taxonomy 감소는 workload별 context proxy일 뿐이며 tokenizer, prompt selection, cache hit와 input/output/tool token telemetry가 없는 상태에서 token 절감률로 대체하지 않는다.
 - Runtime Lua, product data/public text/package, in-game QA, RTC/Publish, release/Workshop/deployment/B42와 performance claim은 이 successor 범위가 아니다.
 
 집계와 terminal state는 `Iris/_docs/round3/temporary_validation_physical_retirement/{retirement_summary.json,closeout.json}`에 둔다. Ad hoc cleanup 검사는 canonical validator나 새 validation authority가 아니다.

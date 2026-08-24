@@ -2765,10 +2765,11 @@
 
 ---
 
-## Iris temporary/one-off validation executable retirement — terminal validation PASS / independent review blocked
+## Iris temporary/one-off validation executable retirement — terminal validation PASS / independent review PASS
 
 * 날짜: 2026-08-23
-* 상태: adjudicated physical implementation과 exact-subject terminal validation PASS / P8 Codex Reviewer platform-blocked / completion token withheld
+* Independent review 갱신: 2026-08-24
+* 상태: adjudicated physical implementation, exact-subject terminal validation과 P8 Codex Reviewer PASS / P10 closeout carrier synchronization pending
 * 결정:
 
   * Corrective survival authority `9739b389f0076903a3494f3d78edc3193fded458`와 physical-domain authority `145b1dd2e21afa957be3ffe87ab8ea3bde069ce0`를 적용한다. Authority-only readpoint는 first destructive commit `4e527b845d2cb6e05a6694e425e607fc95b42ead`보다 앞선다.
@@ -2777,8 +2778,11 @@
   * Tracked transaction은 92개 full source/exclusive support file과 mixed callable 2개를 제거한다. Dirty-main transaction은 exact archive verify/fresh-root restore가 끝난 ignored/untracked 163 file/335 identity/901,270 raw bytes만 제거하고 current product survivor 6 family/13 identity는 보존한다.
   * Repository-local `historical`, `diagnostic`, `all` 실행 selector와 corpus materialization availability를 종료하고 `current` selector와 current fail-closed validation contract를 유지한다. Predecessor ledger, sealed receipt와 Git history는 rewrite하지 않는다.
   * Exact terminal subject `b0fe69b1406d4f8353a2278cff6cc9b71738f0b8` / tree `2e7f2c8e1693586284d5aedb3f8cc05cce29f12e`에서 focused validation, current runner, configured collection, Clean-Checkout Run A/B, deterministic comparator와 negative probe가 PASS했다. Canonical result SHA-256은 `1baca45cd773df9ddeca0bc8c125c766a97eb462751e4246ff6ba6ef4cc07964`이고 source/external mutation은 `0`이다.
-  * P8 Codex Reviewer의 최종 판정은 platform usage limit으로 회수·재실행이 막혀 있다. 따라서 `complete` 판정과 P10 token은 발행하지 않으며 reviewer가 PASS하기 전까지 state를 `terminal_validation_pass_independent_review_blocked`로 유지한다.
+  * P8 Codex Reviewer를 exact commit `b0fe69b1406d4f8353a2278cff6cc9b71738f0b8`에 다시 실행한 결과 command exit `0`, actionable finding `0`으로 PASS했다. Reviewer는 추가된 JSON의 syntax와 repository에서 직접 확인 가능한 count/hash가 주변 authority artifact와 일치하며 이 commit이 도입한 actionable regression이 없다고 판정했다.
+  * 실행 부담은 predecessor exact gate의 pytest `433` + standalone `4` = `437` unit에서 terminal pytest `230` + standalone `4` = `234` unit으로 `203` unit (`46.453%`) 감소했다. Round 3 current taxonomy는 `228`에서 `118` identity로 `110` (`48.246%`) 감소했다.
+  * Tracked tree에서는 regularized-temporary `268`, pure non-current `177`, mixed callable `2`를 합한 executable identity `447`과 full source/exclusive support file `92`를 제거했다. Net tracked blob은 `8,228,685` bytes (`1.026%`), test/tooling LOC는 `24,074` (`9.278%`) 감소했다.
+  * P8 PASS는 기존 terminal subject를 재정의하지 않는다. 이 top-document synchronization은 `closeout.json`을 변경하거나 P10 completion token을 발행하지 않으며, token은 canonical closeout carrier가 reviewer 결과를 반영할 때만 기록한다.
 
-* Metric boundary: tracked repository, dirty-main ignored/untracked, external archive를 서로 다른 domain으로 유지한다. Comparable timing benchmark가 없으므로 속도·CPU·memory 개선은 주장하지 않는다.
+* Metric boundary: tracked repository, dirty-main ignored/untracked, external archive를 서로 다른 domain으로 유지한다. Comparable timing/CPU/memory benchmark와 S0/S1 prompt, cached-input, output, tool-output token telemetry가 없으므로 runtime 또는 실제 GPT/Codex token 개선률은 주장하지 않는다. Byte `1.026%`, test/tooling LOC `9.278%`, gate/taxonomy `46.453~48.246%` 감소는 workload별 정적 proxy이지 token usage 측정값이 아니다.
 * Non-decision: runtime Lua/product data/public text/package 변경, historical replay PASS, in-game QA, RTC/Publish, release/Workshop/deployment/B42 readiness 또는 public-text quality acceptance가 아니다.
 * Evidence: `Iris/_docs/round3/temporary_validation_physical_retirement/{retirement_summary.json,closeout.json}`.

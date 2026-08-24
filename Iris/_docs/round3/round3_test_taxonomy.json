@@ -18,7 +18,7 @@
   "generated_at": "2026-08-23T00:00:00+09:00",
   "identity_source": "Iris/_docs/round3/round3_legacy_test_identities.json",
   "matrix": {
-    "current+ok": 123
+    "current+ok": 119
   },
   "rows": [
     {
@@ -465,11 +465,11 @@
         "compose_layer3_text"
       ],
       "imports_ignored_reproduction_modules": [],
-      "reason": "tracked current-contract seed",
+      "reason": "table-driven successor preserves test-fixture decisions and staging-overlay rejection as named cases",
       "routing_status": "default unittest discovery after D1",
       "source_file": "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py",
       "state": "ok",
-      "test_id": "test_current_authority_source_path_guard.CurrentAuthoritySourcePathGuardTest.test_default_contract_rejects_test_fixture_current_authority_input"
+      "test_id": "test_current_authority_source_path_guard.CurrentAuthoritySourcePathGuardTest.test_default_contract_rejects_non_data_current_authority_inputs"
     },
     {
       "audit_status": "seed",
@@ -879,11 +879,11 @@
       "contract_class": "current",
       "imported_build_modules": [],
       "imports_ignored_reproduction_modules": [],
-      "reason": "current required validation manifest classifies this tracked package contract as current_product_required",
+      "reason": "shared-load successor preserves Layer 3 monolith and stale DVF bridge guards as named checks",
       "routing_status": "current route required validation",
       "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
       "state": "ok",
-      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_package_script_excludes_layer3_monolith"
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_package_script_preserves_forbidden_surface_guards"
     },
     {
       "audit_status": "manual_current",
@@ -994,17 +994,6 @@
       "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
       "state": "ok",
       "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_mixed_package_applicability_fails_before_write"
-    },
-    {
-      "audit_status": "required_manifest_current",
-      "contract_class": "current",
-      "imported_build_modules": [],
-      "imports_ignored_reproduction_modules": [],
-      "reason": "current required validation manifest classifies this tracked test as current_product_required",
-      "routing_status": "current route required validation",
-      "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
-      "state": "ok",
-      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_package_script_fails_loud_on_stale_dvf_bridge_surface"
     },
     {
       "audit_status": "required_manifest_current",

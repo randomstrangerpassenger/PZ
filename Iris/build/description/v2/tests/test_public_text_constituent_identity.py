@@ -326,26 +326,24 @@ class PublicTextConstituentIdentityTest(unittest.TestCase):
             * 3,
         )
 
-    def test_protected_snapshot_declared_sha_must_match_head_raw(self) -> None:
+    def test_protected_snapshot_invalid_text_identities_are_stale(self) -> None:
         blob_lf = b'{"value":1}\n'
-        declared_crlf = sha256(blob_lf.replace(b"\n", b"\r\n"))
-        with self.assertRaises(acceptance.FoundationContractError):
-            protected_snapshot_row(
-                declared_sha256=declared_crlf,
-                head_blob_raw=blob_lf,
-                working_raw=blob_lf.replace(b"\n", b"\r\n"),
-            )
-
-    def test_protected_snapshot_non_line_ending_one_byte_change_is_stale(
-        self,
-    ) -> None:
-        blob_lf = b'{"value":1}\n'
-        with self.assertRaises(acceptance.FoundationContractError):
-            protected_snapshot_row(
-                declared_sha256=sha256(blob_lf),
-                head_blob_raw=blob_lf,
-                working_raw=b'{"value":2}\r\n',
-            )
+        cases = {
+            "declared_sha_mismatch": (
+                sha256(blob_lf.replace(b"\n", b"\r\n")),
+                blob_lf.replace(b"\n", b"\r\n"),
+            ),
+            "semantic_byte_change": (sha256(blob_lf), b'{"value":2}\r\n'),
+        }
+        for case_id, (declared_sha256, working_raw) in cases.items():
+            with self.subTest(case_id=case_id), self.assertRaises(
+                acceptance.FoundationContractError
+            ):
+                protected_snapshot_row(
+                    declared_sha256=declared_sha256,
+                    head_blob_raw=blob_lf,
+                    working_raw=working_raw,
+                )
 
     def test_protected_snapshot_binary_raw_drift_is_stale(self) -> None:
         blob = b"\x00\x01\r\n\xff"

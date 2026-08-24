@@ -1,24 +1,41 @@
 {
   "schema_version":"iris-regular-validation-consolidation-map-v1",
-  "s0":{"commit":"64754c38147233c4f5e04a7469b45163c2c55ebe","tree":"92810ce35f021bd3dfa65ceafb782a32c2b86258","canonical_result_sha256":"f7ff1095d21d3942e2377441b059b371cbf3d95493c1089c2035b6a902634bd7","execution":238,"taxonomy":123,"manifest":70},
-  "closure":{"execution":{"preserved":217,"mapped":21,"successors":3,"final":220},"taxonomy":{"preserved":119,"mapped":4,"successors":1,"final":120},"manifest":{"preserved":70,"final":70}},
+  "s0":{"commit":"64754c38147233c4f5e04a7469b45163c2c55ebe","tree":"92810ce35f021bd3dfa65ceafb782a32c2b86258","canonical_result":"C:\\Users\\MW\\iccv\\rr1\\canonical_full_result.json","canonical_result_sha256":"f7ff1095d21d3942e2377441b059b371cbf3d95493c1089c2035b6a902634bd7","execution":238,"taxonomy":123,"manifest":70},
+  "external_item_closure":{"path":"C:\\Users\\MW\\iccv\\regular-consolidation-terminal\\item-level-closure.json","sha256":"19f565844feb8beaba02bb05c022b167b56f01b5b6ee57edcb607bce819635ef","execution":238,"taxonomy":123,"manifest":70,"unmapped":0},
+  "mapping_rule":"predecessors[i] maps to successor subTest checks[i]",
+  "closure":{"execution":{"preserved":211,"mapped":27,"successors":6,"final":217},"taxonomy":{"preserved":116,"mapped":7,"successors":3,"final":119},"manifest":{"preserved":68,"mapped":2,"successors":1,"final":69}},
   "groups":[
     {
       "source":"Iris/build/description/v2/tests/test_compiler_particle_adjustment.py","disposition":"table_driven_conversion",
       "predecessors":["parenthesized_open_uses_euro","parenthesized_sawn_barrel_uses_euro","parenthesized_black_uses_euro","parenthesized_brown_uses_euro","parenthesized_gold_uses_euro","parenthesized_red_uses_euro","parenthesized_rieul_uses_ro","unparenthesized_no_final_consonant_uses_ro","unparenthesized_final_consonant_uses_euro","unparenthesized_rieul_uses_ro","tail_ignores_whitespace_sentence_punctuation_and_closer"],
-      "successor":"append_instrumental_cases","checks":11
+      "successor":"append_instrumental_cases","checks":["parenthesized_open","parenthesized_sawn_barrel","parenthesized_black","parenthesized_brown","parenthesized_gold","parenthesized_red","parenthesized_rieul","unparenthesized_no_final_consonant","unparenthesized_final_consonant","unparenthesized_rieul","trailing_whitespace_punctuation_and_closer"]
     },
     {
       "source":"Iris/build/description/v2/tests/test_public_text_constituent_identity.py","disposition":"same_input_merge",
       "predecessors":["exact_full_review_aggregate_failure_is_technical_blocker","exact_full_review_denominator_mismatch_is_technical_blocker","exact_full_review_digest_mismatch_is_technical_blocker","exact_full_review_blocker_list_mismatch_is_technical_blocker","exact_full_review_incomplete_aggregate_is_technical_blocker","unknown_review_schema_is_technical_blocker"],
-      "successor":"exact_full_review_invalid_variants_are_technical_blockers","checks":6
+      "successor":"exact_full_review_invalid_variants_are_technical_blockers","checks":["aggregate_failure","denominator_mismatch","digest_mismatch","blocker_list_mismatch","incomplete_aggregate","unknown_review_schema"]
     },
     {
       "source":"Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py","disposition":"table_driven_conversion",
       "predecessors":["docs_staging_tests_and_historical_predecessor_are_allowed","runtime_lua_consumption_fails","source_or_rendered_payload_consumption_fails","current_build_script_consumption_fails_without_explicit_allow"],
-      "successor":"synthetic_surface_dispositions","checks":4
+      "successor":"synthetic_surface_dispositions","checks":["allowed_governance_and_test_surfaces","runtime_lua","source_and_rendered_payload","current_build_script"]
+    },
+    {
+      "source":"Iris/build/description/v2/tests/test_current_authority_source_path_guard.py","disposition":"table_driven_conversion",
+      "predecessors":["default_contract_rejects_test_fixture_current_authority_input","default_contract_rejects_staging_overlay_input"],
+      "successor":"default_contract_rejects_non_data_current_authority_inputs","checks":["test_fixture_decisions","staging_overlay"]
+    },
+    {
+      "source":"Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py","disposition":"same_input_merge",
+      "predecessors":["package_script_excludes_layer3_monolith","package_script_fails_loud_on_stale_dvf_bridge_surface"],
+      "successor":"package_script_preserves_forbidden_surface_guards","checks":["layer3_monolith","stale_dvf_bridge"]
+    },
+    {
+      "source":"Iris/build/description/v2/tests/test_public_text_constituent_identity.py","disposition":"table_driven_conversion",
+      "predecessors":["protected_snapshot_declared_sha_must_match_head_raw","protected_snapshot_non_line_ending_one_byte_change_is_stale"],
+      "successor":"protected_snapshot_invalid_text_identities_are_stale","checks":["declared_sha_mismatch","semantic_byte_change"]
     }
   ],
-  "reuse":[{"family":"public_text_review_fixture","operation":"strict_json_load","before":26,"after":2},{"family":"round3_applicability","operation":"runner_import","before":5,"after":1}],
-  "residual_keeps":{"mutable":"case-local mutation/tamper/recovery/concurrency/workspace","process":"Lua, CLI, stdout/stderr and fresh-process","oracle":"distinct compose/package/lifecycle/source/gate observables"}
+  "reuse":[{"family":"public_text_review_fixture","identity":"class 20->14; review cases 6->1; snapshot cases 2->1","operation":"strict_json_load","before":26,"after":2},{"family":"round3_applicability","identity":"5->5","operation":"runner_import","before":5,"after":1},{"family":"package_forbidden_surface","identity":"2->1","operation":"package_script_read","before":2,"after":1}],
+  "residual_keeps":{"membership":"external_item_closure.execution rows with disposition keep_independent","mutable":"case-local mutation/tamper/recovery/concurrency/workspace","process":"Lua, CLI, stdout/stderr and fresh-process","oracle":"distinct compose/package/lifecycle/source/gate observables"}
 }

@@ -458,29 +458,30 @@ class PackageLayer3ChunksOnlyContractTest(unittest.TestCase):
             )
             self.assertFalse((output / "Iris").exists())
 
-    def test_package_script_excludes_layer3_monolith(self) -> None:
+    def test_package_script_preserves_forbidden_surface_guards(self) -> None:
         script = PACKAGE_SCRIPT_PATH.read_text(encoding="utf-8")
-
-        self.assertIn("$forbiddenPackageFiles = @(", script)
-        self.assertIn("'media\\lua\\client\\Iris\\Data\\IrisLayer3Data.lua'", script)
-        self.assertIn("Forbidden Iris Layer 3 monolith source file detected", script)
-        self.assertIn("Forbidden Iris package monolith output detected", script)
-        self.assertNotIn("Remove-Item -LiteralPath $candidate -Force", script)
-        self.assertIn("forbidden_files = $forbiddenPackageFiles", script)
-
-    def test_package_script_fails_loud_on_stale_dvf_bridge_surface(self) -> None:
-        script = PACKAGE_SCRIPT_PATH.read_text(encoding="utf-8")
-
-        self.assertIn("Assert-NoForbiddenIrisDvfBridgeSurface", script)
-        self.assertIn("Forbidden stale Iris DVF bridge artifact detected", script)
-        self.assertIn("media\\lua\\shared\\Iris\\IrisDvfBridgeData.lua", script)
-        self.assertIn("IrisDvfBridgeData.lua", script)
-        self.assertIn(
-            "c5ec93914f4a13c227bf1b3958908b860af768113700cecb4c4496b46ad411aa",
-            script,
-        )
-        self.assertIn("interaction-cluster-rendered-v0", script)
-        self.assertIn("legacy_6_entry_payload_shape", script)
+        cases = {
+            "layer3_monolith": (
+                "$forbiddenPackageFiles = @(",
+                "'media\\lua\\client\\Iris\\Data\\IrisLayer3Data.lua'",
+                "Forbidden Iris Layer 3 monolith source file detected",
+                "Forbidden Iris package monolith output detected",
+                "forbidden_files = $forbiddenPackageFiles",
+            ),
+            "stale_dvf_bridge": (
+                "Assert-NoForbiddenIrisDvfBridgeSurface",
+                "Forbidden stale Iris DVF bridge artifact detected",
+                "media\\lua\\shared\\Iris\\IrisDvfBridgeData.lua",
+                "IrisDvfBridgeData.lua",
+                "c5ec93914f4a13c227bf1b3958908b860af768113700cecb4c4496b46ad411aa",
+                "interaction-cluster-rendered-v0",
+                "legacy_6_entry_payload_shape",
+            ),
+        }
+        for case_id, markers in cases.items():
+            with self.subTest(case_id=case_id):
+                for marker in markers:
+                    self.assertIn(marker, script)
         self.assertNotIn("Remove-Item -LiteralPath $candidate -Force", script)
 
     def test_workspace_copy_flow_excludes_stale_dvf_bridge(self) -> None:

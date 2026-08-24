@@ -52,14 +52,24 @@ class CurrentAuthoritySourcePathGuardTest(unittest.TestCase):
                 ]
             )
 
-    def test_default_contract_rejects_test_fixture_current_authority_input(self) -> None:
-        with self.assertRaisesRegex(ValueError, DEFAULT_CURRENT_AUTHORITY_INPUT_PATH_ERROR_CODE):
-            enforce_current_authority_input_contract(
-                DEFAULT_MODE,
-                current_authority_paths(
-                    decisions_path=ROOT / "tests" / "fixtures" / "dvf_3_3_decisions.jsonl",
-                ),
-            )
+    def test_default_contract_rejects_non_data_current_authority_inputs(self) -> None:
+        cases = {
+            "test_fixture_decisions": {
+                "decisions_path": ROOT / "tests" / "fixtures" / "dvf_3_3_decisions.jsonl",
+            },
+            "staging_overlay": {
+                "overlay_path": ROOT / "staging" / "compose_contract_migration" / "layer3_body_source_overlay.jsonl",
+            },
+        }
+        for case_id, overrides in cases.items():
+            with self.subTest(case_id=case_id), self.assertRaisesRegex(
+                ValueError,
+                DEFAULT_CURRENT_AUTHORITY_INPUT_PATH_ERROR_CODE,
+            ):
+                enforce_current_authority_input_contract(
+                    DEFAULT_MODE,
+                    current_authority_paths(**overrides),
+                )
 
     def test_default_contract_accepts_data_current_authority_inputs(self) -> None:
         enforce_current_authority_input_contract(DEFAULT_MODE, current_authority_paths())
@@ -68,15 +78,6 @@ class CurrentAuthoritySourcePathGuardTest(unittest.TestCase):
         defaults = default_entrypoint_paths(DEFAULT_MODE)
 
         self.assertEqual(defaults["overlay_path"], DATA_DIR / "dvf_3_3_overlay_support.jsonl")
-
-    def test_default_contract_rejects_staging_overlay_input(self) -> None:
-        with self.assertRaisesRegex(ValueError, DEFAULT_CURRENT_AUTHORITY_INPUT_PATH_ERROR_CODE):
-            enforce_current_authority_input_contract(
-                DEFAULT_MODE,
-                current_authority_paths(
-                    overlay_path=ROOT / "staging" / "compose_contract_migration" / "layer3_body_source_overlay.jsonl",
-                ),
-            )
 
     def test_diagnostic_contract_allows_non_data_diagnostic_readpoint(self) -> None:
         enforce_current_authority_input_contract(

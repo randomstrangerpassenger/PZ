@@ -580,6 +580,11 @@ def _invoke_fake_launcher(
         / "invoke_receipt_bound_full_gate.ps1"
     )
     environment = os.environ.copy()
+    # The test explicitly launches Windows PowerShell. Do not pass through a
+    # PowerShell 7 module search path from the parent process; bind the child to
+    # Windows PowerShell's system modules so built-ins such as Get-FileHash
+    # remain discoverable under `uv run`.
+    environment["PSModulePath"] = str(Path(powershell).resolve().parent / "Modules")
     environment.pop("IRIS_ENV_ABSENT", None)
     environment["IRIS_ENV_EMPTY"] = ""
     environment["IRIS_ENV_VALUE"] = "outer-value"
@@ -645,6 +650,9 @@ def _invoke_fake_compare(
         / "invoke_deterministic_compare.ps1"
     )
     environment = os.environ.copy()
+    # Keep the Windows PowerShell fixture independent of the parent shell's
+    # PowerShell-major-version module search path.
+    environment["PSModulePath"] = str(Path(powershell).resolve().parent / "Modules")
     environment.pop("IRIS_ENV_ABSENT", None)
     environment["IRIS_ENV_EMPTY"] = ""
     environment["IRIS_ENV_VALUE"] = "outer-value"

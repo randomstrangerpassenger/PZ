@@ -75,11 +75,11 @@ class DvfGenerationInstallTest(unittest.TestCase):
                         self.skipTest("blocked_by:shared_immutable_seed")
                 return
 
-            for failure_step in failure_steps:
+            for case_index, failure_step in enumerate(failure_steps):
                 with self.subTest(step=failure_step):
-                    case_root = root / "cases" / failure_step
-                    repository = case_root / "repository"
-                    generation = case_root / "candidate"
+                    case_root = root / f"c{case_index}"
+                    repository = case_root / "r"
+                    generation = case_root / "g"
                     shutil.copytree(seed_repository, repository)
                     shutil.copytree(seed_generation, generation)
                     with self.assertRaises(GenerationInstallError):

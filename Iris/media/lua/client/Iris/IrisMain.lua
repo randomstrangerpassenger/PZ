@@ -49,22 +49,6 @@ local function hookTooltip(moduleResult)
     return true
 end
 
-local function installBulletReloadCompat(moduleResult)
-    if not moduleResult or type(moduleResult.install) ~= "function" then
-        return false
-    end
-    moduleResult.install()
-    return true
-end
-
-local function installContextMenuTextureCompat(moduleResult)
-    if not moduleResult or type(moduleResult.install) ~= "function" then
-        return false
-    end
-    moduleResult.install()
-    return true
-end
-
 local function hookContextMenu(moduleResult)
     if not moduleResult or type(moduleResult.hookContextMenu) ~= "function" then
         return false
@@ -84,13 +68,10 @@ end
 local INIT_MODULES = {
     { step = "Step 4", label = "IrisAPI", load = loadModule("Iris/IrisAPI"), onLoaded = assignApi },
     { step = "Step 5a", label = "IrisAltTooltip", load = loadModule("Iris/UI/Tooltip/IrisAltTooltip"), invoke = hookTooltip, protectedCall = ProtectedCall.ui, unavailable = "hookTooltip() is not available", success = "hookTooltip() success" },
-    { step = "Step 5b", label = "IrisContextMenuTextureCompat", load = loadModule("Iris/Compat/IrisContextMenuTextureCompat"), invoke = installContextMenuTextureCompat, protectedCall = ProtectedCall.compat, unavailable = "install() is not available", success = "ContextMenuTextureCompat.install() success" },
-    -- validation anchor: require, "Iris/Compat/IrisBulletReloadCompat"; BulletReloadCompat.install()
-    { step = "Step 5c", label = "IrisBulletReloadCompat", load = loadModule("Iris/Compat/IrisBulletReloadCompat"), invoke = installBulletReloadCompat, protectedCall = ProtectedCall.compat, unavailable = "install() is not available", success = "BulletReloadCompat.install() success" },
     -- validation anchor: require, "Iris/UI/Wiki/IrisContextMenu"; hookContextMenu()
-    { step = "Step 5d", label = "IrisContextMenu", load = loadModule("Iris/UI/Wiki/IrisContextMenu"), invoke = hookContextMenu, protectedCall = ProtectedCall.ui, unavailable = "hookContextMenu() is not available", success = "hookContextMenu() success" },
-    { step = "Step 5e", label = "IrisBrowserData", load = loadModule("Iris/UI/Browser/IrisBrowserData"), ready = "BrowserData demand-build boundary ready" },
-    { step = "Step 5f", label = "IrisMapIcon", load = loadModule("Iris/UI/Browser/IrisMapIcon"), invoke = initMapIcon, protectedCall = ProtectedCall.ui, unavailable = "init() is not available", success = "MapIcon.init() success" },
+    { step = "Step 5b", label = "IrisContextMenu", load = loadModule("Iris/UI/Wiki/IrisContextMenu"), invoke = hookContextMenu, protectedCall = ProtectedCall.ui, unavailable = "hookContextMenu() is not available", success = "hookContextMenu() success" },
+    { step = "Step 5c", label = "IrisBrowserData", load = loadModule("Iris/UI/Browser/IrisBrowserData"), ready = "BrowserData demand-build boundary ready" },
+    { step = "Step 5d", label = "IrisMapIcon", load = loadModule("Iris/UI/Browser/IrisMapIcon"), invoke = initMapIcon, protectedCall = ProtectedCall.ui, unavailable = "init() is not available", success = "MapIcon.init() success" },
 }
 
 local DEV_TESTHARNESS_MODULE = "Iris/Dev/IrisDesc/TestHarness"

@@ -22,6 +22,7 @@ BOOT_PATH = IRIS_MOD_ROOT / "media" / "lua" / "client" / "AIrisBoot.lua"
 MAIN_PATH = IRIS_MOD_ROOT / "media" / "lua" / "client" / "Iris" / "IrisMain.lua"
 CONTEXT_MENU_PATH = IRIS_MOD_ROOT / "media" / "lua" / "client" / "Iris" / "UI" / "Wiki" / "IrisContextMenu.lua"
 BULLET_COMPAT_PATH = IRIS_MOD_ROOT / "media" / "lua" / "client" / "Iris" / "Compat" / "IrisBulletReloadCompat.lua"
+TEXTURE_COMPAT_PATH = IRIS_MOD_ROOT / "media" / "lua" / "client" / "Iris" / "Compat" / "IrisContextMenuTextureCompat.lua"
 BROWSER_PATH = IRIS_MOD_ROOT / "media" / "lua" / "client" / "Iris" / "UI" / "Browser" / "IrisBrowser.lua"
 PANEL_PATH = IRIS_MOD_ROOT / "media" / "lua" / "client" / "Iris" / "UI" / "Wiki" / "IrisWikiPanel.lua"
 WIKI_SECTIONS_PATH = IRIS_MOD_ROOT / "media" / "lua" / "client" / "Iris" / "UI" / "Wiki" / "IrisWikiSections.lua"
@@ -72,6 +73,7 @@ def build_phase_d_runtime_report(
     main_path: Path = MAIN_PATH,
     context_menu_path: Path = CONTEXT_MENU_PATH,
     bullet_compat_path: Path = BULLET_COMPAT_PATH,
+    texture_compat_path: Path = TEXTURE_COMPAT_PATH,
     browser_path: Path = BROWSER_PATH,
     panel_path: Path = PANEL_PATH,
     wiki_sections_path: Path = WIKI_SECTIONS_PATH,
@@ -85,7 +87,6 @@ def build_phase_d_runtime_report(
     boot_text = read_text_or_empty(boot_path)
     main_text = read_text_or_empty(main_path)
     context_menu_text = read_text_or_empty(context_menu_path)
-    bullet_compat_text = read_text_or_empty(bullet_compat_path)
     wiki_sections_text = read_text_or_empty(wiki_sections_path)
     chunk_paths = sorted(layer3_chunk_dir.glob("Chunk*.lua")) if layer3_chunk_dir.exists() else []
 
@@ -168,7 +169,6 @@ def build_phase_d_runtime_report(
                     boot_path.exists()
                     and main_path.exists()
                     and context_menu_path.exists()
-                    and bullet_compat_path.exists()
                     and browser_path.exists()
                     and panel_path.exists()
                     and wiki_sections_path.exists()
@@ -178,7 +178,6 @@ def build_phase_d_runtime_report(
             "details": {
                 "boot_path": str(boot_path),
                 "context_menu_path": str(context_menu_path),
-                "bullet_compat_path": str(bullet_compat_path),
                 "main_path": str(main_path),
                 "browser_path": str(browser_path),
                 "panel_path": str(panel_path),
@@ -235,21 +234,21 @@ def build_phase_d_runtime_report(
             "details": str(context_menu_path),
         },
         {
-            "code": "bullet_reload_compat_guards_vanilla_menu",
+            "code": "iris_global_context_menu_patches_absent",
             "status": (
                 "pass"
-                if 'require, "Iris/Compat/IrisBulletReloadCompat"' in main_text
-                and "BulletReloadCompat.install()" in main_text
+                if not bullet_compat_path.exists()
+                and not texture_compat_path.exists()
+                and "IrisBulletReloadCompat" not in main_text
+                and "IrisContextMenuTextureCompat" not in main_text
                 and "doReloadMenuForBullets" not in context_menu_text
-                and "_irisSafeBulletReloadPatchApplied" not in context_menu_text
-                and "IrisBulletReloadCompat.install" in bullet_compat_text
-                and "_irisSafeBulletReloadPatchApplied" in bullet_compat_text
-                and "buildAmmoReloadTooltipDescription" in bullet_compat_text
+                and "ISContextMenu.render" not in context_menu_text
                 else "fail"
             ),
             "details": {
-                "context_menu_path": str(context_menu_path),
                 "bullet_compat_path": str(bullet_compat_path),
+                "texture_compat_path": str(texture_compat_path),
+                "expected": "compat implementations absent and no Iris installer references",
             },
         },
         {
@@ -343,6 +342,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--main-path", type=Path, default=MAIN_PATH)
     parser.add_argument("--context-menu-path", type=Path, default=CONTEXT_MENU_PATH)
     parser.add_argument("--bullet-compat-path", type=Path, default=BULLET_COMPAT_PATH)
+    parser.add_argument("--texture-compat-path", type=Path, default=TEXTURE_COMPAT_PATH)
     parser.add_argument("--browser-path", type=Path, default=BROWSER_PATH)
     parser.add_argument("--panel-path", type=Path, default=PANEL_PATH)
     parser.add_argument("--wiki-sections-path", type=Path, default=WIKI_SECTIONS_PATH)
@@ -363,6 +363,7 @@ def main() -> int:
         main_path=args.main_path,
         context_menu_path=args.context_menu_path,
         bullet_compat_path=args.bullet_compat_path,
+        texture_compat_path=args.texture_compat_path,
         browser_path=args.browser_path,
         panel_path=args.panel_path,
         wiki_sections_path=args.wiki_sections_path,

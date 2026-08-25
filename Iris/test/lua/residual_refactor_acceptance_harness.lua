@@ -422,5 +422,61 @@ emit("logging.debug_off_lazy", "lazy_debug",
         warning_preserved=warningPreserved,warnings_invariant=warningsInvariant,
         total_debug_calls=debugCalls,total_warning_calls=warningCalls})
 
+-- Iris is an information-only spoke: boot must not replace vanilla/global
+-- context-menu behavior, even when an invalid texture reaches the renderer.
+resetLoaded({"Iris/IrisMain", "Iris/Util/IrisModuleBootstrap", "Iris/Util/IrisProtectedCall"})
+local originalReload = function() return "vanilla-reload" end
+local originalRender = function(self)
+    return self.tickTexture:getWidthOrig()
+end
+ISInventoryPaneContextMenu = {doReloadMenuForBullets=originalReload}
+ISContextMenu = {render=originalRender}
+local bootCallback = nil
+Events = {OnGameBoot={Add=function(callback) bootCallback = callback end}}
+package.preload["Iris/Util/IrisModuleBootstrap"] = function()
+    return {create=function()
+        return {
+            safeRequire=function(name)
+                if name == "Iris/IrisConfig" then
+                    return true, {DEBUG=false,RUN_TESTS_ON_START=false}
+                end
+                if name == "Iris/IrisAPI" then return true, {} end
+                if name == "Iris/UI/Tooltip/IrisAltTooltip" then return true, {hookTooltip=function() end} end
+                if name == "Iris/UI/Wiki/IrisContextMenu" then return true, {hookContextMenu=function() end} end
+                if name == "Iris/UI/Browser/IrisBrowserData" then return true, {} end
+                if name == "Iris/UI/Browser/IrisMapIcon" then return true, {init=function() end} end
+                return false, "unexpected module: " .. tostring(name)
+            end,
+            debug=function() end,
+            isDebugEnabled=function() return false end,
+            warn=function() end,
+            logError=function() end,
+        }
+    end}
+end
+package.preload["Iris/Util/IrisProtectedCall"] = function()
+    local function protected(callback, ...) return pcall(callback, ...) end
+    return {ui=protected,data=protected,engine=protected,compat=protected}
+end
+local bootOk, bootModule = pcall(require, "Iris/IrisMain")
+local callbackOk = bootCallback ~= nil and pcall(bootCallback) or false
+local reloadUnchanged = ISInventoryPaneContextMenu.doReloadMenuForBullets == originalReload
+local renderUnchanged = ISContextMenu.render == originalRender
+local invalidTextureOk, invalidTextureError = pcall(function()
+    return ISContextMenu.render({tickTexture=nil})
+end)
+local compatModulesAbsent = not pcall(require, "Iris/Compat/IrisBulletReloadCompat") and
+    not pcall(require, "Iris/Compat/IrisContextMenuTextureCompat")
+emit("boot.context_menu_non_interference", "global_patch_absence",
+    bootOk and type(bootModule) == "table" and callbackOk and reloadUnchanged and
+        renderUnchanged and not invalidTextureOk and compatModulesAbsent,
+    {boot=true,reload_identity_unchanged=true,render_identity_unchanged=true,
+        invalid_texture_result="original_error",compat_modules_present=false},
+    {boot=bootOk,callback=callbackOk,reload_identity_unchanged=reloadUnchanged,
+        render_identity_unchanged=renderUnchanged,invalid_texture_ok=invalidTextureOk,
+        invalid_texture_error=tostring(invalidTextureError),compat_modules_absent=compatModulesAbsent})
+package.preload["Iris/Util/IrisModuleBootstrap"] = nil
+package.preload["Iris/Util/IrisProtectedCall"] = nil
+
 print("IRIS_RESIDUAL_SUMMARY\t" .. jsonEncode({mode=mode,row_count=rowCount,failure_count=failureCount}))
 if failureCount > 0 then os.exit(1) end

@@ -7,7 +7,8 @@ from typing import Any
 
 from iris_tooling.build.compose_layer3_text import (
     BODY_PLAN_PROFILES_PATH, CURRENT_OVERLAY_SUPPORT_PATH, IDENTITY_RULES_PATH,
-    PRECEDENCE_RULES_PATH, STAGING_COMPOSE_CONTEXT, build_rendered,
+    HISTORICAL_COMPOSE_CONTEXT, PRECEDENCE_RULES_PATH, STAGING_COMPOSE_CONTEXT,
+    build_rendered,
 )
 
 from .inputs import NaturalizationProvenanceInputs
@@ -920,6 +921,12 @@ def build_phase0(
     write_once_or_same(root / "protected_surface_snapshot.json", before_snapshot)
     baseline_output = root / "isolated_default_rendered.json"
     baseline_style = root / "isolated_default_style_log.jsonl"
+    staging_root = REPO_ROOT / "Iris" / "build" / "description" / "v2" / "staging"
+    baseline_compose_context = (
+        STAGING_COMPOSE_CONTEXT
+        if baseline_output.resolve().is_relative_to(staging_root.resolve())
+        else HISTORICAL_COMPOSE_CONTEXT
+    )
     rendered = build_rendered(
         FACTS_PATH,
         DECISIONS_PATH,
@@ -930,7 +937,7 @@ def build_phase0(
         None,
         IDENTITY_RULES_PATH,
         PRECEDENCE_RULES_PATH,
-        compose_context=STAGING_COMPOSE_CONTEXT,
+        compose_context=baseline_compose_context,
     )
     normalized_rendered = normalize_legacy_rendered(rendered)
     baseline_report = {

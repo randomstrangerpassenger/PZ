@@ -1131,3 +1131,10 @@ Current state: `complete` within the stated validation ceiling; W2–W10 impleme
 Terminal environment v4를 사용한 clean Run A/B는 각각 `202 passed / 109 subtests`와 standalone `4/4`로 exit `0`이고 canonical result SHA-256이 일치한다. Deterministic comparator, installed package `17 passed`, Lua syntax `174 files`, installed/arbitrary-cwd CLI도 모두 PASS했다. 실제 receipt 연결은 `Iris/_docs/refactor/responsibility_repository_refactor/implementation_closeout.json`에 둔다.
 
 2026-08-25 repository-owner bounded probe에서 PZ boot/save load, Iris Browser search/selection, Detail, Wiki, Alt Tooltip, firearm/ammunition reload와 inventory/world context menu가 Iris-only supported 환경에서 정상이고 Lua 오류나 명백한 회귀가 없음을 확인했다. CheatMenuRebirth가 함께 활성화된 별도 실행에서는 vanilla `ISContextMenu.render`의 null `tickTexture` 오류가 관찰됐으므로 모든 외부 모드 compatibility는 계속 `unvalidated_but_in_scope`이며, 이 closeout은 release/freeze/RTC/Publish/deployment를 주장하지 않는다.
+
+Measured scope delta for exact range W0 baseline `22e94077` → completed closeout carrier `09443685`:
+
+- Package Layer 3 generation/fixed payload는 `10,650,501 -> 1,954,408` bytes로 `8,696,093` bytes(`81.65%`) 감소했다. 이는 inactive generation 3개와 legacy fixed chunk 11개를 package에서 제외한 범위이며 전체 mod ZIP 감소율이 아니다.
+- Tracked product Lua는 `78,464` bytes(`0.61%`)와 net `1,440` lines 감소했다.
+- Repository 전체 tracked blob은 새 installable tooling/validation/docs 때문에 `1,021,293` bytes(`0.13%`) 증가했다. 이 작업은 repository physical lightweighting 완료를 주장하지 않는다.
+- Runtime 성능과 실제 GPT/Codex token usage는 미측정이다. Owner/entrypoint 단일화와 explicit repository context는 유지보수·탐색 경계를 개선하지만 확정 performance/token 개선률은 없다. 이 일회성 read-only 집계는 canonical metric이나 validation authority가 아니다.

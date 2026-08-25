@@ -1037,3 +1037,35 @@ Runtime 책임은 다음처럼 분리한다.
 Clean-checkout 환경은 stable locator → immutable repository record → external
 receipt/interpreter/wheel 순으로 해석한다. Historical Phase 0 environment
 record는 provenance이며 current resolution fallback이 아니다.
+
+Responsibility refactor의 validated terminal implementation subject는
+`d3dfec94c45cb21d27ac54120e2551532ded3e9b` / tree
+`54223d37e8deeaf26c8a0fcaf073ea1ab171cd64`다. Terminal environment v4에
+결속된 clean Run A/B는 각각 pytest `202`, subtest `109`, standalone `4`로
+PASS했고 deterministic comparator의 canonical result SHA-256은 양쪽 모두
+`ecdcb453fd2b6e98d922a3a886e870828e3a89e88d1e308348370402b1d72326`이다.
+
+Supported runtime ceiling은 Iris-only PZ boot/save load, Browser search/selection,
+Detail, Wiki, Alt Tooltip, firearm/ammunition reload와 inventory/world context menu의
+owner-attested PASS까지다. CheatMenuRebirth가 함께 활성화된 실행에서는 vanilla
+`ISContextMenu.render`가 null `tickTexture`에 `getWidthOrig()`를 호출하는 반복
+오류가 관찰됐다. Iris는 해당 null을 만들지 않지만 retired global render patch도
+복원하지 않는다. 임의 제3자 모드 조합과 삭제한 patch의 과거 방어 효과는
+`unvalidated_but_in_scope`이며 supported Iris-only closeout이나 universal
+compatibility claim으로 합치지 않는다.
+
+Physical/efficiency observation의 exact range는 W0 baseline `22e94077`에서
+completed closeout carrier `09443685`까지이며 다음처럼 분리한다.
+
+- Current package의 Layer 3 generation/fixed payload는 `10,650,501 -> 1,954,408`
+  bytes로 `8,696,093` bytes(`81.65%`) 감소했다. 이는 inactive generation 3개와
+  legacy fixed chunk 11개를 package에서 제외한 범위이며 전체 mod ZIP 감소율이 아니다.
+- Tracked product Lua `Iris/media/lua/client/Iris`는 `78,464` bytes(`0.61%`)와
+  net `1,440` lines 감소했다.
+- Repository 전체 tracked blob은 installable package, validation authority와 문서가
+  추가되어 `1,021,293` bytes(`0.13%`) 증가했다. Source rollback/predecessor material은
+  architecture상 그대로 보존한다.
+- Runtime wall-clock/CPU/memory/FPS와 실제 GPT/Codex input/output/cache token은 계측하지
+  않았다. 따라서 package payload 감소나 owner 단일화를 runtime 또는 token 개선률로
+  환산하지 않는다. 이 수치는 architecture 경계 설명용 read-only observation이며 새
+  validator나 validation authority가 아니다.

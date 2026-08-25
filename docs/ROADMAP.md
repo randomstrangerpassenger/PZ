@@ -1114,7 +1114,7 @@ Current state: **complete** at corrected terminal `b7c4fa54`.
 
 ## Iris responsibility/repository refactor (2026-08-25)
 
-Current state: W2–W9 implementation complete; W10 terminal environment and exact-subject validation in progress.
+Current state: `partial`; W2–W10 implementation and automated exact-subject terminal validation are complete, while the bounded supported-PZ manual probe remains unexecuted.
 
 - W0 baseline/adoption: `22e94077`, Run A/B/comparator와 standalone 4 PASS.
 - W1 decisions: `e455fc21`.
@@ -1126,8 +1126,8 @@ Current state: W2–W9 implementation complete; W10 terminal environment and exa
 - W7 Browser projection/lifecycle/metrics split: `bfd78aa5`.
 - W8 Detail fact-reader/assembler/presentation split: `05809f54`.
 - W9 supported compatibility isolation: `5e810430`.
+- W10 validated terminal subject: `d3dfec94c45cb21d27ac54120e2551532ded3e9b` / tree `54223d37e8deeaf26c8a0fcaf073ea1ab171cd64`.
 
-Remaining gate는 W10 terminal wheel/environment authority, plan-listed focused/package/Lua
-validation, clean Run A/B, deterministic comparator와 arbitrary-cwd installed CLI probe다.
-PZ in-game bounded probe는 자동화 결과로 대체하지 않으며 실행 불가 시 manual axis를
-미검증으로 명시한다.
+Terminal environment v4를 사용한 clean Run A/B는 각각 `202 passed / 109 subtests`와 standalone `4/4`로 exit `0`이고 canonical result SHA-256이 일치한다. Deterministic comparator, installed package `17 passed`, Lua syntax `174 files`, installed/arbitrary-cwd CLI도 모두 PASS했다. 실제 receipt 연결은 `Iris/_docs/refactor/responsibility_repository_refactor/implementation_closeout.json`에 둔다.
+
+남은 계획 범위는 bounded supported-PZ reload/context-menu manual probe 하나다. 자동화 결과로 대체하지 않았으며 manual in-game PASS, release/freeze/RTC/Publish/deployment 또는 모든 외부 모드 compatibility를 주장하지 않는다.

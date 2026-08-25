@@ -1,6 +1,6 @@
 {
   "schema_version": "iris-responsibility-refactor-implementation-closeout-v1",
-  "status": "terminal_validation_pending",
+  "status": "partial",
   "baseline_commit": "22e94077dd057a943ba2e6ff03f25f5880b3126c",
   "implementation_waves": {
     "w2": "35a3a1f4",
@@ -10,7 +10,8 @@
     "w6": "96fec29b",
     "w7": "bfd78aa5",
     "w8": "05809f54",
-    "w9": "5e810430"
+    "w9": "5e810430",
+    "w10_validated_terminal_subject": "d3dfec94c45cb21d27ac54120e2551532ded3e9b"
   },
   "current_owners": {
     "offline_tooling": "Iris/tooling/src/iris_tooling",
@@ -40,9 +41,69 @@
     "temporary_wrappers": 0,
     "derived_test_count_is_observational": true
   },
+  "terminal_validation": {
+    "subject": {
+      "commit": "d3dfec94c45cb21d27ac54120e2551532ded3e9b",
+      "tree": "54223d37e8deeaf26c8a0fcaf073ea1ab171cd64"
+    },
+    "environment": {
+      "authority": "Iris/validation/clean_checkout/authority/responsibility_refactor_environment_terminal_v4.json",
+      "receipt": "C:/Users/MW/iccv/receipts/env-iris-refactor-terminal-v4/environment_receipt.json",
+      "receipt_sha256": "8c158f61990c4fbc2e2706d4375743cc0261470433a545c7a1d75b5733d5f941"
+    },
+    "full_gate": {
+      "run_a_orchestration": "C:/Users/MW/irf/terminal-v10/ra/orchestration.json",
+      "run_a_orchestration_sha256": "db232d4d6f5fbae8d8573e16499164c9fc8850215bb0e7318ea3defbdafa5ac3",
+      "run_b_orchestration": "C:/Users/MW/irf/terminal-v10/rb/orchestration.json",
+      "run_b_orchestration_sha256": "3c98dc5cd37ad8fdb3f671e2dee9807b600267a7adb21c5668579ac23893f6bd",
+      "canonical_result_sha256": "ecdcb453fd2b6e98d922a3a886e870828e3a89e88d1e308348370402b1d72326",
+      "pytest_passed": 202,
+      "subtests_passed": 109,
+      "standalone_passed": 4,
+      "comparator_receipt": "C:/Users/MW/irf/terminal-v10/compare/compare_receipt.json",
+      "comparator_receipt_sha256": "47ec5b00f5d9e0bd9841d4d3fb7946aa567d8b5771894b7bca7f1c931f6f3d5e",
+      "comparator_status": "succeeded"
+    },
+    "plan_listed_terminal_checks": {
+      "installed_package_tests": "17 passed",
+      "installed_package_cli": "PASS",
+      "arbitrary_cwd_terminal_cli": "PASS",
+      "lua_syntax": "PASS: 174 files",
+      "package_current_generation_and_affected_contracts": "PASS in terminal full gate"
+    }
+  },
+  "validation_ceiling": {
+    "validated": [
+      "exact clean subject full gate Run A and Run B",
+      "deterministic comparator",
+      "terminal wheel/source-blob-bound iris_tooling environment",
+      "installed package tests and CLI including arbitrary-cwd probe",
+      "Lua syntax",
+      "package current-generation-only and affected validation bindings",
+      "preserved historical/staging/frozen identities",
+      "supported facade representative contracts",
+      "global patch absence and automated boot identity contracts"
+    ],
+    "unvalidated_in_scope": [
+      "bounded supported-PZ reload/context-menu manual probe",
+      "arbitrary third-party mod combinations and the removed patches' former defensive effects"
+    ],
+    "out_of_scope": [
+      "release/freeze/RTC/Publish/deployment",
+      "long-running multiplayer and dedicated-server matrices",
+      "historical authority replay and physical predecessor cleanup",
+      "performance or token-efficiency measurement"
+    ]
+  },
+  "remaining_scope": {
+    "manual_supported_pz_probe": "not_executed; a supported interactive Project Zomboid runtime was unavailable in this execution",
+    "closeout_effect": "partial; governing plan forbids complete without the bounded probe receipt"
+  },
   "non_claims": [
     "no release/freeze/RTC/Publish/deployment claim",
     "no universal external-mod compatibility claim",
-    "no measured performance or token-efficiency claim"
+    "no measured performance or token-efficiency claim",
+    "no manual in-game validation PASS claim",
+    "not a sealed complete closeout"
   ]
 }

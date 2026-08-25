@@ -12,6 +12,7 @@ import ast
 import configparser
 import json
 import os
+import re
 import shutil
 import stat
 import subprocess
@@ -1998,21 +1999,34 @@ def _materialize_package_runtime_mirror(
     contract: dict[str, Any],
 ) -> dict[str, Any]:
     mirror = contract["bootstrap"]["package_runtime_mirror"]
-    source_manifest_relative = mirror["source_manifest"]
-    source_directory_relative = mirror["source_directory"]
-    source_manifest = _safe_checkout_target(
-        checkout, source_manifest_relative
+    source_pointer_relative = mirror["source_pointer"]
+    source_pointer = _safe_checkout_target(checkout, source_pointer_relative)
+    if not source_pointer.is_file():
+        raise CleanCheckoutError("tracked package mirror pointer is missing")
+    pointer_text = source_pointer.read_text(encoding="utf-8")
+    generation_matches = re.findall(
+        r'generation_id\s*=\s*"(dvf33-[0-9a-f]{64})"',
+        pointer_text,
+    )
+    referenced_generations = sorted(
+        set(re.findall(r"dvf33-[0-9a-f]{64}", pointer_text))
+    )
+    if (
+        len(generation_matches) != 1
+        or referenced_generations != generation_matches
+    ):
+        raise CleanCheckoutError("package mirror current pointer is invalid")
+    generation_id = generation_matches[0]
+    source_directory_relative = mirror["source_directory"].replace(
+        "<generation_id>", generation_id
     )
     source_directory = _safe_checkout_target(
         checkout, source_directory_relative
     )
-    if not source_manifest.is_file() or not source_directory.is_dir():
-        raise CleanCheckoutError("tracked package mirror source is missing")
-    source_files = [source_manifest, *sorted(source_directory.iterdir())]
-    if any(not path.is_file() for path in source_files):
-        raise CleanCheckoutError(
-            "package mirror source directory contains a non-file entry"
-        )
+    if not source_directory.is_dir():
+        raise CleanCheckoutError("tracked package mirror generation is missing")
+    source_files = [source_pointer, *sorted(source_directory.rglob("*"))]
+    source_files = [path for path in source_files if path.is_file()]
     tracked = set(tracked_paths(source_repo, commit))
     source_relatives = [
         path.relative_to(checkout).as_posix() for path in source_files
@@ -2024,20 +2038,27 @@ def _materialize_package_runtime_mirror(
             + ", ".join(untracked_sources)
         )
 
-    target_manifest = _safe_checkout_target(
-        checkout, mirror["target_manifest"]
+    target_pointer = _safe_checkout_target(
+        checkout, mirror["target_pointer"]
+    )
+    target_directory_relative = mirror["target_directory"].replace(
+        "<generation_id>", generation_id
     )
     target_directory = _safe_checkout_target(
-        checkout, mirror["target_directory"]
+        checkout, target_directory_relative
     )
-    target_manifest.parent.mkdir(parents=True, exist_ok=True)
+    target_pointer.parent.mkdir(parents=True, exist_ok=True)
     target_directory.mkdir(parents=True, exist_ok=True)
     rows: list[dict[str, Any]] = []
     destinations = [
-        target_manifest,
-        *[target_directory / path.name for path in source_files[1:]],
+        target_pointer,
+        *[
+            target_directory / path.relative_to(source_directory)
+            for path in source_files[1:]
+        ],
     ]
     for source, target in zip(source_files, destinations, strict=True):
+        target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(source, target)
         source_hash = sha256_file(source)
         if sha256_file(target) != source_hash:
@@ -2056,6 +2077,7 @@ def _materialize_package_runtime_mirror(
         )
     return {
         "status": "PASS",
+        "generation_id": generation_id,
         "materialized_file_count": len(rows),
         "rows": rows,
     }

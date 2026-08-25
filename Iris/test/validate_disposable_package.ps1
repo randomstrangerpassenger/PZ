@@ -35,14 +35,33 @@ try {
     if ($LASTEXITCODE -ne 0) { throw "package_iris.ps1 failed: $LASTEXITCODE" }
     $candidateModRoot = Join-Path $candidateFull 'Iris'
     if (-not (Test-Path -LiteralPath $candidateModRoot -PathType Container)) { throw 'candidate Iris root missing' }
-    $relativeLayer3Paths = @('IrisLayer3DataChunks.lua') + @(1..11 | ForEach-Object { 'IrisLayer3DataChunks/Chunk{0:D3}.lua' -f $_ })
+    $liveDataRoot = Join-Path $RepositoryRoot 'Iris/media/lua/client/Iris/Data'
+    $pointerText = Get-Content -LiteralPath (Join-Path $liveDataRoot 'IrisLayer3DataCurrent.lua') -Raw -Encoding UTF8
+    $generationId = [regex]::Match($pointerText, 'generation_id\s*=\s*"(?<id>dvf33-[0-9a-f]{64})"').Groups['id'].Value
+    if ([string]::IsNullOrWhiteSpace($generationId)) { throw 'current Layer 3 generation id missing' }
+    $relativeLayer3Paths = @(
+        'IrisLayer3DataCurrent.lua',
+        'IrisLayer3DataChunks.lua',
+        'IrisLayer3DataChunkIndex.lua',
+        "IrisLayer3Generations/$generationId/generation_descriptor.json",
+        "IrisLayer3Generations/$generationId/IrisLayer3DataChunkIndex.lua",
+        "IrisLayer3Generations/$generationId/dvf_3_3_rendered.json"
+    ) + @(1..11 | ForEach-Object { "IrisLayer3Generations/$generationId/Chunks/Chunk{0:D3}.lua" -f $_ })
     foreach ($relative in $relativeLayer3Paths) {
-        $live = Join-Path $RepositoryRoot ('Iris/media/lua/client/Iris/Data/' + $relative)
+        $live = Join-Path $liveDataRoot $relative
         $candidate = Join-Path $candidateModRoot ('media/lua/client/Iris/Data/' + $relative)
         if (-not (Test-Path -LiteralPath $candidate -PathType Leaf)) { throw "candidate runtime chunk missing: $relative" }
         $liveHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $live).Hash
         $candidateHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $candidate).Hash
         if ($liveHash -ne $candidateHash) { throw "candidate/live runtime identity mismatch: $relative" }
+    }
+    $candidateDataRoot = Join-Path $candidateModRoot 'media/lua/client/Iris/Data'
+    $packageGenerations = @(Get-ChildItem -LiteralPath (Join-Path $candidateDataRoot 'IrisLayer3Generations') -Directory)
+    if ($packageGenerations.Count -ne 1 -or $packageGenerations[0].Name -cne $generationId) {
+        throw 'candidate package generation projection mismatch'
+    }
+    if (Test-Path -LiteralPath (Join-Path $candidateDataRoot 'IrisLayer3DataChunks')) {
+        throw 'candidate package contains legacy fixed chunks'
     }
     $detailViewModel = Join-Path $candidateModRoot 'media/lua/client/Iris/UI/Detail/IrisItemDetailViewModel.lua'
     if (-not (Test-Path -LiteralPath $detailViewModel -PathType Leaf)) { throw 'new detail view-model module missing from candidate package' }

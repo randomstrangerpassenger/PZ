@@ -50,6 +50,7 @@ function Get-FileHash {
 
 $scriptRoot = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
 Import-Module -Name (Join-Path $scriptRoot 'RuntimeLookupIndexIdentity.psm1') -Force
+Import-Module -Name (Join-Path $scriptRoot 'Layer3PackageProjection.psm1') -Force
 
 function Get-FullPath {
     param([Parameter(Mandatory = $true)][string]$Path)
@@ -110,6 +111,49 @@ function Write-Utf8NoBomJson {
     $json = $Value | ConvertTo-Json -Depth $Depth
     $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
     [System.IO.File]::WriteAllText($Path, $json + [Environment]::NewLine, $utf8NoBom)
+}
+
+function Copy-IrisMediaProjection {
+    param(
+        [Parameter(Mandatory = $true)][string]$SourceMedia,
+        [Parameter(Mandatory = $true)][string]$DestinationMedia,
+        [Parameter(Mandatory = $true)][string]$GenerationId
+    )
+
+    $sourceMediaFull = Get-FullPath $SourceMedia
+    $excludedPrefixes = @(
+        'lua/client/Iris/Data/IrisLayer3Generations',
+        'lua/client/Iris/Data/IrisLayer3DataChunks'
+    )
+    foreach ($file in Get-ChildItem -LiteralPath $sourceMediaFull -Recurse -File) {
+        $relative = (Get-RelativePackagePath -Root $sourceMediaFull -Path $file.FullName).Replace('\', '/')
+        $excluded = $false
+        foreach ($prefix in $excludedPrefixes) {
+            if (
+                $relative -ceq $prefix -or
+                $relative.StartsWith($prefix + '/', [System.StringComparison]::Ordinal)
+            ) {
+                $excluded = $true
+                break
+            }
+        }
+        if ($excluded) { continue }
+        $target = Join-Path $DestinationMedia $relative
+        New-Item -ItemType Directory -Path (Split-Path -Parent $target) -Force | Out-Null
+        Copy-Item -LiteralPath $file.FullName -Destination $target -Force
+    }
+
+    $sourceGeneration = Join-Path (
+        Join-Path $sourceMediaFull 'lua\client\Iris\Data\IrisLayer3Generations'
+    ) $GenerationId
+    $destinationGeneration = Join-Path (
+        Join-Path $DestinationMedia 'lua\client\Iris\Data\IrisLayer3Generations'
+    ) $GenerationId
+    if (-not (Test-Path -LiteralPath $sourceGeneration -PathType Container)) {
+        throw "layer3_package_selected_generation_missing: $sourceGeneration"
+    }
+    New-Item -ItemType Directory -Path (Split-Path -Parent $destinationGeneration) -Force | Out-Null
+    Copy-Item -LiteralPath $sourceGeneration -Destination $destinationGeneration -Recurse -Force
 }
 
 function Get-DecodedUtf8EolSha256 {
@@ -642,6 +686,10 @@ if (Test-Path -LiteralPath $sourceLayer3MonolithPath) {
 Assert-NoForbiddenIrisDvfBridgeSurface -SearchRoot (Join-Path $repoRoot 'media') -RelativeRoot $repoRoot -SurfaceName 'repository root media'
 Assert-NoForbiddenIrisDvfBridgeSurface -SearchRoot (Join-Path $sourceRoot 'media') -RelativeRoot $sourceRoot -SurfaceName 'Iris source media'
 
+$sourceRuntimePayloadIdentity = Get-RuntimePayloadIdentity `
+    -RepositoryRoot $repoRoot `
+    -SourceRoot $sourceRoot
+
 if (Test-Path -LiteralPath $packageRoot) {
     if (-not $Clean) {
         throw "Package output already exists: $packageRoot. Re-run with -Clean to replace generated output."
@@ -666,7 +714,14 @@ if (Test-Path -LiteralPath $poster) {
     Copy-Item -LiteralPath $poster -Destination $packageRoot -Force
 }
 
-Copy-Item -LiteralPath (Join-Path $sourceRoot 'media') -Destination $packageRoot -Recurse -Force
+Copy-IrisMediaProjection `
+    -SourceMedia (Join-Path $sourceRoot 'media') `
+    -DestinationMedia (Join-Path $packageRoot 'media') `
+    -GenerationId $sourceRuntimePayloadIdentity.generation_id
+
+$packageLayer3Projection = Assert-IrisLayer3PackageProjection `
+    -DataRoot (Join-Path $packageRoot 'media\lua\client\Iris\Data') `
+    -ExpectedGenerationId $sourceRuntimePayloadIdentity.generation_id
 
 $forbiddenPackageFiles = @(
     $layer3MonolithRelativePath,
@@ -815,7 +870,12 @@ $manifest = [pscustomobject]@{
     schema_version = 'iris-package-manifest-v1'
     source_root = $sourceRoot
     package_root = $packageRootFull
-    copied_roots = @('mod.info', 'poster.png if present', 'media/')
+    copied_roots = @(
+        'mod.info',
+        'poster.png if present',
+        'media/ excluding rollback-only Layer 3 roots',
+        "media/lua/client/Iris/Data/IrisLayer3Generations/$($packageLayer3Projection.generation_id)"
+    )
     excluded_roots = $excludedRootNames
     forbidden_files = $forbiddenPackageFiles
     applicability = $packageApplicabilityRecord

@@ -479,14 +479,12 @@
       "materialization_scope": "external_disposable_execution_checkout_only"
     },
     "package_runtime_mirror": {
-      "source_manifest": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
-      "source_directory": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
-      "successor_source_directory": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/<generation_id>",
-      "target_manifest": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
-      "target_directory": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
-      "successor_target_directory": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/<generation_id>",
+      "source_pointer": "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua",
+      "source_directory": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/<generation_id>",
+      "target_pointer": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua",
+      "target_directory": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/<generation_id>",
       "authority_class": "deterministically_materialized_input",
-      "producer": "byte_identical_copy_from_exact_subject_tree; select legacy or generation-qualified directory from the stable manifest"
+      "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer"
     },
     "required_environment": {
       "IRIS_DVF_CURRENT_ROUTE_FROZEN_PREDECESSOR": "1"

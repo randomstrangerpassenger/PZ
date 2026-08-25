@@ -1,6 +1,6 @@
 {
   "schema_version": "iris-current-build-manifest-v1",
-  "status": "w5_rightclick_v24_current_only",
+  "status": "w6_layer3_current_generation_package_projection",
   "subject_commit": "22e94077dd057a943ba2e6ff03f25f5880b3126c",
   "entrypoints": [
     {
@@ -56,10 +56,10 @@
       "owner": "Iris package workflow",
       "domain": "package",
       "module": "Iris/tools/package_iris.ps1 -PackageApplicability current_runtime_payload",
-      "inputs": ["Iris runtime media", "current Layer 3 pointer and generation"],
+      "inputs": ["Iris runtime media excluding rollback-only Layer 3 roots", "current Layer 3 pointer-selected generation"],
       "outputs": ["external Iris package and zip"],
       "consumers": ["manual installation and package contract validation"],
-      "validation_contracts": ["full_repository_gate package_runtime_mirror"],
+      "validation_contracts": ["full_repository_gate generation-qualified package_runtime_mirror", "Layer3PackageProjection validator"],
       "runtime_shipping": true,
       "historical_replacement": null
     },

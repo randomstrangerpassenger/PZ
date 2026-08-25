@@ -14,6 +14,7 @@ from pathlib import Path
 IRIS_ROOT = Path(__file__).resolve().parents[4]
 PACKAGE_SCRIPT_PATH = IRIS_ROOT / "tools" / "package_iris.ps1"
 LOOKUP_VALIDATOR_PATH = IRIS_ROOT / "tools" / "validate_runtime_lookup_indexes.ps1"
+PROJECTION_VALIDATOR_PATH = IRIS_ROOT / "tools" / "validate_layer3_package_projection.ps1"
 REPO_ROOT = IRIS_ROOT.parent
 EXTERNAL_TEMP_ROOT = Path(
     r"C:\Users\Public\Documents\ESTsoft\CreatorTemp"
@@ -56,6 +57,28 @@ def run_lookup_validator(data_root: Path) -> subprocess.CompletedProcess[str]:
             "Bypass",
             "-File",
             str(LOOKUP_VALIDATOR_PATH),
+            "-DataRoot",
+            str(data_root),
+        ],
+        cwd=REPO_ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+
+def run_projection_validator(data_root: Path) -> subprocess.CompletedProcess[str]:
+    powershell = shutil.which("powershell")
+    if powershell is None:
+        raise AssertionError("powershell executable is required")
+    return subprocess.run(
+        [
+            powershell,
+            "-NoProfile",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            str(PROJECTION_VALIDATOR_PATH),
             "-DataRoot",
             str(data_root),
         ],
@@ -353,6 +376,14 @@ class PackageLayer3ChunksOnlyContractTest(unittest.TestCase):
             self.assertEqual(receipt["forbidden_file_count"], 0)
             live = IRIS_ROOT / "media/lua/client/Iris/Data"
             package = output / "Iris/media/lua/client/Iris/Data"
+            generation_id = receipt["generation_id"]
+            package_generations = sorted(
+                path.name
+                for path in (package / "IrisLayer3Generations").iterdir()
+                if path.is_dir()
+            )
+            self.assertEqual([generation_id], package_generations)
+            self.assertFalse((package / "IrisLayer3DataChunks").exists())
             self.assertEqual(
                 sha256_file(live / "IrisLayer3DataChunks.lua"),
                 sha256_file(package / "IrisLayer3DataChunks.lua"),
@@ -378,6 +409,44 @@ class PackageLayer3ChunksOnlyContractTest(unittest.TestCase):
                 package_script.count(
                     "Assert-RuntimeLookupPackageParity -DataRoot"
                 ),
+            )
+
+    def test_package_projection_validator_rejects_extra_generation_and_pointer_mismatch(self) -> None:
+        with tempfile.TemporaryDirectory(dir=EXTERNAL_TEMP_ROOT) as temporary:
+            output = Path(temporary)
+            completed = run_package(
+                "-OutputRoot",
+                str(output),
+                "-PackageApplicability",
+                "current_runtime_payload",
+            )
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+            data = output / "Iris/media/lua/client/Iris/Data"
+            generations = data / "IrisLayer3Generations"
+            current = next(path for path in generations.iterdir() if path.is_dir())
+
+            extra = generations / ("dvf33-" + ("0" * 64))
+            shutil.copytree(current, extra)
+            extra_result = run_projection_validator(data)
+            self.assertNotEqual(extra_result.returncode, 0)
+            self.assertIn(
+                "layer3_package_generation_count_invalid",
+                extra_result.stdout + extra_result.stderr,
+            )
+            shutil.rmtree(extra)
+
+            pointer = data / "IrisLayer3DataCurrent.lua"
+            original = pointer.read_text(encoding="utf-8")
+            pointer.write_text(
+                original.replace(current.name, "dvf33-" + ("1" * 64)),
+                encoding="utf-8",
+                newline="\n",
+            )
+            pointer_result = run_projection_validator(data)
+            self.assertNotEqual(pointer_result.returncode, 0)
+            self.assertIn(
+                "layer3_package_generation_pointer_mismatch",
+                pointer_result.stdout + pointer_result.stderr,
             )
 
     def test_rtc_certified_payload_still_requires_rtc_guard(self) -> None:

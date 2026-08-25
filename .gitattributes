@@ -135,6 +135,7 @@ Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua -text
 Iris/media/lua/client/Iris/Data/IrisLayer3DataChunkIndex.lua -text
 Iris/media/lua/client/Iris/Data/IrisLayer3DataLookup.lua -text
 Iris/media/lua/client/Iris/Data/IrisLayer3Generations/** -text
+Iris/validation/clean_checkout/authority/responsibility_refactor_environment_*.json text eol=lf
 Iris/build/description/v2/data/layer3_body_role_realign/** -text
 docs/iris_item_page_information_sufficiency_walkthrough.md -text
 docs/iris_item_page_information_sufficiency_policy.md -text

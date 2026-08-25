@@ -81,15 +81,11 @@ function IrisWikiPanel.createPanel(item)
     
     -- A) 태그 목록
     local tagsSection = IrisWikiSections.renderTagsSection(model)
-    local tagsLabel = ISLabel:new(10, yOffset, 20, tagsSection, 1, 1, 1, 1, UIFont.Small, true)
-    panel:addChild(tagsLabel)
-    yOffset = yOffset + 25
-    
-    -- B) 근거
-    local reasonSection = IrisWikiSections.renderReasonSection(model)
-    local reasonLabel = ISLabel:new(10, yOffset, 20, reasonSection, 0.8, 0.8, 0.8, 1, UIFont.Small, true)
-    panel:addChild(reasonLabel)
-    yOffset = yOffset + 25
+    if tagsSection then
+        local tagsLabel = ISLabel:new(10, yOffset, 20, tagsSection, 1, 1, 1, 1, UIFont.Small, true)
+        panel:addChild(tagsLabel)
+        yOffset = yOffset + 25
+    end
 
     -- B.25) 3계층 본문
     local layer3Section = IrisWikiSections.renderLayer3Section(model)
@@ -116,14 +112,18 @@ function IrisWikiPanel.createPanel(item)
     
     -- C) 연결 시스템
     local connectionSection = IrisWikiSections.renderConnectionSection(model)
-    local connectionLabel = ISLabel:new(10, yOffset, 20, connectionSection, 1, 1, 1, 1, UIFont.Small, true)
-    panel:addChild(connectionLabel)
-    yOffset = yOffset + 25
+    if connectionSection then
+        local connectionLabel = ISLabel:new(10, yOffset, 20, connectionSection, 1, 1, 1, 1, UIFont.Small, true)
+        panel:addChild(connectionLabel)
+        yOffset = yOffset + 25
+    end
     
     -- D) 상태 필드
     local fieldsSection = IrisWikiSections.renderFieldsSection(model)
-    local fieldsLabel = ISLabel:new(10, yOffset, 20, fieldsSection, 1, 1, 1, 1, UIFont.Small, true)
-    panel:addChild(fieldsLabel)
+    if fieldsSection then
+        local fieldsLabel = ISLabel:new(10, yOffset, 20, fieldsSection, 1, 1, 1, 1, UIFont.Small, true)
+        panel:addChild(fieldsLabel)
+    end
     
     -- 닫기 함수
     panel.close = function(self)

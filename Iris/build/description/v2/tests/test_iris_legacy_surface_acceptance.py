@@ -36,6 +36,25 @@ class LegacySurfaceAcceptanceTest(unittest.TestCase):
         self.assertIn("function StaticData.getLegacyIrisData", static_data)
         self.assertEqual(1, static_data.count("type(IrisData)"))
 
+        iris_data = (REPO / "Iris/media/lua/client/Iris/Data/IrisData.lua").read_text(encoding="utf-8")
+        self.assertLess(len(iris_data), 1000)
+        self.assertIn('require("Iris/Data/IrisClassifications")', iris_data)
+        self.assertIn('require("Iris/Data/IrisVariantGroups")', iris_data)
+        self.assertNotIn('["Base.', iris_data)
+        self.assertNotIn("getLegacyIrisData", (browser_root / "IrisBrowserData.lua").read_text(encoding="utf-8"))
+        self.assertNotIn("IrisData", variant)
+
+        for name in ("IrisRecipeIndex.lua", "IrisMoveablesIndex.lua", "IrisFixingIndex.lua"):
+            index_text = (REPO / "Iris/media/lua/client/Iris/Data" / name).read_text(encoding="utf-8")
+            self.assertNotIn(".build()", index_text)
+            self.assertNotIn("build_deprecated", index_text)
+
+        wiki_panel = (REPO / "Iris/media/lua/client/Iris/UI/Wiki/IrisWikiPanel.lua").read_text(encoding="utf-8")
+        wiki_sections = (REPO / "Iris/media/lua/client/Iris/UI/Wiki/IrisWikiSections.lua").read_text(encoding="utf-8")
+        self.assertNotIn("renderReasonSection(model)", wiki_panel)
+        self.assertIn("function IrisWikiSections.renderReasonSection(item)", wiki_sections)
+        self.assertIn("return nil", wiki_sections.split("function IrisWikiSections.renderReasonSection", 1)[1].split("end", 1)[0])
+
         lua_files = list((REPO / "Iris/media/lua/client/Iris").rglob("*.lua"))
         group_definitions = [
             path.relative_to(REPO).as_posix()

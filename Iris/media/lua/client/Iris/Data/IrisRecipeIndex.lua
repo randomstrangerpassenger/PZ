@@ -18,13 +18,6 @@ IrisRecipeIndex._itemRoles = data.itemRoles or {}
 IrisRecipeIndex._getItemTypes = data.getItemTypes or {}
 IrisRecipeIndex._built = true
 IrisRecipeIndex.version = data.version
-IrisRecipeIndex.build_deprecated = true
-
---- @deprecated Precompiled data is loaded when this module is required.
-function IrisRecipeIndex.build()
-    return true
-end
-
 --- 아이템의 Recipe 역할 조회
 --- @param fullType string
 --- @return table {{role, category, recipe}, ...}

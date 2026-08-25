@@ -10,6 +10,7 @@ local IrisBrowserVariantIndex = {}
 local ProtectedCall = require("Iris/Util/IrisProtectedCall")
 local ItemAccess = require("Iris/Util/IrisItemAccess")
 local CategoryIndex = require("Iris/UI/Browser/IrisBrowserCategoryIndex")
+local VariantGroups = require("Iris/Data/IrisVariantGroups")
 
 local function hasRecipeConnections(item, IrisAPI)
     if IrisAPI and IrisAPI.Index and IrisAPI.Index.getRecipeConnectionsForItem then
@@ -253,12 +254,10 @@ function IrisBrowserVariantIndex.getItems(cache, categoryName, subcategoryName, 
     return result
 end
 
---- Public compatibility adapter for historical IrisData.ItemGroups callers.
---- The global/module boundary is resolved by StaticData, not query code.
-function IrisBrowserVariantIndex.getGroupVariants(cache, groupId, legacyData)
+--- Public compatibility adapter backed by the focused current variant index.
+function IrisBrowserVariantIndex.getGroupVariants(cache, groupId)
     if not groupId or not cache or not cache.itemsByFullType then return nil end
-    local itemGroups = legacyData and legacyData.ItemGroups
-    local groupItems = itemGroups and itemGroups[groupId]
+    local groupItems = VariantGroups[groupId]
     if not groupItems then return nil end
 
     local result = {}

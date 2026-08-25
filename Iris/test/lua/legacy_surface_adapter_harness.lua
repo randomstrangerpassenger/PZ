@@ -28,10 +28,19 @@ local cache = {itemsByFullType={
     ["Base.Hammer"]=item("Base.Hammer","Hammer"),
     ["Base.Apple"]=item("Base.Apple","Apple"),
 }}
-local variants = VariantIndex.getGroupVariants(cache, "fixture", StaticData.getLegacyIrisData())
+local variants = VariantIndex.getGroupVariants(cache, "fixture")
 assert(variants and #variants == 2)
 assert(variants[1].fullType == "Base.Apple" and variants[2].fullType == "Base.Hammer")
-assert(VariantIndex.getGroupVariants(cache, "missing", StaticData.getLegacyIrisData()) == nil)
+assert(VariantIndex.getGroupVariants(cache, "missing") == nil)
+
+package.preload["Iris/Data/IrisData"] = nil
+package.loaded["Iris/Data/IrisData"] = nil
+local seededGlobal = IrisData
+local adapter = require("Iris/Data/IrisData")
+assert(adapter == seededGlobal and adapter == IrisData)
+assert(adapter.ItemGroups == seededGlobal.ItemGroups)
+assert(adapter.Classifications == require("Iris/Data/IrisClassifications"))
+assert(adapter.MissingKey == nil)
 
 package.preload["Iris/Data/IrisCapabilities"] = function()
     return { ["Base.Hammer"]={"can_scrap_moveables"} }
@@ -41,4 +50,4 @@ assert(#UseCases.getCapabilities("Base.Hammer") == 1)
 assert(UseCases.hasCapability("Base.Hammer", "can_scrap_moveables"))
 assert(not UseCases.hasCapability("Base.Hammer", "invented_capability"))
 
-print("IRIS_LEGACY_ADAPTER_PASS missing_load_calls=1 global_fallback=true capability_preserved=true")
+print("IRIS_LEGACY_ADAPTER_PASS missing_load_calls=1 global_fallback=true capability_preserved=true table_identity=true")

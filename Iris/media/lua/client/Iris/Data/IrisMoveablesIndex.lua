@@ -19,13 +19,6 @@ end
 IrisMoveablesIndex._registered = data.registered or {}
 IrisMoveablesIndex._tagMapping = data.tagMapping or {}
 IrisMoveablesIndex._built = true
-IrisMoveablesIndex.build_deprecated = true
-
---- @deprecated Precompiled data is loaded when this module is required.
-function IrisMoveablesIndex.build()
-    return true
-end
-
 --- 아이템 ID가 Moveables에 등록되었는지 확인
 --- @param fullType string
 --- @return boolean

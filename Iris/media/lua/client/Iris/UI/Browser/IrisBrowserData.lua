@@ -17,7 +17,6 @@ local IrisBrowserVariantIndex = require("Iris/UI/Browser/IrisBrowserVariantIndex
 local IrisBrowserLifecycle = require("Iris/UI/Browser/IrisBrowserLifecycle")
 local IrisBrowserMetrics = require("Iris/UI/Browser/IrisBrowserMetrics")
 local TranslationResolver = require("Iris/Util/IrisTranslationResolver")
-local StaticData = require("Iris/API/StaticData")
 local IrisLogger = require("Iris/Util/IrisLogger")
 local tr = TranslationResolver.get
 
@@ -196,8 +195,7 @@ function IrisBrowserData.getGroupVariants(groupId)
     if not IrisBrowserData.isReady() then return nil end
     return IrisBrowserVariantIndex.getGroupVariants(
         lifecycle.getCache(),
-        groupId,
-        StaticData.getLegacyIrisData()
+        groupId
     )
 end
 

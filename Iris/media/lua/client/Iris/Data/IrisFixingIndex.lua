@@ -16,13 +16,6 @@ end
 
 IrisFixingIndex._fixers = data.fixers or {}
 IrisFixingIndex._built = true
-IrisFixingIndex.build_deprecated = true
-
---- @deprecated Precompiled data is loaded when this module is required.
-function IrisFixingIndex.build()
-    return true
-end
-
 --- 아이템이 Fixer 역할인지 확인
 --- @param fullType string
 --- @return boolean

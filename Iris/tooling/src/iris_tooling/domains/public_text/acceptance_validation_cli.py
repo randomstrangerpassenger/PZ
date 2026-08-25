@@ -58,7 +58,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(list(argv) if argv is not None else None)
     try:
         requirements = {
-            name: getattr(args, name.replace("-", "_"))
+            name: getattr(
+                args,
+                (
+                    "required_gate"
+                    if name == "required-gate"
+                    else f"require_{name.replace('-', '_')}"
+                ),
+            )
             for name in REQUIREMENT_FLAGS
         }
         selected = [name for name, enabled in requirements.items() if enabled]

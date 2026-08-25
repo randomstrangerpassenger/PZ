@@ -1114,7 +1114,7 @@ Current state: **complete** at corrected terminal `b7c4fa54`.
 
 ## Iris responsibility/repository refactor (2026-08-25)
 
-Current state: `partial`; W2–W10 implementation and automated exact-subject terminal validation are complete, while the bounded supported-PZ manual probe remains unexecuted.
+Current state: `complete` within the stated validation ceiling; W2–W10 implementation, automated exact-subject terminal validation, and the bounded supported-PZ Iris-only probe are complete.
 
 - W0 baseline/adoption: `22e94077`, Run A/B/comparator와 standalone 4 PASS.
 - W1 decisions: `e455fc21`.
@@ -1130,4 +1130,4 @@ Current state: `partial`; W2–W10 implementation and automated exact-subject te
 
 Terminal environment v4를 사용한 clean Run A/B는 각각 `202 passed / 109 subtests`와 standalone `4/4`로 exit `0`이고 canonical result SHA-256이 일치한다. Deterministic comparator, installed package `17 passed`, Lua syntax `174 files`, installed/arbitrary-cwd CLI도 모두 PASS했다. 실제 receipt 연결은 `Iris/_docs/refactor/responsibility_repository_refactor/implementation_closeout.json`에 둔다.
 
-남은 계획 범위는 bounded supported-PZ reload/context-menu manual probe 하나다. 자동화 결과로 대체하지 않았으며 manual in-game PASS, release/freeze/RTC/Publish/deployment 또는 모든 외부 모드 compatibility를 주장하지 않는다.
+2026-08-25 repository-owner bounded probe에서 PZ boot/save load, Iris Browser search/selection, Detail, Wiki, Alt Tooltip, firearm/ammunition reload와 inventory/world context menu가 Iris-only supported 환경에서 정상이고 Lua 오류나 명백한 회귀가 없음을 확인했다. CheatMenuRebirth가 함께 활성화된 별도 실행에서는 vanilla `ISContextMenu.render`의 null `tickTexture` 오류가 관찰됐으므로 모든 외부 모드 compatibility는 계속 `unvalidated_but_in_scope`이며, 이 closeout은 release/freeze/RTC/Publish/deployment를 주장하지 않는다.

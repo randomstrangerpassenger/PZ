@@ -2880,11 +2880,12 @@
 
 ## Iris responsibility/repository refactor — implementation adoption (2026-08-25)
 
-* 상태: W2–W10 implementation과 exact subject `d3dfec94c45cb21d27ac54120e2551532ded3e9b`의 automated terminal validation adopted; bounded supported-PZ manual probe 미실행으로 closeout은 `partial`.
+* 상태: `complete` within the stated validation ceiling. W2–W10 implementation, exact subject `d3dfec94c45cb21d27ac54120e2551532ded3e9b`의 automated terminal validation과 bounded supported-PZ Iris-only manual probe를 adopted했다.
 * Current Description v2/right-click owner는 installed `iris_tooling` package다. Current consumer의 `tools.build` import, cwd/sys.path bootstrap과 right-click version mode flag는 허용하지 않는다.
 * Browser와 Detail의 former monolith 책임은 projection/lifecycle/metrics 및 fact-reader/assembler/presentation owners로 이관한다. Supported facade의 signature/result shape는 유지한다.
 * `IrisData.lua`는 focused classifications/variant groups를 운반하는 thin table-identity adapter다. `StaticData.getLegacyIrisData`는 비공개 implementation detail로 남되 Iris product consumer는 없다. Recipe/Moveables/Fixing의 unlisted no-op `build()`는 제거한다.
 * Package projection은 current Layer 3 generation-only다. Source predecessor hold는 유지되며 package output authority로 승격되지 않는다.
 * W2–W9 implementation commits는 각각 `35a3a1f4`, `996724ba`, `3a02185a`, `c1128b96`, `96fec29b`, `bfd78aa5`, `05809f54`, `5e810430`이다. Environment authority는 W5까지 갱신했고 W6–W9는 package source/lock byte identity 조건으로 W5 record를 재사용했다.
-* Terminal environment v4에 결속된 clean Run A/B, deterministic comparator, installed/arbitrary-cwd CLI, package tests와 Lua syntax는 PASS했다. 수동 PZ 런타임 결과는 이 자동 validation adoption에 포함하지 않는다.
+* Terminal environment v4에 결속된 clean Run A/B, deterministic comparator, installed/arbitrary-cwd CLI, package tests와 Lua syntax는 PASS했다. 2026-08-25 repository owner는 Iris-only 환경의 boot/save load, Browser/Detail/Wiki/Alt Tooltip, firearm/ammunition reload와 inventory/world context menu에 Lua 오류나 명백한 회귀가 없음을 확인했다.
+* CheatMenuRebirth 동시 활성화 실행에서는 vanilla `ISContextMenu.render`가 null `tickTexture`에 `getWidthOrig()`를 호출하는 반복 오류가 관찰됐다. 이는 모든 외부 모드 compatibility PASS가 아니며 계획의 `unvalidated_but_in_scope` ceiling에 남는다. 삭제한 Iris global render patch를 복원하거나 다른 모듈로 이전하는 decision은 아니다.
 * Non-decision: PZ/외부 모드 전체 compatibility, release/freeze/RTC/Publish/deployment, 장시간 multiplayer와 실제 performance/token 개선은 이 adoption의 claim이 아니다.

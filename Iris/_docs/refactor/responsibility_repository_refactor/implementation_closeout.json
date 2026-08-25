@@ -1,6 +1,6 @@
 {
   "schema_version": "iris-responsibility-refactor-implementation-closeout-v1",
-  "status": "partial",
+  "status": "complete",
   "baseline_commit": "22e94077dd057a943ba2e6ff03f25f5880b3126c",
   "implementation_waves": {
     "w2": "35a3a1f4",
@@ -82,11 +82,11 @@
       "package current-generation-only and affected validation bindings",
       "preserved historical/staging/frozen identities",
       "supported facade representative contracts",
-      "global patch absence and automated boot identity contracts"
+      "global patch absence and automated boot identity contracts",
+      "owner-attested bounded supported-PZ Iris-only boot, reload, context-menu, Browser, Detail, Wiki, and Alt Tooltip probe"
     ],
     "unvalidated_in_scope": [
-      "bounded supported-PZ reload/context-menu manual probe",
-      "arbitrary third-party mod combinations and the removed patches' former defensive effects"
+      "arbitrary third-party mod combinations and the removed patches' former defensive effects; a CheatMenuRebirth-enabled run exposed vanilla null tickTexture render errors and is not a compatibility PASS"
     ],
     "out_of_scope": [
       "release/freeze/RTC/Publish/deployment",
@@ -96,14 +96,12 @@
     ]
   },
   "remaining_scope": {
-    "manual_supported_pz_probe": "not_executed; a supported interactive Project Zomboid runtime was unavailable in this execution",
-    "closeout_effect": "partial; governing plan forbids complete without the bounded probe receipt"
+    "manual_supported_pz_probe": "PASS; 2026-08-25 repository-owner attestation: PZ boot/save load, Iris Browser search/selection, Detail, Wiki, Alt Tooltip, firearm/ammunition reload, and inventory/world context menus were normal in the Iris-only supported probe, with no Lua error or evident regression",
+    "closeout_effect": "complete within the stated validation ceiling; arbitrary third-party mod compatibility remains unvalidated_but_in_scope"
   },
   "non_claims": [
     "no release/freeze/RTC/Publish/deployment claim",
     "no universal external-mod compatibility claim",
-    "no measured performance or token-efficiency claim",
-    "no manual in-game validation PASS claim",
-    "not a sealed complete closeout"
+    "no measured performance or token-efficiency claim"
   ]
 }

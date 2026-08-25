@@ -1011,6 +1011,17 @@
       "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_runtime_package_rejects_named_output_root_guards_without_write"
     },
     {
+      "audit_status": "responsibility_refactor_current_projection_contract",
+      "contract_class": "current",
+      "imported_build_modules": [],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "current package projection rejects an extra generation or a pointer/descriptor mismatch",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
+      "state": "ok",
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_package_projection_validator_rejects_extra_generation_and_pointer_mismatch"
+    },
+    {
       "audit_status": "required_manifest_current",
       "contract_class": "current",
       "imported_build_modules": [],

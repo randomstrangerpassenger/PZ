@@ -138,10 +138,6 @@
       {
         "path": "Iris/tooling/tests/test_rightclick_pipeline.py",
         "reason": "current installed right-click capability contract and required nine-node route"
-      },
-      {
-        "path": "Iris/tooling/tests/conftest.py",
-        "reason": "package-test repository context bootstrap for explicit local fixture execution"
       }
     ],
     "explicit_dedicated_route_sources": [
@@ -257,6 +253,14 @@
   },
   "required_test_dependency_policy": {
     "explicit_direct_dependencies": [
+      {
+        "test_source": "Iris/tooling/tests/test_repository_context.py",
+        "path": "Iris/tooling/tests/conftest.py",
+        "relationship": "direct",
+        "dependency_role": "installed_package_repository_context_bootstrap",
+        "authority_class": "required_tracked_source",
+        "reason": "the package test bootstrap configures the explicit checkout context before installed-package tests import repository-bound modules"
+      },
       {
         "test_source": "Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py",
         "path": "Iris/tooling/src/iris_tooling/build/build_dvf_3_3_complete_generation.py",

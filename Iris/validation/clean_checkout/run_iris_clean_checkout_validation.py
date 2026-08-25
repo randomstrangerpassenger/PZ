@@ -1228,6 +1228,13 @@ def build_source_census(
     )
     gate_contract = json_at_commit(repo, commit, gate_contract_path)
     if full_repository:
+        sources = sorted(
+            set(sources)
+            | (
+                set(_explicit_current_required_paths(gate_contract))
+                & tracked
+            )
+        )
         source_roles = _full_required_source_roles(
             gate_contract, taxonomy
         )
@@ -2336,7 +2343,13 @@ def run_full_repository_gate(
                 f"{maximum_materialized_path_length}): "
                 f"{longest_relative_path}"
             )
-    test_sources = _test_sources(tracked)
+    test_sources = sorted(
+        set(_test_sources(tracked))
+        | (
+            set(_explicit_current_required_paths(contract))
+            & tracked_set
+        )
+    )
     source_roles = _full_required_source_roles(contract, taxonomy)
     source_classifications = {
         source_path: _classify_full_test_source(source_path, source_roles)

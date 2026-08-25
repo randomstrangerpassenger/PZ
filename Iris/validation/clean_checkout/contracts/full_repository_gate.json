@@ -140,10 +140,6 @@
         "reason": "current installed right-click capability contract and required nine-node route"
       },
       {
-        "path": "Iris/tooling/tests/run_rightclick_determinism.py",
-        "reason": "current v2.4 standalone deterministic pipeline contract"
-      },
-      {
         "path": "Iris/tooling/tests/conftest.py",
         "reason": "package-test repository context bootstrap for explicit local fixture execution"
       }
@@ -465,8 +461,11 @@
       "Iris/tooling/src/iris_tooling/build/public_text_quality_acceptance.py",
       "Iris/tooling/src/iris_tooling/build/run_dvf_3_3_korean_prose_naturalization.py",
       "Iris/tooling/src/iris_tooling/build/run_public_text_quality_acceptance.py",
+      "Iris/tooling/src/iris_tooling/build/style_normalizer.py",
       "Iris/tooling/src/iris_tooling/build/validate_dvf_3_3_korean_prose_naturalization.py",
       "Iris/tooling/src/iris_tooling/build/validate_public_text_quality_acceptance.py",
+      "Iris/build/description/v2/tools/style/rules/family_rules.json",
+      "Iris/build/description/v2/tools/style/rules/global_rules.json",
       "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0002.json"
     ]
   },

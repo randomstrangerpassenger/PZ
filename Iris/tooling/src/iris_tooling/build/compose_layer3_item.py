@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from tools.style.normalizer import StyleNormalizer, extract_primary_use_fact_origin
+from .style_normalizer import StyleNormalizer, extract_primary_use_fact_origin
 
 from .compose_layer3_blocks import (
     apply_compose_repairs,

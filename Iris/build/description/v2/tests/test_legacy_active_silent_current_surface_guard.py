@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 FROZEN_REFERENCE_SHA256 = "f1d9e8715afe205d13e037bd31bbaf0a38f6803c3d92fea14bfb704a6f36f75a"
 
 from clean_checkout_test_paths import external_test_path
-from tools.validate_legacy_active_silent_current_surface_guard import (
+from Iris.build.description.v2.tools.validate_legacy_active_silent_current_surface_guard import (
     ALLOWLIST_TOO_BROAD_ERROR_CODE,
     CURRENT_SURFACE_ERROR_CODE,
     DEFAULT_MANIFEST,

@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from tools.style.normalizer import StyleNormalizer
+from .style_normalizer import StyleNormalizer
 
 from .compose_layer3_blocks import derive_requeue_reason
 from .compose_layer3_body_profile import (

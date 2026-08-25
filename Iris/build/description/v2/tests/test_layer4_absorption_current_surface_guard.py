@@ -10,7 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 from clean_checkout_test_paths import external_test_path
-from tools.validate_layer4_absorption_current_surface_guard import (
+from Iris.build.description.v2.tools.validate_layer4_absorption_current_surface_guard import (
     UNAUTHORIZED_CONSUMPTION_ERROR_CODE,
     build_report,
 )

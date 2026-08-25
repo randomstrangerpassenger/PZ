@@ -40,21 +40,21 @@
       "Iris/tooling/tests/test_public_text_domain_contract.py"
     ],
     "additional_node_ids": [
-      "Iris/test/test_rightclick_pipeline.py::test_invert_produces_sorted_output",
-      "Iris/test/test_rightclick_pipeline.py::test_output_gate_rejects_invalid_fulltype",
-      "Iris/test/test_rightclick_pipeline.py::test_tc1_invalid_capability_fails_gate1",
-      "Iris/test/test_rightclick_pipeline.py::test_tc2_multiple_sources_fails_gate1",
-      "Iris/test/test_rightclick_pipeline.py::test_tc3_unsupported_resolution_type_fails",
-      "Iris/test/test_rightclick_pipeline.py::test_tc4_duplicate_capability_fails_output_gate",
-      "Iris/test/test_rightclick_pipeline.py::test_tc5_scrap_moveables_contains_expected_tools",
-      "Iris/test/test_rightclick_pipeline.py::test_tc6_dict_flatten_works",
-      "Iris/test/test_rightclick_pipeline.py::test_tc7_property_mapping_works"
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_invert_produces_sorted_output",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_output_gate_rejects_invalid_fulltype",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_tc1_invalid_capability_fails_gate1",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_tc2_multiple_sources_fails_gate1",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_tc3_unsupported_resolution_type_fails",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_tc4_duplicate_capability_fails_output_gate",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_tc5_scrap_moveables_contains_expected_tools",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_tc6_dict_flatten_works",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_tc7_property_mapping_works"
     ]
   },
   "required_standalone_validations": [
     {
       "command_id": "legacy_rightclick_determinism",
-      "path": "Iris/build/tests/test_determinism_rc.py"
+      "path": "Iris/tooling/tests/run_rightclick_determinism.py"
     },
     {
       "command_id": "legacy_recipe_evidence_determinism",
@@ -134,6 +134,18 @@
       {
         "path": "Iris/tooling/tests/test_public_text_domain_contract.py",
         "reason": "current public-text parsing, evaluation, and naturalization domain contract"
+      },
+      {
+        "path": "Iris/tooling/tests/test_rightclick_pipeline.py",
+        "reason": "current installed right-click capability contract and required nine-node route"
+      },
+      {
+        "path": "Iris/tooling/tests/run_rightclick_determinism.py",
+        "reason": "current v2.4 standalone deterministic pipeline contract"
+      },
+      {
+        "path": "Iris/tooling/tests/conftest.py",
+        "reason": "package-test repository context bootstrap for explicit local fixture execution"
       }
     ],
     "explicit_dedicated_route_sources": [
@@ -191,6 +203,14 @@
     "historical_optional_rule": "tracked Iris/build/description/v2/tests/test_*.py source with no current, ok taxonomy identity",
     "historical_optional_class": "historical_optional_evidence",
     "explicit_historical_optional_sources": [
+      {
+        "path": "Iris/test/test_rightclick_pipeline.py",
+        "reason": "predecessor right-click capability test retained after installed-package migration"
+      },
+      {
+        "path": "Iris/build/tests/test_determinism_rc.py",
+        "reason": "predecessor direct-script right-click determinism route retained after v2.4 package migration"
+      },
       {
         "path": "Iris/validation/test_lightweighting/tests/test_validate_terminal_evidence_bundle.py",
         "reason": "terminal-closeout plan-infrastructure supporting test is validated separately and does not extend the Round 3 terminal route denominator"

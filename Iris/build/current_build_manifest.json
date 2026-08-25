@@ -1,6 +1,6 @@
 {
   "schema_version": "iris-current-build-manifest-v1",
-  "status": "w4_domain_responsibilities_split",
+  "status": "w5_rightclick_v24_current_only",
   "subject_commit": "22e94077dd057a943ba2e6ff03f25f5880b3126c",
   "entrypoints": [
     {
@@ -19,13 +19,13 @@
       "id": "rightclick_v24",
       "owner": "Iris right-click evidence producer",
       "domain": "rightclick",
-      "module": "Iris/build/rightclick_evidence_pipeline.py --v24",
+      "module": "python -m iris_tooling --repository-root <repo> rightclick",
       "inputs": ["Iris input and right-click evidence"],
       "outputs": ["evidence_decisions.v2.4.json", "use-case integration inputs"],
       "consumers": ["use-case integrator", "quality gates", "standalone determinism"],
       "validation_contracts": ["full_repository_gate right-click nodes", "legacy_rightclick_determinism"],
       "runtime_shipping": false,
-      "historical_replacement": "planned iris_tooling.domains.rightclick"
+      "historical_replacement": "Iris/tooling/src/iris_tooling/domains/rightclick/pipeline_v24.py"
     },
     {
       "id": "recipe_v24",

@@ -19,6 +19,7 @@ def _parser() -> argparse.ArgumentParser:
     )
     subparsers = parser.add_subparsers(dest="command")
     subparsers.add_parser("classification", help="Build Iris classification indexes.")
+    subparsers.add_parser("rightclick", help="Build v2.4 right-click evidence.")
     subparsers.add_parser("layer3", help="Compose the current Layer 3 generation.")
     subparsers.add_parser("layer4", help="Export the current Layer 4 Lua projection.")
     subparsers.add_parser("public-text", help="Run current public-text assessment tooling.")
@@ -37,6 +38,8 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     if args.command == "classification":
         from iris_tooling.domains.classification.cli import main as command_main
+    elif args.command == "rightclick":
+        from iris_tooling.domains.rightclick.cli import main as command_main
     elif args.command == "layer3":
         from iris_tooling.domains.layer3.cli import main as command_main
     elif args.command == "layer4":

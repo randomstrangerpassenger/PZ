@@ -317,7 +317,7 @@ try {
     $fullGateContractRelative = 'Iris/validation/clean_checkout/contracts/full_repository_gate.json'
     $evidenceAdoptionReceiptRelative = 'Iris/_docs/refactor/repository_evidence_lightweighting/required_validation_adoption_receipt.json'
     $evidenceAllocatorRelative = 'Iris/validation/clean_checkout/allocate_repository_runtime_lightweighting_roots.ps1'
-    $phase0Relative = 'Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json'
+    $environmentLocatorRelative = 'Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json'
     $launcherRelative = 'Iris/validation/clean_checkout/invoke_deterministic_compare.ps1'
     $implementation = [ordered]@{}
     foreach ($row in @(
@@ -334,7 +334,7 @@ try {
         @('full_gate_contract', $fullGateContractRelative),
         @('evidence_adoption_receipt', $evidenceAdoptionReceiptRelative),
         @('evidence_allocator', $evidenceAllocatorRelative),
-        @('environment_authority', $phase0Relative),
+        @('environment_authority', $environmentLocatorRelative),
         @('launcher', $launcherRelative)
     )) {
         $physical = Join-Path $repo $row[1]
@@ -356,8 +356,13 @@ try {
     $actualLauncher = [System.IO.Path]::GetFullPath($MyInvocation.MyCommand.Path)
     Require-Equal $actualLauncher (Join-Path $repo $launcherRelative) 'compare launcher was loaded from another checkout'
 
-    $phase0 = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $repo $phase0Relative) | ConvertFrom-Json
-    $expectedEnvironment = $phase0.implementation_contract_delta.'OR-06'
+    $environmentLocatorPath = Join-Path $repo $environmentLocatorRelative
+    $environmentLocator = Get-Content -Raw -Encoding UTF8 -LiteralPath $environmentLocatorPath | ConvertFrom-Json
+    $environmentRecordPath = Join-Path $repo ([string]$environmentLocator.record_path)
+    if (-not [System.IO.File]::Exists($environmentRecordPath)) { throw 'current environment authority record is missing' }
+    Require-Equal (Get-Sha256 $environmentRecordPath) ([string]$environmentLocator.record_sha256) 'current environment authority record hash mismatch'
+    $environmentRecord = Get-Content -Raw -Encoding UTF8 -LiteralPath $environmentRecordPath | ConvertFrom-Json
+    $expectedEnvironment = $environmentRecord.environment_contract
     $environmentPath = [System.IO.Path]::GetFullPath($EnvironmentReceipt)
     if (-not [System.IO.File]::Exists($environmentPath)) { throw 'environment receipt is missing' }
     $environmentHash = Get-Sha256 $environmentPath

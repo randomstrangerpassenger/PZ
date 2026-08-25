@@ -34,7 +34,9 @@
       "Iris/build/description/v2/tests/test_compiler_particle_adjustment.py",
       "Iris/validation/clean_checkout/tests/test_current_route_output_isolation_audit.py",
       "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py",
-      "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py"
+      "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py",
+      "Iris/tooling/tests/test_repository_context.py",
+      "Iris/tooling/tests/test_cli.py"
     ],
     "additional_node_ids": [
       "Iris/test/test_rightclick_pipeline.py::test_invert_produces_sorted_output",
@@ -119,6 +121,14 @@
       {
         "path": "Iris/build/description/v2/tests/test_iris_viewmodel_allocation_contract.py",
         "reason": "promoted recurring ViewModel allocation and debug-guard product contract"
+      },
+      {
+        "path": "Iris/tooling/tests/test_repository_context.py",
+        "reason": "current installed-package repository-context contract"
+      },
+      {
+        "path": "Iris/tooling/tests/test_cli.py",
+        "reason": "current installed-package repository-independent help contract"
       }
     ],
     "explicit_dedicated_route_sources": [

@@ -11,11 +11,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
 
 from clean_checkout_test_paths import external_test_path
-from tools.build.compose_layer3_text import (
+from iris_tooling.build.compose_layer3_text import (
     DEFAULT_MODE,
     ENTRYPOINT_MODES,
     DIAGNOSTIC_RESOLVER_MODE,
@@ -26,7 +24,7 @@ from tools.build.compose_layer3_text import (
     parse_args,
     resolve_entrypoint_paths,
 )
-from tools.build.compose_layer3_body_profile import (
+from iris_tooling.build.compose_layer3_body_profile import (
     DEFAULT_LEGACY_COMPAT_LABEL_ERROR_CODE,
     DEFAULT_LEGACY_RUNTIME_STATE_ERROR_CODE,
     DIAGNOSTIC_RESOLVER_AUTHORITY_MODE,

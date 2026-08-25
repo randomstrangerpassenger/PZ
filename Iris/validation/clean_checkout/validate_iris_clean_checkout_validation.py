@@ -22,16 +22,13 @@ from Iris.validation.clean_checkout.iris_clean_checkout_validation_common import
     git_text,
     json_at_commit,
     resolved_repo,
+    resolve_current_environment_authority,
     sha256_bytes,
     sha256_file,
     validate_external_environment,
 )
 
 
-PHASE0_ENVIRONMENT_BINDING_PATH = (
-    "Iris/validation/clean_checkout/authority/"
-    "phase0_ratification_attempt_0002.json"
-)
 EVIDENCE_ROOT = Path("Iris/validation/clean_checkout/evidence")
 VALIDATOR_PATH = (
     "Iris/validation/clean_checkout/validate_iris_clean_checkout_validation.py"
@@ -110,12 +107,9 @@ def validate_environment(
     environment_receipt: Path,
 ) -> dict[str, Any]:
     subject = git_identity(repo, commit)
-    phase0 = json_at_commit(
-        repo,
-        subject["commit"],
-        PHASE0_ENVIRONMENT_BINDING_PATH,
-    )
-    expected = phase0["implementation_contract_delta"]["OR-06"]
+    expected = resolve_current_environment_authority(
+        repo, subject["commit"]
+    )["environment_contract"]
     return {
         "schema_version": "iris-clean-checkout-environment-validation-v1",
         "subject": subject,

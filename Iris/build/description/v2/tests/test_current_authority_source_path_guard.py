@@ -7,11 +7,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
 
 from clean_checkout_test_paths import external_test_path
-from tools.build.compose_layer3_text import (
+from iris_tooling.build.compose_layer3_text import (
     DATA_DIR,
     DEFAULT_CURRENT_AUTHORITY_INPUT_PATH_ERROR_CODE,
     DEFAULT_MODE,

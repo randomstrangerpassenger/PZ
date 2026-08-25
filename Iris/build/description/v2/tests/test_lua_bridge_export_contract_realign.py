@@ -10,11 +10,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
 
 from clean_checkout_test_paths import external_test_path
-from tools.build.export_dvf_3_3_lua_bridge import (
+from iris_tooling.build.export_dvf_3_3_lua_bridge import (
     BRIDGE_CHUNK_DIR,
     BRIDGE_CHUNK_MANIFEST_PATH,
     BRIDGE_DATA_PATH,

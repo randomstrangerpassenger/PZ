@@ -1,0 +1,26 @@
+[project]
+name = "iris-tooling"
+version = "0.1.0"
+description = "Installable offline build tooling for the Iris information mod"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+iris-tooling = "iris_tooling.__main__:main"
+
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = ["pytest==9.0.3"]
+
+[tool.hatch.build]
+ignore-vcs = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/iris_tooling"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["-ra", "-p", "no:cacheprovider"]

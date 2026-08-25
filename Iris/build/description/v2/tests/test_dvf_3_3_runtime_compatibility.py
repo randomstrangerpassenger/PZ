@@ -6,11 +6,9 @@ import tempfile
 import unittest
 
 V2_ROOT = Path(__file__).resolve().parents[1]
-if str(V2_ROOT) not in sys.path:
-    sys.path.insert(0, str(V2_ROOT))
 
-from tools.build.build_dvf_3_3_complete_generation import build_complete_generation
-from tools.build.dvf_3_3_runtime_compatibility import validate_generation_runtime_compatibility
+from iris_tooling.build.build_dvf_3_3_complete_generation import build_complete_generation
+from iris_tooling.build.dvf_3_3_runtime_compatibility import validate_generation_runtime_compatibility
 from test_dvf_3_3_complete_generation import copy_generation_inputs
 
 

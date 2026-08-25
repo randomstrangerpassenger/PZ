@@ -6,10 +6,8 @@ from pathlib import Path
 
 
 V2_ROOT = Path(__file__).resolve().parents[1]
-if str(V2_ROOT) not in sys.path:
-    sys.path.insert(0, str(V2_ROOT))
 
-from tools.build.compose_layer3_identity import (
+from iris_tooling.build.compose_layer3_identity import (
     append_instrumental,
     instrumental_phonological_tail,
 )

@@ -67,7 +67,7 @@ PROTECTED_SUCCESSOR_RELATIVE = (
     "Iris/_docs/refactor/repository_runtime_lightweighting/protected_surface_successor_manifest.json"
 )
 ENVIRONMENT_AUTHORITY_RELATIVE = (
-    "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json"
+    "Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json"
 )
 BASELINE_PROMOTION_SCHEMAS = {
     "iris_repository_runtime_lightweighting_baseline_promotion_v1",

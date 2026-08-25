@@ -232,12 +232,120 @@ def _distribution_rows() -> list[dict[str, object]]:
     )
 
 
+CURRENT_ENVIRONMENT_LOCATOR = (
+    "Iris/validation/clean_checkout/authority/"
+    "responsibility_refactor_environment_current.json"
+)
+
+
+def resolve_current_environment_authority(
+    repo: Path,
+    subject_commit: str,
+) -> dict[str, Any]:
+    """Resolve and validate the stable current environment authority."""
+
+    locator_path = repo / CURRENT_ENVIRONMENT_LOCATOR
+    locator_bytes = locator_path.read_bytes()
+    locator = json.loads(locator_bytes)
+    _require(
+        locator_bytes == canonical_json_bytes(locator),
+        "current environment locator is not canonical JSON",
+    )
+    _require(
+        locator.get("schema_version")
+        == "iris-responsibility-refactor-environment-locator-v1",
+        "current environment locator schema mismatch",
+    )
+    record_relative = str(locator.get("record_path", ""))
+    record_path = (repo / record_relative).resolve()
+    try:
+        record_path.relative_to(repo.resolve())
+    except ValueError as exc:
+        raise CleanCheckoutError("environment authority record escapes repository") from exc
+    record_bytes = record_path.read_bytes()
+    _require(
+        sha256_bytes(record_bytes) == locator.get("record_sha256"),
+        "current environment authority record hash mismatch",
+    )
+    record = json.loads(record_bytes)
+    _require(
+        record_bytes == canonical_json_bytes(record),
+        "environment authority record is not canonical JSON",
+    )
+    _require(
+        record.get("schema_version")
+        == "iris-responsibility-refactor-environment-authority-v1",
+        "environment authority record schema mismatch",
+    )
+    implementation = record["implementation"]
+    ancestor = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(repo),
+            "merge-base",
+            "--is-ancestor",
+            implementation["commit"],
+            subject_commit,
+        ],
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    _require(
+        ancestor.returncode == 0,
+        "environment implementation commit is not an ancestor of the subject",
+    )
+    _require(
+        git_identity(repo, implementation["commit"])["tree"]
+        == implementation["tree"],
+        "environment implementation tree mismatch",
+    )
+    binding = record["project_binding"]
+    for path_key, blob_key, sha_key in (
+        ("project_path", "project_blob", "project_sha256"),
+        ("lock_path", "lock_blob", "lock_sha256"),
+    ):
+        relative = binding[path_key]
+        actual = bytes_at_commit(repo, subject_commit, relative)
+        _require(
+            blob_id(repo, subject_commit, relative) == binding[blob_key],
+            f"current {path_key} blob differs from environment authority",
+        )
+        _require(
+            sha256_bytes(actual) == binding[sha_key],
+            f"current {path_key} bytes differ from environment authority",
+        )
+    source_path = binding["source_package_path"]
+    _require(
+        blob_id(repo, subject_commit, source_path)
+        == binding["source_package_git_tree"],
+        "current iris_tooling source tree differs from environment authority",
+    )
+    wheel_path = Path(binding["wheel_path"])
+    _require(wheel_path.is_file(), "environment authority wheel is missing")
+    _require(
+        sha256_file(wheel_path) == binding["wheel_sha256"],
+        "environment authority wheel hash mismatch",
+    )
+    environment_contract = dict(record["environment_contract"])
+    environment_contract["project_binding"] = binding
+    return {
+        "locator_path": CURRENT_ENVIRONMENT_LOCATOR,
+        "locator_sha256": sha256_bytes(locator_bytes),
+        "record_path": record_relative,
+        "record_sha256": sha256_bytes(record_bytes),
+        "record": record,
+        "environment_contract": environment_contract,
+    }
+
+
 def validate_external_environment(
     python_executable: Path,
     receipt_path: Path,
     expected: dict[str, Any],
 ) -> dict[str, Any]:
-    """Fail closed unless the running environment matches the Phase 0 receipt."""
+    """Fail closed unless the running environment matches current authority."""
 
     python_executable = python_executable.resolve()
     receipt_path = receipt_path.resolve()
@@ -251,12 +359,12 @@ def validate_external_environment(
             receipt_path,
             expected["immutable_environment_receipt_path"],
         ),
-        "environment receipt path differs from the Phase 0 binding",
+        "environment receipt path differs from the current binding",
     )
     _require(
         actual_receipt_sha256
         == expected["immutable_environment_receipt_sha256"],
-        "environment receipt hash differs from the Phase 0 binding",
+        "environment receipt hash differs from the current binding",
     )
     _require(
         receipt_bytes == canonical_compact_json_bytes(receipt),
@@ -267,13 +375,18 @@ def validate_external_environment(
         == "iris_clean_checkout_external_environment_receipt_v1",
         "environment receipt schema mismatch",
     )
+    if "project_binding" in expected:
+        _require(
+            receipt.get("project_binding") == expected["project_binding"],
+            "environment receipt project binding differs from current authority",
+        )
     _require(
         _same_path(sys.executable, python_executable),
         "orchestrator must run under the resolved external interpreter",
     )
     _require(
         sha256_file(python_executable) == expected["interpreter_sha256"],
-        "external interpreter hash differs from the Phase 0 binding",
+        "external interpreter hash differs from the current binding",
     )
 
     environment_root = Path(receipt["environment_root"]).resolve()
@@ -282,7 +395,7 @@ def validate_external_environment(
             environment_root,
             expected["external_environment_root"],
         ),
-        "environment root differs from the Phase 0 binding",
+        "environment root differs from the current binding",
     )
     _require(
         _same_path(Path(sys.prefix), environment_root),
@@ -365,7 +478,7 @@ def validate_external_environment(
     _require(
         manifest_binding["sha256"]
         == expected["environment_content_manifest_sha256"],
-        "environment content manifest differs from the Phase 0 binding",
+        "environment content manifest differs from the current binding",
     )
     _require(
         len(recorded_rows) == manifest_binding["file_count"],
@@ -394,7 +507,7 @@ def validate_external_environment(
     )
     _require(
         package_set_sha256 == expected["package_set_sha256"],
-        "package set differs from the Phase 0 binding",
+        "package set differs from the current binding",
     )
 
     hash_path = receipt_root / "environment_receipt.sha256"

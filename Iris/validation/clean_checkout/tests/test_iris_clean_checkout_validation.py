@@ -517,20 +517,29 @@ def _build_fake_launcher_repository(
             }
         )
     )
-    (authority / "phase0_ratification_attempt_0002.json").write_bytes(
+    environment_record = authority / "responsibility_refactor_environment_fixture_v1.json"
+    environment_record.write_bytes(
         canonical_json_bytes(
             {
-                "implementation_contract_delta": {
-                    "OR-06": {
-                        "immutable_environment_receipt_path": (
-                            environment_receipt.as_posix()
-                        ),
-                        "immutable_environment_receipt_sha256": _sha256(
-                            environment_receipt
-                        ),
-                        "interpreter_sha256": interpreter_hash,
-                    }
-                }
+                "schema_version": "iris-responsibility-refactor-environment-authority-v1",
+                "environment_contract": {
+                    "external_environment_root": Path(sys.prefix).resolve().as_posix(),
+                    "immutable_environment_receipt_path": environment_receipt.as_posix(),
+                    "immutable_environment_receipt_sha256": _sha256(environment_receipt),
+                    "interpreter_sha256": interpreter_hash,
+                },
+            }
+        )
+    )
+    (authority / "responsibility_refactor_environment_current.json").write_bytes(
+        canonical_json_bytes(
+            {
+                "schema_version": "iris-responsibility-refactor-environment-locator-v1",
+                "record_path": (
+                    "Iris/validation/clean_checkout/authority/"
+                    "responsibility_refactor_environment_fixture_v1.json"
+                ),
+                "record_sha256": _sha256(environment_record),
             }
         )
     )

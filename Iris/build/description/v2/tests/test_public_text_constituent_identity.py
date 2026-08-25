@@ -10,10 +10,8 @@ from unittest.mock import patch
 
 
 V2_ROOT = Path(__file__).resolve().parents[1]
-if str(V2_ROOT) not in sys.path:
-    sys.path.insert(0, str(V2_ROOT))
 
-from tools.build import public_text_quality_acceptance as acceptance
+from iris_tooling.build import public_text_quality_acceptance as acceptance
 
 
 RELATIVE_PATH = "Iris/example/constituent.json"
@@ -61,9 +59,9 @@ G5_REQUIRED_PATHS = frozenset(
 )
 PHASE0_IMPLEMENTATION_REQUIRED_PATHS = frozenset(
     {
-        "Iris/build/description/v2/tools/build/"
+        "Iris/tooling/src/iris_tooling/build/"
         "run_dvf_3_3_korean_prose_naturalization.py",
-        "Iris/build/description/v2/tools/build/"
+        "Iris/tooling/src/iris_tooling/build/"
         "validate_dvf_3_3_korean_prose_naturalization.py",
     }
 )

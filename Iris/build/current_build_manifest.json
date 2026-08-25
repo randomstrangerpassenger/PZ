@@ -1,6 +1,6 @@
 {
   "schema_version": "iris-current-build-manifest-v1",
-  "status": "w1_baseline_adopted",
+  "status": "w3_installable_tooling_adopted",
   "subject_commit": "22e94077dd057a943ba2e6ff03f25f5880b3126c",
   "entrypoints": [
     {
@@ -43,13 +43,13 @@
       "id": "description_v2_current",
       "owner": "Description v2 current consumer graph",
       "domain": "public_text/layer3/layer4",
-      "module": "Iris/build/description/v2/tools/build current manifest-bound scripts",
+      "module": "python -m iris_tooling --repository-root <repo> <domain>",
       "inputs": ["Description v2 data and current validated producer outputs"],
       "outputs": ["Description v2 generated artifacts and runtime Lua projections"],
       "consumers": ["current runtime data", "public-text acceptance", "package validation"],
       "validation_contracts": ["round3 taxonomy", "current_route_required_validations", "full_repository_gate"],
       "runtime_shipping": false,
-      "historical_replacement": "planned iris_tooling package"
+      "historical_replacement": "Iris/tooling/src/iris_tooling"
     },
     {
       "id": "package_current_runtime_payload",

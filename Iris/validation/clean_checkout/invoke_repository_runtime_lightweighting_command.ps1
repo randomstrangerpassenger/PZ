@@ -499,7 +499,7 @@ try {
     $executionTree = $executionTreeResult.stdout.Trim()
     $subjectIdentity = [ordered]@{ path = $subjectPath.Replace('\', '/'); sha256 = Get-Sha256 $subjectPath; subject_kind = $subject.subject_kind; claim_id = $spec.claim_id; repository_root = $repositoryRoot.Replace('\', '/'); commit = [string]$subject.commit; tree = [string]$subject.tree; execution_commit = $executionCommit; execution_tree = $executionTree; working_tree_status_sha256 = $subjectStatusSha }
 
-    $authorityPath = Join-Path $repositoryRoot 'Iris\validation\clean_checkout\authority\phase0_ratification_attempt_0002.json'
+    $authorityPath = Join-Path $repositoryRoot 'Iris\validation\clean_checkout\authority\responsibility_refactor_environment_current.json'
     $successorPolicyPath = Join-Path $repositoryRoot 'Iris\validation\clean_checkout\contracts\repository_runtime_lightweighting_output_policy.json'
     foreach ($path in @($authorityPath, $successorPolicyPath)) {
         if (-not [System.IO.File]::Exists($path)) { throw "command authority input is missing: $path" }
@@ -508,7 +508,7 @@ try {
     foreach ($row in @(
         @('wrapper', 'Iris/validation/clean_checkout/invoke_repository_runtime_lightweighting_command.ps1', $actualWrapper),
         @('successor_policy', 'Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json', $successorPolicyPath),
-        @('environment_authority', 'Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json', $authorityPath)
+        @('environment_authority', 'Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json', $authorityPath)
     )) {
         $blob = Invoke-CapturedText (Get-Command git -ErrorAction Stop).Source @('-C', $repositoryRoot, 'rev-parse', ($executionCommit + ':' + $row[1])) $repositoryRoot
         $workingBlob = Invoke-CapturedText (Get-Command git -ErrorAction Stop).Source @('-C', $repositoryRoot, 'hash-object', ('--path=' + $row[1]), $row[2]) $repositoryRoot
@@ -641,8 +641,11 @@ try {
         }
     }
     $authority = Get-Content -Raw -Encoding UTF8 -LiteralPath $authorityPath | ConvertFrom-Json
-    $ownerEnvironment = $authority.implementation_contract_delta.'OR-06'
-    if ([string]$ownerEnvironment.status -ne 'resolved') { throw 'environment_authority_unresolved' }
+    $authorityRecordPath = Join-Path $repositoryRoot ([string]$authority.record_path)
+    if (-not [System.IO.File]::Exists($authorityRecordPath)) { throw 'environment_authority_record_missing' }
+    if ((Get-Sha256 $authorityRecordPath) -ne [string]$authority.record_sha256) { throw 'environment_authority_record_hash_mismatch' }
+    $authorityRecord = Get-Content -Raw -Encoding UTF8 -LiteralPath $authorityRecordPath | ConvertFrom-Json
+    $ownerEnvironment = $authorityRecord.environment_contract
     if (-not $environmentPath.Equals([System.IO.Path]::GetFullPath([string]$ownerEnvironment.immutable_environment_receipt_path), [System.StringComparison]::OrdinalIgnoreCase)) { throw 'environment receipt path differs from owner authority' }
     $environmentHash = Get-Sha256 $environmentPath
     if ($environmentHash -ne [string]$ownerEnvironment.immutable_environment_receipt_sha256) { throw 'environment receipt hash differs from owner authority' }

@@ -98,17 +98,28 @@ def fixture_checkout(tmp_path: Path) -> tuple[Path, Path, Path, Path]:
     external.mkdir()
     environment_receipt = external / "environment.json"
     write_json(environment_receipt, {"interpreter": {"path": str(Path(sys.executable).resolve())}})
+    environment_record = authority / "responsibility_refactor_environment_fixture_v1.json"
     write_json(
-        authority / "phase0_ratification_attempt_0002.json",
+        environment_record,
         {
-            "implementation_contract_delta": {
-                "OR-06": {
-                    "status": "resolved",
-                    "immutable_environment_receipt_path": str(environment_receipt.resolve()),
-                    "immutable_environment_receipt_sha256": sha256(environment_receipt),
-                    "interpreter_sha256": sha256(Path(sys.executable).resolve()),
-                }
-            }
+            "schema_version": "iris-responsibility-refactor-environment-authority-v1",
+            "environment_contract": {
+                "external_environment_root": str(Path(sys.prefix).resolve()),
+                "immutable_environment_receipt_path": str(environment_receipt.resolve()),
+                "immutable_environment_receipt_sha256": sha256(environment_receipt),
+                "interpreter_sha256": sha256(Path(sys.executable).resolve()),
+            },
+        },
+    )
+    write_json(
+        authority / "responsibility_refactor_environment_current.json",
+        {
+            "schema_version": "iris-responsibility-refactor-environment-locator-v1",
+            "record_path": (
+                "Iris/validation/clean_checkout/authority/"
+                "responsibility_refactor_environment_fixture_v1.json"
+            ),
+            "record_sha256": sha256(environment_record),
         },
     )
     write_json(

@@ -8,12 +8,10 @@ import tempfile
 import unittest
 
 V2_ROOT = Path(__file__).resolve().parents[1]
-if str(V2_ROOT) not in sys.path:
-    sys.path.insert(0, str(V2_ROOT))
 
-from tools.build.build_dvf_3_3_complete_generation import build_complete_generation
-from tools.build.dvf_3_3_generation_contract import CANONICAL_INPUTS, DESCRIPTOR_NAME, GENERATOR_IMPLEMENTATION_FILES
-from tools.build.validate_dvf_3_3_complete_generation import CompleteGenerationValidationError, validate_complete_generation
+from iris_tooling.build.build_dvf_3_3_complete_generation import build_complete_generation
+from iris_tooling.build.dvf_3_3_generation_contract import CANONICAL_INPUTS, DESCRIPTOR_NAME, GENERATOR_IMPLEMENTATION_FILES
+from iris_tooling.build.validate_dvf_3_3_complete_generation import CompleteGenerationValidationError, validate_complete_generation
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[5]

@@ -9,11 +9,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
 
 from clean_checkout_test_paths import external_test_path
-from tools.build.compose_layer3_text import HISTORICAL_COMPOSE_CONTEXT, build_rendered
+from iris_tooling.build.compose_layer3_text import HISTORICAL_COMPOSE_CONTEXT, build_rendered
 
 
 def write_jsonl(path: Path, rows: list[dict]) -> None:

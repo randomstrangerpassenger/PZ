@@ -183,7 +183,7 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
     successor_policy.parent.mkdir(parents=True, exist_ok=True)
     successor_policy.write_bytes(SUCCESSOR_POLICY.read_bytes())
     environment_authority = (
-        repo / "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json"
+        repo / "Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json"
     )
     write_json(environment_authority, {"fixture": "immutable-environment-authority"})
     checkpoint_manifest = repo / DURABLE / "validation_checkpoint_manifest.json"
@@ -304,7 +304,7 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
         validation / "Iris/validation/clean_checkout/audit_current_route_output_isolation.py"
     )
     validation_environment_authority = (
-        validation / "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json"
+        validation / "Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json"
     )
     audit_checkout = (root / "output-isolation-audit-checkout").resolve()
     subprocess.run(
@@ -700,7 +700,7 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
                 "sha256": sha256(validation_closure),
             },
             "environment_authority": {
-                "path": "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json",
+                "path": "Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json",
                 "sha256": sha256(validation_environment_authority),
             },
             "output_isolation_audit": {

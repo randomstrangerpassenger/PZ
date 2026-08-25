@@ -37,6 +37,7 @@ from Iris.validation.clean_checkout.iris_clean_checkout_validation_common import
     git_text,
     json_at_commit,
     resolved_repo,
+    resolve_current_environment_authority,
     sha256_bytes,
     sha256_file,
     tracked_paths,
@@ -56,10 +57,7 @@ CANONICAL_GATE_PATH = (
 FULL_REPOSITORY_GATE_PATH = (
     "Iris/validation/clean_checkout/contracts/full_repository_gate.json"
 )
-PHASE0_ENVIRONMENT_BINDING_PATH = (
-    "Iris/validation/clean_checkout/authority/"
-    "phase0_ratification_attempt_0002.json"
-)
+CURRENT_ENVIRONMENT_LOCATOR_PATH = clean_checkout_common.CURRENT_ENVIRONMENT_LOCATOR
 OUTPUT_POLICY_PATH = (
     "Iris/validation/clean_checkout/contracts/output_policy.json"
 )
@@ -1616,12 +1614,10 @@ def run_gate(
             f"environment receipt is missing: {environment_receipt}"
         )
 
-    phase0 = json_at_commit(
-        repo,
-        subject["commit"],
-        PHASE0_ENVIRONMENT_BINDING_PATH,
+    environment_authority = resolve_current_environment_authority(
+        repo, subject["commit"]
     )
-    environment_contract = phase0["implementation_contract_delta"]["OR-06"]
+    environment_contract = environment_authority["environment_contract"]
     environment_verification = validate_external_environment(
         python_executable,
         environment_receipt,
@@ -1751,10 +1747,10 @@ def run_gate(
         "canonical_gate_blob_id": blob_id(
             repo, subject["commit"], CANONICAL_GATE_PATH
         ),
-        "phase0_environment_binding_blob_id": blob_id(
+        "current_environment_locator_blob_id": blob_id(
             repo,
             subject["commit"],
-            PHASE0_ENVIRONMENT_BINDING_PATH,
+            CURRENT_ENVIRONMENT_LOCATOR_PATH,
         ),
         "output_policy_blob_id": blob_id(
             repo,
@@ -2238,12 +2234,10 @@ def run_full_repository_gate(
         raise CleanCheckoutError(
             f"environment receipt is missing: {environment_receipt}"
         )
-    phase0 = json_at_commit(
-        repo,
-        subject["commit"],
-        PHASE0_ENVIRONMENT_BINDING_PATH,
+    environment_authority = resolve_current_environment_authority(
+        repo, subject["commit"]
     )
-    environment_contract = phase0["implementation_contract_delta"]["OR-06"]
+    environment_contract = environment_authority["environment_contract"]
     environment_verification = validate_external_environment(
         python_executable,
         environment_receipt,
@@ -2488,6 +2482,7 @@ def run_full_repository_gate(
         mirror_result = _materialize_package_runtime_mirror(
             repo, subject["commit"], checkout, contract
         )
+        environment["IRIS_REPOSITORY_ROOT"] = str(checkout)
         isolated_temp_root = checkout / ".dvf_tmp"
         isolated_temp_root.mkdir()
         environment["IRIS_DVF_ISOLATED_TEMP_ROOT"] = str(

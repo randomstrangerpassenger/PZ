@@ -8,8 +8,6 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
 
 from clean_checkout_test_paths import external_test_path
 from tools.validate_layer4_absorption_current_surface_guard import (

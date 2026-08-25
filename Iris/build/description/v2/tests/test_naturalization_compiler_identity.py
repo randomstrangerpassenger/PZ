@@ -29,12 +29,10 @@ BOUNDED_PUBLISH_REMEDIATION_REPORT = (
     / "publish_remediation_0001"
     / "bounded_projection_report.json"
 )
-if str(V2_ROOT) not in sys.path:
-    sys.path.insert(0, str(V2_ROOT))
 
-from tools.build import naturalization_compiler_identity as identity
-from tools.build import public_text_quality_acceptance as consumer
-from tools.build import run_dvf_3_3_korean_prose_naturalization as producer
+from iris_tooling.build import naturalization_compiler_identity as identity
+from iris_tooling.build import public_text_quality_acceptance as consumer
+from iris_tooling.build import run_dvf_3_3_korean_prose_naturalization as producer
 
 
 class NaturalizationCompilerIdentityTest(unittest.TestCase):
@@ -110,19 +108,19 @@ class NaturalizationCompilerIdentityTest(unittest.TestCase):
                 changed_paths,
                 {
                     (
-                        "Iris/build/description/v2/tools/build/"
+                        "Iris/tooling/src/iris_tooling/build/"
                         "compose_layer3_identity.py"
                     ),
                     (
-                        "Iris/build/description/v2/tools/build/"
+                        "Iris/tooling/src/iris_tooling/build/"
                         "compose_layer3_io.py"
                     ),
                     (
-                        "Iris/build/description/v2/tools/build/"
+                        "Iris/tooling/src/iris_tooling/build/"
                         "compose_layer3_item.py"
                     ),
                     (
-                        "Iris/build/description/v2/tools/build/"
+                        "Iris/tooling/src/iris_tooling/build/"
                         "compose_layer3_text.py"
                     ),
                 },

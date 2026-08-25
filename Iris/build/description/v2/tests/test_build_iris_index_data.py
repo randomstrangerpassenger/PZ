@@ -8,13 +8,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
 
 from clean_checkout_test_paths import external_test_path
-from tools.build.build_iris_fixing_index_data import parse_fixers
-from tools.build.build_iris_moveables_index_data import build_index as build_moveables_index
-from tools.build.build_iris_recipe_index_data import build_index as build_recipe_index
+from iris_tooling.build.build_iris_fixing_index_data import parse_fixers
+from iris_tooling.build.build_iris_moveables_index_data import build_index as build_moveables_index
+from iris_tooling.build.build_iris_recipe_index_data import build_index as build_recipe_index
 
 
 class BuildIrisIndexDataTest(unittest.TestCase):

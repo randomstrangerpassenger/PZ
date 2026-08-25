@@ -20,10 +20,8 @@ CONTRACT = (
     / "iar_public_text_assessment"
     / "iar_public_text_assessment_contract.json"
 )
-if str(V2_ROOT) not in sys.path:
-    sys.path.insert(0, str(V2_ROOT))
 
-from tools.build import iar_public_text_assessment as iar
+from iris_tooling.build import iar_public_text_assessment as iar
 
 
 class IarPublicTextAssessmentTest(unittest.TestCase):

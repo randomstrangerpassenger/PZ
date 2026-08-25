@@ -1,0 +1,1 @@
+"""Classification-index build domain."""

@@ -38,10 +38,13 @@ from iris_tooling.domains.public_text.inputs import (
     load_json_bytes as load_public_text_json_bytes,
 )
 
-PUBLIC_TEXT_DOMAIN_DIR = Path(__file__).resolve().parent
-TOOLS_DIR = PUBLIC_TEXT_DOMAIN_DIR.parents[1] / "build"
 V2_ROOT = require_repository_context().description_v2_root
 REPO_ROOT = require_repository_context().repository_root
+TOOLING_PACKAGE_SOURCE_DIR = (
+    REPO_ROOT / "Iris" / "tooling" / "src" / "iris_tooling"
+)
+PUBLIC_TEXT_DOMAIN_DIR = TOOLING_PACKAGE_SOURCE_DIR / "domains" / "public_text"
+TOOLS_DIR = TOOLING_PACKAGE_SOURCE_DIR / "build"
 
 ROUND_ID = "iris_publish_boundary_public_text_quality_acceptance_policy_closure"
 STAGING_ROUND_ID = "iris_public_text_quality_policy_closure"

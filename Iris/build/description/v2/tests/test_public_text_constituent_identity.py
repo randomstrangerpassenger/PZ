@@ -12,6 +12,7 @@ from unittest.mock import patch
 V2_ROOT = Path(__file__).resolve().parents[1]
 
 from iris_tooling.build import public_text_quality_acceptance as acceptance
+from iris_tooling.domains.public_text import acceptance_attempt_context
 
 
 RELATIVE_PATH = "Iris/example/constituent.json"
@@ -408,7 +409,7 @@ class PublicTextConstituentIdentityTest(unittest.TestCase):
             }
 
         with patch.object(
-            acceptance,
+            acceptance_attempt_context,
             "_vcs_preflight",
             side_effect=passing_preflight,
         ):
@@ -485,7 +486,7 @@ class PublicTextConstituentIdentityTest(unittest.TestCase):
             }
 
         with patch.object(
-            acceptance,
+            acceptance_attempt_context,
             "_vcs_preflight",
             side_effect=stateful_preflight,
         ):
@@ -577,8 +578,12 @@ class PublicTextConstituentIdentityTest(unittest.TestCase):
             iter(PHASE0_IMPLEMENTATION_REQUIRED_PATHS)
         )
         self.assertTrue(acceptance._is_tracked(required))
-        with patch.object(acceptance, "_is_ignored", return_value=True):
-            report = acceptance._vcs_preflight([required])
+        with patch.object(
+            acceptance_attempt_context,
+            "_is_ignored",
+            return_value=True,
+        ):
+            report = acceptance_attempt_context._vcs_preflight([required])
         self.assertEqual(report["status"], "FAIL")
         self.assertEqual(report["tracked_count"], 1)
         self.assertEqual(report["ignored_count"], 1)

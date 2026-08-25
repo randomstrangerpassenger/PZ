@@ -2,45 +2,6 @@ from __future__ import annotations
 
 from .acceptance_foundation_application import *  # noqa: F401,F403
 
-def _git(*args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
-    result = subprocess.run(
-        ["git", *args],
-        cwd=REPO_ROOT,
-        text=True,
-        encoding="utf-8",
-        errors="replace",
-        capture_output=True,
-        check=False,
-    )
-    if check and result.returncode != 0:
-        raise FoundationContractError(
-            f"git {' '.join(args)} failed: {result.stderr.strip()}"
-        )
-    return result
-
-
-def git_head() -> str:
-    return _git("rev-parse", "HEAD").stdout.strip()
-
-
-def _is_tracked(path: Path) -> bool:
-    return _git("ls-files", "--error-unmatch", "--", repo_relative(path), check=False).returncode == 0
-
-
-def _is_ignored(path: Path) -> bool:
-    result = _git(
-        "check-ignore", "--no-index", "-v", "--", repo_relative(path), check=False
-    )
-    if result.returncode != 0:
-        return False
-    matched_rule = result.stdout.split("\t", 1)[0].rsplit(":", 1)[-1]
-    return not matched_rule.startswith("!")
-
-
-def _has_unstaged_delta(path: Path) -> bool:
-    return bool(_git("diff", "--name-only", "--", repo_relative(path)).stdout.strip())
-
-
 def official_attempt_root(
     attempt_id: str, attempt_root: Path | None = None
 ) -> Path:

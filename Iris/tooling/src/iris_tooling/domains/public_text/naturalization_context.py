@@ -75,10 +75,13 @@ else:
     )
 
 
-PUBLIC_TEXT_DOMAIN_DIR = Path(__file__).resolve().parent
-TOOLS_DIR = PUBLIC_TEXT_DOMAIN_DIR.parents[1] / "build"
 V2_ROOT = require_repository_context().description_v2_root
 REPO_ROOT = require_repository_context().repository_root
+TOOLING_PACKAGE_SOURCE_DIR = (
+    REPO_ROOT / "Iris" / "tooling" / "src" / "iris_tooling"
+)
+PUBLIC_TEXT_DOMAIN_DIR = TOOLING_PACKAGE_SOURCE_DIR / "domains" / "public_text"
+TOOLS_DIR = TOOLING_PACKAGE_SOURCE_DIR / "build"
 ROUND_ID = "dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure"
 SYNC_CONTRACT_ID = "dvf3_3_korean_naturalization__publish_boundary_sync_v1"
 EVALUATION_SUBJECT_KIND = "dvf_3_3_korean_naturalization_candidate"

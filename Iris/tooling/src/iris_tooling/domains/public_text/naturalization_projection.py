@@ -41,7 +41,9 @@ def build_phase1(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
             adopted_count += 1
             profile = str(entry.get("resolved_profile"))
             profile_counts[profile] += 1
-            sections = entry.get("body_plan", {}).get("emitted_section_names", [])
+            sections = (entry.get("body_plan") or {}).get(
+                "emitted_section_names", []
+            )
             topology = "+".join(sections)
             topology_counts[topology] += 1
             quality_counts[str(entry.get("coverage_quality_candidate"))] += 1
@@ -83,7 +85,7 @@ def build_phase1(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
         "missing_required_row_count": sum(
             1
             for entry in entries.values()
-            if entry.get("body_plan", {}).get("missing_required_sections")
+            if (entry.get("body_plan") or {}).get("missing_required_sections")
         ),
         "length_min": min(lengths),
         "length_max": max(lengths),

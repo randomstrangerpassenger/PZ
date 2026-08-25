@@ -36,7 +36,8 @@
       "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py",
       "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py",
       "Iris/tooling/tests/test_repository_context.py",
-      "Iris/tooling/tests/test_cli.py"
+      "Iris/tooling/tests/test_cli.py",
+      "Iris/tooling/tests/test_public_text_domain_contract.py"
     ],
     "additional_node_ids": [
       "Iris/test/test_rightclick_pipeline.py::test_invert_produces_sorted_output",
@@ -129,6 +130,10 @@
       {
         "path": "Iris/tooling/tests/test_cli.py",
         "reason": "current installed-package repository-independent help contract"
+      },
+      {
+        "path": "Iris/tooling/tests/test_public_text_domain_contract.py",
+        "reason": "current public-text parsing, evaluation, and naturalization domain contract"
       }
     ],
     "explicit_dedicated_route_sources": [

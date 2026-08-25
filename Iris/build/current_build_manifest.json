@@ -1,6 +1,6 @@
 {
   "schema_version": "iris-current-build-manifest-v1",
-  "status": "w3_installable_tooling_adopted",
+  "status": "w4_domain_responsibilities_split",
   "subject_commit": "22e94077dd057a943ba2e6ff03f25f5880b3126c",
   "entrypoints": [
     {

@@ -28,6 +28,15 @@ except ImportError:
     )
 
 from .repository_context import require_repository_context
+from iris_tooling.domains.public_text.evaluate import (
+    PublicTextEvaluationError,
+    determine_qualified_disposition as determine_disposition_rule,
+    evaluate_threshold as evaluate_threshold_rule,
+)
+from iris_tooling.domains.public_text.inputs import (
+    PublicTextInputError,
+    load_json_bytes as load_public_text_json_bytes,
+)
 
 TOOLS_DIR = Path(__file__).resolve().parent
 V2_ROOT = require_repository_context().description_v2_root
@@ -357,11 +366,10 @@ def _reject_duplicate_pairs(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 
 def load_json_strict(path: Path) -> Any:
     try:
-        return json.loads(
-            read_bytes_long_path_safe(path).decode("utf-8"),
-            object_pairs_hook=_reject_duplicate_pairs,
+        return load_public_text_json_bytes(
+            read_bytes_long_path_safe(path), label=str(path)
         )
-    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+    except (OSError, PublicTextInputError) as exc:
         raise FoundationContractError(f"cannot load strict JSON {path}: {exc}") from exc
 
 
@@ -2137,55 +2145,17 @@ def validate_foundation_contract(
     }
 
 
-def _fraction_from_value(value: dict[str, Any]) -> Fraction:
-    if set(value) == {"integer"}:
-        integer = value["integer"]
-        if not isinstance(integer, int):
-            raise FoundationContractError("threshold integer must be an integer")
-        return Fraction(integer, 1)
-    if set(value) == {"numerator", "denominator"}:
-        numerator = value["numerator"]
-        denominator = value["denominator"]
-        if not isinstance(numerator, int) or not isinstance(denominator, int):
-            raise FoundationContractError("rational threshold must use integers")
-        if denominator <= 0:
-            raise FoundationContractError("rational threshold denominator must be positive")
-        return Fraction(numerator, denominator)
-    raise FoundationContractError("threshold value must be exact integer or rational")
-
-
 def evaluate_threshold(
     *, numerator: int, denominator: int, threshold: dict[str, Any]
 ) -> bool:
-    if not isinstance(numerator, int) or numerator < 0:
-        raise FoundationContractError("metric numerator must be a nonnegative integer")
-    if not isinstance(denominator, int) or denominator <= 0:
-        raise FoundationContractError("metric denominator must be a positive integer")
-    operator = threshold.get("operator")
-    value = threshold.get("value")
-    if operator == "none":
-        if value is not None:
-            raise FoundationContractError("none threshold must have null value")
-        return True
-    if not isinstance(value, dict):
-        raise FoundationContractError("threshold value object is required")
-    expected = _fraction_from_value(value)
-    actual = (
-        Fraction(numerator, 1)
-        if set(value) == {"integer"}
-        else Fraction(numerator, denominator)
-    )
-    if operator == "eq":
-        return actual == expected
-    if operator == "le":
-        return actual <= expected
-    if operator == "lt":
-        return actual < expected
-    if operator == "ge":
-        return actual >= expected
-    if operator == "gt":
-        return actual > expected
-    raise FoundationContractError(f"unknown threshold operator: {operator}")
+    try:
+        return evaluate_threshold_rule(
+            numerator=numerator,
+            denominator=denominator,
+            threshold=threshold,
+        )
+    except PublicTextEvaluationError as exc:
+        raise FoundationContractError(str(exc)) from exc
 
 
 def determine_qualified_disposition(
@@ -2195,22 +2165,15 @@ def determine_qualified_disposition(
     advisory_debt_count: int,
     active_waiver_count: int,
 ) -> str:
-    counts = (
-        technical_blocker_count,
-        effective_blocking_finding_count,
-        advisory_debt_count,
-        active_waiver_count,
-    )
-    if any(not isinstance(value, int) or value < 0 for value in counts):
-        raise FoundationContractError("disposition counts must be nonnegative integers")
-    if technical_blocker_count > 0:
-        return "blocked"
-    if effective_blocking_finding_count > 0:
-        return "blocked"
-    if advisory_debt_count > 0 or active_waiver_count > 0:
-        return "deferred_internal_debt"
-    return "accepted"
-
+    try:
+        return determine_disposition_rule(
+            technical_blocker_count=technical_blocker_count,
+            effective_blocking_finding_count=effective_blocking_finding_count,
+            advisory_debt_count=advisory_debt_count,
+            active_waiver_count=active_waiver_count,
+        )
+    except PublicTextEvaluationError as exc:
+        raise FoundationContractError(str(exc)) from exc
 
 def _parse_timestamp(value: str) -> datetime:
     if not isinstance(value, str):

@@ -1,7 +1,7 @@
 # ROADMAP.md
 
-> 상태: canonical summary + deduplicated consolidated addendum ledger through 2026-08-10
-> 기준일: 2026-08-10
+> 상태: canonical summary + deduplicated consolidated addendum ledger through 2026-08-26
+> 기준일: 2026-08-26
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 현재 진행 방향과 다음 게이트를 짧게 고정한다.
 
@@ -1159,3 +1159,17 @@ Current state: **complete**. 기존 W0–W10 closeout을 다시 열지 않고 pu
 terminal subject를 재정의하지 않으며, 이후 별도 authority 없이는 validation
 consolidation, performance work, repository-wide lightweighting이나 compatibility patch
 복원을 이 roadmap 항목으로 열지 않는다.
+
+## Iris public-text boundary hardening (2026-08-26)
+
+Current state: **Done / COMPLETE**.
+
+- Public-text owner/CLI/application과 두 compatibility façade의 wildcard import와 dynamic export를 제거했다. Fixed literal `__all__`, bound export, cross-owner private import 0건을 contract로 고정했다.
+- 세 provenance input을 explicit CLI로 전달하는 installed-wheel arbitrary-CWD Phase 0가 PASS했다. Input 하나를 뺀 negative probe는 dispatch 전 exit `2`, attempt output과 source/clone mutation `0`으로 fail-closed했다.
+- Reviewer P1에서 확인된 builder/validator authority 불일치를 수정했다. Formal validator는 canonical manifest와 실제 source bytes에서 current identity를 재계산하고, historical registry/foundation 및 particle projection identity는 별도 historical contract로 유지한다. 같은 positive attempt에 builder와 validator가 모두 PASS했다.
+- Final attribution: implementation `377601a1`, wheel writer `58490359`, machine-validation subject `d586dc0c`, Reviewer carrier `d6db16dc`. Documentation-only carrier는 machine PASS를 재정의하지 않는다.
+- Terminal result: focused `68 passed`; right-click `57/1,400/13`; Lua `174 files`; clean A/B 각각 `209 passed / 109 subtests / 4 standalone`, mutation `0`; comparator raw-byte equality PASS, canonical SHA `15577164525fbfa142d3cc258c549d6a0d157ec85c14ab44faf84a64d632bdca`.
+- Independent Codex Reviewer: `PASS / APPROVED`, actionable `0`, unsupported `0`.
+- Current package machine-local path, deleted right-click capability reference, product `Iris/media` change는 각각 `0`이다.
+
+이 항목에 남은 implementation/validation/review gate는 없다. Product runtime, CheatMenuRebirth compatibility, performance/token efficiency, validation consolidation, release/freeze/RTC/Publish/deployment는 이 Done 항목의 후속 gate가 아니다.

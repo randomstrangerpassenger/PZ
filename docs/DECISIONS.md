@@ -1,7 +1,7 @@
 # DECISIONS.md
 
-> 상태: current decision ledger / compact trace-dedup edition through 2026-08-10
-> 기준일: 2026-08-10
+> 상태: current decision ledger / compact trace-dedup edition through 2026-08-26
+> 기준일: 2026-08-26
 > 상위 기준: `Philosophy.md`
 > 목적: Pulse 생태계에서 이미 사실상 고정된 결정을 짧게 봉인하고, 같은 논쟁의 반복을 줄인다.
 
@@ -2911,3 +2911,24 @@
   * 이 correction은 validation consolidation, 별도 repository lightweighting, runtime/UI/package/public-text content 변경, compatibility patch 복원, release/freeze/RTC/Publish/deployment를 열지 않는다.
   * CheatMenuRebirth 동시 활성화 조합은 계속 `unvalidated_but_in_scope`다. Iris-only owner probe의 기존 PASS나 retired global patch의 non-restoration 결정을 universal external-mod compatibility로 확대하지 않는다.
   * 두 façade의 line 감소와 package source의 net line 감소를 runtime performance나 실제 GPT/Codex token 절감률로 환산하지 않는다. 이번 일회성 집계는 validator나 metric authority가 아니다.
+
+## Iris public-text responsibility-boundary hardening (2026-08-26)
+
+* 상태: **complete**. 기존 bounded correction의 공개 owner 경계, explicit Phase 0 경로와 terminal 귀속만 보정했다.
+* 결정:
+
+  * Public-text acceptance/naturalization owner, CLI/application과 두 build compatibility façade에서 transitive wildcard import와 `globals()` 기반 export를 허용하지 않는다. 각 module은 실제 소비 symbol만 import하고 단 하나의 literal tuple `__all__`로 고정 export를 선언한다. Owner 간 공유 helper는 공개 contract 이름을 사용하며 `_private` 이름을 owner 경계 밖으로 전달하지 않는다.
+  * `public_text_quality_acceptance.py`와 `run_dvf_3_3_korean_prose_naturalization.py`는 함수·class를 새로 정의하지 않는 import-only compatibility façade다. Current consumer에 필요한 기존 API만 명시적으로 재수출하며 export surface는 source의 fixed `__all__`이 authority다.
+  * Naturalization Phase 0는 roadmap, plan review, cycle-2 review 세 input을 explicit CLI argument로 모두 받아야 한다. 하나라도 없으면 dispatch 전에 exit `2`로 fail-closed하고 attempt output을 만들지 않는다. Machine-local path는 package default나 fallback authority가 아니다.
+  * Current source authority는 canonical `INPUT_MANIFEST`, manifest가 선언한 source hash와 실제 source bytes의 일치로 판정한다. Historical registry/foundation/successor hash와 ancestry는 historical rows에 계속 고정한다. Particle correction의 immutable projection `after_sha256`과 현재 implementation hash는 각각 검증하며 서로 다른 세대의 bytes를 같다고 강제하지 않는다. Phase 0 builder와 formal validator는 이 동일 계약을 사용한다.
+  * Exact attribution은 package implementation terminal `377601a199d661513288b7f68f920b1bf53f0aad`, installed-wheel source/writer `584903590b7e45b6919b55ee8b63d87226de1446`, machine-validation/environment authority subject `d586dc0c88657c1e340b00bb2798268caacc9fca`로 분리한다. 세 subject의 `Iris/tooling/src` tree는 `365e7686cb53a2b0e10f7de4421eb2e4f9f4274e`로 같다.
+* Validation adoption:
+
+  * Installed-wheel arbitrary-CWD Phase 0와 같은 attempt를 읽은 formal validator가 모두 PASS했고 missing-input probe는 exit `2`, output mutation `0`이다. Focused batch는 `68 passed`, right-click은 `PASS 57 / NO 1,400 / REVIEW 13`, Lua syntax는 `174 files` PASS다.
+  * Clean Run A/B는 각각 pytest identity `209`, subtest `109`, standalone `4`, mutation `0`으로 PASS했다. Canonical result SHA-256은 양쪽 모두 `15577164525fbfa142d3cc258c549d6a0d157ec85c14ab44faf84a64d632bdca`이고 comparator는 raw-byte equality를 확인했다.
+  * Independent Codex Reviewer carrier `d6db16dc41e94fdf99dc124fdef139cfd9d05994`는 `PASS / APPROVED`, actionable finding `0`, unsupported claim `0`을 기록한다.
+* Non-decision:
+
+  * 제품 Lua/UI/CheatMenu, package/public-text output schema와 supported runtime behavior를 변경하지 않는다. Retired global context-menu patch와 삭제된 right-click capability를 복원하지 않는다.
+  * 이 hardening을 validation consolidation, repository-wide lightweighting, performance/token 개선, release/freeze/RTC/Publish/deployment 또는 universal external-mod compatibility claim으로 확대하지 않는다.
+  * Documentation-only carrier는 위 machine-validation subject의 PASS를 자신에게 재귀속하지 않는다.

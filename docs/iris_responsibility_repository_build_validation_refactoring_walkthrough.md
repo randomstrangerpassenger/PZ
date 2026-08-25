@@ -10,6 +10,10 @@
 > Bounded correction baseline: `0311718b2334fc3b45908b2f0d2117c7dc57569a`
 > Bounded correction validated terminal: `cbfb4f2e0067413f5334b1ca40c3cd89a090606a`
 > Bounded correction terminal tree: `afcf40cc7b4003571fc137c89d7b99d2042e9d9b`
+> Boundary-hardening implementation terminal: `377601a199d661513288b7f68f920b1bf53f0aad`
+> Boundary-hardening wheel writer: `584903590b7e45b6919b55ee8b63d87226de1446`
+> Boundary-hardening machine-validation subject: `d586dc0c88657c1e340b00bb2798268caacc9fca`
+> Boundary-hardening Reviewer carrier: `d6db16dc41e94fdf99dc124fdef139cfd9d05994`
 
 ## 1. Document Role
 
@@ -394,3 +398,143 @@ CheatMenuRebirth 조합은 계속 compatibility nonclaim이며 global context-me
 복원하지 않았다. 기존 owner-attested Iris-only PZ boot/save load, Browser/Detail/Wiki/Alt
 Tooltip, reload/context-menu PASS의 범위를 universal external-mod compatibility로 넓히지
 않는다.
+
+## 12. Public-Text Responsibility-Boundary Hardening Wave
+
+### 12.1 Scope and resulting graph
+
+이 wave는 bounded correction을 재설계하지 않았다. 남아 있던 transitive wildcard namespace, dynamic `__all__`, 실제 installed-wheel Phase 0 explicit-input 증빙과 terminal 귀속만 닫았다. 대상 25개 owner/CLI/application/façade에서 `import *`와 `globals()` export는 0건이다.
+
+Owner별 직접 dependency는 다음처럼 고정됐다. 표의 dependency는 module 단위 요약이며 각 module source가 실제 symbol-level import와 fixed tuple export를 authority로 가진다.
+
+| Owner | Direct public-text dependencies |
+| --- | --- |
+| `inputs` | 없음 |
+| `acceptance_context` | repository context, compiler identity |
+| `acceptance_infrastructure` | `acceptance_context`, `inputs` |
+| `acceptance_contracts` | `acceptance_context`, `acceptance_infrastructure` |
+| `acceptance_rules` | `acceptance_context`, `acceptance_contracts`, `acceptance_infrastructure`, `evaluate` |
+| `acceptance_reporting` | `acceptance_context`, `acceptance_infrastructure`, `acceptance_rules` |
+| `acceptance_emission` | `acceptance_context`, `acceptance_infrastructure` |
+| `acceptance_foundation_application` | context, contracts, emission, infrastructure, reporting, rules |
+| `acceptance_attempt_context` | context, emission, foundation application, infrastructure, reporting, rules, compiler identity |
+| `acceptance_policy` | attempt context, context, emission, infrastructure, rules |
+| `acceptance_assurance` | attempt context, context, emission, infrastructure, policy, rules |
+| `acceptance_disposition` | assurance, attempt context, context, emission, infrastructure, policy, rules |
+| `acceptance_validation` | assurance, attempt context, context, disposition, infrastructure, policy, rules |
+| `acceptance_cli` | context, disposition, foundation application, infrastructure |
+| `acceptance_validation_cli` | context, foundation application, infrastructure, validation |
+| `naturalization_context` | repository context, compiler identity |
+| `naturalization_infrastructure` | `inputs`, `naturalization_context` |
+| `naturalization_preparation` | inputs, context, infrastructure, compose text |
+| `naturalization_projection` | context, infrastructure, compose profile/identity/text, compiler identity |
+| `naturalization_transformation` | context, infrastructure, projection, compose text, compiler identity |
+| `naturalization_review` | naturalization detector, context, infrastructure, projection |
+| `naturalization_handoff` | context, infrastructure, projection, transformation |
+| `naturalization_application` | inputs, infrastructure, preparation, projection, transformation, review, handoff |
+| `public_text.cli` | `inputs`; command별 acceptance/naturalization owner를 lazy import |
+| Build façades | 위 owner의 호환 symbol만 명시적으로 import/re-export |
+
+Cross-owner에서 사용되는 helper는 `run_git`, `parse_policy_timestamp`, `without_volatile_fields`, `manifest_binding_rows`, `load_phase0_context`, `require_phase2_seal`처럼 public contract 이름을 갖는다. `_private` helper import는 0건이다.
+
+### 12.2 Exact compatibility façade exports
+
+Acceptance façade의 fixed API는 다음과 같다.
+
+```text
+DISPOSITION_CLASSES, FOUNDATION_SCHEMA_VERSION, FoundationContractError,
+NATURALIZATION_COMPILER_IMPLEMENTATION_FILES, PHASE0_REQUIRED_VCS_CONSUMERS,
+REPO_ROOT, TEXT_CONSTITUENT_IDENTITY_ALGORITHM_ID, build_compiler_identity,
+build_foundation, build_protected_snapshot_identity_from_bytes,
+build_protected_snapshot_present_row_from_bytes,
+build_text_constituent_identity_from_bytes, canonical_hash,
+compute_candidate_metric_snapshot, evaluate_threshold, handoff_artifact_path,
+head_text_constituent_record, human_review_blocker_count, is_ignored, is_tracked,
+load_json_strict, normalize_text_line_endings, phase0_required_vcs_preflight,
+pretty_json_bytes, repo_relative, run_official_mode, sha256_file,
+validate_candidate_handoff, validate_foundation, validate_official_attempt,
+write_once_or_same
+```
+
+Naturalization façade의 fixed API는 다음과 같다.
+
+```text
+COMPILER_IMPLEMENTATION_PATHS, EVALUATION_SUBJECT_KIND,
+EXPECTED_COMPILER_FIX_COMMIT, EXPECTED_CURRENT_FACTS_SHA256,
+EXPECTED_CURRENT_MANIFEST_SHA256, EXPECTED_FOUNDATION_CONTRACT_SHA256,
+EXPECTED_FOUNDATION_READINESS_CORRECTION_REBIND_SHA256,
+EXPECTED_FOUNDATION_READINESS_CURRENT_INPUT_REBIND_SHA256,
+EXPECTED_FOUNDATION_READINESS_SHA256,
+EXPECTED_INITIAL_REGISTRY_ADOPTION_RECEIPT_SHA256,
+EXPECTED_PARTICLE_CORRECTION_COMMIT,
+EXPECTED_PARTICLE_CORRECTION_PROJECTION_REPORT_SHA256,
+EXPECTED_REGISTRY_ADOPTION_CONTRACT_SHA256,
+EXPECTED_REGISTRY_ADOPTION_RECEIPT_SHA256,
+EXPECTED_REGISTRY_CORRECTION_TERMINAL_SEAL_SHA256,
+EXPECTED_REGISTRY_NATURALIZATION_HANDOFF_SHA256,
+EXPECTED_SELECTED_SUCCESSOR_FACTS_SHA256,
+EXPECTED_SELECTED_SUCCESSOR_MANIFEST_SHA256, EXPECTED_START_COMMIT,
+EXPECTED_START_TREE, FOUNDATION_CONTRACT,
+FOUNDATION_READINESS_CORRECTION_REBIND,
+FOUNDATION_READINESS_CURRENT_INPUT_REBIND, NaturalizationError,
+PARTICLE_CORRECTION_PROJECTION_REPORT, PRESERVED_PREDECESSOR_ATTEMPT_IDS,
+REGISTRY_ADOPTION_CONTRACT, REGISTRY_NATURALIZATION_HANDOFF, REPO_ROOT,
+attempt_root_for, build_compiler_identity, build_parser, canonical_hash,
+implementation_hash, implementation_identity, load_json, main, phase_root,
+run_naturalization_mode, sha256_file
+```
+
+두 façade에는 함수·class 정의가 없고 공개 namespace는 각각 이 목록과 일치한다.
+
+### 12.3 Installed-wheel Phase 0 and validator correction
+
+Final wheel은 `C:\Users\MW\irf\wheel-terminal-v15\iris_tooling-0.1.0-py3-none-any.whl`이며 SHA-256은 `b8fed67c1f453fa3ba12fc8b90cb6dfac176f3ce783ef060ff88a683384d298f`다. Environment receipt는 `C:\Users\MW\iccv\receipts\env-iris-refactor-terminal-v15\environment_receipt.json`, SHA-256 `dde23f3df4532e40d98a2117829820963e22110e796545e50986223d89e4f3e8`이다.
+
+Repository 밖 `C:\Users\MW\irf\v15p\c`에서 다음 실제 positive route를 실행했다.
+
+```powershell
+C:\Users\MW\iccv\env-iris-refactor-terminal-v15\Scripts\python.exe -B -s -m iris_tooling `
+  --repository-root C:\Users\MW\irf\v15p\r public-text naturalization `
+  --attempt-id attempt-0027-hardening-phase0-positive --mode phase0-preflight `
+  --attempt-root C:\Users\MW\irf\v15p\p `
+  --roadmap-input C:\Users\MW\irf\v13p\i\roadmap.txt `
+  --plan-review-input C:\Users\MW\irf\v13p\i\plan-review.txt `
+  --cycle2-review-input C:\Users\MW\irf\v13p\i\cycle2-review.txt
+```
+
+세 binding role의 explicit path, expected/actual SHA와 `hash_match=true`, blocker `0`, status `PASS`, exit `0`을 확인했다. 같은 attempt에 installed wheel의 formal naturalization validator를 `--require-phase0 --no-write`로 실행해 `errors=[]`, `status=PASS`, exit `0`을 확인했다.
+
+첫 Reviewer는 builder가 current manifest/source를 따르는 반면 validator가 historical fixed current hash와 historical particle bytes equality를 요구하는 P1을 발견했다. Validator가 canonical `INPUT_MANIFEST`와 실제 source rows를 재계산하도록 수정하고, historical registry/foundation identities는 고정한 채 particle projection `after_sha256`과 current implementation hash를 별도로 검증하게 했다. 이 보정 뒤 builder와 validator가 같은 authority 계약으로 PASS했다.
+
+Cycle-2 input을 생략한 negative command는 정확한 required-three-input 오류와 exit `2`를 반환했고 `C:\Users\MW\irf\v15p\n`을 만들지 않았다. Source checkout과 clean clone status는 모두 clean이다. 이 external attempt output은 canonical validator나 repository authority로 승격하지 않는다.
+
+### 12.4 Exact attribution and terminal result
+
+| Role | Commit / tree |
+| --- | --- |
+| Package implementation terminal | `377601a199d661513288b7f68f920b1bf53f0aad` / `c7f082763ba92492a4f75b25b07595d0926a805f` |
+| Exact installed-wheel source/writer | `584903590b7e45b6919b55ee8b63d87226de1446` / `10ff8ea79914241314f59b5e652dbf7f81562bb7` |
+| Machine validation/environment authority subject | `d586dc0c88657c1e340b00bb2798268caacc9fca` / `05de8fafbf86045dd9fa7f93aeee0c96873cf0c6` |
+| Independent Reviewer carrier | `d6db16dc41e94fdf99dc124fdef139cfd9d05994` / `f3ff2cc1a53469ac54424957d93034418addb1da` |
+
+세 implementation/wheel/machine subject의 `Iris/tooling/src` tree는 `365e7686cb53a2b0e10f7de4421eb2e4f9f4274e`로 동일하다. Reviewer와 documentation carrier는 machine PASS를 상속하거나 재정의하지 않는다.
+
+| Validation | Final result |
+| --- | --- |
+| Focused owner/façade/import/package/right-click contracts | `68 passed in 94.79s` |
+| Installed Phase 0 positive + formal validator | 둘 다 `PASS`, exit `0` |
+| Missing-input negative | exit `2`, output root 미생성 |
+| Explicit-root right-click | candidates `1,470`; PASS `57`, NO `1,400`, REVIEW `13` |
+| Lua syntax | `174 files`, exit `0` |
+| Clean Run A | `209 passed / 109 subtests / 4 standalone`, mutation `0` |
+| Clean Run B | `209 passed / 109 subtests / 4 standalone`, mutation `0` |
+| Comparator | status `PASS`, raw bytes equal, exit `0` |
+| Codex Reviewer | `PASS / APPROVED`, actionable `0`, unsupported `0` |
+
+Run A/B canonical SHA-256은 모두 `15577164525fbfa142d3cc258c549d6a0d157ec85c14ab44faf84a64d632bdca`다. Reviewer raw review와 receipt는 `Iris/_docs/refactor/responsibility_repository_refactor/public_text_boundary_hardening_{codex_review.md,review_receipt.json}`에 둔다.
+
+### 12.5 Non-claims
+
+Current package machine-local source path, deleted right-click capability reference와 baseline 이후 `Iris/media` 변경은 각각 0건이다. Product Lua/UI/CheatMenu, package/public-text output schema와 intended runtime behavior를 변경하지 않았고 retired global context-menu patch를 복원하지 않았다.
+
+이번 wave는 성능, runtime wall-clock/CPU/memory/FPS, 실제 GPT/Codex token 개선률을 측정하지 않았다. 기존 bounded correction의 owner locality와 explicit dependency가 유지보수 경계를 줄였다는 구조적 결과만 채택하며, package/source line delta를 performance나 token 절감률로 환산하지 않는다.

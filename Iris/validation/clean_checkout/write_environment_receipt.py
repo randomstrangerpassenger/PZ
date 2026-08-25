@@ -96,7 +96,15 @@ def main() -> int:
         raise RuntimeError("source commit is not the exact writer checkout HEAD")
     if _git(repo, "rev-parse", "HEAD^{tree}") != args.source_tree:
         raise RuntimeError("source tree does not match the exact writer checkout")
-    if _git(repo, "status", "--porcelain=v1", "--untracked-files=all"):
+    # The receipt binds superproject blobs/tree. A dirty nested worktree does
+    # not alter that identity and may belong to an unrelated user-owned task.
+    if _git(
+        repo,
+        "status",
+        "--porcelain=v1",
+        "--untracked-files=all",
+        "--ignore-submodules=dirty",
+    ):
         raise RuntimeError("environment authority writer requires a clean implementation subject")
 
     project_relative = _repo_relative(repo, project_path)

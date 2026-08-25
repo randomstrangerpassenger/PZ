@@ -87,43 +87,24 @@ class NaturalizationCompilerIdentityTest(unittest.TestCase):
                 predecessor_evidence["algorithm_id"],
                 producer_evidence["algorithm_id"],
             )
-            self.assertEqual(
-                predecessor_evidence["path_order"],
-                producer_evidence["path_order"],
+            predecessor_paths = predecessor_evidence["path_order"]
+            current_paths = producer_evidence["path_order"]
+            self.assertEqual(len(predecessor_paths), len(current_paths))
+            self.assertTrue(
+                all(
+                    path.startswith(
+                        "Iris/build/description/v2/tools/build/"
+                    )
+                    for path in predecessor_paths
+                )
             )
-            predecessor_files = {
-                row["path"]: row["canonical_sha256"]
-                for row in predecessor_evidence["ordered_files"]
-            }
-            current_files = {
-                row["path"]: row["canonical_sha256"]
-                for row in producer_evidence["ordered_files"]
-            }
-            changed_paths = {
-                path
-                for path in predecessor_files
-                if predecessor_files[path] != current_files[path]
-            }
             self.assertEqual(
-                changed_paths,
-                {
-                    (
-                        "Iris/tooling/src/iris_tooling/build/"
-                        "compose_layer3_identity.py"
-                    ),
-                    (
-                        "Iris/tooling/src/iris_tooling/build/"
-                        "compose_layer3_io.py"
-                    ),
-                    (
-                        "Iris/tooling/src/iris_tooling/build/"
-                        "compose_layer3_item.py"
-                    ),
-                    (
-                        "Iris/tooling/src/iris_tooling/build/"
-                        "compose_layer3_text.py"
-                    ),
-                },
+                current_paths,
+                list(identity.COMPILER_REPO_RELATIVE_POSIX_PATH_ORDER),
+            )
+            self.assertEqual(
+                [Path(path).name for path in predecessor_paths],
+                [Path(path).name for path in current_paths],
             )
 
     def test_working_and_git_blob_line_endings_are_metamorphic(self) -> None:

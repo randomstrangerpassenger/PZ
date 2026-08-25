@@ -404,7 +404,8 @@ class LegacyActiveSilentCurrentSurfaceGuardTest(unittest.TestCase):
 
     def test_rg_missing_timeout_and_abnormal_exit_fail_loud_without_fallback(self) -> None:
         with mock.patch(
-            "tools.validate_legacy_active_silent_current_surface_guard.subprocess.run",
+            "Iris.build.description.v2.tools."
+            "validate_legacy_active_silent_current_surface_guard.subprocess.run",
             side_effect=FileNotFoundError("rg missing"),
         ):
             with self.assertRaisesRegex(ScanBackendUnavailable, "scan_backend_unavailable.*missing"):
@@ -590,7 +591,8 @@ class LegacyActiveSilentCurrentSurfaceGuardTest(unittest.TestCase):
         self.addCleanup(lambda: shutil.rmtree(result_root, ignore_errors=True))
 
         with mock.patch(
-            "tools.validate_legacy_active_silent_current_surface_guard.os.link",
+            "Iris.build.description.v2.tools."
+            "validate_legacy_active_silent_current_surface_guard.os.link",
             side_effect=OSError("injected interruption"),
         ):
             with self.assertRaisesRegex(OSError, "injected interruption"):

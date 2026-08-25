@@ -269,7 +269,8 @@ function Assembler.getInstrumentation()
         unknownFacts = reader.unknown,
         notApplicableFacts = reader.notApplicable,
         groupAttempts = {}, groupSuccesses = {}, groupSkips = {},
-        capabilityHintBuilds = 0, methodListAllocations = 0,
+        capabilityHintBuilds = reader.capabilityHintBuilds,
+        methodListAllocations = 0,
     }
 end
 

@@ -42,6 +42,7 @@ local metrics = nil
 local function newMetrics()
     return {
         reads = 0,
+        capabilityHintBuilds = 0,
         methodAttempts = 0,
         methodSuccesses = 0,
         known = 0,
@@ -96,6 +97,9 @@ local function groupApplicable(item, group, hints)
 end
 
 local function capabilityHints(category, itemType)
+    if instrumentationEnabled then
+        metrics.capabilityHintBuilds = metrics.capabilityHintBuilds + 1
+    end
     local hints = {}
     local text = (tostring(category or "") .. " " .. tostring(itemType or "")):lower()
     if text:find("food", 1, true) then hints.food = true end

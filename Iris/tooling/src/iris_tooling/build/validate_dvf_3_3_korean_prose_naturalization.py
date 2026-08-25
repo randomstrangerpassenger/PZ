@@ -427,7 +427,7 @@ def validate_phase0(root: Path, errors: list[str]) -> dict[str, Any]:
         and sha256_file(PARTICLE_CORRECTION_PROJECTION_REPORT)
         == EXPECTED_PARTICLE_CORRECTION_PROJECTION_REPORT_SHA256
         and particle_correction_binding.get("implementation_expected_sha256")
-        == particle_projection_implementation.get("sha256")
+        == particle_projection_implementation.get("after_sha256")
         and particle_correction_binding.get("implementation_path")
         == particle_projection_implementation.get("path")
         and particle_implementation_path.is_file()

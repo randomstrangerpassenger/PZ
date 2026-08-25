@@ -1,5 +1,5 @@
 {
-  "record_path": "Iris/validation/clean_checkout/authority/responsibility_refactor_environment_terminal_v9.json",
-  "record_sha256": "7de7cce8f0a4bfedf680a60cbd80250903a8036ac8bbf638fada65f78598d21c",
+  "record_path": "Iris/validation/clean_checkout/authority/responsibility_refactor_environment_terminal_v10.json",
+  "record_sha256": "7e3b7cf386d00137b23ca526217f4572c0d95de4f830f8e6759d2d0fd9aa0b90",
   "schema_version": "iris-responsibility-refactor-environment-locator-v1"
 }

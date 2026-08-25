@@ -1,0 +1,40 @@
+{
+  "environment_contract": {
+    "environment_content_manifest_sha256": "e9b0749a008b3f7e7e799027ef83e88423d7621bbcb6bc5a5bc6f351b01253e9",
+    "external_environment_root": "C:/Users/MW/iccv/env-iris-refactor-terminal-v10",
+    "immutable_environment_receipt_path": "C:/Users/MW/iccv/receipts/env-iris-refactor-terminal-v10/environment_receipt.json",
+    "immutable_environment_receipt_sha256": "2fb3c3acfa36cb5245f8d09e52448a2d997d28d279abaf69a9255a2da49ba4a3",
+    "interpreter_sha256": "97c3228a59dcc05a771ab4eeec8126ce3f36ebb53616b479adc9f2c8050a9e84",
+    "package_set_sha256": "01d73a4e596d93d0f620ce7000a5bbebc83d6f6123529ffa7769ec9c50cfcfa9"
+  },
+  "implementation": {
+    "commit": "ba0fc789153d4c6d4a09c65c171081a1e29fa7b2",
+    "tree": "f149689b9e9ba1ac65b850b8cff1721cd23541da"
+  },
+  "project_binding": {
+    "installed_distribution": {
+      "dist_info": "iris_tooling-0.1.0.dist-info",
+      "installed_file_count": 78,
+      "installed_file_manifest_sha256": "0c84b91dc416b8982447cc23bb76ca8580e03021b1eb02b0d75c8135bacc2166",
+      "name": "iris-tooling",
+      "normalized_name": "iris_tooling",
+      "record_path": "Lib/site-packages/iris_tooling-0.1.0.dist-info/RECORD",
+      "record_sha256": "7a058bf33b602958a8d4c206762b20559ce8f60c52c86b97e7a29e76533c8261",
+      "version": "0.1.0"
+    },
+    "lock_blob": "db9754f8d88f690cbd6e7ca11cf539cd82b7e81a",
+    "lock_path": "Iris/tooling/uv.lock",
+    "lock_sha256": "25aef8f0e4a8e66f6c18e5de0b870e1549df7611abda1783114b9be996bde7fe",
+    "project_blob": "de204186eb6b7a0e23f02cc991e14e56b000f249",
+    "project_path": "Iris/tooling/pyproject.toml",
+    "project_sha256": "8022cb746236c1c86604d23a87ad2a16d88c81cc105bd5e9571e024e268743f6",
+    "source_commit": "ba0fc789153d4c6d4a09c65c171081a1e29fa7b2",
+    "source_package_git_tree": "d6f14ca922f0a269edcda4eff1cb3e2d2af97be3",
+    "source_package_path": "Iris/tooling/src/iris_tooling",
+    "source_tree": "f149689b9e9ba1ac65b850b8cff1721cd23541da",
+    "wheel_path": "C:/Users/MW/irf/wheel-terminal-v10/iris_tooling-0.1.0-py3-none-any.whl",
+    "wheel_sha256": "c6170db7665cda7cac7f2f0c2da3efd4db8b5b8c2121462b2d64544640c8270b"
+  },
+  "schema_version": "iris-responsibility-refactor-environment-authority-v1",
+  "wave_id": "terminal_v10"
+}

@@ -24,7 +24,7 @@
   "current_identity_basis": {
     "commit": "db6c0e5b55ff02862aabbd91515620d307c7a548",
     "tree": "671961af6f5f37abc9de1c25192ae37a72d79a81",
-    "aggregate_sha256": "b692fdb4c5c53afe51a304d92224b300f70cd74a330c2f3449a96897559b8fea",
+    "aggregate_sha256": "0a8d1dbd7fbcf235816107261e96c3d02b81d3a0d2f90b41ff8120a13bc9af12",
     "ordered_files": [
       {"path": "Iris/tooling/src/iris_tooling/build/compose_layer3_text.py", "sha256_lf": "ddd46c90f3278e0e767014c0bd6fa5139df834930f1f29ae4cebb8da600bc7f7"},
       {"path": "Iris/tooling/src/iris_tooling/build/compose_layer3_body_profile.py", "sha256_lf": "88aae7c9175a342e294c9667c71e53c0f03d41626507d02cc9c510e92a8362ba"},

@@ -1,0 +1,58 @@
+{
+  "schema_version": "iris-clean-checkout-g5-compiler-identity-successor-v2",
+  "status": "PASS",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "record_mode": "append_only_compiler_path_migration_transition",
+  "claim_boundary": "The immutable attempt-0024 handoff and successor 0001 remain historical evidence for their exact paths and bytes. This amendment binds each historical compiler constituent by ordered position to the current installed-package path without rewriting either predecessor record.",
+  "algorithm_id": "naturalization_compiler_identity_sha256_lf_normalized_ordered_paths_v2",
+  "historical_gate_integration_basis": {
+    "commit": "c68831070a1d631c378532c20272d75efbc45116",
+    "tree": "01e204850ffe93c38baf4acf8094c4cbc0114810",
+    "aggregate_sha256": "2dcff095b1cc34c8fb6d3ad735ac8f9d0ca2affe259f6bb97870b19e7235cc7f",
+    "ordered_files": [
+      {"path": "Iris/build/description/v2/tools/build/compose_layer3_text.py", "sha256_lf": "8d8c3933cd1de5b170929af1462a2a4151676861a7876434d6769508955395df"},
+      {"path": "Iris/build/description/v2/tools/build/compose_layer3_body_profile.py", "sha256_lf": "88aae7c9175a342e294c9667c71e53c0f03d41626507d02cc9c510e92a8362ba"},
+      {"path": "Iris/build/description/v2/tools/build/compose_layer3_item.py", "sha256_lf": "e04119c5a75aa103d622c26a4eb51043d858b1a3501297b0f10e40d66a510659"},
+      {"path": "Iris/build/description/v2/tools/build/compose_layer3_render.py", "sha256_lf": "0b588bcafa6b31e3920ef2e7672bef10462b2a6f2729d7169b53c77d57a19b34"},
+      {"path": "Iris/build/description/v2/tools/build/compose_layer3_blocks.py", "sha256_lf": "82b041edb69ec2d959302ed54600fabcefc37e1b081f8023566ac0dab2cbe87c"},
+      {"path": "Iris/build/description/v2/tools/build/compose_layer3_identity.py", "sha256_lf": "9778f52814fb9690839556ce283190279b5187b788281d4c984316d5f82b8dbb"},
+      {"path": "Iris/build/description/v2/tools/build/compose_layer3_io.py", "sha256_lf": "12b98ea1de9e7eff87d1ba06cdf62e30f47e193b55070221dd5c0ace46494ed5"},
+      {"path": "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py", "sha256_lf": "15ea5a22840250514f97427b516f07a5abd8a7c60fca1403d87cc4f2e7736e62"},
+      {"path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py", "sha256_lf": "76797230b2b914f6eeb9ffea5b287d4fb779655b46f30fd36a1cb7a54e22f92d"}
+    ]
+  },
+  "current_identity_basis": {
+    "commit": "db6c0e5b55ff02862aabbd91515620d307c7a548",
+    "tree": "671961af6f5f37abc9de1c25192ae37a72d79a81",
+    "aggregate_sha256": "b692fdb4c5c53afe51a304d92224b300f70cd74a330c2f3449a96897559b8fea",
+    "ordered_files": [
+      {"path": "Iris/tooling/src/iris_tooling/build/compose_layer3_text.py", "sha256_lf": "ddd46c90f3278e0e767014c0bd6fa5139df834930f1f29ae4cebb8da600bc7f7"},
+      {"path": "Iris/tooling/src/iris_tooling/build/compose_layer3_body_profile.py", "sha256_lf": "88aae7c9175a342e294c9667c71e53c0f03d41626507d02cc9c510e92a8362ba"},
+      {"path": "Iris/tooling/src/iris_tooling/build/compose_layer3_item.py", "sha256_lf": "d88b8d7a464b11b7499a4cc51210cb2a5bb967a233a013d41497ebf501706650"},
+      {"path": "Iris/tooling/src/iris_tooling/build/compose_layer3_render.py", "sha256_lf": "0b588bcafa6b31e3920ef2e7672bef10462b2a6f2729d7169b53c77d57a19b34"},
+      {"path": "Iris/tooling/src/iris_tooling/build/compose_layer3_blocks.py", "sha256_lf": "82b041edb69ec2d959302ed54600fabcefc37e1b081f8023566ac0dab2cbe87c"},
+      {"path": "Iris/tooling/src/iris_tooling/build/compose_layer3_identity.py", "sha256_lf": "21c222e92c5041ca3d017846d2d6a627597762fba895b87c9fefea1af95a148c"},
+      {"path": "Iris/tooling/src/iris_tooling/build/compose_layer3_io.py", "sha256_lf": "1b8e62550e0d40e66391817820a0f32a22fab99b6678a723967cec14ba30fbaf"},
+      {"path": "Iris/tooling/src/iris_tooling/build/run_dvf_3_3_korean_prose_naturalization.py", "sha256_lf": "2713c573bf9df2cf14109d8506cc9747e2a4978432a345f04bf0fa363d83e02e"},
+      {"path": "Iris/tooling/src/iris_tooling/build/validate_dvf_3_3_korean_prose_naturalization.py", "sha256_lf": "2acaae6e3e0d0ce4d75f28e7078226e9348703603088a576179fd474f1aa1396"}
+    ]
+  },
+  "changed_rows": [
+    {"historical_path": "Iris/build/description/v2/tools/build/compose_layer3_text.py", "path": "Iris/tooling/src/iris_tooling/build/compose_layer3_text.py", "historical_sha256_lf": "8d8c3933cd1de5b170929af1462a2a4151676861a7876434d6769508955395df", "current_sha256_lf": "ddd46c90f3278e0e767014c0bd6fa5139df834930f1f29ae4cebb8da600bc7f7", "current_last_writer_commit": "996724ba0e275fc2285132433b3ed59f5e45713e", "current_last_writer_tree": "ea6a476be798dd88d8e5ee27b548ad880281fdfe"},
+    {"historical_path": "Iris/build/description/v2/tools/build/compose_layer3_body_profile.py", "path": "Iris/tooling/src/iris_tooling/build/compose_layer3_body_profile.py", "historical_sha256_lf": "88aae7c9175a342e294c9667c71e53c0f03d41626507d02cc9c510e92a8362ba", "current_sha256_lf": "88aae7c9175a342e294c9667c71e53c0f03d41626507d02cc9c510e92a8362ba", "current_last_writer_commit": "996724ba0e275fc2285132433b3ed59f5e45713e", "current_last_writer_tree": "ea6a476be798dd88d8e5ee27b548ad880281fdfe"},
+    {"historical_path": "Iris/build/description/v2/tools/build/compose_layer3_item.py", "path": "Iris/tooling/src/iris_tooling/build/compose_layer3_item.py", "historical_sha256_lf": "e04119c5a75aa103d622c26a4eb51043d858b1a3501297b0f10e40d66a510659", "current_sha256_lf": "d88b8d7a464b11b7499a4cc51210cb2a5bb967a233a013d41497ebf501706650", "current_last_writer_commit": "996724ba0e275fc2285132433b3ed59f5e45713e", "current_last_writer_tree": "ea6a476be798dd88d8e5ee27b548ad880281fdfe"},
+    {"historical_path": "Iris/build/description/v2/tools/build/compose_layer3_render.py", "path": "Iris/tooling/src/iris_tooling/build/compose_layer3_render.py", "historical_sha256_lf": "0b588bcafa6b31e3920ef2e7672bef10462b2a6f2729d7169b53c77d57a19b34", "current_sha256_lf": "0b588bcafa6b31e3920ef2e7672bef10462b2a6f2729d7169b53c77d57a19b34", "current_last_writer_commit": "996724ba0e275fc2285132433b3ed59f5e45713e", "current_last_writer_tree": "ea6a476be798dd88d8e5ee27b548ad880281fdfe"},
+    {"historical_path": "Iris/build/description/v2/tools/build/compose_layer3_blocks.py", "path": "Iris/tooling/src/iris_tooling/build/compose_layer3_blocks.py", "historical_sha256_lf": "82b041edb69ec2d959302ed54600fabcefc37e1b081f8023566ac0dab2cbe87c", "current_sha256_lf": "82b041edb69ec2d959302ed54600fabcefc37e1b081f8023566ac0dab2cbe87c", "current_last_writer_commit": "996724ba0e275fc2285132433b3ed59f5e45713e", "current_last_writer_tree": "ea6a476be798dd88d8e5ee27b548ad880281fdfe"},
+    {"historical_path": "Iris/build/description/v2/tools/build/compose_layer3_identity.py", "path": "Iris/tooling/src/iris_tooling/build/compose_layer3_identity.py", "historical_sha256_lf": "9778f52814fb9690839556ce283190279b5187b788281d4c984316d5f82b8dbb", "current_sha256_lf": "21c222e92c5041ca3d017846d2d6a627597762fba895b87c9fefea1af95a148c", "current_last_writer_commit": "996724ba0e275fc2285132433b3ed59f5e45713e", "current_last_writer_tree": "ea6a476be798dd88d8e5ee27b548ad880281fdfe"},
+    {"historical_path": "Iris/build/description/v2/tools/build/compose_layer3_io.py", "path": "Iris/tooling/src/iris_tooling/build/compose_layer3_io.py", "historical_sha256_lf": "12b98ea1de9e7eff87d1ba06cdf62e30f47e193b55070221dd5c0ace46494ed5", "current_sha256_lf": "1b8e62550e0d40e66391817820a0f32a22fab99b6678a723967cec14ba30fbaf", "current_last_writer_commit": "996724ba0e275fc2285132433b3ed59f5e45713e", "current_last_writer_tree": "ea6a476be798dd88d8e5ee27b548ad880281fdfe"},
+    {"historical_path": "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py", "path": "Iris/tooling/src/iris_tooling/build/run_dvf_3_3_korean_prose_naturalization.py", "historical_sha256_lf": "15ea5a22840250514f97427b516f07a5abd8a7c60fca1403d87cc4f2e7736e62", "current_sha256_lf": "2713c573bf9df2cf14109d8506cc9747e2a4978432a345f04bf0fa363d83e02e", "current_last_writer_commit": "3a02185ac08e8886383d4c6661e21c27689a6027", "current_last_writer_tree": "ffbda54d5a04eeb0ef355eccac646d06a1ec8ef2"},
+    {"historical_path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py", "path": "Iris/tooling/src/iris_tooling/build/validate_dvf_3_3_korean_prose_naturalization.py", "historical_sha256_lf": "76797230b2b914f6eeb9ffea5b287d4fb779655b46f30fd36a1cb7a54e22f92d", "current_sha256_lf": "2acaae6e3e0d0ce4d75f28e7078226e9348703603088a576179fd474f1aa1396", "current_last_writer_commit": "996724ba0e275fc2285132433b3ed59f5e45713e", "current_last_writer_tree": "ea6a476be798dd88d8e5ee27b548ad880281fdfe"}
+  ],
+  "changed_constituent_count": 9,
+  "unchanged_constituent_count": 0,
+  "non_claims": [
+    "The immutable attempt-0024 handoff and successor 0001 are not rewritten or reinterpreted as evidence for the installed-package compiler bytes.",
+    "This transition receipt does not claim that attempt-0024 was rerun with the installed-package compiler identity.",
+    "The current identity is validation input provenance only and makes no public-text quality or release claim."
+  ]
+}

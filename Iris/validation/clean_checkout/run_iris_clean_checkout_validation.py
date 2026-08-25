@@ -809,10 +809,14 @@ def _validate_g5_compiler_identity_transition(
         "unchanged_constituent_count",
         "non_claims",
     }
+    transition_schema = transition.get("schema_version")
     if (
         set(transition) != expected_transition_keys
-        or transition["schema_version"]
-        != "iris-clean-checkout-g5-compiler-identity-successor-v1"
+        or transition_schema
+        not in {
+            "iris-clean-checkout-g5-compiler-identity-successor-v1",
+            "iris-clean-checkout-g5-compiler-identity-successor-v2",
+        }
         or transition["status"] != "PASS"
         or transition["algorithm_id"] != compiler["algorithm_id"]
         or not isinstance(transition["non_claims"], list)
@@ -845,8 +849,24 @@ def _validate_g5_compiler_identity_transition(
             identity = git_identity(repo, basis["commit"])
             if identity != {"commit": basis["commit"], "tree": basis["tree"]}:
                 raise CleanCheckoutError(f"G5 compiler {name} identity mismatch")
+            basis_paths = [row["path"] for row in basis["ordered_files"]]
+            if (
+                len(basis_paths) != len(ordered_paths)
+                or len(basis_paths) != len(set(basis_paths))
+                or (
+                    name == "current_identity_basis"
+                    and basis_paths != ordered_paths
+                )
+                or (
+                    transition_schema.endswith("-v1")
+                    and basis_paths != ordered_paths
+                )
+            ):
+                raise CleanCheckoutError(
+                    f"invalid G5 compiler {name} ordered paths"
+                )
             actual_rows = _normalized_compiler_rows(
-                repo, basis["commit"], ordered_paths
+                repo, basis["commit"], basis_paths
             )
         if basis["ordered_files"] != actual_rows:
             raise CleanCheckoutError(f"G5 compiler {name} ordered files mismatch")
@@ -909,13 +929,15 @@ def _validate_g5_compiler_identity_transition(
     ):
         raise CleanCheckoutError("G5 compiler contract aggregate split mismatch")
 
-    historical_by_path = {row["path"]: row for row in historical_rows}
-    current_by_path = {row["path"]: row for row in current_basis_rows}
     expected_changed_rows: list[dict[str, str]] = []
-    for path in ordered_paths:
-        historical_sha = historical_by_path[path]["sha256_lf"]
-        current_sha = current_by_path[path]["sha256_lf"]
-        if historical_sha == current_sha:
+    for historical_row, current_row in zip(
+        historical_rows, current_basis_rows, strict=True
+    ):
+        historical_path = historical_row["path"]
+        current_path = current_row["path"]
+        historical_sha = historical_row["sha256_lf"]
+        current_sha = current_row["sha256_lf"]
+        if historical_path == current_path and historical_sha == current_sha:
             continue
         provenance_commit = (
             subject_commit if current_basis_was_pruned else current_basis["commit"]
@@ -927,30 +949,37 @@ def _validate_g5_compiler_identity_transition(
             "--format=%H",
             provenance_commit,
             "--",
-            path,
+            current_path,
         ).strip()
         last_writer_identity = git_identity(repo, last_writer_commit)
         if (
             not _git_is_ancestor(
                 repo, last_writer_commit, provenance_commit
             )
-            or _normalized_compiler_rows(repo, last_writer_commit, [path])[0][
+            or _normalized_compiler_rows(
+                repo, last_writer_commit, [current_path]
+            )[0][
                 "sha256_lf"
             ]
             != current_sha
         ):
             raise CleanCheckoutError(
-                f"G5 compiler last-writer provenance mismatch: {path}"
+                "G5 compiler last-writer provenance mismatch: "
+                f"{current_path}"
             )
-        expected_changed_rows.append(
-            {
-                "path": path,
-                "historical_sha256_lf": historical_sha,
-                "current_sha256_lf": current_sha,
-                "current_last_writer_commit": last_writer_identity["commit"],
-                "current_last_writer_tree": last_writer_identity["tree"],
+        changed_row = {
+            "path": current_path,
+            "historical_sha256_lf": historical_sha,
+            "current_sha256_lf": current_sha,
+            "current_last_writer_commit": last_writer_identity["commit"],
+            "current_last_writer_tree": last_writer_identity["tree"],
+        }
+        if transition_schema.endswith("-v2"):
+            changed_row = {
+                "historical_path": historical_path,
+                **changed_row,
             }
-        )
+        expected_changed_rows.append(changed_row)
     if transition["changed_rows"] != expected_changed_rows:
         raise CleanCheckoutError("G5 compiler derived changed-row mismatch")
     if (

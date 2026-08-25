@@ -1677,13 +1677,11 @@ def test_g5_compiler_identity_successor_separates_historical_and_current() -> No
             "2dcff095b1cc34c8fb6d3ad735ac8f9d0ca2affe259f6bb97870b19e7235cc7f"
         ),
         "current_aggregate_sha256": (
-            "71d81ad1cc8ba5bae2f927436ae6de3b952537dcbe7d3650e5903e71fefc7fea"
+            "b692fdb4c5c53afe51a304d92224b300f70cd74a330c2f3449a96897559b8fea"
         ),
-        "changed_constituent_count": 4,
-        "unchanged_constituent_count": 5,
-        "current_basis_validation_mode": (
-            "owner_pruned_revalidated_from_subject"
-        ),
+        "changed_constituent_count": 9,
+        "unchanged_constituent_count": 0,
+        "current_basis_validation_mode": "exact_git_object",
     }
 
     tampered_compiler = copy.deepcopy(compiler)

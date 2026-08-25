@@ -8,16 +8,13 @@ from pathlib import Path
 
 V2_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = V2_ROOT.parents[3]
-CORRECTION_CONTRACT = (
+PREDECESSOR_TRANSITION = (
     REPO_ROOT
     / "Iris"
-    / "_docs"
-    / "round3"
-    / "iris_publish_boundary_public_text_quality_acceptance_policy_closure"
-    / "foundation"
-    / "implementation_corrections"
-    / "compiler_identity_v2"
-    / "compiler_identity_v2_correction_contract.json"
+    / "validation"
+    / "clean_checkout"
+    / "evidence"
+    / "g5_compiler_identity_successor_0003.json"
 )
 from iris_tooling.build import naturalization_compiler_identity as identity
 from iris_tooling.build import public_text_quality_acceptance as consumer
@@ -63,8 +60,16 @@ class NaturalizationCompilerIdentityTest(unittest.TestCase):
             len(producer_evidence["ordered_files"]),
             len(identity.COMPILER_REPO_RELATIVE_POSIX_PATH_ORDER),
         )
-        correction = json.loads(CORRECTION_CONTRACT.read_text(encoding="utf-8"))
-        predecessor_evidence = correction["canonical_identity_v2"]
+        transition = json.loads(PREDECESSOR_TRANSITION.read_text(encoding="utf-8"))
+        predecessor_evidence = {
+            "algorithm_id": transition["algorithm_id"],
+            "path_order": [
+                row["path"]
+                for row in transition["historical_gate_integration_basis"][
+                    "ordered_files"
+                ]
+            ],
+        }
         self.assertNotEqual(predecessor_evidence, producer_evidence)
         self.assertEqual(
             predecessor_evidence["algorithm_id"],

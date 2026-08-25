@@ -187,7 +187,7 @@ function Get-EnvironmentState([string]$Name) {
 
 function Restore-EnvironmentState([string]$Name, [object]$State) {
     if ($State.state -eq 'absent') {
-        [Environment]::SetEnvironmentVariable($Name, $null, 'Process')
+        Remove-Item -LiteralPath ("Env:" + $Name) -ErrorAction SilentlyContinue
     }
     else {
         [Environment]::SetEnvironmentVariable($Name, [string]$State.value, 'Process')
@@ -246,19 +246,29 @@ try {
     $resolvedWorkRoot = Assert-ExternalPath $resolvedRepository $WorkRoot 'work root'
     $resolvedResultRoot = Assert-ExternalPath $resolvedRepository $ResultRoot 'result root'
     $receiptParent = [System.IO.Path]::GetDirectoryName($resolvedOrchestrationReceipt)
+    $streamParent = $receiptParent
+    if ($receiptParent.TrimEnd('\', '/').Equals(
+        $resolvedResultRoot.TrimEnd('\', '/'),
+        [System.StringComparison]::OrdinalIgnoreCase
+    )) {
+        $resultParent = [System.IO.Path]::GetDirectoryName($resolvedResultRoot)
+        $resultLeaf = [System.IO.Path]::GetFileName($resolvedResultRoot)
+        $streamParent = Join-Path $resultParent ($resultLeaf + '.launcher')
+    }
     if ([string]::IsNullOrWhiteSpace($resolvedStdout)) {
-        $resolvedStdout = Join-Path $receiptParent 'full-gate.stdout.bin'
+        $resolvedStdout = Join-Path $streamParent 'full-gate.stdout.bin'
     }
     else {
         $resolvedStdout = Assert-ExternalPath $resolvedRepository $resolvedStdout 'stdout path'
     }
     if ([string]::IsNullOrWhiteSpace($resolvedStderr)) {
-        $resolvedStderr = Join-Path $receiptParent 'full-gate.stderr.bin'
+        $resolvedStderr = Join-Path $streamParent 'full-gate.stderr.bin'
     }
     else {
         $resolvedStderr = Assert-ExternalPath $resolvedRepository $resolvedStderr 'stderr path'
     }
     [System.IO.Directory]::CreateDirectory($receiptParent) | Out-Null
+    [System.IO.Directory]::CreateDirectory($streamParent) | Out-Null
     if ([System.IO.File]::Exists($resolvedOrchestrationReceipt)) { throw 'orchestration receipt already exists' }
     if ([System.IO.File]::Exists($resolvedStdout)) { throw 'stdout path already exists' }
     if ([System.IO.File]::Exists($resolvedStderr)) { throw 'stderr path already exists' }
@@ -412,7 +422,7 @@ try {
     $allNames = @($requiredNames + $clearedNames | Sort-Object -Unique)
     foreach ($name in $allNames) { $environmentBefore[$name] = Get-EnvironmentState $name }
     foreach ($name in $clearedNames) {
-        [Environment]::SetEnvironmentVariable($name, $null, 'Process')
+        Remove-Item -LiteralPath ("Env:" + $name) -ErrorAction SilentlyContinue
         $environmentApplied[$name] = [ordered]@{ action = 'clear'; value = $null }
     }
     $requiredApplyCount = 0

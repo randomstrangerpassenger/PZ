@@ -300,6 +300,8 @@ def _build_fake_launcher_repository(
 
             repo = Path(args.repo).resolve()
             result_root = Path(args.result_root).resolve()
+            if result_root.exists() and any(result_root.iterdir()):
+                raise SystemExit("fixture result root is not empty")
             result_root.mkdir(parents=True, exist_ok=True)
             subject = {
                 "commit": git(repo, "rev-parse", args.commit + "^{commit}"),
@@ -562,6 +564,7 @@ def _invoke_fake_launcher(
     attempt_name: str = "external-attempt",
     failure_injection: str = "none",
     receipt_as_directory: bool = False,
+    receipt_inside_result: bool = False,
 ) -> tuple[subprocess.CompletedProcess[bytes], Path, Path, Path]:
     powershell = shutil.which("powershell.exe") or shutil.which("powershell")
     if powershell is None:
@@ -569,7 +572,11 @@ def _invoke_fake_launcher(
     attempt = (tmp_path / attempt_name).resolve()
     work_root = attempt / "work"
     result_root = attempt / "result"
-    receipt = attempt / "orchestration.json"
+    receipt = (
+        result_root / "orchestration.json"
+        if receipt_inside_result
+        else attempt / "orchestration.json"
+    )
     if receipt_as_directory:
         receipt.mkdir(parents=True)
     launcher = (
@@ -622,8 +629,11 @@ def _invoke_fake_launcher(
         env=environment,
         timeout=30,
     )
-    return completed, receipt, attempt / "full-gate.stdout.bin", (
-        attempt / "full-gate.stderr.bin"
+    stream_root = attempt / (
+        "result.launcher" if receipt_inside_result else ""
+    )
+    return completed, receipt, stream_root / "full-gate.stdout.bin", (
+        stream_root / "full-gate.stderr.bin"
     )
 
 
@@ -730,6 +740,30 @@ def test_receipt_bound_launcher_success_binds_inner_identity_and_raw_streams(
         "value": "outer-value",
     }
     assert environment["before"] == environment["after_restore"]
+    assert stdout_path.read_bytes() == b"fake stdout: \x00\xff\n"
+    assert stderr_path.read_bytes() == b"fake stderr: \xfe\x00\r\n"
+
+
+@pytest.mark.skipif(os.name != "nt", reason="PowerShell launcher is Windows-only")
+def test_receipt_bound_launcher_keeps_nested_result_root_empty_for_gate(
+    tmp_path: Path,
+) -> None:
+    repo, commit, environment_receipt = _build_fake_launcher_repository(
+        tmp_path
+    )
+    completed, receipt_path, stdout_path, stderr_path = _invoke_fake_launcher(
+        tmp_path,
+        repo,
+        commit,
+        environment_receipt,
+        receipt_inside_result=True,
+    )
+    assert completed.returncode == 0, completed.stderr.decode(
+        "utf-8", errors="replace"
+    )
+    receipt = json.loads(receipt_path.read_bytes())
+    assert receipt["launch_status"] == "succeeded"
+    assert receipt["environment"]["restored"] is True
     assert stdout_path.read_bytes() == b"fake stdout: \x00\xff\n"
     assert stderr_path.read_bytes() == b"fake stderr: \xfe\x00\r\n"
 

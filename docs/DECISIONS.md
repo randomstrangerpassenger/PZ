@@ -2891,3 +2891,23 @@
 * Physical delta decision: package의 Layer 3 generation/fixed payload는 `10,650,501 -> 1,954,408` bytes, 즉 `8,696,093` bytes(`81.65%`) 줄었다. 이 수치는 inactive generation 3개와 legacy fixed chunk 11개가 package projection에서 제외된 범위이며 source predecessor 삭제나 전체 ZIP 감소율이 아니다. Tracked product Lua는 `78,464` bytes(`0.61%`)와 net `1,440` lines 감소했다.
 * Metric boundary: W0 baseline `22e94077`에서 completed closeout carrier `09443685`까지 repository 전체 tracked blob은 installable package/authority/docs 추가로 `790,473,779 -> 791,495,072` bytes, 즉 `1,021,293` bytes(`0.13%`) 증가했다. 따라서 repository byte lightweighting이나 무차별 full-scan context 절감을 성과로 채택하지 않는다. 실제 runtime timing/CPU/memory/FPS와 GPT/Codex prompt/cache/input/output token은 미계측이며 package byte delta를 performance/token 개선률로 환산하지 않는다. 이 read-only 집계는 canonical validator나 새 validation authority가 아니다.
 * Non-decision: PZ/외부 모드 전체 compatibility, release/freeze/RTC/Publish/deployment, 장시간 multiplayer와 실제 performance/token 개선은 이 adoption의 claim이 아니다.
+
+## Iris responsibility/repository refactor — bounded correction adoption (2026-08-25)
+
+* 상태: **complete**. Correction baseline은 `0311718b2334fc3b45908b2f0d2117c7dc57569a`, machine-validation subject는 `cbfb4f2e0067413f5334b1ca40c3cd89a090606a` / tree `afcf40cc7b4003571fc137c89d7b99d2042e9d9b`다.
+* 결정:
+
+  * W4에서 분리했지만 여전히 5,107줄과 4,095줄이던 두 public-text 파일은 compatibility façade로만 남긴다. Acceptance 구현은 context, infrastructure, contracts, rules, reporting, emission, foundation application, attempt context, policy, assurance, disposition, validation과 두 CLI를 포함한 14개 owner module이 소유한다. Naturalization 구현은 context, infrastructure, preparation, projection, transformation, review, handoff, application과 CLI owner가 소유한다.
+  * `public_text_quality_acceptance.py`의 남은 책임은 기존 import surface 재수출뿐이며, `run_dvf_3_3_korean_prose_naturalization.py`는 기존 import surface와 script entrypoint를 domain application/CLI로 전달하는 역할만 유지한다. 기존 consumer 호환 때문에 이 façade를 삭제하지 않는다.
+  * Package source path는 설치 wheel의 `__file__`에서 역산하지 않고 explicit repository context가 가리키는 `Iris/tooling/src/iris_tooling`에서 해석한다. Phase 0 provenance의 roadmap, plan review, cycle-2 review는 `--roadmap-input`, `--plan-review-input`, `--cycle2-review-input`으로만 받으며 사용자 attachment 경로를 default authority로 두지 않는다.
+  * `domains/rightclick/capability.py`는 current v2.4 CLI consumer가 없고 과거 test만 소비하던 non-current 구현이므로 current wheel에서 제거한다. Current command는 계속 `pipeline_v24.py`만 사용하며 historical implementation/evidence는 기존 위치에서 보존한다.
+  * Current rendered input에서 허용되는 `body_plan: null`은 빈 plan과 동일하게 census한다. 이는 legal input 처리 교정이며 product public-text schema나 runtime output 변경이 아니다.
+* Validation adoption:
+
+  * terminal-v9 environment receipt에 결속된 focused batch는 `24 passed`, Lua syntax는 `174 files` PASS, 설치 wheel의 repository 밖 `phase5-adversarial` 실행은 fixture `8/8`과 required reason `8/8` PASS다.
+  * Exact clean Run A/B는 각각 pytest identity `205`, subtest `109`, standalone `4`로 exit `0`이며 canonical result SHA-256은 양쪽 모두 `ba7049aec35a76f175136996c6fb8cf1dc10140bb801dcea93d26db7f5b38819`다. Comparator는 `succeeded`, external mutation은 `0`, source/clone post-status는 clean이다.
+* Non-decision:
+
+  * 이 correction은 validation consolidation, 별도 repository lightweighting, runtime/UI/package/public-text content 변경, compatibility patch 복원, release/freeze/RTC/Publish/deployment를 열지 않는다.
+  * CheatMenuRebirth 동시 활성화 조합은 계속 `unvalidated_but_in_scope`다. Iris-only owner probe의 기존 PASS나 retired global patch의 non-restoration 결정을 universal external-mod compatibility로 확대하지 않는다.
+  * 두 façade의 line 감소와 package source의 net line 감소를 runtime performance나 실제 GPT/Codex token 절감률로 환산하지 않는다. 이번 일회성 집계는 validator나 metric authority가 아니다.

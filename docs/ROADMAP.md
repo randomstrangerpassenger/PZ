@@ -1138,3 +1138,24 @@ Measured scope delta for exact range W0 baseline `22e94077` → completed closeo
 - Tracked product Lua는 `78,464` bytes(`0.61%`)와 net `1,440` lines 감소했다.
 - Repository 전체 tracked blob은 새 installable tooling/validation/docs 때문에 `1,021,293` bytes(`0.13%`) 증가했다. 이 작업은 repository physical lightweighting 완료를 주장하지 않는다.
 - Runtime 성능과 실제 GPT/Codex token usage는 미측정이다. Owner/entrypoint 단일화와 explicit repository context는 유지보수·탐색 경계를 개선하지만 확정 performance/token 개선률은 없다. 이 일회성 read-only 집계는 canonical metric이나 validation authority가 아니다.
+
+## Iris responsibility/repository bounded correction (2026-08-25)
+
+Current state: **complete**. 기존 W0–W10 closeout을 다시 열지 않고 public-text의 남은
+물리 monolith와 non-current right-click capability만 제한적으로 교정했다.
+
+- Baseline: `0311718b2334fc3b45908b2f0d2117c7dc57569a`.
+- Implementation/authority terminal: `cbfb4f2e0067413f5334b1ca40c3cd89a090606a` / tree `afcf40cc7b4003571fc137c89d7b99d2042e9d9b`.
+- Acceptance façade: `5,107 -> 3` lines. Naturalization runner façade: `4,095 -> 8` lines.
+- Acceptance는 두 CLI를 포함한 14개 domain owner module로, naturalization은 8개 domain owner와 CLI로 분리됐다. 기존 import/script consumers를 위한 façade만 유지한다.
+- Package source에서 machine-local default `4`개(attachment `3`, PZ media `1`)를 제거했다. Provenance는 explicit CLI input, source identity는 explicit repository context로 받는다.
+- Current consumer가 없던 `rightclick/capability.py` `633`줄을 제거했다. Current right-click CLI는 `pipeline_v24.py`만 사용한다.
+- `Iris/tooling/src` 전체는 correction baseline 대비 `9,715` additions / `10,069` deletions, net `354` lines 감소했다. 전체 tracked tree는 필수 owner modules, focused contracts, append-only G5/environment authority 때문에 문서 전 기준 `11,048` additions / `10,428` deletions, net `620` lines 증가했다. 따라서 이 wave를 repository physical lightweighting이나 token 절감으로 선언하지 않는다.
+- Focused `24 passed`, installed arbitrary-CWD public-text adversarial fixture `8/8`, Lua syntax `174 files` PASS다. Exact clean Run A/B는 각각 pytest identity `205`, subtest `109`, standalone `4`로 PASS했고 comparator canonical hash가 일치했다.
+- Product/runtime/public-output intentional change는 `0`이다. Legal `body_plan: null` census 처리만 fail-safe하게 교정했다.
+- CheatMenuRebirth compatibility는 계속 nonclaim이며 global context-menu patch를 복원하지 않았다.
+
+남은 correction implementation/validation gate는 없다. Documentation carrier는 machine
+terminal subject를 재정의하지 않으며, 이후 별도 authority 없이는 validation
+consolidation, performance work, repository-wide lightweighting이나 compatibility patch
+복원을 이 roadmap 항목으로 열지 않는다.

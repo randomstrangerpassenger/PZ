@@ -1069,3 +1069,47 @@ completed closeout carrier `09443685`까지이며 다음처럼 분리한다.
   않았다. 따라서 package payload 감소나 owner 단일화를 runtime 또는 token 개선률로
   환산하지 않는다. 이 수치는 architecture 경계 설명용 read-only observation이며 새
   validator나 validation authority가 아니다.
+
+### Public-text correction owner graph
+
+완료된 responsibility refactor의 bounded correction은 W4의 논리적 분리를 물리적
+source ownership과 일치시켰다. Current 흐름은 다음과 같다.
+
+`iris-tooling --repository-root <repo> public-text -> public_text.cli -> acceptance/naturalization domain CLI -> application/validation owner -> domain contracts/rules/infrastructure`
+
+Acceptance는 다음 owner 집합으로 나뉜다.
+
+- `acceptance_context`: repository-bound paths와 immutable constants
+- `acceptance_infrastructure`: Git/filesystem/strict JSON/write-once mechanics
+- `acceptance_contracts`, `acceptance_rules`: contract loading과 판정 규칙
+- `acceptance_reporting`, `acceptance_emission`: report projection과 artifact emission
+- `acceptance_foundation_application`, `acceptance_attempt_context`: foundation 및 attempt lifecycle
+- `acceptance_policy`, `acceptance_assurance`, `acceptance_disposition`: policy, adversarial assurance와 phase dispatch
+- `acceptance_validation`: validation API
+- `acceptance_cli`, `acceptance_validation_cli`: command parsing과 exit semantics
+
+Naturalization은 `naturalization_context`, `naturalization_infrastructure`,
+`naturalization_preparation`, `naturalization_projection`,
+`naturalization_transformation`, `naturalization_review`, `naturalization_handoff`,
+`naturalization_application`과 domain CLI가 단계별 책임을 소유한다. Phase 0의 외부
+provenance 세 입력은 explicit typed input이며 machine-local default가 아니다.
+
+기존 `build/public_text_quality_acceptance.py`와
+`build/run_dvf_3_3_korean_prose_naturalization.py`는 각각 3줄/8줄 compatibility
+façade다. 전자는 validation API 재수출, 후자는 application API 재수출과 script
+entrypoint 전달만 소유한다. Repository source identity가 필요한 owner는 installed
+package 위치가 아니라 explicit repository context의 source tree를 사용한다.
+
+Right-click current graph는
+`rightclick.cli -> pipeline_v24`로 고정된다. 소비자가 없던 closed-negative
+`rightclick.capability`는 current package에서 제거됐고, historical pipeline/evidence는
+재해석하거나 삭제하지 않았다. 이는 이전 capability hint/negative-evidence 경계와
+일치한다.
+
+Correction terminal은 `cbfb4f2e0067413f5334b1ca40c3cd89a090606a` / tree
+`afcf40cc7b4003571fc137c89d7b99d2042e9d9b`다. terminal-v9 clean Run A/B의
+canonical result SHA-256은 모두
+`ba7049aec35a76f175136996c6fb8cf1dc10140bb801dcea93d26db7f5b38819`이며
+comparator가 `succeeded`했다. 이 correction은 Python offline-tool ownership만
+교정했고 product Lua, UI, package/public-text output schema와 supported runtime
+behavior를 변경하지 않는다.

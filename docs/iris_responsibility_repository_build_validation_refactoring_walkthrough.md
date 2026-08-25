@@ -7,6 +7,9 @@
 > Validated terminal tree: `54223d37e8deeaf26c8a0fcaf073ea1ab171cd64`  
 > Completed closeout carrier: `0944368546a323d2bee0498295dad9465066d9e3`  
 > Top-document synchronization: `8d0283604cb261567708f75c053a5556783c4761`
+> Bounded correction baseline: `0311718b2334fc3b45908b2f0d2117c7dc57569a`
+> Bounded correction validated terminal: `cbfb4f2e0067413f5334b1ca40c3cd89a090606a`
+> Bounded correction terminal tree: `afcf40cc7b4003571fc137c89d7b99d2042e9d9b`
 
 ## 1. Document Role
 
@@ -270,3 +273,124 @@ bounded PZ probe는 완료됐다. Formal closeout state는 stated validation cei
 
 Historical/predecessor 물리 삭제, output/media 중복 제거와 별도 lightweighting은 이
 계획의 완료 조건이 아니며 후속 authority 없이는 이 Walkthrough로 열리지 않는다.
+
+## 11. Bounded Public-Text Correction Wave
+
+### 11.1 Why the correction was opened
+
+완료 처리된 1차 refactor를 다시 설계한 것이 아니다. W4에서 책임 이름과 package
+boundary는 나뉘었지만, 실제 implementation은 여전히 다음 두 파일에 집중돼 있었다.
+
+| Pre-correction file | Lines | Correction result |
+| --- | ---: | --- |
+| `build/public_text_quality_acceptance.py` | `5,107` | `3`줄 compatibility façade |
+| `build/run_dvf_3_3_korean_prose_naturalization.py` | `4,095` | `8`줄 compatibility façade/entrypoint |
+
+또한 naturalization source에는 세 개의 사용자 attachment absolute path가 default로,
+non-current right-click capability에는 한 개의 PZ media absolute path가 남아 있었다.
+Current right-click CLI가 해당 capability를 소비하지 않는데도 module이 wheel에 포함되는
+상태였다.
+
+이 wave는 이 네 가지 잔여 문제만 대상으로 삼았다. Validation consolidation, broader
+lightweighting, runtime/UI/package 변경과 retired compatibility patch 복원은 열지 않았다.
+
+### 11.2 Implemented owner split
+
+Acceptance의 responsibilities는 다음 owner들로 이동했다.
+
+| Responsibility | Owner |
+| --- | --- |
+| Repository context/constants | `acceptance_context.py` |
+| Git, filesystem, strict JSON, write-once mechanics | `acceptance_infrastructure.py` |
+| Contract parsing/identity | `acceptance_contracts.py` |
+| Evaluation rules | `acceptance_rules.py` |
+| Report projection | `acceptance_reporting.py` |
+| Artifact emission | `acceptance_emission.py` |
+| Foundation application | `acceptance_foundation_application.py` |
+| Attempt lifecycle/VCS preflight | `acceptance_attempt_context.py` |
+| Policy phases | `acceptance_policy.py` |
+| Adversarial assurance | `acceptance_assurance.py` |
+| Phase dispatch/disposition | `acceptance_disposition.py` |
+| Validation API | `acceptance_validation.py` |
+| Run/validation command surfaces | `acceptance_cli.py`, `acceptance_validation_cli.py` |
+
+Naturalization은 context, infrastructure, preparation, projection, transformation, review,
+handoff와 application owner로 분리했다. `public_text.cli`는 `naturalization`,
+`acceptance`, `acceptance-validate` command를 각 owner로 전달한다.
+
+옛 acceptance 파일은 기존 import consumer가 validation symbols를 계속 찾을 수 있도록
+재수출만 한다. 옛 naturalization runner는 application symbols, parser와 `main`을
+재수출하고 direct script invocation을 domain CLI로 전달한다. 이 호환 책임 때문에 두
+façade를 완전히 삭제하지 않았다.
+
+### 11.3 Explicit context and right-click disposition
+
+Phase 0 provenance는 `NaturalizationProvenanceInputs`와
+`--roadmap-input`, `--plan-review-input`, `--cycle2-review-input`으로 명시한다. 세
+attachment path는 더 이상 source default가 아니다. Repository source 파일을 결속할
+때도 installed wheel의 `__file__`을 source root로 해석하지 않고
+`--repository-root`가 설정한 repository context를 사용한다.
+
+`rightclick/capability.py`는 현재 consumer graph에서 old test만 소비했고 current CLI는
+이미 `pipeline_v24.py`만 호출했다. 따라서 capability module `633`줄을 current package에서
+제거하고 tests를 실제 v2.4 contract와 package exclusion에 맞췄다. Historical
+`Iris/evidence/rightclick/pipeline.py`는 그대로 남겼으며 current authority로 승격하거나
+삭제하지 않았다.
+
+### 11.4 Terminal corrections discovered by the final gate
+
+최종 검증에서 세 가지 owner-boundary defect를 확인하고 같은 범위 안에서 수정했다.
+
+- Legal rendered input의 `body_plan: null`을 빈 plan으로 census한다.
+- Acceptance infrastructure가 사용하는 Git helper를 실제 infrastructure owner로 옮겼다.
+- Repository source identity는 installed package 경로가 아니라 explicit repository
+  context의 source path로 계산하고, constituent tests도 실제 함수 owner를 patch한다.
+
+G5 current compiler identity는 append-only successor 0006으로 갱신했고 terminal-v9
+wheel/environment/receipt를 exact implementation commit에 결속했다. 실패했던 중간
+environment/receipt leaf와 probe leaf는 재사용하거나 current authority로 승격하지
+않았다.
+
+### 11.5 Validation result
+
+Machine-validation subject는 `cbfb4f2e0067413f5334b1ca40c3cd89a090606a`, tree는
+`afcf40cc7b4003571fc137c89d7b99d2042e9d9b`다.
+
+| Validation | Result |
+| --- | --- |
+| Focused affected batch | `24 passed in 32.39s`, exit `0` |
+| Installed arbitrary-CWD naturalization | adversarial fixture `8/8`, required failure reason `8/8`, exit `0` |
+| Explicit-root current right-click | candidate `1,470`, PASS `57`, NO `1,400`, REVIEW `13`, exit `0` |
+| Lua syntax | `174 files`, exit `0` |
+| Clean Run A | pytest identity `205`, subtest `109`, standalone `4`, exit `0` |
+| Clean Run B | pytest identity `205`, subtest `109`, standalone `4`, exit `0` |
+| Deterministic comparator | `succeeded`, exit `0` |
+| Installed arbitrary-CWD `--help` | exit `0` |
+
+Run A/B canonical result SHA-256은 모두
+`ba7049aec35a76f175136996c6fb8cf1dc10140bb801dcea93d26db7f5b38819`다.
+Comparator fingerprint SHA-256은
+`3ee8c24d433e2bbc72cafdc0f6334e91c4d3b85ba164784cb6616c766a1faa16`이다.
+Source checkout과 clean clone의 post-status는 clean이고 external execution mutation은
+`0`이다.
+
+### 11.6 Size and claim boundary
+
+Correction baseline에서 terminal까지 `Iris/tooling/src`는 `9,715` additions와
+`10,069` deletions로 net `354` lines 감소했다. 두 monolith의 façade 자체는 각각
+`5,107 -> 3`, `4,095 -> 8` lines로 줄었지만 implementation은 명시적 owner modules로
+이동했으므로 이 비율을 전체 구현량 감소로 읽으면 안 된다. Append-only G5/environment
+authority와 focused contracts를 포함한 tracked tree 전체는 문서 전 terminal에서 net
+`620` lines 증가했다.
+
+따라서 확인된 개선은 owner locality, entrypoint 명료성, machine-local default 제거와
+non-current wheel surface 축소다. Runtime wall-clock/CPU/memory/FPS와 실제
+GPT/Codex prompt/cache/token telemetry는 측정하지 않았으므로 performance 또는 token
+효율 개선률은 주장하지 않는다. 이 집계는 Walkthrough 설명용 일회성 observation이며
+canonical validator, seal, receipt 또는 metric authority가 아니다.
+
+Product Lua, UI, package/public-text output schema와 의도된 runtime behavior 변경은 없다.
+CheatMenuRebirth 조합은 계속 compatibility nonclaim이며 global context-menu patch는
+복원하지 않았다. 기존 owner-attested Iris-only PZ boot/save load, Browser/Detail/Wiki/Alt
+Tooltip, reload/context-menu PASS의 범위를 universal external-mod compatibility로 넓히지
+않는다.

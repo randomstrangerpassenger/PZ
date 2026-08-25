@@ -49,6 +49,7 @@ class IrisResidualRuntimeAcceptanceTest(unittest.TestCase):
                     "wiki_units",
                     "tooltip_lines",
                     "lazy_debug",
+                    "global_patch_absence",
                 },
             )
             binding = json.loads(output.with_suffix(".binding.json").read_text(encoding="utf-8"))

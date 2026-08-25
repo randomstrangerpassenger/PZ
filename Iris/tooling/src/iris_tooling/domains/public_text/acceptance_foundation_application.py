@@ -1,6 +1,29 @@
 from __future__ import annotations
 
-from .acceptance_emission import *  # noqa: F401,F403
+from pathlib import Path
+from typing import Any
+
+from .acceptance_context import (
+    DEFAULT_FOUNDATION_ROOT,
+    FIXTURE_MANIFEST,
+    FOUNDATION_CONTRACT_NAME,
+    READINESS_REPORT_NAME,
+    REPO_ROOT,
+)
+from .acceptance_contracts import (
+    build_foundation_contract,
+    build_no_write_guard,
+    protected_foundation_surface_snapshot,
+    synchronization_projection,
+)
+from .acceptance_emission import write_once_or_same
+from .acceptance_infrastructure import (
+    FoundationContractError,
+    load_json_strict,
+    repo_relative,
+)
+from .acceptance_reporting import build_readiness_report
+from .acceptance_rules import validate_fixture_manifest
 
 def foundation_paths(root: Path) -> tuple[Path, Path]:
     return root / FOUNDATION_CONTRACT_NAME, root / READINESS_REPORT_NAME
@@ -30,7 +53,7 @@ def build_foundation(
     fixture_manifest = load_json_strict(FIXTURE_MANIFEST)
     fixture_report = validate_fixture_manifest(fixture_manifest, contract)
     protected_after = protected_foundation_surface_snapshot()
-    protected_no_write_guard = _no_write_guard(protected_before, protected_after)
+    protected_no_write_guard = build_no_write_guard(protected_before, protected_after)
     readiness = build_readiness_report(
         foundation_id=foundation_id,
         contract_path=contract_path,
@@ -42,7 +65,7 @@ def build_foundation(
         readiness_path, readiness, repository_root=foundation_root
     )
     protected_final = protected_foundation_surface_snapshot()
-    if _no_write_guard(protected_before, protected_final) != protected_no_write_guard:
+    if build_no_write_guard(protected_before, protected_final) != protected_no_write_guard:
         raise FoundationContractError(
             "foundation build no-write guard changed after readiness serialization"
         )
@@ -81,7 +104,7 @@ def validate_foundation(
     fixture_manifest = load_json_strict(FIXTURE_MANIFEST)
     fixture_report = validate_fixture_manifest(fixture_manifest, contract)
     protected_after = protected_foundation_surface_snapshot()
-    protected_no_write_guard = _no_write_guard(protected_before, protected_after)
+    protected_no_write_guard = build_no_write_guard(protected_before, protected_after)
     expected_readiness = build_readiness_report(
         foundation_id=foundation_id,
         contract_path=contract_path,
@@ -109,7 +132,7 @@ def validate_foundation(
             "no-write validation changed foundation contract or readiness bytes"
         )
     protected_final = protected_foundation_surface_snapshot()
-    if _no_write_guard(protected_before, protected_final) != protected_no_write_guard:
+    if build_no_write_guard(protected_before, protected_final) != protected_no_write_guard:
         raise FoundationContractError(
             "foundation validator no-write guard changed during validation"
         )
@@ -137,6 +160,7 @@ def validate_foundation(
         "no_write_validation": True,
     }
 
-__all__ = [
-    name for name in globals() if not name.startswith("__")
-]
+__all__ = (
+    "build_foundation", "foundation_paths", "validate_foundation",
+    "validate_foundation_root",
+)

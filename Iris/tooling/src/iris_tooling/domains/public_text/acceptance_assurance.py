@@ -1,9 +1,27 @@
 from __future__ import annotations
 
-from .acceptance_policy import *  # noqa: F401,F403
+import json
+from pathlib import Path
+from typing import Any
 
-def _require_phase2_seal(root: Path) -> tuple[dict[str, Any], dict[str, Any]]:
-    _require_artifacts(root, 2)
+from .acceptance_attempt_context import (
+    compute_candidate_metric_snapshot, official_attempt_root, phase_root,
+    require_artifacts,
+)
+from .acceptance_context import (
+    DEFAULT_FOUNDATION_ROOT, FIXTURE_MANIFEST, FOUNDATION_CONTRACT_NAME,
+    TOOLS_DIR,
+)
+from .acceptance_emission import write_once_or_same, write_once_text
+from .acceptance_infrastructure import (
+    FoundationContractError, canonical_hash, load_json_strict, repo_relative,
+    sha256_file,
+)
+from .acceptance_policy import load_phase0_context
+from .acceptance_rules import evaluate_threshold, validate_fixture_manifest
+
+def require_phase2_seal(root: Path) -> tuple[dict[str, Any], dict[str, Any]]:
+    require_artifacts(root, 2)
     p2 = phase_root(root, 2)
     for name in ("policy_ratification_record.json", "policy_hash_seal.json"):
         if not (p2 / name).is_file():
@@ -30,8 +48,8 @@ def build_phase3_validator(
     *, attempt_id: str, attempt_root: Path | None = None
 ) -> dict[str, Any]:
     root = official_attempt_root(attempt_id, attempt_root)
-    _, handoff_validation = _load_phase0_context(root)
-    policy, seal = _require_phase2_seal(root)
+    _, handoff_validation = load_phase0_context(root)
+    policy, seal = require_phase2_seal(root)
     p3 = phase_root(root, 3)
     snapshot_a = compute_candidate_metric_snapshot(handoff_validation)
     snapshot_b = compute_candidate_metric_snapshot(handoff_validation)
@@ -108,8 +126,8 @@ def build_phase4_adversarial(
     *, attempt_id: str, attempt_root: Path | None = None
 ) -> dict[str, Any]:
     root = official_attempt_root(attempt_id, attempt_root)
-    _require_artifacts(root, 3)
-    _, handoff_validation = _load_phase0_context(root)
+    require_artifacts(root, 3)
+    _, handoff_validation = load_phase0_context(root)
     foundation = load_json_strict(DEFAULT_FOUNDATION_ROOT / FOUNDATION_CONTRACT_NAME)
     fixture_manifest = load_json_strict(FIXTURE_MANIFEST)
     fixture_report = validate_fixture_manifest(fixture_manifest, foundation)
@@ -241,7 +259,7 @@ def build_phase4_adversarial(
     }
 
 
-def _metric_threshold_results(
+def metric_threshold_results(
     snapshot: dict[str, Any], policy: dict[str, Any]
 ) -> list[dict[str, Any]]:
     thresholds = policy["policy_projection"]["naturalization_candidate_thresholds"]
@@ -273,7 +291,7 @@ def _metric_threshold_results(
     return results
 
 
-def _earliest_naturalization_retry_phase(findings: list[dict[str, Any]]) -> str:
+def earliest_naturalization_retry_phase(findings: list[dict[str, Any]]) -> str:
     mapping = {
         "semantic_preservation_failure": "phase5-semantic",
         "unsatisfied_required_body_plan_role": "phase5-semantic",
@@ -297,6 +315,8 @@ def _earliest_naturalization_retry_phase(findings: list[dict[str, Any]]) -> str:
     phases = [mapping[row["metric_id"]] for row in findings]
     return min(phases, key=lambda value: order[value]) if phases else "not_applicable"
 
-__all__ = [
-    name for name in globals() if not name.startswith("__")
-]
+__all__ = (
+    "build_phase3_validator", "build_phase4_adversarial",
+    "earliest_naturalization_retry_phase", "metric_threshold_results",
+    "require_phase2_seal",
+)

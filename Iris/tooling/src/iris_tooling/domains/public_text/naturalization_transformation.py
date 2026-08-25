@@ -1,6 +1,29 @@
 from __future__ import annotations
 
-from .naturalization_projection import *  # noqa: F401,F403
+from collections import Counter, defaultdict
+import hashlib
+import json
+from pathlib import Path
+import re
+from typing import Any
+
+from iris_tooling.build.compose_layer3_text import (
+    BODY_PLAN_PROFILES_PATH, IDENTITY_RULES_PATH, PRECEDENCE_RULES_PATH,
+    STAGING_COMPOSE_CONTEXT, build_candidate_rendered,
+)
+from iris_tooling.build.naturalization_compiler_identity import build_compiler_identity
+
+from .naturalization_context import (
+    COMPILER_IMPLEMENTATION_PATHS, CORPUS_MANIFEST_PATH, DATA_ROOT,
+    DECISIONS_PATH, FACTS_PATH, FORBIDDEN_TRANSFORMATIONS, INPUT_MANIFEST,
+    NOT_APPLICABLE_REASONS, POLICY_PATH, REPO_ROOT, TRANSFORMATION_IDS,
+)
+from .naturalization_infrastructure import (
+    NaturalizationError, canonical_hash, load_json, load_jsonl, phase_root,
+    protected_snapshot, repo_relative, require_files, sha256_file,
+    write_jsonl_once_or_same, write_once_or_same,
+)
+from .naturalization_projection import require_phase0, text_skeleton
 
 def require_phase3(attempt_root: Path) -> dict[str, Any]:
     path = phase_root(attempt_root, 3) / "phase3_result.json"
@@ -634,6 +657,8 @@ def build_phase6(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
     write_once_or_same(root / "phase6_result.json", result)
     return result
 
-__all__ = [
-    name for name in globals() if not name.startswith("__")
-]
+__all__ = (
+    "build_phase4", "build_phase5_adversarial", "build_phase5_semantic",
+    "build_phase6", "detector_hit", "implementation_hash",
+    "implementation_identity", "proof_valid", "require_phase3",
+)

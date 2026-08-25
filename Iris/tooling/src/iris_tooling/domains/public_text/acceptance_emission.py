@@ -1,6 +1,23 @@
 from __future__ import annotations
 
-from .acceptance_reporting import *  # noqa: F401,F403
+import json
+import os
+from pathlib import Path
+from typing import Any, Iterable
+import uuid
+
+from .acceptance_context import REPO_ROOT
+from .acceptance_infrastructure import (
+    FoundationContractError,
+    canonical_json_bytes,
+    filesystem_path_exists,
+    pretty_json_bytes,
+    read_filesystem_bytes,
+    reject_duplicate_pairs,
+    repo_relative,
+    validated_repository_artifact_target,
+    windows_extended_length_path,
+)
 
 def write_once_or_same(
     path: Path, value: Any, *, repository_root: Path = REPO_ROOT
@@ -20,7 +37,7 @@ def load_jsonl_strict(path: Path) -> list[dict[str, Any]]:
         if not raw_line.strip():
             continue
         try:
-            row = json.loads(raw_line, object_pairs_hook=_reject_duplicate_pairs)
+            row = json.loads(raw_line, object_pairs_hook=reject_duplicate_pairs)
         except json.JSONDecodeError as exc:
             raise FoundationContractError(
                 f"cannot load strict JSONL {path}:{line_number}: {exc}"
@@ -51,22 +68,22 @@ def write_once_bytes(
         path.write_bytes(desired)
         return "created"
 
-    target = _validated_repository_artifact_target(
+    target = validated_repository_artifact_target(
         path, repository_root=repository_root
     )
-    target_filesystem = _windows_extended_length_path(target)
+    target_filesystem = windows_extended_length_path(target)
     try:
-        if _filesystem_path_exists(target_filesystem):
-            if _read_filesystem_bytes(target_filesystem) != desired:
+        if filesystem_path_exists(target_filesystem):
+            if read_filesystem_bytes(target_filesystem) != desired:
                 raise FoundationContractError(
                     f"write-once conflict at {repo_relative(path)}"
                 )
             return "already_identical"
 
         parent = target.parent
-        parent_filesystem = _windows_extended_length_path(parent)
+        parent_filesystem = windows_extended_length_path(parent)
         os.makedirs(parent_filesystem, exist_ok=True)
-        revalidated = _validated_repository_artifact_target(
+        revalidated = validated_repository_artifact_target(
             path, repository_root=repository_root
         )
         if revalidated != target:
@@ -75,7 +92,7 @@ def write_once_bytes(
             )
 
         temporary = parent / f".{target.name}.tmp-{uuid.uuid4().hex}"
-        temporary_filesystem = _windows_extended_length_path(temporary)
+        temporary_filesystem = windows_extended_length_path(temporary)
         descriptor: int | None = None
         try:
             descriptor = os.open(
@@ -95,13 +112,13 @@ def write_once_bytes(
             descriptor = None
 
             temporary_stat = os.stat(temporary_filesystem)
-            temporary_bytes = _read_filesystem_bytes(temporary_filesystem)
+            temporary_bytes = read_filesystem_bytes(temporary_filesystem)
             if temporary_stat.st_size != len(desired) or temporary_bytes != desired:
                 raise FoundationContractError(
                     "artifact temporary sibling failed byte/hash verification"
                 )
-            if _filesystem_path_exists(target_filesystem):
-                current = _read_filesystem_bytes(target_filesystem)
+            if filesystem_path_exists(target_filesystem):
+                current = read_filesystem_bytes(target_filesystem)
                 if current != desired:
                     raise FoundationContractError(
                         f"write-once conflict at {repo_relative(path)}"
@@ -111,7 +128,7 @@ def write_once_bytes(
 
             os.replace(temporary_filesystem, target_filesystem)
             target_stat = os.stat(target_filesystem)
-            target_bytes = _read_filesystem_bytes(target_filesystem)
+            target_bytes = read_filesystem_bytes(target_filesystem)
             if target_stat.st_size != len(desired) or target_bytes != desired:
                 raise FoundationContractError(
                     "atomically installed artifact failed byte/hash verification"
@@ -136,6 +153,7 @@ def write_once_bytes(
 def write_once_text(path: Path, text: str) -> str:
     return write_once_bytes(path, text.replace("\r\n", "\n").encode("utf-8"))
 
-__all__ = [
-    name for name in globals() if not name.startswith("__")
-]
+__all__ = (
+    "canonical_jsonl_bytes", "load_jsonl_strict", "write_once_bytes",
+    "write_once_or_same", "write_once_text",
+)

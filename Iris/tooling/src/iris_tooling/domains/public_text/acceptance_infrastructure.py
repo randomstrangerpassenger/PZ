@@ -1,9 +1,23 @@
 from __future__ import annotations
 
-from .acceptance_context import *  # noqa: F401,F403
+import hashlib
+import json
+import os
+from pathlib import Path, PurePosixPath
+import stat
+import subprocess
+from typing import Any, Iterable
+
+from .acceptance_context import (
+    PROTECTED_SNAPSHOT_IDENTITY_ALGORITHM_ID,
+    REPO_ROOT,
+    SEALED_PREREQUISITE_RAW_SHA256,
+    TEXT_CONSTITUENT_IDENTITY_ALGORITHM_ID,
+)
+from .inputs import PublicTextInputError, load_json_bytes as load_public_text_json_bytes
 
 
-def _git(*args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
+def run_git(*args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
     result = subprocess.run(
         ["git", *args],
         cwd=REPO_ROOT,
@@ -21,12 +35,12 @@ def _git(*args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
 
 
 def git_head() -> str:
-    return _git("rev-parse", "HEAD").stdout.strip()
+    return run_git("rev-parse", "HEAD").stdout.strip()
 
 
-def _is_tracked(path: Path) -> bool:
+def is_tracked(path: Path) -> bool:
     return (
-        _git(
+        run_git(
             "ls-files",
             "--error-unmatch",
             "--",
@@ -37,8 +51,8 @@ def _is_tracked(path: Path) -> bool:
     )
 
 
-def _is_ignored(path: Path) -> bool:
-    result = _git(
+def is_ignored(path: Path) -> bool:
+    result = run_git(
         "check-ignore", "--no-index", "-v", "--", repo_relative(path), check=False
     )
     if result.returncode != 0:
@@ -47,9 +61,9 @@ def _is_ignored(path: Path) -> bool:
     return not matched_rule.startswith("!")
 
 
-def _has_unstaged_delta(path: Path) -> bool:
+def has_unstaged_delta(path: Path) -> bool:
     return bool(
-        _git("diff", "--name-only", "--", repo_relative(path)).stdout.strip()
+        run_git("diff", "--name-only", "--", repo_relative(path)).stdout.strip()
     )
 
 
@@ -65,7 +79,7 @@ class ExternalInputRequired(FoundationContractError):
         self.details = details
 
 
-def _reject_duplicate_pairs(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+def reject_duplicate_pairs(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
     result: dict[str, Any] = {}
     for key, value in pairs:
         if key in result:
@@ -114,7 +128,7 @@ def canonical_hash(value: Any) -> str:
     return sha256_bytes(canonical_json_bytes(value))
 
 
-def _windows_extended_length_path(path: Path) -> str:
+def windows_extended_length_path(path: Path) -> str:
     """Return a host-only filesystem spelling for an already resolved path."""
     value = str(path)
     if os.name != "nt":
@@ -137,7 +151,7 @@ def _unvalidated_long_path_filesystem_path(path: Path) -> str:
         resolved = path.resolve(strict=False)
     except OSError as exc:
         raise FoundationContractError(f"cannot resolve filesystem path {path}: {exc}") from exc
-    return _windows_extended_length_path(resolved)
+    return windows_extended_length_path(resolved)
 
 
 def read_bytes_long_path_safe(path: Path) -> bytes:
@@ -159,7 +173,7 @@ def sha256_file(path: Path) -> str:
 
 def _path_has_reparse_point(path: Path) -> bool:
     try:
-        metadata = os.lstat(_windows_extended_length_path(path))
+        metadata = os.lstat(windows_extended_length_path(path))
     except FileNotFoundError:
         return False
     except OSError as exc:
@@ -172,7 +186,7 @@ def _path_has_reparse_point(path: Path) -> bool:
     )
 
 
-def _validated_repository_artifact_target(
+def validated_repository_artifact_target(
     path: Path, *, repository_root: Path
 ) -> Path:
     raw = str(path)
@@ -232,7 +246,7 @@ def _validated_repository_artifact_target(
     return resolved
 
 
-def _filesystem_path_exists(filesystem_path: str) -> bool:
+def filesystem_path_exists(filesystem_path: str) -> bool:
     try:
         os.stat(filesystem_path)
     except FileNotFoundError:
@@ -240,7 +254,7 @@ def _filesystem_path_exists(filesystem_path: str) -> bool:
     return True
 
 
-def _read_filesystem_bytes(filesystem_path: str) -> bytes:
+def read_filesystem_bytes(filesystem_path: str) -> bytes:
     with open(filesystem_path, "rb") as stream:
         return stream.read()
 
@@ -459,7 +473,7 @@ def require_exact_keys(
         )
 
 
-def _require_true_predicates(value: Any, *, label: str) -> None:
+def require_true_predicates(value: Any, *, label: str) -> None:
     if not isinstance(value, dict) or not value:
         raise FoundationContractError(f"{label} must be a nonempty predicate object")
     failures = sorted(key for key, predicate in value.items() if predicate is not True)
@@ -467,21 +481,21 @@ def _require_true_predicates(value: Any, *, label: str) -> None:
         raise FoundationContractError(f"{label} contains non-PASS predicates: {failures}")
 
 
-def _artifact_record(path: Path) -> dict[str, Any]:
+def artifact_record(path: Path) -> dict[str, Any]:
     if not path.is_file():
         raise FoundationContractError(f"required prerequisite artifact missing: {path}")
-    if not _is_tracked(path):
+    if not is_tracked(path):
         raise FoundationContractError(
             f"required prerequisite artifact is untracked: {repo_relative(path)}"
         )
-    ignored_by_current_rules = _is_ignored(path)
+    ignored_by_current_rules = is_ignored(path)
     expected_sha256 = SEALED_PREREQUISITE_RAW_SHA256.get(path)
     actual_sha256 = sha256_file(path)
     if expected_sha256 is not None and actual_sha256 != expected_sha256:
         raise FoundationContractError(
             f"sealed prerequisite artifact hash mismatch: {repo_relative(path)}"
         )
-    head_blob = _head_blob_record(path)
+    head_blob = head_blob_record(path)
     if head_blob["git_blob_working_byte_identity"] is not True:
         raise FoundationContractError(
             f"prerequisite artifact differs from its HEAD Git blob: {repo_relative(path)}"
@@ -505,9 +519,9 @@ def _artifact_record(path: Path) -> dict[str, Any]:
     return record
 
 
-def _head_blob_record(path: Path) -> dict[str, Any]:
+def head_blob_record(path: Path) -> dict[str, Any]:
     relative = repo_relative(path)
-    blob_id = _git("rev-parse", f"HEAD:{relative}").stdout.strip()
+    blob_id = run_git("rev-parse", f"HEAD:{relative}").stdout.strip()
     result = subprocess.run(
         ["git", "cat-file", "blob", blob_id],
         cwd=REPO_ROOT,
@@ -528,9 +542,9 @@ def _head_blob_record(path: Path) -> dict[str, Any]:
     }
 
 
-def _commit_blob_record(path: Path, commit: str) -> dict[str, Any]:
+def commit_blob_record(path: Path, commit: str) -> dict[str, Any]:
     relative = repo_relative(path)
-    blob_id = _git("rev-parse", f"{commit}:{relative}").stdout.strip()
+    blob_id = run_git("rev-parse", f"{commit}:{relative}").stdout.strip()
     result = subprocess.run(
         ["git", "cat-file", "blob", blob_id],
         cwd=REPO_ROOT,
@@ -550,10 +564,10 @@ def _commit_blob_record(path: Path, commit: str) -> dict[str, Any]:
     }
 
 
-def _head_filtered_blob_record(path: Path) -> dict[str, Any]:
+def head_filtered_blob_record(path: Path) -> dict[str, Any]:
     relative = repo_relative(path)
-    head_blob_id = _git("rev-parse", f"HEAD:{relative}").stdout.strip()
-    filtered_working_blob_id = _git("hash-object", "--", relative).stdout.strip()
+    head_blob_id = run_git("rev-parse", f"HEAD:{relative}").stdout.strip()
+    filtered_working_blob_id = run_git("hash-object", "--", relative).stdout.strip()
     result = subprocess.run(
         ["git", "cat-file", "blob", head_blob_id],
         cwd=REPO_ROOT,
@@ -575,7 +589,7 @@ def _head_filtered_blob_record(path: Path) -> dict[str, Any]:
     }
 
 
-def _head_text_constituent_record(
+def head_text_constituent_record(
     path: Path,
     declared_sha256: object,
 ) -> dict[str, Any]:
@@ -588,11 +602,11 @@ def _head_text_constituent_record(
         raise FoundationContractError(
             f"text constituent escaped repository: {relative}"
         )
-    if not _is_tracked(path):
+    if not is_tracked(path):
         raise FoundationContractError(
             f"text constituent is untracked: {relative}"
         )
-    head_blob_id = _git("rev-parse", f"HEAD:{relative}").stdout.strip()
+    head_blob_id = run_git("rev-parse", f"HEAD:{relative}").stdout.strip()
     result = subprocess.run(
         ["git", "cat-file", "blob", head_blob_id],
         cwd=REPO_ROOT,
@@ -603,7 +617,7 @@ def _head_text_constituent_record(
         raise FoundationContractError(
             f"cannot read HEAD text constituent blob: {relative}"
         )
-    filtered_working_blob_id = _git(
+    filtered_working_blob_id = run_git(
         "hash-object", "--", relative
     ).stdout.strip()
     return build_text_constituent_identity_from_bytes(
@@ -615,6 +629,18 @@ def _head_text_constituent_record(
         filtered_working_blob_id=filtered_working_blob_id,
     )
 
-__all__ = [
-    name for name in globals() if not name.startswith("__")
-]
+__all__ = (
+    "ExternalInputRequired", "FoundationContractError", "artifact_record",
+    "build_protected_snapshot_identity_from_bytes",
+    "build_protected_snapshot_present_row_from_bytes",
+    "build_text_constituent_identity_from_bytes", "canonical_hash",
+    "canonical_json_bytes", "commit_blob_record", "filesystem_path_exists",
+    "git_head", "has_unstaged_delta", "head_blob_record",
+    "head_filtered_blob_record", "head_text_constituent_record", "is_ignored",
+    "is_tracked", "load_json_strict", "normalize_text_line_endings",
+    "pretty_json_bytes", "read_bytes_long_path_safe", "read_filesystem_bytes",
+    "reject_duplicate_pairs", "repo_relative", "require_exact_keys",
+    "require_true_predicates", "run_git", "sha256_bytes", "sha256_file",
+    "sha256_lf_normalized_text", "validated_repository_artifact_target",
+    "windows_extended_length_path",
+)

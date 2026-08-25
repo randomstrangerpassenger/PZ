@@ -1,17 +1,42 @@
 from __future__ import annotations
 
-from .acceptance_assurance import *  # noqa: F401,F403
+from pathlib import Path
+from typing import Any
+
+from .acceptance_assurance import (
+    build_phase3_validator, build_phase4_adversarial,
+    earliest_naturalization_retry_phase, metric_threshold_results,
+    require_phase2_seal,
+)
+from .acceptance_attempt_context import (
+    build_phase0_binding, candidate_protected_snapshot,
+    compute_candidate_metric_snapshot, official_attempt_root, phase_root,
+    require_artifacts,
+)
+from .acceptance_context import (
+    DEFAULT_FOUNDATION_ROOT, FOUNDATION_CONTRACT_NAME, OFFICIAL_MODES,
+    OWNER_INPUT_ROOT, QUALIFIED_DISPOSITIONS, RAW_DETECTOR_IDS,
+)
+from .acceptance_emission import write_once_or_same, write_once_text
+from .acceptance_infrastructure import (
+    ExternalInputRequired, FoundationContractError, canonical_hash,
+    load_json_strict, repo_relative, sha256_file,
+)
+from .acceptance_policy import (
+    build_phase1_contracts, build_phase2_policy, load_phase0_context,
+)
+from .acceptance_rules import determine_qualified_disposition
 
 def build_phase5_disposition(
     *, attempt_id: str, attempt_root: Path | None = None
 ) -> dict[str, Any]:
     root = official_attempt_root(attempt_id, attempt_root)
-    subject, handoff_validation = _load_phase0_context(root)
-    _require_artifacts(root, 4)
-    policy, seal = _require_phase2_seal(root)
+    subject, handoff_validation = load_phase0_context(root)
+    require_artifacts(root, 4)
+    policy, seal = require_phase2_seal(root)
     p5 = phase_root(root, 5)
     snapshot = compute_candidate_metric_snapshot(handoff_validation)
-    results = _metric_threshold_results(snapshot, policy)
+    results = metric_threshold_results(snapshot, policy)
     waiver_set = load_json_strict(phase_root(root, 2) / "applicable_waiver_set.json")
     if waiver_set.get("waivers") != []:
         raise FoundationContractError(
@@ -101,7 +126,7 @@ def build_phase5_disposition(
             "adoption_timing": (
                 "immediate" if disposition == "accepted" else "after_remediation"
             ),
-            "earliest_affected_naturalization_phase": _earliest_naturalization_retry_phase(
+            "earliest_affected_naturalization_phase": earliest_naturalization_retry_phase(
                 all_findings
             ),
             "phase6_live_gate_adoption_allowed": disposition == "accepted",
@@ -140,8 +165,8 @@ def build_phase5_disposition(
             "Registry/runtime adoption, or policy closure completion.\n"
         ),
     )
-    protected_before = _protected_snapshot(handoff_validation)
-    protected_after = _protected_snapshot(handoff_validation)
+    protected_before = candidate_protected_snapshot(handoff_validation)
+    protected_after = candidate_protected_snapshot(handoff_validation)
     protected = {
         "schema_version": "public_text_quality_phase5_protected_surface_no_mutation_v1",
         "status": "PASS" if protected_before == protected_after else "FAIL",
@@ -195,8 +220,8 @@ def build_phase5_disposition(
     }
 
 
-def _load_phase5_disposition(root: Path) -> dict[str, Any]:
-    _require_artifacts(root, 5)
+def load_phase5_disposition(root: Path) -> dict[str, Any]:
+    require_artifacts(root, 5)
     value = load_json_strict(
         phase_root(root, 5) / "evaluation_subject_disposition.json"
     )
@@ -213,7 +238,7 @@ def build_phase6_gate_candidate(
     *, attempt_id: str, attempt_root: Path | None = None
 ) -> dict[str, Any]:
     root = official_attempt_root(attempt_id, attempt_root)
-    disposition = _load_phase5_disposition(root)
+    disposition = load_phase5_disposition(root)
     if (
         disposition["evaluation_subject_kind"]
         == "dvf_3_3_korean_naturalization_candidate"
@@ -239,7 +264,7 @@ def build_phase6_adopt_gate(
     *, attempt_id: str, attempt_root: Path | None = None
 ) -> dict[str, Any]:
     root = official_attempt_root(attempt_id, attempt_root)
-    disposition = _load_phase5_disposition(root)
+    disposition = load_phase5_disposition(root)
     if disposition["qualified_disposition"] != "accepted":
         raise FoundationContractError(
             "Phase 6 gate adoption forbidden for non-accepted synchronized candidate"
@@ -260,7 +285,7 @@ def build_phase7_freeze(
     *, attempt_id: str, attempt_root: Path | None = None
 ) -> dict[str, Any]:
     root = official_attempt_root(attempt_id, attempt_root)
-    disposition = _load_phase5_disposition(root)
+    disposition = load_phase5_disposition(root)
     if disposition["qualified_disposition"] != "accepted":
         raise FoundationContractError(
             "Phase 7 freeze forbidden: synchronized candidate disposition is not accepted"
@@ -274,7 +299,7 @@ def build_phase7_finalize(
     *, attempt_id: str, attempt_root: Path | None = None
 ) -> dict[str, Any]:
     root = official_attempt_root(attempt_id, attempt_root)
-    disposition = _load_phase5_disposition(root)
+    disposition = load_phase5_disposition(root)
     if disposition["qualified_disposition"] != "accepted":
         raise FoundationContractError(
             "Phase 7 finalize forbidden: synchronized candidate disposition is not accepted"
@@ -323,6 +348,8 @@ def run_official_mode(
     }
     return dispatch[mode](attempt_id=attempt_id, attempt_root=attempt_root)
 
-__all__ = [
-    name for name in globals() if not name.startswith("__")
-]
+__all__ = (
+    "build_phase5_disposition", "build_phase6_adopt_gate",
+    "build_phase6_gate_candidate", "build_phase7_finalize",
+    "build_phase7_freeze", "load_phase5_disposition", "run_official_mode",
+)

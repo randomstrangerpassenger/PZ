@@ -1,14 +1,67 @@
 from __future__ import annotations
 
-from .acceptance_infrastructure import *  # noqa: F401,F403
+import subprocess
+from pathlib import Path
+from typing import Any
+
+from .acceptance_context import (
+    CANDIDATE_STRUCTURAL_STATUSES,
+    CURRENT_FACTS,
+    CURRENT_INPUT_MANIFEST,
+    DEFAULT_ATTEMPTS_ROOT,
+    DISPOSITION_CLASSES,
+    EVALUATION_SUBJECT_KINDS,
+    FOUNDATION_CONTRACT_VERSION,
+    FOUNDATION_SCHEMA_VERSION,
+    FOUR_PLAN_SYNC_PROJECTION_SHA256,
+    G0_G1_RELEASE_BINDING,
+    G2_SEALED_SUCCESSOR_CLOSEOUT,
+    G2_SEALED_SUCCESSOR_RECEIPT,
+    G2_SELECTED_SUCCESSOR_BINDING,
+    G2_TERMINAL_HASH_SEAL,
+    G3_CURRENT_IDENTITY_REPORT,
+    G3_REGISTRY_ADOPTION_RECEIPT,
+    G3_TERMINAL_HASH_SEAL,
+    GLOBAL_SYNC_CONTRACT_ID,
+    GLOBAL_SYNC_MANIFEST,
+    GLOBAL_SYNC_MANIFEST_GIT_BLOB_ID,
+    GLOBAL_SYNC_MANIFEST_LF_NORMALIZED_SHA256,
+    LIVE_REQUIRED_VALIDATIONS,
+    OWNER_INPUT_ROOT,
+    PREDECESSOR_FOUNDATION,
+    QUALIFIED_DISPOSITIONS,
+    RAW_DETECTOR_IDS,
+    REPO_ROOT,
+    REQUIRED_HANDOFF_CONSTITUENT_IDS,
+    REVIEWER_INPUT_ROOT,
+    SYNC_CONTRACT_ID,
+    V2_ROOT,
+)
+from .acceptance_infrastructure import (
+    FoundationContractError,
+    artifact_record,
+    canonical_hash,
+    commit_blob_record,
+    head_blob_record,
+    head_filtered_blob_record,
+    is_ignored,
+    is_tracked,
+    load_json_strict,
+    repo_relative,
+    require_exact_keys,
+    require_true_predicates,
+    run_git,
+    sha256_bytes,
+    sha256_file,
+)
 
 def _g0_sync_manifest_record() -> dict[str, Any]:
     path = GLOBAL_SYNC_MANIFEST
-    if not path.is_file() or not _is_tracked(path) or _is_ignored(path):
+    if not path.is_file() or not is_tracked(path) or is_ignored(path):
         raise FoundationContractError(
             "G0 synchronization manifest must be present, tracked, and not ignored"
         )
-    record = _head_filtered_blob_record(path)
+    record = head_filtered_blob_record(path)
     if (
         record["git_blob_id"] != GLOBAL_SYNC_MANIFEST_GIT_BLOB_ID
         or record["git_filtered_working_identity"] is not True
@@ -41,7 +94,7 @@ def _predecessor_foundation_binding() -> dict[str, Any]:
         "foundation/public_text_quality_foundation_contract.json"
     )
     revision = PREDECESSOR_FOUNDATION["source_commit"]
-    blob_id = _git("rev-parse", f"{revision}:{relative}").stdout.strip()
+    blob_id = run_git("rev-parse", f"{revision}:{relative}").stdout.strip()
     result = subprocess.run(
         ["git", "cat-file", "blob", blob_id],
         cwd=REPO_ROOT,
@@ -68,7 +121,7 @@ def _predecessor_foundation_binding() -> dict[str, Any]:
 def _require_ancestor(commit: str, *, label: str) -> None:
     if not isinstance(commit, str) or not commit:
         raise FoundationContractError(f"{label} commit is missing")
-    result = _git("merge-base", "--is-ancestor", commit, "HEAD", check=False)
+    result = run_git("merge-base", "--is-ancestor", commit, "HEAD", check=False)
     if result.returncode != 0:
         raise FoundationContractError(f"{label} commit is not an ancestor of HEAD")
 
@@ -139,11 +192,11 @@ def _validate_g0_binding() -> dict[str, Any]:
     current_successor_plan_blobs = []
     for relative in expected_plan_paths:
         path = REPO_ROOT / relative
-        if not _is_tracked(path) or _is_ignored(path):
+        if not is_tracked(path) or is_ignored(path):
             raise FoundationContractError(
                 f"current successor plan is not tracked and visible: {relative}"
             )
-        head_blob = _head_filtered_blob_record(path)
+        head_blob = head_filtered_blob_record(path)
         if head_blob["git_filtered_working_identity"] is not True:
             raise FoundationContractError(
                 f"current successor plan differs from its filtered HEAD Git blob: {relative}"
@@ -166,16 +219,16 @@ def _validate_g0_binding() -> dict[str, Any]:
 
 
 def _validate_g1_binding() -> dict[str, Any]:
-    artifact = _artifact_record(G0_G1_RELEASE_BINDING)
+    artifact = artifact_record(G0_G1_RELEASE_BINDING)
     binding = load_json_strict(G0_G1_RELEASE_BINDING)
-    _require_true_predicates(
+    require_true_predicates(
         binding.get("receipt_predicates"), label="G1 release receipt predicates"
     )
-    _require_true_predicates(
+    require_true_predicates(
         binding.get("closeout_binding", {}).get("predicates"),
         label="G1 closeout binding predicates",
     )
-    _require_true_predicates(
+    require_true_predicates(
         binding.get("manifest", {}).get("predicates"),
         label="G0 manifest binding predicates",
     )
@@ -207,10 +260,10 @@ def _validate_g1_binding() -> dict[str, Any]:
 
 
 def _validate_g2_binding() -> dict[str, Any]:
-    selected_artifact = _artifact_record(G2_SELECTED_SUCCESSOR_BINDING)
-    receipt_artifact = _artifact_record(G2_SEALED_SUCCESSOR_RECEIPT)
-    closeout_artifact = _artifact_record(G2_SEALED_SUCCESSOR_CLOSEOUT)
-    terminal_artifact = _artifact_record(G2_TERMINAL_HASH_SEAL)
+    selected_artifact = artifact_record(G2_SELECTED_SUCCESSOR_BINDING)
+    receipt_artifact = artifact_record(G2_SEALED_SUCCESSOR_RECEIPT)
+    closeout_artifact = artifact_record(G2_SEALED_SUCCESSOR_CLOSEOUT)
+    terminal_artifact = artifact_record(G2_TERMINAL_HASH_SEAL)
     selected = load_json_strict(G2_SELECTED_SUCCESSOR_BINDING)
     receipt = load_json_strict(G2_SEALED_SUCCESSOR_RECEIPT)
     closeout = load_json_strict(G2_SEALED_SUCCESSOR_CLOSEOUT)
@@ -269,25 +322,25 @@ def _validate_g2_binding() -> dict[str, Any]:
 
 
 def _validate_g3_and_current_identity(g2: dict[str, Any]) -> dict[str, Any]:
-    receipt_artifact = _artifact_record(G3_REGISTRY_ADOPTION_RECEIPT)
-    identity_artifact = _artifact_record(G3_CURRENT_IDENTITY_REPORT)
-    terminal_artifact = _artifact_record(G3_TERMINAL_HASH_SEAL)
-    facts_artifact = _artifact_record(CURRENT_FACTS)
-    manifest_artifact = _artifact_record(CURRENT_INPUT_MANIFEST)
+    receipt_artifact = artifact_record(G3_REGISTRY_ADOPTION_RECEIPT)
+    identity_artifact = artifact_record(G3_CURRENT_IDENTITY_REPORT)
+    terminal_artifact = artifact_record(G3_TERMINAL_HASH_SEAL)
+    facts_artifact = artifact_record(CURRENT_FACTS)
+    manifest_artifact = artifact_record(CURRENT_INPUT_MANIFEST)
     receipt = load_json_strict(G3_REGISTRY_ADOPTION_RECEIPT)
     identity = load_json_strict(G3_CURRENT_IDENTITY_REPORT)
     terminal = load_json_strict(G3_TERMINAL_HASH_SEAL)
     manifest = load_json_strict(CURRENT_INPUT_MANIFEST)
     _require_ancestor(identity.get("adoption_commit"), label="G3 adoption")
-    actual_adoption_tree = _git(
+    actual_adoption_tree = run_git(
         "rev-parse", f"{identity['adoption_commit']}^{{tree}}"
     ).stdout.strip()
 
     adoption_commit = identity["adoption_commit"]
-    adoption_facts_blob = _commit_blob_record(CURRENT_FACTS, adoption_commit)
-    adoption_manifest_blob = _commit_blob_record(CURRENT_INPUT_MANIFEST, adoption_commit)
-    current_facts_blob = _head_blob_record(CURRENT_FACTS)
-    current_manifest_blob = _head_blob_record(CURRENT_INPUT_MANIFEST)
+    adoption_facts_blob = commit_blob_record(CURRENT_FACTS, adoption_commit)
+    adoption_manifest_blob = commit_blob_record(CURRENT_INPUT_MANIFEST, adoption_commit)
+    current_facts_blob = head_blob_record(CURRENT_FACTS)
+    current_manifest_blob = head_blob_record(CURRENT_INPUT_MANIFEST)
     adoption_facts_sha256 = adoption_facts_blob["git_blob_sha256"]
     adoption_manifest_sha256 = adoption_manifest_blob["git_blob_sha256"]
     initial_successor_facts_sha256 = g2["selected_successor_facts_sha256"]
@@ -502,7 +555,7 @@ def protected_foundation_surface_snapshot() -> dict[str, Any]:
     }
 
 
-def _no_write_guard(
+def build_no_write_guard(
     before: dict[str, Any], after: dict[str, Any]
 ) -> dict[str, Any]:
     changed_paths = sorted(
@@ -1144,6 +1197,12 @@ def build_foundation_contract(foundation_id: str) -> dict[str, Any]:
         "terminal_seal_created": False,
     }
 
-__all__ = [
-    name for name in globals() if not name.startswith("__")
-]
+__all__ = (
+    "build_foundation_contract", "build_no_write_guard",
+    "build_upstream_prerequisite_binding", "denominator_registry_candidate",
+    "detector_mapping_candidate", "freshness_contract",
+    "human_review_selection_contract", "metric_registry_candidate",
+    "policy_candidate", "protected_foundation_surface_snapshot",
+    "required_handoff_schema", "runner_validator_interface_contract",
+    "synchronization_projection",
+)

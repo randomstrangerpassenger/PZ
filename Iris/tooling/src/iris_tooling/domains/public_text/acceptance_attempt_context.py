@@ -1,6 +1,37 @@
 from __future__ import annotations
 
-from .acceptance_foundation_application import *  # noqa: F401,F403
+import subprocess
+from pathlib import Path, PurePosixPath
+from typing import Any, Iterable
+
+from iris_tooling.build.naturalization_compiler_identity import (
+    build_compiler_identity_from_git,
+    compiler_identity_matches_claim,
+)
+
+from .acceptance_context import (
+    ATTEMPT_ID_PATTERN, DEFAULT_ATTEMPTS_ROOT, DEFAULT_FOUNDATION_ROOT,
+    FIXTURE_MANIFEST, FOUNDATION_CONTRACT_NAME, FOUNDATION_DOCS,
+    FOUNDATION_IMPLEMENTATION_FILES, GIT_COMMIT_PATTERN,
+    NATURALIZATION_COMPILER_IMPLEMENTATION_FILES, NATURALIZATION_PLAN_DOC,
+    PHASE_ARTIFACTS, PLAN_DOC, RAW_DETECTOR_IDS, READINESS_REPORT_NAME,
+    REPO_ROOT, REQUIRED_HANDOFF_CONSTITUENT_IDS,
+    SATISFIED_REQUIRED_STRUCTURAL_STATUSES, SYNC_CONTRACT_ID,
+    TEXT_CONSTITUENT_IDENTITY_ALGORITHM_ID, TEXT_HANDOFF_CONSTITUENT_IDS,
+)
+from .acceptance_emission import (
+    canonical_jsonl_bytes, load_jsonl_strict, write_once_bytes,
+    write_once_or_same,
+)
+from .acceptance_foundation_application import validate_foundation
+from .acceptance_infrastructure import (
+    FoundationContractError, build_protected_snapshot_present_row_from_bytes,
+    canonical_hash, canonical_json_bytes, has_unstaged_delta,
+    head_text_constituent_record, is_ignored, is_tracked, load_json_strict,
+    repo_relative, require_exact_keys, run_git, sha256_bytes, sha256_file,
+)
+from .acceptance_reporting import source_hash_inventory
+from .acceptance_rules import without_volatile_fields
 
 def official_attempt_root(
     attempt_id: str, attempt_root: Path | None = None
@@ -24,7 +55,7 @@ def phase_root(root: Path, phase: int) -> Path:
     return root / f"phase{phase}"
 
 
-def _require_artifacts(root: Path, phase: int, names: Iterable[str] | None = None) -> None:
+def require_artifacts(root: Path, phase: int, names: Iterable[str] | None = None) -> None:
     expected = names if names is not None else PHASE_ARTIFACTS[phase]
     missing = [
         repo_relative(phase_root(root, phase) / name)
@@ -104,7 +135,7 @@ def validate_candidate_handoff(
                 mismatches.append(f"{identifier}:non_text_path_constituent")
                 continue
             try:
-                identity = _head_text_constituent_record(
+                identity = head_text_constituent_record(
                     path,
                     row.get("sha256"),
                 )
@@ -139,7 +170,7 @@ def validate_candidate_handoff(
         REPO_ROOT / str(constituents["candidate_manifest_hash"]["path"])
     )
     candidate_manifest_relative = repo_relative(candidate_manifest_path)
-    compiler_readpoint = _git(
+    compiler_readpoint = run_git(
         "log",
         "-1",
         "--format=%H",
@@ -180,13 +211,13 @@ def validate_candidate_handoff(
         "compiler_inventory": compiler_identity["ordered_files"],
         "compiler_aggregate_hash": compiler_aggregate_hash,
         "compiler_readpoint_commit": compiler_readpoint,
-        "compiler_readpoint_tree": _git(
+        "compiler_readpoint_tree": run_git(
             "rev-parse", f"{compiler_readpoint}^{{tree}}"
         ).stdout.strip(),
     }
 
 
-def _handoff_path(
+def handoff_artifact_path(
     validation: dict[str, Any], identifier: str
 ) -> Path:
     row = validation["constituents"][identifier]
@@ -223,7 +254,7 @@ def _human_review_technical_blocker(reasons: list[str]) -> None:
     )
 
 
-def _human_review_blocker_count(
+def human_review_blocker_count(
     *,
     review_sample: dict[str, Any],
     review_decision: dict[str, Any],
@@ -299,20 +330,20 @@ def _human_review_blocker_count(
 def compute_candidate_metric_snapshot(
     validation: dict[str, Any],
 ) -> dict[str, Any]:
-    candidate_path = _handoff_path(validation, "candidate_rendered_hash")
-    candidate_manifest_path = _handoff_path(validation, "candidate_manifest_hash")
-    source_manifest_path = _handoff_path(
+    candidate_path = handoff_artifact_path(validation, "candidate_rendered_hash")
+    candidate_manifest_path = handoff_artifact_path(validation, "candidate_manifest_hash")
+    source_manifest_path = handoff_artifact_path(
         validation, "source_proposition_manifest_hash"
     )
-    structural_path = _handoff_path(
+    structural_path = handoff_artifact_path(
         validation, "structural_satisfaction_ledger_hash"
     )
-    semantic_path = _handoff_path(validation, "semantic_preservation_report_hash")
-    raw_path = _handoff_path(validation, "raw_detector_report_hash")
-    review_sample_path = _handoff_path(
+    semantic_path = handoff_artifact_path(validation, "semantic_preservation_report_hash")
+    raw_path = handoff_artifact_path(validation, "raw_detector_report_hash")
+    review_sample_path = handoff_artifact_path(
         validation, "human_review_sample_manifest_hash"
     )
-    review_decision_path = _handoff_path(
+    review_decision_path = handoff_artifact_path(
         validation, "human_review_decision_hash"
     )
 
@@ -400,7 +431,7 @@ def compute_candidate_metric_snapshot(
         _human_review_technical_blocker(
             ["human_review_denominator_or_candidate_binding_mismatch"]
         )
-    human_review_failures = _human_review_blocker_count(
+    human_review_failures = human_review_blocker_count(
         review_sample=review_sample,
         review_decision=review_decision,
         required_denominator=selected_denominator,
@@ -483,7 +514,7 @@ def compute_candidate_metric_snapshot(
 
 
 def _candidate_entries_rows(validation: dict[str, Any]) -> list[dict[str, Any]]:
-    candidate = load_json_strict(_handoff_path(validation, "candidate_rendered_hash"))
+    candidate = load_json_strict(handoff_artifact_path(validation, "candidate_rendered_hash"))
     entries = candidate.get("entries")
     if not isinstance(entries, dict):
         raise FoundationContractError("candidate entries must be an object")
@@ -492,13 +523,13 @@ def _candidate_entries_rows(validation: dict[str, Any]) -> list[dict[str, Any]]:
         payload = entries[item_id]
         if not isinstance(payload, dict):
             raise FoundationContractError(f"candidate payload is not object: {item_id}")
-        rows.append({"item_id": item_id, "payload": _without_volatile(payload)})
+        rows.append({"item_id": item_id, "payload": without_volatile_fields(payload)})
     return rows
 
 
-def _protected_snapshot(validation: dict[str, Any]) -> list[dict[str, Any]]:
+def candidate_protected_snapshot(validation: dict[str, Any]) -> list[dict[str, Any]]:
     report = load_json_strict(
-        _handoff_path(validation, "protected_surface_no_mutation_report_hash")
+        handoff_artifact_path(validation, "protected_surface_no_mutation_report_hash")
     )
     if (
         report.get("protected_surface_no_mutation_pass") is not True
@@ -555,15 +586,15 @@ def _protected_snapshot(validation: dict[str, Any]) -> list[dict[str, Any]]:
             raise FoundationContractError(
                 f"protected surface stale before Publish attempt: {relative}"
             )
-        if not _is_tracked(path):
+        if not is_tracked(path):
             raise FoundationContractError(
                 f"protected surface is untracked: {relative}"
             )
-        if _is_ignored(path):
+        if is_ignored(path):
             raise FoundationContractError(
                 f"protected surface is ignored: {relative}"
             )
-        head_blob_id = _git("rev-parse", f"HEAD:{relative}").stdout.strip()
+        head_blob_id = run_git("rev-parse", f"HEAD:{relative}").stdout.strip()
         head_blob = subprocess.run(
             ["git", "cat-file", "blob", head_blob_id],
             cwd=REPO_ROOT,
@@ -574,10 +605,10 @@ def _protected_snapshot(validation: dict[str, Any]) -> list[dict[str, Any]]:
             raise FoundationContractError(
                 f"cannot read protected surface HEAD blob: {relative}"
             )
-        filtered_working_blob_id = _git(
+        filtered_working_blob_id = run_git(
             "hash-object", "--", relative
         ).stdout.strip()
-        text_attribute_output = _git(
+        text_attribute_output = run_git(
             "check-attr", "text", "--", relative
         ).stdout.strip()
         text_attribute = text_attribute_output.rsplit(": ", 1)[-1]
@@ -593,23 +624,23 @@ def _protected_snapshot(validation: dict[str, Any]) -> list[dict[str, Any]]:
     return normalized
 
 
-def _vcs_preflight(paths: Iterable[Path]) -> dict[str, Any]:
+def vcs_preflight(paths: Iterable[Path]) -> dict[str, Any]:
     unique = sorted({path.resolve() for path in paths}, key=lambda path: repo_relative(path))
     rows = []
     for path in unique:
         relative = repo_relative(path)
         present = path.is_file()
-        tracked = _is_tracked(path)
+        tracked = is_tracked(path)
         head_blob_id = None
         filtered_working_blob_id = None
         head_working_identity = False
         if present and tracked:
-            head_result = _git(
+            head_result = run_git(
                 "rev-parse",
                 f"HEAD:{relative}",
                 check=False,
             )
-            working_result = _git(
+            working_result = run_git(
                 "hash-object",
                 "--",
                 relative,
@@ -627,8 +658,8 @@ def _vcs_preflight(paths: Iterable[Path]) -> dict[str, Any]:
                 "path": relative,
                 "present": present,
                 "tracked": tracked,
-                "ignored": _is_ignored(path),
-                "unstaged_delta": _has_unstaged_delta(path),
+                "ignored": is_ignored(path),
+                "unstaged_delta": has_unstaged_delta(path),
                 "head_git_blob_id": head_blob_id,
                 "filtered_working_blob_id": filtered_working_blob_id,
                 "head_working_identity": head_working_identity,
@@ -713,7 +744,7 @@ def phase0_required_vcs_preflight(
         subject_handoff=subject_handoff,
         handoff_validation=validation,
     )
-    preflight = _vcs_preflight(paths)
+    preflight = vcs_preflight(paths)
     required_path_set = [repo_relative(path) for path in paths]
     return {
         "consumer": consumer,
@@ -769,10 +800,10 @@ def build_phase0_binding(
     )
     validation = phase0_vcs["handoff_validation"]
     preflight = phase0_vcs["vcs_preflight"]
-    candidate_path = _handoff_path(validation, "candidate_rendered_hash")
+    candidate_path = handoff_artifact_path(validation, "candidate_rendered_hash")
     entries_rows = _candidate_entries_rows(validation)
     metric_snapshot = compute_candidate_metric_snapshot(validation)
-    protected_before = _protected_snapshot(validation)
+    protected_before = candidate_protected_snapshot(validation)
     foundation_contract_path = DEFAULT_FOUNDATION_ROOT / FOUNDATION_CONTRACT_NAME
     readiness_path = DEFAULT_FOUNDATION_ROOT / READINESS_REPORT_NAME
 
@@ -903,7 +934,7 @@ def build_phase0_binding(
         p0 / "canonical_metric_projection_digest.json", metric_digest
     )
     write_once_or_same(p0 / "acceptance_input_binding_manifest.json", binding)
-    protected_after = _protected_snapshot(validation)
+    protected_after = candidate_protected_snapshot(validation)
     protected_report = {
         "schema_version": "public_text_quality_protected_surface_no_mutation_v1",
         "status": "PASS" if protected_before == protected_after else "FAIL",
@@ -936,6 +967,13 @@ def build_phase0_binding(
         "policy_closure_state": "incomplete",
     }
 
-__all__ = [
-    name for name in globals() if not name.startswith("__")
-]
+__all__ = (
+    "build_phase0_binding", "candidate_protected_snapshot",
+    "compute_candidate_metric_snapshot", "handoff_artifact_path",
+    "human_review_blocker_count", "official_attempt_root",
+    "PHASE0_REQUIRED_VCS_CONSUMERS", "phase0_required_vcs_paths",
+    "phase0_required_vcs_preflight",
+    "phase_root", "require_artifacts",
+    "require_phase0_required_vcs_preflight", "validate_candidate_handoff",
+    "vcs_preflight",
+)

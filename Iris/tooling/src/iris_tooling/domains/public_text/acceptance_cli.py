@@ -6,14 +6,10 @@ import json
 from pathlib import Path
 import sys
 
-from .acceptance_validation import (
-    DEFAULT_FOUNDATION_ROOT,
-    ExternalInputRequired,
-    FoundationContractError,
-    OFFICIAL_MODES,
-    build_foundation,
-    run_official_mode,
-)
+from .acceptance_context import DEFAULT_FOUNDATION_ROOT, OFFICIAL_MODES
+from .acceptance_disposition import run_official_mode
+from .acceptance_foundation_application import build_foundation
+from .acceptance_infrastructure import ExternalInputRequired, FoundationContractError
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -128,3 +124,6 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 2
     print(json.dumps(result, ensure_ascii=False, sort_keys=True))
     return 0
+
+
+__all__ = ("build_parser", "main")

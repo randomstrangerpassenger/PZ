@@ -6,12 +6,10 @@ import json
 from pathlib import Path
 import sys
 
-from .acceptance_validation import (
-    DEFAULT_FOUNDATION_ROOT,
-    FoundationContractError,
-    validate_foundation,
-    validate_official_attempt,
-)
+from .acceptance_context import DEFAULT_FOUNDATION_ROOT
+from .acceptance_foundation_application import validate_foundation
+from .acceptance_infrastructure import FoundationContractError
+from .acceptance_validation import validate_official_attempt
 
 
 REQUIREMENT_FLAGS = (
@@ -111,3 +109,6 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 2
     print(json.dumps(result, ensure_ascii=False, sort_keys=True))
     return 5 if result.get("status") == "BLOCKED" else 0
+
+
+__all__ = ("build_parser", "main")

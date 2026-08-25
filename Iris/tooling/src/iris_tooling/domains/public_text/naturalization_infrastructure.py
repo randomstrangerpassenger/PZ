@@ -1,6 +1,17 @@
 from __future__ import annotations
 
-from .naturalization_context import *  # noqa: F401,F403
+import hashlib
+import json
+from pathlib import Path
+import re
+import subprocess
+from typing import Any, Iterable
+
+from .inputs import (
+    PublicTextInputError, load_json as load_public_text_json,
+    load_jsonl as load_public_text_jsonl,
+)
+from .naturalization_context import DEFAULT_ATTEMPT_PARENT, PROTECTED_PATHS, REPO_ROOT
 
 class NaturalizationError(RuntimeError):
     pass
@@ -225,6 +236,11 @@ def manifest_binding_rows(manifest: dict[str, Any]) -> list[dict[str, Any]]:
         row["hash_match"] = row["actual_sha256"] == row["declared_sha256"]
     return rows
 
-__all__ = [
-    name for name in globals() if not name.startswith("__")
-]
+__all__ = (
+    "NaturalizationError", "attempt_root_for", "canonical_hash",
+    "canonical_json_bytes", "compact_canonical_hash", "git_output", "load_json",
+    "load_jsonl", "manifest_binding_rows", "normalize_legacy_rendered", "phase_root",
+    "pretty_json_bytes", "protected_snapshot", "reject_duplicate_pairs",
+    "repo_relative", "require_files", "sha256_bytes", "sha256_file",
+    "write_jsonl_once_or_same", "write_once_or_same",
+)

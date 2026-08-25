@@ -1,6 +1,57 @@
 from __future__ import annotations
 
-from .naturalization_preparation import *  # noqa: F401,F403
+from collections import Counter, defaultdict
+import math
+from pathlib import Path
+import re
+from typing import Any
+
+from iris_tooling.build.compose_layer3_body_profile import (
+    build_candidate_body_plan_requirements, load_profile_resolution_rules,
+    resolve_body_profile,
+)
+from iris_tooling.build.compose_layer3_identity import (
+    build_candidate_lead_context, select_candidate_lead_realization,
+)
+from iris_tooling.build.compose_layer3_text import (
+    BODY_PLAN_PROFILES_PATH, CURRENT_OVERLAY_SUPPORT_PATH, IDENTITY_RULES_PATH,
+    PRECEDENCE_RULES_PATH, STAGING_COMPOSE_CONTEXT, ComposeEntrypointGuardError,
+    build_candidate_rendered, build_rendered,
+)
+from iris_tooling.build.naturalization_compiler_identity import build_compiler_identity
+
+from .naturalization_context import (
+    BODY_PLAN_APPLICABILITY_APPROVAL_PATH, CORPUS_MANIFEST_PATH, DATA_ROOT,
+    DECISIONS_PATH, EXPECTED_COMPILER_FIX_COMMIT,
+    EXPECTED_CURRENT_FACTS_SHA256, EXPECTED_CURRENT_MANIFEST_SHA256,
+    EXPECTED_FOOD_SEMANTIC_LICENSE_SHA256, EXPECTED_FOOD_SEMANTIC_SCHEMA_SHA256,
+    EXPECTED_FOUNDATION_CONTRACT_SHA256,
+    EXPECTED_FOUNDATION_READINESS_CORRECTION_REBIND_SHA256,
+    EXPECTED_FOUNDATION_READINESS_CURRENT_INPUT_REBIND_SHA256,
+    EXPECTED_FOUNDATION_READINESS_SHA256,
+    EXPECTED_INITIAL_REGISTRY_ADOPTION_RECEIPT_SHA256,
+    EXPECTED_PARTICLE_CORRECTION_COMMIT,
+    EXPECTED_PARTICLE_CORRECTION_PROJECTION_REPORT_SHA256,
+    EXPECTED_REGISTRY_ADOPTION_CONTRACT_SHA256,
+    EXPECTED_REGISTRY_ADOPTION_RECEIPT_SHA256,
+    EXPECTED_REGISTRY_CORRECTION_TERMINAL_SEAL_SHA256,
+    EXPECTED_REGISTRY_NATURALIZATION_HANDOFF_SHA256,
+    EXPECTED_SELECTED_SUCCESSOR_MANIFEST_SHA256, EXPECTED_START_COMMIT,
+    EXPECTED_START_TREE, FACTS_PATH, FOOD_SEMANTIC_LICENSE,
+    FOOD_SEMANTIC_SCHEMA, FORBIDDEN_TRANSFORMATIONS,
+    FOUNDATION_READINESS_CORRECTION_REBIND,
+    FOUNDATION_READINESS_CURRENT_INPUT_REBIND, GOLD_APPROVAL_PATH,
+    GOLD_CORPUS_PATH, HISTORICAL_ATTEMPT_ID, INITIAL_REGISTRY_ADOPTION_RECEIPT,
+    INPUT_MANIFEST, POLICY_PATH, QUALITY_APPROVAL_PATH, QUALITY_STANDARD_PATH,
+    REGISTRY_ADOPTION_CONTRACT, REGISTRY_ADOPTION_RECEIPT,
+    REGISTRY_CORRECTION_TERMINAL_SEAL, REGISTRY_NATURALIZATION_HANDOFF,
+    REPO_ROOT, SOURCE_ROLE_BY_FIELD, TRANSFORMATION_IDS, V2_ROOT,
+)
+from .naturalization_infrastructure import (
+    NaturalizationError, canonical_hash, load_json, load_jsonl,
+    normalize_legacy_rendered, phase_root, repo_relative, require_files,
+    sha256_bytes, sha256_file, write_jsonl_once_or_same, write_once_or_same,
+)
 
 def require_phase0(attempt_root: Path) -> dict[str, Any]:
     path = phase_root(attempt_root, 0) / "preflight_report.json"
@@ -1292,7 +1343,7 @@ def build_phase3(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
     contract = {
         "schema_version": "dvf-3-3-compiler-contract-test-report-v1",
         "attempt_id": attempt_id,
-        "compiler_identity": implementation_identity(),
+        "compiler_identity": build_compiler_identity(REPO_ROOT),
         "candidate_mode_requires_staging": True,
         "policy_hash_required": True,
         "attempt_local_output_required": True,
@@ -1353,6 +1404,9 @@ def build_phase3(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
     write_once_or_same(root / "phase3_result.json", result)
     return result
 
-__all__ = [
-    name for name in globals() if not name.startswith("__")
-]
+__all__ = (
+    "acquisition_subtype", "build_facts_authority_enrichment_request_payload",
+    "build_phase1", "build_phase2", "build_phase3",
+    "build_phase3_repetition_remediation_reports", "proposition_id_for",
+    "require_phase0", "require_phase1", "require_phase2", "text_skeleton",
+)

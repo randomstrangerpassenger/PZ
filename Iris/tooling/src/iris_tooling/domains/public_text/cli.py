@@ -41,10 +41,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     if raw_arguments and raw_arguments[0] == "naturalization":
         raw_arguments = raw_arguments[1:]
 
-    from .naturalization_application import (
-        NaturalizationError,
-        run_naturalization_mode,
-    )
+    from .naturalization_application import run_naturalization_mode
+    from .naturalization_infrastructure import NaturalizationError
 
     args = build_parser().parse_args(raw_arguments)
     explicit_inputs = (
@@ -96,3 +94,6 @@ def main(argv: Sequence[str] | None = None) -> int:
     }:
         return 4
     return 0 if result.get("status", "PASS") == "PASS" else 1
+
+
+__all__ = ("build_parser", "main")

@@ -1,42 +1,11 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
-from fractions import Fraction
-import hashlib
-import json
-import os
-from pathlib import Path, PurePosixPath
+from pathlib import Path
 import re
-import stat
-import subprocess
-from typing import Any, Iterable
-import uuid
 
-try:
-    from iris_tooling.build.naturalization_compiler_identity import (
-        build_compiler_identity,
-        build_compiler_identity_from_git,
-        compiler_identity_matches_claim,
-        compiler_source_paths,
-    )
-except ImportError:
-    from iris_tooling.build.naturalization_compiler_identity import (
-        build_compiler_identity,
-        build_compiler_identity_from_git,
-        compiler_identity_matches_claim,
-        compiler_source_paths,
-    )
+from iris_tooling.build.naturalization_compiler_identity import compiler_source_paths
 
 from iris_tooling.build.repository_context import require_repository_context
-from iris_tooling.domains.public_text.evaluate import (
-    PublicTextEvaluationError,
-    determine_qualified_disposition as determine_disposition_rule,
-    evaluate_threshold as evaluate_threshold_rule,
-)
-from iris_tooling.domains.public_text.inputs import (
-    PublicTextInputError,
-    load_json_bytes as load_public_text_json_bytes,
-)
 
 V2_ROOT = require_repository_context().description_v2_root
 REPO_ROOT = require_repository_context().repository_root
@@ -362,6 +331,29 @@ RAW_DETECTOR_IDS = (
     "empty_or_filler_sentence",
 )
 
-__all__ = [
-    name for name in globals() if not name.startswith("__")
-]
+__all__ = (
+    "ATTEMPT_ID_PATTERN", "CANDIDATE_STRUCTURAL_STATUSES", "CURRENT_FACTS",
+    "CURRENT_INPUT_MANIFEST", "DEFAULT_ATTEMPTS_ROOT", "DEFAULT_FOUNDATION_ROOT",
+    "DISPOSITION_CLASSES", "EVALUATION_SUBJECT_KINDS", "FIXTURE_MANIFEST",
+    "FIXTURE_SCHEMA_VERSION", "FOUNDATION_CONTRACT_NAME",
+    "FOUNDATION_CONTRACT_VERSION", "FOUNDATION_DOCS",
+    "FOUNDATION_IMPLEMENTATION_FILES", "FOUNDATION_SCHEMA_VERSION",
+    "FOUR_PLAN_SYNC_PROJECTION_SHA256", "G0_G1_RELEASE_BINDING",
+    "G2_ATTEMPT_ROOT", "G2_SEALED_SUCCESSOR_CLOSEOUT",
+    "G2_SEALED_SUCCESSOR_RECEIPT", "G2_SELECTED_SUCCESSOR_BINDING",
+    "G2_TERMINAL_HASH_SEAL", "G3_ATTEMPT_ROOT", "G3_CURRENT_IDENTITY_REPORT",
+    "G3_REGISTRY_ADOPTION_RECEIPT", "G3_TERMINAL_HASH_SEAL", "GIT_COMMIT_PATTERN",
+    "GLOBAL_SYNC_CONTRACT_ID", "GLOBAL_SYNC_MANIFEST",
+    "GLOBAL_SYNC_MANIFEST_GIT_BLOB_ID", "GLOBAL_SYNC_MANIFEST_LF_NORMALIZED_SHA256",
+    "LIVE_REQUIRED_VALIDATIONS", "NATURALIZATION_COMPILER_IMPLEMENTATION_FILES",
+    "NATURALIZATION_PLAN_DOC", "OFFICIAL_MODES", "OWNER_INPUT_ROOT",
+    "PHASE_ARTIFACTS", "PLAN_DOC", "PREDECESSOR_FOUNDATION",
+    "PROTECTED_SNAPSHOT_IDENTITY_ALGORITHM_ID", "PUBLIC_TEXT_DOMAIN_DIR",
+    "QUALIFIED_DISPOSITIONS", "RAW_DETECTOR_IDS", "READINESS_REPORT_NAME",
+    "READINESS_SCHEMA_VERSION", "REPO_ROOT", "REQUIRED_HANDOFF_CONSTITUENT_IDS",
+    "REVIEWER_INPUT_ROOT", "ROUND_ID", "SATISFIED_REQUIRED_STRUCTURAL_STATUSES",
+    "SEALED_PREREQUISITE_RAW_SHA256", "STAGING_ROUND_ID", "SYNC_CONTRACT_ID",
+    "TEXT_CONSTITUENT_IDENTITY_ALGORITHM_ID", "TEXT_HANDOFF_CONSTITUENT_IDS",
+    "TOOLING_PACKAGE_SOURCE_DIR", "TOOLS_DIR", "V2_ROOT",
+    "VOLATILE_CANONICAL_FIELDS",
+)

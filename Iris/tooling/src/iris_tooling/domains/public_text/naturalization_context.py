@@ -1,78 +1,9 @@
 from __future__ import annotations
 
-import argparse
-from collections import Counter, defaultdict
-from datetime import datetime, timezone
-import hashlib
-import json
-import math
 from pathlib import Path
-import re
-import shutil
-import subprocess
-import sys
-from typing import Any, Iterable
 
+from iris_tooling.build.naturalization_compiler_identity import compiler_source_paths
 from iris_tooling.build.repository_context import require_repository_context
-from iris_tooling.domains.public_text.naturalization import (
-    evaluate_human_review_decision as evaluate_review_decision,
-    select_rank as select_candidate_rank,
-)
-from iris_tooling.domains.public_text.inputs import (
-    NaturalizationProvenanceInputs,
-    PublicTextInputError,
-    load_json as load_public_text_json,
-    load_jsonl as load_public_text_jsonl,
-)
-
-if __package__ in {None, ""}:
-    from iris_tooling.build.compose_layer3_body_profile import (
-        build_candidate_body_plan_requirements,
-        load_profile_resolution_rules,
-        resolve_body_profile,
-    )
-    from iris_tooling.build.compose_layer3_identity import (
-        build_candidate_lead_context,
-        select_candidate_lead_realization,
-    )
-    from iris_tooling.build.compose_layer3_text import (
-        BODY_PLAN_PROFILES_PATH,
-        CURRENT_OVERLAY_SUPPORT_PATH,
-        IDENTITY_RULES_PATH,
-        PRECEDENCE_RULES_PATH,
-        STAGING_COMPOSE_CONTEXT,
-        ComposeEntrypointGuardError,
-        build_candidate_rendered,
-        build_rendered,
-    )
-    from iris_tooling.build.naturalization_compiler_identity import (
-        build_compiler_identity,
-        compiler_source_paths,
-    )
-else:
-    from iris_tooling.build.compose_layer3_body_profile import (
-        build_candidate_body_plan_requirements,
-        load_profile_resolution_rules,
-        resolve_body_profile,
-    )
-    from iris_tooling.build.compose_layer3_identity import (
-        build_candidate_lead_context,
-        select_candidate_lead_realization,
-    )
-    from iris_tooling.build.compose_layer3_text import (
-        BODY_PLAN_PROFILES_PATH,
-        CURRENT_OVERLAY_SUPPORT_PATH,
-        IDENTITY_RULES_PATH,
-        PRECEDENCE_RULES_PATH,
-        STAGING_COMPOSE_CONTEXT,
-        ComposeEntrypointGuardError,
-        build_candidate_rendered,
-        build_rendered,
-    )
-    from iris_tooling.build.naturalization_compiler_identity import (
-        build_compiler_identity,
-        compiler_source_paths,
-    )
 
 
 V2_ROOT = require_repository_context().description_v2_root
@@ -315,6 +246,37 @@ RUNNER_MODES = (
     "phase8-publish-handoff",
 )
 
-__all__ = [
-    name for name in globals() if not name.startswith("__")
-]
+__all__ = (
+    "BLOCKED_ATTEMPT_ID", "BODY_PLAN_APPLICABILITY_APPROVAL_PATH",
+    "COMPILER_IMPLEMENTATION_PATHS", "CORPUS_MANIFEST_PATH", "DATA_ROOT",
+    "DECISIONS_PATH", "DEFAULT_ATTEMPT_PARENT", "DURABLE_ROOT",
+    "EVALUATION_SUBJECT_KIND", "EXECUTION_CONTRACT_PATH",
+    "EXPECTED_ATTACHMENT_HASHES", "EXPECTED_COMPILER_FIX_COMMIT",
+    "EXPECTED_CURRENT_FACTS_SHA256", "EXPECTED_CURRENT_MANIFEST_SHA256",
+    "EXPECTED_FOOD_SEMANTIC_LICENSE_SHA256", "EXPECTED_FOOD_SEMANTIC_SCHEMA_SHA256",
+    "EXPECTED_FOUNDATION_CONTRACT_SHA256", "EXPECTED_FOUNDATION_READINESS_CORRECTION_REBIND_SHA256",
+    "EXPECTED_FOUNDATION_READINESS_CURRENT_INPUT_REBIND_SHA256",
+    "EXPECTED_FOUNDATION_READINESS_SHA256", "EXPECTED_INITIAL_REGISTRY_ADOPTION_RECEIPT_SHA256",
+    "EXPECTED_PARTICLE_CORRECTION_COMMIT", "EXPECTED_PARTICLE_CORRECTION_PROJECTION_REPORT_SHA256",
+    "EXPECTED_PREVIOUS_REGISTRY_CORRECTION_RECEIPT_SHA256",
+    "EXPECTED_REGISTRY_ADOPTION_CONTRACT_SHA256", "EXPECTED_REGISTRY_ADOPTION_RECEIPT_SHA256",
+    "EXPECTED_REGISTRY_CORRECTION_SUCCESSOR_MANIFEST_SHA256",
+    "EXPECTED_REGISTRY_CORRECTION_TERMINAL_SEAL_SHA256",
+    "EXPECTED_REGISTRY_NATURALIZATION_HANDOFF_SHA256",
+    "EXPECTED_SELECTED_SUCCESSOR_FACTS_SHA256", "EXPECTED_SELECTED_SUCCESSOR_MANIFEST_SHA256",
+    "EXPECTED_START_COMMIT", "EXPECTED_START_TREE", "FACTS_AUTHORITY_ROUTING_CORRECTION",
+    "FACTS_PATH", "FOOD_SEMANTIC_LICENSE", "FOOD_SEMANTIC_SCHEMA",
+    "FORBIDDEN_TRANSFORMATIONS", "FOUNDATION_CONTRACT", "FOUNDATION_READINESS",
+    "FOUNDATION_READINESS_CORRECTION_REBIND", "FOUNDATION_READINESS_CURRENT_INPUT_REBIND",
+    "FOUNDATION_ROOT", "GOLD_APPROVAL_PATH", "GOLD_CORPUS_PATH",
+    "HISTORICAL_ATTEMPT_ID", "HUMAN_REVIEW_DECISION_PATH",
+    "INITIAL_REGISTRY_ADOPTION_RECEIPT", "INPUT_MANIFEST", "NOT_APPLICABLE_REASONS",
+    "PARTICLE_CORRECTION_PROJECTION_REPORT", "PLAN_PATH", "POLICY_PATH",
+    "PRESERVED_PREDECESSOR_ATTEMPT_IDS", "PROTECTED_PATHS",
+    "PUBLIC_TEXT_DOMAIN_DIR", "PUBLISH_PLAN_PATH", "QUALITY_APPROVAL_PATH",
+    "QUALITY_STANDARD_PATH", "REGISTRY_ADOPTION_CONTRACT", "REGISTRY_ADOPTION_RECEIPT",
+    "REGISTRY_CORRECTION_TERMINAL_SEAL", "REGISTRY_NATURALIZATION_HANDOFF", "REPO_ROOT",
+    "ROADMAP_BINDING_PATH", "ROUND_ID", "RUNNER_MODES", "SOURCE_ROLE_BY_FIELD",
+    "SYNC_CONTRACT_ID", "TOOLING_PACKAGE_SOURCE_DIR",
+    "TOOLS_DIR", "TRANSFORMATION_IDS", "V2_ROOT",
+)

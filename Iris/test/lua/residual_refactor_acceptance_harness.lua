@@ -293,7 +293,15 @@ package.preload["Iris/Util/IrisTranslationResolver"] = function()
         getLangKey=function() return runtimeLocale end,
     }
 end
-resetLoaded({"Iris/UI/Wiki/IrisWikiSections", "Iris/UI/Wiki/IrisWikiUnitProfiles"})
+resetLoaded({
+    "Iris/Util/IrisTranslationResolver",
+    "Iris/UI/Detail/IrisItemDetailViewModel",
+    "Iris/UI/Detail/IrisItemDetailModelAssembler",
+    "Iris/UI/Detail/IrisItemDetailPresentation",
+    "Iris/UI/Detail/IrisItemFactReader",
+    "Iris/UI/Wiki/IrisWikiSections",
+    "Iris/UI/Wiki/IrisWikiUnitProfiles"
+})
 local WikiSections = require("Iris/UI/Wiki/IrisWikiSections")
 local foodItem = {fullType="Base.Food"}
 function foodItem:getFullType() return self.fullType end

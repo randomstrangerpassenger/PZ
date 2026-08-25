@@ -1,7 +1,16 @@
 {
   "schema_version": "iris-current-build-manifest-v1",
-  "status": "w9_supported_compatibility_isolated",
+  "status": "w10_terminal_implementation_subject",
   "subject_commit": "22e94077dd057a943ba2e6ff03f25f5880b3126c",
+  "subject_commit_role": "W0 adopted baseline; terminal implementation identity is recorded by the responsibility-refactor closeout",
+  "forbidden_current_bindings": [
+    "Iris/media/lua/client/Iris/Compat/IrisBulletReloadCompat.lua",
+    "Iris/media/lua/client/Iris/Compat/IrisContextMenuTextureCompat.lua",
+    "tools.build imports in current Description v2 consumers",
+    "Iris/build/rightclick_evidence_pipeline.py as a current command",
+    "right-click --v22/--v23/--v24 mode flags",
+    "IrisLayer3DataChunks fixed directory in a deployable package"
+  ],
   "entrypoints": [
     {
       "id": "root_classification",

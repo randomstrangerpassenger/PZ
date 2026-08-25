@@ -30,4 +30,16 @@
   "pytest_cache_mode": "disabled",
   "result_plugin": "Iris.validation.clean_checkout.pytest_result_plugin",
   "generated_state_policy": "external_only"
+  ,
+  "environment_authority": {
+    "locator": "Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json",
+    "selection": "immutable_record_and_external_receipt",
+    "repository_context": "explicit"
+  },
+  "current_projection_contracts": {
+    "offline_tooling": "installed iris_tooling package",
+    "rightclick": "v2.4-only installed CLI",
+    "layer3_package": "stable facade/pointer plus exactly one pointer-selected generation",
+    "supported_runtime_adapters": "phase0 manifest-listed surfaces only"
+  }
 }

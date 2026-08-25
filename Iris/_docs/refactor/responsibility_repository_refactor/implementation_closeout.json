@@ -1,0 +1,48 @@
+{
+  "schema_version": "iris-responsibility-refactor-implementation-closeout-v1",
+  "status": "terminal_validation_pending",
+  "baseline_commit": "22e94077dd057a943ba2e6ff03f25f5880b3126c",
+  "implementation_waves": {
+    "w2": "35a3a1f4",
+    "w3": "996724ba",
+    "w4": "3a02185a",
+    "w5": "c1128b96",
+    "w6": "96fec29b",
+    "w7": "bfd78aa5",
+    "w8": "05809f54",
+    "w9": "5e810430"
+  },
+  "current_owners": {
+    "offline_tooling": "Iris/tooling/src/iris_tooling",
+    "rightclick": "iris_tooling.domains.rightclick v2.4-only CLI",
+    "package_projection": "Iris/tools/package_iris.ps1 plus Layer3PackageProjection",
+    "browser": ["IrisBrowserProjectionBuilder", "IrisBrowserLifecycle", "IrisBrowserMetrics", "IrisBrowserData facade"],
+    "detail": ["IrisItemFactReader", "IrisItemDetailModelAssembler", "IrisItemDetailPresentation"],
+    "environment": "responsibility_refactor_environment_current.json"
+  },
+  "removed_or_retired_current_surfaces": [
+    "Iris global bullet reload replacement",
+    "Iris global context menu render replacement",
+    "current tools.build imports and cwd/sys.path bootstrap",
+    "right-click v2/v2.2/v2.3 current modes",
+    "Recipe/Moveables/Fixing no-op build methods",
+    "Iris product use of StaticData.getLegacyIrisData"
+  ],
+  "package_delta": {
+    "included_layer3_generation_count": 1,
+    "legacy_fixed_chunk_directory_count": 0,
+    "inactive_generation_count": 0,
+    "source_rollback_material_modified": false
+  },
+  "validation_migration": {
+    "orphan_current_consumers": 0,
+    "ambiguous_bindings": 0,
+    "temporary_wrappers": 0,
+    "derived_test_count_is_observational": true
+  },
+  "non_claims": [
+    "no release/freeze/RTC/Publish/deployment claim",
+    "no universal external-mod compatibility claim",
+    "no measured performance or token-efficiency claim"
+  ]
+}

@@ -2664,7 +2664,7 @@
       "checks": []
     },
     {
-      "path": "Iris/build/description/v2/tools/build/iar_public_text_assessment.py",
+      "path": "Iris/tooling/src/iris_tooling/build/iar_public_text_assessment.py",
       "checks": []
     },
     {
@@ -2676,31 +2676,31 @@
       "checks": []
     },
     {
-      "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py",
+      "path": "Iris/tooling/src/iris_tooling/build/public_text_quality_acceptance.py",
       "checks": []
     },
     {
-      "path": "Iris/build/description/v2/tools/build/naturalization_compiler_identity.py",
+      "path": "Iris/tooling/src/iris_tooling/build/naturalization_compiler_identity.py",
       "checks": []
     },
     {
-      "path": "Iris/build/description/v2/tools/build/dvf_3_3_generation_contract.py",
+      "path": "Iris/tooling/src/iris_tooling/build/dvf_3_3_generation_contract.py",
       "checks": []
     },
     {
-      "path": "Iris/build/description/v2/tools/build/build_dvf_3_3_complete_generation.py",
+      "path": "Iris/tooling/src/iris_tooling/build/build_dvf_3_3_complete_generation.py",
       "checks": []
     },
     {
-      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_complete_generation.py",
+      "path": "Iris/tooling/src/iris_tooling/build/validate_dvf_3_3_complete_generation.py",
       "checks": []
     },
     {
-      "path": "Iris/build/description/v2/tools/build/install_dvf_3_3_complete_generation.py",
+      "path": "Iris/tooling/src/iris_tooling/build/install_dvf_3_3_complete_generation.py",
       "checks": []
     },
     {
-      "path": "Iris/build/description/v2/tools/build/dvf_3_3_runtime_compatibility.py",
+      "path": "Iris/tooling/src/iris_tooling/build/dvf_3_3_runtime_compatibility.py",
       "checks": []
     },
     {

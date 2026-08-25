@@ -18,7 +18,9 @@ live build scripts.
 
 - `main.py`: legacy full classification pipeline entrypoint.
 - `recipe_evidence_pipeline.py`: recipe evidence pipeline.
-- `rightclick_evidence_pipeline.py`: right-click evidence pipeline.
+- Installed current right-click command: `python -m iris_tooling --repository-root <repo> rightclick`.
+  `rightclick_evidence_pipeline.py` is a retained non-current predecessor and is
+  not a supported current entrypoint.
 - `quality_gates.py`: frozen-output and quality gate checks.
 - `description_generator.py`: description JSON generator.
 - `convert_descriptions_to_lua.py`: generated description Lua converter.
@@ -177,14 +179,31 @@ retain their direct-execution bootstrap and migrate incrementally.
 Historical compose import note label:
 `docs/Iris/phase3_compose_import_contract_note.md`.
 
+## Current installed Description v2 tooling
+
+Use the locked project or the immutable clean-checkout environment. Commands
+must receive an explicit repository root; package code does not infer one from
+its installation path or current working directory.
+
+- Probe: `uv run --project .\Iris\tooling --locked --no-editable python -B -m iris_tooling --help`
+- Classification indexes: `uv run --project .\Iris\tooling --locked --no-editable python -B -m iris_tooling --repository-root . classification`
+- Right-click v2.4: `uv run --project .\Iris\tooling --locked --no-editable python -B -m iris_tooling --repository-root . rightclick <arguments>`
+- Layer 3 compose: `uv run --project .\Iris\tooling --locked --no-editable python -B -m iris_tooling --repository-root . layer3 <arguments>`
+- Layer 4 export: `uv run --project .\Iris\tooling --locked --no-editable python -B -m iris_tooling --repository-root . layer4 <arguments>`
+- Public-text/naturalization: `uv run --project .\Iris\tooling --locked --no-editable python -B -m iris_tooling --repository-root . public-text <arguments>`
+
+The corresponding files under `Iris/build/description/v2/tools/build/` are
+retained reproduction predecessors. They are not current imports or documented
+entrypoints.
+
 ## DVF 3-3 stateless complete-generation successor
 
 Run these from the repository root. Generation and reports must use explicit external roots.
 
-- Build: `uv run python -B Iris/build/description/v2/tools/build/build_dvf_3_3_complete_generation.py --repository-root . --output-root <external-generation-root>`
-- Validate: `uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_complete_generation.py --repository-root . --generation-root <external-generation-root>`
-- Validate key/runtime projection: `uv run python -B Iris/build/description/v2/tools/build/dvf_3_3_runtime_compatibility.py --generation-root <external-generation-root>`
-- Install after every R2-B gate is satisfied: `uv run python -B Iris/build/description/v2/tools/build/install_dvf_3_3_complete_generation.py --repository-root . --generation-root <external-generation-root> --expected-predecessor-generation-id <exact-id>`
+- Build: installed `iris_tooling.build.build_dvf_3_3_complete_generation` with explicit repository/output arguments.
+- Validate: installed `iris_tooling.build.validate_dvf_3_3_complete_generation` with explicit repository/generation arguments.
+- Validate key/runtime projection: installed `iris_tooling.build.dvf_3_3_runtime_compatibility` against the external generation.
+- Install after every R2-B gate is satisfied: installed `iris_tooling.build.install_dvf_3_3_complete_generation` with the exact expected predecessor generation id.
 - Package current runtime: `powershell -ExecutionPolicy Bypass -File .\Iris\tools\package_iris.ps1 -OutputRoot <external-package-root> -Clean -Zip -PackageApplicability current_runtime_payload`
 
 Only the installer may change the protected `IrisLayer3DataCurrent.lua` pointer. Source facts are edited through normal Git-authored diffs and rebuilt off-live. Historical correction/cutover/adoption entrypoints remain reproducibility evidence and are not current generation commands; RTC remains separate governance.

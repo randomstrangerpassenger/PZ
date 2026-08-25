@@ -1111,3 +1111,23 @@ Current state: **complete** at corrected terminal `b7c4fa54`.
 - Product/runtime/public-output 변경과 remote push는 없다. 기존 `.codex-worktrees/iris-validation-retirement-p10-successor` dirty state는 보존한다.
 
 남은 구현·validation gate는 없다. Wall-clock, 실제 token usage, in-game, RTC/Publish와 deployment는 별도 범위다.
+
+## Iris responsibility/repository refactor (2026-08-25)
+
+Current state: W2–W9 implementation complete; W10 terminal environment and exact-subject validation in progress.
+
+- W0 baseline/adoption: `22e94077`, Run A/B/comparator와 standalone 4 PASS.
+- W1 decisions: `e455fc21`.
+- W2 global patch retirement: `35a3a1f4`.
+- W3 installable tooling/environment transition: implementation `996724ba`, authority `707f1f59`.
+- W4 public-text responsibility split: implementation `3a02185a`, authority `652cab65`.
+- W5 v2.4-only right-click pipeline: implementation `c1128b96`, authority `0c087738`.
+- W6 current-generation-only package: `96fec29b`.
+- W7 Browser projection/lifecycle/metrics split: `bfd78aa5`.
+- W8 Detail fact-reader/assembler/presentation split: `05809f54`.
+- W9 supported compatibility isolation: `5e810430`.
+
+Remaining gate는 W10 terminal wheel/environment authority, plan-listed focused/package/Lua
+validation, clean Run A/B, deterministic comparator와 arbitrary-cwd installed CLI probe다.
+PZ in-game bounded probe는 자동화 결과로 대체하지 않으며 실행 불가 시 manual axis를
+미검증으로 명시한다.

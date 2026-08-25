@@ -2877,3 +2877,13 @@
 * `phase0_supported_api_manifest.json`에 listed된 `IrisData`, `IrisBrowserData.build`, `IrisBrowserData.getGroupVariants`, Wiki render facade는 thin current adapter로 보존한다. `StaticData.getLegacyIrisData`는 listed supported surface로 승격하지 않고 내부 implementation detail로만 유지한다.
 * Layer 3 배포 package는 current pointer가 선택한 generation 하나만 포함한다. inactive generation과 legacy fixed chunks의 source는 이 계획에서 이동·수정·삭제하지 않고 rollback/bootstrap predecessor로 보존한다.
 * 구현 checkpoint와 migration binding은 `Iris/_docs/refactor/responsibility_repository_refactor/{s0_baseline_adoption.json,successor_decision.json,current_migration_map.json}`을 따른다. Historical/staging/evidence/frozen payload의 기존 authority를 supersede하지 않는다.
+
+## Iris responsibility/repository refactor — implementation adoption (2026-08-25)
+
+* 상태: W2–W9 implementation adopted; terminal validation pending W10 exact subject.
+* Current Description v2/right-click owner는 installed `iris_tooling` package다. Current consumer의 `tools.build` import, cwd/sys.path bootstrap과 right-click version mode flag는 허용하지 않는다.
+* Browser와 Detail의 former monolith 책임은 projection/lifecycle/metrics 및 fact-reader/assembler/presentation owners로 이관한다. Supported facade의 signature/result shape는 유지한다.
+* `IrisData.lua`는 focused classifications/variant groups를 운반하는 thin table-identity adapter다. `StaticData.getLegacyIrisData`는 비공개 implementation detail로 남되 Iris product consumer는 없다. Recipe/Moveables/Fixing의 unlisted no-op `build()`는 제거한다.
+* Package projection은 current Layer 3 generation-only다. Source predecessor hold는 유지되며 package output authority로 승격되지 않는다.
+* W2–W9 implementation commits는 각각 `35a3a1f4`, `996724ba`, `3a02185a`, `c1128b96`, `96fec29b`, `bfd78aa5`, `05809f54`, `5e810430`이다. Environment authority는 W5까지 갱신했고 W6–W9는 package source/lock byte identity 조건으로 W5 record를 재사용했다.
+* Non-decision: PZ/외부 모드 전체 compatibility, release/freeze/RTC/Publish/deployment, 장시간 multiplayer와 실제 performance/token 개선은 이 adoption의 claim이 아니다.

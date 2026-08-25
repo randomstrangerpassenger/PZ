@@ -1,6 +1,6 @@
 {
   "schema_version": "iris-responsibility-refactor-current-migration-map-v1",
-  "status": "adopted",
+  "status": "terminal_implementation_ready",
   "rows": [
     {
       "id": "global_compat_patches",
@@ -51,7 +51,7 @@
       "id": "detail_wiki_runtime",
       "predecessor_paths": ["Iris/media/lua/client/Iris/UI/Detail/IrisItemDetailViewModel.lua", "Iris/media/lua/client/Iris/UI/Wiki/IrisWikiSections.lua", "Iris/media/lua/client/Iris/UI/Wiki/IrisWikiPanel.lua"],
       "successor_owner": "fact reader, model assembler, shared section projection",
-      "successor_paths": ["IrisItemFactReader.lua", "IrisItemDetailModelAssembler.lua", "IrisWikiSections.lua"],
+      "successor_paths": ["IrisItemFactReader.lua", "IrisItemDetailModelAssembler.lua", "IrisItemDetailPresentation.lua", "IrisWikiSections.lua"],
       "consumers": ["Browser detail", "Wiki panel", "Alt Tooltip"],
       "validation_bindings": ["detail/wiki/browser semantic snapshots", "Tooltip four-line contract", "Wiki nil/no-op compatibility"],
       "compatibility_disposition": "listed Wiki facade retained"
@@ -75,5 +75,7 @@
       "compatibility_disposition": "predecessor literal retained only in approved historical provenance allowlist"
     }
   ],
-  "orphan_current_consumers": 0
+  "orphan_current_consumers": 0,
+  "ambiguous_validation_bindings": 0,
+  "temporary_migration_wrappers": 0
 }

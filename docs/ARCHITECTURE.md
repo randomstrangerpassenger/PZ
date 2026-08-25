@@ -1017,3 +1017,23 @@ Dirty-main `163` file / `335` identity / `901,270` bytes는 historical local-dom
 - Consolidated family는 `shared immutable preparation/producer -> named checks` 구조다. Mutable negative/lifecycle case는 매번 reset 또는 writable clone을 사용하고, Round 3의 shared runner state는 `finally`에서 복원한다.
 - Duplicate authority는 더 강한 기존 successor로 이관한다. Taxonomy/manifest는 successor identity만 등록하며 execution, taxonomy, manifest 집합은 각각 독립적으로 closure한다.
 - Product/runtime Lua, product data, package source와 public output mutation은 `0`이다. 일회성 측정·inspection 명령은 canonical validator나 policy authority가 아니다.
+
+## Iris responsibility and repository ownership boundary
+
+Iris의 current offline build는 `Iris/tooling`의 locked, installable
+`iris_tooling` package가 소유한다. Repository context는 CLI의
+`--repository-root` 또는 clean-checkout runner가 제공하는 명시적 context로만
+주입한다. `Iris/build/description/v2/tools/build`와 root right-click script는
+reproduction predecessor이며 current import/command authority가 아니다.
+
+Runtime 책임은 다음처럼 분리한다.
+
+- Iris는 Project Zomboid 전역 bullet-reload/context-menu render 함수를 교체하지 않는다.
+- Browser는 projection builder, generation lifecycle, diagnostic metrics와 supported query facade로 나뉜다.
+- Detail engine 접근은 tri-state `IrisItemFactReader`, 결합은 immutable model assembler, unit/visibility는 공통 presentation policy가 소유한다.
+- `IrisData`, Browser `build/getGroupVariants`, Wiki render facade는 listed compatibility adapter로만 남고 독립 payload나 Iris 내부 legacy fallback을 소유하지 않는다.
+- Source rollback Layer 3 generations/fixed chunks는 보존하지만 package에는 stable facade/pointer와 pointer-selected generation 하나만 투영한다.
+
+Clean-checkout 환경은 stable locator → immutable repository record → external
+receipt/interpreter/wheel 순으로 해석한다. Historical Phase 0 environment
+record는 provenance이며 current resolution fallback이 아니다.

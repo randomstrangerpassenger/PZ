@@ -83,11 +83,21 @@
     "layer3_deployable_runtime_data": {
       "classification": "current",
       "paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua",
         "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
-        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/*.lua",
         "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/<generation_id>/**"
       ],
-      "notes": "The fixed chunk directory is the legacy predecessor readpoint. R2-A installs an immutable generation-qualified module set and changes visibility only through the stable IrisLayer3DataChunks.lua public facade. Monolith/chunks dual deployment is not authorized."
+      "notes": "The package includes the stable pointer/facade and exactly the pointer-selected immutable generation. Source IrisLayer3DataChunks/*.lua and inactive generations are rollback predecessors and are excluded from deployable packages."
+    },
+    "installed_offline_tooling": {
+      "classification": "current",
+      "paths": [
+        "Iris/tooling/pyproject.toml",
+        "Iris/tooling/uv.lock",
+        "Iris/tooling/src/iris_tooling/**"
+      ],
+      "command": "python -B -s -m iris_tooling --repository-root <repo> <domain>",
+      "notes": "Current Description v2 and right-click tooling is installed from a hash-bound wheel. Repository context is explicit."
     },
     "package_validation": {
       "classification": "current",
@@ -179,6 +189,18 @@
       "classification": "current",
       "authority_role": "active root build command and keep-list contract",
       "delete_move_policy": "protected; no filename-glob cleanup"
+    },
+    {
+      "path_glob": "Iris/tooling/**",
+      "classification": "current",
+      "authority_role": "installable Iris offline build package, locked dependencies, and package-owned tests",
+      "delete_move_policy": "protected; package source/lock changes require a new immutable environment authority"
+    },
+    {
+      "path": "Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json",
+      "classification": "current",
+      "authority_role": "stable locator for the current immutable clean-checkout environment record",
+      "delete_move_policy": "protected; update only through the environment receipt workflow"
     },
     {
       "path": "Iris/build/build_import_contract.md",

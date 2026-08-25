@@ -19,17 +19,6 @@ CORRECTION_CONTRACT = (
     / "compiler_identity_v2"
     / "compiler_identity_v2_correction_contract.json"
 )
-BOUNDED_PUBLISH_REMEDIATION_REPORT = (
-    REPO_ROOT
-    / "Iris"
-    / "_docs"
-    / "round3"
-    / "dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure"
-    / "compiler_corrections"
-    / "publish_remediation_0001"
-    / "bounded_projection_report.json"
-)
-
 from iris_tooling.build import naturalization_compiler_identity as identity
 from iris_tooling.build import public_text_quality_acceptance as consumer
 from iris_tooling.build import run_dvf_3_3_korean_prose_naturalization as producer
@@ -42,7 +31,7 @@ class NaturalizationCompilerIdentityTest(unittest.TestCase):
             for path in identity.COMPILER_REPO_RELATIVE_POSIX_PATH_ORDER
         }
 
-    def test_producer_and_consumer_share_v2_identity_and_path_order(self) -> None:
+    def test_producer_and_consumer_share_responsibility_complete_identity(self) -> None:
         self.assertIs(
             producer.build_compiler_identity,
             identity.build_compiler_identity,
@@ -76,36 +65,29 @@ class NaturalizationCompilerIdentityTest(unittest.TestCase):
         )
         correction = json.loads(CORRECTION_CONTRACT.read_text(encoding="utf-8"))
         predecessor_evidence = correction["canonical_identity_v2"]
-        if predecessor_evidence != producer_evidence:
-            bounded = json.loads(
-                BOUNDED_PUBLISH_REMEDIATION_REPORT.read_text(encoding="utf-8")
-            )
-            self.assertEqual(bounded["status"], "PASS")
-            self.assertEqual(bounded["failed_checks"], [])
-            self.assertTrue(all(bounded["checks"].values()))
-            self.assertEqual(
-                predecessor_evidence["algorithm_id"],
-                producer_evidence["algorithm_id"],
-            )
-            predecessor_paths = predecessor_evidence["path_order"]
-            current_paths = producer_evidence["path_order"]
-            self.assertEqual(len(predecessor_paths), len(current_paths))
-            self.assertTrue(
-                all(
-                    path.startswith(
-                        "Iris/build/description/v2/tools/build/"
-                    )
-                    for path in predecessor_paths
-                )
-            )
-            self.assertEqual(
-                current_paths,
-                list(identity.COMPILER_REPO_RELATIVE_POSIX_PATH_ORDER),
-            )
-            self.assertEqual(
-                [Path(path).name for path in predecessor_paths],
-                [Path(path).name for path in current_paths],
-            )
+        self.assertNotEqual(predecessor_evidence, producer_evidence)
+        self.assertEqual(
+            predecessor_evidence["algorithm_id"],
+            producer_evidence["algorithm_id"],
+        )
+        self.assertEqual(len(predecessor_evidence["path_order"]), 9)
+        current_paths = producer_evidence["path_order"]
+        self.assertEqual(
+            current_paths,
+            list(identity.COMPILER_REPO_RELATIVE_POSIX_PATH_ORDER),
+        )
+        self.assertIn(
+            "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_application.py",
+            current_paths,
+        )
+        self.assertIn(
+            "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_transformation.py",
+            current_paths,
+        )
+        self.assertIn(
+            "Iris/tooling/src/iris_tooling/domains/public_text/inputs.py",
+            current_paths,
+        )
 
     def test_working_and_git_blob_line_endings_are_metamorphic(self) -> None:
         working = self.synthetic_contents(b"alpha\r\nbeta\rgamma\n")

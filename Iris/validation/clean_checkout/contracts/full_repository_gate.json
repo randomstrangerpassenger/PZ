@@ -40,15 +40,15 @@
       "Iris/tooling/tests/test_public_text_domain_contract.py"
     ],
     "additional_node_ids": [
-      "Iris/tooling/tests/test_rightclick_pipeline.py::test_invert_produces_sorted_output",
-      "Iris/tooling/tests/test_rightclick_pipeline.py::test_output_gate_rejects_invalid_fulltype",
-      "Iris/tooling/tests/test_rightclick_pipeline.py::test_tc1_invalid_capability_fails_gate1",
-      "Iris/tooling/tests/test_rightclick_pipeline.py::test_tc2_multiple_sources_fails_gate1",
-      "Iris/tooling/tests/test_rightclick_pipeline.py::test_tc3_unsupported_resolution_type_fails",
-      "Iris/tooling/tests/test_rightclick_pipeline.py::test_tc4_duplicate_capability_fails_output_gate",
-      "Iris/tooling/tests/test_rightclick_pipeline.py::test_tc5_scrap_moveables_contains_expected_tools",
-      "Iris/tooling/tests/test_rightclick_pipeline.py::test_tc6_dict_flatten_works",
-      "Iris/tooling/tests/test_rightclick_pipeline.py::test_tc7_property_mapping_works"
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_noncurrent_capability_module_is_not_packaged",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_fulltype_parser_preserves_unqualified_type",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_semicolon_list_is_normalized",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_truthy_contract_is_explicit",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_anchor_slug_is_stable",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_canonical_hash_ignores_mapping_order",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_proof_merge_fails_closed_on_boolean_conflict",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_item_matchers_cover_current_v24_types",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_property_based_reviews_are_routed_deterministically"
     ]
   },
   "required_standalone_validations": [
@@ -81,7 +81,7 @@
       },
       {
         "path": "Iris/build/description/v2/tests/test_naturalization_compiler_identity.py",
-        "reason": "current nine-constituent compiler identity is a required G5 handoff contract and must override the historical description-test heuristic"
+        "reason": "current responsibility-complete compiler identity is a required G5 handoff contract and must override the historical description-test heuristic"
       },
       {
         "path": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py",
@@ -137,7 +137,7 @@
       },
       {
         "path": "Iris/tooling/tests/test_rightclick_pipeline.py",
-        "reason": "current installed right-click capability contract and required nine-node route"
+        "reason": "current installed right-click v2.4 contract, noncurrent capability exclusion, and required nine-node route"
       }
     ],
     "explicit_dedicated_route_sources": [

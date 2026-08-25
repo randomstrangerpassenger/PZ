@@ -262,7 +262,7 @@ def test_change2_status_projection_is_additive_and_single_lookup_owned() -> None
     ).read_text(encoding="utf-8")
     model = (
         REPOSITORY_ROOT
-        / "Iris/media/lua/client/Iris/UI/Detail/IrisItemDetailViewModel.lua"
+        / "Iris/media/lua/client/Iris/UI/Detail/IrisItemDetailModelAssembler.lua"
     ).read_text(encoding="utf-8")
     assert "function UseCases._getDescriptionState(fullType)" in use_cases
     for status in ('"available"', '"verified_empty"', '"fault"'):

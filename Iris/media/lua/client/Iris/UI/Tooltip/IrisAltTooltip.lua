@@ -87,10 +87,24 @@ local function buildDetailLines(summary)
             displayLineCacheMetrics.temporaryDetailTables + 1
     end
     if not summary then
-        return {
-            tr("Iris_Tooltip_Tags", "Tags") .. ": (" .. tr("Iris_Tooltip_ApiLoadFailed", "API load failed") .. ")",
-            tr("Iris_Tooltip_More", "More") .. ": " .. tr("Iris_Tooltip_RightClickHint", "Right-click > Iris"),
+        return {}
+    end
+
+    if summary.tooltipFacts then
+        local labels = {
+            weight = "Weight", hunger = "Hunger", thirst = "Thirst",
+            stress = "Stress", boredom = "Boredom", calories = "Calories",
+            minDamage = "Minimum damage", maxDamage = "Maximum damage",
+            conditionMax = "Durability", capacity = "Capacity",
         }
+        local detailLines = {}
+        for _, valueFact in ipairs(summary.tooltipFacts) do
+            if #detailLines >= 4 then break end
+            detailLines[#detailLines + 1] =
+                tr("Iris_Detail_" .. valueFact.id, labels[valueFact.id] or valueFact.id) ..
+                ": " .. tostring(valueFact.value)
+        end
+        return detailLines
     end
 
     local detailLines = {}
@@ -101,15 +115,11 @@ local function buildDetailLines(summary)
             tagStr = tagStr:sub(1, 47) .. "..."
         end
         table.insert(detailLines, tr("Iris_Tooltip_Tags", "Tags") .. ": " .. tagStr)
-    else
-        table.insert(detailLines, tr("Iris_Tooltip_Tags", "Tags") .. ": (" .. tr("Iris_Tooltip_None", "None") .. ")")
     end
 
     local connections = summary.connections or {}
     if #connections > 0 then
         table.insert(detailLines, tr("Iris_Tooltip_Connections", "Connections") .. ": " .. table.concat(connections, ", "))
-    else
-        table.insert(detailLines, tr("Iris_Tooltip_Connections", "Connections") .. ": " .. tr("Iris_Tooltip_None", "None"))
     end
 
     local useCaseCount = summary.useCaseCount or 0
@@ -118,8 +128,6 @@ local function buildDetailLines(summary)
             tr("Iris_Tooltip_CountSuffix", ""))
     end
 
-    table.insert(detailLines, tr("Iris_Tooltip_More", "More") .. ": " ..
-        tr("Iris_Tooltip_RightClickHint", "Right-click > Iris"))
     return detailLines
 end
 
@@ -236,9 +244,9 @@ function IrisAltTooltip.addIrisOverlay(tooltipInv)
     local summary = nil
     if summaryModule then
         if summaryModule._getCached then
-            summary = summaryModule._getCached(fullType)
+            summary = summaryModule._getCached(fullType, tooltipInv.item)
         elseif summaryModule.get then
-            summary = summaryModule.get(fullType)
+            summary = summaryModule.get(fullType, tooltipInv.item)
         end
     end
     local detailLines = getDetailLines(fullType, summary)

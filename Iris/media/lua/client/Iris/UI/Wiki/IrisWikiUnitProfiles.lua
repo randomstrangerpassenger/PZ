@@ -7,30 +7,14 @@
 ]]
 
 local IrisWikiUnitProfiles = {}
-
-local PROFILES = {
-    raw = {
-        multiplier = 1,
-        format_string = "%.0f",
-    },
-    percent_scaled = {
-        multiplier = 100,
-        format_string = "%.0f",
-    },
-}
+local Presentation = require("Iris/UI/Detail/IrisItemDetailPresentation")
 
 function IrisWikiUnitProfiles.formatSigned(value, profileName)
-    local profile = assert(PROFILES[profileName], "unknown Wiki unit profile: " .. tostring(profileName))
-    local sign = value < 0 and "" or "+"
-    return sign .. string.format(profile.format_string, value * profile.multiplier)
+    return Presentation.formatSigned(value, profileName)
 end
 
 function IrisWikiUnitProfiles.getProfile(profileName)
-    local profile = assert(PROFILES[profileName], "unknown Wiki unit profile: " .. tostring(profileName))
-    return {
-        multiplier = profile.multiplier,
-        format_string = profile.format_string,
-    }
+    return Presentation.getProfile(profileName)
 end
 
 return IrisWikiUnitProfiles

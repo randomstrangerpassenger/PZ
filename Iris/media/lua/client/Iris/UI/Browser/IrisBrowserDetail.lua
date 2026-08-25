@@ -14,6 +14,7 @@ local Theme = require("Iris/UI/Browser/IrisBrowserTheme")
 local ObjectAccess = require("Iris/Util/IrisObjectAccess")
 local ItemAccess = require("Iris/Util/IrisItemAccess")
 local DetailViewModel = require("Iris/UI/Detail/IrisItemDetailViewModel")
+local DetailPresentation = require("Iris/UI/Detail/IrisItemDetailPresentation")
 local TranslationResolver = require("Iris/Util/IrisTranslationResolver")
 local InteractionState = require("Iris/UI/Browser/IrisBrowserInteractionState")
 
@@ -218,6 +219,7 @@ function IrisBrowserDetail.install(IrisBrowser, context)
 
         local model = DetailViewModel.fromItem(item)
         self.currentDetailModel = model
+        self.currentDetailSemanticSnapshot = DetailPresentation.semanticSnapshot(model)
         self.detailBuiltLocale = model.locale
         local yOffset = 10
         local displayName = model.displayName

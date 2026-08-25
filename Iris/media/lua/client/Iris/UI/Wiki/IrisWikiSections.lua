@@ -15,7 +15,7 @@ local bootstrap = require("Iris/Util/IrisModuleBootstrap").create()
 local safeRequire = bootstrap.safeRequire
 local TranslationResolver = require("Iris/Util/IrisTranslationResolver")
 local DetailViewModel = require("Iris/UI/Detail/IrisItemDetailViewModel")
-local UnitProfiles = require("Iris/UI/Wiki/IrisWikiUnitProfiles")
+local Presentation = require("Iris/UI/Detail/IrisItemDetailPresentation")
 
 -- validation anchor: require, "Iris/Data/layer3_renderer"
 
@@ -79,28 +79,28 @@ function IrisWikiSections.renderFoodSection(item)
     local hunger = food.hunger
     if hunger and type(hunger) == "number" and hunger ~= 0 then
         table.insert(parts, getLabel("Iris_Detail_Hunger") .. ": " ..
-            UnitProfiles.formatSigned(hunger, "percent_scaled"))
+            Presentation.formatSigned(hunger, "percent_scaled"))
     end
     
     -- 갈증 변화
     local thirst = food.thirst
     if thirst and type(thirst) == "number" and thirst ~= 0 then
         table.insert(parts, getLabel("Iris_Detail_Thirst") .. ": " ..
-            UnitProfiles.formatSigned(thirst, "percent_scaled"))
+            Presentation.formatSigned(thirst, "percent_scaled"))
     end
     
     -- 스트레스 변화
     local stress = food.stress
     if stress and type(stress) == "number" and stress ~= 0 then
         table.insert(parts, getLabel("Iris_Detail_Stress") .. ": " ..
-            UnitProfiles.formatSigned(stress, "percent_scaled"))
+            Presentation.formatSigned(stress, "percent_scaled"))
     end
     
     -- 권태감 변화
     local boredom = food.boredom
     if boredom and type(boredom) == "number" and boredom ~= 0 then
         table.insert(parts, getLabel("Iris_Detail_Boredom") .. ": " ..
-            UnitProfiles.formatSigned(boredom, "percent_scaled"))
+            Presentation.formatSigned(boredom, "percent_scaled"))
     end
     
     -- 칼로리
@@ -258,6 +258,10 @@ function IrisWikiSections.getAllSections(item)
     return sections
 end
 
+function IrisWikiSections.getSemanticSnapshot(item)
+    return Presentation.semanticSnapshot(DetailViewModel.ensure(item))
+end
+
 -- 이전 호환성을 위한 레거시 함수
 function IrisWikiSections.renderReasonSection(item)
     return nil
@@ -314,14 +318,14 @@ function IrisWikiSections.renderCoreInfoSection(item)
     local thirst = model.food.thirst
     if thirst and type(thirst) == "number" and thirst ~= 0 then
         table.insert(parts, getLabel("Iris_Detail_Thirst") .. ": " ..
-            UnitProfiles.formatSigned(thirst, "raw"))
+            Presentation.formatSigned(thirst, "percent_scaled"))
     end
     
     -- 허기 변화 (음식류) - PZ에서 이미 정수값으로 저장
     local hunger = model.food.hunger
     if hunger and type(hunger) == "number" and hunger ~= 0 then
         table.insert(parts, getLabel("Iris_Detail_Hunger") .. ": " ..
-            UnitProfiles.formatSigned(hunger, "raw"))
+            Presentation.formatSigned(hunger, "percent_scaled"))
     end
     
     if #parts == 0 then

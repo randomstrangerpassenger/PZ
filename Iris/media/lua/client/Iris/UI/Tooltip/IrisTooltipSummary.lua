@@ -9,6 +9,8 @@ local IrisTooltipSummary = {}
 local safeRequire = require("Iris/Util/IrisRequire").safeRequire
 local ProtectedCall = require("Iris/Util/IrisProtectedCall")
 local RuntimeLookupDiagnostics = require("Iris/Data/IrisRuntimeLookupDiagnostics")
+local DetailViewModel = require("Iris/UI/Detail/IrisItemDetailViewModel")
+local DetailPresentation = require("Iris/UI/Detail/IrisItemDetailPresentation")
 
 local IrisClassifications = nil
 local IrisRecipeIndex = nil
@@ -38,12 +40,17 @@ local function copyArray(values)
 end
 
 local function copySummary(summary)
+    local tooltipFacts = {}
+    for index, row in ipairs(summary.tooltipFacts or {}) do
+        tooltipFacts[index] = { id = row.id, value = row.value, unit = row.unit }
+    end
     return {
         fullType = summary.fullType,
         tags = copyArray(summary.tags),
         connections = copyArray(summary.connections),
         useCaseCount = summary.useCaseCount,
         revision = summary.revision,
+        tooltipFacts = tooltipFacts,
     }
 end
 
@@ -139,13 +146,13 @@ local function countUseCaseLines(fullType)
     return #entry.lines
 end
 
-local function getCachedSummary(fullType)
+local function getCachedSummary(fullType, item)
     if not fullType then
         return nil
     end
 
     local cached = summaryByFullType[fullType]
-    if cached then
+    if cached and (item == nil or cached.tooltipFacts ~= nil) then
         if instrumentationEnabled then metrics.hits = metrics.hits + 1 end
         return cached
     end
@@ -154,17 +161,20 @@ local function getCachedSummary(fullType)
 
     ensureData()
 
+    local model = item and DetailViewModel.fromItem(item) or nil
     local summary = {
         fullType = fullType,
         tags = copySortedTags(fullType),
         connections = collectConnections(fullType),
         useCaseCount = countUseCaseLines(fullType),
+        tooltipFacts = model and DetailPresentation.tooltipFacts(model, 4) or nil,
     }
     summary.revision = table.concat({
         fullType,
         tostring(summary.useCaseCount),
         table.concat(summary.tags, "\0"),
         table.concat(summary.connections, "\0"),
+        tostring(model and model.revision or "static"),
     }, "|")
     summaryByFullType[fullType] = summary
     if instrumentationEnabled then metrics.builds = metrics.builds + 1 end
@@ -173,12 +183,12 @@ end
 
 -- Private read-only view for the Alt renderer. This avoids the public
 -- defensive copy while keeping the cached summary inside this module.
-function IrisTooltipSummary._getCached(fullType)
-    return getCachedSummary(fullType)
+function IrisTooltipSummary._getCached(fullType, item)
+    return getCachedSummary(fullType, item)
 end
 
-function IrisTooltipSummary.get(fullType)
-    local summary = getCachedSummary(fullType)
+function IrisTooltipSummary.get(fullType, item)
+    local summary = getCachedSummary(fullType, item)
     if not summary then return nil end
     return copySummary(summary)
 end

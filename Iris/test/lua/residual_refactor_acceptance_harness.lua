@@ -270,7 +270,7 @@ emit("tooltip.summary_copy_on_read", "mutation_isolation",
 package.loaded["Iris/Util/IrisRequire"] = nil
 package.preload["Iris/Util/IrisRequire"] = nil
 
--- Wiki unit profile preserves current food (*100) and core (raw) outputs.
+-- Shared presentation policy keeps Browser core and Wiki food units identical.
 local runtimeLocale = "EN"
 package.preload["Iris/Util/IrisTranslationResolver"] = function()
     local ko = {
@@ -318,24 +318,23 @@ local UnitProfiles = require("Iris/UI/Wiki/IrisWikiUnitProfiles")
 local percentProfile = UnitProfiles.getProfile("percent_scaled")
 local rawProfile = UnitProfiles.getProfile("raw")
 local foodScaled = foodRendered:find("%-15") ~= nil and foodRendered:find("%-5") ~= nil
-local coreRaw = coreRendered:find("Hunger: %-0") ~= nil and coreRendered:find("Thirst: %-0") ~= nil and
-    coreRendered:find("%-15") == nil and coreRendered:find("%-5") == nil
+local coreScaled = coreRendered:find("Hunger: %-15") ~= nil and coreRendered:find("Thirst: %-5") ~= nil
 local localeProfilesPreserved = foodRenderedKo:find("허기: %-15",1,false) ~= nil and
-    coreRenderedKo:find("갈증: %-0",1,false) ~= nil and
+    coreRenderedKo:find("갈증: %-5",1,false) ~= nil and
     percentProfile.multiplier == 100 and percentProfile.format_string == "%.0f" and
     rawProfile.multiplier == 1 and rawProfile.format_string == "%.0f"
 emit("wiki.current_unit_profiles", "wiki_units",
-    foodScaled and coreRaw and localeProfilesPreserved,
-    {food_multiplier=100,core_multiplier=1,format_string="%.0f",locales={"EN","KO"}},
+    foodScaled and coreScaled and localeProfilesPreserved,
+    {food_multiplier=100,core_multiplier=100,format_string="%.0f",locales={"EN","KO"}},
     {characterizations={
         {source_field="hunger",profile="percent_scaled",multiplier=percentProfile.multiplier,
             format_string=percentProfile.format_string,locale_key="Iris_Detail_Hunger",input=-0.15,current_output=foodRendered},
-        {source_field="hunger",profile="raw",multiplier=rawProfile.multiplier,
+        {source_field="hunger",profile="percent_scaled",multiplier=percentProfile.multiplier,
             format_string=rawProfile.format_string,locale_key="Iris_Detail_Hunger",input=-0.15,current_output=coreRendered},
     },food_renderer_ko=foodRenderedKo,core_renderer_ko=coreRenderedKo,
-        food_scaled=foodScaled,core_raw=coreRaw,locale_profiles_preserved=localeProfilesPreserved})
+        food_scaled=foodScaled,core_scaled=coreScaled,locale_profiles_preserved=localeProfilesPreserved})
 
--- Tooltip line assembly remains Tags -> Connections -> optional UseCase -> More.
+-- Tooltip emits positive verified facts only and never exceeds four lines.
 local function tooltipLines(summary)
     resetLoaded({"Iris/UI/Tooltip/IrisAltTooltip", "Iris/Util/IrisModuleBootstrap", "Iris/Util/ItemKey"})
     package.preload["Iris/Util/IrisModuleBootstrap"] = function()
@@ -366,13 +365,13 @@ local two = tooltipLines(false)
 runtimeLocale = "KO"
 local fourKo = tooltipLines({tags={"Tool.1-A"},connections={"Recipe"},useCaseCount=1})
 runtimeLocale = "EN"
-local tooltipContract = #four == 4 and #three == 3 and #two == 2 and
+local tooltipContract = #four == 3 and #three == 2 and #two == 0 and #four <= 4 and
     four[1]:find("Tags",1,true) and four[2]:find("Connections",1,true) and
-    four[3]:find("Use cases",1,true) and four[4]:find("More",1,true) and
-    #fourKo == 4 and fourKo[1]:find("태그",1,true) and fourKo[2]:find("연결",1,true)
+    four[3]:find("Use cases",1,true) and
+    #fourKo == 3 and fourKo[1]:find("태그",1,true) and fourKo[2]:find("연결",1,true)
 emit("tooltip.branch_matrix", "tooltip_lines", tooltipContract,
-    {success_with_usecase=4,success_without_usecase=3,load_failure=2,
-        order={"Tags","Connections","Use cases","More"},locale_refresh_without_fact_invalidation=true},
+    {success_with_usecase=3,success_without_usecase=2,load_failure=0,max_lines=4,
+        order={"Tags","Connections","Use cases"},locale_refresh_without_fact_invalidation=true},
     {four=four,three=three,two=two,four_ko=fourKo})
 
 -- Logger calls themselves and all debug-only iteration are gated when debug is

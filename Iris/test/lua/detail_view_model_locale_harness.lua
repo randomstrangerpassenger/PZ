@@ -54,11 +54,14 @@ function item:getBoredomChange() return 0 end
 function item:getCalories() return 10 end
 
 local ViewModel = require("Iris/UI/Detail/IrisItemDetailViewModel")
+local Presentation = require("Iris/UI/Detail/IrisItemDetailPresentation")
 local Sections = require("Iris/UI/Wiki/IrisWikiSections")
 
 locale = "EN"
 local english = ViewModel.fromItem(item)
 local englishCore = Sections.renderCoreInfoSection(english)
+local browserSemantic = Presentation.semanticSnapshot(english)
+local wikiSemantic = Sections.getSemanticSnapshot(english)
 locale = "KO"
 local korean = ViewModel.fromItem(item)
 local koreanCore = Sections.renderCoreInfoSection(korean)
@@ -78,6 +81,13 @@ assert(english.useCases.reason == english.interactionState.reason)
 assert(interactionLookupCount == 2)
 assert(englishCore ~= koreanCore)
 assert(Sections.renderFoodSection(english):find("%-1600") ~= nil)
+assert(#browserSemantic == #wikiSemantic)
+for index, row in ipairs(browserSemantic) do
+    local wikiRow = wikiSemantic[index]
+    assert(row.id == wikiRow.id and row.value == wikiRow.value and
+        row.unit == wikiRow.unit and row.visible == wikiRow.visible)
+end
+assert(#Presentation.tooltipFacts(english, 99) <= 4)
 assert(not pcall(function() english.fullType = "Base.Mutated" end))
 assert(not pcall(function() english.food.hunger = 0 end))
 assert(not pcall(function() english.tags[1] = "Mutated" end))

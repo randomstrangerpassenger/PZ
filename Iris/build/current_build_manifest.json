@@ -1,6 +1,6 @@
 {
   "schema_version": "iris-current-build-manifest-v1",
-  "status": "w7_browser_projection_lifecycle_metrics_facade",
+  "status": "w8_detail_fact_reader_assembler_presentation",
   "subject_commit": "22e94077dd057a943ba2e6ff03f25f5880b3126c",
   "entrypoints": [
     {

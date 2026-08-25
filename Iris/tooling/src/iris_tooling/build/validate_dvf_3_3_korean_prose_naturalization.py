@@ -6,6 +6,14 @@ from pathlib import Path
 import sys
 from typing import Any
 
+from iris_tooling.domains.public_text.naturalization_context import (
+    FACTS_PATH,
+    INPUT_MANIFEST,
+)
+from iris_tooling.domains.public_text.naturalization_infrastructure import (
+    manifest_binding_rows,
+)
+
 if __package__ in {None, ""}:
     from iris_tooling.build.run_dvf_3_3_korean_prose_naturalization import (
         EVALUATION_SUBJECT_KIND,
@@ -87,6 +95,19 @@ else:
 def require_value(condition: bool, reason: str, errors: list[str]) -> None:
     if not condition:
         errors.append(reason)
+
+
+def current_source_authority_identity() -> tuple[
+    dict[str, str | None], list[dict[str, Any]]
+]:
+    source_rows = manifest_binding_rows(load_json(INPUT_MANIFEST))
+    return (
+        {
+            "current_facts_sha256": sha256_file(FACTS_PATH),
+            "current_manifest_sha256": sha256_file(INPUT_MANIFEST),
+        },
+        source_rows,
+    )
 
 
 def validate_facts_authority_routing_contract(
@@ -179,6 +200,16 @@ def validate_phase0(root: Path, errors: list[str]) -> dict[str, Any]:
     applicability = load_json(
         phase_root(root, 0) / "body_plan_applicability_authority_binding.json"
     )
+    current_source_identity, current_source_rows = current_source_authority_identity()
+    current_facts_sha256 = current_source_identity["current_facts_sha256"]
+    current_manifest_sha256 = current_source_identity["current_manifest_sha256"]
+    registry_expected = registry_binding.get("expected_source_identity", {})
+    require_value(
+        all(row.get("hash_match") is True for row in current_source_rows)
+        and report.get("source_manifest_bindings") == current_source_rows,
+        "current_source_manifest_binding_mismatch",
+        errors,
+    )
     require_value(report.get("status") == "PASS", "phase0_status_not_pass", errors)
     require_value(
         report.get("execution_contract_checked") is True,
@@ -250,9 +281,13 @@ def validate_phase0(root: Path, errors: list[str]) -> dict[str, Any]:
     )
     require_value(
         registry_actual.get("current_facts_sha256")
-        == EXPECTED_CURRENT_FACTS_SHA256
+        == current_facts_sha256
         and registry_actual.get("current_manifest_sha256")
-        == EXPECTED_CURRENT_MANIFEST_SHA256
+        == current_manifest_sha256
+        and registry_expected.get("current_facts_sha256")
+        == current_facts_sha256
+        and registry_expected.get("current_manifest_sha256")
+        == current_manifest_sha256
         and registry_actual.get("selected_successor_manifest_sha256")
         == EXPECTED_SELECTED_SUCCESSOR_MANIFEST_SHA256
         and selected_successor.get("facts_sha256")
@@ -318,9 +353,9 @@ def validate_phase0(root: Path, errors: list[str]) -> dict[str, Any]:
         errors,
     )
     require_value(
-        report.get("current_facts_sha256") == EXPECTED_CURRENT_FACTS_SHA256
+        report.get("current_facts_sha256") == current_facts_sha256
         and report.get("current_manifest_sha256")
-        == EXPECTED_CURRENT_MANIFEST_SHA256
+        == current_manifest_sha256
         and report.get("registry_adoption_receipt_sha256")
         == EXPECTED_REGISTRY_ADOPTION_RECEIPT_SHA256
         and report.get("initial_registry_adoption_receipt_sha256")
@@ -376,6 +411,11 @@ def validate_phase0(root: Path, errors: list[str]) -> dict[str, Any]:
         "g4_foundation_identity_mismatch",
         errors,
     )
+    particle_projection = load_json(PARTICLE_CORRECTION_PROJECTION_REPORT)
+    particle_projection_implementation = particle_projection.get("implementation", {})
+    particle_implementation_path = REPO_ROOT / str(
+        particle_correction_binding.get("implementation_path", "")
+    )
     require_value(
         particle_correction_binding.get("status") == "PASS"
         and particle_correction_binding.get("correction_commit")
@@ -386,8 +426,13 @@ def validate_phase0(root: Path, errors: list[str]) -> dict[str, Any]:
         == EXPECTED_PARTICLE_CORRECTION_PROJECTION_REPORT_SHA256
         and sha256_file(PARTICLE_CORRECTION_PROJECTION_REPORT)
         == EXPECTED_PARTICLE_CORRECTION_PROJECTION_REPORT_SHA256
+        and particle_correction_binding.get("implementation_expected_sha256")
+        == particle_projection_implementation.get("sha256")
+        and particle_correction_binding.get("implementation_path")
+        == particle_projection_implementation.get("path")
+        and particle_implementation_path.is_file()
         and particle_correction_binding.get("implementation_sha256")
-        == particle_correction_binding.get("implementation_expected_sha256")
+        == sha256_file(particle_implementation_path)
         and particle_correction_binding.get("item_specific_exception_count")
         == 0
         and particle_correction_binding.get(
@@ -486,6 +531,9 @@ def validate_phase2(root: Path, errors: list[str]) -> dict[str, Any]:
         / "registry_adoption_receipt_binding_report.json"
     )
     registry_contract = load_json(REGISTRY_ADOPTION_CONTRACT)
+    current_source_identity, _ = current_source_authority_identity()
+    current_facts_sha256 = current_source_identity["current_facts_sha256"]
+    current_manifest_sha256 = current_source_identity["current_manifest_sha256"]
     require_value(result.get("status") == "PASS", "phase2_status_not_pass", errors)
     require_value(
         manifest.get("candidate_dependency_count") == 0,
@@ -533,9 +581,9 @@ def validate_phase2(root: Path, errors: list[str]) -> dict[str, Any]:
         errors,
     )
     require_value(
-        reseal.get("current_facts_sha256") == EXPECTED_CURRENT_FACTS_SHA256
+        reseal.get("current_facts_sha256") == current_facts_sha256
         and reseal.get("current_manifest_sha256")
-        == EXPECTED_CURRENT_MANIFEST_SHA256
+        == current_manifest_sha256
         and reseal.get("registry_adoption_receipt_sha256")
         == EXPECTED_REGISTRY_ADOPTION_RECEIPT_SHA256
         and reseal.get("registry_adoption_contract_sha256")
@@ -582,7 +630,7 @@ def validate_phase2(root: Path, errors: list[str]) -> dict[str, Any]:
     selected_successor = registry_contract.get("selected_successor", {})
     require_value(
         phase2_four_hash.get("current_facts_sha256")
-        == EXPECTED_CURRENT_FACTS_SHA256
+        == current_facts_sha256
         and phase2_four_hash.get("selected_successor_manifest_sha256")
         == EXPECTED_SELECTED_SUCCESSOR_MANIFEST_SHA256
         and selected_successor.get("facts_sha256")

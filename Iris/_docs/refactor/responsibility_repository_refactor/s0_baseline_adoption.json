@@ -1,0 +1,43 @@
+{
+  "schema_version": "iris-responsibility-refactor-s0-baseline-adoption-v1",
+  "status": "adopted",
+  "expected_baseline": {
+    "commit": "d234723ae92ce83313da0ce83442389e6c4afac8"
+  },
+  "actual_w0_subject": {
+    "commit": "22e94077dd057a943ba2e6ff03f25f5880b3126c",
+    "tree": "41c5cdff6cbda329cd5dd8200e6ecfc631b694aa"
+  },
+  "relationship": "owner_adopted_head_delta",
+  "merge_base": "d234723ae92ce83313da0ce83442389e6c4afac8",
+  "delta": {
+    "reason": "Baseline launcher corrections required for the plan's exact PowerShell 7 Run A/B/comparator command: isolate raw launcher streams from ResultRoot and restore absent process environment variables as absent.",
+    "changed_paths": [
+      "Iris/validation/clean_checkout/invoke_deterministic_compare.ps1",
+      "Iris/validation/clean_checkout/invoke_receipt_bound_full_gate.ps1",
+      "Iris/validation/clean_checkout/invoke_repository_runtime_lightweighting_command.ps1",
+      "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    ],
+    "changed_path_inventory_sha256": "ce207645d07aa5dc61456827d7999d5190d17137129219cf6e4e91296ec00d15"
+  },
+  "validation": {
+    "root": "C:/Users/MW/irf/s0-22e94077-v2",
+    "run_a_orchestration_sha256": "898594ec9ba791b31404aea294b0f9a0aea7b913e6577d9fd4f2e67b6ae0a6a6",
+    "run_b_orchestration_sha256": "464eacd52385b866ba63d13fe262e7a5c307517c0a3a5dd515b8624ad36fb2c3",
+    "comparator_receipt_sha256": "3977104fba7858cbfee85239f734ad9ee40ef4094d7192fcd4cab2b23803655d",
+    "authoritative_pytest": {
+      "passed": 193,
+      "failed": 0
+    },
+    "standalone_commands": {
+      "passed": 4,
+      "failed": 0
+    },
+    "derived_total": 197,
+    "derived_count_is_not_authority": true
+  },
+  "owner_adoption": {
+    "basis": "The implementation request pre-approved plan-scoped owner gates for unattended execution.",
+    "decision": "adopt_actual_w0_subject_and_open_w1_checkpoint"
+  }
+}

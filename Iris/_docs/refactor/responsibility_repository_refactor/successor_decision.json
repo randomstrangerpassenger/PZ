@@ -1,0 +1,44 @@
+{
+  "schema_version": "iris-responsibility-refactor-successor-decision-v1",
+  "status": "adopted",
+  "plan": {
+    "path": "docs/iris_responsibility_repository_build_validation_refactoring_plan.md",
+    "sha256": "835fd486bdd5dbe2f6810751f3532517fb7c234938e41cc783872c3f6d4c4822",
+    "review_path": "docs/iris_responsibility_repository_build_validation_refactoring_plan_review.md",
+    "review_sha256": "9966607eb66517c8e2d157226e23a00dbe1f0280d9dc0379de5d3945e7982708",
+    "review_verdict": "PASS"
+  },
+  "authorization": {
+    "expression": "approved plan / change_1_through_change_10_authorized",
+    "basis": "Owner pre-approval in the implementation request"
+  },
+  "decisions": {
+    "global_patches": {
+      "disposition": "delete_without_replacement",
+      "targets": [
+        "ISInventoryPaneContextMenu.doReloadMenuForBullets replacement",
+        "ISContextMenu.render wrapper"
+      ],
+      "known_defects_previously_defended": [
+        "bullet reload menu replacement behavior",
+        "nil or invalid tickTexture getWidthOrig access"
+      ],
+      "claim_ceiling": "Iris non-interference only; arbitrary external-mod compatibility is unvalidated_but_in_scope",
+      "forbidden_successor": "Do not move or reproduce either patch in Nerve, Pulse, another spoke, or a shared helper."
+    },
+    "compatibility": {
+      "preserve_listed_surfaces": [
+        "IrisData global and Iris/Data/IrisData module",
+        "IrisBrowserData.build",
+        "IrisBrowserData.getGroupVariants",
+        "IrisWikiSections render wrappers"
+      ],
+      "internal_loader": "StaticData.getLegacyIrisData remains an unlisted thin implementation detail and is not promoted to the supported set."
+    },
+    "layer3": {
+      "package_projection": "current pointer-selected generation only",
+      "source_predecessors": "hold unchanged as rollback/bootstrap inputs",
+      "physical_cleanup": "out_of_scope"
+    }
+  }
+}

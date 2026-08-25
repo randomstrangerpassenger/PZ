@@ -1,0 +1,79 @@
+{
+  "schema_version": "iris-current-build-manifest-v1",
+  "status": "w1_baseline_adopted",
+  "subject_commit": "22e94077dd057a943ba2e6ff03f25f5880b3126c",
+  "entrypoints": [
+    {
+      "id": "root_classification",
+      "owner": "Iris root offline classification build",
+      "domain": "classification",
+      "module": "Iris/build/main.py",
+      "inputs": ["Iris/input", "Iris/evidence", "Iris/build/data"],
+      "outputs": ["Iris/output classification projections"],
+      "consumers": ["Iris runtime generated data and downstream offline builds"],
+      "validation_contracts": ["full_repository_gate required selection"],
+      "runtime_shipping": false,
+      "historical_replacement": null
+    },
+    {
+      "id": "rightclick_v24",
+      "owner": "Iris right-click evidence producer",
+      "domain": "rightclick",
+      "module": "Iris/build/rightclick_evidence_pipeline.py --v24",
+      "inputs": ["Iris input and right-click evidence"],
+      "outputs": ["evidence_decisions.v2.4.json", "use-case integration inputs"],
+      "consumers": ["use-case integrator", "quality gates", "standalone determinism"],
+      "validation_contracts": ["full_repository_gate right-click nodes", "legacy_rightclick_determinism"],
+      "runtime_shipping": false,
+      "historical_replacement": "planned iris_tooling.domains.rightclick"
+    },
+    {
+      "id": "recipe_v24",
+      "owner": "Iris recipe evidence producer",
+      "domain": "recipe",
+      "module": "Iris/build/recipe_evidence_pipeline.py",
+      "inputs": ["Iris recipe inputs"],
+      "outputs": ["recipe_evidence_decisions.v2.4.json", "recipes_by_fulltype.v2.4.json"],
+      "consumers": ["use-case integrator", "quality gates"],
+      "validation_contracts": ["legacy_recipe_evidence_determinism"],
+      "runtime_shipping": false,
+      "historical_replacement": null
+    },
+    {
+      "id": "description_v2_current",
+      "owner": "Description v2 current consumer graph",
+      "domain": "public_text/layer3/layer4",
+      "module": "Iris/build/description/v2/tools/build current manifest-bound scripts",
+      "inputs": ["Description v2 data and current validated producer outputs"],
+      "outputs": ["Description v2 generated artifacts and runtime Lua projections"],
+      "consumers": ["current runtime data", "public-text acceptance", "package validation"],
+      "validation_contracts": ["round3 taxonomy", "current_route_required_validations", "full_repository_gate"],
+      "runtime_shipping": false,
+      "historical_replacement": "planned iris_tooling package"
+    },
+    {
+      "id": "package_current_runtime_payload",
+      "owner": "Iris package workflow",
+      "domain": "package",
+      "module": "Iris/tools/package_iris.ps1 -PackageApplicability current_runtime_payload",
+      "inputs": ["Iris runtime media", "current Layer 3 pointer and generation"],
+      "outputs": ["external Iris package and zip"],
+      "consumers": ["manual installation and package contract validation"],
+      "validation_contracts": ["full_repository_gate package_runtime_mirror"],
+      "runtime_shipping": true,
+      "historical_replacement": null
+    },
+    {
+      "id": "full_repository_gate",
+      "owner": "Iris/validation/clean_checkout",
+      "domain": "repository_validation",
+      "module": "Iris/validation/clean_checkout/invoke_receipt_bound_full_gate.ps1",
+      "inputs": ["exact Git subject", "full_repository_gate.json", "immutable environment receipt"],
+      "outputs": ["external orchestration, run and canonical result receipts"],
+      "consumers": ["baseline and terminal closeout"],
+      "validation_contracts": ["full_repository_gate v8", "deterministic comparator"],
+      "runtime_shipping": false,
+      "historical_replacement": null
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "schema_version": "iris-responsibility-refactor-current-migration-map-v1",
+  "status": "adopted",
+  "rows": [
+    {
+      "id": "global_compat_patches",
+      "predecessor_paths": ["Iris/media/lua/client/Iris/Compat/IrisBulletReloadCompat.lua", "Iris/media/lua/client/Iris/Compat/IrisContextMenuTextureCompat.lua"],
+      "successor_owner": "none; Iris non-interference",
+      "successor_paths": [],
+      "consumers": ["Iris/media/lua/client/Iris/IrisMain.lua"],
+      "validation_bindings": ["Lua runtime source-shape and boot non-interference contracts"],
+      "compatibility_disposition": "retired_without_replacement"
+    },
+    {
+      "id": "description_v2_current_tooling",
+      "predecessor_paths": ["Iris/build/description/v2/tools/build/current-consumer graph"],
+      "successor_owner": "iris_tooling domain packages",
+      "successor_paths": ["Iris/tooling/src/iris_tooling/build", "Iris/tooling/src/iris_tooling/domains"],
+      "consumers": ["documented current build commands", "full_repository_gate required sources and dependencies"],
+      "validation_bindings": ["round3 taxonomy current+ok", "current_route_required_validations", "full_repository_gate source disposition and dependency policy"],
+      "compatibility_disposition": "current authority moves; physical non-current predecessors remain"
+    },
+    {
+      "id": "rightclick_v24",
+      "predecessor_paths": ["Iris/build/rightclick_evidence_pipeline.py", "Iris/test/test_rightclick_pipeline.py"],
+      "successor_owner": "iris_tooling.domains.rightclick",
+      "successor_paths": ["Iris/tooling/src/iris_tooling/domains/rightclick", "Iris/tooling/tests"],
+      "consumers": ["right-click v2.4 build", "full gate additional node identities", "legacy_rightclick_determinism standalone identity"],
+      "validation_bindings": ["9 explicit right-click node IDs", "legacy_rightclick_determinism"],
+      "compatibility_disposition": "v2.4 only; v2/v2.2/v2.3 are non-current predecessors"
+    },
+    {
+      "id": "layer3_package_projection",
+      "predecessor_paths": ["Iris/tools/package_iris.ps1 recursive media copy", "IrisLayer3DataChunks legacy package mirror"],
+      "successor_owner": "current pointer-selected package projection",
+      "successor_paths": ["Iris/tools/package_iris.ps1", "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/<generation_id>"],
+      "consumers": ["current_runtime_payload package", "full_repository_gate package_runtime_mirror"],
+      "validation_bindings": ["package generation count and pointer identity", "package_runtime_mirror"],
+      "compatibility_disposition": "stable facade retained; source predecessors held"
+    },
+    {
+      "id": "browser_runtime",
+      "predecessor_paths": ["Iris/media/lua/client/Iris/UI/Browser/IrisBrowserData.lua"],
+      "successor_owner": "projection, lifecycle, metrics modules",
+      "successor_paths": ["IrisBrowserProjectionBuilder.lua", "IrisBrowserLifecycle.lua", "IrisBrowserMetrics.lua"],
+      "consumers": ["IrisMain", "IrisBrowserBase", "Browser query consumers"],
+      "validation_bindings": ["Browser behavior and supported facade contracts"],
+      "compatibility_disposition": "IrisBrowserData.build/getGroupVariants thin supported facade retained"
+    },
+    {
+      "id": "detail_wiki_runtime",
+      "predecessor_paths": ["Iris/media/lua/client/Iris/UI/Detail/IrisItemDetailViewModel.lua", "Iris/media/lua/client/Iris/UI/Wiki/IrisWikiSections.lua", "Iris/media/lua/client/Iris/UI/Wiki/IrisWikiPanel.lua"],
+      "successor_owner": "fact reader, model assembler, shared section projection",
+      "successor_paths": ["IrisItemFactReader.lua", "IrisItemDetailModelAssembler.lua", "IrisWikiSections.lua"],
+      "consumers": ["Browser detail", "Wiki panel", "Alt Tooltip"],
+      "validation_bindings": ["detail/wiki/browser semantic snapshots", "Tooltip four-line contract", "Wiki nil/no-op compatibility"],
+      "compatibility_disposition": "listed Wiki facade retained"
+    },
+    {
+      "id": "legacy_data_boundary",
+      "predecessor_paths": ["Iris/Data/IrisData.lua", "Iris/API/StaticData.lua", "Recipe/Moveables/Fixing deprecated build facades"],
+      "successor_owner": "focused current indexes plus thin compatibility adapters",
+      "successor_paths": ["Iris/Data/IrisData.lua", "Iris/API/StaticData.lua", "focused index modules"],
+      "consumers": ["listed external IrisData compatibility", "internal focused runtime consumers"],
+      "validation_bindings": ["phase0_supported_api_manifest listed surfaces", "internal loader contract"],
+      "compatibility_disposition": "listed adapters retained; unlisted deprecated build methods removed"
+    },
+    {
+      "id": "validation_environment_authority",
+      "predecessor_paths": ["Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json current resolution"],
+      "successor_owner": "clean-checkout stable environment locator",
+      "successor_paths": ["Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json"],
+      "consumers": ["three PowerShell launchers", "clean-checkout runner/validator", "artifact lifecycle executors and tests"],
+      "validation_bindings": ["wheel/source/project/lock/installed-manifest binding", "stale authority rejection"],
+      "compatibility_disposition": "predecessor literal retained only in approved historical provenance allowlist"
+    }
+  ],
+  "orphan_current_consumers": 0
+}

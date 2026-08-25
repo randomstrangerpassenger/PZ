@@ -2870,3 +2870,10 @@
   * Focused `83 passed / 73 subtests`, Round 3 역순 동일-process 2회 `8 tests`, clean Run A/B와 deterministic comparator가 exit `0`이다. Codex Reviewer 결과는 actionable/unsupported/unimplemented/remaining eligible 모두 `0`이다.
   * Validation/tooling은 S0 대비 `15,151` bytes 순감소했다. 최종 documentation 증가와 `<= 0` context proxy는 compact map의 exact carrier 측정을 따른다.
 * Non-decision: wall-clock·실제 tokenizer/Codex token 절감, product/runtime/public output, in-game, RTC/Publish, release/Workshop/deployment authority는 측정하거나 변경하지 않았다. 일회성 검사 명령은 새 validator가 아니다.
+## Iris responsibility/repository refactor — W1 successor decisions adopted (2026-08-25)
+
+* 상태: approved plan / `change_1_through_change_10_authorized`; W0 actual baseline `22e94077dd057a943ba2e6ff03f25f5880b3126c` owner-adopted.
+* Iris가 설치하던 bullet reload replacement와 context-menu texture render wrapper는 대체 구현 없이 삭제한다. 두 patch가 방어하던 reload replacement 및 nil/invalid `tickTexture` defect는 기록하되, 삭제 뒤 Iris가 주장하는 범위는 전역 함수 non-interference까지다. 임의 외부 모드 조합의 compatibility는 `unvalidated_but_in_scope`이며 삭제 기능을 Nerve, Pulse, 다른 spoke 또는 공통 helper로 옮기지 않는다.
+* `phase0_supported_api_manifest.json`에 listed된 `IrisData`, `IrisBrowserData.build`, `IrisBrowserData.getGroupVariants`, Wiki render facade는 thin current adapter로 보존한다. `StaticData.getLegacyIrisData`는 listed supported surface로 승격하지 않고 내부 implementation detail로만 유지한다.
+* Layer 3 배포 package는 current pointer가 선택한 generation 하나만 포함한다. inactive generation과 legacy fixed chunks의 source는 이 계획에서 이동·수정·삭제하지 않고 rollback/bootstrap predecessor로 보존한다.
+* 구현 checkpoint와 migration binding은 `Iris/_docs/refactor/responsibility_repository_refactor/{s0_baseline_adoption.json,successor_decision.json,current_migration_map.json}`을 따른다. Historical/staging/evidence/frozen payload의 기존 authority를 supersede하지 않는다.

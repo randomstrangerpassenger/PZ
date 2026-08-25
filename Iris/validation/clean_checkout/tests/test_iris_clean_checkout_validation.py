@@ -1677,7 +1677,7 @@ def test_g5_compiler_identity_successor_separates_historical_and_current() -> No
             "2dcff095b1cc34c8fb6d3ad735ac8f9d0ca2affe259f6bb97870b19e7235cc7f"
         ),
         "current_aggregate_sha256": (
-            "dd73969ce3ab594678223aa53cafd78592060c8bcbb892013611ac4a3c58dda3"
+            "4806fabe4cd663ac467c3b848a0e8dd6e932d04cea86a6dd8d4d7f0d8f0daebf"
         ),
         "changed_constituent_count": 19,
         "unchanged_constituent_count": 0,

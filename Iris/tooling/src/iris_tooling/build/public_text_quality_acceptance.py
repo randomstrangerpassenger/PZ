@@ -1,5 +1,6 @@
 """Compatibility facade for the public-text acceptance domain."""
 
+from iris_tooling.build.naturalization_compiler_identity import build_compiler_identity
 from iris_tooling.domains.public_text.acceptance_attempt_context import (
     PHASE0_REQUIRED_VCS_CONSUMERS, compute_candidate_metric_snapshot,
     handoff_artifact_path, human_review_blocker_count,
@@ -30,7 +31,8 @@ from iris_tooling.domains.public_text.acceptance_emission import write_once_or_s
 __all__ = (
     "DISPOSITION_CLASSES", "FOUNDATION_SCHEMA_VERSION", "FoundationContractError",
     "NATURALIZATION_COMPILER_IMPLEMENTATION_FILES", "PHASE0_REQUIRED_VCS_CONSUMERS",
-    "REPO_ROOT", "TEXT_CONSTITUENT_IDENTITY_ALGORITHM_ID", "build_foundation",
+    "REPO_ROOT", "TEXT_CONSTITUENT_IDENTITY_ALGORITHM_ID", "build_compiler_identity",
+    "build_foundation",
     "build_protected_snapshot_identity_from_bytes",
     "build_protected_snapshot_present_row_from_bytes",
     "build_text_constituent_identity_from_bytes", "canonical_hash",

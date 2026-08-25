@@ -412,7 +412,8 @@ class LegacyActiveSilentCurrentSurfaceGuardTest(unittest.TestCase):
                 iter_scan_files(self.tmp_dir, self.manifest(), scan_backend="rg")
 
         with mock.patch(
-            "tools.validate_legacy_active_silent_current_surface_guard.subprocess.run",
+            "Iris.build.description.v2.tools."
+            "validate_legacy_active_silent_current_surface_guard.subprocess.run",
             side_effect=subprocess.TimeoutExpired(["rg"], 60),
         ):
             with self.assertRaisesRegex(ScanBackendUnavailable, "scan_backend_unavailable.*timeout"):
@@ -420,7 +421,8 @@ class LegacyActiveSilentCurrentSurfaceGuardTest(unittest.TestCase):
 
         abnormal = subprocess.CompletedProcess(["rg", "--version"], 7, stdout="", stderr="boom")
         with mock.patch(
-            "tools.validate_legacy_active_silent_current_surface_guard.subprocess.run",
+            "Iris.build.description.v2.tools."
+            "validate_legacy_active_silent_current_surface_guard.subprocess.run",
             return_value=abnormal,
         ):
             with self.assertRaisesRegex(ScanBackendUnavailable, "scan_backend_unavailable.*abnormal_exit"):

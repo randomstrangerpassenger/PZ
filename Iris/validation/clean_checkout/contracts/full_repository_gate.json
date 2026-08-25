@@ -367,7 +367,7 @@
     "compiler_identity": {
       "algorithm_id": "naturalization_compiler_identity_sha256_lf_normalized_ordered_paths_v2",
       "historical_attested_aggregate_sha256": "2dcff095b1cc34c8fb6d3ad735ac8f9d0ca2affe259f6bb97870b19e7235cc7f",
-      "current_aggregate_sha256": "b9e420527759fe888c20e0d2499594cc27cd5a359402d0c40f5d315d75088ba6",
+      "current_aggregate_sha256": "dd73969ce3ab594678223aa53cafd78592060c8bcbb892013611ac4a3c58dda3",
       "ordered_paths": [
         "Iris/tooling/src/iris_tooling/build/compose_layer3_text.py",
         "Iris/tooling/src/iris_tooling/build/compose_layer3_body_profile.py",
@@ -390,8 +390,8 @@
         "Iris/tooling/src/iris_tooling/build/validate_dvf_3_3_korean_prose_naturalization.py"
       ],
       "successor_transition": {
-        "path": "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0007.json",
-        "git_blob_raw_sha256": "a8267d9133707a4e1647f340243aee5c5a21f8ca6690bce884d74cadf3e641c6",
+        "path": "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0008.json",
+        "git_blob_raw_sha256": "63cf1a2fd7e907125a2e65ca31fa73fe0a24e9c12aa4c798478a6e3f8657b39f",
         "hash_mode": "git_blob_raw_sha256"
       }
     },
@@ -510,7 +510,8 @@
       "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0004.json",
       "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0005.json",
       "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0006.json",
-      "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0007.json"
+      "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0007.json",
+      "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0008.json"
     ]
   },
   "bootstrap": {

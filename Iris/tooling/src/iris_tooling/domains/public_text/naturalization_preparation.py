@@ -293,9 +293,16 @@ def build_phase0(
             FOOD_SEMANTIC_LICENSE
         ),
     }
+    current_input_rebind = readiness_current_input_rebind.get(
+        "registry_correction_adoption", {}
+    )
     expected_source_identity = {
-        "current_facts_sha256": EXPECTED_CURRENT_FACTS_SHA256,
-        "current_manifest_sha256": EXPECTED_CURRENT_MANIFEST_SHA256,
+        "current_facts_sha256": current_input_rebind.get(
+            "current_facts", {}
+        ).get("sha256"),
+        "current_manifest_sha256": current_input_rebind.get(
+            "current_manifest", {}
+        ).get("sha256"),
         "selected_successor_manifest_sha256": (
             EXPECTED_SELECTED_SUCCESSOR_MANIFEST_SHA256
         ),
@@ -655,6 +662,22 @@ def build_phase0(
     particle_implementation_path = (
         REPO_ROOT / str(particle_implementation.get("path", ""))
     )
+    particle_implementation_at_correction = subprocess.run(
+        [
+            "git",
+            "show",
+            f"{EXPECTED_PARTICLE_CORRECTION_COMMIT}:"
+            f"{particle_implementation.get('path', '')}",
+        ],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        check=False,
+    )
+    particle_implementation_at_correction_sha256 = (
+        sha256_bytes(particle_implementation_at_correction.stdout)
+        if particle_implementation_at_correction.returncode == 0
+        else None
+    )
     particle_correction_binding_pass = all(
         (
             sha256_file(PARTICLE_CORRECTION_PROJECTION_REPORT)
@@ -668,13 +691,8 @@ def build_phase0(
             particle_implementation.get("item_specific_exception_count") == 0,
             particle_implementation.get("string_specific_replacement_count")
             == 0,
-            particle_implementation_path.is_file(),
-            (
-                sha256_file(particle_implementation_path)
-                == particle_implementation.get("after_sha256")
-                if particle_implementation_path.is_file()
-                else False
-            ),
+            particle_implementation_at_correction_sha256
+            == particle_implementation.get("after_sha256"),
             particle_correction_is_ancestor,
         )
     )

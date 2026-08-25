@@ -200,7 +200,7 @@ function Get-EnvironmentState([string]$Name) {
 }
 
 function Restore-EnvironmentState([string]$Name, [object]$State) {
-    if ([string]$State.state -eq 'absent') { [Environment]::SetEnvironmentVariable($Name, $null, 'Process') }
+    if ([string]$State.state -eq 'absent') { Remove-Item -LiteralPath ("Env:" + $Name) -ErrorAction SilentlyContinue }
     else { [Environment]::SetEnvironmentVariable($Name, [string]$State.value, 'Process') }
 }
 
@@ -687,7 +687,7 @@ try {
     foreach ($name in @($delta.clear)) { $environmentNames += [string]$name }
     $environmentNames = @($environmentNames | Sort-Object -Unique)
     foreach ($name in $environmentNames) { $environmentBefore[$name] = Get-EnvironmentState $name }
-    foreach ($name in @($delta.clear)) { [Environment]::SetEnvironmentVariable([string]$name, $null, 'Process') }
+    foreach ($name in @($delta.clear)) { Remove-Item -LiteralPath ("Env:" + [string]$name) -ErrorAction SilentlyContinue }
     foreach ($property in @($delta.set.PSObject.Properties)) { [Environment]::SetEnvironmentVariable([string]$property.Name, [string]$property.Value, 'Process') }
 
     if ([string]$spec.output_assertion -eq 'checkout_unchanged') { $preCensus = Get-CheckoutCensus $workingDirectory }

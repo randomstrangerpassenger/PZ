@@ -154,7 +154,7 @@ function Get-EnvironmentState([string]$Name) {
 }
 
 function Restore-EnvironmentState([string]$Name, [object]$State) {
-    if ($State.state -eq 'absent') { [Environment]::SetEnvironmentVariable($Name, $null, 'Process') }
+    if ($State.state -eq 'absent') { Remove-Item -LiteralPath ("Env:" + $Name) -ErrorAction SilentlyContinue }
     else { [Environment]::SetEnvironmentVariable($Name, [string]$State.value, 'Process') }
 }
 
@@ -400,7 +400,7 @@ try {
     $clearedNames = @($policy.cleared_ambient_environment)
     foreach ($name in @($requiredNames + $clearedNames | Sort-Object -Unique)) { $environmentBefore[$name] = Get-EnvironmentState $name }
     foreach ($name in $clearedNames) {
-        [Environment]::SetEnvironmentVariable($name, $null, 'Process')
+        Remove-Item -LiteralPath ("Env:" + $name) -ErrorAction SilentlyContinue
         $environmentApplied[$name] = [ordered]@{ action = 'clear'; value = $null }
     }
     $requiredApplyCount = 0

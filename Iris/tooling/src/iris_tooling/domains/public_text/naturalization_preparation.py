@@ -38,8 +38,7 @@ from .naturalization_context import (
     FOUNDATION_READINESS, FOUNDATION_READINESS_CORRECTION_REBIND,
     FOUNDATION_READINESS_CURRENT_INPUT_REBIND, HISTORICAL_ATTEMPT_ID,
     INITIAL_REGISTRY_ADOPTION_RECEIPT, INPUT_MANIFEST,
-    PARTICLE_CORRECTION_PROJECTION_REPORT, PLAN_PATH,
-    PRESERVED_PREDECESSOR_ATTEMPT_IDS, PUBLISH_PLAN_PATH,
+    PARTICLE_CORRECTION_PROJECTION_REPORT, PRESERVED_PREDECESSOR_ATTEMPT_IDS,
     REGISTRY_ADOPTION_CONTRACT, REGISTRY_ADOPTION_RECEIPT,
     REGISTRY_CORRECTION_TERMINAL_SEAL, REGISTRY_NATURALIZATION_HANDOFF,
     REPO_ROOT, ROADMAP_BINDING_PATH, SYNC_CONTRACT_ID,
@@ -59,8 +58,6 @@ def build_phase0(
 ) -> dict[str, Any]:
     require_files(
         (
-            PLAN_PATH,
-            PUBLISH_PLAN_PATH,
             EXECUTION_CONTRACT_PATH,
             INPUT_MANIFEST,
             FOUNDATION_CONTRACT,
@@ -971,8 +968,8 @@ def build_phase0(
         "roadmap_binding_sha256": sha256_file(ROADMAP_BINDING_PATH),
         "roadmap_binding": roadmap_binding,
         "attachment_bindings": attachment_rows,
-        "plan_path": repo_relative(PLAN_PATH),
-        "plan_sha256": sha256_file(PLAN_PATH),
+        "plan_path": attachment_rows[0]["path"],
+        "plan_sha256": attachment_rows[0]["actual_sha256"],
         "roadmap_provenance_bound": (
             all(row["hash_match"] for row in attachment_rows)
             and roadmap_binding.get("execution_scope")

@@ -38,6 +38,16 @@ class BrowserStateSelectionSearchAcceptanceTest(unittest.TestCase):
         self.assertIn("function IrisBrowserData.isReady()", data_text)
         self.assertIn("function IrisBrowserData.ensureReady()", data_text)
         self.assertIn("function IrisBrowserData.getInstrumentation()", data_text)
+        self.assertIn("IrisBrowserLifecycle", data_text)
+        self.assertIn("IrisBrowserMetrics", data_text)
+
+        projection = (browser_root / "IrisBrowserProjectionBuilder.lua").read_text(encoding="utf-8")
+        lifecycle = (browser_root / "IrisBrowserLifecycle.lua").read_text(encoding="utf-8")
+        metrics = (browser_root / "IrisBrowserMetrics.lua").read_text(encoding="utf-8")
+        self.assertIn("function IrisBrowserProjectionBuilder.build", projection)
+        self.assertIn("function IrisBrowserLifecycle.create", lifecycle)
+        self.assertIn("function IrisBrowserMetrics.create", metrics)
+        self.assertNotIn("function IrisBrowserData.ensureReady", lifecycle)
 
         main = (REPO / "Iris/media/lua/client/Iris/IrisMain.lua").read_text(encoding="utf-8")
         self.assertIn('ready = "BrowserData demand-build boundary ready"', main)

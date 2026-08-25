@@ -48,7 +48,9 @@ class IrisSessionCacheOwnershipTest(unittest.TestCase):
         callers = []
         for path in runtime.rglob("*.lua"):
             text = path.read_text(encoding="utf-8")
-            if "resetForReload(" in text and path.name != "IrisBrowserData.lua":
+            if "resetForReload(" in text and path.name not in {
+                "IrisBrowserData.lua", "IrisBrowserLifecycle.lua"
+            }:
                 callers.append(path.relative_to(REPO).as_posix())
         self.assertEqual([], callers)
         main = (runtime / "IrisMain.lua").read_text(encoding="utf-8")

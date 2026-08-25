@@ -1,97 +1,25 @@
 --[[
-    IrisBrowserData.lua - Iris 브라우저 데이터 캐시
-    
-    Rule Engine 결과(Item → Set<Tag>)를 역인덱싱한 표현 전용 캐시
-    
-    규칙:
-    - Browser 최초 사용 시 generation당 1회 생성
-    - 실시간 계산 ❌
-    - 틱 훅 ❌
-    - Ruleset 직접 접근 ❌
-    
-    구조: Category → Subcategory → ItemList
+    Supported Browser data facade.
+
+    Projection, lifecycle, and metrics are owned by dedicated modules. This
+    module preserves the public query/result shapes used by Browser consumers.
 ]]
 
 local IrisBrowserData = {}
 
 local bootstrap = require("Iris/Util/IrisModuleBootstrap").create()
-local safeRequire = bootstrap.safeRequire
-local ProtectedCall = require("Iris/Util/IrisProtectedCall")
+local debug = bootstrap.debug
 local IrisBrowserCategoryIndex = require("Iris/UI/Browser/IrisBrowserCategoryIndex")
 local IrisBrowserFilters = require("Iris/UI/Browser/IrisBrowserFilters")
 local IrisBrowserItemIndex = require("Iris/UI/Browser/IrisBrowserItemIndex")
-local IrisBrowserClassificationIndex = require("Iris/UI/Browser/IrisBrowserClassificationIndex")
 local IrisBrowserQuery = require("Iris/UI/Browser/IrisBrowserQuery")
 local IrisBrowserVariantIndex = require("Iris/UI/Browser/IrisBrowserVariantIndex")
+local IrisBrowserLifecycle = require("Iris/UI/Browser/IrisBrowserLifecycle")
+local IrisBrowserMetrics = require("Iris/UI/Browser/IrisBrowserMetrics")
 local TranslationResolver = require("Iris/Util/IrisTranslationResolver")
-local ItemAccess = require("Iris/Util/IrisItemAccess")
 local StaticData = require("Iris/API/StaticData")
 local IrisLogger = require("Iris/Util/IrisLogger")
-local debug = bootstrap.debug
-local warn = bootstrap.warn
-
--- 의존성 (lazy load)
-local IrisAPI = nil
 local tr = TranslationResolver.get
-
--- 캐시 데이터
-IrisBrowserData._cache = nil
-local buildState = "uninitialized"
-local buildReason = "not_built"
-local buildDependency = nil
-local buildGeneration = 0
-local instrumentationEnabled = false
-
-local function newInstrumentation()
-    return {
-        buildAttempts = 0,
-        getAllItemsCallCount = 0,
-        scannedItemCount = 0,
-        lastBuildElapsedMilliseconds = 0,
-        lastScanElapsedMilliseconds = 0,
-        coldOpenCount = 0,
-        warmReopenCount = 0,
-        lastColdOpenElapsedMilliseconds = 0,
-        lastWarmReopenElapsedMilliseconds = 0,
-        generationInvalidationCount = 0,
-        postIndexMaterializationPassCount = 0,
-        materializedRowCount = 0,
-        retainedItemReferenceCount = 0,
-        tagArrayToSetConversionCount = 0,
-        chooseLocationComparisonCount = 0,
-        initialSearchSortCount = 0,
-    }
-end
-
-local instrumentation = newInstrumentation()
-
-local function nowMilliseconds()
-    if getTimestampMs then
-        local ok, value = ProtectedCall.engine(getTimestampMs)
-        if ok and type(value) == "number" then return value end
-    end
-    if os and os.clock then return os.clock() * 1000 end
-    return 0
-end
-
-local function finishBuildTiming(startedAt)
-    if not instrumentationEnabled then return end
-    instrumentation.lastBuildElapsedMilliseconds = math.max(0, nowMilliseconds() - startedAt)
-end
-
-local READY_STATES = {
-    ready = true,
-    degraded_ready = true,
-}
-
-local function setBuildState(state, reason, dependency)
-    buildState = state
-    buildReason = reason
-    buildDependency = dependency
-    IrisBrowserData._built = READY_STATES[state] == true
-end
-
-setBuildState("uninitialized", "not_built", nil)
 
 IrisBrowserData.CATEGORY_DEFINITIONS = IrisBrowserCategoryIndex.CATEGORY_DEFINITIONS
 IrisBrowserData.CATEGORY_ORDER = IrisBrowserCategoryIndex.CATEGORY_ORDER
@@ -99,544 +27,175 @@ IrisBrowserData.CATEGORY_KEYS = IrisBrowserCategoryIndex.CATEGORY_KEYS
 IrisBrowserData.SUBCATEGORY_MAP = IrisBrowserCategoryIndex.SUBCATEGORY_MAP
 IrisBrowserData.SUBCATEGORY_KEYS = IrisBrowserCategoryIndex.SUBCATEGORY_KEYS
 
---- 대분류 라벨 가져오기 (번역 지원)
+local metrics = IrisBrowserMetrics.create()
+local lifecycle = IrisBrowserLifecycle.create({
+    metrics = metrics,
+    categoryOrder = IrisBrowserData.CATEGORY_ORDER,
+    subcategoryMap = IrisBrowserData.SUBCATEGORY_MAP,
+})
+
+local function syncCompatibilityState()
+    IrisBrowserData._cache = lifecycle.getCache()
+    IrisBrowserData._built = lifecycle.isReady()
+end
+
+syncCompatibilityState()
+
 function IrisBrowserData.getCategoryLabel(catName)
     return IrisBrowserCategoryIndex.getCategoryLabel(catName, tr)
 end
 
---- 소분류 라벨 가져오기 (번역 지원)
 function IrisBrowserData.getSubcategoryLabel(subCode)
     return IrisBrowserCategoryIndex.getSubcategoryLabel(subCode, tr)
 end
 
---- 의존성 로드
-local function ensureDeps()
-    if not IrisAPI then
-        local ok, result = safeRequire("Iris/IrisAPI")
-        if ok then IrisAPI = result end
-    end
-end
-
-local function stateSnapshot()
-    local expectedBuilt = READY_STATES[buildState] == true
-    if IrisBrowserData._built ~= expectedBuilt then
-        error("[IrisBrowserData] compatibility state mismatch: state=" ..
-            tostring(buildState) .. " _built=" .. tostring(IrisBrowserData._built))
-    end
-    return {
-        state = buildState,
-        reason = buildReason,
-        dependency = buildDependency,
-        generation = buildGeneration,
-    }
-end
-
---- 현재 build-state와 실패/저하 이유를 반환한다.
---- @return table stateInfo
 function IrisBrowserData.getBuildState()
-    return stateSnapshot()
+    syncCompatibilityState()
+    return lifecycle.getState()
 end
 
---- query가 cache를 소비할 수 있는 상태인지 반환한다.
---- @return boolean ready
 function IrisBrowserData.isReady()
-    stateSnapshot()
-    return READY_STATES[buildState] == true
+    syncCompatibilityState()
+    return lifecycle.isReady()
 end
 
-local function createPresentationRanks()
-    local ranks = {}
-    local rank = 0
-    for _, categoryName in ipairs(IrisBrowserData.CATEGORY_ORDER or {}) do
-        for _, subcategoryName in ipairs(
-            IrisBrowserData.SUBCATEGORY_MAP[categoryName] or {}
-        ) do
-            rank = rank + 1
-            ranks[categoryName .. "." .. subcategoryName] = rank
-        end
-    end
-    return ranks
-end
-
-local function searchRowLess(a, b)
-    if a.displayName ~= b.displayName then
-        return a.displayName < b.displayName
-    end
-    return a.fullType < b.fullType
-end
-
-local function betterDescriptionTag(tag, currentTag, currentPriority, currentCode)
-    local category = nil
-    local code = nil
-    if type(tag) == "string" then
-        category, code = tag:match("^([^%.]+)%.(.+)$")
-    end
-    if not category or not code then
-        return currentTag, currentPriority, currentCode
-    end
-
-    local priority = IrisBrowserCategoryIndex.getDescriptionPriority(category)
-    if priority < currentPriority or
-        (priority == currentPriority and code < currentCode) then
-        return tag, priority, code
-    end
-    return currentTag, currentPriority, currentCode
-end
-
-local function buildCandidateCache(itemIndex)
-    local classificationIndex = IrisBrowserClassificationIndex.createEmpty(
-        IrisBrowserData.CATEGORY_ORDER,
-        IrisBrowserData.SUBCATEGORY_MAP
-    )
-
-    local nextGeneration = buildGeneration + 1
-    local normalizedLocale = TranslationResolver.getLangKey("EN")
-    local candidate = {
-        itemIndex = itemIndex,
-        classificationIndex = classificationIndex,
-        itemsByFullType = itemIndex.itemsByFullType,
-        rowsByFullType = {},
-        categories = classificationIndex.categories,
-        itemLocationsByFullType = classificationIndex.itemLocationsByFullType,
-        searchSnapshot = nil,
-        foldedCountsByGrouping = {},
-        displayNameGroupsByGrouping = {},
-        searchMetrics = instrumentationEnabled and {
-            searchCalls = 0,
-            totalScanRows = 0,
-            lastScanRows = 0,
-            prefixReuseCount = 0,
-            fullSortCount = 0,
-        } or nil,
-        generation = nextGeneration,
-    }
-
-    local taggedCount = 0
-    local errorCount = 0
-    local maxErrors = 5
-    local locationRanks = createPresentationRanks()
-    local searchRows = {}
-    local classifications = StaticData.get("classifications")
-    local classificationsMalformed = classifications ~= nil and
-        type(classifications) ~= "table"
-
-    if instrumentationEnabled then
-        instrumentation.postIndexMaterializationPassCount =
-            instrumentation.postIndexMaterializationPassCount + 1
-    end
-
-    for fullType, item in pairs(itemIndex.itemsByFullType or {}) do
-        local displayName = ItemAccess.getDisplayName(item, fullType)
-        local row = {
-            fullType = fullType,
-            item = item,
-            displayName = displayName,
-            folded = displayName:lower() .. "\0" .. fullType:lower(),
-            primaryLocation = nil,
-            primaryTag = nil,
-        }
-        candidate.rowsByFullType[fullType] = row
-        if instrumentationEnabled then
-            instrumentation.materializedRowCount =
-                instrumentation.materializedRowCount + 1
-            instrumentation.retainedItemReferenceCount =
-                instrumentation.retainedItemReferenceCount + 1
-        end
-
-        local rawTags = nil
-        local tagReadFailed = classificationsMalformed
-        if not classificationsMalformed and classifications then
-            rawTags = classifications[fullType]
-            tagReadFailed = rawTags ~= nil and type(rawTags) ~= "table"
-        end
-
-        if tagReadFailed then
-            if IrisLogger.isDebugEnabled() and errorCount < maxErrors then
-                debug("[IrisBrowserData] DEBUG: classification tags malformed for " .. fullType)
-            end
-            errorCount = errorCount + 1
-        end
-
-        local hasAnyTag = false
-        local primaryLocationRank = math.huge
-        local primaryPriority = math.huge
-        local primaryCode = "\255"
-        if type(rawTags) == "table" then
-            for _, tag in ipairs(rawTags) do
-                hasAnyTag = true
-                local accepted = IrisBrowserClassificationIndex.addTag(
-                    classificationIndex,
-                    fullType,
-                    tag
-                )
-                local rank = accepted and locationRanks[tag] or nil
-                if rank and rank < primaryLocationRank then
-                    local category, subcategory = tag:match("^([^%.]+)%.(.+)$")
-                    primaryLocationRank = rank
-                    row.primaryLocation = {
-                        category = category,
-                        subcategory = subcategory,
-                    }
-                end
-                row.primaryTag, primaryPriority, primaryCode = betterDescriptionTag(
-                    tag,
-                    row.primaryTag,
-                    primaryPriority,
-                    primaryCode
-                )
-            end
-        end
-        if IrisPrimarySubcategory and IrisPrimarySubcategory[fullType] then
-            row.primaryTag = IrisPrimarySubcategory[fullType]
-        end
-        searchRows[#searchRows + 1] = row
-        if hasAnyTag then
-            taggedCount = taggedCount + 1
-        end
-    end
-
-    table.sort(searchRows, searchRowLess)
-    candidate.searchSnapshot = {
-        generation = nextGeneration,
-        locale = normalizedLocale,
-        rows = searchRows,
-    }
-    if candidate.searchMetrics then
-        candidate.searchMetrics.fullSortCount = 1
-        instrumentation.initialSearchSortCount =
-            instrumentation.initialSearchSortCount + 1
-    end
-    
-    return candidate, taggedCount, errorCount
-end
-
-local function recordItemIndexInstrumentation(itemIndex)
-    if not instrumentationEnabled or not itemIndex then return end
-    instrumentation.getAllItemsCallCount = instrumentation.getAllItemsCallCount +
-        (itemIndex.getAllItemsCallCount or 0)
-    instrumentation.scannedItemCount = instrumentation.scannedItemCount +
-        (itemIndex.scannedItemCount or 0)
-    instrumentation.lastScanElapsedMilliseconds = itemIndex.elapsedMilliseconds or 0
-end
-
---- 브라우저 cache를 필요한 경우 build/retry한다.
---- @return boolean ready
---- @return table stateInfo
 function IrisBrowserData.ensureReady()
-    local callStartedAt = instrumentationEnabled and nowMilliseconds() or 0
-    if READY_STATES[buildState] then
-        if instrumentationEnabled then
-            instrumentation.warmReopenCount = instrumentation.warmReopenCount + 1
-            instrumentation.lastWarmReopenElapsedMilliseconds =
-                math.max(0, nowMilliseconds() - callStartedAt)
-        end
-        return true, stateSnapshot()
-    end
-    if buildState == "building" then
-        return false, stateSnapshot()
-    end
-
-    local buildStartedAt = instrumentationEnabled and nowMilliseconds() or 0
-    setBuildState("building", "build_in_progress", nil)
-    if instrumentationEnabled then
-        instrumentation.buildAttempts = instrumentation.buildAttempts + 1
-    end
-    if IrisLogger.isDebugEnabled() then
-        debug("[IrisBrowserData] Building cache...")
-    end
-    ensureDeps()
-
-    if not IrisAPI then
-        finishBuildTiming(buildStartedAt)
-        setBuildState("retryable_failed", "required_dependency_unavailable", "Iris/IrisAPI")
-        warn("[IrisBrowserData] required dependency unavailable: Iris/IrisAPI")
-        return false, stateSnapshot()
-    end
-    if not IrisAPI.Tags or not IrisAPI.Tags.getTagsForItem then
-        finishBuildTiming(buildStartedAt)
-        setBuildState("retryable_failed", "required_dependency_unavailable", "IrisAPI.Tags")
-        warn("[IrisBrowserData] required dependency unavailable: IrisAPI.Tags")
-        return false, stateSnapshot()
-    end
-
-    local itemIndexOk, itemIndex, itemIndexFailure = pcall(IrisBrowserItemIndex.build)
-    if not itemIndexOk then
-        finishBuildTiming(buildStartedAt)
-        setBuildState("retryable_failed", "item_index_build_failed", "getAllItems")
-        warn("[IrisBrowserData] item index build failed: " .. tostring(itemIndex))
-        return false, stateSnapshot()
-    end
-    recordItemIndexInstrumentation(itemIndex)
-    if itemIndexFailure then
-        finishBuildTiming(buildStartedAt)
-        setBuildState("retryable_failed", itemIndexFailure or "item_index_unavailable", "getAllItems")
-        warn("[IrisBrowserData] item index unavailable: " .. tostring(itemIndexFailure))
-        return false, stateSnapshot()
-    end
-
-    local buildOk, candidate, taggedCount, errorCount = pcall(buildCandidateCache, itemIndex)
-    if not buildOk then
-        finishBuildTiming(buildStartedAt)
-        setBuildState("retryable_failed", "cache_build_failed", "IrisBrowserData.cache")
-        warn("[IrisBrowserData] cache build failed: " .. tostring(candidate))
-        return false, stateSnapshot()
-    end
-    IrisBrowserData._cache = candidate
-    buildGeneration = candidate.generation
-    finishBuildTiming(buildStartedAt)
-    if instrumentationEnabled then
-        instrumentation.coldOpenCount = instrumentation.coldOpenCount + 1
-        instrumentation.lastColdOpenElapsedMilliseconds =
-            instrumentation.lastBuildElapsedMilliseconds
-    end
-
-    if not IrisAPI.Index or not IrisAPI.Index.getRecipeConnectionsForItem then
-        setBuildState("degraded_ready", "optional_dependency_unavailable", "IrisAPI.Index")
-        warn("[IrisBrowserData] optional dependency unavailable: IrisAPI.Index")
-    else
-        setBuildState("ready", "build_complete", nil)
-    end
-
-    if IrisLogger.isDebugEnabled() then
-        debug("[IrisBrowserData] Cache built: " .. tostring(candidate.itemIndex.itemCount) ..
-            " items indexed, " .. taggedCount .. " tagged, errors=" .. errorCount ..
-            ", state=" .. buildState)
-    end
-    return true, stateSnapshot()
+    local ready, state = lifecycle.ensureReady()
+    syncCompatibilityState()
+    return ready, state
 end
 
---- Browser-open 재진입과 dev reload를 위한 명시적 reset.
 function IrisBrowserData.resetForReload()
-    IrisAPI = nil
-    IrisBrowserData._cache = nil
-    if instrumentationEnabled then
-        instrumentation.generationInvalidationCount =
-            instrumentation.generationInvalidationCount + 1
-    end
-    setBuildState("uninitialized", "explicit_reload_reset", nil)
+    lifecycle.resetForReload()
+    syncCompatibilityState()
 end
 
---- Dev/test-only build and scan counters. Returned by value.
 function IrisBrowserData.getInstrumentation()
-    return {
-        enabled = instrumentationEnabled,
-        state = buildState,
-        generation = buildGeneration,
-        buildAttempts = instrumentation.buildAttempts,
-        getAllItemsCallCount = instrumentation.getAllItemsCallCount,
-        scannedItemCount = instrumentation.scannedItemCount,
-        lastElapsedMilliseconds = instrumentation.lastBuildElapsedMilliseconds,
-        lastBuildElapsedMilliseconds = instrumentation.lastBuildElapsedMilliseconds,
-        lastScanElapsedMilliseconds = instrumentation.lastScanElapsedMilliseconds,
-        coldOpenCount = instrumentation.coldOpenCount,
-        warmReopenCount = instrumentation.warmReopenCount,
-        lastColdOpenElapsedMilliseconds = instrumentation.lastColdOpenElapsedMilliseconds,
-        lastWarmReopenElapsedMilliseconds = instrumentation.lastWarmReopenElapsedMilliseconds,
-        generationInvalidationCount = instrumentation.generationInvalidationCount,
-        postIndexMaterializationPassCount = instrumentation.postIndexMaterializationPassCount,
-        materializedRowCount = instrumentation.materializedRowCount,
-        retainedItemReferenceCount = instrumentation.retainedItemReferenceCount,
-        tagArrayToSetConversionCount = instrumentation.tagArrayToSetConversionCount,
-        chooseLocationComparisonCount = instrumentation.chooseLocationComparisonCount,
-        initialSearchSortCount = instrumentation.initialSearchSortCount,
-    }
+    local state = lifecycle.getState()
+    return metrics.snapshot(state.state, state.generation)
 end
 
 function IrisBrowserData.resetInstrumentation()
-    instrumentation = newInstrumentation()
+    metrics.reset()
 end
 
 function IrisBrowserData.setInstrumentationEnabled(enabled)
-    instrumentationEnabled = enabled == true
-    IrisBrowserQuery.setInstrumentationEnabled(instrumentationEnabled)
-    IrisBrowserItemIndex.setInstrumentationEnabled(instrumentationEnabled)
-    IrisBrowserData.resetInstrumentation()
+    metrics.setEnabled(enabled)
+    IrisBrowserQuery.setInstrumentationEnabled(metrics.isEnabled())
+    IrisBrowserItemIndex.setInstrumentationEnabled(metrics.isEnabled())
 end
 
---- 기존 boolean build API compatibility adapter.
---- @return boolean success
+-- Supported boolean compatibility adapter.
 function IrisBrowserData.build()
     local ready = IrisBrowserData.ensureReady()
     return ready
 end
 
---- 대분류 목록 반환 (고정 순서)
---- @return table categories (name, subcategoryCount)
 function IrisBrowserData.getCategories()
     local debugEnabled = IrisLogger.isDebugEnabled()
     if debugEnabled then
         debug("[IrisBrowserData] getCategories() called")
-        debug("[IrisBrowserData] state = " .. tostring(buildState))
+        debug("[IrisBrowserData] state = " .. tostring(lifecycle.getState().state))
     end
     if not IrisBrowserData.isReady() then
         if debugEnabled then debug("[IrisBrowserData] NOT BUILT, returning empty") end
         return {}
     end
-    
-    if debugEnabled then
-        debug("[IrisBrowserData] _cache exists = " .. tostring(IrisBrowserData._cache ~= nil))
-        debug("[IrisBrowserData] CATEGORY_ORDER count = " .. #IrisBrowserData.CATEGORY_ORDER)
-    end
-
     local result = IrisBrowserFilters.getCategories(
-        IrisBrowserData._cache,
+        lifecycle.getCache(),
         IrisBrowserData.CATEGORY_ORDER,
         IrisBrowserData.getCategoryLabel,
         debugEnabled and debug or nil
     )
-    if debugEnabled then debug("[IrisBrowserData] getCategories() returning " .. #result .. " categories") end
+    if debugEnabled then
+        debug("[IrisBrowserData] getCategories() returning " .. #result .. " categories")
+    end
     return result
 end
 
---- 접기 후 아이템 개수 계산 (내부용)
---- DisplayName 기반 접기 + 차단 가드 적용 후 남는 개수
---- @param categoryName string
---- @param subCode string
---- @param subData table
---- @return number foldedCount
 function IrisBrowserData._calculateFoldedCount(categoryName, subCode, subData)
-    if not IrisBrowserData._cache then return 0 end
+    local cache = lifecycle.getCache()
+    if not cache then return 0 end
     local groupingKey = IrisBrowserVariantIndex.getFoldedCountCacheKey(categoryName, subCode)
-    local cached = IrisBrowserData._cache.foldedCountsByGrouping[groupingKey]
+    local cached = cache.foldedCountsByGrouping[groupingKey]
     if cached ~= nil then return cached end
     local count = IrisBrowserVariantIndex.calculateFoldedCount(
-        IrisBrowserData._cache,
+        cache,
         categoryName,
         subCode,
         subData,
-        IrisAPI
+        lifecycle.getApi()
     )
-    IrisBrowserData._cache.foldedCountsByGrouping[groupingKey] = count
+    cache.foldedCountsByGrouping[groupingKey] = count
     return count
 end
 
---- 특정 대분류의 소분류 목록 반환 (코드순 정렬)
---- @param categoryName string
---- @return table subcategories (code, label, itemCount)
 function IrisBrowserData.getSubcategories(categoryName)
     local debugEnabled = IrisLogger.isDebugEnabled()
-    if debugEnabled then
-        debug("[IrisBrowserData] getSubcategories('" .. tostring(categoryName) .. "') called")
-    end
-    
-    if not IrisBrowserData.isReady() then
-        if debugEnabled then debug("[IrisBrowserData] NOT BUILT, returning empty") end
-        return {}
-    end
-    if not categoryName then
-        if debugEnabled then debug("[IrisBrowserData] categoryName is nil, returning empty") end
-        return {}
-    end
-    IrisBrowserQuery.ensureLocale(
-        IrisBrowserData._cache,
-        TranslationResolver.getLangKey("EN")
-    )
-    
-    local result = IrisBrowserFilters.getSubcategories(
-        IrisBrowserData._cache,
+    if not IrisBrowserData.isReady() or not categoryName then return {} end
+    local cache = lifecycle.getCache()
+    IrisBrowserQuery.ensureLocale(cache, TranslationResolver.getLangKey("EN"))
+    return IrisBrowserFilters.getSubcategories(
+        cache,
         categoryName,
         IrisBrowserData.getSubcategoryLabel,
         IrisBrowserData._calculateFoldedCount,
         debugEnabled and debug or nil
     )
-    if debugEnabled then debug("[IrisBrowserData] getSubcategories() returning " .. #result .. " subcategories") end
-    return result
 end
 
---- 주 소분류 결정 헬퍼 함수 (내부용)
---- @param item InventoryItem
---- @param fullType string
---- @param currentTag string 현재 보고 있는 태그 (예: "Consumable.3-A")
---- @return boolean isPrimary
 function IrisBrowserData._calculatePrimary(item, fullType, currentTag)
-    local row = IrisBrowserData._cache and IrisBrowserData._cache.rowsByFullType and
-        IrisBrowserData._cache.rowsByFullType[fullType] or nil
-    return IrisBrowserVariantIndex.calculatePrimary(item, fullType, currentTag, IrisAPI, row)
+    local cache = lifecycle.getCache()
+    local row = cache and cache.rowsByFullType and cache.rowsByFullType[fullType] or nil
+    return IrisBrowserVariantIndex.calculatePrimary(
+        item,
+        fullType,
+        currentTag,
+        lifecycle.getApi(),
+        row
+    )
 end
 
---- 특정 소분류의 아이템 목록 반환
---- 정렬 규칙:
----   1. 현재 소분류가 주 소분류인 아이템 → 먼저
----   2. 현재 소분류가 보조 소분류인 아이템 → 나중
----   3. 각 그룹 내에서는 DisplayName 알파벳순
---- @param categoryName string
---- @param subcategoryName string
---- @return table items (fullType, displayName, isPrimary)
 function IrisBrowserData.getItems(categoryName, subcategoryName)
-    local debugEnabled = IrisLogger.isDebugEnabled()
-    if debugEnabled then
-        debug("[IrisBrowserData] getItems('" .. tostring(categoryName) .. "', '" .. tostring(subcategoryName) .. "') called")
-    end
-    
     if not IrisBrowserData.isReady() or not categoryName or not subcategoryName then
-        if debugEnabled then debug("[IrisBrowserData] getItems - not built or missing params") end
         return {}
     end
-    IrisBrowserQuery.ensureLocale(
-        IrisBrowserData._cache,
-        TranslationResolver.getLangKey("EN")
-    )
-    
-    local result = IrisBrowserVariantIndex.getItems(
-        IrisBrowserData._cache,
+    local cache = lifecycle.getCache()
+    IrisBrowserQuery.ensureLocale(cache, TranslationResolver.getLangKey("EN"))
+    return IrisBrowserVariantIndex.getItems(
+        cache,
         categoryName,
         subcategoryName,
-        IrisAPI,
-        debugEnabled and debug or nil
+        lifecycle.getApi(),
+        IrisLogger.isDebugEnabled() and debug or nil
     )
-    if debugEnabled then
-        debug("[IrisBrowserData] getItems() returning " .. #result .. " items (DisplayName folding)")
-    end
-    return result
 end
 
---- 전체 검색 (DisplayName/fullType 기준)
---- @param query string
---- @return table items (fullType, displayName, category, subcategory)
 function IrisBrowserData.searchAll(query)
-    if not IrisBrowserData.isReady() then
-        return {}
-    end
-
+    if not IrisBrowserData.isReady() then return {} end
     return IrisBrowserQuery.searchAll(
-        IrisBrowserData._cache,
+        lifecycle.getCache(),
         query,
         nil,
         TranslationResolver.getLangKey("EN")
     )
 end
 
---- 아이템 객체 반환
---- @param fullType string
---- @return InventoryItem|nil
 function IrisBrowserData.getItem(fullType)
-    if not IrisBrowserData.isReady() or not fullType then
-        return nil
-    end
-    return IrisBrowserQuery.getItem(IrisBrowserData._cache, fullType)
+    if not IrisBrowserData.isReady() or not fullType then return nil end
+    return IrisBrowserQuery.getItem(lifecycle.getCache(), fullType)
 end
 
---- 아이템의 브라우저 위치 반환 (selectItem용 사전 빌드 reverse index)
---- @param fullType string
---- @return string|nil categoryName
---- @return string|nil subcategoryName
 function IrisBrowserData.getItemLocation(fullType)
-    if not IrisBrowserData.isReady() or not fullType then
-        return nil, nil
-    end
-
-    return IrisBrowserQuery.getItemLocation(IrisBrowserData._cache, fullType)
+    if not IrisBrowserData.isReady() or not fullType then return nil, nil end
+    return IrisBrowserQuery.getItemLocation(lifecycle.getCache(), fullType)
 end
 
---- 그룹의 변형 아이템 목록 반환
---- @param groupId string|nil 그룹 ID
---- @return table variants { fullType, displayName }[] or nil
+-- Supported compatibility facade; W9 replaces the legacy data source.
 function IrisBrowserData.getGroupVariants(groupId)
-    if not IrisBrowserData.isReady() then
-        return nil
-    end
+    if not IrisBrowserData.isReady() then return nil end
     return IrisBrowserVariantIndex.getGroupVariants(
-        IrisBrowserData._cache,
+        lifecycle.getCache(),
         groupId,
         StaticData.getLegacyIrisData()
     )

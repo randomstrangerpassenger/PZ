@@ -536,7 +536,7 @@ class ComposeLayer3TextV2Test(unittest.TestCase):
                     with redirect_stderr(StringIO()):
                         parse_args(["--mode", legacy_mode])
 
-    def test_diagnostic_resolver_rejects_canonical_output_path(self) -> None:
+    def test_diagnostic_resolver_requires_all_external_outputs(self) -> None:
         args = [
             "--mode",
             DIAGNOSTIC_RESOLVER_MODE,
@@ -544,7 +544,7 @@ class ComposeLayer3TextV2Test(unittest.TestCase):
             str(self.tmp_dir / "diagnostic_resolver_rendered.json"),
         ]
 
-        with self.assertRaisesRegex(ValueError, "diagnostic_resolver output_path must stay under"):
+        with self.assertRaisesRegex(ValueError, "COMPOSE_EXTERNAL_OUTPUT_REQUIRED"):
             compose_main(args)
 
     def test_direct_diagnostic_resolver_rejects_canonical_output_path(self) -> None:

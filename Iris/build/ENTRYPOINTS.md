@@ -201,6 +201,8 @@ its installation path or current working directory.
 - Classification install: `uv run --project .\Iris\tooling --locked --no-editable python -B -m iris_tooling --repository-root . classification install --candidate-root <external-candidate-root> --manifest-sha256 <sha256>`
 - Right-click v2.4: `uv run --project .\Iris\tooling --locked --no-editable python -B -m iris_tooling --repository-root . rightclick <arguments>`
 - Layer 3 compose: `uv run --project .\Iris\tooling --locked --no-editable python -B -m iris_tooling --repository-root . layer3 --output-path <external-file> --style-log-path <external-file> <arguments>`
+  Diagnostic resolver mode additionally requires an explicit external
+  `--requeue-candidates-path`; no Layer 3 mode has a repository-local output fallback.
 - Layer 4 export: `uv run --project .\Iris\tooling --locked --no-editable python -B -m iris_tooling --repository-root . layer4 <arguments>`
 - Public-text/naturalization: `uv run --project .\Iris\tooling --locked --no-editable python -B -m iris_tooling --repository-root . public-text <arguments>`
 

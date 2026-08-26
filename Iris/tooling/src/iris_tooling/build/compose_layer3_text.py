@@ -1207,9 +1207,9 @@ def default_entrypoint_paths(mode: str) -> dict[str, Path | None]:
         return {
             "profiles_path": BODY_PLAN_PROFILES_PATH,
             "overlay_path": BODY_SOURCE_OVERLAY_PATH,
-            "output_path": EDPAS_DIAGNOSTIC_DIR / "diagnostic_resolver_dvf_3_3_rendered.json",
-            "style_log_path": EDPAS_DIAGNOSTIC_DIR / "diagnostic_resolver_style_log.jsonl",
-            "requeue_candidates_path": EDPAS_DIAGNOSTIC_DIR / "diagnostic_resolver_requeue_candidates.jsonl",
+            "output_path": None,
+            "style_log_path": None,
+            "requeue_candidates_path": None,
         }
     raise ValueError(f"Unknown entrypoint mode: {mode}")
 
@@ -1256,22 +1256,23 @@ def compose_context_for_entrypoint(args: argparse.Namespace) -> str | None:
     return None
 
 
-def enforce_external_default_outputs(
+def enforce_external_entrypoint_outputs(
     mode: str, paths: dict[str, Path | None]
 ) -> None:
-    if mode != DEFAULT_MODE:
-        return
-    for key in ("output_path", "style_log_path"):
+    required_keys = ["output_path", "style_log_path"]
+    if mode == DIAGNOSTIC_RESOLVER_MODE:
+        required_keys.append("requeue_candidates_path")
+    for key in required_keys:
         value = paths.get(key)
         if value is None:
             raise ValueError(
-                f"{COMPOSE_EXTERNAL_OUTPUT_REQUIRED_ERROR_CODE}: default mode {key} is required"
+                f"{COMPOSE_EXTERNAL_OUTPUT_REQUIRED_ERROR_CODE}: {mode} mode {key} is required"
             )
     for key in ("output_path", "style_log_path", "requeue_candidates_path"):
         value = paths.get(key)
         if value is not None and is_under_path(value, REPOSITORY_ROOT):
             raise ValueError(
-                f"{COMPOSE_EXTERNAL_OUTPUT_REQUIRED_ERROR_CODE}: default mode {key} must be repository-external"
+                f"{COMPOSE_EXTERNAL_OUTPUT_REQUIRED_ERROR_CODE}: {mode} mode {key} must be repository-external"
             )
 
 
@@ -1296,8 +1297,8 @@ def enforce_entrypoint_mode_contract(
     if mode == DIAGNOSTIC_RESOLVER_MODE:
         for key in ("output_path", "style_log_path", "requeue_candidates_path"):
             value = paths.get(key)
-            if value is not None and not is_under_path(value, EDPAS_DIAGNOSTIC_DIR):
-                raise ValueError(f"{mode} {key} must stay under {EDPAS_DIAGNOSTIC_DIR}")
+            if value is None or is_under_path(value, REPOSITORY_ROOT):
+                raise ValueError(f"{mode} {key} must be repository-external")
 
 
 def resolver_authority_mode_for_entrypoint(mode: str) -> str:
@@ -1309,7 +1310,7 @@ def resolver_authority_mode_for_entrypoint(mode: str) -> str:
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     paths = resolve_entrypoint_paths(args)
-    enforce_external_default_outputs(args.mode, paths)
+    enforce_external_entrypoint_outputs(args.mode, paths)
     compose_context = compose_context_for_entrypoint(args)
     enforce_entrypoint_mode_contract(args.mode, paths, compose_context=compose_context)
     build_rendered(

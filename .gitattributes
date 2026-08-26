@@ -1,5 +1,6 @@
 Iris/build/baseline/full/* -diff
 Iris/validation/clean_checkout/evidence/current_required_v1/** -text
+Iris/build/baseline/current_output_seed_v1/** -text
 .gitattributes -text
 Iris/build/description/v2/frozen_predecessor_inputs/dvf_3_3_registry_authority_canonical_closure/current_route/payload/*.bin -text -diff
 Iris/build/description/v2/frozen_predecessor_inputs/dvf_3_3_registry_authority_canonical_closure/current_route/manifest.json -text

@@ -2398,10 +2398,38 @@ def _materialize_current_output_seed(
     output_root: Path,
     python_executable: Path,
     environment: dict[str, str],
+    baseline_seed_files: list[dict[str, Any]],
 ) -> None:
     if output_root.exists():
         raise CleanCheckoutError(f"current output seed root already exists: {output_root}")
     output_root.mkdir(parents=True)
+    if not baseline_seed_files:
+        raise CleanCheckoutError("current output baseline seed set is empty")
+    baseline_root = checkout / "Iris/build/baseline/current_output_seed_v1"
+    expected_sources = {str(row["source"]) for row in baseline_seed_files}
+    actual_sources = {
+        path.relative_to(checkout).as_posix()
+        for path in baseline_root.iterdir()
+        if path.is_file()
+    }
+    if actual_sources != expected_sources:
+        raise CleanCheckoutError("current output baseline seed exact set mismatch")
+    destinations: set[str] = set()
+    for row in baseline_seed_files:
+        source = checkout / str(row["source"])
+        destination = str(row["destination"])
+        if (
+            destination != Path(destination).name
+            or destination in destinations
+            or not source.is_file()
+            or source.stat().st_size != row["bytes"]
+            or sha256_file(source) != row["sha256"]
+        ):
+            raise CleanCheckoutError(
+                f"current output baseline seed binding mismatch: {destination}"
+            )
+        destinations.add(destination)
+        shutil.copyfile(source, output_root / destination)
     seed_environment = dict(environment)
     seed_environment["IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"] = str(output_root)
     commands = [
@@ -2795,6 +2823,9 @@ def run_full_repository_gate(
             pytest_legacy_output_root,
             python_executable,
             environment,
+            contract["execution_workspace"]["standalone_output_projection"][
+                "baseline_seed_files"
+            ],
         )
         environment[
             "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"
@@ -2846,6 +2877,9 @@ def run_full_repository_gate(
             standalone_seed_root,
             python_executable,
             environment,
+            contract["execution_workspace"]["standalone_output_projection"][
+                "baseline_seed_files"
+            ],
         )
         for row in contract["required_standalone_validations"]:
             standalone_output_root = (

@@ -495,11 +495,21 @@
     ],
     "standalone_output_projection": {
       "environment_variable": "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
-      "seed_source": "current producers materialized into caller-supplied external result root",
+      "seed_source": "exact frozen baseline subset followed by current producers in caller-supplied external result root",
       "destination": "caller-supplied repository-external result root",
       "pytest_projection": true,
       "per_command_isolation": true,
-      "repository_output_write_count": 0
+      "repository_output_write_count": 0,
+      "baseline_seed_files": [
+        {"source": "Iris/build/baseline/current_output_seed_v1/action_evidence_classification.v2.4.json", "destination": "action_evidence_classification.v2.4.json", "bytes": 3661, "sha256": "b128b1d639a5f8dfa24a99aff25a8c276b830b8bf8aa227265c7e5025442e374"},
+        {"source": "Iris/build/baseline/current_output_seed_v1/action_requirement_index.v2.4.json", "destination": "action_requirement_index.v2.4.json", "bytes": 12140, "sha256": "623de447e6785099025888669961f3097096f3a78ad526aea1886f79fd7921fe"},
+        {"source": "Iris/build/baseline/current_output_seed_v1/descriptions_by_fulltype.v2.4.json", "destination": "descriptions_by_fulltype.v2.4.json", "bytes": 1107254, "sha256": "d5fc481f69f2ad2cd32ada1e5ba526e3058f2aa080b892f67f33e92568f661e6"},
+        {"source": "Iris/build/baseline/current_output_seed_v1/legacy_inventory.v2.4.json", "destination": "legacy_inventory.v2.4.json", "bytes": 272, "sha256": "eefe7384c42e52b8477e7bc2ada7da07dd6a62bc9d124a843c2639c15465ad54"},
+        {"source": "Iris/build/baseline/current_output_seed_v1/legacy_upgrade_candidates.v2.4.json", "destination": "legacy_upgrade_candidates.v2.4.json", "bytes": 217, "sha256": "c9b39a04f9033fa63fc579c8d630be163d2ab9b4a28ba83bef36e6c6f748ca7f"},
+        {"source": "Iris/build/baseline/current_output_seed_v1/recipe_nav_registry.v2.4.json", "destination": "recipe_nav_registry.v2.4.json", "bytes": 82186, "sha256": "19f7b35d5c01cb3e0cf272c91e3467231eab33a4f1dbbca6154eb638f89dc6d8"},
+        {"source": "Iris/build/baseline/current_output_seed_v1/recipe_require_fields.v2.5.json", "destination": "recipe_require_fields.v2.5.json", "bytes": 98396, "sha256": "f1ed974c6a0a21619658e48717b673f62a26168e792b713a6c0ffbd380eb53b6"},
+        {"source": "Iris/build/baseline/current_output_seed_v1/recipe_requirements_index.v2.4.json", "destination": "recipe_requirements_index.v2.4.json", "bytes": 47398, "sha256": "b8d3696ecae74584e0911fff5b798711536e4dd26aadf7a1ca494bd6fc797271"}
+      ]
     },
     "post_bootstrap_test_execution_status_policy": "must_equal_exact_bootstrap_baseline",
     "cleanup_required": true,

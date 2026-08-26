@@ -1027,12 +1027,162 @@ def _validate_g5_compiler_identity_transition(
     }
 
 
+def _validate_current_capsule_required_evidence(
+    repo: Path,
+    commit: str,
+    contract: dict[str, Any],
+    tracked: set[str],
+) -> dict[str, Any]:
+    g5 = contract["g5_required_evidence"]
+    binding = g5["capsule_manifest"]
+    manifest_path = binding["path"]
+    if binding.get("hash_mode") != "git_blob_raw_sha256" or manifest_path not in tracked:
+        raise CleanCheckoutError("invalid current capsule manifest binding")
+    raw = bytes_at_commit(repo, commit, manifest_path)
+    raw_sha256 = sha256_bytes(raw)
+    if raw_sha256 != binding["git_blob_raw_sha256"]:
+        raise CleanCheckoutError("current capsule manifest identity mismatch")
+    manifest = json.loads(raw)
+    if (
+        manifest.get("schema_version") != "iris_current_required_evidence_capsule_v1"
+        or manifest.get("claim_id") != "current_capsule_attestation_v2"
+        or manifest.get("superseded_claim_id") != "raw_repository_evidence_v1"
+        or manifest.get("external_archive_is_current_route_dependency") is not False
+    ):
+        raise CleanCheckoutError("current capsule claim transition mismatch")
+
+    rows = manifest.get("rows")
+    if not isinstance(rows, list) or len(rows) != 18:
+        raise CleanCheckoutError("current capsule direct-row coverage mismatch")
+    source_paths: set[str] = set()
+    raw_paths: dict[str, tuple[int, str]] = {}
+    raw_rows = 0
+    digest_rows = 0
+    for row in rows:
+        source_path = row.get("source_logical_path")
+        disposition = row.get("disposition")
+        if (
+            not isinstance(source_path, str)
+            or not source_path.startswith("Iris/build/description/v2/staging/")
+            or source_path in source_paths
+            or row.get("predecessor_claim_id") != "raw_repository_evidence_v1"
+            or row.get("successor_claim_id") != "current_capsule_attestation_v2"
+        ):
+            raise CleanCheckoutError("invalid current capsule source row")
+        source_paths.add(source_path)
+        source_sha256 = row.get("source_sha256")
+        source_bytes = row.get("source_bytes")
+        if (
+            not isinstance(source_sha256, str)
+            or len(source_sha256) != 64
+            or not isinstance(source_bytes, int)
+            or source_bytes < 0
+        ):
+            raise CleanCheckoutError("invalid current capsule source identity")
+        capsule_path = row.get("capsule_path")
+        if disposition == "raw_capsule":
+            raw_rows += 1
+            if (
+                not isinstance(capsule_path, str)
+                or not capsule_path.startswith(
+                    "Iris/validation/clean_checkout/evidence/current_required_v1/objects/"
+                )
+                or capsule_path not in tracked
+            ):
+                raise CleanCheckoutError("invalid current capsule raw path")
+            existing = raw_paths.setdefault(capsule_path, (source_bytes, source_sha256))
+            if existing != (source_bytes, source_sha256):
+                raise CleanCheckoutError("current capsule object collision")
+        elif disposition == "digest_capsule":
+            digest_rows += 1
+            if capsule_path is not None:
+                raise CleanCheckoutError("digest capsule row retained raw bytes")
+        else:
+            raise CleanCheckoutError("unsupported current capsule disposition")
+
+    retained_bytes = 0
+    for path, (expected_bytes, expected_sha256) in raw_paths.items():
+        object_raw = bytes_at_commit(repo, commit, path)
+        if len(object_raw) != expected_bytes or sha256_bytes(object_raw) != expected_sha256:
+            raise CleanCheckoutError("current capsule object identity mismatch")
+        retained_bytes += len(object_raw)
+    ceiling = manifest.get("current_capsule_hard_ceiling_bytes")
+    if (
+        ceiling != 2_359_296
+        or retained_bytes != manifest.get("raw_retained_bytes")
+        or retained_bytes > ceiling
+        or len(raw_paths) != manifest.get("raw_unique_object_count")
+        or raw_rows != manifest.get("raw_capsule_row_count")
+        or digest_rows != manifest.get("digest_capsule_row_count")
+        or raw_rows != 14
+        or digest_rows != 4
+    ):
+        raise CleanCheckoutError("current capsule count or budget mismatch")
+    broader = manifest.get("broader_staging_closure", {})
+    if (
+        broader.get("row_count") != 4645
+        or broader.get("raw_capsule_rows") != 14
+        or broader.get("digest_capsule_rows") != 3388
+        or broader.get("historical_archive_rows") != 1243
+        or broader.get("unresolved_blocker") != 0
+    ):
+        raise CleanCheckoutError("broader staging closure mismatch")
+
+    compiler = g5["compiler_identity"]
+    for path in compiler["ordered_paths"]:
+        if path not in tracked:
+            raise CleanCheckoutError(f"G5 compiler constituent is not tracked: {path}")
+    transition_binding = compiler["successor_transition"]
+    transition_raw = bytes_at_commit(repo, commit, transition_binding["path"])
+    if sha256_bytes(transition_raw) != transition_binding["git_blob_raw_sha256"]:
+        raise CleanCheckoutError("G5 compiler successor raw identity mismatch")
+    compiler_validation = _validate_g5_compiler_identity_transition(
+        repo, commit, compiler, json.loads(transition_raw), True
+    )
+
+    required_paths = g5["current_required_paths"]
+    if (
+        len(required_paths) != len(set(required_paths))
+        or manifest_path not in required_paths
+        or transition_binding["path"] not in required_paths
+        or set(raw_paths) - set(required_paths)
+        or any(
+            path.startswith("Iris/build/description/v2/staging/")
+            or path.startswith("Iris/build/description/v2/tools/")
+            for path in required_paths
+        )
+    ):
+        raise CleanCheckoutError("invalid current capsule required-path contract")
+    missing = sorted(set(required_paths) - tracked)
+    if missing:
+        raise CleanCheckoutError(
+            "current capsule required path is not tracked: " + ", ".join(missing)
+        )
+    return {
+        "status": "PASS",
+        "claim_id": "current_capsule_attestation_v2",
+        "capsule_manifest_sha256": raw_sha256,
+        "direct_row_count": len(rows),
+        "raw_capsule_row_count": raw_rows,
+        "digest_capsule_row_count": digest_rows,
+        "raw_unique_object_count": len(raw_paths),
+        "raw_retained_bytes": retained_bytes,
+        "hard_ceiling_bytes": ceiling,
+        "broader_staging_row_count": broader["row_count"],
+        "compiler_identity": compiler_validation,
+        "current_required_path_count": len(required_paths),
+        "external_archive_dependency": False,
+    }
+
+
 def _validate_g5_required_evidence(
     repo: Path,
     commit: str,
     contract: dict[str, Any],
     tracked: set[str],
 ) -> dict[str, Any]:
+    if contract["g5_required_evidence"].get("claim_id") == "current_capsule_attestation_v2":
+        return _validate_current_capsule_required_evidence(repo, commit, contract, tracked)
     owner_approval = json_at_commit(repo, commit, EVIDENCE_OWNER_APPROVAL_PATH)
     pruned_history = owner_approval["decisions"].get(
         "pruned_git_history_validation"
@@ -2243,6 +2393,39 @@ def _remove_disposable_checkout(path: Path) -> None:
     shutil.rmtree(removal_path, onerror=make_writable_and_retry)
 
 
+def _materialize_current_output_seed(
+    checkout: Path,
+    output_root: Path,
+    python_executable: Path,
+    environment: dict[str, str],
+) -> None:
+    if output_root.exists():
+        raise CleanCheckoutError(f"current output seed root already exists: {output_root}")
+    output_root.mkdir(parents=True)
+    seed_environment = dict(environment)
+    seed_environment["IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"] = str(output_root)
+    commands = [
+        [
+            str(python_executable),
+            "-B",
+            "-m",
+            "iris_tooling",
+            "--repository-root",
+            str(checkout),
+            "rightclick",
+        ],
+        [str(python_executable), "-B", "Iris/build/recipe_evidence_pipeline.py"],
+        [
+            str(python_executable),
+            "-B",
+            "Iris/build/tools/pipeline/build_usecases_by_fulltype.py",
+        ],
+    ]
+    for command in commands:
+        completed = _run_subprocess(command, cwd=checkout, environment=seed_environment)
+        _raise_process_failure("current output seed producer", command, completed)
+
+
 def run_full_repository_gate(
     repo: Path,
     commit: str,
@@ -2477,15 +2660,15 @@ def run_full_repository_gate(
         tracked_set,
     )
     g5_contract = contract["g5_required_evidence"]
-    required_input_paths = sorted(
-        {
-            *g5_contract["g4_required_paths"],
-            *(
-                row["path"]
-                for row in g5_contract["evidence_bindings"]
-            ),
-        }
-    )
+    if g5_contract.get("claim_id") == "current_capsule_attestation_v2":
+        required_input_paths = sorted(g5_contract["current_required_paths"])
+    else:
+        required_input_paths = sorted(
+            {
+                *g5_contract["g4_required_paths"],
+                *(row["path"] for row in g5_contract["evidence_bindings"]),
+            }
+        )
 
     environment = os.environ.copy()
     for variable in output_policy["cleared_ambient_environment"]:
@@ -2607,6 +2790,12 @@ def run_full_repository_gate(
             parents=True,
             exist_ok=True,
         )
+        _materialize_current_output_seed(
+            checkout,
+            pytest_legacy_output_root,
+            python_executable,
+            environment,
+        )
         environment[
             "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"
         ] = str(pytest_legacy_output_root)
@@ -2651,6 +2840,13 @@ def run_full_repository_gate(
 
         standalone_root = result_root / "standalone"
         standalone_root.mkdir()
+        standalone_seed_root = result_root / "test-output" / "standalone-current-seed"
+        _materialize_current_output_seed(
+            checkout,
+            standalone_seed_root,
+            python_executable,
+            environment,
+        )
         for row in contract["required_standalone_validations"]:
             standalone_output_root = (
                 result_root
@@ -2663,10 +2859,7 @@ def run_full_repository_gate(
                 parents=True,
                 exist_ok=True,
             )
-            shutil.copytree(
-                checkout / "Iris" / "output",
-                standalone_output_root,
-            )
+            shutil.copytree(standalone_seed_root, standalone_output_root)
             standalone_environment = dict(environment)
             standalone_environment[
                 "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"

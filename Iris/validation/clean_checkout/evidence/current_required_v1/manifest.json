@@ -1,0 +1,203 @@
+{
+  "broader_staging_closure": {
+    "digest_capsule_rows": 3388,
+    "disposition_jsonl_sha256": "bdee397fd2d92851a0c81e10ea2c2c5c9905d65ea63d1d42439f4b3980b9b1f6",
+    "historical_archive_rows": 1243,
+    "raw_capsule_rows": 14,
+    "row_count": 4645,
+    "unresolved_blocker": 0
+  },
+  "claim_id": "current_capsule_attestation_v2",
+  "current_capsule_hard_ceiling_bytes": 2359296,
+  "digest_capsule_row_count": 4,
+  "direct_row_count": 18,
+  "external_archive_is_current_route_dependency": false,
+  "raw_capsule_row_count": 14,
+  "raw_historical_owner": "repository_external_content_addressed_zip_v2",
+  "raw_retained_bytes": 133094,
+  "raw_unique_object_count": 12,
+  "rows": [
+    {
+      "capsule_path": "Iris/validation/clean_checkout/evidence/current_required_v1/objects/0e4fdd030a6fd0be139f571e69be1efe9dc11947b92d8b0a480c1be4e5e2eac1",
+      "disposition": "raw_capsule",
+      "predecessor_claim_id": "raw_repository_evidence_v1",
+      "source_bytes": 14002,
+      "source_domain": "tracked_git_blob",
+      "source_logical_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0020/phase12_phase2_handoff/d16_candidate_patch/test_dvf_3_3_korean_prose_acceptance_gate.py",
+      "source_sha256": "0e4fdd030a6fd0be139f571e69be1efe9dc11947b92d8b0a480c1be4e5e2eac1",
+      "successor_claim_id": "current_capsule_attestation_v2"
+    },
+    {
+      "capsule_path": "Iris/validation/clean_checkout/evidence/current_required_v1/objects/ce7ac930d761b04c178e4adc790425ae534bb91c63116bc2b1c0f89a83cefff1",
+      "disposition": "raw_capsule",
+      "predecessor_claim_id": "raw_repository_evidence_v1",
+      "source_bytes": 1910,
+      "source_domain": "tracked_git_blob",
+      "source_logical_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0020/phase12_phase2_handoff/d16_candidate_patch/test_dvf_3_3_korean_prose_semantic_preservation.py",
+      "source_sha256": "ce7ac930d761b04c178e4adc790425ae534bb91c63116bc2b1c0f89a83cefff1",
+      "successor_claim_id": "current_capsule_attestation_v2"
+    },
+    {
+      "capsule_path": "Iris/validation/clean_checkout/evidence/current_required_v1/objects/f01c13d3806d9508d8286a93ea835a84474f11953d07e80d91b0963e39221d4c",
+      "disposition": "raw_capsule",
+      "predecessor_claim_id": "raw_repository_evidence_v1",
+      "source_bytes": 15970,
+      "source_domain": "tracked_git_blob",
+      "source_logical_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0021/phase12_phase2_handoff/d16_candidate_patch/test_dvf_3_3_korean_prose_acceptance_gate.py",
+      "source_sha256": "f01c13d3806d9508d8286a93ea835a84474f11953d07e80d91b0963e39221d4c",
+      "successor_claim_id": "current_capsule_attestation_v2"
+    },
+    {
+      "capsule_path": "Iris/validation/clean_checkout/evidence/current_required_v1/objects/ce7ac930d761b04c178e4adc790425ae534bb91c63116bc2b1c0f89a83cefff1",
+      "disposition": "raw_capsule",
+      "predecessor_claim_id": "raw_repository_evidence_v1",
+      "source_bytes": 1910,
+      "source_domain": "tracked_git_blob",
+      "source_logical_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0021/phase12_phase2_handoff/d16_candidate_patch/test_dvf_3_3_korean_prose_semantic_preservation.py",
+      "source_sha256": "ce7ac930d761b04c178e4adc790425ae534bb91c63116bc2b1c0f89a83cefff1",
+      "successor_claim_id": "current_capsule_attestation_v2"
+    },
+    {
+      "capsule_path": "Iris/validation/clean_checkout/evidence/current_required_v1/objects/7851f8c10285f04ea1ef8c33a4a8ffea6b010533ae6d9d0dc3fc05dc208ec87b",
+      "disposition": "raw_capsule",
+      "predecessor_claim_id": "raw_repository_evidence_v1",
+      "source_bytes": 16804,
+      "source_domain": "tracked_git_blob",
+      "source_logical_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase12_phase2_handoff/d16_candidate_patch/test_dvf_3_3_korean_prose_acceptance_gate.py",
+      "source_sha256": "7851f8c10285f04ea1ef8c33a4a8ffea6b010533ae6d9d0dc3fc05dc208ec87b",
+      "successor_claim_id": "current_capsule_attestation_v2"
+    },
+    {
+      "capsule_path": "Iris/validation/clean_checkout/evidence/current_required_v1/objects/ce7ac930d761b04c178e4adc790425ae534bb91c63116bc2b1c0f89a83cefff1",
+      "disposition": "raw_capsule",
+      "predecessor_claim_id": "raw_repository_evidence_v1",
+      "source_bytes": 1910,
+      "source_domain": "tracked_git_blob",
+      "source_logical_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase12_phase2_handoff/d16_candidate_patch/test_dvf_3_3_korean_prose_semantic_preservation.py",
+      "source_sha256": "ce7ac930d761b04c178e4adc790425ae534bb91c63116bc2b1c0f89a83cefff1",
+      "successor_claim_id": "current_capsule_attestation_v2"
+    },
+    {
+      "capsule_path": null,
+      "disposition": "digest_capsule",
+      "predecessor_claim_id": "raw_repository_evidence_v1",
+      "source_bytes": 6833112,
+      "source_domain": "tracked_git_blob",
+      "source_logical_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase2/body_plan_requirement_inventory.jsonl",
+      "source_sha256": "057f3cb5f4ae0896fec6314936dd7b77c2c48778d6ee2ab2bc48a2d63e4dbe89",
+      "successor_claim_id": "current_capsule_attestation_v2"
+    },
+    {
+      "capsule_path": "Iris/validation/clean_checkout/evidence/current_required_v1/objects/618183fd833943780e5b6d18ec84936743b0bee9fb8995b3485d245dd05a16fd",
+      "disposition": "raw_capsule",
+      "predecessor_claim_id": "raw_repository_evidence_v1",
+      "source_bytes": 4398,
+      "source_domain": "tracked_git_blob",
+      "source_logical_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase2/source_proposition_manifest.json",
+      "source_sha256": "618183fd833943780e5b6d18ec84936743b0bee9fb8995b3485d245dd05a16fd",
+      "successor_claim_id": "current_capsule_attestation_v2"
+    },
+    {
+      "capsule_path": "Iris/validation/clean_checkout/evidence/current_required_v1/objects/474cd41a439964768541738daf43af30bdee5f7eaf0deee352a44d45c880b18d",
+      "disposition": "raw_capsule",
+      "predecessor_claim_id": "raw_repository_evidence_v1",
+      "source_bytes": 5993,
+      "source_domain": "tracked_git_blob",
+      "source_logical_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_manifest.json",
+      "source_sha256": "474cd41a439964768541738daf43af30bdee5f7eaf0deee352a44d45c880b18d",
+      "successor_claim_id": "current_capsule_attestation_v2"
+    },
+    {
+      "capsule_path": null,
+      "disposition": "digest_capsule",
+      "predecessor_claim_id": "raw_repository_evidence_v1",
+      "source_bytes": 1902246,
+      "source_domain": "tracked_git_blob",
+      "source_logical_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_proposition_trace.jsonl",
+      "source_sha256": "ec452b64faa26bb8bfd741c7292ffdb41c4e2e27b072662dc08bd50e1f7347cf",
+      "successor_claim_id": "current_capsule_attestation_v2"
+    },
+    {
+      "capsule_path": null,
+      "disposition": "digest_capsule",
+      "predecessor_claim_id": "raw_repository_evidence_v1",
+      "source_bytes": 1917689,
+      "source_domain": "tracked_git_blob",
+      "source_logical_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/candidate_rendered.json",
+      "source_sha256": "522ab2773476eb97688c0f2adc14e52bbb58f30ce7cf48a7d7a2282e428964a5",
+      "successor_claim_id": "current_capsule_attestation_v2"
+    },
+    {
+      "capsule_path": "Iris/validation/clean_checkout/evidence/current_required_v1/objects/b95a85176e610b12b0cdf97a265373a2cadcc8449b4c0fae285cb4ed7e62321f",
+      "disposition": "raw_capsule",
+      "predecessor_claim_id": "raw_repository_evidence_v1",
+      "source_bytes": 1368,
+      "source_domain": "tracked_git_blob",
+      "source_logical_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase4/protected_surface_after_snapshot.json",
+      "source_sha256": "b95a85176e610b12b0cdf97a265373a2cadcc8449b4c0fae285cb4ed7e62321f",
+      "successor_claim_id": "current_capsule_attestation_v2"
+    },
+    {
+      "capsule_path": "Iris/validation/clean_checkout/evidence/current_required_v1/objects/5600d1b889fd1e500c13211914aa46f2e97c0238af2df3c7894317fe3be08dd8",
+      "disposition": "raw_capsule",
+      "predecessor_claim_id": "raw_repository_evidence_v1",
+      "source_bytes": 780,
+      "source_domain": "tracked_git_blob",
+      "source_logical_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase5/semantic_preservation_report.json",
+      "source_sha256": "5600d1b889fd1e500c13211914aa46f2e97c0238af2df3c7894317fe3be08dd8",
+      "successor_claim_id": "current_capsule_attestation_v2"
+    },
+    {
+      "capsule_path": null,
+      "disposition": "digest_capsule",
+      "predecessor_claim_id": "raw_repository_evidence_v1",
+      "source_bytes": 7960954,
+      "source_domain": "tracked_git_blob",
+      "source_logical_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase5/structural_satisfaction_ledger.jsonl",
+      "source_sha256": "0da13d2f7cff70f468c71cd0288525affb27f191ee76582fcbfbecc4fefca36e",
+      "successor_claim_id": "current_capsule_attestation_v2"
+    },
+    {
+      "capsule_path": "Iris/validation/clean_checkout/evidence/current_required_v1/objects/038ea8e72baef56e220335567b9e164133c87bad8257926ca017c4019f80b053",
+      "disposition": "raw_capsule",
+      "predecessor_claim_id": "raw_repository_evidence_v1",
+      "source_bytes": 827,
+      "source_domain": "tracked_git_blob",
+      "source_logical_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase6/raw_detector_report.json",
+      "source_sha256": "038ea8e72baef56e220335567b9e164133c87bad8257926ca017c4019f80b053",
+      "successor_claim_id": "current_capsule_attestation_v2"
+    },
+    {
+      "capsule_path": "Iris/validation/clean_checkout/evidence/current_required_v1/objects/99e02cfb47193f3f352c55884a145fb515b92b2f033235f017b13977e06b33f9",
+      "disposition": "raw_capsule",
+      "predecessor_claim_id": "raw_repository_evidence_v1",
+      "source_bytes": 63841,
+      "source_domain": "tracked_git_blob",
+      "source_logical_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase7/human_review_sample_manifest.json",
+      "source_sha256": "99e02cfb47193f3f352c55884a145fb515b92b2f033235f017b13977e06b33f9",
+      "successor_claim_id": "current_capsule_attestation_v2"
+    },
+    {
+      "capsule_path": "Iris/validation/clean_checkout/evidence/current_required_v1/objects/e1dfa84d2e5f1ab1fe959bec228668ca0c5a266c9b377e60baee865f3ca1fa84",
+      "disposition": "raw_capsule",
+      "predecessor_claim_id": "raw_repository_evidence_v1",
+      "source_bytes": 999,
+      "source_domain": "tracked_git_blob",
+      "source_logical_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase8/phase8_closeout.json",
+      "source_sha256": "e1dfa84d2e5f1ab1fe959bec228668ca0c5a266c9b377e60baee865f3ca1fa84",
+      "successor_claim_id": "current_capsule_attestation_v2"
+    },
+    {
+      "capsule_path": "Iris/validation/clean_checkout/evidence/current_required_v1/objects/7fdbb224b3af4231a8bf3f2d37e448a8cdbfb4ed4d9871a83927b22cfdde25ec",
+      "disposition": "raw_capsule",
+      "predecessor_claim_id": "raw_repository_evidence_v1",
+      "source_bytes": 6202,
+      "source_domain": "tracked_git_blob",
+      "source_logical_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0024-publish-remediation-a/phase8/publish_acceptance_handoff_manifest.json",
+      "source_sha256": "7fdbb224b3af4231a8bf3f2d37e448a8cdbfb4ed4d9871a83927b22cfdde25ec",
+      "successor_claim_id": "current_capsule_attestation_v2"
+    }
+  ],
+  "schema_version": "iris_current_required_evidence_capsule_v1",
+  "superseded_claim_id": "raw_repository_evidence_v1"
+}

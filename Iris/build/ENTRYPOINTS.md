@@ -16,7 +16,8 @@ live build scripts.
 
 ## Supported root commands
 
-- `main.py`: legacy full classification pipeline entrypoint.
+- Classification indexes are produced by the installed `iris_tooling classification`
+  command. The broken legacy `main.py` orchestration is not a supported entrypoint.
 - `recipe_evidence_pipeline.py`: recipe evidence pipeline.
 - Installed current right-click command: `python -m iris_tooling --repository-root <repo> rightclick`.
   `rightclick_evidence_pipeline.py` is a retained non-current predecessor and is
@@ -29,13 +30,8 @@ live build scripts.
 
 ## Active phase package directories
 
-These directories remain active. They are not empty relocation leftovers.
-
-- `phase0_validation/`: imported by `main.py`.
-- `phase1_extraction/`: imported by `main.py`, root tests, and pipeline tools.
-- `phase2_rules/`: imported by `main.py`, root tests, and pipeline tools.
-- `phase3_output/`: imported by `main.py` and context-outcome pipeline tools.
-- `phase4_tests/`: imported by `main.py`.
+Current phase helpers are owned by their supported focused producers. No phase
+directory is current merely because the retired root `main.py` imported it.
 
 ## Relocated pipeline tools
 

@@ -10,12 +10,8 @@ from .repository_context import require_repository_context
 
 
 def _default_rules_dir() -> Path:
-    return (
-        require_repository_context().description_v2_root
-        / "tools"
-        / "style"
-        / "rules"
-    )
+    require_repository_context()
+    return Path(__file__).resolve().with_name("style_rules")
 
 
 def _load_json(path: Path) -> dict[str, Any]:

@@ -2,17 +2,12 @@ from __future__ import annotations
 
 import json
 import subprocess
-import sys
 from pathlib import Path
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 LUA_ROOT = REPOSITORY_ROOT / "Iris/media/lua/client/Iris/UI/Browser"
-BUILD_ROOT = REPOSITORY_ROOT / "Iris/build/description/v2/tools/build"
-if str(BUILD_ROOT) not in sys.path:
-    sys.path.insert(0, str(BUILD_ROOT))
-
-import build_layer3_english_localization as layer3_english  # noqa: E402
+from iris_tooling.build import build_layer3_english_localization as layer3_english
 
 
 def test_standalone_projection_and_state_harness() -> None:

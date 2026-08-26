@@ -1,0 +1,10 @@
+{
+  "version": "0.2-phase1",
+  "rules": [
+    {"id": "G-01", "active": true, "phase0_status": "GLOBAL_CANDIDATE", "phase1_status": "ACTIVATED", "type": "literal", "match": "겸용", "replace": "겸"},
+    {"id": "G-02", "active": false, "phase0_status": "DEMOTED_FROM_GLOBAL_TO_FAMILY_PHRASE_RULE", "phase1_status": "HOLD", "type": "literal", "match": "함께 쓰는", "replace": "쓰는"},
+    {"id": "G-03", "active": false, "phase0_status": "HOLD_ZERO_HIT", "phase1_status": "HOLD", "type": "literal", "match": "함께 사용되는", "replace": "사용되는"},
+    {"id": "G-04", "active": false, "phase0_status": "HOLD_ZERO_HIT", "phase1_status": "HOLD", "type": "literal", "match": "주로 함께", "replace": "주로"},
+    {"id": "G-05", "active": false, "phase0_status": "HOLD_ZERO_HIT", "phase1_status": "HOLD", "type": "literal", "match": "에 쓰이는 용도의", "replace": "에 쓰이는"}
+  ]
+}

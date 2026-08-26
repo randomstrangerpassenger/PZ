@@ -73,8 +73,11 @@ class EvidencePipelineCrossTrackTest(unittest.TestCase):
 
         recipe_before = file_hashes(RECIPE_OUTPUTS)
         self.run_pipeline(
-            str(IRIS_DIR / "build" / "rightclick_evidence_pipeline.py"),
-            "--v24",
+            "-m",
+            "iris_tooling",
+            "--repository-root",
+            str(ROOT_DIR),
+            "rightclick",
         )
         self.assertEqual(recipe_before, file_hashes(RECIPE_OUTPUTS))
 

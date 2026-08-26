@@ -39,9 +39,9 @@
     "docs/Iris/** is stale by default and is not restored as current authority.",
     "Historical closeouts do not become current authority because they mention a deleted path.",
     "Staging and generated artifacts are not current policy authority by existence alone.",
-    "Iris/build/description/v2/tools/build/*.py must not be archived or deleted by filename glob.",
     "Runtime Lua, package output, and generated data must not be mutated by docs-only authority cleanup rounds.",
-    "Round artifacts and ledgers are successor-round inputs, not replacements for docs/DECISIONS.md or docs/ROADMAP.md."
+    "Round artifacts and ledgers are successor-round inputs, not replacements for docs/DECISIONS.md or docs/ROADMAP.md.",
+    "Old description-v2 tooling and staging are historical archive inputs only after current package/capsule bindings are active."
   ],
   "round1_closeout": {
     "round1a_reference_reconciliation": {
@@ -66,8 +66,7 @@
       "paths": [
         "Iris/build/ENTRYPOINTS.md",
         "Iris/build/build_import_contract.md",
-        "Iris/_docs/refactor/phase1_active_manifest.md",
-        "Iris/build/description/v2/tools/build/INVENTORY.md"
+        "Iris/_docs/refactor/phase1_active_manifest.md"
       ],
       "delete_move_policy": "protected; update only with focused build-contract plan."
     },
@@ -216,9 +215,9 @@
     },
     {
       "path": "Iris/build/description/v2/tools/build/INVENTORY.md",
-      "classification": "current",
-      "authority_role": "local inventory guard for description v2 build tools",
-      "delete_move_policy": "protected; forbids filename-glob delete under tools/build"
+      "classification": "historical",
+      "authority_role": "retired description-v2 tooling inventory",
+      "delete_move_policy": "archive under the adopted current/historical separation selection"
     },
     {
       "path_glob": "Iris/_docs/refactor/*.md",
@@ -249,12 +248,6 @@
       "classification": "historical",
       "authority_role": "legacy manual layer3_registry authoring guide; not current DVF 3-3 authority",
       "delete_move_policy": "preserve as predecessor trace; do not cite as current runtime payload vocabulary or writer authority"
-    },
-    {
-      "path_glob": "Iris/_docs/*.md",
-      "classification": "current",
-      "authority_role": "Iris domain specs and reference contracts unless overridden by exact entries",
-      "delete_move_policy": "protected unless exact entry or successor manifest downgrades it"
     },
     {
       "path": "Iris/_docs/positive_rule_proposals.md",
@@ -306,27 +299,27 @@
     },
     {
       "path_glob": "Iris/build/description/v2/tools/common/**",
-      "classification": "current",
-      "authority_role": "description v2 shared build helpers",
-      "delete_move_policy": "protected; import tests required"
+      "classification": "reproduction",
+      "authority_role": "old description-v2 tooling predecessor; current owner is Iris/tooling",
+      "delete_move_policy": "archive under content_addressed_zip_v2 after current consumer closure"
     },
     {
       "path_glob": "Iris/build/description/v2/tools/style/**",
-      "classification": "current",
-      "authority_role": "description v2 style tooling",
-      "delete_move_policy": "protected; style validation required if changed"
+      "classification": "reproduction",
+      "authority_role": "old description-v2 tooling predecessor; current owner is Iris/tooling",
+      "delete_move_policy": "archive under content_addressed_zip_v2 after current consumer closure"
     },
     {
       "path_glob": "Iris/build/description/v2/tools/build/*.py",
       "classification": "reproduction",
-      "authority_role": "description v2 build/reproduction script universe; tracked core scripts may also be current implementation",
-      "delete_move_policy": "no filename-glob delete; per-file proof required"
+      "authority_role": "old description-v2 tooling predecessor; current owner is Iris/tooling",
+      "delete_move_policy": "archive under content_addressed_zip_v2 after current consumer closure"
     },
     {
       "path_glob": "Iris/build/description/v2/staging/**",
       "classification": "reproduction",
       "authority_role": "staging and sealed round artifacts",
-      "delete_move_policy": "no cleanup unless a staging-retention plan proves successor coverage"
+      "delete_move_policy": "archive under content_addressed_zip_v2 after current capsule rebinding"
     },
     {
       "path_glob": "Iris/staging/**",
@@ -455,16 +448,16 @@
       "delete_move_policy": "protected; exact contract identity and successor ratification required"
     },
     {
-      "path_glob": "Iris/build/description/v2/tools/build/*layer3_body_role_realign.py",
+      "path_glob": "Iris/validation/clean_checkout/evidence/current_required_v1/**",
       "classification": "current",
-      "authority_role": "dedicated off-live Layer 3 role realignment build and validation tooling",
-      "delete_move_policy": "protected by dedicated route validation"
+      "authority_role": "bounded current_capsule_attestation_v2 evidence owner",
+      "delete_move_policy": "protected; raw members are binary Git blobs and archive locator is not a current dependency"
     },
     {
-      "path": "Iris/build/description/v2/tools/build/compose_layer3_role_material.py",
+      "path": "Iris/validation/clean_checkout/authority/iris_current_historical_lightweighting_adoption_v1.json",
       "classification": "current",
-      "authority_role": "source-bound Layer 3 core/acquisition role-material compiler helper",
-      "delete_move_policy": "protected by dedicated route validation"
+      "authority_role": "deterministic W0 disposition adoption",
+      "delete_move_policy": "append-only successor required"
     }
   ],
   "validation": {

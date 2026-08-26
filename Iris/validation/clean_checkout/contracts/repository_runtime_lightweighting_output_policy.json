@@ -54,6 +54,7 @@
     "PYTHONNOUSERSITE": "1"
   },
   "schema_version": "iris_repository_runtime_lightweighting_output_policy_v1",
+  "historical_archive_profile": "content_addressed_zip_v2",
   "scope": "repository_runtime_lightweighting_production_producers",
   "terminal_receipt_required_fields": [
     "claim_id",

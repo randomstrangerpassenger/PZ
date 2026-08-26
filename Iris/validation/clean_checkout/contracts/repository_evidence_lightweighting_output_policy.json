@@ -1,5 +1,14 @@
 {
   "schema_version": "iris_repository_evidence_lightweighting_output_policy_v1",
+  "historical_archive_profile": {
+    "profile_id": "content_addressed_zip_v2",
+    "object_member_pattern": "objects/<sha256>",
+    "logical_path_manifest_required": true,
+    "compression": "zip_deflate_level_9",
+    "canonical_member_order_and_metadata_required": true,
+    "repository_stable_receipt_absolute_paths_allowed": false,
+    "current_route_dependency_allowed": false
+  },
   "policy_id": "iris_repository_evidence_lightweighting_output_policy_20260810",
   "claim_id": "iris_repository_evidence_lightweighting",
   "scope": "repository_evidence_and_intermediate_artifact_storage_representation",

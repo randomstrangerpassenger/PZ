@@ -4,6 +4,7 @@
   "subject_commit": "22e94077dd057a943ba2e6ff03f25f5880b3126c",
   "subject_commit_role": "W0 adopted baseline; terminal implementation identity is recorded by the responsibility-refactor closeout",
   "forbidden_current_bindings": [
+    "Iris/build/main.py broken legacy classification entrypoint",
     "Iris/media/lua/client/Iris/Compat/IrisBulletReloadCompat.lua",
     "Iris/media/lua/client/Iris/Compat/IrisContextMenuTextureCompat.lua",
     "tools.build imports in current Description v2 consumers",
@@ -12,18 +13,6 @@
     "IrisLayer3DataChunks fixed directory in a deployable package"
   ],
   "entrypoints": [
-    {
-      "id": "root_classification",
-      "owner": "Iris root offline classification build",
-      "domain": "classification",
-      "module": "Iris/build/main.py",
-      "inputs": ["Iris/input", "Iris/evidence", "Iris/build/data"],
-      "outputs": ["Iris/output classification projections"],
-      "consumers": ["Iris runtime generated data and downstream offline builds"],
-      "validation_contracts": ["full_repository_gate required selection"],
-      "runtime_shipping": false,
-      "historical_replacement": null
-    },
     {
       "id": "rightclick_v24",
       "owner": "Iris right-click evidence producer",

@@ -1638,14 +1638,34 @@ def test_full_source_policy_classifies_only_declared_fallback(
         _classify_full_test_source("Iris/test/test_unknown.py", {})
 
 
-def test_g5_compiler_identity_successor_separates_historical_and_current() -> None:
+def test_g5_current_capsule_separates_historical_raw_and_current_claim() -> None:
     repository_root = Path(__file__).resolve().parents[4]
     contract_path = (
         repository_root
         / "Iris/validation/clean_checkout/contracts/full_repository_gate.json"
     )
     contract = json.loads(contract_path.read_text(encoding="utf-8"))
-    compiler = contract["g5_required_evidence"]["compiler_identity"]
+    g5 = contract["g5_required_evidence"]
+    assert g5["claim_id"] == "current_capsule_attestation_v2"
+    assert g5["external_archive_dependency_allowed"] is False
+    manifest_binding = g5["capsule_manifest"]
+    manifest_raw = _git_bytes(
+        repository_root,
+        "show",
+        f"HEAD:{manifest_binding['path']}",
+    )
+    assert hashlib.sha256(manifest_raw).hexdigest() == manifest_binding[
+        "git_blob_raw_sha256"
+    ]
+    manifest = json.loads(manifest_raw)
+    assert manifest["superseded_claim_id"] == "raw_repository_evidence_v1"
+    assert manifest["external_archive_is_current_route_dependency"] is False
+    assert manifest["direct_row_count"] == 18
+    assert manifest["raw_capsule_row_count"] == 14
+    assert manifest["digest_capsule_row_count"] == 4
+    assert manifest["raw_retained_bytes"] <= 2_359_296
+
+    compiler = g5["compiler_identity"]
     transition_binding = compiler["successor_transition"]
     subject_commit = _git(repository_root, "rev-parse", "HEAD")
     transition_raw = _git_bytes(
@@ -1657,9 +1677,7 @@ def test_g5_compiler_identity_successor_separates_historical_and_current() -> No
     assert hashlib.sha256(transition_raw).hexdigest() == transition_binding[
         "git_blob_raw_sha256"
     ]
-    assert transition_binding["path"] in contract["g5_required_evidence"][
-        "g4_required_paths"
-    ]
+    assert transition_binding["path"] in g5["current_required_paths"]
     validated = _validate_g5_compiler_identity_transition(
         repository_root,
         subject_commit,

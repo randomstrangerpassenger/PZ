@@ -1,21 +1,15 @@
 from __future__ import annotations
 
-import importlib
 import subprocess
-import sys
 from pathlib import Path
 
 import pytest
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
-TOOLS_ROOT = REPOSITORY_ROOT / "Iris/build/description/v2/tools/build"
-if str(TOOLS_ROOT) not in sys.path:
-    sys.path.insert(0, str(TOOLS_ROOT))
-
-generator = importlib.import_module("generate_layer4_runtime_projection")
-validator = importlib.import_module("validate_layer4_runtime_projection")
-updater = importlib.import_module("update_layer4_runtime_projection")
+from iris_tooling.build import generate_layer4_runtime_projection as generator
+from iris_tooling.build import update_layer4_runtime_projection as updater
+from iris_tooling.build import validate_layer4_runtime_projection as validator
 
 
 def test_complete_generation_is_deterministic_and_valid(tmp_path: Path) -> None:

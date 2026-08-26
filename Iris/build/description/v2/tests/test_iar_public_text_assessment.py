@@ -10,10 +10,9 @@ import unittest
 
 V2_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = V2_ROOT.parents[3]
-TOOLS = V2_ROOT / "tools" / "build"
 FIXTURES = V2_ROOT / "tests" / "fixtures" / "iar_public_text_assessment"
-RUNNER = TOOLS / "run_iar_public_text_assessment.py"
-VALIDATOR = TOOLS / "validate_iar_public_text_assessment.py"
+RUNNER = ("-m", "iris_tooling.build.run_iar_public_text_assessment")
+VALIDATOR = ("-m", "iris_tooling.build.validate_iar_public_text_assessment")
 CONTRACT = (
     V2_ROOT
     / "data"
@@ -51,7 +50,7 @@ class IarPublicTextAssessmentTest(unittest.TestCase):
         with self.temporary_root() as temp_dir:
             output = Path(temp_dir) / "assessment_result.json"
             command = (
-                str(RUNNER),
+                *RUNNER,
                 "--input",
                 str(FIXTURES / "dvf_assessment_input.json"),
                 "--output",
@@ -66,7 +65,7 @@ class IarPublicTextAssessmentTest(unittest.TestCase):
             self.assertEqual(second.returncode, 0, second.stdout + second.stderr)
             self.assertEqual(first_bytes, output.read_bytes())
             validation = self.run_cli(
-                str(VALIDATOR),
+                *VALIDATOR,
                 "--input",
                 str(FIXTURES / "dvf_assessment_input.json"),
                 "--result",

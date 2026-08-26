@@ -32,13 +32,13 @@ CANONICAL_INPUTS = (
 )
 
 GENERATOR_IMPLEMENTATION_FILES = (
-    "Iris/build/description/v2/tools/build/dvf_3_3_generation_contract.py",
-    "Iris/build/description/v2/tools/build/build_dvf_3_3_complete_generation.py",
-    "Iris/build/description/v2/tools/build/compose_layer3_io.py",
-    "Iris/build/description/v2/tools/build/compose_layer3_text.py",
-    "Iris/build/description/v2/tools/build/compose_layer3_body_profile.py",
-    "Iris/build/description/v2/tools/build/compose_layer3_render.py",
-    "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py",
+    "Iris/tooling/src/iris_tooling/build/dvf_3_3_generation_contract.py",
+    "Iris/tooling/src/iris_tooling/build/build_dvf_3_3_complete_generation.py",
+    "Iris/tooling/src/iris_tooling/build/compose_layer3_io.py",
+    "Iris/tooling/src/iris_tooling/build/compose_layer3_text.py",
+    "Iris/tooling/src/iris_tooling/build/compose_layer3_body_profile.py",
+    "Iris/tooling/src/iris_tooling/build/compose_layer3_render.py",
+    "Iris/tooling/src/iris_tooling/build/export_dvf_3_3_lua_bridge.py",
 )
 
 PROTECTED_CURRENT_PATHS = (

@@ -339,15 +339,16 @@ def pytest_configure(config):
     if _contract(config) in {"current", "all"}:
         from clean_checkout_test_paths import external_test_root
 
-        legacy_output_root = _new_external_output_root(
-            Path(
-                os.environ.get(
-                    "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
-                    str(external_test_root() / "legacy-output"),
-                )
+        legacy_output_root = Path(
+            os.environ.get(
+                "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
+                str(external_test_root() / "legacy-output"),
             )
-        )
-        shutil.copytree(REPO_ROOT / "Iris" / "output", legacy_output_root)
+        ).resolve()
+        if not legacy_output_root.is_dir() or not any(legacy_output_root.iterdir()):
+            raise RuntimeError(
+                "current-route output seed must be materialized externally by the canonical runner"
+            )
         os.environ["IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"] = str(legacy_output_root)
     if config.getoption("--round3-enforce-denominator", default=False):
         denominator = _read_json(DENOMINATOR_PATH)

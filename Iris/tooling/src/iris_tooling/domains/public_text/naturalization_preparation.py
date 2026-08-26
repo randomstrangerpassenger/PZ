@@ -15,7 +15,7 @@ from .inputs import NaturalizationProvenanceInputs
 from .naturalization_context import (
     BLOCKED_ATTEMPT_ID, BODY_PLAN_APPLICABILITY_APPROVAL_PATH,
     COMPILER_IMPLEMENTATION_PATHS, DATA_ROOT, DECISIONS_PATH,
-    DEFAULT_ATTEMPT_PARENT, DURABLE_ROOT, EVALUATION_SUBJECT_KIND,
+    default_attempt_parent, DURABLE_ROOT, EVALUATION_SUBJECT_KIND,
     EXECUTION_CONTRACT_PATH, EXPECTED_ATTACHMENT_HASHES,
     EXPECTED_COMPILER_FIX_COMMIT, EXPECTED_CURRENT_FACTS_SHA256,
     EXPECTED_CURRENT_MANIFEST_SHA256, EXPECTED_FOOD_SEMANTIC_LICENSE_SHA256,
@@ -818,10 +818,10 @@ def build_phase0(
         "preserved_predecessor_attempts_resumed": False,
         "preserved_predecessor_phase7_or_phase8_reentry_allowed": False,
         "blocked_attempt_phase7_exists": (
-            DEFAULT_ATTEMPT_PARENT / BLOCKED_ATTEMPT_ID / "phase7"
+            default_attempt_parent() / BLOCKED_ATTEMPT_ID / "phase7"
         ).exists(),
         "blocked_attempt_phase8_exists": (
-            DEFAULT_ATTEMPT_PARENT / BLOCKED_ATTEMPT_ID / "phase8"
+            default_attempt_parent() / BLOCKED_ATTEMPT_ID / "phase8"
         ).exists(),
         "preserved_predecessor_attempts": [
             {
@@ -830,12 +830,12 @@ def build_phase0(
                 "resumed": False,
                 "phase7_or_phase8_reentry_allowed": False,
                 "phase7_exists": (
-                    DEFAULT_ATTEMPT_PARENT
+                    default_attempt_parent()
                     / predecessor_attempt_id
                     / "phase7"
                 ).exists(),
                 "phase8_exists": (
-                    DEFAULT_ATTEMPT_PARENT
+                    default_attempt_parent()
                     / predecessor_attempt_id
                     / "phase8"
                 ).exists(),

@@ -20,9 +20,10 @@ TOOLS_DIR = TOOLING_PACKAGE_SOURCE_DIR / "build"
 ROUND_ID = "dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure"
 SYNC_CONTRACT_ID = "dvf3_3_korean_naturalization__publish_boundary_sync_v1"
 EVALUATION_SUBJECT_KIND = "dvf_3_3_korean_naturalization_candidate"
-DEFAULT_ATTEMPT_PARENT = (
-    require_external_workspace("IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT") / ROUND_ID
-)
+
+
+def default_attempt_parent() -> Path:
+    return require_external_workspace("IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT") / ROUND_ID
 HISTORICAL_ATTEMPT_ID = "attempt-0014-remediation"
 BLOCKED_ATTEMPT_ID = "attempt-0018-g3-reseal-a"
 PRESERVED_PREDECESSOR_ATTEMPT_IDS = (
@@ -255,7 +256,7 @@ RUNNER_MODES = (
 __all__ = (
     "BLOCKED_ATTEMPT_ID", "BODY_PLAN_APPLICABILITY_APPROVAL_PATH",
     "COMPILER_IMPLEMENTATION_PATHS", "CORPUS_MANIFEST_PATH", "DATA_ROOT",
-    "DECISIONS_PATH", "DEFAULT_ATTEMPT_PARENT", "DURABLE_ROOT",
+    "DECISIONS_PATH", "default_attempt_parent", "DURABLE_ROOT",
     "EVALUATION_SUBJECT_KIND", "EXECUTION_CONTRACT_PATH",
     "EXPECTED_ATTACHMENT_HASHES", "EXPECTED_COMPILER_FIX_COMMIT",
     "EXPECTED_CURRENT_FACTS_SHA256", "EXPECTED_CURRENT_MANIFEST_SHA256",

@@ -20,20 +20,20 @@ from .repository_context import (
 
 ROOT = require_repository_context().description_v2_root
 IRIS_MOD_ROOT = require_repository_context().iris_root
-DEFAULT_OUTPUT_ROOT = (
-    require_external_workspace("IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT")
-    / "lua_bridge_export"
-    / "default"
-)
+
+
+def default_output_root() -> Path:
+    return (
+        require_external_workspace("IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT")
+        / "lua_bridge_export"
+        / "default"
+    )
 RENDERED_PATH = current_layer3_generation_root() / "dvf_3_3_rendered.json"
 LUA_DATA_DIR = IRIS_MOD_ROOT / "media" / "lua" / "client" / "Iris" / "Data"
 BRIDGE_DATA_PATH = LUA_DATA_DIR / "IrisLayer3Data.lua"
 BRIDGE_CHUNK_DIR = LUA_DATA_DIR / "IrisLayer3DataChunks"
 BRIDGE_CHUNK_MANIFEST_PATH = LUA_DATA_DIR / "IrisLayer3DataChunks.lua"
 BRIDGE_CHUNK_MODULE_PREFIX = "Iris/Data/IrisLayer3DataChunks"
-DEFAULT_CHUNK_DIR = DEFAULT_OUTPUT_ROOT / "IrisLayer3DataChunks"
-DEFAULT_CHUNK_MANIFEST_PATH = DEFAULT_OUTPUT_ROOT / "IrisLayer3DataChunks.lua"
-REPORT_PATH = DEFAULT_OUTPUT_ROOT / "bridge_export_report.json"
 PACKAGE_DATA_DIR = IRIS_MOD_ROOT / "build" / "package" / "Iris" / "media" / "lua" / "client" / "Iris" / "Data"
 PACKAGE_BRIDGE_DATA_PATH = PACKAGE_DATA_DIR / "IrisLayer3Data.lua"
 PACKAGE_BRIDGE_CHUNK_DIR = PACKAGE_DATA_DIR / "IrisLayer3DataChunks"
@@ -1104,7 +1104,7 @@ def export_lua_bridge(
     rendered_path: Path = RENDERED_PATH,
     publish_preview_path: Path | None = None,
     lua_output_path: Path | None = None,
-    report_path: Path = REPORT_PATH,
+    report_path: Path | None = None,
     chunk_output_dir: Path | None = None,
     chunk_manifest_path: Path | None = None,
     chunk_size: int | None = None,
@@ -1116,7 +1116,10 @@ def export_lua_bridge(
     adoption_generation_validation: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     resolved_chunk_size = chunk_size if chunk_size is not None else DEFAULT_CHUNK_SIZE
-    resolved_output_root = output_root if output_root is not None else DEFAULT_OUTPUT_ROOT
+    resolved_output_root = output_root if output_root is not None else default_output_root()
+    resolved_report_path = (
+        report_path if report_path is not None else resolved_output_root / "bridge_export_report.json"
+    )
     if output_format == "chunk":
         resolved_chunk_output_dir = chunk_output_dir if chunk_output_dir is not None else resolved_output_root / "IrisLayer3DataChunks"
         resolved_chunk_manifest_path = (
@@ -1142,7 +1145,7 @@ def export_lua_bridge(
     ):
         selected_compatibility, compatibility_preflight = run_registry_compatibility_preflight(
             rendered_path=rendered_path,
-            report_path=report_path,
+            report_path=resolved_report_path,
             invocation=registry_compatibility,
         )
     rendered = load_json(rendered_path)
@@ -1199,11 +1202,11 @@ def export_lua_bridge(
         "authority_kind": authority_kind,
         "bridge_context": bridge_context,
         "format": output_format,
-        "report_path": str(report_path),
+        "report_path": str(resolved_report_path),
         "rendered_path": str(rendered_path),
         "input_rendered_path": str(rendered_path),
         "default_input_rendered_path": str(RENDERED_PATH),
-        "default_output_root": str(DEFAULT_OUTPUT_ROOT),
+        "default_output_root": str(default_output_root()),
         "output_root": str(resolved_output_root),
         "publish_preview_path": str(publish_preview_path) if publish_preview_path else None,
         "lua_output_path": str(lua_output_path) if lua_output_path else None,
@@ -1247,7 +1250,7 @@ def export_lua_bridge(
             "rtc_certification_claimed": False,
             "rtc_guard_applicable": False,
         }
-    dump_json(report_path, report)
+    dump_json(resolved_report_path, report)
     return report
 
 
@@ -1259,7 +1262,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--format", choices=sorted(OUTPUT_FORMATS), default="chunk", dest="output_format")
     parser.add_argument("--output-root", type=Path, default=None)
     parser.add_argument("--lua-output-path", type=Path, default=None)
-    parser.add_argument("--report-path", type=Path, default=REPORT_PATH)
+    parser.add_argument("--report-path", type=Path, default=None)
     parser.add_argument("--chunk-output-dir", type=Path, default=None)
     parser.add_argument("--chunk-manifest-path", type=Path, default=None)
     parser.add_argument("--chunk-size", type=int, default=None)
@@ -1281,7 +1284,12 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Write chunk manifest/modules from an existing generated IrisLayer3Data.lua without rewriting it.",
     )
-    return parser.parse_args()
+    args = parser.parse_args()
+    if args.output_root is None:
+        args.output_root = default_output_root()
+    if args.report_path is None:
+        args.report_path = args.output_root / "bridge_export_report.json"
+    return args
 
 
 def main() -> int:
@@ -1351,12 +1359,12 @@ def main() -> int:
             chunk_output_dir=(
                 args.chunk_output_dir
                 if args.chunk_output_dir is not None
-                else (args.output_root if args.output_root is not None else DEFAULT_OUTPUT_ROOT) / "IrisLayer3DataChunks"
+                else args.output_root / "IrisLayer3DataChunks"
             ),
             chunk_manifest_path=(
                 args.chunk_manifest_path
                 if args.chunk_manifest_path is not None
-                else (args.output_root if args.output_root is not None else DEFAULT_OUTPUT_ROOT) / "IrisLayer3DataChunks.lua"
+                else args.output_root / "IrisLayer3DataChunks.lua"
             ),
             chunk_size=args.chunk_size if args.chunk_size is not None else DEFAULT_CHUNK_SIZE,
             chunk_module_prefix=args.chunk_module_prefix,

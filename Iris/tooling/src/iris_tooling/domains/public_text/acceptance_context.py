@@ -61,12 +61,15 @@ FIXTURE_MANIFEST = (
     / "foundation_fixtures.json"
 )
 
-DEFAULT_ATTEMPTS_ROOT = (
-    require_external_workspace("IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT")
-    / STAGING_ROUND_ID
-    / "attempts"
-)
 CURRENT_GENERATION_ROOT = current_layer3_generation_root()
+
+
+def default_attempts_root() -> Path:
+    return (
+        require_external_workspace("IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT")
+        / STAGING_ROUND_ID
+        / "attempts"
+    )
 OWNER_INPUT_ROOT = V2_ROOT / "owner_inputs" / ROUND_ID
 REVIEWER_INPUT_ROOT = V2_ROOT / "reviewer_inputs" / ROUND_ID
 LIVE_REQUIRED_VALIDATIONS = (
@@ -342,7 +345,7 @@ RAW_DETECTOR_IDS = (
 
 __all__ = (
     "ATTEMPT_ID_PATTERN", "CANDIDATE_STRUCTURAL_STATUSES", "CURRENT_FACTS",
-    "CURRENT_INPUT_MANIFEST", "DEFAULT_ATTEMPTS_ROOT", "DEFAULT_FOUNDATION_ROOT",
+    "CURRENT_INPUT_MANIFEST", "default_attempts_root", "DEFAULT_FOUNDATION_ROOT",
     "DISPOSITION_CLASSES", "EVALUATION_SUBJECT_KINDS", "FIXTURE_MANIFEST",
     "FIXTURE_SCHEMA_VERSION", "FOUNDATION_CONTRACT_NAME",
     "FOUNDATION_CONTRACT_VERSION", "FOUNDATION_DOCS",

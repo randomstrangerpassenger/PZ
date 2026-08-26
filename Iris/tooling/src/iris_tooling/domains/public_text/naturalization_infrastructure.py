@@ -11,7 +11,7 @@ from .inputs import (
     PublicTextInputError, load_json as load_public_text_json,
     load_jsonl as load_public_text_jsonl,
 )
-from .naturalization_context import DEFAULT_ATTEMPT_PARENT, PROTECTED_PATHS, REPO_ROOT
+from .naturalization_context import PROTECTED_PATHS, REPO_ROOT, default_attempt_parent
 
 class NaturalizationError(RuntimeError):
     pass
@@ -129,9 +129,9 @@ def attempt_root_for(attempt_id: str, explicit_root: Path | None = None) -> Path
     root = (
         explicit_root.resolve()
         if explicit_root is not None
-        else (DEFAULT_ATTEMPT_PARENT / attempt_id).resolve()
+        else (default_attempt_parent() / attempt_id).resolve()
     )
-    if explicit_root is None and root.parent != DEFAULT_ATTEMPT_PARENT.resolve():
+    if explicit_root is None and root.parent != default_attempt_parent().resolve():
         raise NaturalizationError("default attempt root escaped canonical parent")
     return root
 

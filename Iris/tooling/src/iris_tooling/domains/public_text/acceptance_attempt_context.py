@@ -10,7 +10,7 @@ from iris_tooling.build.naturalization_compiler_identity import (
 )
 
 from .acceptance_context import (
-    ATTEMPT_ID_PATTERN, DEFAULT_ATTEMPTS_ROOT, DEFAULT_FOUNDATION_ROOT,
+    ATTEMPT_ID_PATTERN, default_attempts_root, DEFAULT_FOUNDATION_ROOT,
     FIXTURE_MANIFEST, FOUNDATION_CONTRACT_NAME, FOUNDATION_DOCS,
     FOUNDATION_IMPLEMENTATION_FILES, GIT_COMMIT_PATTERN,
     NATURALIZATION_COMPILER_IMPLEMENTATION_FILES, NATURALIZATION_PLAN_DOC,
@@ -40,7 +40,7 @@ def official_attempt_root(
         raise FoundationContractError(
             "official attempt ID must match attempt-<digits>-<lowercase-label>"
         )
-    expected = (DEFAULT_ATTEMPTS_ROOT / attempt_id).resolve()
+    expected = (default_attempts_root() / attempt_id).resolve()
     if attempt_root is None:
         return expected
     resolved = attempt_root.resolve()

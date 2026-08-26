@@ -9,7 +9,7 @@ from .acceptance_context import (
     CURRENT_GENERATION_ROOT,
     CURRENT_FACTS,
     CURRENT_INPUT_MANIFEST,
-    DEFAULT_ATTEMPTS_ROOT,
+    default_attempts_root,
     DISPOSITION_CLASSES,
     EVALUATION_SUBJECT_KINDS,
     FOUNDATION_CONTRACT_VERSION,
@@ -523,7 +523,7 @@ def _protected_foundation_surface_paths() -> list[Path]:
     recursive_roots = [
         REPO_ROOT / "Iris" / "media" / "lua",
         REPO_ROOT / "Iris" / "Contents" / "mods" / "Iris",
-        DEFAULT_ATTEMPTS_ROOT,
+        default_attempts_root(),
         OWNER_INPUT_ROOT,
         REVIEWER_INPUT_ROOT,
     ]

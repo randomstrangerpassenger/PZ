@@ -359,7 +359,7 @@
       "routing_status": "default unittest discovery after D1",
       "source_file": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py",
       "state": "ok",
-      "test_id": "test_compose_layer3_text_v2.ComposeLayer3TextV2Test.test_diagnostic_resolver_rejects_canonical_output_path"
+      "test_id": "test_compose_layer3_text_v2.ComposeLayer3TextV2Test.test_diagnostic_resolver_requires_all_external_outputs"
     },
     {
       "audit_status": "seed",

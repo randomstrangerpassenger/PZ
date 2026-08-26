@@ -1,0 +1,27 @@
+{
+  "schema_version": "iris-public-text-boundary-hardening-review-receipt-v1",
+  "review_id": "codex-review-final-2026-08-26",
+  "reviewer": {
+    "kind": "independent_codex_reviewer",
+    "agent_id": "01a039b6-41e3-7e33-8282-e2c367dec7b1"
+  },
+  "reviewed_subjects": {
+    "implementation_terminal": "377601a199d661513288b7f68f920b1bf53f0aad",
+    "wheel_source_writer": "584903590b7e45b6919b55ee8b63d87226de1446",
+    "machine_validation_subject": "d586dc0c88657c1e340b00bb2798268caacc9fca"
+  },
+  "terminal_evidence": {
+    "wheel_sha256": "b8fed67c1f453fa3ba12fc8b90cb6dfac176f3ce783ef060ff88a683384d298f",
+    "environment_receipt_sha256": "dde23f3df4532e40d98a2117829820963e22110e796545e50986223d89e4f3e8",
+    "canonical_run_sha256": "15577164525fbfa142d3cc258c549d6a0d157ec85c14ab44faf84a64d632bdca"
+  },
+  "raw_review": {
+    "path": "Iris/_docs/refactor/responsibility_repository_refactor/public_text_boundary_hardening_codex_review.md",
+    "sha256_lf_normalized": "4454dc2cfebcb1b0df4668140917caf7cc845cb819afb0bb3be8c637d39ba058"
+  },
+  "prior_finding_status": "resolved_and_revalidated",
+  "verdict": "PASS",
+  "disposition": "APPROVED",
+  "actionable_findings": 0,
+  "unsupported_claims": 0
+}

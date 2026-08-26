@@ -1,299 +1,104 @@
-"""
-Right-Click Capability Pipeline Tests
-=====================================
-TC-1 ~ TC-7 테스트 케이스
-"""
+from __future__ import annotations
 
-import pytest
-import json
-import sys
-from pathlib import Path
-from unittest.mock import patch, MagicMock
-from copy import deepcopy
+import importlib.util
 
-from iris_tooling.build.repository_context import require_repository_context
-
-from iris_tooling.domains.rightclick.capability import (
-    RightClickCapabilityPipeline,
-    load_items,
-    load_source_index,
-    parse_allowlist,
-    gate1_validate,
-    gate2_validate,
-    build_indices,
-    parse_scrap_moveables,
-    resolve_criteria,
-    invert_to_fulltype,
-    output_gate_validate,
-    CAPABILITY_ALLOWLIST,
-    EVIDENCE_TYPE_ALLOWLIST,
-    setup_logger,
-)
+from iris_tooling.domains.rightclick import pipeline_v24
 
 
-# ============================================================================
-# Fixtures
-# ============================================================================
-
-@pytest.fixture
-def mock_logger():
-    return MagicMock()
+def test_noncurrent_capability_module_is_not_packaged() -> None:
+    assert (
+        importlib.util.find_spec("iris_tooling.domains.rightclick.capability")
+        is None
+    )
 
 
-@pytest.fixture
-def sample_source_index():
-    """기본 source_index 샘플"""
-    return {
-        "meta": {"version": "v1"},
-        "capabilities": {
-            "can_extinguish_fire": {
-                "primary_source": {"file": "lua/server/FireFighting/FireFighting.lua"},
-                "evidence_type": "explicit_predicate",
-                "criteria": [
-                    {"type": "type", "value": "Extinguisher"},
-                    {"type": "property", "value": "isWaterSource()"}
-                ]
-            },
-            "can_add_generator_fuel": {
-                "primary_source": {"file": "lua/client/ISUI/ISWorldObjectContextMenu.lua"},
-                "evidence_type": "item_tag_or_type",
-                "criteria": [
-                    {"type": "tag", "value": "Petrol"},
-                    {"type": "type", "value": "PetrolCan"}
-                ]
-            },
-            "can_scrap_moveables": {
-                "primary_source": {"file": "lua/client/Moveables/ISMoveableDefinitions.lua"},
-                "evidence_type": "static_table",
-                "criteria": []
-            },
-            "can_open_canned_food": {
-                "primary_source": {"file": "scripts/items.txt"},
-                "evidence_type": "item_tag",
-                "criteria": [{"type": "tag", "value": "CanOpener"}]
-            },
-            "can_stitch_wound": {
-                "primary_source": {"file": "lua/client/XpSystem/ISUI/ISHealthPanel.lua"},
-                "evidence_type": "item_type_or_tag",
-                "criteria": [
-                    {"type": "type", "value": "Needle"},
-                    {"type": "tag", "value": "SewingNeedle"},
-                    {"type": "type", "value": "Thread"},
-                    {"type": "type", "value": "SutureNeedle"}
-                ]
-            },
-            "can_remove_embedded_object": {
-                "primary_source": {"file": "lua/client/XpSystem/ISUI/ISHealthPanel.lua"},
-                "evidence_type": "item_tag_or_type",
-                "criteria": {
-                    "glass": [
-                        {"type": "tag", "value": "RemoveGlass"},
-                        {"type": "type", "value": "SutureNeedleHolder"},
-                        {"type": "type", "value": "Tweezers"}
-                    ],
-                    "bullet": [
-                        {"type": "tag", "value": "RemoveBullet"},
-                        {"type": "type", "value": "Tweezers"},
-                        {"type": "type", "value": "SutureNeedleHolder"}
-                    ]
-                }
-            },
-            "can_attach_weapon_mod": {
-                "primary_source": {"file": "lua/client/ISUI/ISInventoryPaneContextMenu.lua"},
-                "evidence_type": "item_display_category",
-                "criteria": [{"type": "display_category", "value": "WeaponPart"}]
-            }
+def test_fulltype_parser_preserves_unqualified_type() -> None:
+    assert pipeline_v24.parse_fulltype_item_type("Base.Hammer") == "Hammer"
+    assert pipeline_v24.parse_fulltype_item_type("Hammer") == "Hammer"
+
+
+def test_semicolon_list_is_normalized() -> None:
+    assert pipeline_v24.parse_semicolon_list(" Tool ;WaterSource;; Tool ") == {
+        "Tool",
+        "WaterSource",
+    }
+    assert pipeline_v24.parse_semicolon_list(None) == set()
+
+
+def test_truthy_contract_is_explicit() -> None:
+    for value in (True, "true", "TRUE", "1", 1):
+        assert pipeline_v24.is_truthy(value)
+    for value in (False, "True", "yes", 0, None):
+        assert not pipeline_v24.is_truthy(value)
+
+
+def test_anchor_slug_is_stable() -> None:
+    assert (
+        pipeline_v24.normalize_slug(
+            "lua/client/ISUI/ISWorldObjectContextMenu.lua::onAddFuel"
+        )
+        == "lua_client_isui_isworldobjectcontextmenu_onaddfuel"
+    )
+
+
+def test_canonical_hash_ignores_mapping_order() -> None:
+    assert pipeline_v24.compute_sha256({"a": 1, "b": 2}) == (
+        pipeline_v24.compute_sha256({"b": 2, "a": 1})
+    )
+
+
+def test_proof_merge_fails_closed_on_boolean_conflict() -> None:
+    logger = pipeline_v24.PipelineLogger()
+
+    merged, conflicted = pipeline_v24.merge_prove_value(
+        True,
+        False,
+        "persistent_change",
+        "Base.Hammer",
+        logger,
+    )
+
+    assert merged is None
+    assert conflicted is True
+    assert logger.has_fails()
+
+
+def test_item_matchers_cover_current_v24_types() -> None:
+    item = {
+        "Tags": "Tool;CanOpener",
+        "Categories": "Survival;Cooking",
+        "DisplayCategory": "Tool",
+        "Type": "Normal",
+        "CanStoreWater": "true",
+    }
+
+    assert pipeline_v24.match_item(item, "Base.TinOpener", {"match_type": "type", "value": "TinOpener"})
+    assert pipeline_v24.match_item(item, "Base.TinOpener", {"match_type": "tag", "value": "CanOpener"})
+    assert pipeline_v24.match_item(item, "Base.TinOpener", {"match_type": "property", "value": "CanStoreWater"})
+    assert pipeline_v24.match_item(item, "Base.TinOpener", {"match_type": "category", "value": "Cooking"})
+    assert pipeline_v24.match_item(item, "Base.TinOpener", {"match_type": "display_category", "value": "Tool"})
+    assert pipeline_v24.match_item(item, "Base.TinOpener", {"match_type": "script_type", "value": "Normal"})
+    assert not pipeline_v24.match_item(item, "Base.TinOpener", {"match_type": "unsupported", "value": "Normal"})
+
+
+def test_property_based_reviews_are_routed_deterministically() -> None:
+    decisions = {
+        "Base.Zed": {
+            "decision": "PASS",
+            "review_reason": "",
+            "rule_ids": ["pass"],
+        },
+        "Base.Bucket": {
+            "decision": "REVIEW",
+            "review_reason": "property_based exclusion (auto conclusion forbidden)",
+            "rule_ids": ["water"],
+        },
+    }
+
+    assert pipeline_v24.collect_property_based_items(decisions) == {
+        "Base.Bucket": {
+            "fulltype": "Base.Bucket",
+            "rule_ids": ["water"],
+            "review_reason": "property_based exclusion (auto conclusion forbidden)",
         }
     }
-
-
-@pytest.fixture
-def sample_indices():
-    """기본 인덱스 샘플"""
-    return {
-        "by_fulltype": {"Base.Hammer": {}, "Base.Extinguisher": {}, "Base.Tweezers": {}},
-        "by_type": {
-            "Hammer": {"Base.Hammer"},
-            "Extinguisher": {"Base.Extinguisher"},
-            "Tweezers": {"Base.Tweezers"},
-            "SutureNeedleHolder": {"Base.SutureNeedleHolder"},
-        },
-        "by_tag": {
-            "RemoveGlass": {"Base.Tweezers", "Base.SutureNeedleHolder"},
-            "RemoveBullet": {"Base.Tweezers", "Base.SutureNeedleHolder"},
-        },
-        "by_property_true": {"CanStoreWater": {"Base.Bowl", "Base.BucketEmpty"}},
-        "by_display_category": {"WeaponPart": {"Base.IronSight", "Base.x2Scope"}},
-        "by_category": {},
-    }
-
-
-# ============================================================================
-# TC-1: source_index에 can_invalid 삽입 → Gate-1 Fail
-# ============================================================================
-
-def test_tc1_invalid_capability_fails_gate1(sample_source_index, mock_logger):
-    """TC-1: Allowlist에 없는 capability → Gate-1 Fail"""
-    # can_invalid 삽입
-    source_index = deepcopy(sample_source_index)
-    source_index["capabilities"]["can_invalid"] = {
-        "primary_source": {"file": "dummy.lua"},
-        "evidence_type": "item_tag",
-        "criteria": []
-    }
-    
-    allowlist = CAPABILITY_ALLOWLIST
-    
-    result = gate1_validate(source_index, allowlist, mock_logger)
-    
-    assert result == False
-    mock_logger.error.assert_called()
-
-
-# ============================================================================
-# TC-2: capability에 primary_source 2개 삽입 → Gate-1 Fail
-# ============================================================================
-
-def test_tc2_multiple_sources_fails_gate1(sample_source_index, mock_logger):
-    """TC-2: 여러 sources → Gate-1 Fail"""
-    source_index = deepcopy(sample_source_index)
-    source_index["capabilities"]["can_extinguish_fire"]["sources"] = [
-        {"file": "source1.lua"},
-        {"file": "source2.lua"}
-    ]
-    
-    allowlist = CAPABILITY_ALLOWLIST
-    
-    result = gate1_validate(source_index, allowlist, mock_logger)
-    
-    assert result == False
-
-
-# ============================================================================
-# TC-3: criteria에 미지원 resolution type 삽입 → Phase 5 Fail
-# ============================================================================
-
-def test_tc3_unsupported_resolution_type_fails(sample_indices, mock_logger):
-    """TC-3: 미지원 resolution type → ValueError"""
-    criteria = [{"type": "unsupported_type", "value": "test"}]
-    
-    with pytest.raises(ValueError) as excinfo:
-        resolve_criteria(criteria, sample_indices, mock_logger)
-    
-    assert "Unsupported resolution type" in str(excinfo.value)
-
-
-# ============================================================================
-# TC-4: capability 배열에 중복 ID 삽입 → Output Gate Fail
-# ============================================================================
-
-def test_tc4_duplicate_capability_fails_output_gate(mock_logger):
-    """TC-4: 중복 capability → Output Gate Fail"""
-    output = {
-        "Base.Hammer": ["can_scrap_moveables", "can_scrap_moveables"]  # 중복
-    }
-    
-    result = output_gate_validate(output, mock_logger)
-    
-    assert result == False
-
-
-# ============================================================================
-# TC-5: can_scrap_moveables 도구 존재 검증 (존재 검증)
-# ============================================================================
-
-def test_tc5_scrap_moveables_contains_expected_tools(sample_indices, mock_logger):
-    """TC-5: scrap 실행 도구만 포함하고 재료/보호장비는 제외한다."""
-    repo_root = require_repository_context().repository_root
-    with (repo_root / "Iris" / "input" / "items_itemscript.json").open(
-        "r", encoding="utf-8"
-    ) as handle:
-        indices = build_indices(json.load(handle), mock_logger)
-
-    actual = parse_scrap_moveables(repo_root, indices, mock_logger)
-
-    assert actual == {
-        "Base.BlowTorch",
-        "Base.Hammer",
-        "Base.Saw",
-        "Base.Screwdriver",
-    }
-    assert {
-        "Base.UnusableMetal",
-        "Base.UnusableWood",
-        "Base.WeldingMask",
-    }.isdisjoint(actual)
-
-
-# ============================================================================
-# TC-6: can_remove_embedded_object dict flatten 정상 처리
-# ============================================================================
-
-def test_tc6_dict_flatten_works(sample_indices, mock_logger):
-    """TC-6: dict criteria가 정상적으로 flatten됨"""
-    criteria = {
-        "glass": [
-            {"type": "tag", "value": "RemoveGlass"},
-            {"type": "type", "value": "Tweezers"}
-        ],
-        "bullet": [
-            {"type": "tag", "value": "RemoveBullet"},
-            {"type": "type", "value": "SutureNeedleHolder"}
-        ]
-    }
-    
-    result = resolve_criteria(criteria, sample_indices, mock_logger)
-    
-    # Tweezers와 SutureNeedleHolder가 포함되어야 함
-    assert "Base.Tweezers" in result
-    assert "Base.SutureNeedleHolder" in result
-
-
-# ============================================================================
-# TC-7: isWaterSource() → CanStoreWater 매핑 정상
-# ============================================================================
-
-def test_tc7_property_mapping_works(sample_indices, mock_logger):
-    """TC-7: property predicate 매핑 정상 동작"""
-    criteria = [{"type": "property", "value": "isWaterSource()"}]
-    
-    result = resolve_criteria(criteria, sample_indices, mock_logger)
-    
-    # CanStoreWater 인덱스 값이 반환되어야 함
-    assert "Base.Bowl" in result
-    assert "Base.BucketEmpty" in result
-
-
-# ============================================================================
-# 추가 단위 테스트
-# ============================================================================
-
-def test_invert_produces_sorted_output(mock_logger):
-    """invert 결과가 정렬됨"""
-    cap_results = {
-        "cap_b": {"Base.Z", "Base.A"},
-        "cap_a": {"Base.A", "Base.M"},
-    }
-    
-    result = invert_to_fulltype(cap_results, mock_logger)
-    
-    # 키가 알파벳순
-    keys = list(result.keys())
-    assert keys == sorted(keys)
-    
-    # 각 배열도 알파벳순
-    for caps in result.values():
-        assert caps == sorted(caps)
-
-
-def test_output_gate_rejects_invalid_fulltype(mock_logger):
-    """FullType 형식 검증"""
-    output = {"InvalidFormat": ["can_extinguish_fire"]}  # 점 없음
-    
-    result = output_gate_validate(output, mock_logger)
-    
-    assert result == False
-
-
-if __name__ == "__main__":
-    pytest.main([__file__, "-v"])

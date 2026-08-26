@@ -790,7 +790,7 @@ def _validate_g5_compiler_identity_transition(
     ordered_paths = compiler["ordered_paths"]
     if (
         not isinstance(ordered_paths, list)
-        or len(ordered_paths) != 9
+        or not ordered_paths
         or len(ordered_paths) != len(set(ordered_paths))
         or any(not isinstance(path, str) or not path for path in ordered_paths)
     ):
@@ -816,6 +816,7 @@ def _validate_g5_compiler_identity_transition(
         not in {
             "iris-clean-checkout-g5-compiler-identity-successor-v1",
             "iris-clean-checkout-g5-compiler-identity-successor-v2",
+            "iris-clean-checkout-g5-compiler-identity-successor-v3",
         }
         or transition["status"] != "PASS"
         or transition["algorithm_id"] != compiler["algorithm_id"]
@@ -851,7 +852,7 @@ def _validate_g5_compiler_identity_transition(
                 raise CleanCheckoutError(f"G5 compiler {name} identity mismatch")
             basis_paths = [row["path"] for row in basis["ordered_files"]]
             if (
-                len(basis_paths) != len(ordered_paths)
+                not basis_paths
                 or len(basis_paths) != len(set(basis_paths))
                 or (
                     name == "current_identity_basis"
@@ -929,13 +930,35 @@ def _validate_g5_compiler_identity_transition(
     ):
         raise CleanCheckoutError("G5 compiler contract aggregate split mismatch")
 
-    expected_changed_rows: list[dict[str, str]] = []
-    for historical_row, current_row in zip(
-        historical_rows, current_basis_rows, strict=True
-    ):
-        historical_path = historical_row["path"]
+    expected_changed_rows: list[dict[str, Any]] = []
+    if transition_schema.endswith("-v3"):
+        historical_by_name = {
+            Path(row["path"]).name: row for row in historical_rows
+        }
+        current_names = {Path(row["path"]).name for row in current_basis_rows}
+        if len(historical_by_name) != len(historical_rows) or not set(
+            historical_by_name
+        ).issubset(current_names):
+            raise CleanCheckoutError(
+                "G5 compiler historical/current constituent mapping mismatch"
+            )
+        paired_rows = [
+            (historical_by_name.get(Path(row["path"]).name), row)
+            for row in current_basis_rows
+        ]
+    else:
+        if len(historical_rows) != len(current_basis_rows):
+            raise CleanCheckoutError("invalid G5 compiler basis cardinality")
+        paired_rows = list(zip(historical_rows, current_basis_rows, strict=True))
+
+    for historical_row, current_row in paired_rows:
+        if historical_row is None:
+            historical_path = None
+            historical_sha = None
+        else:
+            historical_path = historical_row["path"]
+            historical_sha = historical_row["sha256_lf"]
         current_path = current_row["path"]
-        historical_sha = historical_row["sha256_lf"]
         current_sha = current_row["sha256_lf"]
         if historical_path == current_path and historical_sha == current_sha:
             continue
@@ -974,7 +997,7 @@ def _validate_g5_compiler_identity_transition(
             "current_last_writer_commit": last_writer_identity["commit"],
             "current_last_writer_tree": last_writer_identity["tree"],
         }
-        if transition_schema.endswith("-v2"):
+        if transition_schema.endswith(("-v2", "-v3")):
             changed_row = {
                 "historical_path": historical_path,
                 **changed_row,

@@ -1672,14 +1672,14 @@ def test_g5_compiler_identity_successor_separates_historical_and_current() -> No
             "naturalization_compiler_identity_sha256_lf_normalized_"
             "ordered_paths_v2"
         ),
-        "ordered_path_count": 9,
+        "ordered_path_count": 19,
         "historical_attested_aggregate_sha256": (
             "2dcff095b1cc34c8fb6d3ad735ac8f9d0ca2affe259f6bb97870b19e7235cc7f"
         ),
         "current_aggregate_sha256": (
-            "eea53216e59e496bc103e1e106f493c4935dc6e2b5337661799d23274b984064"
+            "3b3aefd5fb21a032a2e677eda61f94023af8604d6abb18b550551f8de2413287"
         ),
-        "changed_constituent_count": 9,
+        "changed_constituent_count": 19,
         "unchanged_constituent_count": 0,
         "current_basis_validation_mode": "exact_git_object",
     }

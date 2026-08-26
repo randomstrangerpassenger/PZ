@@ -40,15 +40,15 @@
       "Iris/tooling/tests/test_public_text_domain_contract.py"
     ],
     "additional_node_ids": [
-      "Iris/tooling/tests/test_rightclick_pipeline.py::test_invert_produces_sorted_output",
-      "Iris/tooling/tests/test_rightclick_pipeline.py::test_output_gate_rejects_invalid_fulltype",
-      "Iris/tooling/tests/test_rightclick_pipeline.py::test_tc1_invalid_capability_fails_gate1",
-      "Iris/tooling/tests/test_rightclick_pipeline.py::test_tc2_multiple_sources_fails_gate1",
-      "Iris/tooling/tests/test_rightclick_pipeline.py::test_tc3_unsupported_resolution_type_fails",
-      "Iris/tooling/tests/test_rightclick_pipeline.py::test_tc4_duplicate_capability_fails_output_gate",
-      "Iris/tooling/tests/test_rightclick_pipeline.py::test_tc5_scrap_moveables_contains_expected_tools",
-      "Iris/tooling/tests/test_rightclick_pipeline.py::test_tc6_dict_flatten_works",
-      "Iris/tooling/tests/test_rightclick_pipeline.py::test_tc7_property_mapping_works"
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_noncurrent_capability_module_is_not_packaged",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_fulltype_parser_preserves_unqualified_type",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_semicolon_list_is_normalized",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_truthy_contract_is_explicit",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_anchor_slug_is_stable",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_canonical_hash_ignores_mapping_order",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_proof_merge_fails_closed_on_boolean_conflict",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_item_matchers_cover_current_v24_types",
+      "Iris/tooling/tests/test_rightclick_pipeline.py::test_property_based_reviews_are_routed_deterministically"
     ]
   },
   "required_standalone_validations": [
@@ -81,7 +81,7 @@
       },
       {
         "path": "Iris/build/description/v2/tests/test_naturalization_compiler_identity.py",
-        "reason": "current nine-constituent compiler identity is a required G5 handoff contract and must override the historical description-test heuristic"
+        "reason": "current responsibility-complete compiler identity is a required G5 handoff contract and must override the historical description-test heuristic"
       },
       {
         "path": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py",
@@ -137,7 +137,7 @@
       },
       {
         "path": "Iris/tooling/tests/test_rightclick_pipeline.py",
-        "reason": "current installed right-click capability contract and required nine-node route"
+        "reason": "current installed right-click v2.4 contract, noncurrent capability exclusion, and required nine-node route"
       }
     ],
     "explicit_dedicated_route_sources": [
@@ -367,7 +367,7 @@
     "compiler_identity": {
       "algorithm_id": "naturalization_compiler_identity_sha256_lf_normalized_ordered_paths_v2",
       "historical_attested_aggregate_sha256": "2dcff095b1cc34c8fb6d3ad735ac8f9d0ca2affe259f6bb97870b19e7235cc7f",
-      "current_aggregate_sha256": "eea53216e59e496bc103e1e106f493c4935dc6e2b5337661799d23274b984064",
+      "current_aggregate_sha256": "3b3aefd5fb21a032a2e677eda61f94023af8604d6abb18b550551f8de2413287",
       "ordered_paths": [
         "Iris/tooling/src/iris_tooling/build/compose_layer3_text.py",
         "Iris/tooling/src/iris_tooling/build/compose_layer3_body_profile.py",
@@ -376,12 +376,22 @@
         "Iris/tooling/src/iris_tooling/build/compose_layer3_blocks.py",
         "Iris/tooling/src/iris_tooling/build/compose_layer3_identity.py",
         "Iris/tooling/src/iris_tooling/build/compose_layer3_io.py",
+        "Iris/tooling/src/iris_tooling/domains/public_text/inputs.py",
+        "Iris/tooling/src/iris_tooling/domains/public_text/cli.py",
+        "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_context.py",
+        "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_infrastructure.py",
+        "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_preparation.py",
+        "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_projection.py",
+        "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_transformation.py",
+        "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_review.py",
+        "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_handoff.py",
+        "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_application.py",
         "Iris/tooling/src/iris_tooling/build/run_dvf_3_3_korean_prose_naturalization.py",
         "Iris/tooling/src/iris_tooling/build/validate_dvf_3_3_korean_prose_naturalization.py"
       ],
       "successor_transition": {
-        "path": "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0003.json",
-        "git_blob_raw_sha256": "b4df0fe7bdc4b3890cd3abcd88a120a6f0e55c1ceedeec84a3d97beb7b05d029",
+        "path": "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0011.json",
+        "git_blob_raw_sha256": "65e1a913914dac2abb7fc72910e159eb0347948f03b1293947e8aa207a6fa1b2",
         "hash_mode": "git_blob_raw_sha256"
       }
     },
@@ -468,9 +478,43 @@
       "Iris/tooling/src/iris_tooling/build/style_normalizer.py",
       "Iris/tooling/src/iris_tooling/build/validate_dvf_3_3_korean_prose_naturalization.py",
       "Iris/tooling/src/iris_tooling/build/validate_public_text_quality_acceptance.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/acceptance_assurance.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/acceptance_attempt_context.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/acceptance_cli.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/acceptance_context.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/acceptance_contracts.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/acceptance_disposition.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/acceptance_emission.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/acceptance_foundation_application.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/acceptance_infrastructure.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/acceptance_policy.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/acceptance_reporting.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/acceptance_rules.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/acceptance_validation.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/acceptance_validation_cli.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/cli.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/evaluate.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/inputs.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/naturalization.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_application.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_context.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_handoff.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_infrastructure.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_preparation.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_projection.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_review.py",
+      "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_transformation.py",
       "Iris/build/description/v2/tools/style/rules/family_rules.json",
       "Iris/build/description/v2/tools/style/rules/global_rules.json",
-      "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0003.json"
+      "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0003.json",
+      "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0004.json",
+      "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0005.json",
+      "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0006.json",
+      "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0007.json",
+      "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0008.json",
+      "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0009.json",
+      "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0010.json",
+      "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0011.json"
     ]
   },
   "bootstrap": {

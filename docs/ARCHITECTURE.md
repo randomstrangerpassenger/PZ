@@ -1,7 +1,7 @@
 # ARCHITECTURE.md
 
-> 상태: 초안 v0.4
-> 기준일: 2026-08-10
+> 상태: 초안 v0.4 / current through 2026-08-26
+> 기준일: 2026-08-26
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 구조 지도, 역할 경계, 의존 방향을 고정한다.
 
@@ -1069,3 +1069,68 @@ completed closeout carrier `09443685`까지이며 다음처럼 분리한다.
   않았다. 따라서 package payload 감소나 owner 단일화를 runtime 또는 token 개선률로
   환산하지 않는다. 이 수치는 architecture 경계 설명용 read-only observation이며 새
   validator나 validation authority가 아니다.
+
+### Public-text correction owner graph
+
+완료된 responsibility refactor의 bounded correction은 W4의 논리적 분리를 물리적
+source ownership과 일치시켰다. Current 흐름은 다음과 같다.
+
+`iris-tooling --repository-root <repo> public-text -> public_text.cli -> acceptance/naturalization domain CLI -> application/validation owner -> domain contracts/rules/infrastructure`
+
+Acceptance는 다음 owner 집합으로 나뉜다.
+
+- `acceptance_context`: repository-bound paths와 immutable constants
+- `acceptance_infrastructure`: Git/filesystem/strict JSON/write-once mechanics
+- `acceptance_contracts`, `acceptance_rules`: contract loading과 판정 규칙
+- `acceptance_reporting`, `acceptance_emission`: report projection과 artifact emission
+- `acceptance_foundation_application`, `acceptance_attempt_context`: foundation 및 attempt lifecycle
+- `acceptance_policy`, `acceptance_assurance`, `acceptance_disposition`: policy, adversarial assurance와 phase dispatch
+- `acceptance_validation`: validation API
+- `acceptance_cli`, `acceptance_validation_cli`: command parsing과 exit semantics
+
+Naturalization은 `naturalization_context`, `naturalization_infrastructure`,
+`naturalization_preparation`, `naturalization_projection`,
+`naturalization_transformation`, `naturalization_review`, `naturalization_handoff`,
+`naturalization_application`과 domain CLI가 단계별 책임을 소유한다. Phase 0의 외부
+provenance 세 입력은 explicit typed input이며 machine-local default가 아니다.
+
+기존 `build/public_text_quality_acceptance.py`와
+`build/run_dvf_3_3_korean_prose_naturalization.py`는 각각 3줄/8줄 compatibility
+façade다. 전자는 validation API 재수출, 후자는 application API 재수출과 script
+entrypoint 전달만 소유한다. Repository source identity가 필요한 owner는 installed
+package 위치가 아니라 explicit repository context의 source tree를 사용한다.
+
+Right-click current graph는
+`rightclick.cli -> pipeline_v24`로 고정된다. 소비자가 없던 closed-negative
+`rightclick.capability`는 current package에서 제거됐고, historical pipeline/evidence는
+재해석하거나 삭제하지 않았다. 이는 이전 capability hint/negative-evidence 경계와
+일치한다.
+
+Correction terminal은 `cbfb4f2e0067413f5334b1ca40c3cd89a090606a` / tree
+`afcf40cc7b4003571fc137c89d7b99d2042e9d9b`다. terminal-v9 clean Run A/B의
+canonical result SHA-256은 모두
+`ba7049aec35a76f175136996c6fb8cf1dc10140bb801dcea93d26db7f5b38819`이며
+comparator가 `succeeded`했다. 이 correction은 Python offline-tool ownership만
+교정했고 product Lua, UI, package/public-text output schema와 supported runtime
+behavior를 변경하지 않는다.
+
+### Public-text explicit owner/export boundary
+
+Current public-text dependency flow는 wildcard namespace가 아니라 명시적 symbol contract로만 연결된다.
+
+`repository context + inputs -> context/infrastructure -> contracts/rules/projection -> application/disposition/validation -> CLI -> import-only build façade`
+
+- Acceptance owner는 context, infrastructure, contracts, rules, reporting, emission, foundation application, attempt context, policy, assurance, disposition, validation과 두 전용 CLI다. 각 owner는 직접 쓰는 predecessor owner symbol만 import한다.
+- Naturalization owner는 inputs, context, infrastructure, preparation, projection, transformation, review, handoff, application과 public-text CLI다. Phase application만 phase builders를 조합하고 façade는 이 graph를 역소유하지 않는다.
+- 모든 대상 `__all__`은 literal tuple이다. Dynamic `globals()` export와 `import *`는 금지되며 cross-owner shared helper는 public contract 이름으로 노출된다.
+- Compatibility façade 두 개는 함수·class 정의가 없는 import-only projection이다. 공개 namespace는 각 fixed `__all__`과 같고, 상세 export와 owner dependency 표는 responsibility-refactor Walkthrough §12에 둔다.
+
+Phase 0 authority flow는 다음과 같다.
+
+`three explicit provenance arguments -> canonical current manifest/source binding -> historical registry/foundation ancestry binding -> external attempt output -> same-contract formal validator`
+
+Current facts/manifest는 canonical manifest와 실제 repository bytes에서 재계산한다. Historical registry/foundation constants는 과거 authority row에만 적용한다. Particle projection의 historical `after_sha256`과 current implementation file hash는 별도 identity이며 둘 다 검증하되 byte equality를 요구하지 않는다. 따라서 builder와 validator가 서로 다른 세대의 “current”를 판정하는 parallel authority를 만들지 않는다.
+
+Validated package implementation은 `377601a199d661513288b7f68f920b1bf53f0aad`, exact wheel writer는 `584903590b7e45b6919b55ee8b63d87226de1446`, machine-validation/environment subject는 `d586dc0c88657c1e340b00bb2798268caacc9fca`다. 이 셋의 `Iris/tooling/src` tree는 `365e7686cb53a2b0e10f7de4421eb2e4f9f4274e`로 동일하다. Reviewer carrier `d6db16dc41e94fdf99dc124fdef139cfd9d05994`는 review 결과만 소유하며 validation authority를 대체하지 않는다.
+
+이 architecture correction은 product Lua/UI/public-output path를 건드리지 않는다. Current right-click은 계속 `rightclick.cli -> pipeline_v24`이고 삭제된 capability module이나 retired global context-menu wrapper를 복원하지 않는다.

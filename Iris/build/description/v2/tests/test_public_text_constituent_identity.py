@@ -12,6 +12,7 @@ from unittest.mock import patch
 V2_ROOT = Path(__file__).resolve().parents[1]
 
 from iris_tooling.build import public_text_quality_acceptance as acceptance
+from iris_tooling.domains.public_text import acceptance_attempt_context
 
 
 RELATIVE_PATH = "Iris/example/constituent.json"
@@ -148,7 +149,7 @@ class PublicTextConstituentIdentityTest(unittest.TestCase):
         self,
     ) -> None:
         self.assertEqual(
-            acceptance._human_review_blocker_count(
+            acceptance.human_review_blocker_count(
                 review_sample=self.review_sample,
                 review_decision=self.review_decision,
                 required_denominator=2084,
@@ -188,7 +189,7 @@ class PublicTextConstituentIdentityTest(unittest.TestCase):
                     acceptance.FoundationContractError,
                     "human review schema technical blocker",
                 ):
-                    acceptance._human_review_blocker_count(
+                    acceptance.human_review_blocker_count(
                         review_sample=self.review_sample,
                         review_decision=changed,
                         required_denominator=2084,
@@ -208,7 +209,7 @@ class PublicTextConstituentIdentityTest(unittest.TestCase):
             },
         }
         self.assertEqual(
-            acceptance._human_review_blocker_count(
+            acceptance.human_review_blocker_count(
                 review_sample=sample,
                 review_decision=decision,
                 required_denominator=2,
@@ -217,7 +218,7 @@ class PublicTextConstituentIdentityTest(unittest.TestCase):
         )
         decision["uniform_review"]["naturalness"] = "fail"
         self.assertEqual(
-            acceptance._human_review_blocker_count(
+            acceptance.human_review_blocker_count(
                 review_sample=sample,
                 review_decision=decision,
                 required_denominator=2,
@@ -408,8 +409,8 @@ class PublicTextConstituentIdentityTest(unittest.TestCase):
             }
 
         with patch.object(
-            acceptance,
-            "_vcs_preflight",
+            acceptance_attempt_context,
+            "vcs_preflight",
             side_effect=passing_preflight,
         ):
             no_write = acceptance.phase0_required_vcs_preflight(
@@ -485,8 +486,8 @@ class PublicTextConstituentIdentityTest(unittest.TestCase):
             }
 
         with patch.object(
-            acceptance,
-            "_vcs_preflight",
+            acceptance_attempt_context,
+            "vcs_preflight",
             side_effect=stateful_preflight,
         ):
             before = [
@@ -569,16 +570,20 @@ class PublicTextConstituentIdentityTest(unittest.TestCase):
         ):
             self.assertEqual(lines.count(f"!{relative}"), 1)
             self.assertFalse(
-                acceptance._is_ignored(acceptance.REPO_ROOT / relative)
+                acceptance.is_ignored(acceptance.REPO_ROOT / relative)
             )
 
     def test_phase0_tracked_but_ignored_required_input_fails(self) -> None:
         required = acceptance.REPO_ROOT / next(
             iter(PHASE0_IMPLEMENTATION_REQUIRED_PATHS)
         )
-        self.assertTrue(acceptance._is_tracked(required))
-        with patch.object(acceptance, "_is_ignored", return_value=True):
-            report = acceptance._vcs_preflight([required])
+        self.assertTrue(acceptance.is_tracked(required))
+        with patch.object(
+            acceptance_attempt_context,
+            "is_ignored",
+            return_value=True,
+        ):
+            report = acceptance_attempt_context.vcs_preflight([required])
         self.assertEqual(report["status"], "FAIL")
         self.assertEqual(report["tracked_count"], 1)
         self.assertEqual(report["ignored_count"], 1)

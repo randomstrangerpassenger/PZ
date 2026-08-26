@@ -28,6 +28,16 @@ COMPILER_REPO_RELATIVE_POSIX_PATH_ORDER = (
     "Iris/tooling/src/iris_tooling/build/compose_layer3_blocks.py",
     "Iris/tooling/src/iris_tooling/build/compose_layer3_identity.py",
     "Iris/tooling/src/iris_tooling/build/compose_layer3_io.py",
+    "Iris/tooling/src/iris_tooling/domains/public_text/inputs.py",
+    "Iris/tooling/src/iris_tooling/domains/public_text/cli.py",
+    "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_context.py",
+    "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_infrastructure.py",
+    "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_preparation.py",
+    "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_projection.py",
+    "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_transformation.py",
+    "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_review.py",
+    "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_handoff.py",
+    "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_application.py",
     (
         "Iris/tooling/src/iris_tooling/build/"
         "run_dvf_3_3_korean_prose_naturalization.py"

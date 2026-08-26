@@ -147,7 +147,7 @@ def _verify_artifact_record(
             }
         elif algorithm == TEXT_IDENTITY_ALGORITHM:
             # This is the existing Foundation text-constituent identity contract.
-            existing = ptqa._head_text_constituent_record(path, expected_hash)
+            existing = ptqa.head_text_constituent_record(path, expected_hash)
             if existing.get("match") is not True:
                 _fail("environment", "text_identity_mismatch", label)
             identity = {
@@ -496,8 +496,8 @@ def _metric_rows_from_source(
         try:
             validation = ptqa.validate_candidate_handoff(source_path)
             snapshot = ptqa.compute_candidate_metric_snapshot(validation)
-            candidate_path = ptqa._handoff_path(validation, "candidate_rendered_hash")
-            candidate_manifest_path = ptqa._handoff_path(
+            candidate_path = ptqa.handoff_artifact_path(validation, "candidate_rendered_hash")
+            candidate_manifest_path = ptqa.handoff_artifact_path(
                 validation, "candidate_manifest_hash"
             )
         except ptqa.FoundationContractError as exc:

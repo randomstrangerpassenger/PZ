@@ -4,11 +4,6 @@
   "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
   "record_mode": "append_only_correction_of_successor_0013_aggregate_binding",
   "claim_boundary": "Successor 0013 remains immutable evidence for its originally committed bytes and aggregate claim. This successor corrects that aggregate claim to the value recomputed from the same ordered current compiler constituents and becomes the current gate binding.",
-  "predecessor_successor": {
-    "path": "Iris/validation/clean_checkout/evidence/g5_compiler_identity_successor_0013.json",
-    "git_blob_id": "21f5f8b8bd44db8fc6db723ca664f25b45bdf3b8",
-    "git_blob_raw_sha256": "aa53450a706c1c6d67182355f3aec537c50586c96d53ed9a6af463fd51e7648d"
-  },
   "algorithm_id": "naturalization_compiler_identity_sha256_lf_normalized_ordered_paths_v2",
   "historical_gate_integration_basis": {
     "commit": "c68831070a1d631c378532c20272d75efbc45116",

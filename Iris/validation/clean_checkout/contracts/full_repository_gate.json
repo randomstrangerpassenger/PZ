@@ -35,6 +35,7 @@
       "Iris/validation/clean_checkout/tests/test_current_route_output_isolation_audit.py",
       "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py",
       "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py",
+      "Iris/tooling/tests/test_classification_candidate_install.py",
       "Iris/tooling/tests/test_repository_context.py",
       "Iris/tooling/tests/test_cli.py",
       "Iris/tooling/tests/test_public_text_domain_contract.py"
@@ -122,6 +123,10 @@
       {
         "path": "Iris/build/description/v2/tests/test_iris_viewmodel_allocation_contract.py",
         "reason": "promoted recurring ViewModel allocation and debug-guard product contract"
+      },
+      {
+        "path": "Iris/tooling/tests/test_classification_candidate_install.py",
+        "reason": "current repository-external classification candidate and hash-bound runtime install contract"
       },
       {
         "path": "Iris/tooling/tests/test_repository_context.py",

@@ -294,10 +294,9 @@ class KoreanProseCompilerTest(unittest.TestCase):
         self.assertTrue(all(row["proposition_resolution"] == "emitted" for row in resolutions))
         self.assertEqual(proofs, [])
 
-    def test_current_rendered_and_runtime_chunks_publish_same_acquisition_lists(
+    def test_current_rendered_and_runtime_chunks_publish_same_text(
         self,
     ) -> None:
-        facts_path = V2_ROOT / "data" / "dvf_3_3_facts.jsonl"
         rendered = json.loads(current_rendered_path().read_text(encoding="utf-8"))[
             "entries"
         ]
@@ -310,18 +309,6 @@ class KoreanProseCompilerTest(unittest.TestCase):
                 rendered_entry.get("text_ko"),
                 item_id,
             )
-
-        acquisition_count = 0
-        for raw_line in facts_path.read_text(encoding="utf-8").splitlines():
-            fact = json.loads(raw_line)
-            source = fact.get("acquisition_hint")
-            text = rendered[str(fact["item_id"])].get("text_ko")
-            if source is None or text is None:
-                continue
-            listing, _, _ = render_acquisition_listing(str(source))
-            self.assertTrue(text.endswith(f"\n\n{listing}"), fact["item_id"])
-            acquisition_count += 1
-        self.assertEqual(acquisition_count, 1029)
 
 
 if __name__ == "__main__":

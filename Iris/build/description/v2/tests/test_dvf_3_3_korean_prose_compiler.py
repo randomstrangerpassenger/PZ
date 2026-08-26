@@ -298,7 +298,9 @@ class KoreanProseCompilerTest(unittest.TestCase):
         self,
     ) -> None:
         facts_path = V2_ROOT / "data" / "dvf_3_3_facts.jsonl"
-        rendered = json.loads(CANONICAL_RENDERED.read_text(encoding="utf-8"))["entries"]
+        rendered = json.loads(current_rendered_path().read_text(encoding="utf-8"))[
+            "entries"
+        ]
         runtime = load_runtime_chunks()
         self.assertEqual(set(runtime), set(rendered))
 

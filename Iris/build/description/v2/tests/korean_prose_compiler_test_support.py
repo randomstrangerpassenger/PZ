@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 import unittest
 from pathlib import Path
@@ -20,10 +21,25 @@ from iris_tooling.build.compose_layer3_body_profile import (
     build_candidate_body_plan_requirements,
 )
 from iris_tooling.build.compose_layer3_item import compose_item_candidate
-from iris_tooling.build.layer3_current_authority_reconstruction import (
-    CANONICAL_RENDERED,
-    load_runtime_chunks,
-)
+from iris_tooling.build.layer3_current_authority_reconstruction import load_runtime_chunks
+
+
+def current_rendered_path() -> Path:
+    runtime_data = (
+        V2_ROOT.parents[2] / "media" / "lua" / "client" / "Iris" / "Data"
+    )
+    pointer = (runtime_data / "IrisLayer3DataCurrent.lua").read_text(
+        encoding="utf-8"
+    )
+    match = re.search(r"dvf33-[0-9a-f]{64}", pointer)
+    if match is None:
+        raise ValueError("current Layer3 generation pointer is invalid")
+    return (
+        runtime_data
+        / "IrisLayer3Generations"
+        / match.group(0)
+        / "dvf_3_3_rendered.json"
+    )
 
 
 def candidate_proposition(

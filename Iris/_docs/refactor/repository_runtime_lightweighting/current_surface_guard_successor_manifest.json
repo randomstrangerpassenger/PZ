@@ -6,9 +6,9 @@
     "reason": "Adopt the Change 3 role-scoped scan denominator without rewriting sealed predecessor evidence."
   },
   "predecessor_manifest": {
-    "path": "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase1_manifest/current_surface_guard_referent_manifest.json",
-    "git_blob_id": "28b89b4b054b4ec6f625d03af3a07f0708c89f98",
-    "sha256_lf": "bb2940194bddcbe30a3917b0b73cc3c4e7633db117def200d44f4b401fdb647f"
+    "path": "Iris/_docs/refactor/repository_runtime_lightweighting/current_surface_guard_policy.json",
+    "git_blob_id": "4d806c53d423bcea49ac6260dc44daebb3703dfa",
+    "sha256_lf": "5a954d76e9fcb36289478da4f30fe2adff9ee0885a2e8497006cc89daf9762f6"
   },
   "scan_surfaces": [
     {

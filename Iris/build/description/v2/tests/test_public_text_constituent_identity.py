@@ -127,14 +127,15 @@ def protected_snapshot_row(
 class PublicTextConstituentIdentityTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        attempt_root = (
-            V2_ROOT
-            / "staging"
-            / "dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure"
-            / "attempt-0023-compiler-identity-v2-a"
-        )
         cls.review_sample = acceptance.load_json_strict(
-            attempt_root / "phase7" / "human_review_sample_manifest.json"
+            acceptance.REPO_ROOT
+            / "Iris"
+            / "validation"
+            / "clean_checkout"
+            / "evidence"
+            / "current_required_v1"
+            / "objects"
+            / "99e02cfb47193f3f352c55884a145fb515b92b2f033235f017b13977e06b33f9"
         )
         cls.review_decision = acceptance.load_json_strict(
             acceptance.REPO_ROOT
@@ -142,10 +143,10 @@ class PublicTextConstituentIdentityTest(unittest.TestCase):
             / "_docs"
             / "round3"
             / "dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure"
-            / "attempt_0023_human_review_decision.json"
+            / "attempt_0024_human_review_decision.json"
         )
 
-    def test_attempt_0023_exact_full_review_has_zero_human_review_numerator(
+    def test_current_exact_full_review_has_zero_human_review_numerator(
         self,
     ) -> None:
         self.assertEqual(

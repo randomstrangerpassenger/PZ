@@ -62,7 +62,7 @@
       "path_globs": [
         "Iris/build/description/v2/staging/**"
       ],
-      "reason": "staging evidence is diagnostic and not current writer output"
+      "reason": "archived staging evidence is diagnostic and not current writer output"
     },
     {
       "id": "round_local_diagnostics",

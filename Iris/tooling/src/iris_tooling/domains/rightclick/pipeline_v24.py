@@ -21,28 +21,15 @@ import hashlib
 import re
 import copy
 import argparse
-from dataclasses import dataclass
 from pathlib import Path
 from collections import OrderedDict
 
 from iris_tooling.build.repository_context import require_repository_context
 from .infra import StageRunner, load_json, output_root, pipeline_banner
 
-
-@dataclass(frozen=True)
-class RightClickConfiguration:
-    input_root: Path
-    output_root: Path
-    schema_version: str = 'v2.4'
-
-
 _repository_context = require_repository_context()
 IRIS_DIR = _repository_context.iris_root
 INPUT_DIR = IRIS_DIR / 'input'
-OUTPUT_DIR = output_root(
-    repository_root=_repository_context.repository_root,
-)
-CONFIGURATION = RightClickConfiguration(INPUT_DIR, OUTPUT_DIR)
 ITEMS_PATH = INPUT_DIR / 'items_itemscript.json'
 SOURCE_INDEX_V24_PATH = INPUT_DIR / 'rightclick_source_index.v2.4.json'
 RECIPE_PROVENANCE_KEYWORDS = ['recipes.txt', 'recipecode.lua', 'RecipeManager']
@@ -601,7 +588,7 @@ def cross_phase_validation(candidates, decisions, field_registry, review_queue):
         logger.log('FAIL', 'CROSS', 'Cross-phase validation FAILED')
     return passed
 
-def save_outputs(candidates, decisions, field_registry, review_queue, uniqueness_overlay=None, property_based_items=None, runner=None):
+def save_outputs(candidates, decisions, field_registry, review_queue, output_directory, uniqueness_overlay=None, property_based_items=None, runner=None):
     """Save all output files."""
     print('\n' + '=' * 70)
     print('  Saving Outputs')
@@ -614,7 +601,7 @@ def save_outputs(candidates, decisions, field_registry, review_queue, uniqueness
     if property_based_items is not None:
         outputs[f'property_based_items{suffix}.json'] = property_based_items
     for filename, data in outputs.items():
-        path = OUTPUT_DIR / filename
+        path = output_directory / filename
         runner.save_json(path, data, on_saved=lambda saved_path: logger.log('INFO', 'OUT', f'Saved: {saved_path} ({saved_path.stat().st_size} bytes)'))
 
 def determinism_check(items_list):
@@ -643,6 +630,9 @@ def main(argv: list[str] | None = None):
     """Main entry point for the right-click evidence pipeline."""
     parser = argparse.ArgumentParser(description='Right-click Evidence Pipeline')
     parser.parse_args(argv)
+    output_directory = output_root(
+        repository_root=_repository_context.repository_root,
+    )
     version_label = 'v2.4'
     pipeline_banner(f'Right-click Evidence Pipeline {version_label}', 70)
     runner = StageRunner()
@@ -672,7 +662,7 @@ def main(argv: list[str] | None = None):
     validation_passed = cross_phase_validation(candidates, decisions, field_registry, review_queue)
     property_based_items = None
     property_based_items = collect_property_based_items(decisions)
-    save_outputs(candidates, decisions, field_registry, review_queue, uniqueness_overlay=uniqueness_overlay, property_based_items=property_based_items, runner=runner)
+    save_outputs(candidates, decisions, field_registry, review_queue, output_directory, uniqueness_overlay=uniqueness_overlay, property_based_items=property_based_items, runner=runner)
     hash_items = [('candidates', candidates), ('decisions', decisions), ('field_registry', field_registry), ('review_queue', review_queue)]
     if uniqueness_overlay:
         hash_items.append(('uniqueness_overlay', uniqueness_overlay))

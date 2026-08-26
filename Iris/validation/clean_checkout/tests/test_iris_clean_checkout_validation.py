@@ -1370,12 +1370,12 @@ def test_full_source_policy_classifies_only_declared_fallback(
         "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
         str(external_output),
     )
-        assert repository_external_output_root(
-            environment_variable=(
-                "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"
-            ),
-            repository_root=repository_root,
-        ) == external_output.resolve()
+    assert repository_external_output_root(
+        environment_variable=(
+            "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"
+        ),
+        repository_root=repository_root,
+    ) == external_output.resolve()
     monkeypatch.setenv(
         "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
         str(repository_root / "Iris" / "output"),
@@ -1385,7 +1385,6 @@ def test_full_source_policy_classifies_only_declared_fallback(
             environment_variable=(
                 "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"
             ),
-            default_root=repository_root / "Iris" / "output",
             repository_root=repository_root,
         )
     explicit_required_sources = {

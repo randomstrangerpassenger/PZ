@@ -41,7 +41,6 @@ IRIS_DIR = _repository_context.iris_root
 INPUT_DIR = IRIS_DIR / 'input'
 OUTPUT_DIR = output_root(
     repository_root=_repository_context.repository_root,
-    default_root=IRIS_DIR / 'output',
 )
 CONFIGURATION = RightClickConfiguration(INPUT_DIR, OUTPUT_DIR)
 ITEMS_PATH = INPUT_DIR / 'items_itemscript.json'

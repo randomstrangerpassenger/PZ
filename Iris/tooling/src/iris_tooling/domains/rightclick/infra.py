@@ -14,10 +14,13 @@ def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def output_root(*, repository_root: Path, default_root: Path) -> Path:
+def output_root(*, repository_root: Path) -> Path:
     raw = os.environ.get("IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT")
     if not raw:
-        return default_root
+        raise ValueError(
+            "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT is required; "
+            "repository-local output fallback is unsupported"
+        )
     candidate = Path(raw)
     if not candidate.is_absolute():
         raise ValueError("IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT must be absolute")

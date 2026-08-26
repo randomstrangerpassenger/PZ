@@ -13,6 +13,7 @@
     "IrisLayer3DataChunks fixed directory in a deployable package",
     "Iris/build/tools/pipeline/context_outcomes_main.py as a current producer",
     "Iris/build/tools/pipeline/build_recipe_classification_matches.py as a current producer",
+    "Iris/build/convert_labelmap_to_lua.py as a current runtime producer",
     "repository-local Iris/output as a mutable producer workspace"
   ],
   "entrypoints": [

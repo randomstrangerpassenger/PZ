@@ -27,7 +27,6 @@ live build scripts.
 - `quality_gates.py`: frozen-output and quality gate checks.
 - `description_generator.py`: description JSON generator.
 - `convert_descriptions_to_lua.py`: generated description Lua converter.
-- `convert_labelmap_to_lua.py`: label-map Lua converter.
 - `test_require_render.py`: runtime require-order/render smoke test.
 
 ## Active phase package directories
@@ -60,6 +59,9 @@ the absolute repository-external `IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT`.
 
 Retained non-current predecessors:
 
+- `convert_labelmap_to_lua.py` retains pure label-map coverage/render helpers
+  for focused tests, but its deleted `Iris/output` input and direct runtime-write
+  command are retired. Current `IrisUseCaseLabelMap.lua` changes are Git-authored.
 - `build_recipe_classification_matches.py` depends on retired phase packages;
   installed `iris_tooling classification` owns current classification indexes.
 - `context_outcomes_main.py` is a fail-loud retirement stub. Its former phase

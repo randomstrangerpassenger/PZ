@@ -165,8 +165,7 @@ def main():
     print("    1. python build/use_case_integrator.py")
     print("    2. python build/description_generator.py")
     print("    3. python build/convert_descriptions_to_lua.py")
-    print("    4. python build/convert_labelmap_to_lua.py")
-    print("    5. python build/tests/test_description_generator.py")
+    print("    4. python build/tests/test_description_generator.py")
 
     print("\n" + "=" * 60)
     print("SUCCESS: Registry merge applied (Round 2)")

@@ -2,7 +2,7 @@
 """
 convert_labelmap_to_lua.py
 
-JSON 라벨맵 → IrisUseCaseLabelMap.lua 변환.
+Retained non-current JSON label-map conversion helpers.
 
 규칙:
   1. usecase_label_map.json 읽기
@@ -16,22 +16,7 @@ auto-only 계약: 단순 치환만, 조건분기/추론 금지.
 """
 
 import re
-import sys
 from pathlib import Path
-
-# ─── 경로 설정 ───────────────────────────────────────────────
-SCRIPT_DIR = Path(__file__).parent
-if str(SCRIPT_DIR) not in sys.path:
-    sys.path.insert(0, str(SCRIPT_DIR))
-
-from tools.common.versions import BUILD_VERSION
-
-DATA_DIR = SCRIPT_DIR / "data" / BUILD_VERSION
-LABELMAP_JSON = DATA_DIR / "usecase_label_map.json"
-USECASES_JSON = SCRIPT_DIR.parent / "output" / f"usecases_by_fulltype.{BUILD_VERSION}.json"
-OUTPUT_LUA = SCRIPT_DIR.parent / "media" / "lua" / "client" / "Iris" / "Data" / "IrisUseCaseLabelMap.lua"
-
-from tools.common.io import load_json
 
 
 def extract_use_case_ids(usecases_data: dict) -> set[str]:
@@ -220,68 +205,11 @@ def round_trip_verify(lua_path: Path, labelmap: dict) -> list[str]:
     return errors
 
 
-def main():
-    print("=" * 60)
-    print("convert_labelmap_to_lua.py")
-    print("=" * 60)
-
-    # ── Step 1: JSON 로드 ──
-    print("\n[1/5] Loading JSON files...")
-    if not LABELMAP_JSON.exists():
-        print(f"  FAIL: {LABELMAP_JSON} not found")
-        sys.exit(1)
-    labelmap = load_json(LABELMAP_JSON)
-    label_keys = set(labelmap["labels"].keys())
-    print(f"  Label map: {len(label_keys)} entries")
-
-    # ── Step 2: 실제 use_case_id 추출 ──
-    print("\n[2/5] Extracting use_case_ids from usecases_by_fulltype...")
-    if not USECASES_JSON.exists():
-        print(f"  FAIL: {USECASES_JSON} not found")
-        sys.exit(1)
-    usecases = load_json(USECASES_JSON)
-    actual_ids = extract_use_case_ids(usecases)
-    print(f"  Actual use_case_ids: {len(actual_ids)}")
-
-    # ── Step 3: 커버리지 FAIL-LOUD ──
-    print("\n[3/5] Coverage check (FAIL-LOUD)...")
-    missing = coverage_check(actual_ids, label_keys)
-    if missing:
-        print(f"  FAIL: {len(missing)} use_case_id(s) missing from label map:")
-        for m in missing:
-            print(f"    - {m}")
-        print("\n  Coverage FAILED. Add missing IDs to usecase_label_map.json.")
-        sys.exit(1)
-    print(f"  PASS: all {len(actual_ids)} actual IDs covered")
-
-    # 라벨맵에만 있고 실제로 사용되지 않는 ID (경고만)
-    extra = label_keys - actual_ids
-    if extra:
-        print(f"  INFO: {len(extra)} extra label(s) not in current usecases:")
-        for e in sorted(extra):
-            print(f"    - {e}")
-
-    # ── Step 4: Lua 생성 + 쓰기 ──
-    print(f"\n[4/5] Generating Lua file...")
-    lua_content = generate_lua(labelmap)
-    OUTPUT_LUA.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT_LUA.write_text(lua_content, encoding="utf-8")
-    print(f"  Written: {OUTPUT_LUA}")
-    print(f"  Size: {len(lua_content)} bytes")
-
-    # ── Step 5: UTF-8 round-trip 검증 ──
-    print(f"\n[5/5] UTF-8 round-trip verification...")
-    errors = round_trip_verify(OUTPUT_LUA, labelmap)
-    if errors:
-        print(f"  FAIL: {len(errors)} round-trip error(s):")
-        for e in errors:
-            print(e)
-        sys.exit(1)
-    print("  PASS: round-trip OK")
-
-    print("\n" + "=" * 60)
-    print("SUCCESS: IrisUseCaseLabelMap.lua generated")
-    print("=" * 60)
+def main() -> None:
+    raise SystemExit(
+        "convert_labelmap_to_lua.py is a retained non-current predecessor; "
+        "repository-local generated input and direct runtime writes are unsupported"
+    )
 
 
 if __name__ == "__main__":

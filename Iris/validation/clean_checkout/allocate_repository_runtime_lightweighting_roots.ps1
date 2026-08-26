@@ -129,6 +129,7 @@ $runIdWasExplicit = -not [string]::IsNullOrWhiteSpace($RunId)
 $resolvedRunId = if ($runIdWasExplicit) { $RunId.ToLowerInvariant() } else { [Guid]::NewGuid().ToString('N') }
 if ($resolvedRunId -notmatch '^[0-9a-f]{32}$') { throw 'RunId must be a 32-character lowercase hexadecimal GUID form' }
 $baseName = switch ($AllocationProfile) {
+    'checkpoint' { 'cp-{0}' -f $resolvedRunId.Substring(0, 12) }
     'terminal-run-a' { 'ta-{0}' -f $resolvedRunId.Substring(0, 12) }
     'terminal-run-b' { 'tb-{0}' -f $resolvedRunId.Substring(0, 12) }
     default { '{0}-{1}-{2}-{3}' -f $AllocationProfile, $safeClaim, $safeAttempt, $resolvedRunId.Substring(0, 12) }

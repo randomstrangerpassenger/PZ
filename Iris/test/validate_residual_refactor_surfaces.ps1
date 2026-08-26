@@ -254,6 +254,8 @@ $EvidenceLightweightingSuccessorRelative = 'Iris/_docs/refactor/repository_evide
 $EvidenceLightweightingSuccessorPath = Join-Path $RepositoryRoot $EvidenceLightweightingSuccessorRelative
 $FollowupOverlayRelative = 'Iris/_docs/refactor/codebase_optimization_followup/protected_surface_manifest.json'
 $FollowupOverlayPath = Join-Path $RepositoryRoot $FollowupOverlayRelative
+$CheckpointAllocatorSuccessorRelative = 'Iris/validation/clean_checkout/authority/iris_lightweighting_checkpoint_allocator_successor.json'
+$CheckpointAllocatorSuccessorPath = Join-Path $RepositoryRoot $CheckpointAllocatorSuccessorRelative
 if ($Mode -eq 'AttestationProbe') {
     if (
         [string]::IsNullOrWhiteSpace($HistoricalManifestAttestationPath) -or
@@ -402,6 +404,79 @@ elseif ($Mode -eq 'Baseline') {
 }
 $FollowupOverlayUsed = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
 $CodebaseFollowupOverlayRowCount = $FollowupOverlayRows.Count
+$CheckpointAllocatorSuccessorRows = @{}
+$CheckpointAllocatorSuccessorExpectedHeadBlobs = @{}
+if (-not (Test-Path -LiteralPath $CheckpointAllocatorSuccessorPath -PathType Leaf)) {
+    throw 'Iris lightweighting checkpoint allocator successor manifest is missing'
+}
+$CheckpointAllocatorSuccessorBlob = (& git -C $RepositoryRoot rev-parse ('HEAD:' + $CheckpointAllocatorSuccessorRelative)).Trim()
+if ($LASTEXITCODE -ne 0) {
+    throw 'Iris lightweighting checkpoint allocator successor manifest is not tracked by HEAD'
+}
+$CheckpointAllocatorSuccessorWorkingBlob = (& git -C $RepositoryRoot hash-object ('--path=' + $CheckpointAllocatorSuccessorRelative) $CheckpointAllocatorSuccessorPath).Trim()
+if ($LASTEXITCODE -ne 0 -or $CheckpointAllocatorSuccessorWorkingBlob -cne $CheckpointAllocatorSuccessorBlob) {
+    throw 'Iris lightweighting checkpoint allocator successor manifest differs from HEAD'
+}
+$CheckpointAllocatorSuccessor = Get-Content -LiteralPath $CheckpointAllocatorSuccessorPath -Raw | ConvertFrom-Json
+if (
+    [string]$CheckpointAllocatorSuccessor.schema_version -cne 'iris_lightweighting_checkpoint_allocator_successor_v1' -or
+    [string]$CheckpointAllocatorSuccessor.authority -cne 'repository_owner_preapproval' -or
+    [string]$CheckpointAllocatorSuccessor.plan -cne 'docs/iris_checkpoint_allocation_path_budget_remediation_plan.md' -or
+    $CheckpointAllocatorSuccessor.durable_commit_binding -ne $true
+) {
+    throw 'Iris lightweighting checkpoint allocator successor identity mismatch'
+}
+$CheckpointAllocatorBaseCommit = [string]$CheckpointAllocatorSuccessor.predecessor_commit
+$CheckpointAllocatorBaseTree = (& git -C $RepositoryRoot rev-parse ($CheckpointAllocatorBaseCommit + '^{tree}') 2>$null | Out-String).Trim()
+if ($LASTEXITCODE -ne 0 -or $CheckpointAllocatorBaseTree -cne [string]$CheckpointAllocatorSuccessor.predecessor_tree) {
+    throw 'Iris lightweighting checkpoint allocator successor predecessor mismatch'
+}
+& git -C $RepositoryRoot merge-base --is-ancestor $CheckpointAllocatorBaseCommit $SubjectCommit 2>$null
+if ($LASTEXITCODE -ne 0) {
+    throw 'Iris lightweighting checkpoint allocator successor predecessor is not an ancestor'
+}
+$ExpectedCheckpointAllocatorSuccessorPaths = @(
+    'Iris/test/validate_residual_refactor_surfaces.ps1',
+    'Iris/validation/clean_checkout/allocate_repository_runtime_lightweighting_roots.ps1'
+)
+$ActualCheckpointAllocatorSuccessorPaths = @($CheckpointAllocatorSuccessor.rows | ForEach-Object { [string]$_.path } | Sort-Object)
+if ((ConvertTo-Json -Compress $ActualCheckpointAllocatorSuccessorPaths) -cne (ConvertTo-Json -Compress $ExpectedCheckpointAllocatorSuccessorPaths)) {
+    throw 'Iris lightweighting checkpoint allocator successor row set mismatch'
+}
+foreach ($Row in @($CheckpointAllocatorSuccessor.rows)) {
+    $RowPath = [string]$Row.path
+    if (
+        [string]::IsNullOrWhiteSpace($RowPath) -or
+        [System.IO.Path]::IsPathRooted($RowPath) -or
+        $RowPath -match '(^|/)\.\.(/|$)' -or
+        $CheckpointAllocatorSuccessorRows.ContainsKey($RowPath) -or
+        [string]$Row.owner -cne 'repository_owner_preapproval' -or
+        [string]::IsNullOrWhiteSpace([string]$Row.reason)
+    ) {
+        throw "Iris lightweighting checkpoint allocator successor row identity invalid: $RowPath"
+    }
+    $BaseBlob = (& git -C $RepositoryRoot rev-parse ($CheckpointAllocatorBaseCommit + ':' + $RowPath)).Trim()
+    if ($LASTEXITCODE -ne 0 -or $BaseBlob -cne [string]$Row.before_git_blob_id) {
+        throw "Iris lightweighting checkpoint allocator successor before blob mismatch: $RowPath"
+    }
+    if ((Get-GitBlobLfHash $BaseBlob) -cne [string]$Row.before_sha256_lf) {
+        throw "Iris lightweighting checkpoint allocator successor before LF hash mismatch: $RowPath"
+    }
+    $HeadBlob = (& git -C $RepositoryRoot rev-parse ('HEAD:' + $RowPath)).Trim()
+    if ($LASTEXITCODE -ne 0 -or $HeadBlob -cne [string]$Row.after_git_blob_id) {
+        throw "Iris lightweighting checkpoint allocator successor after blob mismatch: $RowPath"
+    }
+    $WorkingBlob = (& git -C $RepositoryRoot hash-object ('--path=' + $RowPath) (Join-Path $RepositoryRoot $RowPath)).Trim()
+    if ($LASTEXITCODE -ne 0 -or $WorkingBlob -cne $HeadBlob) {
+        throw "Iris lightweighting checkpoint allocator successor working blob mismatch: $RowPath"
+    }
+    if ((Get-GitBlobLfHash $HeadBlob) -cne [string]$Row.after_sha256_lf) {
+        throw "Iris lightweighting checkpoint allocator successor after LF hash mismatch: $RowPath"
+    }
+    $CheckpointAllocatorSuccessorRows[$RowPath] = $Row
+    $CheckpointAllocatorSuccessorExpectedHeadBlobs[$RowPath] = $HeadBlob
+}
+$CheckpointAllocatorSuccessorUsed = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
 
 if ($Mode -eq 'Baseline') {
     $PredecessorSupported = Get-Content -LiteralPath $PredecessorSupportedPath -Raw | ConvertFrom-Json
@@ -883,8 +958,8 @@ if (-not $AnchorStateVerified) {
 foreach ($DeltaPath in $LightweightingDeltaPaths) {
     $Delta = $ApprovedDeltas[$DeltaPath]
     $ActualBlob = (& git -C $RepositoryRoot rev-parse ("HEAD:" + $DeltaPath)).Trim()
-    $Overlay = if ($FollowupOverlayRows.ContainsKey($DeltaPath)) { $FollowupOverlayRows[$DeltaPath] } else { $null }
-    $ExpectedBlob = if ($null -ne $Overlay) { [string]$OverlayExpectedHeadBlobs[$DeltaPath] } else { [string]$Delta.expected_git_blob_id }
+    $Overlay = if ($CheckpointAllocatorSuccessorRows.ContainsKey($DeltaPath)) { $CheckpointAllocatorSuccessorRows[$DeltaPath] } elseif ($FollowupOverlayRows.ContainsKey($DeltaPath)) { $FollowupOverlayRows[$DeltaPath] } else { $null }
+    $ExpectedBlob = if ($CheckpointAllocatorSuccessorRows.ContainsKey($DeltaPath)) { [string]$CheckpointAllocatorSuccessorExpectedHeadBlobs[$DeltaPath] } elseif ($null -ne $Overlay) { [string]$OverlayExpectedHeadBlobs[$DeltaPath] } else { [string]$Delta.expected_git_blob_id }
     $ExpectedLf = if ($null -ne $Overlay) { [string]$Overlay.after_sha256_lf } else { [string]$Delta.after_sha256_lf }
     if ($LASTEXITCODE -ne 0 -or $ActualBlob -cne $ExpectedBlob) {
         throw "repository lightweighting final delta Git blob mismatch: $DeltaPath"
@@ -892,14 +967,15 @@ foreach ($DeltaPath in $LightweightingDeltaPaths) {
     if ((Get-ProtectedWorkingDriftDisposition ((Get-LfTextHashOrNull (Join-Path $RepositoryRoot $DeltaPath)) -ceq $ExpectedLf)) -ceq 'blocked') {
         throw "repository lightweighting final delta LF hash mismatch: $DeltaPath"
     }
-    if ($null -ne $Overlay) { [void]$FollowupOverlayUsed.Add($DeltaPath) }
+    if ($CheckpointAllocatorSuccessorRows.ContainsKey($DeltaPath)) { [void]$CheckpointAllocatorSuccessorUsed.Add($DeltaPath) }
+    elseif ($null -ne $Overlay) { [void]$FollowupOverlayUsed.Add($DeltaPath) }
 }
 foreach ($Entry in $AddedProtectedRows.GetEnumerator()) {
     $Added = $Entry.Value
     $AddedPath = [string]$Added.path
     $ActualBlob = (& git -C $RepositoryRoot rev-parse ("HEAD:" + $AddedPath)).Trim()
-    $Overlay = if ($FollowupOverlayRows.ContainsKey($AddedPath)) { $FollowupOverlayRows[$AddedPath] } else { $null }
-    $ExpectedBlob = if ($null -ne $Overlay) { [string]$OverlayExpectedHeadBlobs[$AddedPath] } else { [string]$Added.expected_git_blob_id }
+    $Overlay = if ($CheckpointAllocatorSuccessorRows.ContainsKey($AddedPath)) { $CheckpointAllocatorSuccessorRows[$AddedPath] } elseif ($FollowupOverlayRows.ContainsKey($AddedPath)) { $FollowupOverlayRows[$AddedPath] } else { $null }
+    $ExpectedBlob = if ($CheckpointAllocatorSuccessorRows.ContainsKey($AddedPath)) { [string]$CheckpointAllocatorSuccessorExpectedHeadBlobs[$AddedPath] } elseif ($null -ne $Overlay) { [string]$OverlayExpectedHeadBlobs[$AddedPath] } else { [string]$Added.expected_git_blob_id }
     $ExpectedLf = if ($null -ne $Overlay) { [string]$Overlay.after_sha256_lf } else { [string]$Added.after_sha256_lf }
     if ($LASTEXITCODE -ne 0 -or $ActualBlob -cne $ExpectedBlob) {
         throw "repository lightweighting final added-row Git blob mismatch: $AddedPath"
@@ -907,11 +983,16 @@ foreach ($Entry in $AddedProtectedRows.GetEnumerator()) {
     if ((Get-ProtectedWorkingDriftDisposition ((Get-LfTextHashOrNull (Join-Path $RepositoryRoot $AddedPath)) -ceq $ExpectedLf)) -ceq 'blocked') {
         throw "repository lightweighting final added-row LF hash mismatch: $AddedPath"
     }
-    if ($null -ne $Overlay) { [void]$FollowupOverlayUsed.Add($AddedPath) }
+    if ($CheckpointAllocatorSuccessorRows.ContainsKey($AddedPath)) { [void]$CheckpointAllocatorSuccessorUsed.Add($AddedPath) }
+    elseif ($null -ne $Overlay) { [void]$FollowupOverlayUsed.Add($AddedPath) }
 }
 if ($FollowupOverlayUsed.Count -ne $FollowupOverlayRows.Count) {
     $Unused = @($FollowupOverlayRows.Keys | Where-Object { -not $FollowupOverlayUsed.Contains([string]$_) } | Sort-Object)
     throw ('codebase optimization follow-up protected rows are outside active protection: ' + ($Unused -join ','))
+}
+if ($CheckpointAllocatorSuccessorUsed.Count -ne $CheckpointAllocatorSuccessorRows.Count) {
+    $Unused = @($CheckpointAllocatorSuccessorRows.Keys | Where-Object { -not $CheckpointAllocatorSuccessorUsed.Contains([string]$_) } | Sort-Object)
+    throw ('Iris lightweighting checkpoint allocator successor rows are outside active protection: ' + ($Unused -join ','))
 }
 foreach ($RemovedPath in $RemovedProtectedRows.Keys) {
     $FinalTreeRows = @(& git -C $RepositoryRoot ls-tree HEAD -- ([string]$RemovedPath))
@@ -942,7 +1023,7 @@ foreach ($Row in $ProtectedBaseline.rows) {
     )
     $Changed = $RawChanged -and -not $LineEndingEquivalent -and -not $OptionalProjectionAbsent
     $AfterLf = Get-LfTextHashOrNull $FullPath
-    $OverlayAuthorization = if ($FollowupOverlayRows.ContainsKey($RowPath)) { $FollowupOverlayRows[$RowPath] } else { $null }
+    $OverlayAuthorization = if ($CheckpointAllocatorSuccessorRows.ContainsKey($RowPath)) { $CheckpointAllocatorSuccessorRows[$RowPath] } elseif ($FollowupOverlayRows.ContainsKey($RowPath)) { $FollowupOverlayRows[$RowPath] } else { $null }
     $OverlayAfterMatches = $null -ne $OverlayAuthorization -and $AfterLf -ceq [string]$OverlayAuthorization.after_sha256_lf
     $DurableDeltaAfterMatches = $ApprovedDeltas.ContainsKey($RowPath) -and $AfterLf -ceq [string]$ApprovedDeltas[$RowPath].after_sha256_lf
     $AuthorizationDisposition = Get-ProtectedChangeAuthorizationDisposition $Changed $OverlayAfterMatches $DurableDeltaAfterMatches

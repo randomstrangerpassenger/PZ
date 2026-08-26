@@ -1,0 +1,85 @@
+{
+  "record_kind": "compact_documentary_closeout_not_validation_authority",
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "implementation_subject": {
+    "commit": "2e13049d995d5d3c580ae676cf17d8709c4bfc17",
+    "tree": "78528d2bee1d69002acd8e9ed86b8539ebe58767"
+  },
+  "terminal_machine_validation": {
+    "status": "PASS",
+    "run_a_orchestration_sha256": "ad86180295149fb177e668579fb1ab7e79495ba0b2dc87d9f501d63630b2794f",
+    "run_b_orchestration_sha256": "a41ffdc003ace94d0fb743a17f04b82457de08291ed05e2bd7ee2c94ac8a661f",
+    "compare_receipt_sha256": "0f71c910740684ae4c27754a30b253f79a2e26db0b120b473a58fdf155804d72",
+    "canonical_result_sha256": "685ff54a94d7a91f29249a39528413187adf548f823717aa02844ad6a352b63f"
+  },
+  "w10": {
+    "status": "PASS",
+    "external_locator": "C:/Users/MW/i/physical-capacity-iris-lightweighting-terminal-inv-terminal-w10-2e13049d995d-termin-01a17c871dce/terminal-inventory-result/w10_packet.json",
+    "packet_sha256": "68d134a9a4720baed2732ab89ac68b40fa4c5b4cf470506e810420c224becec7",
+    "subject_manifest_sha256": "13a8104f0e8cfc89915ea22d59f978382434fbbb54d7e122edcf0368a31fd4e9",
+    "clean_tracked_files": 1751,
+    "clean_tracked_git_blob_bytes": 71733963,
+    "clean_physical_files": 1751,
+    "clean_physical_bytes": 72311106,
+    "custody_physical_files": 1751,
+    "custody_physical_bytes": 72121258,
+    "custody_ignored_files": 0,
+    "custody_untracked_files": 0,
+    "custody_filesystem_only_files": 0,
+    "current_layer3_generation_directories": 1,
+    "successor_overhead_bytes": 1590263,
+    "successor_overhead_ceiling_bytes": 3037162
+  },
+  "current_capsule": {
+    "raw_files": 14,
+    "raw_unique_objects": 12,
+    "raw_retained_bytes": 133094,
+    "digest_only_rows": 4,
+    "digest_source_bytes": 18614001,
+    "hard_ceiling_bytes": 2359296
+  },
+  "predecessor_historical_archive": {
+    "sha256": "24e7cd3cb97994d70d923dddfb68bf5135a887738a5dbbd2547a228fa8da972d",
+    "logical_file_count": 5071,
+    "logical_source_bytes": 809672207,
+    "unique_object_count": 3985,
+    "unique_object_bytes": 639487097,
+    "compressed_bytes": 39550318
+  },
+  "local_custody_correction": {
+    "status": "PASS",
+    "external_root": "C:/Users/MW/i/physical-capacity-iris-lightweighting-terminal-inv-terminal-w10-2e13049d995d-termin-01a17c871dce",
+    "disposition_sha256": "8052b7840cc407fe2b4c32aa0999f1059a26e6fdcdcb9f64d2a0b937f13e0a3a",
+    "cleanup_receipt_sha256": "efa310e3ca251b947b0bbcfacae4e2550d539904d85eaeb5fc1ec7c08119575f",
+    "removed_file_count": 297,
+    "removed_bytes": 4276515,
+    "archived_historical_files": 295,
+    "regenerable_log_files": 2,
+    "retained_exception_files": 0,
+    "unresolved_files": 0,
+    "additive_archive_sha256": "fbd85f142064b72d25437fcf627ee16c1fa40497a5e94196c97b99d9a0f3b749",
+    "additive_archive_logical_files": 295,
+    "additive_archive_source_bytes": 4273310,
+    "additive_archive_compressed_bytes": 1065869,
+    "additive_archive_create_receipt_sha256": "c4f2e24cf05a851786809999652e8ac9882632e8d3e25c609a3cb439ec43bb7d",
+    "additive_archive_verify_receipt_sha256": "c9d2577ab22d6a18ee54fb04943e76d0dce02662aa10859975d0c9693d250ec0",
+    "additive_archive_restore_receipt_sha256": "352c93d5855d63863b6a29b83e380cd1f1052044f5fa5f24ad628f7d17999077"
+  },
+  "terminal_counts": {
+    "unsupported_keep": 0,
+    "remaining_eligible_removal": 0,
+    "unimplemented_removal": 0,
+    "unresolved_blocker": 0,
+    "retained_exceptions": 0
+  },
+  "independent_review": {
+    "range_start_exclusive": "c2b9514fcc1babfc6ecb5201ddc760c87686d663",
+    "status": "PENDING",
+    "actionable_findings": null
+  },
+  "non_claims": [
+    "No runtime performance or actual token reduction rate is claimed.",
+    "No release, publish, Workshop, or deployment readiness is claimed.",
+    "External one-off inventory and cleanup scripts are not regular validation authority."
+  ]
+}

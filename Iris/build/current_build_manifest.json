@@ -1,8 +1,8 @@
 {
   "schema_version": "iris-current-build-manifest-v1",
   "status": "w10_terminal_implementation_subject",
-  "subject_commit": "22e94077dd057a943ba2e6ff03f25f5880b3126c",
-  "subject_commit_role": "W0 adopted baseline; terminal implementation identity is recorded by the responsibility-refactor closeout",
+  "subject_commit": "9aa81249be7657a1e09a48d162fe96315cfd9748",
+  "subject_commit_role": "adopted Iris lightweighting W0 baseline; terminal implementation identity is recorded by the lightweighting closeout",
   "forbidden_current_bindings": [
     "Iris/build/main.py broken legacy classification entrypoint",
     "Iris/media/lua/client/Iris/Compat/IrisBulletReloadCompat.lua",
@@ -10,9 +10,24 @@
     "tools.build imports in current Description v2 consumers",
     "Iris/build/rightclick_evidence_pipeline.py as a current command",
     "right-click --v22/--v23/--v24 mode flags",
-    "IrisLayer3DataChunks fixed directory in a deployable package"
+    "IrisLayer3DataChunks fixed directory in a deployable package",
+    "Iris/build/tools/pipeline/context_outcomes_main.py as a current producer",
+    "Iris/build/tools/pipeline/build_recipe_classification_matches.py as a current producer",
+    "repository-local Iris/output as a mutable producer workspace"
   ],
   "entrypoints": [
+    {
+      "id": "classification_indexes",
+      "owner": "Iris classification index producer and installer",
+      "domain": "classification",
+      "module": "python -m iris_tooling --repository-root <repo> classification <build|install>",
+      "inputs": ["repository source inputs", "repository-external legacy evidence inputs"],
+      "outputs": ["repository-external classification candidate", "three allowlisted runtime Lua indexes after hash-bound install"],
+      "consumers": ["current runtime data", "package validation"],
+      "validation_contracts": ["external candidate manifest SHA-256", "exact filename and target allowlist"],
+      "runtime_shipping": true,
+      "historical_replacement": "Iris/tooling/src/iris_tooling/domains/classification/cli.py"
+    },
     {
       "id": "rightclick_v24",
       "owner": "Iris right-click evidence producer",

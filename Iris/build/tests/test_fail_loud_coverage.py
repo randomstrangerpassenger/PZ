@@ -16,7 +16,6 @@ from tools.common.io import load_json, repository_external_output_root
 
 OUTPUT_DIR = repository_external_output_root(
     environment_variable="IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
-    default_root=IRIS_DIR / "output",
     repository_root=IRIS_DIR.parent,
 )
 

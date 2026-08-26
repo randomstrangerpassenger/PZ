@@ -2,14 +2,12 @@ from __future__ import annotations
 
 import argparse
 import json
+from collections.abc import Sequence
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
 from .repository_context import require_external_workspace, require_repository_context
-
-
-IRIS_ROOT = require_repository_context().iris_root
 
 
 def legacy_output_root() -> Path:
@@ -119,7 +117,7 @@ def render_lua(data: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def parse_args() -> argparse.Namespace:
+def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build IrisRecipeIndexData.lua")
     parser.add_argument(
         "--recipe-index",
@@ -134,13 +132,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--output",
         type=Path,
-        default=IRIS_ROOT / "media" / "lua" / "client" / "Iris" / "Data" / "IrisRecipeIndexData.lua",
+        required=True,
     )
-    return parser.parse_args()
+    return parser.parse_args(argv)
 
 
-def main() -> int:
-    args = parse_args()
+def main(argv: Sequence[str] | None = None) -> int:
+    args = parse_args(argv)
     data = build_index(load_json(args.recipe_index), load_json(args.dynamic_catalog))
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(render_lua(data), encoding="utf-8", newline="\n")

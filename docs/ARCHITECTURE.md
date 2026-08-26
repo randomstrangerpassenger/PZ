@@ -694,3 +694,5 @@ historical logical rows
 - Current raw evidence availability를 유지할 row만 bounded capsule에 raw bytes로 남기고, 나머지는 versioned digest/summary attestation으로 전환한다.
 - Generated output은 runtime authority가 아니며 explicit external candidate와 fail-closed install boundary를 거친다.
 - W0 item inventories, residue selections와 ad hoc probes는 repository-external 실행 증거이며 regular validation authority가 아니다.
+- Current/historical archive identity와 restore contract의 durable readpoint는 `Iris/validation/clean_checkout/authority/iris_historical_archive_v1.json`이다.
+- Physical removal domain과 recovery link는 `Iris/validation/clean_checkout/authority/iris_historical_removal_v1.json`에 두고 tracked removal과 local-custody removal을 합산하지 않는다.

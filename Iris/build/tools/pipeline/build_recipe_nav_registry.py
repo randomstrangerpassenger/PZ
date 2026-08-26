@@ -20,10 +20,14 @@ if str(BUILD_DIR) not in sys.path:
     sys.path.insert(0, str(BUILD_DIR))
 
 IRIS_DIR = BUILD_DIR.parent
-OUTPUT_DIR = IRIS_DIR / "output"
 
-from tools.common.io import load_json, write_json
+from tools.common.io import load_json, repository_external_output_root, write_json
 from tools.common.versions import BUILD_VERSION
+
+OUTPUT_DIR = repository_external_output_root(
+    environment_variable="IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
+    repository_root=IRIS_DIR.parent,
+)
 
 RECIPE_DECISIONS_PATH = OUTPUT_DIR / f"recipe_evidence_decisions.{BUILD_VERSION}.json"
 USECASES_PATH = OUTPUT_DIR / f"usecases_by_fulltype.{BUILD_VERSION}.json"

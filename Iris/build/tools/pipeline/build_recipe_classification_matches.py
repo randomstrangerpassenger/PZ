@@ -22,10 +22,14 @@ for import_path in (BUILD_DIR, SCRIPT_DIR):
 
 IRIS_DIR = BUILD_DIR.parent
 INPUT_DIR = IRIS_DIR / "input"
-OUTPUT_DIR = IRIS_DIR / "output"
 
-from tools.common.io import load_json, write_json
+from tools.common.io import load_json, repository_external_output_root, write_json
 from tools.common.versions import BUILD_VERSION
+
+OUTPUT_DIR = repository_external_output_root(
+    environment_variable="IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
+    repository_root=IRIS_DIR.parent,
+)
 
 OUTPUT_PATH = OUTPUT_DIR / f"recipe_classification_matches.{BUILD_VERSION}.json"
 

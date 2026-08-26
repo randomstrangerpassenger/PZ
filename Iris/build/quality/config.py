@@ -26,7 +26,6 @@ from tools.common.io import repository_external_output_root
 IRIS_DIR = BUILD_DIR.parent
 OUTPUT_DIR = repository_external_output_root(
     environment_variable="IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
-    default_root=IRIS_DIR / "output",
     repository_root=IRIS_DIR.parent,
 )
 DATA_DIR = BUILD_DIR / "data" / BUILD_VERSION

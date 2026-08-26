@@ -2,13 +2,14 @@ from __future__ import annotations
 
 import argparse
 import re
+from collections.abc import Sequence
 from collections import defaultdict
 from pathlib import Path
 
 from .repository_context import require_repository_context
 
 
-IRIS_ROOT = require_repository_context().iris_root
+REPO_ROOT = require_repository_context().repository_root
 
 ALLOWED_MOVEABLES_TAGS = {
     "Crowbar",
@@ -162,7 +163,7 @@ def render_lua(data: dict[str, object]) -> str:
     return "\n".join(lines)
 
 
-def parse_args() -> argparse.Namespace:
+def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build IrisMoveablesIndexData.lua")
     parser.add_argument("--script-root", type=Path, default=REPO_ROOT / "scripts")
     parser.add_argument(
@@ -173,13 +174,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--output",
         type=Path,
-        default=IRIS_ROOT / "media" / "lua" / "client" / "Iris" / "Data" / "IrisMoveablesIndexData.lua",
+        required=True,
     )
-    return parser.parse_args()
+    return parser.parse_args(argv)
 
 
-def main() -> int:
-    args = parse_args()
+def main(argv: Sequence[str] | None = None) -> int:
+    args = parse_args(argv)
     data = build_index(args.script_root, args.moveables_lua)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(render_lua(data), encoding="utf-8", newline="\n")

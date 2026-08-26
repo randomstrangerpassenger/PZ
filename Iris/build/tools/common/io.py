@@ -10,10 +10,9 @@ from typing import Any
 def repository_external_output_root(
     *,
     environment_variable: str,
-    default_root: Path,
     repository_root: Path,
 ) -> Path:
-    """Resolve an optional output override without weakening the repo boundary."""
+    """Resolve a required repository-external output root."""
     raw_value = os.environ.get(environment_variable)
     if not raw_value:
         raise ValueError(

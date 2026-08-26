@@ -2,12 +2,13 @@ from __future__ import annotations
 
 import argparse
 import re
+from collections.abc import Sequence
 from pathlib import Path
 
 from .repository_context import require_repository_context
 
 
-IRIS_ROOT = require_repository_context().iris_root
+REPO_ROOT = require_repository_context().repository_root
 
 
 def lua_quote(value: str) -> str:
@@ -63,7 +64,7 @@ def render_lua(fixers: set[str]) -> str:
     return "\n".join(lines)
 
 
-def parse_args() -> argparse.Namespace:
+def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build IrisFixingIndexData.lua")
     parser.add_argument(
         "--input",
@@ -76,13 +77,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--output",
         type=Path,
-        default=IRIS_ROOT / "media" / "lua" / "client" / "Iris" / "Data" / "IrisFixingIndexData.lua",
+        required=True,
     )
-    return parser.parse_args()
+    return parser.parse_args(argv)
 
 
-def main() -> int:
-    args = parse_args()
+def main(argv: Sequence[str] | None = None) -> int:
+    args = parse_args(argv)
     inputs = args.inputs or [
         REPO_ROOT / "scripts" / "fixing.txt",
         REPO_ROOT / "scripts" / "vehicles" / "vehiclesfixing.txt",

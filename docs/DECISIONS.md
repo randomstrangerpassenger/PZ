@@ -1378,9 +1378,9 @@
 
 ### Iris — artifact role / repository placement / predecessor reentry boundary
 
-- 날짜: predecessor artifact-governance lifecycle → 2026-08-10 repository placement adoption → 2026-08-20 Stateful IAR retirement → 2026-08-24 retirement-domain completion → 2026-08-25 repository refinement
+- 날짜: predecessor artifact-governance lifecycle → 2026-08-10 repository placement adoption → 2026-08-20 Stateful IAR retirement → 2026-08-24 retirement-domain completion → 2026-08-25 repository refinement → 2026-08-26 current/historical physical separation
 
-- 상태: current readpoint / authority-role and physical-representation separation retained / predecessor source hold retained
+- 상태: current readpoint / authority-role and physical-representation separation retained / selected historical source hold replaced by verified external archive
 
 - 결정: artifact의 authority / lifecycle role과 VCS / physical representation을 분리하고 Repository는 actual consumer와 reconstruction requirement를 기준으로 durability와 placement를 결정한다. Package placement는 stateless generation / package projection contract를 따르며, package 경량화를 repository-wide lightweighting이나 source predecessor retirement로 확대하지 않는다.
 
@@ -1403,13 +1403,16 @@
   - package에서 predecessor payload를 제외했다는 사실은 source deletion authority가 아니다.
   - package projection byte 감소와 repository 전체 tracked-byte 변화는 별도 metric domain이다.
   - repository-wide lightweighting은 net repository evidence가 실제 감소를 보일 때만 주장한다.
+  - current clean-checkout closure는 current source/runtime/tooling/contracts와 bounded `current_required_v1` capsule만 보유하고 historical staging, predecessor attempts, inactive Layer 3 payload는 verified external content-addressed archive가 소유한다.
+  - current gate와 package route는 external archive를 읽거나 자동 restore하지 않으며 historical reproduction만 explicit verify/restore command를 사용한다.
+  - selected historical payload의 physical deletion은 archive create/verify/restore와 synthetic pre-delete gate가 먼저 PASS한 경우에만 허용한다.
 
 - 최소 결과 trace:
 
   - authority role / VCS separation: `adopted`
   - tracked / dirty-main / external domain separation: `required`
-  - predecessor source hold: `preserved`
-  - repository-wide byte lightweighting claim: `not established`
+  - selected predecessor source hold: `externalized_after_verified_archive`
+  - repository-wide byte lightweighting claim: `established for the adopted Iris scope`
 
 - Predecessor trace:
 
@@ -1419,12 +1422,15 @@
   - 2026-08-25 responsibility / repository refactor는 inactive generations와 legacy fixed chunks를 current package projection에서 제외했지만 source predecessor hold는 유지했다.
   - 같은 lifecycle에서 tracked repository 전체 blob은 순증가했으므로 repository-wide byte lightweighting이나 무차별 full-scan context 절감을 성과로 채택하지 않았다.
   - package-byte reduction, tracked-Lua byte / line delta와 repository-wide exact byte measurement은 상세 evidence trace로 격하한다.
+  - 2026-08-26 physical separation은 verified external archive/restore를 먼저 고정한 뒤 tracked historical payload 3,804 files / 607,432,467 bytes와 별도 local-custody archived payload 1,266 files / 202,231,050 bytes를 제거했다. 두 domain은 중복 합산하지 않는다.
+  - terminal current capsule은 133,094 bytes로 2,359,296-byte ceiling 이내이며 repository-local successor overhead는 1,554,613 bytes로 3,037,162-byte ceiling 이내다.
 
 - 오독 금지:
 
   - package payload 감소를 전체 repository, ZIP 또는 source footprint 감소율로 읽지 않는다.
   - package projection에서 제외됐다는 사실을 predecessor source 삭제 승인으로 확대하지 않는다.
   - repository-wide lightweighting이 성립하지 않은 상태에서 package byte 감소를 LLM / Codex context 절감으로 환산하지 않는다.
+  - repository byte 감소를 실제 tokenizer 사용량, clone time, runtime timing, heap, FPS / frame-time 개선률로 환산하지 않는다.
   - physical-byte / LOC 감소를 PZ timing, heap, FPS / frame-time 또는 실제 GPT / Codex token 개선률로 자동 환산하지 않는다.
   - Git main integration이나 package generation을 Publish / release / Workshop / deployment readiness로 읽지 않는다.
   - COMMON-RUNTIME-SURFACE-NONMUTATION.
@@ -1436,6 +1442,9 @@
   - Stateful IAR retirement alignment: 2026-08-20
   - retirement physical-domain completion: 2026-08-24
   - responsibility / repository refinement: 2026-08-25
+  - current/historical physical separation: 2026-08-26
+  - archive authority: `Iris/validation/clean_checkout/authority/iris_historical_archive_v1.json`
+  - removal authority: `Iris/validation/clean_checkout/authority/iris_historical_removal_v1.json`
   - COMMON-EVIDENCE-TRACE.
 
 ### Iris — DVF / artifact identity / RTC / Publish claim separation

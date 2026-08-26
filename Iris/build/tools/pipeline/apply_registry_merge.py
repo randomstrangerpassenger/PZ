@@ -28,9 +28,14 @@ IRIS_DIR = BUILD_DIR.parent
 DATA_DIR = BUILD_DIR / "data" / BUILD_VERSION
 ACCEPT_PATH = DATA_DIR / f"registry_merge_accept.{BUILD_VERSION}.json"
 REGISTRY_PATH = DATA_DIR / f"use_case_registry.{BUILD_VERSION}.json"
-USECASES_PATH = IRIS_DIR / "output" / f"usecases_by_fulltype.{BUILD_VERSION}.json"
 
-from tools.common.io import load_json, write_json
+from tools.common.io import load_json, repository_external_output_root, write_json
+
+OUTPUT_DIR = repository_external_output_root(
+    environment_variable="IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
+    repository_root=IRIS_DIR.parent,
+)
+USECASES_PATH = OUTPUT_DIR / f"usecases_by_fulltype.{BUILD_VERSION}.json"
 
 
 def main():

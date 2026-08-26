@@ -1,6 +1,6 @@
 # Iris Build Active Manifest
 
-Status: Phase 1 active manifest.
+Status: Current lightweighting active manifest.
 
 Historical source roadmap label:
 `docs/Iris/iris-refactoring-final-roadmap-v1.md`.
@@ -16,8 +16,10 @@ live build scripts.
 
 ## Supported root commands
 
-- Classification indexes are produced by the installed `iris_tooling classification`
-  command. The broken legacy `main.py` orchestration is not a supported entrypoint.
+- Classification indexes are built into a repository-external candidate by the
+  installed `iris_tooling classification build` command and enter runtime only
+  through `iris_tooling classification install` with the exact candidate-manifest
+  SHA-256. The broken legacy `main.py` orchestration is not a supported entrypoint.
 - `recipe_evidence_pipeline.py`: recipe evidence pipeline.
 - Installed current right-click command: `python -m iris_tooling --repository-root <repo> rightclick`.
   `rightclick_evidence_pipeline.py` is a retained non-current predecessor and is
@@ -45,14 +47,25 @@ Pipeline keep-list:
 - `build_action_requirement_index.py`
 - `build_legacy_candidates.py`
 - `build_legacy_inventory.py`
-- `build_recipe_classification_matches.py`
 - `build_recipe_nav_registry.py`
 - `build_recipe_requirements_index.py`
 - `build_usecases_by_fulltype.py`
 - `classify_action_evidence.py`
-- `context_outcomes_main.py`
 - `parse_recipe_require_fields.py`
 - `registry_utils.py`
+
+Every active pipeline helper that reads or writes generated artifacts requires
+the absolute repository-external `IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT`.
+`Iris/output` is not a supported default or fallback.
+
+Retained non-current predecessors:
+
+- `build_recipe_classification_matches.py` depends on retired phase packages;
+  installed `iris_tooling classification` owns current classification indexes.
+- `context_outcomes_main.py` is a fail-loud retirement stub. Its former phase
+  packages are not recovered, and it cannot write current runtime Lua.
+- `build_iris_translation_data.py` is not a current entrypoint because it writes
+  a runtime target directly; current runtime changes are Git-authored.
 
 Root-level tests were moved to:
 
@@ -60,7 +73,6 @@ Root-level tests were moved to:
 
 Active root test files:
 
-- `regression_test_outcomes.py`
 - `test_description_generator.py`
 - `test_determinism_rc.py`
 - `test_fail_loud_coverage.py`
@@ -127,9 +139,8 @@ Completed root artifact moves:
   `Iris/input/rightclick_source_index.v2.4.json`.
 - `iris-*-evidence-table.md` and `iris-tool-security-evidence-addendum.md` now
   live under `Iris/evidence/tables/`.
-- Legacy root snapshots for `context_outcomes.json`, `diagnostics.json`,
-  `extraction_stats.json`, and `scope_outside_fulltypes.json` now live under
-  `Iris/output/legacy_root/`.
+- Legacy root snapshots formerly under `Iris/output/legacy_root/` are historical
+  archive material and are not current producer inputs.
 - Legacy `source_scan_targets.json` now lives under
   `Iris/input/legacy_root/`.
 - `subcategory_analysis.md` now lives under `Iris/evidence/analysis/`.
@@ -182,7 +193,8 @@ must receive an explicit repository root; package code does not infer one from
 its installation path or current working directory.
 
 - Probe: `uv run --project .\Iris\tooling --locked --no-editable python -B -m iris_tooling --help`
-- Classification indexes: `uv run --project .\Iris\tooling --locked --no-editable python -B -m iris_tooling --repository-root . classification`
+- Classification candidate: `uv run --project .\Iris\tooling --locked --no-editable python -B -m iris_tooling --repository-root . classification build --output-root <external-empty-root>`
+- Classification install: `uv run --project .\Iris\tooling --locked --no-editable python -B -m iris_tooling --repository-root . classification install --candidate-root <external-candidate-root> --manifest-sha256 <sha256>`
 - Right-click v2.4: `uv run --project .\Iris\tooling --locked --no-editable python -B -m iris_tooling --repository-root . rightclick <arguments>`
 - Layer 3 compose: `uv run --project .\Iris\tooling --locked --no-editable python -B -m iris_tooling --repository-root . layer3 <arguments>`
 - Layer 4 export: `uv run --project .\Iris\tooling --locked --no-editable python -B -m iris_tooling --repository-root . layer4 <arguments>`

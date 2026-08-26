@@ -27,10 +27,14 @@ if str(BUILD_DIR) not in sys.path:
 
 IRIS_DIR = BUILD_DIR.parent
 SCRIPTS_DIR = IRIS_DIR.parent / "scripts"
-OUTPUT_DIR = IRIS_DIR / "output"
 
-from tools.common.io import write_json
+from tools.common.io import repository_external_output_root, write_json
 from tools.common.versions import REQUIRE_FIELDS_VERSION, versioned_name
+
+OUTPUT_DIR = repository_external_output_root(
+    environment_variable="IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
+    repository_root=IRIS_DIR.parent,
+)
 
 BUILD_VERSION = REQUIRE_FIELDS_VERSION
 

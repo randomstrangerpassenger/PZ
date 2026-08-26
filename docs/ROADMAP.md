@@ -959,11 +959,11 @@ Pulse는 처음부터 `새 Java 로더`로 정면 경쟁하는 브랜드가 아�
 - [x] terminal-v15 external environment admission과 baseline Checkpoint A Run A/Run B/comparator
 - [x] W0 dual-subject census, broader staging closure, main.py C disposition, residue subject binding
 - [x] deterministic Change 1B adoption authority
-- [ ] tracked residue와 custody-only residue를 subject별로 제거
-- [ ] current runtime/output/tooling/evidence bindings를 successor owner로 전환
-- [ ] deterministic external historical archive implementation과 restore evidence
-- [ ] ordinary canonical gate를 사용하는 synthetic pre-delete Checkpoint C
-- [ ] exact historical payload removal과 ignore/search/attribute 단순화
+- [x] tracked residue와 custody-only residue를 subject별로 제거
+- [x] current runtime/output/tooling/evidence bindings를 successor owner로 전환
+- [x] deterministic external historical archive implementation과 restore evidence
+- [x] ordinary canonical gate를 사용하는 synthetic pre-delete Checkpoint C
+- [x] exact historical payload removal과 ignore/search/attribute 단순화
 - [ ] terminal Checkpoint D, W10 census, independent review
 
-Hold: current binding 전환과 verified archive/restore evidence보다 historical physical deletion을 앞세우지 않는다. Package source가 바뀌면 기존 environment receipt를 재사용하지 않고 다음 canonical checkpoint 전에 immutable external environment authority를 reseal한다.
+Closeout: current clean-checkout route와 package는 external archive 없이 동작하며, historical reproduction은 verified content-addressed archive의 explicit restore route로만 수행한다. Tracked historical payload 3,804 files / 607,432,467 bytes와 custody-only archived payload 1,266 files / 202,231,050 bytes는 서로 겹치지 않는 domain으로 제거됐다. Runtime/token 성능 개선률과 release readiness는 이 작업의 claim이 아니다.

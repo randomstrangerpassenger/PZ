@@ -24,7 +24,7 @@ from iris_tooling.build.compose_layer3_item import compose_item_candidate
 from iris_tooling.build.layer3_current_authority_reconstruction import load_runtime_chunks
 
 
-def current_rendered_path() -> Path:
+def current_generation_root() -> Path:
     runtime_data = (
         V2_ROOT.parents[2] / "media" / "lua" / "client" / "Iris" / "Data"
     )
@@ -38,8 +38,15 @@ def current_rendered_path() -> Path:
         runtime_data
         / "IrisLayer3Generations"
         / match.group(0)
-        / "dvf_3_3_rendered.json"
     )
+
+
+def current_rendered_path() -> Path:
+    return current_generation_root() / "dvf_3_3_rendered.json"
+
+
+def load_current_runtime_chunks() -> dict[str, dict[str, str]]:
+    return load_runtime_chunks(current_generation_root() / "Chunks")
 
 
 def candidate_proposition(

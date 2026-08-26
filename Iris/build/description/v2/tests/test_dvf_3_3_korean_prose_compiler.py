@@ -301,7 +301,7 @@ class KoreanProseCompilerTest(unittest.TestCase):
         rendered = json.loads(current_rendered_path().read_text(encoding="utf-8"))[
             "entries"
         ]
-        runtime = load_runtime_chunks()
+        runtime = load_current_runtime_chunks()
         self.assertEqual(set(runtime), set(rendered))
 
         for item_id, rendered_entry in rendered.items():

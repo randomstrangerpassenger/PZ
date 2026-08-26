@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 from pathlib import Path
 
@@ -11,6 +12,8 @@ from iris_tooling.build.repository_context import configure_repository
 
 configure_repository(REPOSITORY_ROOT)
 from iris_tooling.build import build_layer3_english_localization as layer3_english
+
+CURRENT_OUTPUT_SEED = Path(os.environ["IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"])
 
 
 def test_standalone_projection_and_state_harness() -> None:
@@ -51,7 +54,7 @@ def test_collector_terminal_is_qg_only_and_single_scroll() -> None:
 
 def test_qg_only_public_rows_and_installed_recipe_ids() -> None:
     descriptions = json.loads(
-        (REPOSITORY_ROOT / "Iris/output/descriptions_by_fulltype.v2.4.json").read_text(encoding="utf-8")
+        (CURRENT_OUTPUT_SEED / "descriptions_by_fulltype.v2.4.json").read_text(encoding="utf-8")
     )["fulltypes"]
     expected = {
         ("Base.BallPeenHammer", "uc.action.construction"),
@@ -78,7 +81,7 @@ def test_qg_only_public_rows_and_installed_recipe_ids() -> None:
 
 def test_full_qg_positive_identity_set_is_projection_compatible() -> None:
     fulltypes = json.loads(
-        (REPOSITORY_ROOT / "Iris/output/descriptions_by_fulltype.v2.4.json").read_text(encoding="utf-8")
+        (CURRENT_OUTPUT_SEED / "descriptions_by_fulltype.v2.4.json").read_text(encoding="utf-8")
     )["fulltypes"]
     observed = 0
     for fulltype, payload in fulltypes.items():
@@ -96,7 +99,7 @@ def test_full_qg_positive_identity_set_is_projection_compatible() -> None:
 
 def test_named_density_anchors_match_current_qg_source() -> None:
     fulltypes = json.loads(
-        (REPOSITORY_ROOT / "Iris/output/descriptions_by_fulltype.v2.4.json").read_text(encoding="utf-8")
+        (CURRENT_OUTPUT_SEED / "descriptions_by_fulltype.v2.4.json").read_text(encoding="utf-8")
     )["fulltypes"]
 
     def positive_rows(fulltype: str) -> list[dict[str, object]]:

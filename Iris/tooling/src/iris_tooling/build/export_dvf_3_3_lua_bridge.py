@@ -11,18 +11,21 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from .repository_context import require_repository_context
+from .repository_context import (
+    current_layer3_generation_root,
+    require_external_workspace,
+    require_repository_context,
+)
 
 
 ROOT = require_repository_context().description_v2_root
 IRIS_MOD_ROOT = require_repository_context().iris_root
-OUTPUT_DIR = ROOT / "output"
-STAGING_DIR = ROOT / "staging" / "interaction_cluster" / "phase_d_runtime"
-DEFAULT_OUTPUT_ROOT = ROOT / "staging" / "lua_bridge_export" / "default"
-RENDERED_PATH = OUTPUT_DIR / "dvf_3_3_rendered.json"
-PUBLISH_PREVIEW_PATH = (
-    ROOT / "staging" / "semantic_quality" / "phaseE_contract_migration" / "quality_publish_decision_preview.jsonl"
+DEFAULT_OUTPUT_ROOT = (
+    require_external_workspace("IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT")
+    / "lua_bridge_export"
+    / "default"
 )
+RENDERED_PATH = current_layer3_generation_root() / "dvf_3_3_rendered.json"
 LUA_DATA_DIR = IRIS_MOD_ROOT / "media" / "lua" / "client" / "Iris" / "Data"
 BRIDGE_DATA_PATH = LUA_DATA_DIR / "IrisLayer3Data.lua"
 BRIDGE_CHUNK_DIR = LUA_DATA_DIR / "IrisLayer3DataChunks"
@@ -1373,12 +1376,9 @@ def main() -> int:
         )
         return 0
 
-    publish_preview_path = args.publish_preview_path
-    if not adoption_selected and publish_preview_path is None and PUBLISH_PREVIEW_PATH.exists():
-        publish_preview_path = PUBLISH_PREVIEW_PATH
     report = export_lua_bridge(
         rendered_path=args.rendered_path,
-        publish_preview_path=publish_preview_path,
+        publish_preview_path=args.publish_preview_path,
         lua_output_path=args.lua_output_path,
         report_path=args.report_path,
         chunk_output_dir=args.chunk_output_dir,

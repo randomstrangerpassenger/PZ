@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import copy
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -44,7 +45,15 @@ def _load_converter(repository_root: Path):
 
 
 def source_paths(repository_root: Path) -> dict[str, Path]:
-    output = repository_root / "Iris/output"
+    raw_output = os.environ.get("IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT")
+    if not raw_output:
+        raise Layer4GenerationError(
+            "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT is required; repository output fallback is unsupported"
+        )
+    output = Path(raw_output).resolve()
+    resolved_repository = repository_root.resolve()
+    if output == resolved_repository or resolved_repository in output.parents:
+        raise Layer4GenerationError("Layer 4 source projection must be repository-external")
     return {
         "descriptions": output / "descriptions_by_fulltype.v2.4.json",
         "navigation": output / "recipe_nav_registry.v2.4.json",

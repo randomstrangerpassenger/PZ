@@ -16,7 +16,9 @@ def repository_external_output_root(
     """Resolve an optional output override without weakening the repo boundary."""
     raw_value = os.environ.get(environment_variable)
     if not raw_value:
-        return default_root
+        raise ValueError(
+            f"{environment_variable} is required; repository-local output fallback is unsupported"
+        )
     candidate = Path(raw_value)
     if not candidate.is_absolute():
         raise ValueError(

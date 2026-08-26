@@ -23,10 +23,14 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 IRIS_DIR = SCRIPT_DIR.parent
-OUTPUT_DIR = IRIS_DIR / "output"
-
-from tools.common.io import load_json, write_json
+from tools.common.io import load_json, repository_external_output_root, write_json
 from tools.common.versions import BUILD_VERSION
+
+OUTPUT_DIR = repository_external_output_root(
+    environment_variable="IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
+    default_root=IRIS_DIR / "output",
+    repository_root=IRIS_DIR.parent,
+)
 
 USECASES_PATH = OUTPUT_DIR / f"usecases_by_fulltype.{BUILD_VERSION}.json"
 OVERLAY_PATH = OUTPUT_DIR / f"uniqueness_overlay.{BUILD_VERSION}.json"

@@ -6,10 +6,11 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from .repository_context import require_repository_context
+from .repository_context import require_external_workspace, require_repository_context
 
 
 IRIS_ROOT = require_repository_context().iris_root
+LEGACY_OUTPUT_ROOT = require_external_workspace("IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT")
 
 
 def lua_quote(value: str) -> str:
@@ -120,12 +121,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--recipe-index",
         type=Path,
-        default=IRIS_ROOT / "output" / "recipe_index.v2.4.json",
+        default=LEGACY_OUTPUT_ROOT / "recipe_index.v2.4.json",
     )
     parser.add_argument(
         "--dynamic-catalog",
         type=Path,
-        default=IRIS_ROOT / "output" / "dynamic_expr_catalog.v2.4.json",
+        default=LEGACY_OUTPUT_ROOT / "dynamic_expr_catalog.v2.4.json",
     )
     parser.add_argument(
         "--output",

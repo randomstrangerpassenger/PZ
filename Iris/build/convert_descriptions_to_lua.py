@@ -25,13 +25,19 @@ if str(SCRIPT_DIR) not in sys.path:
 IRIS_DIR = SCRIPT_DIR.parent
 OUTPUT_DIR = IRIS_DIR / "output"
 
-from tools.common.io import load_json
+from tools.common.io import load_json, repository_external_output_root
 from tools.common.versions import BUILD_VERSION
 
-DESCRIPTIONS_PATH = OUTPUT_DIR / f"descriptions_by_fulltype.{BUILD_VERSION}.json"
+OUTPUT_DIR = repository_external_output_root(
+    environment_variable="IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
+    default_root=OUTPUT_DIR,
+    repository_root=IRIS_DIR.parent,
+)
+BASELINE_DIR = IRIS_DIR / "build" / "baseline" / "current_output_seed_v1"
+DESCRIPTIONS_PATH = BASELINE_DIR / f"descriptions_by_fulltype.{BUILD_VERSION}.json"
 USECASES_PATH = OUTPUT_DIR / f"usecases_by_fulltype.{BUILD_VERSION}.json"
-NAV_REGISTRY_PATH = OUTPUT_DIR / f"recipe_nav_registry.{BUILD_VERSION}.json"
-RECIPE_REQ_INDEX_PATH = OUTPUT_DIR / f"recipe_requirements_index.{BUILD_VERSION}.json"
+NAV_REGISTRY_PATH = BASELINE_DIR / f"recipe_nav_registry.{BUILD_VERSION}.json"
+RECIPE_REQ_INDEX_PATH = BASELINE_DIR / f"recipe_requirements_index.{BUILD_VERSION}.json"
 LUA_OUTPUT_PATH = (
     IRIS_DIR / "media" / "lua" / "client" / "Iris" / "Data"
     / "IrisUseCaseDescriptions.lua"

@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import os
 from pathlib import Path
+import re
 
 
 class RepositoryContextError(RuntimeError):
@@ -61,3 +62,39 @@ def require_repository_context() -> RepositoryContext:
             "IRIS_REPOSITORY_ROOT, or call configure_repository()"
         )
     return _current_context
+
+
+def require_external_workspace(environment_variable: str) -> Path:
+    """Resolve a required repository-external mutable workspace."""
+    raw_value = os.environ.get(environment_variable)
+    if not raw_value:
+        raise RepositoryContextError(
+            f"{environment_variable} is required; repository-local workspace fallback is unsupported"
+        )
+    workspace = Path(raw_value).resolve()
+    repository_root = require_repository_context().repository_root.resolve()
+    if workspace == repository_root or repository_root in workspace.parents:
+        raise RepositoryContextError(
+            f"{environment_variable} must resolve outside the repository: {workspace}"
+        )
+    return workspace
+
+
+def current_layer3_generation_root() -> Path:
+    """Resolve the one generation selected by the stable runtime pointer."""
+    data_root = (
+        require_repository_context().iris_root
+        / "media"
+        / "lua"
+        / "client"
+        / "Iris"
+        / "Data"
+    )
+    pointer = data_root / "IrisLayer3DataCurrent.lua"
+    match = re.search(
+        r'generation_id\s*=\s*"(?P<generation_id>dvf33-[0-9a-f]+)"',
+        pointer.read_text(encoding="utf-8"),
+    )
+    if match is None:
+        raise RepositoryContextError("current Layer 3 generation pointer is invalid")
+    return data_root / "IrisLayer3Generations" / match.group("generation_id")

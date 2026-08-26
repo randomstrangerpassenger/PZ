@@ -3,7 +3,11 @@ from __future__ import annotations
 from pathlib import Path
 
 from iris_tooling.build.naturalization_compiler_identity import compiler_source_paths
-from iris_tooling.build.repository_context import require_repository_context
+from iris_tooling.build.repository_context import (
+    current_layer3_generation_root,
+    require_external_workspace,
+    require_repository_context,
+)
 
 
 V2_ROOT = require_repository_context().description_v2_root
@@ -16,7 +20,9 @@ TOOLS_DIR = TOOLING_PACKAGE_SOURCE_DIR / "build"
 ROUND_ID = "dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure"
 SYNC_CONTRACT_ID = "dvf3_3_korean_naturalization__publish_boundary_sync_v1"
 EVALUATION_SUBJECT_KIND = "dvf_3_3_korean_naturalization_candidate"
-DEFAULT_ATTEMPT_PARENT = V2_ROOT / "staging" / ROUND_ID
+DEFAULT_ATTEMPT_PARENT = (
+    require_external_workspace("IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT") / ROUND_ID
+)
 HISTORICAL_ATTEMPT_ID = "attempt-0014-remediation"
 BLOCKED_ATTEMPT_ID = "attempt-0018-g3-reseal-a"
 PRESERVED_PREDECESSOR_ATTEMPT_IDS = (
@@ -186,7 +192,7 @@ EXPECTED_ATTACHMENT_HASHES = {
     "cycle2_review": "278daed986a32cc8964b0cfd9c786ae015f8e6fbcaac879a32ec2fea30098848",
 }
 PROTECTED_PATHS = (
-    V2_ROOT / "output" / "dvf_3_3_rendered.json",
+    current_layer3_generation_root() / "dvf_3_3_rendered.json",
     REPO_ROOT / "Iris" / "media" / "lua" / "client" / "Iris" / "Data" / "IrisLayer3Data.lua",
     REPO_ROOT
     / "Iris"

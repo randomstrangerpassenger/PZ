@@ -5,7 +5,11 @@ import re
 
 from iris_tooling.build.naturalization_compiler_identity import compiler_source_paths
 
-from iris_tooling.build.repository_context import require_repository_context
+from iris_tooling.build.repository_context import (
+    current_layer3_generation_root,
+    require_external_workspace,
+    require_repository_context,
+)
 
 V2_ROOT = require_repository_context().description_v2_root
 REPO_ROOT = require_repository_context().repository_root
@@ -57,7 +61,12 @@ FIXTURE_MANIFEST = (
     / "foundation_fixtures.json"
 )
 
-DEFAULT_ATTEMPTS_ROOT = V2_ROOT / "staging" / STAGING_ROUND_ID / "attempts"
+DEFAULT_ATTEMPTS_ROOT = (
+    require_external_workspace("IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT")
+    / STAGING_ROUND_ID
+    / "attempts"
+)
+CURRENT_GENERATION_ROOT = current_layer3_generation_root()
 OWNER_INPUT_ROOT = V2_ROOT / "owner_inputs" / ROUND_ID
 REVIEWER_INPUT_ROOT = V2_ROOT / "reviewer_inputs" / ROUND_ID
 LIVE_REQUIRED_VALIDATIONS = (

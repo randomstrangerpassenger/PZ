@@ -6,6 +6,7 @@ from typing import Any
 
 from .acceptance_context import (
     CANDIDATE_STRUCTURAL_STATUSES,
+    CURRENT_GENERATION_ROOT,
     CURRENT_FACTS,
     CURRENT_INPUT_MANIFEST,
     DEFAULT_ATTEMPTS_ROOT,
@@ -517,9 +518,7 @@ def _protected_foundation_surface_paths() -> list[Path]:
         V2_ROOT / "data" / "compose_profiles_v2.json",
         V2_ROOT / "data" / "compose_profile_identity_hint_rules.json",
         V2_ROOT / "data" / "compose_profile_conflict_precedence_rules.json",
-        V2_ROOT / "output" / "dvf_3_3_rendered.json",
-        V2_ROOT / "output" / "style_normalization_changes.jsonl",
-        V2_ROOT / "output" / "compose_requeue_candidates.jsonl",
+        CURRENT_GENERATION_ROOT / "dvf_3_3_rendered.json",
     ]
     recursive_roots = [
         REPO_ROOT / "Iris" / "media" / "lua",
@@ -947,7 +946,7 @@ def runner_validator_interface_contract() -> dict[str, Any]:
         "schema_version": "public_text_quality_runner_validator_interface_v1",
         "runner": {
             "path": (
-                "Iris/build/description/v2/tools/build/"
+                "Iris/tooling/src/iris_tooling/build/"
                 "run_public_text_quality_acceptance.py"
             ),
             "required_arguments": {
@@ -969,7 +968,7 @@ def runner_validator_interface_contract() -> dict[str, Any]:
         },
         "validator": {
             "path": (
-                "Iris/build/description/v2/tools/build/"
+                "Iris/tooling/src/iris_tooling/build/"
                 "validate_public_text_quality_acceptance.py"
             ),
             "required_arguments": {

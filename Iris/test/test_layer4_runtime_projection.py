@@ -7,6 +7,9 @@ import pytest
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
+from iris_tooling.build.repository_context import configure_repository
+
+configure_repository(REPOSITORY_ROOT)
 from iris_tooling.build import generate_layer4_runtime_projection as generator
 from iris_tooling.build import update_layer4_runtime_projection as updater
 from iris_tooling.build import validate_layer4_runtime_projection as validator

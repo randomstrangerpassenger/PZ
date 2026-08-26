@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -20,6 +21,9 @@ CONTRACT = (
     / "iar_public_text_assessment_contract.json"
 )
 
+from iris_tooling.build.repository_context import configure_repository
+
+configure_repository(REPO_ROOT)
 from iris_tooling.build import iar_public_text_assessment as iar
 
 
@@ -28,6 +32,7 @@ class IarPublicTextAssessmentTest(unittest.TestCase):
         return subprocess.run(
             [sys.executable, "-B", *args],
             cwd=REPO_ROOT,
+            env={**os.environ, "IRIS_REPOSITORY_ROOT": str(REPO_ROOT)},
             text=True,
             encoding="utf-8",
             errors="replace",

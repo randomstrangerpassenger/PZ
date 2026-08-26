@@ -7,6 +7,9 @@ from pathlib import Path
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 LUA_ROOT = REPOSITORY_ROOT / "Iris/media/lua/client/Iris/UI/Browser"
+from iris_tooling.build.repository_context import configure_repository
+
+configure_repository(REPOSITORY_ROOT)
 from iris_tooling.build import build_layer3_english_localization as layer3_english
 
 

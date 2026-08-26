@@ -2076,4 +2076,9 @@
 - compact documentary readpoint: `docs/iris_lightweighting_terminal_closeout.json`
 - W10 packet: repository-external `C:/Users/MW/i/physical-capacity-iris-lightweighting-terminal-inv-terminal-w10-801f15f678fe-termin-6bf8179bacfa/terminal-inventory-result/w10_packet.json`, SHA-256 `d6015d4385f8da6625ebe14304775797db9c5c799398309d4164401a62ce012d`
 - independent review: `c2b9514f..9882ce6d` 검토 결과 actionable finding 0; final `complete` 전환 조건 충족
+- documentary integration:
+  - machine validation과 W10의 implementation subject는 `801f15f6`으로 고정한다.
+  - Reviewer가 확인한 documentary carrier는 `9882ce6d`이고, review 결과를 반영한 completion carrier `28f95b63`은 local `main`에 fast-forward 통합했다.
+  - completion 이후의 문서 동기화는 docs-only이며 machine PASS, W10 또는 Reviewer PASS의 subject를 새 문서 commit으로 재귀속하지 않는다.
+  - remote push는 수행하지 않았고 `Echo/bin`, `Pulse/bin`, `pulse-api/bin`, `pulse-api/build`의 기존 untracked state는 Iris 작업 범위 밖으로 보존한다.
 - Non-decision: runtime 성능, 실제 token 절감률, release/publish/Workshop/deployment readiness를 주장하지 않는다.

@@ -953,3 +953,17 @@ Pulse는 처음부터 `새 Java 로더`로 정면 경쟁하는 브랜드가 아�
 - adoption을 높인다는 이유로 Pulse가 제품별 전용 기능이나 정책을 흡수하는 것
 - 브랜드 편의를 위해 Hub & Spoke의 독립 제품 경계를 흐리거나 Spoke 간 직접 결합을 정상 구조처럼 홍보하는 것
 - 법적 / 최종 브랜드, 공개 순서 또는 release timing을 충분한 제품 readiness 없이 조기 확정하는 것
+
+## Iris repository lightweighting execution
+
+- [x] terminal-v15 external environment admission과 baseline Checkpoint A Run A/Run B/comparator
+- [x] W0 dual-subject census, broader staging closure, main.py C disposition, residue subject binding
+- [x] deterministic Change 1B adoption authority
+- [ ] tracked residue와 custody-only residue를 subject별로 제거
+- [ ] current runtime/output/tooling/evidence bindings를 successor owner로 전환
+- [ ] deterministic external historical archive implementation과 restore evidence
+- [ ] ordinary canonical gate를 사용하는 synthetic pre-delete Checkpoint C
+- [ ] exact historical payload removal과 ignore/search/attribute 단순화
+- [ ] terminal Checkpoint D, W10 census, independent review
+
+Hold: current binding 전환과 verified archive/restore evidence보다 historical physical deletion을 앞세우지 않는다. Package source가 바뀌면 기존 environment receipt를 재사용하지 않고 다음 canonical checkpoint 전에 immutable external environment authority를 reseal한다.

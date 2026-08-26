@@ -2025,3 +2025,22 @@
 - Trace:
   - refined: 2026-03-25 Canvas 공개 포맷은 ZIP+JSON(+.pack), `.canvas`는 내부 정규화 번들 후보
   - COMMON-EVIDENCE-TRACE.
+
+---
+
+## Iris repository current / historical physical separation
+
+### W0 deterministic adoption — current closure와 historical archive 경계
+
+- 상태: implementation adopted; destructive archive/removal은 후속 gate 대기
+- 기준 subject: `9aa81249be7657a1e09a48d162fe96315cfd9748` / tree `c9137a3f0597b39c94000b2cc27ea28e9fab964a`
+- 결정:
+  - broken legacy `Iris/build/main.py`는 대체 entrypoint나 결손 phase 복구 없이 current authority에서 제거한다.
+  - current route는 `current_capsule_attestation_v2`를 소유하고 historical raw recovery는 repository-external `content_addressed_zip_v2` archive가 소유한다. 두 claim을 parity로 표현하지 않는다.
+  - current capsule raw bytes의 hard ceiling은 2,359,296 bytes다.
+  - inactive Layer 3와 fixed chunks는 external archive create/verify/restore 및 ancestor evidence가 성립하기 전까지 physical hold를 유지한다.
+  - `frozen_predecessor_inputs`와 `description/v2/data` 및 current `build/tests`는 보호한다. `owner_inputs` 37 rows와 `reviewer_inputs` 10 rows는 current operational binding을 successor owner로 옮긴 뒤 historical archive 대상으로 확정한다.
+  - Change 2 residue manifest는 repository-external one-off execution input이며 Iris의 canonical schema나 validator가 아니다.
+- machine binding: `Iris/validation/clean_checkout/authority/iris_current_historical_lightweighting_adoption_v1.json`
+- progression: Checkpoint A와 W0 blocker-zero를 통과했으므로 Change 2 이후 progression은 open이다.
+- Non-decision: archive 완료, physical deletion, terminal PASS 또는 release readiness를 이 adoption 자체로 주장하지 않는다.

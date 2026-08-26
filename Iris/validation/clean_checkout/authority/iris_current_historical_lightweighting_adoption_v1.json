@@ -1,0 +1,79 @@
+{
+  "schema_version": "iris_current_historical_lightweighting_adoption_v1",
+  "record_mode": "append_only_deterministic_change_1b_adoption",
+  "status": "adopted_for_implementation",
+  "baseline_subject": {
+    "commit": "9aa81249be7657a1e09a48d162fe96315cfd9748",
+    "tree": "c9137a3f0597b39c94000b2cc27ea28e9fab964a",
+    "environment_admission": "not_required(existing_environment_validated)",
+    "checkpoint_a": {
+      "status": "PASS",
+      "run_a_orchestration_sha256": "69a5a44243706c3b2ead4f9c81a6fb84600e8fb9145846a782f23bc02c15e791",
+      "run_b_orchestration_sha256": "d4f1f11c104466925dded95ac4439f0fabc8b245913d8fd08e0fa8d142370b16",
+      "compare_receipt_sha256": "e7619bd1963b10c53afe34bf7411f0d10870a8c3eca28fa498a6e9bafe5c772d",
+      "canonical_result_sha256": "27d1de54a779db206d2e07b35d54a4bf880f9ccb829c98fb2e0120e6a419a1b5",
+      "comparison_fingerprint_sha256": "9f4922de02f9763a48503e0800adf1a7ba604568d534ed76ab1880ed9c6c3fc6"
+    }
+  },
+  "w0_bindings": {
+    "w0_packet_sha256": "d5201c0737c05e922d823d6454ce2eda30ca52ca48bd4949bf93a6868befc0c9",
+    "producer_manifest_sha256": "94a2ce201b5d9830c7a27c0888f92fdedcacd3d9e002c19e20bb3e973af39ba2",
+    "clean_tracked_inventory_sha256": "ecdcf3b713aa5088f0279c1e1c658ed6a80349708a12188baca818d7ffa53a03",
+    "custody_physical_inventory_sha256": "7bad847407cf9bfb9cae5ac8a6c5a4134c0ce9e2cd8b561a71c5c290b0d0b2ad",
+    "broader_staging_disposition_sha256": "bdee397fd2d92851a0c81e10ea2c2c5c9905d65ea63d1d42439f4b3980b9b1f6",
+    "clean_subject_root_binding_sha256": "dcf201038ef9ece5c2bc3b99792f0fe3595b20e58477696b3723212ca72c64c6",
+    "custody_subject_root_binding_sha256": "f5f957b090ef6856b19fb58e230ae4f8e4a1e20bce7af199a43d0b9d8c19ccdf"
+  },
+  "residue_selection_bindings": {
+    "format": "subject_scoped_residue_manifest_v1",
+    "authority_status": "repository_external_one_off_execution_input_not_regular_validation_authority",
+    "change_2a_selection_sha256": "e6cddd97ce69dc1c8afd83aba273e881c9091a7b37f7124cbd0874b9b885cb3c",
+    "change_2a_row_count": 19,
+    "change_2a_tracked_bytes": 45353392,
+    "change_2b_selection_sha256": "7787c43dd5785b401384d0e016f9227900e4f1b278f8d117dcbf756e4236c53a",
+    "change_2b_row_count": 160,
+    "retained_residue_exceptions_sha256": "a1ee93d49c3fc5478083b41e2eef78f3b8524c1f5cf48e283e0d453a17130430",
+    "retained_residue_exception_count": 0,
+    "path_contract": "normalized repository-relative paths; file_exact, directory_exact, and separator-bound directory_subtree semantics; no durable absolute path"
+  },
+  "adopted_decisions": {
+    "legacy_build_main": "C_remove_from_current_authority_without_replacement_or_phase_recovery",
+    "staging_closure": {
+      "total_rows": 4645,
+      "raw_capsule_rows": 14,
+      "digest_capsule_rows": 3388,
+      "historical_archive_rows": 1243,
+      "unresolved_blocker": 0,
+      "unsupported_keep": 0,
+      "remaining_eligible_removal": 0,
+      "unimplemented_removal": 0
+    },
+    "claim_transition": "raw_repository_evidence_v1_is_superseded_by_current_capsule_attestation_v2_for_current_route_while_external_archive_owns_raw_historical_recovery",
+    "current_capsule_hard_ceiling_bytes": 2359296,
+    "archive_profile": "content_addressed_zip_v2",
+    "archive_compression": "deterministic_zip_deflate_level_9_with_canonical_order_and_metadata",
+    "layer_3_release_gate": "inactive_generation_and_fixed_chunk_rows_remain_held_until_external_archive_verify_restore_and_ancestor_evidence_pass",
+    "frozen_predecessor_inputs": "protected_current_gate_fixture",
+    "owner_inputs": "37_rows_historical_archive_after_current_operational_rebinding",
+    "reviewer_inputs": "10_rows_historical_archive_after_current_operational_rebinding",
+    "build_tests": "protected_current_test_surface_with_cache_only_change_2b_cleanup",
+    "description_data": "protected_current_data_surface",
+    "repository_local_successor_overhead_ceiling": "max(2097152_bytes,tracked_removal_bytes_times_0.005)"
+  },
+  "execution_chain": [
+    "change_2a_tracked_cleanup_then_change_2b_same_custody_non_git_cleanup",
+    "changes_3_through_7a_current_binding_and_archive_implementation",
+    "checkpoint_b_canonical_run_a_run_b_comparator",
+    "change_7b_external_archive_create_verify_restore_and_ancestor_evidence",
+    "checkpoint_c_ordinary_canonical_gate_on_external_synthetic_delete_candidate",
+    "change_8_exact_tracked_and_custody_removal",
+    "change_9_ignore_search_attribute_simplification",
+    "checkpoint_d_terminal_validation_and_w10_census",
+    "independent_terminal_review_with_zero_actionable_findings"
+  ],
+  "owner_approval": "preapproved_by_repository_owner_in_implementation_request",
+  "non_claims": [
+    "This record does not promote the W0 producer or residue manifest format to canonical validation authority.",
+    "This record does not claim historical payload deletion, archive completion, or terminal validation."
+  ]
+}

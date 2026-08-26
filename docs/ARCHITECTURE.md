@@ -672,3 +672,25 @@ internal resource model
 - Runtime 활성 상태도 동일한 내부 모델로 투영하여 외부 기대 상태와 비교할 수 있다.
 - 내부 cache나 분석 bundle은 계산과 검증을 위한 보조 representation이며 authoritative input이나 외부 표준 역할을 소유하지 않는다.
 - 출력은 가능한 한 PZ native 또는 열린 포맷으로 projection하며, 내부 representation을 외부 공유 계약으로 강제하지 않는다.
+
+## Iris repository current / historical storage boundary
+
+Iris의 current clean-checkout closure는 source, runtime, tooling, contract, current-required evidence capsule만 repository 안에 둔다. Historical staging, reproduction evidence, predecessor attempts, inactive Layer 3 rollback payload는 current route와 분리된 explicit external archive가 소유한다.
+
+```text
+current clean checkout
+-> current source/runtime/tooling/contracts
+-> bounded current_required_v1 capsule
+-> canonical gate and package (archive-independent)
+
+historical logical rows
+-> content_addressed_zip_v2 objects + logical-path manifest
+-> explicit verify/restore command only
+```
+
+- Current commands는 archive locator를 fallback dependency로 읽거나 payload를 자동 restore하지 않는다.
+- Tracked archive bytes는 exact Git blob, custody-only bytes는 recorded custody filesystem identity를 authority로 사용한다.
+- Archive는 deterministic ZIP deflate level 9, canonical member order/metadata, unique `objects/<sha256>` bodies와 logical path mapping을 사용한다.
+- Current raw evidence availability를 유지할 row만 bounded capsule에 raw bytes로 남기고, 나머지는 versioned digest/summary attestation으로 전환한다.
+- Generated output은 runtime authority가 아니며 explicit external candidate와 fail-closed install boundary를 거친다.
+- W0 item inventories, residue selections와 ad hoc probes는 repository-external 실행 증거이며 regular validation authority가 아니다.

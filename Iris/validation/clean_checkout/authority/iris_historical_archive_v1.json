@@ -1,0 +1,43 @@
+{
+  "schema_version": "iris_historical_archive_authority_v1",
+  "status": "PASS",
+  "profile": "content_addressed_zip_v2",
+  "store_identifier": "iris-historical-content-addressed-v2/742ba5a3ecbe",
+  "source_commit": "742ba5a3ecbe5b7c4a29bcbcc6d934a18fbd03bf",
+  "archive": {
+    "sha256": "24e7cd3cb97994d70d923dddfb68bf5135a887738a5dbbd2547a228fa8da972d",
+    "bytes": 39550318,
+    "manifest_sha256": "e6d13c9a050ccc0c53c8d5be7108bee278bb5ba7b4e836de0265f5af1a3b2760",
+    "selection_sha256": "f4aed4381a14132bef0c5dd1108568a37577819f078584c544d3edf285b500d4",
+    "logical_file_count": 5071,
+    "logical_source_bytes": 809672207,
+    "unique_object_count": 3985,
+    "unique_object_bytes": 639487097
+  },
+  "selection_summary": {
+    "historical_staging": 4644,
+    "historical_evidence": 240,
+    "historical_review_input": 47,
+    "historical_output": 78,
+    "historical_document": 9,
+    "inactive_layer3": 53,
+    "already_removed_change_2b_cache_residue": 1
+  },
+  "receipts": {
+    "create_sha256": "4386ca17ef327058ebffbee076980cb131d0f682ac1abbb56b2906d5e915be5e",
+    "verify_sha256": "432f1591e3782cbf548289394680232838c50dfd0100a25c57e29c2033d431f0",
+    "restore_sha256": "18c820ba0dd2cdd1a5083837fab1274dce0ff79df5b3841ef4b2734b66106b3c",
+    "restore_status": "PASS",
+    "logical_tree_parity": true
+  },
+  "checkpoint_b": {
+    "subject_commit": "4bc878098c9923832a7921dbb856232f7faa15d0",
+    "run_a_orchestration_sha256": "d561824f8a207bf154be0bbbe9d16334245fe9e0e1f5068d201e36ea03947bff",
+    "run_b_orchestration_sha256": "f1edcfc574e947cd12a02cad279b8d033314ad953fa9a7371628959f69f565fc",
+    "compare_receipt_sha256": "a1381640cfc764a69e0c23dadcbd5f2d59ee7f782e96a294825c467caefd7e2e",
+    "canonical_result_sha256": "6deb92aa41c9defc8487bf84ad750207a08cbbd9809df251a1cf41e9018709eb",
+    "canonical_fingerprint_sha256": "63e8ba16e040bfa9c55cb86fc8a84c328fdc39466e225b78d9f00ad9849e9cdd"
+  },
+  "current_route_requires_archive": false,
+  "restore_contract": "explicit historical/reproduction command only"
+}

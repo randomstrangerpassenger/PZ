@@ -1423,7 +1423,7 @@
   - 같은 lifecycle에서 tracked repository 전체 blob은 순증가했으므로 repository-wide byte lightweighting이나 무차별 full-scan context 절감을 성과로 채택하지 않았다.
   - package-byte reduction, tracked-Lua byte / line delta와 repository-wide exact byte measurement은 상세 evidence trace로 격하한다.
   - 2026-08-26 physical separation은 verified external archive/restore를 먼저 고정한 뒤 tracked historical payload 3,804 files / 607,432,467 bytes와 별도 local-custody archived payload 1,266 files / 202,231,050 bytes를 제거했다. 두 domain은 중복 합산하지 않는다.
-  - exact implementation subject `bebf87637007a18f36a44fbfd5b5ddcd63783c09`의 terminal current capsule은 133,094 bytes로 2,359,296-byte ceiling 이내이며 repository-local successor overhead는 1,635,427 bytes로 3,037,162-byte ceiling 이내다.
+  - exact implementation subject `801f15f678fe9c5fd67be0f805f29ed3ba9db9b3`의 terminal current capsule은 133,094 bytes로 2,359,296-byte ceiling 이내이며 repository-local successor overhead는 1,653,400 bytes로 3,037,162-byte ceiling 이내다.
   - terminal local-custody correction은 W0 이후 변경되지 않은 ignored legacy 295 files / 4,273,310 bytes를 additive external archive successor에 create/verify/restore한 뒤 제거했고, regenerable pipeline log 2 files / 3,205 bytes도 별도 판정 후 제거했다. 기존 archive와 removal domain은 rewrite하거나 이 수치와 중복 합산하지 않는다.
 
 - 오독 금지:
@@ -2058,22 +2058,22 @@
 ### Terminal closeout — exact W10 및 local-custody correction
 
 - 상태: machine/W10/local-custody PASS; Reviewer remediation complete; independent terminal re-review pending
-- exact implementation subject: `bebf87637007a18f36a44fbfd5b5ddcd63783c09` / tree `4e7e0a5c230d01e1b8cd1246014ba05f1a1c15ef`
+- exact implementation subject: `801f15f678fe9c5fd67be0f805f29ed3ba9db9b3` / tree `1db498cabee54d1516e8dc0e78d6a99c8806a4a4`
 - 결정:
-  - terminal machine PASS는 `bebf8763`의 Run A/Run B/comparator에만 귀속한다. 후속 closeout carrier는 documentary-only이며 이 PASS를 새 implementation commit의 실행 결과로 표현하지 않는다.
-  - 최초 0013 successor bytes는 복구하고 aggregate 정정은 append-only 0014 successor로 기록한다. Current full gate는 0014에 결속하며 predecessor record를 소급 재작성하지 않는다.
+  - terminal machine PASS는 `801f15f6`의 Run A/Run B/comparator에만 귀속한다. 후속 closeout carrier는 documentary-only이며 이 PASS를 새 implementation commit의 실행 결과로 표현하지 않는다.
+  - 최초 0013과 0014 successor bytes를 복구하고 schema-compatible aggregate 정정은 append-only 0015 successor로 기록한다. Current full gate는 0015에 결속하며 predecessor records를 소급 재작성하지 않는다.
   - W10은 clean implementation과 dirty-main local custody를 별도 subject로 결속한다. local custody의 repository 전체 dirty status는 subject binding에 포함하되 Iris scope의 ignored/untracked/filesystem-only/reparse residue는 모두 0이어야 한다.
   - W0와 exact SHA-256이 같은 ignored legacy 295 rows는 predecessor archive에 소급 편입하지 않고 additive external `content_addressed_zip_v2` archive successor로 보존한다. Create/verify/restore PASS 전에는 삭제하지 않는다.
   - pipeline log 2 rows는 current clean tree와 terminal closure에 없는 regenerable generated residue로 판정하여 archive 없이 literal 제거한다.
   - one-off disposition, cleanup transaction, W10 raw inventory와 producer는 repository-external execution material이며 Iris regular validator/schema/claim authority가 아니다.
 - final measurements:
-  - clean tracked: 1,752 files / 71,750,170 Git blob bytes
-  - clean physical: 1,752 files / 72,327,605 bytes
-  - custody physical: 1,752 files / 72,137,761 bytes; Iris ignored/untracked/filesystem-only/reparse = 0
+  - clean tracked: 1,753 files / 71,766,663 Git blob bytes
+  - clean physical: 1,753 files / 72,344,398 bytes
+  - custody physical: 1,753 files / 72,154,554 bytes; Iris ignored/untracked/filesystem-only/reparse = 0
   - current capsule: 133,094 bytes / hard ceiling 2,359,296 bytes
-  - successor overhead: 1,635,427 bytes / ceiling 3,037,162 bytes
+  - successor overhead: 1,653,400 bytes / ceiling 3,037,162 bytes
   - unsupported keep / remaining eligible removal / unimplemented removal / unresolved blocker / retained exception: 모두 0
 - compact documentary readpoint: `docs/iris_lightweighting_terminal_closeout.json`
-- W10 packet: repository-external `C:/Users/MW/i/physical-capacity-iris-lightweighting-terminal-inv-terminal-w10-bebf87637007-termin-b38dafaa57e0/terminal-inventory-result/w10_packet.json`, SHA-256 `f6ff2fb5d9a7aa5f5dffd7c0d61c72cb6e5e275f22039e20e895b4d3210c1f9a`
+- W10 packet: repository-external `C:/Users/MW/i/physical-capacity-iris-lightweighting-terminal-inv-terminal-w10-801f15f678fe-termin-6bf8179bacfa/terminal-inventory-result/w10_packet.json`, SHA-256 `d6015d4385f8da6625ebe14304775797db9c5c799398309d4164401a62ce012d`
 - progression: independent Reviewer가 `c2b9514f..closeout carrier`를 검토하여 actionable finding 0을 확인한 뒤에만 final `complete`로 전환한다.
 - Non-decision: runtime 성능, 실제 token 절감률, release/publish/Workshop/deployment readiness를 주장하지 않는다.

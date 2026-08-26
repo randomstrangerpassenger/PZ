@@ -3,7 +3,7 @@
 작성일: 2026-08-26  
 구현 기준 계획: [`iris_current_historical_physical_separation_and_repository_lightweighting_plan.md`](./iris_current_historical_physical_separation_and_repository_lightweighting_plan.md)  
 기준 커밋: `9aa81249be7657a1e09a48d162fe96315cfd9748`  
-최종 구현 커밋: `bebf87637007a18f36a44fbfd5b5ddcd63783c09`
+최종 구현 커밋: `801f15f678fe9c5fd67be0f805f29ed3ba9db9b3`
 
 ## 1. 결과 요약
 
@@ -21,7 +21,7 @@
 - 최종 clean-checkout full gate A/B, deterministic comparator, installed tooling, Lua syntax 및 package 생성까지 통과했다.
 - 사용자가 후속 인게임 검증을 완료했다고 보고했다.
 
-Git 기준으로 `9aa81249..bebf8763` 구간은 3,919개 파일에 영향을 주었으며, 4,786줄 추가와 7,140,071줄 삭제로 집계된다. 이 수치는 물리 제거 규모를 보여주는 Git diff 통계이며 runtime 성능이나 token 절감률을 의미하지 않는다.
+Git 기준으로 `9aa81249..801f15f6` 구간은 3,920개 파일에 영향을 주었으며, 5,095줄 추가와 7,140,071줄 삭제로 집계된다. 이 수치는 물리 제거 규모를 보여주는 Git diff 통계이며 runtime 성능이나 token 절감률을 의미하지 않는다.
 
 ## 2. 작업 경계와 원칙
 
@@ -169,11 +169,11 @@ tracked identity는 checkout의 줄바꿈 변환 결과가 아니라 Git blob by
 - `48cd36ff`: Layer 3 compiler aggregate binding 수정
 - `e12cc7bf`: compiler identity test expectation 갱신
 - `2e13049d`: 이름이 변경된 current test의 taxonomy identity 갱신
-- `acdc9965` / `6ca45abe` / `bebf8763`: Reviewer가 지적한 successor append-only 위반을 보정하고 기존 gate schema에 맞는 새 0014 successor로 current binding 이동
+- `acdc9965` / `6ca45abe` / `bebf8763` / `801f15f6`: Reviewer가 지적한 successor append-only 위반을 단계별로 보정하고 기존 gate schema에 맞는 새 0015 successor로 current binding 이동
 
 마지막 taxonomy 수정은 새 검증 체계를 추가한 것이 아니라, `test_diagnostic_resolver_rejects_canonical_output_path`에서 `test_diagnostic_resolver_requires_all_external_outputs`로 변경된 기존 테스트 이름을 authoritative taxonomy row에 반영한 것이다.
 
-후속 독립 검토에서 `g5_compiler_identity_successor_0013.json`이 최초 committed bytes 대신 정정된 aggregate로 덮어써진 append-only 위반 한 건이 확인됐다. 0013을 최초 blob으로 복구하고 정정 aggregate는 새 0014 successor에 기록했으며, `full_repository_gate.json`의 current transition과 required path만 0014로 이동했다. 일회성 cleanup mode나 새 regular schema는 추가하지 않았다.
+후속 독립 검토에서 `g5_compiler_identity_successor_0013.json`이 최초 committed bytes 대신 정정된 aggregate로 덮어써진 append-only 위반 한 건이 확인됐다. 0013을 최초 blob으로 복구하고 정정 aggregate는 새 0014 successor에 기록했다. 다음 재검토는 schema 호환 보정 과정에서 이미 commit된 0014를 다시 수정한 같은 계열 위반을 확인했다. 이에 최초 0014 blob도 복구하고 schema-compatible 정정은 새 0015 successor에 기록했으며, `full_repository_gate.json`의 current transition을 0015로 이동하고 0013·0014·0015를 required chain으로 유지했다. 일회성 cleanup mode나 새 regular schema는 추가하지 않았다.
 
 ### 3.10 Terminal local-custody 보정
 
@@ -206,22 +206,22 @@ Item inventory, additive selection, cleanup transaction과 raw receipts는 다�
 
 ## 4. 경량화 측정 결과
 
-최종 W10 packet은 exact implementation subject `bebf87637007a18f36a44fbfd5b5ddcd63783c09` / tree `4e7e0a5c230d01e1b8cd1246014ba05f1a1c15ef`에 다시 결속했다. Clean implementation과 현재 dirty-main local custody는 별도 subject/root/status digest로 측정했다.
+최종 W10 packet은 exact implementation subject `801f15f678fe9c5fd67be0f805f29ed3ba9db9b3` / tree `1db498cabee54d1516e8dc0e78d6a99c8806a4a4`에 다시 결속했다. Clean implementation과 현재 dirty-main local custody는 별도 subject/root/status digest로 측정했다.
 
-- W10 packet: `C:/Users/MW/i/physical-capacity-iris-lightweighting-terminal-inv-terminal-w10-bebf87637007-termin-b38dafaa57e0/terminal-inventory-result/w10_packet.json`
-- W10 packet SHA-256: `f6ff2fb5d9a7aa5f5dffd7c0d61c72cb6e5e275f22039e20e895b4d3210c1f9a`
-- Subject manifest SHA-256: `ef9ea96dc5d543eea545105d1f8a1777af76b83cf9a0cf180b829afeabb1e933`
+- W10 packet: `C:/Users/MW/i/physical-capacity-iris-lightweighting-terminal-inv-terminal-w10-801f15f678fe-termin-6bf8179bacfa/terminal-inventory-result/w10_packet.json`
+- W10 packet SHA-256: `d6015d4385f8da6625ebe14304775797db9c5c799398309d4164401a62ce012d`
+- Subject manifest SHA-256: `4e1a1f1243e82feb1c16bd26ff37e12c40eafca4e2a9ce319a1ac76495b16eac`
 
 W10의 clean implementation subject 결과는 다음과 같다.
 
 | 항목 | 결과 |
 | --- | ---: |
-| Iris tracked files | 1,752 |
-| Iris tracked Git blob bytes | 71,750,170 |
-| Iris physical files | 1,752 |
-| Iris physical bytes | 72,327,605 |
-| Local-custody Iris physical files | 1,752 |
-| Local-custody Iris physical bytes | 72,137,761 |
+| Iris tracked files | 1,753 |
+| Iris tracked Git blob bytes | 71,766,663 |
+| Iris physical files | 1,753 |
+| Iris physical bytes | 72,344,398 |
+| Local-custody Iris physical files | 1,753 |
+| Local-custody Iris physical bytes | 72,154,554 |
 | Local-custody ignored / untracked / filesystem-only / reparse | 0 / 0 / 0 / 0 |
 | Current Layer 3 generation directories | 1 |
 | Unresolved blockers | 0 |
@@ -231,11 +231,11 @@ W10의 clean implementation subject 결과는 다음과 같다.
 
 계획 작성 시 관측된 Iris tracked surface는 5,467 files / 약 648.09 MiB였다. 측정 방식과 commit이 다르므로 단순 성능 개선률로 해석해서는 안 되지만, historical payload가 current tracked checkout에서 물리적으로 제거되었다는 결과는 명확하다.
 
-repository-local successor overhead는 공식에 따라 `bebf8763` tree에서 다시 계산한 1,635,427 bytes이며 ceiling 3,037,162 bytes 이내로 PASS했다. current capsule raw bytes, external archive/object/inventory/receipt bytes와 삭제·축소된 파일의 음수 delta는 이 값에 중복 합산하지 않았다.
+repository-local successor overhead는 공식에 따라 `801f15f6` tree에서 다시 계산한 1,653,400 bytes이며 ceiling 3,037,162 bytes 이내로 PASS했다. current capsule raw bytes, external archive/object/inventory/receipt bytes와 삭제·축소된 파일의 음수 delta는 이 값에 중복 합산하지 않았다.
 
 ## 5. 최종 자동 검증
 
-최종 자동 검증은 Reviewer remediation이 반영된 commit `bebf87637007a18f36a44fbfd5b5ddcd63783c09`에서 수행했다. 최종 Run A/B는 서로 분리된 새 allocator-owned root에서 병렬 실행했고 comparator는 두 PASS receipt를 대상으로 한 번 실행했다.
+최종 자동 검증은 Reviewer remediation이 반영된 commit `801f15f678fe9c5fd67be0f805f29ed3ba9db9b3`에서 수행했다. 최종 Run A/B는 서로 분리된 새 allocator-owned root에서 병렬 실행했고 comparator는 두 PASS receipt를 대상으로 한 번 실행했다.
 
 | 검증 | 결과 |
 | --- | --- |
@@ -253,9 +253,9 @@ repository-local successor overhead는 공식에 따라 `bebf8763` tree에서 �
 
 최종 package output은 repository 밖에 생성했다.
 
-- Staged package: `C:\Users\MW\i\ta-1f423a589eff\package-result\Iris`
-- Manifest: `C:\Users\MW\i\ta-1f423a589eff\package-result\Iris.package_manifest.sha256.json`
-- ZIP: `C:\Users\MW\i\ta-1f423a589eff\package-result\Iris.zip`
+- Staged package: `C:\Users\MW\i\ta-f2d4539c24a6\package-result\Iris`
+- Manifest: `C:\Users\MW\i\ta-f2d4539c24a6\package-result\Iris.package_manifest.sha256.json`
+- ZIP: `C:\Users\MW\i\ta-f2d4539c24a6\package-result\Iris.zip`
 
 테스트 실행 중에는 Run A/B를 서로 분리된 allocator-owned root에서 병렬 실행했고 약 30초 간격으로 상태를 확인했다. 두 실행은 비정상 장기 실행 없이 약 5분대에 종료되었다.
 
@@ -266,13 +266,13 @@ repository-local successor overhead는 공식에 따라 `bebf8763` tree에서 �
 | A | `9aa81249be7657a1e09a48d162fe96315cfd9748` / `c9137a3f0597b39c94000b2cc27ea28e9fab964a` | `69a5a44243706c3b2ead4f9c81a6fb84600e8fb9145846a782f23bc02c15e791` / `d4f1f11c104466925dded95ac4439f0fabc8b245913d8fd08e0fa8d142370b16` | `e7619bd1963b10c53afe34bf7411f0d10870a8c3eca28fa498a6e9bafe5c772d` / `27d1de54a779db206d2e07b35d54a4bf880f9ccb829c98fb2e0120e6a419a1b5` | `iris-lightweighting-current`; baseline admission, historical checkpoint evidence | A `C:/Users/MW/i/cp-7950a05b9877`; B `C:/Users/MW/i/cp-673ba2da67b5` |
 | B | `4bc878098c9923832a7921dbb856232f7faa15d0` / `2fc221ee1c065e5737f656ce94f5f0362ce8982a` | `d561824f8a207bf154be0bbbe9d16334245fe9e0e1f5068d201e36ea03947bff` / `f1edcfc574e947cd12a02cad279b8d033314ad953fa9a7371628959f69f565fc` | `a1381640cfc764a69e0c23dadcbd5f2d59ee7f782e96a294825c467caefd7e2e` / `6deb92aa41c9defc8487bf84ad750207a08cbbd9809df251a1cf41e9018709eb` | `iris-lightweighting-current`; successor/pre-archive, historical checkpoint evidence | A `C:/Users/MW/i/cp-c1ae75279fc4`; B `C:/Users/MW/i/cp-90f73133165f` |
 | C | `3c4543e624a3a4750dbb4ee1f23f8ef0e522d2a2` / `e85080ec3712da313f9290aa11f322da7c5d0ff9` | `fe223db7a9187faa7905f569c943c17b185633fc69d7876f9db6d68a7f3accb6` / `81f28011390819234121821126bdd0ef93eed5d90edf13070a26d5f91206b983` | `c1487b4f9c0bc33f07d0b9d836e9ddfd0a4311771ca7be522ab08c6ede35600e` / `7c29b14cc1268c922326fefe093ab0aea6a7e2b14493652792d4cc806209f6d6` | `iris-lightweighting-current`; synthetic pre-delete candidate, historical evidence | A `C:/Users/MW/i/cp-24adc20885d3`; B `C:/Users/MW/i/cp-e185e14cd763` |
-| D | `bebf87637007a18f36a44fbfd5b5ddcd63783c09` / `4e7e0a5c230d01e1b8cd1246014ba05f1a1c15ef` | `6a37f6b7529de6fe5fdce0e45a46b0f601d4b7658f4deac38125a3eaca4d49cc` / `b78889a8503c585eb64fe26c441f47f13684ddfae20ff2f27ba48545ab1541d2` | `3ab4afd94f87649bf087b632f9ba5d13c2e28d7a900da9543bb86e92bf66c31c` / `5d949db124f7a2643703d12b7cfee600467aa91966f4d94c39621adb2c5681ac` | `iris-lightweighting-current`; exact terminal implementation, current closeout machine evidence | A `C:/Users/MW/i/ta-1f423a589eff`; B `C:/Users/MW/i/tb-cab5e87e6260` |
+| D | `801f15f678fe9c5fd67be0f805f29ed3ba9db9b3` / `1db498cabee54d1516e8dc0e78d6a99c8806a4a4` | `fc55fd911cc8724ef01772ec304055c4e1711774913fbac3e1b08a5d0c0b2edf` / `553a46014ce960c4bd77496b1a50a6d501a87b36c0e3c0584dbc9cd760a43f4c` | `2f1bad4abac8faa4c4eb1af847eb3eba163f5cb2288155d6aa8f93e330ccf250` / `dd309cf1a7650b2a9e2ab1871cf1d31d33720d0312ed86d65a4a9debf7c83c65` | `iris-lightweighting-current`; exact terminal implementation, current closeout machine evidence | A `C:/Users/MW/i/ta-f2d4539c24a6`; B `C:/Users/MW/i/tb-f729d02a4716` |
 
 Checkpoint C는 external synthetic-generation receipt가 결속한 candidate에서 기존 ordinary canonical full gate를 그대로 실행했다. Cleanup 전용 execution mode, regular schema 또는 canonical validator는 추가하지 않았다.
 
 ## 6. 외부 검토와 인게임 검증
 
-구현 commit `c2b9514f` 시점의 선행 Codex Reviewer 결과는 actionable finding 0건이었다. 첫 terminal closeout 독립 검토는 0013 overwrite라는 actionable finding 1건을 보고했고, 이를 0013 복구와 append-only 0014 successor로 보정했다. `c2b9514f..bebf8763`의 최종 implementation, terminal receipts, W10과 documentary closeout은 재검토 대상으로 남겨 두었으며, 재검토가 actionable finding 0으로 끝나기 전에는 최종 closeout을 `complete`로 표시하지 않는다.
+구현 commit `c2b9514f` 시점의 선행 Codex Reviewer 결과는 actionable finding 0건이었다. Terminal closeout 검토 1차는 0013 overwrite 1건을, 2차는 보정 중 발생한 0014 overwrite 1건을 보고했다. 두 predecessor를 각각 최초 committed blob으로 복구하고 current correction을 append-only 0015로 이동했다. `c2b9514f..801f15f6`의 최종 implementation, terminal receipts, W10과 documentary closeout은 최종 재검토 대상으로 남겨 두었으며, 재검토가 actionable finding 0으로 끝나기 전에는 최종 closeout을 `complete`로 표시하지 않는다.
 
 자동 검증 완료 후 인게임 검증은 사용자가 직접 수행했다. 사용자는 2026-08-26 현재 인게임 검증이 완료되었다고 보고했다. 별도의 게임 로그나 신규 repository-local proof artifact는 생성하지 않았다.
 
@@ -299,11 +299,11 @@ Checkpoint C는 external synthetic-generation receipt가 결속한 candidate에�
 | `1c0363fd` / `c2b9514f` | Layer 3 output을 external explicit destination으로 제한 |
 | `e3635fb8` / `48cd36ff` | G5 Layer 3 compiler identity와 aggregate 결속 |
 | `e12cc7bf` / `2e13049d` | 최종 test expectation 및 taxonomy identity 정합화 |
-| `acdc9965` / `6ca45abe` / `bebf8763` | Immutable 0013 복구, append-only 0014 정정 successor와 current gate 결속 |
+| `acdc9965` / `6ca45abe` / `bebf8763` / `801f15f6` | Immutable 0013·0014 복구, append-only 0015 정정 successor와 current gate 결속 |
 
 ## 8. 최종 상태와 운영상 주의점
 
-최종 implementation subject는 `bebf8763`다. 이후 tracked closeout carrier는 문서와 compact documentary readpoint만 변경하며 terminal machine PASS를 carrier commit의 실행 결과로 재귀속하지 않는다.
+최종 implementation subject는 `801f15f6`다. 이후 tracked closeout carrier는 문서와 compact documentary readpoint만 변경하며 terminal machine PASS를 carrier commit의 실행 결과로 재귀속하지 않는다.
 
 운영 시 지켜야 할 경계는 다음과 같다.
 

@@ -698,7 +698,7 @@ historical logical rows
 - Physical removal domain과 recovery link는 `Iris/validation/clean_checkout/authority/iris_historical_removal_v1.json`에 두고 tracked removal과 local-custody removal을 합산하지 않는다.
 - Terminal local-custody에서 뒤늦게 드러난 historical unique row는 predecessor archive를 rewrite하지 않는다. Exact W0 identity와 current-tree absence를 확인하고 별도의 additive external `content_addressed_zip_v2` successor에 create/verify/restore한 뒤 literal path만 제거한다.
 - Dirty-main custody subject는 repository 전체 status digest를 binding에 포함하되 W10의 Iris physical state를 별도로 측정한다. 다른 모듈의 dirty state는 Iris residue나 removal delta에 합산하지 않는다.
-- Exact implementation `bebf8763`의 terminal W10은 clean tracked 1,752 files / 71,750,170 Git blob bytes, clean physical 1,752 files / 72,327,605 bytes, custody Iris physical 1,752 files / 72,137,761 bytes를 기록한다. Custody Iris ignored/untracked/filesystem-only/reparse는 모두 0이다.
-- Terminal capsule은 133,094 bytes이고 successor overhead는 1,635,427 bytes로 각각 2,359,296-byte 및 3,037,162-byte ceiling 이내다.
-- G5 compiler identity successor는 append-only다. 최초 0013 blob은 immutable historical evidence로 유지하고, aggregate 정정과 current gate transition은 새 0014 successor가 소유한다.
+- Exact implementation `801f15f6`의 terminal W10은 clean tracked 1,753 files / 71,766,663 Git blob bytes, clean physical 1,753 files / 72,344,398 bytes, custody Iris physical 1,753 files / 72,154,554 bytes를 기록한다. Custody Iris ignored/untracked/filesystem-only/reparse는 모두 0이다.
+- Terminal capsule은 133,094 bytes이고 successor overhead는 1,653,400 bytes로 각각 2,359,296-byte 및 3,037,162-byte ceiling 이내다.
+- G5 compiler identity successor는 append-only다. 최초 0013·0014 blobs는 immutable historical evidence로 유지하고, schema-compatible aggregate 정정과 current gate transition은 새 0015 successor가 소유한다.
 - Terminal aggregate, stable digests와 external locators의 documentary readpoint는 `docs/iris_lightweighting_terminal_closeout.json`이다. 이 파일과 external one-off producer/transaction은 canonical gate, regular validation schema 또는 새 claim ID가 아니다.

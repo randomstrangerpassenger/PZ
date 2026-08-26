@@ -87,6 +87,16 @@ def has_link_or_reparse_ancestor(root: Path, target: Path) -> bool:
     return False
 
 
+def extended_io_path(path: Path) -> Path:
+    """Use Win32 extended-length syntax for archive restore I/O."""
+    resolved = str(path.resolve(strict=False))
+    if os.name != "nt" or resolved.startswith("\\\\?\\"):
+        return Path(resolved)
+    if resolved.startswith("\\\\"):
+        return Path("\\\\?\\UNC\\" + resolved[2:])
+    return Path("\\\\?\\" + resolved)
+
+
 def git_blob(repository: Path, commit: str, logical_path: str) -> bytes:
     result = subprocess.run(
         ["git", "-C", str(repository), "show", f"{commit}:{logical_path}"],
@@ -296,14 +306,15 @@ def restore_archive(archive_path: Path, restore_root: Path) -> dict[str, Any]:
             target = (restore_root / logical).resolve()
             if restore_root.resolve() not in target.parents:
                 raise ArchiveError(f"restore path escaped root: {logical}")
-            target.parent.mkdir(parents=True, exist_ok=True)
+            io_target = extended_io_path(target)
+            io_target.parent.mkdir(parents=True, exist_ok=True)
             try:
-                with target.open("xb") as handle:
+                with io_target.open("xb") as handle:
                     handle.write(archive.read(f"objects/{row['object_sha256']}"))
             except FileExistsError as exc:
                 raise ArchiveError(f"restore target already exists: {logical}") from exc
     for row in manifest["rows"]:
-        payload = (restore_root / row["logical_path"]).read_bytes()
+        payload = extended_io_path(restore_root / row["logical_path"]).read_bytes()
         if len(payload) != row["bytes"] or sha256(payload) != row["object_sha256"]:
             raise ArchiveError(f"restored file identity mismatch: {row['logical_path']}")
     return {

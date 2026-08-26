@@ -1,9 +1,0 @@
-{
-  "attempt_id": "attempt-0011-handoff",
-  "body_plan_applicability_report_hash": "28db53b090b7ae6ba351b9a57347fc0379725f6a3f9d7cf0279f994091f1bd3c",
-  "body_plan_requirement_digest": "0efdba43f182e57d80b85a27772705affff27743de7b6c9a675b9de057700a2b",
-  "schema_version": "dvf-3-3-phase2-result-v1",
-  "source_proposition_manifest_hash": "0d90bac30b0ec3a990f8befbb73e054a7e30a5ce60d7b1a0607efcb3b9ed80e7",
-  "source_to_proposition_coverage_pass": true,
-  "status": "PASS"
-}

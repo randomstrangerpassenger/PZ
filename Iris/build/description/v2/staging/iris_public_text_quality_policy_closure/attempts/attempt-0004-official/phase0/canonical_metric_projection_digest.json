@@ -1,7 +1,0 @@
-{
-  "candidate_metric_recomputed_independently": true,
-  "metric_count": 12,
-  "normalized_projection_hash": "3245d62b0fc3020c49b83baec37cf1c61ba7ab89ad98c1845d7757c2b1c937c2",
-  "schema_version": "public_text_quality_canonical_metric_projection_digest_v1",
-  "sha256": "fe57f6b6b2b04284cc6ac4c360e9ab6a97558e6d25600a0cd7f6eaf76be5f420"
-}

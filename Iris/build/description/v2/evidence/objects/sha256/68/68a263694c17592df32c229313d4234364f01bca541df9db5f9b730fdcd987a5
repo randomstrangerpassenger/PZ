@@ -1,8 +1,0 @@
-{
-  "attempt_id": "development-probe-g",
-  "candidate_full_universe_generation_pass": true,
-  "candidate_rendered_hash": "02f8209ef7f3db72e22ab50b906bef50d22800df6100a5b6a0cf5c7e7097e411",
-  "candidate_trace_hash": "23889a9efa1135a531a739ce5e226978cc2893caee8a28fcd0dc4c1fe27e853a",
-  "schema_version": "dvf-3-3-phase4-result-v1",
-  "status": "PASS"
-}

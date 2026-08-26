@@ -1,9 +1,0 @@
-{
-  "definition": "dirty union active ignored union effectively ignored union untracked required artifacts",
-  "generated_at": "2026-06-30T15:34:54.638360+00:00",
-  "paths": [],
-  "problem_closure_denominator_count": 0,
-  "rows": [],
-  "schema_version": "dvf-3-3-required-artifact-disposition-problem-denominator-v1",
-  "status": "PASS"
-}

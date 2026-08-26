@@ -1,9 +1,0 @@
-{
-  "candidate_dependency_count": 0,
-  "non_proposition_occurrence_count": 17958,
-  "proposition_occurrence_count": 5197,
-  "schema_version": "dvf-3-3-source-to-proposition-coverage-report-v1",
-  "source_field_occurrence_count": 23155,
-  "source_to_proposition_coverage_pass": true,
-  "unassigned_source_field_occurrence_count": 0
-}

@@ -217,30 +217,6 @@
         "reason": "official attempt-0004 consumption is outside the bounded G1-to-current integration correction"
       },
       {
-        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0020/phase12_phase2_handoff/d16_candidate_patch/test_dvf_3_3_korean_prose_acceptance_gate.py",
-        "reason": "sealed historical attempt-0020 patch evidence remains classified until archive-backed physical removal"
-      },
-      {
-        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0020/phase12_phase2_handoff/d16_candidate_patch/test_dvf_3_3_korean_prose_semantic_preservation.py",
-        "reason": "sealed historical attempt-0020 patch evidence remains classified until archive-backed physical removal"
-      },
-      {
-        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0021/phase12_phase2_handoff/d16_candidate_patch/test_dvf_3_3_korean_prose_acceptance_gate.py",
-        "reason": "sealed historical attempt-0021 patch evidence remains classified until archive-backed physical removal"
-      },
-      {
-        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0021/phase12_phase2_handoff/d16_candidate_patch/test_dvf_3_3_korean_prose_semantic_preservation.py",
-        "reason": "sealed historical attempt-0021 patch evidence remains classified until archive-backed physical removal"
-      },
-      {
-        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase12_phase2_handoff/d16_candidate_patch/test_dvf_3_3_korean_prose_acceptance_gate.py",
-        "reason": "sealed historical attempt-0022 patch evidence remains classified until archive-backed physical removal"
-      },
-      {
-        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase12_phase2_handoff/d16_candidate_patch/test_dvf_3_3_korean_prose_semantic_preservation.py",
-        "reason": "sealed historical attempt-0022 patch evidence remains classified until archive-backed physical removal"
-      },
-      {
         "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/d16_candidate_sources/test_dvf_3_3_korean_prose_acceptance_gate.py",
         "reason": "predecessor D16 fixture remains classified until archive-backed physical removal after test-owner migration"
       },

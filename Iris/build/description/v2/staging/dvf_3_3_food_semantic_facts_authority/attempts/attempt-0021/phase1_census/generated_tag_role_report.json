@@ -1,9 +1,0 @@
-{
-  "artifact": {
-    "byte_count": 130685,
-    "path": "Iris/output/tags_by_fulltype.json",
-    "sha256": "ec09bc9f1db8671a797ab2fa2b7d1d0182398fe734a528dd552c8155c014d790"
-  },
-  "authority_role": "diagnostic_only_no_lineage",
-  "target_coverage_count": 317
-}

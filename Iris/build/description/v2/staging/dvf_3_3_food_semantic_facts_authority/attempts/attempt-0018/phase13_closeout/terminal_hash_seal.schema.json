@@ -1,9 +1,0 @@
-{
-  "post_terminal_claim_bearing_change_allowed": false,
-  "required": [
-    "owner_seal_sha256",
-    "final_artifact_manifest_sha256",
-    "sealed_successor_receipt_sha256",
-    "terminal_branch_disposition_sha256"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "raw_metric_mutation_count": 0,
-  "schema_version": "public_text_quality_waiver_bypass_attack_report_v1",
-  "semantic_item_machine_exception_accept_count": 0,
-  "status": "PASS",
-  "technical_waiver_bypass_count": 0,
-  "waiver_to_clean_accepted_count": 0,
-  "wrong_policy_or_payload_waiver_accept_count": 0
-}

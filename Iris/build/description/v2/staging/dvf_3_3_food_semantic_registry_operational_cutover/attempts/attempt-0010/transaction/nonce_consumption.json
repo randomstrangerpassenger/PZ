@@ -1,9 +1,0 @@
-{
-  "attempt_id": "attempt-0010",
-  "authorization_nonce": "correction-0001-attempt-0010-owner-preapproval-20260729",
-  "consumed_at": "2026-07-29T00:13:17.853189+00:00",
-  "owner_authorization_sha256": "aa4e77275bf3f6ea25fa1d6f0b4f346d18d47dc31126175ee5cc4259dcfad565",
-  "same_attempt_retry_allowed": false,
-  "schema_version": "dvf-3-3-registry-correction-nonce-consumption-v1",
-  "status": "CONSUMED"
-}

@@ -1,6 +1,0 @@
-{
-  "D5": "allow_layer4_as_curated_review_context",
-  "D6": "bounded_batch_exact_member_expansion",
-  "batch_member_expansion_preserved": true,
-  "implicit_or_anonymous_approval_allowed": false
-}

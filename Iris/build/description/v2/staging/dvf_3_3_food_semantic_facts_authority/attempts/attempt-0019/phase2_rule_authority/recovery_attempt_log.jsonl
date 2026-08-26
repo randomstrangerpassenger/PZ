@@ -1,9 +1,0 @@
-{"authority_execution_allowed":false,"disposition":"diagnostic_only","path":"Iris/build/phase2_rules/rules/__init__.py","present":false,"route":"R1"}
-{"authority_execution_allowed":false,"disposition":"diagnostic_only","path":"Iris/build/phase2_rules/rules/tool_rules.py","present":false,"route":"R1"}
-{"authority_execution_allowed":false,"disposition":"diagnostic_only","path":"Iris/build/phase2_rules/rules/combat_rules.py","present":false,"route":"R1"}
-{"authority_execution_allowed":false,"disposition":"diagnostic_only","path":"Iris/build/phase2_rules/rules/consumable_rules.py","present":false,"route":"R1"}
-{"authority_execution_allowed":false,"disposition":"diagnostic_only","path":"Iris/build/phase2_rules/rules/resource_rules.py","present":false,"route":"R1"}
-{"authority_execution_allowed":false,"disposition":"diagnostic_only","path":"Iris/build/phase2_rules/rules/literature_rules.py","present":false,"route":"R1"}
-{"authority_execution_allowed":false,"disposition":"diagnostic_only","path":"Iris/build/phase2_rules/rules/wearable_rules.py","present":false,"route":"R1"}
-{"authority_execution_allowed":false,"disposition":"diagnostic_only","path":"Iris/build/phase2_rules/rules/furniture_rules.py","present":false,"route":"R1"}
-{"authority_execution_allowed":false,"disposition":"diagnostic_only","path":"Iris/build/phase2_rules/rules/vehicle_rules.py","present":false,"route":"R1"}

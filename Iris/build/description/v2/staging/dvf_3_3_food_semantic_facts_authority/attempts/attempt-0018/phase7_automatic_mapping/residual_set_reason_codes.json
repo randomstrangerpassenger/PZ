@@ -1,7 +1,0 @@
-{
-  "generic_completion_bucket_used": false,
-  "reason_counts": {
-    "no_allowlisted_semantic_signal": 238
-  },
-  "unsupported_fact_emitted": false
-}

@@ -1,7 +1,0 @@
-{
-  "candidate_runtime_parity_overclaim_count": 0,
-  "schema_version": "public_text_quality_unadopted_axis_attack_report_v1",
-  "status": "PASS",
-  "unadopted_quality_denominator_injection_count": 0,
-  "unadopted_weak_class_injection_count": 0
-}

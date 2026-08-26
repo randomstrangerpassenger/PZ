@@ -1,7 +1,0 @@
-{
-  "allowed_closeout_value": "sealed_successor_handoff_complete",
-  "allowed_in_round_terminal_branch": "B+G2",
-  "canonical_complete_allowed": false,
-  "current_authority_reconstruction_complete": false,
-  "implementation_terminal_state_emitted": false
-}

@@ -1,7 +1,0 @@
-{
-  "branch": "G2",
-  "canonical_completion_claimed": false,
-  "freshness_impact_declared": true,
-  "registry_cutover_request_required": true,
-  "required_gate_deferred_explicitly": true
-}

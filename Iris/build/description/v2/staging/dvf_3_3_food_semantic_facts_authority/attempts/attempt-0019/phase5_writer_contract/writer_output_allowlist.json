@@ -1,7 +1,0 @@
-{
-  "outputs": [
-    "phase10_candidate/candidate_successor_facts.jsonl",
-    "phase10_candidate/candidate_successor_input_manifest.json",
-    "phase10_candidate/candidate_lineage_bundle.jsonl"
-  ]
-}

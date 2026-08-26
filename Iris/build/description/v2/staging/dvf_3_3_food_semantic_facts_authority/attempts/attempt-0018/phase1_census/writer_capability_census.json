@@ -1,5 +1,0 @@
-{
-  "candidate_writer_present_before_implementation": false,
-  "current_writer_sink_allowed": false,
-  "required_new_capability": "attempt_local_candidate_only_writer"
-}

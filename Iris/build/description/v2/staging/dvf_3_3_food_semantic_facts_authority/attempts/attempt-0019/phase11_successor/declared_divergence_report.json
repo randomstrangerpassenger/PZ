@@ -1,6 +1,0 @@
-{
-  "allowed_in_round_divergence": "non_current_implementation_preview_only",
-  "candidate_preview_differs_from_current": true,
-  "live_divergence_created": false,
-  "rendered_runtime_package_unchanged": true
-}

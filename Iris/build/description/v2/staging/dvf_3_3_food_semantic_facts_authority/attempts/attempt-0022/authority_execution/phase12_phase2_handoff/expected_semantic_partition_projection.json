@@ -1,9 +1,0 @@
-{
-  "actual_consumer_execution_count": 0,
-  "criterion_gate_credit": 0,
-  "meaningful_partition_count": 17,
-  "meaningful_partition_definition": "Partitions differ by at least one approved licensed food-semantic axis/value proposition.",
-  "minimum_meaningful_partition_criterion": 4,
-  "schema_version": "food-semantic-expected-partition-projection-v1",
-  "status": "EXPECTED_INPUT_ONLY"
-}

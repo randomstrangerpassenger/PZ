@@ -1,8 +1,0 @@
-{
-  "attempt_id": "attempt-0012",
-  "authorization_sha256": "39ed8705c35eeaa9cf9c2f2cb58d83b9ff8738924c90ce76fe31e9415ed35b86",
-  "consumed_at": "2026-07-29T13:28:57.758573+00:00",
-  "one_use_nonce": "b2c3d726c2b749b4954bb57614dde26c",
-  "schema_version": "dvf-3-3-registry-correction-nonce-consumption-v1",
-  "status": "CONSUMED"
-}

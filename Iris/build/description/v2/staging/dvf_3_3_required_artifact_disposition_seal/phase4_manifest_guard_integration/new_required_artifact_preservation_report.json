@@ -1,9 +1,0 @@
-{
-  "broad_staging_unignore_count": 0,
-  "generated_at": "2026-06-30T15:34:56.336692+00:00",
-  "new_required_artifact_count": 0,
-  "new_required_artifact_preservation_status": "NOT_APPLICABLE",
-  "schema_version": "dvf-3-3-required-artifact-disposition-new-required-artifact-preservation-v1",
-  "self_reference_cycle_count": 0,
-  "status": "PASS"
-}

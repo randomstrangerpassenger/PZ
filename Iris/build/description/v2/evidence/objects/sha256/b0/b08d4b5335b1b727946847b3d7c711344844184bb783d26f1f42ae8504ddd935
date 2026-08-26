@@ -1,8 +1,0 @@
-{
-  "baseline_normalized_content_sha256": "a872cc3575e626466e6644f67f29808d41b57d0de222d089a20dafbe2841b2cd",
-  "legacy_metadata_contract_pass": true,
-  "legacy_normalized_content_hash_identity_pass": true,
-  "legacy_raw_file_byte_identity_pass": "not_claimed",
-  "replay_normalized_content_sha256": "a872cc3575e626466e6644f67f29808d41b57d0de222d089a20dafbe2841b2cd",
-  "schema_version": "dvf-3-3-default-mode-regression-report-v1"
-}

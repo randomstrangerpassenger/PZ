@@ -1,7 +1,0 @@
-{
-  "official_naturalization_retry_allowed": false,
-  "phase2_source_inventory_reseal_required": true,
-  "publish_boundary_retry_allowed": false,
-  "resume_attempt": "new_attempt_from_phase0",
-  "state": "deferred_until_registry_adoption_and_new_attempt"
-}

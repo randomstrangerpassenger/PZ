@@ -1,9 +1,0 @@
-{
-  "accepted_count": 0,
-  "authority_execution_started": false,
-  "event_ledger_sha256": "61d3b8ff54a1068a7f2890b31912c7262bc428450a297acc0b4b96d0c49d0f6d",
-  "last_fully_committed_batch_id": null,
-  "next_canonical_cursor": "Base.Acorn\u0000\u0000curation-pending:Base.Acorn",
-  "rejected_count": 0,
-  "rework_count": 0
-}

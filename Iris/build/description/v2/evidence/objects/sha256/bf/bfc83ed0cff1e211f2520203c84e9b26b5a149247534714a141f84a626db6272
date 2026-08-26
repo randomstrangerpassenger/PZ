@@ -1,8 +1,0 @@
-{
-  "equivalence_proof_count": 49,
-  "equivalence_proof_failure_count": 0,
-  "schema_version": "dvf-3-3-suppression-validity-report-v1",
-  "suppression_count": 0,
-  "suppression_validity_pass": true,
-  "unjustified_suppression_count": 0
-}

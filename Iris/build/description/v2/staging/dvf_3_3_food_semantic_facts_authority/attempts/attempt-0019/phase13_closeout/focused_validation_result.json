@@ -1,7 +1,0 @@
-{
-  "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_food_semantic_*.py\"",
-  "exit_code": 0,
-  "implementation_machine_validation": "PASS",
-  "schema_version": "food-semantic-focused-validation-result-v1",
-  "status": "PASS"
-}

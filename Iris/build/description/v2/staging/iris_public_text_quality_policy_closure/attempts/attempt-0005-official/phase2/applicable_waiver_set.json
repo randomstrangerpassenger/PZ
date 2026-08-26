@@ -1,8 +1,0 @@
-{
-  "candidate_policy_hash": "12bf2c9e025108f217bf5c7304a900694503cebe08fc96d60cdf4c96a48267f0",
-  "evaluation_subject_hash": "ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437",
-  "owner_binding_proof": "1a22da335fdbd7e35d441aec27a7bc93e6d9c74208481988ac6f4b4d707ca513",
-  "owner_identity": "repository_owner_via_direct_codex_instruction",
-  "waiver_schema_version": "public_text_quality_applicable_waiver_set_v1",
-  "waivers": []
-}

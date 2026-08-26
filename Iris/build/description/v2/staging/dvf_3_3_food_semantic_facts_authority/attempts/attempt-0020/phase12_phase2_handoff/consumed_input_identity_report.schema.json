@@ -1,9 +1,0 @@
-{
-  "actual_consumer_partition_required": true,
-  "compares": "actual_phase2_consumed_input_receipt to phase11 selected_successor_input_binding",
-  "dropped_proposition_count_must_equal": 0,
-  "exact_expected_actual_proposition_inventory_match_required": true,
-  "four_identity_match_required": true,
-  "invented_proposition_count_must_equal": 0,
-  "receipt_self_declaration_allowed": false
-}

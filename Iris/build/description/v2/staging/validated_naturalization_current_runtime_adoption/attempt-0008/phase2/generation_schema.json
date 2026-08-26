@@ -1,1 +1,0 @@
-{"forbidden_fields":["rtc_bundle","g6_lifecycle","self_sha256"],"required_identity_fields":["transaction_id","candidate","source_pair","rendered","runtime_manifest","ordered_chunks","materialized_generation_descriptor_sha256"],"schema_version":"validated-naturalization-current-generation-v1"}

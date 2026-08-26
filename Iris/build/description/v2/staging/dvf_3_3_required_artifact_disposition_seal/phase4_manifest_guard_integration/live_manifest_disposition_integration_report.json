@@ -1,9 +1,0 @@
-{
-  "candidate_manifest_created": false,
-  "generated_at": "2026-06-30T15:34:56.334271+00:00",
-  "governance_only": true,
-  "live_manifest_mutated": false,
-  "required_gate_adoption_status": "not_adopted_by_this_round",
-  "schema_version": "dvf-3-3-required-artifact-disposition-live-manifest-integration-v1",
-  "status": "PASS"
-}

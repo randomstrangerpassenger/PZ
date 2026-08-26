@@ -1,3 +1,1 @@
-# Iris Round 2: keep historical staging/archive evidence out of default search.
-Iris/build/description/v2/staging/**
-Iris/_archive/**
+# Historical Iris payload is repository-external; no local historical subtree is hidden.

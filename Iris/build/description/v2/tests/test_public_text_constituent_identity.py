@@ -525,51 +525,22 @@ class PublicTextConstituentIdentityTest(unittest.TestCase):
             ["PASS", "PASS"],
         )
 
-    def test_phase0_exact_unignore_contract_has_no_broad_unignore(
+    def test_current_surfaces_are_tracked_without_iris_unignore_rules(
         self,
     ) -> None:
         lines = (
             acceptance.REPO_ROOT / ".gitignore"
         ).read_text(encoding="utf-8").splitlines()
-        start = lines.index(
-            "# Publish Boundary attempt-0004-official: "
-            "exact synchronized Naturalization inputs."
-        )
-        g5_start = lines.index(
-            "# G5 clean-checkout and future G4: "
-            "exact attempt-0024 required inputs."
-        )
-        end = lines.index(
-            "# Publish Boundary attempt-0004-official: "
-            "owner input and implementation."
-        )
-        block = lines[start:g5_start]
-        g5_block = lines[g5_start:end]
-        exact_files = {
-            line[1:]
-            for line in block
-            if line.startswith("!") and not line.endswith("/")
+        self.assertFalse(any(line.startswith("!Iris/") for line in lines))
+        current_paths = PHASE0_IMPLEMENTATION_REQUIRED_PATHS | {
+            "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+            "Iris/validation/clean_checkout/evidence/current_required_v1/manifest.json",
+            "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua",
         }
-        g5_exact_files = {
-            line[1:]
-            for line in g5_block
-            if line.startswith("!") and not line.endswith("/")
-        }
-        self.assertEqual(exact_files, PHASE0_ATTEMPT_REQUIRED_PATHS)
-        self.assertEqual(g5_exact_files, G5_REQUIRED_PATHS)
-        self.assertFalse(
-            any(line.startswith("!") and "*" in line for line in block)
-        )
-        self.assertFalse(
-            any(line.startswith("!") and "*" in line for line in g5_block)
-        )
-        self.assertFalse(any("attempt-0022" in line for line in block))
-        for relative in (
-            PHASE0_ATTEMPT_REQUIRED_PATHS
-            | PHASE0_IMPLEMENTATION_REQUIRED_PATHS
-            | G5_REQUIRED_PATHS
-        ):
-            self.assertEqual(lines.count(f"!{relative}"), 1)
+        for relative in current_paths:
+            self.assertTrue(
+                acceptance.is_tracked(acceptance.REPO_ROOT / relative)
+            )
             self.assertFalse(
                 acceptance.is_ignored(acceptance.REPO_ROOT / relative)
             )

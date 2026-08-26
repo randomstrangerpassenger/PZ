@@ -26,7 +26,6 @@ live build scripts.
   not a supported current entrypoint.
 - `quality_gates.py`: frozen-output and quality gate checks.
 - `description_generator.py`: description JSON generator.
-- `convert_descriptions_to_lua.py`: generated description Lua converter.
 - `test_require_render.py`: runtime require-order/render smoke test.
 
 ## Active phase package directories
@@ -59,6 +58,9 @@ the absolute repository-external `IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT`.
 
 Retained non-current predecessors:
 
+- `convert_descriptions_to_lua.py` retains pure Layer 4 render helpers used by
+  external candidate generation, but its direct current-runtime write command
+  is retired. Current runtime projection changes are Git-authored.
 - `convert_labelmap_to_lua.py` retains pure label-map coverage/render helpers
   for focused tests, but its deleted `Iris/output` input and direct runtime-write
   command are retired. Current `IrisUseCaseLabelMap.lua` changes are Git-authored.

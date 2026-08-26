@@ -1,5 +1,5 @@
 """
-convert_descriptions_to_lua.py — JSON→Lua 변환 스크립트
+convert_descriptions_to_lua.py — retained non-current JSON→Lua render helpers
 ======================================================
 descriptions_by_fulltype.v2.4.json + usecases_by_fulltype.v2.4.json
 → IrisUseCaseDescriptions.lua facade + UseCaseDescriptions/ChunkNNN.lua
@@ -24,26 +24,8 @@ if str(SCRIPT_DIR) not in sys.path:
 
 IRIS_DIR = SCRIPT_DIR.parent
 
-from tools.common.io import load_json, repository_external_output_root
 from tools.common.versions import BUILD_VERSION
 
-OUTPUT_DIR = repository_external_output_root(
-    environment_variable="IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
-    repository_root=IRIS_DIR.parent,
-)
-BASELINE_DIR = IRIS_DIR / "build" / "baseline" / "current_output_seed_v1"
-DESCRIPTIONS_PATH = BASELINE_DIR / f"descriptions_by_fulltype.{BUILD_VERSION}.json"
-USECASES_PATH = OUTPUT_DIR / f"usecases_by_fulltype.{BUILD_VERSION}.json"
-NAV_REGISTRY_PATH = BASELINE_DIR / f"recipe_nav_registry.{BUILD_VERSION}.json"
-RECIPE_REQ_INDEX_PATH = BASELINE_DIR / f"recipe_requirements_index.{BUILD_VERSION}.json"
-LUA_OUTPUT_PATH = (
-    IRIS_DIR / "media" / "lua" / "client" / "Iris" / "Data"
-    / "IrisUseCaseDescriptions.lua"
-)
-USECASE_CHUNK_DIR = LUA_OUTPUT_PATH.parent / "UseCaseDescriptions"
-REQUIREMENTS_LOOKUP_PATH = USECASE_CHUNK_DIR / "RequirementsLookup.lua"
-USECASE_CHUNK_INDEX_PATH = USECASE_CHUNK_DIR / "ChunkIndex.lua"
-USECASE_LINE_COUNT_INDEX_PATH = USECASE_CHUNK_DIR / "LineCountIndex.lua"
 USECASE_CHUNK_SIZE = 200
 
 # Surface label → key 역매핑 (render_line에서 사용한 라벨 → 원래 키)
@@ -542,112 +524,12 @@ def build_usecase_line_count_index(descriptions_data: dict) -> str:
     return "\n".join(parts)
 
 
-def main():
-    print("=" * 60)
-    print(f"  Convert Descriptions → Lua (BUILD_VERSION={BUILD_VERSION})")
-    print("=" * 60)
-
-    # Check prerequisites
-    for path, label in [
-        (DESCRIPTIONS_PATH, "descriptions_by_fulltype"),
-        (USECASES_PATH, "usecases_by_fulltype"),
-    ]:
-        if not path.exists():
-            print(f"\n  ❌ {label} not found: {path}")
-            return 1
-
-    print(f"  Loading: {DESCRIPTIONS_PATH.name}")
-    descriptions = load_json(DESCRIPTIONS_PATH)
-
-    # recipe_nav_registry 로드 (FAIL-LOUD: recipe 라인 있는데 없으면 실패)
-    nav_registry = None
-    has_recipe_lines = any(
-        item.get("use_case_id", "").startswith("uc.recipe.")
-        for ft_data in descriptions.get("fulltypes", {}).values()
-        for item in ft_data.get("use_case_block", {}).get("items", [])
+def main() -> None:
+    raise SystemExit(
+        "convert_descriptions_to_lua.py is a retained non-current predecessor; "
+        "direct current-runtime generation is unsupported"
     )
-    if not NAV_REGISTRY_PATH.exists():
-        if has_recipe_lines:
-            print(f"\n  ❌ recipe_nav_registry REQUIRED but not found: {NAV_REGISTRY_PATH}")
-            return 1
-    else:
-        nav_registry = load_json(NAV_REGISTRY_PATH)
-        print(f"  Loaded: {NAV_REGISTRY_PATH.name}")
-
-    # recipe_requirements_index 로드 (FAIL-LOUD: 파일 부재 시)
-    req_index = None
-    if not RECIPE_REQ_INDEX_PATH.exists():
-        print(f"\n  ❌ recipe_requirements_index REQUIRED but not found: {RECIPE_REQ_INDEX_PATH}")
-        return 1
-    req_index = load_json(RECIPE_REQ_INDEX_PATH)
-    print(f"  Loaded: {RECIPE_REQ_INDEX_PATH.name}")
-
-    print("  Converting to Lua...")
-    (
-        lua_content,
-        chunks,
-        requirements_lookup_content,
-        ft_count,
-        line_count,
-        nav_errors,
-    ) = convert_to_lua(descriptions, nav_registry, req_index)
-    print(
-        f"  ✅ Converted: {ft_count} fulltypes, {line_count} total lines, "
-        f"{len(chunks)} chunks"
-    )
-
-    if nav_errors:
-        print(f"  ❌ Nav registry errors ({len(nav_errors)}):")
-        for e in nav_errors[:10]:
-            print(f"     {e}")
-        return 1
-
-    # Structural validation
-    print("  Running structural validation...")
-    errors = structural_validation(
-        lua_content,
-        [content for _index, content, _entry_count in chunks],
-        ft_count,
-    )
-    if errors:
-        print(f"  ❌ Validation FAILED ({len(errors)} errors):")
-        for e in errors:
-            print(f"     {e}")
-        return 1
-    print("  ✅ Validation PASSED")
-    chunk_index_content = build_usecase_chunk_index(descriptions, chunks)
-    line_count_index_content = build_usecase_line_count_index(descriptions)
-
-    # Write output
-    LUA_OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    USECASE_CHUNK_DIR.mkdir(parents=True, exist_ok=True)
-    for old_chunk in USECASE_CHUNK_DIR.glob("Chunk*.lua"):
-        old_chunk.unlink()
-    for index, content, _entry_count in chunks:
-        chunk_path = USECASE_CHUNK_DIR / f"Chunk{index:03d}.lua"
-        with open(chunk_path, "w", encoding="utf-8", newline="\n") as f:
-            f.write(content)
-    if requirements_lookup_content:
-        with open(REQUIREMENTS_LOOKUP_PATH, "w", encoding="utf-8", newline="\n") as f:
-            f.write(requirements_lookup_content)
-    elif REQUIREMENTS_LOOKUP_PATH.exists():
-        REQUIREMENTS_LOOKUP_PATH.unlink()
-    with open(LUA_OUTPUT_PATH, "w", encoding="utf-8", newline="\n") as f:
-        f.write(lua_content)
-    with open(USECASE_CHUNK_INDEX_PATH, "w", encoding="utf-8", newline="\n") as f:
-        f.write(chunk_index_content)
-    with open(USECASE_LINE_COUNT_INDEX_PATH, "w", encoding="utf-8", newline="\n") as f:
-        f.write(line_count_index_content)
-
-    print(f"  ✅ Saved: {LUA_OUTPUT_PATH.relative_to(IRIS_DIR)}")
-    print(f"  ✅ Saved chunks: {USECASE_CHUNK_DIR.relative_to(IRIS_DIR)} ({len(chunks)})")
-    if requirements_lookup_content:
-        print(f"  ✅ Saved lookup: {REQUIREMENTS_LOOKUP_PATH.relative_to(IRIS_DIR)}")
-    print(f"  ✅ Saved chunk index: {USECASE_CHUNK_INDEX_PATH.relative_to(IRIS_DIR)}")
-    print(f"  ✅ Saved line-count index: {USECASE_LINE_COUNT_INDEX_PATH.relative_to(IRIS_DIR)}")
-    print("=" * 60)
-    return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()

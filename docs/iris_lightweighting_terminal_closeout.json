@@ -2,32 +2,32 @@
   "record_kind": "compact_documentary_closeout_not_validation_authority",
   "status": "PENDING_INDEPENDENT_REVIEW",
   "implementation_subject": {
-    "commit": "2e13049d995d5d3c580ae676cf17d8709c4bfc17",
-    "tree": "78528d2bee1d69002acd8e9ed86b8539ebe58767"
+    "commit": "bebf87637007a18f36a44fbfd5b5ddcd63783c09",
+    "tree": "4e7e0a5c230d01e1b8cd1246014ba05f1a1c15ef"
   },
   "terminal_machine_validation": {
     "status": "PASS",
-    "run_a_orchestration_sha256": "ad86180295149fb177e668579fb1ab7e79495ba0b2dc87d9f501d63630b2794f",
-    "run_b_orchestration_sha256": "a41ffdc003ace94d0fb743a17f04b82457de08291ed05e2bd7ee2c94ac8a661f",
-    "compare_receipt_sha256": "0f71c910740684ae4c27754a30b253f79a2e26db0b120b473a58fdf155804d72",
-    "canonical_result_sha256": "685ff54a94d7a91f29249a39528413187adf548f823717aa02844ad6a352b63f"
+    "run_a_orchestration_sha256": "6a37f6b7529de6fe5fdce0e45a46b0f601d4b7658f4deac38125a3eaca4d49cc",
+    "run_b_orchestration_sha256": "b78889a8503c585eb64fe26c441f47f13684ddfae20ff2f27ba48545ab1541d2",
+    "compare_receipt_sha256": "3ab4afd94f87649bf087b632f9ba5d13c2e28d7a900da9543bb86e92bf66c31c",
+    "canonical_result_sha256": "5d949db124f7a2643703d12b7cfee600467aa91966f4d94c39621adb2c5681ac"
   },
   "w10": {
     "status": "PASS",
-    "external_locator": "C:/Users/MW/i/physical-capacity-iris-lightweighting-terminal-inv-terminal-w10-2e13049d995d-termin-01a17c871dce/terminal-inventory-result/w10_packet.json",
-    "packet_sha256": "68d134a9a4720baed2732ab89ac68b40fa4c5b4cf470506e810420c224becec7",
-    "subject_manifest_sha256": "13a8104f0e8cfc89915ea22d59f978382434fbbb54d7e122edcf0368a31fd4e9",
-    "clean_tracked_files": 1751,
-    "clean_tracked_git_blob_bytes": 71733963,
-    "clean_physical_files": 1751,
-    "clean_physical_bytes": 72311106,
-    "custody_physical_files": 1751,
-    "custody_physical_bytes": 72121258,
+    "external_locator": "C:/Users/MW/i/physical-capacity-iris-lightweighting-terminal-inv-terminal-w10-bebf87637007-termin-b38dafaa57e0/terminal-inventory-result/w10_packet.json",
+    "packet_sha256": "f6ff2fb5d9a7aa5f5dffd7c0d61c72cb6e5e275f22039e20e895b4d3210c1f9a",
+    "subject_manifest_sha256": "ef9ea96dc5d543eea545105d1f8a1777af76b83cf9a0cf180b829afeabb1e933",
+    "clean_tracked_files": 1752,
+    "clean_tracked_git_blob_bytes": 71750170,
+    "clean_physical_files": 1752,
+    "clean_physical_bytes": 72327605,
+    "custody_physical_files": 1752,
+    "custody_physical_bytes": 72137761,
     "custody_ignored_files": 0,
     "custody_untracked_files": 0,
     "custody_filesystem_only_files": 0,
     "current_layer3_generation_directories": 1,
-    "successor_overhead_bytes": 1590263,
+    "successor_overhead_bytes": 1635427,
     "successor_overhead_ceiling_bytes": 3037162
   },
   "current_capsule": {
@@ -74,6 +74,8 @@
   },
   "independent_review": {
     "range_start_exclusive": "c2b9514fcc1babfc6ecb5201ddc760c87686d663",
+    "prior_closeout_review_actionable_findings": 1,
+    "remediation_subject": "bebf87637007a18f36a44fbfd5b5ddcd63783c09",
     "status": "PENDING",
     "actionable_findings": null
   },

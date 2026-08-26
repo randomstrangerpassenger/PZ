@@ -173,9 +173,8 @@ class LegacyActiveSilentCurrentSurfaceGuardTest(unittest.TestCase):
                 "eol",
                 "--",
                 predecessor := (
-                    "Iris/build/description/v2/staging/compose_contract_migration/"
-                    "legacy_active_silent_current_surface_guard_round/phase1_manifest/"
-                    "current_surface_guard_referent_manifest.json"
+                    "Iris/_docs/refactor/repository_runtime_lightweighting/"
+                    "current_surface_guard_policy.json"
                 ),
                 "Iris/_docs/refactor/repository_runtime_lightweighting/receipt.json",
                 "Iris/_docs/refactor/repository_runtime_lightweighting/manifest.jsonl",

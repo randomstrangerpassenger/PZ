@@ -64,6 +64,7 @@ Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_cl
 Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/readiness_successors/implementation-correction-0005/public_text_quality_phase0_vcs_parity_readiness.json -text
 Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/readiness_successors/implementation-correction-0006/public_text_quality_g5_review_schema_readiness.json -text
 Iris/_docs/refactor/repository_runtime_lightweighting/*.json text eol=lf
+Iris/_docs/refactor/repository_runtime_lightweighting/*.jsonl text eol=lf
 Iris/_docs/refactor/residual_refactor/phase0_protected_surface_manifest.json text eol=lf
 Iris/_docs/refactor/repository_evidence_lightweighting/predecessor_subject_manifest.json text eol=lf
 Iris/_docs/refactor/repository_evidence_lightweighting/owner_policy_approval.json text eol=lf

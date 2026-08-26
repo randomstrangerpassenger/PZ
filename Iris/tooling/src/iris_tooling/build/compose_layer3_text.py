@@ -92,6 +92,7 @@ COMPOSE_CONTEXTS = (
 )
 DEFAULT_CURRENT_AUTHORITY_INPUT_PATH_ERROR_CODE = "DEFAULT_CURRENT_AUTHORITY_INPUT_REJECTED_NON_DATA_SOURCE"
 COMPOSE_CONTEXT_REQUIRED_ERROR_CODE = "COMPOSE_CONTEXT_REQUIRED"
+COMPOSE_EXTERNAL_OUTPUT_REQUIRED_ERROR_CODE = "COMPOSE_EXTERNAL_OUTPUT_REQUIRED"
 COMPOSE_CONTEXT_OUTPUT_CLASS_ERROR_CODE = "COMPOSE_CONTEXT_OUTPUT_CLASS_REJECTED"
 COMPOSE_PROFILE_CLASS_ERROR_CODE = "COMPOSE_PROFILE_CLASS_REJECTED"
 COMPOSE_CURRENT_UNLISTED_OUTPUT_ERROR_CODE = "COMPOSE_CURRENT_UNLISTED_OUTPUT_REJECTED"
@@ -624,6 +625,8 @@ def is_current_equivalent_name(path: Path) -> bool:
 
 
 def classify_compose_write_path(path: Path) -> str:
+    if not is_under_path(path, REPOSITORY_ROOT):
+        return "repository-external"
     if has_test_tmp_segment(path) and is_current_equivalent_name(path):
         return "current-equivalent-fixture"
     if is_under_path(path, OUTPUT_DIR):
@@ -709,10 +712,29 @@ def enforce_allowed_output_classes(
     profile_class: str,
 ) -> None:
     allowed_by_context = {
-        CURRENT_COMPOSE_CONTEXT: {"current-equivalent", "current-equivalent-fixture"},
-        STAGING_COMPOSE_CONTEXT: {"staging", "test-fixture", "current-equivalent-fixture"},
-        HISTORICAL_COMPOSE_CONTEXT: {"historical", "test-fixture", "current-equivalent-fixture"},
-        DIAGNOSTIC_COMPOSE_CONTEXT: {"diagnostic", "test-fixture", "current-equivalent-fixture"},
+        CURRENT_COMPOSE_CONTEXT: {
+            "repository-external",
+            "current-equivalent",
+            "current-equivalent-fixture",
+        },
+        STAGING_COMPOSE_CONTEXT: {
+            "repository-external",
+            "staging",
+            "test-fixture",
+            "current-equivalent-fixture",
+        },
+        HISTORICAL_COMPOSE_CONTEXT: {
+            "repository-external",
+            "historical",
+            "test-fixture",
+            "current-equivalent-fixture",
+        },
+        DIAGNOSTIC_COMPOSE_CONTEXT: {
+            "repository-external",
+            "diagnostic",
+            "test-fixture",
+            "current-equivalent-fixture",
+        },
     }
     allowed = allowed_by_context[compose_context]
     for record in path_records:
@@ -1177,8 +1199,8 @@ def default_entrypoint_paths(mode: str) -> dict[str, Path | None]:
         return {
             "profiles_path": BODY_PLAN_PROFILES_PATH,
             "overlay_path": CURRENT_OVERLAY_SUPPORT_PATH,
-            "output_path": OUTPUT_DIR / "dvf_3_3_rendered.json",
-            "style_log_path": STYLE_LOG_PATH,
+            "output_path": None,
+            "style_log_path": None,
             "requeue_candidates_path": None,
         }
     if mode == DIAGNOSTIC_RESOLVER_MODE:
@@ -1224,22 +1246,33 @@ def resolve_entrypoint_paths(args: argparse.Namespace) -> dict[str, Path | None]
     }
 
 
-def explicit_write_path_args_present(args: argparse.Namespace) -> bool:
-    return (
-        args.output_path is not None
-        or args.style_log_path is not None
-        or args.requeue_candidates_path is not None
-    )
-
-
 def compose_context_for_entrypoint(args: argparse.Namespace) -> str | None:
     if args.compose_context is not None:
         return args.compose_context
     if args.mode == DIAGNOSTIC_RESOLVER_MODE:
         return DIAGNOSTIC_COMPOSE_CONTEXT
-    if args.mode == DEFAULT_MODE and not explicit_write_path_args_present(args):
+    if args.mode == DEFAULT_MODE:
         return CURRENT_COMPOSE_CONTEXT
     return None
+
+
+def enforce_external_default_outputs(
+    mode: str, paths: dict[str, Path | None]
+) -> None:
+    if mode != DEFAULT_MODE:
+        return
+    for key in ("output_path", "style_log_path"):
+        value = paths.get(key)
+        if value is None:
+            raise ValueError(
+                f"{COMPOSE_EXTERNAL_OUTPUT_REQUIRED_ERROR_CODE}: default mode {key} is required"
+            )
+    for key in ("output_path", "style_log_path", "requeue_candidates_path"):
+        value = paths.get(key)
+        if value is not None and is_under_path(value, REPOSITORY_ROOT):
+            raise ValueError(
+                f"{COMPOSE_EXTERNAL_OUTPUT_REQUIRED_ERROR_CODE}: default mode {key} must be repository-external"
+            )
 
 
 def enforce_entrypoint_mode_contract(
@@ -1276,6 +1309,7 @@ def resolver_authority_mode_for_entrypoint(mode: str) -> str:
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     paths = resolve_entrypoint_paths(args)
+    enforce_external_default_outputs(args.mode, paths)
     compose_context = compose_context_for_entrypoint(args)
     enforce_entrypoint_mode_contract(args.mode, paths, compose_context=compose_context)
     build_rendered(

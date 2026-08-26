@@ -222,6 +222,8 @@ class ComposeLayer3TextV2Test(unittest.TestCase):
 
         self.assertEqual(args.mode, DEFAULT_MODE)
         self.assertEqual(paths["profiles_path"].name, "compose_profiles_v2.json")
+        self.assertIsNone(paths["output_path"])
+        self.assertIsNone(paths["style_log_path"])
 
     def test_default_entrypoint_rejects_legacy_profiles(self) -> None:
         legacy_profiles_path = self.tmp_dir / "legacy_profiles.json"

@@ -272,11 +272,11 @@ Checkpoint C는 external synthetic-generation receipt가 결속한 candidate에�
 
 ## 6. 외부 검토와 인게임 검증
 
-구현 commit `c2b9514f` 시점의 선행 Codex Reviewer 결과는 actionable finding 0건이었다. Terminal closeout 검토 1차는 0013 overwrite 1건을, 2차는 보정 중 발생한 0014 overwrite 1건을 보고했다. 두 predecessor를 각각 최초 committed blob으로 복구하고 current correction을 append-only 0015로 이동했다. `c2b9514f..801f15f6`의 최종 implementation, terminal receipts, W10과 documentary closeout은 최종 재검토 대상으로 남겨 두었으며, 재검토가 actionable finding 0으로 끝나기 전에는 최종 closeout을 `complete`로 표시하지 않는다.
+구현 commit `c2b9514f` 시점의 선행 Codex Reviewer 결과는 actionable finding 0건이었다. Terminal closeout 검토 1차는 0013 overwrite 1건을, 2차는 보정 중 발생한 0014 overwrite 1건을 보고했다. 두 predecessor를 각각 최초 committed blob으로 복구하고 current correction을 append-only 0015로 이동했다. 최종 독립 재검토는 `c2b9514f..9882ce6d`의 implementation, terminal receipts, W10과 documentary closeout을 확인했고 actionable finding 0건으로 PASS했다.
 
 자동 검증 완료 후 인게임 검증은 사용자가 직접 수행했다. 사용자는 2026-08-26 현재 인게임 검증이 완료되었다고 보고했다. 별도의 게임 로그나 신규 repository-local proof artifact는 생성하지 않았다.
 
-사용자 인게임 검증은 완료됐지만 현재 문서 carrier 작성 시점의 상태는 `pending_independent_review`다.
+사용자 인게임 검증과 independent review가 모두 완료됐으며 최종 closeout 상태는 `complete`다.
 
 ## 7. 주요 커밋 Walkthrough
 

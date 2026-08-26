@@ -2057,7 +2057,7 @@
 
 ### Terminal closeout — exact W10 및 local-custody correction
 
-- 상태: machine/W10/local-custody PASS; Reviewer remediation complete; independent terminal re-review pending
+- 상태: complete — machine/W10/local-custody PASS; Reviewer remediation complete; independent terminal review PASS with actionable finding 0
 - exact implementation subject: `801f15f678fe9c5fd67be0f805f29ed3ba9db9b3` / tree `1db498cabee54d1516e8dc0e78d6a99c8806a4a4`
 - 결정:
   - terminal machine PASS는 `801f15f6`의 Run A/Run B/comparator에만 귀속한다. 후속 closeout carrier는 documentary-only이며 이 PASS를 새 implementation commit의 실행 결과로 표현하지 않는다.
@@ -2075,5 +2075,5 @@
   - unsupported keep / remaining eligible removal / unimplemented removal / unresolved blocker / retained exception: 모두 0
 - compact documentary readpoint: `docs/iris_lightweighting_terminal_closeout.json`
 - W10 packet: repository-external `C:/Users/MW/i/physical-capacity-iris-lightweighting-terminal-inv-terminal-w10-801f15f678fe-termin-6bf8179bacfa/terminal-inventory-result/w10_packet.json`, SHA-256 `d6015d4385f8da6625ebe14304775797db9c5c799398309d4164401a62ce012d`
-- progression: independent Reviewer가 `c2b9514f..closeout carrier`를 검토하여 actionable finding 0을 확인한 뒤에만 final `complete`로 전환한다.
+- independent review: `c2b9514f..9882ce6d` 검토 결과 actionable finding 0; final `complete` 전환 조건 충족
 - Non-decision: runtime 성능, 실제 token 절감률, release/publish/Workshop/deployment readiness를 주장하지 않는다.

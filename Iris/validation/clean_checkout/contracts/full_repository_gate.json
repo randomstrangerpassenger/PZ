@@ -243,12 +243,12 @@
     ],
     "hermetic_test_fixture_sources": [
       {
-        "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/d16_candidate_sources/test_dvf_3_3_korean_prose_acceptance_gate.py",
-        "reason": "tracked D16 candidate-source fixture whose identity is verified by the Food closeout test"
+        "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_food_semantic/d16_candidate_sources/test_dvf_3_3_korean_prose_acceptance_gate.py",
+        "reason": "D16 candidate-source fixture retained by the current test owner after predecessor tooling migration"
       },
       {
-        "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/d16_candidate_sources/test_dvf_3_3_korean_prose_semantic_preservation.py",
-        "reason": "tracked D16 candidate-source fixture whose identity is verified by the Food closeout test"
+        "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_food_semantic/d16_candidate_sources/test_dvf_3_3_korean_prose_semantic_preservation.py",
+        "reason": "D16 candidate-source fixture retained by the current test owner after predecessor tooling migration"
       }
     ],
     "evidence_only_sources": [],

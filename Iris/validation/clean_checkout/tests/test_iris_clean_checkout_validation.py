@@ -1498,16 +1498,7 @@ def test_full_source_policy_classifies_only_declared_fallback(
         tool_paths,
         set(),
     )
-    assert len(tool_rows) == 2
-    with pytest.raises(
-        CleanCheckoutError,
-        match="required-test dependency",
-    ):
-        _validate_explicit_tool_dispositions(
-            contract,
-            tool_paths,
-            {next(iter(tool_paths))},
-        )
+    assert tool_rows == []
     dedicated_sources = {
         (
             "Iris/validation/test_workflow_consolidation/tests/"

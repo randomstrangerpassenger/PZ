@@ -170,7 +170,7 @@ class IarPublicTextAssessmentTest(unittest.TestCase):
         with self.temporary_root() as temp_dir:
             output = Path(temp_dir) / "assessment_result.json"
             run = self.run_cli(
-                str(RUNNER),
+                *RUNNER,
                 "--input",
                 str(FIXTURES / "qg_assessment_input.json"),
                 "--output",
@@ -183,7 +183,7 @@ class IarPublicTextAssessmentTest(unittest.TestCase):
             self.assertEqual(payload["status"], "FAIL")
             self.assertEqual(payload["finding_count"], 1)
             validate = self.run_cli(
-                str(VALIDATOR),
+                *VALIDATOR,
                 "--input",
                 str(FIXTURES / "qg_assessment_input.json"),
                 "--result",

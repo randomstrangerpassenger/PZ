@@ -1,0 +1,25 @@
+{
+  "schema_version": "iris_historical_physical_removal_v1",
+  "status": "PASS",
+  "archive_authority": "Iris/validation/clean_checkout/authority/iris_historical_archive_v1.json",
+  "archive_sha256": "24e7cd3cb97994d70d923dddfb68bf5135a887738a5dbbd2547a228fa8da972d",
+  "tracked_removal": {
+    "commit": "a871879fa85d7342b3ded1e45641735d7dccd17a",
+    "delete_manifest_sha256": "67a165b56330e64643df9af78513d31a93cec005ce7df04b9fdb9d305e571fbe",
+    "removed_file_count": 3804,
+    "removed_bytes": 607432467,
+    "removed_logical_paths_sha256": "4aea01b030ca47da261bc59c3425d4b8d3566c057d12e1a9de049299f31b765d",
+    "post_delete_literal_absence": true
+  },
+  "custody_removal": {
+    "subject_commit": "9aa81249be7657a1e09a48d162fe96315cfd9748",
+    "subject_tree": "c9137a3f0597b39c94000b2cc27ea28e9fab964a",
+    "external_receipt_sha256": "5a987de22e929a62e5980d78040bba9fd5ae3e02980875a89af9b6e8e7c0370e",
+    "removed_file_count": 1266,
+    "removed_bytes": 202231050,
+    "removed_logical_paths_sha256": "cd8e2835a6e412578ecbdbbae572efd06114949c864279bec1ecf9d8b057ef51",
+    "post_delete_literal_absence": true
+  },
+  "domain_overlap_count": 0,
+  "recovery": "explicit restore from the verified historical archive"
+}

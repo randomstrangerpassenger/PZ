@@ -322,7 +322,11 @@ def finalize_closeout(
         orchestration_ref = chain.get("orchestration_receipt")
         result_ref = chain.get("inner_run_receipt")
         canonical_ref = chain.get("canonical_result")
-        if orchestration_ref != gate["orchestration_receipt"] or result_ref != gate["result_receipt"]:
+        expected_orchestration_ref = {
+            **gate["orchestration_receipt"],
+            "claim_id": gate["claim_id"],
+        }
+        if orchestration_ref != expected_orchestration_ref or result_ref != gate["result_receipt"]:
             raise TooltipContractError(f"deterministic comparator {label} receipt binding mismatch")
         if not isinstance(canonical_ref, dict):
             raise TooltipContractError(f"deterministic comparator {label} canonical result binding missing")

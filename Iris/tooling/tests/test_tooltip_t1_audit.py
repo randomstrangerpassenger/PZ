@@ -119,6 +119,7 @@ def _finalization_fixture(tmp_path: Path, repository_root: Path, mode: str) -> d
             "orchestration_receipt": {
                 "path": orchestration_path.resolve().as_posix(),
                 "sha256": sha256_file(orchestration_path),
+                "claim_id": claim_id,
             },
             "inner_run_receipt": {
                 "path": result_path.resolve().as_posix(),

@@ -1,11 +1,13 @@
 # Iris build-validation execution/current-authority optimization closeout
 
-Status: implementation complete; package-bound machine terminal and independent review pending
+Status: implementation and package-bound machine terminal complete; independent review pending
 
 ## Bound subjects
 
 - product S0: `e6310737a99873e2c58f3f399de77ef97473f39f` / tree `fa58a95445a75308d06b24ac8515ea4d0789ca0f`
 - documentation-only plan carrier: `e0d22781e0595abfd07da82150219d39969f6d4a` / tree `202ddfdb33c98caefa81a67d755f7fe844258238`
+- final package-source implementation subject: `d22ad77ee4ece4f907d35830c1d1f9c804ec4f58` / tree `50153ee4d92c10f10d1a5181dc34fb8215fc032b`
+- machine-validation environment subject: `1d7cada17a06b9a63c762cbbb47f1a8bcabfcc46` / tree `dd74e3811f9ba1ef732e059311455a1388cd2b11`; direct parent is the final package-source subject and its commit changes only the versioned environment authority record and current locator
 - carrier parent and only S0-relative path: exact S0 / `docs/iris_build_validation_execution_current_authority_optimization_plan.md`
 - W0 current-route listing: exit `0`, 103 identities, LF-normalized SHA-256 `3406301be19d3cf5c1491b450b90938cf68371d7284a4d8e7ce61bd7917b9b95`
 - W0 authority manifest: `Iris/_docs/authority/iris_current_authority_manifest.json`, S0 blob `47624dc14dae148e988f60c1a5877324c30122e9`, raw SHA-256 `38f1bdc90c1ff8d3b17bbc71c3ecb184bc4239a572aa90b8ad84cad011933901`
@@ -13,7 +15,7 @@ Status: implementation complete; package-bound machine terminal and independent 
 - W0 census: `C:/Users/MW/i/iris-build-validation-optimization-e0d22781/w0/w0_census.json`, SHA-256 `d4e72b9747d39b75ac12b02832500761cf82d1f88b2af115b43eaeee800fe702`
 - external custody owner: this optimization implementation; explicit root `C:/Users/MW/i/iris-build-validation-optimization-e0d22781`; repository/source-checkout descendant: false; tracked source mutation allowed: false
 
-The exact G5 0013→0014→0015 paths, Git blobs, raw SHA-256 values, schemas, and PASS statuses matched the plan at W0, and their bytes remain unchanged. The current compiler production closure changed only at `Iris/tooling/src/iris_tooling/domains/public_text/cli.py`; append-only successor 0016 binds the resulting current identity without rewriting earlier evidence.
+The exact G5 0013→0014→0015 paths, Git blobs, raw SHA-256 values, schemas, and PASS statuses matched the plan at W0, and their bytes remain unchanged. The current compiler production closure changed only at `Iris/tooling/src/iris_tooling/domains/public_text/cli.py`; append-only successor 0016 binds basis commit `31dc4c949db160bc3794cab38bedbef6af6349c0`, aggregate `88f51c4b49a1ad64a8c8bc8d26eaf4cd8fa59f0a5d148f197a5b76e166f2ac80`, and committed raw SHA-256 `51e54f4aa76263d56d86846678ed09f65d8b78e1432c5c55ec7d6b170f676c11` without rewriting earlier evidence.
 
 ## Candidate disposition
 
@@ -49,7 +51,20 @@ Focused checkpoints were bounded to the three planned waves. A Wave 2 pytest lau
 
 ## Terminal results
 
-To be filled from the exact package-source commit, fresh external wheel/environment receipt, machine-validation environment subject, receipt-bound Run A/B, deterministic comparator, mutation check, and independent Reviewer.
+- exact wheel: `C:/Users/MW/i/iris-build-validation-optimization-e0d22781/terminal/w4c/wheel/iris_tooling-0.1.0-py3-none-any.whl`, SHA-256 `19abb574e906b078994e5cf754784c55628b70fe57a1ab84ec90cb0833d0d51b`
+- fresh environment receipt: `C:/Users/MW/i/iris-build-validation-optimization-e0d22781/terminal/w4c/receipt/environment_receipt.json`, SHA-256 `836a3eb7674982c1420807d0105d635870bd2ffc297598ebc931add2a2622728`
+- package timing: wheel build `0.918 s`, dependency/wheel provision `0.609 s`, one-shot environment writer `1.860 s`
+- current launcher blobs at the machine subject: full gate `166a47d967ffc0838d8e734c2ffcf89162b87d99`; comparator `899a8d289f2669606f1123f2d4207947a6504610`
+- Run A: exit `0`, `231.040 s`, orchestration `C:/Users/MW/i/ivo4c-ra/orchestration.json`
+- Run B: exit `0`, `229.438 s`, orchestration `C:/Users/MW/i/ivo4c-rb/orchestration.json`
+- both runs: `PASS`, 211 pytest identities plus 4 required standalone validations, 215 required execution units, source checkout clean after, external execution status unchanged, external work root empty after
+- canonical result SHA-256: A = B = `252ac3cc0d157b4a378c83c032b0d08c0df489356f6e1314c86591cbe5938dda`
+- deterministic comparator: exit `0`, `2.323 s`, receipt `C:/Users/MW/i/ivo4c-cmp/compare_receipt.json`, status `succeeded`, fingerprint `2d273c6bb40295b9640a7a02a81fe985f146700d8f80b20316aa7c029cbb7f34`
+- final tracked mutation check before this documentation-only closeout edit: clean
+
+Rerun discipline was fail-closed. One launcher attempt stopped at the declared Windows work-root path budget. A second pre-terminal attempt exposed the CRLF working-file versus LF Git-blob G5 raw binding and was corrected without changing 0016. The first complete suite then exposed eight long result-root failures and one stale G5 aggregate test oracle. After correcting the oracle and shortening both terminal work and result roots, the final package-source/environment chain above was rebuilt and the exact A/B/comparator bundle passed. No third successful full run, reordered run, historical replay, or full tooling pytest was added.
+
+Independent Reviewer result: pending.
 
 > 이 closeout은 Iris build·validation execution 및 current-authority 탐색 최적화에만 귀속된다.  
 > Wiki/Browser presentation 및 Lua UI 최적화의 완료를 주장하지 않는다.

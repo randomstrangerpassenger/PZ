@@ -45,6 +45,10 @@ def _parser() -> argparse.ArgumentParser:
         choices=("standalone_full_gate", "composite_baseline_admission_chain_stage_6"),
         default="standalone_full_gate",
     )
+    full.add_argument("--predecessor-stage-receipt-set-sha256")
+    full.add_argument("--qualification-contract-sha256")
+    full.add_argument("--predecessor-stage-receipt-set", type=Path)
+    full.add_argument("--qualification-contract", type=Path)
 
     inspect = subparsers.add_parser("inspect", help="Read a static current route projection.")
     inspect.add_argument("target", choices=("current",))
@@ -79,7 +83,11 @@ def _domain_main(target: str, remainder: Sequence[str]) -> int:
     return command_main(remainder)
 
 
-def _validate_full(args: argparse.Namespace, repository_root: Path) -> int:
+def _validate_full(
+    args: argparse.Namespace,
+    repository_root: Path,
+    parser: argparse.ArgumentParser,
+) -> int:
     launcher = repository_root / "Iris/validation/clean_checkout/invoke_receipt_bound_full_gate.ps1"
     command = [
         "powershell",
@@ -105,6 +113,35 @@ def _validate_full(args: argparse.Namespace, repository_root: Path) -> int:
         "-BaselineAdmissionExecutionContext",
         args.execution_context,
     ]
+    composite_inputs = (
+        ("--predecessor-stage-receipt-set-sha256", args.predecessor_stage_receipt_set_sha256),
+        ("--qualification-contract-sha256", args.qualification_contract_sha256),
+        ("--predecessor-stage-receipt-set", args.predecessor_stage_receipt_set),
+        ("--qualification-contract", args.qualification_contract),
+    )
+    if args.execution_context == "composite_baseline_admission_chain_stage_6":
+        missing = [flag for flag, value in composite_inputs if value is None]
+        if missing:
+            parser.error(
+                "composite execution context requires " + ", ".join(missing)
+            )
+        command.extend(
+            [
+                "-PredecessorStageReceiptSetSha256",
+                args.predecessor_stage_receipt_set_sha256,
+                "-QualificationContractSha256",
+                args.qualification_contract_sha256,
+                "-PredecessorStageReceiptSet",
+                str(args.predecessor_stage_receipt_set.resolve()),
+                "-QualificationContract",
+                str(args.qualification_contract.resolve()),
+            ]
+        )
+    elif any(value is not None for _, value in composite_inputs):
+        parser.error(
+            "composite identity inputs require "
+            "--execution-context composite_baseline_admission_chain_stage_6"
+        )
     completed = subprocess.run(
         command,
         cwd=repository_root,
@@ -147,7 +184,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.command == "install":
         return _domain_main(args.target, ["install", *remainder])
     if args.command == "validate":
-        return _validate_full(args, repository_root)
+        if remainder:
+            parser.error("unrecognized arguments: " + " ".join(remainder))
+        return _validate_full(args, repository_root, parser)
     if args.command == "inspect":
         return _inspect_current(repository_root)
     return _domain_main(args.command, remainder)

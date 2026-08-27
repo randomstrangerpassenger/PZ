@@ -185,6 +185,12 @@
       "delete_move_policy": "protected; no semantic authority or mutable latest state"
     },
     {
+      "path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "classification": "historical",
+      "authority_role": "frozen Round 3 closure snapshot superseded for current navigation by Iris/_docs/authority/iris_current_route_index.json",
+      "delete_move_policy": "retain immutable historical provenance; current-sounding fields do not confer current authority"
+    },
+    {
       "path": "Iris/_docs/authority/iris_authority_classification.md",
       "classification": "current",
       "authority_role": "human-readable Iris authority classification guide",
@@ -332,6 +338,12 @@
       "path_glob": "Iris/build/description/v2/tools/build/*.py",
       "classification": "reproduction",
       "authority_role": "old description-v2 tooling predecessor; current owner is Iris/tooling",
+      "delete_move_policy": "archive under content_addressed_zip_v2 after current consumer closure"
+    },
+    {
+      "path_glob": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/d16_candidate_sources/*.py",
+      "classification": "reproduction",
+      "authority_role": "nested old description-v2 tooling predecessor; current owner is Iris/tooling",
       "delete_move_policy": "archive under content_addressed_zip_v2 after current consumer closure"
     },
     {

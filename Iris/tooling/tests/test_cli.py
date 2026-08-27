@@ -82,6 +82,36 @@ def test_help_is_repository_independent(capfd, monkeypatch, tmp_path: Path) -> N
     assert any("invoke_receipt_bound_full_gate.ps1" in value for value in captured_command)
     assert not any("round3_run_contract_tests" in value for value in captured_command)
 
+    captured_command.clear()
+    predecessor_receipts = tmp_path / "predecessor-receipts.json"
+    qualification_contract = tmp_path / "qualification-contract.json"
+    assert main(
+        [
+            "--repository-root", str(repository_root),
+            "validate", "full",
+            "--commit", "b" * 40,
+            "--claim-id", "composite-probe",
+            "--environment-receipt", str(tmp_path / "environment.json"),
+            "--work-root", str(tmp_path / "work-composite"),
+            "--result-root", str(tmp_path / "result-composite"),
+            "--orchestration-receipt", str(tmp_path / "orchestration-composite.json"),
+            "--execution-context", "composite_baseline_admission_chain_stage_6",
+            "--predecessor-stage-receipt-set-sha256", "c" * 64,
+            "--qualification-contract-sha256", "d" * 64,
+            "--predecessor-stage-receipt-set", str(predecessor_receipts),
+            "--qualification-contract", str(qualification_contract),
+        ]
+    ) == 7
+    expected_pairs = {
+        "-PredecessorStageReceiptSetSha256": "c" * 64,
+        "-QualificationContractSha256": "d" * 64,
+        "-PredecessorStageReceiptSet": str(predecessor_receipts.resolve()),
+        "-QualificationContract": str(qualification_contract.resolve()),
+    }
+    for flag, value in expected_pairs.items():
+        index = captured_command.index(flag)
+        assert captured_command[index + 1] == value
+
 
 @pytest.mark.parametrize("legacy_flag", ["--v22", "--v23", "--v24"])
 def test_rightclick_rejects_predecessor_mode_flags(legacy_flag: str) -> None:

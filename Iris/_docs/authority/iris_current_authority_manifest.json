@@ -11,6 +11,7 @@
     "docs/DECISIONS.md",
     "docs/ARCHITECTURE.md",
     "docs/ROADMAP.md",
+    "docs/IRIS_CURRENT.md",
     "Iris/_docs/authority/iris_current_authority_manifest.json",
     "Iris current contract files named in this manifest",
     "historical closeouts, round ledgers, staging artifacts, generated output"
@@ -66,7 +67,7 @@
       "paths": [
         "Iris/build/ENTRYPOINTS.md",
         "Iris/build/build_import_contract.md",
-        "Iris/_docs/refactor/phase1_active_manifest.md"
+        "docs/IRIS_CURRENT.md"
       ],
       "delete_move_policy": "protected; update only with focused build-contract plan."
     },
@@ -95,13 +96,13 @@
         "Iris/tooling/uv.lock",
         "Iris/tooling/src/iris_tooling/**"
       ],
-      "command": "python -B -s -m iris_tooling --repository-root <repo> <domain>",
+      "command_owner": "Iris/build/ENTRYPOINTS.md",
       "notes": "Current Description v2 and right-click tooling is installed from a hash-bound wheel. Repository context is explicit."
     },
     "package_validation": {
       "classification": "current",
       "path": "Iris/tools/package_iris.ps1",
-      "command": "powershell -ExecutionPolicy Bypass -File .\\Iris\\tools\\package_iris.ps1 -OutputRoot <external-package-root> -Clean -Zip -PackageApplicability current_runtime_payload",
+      "command_owner": "Iris/build/ENTRYPOINTS.md",
       "notes": "current_runtime_payload consumes the stateless generation descriptor after R2-A installation. rtc_certified_payload remains a separate stale/fail-closed axis until generation-bound successor RTC evidence exists."
     },
     "package_output": {
@@ -166,6 +167,24 @@
       "delete_move_policy": "do not restore by default; commit deletion only after live reference reconciliation remains valid"
     },
     {
+      "path": "docs/IRIS_CURRENT.md",
+      "classification": "current",
+      "authority_role": "canonical Iris human and AI current navigation readpoint",
+      "delete_move_policy": "protected; update only through a focused current-route plan"
+    },
+    {
+      "path": "Iris/AGENTS.md",
+      "classification": "current",
+      "authority_role": "link-only Iris agent bootstrap",
+      "delete_move_policy": "protected"
+    },
+    {
+      "path": "Iris/_docs/authority/iris_current_route_index.json",
+      "classification": "current",
+      "authority_role": "static machine navigation projection",
+      "delete_move_policy": "protected; no semantic authority or mutable latest state"
+    },
+    {
       "path": "Iris/_docs/authority/iris_authority_classification.md",
       "classification": "current",
       "authority_role": "human-readable Iris authority classification guide",
@@ -209,9 +228,9 @@
     },
     {
       "path": "Iris/_docs/refactor/phase1_active_manifest.md",
-      "classification": "current",
-      "authority_role": "active build/refactor manifest addendum",
-      "delete_move_policy": "protected"
+      "classification": "historical",
+      "authority_role": "superseded build/refactor manifest addendum",
+      "delete_move_policy": "retain as historical provenance; not a current command or explanation owner"
     },
     {
       "path": "Iris/build/description/v2/tools/build/INVENTORY.md",

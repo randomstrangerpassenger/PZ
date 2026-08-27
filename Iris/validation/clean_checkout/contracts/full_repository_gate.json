@@ -490,6 +490,8 @@
       "environment_variable": "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT",
       "seed_source": "exact frozen baseline subset followed by current producers in caller-supplied external result root",
       "destination": "caller-supplied repository-external result root",
+      "producer_invocation_count": 3,
+      "publish_mode": "one staging build, completeness/content-identity verification, immutable final publish, then case-local clones",
       "pytest_projection": true,
       "per_command_isolation": true,
       "repository_output_write_count": 0,

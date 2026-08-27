@@ -1,15 +1,18 @@
 from __future__ import annotations
 
 import json
+import importlib
 import subprocess
 import unittest
 from pathlib import Path
+
+from iris_tooling.build.repository_context import configure_repository
 
 
 REPO = Path(__file__).resolve().parents[5]
 
 CURRENT_REQUIRED = [
-    "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py",
+    "Iris/tooling/src/iris_tooling/build/export_dvf_3_3_lua_bridge.py",
     "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
 ]
 
@@ -79,6 +82,53 @@ class DvfVcsTrackingPolicyTest(unittest.TestCase):
                         (REPO / path).exists(),
                         f"{path} must not remain in the working tree",
                     )
+
+        current_build = REPO / "Iris/tooling/src/iris_tooling/build"
+        predecessor_build = REPO / "Iris/build/description/v2/tools/build"
+        current_implementation_names = {
+            path.name
+            for path in current_build.rglob("*.py")
+            if path.name != "__init__.py"
+        }
+        remaining_predecessor_copies = sorted(
+            path.relative_to(REPO).as_posix()
+            for path in predecessor_build.rglob("*.py")
+            if path.name in current_implementation_names
+        )
+        self.assertEqual(remaining_predecessor_copies, [])
+
+        current_reference_surfaces = (
+            current_build,
+            REPO / "Iris/tooling/src/iris_tooling/domains",
+            REPO / "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
+            REPO / "Iris/build/rightclick_evidence_pipeline.py",
+            REPO / "Iris/build/recipe_evidence_pipeline.py",
+            REPO / "Iris/build/tools/common",
+        )
+        forbidden_references = []
+        for surface in current_reference_surfaces:
+            paths = surface.rglob("*.py") if surface.is_dir() else (surface,)
+            for source in paths:
+                text = source.read_text(encoding="utf-8")
+                if (
+                    "Iris/build/description/v2/tools/build/" in text
+                    or "build.description.v2.tools.build" in text
+                ):
+                    forbidden_references.append(source.relative_to(REPO).as_posix())
+        self.assertEqual(forbidden_references, [])
+
+        configure_repository(REPO)
+        exporter = importlib.import_module(
+            "iris_tooling.build.export_dvf_3_3_lua_bridge"
+        )
+        self.assertEqual(
+            exporter.__spec__.name,
+            "iris_tooling.build.export_dvf_3_3_lua_bridge",
+        )
+        self.assertNotIn(
+            "Iris/build/description/v2/tools/build",
+            Path(exporter.__file__).resolve().as_posix(),
+        )
 
     def test_path_form_normalization_finds_stale_surfaces_only(self) -> None:
         positive_cases = [

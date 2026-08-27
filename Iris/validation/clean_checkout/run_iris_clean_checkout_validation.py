@@ -2399,7 +2399,7 @@ def _materialize_current_output_seed(
     python_executable: Path,
     environment: dict[str, str],
     baseline_seed_files: list[dict[str, Any]],
-) -> None:
+) -> dict[str, Any]:
     if output_root.exists():
         raise CleanCheckoutError(f"current output seed root already exists: {output_root}")
     output_root.mkdir(parents=True)
@@ -2452,6 +2452,83 @@ def _materialize_current_output_seed(
     for command in commands:
         completed = _run_subprocess(command, cwd=checkout, environment=seed_environment)
         _raise_process_failure("current output seed producer", command, completed)
+
+    rows = [
+        {
+            "path": path.relative_to(output_root).as_posix(),
+            "bytes": path.stat().st_size,
+            "sha256": sha256_file(path),
+        }
+        for path in sorted(output_root.rglob("*"))
+        if path.is_file() and not path.is_symlink()
+    ]
+    if {row["destination"] for row in baseline_seed_files} - {
+        row["path"] for row in rows
+    }:
+        raise CleanCheckoutError("current output seed is incomplete after producers")
+    identity_bytes = canonical_json_bytes(rows)
+    return {
+        "schema_version": "iris-clean-checkout-current-output-seed-v1",
+        "file_count": len(rows),
+        "content_identity_sha256": sha256_bytes(identity_bytes),
+        "producer_invocation_count": len(commands),
+        "rows": rows,
+    }
+
+
+def _publish_current_output_seed(
+    checkout: Path,
+    final_root: Path,
+    python_executable: Path,
+    environment: dict[str, str],
+    baseline_seed_files: list[dict[str, Any]],
+) -> dict[str, Any]:
+    staging_root = final_root.with_name(final_root.name + ".staging")
+    if staging_root.exists() or final_root.exists():
+        raise CleanCheckoutError("current output seed staging/final root already exists")
+    identity = _materialize_current_output_seed(
+        checkout,
+        staging_root,
+        python_executable,
+        environment,
+        baseline_seed_files,
+    )
+    staging_root.replace(final_root)
+    published_rows = [
+        {
+            "path": path.relative_to(final_root).as_posix(),
+            "bytes": path.stat().st_size,
+            "sha256": sha256_file(path),
+        }
+        for path in sorted(final_root.rglob("*"))
+        if path.is_file() and not path.is_symlink()
+    ]
+    if sha256_bytes(canonical_json_bytes(published_rows)) != identity[
+        "content_identity_sha256"
+    ]:
+        raise CleanCheckoutError("published current output seed identity mismatch")
+    return identity
+
+
+def _clone_current_output_seed(
+    final_root: Path,
+    destination: Path,
+    expected_identity_sha256: str,
+) -> None:
+    if destination.exists():
+        raise CleanCheckoutError(f"current output seed clone already exists: {destination}")
+    shutil.copytree(final_root, destination)
+    rows = [
+        {
+            "path": path.relative_to(destination).as_posix(),
+            "bytes": path.stat().st_size,
+            "sha256": sha256_file(path),
+        }
+        for path in sorted(destination.rglob("*"))
+        if path.is_file() and not path.is_symlink()
+    ]
+    if sha256_bytes(canonical_json_bytes(rows)) != expected_identity_sha256:
+        raise CleanCheckoutError("case-local current output seed clone identity mismatch")
 
 
 def run_full_repository_gate(
@@ -2757,6 +2834,7 @@ def run_full_repository_gate(
     execution_status_after = ""
     fixture_result: dict[str, Any] = {}
     mirror_result: dict[str, Any] = {}
+    seed_result: dict[str, Any] = {}
     ignored_required_paths: list[str] = []
     try:
         initial_execution_status = _status_snapshot(checkout)
@@ -2818,14 +2896,20 @@ def run_full_repository_gate(
             parents=True,
             exist_ok=True,
         )
-        _materialize_current_output_seed(
+        shared_seed_root = result_root / "test-output" / "current-output-seed-final"
+        seed_result = _publish_current_output_seed(
             checkout,
-            pytest_legacy_output_root,
+            shared_seed_root,
             python_executable,
             environment,
             contract["execution_workspace"]["standalone_output_projection"][
                 "baseline_seed_files"
             ],
+        )
+        _clone_current_output_seed(
+            shared_seed_root,
+            pytest_legacy_output_root,
+            seed_result["content_identity_sha256"],
         )
         environment[
             "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"
@@ -2871,16 +2955,6 @@ def run_full_repository_gate(
 
         standalone_root = result_root / "standalone"
         standalone_root.mkdir()
-        standalone_seed_root = result_root / "test-output" / "standalone-current-seed"
-        _materialize_current_output_seed(
-            checkout,
-            standalone_seed_root,
-            python_executable,
-            environment,
-            contract["execution_workspace"]["standalone_output_projection"][
-                "baseline_seed_files"
-            ],
-        )
         for row in contract["required_standalone_validations"]:
             standalone_output_root = (
                 result_root
@@ -2893,7 +2967,11 @@ def run_full_repository_gate(
                 parents=True,
                 exist_ok=True,
             )
-            shutil.copytree(standalone_seed_root, standalone_output_root)
+            _clone_current_output_seed(
+                shared_seed_root,
+                standalone_output_root,
+                seed_result["content_identity_sha256"],
+            )
             standalone_environment = dict(environment)
             standalone_environment[
                 "IRIS_CLEAN_CHECKOUT_LEGACY_OUTPUT_ROOT"
@@ -3100,6 +3178,16 @@ def run_full_repository_gate(
                 "materialized_file_count"
             ],
             "package_runtime_mirror_rows": mirror_result["rows"],
+            "current_output_seed": {
+                "file_count": seed_result["file_count"],
+                "content_identity_sha256": seed_result[
+                    "content_identity_sha256"
+                ],
+                "producer_invocation_count": seed_result[
+                    "producer_invocation_count"
+                ],
+                "case_local_clone_count": 1 + len(standalone_rows),
+            },
         },
         "source_checkout_clean_before": not before_status,
         "source_checkout_clean_after": not after_status,

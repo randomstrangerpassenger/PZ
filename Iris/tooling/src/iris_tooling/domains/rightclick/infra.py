@@ -1,13 +1,11 @@
 from __future__ import annotations
 
-from collections.abc import Callable
 import json
 import os
 from pathlib import Path
-from typing import Any, TypeVar
+from typing import Any
 
-
-T = TypeVar("T")
+from iris_tooling.execution import PhaseRunner
 
 
 def load_json(path: Path) -> Any:
@@ -38,19 +36,8 @@ def pipeline_banner(title: str, width: int = 60) -> None:
     print(bar)
 
 
-class StageRunner:
-    def run(
-        self,
-        action: Callable[[], T],
-        *,
-        failed: Callable[[T], bool] | None = None,
-        abort_message: str | None = None,
-    ) -> tuple[T, bool]:
-        result = action()
-        ok = not failed(result) if failed else True
-        if not ok and abort_message:
-            print(f"\n{abort_message}")
-        return result, ok
+class StageRunner(PhaseRunner):
+    """Right-click I/O adapter over the shared thin phase runner."""
 
     def save_json(
         self,

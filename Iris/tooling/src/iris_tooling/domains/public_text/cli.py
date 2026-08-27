@@ -8,6 +8,7 @@ import subprocess
 import sys
 
 from .inputs import NaturalizationProvenanceInputs
+from iris_tooling.execution import decode_legacy_result, encode_legacy_result
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -84,7 +85,17 @@ def main(argv: Sequence[str] | None = None) -> int:
             file=sys.stderr,
         )
         return 3 if "write-once conflict" in str(exc) else 2
-    print(json.dumps(result, ensure_ascii=False, sort_keys=True))
+    typed_result = decode_legacy_result(
+        result,
+        discriminator="iris.public-text.naturalization-result.v1",
+    )
+    print(
+        json.dumps(
+            encode_legacy_result(typed_result),
+            ensure_ascii=False,
+            sort_keys=True,
+        )
+    )
     if result.get("status") in {
         "blocked_prerequisite",
         "blocked_owner_approval_required",

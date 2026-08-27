@@ -28,6 +28,8 @@ COMPILER_REPO_RELATIVE_POSIX_PATH_ORDER = (
     "Iris/tooling/src/iris_tooling/build/compose_layer3_blocks.py",
     "Iris/tooling/src/iris_tooling/build/compose_layer3_identity.py",
     "Iris/tooling/src/iris_tooling/build/compose_layer3_io.py",
+    "Iris/tooling/src/iris_tooling/build/naturalization_compiler_identity.py",
+    "Iris/tooling/src/iris_tooling/execution.py",
     "Iris/tooling/src/iris_tooling/domains/public_text/inputs.py",
     "Iris/tooling/src/iris_tooling/domains/public_text/cli.py",
     "Iris/tooling/src/iris_tooling/domains/public_text/naturalization_context.py",

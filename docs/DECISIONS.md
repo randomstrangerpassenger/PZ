@@ -2082,3 +2082,41 @@
   - completion 이후의 문서 동기화는 docs-only이며 machine PASS, W10 또는 Reviewer PASS의 subject를 새 문서 commit으로 재귀속하지 않는다.
   - remote push는 수행하지 않았고 `Echo/bin`, `Pulse/bin`, `pulse-api/bin`, `pulse-api/build`의 기존 untracked state는 Iris 작업 범위 밖으로 보존한다.
 - Non-decision: runtime 성능, 실제 token 절감률, release/publish/Workshop/deployment readiness를 주장하지 않는다.
+
+### Iris build/validation — typed execution, current-authority convergence, owner-disposed closeout
+
+- 날짜: 2026-08-27
+- 상태: current adopted; implementation/machine validation complete; plan-process closeout complete by owner disposition
+- 결정:
+  - Installed `iris_tooling` package가 offline build/validation의 current import와 command implementation을 소유한다. Description-tree predecessor copy는 current import, command 또는 fallback authority가 아니다.
+  - Supported execution boundary는 domain payload를 `PhaseInput` / `PhaseOutput`으로 운반하고, stable 의미는 `CanonicalSemanticResult`, run ID·elapsed·process/environment 같은 실행별 관측은 `ExecutionEnvelope`로 분리한다.
+  - 공통 `PhaseRunner`는 dependency ordering, run-local reuse, metric, issue/artifact association만 담당하는 thin orchestration owner다. Build/validation domain verdict와 payload ownership은 각 domain에 남는다.
+  - Canonical CLI는 existing validation authority의 thin adapter이며 unknown input과 identity mismatch를 fail-loud 처리한다.
+  - 같은 clean-checkout full gate의 current-output seed는 staging에서 producer 3개를 한 번 실행한 뒤 completeness/content identity를 확인하고 immutable final seed와 case-local clone으로 공급한다. Producer invocation은 `6 → 3`이며 mutation/tamper isolation과 fresh-process A/B independence를 유지한다.
+  - Human command literal owner와 current authority explanation owner는 각각 `4 → 1`, authority→producer→validator→receipt 최대 hop은 `4 → 1`로 수렴한다. `docs/IRIS_CURRENT.md`와 static route index는 current navigation projection이고 canonical human command owner는 `Iris/build/ENTRYPOINTS.md`다.
+  - Predecessor retirement denominator는 `32 distinct basename intersections - 1 non-substantive __init__.py = 31 substantive distinct basenames`, 그리고 두 basename의 nested D16 extra copy를 더한 `33 concrete predecessor files`다. Terminal 결과는 live substantive intersection `31 → 0`, concrete predecessor file `33 → 0`, 분류 `5 exact + 28 diverged`다. Nested D16 copy는 neutral protected fixture가 아니다.
+  - Round3 current-route listing의 103은 routing membership이며 canonical full-gate pytest denominator가 아니다. Canonical gate는 pytest `211 → 211`, required standalone validation `4 → 4`, recurring execution unit `211 + 4 = 215 → 215`로 유지한다. Parameterized named case, `subTest` constituent assertion, migration-only script, external census, Reviewer-only check와 unregistered temporary validation은 이 identity denominator에 더하지 않는다.
+  - G5 compiler identity는 append-only다. 0016은 execution-boundary 변경으로 달라진 19-path closure를 결속했고, 0017은 identity owner와 production dependency `execution.py`를 더한 21-path closure를 결속한다. 0013–0016을 재작성하거나 전체 chain을 재번호링하지 않으며 current required paths는 0016 뒤에 0017을 누적 보존한다. 그 retention-list correction은 compiler closure bytes를 바꾸지 않았으므로 0018을 만들지 않는다.
+  - Exact package-source subject `c334ee97f0c01fb826309a6fb5388e99bde518d7`에서 wheel/fresh environment를 만들고 machine-validation subject `7a6e8ef9e9c29d5986872b08bdbeded5f086b536`에서 Run A/Run B/comparator가 PASS했다. Independent Reviewer의 actionable finding은 0이며 product/runtime/Lua mutation은 0이다.
+  - W0 pre-implementation elapsed/projected-time `ADMIT` artifact는 external custody에 보존되지 않았다. `w0_census.json`은 admission evidence가 아니고 Reviewer PASS나 관측 timestamp도 이를 재구성하지 않는다. 이 사실은 unresolved record로 유지하되 owner disposition으로 plan-process closeout을 complete 처리했으므로, 새 owner instruction이나 새 current authority 없이 미래 작업 항목으로 재개방하지 않는다.
+- Documentary identity:
+  - adopted plan carrier: `e0d22781e0595abfd07da82150219d39969f6d4a`
+  - final machine PASS subject: `7a6e8ef9e9c29d5986872b08bdbeded5f086b536`
+  - reviewed closeout carrier: `b3045c82ea1b523fd27ecdf46528aaca61003ca4`
+  - Walkthrough carrier: `7f94374546cd21bba29f70ed5b03821751bc586b`
+  - denominator/admission correction carrier: `534671972b43ddd12a116a291d5471dacb1f24ab`
+  - owner-disposition completion carrier: `65014b091951d2c152e6b9180a7da9f609f3f833`
+  - 뒤의 docs-only carrier는 machine PASS나 Reviewer subject를 재귀속하지 않는다.
+- Physical closeout snapshot, product S0 `e6310737` → Walkthrough carrier `7f943745`:
+  - Iris: `1,753 files / 71,766,663 Git blob bytes → 1,731 / 70,970,753`, delta `-22 / -795,910`
+  - whole repository: `6,935 files / 142,715,144 Git blob bytes → 6,917 / 142,003,274`, delta `-18 / -711,870`
+  - source diff: `65 files changed, 3,259 insertions, 22,193 deletions`
+- 상세 readpoint:
+  - `docs/iris_build_validation_execution_current_authority_optimization_plan.md`
+  - `docs/iris_build_validation_execution_current_authority_optimization_walkthrough.md`
+  - `docs/iris_build_validation_execution_current_authority_optimization_closeout.md`
+- 오독 금지:
+  - Physical Git blob/context surface 감소를 PZ runtime, wall-clock 또는 실제 GPT/Codex token 성능 개선으로 읽지 않는다.
+  - Build/validation closeout을 freeze, RTC, Publish, release, Workshop 또는 deployment readiness로 읽지 않는다.
+  - W0 admission artifact 미보존 사실을 사후 evidence 생성, exemption, 새 validator/receipt/manifest/seal 또는 자동 재개방 권한으로 읽지 않는다.
+  - Docs-only correction을 unchanged machine subject의 confidence rerun이나 새 validation authority로 읽지 않는다.

@@ -519,6 +519,17 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - 이 acceptance를 모든 외부 모드 compatibility의 증거로 확대하지 않는다.
   - architecture / validation / functional acceptance와 freeze / RTC / Publish / release / Workshop / deployment readiness는 서로 별도 축으로 유지한다.
 
+- Build/validation execution과 current-authority 탐색 최적화를 `complete by owner disposition`으로 닫았다.
+  - Supported execution boundary를 typed phase I/O, stable canonical semantic result와 volatile execution envelope로 분리하고 두 StageRunner를 thin package-owned `PhaseRunner`에 수렴했다.
+  - Full-gate current-output seed producer invocation을 `6 → 3`으로 줄이면서 immutable seed, case-local clone과 fresh-process A/B isolation을 유지했다.
+  - Predecessor accounting은 `31 substantive distinct basenames + nested D16 extra copies 2 = 33 concrete predecessor files`이며 live intersection `31 → 0`, concrete files `33 → 0`, `5 exact + 28 diverged`로 닫았다.
+  - Human command owner, current authority explanation owner와 최대 route hop은 각각 `4 → 1`; default current-context tracked bytes는 `170,476 → 149,600`이다.
+  - Round3 routing membership은 `103 → 103`; canonical full gate는 pytest `211 → 211`, standalone `4 → 4`, recurring execution unit `215 → 215`다. 두 분모를 합치거나 regular test 108개 추가로 읽지 않는다.
+  - G5 0016과 0017은 closure bytes/set 변경에 따른 append-only successor이며 과거 chain을 재번호링하지 않았다. Retention-list correction은 새 identity가 아니므로 0018을 만들지 않았다.
+  - Exact wheel/fresh environment, Run A/B, comparator와 independent Reviewer가 PASS했고 product/runtime/Lua mutation은 0이다.
+  - Pre-implementation W0 `ADMIT` artifact 미보존은 unresolved 사실로 남지만 owner가 disposition하여 plan-process closeout은 complete다. 새 owner instruction이나 새 current authority 없이 이를 후속 blocker 또는 재실행 항목으로 되살리지 않는다.
+  - 상세 readpoint는 `docs/iris_build_validation_execution_current_authority_optimization_plan.md`, `docs/iris_build_validation_execution_current_authority_optimization_walkthrough.md`, `docs/iris_build_validation_execution_current_authority_optimization_closeout.md`다. Physical Git blob/context 감소는 runtime/token 성능이나 release readiness claim이 아니다.
+
 ## Doing
 
 - 새 의미 기능을 확장하기보다 **current information pipeline과 사용자-facing surface의 안정성을 유지하는 것**을 우선한다.

@@ -8,6 +8,8 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from iris_tooling.execution import decode_legacy_result, encode_legacy_result
+
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
@@ -212,7 +214,12 @@ def validate_result_pair(
         result["implementation_identity"] = _implementation_identity(
             repo, subject["commit"]
         )
-    return result
+    return encode_legacy_result(
+        decode_legacy_result(
+            result,
+            discriminator="iris.validation.clean-checkout-comparison.v1",
+        )
+    )
 
 
 def validate_change2_evidence(repo: Path) -> dict[str, Any]:

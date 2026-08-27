@@ -28,6 +28,7 @@ from Iris.validation.clean_checkout.inventory_iris_offline_tooling import (
 )
 from Iris.validation.clean_checkout.run_iris_clean_checkout_validation import (
     _classify_full_test_source,
+    _clone_current_output_seed,
     _full_required_source_roles,
     _ignored_status_snapshot,
     _normalized_test_id,
@@ -1363,6 +1364,29 @@ def test_full_source_policy_classifies_only_declared_fallback(
     assert output_projection["pytest_projection"] is True
     assert output_projection["per_command_isolation"] is True
     assert output_projection["repository_output_write_count"] == 0
+    assert output_projection["producer_invocation_count"] == 3
+    assert output_projection["publish_mode"].startswith("one staging build")
+    immutable_seed = tmp_path / "immutable-seed"
+    immutable_seed.mkdir()
+    (immutable_seed / "seed.json").write_text(
+        '{"status":"PASS"}\n', encoding="utf-8", newline="\n"
+    )
+    seed_rows = [
+        {
+            "path": "seed.json",
+            "bytes": (immutable_seed / "seed.json").stat().st_size,
+            "sha256": _sha256(immutable_seed / "seed.json"),
+        }
+    ]
+    seed_identity = hashlib.sha256(canonical_json_bytes(seed_rows)).hexdigest()
+    clone_a = tmp_path / "clone-a"
+    clone_b = tmp_path / "clone-b"
+    _clone_current_output_seed(immutable_seed, clone_a, seed_identity)
+    _clone_current_output_seed(immutable_seed, clone_b, seed_identity)
+    (clone_a / "seed.json").write_text("tampered", encoding="utf-8")
+    assert (clone_b / "seed.json").read_bytes() == (
+        immutable_seed / "seed.json"
+    ).read_bytes()
     repository_root = tmp_path / "repo"
     repository_root.mkdir()
     external_output = tmp_path / "external-output"
@@ -1679,14 +1703,14 @@ def test_g5_current_capsule_separates_historical_raw_and_current_claim() -> None
             "naturalization_compiler_identity_sha256_lf_normalized_"
             "ordered_paths_v2"
         ),
-        "ordered_path_count": 19,
+        "ordered_path_count": 21,
         "historical_attested_aggregate_sha256": (
             "2dcff095b1cc34c8fb6d3ad735ac8f9d0ca2affe259f6bb97870b19e7235cc7f"
         ),
         "current_aggregate_sha256": (
-            "3b16f40968fd2a42d23108a40a201d29587158bc4c0d222579d8ff3d1a088eea"
+            "61238620a841bc635169d5f254ceab9279f4b71d9231fdc2cd660c7b3afdb6ab"
         ),
-        "changed_constituent_count": 19,
+        "changed_constituent_count": 21,
         "unchanged_constituent_count": 0,
         "current_basis_validation_mode": "exact_git_object",
     }

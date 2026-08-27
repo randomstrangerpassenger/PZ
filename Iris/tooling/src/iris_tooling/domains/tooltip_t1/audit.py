@@ -32,6 +32,7 @@ from .projection import Layer4Candidate, select_layer4, verify_invariants
 L3_POINTER = Path("Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua")
 L3_GENERATIONS = Path("Iris/media/lua/client/Iris/Data/IrisLayer3Generations")
 L3_INPUT_MANIFEST = Path("Iris/build/description/v2/data/dvf_3_3_input_manifest.json")
+L3_TOOLTIP_OWNER_INPUT = Path("Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json")
 CLASSIFICATIONS = Path("Iris/media/lua/client/Iris/Data/IrisClassifications.lua")
 L4_OWNER_INPUT = Path("Iris/build/description/v2/data/upstream_usecases_by_fulltype.json")
 L4_RUNTIME_ROOT = Path("Iris/media/lua/client/Iris/Data/UseCaseDescriptions")
@@ -478,6 +479,25 @@ def _slot_correction(slot_id: str, reason: str) -> Slot:
     )
 
 
+def _slot_selected_owner(
+    slot_id: str,
+    semantic_identity: str,
+    localized_surfaces: dict[str, str],
+    authority_ref: str,
+) -> Slot:
+    return Slot(
+        slot_id=slot_id,
+        semantic_identity=semantic_identity,
+        semantic_state=SemanticSlotState.SELECTED,
+        localized_surfaces=localized_surfaces,
+        locale_readiness={
+            "ko": LocaleSurfaceReadiness.READY,
+            "en": LocaleSurfaceReadiness.READY,
+        },
+        authority_ref=authority_ref,
+    )
+
+
 def _slot_selected_layer4(slot_id: str, candidate: Layer4Candidate, lexical_fixture: dict[str, Any]) -> Slot:
     surfaces = candidate.localized_surfaces if isinstance(candidate.localized_surfaces, dict) else {}
     normalized = {locale: surfaces.get(locale) for locale in ("ko", "en")}
@@ -526,6 +546,7 @@ def _source_hashes(repository_root: Path, generation_id: str) -> dict[str, str]:
         CLASSIFICATIONS,
         L3_POINTER,
         L3_INPUT_MANIFEST,
+        L3_TOOLTIP_OWNER_INPUT,
         L3_GENERATIONS / generation_id / "generation_descriptor.json",
         L3_GENERATIONS / generation_id / "dvf_3_3_rendered.json",
         L4_OWNER_INPUT,
@@ -617,6 +638,15 @@ def run_candidate(
     layer3 = rendered.get("entries")
     if not isinstance(layer3, dict):
         raise TooltipContractError("Layer 3 rendered entries missing")
+    layer3_tooltip_owner = load_json(repository_root / L3_TOOLTIP_OWNER_INPUT)
+    if (
+        layer3_tooltip_owner.get("schema_version") != "iris-tooltip-t1-layer3-owner-input-v1"
+        or layer3_tooltip_owner.get("generation_id") != generation_id
+    ):
+        raise TooltipContractError("Layer 3 Tooltip owner input identity mismatch")
+    layer3_tooltip_entries = layer3_tooltip_owner.get("entries")
+    if not isinstance(layer3_tooltip_entries, dict):
+        raise TooltipContractError("Layer 3 Tooltip owner entries missing")
     descriptions = load_json(repository_root / L4_OWNER_INPUT)
     layer4 = descriptions.get("fulltypes")
     if not isinstance(layer4, dict):
@@ -669,7 +699,7 @@ def run_candidate(
         "P-5": {"evidence_state": "present" if eligible_source_shapes["both"] else "absent", "observation": "both-source eligible rows census", "count": eligible_source_shapes["both"]},
         "P-6": {"evidence_state": "present" if explicit_stable_keys else "absent", "observation": "explicit stable Layer 4 order keys", "count": explicit_stable_keys},
         "P-7": {"evidence_state": "present" if duplicate_identity_rows else "absent", "observation": "exact duplicate interaction identities", "count": duplicate_identity_rows},
-        "P-8": {"evidence_state": "mixed", "observation": "Layer 3 role-material identities and locale payloads are separate", "canonical_count": len(layer3), "en_count": len(l3_en_keys)},
+        "P-8": {"evidence_state": "mixed", "observation": "Layer 3 owner publishes exact single-core Tooltip facts while owner rows without a core disposition remain unresolved", "canonical_count": len(layer3), "tooltip_fact_count": len(layer3_tooltip_entries), "en_count": len(l3_en_keys)},
         "P-10": {"evidence_state": "absent", "observation": "no owner-issued Layer 2 resolved identity or independent per-row Menu identity route"},
     }
     for decision_id, record in evidence_records.items():
@@ -686,7 +716,7 @@ def run_candidate(
         "findings": {
             "layer2_resolved_owner_output": "absent",
             "layer2_independent_menu_consumer_identity": "absent",
-            "layer3_single_tooltip_fact_identity_and_surfaces": "absent",
+            "layer3_single_tooltip_fact_identity_and_surfaces": "partial",
             "layer4_explicit_stable_order_key": "present" if explicit_stable_keys else "absent",
             "layer4_current_owner_input": L4_OWNER_INPUT.as_posix(),
             "layer4_current_consumer_identity_route": f"{L4_RUNTIME_ROOT.as_posix()}/Chunk*.lua",
@@ -706,7 +736,6 @@ def run_candidate(
     # W1-B: the owner-ratified support predicate is applied only after G1.
     support = sorted(set(classifications) | set(layer3) | set(layer4))
     support_collisions = normalized_collisions(support)
-    collision_members = {value for rows in support_collisions.values() for value in rows}
     by_full_type = {full_type: _layer4_candidates(layer4.get(full_type, {})) for full_type in support}
     invariance = _invariance(by_full_type)
 
@@ -727,11 +756,9 @@ def run_candidate(
     for full_type in support:
         slots: list[Slot] = []
         correction_start = len(corrections)
-        if full_type in collision_members:
-            corrections.append(_correction(
-                full_type, "support", "Iris presentation-contract owner", "SUPPORT_NORMALIZED_COLLISION",
-                "explicit owner disposition for the distinct case-sensitive FullTypes in this normalized collision",
-            ))
+        # The adopted support predicate is explicitly case-sensitive, so a
+        # normalized diagnostic collision does not merge or invalidate either
+        # exact FullType identity.
         # P-10: current raw tags and runtime resolver are census evidence only;
         # no owner-issued resolved identity exists for Tooltip consumption.
         slots.append(_slot_correction("S1", "CLASSIFICATION_RESOLVED_IDENTITY_MISSING"))
@@ -754,11 +781,38 @@ def run_candidate(
             slots.append(_slot_absent("S2", "DVF_CORE_DESCRIPTION_ABSENCE_PROVED", l3_proof))
             absence_distribution[f"layer3|locale=all|reason=DVF_CORE_DESCRIPTION_ABSENCE_PROVED|authority={(L3_GENERATIONS / generation_id / 'dvf_3_3_rendered.json').as_posix()}"] += 1
         elif isinstance(l3, dict) and isinstance(role_material, dict) and valid_core_ids:
-            slots.append(_slot_correction("S2", "DVF_TOOLTIP_FACT_IDENTITY_MISSING"))
-            corrections.append(_correction(
-                full_type, "layer3", "DVF owner", "DVF_TOOLTIP_FACT_IDENTITY_MISSING",
-                "one owner-approved core-description fact identity with complete KO/EN single-line surfaces",
-            ))
+            owner_fact = layer3_tooltip_entries.get(full_type)
+            surfaces = owner_fact.get("localized_surfaces") if isinstance(owner_fact, dict) else None
+            owner_fact_ready = (
+                len(core_ids) == 1
+                and isinstance(owner_fact, dict)
+                and owner_fact.get("fact_id") == core_ids[0]
+                and owner_fact.get("fact_kind") == "core_description"
+                and owner_fact.get("source_fact_ids") == core_ids
+                and owner_fact.get("upstream_readiness") == "owner_approved"
+                and owner_fact.get("tooltip_eligibility") == "eligible"
+                and isinstance(owner_fact.get("source_ref"), str)
+                and bool(owner_fact.get("source_ref"))
+                and isinstance(owner_fact.get("authority_ref"), str)
+                and bool(owner_fact.get("authority_ref"))
+                and owner_fact.get("menu_consumer_fact_identity_refs") == core_ids
+                and isinstance(surfaces, dict)
+                and set(surfaces) == {"ko", "en"}
+                and all(isinstance(value, str) and value and "\n" not in value and "\r" not in value for value in surfaces.values())
+            )
+            if owner_fact_ready:
+                slots.append(_slot_selected_owner(
+                    "S2",
+                    str(owner_fact["fact_id"]),
+                    {"ko": str(surfaces["ko"]), "en": str(surfaces["en"])},
+                    f"{L3_TOOLTIP_OWNER_INPUT.as_posix()}#entries/{full_type}",
+                ))
+            else:
+                slots.append(_slot_correction("S2", "DVF_TOOLTIP_FACT_IDENTITY_MISSING"))
+                corrections.append(_correction(
+                    full_type, "layer3", "DVF owner", "DVF_TOOLTIP_FACT_IDENTITY_MISSING",
+                    "one owner-approved core-description fact identity with complete KO/EN single-line surfaces",
+                ))
         else:
             slots.append(_slot_correction("S2", "DVF_OWNER_ROW_MISSING"))
             corrections.append(_correction(
@@ -822,6 +876,8 @@ def run_candidate(
             "layer2": MenuParityStatus.CORRECTION_REQUIRED,
             "layer3": MenuParityStatus.NOT_APPLICABLE
             if slots[1].semantic_state is SemanticSlotState.LEGITIMATE_ABSENCE
+            else MenuParityStatus.VERIFIED
+            if slots[1].semantic_state is SemanticSlotState.SELECTED
             else MenuParityStatus.CORRECTION_REQUIRED,
             "layer4": classify_menu_relation((candidate.interaction_id for candidate in selected), runtime_identities),
         }
@@ -867,7 +923,7 @@ def run_candidate(
             "layer3": {
                 "owner_row_present": isinstance(l3, dict),
                 "core_source_fact_ids": list(core_ids),
-                "approved_tooltip_fact_id": None,
+                "approved_tooltip_fact_id": slots[1].semantic_identity if slots[1].semantic_state is SemanticSlotState.SELECTED else None,
                 "ko_public_body_present": bool(isinstance(l3, dict) and l3.get("text_ko")),
                 "en_public_key_present": full_type in l3_en_keys,
             },
@@ -960,7 +1016,7 @@ def run_candidate(
         "subject_binding_ref": "subject_binding.json",
         "paths": {path: {"sha256": digest, "role": "read_only_current_input"} for path, digest in input_hashes_before.items()},
         "layer2_owner_route": "gap:no_admissible_resolved_identity_output",
-        "layer3_owner_route": "current generation has source ids/body but no approved Tooltip fact identity/surface",
+        "layer3_owner_route": f"current single-core owner projection {L3_TOOLTIP_OWNER_INPUT.as_posix()}; owner rows without an approved core disposition remain corrections",
         "layer4_owner_route": f"current owner data {L4_OWNER_INPUT.as_posix()} supplies public identities; reproduction baseline is not consumed",
         "menu_consumer_evidence_route": f"current runtime {L4_RUNTIME_ROOT.as_posix()}/Chunk*.lua label_key identities consumed by IrisBrowserInteractionProjection.lua",
         "tooltip_runtime_route": "read_only_non_verdict_baseline",

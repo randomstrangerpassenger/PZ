@@ -12,6 +12,7 @@ From an environment containing the exact `iris-tooling` wheel:
 iris-tooling --repository-root <repo> build classification --output-root <external-empty-root>
 iris-tooling --repository-root <repo> build rightclick <arguments>
 iris-tooling --repository-root <repo> build layer3 <arguments>
+iris-tooling --repository-root <repo> build layer3 publish-tooltip-t1-owner
 iris-tooling --repository-root <repo> build layer4 <arguments>
 iris-tooling --repository-root <repo> build public-text <arguments>
 iris-tooling --repository-root <repo> build tooltip-t1 --output-root <external-empty-root> --decision-contract-sha256 <sha256> --verify-invariants
@@ -23,6 +24,8 @@ iris-tooling --repository-root <repo> inspect current
 `classification`, `rightclick`, `layer3`, `layer4`, and `public-text` remain compatibility aliases for their corresponding `build` targets. They are projections of the same package owners, not separate authorities. `tooltip-t1` is lifecycle-bound and has no legacy compatibility alias.
 
 `tooltip-t1` reads only the owner-bound current Classification, pointer-selected Layer 3, current Layer 4 owner data, translation, Browser/Menu consumer, and Tooltip sources. It does not consume `Iris/build/baseline/**` as semantic authority. It writes a new immutable audit result only to the supplied repository-external empty root. A blocked T2 progression emits the cause-attributed progression record and does not emit T2 handoff input.
+
+`build layer3 publish-tooltip-t1-owner` follows the current Layer 3 English-localization producer and additionally publishes the exact single-core DVF fact identities and existing KO/EN primary-use surfaces consumed by Tooltip T1. It does not split rendered bodies, synthesize facts, or promote acquisition text to a core description; owner rows without one approved core fact remain corrections.
 
 `finalize tooltip-t1` is a narrow post-gate binder, not a semantic producer. It verifies the candidate artifact hashes, candidate `partial/implemented_only` state, exact subject, two successful canonical orchestration/inner result receipts, and their successful deterministic comparator receipt before writing one complete closeout record to a repository-external empty root. Any failed gate, hash failure, or subject mismatch exits nonzero without a complete closeout.
 

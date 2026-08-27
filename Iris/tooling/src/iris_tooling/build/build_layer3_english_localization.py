@@ -11,11 +11,15 @@ from .dvf_3_3_generation_contract import (
     canonical_input_identity,
     repository_path,
 )
+from .repository_context import require_repository_context
 
 
 CURRENT_POINTER_RELATIVE_PATH = "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua"
 CURRENT_GENERATION_ROOT_RELATIVE_PATH = (
     "Iris/media/lua/client/Iris/Data/IrisLayer3Generations"
+)
+TOOLTIP_T1_OWNER_OUTPUT_RELATIVE_PATH = (
+    "Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json"
 )
 
 
@@ -788,16 +792,100 @@ def build_english_entries(
     }
 
 
+def build_tooltip_t1_owner_entries(
+    repository_root: Path,
+) -> tuple[dict[str, dict[str, object]], str]:
+    """Publish existing single-core DVF facts for the Tooltip T1 contract.
+
+    The output is a projection of already-owned fact identities and localized
+    primary-use surfaces.  It does not split rendered bodies, synthesize facts,
+    or turn acquisition material into a core description.
+    """
+
+    facts_path = repository_root / "Iris/build/description/v2/data/dvf_3_3_facts.jsonl"
+    rows = [json.loads(line) for line in facts_path.read_text(encoding="utf-8").splitlines() if line]
+    translations = primary_use_translations(rows)
+    facts_by_item = {str(row["item_id"]): row for row in rows}
+    rendered, generation_id = _current_projection(repository_root)
+    entries: dict[str, dict[str, object]] = {}
+    for item_id, rendered_entry in sorted(rendered.items()):
+        if not isinstance(rendered_entry, dict):
+            raise RuntimeError(f"TOOLTIP_T1_DVF_RENDERED_ENTRY_INVALID:{item_id}")
+        role_material = rendered_entry.get("role_material")
+        if not isinstance(role_material, dict):
+            continue
+        core_ids = role_material.get("core_source_fact_ids")
+        if not isinstance(core_ids, list) or not all(isinstance(value, str) and value for value in core_ids):
+            raise RuntimeError(f"TOOLTIP_T1_DVF_CORE_IDENTITY_INVALID:{item_id}")
+        if not core_ids:
+            continue
+        if len(core_ids) != 1:
+            raise RuntimeError(f"TOOLTIP_T1_DVF_MULTIPLE_CORE_FACTS_FORBIDDEN:{item_id}")
+        facts = facts_by_item.get(item_id)
+        if not isinstance(facts, dict) or not facts.get("primary_use"):
+            raise RuntimeError(f"TOOLTIP_T1_DVF_CORE_SOURCE_MISSING:{item_id}")
+        fact_id = core_ids[0]
+        primary_use = str(facts["primary_use"])
+        entries[item_id] = {
+            "fact_id": fact_id,
+            "fact_kind": "core_description",
+            "source_fact_ids": [fact_id],
+            "source_ref": f"Iris/build/description/v2/data/dvf_3_3_facts.jsonl#item_id={item_id};field=primary_use",
+            "authority_ref": (
+                f"{CURRENT_GENERATION_ROOT_RELATIVE_PATH}/{generation_id}/"
+                f"dvf_3_3_rendered.json#entries/{item_id}/role_material/core_source_fact_ids"
+            ),
+            "upstream_readiness": "owner_approved",
+            "tooltip_eligibility": "eligible",
+            "localized_surfaces": {
+                "ko": primary_use,
+                "en": translations[primary_use],
+            },
+            "menu_consumer_fact_identity_refs": [fact_id],
+        }
+    return entries, generation_id
+
+
+def _write_tooltip_t1_owner_output(
+    repository_root: Path,
+    entries: dict[str, dict[str, object]],
+    generation_id: str,
+) -> Path:
+    output_path = repository_root / TOOLTIP_T1_OWNER_OUTPUT_RELATIVE_PATH
+    payload = {
+        "schema_version": "iris-tooltip-t1-layer3-owner-input-v1",
+        "producer": "iris_tooling.build.build_layer3_english_localization",
+        "generation_id": generation_id,
+        "entries": entries,
+    }
+    output_path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    return output_path
+
+
 def main() -> int:
-    repository_root = Path(__file__).resolve().parents[6]
+    repository_root = require_repository_context().repository_root
     english_entries, generation_id, metrics = build_english_entries(repository_root)
+    tooltip_entries, tooltip_generation_id = build_tooltip_t1_owner_entries(repository_root)
+    if tooltip_generation_id != generation_id:
+        raise RuntimeError("TOOLTIP_T1_DVF_GENERATION_MISMATCH")
 
     output_root = repository_root / "Iris/media/lua/client/Iris/Data/Layer3English"
     _write_runtime(english_entries, output_root)
+    tooltip_output = _write_tooltip_t1_owner_output(
+        repository_root,
+        tooltip_entries,
+        generation_id,
+    )
     print(json.dumps({
         "status": "BUILT",
         **metrics,
         "runtime_entries": len(english_entries),
+        "tooltip_t1_owner_entries": len(tooltip_entries),
+        "tooltip_t1_owner_output": str(tooltip_output),
         "generation_id": generation_id,
         "output_root": str(output_root),
     }, ensure_ascii=False, sort_keys=True))

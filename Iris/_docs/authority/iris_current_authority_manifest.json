@@ -11,7 +11,6 @@
     "docs/DECISIONS.md",
     "docs/ARCHITECTURE.md",
     "docs/ROADMAP.md",
-    "docs/IRIS_CURRENT.md",
     "Iris/_docs/authority/iris_current_authority_manifest.json",
     "Iris current contract files named in this manifest",
     "historical closeouts, round ledgers, staging artifacts, generated output"
@@ -66,8 +65,7 @@
       "classification": "current",
       "paths": [
         "Iris/build/ENTRYPOINTS.md",
-        "Iris/build/build_import_contract.md",
-        "docs/IRIS_CURRENT.md"
+        "Iris/build/build_import_contract.md"
       ],
       "delete_move_policy": "protected; update only with focused build-contract plan."
     },
@@ -104,10 +102,11 @@
       "paths": [
         "docs/iris_tooltip_t1_display_contract_policy.md",
         "Iris/_docs/authority/tooltip_t1/**",
-        "Iris/tooling/src/iris_tooling/domains/tooltip_t1/**"
+        "Iris/tooling/src/iris_tooling/domains/tooltip_t1/**",
+        "Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json"
       ],
       "command_owner": "Iris/build/ENTRYPOINTS.md",
-      "notes": "Owner-ratified offline Tooltip projection/readiness contract. Repository-external census, ledger, and receipts remain lifecycle evidence and are not regular validation authority."
+      "notes": "Owner-ratified offline Tooltip projection/readiness contract. The tracked Layer 3 owner projection publishes existing single-core DVF fact identities and KO/EN surfaces; unresolved owner rows remain corrections. Repository-external census, ledger, and receipts remain lifecycle evidence and are not regular validation authority."
     },
     "package_validation": {
       "classification": "current",
@@ -177,15 +176,9 @@
       "delete_move_policy": "do not restore by default; commit deletion only after live reference reconciliation remains valid"
     },
     {
-      "path": "docs/IRIS_CURRENT.md",
-      "classification": "current",
-      "authority_role": "canonical Iris human and AI current navigation readpoint",
-      "delete_move_policy": "protected; update only through a focused current-route plan"
-    },
-    {
       "path": "Iris/AGENTS.md",
       "classification": "current",
-      "authority_role": "link-only Iris agent bootstrap",
+      "authority_role": "Iris agent bootstrap to Philosophy, DECISIONS, ARCHITECTURE, and ROADMAP",
       "delete_move_policy": "protected"
     },
     {

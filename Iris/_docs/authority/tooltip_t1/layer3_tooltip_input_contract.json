@@ -9,6 +9,12 @@
   "acquisition_as_core_allowed": false,
   "multiple_core_fact_synthesis_allowed": false,
   "absence_mapping": {"no_core_source_fact_ids_with_owner_role_material_row": "legitimate_absence", "missing_owner_row": "upstream_identity_correction_required", "one_or_more_core_source_fact_ids_without_approved_tooltip_fact": "upstream_identity_correction_required"},
-  "current_disposition": "owner correction required for every core-bearing row",
+  "current_disposition": "single-core rows are published by the current DVF owner projection; missing owner rows remain upstream corrections",
+  "current_owner_output": {
+    "path": "Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json",
+    "canonical_sha256": "bbd59ab747f5584f63f91020d31337c68960378e64460e65a39c2e52a22eb8bf",
+    "producer": "iris_tooling.build.build_layer3_english_localization",
+    "entry_count": 1314
+  },
   "locale_readiness_separate_from_eligibility": true
 }

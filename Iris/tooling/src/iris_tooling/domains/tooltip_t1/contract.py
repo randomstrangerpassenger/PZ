@@ -82,6 +82,13 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
     _require(decision.get("schema_version") == "iris-tooltip-t1-decision-contract-v1", "decision schema version mismatch")
     _require(decision.get("status") == "ratification_template", "decision contract must remain a pre-evidence ratification template")
     _require(decision.get("subject_binding") == "execution_subject_binding_v1", "decision subject binding mismatch")
+    support_predicate = decision.get("support_predicate")
+    _require(
+        isinstance(support_predicate, dict)
+        and support_predicate.get("id") == "current-owner-fulltype-union-v1"
+        and support_predicate.get("definition") == "case-sensitive union of current Layer 2 classification, pointer-selected Layer 3 canonical, and current Layer 4 seed FullTypes",
+        "support predicate must preserve exact case-sensitive FullType identities",
+    )
 
     bundle_lines = "".join(
         f"{relative.name}={sha256_bytes(canonical_bytes(values[relative]))}\n"
@@ -144,6 +151,14 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
     layer3 = values[AUTHORITY_ROOT / "layer3_tooltip_input_contract.json"]
     _require(layer3.get("identity_before_locale") is True, "Layer 3 identity/readiness ordering mismatch")
     _require(all(layer3.get(key) is False for key in ("body_truncation_allowed", "body_summarization_allowed", "body_rewrite_allowed", "multiple_core_fact_synthesis_allowed")), "Layer 3 body rewrite prohibition mismatch")
+    layer3_owner_output = layer3.get("current_owner_output")
+    _require(
+        isinstance(layer3_owner_output, dict)
+        and layer3_owner_output.get("path") == "Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json"
+        and layer3_owner_output.get("producer") == "iris_tooling.build.build_layer3_english_localization"
+        and layer3_owner_output.get("entry_count") == 1314,
+        "Layer 3 current Tooltip owner output adoption mismatch",
+    )
     absence = layer3.get("absence_mapping")
     _require(isinstance(absence, dict) and absence.get("missing_owner_row") == "upstream_identity_correction_required", "Layer 3 absence mapping mismatch")
 
@@ -210,6 +225,12 @@ def validate_contracts(repository_root: Path, supplied_decision_sha256: str) -> 
         _require(isinstance(entries, list), "current authority manifest entries missing")
         adopted_entries = [row for row in entries if isinstance(row, dict) and row.get("path") == adoption["path"]]
         _require(len(adopted_entries) == 1 and adopted_entries[0].get("sha256") == adoption["sha256"] and adopted_entries[0].get("classification") == "current", "Layer 4 exact current authority manifest adoption missing")
+        layer3_owner_output = values[AUTHORITY_ROOT / "layer3_tooltip_input_contract.json"]["current_owner_output"]
+        layer3_owner_value = load_json(repository_root / layer3_owner_output["path"])
+        _require(
+            sha256_bytes(canonical_bytes(layer3_owner_value)) == layer3_owner_output.get("canonical_sha256"),
+            "Layer 3 current Tooltip owner output canonical SHA-256 mismatch",
+        )
         route = load_json(repository_root / "Iris/_docs/authority/iris_current_route_index.json")
         route_text = json.dumps(route, ensure_ascii=False)
         _require("Iris/_docs/authority/tooltip_t1" in route_text and "docs/iris_tooltip_t1_display_contract_policy.md" in route_text, "current Tooltip T1 route mismatch")

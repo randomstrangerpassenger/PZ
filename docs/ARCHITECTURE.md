@@ -319,6 +319,30 @@ canonical facts + provenance
   - Iris가 소비할 fact / outcome을 오프라인에서 생산한다.
   - 산출물은 Iris 입력 계약으로 정규화되어 해당 생산·분류 경로에 공급된다.
 
+### Offline build / validation execution 구조
+
+Iris의 offline build와 validation은 installed `iris_tooling` package를 current implementation owner로 사용한다. Runtime product는 계속 100% Lua이며 이 Python execution 구조는 repository-side generation/validation에만 존재한다.
+
+```text
+domain-owned input / payload / verdict
+-> PhaseInput / PhaseOutput
+-> thin PhaseRunner
+-> CanonicalSemanticResult (stable meaning)
+ + ExecutionEnvelope (run-local observation)
+-> domain adapter / canonical CLI machine projection
+-> package-bound clean-checkout gate
+```
+
+- `PhaseRunner`는 dependency ordering, run-local reuse, metric, issue/artifact association만 소유한다. Build/validation payload, success verdict와 semantic authority는 각 domain owner에 남는다.
+- Canonical semantic result에는 deterministic stable meaning만 두고 run ID, elapsed, timestamp, process/environment와 path observation은 volatile envelope에 둔다.
+- Canonical CLI는 existing validation authority의 thin adapter다. CLI, Python/PowerShell launcher와 pytest가 같은 semantic verdict를 중복 소유하지 않는다.
+- Full-gate current-output seed는 producer 3개로 staging materialization을 한 번 수행하고 completeness/content identity 확인 뒤 immutable final seed와 case-local clone으로 공급한다. Mutation/tamper isolation과 Run A/B fresh-process independence는 공유하지 않는다.
+- Current human command literal owner는 `Iris/build/ENTRYPOINTS.md`, current navigation owner는 `docs/IRIS_CURRENT.md`, machine route projection은 `Iris/_docs/authority/iris_current_route_index.json`이다. Description-tree predecessor source는 current import, command 또는 fallback authority가 아니다.
+- Current denominator는 서로 다른 두 identity universe를 구분한다. Round3 current-route `103`은 routing membership이고 clean-checkout canonical full gate는 pytest 211개와 required standalone validation 4개, 즉 215 recurring execution unit을 소유한다.
+- Same-name predecessor retirement는 31 substantive distinct basename identity와 33 concrete predecessor file을 구분한다. 두 extra file은 nested D16의 concrete copy이며 protected neutral fixture가 아니다.
+- Exact package/environment subject가 달라질 때만 replacement terminal chain을 만든다. Unchanged subject를 confidence 확보만을 위해 반복하지 않으며 docs-only closeout은 machine PASS subject를 바꾸지 않는다.
+- W0 admission artifact 미보존은 historical process fact로 유지한다. Owner disposition으로 closeout은 complete이며 새 owner instruction이나 새 current authority 없이 build/validation architecture work를 재개방하지 않는다.
+
 ### Runtime presentation 구조
 
 Iris runtime의 classification / presentation 흐름은 다음 단방향 구조를 따른다.
@@ -700,7 +724,7 @@ historical logical rows
 - Dirty-main custody subject는 repository 전체 status digest를 binding에 포함하되 W10의 Iris physical state를 별도로 측정한다. 다른 모듈의 dirty state는 Iris residue나 removal delta에 합산하지 않는다.
 - Exact implementation `801f15f6`의 terminal W10은 clean tracked 1,753 files / 71,766,663 Git blob bytes, clean physical 1,753 files / 72,344,398 bytes, custody Iris physical 1,753 files / 72,154,554 bytes를 기록한다. Custody Iris ignored/untracked/filesystem-only/reparse는 모두 0이다.
 - Terminal capsule은 133,094 bytes이고 successor overhead는 1,653,400 bytes로 각각 2,359,296-byte 및 3,037,162-byte ceiling 이내다.
-- G5 compiler identity successor는 append-only다. 최초 0013·0014 blobs는 immutable historical evidence로 유지하고, schema-compatible aggregate 정정과 current gate transition은 새 0015 successor가 소유한다.
+- G5 compiler identity successor는 append-only다. 최초 0013·0014 blobs는 immutable historical evidence로 유지하고 schema-compatible aggregate 정정은 0015가 소유한다. Execution-boundary 변경으로 달라진 19-path closure는 0016, identity owner와 `execution.py`를 포함한 21-path closure는 0017이 소유한다. Current required paths는 0016 뒤에 0017을 누적 보존하며 과거 successor를 재작성하거나 전체 chain을 재번호링하지 않는다. Retention-list correction은 closure bytes를 바꾸지 않았으므로 0018을 만들지 않는다.
 - Terminal aggregate, stable digests와 external locators의 documentary readpoint는 `docs/iris_lightweighting_terminal_closeout.json`이다. 이 파일과 external one-off producer/transaction은 canonical gate, regular validation schema 또는 새 claim ID가 아니다.
 - Terminal closeout identity는 세 층으로 구분한다: machine/W10 implementation `801f15f6`, independent review가 확인한 docs carrier `9882ce6d`, review 결과를 반영해 local `main`에 통합한 completion carrier `28f95b63`. 뒤의 docs-only carrier는 앞선 machine result나 review subject를 대체하지 않는다.
 - Local `main`의 다른 모듈 untracked build output은 Iris physical census와 분리된 workspace state다. Iris closeout이나 local-custody cleanup을 이유로 이를 탐색·삭제·합산하지 않는다.

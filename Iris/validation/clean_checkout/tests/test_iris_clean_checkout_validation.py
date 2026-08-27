@@ -1708,7 +1708,7 @@ def test_g5_current_capsule_separates_historical_raw_and_current_claim() -> None
             "2dcff095b1cc34c8fb6d3ad735ac8f9d0ca2affe259f6bb97870b19e7235cc7f"
         ),
         "current_aggregate_sha256": (
-            "3b16f40968fd2a42d23108a40a201d29587158bc4c0d222579d8ff3d1a088eea"
+            "88f51c4b49a1ad64a8c8bc8d26eaf4cd8fa59f0a5d148f197a5b76e166f2ac80"
         ),
         "changed_constituent_count": 19,
         "unchanged_constituent_count": 0,

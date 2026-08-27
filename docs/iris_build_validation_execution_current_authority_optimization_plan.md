@@ -1,6 +1,6 @@
 # Iris 빌드·검증 실행 및 Current Authority 탐색 최적화 Implementation Plan
 
-> 상태: implementation and machine validation complete; plan-process closeout partial pending owner disposition of missing W0 admission evidence
+> 상태: implementation and machine validation complete; plan-process closeout complete by owner disposition
 > 개정일: 2026-08-27  
 > 기준 로드맵: `Iris 빌드·검증 실행 모델 및 Current Authority 탐색 구조 통합 최적화 Roadmap`  
 > 검증 깊이: bounded — 중간 focused validation 3회 이하, 최종 full A/B 1회  
@@ -388,7 +388,7 @@ Observed timestamps are outcome evidence only and do not reconstruct
 the missing pre-admission decision.
 ```
 
-따라서 implementation, package-bound machine terminal과 Reviewer 결과는 완료/PASS로 유지되지만 W0 pre-implementation admission은 unresolved이며 overall plan-process closeout은 owner disposition 전까지 `partial`이다. Reviewer PASS는 누락된 admission을 대체하지 않는다.
+따라서 implementation, package-bound machine terminal과 Reviewer 결과는 완료/PASS로 유지되고 W0 pre-implementation admission은 unresolved로 기록되며, overall plan-process closeout은 `complete by owner disposition`이다. Reviewer PASS는 누락된 admission을 대체하지 않는다.
 
 ### Change 1 — Wave 1: Combined execution-core optimization
 
@@ -850,7 +850,7 @@ Expected closeout name: `Iris build-validation execution/current-authority optim
 
 구현이 끝났지만 final terminal 또는 Reviewer가 끝나지 않았으면 `implemented_only`, 일부 eligible implementation이 남으면 `partial`, 외부 선행조건으로 진행할 수 없으면 `blocked`다. 분석·inventory·문서만 완성한 상태를 `complete`로 닫을 수 없다.
 
-실제 실행에서는 implementation, machine terminal과 Reviewer가 완료/PASS했으나 §6.4의 pre-implementation W0 admission artifact가 보존되지 않았다. 그러므로 top-level 상태는 `implementation and machine validation complete; plan-process closeout partial pending owner disposition of missing W0 admission evidence`이며, 누락에 대한 사후 복원이나 Reviewer 대체로 `complete`를 주장하지 않는다.
+실제 실행에서는 implementation, machine terminal과 Reviewer가 완료/PASS했고 §6.4의 pre-implementation W0 admission artifact 미보존은 unresolved 사실로 남는다. Owner disposition은 이 사실을 사후 복원하거나 Reviewer로 대체하지 않으면서 top-level 상태를 `implementation and machine validation complete; plan-process closeout complete by owner disposition`으로 종결한다.
 
 closeout에는 다음 비주장 문구를 그대로 포함한다.
 

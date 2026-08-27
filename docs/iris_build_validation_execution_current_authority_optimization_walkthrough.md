@@ -7,7 +7,7 @@
 > 최종 package-source subject: `c334ee97f0c01fb826309a6fb5388e99bde518d7`
 > 최종 machine-validation subject: `7a6e8ef9e9c29d5986872b08bdbeded5f086b536`
 > Reviewed closeout carrier: `b3045c82ea1b523fd27ecdf46528aaca61003ca4`
-> 상태: implementation and machine validation complete; plan-process closeout partial pending owner disposition of missing W0 admission evidence
+> 상태: implementation and machine validation complete; plan-process closeout complete by owner disposition
 
 ## 1. 문서의 역할
 
@@ -92,7 +92,7 @@ the missing pre-admission decision.
 
 따라서 구현과 machine validation은 완료됐고 terminal 및 Reviewer는 PASS지만,
 W0 pre-implementation admission은 unresolved다. Reviewer PASS는 이 누락을 대체하지
-않으며 overall plan-process closeout은 owner disposition 전까지 partial이다.
+않으며 overall plan-process closeout은 complete by owner disposition이다.
 
 ## 4. 핵심 구현
 
@@ -364,8 +364,8 @@ Reviewer는 최종적으로 다음 관계를 확인했다.
 
 ## 10. 최종 상태
 
-구현의 정량 completion gate는 stated validation ceiling 안에서 닫혔다. 다만 W0 admission
-evidence 누락 때문에 overall plan-process closeout은 partial이다.
+구현의 정량 completion gate는 stated validation ceiling 안에서 닫혔다. W0 admission
+evidence 누락은 unresolved 사실로 남지만 overall plan-process closeout은 complete by owner disposition이다.
 
 - Same full-gate seed producer invocation: `6 → 3`
 - Substantive distinct basename live implementation intersection: `31 → 0`
@@ -387,7 +387,7 @@ Plan-process 상태를 분리하면 다음과 같다.
 - Independent Reviewer: PASS, actionable finding `0`
 - Product/runtime/Lua mutation: `0`
 - W0 pre-implementation admission: unresolved
-- Overall plan-process: partial pending owner disposition
+- Overall plan-process: complete by owner disposition
 
 ### 10.1 Physical lightweighting
 

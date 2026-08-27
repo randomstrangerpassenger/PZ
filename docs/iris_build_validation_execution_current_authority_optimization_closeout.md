@@ -1,6 +1,6 @@
 # Iris build-validation execution/current-authority optimization closeout
 
-Status: implementation and machine validation complete; plan-process closeout partial pending owner disposition of missing W0 admission evidence
+Status: implementation and machine validation complete; plan-process closeout complete by owner disposition
 
 ## Bound subjects
 
@@ -35,7 +35,7 @@ the missing pre-admission decision.
 - independent Reviewer: PASS, actionable finding `0`
 - product/runtime/Lua mutation: `0`
 - W0 pre-implementation admission: unresolved
-- overall plan-process: partial pending owner disposition
+- overall plan-process: complete by owner disposition
 
 Reviewer PASS does not replace the missing admission evidence.
 

@@ -1,6 +1,6 @@
 {
   "schema_version": "iris-tooltip-layer3-input-contract-v1",
-  "required_selected_fields": ["fact_id", "fact_kind", "source_fact_ids", "source_ref", "authority_ref", "upstream_readiness", "tooltip_eligibility", "localized_surfaces", "menu_consumer_fact_identity_refs"],
+  "required_selected_fields": ["fact_id", "fact_kind", "source_fact_ids", "source_ref", "authority_ref", "upstream_readiness", "tooltip_eligibility", "localized_surfaces"],
   "required_fact_kind": "core_description",
   "identity_before_locale": true,
   "body_truncation_allowed": false,
@@ -12,9 +12,14 @@
   "current_disposition": "single-core rows are published by the current DVF owner projection; missing owner rows remain upstream corrections",
   "current_owner_output": {
     "path": "Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json",
-    "canonical_sha256": "bbd59ab747f5584f63f91020d31337c68960378e64460e65a39c2e52a22eb8bf",
+    "canonical_sha256": "705c57ac02d512757a5092096ee9690a3d08fa54a52c147d0e4b7e1e1161ad33",
     "producer": "iris_tooling.build.build_layer3_english_localization",
     "entry_count": 1314
+  },
+  "menu_consumer_evidence_ownership": {
+    "owner": "Menu consumer owner",
+    "dvf_owner_output_may_issue_consumer_identity_refs": false,
+    "independent_evidence_required_for_verified": true
   },
   "locale_readiness_separate_from_eligibility": true
 }

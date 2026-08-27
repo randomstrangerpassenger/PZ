@@ -39,6 +39,10 @@ L4_RUNTIME_ROOT = Path("Iris/media/lua/client/Iris/Data/UseCaseDescriptions")
 KO_TRANSLATION = Path("Iris/media/lua/shared/translate/ko/Iris_ko.txt")
 EN_TRANSLATION = Path("Iris/media/lua/shared/translate/en/Iris_en.txt")
 MENU_TOOLTIP_SOURCES = (
+    Path("Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua"),
+    Path("Iris/media/lua/client/Iris/Data/IrisLayer3DataLookup.lua"),
+    Path("Iris/media/lua/client/Iris/Data/layer3_renderer.lua"),
+    Path("Iris/media/lua/client/Iris/UI/Detail/IrisItemDetailModelAssembler.lua"),
     Path("Iris/media/lua/client/Iris/Data/IrisUseCaseDescriptions.lua"),
     Path("Iris/media/lua/client/Iris/Data/IrisUseCaseDescriptionsLookup.lua"),
     Path("Iris/media/lua/client/Iris/UI/Browser/IrisBrowserProjectionBuilder.lua"),
@@ -140,6 +144,14 @@ def correction_completeness_metrics(
 
 def source_mutation_count(before: dict[str, str], after: dict[str, str]) -> int:
     return int(before != after)
+
+
+def menu_owner_output_self_comparison_count(entries: dict[str, Any]) -> int:
+    """Count DVF-owner rows that improperly self-issue Menu consumer evidence."""
+    return sum(
+        isinstance(row, dict) and bool(row.get("menu_consumer_fact_identity_refs"))
+        for row in entries.values()
+    )
 
 
 def normalized_collisions(values: Iterable[str]) -> dict[str, tuple[str, ...]]:
@@ -768,6 +780,11 @@ def run_candidate(
     # W1-B: the owner-ratified support predicate is applied only after G1.
     support = sorted(set(classifications) | set(layer3) | set(layer4))
     support_collisions = normalized_collisions(support)
+    support_collision_members = {
+        full_type
+        for members in support_collisions.values()
+        for full_type in members
+    }
     by_full_type = {
         full_type: _layer4_candidates(layer4.get(full_type, {}), current_rightclick_surfaces)
         for full_type in support
@@ -791,9 +808,16 @@ def run_candidate(
     for full_type in support:
         slots: list[Slot] = []
         correction_start = len(corrections)
-        # The adopted support predicate is explicitly case-sensitive, so a
-        # normalized diagnostic collision does not merge or invalidate either
-        # exact FullType identity.
+        # Exact case-sensitive identities remain in the denominator, while a
+        # normalized collision remains an explicit support-owner correction.
+        if full_type in support_collision_members:
+            corrections.append(_correction(
+                full_type,
+                "support",
+                "Iris presentation-contract owner",
+                "SUPPORT_NORMALIZED_COLLISION",
+                "explicit owner disposition preserving both exact case-sensitive FullType identities",
+            ))
         # P-10: current raw tags and runtime resolver are census evidence only;
         # no owner-issued resolved identity exists for Tooltip consumption.
         slots.append(_slot_correction("S1", "CLASSIFICATION_RESOLVED_IDENTITY_MISSING"))
@@ -830,7 +854,6 @@ def run_candidate(
                 and bool(owner_fact.get("source_ref"))
                 and isinstance(owner_fact.get("authority_ref"), str)
                 and bool(owner_fact.get("authority_ref"))
-                and owner_fact.get("menu_consumer_fact_identity_refs") == core_ids
                 and isinstance(surfaces, dict)
                 and set(surfaces) == {"ko", "en"}
                 and all(isinstance(value, str) and value and "\n" not in value and "\r" not in value for value in surfaces.values())
@@ -911,7 +934,7 @@ def run_candidate(
             "layer2": MenuParityStatus.CORRECTION_REQUIRED,
             "layer3": MenuParityStatus.NOT_APPLICABLE
             if slots[1].semantic_state is SemanticSlotState.LEGITIMATE_ABSENCE
-            else MenuParityStatus.VERIFIED
+            else MenuParityStatus.UNVERIFIED
             if slots[1].semantic_state is SemanticSlotState.SELECTED
             else MenuParityStatus.CORRECTION_REQUIRED,
             "layer4": classify_menu_relation((candidate.interaction_id for candidate in selected), runtime_identities),
@@ -921,16 +944,28 @@ def run_candidate(
         ko_count = sum(slot.displayable("ko") for slot in slots)
         en_count = sum(slot.displayable("en") for slot in slots)
         t2_blocking = any(slot.t2_blocking for slot in slots)
-        parity_view = {
-            layer: {
+        parity_view: dict[str, dict[str, Any]] = {}
+        for layer, status in parity.items():
+            authority_relation_ref = None
+            independent_consumer_evidence_ref = None
+            if layer == "layer3" and status is MenuParityStatus.UNVERIFIED:
+                authority_relation_ref = (
+                    f"{(L3_GENERATIONS / generation_id / 'dvf_3_3_rendered.json').as_posix()}#entries/{full_type}"
+                    " -> Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua"
+                    " -> Iris/media/lua/client/Iris/Data/IrisLayer3DataLookup.lua#get"
+                    " -> Iris/media/lua/client/Iris/Data/layer3_renderer.lua#getText"
+                    " -> Iris/media/lua/client/Iris/UI/Detail/IrisItemDetailModelAssembler.lua#layer3Payload"
+                )
+            elif layer == "layer4" and selected:
+                authority_relation_ref = f"{L4_OWNER_INPUT.as_posix()} -> {L4_RUNTIME_ROOT.as_posix()}/Chunk*.lua"
+                independent_consumer_evidence_ref = "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserInteractionProjection.lua#label_key"
+            parity_view[layer] = {
                 "status": status.value,
-                "authority_relation_ref": f"{L4_OWNER_INPUT.as_posix()} -> {L4_RUNTIME_ROOT.as_posix()}/Chunk*.lua" if layer == "layer4" and selected else None,
-                "independent_consumer_evidence_ref": "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserInteractionProjection.lua#label_key" if layer == "layer4" and selected else None,
+                "authority_relation_ref": authority_relation_ref,
+                "independent_consumer_evidence_ref": independent_consumer_evidence_ref,
                 "owner": "Menu consumer owner",
-                "re_audit_condition": "T3 runtime adoption observation" if status is MenuParityStatus.UNVERIFIED else "new exact owner-corrected subject",
+                "re_audit_condition": "T3 independent Menu consumer fact-identity observation" if status is MenuParityStatus.UNVERIFIED else "new exact owner-corrected subject",
             }
-            for layer, status in parity.items()
-        }
         row_reasons = {reason for slot in slots for reason in slot.reason_codes}
         if MenuParityStatus.UNVERIFIED in parity.values():
             row_reasons.add("PARITY_CONSUMER_EVIDENCE_UNVERIFIED")
@@ -1008,7 +1043,7 @@ def run_candidate(
         "locale_dependent_reselection": int(load_json(repository_root / AUTHORITY_ROOT / "tooltip_locale_menu_parity_contract.json").get("locale_dependent_reselection_allowed") is not False),
         "cross_locale_fallback": int(load_json(repository_root / AUTHORITY_ROOT / "tooltip_locale_menu_parity_contract.json").get("cross_locale_fallback_allowed") is not False),
         "menu_parity_unclassified": sum(not isinstance(row.get("menu_parity_by_layer"), dict) or set(row["menu_parity_by_layer"]) != {"layer2", "layer3", "layer4"} for row in audit_rows),
-        "menu_owner_output_self_comparison": int(L4_OWNER_INPUT.parent == L4_RUNTIME_ROOT.parent),
+        "menu_owner_output_self_comparison": menu_owner_output_self_comparison_count(layer3_tooltip_entries),
         "mock_consumer_product_decision": 0,
         "progression_unknown_blocking_cause_owner": 0,
         "source_equivalence_contract_violation": sum(row["layer4_source_equivalence"]["violation"] for row in audit_rows),
@@ -1051,10 +1086,10 @@ def run_candidate(
         "subject_binding_ref": "subject_binding.json",
         "paths": {path: {"sha256": digest, "role": "read_only_current_input"} for path, digest in input_hashes_before.items()},
         "layer2_owner_route": "gap:no_admissible_resolved_identity_output",
-        "layer3_owner_route": f"current single-core owner projection {L3_TOOLTIP_OWNER_INPUT.as_posix()}; owner rows without an approved core disposition remain corrections",
+        "layer3_owner_route": f"current single-core owner projection {L3_TOOLTIP_OWNER_INPUT.as_posix()}; DVF fact identity/readiness is separate from Menu parity evidence",
         "layer4_owner_route": f"current owner data {L4_OWNER_INPUT.as_posix()} supplies public identities; reproduction baseline is not consumed",
         "layer4_current_rightclick_locale_route": "current Browser interaction projection identity-to-translation-key relation plus exact Iris_ko/Iris_en translations",
-        "menu_consumer_evidence_route": f"current runtime {L4_RUNTIME_ROOT.as_posix()}/Chunk*.lua label_key identities consumed by IrisBrowserInteractionProjection.lua",
+        "menu_consumer_evidence_route": f"Layer 4 current runtime {L4_RUNTIME_ROOT.as_posix()}/Chunk*.lua label_key identities are independently consumed by IrisBrowserInteractionProjection.lua; Layer 3 has only the shared current-generation FullType route through IrisItemDetailModelAssembler.lua and remains unverified pending independent fact-identity evidence",
         "tooltip_runtime_route": "read_only_non_verdict_baseline",
     }
     fixture_result = {

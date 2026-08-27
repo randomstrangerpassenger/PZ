@@ -13,8 +13,15 @@
     "en_surface_path": "Iris/media/lua/shared/translate/en/Iris_en.txt",
     "adoption_rule": "exact selected rightclick identity to current translation key to exact KO/EN surface only"
   },
+  "current_layer3_shared_authority_route": {
+    "fact_relation_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/<current-generation>/dvf_3_3_rendered.json#entries/<FullType>/role_material/core_source_fact_ids",
+    "consumer_path": "IrisLayer3DataCurrent.lua -> IrisLayer3DataLookup.lua#get -> layer3_renderer.lua#getText -> IrisItemDetailModelAssembler.lua#layer3Payload",
+    "evidence_class": "shared_authority_relation_not_independent_consumer_evidence",
+    "status": "unverified_without_independent_consumer_evidence"
+  },
   "parity_statuses": ["verified", "correction_required", "unverified_without_independent_consumer_evidence", "not_applicable"],
   "verified_requires_independent_consumer_evidence": true,
+  "dvf_owner_output_may_self_issue_menu_consumer_evidence": false,
   "shared_authority_unverified_t2_blocking": false,
   "missing_or_contradictory_authority_relation_t2_blocking": true,
   "string_similarity_is_parity_evidence": false

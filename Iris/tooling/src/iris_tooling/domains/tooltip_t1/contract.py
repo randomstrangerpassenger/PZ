@@ -159,6 +159,14 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
         and layer3_owner_output.get("entry_count") == 1314,
         "Layer 3 current Tooltip owner output adoption mismatch",
     )
+    menu_evidence_ownership = layer3.get("menu_consumer_evidence_ownership")
+    _require(
+        isinstance(menu_evidence_ownership, dict)
+        and menu_evidence_ownership.get("owner") == "Menu consumer owner"
+        and menu_evidence_ownership.get("dvf_owner_output_may_issue_consumer_identity_refs") is False
+        and menu_evidence_ownership.get("independent_evidence_required_for_verified") is True,
+        "Layer 3 Menu consumer evidence ownership mismatch",
+    )
     absence = layer3.get("absence_mapping")
     _require(isinstance(absence, dict) and absence.get("missing_owner_row") == "upstream_identity_correction_required", "Layer 3 absence mapping mismatch")
 
@@ -181,6 +189,14 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
         and rightclick_locale.get("identity_relation_path") == "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserInteractionProjection.lua#RIGHTCLICK_LABEL_KEYS"
         and rightclick_locale.get("adoption_rule") == "exact selected rightclick identity to current translation key to exact KO/EN surface only",
         "current right-click locale authority route mismatch",
+    )
+    layer3_shared = parity.get("current_layer3_shared_authority_route")
+    _require(
+        isinstance(layer3_shared, dict)
+        and layer3_shared.get("evidence_class") == "shared_authority_relation_not_independent_consumer_evidence"
+        and layer3_shared.get("status") == "unverified_without_independent_consumer_evidence"
+        and parity.get("dvf_owner_output_may_self_issue_menu_consumer_evidence") is False,
+        "Layer 3 shared Menu authority relation mismatch",
     )
 
     handoff = values[AUTHORITY_ROOT / "tooltip_t2_handoff.schema.json"]

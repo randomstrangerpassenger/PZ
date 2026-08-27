@@ -841,7 +841,6 @@ def build_tooltip_t1_owner_entries(
                 "ko": primary_use,
                 "en": translations[primary_use],
             },
-            "menu_consumer_fact_identity_refs": [fact_id],
         }
     return entries, generation_id
 

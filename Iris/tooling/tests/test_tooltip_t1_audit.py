@@ -10,6 +10,7 @@ from iris_tooling.domains.tooltip_t1.audit import (
     classify_progression,
     correction_completeness_metrics,
     finalize_closeout,
+    menu_owner_output_self_comparison_count,
     normalized_collisions,
     source_mutation_count,
     validate_whole_universe,
@@ -198,6 +199,7 @@ def test_minimal_t2_handoff_mock_consumer(case: str) -> None:
         ("source_immutable", None),
         ("source_mutated", None),
         ("normalized_collision", None),
+        ("owner_output_self_comparison", None),
         ("candidate_pre_gate_axis", None),
         ("nonblocking_correction", None),
         ("gate_failure", None),
@@ -232,6 +234,13 @@ def test_whole_universe_audit_progression(case: str, expected: T2Progression | N
         assert normalized_collisions(["Base.LemonGrass", "Base.Lemongrass", "Base.Apple"]) == {
             "base.lemongrass": ("Base.LemonGrass", "Base.Lemongrass")
         }
+        return
+    if case == "owner_output_self_comparison":
+        assert menu_owner_output_self_comparison_count({
+            "Base.A": {"fact_id": "fact:a", "menu_consumer_fact_identity_refs": ["fact:a"]},
+            "Base.B": {"fact_id": "fact:b"},
+        }) == 1
+        assert menu_owner_output_self_comparison_count({"Base.A": {"fact_id": "fact:a"}}) == 0
         return
     if case == "candidate_pre_gate_axis":
         closeout = candidate_closeout_record(T2Progression.UPSTREAM)

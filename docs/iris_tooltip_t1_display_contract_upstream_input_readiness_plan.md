@@ -679,7 +679,6 @@ upstream_readiness
 tooltip_eligibility
 localized_surfaces.ko
 localized_surfaces.en
-menu_consumer_fact_identity_refs[]
 ```
 
 - current `text_ko` body 전체를 자동 사용하지 않는다.
@@ -691,6 +690,8 @@ menu_consumer_fact_identity_refs[]
 - `description_ready`, `acquisition_only`, `omission_allowed`, `insufficient_material`, `review_required` 전 상태에 ratified mapping 하나를 부여한다.
 - `insufficient_material`은 명칭만으로 legitimate absence 또는 defect를 자동 선택하지 않는다.
 - P-8은 Layer 3 semantic fact eligibility와 per-locale surface readiness를 분리할지 exact schema로 닫는다.
+- DVF owner output은 Menu consumer evidence를 스스로 발급하지 않는다. `menu_consumer_fact_identity_refs` 같은 self-attestation은 owner output에 포함하지 않으며, fact identity/surface readiness와 Menu parity evidence를 분리한다.
+- current generation의 rendered fact relation과 `IrisLayer3DataCurrent → IrisLayer3DataLookup → layer3_renderer → IrisItemDetailModelAssembler` FullType 소비 경로가 공유 authority relation을 제공하더라도, 독립 Menu fact-identity observation이 없으면 Layer 3 parity는 `unverified_without_independent_consumer_evidence`로 남긴다.
 - P-11에 따라 embedded newline과 logical row `>4`만 hard correction으로 판정한다. deterministic width proxy는 존재해도 advisory field만 만들며 eligibility/readiness/T2 progression을 바꾸지 않는다.
 - explicit prohibited-expression fixture에 걸린 public surface는 rewrite하지 않고 ineligible/correction으로 귀속한다.
 

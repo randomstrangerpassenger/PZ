@@ -7,6 +7,12 @@
   "locale_dependent_reselection_allowed": false,
   "readiness_dependent_candidate_substitution_allowed": false,
   "parity_relation": "Tooltip selected identity is a subset of current Menu public identity authority",
+  "current_rightclick_locale_route": {
+    "identity_relation_path": "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserInteractionProjection.lua#RIGHTCLICK_LABEL_KEYS",
+    "ko_surface_path": "Iris/media/lua/shared/translate/ko/Iris_ko.txt",
+    "en_surface_path": "Iris/media/lua/shared/translate/en/Iris_en.txt",
+    "adoption_rule": "exact selected rightclick identity to current translation key to exact KO/EN surface only"
+  },
   "parity_statuses": ["verified", "correction_required", "unverified_without_independent_consumer_evidence", "not_applicable"],
   "verified_requires_independent_consumer_evidence": true,
   "shared_authority_unverified_t2_blocking": false,

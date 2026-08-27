@@ -175,6 +175,13 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
     _require(tuple(parity.get("supported_locales", ())) == SUPPORTED_LOCALES, "parity locale mismatch")
     _require(parity.get("cross_locale_fallback_allowed") is False and parity.get("locale_dependent_reselection_allowed") is False, "locale fallback/reselection must be forbidden")
     _require(parity.get("missing_or_contradictory_authority_relation_t2_blocking") is True, "parity relation blocker mismatch")
+    rightclick_locale = parity.get("current_rightclick_locale_route")
+    _require(
+        isinstance(rightclick_locale, dict)
+        and rightclick_locale.get("identity_relation_path") == "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserInteractionProjection.lua#RIGHTCLICK_LABEL_KEYS"
+        and rightclick_locale.get("adoption_rule") == "exact selected rightclick identity to current translation key to exact KO/EN surface only",
+        "current right-click locale authority route mismatch",
+    )
 
     handoff = values[AUTHORITY_ROOT / "tooltip_t2_handoff.schema.json"]
     _require(handoff.get("schema_version") == "iris-tooltip-t2-handoff-schema-v1", "handoff schema version mismatch")

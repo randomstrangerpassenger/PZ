@@ -403,7 +403,35 @@ def _english_layer3_keys(repository_root: Path) -> set[str]:
     return keys
 
 
-def _layer4_candidates(row: dict[str, Any]) -> list[Layer4Candidate]:
+def _runtime_rightclick_surfaces(repository_root: Path) -> dict[str, dict[str, str]]:
+    projection = (repository_root / "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserInteractionProjection.lua").read_text(encoding="utf-8")
+    identity_to_key = dict(re.findall(
+        r'^\s*\["([^"]+)"\]\s*=\s*"(Iris_Interaction_[A-Za-z0-9_]+)",\s*$',
+        projection,
+        re.MULTILINE,
+    ))
+    localized: dict[str, dict[str, str]] = {}
+    by_locale: dict[str, dict[str, str]] = {}
+    for locale, path in (("ko", KO_TRANSLATION), ("en", EN_TRANSLATION)):
+        text = (repository_root / path).read_text(encoding="utf-8")
+        by_locale[locale] = dict(re.findall(
+            r'^\s*(Iris_Interaction_[A-Za-z0-9_]+)\s*=\s*"([^"]+)",\s*$',
+            text,
+            re.MULTILINE,
+        ))
+    for identity, key in identity_to_key.items():
+        if key in by_locale["ko"] and key in by_locale["en"]:
+            localized[identity] = {
+                "ko": by_locale["ko"][key],
+                "en": by_locale["en"][key],
+            }
+    return localized
+
+
+def _layer4_candidates(
+    row: dict[str, Any],
+    current_rightclick_surfaces: dict[str, dict[str, str]] | None = None,
+) -> list[Layer4Candidate]:
     items = row.get("use_cases") or []
     if not isinstance(items, list):
         raise TooltipContractError("Layer 4 items must be an array")
@@ -414,6 +442,9 @@ def _layer4_candidates(row: dict[str, Any]) -> list[Layer4Candidate]:
             identity = ""
         surface = item.get("surface")
         source = "recipe" if surface == "recipe_ui" else "rightclick" if surface == "context_menu" else str(surface)
+        localized_surfaces = item.get("display_by_locale")
+        if localized_surfaces is None and source == "rightclick" and current_rightclick_surfaces is not None:
+            localized_surfaces = current_rightclick_surfaces.get(identity)
         candidates.append(
             Layer4Candidate(
                 interaction_id=identity,
@@ -422,7 +453,7 @@ def _layer4_candidates(row: dict[str, Any]) -> list[Layer4Candidate]:
                 line_kind=str(item.get("line_kind") or "unknown"),
                 requirement_only=bool(item.get("requirement_only", False)),
                 stable_order_key=item.get("stable_order_key"),
-                localized_surfaces=item.get("display_by_locale"),
+                localized_surfaces=localized_surfaces,
                 menu_consumer_identity_ref=None,
             )
         )
@@ -652,6 +683,7 @@ def run_candidate(
     if not isinstance(layer4, dict):
         raise TooltipContractError("Layer 4 fulltypes missing")
     runtime_layer4 = _runtime_layer4_identities(repository_root)
+    current_rightclick_surfaces = _runtime_rightclick_surfaces(repository_root)
     l3_en_keys = _english_layer3_keys(repository_root)
 
     # W1-A: read-only adjacent-universe census.  No support freeze or selection
@@ -665,7 +697,7 @@ def run_candidate(
         "layer4_runtime_consumer": set(runtime_layer4),
     }
     census_candidates = {
-        full_type: _layer4_candidates(row)
+        full_type: _layer4_candidates(row, current_rightclick_surfaces)
         for full_type, row in layer4.items()
         if isinstance(full_type, str) and isinstance(row, dict)
     }
@@ -736,7 +768,10 @@ def run_candidate(
     # W1-B: the owner-ratified support predicate is applied only after G1.
     support = sorted(set(classifications) | set(layer3) | set(layer4))
     support_collisions = normalized_collisions(support)
-    by_full_type = {full_type: _layer4_candidates(layer4.get(full_type, {})) for full_type in support}
+    by_full_type = {
+        full_type: _layer4_candidates(layer4.get(full_type, {}), current_rightclick_surfaces)
+        for full_type in support
+    }
     invariance = _invariance(by_full_type)
 
     audit_rows: list[dict[str, Any]] = []
@@ -1018,6 +1053,7 @@ def run_candidate(
         "layer2_owner_route": "gap:no_admissible_resolved_identity_output",
         "layer3_owner_route": f"current single-core owner projection {L3_TOOLTIP_OWNER_INPUT.as_posix()}; owner rows without an approved core disposition remain corrections",
         "layer4_owner_route": f"current owner data {L4_OWNER_INPUT.as_posix()} supplies public identities; reproduction baseline is not consumed",
+        "layer4_current_rightclick_locale_route": "current Browser interaction projection identity-to-translation-key relation plus exact Iris_ko/Iris_en translations",
         "menu_consumer_evidence_route": f"current runtime {L4_RUNTIME_ROOT.as_posix()}/Chunk*.lua label_key identities consumed by IrisBrowserInteractionProjection.lua",
         "tooltip_runtime_route": "read_only_non_verdict_baseline",
     }

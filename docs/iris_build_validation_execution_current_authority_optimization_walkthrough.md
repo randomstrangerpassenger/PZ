@@ -6,7 +6,8 @@
 > Documentation-only plan carrier: `e0d22781e0595abfd07da82150219d39969f6d4a`
 > 최종 package-source subject: `c334ee97f0c01fb826309a6fb5388e99bde518d7`
 > 최종 machine-validation subject: `7a6e8ef9e9c29d5986872b08bdbeded5f086b536`
-> 완료 closeout carrier: `b3045c82ea1b523fd27ecdf46528aaca61003ca4`
+> Reviewed closeout carrier: `b3045c82ea1b523fd27ecdf46528aaca61003ca4`
+> 상태: implementation and machine validation complete; plan-process closeout partial pending owner disposition of missing W0 admission evidence
 
 ## 1. 문서의 역할
 
@@ -52,7 +53,8 @@ historical replay 또는 full tooling pytest는 만들지 않았다.
 
 ## 3. W0에서 채택한 최적화 대상
 
-W0 current route는 103개 pytest identity를 가리켰다. Census와 실제 source/import,
+W0 listing은 Round3 `current` route의 routing membership 103개를 가리켰다. 이는 canonical
+full-gate pytest denominator 211개와 다른 분모다. Census와 실제 source/import,
 command/document owner를 대조한 뒤 일곱 후보를 다음처럼 disposition했다.
 
 | Candidate | 채택한 처리 | 최종 결과 |
@@ -67,6 +69,30 @@ command/document owner를 대조한 뒤 일곱 후보를 다음처럼 dispositio
 
 이 disposition은 구현량을 늘리는 면허가 아니었다. 기존 owner로 합칠 수 없는 helper,
 중복 proof artifact, validation-of-validation은 추가하지 않았다.
+
+### 3.1 W0 admission evidence 상태
+
+지정된 external custody root
+`C:/Users/MW/i/iris-build-validation-optimization-e0d22781`와 그 `w0/`를 read-only로
+조사했다. `w0_census.json`에는 candidate와 custody가 있지만, 구현 전 W0 elapsed,
+Wave 1~3 projected time, total ≤120, 명시적 `ADMIT`, plan carrier/exact base binding을
+함께 보존한 artifact는 없었다. 후속 timestamp는 bounded outcome을 보여줄 뿐 사전 결정을
+재구성하지 않으며, 사후 admission artifact나 exemption을 만들지 않았다.
+
+```text
+W0_ADMISSION_EVIDENCE_MISSING
+
+The implementation outcome completed within a bounded observed timeline,
+but the plan-required pre-implementation elapsed/projected-time ADMIT
+artifact was not preserved.
+
+Observed timestamps are outcome evidence only and do not reconstruct
+the missing pre-admission decision.
+```
+
+따라서 구현과 machine validation은 완료됐고 terminal 및 Reviewer는 PASS지만,
+W0 pre-implementation admission은 unresolved다. Reviewer PASS는 이 누락을 대체하지
+않으며 overall plan-process closeout은 owner disposition 전까지 partial이다.
 
 ## 4. 핵심 구현
 
@@ -126,9 +152,26 @@ Producer invocation은 3개로 줄었고, mutation/tamper case는 공유 final s
 
 ### 4.4 Predecessor copy 33개 retirement
 
-Package-owned current source와 이름이 같은 description-tree predecessor 33개를 실제
-내용과 import/entrypoint consumer로 다시 판정했다. 5개는 exact copy, 28개는 diverged
-copy였지만 모두 current authority를 package owner가 이미 대체하고 있었다.
+분모는 임의로 31에서 33으로 확장한 것이 아니다.
+
+```text
+32 distinct basename intersections
+- non-substantive __init__.py 1
+= 31 substantive distinct basenames
+
+31 substantive basenames
++ nested D16 one extra concrete predecessor copy for each of 2 basenames
+= 33 concrete predecessor files
+```
+
+추가 concrete copy가 있는 basename은
+`run_dvf_3_3_korean_prose_naturalization.py`와
+`validate_dvf_3_3_korean_prose_naturalization.py`다. 이 nested D16 copy는 neutral
+protected fixture가 아니다. Package-owned current source와 이름이 같은 33개 concrete
+predecessor file을 실제 내용과 import/entrypoint consumer로 다시 판정했다. 5개는 exact
+copy, 28개는 diverged copy였지만 모두 current authority를 package owner가 이미 대체하고
+있었다. 결과는 substantive distinct basename identity의 live implementation intersection
+`31 → 0`, concrete predecessor file `33 → 0`이다.
 
 삭제 전에 external archive
 `C:/Users/MW/i/iris-build-validation-optimization-e0d22781/archive/archive_manifest.json`에
@@ -273,6 +316,7 @@ environment authority record와 current locator 두 파일만 변경한다. Docs
 | Validation | 결과 |
 | --- | --- |
 | Affected G5 focused case | `1 passed` |
+| Round3 current-route routing identity | `103 → 103` |
 | Run A | exit `0`, pytest `211`, standalone `4`, total `215` |
 | Run B | exit `0`, pytest `211`, standalone `4`, total `215` |
 | A/B canonical result | 동일 SHA-256 `ef6072fdcc1e3dcb71b1cdfacae656bf9d9e7dfd0da027114dd4d18e3833a2ac` |
@@ -287,6 +331,13 @@ Run A orchestration은 `C:/Users/MW/i/ivo7-ra/orchestration.json`, Run B는
 
 장기 실행 가능성이 있는 Run A/B는 약 30초 간격으로 process 상태를 확인했다. 각각
 약 208초에 정상 종료했으며, 비정상 정체·무한 반복 신호는 없었다.
+
+Canonical full gate의 recurring execution unit은 모든 pytest identity 211개와 required
+standalone validation 4개의 합인 `211 + 4 = 215`다. Round3 103은 routing membership이므로
+이 산식에 더하지 않는다. Parameterized named case, `subTest` assertion, migration-only
+script, external census, Reviewer-only check, unregistered temporary validation도 분모에서
+제외한다. Round3 routing identity와 canonical full-gate pytest identity 모두 delta는 0이며,
+regular test 108개가 추가된 것이 아니다.
 
 ## 9. 최종 Codex Reviewer 결과
 
@@ -313,18 +364,75 @@ Reviewer는 최종적으로 다음 관계를 확인했다.
 
 ## 10. 최종 상태
 
-계획의 정량 completion gate는 stated validation ceiling 안에서 닫혔다.
+구현의 정량 completion gate는 stated validation ceiling 안에서 닫혔다. 다만 W0 admission
+evidence 누락 때문에 overall plan-process closeout은 partial이다.
 
 - Same full-gate seed producer invocation: `6 → 3`
-- Live same-name predecessor duplicate: `33 → 0`
+- Substantive distinct basename live implementation intersection: `31 → 0`
+- Concrete predecessor file: `33 → 0` (`5 exact + 28 diverged`)
 - Different-name exact duplicate: `0 → 0`
 - Human command literal owner: `4 → 1`
 - Current authority explanation owner: `4 → 1`
 - Current authority maximum route hop: `4 → 1`
+- Default current-context tracked bytes: `170,476 → 149,600`
 - Current predecessor import/execution reference: `0`
 - Unsupported retention / remaining optimization / unimplemented optimization /
   unmeasured defer / undispositioned candidate: 모두 `0`
 - Product runtime/Lua mutation: `0`
+
+Plan-process 상태를 분리하면 다음과 같다.
+
+- Implementation: complete
+- Package-bound machine terminal: PASS
+- Independent Reviewer: PASS, actionable finding `0`
+- Product/runtime/Lua mutation: `0`
+- W0 pre-implementation admission: unresolved
+- Overall plan-process: partial pending owner disposition
+
+### 10.1 Physical lightweighting
+
+아래 수치는 product S0 `e6310737…`와 Walkthrough carrier `7f943745…`의 Git tree를 비교한
+physical Git blob/context surface다.
+
+| Scope | S0 | Final including Walkthrough | Delta |
+| --- | ---: | ---: | ---: |
+| Iris files | 1,753 | 1,731 | -22 |
+| Iris Git blob bytes | 71,766,663 | 70,970,753 | -795,910 |
+| Whole-repository files | 6,935 | 6,917 | -18 |
+| Whole-repository Git blob bytes | 142,715,144 | 142,003,274 | -711,870 |
+
+같은 구간의 source line delta는 `65 files changed, 3,259 insertions, 22,193 deletions`다.
+이는 physical repository/context surface 감소이며 runtime 성능, wall-clock 개선 또는 token
+절감률의 측정값이 아니다.
+
+### 10.2 Commit timeline과 execution churn
+
+| Milestone | Commit timestamp (KST) |
+| --- | --- |
+| Plan carrier | 2026-08-27 11:11:34 |
+| Main implementation | 2026-08-27 11:42:50 |
+| Reviewed closeout | 2026-08-27 13:13:59 |
+| Walkthrough carrier | 2026-08-27 13:24:01 |
+
+Commit timestamp 기준으로 plan→main은 약 31분, plan→reviewed closeout은 약 2시간 2분,
+plan→Walkthrough는 약 2시간 12분이다. 이는 commit 시점 간 wall-clock일 뿐 active compute,
+Codex의 정확한 작업 시간 또는 pre-implementation ADMIT evidence가 아니다.
+
+최종 terminal chain은 `w7`이며, 변경된 source/test/contract subject마다 exact package와
+environment subject를 새로 만들면서 versioned environment authority record 6개가 추가됐다.
+Unchanged subject를 추가 confidence만을 위해 다시 실행하지는 않았다. 다만 다음 항목은
+static preflight에서 더 일찍 잡을 수 있었던 avoidable churn이었다.
+
+- composite CLI identity forwarding
+- nested D16 reproduction glob
+- stale frozen Round3 closure
+- G5의 누락된 `execution.py`
+- identity owner self-inclusion 누락
+- cumulative required paths에서 0016 replacement
+
+이 churn은 최종 correctness, Run A/B·comparator PASS 또는 Reviewer finding 0을 부정하지
+않지만, process efficiency가 완벽했다고 주장할 근거도 아니다. 이번 documentation-only
+correction에서는 테스트, package, writer, G5 validator 또는 Reviewer를 다시 실행하지 않았다.
 
 최종 readpoint는 다음과 같다.
 

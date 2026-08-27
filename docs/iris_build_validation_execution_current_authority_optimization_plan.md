@@ -1,6 +1,6 @@
 # Iris 빌드·검증 실행 및 Current Authority 탐색 최적화 Implementation Plan
 
-> 상태: review-ready operational correction draft — plan carrier·exact G5 chain·terminal environment·W0 admission 보정, 독립 계획 검토 PASS 전 구현 보류  
+> 상태: implementation and machine validation complete; plan-process closeout partial pending owner disposition of missing W0 admission evidence
 > 개정일: 2026-08-27  
 > 기준 로드맵: `Iris 빌드·검증 실행 모델 및 Current Authority 탐색 구조 통합 최적화 Roadmap`  
 > 검증 깊이: bounded — 중간 focused validation 3회 이하, 최종 full A/B 1회  
@@ -60,15 +60,16 @@ current-route recurring execution denominator는 다음 read-only listing으로 
 uv run python .\Iris\_docs\round3\round3_run_contract_tests.py --class current --list
 ```
 
-| Denominator | S0 | Target | Hard cap |
+| Metric | S0 | Final | Target / hard cap |
 |---|---:|---:|---:|
-| Current-route regular pytest identity | **103** | ≤103 | 111 |
-| canonical full gate의 required standalone validation | **4** | 4 | 4 |
-| recurring execution unit | **107** | ≤107 | 115 |
+| Round3 current-route routing identity | **103** | **103** | target ≤103, cap 111 |
+| Canonical full-gate pytest identity | **211** | **211** | target ≤211, cap 219 |
+| Required standalone validation | **4** | **4** | exactly 4 |
+| Canonical recurring execution unit | **215** | **215** | target ≤215, cap 223 |
 
-`recurring execution unit`은 listing에 나타나는 regular current-route pytest identity와 canonical full gate가 각 required standalone validation을 정확히 한 번 실행하는 수의 합이다. parameterized named case, `subTest` constituent assertion, migration-only one-off script, external census script, reviewer-only check와 regular authority에 등록되지 않은 temporary validation은 identity 분모에 포함하지 않는다. 2026-08-27 read-only 재측정에서 listing은 exit `0`, 103행이었고 LF-normalized stdout SHA-256은 `3406301be19d3cf5c1491b450b90938cf68371d7284a4d8e7ce61bd7917b9b95`였다.
+위 listing의 103은 Round3 `current` route의 routing membership이며 canonical full-gate pytest denominator가 아니다. Canonical full-gate denominator는 clean-checkout full gate가 실행하는 모든 pytest identity 211개와 required standalone validation 4개이고, 따라서 recurring execution unit은 `211 + 4 = 215`다. parameterized named case, `subTest` constituent assertion, migration-only one-off script, external census script, Reviewer-only check와 regular authority에 등록되지 않은 temporary validation은 identity 분모에 포함하지 않는다. 2026-08-27 read-only 재측정에서 listing은 exit `0`, 103행이었고 LF-normalized stdout SHA-256은 `3406301be19d3cf5c1491b450b90938cf68371d7284a4d8e7ce61bd7917b9b95`였다. 두 identity denominator의 구현 전후 delta는 모두 0이며, regular test 108개가 추가된 것이 아니다.
 
-구현자는 W0 시작 시 위 exact command로 plan carrier commit/tree, product/code S0 ancestry, clean worktree, current authority manifest, 세 exact G5 file의 path/blob/SHA/schema/chain 관계, 세 denominator와 result digest를 다시 기록한다. G5 chain의 path·blob·SHA가 위 표와 다르거나 plan carrier가 product/code S0의 documentation-only child가 아니면 조용히 수치를 덮어쓰지 않고 `BLOCKED`로 닫는다. 계획 carrier와 implementation subject는 끝까지 별도 identity로 유지한다.
+구현자는 W0 시작 시 위 exact command로 plan carrier commit/tree, product/code S0 ancestry, clean worktree, current authority manifest, 세 exact G5 file의 path/blob/SHA/schema/chain 관계, 네 denominator와 result digest를 다시 기록한다. G5 chain의 path·blob·SHA가 위 표와 다르거나 plan carrier가 product/code S0의 documentation-only child가 아니면 조용히 수치를 덮어쓰지 않고 `BLOCKED`로 닫는다. 계획 carrier와 implementation subject는 끝까지 별도 identity로 유지한다.
 
 ### 2.2 Measured source baseline
 
@@ -78,11 +79,12 @@ uv run python .\Iris\_docs\round3\round3_run_contract_tests.py --class current -
 | predecessor root `Iris/build/description/v2/tools/build/**` | 264 Python files |
 | current/predecessor same-basename intersections | 32 |
 | non-implementation `__init__.py` intersection | 1 |
-| concrete substantive same-name implementation pairs | **33** |
+| substantive distinct same-basename identities | **31** |
+| concrete substantive predecessor files | **33** |
 | known exact/diverged implementation pairs | 5 / 28 |
 | same full-gate seed producer invocations | **6** |
 
-pair denominator는 위 두 exact root에서 `*.py`를 재귀 열거해 root-relative path와 basename을 함께 기록한다. distinct basename intersection은 32지만 predecessor root에 같은 basename의 추가 concrete path가 2개 있으므로 concrete match는 34이고, `34 concrete matches - __init__.py 1 = 33 substantive implementation pairs`다. 현재 root를 `iris_tooling` 전체로 확장하지 않는다. 33은 same-name seed denominator이며, 이름이 다른 live duplicate는 별도 content/import/consumer census로 찾고 같은 disposition 규칙을 적용한다.
+pair denominator는 위 두 exact root에서 `*.py`를 재귀 열거해 root-relative path와 basename을 함께 기록한다. 산식은 `32 distinct basename intersections - non-substantive __init__.py 1 = 31 substantive distinct basenames`이고, predecessor root에는 `run_dvf_3_3_korean_prose_naturalization.py`와 `validate_dvf_3_3_korean_prose_naturalization.py`가 각각 nested D16에 한 concrete copy씩 더 있어 `31 + 2 = 33 concrete predecessor files`가 된다. 따라서 terminal result는 substantive distinct basename identity의 live implementation intersection `31 → 0`, concrete predecessor file `33 → 0`, 분류 `5 exact + 28 diverged`다. 33은 임의 scope 확장이 아니며 nested D16 copy를 neutral protected fixture와 혼동하지 않는다. 현재 root를 `iris_tooling` 전체로 확장하지 않는다. 이름이 다른 live duplicate는 별도 content/import/consumer census로 찾고 같은 disposition 규칙을 적용한다.
 
 ### 2.3 Included
 
@@ -92,7 +94,7 @@ pair denominator는 위 두 exact root에서 `*.py`를 재귀 열거해 root-rel
 - current regular validation과 clean-checkout orchestration의 typed projection
 - 동일 gate 내부 immutable seed 재사용
 - repeated file load, redundant subprocess, same-semantics helper 통합
-- 33 concrete same-name pair와 이름이 다른 live predecessor/current duplicate의 disposition 및 안전한 physical retirement
+- 33 concrete same-name predecessor file과 이름이 다른 live predecessor/current duplicate의 disposition 및 안전한 physical retirement
 - current command surface와 Python/PowerShell/pytest 책임 정리
 - `docs/IRIS_CURRENT.md`, `Iris/AGENTS.md`, static machine route index
 - exact current allowlist와 historical opt-in search route
@@ -295,10 +297,11 @@ undispositioned_candidate
 
 ### 6.3 Repository and validation growth ceilings
 
-- Current-route regular pytest identity: `103 → ≤103`, hard cap `111`. 새 계약이 필요하면 먼저 같은 producer/oracle의 기존 identity를 병합해 순증가 `0`을 맞춘다.
-- hard cap의 `+8`은 별도 fresh process, mutation workspace, 독립 failure boundary 또는 독립 oracle 때문에 기존 identity에 병합할 수 없는 경우에만 사용한다. 단순 가독성, 파일별 대칭성 또는 구현 편의는 근거가 아니다.
+- Round3 current-route routing identity: `103 → ≤103`, hard cap `111`. 새 계약이 필요하면 먼저 같은 producer/oracle의 기존 identity를 병합해 순증가 `0`을 맞춘다.
+- canonical full-gate pytest identity: `211 → ≤211`, hard cap `219`
+- 두 hard cap의 `+8`은 별도 fresh process, mutation workspace, 독립 failure boundary 또는 독립 oracle 때문에 기존 identity에 병합할 수 없는 경우에만 사용한다. 단순 가독성, 파일별 대칭성 또는 구현 편의는 근거가 아니다.
 - standalone validation: `4 → 4`, 신규 금지
-- 전체 recurring execution unit: `107 → ≤107`, hard cap `115`
+- canonical recurring execution unit: `215 → ≤215`, hard cap `223`
 - 새 test는 기존 family에 table-driven case 또는 named subtest로 우선 편입
 - 같은 setup, producer와 oracle을 반복하는 기존 affected tests는 constituent assertion 이름을 보존한 채 한 family로 병합
 - migration-only 검사 스크립트/fixture/result는 regular authority 등록 금지
@@ -329,7 +332,7 @@ undispositioned_candidate
    - failure/`Issue`/`ArtifactRef` projection
 4. optimization candidate는 다음만 한 번 census한다.
    - 두 live StageRunner consumer graph와 seed producer call graph
-   - exact 두 source root의 33 concrete same-name pairs
+   - exact 두 source root의 31 substantive distinct basenames와 33 concrete same-name predecessor files
    - 이름이 다른 duplicate implementation의 content/import/consumer 관계
    - same-semantics IO/digest/path/process helper
    - repeated file read와 redundant subprocess
@@ -369,6 +372,23 @@ plan carrier valid
 ```
 
 120분을 초과할 것으로 예상되거나 candidate cost를 bounded하게 산정할 수 없으면 Wave 1을 시작하지 않는다. 먼저 candidate를 별도 successor로 분할하거나 materiality denominator를 owner review로 다시 고정하고 계획을 수정한다. 구현을 시작한 뒤 예산을 소진하고 `partial`로 끝내는 방식을 기본 경로로 사용하지 않는다. 이 admission 판정은 새 정규 validator나 full gate를 만들거나 실행하지 않는다.
+
+#### Post-implementation admission evidence correction
+
+지정된 external custody root와 `w0/`를 read-only로 조사했지만, 구현 전 W0 elapsed, Wave 1~3 projected time, total ≤120, 명시적 `ADMIT`, plan carrier/exact base binding을 함께 보존한 artifact는 없었다. `w0_census.json`은 candidate와 custody를 기록하지만 admission evidence는 아니다. 관측된 후속 timestamp로 사전 결정을 재구성하거나 사후 artifact·면제를 만들지 않는다.
+
+```text
+W0_ADMISSION_EVIDENCE_MISSING
+
+The implementation outcome completed within a bounded observed timeline,
+but the plan-required pre-implementation elapsed/projected-time ADMIT
+artifact was not preserved.
+
+Observed timestamps are outcome evidence only and do not reconstruct
+the missing pre-admission decision.
+```
+
+따라서 implementation, package-bound machine terminal과 Reviewer 결과는 완료/PASS로 유지되지만 W0 pre-implementation admission은 unresolved이며 overall plan-process closeout은 owner disposition 전까지 `partial`이다. Reviewer PASS는 누락된 admission을 대체하지 않는다.
 
 ### Change 1 — Wave 1: Combined execution-core optimization
 
@@ -412,7 +432,7 @@ execution contract matrix에는 최소한 typed payload encode/decode, legacy ad
 
 #### Work
 
-1. 33 concrete same-name pair와 W0에서 확인한 이름이 다른 duplicate의 current consumer migration을 끝낸다.
+1. 33 concrete same-name predecessor file과 W0에서 확인한 이름이 다른 duplicate의 current consumer migration을 끝낸다.
 2. predecessor-only reproduction/historical fixture가 있으면 neutral fixture identity와 explicit retention reason으로 분리한다.
 3. 삭제 대상 exact bytes를 additive external archive에 create하고 archive manifest의 모든 entry에 대해 path/size/digest를 검증한다.
 4. 실제 restore 대상은 정확히 한 개를 고른다. 선택 우선순위는 `(1) physical retirement 대상, (2) diverged pair, (3) archived bytes가 가장 큰 항목`이며, 결과적으로 삭제 대상 중 가장 큰 diverged pair를 대표로 복구한다. 우선순위에 해당하는 항목이 없을 때만 다음 조건으로 내려간다.
@@ -643,7 +663,8 @@ wall-clock 속도와 실제 GPT/Codex token 효율은 comparable telemetry가 �
 | Metric | Baseline | Required terminal |
 |---|---:|---:|
 | same full-gate seed producer invocation | 6 | 3 |
-| concrete same-name implementation pairs | 33 | 0 live authority duplicates |
+| substantive distinct same-basename identities | 31 | 0 live implementation intersections |
+| concrete substantive predecessor files | 33 | 0 |
 | different-name live duplicates | W0 | 0 or supported distinct identity |
 | predecessor current import/execution references | W0 | 0 |
 | supported public execution boundary typed coverage | W0 | 100% |
@@ -662,11 +683,17 @@ wall-clock 속도와 실제 GPT/Codex token 효율은 comparable telemetry가 �
 | default AI current-context tracked bytes | W0 | terminal exact bytes, S0 이하 또는 supported increase |
 | static machine route indexes | absent/partial | 1 |
 | authority→producer→validator→receipt max hop | W0 exact count | ≤2 |
-| Current-route regular pytest identity | **103** | 목표 ≤103; hard cap 111 |
-| standalone validations | 4 | 4 |
-| recurring execution units | **107** | 목표 ≤107; hard cap 115 |
 | validation-caused tracked mutations | S0 | 0 |
 | Lua/product runtime changes | S0 | 0 |
+
+Validation denominator gate는 서로 다른 routing membership과 execution denominator를 합치지 않는다.
+
+| Metric | S0 | Final | Target / hard cap |
+|---|---:|---:|---:|
+| Round3 current-route routing identity | 103 | 103 | target ≤103, cap 111 |
+| Canonical full-gate pytest identity | 211 | 211 | target ≤211, cap 219 |
+| Required standalone validation | 4 | 4 | exactly 4 |
+| Canonical recurring execution unit | 215 | 215 | target ≤215, cap 223 |
 
 `complete`는 숫자를 억지로 맞추기 위해 독립적인 failure/isolation contract를 병합하거나 지울 권한을 주지 않는다. 보존이 필요하면 explicit distinct identity와 evidence를 남기되 unsupported retention은 0이어야 한다.
 
@@ -822,6 +849,8 @@ Expected closeout name: `Iris build-validation execution/current-authority optim
 - 실제로 측정하지 않은 wall-clock/token/runtime 개선을 주장하지 않음
 
 구현이 끝났지만 final terminal 또는 Reviewer가 끝나지 않았으면 `implemented_only`, 일부 eligible implementation이 남으면 `partial`, 외부 선행조건으로 진행할 수 없으면 `blocked`다. 분석·inventory·문서만 완성한 상태를 `complete`로 닫을 수 없다.
+
+실제 실행에서는 implementation, machine terminal과 Reviewer가 완료/PASS했으나 §6.4의 pre-implementation W0 admission artifact가 보존되지 않았다. 그러므로 top-level 상태는 `implementation and machine validation complete; plan-process closeout partial pending owner disposition of missing W0 admission evidence`이며, 누락에 대한 사후 복원이나 Reviewer 대체로 `complete`를 주장하지 않는다.
 
 closeout에는 다음 비주장 문구를 그대로 포함한다.
 

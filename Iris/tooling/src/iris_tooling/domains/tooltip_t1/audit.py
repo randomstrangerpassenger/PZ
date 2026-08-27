@@ -94,7 +94,7 @@ def candidate_closeout_record(progression: T2Progression | str) -> dict[str, Any
         "formal_closeout_state": "implemented_only",
         "validation_ceiling": "candidate and offline audit only; canonical full-gate Run A/Run B and deterministic comparator exit-0 evidence is not yet bound",
         "validated": ["candidate contract/schema audit", "whole-universe offline audit", "deterministic Layer 4 identity selection", "Layer 4 current consumer identity subset"],
-        "unvalidated_but_in_scope": ["canonical receipt-bound full gate and deterministic comparator", "Layer 2 Menu parity where owner-resolved identity evidence is unavailable", "Layer 3 Menu parity for rows lacking approved Tooltip fact identity"],
+        "unvalidated_but_in_scope": ["canonical receipt-bound full gate and deterministic comparator", "Layer 2 Menu parity where owner-resolved identity evidence is unavailable", "Layer 3 Menu parity for selected DVF facts lacking independent Menu consumer fact-identity evidence"],
         "out_of_scope": ["runtime rendering", "actual visual fit", "release/deployment"],
         "non_claims": ["no formal complete claim before same-subject canonical gate success", "no runtime mutation", "no T2 static Lua generation", "no full Menu parity claim"],
     }

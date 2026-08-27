@@ -1703,14 +1703,14 @@ def test_g5_current_capsule_separates_historical_raw_and_current_claim() -> None
             "naturalization_compiler_identity_sha256_lf_normalized_"
             "ordered_paths_v2"
         ),
-        "ordered_path_count": 19,
+        "ordered_path_count": 21,
         "historical_attested_aggregate_sha256": (
             "2dcff095b1cc34c8fb6d3ad735ac8f9d0ca2affe259f6bb97870b19e7235cc7f"
         ),
         "current_aggregate_sha256": (
-            "88f51c4b49a1ad64a8c8bc8d26eaf4cd8fa59f0a5d148f197a5b76e166f2ac80"
+            "61238620a841bc635169d5f254ceab9279f4b71d9231fdc2cd660c7b3afdb6ab"
         ),
-        "changed_constituent_count": 19,
+        "changed_constituent_count": 21,
         "unchanged_constituent_count": 0,
         "current_basis_validation_mode": "exact_git_object",
     }

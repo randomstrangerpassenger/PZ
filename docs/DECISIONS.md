@@ -1840,6 +1840,53 @@
   - post-IAR product retirement governance retained: 2026-08-20 onward
   - COMMON-EVIDENCE-TRACE.
 
+### Iris Tooltip T1 — display contract / upstream input readiness boundary
+
+- 날짜: 2026-08-27
+
+- 상태: current owner-ratified offline contract / T2 progression blocked by upstream corrections
+
+- 결정: Tooltip은 Layer 2 classification, optional Layer 3 core description과 최대 두 개의 Layer 4 public interaction identity를 S1→S4 고정 순서로 투영한다. T1은 semantic/public eligibility와 identity selection을 먼저 닫고 selected identity의 KO/EN 및 Menu evidence readiness를 나중에 판정하는 offline contract/audit owner로 한정한다.
+
+- 현재 기준:
+
+  - owner-ratified support predicate는 current Layer 2, pointer-selected Layer 3와 current Layer 4 owner FullType의 case-sensitive explicit union이다.
+  - legitimate absence display row는 compact할 수 있지만 semantic slot identity/order를 유지하며 defect row는 compact하지 않는다.
+  - Layer 2 raw tag/runtime resolver 복제, Layer 3 body truncation·요약·재작성, Layer 4 importance/frequency/text-similarity/input-order selection을 금지한다.
+  - both-source Layer 4 row는 Recipe 하나와 Right-click 하나를 선택하고 single-source row는 neutral stable structural order로 최대 둘을 선택한다.
+  - Layer 4 identity source는 current authority로 분류된 `Iris/build/description/v2/data/upstream_usecases_by_fulltype.json`이며 `Iris/build/baseline/**` reproduction artifact를 semantic input으로 승격하지 않는다. Selected identity는 Browser가 소비하는 current runtime `UseCaseDescriptions/Chunk*.lua`의 `label_key` identity와 별도로 대조한다.
+  - explicit QG order key가 없는 current subject의 tie-break는 versioned source/interaction identity bytes에서 파생하며 semantic rank가 아니다.
+  - selected identity는 locale/Menu readiness 전에 freeze한다. KO/EN fallback, locale별 reselection과 readiness가 더 좋은 차순위 substitution을 금지한다.
+  - Menu/Tooltip parity는 identity relation이며 independent consumer evidence가 없는 shared-authority 범위는 `unverified_without_independent_consumer_evidence`로 남긴다.
+  - current Layer 2 resolved owner output, Layer 3 approved Tooltip fact identity/surface와 Layer 4 explicit selected-identity locale surface 결손은 T1이 보완하지 않고 owner correction으로 귀속한다.
+  - `Base.LemonGrass` / `Base.Lemongrass` normalized collision은 case-sensitive identity를 합치거나 denominator에서 제거하지 않고 explicit support-owner correction으로 남긴다.
+  - contract/audit axis와 `T2_FULL_DATA_PROGRESSION`은 분리한다. Current progression은 correction/re-audit 전까지 `BLOCKED_BY_UPSTREAM_CORRECTIONS`이며 T2 handoff를 생성하지 않는다.
+  - pre-full-gate candidate는 task-specific axis `partial`, formal state `implemented_only`다. 동일 subject의 canonical Run A/Run B와 deterministic comparator exit-0 receipt가 모두 hash-bound된 뒤에만 좁은 post-gate finalizer가 두 상태를 `complete`로 올릴 수 있다.
+  - correction 기반 progression, cause class, owner와 owner별 blocker count는 모두 `t2_blocking = true`인 동일 correction 집합에서만 파생한다. T3 재검증 관찰이나 non-blocking correction은 T2를 차단하지 않는다.
+  - tracked contract/fixture와 installed package producer는 current authority지만 repository-external census/audit/ledger/receipt는 lifecycle evidence이며 regular validation authority가 아니다.
+  - tracked decision contract는 ratification template이며, clean exact subject의 W1-A evidence hash와 subject identity를 adoption receipt가 결속한 뒤에만 G1 및 W1-B가 성립한다.
+
+- Machine authority:
+
+  - `Iris/_docs/authority/tooltip_t1/`
+  - `docs/iris_tooltip_t1_display_contract_policy.md`
+  - command owner: `Iris/build/ENTRYPOINTS.md`
+
+- 오독 금지:
+
+  - T1 contract/audit completion을 T2 static generation, runtime adoption, actual visual fit, full Menu parity, package/install, compatibility, freeze, Publish, release, Workshop 또는 deployment PASS로 읽지 않는다.
+  - upstream gap ledger를 T1 semantic workaround나 correction mutation authority로 읽지 않는다.
+  - one-off audit와 ad hoc probe를 canonical/regular validator로 승격하지 않는다.
+  - post-gate finalizer를 semantic producer, 일반 workflow system 또는 T2 OPEN authority로 읽지 않는다.
+  - COMMON-RUNTIME-SURFACE-NONMUTATION.
+  - COMMON-RELEASE-NONDECISION.
+
+- Trace:
+
+  - owner preapproval and T1 adoption: 2026-08-27
+  - detailed policy: `docs/iris_tooltip_t1_display_contract_policy.md`
+  - COMMON-EVIDENCE-TRACE.
+
 ### Iris validation — workflow / scenario execution consolidation boundary
 
 - 날짜: 2026-08-13 → 2026-08-20 → 2026-08-25 refinement

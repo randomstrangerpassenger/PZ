@@ -343,6 +343,36 @@ domain-owned input / payload / verdict
 - Exact package/environment subject가 달라질 때만 replacement terminal chain을 만든다. Unchanged subject를 confidence 확보만을 위해 반복하지 않으며 docs-only closeout은 machine PASS subject를 바꾸지 않는다.
 - W0 admission artifact 미보존은 historical process fact로 유지한다. Owner disposition으로 closeout은 complete이며 새 owner instruction이나 새 current authority 없이 build/validation architecture work를 재개방하지 않는다.
 
+### Tooltip T1 offline contract / T2 handoff 구조
+
+Tooltip T1은 existing semantic owner와 mechanical static generation 사이의 offline projection/readiness boundary다.
+
+```text
+exact current subject
+-> read-only W1-A adjacent-universe evidence
+-> same-subject owner ratification
+-> owner-ratified Tooltip support universe
+-> Layer 2 resolved identity / Layer 3 approved fact / Layer 4 public candidate census
+-> deterministic S1-S4 identity projection
+-> selected identity freeze
+-> KO/EN and Menu evidence readiness
+-> whole-universe audit + owner correction ledger
+-> T2 progression gate
+-> OPEN only: minimal mechanical T2 handoff
+```
+
+Candidate closeout은 `partial/implemented_only` ceiling을 유지한다. 별도 installed-package finalizer는 candidate receipt와 동일 subject의 canonical Run A/Run B orchestration·inner result, deterministic comparator receipt만 검증하고 외부 빈 root에 final closeout 한 파일을 쓴다. 이 경계는 semantic input이나 T2 blocker를 다시 계산하지 않으며 receipt failure 또는 subject mismatch에서 아무 complete closeout도 생성하지 않는다.
+
+- Classification, DVF System과 QG가 Layer 2/3/4 semantic authority를 계속 소유한다. T1은 projection/readiness metadata만 소유한다.
+- Layer 4 semantic identity input은 current owner data에서 읽고, reproduction baseline은 입력에서 제외한다. Current Browser consumer relation은 별도 runtime `label_key` identity set과 exact subset 비교한다.
+- Layer 4 selection graph에는 locale/Menu readiness input edge가 없고 readiness graph에는 selected-identity writer edge가 없다.
+- T2 handoff는 ordered `slot_id`, semantic identity와 KO/EN surface만 포함한다. Raw tags, unselected candidates, audit/parity/readiness/owner/reason metadata를 포함하지 않는다.
+- T2는 requested locale surface read, legitimate absence compaction이 끝난 fixed-order rows의 concatenation과 static payload emit만 수행한다.
+- Current upstream blocker가 남으면 cause-attributed progression record만 생성하고 T2 handoff를 생성하지 않는다.
+- progression과 owner별 blocker distribution은 `t2_blocking = true` correction의 단일 filtered view를 공유한다.
+- T1 run output은 repository-external immutable root에 두며 mutable latest pointer나 stateful registry를 만들지 않는다.
+- 자세한 contract authority는 `Iris/_docs/authority/tooltip_t1/`, human policy는 `docs/iris_tooltip_t1_display_contract_policy.md`가 소유한다.
+
 ### Runtime presentation 구조
 
 Iris runtime의 classification / presentation 흐름은 다음 단방향 구조를 따른다.

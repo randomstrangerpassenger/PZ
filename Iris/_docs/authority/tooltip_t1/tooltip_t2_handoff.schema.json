@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "iris-tooltip-t2-handoff-v1",
+  "schema_version": "iris-tooltip-t2-handoff-schema-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "subject_binding_ref", "full_type", "slots"],
+  "properties": {
+    "schema_version": {"const": "iris-tooltip-t2-handoff-v1"},
+    "subject_binding_ref": {"type": "string", "minLength": 1},
+    "full_type": {"type": "string", "minLength": 1},
+    "slots": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["slot_id", "semantic_identity", "localized_surfaces"],
+        "properties": {
+          "slot_id": {"enum": ["S1", "S2", "S3", "S4"]},
+          "semantic_identity": {"type": "string", "minLength": 1},
+          "localized_surfaces": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["ko", "en"],
+            "properties": {
+              "ko": {"type": "string", "minLength": 1, "pattern": "^[^\\r\\n]+$"},
+              "en": {"type": "string", "minLength": 1, "pattern": "^[^\\r\\n]+$"}
+            }
+          }
+        }
+      }
+    }
+  },
+  "generation_condition": "T2_FULL_DATA_PROGRESSION equals OPEN only",
+  "x-iris-invariants": {
+    "slot_order": ["S1", "S2", "S3", "S4"],
+    "slot_ids_unique": true,
+    "surface_forbids_cr_lf": true,
+    "canonical_validator": "iris_tooling.domains.tooltip_t1.models.validate_handoff_row"
+  }
+}

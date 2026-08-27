@@ -530,6 +530,14 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - Pre-implementation W0 `ADMIT` artifact 미보존은 unresolved 사실로 남지만 owner가 disposition하여 plan-process closeout은 complete다. 새 owner instruction이나 새 current authority 없이 이를 후속 blocker 또는 재실행 항목으로 되살리지 않는다.
   - 상세 readpoint는 `docs/iris_build_validation_execution_current_authority_optimization_plan.md`, `docs/iris_build_validation_execution_current_authority_optimization_walkthrough.md`, `docs/iris_build_validation_execution_current_authority_optimization_closeout.md`다. Physical Git blob/context 감소는 runtime/token 성능이나 release readiness claim이 아니다.
 
+- Tooltip T1 표시 계약과 upstream input readiness boundary를 owner-ratify했다.
+  - S1=Layer 2, S2=optional Layer 3, S3/S4=Layer 4인 0~4 logical-row fixed-order contract를 채택했다.
+  - Layer 4 identity selection을 locale/Menu readiness보다 먼저 freeze하고 Recipe/Right-click source equivalence, identity-first KO/EN과 no-fallback을 고정했다.
+  - Current support universe 전체를 같은 contract로 audit하는 installed `iris_tooling` producer와 minimal T2 handoff boundary를 추가했다.
+  - Current Layer 2 resolved identity, Layer 3 approved Tooltip fact surface와 Layer 4 explicit locale surface gap은 owner correction으로 귀속하며 T2 full-data progression은 re-audit 전까지 `BLOCKED_BY_UPSTREAM_CORRECTIONS`다.
+  - Candidate closeout은 `partial/implemented_only`이고, same-subject canonical Run A/Run B와 comparator가 성공한 경우에만 receipt-bound finalizer가 T1 formal complete를 기록한다. 이 전환은 upstream blocker나 T2 progression을 변경하지 않는다.
+  - T1 contract/audit completion은 static Tooltip Lua generation, runtime adoption/visual fit, package, compatibility 또는 release readiness가 아니다.
+
 ## Doing
 
 - 새 의미 기능을 확장하기보다 **current information pipeline과 사용자-facing surface의 안정성을 유지하는 것**을 우선한다.

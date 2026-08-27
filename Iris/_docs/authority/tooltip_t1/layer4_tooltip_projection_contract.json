@@ -1,0 +1,28 @@
+{
+  "schema_version": "iris-tooltip-layer4-projection-contract-v1",
+  "current_input_adoption": {
+    "path": "Iris/build/description/v2/data/upstream_usecases_by_fulltype.json",
+    "sha256": "2af068b1ea898125e81e9103af79019a35a1c51b8fd7c74325906d26567ad43f",
+    "classification": "current",
+    "role": "read_only_layer4_owner_identity_input",
+    "owner": "QG identity owner + Iris presentation-contract owner",
+    "authority_ceiling": "identity/public/source/line-kind candidate input only; no locale surface or runtime-observation claim"
+  },
+  "pipeline": ["semantic_public_eligibility", "stable_order", "exact_identity_dedupe", "source_equivalence", "bounded_selection", "selected_identity_freeze", "locale_lookup", "menu_evidence_lookup"],
+  "eligible_sources": ["recipe", "rightclick"],
+  "eligible_line_kind": "evidence",
+  "maximum_selected": 2,
+  "single_source_rule": "up_to_two_from_single_source",
+  "both_source_rule": "one_recipe_plus_one_rightclick",
+  "order_anchor": {"kind": "stable_identity_derived_presentation_tie_break", "version": "iris-tooltip-l4-order-v1", "encoding": "UTF-8 source NUL interaction_id then SHA-256", "semantic_rank": false},
+  "duplicate_rule": "T1 projection-level exact interaction_id single projection",
+  "capacity_exclusion_is_defect": false,
+  "absence_mapping": {
+    "owner_row_missing_or_zero_eligible_public_interactions": "legitimate_absence",
+    "missing_candidate_identity": "upstream_identity_correction_required"
+  },
+  "locale_or_menu_readiness_before_freeze_allowed": false,
+  "readiness_dependent_substitution_allowed": false,
+  "text_similarity_dedupe_allowed": false,
+  "input_array_order_allowed": false
+}

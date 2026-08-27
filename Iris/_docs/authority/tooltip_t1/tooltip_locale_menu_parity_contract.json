@@ -1,0 +1,15 @@
+{
+  "schema_version": "iris-tooltip-locale-menu-parity-contract-v1",
+  "supported_locales": ["ko", "en"],
+  "identity_first": true,
+  "same_selected_identity_order_across_locales": true,
+  "cross_locale_fallback_allowed": false,
+  "locale_dependent_reselection_allowed": false,
+  "readiness_dependent_candidate_substitution_allowed": false,
+  "parity_relation": "Tooltip selected identity is a subset of current Menu public identity authority",
+  "parity_statuses": ["verified", "correction_required", "unverified_without_independent_consumer_evidence", "not_applicable"],
+  "verified_requires_independent_consumer_evidence": true,
+  "shared_authority_unverified_t2_blocking": false,
+  "missing_or_contradictory_authority_relation_t2_blocking": true,
+  "string_similarity_is_parity_evidence": false
+}

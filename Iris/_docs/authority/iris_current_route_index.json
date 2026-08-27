@@ -9,7 +9,9 @@
       "docs/DECISIONS.md",
       "docs/ARCHITECTURE.md",
       "docs/ROADMAP.md",
-      "Iris/_docs/authority/iris_current_authority_manifest.json"
+      "Iris/_docs/authority/iris_current_authority_manifest.json",
+      "docs/iris_tooltip_t1_display_contract_policy.md",
+      "Iris/_docs/authority/tooltip_t1"
     ],
     "producer": [
       "Iris/tooling/src/iris_tooling/__main__.py",

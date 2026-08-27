@@ -1,0 +1,11 @@
+{
+  "schema_version": "iris-tooltip-layer2-input-contract-v1",
+  "required_fields": ["classification_identity", "category_id", "primary_subcategory_id", "category_label_key", "primary_subcategory_label_key", "localized_surfaces", "authority_ref", "menu_consumer_identity_ref", "menu_parity_status"],
+  "current_route": "no_admissible_authority_relation",
+  "current_disposition": "upstream_correction_required",
+  "raw_tag_resolution_allowed": false,
+  "runtime_resolver_reimplementation_allowed": false,
+  "owner_output_self_comparison_allowed": false,
+  "misc_9a_raw_fallback_admissible": false,
+  "acceptance_condition": "Classification owner publishes exact resolved public identities/surfaces and a shared authority relation; independent Menu observation is separately identified or remains explicit unverified"
+}

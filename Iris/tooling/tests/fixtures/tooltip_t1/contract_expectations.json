@@ -1,0 +1,13 @@
+{
+  "schema_version": "iris-tooltip-t1-contract-expectations-v1",
+  "slot_order": ["S1", "S2", "S3", "S4"],
+  "blocked_progression": "BLOCKED_BY_UPSTREAM_CORRECTIONS",
+  "same_source_capacity": 2,
+  "both_source_rule": "one_recipe_plus_one_rightclick",
+  "fallback_allowed": false,
+  "lexical_guard": {
+    "ko_forbidden": ["추천", "최고"],
+    "en_forbidden": ["recommended", "best"],
+    "allowed_contrasts": ["presentation order", "표시 순서"]
+  }
+}

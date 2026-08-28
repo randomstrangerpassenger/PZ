@@ -1,0 +1,40 @@
+{
+  "environment_contract": {
+    "environment_content_manifest_sha256": "8fbb1bc5272481ab3637a40fa343eef7ec1238bcc00e7af0182b48e5e880d6d5",
+    "external_environment_root": "C:/Users/MW/i/t1c8e/environment",
+    "immutable_environment_receipt_path": "C:/Users/MW/i/t1c8e/receipt/environment_receipt.json",
+    "immutable_environment_receipt_sha256": "0735bcc13022247cf1bcbfd531592444fd6a9dae34f2eea791f51cf782794986",
+    "interpreter_sha256": "0b471133e110cfb53a061cad528ce8e517d7b9ac41a0a396c39ad795a487fc14",
+    "package_set_sha256": "7c08f4850b00a01f367839d048a2e1327538e23f7957bf4493f95d4ef14087ca"
+  },
+  "implementation": {
+    "commit": "83466ef9aa808d8663109bc8959989b4191192f5",
+    "tree": "b95595212641e6afa4ea7d8b1113c067c198ed6d"
+  },
+  "project_binding": {
+    "installed_distribution": {
+      "dist_info": "iris_tooling-0.1.0.dist-info",
+      "installed_file_count": 93,
+      "installed_file_manifest_sha256": "e3f3c583eeee49f3ceb363b8f61b1a7e3946e8484ad028602eaa1592c50f1dbd",
+      "name": "iris-tooling",
+      "normalized_name": "iris_tooling",
+      "record_path": "Lib/site-packages/iris_tooling-0.1.0.dist-info/RECORD",
+      "record_sha256": "7a30155ddd26d4e898b3895d23062c023829569c6e59dea694e7871fdc43648b",
+      "version": "0.1.0"
+    },
+    "lock_blob": "db9754f8d88f690cbd6e7ca11cf539cd82b7e81a",
+    "lock_path": "Iris/tooling/uv.lock",
+    "lock_sha256": "25aef8f0e4a8e66f6c18e5de0b870e1549df7611abda1783114b9be996bde7fe",
+    "project_blob": "de204186eb6b7a0e23f02cc991e14e56b000f249",
+    "project_path": "Iris/tooling/pyproject.toml",
+    "project_sha256": "8022cb746236c1c86604d23a87ad2a16d88c81cc105bd5e9571e024e268743f6",
+    "source_commit": "83466ef9aa808d8663109bc8959989b4191192f5",
+    "source_package_git_tree": "d8a70917bcd68111e5757df46540f1755db9ec73",
+    "source_package_path": "Iris/tooling/src/iris_tooling",
+    "source_tree": "b95595212641e6afa4ea7d8b1113c067c198ed6d",
+    "wheel_path": "C:/Users/MW/i/t1c8e/wheel/iris_tooling-0.1.0-py3-none-any.whl",
+    "wheel_sha256": "0e33b75ea522b1d08f7ddc3db1a8b6b2463718b0fe4d0121a2927a413be6768d"
+  },
+  "schema_version": "iris-responsibility-refactor-environment-authority-v1",
+  "wave_id": "tooltip_t1c_corrective_d8a70917"
+}

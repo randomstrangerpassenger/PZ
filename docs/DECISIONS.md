@@ -1840,6 +1840,62 @@
   - post-IAR product retirement governance retained: 2026-08-20 onward
   - COMMON-EVIDENCE-TRACE.
 
+### Iris Tooltip T1 — display contract / upstream input readiness boundary
+
+- 날짜: 2026-08-27 → 2026-08-28 corrective refinement
+
+- 상태: current owner-ratified offline contract / contract-audit formal complete / T2 progression blocked by upstream corrections
+
+- 결정: Tooltip은 Layer 2 classification, optional Layer 3 core description과 최대 두 개의 Layer 4 public interaction identity를 S1→S4 고정 순서로 투영한다. T1은 semantic/public eligibility와 identity selection을 먼저 닫고 selected identity의 KO/EN 및 Menu evidence readiness를 나중에 판정하는 offline contract/audit owner로 한정한다.
+
+- 현재 기준:
+
+  - owner-ratified support predicate는 current Layer 2, pointer-selected Layer 3와 current Layer 4 owner FullType의 case-sensitive explicit union이다.
+  - legitimate absence display row는 compact할 수 있지만 semantic slot identity/order를 유지하며 defect row는 compact하지 않는다.
+  - Layer 2 raw tag/runtime resolver 복제, Layer 3 body truncation·요약·재작성, Layer 4 importance/frequency/text-similarity/input-order selection을 금지한다.
+  - both-source Layer 4 row는 Recipe 하나와 Right-click 하나를 선택하고 single-source row는 neutral stable structural order로 최대 둘을 선택한다.
+  - Layer 4 identity source는 current authority로 분류된 `Iris/build/description/v2/data/upstream_usecases_by_fulltype.json`이며 `Iris/build/baseline/**` reproduction artifact를 semantic input으로 승격하지 않는다. Selected identity는 Browser가 소비하는 current runtime `UseCaseDescriptions/Chunk*.lua`의 `label_key` identity와 별도로 대조한다.
+  - explicit QG order key가 없는 current subject의 tie-break는 versioned source/interaction identity bytes에서 파생하며 semantic rank가 아니다.
+  - selected identity는 locale/Menu readiness 전에 freeze한다. KO/EN fallback, locale별 reselection과 readiness가 더 좋은 차순위 substitution을 금지한다.
+  - Menu/Tooltip parity는 identity relation이며 independent consumer evidence가 없는 shared-authority 범위는 `unverified_without_independent_consumer_evidence`로 남긴다.
+  - DVF owner output은 Menu consumer evidence를 스스로 발급하지 않는다. Layer 3 fact identity와 KO/EN surface readiness는 DVF owner가 소유하지만 `menu_consumer_fact_identity_refs` 같은 self-attestation을 Menu parity evidence로 사용할 수 없다.
+  - current Layer 3 shared-authority relation은 pointer-selected `dvf_3_3_rendered.json`의 fact relation과 `IrisLayer3DataCurrent → IrisLayer3DataLookup → layer3_renderer → IrisItemDetailModelAssembler`의 동일 FullType 소비 경로로 추적한다. 이 relation만 있고 독립 Menu fact-identity observation이 없으면 selected Layer 3 parity는 `verified`가 아니라 `unverified_without_independent_consumer_evidence`다.
+  - shared-authority relation이 성립한 Layer 3 consumer-evidence gap은 T3 재검증 대상으로 남기되 T2 blocker로 세지 않는다. relation 자체가 없거나 모순되면 Menu consumer owner correction과 T2 blocker로 fail-closed한다.
+  - current Layer 2 resolved owner output, Layer 3 approved Tooltip fact identity/surface와 Layer 4 explicit selected-identity locale surface 결손은 T1이 보완하지 않고 owner correction으로 귀속한다.
+  - `Base.LemonGrass` / `Base.Lemongrass` normalized collision은 case-sensitive identity를 합치거나 denominator에서 제거하지 않고 explicit support-owner correction으로 남긴다.
+  - contract/audit axis와 `T2_FULL_DATA_PROGRESSION`은 분리한다. Current progression은 correction/re-audit 전까지 `BLOCKED_BY_UPSTREAM_CORRECTIONS`이며 T2 handoff를 생성하지 않는다.
+  - pre-full-gate candidate는 task-specific axis `partial`, formal state `implemented_only`다. 동일 subject의 canonical Run A/Run B와 deterministic comparator exit-0 receipt가 모두 hash-bound된 뒤에만 좁은 post-gate finalizer가 두 상태를 `complete`로 올릴 수 있다.
+  - correction 기반 progression, cause class, owner와 owner별 blocker count는 모두 `t2_blocking = true`인 동일 correction 집합에서만 파생한다. T3 재검증 관찰이나 non-blocking correction은 T2를 차단하지 않는다.
+  - tracked contract/fixture와 installed package producer는 current authority지만 repository-external census/audit/ledger/receipt는 lifecycle evidence이며 regular validation authority가 아니다.
+  - tracked decision contract는 ratification template이며, clean exact subject의 W1-A evidence hash와 subject identity를 adoption receipt가 결속한 뒤에만 G1 및 W1-B가 성립한다.
+  - 2026-08-28 corrective subject에서 normalized collision correction 2건을 복원하고 Layer 3 owner-output self-comparison을 제거했다. 최종 correction은 `5,625`이며 owner 분포는 Classification `2,280`, DVF `175`, Iris presentation-contract `2`, Menu consumer `2,280`, QG/locale `888`이다.
+  - 같은 corrective subject의 focused 6-family route, installed candidate invariant, canonical Run A/Run B와 deterministic comparator가 모두 exit 0이고 post-gate finalizer가 `complete/complete` closeout을 생성했다. 이 formal completion은 `T2_FULL_DATA_PROGRESSION = BLOCKED_BY_UPSTREAM_CORRECTIONS` 및 production T2 handoff `0`과 공존한다.
+
+- Machine authority:
+
+  - `Iris/_docs/authority/tooltip_t1/`
+  - `docs/iris_tooltip_t1_display_contract_policy.md`
+  - command owner: `Iris/build/ENTRYPOINTS.md`
+
+- 오독 금지:
+
+  - T1 contract/audit completion을 T2 static generation, runtime adoption, actual visual fit, full Menu parity, package/install, compatibility, freeze, Publish, release, Workshop 또는 deployment PASS로 읽지 않는다.
+  - upstream gap ledger를 T1 semantic workaround나 correction mutation authority로 읽지 않는다.
+  - one-off audit와 ad hoc probe를 canonical/regular validator로 승격하지 않는다.
+  - post-gate finalizer를 semantic producer, 일반 workflow system 또는 T2 OPEN authority로 읽지 않는다.
+  - COMMON-RUNTIME-SURFACE-NONMUTATION.
+  - COMMON-RELEASE-NONDECISION.
+
+- Trace:
+
+  - owner preapproval and T1 adoption: 2026-08-27
+  - corrective formal-complete subject: commit `6b7118dc229bf8138302696e1aa5e5b7454589dc`, tree `4eae6fbdb3d0b2cb532f875b96137335a403f2fc`
+  - corrective environment authority: `Iris/validation/clean_checkout/authority/responsibility_refactor_environment_tooltip_t1c_corrective_d1d0c098.json`
+  - external final closeout SHA-256: `6e255227b0aa8381453a563e3ede9e96c59be82c9bb3a7cb6eba8f488039b4a3`
+  - 이 docs-only successor는 위 machine subject나 external receipt identity를 대체하거나 재귀속하지 않는다.
+  - detailed policy: `docs/iris_tooltip_t1_display_contract_policy.md`
+  - COMMON-EVIDENCE-TRACE.
+
 ### Iris validation — workflow / scenario execution consolidation boundary
 
 - 날짜: 2026-08-13 → 2026-08-20 → 2026-08-25 refinement
@@ -2093,7 +2149,7 @@
   - 공통 `PhaseRunner`는 dependency ordering, run-local reuse, metric, issue/artifact association만 담당하는 thin orchestration owner다. Build/validation domain verdict와 payload ownership은 각 domain에 남는다.
   - Canonical CLI는 existing validation authority의 thin adapter이며 unknown input과 identity mismatch를 fail-loud 처리한다.
   - 같은 clean-checkout full gate의 current-output seed는 staging에서 producer 3개를 한 번 실행한 뒤 completeness/content identity를 확인하고 immutable final seed와 case-local clone으로 공급한다. Producer invocation은 `6 → 3`이며 mutation/tamper isolation과 fresh-process A/B independence를 유지한다.
-  - Human command literal owner와 current authority explanation owner는 각각 `4 → 1`, authority→producer→validator→receipt 최대 hop은 `4 → 1`로 수렴한다. `docs/IRIS_CURRENT.md`와 static route index는 current navigation projection이고 canonical human command owner는 `Iris/build/ENTRYPOINTS.md`다.
+  - Human command literal owner는 `Iris/build/ENTRYPOINTS.md`로 수렴하고 static route index는 machine navigation projection으로 유지한다. 별도 human navigation projection은 두지 않으며 Iris planning/implementation bootstrap은 `docs/Philosophy.md`, `docs/DECISIONS.md`, `docs/ARCHITECTURE.md`, `docs/ROADMAP.md`를 직접 읽는다.
   - Predecessor retirement denominator는 `32 distinct basename intersections - 1 non-substantive __init__.py = 31 substantive distinct basenames`, 그리고 두 basename의 nested D16 extra copy를 더한 `33 concrete predecessor files`다. Terminal 결과는 live substantive intersection `31 → 0`, concrete predecessor file `33 → 0`, 분류 `5 exact + 28 diverged`다. Nested D16 copy는 neutral protected fixture가 아니다.
   - Round3 current-route listing의 103은 routing membership이며 canonical full-gate pytest denominator가 아니다. Canonical gate는 pytest `211 → 211`, required standalone validation `4 → 4`, recurring execution unit `211 + 4 = 215 → 215`로 유지한다. Parameterized named case, `subTest` constituent assertion, migration-only script, external census, Reviewer-only check와 unregistered temporary validation은 이 identity denominator에 더하지 않는다.
   - G5 compiler identity는 append-only다. 0016은 execution-boundary 변경으로 달라진 19-path closure를 결속했고, 0017은 identity owner와 production dependency `execution.py`를 더한 21-path closure를 결속한다. 0013–0016을 재작성하거나 전체 chain을 재번호링하지 않으며 current required paths는 0016 뒤에 0017을 누적 보존한다. 그 retention-list correction은 compiler closure bytes를 바꾸지 않았으므로 0018을 만들지 않는다.

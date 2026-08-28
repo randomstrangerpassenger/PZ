@@ -147,6 +147,21 @@
     ],
     "explicit_dedicated_route_sources": [
       {
+        "path": "Iris/tooling/tests/test_tooltip_t1_contract.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "The Tooltip T1 dedicated focused route owns contract coverage; the existing mandatory full-repository denominator remains unchanged."
+      },
+      {
+        "path": "Iris/tooling/tests/test_tooltip_t1_projection.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "The Tooltip T1 dedicated focused route owns projection coverage; the existing mandatory full-repository denominator remains unchanged."
+      },
+      {
+        "path": "Iris/tooling/tests/test_tooltip_t1_audit.py",
+        "owner_decision": "not_applicable_dedicated_route",
+        "reason": "The Tooltip T1 dedicated focused route owns audit coverage; the existing mandatory full-repository denominator remains unchanged."
+      },
+      {
         "path": "Iris/validation/baseline_admission/tests/test_iris_baseline_admission.py",
         "owner_decision": "not_applicable_dedicated_route",
         "reason": "Baseline-admission gate schema and synthetic-ordering route is explicitly dedicated; existing mandatory full-repository denominator remains unchanged."

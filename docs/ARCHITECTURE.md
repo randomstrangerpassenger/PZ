@@ -337,11 +337,55 @@ domain-owned input / payload / verdict
 - Canonical semantic result에는 deterministic stable meaning만 두고 run ID, elapsed, timestamp, process/environment와 path observation은 volatile envelope에 둔다.
 - Canonical CLI는 existing validation authority의 thin adapter다. CLI, Python/PowerShell launcher와 pytest가 같은 semantic verdict를 중복 소유하지 않는다.
 - Full-gate current-output seed는 producer 3개로 staging materialization을 한 번 수행하고 completeness/content identity 확인 뒤 immutable final seed와 case-local clone으로 공급한다. Mutation/tamper isolation과 Run A/B fresh-process independence는 공유하지 않는다.
-- Current human command literal owner는 `Iris/build/ENTRYPOINTS.md`, current navigation owner는 `docs/IRIS_CURRENT.md`, machine route projection은 `Iris/_docs/authority/iris_current_route_index.json`이다. Description-tree predecessor source는 current import, command 또는 fallback authority가 아니다.
+- Iris planning/implementation bootstrap은 `docs/Philosophy.md` → `docs/DECISIONS.md` → `docs/ARCHITECTURE.md` → `docs/ROADMAP.md`이며 별도 human navigation projection을 두지 않는다. Current human command literal owner는 `Iris/build/ENTRYPOINTS.md`, machine route projection은 `Iris/_docs/authority/iris_current_route_index.json`이다. Description-tree predecessor source는 current import, command 또는 fallback authority가 아니다.
 - Current denominator는 서로 다른 두 identity universe를 구분한다. Round3 current-route `103`은 routing membership이고 clean-checkout canonical full gate는 pytest 211개와 required standalone validation 4개, 즉 215 recurring execution unit을 소유한다.
 - Same-name predecessor retirement는 31 substantive distinct basename identity와 33 concrete predecessor file을 구분한다. 두 extra file은 nested D16의 concrete copy이며 protected neutral fixture가 아니다.
 - Exact package/environment subject가 달라질 때만 replacement terminal chain을 만든다. Unchanged subject를 confidence 확보만을 위해 반복하지 않으며 docs-only closeout은 machine PASS subject를 바꾸지 않는다.
 - W0 admission artifact 미보존은 historical process fact로 유지한다. Owner disposition으로 closeout은 complete이며 새 owner instruction이나 새 current authority 없이 build/validation architecture work를 재개방하지 않는다.
+
+### Tooltip T1 offline contract / T2 handoff 구조
+
+Tooltip T1은 existing semantic owner와 mechanical static generation 사이의 offline projection/readiness boundary다.
+
+```text
+exact current subject
+-> read-only W1-A adjacent-universe evidence
+-> same-subject owner ratification
+-> owner-ratified Tooltip support universe
+-> Layer 2 resolved identity / Layer 3 approved fact / Layer 4 public candidate census
+-> deterministic S1-S4 identity projection
+-> selected identity freeze
+-> KO/EN readiness
+-> independent Menu evidence or shared-authority relation classification
+-> whole-universe audit + owner correction ledger
+-> T2 progression gate
+-> OPEN only: minimal mechanical T2 handoff
+```
+
+Candidate closeout은 `partial/implemented_only` ceiling을 유지한다. 별도 installed-package finalizer는 candidate receipt와 동일 subject의 canonical Run A/Run B orchestration·inner result, deterministic comparator receipt만 검증하고 외부 빈 root에 final closeout 한 파일을 쓴다. 이 경계는 semantic input이나 T2 blocker를 다시 계산하지 않으며 receipt failure 또는 subject mismatch에서 아무 complete closeout도 생성하지 않는다.
+
+- Classification, DVF System과 QG가 Layer 2/3/4 semantic authority를 계속 소유한다. T1은 projection/readiness metadata만 소유한다.
+- Layer 3 DVF owner output은 `fact_id`, source/authority ref와 KO/EN surface readiness까지만 발행한다. Menu consumer identity ref나 parity verdict를 같은 owner output이 self-attest하지 않는다.
+- Layer 3 current shared-authority relation은 pointer-selected rendered fact relation에서 생성된 동일 FullType runtime text가 `IrisLayer3DataCurrent.lua → IrisLayer3DataLookup.lua → layer3_renderer.lua → IrisItemDetailModelAssembler.lua`로 소비되는 경로다. 이 경로는 fact/surface와 Menu surface가 같은 current generation을 공유함을 보이지만 독립 Menu fact-identity observation은 아니다.
+- 따라서 selected Layer 3 row는 독립 consumer identity evidence가 추가되기 전까지 `unverified_without_independent_consumer_evidence`다. 이 상태는 full Menu parity와 T3 runtime-adoption claim을 보류하지만 shared relation이 성립하면 T2 blocker가 아니다. shared relation 부재/모순만 `correction_required`와 T2 blocker다.
+- `menu_owner_output_self_comparison` invariant는 DVF owner output의 self-issued consumer-reference field를 직접 세며 canonical candidate에서 반드시 `0`이어야 한다.
+- Layer 4 semantic identity input은 current owner data에서 읽고, reproduction baseline은 입력에서 제외한다. Current Browser consumer relation은 별도 runtime `label_key` identity set과 exact subset 비교한다.
+- Layer 4 selection graph에는 locale/Menu readiness input edge가 없고 readiness graph에는 selected-identity writer edge가 없다.
+- T2 handoff는 ordered `slot_id`, semantic identity와 KO/EN surface만 포함한다. Raw tags, unselected candidates, audit/parity/readiness/owner/reason metadata를 포함하지 않는다.
+- T2는 requested locale surface read, legitimate absence compaction이 끝난 fixed-order rows의 concatenation과 static payload emit만 수행한다.
+- Current upstream blocker가 남으면 cause-attributed progression record만 생성하고 T2 handoff를 생성하지 않는다.
+- progression과 owner별 blocker distribution은 `t2_blocking = true` correction의 단일 filtered view를 공유한다.
+- T1 run output은 repository-external immutable root에 두며 mutable latest pointer나 stateful registry를 만들지 않는다.
+- 자세한 contract authority는 `Iris/_docs/authority/tooltip_t1/`, human policy는 `docs/iris_tooltip_t1_display_contract_policy.md`가 소유한다.
+
+2026-08-28 corrective formal-closeout snapshot:
+
+- exact synthetic subject는 commit `6b7118dc229bf8138302696e1aa5e5b7454589dc`, tree `4eae6fbdb3d0b2cb532f875b96137335a403f2fc`다.
+- package tree `d1d0c098fb6f06222194e7e032af80932780b275`는 immutable environment authority `responsibility_refactor_environment_tooltip_t1c_corrective_d1d0c098.json`과 일치한다.
+- focused 6-family, installed candidate invariant, canonical Run A/Run B와 deterministic comparator가 모두 exit 0이며 final closeout은 `complete/complete`다.
+- correction ledger는 `5,625`, Layer 3 parity 분포는 selected-unverified `1,314`, correction `175`, not-applicable `791`이다. normalized collision `2`건은 denominator에서 제거하지 않고 support-owner blocker로 남는다.
+- current data progression은 `BLOCKED_BY_UPSTREAM_CORRECTIONS`이고 production T2 handoff는 `0`이다. static Tooltip Lua, IrisAltTooltip runtime, visual/release/deployment는 이 snapshot의 claim이 아니다.
+- 뒤의 docs-only carrier는 이 exact machine-validation subject, external candidate/gate receipt 또는 closeout hash를 바꾸지 않는다.
 
 ### Runtime presentation 구조
 

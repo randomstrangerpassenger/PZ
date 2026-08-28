@@ -10,8 +10,8 @@ import sys
 from iris_tooling.build.repository_context import configure_repository
 
 
-BUILD_TARGETS = ("classification", "rightclick", "layer3", "layer4", "public-text")
-LEGACY_COMMANDS = BUILD_TARGETS
+BUILD_TARGETS = ("classification", "rightclick", "layer3", "layer4", "public-text", "tooltip-t1")
+LEGACY_COMMANDS = tuple(target for target in BUILD_TARGETS if target != "tooltip-t1")
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -28,6 +28,11 @@ def _parser() -> argparse.ArgumentParser:
 
     build = subparsers.add_parser("build", help="Run a current package-owned producer.")
     build.add_argument("target", choices=BUILD_TARGETS)
+
+    finalize = subparsers.add_parser(
+        "finalize", help="Finalize a lifecycle result from canonical external receipts."
+    )
+    finalize.add_argument("target", choices=("tooltip-t1",))
 
     validate = subparsers.add_parser(
         "validate", help="Delegate validation to the repository-owned authority."
@@ -78,6 +83,8 @@ def _domain_main(target: str, remainder: Sequence[str]) -> int:
         from iris_tooling.domains.layer3.cli import main as command_main
     elif target == "layer4":
         from iris_tooling.domains.layer4.cli import main as command_main
+    elif target == "tooltip-t1":
+        from iris_tooling.domains.tooltip_t1.cli import main as command_main
     else:
         from iris_tooling.domains.public_text.cli import main as command_main
     return command_main(remainder)
@@ -181,6 +188,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.target == "classification":
             forwarded.insert(0, "build")
         return _domain_main(args.target, forwarded)
+    if args.command == "finalize":
+        return _domain_main(args.target, ["finalize", *remainder])
     if args.command == "install":
         return _domain_main(args.target, ["install", *remainder])
     if args.command == "validate":

@@ -1,7 +1,6 @@
 {
   "schema_version": "iris-current-route-index-v1",
   "status": "current",
-  "human_readpoint": "docs/IRIS_CURRENT.md",
   "command_literal_owner": "Iris/build/ENTRYPOINTS.md",
   "routes": {
     "authority": [
@@ -9,7 +8,9 @@
       "docs/DECISIONS.md",
       "docs/ARCHITECTURE.md",
       "docs/ROADMAP.md",
-      "Iris/_docs/authority/iris_current_authority_manifest.json"
+      "Iris/_docs/authority/iris_current_authority_manifest.json",
+      "docs/iris_tooltip_t1_display_contract_policy.md",
+      "Iris/_docs/authority/tooltip_t1"
     ],
     "producer": [
       "Iris/tooling/src/iris_tooling/__main__.py",
@@ -24,6 +25,7 @@
     ],
     "artifact": [
       "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua",
+      "Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json",
       "Iris/build/baseline/current_output_seed_v1"
     ],
     "receipt": [
@@ -37,7 +39,6 @@
     "validation_prerequisite": false
   },
   "default_current_allowlist": [
-    "docs/IRIS_CURRENT.md",
     "Iris/AGENTS.md",
     "Iris/build/ENTRYPOINTS.md",
     "Iris/_docs/authority/iris_current_authority_manifest.json",

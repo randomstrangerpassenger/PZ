@@ -530,6 +530,17 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - Pre-implementation W0 `ADMIT` artifact 미보존은 unresolved 사실로 남지만 owner가 disposition하여 plan-process closeout은 complete다. 새 owner instruction이나 새 current authority 없이 이를 후속 blocker 또는 재실행 항목으로 되살리지 않는다.
   - 상세 readpoint는 `docs/iris_build_validation_execution_current_authority_optimization_plan.md`, `docs/iris_build_validation_execution_current_authority_optimization_walkthrough.md`, `docs/iris_build_validation_execution_current_authority_optimization_closeout.md`다. Physical Git blob/context 감소는 runtime/token 성능이나 release readiness claim이 아니다.
 
+- Tooltip T1 표시 계약과 upstream input readiness boundary를 owner-ratify했다.
+  - S1=Layer 2, S2=optional Layer 3, S3/S4=Layer 4인 0~4 logical-row fixed-order contract를 채택했다.
+  - Layer 4 identity selection을 locale/Menu readiness보다 먼저 freeze하고 Recipe/Right-click source equivalence, identity-first KO/EN과 no-fallback을 고정했다.
+  - Current support universe 전체를 같은 contract로 audit하는 installed `iris_tooling` producer와 minimal T2 handoff boundary를 추가했다.
+  - Current Layer 2 resolved identity, Layer 3 approved Tooltip fact surface와 Layer 4 explicit locale surface gap은 owner correction으로 귀속하며 T2 full-data progression은 re-audit 전까지 `BLOCKED_BY_UPSTREAM_CORRECTIONS`다.
+  - Candidate closeout은 `partial/implemented_only`이고, same-subject canonical Run A/Run B와 comparator가 성공한 경우에만 receipt-bound finalizer가 T1 formal complete를 기록한다. 이 전환은 upstream blocker나 T2 progression을 변경하지 않는다.
+  - T1 contract/audit completion은 static Tooltip Lua generation, runtime adoption/visual fit, package, compatibility 또는 release readiness가 아니다.
+  - 2026-08-28 corrective subject `6b7118dc229bf8138302696e1aa5e5b7454589dc`에서 focused 6-family `62 passed`, installed candidate invariant, canonical Run A/Run B와 deterministic comparator가 모두 exit 0이었고 post-gate finalizer가 `complete/complete` closeout을 생성했다.
+  - `Base.LemonGrass` / `Base.Lemongrass` normalized collision blocker 2건을 복원하고, DVF owner의 Menu consumer self-attestation을 제거했다. Layer 3 selected `1,314`건은 shared-authority relation만 확인된 `unverified_without_independent_consumer_evidence`이며 T3 재검증 대상으로 남는다.
+  - 최초 correction `7,111` 중 authority가 실제로 닫은 범위는 DVF fact readiness `1,314`와 current right-click locale `172`, 합계 `1,486`이다. 최종 T2-blocking correction은 `5,625`이며 production T2 handoff input/manifest는 `0`이다.
+
 ## Doing
 
 - 새 의미 기능을 확장하기보다 **current information pipeline과 사용자-facing surface의 안정성을 유지하는 것**을 우선한다.
@@ -545,6 +556,12 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - 이미 완료된 architecture / refactor를 readiness 작업을 이유로 다시 설계 문제로 열지 않는다.
 
 ## Next
+
+- Tooltip `T1-C: Upstream Correction Closure and T2 Readiness Opening`은 formal T1 재설계가 아니라 남은 owner correction closure로 계속 분리한다.
+  - 현재 blocker는 Classification `2,280`, DVF `175`, Iris presentation-contract `2`, Menu consumer `2,280`, QG/locale `888`, 합계 `5,625`다.
+  - owner authority에 없는 의미, 문장, 추천, fallback 또는 Menu consumer evidence를 Tooltip assembler가 발명하지 않는다.
+  - 동일 owner/root-cause의 producer output을 정규 경로로 교정하고 새 exact subject에서 re-audit한다.
+  - blocker가 `0`이 되기 전에는 progression을 `OPEN`으로 바꾸거나 production T2 handoff를 생성하지 않으며 T2 static generator/runtime 구현을 시작하지 않는다.
 
 - 최신 current product 상태를 기준으로 **DVF freeze readiness를 재판정한다.**
   - 과거 Problem 4의 `동결 불가` verdict는 historical evidence로 유지하고 직접 수정하거나 승계하지 않는다.

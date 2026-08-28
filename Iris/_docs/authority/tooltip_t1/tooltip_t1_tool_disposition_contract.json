@@ -1,0 +1,20 @@
+{
+  "schema_version": "iris-tooltip-t1-tool-disposition-v1",
+  "entries": [
+    {"path": "Iris/tooling/src/iris_tooling/domains/tooltip_t1", "disposition": "current_required", "lifecycle": "installed_package_owned_offline_producer"},
+    {"path": "Iris/tooling/tests/test_tooltip_t1_contract.py", "disposition": "lifecycle_bound", "regular_validation_membership": false},
+    {"path": "Iris/tooling/tests/test_tooltip_t1_projection.py", "disposition": "lifecycle_bound", "regular_validation_membership": false},
+    {"path": "Iris/tooling/tests/test_tooltip_t1_audit.py", "disposition": "lifecycle_bound", "regular_validation_membership": false},
+    {"path": "Iris/build/description/v2/tools/build", "disposition": "historical", "current_execution_allowed": false}
+  ],
+  "post_gate_finalization": {
+    "command": "iris-tooling --repository-root <repo> finalize tooltip-t1",
+    "candidate_contract_and_audit_axis": "partial",
+    "candidate_formal_closeout_state": "implemented_only",
+    "complete_requires_same_subject_run_a_run_b_and_comparator_exit_0": true,
+    "failed_or_mismatched_gate_writes_complete_closeout": false,
+    "output_root": "repository_external_empty"
+  },
+  "one_off_audit_is_regular_validator": false,
+  "mutable_latest_pointer_allowed": false
+}

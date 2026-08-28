@@ -11,6 +11,6 @@ Current rules:
 - `Iris/build/tools/common/**` is a compatibility adapter surface for retained root pipelines;
 - `Iris/build/description/v2/tools/build/**` is historical/reproduction space and must not be imported or executed as current authority;
 - validation membership, applicability, and verdict remain in `Iris/validation`;
-- current navigation starts at `docs/IRIS_CURRENT.md` and the static route index.
+- planning and implementation start from `docs/Philosophy.md`, `docs/DECISIONS.md`, `docs/ARCHITECTURE.md`, and `docs/ROADMAP.md`; the static route index remains a machine projection.
 
 Historical Phase 1–Round 3 execution details remain available in Git history and the `_docs` historical records. They are not restated here because this document is not a second command or authority owner.

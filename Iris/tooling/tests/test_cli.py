@@ -33,7 +33,6 @@ def test_help_is_repository_independent(capfd, monkeypatch, tmp_path: Path) -> N
     current_docs = (
         entrypoints,
         repository_root / "Iris/build/build_import_contract.md",
-        repository_root / "docs/IRIS_CURRENT.md",
         repository_root / "Iris/AGENTS.md",
     )
     command_literal = "round3_run_contract_tests.py --class current --list"
@@ -42,8 +41,6 @@ def test_help_is_repository_independent(capfd, monkeypatch, tmp_path: Path) -> N
         for path in current_docs
         if command_literal in path.read_text(encoding="utf-8")
     ] == ["Iris/build/ENTRYPOINTS.md"]
-    assert len((repository_root / "docs/IRIS_CURRENT.md").read_text(encoding="utf-8").splitlines()) <= 300
-    assert (repository_root / "docs/IRIS_CURRENT.md").stat().st_size <= 24 * 1024
     assert (repository_root / "Iris/_docs/authority/iris_current_route_index.json").stat().st_size <= 64 * 1024
 
     cli_source = (

@@ -1,0 +1,13 @@
+{
+  "schema_version": "iris-tooltip-display-contract-v1",
+  "slot_order": ["S1", "S2", "S3", "S4"],
+  "slot_meaning": {"S1": "layer2_classification", "S2": "layer3_core_description", "S3": "layer4_interaction_1", "S4": "layer4_interaction_2"},
+  "supported_locales": ["ko", "en"],
+  "semantic_slot_states": ["selected", "legitimate_absence", "upstream_identity_correction_required"],
+  "locale_surface_readiness": ["ready", "correction_required", "not_applicable"],
+  "display_rule": "compact legitimate absence only; preserve semantic slot identity and S1-S4 relative order",
+  "partial_after_proven_absence": true,
+  "defect_compaction_allowed": false,
+  "hard_gates": {"minimum_logical_rows": 0, "maximum_logical_rows": 4, "embedded_newline_allowed": false},
+  "width_proxy": {"enabled": false, "authority": "advisory_only"}
+}

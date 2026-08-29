@@ -18,6 +18,7 @@ CONTRACT_FILES = (
     AUTHORITY_ROOT / "layer2_tooltip_input_contract.json",
     AUTHORITY_ROOT / "layer3_tooltip_input_contract.json",
     AUTHORITY_ROOT / "layer4_tooltip_projection_contract.json",
+    AUTHORITY_ROOT / "layer4_recipe_locale_input_contract.json",
     AUTHORITY_ROOT / "tooltip_locale_menu_parity_contract.json",
     AUTHORITY_ROOT / "tooltip_t2_handoff.schema.json",
     AUTHORITY_ROOT / "tooltip_readiness_reason_registry.json",
@@ -251,11 +252,58 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
     _require(isinstance(adoption, dict), "Layer 4 current input adoption missing")
     _require(adoption.get("path") == "Iris/build/description/v2/data/upstream_usecases_by_fulltype.json", "Layer 4 input must use current owner data, not reproduction baseline")
     _require(adoption.get("classification") == "current" and adoption.get("role") == "read_only_layer4_owner_identity_input", "Layer 4 input adoption role mismatch")
+    _require(
+        adoption.get("embedded_recipe_display_by_locale_policy")
+        == "fail_loud_authority_ceiling_violation",
+        "Layer 4 embedded Recipe locale authority ceiling mismatch",
+    )
+    _require(
+        layer4.get("selection_candidate_forbidden_fields")
+        == ["localized_surfaces", "menu_consumer_identity_ref"]
+        and layer4.get("locale_bearing_post_selection_object_allowed_as_selector_input") is False,
+        "Layer 4 selection-only type boundary mismatch",
+    )
+    recipe_locale = values[AUTHORITY_ROOT / "layer4_recipe_locale_input_contract.json"]
+    _require(
+        recipe_locale.get("schema_version")
+        == "iris-tooltip-t1-layer4-recipe-locale-input-contract-v1"
+        and recipe_locale.get("source") == "recipe"
+        and tuple(recipe_locale.get("supported_locales", ())) == SUPPORTED_LOCALES
+        and recipe_locale.get("lookup_stage") == "post_selected_identity_freeze",
+        "Layer 4 Recipe locale input identity mismatch",
+    )
+    recipe_identity = recipe_locale.get("identity_owner_input")
+    _require(
+        isinstance(recipe_identity, dict)
+        and recipe_identity.get("path") == adoption.get("path")
+        and recipe_identity.get("sha256") == adoption.get("sha256")
+        and recipe_identity.get("locale_authority") is False
+        and recipe_identity.get("embedded_display_by_locale_policy")
+        == "fail_loud_authority_ceiling_violation",
+        "Layer 4 Recipe locale identity/authority separation mismatch",
+    )
+    _require(
+        recipe_locale.get("complete_pair_required") is True
+        and recipe_locale.get("cross_locale_fallback_allowed") is False
+        and recipe_locale.get("readiness_dependent_reselection_allowed") is False
+        and recipe_locale.get("cross_source_substitution_allowed") is False
+        and recipe_locale.get("numeric_width_gate") is None,
+        "Layer 4 Recipe locale readiness boundary mismatch",
+    )
 
     parity = values[AUTHORITY_ROOT / "tooltip_locale_menu_parity_contract.json"]
     _require(tuple(parity.get("supported_locales", ())) == SUPPORTED_LOCALES, "parity locale mismatch")
     _require(parity.get("cross_locale_fallback_allowed") is False and parity.get("locale_dependent_reselection_allowed") is False, "locale fallback/reselection must be forbidden")
     _require(parity.get("missing_or_contradictory_authority_relation_t2_blocking") is True, "parity relation blocker mismatch")
+    recipe_locale_route = parity.get("current_recipe_locale_route")
+    _require(
+        isinstance(recipe_locale_route, dict)
+        and recipe_locale_route.get("input_contract")
+        == "Iris/_docs/authority/tooltip_t1/layer4_recipe_locale_input_contract.json"
+        and recipe_locale_route.get("owner_output_path")
+        == "Iris/build/description/v2/data/tooltip_t1_layer4_recipe_locale_owner_input.json",
+        "current Recipe locale authority route mismatch",
+    )
     rightclick_locale = parity.get("current_rightclick_locale_route")
     _require(
         isinstance(rightclick_locale, dict)
@@ -321,6 +369,49 @@ def validate_contracts(repository_root: Path, supplied_decision_sha256: str) -> 
         _require(isinstance(entries, list), "current authority manifest entries missing")
         adopted_entries = [row for row in entries if isinstance(row, dict) and row.get("path") == adoption["path"]]
         _require(len(adopted_entries) == 1 and adopted_entries[0].get("sha256") == adoption["sha256"] and adopted_entries[0].get("classification") == "current", "Layer 4 exact current authority manifest adoption missing")
+        recipe_locale = values[AUTHORITY_ROOT / "layer4_recipe_locale_input_contract.json"]
+        owner_registry = recipe_locale.get("owner_registry")
+        owner_output = recipe_locale.get("owner_output")
+        _require(
+            isinstance(owner_registry, dict) and isinstance(owner_output, dict),
+            "Layer 4 Recipe locale registry/output binding missing",
+        )
+        for path_key, hash_key, label in (
+            ("path", "sha256", "Recipe locale registry"),
+            ("schema_path", "schema_sha256", "Recipe locale registry schema"),
+        ):
+            relative = owner_registry.get(path_key)
+            _require(isinstance(relative, str) and bool(relative), f"{label} path missing")
+            _require(sha256_file(repository_root / relative) == owner_registry.get(hash_key), f"{label} SHA-256 mismatch")
+        owner_output_path = owner_output.get("path")
+        _require(isinstance(owner_output_path, str) and bool(owner_output_path), "Recipe locale owner output path missing")
+        _require(
+            sha256_file(repository_root / owner_output_path) == owner_output.get("sha256"),
+            "Recipe locale owner output SHA-256 mismatch",
+        )
+        owner_output_value = load_json(repository_root / owner_output_path)
+        owner_entries = owner_output_value.get("entries")
+        owner_binding = owner_output_value.get("subject_binding")
+        _require(
+            owner_output_value.get("schema_version") == owner_output.get("schema_version")
+            and owner_output_value.get("source") == "recipe"
+            and owner_output_value.get("supported_locales") == list(SUPPORTED_LOCALES)
+            and owner_output_value.get("selection_stage") == "post_selected_identity_freeze"
+            and owner_output_value.get("fallback_allowed") is False
+            and owner_output_value.get("source_substitution_allowed") is False
+            and isinstance(owner_entries, dict)
+            and len(owner_entries) == owner_output.get("entry_count"),
+            "Recipe locale owner output structure mismatch",
+        )
+        _require(
+            isinstance(owner_binding, dict)
+            and owner_binding.get("identity_owner_input_sha256") == adoption.get("sha256")
+            and owner_binding.get("registry_sha256") == owner_registry.get("sha256")
+            and owner_binding.get("registry_schema_sha256") == owner_registry.get("schema_sha256")
+            and owner_binding.get("selected_identity_sha256") == owner_output.get("selected_identity_sha256")
+            and owner_binding.get("selected_instance_sha256") == owner_output.get("selected_instance_sha256"),
+            "Recipe locale owner output subject binding mismatch",
+        )
         layer3_owner_output = values[AUTHORITY_ROOT / "layer3_tooltip_input_contract.json"]["current_owner_output"]
         layer3_owner_value = load_json(repository_root / layer3_owner_output["path"])
         fact_entries, absence_entries = validate_layer3_owner_output(layer3_owner_value)

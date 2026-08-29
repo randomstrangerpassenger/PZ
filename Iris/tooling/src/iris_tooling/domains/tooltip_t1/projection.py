@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, fields
 import hashlib
 import json
 import random
@@ -17,8 +17,6 @@ class Layer4Candidate:
     line_kind: str = "evidence"
     requirement_only: bool = False
     stable_order_key: str | None = None
-    localized_surfaces: dict[str, str | None] | None = None
-    menu_consumer_identity_ref: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -55,10 +53,13 @@ def _eligibility(candidate: Layer4Candidate) -> str | None:
 
 
 def select_layer4(candidates: Iterable[Layer4Candidate]) -> tuple[tuple[Layer4Candidate, ...], tuple[CandidateResult, ...]]:
+    candidate_rows = tuple(candidates)
+    if any(not isinstance(row, Layer4Candidate) for row in candidate_rows):
+        raise TooltipContractError("LAYER4_SELECTION_REQUIRES_IDENTITY_ONLY_CANDIDATES")
     results: list[CandidateResult] = []
     eligible: list[Layer4Candidate] = []
     seen: set[str] = set()
-    for candidate in sorted(candidates, key=lambda row: (_identity_order_key(row), row.source, row.interaction_id)):
+    for candidate in sorted(candidate_rows, key=lambda row: (_identity_order_key(row), row.source, row.interaction_id)):
         disposition = _eligibility(candidate)
         if disposition is not None:
             results.append(CandidateResult(candidate, disposition))
@@ -100,29 +101,26 @@ def verify_invariants(candidates: list[Layer4Candidate]) -> dict[str, Any]:
     permuted = list(candidates)
     random.Random(0).shuffle(permuted)
     permutation_selected, _ = select_layer4(permuted)
-    masked = [replace(row, localized_surfaces=None, menu_consumer_identity_ref=None) for row in candidates]
-    masked_selected, _ = select_layer4(masked)
-    restored = [replace(row) for row in candidates]
-    restored_selected, _ = select_layer4(restored)
     identities = {
         "base": selection_identity(base),
         "permuted": selection_identity(permutation_selected),
-        "masked": selection_identity(masked_selected),
-        "restored": selection_identity(restored_selected),
     }
     if len(set(identities.values())) != 1:
         raise TooltipContractError("IDENTITY_READINESS_FEEDBACK_VIOLATION")
+    selection_fields = [field.name for field in fields(Layer4Candidate)]
+    forbidden_fields = {"localized_surfaces", "menu_consumer_identity_ref"}
+    if forbidden_fields.intersection(selection_fields):
+        raise TooltipContractError("IDENTITY_READINESS_FEEDBACK_VIOLATION")
     return {
-        "schema_version": "iris-tooltip-layer4-invariance-v1",
+        "schema_version": "iris-tooltip-layer4-invariance-v2",
         "permutation": {
             "base_selected_identity_sha256": identities["base"],
             "permuted_selected_identity_sha256": identities["permuted"],
             "changed": False,
         },
-        "readiness_masking": {
-            "base_selected_identity_sha256": identities["base"],
-            "masked_selected_identity_sha256": identities["masked"],
-            "restored_selected_identity_sha256": identities["restored"],
+        "readiness_isolation": {
+            "selection_input_fields": selection_fields,
+            "forbidden_readiness_fields_present": False,
             "locale_readiness_changed_selection": False,
             "menu_evidence_changed_selection": False,
         },

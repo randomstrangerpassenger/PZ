@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "iris-tooltip-t1-d4-recipe-locale-surface-registry-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "owner", "approval_ref", "subject_binding", "surface_policy", "records"],
+  "properties": {
+    "schema_version": {"const": "iris-tooltip-t1-d4-recipe-locale-registry-v1"},
+    "status": {"const": "owner_approved"},
+    "owner": {"const": "QG/locale owner"},
+    "approval_ref": {"type": "string", "minLength": 1},
+    "subject_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["predecessor_commit", "predecessor_tree", "identity_owner_input", "identity_owner_input_sha256"],
+      "properties": {
+        "predecessor_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "predecessor_tree": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "identity_owner_input": {"const": "Iris/build/description/v2/data/upstream_usecases_by_fulltype.json"},
+        "identity_owner_input_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "surface_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["canonical_fact_id", "supported_locales", "cross_locale_fallback_allowed", "numeric_width_gate"],
+      "properties": {
+        "canonical_fact_id": {"const": "qg.recipe_participation.v1"},
+        "supported_locales": {"const": ["ko", "en"]},
+        "cross_locale_fallback_allowed": {"const": false},
+        "numeric_width_gate": {"type": "null"}
+      }
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["interaction_id", "canonical_fact_id", "canonical_semantic_refs", "selected_instance_evidence_sha256", "selected_instances", "localized_surfaces", "approval_ref", "provenance"],
+        "properties": {
+          "interaction_id": {"type": "string", "pattern": "^uc\\.recipe\\."},
+          "canonical_fact_id": {"const": "qg.recipe_participation.v1"},
+          "canonical_semantic_refs": {"type": "array", "minItems": 1},
+          "selected_instance_evidence_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "selected_instances": {"type": "array", "minItems": 1},
+          "localized_surfaces": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["ko", "en"],
+            "properties": {
+              "ko": {"type": "string", "pattern": "^[^\\r\\n]+$"},
+              "en": {"type": "string", "pattern": "^[^\\r\\n]+$"}
+            }
+          },
+          "approval_ref": {"type": "string", "minLength": 1},
+          "provenance": {"type": "object"}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "iris-tooltip-t1-d4-decision-ratification-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "approval_ref", "workstream_subject", "registry_sha256", "owner_projection_sha256", "shared_path_delta_sha256", "closure_policy", "claim_ceiling"],
+  "properties": {
+    "schema_version": {"const": "iris-tooltip-t1-d4-decision-ratification-v1"},
+    "approval_ref": {"type": "string", "minLength": 1},
+    "workstream_subject": {"type": "object"},
+    "registry_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "owner_projection_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "shared_path_delta_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "closure_policy": {"const": "strict_full_closure_no_fallback_no_reselection"},
+    "claim_ceiling": {"type": "string", "minLength": 1}
+  }
+}

@@ -25,7 +25,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["closeout"],
       "must_close_before": "closeout vocabulary implementation",
-      "contract_sha256": "3198ed14ba22ead3f5019a525dcbf4bf58bc8d431fc17d79e42e998b6561f010"
+      "contract_sha256": "f5b02bc59f26ce2d2e7dc081241525774276faa994110fe8e67767b0ed945385"
     },
     {
       "decision_id": "P-2",
@@ -40,7 +40,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["slot projection"],
       "must_close_before": "Change 2 decision table",
-      "contract_sha256": "3198ed14ba22ead3f5019a525dcbf4bf58bc8d431fc17d79e42e998b6561f010"
+      "contract_sha256": "f5b02bc59f26ce2d2e7dc081241525774276faa994110fe8e67767b0ed945385"
     },
     {
       "decision_id": "P-3",
@@ -56,7 +56,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["slot projection"],
       "must_close_before": "Change 2 decision table",
-      "contract_sha256": "3198ed14ba22ead3f5019a525dcbf4bf58bc8d431fc17d79e42e998b6561f010"
+      "contract_sha256": "f5b02bc59f26ce2d2e7dc081241525774276faa994110fe8e67767b0ed945385"
     },
     {
       "decision_id": "P-4",
@@ -71,7 +71,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["Layer 4 projection"],
       "must_close_before": "Change 4 single-source branch",
-      "contract_sha256": "3198ed14ba22ead3f5019a525dcbf4bf58bc8d431fc17d79e42e998b6561f010"
+      "contract_sha256": "f5b02bc59f26ce2d2e7dc081241525774276faa994110fe8e67767b0ed945385"
     },
     {
       "decision_id": "P-5",
@@ -86,7 +86,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["Layer 4 projection"],
       "must_close_before": "Change 4 projection",
-      "contract_sha256": "3198ed14ba22ead3f5019a525dcbf4bf58bc8d431fc17d79e42e998b6561f010"
+      "contract_sha256": "f5b02bc59f26ce2d2e7dc081241525774276faa994110fe8e67767b0ed945385"
     },
     {
       "decision_id": "P-6",
@@ -101,7 +101,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["Layer 4 projection"],
       "must_close_before": "Change 4 ordering",
-      "contract_sha256": "3198ed14ba22ead3f5019a525dcbf4bf58bc8d431fc17d79e42e998b6561f010"
+      "contract_sha256": "f5b02bc59f26ce2d2e7dc081241525774276faa994110fe8e67767b0ed945385"
     },
     {
       "decision_id": "P-7",
@@ -116,7 +116,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["Layer 4 projection"],
       "must_close_before": "Change 4 duplicate handling",
-      "contract_sha256": "3198ed14ba22ead3f5019a525dcbf4bf58bc8d431fc17d79e42e998b6561f010"
+      "contract_sha256": "f5b02bc59f26ce2d2e7dc081241525774276faa994110fe8e67767b0ed945385"
     },
     {
       "decision_id": "P-8",
@@ -131,7 +131,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["Layer 3 readiness", "locale parity"],
       "must_close_before": "Change 3 and Change 5 locale model",
-      "contract_sha256": "3198ed14ba22ead3f5019a525dcbf4bf58bc8d431fc17d79e42e998b6561f010"
+      "contract_sha256": "f5b02bc59f26ce2d2e7dc081241525774276faa994110fe8e67767b0ed945385"
     },
     {
       "decision_id": "P-9",
@@ -147,7 +147,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["locale projection"],
       "must_close_before": "Change 5 locale contract",
-      "contract_sha256": "3198ed14ba22ead3f5019a525dcbf4bf58bc8d431fc17d79e42e998b6561f010"
+      "contract_sha256": "f5b02bc59f26ce2d2e7dc081241525774276faa994110fe8e67767b0ed945385"
     },
     {
       "decision_id": "P-10",
@@ -162,7 +162,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["Layer 2 input", "Menu parity"],
       "must_close_before": "Change 3 Layer 2 input/parity",
-      "contract_sha256": "3198ed14ba22ead3f5019a525dcbf4bf58bc8d431fc17d79e42e998b6561f010"
+      "contract_sha256": "f5b02bc59f26ce2d2e7dc081241525774276faa994110fe8e67767b0ed945385"
     },
     {
       "decision_id": "P-11",
@@ -178,7 +178,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["line-fit contract"],
       "must_close_before": "Change 3 and Change 6 line-fit implementation",
-      "contract_sha256": "3198ed14ba22ead3f5019a525dcbf4bf58bc8d431fc17d79e42e998b6561f010"
+      "contract_sha256": "f5b02bc59f26ce2d2e7dc081241525774276faa994110fe8e67767b0ed945385"
     },
     {
       "decision_id": "P-12",
@@ -194,7 +194,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["validation report"],
       "must_close_before": "validation vocabulary implementation",
-      "contract_sha256": "3198ed14ba22ead3f5019a525dcbf4bf58bc8d431fc17d79e42e998b6561f010"
+      "contract_sha256": "f5b02bc59f26ce2d2e7dc081241525774276faa994110fe8e67767b0ed945385"
     }
   ]
 }

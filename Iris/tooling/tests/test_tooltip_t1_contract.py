@@ -63,7 +63,7 @@ def _evidence(subject_identity: str) -> dict:
 
 @pytest.mark.parametrize(
     "case",
-    ["valid", "bad_sha", "dirty", "stale", "route_mismatch", "historical_reentry", "fixed_authority", "open_choice", "phase_order", "same_subject_ratification"],
+    ["valid", "bad_sha", "dirty", "stale", "route_mismatch", "recipe_locale_route", "historical_reentry", "fixed_authority", "open_choice", "phase_order", "same_subject_ratification"],
 )
 def test_subject_decision_lifecycle(case: str) -> None:
     root = Path(__file__).resolve().parents[3]
@@ -77,10 +77,12 @@ def test_subject_decision_lifecycle(case: str) -> None:
         subject = {"working_tree_clean": case != "dirty", "commit": "a" * 40, "tree": "b" * 40}
         with pytest.raises(TooltipContractError, match="clean checkout|stale commit"):
             validate_execution_subject(subject, expected_commit="c" * 40 if case == "stale" else None)
-    elif case in {"route_mismatch", "historical_reentry", "fixed_authority", "open_choice"}:
+    elif case in {"route_mismatch", "recipe_locale_route", "historical_reentry", "fixed_authority", "open_choice"}:
         values = deepcopy(_values(root))
         if case == "route_mismatch":
             values[AUTHORITY_ROOT / "tooltip_t1_tool_disposition_contract.json"]["entries"][0]["disposition"] = "diagnostic"
+        elif case == "recipe_locale_route":
+            values[AUTHORITY_ROOT / "layer4_recipe_locale_input_contract.json"]["lookup_stage"] = "before_selection"
         elif case == "historical_reentry":
             values[AUTHORITY_ROOT / "tooltip_t1_tool_disposition_contract.json"]["entries"][-1]["current_execution_allowed"] = True
         elif case == "fixed_authority":

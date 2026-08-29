@@ -4,6 +4,7 @@ from pathlib import Path
 
 import pytest
 
+from iris_tooling.domains.layer4.tooltip_t1_d4 import build_owner_projection, validate_registry
 from iris_tooling.domains.tooltip_t1.audit import (
     build_progression_record,
     candidate_closeout_record,
@@ -201,6 +202,7 @@ def test_minimal_t2_handoff_mock_consumer(case: str) -> None:
         ("normalized_collision", None),
         ("owner_output_self_comparison", None),
         ("candidate_pre_gate_axis", None),
+        ("recipe_locale_projection", None),
         ("nonblocking_correction", None),
         ("d3_owner_absence_nonblocking", None),
         ("gate_failure", None),
@@ -248,6 +250,15 @@ def test_whole_universe_audit_progression(case: str, expected: T2Progression | N
         assert closeout["contract_and_audit_axis"] == "partial"
         assert closeout["formal_closeout_state"] == "implemented_only"
         assert "not yet bound" in closeout["validation_ceiling"]
+        return
+    if case == "recipe_locale_projection":
+        root = Path(__file__).resolve().parents[3]
+        selected, records = validate_registry(root)
+        projection = build_owner_projection(root)
+        assert len(selected) == len(records) == projection["entry_count"]
+        assert set(projection["entries"]) == set(selected)
+        assert projection["selection_stage"] == "post_selected_identity_freeze"
+        assert projection["fallback_allowed"] is False
         return
     if case == "nonblocking_correction":
         progression, by_owner = build_progression_record([

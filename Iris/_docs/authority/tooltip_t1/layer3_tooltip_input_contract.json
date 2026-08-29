@@ -1,6 +1,7 @@
 {
-  "schema_version": "iris-tooltip-layer3-input-contract-v1",
+  "schema_version": "iris-tooltip-layer3-input-contract-v2",
   "required_selected_fields": ["fact_id", "fact_kind", "source_fact_ids", "source_ref", "authority_ref", "upstream_readiness", "tooltip_eligibility", "localized_surfaces"],
+  "required_absence_fields": ["exact_full_type", "disposition", "absence_reason_code", "owner", "acceptance_evidence", "applicable_scope", "reaudit_condition", "authority_decision_ref"],
   "required_fact_kind": "core_description",
   "identity_before_locale": true,
   "body_truncation_allowed": false,
@@ -8,13 +9,16 @@
   "body_rewrite_allowed": false,
   "acquisition_as_core_allowed": false,
   "multiple_core_fact_synthesis_allowed": false,
-  "absence_mapping": {"no_core_source_fact_ids_with_owner_role_material_row": "legitimate_absence", "missing_owner_row": "upstream_identity_correction_required", "one_or_more_core_source_fact_ids_without_approved_tooltip_fact": "upstream_identity_correction_required"},
-  "current_disposition": "single-core rows are published by the current DVF owner projection; missing owner rows remain upstream corrections",
+  "absence_mapping": {"no_core_source_fact_ids_with_owner_role_material_row": "legitimate_absence", "approved_explicit_owner_absence": "legitimate_absence", "missing_owner_row": "upstream_identity_correction_required", "one_or_more_core_source_fact_ids_without_approved_tooltip_fact": "upstream_identity_correction_required"},
+  "current_disposition": "approved single-core facts and producer-independent-evidence-bound explicit owner absences are published separately; all other missing owner rows remain upstream corrections",
   "current_owner_output": {
     "path": "Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json",
-    "canonical_sha256": "705c57ac02d512757a5092096ee9690a3d08fa54a52c147d0e4b7e1e1161ad33",
+    "canonical_sha256": "d20ae626ecd72d9be8cf14da403ac59f05fc63b68c6745576a70631c8e502e69",
     "producer": "iris_tooling.build.build_layer3_english_localization",
-    "entry_count": 1314
+    "schema_version": "iris-tooltip-t1-layer3-owner-input-v2",
+    "fact_entry_count": 1314,
+    "absence_entry_count": 175,
+    "entry_count": 1489
   },
   "menu_consumer_evidence_ownership": {
     "owner": "Menu consumer owner",

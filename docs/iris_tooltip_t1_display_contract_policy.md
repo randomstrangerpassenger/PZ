@@ -23,6 +23,7 @@ S4 = Layer 4 interaction #2
 
 - Layer 2는 Classification owner가 제공한 resolved classification/category/primary-subcategory identity와 KO/EN surface만 소비한다. raw tag scan, runtime resolver 복제와 `Misc.9-A` raw fallback 승격을 금지한다.
 - Layer 3는 owner-approved single `core_description` fact identity와 KO/EN single-line surface만 소비한다. rendered body 자르기, 요약, 재작성, 여러 core fact 합성과 acquisition paragraph 승격을 금지한다.
+- T1-D3 successor proposal에서 Layer 3 explicit absence는 exact FullType, DVF owner decision, approved reason/scope/re-audit condition과 producer-independent technical·locale·quality·review defect exclusion evidence가 모두 결속된 경우에만 `legitimate_absence`로 소비한다. 단순 owner-row miss, search miss, locale 결손, review 상태 또는 producer self-report는 absence가 아니다. 이 proposal의 global current adoption은 T1-D6가 소유한다.
 - Layer 4는 current owner data인 `Iris/build/description/v2/data/upstream_usecases_by_fulltype.json`의 public QG identity를 `semantic/public eligibility → stable order → exact identity dedupe → source equivalence → bounded selection → identity freeze` 순서로 선택한 뒤 locale/Menu readiness를 조회한다. `Iris/build/baseline/**` reproduction artifact는 semantic input으로 소비하지 않는다.
 
 Layer 4 both-source row는 Recipe 하나와 Right-click 하나를 선택한다. single-source row는 neutral structural order로 최대 두 개를 선택한다. explicit order key가 없는 current subject에서는 versioned `source + NUL + interaction_id` UTF-8 bytes의 SHA-256을 presentation tie-break로 사용한다. 이 값은 중요도, 빈도, 대표성, 효율, 추천 또는 품질 순위가 아니다.

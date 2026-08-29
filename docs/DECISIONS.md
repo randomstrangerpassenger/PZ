@@ -1842,9 +1842,9 @@
 
 ### Iris Tooltip T1 — display contract / upstream input readiness boundary
 
-- 날짜: 2026-08-27 → 2026-08-28 corrective refinement
+- 날짜: 2026-08-27 → 2026-08-28 corrective refinement → 2026-08-29 T1-D3/D4 workstream successors
 
-- 상태: current owner-ratified offline contract / contract-audit formal complete / T2 progression blocked by upstream corrections
+- 상태: current owner-ratified offline contract / contract-audit formal complete / T1-D3/D4 correction bundles complete / global current adoption pending T1-D6 / T2 progression blocked by upstream corrections
 
 - 결정: Tooltip은 Layer 2 classification, optional Layer 3 core description과 최대 두 개의 Layer 4 public interaction identity를 S1→S4 고정 순서로 투영한다. T1은 semantic/public eligibility와 identity selection을 먼저 닫고 selected identity의 KO/EN 및 Menu evidence readiness를 나중에 판정하는 offline contract/audit owner로 한정한다.
 
@@ -1870,6 +1870,18 @@
   - tracked decision contract는 ratification template이며, clean exact subject의 W1-A evidence hash와 subject identity를 adoption receipt가 결속한 뒤에만 G1 및 W1-B가 성립한다.
   - 2026-08-28 corrective subject에서 normalized collision correction 2건을 복원하고 Layer 3 owner-output self-comparison을 제거했다. 최종 correction은 `5,625`이며 owner 분포는 Classification `2,280`, DVF `175`, Iris presentation-contract `2`, Menu consumer `2,280`, QG/locale `888`이다.
   - 같은 corrective subject의 focused 6-family route, installed candidate invariant, canonical Run A/Run B와 deterministic comparator가 모두 exit 0이고 post-gate finalizer가 `complete/complete` closeout을 생성했다. 이 formal completion은 `T2_FULL_DATA_PROGRESSION = BLOCKED_BY_UPSTREAM_CORRECTIONS` 및 production T2 handoff `0`과 공존한다.
+  - 2026-08-29 T1-D3 workstream은 current authoritative audit가 재구성한 exact `DVF_OWNER_ROW_MISSING` 175건을 frozen target으로 사용했다. Target ordered-set SHA-256은 `accbe1ae691e41b1697f080f26b8206a08e261039bb7919879f67f4b5d7ef238`이며 duplicate, denominator shrink와 exact-identity normalization은 `0`이다.
+  - 해당 175건은 current item identity에는 존재하지만 current DVF facts, decisions와 approved role-material candidate에는 모두 부재했다. 171건은 Layer 4 exclusion-only support, 4건은 Layer 2-only support 경로였으며, owner 사전 승인과 producer-independent defect-exclusion verdict에 결속해 `A=0`, approved legitimate absence `B=175`, unresolved/blocked `0`으로 disposition했다.
+  - T1-D3 Layer 3 owner projection successor는 기존 fact compatibility map `entries` 1,314건과 explicit `absence_entries` 175건을 구조적으로 분리한다. Explicit absence는 exact FullType, DVF owner decision, approved reason, applicable scope, re-audit condition과 independent technical/locale/quality/review defect-exclusion evidence가 모두 유효할 때만 소비한다. 단순 lookup miss, locale/review/quality defect 또는 producer self-report는 absence가 아니다.
+  - T1-D3는 metadata-only path를 사용했다. Current generation ID, pointer, existing fact 1,314건, existing Layer 3 empty-core 791건, Layer3English와 Lua runtime bytes를 변경하지 않았고 generation-bearing path를 실행하지 않았다.
+  - Same-subject candidate Run A/B는 support `2,280`, correction `5,450`, D3 target `DVF_OWNER_ROW_MISSING=0`과 동일 receipt hash를 냈다. Focused Tooltip T1 tests는 `65 passed`, independent absence/non-target comparator와 `git diff --check`는 exit `0`이었다. Test file/top-level function delta는 각각 `0`, parameter case delta는 `3`이다.
+  - 위 결과의 terminal `complete`는 T1-D3 workstream correction bundle에만 적용한다. Global current manifest/route/environment/governance adoption은 T1-D6 전까지 `pending_T1_D6`이며, integrated current correction 기준은 계속 `5,625`다. Candidate `5,450`을 T2 `OPEN`, runtime adoption, full Menu parity, freeze, Publish 또는 release readiness로 읽지 않는다.
+  - 2026-08-29 T1-D4 workstream은 common predecessor에서 선택된 Recipe instance 444건, exact Recipe identity 266개와 locale correction 888건을 freeze했다. QG owner registry/projection은 identity/public/source/selection authority를 바꾸지 않고 동일한 role-neutral Recipe-use fact의 explicit KO/EN pair만 발행한다.
+  - D4의 `Layer4Candidate`와 selection API는 locale/Menu readiness field를 소유하지 않는다. Recipe locale owner output은 selection이 끝난 뒤 exact selected identity로만 조회하며, embedded identity-input locale field는 정상 fallback이 아니라 authority-ceiling violation이다. Cross-locale fallback, locale-dependent reselection, Recipe→Right-click substitution은 허용하지 않는다.
+  - D4 candidate whole-T1 re-audit는 support `2,280`, correction `4,737`, D4 target `LOCALE_SELECTED_SURFACE_MISSING=0`을 산출했다. Selected tuple/source distribution과 other-owner correction delta는 `0`; runtime/static Tooltip, Right-click locale route, Browser consumer identity와 D6-exclusive current paths는 변경하지 않았다.
+  - D4 frozen support exact set은 common predecessor 재도출 set과 missing `0`, extra `0`으로 동일하다. Common hash는 ordinal-ascending unique exact FullType 각각의 UTF-8 bytes 뒤에 LF를 붙이고 final LF를 포함하며 BOM/JSON encoding을 사용하지 않는 직렬화의 SHA-256 `3a6cc24b9ad64e06a0a6c0408821201e35bbd1d8558e6245809b5d3c34265ce6`이다. 선행 D4 bundle의 JSON-array 기반 `82cca317e95f308f2f9edad0adf2a3667b74aa92b31246dd7af1134e1852eed0` 표기는 serialization-only 오류로 폐기했고 `integration_impact.support_freeze_mismatch=false`인 corrected bundle을 재발행했다.
+  - D4 focused Tooltip T1 tests는 `67 passed`; materializer Run A/B bytes와 digest는 동일했고 whole-T1 audit, exact reconciliation, protected-path check 및 corrected bundle validator는 exit `0`이었다. Support-hash 정정 시에는 source semantics, tests, materializer와 whole audit를 반복하지 않고 support-freeze/bundle binding만 최소 재검사했다.
+  - D4 terminal `complete`도 isolated correction bundle에만 적용한다. D3와 D4 candidate ledger를 서로 산술 결합하거나 어느 한쪽을 current ledger로 채택하지 않으며, shared delta merge, bundle compatibility validation, integrated whole-T1 re-audit와 global status synchronization은 T1-D6가 소유한다.
 
 - Machine authority:
 
@@ -1892,6 +1904,13 @@
   - corrective formal-complete subject: commit `6b7118dc229bf8138302696e1aa5e5b7454589dc`, tree `4eae6fbdb3d0b2cb532f875b96137335a403f2fc`
   - corrective environment authority: `Iris/validation/clean_checkout/authority/responsibility_refactor_environment_tooltip_t1c_corrective_d1d0c098.json`
   - external final closeout SHA-256: `6e255227b0aa8381453a563e3ede9e96c59be82c9bb3a7cb6eba8f488039b4a3`
+  - T1-D3 workstream subject: branch `codex/iris-tooltip-t1-d3`, commit `92583338`
+  - T1-D3 immutable bundle: `C:/Users/MW/Downloads/coding/PZ-tooltip-t1-d3-bundle-92583338`
+  - T1-D3 bundle receipt SHA-256: `cf7d6529f404494e23fbc1a6967ab75a52f065690f3b88e5a5560a78ecdcc202`
+  - T1-D4 workstream subject: branch `codex/iris-tooltip-t1-d4`, commit `a8fddf747738045df08579ae34b0b727e3cf91ad`, tree `9b6b1831c18da58846d9d3c940133b2095de741d`
+  - T1-D4 corrected external bundle: `C:/Users/MW/Downloads/coding/PZ-t1-d4-artifacts/d4-bundle-support-hash-corrected`
+  - T1-D4 corrected bundle receipt SHA-256: `a2c8d8c3d5ed317fafa1483c44e429938d4b813ec73a08f00d40505668d6df96`; integration manifest SHA-256: `95fd303d4cab94d8fcee30bb7c2ba9b033dd1d7124b7d333dacfe40dde735264`
+  - 선행 `C:/Users/MW/Downloads/coding/PZ-t1-d4-artifacts/d4-bundle`은 noncanonical support-hash binding 때문에 superseded이며 T1-D6 입력으로 사용하지 않는다.
   - 이 docs-only successor는 위 machine subject나 external receipt identity를 대체하거나 재귀속하지 않는다.
   - detailed policy: `docs/iris_tooltip_t1_display_contract_policy.md`
   - COMMON-EVIDENCE-TRACE.

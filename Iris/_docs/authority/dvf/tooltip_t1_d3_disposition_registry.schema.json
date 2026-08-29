@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "iris-tooltip-t1-d3-disposition-registry-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "workstream_id", "target_exact_set_sha256", "target_count", "owner_approval_ref", "terminal_distribution", "entries"],
+  "properties": {
+    "schema_version": {"const": "iris-tooltip-t1-d3-disposition-registry-v1"},
+    "workstream_id": {"const": "T1-D3"},
+    "target_exact_set_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "target_count": {"const": 175},
+    "owner_approval_ref": {"const": "user_prompt_owner_gate_preapproval_2026-08-29"},
+    "terminal_distribution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["A", "B", "blocked"],
+      "properties": {"A": {"const": 0}, "B": {"const": 175}, "blocked": {"const": 0}}
+    },
+    "entries": {
+      "type": "object",
+      "minProperties": 175,
+      "maxProperties": 175,
+      "additionalProperties": {"$ref": "#/$defs/absence"}
+    }
+  },
+  "$defs": {
+    "absence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["exact_full_type", "responsible_owner", "working_cause", "escalation_reason_code", "intended_disposition", "supporting_evidence", "required_correction_if_any", "authority_decision_ref", "absence_reason_code", "owner", "acceptance_evidence", "applicable_scope", "reaudit_condition"],
+      "properties": {
+        "exact_full_type": {"type": "string", "minLength": 1},
+        "responsible_owner": {"const": "DVF owner"},
+        "working_cause": {"const": "no_approved_description_material"},
+        "escalation_reason_code": {"type": "null"},
+        "intended_disposition": {"const": "approved_legitimate_absence"},
+        "supporting_evidence": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "required_correction_if_any": {"type": "null"},
+        "authority_decision_ref": {"const": "user_prompt_owner_gate_preapproval_2026-08-29"},
+        "absence_reason_code": {"const": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL"},
+        "owner": {"const": "DVF owner"},
+        "acceptance_evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["artifact", "sha256"],
+          "properties": {
+            "artifact": {"const": "d3_independent_defect_exclusion_verdict.json"},
+            "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+          }
+        },
+        "applicable_scope": {"type": "string", "minLength": 1},
+        "reaudit_condition": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

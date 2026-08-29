@@ -366,11 +366,16 @@ Candidate closeout은 `partial/implemented_only` ceiling을 유지한다. 별도
 
 - Classification, DVF System과 QG가 Layer 2/3/4 semantic authority를 계속 소유한다. T1은 projection/readiness metadata만 소유한다.
 - Layer 3 DVF owner output은 `fact_id`, source/authority ref와 KO/EN surface readiness까지만 발행한다. Menu consumer identity ref나 parity verdict를 같은 owner output이 self-attest하지 않는다.
+- T1-D3 candidate의 Layer 3 owner-output v2는 기존 fact compatibility projection인 `entries`와 explicit legitimate-absence projection인 `absence_entries`를 분리한다. Fact row는 기존 single-core fact/source/KO·EN identity를 유지하고, absence row는 exact FullType, owner, approved reason, independent evidence binding, scope와 re-audit condition만 운반한다. Absence는 semantic fact나 locale surface를 만들지 않는다.
+- S2 소비 순서는 `valid approved fact -> valid approved explicit absence -> technical owner-row correction`이다. Fact/absence conflict, incomplete evidence, locale/review/quality defect 또는 unknown reason은 fail-loud correction으로 남고 compact되지 않는다. Existing pointer-selected empty-core 791건은 별도 current-generation role-material provenance를 유지하며 T1-D3 registry로 소급 rewrite하지 않는다.
 - Layer 3 current shared-authority relation은 pointer-selected rendered fact relation에서 생성된 동일 FullType runtime text가 `IrisLayer3DataCurrent.lua → IrisLayer3DataLookup.lua → layer3_renderer.lua → IrisItemDetailModelAssembler.lua`로 소비되는 경로다. 이 경로는 fact/surface와 Menu surface가 같은 current generation을 공유함을 보이지만 독립 Menu fact-identity observation은 아니다.
 - 따라서 selected Layer 3 row는 독립 consumer identity evidence가 추가되기 전까지 `unverified_without_independent_consumer_evidence`다. 이 상태는 full Menu parity와 T3 runtime-adoption claim을 보류하지만 shared relation이 성립하면 T2 blocker가 아니다. shared relation 부재/모순만 `correction_required`와 T2 blocker다.
 - `menu_owner_output_self_comparison` invariant는 DVF owner output의 self-issued consumer-reference field를 직접 세며 canonical candidate에서 반드시 `0`이어야 한다.
 - Layer 4 semantic identity input은 current owner data에서 읽고, reproduction baseline은 입력에서 제외한다. Current Browser consumer relation은 별도 runtime `label_key` identity set과 exact subset 비교한다.
 - Layer 4 selection graph에는 locale/Menu readiness input edge가 없고 readiness graph에는 selected-identity writer edge가 없다.
+- T1-D4 candidate는 이 분리를 type boundary로 강화한다. `Layer4Candidate`는 identity/public/source/structural-order 정보만 운반하고 locale surface 또는 Menu consumer ref를 보유하지 않는다. QG-owned Recipe locale registry/projection은 selection 이후 exact selected identity resolver에서만 결합된다.
+- Current Layer 4 identity input의 embedded locale field는 Recipe surface authority로 소비하지 않는다. 발견 시 authority-ceiling violation으로 fail-loud하며, unselected-ready candidate substitution, Recipe→Right-click fallback, cross-locale fallback과 locale-dependent reselection 경로는 존재하지 않아야 한다.
+- Recipe KO/EN surface는 동일 canonical interaction fact에 결속된 explicit pair다. D4는 logical-row single-line/NFC contract까지만 검증하고 pixel/font/UI-scale width fit은 기존 T3 presentation boundary에 남긴다.
 - T2 handoff는 ordered `slot_id`, semantic identity와 KO/EN surface만 포함한다. Raw tags, unselected candidates, audit/parity/readiness/owner/reason metadata를 포함하지 않는다.
 - T2는 requested locale surface read, legitimate absence compaction이 끝난 fixed-order rows의 concatenation과 static payload emit만 수행한다.
 - Current upstream blocker가 남으면 cause-attributed progression record만 생성하고 T2 handoff를 생성하지 않는다.
@@ -386,6 +391,22 @@ Candidate closeout은 `partial/implemented_only` ceiling을 유지한다. 별도
 - correction ledger는 `5,625`, Layer 3 parity 분포는 selected-unverified `1,314`, correction `175`, not-applicable `791`이다. normalized collision `2`건은 denominator에서 제거하지 않고 support-owner blocker로 남는다.
 - current data progression은 `BLOCKED_BY_UPSTREAM_CORRECTIONS`이고 production T2 handoff는 `0`이다. static Tooltip Lua, IrisAltTooltip runtime, visual/release/deployment는 이 snapshot의 claim이 아니다.
 - 뒤의 docs-only carrier는 이 exact machine-validation subject, external candidate/gate receipt 또는 closeout hash를 바꾸지 않는다.
+
+2026-08-29 T1-D3 parallel-workstream snapshot:
+
+- Common predecessor는 commit `6b7118dc229bf8138302696e1aa5e5b7454589dc`, tree `4eae6fbdb3d0b2cb532f875b96137335a403f2fc`이며, D3 clean workstream subject는 commit `92583338`이다.
+- Frozen support는 `2,280`, frozen D3 target은 exact 175이며 target SHA-256은 `accbe1ae691e41b1697f080f26b8206a08e261039bb7919879f67f4b5d7ef238`다.
+- Metadata flow는 `authoritative T1 target freeze -> owner-proposed absence -> producer-independent defect-exclusion verdict -> terminal DVF registry -> v2 owner projection -> whole-T1 re-audit -> independent non-target comparator -> immutable D6 bundle`이다.
+- Terminal distribution은 `A=0`, `B=175`, blocked `0`이고 candidate correction ledger는 `5,450`이다. Existing fact `1,314`, empty-core `791`, current generation/pointer와 locale/runtime payload는 불변이다.
+- 이 snapshot은 isolated workstream architecture다. Shared-path merge, global current adoption과 integrated whole-T1 gate는 T1-D6가 소유하며 그 전까지 current ecosystem correction ledger `5,625`, T2 blocked와 production handoff `0`을 유지한다.
+
+2026-08-29 T1-D4 parallel-workstream snapshot:
+
+- Common predecessor는 commit `6b7118dc229bf8138302696e1aa5e5b7454589dc`, tree `4eae6fbdb3d0b2cb532f875b96137335a403f2fc`이며 D4 clean workstream subject는 commit `a8fddf747738045df08579ae34b0b727e3cf91ad`, tree `9b6b1831c18da58846d9d3c940133b2095de741d`다.
+- Frozen support `2,280`의 canonical ordered-set SHA-256은 `3a6cc24b9ad64e06a0a6c0408821201e35bbd1d8558e6245809b5d3c34265ce6`이다. D4 frozen exact set은 predecessor 재도출 set과 동일하며 missing/extra는 `0`; 초기 JSON-array hash는 serialization-only 오류로 supersede했다.
+- Frozen target은 selected Recipe instance 444건, exact identity 266개, locale correction 888건이다. Owner projection은 explicit KO/EN pair를 post-selection exact lookup으로 제공하며 selected tuple/source distribution, Right-click route와 other-owner correction set을 바꾸지 않는다.
+- Candidate whole-T1 ledger는 `4,737`, D4 target은 `0`이다. Corrected bundle은 `integration_impact.support_freeze_mismatch=false`, support set changed `false`, predecessor mismatch `false`로 hash-bound됐다.
+- 이 snapshot도 isolated workstream architecture다. Corrected D4 bundle만 T1-D6 integration input으로 사용하며, D3/D4 결과의 병합, global current adoption, integrated audit와 T2 progression 판정은 T1-D6 전까지 보류한다.
 
 ### Runtime presentation 구조
 

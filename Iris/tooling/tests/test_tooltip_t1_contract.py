@@ -17,6 +17,7 @@ from iris_tooling.domains.tooltip_t1.contract import (
     sha256_file,
     validate_contracts,
     validate_execution_subject,
+    validate_layer3_owner_output,
 )
 from iris_tooling.domains.tooltip_t1.models import (
     LocaleSurfaceReadiness,
@@ -104,7 +105,7 @@ def test_subject_decision_lifecycle(case: str) -> None:
 
 @pytest.mark.parametrize(
     "case",
-    ["absence_compaction", "absence_without_proof", "defect_not_compacted", "locale_split", "raw_inference_forbidden", "body_rewrite_forbidden"],
+    ["absence_compaction", "absence_without_proof", "defect_not_compacted", "locale_split", "raw_inference_forbidden", "body_rewrite_forbidden", "explicit_owner_absence", "invalid_owner_absence"],
 )
 def test_slot_layer2_layer3_input_contract(case: str) -> None:
     root = Path(__file__).resolve().parents[3]
@@ -113,6 +114,42 @@ def test_slot_layer2_layer3_input_contract(case: str) -> None:
         {"ko": "분류", "en": "Classification"},
         {"ko": LocaleSurfaceReadiness.READY, "en": LocaleSurfaceReadiness.READY},
     )
+    if case in {"explicit_owner_absence", "invalid_owner_absence"}:
+        absence_row = {
+            "exact_full_type": "Base.X",
+            "disposition": "approved_legitimate_absence",
+            "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+            "owner": "DVF owner",
+            "acceptance_evidence": {"artifact": "d3_independent_defect_exclusion_verdict.json", "sha256": "a" * 64},
+            "applicable_scope": "Base.X",
+            "reaudit_condition": "exact owner material changes",
+            "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+        }
+        if case == "invalid_owner_absence":
+            absence_row["acceptance_evidence"] = {"artifact": "producer-self-report.json", "sha256": "a" * 64}
+        fact_entries: dict = {}
+        absence_entries = {"Base.X": absence_row}
+        payload = {
+            "schema_version": "iris-tooltip-t1-layer3-owner-input-v2",
+            "generation_id": "dvf33-test",
+            "entries": fact_entries,
+            "fact_entries": fact_entries,
+            "absence_entries": absence_entries,
+            "manifest": {
+                "fact_entry_count": 0,
+                "absence_entry_count": 1,
+                "total_owner_row_count": 1,
+                "fact_entries_sha256": sha256_bytes(canonical_bytes(fact_entries)),
+                "absence_entries_sha256": sha256_bytes(canonical_bytes(absence_entries)),
+            },
+        }
+        if case == "invalid_owner_absence":
+            with pytest.raises(TooltipContractError, match="independent evidence"):
+                validate_layer3_owner_output(payload, expected_generation_id="dvf33-test")
+        else:
+            facts, absences = validate_layer3_owner_output(payload, expected_generation_id="dvf33-test")
+            assert not facts and set(absences) == {"Base.X"}
+        return
     if case == "absence_without_proof":
         with pytest.raises(TooltipContractError, match="positive owner proof"):
             Slot("S2", None, SemanticSlotState.LEGITIMATE_ABSENCE, {"ko": None, "en": None}, {"ko": LocaleSurfaceReadiness.NOT_APPLICABLE, "en": LocaleSurfaceReadiness.NOT_APPLICABLE})

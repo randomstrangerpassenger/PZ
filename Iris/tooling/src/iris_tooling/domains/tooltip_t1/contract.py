@@ -41,6 +41,19 @@ FIXED_AUTHORITY_CLASSES = {
     "execution_contract_exact",
 }
 
+LAYER3_OWNER_OUTPUT_V1 = "iris-tooltip-t1-layer3-owner-input-v1"
+LAYER3_OWNER_OUTPUT_V2 = "iris-tooltip-t1-layer3-owner-input-v2"
+LAYER3_ABSENCE_FIELDS = {
+    "exact_full_type",
+    "disposition",
+    "absence_reason_code",
+    "owner",
+    "acceptance_evidence",
+    "applicable_scope",
+    "reaudit_condition",
+    "authority_decision_ref",
+}
+
 
 def canonical_bytes(value: Any) -> bytes:
     return (json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n").encode("utf-8")
@@ -75,6 +88,56 @@ def _string_list(value: Any, label: str, *, nonempty: bool = True) -> list[str]:
     if nonempty:
         _require(bool(value), f"{label}: must not be empty")
     return value
+
+
+def validate_layer3_owner_output(
+    payload: dict[str, Any],
+    *,
+    expected_generation_id: str | None = None,
+) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]]]:
+    """Validate the DVF-owned Tooltip projection without inferring dispositions."""
+
+    schema = payload.get("schema_version")
+    _require(schema in {LAYER3_OWNER_OUTPUT_V1, LAYER3_OWNER_OUTPUT_V2}, "Layer 3 Tooltip owner output schema mismatch")
+    if expected_generation_id is not None:
+        _require(payload.get("generation_id") == expected_generation_id, "Layer 3 Tooltip owner generation mismatch")
+    compatibility_entries = payload.get("entries")
+    _require(isinstance(compatibility_entries, dict), "Layer 3 Tooltip fact entries missing")
+    if schema == LAYER3_OWNER_OUTPUT_V1:
+        return compatibility_entries, {}
+
+    fact_entries = payload.get("fact_entries", compatibility_entries)
+    absence_entries = payload.get("absence_entries")
+    _require(isinstance(fact_entries, dict), "Layer 3 Tooltip fact_entries missing")
+    _require(isinstance(absence_entries, dict), "Layer 3 Tooltip absence_entries missing")
+    _require(compatibility_entries == fact_entries, "Layer 3 compatibility fact projection drift")
+    _require(not (set(fact_entries) & set(absence_entries)), "Layer 3 fact/absence owner partition overlaps")
+    for full_type, row in absence_entries.items():
+        _require(isinstance(full_type, str) and bool(full_type), "Layer 3 absence FullType missing")
+        _require(isinstance(row, dict) and set(row) == LAYER3_ABSENCE_FIELDS, f"{full_type}: Layer 3 absence fields mismatch")
+        _require(row.get("exact_full_type") == full_type, f"{full_type}: Layer 3 absence identity mismatch")
+        _require(row.get("disposition") == "approved_legitimate_absence", f"{full_type}: Layer 3 absence is not terminal")
+        _require(row.get("absence_reason_code") == "DVF_NO_APPROVED_DESCRIPTION_MATERIAL", f"{full_type}: Layer 3 absence reason is not approved")
+        _require(row.get("owner") == "DVF owner", f"{full_type}: Layer 3 absence owner mismatch")
+        evidence = row.get("acceptance_evidence")
+        _require(
+            isinstance(evidence, dict)
+            and evidence.get("artifact") == "d3_independent_defect_exclusion_verdict.json"
+            and isinstance(evidence.get("sha256"), str)
+            and bool(re.fullmatch(r"[0-9a-f]{64}", evidence["sha256"])),
+            f"{full_type}: Layer 3 absence independent evidence binding missing",
+        )
+        _require(row.get("applicable_scope") == full_type, f"{full_type}: Layer 3 absence scope mismatch")
+        _require(isinstance(row.get("reaudit_condition"), str) and bool(row["reaudit_condition"]), f"{full_type}: Layer 3 absence re-audit condition missing")
+        _require(isinstance(row.get("authority_decision_ref"), str) and bool(row["authority_decision_ref"]), f"{full_type}: Layer 3 absence authority decision missing")
+    manifest = payload.get("manifest")
+    _require(isinstance(manifest, dict), "Layer 3 Tooltip owner manifest missing")
+    _require(manifest.get("fact_entry_count") == len(fact_entries), "Layer 3 fact count binding mismatch")
+    _require(manifest.get("absence_entry_count") == len(absence_entries), "Layer 3 absence count binding mismatch")
+    _require(manifest.get("total_owner_row_count") == len(fact_entries) + len(absence_entries), "Layer 3 total owner-row count binding mismatch")
+    _require(manifest.get("fact_entries_sha256") == sha256_bytes(canonical_bytes(fact_entries)), "Layer 3 fact set hash mismatch")
+    _require(manifest.get("absence_entries_sha256") == sha256_bytes(canonical_bytes(absence_entries)), "Layer 3 absence set hash mismatch")
+    return fact_entries, absence_entries
 
 
 def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
@@ -149,6 +212,7 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
     _require(layer2.get("current_route") == "no_admissible_authority_relation", "Layer 2 route mismatch")
     _require(layer2.get("raw_tag_resolution_allowed") is False and layer2.get("runtime_resolver_reimplementation_allowed") is False, "Layer 2 raw inference prohibition mismatch")
     layer3 = values[AUTHORITY_ROOT / "layer3_tooltip_input_contract.json"]
+    _require(layer3.get("schema_version") == "iris-tooltip-layer3-input-contract-v2", "Layer 3 input contract schema mismatch")
     _require(layer3.get("identity_before_locale") is True, "Layer 3 identity/readiness ordering mismatch")
     _require(all(layer3.get(key) is False for key in ("body_truncation_allowed", "body_summarization_allowed", "body_rewrite_allowed", "multiple_core_fact_synthesis_allowed")), "Layer 3 body rewrite prohibition mismatch")
     layer3_owner_output = layer3.get("current_owner_output")
@@ -156,7 +220,11 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
         isinstance(layer3_owner_output, dict)
         and layer3_owner_output.get("path") == "Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json"
         and layer3_owner_output.get("producer") == "iris_tooling.build.build_layer3_english_localization"
-        and layer3_owner_output.get("entry_count") == 1314,
+        and layer3_owner_output.get("schema_version") == LAYER3_OWNER_OUTPUT_V2
+        and isinstance(layer3_owner_output.get("fact_entry_count"), int)
+        and isinstance(layer3_owner_output.get("absence_entry_count"), int)
+        and layer3_owner_output.get("entry_count")
+        == layer3_owner_output.get("fact_entry_count") + layer3_owner_output.get("absence_entry_count"),
         "Layer 3 current Tooltip owner output adoption mismatch",
     )
     menu_evidence_ownership = layer3.get("menu_consumer_evidence_ownership")
@@ -168,7 +236,12 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
         "Layer 3 Menu consumer evidence ownership mismatch",
     )
     absence = layer3.get("absence_mapping")
-    _require(isinstance(absence, dict) and absence.get("missing_owner_row") == "upstream_identity_correction_required", "Layer 3 absence mapping mismatch")
+    _require(
+        isinstance(absence, dict)
+        and absence.get("approved_explicit_owner_absence") == "legitimate_absence"
+        and absence.get("missing_owner_row") == "upstream_identity_correction_required",
+        "Layer 3 absence mapping mismatch",
+    )
 
     layer4 = values[AUTHORITY_ROOT / "layer4_tooltip_projection_contract.json"]
     _require(layer4.get("maximum_selected") == 2, "Layer 4 capacity mismatch")
@@ -250,6 +323,9 @@ def validate_contracts(repository_root: Path, supplied_decision_sha256: str) -> 
         _require(len(adopted_entries) == 1 and adopted_entries[0].get("sha256") == adoption["sha256"] and adopted_entries[0].get("classification") == "current", "Layer 4 exact current authority manifest adoption missing")
         layer3_owner_output = values[AUTHORITY_ROOT / "layer3_tooltip_input_contract.json"]["current_owner_output"]
         layer3_owner_value = load_json(repository_root / layer3_owner_output["path"])
+        fact_entries, absence_entries = validate_layer3_owner_output(layer3_owner_value)
+        _require(len(fact_entries) == layer3_owner_output.get("fact_entry_count"), "Layer 3 current fact count mismatch")
+        _require(len(absence_entries) == layer3_owner_output.get("absence_entry_count"), "Layer 3 current absence count mismatch")
         _require(
             sha256_bytes(canonical_bytes(layer3_owner_value)) == layer3_owner_output.get("canonical_sha256"),
             "Layer 3 current Tooltip owner output canonical SHA-256 mismatch",

@@ -15,7 +15,7 @@ from iris_tooling.domains.tooltip_t1.audit import (
     source_mutation_count,
     validate_whole_universe,
 )
-from iris_tooling.domains.tooltip_t1.contract import canonical_bytes, git_subject, sha256_file
+from iris_tooling.domains.tooltip_t1.contract import AUTHORITY_ROOT, canonical_bytes, git_subject, load_json, sha256_file
 from iris_tooling.domains.tooltip_t1.models import (
     LocaleSurfaceReadiness,
     SemanticSlotState,
@@ -202,6 +202,7 @@ def test_minimal_t2_handoff_mock_consumer(case: str) -> None:
         ("owner_output_self_comparison", None),
         ("candidate_pre_gate_axis", None),
         ("nonblocking_correction", None),
+        ("d3_owner_absence_nonblocking", None),
         ("gate_failure", None),
         ("gate_subject_mismatch", None),
         ("gate_same_subject_success", None),
@@ -257,6 +258,19 @@ def test_whole_universe_audit_progression(case: str, expected: T2Progression | N
         assert progression["blocking_cause_owners"] == ["DVF owner"]
         assert by_owner == {"DVF owner": 1}
         assert progression["T2_FULL_DATA_PROGRESSION"] == T2Progression.UPSTREAM.value
+        return
+    if case == "d3_owner_absence_nonblocking":
+        root = Path(__file__).resolve().parents[3]
+        registry = load_json(root / AUTHORITY_ROOT / "tooltip_readiness_reason_registry.json")
+        reasons = {row["code"]: row for row in registry["reasons"]}
+        assert reasons["DVF_NO_APPROVED_DESCRIPTION_MATERIAL"] == {
+            "code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+            "owner": "DVF owner",
+            "layer": "layer3",
+            "t2_blocking": False,
+            "acceptance": "owner-approved exact FullType absence bound to producer-independent technical/locale/quality/review defect exclusion evidence",
+            "re_audit": "when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes",
+        }
         return
     if case in {"gate_failure", "gate_subject_mismatch", "gate_same_subject_success"}:
         root = Path(__file__).resolve().parents[3]

@@ -21,6 +21,9 @@ CURRENT_GENERATION_ROOT_RELATIVE_PATH = (
 TOOLTIP_T1_OWNER_OUTPUT_RELATIVE_PATH = (
     "Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json"
 )
+TOOLTIP_T1_D3_REGISTRY_RELATIVE_PATH = (
+    "Iris/_docs/authority/dvf/tooltip_t1_d3_disposition_registry.json"
+)
 
 
 PRIMARY_USE_SOURCE_SHA256 = "458d62d474b2e2295a3f591083fd65b6ff8883293fa7658b2b9aad4a3ac28799"
@@ -850,11 +853,47 @@ def _write_tooltip_t1_owner_output(
     entries: dict[str, dict[str, object]],
     generation_id: str,
 ) -> Path:
+    registry_path = repository_root / TOOLTIP_T1_D3_REGISTRY_RELATIVE_PATH
+    absence_entries: dict[str, dict[str, object]] = {}
+    if registry_path.is_file():
+        registry = json.loads(registry_path.read_text(encoding="utf-8"))
+        if registry.get("schema_version") != "iris-tooltip-t1-d3-disposition-registry-v1":
+            raise RuntimeError("TOOLTIP_T1_D3_REGISTRY_SCHEMA_INVALID")
+        registry_entries = registry.get("entries")
+        if not isinstance(registry_entries, dict):
+            raise RuntimeError("TOOLTIP_T1_D3_REGISTRY_ENTRIES_INVALID")
+        if registry.get("target_count") != len(registry_entries) or registry.get("terminal_distribution") != {"A": 0, "B": len(registry_entries), "blocked": 0}:
+            raise RuntimeError("TOOLTIP_T1_D3_REGISTRY_DISTRIBUTION_INVALID")
+        for full_type, row in sorted(registry_entries.items()):
+            if not isinstance(row, dict) or row.get("exact_full_type") != full_type:
+                raise RuntimeError(f"TOOLTIP_T1_D3_REGISTRY_IDENTITY_INVALID:{full_type}")
+            if row.get("intended_disposition") != "approved_legitimate_absence":
+                continue
+            absence_entries[full_type] = {
+                "exact_full_type": full_type,
+                "disposition": "approved_legitimate_absence",
+                "absence_reason_code": row["absence_reason_code"],
+                "owner": row["owner"],
+                "acceptance_evidence": row["acceptance_evidence"],
+                "applicable_scope": row["applicable_scope"],
+                "reaudit_condition": row["reaudit_condition"],
+                "authority_decision_ref": row["authority_decision_ref"],
+            }
+    from iris_tooling.domains.tooltip_t1.contract import canonical_bytes, sha256_bytes
+
     output_path = repository_root / TOOLTIP_T1_OWNER_OUTPUT_RELATIVE_PATH
     payload = {
-        "schema_version": "iris-tooltip-t1-layer3-owner-input-v1",
+        "schema_version": "iris-tooltip-t1-layer3-owner-input-v2",
         "producer": "iris_tooling.build.build_layer3_english_localization",
         "generation_id": generation_id,
+        "absence_entries": absence_entries,
+        "manifest": {
+            "fact_entry_count": len(entries),
+            "absence_entry_count": len(absence_entries),
+            "total_owner_row_count": len(entries) + len(absence_entries),
+            "fact_entries_sha256": sha256_bytes(canonical_bytes(entries)),
+            "absence_entries_sha256": sha256_bytes(canonical_bytes(absence_entries)),
+        },
         "entries": entries,
     }
     output_path.write_text(
@@ -863,6 +902,22 @@ def _write_tooltip_t1_owner_output(
         newline="\n",
     )
     return output_path
+
+
+def publish_tooltip_t1_owner_only(repository_root: Path) -> dict[str, object]:
+    """Regenerate only the metadata owner projection, never locale runtime bytes."""
+
+    tooltip_entries, generation_id = build_tooltip_t1_owner_entries(repository_root)
+    output = _write_tooltip_t1_owner_output(repository_root, tooltip_entries, generation_id)
+    payload = json.loads(output.read_text(encoding="utf-8"))
+    return {
+        "status": "BUILT",
+        "generation_id": generation_id,
+        "fact_entries": len(payload["entries"]),
+        "absence_entries": len(payload["absence_entries"]),
+        "tooltip_t1_owner_output": str(output),
+        "runtime_locale_write_set": [],
+    }
 
 
 def main() -> int:

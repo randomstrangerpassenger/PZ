@@ -1,4 +1,2281 @@
 {
+  "absence_entries": {
+    "Base.Bandage_Abdomen": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_Abdomen",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_Abdomen",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_Abdomen when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_Abdomen_Blood": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_Abdomen_Blood",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_Abdomen_Blood",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_Abdomen_Blood when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_Chest": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_Chest",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_Chest",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_Chest when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_Chest_Blood": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_Chest_Blood",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_Chest_Blood",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_Chest_Blood when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_Groin": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_Groin",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_Groin",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_Groin when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_Groin_Blood": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_Groin_Blood",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_Groin_Blood",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_Groin_Blood when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_Head": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_Head",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_Head",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_Head when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_Head_Blood": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_Head_Blood",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_Head_Blood",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_Head_Blood when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_LeftFoot": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_LeftFoot",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_LeftFoot",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_LeftFoot when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_LeftFoot_Blood": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_LeftFoot_Blood",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_LeftFoot_Blood",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_LeftFoot_Blood when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_LeftHand": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_LeftHand",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_LeftHand",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_LeftHand when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_LeftHand_Blood": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_LeftHand_Blood",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_LeftHand_Blood",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_LeftHand_Blood when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_LeftLowerArm": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_LeftLowerArm",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_LeftLowerArm",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_LeftLowerArm when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_LeftLowerArm_Blood": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_LeftLowerArm_Blood",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_LeftLowerArm_Blood",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_LeftLowerArm_Blood when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_LeftLowerLeg": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_LeftLowerLeg",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_LeftLowerLeg",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_LeftLowerLeg when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_LeftLowerLeg_Blood": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_LeftLowerLeg_Blood",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_LeftLowerLeg_Blood",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_LeftLowerLeg_Blood when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_LeftUpperArm": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_LeftUpperArm",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_LeftUpperArm",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_LeftUpperArm when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_LeftUpperArm_Blood": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_LeftUpperArm_Blood",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_LeftUpperArm_Blood",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_LeftUpperArm_Blood when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_LeftUpperLeg": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_LeftUpperLeg",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_LeftUpperLeg",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_LeftUpperLeg when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_LeftUpperLeg_Blood": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_LeftUpperLeg_Blood",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_LeftUpperLeg_Blood",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_LeftUpperLeg_Blood when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_Neck": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_Neck",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_Neck",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_Neck when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_Neck_Blood": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_Neck_Blood",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_Neck_Blood",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_Neck_Blood when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_RightFoot": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_RightFoot",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_RightFoot",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_RightFoot when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_RightFoot_Blood": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_RightFoot_Blood",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_RightFoot_Blood",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_RightFoot_Blood when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_RightHand": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_RightHand",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_RightHand",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_RightHand when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_RightHand_Blood": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_RightHand_Blood",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_RightHand_Blood",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_RightHand_Blood when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_RightLowerArm": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_RightLowerArm",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_RightLowerArm",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_RightLowerArm when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_RightLowerArm_Blood": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_RightLowerArm_Blood",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_RightLowerArm_Blood",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_RightLowerArm_Blood when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_RightLowerLeg": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_RightLowerLeg",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_RightLowerLeg",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_RightLowerLeg when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_RightLowerLeg_Blood": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_RightLowerLeg_Blood",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_RightLowerLeg_Blood",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_RightLowerLeg_Blood when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_RightUpperArm": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_RightUpperArm",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_RightUpperArm",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_RightUpperArm when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_RightUpperArm_Blood": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_RightUpperArm_Blood",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_RightUpperArm_Blood",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_RightUpperArm_Blood when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_RightUpperLeg": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_RightUpperLeg",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_RightUpperLeg",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_RightUpperLeg when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Bandage_RightUpperLeg_Blood": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Bandage_RightUpperLeg_Blood",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Bandage_RightUpperLeg_Blood",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Bandage_RightUpperLeg_Blood when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.BareHands": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.BareHands",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.BareHands",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.BareHands when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Cigar": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Cigar",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Cigar",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Cigar when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Crayons": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Crayons",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Crayons",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Crayons when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Cube": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Cube",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Cube",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Cube when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.F_Hair_Stubble": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.F_Hair_Stubble",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.F_Hair_Stubble",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.F_Hair_Stubble when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.M_Beard_Stubble": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.M_Beard_Stubble",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.M_Beard_Stubble",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.M_Beard_Stubble when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.M_Hair_Stubble": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.M_Hair_Stubble",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.M_Hair_Stubble",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.M_Hair_Stubble when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Abdomen_Bite_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Abdomen_Bite_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Abdomen_Bite_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Abdomen_Bite_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Abdomen_Bite_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Abdomen_Bite_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Abdomen_Bite_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Abdomen_Bite_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Abdomen_Laceration_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Abdomen_Laceration_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Abdomen_Laceration_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Abdomen_Laceration_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Abdomen_Laceration_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Abdomen_Laceration_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Abdomen_Laceration_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Abdomen_Laceration_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Abdomen_Scratch_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Abdomen_Scratch_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Abdomen_Scratch_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Abdomen_Scratch_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Abdomen_Scratch_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Abdomen_Scratch_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Abdomen_Scratch_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Abdomen_Scratch_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Chest_Bite_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Chest_Bite_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Chest_Bite_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Chest_Bite_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Chest_Bite_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Chest_Bite_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Chest_Bite_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Chest_Bite_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Chest_Laceration_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Chest_Laceration_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Chest_Laceration_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Chest_Laceration_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Chest_Laceration_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Chest_Laceration_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Chest_Laceration_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Chest_Laceration_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Chest_Scratch_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Chest_Scratch_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Chest_Scratch_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Chest_Scratch_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Chest_Scratch_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Chest_Scratch_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Chest_Scratch_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Chest_Scratch_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Groin_Bite_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Groin_Bite_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Groin_Bite_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Groin_Bite_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Groin_Bite_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Groin_Bite_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Groin_Bite_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Groin_Bite_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Groin_Laceration_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Groin_Laceration_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Groin_Laceration_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Groin_Laceration_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Groin_Laceration_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Groin_Laceration_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Groin_Laceration_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Groin_Laceration_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Groin_Scratch_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Groin_Scratch_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Groin_Scratch_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Groin_Scratch_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Groin_Scratch_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Groin_Scratch_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Groin_Scratch_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Groin_Scratch_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_LForearm_Bite_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_LForearm_Bite_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_LForearm_Bite_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_LForearm_Bite_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_LForearm_Bite_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_LForearm_Bite_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_LForearm_Bite_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_LForearm_Bite_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_LForearm_Laceration_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_LForearm_Laceration_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_LForearm_Laceration_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_LForearm_Laceration_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_LForearm_Laceration_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_LForearm_Laceration_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_LForearm_Laceration_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_LForearm_Laceration_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_LForearm_Scratch_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_LForearm_Scratch_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_LForearm_Scratch_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_LForearm_Scratch_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_LForearm_Scratch_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_LForearm_Scratch_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_LForearm_Scratch_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_LForearm_Scratch_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_LHand_Bite_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_LHand_Bite_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_LHand_Bite_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_LHand_Bite_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_LHand_Bite_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_LHand_Bite_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_LHand_Bite_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_LHand_Bite_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_LHand_Laceration_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_LHand_Laceration_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_LHand_Laceration_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_LHand_Laceration_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_LHand_Laceration_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_LHand_Laceration_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_LHand_Laceration_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_LHand_Laceration_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_LHand_Scratch_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_LHand_Scratch_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_LHand_Scratch_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_LHand_Scratch_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_LHand_Scratch_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_LHand_Scratch_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_LHand_Scratch_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_LHand_Scratch_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_LUArm_Bite_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_LUArm_Bite_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_LUArm_Bite_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_LUArm_Bite_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_LUArm_Bite_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_LUArm_Bite_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_LUArm_Bite_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_LUArm_Bite_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_LUArm_Laceration_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_LUArm_Laceration_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_LUArm_Laceration_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_LUArm_Laceration_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_LUArm_Laceration_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_LUArm_Laceration_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_LUArm_Laceration_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_LUArm_Laceration_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_LUArm_Scratch_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_LUArm_Scratch_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_LUArm_Scratch_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_LUArm_Scratch_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_LUArm_Scratch_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_LUArm_Scratch_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_LUArm_Scratch_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_LUArm_Scratch_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Neck_Bite_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Neck_Bite_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Neck_Bite_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Neck_Bite_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Neck_Bite_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Neck_Bite_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Neck_Bite_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Neck_Bite_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Neck_Laceration_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Neck_Laceration_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Neck_Laceration_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Neck_Laceration_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Neck_Laceration_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Neck_Laceration_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Neck_Laceration_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Neck_Laceration_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Neck_Scratch_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Neck_Scratch_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Neck_Scratch_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Neck_Scratch_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_Neck_Scratch_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_Neck_Scratch_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_Neck_Scratch_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_Neck_Scratch_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_RForearm_Bite_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_RForearm_Bite_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_RForearm_Bite_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_RForearm_Bite_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_RForearm_Bite_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_RForearm_Bite_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_RForearm_Bite_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_RForearm_Bite_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_RForearm_Laceration_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_RForearm_Laceration_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_RForearm_Laceration_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_RForearm_Laceration_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_RForearm_Laceration_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_RForearm_Laceration_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_RForearm_Laceration_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_RForearm_Laceration_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_RForearm_Scratch_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_RForearm_Scratch_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_RForearm_Scratch_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_RForearm_Scratch_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_RForearm_Scratch_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_RForearm_Scratch_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_RForearm_Scratch_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_RForearm_Scratch_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_RHand_Bite_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_RHand_Bite_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_RHand_Bite_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_RHand_Bite_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_RHand_Bite_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_RHand_Bite_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_RHand_Bite_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_RHand_Bite_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_RHand_Laceration_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_RHand_Laceration_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_RHand_Laceration_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_RHand_Laceration_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_RHand_Laceration_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_RHand_Laceration_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_RHand_Laceration_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_RHand_Laceration_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_RHand_Scratch_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_RHand_Scratch_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_RHand_Scratch_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_RHand_Scratch_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_RHand_Scratch_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_RHand_Scratch_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_RHand_Scratch_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_RHand_Scratch_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_RUArm_Bite_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_RUArm_Bite_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_RUArm_Bite_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_RUArm_Bite_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_RUArm_Bite_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_RUArm_Bite_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_RUArm_Bite_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_RUArm_Bite_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_RUArm_Laceration_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_RUArm_Laceration_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_RUArm_Laceration_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_RUArm_Laceration_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_RUArm_Laceration_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_RUArm_Laceration_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_RUArm_Laceration_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_RUArm_Laceration_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_RUArm_Scratch_Female": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_RUArm_Scratch_Female",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_RUArm_Scratch_Female",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_RUArm_Scratch_Female when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.Wound_RUArm_Scratch_Male": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.Wound_RUArm_Scratch_Male",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.Wound_RUArm_Scratch_Male",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.Wound_RUArm_Scratch_Male when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BACK_Slash": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BACK_Slash",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BACK_Slash",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BACK_Slash when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BACK_Spine": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BACK_Spine",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BACK_Spine",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BACK_Spine when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BELLY_Bullet": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BELLY_Bullet",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BELLY_Bullet",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BELLY_Bullet when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BELLY_Shotgun": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BELLY_Shotgun",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BELLY_Shotgun",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BELLY_Shotgun when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BELLY_Skin": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BELLY_Skin",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BELLY_Skin",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BELLY_Skin when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BELLY_Slash": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BELLY_Slash",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BELLY_Slash",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BELLY_Slash when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BellySlashLeft": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BellySlashLeft",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BellySlashLeft",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BellySlashLeft when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BellySlashRight": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BellySlashRight",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BellySlashRight",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BellySlashRight when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BulletBelly01": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BulletBelly01",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BulletBelly01",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BulletBelly01 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BulletBelly02": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BulletBelly02",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BulletBelly02",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BulletBelly02 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BulletBelly03": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BulletBelly03",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BulletBelly03",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BulletBelly03 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BulletChest01": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BulletChest01",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BulletChest01",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BulletChest01 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BulletChest02": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BulletChest02",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BulletChest02",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BulletChest02 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BulletChest03": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BulletChest03",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BulletChest03",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BulletChest03 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BulletChest04": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BulletChest04",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BulletChest04",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BulletChest04 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BulletFace01": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BulletFace01",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BulletFace01",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BulletFace01 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BulletFace02": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BulletFace02",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BulletFace02",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BulletFace02 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BulletForehead01": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BulletForehead01",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BulletForehead01",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BulletForehead01 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BulletForehead02": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BulletForehead02",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BulletForehead02",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BulletForehead02 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BulletForehead03": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BulletForehead03",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BulletForehead03",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BulletForehead03 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BulletLeftTemple": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BulletLeftTemple",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BulletLeftTemple",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BulletLeftTemple when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_BulletRightTemple": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_BulletRightTemple",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_BulletRightTemple",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_BulletRightTemple when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_CHEST_Bullet": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_CHEST_Bullet",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_CHEST_Bullet",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_CHEST_Bullet when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_CHEST_Shotgun": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_CHEST_Shotgun",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_CHEST_Shotgun",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_CHEST_Shotgun when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_CHEST_Slash": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_CHEST_Slash",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_CHEST_Slash",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_CHEST_Slash when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_ChestSlashLeft": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_ChestSlashLeft",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_ChestSlashLeft",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_ChestSlashLeft when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_FaceSkullLeft": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_FaceSkullLeft",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_FaceSkullLeft",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_FaceSkullLeft when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_FaceSkullRight": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_FaceSkullRight",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_FaceSkullRight",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_FaceSkullRight when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_HEAD_Bullet": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_HEAD_Bullet",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_HEAD_Bullet",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_HEAD_Bullet when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_HEAD_Shotgun": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_HEAD_Shotgun",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_HEAD_Shotgun",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_HEAD_Shotgun when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_HEAD_Skin": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_HEAD_Skin",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_HEAD_Skin",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_HEAD_Skin when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_HEAD_Slash": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_HEAD_Slash",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_HEAD_Slash",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_HEAD_Slash when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_HeadSlashCentre01": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_HeadSlashCentre01",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_HeadSlashCentre01",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_HeadSlashCentre01 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_HeadSlashCentre02": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_HeadSlashCentre02",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_HeadSlashCentre02",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_HeadSlashCentre02 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_HeadSlashCentre03": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_HeadSlashCentre03",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_HeadSlashCentre03",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_HeadSlashCentre03 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_HeadSlashLeft01": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_HeadSlashLeft01",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_HeadSlashLeft01",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_HeadSlashLeft01 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_HeadSlashLeft02": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_HeadSlashLeft02",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_HeadSlashLeft02",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_HeadSlashLeft02 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_HeadSlashLeft03": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_HeadSlashLeft03",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_HeadSlashLeft03",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_HeadSlashLeft03 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_HeadSlashLeftBack01": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_HeadSlashLeftBack01",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_HeadSlashLeftBack01",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_HeadSlashLeftBack01 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_HeadSlashLeftBack02": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_HeadSlashLeftBack02",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_HeadSlashLeftBack02",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_HeadSlashLeftBack02 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_HeadSlashRight01": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_HeadSlashRight01",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_HeadSlashRight01",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_HeadSlashRight01 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_HeadSlashRight02": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_HeadSlashRight02",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_HeadSlashRight02",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_HeadSlashRight02 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_HeadSlashRight03": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_HeadSlashRight03",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_HeadSlashRight03",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_HeadSlashRight03 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_HeadSlashRightBack01": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_HeadSlashRightBack01",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_HeadSlashRightBack01",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_HeadSlashRightBack01 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_HeadSlashRightBack02": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_HeadSlashRightBack02",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_HeadSlashRightBack02",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_HeadSlashRightBack02 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_Mouth01": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_Mouth01",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_Mouth01",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_Mouth01 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_Mouth02": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_Mouth02",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_Mouth02",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_Mouth02 when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_MouthLeft": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_MouthLeft",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_MouthLeft",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_MouthLeft when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_MouthRight": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_MouthRight",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_MouthRight",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_MouthRight when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_NECK_Bite": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_NECK_Bite",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_NECK_Bite",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_NECK_Bite when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_NeckBiteBackLeft": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_NeckBiteBackLeft",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_NeckBiteBackLeft",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_NeckBiteBackLeft when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_NeckBiteBackRight": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_NeckBiteBackRight",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_NeckBiteBackRight",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_NeckBiteBackRight when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_NeckBiteFrontLeft": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_NeckBiteFrontLeft",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_NeckBiteFrontLeft",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_NeckBiteFrontLeft when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_NeckBiteFrontRight": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_NeckBiteFrontRight",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_NeckBiteFrontRight",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_NeckBiteFrontRight when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_NoChin": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_NoChin",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_NoChin",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_NoChin when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_NoEarLeft": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_NoEarLeft",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_NoEarLeft",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_NoEarLeft when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_NoEarRight": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_NoEarRight",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_NoEarRight",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_NoEarRight when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_NoNose": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_NoNose",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_NoNose",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_NoNose when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_RibsLeft": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_RibsLeft",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_RibsLeft",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_RibsLeft when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_RibsRight": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_RibsRight",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_RibsRight",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_RibsRight when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_ShotgunBelly": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_ShotgunBelly",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_ShotgunBelly",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_ShotgunBelly when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_ShotgunChestCentre": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_ShotgunChestCentre",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_ShotgunChestCentre",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_ShotgunChestCentre when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_ShotgunChestLeft": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_ShotgunChestLeft",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_ShotgunChestLeft",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_ShotgunChestLeft when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_ShotgunChestRight": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_ShotgunChestRight",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_ShotgunChestRight",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_ShotgunChestRight when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_ShotgunFaceFull": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_ShotgunFaceFull",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_ShotgunFaceFull",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_ShotgunFaceFull when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_ShotgunFaceLeft": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_ShotgunFaceLeft",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_ShotgunFaceLeft",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_ShotgunFaceLeft when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_ShotgunFaceRight": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_ShotgunFaceRight",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_ShotgunFaceRight",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_ShotgunFaceRight when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_ShotgunLeft": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_ShotgunLeft",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_ShotgunLeft",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_ShotgunLeft when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_ShotgunRight": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_ShotgunRight",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_ShotgunRight",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_ShotgunRight when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_ShoulderSlashLeft": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_ShoulderSlashLeft",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_ShoulderSlashLeft",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_ShoulderSlashLeft when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_ShoulderSlashRight": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_ShoulderSlashRight",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_ShoulderSlashRight",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_ShoulderSlashRight when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_SkullCap": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_SkullCap",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_SkullCap",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_SkullCap when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_SkullUpLeft": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_SkullUpLeft",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_SkullUpLeft",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_SkullUpLeft when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    },
+    "Base.ZedDmg_SkullUpRight": {
+      "absence_reason_code": "DVF_NO_APPROVED_DESCRIPTION_MATERIAL",
+      "acceptance_evidence": {
+        "artifact": "d3_independent_defect_exclusion_verdict.json",
+        "sha256": "9b75159821b504b67d73abf939f5bcdcb19f955a9bdd9fb24f0a1d3732348a28"
+      },
+      "applicable_scope": "Base.ZedDmg_SkullUpRight",
+      "authority_decision_ref": "user_prompt_owner_gate_preapproval_2026-08-29",
+      "disposition": "approved_legitimate_absence",
+      "exact_full_type": "Base.ZedDmg_SkullUpRight",
+      "owner": "DVF owner",
+      "reaudit_condition": "re-audit Base.ZedDmg_SkullUpRight when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes"
+    }
+  },
   "entries": {
     "Base.223Box": {
       "authority_ref": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/dvf_3_3_rendered.json#entries/Base.223Box/role_material/core_source_fact_ids",
@@ -19712,6 +21989,13 @@
     }
   },
   "generation_id": "dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9",
+  "manifest": {
+    "absence_entries_sha256": "ef0e2b6b8277f2ba08361656ed2131f362380aaf1feb4823c2ab05df483bd187",
+    "absence_entry_count": 175,
+    "fact_entries_sha256": "19d6f6aa7bc0409687d8247aa1496febfa019188d658a95709fa6ea540a66cc5",
+    "fact_entry_count": 1314,
+    "total_owner_row_count": 1489
+  },
   "producer": "iris_tooling.build.build_layer3_english_localization",
-  "schema_version": "iris-tooltip-t1-layer3-owner-input-v1"
+  "schema_version": "iris-tooltip-t1-layer3-owner-input-v2"
 }

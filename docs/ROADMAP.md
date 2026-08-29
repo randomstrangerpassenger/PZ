@@ -540,6 +540,14 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - 2026-08-28 corrective subject `6b7118dc229bf8138302696e1aa5e5b7454589dc`에서 focused 6-family `62 passed`, installed candidate invariant, canonical Run A/Run B와 deterministic comparator가 모두 exit 0이었고 post-gate finalizer가 `complete/complete` closeout을 생성했다.
   - `Base.LemonGrass` / `Base.Lemongrass` normalized collision blocker 2건을 복원하고, DVF owner의 Menu consumer self-attestation을 제거했다. Layer 3 selected `1,314`건은 shared-authority relation만 확인된 `unverified_without_independent_consumer_evidence`이며 T3 재검증 대상으로 남는다.
   - 최초 correction `7,111` 중 authority가 실제로 닫은 범위는 DVF fact readiness `1,314`와 current right-click locale `172`, 합계 `1,486`이다. 최종 T2-blocking correction은 `5,625`이며 production T2 handoff input/manifest는 `0`이다.
+  - T1-D3 parallel workstream은 frozen exact `DVF_OWNER_ROW_MISSING` 175건을 owner-approved legitimate absence로 닫았다. Workstream distribution은 `A=0`, `B=175`, blocked `0`이고 target SHA-256은 `accbe1ae691e41b1697f080f26b8206a08e261039bb7919879f67f4b5d7ef238`다.
+  - D3 candidate whole-T1 re-audit는 support `2,280`, correction `5,450`, D3 owner-row missing `0`을 산출했다. 기존 fact `1,314`, empty-core `791`, current generation/pointer, Layer3English와 Lua runtime은 변경하지 않았다.
+  - Focused Tooltip T1 tests `65 passed`, candidate Run A/B 동일 receipt, independent defect-exclusion/non-target invariance와 diff hygiene가 exit `0`이다. New test file/top-level test function delta는 `0`이다.
+  - T1-D3 workstream bundle은 `complete`지만 current ecosystem adoption은 `pending_T1_D6`다. 따라서 integrated current blocker `5,625`, `BLOCKED_BY_UPSTREAM_CORRECTIONS`와 production handoff `0`은 D6 전까지 유지한다.
+  - T1-D4 parallel workstream은 frozen selected Recipe instance 444건, exact identity 266개에 QG-approved KO/EN pair를 제공해 candidate `LOCALE_SELECTED_SURFACE_MISSING` 888건을 `0`으로 닫았다. Selection identity/order, source distribution, Right-click route와 other-owner ledger는 변경하지 않았다.
+  - D4 candidate whole-T1 re-audit는 support `2,280`, correction `4,737`을 산출했다. Focused Tooltip T1 tests `67 passed`, materializer Run A/B bytes 동일, exact reconciliation/whole audit/protected-path/bundle validation exit `0`이다.
+  - D4 support freeze는 predecessor exact set과 missing/extra `0`으로 같고 canonical ordered-set SHA-256은 `3a6cc24b9ad64e06a0a6c0408821201e35bbd1d8558e6245809b5d3c34265ce6`이다. 초기 JSON-array hash binding은 serialization-only 오류였으며 corrected external bundle/receipt로 교체했다.
+  - T1-D4 bundle도 `complete`지만 current ecosystem adoption은 `pending_T1_D6`다. D3/D4 candidate correction 수치는 독립 predecessor 결과이므로 서로 합산하거나 current blocker `5,625`를 대체하지 않는다.
 
 ## Doing
 
@@ -559,6 +567,8 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
 
 - Tooltip `T1-C: Upstream Correction Closure and T2 Readiness Opening`은 formal T1 재설계가 아니라 남은 owner correction closure로 계속 분리한다.
   - 현재 blocker는 Classification `2,280`, DVF `175`, Iris presentation-contract `2`, Menu consumer `2,280`, QG/locale `888`, 합계 `5,625`다.
+  - T1-D3 candidate는 DVF 175를 닫아 candidate blocker `5,450`을 만들었지만, shared-path merge와 global current adoption은 T1-D6가 수행한다. D6 전에는 current blocker 표를 candidate 수치로 교체하지 않는다.
+  - T1-D4 candidate는 QG/locale 888을 닫아 candidate blocker `4,737`을 만들었다. T1-D6는 corrected D4 bundle만 소비하고, 모든 workstream의 predecessor/support/hash compatibility와 shared delta를 검증한 단일 integration subject에서 whole-T1 audit를 수행한다.
   - owner authority에 없는 의미, 문장, 추천, fallback 또는 Menu consumer evidence를 Tooltip assembler가 발명하지 않는다.
   - 동일 owner/root-cause의 producer output을 정규 경로로 교정하고 새 exact subject에서 re-audit한다.
   - blocker가 `0`이 되기 전에는 progression을 `OPEN`으로 바꾸거나 production T2 handoff를 생성하지 않으며 T2 static generator/runtime 구현을 시작하지 않는다.

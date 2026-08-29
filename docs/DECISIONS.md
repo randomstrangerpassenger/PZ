@@ -1944,6 +1944,7 @@
   - T1-D2 external bundle manifest SHA-256: `25cc173f9b47effb23b0c4823cc33be82b012ba8e9f6c1281172bdf50e62b39d`; lifecycle evidence이며 canonical/regular validator authority가 아니다.
   - T1-D6 machine-validation subject: `b30aaff2da6172ab5137c55bb460889aa527ad04` / tree `7cdd52fd61f739b5018a62d8bffe84461dfea50c`
   - T1-D6 strict handoff manifest SHA-256: `15a4a089fdde7eeb70fd0f1e21d77872b90fdaec8130d45605edac52d67fb892`; final closeout SHA-256: `f8d6bcbef0e71d57fe36be36504a5ffcea1696953b7d8280deeba911fdcecab6`
+  - Repository-external final-root correction carrier는 commit `8e972950b7b699b435d9b21e54432af94fc42f53`, tree `51cb94b963493411dd31dd3c4f21cb79797e2f69`다. Installed final current readback은 exit `0`으로 external root, exact machine subject와 `adopted / complete / complete / OPEN / present`를 확인했다.
   - 이 docs-only successor는 위 machine subject나 external receipt identity를 대체하거나 재귀속하지 않는다.
   - detailed policy: `docs/iris_tooltip_t1_display_contract_policy.md`
   - COMMON-EVIDENCE-TRACE.

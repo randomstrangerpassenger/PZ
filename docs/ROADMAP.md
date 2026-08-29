@@ -557,6 +557,8 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - T1-D4 bundle도 `complete`지만 current ecosystem adoption은 `pending_T1_D6`다. D3/D4 candidate correction 수치는 독립 predecessor 결과이므로 서로 합산하거나 current blocker `5,625`를 대체하지 않는다.
   - T1-D6 strict handoff는 exact `2,280` rows이며 input SHA-256 `138b6f4ef85a2235fa41e6d60d88e885c6f6f93a8bb0458a7d6ac4dce7af56ac`, manifest SHA-256 `15a4a089fdde7eeb70fd0f1e21d77872b90fdaec8130d45605edac52d67fb892`로 current route에 채택됐다.
   - Fresh wheel/installed CLI, canonical Run A/Run B, deterministic comparator와 기존 finalizer가 모두 exit `0`이다. Final closeout SHA-256은 `f8d6bcbef0e71d57fe36be36504a5ffcea1696953b7d8280deeba911fdcecab6`이고 상태는 `complete / complete / OPEN / present`다.
+  - Canonical final root는 repository-external `C:/Users/MW/Downloads/coding/PZ-tooltip-t1-d6-final-b30aaff2`다. Path correction carrier `8e972950b7b699b435d9b21e54432af94fc42f53` 이후 installed current readback이 exit `0`으로 `adopted / complete / complete / OPEN / present`를 확인했으며, 선행 내부 `.tmp` materialization은 superseded ephemeral output이다.
+  - Windows directory publish blocker는 generation bytes나 manifest visibility 의미를 바꾸지 않는 `shutil.move` fallback으로 닫았다. T1-D6 완료를 위해 사용한 exact machine subject와 canonical receipt chain은 경로 정정 과정에서 재실행하거나 재결속하지 않았다.
   - 이 완료는 Tooltip T1 upstream input과 T2 handoff 경계만 연다. Static Tooltip Lua, runtime/visual 검증, T2/T3 구현과 release readiness는 다음 단계의 별도 gate다.
 
 ## Doing

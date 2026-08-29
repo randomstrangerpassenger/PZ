@@ -431,7 +431,7 @@ D1 successor의 optional Layer 2 partition과 D2 actual consumer relation은 각
 
 - Machine-validation subject는 commit `b30aaff2da6172ab5137c55bb460889aa527ad04`, tree `7cdd52fd61f739b5018a62d8bffe84461dfea50c`다. Same-subject D2 relation과 whole-T1 audit가 support `2,280`, `verified 1,406`, `not_applicable 874`, correction/blocker `0`을 결속한다.
 - Strict candidate는 `subject_binding.json`, exact `2,280`-row `t2_handoff_input.jsonl`, manifest와 candidate receipt만 운반한다. Finalizer는 successful Run A/Run B/comparator subject equality를 확인한 뒤 세 candidate file을 byte-identical하게 복사하고 axis-separated closeout만 추가한다.
-- Current route는 final root `C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-bd1ba41f/final-b30aaff2`와 네 artifact hash를 explicit하게 가리킨다. Mutable latest pointer, 새 validator, semantic producer 또는 validation-of-validation 계층은 추가하지 않는다.
+- Current route는 repository-external final root `C:/Users/MW/Downloads/coding/PZ-tooltip-t1-d6-final-b30aaff2`와 네 artifact hash를 explicit하게 가리킨다. 선행 repository-internal `.tmp` materialization은 superseded ephemeral output이며 canonical current가 아니다. Mutable latest pointer, 새 validator, semantic producer 또는 validation-of-validation 계층은 추가하지 않는다.
 - Windows DVF directory publish는 `shutil.move`로 rename-first/copy-remove fallback을 허용하되, runtime visibility의 유일한 선형화 지점인 regular-file manifest `os.replace`는 유지한다. 이 교정은 generation semantic bytes, owner authority 또는 runtime pointer contract를 변경하지 않는다.
 - 이 snapshot의 `complete / complete / OPEN / present`는 Tooltip T1 upstream readiness와 production T2 input 경계에만 적용한다. Static Tooltip Lua, runtime/visual 검증, T2/T3 구현, packaging과 release readiness는 포함하지 않는다.
 

@@ -1846,9 +1846,9 @@
 
 ### Iris Tooltip T1 — display contract / upstream input readiness boundary
 
-- 날짜: 2026-08-27 → 2026-08-28 corrective refinement → 2026-08-29 T1-D1/D3/D4/D5 workstream successors
+- 날짜: 2026-08-27 → 2026-08-28 corrective refinement → 2026-08-29 T1-D1/D2/D3/D4/D5 workstream successors
 
-- 상태: current owner-ratified offline contract / contract-audit formal complete / T1-D1/D3/D4/D5 correction bundles complete / D2 partition ready / global current adoption pending T1-D6 / T2 progression blocked by remaining upstream corrections
+- 상태: current owner-ratified offline contract / contract-audit formal complete / T1-D1/D2/D3/D4/D5 workstream bundles complete / global current adoption pending T1-D6 / global T2 progression state unchanged until integrated adoption
 
 - 결정: Tooltip은 applicable한 Layer 2 classification, optional Layer 3 core description과 최대 두 개의 Layer 4 public interaction identity를 S1→S4 순서로 투영한다. Layer 2(S1)는 모든 support FullType의 필수 semantic fact가 아니라 current Classification authority가 user-facing category와 admissible primary subcategory를 안전하게 제공할 때만 표시하는 optional navigation/display projection이다. T1은 semantic/public eligibility와 identity selection을 먼저 닫고 selected identity의 KO/EN 및 Menu evidence readiness를 나중에 판정하는 offline contract/audit owner로 한정한다.
 
@@ -1867,6 +1867,11 @@
   - selected identity는 locale/Menu readiness 전에 freeze한다. KO/EN fallback, locale별 reselection과 readiness가 더 좋은 차순위 substitution을 금지한다.
   - Menu/Tooltip parity는 identity relation이며 independent consumer evidence가 없는 shared-authority 범위는 `unverified_without_independent_consumer_evidence`로 남긴다. `same-authority`는 동일 fact source를 뜻할 뿐 두 surface의 coverage가 항상 동일하다는 뜻은 아니다.
   - D1은 D2에 `layer2_applicable 1,406` / `layer2_display_silence 874` exact partition을 제공한다. Menu correction `2,280`의 실제 consumer relation과 applicable/N/A parity는 D2가 소유하며 D1이 산술 차감하거나 재귀속하지 않는다.
+  - T1-D2는 support `2,280` 전체의 actual Lua consumer relation을 existing production Lua harness로 관찰해 exact coverage `2,280`을 확인했다. Terminal relation은 `verified 1,406` (`c5a77d86eb875cecf03edf5ab67f29361f58947bd97493e522667b593130f264`) + `not_applicable 874` (`d13fa6ac9072a3ab2c61bc59990bfb948010ce8b2fc3211aa1ecb7b5c6c121de`)이고 `correction_required=0`이다.
+  - D2의 bounded Browser correction은 accepted explicit `IrisPrimarySubcategory`가 `primaryTag`와 `primaryLocation`을 함께 정렬하도록 한다. Malformed/non-membership explicit primary는 fail-loud하고 membership buckets는 보존하며, explicit primary가 없으면 기존 presentation-rank 선택을 보존한다. Actual navigation delta는 `26` (`aeaa96db07490dd7193080ec1e0ee6c66a9e3893504451677887cf6a1ce00791`)이고 display-silence Menu delta, owner-output self-comparison, rendered-string inference와 normalized-key join은 모두 `0`이다.
+  - D2 audit는 artifact에 기록된 exact relation을 직접 소비한다. Applicable row는 exact Browser/Menu category-primary parity가 성립할 때 `verified`, D1 display-silence row는 consumer surface가 없을 때 `not_applicable`이며 missing/extra/mismatch는 fail-closed correction이다. D2 candidate whole-T1 audit의 correction `0`과 progression `OPEN`은 exact isolated subject의 결과일 뿐 global-current adoption, T2 runtime 시작 또는 production handoff authority가 아니다.
+  - D2 admission에서 predecessor registry hash-bound text는 단일 LF corpus가 아니라 declared-byte-compatible mixed LF/CRLF corpus임을 확인했다. Isolated checkout에서 raw/LF/CRLF hash를 대조해 declared serialization의 line ending만 materialize했고 normalized Git/content delta는 `0`이었다. Registry hash, authority, source 의미와 tracked Git content는 변경하지 않았으며 이 preparation을 repository validator나 새 authority로 승격하지 않는다.
+  - D2 final validation은 focused Tooltip suite `90 passed`, Browser owner direct unittest `2 tests OK`, Lua syntax `127 files OK`였다. Relation Run A/B artifact bytes는 동일했고 SHA-256은 `5e78c5616d14727c00585bd3671e9c0313b5490a1e6fc4b93af69b722ef4d7ce`, run receipt SHA-256은 `cffbd777030cc4ff2f8f7c6eaa0cd6fa5eee6d6f50f84e808638a4e01e82acea`다.
   - DVF owner output은 Menu consumer evidence를 스스로 발급하지 않는다. Layer 3 fact identity와 KO/EN surface readiness는 DVF owner가 소유하지만 `menu_consumer_fact_identity_refs` 같은 self-attestation을 Menu parity evidence로 사용할 수 없다.
   - current Layer 3 shared-authority relation은 pointer-selected `dvf_3_3_rendered.json`의 fact relation과 `IrisLayer3DataCurrent → IrisLayer3DataLookup → layer3_renderer → IrisItemDetailModelAssembler`의 동일 FullType 소비 경로로 추적한다. 이 relation만 있고 독립 Menu fact-identity observation이 없으면 selected Layer 3 parity는 `verified`가 아니라 `unverified_without_independent_consumer_evidence`다.
   - shared-authority relation이 성립한 Layer 3 consumer-evidence gap은 T3 재검증 대상으로 남기되 T2 blocker로 세지 않는다. relation 자체가 없거나 모순되면 Menu consumer owner correction과 T2 blocker로 fail-closed한다.
@@ -1931,6 +1936,8 @@
   - 선행 `C:/Users/MW/Downloads/coding/PZ-t1-d4-artifacts/d4-bundle`은 noncanonical support-hash binding 때문에 superseded이며 T1-D6 입력으로 사용하지 않는다.
   - T1-D5 implementation subject: `c86b4a747025aa593eddacd7d9c7de7c095ebad8` / tree `006acd132be465c6c5df7e832bd1a9c9c6925f5c`
   - corrected external D5 bundle receipt SHA-256: `c025e5d0f6b6c62a98dbeb54fa8aacbf572a3975c18869718c859d8aa4315046`; lifecycle evidence이며 canonical/regular validator authority가 아니다.
+  - T1-D2 implementation subject: `0e959b3bd7055d58f319fa9d69a5b110bf48b8b7` / tree `5dbc1a830e5a911eece943102c6078102c3d9611`; exact direct parent `cb27591e3c6ef40a1b1f08a6e2ceee7047132cf8` / tree `b23103ace037aa62fc1e24d04901d534de5cc2e8`
+  - T1-D2 external bundle manifest SHA-256: `25cc173f9b47effb23b0c4823cc33be82b012ba8e9f6c1281172bdf50e62b39d`; lifecycle evidence이며 canonical/regular validator authority가 아니다.
   - 이 docs-only successor는 위 machine subject나 external receipt identity를 대체하거나 재귀속하지 않는다.
   - detailed policy: `docs/iris_tooltip_t1_display_contract_policy.md`
   - COMMON-EVIDENCE-TRACE.

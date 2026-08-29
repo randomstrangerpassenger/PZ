@@ -362,7 +362,7 @@ exact current subject
 -> OPEN only: minimal mechanical T2 handoff
 ```
 
-D1 successor는 optional Layer 2 owner amendment에 따라 workstream `complete`이며 current ecosystem adoption은 `pending_T1_D6`다. 이 상태는 D2 구현, D6 integration, canonical full gate/finalizer 또는 production T2 handoff completion이 아니다.
+D1 successor의 optional Layer 2 partition과 D2 actual consumer relation은 각각 workstream `complete`이며 current ecosystem adoption은 `pending_T1_D6`다. 이 상태는 D6 integration, canonical full gate/finalizer 또는 production T2 handoff completion이 아니다.
 
 - Classification, DVF System과 QG가 Layer 2/3/4 semantic authority를 계속 소유한다. T1은 projection/readiness metadata만 소유한다.
 - Layer 2 S1은 current Classification authority가 user-facing category와 admissible primary subcategory를 제공할 때만 applicable하다. 나머지는 system-level source-state rule에 따른 display silence이며 S1 placeholder 없이 S2~S4를 compact한다.
@@ -383,7 +383,11 @@ D1 successor는 optional Layer 2 owner amendment에 따라 workstream `complete`
 - Parallel workstream bundle은 common predecessor와 support predicate가 같은데 frozen support hash가 다르면 `integration_impact.support_freeze_mismatch = true`로 fail-closed한다. Independent exact-set comparison에서 missing/extra가 모두 없고 canonical serialization만 잘못된 경우에만 common bytes로 bundle/receipt를 재발행하고 corrected bundle에 `false`와 serialization-only disposition을 기록할 수 있다.
 - Normalized FullType key는 collision discovery/diagnostic에만 쓰며 support, readiness와 correction ledger의 authoritative key로 저장하지 않는다. T1-D5 disposition은 `Base.LemonGrass` / `Base.Lemongrass` exact pair와 raw collision observation을 보존하고 해당 diagnostic correction projection만 제거한다.
 - T2 handoff는 ordered `slot_id`, semantic identity와 KO/EN surface만 포함한다. Raw tags, unselected candidates, audit/parity/readiness/owner/reason metadata를 포함하지 않는다.
-- D1→D2 handoff는 Layer 2 applicable `1,406` / display silence `874` partition을 제공한다. D2가 Menu `2,280` consumer relation과 applicable/N/A parity를 소유하며, same-authority는 동일 fact source이지 surface coverage identity가 아니다.
+- D1→D2 handoff는 Layer 2 applicable `1,406` / display silence `874` partition을 제공한다. D2는 Menu `2,280` actual consumer relation과 applicable/N/A parity를 소유하며, same-authority는 동일 fact source이지 surface coverage identity가 아니다.
+- D2 actual observation path는 `IrisClassifications.lua -> StaticData.get("classifications") -> IrisBrowserProjectionBuilder.build -> Browser row -> IrisBrowserCategoryIndex.lua`이며 existing production Lua harness를 통해 full support set을 관찰한다. Relation artifact는 이 관찰을 exact FullType key로 운반하고 audit의 독립 입력이 되지만 runtime authority나 repository current pointer가 아니다.
+- Accepted explicit `IrisPrimarySubcategory`는 membership bucket을 재작성하지 않고 Browser row의 `primaryTag`와 `primaryLocation`을 같은 exact member로 정렬한다. Malformed/non-membership explicit primary는 fail-loud하며 explicit primary가 없을 때의 presentation-rank selection은 보존한다.
+- D2 disposition은 D1 applicable row의 exact category/primary parity를 `verified`, display-silence row의 consumer surface 부재를 `not_applicable`, missing/extra/mismatch를 `correction_required`로 투영한다. Rendered string, normalized FullType key, owner-output self-comparison이나 산술 차감은 join/evidence source가 아니다.
+- Hash-bound predecessor input의 LF/CRLF materialization은 isolated checkout preparation이다. Declared hash가 동일 Git blob text의 raw/LF/CRLF serialization 중 하나와 일치할 때 line ending만 맞추며 normalized Git/content delta `0`을 요구한다. 이 절차는 tracked source, registry authority 또는 canonical validator를 변경하지 않는다.
 - T2는 requested locale surface read, legitimate absence compaction이 끝난 fixed-order rows의 concatenation과 static payload emit만 수행한다.
 - Current upstream blocker가 남으면 cause-attributed progression record만 생성하고 T2 handoff를 생성하지 않는다.
 - progression과 owner별 blocker distribution은 `t2_blocking = true` correction의 단일 filtered view를 공유한다.
@@ -415,6 +419,13 @@ D1 successor는 optional Layer 2 owner amendment에 따라 workstream `complete`
 - Frozen target은 selected Recipe instance 444건, exact identity 266개, locale correction 888건이다. Owner projection은 explicit KO/EN pair를 post-selection exact lookup으로 제공하며 selected tuple/source distribution, Right-click route와 other-owner correction set을 바꾸지 않는다.
 - Candidate whole-T1 ledger는 `4,737`, D4 target은 `0`이다. Corrected bundle은 `integration_impact.support_freeze_mismatch=false`, support set changed `false`, predecessor mismatch `false`로 hash-bound됐다.
 - 이 snapshot도 isolated workstream architecture다. Corrected D4 bundle만 T1-D6 integration input으로 사용하며, D3/D4 결과의 병합, global current adoption, integrated audit와 T2 progression 판정은 T1-D6 전까지 보류한다.
+
+2026-08-29 T1-D2 consumer-relation workstream snapshot:
+
+- Exact direct parent는 commit `cb27591e3c6ef40a1b1f08a6e2ceee7047132cf8`, tree `b23103ace037aa62fc1e24d04901d534de5cc2e8`이고 implementation subject는 commit `0e959b3bd7055d58f319fa9d69a5b110bf48b8b7`, tree `5dbc1a830e5a911eece943102c6078102c3d9611`이다.
+- Support/actual Lua coverage는 각각 `2,280`으로 exact 일치한다. Terminal relation은 `verified 1,406`, `not_applicable 874`, `correction_required 0`; navigation delta는 `26`이고 display-silence surface delta와 protected non-D2 delta는 `0`이다.
+- Relation materializer Run A/B artifact bytes와 receipts는 각각 동일했다. Focused Tooltip suite `90 passed`, Browser owner direct unittest `2 tests OK`, Lua syntax `127 files OK`로 bounded producer/audit path를 확인했다.
+- Candidate whole-T1 ledger는 correction `0`, progression `OPEN`이다. 이 snapshot은 D2 exact subject의 integration input일 뿐 global current route/adoption, T2 runtime implementation, production handoff와 release readiness를 열지 않으며 최종 병합과 status synchronization은 T1-D6가 소유한다.
 
 ### Runtime presentation 구조
 

@@ -541,7 +541,7 @@ def validate_contracts(repository_root: Path, supplied_decision_sha256: str) -> 
         owner_output_path = owner_output.get("path")
         _require(isinstance(owner_output_path, str) and bool(owner_output_path), "Recipe locale owner output path missing")
         _require(
-            sha256_file(repository_root / owner_output_path) == owner_output.get("sha256"),
+            sha256_lf_text_file(repository_root / owner_output_path) == owner_output.get("sha256"),
             "Recipe locale owner output SHA-256 mismatch",
         )
         owner_output_value = load_json(repository_root / owner_output_path)

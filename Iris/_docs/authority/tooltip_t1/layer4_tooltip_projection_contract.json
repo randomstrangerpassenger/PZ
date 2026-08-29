@@ -6,7 +6,8 @@
     "classification": "current",
     "role": "read_only_layer4_owner_identity_input",
     "owner": "QG identity owner + Iris presentation-contract owner",
-    "authority_ceiling": "identity/public/source/line-kind candidate input only; no locale surface or runtime-observation claim"
+    "authority_ceiling": "identity/public/source/line-kind candidate input only; no locale surface or runtime-observation claim",
+    "embedded_recipe_display_by_locale_policy": "fail_loud_authority_ceiling_violation"
   },
   "pipeline": ["semantic_public_eligibility", "stable_order", "exact_identity_dedupe", "source_equivalence", "bounded_selection", "selected_identity_freeze", "locale_lookup", "menu_evidence_lookup"],
   "eligible_sources": ["recipe", "rightclick"],
@@ -22,6 +23,10 @@
     "missing_candidate_identity": "upstream_identity_correction_required"
   },
   "locale_or_menu_readiness_before_freeze_allowed": false,
+  "selection_candidate_fields": ["interaction_id", "source", "public_state", "line_kind", "requirement_only", "stable_order_key"],
+  "selection_candidate_forbidden_fields": ["localized_surfaces", "menu_consumer_identity_ref"],
+  "post_selection_recipe_locale_contract": "Iris/_docs/authority/tooltip_t1/layer4_recipe_locale_input_contract.json",
+  "locale_bearing_post_selection_object_allowed_as_selector_input": false,
   "readiness_dependent_substitution_allowed": false,
   "text_similarity_dedupe_allowed": false,
   "input_array_order_allowed": false

@@ -4,6 +4,7 @@ from pathlib import Path
 
 import pytest
 
+from iris_tooling.domains.layer4.tooltip_t1_d4 import build_owner_projection, validate_registry
 from iris_tooling.domains.classification.layer2_contract import support_universe
 from iris_tooling.domains.classification.layer2_materializer import materialize
 from iris_tooling.domains.classification.layer2_validator import validate_owner_output
@@ -20,6 +21,11 @@ from iris_tooling.domains.tooltip_t1.audit import (
     validate_whole_universe,
 )
 from iris_tooling.domains.tooltip_t1.contract import AUTHORITY_ROOT, canonical_bytes, git_subject, load_json, sha256_file
+from iris_tooling.domains.tooltip_t1.d5 import (
+    TARGETS,
+    collision_correction_members,
+    exact_identity_metrics,
+)
 from iris_tooling.domains.tooltip_t1.models import (
     LocaleSurfaceReadiness,
     SemanticSlotState,
@@ -203,8 +209,12 @@ def test_minimal_t2_handoff_mock_consumer(case: str) -> None:
         ("source_immutable", None),
         ("source_mutated", None),
         ("normalized_collision", None),
+        ("d5_exact_pair_resolved", None),
+        ("d5_normalized_authoritative_key_rejected", None),
+        ("d5_dispositionless_closure_rejected", None),
         ("owner_output_self_comparison", None),
         ("candidate_pre_gate_axis", None),
+        ("recipe_locale_projection", None),
         ("nonblocking_correction", None),
         ("d3_owner_absence_nonblocking", None),
         ("gate_failure", None),
@@ -247,6 +257,32 @@ def test_whole_universe_audit_progression(case: str, expected: T2Progression | N
         assert normalized_collisions(["Base.LemonGrass", "Base.Lemongrass", "Base.Apple"]) == {
             "base.lemongrass": ("Base.LemonGrass", "Base.Lemongrass")
         }
+        return
+    if case in {
+        "d5_exact_pair_resolved",
+        "d5_normalized_authoritative_key_rejected",
+        "d5_dispositionless_closure_rejected",
+    }:
+        raw = normalized_collisions([*TARGETS, "Base.Apple"])
+        if case == "d5_dispositionless_closure_rejected":
+            assert collision_correction_members(raw, set()) == set(TARGETS)
+            return
+        correction_members = collision_correction_members(raw, set(TARGETS))
+        if case == "d5_exact_pair_resolved":
+            metrics = exact_identity_metrics(TARGETS, TARGETS, raw["base.lemongrass"], correction_members)
+            assert raw["base.lemongrass"] == TARGETS
+            assert correction_members == set()
+            assert sum(metrics.values()) == 0
+        else:
+            metrics = exact_identity_metrics(
+                ["base.lemongrass"],
+                ["base.lemongrass"],
+                raw["base.lemongrass"],
+                correction_members,
+            )
+            assert metrics["case_normalization_merge"] == 1
+            assert metrics["normalized_key_overwrite"] == 1
+            assert sum(metrics.values()) > 0
         return
     if case == "owner_output_self_comparison":
         assert menu_owner_output_self_comparison_count({
@@ -300,6 +336,15 @@ def test_whole_universe_audit_progression(case: str, expected: T2Progression | N
         assert closeout["contract_and_audit_axis"] == "partial"
         assert closeout["formal_closeout_state"] == "implemented_only"
         assert "not yet bound" in closeout["validation_ceiling"]
+        return
+    if case == "recipe_locale_projection":
+        root = Path(__file__).resolve().parents[3]
+        selected, records = validate_registry(root)
+        projection = build_owner_projection(root)
+        assert len(selected) == len(records) == projection["entry_count"]
+        assert set(projection["entries"]) == set(selected)
+        assert projection["selection_stage"] == "post_selected_identity_freeze"
+        assert projection["fallback_allowed"] is False
         return
     if case == "nonblocking_correction":
         progression, by_owner = build_progression_record([

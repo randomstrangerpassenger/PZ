@@ -537,7 +537,9 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - D1 successor는 support `2,280`을 Layer 2 applicable `1,406` / legitimate display silence `874`로 exact partition했다. Silence는 raw fallback `408`, no membership `201`, no admissible primary `265`에서 deterministic하게 산출하며 semantic 분류 추론이나 per-row absence authority를 만들지 않는다.
   - 기존 resolved `1,406`은 byte/identity/surface 불변이며 Classification correction은 `874 → 0`으로 닫혔다. D2 handoff partition은 ready지만 Menu `2,280` consumer relation과 applicable/N/A parity 구현은 D2가 소유한다.
   - D1 successor subject `8bbc40169e86bd2e818c440a823e497f852a1e69` / tree `e950a552797012e6e40523e75b93a1ed203e839b`는 workstream `complete`다. T1-C common predecessor `6b7118dc229bf8138302696e1aa5e5b7454589dc`에서 final successor까지의 corrected cumulative external bundle 하나가 D6-ready active input이며 intermediate bundle은 inactive lineage다.
-  - Current adoption과 D6 integration은 아직 `pending_T1_D6`다. Actual other-owner correction은 DVF `175`, Iris `2`, Menu `2,280`, QG `888`이고 T2 full-data progression은 `BLOCKED_BY_UPSTREAM_CORRECTIONS`; production handoff는 absent다.
+  - Current adoption과 D6 integration은 아직 `pending_T1_D6`다. D1 isolated subject의 actual other-owner correction은 DVF `175`, Iris `2`, Menu `2,280`, QG `888`이고 이를 D3/D4/D5 candidate와 산술 결합하지 않는다. T2 full-data progression은 `BLOCKED_BY_UPSTREAM_CORRECTIONS`; production handoff는 absent다.
+  - T1-D5는 `Base.LemonGrass`와 `Base.Lemongrass`의 case-sensitive exact support identity와 raw normalized-collision observation을 보존하면서 target `SUPPORT_NORMALIZED_COLLISION` correction/T2 blocker만 `2 → 0`으로 닫았다. Support는 `2,280 → 2,280`, 전체 correction은 `5,625 → 5,623`, non-target delta는 `0`이다.
+  - D5 support-freeze hash는 common LF-terminated UTF-8 ordered-set 규칙으로 `3a6cc24b9ad64e06a0a6c0408821201e35bbd1d8558e6245809b5d3c34265ce6`을 재도출했다. 최초 JSON-array hash mismatch는 exact set missing/extra 0인 serialization-only mismatch로 정정했으며 corrected bundle만 D6 입력 후보이고 최초 bundle은 superseded다.
   - T1 contract/audit completion은 static Tooltip Lua generation, runtime adoption/visual fit, package, compatibility 또는 release readiness가 아니다.
   - 2026-08-28 corrective subject `6b7118dc229bf8138302696e1aa5e5b7454589dc`에서 focused 6-family `62 passed`, installed candidate invariant, canonical Run A/Run B와 deterministic comparator가 모두 exit 0이었고 post-gate finalizer가 `complete/complete` closeout을 생성했다.
   - `Base.LemonGrass` / `Base.Lemongrass` normalized collision blocker 2건을 복원하고, DVF owner의 Menu consumer self-attestation을 제거했다. Layer 3 selected `1,314`건은 shared-authority relation만 확인된 `unverified_without_independent_consumer_evidence`이며 T3 재검증 대상으로 남는다.
@@ -571,6 +573,7 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - 현재 blocker는 Classification `2,280`, DVF `175`, Iris presentation-contract `2`, Menu consumer `2,280`, QG/locale `888`, 합계 `5,625`다.
   - T1-D3 candidate는 DVF 175를 닫아 candidate blocker `5,450`을 만들었지만, shared-path merge와 global current adoption은 T1-D6가 수행한다. D6 전에는 current blocker 표를 candidate 수치로 교체하지 않는다.
   - T1-D4 candidate는 QG/locale 888을 닫아 candidate blocker `4,737`을 만들었다. T1-D6는 corrected D4 bundle만 소비하고, 모든 workstream의 predecessor/support/hash compatibility와 shared delta를 검증한 단일 integration subject에서 whole-T1 audit를 수행한다.
+  - T1-D5 candidate는 Iris presentation-contract blocker 2를 닫아 candidate blocker `5,623`을 만들었다. T1-D6는 corrected D5 bundle만 소비하고, D5의 국소 complete를 T2 OPEN이나 production handoff로 확대하지 않는다.
   - owner authority에 없는 의미, 문장, 추천, fallback 또는 Menu consumer evidence를 Tooltip assembler가 발명하지 않는다.
   - 동일 owner/root-cause의 producer output을 정규 경로로 교정하고 새 exact subject에서 re-audit한다.
   - blocker가 `0`이 되기 전에는 progression을 `OPEN`으로 바꾸거나 production T2 handoff를 생성하지 않으며 T2 static generator/runtime 구현을 시작하지 않는다.

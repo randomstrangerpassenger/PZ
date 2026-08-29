@@ -43,7 +43,7 @@ W1-A census에 따라 current subject에는 다음 구조화 입력 gap이 있�
 - Layer 2: owner-issued resolved identity와 independent Menu consumer identity route 없음
 - Layer 3: core source fact IDs와 rendered body는 있으나 single approved Tooltip fact identity/KO·EN surface 없음
 - Layer 4: public identity는 있으나 selected identity의 explicit `display_by_locale` 없음
-- Support: case-sensitive distinct identity인 `Base.LemonGrass`와 `Base.Lemongrass`가 normalized collision을 이루므로 합치거나 제거하지 않고 owner correction으로 귀속
+- Support: case-sensitive distinct identity인 `Base.LemonGrass`와 `Base.Lemongrass`는 normalized diagnostic collision을 이루지만 합치거나 denominator에서 제거하지 않는다. `tooltip_t1_d5_current_support_disposition.json`이 declared-target content fingerprint와 exact member-set guard에 대해 applicable할 때 raw observation은 유지하고 해당 pair의 unresolved `SUPPORT_NORMALIZED_COLLISION` correction row만 방출하지 않는다. disposition이 없거나 stale이면 기존 blocking correction을 그대로 방출한다.
 
 T1은 이 gap을 추론으로 보완하지 않는다. owner-ratified support predicate는 current Layer 2, pointer-selected Layer 3, current Layer 4 owner FullType의 case-sensitive explicit union이다. readiness defect 때문에 이 frozen denominator에서 row를 제거하지 않는다.
 
@@ -62,6 +62,14 @@ candidate/pre-full-gate record는 task-specific axis를 `partial`, formal state�
 one-off census, correction ledger, run receipt와 audit observation은 regular validation authority가 아니다. tracked fixture expectation은 audit observation에서 self-seed하지 않는다.
 
 Tracked decision contract는 choice vocabulary와 owner-preapproved selected choice를 보존하는 ratification template다. Candidate는 clean exact subject에서 W1-A evidence를 먼저 hash-bind하고, 그 동일 subject/evidence hash를 인용하는 adoption receipt로 G1을 닫은 뒤에만 W1-B support freeze와 projection을 수행한다.
+
+## T1-D4 isolated candidate amendment
+
+T1-D4의 isolated integration candidate는 Layer 4 identity input을 locale authority로 확장하지 않는다. Recipe locale surface는 `Iris/_docs/authority/tooltip_t1/layer4_recipe_locale_input_contract.json`이 결속한 별도 QG owner output에서 selected identity freeze 뒤 exact identity로 조회한다. Right-click은 기존 translation route를 유지한다.
+
+`Layer4Candidate`와 selector input에는 locale surface나 Menu readiness field가 존재하지 않는다. Locale-bearing `Slot` 같은 post-selection object는 selector input으로 사용할 수 없으며, identity input에 Recipe `display_by_locale`가 나타나면 missing-surface correction으로 흡수하지 않고 authority-ceiling 위반으로 fail-loud한다. KO/EN pair는 cross-locale fallback, locale별 reselection 또는 Recipe/Right-click substitution 없이 해결한다.
+
+이 amendment는 D4 workstream의 shared-path proposal이다. Global current manifest, route, command owner와 governance status 채택은 T1-D6에 유보한다. Numeric character/byte/pixel bound를 새로 만들지 않으며 single logical line/NFC gate와 T3 actual-fit ceiling을 유지한다.
 
 ## Claim boundary
 

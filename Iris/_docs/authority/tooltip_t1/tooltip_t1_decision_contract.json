@@ -10,6 +10,32 @@
     "rationale": "W1-A proves the adjacent universes differ; the explicit union preserves every item for which a current Iris owner exposes information without treating the largest set as an implicit default"
   },
   "contract_identity_rule": "contract_sha256 is the canonical non-decision Tooltip T1 contract-bundle SHA-256",
+  "d5_contract_rebind": {
+    "schema_version": "iris-tooltip-t1-d5-contract-rebind-v1",
+    "predecessor_commit": "6b7118dc229bf8138302696e1aa5e5b7454589dc",
+    "predecessor_tree": "4eae6fbdb3d0b2cb532f875b96137335a403f2fc",
+    "predecessor_decision_contract_git_blob": "c3a447a64df36c135188e42a2242729526ca34fd",
+    "predecessor_decision_contract_sha256": "a94d1f1aa8e34e91becd1b725a3ebb9985f8f8a587aead78622db7971a62e12c",
+    "previous_non_decision_bundle_sha256": "4219455ff17605307b64a8085880f87c4a589c90175971c6c7ed3270cc3d6408",
+    "previous_p1_p12_contract_sha256_set": [
+      "4219455ff17605307b64a8085880f87c4a589c90175971c6c7ed3270cc3d6408"
+    ],
+    "new_non_decision_bundle_sha256": "0943d9946b520e87f3138da0ba3bda604f163f6f01275d90d0147e41bd5d838e",
+    "before_non_hash_invariant_sha256": "a130a399987f29160ca429e59b49705814cbbf4fbf4eb91b5e08fd1471ebf135",
+    "after_non_hash_invariant_sha256": "a130a399987f29160ca429e59b49705814cbbf4fbf4eb91b5e08fd1471ebf135",
+    "non_hash_invariants_equal": true,
+    "post_implementation_owner_approval": {
+      "owner": "Iris presentation-contract owner",
+      "approval_ref": "user_prompt:2026-08-29#owner-approval-preauthorized",
+      "approval_scope": [
+        "P-1_through_P-12_contract_hash_rebind",
+        "non_hash_invariant_equality",
+        "D5_final_application_evidence"
+      ],
+      "ratification_stage": "post_implementation",
+      "approval_sha256": "7b12287bd884140088ab825fb80df8d63bc0015bbefdda9e708018e1ad2ea714"
+    }
+  },
   "decisions": [
     {
       "decision_id": "P-1",
@@ -25,7 +51,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["closeout"],
       "must_close_before": "closeout vocabulary implementation",
-      "contract_sha256": "4219455ff17605307b64a8085880f87c4a589c90175971c6c7ed3270cc3d6408"
+      "contract_sha256": "0943d9946b520e87f3138da0ba3bda604f163f6f01275d90d0147e41bd5d838e"
     },
     {
       "decision_id": "P-2",
@@ -40,7 +66,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["slot projection"],
       "must_close_before": "Change 2 decision table",
-      "contract_sha256": "4219455ff17605307b64a8085880f87c4a589c90175971c6c7ed3270cc3d6408"
+      "contract_sha256": "0943d9946b520e87f3138da0ba3bda604f163f6f01275d90d0147e41bd5d838e"
     },
     {
       "decision_id": "P-3",
@@ -56,7 +82,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["slot projection"],
       "must_close_before": "Change 2 decision table",
-      "contract_sha256": "4219455ff17605307b64a8085880f87c4a589c90175971c6c7ed3270cc3d6408"
+      "contract_sha256": "0943d9946b520e87f3138da0ba3bda604f163f6f01275d90d0147e41bd5d838e"
     },
     {
       "decision_id": "P-4",
@@ -71,7 +97,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["Layer 4 projection"],
       "must_close_before": "Change 4 single-source branch",
-      "contract_sha256": "4219455ff17605307b64a8085880f87c4a589c90175971c6c7ed3270cc3d6408"
+      "contract_sha256": "0943d9946b520e87f3138da0ba3bda604f163f6f01275d90d0147e41bd5d838e"
     },
     {
       "decision_id": "P-5",
@@ -86,7 +112,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["Layer 4 projection"],
       "must_close_before": "Change 4 projection",
-      "contract_sha256": "4219455ff17605307b64a8085880f87c4a589c90175971c6c7ed3270cc3d6408"
+      "contract_sha256": "0943d9946b520e87f3138da0ba3bda604f163f6f01275d90d0147e41bd5d838e"
     },
     {
       "decision_id": "P-6",
@@ -101,7 +127,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["Layer 4 projection"],
       "must_close_before": "Change 4 ordering",
-      "contract_sha256": "4219455ff17605307b64a8085880f87c4a589c90175971c6c7ed3270cc3d6408"
+      "contract_sha256": "0943d9946b520e87f3138da0ba3bda604f163f6f01275d90d0147e41bd5d838e"
     },
     {
       "decision_id": "P-7",
@@ -116,7 +142,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["Layer 4 projection"],
       "must_close_before": "Change 4 duplicate handling",
-      "contract_sha256": "4219455ff17605307b64a8085880f87c4a589c90175971c6c7ed3270cc3d6408"
+      "contract_sha256": "0943d9946b520e87f3138da0ba3bda604f163f6f01275d90d0147e41bd5d838e"
     },
     {
       "decision_id": "P-8",
@@ -131,7 +157,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["Layer 3 readiness", "locale parity"],
       "must_close_before": "Change 3 and Change 5 locale model",
-      "contract_sha256": "4219455ff17605307b64a8085880f87c4a589c90175971c6c7ed3270cc3d6408"
+      "contract_sha256": "0943d9946b520e87f3138da0ba3bda604f163f6f01275d90d0147e41bd5d838e"
     },
     {
       "decision_id": "P-9",
@@ -147,7 +173,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["locale projection"],
       "must_close_before": "Change 5 locale contract",
-      "contract_sha256": "4219455ff17605307b64a8085880f87c4a589c90175971c6c7ed3270cc3d6408"
+      "contract_sha256": "0943d9946b520e87f3138da0ba3bda604f163f6f01275d90d0147e41bd5d838e"
     },
     {
       "decision_id": "P-10",
@@ -162,7 +188,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["Layer 2 input", "Menu parity"],
       "must_close_before": "Change 3 Layer 2 input/parity",
-      "contract_sha256": "4219455ff17605307b64a8085880f87c4a589c90175971c6c7ed3270cc3d6408"
+      "contract_sha256": "0943d9946b520e87f3138da0ba3bda604f163f6f01275d90d0147e41bd5d838e"
     },
     {
       "decision_id": "P-11",
@@ -178,7 +204,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["line-fit contract"],
       "must_close_before": "Change 3 and Change 6 line-fit implementation",
-      "contract_sha256": "4219455ff17605307b64a8085880f87c4a589c90175971c6c7ed3270cc3d6408"
+      "contract_sha256": "0943d9946b520e87f3138da0ba3bda604f163f6f01275d90d0147e41bd5d838e"
     },
     {
       "decision_id": "P-12",
@@ -194,7 +220,7 @@
       "subject_binding": "execution_subject_binding_v1",
       "dependent_phases": ["validation report"],
       "must_close_before": "validation vocabulary implementation",
-      "contract_sha256": "4219455ff17605307b64a8085880f87c4a589c90175971c6c7ed3270cc3d6408"
+      "contract_sha256": "0943d9946b520e87f3138da0ba3bda604f163f6f01275d90d0147e41bd5d838e"
     }
   ]
 }

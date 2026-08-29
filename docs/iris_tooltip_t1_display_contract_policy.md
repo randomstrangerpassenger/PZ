@@ -40,7 +40,7 @@ W1-A census에 따라 current subject에는 다음 구조화 입력 gap이 있�
 - Layer 2: owner-issued resolved identity와 independent Menu consumer identity route 없음
 - Layer 3: core source fact IDs와 rendered body는 있으나 single approved Tooltip fact identity/KO·EN surface 없음
 - Layer 4: public identity는 있으나 selected identity의 explicit `display_by_locale` 없음
-- Support: case-sensitive distinct identity인 `Base.LemonGrass`와 `Base.Lemongrass`가 normalized collision을 이루므로 합치거나 제거하지 않고 owner correction으로 귀속
+- Support: case-sensitive distinct identity인 `Base.LemonGrass`와 `Base.Lemongrass`는 normalized diagnostic collision을 이루지만 합치거나 denominator에서 제거하지 않는다. `tooltip_t1_d5_current_support_disposition.json`이 declared-target content fingerprint와 exact member-set guard에 대해 applicable할 때 raw observation은 유지하고 해당 pair의 unresolved `SUPPORT_NORMALIZED_COLLISION` correction row만 방출하지 않는다. disposition이 없거나 stale이면 기존 blocking correction을 그대로 방출한다.
 
 T1은 이 gap을 추론으로 보완하지 않는다. owner-ratified support predicate는 current Layer 2, pointer-selected Layer 3, current Layer 4 owner FullType의 case-sensitive explicit union이다. readiness defect 때문에 이 frozen denominator에서 row를 제거하지 않는다.
 

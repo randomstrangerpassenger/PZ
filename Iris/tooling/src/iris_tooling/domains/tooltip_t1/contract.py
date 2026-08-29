@@ -12,6 +12,8 @@ from .models import SLOT_ORDER, SUPPORTED_LOCALES, TooltipContractError
 
 AUTHORITY_ROOT = Path("Iris/_docs/authority/tooltip_t1")
 DECISION_CONTRACT = AUTHORITY_ROOT / "tooltip_t1_decision_contract.json"
+D5_DISPOSITION_SCHEMA = AUTHORITY_ROOT / "tooltip_t1_d5_current_support_disposition.schema.json"
+D5_DISPOSITION_RECORD = AUTHORITY_ROOT / "tooltip_t1_d5_current_support_disposition.json"
 CONTRACT_FILES = (
     DECISION_CONTRACT,
     AUTHORITY_ROOT / "tooltip_display_contract.json",
@@ -22,6 +24,8 @@ CONTRACT_FILES = (
     AUTHORITY_ROOT / "tooltip_t2_handoff.schema.json",
     AUTHORITY_ROOT / "tooltip_readiness_reason_registry.json",
     AUTHORITY_ROOT / "tooltip_t1_tool_disposition_contract.json",
+    D5_DISPOSITION_SCHEMA,
+    D5_DISPOSITION_RECORD,
 )
 
 FIXED_DECISIONS = {
@@ -77,6 +81,18 @@ def _string_list(value: Any, label: str, *, nonempty: bool = True) -> list[str]:
     return value
 
 
+def decision_non_hash_invariant_digest(rows: Iterable[dict[str, Any]]) -> str:
+    fields = (
+        "decision_id", "status", "required_choice", "selected_choice", "owner",
+        "subject_binding", "support_predicate",
+    )
+    material = [
+        {key: row.get(key) for key in fields if key in row}
+        for row in rows
+    ]
+    return sha256_bytes(canonical_bytes(material))
+
+
 def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
     decision = values[DECISION_CONTRACT]
     _require(decision.get("schema_version") == "iris-tooltip-t1-decision-contract-v1", "decision schema version mismatch")
@@ -108,6 +124,7 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
         "selected_choice", "owner", "rationale", "evidence_refs", "subject_binding",
         "dependent_phases", "must_close_before", "contract_sha256",
     }
+    invariant_digest = decision_non_hash_invariant_digest(rows)
     for row in rows:
         decision_id = row["decision_id"]
         _require(required_fields.issubset(row), f"{decision_id}: decision fields incomplete")
@@ -136,6 +153,26 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
             _require(isinstance(row["selected_choice"], str) and row["selected_choice"] in allowed, f"{decision_id}: selected choice is not allowed")
             expected_ref = f"pre_ratification_decision_evidence.json#records.{decision_id}"
             _require(expected_ref in row["evidence_refs"], f"{decision_id}: exact W1-A evidence record ref missing")
+
+    rebind = decision.get("d5_contract_rebind")
+    _require(isinstance(rebind, dict), "D5 contract-bundle rebind record missing")
+    _require(rebind.get("schema_version") == "iris-tooltip-t1-d5-contract-rebind-v1", "D5 rebind schema mismatch")
+    _require(rebind.get("predecessor_commit") == "6b7118dc229bf8138302696e1aa5e5b7454589dc", "D5 rebind predecessor commit mismatch")
+    _require(rebind.get("predecessor_tree") == "4eae6fbdb3d0b2cb532f875b96137335a403f2fc", "D5 rebind predecessor tree mismatch")
+    _require(rebind.get("predecessor_decision_contract_git_blob") == "c3a447a64df36c135188e42a2242729526ca34fd", "D5 rebind predecessor decision-contract blob mismatch")
+    _require(rebind.get("predecessor_decision_contract_sha256") == "a94d1f1aa8e34e91becd1b725a3ebb9985f8f8a587aead78622db7971a62e12c", "D5 rebind predecessor decision-contract SHA-256 mismatch")
+    _require(rebind.get("previous_non_decision_bundle_sha256") == "4219455ff17605307b64a8085880f87c4a589c90175971c6c7ed3270cc3d6408", "D5 rebind historical bundle trace mismatch")
+    _require(rebind.get("new_non_decision_bundle_sha256") == bundle_sha256, "D5 rebind new bundle identity mismatch")
+    _require(rebind.get("previous_p1_p12_contract_sha256_set") == ["4219455ff17605307b64a8085880f87c4a589c90175971c6c7ed3270cc3d6408"], "D5 rebind previous P-1~P-12 hash set mismatch")
+    _require(rebind.get("before_non_hash_invariant_sha256") == invariant_digest, "D5 rebind before invariant digest mismatch")
+    _require(rebind.get("after_non_hash_invariant_sha256") == invariant_digest, "D5 rebind after invariant digest mismatch")
+    _require(rebind.get("non_hash_invariants_equal") is True, "D5 rebind changed P-1~P-12 semantics")
+    approval = rebind.get("post_implementation_owner_approval")
+    _require(isinstance(approval, dict), "D5 post-implementation owner approval missing")
+    approval_material = {key: value for key, value in approval.items() if key != "approval_sha256"}
+    _require(approval.get("owner") == "Iris presentation-contract owner", "D5 rebind approval owner mismatch")
+    _require(approval.get("approval_ref") == "user_prompt:2026-08-29#owner-approval-preauthorized", "D5 rebind approval ref mismatch")
+    _require(approval.get("approval_sha256") == sha256_bytes(canonical_bytes(approval_material)), "D5 rebind approval hash mismatch")
 
     display = values[AUTHORITY_ROOT / "tooltip_display_contract.json"]
     _require(display.get("schema_version") == "iris-tooltip-display-contract-v1", "display schema version mismatch")
@@ -216,6 +253,14 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
         _require(isinstance(row.get("owner"), str) and row["owner"] and isinstance(row.get("layer"), str) and row["layer"], f"{row.get('code')}: reason owner/layer missing")
         _require(isinstance(row.get("t2_blocking"), bool), f"{row.get('code')}: reason blocker type mismatch")
         _require(isinstance(row.get("acceptance"), str) and row["acceptance"] and isinstance(row.get("re_audit"), str) and row["re_audit"], f"{row.get('code')}: reason acceptance/re-audit missing")
+    collision_reason = next((row for row in reasons if row.get("code") == "SUPPORT_NORMALIZED_COLLISION"), None)
+    _require(
+        isinstance(collision_reason, dict)
+        and collision_reason.get("t2_blocking") is True
+        and collision_reason.get("disposition_authority") == D5_DISPOSITION_RECORD.as_posix()
+        and collision_reason.get("raw_observation_preserved") is True,
+        "D5 collision reason disposition binding mismatch",
+    )
 
     tools = values[AUTHORITY_ROOT / "tooltip_t1_tool_disposition_contract.json"]
     entries = tools.get("entries")
@@ -226,6 +271,21 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
     _require(finalization.get("candidate_contract_and_audit_axis") == "partial" and finalization.get("candidate_formal_closeout_state") == "implemented_only", "Tooltip T1 candidate closeout axis mismatch")
     _require(finalization.get("complete_requires_same_subject_run_a_run_b_and_comparator_exit_0") is True and finalization.get("failed_or_mismatched_gate_writes_complete_closeout") is False, "Tooltip T1 complete closeout gate mismatch")
     _require(finalization.get("output_root") == "repository_external_empty", "Tooltip T1 final closeout output boundary mismatch")
+    d5_lifecycle = tools.get("d5_lifecycle")
+    _require(
+        isinstance(d5_lifecycle, dict)
+        and d5_lifecycle.get("commands") == ["d5-census", "d5-reconcile"]
+        and d5_lifecycle.get("regular_validation_authority") is False
+        and d5_lifecycle.get("current_ecosystem_adoption") == "pending_T1_D6",
+        "D5 lifecycle/tool disposition mismatch",
+    )
+
+    schema = values[D5_DISPOSITION_SCHEMA]
+    _require(schema.get("$schema") == "https://json-schema.org/draft/2020-12/schema", "D5 JSON schema dialect mismatch")
+    _require(schema.get("$id") == "iris-tooltip-t1-d5-current-support-disposition.schema.json", "D5 JSON schema identity mismatch")
+    _require(schema.get("additionalProperties") is False, "D5 disposition schema must be closed")
+    from .d5 import validate_disposition_authority
+    validate_disposition_authority(values[D5_DISPOSITION_RECORD])
     return bundle_sha256
 
 

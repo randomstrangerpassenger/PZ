@@ -60,6 +60,14 @@ one-off census, correction ledger, run receipt와 audit observation은 regular v
 
 Tracked decision contract는 choice vocabulary와 owner-preapproved selected choice를 보존하는 ratification template다. Candidate는 clean exact subject에서 W1-A evidence를 먼저 hash-bind하고, 그 동일 subject/evidence hash를 인용하는 adoption receipt로 G1을 닫은 뒤에만 W1-B support freeze와 projection을 수행한다.
 
+## T1-D4 isolated candidate amendment
+
+T1-D4의 isolated integration candidate는 Layer 4 identity input을 locale authority로 확장하지 않는다. Recipe locale surface는 `Iris/_docs/authority/tooltip_t1/layer4_recipe_locale_input_contract.json`이 결속한 별도 QG owner output에서 selected identity freeze 뒤 exact identity로 조회한다. Right-click은 기존 translation route를 유지한다.
+
+`Layer4Candidate`와 selector input에는 locale surface나 Menu readiness field가 존재하지 않는다. Locale-bearing `Slot` 같은 post-selection object는 selector input으로 사용할 수 없으며, identity input에 Recipe `display_by_locale`가 나타나면 missing-surface correction으로 흡수하지 않고 authority-ceiling 위반으로 fail-loud한다. KO/EN pair는 cross-locale fallback, locale별 reselection 또는 Recipe/Right-click substitution 없이 해결한다.
+
+이 amendment는 D4 workstream의 shared-path proposal이다. Global current manifest, route, command owner와 governance status 채택은 T1-D6에 유보한다. Numeric character/byte/pixel bound를 새로 만들지 않으며 single logical line/NFC gate와 T3 actual-fit ceiling을 유지한다.
+
 ## Claim boundary
 
 이 adoption은 offline T1 contract, deterministic identity selection, readiness attribution과 T2 boundary만 소유한다. static Tooltip Lua generation, runtime/Alt behavior, actual visual four-line fit, translation quality, upstream correction 완료, package/install, compatibility, freeze, Publish, release, Workshop 또는 deployment readiness를 주장하지 않는다.

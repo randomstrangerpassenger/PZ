@@ -2,6 +2,7 @@
   "schema_version": "iris-tooltip-t1-tool-disposition-v1",
   "entries": [
     {"path": "Iris/tooling/src/iris_tooling/domains/tooltip_t1", "disposition": "current_required", "lifecycle": "installed_package_owned_offline_producer"},
+    {"path": "Iris/tooling/src/iris_tooling/domains/layer4/tooltip_t1_d4.py", "disposition": "workstream_candidate_required", "lifecycle": "D4 owner-registry validator and deterministic owner projection materializer; pending T1-D6 integration adoption"},
     {"path": "Iris/tooling/tests/test_tooltip_t1_contract.py", "disposition": "lifecycle_bound", "regular_validation_membership": false},
     {"path": "Iris/tooling/tests/test_tooltip_t1_projection.py", "disposition": "lifecycle_bound", "regular_validation_membership": false},
     {"path": "Iris/tooling/tests/test_tooltip_t1_audit.py", "disposition": "lifecycle_bound", "regular_validation_membership": false},

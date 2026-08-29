@@ -7,6 +7,11 @@
   "locale_dependent_reselection_allowed": false,
   "readiness_dependent_candidate_substitution_allowed": false,
   "parity_relation": "Tooltip selected identity is a subset of current Menu public identity authority",
+  "current_recipe_locale_route": {
+    "input_contract": "Iris/_docs/authority/tooltip_t1/layer4_recipe_locale_input_contract.json",
+    "owner_output_path": "Iris/build/description/v2/data/tooltip_t1_layer4_recipe_locale_owner_input.json",
+    "adoption_rule": "exact selected recipe identity lookup after selected identity freeze; exact KO/EN owner pair only"
+  },
   "current_rightclick_locale_route": {
     "identity_relation_path": "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserInteractionProjection.lua#RIGHTCLICK_LABEL_KEYS",
     "ko_surface_path": "Iris/media/lua/shared/translate/ko/Iris_ko.txt",

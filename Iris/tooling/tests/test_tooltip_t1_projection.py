@@ -2,17 +2,29 @@ from __future__ import annotations
 
 import pytest
 
-from iris_tooling.domains.tooltip_t1.audit import classify_menu_relation, public_surface_reason
-from iris_tooling.domains.tooltip_t1.models import MenuParityStatus, TooltipContractError, mock_consume
+from iris_tooling.domains.tooltip_t1.audit import (
+    _layer4_candidates,
+    _slot_selected_layer4,
+    classify_menu_relation,
+    public_surface_reason,
+)
+from iris_tooling.domains.tooltip_t1.models import (
+    LocaleSurfaceReadiness,
+    MenuParityStatus,
+    SemanticSlotState,
+    Slot,
+    TooltipContractError,
+    mock_consume,
+)
 from iris_tooling.domains.tooltip_t1.projection import Layer4Candidate, select_layer4, verify_invariants
 
 
 @pytest.mark.parametrize(
     "case",
-    ["both", "recipe_only", "rightclick_only", "capacity", "duplicate", "ineligible", "permutation", "readiness_mask"],
+    ["both", "recipe_only", "rightclick_only", "capacity", "duplicate", "ineligible", "permutation", "selection_structure", "authority_type_guard"],
 )
 def test_layer4_projection_invariance(case: str) -> None:
-    recipe = Layer4Candidate("uc.recipe.a", "recipe", localized_surfaces={"ko": "가", "en": "A"})
+    recipe = Layer4Candidate("uc.recipe.a", "recipe")
     recipe_b = Layer4Candidate("uc.recipe.b", "recipe")
     right = Layer4Candidate("uc.action.a", "rightclick")
     if case == "both":
@@ -36,14 +48,34 @@ def test_layer4_projection_invariance(case: str) -> None:
     elif case == "permutation":
         result = verify_invariants([recipe, recipe_b, right])
         assert result["permutation"]["changed"] is False
-    else:
+    elif case == "selection_structure":
         result = verify_invariants([recipe, recipe_b, right])
-        assert result["readiness_masking"]["locale_readiness_changed_selection"] is False and result["readiness_masking"]["menu_evidence_changed_selection"] is False
+        isolation = result["readiness_isolation"]
+        assert isolation["forbidden_readiness_fields_present"] is False
+        assert "localized_surfaces" not in isolation["selection_input_fields"]
+        assert "menu_consumer_identity_ref" not in isolation["selection_input_fields"]
+    else:
+        locale_bearing_slot = Slot(
+            "S3",
+            "uc.recipe.a",
+            SemanticSlotState.SELECTED,
+            {"ko": "가", "en": "A"},
+            {"ko": LocaleSurfaceReadiness.READY, "en": LocaleSurfaceReadiness.READY},
+        )
+        with pytest.raises(TooltipContractError, match="IDENTITY_ONLY"):
+            select_layer4([locale_bearing_slot])
+        with pytest.raises(TooltipContractError, match="AUTHORITY_CEILING"):
+            _layer4_candidates({"use_cases": [{
+                "use_case_id": "uc.recipe.a",
+                "surface": "recipe_ui",
+                "line_kind": "evidence",
+                "display_by_locale": {"ko": "가", "en": "A"},
+            }]})
 
 
 @pytest.mark.parametrize(
     "case",
-    ["shared_relation", "missing_relation", "lexical_similarity_rejected", "forbidden_ko", "forbidden_en", "allowed_contrast", "no_fallback", "fixed_order", "cr_rejected", "lf_rejected", "width_advisory"],
+    ["shared_relation", "missing_relation", "lexical_similarity_rejected", "forbidden_ko", "forbidden_en", "allowed_contrast", "no_fallback", "locale_pair", "identity_relation", "fixed_order", "cr_rejected", "lf_rejected", "width_advisory"],
 )
 def test_locale_menu_public_text(case: str) -> None:
     row = {
@@ -68,6 +100,26 @@ def test_locale_menu_public_text(case: str) -> None:
         row["slots"][0]["localized_surfaces"]["en"] = None
         with pytest.raises(TooltipContractError, match="unavailable"):
             mock_consume(row, "en")
+    elif case == "locale_pair":
+        candidate = Layer4Candidate("uc.recipe.a", "recipe")
+        slot = _slot_selected_layer4(
+            "S3",
+            candidate,
+            {"uc.recipe.a": {"localized_surfaces": {"ko": "레시피에 사용된다.", "en": None}, "authority_ref": "owner#record"}},
+            {},
+            lexical,
+        )
+        assert slot.locale_readiness["ko"] is LocaleSurfaceReadiness.READY
+        assert slot.locale_readiness["en"] is LocaleSurfaceReadiness.CORRECTION_REQUIRED
+        assert slot.localized_surfaces["en"] is None
+    elif case == "identity_relation":
+        mapping = {
+            "uc.recipe.a": {"localized_surfaces": {"ko": "같은 문장", "en": "Same text"}, "authority_ref": "owner#a"},
+            "uc.recipe.b": {"localized_surfaces": {"ko": "같은 문장", "en": "Same text"}, "authority_ref": "owner#b"},
+        }
+        a = _slot_selected_layer4("S3", Layer4Candidate("uc.recipe.a", "recipe"), mapping, {}, lexical)
+        b = _slot_selected_layer4("S3", Layer4Candidate("uc.recipe.b", "recipe"), mapping, {}, lexical)
+        assert a.semantic_identity != b.semantic_identity and a.authority_ref != b.authority_ref
     elif case == "fixed_order":
         row["slots"].insert(0, {"slot_id": "S3", "semantic_identity": "uc:x", "localized_surfaces": {"ko": "행동", "en": "Action"}})
         with pytest.raises(TooltipContractError, match="fixed semantic order"):

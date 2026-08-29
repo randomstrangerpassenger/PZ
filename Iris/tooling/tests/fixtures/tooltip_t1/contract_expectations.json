@@ -5,6 +5,8 @@
   "same_source_capacity": 2,
   "both_source_rule": "one_recipe_plus_one_rightclick",
   "fallback_allowed": false,
+  "recipe_locale_lookup_stage": "post_selected_identity_freeze",
+  "selection_candidate_forbidden_fields": ["localized_surfaces", "menu_consumer_identity_ref"],
   "lexical_guard": {
     "ko_forbidden": ["추천", "최고"],
     "en_forbidden": ["recommended", "best"],

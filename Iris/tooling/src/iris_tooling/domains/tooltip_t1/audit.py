@@ -6,6 +6,11 @@ from pathlib import Path
 import re
 from typing import Any, Iterable
 
+from iris_tooling.domains.layer4.tooltip_t1_d4 import (
+    OWNER_OUTPUT as L4_RECIPE_LOCALE_OWNER_INPUT,
+    load_recipe_locale_owner_input,
+)
+
 from .contract import (
     AUTHORITY_ROOT,
     canonical_bytes,
@@ -442,7 +447,6 @@ def _runtime_rightclick_surfaces(repository_root: Path) -> dict[str, dict[str, s
 
 def _layer4_candidates(
     row: dict[str, Any],
-    current_rightclick_surfaces: dict[str, dict[str, str]] | None = None,
 ) -> list[Layer4Candidate]:
     items = row.get("use_cases") or []
     if not isinstance(items, list):
@@ -454,9 +458,10 @@ def _layer4_candidates(
             identity = ""
         surface = item.get("surface")
         source = "recipe" if surface == "recipe_ui" else "rightclick" if surface == "context_menu" else str(surface)
-        localized_surfaces = item.get("display_by_locale")
-        if localized_surfaces is None and source == "rightclick" and current_rightclick_surfaces is not None:
-            localized_surfaces = current_rightclick_surfaces.get(identity)
+        if source == "recipe" and "display_by_locale" in item:
+            raise TooltipContractError(
+                f"{identity}: LAYER4_RECIPE_EMBEDDED_LOCALE_AUTHORITY_CEILING_VIOLATION"
+            )
         candidates.append(
             Layer4Candidate(
                 interaction_id=identity,
@@ -465,8 +470,6 @@ def _layer4_candidates(
                 line_kind=str(item.get("line_kind") or "unknown"),
                 requirement_only=bool(item.get("requirement_only", False)),
                 stable_order_key=item.get("stable_order_key"),
-                localized_surfaces=localized_surfaces,
-                menu_consumer_identity_ref=None,
             )
         )
     return candidates
@@ -541,8 +544,23 @@ def _slot_selected_owner(
     )
 
 
-def _slot_selected_layer4(slot_id: str, candidate: Layer4Candidate, lexical_fixture: dict[str, Any]) -> Slot:
-    surfaces = candidate.localized_surfaces if isinstance(candidate.localized_surfaces, dict) else {}
+def _slot_selected_layer4(
+    slot_id: str,
+    candidate: Layer4Candidate,
+    recipe_locale_entries: dict[str, dict[str, Any]],
+    rightclick_surfaces: dict[str, dict[str, str]],
+    lexical_fixture: dict[str, Any],
+) -> Slot:
+    if candidate.source == "recipe":
+        owner_record = recipe_locale_entries.get(candidate.interaction_id)
+        surfaces = owner_record.get("localized_surfaces") if isinstance(owner_record, dict) else {}
+        authority_ref = owner_record.get("authority_ref") if isinstance(owner_record, dict) else None
+    elif candidate.source == "rightclick":
+        surfaces = rightclick_surfaces.get(candidate.interaction_id, {})
+        authority_ref = "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserInteractionProjection.lua#RIGHTCLICK_LABEL_KEYS"
+    else:
+        surfaces = {}
+        authority_ref = None
     normalized = {locale: surfaces.get(locale) for locale in ("ko", "en")}
     surface_reasons = {locale: public_surface_reason(normalized[locale], locale, lexical_fixture) for locale in ("ko", "en")}
     readiness = {locale: LocaleSurfaceReadiness.READY if reason is None else LocaleSurfaceReadiness.CORRECTION_REQUIRED for locale, reason in surface_reasons.items()}
@@ -556,6 +574,7 @@ def _slot_selected_layer4(slot_id: str, candidate: Layer4Candidate, lexical_fixt
         locale_readiness=readiness,
         reason_codes=reasons,
         t2_blocking=blocking,
+        authority_ref=authority_ref,
     )
 
 
@@ -593,6 +612,7 @@ def _source_hashes(repository_root: Path, generation_id: str) -> dict[str, str]:
         L3_GENERATIONS / generation_id / "generation_descriptor.json",
         L3_GENERATIONS / generation_id / "dvf_3_3_rendered.json",
         L4_OWNER_INPUT,
+        L4_RECIPE_LOCALE_OWNER_INPUT,
         KO_TRANSLATION,
         EN_TRANSLATION,
         *MENU_TOOLTIP_SOURCES,
@@ -609,30 +629,32 @@ def _source_hashes(repository_root: Path, generation_id: str) -> dict[str, str]:
 def _invariance(by_full_type: dict[str, list[Layer4Candidate]]) -> dict[str, Any]:
     base: dict[str, str] = {}
     permuted: dict[str, str] = {}
-    masked: dict[str, str] = {}
-    restored: dict[str, str] = {}
+    selection_fields: list[str] | None = None
     for full_type, candidates in sorted(by_full_type.items()):
         result = verify_invariants(candidates)
         base[full_type] = result["permutation"]["base_selected_identity_sha256"]
         permuted[full_type] = result["permutation"]["permuted_selected_identity_sha256"]
-        masked[full_type] = result["readiness_masking"]["masked_selected_identity_sha256"]
-        restored[full_type] = result["readiness_masking"]["restored_selected_identity_sha256"]
+        fields = result["readiness_isolation"]["selection_input_fields"]
+        if selection_fields is None:
+            selection_fields = fields
+        elif selection_fields != fields:
+            raise TooltipContractError("IDENTITY_READINESS_FEEDBACK_VIOLATION")
     digest = lambda value: sha256_bytes(canonical_bytes(value))
-    identities = {"base": digest(base), "permuted": digest(permuted), "masked": digest(masked), "restored": digest(restored)}
+    identities = {"base": digest(base), "permuted": digest(permuted)}
     if len(set(identities.values())) != 1:
         raise TooltipContractError("IDENTITY_READINESS_FEEDBACK_VIOLATION")
     return {
-        "schema_version": "iris-tooltip-layer4-invariance-v1",
+        "schema_version": "iris-tooltip-layer4-invariance-v2",
         "candidate_full_type_count": len(by_full_type),
         "permutation": {
             "base_selected_identity_sha256": identities["base"],
             "permuted_selected_identity_sha256": identities["permuted"],
             "changed": False,
         },
-        "readiness_masking": {
+        "readiness_isolation": {
             "base_selected_identity_sha256": identities["base"],
-            "masked_selected_identity_sha256": identities["masked"],
-            "restored_selected_identity_sha256": identities["restored"],
+            "selection_input_fields": selection_fields or [],
+            "forbidden_readiness_fields_present": False,
             "locale_readiness_changed_selection": False,
             "menu_evidence_changed_selection": False,
         },
@@ -696,6 +718,7 @@ def run_candidate(
         raise TooltipContractError("Layer 4 fulltypes missing")
     runtime_layer4 = _runtime_layer4_identities(repository_root)
     current_rightclick_surfaces = _runtime_rightclick_surfaces(repository_root)
+    recipe_locale_entries = load_recipe_locale_owner_input(repository_root)
     l3_en_keys = _english_layer3_keys(repository_root)
 
     # W1-A: read-only adjacent-universe census.  No support freeze or selection
@@ -709,7 +732,7 @@ def run_candidate(
         "layer4_runtime_consumer": set(runtime_layer4),
     }
     census_candidates = {
-        full_type: _layer4_candidates(row, current_rightclick_surfaces)
+        full_type: _layer4_candidates(row)
         for full_type, row in layer4.items()
         if isinstance(full_type, str) and isinstance(row, dict)
     }
@@ -786,7 +809,7 @@ def run_candidate(
         for full_type in members
     }
     by_full_type = {
-        full_type: _layer4_candidates(layer4.get(full_type, {}), current_rightclick_surfaces)
+        full_type: _layer4_candidates(layer4.get(full_type, {}))
         for full_type in support
     }
     invariance = _invariance(by_full_type)
@@ -908,16 +931,32 @@ def run_candidate(
                     absence_distribution[f"layer4|locale=all|slot={slot_id}|reason=QG_NO_SELECTED_PUBLIC_INTERACTION|authority={L4_OWNER_INPUT.as_posix()}"] += 1
                 continue
             candidate = selected[index]
-            slot = _slot_selected_layer4(slot_id, candidate, lexical_fixture)
+            slot = _slot_selected_layer4(
+                slot_id,
+                candidate,
+                recipe_locale_entries,
+                current_rightclick_surfaces,
+                lexical_fixture,
+            )
             slots.append(slot)
             if slot.t2_blocking:
                 for locale in ("ko", "en"):
                     if slot.locale_readiness[locale] is LocaleSurfaceReadiness.CORRECTION_REQUIRED:
-                        reason = public_surface_reason(candidate.localized_surfaces.get(locale) if isinstance(candidate.localized_surfaces, dict) else None, locale, lexical_fixture)
+                        resolved_surfaces = (
+                            recipe_locale_entries.get(candidate.interaction_id, {}).get("localized_surfaces", {})
+                            if candidate.source == "recipe"
+                            else current_rightclick_surfaces.get(candidate.interaction_id, {})
+                        )
+                        reason = public_surface_reason(resolved_surfaces.get(locale), locale, lexical_fixture)
                         correction_reason = reason or "LOCALE_SELECTED_SURFACE_MISSING"
+                        expected_surface_contract = (
+                            "exact selected Recipe identity in the separate QG locale owner output with an explicit KO/EN pair"
+                            if candidate.source == "recipe"
+                            else "exact selected Right-click identity in the existing translation route with an explicit KO/EN pair"
+                        )
                         corrections.append(_correction(
                             full_type, "layer4", reason_owners[correction_reason], correction_reason,
-                            "explicit selected-identity single-line display_by_locale surface passing the exact lexical fixture",
+                            expected_surface_contract,
                             selected_identity=candidate.interaction_id,
                             locale=locale,
                         ))
@@ -1048,8 +1087,9 @@ def run_candidate(
         "progression_unknown_blocking_cause_owner": 0,
         "source_equivalence_contract_violation": sum(row["layer4_source_equivalence"]["violation"] for row in audit_rows),
         "supported_row_removed_for_readiness_defect": 0,
-        "layer4_selection_changed_by_locale_readiness": int(invariance["readiness_masking"]["locale_readiness_changed_selection"]),
-        "layer4_selection_changed_by_menu_evidence": int(invariance["readiness_masking"]["menu_evidence_changed_selection"]),
+        "layer4_selection_changed_by_locale_readiness": int(invariance["readiness_isolation"]["locale_readiness_changed_selection"]),
+        "layer4_selection_changed_by_menu_evidence": int(invariance["readiness_isolation"]["menu_evidence_changed_selection"]),
+        "layer4_recipe_embedded_locale_authority_ceiling_violation": 0,
         "source_mutation": source_mutation,
     }
     nonzero_required = {name: value for name, value in zero_metrics.items() if value != 0}
@@ -1087,7 +1127,7 @@ def run_candidate(
         "paths": {path: {"sha256": digest, "role": "read_only_current_input"} for path, digest in input_hashes_before.items()},
         "layer2_owner_route": "gap:no_admissible_resolved_identity_output",
         "layer3_owner_route": f"current single-core owner projection {L3_TOOLTIP_OWNER_INPUT.as_posix()}; DVF fact identity/readiness is separate from Menu parity evidence",
-        "layer4_owner_route": f"current owner data {L4_OWNER_INPUT.as_posix()} supplies public identities; reproduction baseline is not consumed",
+        "layer4_owner_route": f"current owner data {L4_OWNER_INPUT.as_posix()} supplies public identities; selected Recipe locale readiness resolves post-selection through {L4_RECIPE_LOCALE_OWNER_INPUT.as_posix()}; reproduction baseline is not consumed",
         "layer4_current_rightclick_locale_route": "current Browser interaction projection identity-to-translation-key relation plus exact Iris_ko/Iris_en translations",
         "menu_consumer_evidence_route": f"Layer 4 current runtime {L4_RUNTIME_ROOT.as_posix()}/Chunk*.lua label_key identities are independently consumed by IrisBrowserInteractionProjection.lua; Layer 3 has only the shared current-generation FullType route through IrisItemDetailModelAssembler.lua and remains unverified pending independent fact-identity evidence",
         "tooltip_runtime_route": "read_only_non_verdict_baseline",
@@ -1097,9 +1137,19 @@ def run_candidate(
         "expectations_sha256": sha256_bytes(canonical_bytes(fixture_expectations)),
         "slot_order_match": fixture_expectations.get("slot_order") == ["S1", "S2", "S3", "S4"],
         "progression_match": fixture_expectations.get("blocked_progression") == T2Progression.UPSTREAM.value,
+        "recipe_locale_lookup_match": fixture_expectations.get("recipe_locale_lookup_stage") == "post_selected_identity_freeze",
+        "selection_candidate_fields_match": fixture_expectations.get("selection_candidate_forbidden_fields") == ["localized_surfaces", "menu_consumer_identity_ref"],
         "self_seeded_from_audit": False,
     }
-    if not fixture_result["slot_order_match"] or not fixture_result["progression_match"]:
+    if not all(
+        fixture_result[key]
+        for key in (
+            "slot_order_match",
+            "progression_match",
+            "recipe_locale_lookup_match",
+            "selection_candidate_fields_match",
+        )
+    ):
         raise TooltipContractError("tracked contract fixture mismatch")
 
     _write_json(output_root / "subject_binding.json", subject)

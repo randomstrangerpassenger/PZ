@@ -364,8 +364,11 @@ exact current subject
 Candidate closeout은 `partial/implemented_only` ceiling을 유지한다. 별도 installed-package finalizer는 candidate receipt와 동일 subject의 canonical Run A/Run B orchestration·inner result, deterministic comparator receipt만 검증하고 외부 빈 root에 final closeout 한 파일을 쓴다. 이 경계는 semantic input이나 T2 blocker를 다시 계산하지 않으며 receipt failure 또는 subject mismatch에서 아무 complete closeout도 생성하지 않는다.
 
 - Classification, DVF System과 QG가 Layer 2/3/4 semantic authority를 계속 소유한다. T1은 projection/readiness metadata만 소유한다.
+- Frozen support identity는 case-sensitive exact FullType union이다. Canonical ordered-set bytes는 exact value를 중복 제거하고 ordinal ascending으로 정렬한 뒤 각 UTF-8 value에 LF를 붙여 연결하며 final LF를 포함한다. BOM과 JSON encoding은 사용하지 않는다.
+- Parallel workstream bundle은 common predecessor와 support predicate가 같은데 frozen support hash가 다르면 `integration_impact.support_freeze_mismatch = true`로 fail-closed한다. Independent exact-set comparison에서 missing/extra가 모두 없고 canonical serialization만 잘못된 경우에만 common bytes로 bundle/receipt를 재발행하고 corrected bundle에 `false`와 serialization-only disposition을 기록할 수 있다.
 - Layer 4 semantic identity input은 current owner data에서 읽고, reproduction baseline은 입력에서 제외한다. Current Browser consumer relation은 별도 runtime `label_key` identity set과 exact subset 비교한다.
 - Layer 4 selection graph에는 locale/Menu readiness input edge가 없고 readiness graph에는 selected-identity writer edge가 없다.
+- Normalized FullType key는 collision discovery/diagnostic에만 쓰며 support, readiness와 correction ledger의 authoritative key로 저장하지 않는다. T1-D5 disposition은 `Base.LemonGrass` / `Base.Lemongrass` exact pair와 raw collision observation을 보존하고 해당 diagnostic correction projection만 제거한다.
 - T2 handoff는 ordered `slot_id`, semantic identity와 KO/EN surface만 포함한다. Raw tags, unselected candidates, audit/parity/readiness/owner/reason metadata를 포함하지 않는다.
 - T2는 requested locale surface read, legitimate absence compaction이 끝난 fixed-order rows의 concatenation과 static payload emit만 수행한다.
 - Current upstream blocker가 남으면 cause-attributed progression record만 생성하고 T2 handoff를 생성하지 않는다.

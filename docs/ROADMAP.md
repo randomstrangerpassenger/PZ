@@ -536,6 +536,8 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - Current support universe 전체를 같은 contract로 audit하는 installed `iris_tooling` producer와 minimal T2 handoff boundary를 추가했다.
   - Current Layer 2 resolved identity, Layer 3 approved Tooltip fact surface와 Layer 4 explicit locale surface gap은 owner correction으로 귀속하며 T2 full-data progression은 re-audit 전까지 `BLOCKED_BY_UPSTREAM_CORRECTIONS`다.
   - Candidate closeout은 `partial/implemented_only`이고, same-subject canonical Run A/Run B와 comparator가 성공한 경우에만 receipt-bound finalizer가 T1 formal complete를 기록한다. 이 전환은 upstream blocker나 T2 progression을 변경하지 않는다.
+  - T1-D5는 `Base.LemonGrass`와 `Base.Lemongrass`의 case-sensitive exact support identity와 raw normalized-collision observation을 보존하면서 target `SUPPORT_NORMALIZED_COLLISION` correction/T2 blocker만 `2 → 0`으로 닫았다. Support는 `2,280 → 2,280`, 전체 correction은 `5,625 → 5,623`, non-target delta는 `0`이다.
+  - D5 support-freeze hash는 common LF-terminated UTF-8 ordered-set 규칙으로 `3a6cc24b9ad64e06a0a6c0408821201e35bbd1d8558e6245809b5d3c34265ce6`을 재도출했다. 최초 JSON-array hash mismatch는 exact set missing/extra 0인 serialization-only mismatch로 정정했으며 corrected bundle만 D6 입력 후보이고 최초 bundle은 superseded다.
   - T1 contract/audit completion은 static Tooltip Lua generation, runtime adoption/visual fit, package, compatibility 또는 release readiness가 아니다.
 
 ## Doing
@@ -553,6 +555,8 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - 이미 완료된 architecture / refactor를 readiness 작업을 이유로 다시 설계 문제로 열지 않는다.
 
 ## Next
+
+- T1-D6는 corrected D5 bundle을 포함한 병렬 workstream bundle의 common predecessor, exact support hash와 shared-path delta를 검증한 뒤에만 global current-authority adoption을 결정한다. D5의 국소 complete를 T2 OPEN이나 production handoff로 확대하지 않는다.
 
 - 최신 current product 상태를 기준으로 **DVF freeze readiness를 재판정한다.**
   - 과거 Problem 4의 `동결 불가` verdict는 historical evidence로 유지하고 직접 수정하거나 승계하지 않는다.

@@ -42,6 +42,7 @@ from .d5 import (
     exact_identity_metrics,
     resolved_collision_members,
 )
+from .d2 import HARNESS, PROJECTION_BUILDER, load_relation
 
 
 L3_POINTER = Path("Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua")
@@ -100,16 +101,26 @@ def build_progression_record(
     return progression, blocker_by_owner
 
 
-def candidate_closeout_record(progression: T2Progression | str) -> dict[str, Any]:
+def candidate_closeout_record(
+    progression: T2Progression | str,
+    *,
+    layer2_relation_complete: bool = False,
+) -> dict[str, Any]:
     progression_value = progression.value if isinstance(progression, T2Progression) else progression
+    validated = ["candidate contract/schema audit", "whole-universe offline audit", "deterministic Layer 4 identity selection", "Layer 4 current consumer identity subset"]
+    unvalidated = ["canonical receipt-bound full gate and deterministic comparator", "Layer 3 Menu parity for selected DVF facts lacking independent Menu consumer fact-identity evidence"]
+    if layer2_relation_complete:
+        validated.append("D2 actual Lua full-set Layer 2 Menu consumer relation")
+    else:
+        unvalidated.append("Layer 2 Menu parity where owner-resolved identity evidence is unavailable")
     return {
         "schema_version": "iris-tooltip-t1-axis-closeout-v1",
         "contract_and_audit_axis": "partial",
         "T2_FULL_DATA_PROGRESSION": progression_value,
         "formal_closeout_state": "implemented_only",
         "validation_ceiling": "candidate and offline audit only; canonical full-gate Run A/Run B and deterministic comparator exit-0 evidence is not yet bound",
-        "validated": ["candidate contract/schema audit", "whole-universe offline audit", "deterministic Layer 4 identity selection", "Layer 4 current consumer identity subset"],
-        "unvalidated_but_in_scope": ["canonical receipt-bound full gate and deterministic comparator", "Layer 2 Menu parity where owner-resolved identity evidence is unavailable", "Layer 3 Menu parity for selected DVF facts lacking independent Menu consumer fact-identity evidence"],
+        "validated": validated,
+        "unvalidated_but_in_scope": unvalidated,
         "out_of_scope": ["runtime rendering", "actual visual fit", "release/deployment"],
         "non_claims": ["no formal complete claim before same-subject canonical gate success", "no runtime mutation", "no T2 static Lua generation", "no full Menu parity claim"],
     }
@@ -679,6 +690,7 @@ def run_candidate(
     decision_contract_sha256: str,
     *,
     verify_selection_invariants: bool,
+    layer2_menu_relation: Path | None = None,
 ) -> dict[str, Any]:
     repository_root = repository_root.resolve()
     output_root = output_root.resolve()
@@ -698,6 +710,13 @@ def run_candidate(
     pointer_text = (repository_root / L3_POINTER).read_text(encoding="utf-8")
     generation_id = _generation_id(pointer_text)
     input_hashes_before = _source_hashes(repository_root, generation_id)
+    layer2_relation_rows: dict[str, dict[str, Any]] = {}
+    layer2_relation_receipt: dict[str, Any] | None = None
+    if layer2_menu_relation is not None:
+        relation_path = layer2_menu_relation.resolve()
+        layer2_relation_rows, layer2_relation_receipt = load_relation(repository_root, relation_path)
+        subject["layer2_menu_relation_sha256"] = sha256_file(relation_path)
+        subject["layer2_menu_relation_receipt_sha256"] = sha256_file(relation_path.with_name("run_receipt.json"))
     subject["generation_id"] = generation_id
     subject["input_sha256"] = input_hashes_before
     subject["contract_sha256"] = contract_hashes
@@ -708,6 +727,9 @@ def run_candidate(
         "input_sha256": input_hashes_before,
         "contract_sha256": contract_hashes,
     }
+    if layer2_relation_receipt is not None:
+        subject_identity["layer2_menu_relation_sha256"] = subject["layer2_menu_relation_sha256"]
+        subject_identity["layer2_menu_relation_receipt_sha256"] = subject["layer2_menu_relation_receipt_sha256"]
     subject["subject_identity_sha256"] = sha256_bytes(canonical_bytes(subject_identity))
 
     classifications = parse_classifications(repository_root / CLASSIFICATIONS)
@@ -789,7 +811,11 @@ def run_candidate(
         "P-8": {"evidence_state": "present", "observation": "Layer 3 owner publishes exact single-core Tooltip facts and independently validated explicit absence dispositions", "canonical_count": len(layer3), "tooltip_fact_count": len(layer3_tooltip_entries), "tooltip_absence_count": len(layer3_tooltip_absences), "en_count": len(l3_en_keys)},
         "P-10": {
             "evidence_state": "mixed",
-            "observation": "D1 owner output resolves only evidence-backed rows; independent per-row Menu identity remains absent",
+            "observation": (
+                "D1 owner output is joined to actual Lua Browser consumer tuples through the D2 candidate relation"
+                if layer2_relation_receipt is not None
+                else "D1 owner output resolves only evidence-backed rows; independent per-row Menu identity remains absent"
+            ),
             "resolved_entry_count": layer2_validation["resolved_entry_count"],
             "remaining_entry_count": layer2_validation["remaining_entry_count"],
         },
@@ -807,7 +833,7 @@ def run_candidate(
         "records": evidence_records,
         "findings": {
             "layer2_resolved_owner_output": layer2_validation["status"],
-            "layer2_independent_menu_consumer_identity": "absent",
+            "layer2_independent_menu_consumer_identity": "present_in_d2_candidate_relation" if layer2_relation_receipt is not None else "absent",
             "layer3_single_tooltip_fact_identity_and_surfaces": "present_with_explicit_owner_absence_partition",
             "layer4_explicit_stable_order_key": "present" if explicit_stable_keys else "absent",
             "layer4_current_owner_input": L4_OWNER_INPUT.as_posix(),
@@ -897,10 +923,24 @@ def run_candidate(
             ] += 1
         else:
             raise TooltipContractError(f"Layer 2 applicability partition missing: {full_type}")
-        corrections.append(_correction(
-            full_type, "cross-layer", "Menu consumer owner", "PARITY_AUTHORITY_RELATION_MISSING",
-            "shared Layer 2 owner/Menu public identity authority relation",
-        ))
+        layer2_relation_row = layer2_relation_rows.get(full_type)
+        if isinstance(layer2_owner_row, dict):
+            layer2_parity = (
+                MenuParityStatus.VERIFIED
+                if isinstance(layer2_relation_row, dict) and layer2_relation_row.get("disposition") == "verified"
+                else MenuParityStatus.CORRECTION_REQUIRED
+            )
+        else:
+            layer2_parity = (
+                MenuParityStatus.NOT_APPLICABLE
+                if isinstance(layer2_relation_row, dict) and layer2_relation_row.get("disposition") == "not_applicable"
+                else MenuParityStatus.CORRECTION_REQUIRED
+            )
+        if layer2_parity is MenuParityStatus.CORRECTION_REQUIRED:
+            corrections.append(_correction(
+                full_type, "cross-layer", "Menu consumer owner", "PARITY_AUTHORITY_RELATION_MISSING",
+                "actual Lua Browser consumer tuple matching the exact D1 Layer 2 disposition",
+            ))
 
         l3 = layer3.get(full_type)
         role_material = l3.get("role_material") if isinstance(l3, dict) else None
@@ -1030,7 +1070,7 @@ def run_candidate(
                 selected_identity=identity,
             ))
         parity = {
-            "layer2": MenuParityStatus.CORRECTION_REQUIRED,
+            "layer2": layer2_parity,
             "layer3": MenuParityStatus.NOT_APPLICABLE
             if slots[1].semantic_state is SemanticSlotState.LEGITIMATE_ABSENCE
             else MenuParityStatus.UNVERIFIED
@@ -1047,7 +1087,10 @@ def run_candidate(
         for layer, status in parity.items():
             authority_relation_ref = None
             independent_consumer_evidence_ref = None
-            if layer == "layer3" and status is MenuParityStatus.UNVERIFIED:
+            if layer == "layer2" and status in {MenuParityStatus.VERIFIED, MenuParityStatus.NOT_APPLICABLE}:
+                authority_relation_ref = f"{OWNER_OUTPUT.as_posix()} -> D2 layer2_menu_consumer_relation.jsonl#{full_type}"
+                independent_consumer_evidence_ref = f"{PROJECTION_BUILDER.as_posix()} via {HARNESS.as_posix()}"
+            elif layer == "layer3" and status is MenuParityStatus.UNVERIFIED:
                 authority_relation_ref = (
                     f"{(L3_GENERATIONS / generation_id / 'dvf_3_3_rendered.json').as_posix()}#entries/{full_type}"
                     " -> Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua"
@@ -1095,7 +1138,10 @@ def run_candidate(
                 "terminal_state": layer2_owner_row.get("terminal_state") if isinstance(layer2_owner_row, dict) else "layer2_display_silence",
                 "authority_ref": layer2_owner_row.get("classification_authority_ref") if isinstance(layer2_owner_row, dict) else f"{RESOLUTION_CONTRACT.as_posix()}#successor_amendment",
                 "provenance_ref": layer2_owner_row.get("classification_provenance_ref") if isinstance(layer2_owner_row, dict) else None,
-                "menu_consumer_identity_ref": None,
+                "menu_consumer_identity_ref": (
+                    f"D2 layer2_menu_consumer_relation.jsonl#{full_type}"
+                    if layer2_parity is MenuParityStatus.VERIFIED else None
+                ),
             },
             "layer3": {
                 "owner_row_present": isinstance(l3, dict) or isinstance(owner_absence, dict),
@@ -1206,7 +1252,7 @@ def run_candidate(
         "schema_version": "iris-tooltip-input-authority-inventory-v1",
         "subject_binding_ref": "subject_binding.json",
         "paths": {path: {"sha256": digest, "role": "read_only_current_input"} for path, digest in input_hashes_before.items()},
-        "layer2_owner_route": f"T1-D1 isolated candidate {OWNER_OUTPUT.as_posix()} status={layer2_validation['status']}; current ecosystem adoption remains pending_T1_D6",
+        "layer2_owner_route": f"T1-D1 isolated candidate {OWNER_OUTPUT.as_posix()} status={layer2_validation['status']}; D2 candidate relation={'present' if layer2_relation_receipt is not None else 'absent'}; current ecosystem adoption remains pending_T1_D6",
         "layer3_owner_route": f"current fact/explicit-absence owner projection {L3_TOOLTIP_OWNER_INPUT.as_posix()}; DVF fact identity/readiness is separate from Menu parity evidence",
         "layer4_owner_route": f"current owner data {L4_OWNER_INPUT.as_posix()} supplies public identities; selected Recipe locale readiness resolves post-selection through {L4_RECIPE_LOCALE_OWNER_INPUT.as_posix()}; reproduction baseline is not consumed",
         "layer4_current_rightclick_locale_route": "current Browser interaction projection identity-to-translation-key relation plus exact Iris_ko/Iris_en translations",
@@ -1333,7 +1379,10 @@ def run_candidate(
     })
     _write_json(
         output_root / "axis_separated_closeout_record.json",
-        candidate_closeout_record(progression["T2_FULL_DATA_PROGRESSION"]),
+        candidate_closeout_record(
+            progression["T2_FULL_DATA_PROGRESSION"],
+            layer2_relation_complete=layer2_relation_receipt is not None,
+        ),
     )
 
     if source_mutation:

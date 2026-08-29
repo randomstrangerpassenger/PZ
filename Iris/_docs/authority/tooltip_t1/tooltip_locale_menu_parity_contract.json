@@ -24,6 +24,15 @@
     "evidence_class": "shared_authority_relation_not_independent_consumer_evidence",
     "status": "unverified_without_independent_consumer_evidence"
   },
+  "layer2_d2_candidate_relation": {
+    "artifact": "layer2_menu_consumer_relation.jsonl",
+    "producer": "iris_tooling.domains.tooltip_t1.d2",
+    "consumer_evidence": "actual production Lua Browser projection for the exact support set",
+    "applicable_disposition": "verified only on exact D1 expected/actual tuple match",
+    "display_silence_disposition": "not_applicable without deleting Menu membership",
+    "correction_disposition": "correction_required on missing or contradictory tuple",
+    "current_ecosystem_adoption": "pending_T1_D6"
+  },
   "parity_statuses": ["verified", "correction_required", "unverified_without_independent_consumer_evidence", "not_applicable"],
   "verified_requires_independent_consumer_evidence": true,
   "dvf_owner_output_may_self_issue_menu_consumer_evidence": false,

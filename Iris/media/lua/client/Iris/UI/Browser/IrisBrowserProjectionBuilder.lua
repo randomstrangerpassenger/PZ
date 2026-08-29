@@ -139,8 +139,30 @@ function IrisBrowserProjectionBuilder.build(itemIndex, options)
                 )
             end
         end
-        if IrisPrimarySubcategory and IrisPrimarySubcategory[fullType] then
-            row.primaryTag = IrisPrimarySubcategory[fullType]
+        local explicitPrimary = IrisPrimarySubcategory and IrisPrimarySubcategory[fullType] or nil
+        if explicitPrimary ~= nil then
+            local category, subcategory = nil, nil
+            if type(explicitPrimary) == "string" then
+                category, subcategory = explicitPrimary:match("^([^%.]+)%.([^%.]+)$")
+            end
+            if not category or not subcategory then
+                error("malformed IrisPrimarySubcategory for " .. fullType .. ": " .. tostring(explicitPrimary))
+            end
+            local accepted = false
+            for _, location in ipairs(classificationIndex.itemLocationsByFullType[fullType] or {}) do
+                if location.category == category and location.subcategory == subcategory then
+                    accepted = true
+                    break
+                end
+            end
+            if not accepted then
+                error("IrisPrimarySubcategory is not an accepted membership for " .. fullType .. ": " .. explicitPrimary)
+            end
+            row.primaryTag = explicitPrimary
+            row.primaryLocation = {
+                category = category,
+                subcategory = subcategory,
+            }
         end
         searchRows[#searchRows + 1] = row
         if hasAnyTag then taggedCount = taggedCount + 1 end

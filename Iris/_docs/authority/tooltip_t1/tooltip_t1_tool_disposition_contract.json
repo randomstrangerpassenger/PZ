@@ -23,6 +23,13 @@
     "current_ecosystem_adoption": "pending_T1_D6",
     "canonical_full_gate_owner": "T1-D6"
   },
+  "d2_lifecycle": {
+    "commands": ["d2-materialize"],
+    "output_role": "repository_external_layer2_menu_consumer_relation_candidate",
+    "regular_validation_authority": false,
+    "current_ecosystem_adoption": "pending_T1_D6",
+    "canonical_full_gate_owner": "T1-D6"
+  },
   "one_off_audit_is_regular_validator": false,
   "mutable_latest_pointer_allowed": false
 }

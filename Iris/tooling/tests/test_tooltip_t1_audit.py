@@ -26,6 +26,7 @@ from iris_tooling.domains.tooltip_t1.d5 import (
     collision_correction_members,
     exact_identity_metrics,
 )
+from iris_tooling.domains.tooltip_t1.d2 import validate_relation_lifecycle
 from iris_tooling.domains.tooltip_t1.models import (
     LocaleSurfaceReadiness,
     SemanticSlotState,
@@ -228,6 +229,9 @@ def test_minimal_t2_handoff_mock_consumer(case: str) -> None:
         ("layer2_silence_fallback", None),
         ("layer2_silence_no_membership", None),
         ("layer2_silence_multi_without_primary", None),
+        ("d2_relation_verified", None),
+        ("d2_relation_not_applicable", None),
+        ("d2_relation_correction_required", None),
     ],
 )
 def test_whole_universe_audit_progression(case: str, expected: T2Progression | None, tmp_path: Path) -> None:
@@ -299,6 +303,24 @@ def test_whole_universe_audit_progression(case: str, expected: T2Progression | N
         assert report["resolved_entry_count"] + report["layer2_display_silence_count"] == support_count
         assert report["remaining_entry_count"] == 0
         assert report["consumer_specific_semantic_field_count"] == 0
+        return
+    if case.startswith("d2_relation_"):
+        disposition = case.removeprefix("d2_relation_")
+        applicable = disposition != "not_applicable"
+        row = {
+            "schema_version": "iris-tooltip-t1-d2-layer2-menu-relation-row-v1",
+            "full_type": "Base.X",
+            "layer2_applicability": "layer2_applicable" if applicable else "layer2_display_silence",
+            "disposition": disposition,
+            "expected": {"classification_identity": "Tool|Tool.1-A"} if applicable else None,
+            "observed": {"memberships": ["Tool.1-A"]},
+            "mismatch_kinds": ["navigation_primary"] if disposition == "correction_required" else [],
+        }
+        assert validate_relation_lifecycle(
+            [row],
+            {"Base.X"} if applicable else set(),
+            set() if applicable else {"Base.X"},
+        ) == {disposition: 1}
         return
     if case.startswith("layer2_"):
         root = Path(__file__).resolve().parents[3]

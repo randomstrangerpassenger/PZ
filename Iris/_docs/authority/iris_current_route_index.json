@@ -39,14 +39,22 @@
     "validation_prerequisite": false
   },
   "tooltip_t1_production_handoff": {
-    "adoption_state": "pending_post_gate_finalizer",
-    "contract_and_audit_axis": "partial",
-    "formal_closeout_state": "implemented_only",
-    "T2_FULL_DATA_PROGRESSION": "OPEN_on_candidate_subject_only",
-    "production_t2_handoff": "absent_from_current",
-    "machine_subject": null,
-    "final_root": null,
-    "artifact_sha256": null
+    "adoption_state": "adopted",
+    "contract_and_audit_axis": "complete",
+    "formal_closeout_state": "complete",
+    "T2_FULL_DATA_PROGRESSION": "OPEN",
+    "production_t2_handoff": "present",
+    "machine_subject": {
+      "commit": "b30aaff2da6172ab5137c55bb460889aa527ad04",
+      "tree": "7cdd52fd61f739b5018a62d8bffe84461dfea50c"
+    },
+    "final_root": "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-bd1ba41f/final-b30aaff2",
+    "artifact_sha256": {
+      "axis_separated_final_closeout_record.json": "f8d6bcbef0e71d57fe36be36504a5ffcea1696953b7d8280deeba911fdcecab6",
+      "subject_binding.json": "22cb4ef4fc461285b8262d151b791f44235cc2a4dda7f99e9b466b1c973754f9",
+      "t2_handoff_input.jsonl": "138b6f4ef85a2235fa41e6d60d88e885c6f6f93a8bb0458a7d6ac4dce7af56ac",
+      "t2_handoff_manifest.json": "15a4a089fdde7eeb70fd0f1e21d77872b90fdaec8130d45605edac52d67fb892"
+    }
   },
   "default_current_allowlist": [
     "Iris/AGENTS.md",

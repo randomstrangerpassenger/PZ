@@ -191,7 +191,7 @@ def build_complete_generation(
 
         if output_root.exists():
             shutil.rmtree(output_root)
-        generation_root.replace(output_root)
+        shutil.move(generation_root, output_root)
         return {
             "status": "BUILT",
             "generation_id": generation_id,

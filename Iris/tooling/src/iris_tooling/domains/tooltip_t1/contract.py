@@ -77,6 +77,10 @@ def sha256_file(path: Path) -> str:
     return sha256_bytes(path.read_bytes())
 
 
+def sha256_lf_text_file(path: Path) -> str:
+    return sha256_bytes(path.read_bytes().replace(b"\r\n", b"\n"))
+
+
 def fulltype_set_sha256(values: Iterable[str]) -> str:
     return sha256_bytes(
         b"".join(f"{value}\n".encode("utf-8") for value in sorted(set(values)))
@@ -533,7 +537,7 @@ def validate_contracts(repository_root: Path, supplied_decision_sha256: str) -> 
         ):
             relative = owner_registry.get(path_key)
             _require(isinstance(relative, str) and bool(relative), f"{label} path missing")
-            _require(sha256_file(repository_root / relative) == owner_registry.get(hash_key), f"{label} SHA-256 mismatch")
+            _require(sha256_lf_text_file(repository_root / relative) == owner_registry.get(hash_key), f"{label} SHA-256 mismatch")
         owner_output_path = owner_output.get("path")
         _require(isinstance(owner_output_path, str) and bool(owner_output_path), "Recipe locale owner output path missing")
         _require(

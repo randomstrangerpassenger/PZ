@@ -14,6 +14,7 @@ AUTHORITY_ROOT = Path("Iris/_docs/authority/tooltip_t1")
 DECISION_CONTRACT = AUTHORITY_ROOT / "tooltip_t1_decision_contract.json"
 D5_DISPOSITION_SCHEMA = AUTHORITY_ROOT / "tooltip_t1_d5_current_support_disposition.schema.json"
 D5_DISPOSITION_RECORD = AUTHORITY_ROOT / "tooltip_t1_d5_current_support_disposition.json"
+HANDOFF_MANIFEST_SCHEMA = AUTHORITY_ROOT / "tooltip_t2_handoff_manifest.schema.json"
 CONTRACT_FILES = (
     DECISION_CONTRACT,
     AUTHORITY_ROOT / "tooltip_display_contract.json",
@@ -23,6 +24,7 @@ CONTRACT_FILES = (
     AUTHORITY_ROOT / "layer4_recipe_locale_input_contract.json",
     AUTHORITY_ROOT / "tooltip_locale_menu_parity_contract.json",
     AUTHORITY_ROOT / "tooltip_t2_handoff.schema.json",
+    HANDOFF_MANIFEST_SCHEMA,
     AUTHORITY_ROOT / "tooltip_readiness_reason_registry.json",
     AUTHORITY_ROOT / "tooltip_t1_tool_disposition_contract.json",
     D5_DISPOSITION_SCHEMA,
@@ -73,6 +75,12 @@ def sha256_bytes(value: bytes) -> str:
 
 def sha256_file(path: Path) -> str:
     return sha256_bytes(path.read_bytes())
+
+
+def fulltype_set_sha256(values: Iterable[str]) -> str:
+    return sha256_bytes(
+        b"".join(f"{value}\n".encode("utf-8") for value in sorted(set(values)))
+    )
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -265,14 +273,15 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
     _require(isinstance(gates, dict) and gates.get("maximum_logical_rows") == 4 and gates.get("embedded_newline_allowed") is False, "display hard gates mismatch")
 
     layer2 = values[AUTHORITY_ROOT / "layer2_tooltip_input_contract.json"]
-    _require(layer2.get("current_route") == "no_admissible_authority_relation", "Layer 2 route mismatch")
+    _require(layer2.get("current_route") == "D1_owner_output_plus_same_subject_D2_actual_consumer_relation", "Layer 2 route mismatch")
+    _require(layer2.get("current_disposition") == "current_T1_D6_integrated_input", "Layer 2 current disposition mismatch")
     _require(layer2.get("raw_tag_resolution_allowed") is False and layer2.get("runtime_resolver_reimplementation_allowed") is False, "Layer 2 raw inference prohibition mismatch")
     layer2_candidate = layer2.get("workstream_candidate_route")
     _require(
         isinstance(layer2_candidate, dict)
         and layer2_candidate.get("path") == "Iris/build/classification/data/classification_layer2_owner_output.json"
         and layer2_candidate.get("schema") == "Iris/_docs/authority/classification_layer2/classification_layer2_owner_output.schema.json"
-        and layer2_candidate.get("current_ecosystem_adoption") == "pending_T1_D6",
+        and layer2_candidate.get("current_ecosystem_adoption") == "adopted_T1_D6",
         "Layer 2 workstream candidate route mismatch",
     )
     layer2_d2_candidate = layer2.get("workstream_d2_relation_candidate_route")
@@ -282,7 +291,7 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
         and layer2_d2_candidate.get("receipt") == "run_receipt.json"
         and layer2_d2_candidate.get("producer") == "iris_tooling.domains.tooltip_t1.d2"
         and layer2_d2_candidate.get("dispositions") == ["verified", "not_applicable", "correction_required"]
-        and layer2_d2_candidate.get("current_ecosystem_adoption") == "pending_T1_D6",
+        and layer2_d2_candidate.get("current_ecosystem_adoption") == "adopted_T1_D6",
         "Layer 2 D2 relation candidate route mismatch",
     )
     layer2_amendment = layer2.get("successor_owner_amendment")
@@ -389,7 +398,7 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
         and layer2_parity.get("applicable_disposition") == "verified only on exact D1 expected/actual tuple match"
         and layer2_parity.get("display_silence_disposition") == "not_applicable without deleting Menu membership"
         and layer2_parity.get("correction_disposition") == "correction_required on missing or contradictory tuple"
-        and layer2_parity.get("current_ecosystem_adoption") == "pending_T1_D6",
+        and layer2_parity.get("current_ecosystem_adoption") == "adopted_T1_D6",
         "Layer 2 D2 parity relation mismatch",
     )
     recipe_locale_route = parity.get("current_recipe_locale_route")
@@ -425,6 +434,18 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
     surface_props = handoff.get("properties", {}).get("slots", {}).get("items", {}).get("properties", {}).get("localized_surfaces", {}).get("properties", {})
     _require(all(isinstance(surface_props.get(locale), dict) and surface_props[locale].get("pattern") == r"^[^\r\n]+$" for locale in SUPPORTED_LOCALES), "handoff CR/LF schema gate missing")
 
+    handoff_manifest = values[HANDOFF_MANIFEST_SCHEMA]
+    _require(handoff_manifest.get("schema_version") == "iris-tooltip-t2-handoff-manifest-schema-v1", "handoff manifest schema version mismatch")
+    _require(handoff_manifest.get("additionalProperties") is False, "handoff manifest schema must be closed")
+    _require(
+        handoff_manifest.get("required") == [
+            "schema_version", "subject", "support_count", "support_sha256",
+            "handoff_row_count", "handoff_fulltype_sha256", "handoff_input_sha256",
+            "authority_contract_bundle_sha256", "candidate_run_receipt_sha256",
+        ],
+        "handoff manifest required fields mismatch",
+    )
+
     registry = values[AUTHORITY_ROOT / "tooltip_readiness_reason_registry.json"]
     reasons = registry.get("reasons")
     _require(isinstance(reasons, list) and bool(reasons) and all(isinstance(row, dict) for row in reasons), "reason registry malformed")
@@ -451,13 +472,15 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
     _require(isinstance(finalization, dict), "Tooltip T1 post-gate finalization contract missing")
     _require(finalization.get("candidate_contract_and_audit_axis") == "partial" and finalization.get("candidate_formal_closeout_state") == "implemented_only", "Tooltip T1 candidate closeout axis mismatch")
     _require(finalization.get("complete_requires_same_subject_run_a_run_b_and_comparator_exit_0") is True and finalization.get("failed_or_mismatched_gate_writes_complete_closeout") is False, "Tooltip T1 complete closeout gate mismatch")
+    _require(finalization.get("complete_requires_zero_blockers_and_strict_handoff_hash_consistency") is True, "Tooltip T1 strict finalization gate mismatch")
+    _require(finalization.get("final_output_files") == ["subject_binding.json", "t2_handoff_input.jsonl", "t2_handoff_manifest.json", "axis_separated_final_closeout_record.json"], "Tooltip T1 final production file set mismatch")
     _require(finalization.get("output_root") == "repository_external_empty", "Tooltip T1 final closeout output boundary mismatch")
     d5_lifecycle = tools.get("d5_lifecycle")
     _require(
         isinstance(d5_lifecycle, dict)
         and d5_lifecycle.get("commands") == ["d5-census", "d5-reconcile"]
         and d5_lifecycle.get("regular_validation_authority") is False
-        and d5_lifecycle.get("current_ecosystem_adoption") == "pending_T1_D6",
+        and d5_lifecycle.get("current_ecosystem_adoption") == "adopted_T1_D6",
         "D5 lifecycle/tool disposition mismatch",
     )
     d2_lifecycle = tools.get("d2_lifecycle")
@@ -465,7 +488,7 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
         isinstance(d2_lifecycle, dict)
         and d2_lifecycle.get("commands") == ["d2-materialize"]
         and d2_lifecycle.get("regular_validation_authority") is False
-        and d2_lifecycle.get("current_ecosystem_adoption") == "pending_T1_D6",
+        and d2_lifecycle.get("current_ecosystem_adoption") == "adopted_T1_D6",
         "D2 lifecycle/tool disposition mismatch",
     )
 
@@ -488,7 +511,7 @@ def validate_contracts(repository_root: Path, supplied_decision_sha256: str) -> 
             identities[relative.as_posix()] = sha256_file(path)
         actual = identities[DECISION_CONTRACT.as_posix()]
         _require(supplied_decision_sha256 == actual, "decision contract SHA-256 mismatch")
-        _validate_contract_values(values)
+        identities["authority_contract_bundle_sha256"] = _validate_contract_values(values)
         adoption = values[AUTHORITY_ROOT / "layer4_tooltip_projection_contract.json"]["current_input_adoption"]
         adoption_path = repository_root / adoption["path"]
         _require(sha256_file(adoption_path) == adoption.get("sha256"), "Layer 4 current input adoption SHA-256 mismatch")

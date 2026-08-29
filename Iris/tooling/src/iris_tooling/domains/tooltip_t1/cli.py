@@ -127,6 +127,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--decision-contract-sha256", required=True)
     parser.add_argument("--verify-invariants", action="store_true", required=True)
     parser.add_argument("--layer2-menu-relation", type=Path)
+    parser.add_argument("--strict-production-handoff", action="store_true")
     args = parser.parse_args(values)
     try:
         result = run_candidate(
@@ -135,6 +136,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             args.decision_contract_sha256,
             verify_selection_invariants=args.verify_invariants,
             layer2_menu_relation=args.layer2_menu_relation,
+            strict_production_handoff=args.strict_production_handoff,
         )
     except (OSError, TooltipContractError) as exc:
         print(f"tooltip-t1 blocked: {exc}", file=sys.stderr)

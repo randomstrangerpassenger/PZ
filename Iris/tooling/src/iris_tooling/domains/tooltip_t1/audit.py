@@ -4,6 +4,8 @@ from collections import Counter
 import json
 from pathlib import Path
 import re
+import shutil
+import subprocess
 from typing import Any, Iterable
 
 from iris_tooling.domains.layer4.tooltip_t1_d4 import (
@@ -16,6 +18,7 @@ from iris_tooling.domains.classification.layer2_validator import validate_owner_
 from .contract import (
     AUTHORITY_ROOT,
     canonical_bytes,
+    fulltype_set_sha256,
     git_subject,
     load_json,
     parse_classifications,
@@ -33,6 +36,8 @@ from .models import (
     Slot,
     T2Progression,
     TooltipContractError,
+    build_handoff_row,
+    validate_handoff_row,
 )
 from .projection import Layer4Candidate, select_layer4, verify_invariants
 from .d5 import (
@@ -66,6 +71,18 @@ MENU_TOOLTIP_SOURCES = (
     Path("Iris/media/lua/client/Iris/UI/Tooltip/IrisAltTooltip.lua"),
     Path("Iris/media/lua/client/Iris/UI/Tooltip/IrisTooltipSummary.lua"),
 )
+
+D6_DIRECT_PARENT = "76fe186d44815c9fa061d496ce88224e2ddce082"
+D6_DIRECT_PARENT_TREE = "f6532a6fca016feee503ca5c154d90607741f5ee"
+D6_REQUIRED_ANCESTRY = {
+    "D1": "8bbc40169e86bd2e818c440a823e497f852a1e69",
+    "D2": "0e959b3bd7055d58f319fa9d69a5b110bf48b8b7",
+    "D3": "e70fcd6fc2dd09bd0f756339f3229b5d1a58681f",
+    "D4": "a8fddf747738045df08579ae34b0b727e3cf91ad",
+    "D5": "c86b4a747025aa593eddacd7d9c7de7c095ebad8",
+}
+FROZEN_SUPPORT_COUNT = 2_280
+FROZEN_SUPPORT_SHA256 = "3a6cc24b9ad64e06a0a6c0408821201e35bbd1d8558e6245809b5d3c34265ce6"
 
 
 def classify_progression(upstream_blockers: int, contract_blockers: int, mock_product_decisions: int) -> T2Progression:
@@ -213,6 +230,150 @@ def _write_jsonl(path: Path, rows: Iterable[dict[str, Any]]) -> None:
     path.write_bytes(b"".join(canonical_bytes(row) for row in rows))
 
 
+def _d6_admission(repository_root: Path, subject: dict[str, Any]) -> dict[str, Any]:
+    def git(*args: str) -> str:
+        completed = subprocess.run(
+            ["git", *args], cwd=repository_root, check=False,
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+        )
+        if completed.returncode:
+            raise TooltipContractError(completed.stderr.strip() or "D6 ancestry query failed")
+        return completed.stdout.strip()
+
+    if git("rev-parse", f"{D6_DIRECT_PARENT}^{{tree}}") != D6_DIRECT_PARENT_TREE:
+        raise TooltipContractError("D6 direct-parent tree mismatch")
+    ancestry = {"direct_parent": D6_DIRECT_PARENT, **D6_REQUIRED_ANCESTRY}
+    for label, commit in ancestry.items():
+        completed = subprocess.run(
+            ["git", "merge-base", "--is-ancestor", commit, subject["commit"]],
+            cwd=repository_root, check=False,
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        )
+        if completed.returncode != 0:
+            raise TooltipContractError(f"D6 required ancestry missing: {label}={commit}")
+    return {
+        "schema_version": "iris-tooltip-t1-d6-admission-v1",
+        "direct_parent": {"commit": D6_DIRECT_PARENT, "tree": D6_DIRECT_PARENT_TREE},
+        "required_ancestry": D6_REQUIRED_ANCESTRY,
+        "implementation_subject": {"commit": subject["commit"], "tree": subject["tree"]},
+        "working_tree_clean": True,
+        "historical_patch_reapplied": False,
+    }
+
+
+def _strict_candidate_result(
+    output_root: Path,
+    subject: dict[str, Any],
+    contract_hashes: dict[str, str],
+    admission: dict[str, Any],
+    support: list[str],
+    audited_slots: dict[str, tuple[Slot, ...]],
+    corrections: list[dict[str, Any]],
+    progression: dict[str, Any],
+    blocker_by_owner: dict[str, int],
+    layer2_relation_rows: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    progression_value = progression["T2_FULL_DATA_PROGRESSION"]
+    blocking = [row for row in corrections if row.get("t2_blocking") is True]
+    correction_summary = {
+        "correction_total": len(corrections),
+        "t2_blocking_correction_total": len(blocking),
+        "blocker_by_owner": blocker_by_owner,
+        "blocker_by_reason": dict(sorted(Counter(row["reason_code"] for row in blocking).items())),
+        "owner_blocker_sum": sum(blocker_by_owner.values()),
+    }
+    layer2_distribution = dict(sorted(Counter(
+        row.get("disposition") for row in layer2_relation_rows.values()
+    ).items()))
+    closeout = candidate_closeout_record(progression_value, layer2_relation_complete=True)
+    base_receipt = {
+        "schema_version": "iris-tooltip-t1-run-receipt-v1",
+        "candidate_mode": "strict_t2_handoff",
+        "admission": admission,
+        "T2_FULL_DATA_PROGRESSION": progression_value,
+        "candidate_closeout": closeout,
+        "progression": progression,
+        "correction_summary": correction_summary,
+        "layer2_relation_distribution": layer2_distribution,
+        "source_mutation": 0,
+    }
+    if progression_value != T2Progression.OPEN.value:
+        _write_json(output_root / "run_receipt.json", {
+            **base_receipt,
+            "subject_binding_sha256": None,
+            "artifacts": {},
+            "production_t2_handoff": "absent",
+        })
+        return {
+            "support_count": len(support),
+            "correction_count": len(corrections),
+            "progression": progression_value,
+            "production_t2_handoff": "absent",
+            "run_receipt_sha256": sha256_file(output_root / "run_receipt.json"),
+        }
+
+    support_sha256 = fulltype_set_sha256(support)
+    if len(support) != FROZEN_SUPPORT_COUNT or support_sha256 != FROZEN_SUPPORT_SHA256:
+        raise TooltipContractError("strict handoff support binding mismatch")
+    handoff_rows = [
+        build_handoff_row(full_type, audited_slots[full_type], progression=T2Progression.OPEN)
+        for full_type in support
+    ]
+    handoff_fulltypes = [row["full_type"] for row in handoff_rows]
+    if len(handoff_fulltypes) != len(set(handoff_fulltypes)) or handoff_fulltypes != support:
+        raise TooltipContractError("strict handoff exact FullType set mismatch")
+
+    subject_path = output_root / "subject_binding.json"
+    input_path = output_root / "t2_handoff_input.jsonl"
+    receipt_path = output_root / "run_receipt.json"
+    manifest_path = output_root / "t2_handoff_manifest.json"
+    _write_json(subject_path, subject)
+    _write_jsonl(input_path, handoff_rows)
+    handoff_input_sha256 = sha256_file(input_path)
+    artifacts = {
+        "subject_binding.json": sha256_file(subject_path),
+        "t2_handoff_input.jsonl": handoff_input_sha256,
+    }
+    receipt = {
+        **base_receipt,
+        "subject_binding_sha256": artifacts["subject_binding.json"],
+        "artifacts": artifacts,
+        "support": {"count": len(support), "sha256": support_sha256},
+        "handoff": {
+            "row_count": len(handoff_rows),
+            "fulltype_sha256": fulltype_set_sha256(handoff_fulltypes),
+            "input_sha256": handoff_input_sha256,
+        },
+        "authority_contract_bundle_sha256": contract_hashes["authority_contract_bundle_sha256"],
+        "production_t2_handoff": "candidate_present",
+    }
+    _write_json(receipt_path, receipt)
+    receipt_sha256 = sha256_file(receipt_path)
+    manifest = {
+        "schema_version": "iris-tooltip-t2-handoff-manifest-v1",
+        "subject": {"commit": subject["commit"], "tree": subject["tree"]},
+        "support_count": len(support),
+        "support_sha256": support_sha256,
+        "handoff_row_count": len(handoff_rows),
+        "handoff_fulltype_sha256": fulltype_set_sha256(handoff_fulltypes),
+        "handoff_input_sha256": handoff_input_sha256,
+        "authority_contract_bundle_sha256": contract_hashes["authority_contract_bundle_sha256"],
+        "candidate_run_receipt_sha256": receipt_sha256,
+    }
+    _write_json(manifest_path, manifest)
+    return {
+        "support_count": len(support),
+        "support_sha256": support_sha256,
+        "correction_count": len(corrections),
+        "progression": progression_value,
+        "handoff_row_count": len(handoff_rows),
+        "handoff_input_sha256": handoff_input_sha256,
+        "handoff_manifest_sha256": sha256_file(manifest_path),
+        "production_t2_handoff": "candidate_present",
+        "run_receipt_sha256": receipt_sha256,
+    }
+
+
 def _load_json_object(path: Path, label: str) -> dict[str, Any]:
     try:
         value = json.loads(path.read_text(encoding="utf-8"))
@@ -252,17 +413,151 @@ def _subject_equal(actual: Any, expected: dict[str, str]) -> bool:
     )
 
 
+def _read_jsonl_objects(path: Path, label: str) -> list[dict[str, Any]]:
+    try:
+        raw = path.read_bytes()
+        rows = [json.loads(line) for line in raw.splitlines() if line]
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise TooltipContractError(f"{label} is unavailable or malformed: {exc}") from exc
+    if not all(isinstance(row, dict) for row in rows):
+        raise TooltipContractError(f"{label} must contain JSON objects")
+    if raw != b"".join(canonical_bytes(row) for row in rows):
+        raise TooltipContractError(f"{label} is not canonical JSONL")
+    return rows
+
+
+def _validate_strict_candidate(
+    repository_root: Path,
+    root: Path,
+    receipt: dict[str, Any],
+    receipt_sha256: str,
+) -> tuple[dict[str, str], dict[str, Any], dict[str, str], dict[str, Any]]:
+    expected_names = {
+        "subject_binding.json", "t2_handoff_input.jsonl",
+        "t2_handoff_manifest.json", "run_receipt.json",
+    }
+    if {path.name for path in root.iterdir()} != expected_names:
+        raise TooltipContractError("strict candidate root file set mismatch")
+    artifacts = receipt.get("artifacts")
+    if not isinstance(artifacts, dict) or set(artifacts) != {
+        "subject_binding.json", "t2_handoff_input.jsonl",
+    }:
+        raise TooltipContractError("strict candidate artifact binding mismatch")
+    for name, digest in artifacts.items():
+        _require_hash(root / name, digest, f"strict candidate artifact {name}")
+
+    subject_path = root / "subject_binding.json"
+    _require_hash(subject_path, receipt.get("subject_binding_sha256"), "candidate subject binding")
+    subject = _load_json_object(subject_path, "candidate subject binding")
+    expected_subject = {"commit": subject.get("commit"), "tree": subject.get("tree")}
+    if not all(isinstance(expected_subject[key], str) and len(expected_subject[key]) == 40 for key in ("commit", "tree")):
+        raise TooltipContractError("candidate subject identity is incomplete")
+    current_subject = git_subject(repository_root)
+    validate_execution_subject(current_subject, expected_commit=expected_subject["commit"])
+    if current_subject["tree"] != expected_subject["tree"]:
+        raise TooltipContractError("candidate subject tree differs from finalizer checkout")
+
+    closeout = receipt.get("candidate_closeout")
+    if not isinstance(closeout, dict) or closeout.get("contract_and_audit_axis") != "partial" or closeout.get("formal_closeout_state") != "implemented_only":
+        raise TooltipContractError("candidate closeout must remain partial/implemented_only before canonical gate success")
+    progression = receipt.get("progression")
+    if not isinstance(progression, dict) or progression.get("T2_FULL_DATA_PROGRESSION") != T2Progression.OPEN.value:
+        raise TooltipContractError("strict candidate progression must be OPEN")
+    if receipt.get("T2_FULL_DATA_PROGRESSION") != T2Progression.OPEN.value or closeout.get("T2_FULL_DATA_PROGRESSION") != T2Progression.OPEN.value:
+        raise TooltipContractError("candidate T2 progression bindings disagree")
+    if progression.get("upstream_blocker_count") != 0 or progression.get("contract_blocker_count") != 0:
+        raise TooltipContractError("strict candidate blocker count is nonzero")
+    correction = receipt.get("correction_summary")
+    if (
+        not isinstance(correction, dict)
+        or correction.get("t2_blocking_correction_total") != 0
+        or correction.get("owner_blocker_sum") != 0
+        or correction.get("blocker_by_owner") != {}
+        or correction.get("blocker_by_reason") != {}
+    ):
+        raise TooltipContractError("strict candidate correction summary is not blocker-free")
+    if receipt.get("layer2_relation_distribution") != {
+        "not_applicable": 874, "verified": 1406,
+    }:
+        raise TooltipContractError("strict candidate Layer 2 relation distribution mismatch")
+    if receipt.get("production_t2_handoff") != "candidate_present":
+        raise TooltipContractError("strict candidate handoff presence claim missing")
+
+    manifest_path = root / "t2_handoff_manifest.json"
+    manifest = _load_json_object(manifest_path, "T2 handoff manifest")
+    required_manifest_fields = {
+        "schema_version", "subject", "support_count", "support_sha256",
+        "handoff_row_count", "handoff_fulltype_sha256", "handoff_input_sha256",
+        "authority_contract_bundle_sha256", "candidate_run_receipt_sha256",
+    }
+    if set(manifest) != required_manifest_fields or manifest.get("schema_version") != "iris-tooltip-t2-handoff-manifest-v1":
+        raise TooltipContractError("T2 handoff manifest fields mismatch")
+    if not _subject_equal(manifest.get("subject"), expected_subject):
+        raise TooltipContractError("T2 handoff manifest subject mismatch")
+    if manifest.get("candidate_run_receipt_sha256") != receipt_sha256:
+        raise TooltipContractError("T2 handoff manifest receipt binding mismatch")
+    if manifest.get("support_count") != FROZEN_SUPPORT_COUNT or manifest.get("support_sha256") != FROZEN_SUPPORT_SHA256:
+        raise TooltipContractError("T2 handoff manifest support binding mismatch")
+    contract_bundle = subject.get("contract_sha256", {}).get("authority_contract_bundle_sha256")
+    if (
+        not isinstance(contract_bundle, str)
+        or manifest.get("authority_contract_bundle_sha256") != contract_bundle
+        or receipt.get("authority_contract_bundle_sha256") != contract_bundle
+    ):
+        raise TooltipContractError("T2 handoff authority contract bundle mismatch")
+
+    input_path = root / "t2_handoff_input.jsonl"
+    rows = _read_jsonl_objects(input_path, "T2 handoff input")
+    for row in rows:
+        validate_handoff_row(row)
+        if row.get("subject_binding_ref") != "subject_binding.json":
+            raise TooltipContractError("T2 handoff subject binding reference mismatch")
+    fulltypes = [row["full_type"] for row in rows]
+    if len(fulltypes) != len(set(fulltypes)):
+        raise TooltipContractError("T2 handoff duplicate exact FullType")
+    handoff_fulltype_sha256 = fulltype_set_sha256(fulltypes)
+    input_sha256 = sha256_file(input_path)
+    if (
+        len(rows) != FROZEN_SUPPORT_COUNT
+        or handoff_fulltype_sha256 != FROZEN_SUPPORT_SHA256
+        or manifest.get("handoff_row_count") != len(rows)
+        or manifest.get("handoff_fulltype_sha256") != handoff_fulltype_sha256
+        or manifest.get("handoff_input_sha256") != input_sha256
+        or receipt.get("handoff") != {
+            "row_count": len(rows),
+            "fulltype_sha256": handoff_fulltype_sha256,
+            "input_sha256": input_sha256,
+        }
+        or receipt.get("support") != {"count": FROZEN_SUPPORT_COUNT, "sha256": FROZEN_SUPPORT_SHA256}
+    ):
+        raise TooltipContractError("T2 handoff exact-set or hash binding mismatch")
+    return expected_subject, closeout, {
+        "path": (root / "run_receipt.json").resolve().as_posix(),
+        "sha256": receipt_sha256,
+    }, {
+        "root": root,
+        "manifest": manifest,
+        "artifact_sha256": {
+            "subject_binding.json": sha256_file(subject_path),
+            "t2_handoff_input.jsonl": input_sha256,
+            "t2_handoff_manifest.json": sha256_file(manifest_path),
+        },
+    }
+
+
 def _validate_candidate_closeout(
     repository_root: Path,
     candidate_root: Path,
     expected_receipt_sha256: str,
-) -> tuple[dict[str, str], dict[str, Any], dict[str, str]]:
+) -> tuple[dict[str, str], dict[str, Any], dict[str, str], dict[str, Any] | None]:
     root = _require_external(repository_root, candidate_root, "candidate root")
     receipt_path = root / "run_receipt.json"
     receipt_sha256 = _require_hash(receipt_path, expected_receipt_sha256, "candidate run receipt")
     receipt = _load_json_object(receipt_path, "candidate run receipt")
     if receipt.get("schema_version") != "iris-tooltip-t1-run-receipt-v1":
         raise TooltipContractError("candidate run receipt schema mismatch")
+    if receipt.get("candidate_mode") == "strict_t2_handoff":
+        return _validate_strict_candidate(repository_root, root, receipt, receipt_sha256)
     artifacts = receipt.get("artifacts")
     if not isinstance(artifacts, dict) or not artifacts:
         raise TooltipContractError("candidate run receipt artifact binding is missing")
@@ -290,7 +585,7 @@ def _validate_candidate_closeout(
     return expected_subject, closeout, {
         "path": receipt_path.resolve().as_posix(),
         "sha256": receipt_sha256,
-    }
+    }, None
 
 
 def _validate_gate_chain(
@@ -333,7 +628,7 @@ def finalize_closeout(
     comparator_receipt: Path,
     output_root: Path,
 ) -> dict[str, Any]:
-    expected_subject, candidate_closeout, candidate_receipt = _validate_candidate_closeout(
+    expected_subject, candidate_closeout, candidate_receipt, strict_candidate = _validate_candidate_closeout(
         repository_root, candidate_root, candidate_run_receipt_sha256
     )
     run_a = _validate_gate_chain(repository_root, run_a_orchestration_receipt, expected_subject)
@@ -354,6 +649,7 @@ def finalize_closeout(
     chains = comparator.get("run_chains")
     if not isinstance(chains, dict):
         raise TooltipContractError("deterministic comparator run-chain binding is missing")
+    canonical_hashes: list[str] = []
     for label, gate in (("run_a", run_a), ("run_b", run_b)):
         chain = chains.get(label)
         if not isinstance(chain, dict):
@@ -370,7 +666,9 @@ def finalize_closeout(
         if not isinstance(canonical_ref, dict):
             raise TooltipContractError(f"deterministic comparator {label} canonical result binding missing")
         canonical_path = _require_external(repository_root, Path(str(canonical_ref.get("path"))), f"{label} canonical result")
-        _require_hash(canonical_path, canonical_ref.get("sha256"), f"{label} canonical result")
+        canonical_hashes.append(_require_hash(canonical_path, canonical_ref.get("sha256"), f"{label} canonical result"))
+    if len(set(canonical_hashes)) != 1:
+        raise TooltipContractError("Run A and Run B canonical results differ")
 
     output = _require_external(repository_root, output_root, "final closeout output root")
     if output.exists():
@@ -379,7 +677,7 @@ def finalize_closeout(
     else:
         output.mkdir(parents=True)
     final_record = {
-        "schema_version": "iris-tooltip-t1-axis-closeout-v2",
+        "schema_version": "iris-tooltip-t1-axis-closeout-v3" if strict_candidate else "iris-tooltip-t1-axis-closeout-v2",
         "contract_and_audit_axis": "complete",
         "formal_closeout_state": "complete",
         "subject": expected_subject,
@@ -393,8 +691,13 @@ def finalize_closeout(
                 "sha256": sha256_file(compare_path),
             },
         },
-        "validation_ceiling": "offline Tooltip T1 contract/audit plus same-subject canonical Run A, Run B, and deterministic comparator; no runtime, visual, release, or upstream-correction completion claim",
+        "validation_ceiling": (
+            "offline Tooltip T1 contract/audit, strict 2,280-row T2 handoff, fresh installed CLI, same-subject canonical Run A, Run B, deterministic comparator, and finalizer; no static Tooltip Lua, runtime, visual, T2/T3 implementation, release, or deployment claim"
+            if strict_candidate else
+            "offline Tooltip T1 contract/audit plus same-subject canonical Run A, Run B, and deterministic comparator; no runtime, visual, release, or upstream-correction completion claim"
+        ),
         "T2_FULL_DATA_PROGRESSION": candidate_closeout["T2_FULL_DATA_PROGRESSION"],
+        "production_t2_handoff": "present" if strict_candidate else "absent",
         "validated": [
             *candidate_closeout["validated"],
             "same-subject canonical clean-checkout Run A",
@@ -407,16 +710,28 @@ def finalize_closeout(
             "no runtime mutation",
             "no T2 static Lua generation",
             "no full Menu parity claim",
-            "no upstream correction resolution",
+            "no upstream correction resolution" if not strict_candidate else "no Tooltip static Lua or T2/T3 implementation claim",
             "no release/deployment readiness claim",
         ],
     }
+    if strict_candidate:
+        final_record["strict_t2_handoff"] = {
+            "support_count": strict_candidate["manifest"]["support_count"],
+            "support_sha256": strict_candidate["manifest"]["support_sha256"],
+            "handoff_row_count": strict_candidate["manifest"]["handoff_row_count"],
+            "candidate_final_bytes_equal": True,
+            "artifact_sha256": strict_candidate["artifact_sha256"],
+        }
+        for name in ("subject_binding.json", "t2_handoff_input.jsonl", "t2_handoff_manifest.json"):
+            shutil.copyfile(strict_candidate["root"] / name, output / name)
     final_path = output / "axis_separated_final_closeout_record.json"
     _write_json(final_path, final_record)
     return {
         "contract_and_audit_axis": "complete",
         "formal_closeout_state": "complete",
         "T2_FULL_DATA_PROGRESSION": final_record["T2_FULL_DATA_PROGRESSION"],
+        "production_t2_handoff": final_record["production_t2_handoff"],
+        "final_root": output.resolve().as_posix(),
         "final_closeout_path": final_path.resolve().as_posix(),
         "final_closeout_sha256": sha256_file(final_path),
     }
@@ -691,6 +1006,7 @@ def run_candidate(
     *,
     verify_selection_invariants: bool,
     layer2_menu_relation: Path | None = None,
+    strict_production_handoff: bool = False,
 ) -> dict[str, Any]:
     repository_root = repository_root.resolve()
     output_root = output_root.resolve()
@@ -701,11 +1017,14 @@ def run_candidate(
     output_root.mkdir(parents=True, exist_ok=True)
     if not verify_selection_invariants:
         raise TooltipContractError("blocked_contract_incompleteness: --verify-invariants is mandatory")
+    if strict_production_handoff and layer2_menu_relation is None:
+        raise TooltipContractError("strict production handoff requires --layer2-menu-relation")
 
     # W0: validate the tracked contract template and bind an exact clean subject.
     contract_hashes = validate_contracts(repository_root, decision_contract_sha256)
     subject = git_subject(repository_root)
     validate_execution_subject(subject)
+    admission = _d6_admission(repository_root, subject) if strict_production_handoff else {}
 
     pointer_text = (repository_root / L3_POINTER).read_text(encoding="utf-8")
     generation_id = _generation_id(pointer_text)
@@ -871,6 +1190,7 @@ def run_candidate(
     invariance = _invariance(by_full_type)
 
     audit_rows: list[dict[str, Any]] = []
+    audited_slots: dict[str, tuple[Slot, ...]] = {}
     corrections: list[dict[str, Any]] = []
     candidate_dispositions: Counter[str] = Counter()
     source_universe: Counter[str] = Counter()
@@ -1185,6 +1505,7 @@ def run_candidate(
             "subject": "subject_binding.json",
         }
         audit_rows.append(row)
+        audited_slots[full_type] = tuple(slots)
 
     progression, blocker_by_owner = build_progression_record(corrections, input_hashes_before)
     universe_metrics = validate_whole_universe(set(support), audit_rows)
@@ -1278,6 +1599,20 @@ def run_candidate(
         )
     ):
         raise TooltipContractError("tracked contract fixture mismatch")
+
+    if strict_production_handoff:
+        return _strict_candidate_result(
+            output_root,
+            subject,
+            contract_hashes,
+            admission,
+            support,
+            audited_slots,
+            corrections,
+            progression,
+            blocker_by_owner,
+            layer2_relation_rows,
+        )
 
     _write_json(output_root / "subject_binding.json", subject)
     _write_jsonl(output_root / "tooltip_support_universe_census.jsonl", (

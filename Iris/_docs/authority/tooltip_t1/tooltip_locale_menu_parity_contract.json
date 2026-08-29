@@ -31,7 +31,7 @@
     "applicable_disposition": "verified only on exact D1 expected/actual tuple match",
     "display_silence_disposition": "not_applicable without deleting Menu membership",
     "correction_disposition": "correction_required on missing or contradictory tuple",
-    "current_ecosystem_adoption": "pending_T1_D6"
+    "current_ecosystem_adoption": "adopted_T1_D6"
   },
   "parity_statuses": ["verified", "correction_required", "unverified_without_independent_consumer_evidence", "not_applicable"],
   "verified_requires_independent_consumer_evidence": true,

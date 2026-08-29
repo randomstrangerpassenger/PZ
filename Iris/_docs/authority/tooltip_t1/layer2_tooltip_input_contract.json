@@ -1,8 +1,8 @@
 {
   "schema_version": "iris-tooltip-layer2-input-contract-v1",
   "required_fields_when_applicable": ["classification_identity", "category_id", "primary_subcategory_id", "category_label_key", "primary_subcategory_label_key", "localized_surfaces", "authority_ref"],
-  "current_route": "no_admissible_authority_relation",
-  "current_disposition": "successor_workstream_candidate_not_current",
+  "current_route": "D1_owner_output_plus_same_subject_D2_actual_consumer_relation",
+  "current_disposition": "current_T1_D6_integrated_input",
   "workstream_candidate_route": {
     "path": "Iris/build/classification/data/classification_layer2_owner_output.json",
     "schema": "Iris/_docs/authority/classification_layer2/classification_layer2_owner_output.schema.json",
@@ -11,7 +11,7 @@
     "status_field": "status",
     "applicability_rule_field": "layer2_applicability_rule",
     "d2_handoff_partition_field": "d2_handoff_partition",
-    "current_ecosystem_adoption": "pending_T1_D6"
+    "current_ecosystem_adoption": "adopted_T1_D6"
   },
   "workstream_d2_relation_candidate_route": {
     "artifact": "layer2_menu_consumer_relation.jsonl",
@@ -21,7 +21,7 @@
     "dispositions": ["verified", "not_applicable", "correction_required"],
     "verified_input": "exact actual Lua Browser tuple for every D1 applicable FullType",
     "not_applicable_input": "exact D1 display-silence membership",
-    "current_ecosystem_adoption": "pending_T1_D6"
+    "current_ecosystem_adoption": "adopted_T1_D6"
   },
   "successor_owner_amendment": {
     "authority_ref": "Iris/_docs/authority/classification_layer2/classification_layer2_resolution_contract.json#successor_amendment",
@@ -39,5 +39,5 @@
   "runtime_resolver_reimplementation_allowed": false,
   "owner_output_self_comparison_allowed": false,
   "misc_9a_raw_fallback_admissible": false,
-  "acceptance_condition": "D1 publishes an exact applicable/display-silence partition without semantic inference; D2 candidate verifies every applicable actual Lua Browser tuple, preserves display-silence Menu membership, and leaves current adoption to T1-D6"
+  "acceptance_condition": "D1 publishes an exact applicable/display-silence partition without semantic inference; the same-subject D2 relation verifies every applicable actual Lua Browser tuple, preserves display-silence Menu membership, and is adopted only through the T1-D6 strict handoff lifecycle"
 }

@@ -10,6 +10,7 @@ from iris_tooling.domains.classification.layer2_materializer import materialize
 from iris_tooling.domains.classification.layer2_validator import validate_owner_output
 
 from iris_tooling.domains.tooltip_t1.audit import (
+    _strict_candidate_result,
     build_progression_record,
     candidate_closeout_record,
     classify_progression,
@@ -74,29 +75,61 @@ def _finalization_fixture(tmp_path: Path, repository_root: Path, mode: str) -> d
     exact_subject = {"commit": subject["commit"], "tree": subject["tree"]}
     candidate_root = tmp_path / "candidate"
     candidate_root.mkdir()
-    candidate_files = {
-        "subject_binding.json": {
+    if mode.startswith("strict_"):
+        contract_bundle = "a" * 64
+        strict_subject = {
             "schema_version": "iris-tooltip-t1-subject-binding-v1",
             **exact_subject,
             "working_tree_clean": True,
-        },
-        "axis_separated_closeout_record.json": candidate_closeout_record(T2Progression.UPSTREAM),
-        "t2_progression_record.json": {
-            "schema_version": "iris-tooltip-t2-progression-v1",
+            "contract_sha256": {"authority_contract_bundle_sha256": contract_bundle},
+        }
+        support = sorted(support_universe(repository_root))
+        slots = {full_type: tuple(_audited_slots()) for full_type in support}
+        relation = {
+            full_type: {"disposition": "verified" if index < 1406 else "not_applicable"}
+            for index, full_type in enumerate(support)
+        }
+        progression, blockers = build_progression_record([])
+        _strict_candidate_result(
+            candidate_root,
+            strict_subject,
+            {"authority_contract_bundle_sha256": contract_bundle},
+            {"schema_version": "test-admission"},
+            support,
+            slots,
+            [],
+            progression,
+            blockers,
+            relation,
+        )
+        if mode == "strict_hash_mismatch":
+            manifest = load_json(candidate_root / "t2_handoff_manifest.json")
+            manifest["handoff_input_sha256"] = "f" * 64
+            _write_json(candidate_root / "t2_handoff_manifest.json", manifest)
+    else:
+        candidate_files = {
+            "subject_binding.json": {
+                "schema_version": "iris-tooltip-t1-subject-binding-v1",
+                **exact_subject,
+                "working_tree_clean": True,
+            },
+            "axis_separated_closeout_record.json": candidate_closeout_record(T2Progression.UPSTREAM),
+            "t2_progression_record.json": {
+                "schema_version": "iris-tooltip-t2-progression-v1",
+                "T2_FULL_DATA_PROGRESSION": T2Progression.UPSTREAM.value,
+            },
+        }
+        for name, payload in candidate_files.items():
+            _write_json(candidate_root / name, payload)
+        artifacts = {name: sha256_file(candidate_root / name) for name in candidate_files}
+        candidate_receipt = {
+            "schema_version": "iris-tooltip-t1-run-receipt-v1",
+            "subject_binding_sha256": artifacts["subject_binding.json"],
+            "artifacts": artifacts,
             "T2_FULL_DATA_PROGRESSION": T2Progression.UPSTREAM.value,
-        },
-    }
-    for name, payload in candidate_files.items():
-        _write_json(candidate_root / name, payload)
-    artifacts = {name: sha256_file(candidate_root / name) for name in candidate_files}
-    candidate_receipt = {
-        "schema_version": "iris-tooltip-t1-run-receipt-v1",
-        "subject_binding_sha256": artifacts["subject_binding.json"],
-        "artifacts": artifacts,
-        "T2_FULL_DATA_PROGRESSION": T2Progression.UPSTREAM.value,
-        "source_mutation": 0,
-    }
-    _write_json(candidate_root / "run_receipt.json", candidate_receipt)
+            "source_mutation": 0,
+        }
+        _write_json(candidate_root / "run_receipt.json", candidate_receipt)
 
     claim_id = "tooltip-t1-finalization-fixture"
     chains: dict[str, dict] = {}
@@ -232,6 +265,9 @@ def test_minimal_t2_handoff_mock_consumer(case: str) -> None:
         ("d2_relation_verified", None),
         ("d2_relation_not_applicable", None),
         ("d2_relation_correction_required", None),
+        ("strict_blocked_absence", None),
+        ("strict_handoff_hash_mismatch", None),
+        ("strict_handoff_success", None),
     ],
 )
 def test_whole_universe_audit_progression(case: str, expected: T2Progression | None, tmp_path: Path) -> None:
@@ -378,6 +414,27 @@ def test_whole_universe_audit_progression(case: str, expected: T2Progression | N
         assert by_owner == {"DVF owner": 1}
         assert progression["T2_FULL_DATA_PROGRESSION"] == T2Progression.UPSTREAM.value
         return
+    if case == "strict_blocked_absence":
+        progression, blockers = build_progression_record([
+            {"owner": "DVF owner", "reason_code": "DVF_OWNER_ROW_MISSING", "t2_blocking": True}
+        ])
+        root = tmp_path / "strict-blocked"
+        root.mkdir()
+        result = _strict_candidate_result(
+            root,
+            {"commit": "a" * 40, "tree": "b" * 40},
+            {"authority_contract_bundle_sha256": "c" * 64},
+            {"schema_version": "test-admission"},
+            ["Base.X"],
+            {"Base.X": tuple(_audited_slots())},
+            [{"owner": "DVF owner", "reason_code": "DVF_OWNER_ROW_MISSING", "t2_blocking": True}],
+            progression,
+            blockers,
+            {},
+        )
+        assert result["production_t2_handoff"] == "absent"
+        assert {path.name for path in root.iterdir()} == {"run_receipt.json"}
+        return
     if case == "d3_owner_absence_nonblocking":
         root = Path(__file__).resolve().parents[3]
         registry = load_json(root / AUTHORITY_ROOT / "tooltip_readiness_reason_registry.json")
@@ -391,12 +448,14 @@ def test_whole_universe_audit_progression(case: str, expected: T2Progression | N
             "re_audit": "when exact DVF facts/decisions, approved role-material, or the adopted role-material mapping identity changes",
         }
         return
-    if case in {"gate_failure", "gate_subject_mismatch", "gate_same_subject_success"}:
+    if case in {"gate_failure", "gate_subject_mismatch", "gate_same_subject_success", "strict_handoff_hash_mismatch", "strict_handoff_success"}:
         root = Path(__file__).resolve().parents[3]
         mode = {
             "gate_failure": "gate_failure",
             "gate_subject_mismatch": "subject_mismatch",
             "gate_same_subject_success": "success",
+            "strict_handoff_hash_mismatch": "strict_hash_mismatch",
+            "strict_handoff_success": "strict_success",
         }[case]
         fixture = _finalization_fixture(tmp_path, root, mode)
         arguments = (
@@ -408,8 +467,8 @@ def test_whole_universe_audit_progression(case: str, expected: T2Progression | N
             fixture["comparator"],
             fixture["output"],
         )
-        if case != "gate_same_subject_success":
-            with pytest.raises(TooltipContractError, match="did not exit 0|subject mismatch"):
+        if case not in {"gate_same_subject_success", "strict_handoff_success"}:
+            with pytest.raises(TooltipContractError, match="did not exit 0|subject mismatch|hash binding mismatch"):
                 finalize_closeout(*arguments)
             assert not Path(fixture["output"]).exists()
         else:
@@ -417,6 +476,12 @@ def test_whole_universe_audit_progression(case: str, expected: T2Progression | N
             assert result["contract_and_audit_axis"] == "complete"
             assert result["formal_closeout_state"] == "complete"
             assert Path(result["final_closeout_path"]).is_file()
+            if case == "strict_handoff_success":
+                assert result["production_t2_handoff"] == "present"
+                assert {path.name for path in Path(result["final_root"]).iterdir()} == {
+                    "subject_binding.json", "t2_handoff_input.jsonl",
+                    "t2_handoff_manifest.json", "axis_separated_final_closeout_record.json",
+                }
         return
     correction = {
         "owner": "DVF owner",

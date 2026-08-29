@@ -38,6 +38,16 @@
     "mutable_latest_pointer": false,
     "validation_prerequisite": false
   },
+  "tooltip_t1_production_handoff": {
+    "adoption_state": "pending_post_gate_finalizer",
+    "contract_and_audit_axis": "partial",
+    "formal_closeout_state": "implemented_only",
+    "T2_FULL_DATA_PROGRESSION": "OPEN_on_candidate_subject_only",
+    "production_t2_handoff": "absent_from_current",
+    "machine_subject": null,
+    "final_root": null,
+    "artifact_sha256": null
+  },
   "default_current_allowlist": [
     "Iris/AGENTS.md",
     "Iris/build/ENTRYPOINTS.md",

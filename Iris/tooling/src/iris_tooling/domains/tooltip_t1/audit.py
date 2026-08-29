@@ -33,6 +33,13 @@ from .models import (
     TooltipContractError,
 )
 from .projection import Layer4Candidate, select_layer4, verify_invariants
+from .d5 import (
+    ITEM_SOURCE,
+    TARGETS,
+    collision_correction_members,
+    exact_identity_metrics,
+    resolved_collision_members,
+)
 
 
 L3_POINTER = Path("Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua")
@@ -606,6 +613,7 @@ def _correction(
 
 def _source_hashes(repository_root: Path, generation_id: str) -> dict[str, str]:
     paths = [
+        ITEM_SOURCE,
         CLASSIFICATIONS,
         L3_POINTER,
         L3_INPUT_MANIFEST,
@@ -805,6 +813,11 @@ def run_candidate(
         for members in support_collisions.values()
         for full_type in members
     }
+    resolved_support_collision_members, d5_applicability = resolved_collision_members(repository_root)
+    unresolved_support_collision_members = collision_correction_members(
+        support_collisions,
+        resolved_support_collision_members,
+    )
     by_full_type = {
         full_type: _layer4_candidates(layer4.get(full_type, {}))
         for full_type in support
@@ -830,7 +843,7 @@ def run_candidate(
         correction_start = len(corrections)
         # Exact case-sensitive identities remain in the denominator, while a
         # normalized collision remains an explicit support-owner correction.
-        if full_type in support_collision_members:
+        if full_type in unresolved_support_collision_members:
             corrections.append(_correction(
                 full_type,
                 "support",
@@ -1085,6 +1098,16 @@ def run_candidate(
     input_hashes_after = _source_hashes(repository_root, generation_id)
     source_mutation = source_mutation_count(input_hashes_before, input_hashes_after)
     correction_metrics = correction_completeness_metrics(corrections, reason_owners)
+    d5_target_correction_rows = [
+        row["full_type"] for row in corrections
+        if row.get("reason_code") == "SUPPORT_NORMALIZED_COLLISION" and row.get("full_type") in TARGETS
+    ]
+    d5_identity_metrics = exact_identity_metrics(
+        support,
+        (row["full_type"] for row in audit_rows),
+        support_collisions.get("base.lemongrass", ()),
+        d5_target_correction_rows,
+    )
     zero_metrics = {
         **universe_metrics,
         **correction_metrics,
@@ -1101,6 +1124,7 @@ def run_candidate(
         "layer4_selection_changed_by_menu_evidence": int(invariance["readiness_isolation"]["menu_evidence_changed_selection"]),
         "layer4_recipe_embedded_locale_authority_ceiling_violation": 0,
         "source_mutation": source_mutation,
+        **{f"d5_{name}": value for name, value in d5_identity_metrics.items()},
     }
     nonzero_required = {name: value for name, value in zero_metrics.items() if value != 0}
     if nonzero_required:
@@ -1176,6 +1200,58 @@ def run_candidate(
         for full_type in support
     ))
     _write_json(output_root / "tooltip_support_universe_summary.json", summary)
+    d5_target_corrections = sorted(d5_target_correction_rows)
+    d5_raw_members = summary["normalized_full_type_collisions"].get("base.lemongrass", [])
+    _write_json(output_root / "d5_owner_disposition_validation_report.json", {
+        "schema_version": "iris-tooltip-t1-d5-owner-disposition-validation-v1",
+        "authority_ref": "Iris/_docs/authority/tooltip_t1/tooltip_t1_d5_current_support_disposition.json",
+        "authority_binding_valid": True,
+        "owner_semantic_judgment_correctness_validated": False,
+    })
+    _write_json(output_root / "d5_disposition_applicability_report.json", d5_applicability)
+    _write_json(output_root / "d5_post_disposition_support_set.json", {
+        "schema_version": "iris-tooltip-t1-d5-post-disposition-support-set-v1",
+        "support_count": len(support),
+        "support_sha256": sha256_bytes(canonical_bytes(support)),
+        "target_exact_set": sorted(set(TARGETS) & set(support)),
+    })
+    _write_json(output_root / "d5_raw_collision_observation.json", {
+        "schema_version": "iris-tooltip-t1-d5-raw-collision-observation-v1",
+        "normalized_diagnostic_key": "base.lemongrass",
+        "exact_members": d5_raw_members,
+        "detector_preserved": True,
+    })
+    _write_json(output_root / "d5_closure_provenance.json", {
+        "schema_version": "iris-tooltip-t1-d5-closure-provenance-v1",
+        "selected": "owner_disposition_reconciliation" if d5_applicability["applicable"] else None,
+        "forbidden_counts": {
+            "detector_disable": 0,
+            "reason_code_removal": 0,
+            "pre_owner_denominator_exclusion": 0,
+            "unsupported_normalized_merge": 0,
+        },
+    })
+    _write_json(output_root / "d5_stage_exact_key_sets_after.json", {
+        "schema_version": "iris-tooltip-t1-d5-stage-exact-key-sets-v1",
+        "support": sorted(set(TARGETS) & set(support)),
+        "readiness": sorted(row["full_type"] for row in audit_rows if row["full_type"] in TARGETS),
+        "raw_collision_observation": d5_raw_members,
+        "support_normalized_collision_correction": d5_target_corrections,
+        "t2_blocking_support_normalized_collision": sorted(
+            row["full_type"] for row in corrections
+            if row.get("reason_code") == "SUPPORT_NORMALIZED_COLLISION"
+            and row.get("t2_blocking") is True
+            and row.get("full_type") in TARGETS
+        ),
+    })
+    _write_json(output_root / "d5_exact_identity_preservation_report.json", {
+        "schema_version": "iris-tooltip-t1-d5-exact-identity-preservation-v1",
+        "target_exact_set": list(TARGETS),
+        "support_target_exact_set": sorted(set(TARGETS) & set(support)),
+        "raw_collision_target_exact_set": d5_raw_members,
+        "correction_target_exact_set": d5_target_corrections,
+        **d5_identity_metrics,
+    })
     _write_json(output_root / "current_tooltip_input_authority_inventory.json", inventory)
     _write_json(output_root / "pre_ratification_decision_evidence.json", evidence)
     adoption_paths = [

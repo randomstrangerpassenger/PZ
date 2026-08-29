@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "iris-tooltip-t1-d5-current-support-disposition.schema.json",
+  "title": "Iris Tooltip T1-D5 exact FullType support disposition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "workstream_id",
+    "decision_status",
+    "issuance_subject",
+    "predecessor",
+    "support_predicate",
+    "declared_exact_targets",
+    "target_set_sha256",
+    "source_census_sha256",
+    "pre_mutation_owner_approval",
+    "collision_terminal_mechanism",
+    "approved_applicability_material",
+    "applicability_binding",
+    "re_audit_condition",
+    "records"
+  ],
+  "properties": {
+    "schema_version": {"const": "iris-tooltip-t1-d5-current-support-disposition-v1"},
+    "workstream_id": {"const": "T1-D5"},
+    "decision_status": {"const": "owner_approved"},
+    "issuance_subject": {"$ref": "#/$defs/subject"},
+    "predecessor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commit", "tree", "closeout_sha256"],
+      "properties": {
+        "commit": {"$ref": "#/$defs/sha1"},
+        "tree": {"$ref": "#/$defs/sha1"},
+        "closeout_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "support_predicate": {"const": "current-owner-fulltype-union-v1"},
+    "declared_exact_targets": {"const": ["Base.LemonGrass", "Base.Lemongrass"]},
+    "target_set_sha256": {"$ref": "#/$defs/sha256"},
+    "source_census_sha256": {"$ref": "#/$defs/sha256"},
+    "pre_mutation_owner_approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["owner", "approval_ref", "approval_scope", "approved_branch", "selected_mechanism", "semantic_decision_source", "approval_sha256"],
+      "properties": {
+        "owner": {"const": "Iris presentation-contract owner"},
+        "approval_ref": {"const": "user_prompt:2026-08-29#owner-approval-preauthorized"},
+        "approval_scope": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "approved_branch": {"const": "A_retain_both_exact_support_identities"},
+        "selected_mechanism": {"const": "unresolved_disposition_predicate_refinement_v1"},
+        "semantic_decision_source": {"type": "string", "minLength": 1},
+        "approval_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "collision_terminal_mechanism": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "expected_raw_observation_exact_set", "expected_correction_row_exact_set", "expected_t2_blocking_exact_set", "reason_code_preserved", "detector_preserved"],
+      "properties": {
+        "id": {"enum": ["unresolved_disposition_predicate_refinement_v1", "owner_approved_existing_mechanism_v1"]},
+        "expected_raw_observation_exact_set": {"const": ["Base.LemonGrass", "Base.Lemongrass"]},
+        "expected_correction_row_exact_set": {"const": []},
+        "expected_t2_blocking_exact_set": {"const": []},
+        "reason_code_preserved": {"const": true},
+        "detector_preserved": {"const": true}
+      }
+    },
+    "approved_applicability_material": {"type": "object"},
+    "applicability_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "applicability_fingerprint"],
+      "properties": {
+        "algorithm": {"const": "declared-target-content-fingerprint-v1"},
+        "applicability_fingerprint": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "re_audit_condition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["predicate_version", "trigger_if_any_target_bound_content_changes", "trigger_if_collision_member_set_changes", "approved_collision_member_set", "commit_tree_equality_is_input"],
+      "properties": {
+        "predicate_version": {"const": "d5-target-content-or-member-set-change-v1"},
+        "trigger_if_any_target_bound_content_changes": {"const": true},
+        "trigger_if_collision_member_set_changes": {"const": true},
+        "approved_collision_member_set": {"const": ["Base.LemonGrass", "Base.Lemongrass"]},
+        "commit_tree_equality_is_input": {"const": false}
+      }
+    },
+    "records": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {"$ref": "#/$defs/record"}
+    }
+  },
+  "$defs": {
+    "sha1": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commit", "tree"],
+      "properties": {"commit": {"$ref": "#/$defs/sha1"}, "tree": {"$ref": "#/$defs/sha1"}}
+    },
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["exact_full_type", "source_authority_refs", "identity_relation", "support_disposition", "owner", "approval_ref", "evidence_refs", "acceptance_condition", "applicability_binding", "re_audit_condition"],
+      "properties": {
+        "exact_full_type": {"enum": ["Base.LemonGrass", "Base.Lemongrass"]},
+        "source_authority_refs": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+        "identity_relation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "relation_group_id", "counterpart_exact_full_type"],
+          "properties": {
+            "kind": {"const": "distinct_exact_fulltype_identities"},
+            "relation_group_id": {"const": "d5:base.lemongrass:exact-pair-v1"},
+            "counterpart_exact_full_type": {"enum": ["Base.LemonGrass", "Base.Lemongrass"]}
+          }
+        },
+        "support_disposition": {"enum": ["retain_current_support_identity", "exclude_after_upstream_authority_withdrawal", "blocked_insufficient_evidence"]},
+        "owner": {"const": "Iris presentation-contract owner"},
+        "approval_ref": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "acceptance_condition": {"type": "string", "minLength": 1},
+        "applicability_binding": {"const": "#/applicability_binding"},
+        "re_audit_condition": {"const": "#/re_audit_condition"}
+      }
+    }
+  }
+}

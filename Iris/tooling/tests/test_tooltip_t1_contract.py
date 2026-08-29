@@ -27,6 +27,13 @@ from iris_tooling.domains.tooltip_t1.models import (
     TooltipContractError,
     build_handoff_row,
 )
+from iris_tooling.domains.tooltip_t1.d5 import (
+    DISPOSITION_RECORD,
+    TARGETS,
+    build_target_snapshot,
+    evaluate_disposition_snapshot,
+    validate_disposition_authority,
+)
 
 
 def _values(root: Path) -> dict[Path, dict]:
@@ -63,7 +70,11 @@ def _evidence(subject_identity: str) -> dict:
 
 @pytest.mark.parametrize(
     "case",
-    ["valid", "bad_sha", "dirty", "stale", "route_mismatch", "recipe_locale_route", "historical_reentry", "fixed_authority", "open_choice", "phase_order", "same_subject_ratification"],
+    [
+        "valid", "bad_sha", "dirty", "stale", "route_mismatch", "recipe_locale_route", "historical_reentry",
+        "fixed_authority", "open_choice", "phase_order", "same_subject_ratification",
+        "d5_issuance_applicability", "d5_target_scope", "d5_approval_relation", "d5_mechanism_rebind",
+    ],
 )
 def test_subject_decision_lifecycle(case: str) -> None:
     root = Path(__file__).resolve().parents[3]
@@ -92,6 +103,66 @@ def test_subject_decision_lifecycle(case: str) -> None:
         _rebind_bundle(values)
         with pytest.raises(TooltipContractError):
             _validate_contract_values(values)
+    elif case.startswith("d5_"):
+        disposition = load_json(root / DISPOSITION_RECORD)
+        snapshot = build_target_snapshot(root)
+        validate_disposition_authority(disposition)
+        if case == "d5_issuance_applicability":
+            report = evaluate_disposition_snapshot(disposition, snapshot)
+            assert report["applicable"] is True
+            assert report["commit_tree_equality_used"] is False
+            unrelated_change = deepcopy(snapshot)
+            unrelated_change["unrelated_full_type_layer_change"] = "not fingerprinted"
+            assert evaluate_disposition_snapshot(disposition, unrelated_change)["applicable"] is True
+            changed_target = deepcopy(snapshot)
+            changed_target["targets"][TARGETS[0]]["layer2"]["row_sha256"] = "0" * 64
+            assert evaluate_disposition_snapshot(disposition, changed_target)["applicable"] is False
+            wrong_issuance = deepcopy(disposition)
+            wrong_issuance["issuance_subject"]["commit"] = "0" * 40
+            with pytest.raises(TooltipContractError, match="issuance subject"):
+                validate_disposition_authority(wrong_issuance)
+        elif case == "d5_target_scope":
+            third_member = deepcopy(snapshot)
+            third_member["normalized_collision_members"].append("Base.LEMONGRASS")
+            assert evaluate_disposition_snapshot(disposition, third_member)["applicable"] is False
+            incomplete = deepcopy(disposition)
+            incomplete["records"] = incomplete["records"][:1]
+            with pytest.raises(TooltipContractError, match="exactly two"):
+                validate_disposition_authority(incomplete)
+            case_mutated = deepcopy(disposition)
+            case_mutated["records"][1]["exact_full_type"] = "Base.LEMONGRASS"
+            with pytest.raises(TooltipContractError, match="case-mutated"):
+                validate_disposition_authority(case_mutated)
+        elif case == "d5_approval_relation":
+            invalid_approval = deepcopy(disposition)
+            invalid_approval["pre_mutation_owner_approval"]["approval_sha256"] = "0" * 64
+            with pytest.raises(TooltipContractError, match="approval hash"):
+                validate_disposition_authority(invalid_approval)
+            conflict = deepcopy(disposition)
+            conflict["records"][0]["identity_relation"]["counterpart_exact_full_type"] = TARGETS[0]
+            with pytest.raises(TooltipContractError, match="relation conflict"):
+                validate_disposition_authority(conflict)
+            branch_b_overlay = deepcopy(disposition)
+            branch_b_overlay["records"][0]["support_disposition"] = "exclude_after_upstream_authority_withdrawal"
+            with pytest.raises(TooltipContractError, match="support disposition"):
+                validate_disposition_authority(branch_b_overlay)
+        else:
+            blocking_axis = deepcopy(disposition)
+            blocking_axis["collision_terminal_mechanism"]["id"] = "resolved_observation_blocking_axis_transition_v1"
+            with pytest.raises(TooltipContractError, match="unsupported"):
+                validate_disposition_authority(blocking_axis)
+            nonempty_correction = deepcopy(disposition)
+            nonempty_correction["collision_terminal_mechanism"]["expected_correction_row_exact_set"] = list(TARGETS)
+            with pytest.raises(TooltipContractError, match="eliminate"):
+                validate_disposition_authority(nonempty_correction)
+            unselected = deepcopy(disposition)
+            del unselected["collision_terminal_mechanism"]["id"]
+            with pytest.raises(TooltipContractError, match="missing or unsupported"):
+                validate_disposition_authority(unselected)
+            values = deepcopy(_values(root))
+            values[DECISION_CONTRACT]["d5_contract_rebind"]["post_implementation_owner_approval"]["approval_sha256"] = "0" * 64
+            with pytest.raises(TooltipContractError, match="rebind approval hash"):
+                _validate_contract_values(values)
     else:
         decision = load_json(root / DECISION_CONTRACT)
         subject_identity = "d" * 64

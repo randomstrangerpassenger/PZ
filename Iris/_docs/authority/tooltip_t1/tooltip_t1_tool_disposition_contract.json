@@ -16,6 +16,13 @@
     "failed_or_mismatched_gate_writes_complete_closeout": false,
     "output_root": "repository_external_empty"
   },
+  "d5_lifecycle": {
+    "commands": ["d5-census", "d5-reconcile"],
+    "output_role": "repository_external_workstream_lifecycle_evidence",
+    "regular_validation_authority": false,
+    "current_ecosystem_adoption": "pending_T1_D6",
+    "canonical_full_gate_owner": "T1-D6"
+  },
   "one_off_audit_is_regular_validator": false,
   "mutable_latest_pointer_allowed": false
 }

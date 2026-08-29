@@ -1842,9 +1842,9 @@
 
 ### Iris Tooltip T1 — display contract / upstream input readiness boundary
 
-- 날짜: 2026-08-27 → 2026-08-28 corrective refinement → 2026-08-29 T1-D3/D4 workstream successors
+- 날짜: 2026-08-27 → 2026-08-28 corrective refinement → 2026-08-29 T1-D3/D4/D5 workstream successors
 
-- 상태: current owner-ratified offline contract / contract-audit formal complete / T1-D3/D4 correction bundles complete / global current adoption pending T1-D6 / T2 progression blocked by upstream corrections
+- 상태: current owner-ratified offline contract / contract-audit formal complete / T1-D3/D4/D5 correction bundles complete / global current adoption pending T1-D6 / T2 progression blocked by upstream corrections
 
 - 결정: Tooltip은 Layer 2 classification, optional Layer 3 core description과 최대 두 개의 Layer 4 public interaction identity를 S1→S4 고정 순서로 투영한다. T1은 semantic/public eligibility와 identity selection을 먼저 닫고 selected identity의 KO/EN 및 Menu evidence readiness를 나중에 판정하는 offline contract/audit owner로 한정한다.
 
@@ -1862,7 +1862,10 @@
   - current Layer 3 shared-authority relation은 pointer-selected `dvf_3_3_rendered.json`의 fact relation과 `IrisLayer3DataCurrent → IrisLayer3DataLookup → layer3_renderer → IrisItemDetailModelAssembler`의 동일 FullType 소비 경로로 추적한다. 이 relation만 있고 독립 Menu fact-identity observation이 없으면 selected Layer 3 parity는 `verified`가 아니라 `unverified_without_independent_consumer_evidence`다.
   - shared-authority relation이 성립한 Layer 3 consumer-evidence gap은 T3 재검증 대상으로 남기되 T2 blocker로 세지 않는다. relation 자체가 없거나 모순되면 Menu consumer owner correction과 T2 blocker로 fail-closed한다.
   - current Layer 2 resolved owner output, Layer 3 approved Tooltip fact identity/surface와 Layer 4 explicit selected-identity locale surface 결손은 T1이 보완하지 않고 owner correction으로 귀속한다.
-  - `Base.LemonGrass` / `Base.Lemongrass` normalized collision은 case-sensitive identity를 합치거나 denominator에서 제거하지 않고 explicit support-owner correction으로 남긴다.
+  - `Base.LemonGrass` / `Base.Lemongrass` normalized collision은 case-sensitive exact identity 둘, support/readiness membership과 raw diagnostic observation을 그대로 보존한다. Owner-approved T1-D5 disposition은 이 exact pair에 한해 `SUPPORT_NORMALIZED_COLLISION` correction과 해당 T2 blocker만 제거하며 identity를 합치거나 denominator에서 제거하지 않는다.
+  - T1-D5 적용 결과 support는 `2,280 → 2,280`, correction ledger는 `5,625 → 5,623`, target blocker는 `2 → 0`, non-target delta는 `0`이다. 이 국소 correction은 다른 owner blocker를 닫지 않으므로 전체 `T2_FULL_DATA_PROGRESSION`은 계속 `BLOCKED_BY_UPSTREAM_CORRECTIONS`이고 production T2 handoff는 없다.
+  - T1-D5 frozen support binding은 case-sensitive exact FullType 집합을 중복 제거하고 ordinal ascending으로 정렬한 뒤 각 UTF-8 value 뒤에 LF를 붙여 연결한다. Final LF는 있고 BOM과 JSON encoding은 없다. Common predecessor의 2,280 exact set digest는 `3a6cc24b9ad64e06a0a6c0408821201e35bbd1d8558e6245809b5d3c34265ce6`이다.
+  - 최초 D5 bundle의 `82cca317e95f308f2f9edad0adf2a3667b74aa92b31246dd7af1134e1852eed0`은 동일 exact set의 JSON-array 직렬화 hash였다. Independent predecessor re-derivation과 pre-mutation set 비교에서 missing/extra가 모두 0이므로 `serialization_only_corrected`로 disposition하고 corrected bundle의 `integration_impact.support_freeze_mismatch`는 `false`다. 최초 bundle은 superseded이며 D6 입력으로 사용하지 않는다.
   - contract/audit axis와 `T2_FULL_DATA_PROGRESSION`은 분리한다. Current progression은 correction/re-audit 전까지 `BLOCKED_BY_UPSTREAM_CORRECTIONS`이며 T2 handoff를 생성하지 않는다.
   - pre-full-gate candidate는 task-specific axis `partial`, formal state `implemented_only`다. 동일 subject의 canonical Run A/Run B와 deterministic comparator exit-0 receipt가 모두 hash-bound된 뒤에만 좁은 post-gate finalizer가 두 상태를 `complete`로 올릴 수 있다.
   - correction 기반 progression, cause class, owner와 owner별 blocker count는 모두 `t2_blocking = true`인 동일 correction 집합에서만 파생한다. T3 재검증 관찰이나 non-blocking correction은 T2를 차단하지 않는다.
@@ -1911,6 +1914,8 @@
   - T1-D4 corrected external bundle: `C:/Users/MW/Downloads/coding/PZ-t1-d4-artifacts/d4-bundle-support-hash-corrected`
   - T1-D4 corrected bundle receipt SHA-256: `a2c8d8c3d5ed317fafa1483c44e429938d4b813ec73a08f00d40505668d6df96`; integration manifest SHA-256: `95fd303d4cab94d8fcee30bb7c2ba9b033dd1d7124b7d333dacfe40dde735264`
   - 선행 `C:/Users/MW/Downloads/coding/PZ-t1-d4-artifacts/d4-bundle`은 noncanonical support-hash binding 때문에 superseded이며 T1-D6 입력으로 사용하지 않는다.
+  - T1-D5 implementation subject: `c86b4a747025aa593eddacd7d9c7de7c095ebad8` / tree `006acd132be465c6c5df7e832bd1a9c9c6925f5c`
+  - corrected external D5 bundle receipt SHA-256: `c025e5d0f6b6c62a98dbeb54fa8aacbf572a3975c18869718c859d8aa4315046`; lifecycle evidence이며 canonical/regular validator authority가 아니다.
   - 이 docs-only successor는 위 machine subject나 external receipt identity를 대체하거나 재귀속하지 않는다.
   - detailed policy: `docs/iris_tooltip_t1_display_contract_policy.md`
   - COMMON-EVIDENCE-TRACE.

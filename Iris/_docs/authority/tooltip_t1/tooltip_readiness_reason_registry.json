@@ -1,7 +1,7 @@
 {
   "schema_version": "iris-tooltip-readiness-reason-registry-v1",
   "reasons": [
-    {"code": "SUPPORT_NORMALIZED_COLLISION", "owner": "Iris presentation-contract owner", "layer": "support", "t2_blocking": true, "acceptance": "owner disposition preserving distinct case-sensitive identities or publishing a corrected support authority", "re_audit": "new exact subject"},
+    {"code": "SUPPORT_NORMALIZED_COLLISION", "owner": "Iris presentation-contract owner", "layer": "support", "t2_blocking": true, "acceptance": "a content-applicable owner disposition preserves every distinct case-sensitive identity and eliminates only the covered unresolved correction rows, or an upstream owner publishes corrected support authority", "re_audit": "declared target-bound Layer 2/3/4/source content changes or the exact normalized collision member set changes", "disposition_authority": "Iris/_docs/authority/tooltip_t1/tooltip_t1_d5_current_support_disposition.json", "raw_observation_preserved": true},
     {"code": "CLASSIFICATION_RESOLVED_IDENTITY_MISSING", "owner": "Classification owner", "layer": "layer2", "t2_blocking": true, "acceptance": "resolved identity and KO/EN surface owner output", "re_audit": "new exact subject"},
     {"code": "CLASSIFICATION_FALLBACK_NOT_ADMISSIBLE", "owner": "Classification owner", "layer": "layer2", "t2_blocking": true, "acceptance": "owner-resolved non-fallback public identity", "re_audit": "affected FullType"},
     {"code": "DVF_CORE_DESCRIPTION_ABSENCE_PROVED", "owner": "DVF owner", "layer": "layer3", "t2_blocking": false, "acceptance": "not applicable", "re_audit": "only after owner semantic change"},

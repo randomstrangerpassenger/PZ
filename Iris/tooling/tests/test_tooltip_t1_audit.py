@@ -4,6 +4,10 @@ from pathlib import Path
 
 import pytest
 
+from iris_tooling.domains.classification.layer2_contract import support_universe
+from iris_tooling.domains.classification.layer2_materializer import materialize
+from iris_tooling.domains.classification.layer2_validator import validate_owner_output
+
 from iris_tooling.domains.tooltip_t1.audit import (
     build_progression_record,
     candidate_closeout_record,
@@ -206,6 +210,14 @@ def test_minimal_t2_handoff_mock_consumer(case: str) -> None:
         ("gate_failure", None),
         ("gate_subject_mismatch", None),
         ("gate_same_subject_success", None),
+        ("layer2_owner_output", None),
+        ("layer2_terminal_relation", None),
+        ("layer2_authority_fallback", None),
+        ("layer2_identity_locale", None),
+        ("layer2_consumer_boundary", None),
+        ("layer2_silence_fallback", None),
+        ("layer2_silence_no_membership", None),
+        ("layer2_silence_multi_without_primary", None),
     ],
 )
 def test_whole_universe_audit_progression(case: str, expected: T2Progression | None, tmp_path: Path) -> None:
@@ -242,6 +254,46 @@ def test_whole_universe_audit_progression(case: str, expected: T2Progression | N
             "Base.B": {"fact_id": "fact:b"},
         }) == 1
         assert menu_owner_output_self_comparison_count({"Base.A": {"fact_id": "fact:a"}}) == 0
+        return
+    if case == "layer2_owner_output":
+        root = Path(__file__).resolve().parents[3]
+        report = validate_owner_output(root)
+        support_count = len(support_universe(root))
+        assert report["frozen_support_count"] == support_count
+        assert report["resolved_entry_count"] + report["layer2_display_silence_count"] == support_count
+        assert report["remaining_entry_count"] == 0
+        assert report["consumer_specific_semantic_field_count"] == 0
+        return
+    if case.startswith("layer2_"):
+        root = Path(__file__).resolve().parents[3]
+        output = materialize(root)
+        if case == "layer2_terminal_relation":
+            output["layer2_display_silence_entries"].pop()
+            expected = "partition"
+        elif case.startswith("layer2_silence_"):
+            state, reason = {
+                "layer2_silence_fallback": ("fallback_derived", "raw_misc_9a_fallback"),
+                "layer2_silence_no_membership": ("no_membership_record", "no_membership_record"),
+                "layer2_silence_multi_without_primary": ("unclassified", "multi_membership_without_admissible_primary"),
+            }[case]
+            row = next(row for row in output["layer2_display_silence_entries"] if row["source_state"] == state)
+            assert row["display_silence_reason"] == reason
+            assert set(row) == {"full_type", "source_state", "display_silence_reason"}
+            assert row["full_type"] not in {resolved["full_type"] for resolved in output["rows"]}
+            return
+        elif case == "layer2_authority_fallback":
+            output["rows"][0]["classification_provenance_ref"] = ""
+            expected = "authority/provenance"
+        elif case == "layer2_identity_locale":
+            output["rows"][0]["primary_subcategory_surface"]["en"] = ""
+            expected = "surface value"
+        else:
+            output["rows"][0]["menu_rank"] = 1
+            expected = "consumer-owned"
+        candidate = tmp_path / f"{case}.json"
+        _write_json(candidate, output)
+        with pytest.raises(ValueError, match=expected):
+            validate_owner_output(root, candidate)
         return
     if case == "candidate_pre_gate_axis":
         closeout = candidate_closeout_record(T2Progression.UPSTREAM)

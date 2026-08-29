@@ -1,0 +1,37 @@
+{
+  "schema_version": "iris-classification-layer2-surface-catalog-v1",
+  "status": "owner_approved_workstream_candidate",
+  "category_binding_source": "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserCategoryIndex.lua",
+  "locale_sources": {
+    "ko": "Iris/media/lua/shared/translate/ko/Iris_ko.txt",
+    "en": "Iris/media/lua/shared/translate/en/Iris_en.txt"
+  },
+  "identity_surface_disposition": {
+    "scope": ["Tool.1-K", "Tool.1-L", "Wearable.6-F"],
+    "selected_disposition": "surface_defect",
+    "explanation": "The sealed taxonomy keeps Tool.1-K as Security, Tool.1-L as non-wearable Storage, and Wearable.6-F as wearable Backpacks. The D1 candidate binds those meanings without mutating runtime locale or Browser fallback sources.",
+    "authority_ref": "docs/DECISIONS.md#Iris--Taxonomy-baseline--category-boundary",
+    "approval_identity": "user_prompt_preapproval_2026-08-29"
+  },
+  "owner_approved_surface_overrides": {
+    "Tool.1-K": {
+      "ko": "보안",
+      "en": "Security",
+      "authority_ref": "docs/DECISIONS.md#Tool.1-K-Security",
+      "provenance_ref": "Iris/media/lua/shared/translate/ko/Iris_ko.txt#Iris_Sub_1K"
+    },
+    "Tool.1-L": {
+      "ko": "보관용기",
+      "en": "Storage",
+      "authority_ref": "docs/DECISIONS.md#Tool.1-L-Storage",
+      "provenance_ref": "Iris/media/lua/shared/translate/ko/Iris_ko.txt#Iris_Sub_1L"
+    },
+    "Wearable.6-F": {
+      "ko": "배낭",
+      "en": "Backpacks",
+      "authority_ref": "docs/DECISIONS.md#Wearable.6-F",
+      "provenance_ref": "Iris/media/lua/shared/translate/ko/Iris_ko.txt#Iris_Sub_6F"
+    }
+  },
+  "runtime_public_source_mutation_allowed": false
+}

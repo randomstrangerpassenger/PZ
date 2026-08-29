@@ -1,11 +1,33 @@
 {
   "schema_version": "iris-tooltip-layer2-input-contract-v1",
-  "required_fields": ["classification_identity", "category_id", "primary_subcategory_id", "category_label_key", "primary_subcategory_label_key", "localized_surfaces", "authority_ref", "menu_consumer_identity_ref", "menu_parity_status"],
+  "required_fields_when_applicable": ["classification_identity", "category_id", "primary_subcategory_id", "category_label_key", "primary_subcategory_label_key", "localized_surfaces", "authority_ref"],
   "current_route": "no_admissible_authority_relation",
-  "current_disposition": "upstream_correction_required",
+  "current_disposition": "successor_workstream_candidate_not_current",
+  "workstream_candidate_route": {
+    "path": "Iris/build/classification/data/classification_layer2_owner_output.json",
+    "schema": "Iris/_docs/authority/classification_layer2/classification_layer2_owner_output.schema.json",
+    "producer": "iris_tooling.domains.classification.layer2_materializer",
+    "validator": "iris_tooling.domains.classification.layer2_validator",
+    "status_field": "status",
+    "applicability_rule_field": "layer2_applicability_rule",
+    "d2_handoff_partition_field": "d2_handoff_partition",
+    "current_ecosystem_adoption": "pending_T1_D6"
+  },
+  "successor_owner_amendment": {
+    "authority_ref": "Iris/_docs/authority/classification_layer2/classification_layer2_resolution_contract.json#successor_amendment",
+    "layer2_is_required_for_every_support_fulltype": false,
+    "applicability_rule": "admissible_current_owner_category_and_primary_v1",
+    "applicable_disposition": "emit_S1",
+    "display_silence_disposition": "omit_S1_without_placeholder_and_compact_S2_through_S4",
+    "display_silence_is_classification_correction": false,
+    "display_silence_is_t2_blocker": false,
+    "per_fulltype_positive_absence_required": false,
+    "menu_surface_coverage_must_equal_tooltip": false,
+    "d2_owns_menu_relation_and_applicable_na_parity": true
+  },
   "raw_tag_resolution_allowed": false,
   "runtime_resolver_reimplementation_allowed": false,
   "owner_output_self_comparison_allowed": false,
   "misc_9a_raw_fallback_admissible": false,
-  "acceptance_condition": "Classification owner publishes exact resolved public identities/surfaces and a shared authority relation; independent Menu observation is separately identified or remains explicit unverified"
+  "acceptance_condition": "D1 publishes an exact 1,406 applicable plus 874 display-silence partition without semantic inference; D2 separately owns Menu relation and applicable/N/A parity"
 }

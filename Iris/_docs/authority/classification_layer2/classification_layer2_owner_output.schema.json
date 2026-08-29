@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "iris-classification-layer2-owner-output.schema.json",
+  "title": "Iris Classification Layer 2 owner output",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "source_subject_binding",
+    "support_predicate",
+    "frozen_support_count",
+    "frozen_support_sha256",
+    "resolved_entry_count",
+    "remaining_entry_count",
+    "classification_correction_count",
+    "rows",
+    "remaining_entries",
+    "layer2_applicability_rule",
+    "layer2_display_silence_entries",
+    "d2_handoff_partition",
+    "current_ecosystem_adoption",
+    "T2_FULL_DATA_PROGRESSION",
+    "production_t2_handoff"
+  ],
+  "properties": {
+    "schema_version": {"const": "iris-classification-layer2-owner-output-v2"},
+    "status": {"const": "complete"},
+    "source_subject_binding": {
+      "type": "object",
+      "required": ["commit", "tree"],
+      "properties": {
+        "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "tree": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      },
+      "additionalProperties": false
+    },
+    "support_predicate": {"const": "current-owner-fulltype-union-v1"},
+    "frozen_support_count": {"type": "integer", "minimum": 1},
+    "frozen_support_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "resolved_entry_count": {"type": "integer", "minimum": 0},
+    "remaining_entry_count": {"const": 0},
+    "classification_correction_count": {"const": 0},
+    "rows": {"type": "array", "items": {"type": "object"}},
+    "remaining_entries": {"const": []},
+    "layer2_applicability_rule": {"const": "admissible_current_owner_category_and_primary_v1"},
+    "layer2_display_silence_entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["full_type", "source_state", "display_silence_reason"],
+        "properties": {
+          "full_type": {"type": "string", "minLength": 1},
+          "source_state": {"enum": ["fallback_derived", "no_membership_record", "unclassified", "owner_approved_absence"]},
+          "display_silence_reason": {"enum": ["raw_misc_9a_fallback", "no_membership_record", "multi_membership_without_admissible_primary", "owner_approved_absence"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "d2_handoff_partition": {"type": "object"},
+    "current_ecosystem_adoption": {"const": "pending_T1_D6"},
+    "T2_FULL_DATA_PROGRESSION": {"const": "BLOCKED_BY_UPSTREAM_CORRECTIONS"},
+    "production_t2_handoff": {"const": "absent"}
+  },
+  "additionalProperties": false
+}

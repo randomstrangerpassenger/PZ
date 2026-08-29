@@ -352,7 +352,7 @@ exact current subject
 -> read-only W1-A adjacent-universe evidence
 -> same-subject owner ratification
 -> owner-ratified Tooltip support universe
--> Layer 2 resolved identity / Layer 3 approved fact / Layer 4 public candidate census
+-> Layer 2 applicability partition / Layer 3 approved fact / Layer 4 public candidate census
 -> deterministic S1-S4 identity projection
 -> selected identity freeze
 -> KO/EN readiness
@@ -362,9 +362,12 @@ exact current subject
 -> OPEN only: minimal mechanical T2 handoff
 ```
 
-Candidate closeout은 `partial/implemented_only` ceiling을 유지한다. 별도 installed-package finalizer는 candidate receipt와 동일 subject의 canonical Run A/Run B orchestration·inner result, deterministic comparator receipt만 검증하고 외부 빈 root에 final closeout 한 파일을 쓴다. 이 경계는 semantic input이나 T2 blocker를 다시 계산하지 않으며 receipt failure 또는 subject mismatch에서 아무 complete closeout도 생성하지 않는다.
+D1 successor는 optional Layer 2 owner amendment에 따라 workstream `complete`이며 current ecosystem adoption은 `pending_T1_D6`다. 이 상태는 D2 구현, D6 integration, canonical full gate/finalizer 또는 production T2 handoff completion이 아니다.
 
 - Classification, DVF System과 QG가 Layer 2/3/4 semantic authority를 계속 소유한다. T1은 projection/readiness metadata만 소유한다.
+- Layer 2 S1은 current Classification authority가 user-facing category와 admissible primary subcategory를 제공할 때만 applicable하다. 나머지는 system-level source-state rule에 따른 display silence이며 S1 placeholder 없이 S2~S4를 compact한다.
+- D1의 exact Layer 2 partition은 support `2,280` = applicable `1,406` + display silence `874`다. Silence source state는 raw fallback `408`, no membership `201`, multi-membership without admissible primary `265`이며 이름·Layer 3/4·presentation order에서 semantic primary를 추론하지 않는다.
+- Display silence는 Classification correction이나 T2 blocker가 아니며 per-FullType positive absence record를 요구하지 않는다. 기존 resolved `1,406` identity/surface는 보존된다.
 - Layer 3 DVF owner output은 `fact_id`, source/authority ref와 KO/EN surface readiness까지만 발행한다. Menu consumer identity ref나 parity verdict를 같은 owner output이 self-attest하지 않는다.
 - T1-D3 candidate의 Layer 3 owner-output v2는 기존 fact compatibility projection인 `entries`와 explicit legitimate-absence projection인 `absence_entries`를 분리한다. Fact row는 기존 single-core fact/source/KO·EN identity를 유지하고, absence row는 exact FullType, owner, approved reason, independent evidence binding, scope와 re-audit condition만 운반한다. Absence는 semantic fact나 locale surface를 만들지 않는다.
 - S2 소비 순서는 `valid approved fact -> valid approved explicit absence -> technical owner-row correction`이다. Fact/absence conflict, incomplete evidence, locale/review/quality defect 또는 unknown reason은 fail-loud correction으로 남고 compact되지 않는다. Existing pointer-selected empty-core 791건은 별도 current-generation role-material provenance를 유지하며 T1-D3 registry로 소급 rewrite하지 않는다.
@@ -377,10 +380,12 @@ Candidate closeout은 `partial/implemented_only` ceiling을 유지한다. 별도
 - Current Layer 4 identity input의 embedded locale field는 Recipe surface authority로 소비하지 않는다. 발견 시 authority-ceiling violation으로 fail-loud하며, unselected-ready candidate substitution, Recipe→Right-click fallback, cross-locale fallback과 locale-dependent reselection 경로는 존재하지 않아야 한다.
 - Recipe KO/EN surface는 동일 canonical interaction fact에 결속된 explicit pair다. D4는 logical-row single-line/NFC contract까지만 검증하고 pixel/font/UI-scale width fit은 기존 T3 presentation boundary에 남긴다.
 - T2 handoff는 ordered `slot_id`, semantic identity와 KO/EN surface만 포함한다. Raw tags, unselected candidates, audit/parity/readiness/owner/reason metadata를 포함하지 않는다.
+- D1→D2 handoff는 Layer 2 applicable `1,406` / display silence `874` partition을 제공한다. D2가 Menu `2,280` consumer relation과 applicable/N/A parity를 소유하며, same-authority는 동일 fact source이지 surface coverage identity가 아니다.
 - T2는 requested locale surface read, legitimate absence compaction이 끝난 fixed-order rows의 concatenation과 static payload emit만 수행한다.
 - Current upstream blocker가 남으면 cause-attributed progression record만 생성하고 T2 handoff를 생성하지 않는다.
 - progression과 owner별 blocker distribution은 `t2_blocking = true` correction의 단일 filtered view를 공유한다.
 - T1 run output은 repository-external immutable root에 두며 mutable latest pointer나 stateful registry를 만들지 않는다.
+- D6 integration delta는 T1-C common predecessor `6b7118dc229bf8138302696e1aa5e5b7454589dc` / tree `4eae6fbdb3d0b2cb532f875b96137335a403f2fc`에서 final D1 successor `8bbc40169e86bd2e818c440a823e497f852a1e69` / tree `e950a552797012e6e40523e75b93a1ed203e839b`까지 누적한다. Corrected cumulative bundle 하나만 active input이고 direct parent D1 및 이전 bundle은 lineage evidence다.
 - 자세한 contract authority는 `Iris/_docs/authority/tooltip_t1/`, human policy는 `docs/iris_tooltip_t1_display_contract_policy.md`가 소유한다.
 
 2026-08-28 corrective formal-closeout snapshot:
@@ -427,14 +432,14 @@ Browser detail은 동일한 semantic source를 locale과 정보 계층에 맞는
 ```text id="mzvoeu"
 selected item + locale
 -> Detail ViewModel
--> Layer 2 template projection
+-> optional applicable Layer 2 template projection
  + Layer 3 locale projection
  + Layer 4 interaction projection
 -> Browser detail renderer
 ```
 
 - Locale 변경은 classification identity, source fact 또는 interaction authority를 변경하지 않는다.
-- Layer 2는 같은 semantic template identity를 locale별 presentation으로 투영한다.
+- Layer 2가 applicable한 row는 같은 semantic template identity를 locale별 presentation으로 투영한다. Non-applicable row는 S1을 표시하지 않으며 이는 T1/D2 handoff projection rule로서 D6 adoption 전까지 current runtime mutation을 뜻하지 않는다.
 - Layer 4 interaction projection은 status-bearing interaction state를 표시 row로 정규화하고 표시 밀도, compact / full 전환, 검색과 navigation 같은 UI presentation을 적용한다.
 - Layer 4 UI state는 item과 locale에 귀속되며, 둘 중 하나가 바뀌면 이전 item / locale의 검색·확장 상태를 새 detail에 재사용하지 않는다.
 

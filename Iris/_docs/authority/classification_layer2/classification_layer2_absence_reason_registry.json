@@ -1,0 +1,19 @@
+{
+  "schema_version": "iris-classification-layer2-absence-reason-registry-v1",
+  "reasons": [
+    {
+      "code": "OWNER_EVIDENCE_EXHAUSTED_NO_CLASSIFICATION",
+      "meaning": "Classification owner positively determined that the exact subject has no admissible classification after the approved evidence set was exhausted.",
+      "requires_exact_row_authority": true,
+      "requires_exact_row_provenance": true
+    }
+  ],
+  "prohibited_uses": [
+    "missing_membership_record",
+    "ambiguous_primary",
+    "missing_provenance",
+    "unsupported_fallback",
+    "producer_failure",
+    "locale_surface_defect"
+  ]
+}

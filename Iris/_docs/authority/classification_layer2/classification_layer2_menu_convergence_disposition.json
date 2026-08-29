@@ -1,0 +1,12 @@
+{
+  "schema_version": "iris-classification-layer2-menu-convergence-disposition-v1",
+  "workstream_id": "T1-D1",
+  "disposition": "out_of_scope_for_D1",
+  "classification_owner_output_may_issue_menu_consumer_evidence": false,
+  "same_authority_means_same_fact_source_not_identical_surface_coverage": true,
+  "tooltip_display_silence_allowed_without_menu_coverage_change": true,
+  "applicable_na_parity_owner": "T1-D2/Menu consumer owner",
+  "menu_runtime_public_mutation_allowed": false,
+  "direct_successor": "T1-D2",
+  "current_ecosystem_adoption": "pending_T1_D6"
+}

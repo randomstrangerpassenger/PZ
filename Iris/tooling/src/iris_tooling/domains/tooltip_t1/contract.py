@@ -31,7 +31,10 @@ FIXED_DECISIONS = {
     "P-11": "logical_0_to_4_and_no_embedded_newline_only",
     "P-12": "contract_offline_deterministic_regression_only",
 }
-OPEN_DECISIONS = {"P-2", "P-4", "P-5", "P-6", "P-7", "P-8", "P-10"}
+OPEN_DECISIONS = {"P-2", "P-4", "P-5", "P-6", "P-7", "P-8"}
+OWNER_AMENDED_DECISIONS = {
+    "P-10": "optional_layer2_applicability_with_display_silence",
+}
 FIXED_AUTHORITY_CLASSES = {
     "approved_roadmap_fixed_premise",
     "execution_contract_mapping",
@@ -193,6 +196,21 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
                 _require(ref.get("class") in FIXED_AUTHORITY_CLASSES, f"{decision_id}: inadmissible authority class")
                 _require(ref.get("scope") in {"exact", "adjacent_application"}, f"{decision_id}: authority scope mismatch")
                 _require(isinstance(ref.get("reference"), str) and bool(ref["reference"]), f"{decision_id}: authority reference missing")
+        elif decision_id in OWNER_AMENDED_DECISIONS:
+            expected = OWNER_AMENDED_DECISIONS[decision_id]
+            _require(row["status"] == "owner_amended_successor", f"{decision_id}: owner amendment status mismatch")
+            _require(row["required_choice"] == expected and row["selected_choice"] == expected, f"{decision_id}: owner amendment choice mismatch")
+            _require(expected in allowed, f"{decision_id}: owner amendment choice is not allowed")
+            refs = row.get("authority_references")
+            _require(
+                isinstance(refs, list)
+                and len(refs) == 1
+                and refs[0].get("class") == "explicit_product_contract_owner_amendment"
+                and refs[0].get("scope") == "exact"
+                and isinstance(refs[0].get("reference"), str)
+                and bool(refs[0]["reference"]),
+                f"{decision_id}: owner amendment authority binding mismatch",
+            )
         else:
             _require(decision_id in OPEN_DECISIONS and row["status"] == "open_in_T1", f"{decision_id}: open status mismatch")
             _require(row["required_choice"] is None, f"{decision_id}: open decision cannot have required_choice")
@@ -211,6 +229,27 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
     layer2 = values[AUTHORITY_ROOT / "layer2_tooltip_input_contract.json"]
     _require(layer2.get("current_route") == "no_admissible_authority_relation", "Layer 2 route mismatch")
     _require(layer2.get("raw_tag_resolution_allowed") is False and layer2.get("runtime_resolver_reimplementation_allowed") is False, "Layer 2 raw inference prohibition mismatch")
+    layer2_candidate = layer2.get("workstream_candidate_route")
+    _require(
+        isinstance(layer2_candidate, dict)
+        and layer2_candidate.get("path") == "Iris/build/classification/data/classification_layer2_owner_output.json"
+        and layer2_candidate.get("schema") == "Iris/_docs/authority/classification_layer2/classification_layer2_owner_output.schema.json"
+        and layer2_candidate.get("current_ecosystem_adoption") == "pending_T1_D6",
+        "Layer 2 workstream candidate route mismatch",
+    )
+    layer2_amendment = layer2.get("successor_owner_amendment")
+    _require(
+        isinstance(layer2_amendment, dict)
+        and layer2_amendment.get("layer2_is_required_for_every_support_fulltype") is False
+        and layer2_amendment.get("applicability_rule") == "admissible_current_owner_category_and_primary_v1"
+        and layer2_amendment.get("display_silence_disposition") == "omit_S1_without_placeholder_and_compact_S2_through_S4"
+        and layer2_amendment.get("display_silence_is_classification_correction") is False
+        and layer2_amendment.get("display_silence_is_t2_blocker") is False
+        and layer2_amendment.get("per_fulltype_positive_absence_required") is False
+        and layer2_amendment.get("menu_surface_coverage_must_equal_tooltip") is False
+        and layer2_amendment.get("d2_owns_menu_relation_and_applicable_na_parity") is True,
+        "Layer 2 successor owner amendment mismatch",
+    )
     layer3 = values[AUTHORITY_ROOT / "layer3_tooltip_input_contract.json"]
     _require(layer3.get("schema_version") == "iris-tooltip-layer3-input-contract-v2", "Layer 3 input contract schema mismatch")
     _require(layer3.get("identity_before_locale") is True, "Layer 3 identity/readiness ordering mismatch")

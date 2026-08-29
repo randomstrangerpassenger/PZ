@@ -260,14 +260,14 @@ def test_slot_layer2_layer3_input_contract(case: str) -> None:
     elif case == "layer2_workstream_candidate":
         contract = load_json(root / AUTHORITY_ROOT / "layer2_tooltip_input_contract.json")
         candidate = contract["workstream_candidate_route"]
-        assert contract["current_route"] == "no_admissible_authority_relation"
+        assert contract["current_route"] == "D1_owner_output_plus_same_subject_D2_actual_consumer_relation"
         assert candidate["path"] == "Iris/build/classification/data/classification_layer2_owner_output.json"
-        assert candidate["current_ecosystem_adoption"] == "pending_T1_D6"
+        assert candidate["current_ecosystem_adoption"] == "adopted_T1_D6"
         d2_candidate = contract["workstream_d2_relation_candidate_route"]
         assert d2_candidate["artifact"] == "layer2_menu_consumer_relation.jsonl"
         assert d2_candidate["producer"] == "iris_tooling.domains.tooltip_t1.d2"
         assert d2_candidate["dispositions"] == ["verified", "not_applicable", "correction_required"]
-        assert d2_candidate["current_ecosystem_adoption"] == "pending_T1_D6"
+        assert d2_candidate["current_ecosystem_adoption"] == "adopted_T1_D6"
         amendment = contract["successor_owner_amendment"]
         assert amendment["layer2_is_required_for_every_support_fulltype"] is False
         assert amendment["d2_owns_menu_relation_and_applicable_na_parity"] is True

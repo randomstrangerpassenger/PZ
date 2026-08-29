@@ -1846,9 +1846,9 @@
 
 ### Iris Tooltip T1 — display contract / upstream input readiness boundary
 
-- 날짜: 2026-08-27 → 2026-08-28 corrective refinement → 2026-08-29 T1-D1/D2/D3/D4/D5 workstream successors
+- 날짜: 2026-08-27 → 2026-08-28 corrective refinement → 2026-08-29 T1-D1/D2/D3/D4/D5 workstream successors → T1-D6 integrated adoption
 
-- 상태: current owner-ratified offline contract / contract-audit formal complete / T1-D1/D2/D3/D4/D5 workstream bundles complete / global current adoption pending T1-D6 / global T2 progression state unchanged until integrated adoption
+- 상태: current owner-ratified offline contract / integrated contract-and-audit complete / formal closeout complete / `T2_FULL_DATA_PROGRESSION=OPEN` / production T2 handoff present
 
 - 결정: Tooltip은 applicable한 Layer 2 classification, optional Layer 3 core description과 최대 두 개의 Layer 4 public interaction identity를 S1→S4 순서로 투영한다. Layer 2(S1)는 모든 support FullType의 필수 semantic fact가 아니라 current Classification authority가 user-facing category와 admissible primary subcategory를 안전하게 제공할 때만 표시하는 optional navigation/display projection이다. T1은 semantic/public eligibility와 identity selection을 먼저 닫고 selected identity의 KO/EN 및 Menu evidence readiness를 나중에 판정하는 offline contract/audit owner로 한정한다.
 
@@ -1900,6 +1900,10 @@
   - D4 focused Tooltip T1 tests는 `67 passed`; materializer Run A/B bytes와 digest는 동일했고 whole-T1 audit, exact reconciliation, protected-path check 및 corrected bundle validator는 exit `0`이었다. Support-hash 정정 시에는 source semantics, tests, materializer와 whole audit를 반복하지 않고 support-freeze/bundle binding만 최소 재검사했다.
   - D4 terminal `complete`도 isolated correction bundle에만 적용한다. D3와 D4 candidate ledger를 서로 산술 결합하거나 어느 한쪽을 current ledger로 채택하지 않으며, shared delta merge, bundle compatibility validation, integrated whole-T1 re-audit와 global status synchronization은 T1-D6가 소유한다.
   - D6용 corrected cumulative bundle은 T1-C common predecessor `6b7118dc229bf8138302696e1aa5e5b7454589dc` / tree `4eae6fbdb3d0b2cb532f875b96137335a403f2fc`에서 final D1 successor `8bbc40169e86bd2e818c440a823e497f852a1e69` / tree `e950a552797012e6e40523e75b93a1ed203e839b`까지의 누적 shared delta를 소유한다. Direct parent D1은 `81eb49b062137d5ae8b93cd5bfeb17d08f3d3a56` / tree `064cb1bd8c7c4bb2056410addd2f9b50e9505ee4`로 별도 lineage에 남기고, corrected cumulative bundle 하나만 active D6 input으로 사용한다.
+  - T1-D6 integrated subject `b30aaff2da6172ab5137c55bb460889aa527ad04` / tree `7cdd52fd61f739b5018a62d8bffe84461dfea50c`에서 support `2,280`, Layer 2 `verified 1,406` / `not_applicable 874`, T2-blocking correction과 owner blocker 합계 `0`을 재확인했다. Strict handoff input은 exact `2,280` rows이고 SHA-256은 `138b6f4ef85a2235fa41e6d60d88e885c6f6f93a8bb0458a7d6ac4dce7af56ac`다.
+  - Fresh installed environment에서 canonical Run A/Run B가 모두 exit `0`/`PASS`였고 canonical result SHA-256은 동일한 `9ff37bd36685373ab193017a5a2cef58e5e02573b19826d4aa28ba575d9444d8`이다. Deterministic comparator와 기존 finalizer도 exit `0`이며 final closeout은 `complete / complete / OPEN / present`다.
+  - Final production root는 repository-external `C:/Users/MW/Downloads/coding/PZ-tooltip-t1-d6-final-b30aaff2`, closeout SHA-256은 `f8d6bcbef0e71d57fe36be36504a5ffcea1696953b7d8280deeba911fdcecab6`다. 이 경로와 hash는 current route의 explicit locator이며 별도 validation authority가 아니다. 선행 repository-internal `.tmp` materialization은 superseded ephemeral output이고 canonical current가 아니다.
+  - Canonical gate를 막았던 Windows directory `Path.replace`는 semantic output과 manifest visibility switch를 보존한 채 `shutil.move`의 Windows-compatible fallback으로 교정했다. Regular-file manifest `os.replace` 선형화 지점, generation ID, owner authority와 DVF output bytes는 변경하지 않았다.
 
 - Machine authority:
 
@@ -1938,6 +1942,9 @@
   - corrected external D5 bundle receipt SHA-256: `c025e5d0f6b6c62a98dbeb54fa8aacbf572a3975c18869718c859d8aa4315046`; lifecycle evidence이며 canonical/regular validator authority가 아니다.
   - T1-D2 implementation subject: `0e959b3bd7055d58f319fa9d69a5b110bf48b8b7` / tree `5dbc1a830e5a911eece943102c6078102c3d9611`; exact direct parent `cb27591e3c6ef40a1b1f08a6e2ceee7047132cf8` / tree `b23103ace037aa62fc1e24d04901d534de5cc2e8`
   - T1-D2 external bundle manifest SHA-256: `25cc173f9b47effb23b0c4823cc33be82b012ba8e9f6c1281172bdf50e62b39d`; lifecycle evidence이며 canonical/regular validator authority가 아니다.
+  - T1-D6 machine-validation subject: `b30aaff2da6172ab5137c55bb460889aa527ad04` / tree `7cdd52fd61f739b5018a62d8bffe84461dfea50c`
+  - T1-D6 strict handoff manifest SHA-256: `15a4a089fdde7eeb70fd0f1e21d77872b90fdaec8130d45605edac52d67fb892`; final closeout SHA-256: `f8d6bcbef0e71d57fe36be36504a5ffcea1696953b7d8280deeba911fdcecab6`
+  - Repository-external final-root correction carrier는 commit `8e972950b7b699b435d9b21e54432af94fc42f53`, tree `51cb94b963493411dd31dd3c4f21cb79797e2f69`다. Installed final current readback은 exit `0`으로 external root, exact machine subject와 `adopted / complete / complete / OPEN / present`를 확인했다.
   - 이 docs-only successor는 위 machine subject나 external receipt identity를 대체하거나 재귀속하지 않는다.
   - detailed policy: `docs/iris_tooltip_t1_display_contract_policy.md`
   - COMMON-EVIDENCE-TRACE.

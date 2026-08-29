@@ -14,6 +14,7 @@ from iris_tooling.domains.tooltip_t1.contract import (
     load_json,
     sha256_bytes,
     sha256_file,
+    sha256_lf_text_file,
 )
 from iris_tooling.domains.tooltip_t1.models import TooltipContractError
 from iris_tooling.domains.tooltip_t1.projection import Layer4Candidate, select_layer4
@@ -289,8 +290,8 @@ def validate_registry(
 def build_owner_projection(repository_root: Path) -> dict[str, Any]:
     root = repository_root.resolve()
     selected, records = validate_registry(root)
-    registry_sha256 = sha256_file(root / REGISTRY)
-    schema_sha256 = sha256_file(root / REGISTRY_SCHEMA)
+    registry_sha256 = sha256_lf_text_file(root / REGISTRY)
+    schema_sha256 = sha256_lf_text_file(root / REGISTRY_SCHEMA)
     identity_sha256 = sha256_file(root / IDENTITY_OWNER_INPUT)
     return {
         "schema_version": "iris-tooltip-t1-layer4-recipe-locale-owner-input-v1",
@@ -350,7 +351,7 @@ def materialize(repository_root: Path, output_root: Path) -> dict[str, Any]:
         "schema_version": "iris-tooltip-t1-d4-materialization-receipt-v1",
         "output": output_path.name,
         "output_sha256": sha256_file(output_path),
-        "registry_sha256": sha256_file(root / REGISTRY),
+        "registry_sha256": sha256_lf_text_file(root / REGISTRY),
         "identity_owner_input_sha256": sha256_file(root / IDENTITY_OWNER_INPUT),
         "entry_count": projection["entry_count"],
         "selected_identity_sha256": projection["subject_binding"]["selected_identity_sha256"],

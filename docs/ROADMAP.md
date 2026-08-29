@@ -540,7 +540,7 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - D2 Browser correction은 accepted explicit primary의 tag/location 정렬에 한정된다. Actual navigation delta는 `26`, display-silence surface delta와 D1/D3/D4/D5 protected delta는 `0`; malformed/non-membership primary는 fail-loud하고 no-explicit-primary behavior는 보존한다.
   - D2 candidate whole-T1 re-audit는 correction `0`, progression `OPEN`을 산출했다. Focused Tooltip suite `90 passed`, Browser owner direct unittest `2 tests OK`, Lua syntax `127 files OK`, relation materializer Run A/B bytes 동일을 확인했지만 이 결과는 isolated subject에 한정되며 global current adoption과 production T2 handoff는 T1-D6 전까지 열지 않는다.
   - D1 successor subject `8bbc40169e86bd2e818c440a823e497f852a1e69` / tree `e950a552797012e6e40523e75b93a1ed203e839b`는 workstream `complete`다. T1-C common predecessor `6b7118dc229bf8138302696e1aa5e5b7454589dc`에서 final successor까지의 corrected cumulative external bundle 하나가 D6-ready active input이며 intermediate bundle은 inactive lineage다.
-  - Current adoption과 D6 integration은 아직 `pending_T1_D6`다. D1 isolated subject의 actual other-owner correction은 DVF `175`, Iris `2`, Menu `2,280`, QG `888`이고 이를 D3/D4/D5 candidate와 산술 결합하지 않는다. T2 full-data progression은 `BLOCKED_BY_UPSTREAM_CORRECTIONS`; production handoff는 absent다.
+  - T1-D6 integrated subject `b30aaff2da6172ab5137c55bb460889aa527ad04` / tree `7cdd52fd61f739b5018a62d8bffe84461dfea50c`가 D1~D5/D2 결과를 same-subject whole-T1 audit로 재결속했다. Final current 상태는 correction/blocker `0`, `T2_FULL_DATA_PROGRESSION=OPEN`, production handoff present다.
   - T1-D5는 `Base.LemonGrass`와 `Base.Lemongrass`의 case-sensitive exact support identity와 raw normalized-collision observation을 보존하면서 target `SUPPORT_NORMALIZED_COLLISION` correction/T2 blocker만 `2 → 0`으로 닫았다. Support는 `2,280 → 2,280`, 전체 correction은 `5,625 → 5,623`, non-target delta는 `0`이다.
   - D5 support-freeze hash는 common LF-terminated UTF-8 ordered-set 규칙으로 `3a6cc24b9ad64e06a0a6c0408821201e35bbd1d8558e6245809b5d3c34265ce6`을 재도출했다. 최초 JSON-array hash mismatch는 exact set missing/extra 0인 serialization-only mismatch로 정정했으며 corrected bundle만 D6 입력 후보이고 최초 bundle은 superseded다.
   - T1 contract/audit completion은 static Tooltip Lua generation, runtime adoption/visual fit, package, compatibility 또는 release readiness가 아니다.
@@ -555,6 +555,11 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - D4 candidate whole-T1 re-audit는 support `2,280`, correction `4,737`을 산출했다. Focused Tooltip T1 tests `67 passed`, materializer Run A/B bytes 동일, exact reconciliation/whole audit/protected-path/bundle validation exit `0`이다.
   - D4 support freeze는 predecessor exact set과 missing/extra `0`으로 같고 canonical ordered-set SHA-256은 `3a6cc24b9ad64e06a0a6c0408821201e35bbd1d8558e6245809b5d3c34265ce6`이다. 초기 JSON-array hash binding은 serialization-only 오류였으며 corrected external bundle/receipt로 교체했다.
   - T1-D4 bundle도 `complete`지만 current ecosystem adoption은 `pending_T1_D6`다. D3/D4 candidate correction 수치는 독립 predecessor 결과이므로 서로 합산하거나 current blocker `5,625`를 대체하지 않는다.
+  - T1-D6 strict handoff는 exact `2,280` rows이며 input SHA-256 `138b6f4ef85a2235fa41e6d60d88e885c6f6f93a8bb0458a7d6ac4dce7af56ac`, manifest SHA-256 `15a4a089fdde7eeb70fd0f1e21d77872b90fdaec8130d45605edac52d67fb892`로 current route에 채택됐다.
+  - Fresh wheel/installed CLI, canonical Run A/Run B, deterministic comparator와 기존 finalizer가 모두 exit `0`이다. Final closeout SHA-256은 `f8d6bcbef0e71d57fe36be36504a5ffcea1696953b7d8280deeba911fdcecab6`이고 상태는 `complete / complete / OPEN / present`다.
+  - Canonical final root는 repository-external `C:/Users/MW/Downloads/coding/PZ-tooltip-t1-d6-final-b30aaff2`다. Path correction carrier `8e972950b7b699b435d9b21e54432af94fc42f53` 이후 installed current readback이 exit `0`으로 `adopted / complete / complete / OPEN / present`를 확인했으며, 선행 내부 `.tmp` materialization은 superseded ephemeral output이다.
+  - Windows directory publish blocker는 generation bytes나 manifest visibility 의미를 바꾸지 않는 `shutil.move` fallback으로 닫았다. T1-D6 완료를 위해 사용한 exact machine subject와 canonical receipt chain은 경로 정정 과정에서 재실행하거나 재결속하지 않았다.
+  - 이 완료는 Tooltip T1 upstream input과 T2 handoff 경계만 연다. Static Tooltip Lua, runtime/visual 검증, T2/T3 구현과 release readiness는 다음 단계의 별도 gate다.
 
 ## Doing
 
@@ -572,15 +577,11 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
 
 ## Next
 
-- Tooltip `T1-C: Upstream Correction Closure and T2 Readiness Opening`은 formal T1 재설계가 아니라 남은 owner correction closure로 계속 분리한다.
-  - 현재 blocker는 Classification `2,280`, DVF `175`, Iris presentation-contract `2`, Menu consumer `2,280`, QG/locale `888`, 합계 `5,625`다.
-  - T1-D2 candidate는 direct-parent subject에서 actual Menu consumer relation을 닫고 whole-T1 correction `0`을 확인했다. T1-D6는 D2 bundle과 다른 workstream bundle의 predecessor/support/hash/shared-delta compatibility를 검증한 integrated subject에서 current route와 global status를 동기화해야 하며, 그 전에는 isolated `OPEN`을 global T2 progression이나 production handoff로 채택하지 않는다.
-  - T1-D3 candidate는 DVF 175를 닫아 candidate blocker `5,450`을 만들었지만, shared-path merge와 global current adoption은 T1-D6가 수행한다. D6 전에는 current blocker 표를 candidate 수치로 교체하지 않는다.
-  - T1-D4 candidate는 QG/locale 888을 닫아 candidate blocker `4,737`을 만들었다. T1-D6는 corrected D4 bundle만 소비하고, 모든 workstream의 predecessor/support/hash compatibility와 shared delta를 검증한 단일 integration subject에서 whole-T1 audit를 수행한다.
-  - T1-D5 candidate는 Iris presentation-contract blocker 2를 닫아 candidate blocker `5,623`을 만들었다. T1-D6는 corrected D5 bundle만 소비하고, D5의 국소 complete를 T2 OPEN이나 production handoff로 확대하지 않는다.
+- Tooltip `T1-C: Upstream Correction Closure and T2 Readiness Opening`은 T1-D6에서 완료됐다.
+  - Integrated blocker는 `0`, progression은 `OPEN`, strict production T2 handoff는 present다.
+  - 다음 단계는 adopted handoff를 입력으로 사용하는 별도 T2 static generation/runtime 구현이며, T1 final artifact나 owner authority를 다시 생성하거나 재해석하지 않는다.
   - owner authority에 없는 의미, 문장, 추천, fallback 또는 Menu consumer evidence를 Tooltip assembler가 발명하지 않는다.
-  - 동일 owner/root-cause의 producer output을 정규 경로로 교정하고 새 exact subject에서 re-audit한다.
-  - blocker가 `0`이 되기 전에는 progression을 `OPEN`으로 바꾸거나 production T2 handoff를 생성하지 않으며 T2 static generator/runtime 구현을 시작하지 않는다.
+  - Static Lua/runtime/visual/release readiness는 T1-D6 closeout이 검증하지 않았으며 각 후속 gate를 통과하기 전에는 완료로 주장하지 않는다.
 
 - 최신 current product 상태를 기준으로 **DVF freeze readiness를 재판정한다.**
   - 과거 Problem 4의 `동결 불가` verdict는 historical evidence로 유지하고 직접 수정하거나 승계하지 않는다.

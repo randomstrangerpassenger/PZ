@@ -281,7 +281,7 @@ def install_complete_generation(
             _copy_generation(mappings, stage_root, live_generation_root)
             if inject_failure == "candidate_copy":
                 raise GenerationInstallError("INJECTED_FAILURE_CANDIDATE_COPY")
-            stage_root.replace(live_generation_root)
+            shutil.move(stage_root, live_generation_root)
             if inject_failure == "generation_publish":
                 raise GenerationInstallError("INJECTED_FAILURE_GENERATION_PUBLISH")
         _validate_existing_generation(mappings)

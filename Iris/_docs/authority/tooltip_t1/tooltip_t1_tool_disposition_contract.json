@@ -2,7 +2,7 @@
   "schema_version": "iris-tooltip-t1-tool-disposition-v1",
   "entries": [
     {"path": "Iris/tooling/src/iris_tooling/domains/tooltip_t1", "disposition": "current_required", "lifecycle": "installed_package_owned_offline_producer"},
-    {"path": "Iris/tooling/src/iris_tooling/domains/layer4/tooltip_t1_d4.py", "disposition": "workstream_candidate_required", "lifecycle": "D4 owner-registry validator and deterministic owner projection materializer; pending T1-D6 integration adoption"},
+    {"path": "Iris/tooling/src/iris_tooling/domains/layer4/tooltip_t1_d4.py", "disposition": "current_required", "lifecycle": "D4 owner-registry validator and deterministic owner projection materializer adopted by T1-D6"},
     {"path": "Iris/tooling/tests/test_tooltip_t1_contract.py", "disposition": "lifecycle_bound", "regular_validation_membership": false},
     {"path": "Iris/tooling/tests/test_tooltip_t1_projection.py", "disposition": "lifecycle_bound", "regular_validation_membership": false},
     {"path": "Iris/tooling/tests/test_tooltip_t1_audit.py", "disposition": "lifecycle_bound", "regular_validation_membership": false},
@@ -13,6 +13,8 @@
     "candidate_contract_and_audit_axis": "partial",
     "candidate_formal_closeout_state": "implemented_only",
     "complete_requires_same_subject_run_a_run_b_and_comparator_exit_0": true,
+    "complete_requires_zero_blockers_and_strict_handoff_hash_consistency": true,
+    "final_output_files": ["subject_binding.json", "t2_handoff_input.jsonl", "t2_handoff_manifest.json", "axis_separated_final_closeout_record.json"],
     "failed_or_mismatched_gate_writes_complete_closeout": false,
     "output_root": "repository_external_empty"
   },
@@ -20,14 +22,14 @@
     "commands": ["d5-census", "d5-reconcile"],
     "output_role": "repository_external_workstream_lifecycle_evidence",
     "regular_validation_authority": false,
-    "current_ecosystem_adoption": "pending_T1_D6",
+    "current_ecosystem_adoption": "adopted_T1_D6",
     "canonical_full_gate_owner": "T1-D6"
   },
   "d2_lifecycle": {
     "commands": ["d2-materialize"],
     "output_role": "repository_external_layer2_menu_consumer_relation_candidate",
     "regular_validation_authority": false,
-    "current_ecosystem_adoption": "pending_T1_D6",
+    "current_ecosystem_adoption": "adopted_T1_D6",
     "canonical_full_gate_owner": "T1-D6"
   },
   "one_off_audit_is_regular_validator": false,

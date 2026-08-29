@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "iris-tooltip-t2-handoff-manifest-v1",
+  "schema_version": "iris-tooltip-t2-handoff-manifest-schema-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "subject",
+    "support_count",
+    "support_sha256",
+    "handoff_row_count",
+    "handoff_fulltype_sha256",
+    "handoff_input_sha256",
+    "authority_contract_bundle_sha256",
+    "candidate_run_receipt_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "iris-tooltip-t2-handoff-manifest-v1"},
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commit", "tree"],
+      "properties": {
+        "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "tree": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      }
+    },
+    "support_count": {"const": 2280},
+    "support_sha256": {"const": "3a6cc24b9ad64e06a0a6c0408821201e35bbd1d8558e6245809b5d3c34265ce6"},
+    "handoff_row_count": {"const": 2280},
+    "handoff_fulltype_sha256": {"const": "3a6cc24b9ad64e06a0a6c0408821201e35bbd1d8558e6245809b5d3c34265ce6"},
+    "handoff_input_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "authority_contract_bundle_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "candidate_run_receipt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

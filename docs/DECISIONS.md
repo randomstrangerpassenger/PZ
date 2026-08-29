@@ -678,6 +678,9 @@
   - Iris Tooltip은 최대 `4줄`을 넘지 않는다.
   - Iris Menu는 Tooltip보다 상세한 정보를 제공한다.
   - Menu와 Tooltip은 서로 다른 facts authority를 갖지 않으며 같은 사실을 서로 다른 정보 깊이로 투영한다.
+  - `same-authority`는 두 surface가 같은 fact source를 사용한다는 뜻이며 모든 layer의 coverage가 항상 동일해야 한다는 뜻이 아니다.
+  - Tooltip Layer 2(S1)는 current Classification authority가 user-facing category와 admissible primary subcategory를 함께 제공할 때만 표시하는 optional navigation/display projection이다.
+  - Layer 2가 applicable하지 않으면 S1을 placeholder나 빈 줄 없이 생략하고 S2~S4를 위로 당긴다. Menu가 같은 authority에서 더 상세한 정보를 표시하는 것은 이 계약과 모순되지 않는다.
   - Menu와 Tooltip이 같은 대상에 대해 서로 모순되는 사실을 표시하지 않는다.
   - Tooltip은 Menu와 별개의 지식원이나 독립 semantic authority가 아니라 같은 확정 사실의 제한된 요약 projection이다.
   - Browser / Wiki / Detail은 Iris Menu를 구성하는 implementation / presentation component이며 제3의 독립 user-facing knowledge surface가 아니다.
@@ -691,6 +694,7 @@
 
   - Tooltip을 Menu와 독립된 semantic pipeline으로 읽지 않는다.
   - Tooltip의 4줄 제한을 runtime semantic summarization 또는 사실 재판정 권한으로 읽지 않는다.
+  - Tooltip Layer 2 display silence를 Classification correction, semantic absence 판정 또는 raw ID 표시 권한으로 읽지 않는다.
   - Browser / Wiki / Detail을 제3·제4의 독립 Iris information surface로 확대하지 않는다.
   - COMMON-RUNTIME-SURFACE-NONMUTATION.
   - COMMON-RELEASE-NONDECISION.
@@ -1842,29 +1846,35 @@
 
 ### Iris Tooltip T1 — display contract / upstream input readiness boundary
 
-- 날짜: 2026-08-27
+- 날짜: 2026-08-27 → 2026-08-29 successor amendment
 
-- 상태: current owner-ratified offline contract / T2 progression blocked by upstream corrections
+- 상태: D1 successor workstream complete / D2 partition ready / current adoption pending T1-D6 / T2 progression blocked by remaining upstream corrections
 
-- 결정: Tooltip은 Layer 2 classification, optional Layer 3 core description과 최대 두 개의 Layer 4 public interaction identity를 S1→S4 고정 순서로 투영한다. T1은 semantic/public eligibility와 identity selection을 먼저 닫고 selected identity의 KO/EN 및 Menu evidence readiness를 나중에 판정하는 offline contract/audit owner로 한정한다.
+- 결정: Tooltip은 applicable한 Layer 2 classification, optional Layer 3 core description과 최대 두 개의 Layer 4 public interaction identity를 S1→S4 순서로 투영한다. Layer 2(S1)는 모든 support FullType의 필수 semantic fact가 아니라 current Classification authority가 user-facing category와 admissible primary subcategory를 안전하게 제공할 때만 표시하는 optional navigation/display projection이다. T1은 semantic/public eligibility와 identity selection을 먼저 닫고 selected identity의 KO/EN 및 Menu evidence readiness를 나중에 판정하는 offline contract/audit owner로 한정한다.
 
 - 현재 기준:
 
   - owner-ratified support predicate는 current Layer 2, pointer-selected Layer 3와 current Layer 4 owner FullType의 case-sensitive explicit union이다.
-  - legitimate absence display row는 compact할 수 있지만 semantic slot identity/order를 유지하며 defect row는 compact하지 않는다.
+  - Layer 2가 applicable하지 않은 support row는 system-level deterministic source-state rule에 따른 legitimate display silence다. S1 placeholder나 빈 줄을 만들지 않고 S2~S4를 위로 당기며, 이를 per-FullType semantic absence나 correction으로 승격하지 않는다.
+  - D1 successor의 exact partition은 support `2,280` (`3a6cc24b9ad64e06a0a6c0408821201e35bbd1d8558e6245809b5d3c34265ce6`) = `layer2_applicable 1,406` (`c5a77d86eb875cecf03edf5ab67f29361f58947bd97493e522667b593130f264`) + `layer2_display_silence 874` (`d13fa6ac9072a3ab2c61bc59990bfb948010ce8b2fc3211aa1ecb7b5c6c121de`)다.
+  - display silence `874`는 raw `Misc.9-A` fallback `408`, membership 없음 `201`, multi-membership이지만 admissible primary 없음 `265`의 exact partition이다. FullType 이름, Layer 3/4, presentation rank 또는 source order로 분류를 추론하지 않는다.
+  - 기존 resolved `1,406` rows는 canonical hash `f36a6a6c72080bae8b28b9a1c419eff2ca2a15fc192be04edbfb5be40d31833f`로 byte/identity/surface를 보존했으며 Classification correction은 `874 → 0`으로 닫혔다.
+  - 다른 layer의 legitimate absence display row는 compact할 수 있지만 semantic slot identity/order를 유지하며 defect row는 compact하지 않는다.
   - Layer 2 raw tag/runtime resolver 복제, Layer 3 body truncation·요약·재작성, Layer 4 importance/frequency/text-similarity/input-order selection을 금지한다.
   - both-source Layer 4 row는 Recipe 하나와 Right-click 하나를 선택하고 single-source row는 neutral stable structural order로 최대 둘을 선택한다.
   - Layer 4 identity source는 current authority로 분류된 `Iris/build/description/v2/data/upstream_usecases_by_fulltype.json`이며 `Iris/build/baseline/**` reproduction artifact를 semantic input으로 승격하지 않는다. Selected identity는 Browser가 소비하는 current runtime `UseCaseDescriptions/Chunk*.lua`의 `label_key` identity와 별도로 대조한다.
   - explicit QG order key가 없는 current subject의 tie-break는 versioned source/interaction identity bytes에서 파생하며 semantic rank가 아니다.
   - selected identity는 locale/Menu readiness 전에 freeze한다. KO/EN fallback, locale별 reselection과 readiness가 더 좋은 차순위 substitution을 금지한다.
-  - Menu/Tooltip parity는 identity relation이며 independent consumer evidence가 없는 shared-authority 범위는 `unverified_without_independent_consumer_evidence`로 남긴다.
-  - current Layer 2 resolved owner output, Layer 3 approved Tooltip fact identity/surface와 Layer 4 explicit selected-identity locale surface 결손은 T1이 보완하지 않고 owner correction으로 귀속한다.
+  - Menu/Tooltip parity는 identity relation이며 independent consumer evidence가 없는 shared-authority 범위는 `unverified_without_independent_consumer_evidence`로 남긴다. `same-authority`는 동일 fact source를 뜻할 뿐 두 surface의 coverage가 항상 동일하다는 뜻은 아니다.
+  - D1은 D2에 `layer2_applicable 1,406` / `layer2_display_silence 874` exact partition을 제공한다. Menu correction `2,280`의 실제 consumer relation과 applicable/N/A parity는 D2가 소유하며 D1이 산술 차감하거나 재귀속하지 않는다.
+  - Layer 3 approved Tooltip fact identity/surface와 Layer 4 explicit selected-identity locale surface 결손은 T1이 보완하지 않고 owner correction으로 귀속한다.
   - `Base.LemonGrass` / `Base.Lemongrass` normalized collision은 case-sensitive identity를 합치거나 denominator에서 제거하지 않고 explicit support-owner correction으로 남긴다.
-  - contract/audit axis와 `T2_FULL_DATA_PROGRESSION`은 분리한다. Current progression은 correction/re-audit 전까지 `BLOCKED_BY_UPSTREAM_CORRECTIONS`이며 T2 handoff를 생성하지 않는다.
-  - pre-full-gate candidate는 task-specific axis `partial`, formal state `implemented_only`다. 동일 subject의 canonical Run A/Run B와 deterministic comparator exit-0 receipt가 모두 hash-bound된 뒤에만 좁은 post-gate finalizer가 두 상태를 `complete`로 올릴 수 있다.
+  - contract/audit axis와 `T2_FULL_DATA_PROGRESSION`은 분리한다. Classification correction `0`과 별개로 actual other-owner correction은 DVF `175`, Iris `2`, Menu `2,280`, QG `888`, total `3,345`이며 current progression은 `BLOCKED_BY_UPSTREAM_CORRECTIONS`다. Production T2 handoff는 생성하지 않는다.
+  - D1 successor의 task-specific/formal 상태는 `complete`지만 `current_ecosystem_adoption=pending_T1_D6`다. 이 workstream completion을 D2 implementation, D6 integration, canonical full gate/finalizer, global-current adoption 또는 production T2 handoff로 읽지 않는다.
   - correction 기반 progression, cause class, owner와 owner별 blocker count는 모두 `t2_blocking = true`인 동일 correction 집합에서만 파생한다. T3 재검증 관찰이나 non-blocking correction은 T2를 차단하지 않는다.
   - tracked contract/fixture와 installed package producer는 current authority지만 repository-external census/audit/ledger/receipt는 lifecycle evidence이며 regular validation authority가 아니다.
   - tracked decision contract는 ratification template이며, clean exact subject의 W1-A evidence hash와 subject identity를 adoption receipt가 결속한 뒤에만 G1 및 W1-B가 성립한다.
+  - D6용 corrected cumulative bundle은 T1-C common predecessor `6b7118dc229bf8138302696e1aa5e5b7454589dc` / tree `4eae6fbdb3d0b2cb532f875b96137335a403f2fc`에서 final D1 successor `8bbc40169e86bd2e818c440a823e497f852a1e69` / tree `e950a552797012e6e40523e75b93a1ed203e839b`까지의 누적 shared delta를 소유한다. Direct parent D1은 `81eb49b062137d5ae8b93cd5bfeb17d08f3d3a56` / tree `064cb1bd8c7c4bb2056410addd2f9b50e9505ee4`로 별도 lineage에 남기고, corrected cumulative bundle 하나만 active D6 input으로 사용한다.
 
 - Machine authority:
 
@@ -1876,6 +1886,8 @@
 
   - T1 contract/audit completion을 T2 static generation, runtime adoption, actual visual fit, full Menu parity, package/install, compatibility, freeze, Publish, release, Workshop 또는 deployment PASS로 읽지 않는다.
   - upstream gap ledger를 T1 semantic workaround나 correction mutation authority로 읽지 않는다.
+  - display silence `874`를 새 semantic classification row, owner-approved absence record 또는 T2 blocker로 되돌리지 않는다.
+  - historical partial/old successor bundle을 corrected cumulative bundle과 함께 적용하지 않는다.
   - one-off audit와 ad hoc probe를 canonical/regular validator로 승격하지 않는다.
   - post-gate finalizer를 semantic producer, 일반 workflow system 또는 T2 OPEN authority로 읽지 않는다.
   - COMMON-RUNTIME-SURFACE-NONMUTATION.
@@ -1883,7 +1895,10 @@
 
 - Trace:
 
-  - owner preapproval and T1 adoption: 2026-08-27
+  - owner preapproval and offline T1 contract adoption: 2026-08-27
+  - owner-approved optional Layer 2 successor amendment and D1 completion: 2026-08-29
+  - final D1 successor subject: `8bbc40169e86bd2e818c440a823e497f852a1e69` / tree `e950a552797012e6e40523e75b93a1ed203e839b`
+  - corrected cumulative external bundle: `C:\Users\MW\Downloads\coding\PZ-t1d1-successor-cumulative-8bbc4016`; manifest SHA-256 `ae91527431f5d34d0ca7c6fc6b86082b9c7e6f33b7ceabc39741ad2093641c3e`, shared-delta SHA-256 `5dcf432e36ae5ff2d2b8469faca0b983b37c96380985f46cd1af490c0e2cbed4`, closeout SHA-256 `b1ac3157b04abada0bf153009022b7c4ee8118a160525fb129c5e2b8db27c7f3`
   - detailed policy: `docs/iris_tooltip_t1_display_contract_policy.md`
   - COMMON-EVIDENCE-TRACE.
 

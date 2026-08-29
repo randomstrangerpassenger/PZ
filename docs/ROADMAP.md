@@ -531,11 +531,13 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - 상세 readpoint는 `docs/iris_build_validation_execution_current_authority_optimization_plan.md`, `docs/iris_build_validation_execution_current_authority_optimization_walkthrough.md`, `docs/iris_build_validation_execution_current_authority_optimization_closeout.md`다. Physical Git blob/context 감소는 runtime/token 성능이나 release readiness claim이 아니다.
 
 - Tooltip T1 표시 계약과 upstream input readiness boundary를 owner-ratify했다.
-  - S1=Layer 2, S2=optional Layer 3, S3/S4=Layer 4인 0~4 logical-row fixed-order contract를 채택했다.
+  - 2026-08-29 successor amendment로 S1=optional applicable Layer 2, S2=optional Layer 3, S3/S4=Layer 4인 0~4 logical-row contract를 채택했다. Layer 2가 applicable하지 않으면 placeholder 없이 S1을 생략하고 S2~S4를 compact한다.
   - Layer 4 identity selection을 locale/Menu readiness보다 먼저 freeze하고 Recipe/Right-click source equivalence, identity-first KO/EN과 no-fallback을 고정했다.
   - Current support universe 전체를 같은 contract로 audit하는 installed `iris_tooling` producer와 minimal T2 handoff boundary를 추가했다.
-  - Current Layer 2 resolved identity, Layer 3 approved Tooltip fact surface와 Layer 4 explicit locale surface gap은 owner correction으로 귀속하며 T2 full-data progression은 re-audit 전까지 `BLOCKED_BY_UPSTREAM_CORRECTIONS`다.
-  - Candidate closeout은 `partial/implemented_only`이고, same-subject canonical Run A/Run B와 comparator가 성공한 경우에만 receipt-bound finalizer가 T1 formal complete를 기록한다. 이 전환은 upstream blocker나 T2 progression을 변경하지 않는다.
+  - D1 successor는 support `2,280`을 Layer 2 applicable `1,406` / legitimate display silence `874`로 exact partition했다. Silence는 raw fallback `408`, no membership `201`, no admissible primary `265`에서 deterministic하게 산출하며 semantic 분류 추론이나 per-row absence authority를 만들지 않는다.
+  - 기존 resolved `1,406`은 byte/identity/surface 불변이며 Classification correction은 `874 → 0`으로 닫혔다. D2 handoff partition은 ready지만 Menu `2,280` consumer relation과 applicable/N/A parity 구현은 D2가 소유한다.
+  - D1 successor subject `8bbc40169e86bd2e818c440a823e497f852a1e69` / tree `e950a552797012e6e40523e75b93a1ed203e839b`는 workstream `complete`다. T1-C common predecessor `6b7118dc229bf8138302696e1aa5e5b7454589dc`에서 final successor까지의 corrected cumulative external bundle 하나가 D6-ready active input이며 intermediate bundle은 inactive lineage다.
+  - Current adoption과 D6 integration은 아직 `pending_T1_D6`다. Actual other-owner correction은 DVF `175`, Iris `2`, Menu `2,280`, QG `888`이고 T2 full-data progression은 `BLOCKED_BY_UPSTREAM_CORRECTIONS`; production handoff는 absent다.
   - T1 contract/audit completion은 static Tooltip Lua generation, runtime adoption/visual fit, package, compatibility 또는 release readiness가 아니다.
 
 ## Doing

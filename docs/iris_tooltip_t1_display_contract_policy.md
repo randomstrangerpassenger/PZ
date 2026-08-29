@@ -22,6 +22,7 @@ S4 = Layer 4 interaction #2
 ## 입력 경계
 
 - Layer 2는 Classification owner가 제공한 resolved classification/category/primary-subcategory identity와 KO/EN surface만 소비한다. raw tag scan, runtime resolver 복제와 `Misc.9-A` raw fallback 승격을 금지한다.
+- T1-D1 isolated candidate는 `Iris/build/classification/data/classification_layer2_owner_output.json`의 독립 검증된 terminal row만 소비한다. 근거가 부족한 row는 기존 Classification correction으로 남고, 이 candidate는 Menu evidence 또는 global current adoption을 발행하지 않는다.
 - Layer 3는 owner-approved single `core_description` fact identity와 KO/EN single-line surface만 소비한다. rendered body 자르기, 요약, 재작성, 여러 core fact 합성과 acquisition paragraph 승격을 금지한다.
 - Layer 4는 current owner data인 `Iris/build/description/v2/data/upstream_usecases_by_fulltype.json`의 public QG identity를 `semantic/public eligibility → stable order → exact identity dedupe → source equivalence → bounded selection → identity freeze` 순서로 선택한 뒤 locale/Menu readiness를 조회한다. `Iris/build/baseline/**` reproduction artifact는 semantic input으로 소비하지 않는다.
 

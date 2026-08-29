@@ -148,6 +148,14 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
     layer2 = values[AUTHORITY_ROOT / "layer2_tooltip_input_contract.json"]
     _require(layer2.get("current_route") == "no_admissible_authority_relation", "Layer 2 route mismatch")
     _require(layer2.get("raw_tag_resolution_allowed") is False and layer2.get("runtime_resolver_reimplementation_allowed") is False, "Layer 2 raw inference prohibition mismatch")
+    layer2_candidate = layer2.get("workstream_candidate_route")
+    _require(
+        isinstance(layer2_candidate, dict)
+        and layer2_candidate.get("path") == "Iris/build/classification/data/classification_layer2_owner_output.json"
+        and layer2_candidate.get("schema") == "Iris/_docs/authority/classification_layer2/classification_layer2_owner_output.schema.json"
+        and layer2_candidate.get("current_ecosystem_adoption") == "pending_T1_D6",
+        "Layer 2 workstream candidate route mismatch",
+    )
     layer3 = values[AUTHORITY_ROOT / "layer3_tooltip_input_contract.json"]
     _require(layer3.get("identity_before_locale") is True, "Layer 3 identity/readiness ordering mismatch")
     _require(all(layer3.get(key) is False for key in ("body_truncation_allowed", "body_summarization_allowed", "body_rewrite_allowed", "multiple_core_fact_synthesis_allowed")), "Layer 3 body rewrite prohibition mismatch")

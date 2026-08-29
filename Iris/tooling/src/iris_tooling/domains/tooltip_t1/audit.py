@@ -6,6 +6,9 @@ from pathlib import Path
 import re
 from typing import Any, Iterable
 
+from iris_tooling.domains.classification.layer2_contract import OWNER_OUTPUT
+from iris_tooling.domains.classification.layer2_validator import validate_owner_output
+
 from .contract import (
     AUTHORITY_ROOT,
     canonical_bytes,
@@ -587,6 +590,7 @@ def _correction(
 def _source_hashes(repository_root: Path, generation_id: str) -> dict[str, str]:
     paths = [
         CLASSIFICATIONS,
+        OWNER_OUTPUT,
         L3_POINTER,
         L3_INPUT_MANIFEST,
         L3_TOOLTIP_OWNER_INPUT,
@@ -677,6 +681,18 @@ def run_candidate(
     subject["subject_identity_sha256"] = sha256_bytes(canonical_bytes(subject_identity))
 
     classifications = parse_classifications(repository_root / CLASSIFICATIONS)
+    layer2_validation = validate_owner_output(repository_root)
+    layer2_owner_output = load_json(repository_root / OWNER_OUTPUT)
+    layer2_owner_rows = {
+        row["full_type"]: row
+        for row in layer2_owner_output.get("rows", [])
+        if isinstance(row, dict) and isinstance(row.get("full_type"), str)
+    }
+    layer2_remaining = {
+        row["full_type"]: row
+        for row in layer2_owner_output.get("remaining_entries", [])
+        if isinstance(row, dict) and isinstance(row.get("full_type"), str)
+    }
     rendered = load_json(repository_root / L3_GENERATIONS / generation_id / "dvf_3_3_rendered.json")
     layer3 = rendered.get("entries")
     if not isinstance(layer3, dict):
@@ -744,7 +760,12 @@ def run_candidate(
         "P-6": {"evidence_state": "present" if explicit_stable_keys else "absent", "observation": "explicit stable Layer 4 order keys", "count": explicit_stable_keys},
         "P-7": {"evidence_state": "present" if duplicate_identity_rows else "absent", "observation": "exact duplicate interaction identities", "count": duplicate_identity_rows},
         "P-8": {"evidence_state": "mixed", "observation": "Layer 3 owner publishes exact single-core Tooltip facts while owner rows without a core disposition remain unresolved", "canonical_count": len(layer3), "tooltip_fact_count": len(layer3_tooltip_entries), "en_count": len(l3_en_keys)},
-        "P-10": {"evidence_state": "absent", "observation": "no owner-issued Layer 2 resolved identity or independent per-row Menu identity route"},
+        "P-10": {
+            "evidence_state": "mixed",
+            "observation": "D1 owner output resolves only evidence-backed rows; independent per-row Menu identity remains absent",
+            "resolved_entry_count": layer2_validation["resolved_entry_count"],
+            "remaining_entry_count": layer2_validation["remaining_entry_count"],
+        },
     }
     for decision_id, record in evidence_records.items():
         record["decision_id"] = decision_id
@@ -758,7 +779,7 @@ def run_candidate(
         "set_differences": set_differences,
         "records": evidence_records,
         "findings": {
-            "layer2_resolved_owner_output": "absent",
+            "layer2_resolved_owner_output": layer2_validation["status"],
             "layer2_independent_menu_consumer_identity": "absent",
             "layer3_single_tooltip_fact_identity_and_surfaces": "partial",
             "layer4_explicit_stable_order_key": "present" if explicit_stable_keys else "absent",
@@ -818,13 +839,36 @@ def run_candidate(
                 "SUPPORT_NORMALIZED_COLLISION",
                 "explicit owner disposition preserving both exact case-sensitive FullType identities",
             ))
-        # P-10: current raw tags and runtime resolver are census evidence only;
-        # no owner-issued resolved identity exists for Tooltip consumption.
-        slots.append(_slot_correction("S1", "CLASSIFICATION_RESOLVED_IDENTITY_MISSING"))
-        corrections.append(_correction(
-            full_type, "layer2", "Classification owner", "CLASSIFICATION_RESOLVED_IDENTITY_MISSING",
-            "resolved classification/category/primary-subcategory identity with KO/EN surfaces",
-        ))
+        # P-10: consume only the independently validated D1 owner output. Raw
+        # tags remain census evidence and are never resolved by this consumer.
+        layer2_owner_row = layer2_owner_rows.get(full_type)
+        if isinstance(layer2_owner_row, dict) and layer2_owner_row.get("terminal_state") == "resolved":
+            surface = layer2_owner_row["primary_subcategory_surface"]
+            slots.append(Slot(
+                "S1",
+                layer2_owner_row["classification_identity"],
+                SemanticSlotState.SELECTED,
+                {"ko": surface["ko"], "en": surface["en"]},
+                {"ko": LocaleSurfaceReadiness.READY, "en": LocaleSurfaceReadiness.READY},
+                authority_ref=layer2_owner_row["classification_authority_ref"],
+            ))
+        elif isinstance(layer2_owner_row, dict) and layer2_owner_row.get("terminal_state") == "owner_approved_absence":
+            slots.append(_slot_absent(
+                "S1",
+                layer2_owner_row["absence_reason"],
+                layer2_owner_row["classification_authority_ref"],
+            ))
+        else:
+            remaining_row = layer2_remaining.get(full_type, {})
+            reason = remaining_row.get("reason_code", "CLASSIFICATION_RESOLVED_IDENTITY_MISSING")
+            slots.append(_slot_correction("S1", reason))
+            corrections.append(_correction(
+                full_type,
+                "layer2",
+                "Classification owner",
+                reason,
+                "resolved classification/category/primary-subcategory identity with KO/EN surfaces",
+            ))
         corrections.append(_correction(
             full_type, "cross-layer", "Menu consumer owner", "PARITY_AUTHORITY_RELATION_MISSING",
             "shared Layer 2 owner/Menu public identity authority relation",
@@ -974,7 +1018,11 @@ def run_candidate(
         row_owners = {correction["owner"] for correction in row_corrections}
         for slot in slots:
             if slot.semantic_state is SemanticSlotState.LEGITIMATE_ABSENCE:
-                row_owners.add("DVF owner" if slot.slot_id == "S2" else "QG owner")
+                row_owners.add(
+                    "Classification owner" if slot.slot_id == "S1"
+                    else "DVF owner" if slot.slot_id == "S2"
+                    else "QG owner"
+                )
         if MenuParityStatus.UNVERIFIED in parity.values():
             row_owners.add("Menu consumer owner")
         correction_blocking = any(correction["t2_blocking"] for correction in row_corrections)
@@ -986,8 +1034,10 @@ def run_candidate(
             "classification": {
                 "raw_membership_present": full_type in classifications,
                 "raw_tag_count": len(classifications.get(full_type, ())),
-                "resolved_identity": None,
-                "authority_ref": CLASSIFICATIONS.as_posix(),
+                "resolved_identity": layer2_owner_row.get("classification_identity") if isinstance(layer2_owner_row, dict) else None,
+                "terminal_state": layer2_owner_row.get("terminal_state") if isinstance(layer2_owner_row, dict) else None,
+                "authority_ref": layer2_owner_row.get("classification_authority_ref") if isinstance(layer2_owner_row, dict) else None,
+                "provenance_ref": layer2_owner_row.get("classification_provenance_ref") if isinstance(layer2_owner_row, dict) else None,
                 "menu_consumer_identity_ref": None,
             },
             "layer3": {
@@ -1085,7 +1135,7 @@ def run_candidate(
         "schema_version": "iris-tooltip-input-authority-inventory-v1",
         "subject_binding_ref": "subject_binding.json",
         "paths": {path: {"sha256": digest, "role": "read_only_current_input"} for path, digest in input_hashes_before.items()},
-        "layer2_owner_route": "gap:no_admissible_resolved_identity_output",
+        "layer2_owner_route": f"T1-D1 isolated candidate {OWNER_OUTPUT.as_posix()} status={layer2_validation['status']}; current ecosystem adoption remains pending_T1_D6",
         "layer3_owner_route": f"current single-core owner projection {L3_TOOLTIP_OWNER_INPUT.as_posix()}; DVF fact identity/readiness is separate from Menu parity evidence",
         "layer4_owner_route": f"current owner data {L4_OWNER_INPUT.as_posix()} supplies public identities; reproduction baseline is not consumed",
         "layer4_current_rightclick_locale_route": "current Browser interaction projection identity-to-translation-key relation plus exact Iris_ko/Iris_en translations",

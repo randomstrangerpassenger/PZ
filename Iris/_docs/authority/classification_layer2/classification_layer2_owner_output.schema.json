@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "iris-classification-layer2-owner-output.schema.json",
+  "title": "Iris Classification Layer 2 owner output",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "source_subject_binding",
+    "support_predicate",
+    "frozen_support_count",
+    "frozen_support_sha256",
+    "resolved_entry_count",
+    "remaining_entry_count",
+    "rows",
+    "remaining_entries",
+    "current_ecosystem_adoption",
+    "T2_FULL_DATA_PROGRESSION",
+    "production_t2_handoff"
+  ],
+  "properties": {
+    "schema_version": {"const": "iris-classification-layer2-owner-output-v1"},
+    "status": {"enum": ["complete", "partial"]},
+    "source_subject_binding": {
+      "type": "object",
+      "required": ["commit", "tree"],
+      "properties": {
+        "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "tree": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      },
+      "additionalProperties": false
+    },
+    "support_predicate": {"const": "current-owner-fulltype-union-v1"},
+    "frozen_support_count": {"type": "integer", "minimum": 1},
+    "frozen_support_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "resolved_entry_count": {"type": "integer", "minimum": 0},
+    "remaining_entry_count": {"type": "integer", "minimum": 0},
+    "rows": {"type": "array", "items": {"type": "object"}},
+    "remaining_entries": {"type": "array", "items": {"type": "object"}},
+    "current_ecosystem_adoption": {"const": "pending_T1_D6"},
+    "T2_FULL_DATA_PROGRESSION": {"const": "BLOCKED_BY_UPSTREAM_CORRECTIONS"},
+    "production_t2_handoff": {"const": "absent"}
+  },
+  "additionalProperties": false
+}

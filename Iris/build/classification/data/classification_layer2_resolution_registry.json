@@ -1,0 +1,26 @@
+{
+  "schema_version": "iris-classification-layer2-resolution-registry-v1",
+  "status": "owner_approved_partial_source",
+  "support_predicate": "current-owner-fulltype-union-v1",
+  "source_subject_binding": {
+    "commit": "6b7118dc229bf8138302696e1aa5e5b7454589dc",
+    "tree": "4eae6fbdb3d0b2cb532f875b96137335a403f2fc"
+  },
+  "input_sha256": {
+    "Iris/media/lua/client/Iris/Data/IrisClassifications.lua": "98d9ce3162703333b02dd48d62f8739e4606eada321a7731a35e2e586f033563",
+    "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserCategoryIndex.lua": "63fc02fe96f22e80b6e4d26c46c0ebaa9f7c3daefed818c146b4d35e98acbff8",
+    "Iris/media/lua/shared/translate/ko/Iris_ko.txt": "f8046cd57c6df48300fea3b965ce5065516b20490fab45d062ef7c3f61257313",
+    "Iris/media/lua/shared/translate/en/Iris_en.txt": "a78dbd0e0c2107df08441f44bb674565efed977b093ec8e0e21654506810e414",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua": "aa4b92b9f185ed86b6ef7e10a6f238e7151e75e6fbccadcd91ed7ea41b378827",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/dvf_3_3_rendered.json": "ab2f0b3f61731b6018e20c5d2138de09960b279f09609a2bfe416b60976f8fa9",
+    "Iris/build/description/v2/data/upstream_usecases_by_fulltype.json": "2af068b1ea898125e81e9103af79019a35a1c51b8fd7c74325906d26567ad43f"
+  },
+  "approved_resolution_rules": [
+    "single_non_fallback_membership",
+    "current_explicit_primary"
+  ],
+  "owner_resolved_rows": {},
+  "owner_approved_absence_rows": {},
+  "approval_identity": "user_prompt_preapproval_2026-08-29",
+  "remaining_rows_must_stay_corrections": true
+}

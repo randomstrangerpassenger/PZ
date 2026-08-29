@@ -16,6 +16,10 @@ from iris_tooling.build.repository_context import require_repository_context
 MANIFEST_NAME = "classification_candidate_manifest.json"
 MANIFEST_SCHEMA = "iris.classification-candidate.v1"
 SOURCE_ROLE = "external_classification_candidate"
+LAYER2_MANIFEST_NAME = "classification_layer2_candidate_manifest.json"
+LAYER2_MANIFEST_SCHEMA = "iris.classification-layer2-candidate.v1"
+LAYER2_OUTPUT_NAME = "classification_layer2_owner_output.json"
+LAYER2_SOURCE_ROLE = "classification_owner_output_candidate"
 RUNTIME_RELATIVE_ROOT = Path("Iris/media/lua/client/Iris/Data")
 ALLOWED_FILES = (
     "IrisFixingIndexData.lua",
@@ -168,6 +172,159 @@ def install(
     return 0
 
 
+def _layer2_manifest(candidate_root: Path) -> Path:
+    from iris_tooling.domains.classification.layer2_contract import (
+        ABSENCE_REGISTRY,
+        OUTPUT_SCHEMA,
+        RESOLUTION_CONTRACT,
+        RESOLUTION_REGISTRY,
+        SURFACE_CATALOG,
+        canonical_bytes,
+    )
+
+    # The configured repository context is explicit; the manifest binds only
+    # owner inputs, never run-local paths.
+    repository_root = require_repository_context().repository_root
+    source_paths = (
+        RESOLUTION_CONTRACT,
+        OUTPUT_SCHEMA,
+        ABSENCE_REGISTRY,
+        RESOLUTION_REGISTRY,
+        SURFACE_CATALOG,
+    )
+    output = candidate_root / LAYER2_OUTPUT_NAME
+    payload = {
+        "schema": LAYER2_MANIFEST_SCHEMA,
+        "source_role": LAYER2_SOURCE_ROLE,
+        "target_relative_path": "Iris/build/classification/data/classification_layer2_owner_output.json",
+        "output_sha256": _sha256(output),
+        "source_sha256": {
+            path.as_posix(): _sha256(repository_root / path)
+            for path in source_paths
+        },
+    }
+    path = candidate_root / LAYER2_MANIFEST_NAME
+    path.write_bytes(canonical_bytes(payload))
+    return path
+
+
+def build_layer2_owner(candidate_root: Path) -> int:
+    from iris_tooling.domains.classification.layer2_materializer import write_output
+    from iris_tooling.domains.classification.layer2_validator import validate_owner_output
+
+    root = _external_root(candidate_root, "--output-root", create=True)
+    if any(root.iterdir()):
+        raise SystemExit(f"--output-root must be empty: {root}")
+    repository_root = require_repository_context().repository_root
+    output = root / LAYER2_OUTPUT_NAME
+    write_output(repository_root, output)
+    report = validate_owner_output(repository_root, output)
+    manifest = _layer2_manifest(root)
+    print(
+        "classification Layer 2 candidate PASS "
+        f"status={report['status']} resolved={report['resolved_entry_count']} "
+        f"remaining={report['remaining_entry_count']} manifest_sha256={_sha256(manifest)}"
+    )
+    return 0
+
+
+def _load_layer2_manifest(candidate_root: Path, expected_sha256: str) -> dict[str, Any]:
+    from iris_tooling.domains.classification.layer2_contract import (
+        ABSENCE_REGISTRY,
+        OUTPUT_SCHEMA,
+        RESOLUTION_CONTRACT,
+        RESOLUTION_REGISTRY,
+        SURFACE_CATALOG,
+    )
+
+    if re.fullmatch(r"[0-9a-f]{64}", expected_sha256) is None:
+        raise SystemExit("--manifest-sha256 must be 64 lowercase hexadecimal characters")
+    manifest_path = candidate_root / LAYER2_MANIFEST_NAME
+    if not manifest_path.is_file() or manifest_path.is_symlink():
+        raise SystemExit("Layer 2 candidate manifest is missing or unsafe")
+    if _sha256(manifest_path) != expected_sha256:
+        raise SystemExit("Layer 2 candidate manifest hash mismatch")
+    try:
+        payload = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, UnicodeDecodeError) as exc:
+        raise SystemExit(f"Layer 2 candidate manifest is invalid: {exc}") from exc
+    if payload.get("schema") != LAYER2_MANIFEST_SCHEMA or payload.get("source_role") != LAYER2_SOURCE_ROLE:
+        raise SystemExit("Layer 2 candidate manifest authority fields are invalid")
+    if {path.name for path in candidate_root.iterdir()} != {LAYER2_OUTPUT_NAME, LAYER2_MANIFEST_NAME}:
+        raise SystemExit("Layer 2 candidate directory contains an unexpected file set")
+    output = candidate_root / LAYER2_OUTPUT_NAME
+    if not output.is_file() or output.is_symlink() or output.resolve().parent != candidate_root:
+        raise SystemExit("Layer 2 candidate output is missing or unsafe")
+    if payload.get("output_sha256") != _sha256(output):
+        raise SystemExit("Layer 2 candidate output hash mismatch")
+    if payload.get("target_relative_path") != "Iris/build/classification/data/classification_layer2_owner_output.json":
+        raise SystemExit("Layer 2 candidate target is invalid")
+    source_sha256 = payload.get("source_sha256")
+    source_paths = (
+        RESOLUTION_CONTRACT,
+        OUTPUT_SCHEMA,
+        ABSENCE_REGISTRY,
+        RESOLUTION_REGISTRY,
+        SURFACE_CATALOG,
+    )
+    expected_source_keys = {path.as_posix() for path in source_paths}
+    if not isinstance(source_sha256, dict) or set(source_sha256) != expected_source_keys:
+        raise SystemExit("Layer 2 candidate source binding is invalid")
+    repository_root = require_repository_context().repository_root
+    for path in source_paths:
+        if source_sha256[path.as_posix()] != _sha256(repository_root / path):
+            raise SystemExit(f"Layer 2 candidate source hash mismatch: {path.as_posix()}")
+    return payload
+
+
+def validate_layer2_owner(candidate_root: Path, expected_manifest_sha256: str) -> int:
+    from iris_tooling.domains.classification.layer2_validator import validate_owner_output
+
+    root = _external_root(candidate_root, "--candidate-root")
+    _load_layer2_manifest(root, expected_manifest_sha256)
+    report = validate_owner_output(
+        require_repository_context().repository_root,
+        root / LAYER2_OUTPUT_NAME,
+    )
+    print(
+        "classification Layer 2 validation PASS "
+        f"status={report['status']} resolved={report['resolved_entry_count']} "
+        f"remaining={report['remaining_entry_count']}"
+    )
+    return 0
+
+
+def install_layer2_owner(
+    candidate_root: Path,
+    expected_manifest_sha256: str,
+    *,
+    output_path: Path | None = None,
+) -> int:
+    from iris_tooling.domains.classification.layer2_validator import validate_owner_output
+
+    root = _external_root(candidate_root, "--candidate-root")
+    _load_layer2_manifest(root, expected_manifest_sha256)
+    validate_owner_output(
+        require_repository_context().repository_root,
+        root / LAYER2_OUTPUT_NAME,
+    )
+    if output_path is None:
+        output_path = (
+            require_repository_context().repository_root
+            / "Iris/build/classification/data/classification_layer2_owner_output.json"
+        )
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(dir=output_path.parent, delete=False) as handle:
+        temporary = Path(handle.name)
+        handle.write((root / LAYER2_OUTPUT_NAME).read_bytes())
+    try:
+        os.replace(temporary, output_path)
+    finally:
+        temporary.unlink(missing_ok=True)
+    print("classification Layer 2 install PASS files=1")
+    return 0
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="iris-tooling classification",
@@ -179,6 +336,14 @@ def _parser() -> argparse.ArgumentParser:
     install_parser = subparsers.add_parser("install")
     install_parser.add_argument("--candidate-root", type=Path, required=True)
     install_parser.add_argument("--manifest-sha256", required=True)
+    layer2_build = subparsers.add_parser("build-layer2-owner")
+    layer2_build.add_argument("--output-root", type=Path, required=True)
+    layer2_validate = subparsers.add_parser("validate-layer2-owner")
+    layer2_validate.add_argument("--candidate-root", type=Path, required=True)
+    layer2_validate.add_argument("--manifest-sha256", required=True)
+    layer2_install = subparsers.add_parser("install-layer2-owner")
+    layer2_install.add_argument("--candidate-root", type=Path, required=True)
+    layer2_install.add_argument("--manifest-sha256", required=True)
     return parser
 
 
@@ -186,4 +351,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     if args.action == "build":
         return build(args.output_root)
-    return install(args.candidate_root, args.manifest_sha256)
+    if args.action == "install":
+        return install(args.candidate_root, args.manifest_sha256)
+    if args.action == "build-layer2-owner":
+        return build_layer2_owner(args.output_root)
+    if args.action == "validate-layer2-owner":
+        return validate_layer2_owner(args.candidate_root, args.manifest_sha256)
+    return install_layer2_owner(args.candidate_root, args.manifest_sha256)

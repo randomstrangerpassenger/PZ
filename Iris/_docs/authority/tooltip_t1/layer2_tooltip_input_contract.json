@@ -3,6 +3,14 @@
   "required_fields": ["classification_identity", "category_id", "primary_subcategory_id", "category_label_key", "primary_subcategory_label_key", "localized_surfaces", "authority_ref", "menu_consumer_identity_ref", "menu_parity_status"],
   "current_route": "no_admissible_authority_relation",
   "current_disposition": "upstream_correction_required",
+  "workstream_candidate_route": {
+    "path": "Iris/build/classification/data/classification_layer2_owner_output.json",
+    "schema": "Iris/_docs/authority/classification_layer2/classification_layer2_owner_output.schema.json",
+    "producer": "iris_tooling.domains.classification.layer2_materializer",
+    "validator": "iris_tooling.domains.classification.layer2_validator",
+    "status_field": "status",
+    "current_ecosystem_adoption": "pending_T1_D6"
+  },
   "raw_tag_resolution_allowed": false,
   "runtime_resolver_reimplementation_allowed": false,
   "owner_output_self_comparison_allowed": false,

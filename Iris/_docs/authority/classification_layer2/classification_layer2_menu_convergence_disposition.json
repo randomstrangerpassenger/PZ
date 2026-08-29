@@ -1,0 +1,9 @@
+{
+  "schema_version": "iris-classification-layer2-menu-convergence-disposition-v1",
+  "workstream_id": "T1-D1",
+  "disposition": "out_of_scope_for_D1",
+  "classification_owner_output_may_issue_menu_consumer_evidence": false,
+  "menu_runtime_public_mutation_allowed": false,
+  "direct_successor": "T1-D2",
+  "current_ecosystem_adoption": "pending_T1_D6"
+}

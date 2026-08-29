@@ -1,0 +1,24 @@
+{
+  "schema_version": "iris-classification-layer2-resolution-contract-v1",
+  "status": "workstream_candidate",
+  "semantic_owner": "Classification owner",
+  "support_predicate": "current-owner-fulltype-union-v1",
+  "identity_rule": "case-sensitive exact FullType",
+  "terminal_states": ["resolved", "owner_approved_absence"],
+  "admissible_primary_rules": [
+    "single_non_fallback_membership_with_row_provenance",
+    "current_explicit_primary_with_exact_scope",
+    "exact_owner_decision"
+  ],
+  "prohibited_resolution_inputs": [
+    "presentation_rank",
+    "description_priority",
+    "source_iteration_order",
+    "alphabetical_order",
+    "fulltype_name_inference",
+    "rendered_string_reverse_parsing",
+    "raw_misc_9a_fallback"
+  ],
+  "absence_requires_positive_authority_and_provenance": true,
+  "current_ecosystem_adoption": "pending_T1_D6"
+}

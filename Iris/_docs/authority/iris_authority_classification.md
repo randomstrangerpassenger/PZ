@@ -126,6 +126,18 @@ Description v2 staging:
   Staging artifacts do not become current authority unless a current manifest
   entry or current top document explicitly adopts them.
 
+Tooltip T1-D1 Layer 2 workstream candidate:
+
+- `Iris/_docs/authority/classification_layer2/**` defines the bounded owner
+  contract and schema for the non-current D1 candidate.
+- `Iris/build/classification/data/classification_layer2_resolution_registry.json`
+  is the semantic owner input. The materializer may project only its approved
+  rules and exact row decisions; it may not choose a primary by presentation
+  rank or promote raw `Misc.9-A` fallback.
+- `classification_layer2_owner_output.json` remains a workstream projection
+  with `current_ecosystem_adoption=pending_T1_D6`. It is not Menu consumer
+  evidence or a global current-authority pointer.
+
 Legacy DVF predecessor overrides:
 
 - `Iris/_docs/description_validation_contract.md` is a historical T-Gate/manual

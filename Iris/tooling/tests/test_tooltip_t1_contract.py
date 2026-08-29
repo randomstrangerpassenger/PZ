@@ -104,7 +104,7 @@ def test_subject_decision_lifecycle(case: str) -> None:
 
 @pytest.mark.parametrize(
     "case",
-    ["absence_compaction", "absence_without_proof", "defect_not_compacted", "locale_split", "raw_inference_forbidden", "body_rewrite_forbidden"],
+    ["absence_compaction", "absence_without_proof", "defect_not_compacted", "locale_split", "raw_inference_forbidden", "body_rewrite_forbidden", "layer2_workstream_candidate"],
 )
 def test_slot_layer2_layer3_input_contract(case: str) -> None:
     root = Path(__file__).resolve().parents[3]
@@ -140,6 +140,12 @@ def test_slot_layer2_layer3_input_contract(case: str) -> None:
     elif case == "raw_inference_forbidden":
         contract = load_json(root / AUTHORITY_ROOT / "layer2_tooltip_input_contract.json")
         assert contract["raw_tag_resolution_allowed"] is False and contract["runtime_resolver_reimplementation_allowed"] is False
+    elif case == "layer2_workstream_candidate":
+        contract = load_json(root / AUTHORITY_ROOT / "layer2_tooltip_input_contract.json")
+        candidate = contract["workstream_candidate_route"]
+        assert contract["current_route"] == "no_admissible_authority_relation"
+        assert candidate["path"] == "Iris/build/classification/data/classification_layer2_owner_output.json"
+        assert candidate["current_ecosystem_adoption"] == "pending_T1_D6"
     else:
         contract = load_json(root / AUTHORITY_ROOT / "layer3_tooltip_input_contract.json")
         assert all(contract[key] is False for key in ("body_truncation_allowed", "body_summarization_allowed", "body_rewrite_allowed", "multiple_core_fact_synthesis_allowed"))

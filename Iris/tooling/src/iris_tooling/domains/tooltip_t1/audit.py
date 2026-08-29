@@ -6,7 +6,7 @@ from pathlib import Path
 import re
 from typing import Any, Iterable
 
-from iris_tooling.domains.classification.layer2_contract import OWNER_OUTPUT
+from iris_tooling.domains.classification.layer2_contract import OWNER_OUTPUT, RESOLUTION_CONTRACT
 from iris_tooling.domains.classification.layer2_validator import validate_owner_output
 
 from .contract import (
@@ -688,9 +688,9 @@ def run_candidate(
         for row in layer2_owner_output.get("rows", [])
         if isinstance(row, dict) and isinstance(row.get("full_type"), str)
     }
-    layer2_remaining = {
+    layer2_display_silence = {
         row["full_type"]: row
-        for row in layer2_owner_output.get("remaining_entries", [])
+        for row in layer2_owner_output.get("layer2_display_silence_entries", [])
         if isinstance(row, dict) and isinstance(row.get("full_type"), str)
     }
     rendered = load_json(repository_root / L3_GENERATIONS / generation_id / "dvf_3_3_rendered.json")
@@ -852,23 +852,19 @@ def run_candidate(
                 {"ko": LocaleSurfaceReadiness.READY, "en": LocaleSurfaceReadiness.READY},
                 authority_ref=layer2_owner_row["classification_authority_ref"],
             ))
-        elif isinstance(layer2_owner_row, dict) and layer2_owner_row.get("terminal_state") == "owner_approved_absence":
+        elif full_type in layer2_display_silence:
+            silence_row = layer2_display_silence[full_type]
             slots.append(_slot_absent(
                 "S1",
-                layer2_owner_row["absence_reason"],
-                layer2_owner_row["classification_authority_ref"],
+                silence_row["display_silence_reason"],
+                f"{RESOLUTION_CONTRACT.as_posix()}#successor_amendment",
             ))
+            absence_distribution[
+                "layer2|locale=all|reason="
+                f"{silence_row['display_silence_reason']}|authority={RESOLUTION_CONTRACT.as_posix()}"
+            ] += 1
         else:
-            remaining_row = layer2_remaining.get(full_type, {})
-            reason = remaining_row.get("reason_code", "CLASSIFICATION_RESOLVED_IDENTITY_MISSING")
-            slots.append(_slot_correction("S1", reason))
-            corrections.append(_correction(
-                full_type,
-                "layer2",
-                "Classification owner",
-                reason,
-                "resolved classification/category/primary-subcategory identity with KO/EN surfaces",
-            ))
+            raise TooltipContractError(f"Layer 2 applicability partition missing: {full_type}")
         corrections.append(_correction(
             full_type, "cross-layer", "Menu consumer owner", "PARITY_AUTHORITY_RELATION_MISSING",
             "shared Layer 2 owner/Menu public identity authority relation",
@@ -1034,9 +1030,11 @@ def run_candidate(
             "classification": {
                 "raw_membership_present": full_type in classifications,
                 "raw_tag_count": len(classifications.get(full_type, ())),
+                "layer2_applicability": "layer2_applicable" if isinstance(layer2_owner_row, dict) else "layer2_display_silence",
+                "display_silence_reason": layer2_display_silence.get(full_type, {}).get("display_silence_reason"),
                 "resolved_identity": layer2_owner_row.get("classification_identity") if isinstance(layer2_owner_row, dict) else None,
-                "terminal_state": layer2_owner_row.get("terminal_state") if isinstance(layer2_owner_row, dict) else None,
-                "authority_ref": layer2_owner_row.get("classification_authority_ref") if isinstance(layer2_owner_row, dict) else None,
+                "terminal_state": layer2_owner_row.get("terminal_state") if isinstance(layer2_owner_row, dict) else "layer2_display_silence",
+                "authority_ref": layer2_owner_row.get("classification_authority_ref") if isinstance(layer2_owner_row, dict) else f"{RESOLUTION_CONTRACT.as_posix()}#successor_amendment",
                 "provenance_ref": layer2_owner_row.get("classification_provenance_ref") if isinstance(layer2_owner_row, dict) else None,
                 "menu_consumer_identity_ref": None,
             },

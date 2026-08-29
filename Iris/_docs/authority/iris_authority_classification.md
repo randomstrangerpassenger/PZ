@@ -137,6 +137,12 @@ Tooltip T1-D1 Layer 2 workstream candidate:
 - `classification_layer2_owner_output.json` remains a workstream projection
   with `current_ecosystem_adoption=pending_T1_D6`. It is not Menu consumer
   evidence or a global current-authority pointer.
+- The additive D1 successor treats Tooltip Layer 2 as an optional display
+  projection. It preserves the 1,406 resolved rows and deterministically marks
+  fallback, no-membership, and multi-without-admissible-primary source states as
+  `layer2_display_silence`; those rows are not Classification corrections and
+  do not authorize semantic inference or raw `Misc.9-A` display. T1-D2 retains
+  ownership of Menu relation and applicable/N/A parity.
 
 Legacy DVF predecessor overrides:
 

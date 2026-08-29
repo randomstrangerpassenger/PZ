@@ -50,7 +50,7 @@ def _evidence(subject_identity: str) -> dict:
             "subject_identity_sha256": subject_identity,
             "evidence_state": "present",
         }
-        for decision_id in ("P-2", "P-4", "P-5", "P-6", "P-7", "P-8", "P-10")
+        for decision_id in ("P-2", "P-4", "P-5", "P-6", "P-7", "P-8")
     }
     return {
         "schema_version": "iris-tooltip-pre-ratification-decision-evidence-v1",
@@ -99,12 +99,12 @@ def test_subject_decision_lifecycle(case: str) -> None:
                 ratify_open_decisions(decision, evidence, evidence_sha256=sha256_bytes(canonical_bytes(evidence)), subject_identity_sha256=subject_identity)
         else:
             adopted = ratify_open_decisions(decision, evidence, evidence_sha256=sha256_bytes(canonical_bytes(evidence)), subject_identity_sha256=subject_identity)
-            assert {row["decision_id"] for row in adopted} == {"P-2", "P-4", "P-5", "P-6", "P-7", "P-8", "P-10"}
+            assert {row["decision_id"] for row in adopted} == {"P-2", "P-4", "P-5", "P-6", "P-7", "P-8"}
 
 
 @pytest.mark.parametrize(
     "case",
-    ["absence_compaction", "absence_without_proof", "defect_not_compacted", "locale_split", "raw_inference_forbidden", "body_rewrite_forbidden", "layer2_workstream_candidate"],
+    ["absence_compaction", "absence_without_proof", "defect_not_compacted", "locale_split", "raw_inference_forbidden", "body_rewrite_forbidden", "layer2_workstream_candidate", "layer2_display_silence_compaction"],
 )
 def test_slot_layer2_layer3_input_contract(case: str) -> None:
     root = Path(__file__).resolve().parents[3]
@@ -128,6 +128,13 @@ def test_slot_layer2_layer3_input_contract(case: str) -> None:
         absent_s4 = Slot("S4", None, SemanticSlotState.LEGITIMATE_ABSENCE, {"ko": None, "en": None}, {"ko": LocaleSurfaceReadiness.NOT_APPLICABLE, "en": LocaleSurfaceReadiness.NOT_APPLICABLE}, authority_ref="owner.json#S4=absent")
         row = build_handoff_row("Base.X", [absent_s4, absent, ready, absent_s3], progression=T2Progression.OPEN)
         assert [slot["slot_id"] for slot in row["slots"]] == ["S1"]
+    elif case == "layer2_display_silence_compaction":
+        silent_s1 = Slot("S1", None, SemanticSlotState.LEGITIMATE_ABSENCE, {"ko": None, "en": None}, {"ko": LocaleSurfaceReadiness.NOT_APPLICABLE, "en": LocaleSurfaceReadiness.NOT_APPLICABLE}, reason_codes=("no_membership_record",), authority_ref="classification_layer2_resolution_contract.json#successor_amendment")
+        ready_s2 = Slot("S2", "fact:x", SemanticSlotState.SELECTED, {"ko": "사실", "en": "Fact"}, {"ko": LocaleSurfaceReadiness.READY, "en": LocaleSurfaceReadiness.READY})
+        absent_s3 = Slot("S3", None, SemanticSlotState.LEGITIMATE_ABSENCE, {"ko": None, "en": None}, {"ko": LocaleSurfaceReadiness.NOT_APPLICABLE, "en": LocaleSurfaceReadiness.NOT_APPLICABLE}, authority_ref="owner.json#S3=absent")
+        absent_s4 = Slot("S4", None, SemanticSlotState.LEGITIMATE_ABSENCE, {"ko": None, "en": None}, {"ko": LocaleSurfaceReadiness.NOT_APPLICABLE, "en": LocaleSurfaceReadiness.NOT_APPLICABLE}, authority_ref="owner.json#S4=absent")
+        row = build_handoff_row("Base.X", [silent_s1, ready_s2, absent_s3, absent_s4], progression=T2Progression.OPEN)
+        assert [slot["slot_id"] for slot in row["slots"]] == ["S2"]
     elif case == "defect_not_compacted":
         defect = Slot("S2", None, SemanticSlotState.CORRECTION_REQUIRED, {"ko": None, "en": None}, {"ko": LocaleSurfaceReadiness.CORRECTION_REQUIRED, "en": LocaleSurfaceReadiness.CORRECTION_REQUIRED}, t2_blocking=True)
         absent_s3 = Slot("S3", None, SemanticSlotState.LEGITIMATE_ABSENCE, {"ko": None, "en": None}, {"ko": LocaleSurfaceReadiness.NOT_APPLICABLE, "en": LocaleSurfaceReadiness.NOT_APPLICABLE}, authority_ref="owner.json#S3=absent")
@@ -146,6 +153,9 @@ def test_slot_layer2_layer3_input_contract(case: str) -> None:
         assert contract["current_route"] == "no_admissible_authority_relation"
         assert candidate["path"] == "Iris/build/classification/data/classification_layer2_owner_output.json"
         assert candidate["current_ecosystem_adoption"] == "pending_T1_D6"
+        amendment = contract["successor_owner_amendment"]
+        assert amendment["layer2_is_required_for_every_support_fulltype"] is False
+        assert amendment["d2_owns_menu_relation_and_applicable_na_parity"] is True
     else:
         contract = load_json(root / AUTHORITY_ROOT / "layer3_tooltip_input_contract.json")
         assert all(contract[key] is False for key in ("body_truncation_allowed", "body_summarization_allowed", "body_rewrite_allowed", "multiple_core_fact_synthesis_allowed"))

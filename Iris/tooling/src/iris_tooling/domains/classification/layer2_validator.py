@@ -23,6 +23,9 @@ from .layer2_contract import (
     parse_translation,
     parse_classifications,
     sha256_file,
+    support_sha256,
+    canonical_bytes,
+    sha256_bytes,
 )
 
 
@@ -41,7 +44,7 @@ def validate_owner_output(repository_root: Path, output_path: Path | None = None
     output = load_json_object(output_path)
     loaded: dict[Path, dict[str, Any]] = {}
     for relative, schema in (
-        (RESOLUTION_CONTRACT, "iris-classification-layer2-resolution-contract-v1"),
+        (RESOLUTION_CONTRACT, "iris-classification-layer2-resolution-contract-v2"),
         (ABSENCE_REGISTRY, "iris-classification-layer2-absence-reason-registry-v1"),
         (OUTPUT_SCHEMA, "https://json-schema.org/draft/2020-12/schema"),
         (RESOLUTION_REGISTRY, "iris-classification-layer2-resolution-registry-v1"),
@@ -53,7 +56,7 @@ def validate_owner_output(repository_root: Path, output_path: Path | None = None
         if actual != schema:
             raise Layer2ContractError(f"schema mismatch: {relative}")
 
-    if output.get("schema_version") != "iris-classification-layer2-owner-output-v1":
+    if output.get("schema_version") != "iris-classification-layer2-owner-output-v2":
         raise Layer2ContractError("Layer 2 owner output schema mismatch")
     if output.get("support_predicate") != SUPPORT_PREDICATE:
         raise Layer2ContractError("Layer 2 owner output support predicate mismatch")
@@ -75,8 +78,11 @@ def validate_owner_output(repository_root: Path, output_path: Path | None = None
 
     rows = output.get("rows")
     remaining = output.get("remaining_entries")
-    if not isinstance(rows, list) or not isinstance(remaining, list):
+    display_silence = output.get("layer2_display_silence_entries")
+    if not isinstance(rows, list) or not isinstance(remaining, list) or not isinstance(display_silence, list):
         raise Layer2ContractError("Layer 2 owner output row partitions are missing")
+    if remaining:
+        raise Layer2ContractError("successor Layer 2 output cannot retain Classification corrections")
     memberships = parse_classifications(repository_root / CLASSIFICATIONS)
     categories, subcategories = parse_taxonomy(repository_root / CATEGORY_INDEX)
     ko = parse_translation(repository_root / KO_TRANSLATION)
@@ -138,46 +144,86 @@ def validate_owner_output(repository_root: Path, output_path: Path | None = None
                 raise Layer2ContractError(f"subcategory surface authority mismatch: {full_type}")
             if not _nonempty_string(row.get("classification_authority_ref")) or not _nonempty_string(row.get("classification_provenance_ref")):
                 raise Layer2ContractError(f"authority/provenance missing: {full_type}")
-        elif state == "owner_approved_absence":
-            if any(key in row for key in ("memberships", "category_id", "primary_subcategory_id", "category_surface", "primary_subcategory_surface")):
-                raise Layer2ContractError(f"absence carries classification values: {full_type}")
-            if not all(_nonempty_string(row.get(key)) for key in ("absence_reason", "classification_authority_ref", "classification_provenance_ref")):
-                raise Layer2ContractError(f"positive absence proof missing: {full_type}")
-            if row.get("absence_reason") not in absence_reasons:
-                raise Layer2ContractError(f"absence reason is not owner-approved: {full_type}")
         else:
-            raise Layer2ContractError(f"non-terminal owner output row: {full_type}")
+            raise Layer2ContractError(f"non-displayable owner output row: {full_type}")
 
-    remaining_seen: set[str] = set()
-    allowed_reasons = {"CLASSIFICATION_RESOLVED_IDENTITY_MISSING", "CLASSIFICATION_FALLBACK_NOT_ADMISSIBLE"}
-    for row in remaining:
-        if not isinstance(row, dict) or set(row) != {"full_type", "reason_code", "pre_resolution_state"}:
-            raise Layer2ContractError("remaining Layer 2 entry is malformed")
+    silence_seen: set[str] = set()
+    expected_silence = {
+        row["full_type"]: {
+            "full_type": row["full_type"],
+            "source_state": row["pre_resolution_state"],
+            "display_silence_reason": row["display_silence_reason"],
+        }
+        for row in report["rows"]
+        if row["layer2_applicability"] == "layer2_display_silence"
+    }
+    allowed_silence_reasons = {
+        "raw_misc_9a_fallback",
+        "no_membership_record",
+        "multi_membership_without_admissible_primary",
+        "owner_approved_absence",
+    }
+    for row in display_silence:
+        if not isinstance(row, dict) or set(row) != {"full_type", "source_state", "display_silence_reason"}:
+            raise Layer2ContractError("Layer 2 display-silence entry is malformed")
         full_type = row.get("full_type")
-        if not _nonempty_string(full_type) or full_type in seen or full_type in remaining_seen:
-            raise Layer2ContractError("remaining Layer 2 exact FullType is duplicated")
-        if row.get("reason_code") not in allowed_reasons:
-            raise Layer2ContractError(f"remaining Layer 2 reason is invalid: {full_type}")
-        remaining_seen.add(full_type)
+        if not _nonempty_string(full_type) or full_type in seen or full_type in silence_seen:
+            raise Layer2ContractError("Layer 2 display-silence exact FullType is duplicated")
+        if row.get("display_silence_reason") not in allowed_silence_reasons:
+            raise Layer2ContractError(f"Layer 2 display-silence reason is invalid: {full_type}")
+        if expected_silence.get(full_type) != row:
+            raise Layer2ContractError(f"Layer 2 display-silence source-state mismatch: {full_type}")
+        silence_seen.add(full_type)
 
     support = {row["full_type"] for row in report["rows"]}
-    if seen | remaining_seen != support:
+    if seen | silence_seen != support or seen & silence_seen:
         raise Layer2ContractError("Layer 2 owner output does not partition the frozen support universe")
-    if output.get("resolved_entry_count") != len(rows) or output.get("remaining_entry_count") != len(remaining):
+    if output.get("resolved_entry_count") != len(rows) or output.get("remaining_entry_count") != 0:
         raise Layer2ContractError("Layer 2 owner output count fields mismatch")
-    expected_status = "complete" if not remaining else "partial"
-    if output.get("status") != expected_status:
+    if output.get("classification_correction_count") != 0 or output.get("status") != "complete":
         raise Layer2ContractError("Layer 2 owner output status mismatch")
+    resolution_contract = loaded[RESOLUTION_CONTRACT]
+    preserved_hash = resolution_contract.get("successor_amendment", {}).get("preserved_resolved_rows_canonical_sha256")
+    if sha256_bytes(canonical_bytes(rows)) != preserved_hash:
+        raise Layer2ContractError("successor changed preserved resolved Layer 2 rows")
+    partition = output.get("d2_handoff_partition")
+    if not isinstance(partition, dict):
+        raise Layer2ContractError("D2 handoff partition is missing")
+    expected_partition = {
+        "schema_version": "iris-classification-layer2-d2-handoff-partition-v1",
+        "support": {
+            "count": len(support),
+            "exact_fulltype_sha256": report["frozen_support_sha256"],
+        },
+        "layer2_applicable": {
+            "count": len(seen),
+            "exact_fulltype_sha256": support_sha256(tuple(sorted(seen, key=lambda value: value.encode("utf-8")))),
+            "artifact_ref": "#rows",
+        },
+        "layer2_display_silence": {
+            "count": len(silence_seen),
+            "exact_fulltype_sha256": support_sha256(tuple(sorted(silence_seen, key=lambda value: value.encode("utf-8")))),
+            "artifact_ref": "#layer2_display_silence_entries",
+        },
+        "partition_complete": True,
+        "menu_consumer_relation_owner": "T1-D2/Menu consumer owner",
+    }
+    if output.get("layer2_applicability_rule") != "admissible_current_owner_category_and_primary_v1" or partition != expected_partition:
+        raise Layer2ContractError("D2 Layer 2 applicability partition mismatch")
     if output.get("current_ecosystem_adoption") != "pending_T1_D6":
         raise Layer2ContractError("Layer 2 owner output improperly claims current adoption")
     if output.get("T2_FULL_DATA_PROGRESSION") != "BLOCKED_BY_UPSTREAM_CORRECTIONS" or output.get("production_t2_handoff") != "absent":
         raise Layer2ContractError("Layer 2 owner output improperly advances T2")
     return {
-        "status": expected_status,
+        "status": "complete",
         "frozen_support_count": len(support),
         "frozen_support_sha256": report["frozen_support_sha256"],
         "resolved_entry_count": len(rows),
         "remaining_entry_count": len(remaining),
+        "layer2_applicable_count": len(seen),
+        "layer2_display_silence_count": len(silence_seen),
+        "layer2_applicable_sha256": expected_partition["layer2_applicable"]["exact_fulltype_sha256"],
+        "layer2_display_silence_sha256": expected_partition["layer2_display_silence"]["exact_fulltype_sha256"],
         "terminal_state_distribution": dict(sorted(state_counts.items())),
         "duplicate_exact_fulltype_count": 0,
         "support_universe_enumeration_mismatch_count": 0,

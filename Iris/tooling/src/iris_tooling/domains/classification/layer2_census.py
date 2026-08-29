@@ -36,23 +36,28 @@ def census(repository_root: Path) -> dict[str, Any]:
         explicit_primary = primary.get(full_type)
         if not tags:
             state = "no_membership_record"
-            reason = "CLASSIFICATION_RESOLVED_IDENTITY_MISSING"
+            applicability = "layer2_display_silence"
+            silence_reason = "no_membership_record"
         elif "Misc.9-A" in tags:
             state = "fallback_derived"
-            reason = "CLASSIFICATION_FALLBACK_NOT_ADMISSIBLE"
+            applicability = "layer2_display_silence"
+            silence_reason = "raw_misc_9a_fallback"
         elif len(tags) == 1 or explicit_primary in tags:
             state = "owner_resolved"
-            reason = None
+            applicability = "layer2_applicable"
+            silence_reason = None
         else:
             state = "unclassified"
-            reason = "CLASSIFICATION_RESOLVED_IDENTITY_MISSING"
+            applicability = "layer2_display_silence"
+            silence_reason = "multi_membership_without_admissible_primary"
         states[state] += 1
         rows.append({
             "full_type": full_type,
             "memberships": list(tags),
             "explicit_primary_subcategory_id": explicit_primary,
             "pre_resolution_state": state,
-            "remaining_reason_code": reason,
+            "layer2_applicability": applicability,
+            "display_silence_reason": silence_reason,
         })
 
     membership_sets = {full_type: tags for full_type, tags in memberships.items()}

@@ -1,5 +1,5 @@
 {
-  "schema_version": "iris-classification-layer2-resolution-contract-v1",
+  "schema_version": "iris-classification-layer2-resolution-contract-v2",
   "status": "workstream_candidate",
   "semantic_owner": "Classification owner",
   "support_predicate": "current-owner-fulltype-union-v1",
@@ -20,5 +20,25 @@
     "raw_misc_9a_fallback"
   ],
   "absence_requires_positive_authority_and_provenance": true,
+  "successor_amendment": {
+    "authority": "explicit product/contract owner amendment in source task 01a026db-1b3f-7001-9a68-08700f242f40",
+    "supersedes": "all-support-rows-require-semantic-terminal-Layer-2",
+    "layer2_requirement": "optional_navigation_display_projection",
+    "applicability_rule": "display S1 only when current Classification authority supplies a user-facing category and admissible primary subcategory",
+    "display_silence_source_states": {
+      "fallback_derived": "raw_misc_9a_fallback",
+      "no_membership_record": "no_membership_record",
+      "unclassified": "multi_membership_without_admissible_primary"
+    },
+    "display_silence_is_classification_correction": false,
+    "display_silence_is_t2_blocker": false,
+    "per_fulltype_positive_absence_required": false,
+    "semantic_inference_allowed": false,
+    "display_behavior": "omit_S1_without_placeholder_and_compact_S2_through_S4",
+    "menu_same_authority_semantics": "same fact source does not require identical surface coverage",
+    "d2_owns_menu_relation_and_applicable_na_parity": true,
+    "successor_parent_commit": "81eb49b062137d5ae8b93cd5bfeb17d08f3d3a56",
+    "preserved_resolved_rows_canonical_sha256": "f36a6a6c72080bae8b28b9a1c419eff2ca2a15fc192be04edbfb5be40d31833f"
+  },
   "current_ecosystem_adoption": "pending_T1_D6"
 }

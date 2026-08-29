@@ -223,6 +223,7 @@ def build_layer2_owner(candidate_root: Path) -> int:
     print(
         "classification Layer 2 candidate PASS "
         f"status={report['status']} resolved={report['resolved_entry_count']} "
+        f"display_silence={report['layer2_display_silence_count']} "
         f"remaining={report['remaining_entry_count']} manifest_sha256={_sha256(manifest)}"
     )
     return 0
@@ -289,6 +290,7 @@ def validate_layer2_owner(candidate_root: Path, expected_manifest_sha256: str) -
     print(
         "classification Layer 2 validation PASS "
         f"status={report['status']} resolved={report['resolved_entry_count']} "
+        f"display_silence={report['layer2_display_silence_count']} "
         f"remaining={report['remaining_entry_count']}"
     )
     return 0

@@ -17,12 +17,13 @@ S3 = Layer 4 interaction #1
 S4 = Layer 4 interaction #2
 ```
 
-표시 가능한 행은 최대 네 개다. owner가 증명한 `legitimate_absence` 행은 표시에서 compact할 수 있지만 semantic slot ID와 S1→S4 상대 순서는 유지한다. identity, authority 또는 locale surface 결손은 absence로 compact하지 않는다. logical row 수 `0~4`와 embedded newline 금지만 T2 hard gate이며 실제 pixel/font/UI-scale fit은 T3 범위다.
+표시 가능한 행은 최대 네 개다. owner가 증명한 `legitimate_absence` 행과 system-level Layer 2 applicability contract가 판정한 `layer2_display_silence`는 placeholder 없이 표시에서 compact하지만 semantic slot ID와 S1→S4 상대 순서는 유지한다. 그 밖의 identity, authority 또는 locale surface 결손은 absence로 compact하지 않는다. logical row 수 `0~4`와 embedded newline 금지만 T2 hard gate이며 실제 pixel/font/UI-scale fit은 T3 범위다.
 
 ## 입력 경계
 
-- Layer 2는 Classification owner가 제공한 resolved classification/category/primary-subcategory identity와 KO/EN surface만 소비한다. raw tag scan, runtime resolver 복제와 `Misc.9-A` raw fallback 승격을 금지한다.
-- T1-D1 isolated candidate는 `Iris/build/classification/data/classification_layer2_owner_output.json`의 독립 검증된 terminal row만 소비한다. 근거가 부족한 row는 기존 Classification correction으로 남고, 이 candidate는 Menu evidence 또는 global current adoption을 발행하지 않는다.
+- Layer 2는 optional navigation/display projection이다. Classification owner가 제공한 resolved classification/category/admissible primary-subcategory identity와 KO/EN surface가 있을 때만 S1을 표시하며 raw tag scan, runtime resolver 복제와 `Misc.9-A` raw fallback 승격을 금지한다.
+- T1-D1 successor candidate는 `Iris/build/classification/data/classification_layer2_owner_output.json`의 exact applicability partition을 소비한다. Existing resolved 1,406 rows는 그대로 표시하고, fallback/no-membership/multi-without-admissible-primary 874 rows는 semantic inference나 per-row absence record 없이 `layer2_display_silence`로 판정하여 S1을 생략한다. 이 candidate는 Menu evidence 또는 global current adoption을 발행하지 않는다.
+- same-authority는 동일 fact source를 뜻하며 Menu와 Tooltip의 coverage 동일성을 뜻하지 않는다. Menu consumer relation과 applicable/N/A parity는 T1-D2 소유다.
 - Layer 3는 owner-approved single `core_description` fact identity와 KO/EN single-line surface만 소비한다. rendered body 자르기, 요약, 재작성, 여러 core fact 합성과 acquisition paragraph 승격을 금지한다.
 - Layer 4는 current owner data인 `Iris/build/description/v2/data/upstream_usecases_by_fulltype.json`의 public QG identity를 `semantic/public eligibility → stable order → exact identity dedupe → source equivalence → bounded selection → identity freeze` 순서로 선택한 뒤 locale/Menu readiness를 조회한다. `Iris/build/baseline/**` reproduction artifact는 semantic input으로 소비하지 않는다.
 

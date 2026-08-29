@@ -19,6 +19,7 @@ from .layer2_contract import (
     parse_taxonomy,
     parse_translation,
     sha256_file,
+    support_sha256,
     CATEGORY_INDEX,
     Layer2ContractError,
 )
@@ -102,7 +103,7 @@ def materialize(repository_root: Path) -> dict[str, Any]:
         raise Layer2ContractError("resolution registry row maps are missing")
 
     resolved: list[dict[str, Any]] = []
-    remaining: list[dict[str, str]] = []
+    display_silence: list[dict[str, str]] = []
     support_rows = report["rows"]
     for source_row in support_rows:
         full_type = source_row["full_type"]
@@ -114,13 +115,10 @@ def materialize(repository_root: Path) -> dict[str, Any]:
         if absence_row is not None:
             if not isinstance(absence_row, dict):
                 raise Layer2ContractError(f"absence row malformed: {full_type}")
-            resolved.append({
+            display_silence.append({
                 "full_type": full_type,
-                "terminal_state": "owner_approved_absence",
-                "absence_reason": absence_row.get("absence_reason"),
-                "classification_authority_ref": absence_row.get("classification_authority_ref"),
-                "classification_provenance_ref": absence_row.get("classification_provenance_ref"),
-                "source_subject_binding": binding,
+                "source_state": "owner_approved_absence",
+                "display_silence_reason": "owner_approved_absence",
             })
             continue
 
@@ -140,10 +138,10 @@ def materialize(repository_root: Path) -> dict[str, Any]:
                 resolution_rule = "current_explicit_primary"
 
         if primary is None:
-            remaining.append({
+            display_silence.append({
                 "full_type": full_type,
-                "reason_code": source_row["remaining_reason_code"],
-                "pre_resolution_state": source_row["pre_resolution_state"],
+                "source_state": source_row["pre_resolution_state"],
+                "display_silence_reason": source_row["display_silence_reason"],
             })
             continue
         if primary not in tags or primary == "Misc.9-A":
@@ -170,19 +168,42 @@ def materialize(repository_root: Path) -> dict[str, Any]:
         })
 
     resolved.sort(key=lambda row: row["full_type"].encode("utf-8"))
-    remaining.sort(key=lambda row: row["full_type"].encode("utf-8"))
-    status = "complete" if not remaining else "partial"
+    display_silence.sort(key=lambda row: row["full_type"].encode("utf-8"))
+    applicable_full_types = tuple(row["full_type"] for row in resolved)
+    silence_full_types = tuple(row["full_type"] for row in display_silence)
     return {
-        "schema_version": "iris-classification-layer2-owner-output-v1",
-        "status": status,
+        "schema_version": "iris-classification-layer2-owner-output-v2",
+        "status": "complete",
         "source_subject_binding": binding,
         "support_predicate": SUPPORT_PREDICATE,
         "frozen_support_count": report["frozen_support_count"],
         "frozen_support_sha256": report["frozen_support_sha256"],
         "resolved_entry_count": len(resolved),
-        "remaining_entry_count": len(remaining),
+        "remaining_entry_count": 0,
+        "classification_correction_count": 0,
         "rows": resolved,
-        "remaining_entries": remaining,
+        "remaining_entries": [],
+        "layer2_applicability_rule": "admissible_current_owner_category_and_primary_v1",
+        "layer2_display_silence_entries": display_silence,
+        "d2_handoff_partition": {
+            "schema_version": "iris-classification-layer2-d2-handoff-partition-v1",
+            "support": {
+                "count": report["frozen_support_count"],
+                "exact_fulltype_sha256": report["frozen_support_sha256"],
+            },
+            "layer2_applicable": {
+                "count": len(applicable_full_types),
+                "exact_fulltype_sha256": support_sha256(applicable_full_types),
+                "artifact_ref": "#rows",
+            },
+            "layer2_display_silence": {
+                "count": len(silence_full_types),
+                "exact_fulltype_sha256": support_sha256(silence_full_types),
+                "artifact_ref": "#layer2_display_silence_entries",
+            },
+            "partition_complete": True,
+            "menu_consumer_relation_owner": "T1-D2/Menu consumer owner",
+        },
         "current_ecosystem_adoption": "pending_T1_D6",
         "T2_FULL_DATA_PROGRESSION": "BLOCKED_BY_UPSTREAM_CORRECTIONS",
         "production_t2_handoff": "absent",

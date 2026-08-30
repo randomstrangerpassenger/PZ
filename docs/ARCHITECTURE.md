@@ -362,7 +362,7 @@ exact current subject
 -> OPEN only: minimal mechanical T2 handoff
 ```
 
-D1 successor의 optional Layer 2 partition과 D2 actual consumer relation은 각각 workstream `complete`이며 current ecosystem adoption은 `pending_T1_D6`다. 이 상태는 D6 integration, canonical full gate/finalizer 또는 production T2 handoff completion이 아니다.
+D1/D2 개별 workstream 완료 당시에는 current ecosystem adoption이 `pending_T1_D6`였다. 이는 아래 T1-D6 integration 및 2026-08-30 T2 successor 이전의 이력이며, 현재 상태는 해당 successor 항목과 current route를 따른다.
 
 - Classification, DVF System과 QG가 Layer 2/3/4 semantic authority를 계속 소유한다. T1은 projection/readiness metadata만 소유한다.
 - Layer 2 S1은 current Classification authority가 user-facing category와 admissible primary subcategory를 제공할 때만 applicable하다. 나머지는 system-level source-state rule에 따른 display silence이며 S1 placeholder 없이 S2~S4를 compact한다.
@@ -388,7 +388,7 @@ D1 successor의 optional Layer 2 partition과 D2 actual consumer relation은 각
 - Accepted explicit `IrisPrimarySubcategory`는 membership bucket을 재작성하지 않고 Browser row의 `primaryTag`와 `primaryLocation`을 같은 exact member로 정렬한다. Malformed/non-membership explicit primary는 fail-loud하며 explicit primary가 없을 때의 presentation-rank selection은 보존한다.
 - D2 disposition은 D1 applicable row의 exact category/primary parity를 `verified`, display-silence row의 consumer surface 부재를 `not_applicable`, missing/extra/mismatch를 `correction_required`로 투영한다. Rendered string, normalized FullType key, owner-output self-comparison이나 산술 차감은 join/evidence source가 아니다.
 - Hash-bound predecessor input의 LF/CRLF materialization은 isolated checkout preparation이다. Declared hash가 동일 Git blob text의 raw/LF/CRLF serialization 중 하나와 일치할 때 line ending만 맞추며 normalized Git/content delta `0`을 요구한다. 이 절차는 tracked source, registry authority 또는 canonical validator를 변경하지 않는다.
-- T2는 requested locale surface read, legitimate absence compaction이 끝난 fixed-order rows의 concatenation과 static payload emit만 수행한다.
+- T1이 emit할 slot을 확정·compact한 뒤 T2에 전달한다. T2는 그 fixed-order row의 explicit KO/EN surface를 정적 배열로 내보내며, 생략 slot에는 present/omitted vector만 기록하고 legitimate absence나 display silence 등의 원인을 재판정하지 않는다.
 - Current upstream blocker가 남으면 cause-attributed progression record만 생성하고 T2 handoff를 생성하지 않는다.
 - progression과 owner별 blocker distribution은 `t2_blocking = true` correction의 단일 filtered view를 공유한다.
 - T1 run output은 repository-external immutable root에 두며 mutable latest pointer나 stateful registry를 만들지 않는다.
@@ -431,16 +431,18 @@ D1 successor의 optional Layer 2 partition과 D2 actual consumer relation은 각
 
 - Machine-validation subject는 commit `b30aaff2da6172ab5137c55bb460889aa527ad04`, tree `7cdd52fd61f739b5018a62d8bffe84461dfea50c`다. Same-subject D2 relation과 whole-T1 audit가 support `2,280`, `verified 1,406`, `not_applicable 874`, correction/blocker `0`을 결속한다.
 - Strict candidate는 `subject_binding.json`, exact `2,280`-row `t2_handoff_input.jsonl`, manifest와 candidate receipt만 운반한다. Finalizer는 successful Run A/Run B/comparator subject equality를 확인한 뒤 세 candidate file을 byte-identical하게 복사하고 axis-separated closeout만 추가한다.
-- Current route는 repository-external final root `C:/Users/MW/Downloads/coding/PZ-tooltip-t1-d6-final-b30aaff2`와 네 artifact hash를 explicit하게 가리킨다. 선행 repository-internal `.tmp` materialization은 superseded ephemeral output이며 canonical current가 아니다. Mutable latest pointer, 새 validator, semantic producer 또는 validation-of-validation 계층은 추가하지 않는다.
+- 당시 current route는 repository-external final root `C:/Users/MW/Downloads/coding/PZ-tooltip-t1-d6-final-b30aaff2`와 네 artifact hash를 가리켰다. 이 root는 현재 S1 successor의 predecessor로 보존한다. 선행 repository-internal `.tmp` materialization은 superseded ephemeral output이며 canonical current가 아니다. Mutable latest pointer, 새 validator, semantic producer 또는 validation-of-validation 계층은 추가하지 않는다.
 - External-root locator correction은 docs/current carrier `8e972950b7b699b435d9b21e54432af94fc42f53` / tree `51cb94b963493411dd31dd3c4f21cb79797e2f69`가 소유한다. 이 carrier는 machine artifact를 다시 생성하거나 재결속하지 않으며 installed readback은 exact machine subject와 `adopted / complete / complete / OPEN / present`를 반환한다.
 - Windows DVF directory publish는 `shutil.move`로 rename-first/copy-remove fallback을 허용하되, runtime visibility의 유일한 선형화 지점인 regular-file manifest `os.replace`는 유지한다. 이 교정은 generation semantic bytes, owner authority 또는 runtime pointer contract를 변경하지 않는다.
 - 이 snapshot의 `complete / complete / OPEN / present`는 Tooltip T1 upstream readiness와 production T2 input 경계에만 적용한다. Static Tooltip Lua, runtime/visual 검증, T2/T3 구현, packaging과 release readiness는 포함하지 않는다.
 
 2026-08-30 T2 static staging successor:
 
-- Current T1 handoff는 S1 승인 category/primary 표제를 완성한 `60796744` successor다. D1 owner output, applicable/silence partition, classification identity와 S2–S4는 그대로다.
+- Current T1 handoff는 S1 승인 category/primary 표제를 완성한 `60796744` successor이며 root는 `C:/Users/MW/Downloads/coding/PZ-t2/t1-final`이다. D1 owner output, applicable/silence partition, classification identity와 S2–S4는 그대로다.
 - `iris_tooling.domains.tooltip_t2`는 current strict handoff admission → fixed slot projection → deterministic Lua/JSON → narrow finalization을 소유한다. T1 whole audit나 raw Classification/DVF/QG reader를 호출하지 않는다.
 - 단일 Lua는 `data[exactFullType][explicitLocale]`의 완성된 0~4줄 배열이다. KO/EN은 같은 slot·identity vector를 사용하고 accepted logical surface를 그대로 보존한다. Missing supported row는 오류이고 supported-empty는 두 빈 배열이다.
+- Serialization은 FullType 정렬, `ko → en`, UTF-8/LF와 고정 byte escaping을 사용한다. Lua에는 완성된 배열만 넣고, source/final surface hash와 slot·role·identity provenance는 별도 manifest에 둔다. Raw physical contract hash는 exact T1 locator/subject identity에, Git contract 내용은 기존 canonical bundle에 결속하므로 혼합 LF/CRLF 원문을 Git에서 재구성하지 않는다.
+- Build는 Lua·manifest를 쓴 뒤 run receipt를 마지막에 기록한다. Finalizer는 A/B와 current input/implementation binding을 확인하고 Run A bytes를 복사한 뒤 closeout을 마지막에 기록한다. Completion metadata가 없으면 `partial`이며, 이 경로는 runtime/current governance를 자동 변경하지 않는다.
 - `d64692ac`에서 static staging을 완료했다. `C:/Users/MW/Downloads/coding/PZ2/t2-final`의 Lua·manifest·closeout 세 파일만 T3 입력으로 제공한다. Current route의 staging locator는 runtime adoption이 아니다.
 - Fresh installed CLI, focused 18, generation A/B, 실제 generated Lua syntax와 canonical full gate/finalizer가 exit `0`이다. 실제 PZ load·Alt/UI·wrapping·성능·runtime/package/release는 T3 이후 범위이며 이번 완료에 포함하지 않는다.
 

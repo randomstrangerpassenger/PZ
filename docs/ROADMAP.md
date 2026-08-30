@@ -559,7 +559,14 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - Fresh wheel/installed CLI, canonical Run A/Run B, deterministic comparator와 기존 finalizer가 모두 exit `0`이다. Final closeout SHA-256은 `f8d6bcbef0e71d57fe36be36504a5ffcea1696953b7d8280deeba911fdcecab6`이고 상태는 `complete / complete / OPEN / present`다.
   - Canonical final root는 repository-external `C:/Users/MW/Downloads/coding/PZ-tooltip-t1-d6-final-b30aaff2`다. Path correction carrier `8e972950b7b699b435d9b21e54432af94fc42f53` 이후 installed current readback이 exit `0`으로 `adopted / complete / complete / OPEN / present`를 확인했으며, 선행 내부 `.tmp` materialization은 superseded ephemeral output이다.
   - Windows directory publish blocker는 generation bytes나 manifest visibility 의미를 바꾸지 않는 `shutil.move` fallback으로 닫았다. T1-D6 완료를 위해 사용한 exact machine subject와 canonical receipt chain은 경로 정정 과정에서 재실행하거나 재결속하지 않았다.
-  - 이 완료는 Tooltip T1 upstream input과 T2 handoff 경계만 연다. Static Tooltip Lua, runtime/visual 검증, T2/T3 구현과 release readiness는 다음 단계의 별도 gate다.
+  - 이 T1-D6 당시 완료는 upstream input과 T2 handoff 경계만 열었다. 이후 static Lua staging은 아래 T2 successor에서 완료했으며, runtime/visual 검증과 release readiness는 여전히 별도 gate다.
+
+- Tooltip S1 표제 보완과 T2 결정적 KO/EN static staging을 완료했다. (2026-08-30)
+  - T1 successor `60796744`에서 승인 category/primary 표제 1,406개를 완성했다. Support 2,280, display silence 874, classification identity와 S2–S4를 보존했고 focused 95·canonical A/B·comparator·기존 finalizer가 exit `0`이다.
+  - T2 machine subject `d64692ac`에서 2,280개 KO/EN 배열을 생성했다. 0~4줄 분포는 `367 / 825 / 895 / 137 / 56`; 생성 실패·contract 위반·고정 금지 표현 hit는 `0`이다.
+  - T2 focused 18, fresh installed inspect, generation A/B, 생성 Lua syntax 1-file, canonical full gate (`211 passed, 109 subtests passed`)와 finalizer가 exit `0`이다. A/B 및 candidate/final bytes가 동일하다.
+  - Final root는 `C:/Users/MW/Downloads/coding/PZ2/t2-final`이며 Lua·manifest·closeout 세 파일을 제공한다. `dd17d447` carrier로 선택 저장소에 반영했고 기존 사용자 변경, runtime/package 및 보호된 owner 데이터는 보존했다.
+  - 환경·경로 실패와 초기 T2 physical hash 처리 교정은 실행 계획의 기록에 남겼다. 성공한 T1 gate를 T2 수정 때문에 반복하지 않았고, 새 validation authority나 추가 봉인 체계는 만들지 않았다.
 
 ## Doing
 
@@ -577,9 +584,7 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
 
 ## Next
 
-- Tooltip T1과 T2 static staging은 완료됐으며, 다음 단계는 T3 runtime 연결이다.
-  - 2026-08-30 S1 표제 보완 successor `60796744`는 blocker `0`, progression `OPEN`, strict handoff present다. 기존 T1 canonical A/B·comparator·finalizer를 통과했고 역사적 handoff는 보존한다.
-  - T2 `d64692ac`는 exact 2,280개 KO/EN 0~4줄 static Lua를 생성했다. Focused 18, installed A/B 동일 bytes, Lua syntax, canonical full gate와 finalizer exit `0`; final root는 `C:/Users/MW/Downloads/coding/PZ2/t2-final`이다.
+- Tooltip T3 runtime 연결이 다음 단계다. T1/S1 및 T2 static staging 완료 결과는 위 완료 기록과 current route를 입력으로 사용한다.
   - T3는 완성된 배열을 FullType·locale로 조회한다. T1 final artifact나 owner authority를 다시 생성하거나 재해석하지 않는다.
   - owner authority에 없는 의미, 문장, 추천, fallback 또는 Menu consumer evidence를 Tooltip assembler가 발명하지 않는다.
   - Static staging까지만 완료했다. 실제 PZ load, Alt 입력, wrapping·visual·성능, runtime/package adoption과 release readiness는 아직 검증하지 않았다.

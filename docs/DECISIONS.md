@@ -1850,6 +1850,8 @@
 
 - 상태: current owner-ratified offline contract / integrated contract-and-audit complete / formal closeout complete / `T2_FULL_DATA_PROGRESSION=OPEN` / production T2 handoff present
 
+- 최신 입력 기준: 2026-08-30 S1 표제 보완 successor `60796744`를 current로 채택했다. 아래 T1-D6 `b30aaff2`의 root/hash는 predecessor 실행 이력으로 보존하며, 현재 T1 입력과 T2 완료 상태는 아래 「Iris Tooltip T2 — deterministic KO/EN static staging」 및 current route를 따른다.
+
 - 결정: Tooltip은 applicable한 Layer 2 classification, optional Layer 3 core description과 최대 두 개의 Layer 4 public interaction identity를 S1→S4 순서로 투영한다. Layer 2(S1)는 모든 support FullType의 필수 semantic fact가 아니라 current Classification authority가 user-facing category와 admissible primary subcategory를 안전하게 제공할 때만 표시하는 optional navigation/display projection이다. T1은 semantic/public eligibility와 identity selection을 먼저 닫고 selected identity의 KO/EN 및 Menu evidence readiness를 나중에 판정하는 offline contract/audit owner로 한정한다.
 
 - 현재 기준:
@@ -1956,7 +1958,10 @@
 - S1은 기존 승인 D1 category/primary surface를 `[{category_surface} - {primary_subcategory_surface}]`로 결합한다. D1 의미·surface·applicability와 S2–S4는 변경하지 않았다. Current T1 successor는 `60796744ffb889477161d243a1443c9de57d49b0`이며 기존 focused 95, canonical A/B, comparator와 finalizer가 exit `0`이다. 과거 T1 final root는 보존한다.
 - T2 machine subject `d64692ac26cdc21e4c7f558a0fe93278f64b16d1` / tree `850e0af81af9b9fda8ee7df26847f88a4b32b142`는 이 successor handoff만 읽는다. Exact FullType과 explicit `ko|en`으로 완성된 배열을 제공하며 2,280개 key에 빈 배열도 명시한다. 번역·요약·fallback·재선택·omission cause 추론은 하지 않는다.
 - T2 focused 18, installed generation A/B, 생성 Lua syntax 1-file, canonical full gate (`211 passed, 109 subtests passed`)와 finalizer가 exit `0`이다. A/B Lua·manifest와 candidate/final bytes가 동일하다. 고정 금지 표현 hit는 `0`이며 이를 semantic 품질 재인증으로 확대하지 않는다.
+- 생성 결과의 0/1/2/3/4줄 분포는 `367 / 825 / 895 / 137 / 56`이며 생성 실패·contract 위반은 `0`이다. `Base.LemonGrass`와 `Base.Lemongrass`를 포함한 case-sensitive exact identity를 보존한다.
+- Completion metadata가 없으면 finalizer는 기존 `partial` 상태와 남은 `unvalidated_but_in_scope`를 기록한다. `complete`는 명시적으로 결속된 focused/installed inspect/Lua/full-gate 성공 결과가 있을 때만 발행하며 artifact equality로 검사 성공을 추론하지 않는다.
 - Final external staging은 `C:/Users/MW/Downloads/coding/PZ2/t2-final`이며 exact hashes는 current route와 `tooltip_t2_closeout.json`이 기록한다. Runtime/package pointer는 전환하지 않았다. Manifest schema 검사는 기존 projection test의 직렬화 fixture에 연결했으며 별도 validator·proof package를 만들지 않았다.
+- 수정된 T2 package는 기존 environment successor record `responsibility_refactor_environment_tooltip_t2_6b471e48.json`에 결속했다. T2 전용 수정 이후에도 성공한 T1 successor handoff와 gate는 그대로 소비했다. 완료 carrier `dd17d447`은 선택 저장소에 fast-forward 반영됐으며, carrier를 T1/T2 machine subject와 바꿔 쓰지 않는다.
 - 실행 명령·실패 재시도·validation ceiling은 `docs/iris_tooltip_t2_deterministic_ko_en_static_lua_projection_plan.md`의 execution 기록과 기존 closeout을 참조한다. 문서 carrier를 새 검증 subject로 해석하지 않는다.
 
 ### Iris validation — workflow / scenario execution consolidation boundary

@@ -53,6 +53,54 @@ T2 tests use the production decoder/model/serializer and independently bound tem
 
 ## Receipt-bound full validation
 
+T3's bounded standalone runtime harness (not a replacement for the full gate):
+
+```powershell
+uv run python .\Iris\build\description\v2\tests\test_iris_browser_state_selection_search_acceptance.py full
+```
+
+The same wrapper accepts `smoke` (payload/lookup) and `replacement` (reader/Alt
+without Menu observations). Run replacement before an actual legacy deletion or
+adapter change only. `full` is the final focused run. It creates no receipts or
+output files, has a 60-second subprocess timeout, and fails if Lua is missing.
+Its test-local assertions do not constitute a canonical validator or new authority.
+For the plan's once-per-input Menu comparison, append the explicitly admitted
+`tooltip_t2_projection_manifest.json` path to `menu` (or to `full` only when its
+additional runtime scope is required). The current route's manifest and product
+hashes are checked before observation. The default test has no external input
+dependency and does not include the offline Menu-to-T2 join.
+`menu` selects only the Menu observation group;
+it is not another mandatory run or an Alt runtime PASS.
+The observation includes exact consumed text bytes, active modules, and absent
+record reasons. The offline verdict also requires independently bound EN
+producer/input/output/core-fact evidence for every required selected identity.
+Without `--en-replay-root`, that evidence remains missing and cannot yield a
+relation PASS. With an execution-authorized new leaf under the T3-D1 plan's
+external output root, the existing producer and serializer reconstruct EN once,
+compare every Index/chunk byte with current output, and connect approved
+primary-use input to current source-bound core IDs before comparing Tooltip.
+This is current deterministic derivability, not historical run provenance.
+
+```powershell
+uv run python .\Iris\build\description\v2\tests\test_iris_browser_state_selection_search_acceptance.py menu <admitted-tooltip-t2-manifest> [--en-replay-root <authorized-new-empty-leaf>] [--baseline-root <authorized-initial-snapshot-root>]
+```
+
+This option does not authorize external access: the execution prompt must allow
+the plan's external output exception. There is no repository-local replay
+fallback, live producer `main()` call, persisted evidence registry, or new gate.
+The stdout relation report retains the exact initial selected ledger and its
+resolved/retained/unresolved partition. Branch C preserves the initial required
+scope; missing bodies remain unresolved, not legitimate silence. The optional
+baseline root contains the saved initial `menu-before.txt`, `en-before` output,
+and `owner-before.json`. Their bindings and the exact per-record body/identity
+preservation are compared in the same final run, without a separate validator.
+The focused admission cases stay inside the existing test method and can run
+without the unrelated Alt suite:
+
+```powershell
+uv run python .\Iris\build\description\v2\tests\test_iris_browser_state_selection_search_acceptance.py BrowserStateSelectionSearchAcceptanceTest.test_browserdata_compatibility_and_logging_source_guards
+```
+
 The canonical CLI adapter invokes the repository-owned receipt-bound launcher:
 
 ```powershell

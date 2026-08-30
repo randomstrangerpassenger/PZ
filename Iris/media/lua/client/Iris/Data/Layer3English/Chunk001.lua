@@ -104,6 +104,7 @@ return {
     ["Base.BandedWoolyBearCaterpillar"] = "Food used while preparing or eating a meal.",
     ["Base.Banjo"] = "A musical instrument used for performance.\n\nFound in instrument cases, music stores, rehearsal-room storage.",
     ["Base.BarBell"] = "Sporting equipment used for training or recreation.\n\nFound in gyms, exercise-equipment crates.",
+    ["Base.BarbedWire"] = "Material used to reinforce fences when building defenses that block or slow access around a base.\n\nFound in construction-material storage, workshops.",
     ["Base.Baseball"] = "Sporting equipment used according to the rules of a game or activity.",
     ["Base.BaseballBat"] = "A weapon used in close combat.\n\nFound in sporting-goods stores, baseball-equipment storage, and vehicles.",
     ["Base.BaseballBatNails"] = "A weapon used in close combat.\n\nCrafted from a baseball bat and nails with a hammer.",
@@ -199,5 +200,4 @@ return {
     ["Base.BookElectrician3"] = "Read or referenced to learn a skill or crafting recipe.",
     ["Base.BookElectrician4"] = "Read or referenced to learn a skill or crafting recipe.",
     ["Base.BookElectrician5"] = "Read or referenced to learn a skill or crafting recipe.",
-    ["Base.BookFarming1"] = "Read or referenced to learn a skill or crafting recipe.",
 }

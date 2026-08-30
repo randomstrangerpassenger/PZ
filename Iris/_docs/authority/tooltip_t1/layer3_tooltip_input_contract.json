@@ -13,7 +13,7 @@
   "current_disposition": "approved single-core facts and producer-independent-evidence-bound explicit owner absences are published separately; all other missing owner rows remain upstream corrections",
   "current_owner_output": {
     "path": "Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json",
-    "canonical_sha256": "d20ae626ecd72d9be8cf14da403ac59f05fc63b68c6745576a70631c8e502e69",
+    "canonical_sha256": "4edf43068cebdb49932c82d29342db1c467c64ad62d3ad6420051ecc4a0d290e",
     "producer": "iris_tooling.build.build_layer3_english_localization",
     "schema_version": "iris-tooltip-t1-layer3-owner-input-v2",
     "fact_entry_count": 1314,

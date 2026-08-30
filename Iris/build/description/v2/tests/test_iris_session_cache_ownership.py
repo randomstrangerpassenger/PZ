@@ -43,6 +43,13 @@ class IrisSessionCacheOwnershipTest(unittest.TestCase):
         self.assertEqual("complete/no-op", receipt["change_2_disposition"])
         self.assertEqual(0, receipt["production_session_wiring_diff"])
 
+        # The predecessor census stays historical. T3 retires these two Alt
+        # caches without changing Summary's supported copy-on-read boundary.
+        alt = (REPO / "Iris/media/lua/client/Iris/UI/Tooltip/IrisAltTooltip.lua").read_text(encoding="utf-8")
+        self.assertNotIn("local displayLineCache =", alt)
+        self.assertNotIn("IrisTooltipSummaryLocal", alt)
+        self.assertIn('require("Iris/Data/IrisTooltipT2Lookup")', alt)
+
     def test_no_production_session_reset_wiring_was_added(self) -> None:
         runtime = REPO / "Iris/media/lua/client/Iris"
         callers = []

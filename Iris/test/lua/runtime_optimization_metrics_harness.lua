@@ -122,99 +122,56 @@ end
 
 local function runTooltip()
     installRuntimeStubs()
-    local locale = "EN"
-    local revision = "fixture-r1"
-    local summaryLoads = 0
-    local publicSummary = {
-        fullType="Base.Hammer",tags={"Tool.1-A"},connections={"Recipe"},
-        useCaseCount=1,revision=revision,
-    }
+    local locale, altPressed, loads, drawCalls = "EN", false, 0, 0
     package.preload["Iris/Util/ItemKey"] = function()
         return {getFullTypeFromItem=function(item) return item.fullType end}
     end
     package.preload["Iris/Util/IrisTranslationResolver"] = function()
-        return {
-            get=function(_key, fallback) return fallback end,
-            getLangKey=function() return locale end,
-        }
+        return {getDetectedLangKey=function() return locale end}
     end
     package.preload["Iris/UI/Tooltip/IrisTooltipSummary"] = function()
-        summaryLoads = summaryLoads + 1
-        return {
-            _getCached=function()
-                publicSummary.revision = revision
-                return publicSummary
-            end,
-            get=function()
-                return {
-                    fullType=publicSummary.fullType,
-                    tags={publicSummary.tags[1]},
-                    connections={publicSummary.connections[1]},
-                    useCaseCount=publicSummary.useCaseCount,
-                    revision=revision,
-                }
-            end,
-            reset=function() end,
-        }
+        error("legacy Summary is not an Alt consumer")
+    end
+    package.preload["Iris/Data/IrisTooltipT2Data"] = function()
+        loads=loads+1
+        return {["Base.Hammer"]={en={"Static row"},ko={"정적 행"}}}
     end
     UIFont = {Small="Small"}
-    local altPressed = false
     isKeyDown = function(code) return altPressed and code == 56 end
-    local drawCalls = 0
+    getTextManager = function() return {getFontHeight=function() return 17 end,
+        MeasureStringX=function(_,_,text) return #text end} end
+    getCore = function() return {getScreenWidth=function() return 900 end,
+        getScreenHeight=function() return 700 end} end
     local function tooltip()
-        return {
-            item={fullType="Base.Hammer"},height=20,width=200,
-            drawRect=function() drawCalls = drawCalls + 1 end,
-            drawRectBorder=function() drawCalls = drawCalls + 1 end,
-            drawText=function() drawCalls = drawCalls + 1 end,
-            setHeight=function(self, height) self.height = height end,
-        }
+        return {item={fullType="Base.Hammer"},height=20,width=200,
+            getAbsoluteX=function() return 0 end,getAbsoluteY=function() return 0 end,
+            drawRect=function() drawCalls=drawCalls+1 end,
+            drawRectBorder=function() drawCalls=drawCalls+1 end,
+            drawText=function() drawCalls=drawCalls+1 end,
+            setHeight=function(self,height) self.height=height end}
     end
-    local Tooltip = require("Iris/UI/Tooltip/IrisAltTooltip")
+    local Tooltip=require("Iris/UI/Tooltip/IrisAltTooltip")
     Tooltip.addIrisOverlay(tooltip())
-    local defaultOff = Tooltip.getDisplayLineCacheMetrics()
-    assert(defaultOff.inactiveRenders == 0)
-    assert(defaultOff.fullTypeResolutions == 0 and defaultOff.localeResolutions == 0)
-    assert(defaultOff.keyStringConversions == 0 and defaultOff.detailLineCacheLookups == 0)
+    assert(Tooltip.getDisplayLineCacheMetrics().inactiveRenders == 0)
     Tooltip.setInstrumentationEnabled(true)
-    Tooltip.resetDisplayLineCache()
-    for _ = 1, 1000 do Tooltip.addIrisOverlay(tooltip()) end
-    local inactive = Tooltip.getDisplayLineCacheMetrics()
-    local inactiveDrawCalls = drawCalls
-
-    altPressed = true
-    for _ = 1, 100 do Tooltip.addIrisOverlay(tooltip()) end
-    local warm = Tooltip.getDisplayLineCacheMetrics()
-    assert(warm.fullTypeResolutions == 100 and warm.localeResolutions == 100)
-    assert(warm.keyStringConversions == 300 and warm.detailLineCacheLookups == 100)
-    assert(warm.cacheEntryAllocations == 1)
-    locale = "KO"
-    Tooltip.addIrisOverlay(tooltip())
-    revision = "fixture-r2"
-    Tooltip.addIrisOverlay(tooltip())
-    local invalidated = Tooltip.getDisplayLineCacheMetrics()
-    assert(invalidated.retainedFullTypeEntries == 1)
-    assert(invalidated.retainedProjectionEntries == 1)
-    emit("mode", "tooltip")
-    emit("inactive_renders", inactive.inactiveRenders)
-    emit("inactive_summary_loads", inactive.summaryLoadAttempts)
-    emit("inactive_summary_gets", inactive.summaryGetCalls)
-    emit("inactive_temporary_tables", inactive.temporaryDetailTables)
-    emit("inactive_draw_calls", inactiveDrawCalls)
-    emit("warm_hits", warm.hits)
-    emit("warm_misses", warm.misses)
-    emit("warm_display_builds", warm.displayLineBuilds)
-    emit("warm_line_copies", warm.lineCopies)
-    emit("warm_fulltype_resolutions", warm.fullTypeResolutions)
-    emit("warm_locale_resolutions", warm.localeResolutions)
-    emit("warm_key_string_conversions", warm.keyStringConversions)
-    emit("warm_detail_line_lookups", warm.detailLineCacheLookups)
-    emit("warm_cache_entry_allocations", warm.cacheEntryAllocations)
-    emit("summary_module_loads", summaryLoads)
-    emit("invalidation_misses", invalidated.misses)
-    emit("retained_fulltype_entries", invalidated.retainedFullTypeEntries)
-    emit("retained_projection_entries", invalidated.retainedProjectionEntries)
-    emit("draw_calls", drawCalls)
+    for _=1,1000 do Tooltip.addIrisOverlay(tooltip()) end
+    local inactive=Tooltip.getDisplayLineCacheMetrics()
+    assert(loads == 0 and drawCalls == 0 and inactive.staticLookups == 0)
+    altPressed=true
+    for _=1,100 do Tooltip.addIrisOverlay(tooltip()) end
+    local warm=Tooltip.getDisplayLineCacheMetrics()
+    assert(warm.staticLookups == 100 and warm.fullTypeResolutions == 100)
+    assert(warm.localeResolutions == 100 and warm.retainedFullTypeEntries == 0)
+    locale="KO"; Tooltip.addIrisOverlay(tooltip())
+    assert(loads == 1 and drawCalls == 303)
+    emit("mode","tooltip")
+    emit("inactive_renders",inactive.inactiveRenders)
+    emit("inactive_summary_loads",inactive.summaryLoadAttempts)
+    emit("inactive_summary_gets",inactive.summaryGetCalls)
+    emit("inactive_temporary_tables",inactive.temporaryDetailTables)
+    emit("warm_static_lookups",warm.staticLookups)
+    emit("retained_fulltype_entries",warm.retainedFullTypeEntries)
+    emit("payload_loads",loads)
 end
 
 local function runViewModel()

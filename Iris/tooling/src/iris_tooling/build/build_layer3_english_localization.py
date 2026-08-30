@@ -749,6 +749,62 @@ def _current_projection(repository_root: Path) -> tuple[dict[str, dict[str, obje
     return entries, current_generation_id
 
 
+def approved_general_descriptions(
+    repository_root: Path,
+    facts_by_item: dict[str, dict[str, object]],
+    rendered: dict[str, dict[str, object]],
+) -> dict[str, dict[str, str]]:
+    """Read bilingual edits from the already generation-bound approved input.
+
+    The source fields retain their historical provenance. User adoption of
+    these existing details is not an independent game-source verification.
+    """
+    projection = json.loads(repository_path(repository_root, CANONICAL_INPUTS[6]).read_text(encoding="utf-8"))
+    adoption = projection.get("meta", {}).get("general_description_integration")
+    if adoption is None:
+        return {}
+    if (not isinstance(adoption, dict)
+            or adoption.get("decision") != "user_adopted_primary_use_with_context_detail_refinement"
+            or adoption.get("source_slot") != "special_context"
+            or not adoption.get("authority_ref")):
+        raise RuntimeError("LAYER3_GENERAL_DESCRIPTION_ADOPTION_INVALID")
+    facts_path = repository_path(repository_root, CANONICAL_INPUTS[0])
+    if adoption.get("facts_sha256") != hashlib.sha256(facts_path.read_bytes()).hexdigest():
+        raise RuntimeError("LAYER3_GENERAL_DESCRIPTION_INPUT_STALE")
+    entries = adoption.get("entries")
+    if not isinstance(entries, dict) or not entries:
+        raise RuntimeError("LAYER3_GENERAL_DESCRIPTION_ENTRIES_INVALID")
+    result = {}
+    for key, entry in entries.items():
+        facts = facts_by_item.get(key, {})
+        current = rendered.get(key, {})
+        if not isinstance(entry, dict):
+            raise RuntimeError(f"LAYER3_GENERAL_DESCRIPTION_ENTRY_INVALID:{key}")
+        for field, hash_field in (("primary_use", "primary_use_source_sha256"), ("special_context", "context_source_sha256")):
+            value = facts.get(field)
+            if not isinstance(value, str) or not value or hashlib.sha256(value.encode("utf-8")).hexdigest() != entry.get(hash_field):
+                raise RuntimeError(f"LAYER3_GENERAL_DESCRIPTION_SOURCE_MISMATCH:{key}:{field}")
+        context_identity = {
+            "item_id": key, "source_slot": "special_context",
+            "fact_origin": entry.get("original_origin"),
+            "source_value_hash": entry["context_source_sha256"],
+        }
+        context_id = "l3rf-" + hashlib.sha256(json.dumps(
+            context_identity, ensure_ascii=False, sort_keys=True, separators=(",", ":"),
+        ).encode("utf-8")).hexdigest()
+        if entry.get("original_origin") != "origin_missing" or entry.get("context_fact_id") != context_id:
+            raise RuntimeError(f"LAYER3_GENERAL_DESCRIPTION_CONTEXT_ID_MISMATCH:{key}")
+        if current.get("role_material", {}).get("core_source_fact_ids") != [entry.get("primary_use_fact_id")]:
+            raise RuntimeError(f"LAYER3_GENERAL_DESCRIPTION_CORE_MISMATCH:{key}")
+        localized = entry.get("localized_general_description")
+        if (not isinstance(localized, dict) or set(localized) != {"ko", "en"}
+                or any(not isinstance(value, str) or not value.strip() or "\n" in value or "\r" in value for value in localized.values())
+                or (current.get("text_ko") or "").split("\n\n", 1)[0] != localized["ko"]):
+            raise RuntimeError(f"LAYER3_GENERAL_DESCRIPTION_LOCALE_MISMATCH:{key}")
+        result[key] = localized
+    return result
+
+
 def build_english_entries(
     repository_root: Path,
 ) -> tuple[dict[str, str], str, dict[str, int]]:
@@ -768,6 +824,7 @@ def build_english_entries(
 
     facts_by_item = {str(row["item_id"]): row for row in rows}
     rendered, generation_id = _current_projection(repository_root)
+    general_descriptions = approved_general_descriptions(repository_root, facts_by_item, rendered)
     english_entries: dict[str, str] = {}
     for item_id, rendered_entry in rendered.items():
         if not isinstance(rendered_entry, dict):
@@ -779,11 +836,14 @@ def build_english_entries(
             raise RuntimeError(f"LAYER3_EN_CURRENT_PUBLIC_FACT_MISSING:{item_id}")
         primary_use = facts.get("primary_use")
         body = ""
-        if primary_use:
+        general_description = general_descriptions.get(item_id)
+        if general_description:
+            body = general_description["en"]
+        elif primary_use:
             body = translations[str(primary_use)]
         else:
             body = IDENTITY_ONLY_EN[str(facts["identity_hint"])]
-        if facts.get("special_context"):
+        if not general_description and facts.get("special_context"):
             body += " " + special[str(facts["special_context"])]
         if facts.get("acquisition_hint"):
             body += "\n\n" + localized_acquisition[str(facts["acquisition_hint"])]

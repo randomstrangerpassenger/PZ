@@ -1,5 +1,11 @@
 -- Generated Layer 3 English localization payload.
 return {
+    ["Base.MakeUp_EyesShadowYellow"] = "Eye shadow used to add color around the eyes.",
+    ["Base.MakeUp_Football"] = "Face paint used to add a pattern around the eyes.",
+    ["Base.MakeUp_GreenCamo"] = "Face paint used to add a pattern across the face.",
+    ["Base.MakeUp_LipsBlack"] = "Cosmetics used to add color to the lips.",
+    ["Base.MakeUp_LipsBlue"] = "Cosmetics used to add color to the lips.",
+    ["Base.MakeUp_LipsGreen"] = "Cosmetics used to add color to the lips.",
     ["Base.MakeUp_LipsLightBlue"] = "Cosmetics used to add color to the lips.",
     ["Base.MakeUp_LipsPink"] = "Cosmetics used to add color to the lips.",
     ["Base.MakeUp_LipsRed"] = "Cosmetics used to add color to the lips.",
@@ -194,10 +200,4 @@ return {
     ["Base.Mov_WhiteSimpleChair"] = "Handled when moving chairs, tables, or resting furniture into position indoors.",
     ["Base.Mov_WhiteSink"] = "Handled when removing or reinstalling devices and fixed fixtures.",
     ["Base.Mov_WhiteWoodenChair"] = "Handled when moving chairs, tables, or resting furniture into position indoors.",
-    ["Base.Mov_WoodenChair"] = "Handled when moving chairs, tables, or resting furniture into position indoors.",
-    ["Base.Mov_WoodenStool"] = "Handled when moving chairs, tables, or resting furniture into position indoors.",
-    ["Base.Mov_YellowModernChair"] = "Handled when moving chairs, tables, or resting furniture into position indoors.",
-    ["Base.MuffinFruit"] = "Food used while preparing or eating a meal.",
-    ["Base.MuffinGeneric"] = "Food used while preparing or eating a meal.",
-    ["Base.MuffinTray"] = "Kitchenware used to prepare or hold food and drinks.\n\nFound in homes or bakeries.",
 }

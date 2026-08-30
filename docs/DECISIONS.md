@@ -2244,3 +2244,13 @@
   - Build/validation closeout을 freeze, RTC, Publish, release, Workshop 또는 deployment readiness로 읽지 않는다.
   - W0 admission artifact 미보존 사실을 사후 evidence 생성, exemption, 새 validator/receipt/manifest/seal 또는 자동 재개방 권한으로 읽지 않는다.
   - Docs-only correction을 unchanged machine subject의 confidence rerun이나 새 validation authority로 읽지 않는다.
+
+### Iris Tooltip T3-D1 — existing context integration
+
+- 날짜: 2026-08-30, 사용자 명시적 콘텐츠 결정.
+- 대상은 `docs/iris_tooltip_t3_d1_layer3_menu_tooltip_display_en_record_fact_relation_consistency_plan.md` §4.2의 exact 12개다. 현재 `dvf_3_3_facts.jsonl`의 non-empty `special_context` 기존 문구 **전체**와 기존 EN 대응을 일반 Menu 설명에 통합한다.
+- 최종 사용자 편집 지시에 따라 primary-use를 의미의 중심으로 유지하고 context의 대상·상황·작업 디테일을 녹여 KO·EN 일반 설명을 자연스럽게 다듬는다. 원문을 기계적으로 연결하거나 context로 기본 용도를 대체하지 않는다. 기본 의미와 채택된 디테일은 보존하되 중복 문장은 정리한다. 기존 양언어 문구 범위 안의 bounded 편집은 허용하지만 새 게임 사실·추가 용도·추천·평가는 추가하지 않는다. source-bound public acquisition은 기존대로 보존한다.
+- 이 exact 범위에서는 기존 `special_context/origin_missing` review hold를 기본 Menu body 전체의 공개 blocker로 사용하지 않는다. 과거 `L3R-MAP-008` 판정과 원본 `fact_origin`은 보존한다. 이번 결정은 기존 문구의 사용자 콘텐츠 채택이며 독립 게임 source 검증이나 과거 source approval의 소급 생성이 아니다. 다른 source 조합의 admission 원칙은 변경하지 않는다.
+- 현재 approved `candidate_rendered.json`의 metadata에 이 채택 범위·기존 source fragment identity·편집된 KO/EN 일반 설명을 결속하고, 기존 complete-generation/EN producer로 output을 생성한다. EN producer는 이 채택된 통합 문장을 사용한 뒤 context를 다시 붙이지 않는다. Metadata는 해당 production input의 material/lineage이며 별도 Registry/validator가 아니다.
+- primary-use scalar, single core fact ID와 Tooltip S2 KO/EN surface는 유지한다. Context는 Menu 설명의 추가 깊이로 제공하며 S2에 이어 붙이지 않는다. `special_context` 전역 schema/key/reader 폐기는 이번 범위 밖이다.
+- Final actual EN producer/input/output/consumer 연결, preservation 및 기존 필수 gate는 별도로 검증한다. 이 결정만으로 independent Menu evidence 또는 D1/T3 completion을 선언하지 않는다. Sealed T1 unverified 이력과 original T3 package/install/PZ/visual 의무는 보존한다.

@@ -1,5 +1,6 @@
 -- Generated Layer 3 English localization payload.
 return {
+    ["Base.BookFarming1"] = "Read or referenced to learn a skill or crafting recipe.",
     ["Base.BookFarming2"] = "Read or referenced to learn a skill or crafting recipe.",
     ["Base.BookFarming3"] = "Read or referenced to learn a skill or crafting recipe.",
     ["Base.BookFarming4"] = "Read or referenced to learn a skill or crafting recipe.",
@@ -170,6 +171,7 @@ return {
     ["Base.CarBattery1"] = "Handled when connecting or replacing a vehicle battery to restore the electrical system.",
     ["Base.CarBattery2"] = "Handled when connecting or replacing a vehicle battery to restore the electrical system.",
     ["Base.CarBattery3"] = "Handled when connecting or replacing a vehicle battery to restore the electrical system.",
+    ["Base.CarBatteryCharger"] = "A tool used to charge a discharged battery during vehicle maintenance.\n\nFound in vehicle-maintenance areas, vehicle storage.",
     ["Base.CarKey"] = "Handled to lock or unlock padlocks, vehicles, or doors.",
     ["Base.CardDeck"] = "Handled during play with boards, cards, pieces, or small toys.",
     ["Base.Carrots"] = "Food used while preparing or eating a meal.",
@@ -198,6 +200,4 @@ return {
     ["Base.ChocoCakes"] = "Food used while preparing or eating a meal.",
     ["Base.Chocolate"] = "Food used while preparing or eating a meal.",
     ["Base.ChocolateChips"] = "Food used while preparing or eating a meal.",
-    ["Base.ChocolateCoveredCoffeeBeans"] = "Food used while preparing or eating a meal.",
-    ["Base.ChokeTubeFull"] = "A part used to modify firearms.\n\nFound in gun stores, garage firearm storage.",
 }

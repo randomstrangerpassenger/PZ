@@ -28,19 +28,26 @@ IrisTranslations = nil
 
 -- 캐시된 언어 키 (SSOT: 이 값만이 언어 키의 단일 진실 소스)
 local _cachedLangKey = nil
+local _detectedLangKey = nil
+
+local function detectLanguage()
+    if Translator and Translator.getLanguage then
+        local ok, result = ProtectedCall.engine(Translator.getLanguage)
+        if ok and result then
+            local converted, key = ProtectedCall.call(function() return tostring(result):upper() end)
+            if converted and key ~= "" then return key end
+        end
+    end
+    return nil
+end
 
 function IrisTranslationLoader.init()
     local debugEnabled = bootstrap.isDebugEnabled()
     debug("[IrisTranslation] Initializing translations...")
-    
+
     -- 현재 언어 감지
-    local lang = "EN"
-    if Translator and Translator.getLanguage then
-        local ok, result = ProtectedCall.engine(Translator.getLanguage)
-        if ok and result then
-            lang = tostring(result):upper()
-        end
-    end
+    _detectedLangKey = detectLanguage()
+    local lang = _detectedLangKey or "EN"
     
     if debugEnabled then
         debug("[IrisTranslation] Detected language: " .. lang)
@@ -88,15 +95,15 @@ function IrisTranslationLoader.getLangKey()
         return _cachedLangKey
     end
     -- init()이 아직 안 돌았으면 직접 감지
-    local lang = "EN"
-    if Translator and Translator.getLanguage then
-        local ok, result = ProtectedCall.engine(Translator.getLanguage)
-        if ok and result then
-            lang = tostring(result):upper()
-        end
-    end
+    _detectedLangKey = detectLanguage()
+    local lang = _detectedLangKey or "EN"
     _cachedLangKey = lang
     return lang
+end
+
+-- Same init lifecycle as getLangKey, but without its compatibility EN default.
+function IrisTranslationLoader.getDetectedLangKey()
+    return _detectedLangKey
 end
 
 -- 파일 로드 시 즉시 초기화 (OnGameBoot보다 먼저 실행되어야 함)

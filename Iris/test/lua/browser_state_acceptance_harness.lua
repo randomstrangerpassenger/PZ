@@ -188,12 +188,16 @@ assert(displayNameCalls == 6)
 assert(cache.searchMetrics.fullSortCount == 4)
 
 package.preload["Iris/UI/Tooltip/IrisTooltipSummary"] = function()
-    return {
-        get=function(fullType)
-            return {fullType=fullType,tags={"Tool.1-A"},connections={"Recipe"},useCaseCount=1,revision="fixture-r1"}
-        end,
-    }
+    error("Alt must not load legacy summary")
 end
+package.loaded["Iris/Util/IrisTranslationResolver"] = {getDetectedLangKey=function() return "EN" end}
+package.preload["Iris/Data/IrisTooltipT2Data"] = function()
+    return {["Base.Hammer"]={en={"Static row"},ko={"정적 행"}}}
+end
+getTextManager = function() return {getFontHeight=function() return 17 end,
+    MeasureStringX=function(_,_,text) return #text*6 end} end
+getCore = function() return {getScreenWidth=function() return 900 end,
+    getScreenHeight=function() return 700 end} end
 isKeyDown = function(code) return code == 56 end
 UIFont = { Small = "Small" }
 local AltTooltip = require("Iris/UI/Tooltip/IrisAltTooltip")
@@ -207,6 +211,8 @@ local function tooltipFixture()
         height=20,
         width=200,
         drawn=drawn,
+        getAbsoluteX=function() return 0 end,
+        getAbsoluteY=function() return 0 end,
         drawRect=function() end,
         drawRectBorder=function() end,
         drawText=function(self, text) table.insert(self.drawn, text) end,
@@ -218,7 +224,8 @@ local tooltipB = tooltipFixture()
 AltTooltip.addIrisOverlay(tooltipA)
 AltTooltip.addIrisOverlay(tooltipB)
 local tooltipMetrics = AltTooltip.getDisplayLineCacheMetrics()
-assert(tooltipMetrics.misses == 1 and tooltipMetrics.hits == 1)
+assert(tooltipMetrics.staticLookups == 2 and tooltipMetrics.retainedFullTypeEntries == 0)
+assert(tooltipA.drawn[1] == "Static row" and tooltipMetrics.summaryGetCalls == 0)
 assert(#tooltipA.drawn == #tooltipB.drawn and #tooltipA.drawn <= 4)
 
 local ListController = require("Iris/UI/Browser/IrisBrowserListController")
@@ -254,4 +261,4 @@ print("IRIS_BROWSER_STANDALONE_PASS state=ready normalized_getter_calls=" .. tos
     " get_all_items_calls=" .. tostring(readyInstrumentation.getAllItemsCallCount) ..
     " recovery_get_all_items_calls=" .. tostring(recoveryInstrumentation.getAllItemsCallCount) ..
     " prefix_reuse_count=" .. tostring(cache.searchMetrics.prefixReuseCount) ..
-    " tooltip_cache_hits=" .. tostring(tooltipMetrics.hits))
+    " tooltip_static_lookups=" .. tostring(tooltipMetrics.staticLookups))

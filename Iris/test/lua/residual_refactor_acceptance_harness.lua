@@ -91,6 +91,7 @@ emit("presentation.browser_and_description_order", "presentation_order",
 package.preload["Iris/Util/IrisProtectedCall"] = function()
     return {
         data=function(callback) local ok, value = pcall(callback); return ok, value end,
+        call=function(callback, ...) return pcall(callback, ...) end,
         require=function(moduleName) return pcall(require, moduleName) end,
     }
 end
@@ -342,44 +343,46 @@ emit("wiki.current_unit_profiles", "wiki_units",
     },food_renderer_ko=foodRenderedKo,core_renderer_ko=coreRenderedKo,
         food_scaled=foodScaled,core_scaled=coreScaled,locale_profiles_preserved=localeProfilesPreserved})
 
--- Tooltip emits positive verified facts only and never exceeds four lines.
-local function tooltipLines(summary)
-    resetLoaded({"Iris/UI/Tooltip/IrisAltTooltip", "Iris/Util/IrisModuleBootstrap", "Iris/Util/ItemKey"})
-    package.preload["Iris/Util/IrisModuleBootstrap"] = function()
-        return {create=function() return {safeRequire=function(name)
-            if name == "Iris/IrisTranslationLoader" then return true, {get=function(_, fallback) return fallback end} end
-            if name == "Iris/UI/Tooltip/IrisTooltipSummary" then
-                if summary == false then return false, nil end
-                return true, {get=function() return summary end}
-            end
-            return false, nil
-        end,debug=function() end,warn=function() end,logError=function() end} end}
-    end
+-- Alt uses static rows; the legacy Summary copy-on-read checks above remain.
+local function tooltipLines(rows, language)
+    resetLoaded({"Iris/UI/Tooltip/IrisAltTooltip", "Iris/Data/IrisTooltipT2Lookup",
+        "Iris/Data/IrisTooltipT2Data", "Iris/Util/ItemKey"})
     package.preload["Iris/Util/ItemKey"] = function() return {getFullTypeFromItem=function() return "Base.Sample" end} end
+    local resolver = require("Iris/Util/IrisTranslationResolver")
+    local previous = resolver.getDetectedLangKey
+    resolver.getDetectedLangKey = function() return language end
+    package.preload["Iris/Data/IrisTooltipT2Data"] = function()
+        if rows == false then error("payload unavailable") end
+        return {["Base.Sample"]={en=rows,ko=rows}}
+    end
     isKeyDown = function() return true end
     UIFont = {Small="Small"}
+    getTextManager = function() return {getFontHeight=function() return 17 end,
+        MeasureStringX=function(_,_,text) return #text end} end
+    getCore = function() return {getScreenWidth=function() return 900 end,
+        getScreenHeight=function() return 700 end} end
     local lines = {}
     local tooltip = {height=10,width=200,item={}}
+    function tooltip:getAbsoluteX() return 0 end
+    function tooltip:getAbsoluteY() return 0 end
     function tooltip:drawRect() end
     function tooltip:drawRectBorder() end
     function tooltip:drawText(line) lines[#lines + 1] = line end
     function tooltip:setHeight(value) self.height = value end
     require("Iris/UI/Tooltip/IrisAltTooltip").addIrisOverlay(tooltip)
+    resolver.getDetectedLangKey = previous
     return lines
 end
-local four = tooltipLines({tags={"Tool.1-A"},connections={"Recipe"},useCaseCount=1})
-local three = tooltipLines({tags={"Tool.1-A"},connections={"Recipe"},useCaseCount=0})
-local two = tooltipLines(false)
-runtimeLocale = "KO"
-local fourKo = tooltipLines({tags={"Tool.1-A"},connections={"Recipe"},useCaseCount=1})
-runtimeLocale = "EN"
-local tooltipContract = #four == 3 and #three == 2 and #two == 0 and #four <= 4 and
-    four[1]:find("Tags",1,true) and four[2]:find("Connections",1,true) and
-    four[3]:find("Use cases",1,true) and
-    #fourKo == 3 and fourKo[1]:find("태그",1,true) and fourKo[2]:find("연결",1,true)
+local four = tooltipLines({"S1","S2","same","same"}, "EN")
+local three = tooltipLines({"S1","S2","S3"}, "EN")
+local two = tooltipLines(false, "EN")
+local fourKo = tooltipLines({"분류","설명","동일","동일"}, "KO")
+local tooltipContract = #four == 4 and #three == 3 and #two == 0 and
+    four[1] == "S1" and four[2] == "S2" and four[3] == four[4] and
+    #fourKo == 4 and fourKo[1] == "분류" and fourKo[2] == "설명"
 emit("tooltip.branch_matrix", "tooltip_lines", tooltipContract,
-    {success_with_usecase=3,success_without_usecase=2,load_failure=0,max_lines=4,
-        order={"Tags","Connections","Use cases"},locale_refresh_without_fact_invalidation=true},
+    {static_four=4,static_three=3,load_failure=0,max_lines=4,
+        order={"S1","S2","same","same"},locale_refresh_without_fact_invalidation=true},
     {four=four,three=three,two=two,four_ko=fourKo})
 
 -- Logger calls themselves and all debug-only iteration are gated when debug is

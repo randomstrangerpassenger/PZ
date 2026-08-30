@@ -53,4 +53,13 @@ function IrisTranslationResolver.getLangKey(fallback)
     return fallback or "EN"
 end
 
+function IrisTranslationResolver.getDetectedLangKey()
+    local translationLoader = getLoader()
+    if translationLoader and translationLoader.getDetectedLangKey then
+        local ok, key = ProtectedCall.call(translationLoader.getDetectedLangKey)
+        if ok and type(key) == "string" and key ~= "" then return key end
+    end
+    return nil
+end
+
 return IrisTranslationResolver

@@ -584,10 +584,11 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
 
 ## Next
 
-- Tooltip T3 runtime 연결이 다음 단계다. T1/S1 및 T2 static staging 완료 결과는 위 완료 기록과 current route를 입력으로 사용한다.
+- Tooltip T3 runtime 연결은 working implementation `partial`이다. T1/S1 및 T2 static staging 완료 결과는 위 완료 기록과 current route를 입력으로 사용한다.
   - T3는 완성된 배열을 FullType·locale로 조회한다. T1 final artifact나 owner authority를 다시 생성하거나 재해석하지 않는다.
   - owner authority에 없는 의미, 문장, 추천, fallback 또는 Menu consumer evidence를 Tooltip assembler가 발명하지 않는다.
-  - Static staging까지만 완료했다. 실제 PZ load, Alt 입력, wrapping·visual·성능, runtime/package adoption과 release readiness는 아직 검증하지 않았다.
+  - 2026-08-30 static reader/Alt cutover 및 standalone runtime 회귀를 구현·검증했다. L3 필수 1,314개 중 KO/EN 모두 12개 Menu source 누락과 EN independent mapping gap이 남는다. L4 selected 530개는 양 locale의 실제 structured consumer subset에 일치했다.
+  - 외부 output/install 경계를 요구하는 canonical gate·package·설치와 실제 PZ load·Alt·visual·failure injection은 미검증이다. 전체 T3 완료, runtime adoption, 성능 또는 release readiness를 선언하지 않는다. 상세 결과는 `docs/iris_tooltip_t3_static_data_alt_runtime_integration_plan.md` 실행 기록을 따른다.
 
 - 최신 current product 상태를 기준으로 **DVF freeze readiness를 재판정한다.**
   - 과거 Problem 4의 `동결 불가` verdict는 historical evidence로 유지하고 직접 수정하거나 승계하지 않는다.

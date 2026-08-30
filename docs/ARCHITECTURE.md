@@ -448,6 +448,17 @@ D1/D2 개별 workstream 완료 당시에는 current ecosystem adoption이 `pendi
 
 ### Runtime presentation 구조
 
+2026-08-30 Tooltip T3 working implementation (`partial`): `IrisAltTooltip`은
+`IrisTooltipT2Lookup`을 통해 byte-preserved T2 product 배열만 소비한다. Payload는
+최초 valid exact FullType/ko·en 조회에서 require하며, Alt OFF는 lookup 이전에 반환한다.
+Strict locale accessor는 기존 translation loader lifecycle을 공유하고 기존 Menu fallback API는
+보존한다. Record 전체 검증, engine measurement 기반 physical wrapping, Iris-local 보호와
+추가 height 복구를 적용했다. Legacy Summary는 compatibility용으로 보존하되 Alt에서 호출하지 않는다.
+Standalone runtime 검증과 실제 PZ 검증은 별개다. L3 selected 1,314 중 12개는 KO/EN Menu source
+관찰에서 누락됐고 EN independent identity mapping도 미해결이다. Package/install/game와 final
+canonical gate는 미검증이므로 current T2 `runtime_adopted: false`를 변경하지 않는다.
+정확한 실행 결과와 제한은 `docs/iris_tooltip_t3_static_data_alt_runtime_integration_plan.md`의 실행 기록에 둔다.
+
 Iris runtime의 classification / presentation 흐름은 다음 단방향 구조를 따른다.
 
 ```text id="iysd2n"

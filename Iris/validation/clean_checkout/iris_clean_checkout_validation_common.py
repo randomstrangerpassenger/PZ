@@ -234,7 +234,7 @@ def _distribution_rows() -> list[dict[str, object]]:
 
 CURRENT_ENVIRONMENT_LOCATOR = (
     "Iris/validation/clean_checkout/authority/"
-    "responsibility_refactor_environment_current.json"
+    "current_environment.json"
 )
 
 

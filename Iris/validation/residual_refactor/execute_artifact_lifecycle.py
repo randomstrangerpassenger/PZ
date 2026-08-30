@@ -812,7 +812,7 @@ def validate_pre_delete_receipt(repo: Path, receipt_path: Path) -> dict[str, Any
             "sha256": receipt.get("taxonomy", {}).get("sha256"),
         },
         "required_validations": {
-            "path": "Iris/_docs/round3/current_route_required_validations.json",
+            "path": "Iris/validation/current_route/required_validations.json",
             "sha256": receipt.get("required_validations", {}).get("sha256"),
         },
         "active_core_closure": {
@@ -893,7 +893,7 @@ def validate_pre_delete_receipt(repo: Path, receipt_path: Path) -> dict[str, Any
         )
     for key, relative_input in (
         ("taxonomy", "Iris/_docs/round3/round3_test_taxonomy.json"),
-        ("required_validations", "Iris/_docs/round3/current_route_required_validations.json"),
+        ("required_validations", "Iris/validation/current_route/required_validations.json"),
         ("active_core_closure", "Iris/_docs/round3/round3_active_core_closure.json"),
     ):
         binding = receipt.get(key, {})
@@ -1022,7 +1022,7 @@ def validate_pre_delete_receipt(repo: Path, receipt_path: Path) -> dict[str, Any
         if command_id.endswith("pre-delete-current-route"):
             if saw_current:
                 raise LifecycleExecutionError("pre-delete receipt contains duplicate current-route commands")
-            runner = validation_root / "Iris/_docs/round3/round3_run_contract_tests.py"
+            runner = validation_root / "Iris/validation/current_route/run_contract_tests.py"
             if (
                 not same_path(command.get("executable"), Path(sys.executable))
                 or len(argv) != 7
@@ -1043,7 +1043,7 @@ def validate_pre_delete_receipt(repo: Path, receipt_path: Path) -> dict[str, Any
                 row for row in invoked if isinstance(row, dict) and same_path(row.get("actual_path"), runner)
             ] if isinstance(invoked, list) else []
             runner_blob = subprocess.run(
-                ["git", "-C", str(validation_root), "rev-parse", f"{subject['commit']}:Iris/_docs/round3/round3_run_contract_tests.py"],
+                ["git", "-C", str(validation_root), "rev-parse", f"{subject['commit']}:Iris/validation/current_route/run_contract_tests.py"],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 text=True,
@@ -1091,7 +1091,7 @@ def validate_pre_delete_receipt(repo: Path, receipt_path: Path) -> dict[str, Any
                     "--taxonomy",
                     "Iris/_docs/round3/round3_test_taxonomy.json",
                     "--required-validations",
-                    "Iris/_docs/round3/current_route_required_validations.json",
+                    "Iris/validation/current_route/required_validations.json",
                     "--receipt",
                 ]
                 or not same_path(argv[10], audit_receipt_path)

@@ -345,13 +345,13 @@ emit("wiki.current_unit_profiles", "wiki_units",
 
 -- Alt uses static rows; the legacy Summary copy-on-read checks above remain.
 local function tooltipLines(rows, language)
-    resetLoaded({"Iris/UI/Tooltip/IrisAltTooltip", "Iris/Data/IrisTooltipT2Lookup",
-        "Iris/Data/IrisTooltipT2Data", "Iris/Util/ItemKey"})
+    resetLoaded({"Iris/UI/Tooltip/IrisAltTooltip", "Iris/Data/IrisTooltipStaticDataLookup",
+        "Iris/Data/IrisTooltipStaticData", "Iris/Util/ItemKey"})
     package.preload["Iris/Util/ItemKey"] = function() return {getFullTypeFromItem=function() return "Base.Sample" end} end
     local resolver = require("Iris/Util/IrisTranslationResolver")
     local previous = resolver.getDetectedLangKey
     resolver.getDetectedLangKey = function() return language end
-    package.preload["Iris/Data/IrisTooltipT2Data"] = function()
+    package.preload["Iris/Data/IrisTooltipStaticData"] = function()
         if rows == false then error("payload unavailable") end
         return {["Base.Sample"]={en=rows,ko=rows}}
     end

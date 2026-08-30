@@ -569,6 +569,7 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - 환경·경로 실패와 초기 T2 physical hash 처리 교정은 실행 계획의 기록에 남겼다. 성공한 T1 gate를 T2 수정 때문에 반복하지 않았고, 새 validation authority나 추가 봉인 체계는 만들지 않았다.
 
 - Tooltip T3 static-data Alt runtime 통합을 완료했다. (2026-08-30, `complete`, `runtime_adopted=true`)
+  - 완료 후 사용자 요청으로 Alt panel을 vanilla 바로 옆에 배치하도록 source-only 수정했다. 오른쪽/왼쪽 우선, 240~360px 읽기 폭, vanilla 크기 불변이며 기존 focused harness와 Lua syntax 153 files가 exit 0이다. 이번 layout은 PZ 시각 미확인이고 사용자가 패키징을 제외했으므로 아래 `p2` ZIP에는 포함되지 않는다. T1/T2 입력과 이전 완료·검증 이력은 보존한다.
   - T2의 완성된 0~4줄 KO/EN 배열을 exact FullType·locale로 조회하며 문자열·순서·중복 row를 보존한다. Alt OFF lookup과 legacy semantic fallback/display cache를 제거했고, 기존 Summary·Menu API는 보존했다. T1/T2나 owner 의미를 runtime에서 재생성하지 않는다.
   - 실제 Alt 오류 보고 뒤 Kahlua에 없는 `next` 의존을 `pairs`로 수정하고 기존 harness에 해당 환경 조건을 반영했다. Final code `25318630`의 canonical A/B는 각각 211 tests·109 subtests 및 기존 standalone 4개가 통과했고 comparator도 PASS다. 수정본 설치 syntax 129 files와 lookup smoke 2,280 keys도 통과했다. 이전 subject의 PASS를 수정본에 승계하지 않았다.
   - 정상 수정 ZIP은 `C:/Users/MW/PZ-T3/p2/Iris.zip`, 격리 설치본은 `C:/Users/MW/PZ-T3/game/mods/Iris`다. 사용자는 안내 버전 설치·KO/EN Alt 열기·Alt 해제·빠른 전이·관찰한 장문/정보 순서를 확인했고, 이 범위로 인게임 검증을 종료했다. 실제 오류 상황 검증은 사용자 지시로 제외했으며 미실행을 PASS로 기록하지 않는다. 전수 QA·성능·release/Workshop readiness는 비주장이고 잔여 작업·재검사 요구는 없다.
@@ -1024,3 +1025,9 @@ Pulse는 처음부터 `새 Java 로더`로 정면 경쟁하는 브랜드가 아�
 - [x] Reviewer PASS를 반영한 documentary completion carrier의 local `main` 통합
 
 Closeout complete: exact implementation `801f15f6`의 terminal Run A/B/comparator와 W10은 PASS했고, independent Reviewer는 `c2b9514f..9882ce6d`에서 actionable finding 0을 확인했다. Reviewer가 확인했던 0013·0014 append-only 위반은 두 predecessor의 최초 committed blobs 복구와 새 0015 correction successor로 보정됐다. Review 결과를 반영한 completion carrier `28f95b63`은 local `main`에 통합했으며 remote push는 수행하지 않았다. Current clean-checkout route와 package는 external archive 없이 동작하며, historical reproduction은 verified content-addressed archive의 explicit restore route로만 수행한다. Tracked historical payload 3,804 files / 607,432,467 bytes와 prior custody-only archived payload 1,266 files / 202,231,050 bytes는 서로 겹치지 않는 domain으로 제거됐다. Terminal local-custody correction은 별도 additive archive에 295 files / 4,273,310 bytes를 보존한 뒤 regenerable logs 2개와 함께 literal 제거했고 Iris ignored/untracked/filesystem-only/reparse를 0으로 닫았다. Current capsule은 133,094 bytes, successor overhead는 1,653,400 / 3,037,162 bytes다. 범위 밖의 다른 모듈 untracked build output은 보존한다. Runtime/token 성능 개선률과 release readiness는 이 작업의 claim이 아니다.
+
+### Iris current responsibility naming
+
+- 2026-08-30 naming successor source를 준비했다: `TooltipStaticData` runtime/producer/harness와 `Iris/validation/current_route/` navigation. 기존 T3 side-panel 변경과 historical authority는 보존한다.
+- 사용자 최종 범위인 재명명·재배치·참조 갱신은 `complete`다. N7 `current_environment.json`과 기존 writer가 생성한 record까지 현재 폴더에 반영했다. 사용자가 추가 검증을 종료했으므로 production 재생성·full gate·package·PZ 관찰은 이번 완료의 잔여 조건이 아니다.
+- 이전 T1/T2/T3 PASS를 상속하거나 이번 미실행 검사를 PASS로 주장하지 않는다. 추가 검증·봉인 작업을 요구하지 않는다. 상세 결과: `docs/iris_current_responsibility_naming_alignment_closeout.md`.

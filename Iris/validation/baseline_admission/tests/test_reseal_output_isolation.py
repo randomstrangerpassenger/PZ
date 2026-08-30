@@ -10,7 +10,7 @@ from Iris.validation.baseline_admission.iris_baseline_admission_common import Ad
 
 
 REPO = Path(__file__).resolve().parents[4]
-MANIFEST = REPO / "Iris/_docs/round3/current_route_required_validations.json"
+MANIFEST = REPO / "Iris/validation/current_route/required_validations.json"
 RESEAL_TOOLS = (
     REPO / "Iris/build/description/v2/tools/build/dvf_3_3_current_route_required_validation_evidence_freshness_reseal.py",
     REPO / "Iris/build/description/v2/tools/build/dvf_3_3_current_source_authority_drift_verification_adoption_reseal.py",

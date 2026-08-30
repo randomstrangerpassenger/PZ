@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Run Round 3 contract test classes through unittest."""
+"""Run current contract test classes through unittest."""
 
 from __future__ import annotations
 
@@ -19,12 +19,14 @@ from pathlib import Path
 
 
 REPO = Path(__file__).resolve().parents[3]
-ROUND_DIR = REPO / "Iris" / "_docs" / "round3"
+# These companions contain historical identities as well as live projections.
+# Moving this runner does not reclassify or rewrite their recorded subjects.
+HISTORICAL_CONTRACT_DIR = REPO / "Iris" / "_docs" / "round3"
 TEST_ROOT = REPO / "Iris" / "build" / "description" / "v2" / "tests"
 V2_ROOT = REPO / "Iris" / "build" / "description" / "v2"
-DEFAULT_TAXONOMY = ROUND_DIR / "round3_test_taxonomy.json"
-DEFAULT_CLOSURE = ROUND_DIR / "round3_active_core_closure.json"
-DEFAULT_REQUIRED_VALIDATIONS = ROUND_DIR / "current_route_required_validations.json"
+DEFAULT_TAXONOMY = HISTORICAL_CONTRACT_DIR / "round3_test_taxonomy.json"
+DEFAULT_CLOSURE = HISTORICAL_CONTRACT_DIR / "round3_active_core_closure.json"
+DEFAULT_REQUIRED_VALIDATIONS = Path(__file__).resolve().parent / "required_validations.json"
 REQUIRED_VALIDATIONS_PROJECTION_ENV = (
     "IRIS_ROUND3_REQUIRED_VALIDATIONS_PROJECTION"
 )

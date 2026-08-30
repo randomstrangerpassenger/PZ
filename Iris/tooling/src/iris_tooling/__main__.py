@@ -86,7 +86,7 @@ def _domain_main(target: str, remainder: Sequence[str]) -> int:
     elif target == "tooltip-t1":
         from iris_tooling.domains.tooltip_t1.cli import main as command_main
     elif target == "tooltip-t2":
-        from iris_tooling.domains.tooltip_t2.cli import main as command_main
+        from iris_tooling.domains.tooltip_static_data_projection.cli import main as command_main
     else:
         from iris_tooling.domains.public_text.cli import main as command_main
     return command_main(remainder)

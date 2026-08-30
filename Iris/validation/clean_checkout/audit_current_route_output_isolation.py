@@ -788,7 +788,7 @@ def build_inventory(repo: Path, taxonomy_path: Path, required_path: Path) -> dic
         )
     if missing:
         raise AuditError(f"required validation IDs lack taxonomy source rows: {missing}")
-    route_runner_relative = "Iris/_docs/round3/round3_run_contract_tests.py"
+    route_runner_relative = "Iris/validation/current_route/run_contract_tests.py"
     route_runner = repo / route_runner_relative
     if not route_runner.is_file():
         raise AuditError("current-route runner is missing")
@@ -996,7 +996,7 @@ def validate_dynamic_route_receipt(
     argv = receipt.get("decoded_argv")
     if not isinstance(argv, list) or argv != spec.get("argv"):
         raise AuditError("dynamic route argv/spec round trip mismatch")
-    runner = repo / "Iris/_docs/round3/round3_run_contract_tests.py"
+    runner = repo / "Iris/validation/current_route/run_contract_tests.py"
     if (
         not same_path(receipt.get("executable"), Path(sys.executable))
         or len(argv) != 7
@@ -1053,7 +1053,7 @@ def command_inventory(args: argparse.Namespace) -> None:
     out = require_external(repo, args.out)
     taxonomy = (repo / args.taxonomy).resolve()
     required = (repo / args.required_validations).resolve()
-    if taxonomy != (repo / "Iris/_docs/round3/round3_test_taxonomy.json").resolve() or required != (repo / "Iris/_docs/round3/current_route_required_validations.json").resolve():
+    if taxonomy != (repo / "Iris/_docs/round3/round3_test_taxonomy.json").resolve() or required != (repo / "Iris/validation/current_route/required_validations.json").resolve():
         raise AuditError("inventory requires the exact current taxonomy and required-validation paths")
     payload = build_inventory(repo, taxonomy, required)
     atomic_write_new(out, payload)
@@ -1070,7 +1070,7 @@ def command_seal(args: argparse.Namespace) -> None:
     if inventory.get("repository_root") != repo.as_posix():
         raise AuditError("static inventory repository mismatch")
     taxonomy = (repo / "Iris/_docs/round3/round3_test_taxonomy.json").resolve()
-    required = (repo / "Iris/_docs/round3/current_route_required_validations.json").resolve()
+    required = (repo / "Iris/validation/current_route/required_validations.json").resolve()
     regenerated = build_inventory(repo, taxonomy, required)
     if static_inventory_path.read_bytes() != canonical_json_bytes(inventory) or regenerated != inventory:
         raise AuditError("static inventory is not the exact regenerated current-route closure")
@@ -1154,7 +1154,7 @@ def command_verify(args: argparse.Namespace) -> None:
         raise AuditError("output-isolation audit/current validation checkout is not the exact clean subject")
     taxonomy = (repo / args.taxonomy).resolve()
     required = (repo / args.required_validations).resolve()
-    if taxonomy != (repo / "Iris/_docs/round3/round3_test_taxonomy.json").resolve() or required != (repo / "Iris/_docs/round3/current_route_required_validations.json").resolve():
+    if taxonomy != (repo / "Iris/_docs/round3/round3_test_taxonomy.json").resolve() or required != (repo / "Iris/validation/current_route/required_validations.json").resolve():
         raise AuditError("verify requires the exact current taxonomy and required-validation paths")
     current = build_inventory(repo, taxonomy, required)
     static_binding = receipt.get("static_inventory", {})

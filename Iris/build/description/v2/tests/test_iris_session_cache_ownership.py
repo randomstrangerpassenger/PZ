@@ -48,7 +48,7 @@ class IrisSessionCacheOwnershipTest(unittest.TestCase):
         alt = (REPO / "Iris/media/lua/client/Iris/UI/Tooltip/IrisAltTooltip.lua").read_text(encoding="utf-8")
         self.assertNotIn("local displayLineCache =", alt)
         self.assertNotIn("IrisTooltipSummaryLocal", alt)
-        self.assertIn('require("Iris/Data/IrisTooltipT2Lookup")', alt)
+        self.assertIn('require("Iris/Data/IrisTooltipStaticDataLookup")', alt)
 
     def test_no_production_session_reset_wiring_was_added(self) -> None:
         runtime = REPO / "Iris/media/lua/client/Iris"

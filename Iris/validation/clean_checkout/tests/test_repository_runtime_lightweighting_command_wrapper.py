@@ -112,7 +112,7 @@ def fixture_checkout(tmp_path: Path) -> tuple[Path, Path, Path, Path]:
         },
     )
     write_json(
-        authority / "responsibility_refactor_environment_current.json",
+        authority / "current_environment.json",
         {
             "schema_version": "iris-responsibility-refactor-environment-locator-v1",
             "record_path": (

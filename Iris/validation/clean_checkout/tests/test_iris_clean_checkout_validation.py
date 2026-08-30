@@ -202,7 +202,7 @@ def _build_fake_launcher_repository(
         "Iris/_docs/refactor/repository_evidence_lightweighting/owner_policy_approval.json",
         "Iris/_docs/refactor/repository_evidence_lightweighting/required_validation_adoption_receipt.json",
         "Iris/_docs/round3/round3_test_taxonomy.json",
-        "Iris/_docs/round3/current_route_required_validations.json",
+        "Iris/validation/current_route/required_validations.json",
     )
     for relative in fixture_json_paths:
         fixture_path = repo / relative
@@ -532,7 +532,7 @@ def _build_fake_launcher_repository(
             }
         )
     )
-    (authority / "responsibility_refactor_environment_current.json").write_bytes(
+    (authority / "current_environment.json").write_bytes(
         canonical_json_bytes(
             {
                 "schema_version": "iris-responsibility-refactor-environment-locator-v1",

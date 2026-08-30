@@ -1,0 +1,40 @@
+{
+  "environment_contract": {
+    "environment_content_manifest_sha256": "8151ab66d288faab8210d97e601162c3ae6fecebbd8e04dc8c092a0e094611c3",
+    "external_environment_root": "C:/Users/MW/PZ-N/e",
+    "immutable_environment_receipt_path": "C:/Users/MW/PZ-N/er/environment_receipt.json",
+    "immutable_environment_receipt_sha256": "b7f7295185c14adac2a76d603e0edec2b87e292f73e363dcbd888d8ceea1f0c3",
+    "interpreter_sha256": "97c3228a59dcc05a771ab4eeec8126ce3f36ebb53616b479adc9f2c8050a9e84",
+    "package_set_sha256": "d5d11374279291f88218e8921457023839f554c3e8c9e868c053738c23722284"
+  },
+  "implementation": {
+    "commit": "d9e3a87f038ab33d4f384186f455e04f0d959f2a",
+    "tree": "54fd5f968228d73bedbfcd2b0e45f65a15afd049"
+  },
+  "project_binding": {
+    "installed_distribution": {
+      "dist_info": "iris_tooling-0.1.0.dist-info",
+      "installed_file_count": 108,
+      "installed_file_manifest_sha256": "9ee35b3b85cbbaa012d7b62a36a4ccd6fa352b73905ce22d8f8a1579e3e9de5f",
+      "name": "iris-tooling",
+      "normalized_name": "iris_tooling",
+      "record_path": "Lib/site-packages/iris_tooling-0.1.0.dist-info/RECORD",
+      "record_sha256": "a2ee2997a837b5cecd760736044e00f2544db40d122e30df2a574acc7728e311",
+      "version": "0.1.0"
+    },
+    "lock_blob": "db9754f8d88f690cbd6e7ca11cf539cd82b7e81a",
+    "lock_path": "Iris/tooling/uv.lock",
+    "lock_sha256": "25aef8f0e4a8e66f6c18e5de0b870e1549df7611abda1783114b9be996bde7fe",
+    "project_blob": "de204186eb6b7a0e23f02cc991e14e56b000f249",
+    "project_path": "Iris/tooling/pyproject.toml",
+    "project_sha256": "8022cb746236c1c86604d23a87ad2a16d88c81cc105bd5e9571e024e268743f6",
+    "source_commit": "d9e3a87f038ab33d4f384186f455e04f0d959f2a",
+    "source_package_git_tree": "46b2071bbf710777a1c6880d6fb1642004e12784",
+    "source_package_path": "Iris/tooling/src/iris_tooling",
+    "source_tree": "54fd5f968228d73bedbfcd2b0e45f65a15afd049",
+    "wheel_path": "C:/Users/MW/PZ-N/w/iris_tooling-0.1.0-py3-none-any.whl",
+    "wheel_sha256": "7b8b6fe5cfbdf145ca6dd2d46d52947cd28353421f7d19a1892968421203acd0"
+  },
+  "schema_version": "iris-responsibility-refactor-environment-authority-v1",
+  "wave_id": "naming"
+}

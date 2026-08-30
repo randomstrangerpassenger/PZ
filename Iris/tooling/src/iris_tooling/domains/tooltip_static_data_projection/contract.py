@@ -15,7 +15,8 @@ from iris_tooling.domains.tooltip_t1.models import TooltipContractError, validat
 
 AUTHORITY = Path("Iris/_docs/authority/tooltip_t2")
 CONTRACT = AUTHORITY / "tooltip_t2_static_projection_contract.json"
-MANIFEST_SCHEMA = AUTHORITY / "tooltip_t2_projection_manifest.schema.json"
+# Additive filename binding; the historical T2 schema and T1 Git paths stay intact.
+MANIFEST_SCHEMA = Path("Iris/_docs/authority/tooltip_static_data_projection/projection_manifest.schema.json")
 ROUTE = Path("Iris/_docs/authority/iris_current_route_index.json")
 HANDOFF_FILES = ("subject_binding.json", "t2_handoff_input.jsonl", "t2_handoff_manifest.json")
 CLOSEOUT = "axis_separated_final_closeout_record.json"

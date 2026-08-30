@@ -3,7 +3,7 @@ local IrisAltTooltip = {}
 local ItemKey = require("Iris/Util/ItemKey")
 local TranslationResolver = require("Iris/Util/IrisTranslationResolver")
 local ProtectedCall = require("Iris/Util/IrisProtectedCall")
-local Lookup = require("Iris/Data/IrisTooltipT2Lookup")
+local Lookup = require("Iris/Data/IrisTooltipStaticDataLookup")
 local instrumentationEnabled = false
 
 local function newMetrics()
@@ -26,13 +26,6 @@ function IrisAltTooltip.getDisplayLineCacheMetrics()
     local copy = {enabled=instrumentationEnabled}
     for key, value in pairs(metrics) do copy[key]=value end
     return copy
-end
-
-local function restoreHeight(tip)
-    if tip._irisBaseHeight and tip.height == tip._irisAppliedHeight then
-        tip:setHeight(tip._irisBaseHeight)
-    end
-    tip._irisBaseHeight, tip._irisAppliedHeight = nil, nil
 end
 
 -- Engine-measured wrapping on UTF-8 boundaries. Every byte stays in order,
@@ -88,24 +81,51 @@ local function addOverlay(tip)
     local core = getCore()
     local screenWidth, screenHeight = core:getScreenWidth(), core:getScreenHeight()
     local absoluteX, absoluteY = tip:getAbsoluteX(), tip:getAbsoluteY()
-    local width = math.min(tip.width, screenWidth)
+    -- A separate reading panel, independent of vanilla's often narrow width.
+    local gap, minWidth, maxWidth = 4, 240, 360
+    local contentWidth = 0
+    for i=1,#rows do
+        contentWidth = math.max(contentWidth, manager:MeasureStringX(font, rows[i]))
+    end
+    local width = math.min(math.min(math.max(contentWidth+20, minWidth), maxWidth), screenWidth)
+    local rightSpace = screenWidth - (absoluteX+tip.width+gap)
+    local leftSpace = absoluteX-gap
+    local x, side
+    if rightSpace >= width then
+        x, side = tip.width+gap, true
+    elseif leftSpace >= width then
+        x, side = -width-gap, true
+    elseif math.max(rightSpace, leftSpace) >= minWidth then
+        -- Keep the panel alongside vanilla when a readable narrower panel fits.
+        if rightSpace >= leftSpace then
+            width = math.min(width, rightSpace)
+            x = tip.width+gap
+        else
+            width = math.min(width, leftSpace)
+            x = -width-gap
+        end
+        side = true
+    else
+        -- Very narrow viewports: use vertical placement only as a last resort.
+        x = math.max(0, math.min(absoluteX, screenWidth-width)) - absoluteX
+    end
     if width <= 20 then return end
     local lines = {}
     for i=1,#rows do
         if not wrapRow(rows[i], width-20, manager, font, lines) then return end
     end
     local blockHeight = #lines * lineHeight + 8
-    local x = math.max(0, math.min(absoluteX, screenWidth-width)) - absoluteX
-    local y = tip.height
-    if absoluteY+y+blockHeight > screenHeight then
-        -- Vanilla was already drawn. Place Iris above without moving vanilla.
-        y = -blockHeight
-        if absoluteY+y < 0 then return end
-    end
-    if y >= 0 then
-        tip._irisBaseHeight = tip.height
-        tip._irisAppliedHeight = tip.height+blockHeight
-        tip:setHeight(tip._irisAppliedHeight)
+    if blockHeight > screenHeight then return end
+    local y
+    if side then
+        -- Top aligned unless the screen bottom requires moving only Iris up.
+        y = math.max(0, math.min(absoluteY, screenHeight-blockHeight)) - absoluteY
+    else
+        y = tip.height+gap
+        if absoluteY+y < 0 or absoluteY+y+blockHeight > screenHeight then
+            y = -blockHeight-gap
+            if absoluteY+y < 0 or absoluteY+y+blockHeight > screenHeight then return end
+        end
     end
     tip:drawRect(x,y,width,blockHeight,0.9,0.05,0.15,0.2)
     tip:drawRectBorder(x,y,width,blockHeight,0.8,0.4,0.6,0.7)
@@ -117,8 +137,7 @@ end
 function IrisAltTooltip.addIrisOverlay(tip)
     if tip._irisRendered then return end
     tip._irisRendered = true
-    local ok = ProtectedCall.call(addOverlay, tip)
-    if not ok then ProtectedCall.call(restoreHeight, tip) end
+    ProtectedCall.call(addOverlay, tip)
 end
 
 local hooked = false
@@ -126,7 +145,6 @@ function IrisAltTooltip.hookTooltip()
     if hooked or not ISToolTipInv or type(ISToolTipInv.render) ~= "function" then return end
     local originalRender = ISToolTipInv.render
     ISToolTipInv.render = function(self)
-        ProtectedCall.call(restoreHeight, self)
         self._irisRendered = nil
         -- Vanilla errors remain visible; only Iris is isolated.
         originalRender(self)

@@ -22,9 +22,9 @@ CURRENT_FACTS = (
 REQUIRED_MANIFEST = (
     REPO_ROOT
     / "Iris"
-    / "_docs"
-    / "round3"
-    / "current_route_required_validations.json"
+    / "validation"
+    / "current_route"
+    / "required_validations.json"
 )
 
 

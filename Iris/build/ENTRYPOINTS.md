@@ -39,7 +39,7 @@ uv run --project .\Iris\tooling python -B -m pytest .\Iris\tooling\tests\test_to
 
 These six parameterized test families and the repository-external audit are lifecycle evidence. They are not added to regular validation membership by this adoption.
 
-`tooltip-t2` consumes only the adopted strict T1 handoff with the approved S1 category/primary title successor. It preserves exact FullType, slot order, identities and explicit KO/EN strings in `IrisTooltipT2Data.lua`; every supported FullType has both arrays, including empty ones. It does not install runtime data or resolve owner semantics. The fixed lexical guard is defined in `Iris/_docs/authority/tooltip_t2/tooltip_t2_static_projection_contract.json`.
+`tooltip-t2` remains the supported CLI token; its implementation is `iris_tooling.domains.tooltip_static_data_projection`. It consumes only the adopted strict T1 handoff with the approved S1 category/primary title successor. It preserves exact FullType, slot order, identities and explicit KO/EN strings in `IrisTooltipStaticData.lua`; every supported FullType has both arrays, including empty ones. It does not install runtime data or resolve owner semantics. The fixed lexical guard is defined in `Iris/_docs/authority/tooltip_t2/tooltip_t2_static_projection_contract.json`.
 
 Each build writes Lua, `tooltip_t2_projection_manifest.json`, then `run_receipt.json`. Finalization checks distinct Run A/B roots, current input and exact implementation bindings, full coverage, zero violations and identical Lua/manifest bytes, then copies Run A and writes `tooltip_t2_closeout.json` last. Without completion metadata its state is `partial`, with pending checks listed in `unvalidated_but_in_scope`. A `complete` static-staging record additionally requires `focused_tests`, `installed_inspect`, `lua_syntax`, and `canonical_full_gate` metadata: each has the exact `command`, `exit_code: 0`, `subject: {commit, tree}`, and the run receipt's `artifacts` binding. These explicitly supplied execution results are not inferred from byte equality. They are retained in the closeout, not a separate proof package.
 
@@ -61,7 +61,7 @@ uv run python .\Iris\build\description\v2\tests\test_iris_browser_state_selectio
 
 The same wrapper accepts `smoke` (payload/lookup) and `replacement` (reader/Alt
 without Menu observations). Run replacement before an actual legacy deletion or
-adapter change only. `full` is the final focused run. It creates no receipts or
+adapter change only. The canonical full gate already executes this wrapper in `full` mode; reuse that result and run it separately only for uncovered scope. It creates no receipts or
 output files, has a 60-second subprocess timeout, and fails if Lua is missing.
 Its test-local assertions do not constitute a canonical validator or new authority.
 For the plan's once-per-input Menu comparison, append the explicitly admitted
@@ -114,15 +114,12 @@ The owning launcher is `Iris/validation/clean_checkout/invoke_receipt_bound_full
 The exact read-only current denominator is:
 
 ```powershell
-uv run python .\Iris\_docs\round3\round3_run_contract_tests.py --class current --list
+uv run python .\Iris\validation\current_route\run_contract_tests.py --class current --list
 ```
 
-Historical and diagnostic routes are opt-in only:
-
-```powershell
-uv run python .\Iris\_docs\round3\round3_run_contract_tests.py --class historical --list
-uv run python .\Iris\_docs\round3\round3_run_contract_tests.py --class diagnostic --list
-```
+Historical, diagnostic, and all repository-local executable selectors are retired.
+The current runner rejects them before loading tests or materializing evidence.
+Historical taxonomy and receipts remain records, not executable routes.
 
 ## Package output
 

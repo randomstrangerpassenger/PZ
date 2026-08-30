@@ -886,3 +886,14 @@ Final machine subject는 `25318630c2c2168ca1e334bc68df4177fbbc8689`, tree `6bfc2
 최종 상태는 이 조정된 범위에서 **`complete`**다. Ceiling은 final code subject `25318630c2c2168ca1e334bc68df4177fbbc8689`의 자동 gate A/B·comparator PASS, 기존 package/install·syntax/focused/smoke 및 D1 Menu relation 결과, 위 사용자 설치·동작 관찰이다. `Iris/_docs/authority/iris_current_route_index.json`의 기존 `tooltip_t2_static_staging.runtime_adopted`만 `true`로 전환해 current runtime 채택을 기록한다. T1/T2 sealed artifact나 historical failure/partial 이력은 수정하지 않는다.
 
 실제 오류 주입은 미실행·scope 제외이며 PASS가 아니다. Exact loaded-module의 에이전트 측 측정, 모든 item/내용/화면 전수 QA, 모든 모드/멀티플레이 호환성, 성능·release·Workshop readiness 또는 sealed closeout을 선언하지 않는다. 초기 오류 stack trace와 `next` 결함의 동일성도 새로 입증하지 않는다. 추가 테스트·gate·package·오류 검증본·proof artifact 없이 문서와 위 adoption metadata만 마감 갱신했으며 code/data는 그대로다. 기존 자동 gate는 그 실제 machine subject의 결과로 보존하고 후행 closeout metadata까지 재시험했다고 주장하지 않는다. **남은 T3 작업이나 사용자 재검사 요청은 없다.**
+
+### 완료 후 presentation 후속 — 옆 배치 (2026-08-30)
+
+사용자가 좁은 vanilla 폭 때문에 한 문장이 여러 줄로 접히는 화면을 제시하고 “바닐라 툴팁 바로 옆에 Iris 툴팁을 표시”하도록 요청했다. 이번 후속은 `IrisAltTooltip.lua`의 위치·너비와 기존 `tooltip_t3_runtime_harness.lua`의 layout 사례만 변경한다. T2 문장·identity·순서·locale·font 및 owner 산출물은 변경하지 않는다. Source handoff이며 사용자의 추가 지시대로 패키징·ZIP·설치본 복사를 하지 않는다.
+
+- 오른쪽 우선, 왼쪽 대안, 4px 간격/top alignment. 내용 기반 읽기 폭 240~360px, 가용 화면 폭 제한. 두 옆 모두 읽기 폭이 없으면 아래/위 배치로 한정 fallback하며, 표시 영역을 확보하지 못하면 기존처럼 Iris만 생략한다.
+- Vanilla width/height/position은 변경하지 않는다. 이전 overlay height 확장·다음 frame 복원은 제거하고 기존 Alt OFF fast path, 보호 경계, bytes-preserving wrapping은 유지한다.
+- 기존 단일 fixture에 KO/EN, 좁은 vanilla, right/left, 하단 보정, 가용 side 폭 축소, 수직 예외/공간 없음 및 Alt release를 함께 확인한다. 새 test file/function, validator, receipt를 만들지 않는다.
+- 구현을 마친 뒤 기존 focused command `uv run python .\Iris\build\description\v2\tests\test_iris_browser_state_selection_search_acceptance.py full`과 `powershell -ExecutionPolicy Bypass -File .\tools\check_lua_syntax.ps1`를 각각 1회 실행하고 `git diff --check`로 마감한다. 실패 시 해당 영향 범위만 수정·재실행한다. 기존 T1/T2/Menu relation 재발행 및 canonical A/B 재봉인은 수행하지 않으며 과거 exact-subject PASS를 이번 layout 변경에 승계하지 않는다. 실제 PZ에서 새 배치를 관찰한 것으로 주장하지 않는다.
+
+실행 결과: 위 focused command exit 0 (`IRIS_TOOLTIP_T3_PASS mode=full exact_keys=2280 legacy_calls=0`, source observation KO/EN 각 2,084 / L4 415; 별도 Menu relation 재검증은 아님), Lua syntax command exit 0 (153 files). 두 실행 모두 1회에 통과했고 새 배치의 PZ 시각 확인은 하지 않았다. UV cache는 저장소 내부 `.tmp/tooltip-side-uv-cache`로 제한하고 bytecode 생성을 억제했다. 새 ZIP·설치본·commit/push·T1/T2 재발행 없이 소스 변경을 전달한다. 기존 `p2/Iris.zip`은 옆 배치 이전 버전으로 보존한다.

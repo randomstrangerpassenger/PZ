@@ -2,10 +2,10 @@ import json
 
 import pytest
 
-from iris_tooling.domains.tooltip_t2 import cli
+from iris_tooling.domains.tooltip_static_data_projection import cli
 from iris_tooling.domains.tooltip_t1.contract import canonical_bytes
 from iris_tooling.domains.tooltip_t1.models import TooltipContractError
-from iris_tooling.domains.tooltip_t2.serialization import LUA_NAME, MANIFEST_NAME, RUN_RECEIPT, FINAL_CLOSEOUT
+from iris_tooling.domains.tooltip_static_data_projection.serialization import LUA_NAME, MANIFEST_NAME, RUN_RECEIPT, FINAL_CLOSEOUT
 from test_tooltip_t2_projection import fixture_handoff
 
 

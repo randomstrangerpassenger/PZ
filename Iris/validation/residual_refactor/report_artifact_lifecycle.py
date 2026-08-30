@@ -564,7 +564,7 @@ def classify(path: str, vcs_state: str, current_required_paths: set[str]) -> tup
 
 def current_required_source_paths(repo: Path) -> set[str]:
     taxonomy_path = repo / "Iris/_docs/round3/round3_test_taxonomy.json"
-    required_path = repo / "Iris/_docs/round3/current_route_required_validations.json"
+    required_path = repo / "Iris/validation/current_route/required_validations.json"
     if not taxonomy_path.is_file() or not required_path.is_file():
         return set()
     taxonomy = json.loads(taxonomy_path.read_text(encoding="utf-8"))
@@ -1032,7 +1032,7 @@ def summary_for(repo: Path, subject_kind: str, identity: dict[str, Any], rows: l
     phase0_inventory_path = repo / "Iris/_docs/refactor/residual_refactor/phase0_inventory.json"
     final_inventory_path = repo / "Iris/_docs/refactor/residual_refactor/final_inventory.json"
     inventory_producer_path = repo / "Iris/validation/residual_refactor/report_inventory.py"
-    required_validation_path = repo / "Iris/_docs/round3/current_route_required_validations.json"
+    required_validation_path = repo / "Iris/validation/current_route/required_validations.json"
 
     def prior_counts(path: Path) -> dict[str, Any]:
         if not path.is_file():

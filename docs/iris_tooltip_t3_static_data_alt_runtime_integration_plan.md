@@ -769,3 +769,27 @@ D1 전체 closeout은 canonical gate 완료를 기다린다. Exact machine subje
 최신 입력의 한 번의 final Menu 실행 `a2/menu-final.txt`는 KO/EN required 1,314개 모두 actual record·producer/input·fact를 연결해 exit 0이었다. EN evidence method는 current deterministic derivability이며 이전 `a1/menu-final-1` PASS를 승계하지 않았다. Initial 1,314 pair ledger를 보존하고 exact 12개 fact-ID successor를 연결했다. 따라서 이 T3의 **final S2 selected / Menu KO required / Menu EN required는 같은 initial FullType 1,314개와 명시된 successor IDs**를 사용하며 authority-backed non-required는 공집합이다. Resolved exact set은 initial 1,314 pair 전체, retained/unresolved는 공집합이다. Exact 목록·전이·source binding은 동일 report에 있다.
 
 같은 실행에서 기존 EN 2,072개·정상 selected 1,302개·비대상 source 2,093개·acquisition·absence 175개·비대상 S2·L2/L4를 보존했다. L4 selected subset은 locale별 530개 모두 일치했고 support 2,280 및 `367/825/895/137/56` 줄 수 분포도 같다. 이 인계는 기존 sealed T1 unverified를 소급 PASS로 바꾸거나 사용자 정정을 독립 게임 사실 검증으로 인증하지 않는다. D1은 complete지만 전체 T3는 partial, runtime_adopted=false다. 남은 package/install/actual loaded module/PZ/Alt/visual/failure-isolation은 이 계획의 필수 미검증 범위로 유지한다. 상세 명령·실제 결과·제약은 D1 최종 closeout에 모았다.
+
+### D1 완료 후 원 T3 재개
+
+조율 작업의 인계에 따라 D1 완료 carrier `6fafcf0ff7d6698d1d10dee8aa6074f0ca86c6da`와 위 final machine subjects를 구분해 채택했다. 현재 root HEAD는 여전히 `b9d7ae28`이며 D1 product/authority 및 T3 구현은 working-tree overlay다. 이 overlay, 사용자 문서와 기존 `b/`, `g/`, `i/` 상태를 reset/overwrite/cherry-pick하지 않는다.
+
+허용된 `a2/t1-final`, `a2/t2-final`, `a2/menu-final.txt`의 기존 완료 기록과 current route를 읽었다. 현재 T2 SHA는 `d9c88a437c60b49a631e214b577ab8e78a087435101e69d76c8b86e0c65aa10a`, final selected pair SHA는 `eeb88db8e8ddd96c008ef16f7508e9d31b2cdcaae23caaedf4f093b30de8522a`다. Required KO/EN 1,314개 missing/mismatch/unverified 0과 `current_deterministic_derivability`의 한계를 현재 입력으로 사용한다. 앞의 12개 silence/EN unverified 중간 기록은 해결된 predecessor 상태이며 현재 blocker가 아니다. 인계 확인을 위해 T1/T2/Menu 테스트나 producer를 재실행하지 않았다.
+
+Repository 내 package source는 일반 media를 binary copy하므로 새 T2 data/lookup을 포함하며 Layer3는 current pointer-selected generation만 투영한다. T3 runtime은 module 이름이 동일한 최신 product를 소비하고 기존 Summary fallback/0줄 안내를 추가할 필요가 없다. 다음 실행은 새 문제나 로드맵이 아니라 이 계획의 Change 8/9와 최종 Change 7이다.
+
+실행 경계 확인 결과, 기존 `run_pz_core_refactor_harness.ps1`의 game 경로는 `G:/Program Files (x86)/Steam/steamapps/common/ProjectZomboid/ProjectZomboid64.exe`이며 `-cachedir` 격리 절차가 있다. 그 외부 설치 폴더, 개인 `Zomboid/options.ini`, TEMP 또는 기존 gate/env root에는 새로 접근하지 않았다. 해당 refactor harness는 임시 cache 삭제와 별도 refactor evidence를 만드는 절차이므로 T3 package/actual UI 증거를 대신하려고 실행하지 않는다.
+
+Package/gate 출력은 짧고 독립적인 `C:/Users/MW/PZ-T3/` 아래로, 실제 validation install은 그 `game/mods/Iris`, game save/options/log는 `game/` 아래로 격리하는 구체안을 준비했다. 기존 D1 성공 gate를 재사용하는 것이 아니라 final T3 subject의 gate를 마지막에 실행하며, unchanged tooling에는 current environment authority가 지정한 `a2/e`와 `a2/er/environment_receipt.json`의 읽기/실행 허용이 필요하다. 이 외부 파일 허용과 game 실행 허용은 이번 인계의 read-only 네 경로 허용에 포함되지 않으므로 사용자에게 한 번에 요청한다. PZ UI 기능·visual 관찰은 실제 조작과 환경별 결과가 필요하며, 이를 standalone 또는 D1 결과로 대체하지 않는다. 아직 package/install/game/gate를 실행한 것으로 기록하지 않는다.
+
+### 패키지·설치 및 사용자 인게임 검증 인계
+
+사용자가 위 외부 작업 경계를 승인한 뒤, **인게임 검증은 사용자가 직접 수행하므로 에이전트 실행에서 제외**하도록 지시했다. 따라서 게임을 실행하지 않으며 실제 loaded-module/세션 readback, functional/visual/failure-isolation 관찰은 사용자 담당 미검증으로 남긴다. 이 지시는 해당 축의 PASS나 완료 조건 충족을 뜻하지 않는다. 개인 Zomboid 데이터·Workshop·게임 설치 파일은 읽거나 변경하지 않았다.
+
+- `powershell -ExecutionPolicy Bypass -File .\Iris\tools\package_iris.ps1 -OutputRoot C:/Users/MW/PZ-T3/p -Clean -Zip -PackageApplicability current_runtime_payload` → exit 0. 기존 package owner가 `p/Iris`, `p/Iris.zip` 및 기존 manifest/identity 출력을 생성했다.
+- 새 `C:/Users/MW/PZ-T3/game/mods/Iris`에 verified package를 복사했다. 전체 138개 파일이 package와 byte-equal이다. 이 격리 mods root에는 이 설치본만 만들었으며 일반 사용자 mods/Workshop의 경쟁 설치를 조사했다는 claim은 없다.
+- Product/package/ZIP entry/install의 T2 payload는 모두 979,561 bytes, SHA-256 `d9c88a437c60b49a631e214b577ab8e78a087435101e69d76c8b86e0c65aa10a`다. 비교는 일회성 메모리 내 보조 검사이며 새로운 validator/manifest/authority를 만들지 않았다.
+- `powershell -ExecutionPolicy Bypass -File .\tools\check_lua_syntax.ps1 -Roots ..\..\..\PZ-T3\game\mods\Iris\media\lua` → exit 0, 설치본 129 Lua files. 같은 bytes의 package syntax 근거로 재사용한다.
+- `lua .\Iris\test\lua\tooltip_t3_runtime_harness.lua C:/Users/MW/PZ-T3/game/mods smoke` → exit 0, exact keys 2,280. 기존 단일 harness가 실제 설치 경로에서 data/lookup을 읽었다. PZ가 이 module을 선택했다는 증거는 아니다.
+
+Current code/data/tooling/authority는 D1 완료 carrier `6fafcf0ff7d6698d1d10dee8aa6074f0ca86c6da`와 같고, 이후 변경은 이 실행 기록뿐이다. Final T3 machine subject는 그 carrier에서 `PZ-T3/s`의 격리 checkout에 이 문서만 동기화해 고정한다. 원 repository HEAD/index 및 기존 변경은 보존한다. 기존 canonical Run A/B/comparator에 이미 포함되는 Browser/T3 focused·session/lazy/viewmodel/관련 회귀는 별도 standalone으로 반복하지 않는다. Dedicated T1/T2 tests, Menu relation, EN reconstruction은 완료된 D1 인계를 재사용한다.

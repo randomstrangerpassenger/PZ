@@ -678,3 +678,14 @@ T2의 완료는 static machine staging 완료다. Required checks와 final bytes
 ## Execution location
 
 User prompt preauthorizes document owner gates. The clean subject is on `codex/iris-tooltip-t2` in `C:/Users/MW/Downloads/coding/PZ-t2/w`; caller-selected external environment/work/staging roots are under `C:/Users/MW/Downloads/coding/PZ-t2/`. Unrelated working-tree changes and predecessor artifacts remain untouched.
+
+### Change 0 execution
+
+- Successor machine subject: `60796744ffb889477161d243a1443c9de57d49b0` / tree `1182c6fbffc82f3d6aed3516fa0f1918ee60b248`.
+- T1 focused command (§12.2): exit `0`, `95 passed`.
+- Installed D2 materialization and strict T1 candidate: exit `0`; support `2,280`, applicable `1,406`, silence `874`, correction `0`, progression `OPEN`.
+- One candidate/predecessor comparison: exact S1 title `1,406`, classification identity and non-S1 delta `0`; no standalone validator or proof artifact added.
+- Canonical A/B: exit `0` each, `211 passed, 109 subtests passed` each; orchestration receipts `C:/Users/MW/Downloads/coding/PZ2/oa/receipt.json` and `C:/Users/MW/Downloads/coding/PZ2/ob/receipt.json`. Existing comparator exit `0`: `C:/Users/MW/Downloads/coding/PZ2/compare/compare_receipt.json`.
+- Existing T1 finalizer exit `0`; adopted final root `C:/Users/MW/Downloads/coding/PZ-t2/t1-final`, closeout SHA-256 `a5837d98201b100ca27e2de3940e33d9e4f07cade723fd8e71b25d5a8cbd9e4d`. Historical predecessor untouched.
+- Earlier attempts remain failed: PowerShell module lookup (exit 1), checkout path budget (exit 2), DVF temporary directory path length (exit 1, 211 passed/one failed subtest), and unavailable C:/ output permission (exit 125 before tests). No validator or OS permission policy was weakened. Short caller-selected work/results now use `C:/Users/MW/Downloads/coding/PZ2/`; child Windows PowerShell uses its system module directory.
+- Fresh wheel source `ee99c3f6` and existing environment writer produced `responsibility_refactor_environment_tooltip_t2_ee99c3f6.json`; environment receipt `C:/Users/MW/Downloads/coding/PZ-t2/receipt/environment_receipt.json` SHA-256 `dcd952d87931a4e1a9fb0057889949f954ca73237a55e328c1c002e669407e35`. Package tree is unchanged by this adoption, so no wheel rebuild is required.

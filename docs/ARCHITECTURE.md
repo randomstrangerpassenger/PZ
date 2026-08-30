@@ -448,13 +448,13 @@ D1/D2 개별 workstream 완료 당시에는 current ecosystem adoption이 `pendi
 
 ### Runtime presentation 구조
 
-2026-08-30 Tooltip T3 working implementation (`partial`): `IrisAltTooltip`은
-`IrisTooltipT2Lookup`을 통해 byte-preserved T2 product 배열만 소비한다. Payload는
-최초 valid exact FullType/ko·en 조회에서 require하며, Alt OFF는 lookup 이전에 반환한다.
-Strict locale accessor는 기존 translation loader lifecycle을 공유하고 기존 Menu fallback API는
-보존한다. Record 전체 검증, engine measurement 기반 physical wrapping, Iris-local 보호와
-추가 height 복구를 적용했다. Legacy Summary는 compatibility용으로 보존하되 Alt에서 호출하지 않는다.
-Standalone runtime 검증과 실제 PZ 검증은 별개다. 초기 L3 selected 1,314 중 12개의 KO/EN Menu source
+2026-08-30 Tooltip T3는 사용자 확정 인게임 범위와 기존 필수 자동 검증을 근거로 `complete`, `runtime_adopted=true`다. Current Alt 경로는 `IrisAltTooltip → IrisTooltipT2Lookup → IrisTooltipT2Data`이며 제품 runtime은 Lua만 사용한다.
+
+`IrisTooltipT2Lookup`은 최초 valid exact FullType/`ko`·`en` 조회에서 payload를 한 번 require한다. 실패도 한 번만 시도한다. Metatable·혼합/희소 key·비문자열·빈 문자열·개행·4줄 초과를 포함한 선택 배열 전체를 거부하며, supported-empty는 빈 배열로 유지한다. 문자열·순서·중복 row는 수정하지 않고 별도 result cache나 legacy fallback을 만들지 않는다. 전체 stored key 순회는 Kahlua에서 지원하는 `pairs`를 사용한다.
+
+`IrisAltTooltip`은 Alt OFF에서 item·locale·data lookup 전에 반환한다. Locale는 `IrisTranslationResolver.getDetectedLangKey()`를 통해 기존 loader lifecycle의 감지값만 사용하고 Menu의 fallback API는 보존한다. `ISToolTipInv.render`의 원본을 보호 경계 밖에서 한 번 호출한 뒤 Iris 작업에만 기존 `IrisProtectedCall.call`을 적용한다. Engine font measurement로 문자열 bytes를 보존하며 physical wrapping하고, vanilla 아래 공간이 없으면 위에 표시하며 두 위치 모두 공간이 부족하면 생략한다. Iris가 추가한 height는 다음 frame에 복구한다. Legacy Summary는 기존 compatibility 소비자를 위해 남기되 Alt에서는 호출하지 않는다.
+
+입력 인계 이력: 초기 L3 selected 1,314 중 12개의 KO/EN Menu source
 누락과 EN evidence gap은 D1의 C 구현 및 최종 actual relation에서 해소됐다. 기존 primary-use를 중심으로
 채택된 context 디테일을 편집한 Menu body를 사용하고 Tooltip S2 identity/surface는 유지한다.
 EN 연결은 current deterministic derivability이며 historical original-run provenance가 아니다.
@@ -464,9 +464,10 @@ EN 연결은 current deterministic derivability이며 historical original-run pr
 최종 actual KO/EN required 1,314개를 모두 연결했고 12개 fact-ID 전이를 initial ledger에 결속했다.
 기존 1,302개·비대상 source 2,093개·EN 2,072개와 L2/L4·줄 수 분포는 보존됐다. D1은 complete다.
 후속 T3에서 current-runtime package/ZIP과 격리 install의 byte identity 및 설치본 syntax/lookup을 확인했다.
-사용자는 수정본의 표시, Alt 해제 시 사라짐, 빠른 item 전이의 잔류 없음, 관찰한 장문의 잘림/겹침 없음과 읽기 순서를 확인했다.
-이는 환경·load 경로가 특정되지 않은 사용자 관찰이며 exact loaded-module 및 나머지 화면/locale coverage·실제 failure-isolation은 미검증이다.
-전체 T3 partial과 current T2 `runtime_adopted: false`, sealed T1의 과거 unverified 기록은 유지한다.
+사용자는 안내한 수정본 설치와 한국어·영어 양쪽 Alt 열기, Alt 해제 시 사라짐, 빠른 item 전이의 잔류 없음, 관찰한 장문의 잘림/겹침 없음과 읽기 순서를 확인했다.
+이는 사용자 설치·동작 확인이며 에이전트의 exact loaded-module 측정이나 모든 item/화면의 전수 검증은 아니다. 사용자는 이 관찰로 인게임 검증을 종료하고 실제 오류 상황 검증을 이번 범위에서 제외했다. 제외한 검증을 PASS로 기록하거나 추가 경로 증명을 요구하지 않는다.
+Kahlua `next` 부재를 `pairs` 사용으로 수정한 final subject `25318630`의 canonical A/B·comparator는 모두 PASS다. 기존 단일 harness는 `next=nil` 조건으로 이 호환성 결함의 재발을 확인하며 실제 PZ의 전수 재현을 주장하지 않는다. 구현·패키지·필수 자동 검증은 완료했다.
+사용자가 확정한 인게임 범위와 위 자동 검증을 ceiling으로 T3는 `complete`, current T2는 `runtime_adopted: true`다. Sealed T1의 과거 unverified 기록은 보존하며 전수 QA·실제 오류 격리 PASS·release/Workshop readiness를 주장하지 않는다.
 정확한 실행 결과와 제한은 `docs/iris_tooltip_t3_static_data_alt_runtime_integration_plan.md`의 실행 기록에 둔다.
 
 Iris runtime의 classification / presentation 흐름은 다음 단방향 구조를 따른다.
@@ -536,7 +537,7 @@ supported API / public require surface
 - Variant 대표 선택은 locale이나 table iteration order가 아니라 stable `fullType` identity ordering으로 결정한다.
 - Variant의 파생 group cache는 generation에 귀속되며 generation 변경과 함께 폐기한다.
 - Instance-scoped state는 `fullType` 단위의 전역 state cache로 승격하지 않는다.
-- Alt Tooltip은 static fact projection, translation resolution, line assembly를 분리하며 별도의 semantic fact model을 만들지 않는다.
+- Alt Tooltip은 완성된 T2 배열의 exact lookup, 지원 locale 선택, 화면 배치를 분리한다. Runtime translation이나 별도의 semantic fact model을 만들지 않는다.
 - Iris runtime integration은 Project Zomboid의 전역 bullet-reload 또는 context-menu render 함수를 교체하지 않는다.
 - Diagnostic counter와 clock instrumentation은 normal production state와 분리하며 explicit enable 상태에서만 갱신한다.
 - Fault / fallback 가시성은 diagnostic instrumentation의 활성 여부와 독립적으로 유지하며, diagnostic output은 semantic authority나 일반 production state를 소유하지 않는다.

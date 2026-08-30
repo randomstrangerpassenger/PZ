@@ -2264,3 +2264,12 @@
 - 이전 `dvf33-dfdef534…`/`a1/menu-final-1.txt`의 성공은 superseded content subject의 결과이며 새 정정본의 final evidence가 아니다. 새 정정 후 필수 검증만 수행하며 gate/membership·승인 경계를 약화하지 않는다.
 
 D1 generation 전환의 조건부 downstream binding: T1 strict admission에서 Layer 2 resolution registry의 pointer hash와 기존 D5 두 exact Lemongrass target의 generation-qualified locator/owner-row hash가 stale임이 드러났다. Layer 2의 모든 category/title/row 선택과 D5의 두 identity·support disposition·origin decision은 불변이다. 현재 입력 binding만 새 generation으로 재결속했다. D5의 `source_census_sha256`는 기존 코드가 정의하는 applicability material hash이며 새 source truth 조사 주장이 아니다. 두 target은 기존 generation row와 source/Layer2/Layer4 및 owner semantic/surface가 동일하고 owner authority-ref만 새 generation을 가리킨다. 최초 issuance/approval provenance는 원래 결정 이력으로 유지하며 current binding 갱신 권한은 이번 D1 owner 사전 승인이다. Historical 원본은 기존 commit에 보존되고 detector/predicate/validator는 수정하지 않는다. Existing decision contract의 P-1~P-12 선택도 그대로이며 aggregate input hash만 갱신한다.
+
+### Iris Tooltip T3 — static-only Alt runtime 및 사용자 범위 내 채택
+
+- 날짜: 2026-08-30. 적용 계획은 `docs/iris_tooltip_t3_static_data_alt_runtime_integration_plan.md`다.
+- Alt Tooltip은 T2의 완성된 KO/EN 배열을 exact FullType·explicit locale로 소비한다. Runtime에서 사실을 다시 선택하거나 문장을 생성·번역·축약하지 않고, 같은 문자열의 별도 row도 보존한다. 미지원 locale/key, 0줄, 유효하지 않은 배열과 payload 실패에는 Iris 부분을 표시하지 않으며 legacy semantic fallback을 연결하지 않는다.
+- Payload는 최초 유효 lookup에서 한 번만 load를 시도하고 실패도 반복 재시도하지 않는다. Alt OFF에서는 item/locale/data lookup을 하지 않으며 별도 display-result cache를 만들지 않는다. Legacy Summary와 Menu의 기존 locale fallback API는 기존 소비자를 위해 보존하되 Alt 경로에서 분리한다.
+- Vanilla render는 기존 호출을 유지하고 Iris 작업만 보호한다. 줄바꿈·화면 경계 처리는 presentation 책임으로 한정한다. Kahlua에 없는 전역 `next` 의존은 `pairs`로 교정했고, 기존 T3 harness 안에서 `next=nil` 조건을 반영했다. 이 fixture를 별도 validator/authority로 승격하지 않는다.
+
+사용자는 안내 버전 설치·KO/EN Alt 열기와 이미 보고한 정상 동작으로 인게임 검증을 종료하고 실제 오류 상황 검증을 이번 실행 범위에서 제외했다. 기존 final code `25318630`의 필수 자동 검증과 package/install 결과를 함께 근거로, 명시된 관찰 범위 안에서 T3를 `complete`로 닫고 current route의 `tooltip_t2_static_staging.runtime_adopted=true`를 기록한다. 추가 게임 표본·경로 증명·오류 검증본을 잔여 의무로 만들지 않는다. 미실행 오류 검증을 PASS로 바꾸거나 전수 QA·release/Workshop readiness·sealed closeout을 주장하지 않는다. 이는 이번 T3에 한정된 사용자 범위 결정이며, 상세 ceiling과 historical partial/실패 이력은 원 T3 계획에 보존한다. 추가 테스트나 T1/T2 재발행은 하지 않는다.

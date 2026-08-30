@@ -859,3 +859,30 @@ PZ는 실행하지 않았고 외부 일반 설치본은 변경하지 않았다. 
 이는 **사용자 관찰**이며 에이전트 직접 관찰이나 exact loaded module/payload identity 확인이 아니다. 이번 보고에는 언어·build·활성 모드·글꼴·scale·해상도·정확한 load 경로가 특정되지 않았다. KO/EN 양 언어와 계획 대표 집합 전체, 모든 화면 설정, 실제 failure injection 또는 초기 stack trace와 `next` 결함의 동일성까지 입증하지 않는다. 확인된 네 항목을 다시 검사하라고 요청하지 않는다. 초기 stack trace의 소급 동일성 증명만을 위해 추가 조사를 만들지 않는다.
 
 이 정상 동작 보고로 이번 오류 수정 구간을 닫고 code는 그대로 고정한다. 이미 성공한 수정본 package/syntax/focused/smoke는 반복하지 않으며 T1/T2/Menu 입력도 재발행하지 않는다. 에이전트 잔여 작업은 수정본 exact subject의 기존 canonical A/B·comparator와 결과 기록뿐이다. 사용자 담당 미확인 범위는 실제 module/설치 binding, 환경이 특정된 나머지 대표 coverage 및 실제 failure isolation으로 구분한다.
+
+### Kahlua 수정본 최종 자동 gate 완료
+
+Final machine subject는 `25318630c2c2168ca1e334bc68df4177fbbc8689`, tree `6bfc2f524b6c3137bbea1af02b78f5e87b575582`다. 기존 `PZ-T3/s` 격리 checkout에 reader/harness 수정과 그때까지의 문서 기록만 반영했다. 아래 결과는 수정 전 `09334b47` PASS를 승계한 것이 아니라 이 exact subject의 실제 실행 결과다.
+
+명령은 위 최종 자동 검증 절의 기존 `iris-tooling ... validate full` literal/환경을 그대로 사용하되 `--commit`을 위 subject로, 세 output 인자를 다음과 같이 지정했다. Source root, claim `iris-tooltip-t3`, environment receipt는 동일하다.
+
+| Run | work / result / orchestration (`C:/Users/MW/PZ-T3/` 아래) | 실제 결과 |
+| --- | --- | --- |
+| A | `a2` / `ra2` / `oa2/receipt.json` | exit 0, 211 passed / 109 subtests, pytest 185.71s, 기존 standalone 4 PASS |
+| B | `b2` / `rb2` / `ob2/receipt.json` | exit 0, 211 passed / 109 subtests, pytest 169.30s, 기존 standalone 4 PASS |
+
+기존 `invoke_deterministic_compare.ps1`에 같은 source/commit/claim/environment 및 `-RunAOrchestrationReceipt C:/Users/MW/PZ-T3/oa2/receipt.json -RunBOrchestrationReceipt C:/Users/MW/PZ-T3/ob2/receipt.json -AttemptRoot C:/Users/MW/PZ-T3/c2`를 전달한 실행도 **exit 0, PASS**다. Canonical result raw bytes equal이며 A/B SHA는 `6a9007722deb0b8d92c956bbcfbf7f7de9fd9fcd65475ec607804a77c8185be0`이다. 실제 결과는 `ra2/canonical_full_result.json`, `rb2/canonical_full_result.json`, `c2/compare_receipt.json`에 있다. Gate가 source clean/work root empty를 보고했다. 실행을 주기적으로 관찰했으며 실패·비정상 장기 실행·강제 중단은 없었다.
+
+이로써 **에이전트 담당 구현·패키지·설치·필수 자동 검증은 완료했고 잔여 실행은 없다.** 수정 ZIP은 기존 `p2/Iris.zip` 그대로다. 성공한 같은 대상 검사를 별도로 반복하거나 T1/T2/Menu를 재발행하지 않았으며, final gate 뒤에는 결과 기록과 현재 상태 문구만 갱신했다. 원 repository HEAD/index와 사용자 변경을 보존했고 push하지 않았다.
+
+후속 사용자 확인을 반영해 위 관찰 범위와 잔여 상태를 정정한다. 사용자는 “한/영 버전에서 Alt를 눌러서 툴팁을 열어봤어”라고 보고했고, 안내한 버전을 설치했다고 확인했다. **한국어·영어 양쪽의 실제 Alt 열기와 안내 버전 설치를 사용자 확인으로 수용한다.** 기존 Alt 해제/빠른 item 전이/관찰한 장문 표시/정보 순서 확인도 보존한다. 각 언어의 모든 item·내용 정확성·모든 화면 조건을 전수 확인한 것이 아니며, 에이전트의 exact loaded-module 측정으로 가장하지 않는다. 경쟁 설치나 다른 버전 로드의 구체적 징후가 없는 현재 상태에서 양 언어 Alt 열기나 loaded-module 경로 증명을 사용자에게 재요구하지 않는다.
+
+`p2/Iris.zip`은 의도적으로 손상하지 않은 정상본이다. 실제 오류 상황의 격리·복원 검증은 **별도 오류 검증본과 정확한 대상/행동 안내가 준비되지 않았고 실행되지도 않은 항목**이다. 이를 사용자가 해야 할 검사를 하지 않은 것으로 돌리지 않는다. 이번 전달은 관찰·상태 정정만 요청했으므로 오류 검증본 제작, 테스트/gate 반복, T1/T2 재발행을 시작하지 않았다. 전체 `partial`, `runtime_adopted=false`는 미실행인 실제 오류 상황 검증과 보고 범위를 넘는 대표 coverage를 구분한 기존 상태로 유지하며, 새로운 사용자 확인 요구나 구현 결함을 뜻하지 않는다. 초기 stack trace 부재도 별도 blocker/추가 증명 과제로 만들지 않는다.
+
+### 사용자 범위 확정에 따른 T3 완료
+
+사용자가 “그냥 인게임 검증은 이걸로 끝내자. 오류 상황 검증은 딱히 필요가 없는거 같아”라고 지시했다. 이 후속 지시로 **이번 T3의 인게임 acceptance는 이미 전달된 사용자 설치·KO/EN Alt 열기·Alt 해제·빠른 item 전이·관찰한 장문/순서 확인으로 종료**한다. 계획의 추가 인게임 표본·환경/loaded-module 증명은 잔여 의무로 유지하지 않으며, 실제 오류 상황의 주입·격리·복원 검증은 이번 scope에서 제외한다. 이는 사용자에 의한 이번 실행 범위 조정이며 다른 작업의 검증 원칙을 바꾸지 않는다.
+
+최종 상태는 이 조정된 범위에서 **`complete`**다. Ceiling은 final code subject `25318630c2c2168ca1e334bc68df4177fbbc8689`의 자동 gate A/B·comparator PASS, 기존 package/install·syntax/focused/smoke 및 D1 Menu relation 결과, 위 사용자 설치·동작 관찰이다. `Iris/_docs/authority/iris_current_route_index.json`의 기존 `tooltip_t2_static_staging.runtime_adopted`만 `true`로 전환해 current runtime 채택을 기록한다. T1/T2 sealed artifact나 historical failure/partial 이력은 수정하지 않는다.
+
+실제 오류 주입은 미실행·scope 제외이며 PASS가 아니다. Exact loaded-module의 에이전트 측 측정, 모든 item/내용/화면 전수 QA, 모든 모드/멀티플레이 호환성, 성능·release·Workshop readiness 또는 sealed closeout을 선언하지 않는다. 초기 오류 stack trace와 `next` 결함의 동일성도 새로 입증하지 않는다. 추가 테스트·gate·package·오류 검증본·proof artifact 없이 문서와 위 adoption metadata만 마감 갱신했으며 code/data는 그대로다. 기존 자동 gate는 그 실제 machine subject의 결과로 보존하고 후행 closeout metadata까지 재시험했다고 주장하지 않는다. **남은 T3 작업이나 사용자 재검사 요청은 없다.**

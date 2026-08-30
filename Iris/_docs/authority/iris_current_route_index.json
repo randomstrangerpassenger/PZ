@@ -59,7 +59,7 @@
   },
   "tooltip_t2_static_staging": {
     "state": "complete",
-    "runtime_adopted": false,
+    "runtime_adopted": true,
     "machine_subject": {
       "commit": "a3ec5293b1306f0ba74eda2af5dc8730cdd98ff6",
       "tree": "d54f24c36594e5b3ad7f7dca1f563ab22a1204a1"

@@ -568,6 +568,13 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - Final root는 `C:/Users/MW/Downloads/coding/PZ2/t2-final`이며 Lua·manifest·closeout 세 파일을 제공한다. `dd17d447` carrier로 선택 저장소에 반영했고 기존 사용자 변경, runtime/package 및 보호된 owner 데이터는 보존했다.
   - 환경·경로 실패와 초기 T2 physical hash 처리 교정은 실행 계획의 기록에 남겼다. 성공한 T1 gate를 T2 수정 때문에 반복하지 않았고, 새 validation authority나 추가 봉인 체계는 만들지 않았다.
 
+- Tooltip T3 static-data Alt runtime 통합을 완료했다. (2026-08-30, `complete`, `runtime_adopted=true`)
+  - T2의 완성된 0~4줄 KO/EN 배열을 exact FullType·locale로 조회하며 문자열·순서·중복 row를 보존한다. Alt OFF lookup과 legacy semantic fallback/display cache를 제거했고, 기존 Summary·Menu API는 보존했다. T1/T2나 owner 의미를 runtime에서 재생성하지 않는다.
+  - 실제 Alt 오류 보고 뒤 Kahlua에 없는 `next` 의존을 `pairs`로 수정하고 기존 harness에 해당 환경 조건을 반영했다. Final code `25318630`의 canonical A/B는 각각 211 tests·109 subtests 및 기존 standalone 4개가 통과했고 comparator도 PASS다. 수정본 설치 syntax 129 files와 lookup smoke 2,280 keys도 통과했다. 이전 subject의 PASS를 수정본에 승계하지 않았다.
+  - 정상 수정 ZIP은 `C:/Users/MW/PZ-T3/p2/Iris.zip`, 격리 설치본은 `C:/Users/MW/PZ-T3/game/mods/Iris`다. 사용자는 안내 버전 설치·KO/EN Alt 열기·Alt 해제·빠른 전이·관찰한 장문/정보 순서를 확인했고, 이 범위로 인게임 검증을 종료했다. 실제 오류 상황 검증은 사용자 지시로 제외했으며 미실행을 PASS로 기록하지 않는다. 전수 QA·성능·release/Workshop readiness는 비주장이고 잔여 작업·재검사 요구는 없다.
+  - 2026-08-30 D1 C 구현으로 기존 12개 Menu body를 복구하고 final KO/EN required 1,314개를 모두 연결했다. EN method는 current deterministic derivability이며 resolved 1,314 / retained 0 / unresolved 0이다. 기존 1,302개, Tooltip surface와 absence 175개는 보존됐다. L4 selected 530개는 양 locale의 실제 structured consumer subset에 일치했다.
+  - 이후 사용자 Build 41 수정안이 위 입력을 supersede했다. 최신 12개 source/core/S2 정정을 T1·T2 최종본과 product까지 전파했고, 두 단계 canonical A/B·comparator 및 최종 actual Menu relation이 모두 PASS해 **D1 complete**다. Initial 1,314 pair는 12개 fact-ID successor와 함께 resolved 1,314 / retained 0 / unresolved 0으로 닫혔으며 required FullType·비대상 S2·L2/L4·0~4줄 분포를 보존했다. 후속 T3에서 package/ZIP/격리 install의 byte identity 및 설치본 syntax/lookup은 확인했다. 최신 사용자 관찰과 인게임 범위 종료는 위 완료 상태를 따른다. 이전 partial/runtime_adopted=false는 predecessor 이력이며 성능·release readiness는 선언하지 않는다. 상세 current binding은 D1 계획과 `docs/iris_tooltip_t3_static_data_alt_runtime_integration_plan.md` 실행 기록을 따른다.
+
 ## Doing
 
 - 새 의미 기능을 확장하기보다 **current information pipeline과 사용자-facing surface의 안정성을 유지하는 것**을 우선한다.
@@ -583,12 +590,6 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - 이미 완료된 architecture / refactor를 readiness 작업을 이유로 다시 설계 문제로 열지 않는다.
 
 ## Next
-
-- Tooltip T3 runtime 연결은 working implementation `partial`이다. T1/S1 및 T2 static staging 완료 결과는 위 완료 기록과 current route를 입력으로 사용한다.
-  - T3는 완성된 배열을 FullType·locale로 조회한다. T1 final artifact나 owner authority를 다시 생성하거나 재해석하지 않는다.
-  - owner authority에 없는 의미, 문장, 추천, fallback 또는 Menu consumer evidence를 Tooltip assembler가 발명하지 않는다.
-  - 2026-08-30 D1 C 구현으로 기존 12개 Menu body를 복구하고 final KO/EN required 1,314개를 모두 연결했다. EN method는 current deterministic derivability이며 resolved 1,314 / retained 0 / unresolved 0이다. 기존 1,302개, Tooltip surface와 absence 175개는 보존됐다. L4 selected 530개는 양 locale의 실제 structured consumer subset에 일치했다.
-  - 이후 사용자 Build 41 수정안이 위 입력을 supersede했다. 최신 12개 source/core/S2 정정을 T1·T2 최종본과 product까지 전파했고, 두 단계 canonical A/B·comparator 및 최종 actual Menu relation이 모두 PASS해 **D1 complete**다. Initial 1,314 pair는 12개 fact-ID successor와 함께 resolved 1,314 / retained 0 / unresolved 0으로 닫혔으며 required FullType·비대상 S2·L2/L4·0~4줄 분포를 보존했다. 후속 T3에서 package/ZIP/격리 install의 byte identity 및 설치본 syntax/lookup은 확인했다. 실제 PZ load·Alt·visual·failure injection은 사용자 지시로 사용자 담당 미검증이다. 전체 T3 partial 및 runtime_adopted=false를 유지하고 성능·release readiness를 선언하지 않는다. 상세 current binding은 D1 계획과 `docs/iris_tooltip_t3_static_data_alt_runtime_integration_plan.md` 실행 기록을 따른다.
 
 - 최신 current product 상태를 기준으로 **DVF freeze readiness를 재판정한다.**
   - 과거 Problem 4의 `동결 불가` verdict는 historical evidence로 유지하고 직접 수정하거나 승계하지 않는다.

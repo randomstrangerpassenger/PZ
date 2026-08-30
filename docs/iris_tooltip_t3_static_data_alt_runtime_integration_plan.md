@@ -793,3 +793,69 @@ Package/gate 출력은 짧고 독립적인 `C:/Users/MW/PZ-T3/` 아래로, 실�
 - `lua .\Iris\test\lua\tooltip_t3_runtime_harness.lua C:/Users/MW/PZ-T3/game/mods smoke` → exit 0, exact keys 2,280. 기존 단일 harness가 실제 설치 경로에서 data/lookup을 읽었다. PZ가 이 module을 선택했다는 증거는 아니다.
 
 Current code/data/tooling/authority는 D1 완료 carrier `6fafcf0ff7d6698d1d10dee8aa6074f0ca86c6da`와 같고, 이후 변경은 이 실행 기록뿐이다. Final T3 machine subject는 그 carrier에서 `PZ-T3/s`의 격리 checkout에 이 문서만 동기화해 고정한다. 원 repository HEAD/index 및 기존 변경은 보존한다. 기존 canonical Run A/B/comparator에 이미 포함되는 Browser/T3 focused·session/lazy/viewmodel/관련 회귀는 별도 standalone으로 반복하지 않는다. Dedicated T1/T2 tests, Menu relation, EN reconstruction은 완료된 D1 인계를 재사용한다.
+
+### 최종 자동 검증 및 인계 결과 — 2026-08-30
+
+에이전트의 구현·패키지·설치·자동 검증 작업은 완료했다. **전체 T3는 사용자 인게임 검증을 기다리는 `partial`이며 `runtime_adopted=false`를 유지한다.** 자동 검증 PASS를 실제 PZ loaded-module, 화면 표시 또는 게임 오류 격리 PASS로 바꾸지 않는다.
+
+검증 machine subject는 `09334b476d58756d5b75e4693ca1498901d559ce`, tree `8bfad26470ddc9f41623f425b44ce48399aef7c8`, source checkout은 `C:/Users/MW/PZ-T3/s`다. Root repository HEAD는 기존 `b9d7ae28`로 유지했고 기존 overlay/index를 reset하거나 push하지 않았다. 이후 이 결과 기록과 ARCHITECTURE/ROADMAP의 package·사용자 인계 상태 문구만 갱신했으며 code/data/tooling/authority는 바꾸지 않았다. 이 후행 문서는 machine subject의 테스트 결과 기록이지 재시험한 새 subject claim이 아니다.
+
+실행 프로세스에 `PYTHONDONTWRITEBYTECODE=1`, `PSModulePath=C:\Windows\System32\WindowsPowerShell\v1.0\Modules`, `TEMP=TMP=C:/Users/MW/PZ-T3/t`를 적용했다. 아래 A/B는 같은 명령에 표의 output 인자를 사용했다.
+
+```powershell
+& 'C:/Users/MW/Downloads/coding/PZ2/t3d1/a2/e/Scripts/iris-tooling.exe' --repository-root C:/Users/MW/PZ-T3/s validate full --commit 09334b476d58756d5b75e4693ca1498901d559ce --claim-id iris-tooltip-t3 --environment-receipt C:/Users/MW/Downloads/coding/PZ2/t3d1/a2/er/environment_receipt.json --work-root C:/Users/MW/PZ-T3/a1 --result-root C:/Users/MW/PZ-T3/ra1 --orchestration-receipt C:/Users/MW/PZ-T3/oa1/receipt.json
+```
+
+| Run | work / result / orchestration (모두 `C:/Users/MW/PZ-T3/` 아래) | 실제 결과 |
+| --- | --- | --- |
+| A | `a1` / `ra1` / `oa1/receipt.json` | exit 0, 211 passed / 109 subtests, pytest 176.98s, 기존 standalone 4 PASS |
+| B | `b` / `rb` / `ob/receipt.json` | exit 0, 211 passed / 109 subtests, pytest 181.08s, 기존 standalone 4 PASS |
+
+```powershell
+powershell -ExecutionPolicy Bypass -File C:/Users/MW/PZ-T3/s/Iris/validation/clean_checkout/invoke_deterministic_compare.ps1 -RepositoryRoot C:/Users/MW/PZ-T3/s -Commit 09334b476d58756d5b75e4693ca1498901d559ce -ClaimId iris-tooltip-t3 -EnvironmentReceipt C:/Users/MW/Downloads/coding/PZ2/t3d1/a2/er/environment_receipt.json -RunAOrchestrationReceipt C:/Users/MW/PZ-T3/oa1/receipt.json -RunBOrchestrationReceipt C:/Users/MW/PZ-T3/ob/receipt.json -AttemptRoot C:/Users/MW/PZ-T3/c
+```
+
+Comparator도 exit 0, `status=PASS`, canonical result raw bytes equal이다. A/B result SHA는 `6af8538aa84c550bb597351bdd660ca3c4fdbe617148ed55a9fe3d7ed9947234`다. 기존 출력은 `ra1/canonical_full_result.json`, `rb/canonical_full_result.json`, `c/compare_receipt.json`에 있다. 기존 gate가 execution checkout을 정리했고 source checkout clean/외부 work root empty를 보고했다. 별도 seal·receipt·검증 프레임워크나 추가 confidence 검사는 만들지 않았다.
+
+기존 Browser test identity 안의 T3 full harness와 source guards, session-cache 3개, Layer3/UseCase lazy, viewmodel 2개가 해당 final gate의 실제 `passed` identity rows에 포함됐다. 이 결과를 최종 focused/관련 regression으로 재사용하며 같은 command를 standalone으로 다시 실행하지 않았다. 새 code 변화가 없으므로 앞서 완료한 residual/optimization 결과도 불필요하게 반복하지 않았다. 정상·fault mock 검증의 한계는 실제 게임 관찰과 구분한다.
+
+실패 이력: 최초 `a/ra/oa/receipt.json` 실행은 pytest 시작 전 exit 2, `environment contents differ from the immutable manifest`였다. 제가 bytecode 억제 없이 CLI를 시작해 같은 시각 `18:51:14`에 생성한 `.pyc` 5개만 추가돼 있었고 기존 manifest 파일들의 변경/누락은 0이었다. 그 5개만 정확한 경로와 생성 시각으로 식별해 제거하고 위 환경 설정으로 A를 재실행했다. 고정 receipt/manifest·기존 환경 파일·gate 규칙은 수정하지 않았다. 실패 출력은 `oa`에 보존한다. A/B 실행 중 프로세스 활동과 결과 상태를 주기적으로 확인했으며 비정상 장기 실행이나 강제 중단은 없었다.
+
+사용자 인게임 검증용 산출물:
+
+- ZIP: `C:/Users/MW/PZ-T3/p/Iris.zip`
+- 설치본: `C:/Users/MW/PZ-T3/game/mods/Iris`
+- 격리 cache: `C:/Users/MW/PZ-T3/game`; `mods/default.txt`에 Iris만 등록하고 Build 41 mod-reset sentinel을 만들었다. 게임은 실행하지 않았다.
+- 사용자가 격리 환경으로 실행할 명령: `& 'G:/Program Files (x86)/Steam/steamapps/common/ProjectZomboid/ProjectZomboid64.exe' '-cachedir=C:/Users/MW/PZ-T3/game' -nosteam -debug`. 기존 개인 cache/options/save/mods와 섞지 않는다.
+
+사용자 관찰은 §7/Change 9 범위에 따라 기록한다. 실제 build, 활성 모드, KO/EN, 글꼴·UI scale·해상도를 먼저 적고, 동일 세션의 loaded module locator/readback을 이 설치본과 연결해야 한다. 대표 0/1/2/3/4 logical rows는 각각 `Base.BaguetteDough`, `Base.223Clip`, `Base.223Box`, `Base.223BulletsMold`, `Base.223Bullets`다. 마지막 항목의 같은 Recipe 문자열 두 줄도 서로 다른 row로 유지돼야 한다. Recipe-only `Base.223Box`, right-click-only `Base.AmmoStraps`, 혼합 `Base.BallPeenHammer`, exact-case pair `Base.LemonGrass`/`Base.Lemongrass`도 포함한다.
+
+Alt 누름/해제·빠른 item 이동·Menu 복귀, 0줄·unsupported locale/unknown key의 완전 미표시, 장문 wrapping·화면 위/아래/좌우 경계·vanilla overlap/높이 잔류를 확인한다. 실제 missing/malformed 실패 주입은 이 disposable install에서만 수행하고, 종료 후 verified package로 복원·다음 세션 load를 확인한다. 사용자가 아직 수행하지 않은 이 항목들은 `unvalidated_but_in_scope`이며 2,280-item 전수 수동 QA, 모든 외부 모드/멀티플레이 또는 release/Workshop readiness는 claim하지 않는다.
+
+### 사용자 Alt 오류 보고 후 Kahlua 호환성 수정
+
+사용자가 Alt를 누를 때 오류가 난다고 보고했다. 허용된 `PZ-T3/game/console.txt`는 존재하지 않았으며, 일반 사용자 `Zomboid/console.txt`는 임의로 읽지 않고 해당 로그/오류 화면 또는 정확한 파일 읽기 허용을 요청했다. 따라서 보고된 실제 stack trace와 아래 결함의 동일성은 아직 미확인이다.
+
+승인된 PZ 설치의 `ISToolTipInv.lua`/`ISUIElement.lua` 및 Kahlua `BaseLib.class`, `TableLib.class`, `stdlib.lbc`를 읽어 호출 경계를 조사했다. PZ 기본 라이브러리는 `pairs` iterator를 제공하지만 전역 `next`를 제공하지 않는다. 새 reader의 `for key, value in next, rows`는 표준 Lua에서는 통과해도 이 환경에서는 nil iterator 호출이 된다. Reader를 `pairs(rows)`로 수정했다. Metatable 거부, 모든 stored key의 shape 검사, dense 0~4 배열, exact key/locale, row bytes/order와 legacy 단절은 유지한다. 기존 단일 T3 harness에 `next=nil` 조건을 추가해 표준 Lua가 이 차이를 감추지 않도록 했다. 새 검사기나 JVM product logic은 만들지 않았다.
+
+수정 후 마지막 검사 구간의 실행 결과:
+
+- 기존 package command의 output만 `C:/Users/MW/PZ-T3/p2`로 지정해 재생성: exit 0. 이전 `p`는 predecessor package로 보존하며 **수정 ZIP은 `p2/Iris.zip`**이다.
+- `uv run python .\Iris\build\description\v2\tests\test_iris_browser_state_selection_search_acceptance.py full`: exit 0, exact keys 2,280 / legacy calls 0. Menu source 관찰은 수행됐지만 D1 relation/reconstruction을 다시 실행하지 않았다.
+- `p2/Iris`를 기존 disposable `game/mods/Iris`에 복사한 뒤 지정 `check_lua_syntax.ps1 -Roots ..\..\..\PZ-T3\game\mods\Iris\media\lua`: exit 0, 129 files.
+- 기존 harness의 해당 설치본 `smoke`: exit 0, exact keys 2,280.
+
+PZ는 실행하지 않았고 외부 일반 설치본은 변경하지 않았다. 사용자는 수정 모드로 교체한 뒤 게임을 완전히 재시작해 Alt 오류를 재확인해야 한다. 이전 canonical subject `09334b47`의 A/B PASS는 수정 전 결과이며 이 reader 변경에 승계하지 않는다. 계획의 게임 수정 후 gate 순서에 따라 실제 보고 오류의 로그/재확인이 남은 현재 수정 구간에서는 전체 gate를 반복하지 않았고, 최종 수정이 확정된 후 필요한 same-subject gate가 남는다. 전체 T3는 계속 `partial`, `runtime_adopted=false`다.
+
+### 수정본의 사용자 관찰 및 최종 gate 재개
+
+조율 작업 `01a026db-1b3f-7001-9a68-08700f242f40`에서 수정본 안내 이후의 사용자 확인을 전달받았다. 사용자는 Tooltip이 표시되며 다음 네 항목이 정상이라고 직접 보고했다.
+
+1. Alt를 떼면 Iris 부분이 사라진다.
+2. 다른 아이템으로 빠르게 옮겨도 이전 아이템 설명이 남지 않는다.
+3. 긴 설명이 잘리거나 vanilla Tooltip과 겹치지 않는다.
+4. 분류 → 개별 설명 → 상호작용 순서가 자연스럽게 읽힌다.
+
+이는 **사용자 관찰**이며 에이전트 직접 관찰이나 exact loaded module/payload identity 확인이 아니다. 이번 보고에는 언어·build·활성 모드·글꼴·scale·해상도·정확한 load 경로가 특정되지 않았다. KO/EN 양 언어와 계획 대표 집합 전체, 모든 화면 설정, 실제 failure injection 또는 초기 stack trace와 `next` 결함의 동일성까지 입증하지 않는다. 확인된 네 항목을 다시 검사하라고 요청하지 않는다. 초기 stack trace의 소급 동일성 증명만을 위해 추가 조사를 만들지 않는다.
+
+이 정상 동작 보고로 이번 오류 수정 구간을 닫고 code는 그대로 고정한다. 이미 성공한 수정본 package/syntax/focused/smoke는 반복하지 않으며 T1/T2/Menu 입력도 재발행하지 않는다. 에이전트 잔여 작업은 수정본 exact subject의 기존 canonical A/B·comparator와 결과 기록뿐이다. 사용자 담당 미확인 범위는 실제 module/설치 binding, 환경이 특정된 나머지 대표 coverage 및 실제 failure isolation으로 구분한다.

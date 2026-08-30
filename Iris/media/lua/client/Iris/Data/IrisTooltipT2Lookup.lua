@@ -15,7 +15,9 @@ local unicodeSpaces = {
 local function validRows(rows)
     if type(rows) ~= "table" or getmetatable(rows) ~= nil then return false end
     local count, last = 0, 0
-    for key, value in next, rows do
+    -- PZ's Kahlua exposes pairs, but not the standard Lua global next.
+    -- Metatables are rejected above, so every stored key is still checked.
+    for key, value in pairs(rows) do
         if type(key) ~= "number" or key < 1 or key > 4 or key ~= math.floor(key) or
             type(value) ~= "string" or value:find("[\r\n]") then return false end
         local visible = value:gsub("%s", "")

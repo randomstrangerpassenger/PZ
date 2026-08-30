@@ -2,6 +2,9 @@
 local root = assert(arg[1]):gsub("\\", "/")
 local mode = arg[2] or "full"
 package.path = root .. "/Iris/media/lua/client/?.lua;" .. package.path
+-- Standard Lua provides next; PZ's Kahlua does not. Keep that engine boundary
+-- in this existing fixture so desktop Lua cannot hide an unsupported dependency.
+next = nil
 local DATA = "Iris/Data/IrisTooltipT2Data"
 local READER = "Iris/Data/IrisTooltipT2Lookup"
 local ALT = "Iris/UI/Tooltip/IrisAltTooltip"

@@ -463,8 +463,10 @@ EN 연결은 current deterministic derivability이며 historical original-run pr
 승인된 짧은 `C:/Users/MW/PZ-D1`에서 두 단계의 필수 canonical A/B·comparator가 모두 PASS했다.
 최종 actual KO/EN required 1,314개를 모두 연결했고 12개 fact-ID 전이를 initial ledger에 결속했다.
 기존 1,302개·비대상 source 2,093개·EN 2,072개와 L2/L4·줄 수 분포는 보존됐다. D1은 complete다.
-Package/install/game는 여전히 미검증이므로 전체 T3 partial과 current T2 `runtime_adopted: false`를
-유지한다. Sealed T1의 과거 unverified 기록도 보존한다.
+후속 T3에서 current-runtime package/ZIP과 격리 install의 byte identity 및 설치본 syntax/lookup을 확인했다.
+사용자는 수정본의 표시, Alt 해제 시 사라짐, 빠른 item 전이의 잔류 없음, 관찰한 장문의 잘림/겹침 없음과 읽기 순서를 확인했다.
+이는 환경·load 경로가 특정되지 않은 사용자 관찰이며 exact loaded-module 및 나머지 화면/locale coverage·실제 failure-isolation은 미검증이다.
+전체 T3 partial과 current T2 `runtime_adopted: false`, sealed T1의 과거 unverified 기록은 유지한다.
 정확한 실행 결과와 제한은 `docs/iris_tooltip_t3_static_data_alt_runtime_integration_plan.md`의 실행 기록에 둔다.
 
 Iris runtime의 classification / presentation 흐름은 다음 단방향 구조를 따른다.

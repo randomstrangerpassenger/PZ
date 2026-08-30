@@ -448,11 +448,19 @@ D1/D2 개별 workstream 완료 당시에는 current ecosystem adoption이 `pendi
 
 ### Runtime presentation 구조
 
-2026-08-30 Tooltip T3는 사용자 확정 인게임 범위와 기존 필수 자동 검증을 근거로 `complete`, `runtime_adopted=true`다. 이 T3 채택은 predecessor subject의 결과다. Naming 작업의 source 경로는 `IrisAltTooltip → IrisTooltipStaticDataLookup → IrisTooltipStaticData`이며 제품 runtime은 Lua만 사용한다. Naming successor의 외부 generation/package/full-gate 및 PZ 검증은 별도 미완료 상태다.
+2026-08-30 Tooltip T3의 `complete`, `runtime_adopted=true`는 사용자 확정 인게임 범위와 당시 필수 자동 검증에 근거한 predecessor 채택 기록이다. 이후 소스에는 옆 배치와 구체적 Recipe 표시 후속을 구현했다. 현재 source 경로는 `IrisAltTooltip → IrisTooltipStaticDataLookup`이며 lookup은 fixed `IrisTooltipStaticData`와 Recipe 표시용 `IrisTooltipRecipeVariants`를 읽는다. 제품 runtime은 Lua만 사용한다. 두 후속은 소스 전달 범위이며 이전 package·canonical gate 결과를 새 코드에 승계하지 않는다. Naming 자체의 완료 범위는 아래 current source locator 절을 따른다.
 
-`IrisTooltipStaticDataLookup`은 최초 valid exact FullType/`ko`·`en` 조회에서 payload를 한 번 require한다. 실패도 한 번만 시도한다. Metatable·혼합/희소 key·비문자열·빈 문자열·개행·4줄 초과를 포함한 선택 배열 전체를 거부하며, supported-empty는 빈 배열로 유지한다. 문자열·순서·중복 row는 수정하지 않고 별도 result cache나 legacy fallback을 만들지 않는다. 전체 stored key 순회는 Kahlua에서 지원하는 `pairs`를 사용한다.
+`IrisTooltipStaticDataLookup.get`은 최초 valid exact FullType/`ko`·`en` 조회에서 fixed payload를 한 번 require한다. 실패도 한 번만 시도한다. Metatable·혼합/희소 key·비문자열·빈 문자열·개행·4줄 초과를 포함한 선택 배열 전체를 거부하며, supported-empty는 빈 배열로 유지한다. `open`은 Recipe companion을 first-use load하고 해당 entry의 base KO/EN 배열이 current fixed payload와 정확히 일치하는지, 후보 identity와 완성 배열이 유효한지 확인한다. 유효한 entry가 있으면 bilingual view 하나를 고르고, Recipe entry가 없는 아이템은 fixed 배열을 쓴다. Companion 로드 실패·손상·base 불일치에는 legacy 경로로 돌아가지 않고 Iris만 숨긴다. 전체 stored key 순회는 Kahlua에서 지원하는 `pairs`를 사용한다.
 
 `IrisAltTooltip`은 Alt OFF에서 item·locale·data lookup 전에 반환한다. Locale는 `IrisTranslationResolver.getDetectedLangKey()`를 통해 기존 loader lifecycle의 감지값만 사용하고 Menu의 fallback API는 보존한다. `ISToolTipInv.render`의 원본을 보호 경계 밖에서 한 번 호출한 뒤 Iris 작업에만 기존 `IrisProtectedCall.call`을 적용한다. Engine font measurement로 문자열 bytes를 보존하며 physical wrapping한다. 사용자 후속 요청에 따라 Iris panel은 vanilla 오른쪽에 4px 간격으로 top-align하고, 공간이 부족하면 왼쪽에 둔다. 읽기 폭은 내용에 따라 240~360px이며 화면 공간에 제한된다. 양옆에 읽기 폭을 확보할 수 없을 때만 아래/위에 배치하고, 안전하게 표시할 공간이 없으면 생략한다. 화면 하단에서는 Iris panel만 위로 조정하며 vanilla의 width/height/position은 변경하지 않는다. Font는 기존 `UIFont.Small`을 유지한다. Legacy Summary는 기존 compatibility 소비자를 위해 남기되 Alt에서는 호출하지 않는다.
+
+Recipe 표시 variant는 기존 `iris_tooling.domains.tooltip_static_data_projection.recipe_variants`가 만든다. 입력은 current fixed static 배열과 Menu가 사용하는 `upstream_usecases_by_fulltype.json` / `upstream_recipe_nav_registry.json`, 기존 L4 surface다. 구조화된 기존 선택으로 L4 위치를 확인하고 base와 대조한 뒤, 승인된 Recipe evidence와 KO/EN 이름으로 `[레시피] 이름` / `[Recipe] Name`을 넣은 **완성 배열**을 생성한다. L2/L3 prefix와 선택된 Right-click 문장은 그대로 유지하며 Recipe 문장은 하나, 전체는 0~4 logical rows다. 동일 입력의 생성은 결정적이고 무작위성은 runtime의 표시 view 선택에만 있다. 별도 semantic pipeline이나 runtime QG 의존은 없다.
+
+현재 companion은 승인 Recipe 연결 FullType **349개 전체**, 아이템별 variant **781개**를 담는다. 사용자 승인 이름 결손 3개(`uc.recipe.empty_baking_tray`, `uc.recipe.hockeymasksmashbottle`, `uc.recipe.make_wooden_box_trap`)만 KO/EN 공통 제외한다. 후보가 없어진 entry에는 `without_recipe` 완성 배열을 둔다. 새 이름 결손·미승인 evidence·입력 불일치는 generator 오류이며, 임의 번역·generic Recipe fallback으로 숨기지 않는다.
+
+각 Tooltip instance의 `_irisOpening`은 item/FullType과 선택된 bilingual view 하나만 보관한다. 매 frame이나 locale 변경으로 재추첨하지 않는다. Alt 해제·item 전환·`setVisible(false)`·context menu 표시에서 해제하고 다음 opening에 새로 고른다. 단일 후보는 그대로 표시하며 연속 동일 선택도 허용한다. 이 상태는 전역 FullType result cache가 아니다. 레시피의 적격성·문구·행 조립은 이미 빌드에서 끝났고 runtime은 view 선택과 그대로 렌더링만 담당한다.
+
+Source 복사에는 `IrisAltTooltip.lua`, `IrisTooltipStaticDataLookup.lua`, 새 `IrisTooltipRecipeVariants.lua`가 함께 필요하다. Fixed payload는 변경하지 않았다. 기존 harness에서 옆 배치 및 전체 Recipe 후보의 KO/EN lookup·opening lifecycle을 확인했고 projection/syntax도 통과했지만, 새 Recipe 동작의 PZ 관찰이나 새 package를 만들지는 않았다. 상세 실행 결과와 생성 command의 readpoint는 T3 계획 및 `Iris/build/ENTRYPOINTS.md`다.
 
 입력 인계 이력: 초기 L3 selected 1,314 중 12개의 KO/EN Menu source
 누락과 EN evidence gap은 D1의 C 구현 및 최종 actual relation에서 해소됐다. 기존 primary-use를 중심으로
@@ -537,7 +545,7 @@ supported API / public require surface
 - Variant 대표 선택은 locale이나 table iteration order가 아니라 stable `fullType` identity ordering으로 결정한다.
 - Variant의 파생 group cache는 generation에 귀속되며 generation 변경과 함께 폐기한다.
 - Instance-scoped state는 `fullType` 단위의 전역 state cache로 승격하지 않는다.
-- Alt Tooltip은 완성된 T2 배열의 exact lookup, 지원 locale 선택, 화면 배치를 분리한다. Runtime translation이나 별도의 semantic fact model을 만들지 않는다.
+- Alt Tooltip은 완성된 static 배열의 exact lookup, opening당 Recipe view 선택, 지원 locale 선택, 화면 배치를 분리한다. 현재 opening 밖의 전역 결과 cache, runtime translation이나 별도의 semantic fact model을 만들지 않는다.
 - Iris runtime integration은 Project Zomboid의 전역 bullet-reload 또는 context-menu render 함수를 교체하지 않는다.
 - Diagnostic counter와 clock instrumentation은 normal production state와 분리하며 explicit enable 상태에서만 갱신한다.
 - Fault / fallback 가시성은 diagnostic instrumentation의 활성 여부와 독립적으로 유지하며, diagnostic output은 semantic authority나 일반 production state를 소유하지 않는다.
@@ -857,6 +865,8 @@ historical logical rows
 ### Iris responsibility-based current source locators
 
 Naming successor의 offline owner는 `iris_tooling.domains.tooltip_static_data_projection`이다. 기존 CLI `tooltip-t2`, manifest/receipt schema version과 T1 handoff admission은 유지한다. Runtime source는 `IrisTooltipStaticDataLookup`에서 `IrisTooltipStaticData`를 first-use require하며 serializer가 같은 filename을 생성한다. T2의 날짜/commit에 묶인 위 snapshot은 predecessor 이력이다.
+
+사용자 요청 Recipe presentation 후속의 추가 source locator는 같은 domain의 `recipe_variants.py`와 runtime companion `IrisTooltipRecipeVariants.lua`다. 생성 책임·opening 수명·실패 처리·옆 배치의 현재 동작은 위 「Runtime presentation 구조」를 따른다. 두 static 파일은 같은 툴팁 표시 기능의 산출물이며 별도 사실 authority가 아니다.
 
 Current-only runner와 required manifest는 `Iris/validation/current_route/`에 둔다. Runner의 repository root 깊이는 동일하고 taxonomy/closure의 역사적 supporting asset은 원래 위치를 유지한다. Full-gate launchers, output-isolation audit, exporter, public-text reader와 package default는 successor required manifest를 소비한다. `_docs/round3`의 기존 required manifest는 pinned lifecycle reader용 원본이다. Historical/diagnostic/all executable selector는 복원하지 않는다.
 

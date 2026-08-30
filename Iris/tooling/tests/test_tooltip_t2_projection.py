@@ -14,6 +14,10 @@ from iris_tooling.domains.tooltip_t1.models import TooltipContractError
 from iris_tooling.domains.tooltip_static_data_projection.contract import CLOSEOUT, CONTRACT, HANDOFF_FILES, MANIFEST_SCHEMA, ROUTE, admit, load_contract, read_handoff
 from iris_tooling.domains.tooltip_static_data_projection.projection import project
 from iris_tooling.domains.tooltip_static_data_projection.serialization import lua_bytes, manifest_bytes
+from iris_tooling.domains.tooltip_static_data_projection.recipe_variants import (
+    DATA_ROOT, VARIANTS_NAME, MISSING_NAME_EXCLUSIONS, current_variants,
+    project_recipe_variants, read_static_data, variants_bytes,
+)
 
 
 def _git(repo, *args):
@@ -181,6 +185,64 @@ def test_projection(tmp_path):
             assert line["position"] == position
             assert line["role"] == contract["slot_roles"][line["slot_id"]]
             assert all(pair["source_sha256"] == pair["final_sha256"] for pair in line["surface_sha256"].values())
+
+    # Opening-time presentation uses the same fixture family: deterministic
+    # compilation, exact core/action preservation, and no invented locale names.
+    assert read_static_data(lua_bytes(data)) == data
+    identities = sorted(MISSING_NAME_EXCLUSIONS)
+    owners = {"Base.Fixture": {"use_cases": [
+        {"use_case_id": identity, "surface": "recipe_ui", "line_kind": "evidence",
+         "stable_order_key": str(index), "evidence_sources": [
+             {"source_type": "recipe_evidence", "decision": "PASS"}]}
+        for index, identity in enumerate(identities)
+    ] + [{"use_case_id": "action", "surface": "context_menu", "line_kind": "evidence",
+          "stable_order_key": "z"}]}}
+    base = {"Base.Fixture": {"ko": ["[도구 - 수리]", "설명", "기존 레시피 문장", "동작"],
+                             "en": ["[Tools - Repair]", "Core", "Old recipe", "Action"]}}
+    names = {identity: {"recipe_id": identity, "translated_name": f"제작 {index}",
+                       "original_name": f"Craft {index}"} for index, identity in enumerate(identities)}
+    old = {identity: {"localized_surfaces": {"ko": "기존 레시피 문장", "en": "Old recipe"}}
+           for identity in identities}
+    actions = {"action": {"ko": "동작", "en": "Action"}}
+    companion = project_recipe_variants(base, owners, names, old, actions, contract)
+    assert len(companion["Base.Fixture"]["variants"]) == 3  # Includes eligible over-capacity candidates.
+    for index, view in enumerate(companion["Base.Fixture"]["variants"]):
+        assert view == {"id": identities[index],
+                        "ko": ["[도구 - 수리]", "설명", f"[레시피] 제작 {index}", "동작"],
+                        "en": ["[Tools - Repair]", "Core", f"[Recipe] Craft {index}", "Action"]}
+    reversed_owners = copy.deepcopy(owners)
+    reversed_owners["Base.Fixture"]["use_cases"].reverse()
+    assert variants_bytes(companion) == variants_bytes(project_recipe_variants(
+        base, reversed_owners, dict(reversed(list(names.items()))), old, actions, contract))
+    missing = copy.deepcopy(names)
+    for record in missing.values():
+        record["translated_name"] = ""
+    omitted = project_recipe_variants(base, owners, missing, old, actions, contract)["Base.Fixture"]
+    assert omitted["variants"] == []
+    assert omitted["without_recipe"] == {"ko": ["[도구 - 수리]", "설명", "동작"],
+                                         "en": ["[Tools - Repair]", "Core", "Action"]}
+    for defect in ("stale_base", "unapproved", "unknown_missing_name"):
+        bad_base, bad_owners, bad_names, bad_old = copy.deepcopy((base, owners, names, old))
+        if defect == "stale_base":
+            bad_base["Base.Fixture"]["en"][2] = "Wrong recipe"
+        elif defect == "unapproved":
+            bad_owners["Base.Fixture"]["use_cases"][0]["evidence_sources"][0]["decision"] = "FAIL"
+        else:
+            unknown = "uc.recipe.new_missing_name"
+            bad_owners["Base.Fixture"]["use_cases"][0]["use_case_id"] = unknown
+            bad_old[unknown] = bad_old.pop(identities[0])
+            bad_names[unknown] = {"recipe_id": unknown, "original_name": "Untranslated"}
+        with pytest.raises(TooltipContractError):
+            project_recipe_variants(bad_base, bad_owners, bad_names, bad_old, actions, contract)
+    source = Path(__file__).resolve().parents[3]
+    actual = current_variants(source)
+    assert variants_bytes(actual) == (source / DATA_ROOT / VARIANTS_NAME).read_bytes()
+    cabbage = actual["farming.Cabbage"]["variants"]
+    assert len(cabbage) == 1 and cabbage[0]["id"] == "uc.recipe.make_jar_of_cabbage"
+    assert cabbage[0]["ko"][-1] == "[레시피] 병에 양배추 절이기"
+    assert cabbage[0]["en"][-1] == "[Recipe] Make Jar of Cabbage"
+    assert not MISSING_NAME_EXCLUSIONS.intersection(
+        view["id"] for row in actual.values() for view in row["variants"])
 
 
 def test_reader_order(tmp_path):

@@ -6,6 +6,7 @@ package.path = root .. "/Iris/media/lua/client/?.lua;" .. package.path
 -- in this existing fixture so desktop Lua cannot hide an unsupported dependency.
 next = nil
 local DATA = "Iris/Data/IrisTooltipStaticData"
+local RECIPES = "Iris/Data/IrisTooltipRecipeVariants"
 local READER = "Iris/Data/IrisTooltipStaticDataLookup"
 local ALT = "Iris/UI/Tooltip/IrisAltTooltip"
 local RESOLVER = "Iris/Util/IrisTranslationResolver"
@@ -49,6 +50,35 @@ if mode == "smoke" then
     print("IRIS_TOOLTIP_T3_PASS mode=smoke exact_keys=2280")
     return
 end
+
+local recipeData = require(RECIPES)
+local function expectedRows(key, language, index)
+    local entry = recipeData[key]
+    if not entry then return payload[key][language] end
+    if #entry.variants == 0 then return entry.without_recipe[language] end
+    return entry.variants[index or 1][language]
+end
+assert(recipeData["farming.Cabbage"].variants[1].id == "uc.recipe.make_jar_of_cabbage")
+assert(recipeData["farming.Cabbage"].variants[1].ko[2] == "[레시피] 병에 양배추 절이기")
+assert(recipeData["farming.Cabbage"].variants[1].en[2] == "[Recipe] Make Jar of Cabbage")
+-- The behavior is dataset-wide, not a cabbage special case. Exercise every
+-- generated choice in both locales through the real runtime lookup.
+local recipeItems, recipeChoices = 0, 0
+for key, entry in pairs(recipeData) do
+    recipeItems=recipeItems+1
+    if #entry.variants == 0 then
+        local view=assert(reader.open(key, function() error("empty pool random call") end))
+        same(view.ko, entry.without_recipe.ko); same(view.en, entry.without_recipe.en)
+    else
+        for index, expected in ipairs(entry.variants) do
+            local view=assert(reader.open(key, function() return index end))
+            assert(view.id == expected.id)
+            same(view.ko, expected.ko); same(view.en, expected.en)
+            recipeChoices=recipeChoices+1
+        end
+    end
+end
+assert(recipeItems == 349 and recipeChoices == 781)
 
 local legacyCalls = 0
 local forbidden = {
@@ -100,6 +130,11 @@ for _, name in ipairs(forbidden) do
     package.preload[name] = function() legacyCalls = legacyCalls + 1; error("legacy path: " .. name) end
 end
 local locale, alt, measureFailure, drawFailure = "EN", false, false, false
+local randomCalls, randomResult = 0, 0
+ZombRand = function(count)
+    randomCalls = randomCalls+1
+    return math.min(randomResult, count-1)
+end
 package.loaded[RESOLVER] = {getDetectedLangKey=function()
     if locale == "throw" then error("locale failure") end
     return locale
@@ -135,7 +170,7 @@ local function tooltip()
     }
 end
 local function fresh(kind)
-    package.loaded[ALT], package.loaded[READER], package.loaded[DATA] = nil, nil, nil
+    package.loaded[ALT], package.loaded[READER], package.loaded[DATA], package.loaded[RECIPES] = nil, nil, nil, nil
     local loads = 0
     package.preload[DATA] = function()
         loads=loads+1
@@ -144,7 +179,19 @@ local function fresh(kind)
         if kind == "malformed" then return {["Base.223Clip"]={en={"good", "bad\nrow"}}} end
         return payload
     end
-    ISToolTipInv = {render=function(self) self.vanilla=self.vanilla+1 end}
+    package.preload[RECIPES] = function()
+        if kind == "recipe_load_failure" then error("absent recipe variants") end
+        if kind == "stale_recipe" then
+            return {["Base.223Clip"]={base={ko={"stale"},en={"stale"}},variants={}}}
+        end
+        if kind == "invalid_recipe" then
+            return {["Base.223Clip"]={base=payload["Base.223Clip"],variants={
+                {id="bad",ko={"1","2","3","4","5"},en={"bad"}}}}}
+        end
+        return recipeData
+    end
+    ISToolTipInv = {render=function(self) self.vanilla=self.vanilla+1 end,
+        setVisible=function(self, visible) self.visible=visible end}
     local module = require(ALT)
     module.setInstrumentationEnabled(true)
     module.hookTooltip()
@@ -154,7 +201,8 @@ local function fresh(kind)
     assert(loads == 0)
     return module, function() return loads end
 end
-for _, kind in ipairs({"normal", "load_failure", "invalid_root", "malformed", "unknown"}) do
+for _, kind in ipairs({"normal", "load_failure", "invalid_root", "malformed", "unknown",
+                       "recipe_load_failure", "stale_recipe", "invalid_recipe"}) do
     local module, loads = fresh(kind)
     local tip = tooltip()
     if kind == "unknown" then tip.item.fullType="Unknown.Item" end
@@ -178,8 +226,8 @@ for _, kind in ipairs({"normal", "load_failure", "invalid_root", "malformed", "u
         for _, key in ipairs(cases) do
             tip.item.fullType=key; tip.drawn={}; tip.boxes=0
             ISToolTipInv.render(tip)
-            assert(table.concat(tip.drawn) == table.concat(payload[key].en))
-            assert(tip.boxes == (#payload[key].en > 0 and 1 or 0))
+            assert(table.concat(tip.drawn) == table.concat(expectedRows(key, "en")))
+            assert(tip.boxes == (#expectedRows(key, "en") > 0 and 1 or 0))
         end
         tip.item.fullType="Base.223Clip"
         for _, lang in ipairs({"KO", "EN", "FR", "throw"}) do
@@ -235,6 +283,40 @@ for _, kind in ipairs({"normal", "load_failure", "invalid_root", "malformed", "u
         payload["Fixture.Layout"] = nil
         locale, screenWidth, screenHeight = "EN", 900, 700
         tip.item.fullType, tip.x, tip.width = "Base.223Bullets", 10, 300
+        tip.y, tip.drawn = 10, {}
+        randomCalls, randomResult = 0, 0
+        ISToolTipInv.render(tip)
+        local firstChoice = tip._irisOpening.view.id
+        same({table.concat(tip.drawn)}, {table.concat(expectedRows("Base.223Bullets", "en", 1))})
+        assert(randomCalls == 1)
+        randomResult=1; tip.drawn={}; ISToolTipInv.render(tip)
+        assert(tip._irisOpening.view.id == firstChoice and randomCalls == 1)
+        locale="KO"; tip.drawn={}; ISToolTipInv.render(tip)
+        same({table.concat(tip.drawn)}, {table.concat(expectedRows("Base.223Bullets", "ko", 1))})
+        assert(randomCalls == 1, "locale must not reselect a recipe")
+        ISToolTipInv.setVisible(tip, false)
+        assert(tip._irisOpening == nil)
+        ISToolTipInv.setVisible(tip, true)
+        tip.drawn={}; ISToolTipInv.render(tip)
+        assert(randomCalls == 2 and tip._irisOpening.view.id ~= firstChoice)
+        alt=false; ISToolTipInv.render(tip); assert(tip._irisOpening == nil)
+        alt=true; randomResult=0; ISToolTipInv.render(tip)
+        assert(randomCalls == 3 and tip._irisOpening.view.id == firstChoice)
+        tip.item={fullType="Base.223Bullets"}; ISToolTipInv.render(tip)
+        assert(randomCalls == 4, "different item instance starts a new opening")
+        ISContextMenu={instance={visibleCheck=true}}
+        tip.boxes=0; ISToolTipInv.render(tip)
+        assert(tip.boxes == 0 and tip._irisOpening == nil)
+        ISContextMenu=nil
+        -- No valid recipe names is an explicit producer disposition, not a
+        -- fallback to the old generic sentence.
+        payload["Fixture.NoRecipe"]={ko={"코어", "옛 문장"},en={"core", "old generic"}}
+        recipeData["Fixture.NoRecipe"]={base=payload["Fixture.NoRecipe"],variants={},
+            without_recipe={ko={"코어"},en={"core"}}}
+        tip.item.fullType="Fixture.NoRecipe"; tip.drawn={}; ISToolTipInv.render(tip)
+        same(tip.drawn, {"코어"})
+        payload["Fixture.NoRecipe"],recipeData["Fixture.NoRecipe"]=nil,nil
+        tip.item.fullType="Base.223Bullets"; locale="EN"
         tip.y=10; measureFailure=true; tip.boxes=0; ISToolTipInv.render(tip)
         assert(tip.boxes == 0 and tip.height == 30)
         measureFailure=false; drawFailure=true; ISToolTipInv.render(tip); assert(tip.height == 30)

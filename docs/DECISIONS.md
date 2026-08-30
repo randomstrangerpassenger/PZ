@@ -2268,12 +2268,20 @@ D1 generation 전환의 조건부 downstream binding: T1 strict admission에서 
 ### Iris Tooltip T3 — static-only Alt runtime 및 사용자 범위 내 채택
 
 - 날짜: 2026-08-30. 적용 계획은 `docs/iris_tooltip_t3_static_data_alt_runtime_integration_plan.md`다.
-- Alt Tooltip은 T2의 완성된 KO/EN 배열을 exact FullType·explicit locale로 소비한다. Runtime에서 사실을 다시 선택하거나 문장을 생성·번역·축약하지 않고, 같은 문자열의 별도 row도 보존한다. 미지원 locale/key, 0줄, 유효하지 않은 배열과 payload 실패에는 Iris 부분을 표시하지 않으며 legacy semantic fallback을 연결하지 않는다.
-- Payload는 최초 유효 lookup에서 한 번만 load를 시도하고 실패도 반복 재시도하지 않는다. Alt OFF에서는 item/locale/data lookup을 하지 않으며 별도 display-result cache를 만들지 않는다. Legacy Summary와 Menu의 기존 locale fallback API는 기존 소비자를 위해 보존하되 Alt 경로에서 분리한다.
+- Alt Tooltip은 빌드에서 완성된 KO/EN 배열을 exact FullType·explicit locale로 소비한다. Runtime은 사실의 적격성·의미를 재판정하거나 문장을 생성·번역·축약하지 않는다. 아래 Recipe 후속에 따라 미리 생성된 표시 variant 하나를 선택하는 것은 허용한다. 선택된 배열의 문자열·순서는 그대로 렌더링한다. 미지원 locale/key, 0줄, 유효하지 않은 배열과 payload 실패에는 Iris 부분을 표시하지 않으며 legacy semantic fallback을 연결하지 않는다.
+- Payload는 최초 유효 lookup에서 한 번만 load를 시도하고 실패도 반복 재시도하지 않는다. Alt OFF에서는 item/locale/data lookup을 하지 않는다. 전역 FullType display-result cache는 없으며 Recipe 선택은 현재 Tooltip instance의 한 번 열린 구간에만 보관한다. Legacy Summary와 Menu의 기존 locale fallback API는 기존 소비자를 위해 보존하되 Alt 경로에서 분리한다.
 - Vanilla render는 기존 호출을 유지하고 Iris 작업만 보호한다. 줄바꿈·화면 경계 처리는 presentation 책임으로 한정한다. Kahlua에 없는 전역 `next` 의존은 `pairs`로 교정했고, 기존 T3 harness 안에서 `next=nil` 조건을 반영했다. 이 fixture를 별도 validator/authority로 승격하지 않는다.
-- 완료 후 사용자 요청으로 Iris panel을 vanilla 바로 옆(오른쪽 우선, 공간 부족 시 왼쪽)에 배치한다. 내용 기반 240~360px 읽기 폭과 기존 font를 사용하고 vanilla 크기는 변경하지 않는다. 양옆 모두 공간이 부족한 경우에만 수직 배치를 사용한다. 이는 source-only presentation 후속 수정이며 T1/T2 내용·authority 재발행이나 기존 완료의 재봉인을 요구하지 않는다. 사용자는 이번 테스트용 변경의 패키징을 제외했다.
 
 사용자는 안내 버전 설치·KO/EN Alt 열기와 이미 보고한 정상 동작으로 인게임 검증을 종료하고 실제 오류 상황 검증을 이번 실행 범위에서 제외했다. 기존 final code `25318630`의 필수 자동 검증과 package/install 결과를 함께 근거로, 명시된 관찰 범위 안에서 T3를 `complete`로 닫고 current route의 `tooltip_t2_static_staging.runtime_adopted=true`를 기록한다. 추가 게임 표본·경로 증명·오류 검증본을 잔여 의무로 만들지 않는다. 미실행 오류 검증을 PASS로 바꾸거나 전수 QA·release/Workshop readiness·sealed closeout을 주장하지 않는다. 이는 이번 T3에 한정된 사용자 범위 결정이며, 상세 ceiling과 historical partial/실패 이력은 원 T3 계획에 보존한다. 추가 테스트나 T1/T2 재발행은 하지 않는다.
+
+#### 완료 후 표시 변경 — 옆 배치와 구체적 Recipe (2026-08-30)
+
+- **옆 배치:** Iris panel을 vanilla 오른쪽에 4px 간격으로 위쪽 정렬한다. 공간이 부족하면 왼쪽, 양옆 모두 읽기 폭이 없을 때만 아래/위에 배치한다. 읽기 폭은 내용 기반 240~360px을 화면 공간으로 제한하며, 안전한 표시 공간이 없으면 Iris만 생략한다. Vanilla 크기·위치와 기존 `UIFont.Small`은 유지한다. 4줄은 logical row 제한이고, 실제 줄바꿈은 원문을 절단하지 않는 화면 표시 처리다.
+- **레시피 표시:** generic Recipe 문장 대신 `[레시피] <승인된 KO 이름>` / `[Recipe] <승인된 EN 이름>` 하나를 표시한다. 대상은 양배추만이 아니라 현재 승인된 QG 입력에 Recipe가 연결된 **349개 FullType 전체**이며, 생성된 후보는 **781개 아이템별 표시 variant**다. L2/L3와 기존 선택된 Right-click 문장은 유지하고 최종 배열은 0~4줄이다.
+- **선택 수명:** 후보가 여러 개면 새 opening에서 무작위 하나를 선택하고 열린 동안 유지한다. Locale 전환은 동일 identity의 KO/EN 배열만 바꾼다. Alt 해제, item 변경, Tooltip 숨김과 context menu 표시에서 opening을 해제한다. 재개방 시 같은 후보가 연속으로 뽑힐 수 있다. 후보가 하나인 양배추는 `병에 양배추 절이기`를 표시하며 아이템 전용 분기는 없다.
+- **이름 결손:** 사용자 승인으로 `uc.recipe.empty_baking_tray`, `uc.recipe.hockeymasksmashbottle`, `uc.recipe.make_wooden_box_trap`의 이름 결손 후보를 양 언어 공통 제외한다. 임의 번역이나 다른 새 결손의 자동 제외는 하지 않는다. 유효한 Recipe 후보가 없으면 빌드에서 L2/L3/Right-click만 남기며 generic Recipe로 되돌리지 않는다.
+- **구현 경계:** 기존 `IrisTooltipStaticData.lua`는 보존한다. 동일 projection domain의 `recipe_variants.py`가 구조화 QG 입력으로 완성된 `IrisTooltipRecipeVariants.lua`를 생성하고 runtime은 그중 한 view만 선택한다. 무작위 표시를 추천·대표성·새 사실 판정으로 읽지 않는다. 위의 기존 고정 선택·무상태 동작에 대한 한정 후속 변경이다.
+- **완료 범위:** 두 작업은 소스 구현과 명시된 집중 검사까지 완료했다. 옆 배치 focused/syntax(153 files), Recipe projection(1 passed)·runtime(349개/781개 KO/EN 후보 포함)·syntax(154 files)는 각 실행에서 exit 0이었다. 과거 canonical PASS를 새 코드에 승계하지 않는다. 새 Recipe의 실제 게임 관찰·새 패키지 생성은 수행하지 않았으며 이전 `p2/Iris.zip`에 두 변경이 포함됐다고 주장하지 않는다. 사용자 요청대로 source만 전달하며 T1/T2 재발행·추가 봉인·패키징은 하지 않는다. 상세 실행 기록은 T3 계획의 두 presentation 후속 절을 따른다.
 
 ### Iris current naming — responsibility-based source locator successor
 

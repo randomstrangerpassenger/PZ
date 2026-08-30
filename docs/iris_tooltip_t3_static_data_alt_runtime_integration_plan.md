@@ -897,3 +897,24 @@ Final machine subject는 `25318630c2c2168ca1e334bc68df4177fbbc8689`, tree `6bfc2
 - 구현을 마친 뒤 기존 focused command `uv run python .\Iris\build\description\v2\tests\test_iris_browser_state_selection_search_acceptance.py full`과 `powershell -ExecutionPolicy Bypass -File .\tools\check_lua_syntax.ps1`를 각각 1회 실행하고 `git diff --check`로 마감한다. 실패 시 해당 영향 범위만 수정·재실행한다. 기존 T1/T2/Menu relation 재발행 및 canonical A/B 재봉인은 수행하지 않으며 과거 exact-subject PASS를 이번 layout 변경에 승계하지 않는다. 실제 PZ에서 새 배치를 관찰한 것으로 주장하지 않는다.
 
 실행 결과: 위 focused command exit 0 (`IRIS_TOOLTIP_T3_PASS mode=full exact_keys=2280 legacy_calls=0`, source observation KO/EN 각 2,084 / L4 415; 별도 Menu relation 재검증은 아님), Lua syntax command exit 0 (153 files). 두 실행 모두 1회에 통과했고 새 배치의 PZ 시각 확인은 하지 않았다. UV cache는 저장소 내부 `.tmp/tooltip-side-uv-cache`로 제한하고 bytecode 생성을 억제했다. 새 ZIP·설치본·commit/push·T1/T2 재발행 없이 소스 변경을 전달한다. 기존 `p2/Iris.zip`은 옆 배치 이전 버전으로 보존한다.
+
+### 완료 후 presentation 후속 — 구체적 Recipe를 열기마다 선택 (2026-08-30)
+
+사용자는 양배추를 포함해 **레시피가 연결된 아이템 전체**에서 구체적인 레시피를 열 때마다 무작위로 표시하도록 요청했다. 양배추 전용 분기나 특별한 의미 보정은 만들지 않는다. 현재 승인된 QG 입력 기준 Recipe 연결 FullType 349개, 이름 결손 제외 후 표시 variant 781개를 생성한다. 양배추는 현재 승인 후보가 `uc.recipe.make_jar_of_cabbage` 하나라 `[레시피] 병에 양배추 절이기` / `[Recipe] Make Jar of Cabbage`로 고정된다. 후보가 여러 개면 재개방 시 새로 뽑지만 우연히 같은 후보가 연속으로 뽑히는 것은 허용한다.
+
+- 기존 `IrisTooltipStaticData.lua`는 변경하지 않는다. 같은 projection domain의 `recipe_variants.py`가 기존 정적 배열과 Menu의 구조화 QG `upstream_usecases_by_fulltype.json` / `upstream_recipe_nav_registry.json`을 소비해 `IrisTooltipRecipeVariants.lua`라는 정적 표시 companion 하나를 생성한다. 원본 game recipe, Menu 렌더링 문자열 또는 긴 설명을 역추론·요약하지 않는다.
+- 기존 구조화 selection으로 L4 tail을 찾고 기존 owner surface와 정확히 대조한다. Recipe의 public evidence/PASS 후보 전체에서 완성된 KO/EN variant를 빌드한다. L2/L3 prefix와 선택된 Right-click 문장은 그대로 두고 Recipe 위치에 구체적인 이름 하나만 표시하며 최대 4 logical rows를 지킨다. 같은 generic Recipe 문장을 두 번 출력하지 않는다.
+- KO 이름이 없는 `uc.recipe.empty_baking_tray`, `uc.recipe.hockeymasksmashbottle`, `uc.recipe.make_wooden_box_trap`은 사용자의 명시적 승인으로 KO/EN 공통 후보에서 제외한다. 다른 새로운 이름 결손을 자동 제외하거나 번역 fallback하지 않는다. 제외 후 Recipe 후보가 없다면 L2/L3/Right-click만 남긴 완성 배열을 사용한다.
+- Runtime은 정적 companion의 완성된 bilingual view 하나를 선택할 뿐 QG/raw data를 읽거나 문장을 조립하지 않는다. Tooltip instance의 현재 opening에만 선택을 유지한다. Locale 변경은 동일 identity의 다른 언어 배열을 쓰고 재선택하지 않는다. Alt 해제, item 변경, `setVisible(false)`, context menu 표시 시 opening을 해제한다. 임의의 FullType 전역 결과 cache는 만들지 않는다.
+- Companion은 현재 fixed base와 양 언어 배열이 일치해야 하며, 실패·손상에는 Iris 부분만 조용히 숨긴다. 기존 옆 배치·폰트·vanilla 치수는 유지한다. 이는 이전 고정 L4 선택을 바꾸는 사용자 승인 presentation 후속이며 역사적 T1/T2 gate를 재작성하거나 그 PASS를 새 코드에 승계하지 않는다.
+- Source만 전달한다. Package/ZIP/설치 복사, fresh wheel/environment, canonical A/B/comparator/finalizer, 새 manifest/receipt/proof artifact를 만들지 않는다. 현재 T1 외부 handoff가 없다는 이유로 역사적 전체 절차를 복원하지 않는다. Generated companion의 source 재생성 명령은 `Iris/build/ENTRYPOINTS.md`에 둔다.
+
+마지막 최소 검증 구간 (실행 전 확정):
+
+1. 기존 `test_tooltip_t2_projection.py::test_projection` 함수에 deterministic compilation, 양 언어 identity/문구, 모든 이름 결손 disposition, L2/L3/Right-click 보존, 손상된 base/PASS 거부 사례를 합친다. 새 test file/function은 추가하지 않는다. 명령은 `uv run --project .\Iris\tooling python -B -m pytest .\Iris\tooling\tests\test_tooltip_t2_projection.py::test_projection -q --basetemp .\.tmp\tooltip-recipe-tests`다.
+2. 기존 `uv run python .\Iris\build\description\v2\tests\test_iris_browser_state_selection_search_acceptance.py full`을 1회 실행한다. 동일 harness에서 전체 349개 아이템/781개 variant의 KO/EN lookup, opening 고정/재선택, locale 전이, companion 실패/불일치와 기존 layout을 함께 검증한다. 별도 Menu relation 재발행은 하지 않는다.
+3. 필수 `powershell -ExecutionPolicy Bypass -File .\tools\check_lua_syntax.ps1` 1회와 `git diff --check`로 마감한다. 실패 시 해당 범위만 수정·재실행하며 추가 confidence 검사나 패키징을 붙이지 않는다.
+
+실행 환경은 `PYTHONDONTWRITEBYTECODE=1`, `PYTHONPATH=<repo>/Iris/tooling/src`, `UV_CACHE_DIR=<repo>/.tmp/tooltip-recipe-uv-cache`, `UV_PYTHON_DOWNLOADS=never`다. 실제 PZ에서 새 무작위 Recipe 동작을 관찰했다고 주장하지 않는다.
+
+실행 결과: 위 projection command exit 0 (`1 passed in 1.91s`), 기존 runtime full command exit 0 (`exact_keys=2280`, `legacy_calls=0`; 전체 349개/781개 variant lookup 포함), Lua syntax command exit 0 (`154 files`). 세 검사는 각각 최초 실행에 통과했다. Runtime command의 Menu source 관찰 KO/EN 각 2,084 / L4 415는 별도 Menu parity 재봉인 결과가 아니다. 생성 중 처음에는 재사용하려던 무관한 Layer3 decoder의 repository-context import를 제거했고, 이후 이름 결손을 확인해 사용자 승인 후 정확한 3개 제외만 적용했다. 최종 생성은 exit 0, 349 FullTypes / 781 variants이며 기존 fixed static data는 변경하지 않았다. 소스 변경만 전달하고 ZIP·설치본·commit/push는 생성하지 않는다.

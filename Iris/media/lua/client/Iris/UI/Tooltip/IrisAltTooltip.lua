@@ -1,4 +1,4 @@
--- Alt-only presentation of complete T2 rows. Vanilla owns the base tooltip.
+-- Alt-only presentation of complete static rows. Vanilla owns the base tooltip.
 local IrisAltTooltip = {}
 local ItemKey = require("Iris/Util/ItemKey")
 local TranslationResolver = require("Iris/Util/IrisTranslationResolver")
@@ -9,7 +9,8 @@ local instrumentationEnabled = false
 local function newMetrics()
     return {
         inactiveRenders=0, fullTypeResolutions=0, localeResolutions=0, staticLookups=0,
-        -- Retained observation names are zero: no display cache or summary state.
+        -- No FullType-indexed display cache or legacy summary state. The tip
+        -- retains only its current opening's bilingual view until it closes.
         hits=0, misses=0, summaryLoadAttempts=0, summaryGetCalls=0,
         temporaryDetailTables=0, displayLineBuilds=0, lineCopies=0,
         keyStringConversions=0, detailLineCacheLookups=0, cacheEntryAllocations=0,
@@ -61,18 +62,31 @@ end
 local function addOverlay(tip)
     -- No item, locale, payload, or row work while Alt is released.
     if not isKeyDown or not (isKeyDown(56) or isKeyDown(184)) then
+        tip._irisOpening = nil
         if instrumentationEnabled then metrics.inactiveRenders=metrics.inactiveRenders+1 end
         return
     end
-    if not tip.item then return end
+    if not tip.item or (ISContextMenu and ISContextMenu.instance and ISContextMenu.instance.visibleCheck) then
+        tip._irisOpening = nil
+        return
+    end
     if instrumentationEnabled then metrics.fullTypeResolutions=metrics.fullTypeResolutions+1 end
     local fullType = ItemKey.getFullTypeFromItem(tip.item)
     if instrumentationEnabled then metrics.localeResolutions=metrics.localeResolutions+1 end
     local key = TranslationResolver.getDetectedLangKey()
     local locale = key == "KO" and "ko" or key == "EN" and "en" or nil
     if not locale or type(fullType) ~= "string" or fullType == "" then return end
-    if instrumentationEnabled then metrics.staticLookups=metrics.staticLookups+1 end
-    local rows = Lookup.get(fullType, locale)
+    local opening = tip._irisOpening
+    if not opening or opening.item ~= tip.item or opening.fullType ~= fullType then
+        if instrumentationEnabled then metrics.staticLookups=metrics.staticLookups+1 end
+        opening = {item=tip.item, fullType=fullType}
+        tip._irisOpening = opening
+        opening.view = Lookup.open(fullType, function(count)
+            if ZombRand then return ZombRand(count)+1 end
+            return math.random(count)
+        end)
+    end
+    local rows = opening.view and opening.view[locale]
     if not rows or #rows == 0 then return end
 
     local manager, font = getTextManager(), UIFont.Small
@@ -149,6 +163,15 @@ function IrisAltTooltip.hookTooltip()
         -- Vanilla errors remain visible; only Iris is isolated.
         originalRender(self)
         IrisAltTooltip.addIrisOverlay(self)
+    end
+    -- PZ hides and reuses the same tooltip when hovering out and back in.
+    -- Reset even when Alt stays pressed and no intervening render occurs.
+    local originalSetVisible = ISToolTipInv.setVisible
+    if type(originalSetVisible) == "function" then
+        ISToolTipInv.setVisible = function(self, visible)
+            if not visible then self._irisOpening = nil end
+            return originalSetVisible(self, visible)
+        end
     end
     hooked = true
 end

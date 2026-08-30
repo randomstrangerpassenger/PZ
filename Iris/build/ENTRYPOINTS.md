@@ -130,3 +130,25 @@ powershell -ExecutionPolicy Bypass -File .\Iris\tools\package_iris.ps1 -OutputRo
 ```
 
 Direct execution of retired `Iris/build/description/v2/tools/build` copies is not a current command. Historical evidence may mention predecessor commands without re-adopting them.
+
+## Tooltip Recipe opening variants (source presentation)
+
+The fixed static tooltip dataset is not rewritten. This companion compiles the
+Menu's approved structured QG recipe names into complete bilingual views; Alt
+selects one view per opening. It is not a new fact source or T1/T2 closeout route.
+Run from the repository root; only the explicitly named source asset is written:
+
+```powershell
+$env:PYTHONDONTWRITEBYTECODE = '1'
+$env:PYTHONPATH = (Join-Path (Get-Location) 'Iris/tooling/src')
+$env:UV_CACHE_DIR = (Join-Path (Get-Location) '.tmp/tooltip-recipe-uv-cache')
+$env:UV_PYTHON_DOWNLOADS = 'never'
+uv run python -m iris_tooling.domains.tooltip_static_data_projection.recipe_variants --repository-root . --output .\Iris\media\lua\client\Iris\Data\IrisTooltipRecipeVariants.lua
+```
+
+The current presentation exception and three user-approved missing-name
+exclusions are recorded in the T3 plan's Recipe follow-up. An unexpected new
+name/evidence/selection mismatch fails generation instead of inventing a label.
+Copying source for this follow-up needs the companion, static lookup and Alt
+renderer together; copying only the renderer is insufficient. Packaging is a
+separate action and was not requested for this source-only follow-up.

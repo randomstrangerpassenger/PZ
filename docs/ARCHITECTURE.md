@@ -436,6 +436,14 @@ D1 successor의 optional Layer 2 partition과 D2 actual consumer relation은 각
 - Windows DVF directory publish는 `shutil.move`로 rename-first/copy-remove fallback을 허용하되, runtime visibility의 유일한 선형화 지점인 regular-file manifest `os.replace`는 유지한다. 이 교정은 generation semantic bytes, owner authority 또는 runtime pointer contract를 변경하지 않는다.
 - 이 snapshot의 `complete / complete / OPEN / present`는 Tooltip T1 upstream readiness와 production T2 input 경계에만 적용한다. Static Tooltip Lua, runtime/visual 검증, T2/T3 구현, packaging과 release readiness는 포함하지 않는다.
 
+2026-08-30 T2 static staging successor:
+
+- Current T1 handoff는 S1 승인 category/primary 표제를 완성한 `60796744` successor다. D1 owner output, applicable/silence partition, classification identity와 S2–S4는 그대로다.
+- `iris_tooling.domains.tooltip_t2`는 current strict handoff admission → fixed slot projection → deterministic Lua/JSON → narrow finalization을 소유한다. T1 whole audit나 raw Classification/DVF/QG reader를 호출하지 않는다.
+- 단일 Lua는 `data[exactFullType][explicitLocale]`의 완성된 0~4줄 배열이다. KO/EN은 같은 slot·identity vector를 사용하고 accepted logical surface를 그대로 보존한다. Missing supported row는 오류이고 supported-empty는 두 빈 배열이다.
+- `d64692ac`에서 static staging을 완료했다. `C:/Users/MW/Downloads/coding/PZ2/t2-final`의 Lua·manifest·closeout 세 파일만 T3 입력으로 제공한다. Current route의 staging locator는 runtime adoption이 아니다.
+- Fresh installed CLI, focused 18, generation A/B, 실제 generated Lua syntax와 canonical full gate/finalizer가 exit `0`이다. 실제 PZ load·Alt/UI·wrapping·성능·runtime/package/release는 T3 이후 범위이며 이번 완료에 포함하지 않는다.
+
 ### Runtime presentation 구조
 
 Iris runtime의 classification / presentation 흐름은 다음 단방향 구조를 따른다.

@@ -577,11 +577,12 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
 
 ## Next
 
-- Tooltip `T1-C: Upstream Correction Closure and T2 Readiness Opening`은 T1-D6에서 완료됐다.
-  - Integrated blocker는 `0`, progression은 `OPEN`, strict production T2 handoff는 present다.
-  - 다음 단계는 adopted handoff를 입력으로 사용하는 별도 T2 static generation/runtime 구현이며, T1 final artifact나 owner authority를 다시 생성하거나 재해석하지 않는다.
+- Tooltip T1과 T2 static staging은 완료됐으며, 다음 단계는 T3 runtime 연결이다.
+  - 2026-08-30 S1 표제 보완 successor `60796744`는 blocker `0`, progression `OPEN`, strict handoff present다. 기존 T1 canonical A/B·comparator·finalizer를 통과했고 역사적 handoff는 보존한다.
+  - T2 `d64692ac`는 exact 2,280개 KO/EN 0~4줄 static Lua를 생성했다. Focused 18, installed A/B 동일 bytes, Lua syntax, canonical full gate와 finalizer exit `0`; final root는 `C:/Users/MW/Downloads/coding/PZ2/t2-final`이다.
+  - T3는 완성된 배열을 FullType·locale로 조회한다. T1 final artifact나 owner authority를 다시 생성하거나 재해석하지 않는다.
   - owner authority에 없는 의미, 문장, 추천, fallback 또는 Menu consumer evidence를 Tooltip assembler가 발명하지 않는다.
-  - Static Lua/runtime/visual/release readiness는 T1-D6 closeout이 검증하지 않았으며 각 후속 gate를 통과하기 전에는 완료로 주장하지 않는다.
+  - Static staging까지만 완료했다. 실제 PZ load, Alt 입력, wrapping·visual·성능, runtime/package adoption과 release readiness는 아직 검증하지 않았다.
 
 - 최신 current product 상태를 기준으로 **DVF freeze readiness를 재판정한다.**
   - 과거 Problem 4의 `동결 불가` verdict는 historical evidence로 유지하고 직접 수정하거나 승계하지 않는다.

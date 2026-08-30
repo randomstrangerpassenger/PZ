@@ -57,6 +57,20 @@
       "t2_handoff_manifest.json": "7f299da5e1aa97ea6968f8466301f583e55a56bbba5727b27682a7aacaafe094"
     }
   },
+  "tooltip_t2_static_staging": {
+    "state": "complete",
+    "runtime_adopted": false,
+    "machine_subject": {
+      "commit": "d64692ac26cdc21e4c7f558a0fe93278f64b16d1",
+      "tree": "850e0af81af9b9fda8ee7df26847f88a4b32b142"
+    },
+    "final_root": "C:/Users/MW/Downloads/coding/PZ2/t2-final",
+    "artifact_sha256": {
+      "IrisTooltipT2Data.lua": "4d9d109eaaf0f61e638ebf94cee33c8c306e88f322143c74c8eecdb8131646fd",
+      "tooltip_t2_projection_manifest.json": "2b4bee6ce9a262e727b57d7c254e7c2f2211780100cf1c222468a93419ef3efe",
+      "tooltip_t2_closeout.json": "98c70b8e667a31c588d938cd4c7bf6923da1b1147712a2b20366f0de2aac8327"
+    }
+  },
   "default_current_allowlist": [
     "Iris/AGENTS.md",
     "Iris/build/ENTRYPOINTS.md",

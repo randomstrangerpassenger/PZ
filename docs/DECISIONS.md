@@ -1949,6 +1949,16 @@
   - detailed policy: `docs/iris_tooltip_t1_display_contract_policy.md`
   - COMMON-EVIDENCE-TRACE.
 
+### Iris Tooltip T2 — deterministic KO/EN static staging
+
+- 날짜: 2026-08-30
+- 상태: static staging complete; runtime adoption은 T3에 남는다.
+- S1은 기존 승인 D1 category/primary surface를 `[{category_surface} - {primary_subcategory_surface}]`로 결합한다. D1 의미·surface·applicability와 S2–S4는 변경하지 않았다. Current T1 successor는 `60796744ffb889477161d243a1443c9de57d49b0`이며 기존 focused 95, canonical A/B, comparator와 finalizer가 exit `0`이다. 과거 T1 final root는 보존한다.
+- T2 machine subject `d64692ac26cdc21e4c7f558a0fe93278f64b16d1` / tree `850e0af81af9b9fda8ee7df26847f88a4b32b142`는 이 successor handoff만 읽는다. Exact FullType과 explicit `ko|en`으로 완성된 배열을 제공하며 2,280개 key에 빈 배열도 명시한다. 번역·요약·fallback·재선택·omission cause 추론은 하지 않는다.
+- T2 focused 18, installed generation A/B, 생성 Lua syntax 1-file, canonical full gate (`211 passed, 109 subtests passed`)와 finalizer가 exit `0`이다. A/B Lua·manifest와 candidate/final bytes가 동일하다. 고정 금지 표현 hit는 `0`이며 이를 semantic 품질 재인증으로 확대하지 않는다.
+- Final external staging은 `C:/Users/MW/Downloads/coding/PZ2/t2-final`이며 exact hashes는 current route와 `tooltip_t2_closeout.json`이 기록한다. Runtime/package pointer는 전환하지 않았다. Manifest schema 검사는 기존 projection test의 직렬화 fixture에 연결했으며 별도 validator·proof package를 만들지 않았다.
+- 실행 명령·실패 재시도·validation ceiling은 `docs/iris_tooltip_t2_deterministic_ko_en_static_lua_projection_plan.md`의 execution 기록과 기존 closeout을 참조한다. 문서 carrier를 새 검증 subject로 해석하지 않는다.
+
 ### Iris validation — workflow / scenario execution consolidation boundary
 
 - 날짜: 2026-08-13 → 2026-08-20 → 2026-08-25 refinement

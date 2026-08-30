@@ -2,12 +2,12 @@
 
 ## 문서 상태
 
-- 상태: 2026-08-30 실행 채택; 구현 작성, 필수 검증 대기
+- 상태: 2026-08-30 static staging complete; 실행 결과와 한계는 아래 execution 기록에 결속
 - 목적: 확정된 T1 handoff를 완성된 KO/EN 0~4줄 정적 Lua staging 데이터로 변환
 - 선행 보완: 현재 T1 S1에 누락된 대분류 표제를 기존 승인 surface로 완성
 - 검증 원칙: 필수 성질은 유지하고 중복 테스트·독립 증명 절차는 제거
 - 완료 범위: static staging 및 T3 입력 전달; 실제 Tooltip runtime 채택은 T3
-- 이번 문서 개정은 실행 결과나 검증 PASS를 발행하지 않는다.
+- 원래 계획 본문은 실행 증거가 아니며, 아래 execution 기록만 실제 완료 결과를 보고한다.
 
 ## 1. Objective
 
@@ -689,3 +689,30 @@ User prompt preauthorizes document owner gates. The clean subject is on `codex/i
 - Existing T1 finalizer exit `0`; adopted final root `C:/Users/MW/Downloads/coding/PZ-t2/t1-final`, closeout SHA-256 `a5837d98201b100ca27e2de3940e33d9e4f07cade723fd8e71b25d5a8cbd9e4d`. Historical predecessor untouched.
 - Earlier attempts remain failed: PowerShell module lookup (exit 1), checkout path budget (exit 2), DVF temporary directory path length (exit 1, 211 passed/one failed subtest), and unavailable C:/ output permission (exit 125 before tests). No validator or OS permission policy was weakened. Short caller-selected work/results now use `C:/Users/MW/Downloads/coding/PZ2/`; child Windows PowerShell uses its system module directory.
 - Fresh wheel source `ee99c3f6` and existing environment writer produced `responsibility_refactor_environment_tooltip_t2_ee99c3f6.json`; environment receipt `C:/Users/MW/Downloads/coding/PZ-t2/receipt/environment_receipt.json` SHA-256 `dcd952d87931a4e1a9fb0057889949f954ca73237a55e328c1c002e669407e35`. Package tree is unchanged by this adoption, so no wheel rebuild is required.
+
+### T2 execution and closeout
+
+- Final machine subject: `d64692ac26cdc21e4c7f558a0fe93278f64b16d1` / tree `850e0af81af9b9fda8ee7df26847f88a4b32b142`. Subsequent navigation/documentation is a carrier only, not a new machine validation claim.
+- Initial subject `ceded523` had focused exit `0` (18 cases), but actual generation exited `2`: T1 physical contract hashes include mixed LF/CRLF bytes that cannot be reconstructed by trying Git LF/CRLF variants. No staging marker was written. T2 now binds those historical hash records through the exact current locator/subject identity and verifies committed contract content through T1's canonical bundle. T1 source, accepted handoff and successful gates were not reissued.
+- Mid-execution owner direction also retained the existing `partial` state for missing completion metadata and connected manifest schema fields/types/bounds plus KO/EN/provenance checks to the existing projection fixture. No new test family, independent schema validator or proof artifact was introduced. Schema-hash presence alone is not claimed as schema validation.
+- Corrected source `6b471e48b4b4a3354fc143865eceb9f312d10b4c` has package tree `6c98f483bcc496edecf1181843d394fe32bc7e9b`. Fresh wheel SHA-256: `82e3ec59421c2cfa55c95b2d9552cccc291a35a38c85929898d95aa0e7cd26ca`. The existing writer's successor record is `Iris/validation/clean_checkout/authority/responsibility_refactor_environment_tooltip_t2_6b471e48.json`; external environment receipt SHA-256 is `6ebef09e417cf56dad29347b5a2fb3523589ea893f0ff1b25e4db635aa8d74ae`. Each distinct package subject was built/installed once; environment-only metadata did not trigger wheel rebuilds.
+- On the final machine subject: focused command (§12.2) exit `0`, `18 passed`; installed inspect current exit `0`; Run A and Run B exit `0` each; generated Lua syntax exit `0` (`1 files`); canonical full gate exit `0` (`211 passed, 109 subtests passed`); narrow finalizer exit `0`, `state=complete`. No successful same-subject suite was repeated for confidence.
+- Coverage `2,280`; 0/1/2/3/4 line counts `367 / 825 / 895 / 137 / 56`; generation failure, contract violation and fixed lexical hit counts all `0`. Lua and manifest bytes match across Run A/B and candidate/final. Schema checks are the focused serialized-fixture checks; no independent whole-dataset JSON Schema certification is claimed.
+- Final root: `C:/Users/MW/Downloads/coding/PZ2/t2-final`. It contains exactly the three planned files:
+  - `IrisTooltipT2Data.lua`: 979,485 bytes, SHA-256 `4d9d109eaaf0f61e638ebf94cee33c8c306e88f322143c74c8eecdb8131646fd`.
+  - `tooltip_t2_projection_manifest.json`: 1,931,373 bytes, SHA-256 `2b4bee6ce9a262e727b57d7c254e7c2f2211780100cf1c222468a93419ef3efe`.
+  - `tooltip_t2_closeout.json`: SHA-256 `98c70b8e667a31c588d938cd4c7bf6923da1b1147712a2b20366f0de2aac8327`.
+- `validated`: strict adopted successor admission, fixed lossless projection, focused serialized-fixture schema/provenance checks, all generated-line fixed lexical checks, reader-inclusive permutation, repeated generation, installed CLI, Lua syntax, canonical regression and candidate/final equality.
+- Final `git diff --check 2e72df95` and protected-path diff: exit `0`; runtime/package, Classification/DVF/QG owner path delta `0`. All 29 changed paths are within §11. This check was performed once after implementation and documentation updates.
+- `unvalidated_but_in_scope`: none. No independent reviewer gate was required or invented.
+- `out_of_scope`: PZ load/require, Alt/UI/wrapping/visual/performance, independent full Menu parity, runtime/package adoption, semantic quality recertification and release/deployment. Runtime/package and historical T1 artifacts were not changed.
+
+Successful T2 generation/finalization invocations used the installed `C:/Users/MW/Downloads/coding/PZ-t2/e2/Scripts/iris-tooling.exe`, repository root `C:/Users/MW/Downloads/coding/PZ-t2/w`:
+
+```powershell
+iris-tooling --repository-root C:/Users/MW/Downloads/coding/PZ-t2/w build tooltip-t2 --handoff-root C:/Users/MW/Downloads/coding/PZ-t2/t1-final --output-root C:/Users/MW/Downloads/coding/PZ2/t2a
+iris-tooling --repository-root C:/Users/MW/Downloads/coding/PZ-t2/w build tooltip-t2 --handoff-root C:/Users/MW/Downloads/coding/PZ-t2/t1-final --output-root C:/Users/MW/Downloads/coding/PZ2/t2b
+iris-tooling --repository-root C:/Users/MW/Downloads/coding/PZ-t2/w finalize tooltip-t2 --run-a-root C:/Users/MW/Downloads/coding/PZ2/t2a --run-b-root C:/Users/MW/Downloads/coding/PZ2/t2b --output-root C:/Users/MW/Downloads/coding/PZ2/t2-final --completion-metadata-json <exact command/exit/subject/artifact bindings retained in closeout.validation>
+```
+
+Exact focused/inspect/Lua/full-gate command strings and exit/subject/artifact bindings are retained once in `tooltip_t2_closeout.json.validation`. T2 full-gate orchestration receipt is `C:/Users/MW/Downloads/coding/PZ2/oc/receipt.json`. Focused commands used `UV_PROJECT_ENVIRONMENT=C:/Users/MW/Downloads/coding/PZ-t2/e2`, `UV_NO_SYNC=1`, `PYTHONDONTWRITEBYTECODE=1`, `PYTHONNOUSERSITE=1` and an external task temp directory. Child Windows PowerShell used its system module directory. One status-only PowerShell JSON read rejected the deliberately distinct `Base.LemonGrass`/`Base.Lemongrass` keys; the read was corrected to `-AsHashtable` without modifying data.

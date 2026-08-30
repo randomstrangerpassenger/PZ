@@ -1,5 +1,7 @@
 # Implementation Plan — Iris Tooltip T3 검증된 T2 정적 데이터의 Alt Tooltip Runtime 통합
 
+> 현재 실행 상태(2026-08-30): 전체 T3 **partial**, `runtime_adopted=false`. 후속 T3-D1은 최신 Build 41 정정과 필수 static/consumer 검증을 complete로 닫았다. 현재 T1/T2 입력과 final-required scope는 아래 최종 D1 인계를 따르며 package/install/actual PZ/Alt/visual/failure-isolation은 아직 미검증이다.
+
 >
 > 상태: 실행 전 계획. 이번 작성 범위는 코드·입력 조사와 본 문서 추가이며, runtime 구현·package·설치·게임 검증은 수행하지 않았다.
 >
@@ -761,3 +763,9 @@ T3의 final S2 selected / Menu KO required / Menu EN required acceptance는 **�
 원문 실행 결과와 exact bindings는 `C:/Users/MW/Downloads/coding/PZ2/t3d1/a1/menu-final-1.txt`, 재현은 `a1/en-final-1`이다. 기존 KO role material/비대상 body, EN 2,072개 원문, 초기 정상 selected 1,302개, Tooltip surface/absence 175개가 보존됐다. Public Menu는 locale별 2,084개, required source/fact mismatch·missing은 0, L4 selected subset은 locale별 530개다. Lua syntax도 exit 0(141 files)다. T1/T2 final locator와 byte-preserved T2 product는 그대로이며 owner metadata의 generation 참조/파생 binding만 바뀌었다.
 
 D1 전체 closeout은 canonical gate 완료를 기다린다. Exact machine subject는 `fb3d8391773fb35f5440824bd42b64ea620e16ea` / tree `0494082f19612de9d57dc2c02ff20ab462e5116b`다. 현재 허용된 `.../PZ2/t3d1` root에서는 가장 짧은 child조차 longest tracked path가 263자로 기존 gate의 259자 안전 제한을 넘어 테스트 시작 전에 중단됐다. Gate 제한을 수정하지 않았고 더 짧은 외부 root의 한정 허가를 요청했다. 이때 상태는 D1 `implemented_only / required gate blocked`, 전체 T3 `partial`, `runtime_adopted=false`다. Package/install/actual loaded module/PZ/Alt/visual/failure-isolation은 계속 original T3 범위다.
+
+**최신 Build 41 정정의 최종 D1 인계 — complete:** 앞선 D1 C 입력을 supersede한 12개 primary-use/core/S2 정정이 현재 generation `dvf33-05d76b51c5e1058be4d79afd8a43bc2f0ac8a11c136523166770f181eeaf82c1`, T1 strict handoff, T2 static staging 및 runtime product copy까지 반영됐다. `C:/Users/MW/Downloads/coding/PZ2/t3d1/a2/t1-final`과 `a2/t2-final`이 실제 finalizer에서 complete로 생성됐으며 정확한 current locator/hash는 `Iris/_docs/authority/iris_current_route_index.json`을 따른다. T1 machine subject는 `b67907dc09b508d538fd12efa2c697a0388d8647`, T2는 `a3ec5293b1306f0ba74eda2af5dc8730cdd98ff6`이다. 승인된 짧은 `C:/Users/MW/PZ-D1`의 `2`와 `3`에서 각각 필수 canonical A/B·comparator가 PASS했다. 기존 T1/T2 dedicated tests와 지정 Lua syntax도 PASS다.
+
+최신 입력의 한 번의 final Menu 실행 `a2/menu-final.txt`는 KO/EN required 1,314개 모두 actual record·producer/input·fact를 연결해 exit 0이었다. EN evidence method는 current deterministic derivability이며 이전 `a1/menu-final-1` PASS를 승계하지 않았다. Initial 1,314 pair ledger를 보존하고 exact 12개 fact-ID successor를 연결했다. 따라서 이 T3의 **final S2 selected / Menu KO required / Menu EN required는 같은 initial FullType 1,314개와 명시된 successor IDs**를 사용하며 authority-backed non-required는 공집합이다. Resolved exact set은 initial 1,314 pair 전체, retained/unresolved는 공집합이다. Exact 목록·전이·source binding은 동일 report에 있다.
+
+같은 실행에서 기존 EN 2,072개·정상 selected 1,302개·비대상 source 2,093개·acquisition·absence 175개·비대상 S2·L2/L4를 보존했다. L4 selected subset은 locale별 530개 모두 일치했고 support 2,280 및 `367/825/895/137/56` 줄 수 분포도 같다. 이 인계는 기존 sealed T1 unverified를 소급 PASS로 바꾸거나 사용자 정정을 독립 게임 사실 검증으로 인증하지 않는다. D1은 complete지만 전체 T3는 partial, runtime_adopted=false다. 남은 package/install/actual loaded module/PZ/Alt/visual/failure-isolation은 이 계획의 필수 미검증 범위로 유지한다. 상세 명령·실제 결과·제약은 D1 최종 closeout에 모았다.

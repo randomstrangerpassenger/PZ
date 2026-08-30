@@ -1,8 +1,8 @@
 # Implementation Plan — Iris Tooltip T3-D1 Menu·Tooltip Layer 3 표시 조건 및 EN 소비 Record Fact 연결 정합성
 
-> 실행 상태(2026-08-30): **진행 중 / 최신 Build 41 정정 전파 중**. 사용자 지정 12개 source·KO/EN·core ID를 정정했고 T1 strict candidate는 blocker 0 / OPEN이다. 이전 relation PASS는 superseded 입력의 결과다. 최신 T1 finalization→T2/product→final relation에 필요한 canonical gate는 승인된 `C:/PZ-D1`의 OS 쓰기 거부로 대기 중이다. 기존 실패와 이전 결과는 보존하며 필드 전체 폐기는 범위 밖이다.
+> 실행 상태(2026-08-30): **T3-D1 complete**. 사용자 지정 12개 Build 41 정정을 Menu·EN·owner·T1·T2·product까지 전파했다. 필수 canonical A/B·comparator와 최종 actual Menu relation 모두 PASS이며 initial 1,314 pair는 resolved 1,314 / retained 0 / unresolved 0이다. 상세 current binding과 검증은 문서 끝의 최종 closeout을 따른다. 과거 실패·superseded 결과는 보존하고 전체 T3는 partial, runtime_adopted=false다.
 
-> 상태: 실행 전 계획. 2026-08-30 현재 코드·계약·산출물의 읽기 전용 조사에 기반한다. 이번 작성·개정은 본 문서에 한정하며, display disposition 확정·producer 수정·generation 전환·T3-D1 완료를 의미하지 않는다.
+> 원 계획 작성 시점의 상태: 실행 전 계획. 2026-08-30 코드·계약·산출물의 읽기 전용 조사에 기반한다. 당시 작성·개정은 본 문서에 한정하며, display disposition 확정·producer 수정·generation 전환·T3-D1 완료를 의미하지 않았다.
 >
 > 양식: `docs/PLAN_TEMPLATE.md`의 12개 절과 각 Change의 Purpose / Files / Implementation Notes / Validation 구조.
 >
@@ -744,3 +744,33 @@ T1 dedicated focused command의 첫 실행은 95 passed / exit 0이나 실패한
 후속 승인된 `C:/Users/MW/PZ-D1`에서 짧은 gate leaf `1/a`, result `1/ra`, orchestration `1/oa`, temp `1/t`를 사용했다. 생성·쓰기와 기존 path guard를 통과했으며 위 T1 subject의 canonical Run A는 약 3분의 pytest 실행 뒤 **exit 1: 206 passed / 5 failed / 109 subtests passed**, standalone 4개는 exit 0이었다. 실패 attempt의 기존 owner 출력은 `1/oa/receipt.json`, `1/ra/canonical_full_result.json`, `1/ra/full_pytest.stdout.txt`에 보존한다. 실행 checkout은 기존 gate가 정리했고 source checkout은 clean이다. Run B/comparator는 실패 상태에서 실행하지 않았다.
 
 실패 원인은 새 public body를 얻은 BarbedWire를 기존 lazy lookup harness가 계속 silent fixture로 사용한 것 1개와 이전 generation의 runtime lookup package identity로 인한 package fixture 실패 4개다. 사용자는 후속 "그렇게 해"로 `Iris/test/lua/lazy_lookup_acceptance_harness.lua`, `Iris/media/lua/client/Iris/Data/IrisRuntimeLookupPackageIdentity.json`, `Iris/tools/RuntimeLookupIndexIdentity.psm1`의 한정 읽기·최소 수정 범위를 승인했다. 현재도 silent인 `Base.Broom`으로 동일 침묵 guard fixture를 교체하고, 기존 `Assert-RuntimeLookupPackageParity -SkipManifestCheck` 계산 함수로 current generation의 파생 identity를 `lookup-ea4d67f0fdae3a6f`로 갱신했다. 계산 모듈 자체는 수정하지 않았다. 검증 기준 완화, 새 검사기·증명 산출물 추가, 실제 사용자 package/install 검증은 하지 않는다. T1 finalization과 이후 T2 전파는 필수 gate 재실행 결과까지 미완료로 유지한다.
+
+### 최종 closeout — 2026-08-30 / T3-D1 complete
+
+최종 처분은 사용자 콘텐츠 정정에 따른 exact 12개의 C 복구와 필요한 S2 successor 전파다. 같은 정정 fact를 Menu 일반 설명과 Tooltip S2에 사용하고 Menu의 기존 acquisition 문단을 보존하여 same-fact/non-contradiction 및 depth ordering을 충족한다. 새 의미를 runtime assembler에서 만들거나 누락을 non-required로 바꾸지 않았다. `special_context`는 기존 schema에 남되 채택 문장을 두 번 출력하지 않는다. 다른 item·field 및 L2/L4 의미를 바꾸지 않았다. 이전 origin category와 사용자 제공 참고 링크를 독립 source 검증으로 주장하지 않는다.
+
+최종 current generation은 위 `dvf33-05d76b51…`이다. T1은 `b67907dc09b508d538fd12efa2c697a0388d8647` / tree `353a887cf45d4604b88137ced6408dff3712a2cd`의 `a2/t1c4`를 최종화했다. Canonical `C:/Users/MW/PZ-D1/2/oa/receipt.json`, `2/ob/receipt.json`, `2/c/compare_receipt.json` 모두 exit 0 / PASS이며 A/B canonical bytes가 같다. T1 final root는 `C:/Users/MW/Downloads/coding/PZ2/t3d1/a2/t1-final`, closeout SHA는 `8b18aadfa572c27c849b8ab1a0d60e8452e237140d123001ba0ddc94adb5237b`다. Correction 0 / OPEN / strict handoff 2,280을 유지한다.
+
+T1 실제 채택 후 생산한 `a2/t2p` bytes를 제품에 복사하고 기존 wrapper의 admission hash를 갱신했다. Final T2 implementation은 `a3ec5293b1306f0ba74eda2af5dc8730cdd98ff6` / tree `d54f24c36594e5b3ad7f7dca1f563ab22a1204a1`이다. 그 subject의 `a2/t2a`, `a2/t2b`는 Lua/manifest bytes가 동일했고 기존 finalizer가 다시 current T1 binding과 함께 확인했다. Final root `a2/t2-final`의 static state는 complete이며 Lua SHA `d9c88a437c60b49a631e214b577ab8e78a087435101e69d76c8b86e0c65aa10a`, manifest SHA `545bbcb54b0b15aae8b641c646a93d6aeea1b179d907f0b093902ad0c7568d7d`, closeout SHA `7290f8df8983d01027f1aea97d8cba857851209f08e6f2bd86eb036873fb1590`다. Current route는 실제 finalizer 출력이 생긴 뒤에만 새 경로/hash를 채택했다. Historical T1/T2 final roots는 덮어쓰지 않았다.
+
+필수 검증 결과는 다음과 같다. 정확한 gate argv는 기존 orchestration receipts, T2 completion의 command/exit/subject/artifact binding은 기존 `tooltip_t2_closeout.json`에 있다. 별도 proof/manifest/validator를 추가하지 않았다.
+
+| 실행 | 결과 |
+|---|---|
+| T1 dedicated 3-file pytest, 위 `a2/t1-focused2.txt` | exit 0, 95 passed; 이후 T1 코드·정책 선택 변경 없음 |
+| T1 canonical Run A/B 및 comparator, `PZ-D1/2` | 모두 exit 0; 각 211 passed, 109 subtests; standalone 각 4 PASS |
+| T2 dedicated 3-file pytest, installed `a2/e` Python과 `--basetemp .../a2/pt2` | exit 0, 18 passed |
+| installed `iris-tooling --repository-root <a1/s> inspect current` | exit 0; finalization 전 당시 채택 route 조회 |
+| `powershell -ExecutionPolicy Bypass -File .\tools\check_lua_syntax.ps1` | exit 0, 153 files |
+| T2 canonical Run A/B 및 comparator, `PZ-D1/3` | 모두 exit 0; 각 211 passed, 109 subtests; standalone 각 4 PASS |
+| 아래 final Menu command | exit 0, relation PASS |
+
+```powershell
+uv run --no-project --python C:/Users/MW/Downloads/coding/PZ2/t3d1/a2/e/Scripts/python.exe python -B .\Iris\build\description\v2\tests\test_iris_browser_state_selection_search_acceptance.py menu C:/Users/MW/Downloads/coding/PZ2/t3d1/a2/t2-final/tooltip_t2_projection_manifest.json --en-replay-root C:/Users/MW/Downloads/coding/PZ2/t3d1/a2/en-final --baseline-root C:/Users/MW/Downloads/coding/PZ2/t3d1/a1
+```
+
+이 한 실행의 stdout `a2/menu-final.txt`에 actual observation·preservation·inherited status를 함께 기록했다. EN은 current producer/input으로 한 번 재현한 Index/chunk bytes와 actual consumer를 연결한 `current_deterministic_derivability`다. Historical original-run provenance나 번역 품질 인증은 아니다. KO/EN public 2,084개, required fact/record 각 1,314개 모두 일치하고 missing/mismatch/unverified는 0이다. Initial ledger SHA `c5db8a28…`를 유지하며 12개 before/after fact-ID를 명시했고 final selected pair SHA는 `eeb88db8e8ddd96c008ef16f7508e9d31b2cdcaae23caaedf4f093b30de8522a`다. Resolved exact set은 initial 1,314 pair 전체, retained/unresolved는 공집합이다. Required FullType은 줄지 않았다.
+
+같은 실행에서 기존 selected 1,302개, 기존 EN 2,072개 원문, 비대상 source facts 2,093개, acquisition, owner absence 175개와 비대상 S2/S1/S3/S4를 보존했다. L4 selected identity/source는 locale별 530개 모두 actual subset에 일치했다. Support는 2,280, 0/1/2/3/4줄 분포는 `367/825/895/137/56`이며 12개 각 항목의 KO/EN 줄 수·slot vector도 이전과 같다. 최대 4 logical rows를 유지한다.
+
+필수 success condition 충족으로 검증을 종료한다. Main checkout은 commit/reset하지 않고 사용자 선행 변경과 범위 밖 nested workspace를 보존했다. 위 machine subjects는 isolated worktree의 검증 대상이며 이후 route/doc carrier를 그 PASS subject로 소급하지 않는다. 환경은 기존 writer의 `a2/er/environment_receipt.json`을 사용했고 새 봉인 체계는 없다. 과거 FAIL/BLOCKED·superseded relation·sealed T1 unverified 이력은 그대로 보존한다. 원 T3에 current artifacts와 final-required scope를 인계하며 전체 T3는 **partial**, `runtime_adopted=false`다. Package/install/actual loaded module/PZ/Alt/visual/failure-isolation은 원 T3의 미검증 범위로 남고 이 D1 완료를 release 또는 runtime adoption으로 읽지 않는다.

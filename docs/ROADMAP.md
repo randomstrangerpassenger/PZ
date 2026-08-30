@@ -588,7 +588,7 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - T3는 완성된 배열을 FullType·locale로 조회한다. T1 final artifact나 owner authority를 다시 생성하거나 재해석하지 않는다.
   - owner authority에 없는 의미, 문장, 추천, fallback 또는 Menu consumer evidence를 Tooltip assembler가 발명하지 않는다.
   - 2026-08-30 D1 C 구현으로 기존 12개 Menu body를 복구하고 final KO/EN required 1,314개를 모두 연결했다. EN method는 current deterministic derivability이며 resolved 1,314 / retained 0 / unresolved 0이다. 기존 1,302개, Tooltip surface와 absence 175개는 보존됐다. L4 selected 530개는 양 locale의 실제 structured consumer subset에 일치했다.
-  - D1 canonical gate는 허용 외부 root의 Windows 경로 길이 제한으로 중단됐다. Package·설치와 실제 PZ load·Alt·visual·failure injection도 미검증이다. 전체 T3 완료, runtime adoption, 성능 또는 release readiness를 선언하지 않는다. 상세 결과는 D1 계획과 `docs/iris_tooltip_t3_static_data_alt_runtime_integration_plan.md` 실행 기록을 따른다.
+  - 이후 사용자 Build 41 수정안이 위 입력을 supersede했다. 최신 12개 source/core/S2 정정을 T1·T2 최종본과 product까지 전파했고, 두 단계 canonical A/B·comparator 및 최종 actual Menu relation이 모두 PASS해 **D1 complete**다. Initial 1,314 pair는 12개 fact-ID successor와 함께 resolved 1,314 / retained 0 / unresolved 0으로 닫혔으며 required FullType·비대상 S2·L2/L4·0~4줄 분포를 보존했다. Package·설치와 실제 PZ load·Alt·visual·failure injection은 미검증이다. 전체 T3 partial 및 runtime_adopted=false를 유지하고 성능·release readiness를 선언하지 않는다. 상세 current binding은 D1 계획과 `docs/iris_tooltip_t3_static_data_alt_runtime_integration_plan.md` 실행 기록을 따른다.
 
 - 최신 current product 상태를 기준으로 **DVF freeze readiness를 재판정한다.**
   - 과거 Problem 4의 `동결 불가` verdict는 historical evidence로 유지하고 직접 수정하거나 승계하지 않는다.

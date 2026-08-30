@@ -296,11 +296,11 @@ try {
     $evidencePredecessorRelative = 'Iris/_docs/refactor/repository_evidence_lightweighting/predecessor_subject_manifest.json'
     $evidenceOwnerApprovalRelative = 'Iris/_docs/refactor/repository_evidence_lightweighting/owner_policy_approval.json'
     $taxonomyRelative = 'Iris/_docs/round3/round3_test_taxonomy.json'
-    $requiredValidationsRelative = 'Iris/_docs/round3/current_route_required_validations.json'
+    $requiredValidationsRelative = 'Iris/validation/current_route/required_validations.json'
     $fullGateContractRelative = 'Iris/validation/clean_checkout/contracts/full_repository_gate.json'
     $evidenceAdoptionReceiptRelative = 'Iris/_docs/refactor/repository_evidence_lightweighting/required_validation_adoption_receipt.json'
     $evidenceAllocatorRelative = 'Iris/validation/clean_checkout/allocate_repository_runtime_lightweighting_roots.ps1'
-    $environmentLocatorRelative = 'Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json'
+    $environmentLocatorRelative = 'Iris/validation/clean_checkout/authority/current_environment.json'
     $launcherRelative = 'Iris/validation/clean_checkout/invoke_receipt_bound_full_gate.ps1'
     $runner = Join-Path $resolvedRepository $runnerRelative
     $common = Join-Path $resolvedRepository $commonRelative

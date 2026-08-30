@@ -17,7 +17,7 @@ from unittest.mock import patch
 REPO = next(parent for parent in Path(__file__).resolve().parents if (parent / ".git").exists())
 
 
-PAYLOAD = REPO / "Iris/media/lua/client/Iris/Data/IrisTooltipT2Data.lua"
+PAYLOAD = REPO / "Iris/media/lua/client/Iris/Data/IrisTooltipStaticData.lua"
 EXPECTED_SHA256 = "d9c88a437c60b49a631e214b577ab8e78a087435101e69d76c8b86e0c65aa10a"
 DATA_ROOT = REPO / "Iris/media/lua/client/Iris/Data"
 V2_DATA = REPO / "Iris/build/description/v2/data"
@@ -80,7 +80,7 @@ def menu_subject() -> dict:
         "Iris/build/description/v2/tools/build/layer3_body_role_realign.py",
         "Iris/build/description/v2/data/layer3_body_role_realign/fact_kind_mapping_contract.json",
         "Iris/build/description/v2/data/layer3_body_role_realign/policy_ratification_contract.json",
-        "Iris/test/lua/tooltip_t3_runtime_harness.lua",
+        "Iris/test/lua/tooltip_static_data_runtime_harness.lua",
         "Iris/build/description/v2/tests/test_iris_browser_state_selection_search_acceptance.py",
         "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunkIndex.lua",
         "Iris/media/lua/client/Iris/Data/IrisLayer3DataLookup.lua",
@@ -315,7 +315,7 @@ def run_harness(mode: str = "full", baseline_en_root: Path | None = None) -> str
     if hashlib.sha256(PAYLOAD.read_bytes()).hexdigest() != EXPECTED_SHA256:
         raise AssertionError("T2 product bytes differ from admitted payload")
     completed = subprocess.run(
-        [lua, str(REPO / "Iris/test/lua/tooltip_t3_runtime_harness.lua"), str(REPO), mode]
+        [lua, str(REPO / "Iris/test/lua/tooltip_static_data_runtime_harness.lua"), str(REPO), mode]
         + ([str(baseline_en_root)] if baseline_en_root else []),
         cwd=REPO, text=True, encoding="utf-8", capture_output=True, timeout=60,
     )

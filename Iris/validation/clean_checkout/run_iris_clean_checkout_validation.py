@@ -49,7 +49,7 @@ from Iris.validation.clean_checkout.iris_clean_checkout_validation_common import
 
 TAXONOMY_PATH = "Iris/_docs/round3/round3_test_taxonomy.json"
 REQUIRED_MANIFEST_PATH = (
-    "Iris/_docs/round3/current_route_required_validations.json"
+    "Iris/validation/current_route/required_validations.json"
 )
 PYTEST_INI_PATH = "pytest.ini"
 CANONICAL_GATE_PATH = (

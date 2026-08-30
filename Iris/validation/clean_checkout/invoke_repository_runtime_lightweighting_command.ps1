@@ -499,7 +499,7 @@ try {
     $executionTree = $executionTreeResult.stdout.Trim()
     $subjectIdentity = [ordered]@{ path = $subjectPath.Replace('\', '/'); sha256 = Get-Sha256 $subjectPath; subject_kind = $subject.subject_kind; claim_id = $spec.claim_id; repository_root = $repositoryRoot.Replace('\', '/'); commit = [string]$subject.commit; tree = [string]$subject.tree; execution_commit = $executionCommit; execution_tree = $executionTree; working_tree_status_sha256 = $subjectStatusSha }
 
-    $authorityPath = Join-Path $repositoryRoot 'Iris\validation\clean_checkout\authority\responsibility_refactor_environment_current.json'
+    $authorityPath = Join-Path $repositoryRoot 'Iris\validation\clean_checkout\authority\current_environment.json'
     $successorPolicyPath = Join-Path $repositoryRoot 'Iris\validation\clean_checkout\contracts\repository_runtime_lightweighting_output_policy.json'
     foreach ($path in @($authorityPath, $successorPolicyPath)) {
         if (-not [System.IO.File]::Exists($path)) { throw "command authority input is missing: $path" }
@@ -508,7 +508,7 @@ try {
     foreach ($row in @(
         @('wrapper', 'Iris/validation/clean_checkout/invoke_repository_runtime_lightweighting_command.ps1', $actualWrapper),
         @('successor_policy', 'Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json', $successorPolicyPath),
-        @('environment_authority', 'Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json', $authorityPath)
+        @('environment_authority', 'Iris/validation/clean_checkout/authority/current_environment.json', $authorityPath)
     )) {
         $blob = Invoke-CapturedText (Get-Command git -ErrorAction Stop).Source @('-C', $repositoryRoot, 'rev-parse', ($executionCommit + ':' + $row[1])) $repositoryRoot
         $workingBlob = Invoke-CapturedText (Get-Command git -ErrorAction Stop).Source @('-C', $repositoryRoot, 'hash-object', ('--path=' + $row[1]), $row[2]) $repositoryRoot

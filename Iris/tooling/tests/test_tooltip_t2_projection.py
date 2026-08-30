@@ -11,9 +11,9 @@ import pytest
 
 from iris_tooling.domains.tooltip_t1.contract import CONTRACT_FILES, DECISION_CONTRACT, canonical_bytes, fulltype_set_sha256, sha256_bytes
 from iris_tooling.domains.tooltip_t1.models import TooltipContractError
-from iris_tooling.domains.tooltip_t2.contract import CLOSEOUT, CONTRACT, HANDOFF_FILES, MANIFEST_SCHEMA, ROUTE, admit, load_contract, read_handoff
-from iris_tooling.domains.tooltip_t2.projection import project
-from iris_tooling.domains.tooltip_t2.serialization import lua_bytes, manifest_bytes
+from iris_tooling.domains.tooltip_static_data_projection.contract import CLOSEOUT, CONTRACT, HANDOFF_FILES, MANIFEST_SCHEMA, ROUTE, admit, load_contract, read_handoff
+from iris_tooling.domains.tooltip_static_data_projection.projection import project
+from iris_tooling.domains.tooltip_static_data_projection.serialization import lua_bytes, manifest_bytes
 
 
 def _git(repo, *args):

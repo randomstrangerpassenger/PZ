@@ -191,7 +191,7 @@ package.preload["Iris/UI/Tooltip/IrisTooltipSummary"] = function()
     error("Alt must not load legacy summary")
 end
 package.loaded["Iris/Util/IrisTranslationResolver"] = {getDetectedLangKey=function() return "EN" end}
-package.preload["Iris/Data/IrisTooltipT2Data"] = function()
+package.preload["Iris/Data/IrisTooltipStaticData"] = function()
     return {["Base.Hammer"]={en={"Static row"},ko={"정적 행"}}}
 end
 getTextManager = function() return {getFontHeight=function() return 17 end,

@@ -132,7 +132,7 @@ local function runTooltip()
     package.preload["Iris/UI/Tooltip/IrisTooltipSummary"] = function()
         error("legacy Summary is not an Alt consumer")
     end
-    package.preload["Iris/Data/IrisTooltipT2Data"] = function()
+    package.preload["Iris/Data/IrisTooltipStaticData"] = function()
         loads=loads+1
         return {["Base.Hammer"]={en={"Static row"},ko={"정적 행"}}}
     end

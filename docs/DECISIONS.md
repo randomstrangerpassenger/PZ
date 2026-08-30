@@ -2271,5 +2271,15 @@ D1 generation 전환의 조건부 downstream binding: T1 strict admission에서 
 - Alt Tooltip은 T2의 완성된 KO/EN 배열을 exact FullType·explicit locale로 소비한다. Runtime에서 사실을 다시 선택하거나 문장을 생성·번역·축약하지 않고, 같은 문자열의 별도 row도 보존한다. 미지원 locale/key, 0줄, 유효하지 않은 배열과 payload 실패에는 Iris 부분을 표시하지 않으며 legacy semantic fallback을 연결하지 않는다.
 - Payload는 최초 유효 lookup에서 한 번만 load를 시도하고 실패도 반복 재시도하지 않는다. Alt OFF에서는 item/locale/data lookup을 하지 않으며 별도 display-result cache를 만들지 않는다. Legacy Summary와 Menu의 기존 locale fallback API는 기존 소비자를 위해 보존하되 Alt 경로에서 분리한다.
 - Vanilla render는 기존 호출을 유지하고 Iris 작업만 보호한다. 줄바꿈·화면 경계 처리는 presentation 책임으로 한정한다. Kahlua에 없는 전역 `next` 의존은 `pairs`로 교정했고, 기존 T3 harness 안에서 `next=nil` 조건을 반영했다. 이 fixture를 별도 validator/authority로 승격하지 않는다.
+- 완료 후 사용자 요청으로 Iris panel을 vanilla 바로 옆(오른쪽 우선, 공간 부족 시 왼쪽)에 배치한다. 내용 기반 240~360px 읽기 폭과 기존 font를 사용하고 vanilla 크기는 변경하지 않는다. 양옆 모두 공간이 부족한 경우에만 수직 배치를 사용한다. 이는 source-only presentation 후속 수정이며 T1/T2 내용·authority 재발행이나 기존 완료의 재봉인을 요구하지 않는다. 사용자는 이번 테스트용 변경의 패키징을 제외했다.
 
 사용자는 안내 버전 설치·KO/EN Alt 열기와 이미 보고한 정상 동작으로 인게임 검증을 종료하고 실제 오류 상황 검증을 이번 실행 범위에서 제외했다. 기존 final code `25318630`의 필수 자동 검증과 package/install 결과를 함께 근거로, 명시된 관찰 범위 안에서 T3를 `complete`로 닫고 current route의 `tooltip_t2_static_staging.runtime_adopted=true`를 기록한다. 추가 게임 표본·경로 증명·오류 검증본을 잔여 의무로 만들지 않는다. 미실행 오류 검증을 PASS로 바꾸거나 전수 QA·release/Workshop readiness·sealed closeout을 주장하지 않는다. 이는 이번 T3에 한정된 사용자 범위 결정이며, 상세 ceiling과 historical partial/실패 이력은 원 T3 계획에 보존한다. 추가 테스트나 T1/T2 재발행은 하지 않는다.
+
+### Iris current naming — responsibility-based source locator successor
+
+- 날짜: 2026-08-30. 승인 근거: 이번 naming 실행 프롬프트의 owner preapproval.
+- Current source readpoint: Static Tooltip 구현은 `iris_tooling.domains.tooltip_static_data_projection`, runtime은 `IrisAltTooltip → IrisTooltipStaticDataLookup → IrisTooltipStaticData`, harness는 `Iris/test/lua/tooltip_static_data_runtime_harness.lua`다.
+- Current validation source locator: `Iris/validation/current_route/run_contract_tests.py`와 `Iris/validation/current_route/required_validations.json`. 기존 `_docs/round3/current_route_required_validations.json`은 historical baseline이며 새 current writer가 아니다. Taxonomy/closure/source-policy의 역사적 경로와 schema version은 유지한다.
+- Manifest filename constraint의 additive successor는 `Iris/_docs/authority/tooltip_static_data_projection/projection_manifest.schema.json`이다. 원 T2 schema와 T1 historical Git contract, supported CLI token은 보존한다.
+- 이는 source 경로 준비에 대한 승인이다. Fresh external wheel/environment·production generation·package·canonical A/B/comparator·PZ observation 없이 naming successor의 채택/behavior-preservation 완료를 선언하지 않는다. 기존 T1/T2/T3 PASS와 sealed 원문은 당시 subject에만 귀속한다.
+- Exact scope, retained/deferred 및 검증 ceiling: `docs/iris_current_responsibility_naming_alignment_closeout.md`. N7 environment locator는 기존 receipt workflow 실행 전까지 유지한다.

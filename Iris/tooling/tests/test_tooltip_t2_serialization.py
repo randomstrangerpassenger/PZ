@@ -4,8 +4,8 @@ import re
 import pytest
 
 from iris_tooling.domains.tooltip_t1.models import TooltipContractError
-from iris_tooling.domains.tooltip_t2.contract import check_surface, decode_object, load_contract
-from iris_tooling.domains.tooltip_t2.serialization import lua_string
+from iris_tooling.domains.tooltip_static_data_projection.contract import check_surface, decode_object, load_contract
+from iris_tooling.domains.tooltip_static_data_projection.serialization import lua_string
 
 
 @pytest.mark.parametrize("case", ["roundtrip_allowed", "encoding", "logical_line", "forbidden"])

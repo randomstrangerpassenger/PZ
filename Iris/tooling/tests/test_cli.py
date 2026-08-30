@@ -35,7 +35,7 @@ def test_help_is_repository_independent(capfd, monkeypatch, tmp_path: Path) -> N
         repository_root / "Iris/build/build_import_contract.md",
         repository_root / "Iris/AGENTS.md",
     )
-    command_literal = "round3_run_contract_tests.py --class current --list"
+    command_literal = "run_contract_tests.py --class current --list"
     assert [
         path.relative_to(repository_root).as_posix()
         for path in current_docs
@@ -77,7 +77,7 @@ def test_help_is_repository_independent(capfd, monkeypatch, tmp_path: Path) -> N
     assert captured.out == '{"schema_version":"launcher-owned"}\n'
     assert captured.err == "human diagnostic\n"
     assert any("invoke_receipt_bound_full_gate.ps1" in value for value in captured_command)
-    assert not any("round3_run_contract_tests" in value for value in captured_command)
+    assert not any("run_contract_tests.py" in value for value in captured_command)
 
     captured_command.clear()
     predecessor_receipts = tmp_path / "predecessor-receipts.json"

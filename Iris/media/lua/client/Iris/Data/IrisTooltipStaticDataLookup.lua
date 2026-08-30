@@ -34,7 +34,7 @@ function Lookup.get(fullType, locale)
         (locale ~= "ko" and locale ~= "en") then return nil end
     if not attempted then
         attempted = true
-        local ok, loaded = ProtectedCall.call(require, "Iris/Data/IrisTooltipT2Data")
+        local ok, loaded = ProtectedCall.call(require, "Iris/Data/IrisTooltipStaticData")
         if ok and type(loaded) == "table" and getmetatable(loaded) == nil then data = loaded end
     end
     if not data then return nil end

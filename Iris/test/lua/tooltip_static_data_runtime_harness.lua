@@ -5,8 +5,8 @@ package.path = root .. "/Iris/media/lua/client/?.lua;" .. package.path
 -- Standard Lua provides next; PZ's Kahlua does not. Keep that engine boundary
 -- in this existing fixture so desktop Lua cannot hide an unsupported dependency.
 next = nil
-local DATA = "Iris/Data/IrisTooltipT2Data"
-local READER = "Iris/Data/IrisTooltipT2Lookup"
+local DATA = "Iris/Data/IrisTooltipStaticData"
+local READER = "Iris/Data/IrisTooltipStaticDataLookup"
 local ALT = "Iris/UI/Tooltip/IrisAltTooltip"
 local RESOLVER = "Iris/Util/IrisTranslationResolver"
 local LOADER = "Iris/IrisTranslationLoader"
@@ -17,7 +17,7 @@ end
 local dataLoads = 0
 package.preload[DATA] = function()
     dataLoads = dataLoads + 1
-    return dofile(root .. "/Iris/media/lua/client/Iris/Data/IrisTooltipT2Data.lua")
+    return dofile(root .. "/Iris/media/lua/client/Iris/Data/IrisTooltipStaticData.lua")
 end
 local reader = require(READER)
 assert(dataLoads == 0)
@@ -112,17 +112,22 @@ getTextManager = function() return {
         return #text * 6
     end,
 } end
-getCore = function() return {getScreenWidth=function() return 900 end, getScreenHeight=function() return 700 end} end
+local screenWidth, screenHeight = 900, 700
+getCore = function() return {
+    getScreenWidth=function() return screenWidth end,
+    getScreenHeight=function() return screenHeight end,
+} end
 isKeyDown = function(code) return alt and code == 56 end
 local function tooltip()
     return {item={fullType="Base.223Clip"},height=30,width=300,x=10,y=10,drawn={},boxes=0,vanilla=0,
         getAbsoluteX=function(self) return self.x end, getAbsoluteY=function(self) return self.y end,
-        setHeight=function(self, h) self.height=h end,
+        setHeight=function() error("Iris must not resize vanilla") end,
         drawRect=function(self, x,y,w,h)
             if drawFailure then error("draw failure") end
-            assert(self.x+x >= 0 and self.x+x+w <= 900)
-            assert(self.y+y >= 0 and self.y+y+h <= 700)
-            assert(y >= 30 or y+h <= 0, "vanilla overlap")
+            assert(self.x+x >= 0 and self.x+x+w <= screenWidth)
+            assert(self.y+y >= 0 and self.y+y+h <= screenHeight)
+            assert(x >= self.width or x+w <= 0 or y >= self.height or y+h <= 0, "vanilla overlap")
+            self.panel = {x=x, y=y, width=w, height=h}
             self.boxes=self.boxes+1
         end,
         drawRectBorder=function() end,
@@ -162,7 +167,8 @@ for _, kind in ipairs({"normal", "load_failure", "invalid_root", "malformed", "u
     for _=1,3 do ISToolTipInv.render(tip) end
     assert(tip.vanilla == 4 and loads() == 1)
     if kind == "normal" then
-        assert(tip.boxes == 3 and tip.height > 30)
+        assert(tip.boxes == 3 and tip.height == 30 and tip.width == 300)
+        assert(tip.panel.x == tip.width+4 and tip.panel.y == 0)
         local height, boxes = tip.height, tip.boxes
         module.addIrisOverlay(tip)
         assert(tip.boxes == boxes and tip.height == height)
@@ -188,7 +194,47 @@ for _, kind in ipairs({"normal", "load_failure", "invalid_root", "malformed", "u
         assert(tip.boxes == 0 and tip.height == 30)
         tip.item=nil; ISToolTipInv.render(tip); assert(tip.height == 30)
         tip.item={fullType="Base.223Bullets"}; tip.x=820; tip.y=640; tip.boxes=0
-        ISToolTipInv.render(tip); assert(tip.boxes == 1)
+        ISToolTipInv.render(tip); assert(tip.boxes == 1 and tip.panel.x+tip.panel.width == -4)
+        -- Same panel family covers narrow vanilla, screen edges, fallback and reuse.
+        payload["Fixture.Layout"] = {ko={string.rep("설명 ", 20)}, en={string.rep("long text ", 15)}}
+        for _, placement in ipairs({
+            {x=10, y=10, width=156, sw=900, sh=700, side="right", top=true},
+            {x=700, y=10, width=156, sw=900, sh=700, side="left", top=true},
+            {x=10, y=670, width=156, sw=900, sh=700, side="right"},
+            {x=10, y=10, width=300, sw=640, sh=700, side="right", top=true, panelWidth=326},
+            {x=0, y=10, width=156, sw=300, sh=700, side="below"},
+            {x=0, y=650, width=156, sw=300, sh=700, side="above"},
+            {x=0, y=0, width=156, sw=300, sh=30, side="hidden"},
+        }) do
+            for _, language in ipairs({"KO", "EN"}) do
+                locale = language
+                screenWidth, screenHeight = placement.sw, placement.sh
+                tip.item.fullType = "Fixture.Layout"
+                tip.x, tip.y, tip.width = placement.x, placement.y, placement.width
+                tip.drawn, tip.boxes, tip.panel = {}, 0, nil
+                ISToolTipInv.render(tip)
+                assert(tip.height == 30 and tip.width == placement.width)
+                if placement.side == "hidden" then
+                    assert(tip.boxes == 0 and #tip.drawn == 0)
+                else
+                    assert(tip.boxes == 1)
+                    same({table.concat(tip.drawn)}, payload["Fixture.Layout"][language:lower()])
+                    local panel = tip.panel
+                    if placement.side == "right" then assert(panel.x == tip.width+4)
+                    elseif placement.side == "left" then assert(panel.x+panel.width == -4)
+                    elseif placement.side == "below" then assert(panel.y == tip.height+4)
+                    else assert(panel.y+panel.height == -4) end
+                    if placement.top then assert(panel.y == 0) end
+                    if placement.panelWidth then assert(panel.width == placement.panelWidth) end
+                end
+                alt=false; ISToolTipInv.render(tip)
+                assert(tip.height == 30 and tip.width == placement.width)
+                alt=true
+            end
+        end
+        payload["Fixture.Layout"] = nil
+        locale, screenWidth, screenHeight = "EN", 900, 700
+        tip.item.fullType, tip.x, tip.width = "Base.223Bullets", 10, 300
         tip.y=10; measureFailure=true; tip.boxes=0; ISToolTipInv.render(tip)
         assert(tip.boxes == 0 and tip.height == 30)
         measureFailure=false; drawFailure=true; ISToolTipInv.render(tip); assert(tip.height == 30)

@@ -453,7 +453,7 @@ class PackageLayer3ChunksOnlyContractTest(unittest.TestCase):
         required_manifest = json.loads(
             (
                 REPO_ROOT
-                / "Iris/_docs/round3/current_route_required_validations.json"
+                / "Iris/validation/current_route/required_validations.json"
             ).read_text(encoding="utf-8")
         )
         selection = required_manifest["registry_runtime_compatibility"]
@@ -478,7 +478,7 @@ class PackageLayer3ChunksOnlyContractTest(unittest.TestCase):
                 "-RegistryCompatibilityRequiredManifest",
                 str(
                     REPO_ROOT
-                    / "Iris/_docs/round3/current_route_required_validations.json"
+                    / "Iris/validation/current_route/required_validations.json"
                 ),
             )
             self.assertNotEqual(completed.returncode, 0)

@@ -56,7 +56,7 @@ def test_selected(tmp_path):
         newline="\n",
     )
     taxonomy = repo / "Iris/_docs/round3/round3_test_taxonomy.json"
-    required = repo / "Iris/_docs/round3/current_route_required_validations.json"
+    required = repo / "Iris/validation/current_route/required_validations.json"
     write_json(
         taxonomy,
         {
@@ -84,7 +84,7 @@ def test_selected(tmp_path):
             },
         },
     )
-    runner = repo / "Iris/_docs/round3/round3_run_contract_tests.py"
+    runner = repo / "Iris/validation/current_route/run_contract_tests.py"
     runner.write_text("raise SystemExit(0)\n", encoding="utf-8", newline="\n")
     successor = repo / "Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json"
     write_json(successor, {"schema_version": "iris_repository_runtime_lightweighting_output_policy_v1"})
@@ -124,7 +124,7 @@ def inventory(repo: Path, external: Path) -> tuple[subprocess.CompletedProcess[s
         "--taxonomy",
         "Iris/_docs/round3/round3_test_taxonomy.json",
         "--required-validations",
-        "Iris/_docs/round3/current_route_required_validations.json",
+        "Iris/validation/current_route/required_validations.json",
         "--out",
         output,
         cwd=repo,
@@ -322,7 +322,7 @@ def test_inventory_rejects_missing_taxonomy_mapping_and_repository_local_output(
         "--taxonomy",
         "Iris/_docs/round3/round3_test_taxonomy.json",
         "--required-validations",
-        "Iris/_docs/round3/current_route_required_validations.json",
+        "Iris/validation/current_route/required_validations.json",
         "--out",
         repo / "local-output.json",
         cwd=repo,
@@ -354,7 +354,7 @@ def write_dynamic_receipt(repo: Path, external: Path, route_result: Path, delta:
     spec = receipt_root / "004-route-audit-dynamic-current.command.json"
     argv = [
         "-B",
-        "Iris/_docs/round3/round3_run_contract_tests.py",
+        "Iris/validation/current_route/run_contract_tests.py",
         "--class",
         "current",
         "--enforce-current-build-closure",
@@ -385,9 +385,9 @@ def write_dynamic_receipt(repo: Path, external: Path, route_result: Path, delta:
     if delta:
         clean_delta.update(delta)
     successor = repo / "Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json"
-    runner = repo / "Iris/_docs/round3/round3_run_contract_tests.py"
+    runner = repo / "Iris/validation/current_route/run_contract_tests.py"
     runner_blob = subprocess.run(
-        ["git", "-C", str(repo), "rev-parse", f"{commit}:Iris/_docs/round3/round3_run_contract_tests.py"],
+        ["git", "-C", str(repo), "rev-parse", f"{commit}:Iris/validation/current_route/run_contract_tests.py"],
         check=True,
         stdout=subprocess.PIPE,
         text=True,
@@ -414,7 +414,7 @@ def write_dynamic_receipt(repo: Path, external: Path, route_result: Path, delta:
             },
             "invoked_repository_files": [
                 {
-                    "logical_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+                    "logical_path": "Iris/validation/current_route/run_contract_tests.py",
                     "actual_path": str(runner),
                     "execution_commit": commit,
                     "git_blob_id": runner_blob,
@@ -467,7 +467,7 @@ def test_seal_requires_dynamic_checkout_unchanged_pass_and_verify_detects_drift(
         "--taxonomy",
         "Iris/_docs/round3/round3_test_taxonomy.json",
         "--required-validations",
-        "Iris/_docs/round3/current_route_required_validations.json",
+        "Iris/validation/current_route/required_validations.json",
         "--receipt",
         seal,
         cwd=repo,
@@ -499,7 +499,7 @@ def test_seal_requires_dynamic_checkout_unchanged_pass_and_verify_detects_drift(
         "--taxonomy",
         "Iris/_docs/round3/round3_test_taxonomy.json",
         "--required-validations",
-        "Iris/_docs/round3/current_route_required_validations.json",
+        "Iris/validation/current_route/required_validations.json",
         "--receipt",
         seal,
         cwd=verification,
@@ -515,7 +515,7 @@ def test_seal_requires_dynamic_checkout_unchanged_pass_and_verify_detects_drift(
         "--taxonomy",
         "Iris/_docs/round3/round3_test_taxonomy.json",
         "--required-validations",
-        "Iris/_docs/round3/current_route_required_validations.json",
+        "Iris/validation/current_route/required_validations.json",
         "--receipt",
         seal,
         cwd=verification,

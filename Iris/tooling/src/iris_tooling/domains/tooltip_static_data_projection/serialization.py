@@ -3,7 +3,7 @@ from __future__ import annotations
 from iris_tooling.domains.tooltip_t1.contract import canonical_bytes, sha256_bytes
 from iris_tooling.domains.tooltip_t1.models import TooltipContractError
 
-LUA_NAME = "IrisTooltipT2Data.lua"
+LUA_NAME = "IrisTooltipStaticData.lua"
 MANIFEST_NAME = "tooltip_t2_projection_manifest.json"
 RUN_RECEIPT = "run_receipt.json"
 FINAL_CLOSEOUT = "tooltip_t2_closeout.json"

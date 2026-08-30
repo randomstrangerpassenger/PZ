@@ -161,7 +161,7 @@ def _build_rtc_forensic_observation(
     attempt: dict[str, object],
 ) -> dict[str, object]:
     """Bind the S_base standalone required-gate result to its exact inputs."""
-    required_manifest_path = repo / "Iris/_docs/round3/current_route_required_validations.json"
+    required_manifest_path = repo / "Iris/validation/current_route/required_validations.json"
     raw_receipt_path = result_root / "rtc-required-gate.json"
     required = read_json(required_manifest_path, code="forensic_rtc_required_manifest_invalid")
     raw = read_json(raw_receipt_path, code="forensic_rtc_required_gate_receipt_invalid")
@@ -429,7 +429,7 @@ def forensic(repo: Path, result_root: Path) -> dict:
             "--round3-denominator-receipt", str(result_root / "configured-current-collection.json"),
         ],
         "exact_current": [
-            sys.executable, "-B", "Iris/_docs/round3/round3_run_contract_tests.py",
+            sys.executable, "-B", "Iris/validation/current_route/run_contract_tests.py",
             "--class", "current", "--enforce-current-build-closure", "--out", str(result_root / "exact-current.json"),
         ],
         "configured_current": [
@@ -442,7 +442,7 @@ def forensic(repo: Path, result_root: Path) -> dict:
             sys.executable, "-B",
             "Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_runtime_compatibility.py",
             "--required-gate",
-            "--required-manifest", "Iris/_docs/round3/current_route_required_validations.json",
+            "--required-manifest", "Iris/validation/current_route/required_validations.json",
             "--out", str(result_root / "rtc-required-gate.json"),
         ],
     }
@@ -933,7 +933,7 @@ def _stage_path(stage_set: dict[str, object], stage: str, field: str) -> Path:
 
 
 def _validate_rtc_bundle(repo: Path, subject: dict[str, str]) -> dict[str, object]:
-    required = read_json(repo / "Iris/_docs/round3/current_route_required_validations.json")
+    required = read_json(repo / "Iris/validation/current_route/required_validations.json")
     selection = required.get("registry_runtime_compatibility")
     if not isinstance(selection, dict):
         raise AdmissionError("rtc_selection_invalid", "live RTC selection is missing")

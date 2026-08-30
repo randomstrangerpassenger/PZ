@@ -73,7 +73,7 @@ def default_attempts_root() -> Path:
 OWNER_INPUT_ROOT = V2_ROOT / "owner_inputs" / ROUND_ID
 REVIEWER_INPUT_ROOT = V2_ROOT / "reviewer_inputs" / ROUND_ID
 LIVE_REQUIRED_VALIDATIONS = (
-    REPO_ROOT / "Iris" / "_docs" / "round3" / "current_route_required_validations.json"
+    REPO_ROOT / "Iris" / "validation" / "current_route" / "required_validations.json"
 )
 NATURALIZATION_COMPILER_IMPLEMENTATION_FILES = compiler_source_paths(REPO_ROOT)
 

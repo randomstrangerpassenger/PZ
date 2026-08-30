@@ -526,7 +526,7 @@ $packageRoot = Join-Path $outputRootFull 'Iris'
 $manifestPath = Join-Path $outputRootFull 'Iris.package_manifest.sha256.json'
 $zipPath = Join-Path $outputRootFull 'Iris.zip'
 $registryCompatibilityValidator = Join-Path $repoRoot 'Iris\build\description\v2\tools\build\validate_dvf_3_3_registry_runtime_compatibility.py'
-$defaultRequiredManifest = Join-Path $repoRoot 'Iris\_docs\round3\current_route_required_validations.json'
+$defaultRequiredManifest = Join-Path $repoRoot 'Iris\validation\current_route\required_validations.json'
 $registryCompatibilityResolutionMode = 'explicit'
 $rtcArguments = @(
     $RegistryCompatibilityContext,

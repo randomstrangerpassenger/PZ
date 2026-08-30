@@ -448,11 +448,11 @@ D1/D2 개별 workstream 완료 당시에는 current ecosystem adoption이 `pendi
 
 ### Runtime presentation 구조
 
-2026-08-30 Tooltip T3는 사용자 확정 인게임 범위와 기존 필수 자동 검증을 근거로 `complete`, `runtime_adopted=true`다. Current Alt 경로는 `IrisAltTooltip → IrisTooltipT2Lookup → IrisTooltipT2Data`이며 제품 runtime은 Lua만 사용한다.
+2026-08-30 Tooltip T3는 사용자 확정 인게임 범위와 기존 필수 자동 검증을 근거로 `complete`, `runtime_adopted=true`다. 이 T3 채택은 predecessor subject의 결과다. Naming 작업의 source 경로는 `IrisAltTooltip → IrisTooltipStaticDataLookup → IrisTooltipStaticData`이며 제품 runtime은 Lua만 사용한다. Naming successor의 외부 generation/package/full-gate 및 PZ 검증은 별도 미완료 상태다.
 
-`IrisTooltipT2Lookup`은 최초 valid exact FullType/`ko`·`en` 조회에서 payload를 한 번 require한다. 실패도 한 번만 시도한다. Metatable·혼합/희소 key·비문자열·빈 문자열·개행·4줄 초과를 포함한 선택 배열 전체를 거부하며, supported-empty는 빈 배열로 유지한다. 문자열·순서·중복 row는 수정하지 않고 별도 result cache나 legacy fallback을 만들지 않는다. 전체 stored key 순회는 Kahlua에서 지원하는 `pairs`를 사용한다.
+`IrisTooltipStaticDataLookup`은 최초 valid exact FullType/`ko`·`en` 조회에서 payload를 한 번 require한다. 실패도 한 번만 시도한다. Metatable·혼합/희소 key·비문자열·빈 문자열·개행·4줄 초과를 포함한 선택 배열 전체를 거부하며, supported-empty는 빈 배열로 유지한다. 문자열·순서·중복 row는 수정하지 않고 별도 result cache나 legacy fallback을 만들지 않는다. 전체 stored key 순회는 Kahlua에서 지원하는 `pairs`를 사용한다.
 
-`IrisAltTooltip`은 Alt OFF에서 item·locale·data lookup 전에 반환한다. Locale는 `IrisTranslationResolver.getDetectedLangKey()`를 통해 기존 loader lifecycle의 감지값만 사용하고 Menu의 fallback API는 보존한다. `ISToolTipInv.render`의 원본을 보호 경계 밖에서 한 번 호출한 뒤 Iris 작업에만 기존 `IrisProtectedCall.call`을 적용한다. Engine font measurement로 문자열 bytes를 보존하며 physical wrapping하고, vanilla 아래 공간이 없으면 위에 표시하며 두 위치 모두 공간이 부족하면 생략한다. Iris가 추가한 height는 다음 frame에 복구한다. Legacy Summary는 기존 compatibility 소비자를 위해 남기되 Alt에서는 호출하지 않는다.
+`IrisAltTooltip`은 Alt OFF에서 item·locale·data lookup 전에 반환한다. Locale는 `IrisTranslationResolver.getDetectedLangKey()`를 통해 기존 loader lifecycle의 감지값만 사용하고 Menu의 fallback API는 보존한다. `ISToolTipInv.render`의 원본을 보호 경계 밖에서 한 번 호출한 뒤 Iris 작업에만 기존 `IrisProtectedCall.call`을 적용한다. Engine font measurement로 문자열 bytes를 보존하며 physical wrapping한다. 사용자 후속 요청에 따라 Iris panel은 vanilla 오른쪽에 4px 간격으로 top-align하고, 공간이 부족하면 왼쪽에 둔다. 읽기 폭은 내용에 따라 240~360px이며 화면 공간에 제한된다. 양옆에 읽기 폭을 확보할 수 없을 때만 아래/위에 배치하고, 안전하게 표시할 공간이 없으면 생략한다. 화면 하단에서는 Iris panel만 위로 조정하며 vanilla의 width/height/position은 변경하지 않는다. Font는 기존 `UIFont.Small`을 유지한다. Legacy Summary는 기존 compatibility 소비자를 위해 남기되 Alt에서는 호출하지 않는다.
 
 입력 인계 이력: 초기 L3 selected 1,314 중 12개의 KO/EN Menu source
 누락과 EN evidence gap은 D1의 C 구현 및 최종 actual relation에서 해소됐다. 기존 primary-use를 중심으로
@@ -853,3 +853,11 @@ historical logical rows
 - Terminal aggregate, stable digests와 external locators의 documentary readpoint는 `docs/iris_lightweighting_terminal_closeout.json`이다. 이 파일과 external one-off producer/transaction은 canonical gate, regular validation schema 또는 새 claim ID가 아니다.
 - Terminal closeout identity는 세 층으로 구분한다: machine/W10 implementation `801f15f6`, independent review가 확인한 docs carrier `9882ce6d`, review 결과를 반영해 local `main`에 통합한 completion carrier `28f95b63`. 뒤의 docs-only carrier는 앞선 machine result나 review subject를 대체하지 않는다.
 - Local `main`의 다른 모듈 untracked build output은 Iris physical census와 분리된 workspace state다. Iris closeout이나 local-custody cleanup을 이유로 이를 탐색·삭제·합산하지 않는다.
+
+### Iris responsibility-based current source locators
+
+Naming successor의 offline owner는 `iris_tooling.domains.tooltip_static_data_projection`이다. 기존 CLI `tooltip-t2`, manifest/receipt schema version과 T1 handoff admission은 유지한다. Runtime source는 `IrisTooltipStaticDataLookup`에서 `IrisTooltipStaticData`를 first-use require하며 serializer가 같은 filename을 생성한다. T2의 날짜/commit에 묶인 위 snapshot은 predecessor 이력이다.
+
+Current-only runner와 required manifest는 `Iris/validation/current_route/`에 둔다. Runner의 repository root 깊이는 동일하고 taxonomy/closure의 역사적 supporting asset은 원래 위치를 유지한다. Full-gate launchers, output-isolation audit, exporter, public-text reader와 package default는 successor required manifest를 소비한다. `_docs/round3`의 기존 required manifest는 pinned lifecycle reader용 원본이다. Historical/diagnostic/all executable selector는 복원하지 않는다.
+
+현재는 source 준비 상태이며 외부 wheel/environment·production generation·package와 exact-subject full gate·PZ 검증은 미완료다. 기존 environment locator와 immutable target은 receipt workflow를 실행할 때까지 바꾸지 않는다. 상세 scope와 ceiling은 `docs/iris_current_responsibility_naming_alignment_closeout.md`를 따른다.

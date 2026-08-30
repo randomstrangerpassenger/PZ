@@ -1,6 +1,6 @@
 # Implementation Plan — Iris Tooltip T3-D1 Menu·Tooltip Layer 3 표시 조건 및 EN 소비 Record Fact 연결 정합성
 
-> 실행 상태(2026-08-30): **진행 중 / 아직 partial**. 아래 「실행 기록」과 「동일 작업 재개」 참조. 첫 검증 구간의 실패는 보존한다. 이후 원 세션에서 §4.5 external output exception 및 이번 12개의 일반 설명 통합 방향을 지정하여, 아래 한정 C 적용으로 같은 D1을 진행한다. 필드 전체 폐기는 범위 밖이다.
+> 실행 상태(2026-08-30): **진행 중 / 최신 Build 41 정정 전파 중**. 사용자 지정 12개 source·KO/EN·core ID를 정정했고 T1 strict candidate는 blocker 0 / OPEN이다. 이전 relation PASS는 superseded 입력의 결과다. 최신 T1 finalization→T2/product→final relation에 필요한 canonical gate는 승인된 `C:/PZ-D1`의 OS 쓰기 거부로 대기 중이다. 기존 실패와 이전 결과는 보존하며 필드 전체 폐기는 범위 밖이다.
 
 > 상태: 실행 전 계획. 2026-08-30 현재 코드·계약·산출물의 읽기 전용 조사에 기반한다. 이번 작성·개정은 본 문서에 한정하며, display disposition 확정·producer 수정·generation 전환·T3-D1 완료를 의미하지 않는다.
 >
@@ -734,3 +734,13 @@ Resolved containment와 새 leaf를 확인하고 `a1` attempt를 생성했다. `
 사용자는 이어서 **`C:/PZ-D1` 내부에만 gate work/result·필수 임시 출력의 읽기·생성·쓰기를 추가 허용**했다. 따라서 §4.5의 이 목적에 한한 짧은 외부 root exception을 채택하며 source/env/successor 출력은 기존 `PZ2/t3d1`을 유지한다. Path/membership guard를 우회하지 않고 새 gate leaf를 사용한다.
 
 현재 정정 source의 facts SHA는 `f29a29560a65e0c7651fc038adeafcd1d6cea1214341a396c8ad6874ac208c5c`, candidate SHA는 `fe69ffc02ce4c105086f4a9cb5394391ef27f5e48138f36a806b5fdddff4e13a`다. 정정은 기존 `primary_use`와 `special_context`의 12개 값에 한정하며 나머지 row/field는 보존한다. Source hash guard에 맞춰 기존 EN translation table을 재정렬·갱신했다. Generation `dvf33-05d76b51c5e1058be4d79afd8a43bc2f0ac8a11c136523166770f181eeaf82c1`을 `a2/menu`에서 생산·설치했고 KO/EN public은 각각 2,084개다. Tooltip owner는 새 12개 core ID/문장을 사용하며 이제 T1/T2 successor를 전파한다. 사용자 원문을 그대로 KO 일반 문장으로 사용하고 획득 문단은 유지했다. EN은 정확히 같은 의미의 한 문장이다. 판정 아이콘·해설·링크는 public 출력에 넣지 않았다.
+
+최신 정정본의 T1 단계 subject는 `d874b2ce37f080a1ab0f3001a881e59e892e68ae` / tree `58316235e48c075e9cf68a0852c4ce2141827178`이다. `a2/d2b` actual relation은 verified 1,406 / not-applicable 874 / mismatch 0, `a2/t1c3` strict candidate는 correction 0 / OPEN / handoff 2,280이다. Earlier d2 admission은 stale Layer2 pointer로 실패했고, t1 candidate는 raw decision hash 대신 canonical hash를 전달한 invocation 실패 및 D5 generation binding stale blocker 2를 거쳤다. 각 결과/empty attempt를 보존하고 실제 참조만 정정했으며 validation code를 약화하지 않았다.
+
+새 environment는 `a2/e`, installed wheel은 `a2/wheel`, 기존 owner receipt는 `a2/er/environment_receipt.json` (SHA `84f8abeb4e2e6fa250f95a119bfbb1b36d96d55966fbb9f193c92c6eebd523b4`)다. 승인된 `C:/PZ-D1` 생성은 OS `Access denied`로 실패했다. Canonical gate는 테스트 시작 전 중단됐고 primary receipt도 쓸 수 없어 launcher의 structured stderr만 남았다. 관리자/ACL/경로 alias 우회는 하지 않았다.
+
+T1 dedicated focused command의 첫 실행은 95 passed / exit 0이나 실패한 TEMP/TMP 설정 때문에 경계 준수 미확인으로 보존한다. 그 위치는 추가 탐색·정리하지 않았다. 사용 가능한 기존 `a1/tmp`를 TEMP/TMP/TMPDIR로 지정하고 `--basetemp C:/Users/MW/Downloads/coding/PZ2/t3d1/a2/pt1`을 명시한 동일 3-file dedicated command는 95 passed / exit 0이며 stdout은 `a2/t1-focused2.txt`다. T1 lifecycle tests는 canonical regular membership 밖이므로 필요한 이 실행 뒤 별도 confidence 반복은 하지 않는다. 남은 순서는 실제 writable gate root의 T1 canonical A/B/comparator 및 finalization, T2 successor·product·해당 필수 검증, 최신 final Menu relation이다. 최신 correction의 actual relation PASS나 D1 complete는 아직 선언하지 않는다.
+
+후속 승인된 `C:/Users/MW/PZ-D1`에서 짧은 gate leaf `1/a`, result `1/ra`, orchestration `1/oa`, temp `1/t`를 사용했다. 생성·쓰기와 기존 path guard를 통과했으며 위 T1 subject의 canonical Run A는 약 3분의 pytest 실행 뒤 **exit 1: 206 passed / 5 failed / 109 subtests passed**, standalone 4개는 exit 0이었다. 실패 attempt의 기존 owner 출력은 `1/oa/receipt.json`, `1/ra/canonical_full_result.json`, `1/ra/full_pytest.stdout.txt`에 보존한다. 실행 checkout은 기존 gate가 정리했고 source checkout은 clean이다. Run B/comparator는 실패 상태에서 실행하지 않았다.
+
+실패 원인은 새 public body를 얻은 BarbedWire를 기존 lazy lookup harness가 계속 silent fixture로 사용한 것 1개와 이전 generation의 runtime lookup package identity로 인한 package fixture 실패 4개다. 사용자는 후속 "그렇게 해"로 `Iris/test/lua/lazy_lookup_acceptance_harness.lua`, `Iris/media/lua/client/Iris/Data/IrisRuntimeLookupPackageIdentity.json`, `Iris/tools/RuntimeLookupIndexIdentity.psm1`의 한정 읽기·최소 수정 범위를 승인했다. 현재도 silent인 `Base.Broom`으로 동일 침묵 guard fixture를 교체하고, 기존 `Assert-RuntimeLookupPackageParity -SkipManifestCheck` 계산 함수로 current generation의 파생 identity를 `lookup-ea4d67f0fdae3a6f`로 갱신했다. 계산 모듈 자체는 수정하지 않았다. 검증 기준 완화, 새 검사기·증명 산출물 추가, 실제 사용자 package/install 검증은 하지 않는다. T1 finalization과 이후 T2 전파는 필수 gate 재실행 결과까지 미완료로 유지한다.

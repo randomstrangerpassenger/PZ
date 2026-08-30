@@ -10,7 +10,8 @@
       "docs/ROADMAP.md",
       "Iris/_docs/authority/iris_current_authority_manifest.json",
       "docs/iris_tooltip_t1_display_contract_policy.md",
-      "Iris/_docs/authority/tooltip_t1"
+      "Iris/_docs/authority/tooltip_t1",
+      "Iris/_docs/authority/tooltip_t2"
     ],
     "producer": [
       "Iris/tooling/src/iris_tooling/__main__.py",
@@ -65,7 +66,10 @@
   ],
   "historical_opt_in": {
     "command_owner": "Iris/build/ENTRYPOINTS.md",
-    "classes": ["historical", "diagnostic"],
+    "classes": [
+      "historical",
+      "diagnostic"
+    ],
     "blanket_round3_exclusion": false
   },
   "maximum_navigation_hops": 1

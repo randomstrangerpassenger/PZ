@@ -1,0 +1,61 @@
+{
+  "schema_version": "iris-tooltip-t2-static-projection-v1",
+  "generator_version": "1",
+  "support_count": 2280,
+  "support_sha256": "3a6cc24b9ad64e06a0a6c0408821201e35bbd1d8558e6245809b5d3c34265ce6",
+  "input": "current adopted strict T1 S1 category-title successor only",
+  "slot_roles": {
+    "S1": "layer2_classification",
+    "S2": "layer3_core_description",
+    "S3": "layer4_interaction_1",
+    "S4": "layer4_interaction_2"
+  },
+  "locales": [
+    "ko",
+    "en"
+  ],
+  "maximum_lines": 4,
+  "ordering": "ordinal FullType ascending; S1 through S4; ko then en",
+  "serialization": "UTF-8 LF no BOM; 4-space indentation; trailing commas; final LF; printable ASCII literal except quote/backslash short escapes; every other UTF-8 byte uses three decimal digits",
+  "s1_surface_template": "[{category_surface} - {primary_subcategory_surface}]",
+  "surface_policy": "preserve accepted logical string exactly; no trim, normalization, fallback, reselection, truncation or inferred omission cause",
+  "lexical_guard": {
+    "version": "1",
+    "ko_substring": [
+      "추천",
+      "최고",
+      "주로 사용된다",
+      "가장 많이 사용된다",
+      "대표적으로 사용된다",
+      "중요한 용도다",
+      "유용하다",
+      "효율적이다",
+      "더 좋다",
+      "덜 좋다",
+      "권장된다",
+      "최적이다",
+      "우선 사용해야 한다"
+    ],
+    "en_substring": [
+      "recommended",
+      "best"
+    ],
+    "en_word_boundary": [
+      "mainly used",
+      "primarily used",
+      "most commonly used",
+      "representative use",
+      "important use",
+      "useful",
+      "efficient",
+      "better",
+      "worse",
+      "recommended",
+      "optimal",
+      "should prioritize"
+    ],
+    "semantics": "preserve inherited substring matching; new EN literals use case-insensitive word boundaries; fixed list only, no semantic certification"
+  },
+  "output": "repository-external new/empty caller-selected root; no runtime/package/PZ auto-load",
+  "finalization": "artifact equality is not test success; complete requires explicit command/exit/subject/artifact completion metadata"
+}

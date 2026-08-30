@@ -298,6 +298,12 @@ def _validate_contract_values(values: dict[Path, dict[str, Any]]) -> str:
         and layer2_d2_candidate.get("current_ecosystem_adoption") == "adopted_T1_D6",
         "Layer 2 D2 relation candidate route mismatch",
     )
+    _require(
+        layer2.get("s1_surface_template") == "[{category_surface} - {primary_subcategory_surface}]"
+        and values[AUTHORITY_ROOT / "tooltip_display_contract.json"].get("s1_surface_template")
+        == layer2["s1_surface_template"],
+        "S1 approved category/primary surface template mismatch",
+    )
     layer2_amendment = layer2.get("successor_owner_amendment")
     _require(
         isinstance(layer2_amendment, dict)

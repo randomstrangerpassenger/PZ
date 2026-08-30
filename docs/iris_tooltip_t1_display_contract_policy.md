@@ -74,3 +74,7 @@ T1-D4의 isolated integration candidate는 Layer 4 identity input을 locale auth
 ## Claim boundary
 
 이 adoption은 offline T1 contract, deterministic identity selection, readiness attribution과 T2 boundary만 소유한다. static Tooltip Lua generation, runtime/Alt behavior, actual visual four-line fit, translation quality, upstream correction 완료, package/install, compatibility, freeze, Publish, release, Workshop 또는 deployment readiness를 주장하지 않는다.
+
+## T2 Change 0: approved S1 title
+
+Applicable S1 uses exactly `[{category_surface} - {primary_subcategory_surface}]` for each explicit KO/EN locale. Both labels come from the already approved D1 row. T1 hands off the completed string; T2 never rebuilds it. Classification identity, applicability/display silence, Menu relation and S2–S4 remain unchanged. Historical T1 handoffs remain immutable; the correction requires a same-subject successor lifecycle.

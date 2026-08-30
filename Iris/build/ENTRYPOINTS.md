@@ -17,6 +17,8 @@ iris-tooling --repository-root <repo> build layer4 <arguments>
 iris-tooling --repository-root <repo> build public-text <arguments>
 iris-tooling --repository-root <repo> build tooltip-t1 --output-root <external-empty-root> --decision-contract-sha256 <sha256> --verify-invariants --layer2-menu-relation <external-relation-jsonl> --strict-production-handoff
 iris-tooling --repository-root <repo> finalize tooltip-t1 --candidate-root <external-candidate-root> --candidate-run-receipt-sha256 <sha256> --run-a-orchestration-receipt <external-receipt> --run-b-orchestration-receipt <external-receipt> --comparator-receipt <external-receipt> --output-root <external-empty-root>
+iris-tooling --repository-root <repo> build tooltip-t2 --handoff-root <current-successor-t1-root> --output-root <external-empty-run-root>
+iris-tooling --repository-root <repo> finalize tooltip-t2 --run-a-root <external-run-a-root> --run-b-root <external-run-b-root> --output-root <external-empty-final-root> [--completion-metadata-json <json>]
 iris-tooling --repository-root <repo> install classification --candidate-root <external-candidate-root> --manifest-sha256 <sha256>
 iris-tooling --repository-root <repo> inspect current
 ```
@@ -36,6 +38,18 @@ uv run --project .\Iris\tooling python -B -m pytest .\Iris\tooling\tests\test_to
 ```
 
 These six parameterized test families and the repository-external audit are lifecycle evidence. They are not added to regular validation membership by this adoption.
+
+`tooltip-t2` consumes only the adopted strict T1 handoff with the approved S1 category/primary title successor. It preserves exact FullType, slot order, identities and explicit KO/EN strings in `IrisTooltipT2Data.lua`; every supported FullType has both arrays, including empty ones. It does not install runtime data or resolve owner semantics. The fixed lexical guard is defined in `Iris/_docs/authority/tooltip_t2/tooltip_t2_static_projection_contract.json`.
+
+Each build writes Lua, `tooltip_t2_projection_manifest.json`, then `run_receipt.json`. Finalization checks distinct Run A/B roots, current input and exact implementation bindings, full coverage, zero violations and identical Lua/manifest bytes, then copies Run A and writes `tooltip_t2_closeout.json` last. Without completion metadata its state is only `artifact_finalized`. A `complete` static-staging record additionally requires `focused_tests`, `installed_inspect`, `lua_syntax`, and `canonical_full_gate` metadata: each has the exact `command`, `exit_code: 0`, `subject: {commit, tree}`, and the run receipt's `artifacts` binding. These explicitly supplied execution results are not inferred from byte equality. They are retained in the closeout, not a separate proof package.
+
+The dedicated T2 command (five function families, 18 collected cases; reader order includes three physical permutations) is:
+
+```powershell
+uv run --project .\Iris\tooling python -B -m pytest .\Iris\tooling\tests\test_tooltip_t2_projection.py .\Iris\tooling\tests\test_tooltip_t2_serialization.py .\Iris\tooling\tests\test_tooltip_t2_cli.py -q
+```
+
+T2 tests use the production decoder/model/serializer and independently bound temporary fixture repositories; there is no CLI admission bypass. The full gate classifies these sources as `not_applicable_dedicated_route` and does not rerun them. Validation stops at offline static staging; actual PZ load, Alt/UI behavior and runtime/package adoption belong to T3.
 
 ## Receipt-bound full validation
 

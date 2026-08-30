@@ -1,5 +1,6 @@
 {
   "schema_version": "iris-tooltip-layer2-input-contract-v1",
+  "s1_surface_template": "[{category_surface} - {primary_subcategory_surface}]",
   "required_fields_when_applicable": ["classification_identity", "category_id", "primary_subcategory_id", "category_label_key", "primary_subcategory_label_key", "localized_surfaces", "authority_ref"],
   "current_route": "D1_owner_output_plus_same_subject_D2_actual_consumer_relation",
   "current_disposition": "current_T1_D6_integrated_input",

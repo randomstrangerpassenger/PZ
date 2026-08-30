@@ -1,0 +1,337 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "iris-tooltip-t2-projection-manifest.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generator_version",
+    "projection_contract_sha256",
+    "t1_input",
+    "line_distribution",
+    "generation_success_count",
+    "generation_failure_count",
+    "contract_violation_count",
+    "lexical_guard_hit_count",
+    "locale_projection_sha256",
+    "lua",
+    "fulltypes"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "iris-tooltip-t2-projection-manifest-v1"
+    },
+    "generator_version": {
+      "const": "1"
+    },
+    "projection_contract_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "t1_input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "subject",
+        "artifact_sha256",
+        "authority_contract_bundle_sha256",
+        "support_count",
+        "support_sha256"
+      ],
+      "properties": {
+        "subject": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "commit",
+            "tree"
+          ],
+          "properties": {
+            "commit": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{40}$"
+            },
+            "tree": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{40}$"
+            }
+          }
+        },
+        "artifact_sha256": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "subject_binding.json",
+            "t2_handoff_input.jsonl",
+            "t2_handoff_manifest.json"
+          ],
+          "properties": {
+            "subject_binding.json": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "t2_handoff_input.jsonl": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "t2_handoff_manifest.json": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "authority_contract_bundle_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "support_count": {
+          "const": 2280
+        },
+        "support_sha256": {
+          "const": "3a6cc24b9ad64e06a0a6c0408821201e35bbd1d8558e6245809b5d3c34265ce6"
+        }
+      }
+    },
+    "line_distribution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "properties": {
+        "0": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "1": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "2": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "3": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "4": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "generation_success_count": {
+      "const": 2280
+    },
+    "generation_failure_count": {
+      "const": 0
+    },
+    "contract_violation_count": {
+      "const": 0
+    },
+    "lexical_guard_hit_count": {
+      "const": 0
+    },
+    "locale_projection_sha256": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ko",
+        "en"
+      ],
+      "properties": {
+        "ko": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "en": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "lua": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file_name",
+        "byte_count",
+        "sha256"
+      ],
+      "properties": {
+        "byte_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "file_name": {
+          "const": "IrisTooltipT2Data.lua"
+        }
+      }
+    },
+    "fulltypes": {
+      "type": "object",
+      "minProperties": 2280,
+      "maxProperties": 2280,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status",
+          "line_count",
+          "present_slots",
+          "omitted_slots",
+          "lines"
+        ],
+        "properties": {
+          "status": {
+            "enum": [
+              "generated_empty",
+              "generated_nonempty"
+            ]
+          },
+          "line_count": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "ko",
+              "en"
+            ],
+            "properties": {
+              "ko": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4
+              },
+              "en": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4
+              }
+            }
+          },
+          "present_slots": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "S1",
+                "S2",
+                "S3",
+                "S4"
+              ]
+            }
+          },
+          "omitted_slots": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "S1",
+                "S2",
+                "S3",
+                "S4"
+              ]
+            }
+          },
+          "lines": {
+            "type": "array",
+            "maxItems": 4,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "position",
+                "slot_id",
+                "role",
+                "semantic_identity",
+                "surface_sha256"
+              ],
+              "properties": {
+                "position": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 4
+                },
+                "slot_id": {
+                  "enum": [
+                    "S1",
+                    "S2",
+                    "S3",
+                    "S4"
+                  ]
+                },
+                "role": {
+                  "enum": [
+                    "layer2_classification",
+                    "layer3_core_description",
+                    "layer4_interaction_1",
+                    "layer4_interaction_2"
+                  ]
+                },
+                "semantic_identity": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "surface_sha256": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "ko",
+                    "en"
+                  ],
+                  "properties": {
+                    "ko": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "source_sha256",
+                        "final_sha256"
+                      ],
+                      "properties": {
+                        "source_sha256": {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{64}$"
+                        },
+                        "final_sha256": {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{64}$"
+                        }
+                      }
+                    },
+                    "en": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "source_sha256",
+                        "final_sha256"
+                      ],
+                      "properties": {
+                        "source_sha256": {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{64}$"
+                        },
+                        "final_sha256": {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{64}$"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

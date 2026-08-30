@@ -1,5 +1,6 @@
 {
   "schema_version": "iris-tooltip-display-contract-v1",
+  "s1_surface_template": "[{category_surface} - {primary_subcategory_surface}]",
   "slot_order": ["S1", "S2", "S3", "S4"],
   "slot_meaning": {"S1": "layer2_classification", "S2": "layer3_core_description", "S3": "layer4_interaction_1", "S4": "layer4_interaction_2"},
   "supported_locales": ["ko", "en"],

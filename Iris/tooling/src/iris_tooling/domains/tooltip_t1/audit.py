@@ -208,6 +208,14 @@ def normalized_collisions(values: Iterable[str]) -> dict[str, tuple[str, ...]]:
     }
 
 
+def layer2_title_surfaces(owner_row: dict[str, Any]) -> dict[str, str]:
+    """Carry both approved D1 labels without resolving or translating identity."""
+    return {
+        locale: f"[{owner_row['category_surface'][locale]} - {owner_row['primary_subcategory_surface'][locale]}]"
+        for locale in ("ko", "en")
+    }
+
+
 def public_surface_reason(text: Any, locale: str, lexical_fixture: dict[str, Any]) -> str | None:
     if not isinstance(text, str) or not text:
         return "LOCALE_SELECTED_SURFACE_MISSING"
@@ -1221,7 +1229,7 @@ def run_candidate(
         # tags remain census evidence and are never resolved by this consumer.
         layer2_owner_row = layer2_owner_rows.get(full_type)
         if isinstance(layer2_owner_row, dict) and layer2_owner_row.get("terminal_state") == "resolved":
-            surface = layer2_owner_row["primary_subcategory_surface"]
+            surface = layer2_title_surfaces(layer2_owner_row)
             slots.append(Slot(
                 "S1",
                 layer2_owner_row["classification_identity"],

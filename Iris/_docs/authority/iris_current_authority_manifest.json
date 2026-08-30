@@ -118,6 +118,15 @@
       "classification": "reproduction",
       "path_glob": "Iris/build/package/**",
       "notes": "Package output is a generated/package snapshot, not source authority by itself."
+    },
+    "tooltip_t2_static_projection": {
+      "classification": "current",
+      "paths": [
+        "Iris/_docs/authority/tooltip_t2/**",
+        "Iris/tooling/src/iris_tooling/domains/tooltip_t2/**"
+      ],
+      "command_owner": "Iris/build/ENTRYPOINTS.md",
+      "notes": "Adopted deterministic offline projection contract. Repository-external T2 staging is not runtime adoption or an independent validation authority."
     }
   },
   "entries": [

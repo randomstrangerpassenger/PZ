@@ -45,29 +45,58 @@
       "allowed_choices": [],
       "required_choice": "separate_axes",
       "selected_choice": "separate_axes",
-      "owner": ["Iris T1 contract owner", "Iris reviewer"],
+      "owner": [
+        "Iris T1 contract owner",
+        "Iris reviewer"
+      ],
       "rationale": "Contract completeness and upstream data readiness are independent.",
-      "evidence_refs": ["docs/EXECUTION_CONTRACT.md#6-2-validation-ceiling-disclosure", "approved-roadmap-sha256:57263a62affe7bd745334c601df2d84b8b0a548cf924c2ff351c77d02ca254e8"],
-      "authority_references": [{"class": "approved_roadmap_fixed_premise", "reference": "roadmap P-1 and success criteria", "scope": "exact"}, {"class": "execution_contract_mapping", "reference": "docs/EXECUTION_CONTRACT.md sections 6-2 and 7-1 through 7-3", "scope": "exact"}],
+      "evidence_refs": [
+        "docs/EXECUTION_CONTRACT.md#6-2-validation-ceiling-disclosure",
+        "approved-roadmap-sha256:57263a62affe7bd745334c601df2d84b8b0a548cf924c2ff351c77d02ca254e8"
+      ],
+      "authority_references": [
+        {
+          "class": "approved_roadmap_fixed_premise",
+          "reference": "roadmap P-1 and success criteria",
+          "scope": "exact"
+        },
+        {
+          "class": "execution_contract_mapping",
+          "reference": "docs/EXECUTION_CONTRACT.md sections 6-2 and 7-1 through 7-3",
+          "scope": "exact"
+        }
+      ],
       "subject_binding": "execution_subject_binding_v1",
-      "dependent_phases": ["closeout"],
+      "dependent_phases": [
+        "closeout"
+      ],
       "must_close_before": "closeout vocabulary implementation",
-      "contract_sha256": "1f9f8892a538ad283e763332aee68808f3b40e13117bb9ad83b1940a05352c3c"
+      "contract_sha256": "25fe0763992738f41c598a8a97b37788f7bf2569650d941966a68cfe0f3de550"
     },
     {
       "decision_id": "P-2",
       "exact_question": "May proven Layer 2 legitimate absence coexist with remaining normal Tooltip slots?",
       "status": "open_in_T1",
-      "allowed_choices": ["allow_partial_after_owner_absence", "suppress_projection"],
+      "allowed_choices": [
+        "allow_partial_after_owner_absence",
+        "suppress_projection"
+      ],
       "required_choice": null,
       "selected_choice": "allow_partial_after_owner_absence",
-      "owner": ["Classification owner", "Iris presentation-contract owner"],
+      "owner": [
+        "Classification owner",
+        "Iris presentation-contract owner"
+      ],
       "rationale": "W1-A shows adjacent owners cover different FullType sets; proven absence must not suppress independent confirmed facts.",
-      "evidence_refs": ["pre_ratification_decision_evidence.json#records.P-2"],
+      "evidence_refs": [
+        "pre_ratification_decision_evidence.json#records.P-2"
+      ],
       "subject_binding": "execution_subject_binding_v1",
-      "dependent_phases": ["slot projection"],
+      "dependent_phases": [
+        "slot projection"
+      ],
       "must_close_before": "Change 2 decision table",
-      "contract_sha256": "1f9f8892a538ad283e763332aee68808f3b40e13117bb9ad83b1940a05352c3c"
+      "contract_sha256": "25fe0763992738f41c598a8a97b37788f7bf2569650d941966a68cfe0f3de550"
     },
     {
       "decision_id": "P-3",
@@ -76,89 +105,157 @@
       "allowed_choices": [],
       "required_choice": "compact_display_preserve_semantic_slot_order",
       "selected_choice": "compact_display_preserve_semantic_slot_order",
-      "owner": ["Iris presentation-contract owner"],
+      "owner": [
+        "Iris presentation-contract owner"
+      ],
       "rationale": "Absence compaction is presentation mechanics, not semantic reordering.",
-      "evidence_refs": ["docs/DECISIONS.md#iris-layer-4-recipe--right-click-use_case-requirement--adaptive-presentation-contract"],
-      "authority_references": [{"class": "approved_roadmap_fixed_premise", "reference": "roadmap Phase 2/P-3", "scope": "exact"}, {"class": "sealed_presentation_principle", "reference": "docs/DECISIONS.md Iris Layer 4 adaptive presentation contract", "scope": "exact"}],
+      "evidence_refs": [
+        "docs/DECISIONS.md#iris-layer-4-recipe--right-click-use_case-requirement--adaptive-presentation-contract"
+      ],
+      "authority_references": [
+        {
+          "class": "approved_roadmap_fixed_premise",
+          "reference": "roadmap Phase 2/P-3",
+          "scope": "exact"
+        },
+        {
+          "class": "sealed_presentation_principle",
+          "reference": "docs/DECISIONS.md Iris Layer 4 adaptive presentation contract",
+          "scope": "exact"
+        }
+      ],
       "subject_binding": "execution_subject_binding_v1",
-      "dependent_phases": ["slot projection"],
+      "dependent_phases": [
+        "slot projection"
+      ],
       "must_close_before": "Change 2 decision table",
-      "contract_sha256": "1f9f8892a538ad283e763332aee68808f3b40e13117bb9ad83b1940a05352c3c"
+      "contract_sha256": "25fe0763992738f41c598a8a97b37788f7bf2569650d941966a68cfe0f3de550"
     },
     {
       "decision_id": "P-4",
       "exact_question": "May a single Layer 4 source supply up to two identities?",
       "status": "open_in_T1",
-      "allowed_choices": ["one_from_single_source", "up_to_two_from_single_source"],
+      "allowed_choices": [
+        "one_from_single_source",
+        "up_to_two_from_single_source"
+      ],
       "required_choice": null,
       "selected_choice": "up_to_two_from_single_source",
-      "owner": ["QG owner", "Iris presentation-contract owner"],
+      "owner": [
+        "QG owner",
+        "Iris presentation-contract owner"
+      ],
       "rationale": "W1-A contains single-source rows with more than one public identity; the two-slot cap can preserve two identities without ranking.",
-      "evidence_refs": ["pre_ratification_decision_evidence.json#records.P-4"],
+      "evidence_refs": [
+        "pre_ratification_decision_evidence.json#records.P-4"
+      ],
       "subject_binding": "execution_subject_binding_v1",
-      "dependent_phases": ["Layer 4 projection"],
+      "dependent_phases": [
+        "Layer 4 projection"
+      ],
       "must_close_before": "Change 4 single-source branch",
-      "contract_sha256": "1f9f8892a538ad283e763332aee68808f3b40e13117bb9ad83b1940a05352c3c"
+      "contract_sha256": "25fe0763992738f41c598a8a97b37788f7bf2569650d941966a68cfe0f3de550"
     },
     {
       "decision_id": "P-5",
       "exact_question": "How is two-source equivalence preserved in two Layer 4 slots?",
       "status": "open_in_T1",
-      "allowed_choices": ["one_recipe_plus_one_rightclick"],
+      "allowed_choices": [
+        "one_recipe_plus_one_rightclick"
+      ],
       "required_choice": null,
       "selected_choice": "one_recipe_plus_one_rightclick",
-      "owner": ["QG owner", "Iris presentation-contract owner"],
+      "owner": [
+        "QG owner",
+        "Iris presentation-contract owner"
+      ],
       "rationale": "The structural rule gives each independent source one slot and uses no importance or frequency signal.",
-      "evidence_refs": ["pre_ratification_decision_evidence.json#records.P-5"],
+      "evidence_refs": [
+        "pre_ratification_decision_evidence.json#records.P-5"
+      ],
       "subject_binding": "execution_subject_binding_v1",
-      "dependent_phases": ["Layer 4 projection"],
+      "dependent_phases": [
+        "Layer 4 projection"
+      ],
       "must_close_before": "Change 4 projection",
-      "contract_sha256": "1f9f8892a538ad283e763332aee68808f3b40e13117bb9ad83b1940a05352c3c"
+      "contract_sha256": "25fe0763992738f41c598a8a97b37788f7bf2569650d941966a68cfe0f3de550"
     },
     {
       "decision_id": "P-6",
       "exact_question": "What is the stable Layer 4 presentation-order anchor?",
       "status": "open_in_T1",
-      "allowed_choices": ["existing_qg_canonical_key", "new_owner_approved_stable_key", "stable_identity_derived_presentation_tie_break", "no_admissible_anchor"],
+      "allowed_choices": [
+        "existing_qg_canonical_key",
+        "new_owner_approved_stable_key",
+        "stable_identity_derived_presentation_tie_break",
+        "no_admissible_anchor"
+      ],
       "required_choice": null,
       "selected_choice": "stable_identity_derived_presentation_tie_break",
-      "owner": ["QG order/identity owner", "Iris presentation-contract owner"],
+      "owner": [
+        "QG order/identity owner",
+        "Iris presentation-contract owner"
+      ],
       "rationale": "W1-A finds no explicit order key; SHA-256 of versioned source+identity bytes supplies neutral order independent of input order/readiness.",
-      "evidence_refs": ["pre_ratification_decision_evidence.json#records.P-6"],
+      "evidence_refs": [
+        "pre_ratification_decision_evidence.json#records.P-6"
+      ],
       "subject_binding": "execution_subject_binding_v1",
-      "dependent_phases": ["Layer 4 projection"],
+      "dependent_phases": [
+        "Layer 4 projection"
+      ],
       "must_close_before": "Change 4 ordering",
-      "contract_sha256": "1f9f8892a538ad283e763332aee68808f3b40e13117bb9ad83b1940a05352c3c"
+      "contract_sha256": "25fe0763992738f41c598a8a97b37788f7bf2569650d941966a68cfe0f3de550"
     },
     {
       "decision_id": "P-7",
       "exact_question": "Where is exact interaction-identity duplicate suppression performed?",
       "status": "open_in_T1",
-      "allowed_choices": ["upstream_qg_canonicalization", "t1_projection_level_single_projection"],
+      "allowed_choices": [
+        "upstream_qg_canonicalization",
+        "t1_projection_level_single_projection"
+      ],
       "required_choice": null,
       "selected_choice": "t1_projection_level_single_projection",
-      "owner": ["QG identity owner", "Iris T1 projection owner"],
+      "owner": [
+        "QG identity owner",
+        "Iris T1 projection owner"
+      ],
       "rationale": "Projection-level exact identity suppression records every duplicate disposition and does not alter upstream QG rows.",
-      "evidence_refs": ["pre_ratification_decision_evidence.json#records.P-7"],
+      "evidence_refs": [
+        "pre_ratification_decision_evidence.json#records.P-7"
+      ],
       "subject_binding": "execution_subject_binding_v1",
-      "dependent_phases": ["Layer 4 projection"],
+      "dependent_phases": [
+        "Layer 4 projection"
+      ],
       "must_close_before": "Change 4 duplicate handling",
-      "contract_sha256": "1f9f8892a538ad283e763332aee68808f3b40e13117bb9ad83b1940a05352c3c"
+      "contract_sha256": "25fe0763992738f41c598a8a97b37788f7bf2569650d941966a68cfe0f3de550"
     },
     {
       "decision_id": "P-8",
       "exact_question": "How are Layer 3 semantic eligibility and locale readiness separated?",
       "status": "open_in_T1",
-      "allowed_choices": ["identity_level_eligibility_plus_per_locale_readiness"],
+      "allowed_choices": [
+        "identity_level_eligibility_plus_per_locale_readiness"
+      ],
       "required_choice": null,
       "selected_choice": "identity_level_eligibility_plus_per_locale_readiness",
-      "owner": ["DVF owner", "Iris presentation-contract owner"],
+      "owner": [
+        "DVF owner",
+        "Iris presentation-contract owner"
+      ],
       "rationale": "The current generation exposes core source identity separately from locale payloads; a missing approved Tooltip identity remains an identity correction rather than a locale fallback.",
-      "evidence_refs": ["pre_ratification_decision_evidence.json#records.P-8"],
+      "evidence_refs": [
+        "pre_ratification_decision_evidence.json#records.P-8"
+      ],
       "subject_binding": "execution_subject_binding_v1",
-      "dependent_phases": ["Layer 3 readiness", "locale parity"],
+      "dependent_phases": [
+        "Layer 3 readiness",
+        "locale parity"
+      ],
       "must_close_before": "Change 3 and Change 5 locale model",
-      "contract_sha256": "1f9f8892a538ad283e763332aee68808f3b40e13117bb9ad83b1940a05352c3c"
+      "contract_sha256": "25fe0763992738f41c598a8a97b37788f7bf2569650d941966a68cfe0f3de550"
     },
     {
       "decision_id": "P-9",
@@ -167,30 +264,62 @@
       "allowed_choices": [],
       "required_choice": "forbidden",
       "selected_choice": "forbidden",
-      "owner": ["Iris locale/presentation-contract owner"],
+      "owner": [
+        "Iris locale/presentation-contract owner"
+      ],
       "rationale": "Locale projection preserves selected identity and never substitutes another locale or candidate.",
-      "evidence_refs": ["docs/ARCHITECTURE.md#locale-projection-structure"],
-      "authority_references": [{"class": "sealed_principle_applied_to_adjacent_scope", "reference": "docs/ARCHITECTURE.md Locale projection and docs/DECISIONS.md Layer 2-3 locale projection", "scope": "adjacent_application"}],
+      "evidence_refs": [
+        "docs/ARCHITECTURE.md#locale-projection-structure"
+      ],
+      "authority_references": [
+        {
+          "class": "sealed_principle_applied_to_adjacent_scope",
+          "reference": "docs/ARCHITECTURE.md Locale projection and docs/DECISIONS.md Layer 2-3 locale projection",
+          "scope": "adjacent_application"
+        }
+      ],
       "subject_binding": "execution_subject_binding_v1",
-      "dependent_phases": ["locale projection"],
+      "dependent_phases": [
+        "locale projection"
+      ],
       "must_close_before": "Change 5 locale contract",
-      "contract_sha256": "1f9f8892a538ad283e763332aee68808f3b40e13117bb9ad83b1940a05352c3c"
+      "contract_sha256": "25fe0763992738f41c598a8a97b37788f7bf2569650d941966a68cfe0f3de550"
     },
     {
       "decision_id": "P-10",
       "exact_question": "What is the admissible Layer 2 resolved identity and Menu evidence route?",
       "status": "owner_amended_successor",
-      "allowed_choices": ["independent_current_owner_consumer_structured_evidence", "shared_authority_relation_consumer_unverified", "no_admissible_authority_relation", "optional_layer2_applicability_with_display_silence"],
+      "allowed_choices": [
+        "independent_current_owner_consumer_structured_evidence",
+        "shared_authority_relation_consumer_unverified",
+        "no_admissible_authority_relation",
+        "optional_layer2_applicability_with_display_silence"
+      ],
       "required_choice": "optional_layer2_applicability_with_display_silence",
       "selected_choice": "optional_layer2_applicability_with_display_silence",
-      "owner": ["Classification owner", "Iris presentation-contract owner"],
+      "owner": [
+        "Classification owner",
+        "Iris presentation-contract owner"
+      ],
       "rationale": "Layer 2 is an optional navigation/display projection. S1 is emitted only for a current owner category plus admissible primary; fallback, no-membership, and multi-without-primary source states deterministically produce legitimate display silence without semantic inference. Menu coverage remains D2-owned.",
-      "evidence_refs": ["pre_ratification_decision_evidence.json#records.P-10", "source-task:01a026db-1b3f-7001-9a68-08700f242f40#explicit-owner-contract-amendment"],
-      "authority_references": [{"class": "explicit_product_contract_owner_amendment", "reference": "source task 01a026db-1b3f-7001-9a68-08700f242f40", "scope": "exact"}],
+      "evidence_refs": [
+        "pre_ratification_decision_evidence.json#records.P-10",
+        "source-task:01a026db-1b3f-7001-9a68-08700f242f40#explicit-owner-contract-amendment"
+      ],
+      "authority_references": [
+        {
+          "class": "explicit_product_contract_owner_amendment",
+          "reference": "source task 01a026db-1b3f-7001-9a68-08700f242f40",
+          "scope": "exact"
+        }
+      ],
       "subject_binding": "execution_subject_binding_v1",
-      "dependent_phases": ["Layer 2 input", "Menu parity"],
+      "dependent_phases": [
+        "Layer 2 input",
+        "Menu parity"
+      ],
       "must_close_before": "Change 3 Layer 2 input/parity",
-      "contract_sha256": "1f9f8892a538ad283e763332aee68808f3b40e13117bb9ad83b1940a05352c3c"
+      "contract_sha256": "25fe0763992738f41c598a8a97b37788f7bf2569650d941966a68cfe0f3de550"
     },
     {
       "decision_id": "P-11",
@@ -199,14 +328,33 @@
       "allowed_choices": [],
       "required_choice": "logical_0_to_4_and_no_embedded_newline_only",
       "selected_choice": "logical_0_to_4_and_no_embedded_newline_only",
-      "owner": ["Iris presentation-contract owner", "validation owner"],
+      "owner": [
+        "Iris presentation-contract owner",
+        "validation owner"
+      ],
       "rationale": "Actual pixel/font/UI-scale fit belongs to T3.",
-      "evidence_refs": ["docs/Philosophy.md#Iris", "pre_ratification_decision_evidence.json#findings.renderer_logical_row_limit"],
-      "authority_references": [{"class": "sealed_presentation_principle", "reference": "docs/Philosophy.md Iris Tooltip maximum four lines and docs/DECISIONS.md Menu/Tooltip presentation contract", "scope": "exact"}, {"class": "execution_scope_boundary", "reference": "T1/T3 boundary", "scope": "exact"}],
+      "evidence_refs": [
+        "docs/Philosophy.md#Iris",
+        "pre_ratification_decision_evidence.json#findings.renderer_logical_row_limit"
+      ],
+      "authority_references": [
+        {
+          "class": "sealed_presentation_principle",
+          "reference": "docs/Philosophy.md Iris Tooltip maximum four lines and docs/DECISIONS.md Menu/Tooltip presentation contract",
+          "scope": "exact"
+        },
+        {
+          "class": "execution_scope_boundary",
+          "reference": "T1/T3 boundary",
+          "scope": "exact"
+        }
+      ],
       "subject_binding": "execution_subject_binding_v1",
-      "dependent_phases": ["line-fit contract"],
+      "dependent_phases": [
+        "line-fit contract"
+      ],
       "must_close_before": "Change 3 and Change 6 line-fit implementation",
-      "contract_sha256": "1f9f8892a538ad283e763332aee68808f3b40e13117bb9ad83b1940a05352c3c"
+      "contract_sha256": "25fe0763992738f41c598a8a97b37788f7bf2569650d941966a68cfe0f3de550"
     },
     {
       "decision_id": "P-12",
@@ -215,14 +363,31 @@
       "allowed_choices": [],
       "required_choice": "contract_offline_deterministic_regression_only",
       "selected_choice": "contract_offline_deterministic_regression_only",
-      "owner": ["Iris validation/authority owner"],
+      "owner": [
+        "Iris validation/authority owner"
+      ],
       "rationale": "T1 evidence cannot be expanded into runtime, migration, or compatibility acceptance.",
-      "evidence_refs": ["docs/EXECUTION_CONTRACT.md#6-evidence-requirements"],
-      "authority_references": [{"class": "execution_contract_exact", "reference": "docs/EXECUTION_CONTRACT.md sections 6-1 through 6-3", "scope": "exact"}, {"class": "approved_roadmap_fixed_premise", "reference": "roadmap P-12", "scope": "exact"}],
+      "evidence_refs": [
+        "docs/EXECUTION_CONTRACT.md#6-evidence-requirements"
+      ],
+      "authority_references": [
+        {
+          "class": "execution_contract_exact",
+          "reference": "docs/EXECUTION_CONTRACT.md sections 6-1 through 6-3",
+          "scope": "exact"
+        },
+        {
+          "class": "approved_roadmap_fixed_premise",
+          "reference": "roadmap P-12",
+          "scope": "exact"
+        }
+      ],
       "subject_binding": "execution_subject_binding_v1",
-      "dependent_phases": ["validation report"],
+      "dependent_phases": [
+        "validation report"
+      ],
       "must_close_before": "validation vocabulary implementation",
-      "contract_sha256": "1f9f8892a538ad283e763332aee68808f3b40e13117bb9ad83b1940a05352c3c"
+      "contract_sha256": "25fe0763992738f41c598a8a97b37788f7bf2569650d941966a68cfe0f3de550"
     }
   ]
 }

@@ -16,6 +16,7 @@ from iris_tooling.domains.tooltip_t1.audit import (
     classify_progression,
     correction_completeness_metrics,
     finalize_closeout,
+    layer2_title_surfaces,
     menu_owner_output_self_comparison_count,
     normalized_collisions,
     source_mutation_count,
@@ -255,6 +256,8 @@ def test_minimal_t2_handoff_mock_consumer(case: str) -> None:
         ("gate_subject_mismatch", None),
         ("gate_same_subject_success", None),
         ("layer2_owner_output", None),
+        ("layer2_title", None),
+        ("layer2_title_silence", None),
         ("layer2_terminal_relation", None),
         ("layer2_authority_fallback", None),
         ("layer2_identity_locale", None),
@@ -271,6 +274,24 @@ def test_minimal_t2_handoff_mock_consumer(case: str) -> None:
     ],
 )
 def test_whole_universe_audit_progression(case: str, expected: T2Progression | None, tmp_path: Path) -> None:
+    if case == "layer2_title":
+        owner = {
+            "category_surface": {"ko": "도구", "en": "Tools"},
+            "primary_subcategory_surface": {"ko": "수리", "en": "Repair"},
+        }
+        assert layer2_title_surfaces(owner) == {"ko": "[도구 - 수리]", "en": "[Tools - Repair]"}
+        return
+    if case == "layer2_title_silence":
+        slots = _audited_slots()
+        slots[0] = Slot("S1", None, SemanticSlotState.LEGITIMATE_ABSENCE,
+                        {"ko": None, "en": None},
+                        {"ko": LocaleSurfaceReadiness.NOT_APPLICABLE, "en": LocaleSurfaceReadiness.NOT_APPLICABLE},
+                        authority_ref="owner#display_silence")
+        slots[1] = _ready_slot("S2")
+        row = build_handoff_row("Base.X", slots, progression=T2Progression.OPEN)
+        assert [slot["slot_id"] for slot in row["slots"]] == ["S2"]
+        assert row["slots"][0]["localized_surfaces"] == slots[1].localized_surfaces
+        return
     if expected is not None:
         counts = {
             "open": (0, 0, 0), "upstream": (1, 0, 0),

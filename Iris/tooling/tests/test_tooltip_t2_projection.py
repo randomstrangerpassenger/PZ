@@ -4,6 +4,7 @@ import copy
 import json
 from pathlib import Path
 import random
+import re
 import subprocess
 
 import pytest
@@ -12,7 +13,7 @@ from iris_tooling.domains.tooltip_t1.contract import CONTRACT_FILES, DECISION_CO
 from iris_tooling.domains.tooltip_t1.models import TooltipContractError
 from iris_tooling.domains.tooltip_t2.contract import CLOSEOUT, CONTRACT, HANDOFF_FILES, MANIFEST_SCHEMA, ROUTE, admit, load_contract, read_handoff
 from iris_tooling.domains.tooltip_t2.projection import project
-from iris_tooling.domains.tooltip_t2.serialization import lua_bytes
+from iris_tooling.domains.tooltip_t2.serialization import lua_bytes, manifest_bytes
 
 
 def _git(repo, *args):
@@ -34,8 +35,12 @@ def fixture_handoff(tmp_path):
     for path in CONTRACT_FILES:
         value = json.loads((source / path).read_text(encoding="utf-8"))
         _write(repo / path, value)
+        if path.name in {"tooltip_display_contract.json", "layer2_tooltip_input_contract.json"}:
+            # Physical T1 provenance can contain mixed EOL; the bundle is canonical JSON.
+            physical = (json.dumps(value, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+            (repo / path).write_bytes(physical.replace(b"\n", b"\r\n", 1))
         digest = sha256_bytes(canonical_bytes(value))
-        contract_hashes[path.as_posix()] = digest
+        contract_hashes[path.as_posix()] = sha256_bytes((repo / path).read_bytes())
         if path != DECISION_CONTRACT:
             bundle.append(f"{path.name}={digest}\n")
     contract_hashes["authority_contract_bundle_sha256"] = sha256_bytes("".join(bundle).encode())
@@ -127,6 +132,55 @@ def test_projection(tmp_path):
         assert provenance[key]["line_count"]["ko"] == provenance[key]["line_count"]["en"]
     assert data["Base.Row4"]["ko"][0] == "[도구 - 수리]"
     assert data["Base.Row0"] == {"ko": [], "en": []}
+    _, contract_hash = load_contract(repo)
+    manifest = json.loads(manifest_bytes(accepted.binding, contract_hash, contract,
+                                         lua_bytes(data), provenance, summary))
+    schema = json.loads((repo / MANIFEST_SCHEMA).read_bytes())
+    # The production schema's fixed denominator is reduced only for this mixed fixture.
+    schema["properties"]["t1_input"]["properties"]["support_count"]["const"] = len(rows)
+    schema["properties"]["t1_input"]["properties"]["support_sha256"]["const"] = contract["support_sha256"]
+    schema["properties"]["generation_success_count"]["const"] = len(rows)
+    schema["properties"]["fulltypes"]["minProperties"] = len(rows)
+    schema["properties"]["fulltypes"]["maxProperties"] = len(rows)
+    # Test-local assertions consume the actual serialized manifest and its declared
+    # schema vocabulary. This is not an independent or general JSON Schema validator.
+    pending = [(manifest, schema)]
+    while pending:
+        value, rule = pending.pop()
+        if "const" in rule:
+            assert type(value) is type(rule["const"]) and value == rule["const"]
+        if "enum" in rule:
+            assert value in rule["enum"]
+        kind = rule.get("type")
+        if kind == "object":
+            assert isinstance(value, dict)
+            assert set(rule.get("required", ())) <= set(value)
+            properties = rule.get("properties", {})
+            additional = rule.get("additionalProperties", True)
+            if additional is False:
+                assert set(value) <= set(properties)
+            assert rule.get("minProperties", 0) <= len(value) <= rule.get("maxProperties", len(value))
+            pending.extend((child, properties.get(key, additional)) for key, child in value.items()
+                           if key in properties or isinstance(additional, dict))
+        elif kind == "array":
+            assert isinstance(value, list)
+            assert len(value) <= rule.get("maxItems", len(value))
+            if rule.get("uniqueItems"):
+                assert len(value) == len(set(value))
+            pending.extend((child, rule["items"]) for child in value)
+        elif kind == "integer":
+            assert type(value) is int
+            assert rule.get("minimum", value) <= value <= rule.get("maximum", value)
+        elif kind == "string":
+            assert isinstance(value, str) and len(value) >= rule.get("minLength", 0)
+            if "pattern" in rule:
+                assert re.fullmatch(rule["pattern"], value)
+    for row in manifest["fulltypes"].values():
+        assert row["line_count"]["ko"] == row["line_count"]["en"] == len(row["lines"])
+        for position, line in enumerate(row["lines"], 1):
+            assert line["position"] == position
+            assert line["role"] == contract["slot_roles"][line["slot_id"]]
+            assert all(pair["source_sha256"] == pair["final_sha256"] for pair in line["surface_sha256"].values())
 
 
 def test_reader_order(tmp_path):

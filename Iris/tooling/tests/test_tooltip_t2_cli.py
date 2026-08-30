@@ -49,7 +49,7 @@ def test_cli_finalization(tmp_path, monkeypatch, case):
     monkeypatch.setattr(cli, "require_repository_context", lambda: type("Context", (), {"repository_root": repo})())
     assert cli.main(["finalize", "--run-a-root", str(a), "--run-b-root", str(b), "--output-root", str(final)]) == 0
     closeout = json.loads((final / FINAL_CLOSEOUT).read_bytes())
-    assert closeout["state"] == "artifact_finalized"
+    assert closeout["state"] == "partial"
     assert closeout["unvalidated_but_in_scope"]
     assert closeout["artifacts"] == first["artifacts"]
     assert {path.name for path in final.iterdir()} == {LUA_NAME, MANIFEST_NAME, FINAL_CLOSEOUT}

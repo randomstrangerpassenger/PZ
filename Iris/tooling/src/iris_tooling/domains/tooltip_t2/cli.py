@@ -97,7 +97,7 @@ def finalize(repository_root: Path, run_a_root: Path, run_b_root: Path,
                     and check.get("artifacts") == receipts[0]["artifacts"], f"{name}: completion binding mismatch")
     closeout = {
         "schema_version": "iris-tooltip-t2-closeout-v1",
-        "state": "complete" if completion is not None else "artifact_finalized",
+        "state": "complete" if completion is not None else "partial",
         "implementation": expected, "t1_input": accepted.binding,
         "artifacts": receipts[0]["artifacts"], "candidate_final_bytes_equal": True,
         "runs": [{"root": root.as_posix(), "receipt_sha256": sha256_bytes((root / RUN_RECEIPT).read_bytes())} for root in roots],

@@ -70,8 +70,8 @@ def menu_subject() -> dict:
     assert source["path"] == "Iris/build/description/v2/data/dvf_3_3_facts.jsonl"
     assert source["sha256"] == _sha(REPO / source["path"]), "unbound approved facts"
     rendered = _json(root / "dvf_3_3_rendered.json")["entries"]
-    approved = _json(V2_DATA / "layer3_body_role_realign/approved_upstream/candidate_rendered.json")["entries"]
-    assert rendered == approved, "current Menu differs from approved candidate"
+    approved = _json(V2_DATA / "layer3_body_role_realign/approved_upstream/candidate_rendered.json")
+    assert rendered == approved["entries"], "current Menu differs from approved candidate"
     paths.update((DATA_ROOT / "Layer3English").glob("*.lua"))
     for relative in (
         "Iris/tooling/src/iris_tooling/build/build_layer3_english_localization.py",
@@ -97,7 +97,8 @@ def menu_subject() -> dict:
         path = path.resolve()
         assert path.is_relative_to(REPO.resolve()), "Menu binding escapes repository"
         bindings[path.relative_to(REPO.resolve()).as_posix()] = _sha(path)
-    return {"generation": generation, "bindings": bindings, "entries": rendered}
+    return {"generation": generation, "bindings": bindings, "entries": rendered,
+            "adoption": approved.get("meta", {}).get("general_description_integration", {})}
 
 
 @dataclass(frozen=True)
@@ -195,10 +196,16 @@ def load_menu_baseline(root: Path) -> dict:
     before["entries"] = _json(rendered)["entries"]
     before["owner"] = _json(root / "owner-before.json")
     assert _sha(root / "owner-before.json") == "8b58fc7e39fc0d139750eed5a031cecb615a1cdc8ef38a0f2a31c1aeedab4771"
+    initial_manifest = Path("C:/Users/MW/Downloads/coding/PZ2/t2-final/tooltip_t2_projection_manifest.json")
+    assert _sha(initial_manifest) == "2b4bee6ce9a262e727b57d7c254e7c2f2211780100cf1c222468a93419ef3efe"
+    before["t2"] = _json(initial_manifest)
+    original = subprocess.run(["git", "show", "b9d7ae289b226082c191b1f6a23e6b363c6d99a6:Iris/build/description/v2/data/dvf_3_3_facts.jsonl"], cwd=REPO, capture_output=True, check=True).stdout
+    assert hashlib.sha256(original).hexdigest() == "e784cf76d2f7d51273eda44906c202c0548f0043027f60cf1af817336c03a6e9"
+    before["facts"] = {row["item_id"]: row for row in map(json.loads, original.decode("utf-8").splitlines())}
     return before
 
 
-def compare_menu_preservation(output: str, before: dict, subject: dict) -> None:
+def compare_menu_preservation(output: str, before: dict, subject: dict, final_manifest: dict) -> None:
     """The plan's exact per-record C delta, not a new validation authority."""
     candidate = _json(V2_DATA / "layer3_body_role_realign/approved_upstream/candidate_rendered.json")
     adoption = candidate["meta"]["general_description_integration"]
@@ -211,10 +218,41 @@ def compare_menu_preservation(output: str, before: dict, subject: dict) -> None:
         new = subject["entries"][key]
         if old != new:
             changed.add(key)
-            assert {k: v for k, v in old.items() if k not in {"text_ko", "source"}} == {
-                k: v for k, v in new.items() if k not in {"text_ko", "source"}}, "non-body Menu material changed"
+            assert key in targets
+            old_material, new_material = old["role_material"], new["role_material"]
+            row = adoption["entries"][key]
+            assert old_material["core_source_fact_ids"] == [row.get("predecessor_primary_use_fact_id", row["primary_use_fact_id"])]
+            assert new_material["core_source_fact_ids"] == [row["primary_use_fact_id"]]
+            assert {k: v for k, v in old_material.items() if k != "core_source_fact_ids"} == {
+                k: v for k, v in new_material.items() if k != "core_source_fact_ids"}, "acquisition material changed"
+            assert {k: v for k, v in old.items() if k not in {"text_ko", "source", "role_material"}} == {
+                k: v for k, v in new.items() if k not in {"text_ko", "source", "role_material"}}, "unrelated Menu material changed"
             assert old["text_ko"] is None and new["text_ko"], "unexpected Menu visibility transition"
     assert changed == targets, "Menu changed set differs from adopted exact targets"
+    facts = {row["item_id"]: row for row in map(json.loads, (V2_DATA / "dvf_3_3_facts.jsonl").read_text(encoding="utf-8").splitlines())}
+    assert facts.keys() == before["facts"].keys()
+    for key, old in before["facts"].items():
+        omitted = {"primary_use", "special_context"} if key in targets else set()
+        assert {k: v for k, v in old.items() if k not in omitted} == {
+            k: v for k, v in facts[key].items() if k not in omitted}, "unrelated source fact changed"
+    assert final_manifest["fulltypes"].keys() == before["t2"]["fulltypes"].keys()
+    assert final_manifest["line_distribution"] == before["t2"]["line_distribution"]
+    for key, old in before["t2"]["fulltypes"].items():
+        new = final_manifest["fulltypes"][key]
+        assert {k: v for k, v in old.items() if k != "lines"} == {k: v for k, v in new.items() if k != "lines"}, "T2 row/slot layout changed"
+        assert len(old["lines"]) == len(new["lines"])
+        for old_line, new_line in zip(old["lines"], new["lines"], strict=True):
+            if key in targets and old_line["slot_id"] == "S2":
+                row = adoption["entries"][key]
+                assert old_line["semantic_identity"] == row["predecessor_primary_use_fact_id"]
+                assert new_line["semantic_identity"] == row["primary_use_fact_id"]
+                assert {k: v for k, v in old_line.items() if k not in {"semantic_identity", "surface_sha256"}} == {
+                    k: v for k, v in new_line.items() if k not in {"semantic_identity", "surface_sha256"}}
+                for locale, text in row["localized_general_description"].items():
+                    digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
+                    assert new_line["surface_sha256"][locale] == {"source_sha256": digest, "final_sha256": digest}
+            else:
+                assert new_line == old_line, "unrelated T2 S1/S2/S3/S4 changed"
     observed = {"KO": {}, "EN": {}}
     old_en = {}
     routing_changes = 0
@@ -241,8 +279,15 @@ def compare_menu_preservation(output: str, before: dict, subject: dict) -> None:
     assert before["owner"]["entries"].keys() == owner["entries"].keys()
     for key, old in before["owner"]["entries"].items():
         new = owner["entries"][key]
-        assert {k: v for k, v in old.items() if k != "authority_ref"} == {
-            k: v for k, v in new.items() if k != "authority_ref"}, "Tooltip semantic or surface changed"
+        omitted = {"authority_ref"}
+        if key in targets and adoption["decision"] == "user_adopted_build41_description_correction":
+            row = adoption["entries"][key]
+            assert old["fact_id"] == row["predecessor_primary_use_fact_id"]
+            assert new["fact_id"] == row["primary_use_fact_id"] and new["source_fact_ids"] == [row["primary_use_fact_id"]]
+            assert new["localized_surfaces"] == row["localized_general_description"]
+            omitted |= {"fact_id", "source_fact_ids", "localized_surfaces"}
+        assert {k: v for k, v in old.items() if k not in omitted} == {
+            k: v for k, v in new.items() if k not in omitted}, "unrelated Tooltip semantic or surface changed"
     # Chunk boundary changes are physical routing changes, never text changes.
     for path, sha in before["subject_bindings"].items():
         if path.startswith("Iris/media/lua/client/Iris/Data/Layer3English/") and _sha(REPO / path) != sha:
@@ -250,7 +295,12 @@ def compare_menu_preservation(output: str, before: dict, subject: dict) -> None:
     print("MENU_PRESERVATION\t" + json.dumps({
         "changed_exact_set": sorted(targets), "unchanged_selected_count": 1302,
         "unchanged_existing_en_records": len(old_en), "public_records": len(expected_ko),
-        "role_material_unchanged": True, "tooltip_surfaces_unchanged": True,
+        "non_target_role_material_and_tooltip_surfaces_unchanged": True,
+        "target_core_and_s2_correction_count": len(targets) if adoption["decision"] == "user_adopted_build41_description_correction" else 0,
+        "t2_row_count_transitions": {key: {"before": before["t2"]["fulltypes"][key]["line_count"], "after": final_manifest["fulltypes"][key]["line_count"]} for key in sorted(targets)},
+        "line_distribution": final_manifest["line_distribution"],
+        "support_count": len(final_manifest["fulltypes"]),
+        "unrelated_source_facts_preserved": len(facts) - len(targets),
         "absence_entries_unchanged": 175, "changed_en_files": routing_changes,
         "content_adoption": adoption["decision"], "independent_game_source_verification": "not_performed",
     }, sort_keys=True))
@@ -311,7 +361,15 @@ def menu_relations(output: str, manifest_path: Path, *,
     selected = {k: next(row["semantic_identity"] for row in v["lines"] if row["slot_id"] == "S2")
                 for k, v in manifest["fulltypes"].items() if "S2" in v["present_slots"]}
     assert len(selected) == 1314, "initial selected ledger membership changed"
-    expected_pairs = hashlib.sha256(json.dumps(sorted(selected.items()), ensure_ascii=True,
+    initial_selected = dict(selected)
+    transitions = {}
+    adoption = subject.get("adoption", {})
+    if adoption.get("decision") == "user_adopted_build41_description_correction":
+        for key, row in adoption["entries"].items():
+            assert selected.get(key) == row["primary_use_fact_id"], "stale T2 fact after content correction"
+            initial_selected[key] = row["predecessor_primary_use_fact_id"]
+            transitions[key] = {"before": initial_selected[key], "after": selected[key]}
+    expected_pairs = hashlib.sha256(json.dumps(sorted(initial_selected.items()), ensure_ascii=True,
                                               separators=(",", ":")).encode()).hexdigest()
     assert expected_pairs == "c5db8a28892229df25f9b65b22e045515b3ac1fcc0d476bb8a1231131832cd28", "initial selected ledger identity changed"
     failures = []
@@ -367,15 +425,17 @@ def menu_relations(output: str, manifest_path: Path, *,
     unresolved = selected.keys() - resolved
     report = {
         "initial_selected_pair_sha256": expected_pairs,
-        "final_required_scope": "initial_selected_unchanged",
+        "final_selected_pair_sha256": hashlib.sha256(json.dumps(sorted(selected.items()), ensure_ascii=True, separators=(",", ":")).encode()).hexdigest(),
+        "final_required_scope": "initial_fulltypes_with_adopted_fact_successors" if transitions else "initial_selected_unchanged",
+        "fact_identity_transitions": transitions,
         "generation": subject["generation"],
         "evidence_method": trace.method if valid_trace else "missing",
         "subject_bindings": subject["bindings"],
         "verified_records": {key: {"KO": l3["KO"][key], "EN": l3["EN"][key], "fact": selected[key]}
                              for key in sorted(resolved)},
-        "resolved_exact_set": sorted((key, selected[key]) for key in resolved),
+        "resolved_exact_set": sorted((key, initial_selected[key]) for key in resolved),
         "retained_exact_set": [],
-        "unresolved_exact_set": sorted((key, selected[key]) for key in unresolved),
+        "unresolved_exact_set": sorted((key, initial_selected[key]) for key in unresolved),
         "missing_observations": {locale: {key: absent[locale].get(key, "observation_missing")
                                          for key in sorted(selected.keys() - l3[locale].keys())}
                                  for locale in ("KO", "EN")},
@@ -487,6 +547,10 @@ class BrowserStateSelectionSearchAcceptanceTest(unittest.TestCase):
         # the explicitly supplied EN evidence varies. Nothing is written.
         owner = json.loads((REPO / "Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json").read_text(encoding="utf-8"))
         selected = {key: row["fact_id"] for key, row in owner["entries"].items()}
+        adopted = _json(V2_DATA / "layer3_body_role_realign/approved_upstream/candidate_rendered.json")["meta"]["general_description_integration"]
+        for key, row in adopted["entries"].items():
+            if "predecessor_primary_use_fact_id" in row:
+                selected[key] = row["predecessor_primary_use_fact_id"]
         fixture_manifest = {"fulltypes": {key: {
             "present_slots": ["S2", "S3"],
             "lines": [{"slot_id": "S2", "semantic_identity": fact_id},
@@ -628,7 +692,7 @@ if __name__ == "__main__":
             assert _sha(args.manifest) == route["artifact_sha256"][admitted.name]
             assert _sha(PAYLOAD) == route["artifact_sha256"][PAYLOAD.name]
             if baseline:
-                compare_menu_preservation(output, baseline, subject)
+                compare_menu_preservation(output, baseline, subject, _json(args.manifest))
             menu_relations(output, args.manifest, en_identity_evidence=evidence)
             print("Menu relation PASS: all required source and identity evidence matched.")
     else:

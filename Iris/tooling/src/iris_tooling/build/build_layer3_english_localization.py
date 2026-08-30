@@ -26,12 +26,13 @@ TOOLTIP_T1_D3_REGISTRY_RELATIVE_PATH = (
 )
 
 
-PRIMARY_USE_SOURCE_SHA256 = "458d62d474b2e2295a3f591083fd65b6ff8883293fa7658b2b9aad4a3ac28799"
+PRIMARY_USE_SOURCE_SHA256 = "6d9e5d73cf8425ea0113fab960b993e9668777958b9452273407d739540e0503"
 
 # This list is aligned with the sorted, distinct primary_use values in the
 # current Layer 3 facts. The source hash prevents a changed fact set from being
 # paired with stale localization.
 PRIMARY_USE_EN = [
+    "Junk with no specific crafting use in Build 41.",
     "A chew toy for dogs.",
     "A medical consumable used to manage or treat health conditions.",
     "Used to shape or fit material into other tool parts during construction or crafting preparation.",
@@ -50,10 +51,10 @@ PRIMARY_USE_EN = [
     "A metal pipe used as material in metalworking.",
     "A small metal sheet used as material for producing metal sheets.",
     "A metal sheet used as material for producing smaller metal sheets.",
+    "Used as material for metal structures and certain metal items.",
     "A tool used for metal forging.",
     "A tool used for joining metal.",
     "Used in metal crafting to melt or hammer material into other parts.",
-    "A reinforcing material used in metal crafting or repair.",
     "Scrap left by metal dismantling that cannot be used as material.",
     "Cosmetics used as a base layer of makeup.",
     "Consumed recreationally to improve mood.",
@@ -68,8 +69,8 @@ PRIMARY_USE_EN = [
     "Eye shadow used to add color around the eyes.",
     "Material used to make traps and fishing nets.",
     "A tool used to place or retrieve traps.",
+    "A portable container for carrying tools or other items.",
     "A tool.",
-    "A tool used to apply paint.",
     "Read or skimmed to examine its contents.",
     "A stone used to make a stone hammer.",
     "Hair gel used to style hair.",
@@ -88,13 +89,12 @@ PRIMARY_USE_EN = [
     "Perfume used to add fragrance to the body.",
     "Rope material used in crafting that requires tying or connecting.",
     "Stationery used to write or revise documents or organize paper.",
-    "A part used when assembling a door or lid.",
+    "Used to build structures that require hinges, such as doors or gates.",
     "A bag used to hold and carry items.",
     "A vessel used to hold water.",
     "An empty container that can be reused to carry water.",
     "A metal drum used to collect water or burn wood into charcoal.",
     "A collar worn by a pet dog.",
-    "Material used to reinforce fences while building defenses.",
     "Used to chop or cut trees while logging.",
     "Handled to store, carry, or divide possessions and contents.",
     "Handled to lock or unlock padlocks, vehicles, or doors.",
@@ -118,8 +118,6 @@ PRIMARY_USE_EN = [
     "Handled when carrying cash, cards, and a wallet.",
     "Metal bar material used to make crowbars and golf clubs.",
     "Used to reconnect or repair damaged equipment.",
-    "Material used to tie or patch during repair and crafting.",
-    "A lightly adhesive material used for temporary fastening or packaging.",
     "Used to open or divide sacks while organizing harvested goods.",
     "A device used to check the time or set an alarm.",
     "Food used in meal preparation or consumption.",
@@ -148,10 +146,12 @@ PRIMARY_USE_EN = [
     "Kitchenware used to prepare or hold food and drinks.",
     "Used to disinfect or medicate wounds during treatment.",
     "An item used in medical treatment.",
+    "Used to mend clothing or reinforce it with leather patches.",
     "Opened and referenced to check a location while planning travel.",
     "Toothpaste used to brush teeth.",
     "A toothbrush used to brush teeth.",
     "A household consumable used in ordinary consumption.",
+    "Used to repair certain damaged weapons or tools.",
     "Cosmetics used to add color to the lips.",
     "Used to store or remove harvested goods kept in a sack.",
     "Handled when putting ammunition into or taking it out of boxes and clips.",
@@ -164,8 +164,6 @@ PRIMARY_USE_EN = [
     "Handled when dismantling electronics or fitting circuits.",
     "An electronic device intended for dismantling.",
     "Handled while assembling, maintaining, or dismantling electronic equipment.",
-    "A box used to store and carry maintenance tools.",
-    "Material used as part of a structure or piece of equipment during crafting.",
     "Consumable material used in crafting or repair.",
     "Cookware used to hold or mix ingredients before cooking.",
     "Handled during food preparation or cooking.",
@@ -178,29 +176,31 @@ PRIMARY_USE_EN = [
     "Used to fit a rod or branch into the handle or body of an improvised item.",
     "Used to hold contents or combine spray materials while making an improvised explosive.",
     "Used to complete an improvised explosive by attaching its trigger.",
-    "A tool used to loosen or tighten nuts during wheel maintenance.",
-    "A charging tool used for vehicle-battery maintenance.",
     "Handled when connecting or replacing a vehicle battery to restore the electrical system.",
     "Handled when removing or replacing a vehicle fuel tank.",
     "Handled when removing or reinstalling a vehicle seat or cargo module.",
     "Handled when removing or replacing running gear to restore a vehicle's operation.",
     "Handled when removing or reinstalling a vehicle body panel or window.",
-    "A tool used to lift a vehicle during maintenance.",
-    "A tool used to inflate tires during vehicle maintenance.",
+    "Used to install or remove vehicle tires.",
+    "Used to adjust the air pressure in vehicle tires.",
+    "Used to recharge a battery removed from a vehicle.",
     "Material used to brew tea.",
     "Worn over the head or face for covering or protection.",
     "Worn on the body as active clothing.",
     "Worn on the wrist to check the time or set an alarm.",
     "A broken fish trap from which wire can be recovered.",
+    "Used in carpentry work to build barbed-wire fences.",
     "Handled when tuning a portable radio to listen to broadcasts.",
     "A part used to modify firearms.",
     "A magazine used to load a firearm.",
     "Paint used for coating or leaving marks.",
     "Used to fit or sew stuffing while making bedding.",
+    "Used to install or remove certain vehicle parts, such as tires and brakes.",
     "A mold used to cast ammunition.",
     "Equipment used to carry ammunition.",
     "Gunpowder material used to make ammunition and explosives.",
     "A sawing tool also used to shorten shotgun barrels.",
+    "Used with paint to color plastered walls or other paintable surfaces.",
     "Handled when placing an explosive fitted with a detonator.",
     "Read or referenced to learn a skill or crafting recipe.",
     "A belt worn around the waist.",
@@ -209,20 +209,20 @@ PRIMARY_USE_EN = [
     "Used to carry items by wearing or holding it.",
 ]
 
-SPECIAL_CONTEXT_SOURCE_SHA256 = "2a4dba2bc97b18f272585254ba1f8e7d1d74b5a58b347ed4bb9379213bc1bd8a"
+SPECIAL_CONTEXT_SOURCE_SHA256 = "b2ebc665a88e252b1207bc39962b0b06181b9e187191745307b86a8cecbd33bb"
 SPECIAL_CONTEXT_EN = [
-    "Used while painting the surface of a structure or piece of furniture.",
-    "Used while assembling metal parts or making temporary equipment.",
-    "Used to make metal parts or reinforce damaged equipment.",
-    "Used to make structures that block or slow access around a base.",
-    "Used as a pivot while assembling wooden or metal parts.",
-    "Used while reinforcing clothing or equipment.",
-    "Used while temporarily fastening or packing small objects.",
-    "Used on a discharged battery during vehicle maintenance.",
-    "Used while preparing vehicle or equipment maintenance.",
-    "Used while replacing tires or servicing wheels.",
-    "Used to set tire pressure or prepare for travel.",
-    "Used while preparing tire or underbody maintenance.",
+    "Junk with no specific crafting use in Build 41.",
+    "Used as material for metal structures and certain metal items.",
+    "A portable container for carrying tools or other items.",
+    "Used to build structures that require hinges, such as doors or gates.",
+    "Used to mend clothing or reinforce it with leather patches.",
+    "Used to repair certain damaged weapons or tools.",
+    "Used to install or remove vehicle tires.",
+    "Used to adjust the air pressure in vehicle tires.",
+    "Used to recharge a battery removed from a vehicle.",
+    "Used in carpentry work to build barbed-wire fences.",
+    "Used to install or remove certain vehicle parts, such as tires and brakes.",
+    "Used with paint to color plastered walls or other paintable surfaces.",
 ]
 
 IDENTITY_ONLY_EN = {
@@ -764,7 +764,10 @@ def approved_general_descriptions(
     if adoption is None:
         return {}
     if (not isinstance(adoption, dict)
-            or adoption.get("decision") != "user_adopted_primary_use_with_context_detail_refinement"
+            or adoption.get("decision") not in {
+                "user_adopted_primary_use_with_context_detail_refinement",
+                "user_adopted_build41_description_correction",
+            }
             or adoption.get("source_slot") != "special_context"
             or not adoption.get("authority_ref")):
         raise RuntimeError("LAYER3_GENERAL_DESCRIPTION_ADOPTION_INVALID")

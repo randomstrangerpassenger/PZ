@@ -454,9 +454,12 @@ D1/D2 개별 workstream 완료 당시에는 current ecosystem adoption이 `pendi
 Strict locale accessor는 기존 translation loader lifecycle을 공유하고 기존 Menu fallback API는
 보존한다. Record 전체 검증, engine measurement 기반 physical wrapping, Iris-local 보호와
 추가 height 복구를 적용했다. Legacy Summary는 compatibility용으로 보존하되 Alt에서 호출하지 않는다.
-Standalone runtime 검증과 실제 PZ 검증은 별개다. L3 selected 1,314 중 12개는 KO/EN Menu source
-관찰에서 누락됐고 EN independent identity mapping도 미해결이다. Package/install/game와 final
-canonical gate는 미검증이므로 current T2 `runtime_adopted: false`를 변경하지 않는다.
+Standalone runtime 검증과 실제 PZ 검증은 별개다. 초기 L3 selected 1,314 중 12개의 KO/EN Menu source
+누락과 EN evidence gap은 D1의 C 구현 및 최종 actual relation에서 해소됐다. 기존 primary-use를 중심으로
+채택된 context 디테일을 편집한 Menu body를 사용하고 Tooltip S2 identity/surface는 유지한다.
+EN 연결은 current deterministic derivability이며 historical original-run provenance가 아니다.
+Package/install/game는 여전히 미검증이며 D1 canonical gate는 외부 작업 경로 길이 제한으로 중단돼
+current T2 `runtime_adopted: false`를 변경하지 않는다. Sealed T1의 과거 unverified 기록도 보존한다.
 정확한 실행 결과와 제한은 `docs/iris_tooltip_t3_static_data_alt_runtime_integration_plan.md`의 실행 기록에 둔다.
 
 Iris runtime의 classification / presentation 흐름은 다음 단방향 구조를 따른다.

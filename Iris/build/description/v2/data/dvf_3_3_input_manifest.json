@@ -133,7 +133,7 @@
     "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
     "role": "current_source_authority",
     "row_count": 2105,
-    "sha256": "e784cf76d2f7d51273eda44906c202c0548f0043027f60cf1af817336c03a6e9"
+    "sha256": "f29a29560a65e0c7651fc038adeafcd1d6cea1214341a396c8ad6874ac208c5c"
   },
   "fixture_exclusion_rule": {
     "excluded_paths": [
@@ -329,5 +329,30 @@
     "mode": "replace_current_paths",
     "predecessor_fixture_paths_are_historical": true
   },
-  "status": "current_authority"
+  "status": "current_authority",
+  "tooltip_t3_d1_user_content_correction": {
+    "authority_ref": "docs/DECISIONS.md#iris-tooltip-t3-d1--existing-context-integration",
+    "exact_fulltypes": [
+      "Base.BarbedWire",
+      "Base.CarBatteryCharger",
+      "Base.Hinge",
+      "Base.Jack",
+      "Base.LeatherStrips",
+      "Base.LugWrench",
+      "Base.Paintbrush",
+      "Base.Pipe",
+      "Base.Scotchtape",
+      "Base.ScrapMetal",
+      "Base.TirePump",
+      "Base.Toolbox"
+    ],
+    "facts_sha256": "f29a29560a65e0c7651fc038adeafcd1d6cea1214341a396c8ad6874ac208c5c",
+    "independent_game_source_verification": "not_performed",
+    "origin_categories_retained_not_new_verification": true,
+    "predecessor_facts_sha256": "e784cf76d2f7d51273eda44906c202c0548f0043027f60cf1af817336c03a6e9",
+    "source_fields": [
+      "primary_use",
+      "special_context"
+    ]
+  }
 }

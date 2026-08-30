@@ -751,3 +751,13 @@ D1 첫 검증 구간에서는 기존 focused fixture exit 0, 지정 Lua syntax e
 이후 사용자가 D1 §4.5의 `C:/Users/MW/Downloads/coding/PZ2/t3d1` 한정 외부 작업 예외를 승인해 같은 D1을 재개했다. 기존 외부 입력은 read-only이며 다른 외부 경로로 확대하지 않는다. Item 전체 review hold와 approved core의 공개 관계에 대한 한정 C 제안을 원 세션에 전달했고, 해당 판단 전에는 새로운 P1 branch를 채택하지 않았다. Final disposition/actual EN relation 및 필수 gate를 마친 후 이 acceptance의 final-required scope를 다시 동기화해야 한다. 현재는 D1 complete/handoff-ready가 아니며, 새 T3-D2나 별도 로드맵으로 넘기지 않는다.
 
 T1/T2 final locator와 Menu generation은 아직 기존 값을 사용한다. `runtime_adopted=false`와 전체 T3 `partial`을 유지한다. Sealed T1 unverified 기록의 자동 갱신은 없으며 package/install/actual loaded module/PZ/Alt/visual/failure-isolation은 original T3에서 여전히 in-scope 미검증이다.
+
+### D1 C 구현 및 actual relation 인계
+
+후속 사용자 지시로 12개는 C를 채택했다. Primary-use를 중심으로 기존 special_context의 디테일을 다듬은 KO/EN Menu 본문을 generation `dvf33-dfdef534a15eb3cae6b66ae4e7995ebf96a09b9b745082bab3ac2fcfbdd67486`에 반영했다. 원본 fact provenance와 S2 fact/surface는 보존하며 새 게임 source 검증이나 전역 field 폐기를 주장하지 않는다.
+
+T3의 final S2 selected / Menu KO required / Menu EN required acceptance는 **초기 1,314 pair 그대로**다. Authority-backed non-required scope는 공집합이다. D1 최종 `menu` command exit 0의 `MENU_RELATION_REPORT`는 initial 전체를 resolved exact set으로, retained/unresolved를 공집합으로 기록한다. EN은 actual consumer → byte-equal reconstructed output → exact current producer/input → primary-use scalar fact를 연결한 `current_deterministic_derivability`이며 Tooltip tuple 자체를 증거로 쓰지 않는다. 당시 initial FAIL과 sealed T1 unverified 이력은 historical record로 보존한다.
+
+원문 실행 결과와 exact bindings는 `C:/Users/MW/Downloads/coding/PZ2/t3d1/a1/menu-final-1.txt`, 재현은 `a1/en-final-1`이다. 기존 KO role material/비대상 body, EN 2,072개 원문, 초기 정상 selected 1,302개, Tooltip surface/absence 175개가 보존됐다. Public Menu는 locale별 2,084개, required source/fact mismatch·missing은 0, L4 selected subset은 locale별 530개다. Lua syntax도 exit 0(141 files)다. T1/T2 final locator와 byte-preserved T2 product는 그대로이며 owner metadata의 generation 참조/파생 binding만 바뀌었다.
+
+D1 전체 closeout은 canonical gate 완료를 기다린다. Exact machine subject는 `fb3d8391773fb35f5440824bd42b64ea620e16ea` / tree `0494082f19612de9d57dc2c02ff20ab462e5116b`다. 현재 허용된 `.../PZ2/t3d1` root에서는 가장 짧은 child조차 longest tracked path가 263자로 기존 gate의 259자 안전 제한을 넘어 테스트 시작 전에 중단됐다. Gate 제한을 수정하지 않았고 더 짧은 외부 root의 한정 허가를 요청했다. 이때 상태는 D1 `implemented_only / required gate blocked`, 전체 T3 `partial`, `runtime_adopted=false`다. Package/install/actual loaded module/PZ/Alt/visual/failure-isolation은 계속 original T3 범위다.

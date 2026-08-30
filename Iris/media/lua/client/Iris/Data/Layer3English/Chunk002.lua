@@ -171,7 +171,7 @@ return {
     ["Base.CarBattery1"] = "Handled when connecting or replacing a vehicle battery to restore the electrical system.",
     ["Base.CarBattery2"] = "Handled when connecting or replacing a vehicle battery to restore the electrical system.",
     ["Base.CarBattery3"] = "Handled when connecting or replacing a vehicle battery to restore the electrical system.",
-    ["Base.CarBatteryCharger"] = "A tool used to charge a discharged battery during vehicle maintenance.\n\nFound in vehicle-maintenance areas, vehicle storage.",
+    ["Base.CarBatteryCharger"] = "Used to recharge a battery removed from a vehicle.\n\nFound in vehicle-maintenance areas, vehicle storage.",
     ["Base.CarKey"] = "Handled to lock or unlock padlocks, vehicles, or doors.",
     ["Base.CardDeck"] = "Handled during play with boards, cards, pieces, or small toys.",
     ["Base.Carrots"] = "Food used while preparing or eating a meal.",

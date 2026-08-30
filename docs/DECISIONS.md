@@ -2254,3 +2254,11 @@
 - 현재 approved `candidate_rendered.json`의 metadata에 이 채택 범위·기존 source fragment identity·편집된 KO/EN 일반 설명을 결속하고, 기존 complete-generation/EN producer로 output을 생성한다. EN producer는 이 채택된 통합 문장을 사용한 뒤 context를 다시 붙이지 않는다. Metadata는 해당 production input의 material/lineage이며 별도 Registry/validator가 아니다.
 - primary-use scalar, single core fact ID와 Tooltip S2 KO/EN surface는 유지한다. Context는 Menu 설명의 추가 깊이로 제공하며 S2에 이어 붙이지 않는다. `special_context` 전역 schema/key/reader 폐기는 이번 범위 밖이다.
 - Final actual EN producer/input/output/consumer 연결, preservation 및 기존 필수 gate는 별도로 검증한다. 이 결정만으로 independent Menu evidence 또는 D1/T3 completion을 선언하지 않는다. Sealed T1 unverified 이력과 original T3 package/install/PZ/visual 의무는 보존한다.
+
+### Iris Tooltip T3-D1 — Build 41 content correction
+
+- 2026-08-30 사용자가 exact 12개의 Build 41 정정 문구를 새로 지정했다. 이 지시는 직전 기존 primary-use 의미 보존 및 context 통합 결과보다 우선한다. `candidate_rendered.json`의 `general_description_integration.entries`에 채택된 KO/EN 문장과 predecessor/current scalar fact identity를 둔다.
+- 같은 12개의 `primary_use`와 `special_context`를 정정 문구로 갱신한다. 잘못된 기존 일반 용도를 S2에 보존하지 않는다. EN은 동일 정정 의미를 번역하고 중복 출력하지 않는다. 다른 fact field·아이템, acquisition, Layer 2/4는 유지한다. `special_context` 전역 폐기는 하지 않는다.
+- 제공된 PZwiki 링크는 사용자 참고자료다. 이번 채택은 사용자 콘텐츠 수정이며 독립 source/번역 품질 검증 claim이 아니다. 기존 origin category는 유지하되 이를 새 정정 문구의 독립 검증 provenance로 주장하지 않는다. Source manifest와 existing approved input의 current hash를 재결속하고 과거 raw/hash는 역사로 보존한다.
+- 변경된 primary-use scalar ID는 owner·T1 strict handoff·T2 data·T3 product까지 기존 경로로 전파한다. Initial 1,314 pair ledger를 유지하면서 exact 12개 before/after fact 관계를 별도로 명시한다. Required FullType membership을 줄이거나 count로 성공을 대체하지 않는다. 기존 T1 P-1~P-12 선택은 불변이고 current input 때문에 바뀐 bundle hash만 재결속한다.
+- 이전 `dvf33-dfdef534…`/`a1/menu-final-1.txt`의 성공은 superseded content subject의 결과이며 새 정정본의 final evidence가 아니다. 새 정정 후 필수 검증만 수행하며 gate/membership·승인 경계를 약화하지 않는다.

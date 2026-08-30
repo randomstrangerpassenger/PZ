@@ -1,0 +1,278 @@
+{
+    "schema_version":  "iris-clean-checkout-orchestration-receipt-v1",
+    "claim_id":  "fixture-claim",
+    "launch_status":  "succeeded",
+    "launch_stage":  "verify_inner_receipt_identity",
+    "failure_reason":  null,
+    "exception_type":  null,
+    "exception_message":  null,
+    "primary_failure":  null,
+    "secondary_failures":  [
+
+                           ],
+    "native_exit_code":  0,
+    "planned_argv":  [
+                         "C:\\Users\\MW\\Downloads\\coding\\PZ\\.tmp\\tooltip-t1-d6-bd1ba41f\\environment\\Scripts\\python.exe",
+                         "-B",
+                         "-s",
+                         "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_compare_launcher_rejects_0\\subject-repo\\Iris\\validation\\clean_checkout\\run_iris_clean_checkout_validation.py",
+                         "full-gate",
+                         "--repo",
+                         "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_compare_launcher_rejects_0\\subject-repo",
+                         "--commit",
+                         "0b9074ff5b6de991e0adf7184698f8f1a77420bf",
+                         "--python",
+                         "C:\\Users\\MW\\Downloads\\coding\\PZ\\.tmp\\tooltip-t1-d6-bd1ba41f\\environment\\Scripts\\python.exe",
+                         "--environment-receipt",
+                         "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_compare_launcher_rejects_0\\environment-receipt.json",
+                         "--work-root",
+                         "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_compare_launcher_rejects_0\\run-a\\work",
+                         "--result-root",
+                         "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_compare_launcher_rejects_0\\run-a\\result"
+                     ],
+    "actual_argv":  [
+                        "C:\\Users\\MW\\Downloads\\coding\\PZ\\.tmp\\tooltip-t1-d6-bd1ba41f\\environment\\Scripts\\python.exe",
+                        "-B",
+                        "-s",
+                        "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_compare_launcher_rejects_0\\subject-repo\\Iris\\validation\\clean_checkout\\run_iris_clean_checkout_validation.py",
+                        "full-gate",
+                        "--repo",
+                        "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_compare_launcher_rejects_0\\subject-repo",
+                        "--commit",
+                        "0b9074ff5b6de991e0adf7184698f8f1a77420bf",
+                        "--python",
+                        "C:\\Users\\MW\\Downloads\\coding\\PZ\\.tmp\\tooltip-t1-d6-bd1ba41f\\environment\\Scripts\\python.exe",
+                        "--environment-receipt",
+                        "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_compare_launcher_rejects_0\\environment-receipt.json",
+                        "--work-root",
+                        "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_compare_launcher_rejects_0\\run-a\\work",
+                        "--result-root",
+                        "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_compare_launcher_rejects_0\\run-a\\result"
+                    ],
+    "raw_parameters":  {
+                           "repository_root":  "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_compare_launcher_rejects_0\\subject-repo",
+                           "commit":  "0b9074ff5b6de991e0adf7184698f8f1a77420bf",
+                           "environment_receipt":  "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_compare_launcher_rejects_0\\environment-receipt.json",
+                           "work_root":  "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_compare_launcher_rejects_0\\run-a\\work",
+                           "result_root":  "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_compare_launcher_rejects_0\\run-a\\result",
+                           "orchestration_receipt":  "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_compare_launcher_rejects_0\\run-a\\orchestration.json",
+                           "execution_context":  "standalone_full_gate",
+                           "predecessor_stage_receipt_set_sha256":  "",
+                           "qualification_contract_sha256":  "",
+                           "predecessor_stage_receipt_set":  "",
+                           "qualification_contract":  "",
+                           "stdout_path":  "",
+                           "stderr_path":  "",
+                           "failure_injection":  "none",
+                           "empty_state_fixture_variable":  "IRIS_ENV_EMPTY"
+                       },
+    "environment":  {
+                        "configured":  true,
+                        "restored":  true,
+                        "before":  {
+                                       "IRIS_ENV_ABSENT":  {
+                                                               "state":  "absent",
+                                                               "value":  null
+                                                           },
+                                       "IRIS_ENV_CLEAR":  {
+                                                              "state":  "value",
+                                                              "value":  "outer-clear"
+                                                          },
+                                       "IRIS_ENV_EMPTY":  {
+                                                              "state":  "empty",
+                                                              "value":  ""
+                                                          },
+                                       "IRIS_ENV_VALUE":  {
+                                                              "state":  "value",
+                                                              "value":  "outer-value"
+                                                          },
+                                       "IRIS_FAKE_NATIVE_EXIT":  {
+                                                                     "state":  "absent",
+                                                                     "value":  null
+                                                                 }
+                                   },
+                        "applied":  {
+                                        "IRIS_ENV_CLEAR":  {
+                                                               "action":  "clear",
+                                                               "value":  null
+                                                           },
+                                        "IRIS_ENV_ABSENT":  {
+                                                                "action":  "set",
+                                                                "value":  "applied-absent"
+                                                            },
+                                        "IRIS_ENV_EMPTY":  {
+                                                               "action":  "set",
+                                                               "value":  "applied-empty"
+                                                           },
+                                        "IRIS_ENV_VALUE":  {
+                                                               "action":  "set",
+                                                               "value":  "applied-value"
+                                                           },
+                                        "IRIS_FAKE_NATIVE_EXIT":  {
+                                                                      "action":  "set",
+                                                                      "value":  "0"
+                                                                  }
+                                    },
+                        "after_restore":  {
+                                              "IRIS_ENV_ABSENT":  {
+                                                                      "state":  "absent",
+                                                                      "value":  null
+                                                                  },
+                                              "IRIS_ENV_CLEAR":  {
+                                                                     "state":  "value",
+                                                                     "value":  "outer-clear"
+                                                                 },
+                                              "IRIS_ENV_EMPTY":  {
+                                                                     "state":  "empty",
+                                                                     "value":  ""
+                                                                 },
+                                              "IRIS_ENV_VALUE":  {
+                                                                     "state":  "value",
+                                                                     "value":  "outer-value"
+                                                                 },
+                                              "IRIS_FAKE_NATIVE_EXIT":  {
+                                                                            "state":  "absent",
+                                                                            "value":  null
+                                                                        }
+                                          }
+                    },
+    "identity":  {
+                     "subject":  {
+                                     "commit":  "0b9074ff5b6de991e0adf7184698f8f1a77420bf",
+                                     "tree":  "d457ef02bfe53ab1e7bdd568a0461aed6c9ef253"
+                                 },
+                     "implementation":  {
+                                            "runner":  {
+                                                           "logical_path":  "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
+                                                           "actual_path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_rejects_0/subject-repo/Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
+                                                           "git_blob_id":  "8a54f49d5df011e95e60313fd1b6b5e588473ccc",
+                                                           "working_git_blob_id":  "8a54f49d5df011e95e60313fd1b6b5e588473ccc",
+                                                           "working_sha256":  "247d97adbba63cf3ffaa657090c9f2dd709cd6394b9aa78b680af3788ef90222"
+                                                       },
+                                            "common":  {
+                                                           "logical_path":  "Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+                                                           "actual_path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_rejects_0/subject-repo/Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+                                                           "git_blob_id":  "f2197bd87bafd03333edc094d3a8543d933a7258",
+                                                           "working_git_blob_id":  "f2197bd87bafd03333edc094d3a8543d933a7258",
+                                                           "working_sha256":  "a20ec4e2ae9c6edd8400e9c382c73b463443e7cbcc9f2952372e7446982c95d0"
+                                                       },
+                                            "policy":  {
+                                                           "logical_path":  "Iris/validation/clean_checkout/contracts/output_policy.json",
+                                                           "actual_path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_rejects_0/subject-repo/Iris/validation/clean_checkout/contracts/output_policy.json",
+                                                           "git_blob_id":  "11542a1be6e585ce0e30f55949d9384e958551de",
+                                                           "working_git_blob_id":  "11542a1be6e585ce0e30f55949d9384e958551de",
+                                                           "working_sha256":  "bfeb0f3c4465ae03c0e56200716d4e2804cf65732909292345b9e5b598cbc298"
+                                                       },
+                                            "successor_policy":  {
+                                                                     "logical_path":  "Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json",
+                                                                     "actual_path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_rejects_0/subject-repo/Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json",
+                                                                     "git_blob_id":  "98feb2897d13a2309fce164bfff941c320154811",
+                                                                     "working_git_blob_id":  "98feb2897d13a2309fce164bfff941c320154811",
+                                                                     "working_sha256":  "dc849e0a3306bd4e3c888e4a96737012ed85d460d36942db9e36a622e84cff4c"
+                                                                 },
+                                            "evidence_policy":  {
+                                                                    "logical_path":  "Iris/validation/clean_checkout/contracts/repository_evidence_lightweighting_output_policy.json",
+                                                                    "actual_path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_rejects_0/subject-repo/Iris/validation/clean_checkout/contracts/repository_evidence_lightweighting_output_policy.json",
+                                                                    "git_blob_id":  "03c10600bdf4ee1486f6266ca1c55927b6d5526a",
+                                                                    "working_git_blob_id":  "03c10600bdf4ee1486f6266ca1c55927b6d5526a",
+                                                                    "working_sha256":  "7717520110454c6532689344cdf5a63dddf8235f8d968feec83d1f1c6019600b"
+                                                                },
+                                            "evidence_predecessor":  {
+                                                                         "logical_path":  "Iris/_docs/refactor/repository_evidence_lightweighting/predecessor_subject_manifest.json",
+                                                                         "actual_path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_rejects_0/subject-repo/Iris/_docs/refactor/repository_evidence_lightweighting/predecessor_subject_manifest.json",
+                                                                         "git_blob_id":  "03c10600bdf4ee1486f6266ca1c55927b6d5526a",
+                                                                         "working_git_blob_id":  "03c10600bdf4ee1486f6266ca1c55927b6d5526a",
+                                                                         "working_sha256":  "7717520110454c6532689344cdf5a63dddf8235f8d968feec83d1f1c6019600b"
+                                                                     },
+                                            "evidence_owner_approval":  {
+                                                                            "logical_path":  "Iris/_docs/refactor/repository_evidence_lightweighting/owner_policy_approval.json",
+                                                                            "actual_path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_rejects_0/subject-repo/Iris/_docs/refactor/repository_evidence_lightweighting/owner_policy_approval.json",
+                                                                            "git_blob_id":  "03c10600bdf4ee1486f6266ca1c55927b6d5526a",
+                                                                            "working_git_blob_id":  "03c10600bdf4ee1486f6266ca1c55927b6d5526a",
+                                                                            "working_sha256":  "7717520110454c6532689344cdf5a63dddf8235f8d968feec83d1f1c6019600b"
+                                                                        },
+                                            "test_taxonomy":  {
+                                                                  "logical_path":  "Iris/_docs/round3/round3_test_taxonomy.json",
+                                                                  "actual_path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_rejects_0/subject-repo/Iris/_docs/round3/round3_test_taxonomy.json",
+                                                                  "git_blob_id":  "03c10600bdf4ee1486f6266ca1c55927b6d5526a",
+                                                                  "working_git_blob_id":  "03c10600bdf4ee1486f6266ca1c55927b6d5526a",
+                                                                  "working_sha256":  "7717520110454c6532689344cdf5a63dddf8235f8d968feec83d1f1c6019600b"
+                                                              },
+                                            "required_validations":  {
+                                                                         "logical_path":  "Iris/_docs/round3/current_route_required_validations.json",
+                                                                         "actual_path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_rejects_0/subject-repo/Iris/_docs/round3/current_route_required_validations.json",
+                                                                         "git_blob_id":  "03c10600bdf4ee1486f6266ca1c55927b6d5526a",
+                                                                         "working_git_blob_id":  "03c10600bdf4ee1486f6266ca1c55927b6d5526a",
+                                                                         "working_sha256":  "7717520110454c6532689344cdf5a63dddf8235f8d968feec83d1f1c6019600b"
+                                                                     },
+                                            "full_gate_contract":  {
+                                                                       "logical_path":  "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+                                                                       "actual_path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_rejects_0/subject-repo/Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+                                                                       "git_blob_id":  "03c10600bdf4ee1486f6266ca1c55927b6d5526a",
+                                                                       "working_git_blob_id":  "03c10600bdf4ee1486f6266ca1c55927b6d5526a",
+                                                                       "working_sha256":  "7717520110454c6532689344cdf5a63dddf8235f8d968feec83d1f1c6019600b"
+                                                                   },
+                                            "evidence_adoption_receipt":  {
+                                                                              "logical_path":  "Iris/_docs/refactor/repository_evidence_lightweighting/required_validation_adoption_receipt.json",
+                                                                              "actual_path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_rejects_0/subject-repo/Iris/_docs/refactor/repository_evidence_lightweighting/required_validation_adoption_receipt.json",
+                                                                              "git_blob_id":  "03c10600bdf4ee1486f6266ca1c55927b6d5526a",
+                                                                              "working_git_blob_id":  "03c10600bdf4ee1486f6266ca1c55927b6d5526a",
+                                                                              "working_sha256":  "7717520110454c6532689344cdf5a63dddf8235f8d968feec83d1f1c6019600b"
+                                                                          },
+                                            "evidence_allocator":  {
+                                                                       "logical_path":  "Iris/validation/clean_checkout/allocate_repository_runtime_lightweighting_roots.ps1",
+                                                                       "actual_path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_rejects_0/subject-repo/Iris/validation/clean_checkout/allocate_repository_runtime_lightweighting_roots.ps1",
+                                                                       "git_blob_id":  "9741694d75caeb49d3b7c1f59451c0c56bf6216c",
+                                                                       "working_git_blob_id":  "9741694d75caeb49d3b7c1f59451c0c56bf6216c",
+                                                                       "working_sha256":  "faa5b4816800b8cbe1595e5533fe36c53f396c0c26a3a876dd3e4085232348a1"
+                                                                   },
+                                            "environment_authority":  {
+                                                                          "logical_path":  "Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json",
+                                                                          "actual_path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_rejects_0/subject-repo/Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json",
+                                                                          "git_blob_id":  "c3062f329b82904e9d78b88bfd26a9d895663d8c",
+                                                                          "working_git_blob_id":  "c3062f329b82904e9d78b88bfd26a9d895663d8c",
+                                                                          "working_sha256":  "33ea76fe5c1c6a8124afe2dd3be5fb7056106c8d61c378d7251c5292b4b103ba"
+                                                                      },
+                                            "launcher":  {
+                                                             "logical_path":  "Iris/validation/clean_checkout/invoke_receipt_bound_full_gate.ps1",
+                                                             "actual_path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_rejects_0/subject-repo/Iris/validation/clean_checkout/invoke_receipt_bound_full_gate.ps1",
+                                                             "git_blob_id":  "166a47d967ffc0838d8e734c2ffcf89162b87d99",
+                                                             "working_git_blob_id":  "166a47d967ffc0838d8e734c2ffcf89162b87d99",
+                                                             "working_sha256":  "57dfb0f7220d0c290cfc77c6d3db22a4e03a2f872d7374de5b15f7e350d291bc"
+                                                         }
+                                        },
+                     "interpreter":  {
+                                         "path":  "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-bd1ba41f/environment/Scripts/python.exe",
+                                         "sha256":  "97c3228a59dcc05a771ab4eeec8126ce3f36ebb53616b479adc9f2c8050a9e84"
+                                     },
+                     "environment_receipt":  {
+                                                 "path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_rejects_0/environment-receipt.json",
+                                                 "sha256":  "26f36ff51943d694f4cebb877d05d1526b8eb62cb38a7e872903c86c5a259db0"
+                                             },
+                     "inner_actual_import":  {
+                                                 "actual_path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_rejects_0/subject-repo/Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+                                                 "git_blob_id":  "f2197bd87bafd03333edc094d3a8543d933a7258",
+                                                 "logical_path":  "Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+                                                 "module_file":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_rejects_0/subject-repo/Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+                                                 "working_sha256":  "a20ec4e2ae9c6edd8400e9c382c73b463443e7cbcc9f2952372e7446982c95d0"
+                                             }
+                 },
+    "execution_context":  "standalone_full_gate",
+    "predecessor_stage_receipt_set_sha256":  "",
+    "qualification_contract_sha256":  "",
+    "stdout":  {
+                   "path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_rejects_0/run-a/full-gate.stdout.bin",
+                   "sha256":  "3ee38c5e60a355a530ac0d8130b272603e23f195df562bbff9f50b9880259f62"
+               },
+    "stderr":  {
+                   "path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_rejects_0/run-a/full-gate.stderr.bin",
+                   "sha256":  "b11bd8dd2283f755b6e094027744c9553e63dcc9587bdd3c8a51b2abea96080f"
+               },
+    "result_receipt":  {
+                           "exists":  true,
+                           "path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_rejects_0/run-a/result/full_run_receipt.json",
+                           "sha256":  "c0160b1be8f60e8bc1a1c7d62e297894c4f6991b67f66ee4c4ef983f03807ca3"
+                       },
+    "receipt_write_status":  "succeeded",
+    "validation_ceiling":  "Test-fixture-only receipt: empty-state classification was simulated because Windows child-process environment transport normalizes an empty value to absent."
+}

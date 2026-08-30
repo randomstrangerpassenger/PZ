@@ -1,0 +1,87 @@
+{
+  "rows": [
+    {
+      "count": 4,
+      "denominator_id": "tools_build_recursive_tracked",
+      "exclusion_rule": "untracked and ignored files",
+      "inclusion_rule": "tracked Python descendants",
+      "root": "Iris/build/description/v2/tools/build",
+      "scan_method": "git ls-tree exact commit recursive *.py",
+      "set_sha256": "1b211cf69f1f01843eb30e1012c13f8b72c8151ecacfb4834f89414349b523d8",
+      "subject": {
+        "commit": "41f5714fa15fdf6315c2c61e6fd3c383c5c47b6e",
+        "tree": "87df0628f77bed2056f4770e3cad8460d4e7f302"
+      }
+    },
+    {
+      "count": 4,
+      "denominator_id": "tools_build_root_direct_tracked",
+      "exclusion_rule": "descendants, untracked and ignored files",
+      "inclusion_rule": "tracked direct Python children",
+      "root": "Iris/build/description/v2/tools/build",
+      "scan_method": "git ls-tree exact commit root-direct *.py",
+      "set_sha256": "1b211cf69f1f01843eb30e1012c13f8b72c8151ecacfb4834f89414349b523d8",
+      "subject": {
+        "commit": "41f5714fa15fdf6315c2c61e6fd3c383c5c47b6e",
+        "tree": "87df0628f77bed2056f4770e3cad8460d4e7f302"
+      }
+    },
+    {
+      "count": 1,
+      "denominator_id": "current_core",
+      "exclusion_rule": "allowed tooling and all other tools",
+      "inclusion_rule": "manifest modules",
+      "root": "Iris/_docs/round3/round3_active_core_closure.json",
+      "scan_method": "round3 active-core closure manifest",
+      "set_sha256": "2869e98cda29588905533c36ffe9225b30727484c1a2028412b81978550c74fb",
+      "subject": {
+        "commit": "41f5714fa15fdf6315c2c61e6fd3c383c5c47b6e",
+        "tree": "87df0628f77bed2056f4770e3cad8460d4e7f302"
+      }
+    },
+    {
+      "count": 1,
+      "denominator_id": "allowed_tooling",
+      "exclusion_rule": "current core and all other tools",
+      "inclusion_rule": "manifest approved tooling modules",
+      "root": "Iris/_docs/round3/round3_active_core_closure.json",
+      "scan_method": "round3 approved-tooling manifest",
+      "set_sha256": "41bc05a3ab04442431a0605c60c6aa0a5e93eb84c8f213acee5a3ea07f6790ef",
+      "subject": {
+        "commit": "41f5714fa15fdf6315c2c61e6fd3c383c5c47b6e",
+        "tree": "87df0628f77bed2056f4770e3cad8460d4e7f302"
+      }
+    },
+    {
+      "count": 4,
+      "denominator_id": "tools_build_recursive_physical",
+      "exclusion_rule": "inaccessible paths",
+      "inclusion_rule": "all accessible physical Python descendants",
+      "root": "Iris/build/description/v2/tools/build",
+      "scan_method": "materialized checkout recursive *.py",
+      "set_sha256": "1b211cf69f1f01843eb30e1012c13f8b72c8151ecacfb4834f89414349b523d8",
+      "subject": {
+        "commit": "41f5714fa15fdf6315c2c61e6fd3c383c5c47b6e",
+        "tree": "87df0628f77bed2056f4770e3cad8460d4e7f302"
+      }
+    },
+    {
+      "count": 4,
+      "denominator_id": "tools_build_root_direct_physical",
+      "exclusion_rule": "descendants and inaccessible paths",
+      "inclusion_rule": "all accessible direct Python children",
+      "root": "Iris/build/description/v2/tools/build",
+      "scan_method": "materialized checkout root-direct *.py",
+      "set_sha256": "1b211cf69f1f01843eb30e1012c13f8b72c8151ecacfb4834f89414349b523d8",
+      "subject": {
+        "commit": "41f5714fa15fdf6315c2c61e6fd3c383c5c47b6e",
+        "tree": "87df0628f77bed2056f4770e3cad8460d4e7f302"
+      }
+    }
+  ],
+  "schema_version": "iris-offline-tool-denominator-registry-v1",
+  "subject": {
+    "commit": "41f5714fa15fdf6315c2c61e6fd3c383c5c47b6e",
+    "tree": "87df0628f77bed2056f4770e3cad8460d4e7f302"
+  }
+}

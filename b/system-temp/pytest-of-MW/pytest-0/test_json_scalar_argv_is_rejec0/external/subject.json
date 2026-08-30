@@ -1,0 +1,7 @@
+{
+  "claim_id": "fixture-claim",
+  "commit": "5b584db216de4bc5e58d9df3f55633d3cc6aecc9",
+  "schema_version": "fixture-subject-v1",
+  "subject_kind": "bootstrap_validation_subject",
+  "tree": "a8fb66631a3c8c71e9f2761ffda816b663b6aa09"
+}

@@ -1,0 +1,39 @@
+=== 1. Determinism Test (2-run) ===
+  recipe_evidence_decisions.v2.4.json: MATCH
+  recipe_review_queue.v2.4.json: MATCH
+  recipe_index.v2.4.json: MATCH
+  recipes_by_fulltype.v2.4.json: MATCH
+
+=== 2. Decisions Sanity ===
+  PASS=322, NO=0, REVIEW=0
+  Total rules: 322
+  PASS fulltypes: 349
+  OK: PASS rules exist
+
+=== 3. Rule Structure ===
+  OK: All sampled rules have correct structure
+  OK: by_fulltype has rule_ids with {rule_id, role} structure
+
+=== 4. Keep-only inclusion ===
+  OK: 16 keep-only FTs correctly included with role='keep'
+  OK: keep_unresolved_count=0, recipe_keep_link_count=132
+
+  OK: 1 keep-only recipes remain positive and linked
+
+=== 5. Review Queue Validation ===
+  OK: All 5 review items have valid reasons
+  By reason: {"dynamic_recipe_expr.group_def_dynamic": 5}
+
+=== 5.5 Policy Freeze Validation ===
+  OK: frozen_count=5
+  OK: policy=PERMANENT_REVIEW
+  OK: All 5 groups have valid depends_on and source_ref
+
+=== 6. Surface Type Validation ===
+  OK: recipe_only 'Base.Aerosolbomb' -> surface='recipe_ui'
+
+=== 7. Full Quality Gates ===
+  OK: All quality gates passed
+
+==================================================
+FINAL RESULT: ALL PASSED

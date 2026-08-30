@@ -1,0 +1,15 @@
+{
+  "clear": [
+    "PYTHONHOME",
+    "PYTHONPATH",
+    "PYTEST_ADDOPTS"
+  ],
+  "schema_version": "iris_repository_runtime_lightweighting_environment_delta_v1",
+  "set": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PIP_NO_INDEX": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONHASHSEED": "0",
+    "PYTHONNOUSERSITE": "1"
+  }
+}

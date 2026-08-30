@@ -1,0 +1,80 @@
+{
+  "caller_axis": {
+    "caller_observed": 1,
+    "no_caller_observed": 3
+  },
+  "denominator_id": "tools_build_recursive_tracked",
+  "owner_axis": {
+    "owner_bound": 2,
+    "owner_unknown": 2
+  },
+  "owner_decision": {
+    "basis": "sealed predecessor seed 55 unless an explicit owner-approved ceiling is supplied; unknown rows remain move/delete/consolidate forbidden",
+    "physical_move_approved": false,
+    "predecessor_seed_unknown_role_count": 55,
+    "retention_mutation_approved": false,
+    "unknown_role_ceiling": 1
+  },
+  "role_axis": {
+    "classified_role": 3,
+    "detail_counts": {
+      "active": 1,
+      "active_tooling": 1,
+      "legacy_required": 1,
+      "unknown_role": 1
+    },
+    "unknown_role": 1
+  },
+  "rows": [
+    {
+      "basis": "current core closure manifest",
+      "caller_axis": "no_caller_observed",
+      "decision_owner": "round3_active_core_closure",
+      "disposition": "preserve",
+      "execution_role": "read_only_validator",
+      "owner_status": "owner_bound",
+      "path": "Iris/build/description/v2/tools/build/core.py",
+      "role": "active",
+      "unresolved_question": null
+    },
+    {
+      "basis": "no owner-approved role evidence",
+      "caller_axis": "no_caller_observed",
+      "decision_owner": "repository_owner",
+      "disposition": "move_delete_consolidate_forbidden",
+      "execution_role": "unknown",
+      "owner_status": "owner_unknown",
+      "path": "Iris/build/description/v2/tools/build/mystery.py",
+      "role": "unknown_role",
+      "unresolved_question": "confirm owner, role, caller contract, and retention authority"
+    },
+    {
+      "basis": "shared support provider",
+      "caller_axis": "caller_observed",
+      "decision_owner": "repository_owner",
+      "disposition": "move_delete_consolidate_forbidden",
+      "execution_role": "read_only_validator",
+      "owner_status": "owner_unknown",
+      "path": "Iris/build/description/v2/tools/build/shared_io.py",
+      "role": "legacy_required",
+      "unresolved_question": "confirm owner, role, caller contract, and retention authority"
+    },
+    {
+      "basis": "approved current-route tooling manifest",
+      "caller_axis": "no_caller_observed",
+      "decision_owner": "round3_active_core_closure",
+      "disposition": "preserve",
+      "execution_role": "read_only_validator",
+      "owner_status": "owner_bound",
+      "path": "Iris/build/description/v2/tools/build/tooling.py",
+      "role": "active_tooling",
+      "unresolved_question": null
+    }
+  ],
+  "schema_version": "iris-offline-tool-role-manifest-v1",
+  "subject": {
+    "commit": "ab49fa928ff60dd20341e2088c8be8a003548269",
+    "tree": "87df0628f77bed2056f4770e3cad8460d4e7f302"
+  },
+  "total": 4
+}

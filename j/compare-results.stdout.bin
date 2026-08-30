@@ -1,0 +1,32 @@
+{
+  "canonical_result_raw_bytes_equal": true,
+  "canonical_results_equal": true,
+  "implementation_identity": {
+    "imported_common": {
+      "actual_path": "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-worktree/Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+      "git_blob_id": "5bf6e4075879953e868dd624c3842ee411aa172d",
+      "logical_path": "Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+      "module_file": "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-worktree/Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+      "working_git_blob_id": "5bf6e4075879953e868dd624c3842ee411aa172d",
+      "working_sha256": "784d4e4f803e818f3f1e037633467761f9a474fda6e2d7778fafc2dd799e010c"
+    },
+    "validator": {
+      "actual_path": "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-worktree/Iris/validation/clean_checkout/validate_iris_clean_checkout_validation.py",
+      "git_blob_id": "a965f2ff78676b7110359963ca7b17248e28ddce",
+      "logical_path": "Iris/validation/clean_checkout/validate_iris_clean_checkout_validation.py",
+      "working_git_blob_id": "a965f2ff78676b7110359963ca7b17248e28ddce",
+      "working_sha256": "157dcfde803ca5e50ea1b83ba1a85e1eb18a41a982568161da3ebe7a574f7f42"
+    }
+  },
+  "required_execution_unit_count": 215,
+  "run_a_sha256": "9ff37bd36685373ab193017a5a2cef58e5e02573b19826d4aa28ba575d9444d8",
+  "run_b_sha256": "9ff37bd36685373ab193017a5a2cef58e5e02573b19826d4aa28ba575d9444d8",
+  "schema_version": "iris-clean-checkout-result-comparison-v1",
+  "status": "PASS",
+  "subject": {
+    "commit": "b30aaff2da6172ab5137c55bb460889aa527ad04",
+    "tree": "7cdd52fd61f739b5018a62d8bffe84461dfea50c"
+  },
+  "test_identity_count": 211,
+  "test_inventory_sha256": "474187b601b87d6b6e0470787ba2af3e149e3cc923fc49231cbe90e86611caa0"
+}

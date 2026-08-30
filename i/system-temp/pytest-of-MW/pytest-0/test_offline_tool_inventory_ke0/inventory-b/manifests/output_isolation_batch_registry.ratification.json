@@ -1,0 +1,25 @@
+{
+  "authorization_basis": "The owner instruction for this task pre-authorizes required owner decisions; no selected producer mutation is present.",
+  "census_manifest": {
+    "path": "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_offline_tool_inventory_ke0/inventory-b/manifests/tool_inventory.json",
+    "sha256": "63d123d1aae82bb86b65deda341f70bf5f7997eb25aadb08939764e848610985"
+  },
+  "decision_owner": "repository_owner",
+  "denominator_manifest": {
+    "path": "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_offline_tool_inventory_ke0/inventory-b/manifests/denominator_registry.json",
+    "sha256": "a0c3a35054d79315d5a06bda5e025bbb3d4acb3568e8d5a17710c472c3c6dd09"
+  },
+  "registry": {
+    "path": "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_offline_tool_inventory_ke0/inventory-b/manifests/output_isolation_batch_registry.json",
+    "schema_version": "iris-output-isolation-batch-registry-v1",
+    "sha256": "de57785a42aec17d406da66402e8ef8ca7963a48bc4ed459b13e6d4fff7b6720"
+  },
+  "registry_drift_fail_closed": true,
+  "schema_version": "iris-output-isolation-owner-ratification-v1",
+  "selected_row_count": 0,
+  "source_mutation_authorized": false,
+  "subject": {
+    "commit": "ab49fa928ff60dd20341e2088c8be8a003548269",
+    "tree": "87df0628f77bed2056f4770e3cad8460d4e7f302"
+  }
+}

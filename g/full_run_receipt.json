@@ -1,0 +1,159 @@
+{
+  "canonical_result": {
+    "path": "C:/Users/MW/Downloads/coding/PZ/g/canonical_full_result.json",
+    "sha256": "9ff37bd36685373ab193017a5a2cef58e5e02573b19826d4aa28ba575d9444d8"
+  },
+  "environment_receipt_path": "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-bd1ba41f/receipt/environment_receipt.json",
+  "execution_context": "standalone_full_gate",
+  "external_execution_checkout_cleanup_status": "PASS",
+  "external_execution_mutation_count": 0,
+  "external_execution_mutation_rows": [],
+  "external_execution_status_after": [
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk001.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk006.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk009.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase10/claim_boundary_report.json",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase4/old_new_dual_current_absence_report.json",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase11/final_execution_contract_report.json",
+    "! .dvf_tmp/",
+    "! Iris/build/package/"
+  ],
+  "external_execution_status_baseline": [
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk001.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk006.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk009.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase10/claim_boundary_report.json",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase4/old_new_dual_current_absence_report.json",
+    "? Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase11/final_execution_contract_report.json",
+    "! .dvf_tmp/",
+    "! Iris/build/package/"
+  ],
+  "external_execution_status_counts": {
+    "ignored_path_count": 2,
+    "status_row_count": 17,
+    "tracked_change_count": 0,
+    "untracked_path_count": 15
+  },
+  "external_execution_status_unchanged": true,
+  "external_work_root_empty_after": true,
+  "ignored_required_input_paths": [],
+  "implementation_identity": {
+    "imported_common": {
+      "actual_path": "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-worktree/Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+      "git_blob_id": "5bf6e4075879953e868dd624c3842ee411aa172d",
+      "logical_path": "Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+      "module_file": "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-worktree/Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+      "working_git_blob_id": "5bf6e4075879953e868dd624c3842ee411aa172d",
+      "working_sha256": "784d4e4f803e818f3f1e037633467761f9a474fda6e2d7778fafc2dd799e010c"
+    },
+    "runner": {
+      "actual_path": "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-worktree/Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
+      "git_blob_id": "76397b91cbf176b9c649ecf10c7f4f834a5ba23c",
+      "logical_path": "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
+      "working_git_blob_id": "76397b91cbf176b9c649ecf10c7f4f834a5ba23c",
+      "working_sha256": "c4a959ba0148b70df45a979f75f7c64b218d31c18b9073afc4e81f558fab8865"
+    }
+  },
+  "materialization_receipt": {
+    "path": "C:/Users/MW/Downloads/coding/PZ/g/materialization_receipt.json",
+    "sha256": "b995944872bf23b8e181e3be9c7bdaf19a2419ecbfe1727b6cd5474820c10bec"
+  },
+  "predecessor_stage_receipt_set_sha256": null,
+  "pytest_result": {
+    "path": "C:/Users/MW/Downloads/coding/PZ/g/full_pytest_result.json",
+    "sha256": "91d2c735a192070279160fbc084688d8048531ac7ab2de672f6fa7ad6a7c742d"
+  },
+  "pytest_return_code": 0,
+  "pytest_stderr": {
+    "path": "C:/Users/MW/Downloads/coding/PZ/g/full_pytest.stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "pytest_stdout": {
+    "path": "C:/Users/MW/Downloads/coding/PZ/g/full_pytest.stdout.txt",
+    "sha256": "cc83495279b39db5520469546640da01e2d01c3d58e55cd37aee2e8eabe79882"
+  },
+  "python_executable_path": "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-bd1ba41f/environment/Scripts/python.exe",
+  "qualification_contract_sha256": null,
+  "required_input_path_count": 76,
+  "schema_version": "iris-clean-checkout-full-run-receipt-v1",
+  "source_repository_ignored_state_unchanged": true,
+  "source_repository_ignored_status_after": [
+    "! .tmp/",
+    "! Iris/tooling/.venv/",
+    "! Iris/tooling/src/iris_tooling/__pycache__/",
+    "! Iris/tooling/src/iris_tooling/domains/__pycache__/",
+    "! Iris/tooling/src/iris_tooling/domains/tooltip_t1/__pycache__/",
+    "! Iris/validation/clean_checkout/__pycache__/"
+  ],
+  "source_repository_ignored_status_before": [
+    "! .tmp/",
+    "! Iris/tooling/.venv/",
+    "! Iris/tooling/src/iris_tooling/__pycache__/",
+    "! Iris/tooling/src/iris_tooling/domains/__pycache__/",
+    "! Iris/tooling/src/iris_tooling/domains/tooltip_t1/__pycache__/",
+    "! Iris/validation/clean_checkout/__pycache__/"
+  ],
+  "source_repository_status_after": [],
+  "source_repository_status_before": [],
+  "standalone_rows": [
+    {
+      "command_id": "legacy_rightclick_determinism",
+      "output_projection": "repository_external_seeded_copy",
+      "path": "Iris/tooling/tests/run_rightclick_determinism.py",
+      "return_code": 0,
+      "status": "PASS",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "eaa50845305c92dfdcb4ab29e364ee6d465d9e5268d2f8a88fd6caedf2e90713"
+    },
+    {
+      "command_id": "legacy_recipe_evidence_determinism",
+      "output_projection": "repository_external_seeded_copy",
+      "path": "Iris/build/tests/test_recipe_evidence.py",
+      "return_code": 0,
+      "status": "PASS",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "79e3461bbf1777467add4b475e2d5a7563541387dceaada9f2e5fa5de5be90bf"
+    },
+    {
+      "command_id": "labelmap_fail_loud_coverage",
+      "output_projection": "repository_external_seeded_copy",
+      "path": "Iris/build/tests/test_fail_loud_coverage.py",
+      "return_code": 0,
+      "status": "PASS",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "18485a72606c5690500b1aa2aebff9b0fa0cf6f86ff4e325bb8c95b13d8c266c"
+    },
+    {
+      "command_id": "require_render_contract",
+      "output_projection": "repository_external_seeded_copy",
+      "path": "Iris/build/test_require_render.py",
+      "return_code": 0,
+      "status": "PASS",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "4ccc965f668170fc238c1e20903af403c9176b187ed0a11171aed9b86f8e28ff"
+    }
+  ],
+  "status": "PASS",
+  "subject": {
+    "commit": "b30aaff2da6172ab5137c55bb460889aa527ad04",
+    "tree": "7cdd52fd61f739b5018a62d8bffe84461dfea50c"
+  }
+}

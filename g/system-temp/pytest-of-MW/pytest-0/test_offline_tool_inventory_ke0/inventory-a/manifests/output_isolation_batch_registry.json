@@ -1,0 +1,32 @@
+{
+  "census_manifest": {
+    "path": "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_offline_tool_inventory_ke0/inventory-a/manifests/tool_inventory.json",
+    "sha256": "13625adb2d088a3291727cfec08d4e0be81e1b80b022d25ade1521c8435000dc"
+  },
+  "mutation_disposition": "no_selected_change2_source_mutation",
+  "mutation_fail_closed_on_registry_drift": true,
+  "owner_ratification": {
+    "path": "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_offline_tool_inventory_ke0/inventory-a/manifests/output_isolation_batch_registry.ratification.json",
+    "required": true
+  },
+  "registry_owner": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "schema": {
+    "git_blob_id": "96f883b408aed1ff2d4f52fc26559c8e904ba02e",
+    "path": "Iris/validation/clean_checkout/contracts/output_isolation_batch_registry.schema.json",
+    "sha256": "06798431c8feb4ab365fd3ca904bc2b884f5b7fcc2261f508a7550c29c498097"
+  },
+  "schema_version": "iris-output-isolation-batch-registry-v1",
+  "selected_owner_unknown_count": 0,
+  "selected_rows": [],
+  "selected_unknown_role_count": 0,
+  "source_denominator": {
+    "denominator_id": "tools_build_recursive_tracked",
+    "path": "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_offline_tool_inventory_ke0/inventory-a/manifests/denominator_registry.json",
+    "set_sha256": "1b211cf69f1f01843eb30e1012c13f8b72c8151ecacfb4834f89414349b523d8",
+    "sha256": "e2713c10a7145a3a6093c673c3f0f810d9ac977b47b15c67c2e5aa6d42d21935"
+  },
+  "subject": {
+    "commit": "4760152ae6ff579ca3216c32f3ae90bb23642888",
+    "tree": "87df0628f77bed2056f4770e3cad8460d4e7f302"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "claim_id": "audit-claim",
+  "command_id": "004-route-audit-dynamic-current",
+  "command_receipt": "C:\\Users\\MW\\Downloads\\coding\\PZ\\b\\system-temp\\pytest-of-MW\\pytest-0\\test_seal_requires_dynamic_che0\\external\\command-receipts\\004-route-audit-dynamic-current.json",
+  "command_spec": {
+    "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\b\\system-temp\\pytest-of-MW\\pytest-0\\test_seal_requires_dynamic_che0\\external\\command-receipts\\004-route-audit-dynamic-current.command.json",
+    "sha256": "2443974a8de7b3d2914ce70380fb2fd8cd1bd28a1a201b53deaf3ff8e2d32304"
+  },
+  "decoded_argv": [
+    "-B",
+    "Iris/_docs/round3/round3_run_contract_tests.py",
+    "--class",
+    "current",
+    "--enforce-current-build-closure",
+    "--out",
+    "C:\\Users\\MW\\Downloads\\coding\\PZ\\b\\system-temp\\pytest-of-MW\\pytest-0\\test_seal_requires_dynamic_che0\\external\\current-route.json"
+  ],
+  "executable": "C:\\Users\\MW\\Downloads\\coding\\PZ\\.tmp\\tooltip-t1-d6-artifacts-1e6056ad-clean\\environment\\Scripts\\python.exe",
+  "invoked_repository_files": [
+    {
+      "actual_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\b\\system-temp\\pytest-of-MW\\pytest-0\\test_seal_requires_dynamic_che0\\checkout\\Iris\\_docs\\round3\\round3_run_contract_tests.py",
+      "execution_commit": "d4044b36c3d16869c03502baa071007bd97e03ca",
+      "git_blob_id": "c129479b3561006a9a7f9bb6dfd116c35208ab13",
+      "logical_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "working_sha256": "0e0e7eaed7cbb486356c6101499ffe3dfbb88d49e884aaa1d604f970fb8c214c"
+    }
+  ],
+  "native_exit_code": 0,
+  "output_assertion": {
+    "delta": {
+      "changed_count": 0,
+      "ignored_delta_count": 0,
+      "tracked_delta_count": 0,
+      "unreadable_count": 0,
+      "untracked_delta_count": 0
+    },
+    "kind": "checkout_unchanged",
+    "status": "pass"
+  },
+  "schema_version": "iris_repository_runtime_lightweighting_command_receipt_v1",
+  "semantic_exit_code": 0,
+  "subject_receipt": {
+    "execution_commit": "d4044b36c3d16869c03502baa071007bd97e03ca",
+    "execution_tree": "312dc720854588db16c6f282c5b9a60b82fbbaab",
+    "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\b\\system-temp\\pytest-of-MW\\pytest-0\\test_seal_requires_dynamic_che0\\external\\audit-subject.json",
+    "sha256": "4b4154a96cc8f4a996c7760c37ede19c367fc7bc11bbb7b507364da185104ebf"
+  },
+  "successor_policy": {
+    "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\b\\system-temp\\pytest-of-MW\\pytest-0\\test_seal_requires_dynamic_che0\\checkout\\Iris\\validation\\clean_checkout\\contracts\\repository_runtime_lightweighting_output_policy.json",
+    "sha256": "5c77f6d415c0efc23ad9f294958c604c0f60aa1b405207617101331547acf727"
+  },
+  "terminal_status": "pass",
+  "working_directory": "C:\\Users\\MW\\Downloads\\coding\\PZ\\b\\system-temp\\pytest-of-MW\\pytest-0\\test_seal_requires_dynamic_che0\\checkout"
+}

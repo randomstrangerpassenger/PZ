@@ -1,0 +1,106 @@
+{
+    "schema_version":  "iris_repository_runtime_lightweighting_command_receipt_v1",
+    "command_id":  "tampered-script",
+    "command_receipt":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_invoked_repository_script0/external/receipts/tampered-script.json",
+    "terminal_status":  "preflight_failed",
+    "disposition":  "failed",
+    "failure":  {
+                    "kind":  "exception",
+                    "exception_type":  "System.Management.Automation.RuntimeException",
+                    "exception_message":  "invoked repository implementation differs from exact execution commit: probe.py"
+                },
+    "claim_id":  "fixture-claim",
+    "command_spec":  {
+                         "path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_invoked_repository_script0/external/specs/tampered-script.json",
+                         "sha256":  "589adedf38d5aecd805d060b73bec7f04d88c95355d00f0aae0fe626ad2b9294"
+                     },
+    "executable":  "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-artifacts-1e6056ad-clean/environment/Scripts/python.exe",
+    "decoded_argv":  [
+                         "-B",
+                         "probe.py"
+                     ],
+    "actual_argv":  [
+                        "C:\\Users\\MW\\Downloads\\coding\\PZ\\.tmp\\tooltip-t1-d6-artifacts-1e6056ad-clean\\environment\\Scripts\\python.exe",
+                        "-B",
+                        "probe.py"
+                    ],
+    "working_directory":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_invoked_repository_script0/checkout",
+    "started_at":  "2026-08-29T12:27:57.6357623+00:00",
+    "ended_at":  "2026-08-29T12:27:58.4864663+00:00",
+    "native_exit_code":  null,
+    "semantic_exit_code":  2,
+    "stdout":  {
+                   "path":  null,
+                   "sha256":  null
+               },
+    "stderr":  {
+                   "path":  null,
+                   "sha256":  null
+               },
+    "subject_receipt":  {
+                            "path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_invoked_repository_script0/external/subject.json",
+                            "sha256":  "9534714fd2aaa38ba01b836b95f125ef994ca556acffb2274e4da53bd8fc5767",
+                            "subject_kind":  "bootstrap_validation_subject",
+                            "claim_id":  "fixture-claim",
+                            "repository_root":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_invoked_repository_script0/checkout",
+                            "commit":  "f8a252d43af689644558b2585986faed4319b41d",
+                            "tree":  "20807dba00526d003165c11d2e7c92b71cc32423",
+                            "execution_commit":  "f8a252d43af689644558b2585986faed4319b41d",
+                            "execution_tree":  "20807dba00526d003165c11d2e7c92b71cc32423",
+                            "working_tree_status_sha256":  "a22869cfe62b1ec75388e173e9a774258100158e2344874b319663238dd83ee7"
+                        },
+    "environment_receipt":  null,
+    "environment_delta":  null,
+    "environment_authority":  {
+                                  "path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_invoked_repository_script0/checkout/Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json",
+                                  "sha256":  "91a23c8801535eab7de474e92257552b48b8641bf798cc107380c3ca514ed812"
+                              },
+    "successor_policy":  {
+                             "path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_invoked_repository_script0/checkout/Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json",
+                             "sha256":  "6189d748545bda4ca9aa0bb61f465cb54f96d9b0274afb2c85ebd9a408fc3aca"
+                         },
+    "implementation_identity":  {
+                                    "wrapper":  {
+                                                    "logical_path":  "Iris/validation/clean_checkout/invoke_repository_runtime_lightweighting_command.ps1",
+                                                    "actual_path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_invoked_repository_script0/checkout/Iris/validation/clean_checkout/invoke_repository_runtime_lightweighting_command.ps1",
+                                                    "execution_commit":  "f8a252d43af689644558b2585986faed4319b41d",
+                                                    "git_blob_id":  "194963b7e310e22bac174c468c2819c172ac98f6",
+                                                    "working_sha256":  "fcf79ac75a1732324c25860ca11d64e2b9d455e72a5b7ed759490503e314d51a"
+                                                },
+                                    "successor_policy":  {
+                                                             "logical_path":  "Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json",
+                                                             "actual_path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_invoked_repository_script0/checkout/Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json",
+                                                             "execution_commit":  "f8a252d43af689644558b2585986faed4319b41d",
+                                                             "git_blob_id":  "24d1d128df0578cf7b9a6575a3a808c62edd21b2",
+                                                             "working_sha256":  "6189d748545bda4ca9aa0bb61f465cb54f96d9b0274afb2c85ebd9a408fc3aca"
+                                                         },
+                                    "environment_authority":  {
+                                                                  "logical_path":  "Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json",
+                                                                  "actual_path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_invoked_repository_script0/checkout/Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json",
+                                                                  "execution_commit":  "f8a252d43af689644558b2585986faed4319b41d",
+                                                                  "git_blob_id":  "b2c7101f5b7d861730884a7afa1712b9f707a885",
+                                                                  "working_sha256":  "91a23c8801535eab7de474e92257552b48b8641bf798cc107380c3ca514ed812"
+                                                              }
+                                },
+    "invoked_repository_files":  [
+
+                                 ],
+    "environment":  {
+                        "before":  {
+
+                                   },
+                        "after_restore":  {
+
+                                          },
+                        "restored":  true
+                    },
+    "output_assertion":  {
+                             "kind":  "none",
+                             "status":  "not_run"
+                         },
+    "checkout_census":  {
+                            "before":  null,
+                            "after":  null,
+                            "delta":  null
+                        }
+}

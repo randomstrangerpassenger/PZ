@@ -1,0 +1,32 @@
+{
+  "canonical_result": {
+    "path": "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_receipt_bound_launcher_ke0/external-attempt/result/canonical_full_result.json",
+    "sha256": "c24aeb83e0d01f5b1b0311bc196cc5994799beecaf93e6de8c1cc57743495440"
+  },
+  "environment_receipt_path": "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_receipt_bound_launcher_ke0/environment-receipt.json",
+  "execution_context": "standalone_full_gate",
+  "implementation_identity": {
+    "imported_common": {
+      "actual_path": "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_receipt_bound_launcher_ke0/subject-repo/Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+      "git_blob_id": "f2197bd87bafd03333edc094d3a8543d933a7258",
+      "logical_path": "Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+      "module_file": "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_receipt_bound_launcher_ke0/subject-repo/Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+      "working_sha256": "a20ec4e2ae9c6edd8400e9c382c73b463443e7cbcc9f2952372e7446982c95d0"
+    },
+    "runner": {
+      "actual_path": "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_receipt_bound_launcher_ke0/subject-repo/Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
+      "git_blob_id": "8a54f49d5df011e95e60313fd1b6b5e588473ccc",
+      "logical_path": "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
+      "working_sha256": "247d97adbba63cf3ffaa657090c9f2dd709cd6394b9aa78b680af3788ef90222"
+    }
+  },
+  "predecessor_stage_receipt_set_sha256": null,
+  "python_executable_path": "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-bd1ba41f/environment/Scripts/python.exe",
+  "qualification_contract_sha256": null,
+  "schema_version": "iris-clean-checkout-full-run-receipt-v1",
+  "status": "PASS",
+  "subject": {
+    "commit": "e4363767e6797bf2b2b4e7aea8711e94c58402de",
+    "tree": "67227ceea6cdc54a039de265ed60e89d5c3cd147"
+  }
+}

@@ -1,0 +1,72 @@
+{
+    "schema_version":  "iris-clean-checkout-orchestration-receipt-v1",
+    "claim_id":  "fixture-claim",
+    "launch_status":  "preflight_failed",
+    "launch_stage":  "resolve_head",
+    "failure_reason":  "resolve_head",
+    "exception_type":  "System.Management.Automation.RuntimeException",
+    "exception_message":  "HEAD does not equal exact target commit: 34f8d8cc43de91c97fb7f7ccf96fdc4b4827057a != 0000000000000000000000000000000000000000",
+    "primary_failure":  {
+                            "kind":  "exception",
+                            "stage":  "resolve_head",
+                            "exception_type":  "System.Management.Automation.RuntimeException",
+                            "exception_message":  "HEAD does not equal exact target commit: 34f8d8cc43de91c97fb7f7ccf96fdc4b4827057a != 0000000000000000000000000000000000000000"
+                        },
+    "secondary_failures":  [
+
+                           ],
+    "native_exit_code":  null,
+    "planned_argv":  null,
+    "actual_argv":  null,
+    "raw_parameters":  {
+                           "repository_root":  "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_receipt_bound_launcher_he0\\subject-repo",
+                           "commit":  "0000000000000000000000000000000000000000",
+                           "environment_receipt":  "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_receipt_bound_launcher_he0\\environment-receipt.json",
+                           "work_root":  "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_receipt_bound_launcher_he0\\external-attempt\\work",
+                           "result_root":  "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_receipt_bound_launcher_he0\\external-attempt\\result",
+                           "orchestration_receipt":  "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_receipt_bound_launcher_he0\\external-attempt\\orchestration.json",
+                           "execution_context":  "standalone_full_gate",
+                           "predecessor_stage_receipt_set_sha256":  "",
+                           "qualification_contract_sha256":  "",
+                           "predecessor_stage_receipt_set":  "",
+                           "qualification_contract":  "",
+                           "stdout_path":  "",
+                           "stderr_path":  "",
+                           "failure_injection":  "none",
+                           "empty_state_fixture_variable":  "IRIS_ENV_EMPTY"
+                       },
+    "environment":  {
+                        "configured":  false,
+                        "restored":  true,
+                        "before":  {
+
+                                   },
+                        "applied":  {
+
+                                    },
+                        "after_restore":  {
+
+                                          }
+                    },
+    "identity":  {
+
+                 },
+    "execution_context":  "standalone_full_gate",
+    "predecessor_stage_receipt_set_sha256":  "",
+    "qualification_contract_sha256":  "",
+    "stdout":  {
+                   "path":  null,
+                   "sha256":  null
+               },
+    "stderr":  {
+                   "path":  null,
+                   "sha256":  null
+               },
+    "result_receipt":  {
+                           "exists":  false,
+                           "path":  null,
+                           "sha256":  null
+                       },
+    "receipt_write_status":  "succeeded",
+    "validation_ceiling":  "Test-fixture-only receipt: empty-state classification was simulated because Windows child-process environment transport normalizes an empty value to absent."
+}

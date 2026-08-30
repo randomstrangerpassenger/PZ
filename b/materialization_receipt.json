@@ -1,0 +1,264 @@
+{
+  "fixture": {
+    "manifest_path": "Iris/build/description/v2/frozen_predecessor_inputs/dvf_3_3_registry_authority_canonical_closure/current_route/manifest.json",
+    "manifest_sha256": "b77720204c6e12f46c122d52c5602eefda311a6f5379b055aee0b843f822dfa2",
+    "materialized_file_count": 15,
+    "partition": "candidate_seed_payload_paths",
+    "rows": [
+      {
+        "authority_class": "hermetic_test_fixture",
+        "byte_length": 951,
+        "preexisting_sha256": null,
+        "producer": "tracked_hash_bound_frozen_predecessor_fixture",
+        "sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c",
+        "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua"
+      },
+      {
+        "authority_class": "hermetic_test_fixture",
+        "byte_length": 102745,
+        "preexisting_sha256": null,
+        "producer": "tracked_hash_bound_frozen_predecessor_fixture",
+        "sha256": "08373c2a0e2f6ff572021f2f82d1b322316e7886a8876664d65f022cb764b7dd",
+        "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk001.lua"
+      },
+      {
+        "authority_class": "hermetic_test_fixture",
+        "byte_length": 93472,
+        "preexisting_sha256": null,
+        "producer": "tracked_hash_bound_frozen_predecessor_fixture",
+        "sha256": "37e72049ceb83d294f52d9bb86936a3a3e05942cdaa037865532338cfaef4764",
+        "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua"
+      },
+      {
+        "authority_class": "hermetic_test_fixture",
+        "byte_length": 89927,
+        "preexisting_sha256": null,
+        "producer": "tracked_hash_bound_frozen_predecessor_fixture",
+        "sha256": "562c7c18aef25538ef341764da4a5635313352212f1bce515b20c5dccc90e0b9",
+        "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua"
+      },
+      {
+        "authority_class": "hermetic_test_fixture",
+        "byte_length": 102589,
+        "preexisting_sha256": null,
+        "producer": "tracked_hash_bound_frozen_predecessor_fixture",
+        "sha256": "42753e063661679583c3430acc6bc52ec6f47d873cbf4685dacdb603a964e440",
+        "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua"
+      },
+      {
+        "authority_class": "hermetic_test_fixture",
+        "byte_length": 92247,
+        "preexisting_sha256": null,
+        "producer": "tracked_hash_bound_frozen_predecessor_fixture",
+        "sha256": "89c7d39902ff83166f4cfb8cea4225359e86b62750703cfc7c4f15b44cce5a5e",
+        "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua"
+      },
+      {
+        "authority_class": "hermetic_test_fixture",
+        "byte_length": 101600,
+        "preexisting_sha256": null,
+        "producer": "tracked_hash_bound_frozen_predecessor_fixture",
+        "sha256": "5942559c4927ab8ed948fed42f73e362b26e35d180e2206b745caaa98ed20c09",
+        "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk006.lua"
+      },
+      {
+        "authority_class": "hermetic_test_fixture",
+        "byte_length": 96491,
+        "preexisting_sha256": null,
+        "producer": "tracked_hash_bound_frozen_predecessor_fixture",
+        "sha256": "19661a52a3418f413ad49c7df474a2f221a0d5c751232f1b9b3083768074966b",
+        "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua"
+      },
+      {
+        "authority_class": "hermetic_test_fixture",
+        "byte_length": 104738,
+        "preexisting_sha256": null,
+        "producer": "tracked_hash_bound_frozen_predecessor_fixture",
+        "sha256": "0df3875bd9cd109bf70b50b4c847c99e56437d1ab8183c1a814c797a754ed924",
+        "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua"
+      },
+      {
+        "authority_class": "hermetic_test_fixture",
+        "byte_length": 97142,
+        "preexisting_sha256": null,
+        "producer": "tracked_hash_bound_frozen_predecessor_fixture",
+        "sha256": "abbe34d842d2d1162a5828e3f3e3147cb93f1e991f89da3009d2bb81add82729",
+        "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk009.lua"
+      },
+      {
+        "authority_class": "hermetic_test_fixture",
+        "byte_length": 91423,
+        "preexisting_sha256": null,
+        "producer": "tracked_hash_bound_frozen_predecessor_fixture",
+        "sha256": "954ed61ca9f9a08fb9818a38c91925356901561b9d3cd3dd9dfd5d91bd359997",
+        "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua"
+      },
+      {
+        "authority_class": "hermetic_test_fixture",
+        "byte_length": 61528,
+        "preexisting_sha256": null,
+        "producer": "tracked_hash_bound_frozen_predecessor_fixture",
+        "sha256": "8e0311e7d6fb020056e9fb74fbc546dce898668f4ed7c60561e7538f5bc9d179",
+        "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua"
+      },
+      {
+        "authority_class": "hermetic_test_fixture",
+        "byte_length": 474,
+        "preexisting_sha256": null,
+        "producer": "tracked_hash_bound_frozen_predecessor_fixture",
+        "sha256": "3f51bc2108ec0708dcf6c535920539253240fba1522e9d5aebc820073b2e7c0e",
+        "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase10/claim_boundary_report.json"
+      },
+      {
+        "authority_class": "hermetic_test_fixture",
+        "byte_length": 417,
+        "preexisting_sha256": null,
+        "producer": "tracked_hash_bound_frozen_predecessor_fixture",
+        "sha256": "b12d95f6f830dc48e8f76a911a92f55205982592e960add0cffeb5389ae7035b",
+        "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase4/old_new_dual_current_absence_report.json"
+      },
+      {
+        "authority_class": "hermetic_test_fixture",
+        "byte_length": 16175,
+        "preexisting_sha256": null,
+        "producer": "tracked_hash_bound_frozen_predecessor_fixture",
+        "sha256": "f10b89e7d64582189bc13a0db45d93ac22b625ea44fc90e6be478bfafd5651c3",
+        "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase11/final_execution_contract_report.json"
+      }
+    ],
+    "status": "PASS"
+  },
+  "package_runtime_mirror": {
+    "generation_id": "dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9",
+    "materialized_file_count": 15,
+    "rows": [
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 1851,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "aa4b92b9f185ed86b6ef7e10a6f238e7151e75e6fbccadcd91ed7ea41b378827",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 89566,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "79b4526777aecf2bd75ae860f139357bfb2bff816a845175fd0158a4af3fb895",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk001.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk001.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 83288,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "6045fefbd8f5b1016a557b328cda1b407e06afabd94bdea3f7b55e4bff3be064",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk002.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk002.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 80682,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "4c4ef642f72a5b5089a7f38e850ef076aeacc849a4a16a74a50a820875bef604",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk003.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk003.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 83202,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "6e835aa920d4c73d9bff941e039067167a50ad59d4cc9dfbdc72689f9de90cea",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk004.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk004.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 79480,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "dd7bd24839ba7917b47d8f81d97d5a84c55b2bb069f15d929b2175aa9d0524c8",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk005.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk005.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 94530,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "f2f5f01b75475904bd46b6bced3ac5aa9ef39d30801948a776bd5f73ade29677",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk006.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk006.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 85462,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "032d0d4d96b6e1b86141940c9ef290a3e7cbee8a2a6ecf9051d62da6c27f9777",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk007.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk007.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 86832,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "7aa48c0474e99969baa835863e071a1377e02baa448a50c9c975f3ba4c8e9839",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk008.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk008.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 87348,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "e1fefebbdbaa7d3edba8b696427c15b0e99970a213fabfab31c1c6fb724cf774",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk009.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk009.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 80608,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "f3d6b763aaf6ecd235895e29b9eea5c606b604dd2aa173312ec21a9ea1aa64c0",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk010.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk010.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 47320,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "eede7fdb2104817217df1dc67938691335d882054fd5cd626904d116e0d9e165",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk011.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk011.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 1045803,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "ab2f0b3f61731b6018e20c5d2138de09960b279f09609a2bfe416b60976f8fa9",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/dvf_3_3_rendered.json",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/dvf_3_3_rendered.json"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 6774,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "bc479e1e49fc3661e2c4e1bbbe489171170f0ced8142546988bf357e61e1902d",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/generation_descriptor.json",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/generation_descriptor.json"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 3513,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "6eb2ce81da97217a61c53443493102ab308e093fc0e785d21754f32e4bc87753",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/IrisLayer3DataChunkIndex.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/IrisLayer3DataChunkIndex.lua"
+      }
+    ],
+    "status": "PASS"
+  },
+  "schema_version": "iris-clean-checkout-full-materialization-receipt-v1",
+  "status": "PASS",
+  "subject": {
+    "commit": "d42a5a8fd05115b5d108f7bc4fe889c2b45b47d9",
+    "tree": "252dba6a1c175e89b06ad62ed60243971269eeee"
+  }
+}

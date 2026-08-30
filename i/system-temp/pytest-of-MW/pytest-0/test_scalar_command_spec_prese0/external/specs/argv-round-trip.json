@@ -1,0 +1,27 @@
+{
+  "argv": [
+    "-B",
+    "-c",
+    "import json,sys; open(sys.argv[1], 'w', encoding='utf-8').write(json.dumps(sys.argv[2:], ensure_ascii=False)); print('stdout-marker'); print('stderr-marker', file=sys.stderr)",
+    "C:\\Users\\MW\\Downloads\\coding\\PZ\\i\\system-temp\\pytest-of-MW\\pytest-0\\test_scalar_command_spec_prese0\\external\\observed.json",
+    "",
+    "white space",
+    "embedded\"quote",
+    "backslash-before-\\\"quote",
+    "trailing\\",
+    "한글-경로",
+    "-leading-dash",
+    "semi;colon",
+    "wild*card?"
+  ],
+  "claim_id": "fixture-claim",
+  "command_id": "argv-round-trip",
+  "command_receipt": "C:\\Users\\MW\\Downloads\\coding\\PZ\\i\\system-temp\\pytest-of-MW\\pytest-0\\test_scalar_command_spec_prese0\\external\\receipts\\argv-round-trip.json",
+  "environment_delta": "C:\\Users\\MW\\Downloads\\coding\\PZ\\i\\system-temp\\pytest-of-MW\\pytest-0\\test_scalar_command_spec_prese0\\external\\delta.json",
+  "environment_receipt": "C:\\Users\\MW\\Downloads\\coding\\PZ\\i\\system-temp\\pytest-of-MW\\pytest-0\\test_scalar_command_spec_prese0\\external\\environment.json",
+  "executable": "C:\\Users\\MW\\Downloads\\coding\\PZ\\.tmp\\tooltip-t1-d6-bd1ba41f\\environment\\Scripts\\python.exe",
+  "output_assertion": "checkout_unchanged",
+  "schema_version": "iris_repository_runtime_lightweighting_command_spec_v1",
+  "subject_receipt": "C:\\Users\\MW\\Downloads\\coding\\PZ\\i\\system-temp\\pytest-of-MW\\pytest-0\\test_scalar_command_spec_prese0\\external\\subject.json",
+  "working_directory": "C:\\Users\\MW\\Downloads\\coding\\PZ\\i\\system-temp\\pytest-of-MW\\pytest-0\\test_scalar_command_spec_prese0\\checkout"
+}

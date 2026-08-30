@@ -1,0 +1,21 @@
+{
+  "schema": "iris.classification-candidate.v1",
+  "source_role": "external_classification_candidate",
+  "files": [
+    {
+      "filename": "IrisFixingIndexData.lua",
+      "target_relative_path": "Iris/media/lua/client/Iris/Data/IrisFixingIndexData.lua",
+      "sha256": "34d4ca9f2ef135a64d745f645fab5ffb2f633390b5106656e55604d31856475b"
+    },
+    {
+      "filename": "IrisMoveablesIndexData.lua",
+      "target_relative_path": "Iris/media/lua/client/Iris/Data/IrisMoveablesIndexData.lua",
+      "sha256": "032ba935cbbba863aea7d7b99dfdc05f8cac8a94ee770f958aa2467629a1772e"
+    },
+    {
+      "filename": "IrisRecipeIndexData.lua",
+      "target_relative_path": "Iris/media/lua/client/Iris/Data/IrisRecipeIndexData.lua",
+      "sha256": "285e96b2076c5084cdbdf35cdcb44f46acef94b29d0677d24d1b3860f19d0d8a"
+    }
+  ]
+}

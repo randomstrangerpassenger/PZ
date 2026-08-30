@@ -1,0 +1,178 @@
+{
+    "schema_version":  "iris_repository_runtime_lightweighting_command_receipt_v1",
+    "command_id":  "current-route-failure",
+    "command_receipt":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_prior_failure_prevents_la0/external/receipts/current-route-failure.json",
+    "terminal_status":  "fail",
+    "disposition":  "executed",
+    "failure":  {
+                    "kind":  "native_exit_nonzero",
+                    "native_exit_code":  7,
+                    "assertion_status":  "pass"
+                },
+    "claim_id":  "fixture-claim",
+    "command_spec":  {
+                         "path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_prior_failure_prevents_la0/external/specs/current-route-failure.json",
+                         "sha256":  "089454e9f649b3841a613fc99599c501e32ae9e791127e8168a7fa5c89281190"
+                     },
+    "executable":  "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-artifacts-1e6056ad-clean/environment/Scripts/python.exe",
+    "decoded_argv":  [
+                         "-B",
+                         "-c",
+                         "raise SystemExit(7)"
+                     ],
+    "actual_argv":  [
+                        "C:\\Users\\MW\\Downloads\\coding\\PZ\\.tmp\\tooltip-t1-d6-artifacts-1e6056ad-clean\\environment\\Scripts\\python.exe",
+                        "-B",
+                        "-c",
+                        "raise SystemExit(7)"
+                    ],
+    "working_directory":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_prior_failure_prevents_la0/checkout",
+    "started_at":  "2026-08-29T12:27:50.4665874+00:00",
+    "ended_at":  "2026-08-29T12:27:51.3783015+00:00",
+    "native_exit_code":  7,
+    "semantic_exit_code":  7,
+    "stdout":  {
+                   "path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_prior_failure_prevents_la0/external/receipts/current-route-failure.stdout.bin",
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "stderr":  {
+                   "path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_prior_failure_prevents_la0/external/receipts/current-route-failure.stderr.bin",
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "subject_receipt":  {
+                            "path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_prior_failure_prevents_la0/external/subject.json",
+                            "sha256":  "09a322f2ac5323a8e9190d9b3dac707679c9a27b6b61230fb87a6b2e6511b7c5",
+                            "subject_kind":  "bootstrap_validation_subject",
+                            "claim_id":  "fixture-claim",
+                            "repository_root":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_prior_failure_prevents_la0/checkout",
+                            "commit":  "56c0571b207e243508fdff863c1726e28742c07b",
+                            "tree":  "1f98f78fc42f5787a58835f08097122161a348e5",
+                            "execution_commit":  "56c0571b207e243508fdff863c1726e28742c07b",
+                            "execution_tree":  "1f98f78fc42f5787a58835f08097122161a348e5",
+                            "working_tree_status_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                        },
+    "environment_receipt":  {
+                                "path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_prior_failure_prevents_la0/external/environment.json",
+                                "sha256":  "5c840279704dfc511d9052fc08d4423459e1dcaf2a5dfafe610cd0fd736a37f6",
+                                "interpreter_path":  "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-artifacts-1e6056ad-clean/environment/Scripts/python.exe",
+                                "interpreter_sha256":  "97c3228a59dcc05a771ab4eeec8126ce3f36ebb53616b479adc9f2c8050a9e84"
+                            },
+    "environment_delta":  {
+                              "path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_prior_failure_prevents_la0/external/delta.json",
+                              "sha256":  "9c4b78f11a72748b4619a18cd4e77ecf95c28853f1673a151c7d812e660d82cb"
+                          },
+    "environment_authority":  {
+                                  "path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_prior_failure_prevents_la0/checkout/Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json",
+                                  "sha256":  "7e3dcd17a5fdbd9fed75c1c1597f1a099c4e5565343ff758489f754a3bfe13db"
+                              },
+    "successor_policy":  {
+                             "path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_prior_failure_prevents_la0/checkout/Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json",
+                             "sha256":  "6189d748545bda4ca9aa0bb61f465cb54f96d9b0274afb2c85ebd9a408fc3aca"
+                         },
+    "implementation_identity":  {
+                                    "wrapper":  {
+                                                    "logical_path":  "Iris/validation/clean_checkout/invoke_repository_runtime_lightweighting_command.ps1",
+                                                    "actual_path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_prior_failure_prevents_la0/checkout/Iris/validation/clean_checkout/invoke_repository_runtime_lightweighting_command.ps1",
+                                                    "execution_commit":  "56c0571b207e243508fdff863c1726e28742c07b",
+                                                    "git_blob_id":  "194963b7e310e22bac174c468c2819c172ac98f6",
+                                                    "working_sha256":  "fcf79ac75a1732324c25860ca11d64e2b9d455e72a5b7ed759490503e314d51a"
+                                                },
+                                    "successor_policy":  {
+                                                             "logical_path":  "Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json",
+                                                             "actual_path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_prior_failure_prevents_la0/checkout/Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json",
+                                                             "execution_commit":  "56c0571b207e243508fdff863c1726e28742c07b",
+                                                             "git_blob_id":  "24d1d128df0578cf7b9a6575a3a808c62edd21b2",
+                                                             "working_sha256":  "6189d748545bda4ca9aa0bb61f465cb54f96d9b0274afb2c85ebd9a408fc3aca"
+                                                         },
+                                    "environment_authority":  {
+                                                                  "logical_path":  "Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json",
+                                                                  "actual_path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_prior_failure_prevents_la0/checkout/Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json",
+                                                                  "execution_commit":  "56c0571b207e243508fdff863c1726e28742c07b",
+                                                                  "git_blob_id":  "74f6664026875f44c82a23cd933315c00bfbfb9c",
+                                                                  "working_sha256":  "7e3dcd17a5fdbd9fed75c1c1597f1a099c4e5565343ff758489f754a3bfe13db"
+                                                              }
+                                },
+    "invoked_repository_files":  [
+
+                                 ],
+    "environment":  {
+                        "before":  {
+                                       "GIT_OPTIONAL_LOCKS":  {
+                                                                  "state":  "value",
+                                                                  "value":  "0"
+                                                              },
+                                       "PIP_NO_INDEX":  {
+                                                            "state":  "value",
+                                                            "value":  "1"
+                                                        },
+                                       "PYTEST_ADDOPTS":  {
+                                                              "state":  "absent",
+                                                              "value":  null
+                                                          },
+                                       "PYTHONDONTWRITEBYTECODE":  {
+                                                                       "state":  "value",
+                                                                       "value":  "1"
+                                                                   },
+                                       "PYTHONHASHSEED":  {
+                                                              "state":  "value",
+                                                              "value":  "0"
+                                                          },
+                                       "PYTHONHOME":  {
+                                                          "state":  "absent",
+                                                          "value":  null
+                                                      },
+                                       "PYTHONNOUSERSITE":  {
+                                                                "state":  "value",
+                                                                "value":  "1"
+                                                            },
+                                       "PYTHONPATH":  {
+                                                          "state":  "absent",
+                                                          "value":  null
+                                                      }
+                                   },
+                        "after_restore":  {
+                                              "GIT_OPTIONAL_LOCKS":  {
+                                                                         "state":  "value",
+                                                                         "value":  "0"
+                                                                     },
+                                              "PIP_NO_INDEX":  {
+                                                                   "state":  "value",
+                                                                   "value":  "1"
+                                                               },
+                                              "PYTEST_ADDOPTS":  {
+                                                                     "state":  "absent",
+                                                                     "value":  null
+                                                                 },
+                                              "PYTHONDONTWRITEBYTECODE":  {
+                                                                              "state":  "value",
+                                                                              "value":  "1"
+                                                                          },
+                                              "PYTHONHASHSEED":  {
+                                                                     "state":  "value",
+                                                                     "value":  "0"
+                                                                 },
+                                              "PYTHONHOME":  {
+                                                                 "state":  "absent",
+                                                                 "value":  null
+                                                             },
+                                              "PYTHONNOUSERSITE":  {
+                                                                       "state":  "value",
+                                                                       "value":  "1"
+                                                                   },
+                                              "PYTHONPATH":  {
+                                                                 "state":  "absent",
+                                                                 "value":  null
+                                                             }
+                                          },
+                        "restored":  true
+                    },
+    "output_assertion":  {
+                             "kind":  "none",
+                             "status":  "pass"
+                         },
+    "checkout_census":  {
+                            "before":  null,
+                            "after":  null,
+                            "delta":  null
+                        }
+}

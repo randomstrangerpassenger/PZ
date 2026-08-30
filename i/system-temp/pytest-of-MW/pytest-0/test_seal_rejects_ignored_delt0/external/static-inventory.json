@@ -1,0 +1,99 @@
+{
+  "closure_source_count": 2,
+  "dynamic_write_site_count": 0,
+  "historical_optional_test_count": 1,
+  "historical_optional_test_ids": [
+    "test_optional.test_optional"
+  ],
+  "repository_root": "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_seal_rejects_ignored_delt0/checkout",
+  "required_validations": {
+    "path": "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_seal_rejects_ignored_delt0/checkout/Iris/_docs/round3/current_route_required_validations.json",
+    "sha256": "916dfba96e423d19026f785811ef7397650cf0680759e2d1a9125c61b2a48eec"
+  },
+  "route_runner": {
+    "path": "Iris/_docs/round3/round3_run_contract_tests.py",
+    "sha256": "0e0e7eaed7cbb486356c6101499ffe3dfbb88d49e884aaa1d604f970fb8c214c"
+  },
+  "schema_version": "iris_repository_runtime_lightweighting_current_route_output_isolation_inventory_v1",
+  "selected_source_count": 1,
+  "selected_test_count": 1,
+  "selected_test_source_count": 1,
+  "selected_tests": [
+    {
+      "required_role": "current",
+      "source_file": "Iris/build/description/v2/tests/test_selected.py",
+      "source_sha256": "6008f11bba506b6550e3ec8473cb7be08da9abf278d5b062c38b25089d674e96",
+      "taxonomy_contract_class": "current",
+      "taxonomy_state": "ok",
+      "test_id": "test_selected.test_selected"
+    }
+  ],
+  "source_census_sha256": "0c65d89ac77ae76b6447d471a7b7497259d1e9ef8efee865094e6e300411cc9c",
+  "sources": [
+    {
+      "dynamic_write_site_count": 0,
+      "external_imports": [],
+      "import_requests": [],
+      "imports": [],
+      "resolved_local_imports": [],
+      "sha256": "0e0e7eaed7cbb486356c6101499ffe3dfbb88d49e884aaa1d604f970fb8c214c",
+      "source_file": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "source_role": "current_route_runner",
+      "unresolved_dynamic_imports": [],
+      "unresolved_imports": [],
+      "unresolved_write_site_count": 0,
+      "write_sites": []
+    },
+    {
+      "dynamic_write_site_count": 0,
+      "external_imports": [
+        "json",
+        "pathlib"
+      ],
+      "import_requests": [
+        {
+          "kind": "import",
+          "level": 0,
+          "line": 1,
+          "module": "json",
+          "names": []
+        },
+        {
+          "kind": "from",
+          "level": 0,
+          "line": 2,
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ]
+        }
+      ],
+      "imports": [
+        "json",
+        "pathlib"
+      ],
+      "resolved_local_imports": [],
+      "sha256": "6008f11bba506b6550e3ec8473cb7be08da9abf278d5b062c38b25089d674e96",
+      "source_file": "Iris/build/description/v2/tests/test_selected.py",
+      "source_role": "selected_test_module",
+      "unresolved_dynamic_imports": [],
+      "unresolved_imports": [],
+      "unresolved_write_site_count": 0,
+      "write_sites": [
+        {
+          "call": "target.write_text",
+          "line": 6,
+          "resolution_status": "resolved",
+          "resolved_sink": "bounded_temporary_contract"
+        }
+      ]
+    }
+  ],
+  "taxonomy": {
+    "path": "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_seal_rejects_ignored_delt0/checkout/Iris/_docs/round3/round3_test_taxonomy.json",
+    "sha256": "a6a4fdf2166479007392d709631a985e79b5c09e1dc43d46b51d6191a8547cb5"
+  },
+  "unresolved_import_count": 0,
+  "unresolved_imports": [],
+  "unresolved_write_site_count": 0
+}

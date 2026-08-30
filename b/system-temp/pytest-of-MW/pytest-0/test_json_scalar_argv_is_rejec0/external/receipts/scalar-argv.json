@@ -1,0 +1,60 @@
+{
+    "schema_version":  "iris_repository_runtime_lightweighting_command_receipt_v1",
+    "command_id":  "scalar-argv",
+    "command_receipt":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_json_scalar_argv_is_rejec0/external/receipts/scalar-argv.json",
+    "terminal_status":  "preflight_failed",
+    "disposition":  "failed",
+    "failure":  {
+                    "kind":  "exception",
+                    "exception_type":  "System.Management.Automation.RuntimeException",
+                    "exception_message":  "command spec argv must remain a JSON array"
+                },
+    "claim_id":  "fixture-claim",
+    "command_spec":  {
+                         "path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_json_scalar_argv_is_rejec0/external/specs/scalar-argv.json",
+                         "sha256":  "578b2f5007963317d28915a909151c9b0331cb928462158552cbb4e5b0868da1"
+                     },
+    "executable":  "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-artifacts-1e6056ad-clean/environment/Scripts/python.exe",
+    "decoded_argv":  "-B",
+    "actual_argv":  null,
+    "working_directory":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_json_scalar_argv_is_rejec0/checkout",
+    "started_at":  "2026-08-29T12:27:54.7529215+00:00",
+    "ended_at":  "2026-08-29T12:27:54.9950980+00:00",
+    "native_exit_code":  null,
+    "semantic_exit_code":  2,
+    "stdout":  {
+                   "path":  null,
+                   "sha256":  null
+               },
+    "stderr":  {
+                   "path":  null,
+                   "sha256":  null
+               },
+    "subject_receipt":  null,
+    "environment_receipt":  null,
+    "environment_delta":  null,
+    "environment_authority":  null,
+    "successor_policy":  null,
+    "implementation_identity":  null,
+    "invoked_repository_files":  [
+
+                                 ],
+    "environment":  {
+                        "before":  {
+
+                                   },
+                        "after_restore":  {
+
+                                          },
+                        "restored":  true
+                    },
+    "output_assertion":  {
+                             "kind":  "none",
+                             "status":  "not_run"
+                         },
+    "checkout_census":  {
+                            "before":  null,
+                            "after":  null,
+                            "delta":  null
+                        }
+}

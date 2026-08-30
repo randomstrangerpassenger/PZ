@@ -1,0 +1,25 @@
+{
+  "edges": [
+    {
+      "caller": "Iris/build/description/v2/tools/build/core.py",
+      "provider": "Iris/build/description/v2/tools/build/shared_io.py"
+    }
+  ],
+  "providers": [
+    {
+      "contract_overlap_status": "requires_owner_contract_matrix",
+      "current_route": false,
+      "fan_in_all": 1,
+      "fan_in_tests": 0,
+      "fan_in_tools_only": 1,
+      "owner": "unconfirmed",
+      "path": "Iris/build/description/v2/tools/build/shared_io.py",
+      "stem": "shared_io"
+    }
+  ],
+  "schema_version": "iris-offline-tool-shared-module-manifest-v1",
+  "subject": {
+    "commit": "41f5714fa15fdf6315c2c61e6fd3c383c5c47b6e",
+    "tree": "87df0628f77bed2056f4770e3cad8460d4e7f302"
+  }
+}

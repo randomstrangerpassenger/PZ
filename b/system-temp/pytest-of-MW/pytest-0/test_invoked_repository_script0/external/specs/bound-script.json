@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "-B",
+    "probe.py"
+  ],
+  "claim_id": "fixture-claim",
+  "command_id": "bound-script",
+  "command_receipt": "C:\\Users\\MW\\Downloads\\coding\\PZ\\b\\system-temp\\pytest-of-MW\\pytest-0\\test_invoked_repository_script0\\external\\receipts\\bound-script.json",
+  "environment_delta": "C:\\Users\\MW\\Downloads\\coding\\PZ\\b\\system-temp\\pytest-of-MW\\pytest-0\\test_invoked_repository_script0\\external\\delta.json",
+  "environment_receipt": "C:\\Users\\MW\\Downloads\\coding\\PZ\\b\\system-temp\\pytest-of-MW\\pytest-0\\test_invoked_repository_script0\\external\\environment.json",
+  "executable": "C:\\Users\\MW\\Downloads\\coding\\PZ\\.tmp\\tooltip-t1-d6-artifacts-1e6056ad-clean\\environment\\Scripts\\python.exe",
+  "output_assertion": "none",
+  "schema_version": "iris_repository_runtime_lightweighting_command_spec_v1",
+  "subject_receipt": "C:\\Users\\MW\\Downloads\\coding\\PZ\\b\\system-temp\\pytest-of-MW\\pytest-0\\test_invoked_repository_script0\\external\\subject.json",
+  "working_directory": "C:\\Users\\MW\\Downloads\\coding\\PZ\\b\\system-temp\\pytest-of-MW\\pytest-0\\test_invoked_repository_script0\\checkout"
+}

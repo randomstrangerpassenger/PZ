@@ -1,0 +1,67 @@
+{
+  "audit_subject": {
+    "commit": "b826e9de2dcea2a32825a582419e3e7ab6413674",
+    "tree": "312dc720854588db16c6f282c5b9a60b82fbbaab"
+  },
+  "checkout_unchanged": true,
+  "closure_source_count": 2,
+  "dynamic_route_command_receipt": {
+    "claim_id": "audit-claim",
+    "command_spec": {
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\i\\system-temp\\pytest-of-MW\\pytest-0\\test_seal_requires_dynamic_che0\\external\\command-receipts\\004-route-audit-dynamic-current.command.json",
+      "sha256": "fc8172d1991560da42fa2107da06f1c2def626a8584ce2e08a8d1d00381b0e26"
+    },
+    "decoded_argv": [
+      "-B",
+      "Iris/_docs/round3/round3_run_contract_tests.py",
+      "--class",
+      "current",
+      "--enforce-current-build-closure",
+      "--out",
+      "C:\\Users\\MW\\Downloads\\coding\\PZ\\i\\system-temp\\pytest-of-MW\\pytest-0\\test_seal_requires_dynamic_che0\\external\\current-route.json"
+    ],
+    "output_assertion": {
+      "delta": {
+        "changed_count": 0,
+        "ignored_delta_count": 0,
+        "tracked_delta_count": 0,
+        "unreadable_count": 0,
+        "untracked_delta_count": 0
+      },
+      "kind": "checkout_unchanged",
+      "status": "pass"
+    },
+    "path": "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_seal_requires_dynamic_che0/external/command-receipts/004-route-audit-dynamic-current.json",
+    "sha256": "ca431758a485e7c101cafe866429a3529ff1d4104fb3f9b890b4435ecc0535ce",
+    "subject_receipt": {
+      "execution_commit": "b826e9de2dcea2a32825a582419e3e7ab6413674",
+      "execution_tree": "312dc720854588db16c6f282c5b9a60b82fbbaab",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\i\\system-temp\\pytest-of-MW\\pytest-0\\test_seal_requires_dynamic_che0\\external\\audit-subject.json",
+      "sha256": "539cb5811d70ababa09981e6822d97c74cab2aa6d0dcb7f9ca4d87d576ddc8ee"
+    },
+    "working_directory": "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_seal_requires_dynamic_che0/checkout"
+  },
+  "dynamic_write_site_count": 0,
+  "dynamic_write_sites_covered_by_checkout_census": true,
+  "ignored_delta_count": 0,
+  "repository_root": "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_seal_requires_dynamic_che0/checkout",
+  "required_validations_sha256": "916dfba96e423d19026f785811ef7397650cf0680759e2d1a9125c61b2a48eec",
+  "route_result": {
+    "path": "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_seal_requires_dynamic_che0/external/current-route.json",
+    "sha256": "9fbd6eb2a72882e8baa089488cb1055bc3699cbafe650ec648fd0c6601d10c21"
+  },
+  "route_runner_sha256": "0e0e7eaed7cbb486356c6101499ffe3dfbb88d49e884aaa1d604f970fb8c214c",
+  "schema_version": "iris_repository_runtime_lightweighting_current_route_output_isolation_receipt_v1",
+  "selected_source_count": 1,
+  "selected_test_count": 1,
+  "source_census_sha256": "0c65d89ac77ae76b6447d471a7b7497259d1e9ef8efee865094e6e300411cc9c",
+  "static_inventory": {
+    "path": "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_seal_requires_dynamic_che0/external/static-inventory.json",
+    "sha256": "75c384c9b3dc1d251e6fbe0f40159622358e7a0d25c230b4f0d69b6848086177"
+  },
+  "status": "PASS",
+  "taxonomy_sha256": "a6a4fdf2166479007392d709631a985e79b5c09e1dc43d46b51d6191a8547cb5",
+  "tracked_delta_count": 0,
+  "unreadable_count": 0,
+  "untracked_delta_count": 0
+}

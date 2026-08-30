@@ -1,0 +1,237 @@
+{
+    "schema_version":  "iris_repository_runtime_lightweighting_command_receipt_v1",
+    "command_id":  "argv-round-trip",
+    "command_receipt":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_scalar_command_spec_prese0/external/receipts/argv-round-trip.json",
+    "terminal_status":  "pass",
+    "disposition":  "executed",
+    "failure":  null,
+    "claim_id":  "fixture-claim",
+    "command_spec":  {
+                         "path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_scalar_command_spec_prese0/external/specs/argv-round-trip.json",
+                         "sha256":  "e0ac72dfa83629bbbcb57a6094739fa35cd462810fab268d5278669c3d287f77"
+                     },
+    "executable":  "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-artifacts-1e6056ad-clean/environment/Scripts/python.exe",
+    "decoded_argv":  [
+                         "-B",
+                         "-c",
+                         "import json,sys; open(sys.argv[1], \u0027w\u0027, encoding=\u0027utf-8\u0027).write(json.dumps(sys.argv[2:], ensure_ascii=False)); print(\u0027stdout-marker\u0027); print(\u0027stderr-marker\u0027, file=sys.stderr)",
+                         "C:\\Users\\MW\\Downloads\\coding\\PZ\\b\\system-temp\\pytest-of-MW\\pytest-0\\test_scalar_command_spec_prese0\\external\\observed.json",
+                         "",
+                         "white space",
+                         "embedded\"quote",
+                         "backslash-before-\\\"quote",
+                         "trailing\\",
+                         "한글-경로",
+                         "-leading-dash",
+                         "semi;colon",
+                         "wild*card?"
+                     ],
+    "actual_argv":  [
+                        "C:\\Users\\MW\\Downloads\\coding\\PZ\\.tmp\\tooltip-t1-d6-artifacts-1e6056ad-clean\\environment\\Scripts\\python.exe",
+                        "-B",
+                        "-c",
+                        "import json,sys; open(sys.argv[1], \u0027w\u0027, encoding=\u0027utf-8\u0027).write(json.dumps(sys.argv[2:], ensure_ascii=False)); print(\u0027stdout-marker\u0027); print(\u0027stderr-marker\u0027, file=sys.stderr)",
+                        "C:\\Users\\MW\\Downloads\\coding\\PZ\\b\\system-temp\\pytest-of-MW\\pytest-0\\test_scalar_command_spec_prese0\\external\\observed.json",
+                        "",
+                        "white space",
+                        "embedded\"quote",
+                        "backslash-before-\\\"quote",
+                        "trailing\\",
+                        "한글-경로",
+                        "-leading-dash",
+                        "semi;colon",
+                        "wild*card?"
+                    ],
+    "working_directory":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_scalar_command_spec_prese0/checkout",
+    "started_at":  "2026-08-29T12:27:40.9465613+00:00",
+    "ended_at":  "2026-08-29T12:27:42.6176026+00:00",
+    "native_exit_code":  0,
+    "semantic_exit_code":  0,
+    "stdout":  {
+                   "path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_scalar_command_spec_prese0/external/receipts/argv-round-trip.stdout.bin",
+                   "sha256":  "53edb9701febfbef7859c9439377d0d3742319b4ed3c2009967f560fd00dac9c"
+               },
+    "stderr":  {
+                   "path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_scalar_command_spec_prese0/external/receipts/argv-round-trip.stderr.bin",
+                   "sha256":  "06bb06e058f75487afecb14b6e0bc8cfa07144b40ba62969e8dff69f2c347728"
+               },
+    "subject_receipt":  {
+                            "path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_scalar_command_spec_prese0/external/subject.json",
+                            "sha256":  "987ce4e957aaea635987d1bdebe5734c3c8979105acc209031c6b4a43c46d187",
+                            "subject_kind":  "bootstrap_validation_subject",
+                            "claim_id":  "fixture-claim",
+                            "repository_root":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_scalar_command_spec_prese0/checkout",
+                            "commit":  "39cbc7195f215b9c08b6514acedbac74f8274648",
+                            "tree":  "fd0561a986835205238d3bbd0f04b41bfbee1e08",
+                            "execution_commit":  "39cbc7195f215b9c08b6514acedbac74f8274648",
+                            "execution_tree":  "fd0561a986835205238d3bbd0f04b41bfbee1e08",
+                            "working_tree_status_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                        },
+    "environment_receipt":  {
+                                "path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_scalar_command_spec_prese0/external/environment.json",
+                                "sha256":  "5c840279704dfc511d9052fc08d4423459e1dcaf2a5dfafe610cd0fd736a37f6",
+                                "interpreter_path":  "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-artifacts-1e6056ad-clean/environment/Scripts/python.exe",
+                                "interpreter_sha256":  "97c3228a59dcc05a771ab4eeec8126ce3f36ebb53616b479adc9f2c8050a9e84"
+                            },
+    "environment_delta":  {
+                              "path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_scalar_command_spec_prese0/external/delta.json",
+                              "sha256":  "9c4b78f11a72748b4619a18cd4e77ecf95c28853f1673a151c7d812e660d82cb"
+                          },
+    "environment_authority":  {
+                                  "path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_scalar_command_spec_prese0/checkout/Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json",
+                                  "sha256":  "e73486e0125222206bfcfcf7a8bcbcef78cb0b93de00815c508b9e00771c50fd"
+                              },
+    "successor_policy":  {
+                             "path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_scalar_command_spec_prese0/checkout/Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json",
+                             "sha256":  "6189d748545bda4ca9aa0bb61f465cb54f96d9b0274afb2c85ebd9a408fc3aca"
+                         },
+    "implementation_identity":  {
+                                    "wrapper":  {
+                                                    "logical_path":  "Iris/validation/clean_checkout/invoke_repository_runtime_lightweighting_command.ps1",
+                                                    "actual_path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_scalar_command_spec_prese0/checkout/Iris/validation/clean_checkout/invoke_repository_runtime_lightweighting_command.ps1",
+                                                    "execution_commit":  "39cbc7195f215b9c08b6514acedbac74f8274648",
+                                                    "git_blob_id":  "194963b7e310e22bac174c468c2819c172ac98f6",
+                                                    "working_sha256":  "fcf79ac75a1732324c25860ca11d64e2b9d455e72a5b7ed759490503e314d51a"
+                                                },
+                                    "successor_policy":  {
+                                                             "logical_path":  "Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json",
+                                                             "actual_path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_scalar_command_spec_prese0/checkout/Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json",
+                                                             "execution_commit":  "39cbc7195f215b9c08b6514acedbac74f8274648",
+                                                             "git_blob_id":  "24d1d128df0578cf7b9a6575a3a808c62edd21b2",
+                                                             "working_sha256":  "6189d748545bda4ca9aa0bb61f465cb54f96d9b0274afb2c85ebd9a408fc3aca"
+                                                         },
+                                    "environment_authority":  {
+                                                                  "logical_path":  "Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json",
+                                                                  "actual_path":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_scalar_command_spec_prese0/checkout/Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json",
+                                                                  "execution_commit":  "39cbc7195f215b9c08b6514acedbac74f8274648",
+                                                                  "git_blob_id":  "7f61a43e7a546b264f22658409ac77d49253e44f",
+                                                                  "working_sha256":  "e73486e0125222206bfcfcf7a8bcbcef78cb0b93de00815c508b9e00771c50fd"
+                                                              }
+                                },
+    "invoked_repository_files":  [
+
+                                 ],
+    "environment":  {
+                        "before":  {
+                                       "GIT_OPTIONAL_LOCKS":  {
+                                                                  "state":  "value",
+                                                                  "value":  "0"
+                                                              },
+                                       "PIP_NO_INDEX":  {
+                                                            "state":  "value",
+                                                            "value":  "1"
+                                                        },
+                                       "PYTEST_ADDOPTS":  {
+                                                              "state":  "absent",
+                                                              "value":  null
+                                                          },
+                                       "PYTHONDONTWRITEBYTECODE":  {
+                                                                       "state":  "value",
+                                                                       "value":  "1"
+                                                                   },
+                                       "PYTHONHASHSEED":  {
+                                                              "state":  "value",
+                                                              "value":  "0"
+                                                          },
+                                       "PYTHONHOME":  {
+                                                          "state":  "absent",
+                                                          "value":  null
+                                                      },
+                                       "PYTHONNOUSERSITE":  {
+                                                                "state":  "value",
+                                                                "value":  "1"
+                                                            },
+                                       "PYTHONPATH":  {
+                                                          "state":  "absent",
+                                                          "value":  null
+                                                      }
+                                   },
+                        "after_restore":  {
+                                              "GIT_OPTIONAL_LOCKS":  {
+                                                                         "state":  "value",
+                                                                         "value":  "0"
+                                                                     },
+                                              "PIP_NO_INDEX":  {
+                                                                   "state":  "value",
+                                                                   "value":  "1"
+                                                               },
+                                              "PYTEST_ADDOPTS":  {
+                                                                     "state":  "absent",
+                                                                     "value":  null
+                                                                 },
+                                              "PYTHONDONTWRITEBYTECODE":  {
+                                                                              "state":  "value",
+                                                                              "value":  "1"
+                                                                          },
+                                              "PYTHONHASHSEED":  {
+                                                                     "state":  "value",
+                                                                     "value":  "0"
+                                                                 },
+                                              "PYTHONHOME":  {
+                                                                 "state":  "absent",
+                                                                 "value":  null
+                                                             },
+                                              "PYTHONNOUSERSITE":  {
+                                                                       "state":  "value",
+                                                                       "value":  "1"
+                                                                   },
+                                              "PYTHONPATH":  {
+                                                                 "state":  "absent",
+                                                                 "value":  null
+                                                             }
+                                          },
+                        "restored":  true
+                    },
+    "output_assertion":  {
+                             "kind":  "checkout_unchanged",
+                             "status":  "pass",
+                             "delta":  {
+                                           "changed_count":  0,
+                                           "tracked_delta_count":  0,
+                                           "untracked_delta_count":  0,
+                                           "ignored_delta_count":  0,
+                                           "filesystem_only_delta_count":  0,
+                                           "unreadable_count":  0,
+                                           "rows":  [
+
+                                                    ]
+                                       }
+                         },
+    "checkout_census":  {
+                            "before":  {
+                                           "root":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_scalar_command_spec_prese0/checkout",
+                                           "entry_count":  16,
+                                           "file_count":  6,
+                                           "directory_count":  10,
+                                           "reparse_point_count":  0,
+                                           "unreadable_count":  0,
+                                           "unreadable":  [
+
+                                                          ],
+                                           "fingerprint_sha256":  "f06b18d0f9c4cf8c6058e682db3082f7f227f6f474ed7c8c4e460cc5540f36eb"
+                                       },
+                            "after":  {
+                                          "root":  "C:/Users/MW/Downloads/coding/PZ/b/system-temp/pytest-of-MW/pytest-0/test_scalar_command_spec_prese0/checkout",
+                                          "entry_count":  16,
+                                          "file_count":  6,
+                                          "directory_count":  10,
+                                          "reparse_point_count":  0,
+                                          "unreadable_count":  0,
+                                          "unreadable":  [
+
+                                                         ],
+                                          "fingerprint_sha256":  "f06b18d0f9c4cf8c6058e682db3082f7f227f6f474ed7c8c4e460cc5540f36eb"
+                                      },
+                            "delta":  {
+                                          "changed_count":  0,
+                                          "tracked_delta_count":  0,
+                                          "untracked_delta_count":  0,
+                                          "ignored_delta_count":  0,
+                                          "filesystem_only_delta_count":  0,
+                                          "unreadable_count":  0,
+                                          "rows":  [
+
+                                                   ]
+                                      }
+                        }
+}

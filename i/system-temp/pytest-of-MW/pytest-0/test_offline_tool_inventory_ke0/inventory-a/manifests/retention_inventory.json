@@ -1,0 +1,24 @@
+{
+  "family_counts": {
+    "sealed_or_closeout_evidence": 1
+  },
+  "no_move_no_delete": true,
+  "physical_count": 1,
+  "rows": [
+    {
+      "classification_basis": "path-marker heuristic",
+      "mutation_disposition": "move_delete_forbidden",
+      "owner": "unconfirmed",
+      "path": "Iris/build/description/v2/staging/sealed_receipt.json",
+      "retention_family": "sealed_or_closeout_evidence",
+      "size": 25,
+      "tracked": true
+    }
+  ],
+  "schema_version": "iris-offline-tool-retention-inventory-v1",
+  "subject": {
+    "commit": "ab49fa928ff60dd20341e2088c8be8a003548269",
+    "tree": "87df0628f77bed2056f4770e3cad8460d4e7f302"
+  },
+  "tracked_count": 1
+}

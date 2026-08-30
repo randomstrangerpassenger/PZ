@@ -1,0 +1,10 @@
+{
+  "schema_version": "iris-clean-checkout-canonical-full-result-v1",
+  "status": "PASS",
+  "subject": {
+    "commit": "a4d1debdcab4834705a621dd116c57321adde2a7",
+    "tree": "a94964ca311ba050ccf32ba033560b3030c171e0"
+  },
+  "test_identity_count": 1,
+  "test_inventory_sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+}

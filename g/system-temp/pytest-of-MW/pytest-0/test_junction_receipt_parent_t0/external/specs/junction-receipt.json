@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "-B",
+    "-c",
+    "from pathlib import Path; Path('must-not-run.txt').write_text('ran')"
+  ],
+  "claim_id": "fixture-claim",
+  "command_id": "junction-receipt",
+  "command_receipt": "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_junction_receipt_parent_t0\\external\\junction-receipts\\junction-receipt.json",
+  "environment_delta": "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_junction_receipt_parent_t0\\external\\delta.json",
+  "environment_receipt": "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_junction_receipt_parent_t0\\external\\environment.json",
+  "executable": "C:\\Users\\MW\\Downloads\\coding\\PZ\\.tmp\\tooltip-t1-d6-bd1ba41f\\environment\\Scripts\\python.exe",
+  "output_assertion": "none",
+  "schema_version": "iris_repository_runtime_lightweighting_command_spec_v1",
+  "subject_receipt": "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_junction_receipt_parent_t0\\external\\subject.json",
+  "working_directory": "C:\\Users\\MW\\Downloads\\coding\\PZ\\g\\system-temp\\pytest-of-MW\\pytest-0\\test_junction_receipt_parent_t0\\checkout"
+}

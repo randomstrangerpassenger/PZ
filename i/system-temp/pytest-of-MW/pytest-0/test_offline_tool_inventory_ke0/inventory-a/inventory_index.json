@@ -1,0 +1,49 @@
+{
+  "authority_effect": "none",
+  "no_move_no_delete": true,
+  "output_rows": [
+    {
+      "path": "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_offline_tool_inventory_ke0/inventory-a/manifests/denominator_registry.json",
+      "sha256": "a0c3a35054d79315d5a06bda5e025bbb3d4acb3568e8d5a17710c472c3c6dd09"
+    },
+    {
+      "path": "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_offline_tool_inventory_ke0/inventory-a/manifests/tool_inventory.json",
+      "sha256": "63d123d1aae82bb86b65deda341f70bf5f7997eb25aadb08939764e848610985"
+    },
+    {
+      "path": "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_offline_tool_inventory_ke0/inventory-a/manifests/shared_module_manifest.json",
+      "sha256": "13d8cb472d3d3be7220fbd51c5e54db9afa14ff7a596f98353df0bbc0122d25f"
+    },
+    {
+      "path": "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_offline_tool_inventory_ke0/inventory-a/manifests/serialization_contract_census.json",
+      "sha256": "f876ba7c151809bd999fc67ed45d5a7564ec81e46a74f6bc8ebddfcd7f4fcc87"
+    },
+    {
+      "path": "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_offline_tool_inventory_ke0/inventory-a/manifests/tool_role_manifest.json",
+      "sha256": "5458f1ece443aff0bbec91631cc4faf28baafc8fcbe13ced03ba326a590bc614"
+    },
+    {
+      "path": "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_offline_tool_inventory_ke0/inventory-a/manifests/retention_inventory.json",
+      "sha256": "4aa819740f87b9f15e6b184c4e8c1059fe62b1f4574a6e533c0aaecbb7dabfda"
+    },
+    {
+      "path": "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_offline_tool_inventory_ke0/inventory-a/manifests/receipt_migration_batch_registry.json",
+      "sha256": "af36fcc3ee870083bda24298a1940f7536fb9b554a8ba201cb399484aee4304a"
+    },
+    {
+      "path": "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_offline_tool_inventory_ke0/inventory-a/manifests/output_isolation_batch_registry.json",
+      "sha256": "3ef0bb17d3cdaf4865713120e4a2cd88757bd5dc6631453674c1d222c9070a45"
+    },
+    {
+      "path": "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_offline_tool_inventory_ke0/inventory-a/manifests/output_isolation_batch_registry.ratification.json",
+      "sha256": "33c64ad0e8c3a0294f8f26ed8832837bfdd28f51d5415419729fa30657f4f328"
+    }
+  ],
+  "schema_version": "iris-offline-tool-inventory-index-v1",
+  "source_mutation_authorized": false,
+  "status": "PASS",
+  "subject": {
+    "commit": "ab49fa928ff60dd20341e2088c8be8a003548269",
+    "tree": "87df0628f77bed2056f4770e3cad8460d4e7f302"
+  }
+}

@@ -1,0 +1,1394 @@
+{
+  "bootstrap": {
+    "current_output_seed": {
+      "case_local_clone_count": 5,
+      "content_identity_sha256": "7ee8ba03430066c787b264fd679b6ce2a3959288cb3f492de754559e0ebc3699",
+      "file_count": 23,
+      "producer_invocation_count": 3
+    },
+    "frozen_predecessor_manifest_sha256": "b77720204c6e12f46c122d52c5602eefda311a6f5379b055aee0b843f822dfa2",
+    "frozen_predecessor_materialized_file_count": 15,
+    "package_runtime_mirror_file_count": 15,
+    "package_runtime_mirror_rows": [
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 1851,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "aa4b92b9f185ed86b6ef7e10a6f238e7151e75e6fbccadcd91ed7ea41b378827",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 89566,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "79b4526777aecf2bd75ae860f139357bfb2bff816a845175fd0158a4af3fb895",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk001.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk001.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 83288,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "6045fefbd8f5b1016a557b328cda1b407e06afabd94bdea3f7b55e4bff3be064",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk002.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk002.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 80682,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "4c4ef642f72a5b5089a7f38e850ef076aeacc849a4a16a74a50a820875bef604",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk003.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk003.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 83202,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "6e835aa920d4c73d9bff941e039067167a50ad59d4cc9dfbdc72689f9de90cea",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk004.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk004.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 79480,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "dd7bd24839ba7917b47d8f81d97d5a84c55b2bb069f15d929b2175aa9d0524c8",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk005.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk005.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 94530,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "f2f5f01b75475904bd46b6bced3ac5aa9ef39d30801948a776bd5f73ade29677",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk006.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk006.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 85462,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "032d0d4d96b6e1b86141940c9ef290a3e7cbee8a2a6ecf9051d62da6c27f9777",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk007.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk007.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 86832,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "7aa48c0474e99969baa835863e071a1377e02baa448a50c9c975f3ba4c8e9839",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk008.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk008.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 87348,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "e1fefebbdbaa7d3edba8b696427c15b0e99970a213fabfab31c1c6fb724cf774",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk009.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk009.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 80608,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "f3d6b763aaf6ecd235895e29b9eea5c606b604dd2aa173312ec21a9ea1aa64c0",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk010.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk010.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 47320,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "eede7fdb2104817217df1dc67938691335d882054fd5cd626904d116e0d9e165",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk011.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/Chunks/Chunk011.lua"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 1045803,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "ab2f0b3f61731b6018e20c5d2138de09960b279f09609a2bfe416b60976f8fa9",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/dvf_3_3_rendered.json",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/dvf_3_3_rendered.json"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 6774,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "bc479e1e49fc3661e2c4e1bbbe489171170f0ced8142546988bf357e61e1902d",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/generation_descriptor.json",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/generation_descriptor.json"
+      },
+      {
+        "authority_class": "deterministically_materialized_input",
+        "byte_length": 3513,
+        "producer": "byte_identical_copy_from_exact_subject_tree; resolve the generation-qualified directory from the stable current pointer",
+        "sha256": "6eb2ce81da97217a61c53443493102ab308e093fc0e785d21754f32e4bc87753",
+        "source_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/IrisLayer3DataChunkIndex.lua",
+        "target_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-028a396886eee3ed9bbb6f610c64c8e886ac3e3aab7b8c7381d5d4a48d7145e9/IrisLayer3DataChunkIndex.lua"
+      }
+    ]
+  },
+  "collection_error_count": 0,
+  "consumer_integration_evidence_rows": [
+    {
+      "authority_class": "historical_optional_evidence",
+      "deterministic_result_hash": "861ca998dfff5a7e976d0298ba4e8c164797f6a44abf9c7f168e996d05169199",
+      "evidence_id": "g5_dvf_3_3_korean_naturalization_candidate_assessment",
+      "evidence_role": "consumer_integration_evidence",
+      "execution_role": "not_required",
+      "path": "Iris/_docs/round3/iar_public_text_assessment/subjects/dvf_3_3_korean_naturalization_candidate/ec2a6370a694c9a322e29653765d3d17fab26a208414d7539aaaf8d3fe547437/assessment_result.json",
+      "reason": "subject-specific G5 result proves consumer integration but is not a permanent execution dependency of the generic evaluator",
+      "sha256": "4a5cb7a8a7abf77c66c79a6a6376cafbf0eb4592f19ab94c28f6f5dab4fb5137"
+    }
+  ],
+  "current_taxonomy_identity_set_equal": true,
+  "environment_verification": {
+    "environment_content_manifest_sha256": "1aeae0645d2447cfb4140d27ce8656ebc45ef71e3b8630402051357e71b5dcd0",
+    "environment_file_count": 636,
+    "environment_receipt_sha256": "800b2cf8c07a2f17cbac9f6ad342b8f66b905b775b54982e3760e92211c1b2d6",
+    "interpreter_sha256": "97c3228a59dcc05a771ab4eeec8126ce3f36ebb53616b479adc9f2c8050a9e84",
+    "package_count": 7,
+    "package_set_sha256": "e3a03e714e1f8a95da93f0ba349ffda53b8ace5810693fb3994e4d6465e391fa",
+    "status": "PASS"
+  },
+  "execution_context": "standalone_full_gate",
+  "explicit_node_set_present": true,
+  "external_execution_checkout_cleanup_status": "PASS",
+  "external_execution_mutation_count": 0,
+  "external_execution_status_unchanged": true,
+  "external_work_root_empty_after": true,
+  "full_repository_gate_blob_id": "fc66e13f29209f4709349e8a222344d3559c92a1",
+  "g5_required_evidence": {
+    "broader_staging_row_count": 4645,
+    "capsule_manifest_sha256": "9a2d8ded7832982301dcc3e25cc4d4645b141d1b630f79c621f0fd8dcf6474d1",
+    "claim_id": "current_capsule_attestation_v2",
+    "compiler_identity": {
+      "algorithm_id": "naturalization_compiler_identity_sha256_lf_normalized_ordered_paths_v2",
+      "changed_constituent_count": 21,
+      "current_aggregate_sha256": "61238620a841bc635169d5f254ceab9279f4b71d9231fdc2cd660c7b3afdb6ab",
+      "current_basis_validation_mode": "exact_git_object",
+      "historical_attested_aggregate_sha256": "2dcff095b1cc34c8fb6d3ad735ac8f9d0ca2affe259f6bb97870b19e7235cc7f",
+      "ordered_path_count": 21,
+      "unchanged_constituent_count": 0
+    },
+    "current_required_path_count": 76,
+    "digest_capsule_row_count": 4,
+    "direct_row_count": 18,
+    "external_archive_dependency": false,
+    "hard_ceiling_bytes": 2359296,
+    "raw_capsule_row_count": 14,
+    "raw_retained_bytes": 133094,
+    "raw_unique_object_count": 12,
+    "status": "PASS"
+  },
+  "identity_rows": [
+    {
+      "node_id": "Iris/build/description/v2/tests/test_build_iris_index_data.py::BuildIrisIndexDataTest::test_fixing_index_extracts_first_fixer_item",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_build_iris_index_data.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_build_iris_index_data.py::BuildIrisIndexDataTest::test_moveables_index_expands_tags_and_direct_items",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_build_iris_index_data.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_build_iris_index_data.py::BuildIrisIndexDataTest::test_recipe_index_builds_roles_and_allowed_get_item_types",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_build_iris_index_data.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compiler_particle_adjustment.py::InstrumentalParticleAdjustmentTest::test_append_instrumental_cases",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compiler_particle_adjustment.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compiler_particle_adjustment.py::InstrumentalParticleAdjustmentTest::test_phonological_tail_skips_all_trailing_unicode_punctuation",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compiler_particle_adjustment.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_entrypoint_guard_hardening.py::ComposeEntrypointGuardHardeningTest::test_direct_current_equivalent_output_requires_context",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_entrypoint_guard_hardening.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_entrypoint_guard_hardening.py::ComposeEntrypointGuardHardeningTest::test_direct_current_fixture_with_v2_profile_passes",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_entrypoint_guard_hardening.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_entrypoint_guard_hardening.py::ComposeEntrypointGuardHardeningTest::test_explicit_non_current_output_requires_context",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_entrypoint_guard_hardening.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_entrypoint_guard_hardening.py::ComposeEntrypointGuardHardeningTest::test_legacy_profile_cannot_write_current_output_and_leaves_hash_unchanged",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_entrypoint_guard_hardening.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_entrypoint_guard_hardening.py::ComposeEntrypointGuardHardeningTest::test_staging_context_cannot_target_current_equivalent_output",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_entrypoint_guard_hardening.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_entrypoint_guard_hardening.py::ComposeEntrypointGuardHardeningTest::test_unlisted_output_root_target_is_rejected_before_write",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_entrypoint_guard_hardening.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py::ComposeLayer3TextOverlayTest::test_acq_dominant_sets_flag_only_when_reordered",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py::ComposeLayer3TextOverlayTest::test_build_rendered_applies_quality_flag_from_overlay",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py::ComposeLayer3TextOverlayTest::test_identity_only_drops_generic_identity_echo",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py::ComposeLayer3TextOverlayTest::test_identity_only_suppresses_secondary_and_distinctive_slots",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py::ComposeLayer3TextOverlayTest::test_representative_override_promotes_primary_and_drops_conflicting_identity",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py::ComposeLayer3TextOverlayTest::test_secondary_and_distinctive_slots_render_between_primary_and_acquisition",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py::ComposeLayer3TextOverlayTest::test_strong_function_narrow_repairs_focus_without_quality_flag",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py::ComposeLayer3TextV2Test::test_default_entrypoint_mode_resolves_body_plan_profiles",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py::ComposeLayer3TextV2Test::test_default_entrypoint_rejects_legacy_fallback_row",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py::ComposeLayer3TextV2Test::test_default_entrypoint_rejects_legacy_profiles",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py::ComposeLayer3TextV2Test::test_default_entrypoint_rejects_legacy_runtime_state",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py::ComposeLayer3TextV2Test::test_default_resolver_rejects_named_legacy_compat_labels",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py::ComposeLayer3TextV2Test::test_default_resolver_uses_body_plan_for_legacy_label_mapping",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py::ComposeLayer3TextV2Test::test_diagnostic_resolver_allows_explicit_legacy_mapping",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py::ComposeLayer3TextV2Test::test_diagnostic_resolver_allows_legacy_runtime_state_alias",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py::ComposeLayer3TextV2Test::test_diagnostic_resolver_requires_all_external_outputs",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py::ComposeLayer3TextV2Test::test_direct_diagnostic_resolver_rejects_canonical_output_path",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py::ComposeLayer3TextV2Test::test_legacy_adapter_entrypoint_modes_are_removed",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py::ComposeLayer3TextV2Test::test_v2_missing_required_context_section_stays_weak_without_context_fallback",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py::ComposeLayer3TextV2Test::test_v2_optional_context_is_suppressed_when_primary_use_already_covers_it",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py::ComposeLayer3TextV2Test::test_v2_selected_role_precedence_resolves_material_body",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py::CurrentAuthoritySourcePathGuardTest::test_contract_accepts_named_authority_inputs",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py::CurrentAuthoritySourcePathGuardTest::test_default_contract_rejects_non_data_current_authority_inputs",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py::CurrentAuthoritySourcePathGuardTest::test_default_entrypoint_rejects_staging_current_authority_input",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py::CurrentAuthoritySourcePathGuardTest::test_default_entrypoint_uses_current_overlay_support",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py::DvfCompleteGenerationTest::test_complete_generation_failure_matrix_fails_closed",
+      "outcome": "failed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py::DvfCompleteGenerationTest::test_complete_generation_successor_checks",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_3_3_generation_install.py::DvfGenerationInstallTest::test_expected_predecessor_and_concurrent_install_fail_closed",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_generation_install.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_3_3_generation_install.py::DvfGenerationInstallTest::test_failure_injection_preserves_predecessor_visibility",
+      "outcome": "failed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_generation_install.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_3_3_generation_install.py::DvfGenerationInstallTest::test_install_uses_one_manifest_switch_and_reapply_is_noop",
+      "outcome": "failed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_generation_install.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py::KoreanProseCompilerTest::test_acquisition_listing_fails_loud_on_unknown_sentence_shape",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py::KoreanProseCompilerTest::test_acquisition_listing_uses_location_method_and_mixed_labels",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py::KoreanProseCompilerTest::test_candidate_composer_emits_acquisition_as_separate_runtime_line",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py::KoreanProseCompilerTest::test_candidate_composer_emits_trace_without_item_override",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py::KoreanProseCompilerTest::test_candidate_lead_uses_zero_anaphora_when_identity_is_present",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py::KoreanProseCompilerTest::test_current_acquisition_corpus_is_fully_list_renderable",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py::KoreanProseCompilerTest::test_current_rendered_and_runtime_chunks_publish_same_text",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py::KoreanProseCompilerTest::test_followup_clause_uses_identity_zero_anaphora",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py::KoreanProseCompilerTest::test_food_rule_uses_structured_semantics_deterministically",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py::KoreanProseCompilerTest::test_generic_lexical_naturalization_named_cases",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py::KoreanProseCompilerTest::test_generic_zero_anaphora_fuses_repeated_terminal_identity",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py::KoreanProseCompilerTest::test_lead_context_excludes_item_id_and_binds_source_metadata",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py::KoreanProseCompilerTest::test_semantic_use_categories_choose_distinct_general_rules",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py::KoreanProseCompilerTest::test_source_absent_profile_role_uses_owner_approved_exclusion",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_compiler.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_3_3_runtime_compatibility.py::DvfRuntimeCompatibilityTest::test_runtime_compatibility_named_checks",
+      "outcome": "failed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_3_3_runtime_compatibility.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py::DvfVcsTrackingPolicyTest::test_path_form_normalization_finds_stale_surfaces_only",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py::DvfVcsTrackingPolicyTest::test_round3_current_route_tooling_allowlist_stays_narrow",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py::DvfVcsTrackingPolicyTest::test_vcs_path_dispositions",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py::IarPublicTextAssessmentTest::test_actual_finding_is_distinct_from_orchestration_failure",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py::IarPublicTextAssessmentTest::test_dvf_and_qg_subject_type_fixtures",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py::IarPublicTextAssessmentTest::test_generic_schema_runner_validator_and_deterministic_replay",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py::IarPublicTextAssessmentTest::test_subject_policy_and_ruleset_hash_mismatch_fail_closed",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py::IarPublicTextAssessmentTest::test_valid_fail_result_is_reproducible_not_a_runner_error",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_iris_browser_single_pass_cache_contract.py::IrisBrowserSinglePassCacheContractTest::test_browser_acceptance_harness_exercises_single_pass_and_locale_owner",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_iris_browser_single_pass_cache_contract.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_iris_browser_single_pass_cache_contract.py::IrisBrowserSinglePassCacheContractTest::test_row_cache_and_scalar_classification_contract",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_iris_browser_single_pass_cache_contract.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_iris_browser_state_selection_search_acceptance.py::BrowserStateSelectionSearchAcceptanceTest::test_actual_standalone_lua_state_and_cache_contracts",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_iris_browser_state_selection_search_acceptance.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_iris_browser_state_selection_search_acceptance.py::BrowserStateSelectionSearchAcceptanceTest::test_browserdata_compatibility_and_logging_source_guards",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_iris_browser_state_selection_search_acceptance.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_iris_line_count_lazy_validation.py::IrisLineCountLazyValidationTest::test_first_demand_metadata_state_matrix",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_iris_line_count_lazy_validation.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_iris_line_count_lazy_validation.py::IrisLineCountLazyValidationTest::test_lookup_module_has_no_top_level_index_require",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_iris_line_count_lazy_validation.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_iris_object_access_fast_path.py::IrisObjectAccessFastPathTest::test_fixed_arity_lua_result_shape_parity",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_iris_object_access_fast_path.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_iris_object_access_fast_path.py::IrisObjectAccessFastPathTest::test_generic_production_path_is_not_routed_without_new_pz_evidence",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_iris_object_access_fast_path.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_iris_residual_runtime_acceptance.py::IrisResidualRuntimeAcceptanceTest::test_runtime_acceptance_harness_passes_all_registered_axes",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_iris_residual_runtime_acceptance.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_iris_session_cache_ownership.py::IrisSessionCacheOwnershipTest::test_cache_field_census_is_complete_and_session_candidate_free",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_iris_session_cache_ownership.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_iris_session_cache_ownership.py::IrisSessionCacheOwnershipTest::test_no_production_session_reset_wiring_was_added",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_iris_session_cache_ownership.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_iris_session_cache_ownership.py::IrisSessionCacheOwnershipTest::test_phase_0b_absence_only_defers_timing_branches",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_iris_session_cache_ownership.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_iris_tags_public_surface_isolation.py::IrisTagsPublicSurfaceIsolationTest::test_public_exports_remain_frozen_and_backing_tables_are_unreachable",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_iris_tags_public_surface_isolation.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_iris_tags_public_surface_isolation.py::IrisTagsPublicSurfaceIsolationTest::test_tags_and_iris_api_do_not_export_browser_raw_accessors",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_iris_tags_public_surface_isolation.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_iris_viewmodel_allocation_contract.py::IrisViewModelAllocationContractTest::test_dynamic_debug_owners_have_caller_side_guards",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_iris_viewmodel_allocation_contract.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_iris_viewmodel_allocation_contract.py::IrisViewModelAllocationContractTest::test_method_lists_are_module_constants_and_hints_are_once_per_item",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_iris_viewmodel_allocation_contract.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_layer3_lazy_lookup_contract.py::Layer3LazyLookupContractTest::test_layer3_lazy_lookup_contract",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_layer3_lazy_lookup_contract.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py::Layer4AbsorptionCurrentSurfaceGuardTest::test_current_repo_has_no_unauthorized_consumption",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py::Layer4AbsorptionCurrentSurfaceGuardTest::test_synthetic_surface_dispositions",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py::LegacyActiveSilentCurrentSurfaceGuardTest::test_allowlist_rejects_named_overbroad_rules",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py::LegacyActiveSilentCurrentSurfaceGuardTest::test_consecutive_run_does_not_grow_census_or_occurrence_hash",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py::LegacyActiveSilentCurrentSurfaceGuardTest::test_content_addressing_separates_changed_payload_and_isolates_two_runs",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py::LegacyActiveSilentCurrentSurfaceGuardTest::test_current_surface_guard_rejects_named_fixture_variants",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py::LegacyActiveSilentCurrentSurfaceGuardTest::test_default_manifest_includes_docs_json_authority_and_excludes_guard_output",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py::LegacyActiveSilentCurrentSurfaceGuardTest::test_default_manifest_is_durable_role_scoped_successor",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py::LegacyActiveSilentCurrentSurfaceGuardTest::test_interrupted_object_write_leaves_no_canonical_object",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py::LegacyActiveSilentCurrentSurfaceGuardTest::test_old_full_payload_and_new_stream_verdict_parity_on_frozen_named_census",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py::LegacyActiveSilentCurrentSurfaceGuardTest::test_persistent_output_path_rejects_checkout_and_result_root_escape",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py::LegacyActiveSilentCurrentSurfaceGuardTest::test_report_only_and_round_owned_output_are_excluded",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py::LegacyActiveSilentCurrentSurfaceGuardTest::test_rg_and_python_backends_produce_identical_canonical_path_list",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py::LegacyActiveSilentCurrentSurfaceGuardTest::test_rg_missing_timeout_and_abnormal_exit_fail_loud_without_fallback",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py::LegacyActiveSilentCurrentSurfaceGuardTest::test_scan_surface_includes_current_historical_and_diagnostic_roles",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py::LegacyActiveSilentCurrentSurfaceGuardTest::test_single_canonical_stream_reference_integrity_and_missing_object_failure",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py::LegacyActiveSilentCurrentSurfaceGuardTest::test_stream_count_and_phase_summary_tampering_fail_loud",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py::LegacyActiveSilentCurrentSurfaceGuardTest::test_synthetic_guard_scenarios_are_named_cases",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_lua_bridge_export_contract_realign.py::LuaBridgeExportContractRealignTest::test_bridge_report_forbidden_claim_scan",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_lua_bridge_export_contract_realign.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_lua_bridge_export_contract_realign.py::LuaBridgeExportContractRealignTest::test_chunk_bundle_determinism",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_lua_bridge_export_contract_realign.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_lua_bridge_export_contract_realign.py::LuaBridgeExportContractRealignTest::test_chunk_integrity_reports_missing_orphan_and_duplicate_chunks",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_lua_bridge_export_contract_realign.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_lua_bridge_export_contract_realign.py::LuaBridgeExportContractRealignTest::test_default_route_writes_chunk_bundle_under_pinned_staging_root",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_lua_bridge_export_contract_realign.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_lua_bridge_export_contract_realign.py::LuaBridgeExportContractRealignTest::test_explicit_historical_and_diagnostic_monolith_routes_are_preserved",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_lua_bridge_export_contract_realign.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_lua_bridge_export_contract_realign.py::LuaBridgeExportContractRealignTest::test_rejected_destinations_are_named_cases",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_lua_bridge_export_contract_realign.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_naturalization_compiler_identity.py::NaturalizationCompilerIdentityTest::test_one_byte_semantic_source_change_is_stale",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_naturalization_compiler_identity.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_naturalization_compiler_identity.py::NaturalizationCompilerIdentityTest::test_producer_and_consumer_share_responsibility_complete_identity",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_naturalization_compiler_identity.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_naturalization_compiler_identity.py::NaturalizationCompilerIdentityTest::test_working_and_git_blob_line_endings_are_metamorphic",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_naturalization_compiler_identity.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py::PackageLayer3ChunksOnlyContractTest::test_current_runtime_payload_package_does_not_require_rtc_bundle",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py::PackageLayer3ChunksOnlyContractTest::test_lookup_validator_rejects_named_failure_variants",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py::PackageLayer3ChunksOnlyContractTest::test_mixed_package_applicability_fails_before_write",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py::PackageLayer3ChunksOnlyContractTest::test_package_projection_validator_rejects_extra_generation_and_pointer_mismatch",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py::PackageLayer3ChunksOnlyContractTest::test_package_script_preserves_forbidden_surface_guards",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py::PackageLayer3ChunksOnlyContractTest::test_rtc_certified_payload_still_requires_rtc_guard",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py::PackageLayer3ChunksOnlyContractTest::test_runtime_package_rejects_named_output_root_guards_without_write",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py::PackageLayer3ChunksOnlyContractTest::test_runtime_package_rejects_nested_chunk_entry_before_write",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py::PackageLayer3ChunksOnlyContractTest::test_runtime_package_rejects_reparse_alias_into_repository_without_write",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py::PackageLayer3ChunksOnlyContractTest::test_runtime_package_rejects_undeclared_chunk_file_before_write",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py::PublicTextConstituentIdentityTest::test_checkout_location_does_not_change_identity",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py::PublicTextConstituentIdentityTest::test_current_exact_full_review_has_zero_human_review_numerator",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py::PublicTextConstituentIdentityTest::test_current_surfaces_are_tracked_without_iris_unignore_rules",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py::PublicTextConstituentIdentityTest::test_exact_full_review_invalid_variants_are_technical_blockers",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py::PublicTextConstituentIdentityTest::test_lf_crlf_and_lone_cr_are_equivalent",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py::PublicTextConstituentIdentityTest::test_non_line_ending_one_byte_change_is_stale",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py::PublicTextConstituentIdentityTest::test_phase0_before_and_after_exact_unignore_have_parity",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py::PublicTextConstituentIdentityTest::test_phase0_no_write_and_real_required_path_sets_are_identical",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py::PublicTextConstituentIdentityTest::test_phase0_tracked_but_ignored_required_input_fails",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py::PublicTextConstituentIdentityTest::test_protected_snapshot_binary_raw_drift_is_stale",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py::PublicTextConstituentIdentityTest::test_protected_snapshot_invalid_text_identities_are_stale",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py::PublicTextConstituentIdentityTest::test_protected_snapshot_lf_crlf_and_lone_cr_are_equivalent",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py::PublicTextConstituentIdentityTest::test_sampled_uniform_review_contract_is_preserved",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_round3_current_route_applicability.py::Round3CurrentRouteApplicabilityTest::test_applicability_authority_hash_uses_decoded_eol_identity",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_round3_current_route_applicability.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_round3_current_route_applicability.py::Round3CurrentRouteApplicabilityTest::test_historical_optional_tests_are_retained_but_not_selected",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_round3_current_route_applicability.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_round3_current_route_applicability.py::Round3CurrentRouteApplicabilityTest::test_missing_artifact_applicability_named_cases",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_round3_current_route_applicability.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_round3_current_route_applicability.py::Round3CurrentRouteApplicabilityTest::test_required_validation_payload_reports_both_applicability_denominators",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_round3_current_route_applicability.py"
+    },
+    {
+      "node_id": "Iris/build/description/v2/tests/test_usecase_lazy_lookup_contract.py::UseCaseLazyLookupContractTest::test_usecase_lazy_lookup_contract",
+      "outcome": "passed",
+      "source_path": "Iris/build/description/v2/tests/test_usecase_lazy_lookup_contract.py"
+    },
+    {
+      "node_id": "Iris/build/tests/test_evidence_pipeline_cross_track.py::EvidencePipelineCrossTrackTest::test_recipe_and_rightclick_outputs_do_not_cross_mutate",
+      "outcome": "passed",
+      "source_path": "Iris/build/tests/test_evidence_pipeline_cross_track.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_classification_candidate_install.py::test_candidate_boundary_rejects_wrong_manifest_extra_file_and_repo_root",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_classification_candidate_install.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_classification_candidate_install.py::test_hash_bound_install_copies_only_allowlisted_candidate_files",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_classification_candidate_install.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_cli.py::test_help_is_repository_independent",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_cli.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_cli.py::test_rightclick_rejects_predecessor_mode_flags[--v22]",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_cli.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_cli.py::test_rightclick_rejects_predecessor_mode_flags[--v23]",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_cli.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_cli.py::test_rightclick_rejects_predecessor_mode_flags[--v24]",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_cli.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_public_text_domain_contract.py::test_current_package_has_no_machine_local_source_paths",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_public_text_domain_contract.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_public_text_domain_contract.py::test_naturalization_provenance_is_explicit_and_fail_closed",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_public_text_domain_contract.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_public_text_domain_contract.py::test_phase0_cli_forwards_all_explicit_provenance_inputs",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_public_text_domain_contract.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_public_text_domain_contract.py::test_phase0_cli_missing_input_fails_closed_without_dispatch",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_public_text_domain_contract.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_public_text_domain_contract.py::test_public_text_build_modules_are_thin_facades",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_public_text_domain_contract.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_public_text_domain_contract.py::test_public_text_compatibility_facades_export_only_declared_api",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_public_text_domain_contract.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_public_text_domain_contract.py::test_public_text_owner_chain_has_only_explicit_static_exports",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_public_text_domain_contract.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_public_text_domain_contract.py::test_strict_input_and_candidate_rank_are_deterministic",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_public_text_domain_contract.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_public_text_domain_contract.py::test_threshold_and_disposition_are_pure_domain_contracts",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_public_text_domain_contract.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_repository_context.py::test_repository_context_exposes_explicit_project_paths",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_repository_context.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_repository_context.py::test_repository_context_requires_an_iris_git_checkout",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_repository_context.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_rightclick_pipeline.py::test_anchor_slug_is_stable",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_rightclick_pipeline.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_rightclick_pipeline.py::test_canonical_hash_ignores_mapping_order",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_rightclick_pipeline.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_rightclick_pipeline.py::test_fulltype_parser_preserves_unqualified_type",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_rightclick_pipeline.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_rightclick_pipeline.py::test_item_matchers_cover_current_v24_types",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_rightclick_pipeline.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_rightclick_pipeline.py::test_noncurrent_capability_module_is_not_packaged",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_rightclick_pipeline.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_rightclick_pipeline.py::test_proof_merge_fails_closed_on_boolean_conflict",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_rightclick_pipeline.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_rightclick_pipeline.py::test_property_based_reviews_are_routed_deterministically",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_rightclick_pipeline.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_rightclick_pipeline.py::test_semicolon_list_is_normalized",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_rightclick_pipeline.py"
+    },
+    {
+      "node_id": "Iris/tooling/tests/test_rightclick_pipeline.py::test_truthy_contract_is_explicit",
+      "outcome": "passed",
+      "source_path": "Iris/tooling/tests/test_rightclick_pipeline.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_current_route_output_isolation_audit.py::test_inventory_maps_every_required_id_source_import_and_write_site",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_current_route_output_isolation_audit.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_current_route_output_isolation_audit.py::test_inventory_recurses_local_imports_and_rejects_nonliteral_dynamic_imports",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_current_route_output_isolation_audit.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_current_route_output_isolation_audit.py::test_inventory_rejects_missing_taxonomy_mapping_and_repository_local_output",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_current_route_output_isolation_audit.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_current_route_output_isolation_audit.py::test_seal_rejects_canonical_but_tampered_static_inventory",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_current_route_output_isolation_audit.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_current_route_output_isolation_audit.py::test_seal_rejects_ignored_delta_and_unreadable_census",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_current_route_output_isolation_audit.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_current_route_output_isolation_audit.py::test_seal_requires_dynamic_checkout_unchanged_pass_and_verify_detects_drift",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_current_route_output_isolation_audit.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_altered_environment_receipt_fails_before_execution",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_compare_launcher_environment_failure_receipts[environment_restore-restore_environment-0]",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_compare_launcher_environment_failure_receipts[required_environment_apply-configure_environment-None]",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_compare_launcher_is_byte_stable_across_independent_attempt_roots",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_compare_launcher_rejects_canonical_chain_hash_mismatch_pre_execution",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_compare_launcher_rejects_same_receipt_reused_as_run_a_and_run_b",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_external_root_accepts_disjoint_sibling",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_external_root_rejects_checkout_ancestor",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_external_root_rejects_checkout_descendant",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_external_writer_rejects_repository_path",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_full_materialization_target_rejects_parent_escape",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_full_node_identity_normalization",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_full_source_policy_classifies_only_declared_fallback",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_g5_current_capsule_separates_historical_raw_and_current_claim",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_ignored_status_snapshot_excludes_nonignored_rows",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_offline_tool_inventory_keeps_denominator_axes_and_registry_bindings",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_receipt_and_registry_schemas_are_parseable_and_version_bound",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_receipt_bound_launcher_detects_skip_worktree_blob_mismatch",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_receipt_bound_launcher_dirty_failure_has_pre_python_receipt",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_receipt_bound_launcher_head_mismatch_has_pre_python_receipt",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_receipt_bound_launcher_interpreter_mismatch_is_pre_python",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_receipt_bound_launcher_keeps_native_failure_primary_when_restore_fails",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_receipt_bound_launcher_keeps_nested_result_root_empty_for_gate",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_receipt_bound_launcher_preserves_native_nonzero_as_primary",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_receipt_bound_launcher_records_restore_failure_without_success_override",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_receipt_bound_launcher_restores_after_partial_environment_apply",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_receipt_bound_launcher_success_binds_inner_identity_and_raw_streams",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_receipt_bound_launcher_writer_failure_is_operator_visible_and_clean",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_result_pair_accepts_equivalent_passes",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_result_pair_rejects_noncanonical_byte_variants[bom-<lambda>]",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_result_pair_rejects_noncanonical_byte_variants[crlf-<lambda>]",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_result_pair_rejects_noncanonical_byte_variants[extra-trailing-newline-<lambda>]",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_result_pair_rejects_noncanonical_byte_variants[missing-trailing-newline-<lambda>]",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py::test_result_pair_rejects_semantic_equal_byte_different_payloads",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_iris_clean_checkout_validation.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py::test_checkout_unchanged_detects_empty_ignored_directory",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py::test_checkout_unchanged_detects_ignored_write",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py::test_claim_and_environment_authority_mismatches_fail_closed",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py::test_invoked_repository_script_is_bound_to_exact_execution_commit",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py::test_json_scalar_argv_is_rejected_without_execution",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py::test_junction_receipt_parent_targeting_checkout_is_rejected_before_any_write",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py::test_prior_failure_prevents_later_native_command",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py"
+    },
+    {
+      "node_id": "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py::test_scalar_command_spec_preserves_windows_argv_and_streams",
+      "outcome": "passed",
+      "source_path": "Iris/validation/clean_checkout/tests/test_repository_runtime_lightweighting_command_wrapper.py"
+    }
+  ],
+  "ignored_required_input_count": 0,
+  "implementation_identity": {
+    "imported_common": {
+      "actual_path": "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-worktree/Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+      "git_blob_id": "5bf6e4075879953e868dd624c3842ee411aa172d",
+      "logical_path": "Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+      "module_file": "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-worktree/Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+      "working_git_blob_id": "5bf6e4075879953e868dd624c3842ee411aa172d",
+      "working_sha256": "784d4e4f803e818f3f1e037633467761f9a474fda6e2d7778fafc2dd799e010c"
+    },
+    "runner": {
+      "actual_path": "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-worktree/Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
+      "git_blob_id": "76397b91cbf176b9c649ecf10c7f4f834a5ba23c",
+      "logical_path": "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
+      "working_git_blob_id": "76397b91cbf176b9c649ecf10c7f4f834a5ba23c",
+      "working_sha256": "c4a959ba0148b70df45a979f75f7c64b218d31c18b9073afc4e81f558fab8865"
+    }
+  },
+  "predecessor_stage_receipt_set_sha256": null,
+  "pytest_identity_count": 211,
+  "qualification_contract_sha256": null,
+  "required_dependency_inventory": {
+    "explicit_direct_dependency_rows": [
+      {
+        "authority_class": "required_tracked_source",
+        "dependency_role": "stateless_complete_generation_builder",
+        "path": "Iris/tooling/src/iris_tooling/build/build_dvf_3_3_complete_generation.py",
+        "reason": "required tests invoke the off-live builder directly",
+        "relationship": "direct",
+        "test_source": "Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py"
+      },
+      {
+        "authority_class": "required_tracked_source",
+        "dependency_role": "stateless_generation_contract",
+        "path": "Iris/tooling/src/iris_tooling/build/dvf_3_3_generation_contract.py",
+        "reason": "required tests consume the canonical input and generator identity constants",
+        "relationship": "direct",
+        "test_source": "Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py"
+      },
+      {
+        "authority_class": "required_tracked_source",
+        "dependency_role": "stateless_complete_generation_validator",
+        "path": "Iris/tooling/src/iris_tooling/build/validate_dvf_3_3_complete_generation.py",
+        "reason": "required negative fixtures invoke the fail-closed validator directly",
+        "relationship": "direct",
+        "test_source": "Iris/build/description/v2/tests/test_dvf_3_3_complete_generation.py"
+      },
+      {
+        "authority_class": "required_tracked_source",
+        "dependency_role": "r2_a_protected_generation_installer",
+        "path": "Iris/tooling/src/iris_tooling/build/install_dvf_3_3_complete_generation.py",
+        "reason": "required failure injection and idempotence tests invoke the protected installer directly",
+        "relationship": "direct",
+        "test_source": "Iris/build/description/v2/tests/test_dvf_3_3_generation_install.py"
+      },
+      {
+        "authority_class": "required_tracked_source",
+        "dependency_role": "generation_key_identity_validation",
+        "path": "Iris/tooling/src/iris_tooling/build/dvf_3_3_runtime_compatibility.py",
+        "reason": "required exact-key, collision, and payload parity tests invoke the stateless validator directly",
+        "relationship": "direct",
+        "test_source": "Iris/build/description/v2/tests/test_dvf_3_3_runtime_compatibility.py"
+      },
+      {
+        "authority_class": "required_tracked_source",
+        "dependency_role": "generic_assessment_contract",
+        "path": "Iris/build/description/v2/data/iar_public_text_assessment/iar_public_text_assessment_contract.json",
+        "reason": "the required evaluator regression passes this generic contract to every runner, validator, and library projection",
+        "relationship": "direct",
+        "test_source": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py"
+      },
+      {
+        "authority_class": "required_tracked_source",
+        "dependency_role": "generic_assessment_runner",
+        "path": "Iris/tooling/src/iris_tooling/build/run_iar_public_text_assessment.py",
+        "reason": "the required evaluator regression invokes the installed package-owned runner module",
+        "relationship": "direct",
+        "test_source": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py"
+      },
+      {
+        "authority_class": "required_tracked_source",
+        "dependency_role": "generic_assessment_no_write_validator",
+        "path": "Iris/tooling/src/iris_tooling/build/validate_iar_public_text_assessment.py",
+        "reason": "the required evaluator regression invokes the installed package-owned no-write validator module",
+        "relationship": "direct",
+        "test_source": "Iris/build/description/v2/tests/test_iar_public_text_assessment.py"
+      },
+      {
+        "authority_class": "required_tracked_source",
+        "dependency_role": "installed_package_repository_context_bootstrap",
+        "path": "Iris/tooling/tests/conftest.py",
+        "reason": "the package test bootstrap configures the explicit checkout context before installed-package tests import repository-bound modules",
+        "relationship": "direct",
+        "test_source": "Iris/tooling/tests/test_repository_context.py"
+      }
+    ],
+    "path_count": 21,
+    "sha256": "438a831c7c24c2d21f790b10e47013bd4598ec59ea879ec40ff9e800c3651d1e",
+    "unresolved_count": 0
+  },
+  "required_execution_unit_count": 215,
+  "schema_version": "iris-clean-checkout-canonical-full-result-v1",
+  "selected_source_set_equal": true,
+  "source_checkout_clean_after": true,
+  "source_checkout_clean_before": true,
+  "source_checkout_ignored_state_unchanged": true,
+  "source_classification_counts": {
+    "evidence_only_source_count": 0,
+    "hermetic_test_fixture_source_count": 2,
+    "historical_optional_source_count": 20,
+    "obsolete_or_misrouted_source_count": 0,
+    "required_source_count": 41,
+    "tracked_test_source_count": 77
+  },
+  "standalone_rows": [
+    {
+      "command_id": "legacy_rightclick_determinism",
+      "path": "Iris/tooling/tests/run_rightclick_determinism.py",
+      "return_code": 0,
+      "status": "PASS"
+    },
+    {
+      "command_id": "legacy_recipe_evidence_determinism",
+      "path": "Iris/build/tests/test_recipe_evidence.py",
+      "return_code": 0,
+      "status": "PASS"
+    },
+    {
+      "command_id": "labelmap_fail_loud_coverage",
+      "path": "Iris/build/tests/test_fail_loud_coverage.py",
+      "return_code": 0,
+      "status": "PASS"
+    },
+    {
+      "command_id": "require_render_contract",
+      "path": "Iris/build/test_require_render.py",
+      "return_code": 0,
+      "status": "PASS"
+    }
+  ],
+  "standalone_validation_count": 4,
+  "status": "FAIL",
+  "subject": {
+    "commit": "d42a5a8fd05115b5d108f7bc4fe889c2b45b47d9",
+    "tree": "252dba6a1c175e89b06ad62ed60243971269eeee"
+  },
+  "taxonomy_blob_id": "b6408ee2e8bac58f4d2853f6bb066fce0d9058cd",
+  "test_inventory_sha256": "474187b601b87d6b6e0470787ba2af3e149e3cc923fc49231cbe90e86611caa0",
+  "tool_disposition_rows": []
+}

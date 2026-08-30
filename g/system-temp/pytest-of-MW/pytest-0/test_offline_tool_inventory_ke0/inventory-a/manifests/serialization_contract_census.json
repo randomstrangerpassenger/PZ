@@ -1,0 +1,9 @@
+{
+  "contract_family_policy": "inventory_only_no_global_writer_inference",
+  "rows": [],
+  "schema_version": "iris-offline-tool-serialization-census-v1",
+  "subject": {
+    "commit": "4760152ae6ff579ca3216c32f3ae90bb23642888",
+    "tree": "87df0628f77bed2056f4770e3cad8460d4e7f302"
+  }
+}

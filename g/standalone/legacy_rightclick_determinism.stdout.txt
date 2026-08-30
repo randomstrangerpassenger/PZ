@@ -1,0 +1,40 @@
+=== 1. Determinism Test ===
+  evidence_candidates.v2.4.json: MATCH
+  evidence_decisions.v2.4.json: MATCH
+  field_registry.v2.4.json: MATCH
+  review_queue.v2.4.json: MATCH
+
+=== 2. Regression: PASS (frozen set equality) ===
+  PASS=57, NO=1400, REVIEW=13
+  OK: PASS set matches (57 items)
+
+=== 3. review_queue excluded_matcher check ===
+  Total review_queue entries: 14
+  excluded_matcher entries: 0
+  OK: excluded_matcher=0
+
+=== 4. firefighting extract candidate count (guardrail ≤53) ===
+  rule_firefighting_isextinguisher candidates: 53
+  OK: 53 <= 53
+
+=== 5. REVIEW delta observation (no judgment) ===
+  REVIEW_before (Gate-0 v2): 6
+  REVIEW_after: 13
+  REVIEW delta: +7
+
+=== 6. Per-rule candidate match counts ===
+  rule_candidate_moveable_furniture: 0 items
+  rule_candidate_vehiclemaintenance: 0 items
+  rule_candidate_junk: 0 items
+
+=== 7. NO items not in field_registry ===
+  OK: no NO items in field_registry
+
+=== 8. Material guard items ===
+  OK: guard Base.Thread=PASS
+  OK: guard Base.Dirtbag=PASS
+  OK: guard Base.Gravelbag=PASS
+  OK: guard Base.Sandbag=PASS
+
+==================================================
+FINAL RESULT: ALL PASSED

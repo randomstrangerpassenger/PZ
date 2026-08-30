@@ -1,0 +1,12 @@
+{
+  "authority_effect": "none",
+  "batches": [],
+  "non_claim": "no subprocess or receipt migration batch is selected",
+  "schema_version": "iris-receipt-migration-batch-registry-v1",
+  "source_denominator_id": "tools_build_recursive_tracked",
+  "source_denominator_set_sha256": "1b211cf69f1f01843eb30e1012c13f8b72c8151ecacfb4834f89414349b523d8",
+  "subject": {
+    "commit": "4760152ae6ff579ca3216c32f3ae90bb23642888",
+    "tree": "87df0628f77bed2056f4770e3cad8460d4e7f302"
+  }
+}

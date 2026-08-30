@@ -1,0 +1,18 @@
+============================================================
+  Test: Require Render Verification
+============================================================
+  ✅ Case 1: Base.Margarine — requirements only ✓
+  ✅ Case 2: Base.MortarPestle — require only ✓
+  ✅ Case 3: Base.MetalBar — both blocks ✓
+  ✅ Case 4: Base.Nails — near_item template ✓
+  ✅ Case 5: No UNKNOWN_REQUIRE_ATOM ✓
+  ✅ Case 6: Lua output has 80 require blocks ✓
+  ✅ Case 7: No empty require_block ✓
+  ✅ Case 8: atoms_with_check=172 == atoms_total=172, without=0 ✓
+  ✅ Case 9: All check schemas valid ✓
+  ✅ Case 10: Lua output has 738 check fields ✓
+  ✅ Case 11: Requirements lookup split from facade ✓
+
+============================================================
+  FINAL RESULT: ALL PASSED
+============================================================

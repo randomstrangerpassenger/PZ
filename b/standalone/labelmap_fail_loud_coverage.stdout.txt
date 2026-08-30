@@ -1,0 +1,16 @@
+[Test 1] 현재 상태 (정상): missing=0  => PASS
+
+[Test 2] 새 ID 2개 추가 시뮬레이션: missing=2
+    - uc.craft.new_tool
+    - uc.new_feature.test_action
+  => PASS (FAIL-LOUD 정상 작동)
+
+[Test 3] label_map에서 uc.action.open_can 제거: missing=1
+    - uc.action.open_can
+  => PASS (FAIL-LOUD 정상 작동)
+
+[Test 4] label_map에 미사용 extra 포함: missing=0
+  => PASS (extra는 경고만, 실패 아님)
+
+==================================================
+FINAL: ALL 4 TESTS PASSED

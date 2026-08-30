@@ -1,0 +1,1927 @@
+{
+  "version": "v2.4",
+  "entries": {
+    "uc.recipe.add_crafted_trigger": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Add Crafted Trigger"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "전기공학 >= 2",
+        "check": {
+          "type": "perk",
+          "perk_id": "Electricity",
+          "level": 2
+        }
+      }
+    ],
+    "uc.recipe.add_motion_sensor_v1": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Add Motion Sensor V1"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "전기공학 >= 2",
+        "check": {
+          "type": "perk",
+          "perk_id": "Electricity",
+          "level": 2
+        }
+      }
+    ],
+    "uc.recipe.add_motion_sensor_v2": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Add Motion Sensor V2"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "전기공학 >= 4",
+        "check": {
+          "type": "perk",
+          "perk_id": "Electricity",
+          "level": 4
+        }
+      }
+    ],
+    "uc.recipe.add_motion_sensor_v3": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Add Motion Sensor V3"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "전기공학 >= 6",
+        "check": {
+          "type": "perk",
+          "perk_id": "Electricity",
+          "level": 6
+        }
+      }
+    ],
+    "uc.recipe.add_timer": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Add Timer"
+        }
+      }
+    ],
+    "uc.recipe.attach_bread_knife_to_spear": [],
+    "uc.recipe.attach_butter_knife_to_spear": [],
+    "uc.recipe.attach_fork_to_spear": [],
+    "uc.recipe.attach_hand_fork_to_spear": [],
+    "uc.recipe.attach_hunting_knife_to_spear": [],
+    "uc.recipe.attach_ice_pick_to_spear": [],
+    "uc.recipe.attach_kitchen_knife_to_spear": [],
+    "uc.recipe.attach_letter_opener_to_spear": [],
+    "uc.recipe.attach_machete_to_spear": [],
+    "uc.recipe.attach_scalpel_to_spear": [],
+    "uc.recipe.attach_scissors_to_spear": [],
+    "uc.recipe.attach_screwdriver_to_spear": [],
+    "uc.recipe.attach_spoon_to_spear": [],
+    "uc.recipe.build_drawer": [],
+    "uc.recipe.build_spiked_baseball_bat": [],
+    "uc.recipe.build_spiked_plank": [],
+    "uc.recipe.butcher_bird": [],
+    "uc.recipe.butcher_rabbit": [],
+    "uc.recipe.butcher_small_animal": [],
+    "uc.recipe.clean_bandage": [],
+    "uc.recipe.clean_denim_strips": [],
+    "uc.recipe.clean_leather_strips": [],
+    "uc.recipe.clean_rag": [],
+    "uc.recipe.clean_tray": [],
+    "uc.recipe.close_umbrella": [],
+    "uc.recipe.craft_makeshift_ham_radio": [],
+    "uc.recipe.craft_makeshift_radio": [],
+    "uc.recipe.craft_makeshift_walkie_talkie": [],
+    "uc.recipe.create_spear": [],
+    "uc.recipe.disinfect_bandage": [],
+    "uc.recipe.disinfect_rag": [],
+    "uc.recipe.dismantle_cd_player": [],
+    "uc.recipe.dismantle_cordless_phone": [],
+    "uc.recipe.dismantle_earbuds": [],
+    "uc.recipe.dismantle_flashlight": [],
+    "uc.recipe.dismantle_ham_radio": [],
+    "uc.recipe.dismantle_headphones": [],
+    "uc.recipe.dismantle_home_alarm": [],
+    "uc.recipe.dismantle_radio": [],
+    "uc.recipe.dismantle_speaker": [],
+    "uc.recipe.dismantle_television": [],
+    "uc.recipe.dismantle_tv_remote": [],
+    "uc.recipe.dismantle_two_way_radio": [],
+    "uc.recipe.dismantle_video_game": [],
+    "uc.recipe.douse_cotton_in_alcohol": [],
+    "uc.recipe.drill_plank": [],
+    "uc.recipe.empty_baking_tray": [],
+    "uc.recipe.empty_frying_pan": [],
+    "uc.recipe.empty_griddle_pan": [],
+    "uc.recipe.empty_roasting_pan": [],
+    "uc.recipe.extinguish_candle": [],
+    "uc.recipe.fix_fishing_rod": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Fix Fishing Rod"
+        }
+      }
+    ],
+    "uc.recipe.gather_gunpowder": [],
+    "uc.recipe.get_6_biscuits": [],
+    "uc.recipe.get_6_cookies": [],
+    "uc.recipe.get_6_muffins": [],
+    "uc.recipe.get_bacon_bits": [],
+    "uc.recipe.get_bacon_rashers": [],
+    "uc.recipe.get_wire_back": [],
+    "uc.recipe.hockeymasksmashbottle": [],
+    "uc.recipe.insert_battery_into_duck": [],
+    "uc.recipe.insert_battery_into_flashlight": [],
+    "uc.recipe.light_candle": [],
+    "uc.recipe.make_223_bullets": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make 223 Bullets"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 8",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 8
+        }
+      }
+    ],
+    "uc.recipe.make_223_bullets_mold": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make 223 Bullets Mold"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 8",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 8
+        }
+      }
+    ],
+    "uc.recipe.make_2_bowls_of_pasta": [],
+    "uc.recipe.make_2_bowls_of_rice": [],
+    "uc.recipe.make_2_bowls_of_soup": [],
+    "uc.recipe.make_2_bowls_of_stew": [],
+    "uc.recipe.make_308_bullets": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make 308 Bullets"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 8",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 8
+        }
+      }
+    ],
+    "uc.recipe.make_308_bullets_mold": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make 308 Bullets Mold"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 8",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 8
+        }
+      }
+    ],
+    "uc.recipe.make_4_bowls_of_pasta": [],
+    "uc.recipe.make_4_bowls_of_rice": [],
+    "uc.recipe.make_4_bowls_of_soup": [],
+    "uc.recipe.make_4_bowls_of_stew": [],
+    "uc.recipe.make_9mm_bullets": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make 9mm Bullets"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 8",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 8
+        }
+      }
+    ],
+    "uc.recipe.make_9mm_bullets_mold": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make 9mm Bullets Mold"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 8",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 8
+        }
+      }
+    ],
+    "uc.recipe.make_aerosol_bomb": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Aerosol bomb"
+        }
+      }
+    ],
+    "uc.recipe.make_axe": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Axe"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 10",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 10
+        }
+      }
+    ],
+    "uc.recipe.make_baking_pan": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Baking Pan"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 2",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 2
+        }
+      }
+    ],
+    "uc.recipe.make_baking_tray": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Baking Tray"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 2",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 2
+        }
+      }
+    ],
+    "uc.recipe.make_ball_peen_hammer": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Ball Peen Hammer"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 4",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 4
+        }
+      }
+    ],
+    "uc.recipe.make_biscuits": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Biscuits"
+        }
+      }
+    ],
+    "uc.recipe.make_bowl_of_beans": [],
+    "uc.recipe.make_bowl_of_cereal": [],
+    "uc.recipe.make_bowl_of_oatmeal": [],
+    "uc.recipe.make_bread_dough": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Bread Dough"
+        }
+      }
+    ],
+    "uc.recipe.make_bucket_of_plaster": [],
+    "uc.recipe.make_butter_knife": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Butter Knife"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 3",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 3
+        }
+      }
+    ],
+    "uc.recipe.make_cage_trap": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Cage Trap"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "함정 >= 3",
+        "check": {
+          "type": "perk",
+          "perk_id": "Trapping",
+          "level": 3
+        }
+      }
+    ],
+    "uc.recipe.make_cake_batter": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Cake Batter"
+        }
+      }
+    ],
+    "uc.recipe.make_campfire_kit": [],
+    "uc.recipe.make_cheese_sandwich": [],
+    "uc.recipe.make_chocolate_chip_cookie_dough": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Chocolate Chip Cookie Dough"
+        }
+      }
+    ],
+    "uc.recipe.make_chocolate_cookie_dough": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Chocolate Cookie Dough"
+        }
+      }
+    ],
+    "uc.recipe.make_comfrey_poultice": [],
+    "uc.recipe.make_cooking_pot": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Cooking Pot"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 2",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 2
+        }
+      }
+    ],
+    "uc.recipe.make_crowbar": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Crowbar"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 9",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 9
+        }
+      }
+    ],
+    "uc.recipe.make_door_knob": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Door Knob"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 3",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 3
+        }
+      }
+    ],
+    "uc.recipe.make_fishing_net": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Fishing Net"
+        }
+      }
+    ],
+    "uc.recipe.make_fishing_rod": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Fishing Rod"
+        }
+      }
+    ],
+    "uc.recipe.make_flame_bomb": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Flame bomb"
+        }
+      }
+    ],
+    "uc.recipe.make_flies_cure": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Flies Cure"
+        }
+      }
+    ],
+    "uc.recipe.make_fork": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Fork"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      }
+    ],
+    "uc.recipe.make_four_log_stack": [],
+    "uc.recipe.make_fried_onion_rings": [],
+    "uc.recipe.make_fried_shrimp": [],
+    "uc.recipe.make_golfclub": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Golfclub"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 9",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 9
+        }
+      }
+    ],
+    "uc.recipe.make_gravy": [],
+    "uc.recipe.make_halloween_pumpkin": [],
+    "uc.recipe.make_hammer": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Hammer"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 4",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 4
+        }
+      }
+    ],
+    "uc.recipe.make_hand_shovel": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Hand Shovel"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 6",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 6
+        }
+      }
+    ],
+    "uc.recipe.make_hinge": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Hinge"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 3",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 3
+        }
+      }
+    ],
+    "uc.recipe.make_hunting_knife": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Hunting Knife"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 8",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 8
+        }
+      }
+    ],
+    "uc.recipe.make_jar_of_bell_peppers": [],
+    "uc.recipe.make_jar_of_broccoli": [],
+    "uc.recipe.make_jar_of_cabbage": [],
+    "uc.recipe.make_jar_of_carrots": [],
+    "uc.recipe.make_jar_of_eggplants": [],
+    "uc.recipe.make_jar_of_leeks": [],
+    "uc.recipe.make_jar_of_potatoes": [],
+    "uc.recipe.make_jar_of_red_radishes": [],
+    "uc.recipe.make_jar_of_tomatoes": [],
+    "uc.recipe.make_kitchen_knife": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Kitchen Knife"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 7",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 7
+        }
+      }
+    ],
+    "uc.recipe.make_letter_opener": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Letter Opener"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 3",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 3
+        }
+      }
+    ],
+    "uc.recipe.make_maki": [],
+    "uc.recipe.make_mattress": [],
+    "uc.recipe.make_meat_patty": [],
+    "uc.recipe.make_metal_bar": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Metal Bar"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "금속용접 >= 2",
+        "check": {
+          "type": "perk",
+          "perk_id": "MetalWelding",
+          "level": 2
+        }
+      }
+    ],
+    "uc.recipe.make_metal_drum": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Metal Drum"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 6",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 6
+        }
+      }
+    ],
+    "uc.recipe.make_metal_pipe": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Metal Pipe"
+        }
+      }
+    ],
+    "uc.recipe.make_metal_sheet": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Metal Sheet"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "금속용접 >= 4",
+        "check": {
+          "type": "perk",
+          "perk_id": "MetalWelding",
+          "level": 4
+        }
+      }
+    ],
+    "uc.recipe.make_mildew_cure": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Mildew Cure"
+        }
+      }
+    ],
+    "uc.recipe.make_molotov_cocktail": [],
+    "uc.recipe.make_mortar_and_pestle": [
+      {
+        "kind": "perk",
+        "display": "목공 >= 2",
+        "check": {
+          "type": "perk",
+          "perk_id": "Woodwork",
+          "level": 2
+        }
+      }
+    ],
+    "uc.recipe.make_nails": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Nails"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 3",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 3
+        }
+      }
+    ],
+    "uc.recipe.make_newspaper_hat": [],
+    "uc.recipe.make_noise_maker": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Noise Maker"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "전기공학 >= 3",
+        "check": {
+          "type": "perk",
+          "perk_id": "Electricity",
+          "level": 3
+        }
+      }
+    ],
+    "uc.recipe.make_oatmeal_cookie_dough": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Oatmeal Cookie Dough"
+        }
+      }
+    ],
+    "uc.recipe.make_onigiri": [],
+    "uc.recipe.make_pan": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Pan"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 2",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 2
+        }
+      }
+    ],
+    "uc.recipe.make_pancake": [],
+    "uc.recipe.make_paperclips": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Paperclips"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 3",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 3
+        }
+      }
+    ],
+    "uc.recipe.make_pie_dough": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Pie Dough"
+        }
+      }
+    ],
+    "uc.recipe.make_pipe_bomb": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Pipe bomb"
+        }
+      }
+    ],
+    "uc.recipe.make_pizza": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Pizza"
+        }
+      }
+    ],
+    "uc.recipe.make_plantain_poultice": [],
+    "uc.recipe.make_pot_of_soup": [],
+    "uc.recipe.make_remote_controller_v1": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Remote Controller V1"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "전기공학 >= 2",
+        "check": {
+          "type": "perk",
+          "perk_id": "Electricity",
+          "level": 2
+        }
+      }
+    ],
+    "uc.recipe.make_remote_controller_v2": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Remote Controller V2"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "전기공학 >= 4",
+        "check": {
+          "type": "perk",
+          "perk_id": "Electricity",
+          "level": 4
+        }
+      }
+    ],
+    "uc.recipe.make_remote_controller_v3": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Remote Controller V3"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "전기공학 >= 6",
+        "check": {
+          "type": "perk",
+          "perk_id": "Electricity",
+          "level": 6
+        }
+      }
+    ],
+    "uc.recipe.make_remote_trigger": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Remote Trigger"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "전기공학 >= 2",
+        "check": {
+          "type": "perk",
+          "perk_id": "Electricity",
+          "level": 2
+        }
+      }
+    ],
+    "uc.recipe.make_roasting_pan": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Roasting Pan"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 2",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 2
+        }
+      }
+    ],
+    "uc.recipe.make_saucepan": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Saucepan"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 2",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 2
+        }
+      }
+    ],
+    "uc.recipe.make_saw": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Saw"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 7",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 7
+        }
+      }
+    ],
+    "uc.recipe.make_scissors": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Scissors"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 3",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 3
+        }
+      }
+    ],
+    "uc.recipe.make_sheet_metal": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Sheet Metal"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 4",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 4
+        }
+      }
+    ],
+    "uc.recipe.make_shortbread_cookie_dough": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Shortbread Cookie Dough"
+        }
+      }
+    ],
+    "uc.recipe.make_shotgun_shells": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Shotgun Shells"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 8",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 8
+        }
+      }
+    ],
+    "uc.recipe.make_shotgun_shells_mold": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Shotgun Shells Mold"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 8",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 8
+        }
+      }
+    ],
+    "uc.recipe.make_shovel": [],
+    "uc.recipe.make_sledgehammer": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Sledgehammer"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 10",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 10
+        }
+      }
+    ],
+    "uc.recipe.make_small_metal_sheet": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Small Metal Sheet"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "금속용접 >= 4",
+        "check": {
+          "type": "perk",
+          "perk_id": "MetalWelding",
+          "level": 4
+        }
+      }
+    ],
+    "uc.recipe.make_smoke_bomb": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Smoke Bomb"
+        }
+      }
+    ],
+    "uc.recipe.make_snare_trap": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Snare Trap"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "함정 >= 1",
+        "check": {
+          "type": "perk",
+          "perk_id": "Trapping",
+          "level": 1
+        }
+      }
+    ],
+    "uc.recipe.make_splint": [],
+    "uc.recipe.make_spoon": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Spoon"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      }
+    ],
+    "uc.recipe.make_squid_calamari": [],
+    "uc.recipe.make_stake": [],
+    "uc.recipe.make_stick_trap": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Stick Trap"
+        }
+      }
+    ],
+    "uc.recipe.make_stone_axe": [],
+    "uc.recipe.make_stone_hammer": [],
+    "uc.recipe.make_stone_knife": [],
+    "uc.recipe.make_sturdy_stick": [],
+    "uc.recipe.make_sugar_cookie_dough": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Sugar Cookie Dough"
+        }
+      }
+    ],
+    "uc.recipe.make_suture_needle": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Suture Needle"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 6",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 6
+        }
+      }
+    ],
+    "uc.recipe.make_suture_needle_holder": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Suture Needle Holder"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 5",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 5
+        }
+      }
+    ],
+    "uc.recipe.make_tent_kit": [],
+    "uc.recipe.make_three_log_stack": [],
+    "uc.recipe.make_timer": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Timer"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "전기공학 >= 1",
+        "check": {
+          "type": "perk",
+          "perk_id": "Electricity",
+          "level": 1
+        }
+      }
+    ],
+    "uc.recipe.make_tin_foil_hat": [],
+    "uc.recipe.make_tongs": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Tongs"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 4",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 4
+        }
+      }
+    ],
+    "uc.recipe.make_trap_box": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Trap Box"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "목공 >= 1",
+        "check": {
+          "type": "perk",
+          "perk_id": "Woodwork",
+          "level": 1
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "함정 >= 2",
+        "check": {
+          "type": "perk",
+          "perk_id": "Trapping",
+          "level": 2
+        }
+      }
+    ],
+    "uc.recipe.make_tweezers": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Tweezers"
+        }
+      },
+      {
+        "kind": "near_item",
+        "display": "모루",
+        "check": {
+          "type": "near_item",
+          "near_token": "Anvil"
+        }
+      },
+      {
+        "kind": "perk",
+        "display": "대장장이 >= 5",
+        "check": {
+          "type": "perk",
+          "perk_id": "Blacksmith",
+          "level": 5
+        }
+      }
+    ],
+    "uc.recipe.make_two_log_stack": [],
+    "uc.recipe.make_wild_garlic_poultice": [],
+    "uc.recipe.make_wooden_box_trap": [
+      {
+        "kind": "flag",
+        "display": "미습득",
+        "check": {
+          "type": "flag",
+          "flag_id": "NeedToBeLearn",
+          "recipe_name": "Make Wooden Box Trap"
+        }
+      }
+    ],
+    "uc.recipe.open_box_of_223_ammo": [],
+    "uc.recipe.open_box_of_308_ammo": [],
+    "uc.recipe.open_box_of_38_special_bullets": [],
+    "uc.recipe.open_box_of_44_magnum_bullets": [],
+    "uc.recipe.open_box_of_45_auto_bullets": [],
+    "uc.recipe.open_box_of_556_ammo": [],
+    "uc.recipe.open_box_of_9mm_bullets": [],
+    "uc.recipe.open_box_of_jars": [],
+    "uc.recipe.open_box_of_nails": [],
+    "uc.recipe.open_box_of_paperclip": [],
+    "uc.recipe.open_box_of_screws": [],
+    "uc.recipe.open_box_of_shotgun_shells": [],
+    "uc.recipe.open_candy_package": [],
+    "uc.recipe.open_canned_beans": [],
+    "uc.recipe.open_canned_bolognese": [],
+    "uc.recipe.open_canned_carrots": [],
+    "uc.recipe.open_canned_chili": [],
+    "uc.recipe.open_canned_corn": [],
+    "uc.recipe.open_canned_corned_beef": [],
+    "uc.recipe.open_canned_fruit_beverage": [],
+    "uc.recipe.open_canned_fruit_cocktail": [],
+    "uc.recipe.open_canned_mushroom_soup": [],
+    "uc.recipe.open_canned_peaches": [],
+    "uc.recipe.open_canned_peas": [],
+    "uc.recipe.open_canned_pineapple": [],
+    "uc.recipe.open_canned_potato": [],
+    "uc.recipe.open_canned_sardines": [],
+    "uc.recipe.open_canned_soup": [],
+    "uc.recipe.open_canned_tomato": [],
+    "uc.recipe.open_canned_tuna": [],
+    "uc.recipe.open_condensed_milk": [],
+    "uc.recipe.open_dog_food": [],
+    "uc.recipe.open_egg_carton": [],
+    "uc.recipe.open_jar_of_bell_peppers": [],
+    "uc.recipe.open_jar_of_broccoli": [],
+    "uc.recipe.open_jar_of_cabbage": [],
+    "uc.recipe.open_jar_of_carrots": [],
+    "uc.recipe.open_jar_of_eggplants": [],
+    "uc.recipe.open_jar_of_leeks": [],
+    "uc.recipe.open_jar_of_potatoes": [],
+    "uc.recipe.open_jar_of_red_radishes": [],
+    "uc.recipe.open_jar_of_tomatoes": [],
+    "uc.recipe.open_packet_of_broccoli_seeds": [],
+    "uc.recipe.open_packet_of_cabbage_seeds": [],
+    "uc.recipe.open_packet_of_carrot_seeds": [],
+    "uc.recipe.open_packet_of_potato_seeds": [],
+    "uc.recipe.open_packet_of_radish_seeds": [],
+    "uc.recipe.open_packet_of_strawberries_seeds": [],
+    "uc.recipe.open_packet_of_tomato_seeds": [],
+    "uc.recipe.open_sack_of_apples": [],
+    "uc.recipe.open_sack_of_bell_peppers": [],
+    "uc.recipe.open_sack_of_broccoli": [],
+    "uc.recipe.open_sack_of_cabbages": [],
+    "uc.recipe.open_sack_of_carrots": [],
+    "uc.recipe.open_sack_of_cherries": [],
+    "uc.recipe.open_sack_of_corn": [],
+    "uc.recipe.open_sack_of_eggplants": [],
+    "uc.recipe.open_sack_of_grapes": [],
+    "uc.recipe.open_sack_of_leeks": [],
+    "uc.recipe.open_sack_of_lettuce": [],
+    "uc.recipe.open_sack_of_onions": [],
+    "uc.recipe.open_sack_of_peaches": [],
+    "uc.recipe.open_sack_of_pears": [],
+    "uc.recipe.open_sack_of_potatoes": [],
+    "uc.recipe.open_sack_of_radishes": [],
+    "uc.recipe.open_sack_of_strawberries": [],
+    "uc.recipe.open_sack_of_tomatoes": [],
+    "uc.recipe.open_umbrella": [],
+    "uc.recipe.place_223_ammo_in_box": [],
+    "uc.recipe.place_308_ammo_in_box": [],
+    "uc.recipe.place_38_speciam_bullets_in_box": [],
+    "uc.recipe.place_44_magnum_bullets_in_box": [],
+    "uc.recipe.place_45_auto_bullets_in_box": [],
+    "uc.recipe.place_556_ammo_in_box": [],
+    "uc.recipe.place_9mm_bullets_in_box": [],
+    "uc.recipe.place_cake_in_baking_pan": [],
+    "uc.recipe.place_nails_in_box": [],
+    "uc.recipe.place_paperclips_in_box": [],
+    "uc.recipe.place_pasta_in_cooking_pot": [],
+    "uc.recipe.place_pasta_in_saucepan": [],
+    "uc.recipe.place_pie_in_baking_pan": [],
+    "uc.recipe.place_rice_in_cooking_pot": [],
+    "uc.recipe.place_rice_in_saucepan": [],
+    "uc.recipe.place_screws_in_box": [],
+    "uc.recipe.place_shotgun_shells_in_box": [],
+    "uc.recipe.prepare_muffins": [],
+    "uc.recipe.prepare_omelette": [],
+    "uc.recipe.put_alcohol_on_cotton": [],
+    "uc.recipe.put_broccoli_seeds_in_packet": [],
+    "uc.recipe.put_cabbage_seeds_in_packet": [],
+    "uc.recipe.put_carrots_seeds_in_packet": [],
+    "uc.recipe.put_eggs_in_carton": [],
+    "uc.recipe.put_potato_seeds_in_packet": [],
+    "uc.recipe.put_radish_seeds_in_packet": [],
+    "uc.recipe.put_strawberry_seeds_in_packet": [],
+    "uc.recipe.put_tomato_seeds_in_packet": [],
+    "uc.recipe.reclaim_bread_knife_from_spear": [],
+    "uc.recipe.reclaim_butter_knife_from_spear": [],
+    "uc.recipe.reclaim_fork_from_spear": [],
+    "uc.recipe.reclaim_hand_fork_from_spear": [],
+    "uc.recipe.reclaim_hunting_knife_from_spear": [],
+    "uc.recipe.reclaim_ice_pick_from_spear": [],
+    "uc.recipe.reclaim_kitchen_knife_from_spear": [],
+    "uc.recipe.reclaim_letter_opener_from_spear": [],
+    "uc.recipe.reclaim_machete_from_spear": [],
+    "uc.recipe.reclaim_scalpel_from_spear": [],
+    "uc.recipe.reclaim_scissors_from_spear": [],
+    "uc.recipe.reclaim_screwdriver_from_spear": [],
+    "uc.recipe.reclaim_spoon_from_spear": [],
+    "uc.recipe.refill_blow_torch": [],
+    "uc.recipe.saw_logs": [],
+    "uc.recipe.saw_logs2": [],
+    "uc.recipe.saw_off_double_barrel_shotgun": [],
+    "uc.recipe.saw_off_shotgun": [],
+    "uc.recipe.scoop_ice_cream": [],
+    "uc.recipe.slice_baloney": [],
+    "uc.recipe.slice_bread": [],
+    "uc.recipe.slice_cake": [],
+    "uc.recipe.slice_fillet": [],
+    "uc.recipe.slice_frog": [],
+    "uc.recipe.slice_ham": [],
+    "uc.recipe.slice_onion": [],
+    "uc.recipe.slice_pie": [],
+    "uc.recipe.slice_pizza": [],
+    "uc.recipe.slice_salami": [],
+    "uc.recipe.slice_watermelon": [],
+    "uc.recipe.smash_bottle": [],
+    "uc.recipe.smash_watermelon": [],
+    "uc.recipe.unstack_logs": []
+  },
+  "stats": {
+    "total_ucids": 321,
+    "with_requirements": 79,
+    "without_requirements": 242,
+    "atoms_total": 172,
+    "atoms_with_check": 172,
+    "atoms_without_check": 0,
+    "req_missing_index_count": 0,
+    "req_uid_collision_count": 0,
+    "req_dangling_count": 0,
+    "req_dangling_non_suffixed_count": 0,
+    "req_base_slug_fallback_count": 8
+  }
+}

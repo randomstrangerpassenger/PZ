@@ -1,0 +1,2553 @@
+{
+  "version": "v2.4",
+  "fulltype_count": 349,
+  "fulltypes": {
+    "Base.223Box": {
+      "as_input": [
+        "open_box_of_223_ammo"
+      ],
+      "as_keep": []
+    },
+    "Base.223Bullets": {
+      "as_input": [
+        "gather_gunpowder",
+        "place_223_ammo_in_box"
+      ],
+      "as_keep": []
+    },
+    "Base.223BulletsMold": {
+      "as_input": [],
+      "as_keep": [
+        "make_223_bullets"
+      ]
+    },
+    "Base.308Box": {
+      "as_input": [
+        "open_box_of_308_ammo"
+      ],
+      "as_keep": []
+    },
+    "Base.308Bullets": {
+      "as_input": [
+        "gather_gunpowder",
+        "place_308_ammo_in_box"
+      ],
+      "as_keep": []
+    },
+    "Base.308BulletsMold": {
+      "as_input": [],
+      "as_keep": [
+        "make_308_bullets"
+      ]
+    },
+    "Base.556Box": {
+      "as_input": [
+        "open_box_of_556_ammo"
+      ],
+      "as_keep": []
+    },
+    "Base.556Bullets": {
+      "as_input": [
+        "gather_gunpowder",
+        "place_556_ammo_in_box"
+      ],
+      "as_keep": []
+    },
+    "Base.9mmBulletsMold": {
+      "as_input": [],
+      "as_keep": [
+        "make_9mm_bullets"
+      ]
+    },
+    "Base.Aerosolbomb": {
+      "as_input": [
+        "add_crafted_trigger",
+        "add_motion_sensor_v1",
+        "add_motion_sensor_v2",
+        "add_motion_sensor_v3",
+        "add_timer"
+      ],
+      "as_keep": []
+    },
+    "Base.AlarmClock2": {
+      "as_input": [
+        "make_timer"
+      ],
+      "as_keep": []
+    },
+    "Base.Aluminum": {
+      "as_input": [
+        "craft_makeshift_ham_radio",
+        "craft_makeshift_radio",
+        "craft_makeshift_walkie_talkie",
+        "make_aerosol_bomb",
+        "make_tin_foil_hat"
+      ],
+      "as_keep": []
+    },
+    "Base.Amplifier": {
+      "as_input": [
+        "craft_makeshift_ham_radio",
+        "craft_makeshift_radio",
+        "craft_makeshift_walkie_talkie",
+        "make_noise_maker"
+      ],
+      "as_keep": []
+    },
+    "Base.Avocado": {
+      "as_input": [
+        "make_maki",
+        "make_onigiri"
+      ],
+      "as_keep": []
+    },
+    "Base.Axe": {
+      "as_input": [],
+      "as_keep": [
+        "slice_watermelon"
+      ]
+    },
+    "Base.AxeStone": {
+      "as_input": [],
+      "as_keep": [
+        "slice_watermelon"
+      ]
+    },
+    "Base.BakingPan": {
+      "as_input": [
+        "place_cake_in_baking_pan",
+        "place_pie_in_baking_pan"
+      ],
+      "as_keep": []
+    },
+    "Base.BakingSoda": {
+      "as_input": [
+        "make_biscuits",
+        "make_chocolate_chip_cookie_dough",
+        "make_chocolate_cookie_dough",
+        "make_fried_onion_rings",
+        "make_fried_shrimp",
+        "make_oatmeal_cookie_dough",
+        "make_sugar_cookie_dough"
+      ],
+      "as_keep": []
+    },
+    "Base.BakingTray": {
+      "as_input": [
+        "make_chocolate_chip_cookie_dough",
+        "make_chocolate_cookie_dough",
+        "make_oatmeal_cookie_dough",
+        "make_shortbread_cookie_dough",
+        "make_sugar_cookie_dough"
+      ],
+      "as_keep": []
+    },
+    "Base.BakingTray_Muffin": {
+      "as_input": [
+        "clean_tray",
+        "get_6_muffins"
+      ],
+      "as_keep": []
+    },
+    "Base.BakingTray_Muffin_Recipe": {
+      "as_input": [
+        "clean_tray",
+        "get_6_muffins"
+      ],
+      "as_keep": []
+    },
+    "Base.BallPeenHammer": {
+      "as_input": [],
+      "as_keep": [
+        "make_223_bullets_mold",
+        "make_308_bullets_mold",
+        "make_9mm_bullets_mold",
+        "make_axe",
+        "make_baking_pan",
+        "make_baking_tray",
+        "make_cooking_pot",
+        "make_crowbar",
+        "make_door_knob",
+        "make_golfclub",
+        "make_hammer",
+        "make_hinge",
+        "make_hunting_knife",
+        "make_kitchen_knife",
+        "make_letter_opener",
+        "make_metal_drum",
+        "make_pan",
+        "make_roasting_pan",
+        "make_saucepan",
+        "make_saw",
+        "make_scissors",
+        "make_sheet_metal",
+        "make_shotgun_shells_mold",
+        "make_sledgehammer",
+        "make_suture_needle",
+        "make_suture_needle_holder",
+        "make_tweezers"
+      ]
+    },
+    "Base.Baloney": {
+      "as_input": [
+        "slice_baloney"
+      ],
+      "as_keep": []
+    },
+    "Base.Bandage": {
+      "as_input": [
+        "disinfect_bandage"
+      ],
+      "as_keep": []
+    },
+    "Base.BandageDirty": {
+      "as_input": [
+        "clean_bandage"
+      ],
+      "as_keep": []
+    },
+    "Base.BaseballBat": {
+      "as_input": [
+        "build_spiked_baseball_bat"
+      ],
+      "as_keep": [
+        "smash_watermelon"
+      ]
+    },
+    "Base.BaseballBatNails": {
+      "as_input": [],
+      "as_keep": [
+        "smash_watermelon"
+      ]
+    },
+    "Base.Bass": {
+      "as_input": [
+        "slice_fillet"
+      ],
+      "as_keep": []
+    },
+    "Base.Battery": {
+      "as_input": [
+        "insert_battery_into_duck",
+        "insert_battery_into_flashlight"
+      ],
+      "as_keep": []
+    },
+    "Base.BeerEmpty": {
+      "as_input": [
+        "make_molotov_cocktail",
+        "smash_bottle"
+      ],
+      "as_keep": []
+    },
+    "Base.BellPepper": {
+      "as_input": [
+        "make_jar_of_bell_peppers"
+      ],
+      "as_keep": []
+    },
+    "Base.BlowTorch": {
+      "as_input": [
+        "make_metal_bar",
+        "make_metal_pipe",
+        "make_metal_sheet",
+        "make_small_metal_sheet",
+        "refill_blow_torch"
+      ],
+      "as_keep": []
+    },
+    "Base.Book": {
+      "as_input": [
+        "make_campfire_kit"
+      ],
+      "as_keep": []
+    },
+    "Base.Bowl": {
+      "as_input": [
+        "make_2_bowls_of_pasta",
+        "make_2_bowls_of_rice",
+        "make_2_bowls_of_soup",
+        "make_2_bowls_of_stew",
+        "make_4_bowls_of_pasta",
+        "make_4_bowls_of_rice",
+        "make_4_bowls_of_soup",
+        "make_4_bowls_of_stew",
+        "make_bowl_of_beans",
+        "make_bowl_of_cereal",
+        "make_bowl_of_oatmeal",
+        "make_cake_batter"
+      ],
+      "as_keep": [
+        "make_biscuits",
+        "make_bread_dough",
+        "make_chocolate_chip_cookie_dough",
+        "make_chocolate_cookie_dough",
+        "make_gravy",
+        "make_oatmeal_cookie_dough",
+        "make_pancake",
+        "make_pie_dough",
+        "make_pizza",
+        "make_shortbread_cookie_dough",
+        "make_sugar_cookie_dough",
+        "prepare_muffins"
+      ]
+    },
+    "Base.BoxOfJars": {
+      "as_input": [
+        "open_box_of_jars"
+      ],
+      "as_keep": []
+    },
+    "Base.Bread": {
+      "as_input": [
+        "slice_bread"
+      ],
+      "as_keep": []
+    },
+    "Base.BreadDough": {
+      "as_input": [
+        "slice_bread"
+      ],
+      "as_keep": []
+    },
+    "Base.BreadKnife": {
+      "as_input": [
+        "attach_bread_knife_to_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.BreadSlices": {
+      "as_input": [
+        "make_cheese_sandwich"
+      ],
+      "as_keep": []
+    },
+    "Base.Broccoli": {
+      "as_input": [
+        "make_jar_of_broccoli"
+      ],
+      "as_keep": []
+    },
+    "Base.BrokenFishingNet": {
+      "as_input": [
+        "get_wire_back"
+      ],
+      "as_keep": []
+    },
+    "Base.BucketEmpty": {
+      "as_input": [
+        "make_bucket_of_plaster"
+      ],
+      "as_keep": []
+    },
+    "Base.BucketWaterFull": {
+      "as_input": [
+        "make_bucket_of_plaster"
+      ],
+      "as_keep": []
+    },
+    "Base.Bullets38": {
+      "as_input": [
+        "gather_gunpowder",
+        "place_38_speciam_bullets_in_box"
+      ],
+      "as_keep": []
+    },
+    "Base.Bullets38Box": {
+      "as_input": [
+        "open_box_of_38_special_bullets"
+      ],
+      "as_keep": []
+    },
+    "Base.Bullets44": {
+      "as_input": [
+        "gather_gunpowder",
+        "place_44_magnum_bullets_in_box"
+      ],
+      "as_keep": []
+    },
+    "Base.Bullets44Box": {
+      "as_input": [
+        "open_box_of_44_magnum_bullets"
+      ],
+      "as_keep": []
+    },
+    "Base.Bullets45": {
+      "as_input": [
+        "gather_gunpowder",
+        "place_45_auto_bullets_in_box"
+      ],
+      "as_keep": []
+    },
+    "Base.Bullets45Box": {
+      "as_input": [
+        "open_box_of_45_auto_bullets"
+      ],
+      "as_keep": []
+    },
+    "Base.Bullets9mm": {
+      "as_input": [
+        "gather_gunpowder",
+        "place_9mm_bullets_in_box"
+      ],
+      "as_keep": []
+    },
+    "Base.Bullets9mmBox": {
+      "as_input": [
+        "open_box_of_9mm_bullets"
+      ],
+      "as_keep": []
+    },
+    "Base.Butter": {
+      "as_input": [
+        "make_pie_dough",
+        "make_shortbread_cookie_dough"
+      ],
+      "as_keep": []
+    },
+    "Base.ButterKnife": {
+      "as_input": [
+        "attach_butter_knife_to_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.CakeBatter": {
+      "as_input": [
+        "place_cake_in_baking_pan"
+      ],
+      "as_keep": []
+    },
+    "Base.CakeRaw": {
+      "as_input": [
+        "slice_cake"
+      ],
+      "as_keep": []
+    },
+    "Base.Candle": {
+      "as_input": [
+        "light_candle"
+      ],
+      "as_keep": []
+    },
+    "Base.CandleLit": {
+      "as_input": [
+        "extinguish_candle"
+      ],
+      "as_keep": []
+    },
+    "Base.CandyPackage": {
+      "as_input": [
+        "open_candy_package"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedBellPepper": {
+      "as_input": [
+        "open_jar_of_bell_peppers"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedBolognese": {
+      "as_input": [
+        "open_canned_bolognese"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedBroccoli": {
+      "as_input": [
+        "open_jar_of_broccoli"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedCabbage": {
+      "as_input": [
+        "open_jar_of_cabbage"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedCarrots": {
+      "as_input": [
+        "open_jar_of_carrots"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedCarrots2": {
+      "as_input": [
+        "open_canned_carrots"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedChili": {
+      "as_input": [
+        "open_canned_chili"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedCorn": {
+      "as_input": [
+        "open_canned_corn"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedCornedBeef": {
+      "as_input": [
+        "open_canned_corned_beef"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedEggplant": {
+      "as_input": [
+        "open_jar_of_eggplants"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedFruitBeverage": {
+      "as_input": [
+        "open_canned_fruit_beverage"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedFruitCocktail": {
+      "as_input": [
+        "open_canned_fruit_cocktail"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedLeek": {
+      "as_input": [
+        "open_jar_of_leeks"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedMilk": {
+      "as_input": [
+        "open_condensed_milk"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedMushroomSoup": {
+      "as_input": [
+        "make_pot_of_soup",
+        "open_canned_mushroom_soup"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedMushroomSoupOpen": {
+      "as_input": [
+        "make_pot_of_soup"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedPeaches": {
+      "as_input": [
+        "open_canned_peaches"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedPeas": {
+      "as_input": [
+        "open_canned_peas"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedPineapple": {
+      "as_input": [
+        "open_canned_pineapple"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedPotato": {
+      "as_input": [
+        "open_jar_of_potatoes"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedPotato2": {
+      "as_input": [
+        "open_canned_potato"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedRedRadish": {
+      "as_input": [
+        "open_jar_of_red_radishes"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedSardines": {
+      "as_input": [
+        "open_canned_sardines"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedTomato": {
+      "as_input": [
+        "open_jar_of_tomatoes"
+      ],
+      "as_keep": []
+    },
+    "Base.CannedTomato2": {
+      "as_input": [
+        "open_canned_tomato"
+      ],
+      "as_keep": []
+    },
+    "Base.Carrots": {
+      "as_input": [
+        "make_jar_of_carrots"
+      ],
+      "as_keep": []
+    },
+    "Base.Catfish": {
+      "as_input": [
+        "slice_fillet"
+      ],
+      "as_keep": []
+    },
+    "Base.Cereal": {
+      "as_input": [
+        "make_bowl_of_cereal"
+      ],
+      "as_keep": []
+    },
+    "Base.Cheese": {
+      "as_input": [
+        "make_pizza"
+      ],
+      "as_keep": []
+    },
+    "Base.ChocolateChips": {
+      "as_input": [
+        "make_chocolate_chip_cookie_dough"
+      ],
+      "as_keep": []
+    },
+    "Base.Cigarettes": {
+      "as_input": [
+        "make_flies_cure"
+      ],
+      "as_keep": []
+    },
+    "Base.ClosedUmbrellaBlack": {
+      "as_input": [
+        "open_umbrella"
+      ],
+      "as_keep": []
+    },
+    "Base.ClosedUmbrellaBlue": {
+      "as_input": [
+        "open_umbrella"
+      ],
+      "as_keep": []
+    },
+    "Base.ClosedUmbrellaRed": {
+      "as_input": [
+        "open_umbrella"
+      ],
+      "as_keep": []
+    },
+    "Base.ClosedUmbrellaWhite": {
+      "as_input": [
+        "open_umbrella"
+      ],
+      "as_keep": []
+    },
+    "Base.CocoaPowder": {
+      "as_input": [
+        "make_chocolate_cookie_dough"
+      ],
+      "as_keep": []
+    },
+    "Base.Coldpack": {
+      "as_input": [
+        "make_smoke_bomb"
+      ],
+      "as_keep": []
+    },
+    "Base.Comfrey": {
+      "as_input": [
+        "make_comfrey_poultice"
+      ],
+      "as_keep": []
+    },
+    "Base.Cone": {
+      "as_input": [
+        "scoop_ice_cream"
+      ],
+      "as_keep": []
+    },
+    "Base.CookieChocolateChipDough": {
+      "as_input": [
+        "empty_baking_tray",
+        "get_6_cookies"
+      ],
+      "as_keep": []
+    },
+    "Base.CookiesChocolateDough": {
+      "as_input": [
+        "empty_baking_tray",
+        "get_6_cookies"
+      ],
+      "as_keep": []
+    },
+    "Base.CookiesOatmealDough": {
+      "as_input": [
+        "empty_baking_tray",
+        "get_6_cookies"
+      ],
+      "as_keep": []
+    },
+    "Base.CookiesShortbreadDough": {
+      "as_input": [
+        "empty_baking_tray",
+        "get_6_cookies"
+      ],
+      "as_keep": []
+    },
+    "Base.CookiesSugarDough": {
+      "as_input": [
+        "empty_baking_tray",
+        "get_6_cookies"
+      ],
+      "as_keep": []
+    },
+    "Base.CordlessPhone": {
+      "as_input": [
+        "dismantle_cordless_phone"
+      ],
+      "as_keep": []
+    },
+    "Base.CottonBalls": {
+      "as_input": [
+        "douse_cotton_in_alcohol",
+        "put_alcohol_on_cotton"
+      ],
+      "as_keep": []
+    },
+    "Base.Crappie": {
+      "as_input": [
+        "slice_fillet"
+      ],
+      "as_keep": []
+    },
+    "Base.DeadBird": {
+      "as_input": [
+        "butcher_bird"
+      ],
+      "as_keep": []
+    },
+    "Base.DeadMouse": {
+      "as_input": [
+        "butcher_small_animal"
+      ],
+      "as_keep": []
+    },
+    "Base.DeadRabbit": {
+      "as_input": [
+        "butcher_rabbit"
+      ],
+      "as_keep": []
+    },
+    "Base.DeadRat": {
+      "as_input": [
+        "butcher_small_animal"
+      ],
+      "as_keep": []
+    },
+    "Base.DeadSquirrel": {
+      "as_input": [
+        "butcher_small_animal"
+      ],
+      "as_keep": []
+    },
+    "Base.DenimStrips": {
+      "as_input": [
+        "make_flame_bomb",
+        "make_molotov_cocktail",
+        "make_splint",
+        "make_stone_axe",
+        "make_stone_hammer",
+        "make_stone_knife"
+      ],
+      "as_keep": []
+    },
+    "Base.DenimStripsDirty": {
+      "as_input": [
+        "clean_denim_strips",
+        "make_flame_bomb",
+        "make_molotov_cocktail",
+        "make_splint",
+        "make_stone_axe",
+        "make_stone_hammer",
+        "make_stone_knife"
+      ],
+      "as_keep": []
+    },
+    "Base.Dogfood": {
+      "as_input": [
+        "open_dog_food"
+      ],
+      "as_keep": []
+    },
+    "Base.Doorknob": {
+      "as_input": [
+        "build_drawer"
+      ],
+      "as_keep": []
+    },
+    "Base.DoubleBarrelShotgun": {
+      "as_input": [
+        "saw_off_double_barrel_shotgun"
+      ],
+      "as_keep": []
+    },
+    "Base.DuctTape": {
+      "as_input": [
+        "add_crafted_trigger",
+        "add_motion_sensor_v1",
+        "add_motion_sensor_v2",
+        "add_motion_sensor_v3",
+        "add_timer",
+        "attach_bread_knife_to_spear",
+        "attach_butter_knife_to_spear",
+        "attach_fork_to_spear",
+        "attach_hand_fork_to_spear",
+        "attach_hunting_knife_to_spear",
+        "attach_ice_pick_to_spear",
+        "attach_kitchen_knife_to_spear",
+        "attach_letter_opener_to_spear",
+        "attach_machete_to_spear",
+        "attach_scalpel_to_spear",
+        "attach_scissors_to_spear",
+        "attach_screwdriver_to_spear",
+        "attach_spoon_to_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.Earbuds": {
+      "as_input": [
+        "dismantle_earbuds"
+      ],
+      "as_keep": []
+    },
+    "Base.Egg": {
+      "as_input": [
+        "put_eggs_in_carton"
+      ],
+      "as_keep": []
+    },
+    "Base.EggCarton": {
+      "as_input": [
+        "open_egg_carton"
+      ],
+      "as_keep": []
+    },
+    "Base.Eggplant": {
+      "as_input": [
+        "make_jar_of_eggplants"
+      ],
+      "as_keep": []
+    },
+    "Base.ElectronicsScrap": {
+      "as_input": [
+        "add_crafted_trigger",
+        "add_motion_sensor_v1",
+        "add_motion_sensor_v2",
+        "add_motion_sensor_v3",
+        "add_timer",
+        "craft_makeshift_ham_radio",
+        "craft_makeshift_radio",
+        "craft_makeshift_walkie_talkie",
+        "make_noise_maker",
+        "make_pipe_bomb",
+        "make_remote_controller_v1",
+        "make_remote_controller_v2",
+        "make_remote_controller_v3",
+        "make_remote_trigger",
+        "make_timer"
+      ],
+      "as_keep": []
+    },
+    "Base.EmptyJar": {
+      "as_input": [
+        "make_jar_of_bell_peppers",
+        "make_jar_of_broccoli",
+        "make_jar_of_cabbage",
+        "make_jar_of_carrots",
+        "make_jar_of_eggplants",
+        "make_jar_of_leeks",
+        "make_jar_of_potatoes",
+        "make_jar_of_red_radishes",
+        "make_jar_of_tomatoes"
+      ],
+      "as_keep": []
+    },
+    "Base.FishingLine": {
+      "as_input": [
+        "fix_fishing_rod",
+        "make_fishing_rod"
+      ],
+      "as_keep": []
+    },
+    "Base.FishingRodBreak": {
+      "as_input": [
+        "fix_fishing_rod"
+      ],
+      "as_keep": []
+    },
+    "Base.FlameTrap": {
+      "as_input": [
+        "add_crafted_trigger",
+        "add_motion_sensor_v1",
+        "add_motion_sensor_v2",
+        "add_motion_sensor_v3",
+        "add_timer"
+      ],
+      "as_keep": []
+    },
+    "Base.Flour": {
+      "as_input": [
+        "make_biscuits",
+        "make_bread_dough",
+        "make_chocolate_chip_cookie_dough",
+        "make_chocolate_cookie_dough",
+        "make_oatmeal_cookie_dough",
+        "make_shortbread_cookie_dough",
+        "make_sugar_cookie_dough"
+      ],
+      "as_keep": []
+    },
+    "Base.Fork": {
+      "as_input": [
+        "attach_fork_to_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.Frog": {
+      "as_input": [
+        "slice_frog"
+      ],
+      "as_keep": []
+    },
+    "Base.GardenSaw": {
+      "as_input": [],
+      "as_keep": [
+        "saw_logs2"
+      ]
+    },
+    "Base.Glue": {
+      "as_input": [
+        "make_remote_controller_v1",
+        "make_remote_controller_v2",
+        "make_remote_controller_v3",
+        "make_remote_trigger",
+        "make_timer"
+      ],
+      "as_keep": []
+    },
+    "Base.GravyMix": {
+      "as_input": [
+        "make_gravy"
+      ],
+      "as_keep": []
+    },
+    "Base.GriddlePanFriedVegetables": {
+      "as_input": [
+        "empty_griddle_pan"
+      ],
+      "as_keep": []
+    },
+    "Base.GunPowder": {
+      "as_input": [
+        "make_223_bullets",
+        "make_308_bullets",
+        "make_9mm_bullets",
+        "make_pipe_bomb",
+        "make_shotgun_shells"
+      ],
+      "as_keep": []
+    },
+    "Base.Hairspray": {
+      "as_input": [
+        "make_aerosol_bomb"
+      ],
+      "as_keep": []
+    },
+    "Base.Ham": {
+      "as_input": [
+        "slice_ham"
+      ],
+      "as_keep": []
+    },
+    "Base.HandAxe": {
+      "as_input": [],
+      "as_keep": [
+        "slice_watermelon"
+      ]
+    },
+    "Base.HandFork": {
+      "as_input": [
+        "attach_hand_fork_to_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.HandTorch": {
+      "as_input": [
+        "dismantle_flashlight",
+        "insert_battery_into_flashlight"
+      ],
+      "as_keep": [
+        "remove_battery"
+      ]
+    },
+    "Base.Handle": {
+      "as_input": [
+        "make_axe",
+        "make_shovel",
+        "make_sledgehammer"
+      ],
+      "as_keep": []
+    },
+    "Base.Headphones": {
+      "as_input": [
+        "dismantle_headphones"
+      ],
+      "as_keep": []
+    },
+    "Base.HomeAlarm": {
+      "as_input": [
+        "dismantle_home_alarm"
+      ],
+      "as_keep": []
+    },
+    "Base.HuntingKnife": {
+      "as_input": [
+        "attach_hunting_knife_to_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.IcePick": {
+      "as_input": [
+        "attach_ice_pick_to_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.Icecream": {
+      "as_input": [
+        "scoop_ice_cream"
+      ],
+      "as_keep": []
+    },
+    "Base.IronIngot": {
+      "as_input": [
+        "make_223_bullets",
+        "make_223_bullets_mold",
+        "make_308_bullets",
+        "make_308_bullets_mold",
+        "make_9mm_bullets",
+        "make_9mm_bullets_mold",
+        "make_axe",
+        "make_baking_pan",
+        "make_baking_tray",
+        "make_ball_peen_hammer",
+        "make_butter_knife",
+        "make_cooking_pot",
+        "make_door_knob",
+        "make_fork",
+        "make_hammer",
+        "make_hand_shovel",
+        "make_hinge",
+        "make_hunting_knife",
+        "make_kitchen_knife",
+        "make_letter_opener",
+        "make_metal_bar",
+        "make_metal_drum",
+        "make_metal_pipe",
+        "make_nails",
+        "make_pan",
+        "make_paperclips",
+        "make_roasting_pan",
+        "make_saucepan",
+        "make_saw",
+        "make_scissors",
+        "make_sheet_metal",
+        "make_shotgun_shells",
+        "make_shotgun_shells_mold",
+        "make_shovel",
+        "make_sledgehammer",
+        "make_spoon",
+        "make_suture_needle",
+        "make_suture_needle_holder",
+        "make_tongs",
+        "make_tweezers"
+      ],
+      "as_keep": []
+    },
+    "Base.JarLid": {
+      "as_input": [
+        "make_jar_of_bell_peppers",
+        "make_jar_of_broccoli",
+        "make_jar_of_cabbage",
+        "make_jar_of_carrots",
+        "make_jar_of_eggplants",
+        "make_jar_of_leeks",
+        "make_jar_of_potatoes",
+        "make_jar_of_red_radishes",
+        "make_jar_of_tomatoes"
+      ],
+      "as_keep": []
+    },
+    "Base.KitchenKnife": {
+      "as_input": [
+        "attach_kitchen_knife_to_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.Lard": {
+      "as_input": [
+        "make_pie_dough"
+      ],
+      "as_keep": []
+    },
+    "Base.LeatherStripsDirty": {
+      "as_input": [
+        "clean_leather_strips"
+      ],
+      "as_keep": []
+    },
+    "Base.Leek": {
+      "as_input": [
+        "make_jar_of_leeks"
+      ],
+      "as_keep": []
+    },
+    "Base.LetterOpener": {
+      "as_input": [
+        "attach_letter_opener_to_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.LightBulb": {
+      "as_input": [
+        "craft_makeshift_ham_radio",
+        "craft_makeshift_radio",
+        "craft_makeshift_walkie_talkie"
+      ],
+      "as_keep": []
+    },
+    "Base.LightBulbGreen": {
+      "as_input": [
+        "craft_makeshift_ham_radio",
+        "craft_makeshift_walkie_talkie"
+      ],
+      "as_keep": []
+    },
+    "Base.Log": {
+      "as_input": [
+        "drill_plank",
+        "make_campfire_kit",
+        "make_four_log_stack",
+        "make_three_log_stack",
+        "make_two_log_stack",
+        "saw_logs",
+        "saw_logs2"
+      ],
+      "as_keep": [
+        "smash_watermelon"
+      ]
+    },
+    "Base.LogStacks2": {
+      "as_input": [
+        "unstack_logs"
+      ],
+      "as_keep": []
+    },
+    "Base.LogStacks3": {
+      "as_input": [
+        "unstack_logs"
+      ],
+      "as_keep": []
+    },
+    "Base.LogStacks4": {
+      "as_input": [
+        "unstack_logs"
+      ],
+      "as_keep": []
+    },
+    "Base.Machete": {
+      "as_input": [
+        "attach_machete_to_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.Magazine": {
+      "as_input": [
+        "make_campfire_kit"
+      ],
+      "as_keep": []
+    },
+    "Base.Margarine": {
+      "as_input": [
+        "make_pie_dough"
+      ],
+      "as_keep": []
+    },
+    "Base.MeatCleaver": {
+      "as_input": [],
+      "as_keep": [
+        "butcher_bird",
+        "butcher_rabbit",
+        "butcher_small_animal",
+        "create_spear",
+        "make_fishing_rod",
+        "make_squid_calamari",
+        "make_stake",
+        "slice_baloney",
+        "slice_bread",
+        "slice_cake",
+        "slice_fillet",
+        "slice_frog",
+        "slice_ham",
+        "slice_onion",
+        "slice_pie",
+        "slice_pizza",
+        "slice_salami",
+        "slice_watermelon"
+      ]
+    },
+    "Base.MetalBar": {
+      "as_input": [
+        "make_crowbar",
+        "make_golfclub"
+      ],
+      "as_keep": []
+    },
+    "Base.MetalPipe": {
+      "as_input": [
+        "make_metal_bar",
+        "make_pipe_bomb"
+      ],
+      "as_keep": []
+    },
+    "Base.MincedMeat": {
+      "as_input": [
+        "make_meat_patty"
+      ],
+      "as_keep": []
+    },
+    "Base.MotionSensor": {
+      "as_input": [
+        "add_motion_sensor_v1",
+        "add_motion_sensor_v2",
+        "add_motion_sensor_v3"
+      ],
+      "as_keep": []
+    },
+    "Base.MuffinTray": {
+      "as_input": [
+        "make_biscuits",
+        "prepare_muffins"
+      ],
+      "as_keep": []
+    },
+    "Base.Muffintray_Biscuit": {
+      "as_input": [
+        "clean_tray",
+        "get_6_biscuits"
+      ],
+      "as_keep": []
+    },
+    "Base.Nails": {
+      "as_input": [
+        "build_drawer",
+        "build_spiked_baseball_bat",
+        "build_spiked_plank",
+        "fix_fishing_rod",
+        "make_fishing_rod",
+        "make_trap_box",
+        "make_wooden_box_trap",
+        "place_nails_in_box"
+      ],
+      "as_keep": []
+    },
+    "Base.NailsBox": {
+      "as_input": [
+        "open_box_of_nails"
+      ],
+      "as_keep": []
+    },
+    "Base.Newspaper": {
+      "as_input": [
+        "make_campfire_kit",
+        "make_newspaper_hat",
+        "make_smoke_bomb"
+      ],
+      "as_keep": []
+    },
+    "Base.NoiseTrap": {
+      "as_input": [
+        "add_crafted_trigger",
+        "add_motion_sensor_v1",
+        "add_motion_sensor_v2",
+        "add_motion_sensor_v3",
+        "add_timer"
+      ],
+      "as_keep": []
+    },
+    "Base.OatsRaw": {
+      "as_input": [
+        "make_bowl_of_oatmeal",
+        "make_oatmeal_cookie_dough"
+      ],
+      "as_keep": []
+    },
+    "Base.OmeletteRecipe": {
+      "as_input": [
+        "empty_frying_pan"
+      ],
+      "as_keep": []
+    },
+    "Base.Onion": {
+      "as_input": [
+        "slice_onion"
+      ],
+      "as_keep": []
+    },
+    "Base.OnionRings": {
+      "as_input": [
+        "make_fried_onion_rings"
+      ],
+      "as_keep": []
+    },
+    "Base.OpenBeans": {
+      "as_input": [
+        "make_bowl_of_beans"
+      ],
+      "as_keep": []
+    },
+    "Base.Pan": {
+      "as_input": [
+        "prepare_omelette"
+      ],
+      "as_keep": []
+    },
+    "Base.PanFriedVegetables": {
+      "as_input": [
+        "empty_frying_pan"
+      ],
+      "as_keep": []
+    },
+    "Base.PanFriedVegetables2": {
+      "as_input": [
+        "empty_roasting_pan"
+      ],
+      "as_keep": []
+    },
+    "Base.PancakeMix": {
+      "as_input": [
+        "make_pancake"
+      ],
+      "as_keep": []
+    },
+    "Base.Panfish": {
+      "as_input": [
+        "slice_fillet"
+      ],
+      "as_keep": []
+    },
+    "Base.Paperclip": {
+      "as_input": [
+        "fix_fishing_rod",
+        "make_fishing_rod",
+        "place_paperclips_in_box"
+      ],
+      "as_keep": []
+    },
+    "Base.PaperclipBox": {
+      "as_input": [
+        "open_box_of_paperclip"
+      ],
+      "as_keep": []
+    },
+    "Base.Pasta": {
+      "as_input": [
+        "place_pasta_in_cooking_pot",
+        "place_pasta_in_saucepan"
+      ],
+      "as_keep": []
+    },
+    "Base.PastaPan": {
+      "as_input": [
+        "make_2_bowls_of_pasta",
+        "make_4_bowls_of_pasta"
+      ],
+      "as_keep": []
+    },
+    "Base.PastaPot": {
+      "as_input": [
+        "make_2_bowls_of_pasta",
+        "make_4_bowls_of_pasta"
+      ],
+      "as_keep": []
+    },
+    "Base.Perch": {
+      "as_input": [
+        "slice_fillet"
+      ],
+      "as_keep": []
+    },
+    "Base.PieDough": {
+      "as_input": [
+        "place_pie_in_baking_pan"
+      ],
+      "as_keep": []
+    },
+    "Base.PieWholeRaw": {
+      "as_input": [
+        "slice_pie"
+      ],
+      "as_keep": []
+    },
+    "Base.PieWholeRawSweet": {
+      "as_input": [
+        "slice_pie"
+      ],
+      "as_keep": []
+    },
+    "Base.Pike": {
+      "as_input": [
+        "slice_fillet"
+      ],
+      "as_keep": []
+    },
+    "Base.Pillow": {
+      "as_input": [
+        "make_mattress"
+      ],
+      "as_keep": []
+    },
+    "Base.PipeBomb": {
+      "as_input": [
+        "add_crafted_trigger",
+        "add_motion_sensor_v1",
+        "add_motion_sensor_v2",
+        "add_motion_sensor_v3",
+        "add_timer"
+      ],
+      "as_keep": []
+    },
+    "Base.PizzaRecipe": {
+      "as_input": [
+        "slice_pizza"
+      ],
+      "as_keep": []
+    },
+    "Base.PizzaWhole": {
+      "as_input": [
+        "slice_pizza"
+      ],
+      "as_keep": []
+    },
+    "Base.Plank": {
+      "as_input": [
+        "build_drawer",
+        "build_spiked_plank",
+        "create_spear",
+        "drill_plank",
+        "make_campfire_kit",
+        "make_hunting_knife",
+        "make_kitchen_knife",
+        "make_mortar_and_pestle",
+        "make_saw",
+        "make_snare_trap",
+        "make_splint",
+        "make_sturdy_stick",
+        "make_trap_box",
+        "make_wooden_box_trap"
+      ],
+      "as_keep": [
+        "smash_watermelon"
+      ]
+    },
+    "Base.Plantain": {
+      "as_input": [
+        "make_plantain_poultice"
+      ],
+      "as_keep": []
+    },
+    "Base.PlasterPowder": {
+      "as_input": [
+        "make_bucket_of_plaster"
+      ],
+      "as_keep": []
+    },
+    "Base.Pot": {
+      "as_input": [
+        "make_pot_of_soup"
+      ],
+      "as_keep": []
+    },
+    "Base.PotOfSoup": {
+      "as_input": [
+        "make_2_bowls_of_soup",
+        "make_4_bowls_of_soup"
+      ],
+      "as_keep": []
+    },
+    "Base.PotOfSoupRecipe": {
+      "as_input": [
+        "make_2_bowls_of_soup",
+        "make_4_bowls_of_soup"
+      ],
+      "as_keep": []
+    },
+    "Base.PotOfStew": {
+      "as_input": [
+        "make_2_bowls_of_stew",
+        "make_4_bowls_of_stew"
+      ],
+      "as_keep": []
+    },
+    "Base.PropaneTank": {
+      "as_input": [
+        "refill_blow_torch"
+      ],
+      "as_keep": []
+    },
+    "Base.Pumpkin": {
+      "as_input": [
+        "make_halloween_pumpkin"
+      ],
+      "as_keep": []
+    },
+    "Base.Receiver": {
+      "as_input": [
+        "make_remote_trigger"
+      ],
+      "as_keep": []
+    },
+    "Base.Remote": {
+      "as_input": [
+        "dismantle_tv_remote",
+        "make_remote_controller_v1",
+        "make_remote_controller_v2",
+        "make_remote_controller_v3"
+      ],
+      "as_keep": []
+    },
+    "Base.Rice": {
+      "as_input": [
+        "place_rice_in_cooking_pot",
+        "place_rice_in_saucepan"
+      ],
+      "as_keep": []
+    },
+    "Base.RicePan": {
+      "as_input": [
+        "make_2_bowls_of_rice",
+        "make_4_bowls_of_rice"
+      ],
+      "as_keep": []
+    },
+    "Base.RicePot": {
+      "as_input": [
+        "make_2_bowls_of_rice",
+        "make_4_bowls_of_rice"
+      ],
+      "as_keep": []
+    },
+    "Base.RippedSheets": {
+      "as_input": [
+        "disinfect_rag",
+        "make_campfire_kit",
+        "make_flame_bomb",
+        "make_molotov_cocktail",
+        "make_smoke_bomb",
+        "make_splint",
+        "make_stone_axe",
+        "make_stone_hammer",
+        "make_stone_knife"
+      ],
+      "as_keep": []
+    },
+    "Base.RippedSheetsDirty": {
+      "as_input": [
+        "clean_rag",
+        "make_campfire_kit",
+        "make_flame_bomb",
+        "make_molotov_cocktail",
+        "make_smoke_bomb",
+        "make_splint",
+        "make_stone_axe",
+        "make_stone_hammer",
+        "make_stone_knife"
+      ],
+      "as_keep": []
+    },
+    "Base.RollingPin": {
+      "as_input": [],
+      "as_keep": [
+        "make_bread_dough",
+        "make_chocolate_chip_cookie_dough",
+        "make_chocolate_cookie_dough",
+        "make_oatmeal_cookie_dough",
+        "make_pizza",
+        "make_shortbread_cookie_dough",
+        "make_sugar_cookie_dough",
+        "place_pie_in_baking_pan"
+      ]
+    },
+    "Base.Rubberducky2": {
+      "as_input": [
+        "insert_battery_into_duck"
+      ],
+      "as_keep": [
+        "remove_battery"
+      ]
+    },
+    "Base.SackProduce_Apple": {
+      "as_input": [
+        "open_sack_of_apples"
+      ],
+      "as_keep": []
+    },
+    "Base.SackProduce_BellPepper": {
+      "as_input": [
+        "open_sack_of_bell_peppers"
+      ],
+      "as_keep": []
+    },
+    "Base.SackProduce_Broccoli": {
+      "as_input": [
+        "open_sack_of_broccoli"
+      ],
+      "as_keep": []
+    },
+    "Base.SackProduce_Cabbage": {
+      "as_input": [
+        "open_sack_of_cabbages"
+      ],
+      "as_keep": []
+    },
+    "Base.SackProduce_Carrot": {
+      "as_input": [
+        "open_sack_of_carrots"
+      ],
+      "as_keep": []
+    },
+    "Base.SackProduce_Cherry": {
+      "as_input": [
+        "open_sack_of_cherries"
+      ],
+      "as_keep": []
+    },
+    "Base.SackProduce_Corn": {
+      "as_input": [
+        "open_sack_of_corn"
+      ],
+      "as_keep": []
+    },
+    "Base.SackProduce_Eggplant": {
+      "as_input": [
+        "open_sack_of_eggplants"
+      ],
+      "as_keep": []
+    },
+    "Base.SackProduce_Grapes": {
+      "as_input": [
+        "open_sack_of_grapes"
+      ],
+      "as_keep": []
+    },
+    "Base.SackProduce_Leek": {
+      "as_input": [
+        "open_sack_of_leeks"
+      ],
+      "as_keep": []
+    },
+    "Base.SackProduce_Lettuce": {
+      "as_input": [
+        "open_sack_of_lettuce"
+      ],
+      "as_keep": []
+    },
+    "Base.SackProduce_Onion": {
+      "as_input": [
+        "open_sack_of_onions"
+      ],
+      "as_keep": []
+    },
+    "Base.SackProduce_Peach": {
+      "as_input": [
+        "open_sack_of_peaches"
+      ],
+      "as_keep": []
+    },
+    "Base.SackProduce_Pear": {
+      "as_input": [
+        "open_sack_of_pears"
+      ],
+      "as_keep": []
+    },
+    "Base.SackProduce_Potato": {
+      "as_input": [
+        "open_sack_of_potatoes"
+      ],
+      "as_keep": []
+    },
+    "Base.SackProduce_RedRadish": {
+      "as_input": [
+        "open_sack_of_radishes"
+      ],
+      "as_keep": []
+    },
+    "Base.SackProduce_Strawberry": {
+      "as_input": [
+        "open_sack_of_strawberries"
+      ],
+      "as_keep": []
+    },
+    "Base.SackProduce_Tomato": {
+      "as_input": [
+        "open_sack_of_tomatoes"
+      ],
+      "as_keep": []
+    },
+    "Base.Salami": {
+      "as_input": [
+        "slice_salami"
+      ],
+      "as_keep": []
+    },
+    "Base.Salt": {
+      "as_input": [
+        "make_biscuits",
+        "make_bread_dough",
+        "make_pie_dough",
+        "make_pizza"
+      ],
+      "as_keep": []
+    },
+    "Base.Saw": {
+      "as_input": [],
+      "as_keep": [
+        "saw_off_double_barrel_shotgun",
+        "saw_off_shotgun"
+      ]
+    },
+    "Base.Scalpel": {
+      "as_input": [
+        "attach_scalpel_to_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.Scissors": {
+      "as_input": [
+        "attach_scissors_to_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.Screwdriver": {
+      "as_input": [
+        "attach_screwdriver_to_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.Screws": {
+      "as_input": [
+        "place_screws_in_box"
+      ],
+      "as_keep": []
+    },
+    "Base.ScrewsBox": {
+      "as_input": [
+        "open_box_of_screws"
+      ],
+      "as_keep": []
+    },
+    "Base.Seaweed": {
+      "as_input": [
+        "make_maki",
+        "make_onigiri"
+      ],
+      "as_keep": []
+    },
+    "Base.SharpedStone": {
+      "as_input": [
+        "make_stone_axe",
+        "make_stone_knife"
+      ],
+      "as_keep": [
+        "create_spear",
+        "drill_plank"
+      ]
+    },
+    "Base.Sheet": {
+      "as_input": [
+        "make_campfire_kit",
+        "make_mattress"
+      ],
+      "as_keep": []
+    },
+    "Base.SheetMetal": {
+      "as_input": [
+        "make_small_metal_sheet"
+      ],
+      "as_keep": []
+    },
+    "Base.Shotgun": {
+      "as_input": [
+        "saw_off_shotgun"
+      ],
+      "as_keep": []
+    },
+    "Base.ShotgunShells": {
+      "as_input": [
+        "gather_gunpowder",
+        "place_shotgun_shells_in_box"
+      ],
+      "as_keep": []
+    },
+    "Base.ShotgunShellsBox": {
+      "as_input": [
+        "open_box_of_shotgun_shells"
+      ],
+      "as_keep": []
+    },
+    "Base.ShotgunShellsMold": {
+      "as_input": [],
+      "as_keep": [
+        "make_shotgun_shells"
+      ]
+    },
+    "Base.Shrimp": {
+      "as_input": [
+        "make_fried_shrimp"
+      ],
+      "as_keep": []
+    },
+    "Base.SmallSheetMetal": {
+      "as_input": [
+        "make_metal_sheet"
+      ],
+      "as_keep": []
+    },
+    "Base.SmokeBomb": {
+      "as_input": [
+        "add_crafted_trigger",
+        "add_motion_sensor_v1",
+        "add_motion_sensor_v2",
+        "add_motion_sensor_v3",
+        "add_timer"
+      ],
+      "as_keep": []
+    },
+    "Base.Sparklers": {
+      "as_input": [
+        "make_aerosol_bomb"
+      ],
+      "as_keep": []
+    },
+    "Base.Spatula": {
+      "as_input": [],
+      "as_keep": [
+        "make_biscuits",
+        "make_bread_dough",
+        "make_cake_batter",
+        "make_chocolate_chip_cookie_dough",
+        "make_chocolate_cookie_dough",
+        "make_gravy",
+        "make_oatmeal_cookie_dough",
+        "make_pancake",
+        "make_pie_dough",
+        "make_pizza",
+        "make_shortbread_cookie_dough",
+        "make_sugar_cookie_dough",
+        "prepare_muffins",
+        "prepare_omelette"
+      ]
+    },
+    "Base.Speaker": {
+      "as_input": [
+        "dismantle_speaker"
+      ],
+      "as_keep": []
+    },
+    "Base.SpearBreadKnife": {
+      "as_input": [
+        "reclaim_bread_knife_from_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.SpearButterKnife": {
+      "as_input": [
+        "reclaim_butter_knife_from_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.SpearCrafted": {
+      "as_input": [
+        "attach_bread_knife_to_spear",
+        "attach_butter_knife_to_spear",
+        "attach_fork_to_spear",
+        "attach_hand_fork_to_spear",
+        "attach_hunting_knife_to_spear",
+        "attach_ice_pick_to_spear",
+        "attach_kitchen_knife_to_spear",
+        "attach_letter_opener_to_spear",
+        "attach_machete_to_spear",
+        "attach_scalpel_to_spear",
+        "attach_scissors_to_spear",
+        "attach_screwdriver_to_spear",
+        "attach_spoon_to_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.SpearFork": {
+      "as_input": [
+        "reclaim_fork_from_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.SpearHandFork": {
+      "as_input": [
+        "reclaim_hand_fork_from_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.SpearHuntingKnife": {
+      "as_input": [
+        "reclaim_hunting_knife_from_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.SpearIcePick": {
+      "as_input": [
+        "reclaim_ice_pick_from_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.SpearKnife": {
+      "as_input": [
+        "reclaim_kitchen_knife_from_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.SpearLetterOpener": {
+      "as_input": [
+        "reclaim_letter_opener_from_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.SpearMachete": {
+      "as_input": [
+        "reclaim_machete_from_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.SpearScalpel": {
+      "as_input": [
+        "reclaim_scalpel_from_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.SpearScissors": {
+      "as_input": [
+        "reclaim_scissors_from_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.SpearScrewdriver": {
+      "as_input": [
+        "reclaim_screwdriver_from_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.SpearSpoon": {
+      "as_input": [
+        "reclaim_spoon_from_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.Spoon": {
+      "as_input": [
+        "attach_spoon_to_spear"
+      ],
+      "as_keep": []
+    },
+    "Base.Squid": {
+      "as_input": [
+        "make_squid_calamari"
+      ],
+      "as_keep": []
+    },
+    "Base.Stake": {
+      "as_input": [
+        "make_tent_kit"
+      ],
+      "as_keep": []
+    },
+    "Base.Stone": {
+      "as_input": [
+        "make_stone_hammer"
+      ],
+      "as_keep": []
+    },
+    "Base.Tarp": {
+      "as_input": [
+        "make_tent_kit"
+      ],
+      "as_keep": []
+    },
+    "Base.Thread": {
+      "as_input": [
+        "make_mattress"
+      ],
+      "as_keep": []
+    },
+    "Base.Timer": {
+      "as_input": [
+        "make_timer"
+      ],
+      "as_keep": []
+    },
+    "Base.TimerCrafted": {
+      "as_input": [
+        "add_timer"
+      ],
+      "as_keep": []
+    },
+    "Base.TinnedBeans": {
+      "as_input": [
+        "make_bowl_of_beans",
+        "open_canned_beans"
+      ],
+      "as_keep": []
+    },
+    "Base.TinnedSoup": {
+      "as_input": [
+        "make_pot_of_soup",
+        "open_canned_soup"
+      ],
+      "as_keep": []
+    },
+    "Base.TinnedSoupOpen": {
+      "as_input": [
+        "make_pot_of_soup"
+      ],
+      "as_keep": []
+    },
+    "Base.Tongs": {
+      "as_input": [],
+      "as_keep": [
+        "make_223_bullets",
+        "make_223_bullets_mold",
+        "make_308_bullets",
+        "make_308_bullets_mold",
+        "make_9mm_bullets",
+        "make_9mm_bullets_mold",
+        "make_axe",
+        "make_baking_pan",
+        "make_baking_tray",
+        "make_butter_knife",
+        "make_cooking_pot",
+        "make_crowbar",
+        "make_door_knob",
+        "make_golfclub",
+        "make_hand_shovel",
+        "make_hinge",
+        "make_hunting_knife",
+        "make_kitchen_knife",
+        "make_letter_opener",
+        "make_metal_drum",
+        "make_pan",
+        "make_roasting_pan",
+        "make_saucepan",
+        "make_saw",
+        "make_scissors",
+        "make_sheet_metal",
+        "make_shotgun_shells",
+        "make_shotgun_shells_mold",
+        "make_shovel",
+        "make_sledgehammer",
+        "make_suture_needle",
+        "make_suture_needle_holder",
+        "make_tweezers"
+      ]
+    },
+    "Base.Torch": {
+      "as_input": [
+        "dismantle_flashlight",
+        "insert_battery_into_flashlight"
+      ],
+      "as_keep": [
+        "remove_battery"
+      ]
+    },
+    "Base.TreeBranch": {
+      "as_input": [
+        "create_spear",
+        "make_splint",
+        "make_stake",
+        "make_stone_axe",
+        "make_stone_hammer",
+        "make_stone_knife"
+      ],
+      "as_keep": []
+    },
+    "Base.TriggerCrafted": {
+      "as_input": [
+        "add_crafted_trigger"
+      ],
+      "as_keep": []
+    },
+    "Base.Trout": {
+      "as_input": [
+        "slice_fillet"
+      ],
+      "as_keep": []
+    },
+    "Base.TunaTin": {
+      "as_input": [
+        "open_canned_tuna"
+      ],
+      "as_keep": []
+    },
+    "Base.Twigs": {
+      "as_input": [
+        "make_campfire_kit"
+      ],
+      "as_keep": []
+    },
+    "Base.Twine": {
+      "as_input": [
+        "fix_fishing_rod",
+        "make_fishing_net",
+        "make_fishing_rod",
+        "make_pipe_bomb",
+        "make_snare_trap",
+        "make_stick_trap",
+        "make_stone_axe",
+        "make_stone_hammer",
+        "make_stone_knife"
+      ],
+      "as_keep": []
+    },
+    "Base.UmbrellaBlack": {
+      "as_input": [
+        "close_umbrella"
+      ],
+      "as_keep": []
+    },
+    "Base.UmbrellaBlue": {
+      "as_input": [
+        "close_umbrella"
+      ],
+      "as_keep": []
+    },
+    "Base.UmbrellaRed": {
+      "as_input": [
+        "close_umbrella"
+      ],
+      "as_keep": []
+    },
+    "Base.UmbrellaWhite": {
+      "as_input": [
+        "close_umbrella"
+      ],
+      "as_keep": []
+    },
+    "Base.VideoGame": {
+      "as_input": [
+        "dismantle_video_game"
+      ],
+      "as_keep": []
+    },
+    "Base.Vinegar": {
+      "as_input": [
+        "make_jar_of_bell_peppers",
+        "make_jar_of_broccoli",
+        "make_jar_of_cabbage",
+        "make_jar_of_carrots",
+        "make_jar_of_eggplants",
+        "make_jar_of_leeks",
+        "make_jar_of_potatoes",
+        "make_jar_of_red_radishes",
+        "make_jar_of_tomatoes"
+      ],
+      "as_keep": []
+    },
+    "Base.WaterBottleEmpty": {
+      "as_input": [
+        "make_flame_bomb"
+      ],
+      "as_keep": []
+    },
+    "Base.WaterPot": {
+      "as_input": [
+        "disinfect_bandage",
+        "disinfect_rag",
+        "place_pasta_in_cooking_pot",
+        "place_rice_in_cooking_pot"
+      ],
+      "as_keep": []
+    },
+    "Base.WaterPotPasta": {
+      "as_input": [
+        "make_2_bowls_of_pasta",
+        "make_4_bowls_of_pasta"
+      ],
+      "as_keep": []
+    },
+    "Base.WaterPotRice": {
+      "as_input": [
+        "make_2_bowls_of_rice",
+        "make_4_bowls_of_rice"
+      ],
+      "as_keep": []
+    },
+    "Base.WaterSaucepan": {
+      "as_input": [
+        "disinfect_bandage",
+        "disinfect_rag",
+        "place_pasta_in_saucepan",
+        "place_rice_in_saucepan"
+      ],
+      "as_keep": []
+    },
+    "Base.WaterSaucepanPasta": {
+      "as_input": [
+        "make_2_bowls_of_pasta",
+        "make_4_bowls_of_pasta"
+      ],
+      "as_keep": []
+    },
+    "Base.WaterSaucepanRice": {
+      "as_input": [
+        "make_2_bowls_of_rice",
+        "make_4_bowls_of_rice"
+      ],
+      "as_keep": []
+    },
+    "Base.Watermelon": {
+      "as_input": [
+        "slice_watermelon",
+        "smash_watermelon"
+      ],
+      "as_keep": []
+    },
+    "Base.WhiskeyEmpty": {
+      "as_input": [
+        "hockeymasksmashbottle",
+        "make_molotov_cocktail",
+        "smash_bottle"
+      ],
+      "as_keep": []
+    },
+    "Base.WhiskeyPetrol": {
+      "as_input": [
+        "make_molotov_cocktail"
+      ],
+      "as_keep": []
+    },
+    "Base.WildGarlic": {
+      "as_input": [
+        "make_wild_garlic_poultice"
+      ],
+      "as_keep": []
+    },
+    "Base.WildGarlic2": {
+      "as_input": [
+        "make_wild_garlic_poultice"
+      ],
+      "as_keep": []
+    },
+    "Base.WineEmpty": {
+      "as_input": [
+        "hockeymasksmashbottle",
+        "make_molotov_cocktail",
+        "smash_bottle"
+      ],
+      "as_keep": []
+    },
+    "Base.WineEmpty2": {
+      "as_input": [
+        "hockeymasksmashbottle",
+        "make_molotov_cocktail",
+        "smash_bottle"
+      ],
+      "as_keep": []
+    },
+    "Base.WinePetrol": {
+      "as_input": [
+        "make_molotov_cocktail"
+      ],
+      "as_keep": []
+    },
+    "Base.Wire": {
+      "as_input": [
+        "make_cage_trap",
+        "make_fishing_net"
+      ],
+      "as_keep": []
+    },
+    "Base.WoodAxe": {
+      "as_input": [],
+      "as_keep": [
+        "slice_watermelon"
+      ]
+    },
+    "Base.WoodenStick": {
+      "as_input": [
+        "make_fishing_rod",
+        "make_splint",
+        "make_stick_trap",
+        "make_tent_kit"
+      ],
+      "as_keep": []
+    },
+    "Base.Yeast": {
+      "as_input": [
+        "make_bread_dough",
+        "make_cake_batter",
+        "make_pizza"
+      ],
+      "as_keep": []
+    },
+    "Radio.CDplayer": {
+      "as_input": [
+        "dismantle_cd_player"
+      ],
+      "as_keep": []
+    },
+    "Radio.ElectricWire": {
+      "as_input": [
+        "craft_makeshift_ham_radio",
+        "craft_makeshift_radio",
+        "craft_makeshift_walkie_talkie"
+      ],
+      "as_keep": []
+    },
+    "Radio.HamRadio1": {
+      "as_input": [
+        "dismantle_ham_radio"
+      ],
+      "as_keep": []
+    },
+    "Radio.HamRadio2": {
+      "as_input": [
+        "dismantle_ham_radio"
+      ],
+      "as_keep": []
+    },
+    "Radio.RadioBlack": {
+      "as_input": [
+        "dismantle_radio"
+      ],
+      "as_keep": []
+    },
+    "Radio.RadioReceiver": {
+      "as_input": [
+        "craft_makeshift_ham_radio",
+        "craft_makeshift_radio",
+        "craft_makeshift_walkie_talkie",
+        "make_remote_trigger"
+      ],
+      "as_keep": []
+    },
+    "Radio.RadioRed": {
+      "as_input": [
+        "dismantle_radio"
+      ],
+      "as_keep": []
+    },
+    "Radio.RadioTransmitter": {
+      "as_input": [
+        "craft_makeshift_ham_radio",
+        "craft_makeshift_walkie_talkie"
+      ],
+      "as_keep": []
+    },
+    "Radio.TvAntique": {
+      "as_input": [
+        "dismantle_television"
+      ],
+      "as_keep": []
+    },
+    "Radio.TvBlack": {
+      "as_input": [
+        "dismantle_television"
+      ],
+      "as_keep": []
+    },
+    "Radio.TvWideScreen": {
+      "as_input": [
+        "dismantle_television"
+      ],
+      "as_keep": []
+    },
+    "Radio.WalkieTalkie1": {
+      "as_input": [
+        "dismantle_two_way_radio"
+      ],
+      "as_keep": []
+    },
+    "Radio.WalkieTalkie2": {
+      "as_input": [
+        "dismantle_two_way_radio"
+      ],
+      "as_keep": []
+    },
+    "Radio.WalkieTalkie3": {
+      "as_input": [
+        "dismantle_two_way_radio"
+      ],
+      "as_keep": []
+    },
+    "Radio.WalkieTalkie4": {
+      "as_input": [
+        "dismantle_two_way_radio"
+      ],
+      "as_keep": []
+    },
+    "Radio.WalkieTalkie5": {
+      "as_input": [
+        "dismantle_two_way_radio"
+      ],
+      "as_keep": []
+    },
+    "camping.TentPeg": {
+      "as_input": [
+        "make_tent_kit"
+      ],
+      "as_keep": []
+    },
+    "farming.Bacon": {
+      "as_input": [
+        "get_bacon_rashers"
+      ],
+      "as_keep": []
+    },
+    "farming.BaconRashers": {
+      "as_input": [
+        "get_bacon_bits"
+      ],
+      "as_keep": []
+    },
+    "farming.BroccoliBagSeed": {
+      "as_input": [
+        "open_packet_of_broccoli_seeds"
+      ],
+      "as_keep": []
+    },
+    "farming.BroccoliSeed": {
+      "as_input": [
+        "put_broccoli_seeds_in_packet"
+      ],
+      "as_keep": []
+    },
+    "farming.Cabbage": {
+      "as_input": [
+        "make_jar_of_cabbage"
+      ],
+      "as_keep": []
+    },
+    "farming.CabbageBagSeed": {
+      "as_input": [
+        "open_packet_of_cabbage_seeds"
+      ],
+      "as_keep": []
+    },
+    "farming.CabbageSeed": {
+      "as_input": [
+        "put_cabbage_seeds_in_packet"
+      ],
+      "as_keep": []
+    },
+    "farming.CarrotBagSeed": {
+      "as_input": [
+        "open_packet_of_carrot_seeds"
+      ],
+      "as_keep": []
+    },
+    "farming.CarrotSeed": {
+      "as_input": [
+        "put_carrots_seeds_in_packet"
+      ],
+      "as_keep": []
+    },
+    "farming.GardeningSprayEmpty": {
+      "as_input": [
+        "make_flies_cure",
+        "make_mildew_cure"
+      ],
+      "as_keep": []
+    },
+    "farming.Potato": {
+      "as_input": [
+        "make_jar_of_potatoes"
+      ],
+      "as_keep": []
+    },
+    "farming.PotatoBagSeed": {
+      "as_input": [
+        "open_packet_of_potato_seeds"
+      ],
+      "as_keep": []
+    },
+    "farming.PotatoSeed": {
+      "as_input": [
+        "put_potato_seeds_in_packet"
+      ],
+      "as_keep": []
+    },
+    "farming.RedRadish": {
+      "as_input": [
+        "make_jar_of_red_radishes"
+      ],
+      "as_keep": []
+    },
+    "farming.RedRadishBagSeed": {
+      "as_input": [
+        "open_packet_of_radish_seeds"
+      ],
+      "as_keep": []
+    },
+    "farming.RedRadishSeed": {
+      "as_input": [
+        "put_radish_seeds_in_packet"
+      ],
+      "as_keep": []
+    },
+    "farming.StrewberrieBagSeed": {
+      "as_input": [
+        "open_packet_of_strawberries_seeds"
+      ],
+      "as_keep": []
+    },
+    "farming.StrewberrieSeed": {
+      "as_input": [
+        "put_strawberry_seeds_in_packet"
+      ],
+      "as_keep": []
+    },
+    "farming.Tomato": {
+      "as_input": [
+        "make_jar_of_tomatoes"
+      ],
+      "as_keep": []
+    },
+    "farming.TomatoBagSeed": {
+      "as_input": [
+        "open_packet_of_tomato_seeds"
+      ],
+      "as_keep": []
+    },
+    "farming.TomatoSeed": {
+      "as_input": [
+        "put_tomato_seeds_in_packet"
+      ],
+      "as_keep": []
+    }
+  }
+}

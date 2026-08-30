@@ -1,0 +1,413 @@
+{
+    "schema_version":  "iris_repository_runtime_lightweighting_command_receipt_v1",
+    "command_id":  "ignored-empty-directory",
+    "command_receipt":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_checkout_unchanged_detect1/external/receipts/ignored-empty-directory.json",
+    "terminal_status":  "fail",
+    "disposition":  "executed",
+    "failure":  {
+                    "kind":  "output_assertion_failed",
+                    "native_exit_code":  0,
+                    "assertion_status":  "fail"
+                },
+    "claim_id":  "fixture-claim",
+    "command_spec":  {
+                         "path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_checkout_unchanged_detect1/external/specs/ignored-empty-directory.json",
+                         "sha256":  "0616286a92f18d875147174d0a9546083c1502ee47ef7d968173cbdebfd2dd19"
+                     },
+    "executable":  "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-bd1ba41f/environment/Scripts/python.exe",
+    "decoded_argv":  [
+                         "-B",
+                         "-c",
+                         "from pathlib import Path; Path(\u0027\\\\\\\\?\\\\C:\\\\Users\\\\MW\\\\Downloads\\\\coding\\\\PZ\\\\g\\\\system-temp\\\\pytest-of-MW\\\\pytest-0\\\\test_checkout_unchanged_detect1\\\\checkout\\\\long-path-fixture\\\\segment-0-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\\\segment-1-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\\\segment-2-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\\\segment-3-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\\\ignored-empty-directory\u0027).mkdir()"
+                     ],
+    "actual_argv":  [
+                        "C:\\Users\\MW\\Downloads\\coding\\PZ\\.tmp\\tooltip-t1-d6-bd1ba41f\\environment\\Scripts\\python.exe",
+                        "-B",
+                        "-c",
+                        "from pathlib import Path; Path(\u0027\\\\\\\\?\\\\C:\\\\Users\\\\MW\\\\Downloads\\\\coding\\\\PZ\\\\g\\\\system-temp\\\\pytest-of-MW\\\\pytest-0\\\\test_checkout_unchanged_detect1\\\\checkout\\\\long-path-fixture\\\\segment-0-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\\\segment-1-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\\\segment-2-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\\\segment-3-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\\\\ignored-empty-directory\u0027).mkdir()"
+                    ],
+    "working_directory":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_checkout_unchanged_detect1/checkout",
+    "started_at":  "2026-08-29T12:42:01.8904153+00:00",
+    "ended_at":  "2026-08-29T12:42:03.4292955+00:00",
+    "native_exit_code":  0,
+    "semantic_exit_code":  3,
+    "stdout":  {
+                   "path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_checkout_unchanged_detect1/external/receipts/ignored-empty-directory.stdout.bin",
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "stderr":  {
+                   "path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_checkout_unchanged_detect1/external/receipts/ignored-empty-directory.stderr.bin",
+                   "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+               },
+    "subject_receipt":  {
+                            "path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_checkout_unchanged_detect1/external/subject.json",
+                            "sha256":  "10f86d8828dc99bdbe52d1ad20ee89515fe50c7a32de287fb9f8a1df54a977e3",
+                            "subject_kind":  "bootstrap_validation_subject",
+                            "claim_id":  "fixture-claim",
+                            "repository_root":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_checkout_unchanged_detect1/checkout",
+                            "commit":  "e23cbc257a3dbe0561f7c7a2e41eef297623603e",
+                            "tree":  "cd42668070cce3010cdb7244dcb841aafd2dba01",
+                            "execution_commit":  "e23cbc257a3dbe0561f7c7a2e41eef297623603e",
+                            "execution_tree":  "cd42668070cce3010cdb7244dcb841aafd2dba01",
+                            "working_tree_status_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                        },
+    "environment_receipt":  {
+                                "path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_checkout_unchanged_detect1/external/environment.json",
+                                "sha256":  "80e690015dc5c7efc422f18a2b79f8ccefebc3de69987f560f6f3e51ebec4b7a",
+                                "interpreter_path":  "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-bd1ba41f/environment/Scripts/python.exe",
+                                "interpreter_sha256":  "97c3228a59dcc05a771ab4eeec8126ce3f36ebb53616b479adc9f2c8050a9e84"
+                            },
+    "environment_delta":  {
+                              "path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_checkout_unchanged_detect1/external/delta.json",
+                              "sha256":  "9c4b78f11a72748b4619a18cd4e77ecf95c28853f1673a151c7d812e660d82cb"
+                          },
+    "environment_authority":  {
+                                  "path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_checkout_unchanged_detect1/checkout/Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json",
+                                  "sha256":  "3dda8a1a95364ca33f9c954272edf704bec0e4effe3ef79e6df49012380d5758"
+                              },
+    "successor_policy":  {
+                             "path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_checkout_unchanged_detect1/checkout/Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json",
+                             "sha256":  "6189d748545bda4ca9aa0bb61f465cb54f96d9b0274afb2c85ebd9a408fc3aca"
+                         },
+    "implementation_identity":  {
+                                    "wrapper":  {
+                                                    "logical_path":  "Iris/validation/clean_checkout/invoke_repository_runtime_lightweighting_command.ps1",
+                                                    "actual_path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_checkout_unchanged_detect1/checkout/Iris/validation/clean_checkout/invoke_repository_runtime_lightweighting_command.ps1",
+                                                    "execution_commit":  "e23cbc257a3dbe0561f7c7a2e41eef297623603e",
+                                                    "git_blob_id":  "194963b7e310e22bac174c468c2819c172ac98f6",
+                                                    "working_sha256":  "fcf79ac75a1732324c25860ca11d64e2b9d455e72a5b7ed759490503e314d51a"
+                                                },
+                                    "successor_policy":  {
+                                                             "logical_path":  "Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json",
+                                                             "actual_path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_checkout_unchanged_detect1/checkout/Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json",
+                                                             "execution_commit":  "e23cbc257a3dbe0561f7c7a2e41eef297623603e",
+                                                             "git_blob_id":  "24d1d128df0578cf7b9a6575a3a808c62edd21b2",
+                                                             "working_sha256":  "6189d748545bda4ca9aa0bb61f465cb54f96d9b0274afb2c85ebd9a408fc3aca"
+                                                         },
+                                    "environment_authority":  {
+                                                                  "logical_path":  "Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json",
+                                                                  "actual_path":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_checkout_unchanged_detect1/checkout/Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json",
+                                                                  "execution_commit":  "e23cbc257a3dbe0561f7c7a2e41eef297623603e",
+                                                                  "git_blob_id":  "5a35e56e71038e0a9ad5007ffc42226a36363df3",
+                                                                  "working_sha256":  "3dda8a1a95364ca33f9c954272edf704bec0e4effe3ef79e6df49012380d5758"
+                                                              }
+                                },
+    "invoked_repository_files":  [
+
+                                 ],
+    "environment":  {
+                        "before":  {
+                                       "GIT_OPTIONAL_LOCKS":  {
+                                                                  "state":  "value",
+                                                                  "value":  "0"
+                                                              },
+                                       "PIP_NO_INDEX":  {
+                                                            "state":  "value",
+                                                            "value":  "1"
+                                                        },
+                                       "PYTEST_ADDOPTS":  {
+                                                              "state":  "absent",
+                                                              "value":  null
+                                                          },
+                                       "PYTHONDONTWRITEBYTECODE":  {
+                                                                       "state":  "value",
+                                                                       "value":  "1"
+                                                                   },
+                                       "PYTHONHASHSEED":  {
+                                                              "state":  "value",
+                                                              "value":  "0"
+                                                          },
+                                       "PYTHONHOME":  {
+                                                          "state":  "absent",
+                                                          "value":  null
+                                                      },
+                                       "PYTHONNOUSERSITE":  {
+                                                                "state":  "value",
+                                                                "value":  "1"
+                                                            },
+                                       "PYTHONPATH":  {
+                                                          "state":  "absent",
+                                                          "value":  null
+                                                      }
+                                   },
+                        "after_restore":  {
+                                              "GIT_OPTIONAL_LOCKS":  {
+                                                                         "state":  "value",
+                                                                         "value":  "0"
+                                                                     },
+                                              "PIP_NO_INDEX":  {
+                                                                   "state":  "value",
+                                                                   "value":  "1"
+                                                               },
+                                              "PYTEST_ADDOPTS":  {
+                                                                     "state":  "absent",
+                                                                     "value":  null
+                                                                 },
+                                              "PYTHONDONTWRITEBYTECODE":  {
+                                                                              "state":  "value",
+                                                                              "value":  "1"
+                                                                          },
+                                              "PYTHONHASHSEED":  {
+                                                                     "state":  "value",
+                                                                     "value":  "0"
+                                                                 },
+                                              "PYTHONHOME":  {
+                                                                 "state":  "absent",
+                                                                 "value":  null
+                                                             },
+                                              "PYTHONNOUSERSITE":  {
+                                                                       "state":  "value",
+                                                                       "value":  "1"
+                                                                   },
+                                              "PYTHONPATH":  {
+                                                                 "state":  "absent",
+                                                                 "value":  null
+                                                             }
+                                          },
+                        "restored":  true
+                    },
+    "output_assertion":  {
+                             "kind":  "checkout_unchanged",
+                             "status":  "fail",
+                             "delta":  {
+                                           "changed_count":  6,
+                                           "tracked_delta_count":  0,
+                                           "untracked_delta_count":  0,
+                                           "ignored_delta_count":  6,
+                                           "filesystem_only_delta_count":  0,
+                                           "unreadable_count":  0,
+                                           "rows":  [
+                                                        {
+                                                            "path":  "long-path-fixture",
+                                                            "change":  "changed",
+                                                            "vcs_state":  "ignored",
+                                                            "before":  {
+                                                                           "entry_kind":  "directory",
+                                                                           "size_bytes":  0,
+                                                                           "sha256":  null,
+                                                                           "vcs_state":  "filesystem_only"
+                                                                       },
+                                                            "after":  {
+                                                                          "entry_kind":  "directory",
+                                                                          "size_bytes":  0,
+                                                                          "sha256":  null,
+                                                                          "vcs_state":  "ignored"
+                                                                      }
+                                                        },
+                                                        {
+                                                            "path":  "long-path-fixture/segment-0-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                                                            "change":  "changed",
+                                                            "vcs_state":  "ignored",
+                                                            "before":  {
+                                                                           "entry_kind":  "directory",
+                                                                           "size_bytes":  0,
+                                                                           "sha256":  null,
+                                                                           "vcs_state":  "filesystem_only"
+                                                                       },
+                                                            "after":  {
+                                                                          "entry_kind":  "directory",
+                                                                          "size_bytes":  0,
+                                                                          "sha256":  null,
+                                                                          "vcs_state":  "ignored"
+                                                                      }
+                                                        },
+                                                        {
+                                                            "path":  "long-path-fixture/segment-0-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/segment-1-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                                                            "change":  "changed",
+                                                            "vcs_state":  "ignored",
+                                                            "before":  {
+                                                                           "entry_kind":  "directory",
+                                                                           "size_bytes":  0,
+                                                                           "sha256":  null,
+                                                                           "vcs_state":  "filesystem_only"
+                                                                       },
+                                                            "after":  {
+                                                                          "entry_kind":  "directory",
+                                                                          "size_bytes":  0,
+                                                                          "sha256":  null,
+                                                                          "vcs_state":  "ignored"
+                                                                      }
+                                                        },
+                                                        {
+                                                            "path":  "long-path-fixture/segment-0-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/segment-1-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/segment-2-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                                                            "change":  "changed",
+                                                            "vcs_state":  "ignored",
+                                                            "before":  {
+                                                                           "entry_kind":  "directory",
+                                                                           "size_bytes":  0,
+                                                                           "sha256":  null,
+                                                                           "vcs_state":  "filesystem_only"
+                                                                       },
+                                                            "after":  {
+                                                                          "entry_kind":  "directory",
+                                                                          "size_bytes":  0,
+                                                                          "sha256":  null,
+                                                                          "vcs_state":  "ignored"
+                                                                      }
+                                                        },
+                                                        {
+                                                            "path":  "long-path-fixture/segment-0-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/segment-1-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/segment-2-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/segment-3-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                                                            "change":  "changed",
+                                                            "vcs_state":  "ignored",
+                                                            "before":  {
+                                                                           "entry_kind":  "directory",
+                                                                           "size_bytes":  0,
+                                                                           "sha256":  null,
+                                                                           "vcs_state":  "filesystem_only"
+                                                                       },
+                                                            "after":  {
+                                                                          "entry_kind":  "directory",
+                                                                          "size_bytes":  0,
+                                                                          "sha256":  null,
+                                                                          "vcs_state":  "ignored"
+                                                                      }
+                                                        },
+                                                        {
+                                                            "path":  "long-path-fixture/segment-0-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/segment-1-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/segment-2-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/segment-3-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ignored-empty-directory",
+                                                            "change":  "added",
+                                                            "vcs_state":  "ignored",
+                                                            "before":  null,
+                                                            "after":  {
+                                                                          "entry_kind":  "directory",
+                                                                          "size_bytes":  0,
+                                                                          "sha256":  null,
+                                                                          "vcs_state":  "ignored"
+                                                                      }
+                                                        }
+                                                    ]
+                                       }
+                         },
+    "checkout_census":  {
+                            "before":  {
+                                           "root":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_checkout_unchanged_detect1/checkout",
+                                           "entry_count":  16,
+                                           "file_count":  6,
+                                           "directory_count":  10,
+                                           "reparse_point_count":  0,
+                                           "unreadable_count":  0,
+                                           "unreadable":  [
+
+                                                          ],
+                                           "fingerprint_sha256":  "ccadddee55042fea294d683669cab29a07b8727cf6371c936aaf95cdedfcf155"
+                                       },
+                            "after":  {
+                                          "root":  "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_checkout_unchanged_detect1/checkout",
+                                          "entry_count":  17,
+                                          "file_count":  6,
+                                          "directory_count":  11,
+                                          "reparse_point_count":  0,
+                                          "unreadable_count":  0,
+                                          "unreadable":  [
+
+                                                         ],
+                                          "fingerprint_sha256":  "75544125f5cd5e19265d27d164b05bd99327753b10ca3c028e53456ea0e46eb7"
+                                      },
+                            "delta":  {
+                                          "changed_count":  6,
+                                          "tracked_delta_count":  0,
+                                          "untracked_delta_count":  0,
+                                          "ignored_delta_count":  6,
+                                          "filesystem_only_delta_count":  0,
+                                          "unreadable_count":  0,
+                                          "rows":  [
+                                                       {
+                                                           "path":  "long-path-fixture",
+                                                           "change":  "changed",
+                                                           "vcs_state":  "ignored",
+                                                           "before":  {
+                                                                          "entry_kind":  "directory",
+                                                                          "size_bytes":  0,
+                                                                          "sha256":  null,
+                                                                          "vcs_state":  "filesystem_only"
+                                                                      },
+                                                           "after":  {
+                                                                         "entry_kind":  "directory",
+                                                                         "size_bytes":  0,
+                                                                         "sha256":  null,
+                                                                         "vcs_state":  "ignored"
+                                                                     }
+                                                       },
+                                                       {
+                                                           "path":  "long-path-fixture/segment-0-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                                                           "change":  "changed",
+                                                           "vcs_state":  "ignored",
+                                                           "before":  {
+                                                                          "entry_kind":  "directory",
+                                                                          "size_bytes":  0,
+                                                                          "sha256":  null,
+                                                                          "vcs_state":  "filesystem_only"
+                                                                      },
+                                                           "after":  {
+                                                                         "entry_kind":  "directory",
+                                                                         "size_bytes":  0,
+                                                                         "sha256":  null,
+                                                                         "vcs_state":  "ignored"
+                                                                     }
+                                                       },
+                                                       {
+                                                           "path":  "long-path-fixture/segment-0-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/segment-1-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                                                           "change":  "changed",
+                                                           "vcs_state":  "ignored",
+                                                           "before":  {
+                                                                          "entry_kind":  "directory",
+                                                                          "size_bytes":  0,
+                                                                          "sha256":  null,
+                                                                          "vcs_state":  "filesystem_only"
+                                                                      },
+                                                           "after":  {
+                                                                         "entry_kind":  "directory",
+                                                                         "size_bytes":  0,
+                                                                         "sha256":  null,
+                                                                         "vcs_state":  "ignored"
+                                                                     }
+                                                       },
+                                                       {
+                                                           "path":  "long-path-fixture/segment-0-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/segment-1-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/segment-2-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                                                           "change":  "changed",
+                                                           "vcs_state":  "ignored",
+                                                           "before":  {
+                                                                          "entry_kind":  "directory",
+                                                                          "size_bytes":  0,
+                                                                          "sha256":  null,
+                                                                          "vcs_state":  "filesystem_only"
+                                                                      },
+                                                           "after":  {
+                                                                         "entry_kind":  "directory",
+                                                                         "size_bytes":  0,
+                                                                         "sha256":  null,
+                                                                         "vcs_state":  "ignored"
+                                                                     }
+                                                       },
+                                                       {
+                                                           "path":  "long-path-fixture/segment-0-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/segment-1-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/segment-2-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/segment-3-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                                                           "change":  "changed",
+                                                           "vcs_state":  "ignored",
+                                                           "before":  {
+                                                                          "entry_kind":  "directory",
+                                                                          "size_bytes":  0,
+                                                                          "sha256":  null,
+                                                                          "vcs_state":  "filesystem_only"
+                                                                      },
+                                                           "after":  {
+                                                                         "entry_kind":  "directory",
+                                                                         "size_bytes":  0,
+                                                                         "sha256":  null,
+                                                                         "vcs_state":  "ignored"
+                                                                     }
+                                                       },
+                                                       {
+                                                           "path":  "long-path-fixture/segment-0-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/segment-1-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/segment-2-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/segment-3-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/ignored-empty-directory",
+                                                           "change":  "added",
+                                                           "vcs_state":  "ignored",
+                                                           "before":  null,
+                                                           "after":  {
+                                                                         "entry_kind":  "directory",
+                                                                         "size_bytes":  0,
+                                                                         "sha256":  null,
+                                                                         "vcs_state":  "ignored"
+                                                                     }
+                                                       }
+                                                   ]
+                                      }
+                        }
+}

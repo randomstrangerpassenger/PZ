@@ -1,0 +1,25 @@
+{
+  "canonical_result_raw_bytes_equal": true,
+  "canonical_results_equal": true,
+  "implementation_identity": {
+    "imported_common": {
+      "actual_path": "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_environm1/subject-repo/Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+      "git_blob_id": "f2197bd87bafd03333edc094d3a8543d933a7258",
+      "logical_path": "Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+      "module_file": "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_environm1/subject-repo/Iris/validation/clean_checkout/iris_clean_checkout_validation_common.py",
+      "working_sha256": "a20ec4e2ae9c6edd8400e9c382c73b463443e7cbcc9f2952372e7446982c95d0"
+    },
+    "validator": {
+      "actual_path": "C:/Users/MW/Downloads/coding/PZ/g/system-temp/pytest-of-MW/pytest-0/test_compare_launcher_environm1/subject-repo/Iris/validation/clean_checkout/validate_iris_clean_checkout_validation.py",
+      "git_blob_id": "3c4151eab91c624e38c052fb72ff176fadbffef2",
+      "logical_path": "Iris/validation/clean_checkout/validate_iris_clean_checkout_validation.py",
+      "working_sha256": "12e7a5a4d04e14139c5a0446369eff77f704c0b961156dda1ba34eb946e209c4"
+    }
+  },
+  "schema_version": "iris-clean-checkout-result-comparison-v1",
+  "status": "PASS",
+  "subject": {
+    "commit": "ab69d475382c43fd544be27caf4b887fbe492c45",
+    "tree": "df3beb75e95bc052787e91c48462021193145af2"
+  }
+}

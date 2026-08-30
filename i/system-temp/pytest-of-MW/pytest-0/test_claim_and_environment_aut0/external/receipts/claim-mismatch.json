@@ -1,0 +1,69 @@
+{
+    "schema_version":  "iris_repository_runtime_lightweighting_command_receipt_v1",
+    "command_id":  "claim-mismatch",
+    "command_receipt":  "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_claim_and_environment_aut0/external/receipts/claim-mismatch.json",
+    "terminal_status":  "preflight_failed",
+    "disposition":  "failed",
+    "failure":  {
+                    "kind":  "exception",
+                    "exception_type":  "System.Management.Automation.RuntimeException",
+                    "exception_message":  "subject receipt claim mismatch"
+                },
+    "claim_id":  "fixture-claim",
+    "command_spec":  {
+                         "path":  "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_claim_and_environment_aut0/external/specs/claim-mismatch.json",
+                         "sha256":  "47c3635529453beefeb15e2e7ebfd3e106478a8dd756556a0bd1df1eb3714dd0"
+                     },
+    "executable":  "C:/Users/MW/Downloads/coding/PZ/.tmp/tooltip-t1-d6-bd1ba41f/environment/Scripts/python.exe",
+    "decoded_argv":  [
+                         "-B",
+                         "-c",
+                         "print(\u0027must not run\u0027)"
+                     ],
+    "actual_argv":  [
+                        "C:\\Users\\MW\\Downloads\\coding\\PZ\\.tmp\\tooltip-t1-d6-bd1ba41f\\environment\\Scripts\\python.exe",
+                        "-B",
+                        "-c",
+                        "print(\u0027must not run\u0027)"
+                    ],
+    "working_directory":  "C:/Users/MW/Downloads/coding/PZ/i/system-temp/pytest-of-MW/pytest-0/test_claim_and_environment_aut0/checkout",
+    "started_at":  "2026-08-29T12:46:43.5632403+00:00",
+    "ended_at":  "2026-08-29T12:46:43.8078259+00:00",
+    "native_exit_code":  null,
+    "semantic_exit_code":  2,
+    "stdout":  {
+                   "path":  null,
+                   "sha256":  null
+               },
+    "stderr":  {
+                   "path":  null,
+                   "sha256":  null
+               },
+    "subject_receipt":  null,
+    "environment_receipt":  null,
+    "environment_delta":  null,
+    "environment_authority":  null,
+    "successor_policy":  null,
+    "implementation_identity":  null,
+    "invoked_repository_files":  [
+
+                                 ],
+    "environment":  {
+                        "before":  {
+
+                                   },
+                        "after_restore":  {
+
+                                          },
+                        "restored":  true
+                    },
+    "output_assertion":  {
+                             "kind":  "none",
+                             "status":  "not_run"
+                         },
+    "checkout_census":  {
+                            "before":  null,
+                            "after":  null,
+                            "delta":  null
+                        }
+}

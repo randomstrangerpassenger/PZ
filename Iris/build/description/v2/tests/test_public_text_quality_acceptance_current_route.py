@@ -8,14 +8,14 @@ import subprocess
 import sys
 import unittest
 
-from Iris.validation.test_workflow_consolidation.scenario_contracts import (
+from Iris.validation.scenarios.scenario_report import (
     ExecutionResult,
     FrozenMap,
     ProbeResult,
     ScenarioContext,
     ScenarioReport,
 )
-from Iris.validation.test_workflow_consolidation.validate_scenario_report import (
+from Iris.validation.scenarios.validate_scenario_report import (
     validate as validate_scenario_report,
 )
 

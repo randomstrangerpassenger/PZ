@@ -6,7 +6,91 @@ protected naming changes preapproved by the execution prompt. No independent rev
 or extra seal is required for this scope; none is credited.
 
 
-## Final user-directed scope
+## 책임별 재명명 정정
+
+사용자의 정정: 폴더를 작업명으로 분류하는 것이 아니라, 각 코드가 무엇을
+입력받고 무엇을 처리·출력하는지 파악해 파일 자체의 이름을 바꾸는 작업이다.
+이전 N1–N7 반영만으로 요청 전체가 완료되었다고 한 판단을 정정한다.
+
+지목된 여섯 폴더의 실행 파일·테스트·현재 설정/경로 파일 85개를 실제로
+재명명 또는 재배치했다. 아래 표는 구현된 파일의 역할이며 새 검사 목록이 아니다.
+경로는 `Iris/validation/` 기준이다. 기능·판정·검사 대상·공개 schema/CLI 식별자는
+유지했고, Python import·동적 파일 로딩·PowerShell 호출·테스트 fixture·현재 설정의
+경로를 함께 갱신했다. 기존 테스트는 이동/참조 수정만 했으며 실행하지 않았다.
+
+| 이전 파일 | 새 파일 | 코드가 하는 일 |
+|---|---|---|
+| `run_iris_clean_checkout_validation.py` | `execution/run_repository_tests.py` | 지정 Git 버전의 테스트·의존성을 모으고 격리 checkout에서 선정된 테스트 실행 |
+| `validate_iris_clean_checkout_validation.py` | `execution/validate_environment_and_results.py` | 실행 환경, 반복 실행 결과, 보존 기록의 연결 확인 |
+| `iris_clean_checkout_validation_common.py` | `execution/checkout_environment.py` | 저장소·인터프리터·설치 패키지·외부 출력 경로의 식별과 계약 처리 |
+| `write_environment_receipt.py` | `execution/record_environment.py` | 실제 인터프리터와 설치 wheel을 원본 코드 버전에 연결해 기록 |
+| `pytest_result_plugin.py` | `execution/pytest_outcome_recorder.py` | pytest가 수집한 테스트와 실행 결과 기록 |
+| `invoke_receipt_bound_full_gate.ps1` | `execution/invoke_repository_tests.ps1` | 환경을 적용·복구하고 저장소 테스트 실행기를 호출 |
+| `invoke_deterministic_compare.ps1` | `execution/compare_repeated_test_runs.ps1` | 두 실행의 기록을 읽어 동일한 조건·결과인지 비교 |
+| `allocate_repository_runtime_lightweighting_roots.ps1` | `execution/allocate_external_workspaces.ps1` | 저장소와 겹치지 않고 재사용되지 않는 외부 실행 경로 할당 |
+| `invoke_repository_runtime_lightweighting_command.ps1` | `execution/invoke_isolated_command.ps1` | 명령 명세에 따라 환경·출력 경계를 제한하고 명령 실행 |
+| `audit_current_route_output_isolation.py` | `execution/audit_test_output_isolation.py` | 선택된 코드의 쓰기 위치와 실행 기록에서 저장소 내부 출력 여부 확인 |
+| `run_contract_tests.py` | `execution/run_required_contract_tests.py` | 현재 필수 테스트 ID를 선정하고 계약 테스트 실행 |
+| `run_python_import_matrix.py` | `execution/check_build_tool_imports_and_io.py` | 빌드 도구 import 방식·CLI·직렬화 바이트·긴 경로 사례 실행 |
+| `run_diagnostic_disposition.py` | `execution/run_diagnostic_with_dispositions.py` | 진단 명령 결과에 명시된 owner 판정을 적용; 폐기된 selector는 복원하지 않음 |
+| `write_manual_runtime_report.py` | `execution/record_unobserved_runtime_cases.py` | 운영자 명령 결과를 기록하고 관찰하지 않은 게임 사례는 blocked로 표시 |
+| `inventory_iris_offline_tooling.py` | `source_analysis/inventory_offline_tooling_at_commit.py` | 지정 Git 버전의 오프라인 도구 구조·보존 대상 조사 |
+| `report_inventory.py` | `source_analysis/inventory_build_tool_dependencies.py` | 빌드 도구의 호출자·import·subprocess·공유 입출력 함수 조사 |
+| `repository_evidence_codec.py` | `artifacts/lifecycle_delta_codec.py` | 파일 목록의 공통 행과 변경분을 저장하고 원래 목록 바이트로 복원 |
+| `migrate_repository_evidence.py` | `artifacts/migrate_evidence_storage.py` | 기록을 변경분 표현·내용 해시 저장소·압축 파일 사이에서 변환 |
+| `execute_artifact_lifecycle.py` | `artifacts/archive_and_prune_artifacts.py` | 기존 승인·기록 조건에 따라 산출물을 보관·복원하고 삭제 가능 항목 처리 |
+| `promote_artifact_lifecycle_evidence.py` | `artifacts/promote_lifecycle_evidence.py` | 외부 lifecycle 기록을 저장소의 보존 위치로 옮기고 중단된 교체 복구 |
+| `report_artifact_lifecycle.py` | `artifacts/inventory_artifact_lifecycle.py` | 산출물 역할·소비 관계·추적 상태·보존/삭제 분류 조사 |
+| `content_addressed_archive.py` | `artifacts/content_addressed_archive.py` | 내용 해시 기반 ZIP 생성·무결성 확인·복원; 이미 역할에 맞는 파일명 유지 |
+| `write_evidence_manifest.py` | `artifacts/write_evidence_role_manifest.py` | 기록의 역할·생산 명령·입출력 해시 작성 |
+| `write_evidence_index.py` | `artifacts/index_evidence_role_manifests.py` | 위 역할 기록들의 탐색용 색인 작성 |
+| `validate_evidence_roles.py` | `artifacts/validate_evidence_role_manifests.py` | 역할 기록의 항목·경로·해시 확인 |
+| `run_iris_baseline_admission.py` | `baseline/collect_baseline_qualification.py` | 이전 실패 자료와 기준점 채택 조건의 실행 결과 수집 |
+| `validate_iris_baseline_admission.py` | `baseline/validate_baseline_qualification.py` | 기준점 채택 자료와 부정 사례 검사; 권한 쓰기 수행하지 않음 |
+| `iris_baseline_admission_common.py` | `baseline/qualification_contracts.py` | 기준점 채택의 경로 제한·선행 조건·실패 코드 처리 |
+| `invoke_iris_baseline_admission.ps1` | `baseline/invoke_baseline_qualification.ps1` | 기준점 자료 수집 명령을 PowerShell에서 호출 |
+| `test_workflow_consolidation/_common.py` | `scenarios/scenario_evidence.py` | 시나리오 기록의 직렬화·저장소·환경·명령 식별 |
+| `scenario_contracts.py` | `scenarios/scenario_report.py` | 변경 불가능한 시나리오 입력·실행 결과·개별 검사 결과 모델 |
+| `validate_scenario_report.py` | `scenarios/validate_scenario_report.py` | 시나리오 식별·검사 간 의존 관계·최종 상태 일관성 확인 |
+| `test_lightweighting/_common.py` | `test_coverage/source_metrics_io.py` | 테스트 소스/JSON 읽기와 함수 길이 계산 |
+| `collect_test_inventory.py` | `test_coverage/inventory_test_sources_and_size.py` | 테스트 ID·파일·함수 크기 목록 작성 |
+| `build_protection_map.py` | `test_coverage/infer_test_protection_map.py` | 테스트 **이름에서** 검사 조건을 추론; 실행 coverage 측정기가 아님 |
+| `build_detection_baseline.py` | `test_coverage/build_fault_detection_baseline.py` | 선언된 결함과 검출 테스트의 대응을 기준 기록으로 결속 |
+| `compare_precision.py` | `test_coverage/compare_test_coverage_and_size.py` | 변경 전후 선언된 보호 조건과 테스트 코드 크기 비교 |
+| `compare_failure_localization.py` | `test_coverage/compare_fault_localization.py` | 결함을 찾아낼 테스트 대응이 사라졌거나 비었는지 비교 |
+| `validate_dominance.py` | `test_coverage/validate_test_replacement_coverage.py` | 대체 테스트가 기존 테스트의 선언된 보호 조건을 포함하는지 확인 |
+| `validate_identity_migration.py` | `test_coverage/validate_test_id_migration.py` | 테스트 ID 교체와 taxonomy/필수 목록 연결 확인 |
+| `validate_terminal_evidence_bundle.py` | `test_coverage/verify_archived_closeout_bundle.py` | 보관된 종료 기록을 가져와 원본 버전과 해시 연결 확인 |
+
+현재 실행 설정은 `execution/contracts/`, 기준점 채택 설정은
+`baseline/contracts/`로 옮겼다. 작업명이 붙었던 출력 규칙은 실제 책임에 따라
+`isolated_command_output_policy.json`, `evidence_storage_output_policy.json`,
+`test_execution_output_policy.json`으로 바꿨다. 실행 대상 규칙은
+`repository_test_gate.json`, `scoped_test_gate.json`이다. 기존 schema 식별자와
+규칙 내용은 유지하며 파일명 변경에 따른 경로만 조정했다.
+
+현재 필수 목록과 환경 안내 파일은 `execution/required_validations.json`,
+`execution/current_environment.json`이다. `clean_checkout/authority`,
+`clean_checkout/evidence`, `baseline_admission/authority`, `baseline_admission/evidence`의
+과거 기록·해시·내용은 보존했다. 이 정정에서는 외부 파일 조회, 테스트, 빌드,
+인게임 확인, 새 receipt/manifest/seal 생성, reviewer 호출을 하지 않았다.
+이번 정정의 게임 기능 코드 변경은 없으며 별도 진행 중인 Tooltip 변경은 보존한다.
+
+사용자 요청에 따라 현재 구조에서 불필요하다고 판단한 실행 파일만 별도로 추렸다.
+삭제는 수행하지 않았다. 아래 세 파일의 이전/현재 이름을 사용하는 호출은 현재
+실행 코드·CLI·필수 목록에서 확인되지 않았으며, 단순 미사용 여부 외에 본문의
+구체적인 불일치도 확인했다.
+
+| 현재 파일 | 현재 구조에서 불필요한 이유 |
+|---|---|
+| `execution/run_diagnostic_with_dispositions.py` | 호출 명령에 `--class diagnostic`을 고정하지만 현재 계약 실행기는 `current`만 허용한다. 폐기된 진단 경로를 전제로 한 후처리 도구다. |
+| `execution/check_build_tool_imports_and_io.py` | `tools.build.compose_layer3_io` 등 옛 description-tree import를 고정해 실행한다. 해당 위치의 파일은 없으며 현재 구현은 설치 패키지의 `iris_tooling.build.compose_layer3_io`에 있다. 현재 구조의 유효한 검사로 쓸 수 없는 과거 이동 작업용 도구다. |
+| `execution/record_unobserved_runtime_cases.py` | 게임을 실행·관찰하지 않고 모든 게임 사례를 `not executed`/`blocked`로 채운다. 과거 무인 작업 당시 보고서를 만들던 도구이며 현재 기능이나 실제 게임 검증을 제공하지 않는다. |
+
+보관/복원 codec, 현재 계약, 과거 기록 자체는 위 불필요 파일에 포함하지 않는다.
+오래된 이름이나 단독 실행이라는 이유만으로 보존 가치까지 없다고 판단하지 않는다.
+
+## Final user-directed scope (이전 실행 기록)
 
 The user explicitly ended validation and restricted the work to renaming and
 corresponding file placement/reference updates. Under that final scope, N1–N7

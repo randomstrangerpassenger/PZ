@@ -65,7 +65,7 @@ SUCCESSOR_PATH = (
 )
 
 CLEAN_CHECKOUT_ROOT = REPO_ROOT / "Iris" / "validation" / "clean_checkout"
-GATE_CONTRACT = CLEAN_CHECKOUT_ROOT / "contracts" / "full_repository_gate.json"
+GATE_CONTRACT = REPO_ROOT / "Iris/validation/execution/contracts/repository_test_gate.json"
 GATE_MANIFEST = (
     CLEAN_CHECKOUT_ROOT
     / "evidence"
@@ -77,10 +77,10 @@ GATE_CLOSEOUT = (
     / "full_repository_technical_debt_closeout_successor_0003.json"
 )
 CLASSIFIER_RUNNER = (
-    CLEAN_CHECKOUT_ROOT / "run_iris_clean_checkout_validation.py"
+    REPO_ROOT / "Iris/validation/execution/run_repository_tests.py"
 )
 CLASSIFIER_TEST = (
-    CLEAN_CHECKOUT_ROOT / "tests" / "test_iris_clean_checkout_validation.py"
+    REPO_ROOT / "Iris/validation/execution/tests/test_repository_test_execution.py"
 )
 CONSTITUENT_TEST = (
     V2_ROOT / "tests" / "test_public_text_constituent_identity.py"

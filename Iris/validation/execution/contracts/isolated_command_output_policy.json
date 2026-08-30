@@ -1,0 +1,68 @@
+{
+  "approval": {
+    "approved": true,
+    "authority": "repository_owner_user",
+    "date": "2026-08-05",
+    "excluded_future_approvals": [
+      "exact_archive_selection",
+      "post_archive_evidence_delete_approval",
+      "track_order_decision",
+      "manual_project_zomboid_validation"
+    ],
+    "scope": "repository_runtime_lightweighting_production_output_contract",
+    "source": "owner directive in the implementation task"
+  },
+  "canonical_object_layout": "objects/sha256/<prefix>/<sha256>",
+  "cleared_ambient_environment": [
+    "PYTHONHOME",
+    "PYTHONPATH",
+    "PYTEST_ADDOPTS"
+  ],
+  "dangling_reference_allowed": false,
+  "external_subroots": [
+    "objects",
+    "phases",
+    "logs",
+    "package"
+  ],
+  "lifecycle_roles": [
+    "retained_current_required",
+    "retained_historical_reproduction",
+    "archived",
+    "disposable",
+    "delete_eligible"
+  ],
+  "predecessor": {
+    "path": "Iris/validation/execution/contracts/test_execution_output_policy.json",
+    "scope": "technical_debt_gate",
+    "sha256": "d00b38a3f9da738c6529a2e5349e093294693a6cd2366cbe199400fca40ec79e"
+  },
+  "production_contract": {
+    "atomic_object_promotion_required": true,
+    "external_work_root_required": true,
+    "manifest_owned_cleanup_only": true,
+    "newly_allocated_existing_empty_roots_required": true,
+    "repository_local_large_output_allowed": false,
+    "result_root_required": true,
+    "run_root_reuse_allowed": false
+  },
+  "required_environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PIP_NO_INDEX": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONHASHSEED": "0",
+    "PYTHONNOUSERSITE": "1"
+  },
+  "schema_version": "iris_repository_runtime_lightweighting_output_policy_v1",
+  "historical_archive_profile": "content_addressed_zip_v2",
+  "scope": "repository_runtime_lightweighting_production_producers",
+  "terminal_receipt_required_fields": [
+    "claim_id",
+    "run_id",
+    "allocation_receipt",
+    "allocation_ledger",
+    "resolved_roots",
+    "object_lifecycle_dispositions",
+    "dangling_reference_count"
+  ]
+}

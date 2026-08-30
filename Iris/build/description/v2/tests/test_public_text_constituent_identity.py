@@ -533,7 +533,7 @@ class PublicTextConstituentIdentityTest(unittest.TestCase):
         ).read_text(encoding="utf-8").splitlines()
         self.assertFalse(any(line.startswith("!Iris/") for line in lines))
         current_paths = PHASE0_IMPLEMENTATION_REQUIRED_PATHS | {
-            "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+            "Iris/validation/execution/contracts/repository_test_gate.json",
             "Iris/validation/clean_checkout/evidence/current_required_v1/manifest.json",
             "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua",
         }

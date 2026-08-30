@@ -179,7 +179,7 @@ class LegacyActiveSilentCurrentSurfaceGuardTest(unittest.TestCase):
                 "Iris/_docs/refactor/repository_runtime_lightweighting/receipt.json",
                 "Iris/_docs/refactor/repository_runtime_lightweighting/manifest.jsonl",
                 "Iris/_docs/round3/round3_test_taxonomy.json",
-                "Iris/validation/current_route/required_validations.json",
+                "Iris/validation/execution/required_validations.json",
             ],
             cwd=ROOT.parents[3],
             text=True,
@@ -191,7 +191,7 @@ class LegacyActiveSilentCurrentSurfaceGuardTest(unittest.TestCase):
             "Iris/_docs/refactor/repository_runtime_lightweighting/receipt.json",
             "Iris/_docs/refactor/repository_runtime_lightweighting/manifest.jsonl",
             "Iris/_docs/round3/round3_test_taxonomy.json",
-            "Iris/validation/current_route/required_validations.json",
+            "Iris/validation/execution/required_validations.json",
         ):
             self.assertIn(f"{path}: text: set", attributes)
             self.assertIn(f"{path}: eol: lf", attributes)
@@ -199,7 +199,7 @@ class LegacyActiveSilentCurrentSurfaceGuardTest(unittest.TestCase):
     def test_default_manifest_includes_docs_json_authority_and_excludes_guard_output(self) -> None:
         manifest = load_manifest(DEFAULT_MANIFEST)
         expected = {
-            "Iris/validation/current_route/required_validations.json",
+            "Iris/validation/execution/required_validations.json",
             "Iris/_docs/refactor/repository_runtime_lightweighting/governance_ledger.jsonl",
             "Iris/_docs/refactor/residual_refactor/diagnostic_advisory_dispositions.json",
         }

@@ -15,7 +15,7 @@ import public_text_quality_acceptance_official_0005 as official
 
 if str(official.REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(official.REPO_ROOT))
-from Iris.validation.clean_checkout.iris_clean_checkout_validation_common import (  # noqa: E402
+from Iris.validation.execution.checkout_environment import (  # noqa: E402
     ensure_external_root,
 )
 
@@ -538,8 +538,8 @@ def _write_execution_receipt(
         "repository_external": True,
         "g1_execution_isolation_contract_reused": True,
         "g1_external_root_validator": (
-            "Iris.validation.clean_checkout."
-            "iris_clean_checkout_validation_common.ensure_external_root"
+            "Iris.validation.execution."
+            "checkout_environment.ensure_external_root"
         ),
         "environment_variable_names": list(
             EXECUTION_ENVIRONMENT_VARIABLE_NAMES

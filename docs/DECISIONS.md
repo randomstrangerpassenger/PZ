@@ -2293,3 +2293,6 @@ D1 generation 전환의 조건부 downstream binding: T1 strict admission에서 
 - Exact scope, retained/deferred 및 검증 ceiling: `docs/iris_current_responsibility_naming_alignment_closeout.md`. N7 environment locator는 기존 receipt workflow 실행 전까지 유지한다.
 
 2026-08-30 최종 사용자 범위 변경: 재명명·파일 재배치·참조 갱신만으로 작업을 종료한다. N1–N7을 반영했고 environment locator는 `Iris/validation/clean_checkout/authority/current_environment.json`이다. 위 naming 기록의 외부 재생성·full gate·package·PZ 관찰 미완료는 당시 넓은 실행 범위의 이력이며, 좁혀진 naming 완료의 잔여 의무가 아니다. 추가 검증은 종료하며 미실행 PASS, 인게임 동작 보증, 배포·게시 완료는 주장하지 않는다.
+
+
+2026-08-30 사용자 정정 반영: 작업별 폴더 분류로 완료를 대신하지 않고 각 실행 파일의 실제 입력·처리·출력·호출 관계에 따라 재명명했다. 현재 테스트 실행·환경 연결은 `Iris/validation/execution/`, 소스 조사는 `source_analysis/`, 산출물 저장/복원은 `artifacts/`, 기준점 채택은 `baseline/`, 시나리오 모델은 `scenarios/`, 테스트 보호 조건 비교는 `test_coverage/`가 담당한다. 위의 `current_route/` 및 이전 clean-checkout 실행 경로는 이 변경의 predecessor다. 현재 필수 목록과 환경 locator는 `Iris/validation/execution/required_validations.json`, `Iris/validation/execution/current_environment.json`이며 설정 파일도 소비 코드 옆으로 이동했다. 과거 authority/evidence record와 schema/프로토콜 식별자는 유지한다. 이 정정에서 테스트·외부 재생성·새 봉인을 수행하지 않았고 현재 게임 기능 코드도 변경하지 않았다. 정확한 파일별 역할은 기존 naming closeout의 책임별 재명명 정정 절을 따른다.

@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 REPO = Path(__file__).resolve().parents[5]
-RUNNER_PATH = REPO / "Iris/validation/current_route/run_contract_tests.py"
+RUNNER_PATH = REPO / "Iris/validation/execution/run_required_contract_tests.py"
 
 
 def load_runner():

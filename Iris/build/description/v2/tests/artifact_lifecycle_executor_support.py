@@ -12,13 +12,13 @@ from pathlib import Path
 
 
 REPO = Path(__file__).resolve().parents[5]
-REPORTER = REPO / "Iris/validation/residual_refactor/report_artifact_lifecycle.py"
-PROMOTER = REPO / "Iris/validation/residual_refactor/promote_artifact_lifecycle_evidence.py"
-EXECUTOR = REPO / "Iris/validation/residual_refactor/execute_artifact_lifecycle.py"
-AUDITOR = REPO / "Iris/validation/clean_checkout/audit_current_route_output_isolation.py"
+REPORTER = REPO / "Iris/validation/artifacts/inventory_artifact_lifecycle.py"
+PROMOTER = REPO / "Iris/validation/artifacts/promote_lifecycle_evidence.py"
+EXECUTOR = REPO / "Iris/validation/artifacts/archive_and_prune_artifacts.py"
+AUDITOR = REPO / "Iris/validation/execution/audit_test_output_isolation.py"
 SUCCESSOR_POLICY = (
     REPO
-    / "Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json"
+    / "Iris/validation/execution/contracts/isolated_command_output_policy.json"
 )
 GUARD_REFERENCE_POLICY = (
     REPO
@@ -141,7 +141,7 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
         {"path": CANDIDATE.as_posix()},
     )
     taxonomy = repo / "Iris/_docs/round3/round3_test_taxonomy.json"
-    required = repo / "Iris/validation/current_route/required_validations.json"
+    required = repo / "Iris/validation/execution/required_validations.json"
     fixture_test_id = "test_fixture.CurrentRouteFixture.test_passes"
     fixture_test = repo / "Iris/build/description/v2/tests/test_artifact_lifecycle_executor.py"
     fixture_test.parent.mkdir(parents=True, exist_ok=True)
@@ -171,14 +171,14 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
     write_json(required, {"required_tests": [{"test_id": fixture_test_id, "role": "fixture"}]})
     closure = repo / "Iris/_docs/round3/round3_active_core_closure.json"
     write_json(closure, {"schema_version": "fixture", "active_core": []})
-    runner = repo / "Iris/validation/current_route/run_contract_tests.py"
+    runner = repo / "Iris/validation/execution/run_required_contract_tests.py"
     runner.write_text("raise SystemExit(0)\n", encoding="utf-8")
-    audit_script = repo / "Iris/validation/clean_checkout/audit_current_route_output_isolation.py"
+    audit_script = repo / "Iris/validation/execution/audit_test_output_isolation.py"
     audit_script.parent.mkdir(parents=True, exist_ok=True)
     audit_script.write_bytes(AUDITOR.read_bytes())
     successor_policy = (
         repo
-        / "Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json"
+        / "Iris/validation/execution/contracts/isolated_command_output_policy.json"
     )
     successor_policy.parent.mkdir(parents=True, exist_ok=True)
     successor_policy.write_bytes(SUCCESSOR_POLICY.read_bytes())
@@ -296,12 +296,12 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
     )
     validation_commit = git(validation, "rev-parse", "HEAD")
     validation_tree = git(validation, "rev-parse", "HEAD^{tree}")
-    validation_runner = validation / "Iris/validation/current_route/run_contract_tests.py"
+    validation_runner = validation / "Iris/validation/execution/run_required_contract_tests.py"
     validation_taxonomy = validation / "Iris/_docs/round3/round3_test_taxonomy.json"
-    validation_required = validation / "Iris/validation/current_route/required_validations.json"
+    validation_required = validation / "Iris/validation/execution/required_validations.json"
     validation_closure = validation / "Iris/_docs/round3/round3_active_core_closure.json"
     validation_auditor = (
-        validation / "Iris/validation/clean_checkout/audit_current_route_output_isolation.py"
+        validation / "Iris/validation/execution/audit_test_output_isolation.py"
     )
     validation_environment_authority = (
         validation / "Iris/validation/clean_checkout/authority/responsibility_refactor_environment_current.json"
@@ -317,13 +317,13 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
     audit_tree = git(audit_checkout, "rev-parse", "HEAD^{tree}")
     if (audit_commit, audit_tree) != (validation_commit, validation_tree):
         raise AssertionError("audit and pre-delete validation clones differ")
-    audit_runner = audit_checkout / "Iris/validation/current_route/run_contract_tests.py"
+    audit_runner = audit_checkout / "Iris/validation/execution/run_required_contract_tests.py"
     audit_auditor = (
-        audit_checkout / "Iris/validation/clean_checkout/audit_current_route_output_isolation.py"
+        audit_checkout / "Iris/validation/execution/audit_test_output_isolation.py"
     )
     audit_successor_policy = (
         audit_checkout
-        / "Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json"
+        / "Iris/validation/execution/contracts/isolated_command_output_policy.json"
     )
     validation_subject = external / "pre-delete-subject.json"
     write_json(
@@ -354,7 +354,7 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
         "inventory",
         "--repo", audit_checkout,
         "--taxonomy", "Iris/_docs/round3/round3_test_taxonomy.json",
-        "--required-validations", "Iris/validation/current_route/required_validations.json",
+        "--required-validations", "Iris/validation/execution/required_validations.json",
         "--out", static_inventory,
         cwd=audit_checkout,
     )
@@ -368,7 +368,7 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
     dynamic_spec = audit_command_root / "001-route-audit-dynamic-current.command.json"
     dynamic_argv = [
         "-B",
-        "Iris/validation/current_route/run_contract_tests.py",
+        "Iris/validation/execution/run_required_contract_tests.py",
         "--class",
         "current",
         "--enforce-current-build-closure",
@@ -392,7 +392,7 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
     runner_blob = git(
         audit_checkout,
         "rev-parse",
-        f"{audit_commit}:Iris/validation/current_route/run_contract_tests.py",
+        f"{audit_commit}:Iris/validation/execution/run_required_contract_tests.py",
     )
     write_json(
         dynamic_command,
@@ -419,7 +419,7 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
             },
             "invoked_repository_files": [
                 {
-                    "logical_path": "Iris/validation/current_route/run_contract_tests.py",
+                    "logical_path": "Iris/validation/execution/run_required_contract_tests.py",
                     "actual_path": audit_runner.resolve().as_posix(),
                     "execution_commit": audit_commit,
                     "git_blob_id": runner_blob,
@@ -465,7 +465,7 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
         "--taxonomy",
         "Iris/_docs/round3/round3_test_taxonomy.json",
         "--required-validations",
-        "Iris/validation/current_route/required_validations.json",
+        "Iris/validation/execution/required_validations.json",
         "--receipt",
         audit_receipt.as_posix(),
     ]
@@ -486,7 +486,7 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
     audit_blob = git(
         validation,
         "rev-parse",
-        f"{validation_commit}:Iris/validation/clean_checkout/audit_current_route_output_isolation.py",
+        f"{validation_commit}:Iris/validation/execution/audit_test_output_isolation.py",
     )
     write_json(
         audit_verify_command,
@@ -516,7 +516,7 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
             },
             "invoked_repository_files": [
                 {
-                    "logical_path": "Iris/validation/clean_checkout/audit_current_route_output_isolation.py",
+                    "logical_path": "Iris/validation/execution/audit_test_output_isolation.py",
                     "actual_path": validation_auditor.resolve().as_posix(),
                     "execution_commit": validation_commit,
                     "git_blob_id": audit_blob,
@@ -543,7 +543,7 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
     spec = external / "commands/001-pre-delete-current-route.command.json"
     argv = [
         "-B",
-        "Iris/validation/current_route/run_contract_tests.py",
+        "Iris/validation/execution/run_required_contract_tests.py",
         "--class",
         "current",
         "--enforce-current-build-closure",
@@ -585,7 +585,7 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
             },
             "invoked_repository_files": [
                 {
-                    "logical_path": "Iris/validation/current_route/run_contract_tests.py",
+                    "logical_path": "Iris/validation/execution/run_required_contract_tests.py",
                     "actual_path": validation_runner.resolve().as_posix(),
                     "execution_commit": validation_commit,
                     "git_blob_id": runner_blob,
@@ -692,7 +692,7 @@ def build_fixture(root: Path) -> tuple[Path, Path, dict[str, object]]:
                 "sha256": sha256(validation_taxonomy),
             },
             "required_validations": {
-                "path": "Iris/validation/current_route/required_validations.json",
+                "path": "Iris/validation/execution/required_validations.json",
                 "sha256": sha256(validation_required),
             },
             "active_core_closure": {

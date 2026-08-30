@@ -1,0 +1,45 @@
+{
+  "schema_version": "iris-clean-checkout-canonical-gate-v1",
+  "command": {
+    "module": "pytest",
+    "python_flags": [
+      "-B",
+      "-s"
+    ],
+    "arguments": [
+      "--round3-contract",
+      "current",
+      "-q",
+      "-p",
+      "no:cacheprovider",
+      "-p",
+      "Iris.validation.execution.pytest_outcome_recorder"
+    ]
+  },
+  "test_selection": {
+    "kind": "taxonomy_contract",
+    "taxonomy_path": "Iris/_docs/round3/round3_test_taxonomy.json",
+    "contract_class": "current",
+    "state": "ok",
+    "excluded_paths": [],
+    "additional_paths": [
+      "Iris/validation/execution/tests/test_repository_test_execution.py"
+    ]
+  },
+  "collection_scope": "Adjudicated surviving current taxonomy tests plus focused clean-checkout contract tests.",
+  "pytest_cache_mode": "disabled",
+  "result_plugin": "Iris.validation.execution.pytest_outcome_recorder",
+  "generated_state_policy": "external_only"
+  ,
+  "environment_authority": {
+    "locator": "Iris/validation/execution/current_environment.json",
+    "selection": "immutable_record_and_external_receipt",
+    "repository_context": "explicit"
+  },
+  "current_projection_contracts": {
+    "offline_tooling": "installed iris_tooling package",
+    "rightclick": "v2.4-only installed CLI",
+    "layer3_package": "stable facade/pointer plus exactly one pointer-selected generation",
+    "supported_runtime_adapters": "phase0 manifest-listed surfaces only"
+  }
+}

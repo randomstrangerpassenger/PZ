@@ -107,14 +107,14 @@ The canonical CLI adapter invokes the repository-owned receipt-bound launcher:
 iris-tooling --repository-root <repo> validate full --commit <commit> --claim-id <claim-id> --environment-receipt <external-environment-receipt> --work-root <external-empty-work-root> --result-root <external-empty-result-root> --orchestration-receipt <external-new-orchestration-receipt>
 ```
 
-The owning launcher is `Iris/validation/clean_checkout/invoke_receipt_bound_full_gate.ps1`; deterministic comparison is owned by `Iris/validation/clean_checkout/invoke_deterministic_compare.ps1`. Their parameters, validation membership, applicability, and verdict must not be reproduced in wrappers or documentation.
+The owning launcher is `Iris/validation/execution/invoke_repository_tests.ps1`; deterministic comparison is owned by `Iris/validation/execution/compare_repeated_test_runs.ps1`. Their parameters, validation membership, applicability, and verdict must not be reproduced in wrappers or documentation.
 
 ## Current and historical route selection
 
 The exact read-only current denominator is:
 
 ```powershell
-uv run python .\Iris\validation\current_route\run_contract_tests.py --class current --list
+uv run python .\Iris\validation\execution\run_required_contract_tests.py --class current --list
 ```
 
 Historical, diagnostic, and all repository-local executable selectors are retired.

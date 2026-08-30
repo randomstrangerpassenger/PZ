@@ -131,21 +131,27 @@
   },
   "entries": [
     {
-      "path": "Iris/validation/clean_checkout/authority/current_environment.json",
+      "path": "Iris/validation/execution/current_environment.json",
       "classification": "current",
       "authority_role": "stable locator for the current immutable clean-checkout environment record",
       "delete_move_policy": "protected; update only through the environment receipt workflow"
     },
     {
-      "path_glob": "Iris/validation/current_route/**",
+      "path": "Iris/validation/execution/run_required_contract_tests.py",
       "classification": "current",
       "authority_role": "responsibility-named current-only runner and required-validation binding; membership and owner unchanged",
       "delete_move_policy": "protected; focused plan and exact-subject validation required"
     },
     {
+      "path": "Iris/validation/execution/required_validations.json",
+      "classification": "current",
+      "authority_role": "required-validation binding; membership and owner unchanged",
+      "delete_move_policy": "protected; existing required-validation ownership applies"
+    },
+    {
       "path": "Iris/_docs/round3/current_route_required_validations.json",
       "classification": "historical",
-      "authority_role": "preserved pre-naming required-validation snapshot for pinned historical lifecycle readers; current reader uses Iris/validation/current_route/required_validations.json",
+      "authority_role": "preserved pre-naming required-validation snapshot for pinned historical lifecycle readers; current reader uses Iris/validation/execution/required_validations.json",
       "delete_move_policy": "retain original historical bytes"
     },
     {

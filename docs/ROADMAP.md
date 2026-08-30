@@ -1031,6 +1031,6 @@ Closeout complete: exact implementation `801f15f6`의 terminal Run A/B/comparato
 
 ### Iris current responsibility naming
 
-- 2026-08-30 naming successor source를 준비했다: `TooltipStaticData` runtime/producer/harness와 `Iris/validation/current_route/` navigation. 기존 T3 side-panel 변경과 historical authority는 보존한다.
+- 2026-08-30 역할별 재명명: `TooltipStaticData`에 이어 사용자가 지목한 validation 여섯 폴더의 개별 코드·테스트·현재 설정 85개를 재명명/재배치했다. `execution`, `source_analysis`, `artifacts`, `baseline`, `scenarios`, `test_coverage`에 실제 책임을 드러내는 파일명으로 배치했고 사용처도 갱신했다. 기존 Tooltip 변경과 과거 기록은 보존한다.
 - 사용자 최종 범위인 재명명·재배치·참조 갱신은 `complete`다. N7 `current_environment.json`과 기존 writer가 생성한 record까지 현재 폴더에 반영했다. 사용자가 추가 검증을 종료했으므로 production 재생성·full gate·package·PZ 관찰은 이번 완료의 잔여 조건이 아니다.
 - 이전 T1/T2/T3 PASS를 상속하거나 이번 미실행 검사를 PASS로 주장하지 않는다. 추가 검증·봉인 작업을 요구하지 않는다. 상세 결과: `docs/iris_current_responsibility_naming_alignment_closeout.md`.

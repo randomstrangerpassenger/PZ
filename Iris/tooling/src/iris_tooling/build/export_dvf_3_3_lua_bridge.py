@@ -48,7 +48,7 @@ REGISTRY_COMPATIBILITY_VALIDATOR = (
     ROOT / "tools" / "build" / "validate_dvf_3_3_registry_runtime_compatibility.py"
 )
 CURRENT_REQUIRED_VALIDATIONS = (
-    REPO_ROOT / "Iris" / "validation" / "current_route" / "required_validations.json"
+    REPO_ROOT / "Iris" / "validation" / "execution" / "required_validations.json"
 )
 CURRENT_FACTS = ROOT / "data" / "dvf_3_3_facts.jsonl"
 LUA_ENTRY_HEADER_RE = re.compile(r'^    \["(?P<full_type>(?:\\\\|\\"|[^"])*)"\] = \{$')

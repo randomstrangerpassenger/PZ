@@ -97,7 +97,7 @@ def _validate_full(
     repository_root: Path,
     parser: argparse.ArgumentParser,
 ) -> int:
-    launcher = repository_root / "Iris/validation/clean_checkout/invoke_receipt_bound_full_gate.ps1"
+    launcher = repository_root / "Iris/validation/execution/invoke_repository_tests.ps1"
     command = [
         "powershell",
         "-NoProfile",

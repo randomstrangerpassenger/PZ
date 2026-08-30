@@ -437,7 +437,7 @@ if ($LASTEXITCODE -ne 0) {
 }
 $ExpectedCheckpointAllocatorSuccessorPaths = @(
     'Iris/test/validate_residual_refactor_surfaces.ps1',
-    'Iris/validation/clean_checkout/allocate_repository_runtime_lightweighting_roots.ps1'
+    'Iris/validation/execution/allocate_external_workspaces.ps1'
 )
 $ActualCheckpointAllocatorSuccessorPaths = @($CheckpointAllocatorSuccessor.rows | ForEach-Object { [string]$_.path } | Sort-Object)
 if ((ConvertTo-Json -Compress $ActualCheckpointAllocatorSuccessorPaths) -cne (ConvertTo-Json -Compress $ExpectedCheckpointAllocatorSuccessorPaths)) {

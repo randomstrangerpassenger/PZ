@@ -52,7 +52,7 @@ OCCURRENCE_STREAM_LOGICAL_ID = "legacy-active-silent-current-surface-occurrences
 OCCURRENCE_STREAM_MEDIA_TYPE = "application/x-ndjson"
 OCCURRENCE_PRODUCER_VERSION = "legacy-active-silent-current-surface-guard-v1"
 SUCCESSOR_OUTPUT_POLICY_RELATIVE = Path(
-    "Iris/validation/clean_checkout/contracts/repository_runtime_lightweighting_output_policy.json"
+    "Iris/validation/execution/contracts/isolated_command_output_policy.json"
 )
 AUTHORIZED_RESULT_SUBROOTS = ["objects", "phases", "logs", "package"]
 AUTHORIZED_LIFECYCLE_ROLES = {

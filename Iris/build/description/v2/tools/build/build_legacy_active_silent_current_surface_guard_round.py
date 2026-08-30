@@ -54,9 +54,9 @@ OUTPUT_POLICY = (
     REPO_ROOT
     / "Iris"
     / "validation"
-    / "clean_checkout"
+    / "execution"
     / "contracts"
-    / "repository_runtime_lightweighting_output_policy.json"
+    / "isolated_command_output_policy.json"
 )
 
 SOURCE_DECISIONS = V2_ROOT / "data" / "dvf_3_3_decisions.jsonl"

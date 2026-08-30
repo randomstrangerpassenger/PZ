@@ -25,7 +25,7 @@ from tools.build import dvf_3_3_registry_runtime_compatibility_closeout as rtc_c
 
 ROUND_ID = rtc.ROUND_ID
 DEFAULT_REQUIRED_MANIFEST = (
-    REPO_ROOT / "Iris" / "validation" / "current_route" / "required_validations.json"
+    REPO_ROOT / "Iris" / "validation" / "execution" / "required_validations.json"
 )
 CURRENT_FACTS = V2_ROOT / "data" / "dvf_3_3_facts.jsonl"
 REQUIRED_ROLES = {

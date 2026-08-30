@@ -100,7 +100,7 @@ class DvfVcsTrackingPolicyTest(unittest.TestCase):
         current_reference_surfaces = (
             current_build,
             REPO / "Iris/tooling/src/iris_tooling/domains",
-            REPO / "Iris/validation/clean_checkout/run_iris_clean_checkout_validation.py",
+            REPO / "Iris/validation/execution/run_repository_tests.py",
             REPO / "Iris/build/rightclick_evidence_pipeline.py",
             REPO / "Iris/build/recipe_evidence_pipeline.py",
             REPO / "Iris/build/tools/common",

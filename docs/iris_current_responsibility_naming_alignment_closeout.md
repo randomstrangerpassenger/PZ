@@ -1,6 +1,6 @@
 # Iris current responsibility naming — execution record
 
-Date: 2026-08-30. Final state: **complete — naming and file placement only**.
+Date: 2026-08-30. Final state: **complete — naming, file placement and three explicitly requested obsolete-tool removals**.
 Authority: `iris_current_responsibility_naming_alignment_plan.md`; owner decisions and
 protected naming changes preapproved by the execution prompt. No independent review
 or extra seal is required for this scope; none is credited.
@@ -77,11 +77,12 @@ or extra seal is required for this scope; none is credited.
 이번 정정의 게임 기능 코드 변경은 없으며 별도 진행 중인 Tooltip 변경은 보존한다.
 
 사용자 요청에 따라 현재 구조에서 불필요하다고 판단한 실행 파일만 별도로 추렸다.
-삭제는 수행하지 않았다. 아래 세 파일의 이전/현재 이름을 사용하는 호출은 현재
+최초 보고에서는 보존했으며, 이후 사용자의 명시적 삭제 요청으로 아래 세 파일만 삭제했다.
+위 재명명 표의 해당 세 행은 삭제 전 이동 이력이다. 세 파일의 이전/현재 이름을 사용하는 호출은 현재
 실행 코드·CLI·필수 목록에서 확인되지 않았으며, 단순 미사용 여부 외에 본문의
 구체적인 불일치도 확인했다.
 
-| 현재 파일 | 현재 구조에서 불필요한 이유 |
+| 삭제한 파일 | 현재 구조에서 불필요한 이유 |
 |---|---|
 | `execution/run_diagnostic_with_dispositions.py` | 호출 명령에 `--class diagnostic`을 고정하지만 현재 계약 실행기는 `current`만 허용한다. 폐기된 진단 경로를 전제로 한 후처리 도구다. |
 | `execution/check_build_tool_imports_and_io.py` | `tools.build.compose_layer3_io` 등 옛 description-tree import를 고정해 실행한다. 해당 위치의 파일은 없으며 현재 구현은 설치 패키지의 `iris_tooling.build.compose_layer3_io`에 있다. 현재 구조의 유효한 검사로 쓸 수 없는 과거 이동 작업용 도구다. |
@@ -89,6 +90,7 @@ or extra seal is required for this scope; none is credited.
 
 보관/복원 codec, 현재 계약, 과거 기록 자체는 위 불필요 파일에 포함하지 않는다.
 오래된 이름이나 단독 실행이라는 이유만으로 보존 가치까지 없다고 판단하지 않는다.
+삭제 후 테스트·빌드·새 검증 산출물 생성은 수행하지 않았고, 게임 기능 코드와 과거 기록은 변경하지 않았다.
 
 ## Final user-directed scope (이전 실행 기록)
 

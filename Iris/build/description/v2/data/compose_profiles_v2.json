@@ -246,10 +246,24 @@
   "shared_composition": {
     "authority_ref": "docs/iris_dvf_shared_composition_usefulness_menu_tooltip_plan.md",
     "definitions": {
+      "chopping": {
+        "core": {
+          "en": "Used to {effect} {target}.",
+          "ko": "{target} {effect}."
+        },
+        "menu_blocks": {}
+      },
       "fuel_container": {
         "core": {
           "en": "A container used to {use} {fuel}.",
           "ko": "{fuel}를 담아 {use} 용기다."
+        },
+        "menu_blocks": {}
+      },
+      "melee_striking": {
+        "core": {
+          "en": "A melee weapon used to {effect}.",
+          "ko": "{effect} 데 쓰는 근접 무기다."
         },
         "menu_blocks": {}
       },
@@ -288,7 +302,7 @@
       },
       "vehicle_panel": {
         "core": {
-          "en": "{target} parts that can be {use}.",
+          "en": "A vehicle {target} that can be {use}.",
           "ko": "차량에서 {use} {target} 부품이다."
         },
         "menu_blocks": {}

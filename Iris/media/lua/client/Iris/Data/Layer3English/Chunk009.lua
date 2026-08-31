@@ -163,7 +163,7 @@ return {
     ["Base.Swimsuit_TINT"] = "Underwear worn on the body.\n\nFound in swimwear displays, clothing storage.",
     ["Base.TVDinner"] = "Consuming it can reduce hunger. Eating it raw can be dangerous.",
     ["Base.TVMagazine"] = "Reading material that can reduce boredom and stress.",
-    ["Base.TableLeg"] = "Used to swing, strike, or push in close combat.",
+    ["Base.TableLeg"] = "A melee weapon used to strike or shove.",
     ["Base.Taco"] = "Consuming it can reduce hunger.",
     ["Base.TacoRecipe"] = "Consuming it can reduce hunger.\n\nMade by combining ingredients.",
     ["Base.TacoShell"] = "Consuming it can reduce hunger.",

@@ -269,7 +269,7 @@
       },
       "open_can": {
         "core": {
-          "en": "Use {opener} to {action} and take out {contents}.",
+          "en": "Use {opener} to {action} and take out the {contents}.",
           "ko": "{opener}로 {action} {contents} 꺼낼 수 있다."
         },
         "menu_blocks": {}

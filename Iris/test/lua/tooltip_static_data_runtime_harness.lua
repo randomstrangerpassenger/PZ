@@ -274,6 +274,12 @@ for _, kind in ipairs({"normal", "load_failure", "invalid_root", "malformed", "u
                     else assert(panel.y+panel.height == -4) end
                     if placement.top then assert(panel.y == 0) end
                     if placement.panelWidth then assert(panel.width == placement.panelWidth) end
+                    for _, physicalLine in ipairs(tip.drawn) do
+                        -- The production panel keeps scale-aware slack beyond
+                        -- this measured run, so no line may consume the old
+                        -- edge-to-edge content width.
+                        assert(#physicalLine*6 < panel.width-20, "physical line needs safe wrapping")
+                    end
                 end
                 alt=false; ISToolTipInv.render(tip)
                 assert(tip.height == 30 and tip.width == placement.width)

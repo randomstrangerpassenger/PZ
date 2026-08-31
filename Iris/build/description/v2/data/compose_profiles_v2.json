@@ -248,7 +248,7 @@
     "definitions": {
       "chopping": {
         "core": {
-          "en": "Used to {effect} {target}.",
+          "en": "Use it to {effect} {target}.",
           "ko": "{target} {effect}."
         },
         "menu_blocks": {}
@@ -263,53 +263,53 @@
       "melee_striking": {
         "core": {
           "en": "A melee weapon used to {effect}.",
-          "ko": "{effect} 데 쓰는 근접 무기다."
+          "ko": "{effect} 근접 무기다."
         },
         "menu_blocks": {}
       },
       "open_can": {
         "core": {
-          "en": "{action} {opener} to obtain {contents}.",
-          "ko": "{opener} {action} {contents} 꺼낼 수 있다."
+          "en": "Use {opener} to {action} and take out {contents}.",
+          "ko": "{opener}로 {action} {contents} 꺼낼 수 있다."
         },
         "menu_blocks": {}
       },
       "portable_storage": {
         "core": {
-          "en": "A {container} used to {use} items.",
+          "en": "A {container} for {use} items.",
           "ko": "물건을 {use} {container}이다."
         },
         "menu_blocks": {}
       },
       "skill_reading": {
         "core": {
-          "en": "When {literacy} and your current {skill} level is {current_levels}, reading it {xp_effect} for {skill} levels {trained_levels}.",
-          "ko": "{literacy} {skill}의 현재 레벨이 {current_levels}일 때 읽으면, {skill} {trained_levels}레벨 구간의 {xp_effect}."
+          "en": "If {literacy} and your {skill} level is {current_levels}, this book {xp_effect} for levels {trained_levels}.",
+          "ko": "{skill} 레벨이 {current_levels}이고 {literacy}, 이 책으로 {skill} {trained_levels}레벨의 {xp_effect}."
         },
         "menu_blocks": {
           "progress": {
-            "en": "The multiplier is calculated in 10% steps of its {pages} pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is {multiplier} times.",
-            "ko": "전체 {pages}쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 {multiplier}배다."
+            "en": "Progress is counted in 10% steps over {pages} pages. The multiplier updates only when the new value is higher, reaching at most {multiplier} times when finished.",
+            "ko": "{pages}쪽 분량의 독서 진행률을 10% 단위로 계산한다. 현재 배율보다 높을 때만 새 배율이 적용되며, 끝까지 읽으면 최대 {multiplier}배가 된다."
           }
         }
       },
       "towel_uses": {
         "core": {
-          "en": "{dry_effect} {dry_condition}. {clean_effect} {clean_condition}.",
+          "en": "When {dry_condition}, you can {dry_effect}. {clean_condition}, it can also {clean_effect}.",
           "ko": "{dry_condition} {dry_effect}. {clean_condition} {clean_effect}."
         },
         "menu_blocks": {}
       },
       "vehicle_panel": {
         "core": {
-          "en": "A vehicle {target} that can be {use}.",
-          "ko": "차량에서 {use} {target} 부품이다."
+          "en": "This vehicle {target} can be {use}.",
+          "ko": "차량의 {target}이며, {use}."
         },
         "menu_blocks": {}
       },
       "wearing": {
         "core": {
-          "en": "{use} {location}.",
+          "en": "It is {use} {location}.",
           "ko": "{location} {use}."
         },
         "menu_blocks": {}

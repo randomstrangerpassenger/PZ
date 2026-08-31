@@ -92,7 +92,7 @@ G5는 실제 변경된 `compose_layer3_text.py`의 Git bytes/ancestry/last-write
 - Recipe companion SHA-256: `d9d6107d16efd68018d6efd562dc09161844f1f15c37a36c1137182dbfbe7aac`.
 - T2 projection manifest SHA-256: `9d33a908201b8bdbbfc99f47068560c7f05f0f6403e2c471d0b1235669d5391f`.
 
-검증된 구현·data·authority·문서를 원본 저장소에 fast-forward로 통합한다. 마지막 route adoption과 이 closeout 갱신은 검증 이후의 metadata/documentation 변경이며 테스트한 T2 commit/tree를 새 HEAD로 바꿔 기록하지 않는다. Package는 위 T2 subject의 runtime bytes로 생성·관측했다. 추가 confidence용 full이나 별도 seal은 만들지 않는다. 사용자의 실제 게임 설치 폴더에는 쓰지 않았다.
+검증된 구현·data·authority·문서를 원본 저장소에 fast-forward로 통합했다. 마지막 route adoption과 이 closeout 갱신은 검증 이후의 metadata/documentation 변경이며 테스트한 T2 commit/tree를 새 HEAD로 바꿔 기록하지 않는다. Package는 위 T2 subject의 runtime bytes로 생성·관측했다. 추가 confidence용 full이나 별도 seal은 만들지 않는다. 사용자의 실제 게임 설치 폴더에는 쓰지 않았다.
 
 준비 실패 및 수정:
 

@@ -42,8 +42,10 @@ class IrisBrowserSinglePassCacheContractTest(unittest.TestCase):
             [lua, str(REPO / "Iris/test/lua/browser_state_acceptance_harness.lua"), str(REPO)],
             cwd=REPO,
             text=True,
+            encoding="utf-8",
             capture_output=True,
             check=False,
+            timeout=60,
         )
         self.assertEqual(0, completed.returncode, completed.stdout + completed.stderr)
         self.assertIn("IRIS_BROWSER_STANDALONE_PASS", completed.stdout)

@@ -64,7 +64,6 @@
     "build_contract": {
       "classification": "current",
       "paths": [
-        "Iris/build/ENTRYPOINTS.md",
         "Iris/build/build_import_contract.md"
       ],
       "delete_move_policy": "protected; update only with focused build-contract plan."
@@ -94,7 +93,7 @@
         "Iris/tooling/uv.lock",
         "Iris/tooling/src/iris_tooling/**"
       ],
-      "command_owner": "Iris/build/ENTRYPOINTS.md",
+      "command_owner": "Iris/tooling/src/iris_tooling/__main__.py",
       "notes": "Current Description v2 and right-click tooling is installed from a hash-bound wheel. Repository context is explicit."
     },
     "tooltip_t1_contract": {
@@ -105,13 +104,13 @@
         "Iris/tooling/src/iris_tooling/domains/tooltip_t1/**",
         "Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json"
       ],
-      "command_owner": "Iris/build/ENTRYPOINTS.md",
+      "command_owner": "Iris/tooling/src/iris_tooling/domains/tooltip_t1/cli.py",
       "notes": "Owner-ratified offline Tooltip projection/readiness contract adopted through T1-D6. The strict production handoff is generated only from a same-subject D2 relation and a zero T2-blocking correction set; the repository-external final root is located by the current route index and is not regular validation authority."
     },
     "package_validation": {
       "classification": "current",
       "path": "Iris/tools/package_iris.ps1",
-      "command_owner": "Iris/build/ENTRYPOINTS.md",
+      "command_owner": "Iris/tools/package_iris.ps1",
       "notes": "current_runtime_payload consumes the stateless generation descriptor after R2-A installation. rtc_certified_payload remains a separate stale/fail-closed axis until generation-bound successor RTC evidence exists."
     },
     "package_output": {
@@ -125,7 +124,7 @@
         "Iris/_docs/authority/tooltip_t2/**",
         "Iris/tooling/src/iris_tooling/domains/tooltip_static_data_projection/**"
       ],
-      "command_owner": "Iris/build/ENTRYPOINTS.md",
+      "command_owner": "Iris/tooling/src/iris_tooling/domains/tooltip_static_data_projection/cli.py",
       "notes": "Adopted deterministic offline projection contract. Repository-external T2 staging is not runtime adoption or an independent validation authority."
     }
   },
@@ -216,9 +215,9 @@
     },
     {
       "path": "Iris/AGENTS.md",
-      "classification": "current",
-      "authority_role": "Iris agent bootstrap to Philosophy, DECISIONS, ARCHITECTURE, and ROADMAP",
-      "delete_move_policy": "protected"
+      "classification": "stale",
+      "authority_role": "redundant bootstrap retired by owner request on 2026-08-31; core documents and the applicable plan govern execution",
+      "delete_move_policy": "keep deleted; historical references do not require restoration"
     },
     {
       "path": "Iris/_docs/authority/iris_current_route_index.json",
@@ -252,9 +251,9 @@
     },
     {
       "path": "Iris/build/ENTRYPOINTS.md",
-      "classification": "current",
-      "authority_role": "active root build command and keep-list contract",
-      "delete_move_policy": "protected; no filename-glob cleanup"
+      "classification": "stale",
+      "authority_role": "separate command-document ownership retired by owner request on 2026-08-31; implementation defines interfaces and task plans record invocations",
+      "delete_move_policy": "keep deleted; historical references do not require restoration"
     },
     {
       "path": "docs/iris_tooltip_t1_display_contract_policy.md",
@@ -466,13 +465,13 @@
       "path_glob": "Iris/build/*.py",
       "classification": "current",
       "authority_role": "root build entrypoints",
-      "delete_move_policy": "protected by Iris/build/ENTRYPOINTS.md"
+      "delete_move_policy": "preserve current consumers and build contracts; changes follow core decisions and the applicable plan"
     },
     {
       "path_glob": "Iris/build/tools/pipeline/**",
       "classification": "current",
       "authority_role": "active pipeline tools",
-      "delete_move_policy": "protected by Iris/build/ENTRYPOINTS.md"
+      "delete_move_policy": "preserve current consumers and build contracts; changes follow core decisions and the applicable plan"
     },
     {
       "path_glob": "Iris/build/tools/common/**",

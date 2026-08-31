@@ -1,5 +1,7 @@
 # Implementation Plan — Iris Tooltip T3-D1 Menu·Tooltip Layer 3 표시 조건 및 EN 소비 Record Fact 연결 정합성
 
+> 2026-08-31 명령 안내 정리: 별도 AGENTS/ENTRYPOINTS 문서는 퇴역했다. 원 계획·실행 이력의 해당 참조는 복구·갱신 의무가 아니다. 명령 interface는 현재 CLI/script 구현에서 확인하고 이 계획의 검증·실행 절에 기록한다. T1/T2 build/finalize와 focused 명령은 각 기존 계획을 참조하며 과거 실행의 증거·제품 계약은 변경하지 않는다.
+
 > 실행 상태(2026-08-30): **T3-D1 complete**. 사용자 지정 12개 Build 41 정정을 Menu·EN·owner·T1·T2·product까지 전파했다. 필수 canonical A/B·comparator와 최종 actual Menu relation 모두 PASS이며 initial 1,314 pair는 resolved 1,314 / retained 0 / unresolved 0이다. 상세 current binding과 검증은 문서 끝의 최종 closeout을 따른다. 과거 실패·superseded 결과는 보존하고 전체 T3는 partial, runtime_adopted=false다.
 
 > 원 계획 작성 시점의 상태: 실행 전 계획. 2026-08-30 코드·계약·산출물의 읽기 전용 조사에 기반한다. 당시 작성·개정은 본 문서에 한정하며, display disposition 확정·producer 수정·generation 전환·T3-D1 완료를 의미하지 않았다.
@@ -85,7 +87,7 @@ T3-D1 완료는 전체 T3 완료나 runtime adoption이 아니다. build-side co
 - `docs/DECISIONS.md`의 Menu/Tooltip presentation, Layer 3 optional role-material, Layer 2–3 locale, stateless generation, T1/T2, clean-checkout 및 evidence integrity 결정을 따른다.
 - `docs/ARCHITECTURE.md`의 producer / owner / runtime / validation 책임 분리와 `docs/ROADMAP.md` Iris의 T3 `partial` 상태를 따른다.
 - `docs/EXECUTION_CONTRACT.md`는 disclosure / claim-evidence binding / ceiling / closeout 규율이다. 새 visibility policy의 출처로 사용하지 않는다.
-- human command literal owner는 `Iris/build/ENTRYPOINTS.md`, current locator는 `Iris/_docs/authority/iris_current_route_index.json`이다. 과거 문서나 source filename만 보고 retired route를 재활성화하지 않는다.
+- 명령은 실제 CLI/script 구현을 확인하고 이 계획·실행 기록에 둔다. Current locator는 `Iris/_docs/authority/iris_current_route_index.json`이며 과거 문서나 source filename만 보고 retired route를 재활성화하지 않는다.
 - 조사 시 HEAD는 `b9d7ae289b226082c191b1f6a23e6b363c6d99a6`, HEAD tree는 `c5d1d1c4ed9d4142e1cdb7dfdc854255c19ecb0b`다. **dirty working tree이므로 이 commit/tree가 조사한 전체 파일 내용의 identity는 아니다.** 실행 시 relevant source/data hashes, tracked/untracked 상태와 exact validation subject를 별도 결속한다.
 - 시작부터 `.gitattributes`, T3 reader/Alt·translation·harness·test·entrypoint와 문서 변경, `b/`, `g/`, `i/` 하위 기존 test checkout 상태가 있었다. 이는 본 계획 작성의 변경이 아니다.
 
@@ -202,7 +204,7 @@ current locator가 위 읽기 전용 입력 밖을 가리키거나 누락된 pol
 - 신규: `docs/iris_tooltip_t3_d1_layer3_menu_tooltip_display_en_record_fact_relation_consistency_plan.md`.
 - 실행 결과가 생긴 경우 기존 `docs/iris_tooltip_t3_static_data_alt_runtime_integration_plan.md`에 Change 8의 final-required scope와 T3-D1 handoff를 반영한다. 특히 A/B로 record 의무가 달라지면 original T3의 acceptance/readpoint도 같은 scope를 사용하도록 additive 갱신한다. `docs/ROADMAP.md`, `docs/ARCHITECTURE.md`는 실제 claim 변경 범위에서만 동기화.
 - authority 해석/계약의 approved successor가 필요한 경우만 `docs/DECISIONS.md`, `docs/iris_tooltip_t1_display_contract_policy.md`의 additive 기록 검토.
-- command가 실제 변경된 경우만 `Iris/build/ENTRYPOINTS.md` 갱신. 본 계획은 별도의 command authority가 아님.
+- command가 실제 변경되면 이 계획의 해당 실행 명령을 갱신한다. 명령 interface의 정의는 실제 구현에 둔다.
 
 ### Config
 
@@ -438,10 +440,10 @@ T2 unchanged이면 기존 final bundle을, changed이면 검증된 successor만 
 기존 T3 wrapper의 `menu` 모드를 D1의 기본 관측 경로로 사용한다. 다음은 기존 mode의 호출 형태이며 **이 호출만으로 final relation PASS를 주장하지 않는다.**
 
 ```powershell
-uv run python .\Iris\build\description\v2\tests\test_iris_browser_state_selection_search_acceptance.py menu
+uv run python .\Iris\build\description\v2\tests\test_iris_browser_state_selection_search_acceptance.py menu <admitted-tooltip-t2-manifest> [--en-replay-root <authorized-new-empty-leaf>] [--baseline-root <authorized-initial-snapshot-root>]
 ```
 
-최종 실행은 explicit admitted T2 manifest를 같은 wrapper의 입력으로 제공하고 Change 4/6의 **독립 검증된 actual EN evidence**까지 연결한 Menu relation 호출로 한 번 수행한다. 현재 caller의 빈 `en_identity_evidence={}`를 그대로 사용하거나 관측-only 성공을 relation 성공으로 세지 않는다. 필요한 evidence admission 연결을 구현한 뒤 정확한 최종 command/input을 기존 실행 기록에 남기며, human command가 바뀌면 `Iris/build/ENTRYPOINTS.md`도 필요한 범위만 갱신한다.
+최종 실행은 explicit admitted T2 manifest를 같은 wrapper의 입력으로 제공하고 Change 4/6의 **독립 검증된 actual EN evidence**까지 연결한 Menu relation 호출로 한 번 수행한다. 현재 caller의 빈 `en_identity_evidence={}`를 그대로 사용하거나 관측-only 성공을 relation 성공으로 세지 않는다. 필요한 evidence admission 연결을 구현한 뒤 정확한 최종 command/input을 기존 실행 기록에 남긴다. `--en-replay-root`는 이 계획에서 허용한 비어 있는 외부 leaf를 사용하고, `--baseline-root`는 최초 `menu-before.txt`, `en-before`, `owner-before.json`을 보존한 입력을 가리킨다. 이 명령 표기는 새 외부 접근 범위나 별도 Gate를 추가하지 않는다.
 
 `full`은 Alt reader/lifecycle 등 그 검증 범위에 실제 영향이 있거나 기존 authority가 명시적으로 요구할 때만 실행한다. D1의 provenance/comparator 보완만으로 `full`을 추가하지 않는다. B의 product/admission 변경도 기존 좁은 payload 검사로 검증 가능한 범위는 그 경로를 사용하며, 본래 T3의 최종 runtime 검증 의무는 T3에 보존한다. `replacement`는 이번에 legacy 삭제/adapter 변경을 하지 않으므로 실행하지 않는다. 서로 다른 mode를 전부 한 번씩 돌리는 것을 기본 절차로 삼지 않는다.
 
@@ -451,11 +453,11 @@ Lua source 또는 generated Lua가 변경되는 branch에서는 repository 지�
 powershell -ExecutionPolicy Bypass -File .\tools\check_lua_syntax.ps1
 ```
 
-T1/T2 focused 및 build/finalize command는 `Iris/build/ENTRYPOINTS.md`의 해당 section을 사용한다. 실행 Python은 `uv run python ...` 또는 그 문서의 `uv run --project ... python ...` 경로를 사용한다. Java/Gradle·JS/TS 변경이 없는 본 scope에 `gradlew test` / `pnpm biome check .`를 무관하게 추가하지 않는다.
+T1/T2 focused 및 build/finalize command는 각 기존 T1/T2 계획의 해당 section과 실제 domain CLI를 확인한다. 실행 Python은 `uv run python ...` 또는 기존 `uv run --project ... python ...` 경로를 사용한다. Java/Gradle·JS/TS 변경이 없는 본 scope에 `gradlew test` / `pnpm biome check .`를 무관하게 추가하지 않는다.
 
 **Canonical 적용 판정:** 통합 로드맵은 source mutation 후 canonical gate를 별도 채택 항목으로 남겼다. 그러나 현재 `docs/DECISIONS.md`의 clean-checkout 계약은 execution-relevant source 또는 protected result correction 시 corrected exact subject 재검증을 요구한다. 따라서 이 계획은 해당 surface를 실제 수정하는 branch에 기존 gate 의무를 적용한다. 이는 로드맵의 optional 항목을 근거 없이 의무화한 것이 아니라 current repository authority 적용이다. evidence-only의 결과 기록과 docs-only 작성만으로 새 source-validation subject 또는 불필요한 full-gate 의무를 만들지 않는다.
 
-gate membership, environment, work/result root, receipt, Run A/B와 deterministic comparison은 `Iris/validation/clean_checkout/invoke_receipt_bound_full_gate.ps1` 및 `invoke_deterministic_compare.ps1`가 소유한다. human invocation은 ENTRYPOINTS의 `iris-tooling ... validate full ...`을 따르고 필요한 external 작업/output은 §4.5에 한정한다. T1/T2 finalizer의 이미 존재하는 canonical evidence 요구도 생략하지 않는다. 새 gate wrapper나 T3-D1 전용 exemption을 만들지 않는다.
+gate membership, environment, work/result root, receipt, Run A/B와 deterministic comparison은 `Iris/validation/execution/invoke_repository_tests.ps1` 및 `compare_repeated_test_runs.ps1`가 소유한다. 호출은 실제 CLI의 `iris-tooling ... validate full ...` 인자 정의를 확인하고 필요한 external 작업/output은 §4.5에 한정한다. T1/T2 finalizer의 이미 존재하는 canonical evidence 요구도 생략하지 않는다. 새 gate wrapper나 T3-D1 전용 exemption을 만들지 않는다.
 
 **최소 회귀 사례:** 아래 성질 중 실제 수정한 판정 경계만 기존 positive/negative table에 통합한다. 기존 동일 사례가 있으면 재사용하며 field별 test function, 전체 조합의 Cartesian product 또는 사용하지 않는 branch별 suite는 추가하지 않는다.
 

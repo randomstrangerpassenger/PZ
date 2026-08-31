@@ -1,7 +1,7 @@
 # ARCHITECTURE.md
 
 > 상태: 초안 v0.4  
-> 기준일: 2026-08-31 (이번 갱신 범위: Iris DVF 설명·Tooltip·Menu)\
+> 기준일: 2026-08-31 (이번 갱신 범위: Iris DVF 설명·Tooltip·Menu, Browser 검색·탐색, 내부 패키징·검증 적용 범위)\
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 구조 지도, 역할 경계, 의존 방향을 고정한다.  
 > 구현 상태 표기: 별도 표시가 없는 모듈은 current architecture를 기술하며, `설계 단계` 표시는 아직 구현되지 않은 target architecture를 뜻한다.
@@ -333,17 +333,19 @@ domain-owned input / payload / verdict
 -> CanonicalSemanticResult (stable meaning)
  + ExecutionEnvelope (run-local observation)
 -> domain adapter / canonical CLI machine projection
--> package-bound clean-checkout gate
+-> plan-selected validation (including clean-checkout when applicable)
 ```
 
 - `PhaseRunner`는 dependency ordering, run-local reuse, metric, issue/artifact association만 소유한다. Build/validation payload, success verdict와 semantic authority는 각 domain owner에 남는다.
 - Canonical semantic result에는 deterministic stable meaning만 두고 run ID, elapsed, timestamp, process/environment와 path observation은 volatile envelope에 둔다.
 - Canonical CLI는 existing validation authority의 thin adapter다. CLI, Python/PowerShell launcher와 pytest가 같은 semantic verdict를 중복 소유하지 않는다.
+- 검증 적용 범위는 `DECISIONS.md`의 「Iris Repository Validation — Clean-Checkout full-repository reproducibility contract」와 작업별 계획을 따른다. Clean-Checkout·전체 회귀·A/B 비교는 자동으로 묶인 완료 조건이 아니다. 기존 canonical 실행기를 선택한 경우에는 그 외부 환경·출력 격리·필수 목록·판정 기준을 유지하며, 전체 검사 1회 결과와 A/B 재현성 PASS를 구분한다.
 - Full-gate current-output seed는 producer 3개로 staging materialization을 한 번 수행하고 completeness/content identity 확인 뒤 immutable final seed와 case-local clone으로 공급한다. Mutation/tamper isolation과 Run A/B fresh-process independence는 공유하지 않는다.
-- Iris planning/implementation bootstrap은 `docs/Philosophy.md` → `docs/DECISIONS.md` → `docs/ARCHITECTURE.md` → `docs/ROADMAP.md`이며 별도 human navigation projection을 두지 않는다. Current human command literal owner는 `Iris/build/ENTRYPOINTS.md`, machine route projection은 `Iris/_docs/authority/iris_current_route_index.json`이다. Description-tree predecessor source는 current import, command 또는 fallback authority가 아니다.
+- Iris 작업은 다섯 핵심 문서 `docs/Philosophy.md`, `docs/DECISIONS.md`, `docs/ARCHITECTURE.md`, `docs/ROADMAP.md`, `docs/EXECUTION_CONTRACT.md`의 역할·우선순위와 해당 계획을 따른다. 별도 `Iris/AGENTS.md`와 `Iris/build/ENTRYPOINTS.md`는 2026-08-31 사용자 요청으로 퇴역했다. 실제 CLI/script 구현이 명령 interface를 정의하고 작업별 명령은 계획·실행 기록에 둔다. `Iris/_docs/authority/iris_current_route_index.json`은 machine navigation만 제공하며 추가 검증 의무를 만들지 않는다. Description-tree predecessor source는 current import, command 또는 fallback authority가 아니다.
 - Current denominator는 서로 다른 두 identity universe를 구분한다. Round3 current-route `103`은 routing membership이고 clean-checkout canonical full gate는 pytest 211개와 required standalone validation 4개, 즉 215 recurring execution unit을 소유한다.
 - Same-name predecessor retirement는 31 substantive distinct basename identity와 33 concrete predecessor file을 구분한다. 두 extra file은 nested D16의 concrete copy이며 protected neutral fixture가 아니다.
-- Exact package/environment subject가 달라질 때만 replacement terminal chain을 만든다. Unchanged subject를 confidence 확보만을 위해 반복하지 않으며 docs-only closeout은 machine PASS subject를 바꾸지 않는다.
+- 검증 대상·입력·구현·환경 변경은 영향받는 검증의 재실행 근거이며, 그 자체로 전체 terminal chain 재생성 의무는 아니다. 계획이 Clean-Checkout A/B 재현성을 요구할 때 해당 chain을 만든다. Unchanged subject를 confidence 확보만을 위해 반복하지 않으며 docs-only closeout은 machine PASS subject를 바꾸지 않는다.
+- 실행용 임시 checkout/work/test output과 보존할 증거·handoff·package는 수명을 구분한다. 비교와 후속 소비가 끝난 재생성 가능 복사본은 정리 대상으로 두며, 현재 consumer가 읽는 원본과 실패 이력은 보존한다. 이 적용 정책은 검증기의 자동 정리 기능이 추가됐다는 뜻이 아니다.
 - W0 admission artifact 미보존은 historical process fact로 유지한다. Owner disposition으로 closeout은 complete이며 새 owner instruction이나 새 current authority 없이 build/validation architecture work를 재개방하지 않는다.
 
 ### Tooltip T1 offline contract / T2 handoff 구조
@@ -480,7 +482,7 @@ Recipe 표시 variant는 기존 `iris_tooling.domains.tooltip_static_data_projec
 
 각 Tooltip instance의 `_irisOpening`은 item/FullType과 선택된 bilingual view 하나만 보관한다. 매 frame이나 locale 변경으로 재추첨하지 않는다. Alt 해제·item 전환·`setVisible(false)`·context menu 표시에서 해제하고 다음 opening에 새로 고른다. 단일 후보는 그대로 표시하며 연속 동일 선택도 허용한다. 이 상태는 전역 FullType result cache가 아니다. 레시피의 적격성·문구·행 조립은 이미 빌드에서 끝났고 runtime은 view 선택과 그대로 렌더링만 담당한다.
 
-현재 배포 후보는 `C:/Users/MW/PZ-U/pkg2/Iris`와 `Iris.zip`이며, `IrisAltTooltip.lua`, `IrisTooltipStaticDataLookup.lua`, fixed/Recipe companion 및 현재 Menu generation을 함께 제공한다. 2026-08-31 교정으로 fixed S2가 변경됐으므로 이전 companion과 혼합하지 않는다. 마지막 9개 Menu context 보완에서는 strict T1 입력과 fixed/companion이 같아 기존 S2 비교 결과를 재사용했다. 생성 command의 owner는 `Iris/build/ENTRYPOINTS.md`, 실행·검증·관찰 범위는 [단일 closeout](iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan_closeout.md)이다.
+DVF 교정 작업의 배포 후보는 `C:/Users/MW/PZ-U/pkg2/Iris`와 `Iris.zip`이며, `IrisAltTooltip.lua`, `IrisTooltipStaticDataLookup.lua`, fixed/Recipe companion 및 현재 Menu generation을 함께 제공한다. 2026-08-31 교정으로 fixed S2가 변경됐으므로 이전 companion과 혼합하지 않는다. 마지막 9개 Menu context 보완에서는 strict T1 입력과 fixed/companion이 같아 기존 S2 비교 결과를 재사용했다. 생성 command는 installed tooling의 해당 domain CLI와 Recipe companion producer 구현을 확인하며, 실행·검증·관찰 범위는 [단일 closeout](iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan_closeout.md)이다. 이후 Browser 검색 수정의 전달물은 아래 검색·탐색 절의 `.tmp/package/4/Iris`이며, 검색 작업에서 semantic payload를 재생성하지 않았다.
 
 이하 2026-08-30 predecessor의 입력 인계·검증 이력이며 현재 2,048개 core의 결과와 구분한다. 초기 L3 selected 1,314 중 12개의 KO/EN Menu source
 누락과 EN evidence gap은 D1의 C 구현 및 최종 actual relation에서 해소됐다. 기존 primary-use를 중심으로
@@ -572,6 +574,27 @@ supported API / public require surface
 - Iris runtime integration은 Project Zomboid의 전역 bullet-reload 또는 context-menu render 함수를 교체하지 않는다.
 - Diagnostic counter와 clock instrumentation은 normal production state와 분리하며 explicit enable 상태에서만 갱신한다.
 - Fault / fallback 가시성은 diagnostic instrumentation의 활성 여부와 독립적으로 유지하며, diagnostic output은 semantic authority나 일반 production state를 소유하지 않는다.
+
+### Browser 검색·입력·분류 탐색 구조
+
+구현은 `Iris/media/lua/client/Iris/UI/Browser/`에 둔다. `IrisBrowserSearch`는 상태 없는 lexical 비교를 소유하고, 기존 ProjectionBuilder·Query·Data·ListController가 데이터와 UI 상태를 나눠 맡는다.
+
+```text
+snapshot 생성: getAllItems() → ProjectionBuilder → generation/locale snapshot
+검색 호출: ListController → Data → Query → 같은 snapshot
+공통 비교: ProjectionBuilder / Query → IrisBrowserSearch
+UI 반영: Data의 public 결과·분류 위치 → ListController의 목록·선택
+```
+
+- ProjectionBuilder와 Query의 locale 교체는 같은 `Search.document`로 원본 이름의 소문자 key, U+0020 제거 key, 소문자 ID key를 생성한다. Private row의 item 객체와 exact FullType은 유지한다. Snapshot은 완성 후 교체하고 generation/locale 변화 시 prefix와 display-name grouping cache를 무효화한다.
+- Query는 snapshot의 원본 이름·FullType 순서를 유지한 후보를 관련성 bucket에 배치한다. 매 입력마다 전체 정렬이나 document 생성을 반복하지 않는다. Prefix 후보는 같은 snapshot이고 compact-name·ID가 모두 prefix 확장일 때만 재사용한다. 결과 순위와 global/local 범위는 `DECISIONS.md`의 Browser 검색 결정을 따른다.
+- Data의 supported facade와 public row shape는 유지한다. 내부 `searchItems`는 VariantIndex의 visible 대표 row만 동일 matcher로 검색하며 variants를 보존한다. `getSearchOwner`는 UI에 generation/locale을 제공한다. 내부 adapter를 새로운 supported API로 승격하지 않는다.
+- `IrisBrowser.update`는 owner 변경과 검색창의 `getInternalText()` 변경을 확인한다. ListController는 callback 전후 값 차이와 누락된 paste callback을 다음 update에서 반영하며 동일 입력의 중복 callback은 결과·detail을 다시 지우지 않는다. 엔진이 전달하지 않은 IME 조합 문자열은 복구하지 않는다.
+- 내부 `getSearchLocation`은 방금 완료된 global query의 private 후보/document와 기존 primaryLocation을 재사용한다. Query·snapshot·generation·locale이 맞지 않거나 exact 집합의 위치가 모호하면 이동하지 않는다. Controller의 `selectSearchLocation`은 분류 목록·선택·스크롤만 맞추고 global 결과나 query를 바꾸지 않는다. 목표를 가리는 소분류 필터만 해제한다.
+- Global clear는 query prefix를 폐기하고 대분류 목록만 남긴다. 분류 선택·소분류/아이템 목록·detail/variants·하위 검색 필터를 초기화한다. 분류 직접 클릭은 event payload를 clear 전에 보존해 클릭한 위치에서 browse를 이어간다. Wrapped/raw payload 및 selected-index 경로는 exact item identity를 유지한다.
+- `Iris/tools/package_iris.ps1`은 current-generation-only projection과 기존 package 검사를 유지하며 내부 staging을 `.tmp/package/`로 제한한다. Source 겹침과 reparse 경로는 거부한다. 이는 canonical Clean-Checkout의 외부 실행 환경을 내부로 옮긴 것이 아니다.
+
+최종 검색 패키지는 `.tmp/package/4/Iris` / `Iris.zip`이다. 기존 Browser 통합 검사와 Lua syntax·package 자체 검사가 통과했고 사용자가 분류 자동 선택·clear 초기화·분류 직접 탐색을 확인했다. 명령과 관찰 범위는 [검색 closeout](iris_korean_item_search_relevance_normalization_runtime_consistency_closeout.md)에 둔다. 이를 한글 조합 확정 지연 해소, 전체 환경·성능 또는 release readiness 검증으로 확대하지 않는다.
 
 ### Locale projection 구조
 

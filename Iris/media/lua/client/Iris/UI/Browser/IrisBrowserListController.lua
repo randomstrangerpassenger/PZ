@@ -7,6 +7,7 @@
 local IrisBrowserListController = {}
 local ItemAccess = require("Iris/Util/IrisItemAccess")
 local BrowserBase = require("Iris/UI/Browser/IrisBrowserBase")
+local Search = require("Iris/UI/Browser/IrisBrowserSearch")
 
 --- Resolve a scrolling-list selection without depending on the input device.
 --- Event payload wins; keyboard/programmatic selection falls back to the list index.
@@ -17,6 +18,9 @@ local BrowserBase = require("Iris/UI/Browser/IrisBrowserBase")
 function IrisBrowserListController.resolveSelectedPayload(list, eventItem)
     if type(eventItem) == "table" and eventItem.item ~= nil then
         return eventItem.item, "event_item"
+    end
+    if type(eventItem) == "table" and (eventItem.fullType or eventItem.name) then
+        return eventItem, "event_payload"
     end
 
     local selectedIndex = list and list.selected
@@ -44,6 +48,40 @@ local function logSelection(debug, axis, fromValue, toValue, reason)
         " reason=" .. tostring(reason))
 end
 
+local function clearList(list)
+    list:clear()
+    list.selected = 0
+end
+
+local function clearDetail(browser)
+    browser.currentSelectedFullType = nil
+    browser.currentSelectedVariants = nil
+    browser.detailScrollY = 0
+    browser:showDetail(nil)
+end
+
+local function rememberOwner(browser, data)
+    browser._searchGeneration, browser._searchLocale = data.getSearchOwner()
+end
+
+local function inputText(entry)
+    -- Like PZ's crafting filter, consume the edit buffer, not a potentially
+    -- stale getText value during an IME or clipboard callback.
+    if entry.getInternalText then return entry:getInternalText() or "" end
+    return entry:getText() or ""
+end
+
+local function selectListValue(list, field, value)
+    list.selected = 0
+    for index, entry in ipairs(list.items) do
+        if entry.item[field] == value then
+            list.selected = index
+            return entry.item
+        end
+    end
+    return nil
+end
+
 function IrisBrowserListController.install(IrisBrowser, context)
     local debug = context.debug
     local logError = context.logError
@@ -52,16 +90,16 @@ function IrisBrowserListController.install(IrisBrowser, context)
 
     function IrisBrowser:loadCategories()
         debug("[IrisBrowser] ========== loadCategories() START ==========")
-        self.categoryList:clear()
+        clearList(self.categoryList)
 
         local IrisBrowserData = BrowserBase.getBrowserData(context)
         if not IrisBrowserData then
             logError("[IrisBrowser] IrisBrowserData is nil")
             return
         end
-
         debug("[IrisBrowser] Calling IrisBrowserData.getCategories()...")
         local categories = IrisBrowserData.getCategories()
+        rememberOwner(self, IrisBrowserData)
         if dynamicDebug then
             dynamicDebug("[IrisBrowser] Got " .. #categories .. " categories")
         end
@@ -84,7 +122,7 @@ function IrisBrowserListController.install(IrisBrowser, context)
         if dynamicDebug then
             dynamicDebug("[IrisBrowser] loadSubcategories called for: " .. tostring(categoryName))
         end
-        self.subcategoryList:clear()
+        clearList(self.subcategoryList)
 
         local IrisBrowserData = BrowserBase.getBrowserData(context)
         if not IrisBrowserData or not categoryName then
@@ -118,7 +156,8 @@ function IrisBrowserListController.install(IrisBrowser, context)
         if dynamicDebug then
             dynamicDebug("[IrisBrowser] loadItems called: " .. tostring(categoryName) .. "." .. tostring(subcategoryName))
         end
-        self.itemList:clear()
+        clearList(self.itemList)
+        clearDetail(self)
 
         local IrisBrowserData = BrowserBase.getBrowserData(context)
         if not IrisBrowserData or not categoryName or not subcategoryName then
@@ -126,23 +165,76 @@ function IrisBrowserListController.install(IrisBrowser, context)
             return
         end
 
-        local items = IrisBrowserData.getItems(categoryName, subcategoryName)
+        local query = inputText(self.itemSearchBar)
+        local items = IrisBrowserData.searchItems(categoryName, subcategoryName, query)
+        self._itemSearchQuery = query
+        rememberOwner(self, IrisBrowserData)
         if dynamicDebug then
             dynamicDebug("[IrisBrowser] getItems returned " .. #items .. " items")
         end
 
-        local filterText = self.itemSearchBar:getText():lower()
         local addedCount = 0
 
         for _, item in ipairs(items) do
-            if filterText == "" or item.displayName:lower():find(filterText, 1, true) then
-                self.itemList:addItem(item.displayName, item)
-                addedCount = addedCount + 1
-            end
+            self.itemList:addItem(item.displayName, item)
+            addedCount = addedCount + 1
         end
         if dynamicDebug then
             dynamicDebug("[IrisBrowser] Added " .. addedCount .. " items to list")
         end
+    end
+
+    function IrisBrowser:loadBrowseNavigation()
+        local category, subcategory = self.currentCategory, self.currentSubcategory
+        self:loadCategories()
+        clearList(self.subcategoryList)
+        self.currentCategory, self.currentSubcategory = nil, nil
+        if selectListValue(self.categoryList, "name", category) then
+            self.currentCategory = category
+            self:loadSubcategories(category)
+            if selectListValue(self.subcategoryList, "name", subcategory) then
+                self.currentSubcategory = subcategory
+            end
+        end
+    end
+
+    function IrisBrowser:selectSearchLocation(category, subcategory)
+        if not category or not subcategory then return end
+        local previousIndex = self.categoryList.selected
+        if not selectListValue(self.categoryList, "name", category) then
+            self.categoryList.selected = previousIndex
+            return
+        end
+        self.currentCategory = category
+        self.currentSubcategory = nil
+        self:loadSubcategories(category)
+        if not selectListValue(self.subcategoryList, "name", subcategory) then
+            -- Reveal a target hidden by the old subcategory filter. Suppress
+            -- SetText callbacks until the replacement filter has settled.
+            self._settingSearchText = true
+            self.subcategorySearchBar:setText("")
+            self._settingSearchText = nil
+            self:loadSubcategories(category)
+            selectListValue(self.subcategoryList, "name", subcategory)
+        end
+        if self.subcategoryList.selected > 0 then
+            self.currentSubcategory = subcategory
+        end
+        for _, list in ipairs({self.categoryList, self.subcategoryList}) do
+            if list.selected > 0 and list.ensureVisible then list:ensureVisible(list.selected) end
+        end
+        -- Do not invoke selection callbacks: they exit global search and
+        -- replace its results with the folded category contents.
+    end
+
+    function IrisBrowser:leaveGlobalSearch()
+        if Search.isEmpty(inputText(self.searchBar)) then return false end
+        -- SetText may itself fire onTextChange. Consume the settled value once.
+        self._settingSearchText = true
+        self.searchBar:setText("")
+        self._settingSearchText = nil
+        self:onGlobalSearchChange(true)
+        return true
     end
 
     function IrisBrowser:onCategorySelected(item)
@@ -153,14 +245,15 @@ function IrisBrowserListController.install(IrisBrowser, context)
         end
 
         local previous = self.currentCategory
+        self:leaveGlobalSearch()
         self.currentCategory = catData.name
         self.currentSubcategory = nil
-        self.currentSelectedFullType = nil
+        selectListValue(self.categoryList, "name", self.currentCategory)
         logSelection(dynamicDebug, "category", previous, stableIdentity(catData, "name"), reason)
 
         self:loadSubcategories(self.currentCategory)
-        self.itemList:clear()
-        self:showDetail(nil)
+        clearList(self.itemList)
+        clearDetail(self)
     end
 
     function IrisBrowser:onSubcategorySelected(item)
@@ -171,7 +264,16 @@ function IrisBrowserListController.install(IrisBrowser, context)
         end
 
         local previous = self.currentSubcategory
+        local category = self.currentCategory
+        if self:leaveGlobalSearch() then
+            -- Clearing global search resets navigation. A deliberate click
+            -- still enters the category/subcategory that produced its payload.
+            self.currentCategory = category
+            selectListValue(self.categoryList, "name", category)
+            self:loadSubcategories(category)
+        end
         self.currentSubcategory = subData.name
+        selectListValue(self.subcategoryList, "name", self.currentSubcategory)
         self.currentSelectedFullType = nil
         logSelection(dynamicDebug, "subcategory", previous, stableIdentity(subData, "name"), reason)
 
@@ -194,34 +296,88 @@ function IrisBrowserListController.install(IrisBrowser, context)
         self:showDetail(self.currentSelectedFullType)
     end
 
-    function IrisBrowser:onGlobalSearchChange()
-        local query = self.searchBar:getText()
-        if query == "" then
-            self:loadCategories()
-            return
-        end
-
+    function IrisBrowser:onGlobalSearchChange(forceRefresh)
+        if self._settingSearchText then return end
+        local query = inputText(self.searchBar)
+        if not forceRefresh and self._globalSearchQuery == query then return end
         local IrisBrowserData = BrowserBase.getBrowserData(context)
         if not IrisBrowserData then return end
 
+        clearList(self.itemList)
+        clearDetail(self)
+        -- Empty input must reach Query too, to discard narrowed candidates.
+        -- Clear first so a failed replacement cannot leave old results visible.
         local results = IrisBrowserData.searchAll(query)
+        rememberOwner(self, IrisBrowserData)
+        self._globalSearchQuery = query
+        if Search.isEmpty(query) then
+            self.currentCategory, self.currentSubcategory = nil, nil
+            self._settingSearchText = true
+            self.itemSearchBar:setText("")
+            self.subcategorySearchBar:setText("")
+            self._settingSearchText = nil
+            self._itemSearchQuery = ""
+            self:loadBrowseNavigation()
+            return
+        end
+        -- Global results replace only items; navigation remains clickable.
+        if #self.categoryList.items == 0 then self:loadBrowseNavigation() end
 
-        self.categoryList:clear()
-        self.subcategoryList:clear()
-
-        self.itemList:clear()
         for _, result in ipairs(results) do
             self.itemList:addItem(result.displayName, result)
         end
+        self:selectSearchLocation(IrisBrowserData.getSearchLocation(query))
     end
 
     function IrisBrowser:onSubcategorySearchChange()
+        if self._settingSearchText then return end
         if self.currentCategory then
             self:loadSubcategories(self.currentCategory)
+            selectListValue(self.subcategoryList, "name", self.currentSubcategory)
         end
     end
 
     function IrisBrowser:onItemSearchChange()
+        if self._settingSearchText then return end
+        self._itemSearchQuery = inputText(self.itemSearchBar)
+        if not Search.isEmpty(inputText(self.searchBar)) then return end
+        if self.currentCategory and self.currentSubcategory then
+            self:loadItems(self.currentCategory, self.currentSubcategory)
+        end
+    end
+
+    -- A callback can precede an edit or be absent on paste. Compare settled
+    -- buffers on update; unchanged input performs no query or list rebuild.
+    function IrisBrowser:refreshSearchInput()
+        if not self.searchBar or not self.itemSearchBar or not self.itemList then return end
+        if inputText(self.searchBar) ~= (self._globalSearchQuery or "") then
+            self:onGlobalSearchChange()
+        elseif inputText(self.itemSearchBar) ~= (self._itemSearchQuery or "") then
+            self:onItemSearchChange()
+        end
+    end
+
+    -- Called by the panel update; the usual path compares two scalar owners.
+    -- Lists are rebuilt only when the loader locale or Browser generation changes.
+    function IrisBrowser:refreshSearchOwner()
+        if not self.searchBar or not self.itemList then return end
+        local data = BrowserBase.getBrowserData(context)
+        if not data then return end
+        local generation, locale = data.getSearchOwner()
+        if self._searchGeneration == generation and self._searchLocale == locale then return end
+        clearList(self.categoryList)
+        clearList(self.subcategoryList)
+        clearList(self.itemList)
+        clearDetail(self)
+        if generation == nil then
+            rememberOwner(self, data)
+            return
+        end
+        if not Search.isEmpty(inputText(self.searchBar)) then
+            self:onGlobalSearchChange(true)
+            return
+        end
+        self:loadBrowseNavigation()
         if self.currentCategory and self.currentSubcategory then
             self:loadItems(self.currentCategory, self.currentSubcategory)
         end
@@ -234,6 +390,11 @@ function IrisBrowserListController.install(IrisBrowser, context)
         if not fullType then
             return
         end
+        self._settingSearchText = true
+        self.searchBar:setText("")
+        self.itemSearchBar:setText("")
+        self._settingSearchText = nil
+        self:onGlobalSearchChange(true)
         local IrisBrowserData = BrowserBase.getBrowserData(context)
         local targetCat, targetSub = nil, nil
         if IrisBrowserData and IrisBrowserData.getItemLocation then
@@ -241,10 +402,7 @@ function IrisBrowserListController.install(IrisBrowser, context)
         end
 
         if targetCat and targetSub then
-            self.currentCategory = targetCat
-            self:loadSubcategories(targetCat)
-
-            self.currentSubcategory = targetSub
+            self:selectSearchLocation(targetCat, targetSub)
             self:loadItems(targetCat, targetSub)
 
             self.detailScrollY = 0

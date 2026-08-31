@@ -1,5 +1,7 @@
 # Iris Tooltip T1 표시 계약 및 상류 입력 준비성 확정 Implementation Plan
 
+> 2026-08-31 명령 안내 정리: 별도 AGENTS/ENTRYPOINTS 문서는 퇴역했다. 아래의 두 문서 참조는 원 계획 당시의 이력이며 복구·갱신 의무가 아니다. T1 명령은 installed `iris_tooling`의 `domains/tooltip_t1/cli.py`, 전체 검증은 `Iris/validation/execution/`의 실제 구현을 확인하고 이 계획의 실행 명령·기록을 사용한다. 과거 검증 결과와 제품 계약은 변경하지 않는다.
+
 > 상태: implemented / owner ratification adopted from the execution prompt / required validation governed by this plan's canonical receipts / T2 handoff blocked by upstream corrections
 > 작성일: 2026-08-27
 > 기준 로드맵: `Iris Tooltip T1 — 표시 계약 / 상류 입력 준비성 확정 종합 로드맵`
@@ -1270,7 +1272,7 @@ terminal tracked subject에서는 `Iris/build/ENTRYPOINTS.md`가 소유한 curre
 read-only membership 확인:
 
 ```powershell
-uv run python .\Iris\_docs\round3\round3_run_contract_tests.py --class current --list
+uv run python .\Iris\validation\execution\run_required_contract_tests.py --class current --list
 ```
 
 receipt-bound full validation:

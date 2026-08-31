@@ -1,5 +1,7 @@
 # Implementation Plan — Iris Tooltip T2 결정적 KO/EN 정적 Lua Projection
 
+> 2026-08-31 명령 안내 정리: 별도 AGENTS/ENTRYPOINTS 문서는 퇴역했다. 아래의 해당 참조는 원 계획 당시의 이력이며 복구·갱신 의무가 아니다. 이 계획에 이미 있는 build/finalize·focused test 명령을 실제 `iris_tooling.domains.tooltip_static_data_projection` 구현과 대조해 사용한다. 기존 T2 계약과 과거 실행 기록은 변경하지 않는다.
+
 ## 문서 상태
 
 - 상태: 2026-08-30 static staging complete; 실행 결과와 한계는 아래 execution 기록에 결속

@@ -87,7 +87,7 @@ Disallowed:
 
 Build contract:
 
-- `Iris/build/ENTRYPOINTS.md`
+- `Iris/tooling/src/iris_tooling/__main__.py` and the selected domain CLI define command interfaces; applicable plans record task-specific invocations.
 - `Iris/build/build_import_contract.md`
 - `Iris/_docs/refactor/phase1_active_manifest.md`
 - `Iris/build/description/v2/tools/build/INVENTORY.md`

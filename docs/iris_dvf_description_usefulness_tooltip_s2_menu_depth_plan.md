@@ -75,7 +75,7 @@ Tooltip은 기본 용도·효과를 빠르게 전달하고, Menu는 그 설명�
 
 ### 4.1 Authority와 실행 경계
 
-최상위 기준은 [Philosophy.md](Philosophy.md)다. [DECISIONS.md](DECISIONS.md)의 Iris body production, Menu/Tooltip, Layer 3–4 responsibility, locale, T1/T2/T3 결정을 [ARCHITECTURE.md](ARCHITECTURE.md), [ROADMAP.md](ROADMAP.md)의 current readpoint와 함께 따른다. [EXECUTION_CONTRACT.md](EXECUTION_CONTRACT.md) §6–7의 claim-evidence binding과 bounded closeout을 준수하되 그 문서를 새로운 scope의 승인 근거로 쓰지 않는다. 구체적인 command literal owner는 [Iris/build/ENTRYPOINTS.md](../Iris/build/ENTRYPOINTS.md)다.
+최상위 기준은 [Philosophy.md](Philosophy.md)다. [DECISIONS.md](DECISIONS.md)의 Iris body production, Menu/Tooltip, Layer 3–4 responsibility, locale, T1/T2/T3 결정을 [ARCHITECTURE.md](ARCHITECTURE.md), [ROADMAP.md](ROADMAP.md)의 current readpoint와 함께 따른다. [EXECUTION_CONTRACT.md](EXECUTION_CONTRACT.md) §6–7의 claim-evidence binding과 bounded closeout을 준수하되 그 문서를 새로운 scope의 승인 근거로 쓰지 않는다. 명령 interface는 실제 CLI/script 구현에서 확인하고 이 계획·실행 기록에 필요한 호출을 남긴다.
 
 이번 요청은 **계획 문서 수정**이다. 문서에 기재한 제품 변경, owner adoption, 외부 generation, package/install 및 인게임 검증을 수행했다는 뜻이 아니다. 후속 실행의 Menu correction 범위는 §2의 이번 사용자 요청에서 정하며, 이전 T3-D1의 특정 12개 correction 승인이나 historical external-root 승인을 새로운 전체 correction 권한으로 상속하지 않는다. 기존 계약이 요구하는 fact decision과 채택 경계는 유지하되 이미 유효한 승인·근거는 재사용하고 item별·Change별 추가 승인을 만들지 않는다.
 
@@ -193,7 +193,7 @@ Set hash는 case-sensitive 정렬 후 각 key 뒤에 LF 하나를 붙인 UTF-8 b
 
 아래는 후속 **구현 시의 후보 범위**다. 이번 문서 작성에서 실제 생성하는 파일은 이 계획 문서 하나다. 코드 변경은 확인된 content propagation / consumer defect에 필요한 최소 범위로 제한한다.
 
-이 절의 script/test 경로는 책임을 찾기 위한 source locator이며 실행 command literal이 아니다. 실행 전에 `ENTRYPOINTS.md`의 current command 및 실제 source 경로와 대조하고, stale하면 현재 owner 경로를 확인한 뒤 계획 locator를 수정한다. 오래된 경로로 실행하거나 compatibility wrapper를 새로 만들지 않는다.
+이 절의 script/test 경로는 책임을 찾기 위한 source locator이며 실행 command literal이 아니다. 실행 전에 실제 CLI/script 인자와 source 경로를 대조하고, stale하면 현재 owner 경로를 확인한 뒤 계획 locator를 수정한다. 오래된 경로로 실행하거나 compatibility wrapper를 새로 만들지 않는다.
 
 ### Code
 
@@ -210,7 +210,7 @@ Set hash는 case-sensitive 정렬 후 각 key 뒤에 LF 하나를 붙인 UTF-8 b
 - `docs/iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md`: 본 계획.
 - 실행 완료 후 같은 stem의 `_closeout.md`: 관측 subject, 결과 집합, unresolved gap, validation ceiling을 기록할 예정.
 - `docs/DECISIONS.md`, `docs/ARCHITECTURE.md`, `docs/ROADMAP.md`: 실제 adoption 이후 필요한 current successor readpoint만 additive 갱신. 계획 작성 시 완료 상태로 수정하지 않음.
-- `Iris/build/ENTRYPOINTS.md`: 실제로 command interface가 달라질 때만 owner 문서에서 갱신. 이 계획에서 별도 명령 체계를 만들지 않음.
+- 이 계획의 검증·실행 절: 실제 호출이 달라지면 명령과 입력을 갱신. 별도 명령 안내 문서나 wrapper를 만들지 않음.
 
 ### Config
 
@@ -437,7 +437,7 @@ Lua 필수 명령은 repository root에서 실행한다.
 powershell -ExecutionPolicy Bypass -File .\tools\check_lua_syntax.ps1
 ```
 
-Python focused test, T1/T2 build/finalize, Menu harness, package 및 canonical gate의 명령과 파라미터는 [ENTRYPOINTS.md](../Iris/build/ENTRYPOINTS.md)의 current command를 사용하고 실제 실행 literal을 receipt/closeout에 기록한다. **실행 직전 문서·source locator·current command를 대조**하며 불일치는 먼저 해소한다. receipt launcher의 parameter/membership/verdict를 이 문서나 새 wrapper로 복제하지 않는다. Python 스크립트 호출은 `uv run python <script>` 원칙을 따른다. Java/Gradle·JS/TS 변경은 기본 범위가 아니며 해당 변경이 없으면 관련 검증은 N/A다.
+Python focused test와 T1/T2 build/finalize는 각 기존 T1/T2 계획의 실행 절, Menu harness는 [T3-D1 계획](iris_tooltip_t3_d1_layer3_menu_tooltip_display_en_record_fact_relation_consistency_plan.md), Recipe companion·package는 [T3 계획](iris_tooltip_t3_static_data_alt_runtime_integration_plan.md)의 명령을 실제 구현과 대조한다. Canonical gate의 인자는 `iris_tooling` CLI와 `Iris/validation/execution/invoke_repository_tests.ps1`에서 확인하며 실제 호출을 receipt/closeout에 기록한다. **실행 직전 문서·source locator·current command를 대조**하며 불일치는 먼저 해소한다. receipt launcher의 membership/verdict를 이 문서나 새 wrapper로 복제하지 않는다. Python 스크립트 호출은 `uv run python <script>` 원칙을 따른다. Java/Gradle·JS/TS 변경은 기본 범위가 아니며 해당 변경이 없으면 관련 검증은 N/A다.
 
 각 command는 exact subject에서 exit `0`일 때만 PASS다. missing Lua/uv/wheel/environment/source evidence 등 필수 조건 부족은 해당 축의 **BLOCKED**이며 skip을 성공으로 바꾸지 않는다. canonical gate가 이미 실행한 동일 harness 결과는 재사용하고, 별도 focused 실행은 기존 finalizer의 요구 또는 uncovered scope에 한정한다. 새 독립 테스트 파일·검증기·정식 Gate는 기본 0이며, 필요한 경우에도 실제로 보호되지 않은 실패 조건을 기존 test family의 최소 사례로 보완한다. 단순 문서 수정, 문구마다의 snapshot test, 구현을 그대로 복제하는 테스트, 예전 Gate를 대체하는 우회 검증은 추가하지 않는다.
 
@@ -556,7 +556,7 @@ Rollback 단위는 파일 하나가 아니라 다음의 결속된 content set이
 - `[MENU-GAP-SCOPE]=correction`은 이번 사용자 요청으로 §2의 범위에 한해 확정했다. persistent audit defect class는 도입하지 않고 기존 ledger의 서술형 이유를 사용한다. 이미 승인된 범위를 다시 묻는 Gate를 만들지 않는다.
 - actionable_gap / legitimate_unresolved와 S2 presence 등은 이번 실행의 진단 기록이다. 새로운 semantic state, 품질 점수 또는 persistent authority로 등록하지 않는다. Change 2 기준과 질문-답 연결을 적용하며 길이 통계·test 수량을 독립 채택 조건으로 만들지 않는다.
 - durable module/test/generated asset은 current responsibility 이름을 쓴다. `TooltipStaticData` / `tooltip_static_data_projection` 등 current 명칭을 따르고 historical protocol/receipt 식별자는 보존한다.
-- regular validation owner는 `Iris/validation`이며 command literal owner는 `Iris/build/ENTRYPOINTS.md`다. 새 gate/authority/denominator를 일회성 감사 편의로 만들지 않는다.
+- regular validation owner는 `Iris/validation`이며 명령 interface는 실제 CLI/script 구현이 정의한다. 새 gate/authority/denominator를 일회성 감사 편의로 만들지 않는다.
 - source-only / generation / static staging / runtime observation / release를 독립 claim axis로 유지한다. 사용자 승인, 검증 receipt, independent evidence를 허위로 생성하거나 과거 결과를 새 subject에 소급 적용하지 않는다.
 
 ---

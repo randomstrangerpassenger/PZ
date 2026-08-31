@@ -139,6 +139,12 @@ function IrisBrowser:initialise()
     ISPanel.initialise(self)
 end
 
+function IrisBrowser:update()
+    ISPanel.update(self)
+    self:refreshSearchOwner()
+    self:refreshSearchInput()
+end
+
 function IrisBrowser:close()
     self:setVisible(false)
     self:removeFromUIManager()

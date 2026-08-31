@@ -1,7 +1,7 @@
 # EXECUTION_CONTRACT.md
 
-> 상태: v1.3  
-> 기준일: 2026-05-11  
+> 상태: v1.4\
+> 기준일: 2026-08-31 (검증 적용 범위와 임시 실행물 보존 의무 명확화)\
 > 발효일: 2026-05-11 이후 시작되는 execution에 적용된다.  
 > 상위 기준: `Philosophy.md` → `DECISIONS.md` → `ARCHITECTURE.md` → `ROADMAP.md` → 모듈 authority 문서 → approved plan  
 > 목적: Pulse 생태계 전체에서 execution이 따라야 할 disclosure 의무, evidence 요구, closeout 규율을 정의한다.
@@ -145,6 +145,8 @@ execution weight와 disclosure 의무를 판단하기 위한 공통 trigger surf
 - ceremony는 task의 존재가 아니라 **만진 surface가 결정**한다.
 - Light에서 Medium / Heavy로의 격상은 작업별 risk surface 검토를 통해서만 일어난다.
 - **이 문서만을 근거로** Light 작업에 추가 ceremony를 부과하지 않는다. governing plan, module authority 문서, PR rule이 별도로 요구하는 절차는 그대로 적용된다.
+- Heavy는 disclosure / evidence / closeout 의무를 뜻하며, 그 분류만으로 특정 전체 검사나 반복 실행을 선택하지 않는다. 구체 검증은 최신 상위 결정과 적용되는 계약 안에서 작업별 계획이 정한다.
+- 검증 안내·명령 목록·과거 실행 기록의 존재 자체는 현재 작업의 검증 의무를 추가하지 않는다. 상위 결정이 적용 범위를 개정하면 과거의 일반 의무를 새 작업에 그대로 복제하지 않고 계획을 현재 기준에 맞춘다. 별도로 적용되는 작업별 필수 검증을 조용히 생략해서는 안 된다.
 
 ---
 
@@ -281,6 +283,7 @@ closeout artifact에서 다음을 도입하지 않는다:
 
 - closeout이 이전 상태를 superseded할 때, 이전 상태를 삭제하지 않고 historical trace로 남긴다.
 - 봉인된 hash / artifact / decision은 superseded 표시와 함께 보존된다.
+- 이 보존 의무는 모든 임시 checkout·환경·생성 복사본의 영구 보존을 요구하지 않는다. 필요한 증거와 후속 입력을 보존한 뒤 재생성 가능한 임시 실행물의 수명은 상위 결정과 작업별 계획을 따른다. 2026-08-31 명확화는 과거 검증 결과나 봉인 기록을 재작성하지 않는다.
 
 ---
 

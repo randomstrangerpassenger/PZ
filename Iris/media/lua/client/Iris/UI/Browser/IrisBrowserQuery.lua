@@ -7,6 +7,7 @@
 local IrisBrowserQuery = {}
 
 local ItemAccess = require("Iris/Util/IrisItemAccess")
+local Search = require("Iris/UI/Browser/IrisBrowserSearch")
 local IrisBrowserClassificationIndex = require("Iris/UI/Browser/IrisBrowserClassificationIndex")
 local instrumentationEnabled = false
 
@@ -46,13 +47,6 @@ local function copyRows(rows, metrics, metricName)
     return copied
 end
 
-local function searchRowLess(a, b)
-    if a.displayName ~= b.displayName then
-        return a.displayName < b.displayName
-    end
-    return a.fullType < b.fullType
-end
-
 local function refreshSearchSnapshot(cache, normalizedLocale)
     local refreshedRows = {}
     local refreshedByFullType = nil
@@ -64,7 +58,7 @@ local function refreshSearchSnapshot(cache, normalizedLocale)
                 fullType = fullType,
                 item = row.item,
                 displayName = displayName,
-                folded = displayName:lower() .. "\0" .. fullType:lower(),
+                searchDocument = Search.document(fullType, displayName),
                 primaryLocation = row.primaryLocation,
                 primaryTag = row.primaryTag,
             }
@@ -86,14 +80,13 @@ local function refreshSearchSnapshot(cache, normalizedLocale)
             refreshedRows[#refreshedRows + 1] = {
                 fullType = fullType,
                 displayName = displayName,
-                folded = legacyKeys and legacyKeys.folded or
-                    (displayName:lower() .. "\0" .. fullType:lower()),
+                searchDocument = Search.document(fullType, displayName),
                 category = primary and primary.category or nil,
                 subcategory = primary and primary.subcategory or nil,
             }
         end
     end
-    table.sort(refreshedRows, searchRowLess)
+    table.sort(refreshedRows, Search.rowLess)
     return {
         rowsByFullType = refreshedByFullType,
         snapshot = {
@@ -115,14 +108,24 @@ function IrisBrowserQuery.ensureLocale(cache, locale)
 
     local previousGeneration = snapshot and snapshot.generation or nil
     local previousLocale = snapshot and snapshot.locale or nil
-    local refreshed = refreshSearchSnapshot(cache, normalizedLocale)
+    if cache.searchRefreshInProgress then
+        error("Browser search snapshot refresh reentered")
+    end
+    local generation = cache.generation
+    cache.searchRefreshInProgress = true
+    local ok, refreshed = pcall(refreshSearchSnapshot, cache, normalizedLocale)
+    cache.searchRefreshInProgress = nil
+    if not ok then error(refreshed) end
+    if cache.generation ~= generation or cache.searchSnapshot ~= snapshot then
+        error("Browser search owner changed during snapshot refresh")
+    end
     -- Publish only after the replacement row map and globally sorted source
     -- are complete. No engine callback occurs inside this publish sequence.
     if refreshed.rowsByFullType then
         cache.rowsByFullType = refreshed.rowsByFullType
-        cache.displayNameGroupsByGrouping = {}
-        cache.foldedCountsByGrouping = {}
     end
+    cache.displayNameGroupsByGrouping = {}
+    cache.foldedCountsByGrouping = {}
     cache.searchSnapshot = refreshed.snapshot
     cache.searchPrefixState = nil
     if instrumentationEnabled then
@@ -145,7 +148,8 @@ function IrisBrowserQuery.searchAll(cache, query, getItemLocation, locale)
     if not cache or not cache.itemsByFullType then
         return {}
     end
-    if not query or query == "" then
+    local queryView = Search.query(query)
+    if queryView.empty then
         cache.searchPrefixState = nil
         return {}
     end
@@ -153,8 +157,6 @@ function IrisBrowserQuery.searchAll(cache, query, getItemLocation, locale)
     local normalizedLocale = locale or "EN"
     local snapshot = IrisBrowserQuery.ensureLocale(cache, normalizedLocale)
 
-    local queryLower = query:lower()
-    local result = {}
     local metrics = nil
     if instrumentationEnabled then
         metrics = cache.searchMetrics or newSearchMetrics()
@@ -163,69 +165,88 @@ function IrisBrowserQuery.searchAll(cache, query, getItemLocation, locale)
     end
 
     local previous = cache.searchPrefixState
-    local reusePrevious = previous and previous.generation == cache.generation and
-        previous.locale == normalizedLocale and #queryLower > #previous.query and
-        queryLower:sub(1, #previous.query) == previous.query
-    local sourceRows = reusePrevious and previous.results or nil
-    local scannedRows = 0
-
-    if sourceRows then
-        if metrics then
-            metrics.prefixReuseCount = (metrics.prefixReuseCount or 0) + 1
-        end
-        for _, row in ipairs(sourceRows) do
-            scannedRows = scannedRows + 1
-            if row.folded:find(queryLower, 1, true) then
-                table.insert(result, row)
-            end
-        end
-    else
-        for _, row in ipairs(snapshot.rows) do
-            scannedRows = scannedRows + 1
-            if row.folded:find(queryLower, 1, true) then
-                local primary = row.primaryLocation
-                local foundCat = primary and primary.category or row.category
-                local foundSub = primary and primary.subcategory or row.subcategory
-                local usedCompatibilityLocation = false
-                if foundCat == nil and foundSub == nil and
-                    not cache.rowsByFullType and getItemLocation then
-                    -- Compatibility for callers constructing a pre-generation
-                    -- cache fixture. Production caches always use the map.
-                    foundCat, foundSub = getItemLocation(row.fullType)
-                    usedCompatibilityLocation = true
-                    if metrics then
-                        metrics.locationLookupCount =
-                            (metrics.locationLookupCount or 0) + 1
-                    end
-                end
-                if usedCompatibilityLocation then
-                    -- Compatibility fixtures may supply locations only via
-                    -- the callback; keep that derived row private.
-                    table.insert(result, {
-                        fullType = row.fullType,
-                        displayName = row.displayName,
-                        folded = row.folded,
-                        category = foundCat,
-                        subcategory = foundSub,
-                    })
-                else
-                    table.insert(result, row)
-                end
-            end
-        end
+    local reusePrevious = previous and previous.snapshot == snapshot and
+        Search.canNarrow(previous.query, queryView)
+    local sourceRows = reusePrevious and previous.candidates or snapshot.rows
+    if reusePrevious and metrics then
+        metrics.prefixReuseCount = (metrics.prefixReuseCount or 0) + 1
     end
+    local result, candidates = Search.rank(sourceRows, queryView, true)
 
     if metrics then
-        metrics.lastScanRows = scannedRows
-        metrics.totalScanRows = (metrics.totalScanRows or 0) + scannedRows
+        metrics.lastScanRows = #sourceRows
+        metrics.totalScanRows = (metrics.totalScanRows or 0) + #sourceRows
     end
     cache.searchPrefixState = {
-        generation = cache.generation,
-        locale = normalizedLocale,
-        query = queryLower,
-        results = result,
+        snapshot = snapshot,
+        query = queryView,
+        candidates = candidates,
     }
-    return copyRows(result, metrics, "publicRowCopyCount")
+    local public = copyRows(result, metrics, "publicRowCopyCount")
+    if not cache.rowsByFullType and getItemLocation then
+        -- Legacy fixture adapter shares the matcher and never mutates rows.
+        for _, row in ipairs(public) do
+            if row.category == nil and row.subcategory == nil then
+                row.category, row.subcategory = getItemLocation(row.fullType)
+                if metrics then
+                    metrics.locationLookupCount = (metrics.locationLookupCount or 0) + 1
+                end
+            end
+        end
+    end
+    return public
+end
+
+-- Navigation consumes the just-completed global query's private candidates.
+-- It neither repeats the search nor changes its public ranking/result shape.
+function IrisBrowserQuery.getSearchLocation(cache, query, locale)
+    local state = cache and cache.searchPrefixState
+    local snapshot = cache and cache.searchSnapshot
+    if not state or state.snapshot ~= snapshot or state.query.raw ~= query or
+        snapshot.generation ~= cache.generation or snapshot.locale ~= locale then
+        return nil, nil
+    end
+    local bestTier, category, subcategory, ambiguous = 3, nil, nil, false
+    for _, row in ipairs(state.candidates) do
+        local document = row.searchDocument
+        -- Explicit full IDs identify navigation targets even when another
+        -- item's display name equals that ID. Search ranking stays name-first.
+        local tier = document.id == state.query.id and 0 or
+            Search.relation(document, state.query, false)
+        if tier and tier < 3 and tier <= bestTier then
+            local location = row.primaryLocation or row
+            if tier < bestTier then
+                bestTier = tier
+                category, subcategory = location.category, location.subcategory
+                ambiguous = false
+            end
+            if not location.category or not location.subcategory or
+                location.category ~= category or location.subcategory ~= subcategory then
+                ambiguous = true
+            end
+        end
+    end
+    if ambiguous then return nil, nil end
+    return category, subcategory
+end
+
+-- items are fresh VariantIndex projections, already isolated from the cache.
+-- Only visible representatives match; their existing variants stay intact.
+function IrisBrowserQuery.searchItems(cache, items, query, locale)
+    local queryView = Search.query(query)
+    if queryView.empty then return items end
+    local snapshot = IrisBrowserQuery.ensureLocale(cache, locale)
+    if not snapshot then return {} end
+    local visible = {}
+    for _, item in ipairs(items) do visible[item.fullType] = item end
+    local source = {}
+    for _, row in ipairs(snapshot.rows) do
+        if visible[row.fullType] then source[#source + 1] = row end
+    end
+    local ranked = Search.rank(source, queryView, false)
+    local projected = {}
+    for _, row in ipairs(ranked) do projected[#projected + 1] = visible[row.fullType] end
+    return projected
 end
 
 function IrisBrowserQuery.getItem(cache, fullType)

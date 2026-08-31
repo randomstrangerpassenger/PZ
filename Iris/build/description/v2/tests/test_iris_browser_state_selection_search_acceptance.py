@@ -493,14 +493,22 @@ def menu_relations(output: str, manifest_path: Path, *,
 
 class BrowserStateSelectionSearchAcceptanceTest(unittest.TestCase):
     def test_actual_standalone_lua_state_and_cache_contracts(self) -> None:
+        for locale, expected_sha in (
+            ("KO", "0ea2f9f5747a5845347ccdbb02e48948f3b3b6218d971800dd8d77afe4f2c5de"),
+            ("EN", "98066208a95aad2113326d4f7b7d022ee3658e31f721802af9d43ab38c1de488"),
+        ):
+            corpus = REPO / f"lua/shared/Translate/{locale}/ItemName_{locale}.txt"
+            self.assertEqual(expected_sha, _sha(corpus), f"{locale} search corpus changed")
         lua = shutil.which("lua")
         self.assertIsNotNone(lua, "required standalone Lua executable is unavailable")
         completed = subprocess.run(
             [lua, str(REPO / "Iris/test/lua/browser_state_acceptance_harness.lua"), str(REPO)],
             cwd=REPO,
             text=True,
+            encoding="utf-8",
             capture_output=True,
             check=False,
+            timeout=60,
         )
         self.assertEqual(0, completed.returncode, completed.stdout + completed.stderr)
         self.assertIn("IRIS_BROWSER_STANDALONE_PASS", completed.stdout)
@@ -511,6 +519,10 @@ class BrowserStateSelectionSearchAcceptanceTest(unittest.TestCase):
         self.assertIn("recovery_get_all_items_calls=2", completed.stdout)
         self.assertIn("prefix_reuse_count=1", completed.stdout)
         self.assertIn("tooltip_static_lookups=2", completed.stdout)
+        self.assertIn("SEARCH_CORPUS locale=KO raw=2017 exact=2007 queries=1661 violations=0", completed.stdout)
+        self.assertIn("SEARCH_CORPUS locale=EN raw=1974 exact=1974 queries=1615 violations=0", completed.stdout)
+        self.assertIn("SEARCH_CONTRACT quality=passed identity=passed transitions=passed controller=passed", completed.stdout)
+        print("\n".join(line for line in completed.stdout.splitlines() if line.startswith("SEARCH_")))
         runtime = run_harness()
         self.assertIn("exact_keys=2280", runtime)
         self.assertIn("legacy_calls=0", runtime)

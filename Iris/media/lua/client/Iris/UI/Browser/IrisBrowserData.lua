@@ -100,6 +100,7 @@ function IrisBrowserData.getCategories()
         if debugEnabled then debug("[IrisBrowserData] NOT BUILT, returning empty") end
         return {}
     end
+    IrisBrowserQuery.ensureLocale(lifecycle.getCache(), TranslationResolver.getLangKey("EN"))
     local result = IrisBrowserFilters.getCategories(
         lifecycle.getCache(),
         IrisBrowserData.CATEGORY_ORDER,
@@ -172,12 +173,37 @@ end
 
 function IrisBrowserData.searchAll(query)
     if not IrisBrowserData.isReady() then return {} end
-    return IrisBrowserQuery.searchAll(
-        lifecycle.getCache(),
-        query,
-        nil,
-        TranslationResolver.getLangKey("EN")
+    local cache = lifecycle.getCache()
+    local locale = TranslationResolver.getLangKey("EN")
+    local result = IrisBrowserQuery.searchAll(cache, query, nil, locale)
+    if lifecycle.getCache() ~= cache or TranslationResolver.getLangKey("EN") ~= locale then
+        error("Browser search owner changed during query")
+    end
+    return result
+end
+
+-- Internal Browser adapters; these are not additional supported API entries.
+function IrisBrowserData.getSearchLocation(query)
+    if not lifecycle.isReady() then return nil, nil end
+    return IrisBrowserQuery.getSearchLocation(
+        lifecycle.getCache(), query, TranslationResolver.getLangKey("EN")
     )
+end
+
+function IrisBrowserData.searchItems(categoryName, subcategoryName, query)
+    local cache = lifecycle.getCache()
+    local locale = TranslationResolver.getLangKey("EN")
+    local items = IrisBrowserData.getItems(categoryName, subcategoryName)
+    local result = IrisBrowserQuery.searchItems(cache, items, query, locale)
+    if lifecycle.getCache() ~= cache or TranslationResolver.getLangKey("EN") ~= locale then
+        error("Browser local search owner changed during query")
+    end
+    return result
+end
+
+function IrisBrowserData.getSearchOwner()
+    return lifecycle.isReady() and lifecycle.getGeneration() or nil,
+        TranslationResolver.getLangKey("EN")
 end
 
 function IrisBrowserData.getItem(fullType)

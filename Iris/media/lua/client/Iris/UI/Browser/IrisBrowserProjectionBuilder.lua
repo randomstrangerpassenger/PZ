@@ -4,6 +4,7 @@ local IrisBrowserProjectionBuilder = {}
 local IrisBrowserCategoryIndex = require("Iris/UI/Browser/IrisBrowserCategoryIndex")
 local TranslationResolver = require("Iris/Util/IrisTranslationResolver")
 local ItemAccess = require("Iris/Util/IrisItemAccess")
+local Search = require("Iris/UI/Browser/IrisBrowserSearch")
 local StaticData = require("Iris/API/StaticData")
 local IrisLogger = require("Iris/Util/IrisLogger")
 local bootstrap = require("Iris/Util/IrisModuleBootstrap").create()
@@ -19,13 +20,6 @@ local function createPresentationRanks(categoryOrder, subcategoryMap)
         end
     end
     return ranks
-end
-
-local function searchRowLess(a, b)
-    if a.displayName ~= b.displayName then
-        return a.displayName < b.displayName
-    end
-    return a.fullType < b.fullType
 end
 
 local function betterDescriptionTag(tag, currentTag, currentPriority, currentCode)
@@ -55,6 +49,7 @@ function IrisBrowserProjectionBuilder.build(itemIndex, options)
         subcategoryMap
     )
     local nextGeneration = (options.currentGeneration or 0) + 1
+    local locale = TranslationResolver.getLangKey("EN")
     local candidate = {
         itemIndex = itemIndex,
         classificationIndex = classificationIndex,
@@ -89,7 +84,7 @@ function IrisBrowserProjectionBuilder.build(itemIndex, options)
             fullType = fullType,
             item = item,
             displayName = displayName,
-            folded = displayName:lower() .. "\0" .. fullType:lower(),
+            searchDocument = Search.document(fullType, displayName),
             primaryLocation = nil,
             primaryTag = nil,
         }
@@ -168,10 +163,13 @@ function IrisBrowserProjectionBuilder.build(itemIndex, options)
         if hasAnyTag then taggedCount = taggedCount + 1 end
     end
 
-    table.sort(searchRows, searchRowLess)
+    table.sort(searchRows, Search.rowLess)
+    if TranslationResolver.getLangKey("EN") ~= locale then
+        error("Browser locale changed during snapshot build")
+    end
     candidate.searchSnapshot = {
         generation = nextGeneration,
-        locale = TranslationResolver.getLangKey("EN"),
+        locale = locale,
         rows = searchRows,
     }
     if candidate.searchMetrics then

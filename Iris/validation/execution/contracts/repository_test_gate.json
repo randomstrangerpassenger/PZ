@@ -219,17 +219,17 @@
       {
         "path": "Iris/tooling/tests/test_tooltip_t2_projection.py",
         "owner_decision": "not_applicable_dedicated_route",
-        "reason": "The Tooltip T2 focused command in Iris/build/ENTRYPOINTS.md owns this lifecycle coverage; do not duplicate it in the mandatory full gate."
+        "reason": "The dedicated focused tests in docs/iris_tooltip_t2_deterministic_ko_en_static_lua_projection_plan.md cover this lifecycle; do not duplicate them in the full gate."
       },
       {
         "path": "Iris/tooling/tests/test_tooltip_t2_serialization.py",
         "owner_decision": "not_applicable_dedicated_route",
-        "reason": "The Tooltip T2 focused command in Iris/build/ENTRYPOINTS.md owns this lifecycle coverage; do not duplicate it in the mandatory full gate."
+        "reason": "The dedicated focused tests in docs/iris_tooltip_t2_deterministic_ko_en_static_lua_projection_plan.md cover this lifecycle; do not duplicate them in the full gate."
       },
       {
         "path": "Iris/tooling/tests/test_tooltip_t2_cli.py",
         "owner_decision": "not_applicable_dedicated_route",
-        "reason": "The Tooltip T2 focused command in Iris/build/ENTRYPOINTS.md owns this lifecycle coverage; do not duplicate it in the mandatory full gate."
+        "reason": "The dedicated focused tests in docs/iris_tooltip_t2_deterministic_ko_en_static_lua_projection_plan.md cover this lifecycle; do not duplicate them in the full gate."
       }
     ],
     "historical_optional_rule": "tracked Iris/build/description/v2/tests/test_*.py source with no current, ok taxonomy identity",

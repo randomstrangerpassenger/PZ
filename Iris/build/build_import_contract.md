@@ -2,7 +2,7 @@
 
 Status: current link-only projection
 
-The current package/import owner is `Iris/tooling/src/iris_tooling/**`. Build and validation command literals are owned only by `Iris/build/ENTRYPOINTS.md`.
+The current package/import owner is `Iris/tooling/src/iris_tooling/**`. Command interfaces are defined by their CLI or script implementation. Task-specific invocations belong in the applicable plan or execution record; no separate command document grants execution obligations.
 
 Current rules:
 
@@ -11,6 +11,6 @@ Current rules:
 - `Iris/build/tools/common/**` is a compatibility adapter surface for retained root pipelines;
 - `Iris/build/description/v2/tools/build/**` is historical/reproduction space and must not be imported or executed as current authority;
 - validation membership, applicability, and verdict remain in `Iris/validation`;
-- planning and implementation start from `docs/Philosophy.md`, `docs/DECISIONS.md`, `docs/ARCHITECTURE.md`, and `docs/ROADMAP.md`; the static route index remains a machine projection.
+- planning and implementation use `docs/Philosophy.md`, `docs/DECISIONS.md`, `docs/ARCHITECTURE.md`, `docs/ROADMAP.md`, and `docs/EXECUTION_CONTRACT.md` within their declared roles, followed by the applicable plan; the static route index remains a machine projection.
 
 Historical Phase 1–Round 3 execution details remain available in Git history and the `_docs` historical records. They are not restated here because this document is not a second command or authority owner.

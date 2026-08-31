@@ -1,13 +1,13 @@
 {
   "schema_version": "iris-current-route-index-v1",
   "status": "current",
-  "command_literal_owner": "Iris/build/ENTRYPOINTS.md",
   "routes": {
     "authority": [
       "docs/Philosophy.md",
       "docs/DECISIONS.md",
       "docs/ARCHITECTURE.md",
       "docs/ROADMAP.md",
+      "docs/EXECUTION_CONTRACT.md",
       "Iris/_docs/authority/iris_current_authority_manifest.json",
       "docs/iris_tooltip_t1_display_contract_policy.md",
       "Iris/_docs/authority/tooltip_t1",
@@ -72,14 +72,11 @@
     }
   },
   "default_current_allowlist": [
-    "Iris/AGENTS.md",
-    "Iris/build/ENTRYPOINTS.md",
     "Iris/_docs/authority/iris_current_authority_manifest.json",
     "Iris/_docs/authority/iris_current_route_index.json",
     "Iris/validation/execution/required_validations.json"
   ],
   "historical_opt_in": {
-    "command_owner": "Iris/build/ENTRYPOINTS.md",
     "classes": [
       "historical",
       "diagnostic"

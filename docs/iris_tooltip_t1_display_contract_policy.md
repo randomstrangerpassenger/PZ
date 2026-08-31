@@ -56,7 +56,7 @@ candidate/pre-full-gate record는 task-specific axis를 `partial`, formal state�
 - 결정: `Iris/_docs/authority/tooltip_t1/tooltip_t1_decision_contract.json`
 - slot/Layer 2–4/locale/handoff/reason 계약: 같은 `tooltip_t1` authority directory
 - producer: installed `iris_tooling` package의 `tooltip_t1` domain
-- command literal owner: `Iris/build/ENTRYPOINTS.md`
+- command implementation: `Iris/tooling/src/iris_tooling/domains/tooltip_t1/cli.py`; 실행 명령은 해당 계획·실행 기록을 사용한다.
 - audit result: repository-external immutable run root
 
 one-off census, correction ledger, run receipt와 audit observation은 regular validation authority가 아니다. tracked fixture expectation은 audit observation에서 self-seed하지 않는다.

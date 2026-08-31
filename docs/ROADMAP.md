@@ -1,7 +1,7 @@
 # ROADMAP.md
 
 > 상태: current canonical roadmap  
-> 기준일: 2026-08-31 (이번 갱신 범위: Iris DVF 설명·Tooltip·Menu)\
+> 기준일: 2026-08-31 (이번 갱신 범위: Iris DVF 설명·Tooltip·Menu, Browser 검색·탐색, 내부 패키징·검증 적용 범위)\
 > 최상위 기준: `Philosophy.md`  
 > 결정 기준: `DECISIONS.md`  
 > 목적: Pulse 생태계의 현재 상태, 진행 방향, 다음 게이트와 Hold 경계를 고정한다.
@@ -458,11 +458,19 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
 
 ## Done
 
+- Browser 검색 관련성·공백 처리를 구현하고 입력·분류 탐색 후속을 사용자 확인 범위에서 완료했다. (2026-08-31)
+  - 정확한 표시 이름을 부분 일치와 ID-only 결과보다 우선한다. U+0020 공백 차이를 흡수하며 global 표시 이름/ID 검색과 local 대표 표시 이름 검색의 범위, FullType identity와 기존 variants를 유지한다.
+  - Generation/locale snapshot과 prefix 후보를 같은 비교 규칙으로 연결했다. Edit buffer 변경을 callback/update에서 반영해 이른·누락된 붙여넣기 callback을 보완하며 같은 입력은 재검색하지 않는다.
+  - 정확한 이름·ID의 분류 위치가 명확하면 대분류·소분류를 자동 선택하고 전체 결과를 유지한다. 전체 검색어 삭제 시 대분류 목록만 있는 초기 화면으로 돌아오며 분류 직접 클릭으로 탐색을 이어갈 수 있다.
+  - 기존 Browser 통합 검사(KO/EN exact-name sweep과 상태·선택 회귀 포함), Lua syntax와 package 자체 검사를 통과했다. 저장소 내부 `.tmp/package/` staging을 허용했고 최종 전달물은 `.tmp/package/4/Iris` / `Iris.zip`이다. Source 보호·기존 package 검사와 조건부 Clean-Checkout 계약은 유지했다.
+  - 사용자가 package/4의 붙여넣기 후 분류 자동 선택, 삭제 후 초기화, 검색 중 분류 직접 탐색을 정상 확인했다. 앞서 검색어 확정 후 `망치` 결과 일치, 목록 내 검색·ID 검색·재열기·언어 변경 정상도 보고했다. 에이전트의 실제 게임 실행이나 전체 환경·성능 검증으로 확대하지 않는다.
+  - 마지막 한글 음절의 조합 확정 지연은 미해결 입력 경계이며 초성·어순 변경·다른 언어 alias·fuzzy는 미채택이다. 이를 이번 후속의 재시험·새 Gate 의무로 늘리지 않는다. 최종 범위와 predecessor 판정은 [단일 검색 closeout](iris_korean_item_search_relevance_normalization_runtime_consistency_closeout.md)을 따른다.
+
 - DVF 기본 설명 교정과 Tooltip S2 전파, 관련 Menu 보완을 원본 저장소에 반영했다. (2026-08-31)
   - 전체 2,105개를 판정하고 revise 1,529 + reduce 12 = **1,541개**의 기본 설명·KO/EN을 교정했다. Tooltip S2 core는 **1,314 → 2,048(+734)**, KO/EN public body는 각 2,099개다. 보호 12개와 explicit owner absence 175개를 보존했다.
   - 이름·현실 용도나 넓은 분류 label 대신 exact Build 41 source에 근거해 기본 용도·효과를 설명한다. 이번 구현은 개별 facts/decisions/approved candidate 교정이며 공통 설명 블록 조합 규칙의 재설계는 아니다.
   - 32개 Menu 항목의 후속 질문에 준비물·사용 조건·조리 단계 등을 보완했다. 조리·낚시는 기존 Menu context로 답하며 신규 QG/Recipe 구조를 만든 것은 아니다. 기술서 적용 레벨·독서 조건은 Browser/Wiki에 표시한다.
-  - 새 generation과 EN → T1 → T2 fixed → matching Recipe companion → package/격리 runtime까지 전파하고 기존 필수 자동 검증을 완료했다. 옆 배치·구체적 Recipe 표시 후속도 새 패키지에 포함했다. 현재 전달물은 `C:/Users/MW/PZ-U/pkg2/Iris` / `Iris.zip`이다.
+  - 새 generation과 EN → T1 → T2 fixed → matching Recipe companion → package/격리 runtime까지 전파하고 기존 필수 자동 검증을 완료했다. 옆 배치·구체적 Recipe 표시 후속도 새 패키지에 포함했다. 해당 DVF 작업의 전달물은 `C:/Users/MW/PZ-U/pkg2/Iris` / `Iris.zip`이며 이후 검색 수정 전달물과 구분한다.
   - 사용자가 위 폴더를 설치하고 **식품류**의 Alt·우클릭 상세 정보, KO/EN 장문 배치, Recipe 표시·Menu 전환이 정상이라고 보고했다. 비식품류 전체 관찰이나 모든 문장의 의미·유용성 승인으로 확대하지 않는다.
   - 추가 독립 Gate/검증기를 만들지 않고 기존 검사와 적합한 실행 결과를 재사용했다. 일회성 authoring/delta helper는 정규 검사기나 새 authority가 아니다.
   - 상세 판정·실행 결과·사용자 관찰은 [단일 closeout](iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan_closeout.md)에 둔다. 아래 T1/T2/T3의 과거 수치·패키지는 해당 subject의 이력이며 현재 전달물과 구분한다.
@@ -532,7 +540,7 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - Supported execution boundary를 typed phase I/O, stable canonical semantic result와 volatile execution envelope로 분리하고 두 StageRunner를 thin package-owned `PhaseRunner`에 수렴했다.
   - Full-gate current-output seed producer invocation을 `6 → 3`으로 줄이면서 immutable seed, case-local clone과 fresh-process A/B isolation을 유지했다.
   - Predecessor accounting은 `31 substantive distinct basenames + nested D16 extra copies 2 = 33 concrete predecessor files`이며 live intersection `31 → 0`, concrete files `33 → 0`, `5 exact + 28 diverged`로 닫았다.
-  - Human command owner, current authority explanation owner와 최대 route hop은 각각 `4 → 1`; default current-context tracked bytes는 `170,476 → 149,600`이다.
+  - 당시 human command owner, current authority explanation owner와 최대 route hop은 각각 `4 → 1`; default current-context tracked bytes는 `170,476 → 149,600`이었다. 2026-08-31 사용자 요청으로 별도 AGENTS/ENTRYPOINTS 문서는 퇴역하고 핵심 문서·해당 계획·실제 명령 구현을 직접 참조한다. 앞의 수치는 이전 구조의 측정 기록이다.
   - Round3 routing membership은 `103 → 103`; canonical full gate는 pytest `211 → 211`, standalone `4 → 4`, recurring execution unit `215 → 215`다. 두 분모를 합치거나 regular test 108개 추가로 읽지 않는다.
   - G5 0016과 0017은 closure bytes/set 변경에 따른 append-only successor이며 과거 chain을 재번호링하지 않았다. Retention-list correction은 새 identity가 아니므로 0018을 만들지 않았다.
   - Exact wheel/fresh environment, Run A/B, comparator와 independent Reviewer가 PASS했고 product/runtime/Lua mutation은 0이다.
@@ -605,6 +613,8 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - **offline generation → stateless validation → immutable generation → pointer install → Lua runtime display** 흐름을 유지한다.
   - supported public / compatibility surface와 current-generation-only package를 보존한다.
   - regular validation의 contract identity, failure attribution과 fail-closed boundary를 유지한다.
+  - 2026-08-31 조건부 검증 결정에 따라 작업별 계획에서 관련 검사·깨끗한 환경 검증·전체 회귀·A/B 비교의 필요성을 각각 정한다. 구체 적용 기준은 `DECISIONS.md`의 Clean-Checkout 계약을 따르며 모든 작업·단계에 외부 A/B Full gate를 자동 부과하지 않는다. 기존 테스트 목록·판정 기준과 별도 제품 gate는 유지한다.
+  - 외부 실행 공간이 필요한 계획은 기존 실행 절에 정리 시점을 포함한다. 후속 소비가 끝난 임시 복사본·생성물을 영구 증거처럼 누적하지 않으며, 필요한 원본·실패 이력·현재 handoff/package는 보존한다. 과거 실행 기록은 이 결정으로 재평가하지 않는다.
   - 이미 완료된 architecture / refactor를 readiness 작업을 이유로 다시 설계 문제로 열지 않는다.
 
 ## Next

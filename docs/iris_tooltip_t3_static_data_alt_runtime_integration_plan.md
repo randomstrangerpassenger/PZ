@@ -1,5 +1,7 @@
 # Implementation Plan — Iris Tooltip T3 검증된 T2 정적 데이터의 Alt Tooltip Runtime 통합
 
+> 2026-08-31 명령 안내 정리: 별도 AGENTS/ENTRYPOINTS 문서는 퇴역했다. 원 계획과 실행 이력의 해당 파일 참조는 복구·갱신 의무가 아니다. 현재 wrapper는 `Iris/build/description/v2/tests/test_iris_browser_state_selection_search_acceptance.py`이며 `full`/`smoke`/`replacement`의 적용 범위는 기존 T3 계약을 따른다. Menu relation 명령은 T3-D1 계획, Recipe companion 재생성 명령은 아래 해당 후속 절에 둔다. 과거 실행 결과는 변경하지 않는다.
+
 > 현재 실행 상태(2026-08-30): 전체 T3 **partial**, `runtime_adopted=false`. 후속 T3-D1은 최신 Build 41 정정과 필수 static/consumer 검증을 complete로 닫았다. 현재 T1/T2 입력과 final-required scope는 아래 최종 D1 인계를 따르며 package/install/actual PZ/Alt/visual/failure-isolation은 아직 미검증이다.
 
 >
@@ -73,7 +75,7 @@ T3는 이미 생성된 정보의 제품 연결을 검증하는 단계다. T2 sem
 - `docs/DECISIONS.md`의 Menu/Tooltip, public API, locale, lazy loading, global non-interference, evidence/closeout, T1/T2 결정을 따른다.
 - `docs/ARCHITECTURE.md`의 Tooltip T1/T2와 runtime presentation 구조, `docs/ROADMAP.md`의 Iris T3 Next가 현재 위치다.
 - `docs/EXECUTION_CONTRACT.md`의 claim-evidence binding, validation ceiling과 closeout 규율을 따른다. 기존 state vocabulary는 이 문서의 §7-1을 참조하며 T3 전용 목록으로 복제하지 않는다.
-- command literal owner는 `Iris/build/ENTRYPOINTS.md`, current locator는 `Iris/_docs/authority/iris_current_route_index.json`이다. 과거 실행 문서의 command를 current route로 재채택하지 않는다.
+- 명령 interface는 실제 CLI/script 구현을 확인하며 작업별 명령은 이 계획·실행 기록에 둔다. Current locator는 `Iris/_docs/authority/iris_current_route_index.json`이며 과거 실행 문서의 command를 확인 없이 current route로 재채택하지 않는다.
 - 조사한 workspace HEAD는 `b9d7ae289b226082c191b1f6a23e6b363c6d99a6`, tree는 `c5d1d1c4ed9d4142e1cdb7dfdc854255c19ecb0b`다. T2 machine subject와 다른 값이며, 미래 T3 실행 subject도 별도로 결속해야 한다.
 - 작업 시작 시 `b/`, `g/`, `i/`의 기존 test checkout 상태 변경이 관찰됐다. 이를 T3 변경으로 취급하거나 정리하지 않는다. terminal 검증은 기존 clean-checkout 절차가 정한 exact subject를 사용한다.
 
@@ -196,7 +198,7 @@ Source search에서 product의 summary 직접 호출은 Alt에서 확인됐지�
 
 - `docs/iris_tooltip_t3_static_data_alt_runtime_integration_plan.md`: 이번 변경 파일.
 - 실행 후 필요한 경우 `docs/DECISIONS.md`, `docs/ARCHITECTURE.md`, `docs/ROADMAP.md`: 확인된 runtime·증거·남은 gap만 동기화.
-- `Iris/build/ENTRYPOINTS.md`: 실제 current command가 추가/변경될 경우에만 갱신.
+- 이 계획의 검증·실행 절: 실제 사용하는 command가 바뀌면 해당 명령을 갱신.
 - Consumer disposition과 evidence 결과는 기존 보고 경로 또는 명시적 external execution root에 기록한다. 새 문서 트리를 runtime authority로 만들지 않는다.
 
 ### Config
@@ -489,8 +491,8 @@ Runtime record check는 small array에 필요한 범위만 수행하고 매 fram
 | `Iris/test/test_layer4_runtime_projection.py` | Menu structured interaction projection |
 | `Iris/test/validate_disposable_package.ps1` | package projection·syntax·기존 package 비변경 |
 
-- Canonical full validation의 literal·인자·applicability·receipt 경계는 `Iris/build/ENTRYPOINTS.md`의 Receipt-bound full validation과 `Iris/validation/clean_checkout/contracts/canonical_gate.json`, `Iris/_docs/round3/current_route_required_validations.json`을 따른다. 선행 요구는 초기에 확인하되, 별도 명시가 없으면 Change 9의 수정 종료 후 final exact T3 subject에서 수행한다. T2 gate receipt로 대신하거나 membership/Run A·B/comparator 조건을 복제·완화하지 않는다. Gate 이후 코드가 바뀌면 기존 same-subject 규칙을 다시 충족해야 한다.
-- Package command는 같은 ENTRYPOINTS의 Package output을 따른다. Explicit external root와 `current_runtime_payload`를 사용한다. `-Clean` 등 삭제를 수반하는 옵션은 검증된 disposable root에만 적용한다.
+- Canonical full validation의 인자·receipt 경계는 CLI `validate full`과 `Iris/validation/execution/invoke_repository_tests.ps1`, 필수 목록과 판정은 `Iris/validation/execution/contracts/repository_test_gate.json` 및 `Iris/validation/execution/required_validations.json`을 따른다. 적용 범위는 최신 핵심 결정과 이 계획을 함께 확인한다. 원 T3의 필수 gate는 별도 명시가 없으면 Change 9의 수정 종료 후 final exact T3 subject에서 수행한다. T2 gate receipt로 대신하거나 membership/Run A·B/comparator 조건을 복제·완화하지 않는다. Gate 이후 코드가 바뀌면 영향받는 검증을 다시 수행한다.
+- Package command는 `powershell -ExecutionPolicy Bypass -File .\Iris\tools\package_iris.ps1 -OutputRoot <external-package-root> -Clean -Zip -PackageApplicability current_runtime_payload`다. 인자는 실제 script 정의를 확인하고 `-Clean` 등 삭제를 수반하는 옵션은 검증된 disposable root에만 적용한다.
 - Java/Gradle·JS/TS product 코드는 기본 scope에 없으므로 `.\gradlew test`나 `pnpm biome check .`를 T3 Lua 검증의 대체로 쓰지 않는다. 실제 해당 코드 변경이 생기면 사용자 지정 관련 command를 추가한다.
 
 **판정:** 정확한 관련 command가 exit `0`인 경우만 PASS다. Tooling 부재는 BLOCKED, 비정상 exit는 원인별 실패, 미실행은 미검증이다. 기존 파일 existence·과거 report·테스트 skip은 실행 성공이 아니다. Current gate 실패가 T3 밖에서 발생해도 숨기지 않고 attribution과 미완료 축을 함께 기록한다.
@@ -907,7 +909,17 @@ Final machine subject는 `25318630c2c2168ca1e334bc68df4177fbbc8689`, tree `6bfc2
 - KO 이름이 없는 `uc.recipe.empty_baking_tray`, `uc.recipe.hockeymasksmashbottle`, `uc.recipe.make_wooden_box_trap`은 사용자의 명시적 승인으로 KO/EN 공통 후보에서 제외한다. 다른 새로운 이름 결손을 자동 제외하거나 번역 fallback하지 않는다. 제외 후 Recipe 후보가 없다면 L2/L3/Right-click만 남긴 완성 배열을 사용한다.
 - Runtime은 정적 companion의 완성된 bilingual view 하나를 선택할 뿐 QG/raw data를 읽거나 문장을 조립하지 않는다. Tooltip instance의 현재 opening에만 선택을 유지한다. Locale 변경은 동일 identity의 다른 언어 배열을 쓰고 재선택하지 않는다. Alt 해제, item 변경, `setVisible(false)`, context menu 표시 시 opening을 해제한다. 임의의 FullType 전역 결과 cache는 만들지 않는다.
 - Companion은 현재 fixed base와 양 언어 배열이 일치해야 하며, 실패·손상에는 Iris 부분만 조용히 숨긴다. 기존 옆 배치·폰트·vanilla 치수는 유지한다. 이는 이전 고정 L4 선택을 바꾸는 사용자 승인 presentation 후속이며 역사적 T1/T2 gate를 재작성하거나 그 PASS를 새 코드에 승계하지 않는다.
-- Source만 전달한다. Package/ZIP/설치 복사, fresh wheel/environment, canonical A/B/comparator/finalizer, 새 manifest/receipt/proof artifact를 만들지 않는다. 현재 T1 외부 handoff가 없다는 이유로 역사적 전체 절차를 복원하지 않는다. Generated companion의 source 재생성 명령은 `Iris/build/ENTRYPOINTS.md`에 둔다.
+- Source만 전달한다. Package/ZIP/설치 복사, fresh wheel/environment, canonical A/B/comparator/finalizer, 새 manifest/receipt/proof artifact를 만들지 않는다. 현재 T1 외부 handoff가 없다는 이유로 역사적 전체 절차를 복원하지 않는다. Generated companion의 source 재생성은 아래 명령으로 수행한다.
+
+Repository root의 PowerShell에서 해당 companion 생성이 필요한 경우에만 실행한다. Fixed static data를 재작성하지 않으며 현재 source asset 하나만 출력한다.
+
+```powershell
+$env:PYTHONDONTWRITEBYTECODE = '1'
+$env:PYTHONPATH = (Join-Path (Get-Location) 'Iris/tooling/src')
+$env:UV_CACHE_DIR = (Join-Path (Get-Location) '.tmp/tooltip-recipe-uv-cache')
+$env:UV_PYTHON_DOWNLOADS = 'never'
+uv run python -m iris_tooling.domains.tooltip_static_data_projection.recipe_variants --repository-root . --output .\Iris\media\lua\client\Iris\Data\IrisTooltipRecipeVariants.lua
+```
 
 마지막 최소 검증 구간 (실행 전 확정):
 

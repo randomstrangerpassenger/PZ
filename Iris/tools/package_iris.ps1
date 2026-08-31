@@ -73,16 +73,24 @@ function Test-SameOrNestedPath {
     )
 }
 
-function Assert-ExternalPackageOutputRoot {
+function Assert-PackageOutputRoot {
     param(
         [Parameter(Mandatory = $true)][string]$Candidate,
-        [Parameter(Mandatory = $true)][string[]]$ProtectedRoots
+        [Parameter(Mandatory = $true)][string[]]$ProtectedRoots,
+        [Parameter(Mandatory = $true)][string]$RepositoryRoot
     )
     $candidateFull = (Get-FullPath $Candidate).TrimEnd('\', '/')
+    # Local packaging stays in the ignored output area, outside every product
+    # input. Other repository paths and source/ancestor overlap remain forbidden.
+    $stagingRoot = Join-Path $RepositoryRoot '.tmp\package'
+    $localStaging = Test-SameOrNestedPath -Candidate $candidateFull -Root $stagingRoot
     $cursor = [System.IO.DirectoryInfo]::new($candidateFull)
     while ($null -ne $cursor) {
         if ($cursor.Exists -and (($cursor.Attributes -band [System.IO.FileAttributes]::ReparsePoint) -ne 0)) {
             throw "runtime_package_output_root_reparse_component: $($cursor.FullName)"
+        }
+        if ($cursor.FullName.Equals($RepositoryRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
+            break
         }
         $cursor = $cursor.Parent
     }
@@ -91,6 +99,9 @@ function Assert-ExternalPackageOutputRoot {
         throw "runtime_package_output_root_not_directory: $candidateFull"
     }
     foreach ($protected in $ProtectedRoots) {
+        if ($localStaging -and $protected.Equals($RepositoryRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
+            continue
+        }
         if ((Test-SameOrNestedPath -Candidate $candidateFull -Root $protected) -or
             (Test-SameOrNestedPath -Candidate $protected -Root $candidateFull)) {
             throw "runtime_package_output_root_must_be_external: $candidateFull <-> $protected"
@@ -521,7 +532,7 @@ function Assert-NoForbiddenIrisDvfBridgeSurface {
 $sourceRoot = Get-FullPath (Join-Path $scriptRoot '..')
 $repoRoot = Get-FullPath (Join-Path $sourceRoot '..')
 $outputRootFull = Get-FullPath $OutputRoot
-Assert-ExternalPackageOutputRoot -Candidate $outputRootFull -ProtectedRoots @($repoRoot, $sourceRoot)
+Assert-PackageOutputRoot -Candidate $outputRootFull -ProtectedRoots @($repoRoot, $sourceRoot) -RepositoryRoot $repoRoot
 $packageRoot = Join-Path $outputRootFull 'Iris'
 $manifestPath = Join-Path $outputRootFull 'Iris.package_manifest.sha256.json'
 $zipPath = Join-Path $outputRootFull 'Iris.zip'

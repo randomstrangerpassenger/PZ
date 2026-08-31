@@ -1,7 +1,7 @@
 # DECISIONS.md
 
-> 상태: current decision ledger / compact trace-dedup edition, Iris DVF 후속 반영
-> 기준일: 2026-08-31 (이번 갱신 범위: Iris DVF 설명·Tooltip·Menu)
+> 상태: current decision ledger / compact trace-dedup edition, Iris DVF·Browser 검색 후속 반영
+> 기준일: 2026-08-31 (이번 갱신 범위: Iris DVF 설명·Tooltip·Menu, Browser 검색·탐색, 내부 패키징·검증 적용 범위)
 > 상위 기준: `Philosophy.md`
 > 목적: Pulse 생태계에서 이미 사실상 고정된 결정을 짧게 봉인하고, 같은 논쟁의 반복을 줄인다.
 
@@ -1189,6 +1189,23 @@
   - responsibility successor: 2026-08-25
   - COMMON-EVIDENCE-TRACE.
 
+### Iris Browser — 검색 관련성 / 입력 반영 / 분류 탐색
+
+- 날짜: 2026-08-31
+- 상태: current adopted / source·focused validation·package 완료 / 후속 탐색 동작 사용자 확인
+- 결정: Browser 검색은 표시 이름의 lexical 관련성을 우선하고 기본 공백 차이를 흡수한다. 검색과 분류 자동 선택은 presentation 책임이며 item identity나 의미 분류를 변경하지 않는다.
+- 현재 기준:
+  - 이름 exact → U+0020 제거 후 이름 exact → 이름 literal/공백 제거 부분 일치 → global ID-only 부분 일치 순서로 표시한다. 비교용 ASCII 대소문자는 무시하며 같은 tier는 원본 DisplayName → case-sensitive FullType 순서다. ID는 앞뒤 U+0020만 정리하고 내부 공백·숫자·기호를 보존한다.
+  - Global은 현재 item snapshot의 표시 이름·ID를 검색한다. 목록 내 검색은 선택 분류의 기존 folded 대표 표시 이름만 검색하며 ID 검색으로 확장하지 않는다. Global 동명 항목의 distinct FullType, local variants와 public copy-on-read shape를 보존한다.
+  - 검색 document와 prefix 후보는 기존 generation/normalized-locale snapshot에 귀속한다. Prefix 재사용은 이름 compact key와 ID key가 모두 단조롭게 확장될 때만 허용하고, 후보의 기본 순서를 유지한 채 새 query의 tier를 적용한다.
+  - 입력 callback과 panel update는 `getInternalText()`를 기준으로 변경된 문자열만 반영한다. 누락되거나 이른 붙여넣기 callback을 보완하되 전역 입력 함수를 교체하거나 엔진이 아직 넘기지 않은 조합 중 음절을 추정하지 않는다.
+  - 정확한 FullType, 표시 이름 exact, 공백 정규화 이름 exact 순서로 **분류 이동 대상**을 정한다. 해당 exact 집합이 같은 기존 primaryLocation을 가리킬 때만 대분류·소분류를 자동 선택한다. 이는 결과 순위의 ID 우선 예외가 아니다. 부분 일치·무결과·서로 다른 위치의 동명/정규화/ID 대소문자 충돌은 이전 분류 선택을 유지한다.
+  - 자동 분류 선택은 전체 검색어와 결과를 유지한다. 목표를 가리는 소분류 필터는 비운다. 전체 검색어 삭제·공백만 입력은 대분류 목록만 있는 초기 화면으로 복귀하며 선택·하위 목록·detail·variants·하위 검색 필터를 초기화한다. 분류를 직접 누르면 global 검색을 종료하고 클릭한 분류에서 탐색한다.
+- 최소 결과 trace: package/4에서 분류 자동 선택·검색어 삭제 후 초기화·분류 직접 탐색을 사용자가 정상 확인했다. 기존 Browser 통합 검사·Lua syntax와 package 자체 검사는 해당 구현에서 통과했다. 실제 명령·범위는 [검색 closeout](iris_korean_item_search_relevance_normalization_runtime_consistency_closeout.md)에 둔다.
+- Predecessor trace: literal 부분 검색과 입력 callback 의존을 보완했다. 검색 중 분류 제거 및 clear 후 기존 분류 유지 동작은 최종 초기화 요구로 대체됐다. Package/1·2·3은 이력이며 이번 전달물은 `.tmp/package/4/Iris`다.
+- 오독 금지: 초성·어순 변경·다른 언어 alias·Unicode canonical equivalence·fuzzy를 지원한다고 주장하지 않는다. 마지막 한글 음절의 조합 확정 지연, 모든 PZ/모드 환경, latency·성능은 미검증이며 사용자 확인을 해당 범위의 PASS로 확대하지 않는다. Classification/DVF/QG/Tooltip semantic payload나 전역 호환성 경계는 변경하지 않았다.
+- Trace: [실행 계획](iris_korean_item_search_relevance_normalization_runtime_consistency_plan.md), [단일 closeout](iris_korean_item_search_relevance_normalization_runtime_consistency_closeout.md). 이전 보편적 Clean-Checkout 의무 및 과거 package 차단 기록은 현행 조건부 계약과 후속 결과를 함께 읽는다.
+
 ### Iris runtime — lazy-loading / cache / index integrity boundary
 
 - 날짜: 2026-08-10 → 2026-08-11 refinement
@@ -1335,7 +1352,7 @@
 
 ### Iris — stateless generation / current runtime payload / package projection boundary
 
-- 날짜: 2026-08-20 → 2026-08-21 role-material installation → 2026-08-22 successor generation → 2026-08-25 package projection refinement
+- 날짜: 2026-08-20 → 2026-08-21 role-material installation → 2026-08-22 successor generation → 2026-08-25 package projection refinement → 2026-08-31 repository 내부 staging 허용
 
 - 상태: current readpoint / Stateful IAR product retirement complete / stateless generation model active / current-generation-only package projection adopted
 
@@ -1364,6 +1381,7 @@
   - current pointer 부재, 오염, generation mismatch 또는 ambiguous applicability는 fail-closed한다.
   - current package projection은 current pointer가 선택한 Layer 3 generation 하나만 포함한다.
   - inactive generation과 legacy fixed payload source를 current package에서 제외할 수 있지만 그 자체로 predecessor source 삭제를 승인하지 않는다.
+  - `Iris/tools/package_iris.ps1`은 저장소 내부 출력으로 ignored `.tmp/package/` 범위만 추가 허용한다. 나머지 저장소 경로·보호된 source와의 겹침·reparse 경로 거부 및 기존 package identity/projection 검사는 유지한다. 이는 사용자 설치용 staging 허용이며 canonical Clean-Checkout의 외부 환경 조건이나 installed tooling의 source-root independence 계약을 바꾸지 않는다.
 
 - 최소 결과 trace:
 
@@ -1753,30 +1771,35 @@
 
 ### Iris Repository Validation — Clean-Checkout full-repository reproducibility contract
 
-- 날짜: 2026-07-28 → successor validation readpoints
+- 날짜: 2026-07-28 → successor validation readpoints → 2026-08-31 사용자 요청에 따른 조건부 적용 개정
 
-- 상태: current contract / exact-subject machine PASS binding / PASS inheritance forbidden
+- 상태: current conditional validation contract / plan-scoped execution / exact-subject PASS binding
 
-- 결정: Iris의 clean-checkout validation은 subset 또는 advisory 검증이 아니라 mandatory full-repository reproducibility gate로 유지하며 machine PASS는 exact tracked validation subject에만 귀속한다.
+- 결정: Clean-Checkout은 모든 Iris 작업의 보편적 완료 조건이 아니라 깨끗한 환경에서의 실행 가능성과 재현성을 확인하는 조건부 검증 절차다. 작업별 계획은 변경 범위와 주장에 필요한 테스트·gate를 정하며, 깨끗한 환경 검증·전체 회귀 검사·A/B 결정성 비교·산출물 보존을 각각 판단한다. Machine PASS는 실제 검증한 대상과 범위에만 귀속한다.
 
 - 현재 기준:
 
-  - validation subject, execution environment와 provenance를 명시적으로 결속한다.
-  - Python execution은 repository 밖 dedicated environment를 사용한다.
+  - 일반 기능 수정은 관련 테스트와 영향 범위의 회귀 검사를 기본으로 한다. 의존성·설치·빌드·패키징 경로 변경으로 작업본에 의존하지 않는 실행을 확인해야 하면 깨끗한 환경 검증을 포함한다. 생성기·직렬화·입력 순서 처리 변경이 결과의 결정성에 영향을 주면 해당 산출물의 A/B 비교를 포함한다. 파일 종류만으로 검증을 자동 추가하지 않는다.
+  - 릴리스 후보 또는 광범위한 통합 변경은 전체 회귀 검사를 수행한다. 전체 검사의 A/B 반복은 전체 실행의 재현성을 확인해야 하는 경우에만 추가한다. 개별 생성물의 결정성 검사를 위해 관련 없는 전체 검사를 자동으로 두 번 실행하지 않는다.
+  - 계획은 필요한 검사·gate와 적용 이유를 기존 검증 절에 명시한다. Gate 목록이나 실행 명령의 존재, 과거 계획의 검증 이력만으로 모든 작업·단계에 같은 gate를 붙이지 않는다. 새 검증 문서·분류 체계·증거 패키지를 기본 요구로 만들지 않는다.
+  - 기존 계획의 명시적인 작업별 필수 검증은 유지한다. 이전의 보편적 Clean-Checkout 의무만을 근거로 붙은 요구는 미실행을 PASS로 처리하지 않고 계획의 검증 범위를 이 결정에 맞춰 정정한다. 별도 제품 계약의 검증·채택·릴리스 조건은 이 개정으로 자동 면제되지 않는다.
+  - 문서·실행 기록 정리는 내용과 참조를 확인한다. 새 commit/HEAD, docs-only carrier 또는 보조 안내 문서의 수정 자체는 새 환경·전체 검사·A/B·봉인을 요구하는 사유가 아니다. 문서가 실행 입력이나 계약을 바꾸면 그 영향에 필요한 검사를 수행한다.
+  - validation subject, 사용한 환경, 입력과 결과를 해당 검증에 맞게 기록한다. 변경되지 않은 입력·구현·환경·검증 범위의 기존 증거는 그 원래 대상의 증거로 재사용할 수 있으며, 안심 목적으로 반복하지 않는다.
+  - 외부 경로는 source/current product 오염과 숨은 의존성을 막기 위한 수단이다. 기존 canonical Clean-Checkout 경로를 선택하면 repository-external 전용 환경·빈 work/result root 등 실행기의 조건을 지킨다. 일반 검사에 매번 새 외부 환경이나 영구 폴더를 만들 의무는 없으며, 도구가 허용하는 격리 임시 경로와 호환되는 기존 환경을 사용할 수 있다.
+  - 기존 전체 검사 launcher의 1회 결과와 Clean-Checkout A/B 재현성 PASS를 구분한다. 후자를 주장할 때는 exact tracked subject의 독립 Run A/B와 deterministic comparison을 모두 수행한다. 단일 실행이나 focused 검사를 A/B 재현성 PASS로 표시하지 않는다.
   - hash-only identity를 provenance나 validated subject로 승격하지 않는다.
-  - `partial`, `blocked`, advisory success 또는 incomplete evidence는 terminal PASS를 대체하지 않는다.
+  - `partial`, `blocked`, advisory success 또는 incomplete evidence는 계획에서 요구한 gate의 PASS를 대체하지 않는다. 계획의 검증을 충족한 작업 완료를 미선택 Clean-Checkout gate 때문에 막지 않으며, 수행하지 않은 전체 검증 PASS를 주장하지 않는다.
   - explicitly current-required source classification은 filename / historical heuristic보다 우선한다.
-  - required dependency closure는 import graph뿐 아니라 direct contract / runner / validator dependency를 포함한다.
-  - temporary checkout / work / result / virtual environment는 disposable execution surface이며 그 자체가 durable evidence archive가 아니다.
-  - clean gate는 exact tracked subject의 Run A/B와 deterministic comparison을 요구한다.
-  - denominator / dependency inventory / canonical result identity는 같은 validated subject에 결속해야 한다.
-  - correction이 protected result나 execution-relevant source에 영향을 주면 corrected exact subject에서 affected validation을 다시 실행한다.
-  - focused / current-runner / configured-collection 검증은 bounded evidence일 수 있지만 mandatory Clean-Checkout gate를 대체하지 않는다.
+  - 선택한 canonical gate의 필수 검사 목록·dependency closure·판정 기준은 유지한다. Required dependency closure는 import graph뿐 아니라 direct contract / runner / validator dependency를 포함하며 denominator / dependency inventory / canonical result identity는 같은 validated subject에 결속한다.
+  - correction이 protected result나 execution-relevant source에 영향을 주면 corrected subject에서 affected validation을 다시 실행한다. 영향이 없는 검사·생성·환경 준비를 자동 재실행하지 않는다.
+  - 임시 checkout, work, test output과 재생성 가능한 환경은 영구 evidence archive가 아니다. 외부 산출물이 필요하면 계획의 기존 실행 절에서 사용할 관리 루트와 정리 시점을 정하며, 매 실행 폴더를 무기한 보관하지 않는다.
+  - 성공 여부·실패 이력·명령·검증 대상·필요한 로그/결과 및 후속 소비자가 요구하는 원본은 보존한다. 비교·후속 소비가 끝난 재생성 가능 복사본과 임시 생성물은 정리한다. Receipt가 여전히 읽는 파일, 현재 필요한 handoff/package와 historical archive를 임시 폴더로 오인해 삭제하지 않는다. 실패 기록 보존은 실패한 작업 폴더 전체의 영구 보존을 뜻하지 않는다.
   - post-validation evidence pointer나 docs-only carrier는 validated subject를 재정의하지 않는다.
   - repository HEAD가 변경되면 predecessor machine PASS를 새 HEAD에 자동 상속하지 않는다.
 
 - 최소 결과 trace:
 
+  - conditional applicability / plan-scoped gate selection: `adopted by owner request, 2026-08-31`
   - exact-subject machine PASS model: `adopted`
   - correction-subject revalidation: `required when affected`
   - evidence-only carrier != validation subject: `adopted`
@@ -1784,6 +1807,7 @@
 
 - Predecessor trace:
 
+  - 개정 전에는 Clean-Checkout을 mandatory full-repository reproducibility gate로 표현하고 외부 전용 환경·A/B를 함께 요구했다. 2026-08-31 개정은 앞으로의 적용 범위와 보관 원칙을 바꾸며, 과거 실행의 PASS/FAIL·검증 대상·봉인 기록이나 기존 검증기의 기능을 재작성하지 않는다.
   - 2026-07-28 initial Phase 0는 blocked였고 dedicated execution environment를 도입한 successor가 accepted 상태를 만들었다.
   - 2026-08-13 precision-preserving lightweighting lifecycle은 exact validated subject와 post-validation evidence carrier를 분리하는 precedent를 봉인했다.
   - 2026-08-21 Layer 3 staging / installation은 서로 다른 exact validation subject로 검증됐고 integrated product ancestry는 evidence로 확인됐다.
@@ -1793,7 +1817,7 @@
 
 - 오독 금지:
 
-  - focused / current-runner / configured checks를 mandatory full-repository PASS로 자동 승격하지 않는다.
+  - 조건부 적용을 테스트 생략·판정 완화·미실행 PASS의 허가로 읽지 않는다. Focused / current-runner / configured checks를 full-repository 또는 A/B 재현성 PASS로 자동 승격하지 않는다.
   - evidence-only pointer / carrier를 새 machine-validation subject로 읽지 않는다.
   - predecessor subject PASS를 후속 repository HEAD의 PASS로 읽지 않는다.
   - clean-checkout PASS를 DVF Body Compiler, RTC, Publish 또는 release readiness PASS로 읽지 않는다.
@@ -1939,7 +1963,7 @@
 
   - `Iris/_docs/authority/tooltip_t1/`
   - `docs/iris_tooltip_t1_display_contract_policy.md`
-  - command owner: `Iris/build/ENTRYPOINTS.md`
+  - command implementation: `Iris/tooling/src/iris_tooling/domains/tooltip_t1/cli.py`; 작업별 실행 명령은 해당 계획과 실행 기록에 둔다.
 
 - 오독 금지:
 
@@ -2245,7 +2269,8 @@
   - 공통 `PhaseRunner`는 dependency ordering, run-local reuse, metric, issue/artifact association만 담당하는 thin orchestration owner다. Build/validation domain verdict와 payload ownership은 각 domain에 남는다.
   - Canonical CLI는 existing validation authority의 thin adapter이며 unknown input과 identity mismatch를 fail-loud 처리한다.
   - 같은 clean-checkout full gate의 current-output seed는 staging에서 producer 3개를 한 번 실행한 뒤 completeness/content identity를 확인하고 immutable final seed와 case-local clone으로 공급한다. Producer invocation은 `6 → 3`이며 mutation/tamper isolation과 fresh-process A/B independence를 유지한다.
-  - Human command literal owner는 `Iris/build/ENTRYPOINTS.md`로 수렴하고 static route index는 machine navigation projection으로 유지한다. 별도 human navigation projection은 두지 않으며 Iris planning/implementation bootstrap은 `docs/Philosophy.md`, `docs/DECISIONS.md`, `docs/ARCHITECTURE.md`, `docs/ROADMAP.md`를 직접 읽는다.
+  - 2026-08-31 사용자 요청으로 `Iris/AGENTS.md`와 `Iris/build/ENTRYPOINTS.md`를 퇴역시킨다. 작업 기준은 다섯 핵심 문서 `Philosophy.md`, `DECISIONS.md`, `ARCHITECTURE.md`, `ROADMAP.md`, `EXECUTION_CONTRACT.md`의 역할·우선순위와 해당 계획으로 충분하며, 별도 bootstrap/command 문서의 존재나 명령 독점 배치를 강제하지 않는다.
+  - 명령 interface는 실제 CLI/script 구현과 도움말에서 확인하고, 작업에 필요한 실행 명령은 해당 계획·실행 기록에 둔다. Static route index는 machine navigation projection만 유지한다. 과거 계획·closeout의 두 파일 참조는 당시 이력이며 복구·재실행 의무를 만들지 않는다. 과거 exact subject를 비교하는 경로 목록과 봉인 증거는 소급 변경하지 않는다.
   - Predecessor retirement denominator는 `32 distinct basename intersections - 1 non-substantive __init__.py = 31 substantive distinct basenames`, 그리고 두 basename의 nested D16 extra copy를 더한 `33 concrete predecessor files`다. Terminal 결과는 live substantive intersection `31 → 0`, concrete predecessor file `33 → 0`, 분류 `5 exact + 28 diverged`다. Nested D16 copy는 neutral protected fixture가 아니다.
   - Round3 current-route listing의 103은 routing membership이며 canonical full-gate pytest denominator가 아니다. Canonical gate는 pytest `211 → 211`, required standalone validation `4 → 4`, recurring execution unit `211 + 4 = 215 → 215`로 유지한다. Parameterized named case, `subTest` constituent assertion, migration-only script, external census, Reviewer-only check와 unregistered temporary validation은 이 identity denominator에 더하지 않는다.
   - G5 compiler identity는 append-only다. 0016은 execution-boundary 변경으로 달라진 19-path closure를 결속했고, 0017은 identity owner와 production dependency `execution.py`를 더한 21-path closure를 결속한다. 0013–0016을 재작성하거나 전체 chain을 재번호링하지 않으며 current required paths는 0016 뒤에 0017을 누적 보존한다. 그 retention-list correction은 compiler closure bytes를 바꾸지 않았으므로 0018을 만들지 않는다.

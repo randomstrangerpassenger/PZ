@@ -97,8 +97,29 @@ def menu_subject() -> dict:
         path = path.resolve()
         assert path.is_relative_to(REPO.resolve()), "Menu binding escapes repository"
         bindings[path.relative_to(REPO.resolve()).as_posix()] = _sha(path)
+    corrections = {row["item_id"]: row.get("slot_meta", {}).get("usefulness_correction")
+                   for row in (json.loads(line) for line in (V2_DATA / "dvf_3_3_facts.jsonl").read_text(encoding="utf-8").splitlines())
+                   if row.get("slot_meta", {}).get("usefulness_correction")}
     return {"generation": generation, "bindings": bindings, "entries": rendered,
+            "usefulness_corrections": corrections,
             "adoption": approved.get("meta", {}).get("general_description_integration", {})}
+
+
+def predecessor_selected(selected: dict, corrections: dict) -> tuple[dict, dict]:
+    """Reverse only source-bound adopted changes, retaining the original ledger guard."""
+    previous = dict(selected)
+    transitions = {}
+    for key, correction in corrections.items():
+        expected = correction["expected_s2"]
+        assert selected.get(key) == expected["id"], "initial selected ledger membership or adopted fact changed"
+        old_ids = correction["predecessor_core_source_fact_ids"]
+        assert len(old_ids) <= 1, "ambiguous predecessor core"
+        if old_ids:
+            previous[key] = old_ids[0]
+        else:
+            previous.pop(key)
+        transitions[key] = {"before": old_ids[0] if old_ids else None, "after": selected[key]}
+    return previous, transitions
 
 
 @dataclass(frozen=True)
@@ -360,15 +381,16 @@ def menu_relations(output: str, manifest_path: Path, *,
             l4[locale].setdefault(key, set()).add((identity, source))
     selected = {k: next(row["semantic_identity"] for row in v["lines"] if row["slot_id"] == "S2")
                 for k, v in manifest["fulltypes"].items() if "S2" in v["present_slots"]}
-    assert len(selected) == 1314, "initial selected ledger membership changed"
-    initial_selected = dict(selected)
-    transitions = {}
+    initial_selected, transitions = predecessor_selected(selected, subject.get("usefulness_corrections", {}))
     adoption = subject.get("adoption", {})
     if adoption.get("decision") == "user_adopted_build41_description_correction":
         for key, row in adoption["entries"].items():
+            if "predecessor_primary_use_fact_id" not in row:
+                continue  # New Menu context keeps the core bound by usefulness_corrections.
             assert selected.get(key) == row["primary_use_fact_id"], "stale T2 fact after content correction"
             initial_selected[key] = row["predecessor_primary_use_fact_id"]
             transitions[key] = {"before": initial_selected[key], "after": selected[key]}
+    assert len(initial_selected) == 1314, "initial selected ledger membership changed"
     expected_pairs = hashlib.sha256(json.dumps(sorted(initial_selected.items()), ensure_ascii=True,
                                               separators=(",", ":")).encode()).hexdigest()
     assert expected_pairs == "c5db8a28892229df25f9b65b22e045515b3ac1fcc0d476bb8a1231131832cd28", "initial selected ledger identity changed"
@@ -547,6 +569,10 @@ class BrowserStateSelectionSearchAcceptanceTest(unittest.TestCase):
         # the explicitly supplied EN evidence varies. Nothing is written.
         owner = json.loads((REPO / "Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json").read_text(encoding="utf-8"))
         selected = {key: row["fact_id"] for key, row in owner["entries"].items()}
+        corrections = {row["item_id"]: row["slot_meta"]["usefulness_correction"]
+                       for row in (json.loads(line) for line in (V2_DATA / "dvf_3_3_facts.jsonl").read_text(encoding="utf-8").splitlines())
+                       if row.get("slot_meta", {}).get("usefulness_correction")}
+        selected, _ = predecessor_selected(selected, corrections)
         adopted = _json(V2_DATA / "layer3_body_role_realign/approved_upstream/candidate_rendered.json")["meta"]["general_description_integration"]
         for key, row in adopted["entries"].items():
             if "predecessor_primary_use_fact_id" in row:

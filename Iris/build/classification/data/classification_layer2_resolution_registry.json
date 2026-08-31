@@ -9,10 +9,10 @@
   "input_sha256": {
     "Iris/media/lua/client/Iris/Data/IrisClassifications.lua": "98d9ce3162703333b02dd48d62f8739e4606eada321a7731a35e2e586f033563",
     "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserCategoryIndex.lua": "63fc02fe96f22e80b6e4d26c46c0ebaa9f7c3daefed818c146b4d35e98acbff8",
-    "Iris/media/lua/shared/translate/ko/Iris_ko.txt": "f8046cd57c6df48300fea3b965ce5065516b20490fab45d062ef7c3f61257313",
-    "Iris/media/lua/shared/translate/en/Iris_en.txt": "a78dbd0e0c2107df08441f44bb674565efed977b093ec8e0e21654506810e414",
-    "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua": "d7e98d4a7868ab638dce9160b0664686b98ffd765aaff06aba114be6d21e8161",
-    "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-05d76b51c5e1058be4d79afd8a43bc2f0ac8a11c136523166770f181eeaf82c1/dvf_3_3_rendered.json": "2ab795831d9526f9667bc908c3007f6ec5f6d3df5d5e5e554c1d45cc842fc753",
+    "Iris/media/lua/shared/translate/ko/Iris_ko.txt": "da15d7c9fc9f759cfa89bd5cf1bbc517e4bca33e899d22d5cafebf0936fadd06",
+    "Iris/media/lua/shared/translate/en/Iris_en.txt": "fc187e982d23b008ca6d2c1d734edad1482b1760e9f8558cbc00b703cb34493c",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua": "8851e384f02fe977a9e6de727cab74e507dbaf0a19e119f4704864d47de91422",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-40cc6e093ec65ed0c1f31c0e742782ac820e0a497fb923dd55067c52481fb537/dvf_3_3_rendered.json": "650dd23197b22b8f9b0a147aa153b514b5d67e4a9092bbfe31ef169699bbd21f",
     "Iris/build/description/v2/data/upstream_usecases_by_fulltype.json": "2af068b1ea898125e81e9103af79019a35a1c51b8fd7c74325906d26567ad43f"
   },
   "approved_resolution_rules": [
@@ -22,5 +22,26 @@
   "owner_resolved_rows": {},
   "owner_approved_absence_rows": {},
   "approval_identity": "user_prompt_preapproval_2026-08-29",
-  "remaining_rows_must_stay_corrections": true
+  "remaining_rows_must_stay_corrections": true,
+  "usefulness_source_rebinding": {
+    "authority_ref": "docs/iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md",
+    "decision": "Owner-preapproved input rebinding; classification memberships, primary choices, overrides and display-silence decisions preserved.",
+    "predecessor_source_subject_binding": {
+      "commit": "6b7118dc229bf8138302696e1aa5e5b7454589dc",
+      "tree": "4eae6fbdb3d0b2cb532f875b96137335a403f2fc"
+    },
+    "predecessor_input_sha256": {
+      "Iris/media/lua/client/Iris/Data/IrisClassifications.lua": "98d9ce3162703333b02dd48d62f8739e4606eada321a7731a35e2e586f033563",
+      "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserCategoryIndex.lua": "63fc02fe96f22e80b6e4d26c46c0ebaa9f7c3daefed818c146b4d35e98acbff8",
+      "Iris/media/lua/shared/translate/ko/Iris_ko.txt": "f8046cd57c6df48300fea3b965ce5065516b20490fab45d062ef7c3f61257313",
+      "Iris/media/lua/shared/translate/en/Iris_en.txt": "a78dbd0e0c2107df08441f44bb674565efed977b093ec8e0e21654506810e414",
+      "Iris/media/lua/client/Iris/Data/IrisLayer3DataCurrent.lua": "d7e98d4a7868ab638dce9160b0664686b98ffd765aaff06aba114be6d21e8161",
+      "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-05d76b51c5e1058be4d79afd8a43bc2f0ac8a11c136523166770f181eeaf82c1/dvf_3_3_rendered.json": "2ab795831d9526f9667bc908c3007f6ec5f6d3df5d5e5e554c1d45cc842fc753",
+      "Iris/build/description/v2/data/upstream_usecases_by_fulltype.json": "2af068b1ea898125e81e9103af79019a35a1c51b8fd7c74325906d26567ad43f"
+    },
+    "input_subject": {
+      "commit": "43a0df863735ef21c89ef7c4b3e342b84094a1e5",
+      "tree": "7a6db8b85007ec91f367cea4f9ba8253c01df533"
+    }
+  }
 }

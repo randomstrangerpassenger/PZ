@@ -1,7 +1,7 @@
 # DECISIONS.md
 
-> 상태: current decision ledger / compact trace-dedup edition through 2026-08-25
-> 기준일: 2026-08-25
+> 상태: current decision ledger / compact trace-dedup edition, Iris DVF 후속 반영
+> 기준일: 2026-08-31 (이번 갱신 범위: Iris DVF 설명·Tooltip·Menu)
 > 상위 기준: `Philosophy.md`
 > 목적: Pulse 생태계에서 이미 사실상 고정된 결정을 짧게 봉인하고, 같은 논쟁의 반복을 줄인다.
 
@@ -917,7 +917,7 @@
 
 ### Iris DVF System — Layer 3 body production / optional role-material contract
 
-- 날짜: predecessor body-production contract → 2026-08-21 role realignment → 2026-08-22 source-bound material correction
+- 날짜: predecessor body-production contract → 2026-08-21 role realignment → 2026-08-22 source-bound material correction → 2026-08-31 usefulness correction
 
 - 상태: current readpoint / successor production contract / optional role-material model adopted
 
@@ -946,8 +946,9 @@
 - 최소 결과 trace:
 
   - current Layer 3 universe: `2105`
-  - current public Layer 3 bodies: `2072`
-  - current silent rows: `33`
+  - current public Layer 3 bodies: KO/EN 각각 `2099`
+  - current silent rows: `6`
+  - current Tooltip S2 core: `2048` (기존 `1314`에서 `734` 추가)
   - optional role-material model: `adopted`
 
 - 후속 input artifact:
@@ -955,6 +956,7 @@
   - `Iris/build/description/v2/data/dvf_3_3_input_manifest.json`
   - current approved upstream candidate / generation input
   - `docs/iris_layer3_body_role_realignment_policy.md`
+  - `docs/iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan_closeout.md`
 
 - Predecessor trace:
 
@@ -981,7 +983,33 @@
   - successor body-production contract: predecessor cutover 이후
   - role realignment: 2026-08-21
   - source-bound material correction: 2026-08-22
+  - current usefulness / Tooltip S2 / Menu successor: 2026-08-31, 아래 결정 및 단일 closeout 참조
   - COMMON-EVIDENCE-TRACE.
+
+### Iris DVF — 설명 실용성 교정 / Tooltip S2·Menu 깊이 분리
+
+- 날짜: 2026-08-31, 사용자 요청에 따른 콘텐츠 교정과 기존 생산 경로 채택.
+- 상태: 개별 설명·Menu 보완과 runtime/package 반영 및 기존 필수 자동 검증 완료. 최종 패키지의 식품류 표시·조작은 사용자 확인이며, 그 밖의 대표 관찰 범위는 미보고다.
+
+- 결정:
+
+  - Layer 3는 사용자가 기본 용도·효과를 이해할 수 있는 개요를 제공한다. `~준비 작업에서 사용한다` 같은 포괄 문구의 어미만 바꾸는 것으로 실용성 교정을 대신하지 않는다. 상세 레시피·행동·요구조건의 구조화는 Layer 4 책임으로 유지한다.
+  - 이름, 현실의 일반 용도, classification 또는 `uc.action.construction` 같은 넓은 label만으로 게임 기능을 추가하지 않는다. 해당 Build 41 item의 source와 적용 조건에 결속된 범위에서 문구를 채택한다. 확인되지 않은 기능을 반대로 `용도 없음`으로 단정하지도 않는다.
+  - 이번 구현은 개별 `primary_use` / KO·EN / source-bound decision과 approved candidate를 교정한 것이다. 공통 설명 블록 조합 규칙의 재설계·자동 일반화는 수행하지 않았다. 교정 문장 자체를 후속 규칙의 게임 사실 근거로 역승격하지 않는다.
+  - Tooltip S2는 승인된 core의 KO/EN 문장만 기존 owner → strict T1 → T2 fixed/Recipe companion 경로로 전달한다. Menu는 같은 기본 설명에 context와 관련 detail을 더한다. Menu 본문 전체를 S2에 복사하거나 runtime에서 요약하지 않는다.
+  - 깊이의 기준은 기본 설명에서 이어지는 질문에 대한 답이다. 획득처나 `조건에 따라 다름`만으로 조리법·준비물 질문을 해결했다고 하지 않는다. 이번 32개 항목은 기존 `special_context`로 보완했고, 조리·낚시 답은 Menu 본문으로 제공한다. 신규 QG/Recipe 구조를 만들거나 그 안에 없는 상세 링크를 있다고 표시하지 않는다.
+  - 기술서의 적용 기술·레벨·독서 조건은 기존 item fact를 Browser/Wiki에 표시한다. 모르는 기술이나 범위를 추정하지 않으며, 경험치 배율과 직접 경험치 획득을 구분한다.
+  - 근거 있는 `review_hold`는 허용된 보류이며 그 수 자체는 실행 미완료 사유가 아니다. 기존 보류 문구의 의미 정확성을 새로 보증하거나, 미관찰·작업량을 근거 있는 부재로 바꾸지 않는다.
+
+- 최소 결과 및 관찰 범위:
+
+  - 2,105개 판정 중 revise 1,529 + reduce 12 = **1,541개** 기본 설명을 교정했다. 기존 보호 12개와 explicit owner absence 175개는 보존했다. Menu context 32개 및 마지막 9개 보완을 S2 변경 수에 중복 합산하지 않는다.
+  - 제품 통합 commit은 `ca37e26e622bab68e89452a0e030e1720e6df9dc`, current generation은 `dvf33-103dd029d58267ffa696fcb9fa197d5564d14716f12f6ae3ee398b4fb3b41d83`다. 기존 T1/T2 finalization과 package/격리 runtime 검증을 완료했다. 상세 실행 결과는 단일 closeout에 둔다.
+  - 사용자는 `C:/Users/MW/PZ-U/pkg2/Iris`를 설치하고 식품류의 Alt 표시, 우클릭 Iris 상세, KO/EN 장문 배치, Recipe 표시·Menu 전환이 정상이라고 보고했다. Exact item·게임 버전은 미제공이며 비식품류나 모든 문장의 의미 검증으로 확대하지 않는다. 추가 재시험·hash·증빙 요구를 만들지 않는다.
+  - 기존 필수 검증은 유지하되 신규 독립 검사기·Gate는 기본 0으로 두고, 동일 입력·검사 범위의 결과는 기존 계약이 허용하는 범위에서 재사용했다. 일회성 authoring/delta helper를 정규 검사기나 새 authority로 승격하지 않는다.
+  - 구현·자동 검증·사용자 관찰을 모든 Menu 질문 해결, semantic-quality acceptance 또는 freeze/RTC/Publish/release 승인과 동일시하지 않는다.
+
+- Trace: [채택 계획](iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md), [실행 결과·item별 보류·사용자 관찰](iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan_closeout.md).
 
 ### Iris Layer 4 — Recipe / Right-click `use_case`, requirement / adaptive presentation contract
 
@@ -1049,7 +1077,7 @@
 
 ### Iris — Layer 2–3 locale projection contract
 
-- 날짜: 2026-08-21 locale projection integration → 2026-08-22 current-generation key-set / material successor
+- 날짜: 2026-08-21 locale projection integration → 2026-08-22 key-set / material successor → 2026-08-31 usefulness successor
 
 - 상태: current readpoint / supported-locale projection adopted / current-generation key-set aligned
 
@@ -1064,7 +1092,7 @@
   - Layer 3 companion localization payload의 public-key owner는 predecessor rendered artifact가 아니라 pointer-selected current generation이다.
   - localization producer는 자신이 소비하는 current-generation canonical input과 approved candidate identity에 결속한다.
   - EN companion에는 current generation에서 non-empty KO public body를 가진 key만 포함한다.
-  - current KO / EN Layer 3 public key set은 각각 `2072`다.
+  - current KO / EN Layer 3 public key set은 각각 `2099`다 (2026-08-31 usefulness successor).
   - KO body와 source semantics는 localization projection 때문에 변경하지 않는다.
   - runtime은 요청 locale의 precompiled payload만 선택한다.
   - cross-locale raw-text fallback은 사용하지 않는다.
@@ -1075,8 +1103,8 @@
 - 최소 결과 trace:
 
   - Layer 2 template identity: `50`
-  - current KO public key set: `2072`
-  - current EN public key set: `2072`
+  - current KO public key set: `2099`
+  - current EN public key set: `2099`
   - cross-locale raw-text fallback: `forbidden`
 
 - Predecessor trace:
@@ -1089,7 +1117,7 @@
 
 - 오독 금지:
 
-  - predecessor `2070` key set을 current readpoint로 읽지 않는다.
+  - predecessor `2070` / `2072` key set을 current readpoint로 읽지 않는다.
   - locale projection을 새로운 사실 생성, 추천, 추론 또는 Layer 3 semantic authority 변경으로 읽지 않는다.
   - EN companion payload를 KO current source와 독립된 knowledge authority로 읽지 않는다.
   - key-set parity를 public-text quality acceptance나 번역 품질 PASS로 확대하지 않는다.
@@ -2281,7 +2309,7 @@ D1 generation 전환의 조건부 downstream binding: T1 strict admission에서 
 - **선택 수명:** 후보가 여러 개면 새 opening에서 무작위 하나를 선택하고 열린 동안 유지한다. Locale 전환은 동일 identity의 KO/EN 배열만 바꾼다. Alt 해제, item 변경, Tooltip 숨김과 context menu 표시에서 opening을 해제한다. 재개방 시 같은 후보가 연속으로 뽑힐 수 있다. 후보가 하나인 양배추는 `병에 양배추 절이기`를 표시하며 아이템 전용 분기는 없다.
 - **이름 결손:** 사용자 승인으로 `uc.recipe.empty_baking_tray`, `uc.recipe.hockeymasksmashbottle`, `uc.recipe.make_wooden_box_trap`의 이름 결손 후보를 양 언어 공통 제외한다. 임의 번역이나 다른 새 결손의 자동 제외는 하지 않는다. 유효한 Recipe 후보가 없으면 빌드에서 L2/L3/Right-click만 남기며 generic Recipe로 되돌리지 않는다.
 - **구현 경계:** 기존 `IrisTooltipStaticData.lua`는 보존한다. 동일 projection domain의 `recipe_variants.py`가 구조화 QG 입력으로 완성된 `IrisTooltipRecipeVariants.lua`를 생성하고 runtime은 그중 한 view만 선택한다. 무작위 표시를 추천·대표성·새 사실 판정으로 읽지 않는다. 위의 기존 고정 선택·무상태 동작에 대한 한정 후속 변경이다.
-- **완료 범위:** 두 작업은 소스 구현과 명시된 집중 검사까지 완료했다. 옆 배치 focused/syntax(153 files), Recipe projection(1 passed)·runtime(349개/781개 KO/EN 후보 포함)·syntax(154 files)는 각 실행에서 exit 0이었다. 과거 canonical PASS를 새 코드에 승계하지 않는다. 새 Recipe의 실제 게임 관찰·새 패키지 생성은 수행하지 않았으며 이전 `p2/Iris.zip`에 두 변경이 포함됐다고 주장하지 않는다. 사용자 요청대로 source만 전달하며 T1/T2 재발행·추가 봉인·패키징은 하지 않는다. 상세 실행 기록은 T3 계획의 두 presentation 후속 절을 따른다.
+- **당시 완료 범위:** 두 작업은 소스 구현과 명시된 집중 검사까지 완료했다. 옆 배치 focused/syntax(153 files), Recipe projection(1 passed)·runtime(349개/781개 KO/EN 후보 포함)·syntax(154 files)는 각 실행에서 exit 0이었다. 당시에는 source만 전달했고 새 Recipe의 실제 게임 관찰·새 패키지 생성·T1/T2 재발행은 수행하지 않았다. 이 이력과 이전 `p2/Iris.zip`은 보존한다. **현재는 2026-08-31 usefulness successor에서 fixed/companion 재생성, 필수 검증과 새 package 반영을 완료했으며 식품류의 사용자 인게임 보고를 받았다.** 과거 PASS를 승계한 것이 아니며 현재 범위는 위 DVF 실용성 결정과 단일 closeout을 따른다.
 
 ### Iris current naming — responsibility-based source locator successor
 

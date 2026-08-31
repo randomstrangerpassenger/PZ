@@ -1,7 +1,7 @@
 # ROADMAP.md
 
 > 상태: current canonical roadmap  
-> 기준일: 2026-08-26  
+> 기준일: 2026-08-31 (이번 갱신 범위: Iris DVF 설명·Tooltip·Menu)\
 > 최상위 기준: `Philosophy.md`  
 > 결정 기준: `DECISIONS.md`  
 > 목적: Pulse 생태계의 현재 상태, 진행 방향, 다음 게이트와 Hold 경계를 고정한다.
@@ -458,6 +458,15 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
 
 ## Done
 
+- DVF 기본 설명 교정과 Tooltip S2 전파, 관련 Menu 보완을 원본 저장소에 반영했다. (2026-08-31)
+  - 전체 2,105개를 판정하고 revise 1,529 + reduce 12 = **1,541개**의 기본 설명·KO/EN을 교정했다. Tooltip S2 core는 **1,314 → 2,048(+734)**, KO/EN public body는 각 2,099개다. 보호 12개와 explicit owner absence 175개를 보존했다.
+  - 이름·현실 용도나 넓은 분류 label 대신 exact Build 41 source에 근거해 기본 용도·효과를 설명한다. 이번 구현은 개별 facts/decisions/approved candidate 교정이며 공통 설명 블록 조합 규칙의 재설계는 아니다.
+  - 32개 Menu 항목의 후속 질문에 준비물·사용 조건·조리 단계 등을 보완했다. 조리·낚시는 기존 Menu context로 답하며 신규 QG/Recipe 구조를 만든 것은 아니다. 기술서 적용 레벨·독서 조건은 Browser/Wiki에 표시한다.
+  - 새 generation과 EN → T1 → T2 fixed → matching Recipe companion → package/격리 runtime까지 전파하고 기존 필수 자동 검증을 완료했다. 옆 배치·구체적 Recipe 표시 후속도 새 패키지에 포함했다. 현재 전달물은 `C:/Users/MW/PZ-U/pkg2/Iris` / `Iris.zip`이다.
+  - 사용자가 위 폴더를 설치하고 **식품류**의 Alt·우클릭 상세 정보, KO/EN 장문 배치, Recipe 표시·Menu 전환이 정상이라고 보고했다. 비식품류 전체 관찰이나 모든 문장의 의미·유용성 승인으로 확대하지 않는다.
+  - 추가 독립 Gate/검증기를 만들지 않고 기존 검사와 적합한 실행 결과를 재사용했다. 일회성 authoring/delta helper는 정규 검사기나 새 authority가 아니다.
+  - 상세 판정·실행 결과·사용자 관찰은 [단일 closeout](iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan_closeout.md)에 둔다. 아래 T1/T2/T3의 과거 수치·패키지는 해당 subject의 이력이며 현재 전달물과 구분한다.
+
 - Iris의 제품 정체성과 사용자-facing 정보 원칙을 current 기준으로 고정했다.
   - 확인된 사실은 이해하기 쉽게 설명할 수 있지만 해석 / 추천 / 효율 평가 / 우열 비교는 하지 않는다.
   - 충분한 근거가 없는 정보는 추측해서 채우지 않고 침묵한다.
@@ -572,14 +581,19 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - 완료 후 **옆 배치 source 구현을 완료**했다. 오른쪽 우선·왼쪽 대안, 4px 간격/top alignment, 내용 기반 240~360px 읽기 폭이며 vanilla 크기·위치와 기존 font는 유지한다. 양옆에 읽기 폭이 없으면 아래/위 배치, 안전한 공간이 없으면 Iris만 생략한다. 기존 focused harness와 Lua syntax 153 files가 exit 0이었다. 사용자는 수정됐다고 응답했으며 에이전트의 PZ 시각 검증으로 기록하지 않는다.
   - 이어 **구체적 Recipe 표시 source 구현을 완료**했다. 양배추 전용이 아니라 현재 승인 Recipe 연결 아이템 **349개 전체 / 781개 아이템별 후보**에 적용한다. 새 opening마다 하나를 무작위 선택하고 열린 동안과 locale 전환 중에는 동일 identity를 유지한다. Alt 해제·item 전환·숨김·context menu 표시 뒤 다시 고른다. 후보 하나는 고정되고 연속 동일 선택도 허용한다.
   - Recipe companion은 L2/L3·선택된 Right-click·0~4줄과 옆 배치를 보존하며 concrete Recipe 이름 하나를 담은 완성 KO/EN 배열들을 제공한다. 사용자 승인 이름 결손 후보 3개만 양 언어 공통 제외했다. 기존 fixed static data는 변경하지 않았고 runtime은 QG/raw 의미를 재생성하지 않는다. 초기 T3의 무상태 fixed 조회는 이 opening 상태에 한해 변경했다. 전역 FullType display cache나 legacy semantic fallback은 없다.
-  - Recipe 후속의 기존 projection 검사 `1 passed`, runtime harness(전체 349개/781개 KO/EN 후보 및 opening lifecycle), Lua syntax `154 files`는 모두 exit 0으로 완료했다. 새 Recipe 동작은 아직 실제 게임 관찰 결과가 없으며 과거 T3 canonical PASS를 새 코드에 승계하지 않는다.
-  - 두 후속은 사용자가 요청한 source-only 전달이다. 새 package/ZIP/설치 복사·T1/T2 재발행·추가 봉인을 하지 않았으며 아래 기존 `p2/Iris.zip`에는 포함되지 않는다. Source 교체에는 renderer·lookup과 새 `IrisTooltipRecipeVariants.lua`가 함께 필요하다. 상세 구현·검증 결과는 T3 계획의 두 presentation 후속 절을 따른다.
+  - Recipe 후속 당시의 projection 검사 `1 passed`, runtime harness(전체 349개/781개 KO/EN 후보 및 opening lifecycle), Lua syntax `154 files`는 모두 exit 0으로 완료했다. 당시에는 실제 게임 관찰 결과가 없었다. 현재는 위 2026-08-31 교정본의 별도 필수 검증과 식품류 사용자 관찰 결과를 사용하며 과거 PASS를 승계하지 않는다.
+  - 두 후속의 최초 전달은 source-only였고 아래 기존 `p2/Iris.zip`에는 포함되지 않았다. 현재는 renderer·lookup·fixed/Recipe companion을 새 `PZ-U/pkg2/Iris`에 함께 반영했다. 최초 후속의 상세 기록은 T3 계획에, 현재 전파 결과는 위 DVF 교정 closeout에 둔다.
   - 실제 Alt 오류 보고 뒤 Kahlua에 없는 `next` 의존을 `pairs`로 수정하고 기존 harness에 해당 환경 조건을 반영했다. Final code `25318630`의 canonical A/B는 각각 211 tests·109 subtests 및 기존 standalone 4개가 통과했고 comparator도 PASS다. 수정본 설치 syntax 129 files와 lookup smoke 2,280 keys도 통과했다. 이전 subject의 PASS를 수정본에 승계하지 않았다.
-  - 정상 수정 ZIP은 `C:/Users/MW/PZ-T3/p2/Iris.zip`, 격리 설치본은 `C:/Users/MW/PZ-T3/game/mods/Iris`다. 사용자는 안내 버전 설치·KO/EN Alt 열기·Alt 해제·빠른 전이·관찰한 장문/정보 순서를 확인했고, 이 범위로 인게임 검증을 종료했다. 실제 오류 상황 검증은 사용자 지시로 제외했으며 미실행을 PASS로 기록하지 않는다. 전수 QA·성능·release/Workshop readiness는 비주장이고 잔여 작업·재검사 요구는 없다.
+  - 당시 정상 수정 ZIP은 `C:/Users/MW/PZ-T3/p2/Iris.zip`, 격리 설치본은 `C:/Users/MW/PZ-T3/game/mods/Iris`였다. 사용자는 안내 버전 설치·KO/EN Alt 열기·Alt 해제·빠른 전이·관찰한 장문/정보 순서를 확인했고, 이 범위로 인게임 검증을 종료했다. 실제 오류 상황 검증은 사용자 지시로 제외했으며 미실행을 PASS로 기록하지 않는다. 이 predecessor T3의 전수 QA·성능·release/Workshop readiness는 비주장이고 잔여 재검사 요구는 없다.
   - 2026-08-30 D1 C 구현으로 기존 12개 Menu body를 복구하고 final KO/EN required 1,314개를 모두 연결했다. EN method는 current deterministic derivability이며 resolved 1,314 / retained 0 / unresolved 0이다. 기존 1,302개, Tooltip surface와 absence 175개는 보존됐다. L4 selected 530개는 양 locale의 실제 structured consumer subset에 일치했다.
   - 이후 사용자 Build 41 수정안이 위 입력을 supersede했다. 최신 12개 source/core/S2 정정을 T1·T2 최종본과 product까지 전파했고, 두 단계 canonical A/B·comparator 및 최종 actual Menu relation이 모두 PASS해 **D1 complete**다. Initial 1,314 pair는 12개 fact-ID successor와 함께 resolved 1,314 / retained 0 / unresolved 0으로 닫혔으며 required FullType·비대상 S2·L2/L4·0~4줄 분포를 보존했다. 후속 T3에서 package/ZIP/격리 install의 byte identity 및 설치본 syntax/lookup은 확인했다. 최신 사용자 관찰과 인게임 범위 종료는 위 완료 상태를 따른다. 이전 partial/runtime_adopted=false는 predecessor 이력이며 성능·release readiness는 선언하지 않는다. 상세 current binding은 D1 계획과 `docs/iris_tooltip_t3_static_data_alt_runtime_integration_plan.md` 실행 기록을 따른다.
 
 ## Doing
+
+- DVF 교정의 구현 완료와 관찰·근거 한계를 분리해 유지한다.
+  - 구현·자동 검증·최종 패키지의 식품류 사용자 확인은 완료 기록으로 유지한다. 단일 closeout의 overall 상태는 다른 major category의 대표 관찰 미보고 때문에 `partial`이며 제품 반영 실패를 뜻하지 않는다.
+  - source review_hold 273개는 명시된 sprite/obsolete/legacy/identity 등의 근거 부족을 보존한다. 보류 수 자체는 미완료 사유가 아니며 keep·검증 완료·용도 없음으로 바꾸지 않는다.
+  - 인게임 확인은 사용자가 진행한다. 관찰 범위를 문서화하되 이번 기록 갱신으로 재시험·설치 hash·추가 증빙 Gate를 만들지 않는다.
 
 - 새 의미 기능을 확장하기보다 **current information pipeline과 사용자-facing surface의 안정성을 유지하는 것**을 우선한다.
   - fact / source / outcome / description의 정확성과 표시 일관성을 우선한다.
@@ -594,6 +608,11 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - 이미 완료된 architecture / refactor를 readiness 작업을 이유로 다시 설계 문제로 열지 않는다.
 
 ## Next
+
+- 교정된 설명에서 **DVF 블록 조합 규칙으로 일반화할 범위**를 정리한다.
+  - 문장 구조만 복사하지 않고 기본 용도·효과·복수 역할·정보 부족별 표현과 그 표현을 허용하는 source 조건을 함께 추출한다.
+  - 이번에 채택한 개별 설명을 비교 사례로 쓰되 게임 사실의 source는 계속 원본 근거에 둔다. Menu 전용 조리 단계·수량을 Tooltip core 규칙에 섞지 않는다.
+  - 공통 규칙 변경은 아직 미구현인 후속 과제다. 새 로드맵·계획 작성이나 제품 구현을 이 문서 갱신으로 실행한 것으로 간주하지 않는다.
 
 - 최신 current product 상태를 기준으로 **DVF freeze readiness를 재판정한다.**
   - 과거 Problem 4의 `동결 불가` verdict는 historical evidence로 유지하고 직접 수정하거나 승계하지 않는다.

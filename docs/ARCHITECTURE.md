@@ -1,7 +1,7 @@
 # ARCHITECTURE.md
 
 > 상태: 초안 v0.4  
-> 기준일: 2026-08-10  
+> 기준일: 2026-08-31 (이번 갱신 범위: Iris DVF 설명·Tooltip·Menu)\
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 구조 지도, 역할 경계, 의존 방향을 고정한다.  
 > 구현 상태 표기: 별도 표시가 없는 모듈은 current architecture를 기술하며, `설계 단계` 표시는 아직 구현되지 않은 target architecture를 뜻한다.
@@ -200,8 +200,9 @@ Iris의 정보 모델은 다섯 층위로 구분한다.
    - 아이템의 기본 탐색 의미와 브라우징 anchor를 제공한다.
    - `primary_subcategory`는 탐색 anchor로 유지하되, 상세 설명의 자동 생성 권한으로 승격하지 않는다.
 
-3. **3계층 - 상세 설명 계층**
-   - 아이템 중심의 위키형 상세 설명을 담당한다.
+3. **3계층 - 용도·개요 설명 계층**
+   - 확인된 근거가 있는 아이템의 기본 용도·효과를 사용자가 이해할 수 있게 설명한다.
+   - 모든 행동과 조리법을 열거하는 계층은 아니다. Tooltip S2는 기본 설명을, Menu는 같은 설명과 채택된 추가 맥락을 표시한다.
 
 4. **4계층 - 상호작용 정보 계층**
    - 레시피, 우클릭 source, 요구조건, 사용 맥락 등 아이템과 연결된 상호작용 정보를 구조화한다.
@@ -211,6 +212,8 @@ Iris의 정보 모델은 다섯 층위로 구분한다.
    - 사용자 설명을 대신하지 않으며, 필요 시 별도의 메타 영역에 격리한다.
 
 이 다섯 계층은 기술 파이프라인의 처리 순서가 아니라 **Iris 정보 모델의 층위**다.
+
+Tooltip과 Menu는 이 층위를 서로 다른 깊이로 표시하는 두 표면이다. Tooltip에서 기본 용도를 파악한 뒤 Menu에서 관련 준비물·레시피·조건을 찾을 수 있어야 한다. 획득처처럼 후속 질문과 무관한 정보를 추가하는 것만으로 Menu의 깊이가 확보되지는 않는다. Menu 본문의 context가 게임 사용법을 설명하더라도 구조화된 Recipe/Right-click relation의 소유권은 Layer 4에 남는다.
 
 ### Evidence 모델
 
@@ -448,7 +451,24 @@ D1/D2 개별 workstream 완료 당시에는 current ecosystem adoption이 `pendi
 
 ### Runtime presentation 구조
 
-2026-08-30 Tooltip T3의 `complete`, `runtime_adopted=true`는 사용자 확정 인게임 범위와 당시 필수 자동 검증에 근거한 predecessor 채택 기록이다. 이후 소스에는 옆 배치와 구체적 Recipe 표시 후속을 구현했다. 현재 source 경로는 `IrisAltTooltip → IrisTooltipStaticDataLookup`이며 lookup은 fixed `IrisTooltipStaticData`와 Recipe 표시용 `IrisTooltipRecipeVariants`를 읽는다. 제품 runtime은 Lua만 사용한다. 두 후속은 소스 전달 범위이며 이전 package·canonical gate 결과를 새 코드에 승계하지 않는다. Naming 자체의 완료 범위는 아래 current source locator 절을 따른다.
+현재 runtime은 2026-08-31 DVF 실용성 교정본과 옆 배치·구체적 Recipe 표시를 함께 포함한다. `IrisAltTooltip → IrisTooltipStaticDataLookup`은 fixed `IrisTooltipStaticData`와 Recipe 표시용 `IrisTooltipRecipeVariants`를 읽으며 runtime은 Lua만 사용한다. 새 generation·T1/T2·matching companion·패키지에 대한 기존 필수 검증을 완료했다. 2026-08-30 T3 완료와 source-only 후속 기록은 predecessor 이력이며 그 PASS를 새 코드에 승계하지 않는다.
+
+현재 설명의 생성·소비 경로는 다음과 같다. 모든 JSON과 owner 입력의 처리는 offline이며, 게임은 완성된 Lua payload만 읽는다.
+
+```text
+dvf_3_3_facts.jsonl + source/decision lineage
+-> approved_upstream/candidate_rendered.json 채택
+   -> complete generation + EN companion -> current pointer -> Menu Layer 3 body
+   -> 승인된 core의 Tooltip owner KO/EN -> strict T1 -> T2 fixed static data
+                                                      -> matching Recipe companion
+                                                      -> Alt Tooltip lookup
+```
+
+- 이번 수정은 개별 `primary_use`, KO/EN, decision과 approved candidate에 반영했다. Complete-generation producer는 채택된 candidate를 읽으므로 facts 수정만으로 모든 소비 결과가 자동 갱신된다고 가정하지 않는다. 공통 DVF 설명 블록 조합 규칙은 재설계하지 않았다.
+- Tooltip S2는 core 문장만 사용한다. Menu body는 같은 기본 설명과 채택된 `special_context`, 해당하는 acquisition 정보를 포함한다. Context 전체를 S2에 붙이거나 runtime에서 본문을 요약하지 않는다.
+- 32개 아이템의 준비물·사용 조건 등을 기존 context 경로로 보완했다. Apple의 evolved 조리와 낚시 답은 현재 Menu 본문으로 제공하며 신규 QG/Recipe 상세 구조가 아니다. Hammer의 나무 십자가 경로는 바닐라 메뉴 안내이고 Iris 내부 링크가 아니다.
+- Current generation은 `dvf33-103dd029d58267ffa696fcb9fa197d5564d14716f12f6ae3ee398b4fb3b41d83`이며 exact universe 2,105, KO/EN public body 각 2,099, silent 6, S2 core 2,048이다. Core 1,314에서 734개가 추가됐고 전체 1,541개 기본 설명이 교정됐다. 보호 12개와 explicit owner absence 175개는 유지한다.
+- Current T1/T2 final root는 `C:/Users/MW/PZ-U/t1f2`, `C:/Users/MW/PZ-U/t2f2`다. Fixed는 2,280 keys이며 같은 fixed에서 Recipe companion 349 FullTypes / 781 variants를 생성한다. Current-only package는 이 세트와 pointer-selected generation을 함께 포함한다.
 
 `IrisTooltipStaticDataLookup.get`은 최초 valid exact FullType/`ko`·`en` 조회에서 fixed payload를 한 번 require한다. 실패도 한 번만 시도한다. Metatable·혼합/희소 key·비문자열·빈 문자열·개행·4줄 초과를 포함한 선택 배열 전체를 거부하며, supported-empty는 빈 배열로 유지한다. `open`은 Recipe companion을 first-use load하고 해당 entry의 base KO/EN 배열이 current fixed payload와 정확히 일치하는지, 후보 identity와 완성 배열이 유효한지 확인한다. 유효한 entry가 있으면 bilingual view 하나를 고르고, Recipe entry가 없는 아이템은 fixed 배열을 쓴다. Companion 로드 실패·손상·base 불일치에는 legacy 경로로 돌아가지 않고 Iris만 숨긴다. 전체 stored key 순회는 Kahlua에서 지원하는 `pairs`를 사용한다.
 
@@ -460,9 +480,9 @@ Recipe 표시 variant는 기존 `iris_tooling.domains.tooltip_static_data_projec
 
 각 Tooltip instance의 `_irisOpening`은 item/FullType과 선택된 bilingual view 하나만 보관한다. 매 frame이나 locale 변경으로 재추첨하지 않는다. Alt 해제·item 전환·`setVisible(false)`·context menu 표시에서 해제하고 다음 opening에 새로 고른다. 단일 후보는 그대로 표시하며 연속 동일 선택도 허용한다. 이 상태는 전역 FullType result cache가 아니다. 레시피의 적격성·문구·행 조립은 이미 빌드에서 끝났고 runtime은 view 선택과 그대로 렌더링만 담당한다.
 
-Source 복사에는 `IrisAltTooltip.lua`, `IrisTooltipStaticDataLookup.lua`, 새 `IrisTooltipRecipeVariants.lua`가 함께 필요하다. Fixed payload는 변경하지 않았다. 기존 harness에서 옆 배치 및 전체 Recipe 후보의 KO/EN lookup·opening lifecycle을 확인했고 projection/syntax도 통과했지만, 새 Recipe 동작의 PZ 관찰이나 새 package를 만들지는 않았다. 상세 실행 결과와 생성 command의 readpoint는 T3 계획 및 `Iris/build/ENTRYPOINTS.md`다.
+현재 배포 후보는 `C:/Users/MW/PZ-U/pkg2/Iris`와 `Iris.zip`이며, `IrisAltTooltip.lua`, `IrisTooltipStaticDataLookup.lua`, fixed/Recipe companion 및 현재 Menu generation을 함께 제공한다. 2026-08-31 교정으로 fixed S2가 변경됐으므로 이전 companion과 혼합하지 않는다. 마지막 9개 Menu context 보완에서는 strict T1 입력과 fixed/companion이 같아 기존 S2 비교 결과를 재사용했다. 생성 command의 owner는 `Iris/build/ENTRYPOINTS.md`, 실행·검증·관찰 범위는 [단일 closeout](iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan_closeout.md)이다.
 
-입력 인계 이력: 초기 L3 selected 1,314 중 12개의 KO/EN Menu source
+이하 2026-08-30 predecessor의 입력 인계·검증 이력이며 현재 2,048개 core의 결과와 구분한다. 초기 L3 selected 1,314 중 12개의 KO/EN Menu source
 누락과 EN evidence gap은 D1의 C 구현 및 최종 actual relation에서 해소됐다. 기존 primary-use를 중심으로
 채택된 context 디테일을 편집한 Menu body를 사용하고 Tooltip S2 identity/surface는 유지한다.
 EN 연결은 current deterministic derivability이며 historical original-run provenance가 아니다.
@@ -477,6 +497,8 @@ EN 연결은 current deterministic derivability이며 historical original-run pr
 Kahlua `next` 부재를 `pairs` 사용으로 수정한 final subject `25318630`의 canonical A/B·comparator는 모두 PASS다. 기존 단일 harness는 `next=nil` 조건으로 이 호환성 결함의 재발을 확인하며 실제 PZ의 전수 재현을 주장하지 않는다. 구현·패키지·필수 자동 검증은 완료했다.
 사용자가 확정한 인게임 범위와 위 자동 검증을 ceiling으로 T3는 `complete`, current T2는 `runtime_adopted: true`다. Sealed T1의 과거 unverified 기록은 보존하며 전수 QA·실제 오류 격리 PASS·release/Workshop readiness를 주장하지 않는다.
 정확한 실행 결과와 제한은 `docs/iris_tooltip_t3_static_data_alt_runtime_integration_plan.md`의 실행 기록에 둔다.
+
+2026-08-31 current Menu 실행에서는 KO/EN selected core 각 2,048개의 source/body 관계와 L4 selected 각 530개의 관계를 확인했다. 사용자는 최종 `PZ-U/pkg2/Iris`를 설치하고 **식품류**에서 Alt·우클릭 상세 정보, KO/EN 장문 배치, Recipe 표시·Menu 전환이 정상이라고 보고했다. 이는 사용자 관찰이며 에이전트의 게임 실행이나 전체 item 의미 검증이 아니다. Exact item·게임 버전과 비식품류 관찰은 미보고다. Source hold 273개의 기존 문구를 새로 인증하지 않으며, 보류 수 자체를 미완료 사유나 추가 검사 의무로 삼지 않는다.
 
 Iris runtime의 classification / presentation 흐름은 다음 단방향 구조를 따른다.
 
@@ -519,6 +541,7 @@ PZ engine-visible data
 - `IrisItemFactReader`가 engine-facing fact access를 소유한다.
 - Immutable model assembler가 읽은 fact를 Detail model로 결합한다.
 - Unit / visibility 규칙은 공통 presentation policy가 소유하며 engine access나 model assembly에 흩어지지 않는다.
+- 기술서의 `skillTrained`, `level`, `levelCount`, `numberOfPages`는 기존 fact reader/model 경로로 전달되고 `IrisWikiSections.renderLiteratureSection`을 Browser detail과 Wiki panel이 함께 사용한다. 알려진 기술의 적용 레벨·독서 조건을 KO/EN으로 표시하며 unknown 기술/범위를 추정하지 않는다. 이는 표시 보완으로, 캐릭터 경험치나 읽기 상태를 변경하지 않는다.
 
 ### Runtime state / compatibility 구조
 

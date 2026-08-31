@@ -1,0 +1,40 @@
+{
+  "environment_contract": {
+    "environment_content_manifest_sha256": "0e6d18b7aa24b3acc6a2717ddc800fc5f1da899722312c9b5a9345f26cb5922e",
+    "external_environment_root": "C:/Users/MW/Downloads/coding/PZ/.tmp/env",
+    "immutable_environment_receipt_path": "C:/Users/MW/Downloads/coding/PZ/.tmp/er/environment_receipt.json",
+    "immutable_environment_receipt_sha256": "8e4164a36e6ab18564a19f3a1520b999939553fa4518c25c5af3c417fdfa489b",
+    "interpreter_sha256": "97c3228a59dcc05a771ab4eeec8126ce3f36ebb53616b479adc9f2c8050a9e84",
+    "package_set_sha256": "9b5b57c6c8f7ae87f8162f7485562cd7cea8582ec4382e160bb19d1dfda1db6c"
+  },
+  "implementation": {
+    "commit": "34c5f5f6fa12db212982b90a63e2ed4698c9e2ea",
+    "tree": "42c7da3b1e5624436a0e307c62eeba828926e7da"
+  },
+  "project_binding": {
+    "installed_distribution": {
+      "dist_info": "iris_tooling-0.1.0.dist-info",
+      "installed_file_count": 110,
+      "installed_file_manifest_sha256": "6c8926c4bdbe8d434d26550c48c7335d4986a862a41fcbb4d62efbd3df00c74f",
+      "name": "iris-tooling",
+      "normalized_name": "iris_tooling",
+      "record_path": "Lib/site-packages/iris_tooling-0.1.0.dist-info/RECORD",
+      "record_sha256": "06cfae528dd5092f7be80bfeb63efaed604a7566eaab5bd0d381bce404920d50",
+      "version": "0.1.0"
+    },
+    "lock_blob": "db9754f8d88f690cbd6e7ca11cf539cd82b7e81a",
+    "lock_path": "Iris/tooling/uv.lock",
+    "lock_sha256": "25aef8f0e4a8e66f6c18e5de0b870e1549df7611abda1783114b9be996bde7fe",
+    "project_blob": "de204186eb6b7a0e23f02cc991e14e56b000f249",
+    "project_path": "Iris/tooling/pyproject.toml",
+    "project_sha256": "8022cb746236c1c86604d23a87ad2a16d88c81cc105bd5e9571e024e268743f6",
+    "source_commit": "34c5f5f6fa12db212982b90a63e2ed4698c9e2ea",
+    "source_package_git_tree": "8992cef2be9f132c1f9d3930ebb35bcda128104e",
+    "source_package_path": "Iris/tooling/src/iris_tooling",
+    "source_tree": "42c7da3b1e5624436a0e307c62eeba828926e7da",
+    "wheel_path": "C:/Users/MW/Downloads/coding/PZ/.tmp/wheels/iris_tooling-0.1.0-py3-none-any.whl",
+    "wheel_sha256": "e92335c2470c1987968f4746ccf432a81472a6ed450835bc43a25480ee0f0e64"
+  },
+  "schema_version": "iris-responsibility-refactor-environment-authority-v1",
+  "wave_id": "installed_tooling"
+}

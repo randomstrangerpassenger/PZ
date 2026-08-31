@@ -1,0 +1,42 @@
+{"line": 731, "recipe": "Make Flies Cure", "source": "scripts/farming.txt", "token": "Water"}
+{"line": 654, "recipe": "Make Bucket of Plaster", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 944, "recipe": "Make Pie Dough", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 961, "recipe": "Make Pizza", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 981, "recipe": "Make Bread Dough", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 998, "recipe": "Make Bread Dough", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 1015, "recipe": "Make Biscuits", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 1042, "recipe": "Make Bowl of Oatmeal", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 1301, "recipe": "Clean Bandage", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 1312, "recipe": "Clean Leather Strips", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 1323, "recipe": "Clean Denim Strips", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 1354, "recipe": "Clean Rag", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 1587, "recipe": "Make Jar of Tomatoes", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 1614, "recipe": "Make Jar of Carrots", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 1641, "recipe": "Make Jar of Potatoes", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 1668, "recipe": "Make Jar of Eggplants", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 1695, "recipe": "Make Jar of Leeks", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 1722, "recipe": "Make Jar of Red Radishes", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 1749, "recipe": "Make Jar of Bell Peppers", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 1776, "recipe": "Make Jar of Cabbage", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 1803, "recipe": "Make Jar of Broccoli", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 1828, "recipe": "Make Two-Log Stack", "source": "scripts/recipes.txt", "token": "[Recipe.GetItemTypes.CraftLogStack]"}
+{"line": 1842, "recipe": "Make Three-Log Stack", "source": "scripts/recipes.txt", "token": "[Recipe.GetItemTypes.CraftLogStack]"}
+{"line": 1856, "recipe": "Make Four-Log Stack", "source": "scripts/recipes.txt", "token": "[Recipe.GetItemTypes.CraftLogStack]"}
+{"line": 2104, "recipe": "Dismantle Digital Watch", "source": "scripts/recipes.txt", "token": "[Recipe.GetItemTypes.DismantleDigitalWatch]"}
+{"line": 2149, "recipe": "Dismantle CD Player", "source": "scripts/recipes.txt", "token": "CDplayer"}
+{"line": 3727, "recipe": "Craft Sheet Rope", "source": "scripts/recipes.txt", "token": "[Recipe.GetItemTypes.CraftSheetRope]"}
+{"line": 3735, "recipe": "Rip Clothing", "source": "scripts/recipes.txt", "token": "[Recipe.GetItemTypes.RipClothing_Cotton]"}
+{"line": 3749, "recipe": "Rip Clothing", "source": "scripts/recipes.txt", "token": "[Recipe.GetItemTypes.RipClothing_Cotton]"}
+{"line": 3763, "recipe": "Rip Clothing", "source": "scripts/recipes.txt", "token": "[Recipe.GetItemTypes.RipClothing_Denim]"}
+{"line": 3778, "recipe": "Rip Clothing", "source": "scripts/recipes.txt", "token": "[Recipe.GetItemTypes.RipClothing_Denim]"}
+{"line": 3793, "recipe": "Rip Clothing", "source": "scripts/recipes.txt", "token": "[Recipe.GetItemTypes.RipClothing_Leather]"}
+{"line": 3808, "recipe": "Rip Clothing", "source": "scripts/recipes.txt", "token": "[Recipe.GetItemTypes.RipClothing_Leather]"}
+{"line": 3823, "recipe": "Rip Sheets", "source": "scripts/recipes.txt", "token": "[Recipe.GetItemTypes.RipSheets]"}
+{"line": 3854, "recipe": "Make Gravy", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 3898, "recipe": "Make Pancake", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 4241, "recipe": "Dismantle Camera", "source": "scripts/recipes.txt", "token": "[Recipe.GetItemTypes.DismantleCamera]"}
+{"line": 4346, "recipe": "Make Chocolate Cookie Dough", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 4377, "recipe": "Make Chocolate Chip Cookie Dough", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 4408, "recipe": "Make Oatmeal Cookie Dough", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 4438, "recipe": "Make Sugar Cookie Dough", "source": "scripts/recipes.txt", "token": "Water"}
+{"line": 4466, "recipe": "Make Shortbread Cookie Dough", "source": "scripts/recipes.txt", "token": "Water"}

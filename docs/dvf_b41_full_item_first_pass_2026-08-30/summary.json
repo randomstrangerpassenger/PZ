@@ -1,0 +1,102 @@
+{
+  "scope": "all 2105 DVF exact FullTypes; first-pass evidence availability and granularity only",
+  "generation_id": "dvf33-05d76b51c5e1058be4d79afd8a43bc2f0ac8a11c136523166770f181eeaf82c1",
+  "item_count": 2105,
+  "unique_nonempty_primary_texts": 175,
+  "primary_text_groups_including_empty": 176,
+  "status_counts": {
+    "STRUCTURED_DECLARATIONS_AVAILABLE": 468,
+    "STATIC_FIELDS_AVAILABLE": 1174,
+    "LUA_TRACE_REQUIRED": 104,
+    "IDENTITY_OR_CLASSIFICATION_ONLY": 356,
+    "IDENTITY_RECONCILIATION_REQUIRED": 3
+  },
+  "review_flag_counts": {
+    "RAW_DETAIL_FIELDS_ABSENT_FROM_ITEMSCRIPT_INPUT": 1789,
+    "ABSTRACT_WORKFLOW_TEXT_REQUIRES_ITEM_SPECIFIC_REWRITE": 1122,
+    "REAL_WORLD_OR_ADDED_EFFECT_WORDING_REQUIRES_GAME_PROOF": 428,
+    "RAW_ITEM_MARKED_OBSOLETE_REQUIRES_AVAILABILITY_REVIEW": 23,
+    "FACT_PRIMARY_NOT_VERBATIM_PRESENT_IN_PUBLIC_BODY": 716,
+    "RAW_ITEM_DEFINITION_NOT_LOCATED": 3,
+    "EFFECT_OR_OUTCOME_CLAIM_REQUIRES_MECHANISM_TRACE": 66,
+    "NO_PRIMARY_USE_IN_FACT_ROW": 54,
+    "CURRENT_PUBLIC_BODY_EMPTY": 21,
+    "NEGATIVE_CLAIM_REQUIRES_CLOSED_SCOPE_EVIDENCE": 2
+  },
+  "priority": [
+    "IDENTITY_RECONCILIATION_REQUIRED",
+    "STRUCTURED_DECLARATIONS_AVAILABLE",
+    "STATIC_FIELDS_AVAILABLE",
+    "LUA_TRACE_REQUIRED",
+    "IDENTITY_OR_CLASSIFICATION_ONLY"
+  ],
+  "nonexclusive_availability_counts": {
+    "raw_definition_found": 2102,
+    "use_declarations": 468,
+    "recipe_output_declarations": 314,
+    "static_action_or_effect_field_candidates": 1524,
+    "nonloot_lua_candidates": 716
+  },
+  "public_primary_real_world_review_count": 403,
+  "source_files": {
+    "scripts": 153,
+    "lua": 888
+  },
+  "raw_item_ids": 2283,
+  "script_block_counts": {
+    "item": 2289,
+    "recipe": 380,
+    "evolvedrecipe": 38,
+    "fixing": 86,
+    "multistagebuild": 20,
+    "vehicle": 128,
+    "template": 45,
+    "part": 565,
+    "table": 654
+  },
+  "static_recipe_groups_resolved": 36,
+  "evidence_count": 22717,
+  "evidence_kind_counts": {
+    "recipe_output": 379,
+    "recipe_input": 754,
+    "recipe_keep": 272,
+    "fixing_material": 242,
+    "fixing_target": 239,
+    "multistage_material": 40,
+    "multistage_tool": 20,
+    "recipe_destroy": 51,
+    "vehicle_install_requirement": 20,
+    "vehicle_uninstall_requirement": 20,
+    "vehicle_part_type": 8,
+    "lua_tag_locator": 138,
+    "lua_item_locator": 2703,
+    "lua_build_material_declaration": 137,
+    "lua_loot_locator": 17694
+  },
+  "recipe_unresolved_token_count": 42,
+  "parser_notes": [],
+  "input_hashes": {
+    "Iris\\build\\description\\v2\\data\\dvf_3_3_facts.jsonl": "f29a29560a65e0c7651fc038adeafcd1d6cea1214341a396c8ad6874ac208c5c",
+    "Iris\\build\\description\\v2\\data\\dvf_3_3_decisions.jsonl": "5b68d658729ebe0dfae68aa2a8e842b7303c8f70597db0804f5ecee741912443",
+    "Iris\\build\\description\\v2\\data\\tooltip_t1_layer3_owner_input.json": "3b7dfc3593a06d3dd775914faa50e93608405179c78d09815973e38e4443a651",
+    "Iris\\build\\description\\v2\\data\\upstream_usecases_by_fulltype.json": "2af068b1ea898125e81e9103af79019a35a1c51b8fd7c74325906d26567ad43f",
+    "Iris\\input\\items_itemscript.json": "ce52d8fe38302c5dca5b7c28d2258155c5f91b6aee52ebe2b82276a8bb28b22e",
+    "Iris\\input\\recipes_index_full.json": "e9a6785b3fb9b4436cbfa2c3ac2ff8d4358229972726ad85533f3a6c168802c5",
+    "Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3DataCurrent.lua": "d7e98d4a7868ab638dce9160b0664686b98ffd765aaff06aba114be6d21e8161",
+    "Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3Generations\\dvf33-05d76b51c5e1058be4d79afd8a43bc2f0ac8a11c136523166770f181eeaf82c1\\dvf_3_3_rendered.json": "2ab795831d9526f9667bc908c3007f6ec5f6d3df5d5e5e554c1d45cc842fc753"
+  },
+  "product_files_modified": false,
+  "limitations": [
+    "No PZ execution or per-item gameplay acceptance was performed.",
+    "This is a bounded lexical/declaration inventory, not a complete parser or engine analysis. Generic type behavior, complex recipe groups, dynamic selectors, moveable sprite properties and Java-only effects may be absent from the candidate counts.",
+    "Script declarations preserve fields, but availability, callbacks, load order and engine semantics remain unverified.",
+    "Lua hits are lexical locators, not proof of action or effect; function names are nearest preceding declarations, not a full AST scope.",
+    "Short type names are candidates; exact FullTypes are never case-normalized or merged.",
+    "Only simple unconditional tag/addExistingItemType recipe groups are expanded; unresolved expressions are retained.",
+    "Recipe outputs are recorded as acquisition declarations and do not alone qualify as use evidence; classification-only fields are not promoted to action/effect candidates.",
+    "Raw static fields may require enum/unit/state semantics before public wording; their presence is not a correctness verdict.",
+    "Reality/effect wording flags are review triggers, not confirmed errors; lack of a hit is not proof of no use.",
+    "Acquisition/location text is retained for context but not audited by this purpose/effect first pass.",
+    "Current classification evidence allowlists and adoption contracts remain unchanged; report findings are not production authority."
+  ]
+}

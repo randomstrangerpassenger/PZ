@@ -529,7 +529,7 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "섭취하면 허기와 갈증을 줄일 수 있고 요리 재료로도 사용할 수 있다. 그릇을 준비하면 샐러드나 과일 샐러드에 재료로 넣을 수 있다. 케이크·팬케이크·와플·머핀·단 파이·오트밀에도 재료로 쓰이며, 각 요리와 재료의 현재 상태에 따라 추가 가능 여부가 달라진다."
+      "text_ko": "섭취하면 허기와 갈증을 줄일 수 있고 요리 재료로도 사용할 수 있다. 샐러드·과일 샐러드는 그릇과 사과를 소지하고 그릇의 만들기 메뉴에서 사과를 넣는다. 케이크는 케이크 반죽을 베이킹 팬에 담아 만든 준비된 케이크에, 단 파이는 파이 반죽·베이킹 팬·밀대로 만든 준비된 파이에 넣는다. 머핀은 반죽이 담긴 머핀 쟁반에 넣으며, 팬케이크·와플·오트밀은 해당 음식을 준비한 뒤 재료 추가 메뉴에서 넣는다. 추가 재료 한도는 샐러드류 6개, 케이크·단 파이 4개, 팬케이크·와플·오트밀 3개, 머핀 1개다. 케이크·단 파이·머핀은 재료를 넣은 뒤 굽는다."
     },
     "Base.Apron_Black": {
       "role_material": {
@@ -1218,7 +1218,7 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "낚싯대 낚시에 미끼로 쓰는 작은 물고기다. 낚싯대와 함께 소지해 물가에서 낚시를 시작한다. 사용할 미끼의 종류에 따라 잡히는 물고기와 미끼 소모·파손 조건이 달라진다."
+      "text_ko": "낚싯대 낚시에 미끼로 쓰는 작은 물고기다. 부서지지 않은 낚싯대와 함께 소지하고 물가의 낚시 메뉴에서 사용한다. 이 미끼로는 파이크를 노릴 수 있다. 미끼는 소모되거나 잃을 수 있고, 포획은 보장되지 않는다."
     },
     "Base.BakingPan": {
       "role_material": {
@@ -6008,7 +6008,7 @@
         ]
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "미끼를 달아 물고기를 잡는 데 쓰는 낚싯대다. 부서지지 않은 낚싯대와 호환되는 미끼를 소지하고 물가의 낚시 메뉴를 사용한다. 미끼 종류와 시간·계절 등의 조건에 따라 결과가 달라진다.\n\n획득 방법: 나무막대와 낚싯줄, 종이클립이나 못으로 제작한다."
+      "text_ko": "미끼를 달아 물고기를 잡는 데 쓰는 낚싯대다. 부서지지 않은 낚싯대와 미끼를 소지하고 물가의 낚시 메뉴를 사용한다. 미끼로는 지렁이·귀뚜라미·메뚜기·바퀴벌레, 미끼용 작은 물고기 또는 두 종류의 낚시 루어 등을 쓸 수 있다. 작은 물고기 미끼로는 파이크를, 인공 루어로는 송어·배스·메기 등을 잡을 수 있다. 미끼 종류와 시간·계절에 따라 결과가 달라지며 포획은 보장되지 않는다.\n\n획득 방법: 나무막대와 낚싯줄, 종이클립이나 못으로 제작한다."
     },
     "Base.CraftedFishingRodTwineLine": {
       "role_material": {
@@ -6023,7 +6023,7 @@
         ]
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "미끼를 달아 물고기를 잡는 데 쓰는 낚싯대다. 부서지지 않은 낚싯대와 호환되는 미끼를 소지하고 물가의 낚시 메뉴를 사용한다. 미끼 종류와 시간·계절 등의 조건에 따라 결과가 달라진다.\n\n획득 방법: 나무막대와 끈, 종이클립이나 못으로 제작한다."
+      "text_ko": "미끼를 달아 물고기를 잡는 데 쓰는 낚싯대다. 부서지지 않은 낚싯대와 미끼를 소지하고 물가의 낚시 메뉴를 사용한다. 미끼로는 지렁이·귀뚜라미·메뚜기·바퀴벌레, 미끼용 작은 물고기 또는 두 종류의 낚시 루어 등을 쓸 수 있다. 작은 물고기 미끼로는 파이크를, 인공 루어로는 송어·배스·메기 등을 잡을 수 있다. 미끼 종류와 시간·계절에 따라 결과가 달라지며 포획은 보장되지 않는다.\n\n획득 방법: 나무막대와 끈, 종이클립이나 못으로 제작한다."
     },
     "Base.Crappie": {
       "role_material": {
@@ -7691,7 +7691,7 @@
         ]
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "미끼를 달아 물고기를 잡는 데 쓰는 낚싯대다. 부서지지 않은 낚싯대와 호환되는 미끼를 소지하고 물가의 낚시 메뉴를 사용한다. 미끼 종류와 시간·계절 등의 조건에 따라 결과가 달라진다.\n\n획득 방법: 낚시 장비 상자와 낚시용품점, 차량에서 발견된다."
+      "text_ko": "미끼를 달아 물고기를 잡는 데 쓰는 낚싯대다. 부서지지 않은 낚싯대와 미끼를 소지하고 물가의 낚시 메뉴를 사용한다. 미끼로는 지렁이·귀뚜라미·메뚜기·바퀴벌레, 미끼용 작은 물고기 또는 두 종류의 낚시 루어 등을 쓸 수 있다. 작은 물고기 미끼로는 파이크를, 인공 루어로는 송어·배스·메기 등을 잡을 수 있다. 미끼 종류와 시간·계절에 따라 결과가 달라지며 포획은 보장되지 않는다.\n\n획득 방법: 낚시 장비 상자와 낚시용품점, 차량에서 발견된다."
     },
     "Base.FishingRodBreak": {
       "role_material": {
@@ -7717,7 +7717,7 @@
         ]
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "미끼를 달아 물고기를 잡는 데 쓰는 낚싯대다. 부서지지 않은 낚싯대와 호환되는 미끼를 소지하고 물가의 낚시 메뉴를 사용한다. 미끼 종류와 시간·계절 등의 조건에 따라 결과가 달라진다.\n\n획득 방법: 부러진 낚싯대를 끈과 종이클립이나 못으로 수리한다."
+      "text_ko": "미끼를 달아 물고기를 잡는 데 쓰는 낚싯대다. 부서지지 않은 낚싯대와 미끼를 소지하고 물가의 낚시 메뉴를 사용한다. 미끼로는 지렁이·귀뚜라미·메뚜기·바퀴벌레, 미끼용 작은 물고기 또는 두 종류의 낚시 루어 등을 쓸 수 있다. 작은 물고기 미끼로는 파이크를, 인공 루어로는 송어·배스·메기 등을 잡을 수 있다. 미끼 종류와 시간·계절에 따라 결과가 달라지며 포획은 보장되지 않는다.\n\n획득 방법: 부러진 낚싯대를 끈과 종이클립이나 못으로 수리한다."
     },
     "Base.FishingTackle": {
       "role_material": {
@@ -7732,7 +7732,7 @@
         ]
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "낚싯대 낚시에 쓰는 인공 미끼다. 낚싯대와 함께 소지해 물가에서 낚시를 시작한다. 사용할 미끼의 종류에 따라 잡히는 물고기와 미끼 소모·파손 조건이 달라진다.\n\n획득 방법: 낚시 장비 취급 장소에서 발견된다."
+      "text_ko": "낚싯대 낚시에 쓰는 인공 미끼다. 부서지지 않은 낚싯대와 함께 소지하고 물가의 낚시 메뉴에서 사용한다. 송어·배스·메기 등 이 인공 미끼에 반응하는 어종을 잡을 수 있으며, 파이크나 미끼용 작은 물고기는 이 미끼의 대상이 아니다. 포획은 보장되지 않고 루어가 파손될 수 있다.\n\n획득 방법: 낚시 장비 취급 장소에서 발견된다."
     },
     "Base.FishingTackle2": {
       "role_material": {
@@ -7747,7 +7747,7 @@
         ]
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "낚싯대 낚시에 쓰는 인공 미끼다. 낚싯대와 함께 소지해 물가에서 낚시를 시작한다. 사용할 미끼의 종류에 따라 잡히는 물고기와 미끼 소모·파손 조건이 달라진다.\n\n획득 방법: 낚시 장비 취급 장소에서 발견된다."
+      "text_ko": "낚싯대 낚시에 쓰는 인공 미끼다. 부서지지 않은 낚싯대와 함께 소지하고 물가의 낚시 메뉴에서 사용한다. 송어·배스·메기 등 이 인공 미끼에 반응하는 어종을 잡을 수 있으며, 파이크나 미끼용 작은 물고기는 이 미끼의 대상이 아니다. 포획은 보장되지 않고 루어가 파손될 수 있다.\n\n획득 방법: 낚시 장비 취급 장소에서 발견된다."
     },
     "Base.FlameTrap": {
       "role_material": {
@@ -9376,7 +9376,7 @@
         ]
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "못을 사용하는 목공 구조물을 만드는 데 쓰는 도구다. 예를 들어 목공 메뉴의 나무 십자가는 판자 2개와 못 2개, 망치가 필요하다. 다른 구조물의 재료와 기술 조건은 해당 건축 항목에서 확인한다.\n\n획득 방법: 작업 차량과 차고, 공구 상자와 공구점에서 발견된다."
+      "text_ko": "못을 사용하는 목공 구조물을 만드는 데 쓰는 도구다. 판자 2개와 못 2개, 망치로 나무 십자가를 만들 수 있다. 게임의 지면 우클릭 → 목공 → 기타 메뉴에서 나무 십자가를 선택하고 놓을 위치를 고른다. 이 예시는 해당 구조물의 재료 조건이며, 다른 목공 구조물까지 같은 재료나 기술 조건으로 만들 수 있다는 뜻은 아니다.\n\n획득 방법: 작업 차량과 차고, 공구 상자와 공구점에서 발견된다."
     },
     "Base.HammerStone": {
       "role_material": {
@@ -27202,7 +27202,7 @@
   },
   "meta": {
     "authority_effect": "none",
-    "entries_sha256": "39a7b806b113782a71c3ca7de9e91a8d921ce8751549f7fe60b383b13cb856a3",
+    "entries_sha256": "d46e57546c5f56b11531ae1a7fe3672b6c2f0ed0630d319bda04fcf398ca7bfa",
     "general_description_integration": {
       "authority_ref": "docs/DECISIONS.md#iris-tooltip-t3-d1--existing-context-integration",
       "decision": "user_adopted_build41_description_correction",
@@ -27258,11 +27258,11 @@
         },
         "Base.Apple": {
           "authority_ref": "docs/iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md",
-          "context_fact_id": "l3rf-18bd0cc938275ff9e0f52c64c33c38d4a3bfd9586332f646f6ccdfe8e3124acb",
-          "context_source_sha256": "e036a0b8843e0f1cb5106c68e1e462775b5442a47323a81249b5b296feb6903a",
+          "context_fact_id": "l3rf-4e06bc61c507d30abf806fe688e3e186c9c094a053249fd0b70b6e6fee661f19",
+          "context_source_sha256": "df6ceed186a60a2263d78a0d8bb1df9e195e1bfa7e792ec843ffade2de640140",
           "localized_general_description": {
-            "en": "Eating it can reduce hunger and thirst; it can also be used as a cooking ingredient. With a bowl, it can be added to a salad or fruit salad. It is also an ingredient for cakes, pancakes, waffles, muffins, sweet pies and oatmeal; whether it can be added depends on the current dish and ingredient state.",
-            "ko": "섭취하면 허기와 갈증을 줄일 수 있고 요리 재료로도 사용할 수 있다. 그릇을 준비하면 샐러드나 과일 샐러드에 재료로 넣을 수 있다. 케이크·팬케이크·와플·머핀·단 파이·오트밀에도 재료로 쓰이며, 각 요리와 재료의 현재 상태에 따라 추가 가능 여부가 달라진다."
+            "en": "Eating it can reduce hunger and thirst; it can also be used as a cooking ingredient. For salad or fruit salad, carry a bowl and an apple and add the apple through the bowl's preparation menu. For cake, add it to cake batter placed in a baking pan; for sweet pie, add it to pie dough prepared with a baking pan and rolling pin. For muffins, use a tray containing muffin batter. For pancakes, waffles or oatmeal, prepare that food first and use its add-ingredient menu. Ingredient limits are six for salads, four for cake or sweet pie, three for pancakes, waffles or oatmeal, and one for muffins. Bake cake, sweet pie and muffins after adding ingredients.",
+            "ko": "섭취하면 허기와 갈증을 줄일 수 있고 요리 재료로도 사용할 수 있다. 샐러드·과일 샐러드는 그릇과 사과를 소지하고 그릇의 만들기 메뉴에서 사과를 넣는다. 케이크는 케이크 반죽을 베이킹 팬에 담아 만든 준비된 케이크에, 단 파이는 파이 반죽·베이킹 팬·밀대로 만든 준비된 파이에 넣는다. 머핀은 반죽이 담긴 머핀 쟁반에 넣으며, 팬케이크·와플·오트밀은 해당 음식을 준비한 뒤 재료 추가 메뉴에서 넣는다. 추가 재료 한도는 샐러드류 6개, 케이크·단 파이 4개, 팬케이크·와플·오트밀 3개, 머핀 1개다. 케이크·단 파이·머핀은 재료를 넣은 뒤 굽는다."
           },
           "original_origin": "origin_missing",
           "predecessor_special_context": null,
@@ -27270,27 +27270,35 @@
           "primary_use_source_sha256": "9af460700d2b3f0eee7ac6be5c68b4a24a6e2e23850c0773291f078cd50f1f80",
           "source_refs": [
             "scripts/items_food.txt:1630-1650",
+            "scripts/evolvedrecipes.txt:33-51",
             "scripts/evolvedrecipes.txt:107-123",
-            "lua/client/TimedActions/ISAddItemInRecipe.lua",
-            "lua/client/ISUI/ISInventoryPaneContextMenu.lua"
+            "scripts/evolvedrecipes.txt:238-286",
+            "scripts/evolvedrecipes.txt:326-335",
+            "scripts/recipes.txt:909-953",
+            "scripts/recipes.txt:1038-1077",
+            "scripts/recipes.txt:3984-4001",
+            "lua/client/TimedActions/ISAddItemInRecipe.lua:13-15",
+            "lua/client/ISUI/ISInventoryPaneContextMenu.lua:3517-3622"
           ]
         },
         "Base.BaitFish": {
           "authority_ref": "docs/iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md",
-          "context_fact_id": "l3rf-78ed7a3bfb66aefaa059ffcd293d815f422a5854d67d7c526ba57146256c58dd",
-          "context_source_sha256": "aa9b9706c941154c1a4a927eb5b2760d2b49b2ab72d2ddf42864513a70de260b",
+          "context_fact_id": "l3rf-4a9317150ac6d852b34eee63883b353b79b34045fff05cba5b397f41da80122b",
+          "context_source_sha256": "49de654717919bccd3b237b8a552a9f1923b06be628cb7d9183faa35167bfb7e",
           "localized_general_description": {
-            "en": "A small fish used as bait when fishing with a rod. Carry it with a fishing rod and start fishing by the water. Lure type affects eligible fish and the conditions for lure consumption or breakage.",
-            "ko": "낚싯대 낚시에 미끼로 쓰는 작은 물고기다. 낚싯대와 함께 소지해 물가에서 낚시를 시작한다. 사용할 미끼의 종류에 따라 잡히는 물고기와 미끼 소모·파손 조건이 달라진다."
+            "en": "A small fish used as bait when fishing with a rod. Carry it with an unbroken fishing rod and use the fishing menu by the water. Pike are eligible catches with this bait. The bait can be consumed or lost, and a catch is not guaranteed.",
+            "ko": "낚싯대 낚시에 미끼로 쓰는 작은 물고기다. 부서지지 않은 낚싯대와 함께 소지하고 물가의 낚시 메뉴에서 사용한다. 이 미끼로는 파이크를 노릴 수 있다. 미끼는 소모되거나 잃을 수 있고, 포획은 보장되지 않는다."
           },
           "original_origin": "origin_missing",
           "predecessor_special_context": null,
           "primary_use_fact_id": "l3rf-b613e700e585be38cc7a52f34d839ecbc748eb04baf723fdf2465c08f2bc8a60",
           "primary_use_source_sha256": "3e15954798bb1384cc2fd7beaec07f514f088944429d5d21b676e7bb396992ba",
           "source_refs": [
-            "lua/client/ISUI/ISWorldObjectContextMenu.lua:2281-2292",
-            "lua/client/Fishing/TimedActions/ISFishingAction.lua",
-            "lua/shared/Fishing/fishing_properties.lua"
+            "lua/client/ISUI/ISWorldObjectContextMenu.lua:112-120",
+            "lua/client/ISUI/ISWorldObjectContextMenu.lua:2281-2299",
+            "lua/shared/Fishing/fishing_properties.lua:16-24",
+            "lua/shared/Fishing/fishing_properties.lua:307-311",
+            "lua/client/Fishing/TimedActions/ISFishingAction.lua"
           ]
         },
         "Base.Bandage": {
@@ -27428,40 +27436,42 @@
         },
         "Base.CraftedFishingRod": {
           "authority_ref": "docs/iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md",
-          "context_fact_id": "l3rf-b5beaa7ae2dcd12899b3ca492d47a349b97e64b3414b007d2ee4997c72366626",
-          "context_source_sha256": "3ac02f850301951580a771bf9e7159e0fb1eadb7c8c44b4339768fee338169ee",
+          "context_fact_id": "l3rf-1fa5eba96ff01450c82968d99b2c61c860131b17979a9a37f08ab98d801d116e",
+          "context_source_sha256": "63e71c97b1b21c0411d7473b13288fb5321418606ffd413a6ec51336f1ee5e53",
           "localized_general_description": {
-            "en": "A fishing rod used with bait to catch fish. Carry an unbroken rod and a compatible lure, then use the fishing option by the water. Results depend on the lure, time, season and other fishing conditions.",
-            "ko": "미끼를 달아 물고기를 잡는 데 쓰는 낚싯대다. 부서지지 않은 낚싯대와 호환되는 미끼를 소지하고 물가의 낚시 메뉴를 사용한다. 미끼 종류와 시간·계절 등의 조건에 따라 결과가 달라진다."
+            "en": "A fishing rod used with bait to catch fish. Carry an unbroken rod and a lure, then use the fishing menu by the water. Lures include worms, crickets, grasshoppers, cockroaches, bait fish and either type of fishing tackle. Bait fish can attract pike; artificial tackle can attract trout, bass and catfish. Lure type, time and season affect the result, and a catch is not guaranteed.",
+            "ko": "미끼를 달아 물고기를 잡는 데 쓰는 낚싯대다. 부서지지 않은 낚싯대와 미끼를 소지하고 물가의 낚시 메뉴를 사용한다. 미끼로는 지렁이·귀뚜라미·메뚜기·바퀴벌레, 미끼용 작은 물고기 또는 두 종류의 낚시 루어 등을 쓸 수 있다. 작은 물고기 미끼로는 파이크를, 인공 루어로는 송어·배스·메기 등을 잡을 수 있다. 미끼 종류와 시간·계절에 따라 결과가 달라지며 포획은 보장되지 않는다."
           },
           "original_origin": "origin_missing",
           "predecessor_special_context": null,
           "primary_use_fact_id": "l3rf-0014eb884d93e6dd62ee6d30b01f9924ae897015ae6a791439912916bebf69e9",
           "primary_use_source_sha256": "034cc4043516c59f28053b935319d70010102ef02fa5d1ec9f6111114e957ce6",
           "source_refs": [
-            "lua/client/ISUI/ISWorldObjectContextMenu.lua:112-122",
-            "lua/client/ISUI/ISWorldObjectContextMenu.lua:625-638",
-            "lua/client/Fishing/TimedActions/ISFishingAction.lua",
-            "lua/shared/Fishing/fishing_properties.lua"
+            "lua/client/ISUI/ISWorldObjectContextMenu.lua:112-120",
+            "lua/client/ISUI/ISWorldObjectContextMenu.lua:2281-2299",
+            "lua/shared/Fishing/fishing_properties.lua:16-208",
+            "lua/shared/Fishing/fishing_properties.lua:237-311",
+            "lua/client/Fishing/TimedActions/ISFishingAction.lua"
           ]
         },
         "Base.CraftedFishingRodTwineLine": {
           "authority_ref": "docs/iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md",
-          "context_fact_id": "l3rf-ce13f3d55e1710117e15b106cb69605961dfb80bb0940737f7fb3188287faaaa",
-          "context_source_sha256": "3ac02f850301951580a771bf9e7159e0fb1eadb7c8c44b4339768fee338169ee",
+          "context_fact_id": "l3rf-e7b2ae9f6e2bb8b8e89d272581bcf8e376327415787bd5199e36e18837218da4",
+          "context_source_sha256": "63e71c97b1b21c0411d7473b13288fb5321418606ffd413a6ec51336f1ee5e53",
           "localized_general_description": {
-            "en": "A fishing rod used with bait to catch fish. Carry an unbroken rod and a compatible lure, then use the fishing option by the water. Results depend on the lure, time, season and other fishing conditions.",
-            "ko": "미끼를 달아 물고기를 잡는 데 쓰는 낚싯대다. 부서지지 않은 낚싯대와 호환되는 미끼를 소지하고 물가의 낚시 메뉴를 사용한다. 미끼 종류와 시간·계절 등의 조건에 따라 결과가 달라진다."
+            "en": "A fishing rod used with bait to catch fish. Carry an unbroken rod and a lure, then use the fishing menu by the water. Lures include worms, crickets, grasshoppers, cockroaches, bait fish and either type of fishing tackle. Bait fish can attract pike; artificial tackle can attract trout, bass and catfish. Lure type, time and season affect the result, and a catch is not guaranteed.",
+            "ko": "미끼를 달아 물고기를 잡는 데 쓰는 낚싯대다. 부서지지 않은 낚싯대와 미끼를 소지하고 물가의 낚시 메뉴를 사용한다. 미끼로는 지렁이·귀뚜라미·메뚜기·바퀴벌레, 미끼용 작은 물고기 또는 두 종류의 낚시 루어 등을 쓸 수 있다. 작은 물고기 미끼로는 파이크를, 인공 루어로는 송어·배스·메기 등을 잡을 수 있다. 미끼 종류와 시간·계절에 따라 결과가 달라지며 포획은 보장되지 않는다."
           },
           "original_origin": "origin_missing",
           "predecessor_special_context": null,
           "primary_use_fact_id": "l3rf-78f874f1f87e499ed835808513519d049bca18702b877920b728da2a2460009c",
           "primary_use_source_sha256": "034cc4043516c59f28053b935319d70010102ef02fa5d1ec9f6111114e957ce6",
           "source_refs": [
-            "lua/client/ISUI/ISWorldObjectContextMenu.lua:112-122",
-            "lua/client/ISUI/ISWorldObjectContextMenu.lua:625-638",
-            "lua/client/Fishing/TimedActions/ISFishingAction.lua",
-            "lua/shared/Fishing/fishing_properties.lua"
+            "lua/client/ISUI/ISWorldObjectContextMenu.lua:112-120",
+            "lua/client/ISUI/ISWorldObjectContextMenu.lua:2281-2299",
+            "lua/shared/Fishing/fishing_properties.lua:16-208",
+            "lua/shared/Fishing/fishing_properties.lua:237-311",
+            "lua/client/Fishing/TimedActions/ISFishingAction.lua"
           ]
         },
         "Base.DishCloth": {
@@ -27533,92 +27543,99 @@
         },
         "Base.FishingRod": {
           "authority_ref": "docs/iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md",
-          "context_fact_id": "l3rf-e102ff2f5733609a955cf377a4eb2f871eebd551650741c7406e8109243bb540",
-          "context_source_sha256": "3ac02f850301951580a771bf9e7159e0fb1eadb7c8c44b4339768fee338169ee",
+          "context_fact_id": "l3rf-b33aef320f82bcc40b54ecc92674c8601c8005ffb20d202fb086328d32debbd2",
+          "context_source_sha256": "63e71c97b1b21c0411d7473b13288fb5321418606ffd413a6ec51336f1ee5e53",
           "localized_general_description": {
-            "en": "A fishing rod used with bait to catch fish. Carry an unbroken rod and a compatible lure, then use the fishing option by the water. Results depend on the lure, time, season and other fishing conditions.",
-            "ko": "미끼를 달아 물고기를 잡는 데 쓰는 낚싯대다. 부서지지 않은 낚싯대와 호환되는 미끼를 소지하고 물가의 낚시 메뉴를 사용한다. 미끼 종류와 시간·계절 등의 조건에 따라 결과가 달라진다."
+            "en": "A fishing rod used with bait to catch fish. Carry an unbroken rod and a lure, then use the fishing menu by the water. Lures include worms, crickets, grasshoppers, cockroaches, bait fish and either type of fishing tackle. Bait fish can attract pike; artificial tackle can attract trout, bass and catfish. Lure type, time and season affect the result, and a catch is not guaranteed.",
+            "ko": "미끼를 달아 물고기를 잡는 데 쓰는 낚싯대다. 부서지지 않은 낚싯대와 미끼를 소지하고 물가의 낚시 메뉴를 사용한다. 미끼로는 지렁이·귀뚜라미·메뚜기·바퀴벌레, 미끼용 작은 물고기 또는 두 종류의 낚시 루어 등을 쓸 수 있다. 작은 물고기 미끼로는 파이크를, 인공 루어로는 송어·배스·메기 등을 잡을 수 있다. 미끼 종류와 시간·계절에 따라 결과가 달라지며 포획은 보장되지 않는다."
           },
           "original_origin": "origin_missing",
           "predecessor_special_context": null,
           "primary_use_fact_id": "l3rf-09c5fa0fe9ec7e84b75c852590e083a1c5e717bbf09157654cca16236923ca01",
           "primary_use_source_sha256": "034cc4043516c59f28053b935319d70010102ef02fa5d1ec9f6111114e957ce6",
           "source_refs": [
-            "lua/client/ISUI/ISWorldObjectContextMenu.lua:112-122",
-            "lua/client/ISUI/ISWorldObjectContextMenu.lua:625-638",
-            "lua/client/Fishing/TimedActions/ISFishingAction.lua",
-            "lua/shared/Fishing/fishing_properties.lua"
+            "lua/client/ISUI/ISWorldObjectContextMenu.lua:112-120",
+            "lua/client/ISUI/ISWorldObjectContextMenu.lua:2281-2299",
+            "lua/shared/Fishing/fishing_properties.lua:16-208",
+            "lua/shared/Fishing/fishing_properties.lua:237-311",
+            "lua/client/Fishing/TimedActions/ISFishingAction.lua"
           ]
         },
         "Base.FishingRodTwineLine": {
           "authority_ref": "docs/iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md",
-          "context_fact_id": "l3rf-ddcffe79f66eeaab0ea444d7debac50320767999bba22be932baacdd4cead6c6",
-          "context_source_sha256": "3ac02f850301951580a771bf9e7159e0fb1eadb7c8c44b4339768fee338169ee",
+          "context_fact_id": "l3rf-2a73c55ead1414abeaa9d2a7e70d3010ccb7df193e1c16a68881c1c27c1da74e",
+          "context_source_sha256": "63e71c97b1b21c0411d7473b13288fb5321418606ffd413a6ec51336f1ee5e53",
           "localized_general_description": {
-            "en": "A fishing rod used with bait to catch fish. Carry an unbroken rod and a compatible lure, then use the fishing option by the water. Results depend on the lure, time, season and other fishing conditions.",
-            "ko": "미끼를 달아 물고기를 잡는 데 쓰는 낚싯대다. 부서지지 않은 낚싯대와 호환되는 미끼를 소지하고 물가의 낚시 메뉴를 사용한다. 미끼 종류와 시간·계절 등의 조건에 따라 결과가 달라진다."
+            "en": "A fishing rod used with bait to catch fish. Carry an unbroken rod and a lure, then use the fishing menu by the water. Lures include worms, crickets, grasshoppers, cockroaches, bait fish and either type of fishing tackle. Bait fish can attract pike; artificial tackle can attract trout, bass and catfish. Lure type, time and season affect the result, and a catch is not guaranteed.",
+            "ko": "미끼를 달아 물고기를 잡는 데 쓰는 낚싯대다. 부서지지 않은 낚싯대와 미끼를 소지하고 물가의 낚시 메뉴를 사용한다. 미끼로는 지렁이·귀뚜라미·메뚜기·바퀴벌레, 미끼용 작은 물고기 또는 두 종류의 낚시 루어 등을 쓸 수 있다. 작은 물고기 미끼로는 파이크를, 인공 루어로는 송어·배스·메기 등을 잡을 수 있다. 미끼 종류와 시간·계절에 따라 결과가 달라지며 포획은 보장되지 않는다."
           },
           "original_origin": "origin_missing",
           "predecessor_special_context": null,
           "primary_use_fact_id": "l3rf-3acff393d856a90e3be08b6d57192c8478546b5bd5f876eb146a9dcd979807c1",
           "primary_use_source_sha256": "034cc4043516c59f28053b935319d70010102ef02fa5d1ec9f6111114e957ce6",
           "source_refs": [
-            "lua/client/ISUI/ISWorldObjectContextMenu.lua:112-122",
-            "lua/client/ISUI/ISWorldObjectContextMenu.lua:625-638",
-            "lua/client/Fishing/TimedActions/ISFishingAction.lua",
-            "lua/shared/Fishing/fishing_properties.lua"
+            "lua/client/ISUI/ISWorldObjectContextMenu.lua:112-120",
+            "lua/client/ISUI/ISWorldObjectContextMenu.lua:2281-2299",
+            "lua/shared/Fishing/fishing_properties.lua:16-208",
+            "lua/shared/Fishing/fishing_properties.lua:237-311",
+            "lua/client/Fishing/TimedActions/ISFishingAction.lua"
           ]
         },
         "Base.FishingTackle": {
           "authority_ref": "docs/iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md",
-          "context_fact_id": "l3rf-beca15f4bd6091205703ce7de45f2c34050433b1361535b2f26dd9ca27f6bf37",
-          "context_source_sha256": "aa9b9706c941154c1a4a927eb5b2760d2b49b2ab72d2ddf42864513a70de260b",
+          "context_fact_id": "l3rf-5929797b50bf8c921a279f5d50d4f41fcc46a11f9700d5e03bb1189a3d29939a",
+          "context_source_sha256": "0880de8fbc0c164c291a2b2ce87d927c2844c3ae56e64980b226f7877441ffba",
           "localized_general_description": {
-            "en": "An artificial lure used when fishing with a rod. Carry it with a fishing rod and start fishing by the water. Lure type affects eligible fish and the conditions for lure consumption or breakage.",
-            "ko": "낚싯대 낚시에 쓰는 인공 미끼다. 낚싯대와 함께 소지해 물가에서 낚시를 시작한다. 사용할 미끼의 종류에 따라 잡히는 물고기와 미끼 소모·파손 조건이 달라진다."
+            "en": "An artificial lure used when fishing with a rod. Carry it with an unbroken fishing rod and use the fishing menu by the water. Eligible fish include trout, bass and catfish; pike and bait fish do not take this artificial lure. A catch is not guaranteed, and the lure can break.",
+            "ko": "낚싯대 낚시에 쓰는 인공 미끼다. 부서지지 않은 낚싯대와 함께 소지하고 물가의 낚시 메뉴에서 사용한다. 송어·배스·메기 등 이 인공 미끼에 반응하는 어종을 잡을 수 있으며, 파이크나 미끼용 작은 물고기는 이 미끼의 대상이 아니다. 포획은 보장되지 않고 루어가 파손될 수 있다."
           },
           "original_origin": "origin_missing",
           "predecessor_special_context": null,
           "primary_use_fact_id": "l3rf-9052ad022b96976824e257318ea43ca211f257e868d3003577fd6998ac305174",
           "primary_use_source_sha256": "1c338312f11e449c9dc1361f09f31180dfc1452527a95ff77e5ccafbc887e670",
           "source_refs": [
-            "lua/client/ISUI/ISWorldObjectContextMenu.lua:2281-2292",
-            "lua/client/Fishing/TimedActions/ISFishingAction.lua",
-            "lua/shared/Fishing/fishing_properties.lua"
+            "lua/client/ISUI/ISWorldObjectContextMenu.lua:112-120",
+            "lua/client/ISUI/ISWorldObjectContextMenu.lua:2281-2299",
+            "lua/shared/Fishing/fishing_properties.lua:16-208",
+            "lua/shared/Fishing/fishing_properties.lua:294-305",
+            "lua/client/Fishing/TimedActions/ISFishingAction.lua"
           ]
         },
         "Base.FishingTackle2": {
           "authority_ref": "docs/iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md",
-          "context_fact_id": "l3rf-1618137fb7b0791f84b8329509fa1f9cf115351cf28fa011ec7b4e429f330a25",
-          "context_source_sha256": "aa9b9706c941154c1a4a927eb5b2760d2b49b2ab72d2ddf42864513a70de260b",
+          "context_fact_id": "l3rf-3ea2db524aafca4099dabbdefe294006cc93509c8bfa5d8e6f1e95c25b21170f",
+          "context_source_sha256": "0880de8fbc0c164c291a2b2ce87d927c2844c3ae56e64980b226f7877441ffba",
           "localized_general_description": {
-            "en": "An artificial lure used when fishing with a rod. Carry it with a fishing rod and start fishing by the water. Lure type affects eligible fish and the conditions for lure consumption or breakage.",
-            "ko": "낚싯대 낚시에 쓰는 인공 미끼다. 낚싯대와 함께 소지해 물가에서 낚시를 시작한다. 사용할 미끼의 종류에 따라 잡히는 물고기와 미끼 소모·파손 조건이 달라진다."
+            "en": "An artificial lure used when fishing with a rod. Carry it with an unbroken fishing rod and use the fishing menu by the water. Eligible fish include trout, bass and catfish; pike and bait fish do not take this artificial lure. A catch is not guaranteed, and the lure can break.",
+            "ko": "낚싯대 낚시에 쓰는 인공 미끼다. 부서지지 않은 낚싯대와 함께 소지하고 물가의 낚시 메뉴에서 사용한다. 송어·배스·메기 등 이 인공 미끼에 반응하는 어종을 잡을 수 있으며, 파이크나 미끼용 작은 물고기는 이 미끼의 대상이 아니다. 포획은 보장되지 않고 루어가 파손될 수 있다."
           },
           "original_origin": "origin_missing",
           "predecessor_special_context": null,
           "primary_use_fact_id": "l3rf-e4502b081fec0a170f645f2bd91e14a3315347b5ab517e4e540e5063cecf6bf5",
           "primary_use_source_sha256": "1c338312f11e449c9dc1361f09f31180dfc1452527a95ff77e5ccafbc887e670",
           "source_refs": [
-            "lua/client/ISUI/ISWorldObjectContextMenu.lua:2281-2292",
-            "lua/client/Fishing/TimedActions/ISFishingAction.lua",
-            "lua/shared/Fishing/fishing_properties.lua"
+            "lua/client/ISUI/ISWorldObjectContextMenu.lua:112-120",
+            "lua/client/ISUI/ISWorldObjectContextMenu.lua:2281-2299",
+            "lua/shared/Fishing/fishing_properties.lua:16-208",
+            "lua/shared/Fishing/fishing_properties.lua:294-305",
+            "lua/client/Fishing/TimedActions/ISFishingAction.lua"
           ]
         },
         "Base.Hammer": {
           "authority_ref": "docs/iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md",
-          "context_fact_id": "l3rf-eb8f6d1726e20feef2aee169d1c5d6f305d23cf547e9641e395c29089bcc5a2e",
-          "context_source_sha256": "aab64227749372f420649a12bff1c69860903de188e5a6862d277c5ba7be12af",
+          "context_fact_id": "l3rf-60ac90b8e27d22bd04ce01bf81ecd0c7769c5684d867088ec5a10f363e00ad7b",
+          "context_source_sha256": "4a17e1269795f7c23f4ca5c17f3addc595d71ef2663d18b4966a63baf3f34955",
           "localized_general_description": {
-            "en": "A tool used to build wooden structures with nails. For example, the Carpentry menu's wooden cross requires two planks, two nails and a hammer. Other structures have their own material and skill requirements.",
-            "ko": "못을 사용하는 목공 구조물을 만드는 데 쓰는 도구다. 예를 들어 목공 메뉴의 나무 십자가는 판자 2개와 못 2개, 망치가 필요하다. 다른 구조물의 재료와 기술 조건은 해당 건축 항목에서 확인한다."
+            "en": "A tool used to build wooden structures with nails. A wooden cross requires two planks, two nails and a hammer. In the game's ground right-click menu, choose Carpentry, then Miscellaneous and Wooden Cross, and select a placement location. These material requirements apply to this structure; other carpentry structures do not necessarily share its materials or skill requirements.",
+            "ko": "못을 사용하는 목공 구조물을 만드는 데 쓰는 도구다. 판자 2개와 못 2개, 망치로 나무 십자가를 만들 수 있다. 게임의 지면 우클릭 → 목공 → 기타 메뉴에서 나무 십자가를 선택하고 놓을 위치를 고른다. 이 예시는 해당 구조물의 재료 조건이며, 다른 목공 구조물까지 같은 재료나 기술 조건으로 만들 수 있다는 뜻은 아니다."
           },
           "original_origin": "origin_missing",
           "predecessor_special_context": null,
           "primary_use_fact_id": "l3rf-48d3c120e65e7e6f6d9c30e37eae4e4cf1a9048aa06adc27d7d7f5441d57442b",
           "primary_use_source_sha256": "ec49c4fdca0c9499dee2e6da068b47e55b51d505a41456eb53b31bd517c17235",
           "source_refs": [
-            "lua/client/BuildingObjects/ISUI/ISBuildMenu.lua:595-656"
+            "lua/client/BuildingObjects/ISUI/ISBuildMenu.lua:595-656",
+            "lua/client/BuildingObjects/ISUI/ISBuildMenu.lua"
           ]
         },
         "Base.Hinge": {
@@ -27940,7 +27957,7 @@
           ]
         }
       },
-      "facts_sha256": "4e2205fcd7e27f1c98251ed29a9dcd7fa127bab6916d19ad640c6ab6b86faf56",
+      "facts_sha256": "c70bea095b0beaf150946ac085a3378cbeb7df5a4a8a2655ae0781366649b0dc",
       "independent_game_source_verification": "not_performed",
       "predecessor_candidate_sha256": "fe6d24a1cac362076db6c3ce895df02eb1ec407bab080aee437df88fc153b5c6",
       "predecessor_facts_sha256": "e784cf76d2f7d51273eda44906c202c0548f0043027f60cf1af817336c03a6e9",
@@ -27966,7 +27983,7 @@
       "context_target_count": 32,
       "decisions_sha256": "5b865aefc9cefe1c6f0202cc2b61c51ce3535c002e9351bd0f810a64da67f91e",
       "expected_s2_source": "dvf_3_3_facts.jsonl#slot_meta/usefulness_correction/expected_s2",
-      "facts_sha256": "4e2205fcd7e27f1c98251ed29a9dcd7fa127bab6916d19ad640c6ab6b86faf56",
+      "facts_sha256": "c70bea095b0beaf150946ac085a3378cbeb7df5a4a8a2655ae0781366649b0dc",
       "owner_approval": "user_execution_request_preapproval",
       "predecessor_candidate_sha256": "fe69ffc02ce4c105086f4a9cb5394391ef27f5e48138f36a806b5fdddff4e13a",
       "protected_existing_context_count": 12,

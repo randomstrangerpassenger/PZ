@@ -468,25 +468,25 @@ PRIMARY_USE_EN = [
     "For smokers, it can reduce stress and unhappiness; for non-smokers, it increases food sickness."
 ]
 
-SPECIAL_CONTEXT_SOURCE_SHA256 = "91dd407cf5be94a81b5a8bb246253cffc1982d8a3cddb6690511dc9d316c65b8"
+SPECIAL_CONTEXT_SOURCE_SHA256 = "5fae7d734f02ca8cba57c3581926cbe0252ea7c4c6b1fb8d4431fc0bc3d4ebff"
 SPECIAL_CONTEXT_EN = [
     "Junk with no specific crafting use in Build 41.",
     "Place it on a nearby water tile and check it after time has passed. It may yield bait fish, but a catch is not guaranteed and a net left out for a long time may break when checked.",
     "In the Health panel, select a fractured part that is not already splinted or stitched. The head and upper and lower torso are excluded from the splint menu.",
     "Select an injured, unbandaged body part in the Health panel, then choose it from the available items in the disinfect menu.",
     "Apply it using the bandage menu for an injured, unbandaged body part in the Health panel. An existing bandage can be removed through that panel's remove-bandage option.",
-    "With a bowl, it can be added to a salad or fruit salad. It is also an ingredient for cakes, pancakes, waffles, muffins, sweet pies and oatmeal; whether it can be added depends on the current dish and ingredient state.",
     "Used as material for metal structures and certain metal items.",
-    "Carry it with a fishing rod and start fishing by the water. Lure type affects eligible fish and the conditions for lure consumption or breakage.",
     "A portable container for carrying tools or other items.",
     "Drying requires a wet body and remaining uses in the towel. Cleaning blood stains also requires bleach.",
     "Used to build structures that require hinges, such as doors or gates.",
     "Use the beverage preparation menu on a water-filled mug or teacup to add coffee. Compatible prepared drinks can also receive ingredients allowed by that menu.",
     "Add bird bait such as worms, bread or corn. Birds have no time-of-day restriction, but location, bait freshness and player proximity restrict catches.",
-    "Carry an unbroken rod and a compatible lure, then use the fishing option by the water. Results depend on the lure, time, season and other fishing conditions.",
+    "Carry an unbroken rod and a lure, then use the fishing menu by the water. Lures include worms, crickets, grasshoppers, cockroaches, bait fish and either type of fishing tackle. Bait fish can attract pike; artificial tackle can attract trout, bass and catfish. Lure type, time and season affect the result, and a catch is not guaranteed.",
+    "Carry it with an unbroken fishing rod and use the fishing menu by the water. Eligible fish include trout, bass and catfish; pike and bait fish do not take this artificial lure. A catch is not guaranteed, and the lure can break.",
+    "Carry it with an unbroken fishing rod and use the fishing menu by the water. Pike are eligible catches with this bait. The bait can be consumed or lost, and a catch is not guaranteed.",
     "Add bait accepted by the target animal, such as an apple or corn. Rabbits and squirrels are eligible at night; location, bait freshness and player proximity restrict catches.",
     "Use the fertilize option on a living crop. The result depends on previous applications; excessive fertilizer rots the crop.",
-    "For example, the Carpentry menu's wooden cross requires two planks, two nails and a hammer. Other structures have their own material and skill requirements.",
+    "For salad or fruit salad, carry a bowl and an apple and add the apple through the bowl's preparation menu. For cake, add it to cake batter placed in a baking pan; for sweet pie, add it to pie dough prepared with a baking pan and rolling pin. For muffins, use a tray containing muffin batter. For pancakes, waffles or oatmeal, prepare that food first and use its add-ingredient menu. Ingredient limits are six for salads, four for cake or sweet pie, three for pancakes, waffles or oatmeal, and one for muffins. Bake cake, sweet pie and muffins after adding ingredients.",
     "Used to mend clothing or reinforce it with leather patches.",
     "Used to repair certain damaged weapons or tools.",
     "Clearing ashes requires an unbroken broom. To remove blood stains, also carry bleach and use the cleaning option on a blood-stained area.",
@@ -498,6 +498,7 @@ SPECIAL_CONTEXT_EN = [
     "Used in carpentry work to build barbed-wire fences.",
     "Add mouse or rat bait such as cheese or peanut butter. There is no time-of-day restriction, but location, bait freshness and player proximity restrict catches.",
     "Used to install or remove certain vehicle parts, such as tires and brakes.",
+    "A wooden cross requires two planks, two nails and a hammer. In the game's ground right-click menu, choose Carpentry, then Miscellaneous and Wooden Cross, and select a placement location. These material requirements apply to this structure; other carpentry structures do not necessarily share its materials or skill requirements.",
     "Used with paint to color plastered walls or other paintable surfaces.",
     "Carry bleach as well and use the cleaning option on a blood-stained area.",
     "Choose an amount in the treat-problem menu for a crop with flies. The spray needs remaining uses; mildew uses a separate spray.",

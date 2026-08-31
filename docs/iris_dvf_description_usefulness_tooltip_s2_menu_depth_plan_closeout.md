@@ -1,35 +1,95 @@
 # DVF 설명 실용성 / Tooltip S2 / Menu depth 실행 기록
 
-2026-08-31. 상태: **partial — 기술서 Menu 표시 구현, 2,105개 전수 제안 판정 기록; 보류 273개 및 Layer 3/Tooltip 채택·생성·최종 검증 미완료**.
+2026-08-31. 최종 상태: **partial — 승인된 content와 runtime/격리 패키지 반영 및 필수 자동 검증 완료; 실제 PZ 화면 관찰 미완료, source review_hold 273개 보존**.
 
-대상 계획: [implementation plan](iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md).
-이 기록은 이번 작업의 단일 closeout이자 미채택 내용 검토 기록이다. 새 validator, facts authority, approval registry, canonical audit ledger 또는 seal이 아니다.
+대상 계획: [implementation plan](iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md). 이 파일은 이번 작업의 단일 closeout이다. 별도 facts authority, validator, seal 또는 품질 인증을 만들지 않는다. 아래의 최초 조사 기록에 남은 “미채택/미실행/경로 미승인”은 작성 당시 상태이며, 현재 실행 상태는 이 최종 절이 대체한다.
 
-## 실제 결과와 남은 범위
+## 현재 반영 상태
 
-- 기술서 Menu presentation을 수정했다. `IrisWikiSections.renderLiteratureSection`이 기존 reader/assembler의 알려진 skill/level/count를 표시하고 Browser와 실제 Wiki panel이 이 함수를 사용한다. KO/EN label을 추가하고 기존 locale harness에 unknown bound 및 magazine 제외 사례를 보완했다. 기존 detail acceptance 3개와 Lua syntax 명령은 exit 0이다. 실제 화면은 미관찰이다. canonical facts/decisions/candidate, EN producer/output, current generation pointer, T1 owner, fixed/Recipe companion, QG authority binding은 변경하지 않았다. 문구 후보를 작성한 것을 Layer 3 제품 교정으로 세지 않는다.
-- 저장소 내부의 predecessor/current 기준 귀속, 현재 입력 대조, 아래 exact item의 용도·KO/EN·Menu 후속 질문 검토를 수행했다. UI 번역 생성과 위 두 기존 검사만 실행했다. Layer 3 generation, finalize, package/install, PZ 화면 관찰은 실행하지 않았다.
-- **2,105개 모두의 개별 제안 disposition/readiness·이유·후보/유지·Menu 상태를 마지막 절에 기록했다.** 최신 판정은 keep 291, revise 1,529, reduce 12, review_hold 273이다. 착용 446개의 새 core 후보 준비 뒤 남은 306개를 검토해 추가로 31개 수정 후보와 2개 안전한 정체성 keep을 준비했다. 현재 제안 readiness는 description_ready 1,792 / acquisition_only 40 / review_required 273이다. source 준비와 현행 채택·generation 미실행을 분리하며 전체 semantic acceptance 완료는 아니다.
-- owner approval은 사용자 사전 승인으로 처리했다. 현재 차단 사유는 같은 owner approval의 재요청이 아니라 **명시적 filesystem 실행 경계와 현행 외부 생성/검증 계약의 충돌**이다.
-- 현재 Menu depth의 unresolved actionable gap을 0이라고 주장하지 않는다. 후보 설명의 Tooltip 전파도 0이다. overall complete 또는 implemented_only가 아니다.
+- 원래 저장소 `C:/Users/MW/Downloads/coding/PZ`의 `main`에 격리 candidate의 검증된 변경을 fast-forward했다. 제품/route 통합 commit은 `ca37e26e622bab68e89452a0e030e1720e6df9dc`이다. 실행 candidate는 `C:/Users/MW/PZ-U/c`, 최종 패키지는 `C:/Users/MW/PZ-U/pkg2/Iris.zip`, 격리 설치본은 `C:/Users/MW/PZ-U/i2/Iris`다. 실제 게임 설치본과 save는 읽거나 변경하지 않았다.
+- 전체 2,105개 판정은 keep 291 / revise 1,529 / reduce 12 / review_hold 273, readiness는 description_ready 1,792 / acquisition_only 40 / review_required 273이다. revise+reduce **1,541개**의 source-bound primary_use와 KO/EN을 canonical facts/decisions/approved candidate에 채택했다. 일회성 제안표를 생산 입력으로 삼지 않았다.
+- 기존 core 1,314개에서 **2,048개로 증가(+734)**했다. Layer 3 KO/EN public body는 각각 2,099개, silent는 6개다. 175개 explicit owner absence와 보호 12개, exact `Base.LemonGrass` / `Base.Lemongrass`의 구분을 유지했다. hold 273개는 keep·검증 완료·용도 없음으로 바꾸지 않았다. 기존 보류 문구의 의미 정확성을 새로 보증하지 않는다.
+- 기존 special_context 경로로 **32개 항목**에 후속 질문의 답을 보완했다. 마지막 9개(Apple, Hammer, 낚싯대 4개, BaitFish, FishingTackle, FishingTackle2)는 구체 준비물·실행 경로·미끼/어종 설명을 추가했다. 이 9개는 **Menu context 교정**이며 1,541개 S2 교정 수에 추가 합산하지 않는다. 별도의 QG rule/schema나 runtime fact 추론은 도입하지 않았다.
+- 기술서의 skill·성장 레벨·독서 진행 조건을 Browser와 Wiki panel에 표시하고 KO/EN label을 추가했다. 알려진 11개 기술만 사용하며 Blacksmith, 잡지의 잘못된 level 단정과 unknown bound 추정을 피한다. 게임 상태를 변경하지 않는다.
 
-## 실행 경계
+## 같은 content set의 전파
 
-사용자는 현재 저장소와 계획이 명시한 경로만 허용하고, 명시되지 않은 외부 로컬 경로의 읽기·탐색·수정·전송을 금지했다. 계획은 외부 output과 installed producer를 요구하지만 이번 실행의 외부 절대 경로를 지정하지 않았다. [ENTRYPOINTS](../Iris/build/ENTRYPOINTS.md)는 repository-external output과 installed wheel을 요구한다. 이를 내부 임시 환경, source import, 새 wrapper 또는 guard 완화로 대체하지 않았다.
+최종 generation은 `dvf33-103dd029d58267ffa696fcb9fa197d5564d14716f12f6ae3ee398b4fb3b41d83`이다. descriptor 포함 15개 파일(그중 runtime chunks 11개), exact FullType 2,105개이며 A/B descriptor SHA-256은 `a46e0adc628f273f27ff6ec602fba04245cd78930aedd2585691029480ee34b8`로 같다. predecessor generation은 삭제하지 않았다.
 
-외부 내용을 읽지 않고 **내부 locator에서 확인한 문자열**은 다음과 같다. 존재 여부, 실제 설치 내용, hash 일치 또는 현재 사용 가능성은 확인하지 않았다.
+최종 strict T1은 `C:/Users/MW/PZ-U/t1f2`이며 `176c0541f1fa08e59b5bf3f8ff4407decc982cc5` / tree `5ab3bfd39d24b64c25f3959ec925256834a01c32`에서 차단 0, complete/OPEN으로 확정했다. T1 input SHA-256 `2933efaa304a90d623a054c53976e64b71449f4110f7fb94b9202c6b4c393235`는 추가9 context 이전과 같다. T2는 `C:/Users/MW/PZ-U/t2f2`, implementation subject `c2308faab36125c3a89ddc53d38421fecbf4eda0` / tree `8a36705e76f144e084da1d72c4b1d2c897d815c3`의 complete **offline static staging**이다.
 
-| 내부 locator | 외부 경로 | 필요한 용도 / 현재 처리 |
+고정 `IrisTooltipStaticData.lua`는 2,280개 exact keys, SHA-256 `1efc19e01132767f97111048eba2e027916b69ef07304f19c3152144a7817647`이다. Recipe companion은 같은 고정 배열을 바탕으로 349 FullTypes / 781 variants이며 기존 세 missing-name exclusions를 유지했다. T1/Layer2/D5 및 current route는 기존 계약 안에서 현재 입력으로 다시 묶었고 policy 선택과 classification/Layer4 사실은 바꾸지 않았다.
+
+계획의 일회성 delta 비교에서 1,541개 exact `(FullType, KO, EN, fact ID)`가 owner→fixed에 도달함을 대조했다. 신규 S2 presence 734, 비S2 표시 delta 0, 비대상 facts 564개·보호12·absence175 보존이다. 비교 기준은 시작 commit `54ab73dcec6160f6ee8d776096f6e013148588cb`의 `dvf_3_3_facts.jsonl`, `tooltip_t1_layer3_owner_input.json`, `IrisTooltipStaticData.lua`다. 허용된 옛 `PZ2/t3d1/a2/t2-final/tooltip_t2_projection_manifest.json`은 파일이 없었으므로 상위 경로를 탐색하지 않고 이 Git 기준을 사용했다. 이 비교는 옛 외부 T2 검증을 대신하지 않는다. 마지막9 context의 strict handoff 입력과 fixed/companion이 동일하므로 이 delta 검사를 반복하지 않았다. 보조 `delta.py`는 일회성 비교이며 Iris의 정규 검사기나 authority가 아니다.
+
+## Menu 질문에 대한 실제 답과 한계
+
+최종 Lua Menu 실행은 KO/EN 각각 public 2,099, selected core 2,048의 본문과 source fact relation을 확인했다. selected missing 0, KO/EN identity mismatch 0, L4 selected source relation 각 530 missing 0이다. EN은 기존 producer/serializer의 한 번의 격리 재생성과 Index/chunk byte 비교를 사용했다. 이는 **Lua에서 실제 소비한 source/body 관계**이며 PZ/Kahlua 화면 관찰 또는 독립적인 모든 gameplay fact 인증이 아니다. 최초 1,314개 ledger와 신규734 accounting을 구분했고 sealed historical authority를 다시 쓰지 않았다.
+
+아래 표에서 모듈을 생략한 항목은 모두 `Base.`이며, 두 농약만 `farming.`이다.
+
+| 대상 exact set | 기존 후속 질문에 제공하는 답 | 범위/남는 한계 |
 |---|---|---|
-| `Iris/validation/clean_checkout/authority/responsibility_refactor_environment_naming_v1.json` | `C:/Users/MW/PZ-N/e` | 현행 환경·installed tooling 읽기/실행. 접근하지 않음. source successor에 맞는 wheel/environment binding 여부는 별도 확인 필요 |
-| 같은 environment locator | `C:/Users/MW/PZ-N/er/environment_receipt.json` | immutable environment receipt 읽기. 접근하지 않음 |
-| 같은 environment locator | `C:/Users/MW/PZ-N/w/iris_tooling-0.1.0-py3-none-any.whl` | 정확한 producer wheel 읽기. 접근하지 않음 |
-| `Iris/_docs/authority/iris_current_route_index.json` | `C:/Users/MW/Downloads/coding/PZ2/t3d1/a2/t1-final` | current predecessor handoff binding/rollback 참조. 접근하지 않음. 새 subject의 handoff로 재사용 불가 |
-| 같은 route index | `C:/Users/MW/Downloads/coding/PZ2/t3d1/a2/t2-final` | predecessor T2 manifest/closeout 참조. 접근하지 않음. 새 subject의 validation으로 재사용 불가 |
+| AmmoStrap_Bullets, AmmoStrap_Shells | 착용 및 shotgun shell 여부에 따른 재장전 적용 조건 | live 착용 상태 판정/성능 추천 아님 |
+| Hammer | 판자2·못2·망치의 나무 십자가 예시, 게임 목공→기타→나무 십자가 실행 경로 | 바닐라 메뉴 안내이며 Iris 내부 상세 링크가 아님. 모든 건축물 재료표로 확대하지 않음 |
+| Apple | 샐러드의 그릇, 케이크/파이의 준비된 베이스와 팬/밀대, 머핀 반죽 쟁반, 팬케이크/와플/오트밀 베이스, 추가 한도와 굽기 단계 | 기존 일반 RecipeIndex에 없는 evolved 관계를 Menu 본문으로 답함. Java 내부의 모든 상태 허용 분기를 인증하지 않음 |
+| Coffee2 | 물이 든 머그잔/찻잔과 음료 준비 메뉴 | 가능한 모든 혼합 음료 조합·온도 수치 범위는 요구하지 않음 |
+| Broom, Bleach, Mop, BathTowel, DishCloth | 재/혈흔 대상, 파손되지 않은 빗자루·표백제·청소 도구, 젖은 몸과 남은 사용량 | 실제 캐릭터 상태를 조회하지 않는 static 조건 설명 |
+| AlcoholWipes, Disinfectant, Bandage, Splint | 건강 패널의 다친/붕대 없는 부위, 기존 붕대 제거, 골절·봉합/기존 부목 및 제외 부위 | 치료 성공·감염 예방 보장 없음 |
+| Fertilizer, CompostBag, farming.GardeningSprayMilk, farming.GardeningSprayCigarettes | 살아 있는 작물, 과다 비료의 부패, mildew/flies 대상과 남은 사용량 | 최적 투여량/재배 추천이나 모든 농사 상태표 아님 |
+| FishingNet | 가까운 물 타일 설치→시간 경과→확인, BaitFish 가능성과 장시간 방치 파손 | 모든 포획 확률·기다림 최적화는 별도 범위 |
+| FishingRod, FishingRodTwineLine, CraftedFishingRod, CraftedFishingRodTwineLine | 부서지지 않은 rod, 지렁이/귀뚜라미/메뚜기/바퀴벌레/BaitFish/두 인공 루어 예시, 물가 메뉴와 대상 어종 | QG action detail을 새로 만든 것이 아니라 본문으로 직접 제공. 시간·계절별 모든 수치표는 별도 범위 |
+| BaitFish, FishingTackle, FishingTackle2 | rod 준비, BaitFish의 파이크 및 인공 루어의 송어/배스/메기 예시, 대상 제외·소모/파손 | 포획 보장 없음 |
+| TrapBox, TrapCage, TrapCrate, TrapSnare, TrapStick, TrapMouse | 대상 동물, 사과/옥수수·벌레/빵·치즈/땅콩버터 등의 미끼, 야간/시간 제한 없음과 지역·신선도·접근 조건 | 모든 zone별 확률·예외를 완성했다고 하지 않음 |
 
-신규 output의 짧고 얕은 **미승인 후보**는 `C:/Users/MW/PZ-U` 하나다. 이 경로는 제안만 했으며 열거·존재 확인·생성하지 않았다. 승인되는 경우 그 아래에서 같은 subject의 audit/correction ledger, generation/T1/T2/canonical 결과, 격리 candidate checkout, package/install을 contract 단위로 묶는다. 서로 다른 A/B 실행 경계는 유지하지만 검사마다 별도 workspace를 만들지 않는다. 기존 사용 설치본과 save는 제외한다. 경로를 이 문서에 적었다는 사실 자체는 접근 권한이 아니다.
+위 32개 항목에서 source로 바로 보완 가능한 구체 정보 결손은 기존 context 경로로 교정했다. 단순히 문장이 추가됐다는 이유로 모든 Menu 질문이 해결됐다고 세지 않는다. 2,105개 전체의 미관찰 관계, sprite/obsolete/legacy/identity 문제 등 273개 hold의 exact 근거와 한계는 아래 item별 기록에 남긴다. 실제 게임에서 Alt/KO·EN/long text/Recipe opening/Menu 전환을 보는 계획의 대표 관찰은 **not_observed / incomplete**다. 따라서 overall complete, bare Public Text Quality PASS, semantic-quality acceptance, full Menu parity, RTC/freeze/Publish Boundary/release/Workshop-ready/deployed는 주장하지 않는다.
 
-차단되는 현행 command 단계는 `build layer3`의 external generation, `build/finalize tooltip-t1`, `build/finalize tooltip-t2`, receipt-bound `validate full` Run A/B와 comparator, package producer 및 격리 설치다. 파라미터/검사 membership은 ENTRYPOINTS와 기존 launcher가 계속 소유한다. 본 기록에는 실행하지 않은 command를 성공한 literal/receipt로 만들지 않는다.
+## 실행한 필수 검증
+
+| 검사와 정확한 실행 범위 | 결과 / 기존 산출물 |
+|---|---|
+| generation A/B build + 기존 complete-generation validator | 각각 exit0, `PZ-U/ga2`, `PZ-U/gb2` |
+| D2 실제 Lua 관계 및 strict T1 | exit0, 2,280개/차단0, `PZ-U/d2f`, `PZ-U/t1e` |
+| 최종 T1 canonical A/B + 기존 comparator/finalizer | 각각 exit0, `oa5.json`, `ob5.json`, `cmp2/compare_receipt.json`, `t1f2` |
+| T1 focused 3파일 | 6d5a6745 subject에서 95 passed/exit0. 이후 T1 알고리즘 변경 없음; 현재 입력은 strict audit 및 canonical 결과로 판정 |
+| 최종 T2 focused 3파일 | c2308faa subject, 18 passed/exit0 |
+| Lua syntax | c2308faa subject, 178 files/exit0 |
+| installed inspect / 최종 runtime canonical full | c2308faa subject, 각각 exit0; canonical은 211 tests +109 subtests 및 required standalone 포함, `ot2.json` |
+| T2 A/B/finalizer | exit0, `t2c`, `t2d`, `t2f2`; Lua/manifest 동일, 위 실제 check metadata 사용 |
+| 최종 Menu + 한 번의 EN replay | exit0, `menu2.out`, `en2`; 2,048 selected KO/EN 관계 및 L4 각530 |
+| package + 새 폴더로 ZIP 추출 + 기존 lookup/full runtime harness | exit0, `pkg2`, `i2`, `install2.out`; 2,280 keys, legacy_calls0, lookup 2,105/1,631, package mismatch0/forbidden0 |
+
+canonical launcher/comparator의 실제 명령과 subject, environment, stdout/stderr는 위 기존 orchestration/compare receipt에 있고, T2 check의 exact command/exit/subject/artifact binding은 `t2f2/tooltip_t2_closeout.json`에 있다. test membership과 verdict를 이 문서나 일회성 helper에서 재정의하지 않았다. 같은 입력의 S2 delta와 finalizer가 요구하지 않는 추가 검사는 반복하지 않았다. Java/Gradle, JS/TS 변경은 없어서 해당 검사는 N/A다.
+
+최종 생성/전파 명령(공통 환경: `IRIS_REPOSITORY_ROOT=C:/Users/MW/PZ-U/c`, `PYTHONDONTWRITEBYTECODE=1`, `PYTHONNOUSERSITE=1`; uv는 `UV_PROJECT_ENVIRONMENT=PZ-U/e2`, `UV_PYTHON=PZ-U/e2/Scripts/python.exe`, `UV_PYTHON_DOWNLOADS=never`, cache/TEMP는 PZ-U 내부):
+
+```powershell
+C:/Users/MW/PZ-U/e2/Scripts/python.exe -B -m iris_tooling.build.build_dvf_3_3_complete_generation --repository-root C:/Users/MW/PZ-U/c --output-root C:/Users/MW/PZ-U/ga2
+C:/Users/MW/PZ-U/e2/Scripts/python.exe -B -m iris_tooling.build.validate_dvf_3_3_complete_generation --repository-root C:/Users/MW/PZ-U/c --generation-root C:/Users/MW/PZ-U/ga2
+# B는 동일 명령의 output/generation-root만 gb2로 지정했다.
+C:/Users/MW/PZ-U/e2/Scripts/python.exe -B -m iris_tooling.build.install_dvf_3_3_complete_generation --repository-root C:/Users/MW/PZ-U/c --generation-root C:/Users/MW/PZ-U/ga2 --expected-predecessor-generation-id dvf33-40cc6e093ec65ed0c1f31c0e742782ac820e0a497fb923dd55067c52481fb537 --r2-decision C:/Users/MW/PZ-U/r22.json
+C:/Users/MW/PZ-U/e2/Scripts/python.exe -B -m iris_tooling.build.build_layer3_english_localization
+uv run --project ./Iris/tooling --no-sync python -B -m iris_tooling.domains.tooltip_static_data_projection.recipe_variants --repository-root . --output ./Iris/media/lua/client/Iris/Data/IrisTooltipRecipeVariants.lua
+uv run --project ./Iris/tooling --no-sync python -B ./Iris/build/description/v2/tests/test_iris_browser_state_selection_search_acceptance.py menu C:/Users/MW/PZ-U/t2f2/tooltip_t2_projection_manifest.json --en-replay-root C:/Users/MW/PZ-U/en2
+powershell -NoProfile -ExecutionPolicy Bypass -File ./Iris/tools/package_iris.ps1 -OutputRoot C:/Users/MW/PZ-U/pkg2 -Clean -Zip -PackageApplicability current_runtime_payload
+Expand-Archive -LiteralPath C:/Users/MW/PZ-U/pkg2/Iris.zip -DestinationPath C:/Users/MW/PZ-U/i2
+powershell -NoProfile -ExecutionPolicy Bypass -File ./Iris/tools/validate_runtime_lookup_indexes.ps1 -DataRoot C:/Users/MW/PZ-U/i2/Iris/media/lua/client/Iris/Data
+lua ./Iris/test/lua/tooltip_static_data_runtime_harness.lua C:/Users/MW/PZ-U/i2 full
+```
+
+## 실행 실패와 경계 사건
+
+- 최초 df28a7ac canonical A/B에서 기존 package 테스트가 `C:\Users\Public\Documents\ESTsoft\CreatorTemp\...` 출력을 지정하고 `C:\Users\MW\scoop\apps\python\current\python.exe`를 호출하는 command를 관측했다. 즉시 해당 A/B 소유 process tree를 중단했다. 불완전/실행 경계 위반이며 PASS나 finalizer 입력으로 쓰지 않았다. 승인 밖 파일은 읽거나 정리하지 않았으므로 외부 출력의 실제 생성/변경 범위를 없었다고 단정하지 않는다.
+- 원인은 package 테스트의 하드코딩된 temp root 및 하위 uv interpreter 선택이었다. 기존 테스트가 canonical TEMP를 사용하고 `sys.executable`을 `UV_PYTHON`으로 전달하도록 최소 수정했다. RTC 검사 하나의 필요한 재현 확인은 exit0이고, 후속 canonical 실제 child command에서 PZ-U/e 및 PZ-U 내부 출력을 확인했다. 제품 package 코드를 바꾸거나 required 검사를 skip하지 않았다.
+- 6d5a6745 A/B는 정상 exit1, 각18 failed였다. 새 context/침묵 fixture의 낡은 기대값, renamed fixed/locale/required manifest의 LF 규칙, 이관된 guard manifest path, 기존 isolated-command fixture의 중복 mkdir, current lookup identity를 같은 실패 원인 묶음으로 수정했다. 수정 뒤 35339d61 A/B와 6a40a295 runtime full은 exit0이었다. 이 과거 결과를 마지막9 context subject로 소급하지 않고 위 최종176c0541/c2308faa 실행으로 대체했다.
+- 마지막 generation 최초 모듈 호출은 repository context 환경이 없어 import에서 exit1이었다. 입력/출력 생성 전 실패였으며 명시적 `IRIS_REPOSITORY_ROOT`를 전달한 뒤 같은 새 output roots에서 정식 build/validate가 exit0으로 끝났다.
+- 작업 초반 외부 환경/base interpreter가 범위 밖이어서 멈췄던 사유는 사용자의 구체 경로 승인으로 해소했다. 사용한 새 환경은 PZ-U/e2이고 receipt는 PZ-U/er2/environment_receipt.json이다. PZ-N 환경은 변경하지 않았다. Python 3.14.3 설치는 승인된 read/execute 범위로만 사용했다. er 디렉터리의 다른 파일이나 다른 사용자 경로로 범위를 넓히지 않았다.
+
+원본 반영 시 이 작업에서 만든 변경과 계획 파일이 candidate Git blob과 일치함을 먼저 확인하고, `PZ-U/pre`에 작업 파일을 보존한 뒤 fast-forward했다. 내용 변경이 없는 index/stat 잔여 상태 때문에 첫 merge가 거부되어 해당 네 파일의 index를 갱신한 후 진행했다. 기존 `docs/dvf_b41_full_item_first_pass_2026-08-30/`는 그대로 untracked이며 수정/삭제하지 않았다. 소유한 임시 authoring/delta helper는 정규 검사기·새 authority로 채택하지 않는다. 필수 success 조건 뒤 추가 confidence용 검사나 별도 seal/manifest/census tree는 만들지 않는다.
+
+## 최초 조사·item별 판정 기록 — 작성 당시 상태
+
+이하의 public/core 상태와 “초안/미채택/미실행” 표현은 **처음 감사했을 때의 상태**다. 1,541개 실제 채택·9개 후속 context·검증·원본 통합의 현재 결과는 위 절을 따른다. 담배와 바벨/덤벨 세 행은 일반 Food/Weapon 후보로 잘못 덮였던 제안표 참조를 실제 채택한 exact 용도로 고쳤다. source hold의 근거 및 미관찰 한계는 보존한다.
 
 ## 기준 귀속 — read-only 관측
 
@@ -637,7 +697,7 @@ bare Public Text Quality PASS, semantic-quality acceptance, full Menu parity, RT
 | Base.Bandaid | public / no-core | revise / description_ready | scripts/newitems.txt:1593: exact CanBandage 및 ISApplyBandage:SetBandaged. Alcohol 여부는 source의 item:isAlcoholic 전달에 한정하며 치료/감염 예방 보장 없음. | C008 | M008 |
 | Base.BandedWoolyBearCaterpillar | public / core | revise / description_ready | scripts/items_food.txt:8785의 exact H=-5, T=미선언; EvolvedRecipe 재료 역할은 이 후보에 추가하지 않음. §식재료 사과의 기존 소비 경로/값 의미를 재사용하며 안전성·효과량을 보장하지 않는다. | C012 | M012 |
 | Base.Banjo | public / no-core | revise / description_ready | scripts/items_weapons.txt:1549; exact Type=Weapon/damage=0.3–0.6. 연주·경기·배관 수리 같은 현실 기능을 추정하지 않는다. | C021 | M022 |
-| Base.BarBell | public / no-core | revise / description_ready | scripts/items_weapons.txt:2768; exact Type=Weapon/damage=1.8–2.8. 연주·경기·배관 수리 같은 현실 기능을 추정하지 않는다. | C021 | M022 |
+| Base.BarBell | 변경 전 상태는 기준 기록 참조 | revise / description_ready | lua/shared/Definitions/FitnessExercises.lua:36–45 exact exercise item → ISFitnessAction exerciseRepeat. 근접 공격 일괄 후보 대신 앞 절 exact 운동 목적을 채택. | 채택 KO: 바벨 컬 운동에 사용하는 운동기구다 / EN: Exercise equipment used for barbell curls. | 해당 item의 조건/용도 검토 참조 |
 | Base.BarbedWire | public / core | keep / description_ready | 보호된 BarbedWire의 기존 구조물 제작 역할을 유지한다. | C003 | M032 |
 | Base.Baseball | public / core | review_hold / review_required | scripts/newitems.txt:265: 현재 경기 규칙에 맞춘 놀이 assertion을 실제 경기/투척 기능과 결속하지 못했다. Normal 소품이라는 선언은 경기 실행 근거가 아니다. 필요한 추가 근거는 이 exact item의 해당 행동/재료 입력 또는 효과를 명시하는 vanilla source 관계이며, current admission 부재를 해소할 승인만으로 대체하지 않음. | C002 | M033 |
 | Base.BaseballBat | public / core | keep / description_ready | 각 exact Weapon의 근접 전투 역할이 현재 기본 목적과 일치한다. identity_fallback인 행은 그대로 S2 core로 승격하지 않는다. | C003 | M034 |
@@ -941,7 +1001,7 @@ bare Public Text Quality PASS, semantic-quality acceptance, full Menu parity, RT
 | Base.ChokeTubeImproved | public / core | keep / description_ready | scripts/newitems.txt:2652; exact WeaponPart/PartType=Canon/MountOn=Shotgun. 총기 개조 부품이라는 current 목적은 구체적. 실제 성능·조명/총검 공격은 추가하지 않는다. | C014 | M014 |
 | Base.Chopsticks | public / core | review_hold / review_required | scripts/newitems.txt:4569; Normal 선언은 확인되나 exact 사용/조리 입력이 미확정; 유사 도구·Teabag2·Flour의 기능 전이 금지. 필요한 추가 근거는 이 exact item의 해당 행동/재료 입력 또는 효과를 명시하는 vanilla source 관계이며, current admission 부재를 해소할 승인만으로 대체하지 않음. | C049 | M069 |
 | Base.ChrisPic | public / core | review_hold / review_required | scripts/items.txt:191; 사진의 Normal 정체성/원문 locator 확인; 보기·놀이·수집 action 의 실제 사용 경로는 미확정. 유사 매체의 재생·학습 기능을 전이하지 않음. 필요한 추가 근거는 이 exact item의 해당 행동/재료 입력 또는 효과를 명시하는 vanilla source 관계이며, current admission 부재를 해소할 승인만으로 대체하지 않음. | C015 | M050 |
-| Base.Cigarettes | public / core | revise / description_ready | scripts/items.txt:620; Alcoholic=TRUE, H/T 음수 Food 및 EvolvedRecipe; 기분 개선을 일괄 보장하는 기존 문구 축소. | C037 | M038 |
+| Base.Cigarettes | 변경 전 상태는 기준 기록 참조 | revise / description_ready | scripts/items.txt:620 OnEat binding → lua/server/recipecode.lua:1010–1037 OnEat_Cigarettes Smoker trait 분기. 알코올 Food 일괄 후보를 폐기하고 앞 절 exact 후보를 채택. | 채택 KO: 흡연가라면 스트레스와 불행을 줄일 수 있지만 비흡연가의 식중독 수치를 높인다 / EN: For smokers, it can reduce stress and unhappiness; for non-smokers, it increases food sickness. | 해당 item의 조건/용도 검토 참조 |
 | Base.Cilantro | public / core | revise / description_ready | scripts/items_food.txt:8553의 exact H=-1, T=미선언; EvolvedRecipe 재료 선언 확인. §식재료 사과의 기존 소비 경로/값 의미를 재사용하며 안전성·효과량을 보장하지 않는다. | C004 | M004 |
 | Base.CinnamonRoll | public / core | revise / description_ready | scripts/items_food.txt:7897의 exact H=-12, T=미선언; EvolvedRecipe 재료 역할은 이 후보에 추가하지 않음. §식재료 사과의 기존 소비 경로/값 의미를 재사용하며 안전성·효과량을 보장하지 않는다. | C012 | M012 |
 | Base.CleaningLiquid | public / core | review_hold / review_required | scripts/newitems.txt:349: exact Type=Normal, OBSOLETE=TRUE. 정상 B41에서 이 exact item의 생성·사용 가능성/등록이 미확정이다. 작동하는 별도 FullType으로 대체하거나 기존 no-core 때문에 보류하는 것이 아님. | C015 | M221 |
@@ -1073,7 +1133,7 @@ bare Public Text Quality PASS, semantic-quality acceptance, full Menu parity, RT
 | Base.DriedWhiteBeans | public / core | revise / description_ready | scripts/items_food.txt:8362의 exact H=-60, T=60; EvolvedRecipe 재료 선언 확인. §식재료 사과의 기존 소비 경로/값 의미를 재사용하며 안전성·효과량을 보장하지 않는다. | C067 | M004 |
 | Base.Drumstick | public / no-core | revise / description_ready | scripts/items_weapons.txt:562; exact Type=Weapon/damage=0.1–0.2. 연주·경기·배관 수리 같은 현실 기능을 추정하지 않는다. | C021 | M022 |
 | Base.DuctTape | public / core | revise / description_ready | scripts/newitems.txt:1731; recipes.txt Add Timer/Motion/Trigger 및 Attach ... to Spear exact input. | C083 | M011 |
-| Base.DumbBell | public / no-core | revise / description_ready | scripts/items_weapons.txt:1326; exact Type=Weapon/damage=0.5–1. 연주·경기·배관 수리 같은 현실 기능을 추정하지 않는다. | C021 | M022 |
+| Base.DumbBell | 변경 전 상태는 기준 기록 참조 | revise / description_ready | lua/shared/Definitions/FitnessExercises.lua:46–66 exact exercise item → ISFitnessAction exerciseRepeat. 근접 공격 일괄 후보 대신 앞 절 exact 운동 목적을 채택. | 채택 KO: 덤벨 프레스와 바이셉스 컬 운동에 사용하는 운동기구다 / EN: Exercise equipment used for dumbbell presses and biceps curls. | 해당 item의 조건/용도 검토 참조 |
 | Base.Dungarees | public / no-core | revise / description_ready | scripts/clothing/clothing_pants.txt:669: Clothing/BodyLocation=Pants. §기본 착용 재판정의 일반 Wear→ISWearClothing 경로 및 Human 슬롯 선언을 exact item에 연결. 기존 no-core는 채택 상태로 보존; 확인된 기본 착용 새 core 후보의 source 준비와 채택·generation 미실행을 분리. | C190 | M017 |
 | Base.Earbuds | public / core | revise / description_ready | scripts/newitems.txt:965; RWMVolume.lua:79 exact selector; ISRadioAction.lua:147–153 addHeadphones; 분해 입력도 존재. | C084 | M011 |
 | Base.Earring_Dangly_Diamond | public / no-core | revise / description_ready | scripts/clothing/clothing_jewellery.txt:527: Clothing/BodyLocation=Ears. §기본 착용 재판정의 일반 Wear→ISWearClothing 경로 및 Human 슬롯 선언을 exact item에 연결. 기존 no-core는 채택 상태로 보존; 확인된 기본 착용 새 core 후보의 source 준비와 채택·generation 미실행을 분리. | C191 | M017 |

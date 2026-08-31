@@ -18,7 +18,7 @@
   "generated_at": "2026-08-23T00:00:00+09:00",
   "identity_source": "Iris/_docs/round3/round3_legacy_test_identities.json",
   "matrix": {
-    "current+ok": 102
+    "current+ok": 104
   },
   "rows": [
     {
@@ -1271,6 +1271,32 @@
       "source_file": "Iris/build/description/v2/tests/test_iris_viewmodel_allocation_contract.py",
       "state": "ok",
       "test_id": "test_iris_viewmodel_allocation_contract.IrisViewModelAllocationContractTest.test_method_lists_are_module_constants_and_hints_are_once_per_item"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [
+        "compose_layer3_shared"
+      ],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "Planned shared composition regression: source-bound bilingual propagation, retention, and fail-closed invalid inputs.",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py",
+      "state": "ok",
+      "test_id": "test_compose_layer3_text_v2.SharedCompositionTest.test_shared_edit_propagates_and_preserves_conditions_multiple_uses_and_retention"
+    },
+    {
+      "audit_status": "manual_current",
+      "contract_class": "current",
+      "imported_build_modules": [
+        "compose_layer3_shared"
+      ],
+      "imports_ignored_reproduction_modules": [],
+      "reason": "Planned shared composition regression: source-bound bilingual propagation, retention, and fail-closed invalid inputs.",
+      "routing_status": "current route required validation",
+      "source_file": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py",
+      "state": "ok",
+      "test_id": "test_compose_layer3_text_v2.SharedCompositionTest.test_invalid_bindings_fail_without_falling_back_and_explicit_exception_is_supported"
     }
   ],
   "schema_version": "round3-test-taxonomy-v1"

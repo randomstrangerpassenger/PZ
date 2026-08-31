@@ -51,6 +51,7 @@
         "Iris/_docs/**/*.md",
         "Iris/_docs/**/*.json",
         "Iris/_docs/**/*.jsonl",
+        "Iris/validation/execution/required_validations.json",
         "Iris/output/**/*.json"
       ]
     }

@@ -137,7 +137,8 @@ def reconstruct_menu_evidence(replay_root: Path, subject: dict) -> MenuEvidence:
     Calling this requires the execution prompt to allow the plan's external
     output exception. The caller must not use this as historical-run provenance.
     """
-    allowed = Path("C:/Users/MW/Downloads/coding/PZ2/t3d1").resolve()
+    # Successor execution root approved for the usefulness plan; no live install.
+    allowed = Path("C:/Users/MW/PZ-U").resolve()
     replay_root = replay_root.resolve()
     assert replay_root != allowed and replay_root.is_relative_to(allowed), "replay outside plan root"
     assert not replay_root.exists(), "replay requires a new unused leaf"
@@ -448,16 +449,18 @@ def menu_relations(output: str, manifest_path: Path, *,
     report = {
         "initial_selected_pair_sha256": expected_pairs,
         "final_selected_pair_sha256": hashlib.sha256(json.dumps(sorted(selected.items()), ensure_ascii=True, separators=(",", ":")).encode()).hexdigest(),
-        "final_required_scope": "initial_fulltypes_with_adopted_fact_successors" if transitions else "initial_selected_unchanged",
+        "final_required_scope": "initial_fulltypes_and_adopted_new_core_facts" if transitions else "initial_selected_unchanged",
         "fact_identity_transitions": transitions,
         "generation": subject["generation"],
         "evidence_method": trace.method if valid_trace else "missing",
         "subject_bindings": subject["bindings"],
         "verified_records": {key: {"KO": l3["KO"][key], "EN": l3["EN"][key], "fact": selected[key]}
                              for key in sorted(resolved)},
-        "resolved_exact_set": sorted((key, initial_selected[key]) for key in resolved),
+        "resolved_exact_set": sorted((key, initial_selected[key]) for key in resolved if key in initial_selected),
         "retained_exact_set": [],
-        "unresolved_exact_set": sorted((key, initial_selected[key]) for key in unresolved),
+        "unresolved_exact_set": sorted((key, initial_selected[key]) for key in unresolved if key in initial_selected),
+        "newly_selected_resolved_exact_set": sorted((key, selected[key]) for key in resolved if key not in initial_selected),
+        "newly_selected_unresolved_exact_set": sorted((key, selected[key]) for key in unresolved if key not in initial_selected),
         "missing_observations": {locale: {key: absent[locale].get(key, "observation_missing")
                                          for key in sorted(selected.keys() - l3[locale].keys())}
                                  for locale in ("KO", "EN")},
@@ -664,7 +667,7 @@ class BrowserStateSelectionSearchAcceptanceTest(unittest.TestCase):
         facts = {row["item_id"]: row for row in (
             json.loads(line) for line in (V2_DATA / "dvf_3_3_facts.jsonl").read_text(encoding="utf-8").splitlines() if line)}
         material = producer.approved_general_descriptions(REPO, facts, candidate["entries"])
-        self.assertEqual(12, len(material))
+        self.assertEqual(set(candidate["meta"]["general_description_integration"]["entries"]), set(material))
         target = next(iter(material))
         original_read = Path.read_text
         for field, replacement, failure in (

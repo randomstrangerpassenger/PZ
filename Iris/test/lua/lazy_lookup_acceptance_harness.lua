@@ -109,14 +109,14 @@ if mode == "layer3" then
     package.loaded["Iris/Data/IrisLayer3EnglishLookup"] = nil
     package.preload["Iris/Data/IrisLayer3EnglishLookup"] = function()
         return { get=function(fullType)
-            if fullType == "Base.Broom" then return "stale English text" end
+            if fullType == "Base.CameraFilm" then return "stale English text" end
             return nil
         end }
     end
     local silentRenderer = require("Iris/Data/layer3_renderer")
-    assert(facade["Base.Broom"] and facade["Base.Broom"].text_ko == nil)
-    assert(silentRenderer.getRawText("Base.Broom", { locale = "EN" }) == nil)
-    assert(silentRenderer.getText("Base.Broom", { locale = "EN" }) == nil)
+    assert(facade["Base.CameraFilm"] and facade["Base.CameraFilm"].text_ko == nil)
+    assert(silentRenderer.getRawText("Base.CameraFilm", { locale = "EN" }) == nil)
+    assert(silentRenderer.getText("Base.CameraFilm", { locale = "EN" }) == nil)
     package.loaded["Iris/Data/layer3_renderer"] = nil
     package.loaded["Iris/Data/IrisLayer3EnglishLookup"] = nil
     package.preload["Iris/Data/IrisLayer3EnglishLookup"] = nil

@@ -88,7 +88,7 @@ def fixture_checkout(tmp_path: Path) -> tuple[Path, Path, Path, Path]:
     contracts.mkdir(parents=True)
     authority.mkdir(parents=True)
     fixture_wrapper = repo / "Iris/validation/execution/invoke_isolated_command.ps1"
-    fixture_wrapper.parent.mkdir(parents=True)
+    fixture_wrapper.parent.mkdir(parents=True, exist_ok=True)
     fixture_wrapper.write_bytes(WRAPPER.read_bytes())
     git(repo, "init")
     git(repo, "config", "user.email", "iris-tests@example.invalid")

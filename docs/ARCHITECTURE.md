@@ -468,11 +468,11 @@ dvf_3_3_facts.jsonl + source/decision lineage
                                                       -> Alt Tooltip lookup
 ```
 
-- 이번 수정은 개별 `primary_use`, KO/EN, decision과 approved candidate에 반영했다. Complete-generation producer는 채택된 candidate를 읽으므로 facts 수정만으로 모든 소비 결과가 자동 갱신된다고 가정하지 않는다. 공통 DVF 설명 블록 조합 규칙은 재설계하지 않았다.
+- 이전 usefulness 수정은 개별 `primary_use`, KO/EN, decision과 approved candidate에 반영했다. 이후 shared composition successor가 공통 표현 조합과 explicit/retained 경로를 추가했다. Complete-generation producer는 채택된 candidate를 읽으므로 facts 수정만으로 모든 소비 결과가 자동 갱신된다고 가정하지 않는다.
 - Tooltip S2는 core 문장만 사용한다. Menu body는 같은 기본 설명과 채택된 `special_context`, 해당하는 acquisition 정보를 포함한다. Context 전체를 S2에 붙이거나 runtime에서 본문을 요약하지 않는다.
 - 32개 아이템의 준비물·사용 조건 등을 기존 context 경로로 보완했다. Apple의 evolved 조리와 낚시 답은 현재 Menu 본문으로 제공하며 신규 QG/Recipe 상세 구조가 아니다. Hammer의 나무 십자가 경로는 바닐라 메뉴 안내이고 Iris 내부 링크가 아니다.
-- Current generation은 `dvf33-103dd029d58267ffa696fcb9fa197d5564d14716f12f6ae3ee398b4fb3b41d83`이며 exact universe 2,105, KO/EN public body 각 2,099, silent 6, S2 core 2,048이다. Core 1,314에서 734개가 추가됐고 전체 1,541개 기본 설명이 교정됐다. 보호 12개와 explicit owner absence 175개는 유지한다.
-- Current T1/T2 final root는 `C:/Users/MW/PZ-U/t1f2`, `C:/Users/MW/PZ-U/t2f2`다. Fixed는 2,280 keys이며 같은 fixed에서 Recipe companion 349 FullTypes / 781 variants를 생성한다. Current-only package는 이 세트와 pointer-selected generation을 함께 포함한다.
+- Current generation은 `dvf33-028b1189a27295376ef37a5fe855f0886b15ae3d217486f9b5ace93cd3fc5a0c`이며 exact universe 2,105, KO/EN public body 각 2,099, silent 6, S2 core 2,048이다. 이전 `103dd029…` generation의 1,541개 교정과 core +734 이력 위에 shared 193개 / explicit 6개 표현·조건을 개선했으며 이번 core coverage delta는 0이다. 보호 12개와 explicit owner absence 175개를 유지한다. 실제 사람의 후보 문장 검토와 새 package의 PZ 화면 관찰은 미수행이다.
+- Current T1/T2 final root는 `C:/Users/MW/Downloads/coding/PZ/.tmp/t1f`, `C:/Users/MW/Downloads/coding/PZ/.tmp/t2f`다. Fixed는 2,280 keys이며 같은 fixed에서 Recipe companion 349 FullTypes / 781 variants를 생성한다. Current-only package `.tmp/package/current/Iris`는 이 세트와 pointer-selected generation을 함께 포함한다.
 
 `IrisTooltipStaticDataLookup.get`은 최초 valid exact FullType/`ko`·`en` 조회에서 fixed payload를 한 번 require한다. 실패도 한 번만 시도한다. Metatable·혼합/희소 key·비문자열·빈 문자열·개행·4줄 초과를 포함한 선택 배열 전체를 거부하며, supported-empty는 빈 배열로 유지한다. `open`은 Recipe companion을 first-use load하고 해당 entry의 base KO/EN 배열이 current fixed payload와 정확히 일치하는지, 후보 identity와 완성 배열이 유효한지 확인한다. 유효한 entry가 있으면 bilingual view 하나를 고르고, Recipe entry가 없는 아이템은 fixed 배열을 쓴다. Companion 로드 실패·손상·base 불일치에는 legacy 경로로 돌아가지 않고 Iris만 숨긴다. 전체 stored key 순회는 Kahlua에서 지원하는 `pairs`를 사용한다.
 

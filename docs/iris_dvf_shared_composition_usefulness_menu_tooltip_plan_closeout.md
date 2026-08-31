@@ -1,6 +1,6 @@
 # Iris shared composition / Menu / Tooltip 실행 결과
 
-상태: 최종 자동 검증·제품 통합 진행 중. 사용자 사전 승인으로 owner gate를 진행했으며, 실제 사람의 문장 검토와 PZ 관찰은 수행하지 않았다. 이 문서는 단일 실행 closeout이며 별도 validator나 acceptance authority가 아니다.
+상태: **partial — 구현·기존 필수 자동 검증·패키지 완료.** 사용자 사전 승인으로 owner gate를 진행했다. 실제 사람의 exact-candidate 문장 검토와 PZ 화면 관찰은 수행하지 않았으므로 해당 범위는 `unvalidated_but_in_scope`이며, 계획 전체의 semantic-quality/runtime-observation `complete`를 주장하지 않는다. 이 문서는 단일 실행 closeout이며 별도 validator나 acceptance authority가 아니다.
 
 ## 구현과 범위
 
@@ -59,7 +59,8 @@ Retained binding에는 해당 current primary hash, 기존 exact 항목 source �
 - 시작 HEAD: `e3bef7d656d89fb9a4417647db3a7cbb072ff953`.
 - 시작 generation: `dvf33-103dd029d58267ffa696fcb9fa197d5564d14716f12f6ae3ee398b4fb3b41d83`.
 - 최종 generation: `dvf33-028b1189a27295376ef37a5fe855f0886b15ae3d217486f9b5ace93cd3fc5a0c` (`g9` / `g10` 동일).
-- 최종 T1 검증 대상: `ac270740` (기존 taxonomy에 새 compiler 테스트 2개 등록 후 subject).
+- 최종 T1 검증 대상: `ac270740941c5d1417299fcaac53d09c2aae6237` (기존 taxonomy에 새 compiler 테스트 2개 등록 후 subject).
+- 최종 T2 구현·검증 대상: `1126e50b9cbd16042e0440db4e2c1b6b643f2180`, tree `08b31bf690ae9f7a4353ec7e7157196f948434c7`.
 - Universe 2,105, KO/EN public 각 2,099, silent 6, S2 core 2,048, explicit empty-core 57, outside-universe owner absence 175, support 2,280을 유지한다. Gained/lost core는 모두 빈 집합이다.
 - S1 1,406 applicable / 874 display silence와 S3/S4 selection은 변경하지 않는다. Classification 및 D5의 generation-qualified locator/hash만 기존 의미와 exact identities를 유지하여 재결속했다.
 
@@ -67,17 +68,31 @@ G5는 실제 변경된 `compose_layer3_text.py`의 Git bytes/ancestry/last-write
 
 ## 검증과 실패 이력
 
-최종 결과 표는 진행 중이며 exact exit 0 확인 후 확정한다. 적용되는 성공 경로는 T1 동일 subject full A/B + 기존 comparator, 그 뒤 finalized handoff를 채택한 최종 T2 subject full 1회다. T2 artifact A/B는 데이터 생성 비교이며 추가 full A/B가 아니다. 동일 subject/input/producer/execution boundary의 포함 검사는 재사용한다.
+아래 결과는 실제 command exit 0에 근거한다. 성공 경로는 T1 동일 subject full A/B + 기존 comparator, 그 뒤 finalized handoff를 채택한 최종 T2 subject full 1회다. T2 artifact A/B는 데이터 생성 비교이며 추가 full A/B가 아니다. 동일 subject/input/producer/execution boundary의 포함 검사는 재사용했다.
 
 | 실행 | 현재 결과 |
 |---|---|
 | installed successor candidate / generation A/B 및 기존 installer | exit 0, 위 candidate/generation identity |
 | 새 compiler focused 2개 | 초기 코드 subject에서 exit 0. 최종 full에 포함된 경우 별도 반복하지 않음 |
-| final strict T1 candidate | `t1g`: 2,280행, correction 0, progression OPEN, candidate_present |
-| T1 canonical A/B + comparator/finalizer | 진행 중 |
-| T2 fixed/Recipe companion/finalizer | 대기 |
-| 최종 Lua syntax / installed inspect / T2 full | 대기 |
-| package / 실제 Lua Menu·Tooltip consumer | 대기 |
+| final strict T1 candidate | `t1g`: 2,280행, correction 0. `.tmp/t1f` 확정 후 complete / progression OPEN / handoff present |
+| T1 canonical A/B + comparator/finalizer | 모두 exit 0. A `.tmp/a5/run.json`, B `.tmp/b/run.json`, comparator `.tmp/cmp/compare_receipt.json`, final `.tmp/t1f`. 각 full은 213 tests / 118 subtests와 standalone 4개 성공 |
+| T2 fixed/Recipe companion/finalizer | `.tmp/t2a` / `t2b` bytes 동일. Recipe 349 FullTypes / 781 variants. `.tmp/t2f` finalizer exit 0, 기존 static-staging 범위 complete |
+| 최종 T2 전용 focused | 기존 3파일, 18 tests passed, exit 0 |
+| 최종 Lua syntax / installed inspect / T2 full | Lua 227 files 및 inspect exit 0. T2 full `.tmp/rt/run.json` / `.tmp/v6`: exit 0, 213 tests / 118 subtests 및 standalone 4개 성공 |
+| package / 실제 Lua Menu·Tooltip consumer | 둘 다 exit 0. 최종 package의 2,280 exact keys, legacy calls 0; KO/EN Menu 각각 2,099. S2 선택 2,048개 모두 양쪽 Menu fact identity 일치, missing/unverified/mismatch 0. L4 선택 530개도 각 locale에서 일치 |
+
+재현 명령과 실제 로그는 기존 orchestration/finalizer 기록과 `.tmp/body/t2-focused.log`, `inspect.log`, `lua.log`, `package.log`, `package-runtime.log`에 있다. T2 전용 3파일은 full의 기존 dedicated-route 제외 항목이므로 한 번 별도 실행했다. 다른 full 포함 검사를 추가 실행하지 않았다. 최종 관측은 기존 Python acceptance entry point의 `full <admitted manifest> --en-replay-root <repository/.tmp/en> --package-root <actual package>`로 호출했으며, Lua full 실행 한 번을 실제 Menu 관계 검사에 재사용했다.
+
+## 전달과 원본 통합
+
+- 설치 폴더: `C:/Users/MW/Downloads/coding/PZ/.tmp/package/current/Iris`.
+- ZIP: `C:/Users/MW/Downloads/coding/PZ/.tmp/package/current/Iris.zip` (693,666 bytes).
+- 기존 package manifest: 같은 폴더의 `Iris.package_manifest.sha256.json`, 140개 파일. Current generation만 포함하며 predecessor generation을 설치물에 섞지 않는다.
+- Fixed SHA-256: `5a6b573b63c52eba10804f0216e8894637c89fcb6be5c54e3429c5c77be537ef`.
+- Recipe companion SHA-256: `d9d6107d16efd68018d6efd562dc09161844f1f15c37a36c1137182dbfbe7aac`.
+- T2 projection manifest SHA-256: `9d33a908201b8bdbbfc99f47068560c7f05f0f6403e2c471d0b1235669d5391f`.
+
+검증된 구현·data·authority·문서를 원본 저장소에 fast-forward로 통합한다. 마지막 route adoption과 이 closeout 갱신은 검증 이후의 metadata/documentation 변경이며 테스트한 T2 commit/tree를 새 HEAD로 바꿔 기록하지 않는다. Package는 위 T2 subject의 runtime bytes로 생성·관측했다. 추가 confidence용 full이나 별도 seal은 만들지 않는다. 사용자의 실제 게임 설치 폴더에는 쓰지 않았다.
 
 준비 실패 및 수정:
 
@@ -87,8 +102,12 @@ G5는 실제 변경된 `compose_layer3_text.py`의 Git bytes/ancestry/last-write
 - `afb5e321`의 full은 exit 1: 6 failed / 207 passed / 118 subtests passed. Legacy general-description fixture가 composed 대상을 검증하는 방식, package lookup digest, G5의 이전 expected digest를 원인별로 수정했다. 해당 실패를 최종 PASS로 상속하지 않는다.
 - `32a00b8b` 실행은 추가 콘텐츠 검토가 도착하여 결과 파일 없이 중단했다. 최종 A/B로 계상하지 않는다.
 - `88967a8a`의 pytest 213개/하위 118개 및 standalone 4개는 성공했으나, 추가 compiler 테스트 2개가 기존 taxonomy에 미등록되어 canonical 명령은 exit 1이었다. 기존 목록에 해당 2개만 등록하고 새 exact subject에서 필수 A/B를 실행한다. 이전 실패 결과를 수정하거나 PASS로 소급하지 않는다.
+- `.tmp/i`는 원본 Git common-dir를 공유하는 worktree여서 T2 출력이 repository-external guard에 거절됐다. 저장소 내부 `.tmp/c`의 독립 clone에서 같은 commit/ancestry와 확정된 T1 인계를 사용했다. T1 실행 위치·영수증은 변경하지 않았다.
+- 독립 clone의 Windows CRLF 변환과 실행 중 추가된 `.pyc` 16개 때문에 T2 full launcher가 테스트 전 거절됐다. 기존 locator의 LF bytes와 기록된 환경 파일 집합을 복원했다. 설치 코드·immutable 환경 manifest·검증 guard는 변경하지 않았다. Git 정규화 후 내용 변화 없는 index 상태도 정리했으며 같은 T2 commit/tree를 유지했다.
 
 모든 임시 output/environment/integration은 선택한 저장소 내부에 두었다. 기존 도구의 external-root 조건은 격리 repository context에 대해 적용했다. 실제 PZ/사용자 설치 폴더는 열거나 수정하지 않았다. `.tmp/body`의 source authoring/rebind helper는 이번 작업의 일회성 보조 수단이며 canonical validator·정규 검사기·새 validation authority가 아니다. 기존 계약이 요구하는 기록 밖에 seal/receipt/manifest/census 체계를 추가하지 않는다.
+
+기존 Menu acceptance helper의 오래된 외부 replay 경로와 source-root import를 repository `.tmp` 및 installed tooling으로 조정했다. 최종 package 관측 시 현재 채택 manifest/payload, Menu runtime bytes와 관측 전후 binding을 기존 검사 안에서 확인하고 같은 Lua 실행 출력을 KO/EN identity 대조에 재사용한다. 과거 baseline 입력이나 외부 사용자 경로를 읽지 않는다.
 
 ## 검토와 관찰 한계
 

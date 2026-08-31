@@ -1004,7 +1004,7 @@
 - 최소 결과 및 관찰 범위:
 
   - 2,105개 판정 중 revise 1,529 + reduce 12 = **1,541개** 기본 설명을 교정했다. 기존 보호 12개와 explicit owner absence 175개는 보존했다. Menu context 32개 및 마지막 9개 보완을 S2 변경 수에 중복 합산하지 않는다.
-  - 제품 통합 commit은 `ca37e26e622bab68e89452a0e030e1720e6df9dc`, current generation은 `dvf33-103dd029d58267ffa696fcb9fa197d5564d14716f12f6ae3ee398b4fb3b41d83`다. 기존 T1/T2 finalization과 package/격리 runtime 검증을 완료했다. 상세 실행 결과는 단일 closeout에 둔다.
+  - 해당 predecessor의 제품 통합 commit은 `ca37e26e622bab68e89452a0e030e1720e6df9dc`, 당시 generation은 `dvf33-103dd029d58267ffa696fcb9fa197d5564d14716f12f6ae3ee398b4fb3b41d83`다. 기존 T1/T2 finalization과 package/격리 runtime 검증을 완료했다. 상세 실행 결과는 단일 closeout에 둔다.
   - 사용자는 `C:/Users/MW/PZ-U/pkg2/Iris`를 설치하고 식품류의 Alt 표시, 우클릭 Iris 상세, KO/EN 장문 배치, Recipe 표시·Menu 전환이 정상이라고 보고했다. Exact item·게임 버전은 미제공이며 비식품류나 모든 문장의 의미 검증으로 확대하지 않는다. 추가 재시험·hash·증빙 요구를 만들지 않는다.
   - 기존 필수 검증은 유지하되 신규 독립 검사기·Gate는 기본 0으로 두고, 동일 입력·검사 범위의 결과는 기존 계약이 허용하는 범위에서 재사용했다. 일회성 authoring/delta helper를 정규 검사기나 새 authority로 승격하지 않는다.
   - 구현·자동 검증·사용자 관찰을 모든 Menu 질문 해결, semantic-quality acceptance 또는 freeze/RTC/Publish/release 승인과 동일시하지 않는다.

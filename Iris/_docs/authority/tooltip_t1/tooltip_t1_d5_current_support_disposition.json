@@ -17,7 +17,7 @@
     "Base.Lemongrass"
   ],
   "target_set_sha256": "f8af7ecb58856c268f3473915f575314ca896df00cd65d0997908f1c4fb5f297",
-  "source_census_sha256": "1f772ec46d2e1e76a771ef14b39fac023563aacf1dc5cdfdffd89b597dc50948",
+  "source_census_sha256": "f18e888b13999183a4618cfccf1ee65590a61e9c49b36a871d2786470cef8830",
   "pre_mutation_owner_approval": {
     "owner": "Iris presentation-contract owner",
     "approval_ref": "user_prompt:2026-08-29#owner-approval-preauthorized",
@@ -65,13 +65,13 @@
           "row_sha256": "28cb1dbffccabbe3bb9daa86563f02bd2fd1d7c94ad0defe4cfcf32850c52504"
         },
         "layer3": {
-          "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-05d76b51c5e1058be4d79afd8a43bc2f0ac8a11c136523166770f181eeaf82c1/dvf_3_3_rendered.json",
+          "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-40cc6e093ec65ed0c1f31c0e742782ac820e0a497fb923dd55067c52481fb537/dvf_3_3_rendered.json",
           "present": true,
-          "row_sha256": "94e9beabe29e7205c5dd17c77e7fdead5d1abf35cc4b054bc5b58c1a109093cb",
+          "row_sha256": "6e0068655493f0d4f9eaae1dfe450b905fa1330297b5b3a38a130acb38c686be",
           "owner_input_path": "Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json",
           "owner_row_present": true,
-          "owner_row_sha256": "422d4b9cfff65f6e42ec89914b1e0d0ec4966d656c5733177cc4bdcfcce6b9d3",
-          "fact_id": "l3rf-aaf1172fcd242e88fd470c2575e527c4f5b50e6a6dce36e7c4e1250420a196d6",
+          "owner_row_sha256": "61c54aa55da655349f6b8166aaeef67db9277d751e92f584e329b04adcdb3007",
+          "fact_id": "l3rf-8bd7e16e8fd5c20d3247865bd26971ff23ae37e4c2ac59230c6430162165be8a",
           "source_ref": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl#item_id=Base.LemonGrass;field=primary_use"
         },
         "layer4": {
@@ -92,12 +92,12 @@
           "row_sha256": "3b59bf961fc68164dbc649bcc7674dc5e01cd61b9191bbdf39745731a9ad2030"
         },
         "layer3": {
-          "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-05d76b51c5e1058be4d79afd8a43bc2f0ac8a11c136523166770f181eeaf82c1/dvf_3_3_rendered.json",
+          "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Generations/dvf33-40cc6e093ec65ed0c1f31c0e742782ac820e0a497fb923dd55067c52481fb537/dvf_3_3_rendered.json",
           "present": true,
           "row_sha256": "2435047f2542cf904d1de5fe6613a580fc7a4fa3f2dc795cd77d715340c5ae8c",
           "owner_input_path": "Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json",
           "owner_row_present": true,
-          "owner_row_sha256": "2dcf57b34908c899b2ccd9c55588810bfaedf0d9c3803ed6cdf85cbc0411a841",
+          "owner_row_sha256": "94e9fb8c52b0ece3e284834628b89a88f82badadf06e8c7d34b580532781b5ba",
           "fact_id": "l3rf-6b28bfa65aa63e061dc4b5ddbc3fc760d504e67e15c6a59bdebf9bf6363bef82",
           "source_ref": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl#item_id=Base.Lemongrass;field=primary_use"
         },
@@ -111,7 +111,7 @@
   },
   "applicability_binding": {
     "algorithm": "declared-target-content-fingerprint-v1",
-    "applicability_fingerprint": "1f772ec46d2e1e76a771ef14b39fac023563aacf1dc5cdfdffd89b597dc50948"
+    "applicability_fingerprint": "f18e888b13999183a4618cfccf1ee65590a61e9c49b36a871d2786470cef8830"
   },
   "re_audit_condition": {
     "predicate_version": "d5-target-content-or-member-set-change-v1",
@@ -137,7 +137,7 @@
         },
         {
           "path": "Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json",
-          "row_sha256": "422d4b9cfff65f6e42ec89914b1e0d0ec4966d656c5733177cc4bdcfcce6b9d3"
+          "row_sha256": "61c54aa55da655349f6b8166aaeef67db9277d751e92f584e329b04adcdb3007"
         },
         {
           "path": "Iris/build/description/v2/data/upstream_usecases_by_fulltype.json",
@@ -154,9 +154,10 @@
       "approval_ref": "user_prompt:2026-08-29#owner-approval-preauthorized",
       "evidence_refs": [
         "Iris/input/items_itemscript.json#Base.LemonGrass",
-        "Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json#entries/Base.LemonGrass"
+        "Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json#entries/Base.LemonGrass",
+        "docs/iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md#change-5"
       ],
-      "acceptance_condition": "Preserve Base.LemonGrass as an exact support identity and retain the raw normalized collision observation while the approved predicate refinement suppresses only its unresolved collision correction row.",
+      "acceptance_condition": "Preserve Base.LemonGrass as an exact support identity and retain the raw normalized collision observation while the approved predicate refinement suppresses only its unresolved collision correction row. The 2026-08-31 owner-preapproved usefulness execution rebinds current Layer 3 content without merging these exact identities or resolving the separate gameplay-source hold.",
       "applicability_binding": "#/applicability_binding",
       "re_audit_condition": "#/re_audit_condition"
     },
@@ -173,7 +174,7 @@
         },
         {
           "path": "Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json",
-          "row_sha256": "2dcf57b34908c899b2ccd9c55588810bfaedf0d9c3803ed6cdf85cbc0411a841"
+          "row_sha256": "94e9fb8c52b0ece3e284834628b89a88f82badadf06e8c7d34b580532781b5ba"
         },
         {
           "path": "Iris/build/description/v2/data/upstream_usecases_by_fulltype.json",
@@ -191,9 +192,10 @@
       "approval_ref": "user_prompt:2026-08-29#owner-approval-preauthorized",
       "evidence_refs": [
         "Iris/input/items_itemscript.json#Base.Lemongrass",
-        "Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json#entries/Base.Lemongrass"
+        "Iris/build/description/v2/data/tooltip_t1_layer3_owner_input.json#entries/Base.Lemongrass",
+        "docs/iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md#change-5"
       ],
-      "acceptance_condition": "Preserve Base.Lemongrass as an exact support identity and retain the raw normalized collision observation while the approved predicate refinement suppresses only its unresolved collision correction row.",
+      "acceptance_condition": "Preserve Base.Lemongrass as an exact support identity and retain the raw normalized collision observation while the approved predicate refinement suppresses only its unresolved collision correction row. The 2026-08-31 owner-preapproved usefulness execution rebinds current Layer 3 content without merging these exact identities or resolving the separate gameplay-source hold.",
       "applicability_binding": "#/applicability_binding",
       "re_audit_condition": "#/re_audit_condition"
     }

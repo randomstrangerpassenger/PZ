@@ -71,7 +71,7 @@
         "closeout"
       ],
       "must_close_before": "closeout vocabulary implementation",
-      "contract_sha256": "9d2f11d0249b8f71548ceeec0a6b9e7a629ce6b53470c8790a47b2f6437fd34d"
+      "contract_sha256": "63789802cf92711d7fc5eb6050fcbaa259659610f1d83d53ace0f72ac1c2e33d"
     },
     {
       "decision_id": "P-2",
@@ -96,7 +96,7 @@
         "slot projection"
       ],
       "must_close_before": "Change 2 decision table",
-      "contract_sha256": "9d2f11d0249b8f71548ceeec0a6b9e7a629ce6b53470c8790a47b2f6437fd34d"
+      "contract_sha256": "63789802cf92711d7fc5eb6050fcbaa259659610f1d83d53ace0f72ac1c2e33d"
     },
     {
       "decision_id": "P-3",
@@ -129,7 +129,7 @@
         "slot projection"
       ],
       "must_close_before": "Change 2 decision table",
-      "contract_sha256": "9d2f11d0249b8f71548ceeec0a6b9e7a629ce6b53470c8790a47b2f6437fd34d"
+      "contract_sha256": "63789802cf92711d7fc5eb6050fcbaa259659610f1d83d53ace0f72ac1c2e33d"
     },
     {
       "decision_id": "P-4",
@@ -154,7 +154,7 @@
         "Layer 4 projection"
       ],
       "must_close_before": "Change 4 single-source branch",
-      "contract_sha256": "9d2f11d0249b8f71548ceeec0a6b9e7a629ce6b53470c8790a47b2f6437fd34d"
+      "contract_sha256": "63789802cf92711d7fc5eb6050fcbaa259659610f1d83d53ace0f72ac1c2e33d"
     },
     {
       "decision_id": "P-5",
@@ -178,7 +178,7 @@
         "Layer 4 projection"
       ],
       "must_close_before": "Change 4 projection",
-      "contract_sha256": "9d2f11d0249b8f71548ceeec0a6b9e7a629ce6b53470c8790a47b2f6437fd34d"
+      "contract_sha256": "63789802cf92711d7fc5eb6050fcbaa259659610f1d83d53ace0f72ac1c2e33d"
     },
     {
       "decision_id": "P-6",
@@ -205,7 +205,7 @@
         "Layer 4 projection"
       ],
       "must_close_before": "Change 4 ordering",
-      "contract_sha256": "9d2f11d0249b8f71548ceeec0a6b9e7a629ce6b53470c8790a47b2f6437fd34d"
+      "contract_sha256": "63789802cf92711d7fc5eb6050fcbaa259659610f1d83d53ace0f72ac1c2e33d"
     },
     {
       "decision_id": "P-7",
@@ -230,7 +230,7 @@
         "Layer 4 projection"
       ],
       "must_close_before": "Change 4 duplicate handling",
-      "contract_sha256": "9d2f11d0249b8f71548ceeec0a6b9e7a629ce6b53470c8790a47b2f6437fd34d"
+      "contract_sha256": "63789802cf92711d7fc5eb6050fcbaa259659610f1d83d53ace0f72ac1c2e33d"
     },
     {
       "decision_id": "P-8",
@@ -255,7 +255,7 @@
         "locale parity"
       ],
       "must_close_before": "Change 3 and Change 5 locale model",
-      "contract_sha256": "9d2f11d0249b8f71548ceeec0a6b9e7a629ce6b53470c8790a47b2f6437fd34d"
+      "contract_sha256": "63789802cf92711d7fc5eb6050fcbaa259659610f1d83d53ace0f72ac1c2e33d"
     },
     {
       "decision_id": "P-9",
@@ -283,7 +283,7 @@
         "locale projection"
       ],
       "must_close_before": "Change 5 locale contract",
-      "contract_sha256": "9d2f11d0249b8f71548ceeec0a6b9e7a629ce6b53470c8790a47b2f6437fd34d"
+      "contract_sha256": "63789802cf92711d7fc5eb6050fcbaa259659610f1d83d53ace0f72ac1c2e33d"
     },
     {
       "decision_id": "P-10",
@@ -319,7 +319,7 @@
         "Menu parity"
       ],
       "must_close_before": "Change 3 Layer 2 input/parity",
-      "contract_sha256": "9d2f11d0249b8f71548ceeec0a6b9e7a629ce6b53470c8790a47b2f6437fd34d"
+      "contract_sha256": "63789802cf92711d7fc5eb6050fcbaa259659610f1d83d53ace0f72ac1c2e33d"
     },
     {
       "decision_id": "P-11",
@@ -354,7 +354,7 @@
         "line-fit contract"
       ],
       "must_close_before": "Change 3 and Change 6 line-fit implementation",
-      "contract_sha256": "9d2f11d0249b8f71548ceeec0a6b9e7a629ce6b53470c8790a47b2f6437fd34d"
+      "contract_sha256": "63789802cf92711d7fc5eb6050fcbaa259659610f1d83d53ace0f72ac1c2e33d"
     },
     {
       "decision_id": "P-12",
@@ -387,7 +387,7 @@
         "validation report"
       ],
       "must_close_before": "validation vocabulary implementation",
-      "contract_sha256": "9d2f11d0249b8f71548ceeec0a6b9e7a629ce6b53470c8790a47b2f6437fd34d"
+      "contract_sha256": "63789802cf92711d7fc5eb6050fcbaa259659610f1d83d53ace0f72ac1c2e33d"
     }
   ],
   "t3_d1_current_input_rebind": {
@@ -401,9 +401,9 @@
   "usefulness_current_input_rebind": {
     "authority_ref": "docs/iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md",
     "previous_bundle_sha256": [
-      "67260b195964020626a1c900468715231206c72fc2f09650422de8a281375545"
+      "9d2f11d0249b8f71548ceeec0a6b9e7a629ce6b53470c8790a47b2f6437fd34d"
     ],
-    "current_bundle_sha256": "9d2f11d0249b8f71548ceeec0a6b9e7a629ce6b53470c8790a47b2f6437fd34d",
+    "current_bundle_sha256": "63789802cf92711d7fc5eb6050fcbaa259659610f1d83d53ace0f72ac1c2e33d",
     "policy_choices_changed": false
   }
 }

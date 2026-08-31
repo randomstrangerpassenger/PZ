@@ -100,7 +100,7 @@ return {
     ["Base.Dirtbag"] = "A bag of dirt that can be used to put out fires.\n\nObtained by filling it with soil.",
     ["Base.Disc"] = "Handled during leisure when viewing or collecting photos, recordings, souvenirs, or toys.",
     ["Base.Disc_Retail"] = "Recorded media that can be played on a compatible device.",
-    ["Base.DishCloth"] = "Used to dry the body or to remove blood stains with bleach. Drying requires a wet body and remaining uses in the towel. Cleaning blood stains also requires bleach.",
+    ["Base.DishCloth"] = "Can dry your body when your body is wet and the towel has uses remaining. Can remove blood stains when used with bleach.",
     ["Base.DishClothWet"] = "A wet towel that can be used to dry the body again once it has dried.",
     ["Base.Disinfectant"] = "A disinfectant used to disinfect wounds. Select an injured, unbandaged body part in the Health panel, then choose it from the available items in the disinfect menu.\n\nFound in homes or medical facilities.",
     ["Base.DogChew"] = "A chew toy for dogs.",

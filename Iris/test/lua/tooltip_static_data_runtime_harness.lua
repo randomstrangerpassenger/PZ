@@ -25,7 +25,7 @@ assert(dataLoads == 0)
 assert(reader.get("Base.223Clip", nil) == nil)
 assert(reader.get("Base.223Clip", "FR") == nil)
 assert(reader.get(nil, "en") == nil and dataLoads == 0)
-local cases = {"Base.BaguetteDough", "Base.223Clip", "Base.223Box", "Base.223BulletsMold", "Base.223Bullets"}
+local cases = {"Base.CameraFilm", "Base.223Clip", "Base.223Box", "Base.223BulletsMold", "Base.223Bullets"}
 for i, key in ipairs(cases) do assert(#assert(reader.get(key, "en")) == i - 1) end
 assert(dataLoads == 1)
 local payload = package.loaded[DATA]
@@ -38,7 +38,7 @@ for key, record in pairs(payload) do
     distribution[#record.ko + 1] = distribution[#record.ko + 1] + 1
 end
 assert(count == 2280)
-same(distribution, {367, 825, 895, 137, 56})
+same(distribution, {206, 455, 1388, 171, 60})
 same(reader.get("Base.LemonGrass", "ko"), payload["Base.LemonGrass"].ko)
 same(reader.get("Base.Lemongrass", "ko"), payload["Base.Lemongrass"].ko)
 assert(payload["Base.LemonGrass"] ~= payload["Base.Lemongrass"])

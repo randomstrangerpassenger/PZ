@@ -92,6 +92,35 @@ assert(not pcall(function() english.fullType = "Base.Mutated" end))
 assert(not pcall(function() english.food.hunger = 0 end))
 assert(not pcall(function() english.tags[1] = "Mutated" end))
 
+local function book(skill, level, count)
+    local result = {}
+    function result:getFullType() return "Base.BookCarpentry1" end
+    function result:getType() return "Literature" end
+    function result:getSkillTrained() return skill end
+    function result:getLvlSkillTrained() return level end
+    function result:getNumLevelsTrained() return count end
+    return result
+end
+
+for _, lang in ipairs({ "EN", "KO" }) do
+    locale = lang
+    local text = Sections.renderLiteratureSection(ViewModel.fromItem(book("Carpentry", 1, 2)))
+    assert(text:find(lang .. ":Skill_Carpentry", 1, true))
+    assert(text:find(lang .. ":TrainingLevels: 1–2", 1, true))
+    assert(text:find(lang .. ":ReadingLevels: 0–1", 1, true))
+    assert(text:find(lang .. ":ReadingLiteracyCondition", 1, true))
+
+    -- A known skill with an unavailable bound must not acquire a made-up range
+    -- or the range-dependent reading conditions. Magazines are not skill books.
+    local partial = Sections.renderLiteratureSection(ViewModel.fromItem(book("Carpentry", 1, nil)))
+    assert(partial:find("Skill_Carpentry", 1, true))
+    assert(not partial:find("TrainingLevels", 1, true))
+    assert(not partial:find("ReadingLevels", 1, true))
+    assert(Sections.renderLiteratureSection(ViewModel.fromItem(book(nil, 1, 2))) == nil)
+    assert(Sections.renderLiteratureSection(ViewModel.fromItem(book("UnknownSkill", 1, 2))) == nil)
+    assert(Sections.renderLiteratureSection(ViewModel.fromItem(book("Blacksmith", 1, 2))) == nil)
+end
+
 local englishLookup = require("Iris/Data/IrisLayer3EnglishLookup")
 local hammerText = englishLookup.get("Base.HammerStone")
 assert(hammerText and hammerText:find("construction", 1, true))

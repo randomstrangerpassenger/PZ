@@ -68,6 +68,50 @@ function IrisWikiSections.renderLayer3Section(item)
     return model and model.layer3.display or nil
 end
 
+-- Only skills whose reading bonus is admitted for this presentation. The
+-- legacy Blacksmith declaration alone does not settle its active B41 behavior.
+local SKILL_LABELS = {
+    Carpentry = "Iris_Detail_Skill_Carpentry",
+    Cooking = "Iris_Detail_Skill_Cooking",
+    Farming = "Iris_Detail_Skill_Farming",
+    Fishing = "Iris_Detail_Skill_Fishing",
+    Trapping = "Iris_Detail_Skill_Trapping",
+    MetalWelding = "Iris_Detail_Skill_MetalWelding",
+    FirstAid = "Iris_Detail_Skill_FirstAid",
+    Electricity = "Iris_Detail_Skill_Electricity",
+    Foraging = "Iris_Detail_Skill_Foraging",
+    Mechanics = "Iris_Detail_Skill_Mechanics",
+    Tailoring = "Iris_Detail_Skill_Tailoring",
+}
+
+-- Literature values come from FactReader through the model. These are the
+-- levels being trained, not the player's current level: ISReadABook compares
+-- its bounds with current perk level + 1 when updating the reading multiplier.
+function IrisWikiSections.renderLiteratureSection(item)
+    local model = DetailViewModel.ensure(item)
+    if not model then return nil end
+    local literature = model.literature
+    local skillLabel = literature and SKILL_LABELS[literature.skillTrained]
+    if not skillLabel then return nil end
+
+    local parts = {
+        getLabel("Iris_Detail_TrainedSkill") .. ": " .. getLabel(skillLabel),
+    }
+    local level = literature.level
+    local count = literature.levelCount
+    if type(level) == "number" and type(count) == "number"
+        and level >= 1 and count >= 1
+        and level % 1 == 0 and count % 1 == 0 then
+        table.insert(parts, string.format("%s: %d–%d",
+            getLabel("Iris_Detail_TrainingLevels"), level, level + count - 1))
+        table.insert(parts, string.format("%s: %d–%d",
+            getLabel("Iris_Detail_ReadingLevels"), level - 1, level + count - 2))
+        table.insert(parts, getLabel("Iris_Detail_ReadingLiteracyCondition"))
+        table.insert(parts, getLabel("Iris_Detail_ReadingProgress"))
+    end
+    return table.concat(parts, "\n")
+end
+
 --- C) 음식/소모품 속성 섹션 렌더링
 function IrisWikiSections.renderFoodSection(item)
     local model = DetailViewModel.ensure(item)
@@ -248,6 +292,9 @@ function IrisWikiSections.getAllSections(item)
     
     local weapon = IrisWikiSections.renderWeaponSection(model)
     if weapon then table.insert(sections, weapon) end
+
+    local literature = IrisWikiSections.renderLiteratureSection(model)
+    if literature then table.insert(sections, literature) end
     
     local connection = IrisWikiSections.renderConnectionSection(model)
     if connection then table.insert(sections, connection) end

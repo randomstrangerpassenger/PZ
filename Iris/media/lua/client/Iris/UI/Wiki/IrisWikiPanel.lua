@@ -102,6 +102,16 @@ function IrisWikiPanel.createPanel(item)
         end
     end
     
+    local literatureSection = IrisWikiSections.renderLiteratureSection(model)
+    if literatureSection then
+        for line in literatureSection:gmatch("[^\n]+") do
+            local label = ISLabel:new(10, yOffset, 20, line, 0.9, 0.9, 0.9, 1, UIFont.Small, true)
+            panel:addChild(label)
+            yOffset = yOffset + 18
+        end
+        yOffset = yOffset + 7
+    end
+
     -- B.5) UseCase (빌드 산출물 표시 전용)
     local usecaseSection = IrisWikiSections.renderUseCaseSection(model)
     if usecaseSection then

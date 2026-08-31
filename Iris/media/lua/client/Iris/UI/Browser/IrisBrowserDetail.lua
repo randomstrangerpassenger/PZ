@@ -255,6 +255,11 @@ function IrisBrowserDetail.install(IrisBrowser, context)
             yOffset = addSeparatedMultilineSection(self.detailPanel, layer3Text, yOffset, 0.92, 0.92, 0.92)
         end
 
+        if IrisWikiSections and IrisWikiSections.renderLiteratureSection then
+            local literatureText = IrisWikiSections.renderLiteratureSection(model)
+            yOffset = addSeparatedMultilineSection(self.detailPanel, literatureText, yOffset, 0.85, 0.85, 0.85)
+        end
+
         local browserState = IrisBrowserData and IrisBrowserData.getBuildState and
             IrisBrowserData.getBuildState() or {generation = 0}
         yOffset = InteractionRenderer.render(self, IrisBrowser, fullType, item, yOffset, {

@@ -121,7 +121,7 @@
       "adopted",
       "unadopted"
     ],
-    "sha256": "5b68d658729ebe0dfae68aa2a8e842b7303c8f70597db0804f5ecee741912443"
+    "sha256": "5b865aefc9cefe1c6f0202cc2b61c51ce3535c002e9351bd0f810a64da67f91e"
   },
   "expected_universe": {
     "decisions_count": 2105,
@@ -133,7 +133,7 @@
     "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
     "role": "current_source_authority",
     "row_count": 2105,
-    "sha256": "f29a29560a65e0c7651fc038adeafcd1d6cea1214341a396c8ad6874ac208c5c"
+    "sha256": "4e2205fcd7e27f1c98251ed29a9dcd7fa127bab6916d19ad640c6ab6b86faf56"
   },
   "fixture_exclusion_rule": {
     "excluded_paths": [
@@ -354,5 +354,227 @@
       "primary_use",
       "special_context"
     ]
+  },
+  "usefulness_correction": {
+    "authority_ref": "docs/iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md",
+    "candidate_sha256": "3010e8533824e64e61b74d4b29c44bd5b652a270be8a482d4d97eed2928df5e7",
+    "context_target_count": 32,
+    "new_core_count": 734,
+    "owner_approval": "user_execution_request_preapproval",
+    "predecessor_sha256": {
+      "candidate": "fe69ffc02ce4c105086f4a9cb5394391ef27f5e48138f36a806b5fdddff4e13a",
+      "decisions": "5b68d658729ebe0dfae68aa2a8e842b7303c8f70597db0804f5ecee741912443",
+      "facts": "f29a29560a65e0c7651fc038adeafcd1d6cea1214341a396c8ad6874ac208c5c"
+    },
+    "review_hold_count": 273,
+    "review_hold_disposition": "preserve_current_pending_source_review_not_a_no_function_claim",
+    "source_inputs": [
+      {
+        "path": "lua/client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "sha256": "84f949e14e0b1430f271fd54ac8f297fca89c2b938e07ce14c194956cd6b705f"
+      },
+      {
+        "path": "lua/client/BuildingObjects/ISUI/ISBuildMenu.lua",
+        "sha256": "33882bb9a45d84f45305162305497675e9f6826300a71641ff2ca149a8a0eeac"
+      },
+      {
+        "path": "lua/client/BuildingObjects/ISUI/ISPaintMenu.lua",
+        "sha256": "9ac76500eebf5eaff0d04b1f4ce527966bfa115f0e385815c68c42f20a9ad119"
+      },
+      {
+        "path": "lua/client/Farming/ISUI/ISFarmingMenu.lua",
+        "sha256": "9bc0e5738f7598365ba62ac0c74f12a45b19db0d15a01f593309484ff925360b"
+      },
+      {
+        "path": "lua/client/Fishing/TimedActions/ISFishingAction.lua",
+        "sha256": "3b3e901a261aa2d6d8e45f5650f0425bc7e77c2241087df0bd5447116e469cbe"
+      },
+      {
+        "path": "lua/client/ISUI/ISInventoryPaneContextMenu.lua",
+        "sha256": "6db61b9f54e1368a339719635bc60341f3e5420cfb3593e5b03fc32c340b56a4"
+      },
+      {
+        "path": "lua/client/ISUI/ISWorldObjectContextMenu.lua",
+        "sha256": "3560bb01fa0f474283f208b055587b20b0d398fcfd560682d26e3c617506ac28"
+      },
+      {
+        "path": "lua/client/RadioCom/ISRadioAction.lua",
+        "sha256": "17d8a156cd6f951d019854207f4b66c509c178a1d56a1a9bf72097682d2d7b69"
+      },
+      {
+        "path": "lua/client/RadioCom/RadioWindowModules/RWMMedia.lua",
+        "sha256": "4f5d03cbb9e4c6cfeb4758d2f1deda624f478b7c594a700fd47d6c02fa65144f"
+      },
+      {
+        "path": "lua/client/RadioCom/RadioWindowModules/RWMVolume.lua",
+        "sha256": "fd52f8bc9f68e1f100045ae489a3b21ad06bec428675a2925a12d9a4c0138a71"
+      },
+      {
+        "path": "lua/client/TimedActions/ISAddItemInRecipe.lua",
+        "sha256": "996a07170f7a8a31ae927017715d3f6eab1c404a19657d129879455a13e683a9"
+      },
+      {
+        "path": "lua/client/TimedActions/ISCleanBlood.lua",
+        "sha256": "a126d25e354fd5e272d542950acf22c6bc77dd6caae40149b056ab90deb1ad98"
+      },
+      {
+        "path": "lua/client/TimedActions/ISDryMyself.lua",
+        "sha256": "0e3d1e82fea55318a5f83c26b39a55fe9e01e558c2261c058d9cbffa7360c5fe"
+      },
+      {
+        "path": "lua/client/TimedActions/ISPadlockAction.lua",
+        "sha256": "ca1f72abe5298f3c79f37f00750960e0155f3f2ef2e9393eeafedbe882124d48"
+      },
+      {
+        "path": "lua/client/TimedActions/ISReloadWeaponAction.lua",
+        "sha256": "459152d5a6b4458386b6a786b922c8c180b069789de0a6105898591d4fa08444"
+      },
+      {
+        "path": "lua/client/TimedActions/ISStitch.lua",
+        "sha256": "b53391145d2cea15cf405fa77232439b83e829ebabacdecb365c39a8c4765ec8"
+      },
+      {
+        "path": "lua/client/Vehicles/ISUI/ISVehicleMenu.lua",
+        "sha256": "614bc9634a39e78e61fa3373b3c645b89c1c9457be3888fb00b38b71a539cab3"
+      },
+      {
+        "path": "lua/client/XpSystem/ISUI/ISHealthPanel.lua",
+        "sha256": "fbe2d25c937072e642afcee6af3704d3df60dbf739b40916f45f04932bb2be9f"
+      },
+      {
+        "path": "lua/server/Camping/camping_fuel.lua",
+        "sha256": "395f74e42026386732eccc5f33f9b179e6e0bb2b0291575ade132386f50bf325"
+      },
+      {
+        "path": "lua/server/Farming/SPlantGlobalObject.lua",
+        "sha256": "6e76c7b8985d22c3a28e785af2c7e74564b6c95086ab506b008ce7cf70b26758"
+      },
+      {
+        "path": "lua/server/Fishing/BuildingObjects/FishingNet.lua",
+        "sha256": "342d4f5cbb4d90feb2833d5ab2f8d0a4f47fbf2c4a7e0698c1bc3d4333203306"
+      },
+      {
+        "path": "lua/server/Traps/STrapGlobalObject.lua",
+        "sha256": "c8e8a39444cc9d2126265371bca31cf984c8f89754d40b82e53f872a2c8f79f4"
+      },
+      {
+        "path": "lua/server/Traps/TrapDefinition.lua",
+        "sha256": "98b161703097f8c8e30934ea0dd70fde0e6cb7cfe800b4a5e576e1d9aa9d7427"
+      },
+      {
+        "path": "lua/server/recipecode.lua",
+        "sha256": "43f45e1129020cdf617c0bb315221e71d2f2c42f6effc7154a6330b0dc53727a"
+      },
+      {
+        "path": "lua/shared/Definitions/FitnessExercises.lua",
+        "sha256": "880592ba94f73a5481db2cb31f96fd1d0d4dd29f63645d81274eac0aed55a641"
+      },
+      {
+        "path": "lua/shared/Fishing/fishing_properties.lua",
+        "sha256": "29c0eaf57d3af14f367f955c63d68daab04236eb50213d09c00cae33faff3c5e"
+      },
+      {
+        "path": "lua/shared/Translate/EN/Tooltip_EN.txt",
+        "sha256": "5217b24221ea76e74c1eff90a2da425a640d6088f3ed1fe2e2b7b22357752cd6"
+      },
+      {
+        "path": "scripts/camping.txt",
+        "sha256": "5232e6b43a1faed6fa05c9771c058efaa150a0f698619b1cf6fa62fb1e1a272d"
+      },
+      {
+        "path": "scripts/clothing/clothing_bags.txt",
+        "sha256": "0e750b348a8db3cf0d485478f3e727f98373fa07d75cecb104f049767cc76f39"
+      },
+      {
+        "path": "scripts/clothing/clothing_hats.txt",
+        "sha256": "a1e99cdb7efa8b33b1a95336262458dac415e1d0fa2e343a629525a4c9d4c35a"
+      },
+      {
+        "path": "scripts/clothing/clothing_jacket.txt",
+        "sha256": "f2e2c7abfd63b763b659b9eb8e25c89cd11cb2f5e5d80a1eb680c45bc0a950f8"
+      },
+      {
+        "path": "scripts/clothing/clothing_jewellery.txt",
+        "sha256": "4c1530c453c0b360a8d523bb2575c6c8f1751ae48530639cf7374c96170c2cae"
+      },
+      {
+        "path": "scripts/clothing/clothing_others.txt",
+        "sha256": "f8646b6760a452366c7f861dca9c435fcf625106b0a6bf42183d9843b1d48f3c"
+      },
+      {
+        "path": "scripts/clothing/clothing_pants.txt",
+        "sha256": "b25fbb10aaa8c1f39195c709959127d224d118eeb671a8ac1e5a88f4ec267073"
+      },
+      {
+        "path": "scripts/clothing/clothing_shirts.txt",
+        "sha256": "dc1110b5d4085244056778994253f7f8f209795e7f8f97d68b437104acf55d25"
+      },
+      {
+        "path": "scripts/clothing/clothing_shoes.txt",
+        "sha256": "1d296e3d7c444663e87bfc0f996d1800ecbcfe8341163c0bff3cbeeefbfdd2bc"
+      },
+      {
+        "path": "scripts/clothing/clothing_suits.txt",
+        "sha256": "1cdc91c063206d07d1f272c766096727495ef9f447727110f5799992e1de5226"
+      },
+      {
+        "path": "scripts/clothing/clothing_underwear.txt",
+        "sha256": "56d0bf3a0067e63cbfebe78a1c49db0cdf0f8c9ab7e7204d775c1df131870eb0"
+      },
+      {
+        "path": "scripts/evolvedrecipes.txt",
+        "sha256": "e5f2b2509d31f2142d528d911fc876c5f39528b6ef2dcc455b5ea2e954e0f044"
+      },
+      {
+        "path": "scripts/farming.txt",
+        "sha256": "a96bf5c525ed46cdb9ce419462cce09ca41888e0fa08316beea1b3db5cbfb4b5"
+      },
+      {
+        "path": "scripts/fixing.txt",
+        "sha256": "ab91d27a0e324bcc20d660e5f913bead7615cb44ea37353ba30bf40344454a00"
+      },
+      {
+        "path": "scripts/items.txt",
+        "sha256": "39b518dab8a7dd99e8c02fd55f37fe69d14b4a94ef566d28d80c61a85525d7b4"
+      },
+      {
+        "path": "scripts/items_food.txt",
+        "sha256": "d844f9f8d0f07b28918630db1b4500c52947e0178b001b969497ae8d526906d6"
+      },
+      {
+        "path": "scripts/items_literature.txt",
+        "sha256": "997df444b9710978d3109a29bc64453ea3446bb8fad3e7ee4963baf76dc86175"
+      },
+      {
+        "path": "scripts/items_radio.txt",
+        "sha256": "a6fac709aa51a2b8d110524de5c0a995ff00b961acf7f6c71c1d9fcce7fcb8de"
+      },
+      {
+        "path": "scripts/items_weapons.txt",
+        "sha256": "51c951daa6967023a831feade864d9e6b263a344a1b7f29ddc8058e94384a2a4"
+      },
+      {
+        "path": "scripts/newBags.txt",
+        "sha256": "cc4324713d61b6bfb0fa7bbf5aed85c3010cde78940cfca2422e8696c7d58403"
+      },
+      {
+        "path": "scripts/newitems.txt",
+        "sha256": "06cb9bcd39cab185f3b956785c955302b39df90ef301b4f986c3b115f7668347"
+      },
+      {
+        "path": "scripts/recipes.txt",
+        "sha256": "062b2849a34722c52c4dc03a93592059f796504858659092c0a037f9668a0ead"
+      },
+      {
+        "path": "scripts/recipes_radio.txt",
+        "sha256": "d2525de53bf9f255308cdf5405b619b3e0f837a37137e606c383f135a58f06b5"
+      },
+      {
+        "path": "scripts/vehicles/vehiclesitems.txt",
+        "sha256": "167c63d2d306bacc901c13144a5f7d431d4d3bc26518989fa2374a7ca5ccbf51"
+      }
+    ],
+    "source_review_ref": "docs/iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan_closeout.md",
+    "target_count": 1541
   }
 }

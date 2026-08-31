@@ -72,7 +72,7 @@ return {
     ["Base.Molotov"] = "An incendiary weapon used to start fires.\n\nCrafted from a liquor or empty bottle, a ripped sheet, and gasoline.",
     ["Base.MonarchCaterpillar"] = "Consuming it can reduce hunger.",
     ["Base.Money"] = "Can be burned as tinder or fuel.",
-    ["Base.Mop"] = "Use it with bleach to remove blood stains. Carry bleach as well and use the cleaning option on a blood-stained area.",
+    ["Base.Mop"] = "With bleach, you can remove blood stains. Carry bleach as well and use the cleaning option on a blood-stained area.",
     ["Base.MortarPestle"] = "A tool used to grind herbs into poultices.",
     ["Base.MotionSensor"] = "A component used to add motion sensing to compatible devices.\n\nFound in electronics-tool storage.",
     ["Base.Mov_AirConditioner"] = "Handled when removing or reinstalling devices and fixed fixtures.",

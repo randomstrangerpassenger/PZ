@@ -61,14 +61,14 @@
     "state": "complete",
     "runtime_adopted": true,
     "machine_subject": {
-      "commit": "6a40a295567f39481620a45dd18f0ac6f835924f",
-      "tree": "4f1a6c4a1890d229294eb17e9c1ad732d6394a94"
+      "commit": "c2308faab36125c3a89ddc53d38421fecbf4eda0",
+      "tree": "8a36705e76f144e084da1d72c4b1d2c897d815c3"
     },
-    "final_root": "C:/Users/MW/PZ-U/t2f",
+    "final_root": "C:/Users/MW/PZ-U/t2f2",
     "artifact_sha256": {
-      "tooltip_t2_closeout.json": "401cf723a0ae24101ea26e5dac9e7a24d418790279b8458c924c9cb784ce1809",
+      "tooltip_t2_closeout.json": "992cf21d7214bfb27e76d4bab2f3e2b394f49ad1257b3f54b1b18cb98f5873d9",
       "IrisTooltipStaticData.lua": "1efc19e01132767f97111048eba2e027916b69ef07304f19c3152144a7817647",
-      "tooltip_t2_projection_manifest.json": "772c38f6e89d5f5d3541dbff3025e3f897501969bc616592b59f0cf939812c4b"
+      "tooltip_t2_projection_manifest.json": "280f1777e2940cb4043aee9aaafacc8aef2d5f3bb7b669f0f9132912ce33f95e"
     }
   },
   "default_current_allowlist": [

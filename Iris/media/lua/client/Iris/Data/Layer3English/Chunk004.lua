@@ -1,9 +1,9 @@
 -- Generated Layer 3 English localization payload.
 return {
     ["Base.FishingRodBreak"] = "It can be repaired into a fishing rod by attaching line.",
-    ["Base.FishingRodTwineLine"] = "A fishing rod used with bait to catch fish. Carry an unbroken rod and a compatible lure, then use the fishing option by the water. Results depend on the lure, time, season and other fishing conditions.\n\nMade by repairing a broken fishing rod with cord and a paperclip or nail.",
-    ["Base.FishingTackle"] = "An artificial lure used when fishing with a rod. Carry it with a fishing rod and start fishing by the water. Lure type affects eligible fish and the conditions for lure consumption or breakage.\n\nFound in fishing-supply retailers.",
-    ["Base.FishingTackle2"] = "An artificial lure used when fishing with a rod. Carry it with a fishing rod and start fishing by the water. Lure type affects eligible fish and the conditions for lure consumption or breakage.\n\nFound in fishing-supply retailers.",
+    ["Base.FishingRodTwineLine"] = "A fishing rod used with bait to catch fish. Carry an unbroken rod and a lure, then use the fishing menu by the water. Lures include worms, crickets, grasshoppers, cockroaches, bait fish and either type of fishing tackle. Bait fish can attract pike; artificial tackle can attract trout, bass and catfish. Lure type, time and season affect the result, and a catch is not guaranteed.\n\nMade by repairing a broken fishing rod with cord and a paperclip or nail.",
+    ["Base.FishingTackle"] = "An artificial lure used when fishing with a rod. Carry it with an unbroken fishing rod and use the fishing menu by the water. Eligible fish include trout, bass and catfish; pike and bait fish do not take this artificial lure. A catch is not guaranteed, and the lure can break.\n\nFound in fishing-supply retailers.",
+    ["Base.FishingTackle2"] = "An artificial lure used when fishing with a rod. Carry it with an unbroken fishing rod and use the fishing menu by the water. Eligible fish include trout, bass and catfish; pike and bait fish do not take this artificial lure. A catch is not guaranteed, and the lure can break.\n\nFound in fishing-supply retailers.",
     ["Base.FlameTrap"] = "An incendiary weapon used to start fires.\n\nMade by combining gasoline, a ripped sheet, and an empty bottle.",
     ["Base.FlameTrapRemote"] = "An incendiary weapon used to start fires.\n\nObtained by modifying an explosive.",
     ["Base.FlameTrapSensorV1"] = "An incendiary weapon used to start fires.\n\nObtained by modifying an explosive.",
@@ -128,7 +128,7 @@ return {
     ["Base.HalloweenPumpkin"] = "Consuming it can reduce hunger.\n\nMade by processing a pumpkin.",
     ["Base.Ham"] = "Consuming it can reduce hunger.",
     ["Base.HamSlice"] = "Consuming it can reduce hunger. It is also used as a cooking ingredient.\n\nObtained by cutting meat.",
-    ["Base.Hammer"] = "A tool used to build wooden structures with nails. For example, the Carpentry menu's wooden cross requires two planks, two nails and a hammer. Other structures have their own material and skill requirements.\n\nFound in work vehicles, garages, toolboxes, tool stores.",
+    ["Base.Hammer"] = "A tool used to build wooden structures with nails. A wooden cross requires two planks, two nails and a hammer. In the game's ground right-click menu, choose Carpentry, then Miscellaneous and Wooden Cross, and select a placement location. These material requirements apply to this structure; other carpentry structures do not necessarily share its materials or skill requirements.\n\nFound in work vehicles, garages, toolboxes, tool stores.",
     ["Base.HammerStone"] = "A tool used to build wooden structures with nails.\n\nCrafted from a branch, stone, and a ripped sheet.",
     ["Base.HandAxe"] = "Used to chop or cut trees while logging.\n\nFound in work vehicles, garages, carpentry-tool crates, tool stores.",
     ["Base.HandFork"] = "Usable for melee attacks or as a spear attachment.\n\nFound in garages, farming-supply crates, gardening stores, tool stores.",

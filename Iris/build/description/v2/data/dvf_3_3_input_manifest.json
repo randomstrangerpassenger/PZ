@@ -9,7 +9,7 @@
     "precedence_rules_path": "Iris/build/description/v2/data/compose_profile_conflict_precedence_rules.json",
     "precedence_rules_sha256": "d108c7e6a80b109d8947be6e9a8efe936ded2bd40e5b48943fbcc5327986c67d",
     "profiles_path": "Iris/build/description/v2/data/compose_profiles_v2.json",
-    "profiles_sha256": "251ca6adc0e8105cc5b7942cbf6ae5769d9632db6101dcc8206a4fe04848eaac"
+    "profiles_sha256": "555dc40aef666432ca3ed7175e527c1c08bfadffb6cdcf740cca1d73eae9c5e4"
   },
   "current_facts_correction": {
     "append_only": true,
@@ -133,7 +133,7 @@
     "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
     "role": "current_source_authority",
     "row_count": 2105,
-    "sha256": "3a6984afd83c04df28c7426bbd413ec0850f798058de8acc6d7bf97ecca07ff0"
+    "sha256": "c95ec30e412e688c04016768bea51a0d8b6db3e61a98a26cc5dc94a1285e0a80"
   },
   "fixture_exclusion_rule": {
     "excluded_paths": [
@@ -176,7 +176,7 @@
       "path": "Iris/build/description/v2/data/dvf_3_3_overlay_support.jsonl",
       "role": "compose_support_not_source_authority",
       "row_count": 2105,
-      "sha256": "ac6441ee7bff6f80855b1121ec4e2847ef94975b99fbd43450be51868d55d312",
+      "sha256": "008ef594bbed84acde211b70b26752395deb363c411ba954465c6b72aab00af7",
       "source": "fresh_generated_from_current_facts"
     }
   ],
@@ -217,7 +217,7 @@
   "schema_version": "dvf-3-3-input-manifest-v1",
   "shared_composition": {
     "authority_ref": "docs/iris_dvf_shared_composition_usefulness_menu_tooltip_plan.md",
-    "candidate_sha256": "01d819386c310ac8bf0669c131f0be7e1a7d71b749177401d75cdd8bc43d579b",
+    "candidate_sha256": "bf75cf0e397c0c338515ce1f7b61356547a099b16ea354ee73cdefb364f790a0",
     "canonical_input_count": 7,
     "explicit_count": 6,
     "explicit_routes": "dvf_3_3_overlay_support.jsonl#body_composition",

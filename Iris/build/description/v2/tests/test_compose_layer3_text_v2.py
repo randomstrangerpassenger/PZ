@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+from copy import deepcopy
+import hashlib
 import shutil
 import sys
 import unittest
@@ -43,6 +45,81 @@ def write_jsonl(path: Path, rows: list[dict]) -> None:
         for row in rows:
             handle.write(json.dumps(row, ensure_ascii=False))
             handle.write("\n")
+
+
+class SharedCompositionTest(unittest.TestCase):
+    def fixture(self):
+        from iris_tooling.build.compose_layer3_shared import SCHEMA, digest
+        facts, overlay, entries = [], [], {}
+        for key, target in (("Base.First", "first"), ("Base.Second", "second")):
+            source = f"Approved {target} use and effect under a condition"
+            fact_id = "l3rf-" + digest({"item_id": key, "source_slot": "primary_use",
+                "source_value_hash": hashlib.sha256(source.encode()).hexdigest(), "fact_origin": "direct_use"})
+            material = {"schema_version": SCHEMA, "approval": "owner_preapproved_source_bound_material",
+                "authority_ref": "fixture", "core_fact_id": fact_id, "source_slots": {"primary_use": digest(source)},
+                "source_refs": [{"path": "fixture", "locator": key, "sha256": "a" * 64}],
+                "values": {"condition": {"ko": "조건 충족 시", "en": "under the condition"},
+                           "use": {"ko": target + " 용도", "en": target + " use"},
+                           "effect": {"ko": "추가 효과", "en": "additional effect"}},
+                "condition_parameters": ["condition"], "effect_parameters": ["use", "effect"]}
+            facts.append({"item_id": key, "primary_use": source, "fact_origin": {"primary_use": ["direct_use"]},
+                          "slot_meta": {"body_material": material}})
+            overlay.append({"item_id": key, "body_composition": {"mode": "shared", "composition_id": "uses",
+                           "material_sha256": digest(material), "menu_blocks": []}})
+            entries[key] = {"text_ko": source, "role_material": {"core_source_fact_ids": [fact_id]}}
+        entries["Base.Retained"] = {"text_ko": "그대로 유지", "role_material": {"core_source_fact_ids": []}}
+        facts.append({"item_id": "Base.Retained"})
+        overlay.append({"item_id": "Base.Retained", "body_composition": {"mode": "retained",
+                        "reason": "empty_core", "entry_sha256": digest(entries["Base.Retained"])}})
+        profiles = {"shared_composition": {"schema_version": SCHEMA, "authority_ref": "fixture",
+            "definitions": {"uses": {"core": {"ko": "{condition} {use} 및 {effect}.",
+                                               "en": "{use} and {effect} {condition}."}, "menu_blocks": {}}}}}
+        return dict(facts_list=facts, overlay_list=overlay, profiles=profiles, predecessor={"meta": {}, "entries": entries})
+
+    def test_shared_edit_propagates_and_preserves_conditions_multiple_uses_and_retention(self):
+        from iris_tooling.build.compose_layer3_shared import compose_shared_candidate
+        inputs = self.fixture()
+        before = compose_shared_candidate(**inputs)
+        reordered = deepcopy(inputs)
+        reordered["facts_list"].reverse()
+        reordered["overlay_list"].reverse()
+        self.assertEqual(before, compose_shared_candidate(**reordered))
+        inputs["profiles"]["shared_composition"]["definitions"]["uses"]["core"]["ko"] = "{condition} {use}. {effect}."
+        after = compose_shared_candidate(**inputs)
+        self.assertEqual(after["entries"]["Base.Retained"], inputs["predecessor"]["entries"]["Base.Retained"])
+        for key in ("Base.First", "Base.Second"):
+            self.assertNotEqual(before["entries"][key]["text_ko"], after["entries"][key]["text_ko"])
+            core = after["entries"][key]["body_composition"]["core"]
+            self.assertIn("조건 충족 시", core["ko"])
+            self.assertIn("추가 효과", core["ko"])
+            self.assertIn("additional effect", core["en"])
+            self.assertEqual(before["entries"][key]["role_material"], after["entries"][key]["role_material"])
+
+    def test_invalid_bindings_fail_without_falling_back_and_explicit_exception_is_supported(self):
+        from iris_tooling.build.compose_layer3_shared import compose_shared_candidate, digest
+        inputs = self.fixture()
+        mutations = {
+            "unknown": lambda x: x["overlay_list"][0]["body_composition"].update(composition_id="missing"),
+            "missing": lambda x: x["facts_list"][0]["slot_meta"]["body_material"]["values"].pop("effect"),
+            "condition": lambda x: x["profiles"]["shared_composition"]["definitions"]["uses"]["core"].update(ko="{use} {effect}", en="{use} {effect}"),
+            "locale": lambda x: x["profiles"]["shared_composition"]["definitions"]["uses"]["core"].update(en="{use} {condition}"),
+            "source": lambda x: x["facts_list"][0].update(primary_use="changed source"),
+            "duplicate": lambda x: x["facts_list"].append(deepcopy(x["facts_list"][0])),
+            "optional": lambda x: x["overlay_list"][0]["body_composition"].update(menu_blocks=["unknown"]),
+            "retained": lambda x: x["predecessor"]["entries"]["Base.Retained"].update(text_ko="changed"),
+            "exception": lambda x: x["overlay_list"][0]["body_composition"].update(mode="explicit"),
+        }
+        for name, mutate in mutations.items():
+            with self.subTest(name=name):
+                changed = deepcopy(inputs)
+                mutate(changed)
+                changed["overlay_list"][0]["body_composition"]["material_sha256"] = digest(changed["facts_list"][0]["slot_meta"]["body_material"])
+                with self.assertRaises(ValueError):
+                    compose_shared_candidate(**changed)
+        route = inputs["overlay_list"][0]["body_composition"]
+        route.update(mode="explicit", exception_reason="approved fixture exception",
+                     expression=deepcopy(inputs["profiles"]["shared_composition"]["definitions"]["uses"]))
+        self.assertEqual(compose_shared_candidate(**inputs)["entries"]["Base.First"]["body_composition"]["mode"], "explicit")
 
 
 class ComposeLayer3TextV2Test(unittest.TestCase):

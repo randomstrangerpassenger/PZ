@@ -58,6 +58,12 @@ else:
     )
 from .repository_context import require_repository_context
 
+
+def build_shared_successor(repository_root: Path, output_path: Path) -> dict[str, Any]:
+    """Produce a reviewable successor without adopting it or switching runtime."""
+    from .compose_layer3_shared import build_shared_candidate
+    return build_shared_candidate(repository_root, output_path)
+
 ROOT = require_repository_context().description_v2_root
 
 

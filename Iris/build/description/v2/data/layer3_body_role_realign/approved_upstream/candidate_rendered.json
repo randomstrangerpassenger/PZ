@@ -446,6 +446,22 @@
       "text_ko": "섭취하면 허기를 줄일 수 있다."
     },
     "Base.AmmoStrap_Bullets": {
+      "body_composition": {
+        "binding_sha256": "87257f88dfabf74808c76d02be45fe60bbd414871a790bf05b730873271637ff",
+        "composition_id": null,
+        "core": {
+          "en": "While worn, it increases reload speed for guns that use ammunition other than shotgun shells.",
+          "ko": "착용한 상태에서 산탄총 탄약 이외의 탄약을 쓰는 총기의 장전 속도를 높인다."
+        },
+        "core_fact_id": "l3rf-80bc26bfc7722b137093e8d7fdfab32a28e58216427783ba43b1fc60675e1201",
+        "material_sha256": "8a638b899dddaae0a02a3e7459a696717c7e0f9ec59524b8b47da4e6fecf57fb",
+        "menu": {
+          "en": "While worn, it increases reload speed for guns that use ammunition other than shotgun shells.\n\nCan be obtained from military areas, police firearm storage, foraging.",
+          "ko": "착용한 상태에서 산탄총 탄약 이외의 탄약을 쓰는 총기의 장전 속도를 높인다.\n\n획득 방법: 군과 경찰 총기 보관 장소, 채집으로 구할 수 있다."
+        },
+        "mode": "explicit",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [
           "l3rf-f9312b12a6c12146f6cc3daa5662a5530b5b283f83c31ec40b717708e400480a"
@@ -458,9 +474,25 @@
         ]
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "산탄이 아닌 탄약을 사용하는 총기의 장전 속도를 높이는 착용 장비다. 착용한 상태에서 산탄총 탄약이 아닌 탄약을 쓰는 총기를 장전할 때 적용된다.\n\n획득 방법: 군과 경찰 총기 보관 장소, 채집으로 구할 수 있다."
+      "text_ko": "착용한 상태에서 산탄총 탄약 이외의 탄약을 쓰는 총기의 장전 속도를 높인다.\n\n획득 방법: 군과 경찰 총기 보관 장소, 채집으로 구할 수 있다."
     },
     "Base.AmmoStrap_Shells": {
+      "body_composition": {
+        "binding_sha256": "5788330b22c34c0c986cd19b1c143ca2a7737890ece0a2d6dcab6b688ff677ac",
+        "composition_id": null,
+        "core": {
+          "en": "While worn, it increases reload speed for guns that use shotgun shells.",
+          "ko": "착용한 상태에서 산탄총 탄약을 쓰는 총기의 장전 속도를 높인다."
+        },
+        "core_fact_id": "l3rf-a5a86964b102ebaea384d165038e064df82ac43e13d46830de29b2d79e469fc3",
+        "material_sha256": "721eb16dbebc4ab05eb5990ed1e41db6ab969530129642093359e604ba66482d",
+        "menu": {
+          "en": "While worn, it increases reload speed for guns that use shotgun shells.\n\nCan be obtained from military areas, police firearm storage, foraging.",
+          "ko": "착용한 상태에서 산탄총 탄약을 쓰는 총기의 장전 속도를 높인다.\n\n획득 방법: 군과 경찰 총기 보관 장소, 채집으로 구할 수 있다."
+        },
+        "mode": "explicit",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [
           "l3rf-9ec5222da5578b48df17903179a93c350dfa130309d0032f93ad1308be844d2a"
@@ -473,7 +505,7 @@
         ]
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "산탄총 탄약을 사용하는 총기의 장전 속도를 높이는 착용 장비다. 착용한 상태에서 산탄총 탄약을 쓰는 총기를 장전할 때 적용된다.\n\n획득 방법: 군과 경찰 총기 보관 장소, 채집으로 구할 수 있다."
+      "text_ko": "착용한 상태에서 산탄총 탄약을 쓰는 총기의 장전 속도를 높인다.\n\n획득 방법: 군과 경찰 총기 보관 장소, 채집으로 구할 수 있다."
     },
     "Base.AmmoStraps": {
       "role_material": {
@@ -1530,6 +1562,22 @@
       "text_ko": "섭취하면 허기를 줄일 수 있다. 날것으로 먹으면 위험할 수 있다."
     },
     "Base.BathTowel": {
+      "body_composition": {
+        "binding_sha256": "ea6ba01df9e990fd9efa24f3184a9cf309d6bab13f1f27091d97d35d44a06f92",
+        "composition_id": "towel_uses",
+        "core": {
+          "en": "Can dry your body when your body is wet and the towel has uses remaining. Can remove blood stains when used with bleach.",
+          "ko": "몸이 젖어 있고 수건의 사용량이 남아 있으면 몸의 물기를 닦는 데 쓸 수 있다. 표백제와 함께 사용하면 혈흔을 지울 수 있다."
+        },
+        "core_fact_id": "l3rf-f974488b6173c1a91e058ba0703cc1d5e0553e270f583fda3c127321236d0242",
+        "material_sha256": "2edb5a1b0fb00ad240587beb76f520cd70fbc5dce3430cf84ddc6527d70a9084",
+        "menu": {
+          "en": "Can dry your body when your body is wet and the towel has uses remaining. Can remove blood stains when used with bleach.",
+          "ko": "몸이 젖어 있고 수건의 사용량이 남아 있으면 몸의 물기를 닦는 데 쓸 수 있다. 표백제와 함께 사용하면 혈흔을 지울 수 있다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -1538,7 +1586,7 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "몸의 물기를 닦거나 표백제와 함께 혈흔을 지우는 데 쓴다. 몸을 말리려면 몸이 젖어 있고 수건의 사용량이 남아 있어야 한다. 혈흔 청소에는 표백제도 필요하다."
+      "text_ko": "몸이 젖어 있고 수건의 사용량이 남아 있으면 몸의 물기를 닦는 데 쓸 수 있다. 표백제와 함께 사용하면 혈흔을 지울 수 있다."
     },
     "Base.BathTowelWet": {
       "role_material": {
@@ -2484,6 +2532,22 @@
       "text_ko": "학습 작업에서 기술이나 제작법을 익히려고 읽거나 참고할 때 본다."
     },
     "Base.BookCarpentry1": {
+      "body_composition": {
+        "binding_sha256": "dd1cde091d87421ab0269b8fc1547bfca39258501cad3e20cb35cdd161c6bf18",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Carpentry level is 0–1, reading it can increase the XP multiplier for Carpentry levels 1–2.",
+          "ko": "글을 읽을 수 있고 목공의 현재 레벨이 0~1일 때 읽으면, 목공 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-46ad0aa44b02419386b0ad8f99335b320252de5dea504c48333e2aa05cdb56aa",
+        "material_sha256": "44c318487e373c8a84ac638f5d07469cddd4f240ce1cd419cb5fede487286f45",
+        "menu": {
+          "en": "When you can read and your current Carpentry level is 0–1, reading it can increase the XP multiplier for Carpentry levels 1–2. The multiplier is calculated in 10% steps of its 220 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 3 times.",
+          "ko": "글을 읽을 수 있고 목공의 현재 레벨이 0~1일 때 읽으면, 목공 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2492,9 +2556,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 목공 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 목공의 현재 레벨이 0~1일 때 읽으면, 목공 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
     },
     "Base.BookCarpentry2": {
+      "body_composition": {
+        "binding_sha256": "65b786a1ba859de518dada8be695ddc16f1bd11d0ad40941e0581a45d84b5d26",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Carpentry level is 2–3, reading it can increase the XP multiplier for Carpentry levels 3–4.",
+          "ko": "글을 읽을 수 있고 목공의 현재 레벨이 2~3일 때 읽으면, 목공 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-80af79bb2eb6889aecf16f204d6921a5ba03581e535c2900eec8543e17b0f219",
+        "material_sha256": "70a03ff1efb6a6b08a70bf0916255a55bb1e7c0ba4e5b11d924a1e1320077880",
+        "menu": {
+          "en": "When you can read and your current Carpentry level is 2–3, reading it can increase the XP multiplier for Carpentry levels 3–4. The multiplier is calculated in 10% steps of its 260 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 5 times.",
+          "ko": "글을 읽을 수 있고 목공의 현재 레벨이 2~3일 때 읽으면, 목공 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2503,9 +2583,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 목공 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 목공의 현재 레벨이 2~3일 때 읽으면, 목공 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
     },
     "Base.BookCarpentry3": {
+      "body_composition": {
+        "binding_sha256": "de98bd22ec734a0b49a4dece0ba1ed58a726cea42b2c191d83b892d9ea84166f",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Carpentry level is 4–5, reading it can increase the XP multiplier for Carpentry levels 5–6.",
+          "ko": "글을 읽을 수 있고 목공의 현재 레벨이 4~5일 때 읽으면, 목공 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-7716b4ddf1fcae21312f076d22498f4d23c9589e1b747d63f35428b96981c7de",
+        "material_sha256": "a2d5baea7f7979fa14de8fbbe06e112655cb7fde231b92a4140720f0d5294a54",
+        "menu": {
+          "en": "When you can read and your current Carpentry level is 4–5, reading it can increase the XP multiplier for Carpentry levels 5–6. The multiplier is calculated in 10% steps of its 300 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 8 times.",
+          "ko": "글을 읽을 수 있고 목공의 현재 레벨이 4~5일 때 읽으면, 목공 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2514,9 +2610,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 목공 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 목공의 현재 레벨이 4~5일 때 읽으면, 목공 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
     },
     "Base.BookCarpentry4": {
+      "body_composition": {
+        "binding_sha256": "092d2a38ec27294e70f76aeb801a416ce42e3150139bcf0d4fcf43a6c45dbf14",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Carpentry level is 6–7, reading it can increase the XP multiplier for Carpentry levels 7–8.",
+          "ko": "글을 읽을 수 있고 목공의 현재 레벨이 6~7일 때 읽으면, 목공 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-184f0b47c4318ae717350c3993f6e5acbcb73c39e232bfde416047f24673a4c8",
+        "material_sha256": "4b3d0146b3eb2199855c738a3c071aa62ff8ec129d206d289715c1a584c77256",
+        "menu": {
+          "en": "When you can read and your current Carpentry level is 6–7, reading it can increase the XP multiplier for Carpentry levels 7–8. The multiplier is calculated in 10% steps of its 340 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 12 times.",
+          "ko": "글을 읽을 수 있고 목공의 현재 레벨이 6~7일 때 읽으면, 목공 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2525,9 +2637,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 목공 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 목공의 현재 레벨이 6~7일 때 읽으면, 목공 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
     },
     "Base.BookCarpentry5": {
+      "body_composition": {
+        "binding_sha256": "a99afa151ffd4730aa1fa339655d75b23ec0c17111b3155480a0fc17a75404fe",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Carpentry level is 8–9, reading it can increase the XP multiplier for Carpentry levels 9–10.",
+          "ko": "글을 읽을 수 있고 목공의 현재 레벨이 8~9일 때 읽으면, 목공 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-2a028b0830f25dbf191cce5f4f3dbddda711b25d06cb07b220cdec84d5539b99",
+        "material_sha256": "562fe8d92f03090ba330de84833e55e2166ba3064308d0e93a81cf53022c375c",
+        "menu": {
+          "en": "When you can read and your current Carpentry level is 8–9, reading it can increase the XP multiplier for Carpentry levels 9–10. The multiplier is calculated in 10% steps of its 380 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 16 times.",
+          "ko": "글을 읽을 수 있고 목공의 현재 레벨이 8~9일 때 읽으면, 목공 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2536,9 +2664,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 목공 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 목공의 현재 레벨이 8~9일 때 읽으면, 목공 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
     },
     "Base.BookCooking1": {
+      "body_composition": {
+        "binding_sha256": "638916be4d8f82400a885eaebed135ffa84397d84391bf38e4545761f2102b03",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Cooking level is 0–1, reading it can increase the XP multiplier for Cooking levels 1–2.",
+          "ko": "글을 읽을 수 있고 요리의 현재 레벨이 0~1일 때 읽으면, 요리 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-1a43f064fa1443db08c0d85598c0fe440ff91523bd0692ebc03fb51d7df53aa8",
+        "material_sha256": "8e972f137ac1457403b0ba14f7e17af9510824520ec17996d38a979af2fd46b6",
+        "menu": {
+          "en": "When you can read and your current Cooking level is 0–1, reading it can increase the XP multiplier for Cooking levels 1–2. The multiplier is calculated in 10% steps of its 220 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 3 times.",
+          "ko": "글을 읽을 수 있고 요리의 현재 레벨이 0~1일 때 읽으면, 요리 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2547,9 +2691,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 요리 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 요리의 현재 레벨이 0~1일 때 읽으면, 요리 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
     },
     "Base.BookCooking2": {
+      "body_composition": {
+        "binding_sha256": "d46f3530b63a23151d3e20ed25cf70a9f6a3305c8ece8cb332441ed105647bb7",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Cooking level is 2–3, reading it can increase the XP multiplier for Cooking levels 3–4.",
+          "ko": "글을 읽을 수 있고 요리의 현재 레벨이 2~3일 때 읽으면, 요리 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-de275eca2ab8d90e62f22a6689c651662839e092d9e5aa67514c46ce7aecab9f",
+        "material_sha256": "f58c7d32f9436e38fe1f9a59cebe4d2ad8c4f22e6dfa32f0d16245b98e10e415",
+        "menu": {
+          "en": "When you can read and your current Cooking level is 2–3, reading it can increase the XP multiplier for Cooking levels 3–4. The multiplier is calculated in 10% steps of its 260 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 5 times.",
+          "ko": "글을 읽을 수 있고 요리의 현재 레벨이 2~3일 때 읽으면, 요리 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2558,9 +2718,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 요리 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 요리의 현재 레벨이 2~3일 때 읽으면, 요리 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
     },
     "Base.BookCooking3": {
+      "body_composition": {
+        "binding_sha256": "12947faa442b941088fb6e679ba20337ec7bcac5390253d8f1e7d38d940af597",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Cooking level is 4–5, reading it can increase the XP multiplier for Cooking levels 5–6.",
+          "ko": "글을 읽을 수 있고 요리의 현재 레벨이 4~5일 때 읽으면, 요리 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-7099eddc901c8406f6b96a0a6a47c68317a5930df083c8600c766b2145e8e0da",
+        "material_sha256": "4864f8a712a67f9d62a3cb9e764567bc300cd72cf63536379e6b17e83c9486b6",
+        "menu": {
+          "en": "When you can read and your current Cooking level is 4–5, reading it can increase the XP multiplier for Cooking levels 5–6. The multiplier is calculated in 10% steps of its 300 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 8 times.",
+          "ko": "글을 읽을 수 있고 요리의 현재 레벨이 4~5일 때 읽으면, 요리 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2569,9 +2745,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 요리 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 요리의 현재 레벨이 4~5일 때 읽으면, 요리 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
     },
     "Base.BookCooking4": {
+      "body_composition": {
+        "binding_sha256": "f9b194882d2ca98c73825de3d9659a3ae295812e8537b8a0784bfedd93a147a9",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Cooking level is 6–7, reading it can increase the XP multiplier for Cooking levels 7–8.",
+          "ko": "글을 읽을 수 있고 요리의 현재 레벨이 6~7일 때 읽으면, 요리 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-e359e88d63aaa7ef4837a86fbb0da843470d46062c028b96804ee786ba39c97f",
+        "material_sha256": "8cf1acb82879f17a720213f03ec2ab937544c961880d21cd5aa34801a3719916",
+        "menu": {
+          "en": "When you can read and your current Cooking level is 6–7, reading it can increase the XP multiplier for Cooking levels 7–8. The multiplier is calculated in 10% steps of its 340 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 12 times.",
+          "ko": "글을 읽을 수 있고 요리의 현재 레벨이 6~7일 때 읽으면, 요리 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2580,9 +2772,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 요리 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 요리의 현재 레벨이 6~7일 때 읽으면, 요리 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
     },
     "Base.BookCooking5": {
+      "body_composition": {
+        "binding_sha256": "82d231a8a1bddfdce1767c7907cf6747135814803567fc5f9ed730824d3e7102",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Cooking level is 8–9, reading it can increase the XP multiplier for Cooking levels 9–10.",
+          "ko": "글을 읽을 수 있고 요리의 현재 레벨이 8~9일 때 읽으면, 요리 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-249df19beaf91fd3456c2ea1b460ad66b9390d220ec3770a52fe8ac163290579",
+        "material_sha256": "4ebd2f0e17245b3063733c748b69cc6adf3f624ad59601816bdbe2ab26a20384",
+        "menu": {
+          "en": "When you can read and your current Cooking level is 8–9, reading it can increase the XP multiplier for Cooking levels 9–10. The multiplier is calculated in 10% steps of its 380 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 16 times.",
+          "ko": "글을 읽을 수 있고 요리의 현재 레벨이 8~9일 때 읽으면, 요리 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2591,9 +2799,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 요리 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 요리의 현재 레벨이 8~9일 때 읽으면, 요리 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
     },
     "Base.BookElectrician1": {
+      "body_composition": {
+        "binding_sha256": "b08479d8035d21cdedd8c04e746e2cedda13632954d5fefdfae45ea05392105b",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Electricity level is 0–1, reading it can increase the XP multiplier for Electricity levels 1–2.",
+          "ko": "글을 읽을 수 있고 전기공학의 현재 레벨이 0~1일 때 읽으면, 전기공학 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-5263c3940f27537df149d0d2fc54f35d2f028044cc10c7d9e6319e62f3bf5bde",
+        "material_sha256": "295b8c1776b5590d6490cd9500c1c21a164e3d81209ebfe42493ae96e1c7cbee",
+        "menu": {
+          "en": "When you can read and your current Electricity level is 0–1, reading it can increase the XP multiplier for Electricity levels 1–2. The multiplier is calculated in 10% steps of its 220 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 3 times.",
+          "ko": "글을 읽을 수 있고 전기공학의 현재 레벨이 0~1일 때 읽으면, 전기공학 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2602,9 +2826,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 전기공학 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 전기공학의 현재 레벨이 0~1일 때 읽으면, 전기공학 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
     },
     "Base.BookElectrician2": {
+      "body_composition": {
+        "binding_sha256": "814998006cb840329e6dab306effcfef852e9d55713f314f7ff3d815356f97e2",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Electricity level is 2–3, reading it can increase the XP multiplier for Electricity levels 3–4.",
+          "ko": "글을 읽을 수 있고 전기공학의 현재 레벨이 2~3일 때 읽으면, 전기공학 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-e6d3bab2ba1adc93f24b6e88f3fb58e18016230709049d5528a3a5ae1a2710c5",
+        "material_sha256": "018f1b3c179466df5c6fc98bb37b0ee126ad77d61864941a0e8cdf7bacf108ab",
+        "menu": {
+          "en": "When you can read and your current Electricity level is 2–3, reading it can increase the XP multiplier for Electricity levels 3–4. The multiplier is calculated in 10% steps of its 260 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 5 times.",
+          "ko": "글을 읽을 수 있고 전기공학의 현재 레벨이 2~3일 때 읽으면, 전기공학 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2613,9 +2853,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 전기공학 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 전기공학의 현재 레벨이 2~3일 때 읽으면, 전기공학 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
     },
     "Base.BookElectrician3": {
+      "body_composition": {
+        "binding_sha256": "79c7c560be48009cc3f729de44c4780333f3b81078756b1ef1bbd4792cc7b1ee",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Electricity level is 4–5, reading it can increase the XP multiplier for Electricity levels 5–6.",
+          "ko": "글을 읽을 수 있고 전기공학의 현재 레벨이 4~5일 때 읽으면, 전기공학 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-206b6a0ac5b860a8b92df6de581aeef49bb453762bb583321bd59b1d3f286948",
+        "material_sha256": "8fe8eaaf0433f50bd3e6fca7bc1757fcb2aa1b1fb55edf5adba962601a357ca9",
+        "menu": {
+          "en": "When you can read and your current Electricity level is 4–5, reading it can increase the XP multiplier for Electricity levels 5–6. The multiplier is calculated in 10% steps of its 300 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 8 times.",
+          "ko": "글을 읽을 수 있고 전기공학의 현재 레벨이 4~5일 때 읽으면, 전기공학 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2624,9 +2880,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 전기공학 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 전기공학의 현재 레벨이 4~5일 때 읽으면, 전기공학 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
     },
     "Base.BookElectrician4": {
+      "body_composition": {
+        "binding_sha256": "378b1b70d452c7b8f8bee97ee06ad8877f0a9d84de4970c1f804fc6494a10510",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Electricity level is 6–7, reading it can increase the XP multiplier for Electricity levels 7–8.",
+          "ko": "글을 읽을 수 있고 전기공학의 현재 레벨이 6~7일 때 읽으면, 전기공학 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-3b3225e60ab15feb7c785d01970bf87341dbee22617910983ce9a730c111e511",
+        "material_sha256": "86ee268011c5ea05f96d7bf5cbf0218bc09519ef4f8a9ab810ffe15f08fc5e21",
+        "menu": {
+          "en": "When you can read and your current Electricity level is 6–7, reading it can increase the XP multiplier for Electricity levels 7–8. The multiplier is calculated in 10% steps of its 340 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 12 times.",
+          "ko": "글을 읽을 수 있고 전기공학의 현재 레벨이 6~7일 때 읽으면, 전기공학 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2635,9 +2907,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 전기공학 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 전기공학의 현재 레벨이 6~7일 때 읽으면, 전기공학 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
     },
     "Base.BookElectrician5": {
+      "body_composition": {
+        "binding_sha256": "89303acaa30d988b71bc8e5d6675642f8b7241d51fc82ee9127dc949a2b88349",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Electricity level is 8–9, reading it can increase the XP multiplier for Electricity levels 9–10.",
+          "ko": "글을 읽을 수 있고 전기공학의 현재 레벨이 8~9일 때 읽으면, 전기공학 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-29c6a129c32b4cfa84ff1de70a6fea8321f882ddba34906bd9edad4825cb999f",
+        "material_sha256": "08c8fc3997682a1285026fc4d48e73724989c6ee9e1f722810c63d525c5f8af5",
+        "menu": {
+          "en": "When you can read and your current Electricity level is 8–9, reading it can increase the XP multiplier for Electricity levels 9–10. The multiplier is calculated in 10% steps of its 380 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 16 times.",
+          "ko": "글을 읽을 수 있고 전기공학의 현재 레벨이 8~9일 때 읽으면, 전기공학 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2646,9 +2934,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 전기공학 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 전기공학의 현재 레벨이 8~9일 때 읽으면, 전기공학 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
     },
     "Base.BookFarming1": {
+      "body_composition": {
+        "binding_sha256": "079c3023c4f7cafb1c0f7b256f31148f525d16b651ed1bfb06b2cc51a8feda2b",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Farming level is 0–1, reading it can increase the XP multiplier for Farming levels 1–2.",
+          "ko": "글을 읽을 수 있고 농사의 현재 레벨이 0~1일 때 읽으면, 농사 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-d2ce27a6bc7e421e86896c86d01281cb0b1ae3861ee1ba1eb40d5dfed71393b2",
+        "material_sha256": "7d8b7ab81d5475b12b05ec1580f051e1d95188d61b85e318997f23e20c3f708d",
+        "menu": {
+          "en": "When you can read and your current Farming level is 0–1, reading it can increase the XP multiplier for Farming levels 1–2. The multiplier is calculated in 10% steps of its 220 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 3 times.",
+          "ko": "글을 읽을 수 있고 농사의 현재 레벨이 0~1일 때 읽으면, 농사 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2657,9 +2961,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 농사 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 농사의 현재 레벨이 0~1일 때 읽으면, 농사 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
     },
     "Base.BookFarming2": {
+      "body_composition": {
+        "binding_sha256": "c9ad6d9f01a3c59f20d9b8fef4c83e8cf29e35109d6bae81e5f978c39e49d528",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Farming level is 2–3, reading it can increase the XP multiplier for Farming levels 3–4.",
+          "ko": "글을 읽을 수 있고 농사의 현재 레벨이 2~3일 때 읽으면, 농사 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-18fd600fafd5631c46a13310b5b39124192a4cf533867fab19e3e37547e1143e",
+        "material_sha256": "c264769613bad83792b8f4a078bfb16bec5d6dc198b125666bd7209da84a220a",
+        "menu": {
+          "en": "When you can read and your current Farming level is 2–3, reading it can increase the XP multiplier for Farming levels 3–4. The multiplier is calculated in 10% steps of its 260 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 5 times.",
+          "ko": "글을 읽을 수 있고 농사의 현재 레벨이 2~3일 때 읽으면, 농사 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2668,9 +2988,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 농사 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 농사의 현재 레벨이 2~3일 때 읽으면, 농사 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
     },
     "Base.BookFarming3": {
+      "body_composition": {
+        "binding_sha256": "fb29df9b58cbb4e466db44e3b141a745db7e90bf41a466aa6ba3bbed3045daa1",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Farming level is 4–5, reading it can increase the XP multiplier for Farming levels 5–6.",
+          "ko": "글을 읽을 수 있고 농사의 현재 레벨이 4~5일 때 읽으면, 농사 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-5b09d30b35530c38637c776dfd2d0d45da71e385682fdcff3d933813a712f367",
+        "material_sha256": "9582f10f82d842cb42dbee643cdc39addfa34d395fb6e5f3f5dd5fe98d2e4a68",
+        "menu": {
+          "en": "When you can read and your current Farming level is 4–5, reading it can increase the XP multiplier for Farming levels 5–6. The multiplier is calculated in 10% steps of its 300 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 8 times.",
+          "ko": "글을 읽을 수 있고 농사의 현재 레벨이 4~5일 때 읽으면, 농사 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2679,9 +3015,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 농사 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 농사의 현재 레벨이 4~5일 때 읽으면, 농사 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
     },
     "Base.BookFarming4": {
+      "body_composition": {
+        "binding_sha256": "2a33329e45962a10697aa42e70ab210ce1f8ed41c11bfcd988147a7142187717",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Farming level is 6–7, reading it can increase the XP multiplier for Farming levels 7–8.",
+          "ko": "글을 읽을 수 있고 농사의 현재 레벨이 6~7일 때 읽으면, 농사 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-1a6f96dbf59efc22db67bad518a908994faf0e8d05435476cbdc232cab2f4f6c",
+        "material_sha256": "c8cc4890b2a689aa20484e10dede2d7619bf8b0f83f8571c2e1d042b30473084",
+        "menu": {
+          "en": "When you can read and your current Farming level is 6–7, reading it can increase the XP multiplier for Farming levels 7–8. The multiplier is calculated in 10% steps of its 340 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 12 times.",
+          "ko": "글을 읽을 수 있고 농사의 현재 레벨이 6~7일 때 읽으면, 농사 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2690,9 +3042,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 농사 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 농사의 현재 레벨이 6~7일 때 읽으면, 농사 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
     },
     "Base.BookFarming5": {
+      "body_composition": {
+        "binding_sha256": "2d0e7ae565b4c7664bbd8a9a23794abe851c1d7ebcb165100013d34b60da99f2",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Farming level is 8–9, reading it can increase the XP multiplier for Farming levels 9–10.",
+          "ko": "글을 읽을 수 있고 농사의 현재 레벨이 8~9일 때 읽으면, 농사 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-81c7dc4d6b762e37cf96533238bd7321e38ad072e9e785134429a6c445a4ce1b",
+        "material_sha256": "fb2b207f7719e3105a17314d8a94b13236c003e41562386a78930628e07d8bdc",
+        "menu": {
+          "en": "When you can read and your current Farming level is 8–9, reading it can increase the XP multiplier for Farming levels 9–10. The multiplier is calculated in 10% steps of its 380 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 16 times.",
+          "ko": "글을 읽을 수 있고 농사의 현재 레벨이 8~9일 때 읽으면, 농사 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2701,9 +3069,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 농사 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 농사의 현재 레벨이 8~9일 때 읽으면, 농사 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
     },
     "Base.BookFirstAid1": {
+      "body_composition": {
+        "binding_sha256": "39a1a92187db56c034f48d190ace28a3c271ffc7697f9fd4d0882395586123d1",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current First Aid level is 0–1, reading it can increase the XP multiplier for First Aid levels 1–2.",
+          "ko": "글을 읽을 수 있고 응급처치의 현재 레벨이 0~1일 때 읽으면, 응급처치 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-bc4e2af8b1904c9fc5449a4a53bd525d8745549370f433eda51eb51f3518ed09",
+        "material_sha256": "d80b36c94aac316a8699d942f2f1993cee45ac4a11744c0c18256b003cad5813",
+        "menu": {
+          "en": "When you can read and your current First Aid level is 0–1, reading it can increase the XP multiplier for First Aid levels 1–2. The multiplier is calculated in 10% steps of its 220 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 3 times.",
+          "ko": "글을 읽을 수 있고 응급처치의 현재 레벨이 0~1일 때 읽으면, 응급처치 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2712,9 +3096,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 응급처치 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 응급처치의 현재 레벨이 0~1일 때 읽으면, 응급처치 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
     },
     "Base.BookFirstAid2": {
+      "body_composition": {
+        "binding_sha256": "7bd01bc4a0f7f53c3a96557194e9be8db14a6596538110170f4721d24d3a8305",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current First Aid level is 2–3, reading it can increase the XP multiplier for First Aid levels 3–4.",
+          "ko": "글을 읽을 수 있고 응급처치의 현재 레벨이 2~3일 때 읽으면, 응급처치 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-9b93fd517513ac788a8c4bb03845cb53a5e3b8087a326c780cdb4f2633806e3e",
+        "material_sha256": "c356312da6dcc192dcf82fcb1b58502a7534f1ef093fd55127f8dde7f2bdbe04",
+        "menu": {
+          "en": "When you can read and your current First Aid level is 2–3, reading it can increase the XP multiplier for First Aid levels 3–4. The multiplier is calculated in 10% steps of its 260 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 5 times.",
+          "ko": "글을 읽을 수 있고 응급처치의 현재 레벨이 2~3일 때 읽으면, 응급처치 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2723,9 +3123,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 응급처치 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 응급처치의 현재 레벨이 2~3일 때 읽으면, 응급처치 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
     },
     "Base.BookFirstAid3": {
+      "body_composition": {
+        "binding_sha256": "c0e2f9ef61f1d5eaf41715f4aeffdf04e48e6b9792e8176b36420b108dc40145",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current First Aid level is 4–5, reading it can increase the XP multiplier for First Aid levels 5–6.",
+          "ko": "글을 읽을 수 있고 응급처치의 현재 레벨이 4~5일 때 읽으면, 응급처치 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-abc22c4b17a38990138fdb84ba139c9c4c4be47b5f26eaaf86d79a37cc1082f0",
+        "material_sha256": "42a7a0d7783ef7e58e8e27b92c38bbcfff9e0817b2743f406ccd56bd7ea4b980",
+        "menu": {
+          "en": "When you can read and your current First Aid level is 4–5, reading it can increase the XP multiplier for First Aid levels 5–6. The multiplier is calculated in 10% steps of its 300 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 8 times.",
+          "ko": "글을 읽을 수 있고 응급처치의 현재 레벨이 4~5일 때 읽으면, 응급처치 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2734,9 +3150,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 응급처치 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 응급처치의 현재 레벨이 4~5일 때 읽으면, 응급처치 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
     },
     "Base.BookFirstAid4": {
+      "body_composition": {
+        "binding_sha256": "0320d8ff479544dd25401183500d82ebc0aa35b558b03eea2ad07fef23e30f4b",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current First Aid level is 6–7, reading it can increase the XP multiplier for First Aid levels 7–8.",
+          "ko": "글을 읽을 수 있고 응급처치의 현재 레벨이 6~7일 때 읽으면, 응급처치 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-113cc1605177d2d7f9ed0385bc06e8940e782eb52cf412cfa575b7c973d46eb4",
+        "material_sha256": "be474776e9692d3f8c582457b2d7b5b39317cb7e5340b36c05c191ec7fbbe7f9",
+        "menu": {
+          "en": "When you can read and your current First Aid level is 6–7, reading it can increase the XP multiplier for First Aid levels 7–8. The multiplier is calculated in 10% steps of its 340 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 12 times.",
+          "ko": "글을 읽을 수 있고 응급처치의 현재 레벨이 6~7일 때 읽으면, 응급처치 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2745,9 +3177,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 응급처치 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 응급처치의 현재 레벨이 6~7일 때 읽으면, 응급처치 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
     },
     "Base.BookFirstAid5": {
+      "body_composition": {
+        "binding_sha256": "857005142a166f1add10d9d311e2b2bbeb564bd57f58d69bba97185f4ac00228",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current First Aid level is 8–9, reading it can increase the XP multiplier for First Aid levels 9–10.",
+          "ko": "글을 읽을 수 있고 응급처치의 현재 레벨이 8~9일 때 읽으면, 응급처치 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-becb13c05f563c0b223d5b125380193dc462b48b33310b35418ec54d011c461b",
+        "material_sha256": "bbffa8d40f3beba774901a8c676820127115298bd9896565774d6e38a8fae01a",
+        "menu": {
+          "en": "When you can read and your current First Aid level is 8–9, reading it can increase the XP multiplier for First Aid levels 9–10. The multiplier is calculated in 10% steps of its 380 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 16 times.",
+          "ko": "글을 읽을 수 있고 응급처치의 현재 레벨이 8~9일 때 읽으면, 응급처치 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2756,9 +3204,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 응급처치 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 응급처치의 현재 레벨이 8~9일 때 읽으면, 응급처치 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
     },
     "Base.BookFishing1": {
+      "body_composition": {
+        "binding_sha256": "d734134f6cefaa54fbbda6fed1be0f53ff23337de98946c5c9274f4d78886aa9",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Fishing level is 0–1, reading it can increase the XP multiplier for Fishing levels 1–2.",
+          "ko": "글을 읽을 수 있고 낚시의 현재 레벨이 0~1일 때 읽으면, 낚시 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-4aaa35cb69258479ccfeec0b62ff209f9a330c4265db79eeee8e479c324cdd7a",
+        "material_sha256": "60120a4d29084caa44801ba8a07099d4ecf01c7e0995ea991feded61f20fd5ea",
+        "menu": {
+          "en": "When you can read and your current Fishing level is 0–1, reading it can increase the XP multiplier for Fishing levels 1–2. The multiplier is calculated in 10% steps of its 220 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 3 times.",
+          "ko": "글을 읽을 수 있고 낚시의 현재 레벨이 0~1일 때 읽으면, 낚시 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2767,9 +3231,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 낚시 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 낚시의 현재 레벨이 0~1일 때 읽으면, 낚시 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
     },
     "Base.BookFishing2": {
+      "body_composition": {
+        "binding_sha256": "bcc5de199ba6ba18376bdae47d4b7f3b3467618026a46e8c8141c061bf921d69",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Fishing level is 2–3, reading it can increase the XP multiplier for Fishing levels 3–4.",
+          "ko": "글을 읽을 수 있고 낚시의 현재 레벨이 2~3일 때 읽으면, 낚시 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-aa5e7fca288d8aaf8377dec2c81657475b4c857d29a6677accf397fc8ec46662",
+        "material_sha256": "e943f7a76f99e79df368d9cc35be3ff18cc96d2705887bac49f078fdb234aac9",
+        "menu": {
+          "en": "When you can read and your current Fishing level is 2–3, reading it can increase the XP multiplier for Fishing levels 3–4. The multiplier is calculated in 10% steps of its 260 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 5 times.",
+          "ko": "글을 읽을 수 있고 낚시의 현재 레벨이 2~3일 때 읽으면, 낚시 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2778,9 +3258,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 낚시 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 낚시의 현재 레벨이 2~3일 때 읽으면, 낚시 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
     },
     "Base.BookFishing3": {
+      "body_composition": {
+        "binding_sha256": "0254c3685c23e42307c692399714b7bb7adca170159d7a5917731d0733cbf7a6",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Fishing level is 4–5, reading it can increase the XP multiplier for Fishing levels 5–6.",
+          "ko": "글을 읽을 수 있고 낚시의 현재 레벨이 4~5일 때 읽으면, 낚시 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-7260ab2582dba956a7effe9fddaa959943e6167c72d41fb7f2491e4cc8112516",
+        "material_sha256": "de60ed9f7d5927d26d59d53aa97ed469168e52163376ef383d9507e387c98036",
+        "menu": {
+          "en": "When you can read and your current Fishing level is 4–5, reading it can increase the XP multiplier for Fishing levels 5–6. The multiplier is calculated in 10% steps of its 300 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 8 times.",
+          "ko": "글을 읽을 수 있고 낚시의 현재 레벨이 4~5일 때 읽으면, 낚시 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2789,9 +3285,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 낚시 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 낚시의 현재 레벨이 4~5일 때 읽으면, 낚시 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
     },
     "Base.BookFishing4": {
+      "body_composition": {
+        "binding_sha256": "5831e22e1befb90356a253d908612c8a9369daeb1226ce9f6476be637c4128f6",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Fishing level is 6–7, reading it can increase the XP multiplier for Fishing levels 7–8.",
+          "ko": "글을 읽을 수 있고 낚시의 현재 레벨이 6~7일 때 읽으면, 낚시 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-458a7759365a51d46a79e1937f0bc1b80dfff3cfd10f466ea723cc55ae34e797",
+        "material_sha256": "409e199a1cc4b84a6ebc0bd07920bb623d8c239e3997df9a494bbf3844cf3dde",
+        "menu": {
+          "en": "When you can read and your current Fishing level is 6–7, reading it can increase the XP multiplier for Fishing levels 7–8. The multiplier is calculated in 10% steps of its 340 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 12 times.",
+          "ko": "글을 읽을 수 있고 낚시의 현재 레벨이 6~7일 때 읽으면, 낚시 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2800,9 +3312,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 낚시 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 낚시의 현재 레벨이 6~7일 때 읽으면, 낚시 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
     },
     "Base.BookFishing5": {
+      "body_composition": {
+        "binding_sha256": "008622271d2a0ab46261afec8441820aff7c97eac0aa41bc1571d40f33e44afb",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Fishing level is 8–9, reading it can increase the XP multiplier for Fishing levels 9–10.",
+          "ko": "글을 읽을 수 있고 낚시의 현재 레벨이 8~9일 때 읽으면, 낚시 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-26ad1068943d31dbb673b0299edcd1d431c7b157343297bd2a6876667baa7f17",
+        "material_sha256": "103a72d91a8f4e7324cf788b238ce99993dfebec8b8cc6248f0ee0029de8f743",
+        "menu": {
+          "en": "When you can read and your current Fishing level is 8–9, reading it can increase the XP multiplier for Fishing levels 9–10. The multiplier is calculated in 10% steps of its 380 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 16 times.",
+          "ko": "글을 읽을 수 있고 낚시의 현재 레벨이 8~9일 때 읽으면, 낚시 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2811,9 +3339,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 낚시 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 낚시의 현재 레벨이 8~9일 때 읽으면, 낚시 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
     },
     "Base.BookForaging1": {
+      "body_composition": {
+        "binding_sha256": "60200da81672d4a701ae4079fc81aa319b4a0f149a9b37857e8029df43d597bc",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Foraging level is 0–1, reading it can increase the XP multiplier for Foraging levels 1–2.",
+          "ko": "글을 읽을 수 있고 채집의 현재 레벨이 0~1일 때 읽으면, 채집 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-6dbde2050d07e49ef681b5fb7955f9935a3fca3cb0878c1b2db3fc8388d05314",
+        "material_sha256": "bc45d12ec1890f5723f3ddfef7526c71d3c18fdf2bb57a53281bba79ff5f0b03",
+        "menu": {
+          "en": "When you can read and your current Foraging level is 0–1, reading it can increase the XP multiplier for Foraging levels 1–2. The multiplier is calculated in 10% steps of its 220 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 3 times.",
+          "ko": "글을 읽을 수 있고 채집의 현재 레벨이 0~1일 때 읽으면, 채집 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2822,9 +3366,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 채집 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 채집의 현재 레벨이 0~1일 때 읽으면, 채집 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
     },
     "Base.BookForaging2": {
+      "body_composition": {
+        "binding_sha256": "7b7b320eb19ea086b2c92e426782663a519680fb52c3a82f403ed23d6d1dd2c9",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Foraging level is 2–3, reading it can increase the XP multiplier for Foraging levels 3–4.",
+          "ko": "글을 읽을 수 있고 채집의 현재 레벨이 2~3일 때 읽으면, 채집 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-bcc557544b94bff84fb09734958af0e3edd66bbe9311a47123cf1a1cf2377a09",
+        "material_sha256": "05fbdf4fa4f16656fd36e0a362cc79635a55642f1149657ee7fe7e53034e832c",
+        "menu": {
+          "en": "When you can read and your current Foraging level is 2–3, reading it can increase the XP multiplier for Foraging levels 3–4. The multiplier is calculated in 10% steps of its 260 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 5 times.",
+          "ko": "글을 읽을 수 있고 채집의 현재 레벨이 2~3일 때 읽으면, 채집 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2833,9 +3393,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 채집 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 채집의 현재 레벨이 2~3일 때 읽으면, 채집 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
     },
     "Base.BookForaging3": {
+      "body_composition": {
+        "binding_sha256": "783fd0ff0b5ee6db3e01443bd3268bef2fbdeeaf6bc0d37458eaab0b4fc66f94",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Foraging level is 4–5, reading it can increase the XP multiplier for Foraging levels 5–6.",
+          "ko": "글을 읽을 수 있고 채집의 현재 레벨이 4~5일 때 읽으면, 채집 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-304cdd00422dda2ebc3f26c082cac83221ad8e26f40e734e3f51418b37d15e14",
+        "material_sha256": "fbaf6a101229cfc6b4e69fd2bd98b4e7ea0a8074e2ab5408f6b0a5956ceed2e8",
+        "menu": {
+          "en": "When you can read and your current Foraging level is 4–5, reading it can increase the XP multiplier for Foraging levels 5–6. The multiplier is calculated in 10% steps of its 300 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 8 times.",
+          "ko": "글을 읽을 수 있고 채집의 현재 레벨이 4~5일 때 읽으면, 채집 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2844,9 +3420,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 채집 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 채집의 현재 레벨이 4~5일 때 읽으면, 채집 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
     },
     "Base.BookForaging4": {
+      "body_composition": {
+        "binding_sha256": "00150d5b38bccb71814ad977538f98635b87258e3c071f8e0b121001ad485bc3",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Foraging level is 6–7, reading it can increase the XP multiplier for Foraging levels 7–8.",
+          "ko": "글을 읽을 수 있고 채집의 현재 레벨이 6~7일 때 읽으면, 채집 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-20356e0947f249a7073dbaf4ae0c42017a1562f399bd5aa6ff89c20948317849",
+        "material_sha256": "60b5aeeae3dc22ed1eb1c43271b3d14ac326d2204ccad2c64f9167c54e62b08d",
+        "menu": {
+          "en": "When you can read and your current Foraging level is 6–7, reading it can increase the XP multiplier for Foraging levels 7–8. The multiplier is calculated in 10% steps of its 340 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 12 times.",
+          "ko": "글을 읽을 수 있고 채집의 현재 레벨이 6~7일 때 읽으면, 채집 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2855,9 +3447,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 채집 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 채집의 현재 레벨이 6~7일 때 읽으면, 채집 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
     },
     "Base.BookForaging5": {
+      "body_composition": {
+        "binding_sha256": "96ee0405678343a8e32e2c56944acbef026f085a6311a71b25dc79badd4b549a",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Foraging level is 8–9, reading it can increase the XP multiplier for Foraging levels 9–10.",
+          "ko": "글을 읽을 수 있고 채집의 현재 레벨이 8~9일 때 읽으면, 채집 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-d10ecf87331d6682738c71fb360f0e98d3674b1f76251ae2071ad7b0f6dad3db",
+        "material_sha256": "10f2d64daf0c779e1d9110349a32f83c7642d06124502949188c503e9bd0a8b7",
+        "menu": {
+          "en": "When you can read and your current Foraging level is 8–9, reading it can increase the XP multiplier for Foraging levels 9–10. The multiplier is calculated in 10% steps of its 380 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 16 times.",
+          "ko": "글을 읽을 수 있고 채집의 현재 레벨이 8~9일 때 읽으면, 채집 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2866,9 +3474,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 채집 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 채집의 현재 레벨이 8~9일 때 읽으면, 채집 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
     },
     "Base.BookMechanic1": {
+      "body_composition": {
+        "binding_sha256": "4600b5c80066104b9ccec6c872ce728e186b07498229a01bd257ef69c9304af3",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Mechanics level is 0–1, reading it can increase the XP multiplier for Mechanics levels 1–2.",
+          "ko": "글을 읽을 수 있고 차량정비의 현재 레벨이 0~1일 때 읽으면, 차량정비 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-bde849ce3329e20dd460df9fce0e90ea542381ed97219dc53fe38a34a8dc7f70",
+        "material_sha256": "4b596e5652820b0a0eddc7471298ee2576f18b77df5dfd9737aa1a3a38795060",
+        "menu": {
+          "en": "When you can read and your current Mechanics level is 0–1, reading it can increase the XP multiplier for Mechanics levels 1–2. The multiplier is calculated in 10% steps of its 220 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 3 times.",
+          "ko": "글을 읽을 수 있고 차량정비의 현재 레벨이 0~1일 때 읽으면, 차량정비 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2877,9 +3501,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 차량정비 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 차량정비의 현재 레벨이 0~1일 때 읽으면, 차량정비 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
     },
     "Base.BookMechanic2": {
+      "body_composition": {
+        "binding_sha256": "889cc8839957dee2a57d066a53c7dc4228cfb20a43e5c8875046f654368d4ae0",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Mechanics level is 2–3, reading it can increase the XP multiplier for Mechanics levels 3–4.",
+          "ko": "글을 읽을 수 있고 차량정비의 현재 레벨이 2~3일 때 읽으면, 차량정비 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-f7c4f7bdd9b72d7987d831d24f17b309648adba01706075823708cb72c7dcde3",
+        "material_sha256": "f7c8bdd59d81fc12e7fa0ba976bf00a950a19832b50c6e6f6c5a00624e37a344",
+        "menu": {
+          "en": "When you can read and your current Mechanics level is 2–3, reading it can increase the XP multiplier for Mechanics levels 3–4. The multiplier is calculated in 10% steps of its 260 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 5 times.",
+          "ko": "글을 읽을 수 있고 차량정비의 현재 레벨이 2~3일 때 읽으면, 차량정비 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2888,9 +3528,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 차량정비 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 차량정비의 현재 레벨이 2~3일 때 읽으면, 차량정비 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
     },
     "Base.BookMechanic3": {
+      "body_composition": {
+        "binding_sha256": "9687d201fe6bbc4a1e2629699dcee286d271ae531d9902cb6551e856b05340e3",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Mechanics level is 4–5, reading it can increase the XP multiplier for Mechanics levels 5–6.",
+          "ko": "글을 읽을 수 있고 차량정비의 현재 레벨이 4~5일 때 읽으면, 차량정비 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-9cb40128ccc0d0cc4660c702420ca420a5d248726cf8deee9c66f5dc22e9f254",
+        "material_sha256": "7b0bb573f8ff5aaa25b205bd0df4747317da30eed03ea4376fc3ec7c2a32a51a",
+        "menu": {
+          "en": "When you can read and your current Mechanics level is 4–5, reading it can increase the XP multiplier for Mechanics levels 5–6. The multiplier is calculated in 10% steps of its 300 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 8 times.",
+          "ko": "글을 읽을 수 있고 차량정비의 현재 레벨이 4~5일 때 읽으면, 차량정비 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2899,9 +3555,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 차량정비 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 차량정비의 현재 레벨이 4~5일 때 읽으면, 차량정비 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
     },
     "Base.BookMechanic4": {
+      "body_composition": {
+        "binding_sha256": "5347b7d6e2393a96e0e04777bc9bf9ab89481cd1c3a3aefdb178971b9c5f7e4d",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Mechanics level is 6–7, reading it can increase the XP multiplier for Mechanics levels 7–8.",
+          "ko": "글을 읽을 수 있고 차량정비의 현재 레벨이 6~7일 때 읽으면, 차량정비 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-39b18d24ae170ec1ef76acf429723e1dec2782b63f09dfb69be8cd9f2433bae6",
+        "material_sha256": "5e219248fab4af80ec4fde5beeb4623656346f2acc677e176f4619adce2f3a4e",
+        "menu": {
+          "en": "When you can read and your current Mechanics level is 6–7, reading it can increase the XP multiplier for Mechanics levels 7–8. The multiplier is calculated in 10% steps of its 340 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 12 times.",
+          "ko": "글을 읽을 수 있고 차량정비의 현재 레벨이 6~7일 때 읽으면, 차량정비 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2910,9 +3582,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 차량정비 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 차량정비의 현재 레벨이 6~7일 때 읽으면, 차량정비 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
     },
     "Base.BookMechanic5": {
+      "body_composition": {
+        "binding_sha256": "5f0ebf3667c6627e4c518011364ccb8d51a037ce56fcf3d61579aafa3cec99fe",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Mechanics level is 8–9, reading it can increase the XP multiplier for Mechanics levels 9–10.",
+          "ko": "글을 읽을 수 있고 차량정비의 현재 레벨이 8~9일 때 읽으면, 차량정비 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-c6f80822760abfe3e1e12504d7b767f825edcf2a252a3e0c51230ae86ee9e387",
+        "material_sha256": "33773ef32d754da18215f91f50451433a0c93a474b67b776b5302e19be8d38d5",
+        "menu": {
+          "en": "When you can read and your current Mechanics level is 8–9, reading it can increase the XP multiplier for Mechanics levels 9–10. The multiplier is calculated in 10% steps of its 380 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 16 times.",
+          "ko": "글을 읽을 수 있고 차량정비의 현재 레벨이 8~9일 때 읽으면, 차량정비 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2921,9 +3609,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 차량정비 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 차량정비의 현재 레벨이 8~9일 때 읽으면, 차량정비 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
     },
     "Base.BookMetalWelding1": {
+      "body_composition": {
+        "binding_sha256": "e445db476ce474d34d9b538909bc240258032be679b55891301d35297cbd1ff5",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Metalworking level is 0–1, reading it can increase the XP multiplier for Metalworking levels 1–2.",
+          "ko": "글을 읽을 수 있고 금속 용접의 현재 레벨이 0~1일 때 읽으면, 금속 용접 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-4c95e1d10477ae15cafa4029a53b7b23f0b4112459dc196eb053f4368902dc6f",
+        "material_sha256": "d2042eeb953d2ad158b28d2a7ab3af9840931bbb873c27c74680f2ef3fe52414",
+        "menu": {
+          "en": "When you can read and your current Metalworking level is 0–1, reading it can increase the XP multiplier for Metalworking levels 1–2. The multiplier is calculated in 10% steps of its 220 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 3 times.",
+          "ko": "글을 읽을 수 있고 금속 용접의 현재 레벨이 0~1일 때 읽으면, 금속 용접 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2932,9 +3636,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 금속 용접 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 금속 용접의 현재 레벨이 0~1일 때 읽으면, 금속 용접 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
     },
     "Base.BookMetalWelding2": {
+      "body_composition": {
+        "binding_sha256": "355bfd5b014c4eed2e3e14f1f2234f848a1f212ebbde98eaedf9406d87a3564d",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Metalworking level is 2–3, reading it can increase the XP multiplier for Metalworking levels 3–4.",
+          "ko": "글을 읽을 수 있고 금속 용접의 현재 레벨이 2~3일 때 읽으면, 금속 용접 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-ec8537d891e346a3e56a8310eadcf89bdafda237c776619dc66fe04097d6a749",
+        "material_sha256": "b18670d480a54dfa578b247bf23e312076f325b073c319105a2f1028133b5dde",
+        "menu": {
+          "en": "When you can read and your current Metalworking level is 2–3, reading it can increase the XP multiplier for Metalworking levels 3–4. The multiplier is calculated in 10% steps of its 260 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 5 times.",
+          "ko": "글을 읽을 수 있고 금속 용접의 현재 레벨이 2~3일 때 읽으면, 금속 용접 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2943,9 +3663,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 금속 용접 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 금속 용접의 현재 레벨이 2~3일 때 읽으면, 금속 용접 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
     },
     "Base.BookMetalWelding3": {
+      "body_composition": {
+        "binding_sha256": "13c642dc7e3179d9e6a4e1d08d98f3e655d99a4d1d6870ae5e90e6cf7c7c58c4",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Metalworking level is 4–5, reading it can increase the XP multiplier for Metalworking levels 5–6.",
+          "ko": "글을 읽을 수 있고 금속 용접의 현재 레벨이 4~5일 때 읽으면, 금속 용접 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-7ce30a7c7272542474f43d8eab72b6b867e28a3d866d297f14f09d890b6233b6",
+        "material_sha256": "41b5f56dab3b912ece7e57afe29cf6082bd17d21baeaafd0c8d087fdce7fb5e4",
+        "menu": {
+          "en": "When you can read and your current Metalworking level is 4–5, reading it can increase the XP multiplier for Metalworking levels 5–6. The multiplier is calculated in 10% steps of its 300 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 8 times.",
+          "ko": "글을 읽을 수 있고 금속 용접의 현재 레벨이 4~5일 때 읽으면, 금속 용접 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2954,9 +3690,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 금속 용접 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 금속 용접의 현재 레벨이 4~5일 때 읽으면, 금속 용접 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
     },
     "Base.BookMetalWelding4": {
+      "body_composition": {
+        "binding_sha256": "0a95c6aeb1bd80f2310cb2481987e9446b055b8dc28e69b462a042b106c5ff81",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Metalworking level is 6–7, reading it can increase the XP multiplier for Metalworking levels 7–8.",
+          "ko": "글을 읽을 수 있고 금속 용접의 현재 레벨이 6~7일 때 읽으면, 금속 용접 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-cb58f151953ede5e71bfc9193aabb146612e69ed0dc7a8f39313915e9c67b18d",
+        "material_sha256": "15fa3062e1bd1937b7448466cf71a67bcc0f06029d082559c9f622065d75c1f0",
+        "menu": {
+          "en": "When you can read and your current Metalworking level is 6–7, reading it can increase the XP multiplier for Metalworking levels 7–8. The multiplier is calculated in 10% steps of its 340 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 12 times.",
+          "ko": "글을 읽을 수 있고 금속 용접의 현재 레벨이 6~7일 때 읽으면, 금속 용접 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2965,9 +3717,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 금속 용접 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 금속 용접의 현재 레벨이 6~7일 때 읽으면, 금속 용접 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
     },
     "Base.BookMetalWelding5": {
+      "body_composition": {
+        "binding_sha256": "bfa67b4d465bd0b9984c865b7a39321c0bd710a8a5dad79b3f69041a0f612ca2",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Metalworking level is 8–9, reading it can increase the XP multiplier for Metalworking levels 9–10.",
+          "ko": "글을 읽을 수 있고 금속 용접의 현재 레벨이 8~9일 때 읽으면, 금속 용접 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-d811f61d042a7c156f0cd48deccb786a0cdcd56487a4210a4ad032896af47a22",
+        "material_sha256": "d14e30e7899aae3cd0f0007a24cf2ed577c2d7dd233d02c47a771ee6b1980357",
+        "menu": {
+          "en": "When you can read and your current Metalworking level is 8–9, reading it can increase the XP multiplier for Metalworking levels 9–10. The multiplier is calculated in 10% steps of its 380 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 16 times.",
+          "ko": "글을 읽을 수 있고 금속 용접의 현재 레벨이 8~9일 때 읽으면, 금속 용접 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2976,9 +3744,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 금속 용접 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 금속 용접의 현재 레벨이 8~9일 때 읽으면, 금속 용접 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
     },
     "Base.BookTailoring1": {
+      "body_composition": {
+        "binding_sha256": "fed28390c0c768216dfe894d2adbb9e4463b1e09a5a37ca7d984d94577fe5498",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Tailoring level is 0–1, reading it can increase the XP multiplier for Tailoring levels 1–2.",
+          "ko": "글을 읽을 수 있고 재봉술의 현재 레벨이 0~1일 때 읽으면, 재봉술 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-429bec34be1d773f9508dfb4d73143b2287568cb4af36e1f4d41afcd78e9c58f",
+        "material_sha256": "a50800e3ef7ed445f5de684d137af0c1c2b1eb443ce944845ed4450f450b02a2",
+        "menu": {
+          "en": "When you can read and your current Tailoring level is 0–1, reading it can increase the XP multiplier for Tailoring levels 1–2. The multiplier is calculated in 10% steps of its 220 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 3 times.",
+          "ko": "글을 읽을 수 있고 재봉술의 현재 레벨이 0~1일 때 읽으면, 재봉술 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2987,9 +3771,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 재봉술 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 재봉술의 현재 레벨이 0~1일 때 읽으면, 재봉술 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
     },
     "Base.BookTailoring2": {
+      "body_composition": {
+        "binding_sha256": "ea00922b29f5666ae21b956640a77d48050c6de8b6b6b6ca3abb0567c2b982a1",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Tailoring level is 2–3, reading it can increase the XP multiplier for Tailoring levels 3–4.",
+          "ko": "글을 읽을 수 있고 재봉술의 현재 레벨이 2~3일 때 읽으면, 재봉술 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-b37189b9b08fce7fb45f071931d121c4ef3d19a2c697474ffe46c597a9bd7971",
+        "material_sha256": "c8859fab81787250f15711c5a36d9be2c02d56d82653489ed373d1025a69a8cf",
+        "menu": {
+          "en": "When you can read and your current Tailoring level is 2–3, reading it can increase the XP multiplier for Tailoring levels 3–4. The multiplier is calculated in 10% steps of its 260 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 5 times.",
+          "ko": "글을 읽을 수 있고 재봉술의 현재 레벨이 2~3일 때 읽으면, 재봉술 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -2998,9 +3798,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 재봉술 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 재봉술의 현재 레벨이 2~3일 때 읽으면, 재봉술 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
     },
     "Base.BookTailoring3": {
+      "body_composition": {
+        "binding_sha256": "da79aaf961cebfd5519852f50247547169ab403be4c56b93ed5807e50dc26357",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Tailoring level is 4–5, reading it can increase the XP multiplier for Tailoring levels 5–6.",
+          "ko": "글을 읽을 수 있고 재봉술의 현재 레벨이 4~5일 때 읽으면, 재봉술 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-be52d89d76620554249a738707f6c42a3a27441ed5e124818bb6b0fa2b9ef087",
+        "material_sha256": "d5e3c2518e7ec77a13ac8f8c169a13a35b3612f06f3602e9771ae5396037a227",
+        "menu": {
+          "en": "When you can read and your current Tailoring level is 4–5, reading it can increase the XP multiplier for Tailoring levels 5–6. The multiplier is calculated in 10% steps of its 300 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 8 times.",
+          "ko": "글을 읽을 수 있고 재봉술의 현재 레벨이 4~5일 때 읽으면, 재봉술 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -3009,9 +3825,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 재봉술 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 재봉술의 현재 레벨이 4~5일 때 읽으면, 재봉술 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
     },
     "Base.BookTailoring4": {
+      "body_composition": {
+        "binding_sha256": "746ad298bf97528b2059b832721adde31b556ae22ecc4bb5c3e879cace421410",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Tailoring level is 6–7, reading it can increase the XP multiplier for Tailoring levels 7–8.",
+          "ko": "글을 읽을 수 있고 재봉술의 현재 레벨이 6~7일 때 읽으면, 재봉술 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-cbb5079fa11d671778c46259026cd794668c7983b8c501788a961463cc865f78",
+        "material_sha256": "952d16fdf00a9e7183a499084bec5eca61978223b71ebbd1a5cfd4360ac75cac",
+        "menu": {
+          "en": "When you can read and your current Tailoring level is 6–7, reading it can increase the XP multiplier for Tailoring levels 7–8. The multiplier is calculated in 10% steps of its 340 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 12 times.",
+          "ko": "글을 읽을 수 있고 재봉술의 현재 레벨이 6~7일 때 읽으면, 재봉술 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -3020,9 +3852,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 재봉술 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 재봉술의 현재 레벨이 6~7일 때 읽으면, 재봉술 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
     },
     "Base.BookTailoring5": {
+      "body_composition": {
+        "binding_sha256": "b7a9a7bc10647d1c3c838b3a4e5654f8e53b1726245fa62a24ed456e637e4946",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Tailoring level is 8–9, reading it can increase the XP multiplier for Tailoring levels 9–10.",
+          "ko": "글을 읽을 수 있고 재봉술의 현재 레벨이 8~9일 때 읽으면, 재봉술 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-1abd69a748af2d627d592bcdb424af8b65898a2f0c9cd36344a9a76fe226ac6a",
+        "material_sha256": "5dc4ba9b191bed8998d08908b8a1fdd1644164ead0e2e7b7016cd2d13041262f",
+        "menu": {
+          "en": "When you can read and your current Tailoring level is 8–9, reading it can increase the XP multiplier for Tailoring levels 9–10. The multiplier is calculated in 10% steps of its 380 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 16 times.",
+          "ko": "글을 읽을 수 있고 재봉술의 현재 레벨이 8~9일 때 읽으면, 재봉술 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -3031,9 +3879,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 재봉술 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 재봉술의 현재 레벨이 8~9일 때 읽으면, 재봉술 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
     },
     "Base.BookTrapping1": {
+      "body_composition": {
+        "binding_sha256": "97b5aab6b53859ab5c6728b8e8a47b6a29dfa25b9515b930b901ada83e6f55b2",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Trapping level is 0–1, reading it can increase the XP multiplier for Trapping levels 1–2.",
+          "ko": "글을 읽을 수 있고 덫 사냥의 현재 레벨이 0~1일 때 읽으면, 덫 사냥 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-3f593d7f2c950f9a9bb27948a95359f28e67ae90ab9e6194b59a7ec38c3d7d45",
+        "material_sha256": "551417576c97ac94246d186d72508637b46791fd4af8b681ae6f0445a8795781",
+        "menu": {
+          "en": "When you can read and your current Trapping level is 0–1, reading it can increase the XP multiplier for Trapping levels 1–2. The multiplier is calculated in 10% steps of its 220 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 3 times.",
+          "ko": "글을 읽을 수 있고 덫 사냥의 현재 레벨이 0~1일 때 읽으면, 덫 사냥 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -3042,9 +3906,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 덫 사냥 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 덫 사냥의 현재 레벨이 0~1일 때 읽으면, 덫 사냥 1~2레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 220쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 3배다."
     },
     "Base.BookTrapping2": {
+      "body_composition": {
+        "binding_sha256": "8dc3a2702df7b2d2ff14b0706eaeb454953f27493f8d24829a63f84d9bd75508",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Trapping level is 2–3, reading it can increase the XP multiplier for Trapping levels 3–4.",
+          "ko": "글을 읽을 수 있고 덫 사냥의 현재 레벨이 2~3일 때 읽으면, 덫 사냥 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-20c40aed85be6df5bea9056462ebca5e6cd3a3c3cad56af504895b5a57ab698b",
+        "material_sha256": "fa2179dd942198effae061c670bbe5b801860426fc2638e3b443858203178a1a",
+        "menu": {
+          "en": "When you can read and your current Trapping level is 2–3, reading it can increase the XP multiplier for Trapping levels 3–4. The multiplier is calculated in 10% steps of its 260 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 5 times.",
+          "ko": "글을 읽을 수 있고 덫 사냥의 현재 레벨이 2~3일 때 읽으면, 덫 사냥 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -3053,9 +3933,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 덫 사냥 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 덫 사냥의 현재 레벨이 2~3일 때 읽으면, 덫 사냥 3~4레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 260쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 5배다."
     },
     "Base.BookTrapping3": {
+      "body_composition": {
+        "binding_sha256": "19c272ad255e8c2f7ec380fd59bb3722d7338c33282e44821c82e49d76b23902",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Trapping level is 4–5, reading it can increase the XP multiplier for Trapping levels 5–6.",
+          "ko": "글을 읽을 수 있고 덫 사냥의 현재 레벨이 4~5일 때 읽으면, 덫 사냥 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-087fcb89a608011df6ce4e9589ff383b3352581043ddc902e8636d101123bb54",
+        "material_sha256": "509ff578a99f5084b6bda7f267ec2664379eada16b8c9bc44b0895871e8b2fd6",
+        "menu": {
+          "en": "When you can read and your current Trapping level is 4–5, reading it can increase the XP multiplier for Trapping levels 5–6. The multiplier is calculated in 10% steps of its 300 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 8 times.",
+          "ko": "글을 읽을 수 있고 덫 사냥의 현재 레벨이 4~5일 때 읽으면, 덫 사냥 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -3064,9 +3960,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 덫 사냥 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 덫 사냥의 현재 레벨이 4~5일 때 읽으면, 덫 사냥 5~6레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 300쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 8배다."
     },
     "Base.BookTrapping4": {
+      "body_composition": {
+        "binding_sha256": "87ecb634355d3ae7eeaca5d94359ee828c89d8395aecea8a9db593af92b1931e",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Trapping level is 6–7, reading it can increase the XP multiplier for Trapping levels 7–8.",
+          "ko": "글을 읽을 수 있고 덫 사냥의 현재 레벨이 6~7일 때 읽으면, 덫 사냥 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-e6f0306090dee7f9f3c7977a0af2d30c90edae53714ffe0ae7b5515e46794732",
+        "material_sha256": "fecc207e44e72b599a9a9a1b5ee10c8de5e253d45c6d514c5d4e46f1c85b0513",
+        "menu": {
+          "en": "When you can read and your current Trapping level is 6–7, reading it can increase the XP multiplier for Trapping levels 7–8. The multiplier is calculated in 10% steps of its 340 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 12 times.",
+          "ko": "글을 읽을 수 있고 덫 사냥의 현재 레벨이 6~7일 때 읽으면, 덫 사냥 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -3075,9 +3987,25 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 덫 사냥 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 덫 사냥의 현재 레벨이 6~7일 때 읽으면, 덫 사냥 7~8레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 340쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 12배다."
     },
     "Base.BookTrapping5": {
+      "body_composition": {
+        "binding_sha256": "a018623f2b42f0025d2a797af9b8164b3402d883e2ab3576e9f27bd9154c027e",
+        "composition_id": "skill_reading",
+        "core": {
+          "en": "When you can read and your current Trapping level is 8–9, reading it can increase the XP multiplier for Trapping levels 9–10.",
+          "ko": "글을 읽을 수 있고 덫 사냥의 현재 레벨이 8~9일 때 읽으면, 덫 사냥 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다."
+        },
+        "core_fact_id": "l3rf-88abf7fa6bd1c236cc75606d4420ebd321a0494b68699e0ca1e44542fc133e70",
+        "material_sha256": "e5cb0d13d6c1c69a71f26b945b2be16d572a1b152c6044e89d0a0474e301a5e2",
+        "menu": {
+          "en": "When you can read and your current Trapping level is 8–9, reading it can increase the XP multiplier for Trapping levels 9–10. The multiplier is calculated in 10% steps of its 380 pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is 16 times.",
+          "ko": "글을 읽을 수 있고 덫 사냥의 현재 레벨이 8~9일 때 읽으면, 덫 사냥 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -3086,7 +4014,7 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "적용 수준에서 읽으면 덫 사냥 경험치 획득 배율을 높이는 기술서다."
+      "text_ko": "글을 읽을 수 있고 덫 사냥의 현재 레벨이 8~9일 때 읽으면, 덫 사냥 9~10레벨 구간의 경험치 획득 배율을 높일 수 있다. 전체 380쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 16배다."
     },
     "Base.BorisBadger": {
       "role_material": {
@@ -6374,6 +7302,22 @@
       "text_ko": "호환되는 재생 장치에서 기록된 내용을 재생하는 매체다."
     },
     "Base.DishCloth": {
+      "body_composition": {
+        "binding_sha256": "47a61a893db7a16a1abd7262af80742fb2ce1dd8d11ce39415ce0776322dcb0d",
+        "composition_id": "towel_uses",
+        "core": {
+          "en": "Can dry your body when your body is wet and the towel has uses remaining. Can remove blood stains when used with bleach.",
+          "ko": "몸이 젖어 있고 수건의 사용량이 남아 있으면 몸의 물기를 닦는 데 쓸 수 있다. 표백제와 함께 사용하면 혈흔을 지울 수 있다."
+        },
+        "core_fact_id": "l3rf-1002fcfde1f118d6ad2e74cfc70387817264afbd911e5383a026545ae615b64b",
+        "material_sha256": "d164296becbc2b31302803ba611837a10fe82639d629fd161cf7412fb030d21f",
+        "menu": {
+          "en": "Can dry your body when your body is wet and the towel has uses remaining. Can remove blood stains when used with bleach.",
+          "ko": "몸이 젖어 있고 수건의 사용량이 남아 있으면 몸의 물기를 닦는 데 쓸 수 있다. 표백제와 함께 사용하면 혈흔을 지울 수 있다."
+        },
+        "mode": "shared",
+        "schema_version": "layer3-shared-composition-v1"
+      },
       "role_material": {
         "acquisition_source_fact_ids": [],
         "core_source_fact_ids": [
@@ -6382,7 +7326,7 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "몸의 물기를 닦거나 표백제와 함께 혈흔을 지우는 데 쓴다. 몸을 말리려면 몸이 젖어 있고 수건의 사용량이 남아 있어야 한다. 혈흔 청소에는 표백제도 필요하다."
+      "text_ko": "몸이 젖어 있고 수건의 사용량이 남아 있으면 몸의 물기를 닦는 데 쓸 수 있다. 표백제와 함께 사용하면 혈흔을 지울 수 있다."
     },
     "Base.DishClothWet": {
       "role_material": {
@@ -27202,7 +28146,7 @@
   },
   "meta": {
     "authority_effect": "none",
-    "entries_sha256": "d46e57546c5f56b11531ae1a7fe3672b6c2f0ed0630d319bda04fcf398ca7bfa",
+    "entries_sha256": "910ef1aefc9062838e0bf3eebfdba63cec5668dc9799b85e8652301ecf9a44c7",
     "general_description_integration": {
       "authority_ref": "docs/DECISIONS.md#iris-tooltip-t3-d1--existing-context-integration",
       "decision": "user_adopted_build41_description_correction",
@@ -27957,7 +28901,7 @@
           ]
         }
       },
-      "facts_sha256": "c70bea095b0beaf150946ac085a3378cbeb7df5a4a8a2655ae0781366649b0dc",
+      "facts_sha256": "16bb959c75a0c5b0fdb33a28d3a97dd265d4590326428c39b9d5499c308716da",
       "independent_game_source_verification": "not_performed",
       "predecessor_candidate_sha256": "fe6d24a1cac362076db6c3ce895df02eb1ec407bab080aee437df88fc153b5c6",
       "predecessor_facts_sha256": "e784cf76d2f7d51273eda44906c202c0548f0043027f60cf1af817336c03a6e9",
@@ -27973,6 +28917,17 @@
     },
     "generated_at": "content-derived-generation",
     "installation_status": "off_live",
+    "shared_composition": {
+      "approval": "owner_preapproval_for_candidate_adoption",
+      "approval_ref": "docs/iris_dvf_shared_composition_usefulness_menu_tooltip_plan.md",
+      "human_observation": "not_performed",
+      "inputs_sha256": {
+        "facts": "c71575285d35caa49acf6eba0aba5e3fef6c7982681cc83187152032418762ac",
+        "overlay": "87267ee9c6afdc96e787a77f1edb332bc636d3b4d9a118bec8fe4378f43a1863",
+        "profiles": "4eafe7a7e84a5276cc39630af9e4717338db49d72ff4d89e9667b8a4e48e98fe"
+      },
+      "schema_version": "layer3-shared-composition-v1"
+    },
     "stats": {
       "candidate_emitted": 2099,
       "silent": 6,

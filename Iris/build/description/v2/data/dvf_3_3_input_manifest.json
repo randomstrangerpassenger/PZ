@@ -9,7 +9,7 @@
     "precedence_rules_path": "Iris/build/description/v2/data/compose_profile_conflict_precedence_rules.json",
     "precedence_rules_sha256": "d108c7e6a80b109d8947be6e9a8efe936ded2bd40e5b48943fbcc5327986c67d",
     "profiles_path": "Iris/build/description/v2/data/compose_profiles_v2.json",
-    "profiles_sha256": "ba986a2f267a2d7f450474a903867b0120221fdd135dab93d2f3e6332dd92b14"
+    "profiles_sha256": "4ba1b24b602628a65b9785004138522dc7bf00584fbcc1ef74d36a059cf039eb"
   },
   "current_facts_correction": {
     "append_only": true,
@@ -133,7 +133,7 @@
     "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
     "role": "current_source_authority",
     "row_count": 2105,
-    "sha256": "c70bea095b0beaf150946ac085a3378cbeb7df5a4a8a2655ae0781366649b0dc"
+    "sha256": "16bb959c75a0c5b0fdb33a28d3a97dd265d4590326428c39b9d5499c308716da"
   },
   "fixture_exclusion_rule": {
     "excluded_paths": [
@@ -176,7 +176,7 @@
       "path": "Iris/build/description/v2/data/dvf_3_3_overlay_support.jsonl",
       "role": "compose_support_not_source_authority",
       "row_count": 2105,
-      "sha256": "c16947429ccf0d07bd8df0b4a10c9c9ccae057e5407241414bfbf88628d04464",
+      "sha256": "f7d5facad5f96fc57f827a492c9a0f26c32899c54d9bdfacbd1ba40a40946733",
       "source": "fresh_generated_from_current_facts"
     }
   ],
@@ -215,6 +215,22 @@
     "monolith_runtime_authority": false
   },
   "schema_version": "dvf-3-3-input-manifest-v1",
+  "shared_composition": {
+    "authority_ref": "docs/iris_dvf_shared_composition_usefulness_menu_tooltip_plan.md",
+    "candidate_sha256": "ddb0ab610ae5a58f9ced6a4c5301eb52f7b29c9ad198558705e3fec3ec54d20e",
+    "canonical_input_count": 7,
+    "explicit_count": 2,
+    "explicit_routes": "dvf_3_3_overlay_support.jsonl#body_composition",
+    "expression_declarations": "compose_profiles_v2.json#shared_composition",
+    "human_review_performed": false,
+    "owner_approval": "user_execution_request_preapproval",
+    "retained_count": 2046,
+    "s2_gained": [],
+    "s2_lost": [],
+    "scalar_source_fact_identity_delta": 0,
+    "shared_count": 57,
+    "source_material": "dvf_3_3_facts.jsonl#slot_meta/body_material"
+  },
   "source_promotion": {
     "accepted_source_count": 2105,
     "corrected_source_manifest": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase5/corrected_source_manifest.json",

@@ -143,6 +143,8 @@ def build_complete_generation(
         paths = _paths(repository_root)
         rendered_path = generation_root / RENDERED_NAME
         rendered = json.loads(paths["adopted_candidate"].read_text(encoding="utf-8"))
+        from iris_tooling.build.compose_layer3_shared import approved_compositions
+        approved_compositions(repository_root, rendered["entries"])
         rendered["meta"]["generated_at"] = DETERMINISTIC_GENERATED_AT
         _stable_pretty_json(rendered_path, rendered)
 

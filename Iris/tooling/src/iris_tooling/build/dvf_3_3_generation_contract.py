@@ -38,6 +38,7 @@ GENERATOR_IMPLEMENTATION_FILES = (
     "Iris/tooling/src/iris_tooling/build/compose_layer3_text.py",
     "Iris/tooling/src/iris_tooling/build/compose_layer3_body_profile.py",
     "Iris/tooling/src/iris_tooling/build/compose_layer3_render.py",
+    "Iris/tooling/src/iris_tooling/build/compose_layer3_shared.py",
     "Iris/tooling/src/iris_tooling/build/export_dvf_3_3_lua_bridge.py",
 )
 

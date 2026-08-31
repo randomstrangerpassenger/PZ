@@ -1034,6 +1034,7 @@ def approved_general_descriptions(
     repository_root: Path,
     facts_by_item: dict[str, dict[str, object]],
     rendered: dict[str, dict[str, object]],
+    composed: dict | None = None,
 ) -> dict[str, dict[str, str]]:
     """Read bilingual edits from the already generation-bound approved input.
 
@@ -1060,6 +1061,9 @@ def approved_general_descriptions(
         raise RuntimeError("LAYER3_GENERAL_DESCRIPTION_ENTRIES_INVALID")
     result = {}
     for key, entry in entries.items():
+        if composed is not None and key in composed:
+            # Successor binding already validates all core and detail source slots.
+            continue
         facts = facts_by_item.get(key, {})
         current = rendered.get(key, {})
         if not isinstance(entry, dict):
@@ -1108,12 +1112,17 @@ def build_english_entries(
 
     facts_by_item = {str(row["item_id"]): row for row in rows}
     rendered, generation_id = _current_projection(repository_root)
-    general_descriptions = approved_general_descriptions(repository_root, facts_by_item, rendered)
+    from .compose_layer3_shared import approved_compositions
+    composed = approved_compositions(repository_root, rendered)
+    general_descriptions = approved_general_descriptions(repository_root, facts_by_item, rendered, composed)
     english_entries: dict[str, str] = {}
     for item_id, rendered_entry in rendered.items():
         if not isinstance(rendered_entry, dict):
             raise RuntimeError(f"LAYER3_EN_CURRENT_PROJECTION_ENTRY_INVALID:{item_id}")
         if not rendered_entry.get("text_ko"):
+            continue
+        if item_id in composed:
+            english_entries[item_id] = composed[item_id]["menu"]["en"]
             continue
         facts = facts_by_item.get(item_id)
         if facts is None:
@@ -1154,6 +1163,8 @@ def build_tooltip_t1_owner_entries(
     translations = primary_use_translations(rows)
     facts_by_item = {str(row["item_id"]): row for row in rows}
     rendered, generation_id = _current_projection(repository_root)
+    from .compose_layer3_shared import approved_compositions
+    composed = approved_compositions(repository_root, rendered)
     entries: dict[str, dict[str, object]] = {}
     for item_id, rendered_entry in sorted(rendered.items()):
         if not isinstance(rendered_entry, dict):
@@ -1184,7 +1195,7 @@ def build_tooltip_t1_owner_entries(
             ),
             "upstream_readiness": "owner_approved",
             "tooltip_eligibility": "eligible",
-            "localized_surfaces": {
+            "localized_surfaces": composed[item_id]["core"] if item_id in composed else {
                 "ko": primary_use,
                 "en": translations[primary_use],
             },

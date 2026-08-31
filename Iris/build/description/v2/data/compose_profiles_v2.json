@@ -1,4 +1,239 @@
 {
+  "profiles": {
+    "consumable_body": {
+      "adequate_minimum_any_of": [
+        [
+          "identity_core",
+          "use_core"
+        ]
+      ],
+      "optional_sections": [
+        "context_support",
+        "acquisition_support"
+      ],
+      "required_sections": [
+        "identity_core",
+        "use_core",
+        "limitation_tail"
+      ],
+      "section_order": [
+        "identity_core",
+        "use_core",
+        "limitation_tail",
+        "context_support",
+        "acquisition_support"
+      ],
+      "strong_minimum_any_of": [
+        [
+          "identity_core",
+          "use_core",
+          "limitation_tail"
+        ]
+      ]
+    },
+    "container_body": {
+      "adequate_minimum_any_of": [
+        [
+          "identity_core",
+          "use_core"
+        ]
+      ],
+      "optional_sections": [
+        "context_support",
+        "limitation_tail",
+        "acquisition_support"
+      ],
+      "required_sections": [
+        "identity_core",
+        "use_core"
+      ],
+      "section_order": [
+        "identity_core",
+        "use_core",
+        "context_support",
+        "limitation_tail",
+        "acquisition_support"
+      ],
+      "strong_minimum_any_of": [
+        [
+          "identity_core",
+          "use_core",
+          "context_support"
+        ],
+        [
+          "identity_core",
+          "use_core",
+          "limitation_tail"
+        ],
+        [
+          "identity_core",
+          "use_core",
+          "acquisition_support"
+        ]
+      ]
+    },
+    "material_body": {
+      "adequate_minimum_any_of": [
+        [
+          "identity_core",
+          "context_support"
+        ]
+      ],
+      "optional_sections": [
+        "use_core",
+        "acquisition_support",
+        "limitation_tail"
+      ],
+      "required_sections": [
+        "identity_core",
+        "context_support"
+      ],
+      "section_order": [
+        "identity_core",
+        "context_support",
+        "use_core",
+        "limitation_tail",
+        "acquisition_support"
+      ],
+      "strong_minimum_any_of": [
+        [
+          "identity_core",
+          "context_support",
+          "use_core"
+        ],
+        [
+          "identity_core",
+          "context_support",
+          "acquisition_support"
+        ],
+        [
+          "identity_core",
+          "context_support",
+          "limitation_tail"
+        ]
+      ]
+    },
+    "output_body": {
+      "adequate_minimum_any_of": [
+        [
+          "identity_core",
+          "context_support"
+        ]
+      ],
+      "optional_sections": [
+        "use_core",
+        "limitation_tail",
+        "acquisition_support"
+      ],
+      "required_sections": [
+        "identity_core",
+        "context_support"
+      ],
+      "section_order": [
+        "identity_core",
+        "context_support",
+        "use_core",
+        "limitation_tail",
+        "acquisition_support"
+      ],
+      "strong_minimum_any_of": [
+        [
+          "identity_core",
+          "context_support",
+          "use_core"
+        ],
+        [
+          "identity_core",
+          "context_support",
+          "limitation_tail"
+        ],
+        [
+          "identity_core",
+          "context_support",
+          "acquisition_support"
+        ]
+      ]
+    },
+    "tool_body": {
+      "adequate_minimum_any_of": [
+        [
+          "identity_core",
+          "use_core"
+        ]
+      ],
+      "optional_sections": [
+        "context_support",
+        "acquisition_support",
+        "limitation_tail"
+      ],
+      "required_sections": [
+        "identity_core",
+        "use_core"
+      ],
+      "section_order": [
+        "identity_core",
+        "use_core",
+        "context_support",
+        "limitation_tail",
+        "acquisition_support"
+      ],
+      "strong_minimum_any_of": [
+        [
+          "identity_core",
+          "use_core",
+          "context_support"
+        ],
+        [
+          "identity_core",
+          "use_core",
+          "acquisition_support"
+        ],
+        [
+          "identity_core",
+          "use_core",
+          "limitation_tail"
+        ]
+      ]
+    },
+    "wearable_body": {
+      "adequate_minimum_any_of": [
+        [
+          "identity_core",
+          "limitation_tail"
+        ],
+        [
+          "identity_core",
+          "context_support"
+        ]
+      ],
+      "optional_sections": [
+        "context_support",
+        "acquisition_support",
+        "use_core"
+      ],
+      "required_sections": [
+        "identity_core",
+        "limitation_tail"
+      ],
+      "section_order": [
+        "identity_core",
+        "limitation_tail",
+        "context_support",
+        "use_core",
+        "acquisition_support"
+      ],
+      "strong_minimum_any_of": [
+        [
+          "identity_core",
+          "limitation_tail"
+        ]
+      ]
+    }
+  },
+  "render_rules": {
+    "insert_when_emitted_section_count_at_least": 2,
+    "paragraph_separator": "\n\n"
+  },
   "schema_version": "compose-profiles-v2",
   "section_names": [
     "identity_core",
@@ -8,239 +243,29 @@
     "limitation_tail",
     "meta_tail"
   ],
-  "render_rules": {
-    "paragraph_separator": "\n\n",
-    "insert_when_emitted_section_count_at_least": 2
-  },
-  "profiles": {
-    "tool_body": {
-      "required_sections": [
-        "identity_core",
-        "use_core"
-      ],
-      "optional_sections": [
-        "context_support",
-        "acquisition_support",
-        "limitation_tail"
-      ],
-      "section_order": [
-        "identity_core",
-        "use_core",
-        "context_support",
-        "limitation_tail",
-        "acquisition_support"
-      ],
-      "adequate_minimum_any_of": [
-        [
-          "identity_core",
-          "use_core"
-        ]
-      ],
-      "strong_minimum_any_of": [
-        [
-          "identity_core",
-          "use_core",
-          "context_support"
-        ],
-        [
-          "identity_core",
-          "use_core",
-          "acquisition_support"
-        ],
-        [
-          "identity_core",
-          "use_core",
-          "limitation_tail"
-        ]
-      ]
+  "shared_composition": {
+    "authority_ref": "docs/iris_dvf_shared_composition_usefulness_menu_tooltip_plan.md",
+    "definitions": {
+      "skill_reading": {
+        "core": {
+          "en": "When {literacy} and your current {skill} level is {current_levels}, reading it {xp_effect} for {skill} levels {trained_levels}.",
+          "ko": "{literacy} {skill}의 현재 레벨이 {current_levels}일 때 읽으면, {skill} {trained_levels}레벨 구간의 {xp_effect}."
+        },
+        "menu_blocks": {
+          "progress": {
+            "en": "The multiplier is calculated in 10% steps of its {pages} pages read and is updated only when higher than the existing multiplier. Its maximum when fully read is {multiplier} times.",
+            "ko": "전체 {pages}쪽 중 읽은 비율을 10% 단위로 계산한 배율이 기존 배율보다 높을 때 갱신된다. 끝까지 읽었을 때의 최대 배율은 {multiplier}배다."
+          }
+        }
+      },
+      "towel_uses": {
+        "core": {
+          "en": "{dry_effect} {dry_condition}. {clean_effect} {clean_condition}.",
+          "ko": "{dry_condition} {dry_effect}. {clean_condition} {clean_effect}."
+        },
+        "menu_blocks": {}
+      }
     },
-    "material_body": {
-      "required_sections": [
-        "identity_core",
-        "context_support"
-      ],
-      "optional_sections": [
-        "use_core",
-        "acquisition_support",
-        "limitation_tail"
-      ],
-      "section_order": [
-        "identity_core",
-        "context_support",
-        "use_core",
-        "limitation_tail",
-        "acquisition_support"
-      ],
-      "adequate_minimum_any_of": [
-        [
-          "identity_core",
-          "context_support"
-        ]
-      ],
-      "strong_minimum_any_of": [
-        [
-          "identity_core",
-          "context_support",
-          "use_core"
-        ],
-        [
-          "identity_core",
-          "context_support",
-          "acquisition_support"
-        ],
-        [
-          "identity_core",
-          "context_support",
-          "limitation_tail"
-        ]
-      ]
-    },
-    "consumable_body": {
-      "required_sections": [
-        "identity_core",
-        "use_core",
-        "limitation_tail"
-      ],
-      "optional_sections": [
-        "context_support",
-        "acquisition_support"
-      ],
-      "section_order": [
-        "identity_core",
-        "use_core",
-        "limitation_tail",
-        "context_support",
-        "acquisition_support"
-      ],
-      "adequate_minimum_any_of": [
-        [
-          "identity_core",
-          "use_core"
-        ]
-      ],
-      "strong_minimum_any_of": [
-        [
-          "identity_core",
-          "use_core",
-          "limitation_tail"
-        ]
-      ]
-    },
-    "wearable_body": {
-      "required_sections": [
-        "identity_core",
-        "limitation_tail"
-      ],
-      "optional_sections": [
-        "context_support",
-        "acquisition_support",
-        "use_core"
-      ],
-      "section_order": [
-        "identity_core",
-        "limitation_tail",
-        "context_support",
-        "use_core",
-        "acquisition_support"
-      ],
-      "adequate_minimum_any_of": [
-        [
-          "identity_core",
-          "limitation_tail"
-        ],
-        [
-          "identity_core",
-          "context_support"
-        ]
-      ],
-      "strong_minimum_any_of": [
-        [
-          "identity_core",
-          "limitation_tail"
-        ]
-      ]
-    },
-    "container_body": {
-      "required_sections": [
-        "identity_core",
-        "use_core"
-      ],
-      "optional_sections": [
-        "context_support",
-        "limitation_tail",
-        "acquisition_support"
-      ],
-      "section_order": [
-        "identity_core",
-        "use_core",
-        "context_support",
-        "limitation_tail",
-        "acquisition_support"
-      ],
-      "adequate_minimum_any_of": [
-        [
-          "identity_core",
-          "use_core"
-        ]
-      ],
-      "strong_minimum_any_of": [
-        [
-          "identity_core",
-          "use_core",
-          "context_support"
-        ],
-        [
-          "identity_core",
-          "use_core",
-          "limitation_tail"
-        ],
-        [
-          "identity_core",
-          "use_core",
-          "acquisition_support"
-        ]
-      ]
-    },
-    "output_body": {
-      "required_sections": [
-        "identity_core",
-        "context_support"
-      ],
-      "optional_sections": [
-        "use_core",
-        "limitation_tail",
-        "acquisition_support"
-      ],
-      "section_order": [
-        "identity_core",
-        "context_support",
-        "use_core",
-        "limitation_tail",
-        "acquisition_support"
-      ],
-      "adequate_minimum_any_of": [
-        [
-          "identity_core",
-          "context_support"
-        ]
-      ],
-      "strong_minimum_any_of": [
-        [
-          "identity_core",
-          "context_support",
-          "use_core"
-        ],
-        [
-          "identity_core",
-          "context_support",
-          "limitation_tail"
-        ],
-        [
-          "identity_core",
-          "context_support",
-          "acquisition_support"
-        ]
-      ]
-    }
+    "schema_version": "layer3-shared-composition-v1"
   }
 }

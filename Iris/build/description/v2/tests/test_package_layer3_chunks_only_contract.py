@@ -6,6 +6,7 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -16,9 +17,8 @@ PACKAGE_SCRIPT_PATH = IRIS_ROOT / "tools" / "package_iris.ps1"
 LOOKUP_VALIDATOR_PATH = IRIS_ROOT / "tools" / "validate_runtime_lookup_indexes.ps1"
 PROJECTION_VALIDATOR_PATH = IRIS_ROOT / "tools" / "validate_layer3_package_projection.ps1"
 REPO_ROOT = IRIS_ROOT.parent
-EXTERNAL_TEMP_ROOT = Path(
-    r"C:\Users\Public\Documents\ESTsoft\CreatorTemp"
-)
+# The canonical runner supplies its external TEMP/TMP root. Do not escape it.
+EXTERNAL_TEMP_ROOT = Path(tempfile.gettempdir())
 
 
 def sha256_file(path: Path) -> str:
@@ -32,6 +32,7 @@ def run_package(*arguments: str) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         [
             powershell,
+            "-NoProfile",
             "-ExecutionPolicy",
             "Bypass",
             "-File",
@@ -39,6 +40,7 @@ def run_package(*arguments: str) -> subprocess.CompletedProcess[str]:
             *arguments,
         ],
         cwd=REPO_ROOT,
+        env={**os.environ, "UV_PYTHON": sys.executable, "UV_PYTHON_DOWNLOADS": "never"},
         text=True,
         capture_output=True,
         check=False,

@@ -130,6 +130,7 @@ for _, name in ipairs(forbidden) do
     package.preload[name] = function() legacyCalls = legacyCalls + 1; error("legacy path: " .. name) end
 end
 local locale, alt, measureFailure, drawFailure = "EN", false, false, false
+local fontHeight = 17
 local randomCalls, randomResult = 0, 0
 ZombRand = function(count)
     randomCalls = randomCalls+1
@@ -141,7 +142,7 @@ package.loaded[RESOLVER] = {getDetectedLangKey=function()
 end}
 UIFont = {Small="Small"}
 getTextManager = function() return {
-    getFontHeight=function() return 17 end,
+    getFontHeight=function() return fontHeight end,
     MeasureStringX=function(_, _, text)
         if measureFailure then error("measurement failure") end
         return #text * 6
@@ -245,6 +246,8 @@ for _, kind in ipairs({"normal", "load_failure", "invalid_root", "malformed", "u
         ISToolTipInv.render(tip); assert(tip.boxes == 1 and tip.panel.x+tip.panel.width == -4)
         -- Same panel family covers narrow vanilla, screen edges, fallback and reuse.
         payload["Fixture.Layout"] = {ko={string.rep("설명 ", 20)}, en={string.rep("long text ", 15)}}
+        for _, fixtureFontHeight in ipairs({17, 34}) do
+        fontHeight = fixtureFontHeight
         for _, placement in ipairs({
             {x=10, y=10, width=156, sw=900, sh=700, side="right", top=true},
             {x=700, y=10, width=156, sw=900, sh=700, side="left", top=true},
@@ -274,11 +277,15 @@ for _, kind in ipairs({"normal", "load_failure", "invalid_root", "malformed", "u
                     else assert(panel.y+panel.height == -4) end
                     if placement.top then assert(panel.y == 0) end
                     if placement.panelWidth then assert(panel.width == placement.panelWidth) end
+                    local paddingX = math.max(14, math.ceil(fontHeight * 0.9))
+                    local measurementSlack = math.max(8, math.ceil(fontHeight * 0.75))
+                    local measuredLimit = panel.width-paddingX*2-measurementSlack
+                    if fontHeight == 17 then assert(paddingX*2+measurementSlack == 45)
+                    else assert(paddingX*2+measurementSlack > 45) end
                     for _, physicalLine in ipairs(tip.drawn) do
-                        -- The production panel keeps scale-aware slack beyond
-                        -- this measured run, so no line may consume the old
-                        -- edge-to-edge content width.
-                        assert(#physicalLine*6 < panel.width-20, "physical line needs safe wrapping")
+                        -- Mirror the production MeasureStringX contract. This
+                        -- fixture does not represent an actual PZ glyph run.
+                        assert(#physicalLine*6 <= measuredLimit, "physical line exceeds safe measured width")
                     end
                 end
                 alt=false; ISToolTipInv.render(tip)
@@ -286,7 +293,9 @@ for _, kind in ipairs({"normal", "load_failure", "invalid_root", "malformed", "u
                 alt=true
             end
         end
+        end
         payload["Fixture.Layout"] = nil
+        fontHeight = 17
         locale, screenWidth, screenHeight = "EN", 900, 700
         tip.item.fullType, tip.x, tip.width = "Base.223Bullets", 10, 300
         tip.y, tip.drawn = 10, {}

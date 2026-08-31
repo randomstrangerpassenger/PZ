@@ -255,61 +255,61 @@
       },
       "fuel_container": {
         "core": {
-          "en": "A container used to {use} {fuel}.",
-          "ko": "{fuel}를 담아 {use} 용기다."
+          "en": "Use it to carry {fuel} or {use}.",
+          "ko": "{fuel}를 담아 운반하거나 {use} 수 있다."
         },
         "menu_blocks": {}
       },
       "melee_striking": {
         "core": {
-          "en": "A melee weapon used to {effect}.",
-          "ko": "{effect} 근접 무기다."
+          "en": "Use it to {effect}.",
+          "ko": "{effect}."
         },
         "menu_blocks": {}
       },
       "open_can": {
         "core": {
-          "en": "Use {opener} to {action} and take out the {contents}.",
-          "ko": "{opener}로 {action} {contents} 꺼낼 수 있다."
+          "en": "{action} with {opener} to take out the {contents}.",
+          "ko": "{opener}로 {action} 안에 든 {contents} 꺼낼 수 있다."
         },
         "menu_blocks": {}
       },
       "portable_storage": {
         "core": {
-          "en": "A {container} for {use} items.",
-          "ko": "물건을 {use} {container}이다."
+          "en": "Use it to {use} items.",
+          "ko": "물건을 {use} 수 있다."
         },
         "menu_blocks": {}
       },
       "skill_reading": {
         "core": {
-          "en": "If {literacy} and your {skill} level is {current_levels}, this book {xp_effect} for levels {trained_levels}.",
-          "ko": "{skill} 레벨이 {current_levels}이고 {literacy}, 이 책으로 {skill} {trained_levels}레벨의 {xp_effect}."
+          "en": "If {literacy} and have {skill} level {current_levels}, this book {xp_effect} for {skill} levels {trained_levels}.",
+          "ko": "{literacy} {skill} 레벨이 {current_levels}라면, 이 책을 읽어 {skill} {trained_levels}레벨의 {xp_effect}."
         },
         "menu_blocks": {
           "progress": {
-            "en": "Progress is counted in 10% steps over {pages} pages. The multiplier updates only when the new value is higher, reaching at most {multiplier} times when finished.",
-            "ko": "{pages}쪽 분량의 독서 진행률을 10% 단위로 계산한다. 현재 배율보다 높을 때만 새 배율이 적용되며, 끝까지 읽으면 최대 {multiplier}배가 된다."
+            "en": "The book has {pages} pages. Every 10% read applies the new multiplier only if it is higher, up to {multiplier} times when finished.",
+            "ko": "총 {pages}쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 {multiplier}배가 된다."
           }
         }
       },
       "towel_uses": {
         "core": {
-          "en": "When {dry_condition}, you can {dry_effect}. {clean_condition}, it can also {clean_effect}.",
-          "ko": "{dry_condition} {dry_effect}. {clean_condition} {clean_effect}."
+          "en": "If {dry_condition}, you can {dry_effect}. {clean_condition}, you can also {clean_effect}.",
+          "ko": "{dry_condition}, {dry_effect}. {clean_condition}, {clean_effect}."
         },
         "menu_blocks": {}
       },
       "vehicle_panel": {
         "core": {
-          "en": "This vehicle {target} can be {use}.",
-          "ko": "차량의 {target}이며, {use}."
+          "en": "You can {use} the vehicle's {target}.",
+          "ko": "차량의 {target}를 {use}."
         },
         "menu_blocks": {}
       },
       "wearing": {
         "core": {
-          "en": "It is {use} {location}.",
+          "en": "You can {use} it {location}.",
           "ko": "{location} {use}."
         },
         "menu_blocks": {}

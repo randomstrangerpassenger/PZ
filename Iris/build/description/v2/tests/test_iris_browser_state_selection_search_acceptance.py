@@ -18,7 +18,7 @@ REPO = next(parent for parent in Path(__file__).resolve().parents if (parent / "
 
 
 PAYLOAD = REPO / "Iris/media/lua/client/Iris/Data/IrisTooltipStaticData.lua"
-EXPECTED_SHA256 = "5a6b573b63c52eba10804f0216e8894637c89fcb6be5c54e3429c5c77be537ef"
+EXPECTED_SHA256 = "f4a2ec3ba1f9b2e830c538374991d1a02c20b65e3bbb2876c3f5f7959018995f"
 DATA_ROOT = REPO / "Iris/media/lua/client/Iris/Data"
 V2_DATA = REPO / "Iris/build/description/v2/data"
 

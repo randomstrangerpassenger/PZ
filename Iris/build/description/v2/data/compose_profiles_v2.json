@@ -284,7 +284,7 @@
       "skill_reading": {
         "core": {
           "en": "If {literacy} and have {skill} level {current_levels}, this book {xp_effect} for {skill} levels {trained_levels}.",
-          "ko": "{literacy} {skill} 레벨이 {current_levels}라면, 이 책을 읽어 {skill} {trained_levels}레벨의 {xp_effect}."
+          "ko": "{literacy} {skill} 레벨이 {current_levels}이라면, 이 책을 읽어 {skill} {trained_levels}레벨의 {xp_effect}."
         },
         "menu_blocks": {
           "progress": {
@@ -296,7 +296,7 @@
       "towel_uses": {
         "core": {
           "en": "If {dry_condition}, you can {dry_effect}. {clean_condition}, you can also {clean_effect}.",
-          "ko": "{dry_condition}, {dry_effect}. {clean_condition}, {clean_effect}."
+          "ko": "{dry_condition} {dry_effect}. {clean_condition} {clean_effect}."
         },
         "menu_blocks": {}
       },

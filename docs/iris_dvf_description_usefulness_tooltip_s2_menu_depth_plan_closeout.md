@@ -1,6 +1,6 @@
 # DVF 설명 실용성 / Tooltip S2 / Menu depth 실행 기록
 
-2026-08-31. 최종 상태: **partial — 승인된 content와 runtime/격리 패키지 반영 및 필수 자동 검증 완료; 실제 PZ 화면 관찰 미완료, source review_hold 273개 보존**.
+2026-08-31. 상태: **partial — 승인된 content와 runtime/격리 패키지 반영 및 필수 자동 검증 완료; 사용자 인게임 표시·조작 정상 보고 수령, 관찰 대상 item/설치 subject는 아직 특정되지 않음**. 근거 있는 source review_hold 273개는 보존하며, 그 수 자체를 partial의 사유로 삼지 않는다.
 
 대상 계획: [implementation plan](iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md). 이 파일은 이번 작업의 단일 closeout이다. 별도 facts authority, validator, seal 또는 품질 인증을 만들지 않는다. 아래의 최초 조사 기록에 남은 “미채택/미실행/경로 미승인”은 작성 당시 상태이며, 현재 실행 상태는 이 최종 절이 대체한다.
 
@@ -42,7 +42,17 @@
 | BaitFish, FishingTackle, FishingTackle2 | rod 준비, BaitFish의 파이크 및 인공 루어의 송어/배스/메기 예시, 대상 제외·소모/파손 | 포획 보장 없음 |
 | TrapBox, TrapCage, TrapCrate, TrapSnare, TrapStick, TrapMouse | 대상 동물, 사과/옥수수·벌레/빵·치즈/땅콩버터 등의 미끼, 야간/시간 제한 없음과 지역·신선도·접근 조건 | 모든 zone별 확률·예외를 완성했다고 하지 않음 |
 
-위 32개 항목에서 source로 바로 보완 가능한 구체 정보 결손은 기존 context 경로로 교정했다. 단순히 문장이 추가됐다는 이유로 모든 Menu 질문이 해결됐다고 세지 않는다. 2,105개 전체의 미관찰 관계, sprite/obsolete/legacy/identity 문제 등 273개 hold의 exact 근거와 한계는 아래 item별 기록에 남긴다. 실제 게임에서 Alt/KO·EN/long text/Recipe opening/Menu 전환을 보는 계획의 대표 관찰은 **not_observed / incomplete**다. 따라서 overall complete, bare Public Text Quality PASS, semantic-quality acceptance, full Menu parity, RTC/freeze/Publish Boundary/release/Workshop-ready/deployed는 주장하지 않는다.
+위 32개 항목에서 source로 바로 보완 가능한 구체 정보 결손은 기존 context 경로로 교정했다. 단순히 문장이 추가됐다는 이유로 모든 Menu 질문이 해결됐다고 세지 않는다. 2,105개 전체의 미관찰 관계, sprite/obsolete/legacy/identity 문제 등 273개 hold의 exact 근거와 한계는 아래 item별 기록에 남긴다. 최초 closeout 당시 실제 게임 관찰은 not_observed였으나, 아래 사용자 보고로 표시·조작의 정상 관찰이 추가됐다. 그 보고를 모든 item의 내용·Menu 답 검증이나 독립적인 설치 hash 확인으로 확대하지 않는다. bare Public Text Quality PASS, semantic-quality acceptance, full Menu parity, RTC/freeze/Publish Boundary/release/Workshop-ready/deployed는 주장하지 않는다.
+
+### 사용자 인게임 관찰 추가
+
+관찰자는 사용자이며, 이 작업에서 `C:/Users/MW/PZ-U/pkg2/Iris.zip` 설치를 안내한 뒤 다음 결과를 직접 보고했다. 자동 검사나 에이전트의 화면 관찰로 바꾸어 기록하지 않는다.
+
+- 기본 아이템 툴팁에서 Alt 표시와 아이템 우클릭 Iris 상세 정보가 정상 작동한다.
+- KO/EN의 긴 문장이 잘리거나 화면 밖으로 나가지 않는다.
+- Recipe 표시와 Menu 전환이 정상 작동한다.
+
+보고한 화면·조작 범위는 정상으로 기록한다. 사용자가 확인한 exact item 목록, 게임 버전, 실제 사용한 설치본의 식별 정보는 메시지에 없으므로 임의로 채우지 않았다. 설치 안내의 패키지와 실제 관찰 대상을 확인하는 것은 계획 Change 6.7의 기존 관찰 기록을 완성하기 위한 것이며, 새 테스트·hash 검사·seal을 요구하지 않는다. 설명의 유용성 및 질문에 대한 답의 충분함을 사용자가 전부 승인했다고 해석하지 않는다. 이번 반영은 기존 closeout의 관찰 기록만 갱신하며 제품 변경, 자동 테스트 재실행, 별도 proof artifact는 없다.
 
 ## 실행한 필수 검증
 

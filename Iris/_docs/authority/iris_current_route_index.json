@@ -46,15 +46,15 @@
     "T2_FULL_DATA_PROGRESSION": "OPEN",
     "production_t2_handoff": "present",
     "machine_subject": {
-      "commit": "b67907dc09b508d538fd12efa2c697a0388d8647",
-      "tree": "353a887cf45d4604b88137ced6408dff3712a2cd"
+      "commit": "35339d6149cc10003827ed38794cbc4a0a2002ec",
+      "tree": "769c730b02e79e4d4ff58dec1810554f82d5366f"
     },
-    "final_root": "C:/Users/MW/Downloads/coding/PZ2/t3d1/a2/t1-final",
+    "final_root": "C:/Users/MW/PZ-U/t1f",
     "artifact_sha256": {
-      "axis_separated_final_closeout_record.json": "8b18aadfa572c27c849b8ab1a0d60e8452e237140d123001ba0ddc94adb5237b",
-      "subject_binding.json": "3292479eda229f3463d3e8de47daae6c7142d76a29f91a8d0f0cc4de94106de7",
-      "t2_handoff_input.jsonl": "d361ec0b6cb21dcfdc25b27ccda6ff3855942ab890648135f9940b346675f72f",
-      "t2_handoff_manifest.json": "d035ba6b9250761fd924f2042e6e80186eca372aeb7e261ccceaf96b7c5c3bca"
+      "axis_separated_final_closeout_record.json": "6479b1a01a7c381574cab25ea6336df103085114cfbfe100a9571c601ed2933e",
+      "subject_binding.json": "45a9b27a902b2dcd4b81a883f30628960ba01f0f3656338848e9a1eb81abfbbb",
+      "t2_handoff_input.jsonl": "2933efaa304a90d623a054c53976e64b71449f4110f7fb94b9202c6b4c393235",
+      "t2_handoff_manifest.json": "7897d2bc67506230ab5c7538e78dc5d7a6f064e99b254bba2400d1d027f5f9f3"
     }
   },
   "tooltip_t2_static_staging": {

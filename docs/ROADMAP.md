@@ -475,6 +475,11 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - 추가 독립 Gate/검증기를 만들지 않고 기존 검사와 적합한 실행 결과를 재사용했다. 일회성 authoring/delta helper는 정규 검사기나 새 authority가 아니다.
   - 상세 판정·실행 결과·사용자 관찰은 [단일 closeout](iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan_closeout.md)에 둔다. 아래 T1/T2/T3의 과거 수치·패키지는 해당 subject의 이력이며 현재 전달물과 구분한다.
 
+- DVF shared composition successor를 구현했다. (2026-08-31)
+  - 기존 seven-input 안에서 source-bound shared / explicit / retained 경로와 KO/EN core 공동 소비를 연결했다. Shared 193개 + explicit 6개를 개선하고 1,906개는 근거에 따라 유지한다.
+  - Universe 2,105, public 각 2,099, S2 core 2,048/empty-core 57, owner absence 175와 기존 보호·hold·silent를 유지한다. 이전 1,541개 교정이나 core 증가를 이번 성과로 중복 계상하지 않는다.
+  - T1/T2·패키지 검증의 실제 결과와 전달 경로는 [단일 closeout](iris_dvf_shared_composition_usefulness_menu_tooltip_plan_closeout.md)에 둔다. 실제 사람의 후보 문장 검토와 PZ 관찰은 미수행이며 이전 식품류 관찰을 승계하지 않는다. 일회성 authoring helper는 새 validator가 아니다.
+
 - Iris의 제품 정체성과 사용자-facing 정보 원칙을 current 기준으로 고정했다.
   - 확인된 사실은 이해하기 쉽게 설명할 수 있지만 해석 / 추천 / 효율 평가 / 우열 비교는 하지 않는다.
   - 충분한 근거가 없는 정보는 추측해서 채우지 않고 침묵한다.

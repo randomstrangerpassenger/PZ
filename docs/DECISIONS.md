@@ -1011,6 +1011,15 @@
 
 - Trace: [채택 계획](iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md), [실행 결과·item별 보류·사용자 관찰](iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan_closeout.md).
 
+### Iris Layer 3 — source-bound shared composition
+
+- 날짜: 2026-08-31
+- 기존 seven-input 안의 source material, profile template와 exact FullType binding으로 shared / explicit / retained 경로를 명시한다. Source fact·provenance 판단과 문장 표현을 분리하며 runtime 조합이나 이름 기반 기능 추론을 도입하지 않는다.
+- Shared core의 KO/EN은 Menu와 Tooltip S2 owner가 함께 소비한다. 조건·효과 parameter는 core에 유지하고 Menu context/acquisition은 별도 보존한다. Single-core identity는 복수 기본 용도·효과를 금지하지 않는다.
+- Shared 193개와 explicit 6개의 표현·조건을 개선하고 1,906개는 항목별 이유에 따라 유지한다. Universe 2,105, public 각 2,099, S2 core 2,048/empty-core 57, owner absence 175는 그대로다. 이는 이전 1,541개 교정 이후의 successor이며 coverage 확대가 아니다.
+- `build layer3 compose-successor`로 off-live candidate를 만들고 기존 adoption / generation / install / T1 / T2 / package 경로를 사용한다. 새 shared module은 generation implementation identity에 포함하며 실제 변경된 기존 compiler identity는 G5 successor 0018에 연결한다. 과거 기록을 재작성하지 않는다.
+- Owner gate는 실행 프롬프트의 사전 승인을 적용한다. 실제 사람의 exact-candidate 문장 검토와 PZ 관찰을 AI 검토·자동 테스트에서 생성하지 않는다. 실행 상태·검증 한계는 [단일 closeout](iris_dvf_shared_composition_usefulness_menu_tooltip_plan_closeout.md)을 따른다. 이전 generation과 사용자 식품류 관찰은 predecessor 이력이다.
+
 ### Iris Layer 4 — Recipe / Right-click `use_case`, requirement / adaptive presentation contract
 
 - 날짜: 2026-03-25 → 2026-08-21 adaptive presentation integration

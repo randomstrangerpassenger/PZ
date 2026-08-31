@@ -251,6 +251,8 @@ canonical facts + provenance
 -> package projection
 ```
 
+Shared composition successor는 기존 seven-input의 facts metadata / profile / overlay를 사용한다. Installed `build layer3 compose-successor`가 source-bound 값과 KO/EN template를 조합하고 shared / explicit / retained 경로를 검증한다. 채택된 bilingual core를 Menu와 S2 owner가 함께 소비하며, 필수 조건은 core에 남기고 상세 context/acquisition은 Menu에서 보존한다. Runtime 조합·source 추론은 없다. 현재 successor 및 관찰 한계는 [실행 closeout](iris_dvf_shared_composition_usefulness_menu_tooltip_plan_closeout.md)에 기록한다.
+
 - **Semantic Source Authority**
   - Canonical fact와 provenance가 semantic source authority를 소유한다.
   - Adoption은 approved semantic candidate를 generation input으로 채택하지만 underlying source fact나 provenance authority를 재정의하지 않는다.
@@ -903,7 +905,7 @@ historical logical rows
 - Dirty-main custody subject는 repository 전체 status digest를 binding에 포함하되 W10의 Iris physical state를 별도로 측정한다. 다른 모듈의 dirty state는 Iris residue나 removal delta에 합산하지 않는다.
 - Exact implementation `801f15f6`의 terminal W10은 clean tracked 1,753 files / 71,766,663 Git blob bytes, clean physical 1,753 files / 72,344,398 bytes, custody Iris physical 1,753 files / 72,154,554 bytes를 기록한다. Custody Iris ignored/untracked/filesystem-only/reparse는 모두 0이다.
 - Terminal capsule은 133,094 bytes이고 successor overhead는 1,653,400 bytes로 각각 2,359,296-byte 및 3,037,162-byte ceiling 이내다.
-- G5 compiler identity successor는 append-only다. 최초 0013·0014 blobs는 immutable historical evidence로 유지하고 schema-compatible aggregate 정정은 0015가 소유한다. Execution-boundary 변경으로 달라진 19-path closure는 0016, identity owner와 `execution.py`를 포함한 21-path closure는 0017이 소유한다. Current required paths는 0016 뒤에 0017을 누적 보존하며 과거 successor를 재작성하거나 전체 chain을 재번호링하지 않는다. Retention-list correction은 closure bytes를 바꾸지 않았으므로 0018을 만들지 않는다.
+- G5 compiler identity successor는 append-only다. 최초 0013·0014 blobs는 immutable historical evidence로 유지하고 schema-compatible aggregate 정정은 0015가 소유한다. Execution-boundary 변경으로 달라진 19-path closure는 0016, identity owner와 `execution.py`를 포함한 21-path closure는 0017이 소유한다. 당시 retention-list correction은 closure bytes를 바꾸지 않아 successor를 만들지 않았다. 이후 shared composition의 기존 compiler bytes 변경은 0018에 연결하며 ordered 21-path set과 과거 successor는 보존한다. 별도 successor 생산 함수의 새 module은 complete-generation identity에 포함한다.
 - Terminal aggregate, stable digests와 external locators의 documentary readpoint는 `docs/iris_lightweighting_terminal_closeout.json`이다. 이 파일과 external one-off producer/transaction은 canonical gate, regular validation schema 또는 새 claim ID가 아니다.
 - Terminal closeout identity는 세 층으로 구분한다: machine/W10 implementation `801f15f6`, independent review가 확인한 docs carrier `9882ce6d`, review 결과를 반영해 local `main`에 통합한 completion carrier `28f95b63`. 뒤의 docs-only carrier는 앞선 machine result나 review subject를 대체하지 않는다.
 - Local `main`의 다른 모듈 untracked build output은 Iris physical census와 분리된 workspace state다. Iris closeout이나 local-custody cleanup을 이유로 이를 탐색·삭제·합산하지 않는다.

@@ -18,7 +18,7 @@ REPO = next(parent for parent in Path(__file__).resolve().parents if (parent / "
 
 
 PAYLOAD = REPO / "Iris/media/lua/client/Iris/Data/IrisTooltipStaticData.lua"
-EXPECTED_SHA256 = "1efc19e01132767f97111048eba2e027916b69ef07304f19c3152144a7817647"
+EXPECTED_SHA256 = "5a6b573b63c52eba10804f0216e8894637c89fcb6be5c54e3429c5c77be537ef"
 DATA_ROOT = REPO / "Iris/media/lua/client/Iris/Data"
 V2_DATA = REPO / "Iris/build/description/v2/data"
 
@@ -75,6 +75,7 @@ def menu_subject() -> dict:
     paths.update((DATA_ROOT / "Layer3English").glob("*.lua"))
     for relative in (
         "Iris/tooling/src/iris_tooling/build/build_layer3_english_localization.py",
+        "Iris/tooling/src/iris_tooling/build/compose_layer3_shared.py",
         "Iris/tooling/src/iris_tooling/build/dvf_3_3_generation_contract.py",
         "Iris/tooling/src/iris_tooling/build/repository_context.py",
         "Iris/build/description/v2/tools/build/layer3_body_role_realign.py",
@@ -132,27 +133,18 @@ class MenuEvidence:
 
 
 def reconstruct_menu_evidence(replay_root: Path, subject: dict) -> MenuEvidence:
-    """One isolated run of the existing EN producer/serializer, no live writes.
-
-    Calling this requires the execution prompt to allow the plan's external
-    output exception. The caller must not use this as historical-run provenance.
-    """
-    # Successor execution root approved for the usefulness plan; no live install.
-    allowed = Path("C:/Users/MW/PZ-U").resolve()
+    """Replay the installed EN producer in approved local scratch, no live writes."""
+    allowed = (REPO / ".tmp").resolve()
     replay_root = replay_root.resolve()
     assert replay_root != allowed and replay_root.is_relative_to(allowed), "replay outside plan root"
     assert not replay_root.exists(), "replay requires a new unused leaf"
-    sys.path.insert(0, str(REPO / "Iris/tooling/src"))
-    try:
-        from iris_tooling.build.repository_context import configure_repository
-        configure_repository(REPO)
-        from iris_tooling.build import build_layer3_english_localization as producer
-        assert Path(producer.__file__).resolve() == (REPO / "Iris/tooling/src/iris_tooling/build/build_layer3_english_localization.py").resolve()
-        entries, generation, _ = producer.build_english_entries(REPO)
-        assert generation == subject["generation"]
-        producer._write_runtime(entries, replay_root)
-    finally:
-        sys.path.pop(0)
+    from iris_tooling.build.repository_context import configure_repository
+    configure_repository(REPO)
+    from iris_tooling.build import build_layer3_english_localization as producer
+    assert Path(producer.__file__).resolve().is_relative_to(Path(sys.prefix).resolve()), "installed producer required"
+    entries, generation, _ = producer.build_english_entries(REPO)
+    assert generation == subject["generation"]
+    producer._write_runtime(entries, replay_root)
     actual = DATA_ROOT / "Layer3English"
     generated = {path.name: path.read_bytes() for path in replay_root.glob("*.lua")}
     live = {path.name: path.read_bytes() for path in actual.glob("*.lua")}
@@ -328,16 +320,19 @@ def compare_menu_preservation(output: str, before: dict, subject: dict, final_ma
     }, sort_keys=True))
 
 
-def run_harness(mode: str = "full", baseline_en_root: Path | None = None) -> str:
+def run_harness(mode: str = "full", baseline_en_root: Path | None = None,
+                runtime_root: Path | None = None) -> str:
     if mode not in {"full", "replacement", "smoke", "menu"}:
         raise ValueError("expected full, replacement, smoke, or menu")
     lua = shutil.which("lua")
     if lua is None:
         raise RuntimeError("BLOCKED: standalone Lua is required")
-    if hashlib.sha256(PAYLOAD.read_bytes()).hexdigest() != EXPECTED_SHA256:
+    observed_root = runtime_root.resolve() if runtime_root else REPO
+    observed_payload = observed_root / PAYLOAD.relative_to(REPO)
+    if hashlib.sha256(observed_payload.read_bytes()).hexdigest() != EXPECTED_SHA256:
         raise AssertionError("T2 product bytes differ from admitted payload")
     completed = subprocess.run(
-        [lua, str(REPO / "Iris/test/lua/tooltip_static_data_runtime_harness.lua"), str(REPO), mode]
+        [lua, str(REPO / "Iris/test/lua/tooltip_static_data_runtime_harness.lua"), str(observed_root), mode]
         + ([str(baseline_en_root)] if baseline_en_root else []),
         cwd=REPO, text=True, encoding="utf-8", capture_output=True, timeout=60,
     )
@@ -705,11 +700,14 @@ if __name__ == "__main__":
         parser.add_argument("manifest", type=Path, nargs="?")
         parser.add_argument("--en-replay-root", type=Path)
         parser.add_argument("--baseline-root", type=Path)
+        parser.add_argument("--package-root", type=Path)
         args = parser.parse_args()
         if args.en_replay_root and not args.manifest:
             parser.error("EN reconstruction requires an explicit admitted T2 manifest")
         if args.baseline_root and (not args.manifest or not args.en_replay_root):
             parser.error("final preservation requires the admitted manifest and EN reconstruction")
+        if args.package_root and not args.manifest:
+            parser.error("package observation requires the current admitted T2 manifest")
         subject, evidence = None, None
         if args.manifest:
             if args.mode not in {"menu", "full"}:
@@ -722,8 +720,18 @@ if __name__ == "__main__":
             subject = menu_subject()
             if args.en_replay_root:
                 evidence = reconstruct_menu_evidence(args.en_replay_root, subject)
+        package_bindings = {}
+        if args.package_root:
+            args.package_root = args.package_root.resolve()
+            package_bindings = {relative: digest for relative, digest in subject["bindings"].items()
+                                if relative.startswith("Iris/media/")}
+            for path in (PAYLOAD, DATA_ROOT / "IrisTooltipRecipeVariants.lua"):
+                package_bindings[path.relative_to(REPO).as_posix()] = _sha(path)
+            assert all(_sha(args.package_root / relative) == digest
+                       for relative, digest in package_bindings.items()), "package runtime differs from current source"
         baseline = load_menu_baseline(args.baseline_root) if args.baseline_root else None
-        output = run_harness(args.mode, args.baseline_root / "en-before" if args.baseline_root else None)
+        output = run_harness(args.mode, args.baseline_root / "en-before" if args.baseline_root else None,
+                             args.package_root)
         visible = [line for line in output.splitlines()
                    if not line.startswith(("MENU_L3\t", "MENU_L3_ABSENT\t", "MENU_L4\t", "MENU_BASELINE_EN\t"))]
         if args.mode == "menu":
@@ -731,6 +739,8 @@ if __name__ == "__main__":
             visible.append("Menu source observation finished; no relation PASS is implied.")
         print("\n".join(visible))
         if args.manifest:
+            assert all(_sha(args.package_root / relative) == digest
+                       for relative, digest in package_bindings.items()), "package runtime changed during observation"
             assert menu_subject() == subject, "Menu changed during consumer observation"
             assert _sha(args.manifest) == route["artifact_sha256"][admitted.name]
             assert _sha(PAYLOAD) == route["artifact_sha256"][PAYLOAD.name]

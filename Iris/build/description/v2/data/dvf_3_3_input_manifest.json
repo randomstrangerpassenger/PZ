@@ -9,7 +9,7 @@
     "precedence_rules_path": "Iris/build/description/v2/data/compose_profile_conflict_precedence_rules.json",
     "precedence_rules_sha256": "d108c7e6a80b109d8947be6e9a8efe936ded2bd40e5b48943fbcc5327986c67d",
     "profiles_path": "Iris/build/description/v2/data/compose_profiles_v2.json",
-    "profiles_sha256": "4ba1b24b602628a65b9785004138522dc7bf00584fbcc1ef74d36a059cf039eb"
+    "profiles_sha256": "66b457f9f8aa8b46a00f13087227b9ebcc509b55d65f69e67b4cd904a2890631"
   },
   "current_facts_correction": {
     "append_only": true,
@@ -133,7 +133,7 @@
     "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
     "role": "current_source_authority",
     "row_count": 2105,
-    "sha256": "16bb959c75a0c5b0fdb33a28d3a97dd265d4590326428c39b9d5499c308716da"
+    "sha256": "3d59329bfd315f18fe66eea2f01b334387fb01fe5d7b51eb61bc651b5422e2df"
   },
   "fixture_exclusion_rule": {
     "excluded_paths": [
@@ -176,7 +176,7 @@
       "path": "Iris/build/description/v2/data/dvf_3_3_overlay_support.jsonl",
       "role": "compose_support_not_source_authority",
       "row_count": 2105,
-      "sha256": "f7d5facad5f96fc57f827a492c9a0f26c32899c54d9bdfacbd1ba40a40946733",
+      "sha256": "bce70014989f3dd959dc17ad50df4a6ba7991dd99fd4c8a66ec3edae819c88b3",
       "source": "fresh_generated_from_current_facts"
     }
   ],
@@ -217,18 +217,18 @@
   "schema_version": "dvf-3-3-input-manifest-v1",
   "shared_composition": {
     "authority_ref": "docs/iris_dvf_shared_composition_usefulness_menu_tooltip_plan.md",
-    "candidate_sha256": "ddb0ab610ae5a58f9ced6a4c5301eb52f7b29c9ad198558705e3fec3ec54d20e",
+    "candidate_sha256": "9f36dc92a6c1adf7e2898f8a4ccdbeef9e8a1867aa9cc0b1b5c4a41f8f5aefa1",
     "canonical_input_count": 7,
-    "explicit_count": 2,
+    "explicit_count": 4,
     "explicit_routes": "dvf_3_3_overlay_support.jsonl#body_composition",
     "expression_declarations": "compose_profiles_v2.json#shared_composition",
     "human_review_performed": false,
     "owner_approval": "user_execution_request_preapproval",
-    "retained_count": 2046,
+    "retained_count": 1917,
     "s2_gained": [],
     "s2_lost": [],
     "scalar_source_fact_identity_delta": 0,
-    "shared_count": 57,
+    "shared_count": 184,
     "source_material": "dvf_3_3_facts.jsonl#slot_meta/body_material"
   },
   "source_promotion": {

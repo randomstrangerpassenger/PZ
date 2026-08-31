@@ -119,7 +119,7 @@ Empty-core 57개는 `2,105 - 2,048`이라는 산술 차만으로 정의하지 �
 
 | 쟁점 | 이 계획의 선택 | 근거·제한 |
 |---|---|---|
-| Heavy / Standard | **Heavy** | EXECUTION_CONTRACT §4-3의 Authority / Sealed / Public output trigger가 적용됨. 신규 독립 gate 0, 기존 T1 finalizer의 최종 필수 full A/B 묶음 밖에 추가 전체 회귀를 부과하지 않음 |
+| Heavy / Standard | **Heavy** | EXECUTION_CONTRACT §4-3의 Authority / Sealed / Public output trigger가 적용됨. 신규 독립 gate 0, 기존 T1 finalizer의 필수 T1 full A/B와 최종 T2 full 1회 밖에 추가 전체 회귀를 부과하지 않음 |
 | 수직 pilot | **작은 off-live 연결 확인을 compiler 개발에 통합 가능** | 실제 generation은 adopted candidate를 복사하고 EN/S2는 별도 producer이므로 확대 전에 연결 가능성은 확인한다. Change 2–3을 합칠 수 있으며 별도 보고서·사람 승인·전체 회귀 gate를 만들지 않음 |
 | Human text acceptance | **새 표현 구조와 의미에 영향을 주는 변형을 대표 출력으로 묶어 검토** | 최종 candidate의 KO/EN 구조·조건·exception을 채택 전에 한 묶음으로 제공한다. 동일 구조의 값 치환마다 사람 검토를 반복하지 않으며 실제 PZ 관찰은 최종 package 표본 확인으로 모음 |
 | Compatibility 분류 | **Offline producer/consumer I/O에 조건부 영향, runtime API는 보존** | `body_plan` / candidate / installed tooling의 입력 변경 가능성을 숨기지 않음. 기존 schema나 호출이 그대로면 그 부분은 영향 없음으로 종료 |
@@ -140,7 +140,7 @@ Empty-core 57개는 `2,105 - 2,048`이라는 산술 차만으로 정의하지 �
 | Seven-input 확장 | 기존 7개 안에 수용되면 진행. 확장이 필요하면 채택 전 additive authority decision과 계약 정합성을 확보 | Change 3 종료 → Change 5 진입 |
 | Core와 Menu detail | Single-core는 용도 수 제한이 아님. 승인된 복수 기본 용도·효과를 보존하고 필수 조건도 core에 유지. 구체 레시피·상세 조건은 Menu에서 제공하되 기본 용도를 identity 제약만으로 이동하지 않음 | Change 3, §7 / §12 |
 | Retention과 실제 개선 | 이미 적절함·근거 결손·기존 보존 요구를 유지 사유로 구분. 공유 불가지만 개선 가능한 항목은 explicit로 개선하고 미작업은 미완료로 남김 | Change 1 / 4, §12 |
-| 최소 검증 | 신규 독립 검사기·Gate 기본 0. 기존 test family의 미보호 실패 조건만 최소 보완하고 최종 required regression은 기존 strict T1 finalizer가 요구하는 독립 full A/B와 comparator 한 묶음으로 통합(전체 검사는 실제 두 번). 변경되지 않은 범위의 검사를 안심 목적으로 반복하지 않음 | Change 2–7, §7 |
+| 최소 검증 | 신규 독립 검사기·Gate 기본 0. 기존 test family의 미보호 실패 조건만 최소 보완하고 최종 required regression은 기존 strict T1 finalizer가 요구하는 독립 full A/B와 comparator, 최종 T2 subject full 1회로 통합(성공 경로의 전체 suite는 총 세 번). 변경되지 않은 범위의 검사를 안심 목적으로 반복하지 않음 | Change 2–7, §7 |
 | Empty-core / coverage | Change 1의 재도출 baseline을 control로 사용. 승격은 보존 집합 밖의 승인된 source correction에 한해 허용하고 expression과 coverage delta를 별도 집계 | Change 1–2 / 4 / 6 |
 | Clean-Checkout | 실제 import / identity / contract delta가 확정되는 Change 3 종료 시 적용/미적용과 근거 기록 | Change 3, §7 Automated |
 | Readpoint / 산출물 보존 | 최종 current readpoint를 동기화하되 historical identity 보존. 임시 integration 정리는 package·evidence·rollback set 보존 후 수행 | Change 7, §10 |
@@ -336,7 +336,7 @@ Owner acceptance가 없는 scope는 검토 대장에 `unvalidated_but_in_scope`�
 4. 격리 checkout에 successor fixed를 배치한 뒤 기존 `recipe_variants.py`로 companion을 생성한다. 각 variant의 base가 exact successor fixed와 대응하고 L2/L3 및 Right-click 보존 부분이 같아야 한다. 현재의 349/781은 control 값이며 QG input 미변경 상태의 예상 밖 증감을 조사한다.
 5. KO pointer-selected generation + EN + fixed + companion + 현재 runtime source를 하나의 coherent 전달 set으로 준비한다. Package는 현재 generation 하나만 포함하고 stale `.tmp`/과거 package를 입력으로 사용하지 않는다.
 6. Package builder의 기존 source 보호·current projection 검사와 final source/package identity를 확인한 뒤 `Iris/`와 `Iris.zip`을 만든다. 최종 source와 package 모두 같은 successor set이어야 하며 부분 반영 상태를 완료로 남기지 않는다.
-7. 기존 strict T1 finalizer가 요구하는 동일 subject의 독립 canonical full Run A/B와 deterministic comparator를 최종화에 한 묶음으로 수행한다. 전체 회귀는 실제 두 번이며 한 번으로 기록하지 않는다. 이 필수 묶음 밖의 추가·단계별·안심 목적 full 반복은 하지 않는다. T2/fixed/companion/package의 후속 delta는 기존 계약상 영향받는 검사만 수행하고 이전 subject의 PASS를 최종 제품 전체에 상속하지 않는다.
+7. 기존 strict T1 finalizer가 요구하는 동일 subject의 독립 canonical full Run A/B와 deterministic comparator를 최종화에 한 묶음으로 수행한다. T1 전체 회귀는 실제 두 번이다. T1 finalized handoff 채택 후 fixed/companion/runtime/package 준비를 모아 최종 T2 implementation subject를 확정하고, T2 complete 계약의 canonical full 1회를 최종 통합 회귀로 수행한다. 성공 경로의 전체 suite는 총 세 번이며 T2 데이터 A/B 생성과 구분한다. 이 필수 범위 밖의 추가·단계별·안심 목적 full 반복은 하지 않고 이전 subject의 PASS를 최종 제품 전체에 상속하지 않는다.
 
 **Validation:** strict T1 identity/readiness, T2 determinism, fixed/companion base parity, 0–4 logical rows, supported keys/locales, Menu와 S2 core relation, Lua syntax, existing Tooltip/Detail harness, package current-generation-only 및 EN/fixed/companion bytes. Search 구현 미변경 시 별도 search 전수 재검증을 추가하지 않는다. 기존 required suite에 포함된 검사는 임의 제외하지 않는다.
 
@@ -368,11 +368,11 @@ Owner acceptance가 없는 scope는 검토 대장에 `unvalidated_but_in_scope`�
 
 ### Automated Validation
 
-**2026-08-31 실행 정정:** 지정 검토 작업 `01a05297-eb3f-78d3-a5bd-fc44c02dac71`에서 `tooltip_t1/audit.py:finalize_closeout` 및 T2 admission의 실제 필수 계약을 확인했다. 기존 제품 계약은 조건부 Clean-Checkout 결정으로 면제되지 않으므로 계획의 일률적인 full 1회 문구를 필수 독립 A/B 묶음에 한해 정정한다. 사용자 사전 승인으로 새 승인 대기는 만들지 않는다. 기존 launcher/finalizer/receipt/OPEN 요건은 완화하지 않으며 별도 validator나 gate는 추가하지 않는다. 같은 subject·scope의 regression/harness를 묶음 밖에서 중복 수행하지 않는다. 사전 승인과 실제 사람 문장 검토·PZ 관찰의 수행 사실은 구분한다.
+**2026-08-31 실행 정정:** 지정 검토 작업 `01a05297-eb3f-78d3-a5bd-fc44c02dac71`에서 `tooltip_t1/audit.py:finalize_closeout` 및 T2 admission의 실제 필수 계약을 확인했다. 기존 제품 계약은 조건부 Clean-Checkout 결정으로 면제되지 않으므로 계획의 일률적인 full 1회 문구를 T1의 필수 독립 A/B 및 T2의 최종 full 1회(총 세 번)로 정정한다. T2 cli.py:90–97의 complete metadata는 current handoff 채택 이후의 T2 subject와 exact artifacts에 결속되어야 하므로 T1의 이전 subject 결과로 대체하지 않는다. 사용자 사전 승인으로 새 승인 대기는 만들지 않는다. 기존 launcher/finalizer/receipt/OPEN 요건은 완화하지 않으며 별도 validator나 gate는 추가하지 않는다. 같은 subject·scope의 regression/harness를 묶음 밖에서 중복 수행하지 않는다. 사전 승인과 실제 사람 문장 검토·PZ 관찰의 수행 사실은 구분한다.
 
 검증은 변경된 책임에 귀속한다. Producer A/B는 candidate / complete generation / T2 등 결정성이 필요한 기존 경로에만 적용하며, 같은 final input으로 얻은 결과는 해당 계약이 허용하는 범위에서 재사용한다. 새로운 독립 validator/gate는 기본 0이다.
 
-**최소 실행 원칙:** 아래 표는 보호할 책임과 기존 검증 위치를 연결한 것이며 각 행을 별도 실행·보고·승인 단계로 만들라는 목록이 아니다. 개발 중 focused 검사는 실제 변경·실패를 확인하는 데 필요한 범위만 실행하고, 최종 current required regression은 기존 strict T1 finalizer의 필수 동일-subject canonical full A/B와 comparator 한 묶음으로 모은다. 전체 두 번을 한 번으로 축소 기록하거나 같은 실행을 A/B로 이중 계상하지 않는다. Finalizer·package builder·최종 launcher가 이미 동일 입력·구현·환경·검사 범위에서 수행한 확인은 계약이 허용하면 재사용하며 같은 harness나 전체 suite를 바깥에서 다시 돌리지 않는다. 기존 검사로 보호되지 않는 실제 실패 조건만 기존 test family의 최소 사례로 보완하고, 문장마다 snapshot·테스트를 추가하거나 구현을 그대로 복제하는 검사는 만들지 않는다. Table·명령 예시·Change별 Validation 문구 자체는 추가 Gate가 아니다. 기존 제품 계약의 필수 검사·receipt·admission은 유지하고 새 결함은 영향받은 범위만 재검증한다.
+**최소 실행 원칙:** 아래 표는 보호할 책임과 기존 검증 위치를 연결한 것이며 각 행을 별도 실행·보고·승인 단계로 만들라는 목록이 아니다. 개발 중 focused 검사는 실제 변경·실패를 확인하는 데 필요한 범위만 실행하고, 필수 회귀는 T1 동일 subject canonical full A/B와 comparator를 먼저 수행하고, 최종 T2 subject full 1회를 최종 통합 회귀로 모은다. 총 세 번을 한 번으로 축소 기록하거나 같은 실행을 A/B로 이중 계상하지 않는다. Finalizer·package builder·최종 launcher가 이미 동일 입력·구현·환경·검사 범위에서 수행한 확인은 계약이 허용하면 재사용하며 같은 harness나 전체 suite를 바깥에서 다시 돌리지 않는다. 기존 검사로 보호되지 않는 실제 실패 조건만 기존 test family의 최소 사례로 보완하고, 문장마다 snapshot·테스트를 추가하거나 구현을 그대로 복제하는 검사는 만들지 않는다. Table·명령 예시·Change별 Validation 문구 자체는 추가 Gate가 아니다. 기존 제품 계약의 필수 검사·receipt·admission은 유지하고 새 결함은 영향받은 범위만 재검증한다.
 
 | 검증 대상 | 재사용할 구현 | 핵심 확인 |
 |---|---|---|

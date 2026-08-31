@@ -678,8 +678,10 @@ class BrowserStateSelectionSearchAcceptanceTest(unittest.TestCase):
         candidate = _json(candidate_path)
         facts = {row["item_id"]: row for row in (
             json.loads(line) for line in (V2_DATA / "dvf_3_3_facts.jsonl").read_text(encoding="utf-8").splitlines() if line)}
-        material = producer.approved_general_descriptions(REPO, facts, candidate["entries"])
-        self.assertEqual(set(candidate["meta"]["general_description_integration"]["entries"]), set(material))
+        from iris_tooling.build.compose_layer3_shared import approved_compositions
+        composed = approved_compositions(REPO, candidate["entries"])
+        material = producer.approved_general_descriptions(REPO, facts, candidate["entries"], composed)
+        self.assertEqual(set(candidate["meta"]["general_description_integration"]["entries"]) - set(composed), set(material))
         target = next(iter(material))
         original_read = Path.read_text
         for field, replacement, failure in (
@@ -693,7 +695,7 @@ class BrowserStateSelectionSearchAcceptanceTest(unittest.TestCase):
             def read_candidate(path, *args, **kwargs):
                 return json.dumps(mutated) if path.resolve() == candidate_path.resolve() else original_read(path, *args, **kwargs)
             with patch.object(Path, "read_text", read_candidate), self.assertRaisesRegex(RuntimeError, failure):
-                producer.approved_general_descriptions(REPO, facts, candidate["entries"])
+                producer.approved_general_descriptions(REPO, facts, candidate["entries"], composed)
 
 
 if __name__ == "__main__":

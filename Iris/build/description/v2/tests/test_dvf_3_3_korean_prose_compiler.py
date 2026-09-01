@@ -37,7 +37,7 @@ class KoreanProseCompilerTest(unittest.TestCase):
             self.assertTrue(text.startswith(("획득 장소: ", "획득 방법: ", "획득: ")))
             self.assertFalse(text.endswith("."))
             rendered_count += 1
-        self.assertEqual(rendered_count, 1050)
+        self.assertEqual(rendered_count, 1105)
 
     def test_acquisition_listing_fails_loud_on_unknown_sentence_shape(self) -> None:
         with self.assertRaisesRegex(ValueError, "unsupported acquisition listing source"):

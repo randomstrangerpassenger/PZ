@@ -1,7 +1,7 @@
 # DECISIONS.md
 
-> 상태: current decision ledger / compact trace-dedup edition, Iris DVF·Browser 검색 후속 반영
-> 기준일: 2026-08-31 (이번 갱신 범위: Iris DVF 설명·Tooltip·Menu, Browser 검색·탐색, 내부 패키징·검증 적용 범위)
+> 상태: current decision ledger / compact trace-dedup edition, Iris DVF·Browser 검색·장문 표시 후속 반영
+> 기준일: 2026-09-01 (이번 갱신 범위: Iris DVF 설명·Tooltip·Menu, 기술서 획득 정보, Browser/Wiki 장문 표시, 내부 패키징·검증 적용 범위)
 > 상위 기준: `Philosophy.md`
 > 목적: Pulse 생태계에서 이미 사실상 고정된 결정을 짧게 봉인하고, 같은 논쟁의 반복을 줄인다.
 
@@ -1013,12 +1013,16 @@
 
 ### Iris Layer 3 — source-bound shared composition
 
-- 날짜: 2026-08-31
+- 날짜: 2026-08-31 → 2026-09-01 acquisition / long-form presentation successor
 - 기존 seven-input 안의 source material, profile template와 exact FullType binding으로 shared / explicit / retained 경로를 명시한다. Source fact·provenance 판단과 문장 표현을 분리하며 runtime 조합이나 이름 기반 기능 추론을 도입하지 않는다.
 - Shared core의 KO/EN은 Menu와 Tooltip S2 owner가 함께 소비한다. 조건·효과 parameter는 core에 유지하고 Menu context/acquisition은 별도 보존한다. Single-core identity는 복수 기본 용도·효과를 금지하지 않는다.
 - Shared 193개와 explicit 6개의 표현·조건을 개선하고 1,906개는 항목별 이유에 따라 유지한다. Universe 2,105, public 각 2,099, S2 core 2,048/empty-core 57, owner absence 175는 그대로다. 이는 이전 1,541개 교정 이후의 successor이며 coverage 확대가 아니다.
+- 기술서 55개 `Base.Book*`는 같은 source slot에 결속된 획득 장소를 Menu 상세에 제공한다. KO는 `학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량`, EN은 이에 대응하는 exact 장소 집합을 표시한다. 이 공통 적용을 이름·classification 기반 추론이나 다른 item family의 획득 규칙으로 일반화하지 않는다.
+- 획득 정보는 core description과 분리된 Menu detail이므로 Tooltip S2 coverage와 0~4 logical-row 계약을 변경하지 않는다. Alt Tooltip의 자동 크기·배치도 이번 장문 Menu 표시 후속에서 변경하지 않는다.
+- Browser detail은 폭 기준으로 줄바꿈한 실제 행 높이를 기존 detail scroll 범위에 포함한다. Wiki는 제목·닫기 버튼을 고정하고 본문 child panel이 줄바꿈된 모든 section의 누적 높이를 scroll height로 소유한다. 이는 presentation 책임의 분리이며 새 user-facing surface나 semantic authority가 아니다.
 - `build layer3 compose-successor`로 off-live candidate를 만들고 기존 adoption / generation / install / T1 / T2 / package 경로를 사용한다. 새 shared module은 generation implementation identity에 포함하며 실제 변경된 기존 compiler identity는 G5 successor 0018에 연결한다. 과거 기록을 재작성하지 않는다.
-- Owner gate는 실행 프롬프트의 사전 승인을 적용한다. 실제 사람의 exact-candidate 문장 검토와 PZ 관찰을 AI 검토·자동 테스트에서 생성하지 않는다. 실행 상태·검증 한계는 [단일 closeout](iris_dvf_shared_composition_usefulness_menu_tooltip_plan_closeout.md)을 따른다. 이전 generation과 사용자 식품류 관찰은 predecessor 이력이다.
+- Owner gate는 실행 프롬프트의 사전 승인을 적용했다. 최종 generation은 `dvf33-ed92fa5c9ed4a1ed367f5d79365d04e1996e36a05d76a33bd7b8dd2176e7f82f`이며 T1/T2와 current-only package까지 채택했다. 사용자는 실제 PZ에서 최종 패키지의 KO/EN 장문이 모두 잘리지 않고 읽힌다고 확인했다. 이 관찰은 확인한 장문 surface와 두 locale의 가독성에 한정하며 모든 item·해상도·UI scale·외부 모드 compatibility나 release readiness로 확대하지 않는다.
+- 실행 상태, exact subject/package identity와 검증 한계는 [단일 closeout](iris_dvf_shared_composition_usefulness_menu_tooltip_plan_closeout.md)을 따른다. 일회성 보조 검사는 canonical validator나 새 acceptance authority가 아니다. 이전 generation과 사용자 식품류 관찰은 predecessor 이력이다.
 
 ### Iris Layer 4 — Recipe / Right-click `use_case`, requirement / adaptive presentation contract
 

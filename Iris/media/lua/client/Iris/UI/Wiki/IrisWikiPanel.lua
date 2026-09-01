@@ -26,6 +26,21 @@ local function addWrappedLabels(panel, text, x, yOffset, lineHeight, r, g, b, fo
     return yOffset
 end
 
+local function createScrollableContent(panel, panelW, panelH, top)
+    local content = ISPanel:new(0, top, panelW, math.max(1, panelH - top))
+    content:initialise()
+    content:setAnchorLeft(true)
+    content:setAnchorTop(true)
+    content:setAnchorRight(true)
+    content:setAnchorBottom(true)
+    content.backgroundColor = {r=0, g=0, b=0, a=0}
+    content.borderColor = {r=0, g=0, b=0, a=0}
+    content:setScrollChildren(true)
+    content:addScrollBars()
+    panel:addChild(content)
+    return content
+end
+
 -- 패널 인스턴스
 IrisWikiPanel._panel = nil
 
@@ -91,49 +106,51 @@ function IrisWikiPanel.createPanel(item)
     closeBtn:initialise()
     panel:addChild(closeBtn)
     
-    -- 섹션 렌더링
-    local yOffset = 45
+    -- 제목과 닫기 버튼은 고정하고, 본문만 패널 내부에서 스크롤한다.
+    local content = createScrollableContent(panel, panelW, panelH, 40)
+    local yOffset = 5
     
     -- A) 태그 목록
     local tagsSection = IrisWikiSections.renderTagsSection(model)
     if tagsSection then
-        yOffset = addWrappedLabels(panel, tagsSection, 10, yOffset, 18,
-            1, 1, 1, UIFont.Small) + 7
+        yOffset = addWrappedLabels(content, tagsSection, 10, yOffset, 18,
+            1, 1, 1, UIFont.Small, 22) + 7
     end
 
     -- B.25) 3계층 본문
     local layer3Section = IrisWikiSections.renderLayer3Section(model)
     if layer3Section then
-        yOffset = addWrappedLabels(panel, layer3Section, 10, yOffset, 18,
-            0.9, 0.9, 0.9, UIFont.Small) + 7
+        yOffset = addWrappedLabels(content, layer3Section, 10, yOffset, 18,
+            0.9, 0.9, 0.9, UIFont.Small, 22) + 7
     end
     
     local literatureSection = IrisWikiSections.renderLiteratureSection(model)
     if literatureSection then
-        yOffset = addWrappedLabels(panel, literatureSection, 10, yOffset, 18,
-            0.9, 0.9, 0.9, UIFont.Small) + 7
+        yOffset = addWrappedLabels(content, literatureSection, 10, yOffset, 18,
+            0.9, 0.9, 0.9, UIFont.Small, 22) + 7
     end
 
     -- B.5) UseCase (빌드 산출물 표시 전용)
     local usecaseSection = IrisWikiSections.renderUseCaseSection(model)
     if usecaseSection then
-        yOffset = addWrappedLabels(panel, usecaseSection, 10, yOffset, 18,
-            0.9, 0.95, 0.8, UIFont.Small) + 7
+        yOffset = addWrappedLabels(content, usecaseSection, 10, yOffset, 18,
+            0.9, 0.95, 0.8, UIFont.Small, 22) + 7
     end
     
     -- C) 연결 시스템
     local connectionSection = IrisWikiSections.renderConnectionSection(model)
     if connectionSection then
-        yOffset = addWrappedLabels(panel, connectionSection, 10, yOffset, 18,
-            1, 1, 1, UIFont.Small) + 7
+        yOffset = addWrappedLabels(content, connectionSection, 10, yOffset, 18,
+            1, 1, 1, UIFont.Small, 22) + 7
     end
     
     -- D) 상태 필드
     local fieldsSection = IrisWikiSections.renderFieldsSection(model)
     if fieldsSection then
-        addWrappedLabels(panel, fieldsSection, 10, yOffset, 18,
-            1, 1, 1, UIFont.Small)
+        yOffset = addWrappedLabels(content, fieldsSection, 10, yOffset, 18,
+            1, 1, 1, UIFont.Small, 22)
     end
+    content:setScrollHeight(math.max(content.height, yOffset + 10))
     
     -- 닫기 함수
     panel.close = function(self)

@@ -2741,17 +2741,17 @@
     },
     "Base.BookCarpentry1": {
       "body_composition": {
-        "binding_sha256": "fc3ebc9ff6b2b0ef5712eee973245d7b66219fae6811ff02cf67a5c395a5dc41",
+        "binding_sha256": "6018ea491a12a2c05d5319ab1fc579d5af0d1a4e565378a35cef3bfbd95f6ceb",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Carpentry level 0–1, this book boosts the XP multiplier for levels 1–2.",
           "ko": "글을 읽을 수 있고 목공 레벨이 0~1이라면, 이 책을 읽어 목공 1~2레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-46ad0aa44b02419386b0ad8f99335b320252de5dea504c48333e2aa05cdb56aa",
-        "material_sha256": "de05f2a307cc92cbd70bf2213f12e54eed70d1bdd2309f8afa9cf7b290e0bd22",
+        "material_sha256": "32f9fb9a2fea395ae0e2e0d24035f5383f04958dcb98c617b70465e4486ce6ed",
         "menu": {
-          "en": "If you can read and are at Carpentry level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 목공 레벨이 0~1이라면, 이 책을 읽어 목공 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Carpentry level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 목공 레벨이 0~1이라면, 이 책을 읽어 목공 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -2764,21 +2764,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 목공 레벨이 0~1이라면, 이 책을 읽어 목공 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 목공 레벨이 0~1이라면, 이 책을 읽어 목공 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookCarpentry2": {
       "body_composition": {
-        "binding_sha256": "25487c910061668348df37caf6d3622cc952afa9a9899d72e8e1871f92a50ce2",
+        "binding_sha256": "d9c17e715340eac24f310f68cab99d165e84d44ee5a88a2d9ebd8fd77c06e9ff",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Carpentry level 2–3, this book boosts the XP multiplier for levels 3–4.",
           "ko": "글을 읽을 수 있고 목공 레벨이 2~3이라면, 이 책을 읽어 목공 3~4레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-80af79bb2eb6889aecf16f204d6921a5ba03581e535c2900eec8543e17b0f219",
-        "material_sha256": "aeb03484696592b5a77d5d6c09f9a3f7a284909dc3bb818f337ec9dd3d15b3c5",
+        "material_sha256": "99b6764ed43d8d3716a3fbd428d4057d5e39fb4aa86dccb8dc85bf601b064860",
         "menu": {
-          "en": "If you can read and are at Carpentry level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 목공 레벨이 2~3이라면, 이 책을 읽어 목공 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Carpentry level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 목공 레벨이 2~3이라면, 이 책을 읽어 목공 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -2791,21 +2791,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 목공 레벨이 2~3이라면, 이 책을 읽어 목공 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 목공 레벨이 2~3이라면, 이 책을 읽어 목공 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookCarpentry3": {
       "body_composition": {
-        "binding_sha256": "f66efc4facf378d044a48a1696ea5589ee05aeff5a2cc01f850bb01128b610d5",
+        "binding_sha256": "63b51d443f66a8186d300b20495f0f49086c3baf49adb0a89f1511db2df7031e",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Carpentry level 4–5, this book boosts the XP multiplier for levels 5–6.",
           "ko": "글을 읽을 수 있고 목공 레벨이 4~5이라면, 이 책을 읽어 목공 5~6레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-7716b4ddf1fcae21312f076d22498f4d23c9589e1b747d63f35428b96981c7de",
-        "material_sha256": "739d9c83dca1f1da33ba86379cb77552f58cb160d656f03835b9f32355a9983f",
+        "material_sha256": "3c4b4a6d472f34fccd4e53435421707e72119ba5681678353b32d2acaa84779d",
         "menu": {
-          "en": "If you can read and are at Carpentry level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 목공 레벨이 4~5이라면, 이 책을 읽어 목공 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Carpentry level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 목공 레벨이 4~5이라면, 이 책을 읽어 목공 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -2818,21 +2818,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 목공 레벨이 4~5이라면, 이 책을 읽어 목공 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 목공 레벨이 4~5이라면, 이 책을 읽어 목공 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookCarpentry4": {
       "body_composition": {
-        "binding_sha256": "53964b9b07a9695b7d6dd8f926bcc0a40a06fdaffbdb451c39cd904b4b25af37",
+        "binding_sha256": "778bc81471a3de2617bf5d53179c814dcd6bc8ef049f9238507d0f7032f3c8aa",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Carpentry level 6–7, this book boosts the XP multiplier for levels 7–8.",
           "ko": "글을 읽을 수 있고 목공 레벨이 6~7이라면, 이 책을 읽어 목공 7~8레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-184f0b47c4318ae717350c3993f6e5acbcb73c39e232bfde416047f24673a4c8",
-        "material_sha256": "c150c47fbacac77c0c763470cdec9b91a4cbc817755fef8d791b9b86489086f1",
+        "material_sha256": "cd93178f74c0d1c9aba8e0b46e916b0b66dfa05e2c0a974587384208e6fecf0e",
         "menu": {
-          "en": "If you can read and are at Carpentry level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 목공 레벨이 6~7이라면, 이 책을 읽어 목공 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Carpentry level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 목공 레벨이 6~7이라면, 이 책을 읽어 목공 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -2845,21 +2845,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 목공 레벨이 6~7이라면, 이 책을 읽어 목공 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 목공 레벨이 6~7이라면, 이 책을 읽어 목공 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookCarpentry5": {
       "body_composition": {
-        "binding_sha256": "9a4b0d2bb120bf5822ec3b836276a017c3b9b60129585bca94b8870cdbf54053",
+        "binding_sha256": "bda535d7525c3620ad01a3754d40a803dbb1b4ccd3b1a90cc2ee47814b39359c",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Carpentry level 8–9, this book boosts the XP multiplier for levels 9–10.",
           "ko": "글을 읽을 수 있고 목공 레벨이 8~9이라면, 이 책을 읽어 목공 9~10레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-2a028b0830f25dbf191cce5f4f3dbddda711b25d06cb07b220cdec84d5539b99",
-        "material_sha256": "a515fb2ee3ea87b042c2e67b8a3fe1386e42b07b59fe67fd60e967d15ca4deb1",
+        "material_sha256": "4b3625c7cd38b4f8c9ef4a0f4e7a7a334211ce904742c13a0839bf656e007776",
         "menu": {
-          "en": "If you can read and are at Carpentry level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 목공 레벨이 8~9이라면, 이 책을 읽어 목공 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Carpentry level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 목공 레벨이 8~9이라면, 이 책을 읽어 목공 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -2872,21 +2872,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 목공 레벨이 8~9이라면, 이 책을 읽어 목공 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 목공 레벨이 8~9이라면, 이 책을 읽어 목공 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookCooking1": {
       "body_composition": {
-        "binding_sha256": "1e3dae4440e129e164460b51892a740c437bd219171de9c15d9537ff397cbea2",
+        "binding_sha256": "ee17ba7203fb82fd1c11284d703696b223e1ff9fcec994e1870f7305443a32ed",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Cooking level 0–1, this book boosts the XP multiplier for levels 1–2.",
           "ko": "글을 읽을 수 있고 요리 레벨이 0~1이라면, 이 책을 읽어 요리 1~2레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-1a43f064fa1443db08c0d85598c0fe440ff91523bd0692ebc03fb51d7df53aa8",
-        "material_sha256": "b797d946ef38d1e79cef057b616fa64591a0c3bef3b06c46f0eb0b6919bfbd62",
+        "material_sha256": "88bc13b08bc6d54e8220e3972958de659c3f4e4b1f8b53416a4d9468dccf1325",
         "menu": {
-          "en": "If you can read and are at Cooking level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 요리 레벨이 0~1이라면, 이 책을 읽어 요리 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Cooking level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 요리 레벨이 0~1이라면, 이 책을 읽어 요리 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -2899,21 +2899,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 요리 레벨이 0~1이라면, 이 책을 읽어 요리 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 요리 레벨이 0~1이라면, 이 책을 읽어 요리 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookCooking2": {
       "body_composition": {
-        "binding_sha256": "1f2d931bd41e5c9c8fa95b894c387cba208224c53e933c4b59008edf399ff6c1",
+        "binding_sha256": "59d1a2d8c5d6f1d007fc90f75d0e3a05362420994a4a68671ab46759b97ef3b1",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Cooking level 2–3, this book boosts the XP multiplier for levels 3–4.",
           "ko": "글을 읽을 수 있고 요리 레벨이 2~3이라면, 이 책을 읽어 요리 3~4레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-de275eca2ab8d90e62f22a6689c651662839e092d9e5aa67514c46ce7aecab9f",
-        "material_sha256": "064145768603e110df7ac45119d60c7e47b8bc05bd38bf49c68bff2444837d3e",
+        "material_sha256": "c79d827d61d8bf2a10a257926ae33999706ecaea846afce2578d2bc619005be6",
         "menu": {
-          "en": "If you can read and are at Cooking level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 요리 레벨이 2~3이라면, 이 책을 읽어 요리 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Cooking level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 요리 레벨이 2~3이라면, 이 책을 읽어 요리 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -2926,21 +2926,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 요리 레벨이 2~3이라면, 이 책을 읽어 요리 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 요리 레벨이 2~3이라면, 이 책을 읽어 요리 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookCooking3": {
       "body_composition": {
-        "binding_sha256": "6a38bf765b8eda2a8c06b49f98071acda90f4518932ef74886d17cec24fa4978",
+        "binding_sha256": "db2658fa38d5ec52c8b97d9ee6513494a8ad6e570eceb31f1a401bfaad9883fe",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Cooking level 4–5, this book boosts the XP multiplier for levels 5–6.",
           "ko": "글을 읽을 수 있고 요리 레벨이 4~5이라면, 이 책을 읽어 요리 5~6레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-7099eddc901c8406f6b96a0a6a47c68317a5930df083c8600c766b2145e8e0da",
-        "material_sha256": "97609a428e631a2e99a891614f745685184374e2028395a21219d7d928114e04",
+        "material_sha256": "146dd5cf5da4f63fce280769b97e5bc4f29f642fc0bf20d8c182b4df0baae785",
         "menu": {
-          "en": "If you can read and are at Cooking level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 요리 레벨이 4~5이라면, 이 책을 읽어 요리 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Cooking level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 요리 레벨이 4~5이라면, 이 책을 읽어 요리 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -2953,21 +2953,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 요리 레벨이 4~5이라면, 이 책을 읽어 요리 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 요리 레벨이 4~5이라면, 이 책을 읽어 요리 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookCooking4": {
       "body_composition": {
-        "binding_sha256": "3197a6f440a3d47ec8199de95776b3dfed788fd47d27d10bff557d3ace79c3ae",
+        "binding_sha256": "ac874fc6a5887ce2ac92190656191c6987cc259edb2708eb33bd8e6c6452aa62",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Cooking level 6–7, this book boosts the XP multiplier for levels 7–8.",
           "ko": "글을 읽을 수 있고 요리 레벨이 6~7이라면, 이 책을 읽어 요리 7~8레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-e359e88d63aaa7ef4837a86fbb0da843470d46062c028b96804ee786ba39c97f",
-        "material_sha256": "53359ba8ab148634328d1005b87f8f82bace0592eec326aba691834003755ca5",
+        "material_sha256": "450d2788925d1c8577057cb9fde2f89a8d63c935b1bee7b07c1fe37f831b02ae",
         "menu": {
-          "en": "If you can read and are at Cooking level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 요리 레벨이 6~7이라면, 이 책을 읽어 요리 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Cooking level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 요리 레벨이 6~7이라면, 이 책을 읽어 요리 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -2980,21 +2980,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 요리 레벨이 6~7이라면, 이 책을 읽어 요리 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 요리 레벨이 6~7이라면, 이 책을 읽어 요리 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookCooking5": {
       "body_composition": {
-        "binding_sha256": "7c8d5a7c5ffa9f52bdffd9deb5d27edc1955f04bcb61f2c494e40ab51f82e25f",
+        "binding_sha256": "82c4e8c542fc99a40ec9d4631555fdd887fb7e448be11f0102d15e63736700b6",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Cooking level 8–9, this book boosts the XP multiplier for levels 9–10.",
           "ko": "글을 읽을 수 있고 요리 레벨이 8~9이라면, 이 책을 읽어 요리 9~10레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-249df19beaf91fd3456c2ea1b460ad66b9390d220ec3770a52fe8ac163290579",
-        "material_sha256": "210e849c61c5a1a0874dfa8e7ead093549c7c3124d06cd4ce5a480a2d8a40bb3",
+        "material_sha256": "6e21e31320b00c74dfb0bc2c05194105ff767e850da7f950b968358215f9adb7",
         "menu": {
-          "en": "If you can read and are at Cooking level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 요리 레벨이 8~9이라면, 이 책을 읽어 요리 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Cooking level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 요리 레벨이 8~9이라면, 이 책을 읽어 요리 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3007,21 +3007,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 요리 레벨이 8~9이라면, 이 책을 읽어 요리 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 요리 레벨이 8~9이라면, 이 책을 읽어 요리 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookElectrician1": {
       "body_composition": {
-        "binding_sha256": "4fe830fe5b35195f9bb9cfa5f0ad3f93d7d8e63e9dae24583f76bcc9e9c8ebbf",
+        "binding_sha256": "f22ed7304a44f62cfc9e50c58a9ef7320ae22ac921c31d3554cb0b57275ca1f8",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Electricity level 0–1, this book boosts the XP multiplier for levels 1–2.",
           "ko": "글을 읽을 수 있고 전기공학 레벨이 0~1이라면, 이 책을 읽어 전기공학 1~2레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-5263c3940f27537df149d0d2fc54f35d2f028044cc10c7d9e6319e62f3bf5bde",
-        "material_sha256": "bab9db0928d50930d20eb58f47e0715d6fe90c784367d96eee2c5d50fbca1d22",
+        "material_sha256": "8bb2c5b9b448e2f9787bd62faeb38d77505e894c21cc20b06a28f420ad1ab9b2",
         "menu": {
-          "en": "If you can read and are at Electricity level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 전기공학 레벨이 0~1이라면, 이 책을 읽어 전기공학 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Electricity level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 전기공학 레벨이 0~1이라면, 이 책을 읽어 전기공학 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3034,21 +3034,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 전기공학 레벨이 0~1이라면, 이 책을 읽어 전기공학 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 전기공학 레벨이 0~1이라면, 이 책을 읽어 전기공학 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookElectrician2": {
       "body_composition": {
-        "binding_sha256": "1a69895b784a917c7447560221a66dc94dc78c29e18c4719208616027dd1e3e8",
+        "binding_sha256": "38c0b0e43f1b0e915a43a8d6ad05ae1c57aa7c419aa5838289be2a8152f8b53b",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Electricity level 2–3, this book boosts the XP multiplier for levels 3–4.",
           "ko": "글을 읽을 수 있고 전기공학 레벨이 2~3이라면, 이 책을 읽어 전기공학 3~4레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-e6d3bab2ba1adc93f24b6e88f3fb58e18016230709049d5528a3a5ae1a2710c5",
-        "material_sha256": "5e3799846b96d5f69d641d5b4203e0d9ccfe8cdacfc61c2af9ad2f477f3abc01",
+        "material_sha256": "2100e4a00f9e3c60a47bf4786aade56f84516689b19ba66869481b66729e6f3d",
         "menu": {
-          "en": "If you can read and are at Electricity level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 전기공학 레벨이 2~3이라면, 이 책을 읽어 전기공학 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Electricity level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 전기공학 레벨이 2~3이라면, 이 책을 읽어 전기공학 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3061,21 +3061,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 전기공학 레벨이 2~3이라면, 이 책을 읽어 전기공학 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 전기공학 레벨이 2~3이라면, 이 책을 읽어 전기공학 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookElectrician3": {
       "body_composition": {
-        "binding_sha256": "4be2b781674eb57789b0dd8d6f580e659fab0d93d8547c68108ddbe64049f765",
+        "binding_sha256": "8867453d59c5b87e51aad4abe0c05b45374ec49fbaf88d76ae6d007826a67550",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Electricity level 4–5, this book boosts the XP multiplier for levels 5–6.",
           "ko": "글을 읽을 수 있고 전기공학 레벨이 4~5이라면, 이 책을 읽어 전기공학 5~6레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-206b6a0ac5b860a8b92df6de581aeef49bb453762bb583321bd59b1d3f286948",
-        "material_sha256": "1dfbae81f56b7cd7e9e31d88feaec09108eaf9289474d3fc265dd697b06b63fc",
+        "material_sha256": "e70203afa6123b918df48d1f78af1d10853fdf8097c07c80aec55936bb33ba20",
         "menu": {
-          "en": "If you can read and are at Electricity level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 전기공학 레벨이 4~5이라면, 이 책을 읽어 전기공학 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Electricity level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 전기공학 레벨이 4~5이라면, 이 책을 읽어 전기공학 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3088,21 +3088,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 전기공학 레벨이 4~5이라면, 이 책을 읽어 전기공학 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 전기공학 레벨이 4~5이라면, 이 책을 읽어 전기공학 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookElectrician4": {
       "body_composition": {
-        "binding_sha256": "b0791220dcea0cef8a5d3f25a372e93179b83cfa8cdf5ff929dea18bc8af2fc9",
+        "binding_sha256": "bde464d76020a5f5ee2962fde980dc9a6950dcc47ce6839effe4147df5547a02",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Electricity level 6–7, this book boosts the XP multiplier for levels 7–8.",
           "ko": "글을 읽을 수 있고 전기공학 레벨이 6~7이라면, 이 책을 읽어 전기공학 7~8레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-3b3225e60ab15feb7c785d01970bf87341dbee22617910983ce9a730c111e511",
-        "material_sha256": "5a072f0149398c37c11291a403a901fb23e82e097e7d7cb4fff7d2111e03c46e",
+        "material_sha256": "56b99abf1c851fe2bf95ac2ddd6cb93115be1e42f49ce028aca462605764940b",
         "menu": {
-          "en": "If you can read and are at Electricity level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 전기공학 레벨이 6~7이라면, 이 책을 읽어 전기공학 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Electricity level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 전기공학 레벨이 6~7이라면, 이 책을 읽어 전기공학 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3115,21 +3115,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 전기공학 레벨이 6~7이라면, 이 책을 읽어 전기공학 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 전기공학 레벨이 6~7이라면, 이 책을 읽어 전기공학 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookElectrician5": {
       "body_composition": {
-        "binding_sha256": "1b74854a0daa0d93c1ab0f97d1b4e7b66ed16e5fc46cd44a95e425c1f2252b00",
+        "binding_sha256": "942258bc594da8ef882953c5d5a8747b4c3ac3edeaf34fc94b5807e94ce984f0",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Electricity level 8–9, this book boosts the XP multiplier for levels 9–10.",
           "ko": "글을 읽을 수 있고 전기공학 레벨이 8~9이라면, 이 책을 읽어 전기공학 9~10레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-29c6a129c32b4cfa84ff1de70a6fea8321f882ddba34906bd9edad4825cb999f",
-        "material_sha256": "a762e29140b75b875a9e133e89dfe4faaf62d1a283f137eea500e9c4b33dfb95",
+        "material_sha256": "40844d49c2ec4eac90db7af099df13ece898102d4ddf04f8e457b1a985fa8cb6",
         "menu": {
-          "en": "If you can read and are at Electricity level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 전기공학 레벨이 8~9이라면, 이 책을 읽어 전기공학 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Electricity level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 전기공학 레벨이 8~9이라면, 이 책을 읽어 전기공학 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3142,21 +3142,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 전기공학 레벨이 8~9이라면, 이 책을 읽어 전기공학 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 전기공학 레벨이 8~9이라면, 이 책을 읽어 전기공학 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookFarming1": {
       "body_composition": {
-        "binding_sha256": "7dc56eb4c5c3c753baaa70cef79c2dabed0d549c798913257887d9280fd7ecc7",
+        "binding_sha256": "db8abacb27482b1dbd75cd153a7af8a2ca12020a2d488dcf4082102761d32921",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Farming level 0–1, this book boosts the XP multiplier for levels 1–2.",
           "ko": "글을 읽을 수 있고 농사 레벨이 0~1이라면, 이 책을 읽어 농사 1~2레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-d2ce27a6bc7e421e86896c86d01281cb0b1ae3861ee1ba1eb40d5dfed71393b2",
-        "material_sha256": "e2141c410491f7894497cd21cffd8da266133039465388dafe2128dbdf2f3d34",
+        "material_sha256": "032ad0dbfc56eabce5dbfb8a1ca708d6d704f23431c15311a7f777fcb46616d6",
         "menu": {
-          "en": "If you can read and are at Farming level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 농사 레벨이 0~1이라면, 이 책을 읽어 농사 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Farming level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 농사 레벨이 0~1이라면, 이 책을 읽어 농사 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3169,21 +3169,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 농사 레벨이 0~1이라면, 이 책을 읽어 농사 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 농사 레벨이 0~1이라면, 이 책을 읽어 농사 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookFarming2": {
       "body_composition": {
-        "binding_sha256": "940615f959be28a4efeda45373a05867ab409c3c1de8c88ee7b4043fd0896843",
+        "binding_sha256": "0944eeb75c8bea6244b592895e9692cc471ffd68f361f6ce7a45f993614d0d4f",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Farming level 2–3, this book boosts the XP multiplier for levels 3–4.",
           "ko": "글을 읽을 수 있고 농사 레벨이 2~3이라면, 이 책을 읽어 농사 3~4레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-18fd600fafd5631c46a13310b5b39124192a4cf533867fab19e3e37547e1143e",
-        "material_sha256": "7cbbab719f668043ba8d9d6df00de0080e8061618b858360f0bc5c1fac7ec847",
+        "material_sha256": "81d7df9d97f2342ffce44300295cb437463edf8c139cf497590981353665243f",
         "menu": {
-          "en": "If you can read and are at Farming level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 농사 레벨이 2~3이라면, 이 책을 읽어 농사 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Farming level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 농사 레벨이 2~3이라면, 이 책을 읽어 농사 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3196,21 +3196,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 농사 레벨이 2~3이라면, 이 책을 읽어 농사 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 농사 레벨이 2~3이라면, 이 책을 읽어 농사 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookFarming3": {
       "body_composition": {
-        "binding_sha256": "e770dc4d2f6538133e4e20bbf74deab43fccca4d06eaefcb8034d13ffebd4143",
+        "binding_sha256": "8e344d0181d41c7638804581c188c721be0d18c585f64860ea80d8f427d49ca9",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Farming level 4–5, this book boosts the XP multiplier for levels 5–6.",
           "ko": "글을 읽을 수 있고 농사 레벨이 4~5이라면, 이 책을 읽어 농사 5~6레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-5b09d30b35530c38637c776dfd2d0d45da71e385682fdcff3d933813a712f367",
-        "material_sha256": "d88099827abcb4ee7592641723f59452631c64694009b33ad59193407d54ecbc",
+        "material_sha256": "b8f9b33da195b6b0d2e081348a28125a015d4fc71dac0718e78e3d4629cedbf5",
         "menu": {
-          "en": "If you can read and are at Farming level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 농사 레벨이 4~5이라면, 이 책을 읽어 농사 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Farming level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 농사 레벨이 4~5이라면, 이 책을 읽어 농사 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3223,21 +3223,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 농사 레벨이 4~5이라면, 이 책을 읽어 농사 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 농사 레벨이 4~5이라면, 이 책을 읽어 농사 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookFarming4": {
       "body_composition": {
-        "binding_sha256": "0fe9e133c7bf503d798829aae34084f616bc813cd3345fa00f008f25e8fcfe34",
+        "binding_sha256": "2aa96368f67e7c39e5fc32565dd3dca1bc69f05d4c96cdcc57ec68ef907eb406",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Farming level 6–7, this book boosts the XP multiplier for levels 7–8.",
           "ko": "글을 읽을 수 있고 농사 레벨이 6~7이라면, 이 책을 읽어 농사 7~8레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-1a6f96dbf59efc22db67bad518a908994faf0e8d05435476cbdc232cab2f4f6c",
-        "material_sha256": "496fd4fe6e814cf2e648513a17862d04e01f001515231dd11944a6f9afe6a796",
+        "material_sha256": "2df9786526695e2c3e1003280ec4606148e85593073336022baa55117b3ab9c5",
         "menu": {
-          "en": "If you can read and are at Farming level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 농사 레벨이 6~7이라면, 이 책을 읽어 농사 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Farming level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 농사 레벨이 6~7이라면, 이 책을 읽어 농사 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3250,21 +3250,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 농사 레벨이 6~7이라면, 이 책을 읽어 농사 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 농사 레벨이 6~7이라면, 이 책을 읽어 농사 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookFarming5": {
       "body_composition": {
-        "binding_sha256": "d43b3f18913b0101d82fb54830bc4ea58d78ccf3d723d7bf3237234aad185dad",
+        "binding_sha256": "df79d24f0f848e24aab00420ec15033ac1619818a34b0eaf8de4f360d97edf63",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Farming level 8–9, this book boosts the XP multiplier for levels 9–10.",
           "ko": "글을 읽을 수 있고 농사 레벨이 8~9이라면, 이 책을 읽어 농사 9~10레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-81c7dc4d6b762e37cf96533238bd7321e38ad072e9e785134429a6c445a4ce1b",
-        "material_sha256": "4fbedbac246532cfa626d5c9bcf26c5ac2e2fc220aa473a8dcd70087e33f1aa5",
+        "material_sha256": "c99795c6387aa912213aadab7375ca3aeebf1d57a70aabddf4355b82addf9fea",
         "menu": {
-          "en": "If you can read and are at Farming level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 농사 레벨이 8~9이라면, 이 책을 읽어 농사 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Farming level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 농사 레벨이 8~9이라면, 이 책을 읽어 농사 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3277,21 +3277,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 농사 레벨이 8~9이라면, 이 책을 읽어 농사 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 농사 레벨이 8~9이라면, 이 책을 읽어 농사 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookFirstAid1": {
       "body_composition": {
-        "binding_sha256": "c1a0924fbaea7f456a43104dac9c0fe27301e6906bb117acb356fc35a2b548fc",
+        "binding_sha256": "d9448be304b0775c1e079a6312016ace631de402215dbc89dab890a35b33226e",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at First Aid level 0–1, this book boosts the XP multiplier for levels 1–2.",
           "ko": "글을 읽을 수 있고 응급처치 레벨이 0~1이라면, 이 책을 읽어 응급처치 1~2레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-bc4e2af8b1904c9fc5449a4a53bd525d8745549370f433eda51eb51f3518ed09",
-        "material_sha256": "e8e36f11c66a8a80dbc9bfd62c62ba2dd04d4852b2a1d5980072a3c872228dff",
+        "material_sha256": "c7fc3256030c514ff42d2a63f28a9d8a2e5d4d552adae2ad805aa31dea0a8de9",
         "menu": {
-          "en": "If you can read and are at First Aid level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 응급처치 레벨이 0~1이라면, 이 책을 읽어 응급처치 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at First Aid level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 응급처치 레벨이 0~1이라면, 이 책을 읽어 응급처치 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3304,21 +3304,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 응급처치 레벨이 0~1이라면, 이 책을 읽어 응급처치 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 응급처치 레벨이 0~1이라면, 이 책을 읽어 응급처치 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookFirstAid2": {
       "body_composition": {
-        "binding_sha256": "1a4e032d2385e8dd7ad4399bcf044334216b8c7720a447b194b33029797b9b97",
+        "binding_sha256": "1c7eb06a1c42dae9b445d53135d4fd004b8ea8a2cb81eee93ba27bc6e3c355e9",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at First Aid level 2–3, this book boosts the XP multiplier for levels 3–4.",
           "ko": "글을 읽을 수 있고 응급처치 레벨이 2~3이라면, 이 책을 읽어 응급처치 3~4레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-9b93fd517513ac788a8c4bb03845cb53a5e3b8087a326c780cdb4f2633806e3e",
-        "material_sha256": "65eefda5b9334f7dc81ed68214a5620d77e82bce5fb7e72bc87679bb6fd0b596",
+        "material_sha256": "40b861b57dd152a790201ce24a015569bec58717e8a33e100ad31c916d29cae3",
         "menu": {
-          "en": "If you can read and are at First Aid level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 응급처치 레벨이 2~3이라면, 이 책을 읽어 응급처치 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at First Aid level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 응급처치 레벨이 2~3이라면, 이 책을 읽어 응급처치 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3331,21 +3331,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 응급처치 레벨이 2~3이라면, 이 책을 읽어 응급처치 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 응급처치 레벨이 2~3이라면, 이 책을 읽어 응급처치 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookFirstAid3": {
       "body_composition": {
-        "binding_sha256": "61638dddb33dcd761175bb708953f64cf81cc0476f0a8eb9bb41c0397d662923",
+        "binding_sha256": "0cca158ce27f46f4d22525f0266676290fb8bd505584e226ddac058e4d8d4f10",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at First Aid level 4–5, this book boosts the XP multiplier for levels 5–6.",
           "ko": "글을 읽을 수 있고 응급처치 레벨이 4~5이라면, 이 책을 읽어 응급처치 5~6레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-abc22c4b17a38990138fdb84ba139c9c4c4be47b5f26eaaf86d79a37cc1082f0",
-        "material_sha256": "53a6c601bf51efa9819424eb36dd852562ae9b8678573b6d0ce05ba2dd4cef8c",
+        "material_sha256": "9cb4e48ab4298d101f295450f86ff77b61bd79f16c80a21b89575fefdb3656bb",
         "menu": {
-          "en": "If you can read and are at First Aid level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 응급처치 레벨이 4~5이라면, 이 책을 읽어 응급처치 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at First Aid level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 응급처치 레벨이 4~5이라면, 이 책을 읽어 응급처치 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3358,21 +3358,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 응급처치 레벨이 4~5이라면, 이 책을 읽어 응급처치 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 응급처치 레벨이 4~5이라면, 이 책을 읽어 응급처치 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookFirstAid4": {
       "body_composition": {
-        "binding_sha256": "8e2455c5ce43a22254d7326ccc684d468c0abde8311306dff2466ec942e4dfce",
+        "binding_sha256": "73eeda64c6bad9df17bed9cd01a9bf09030d1e526f9d2ba7f78bcdd52b822fb0",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at First Aid level 6–7, this book boosts the XP multiplier for levels 7–8.",
           "ko": "글을 읽을 수 있고 응급처치 레벨이 6~7이라면, 이 책을 읽어 응급처치 7~8레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-113cc1605177d2d7f9ed0385bc06e8940e782eb52cf412cfa575b7c973d46eb4",
-        "material_sha256": "31ca008c606c1e8bf36579aa5e61fc899abd4ce443934d3ea57baf42f0ecdb5a",
+        "material_sha256": "1b929462df64f83e414309f28c97585e6475804ea25ed655591d1771ab986a19",
         "menu": {
-          "en": "If you can read and are at First Aid level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 응급처치 레벨이 6~7이라면, 이 책을 읽어 응급처치 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at First Aid level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 응급처치 레벨이 6~7이라면, 이 책을 읽어 응급처치 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3385,21 +3385,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 응급처치 레벨이 6~7이라면, 이 책을 읽어 응급처치 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 응급처치 레벨이 6~7이라면, 이 책을 읽어 응급처치 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookFirstAid5": {
       "body_composition": {
-        "binding_sha256": "b203c38fd934ff7bb5993ba56ce1af0f55f0967281edd27d2b4d494ca59cbe01",
+        "binding_sha256": "2f5d406a8101dc0f0ad126ec9a468b0d00c11dd0af455b0d2801fbbfcb534ed1",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at First Aid level 8–9, this book boosts the XP multiplier for levels 9–10.",
           "ko": "글을 읽을 수 있고 응급처치 레벨이 8~9이라면, 이 책을 읽어 응급처치 9~10레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-becb13c05f563c0b223d5b125380193dc462b48b33310b35418ec54d011c461b",
-        "material_sha256": "5602093d1e827c57bccd8fe614afa0854c906933c5b798b7637d76494deff75a",
+        "material_sha256": "8e2e5f3fac6c62cbcd7ca37829c0332d5e56b53f82520eaad045e405b8a364b4",
         "menu": {
-          "en": "If you can read and are at First Aid level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 응급처치 레벨이 8~9이라면, 이 책을 읽어 응급처치 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at First Aid level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 응급처치 레벨이 8~9이라면, 이 책을 읽어 응급처치 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3412,21 +3412,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 응급처치 레벨이 8~9이라면, 이 책을 읽어 응급처치 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 응급처치 레벨이 8~9이라면, 이 책을 읽어 응급처치 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookFishing1": {
       "body_composition": {
-        "binding_sha256": "676b5d1888be017b12ece0bc5557b02814249efd52fd691fac13a420dfb2c2cb",
+        "binding_sha256": "96abca935f25e7a19e401c0b6bf0e5c2a702a9108b0a715dda1350d5d5b35102",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Fishing level 0–1, this book boosts the XP multiplier for levels 1–2.",
           "ko": "글을 읽을 수 있고 낚시 레벨이 0~1이라면, 이 책을 읽어 낚시 1~2레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-4aaa35cb69258479ccfeec0b62ff209f9a330c4265db79eeee8e479c324cdd7a",
-        "material_sha256": "286c338ef089f104dbb50ee2ead9ae19fd043ba61301ffc6f37d407f67d2838e",
+        "material_sha256": "f5afbdda4172354a09ef5aad28a49048b45b5e8028323564432067f5df83d7dc",
         "menu": {
-          "en": "If you can read and are at Fishing level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 낚시 레벨이 0~1이라면, 이 책을 읽어 낚시 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Fishing level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 낚시 레벨이 0~1이라면, 이 책을 읽어 낚시 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3439,21 +3439,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 낚시 레벨이 0~1이라면, 이 책을 읽어 낚시 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 낚시 레벨이 0~1이라면, 이 책을 읽어 낚시 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookFishing2": {
       "body_composition": {
-        "binding_sha256": "e8bc2b79b874c932d6659d1ac78253870700f04ae7ba051f0bb7c856a1378c54",
+        "binding_sha256": "61d1da04bdbf3d15d01e690fadc7d885d75ef1917770b7e6427e8d4bc5ffd017",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Fishing level 2–3, this book boosts the XP multiplier for levels 3–4.",
           "ko": "글을 읽을 수 있고 낚시 레벨이 2~3이라면, 이 책을 읽어 낚시 3~4레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-aa5e7fca288d8aaf8377dec2c81657475b4c857d29a6677accf397fc8ec46662",
-        "material_sha256": "ddfbd3a4672829bef985bfe5cea9bfd9925097a0e3f87263cfcdde0a538d6ae1",
+        "material_sha256": "0bd7269b4f51c252f5298fe526aec3e100a922161e742eaf42826783e12fce0e",
         "menu": {
-          "en": "If you can read and are at Fishing level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 낚시 레벨이 2~3이라면, 이 책을 읽어 낚시 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Fishing level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 낚시 레벨이 2~3이라면, 이 책을 읽어 낚시 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3466,21 +3466,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 낚시 레벨이 2~3이라면, 이 책을 읽어 낚시 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 낚시 레벨이 2~3이라면, 이 책을 읽어 낚시 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookFishing3": {
       "body_composition": {
-        "binding_sha256": "4da46701300a1cb1a35e26212a80543e04835ad383462ffdd8b02f02d2e57508",
+        "binding_sha256": "1b95004a32daa7ecefc095f21542e77cd000f34ba35f8df85d08d075c96e6bdf",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Fishing level 4–5, this book boosts the XP multiplier for levels 5–6.",
           "ko": "글을 읽을 수 있고 낚시 레벨이 4~5이라면, 이 책을 읽어 낚시 5~6레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-7260ab2582dba956a7effe9fddaa959943e6167c72d41fb7f2491e4cc8112516",
-        "material_sha256": "5a1957c7d800a65b0a7c01e40849f73945487647ab5810c61b7eb56c5a6c16a5",
+        "material_sha256": "2bd54bc49b97922af8b2ed88a8375d48f1dca5df5b86526a1175847733bbdf94",
         "menu": {
-          "en": "If you can read and are at Fishing level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 낚시 레벨이 4~5이라면, 이 책을 읽어 낚시 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Fishing level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 낚시 레벨이 4~5이라면, 이 책을 읽어 낚시 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3493,21 +3493,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 낚시 레벨이 4~5이라면, 이 책을 읽어 낚시 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 낚시 레벨이 4~5이라면, 이 책을 읽어 낚시 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookFishing4": {
       "body_composition": {
-        "binding_sha256": "5ec08a808bb92bc40d73b487716203dc1661ef10d517164af77eaedc93bb0b81",
+        "binding_sha256": "ee6b35ff925c87b3da17b48d1d656f2d5dcdea1227cc88d6f5fde89642adc0ad",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Fishing level 6–7, this book boosts the XP multiplier for levels 7–8.",
           "ko": "글을 읽을 수 있고 낚시 레벨이 6~7이라면, 이 책을 읽어 낚시 7~8레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-458a7759365a51d46a79e1937f0bc1b80dfff3cfd10f466ea723cc55ae34e797",
-        "material_sha256": "348d6174b7ac9a1535873978dae9d0a7835ab270dc677643e1dfaa0d23c316ed",
+        "material_sha256": "ba4f61dd5f818dafe41414b7176acc930e632a97cc2d85de6307d69a9b64a8bf",
         "menu": {
-          "en": "If you can read and are at Fishing level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 낚시 레벨이 6~7이라면, 이 책을 읽어 낚시 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Fishing level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 낚시 레벨이 6~7이라면, 이 책을 읽어 낚시 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3520,21 +3520,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 낚시 레벨이 6~7이라면, 이 책을 읽어 낚시 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 낚시 레벨이 6~7이라면, 이 책을 읽어 낚시 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookFishing5": {
       "body_composition": {
-        "binding_sha256": "4b407bd48a02dd68fa851b91abc49f9e0d70c95fe303a0dbbcf33fb503dd32fc",
+        "binding_sha256": "ed68c09aaa6be86e730a0042e88853cc33a62a69729ae1514d3836157c62d922",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Fishing level 8–9, this book boosts the XP multiplier for levels 9–10.",
           "ko": "글을 읽을 수 있고 낚시 레벨이 8~9이라면, 이 책을 읽어 낚시 9~10레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-26ad1068943d31dbb673b0299edcd1d431c7b157343297bd2a6876667baa7f17",
-        "material_sha256": "00daa0a1f51f173633d10363095442db68404c61ae10ede50a5ece05673d67bb",
+        "material_sha256": "3b26299a363f0e34eea24c467efa65398f21bc886da7bb4cfae105a9606c8210",
         "menu": {
-          "en": "If you can read and are at Fishing level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 낚시 레벨이 8~9이라면, 이 책을 읽어 낚시 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Fishing level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 낚시 레벨이 8~9이라면, 이 책을 읽어 낚시 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3547,21 +3547,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 낚시 레벨이 8~9이라면, 이 책을 읽어 낚시 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 낚시 레벨이 8~9이라면, 이 책을 읽어 낚시 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookForaging1": {
       "body_composition": {
-        "binding_sha256": "60d0130b312a56d995641826bb523b10b600605ac678edcdac74186e5150e920",
+        "binding_sha256": "a45a250454412364d16b35cbe3f0ea3b5e94aad2a93bc4bf26b201f982cbbd95",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Foraging level 0–1, this book boosts the XP multiplier for levels 1–2.",
           "ko": "글을 읽을 수 있고 채집 레벨이 0~1이라면, 이 책을 읽어 채집 1~2레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-6dbde2050d07e49ef681b5fb7955f9935a3fca3cb0878c1b2db3fc8388d05314",
-        "material_sha256": "0cca455f739bf553fd8dbc6fdc5444ff074cd1ba47bff7f44275198bc3c00aa2",
+        "material_sha256": "4e059f20160804e7153adf216811406973b8a08724c839649a0fcf290e677086",
         "menu": {
-          "en": "If you can read and are at Foraging level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 채집 레벨이 0~1이라면, 이 책을 읽어 채집 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Foraging level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 채집 레벨이 0~1이라면, 이 책을 읽어 채집 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3574,21 +3574,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 채집 레벨이 0~1이라면, 이 책을 읽어 채집 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 채집 레벨이 0~1이라면, 이 책을 읽어 채집 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookForaging2": {
       "body_composition": {
-        "binding_sha256": "373f97da5ad7cf2a3ec187c0998e9654f8729fd281fcfbed0afe112452a37f2b",
+        "binding_sha256": "8cca15d5f17d9b37c4063942d2744607f03343109572f5f9cfc162b56a558d91",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Foraging level 2–3, this book boosts the XP multiplier for levels 3–4.",
           "ko": "글을 읽을 수 있고 채집 레벨이 2~3이라면, 이 책을 읽어 채집 3~4레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-bcc557544b94bff84fb09734958af0e3edd66bbe9311a47123cf1a1cf2377a09",
-        "material_sha256": "fcb11fb178503c64df9b2c9719bf6117e41c6734f3d422056f960c83951d7335",
+        "material_sha256": "85ec45f1a3d3cc34bb8a55afd0e786d098d1acf7205d7179dcef1f4ddb8dc85a",
         "menu": {
-          "en": "If you can read and are at Foraging level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 채집 레벨이 2~3이라면, 이 책을 읽어 채집 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Foraging level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 채집 레벨이 2~3이라면, 이 책을 읽어 채집 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3601,21 +3601,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 채집 레벨이 2~3이라면, 이 책을 읽어 채집 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 채집 레벨이 2~3이라면, 이 책을 읽어 채집 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookForaging3": {
       "body_composition": {
-        "binding_sha256": "29f03cc9517f6b76b0d44cc43fca056b815e5aed8df83408da422d21755161b8",
+        "binding_sha256": "643bdaa7d60b2b15a7d6845aed8545e9178bc0956d9588360978b442d7b26604",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Foraging level 4–5, this book boosts the XP multiplier for levels 5–6.",
           "ko": "글을 읽을 수 있고 채집 레벨이 4~5이라면, 이 책을 읽어 채집 5~6레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-304cdd00422dda2ebc3f26c082cac83221ad8e26f40e734e3f51418b37d15e14",
-        "material_sha256": "7ce45482ab802505f68067243f4e4b42d32331ba237c074b385199423fac432f",
+        "material_sha256": "8b8009859680e3d0a5d578b8391c7e9fc0c57a521a2853f6853c85dd33e0801e",
         "menu": {
-          "en": "If you can read and are at Foraging level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 채집 레벨이 4~5이라면, 이 책을 읽어 채집 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Foraging level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 채집 레벨이 4~5이라면, 이 책을 읽어 채집 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3628,21 +3628,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 채집 레벨이 4~5이라면, 이 책을 읽어 채집 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 채집 레벨이 4~5이라면, 이 책을 읽어 채집 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookForaging4": {
       "body_composition": {
-        "binding_sha256": "a4a78350a7e8ff863f26ea830623bd9b1c0272af6e155f18420fd84758c3c889",
+        "binding_sha256": "db5569fde34b56db313892d6d36526cce67fb2a995f54779bbd7a101acccb9b1",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Foraging level 6–7, this book boosts the XP multiplier for levels 7–8.",
           "ko": "글을 읽을 수 있고 채집 레벨이 6~7이라면, 이 책을 읽어 채집 7~8레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-20356e0947f249a7073dbaf4ae0c42017a1562f399bd5aa6ff89c20948317849",
-        "material_sha256": "76c7b495c3ffb4e9b03fe21b7d9b30e47f8a97f78ce9e6561a477f0ed4e6aaf7",
+        "material_sha256": "572d6493b721734ea8e9d3b98192cba010766cc2b11a3cc0f04ea84d642c9909",
         "menu": {
-          "en": "If you can read and are at Foraging level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 채집 레벨이 6~7이라면, 이 책을 읽어 채집 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Foraging level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 채집 레벨이 6~7이라면, 이 책을 읽어 채집 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3655,21 +3655,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 채집 레벨이 6~7이라면, 이 책을 읽어 채집 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 채집 레벨이 6~7이라면, 이 책을 읽어 채집 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookForaging5": {
       "body_composition": {
-        "binding_sha256": "452fd65de99d8d2b6cce2e7978fd95a6da6f35284fd6b4d8cbacc32ea0cc4ad5",
+        "binding_sha256": "ce88cc9f824405127058f2406193f34cec8a20b41f89ec156c5ca26d73e822f8",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Foraging level 8–9, this book boosts the XP multiplier for levels 9–10.",
           "ko": "글을 읽을 수 있고 채집 레벨이 8~9이라면, 이 책을 읽어 채집 9~10레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-d10ecf87331d6682738c71fb360f0e98d3674b1f76251ae2071ad7b0f6dad3db",
-        "material_sha256": "6dbc688069d8037eb3dc85ca6c6f84c9e2915e71ead21bd029af6f8ee46d1c49",
+        "material_sha256": "9265a49950e50bd91c7de0f5e0c49c2e3d7bc3072170ab916110994a7c52557f",
         "menu": {
-          "en": "If you can read and are at Foraging level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 채집 레벨이 8~9이라면, 이 책을 읽어 채집 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Foraging level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 채집 레벨이 8~9이라면, 이 책을 읽어 채집 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3682,21 +3682,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 채집 레벨이 8~9이라면, 이 책을 읽어 채집 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 채집 레벨이 8~9이라면, 이 책을 읽어 채집 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookMechanic1": {
       "body_composition": {
-        "binding_sha256": "85361d9ef6042c5146f7b15d9e744416e55c3dc8deac86f238a80b1f8040e10e",
+        "binding_sha256": "c870bc32be3a51367ab11dfd8431afa43224affec3738efd00625c269cb39bb5",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Mechanics level 0–1, this book boosts the XP multiplier for levels 1–2.",
           "ko": "글을 읽을 수 있고 차량정비 레벨이 0~1이라면, 이 책을 읽어 차량정비 1~2레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-bde849ce3329e20dd460df9fce0e90ea542381ed97219dc53fe38a34a8dc7f70",
-        "material_sha256": "7765df74d5e93fafae30fcce027afabe3e61baa1019dc384cd6370e1e73a9c12",
+        "material_sha256": "6e57f05d868e2c9fb576c03ac89d615c778adc31bf2909c0fe876800ea9d903c",
         "menu": {
-          "en": "If you can read and are at Mechanics level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 차량정비 레벨이 0~1이라면, 이 책을 읽어 차량정비 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Mechanics level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 차량정비 레벨이 0~1이라면, 이 책을 읽어 차량정비 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3709,21 +3709,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 차량정비 레벨이 0~1이라면, 이 책을 읽어 차량정비 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 차량정비 레벨이 0~1이라면, 이 책을 읽어 차량정비 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookMechanic2": {
       "body_composition": {
-        "binding_sha256": "5b1b58baff49deb1a20212d0cf0b24d9d616c4df6eeb8febe768965ac7161797",
+        "binding_sha256": "4531eba080755b9deba8ff4ca58d2d17fcf3618c36adc5e1ac574f4387d3b545",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Mechanics level 2–3, this book boosts the XP multiplier for levels 3–4.",
           "ko": "글을 읽을 수 있고 차량정비 레벨이 2~3이라면, 이 책을 읽어 차량정비 3~4레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-f7c4f7bdd9b72d7987d831d24f17b309648adba01706075823708cb72c7dcde3",
-        "material_sha256": "605351bfee9ccd509f2a227a067b665a3c76b2eb23ba494ca4e203c6fd02a7bc",
+        "material_sha256": "6ebeb03a21107057fc780951eacda6c73be8b15ce64cec89f2d691e3cce05983",
         "menu": {
-          "en": "If you can read and are at Mechanics level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 차량정비 레벨이 2~3이라면, 이 책을 읽어 차량정비 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Mechanics level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 차량정비 레벨이 2~3이라면, 이 책을 읽어 차량정비 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3736,21 +3736,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 차량정비 레벨이 2~3이라면, 이 책을 읽어 차량정비 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 차량정비 레벨이 2~3이라면, 이 책을 읽어 차량정비 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookMechanic3": {
       "body_composition": {
-        "binding_sha256": "4de4503bfd55c2e0bc4631d52d793b10f9cbdab792c508f0e9718a07a0088d52",
+        "binding_sha256": "ec157d3b593ff00b03152222d039ebf32aa1d4b9646af8d62d5304b07f55db59",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Mechanics level 4–5, this book boosts the XP multiplier for levels 5–6.",
           "ko": "글을 읽을 수 있고 차량정비 레벨이 4~5이라면, 이 책을 읽어 차량정비 5~6레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-9cb40128ccc0d0cc4660c702420ca420a5d248726cf8deee9c66f5dc22e9f254",
-        "material_sha256": "d459a61cf5ba61c4d7865c27a090070f5d62a7497b8ad8bc87461c4fb5b3e33b",
+        "material_sha256": "9049fdc4bb4694f0db6e612e9247f9265a2cc4cad101073c4b12698927821d21",
         "menu": {
-          "en": "If you can read and are at Mechanics level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 차량정비 레벨이 4~5이라면, 이 책을 읽어 차량정비 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Mechanics level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 차량정비 레벨이 4~5이라면, 이 책을 읽어 차량정비 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3763,21 +3763,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 차량정비 레벨이 4~5이라면, 이 책을 읽어 차량정비 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 차량정비 레벨이 4~5이라면, 이 책을 읽어 차량정비 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookMechanic4": {
       "body_composition": {
-        "binding_sha256": "afea03309e798254765024e6ba420a84f4444976ddc3d6b0826551784d5033cb",
+        "binding_sha256": "437f25ee31b6e950af7c33f5572a5e08ea218ebd937a6aa1965da84cad74ebb1",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Mechanics level 6–7, this book boosts the XP multiplier for levels 7–8.",
           "ko": "글을 읽을 수 있고 차량정비 레벨이 6~7이라면, 이 책을 읽어 차량정비 7~8레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-39b18d24ae170ec1ef76acf429723e1dec2782b63f09dfb69be8cd9f2433bae6",
-        "material_sha256": "15f74985d05328fb7e9e7b078a3bc17b1a4acc32ed46ec28008830fc0c3bba75",
+        "material_sha256": "14bb80effdbae6761f31cfc134d323eb421986f5b2d9efab6a304d5afdd27a61",
         "menu": {
-          "en": "If you can read and are at Mechanics level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 차량정비 레벨이 6~7이라면, 이 책을 읽어 차량정비 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Mechanics level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 차량정비 레벨이 6~7이라면, 이 책을 읽어 차량정비 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3790,21 +3790,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 차량정비 레벨이 6~7이라면, 이 책을 읽어 차량정비 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 차량정비 레벨이 6~7이라면, 이 책을 읽어 차량정비 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookMechanic5": {
       "body_composition": {
-        "binding_sha256": "130d7e27e83217fc45d5e0556a288c7b82929c35125d659a33aa34100c5885cc",
+        "binding_sha256": "600033da93fb75f4ce5d7322ddb82feb8d501ce3114a2f7b9dde4418c10eb3bb",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Mechanics level 8–9, this book boosts the XP multiplier for levels 9–10.",
           "ko": "글을 읽을 수 있고 차량정비 레벨이 8~9이라면, 이 책을 읽어 차량정비 9~10레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-c6f80822760abfe3e1e12504d7b767f825edcf2a252a3e0c51230ae86ee9e387",
-        "material_sha256": "85e7150330ac5a287084580bdf1805896210cd91257c10b3e33350efacdf4281",
+        "material_sha256": "65e02132e3d638127ff18989b4796d2514121125533a278d2c5d9e485a1a8358",
         "menu": {
-          "en": "If you can read and are at Mechanics level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 차량정비 레벨이 8~9이라면, 이 책을 읽어 차량정비 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Mechanics level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 차량정비 레벨이 8~9이라면, 이 책을 읽어 차량정비 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3817,21 +3817,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 차량정비 레벨이 8~9이라면, 이 책을 읽어 차량정비 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 차량정비 레벨이 8~9이라면, 이 책을 읽어 차량정비 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookMetalWelding1": {
       "body_composition": {
-        "binding_sha256": "5df88f982d2d1f95ae423169843c8d71234185f746884a40b4371f7a2bb4b1c7",
+        "binding_sha256": "08314c44e26393432e8e93df98a505282e640b80e8ec035a3fe8e10e8d1b09c7",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Metalworking level 0–1, this book boosts the XP multiplier for levels 1–2.",
           "ko": "글을 읽을 수 있고 금속 용접 레벨이 0~1이라면, 이 책을 읽어 금속 용접 1~2레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-4c95e1d10477ae15cafa4029a53b7b23f0b4112459dc196eb053f4368902dc6f",
-        "material_sha256": "e2b352110291c1a1f75f1c8cd9fb11a49dae2e8d25ad6d9714fe626f1bad5744",
+        "material_sha256": "a2350a03aca1ce632fd09fbcfc2c1de5723ef311811938c7fce6a8109c3c7582",
         "menu": {
-          "en": "If you can read and are at Metalworking level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 금속 용접 레벨이 0~1이라면, 이 책을 읽어 금속 용접 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Metalworking level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 금속 용접 레벨이 0~1이라면, 이 책을 읽어 금속 용접 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3844,21 +3844,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 금속 용접 레벨이 0~1이라면, 이 책을 읽어 금속 용접 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 금속 용접 레벨이 0~1이라면, 이 책을 읽어 금속 용접 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookMetalWelding2": {
       "body_composition": {
-        "binding_sha256": "3b0521f1e1830a6c6230974dd08ac5f7b3179633504108a1044fc00c9178be16",
+        "binding_sha256": "a00ddb8da80ed910ec148ff13afb8c1b9809b0bf3ceb5a70dbd8809d6554f235",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Metalworking level 2–3, this book boosts the XP multiplier for levels 3–4.",
           "ko": "글을 읽을 수 있고 금속 용접 레벨이 2~3이라면, 이 책을 읽어 금속 용접 3~4레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-ec8537d891e346a3e56a8310eadcf89bdafda237c776619dc66fe04097d6a749",
-        "material_sha256": "8f07d16752ef63feeafad085abe3bf20af521ef9b9e580f2b6ea024706b99e93",
+        "material_sha256": "e2bc972d38f0c071cf8179f35f122d75d5e5156a50e384eb72c5f1a61ed1cd26",
         "menu": {
-          "en": "If you can read and are at Metalworking level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 금속 용접 레벨이 2~3이라면, 이 책을 읽어 금속 용접 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Metalworking level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 금속 용접 레벨이 2~3이라면, 이 책을 읽어 금속 용접 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3871,21 +3871,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 금속 용접 레벨이 2~3이라면, 이 책을 읽어 금속 용접 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 금속 용접 레벨이 2~3이라면, 이 책을 읽어 금속 용접 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookMetalWelding3": {
       "body_composition": {
-        "binding_sha256": "fd412c312892843035ae2558e73cd54d7561255f2847bdfd7886f693d9ea16d4",
+        "binding_sha256": "6f4a7b038b05c1dabcb8ee61cfafe8c3641a367937046d23a3d54df9e48a49aa",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Metalworking level 4–5, this book boosts the XP multiplier for levels 5–6.",
           "ko": "글을 읽을 수 있고 금속 용접 레벨이 4~5이라면, 이 책을 읽어 금속 용접 5~6레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-7ce30a7c7272542474f43d8eab72b6b867e28a3d866d297f14f09d890b6233b6",
-        "material_sha256": "a68ba48b03f4d0e2b40b70807cea002e4aecccfaf86742560197b9f7274ef846",
+        "material_sha256": "5c60a5d21dad90fed8e833bb15c4322c59e9bf40bd3ce4ca1f14c99c7a3a5436",
         "menu": {
-          "en": "If you can read and are at Metalworking level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 금속 용접 레벨이 4~5이라면, 이 책을 읽어 금속 용접 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Metalworking level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 금속 용접 레벨이 4~5이라면, 이 책을 읽어 금속 용접 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3898,21 +3898,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 금속 용접 레벨이 4~5이라면, 이 책을 읽어 금속 용접 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 금속 용접 레벨이 4~5이라면, 이 책을 읽어 금속 용접 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookMetalWelding4": {
       "body_composition": {
-        "binding_sha256": "10a56b2a4c8867480ba0344461a07f78bf250b0d3a065b4249d0207f19a4d66a",
+        "binding_sha256": "bff44c1a725bcf1415fa06c6b56f2ac8e04715f685c51e7f7218414396c9764e",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Metalworking level 6–7, this book boosts the XP multiplier for levels 7–8.",
           "ko": "글을 읽을 수 있고 금속 용접 레벨이 6~7이라면, 이 책을 읽어 금속 용접 7~8레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-cb58f151953ede5e71bfc9193aabb146612e69ed0dc7a8f39313915e9c67b18d",
-        "material_sha256": "2795e0815c6c14a36451c2d2f079442e889dad1ece8fd0193a1da860b8e22877",
+        "material_sha256": "3f2703b9f9e6032fde7bfb8eed97b13eb71c6e1e982f696383f1d4358c299757",
         "menu": {
-          "en": "If you can read and are at Metalworking level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 금속 용접 레벨이 6~7이라면, 이 책을 읽어 금속 용접 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Metalworking level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 금속 용접 레벨이 6~7이라면, 이 책을 읽어 금속 용접 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3925,21 +3925,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 금속 용접 레벨이 6~7이라면, 이 책을 읽어 금속 용접 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 금속 용접 레벨이 6~7이라면, 이 책을 읽어 금속 용접 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookMetalWelding5": {
       "body_composition": {
-        "binding_sha256": "33f7b14e29d01b02f22d05e4e67deece24dacc2fe69bad11269b7a61d2694696",
+        "binding_sha256": "01507238950492c1927a9304c2dbf309f75fd725e4329ba41d71a22ee289471a",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Metalworking level 8–9, this book boosts the XP multiplier for levels 9–10.",
           "ko": "글을 읽을 수 있고 금속 용접 레벨이 8~9이라면, 이 책을 읽어 금속 용접 9~10레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-d811f61d042a7c156f0cd48deccb786a0cdcd56487a4210a4ad032896af47a22",
-        "material_sha256": "df50f0c823b290317fcd3754be7c74561202a722a9ed90ddc316da25971aec6b",
+        "material_sha256": "ed1ae85db8e333ca0bc082a5d37b3649c558e29e5400b45149a646dbc6003624",
         "menu": {
-          "en": "If you can read and are at Metalworking level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 금속 용접 레벨이 8~9이라면, 이 책을 읽어 금속 용접 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Metalworking level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 금속 용접 레벨이 8~9이라면, 이 책을 읽어 금속 용접 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3952,21 +3952,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 금속 용접 레벨이 8~9이라면, 이 책을 읽어 금속 용접 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 금속 용접 레벨이 8~9이라면, 이 책을 읽어 금속 용접 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookTailoring1": {
       "body_composition": {
-        "binding_sha256": "553726d0079cc673b3c476364f6566d89199895da652c8a65f977d9cc7287c8f",
+        "binding_sha256": "2953beca32b0162a1361831d1202f92ffcc7f6d97c3177bb0dc3c9046f469305",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Tailoring level 0–1, this book boosts the XP multiplier for levels 1–2.",
           "ko": "글을 읽을 수 있고 재봉술 레벨이 0~1이라면, 이 책을 읽어 재봉술 1~2레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-429bec34be1d773f9508dfb4d73143b2287568cb4af36e1f4d41afcd78e9c58f",
-        "material_sha256": "77cbb9ad842f5e42a06c7ec2646cbfe92b8f60cb966b64169e97bd3b58695cb3",
+        "material_sha256": "2d540a776e9c7eca27c3ee44d5c8e8cd9297e38af6fd77a820cf11c2d44be0e8",
         "menu": {
-          "en": "If you can read and are at Tailoring level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 재봉술 레벨이 0~1이라면, 이 책을 읽어 재봉술 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Tailoring level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 재봉술 레벨이 0~1이라면, 이 책을 읽어 재봉술 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -3979,21 +3979,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 재봉술 레벨이 0~1이라면, 이 책을 읽어 재봉술 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 재봉술 레벨이 0~1이라면, 이 책을 읽어 재봉술 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookTailoring2": {
       "body_composition": {
-        "binding_sha256": "5d2a5a55726cd13aa4aee6f7f421eaa1a5156858f8f8b138eb849c6eb7e5c2f4",
+        "binding_sha256": "66968fc716e97b9a782f21323b2ec862cf183675be7207dac008a8b449195d49",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Tailoring level 2–3, this book boosts the XP multiplier for levels 3–4.",
           "ko": "글을 읽을 수 있고 재봉술 레벨이 2~3이라면, 이 책을 읽어 재봉술 3~4레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-b37189b9b08fce7fb45f071931d121c4ef3d19a2c697474ffe46c597a9bd7971",
-        "material_sha256": "6192cba5ef56fb96f341d2f69eeb22dca7a623a02ba98adf755c073c2cf77aac",
+        "material_sha256": "2d6662ffaa8f341d75f822e9dd8d5202f9329f2d06decadce383989048f98c1c",
         "menu": {
-          "en": "If you can read and are at Tailoring level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 재봉술 레벨이 2~3이라면, 이 책을 읽어 재봉술 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Tailoring level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 재봉술 레벨이 2~3이라면, 이 책을 읽어 재봉술 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -4006,21 +4006,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 재봉술 레벨이 2~3이라면, 이 책을 읽어 재봉술 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 재봉술 레벨이 2~3이라면, 이 책을 읽어 재봉술 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookTailoring3": {
       "body_composition": {
-        "binding_sha256": "a6237b054e5957dde78f82e2b6560edf54abaae3281dddb759f3c6bc9a83f192",
+        "binding_sha256": "65119b3721f25d6e3c7cad74a7a06279368bf106e39af4a9062371fee7494972",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Tailoring level 4–5, this book boosts the XP multiplier for levels 5–6.",
           "ko": "글을 읽을 수 있고 재봉술 레벨이 4~5이라면, 이 책을 읽어 재봉술 5~6레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-be52d89d76620554249a738707f6c42a3a27441ed5e124818bb6b0fa2b9ef087",
-        "material_sha256": "bc744b821c0dab3a198746426656eb9e0d794475a309a631b9f7f0b9acc16a19",
+        "material_sha256": "e61ca5a5764f1426fd6255ebff43f824b42f25f0f943ec031397aa259aa458da",
         "menu": {
-          "en": "If you can read and are at Tailoring level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 재봉술 레벨이 4~5이라면, 이 책을 읽어 재봉술 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Tailoring level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 재봉술 레벨이 4~5이라면, 이 책을 읽어 재봉술 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -4033,21 +4033,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 재봉술 레벨이 4~5이라면, 이 책을 읽어 재봉술 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 재봉술 레벨이 4~5이라면, 이 책을 읽어 재봉술 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookTailoring4": {
       "body_composition": {
-        "binding_sha256": "87fe0bbd578b62d5862467b0e56f1768882fe0c33605e8fc5cff5c0ad7cad0e7",
+        "binding_sha256": "59be0a98b18f59d8d48a4cb9f2609c5a5d776193e3980afdf909a0c8d33d3bbf",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Tailoring level 6–7, this book boosts the XP multiplier for levels 7–8.",
           "ko": "글을 읽을 수 있고 재봉술 레벨이 6~7이라면, 이 책을 읽어 재봉술 7~8레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-cbb5079fa11d671778c46259026cd794668c7983b8c501788a961463cc865f78",
-        "material_sha256": "9e040694430f0f63cfbe2e1ec70195edf6d8bbd94c0dbf44e73666a2f96fdf5a",
+        "material_sha256": "a72168854d2a00675c9569c756e154070b4c38e852ba0b4ccb32f9811ab472c4",
         "menu": {
-          "en": "If you can read and are at Tailoring level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 재봉술 레벨이 6~7이라면, 이 책을 읽어 재봉술 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Tailoring level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 재봉술 레벨이 6~7이라면, 이 책을 읽어 재봉술 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -4060,21 +4060,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 재봉술 레벨이 6~7이라면, 이 책을 읽어 재봉술 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 재봉술 레벨이 6~7이라면, 이 책을 읽어 재봉술 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookTailoring5": {
       "body_composition": {
-        "binding_sha256": "3b4b5196ff7f9e50c566b04b835767e96c6a0bbdce2267332fcbb22e284c3180",
+        "binding_sha256": "fba6b46888e91e3e0f540d36d336fd46e6059f44a61ecfacc7aeadf77be4287d",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Tailoring level 8–9, this book boosts the XP multiplier for levels 9–10.",
           "ko": "글을 읽을 수 있고 재봉술 레벨이 8~9이라면, 이 책을 읽어 재봉술 9~10레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-1abd69a748af2d627d592bcdb424af8b65898a2f0c9cd36344a9a76fe226ac6a",
-        "material_sha256": "c4a1584553b158fd54eb65b7355384ba6f170fbda0455fde9d90fd52dba60262",
+        "material_sha256": "b9f2379ded551b667db7f6081ca9d61870b644e3a077eb8e26e608cdf42cb909",
         "menu": {
-          "en": "If you can read and are at Tailoring level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 재봉술 레벨이 8~9이라면, 이 책을 읽어 재봉술 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Tailoring level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 재봉술 레벨이 8~9이라면, 이 책을 읽어 재봉술 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -4087,21 +4087,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 재봉술 레벨이 8~9이라면, 이 책을 읽어 재봉술 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 재봉술 레벨이 8~9이라면, 이 책을 읽어 재봉술 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookTrapping1": {
       "body_composition": {
-        "binding_sha256": "18b7aafeb4d8f5e9e5ec70521fa5b0fb3f295563b70c60380069dcd7a2ead663",
+        "binding_sha256": "378eb7bca35b4c9d1a59cdcbc47d54e08eea46eb04880e16e7d6ed476b944dd5",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Trapping level 0–1, this book boosts the XP multiplier for levels 1–2.",
           "ko": "글을 읽을 수 있고 덫 사냥 레벨이 0~1이라면, 이 책을 읽어 덫 사냥 1~2레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-3f593d7f2c950f9a9bb27948a95359f28e67ae90ab9e6194b59a7ec38c3d7d45",
-        "material_sha256": "36cbc37e63c97f89cc8845afb8166f3e30f437fefdfa7ae9e3a2053535845a51",
+        "material_sha256": "57791cf6823c45d56d7d00c3072abb699f5b211589a476ac3200c2db770146e1",
         "menu": {
-          "en": "If you can read and are at Trapping level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 덫 사냥 레벨이 0~1이라면, 이 책을 읽어 덫 사냥 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Trapping level 0–1, this book boosts the XP multiplier for levels 1–2. The book has 220 pages. Every 10% read applies the new multiplier only if it is higher, up to 3 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 덫 사냥 레벨이 0~1이라면, 이 책을 읽어 덫 사냥 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -4114,21 +4114,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 덫 사냥 레벨이 0~1이라면, 이 책을 읽어 덫 사냥 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 덫 사냥 레벨이 0~1이라면, 이 책을 읽어 덫 사냥 1~2레벨의 경험치 획득 배율을 높일 수 있다. 총 220쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 3배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookTrapping2": {
       "body_composition": {
-        "binding_sha256": "31ed6711c0f7f3437cafe54157f24ca1d04f21ebefa46ac1b3296cacde127fd7",
+        "binding_sha256": "7a66b639f2fb80dab47eb76f02374aad8f90b1096df379b60cdfefc9c273afb8",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Trapping level 2–3, this book boosts the XP multiplier for levels 3–4.",
           "ko": "글을 읽을 수 있고 덫 사냥 레벨이 2~3이라면, 이 책을 읽어 덫 사냥 3~4레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-20c40aed85be6df5bea9056462ebca5e6cd3a3c3cad56af504895b5a57ab698b",
-        "material_sha256": "0ed4ea4bd53d3bb0e6319687f5ecf030be85815dc1ba206724f3ef973bf1a8d7",
+        "material_sha256": "abe42382cd77e29d6f5894e709cc19256ca31a111943282f9e20702feeb70921",
         "menu": {
-          "en": "If you can read and are at Trapping level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 덫 사냥 레벨이 2~3이라면, 이 책을 읽어 덫 사냥 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Trapping level 2–3, this book boosts the XP multiplier for levels 3–4. The book has 260 pages. Every 10% read applies the new multiplier only if it is higher, up to 5 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 덫 사냥 레벨이 2~3이라면, 이 책을 읽어 덫 사냥 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -4141,21 +4141,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 덫 사냥 레벨이 2~3이라면, 이 책을 읽어 덫 사냥 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 덫 사냥 레벨이 2~3이라면, 이 책을 읽어 덫 사냥 3~4레벨의 경험치 획득 배율을 높일 수 있다. 총 260쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 5배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookTrapping3": {
       "body_composition": {
-        "binding_sha256": "35751111138e0add869f044a119516b2818f5f2e9e0b579ff13cd54f5c440f9f",
+        "binding_sha256": "dbd23d2947be4989ee6f294cce87f7cc9e91799bf4c5f320da1aaec0e95e1e40",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Trapping level 4–5, this book boosts the XP multiplier for levels 5–6.",
           "ko": "글을 읽을 수 있고 덫 사냥 레벨이 4~5이라면, 이 책을 읽어 덫 사냥 5~6레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-087fcb89a608011df6ce4e9589ff383b3352581043ddc902e8636d101123bb54",
-        "material_sha256": "2d8adb7a69313585ce32157904a4a8ffcc990e889e20a07753d1f89a21e357dc",
+        "material_sha256": "e96f555fdfbafbd11578adb0a437b1715c0b28983ff784ec3133be20fecb3722",
         "menu": {
-          "en": "If you can read and are at Trapping level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 덫 사냥 레벨이 4~5이라면, 이 책을 읽어 덫 사냥 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Trapping level 4–5, this book boosts the XP multiplier for levels 5–6. The book has 300 pages. Every 10% read applies the new multiplier only if it is higher, up to 8 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 덫 사냥 레벨이 4~5이라면, 이 책을 읽어 덫 사냥 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -4168,21 +4168,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 덫 사냥 레벨이 4~5이라면, 이 책을 읽어 덫 사냥 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 덫 사냥 레벨이 4~5이라면, 이 책을 읽어 덫 사냥 5~6레벨의 경험치 획득 배율을 높일 수 있다. 총 300쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 8배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookTrapping4": {
       "body_composition": {
-        "binding_sha256": "a5aafff95ca599ce55a1ae49ed9350fab8986be53c1d1856b9f61cfdb028317e",
+        "binding_sha256": "d92add95d725b5cd4f4aeaa19a95640ccafe124920495fa5d7788f9fca1ca576",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Trapping level 6–7, this book boosts the XP multiplier for levels 7–8.",
           "ko": "글을 읽을 수 있고 덫 사냥 레벨이 6~7이라면, 이 책을 읽어 덫 사냥 7~8레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-e6f0306090dee7f9f3c7977a0af2d30c90edae53714ffe0ae7b5515e46794732",
-        "material_sha256": "29b5cc447678bddab41c29ed64396b3d5bbcc12a2af306aec9edddcaac9368fb",
+        "material_sha256": "f1b04094f119a1565d8a28b6f4d690f4ebe04f65404121035282a2efb5ae5d91",
         "menu": {
-          "en": "If you can read and are at Trapping level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 덫 사냥 레벨이 6~7이라면, 이 책을 읽어 덫 사냥 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Trapping level 6–7, this book boosts the XP multiplier for levels 7–8. The book has 340 pages. Every 10% read applies the new multiplier only if it is higher, up to 12 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 덫 사냥 레벨이 6~7이라면, 이 책을 읽어 덫 사냥 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -4195,21 +4195,21 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 덫 사냥 레벨이 6~7이라면, 이 책을 읽어 덫 사냥 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 덫 사냥 레벨이 6~7이라면, 이 책을 읽어 덫 사냥 7~8레벨의 경험치 획득 배율을 높일 수 있다. 총 340쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 12배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BookTrapping5": {
       "body_composition": {
-        "binding_sha256": "c8a75d10c116d6d987797435cbe0137af1f3efd782dcf188adc16d3aa0556d1a",
+        "binding_sha256": "2e7946571cd90fb9d1c6b6914339c486671c84f3eaac24ee19e115d77a75dd66",
         "composition_id": "skill_reading",
         "core": {
           "en": "If you can read and are at Trapping level 8–9, this book boosts the XP multiplier for levels 9–10.",
           "ko": "글을 읽을 수 있고 덫 사냥 레벨이 8~9이라면, 이 책을 읽어 덫 사냥 9~10레벨의 경험치 획득 배율을 높일 수 있다."
         },
         "core_fact_id": "l3rf-88abf7fa6bd1c236cc75606d4420ebd321a0494b68699e0ca1e44542fc133e70",
-        "material_sha256": "1b3a8b9b1f92d11f37ab0f2cdaaf378a239a9ff029f0622aec7e29c97fea0fb8",
+        "material_sha256": "5fa638c2f7a169203e3231aff351fa5d982fc1f1cc46e893dc45c6f133e1e0a1",
         "menu": {
-          "en": "If you can read and are at Trapping level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools.",
-          "ko": "글을 읽을 수 있고 덫 사냥 레벨이 8~9이라면, 이 책을 읽어 덫 사냥 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+          "en": "If you can read and are at Trapping level 8–9, this book boosts the XP multiplier for levels 9–10. The book has 380 pages. Every 10% read applies the new multiplier only if it is higher, up to 16 times when finished.\n\nFound in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
+          "ko": "글을 읽을 수 있고 덫 사냥 레벨이 8~9이라면, 이 책을 읽어 덫 사냥 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
         },
         "mode": "shared",
         "schema_version": "layer3-shared-composition-v1"
@@ -4222,7 +4222,7 @@
         "menu_public_acquisition_fact_ids": []
       },
       "source": "layer3_role_realign_staging_v1",
-      "text_ko": "글을 읽을 수 있고 덫 사냥 레벨이 8~9이라면, 이 책을 읽어 덫 사냥 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교에서 발견된다"
+      "text_ko": "글을 읽을 수 있고 덫 사냥 레벨이 8~9이라면, 이 책을 읽어 덫 사냥 9~10레벨의 경험치 획득 배율을 높일 수 있다. 총 380쪽이며, 10%씩 읽을 때마다 현재보다 높은 배율만 적용된다. 끝까지 읽으면 최대 16배가 된다.\n\n획득 방법: 학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다."
     },
     "Base.BorisBadger": {
       "role_material": {
@@ -30386,7 +30386,7 @@
   },
   "meta": {
     "authority_effect": "none",
-    "entries_sha256": "54b0ac711590b4e13cb2056bdabd08abab8230ee6438508763f88fe3d7326aa3",
+    "entries_sha256": "5614cb9781baef8fa199a3c3eb472adddd6f351c300d4b14b43232ad40bace81",
     "general_description_integration": {
       "authority_ref": "docs/DECISIONS.md#iris-tooltip-t3-d1--existing-context-integration",
       "decision": "user_adopted_build41_description_correction",
@@ -31141,7 +31141,7 @@
           ]
         }
       },
-      "facts_sha256": "197c7b43b00bc3021fde36319a05c64394bade84f4c32dfd6f6ee49a16a7837c",
+      "facts_sha256": "abee189c4e3af08b499ff0a08532d7d3199054f9f09ca2111a9cd75d54086ca5",
       "independent_game_source_verification": "not_performed",
       "predecessor_candidate_sha256": "fe6d24a1cac362076db6c3ce895df02eb1ec407bab080aee437df88fc153b5c6",
       "predecessor_facts_sha256": "e784cf76d2f7d51273eda44906c202c0548f0043027f60cf1af817336c03a6e9",
@@ -31162,8 +31162,8 @@
       "approval_ref": "docs/iris_dvf_shared_composition_usefulness_menu_tooltip_plan.md",
       "human_observation": "not_performed",
       "inputs_sha256": {
-        "facts": "6f57c07aec459650d2d10a76d4902f486a61c39990aa140fc1b0f39df1662985",
-        "overlay": "08f0be07f39de9e69cdaec41bb28ef881ba807e6ce3b61aed64b5ad4e787fdf4",
+        "facts": "b352c6adbaa6a9ee59b41ec1e4053edc4a33a9d4bab31e96a6ec899b135eb499",
+        "overlay": "40144959e62e0bb4440fc30e31edcc119e1f58c3332120038b80a114660149b8",
         "profiles": "cd95dc1d9ef8101037d33ae49b235abbe18a324e64a43ae65070a41d3eaffa16"
       },
       "schema_version": "layer3-shared-composition-v1"

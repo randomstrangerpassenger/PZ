@@ -757,6 +757,7 @@ TERMS_EN = {
 }
 
 ACQUISITION_EXACT_EN = {
+    "학교, 서점, 도서관, 가정집 책장, 책 상자, 우체국과 우편 차량에서 발견된다.": "Found in schools, bookstores, libraries, home bookshelves, book crates, post offices, and postal vehicles.",
     "TV 리모컨을 분해해 구한다": "Obtained by dismantling a TV remote.",
     "가죽 의류를 찢어 얻는다": "Obtained by tearing leather clothing.",
     "고기를 잘라 얻는다": "Obtained by cutting meat.",

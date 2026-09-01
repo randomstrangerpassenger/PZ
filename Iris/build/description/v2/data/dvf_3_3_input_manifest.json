@@ -133,7 +133,7 @@
     "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
     "role": "current_source_authority",
     "row_count": 2105,
-    "sha256": "197c7b43b00bc3021fde36319a05c64394bade84f4c32dfd6f6ee49a16a7837c"
+    "sha256": "abee189c4e3af08b499ff0a08532d7d3199054f9f09ca2111a9cd75d54086ca5"
   },
   "fixture_exclusion_rule": {
     "excluded_paths": [
@@ -176,7 +176,7 @@
       "path": "Iris/build/description/v2/data/dvf_3_3_overlay_support.jsonl",
       "role": "compose_support_not_source_authority",
       "row_count": 2105,
-      "sha256": "d384669a8c863b2bc8a4c67d127c9731245d9e4a0f2ac23ab85514d67f5a9917",
+      "sha256": "0b44d01b9df39128352b2d3ccad24ee7398dbfefebba60d22b980a2c17ddd7d6",
       "source": "fresh_generated_from_current_facts"
     }
   ],
@@ -373,7 +373,7 @@
   },
   "usefulness_correction": {
     "authority_ref": "docs/iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md",
-    "candidate_sha256": "ef6f75afe7227bd4c210d41ffe4a91a689cb242c15f8a4e2a4108381c6066cb9",
+    "candidate_sha256": "4d1cd2abeb162569a7b951b52a2f2d31503330339c8cef0a13fd00a2d07634e0",
     "context_target_count": 32,
     "new_core_count": 734,
     "owner_approval": "user_execution_request_preapproval",

@@ -1,6 +1,6 @@
 # Iris shared composition / Menu / Tooltip 실행 결과
 
-상태: **partial — 구현, 계획상 필수 자동 검증, 패키지 생성 완료. 새 패키지의 실제 PZ 화면 재관찰은 남아 있다.** 사용자 프롬프트가 계획상 owner gate를 사전 승인했으므로 해당 gate는 진행했다. 이 문서는 이번 실행의 closeout이며 별도 validator나 새로운 acceptance authority가 아니다.
+상태: **complete — 구현, 계획상 필수 자동 검증, 패키지 생성과 사용자의 실제 PZ KO/EN 화면 재관찰을 완료했다.** 사용자 프롬프트가 계획상 owner gate를 사전 승인했으므로 해당 gate는 진행했다. 이 문서는 이번 실행의 closeout이며 별도 validator나 새로운 acceptance authority가 아니다.
 
 ## 구현 결과
 
@@ -67,14 +67,8 @@ Universe 2,105, KO/EN public 각 2,099, S2 core 2,048, T1 support 2,280을 유�
 
 패키지는 current generation 하나만 포함하며 predecessor generation을 설치물에 섞지 않는다. 사용자의 실제 Project Zomboid 설치 폴더에는 쓰지 않았다.
 
-## 실제 PZ 관찰과 남은 항목
+## 실제 PZ 관찰 결과
 
-사용자는 이전 패키지에서 공통 동작, CannedPotato2, BathTowel/DishCloth, EngineDoor1, Axe, Generator, 레시피 전반과 EN locale의 KO 부재를 확인했다. 이번 새 패키지에서는 수정과 직접 겹치는 다음 항목만 다시 본다.
+사용자는 이전 패키지에서 공통 동작, CannedPotato2, BathTowel/DishCloth, EngineDoor1, Axe, Generator, 레시피 전반과 EN locale의 KO 부재를 확인했다. 이어 최종 패키지를 실제 PZ에서 재관찰해 KO와 EN 모두 글이 잘리지 않고 잘 보인다고 확인했다. 이 사용자 관찰로 이번 수정의 긴 공개 본문 표시와 두 locale의 화면 가독성 범위를 수용했다.
 
-1. `Base.BookCarpentry1`과 `Base.BookMetalWelding1`의 KO/EN Menu 끝에 위 전체 획득 장소 문구가 보이는지 확인한다.
-2. 같은 두 기술서의 긴 KO/EN 본문과 획득 장소까지 세로 스크롤로 끝까지 읽을 수 있는지 확인한다.
-3. `Base.Broom`의 KO/EN 긴 본문이 수평으로 잘리지 않고 끝까지 읽히는지 확인한다.
-4. Wiki를 화면 가장자리에서 열어 바깥 panel이 화면 안에 머무는지, mouse wheel과 scrollbar가 작동하는지, 본문 scroll 끝에 도달할 수 있는지 확인한다.
-5. 짧은 설명 하나를 대조군으로 열어 불필요한 줄 분리·빈 줄·과도한 스크롤이 없는지 확인한다.
-
-Alt Tooltip은 이번 변경 범위 밖이다. 가짜 레시피의 실제 존재 여부, Build 42, 멀티플레이, 장시간 성능, 모든 해상도/UI scale, release/Workshop/deployment는 이번 범위가 아니다.
+관찰 결과를 모든 항목·해상도·UI scale의 전수 인증으로 확대하지 않는다. Alt Tooltip은 이번 변경 범위 밖이다. 가짜 레시피의 실제 존재 여부, Build 42, 멀티플레이, 장시간 성능, 모든 해상도/UI scale, release/Workshop/deployment도 이번 범위가 아니다.

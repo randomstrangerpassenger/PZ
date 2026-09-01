@@ -83,6 +83,12 @@ Compiler 책임을 확장했다. 주요 연결점은 다음과 같다.
 condition과 item binding이 같은지를 먼저 확인했다. 기존 prose를 파싱해 새 fact를 만들거나,
 FullType 이름과 classification으로 기능을 채우는 경로도 추가하지 않았다.
 
+KO/EN core는 같은 semantic material에 결속하되 한국어 문장을 영어로, 영어 문장을
+한국어로 runtime 직역하지 않았다. Shared 193개와 explicit 6개는 각 언어에서 대상이
+무엇을 하고 어떤 효과를 내는지 먼저 드러나는 action-first 표현으로 다듬었다. 이
+자연화는 변경 199개 범위의 offline candidate 작업이며 retained 1,906개나 전체 2,105개를
+새로 번역·자연화하거나 사람이 전수 승인했다는 뜻이 아니다.
+
 최종 disposition은 다음과 같다.
 
 | 경로 | 수량 | 의미 |
@@ -133,12 +139,15 @@ runtime에서 4줄로 요약하지 않았다.
 | `EngineDoor1` | 후드 부품이라는 설명 확인 | 기존 source-bound 설명 유지 |
 | 도끼 | 효율·속도 수치가 없음 | 이번 source/contract에 승인된 수치를 이름으로 추가하지 않음 |
 | 발전기 | 주변 기기에 전력을 공급한다는 설명 | 상세 수치를 추론하지 않고 기존 core 유지 |
-| EN locale | KO 노출은 없지만 문장이 길고 직역처럼 보임 | runtime 번역을 만들지 않고, 이번 후속은 긴 본문 가독성과 source-bound 기술서 문구에 한정 |
+| EN locale | KO 노출은 없지만 문장이 길고 직역처럼 보임 | shared 193개 + explicit 6개의 KO/EN core는 앞선 action-first 자연화로 다듬었고, 후속은 긴 본문 가독성과 source-bound 기술서 문구에 한정 |
 | Recipe 전반 | 대체로 정상, 가짜 Recipe 존재 여부는 확인 불가 | 미확인 사항을 PASS나 결함으로 단정하지 않음 |
 
-이 피드백은 “모든 문장을 짧게 바꾼다”는 요구로 처리하지 않았다. 내용 누락과 화면 표시를
-분리했고, source로 닫을 수 있는 기술서 획득 장소는 semantic input을 보완했다. 글이 긴
-문제는 Menu 내부 view의 layout/scroll 책임에서 해결했다.
+이 피드백은 “모든 문장을 짧게 바꾼다”는 요구로 처리하지 않았다. 먼저 source-bound
+shared/explicit 단계에서 변경 199개의 KO/EN core를 각 언어의 action-first 표현으로
+다듬었고, retained 1,906개는 기존 경계를 유지했다. 그 뒤 내용 누락과 화면 표시를
+분리해 source로 닫을 수 있는 기술서 획득 장소는 semantic input을 보완하고, 글이 긴
+문제는 Menu 내부 view의 layout/scroll 책임에서 해결했다. Runtime 번역이나 2,105개 전체의
+재자연화는 수행하지 않았다.
 
 ## 6. 기술서 55권의 획득 장소 보완
 
@@ -207,10 +216,11 @@ content:setScrollHeight(math.max(content.height, yOffset + 10))
 
 ### 7.3 Alt Tooltip
 
-사용자는 Iris Tooltip 박스가 글 길이에 맞춰 자체 크기를 조정하고 실제 KO/EN 표시도
-잘리지 않는다고 확인했다. 최종 범위에서는 Tooltip에 별도의 강제 줄바꿈·padding 규칙을
-추가하지 않고 기존 자동 크기·화면 배치와 4 logical-row 계약을 유지했다. Menu/Wiki의
-장문 문제를 이유로 Tooltip semantic surface나 vanilla tooltip 크기를 변경하지 않았다.
+Alt Tooltip은 이번 장문 Menu/Wiki 후속에서 변경하지 않았다. 별도의 강제 줄바꿈·padding
+규칙을 추가하지 않고 기존 자동 크기·화면 배치와 4 logical-row 계약을 유지했다.
+Menu/Wiki의 장문 문제를 이유로 Tooltip semantic surface나 vanilla tooltip 크기도
+변경하지 않았다. 앞선 item-level Alt 확인은 predecessor 피드백으로만 보존하며, 최종
+KO/EN 재관찰의 acceptance claim을 Alt의 최종·전수 관찰로 승계하지 않는다.
 
 ## 8. Successor adoption과 exact identity
 
@@ -279,8 +289,9 @@ Predecessor generation이나 stale fixed/companion을 package fallback으로 섞
 
 사용자는 최종 package를 실제 PZ에서 다시 확인해 KO와 EN 모두 글이 잘리지 않고 잘
 보인다고 보고했다. 이 관찰로 이번 후속의 긴 공개 본문 표시와 두 locale의 화면 가독성
-범위를 수용했다. 기술서에는 전체 획득 장소가 표시되고, Tooltip은 기존 자동 크기 경로로
-정상 표시되는 상태다.
+범위를 수용했다. 최종 package는 기술서 전체 획득 장소를 포함하지만, 이 acceptance claim은
+확인된 긴 공개 본문 surface에 한정한다. Alt Tooltip은 기존 자동 크기·배치 경로를 유지한
+이번 후속의 변경 범위 밖이며 최종 재관찰이나 전수 가독성 확인을 주장하지 않는다.
 
 다음 항목은 이 관찰로 인증하지 않았다.
 
@@ -292,7 +303,8 @@ Predecessor generation이나 stale fixed/companion을 package fallback으로 섞
 
 사용자가 앞서 확인한 감자 통조림, 수건/행주, 차량 후드 부품, 발전기, 도끼, 빗자루와
 Recipe 관찰은 item별 피드백으로 보존한다. 그 관찰에서 직접 확인하지 않은 수치·효과나
-기능을 새 사실로 역추론하지 않는다.
+기능을 새 사실로 역추론하지 않는다. 앞선 Alt item-level 관찰도 같은 predecessor 피드백
+범위이며 이번 최종 Menu/Wiki acceptance로 확대하지 않는다.
 
 ## 12. Canonical 문서 동기화와 현재 readpoint
 

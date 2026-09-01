@@ -133,7 +133,7 @@
     "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
     "role": "current_source_authority",
     "row_count": 2105,
-    "sha256": "c95ec30e412e688c04016768bea51a0d8b6db3e61a98a26cc5dc94a1285e0a80"
+    "sha256": "197c7b43b00bc3021fde36319a05c64394bade84f4c32dfd6f6ee49a16a7837c"
   },
   "fixture_exclusion_rule": {
     "excluded_paths": [
@@ -176,7 +176,7 @@
       "path": "Iris/build/description/v2/data/dvf_3_3_overlay_support.jsonl",
       "role": "compose_support_not_source_authority",
       "row_count": 2105,
-      "sha256": "008ef594bbed84acde211b70b26752395deb363c411ba954465c6b72aab00af7",
+      "sha256": "d384669a8c863b2bc8a4c67d127c9731245d9e4a0f2ac23ab85514d67f5a9917",
       "source": "fresh_generated_from_current_facts"
     }
   ],
@@ -217,7 +217,7 @@
   "schema_version": "dvf-3-3-input-manifest-v1",
   "shared_composition": {
     "authority_ref": "docs/iris_dvf_shared_composition_usefulness_menu_tooltip_plan.md",
-    "candidate_sha256": "bf75cf0e397c0c338515ce1f7b61356547a099b16ea354ee73cdefb364f790a0",
+    "candidate_sha256": "8b39466b82ca022304c5c7ba860a3eeaf08323c8aa29a9b6eb3a6da189e44c2e",
     "canonical_input_count": 7,
     "explicit_count": 6,
     "explicit_routes": "dvf_3_3_overlay_support.jsonl#body_composition",

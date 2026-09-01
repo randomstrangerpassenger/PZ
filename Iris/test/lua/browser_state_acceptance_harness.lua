@@ -692,6 +692,13 @@ getCore = function() return {getScreenWidth=function() return 900 end,
     getScreenHeight=function() return 700 end} end
 isKeyDown = function(code) return code == 56 end
 UIFont = { Small = "Small" }
+local TextLayout = require("Iris/UI/Detail/IrisTextLayout")
+local wrappedDetail = TextLayout.wrapLines(
+    "A long Browser detail sentence that must stay inside its narrow detail column.", 96, UIFont.Small)
+assert(#wrappedDetail > 1)
+for _, line in ipairs(wrappedDetail) do
+    assert(getTextManager():MeasureStringX(UIFont.Small, line) <= 96)
+end
 local AltTooltip = require("Iris/UI/Tooltip/IrisAltTooltip")
 assert(AltTooltip.getDisplayLineCacheMetrics().enabled == false)
 AltTooltip.setInstrumentationEnabled(true)

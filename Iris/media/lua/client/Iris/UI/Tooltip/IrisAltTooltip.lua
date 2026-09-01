@@ -97,17 +97,11 @@ local function addOverlay(tip)
     local absoluteX, absoluteY = tip:getAbsoluteX(), tip:getAbsoluteY()
     -- A separate reading panel, independent of vanilla's often narrow width.
     local gap, minWidth, maxWidth = 4, 240, 360
-    -- PZ's rendered glyphs can extend slightly beyond MeasureStringX at some
-    -- UI scales. Keep scale-aware breathing room inside the panel and wrap
-    -- before the measured edge instead of letting the final glyph be clipped.
-    local paddingX = math.max(14, math.ceil(lineHeight * 0.9))
-    local paddingY = math.max(5, math.ceil(lineHeight * 0.35))
-    local measurementSlack = math.max(8, math.ceil(lineHeight * 0.75))
     local contentWidth = 0
     for i=1,#rows do
         contentWidth = math.max(contentWidth, manager:MeasureStringX(font, rows[i]))
     end
-    local width = math.min(math.min(math.max(contentWidth+paddingX*2+measurementSlack, minWidth), maxWidth), screenWidth)
+    local width = math.min(math.min(math.max(contentWidth+20, minWidth), maxWidth), screenWidth)
     local rightSpace = screenWidth - (absoluteX+tip.width+gap)
     local leftSpace = absoluteX-gap
     local x, side
@@ -129,13 +123,12 @@ local function addOverlay(tip)
         -- Very narrow viewports: use vertical placement only as a last resort.
         x = math.max(0, math.min(absoluteX, screenWidth-width)) - absoluteX
     end
-    local wrapWidth = width-paddingX*2-measurementSlack
-    if wrapWidth <= 0 then return end
+    if width <= 20 then return end
     local lines = {}
     for i=1,#rows do
-        if not wrapRow(rows[i], wrapWidth, manager, font, lines) then return end
+        if not wrapRow(rows[i], width-20, manager, font, lines) then return end
     end
-    local blockHeight = #lines * lineHeight + paddingY*2
+    local blockHeight = #lines * lineHeight + 8
     if blockHeight > screenHeight then return end
     local y
     if side then
@@ -151,7 +144,7 @@ local function addOverlay(tip)
     tip:drawRect(x,y,width,blockHeight,0.9,0.05,0.15,0.2)
     tip:drawRectBorder(x,y,width,blockHeight,0.8,0.4,0.6,0.7)
     for i=1,#lines do
-        tip:drawText(lines[i],x+paddingX,y+paddingY+(i-1)*lineHeight,0.8,0.9,0.9,1.0,font)
+        tip:drawText(lines[i],x+10,y+4+(i-1)*lineHeight,0.8,0.9,0.9,1.0,font)
     end
 end
 

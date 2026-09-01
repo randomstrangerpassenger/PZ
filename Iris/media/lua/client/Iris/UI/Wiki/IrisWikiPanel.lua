@@ -10,6 +10,21 @@ local IrisWikiPanel = {}
 -- 의존성
 local IrisWikiSections = require "Iris/UI/Wiki/IrisWikiSections"
 local DetailViewModel = require("Iris/UI/Detail/IrisItemDetailViewModel")
+local TextLayout = require("Iris/UI/Detail/IrisTextLayout")
+
+local function addWrappedLabels(panel, text, x, yOffset, lineHeight, r, g, b, font, rightPadding)
+    local width = math.max(1, panel.width - x - (rightPadding or 10))
+    for _, line in ipairs(TextLayout.wrapLines(text, width, font)) do
+        if line == "" then
+            yOffset = yOffset + math.max(4, math.floor(lineHeight * 0.55))
+        else
+            local label = ISLabel:new(x, yOffset, lineHeight, line, r, g, b, 1, font, true)
+            panel:addChild(label)
+            yOffset = yOffset + lineHeight
+        end
+    end
+    return yOffset
+end
 
 -- 패널 인스턴스
 IrisWikiPanel._panel = nil
@@ -48,8 +63,8 @@ function IrisWikiPanel.createPanel(item)
     if not model then return nil end
     local screenW = getCore():getScreenWidth()
     local screenH = getCore():getScreenHeight()
-    local panelW = 400
-    local panelH = 500
+    local panelW = math.min(400, math.max(1, screenW - 20))
+    local panelH = math.min(500, math.max(1, screenH - 20))
     local x = (screenW - panelW) / 2
     local y = (screenH - panelH) / 2
     
@@ -66,8 +81,8 @@ function IrisWikiPanel.createPanel(item)
     
     -- 제목
     local itemName = model.displayName or model.fullType or "Unknown"
-    local titleLabel = ISLabel:new(10, 10, 25, "Iris: " .. itemName, 1, 1, 1, 1, UIFont.Medium, true)
-    panel:addChild(titleLabel)
+    addWrappedLabels(panel, "Iris: " .. itemName, 10, 10, 25, 1, 1, 1,
+        UIFont.Medium, 45)
     
     -- 닫기 버튼
     local closeBtn = ISButton:new(panelW - 30, 5, 25, 25, "X", panel, function()
@@ -82,57 +97,42 @@ function IrisWikiPanel.createPanel(item)
     -- A) 태그 목록
     local tagsSection = IrisWikiSections.renderTagsSection(model)
     if tagsSection then
-        local tagsLabel = ISLabel:new(10, yOffset, 20, tagsSection, 1, 1, 1, 1, UIFont.Small, true)
-        panel:addChild(tagsLabel)
-        yOffset = yOffset + 25
+        yOffset = addWrappedLabels(panel, tagsSection, 10, yOffset, 18,
+            1, 1, 1, UIFont.Small) + 7
     end
 
     -- B.25) 3계층 본문
     local layer3Section = IrisWikiSections.renderLayer3Section(model)
     if layer3Section then
-        local renderedLineCount = 0
-        for line in layer3Section:gmatch("[^\n]+") do
-            local layer3Label = ISLabel:new(10, yOffset, 20, line, 0.9, 0.9, 0.9, 1, UIFont.Small, true)
-            panel:addChild(layer3Label)
-            yOffset = yOffset + 18
-            renderedLineCount = renderedLineCount + 1
-        end
-        if renderedLineCount > 0 then
-            yOffset = yOffset + 7
-        end
+        yOffset = addWrappedLabels(panel, layer3Section, 10, yOffset, 18,
+            0.9, 0.9, 0.9, UIFont.Small) + 7
     end
     
     local literatureSection = IrisWikiSections.renderLiteratureSection(model)
     if literatureSection then
-        for line in literatureSection:gmatch("[^\n]+") do
-            local label = ISLabel:new(10, yOffset, 20, line, 0.9, 0.9, 0.9, 1, UIFont.Small, true)
-            panel:addChild(label)
-            yOffset = yOffset + 18
-        end
-        yOffset = yOffset + 7
+        yOffset = addWrappedLabels(panel, literatureSection, 10, yOffset, 18,
+            0.9, 0.9, 0.9, UIFont.Small) + 7
     end
 
     -- B.5) UseCase (빌드 산출물 표시 전용)
     local usecaseSection = IrisWikiSections.renderUseCaseSection(model)
     if usecaseSection then
-        local usecaseLabel = ISLabel:new(10, yOffset, 20, usecaseSection, 0.9, 0.95, 0.8, 1, UIFont.Small, true)
-        panel:addChild(usecaseLabel)
-        yOffset = yOffset + 25
+        yOffset = addWrappedLabels(panel, usecaseSection, 10, yOffset, 18,
+            0.9, 0.95, 0.8, UIFont.Small) + 7
     end
     
     -- C) 연결 시스템
     local connectionSection = IrisWikiSections.renderConnectionSection(model)
     if connectionSection then
-        local connectionLabel = ISLabel:new(10, yOffset, 20, connectionSection, 1, 1, 1, 1, UIFont.Small, true)
-        panel:addChild(connectionLabel)
-        yOffset = yOffset + 25
+        yOffset = addWrappedLabels(panel, connectionSection, 10, yOffset, 18,
+            1, 1, 1, UIFont.Small) + 7
     end
     
     -- D) 상태 필드
     local fieldsSection = IrisWikiSections.renderFieldsSection(model)
     if fieldsSection then
-        local fieldsLabel = ISLabel:new(10, yOffset, 20, fieldsSection, 1, 1, 1, 1, UIFont.Small, true)
-        panel:addChild(fieldsLabel)
+        addWrappedLabels(panel, fieldsSection, 10, yOffset, 18,
+            1, 1, 1, UIFont.Small)
     end
     
     -- 닫기 함수

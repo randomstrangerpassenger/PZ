@@ -15,6 +15,7 @@ local ObjectAccess = require("Iris/Util/IrisObjectAccess")
 local ItemAccess = require("Iris/Util/IrisItemAccess")
 local DetailViewModel = require("Iris/UI/Detail/IrisItemDetailViewModel")
 local DetailPresentation = require("Iris/UI/Detail/IrisItemDetailPresentation")
+local TextLayout = require("Iris/UI/Detail/IrisTextLayout")
 local TranslationResolver = require("Iris/Util/IrisTranslationResolver")
 local InteractionState = require("Iris/UI/Browser/IrisBrowserInteractionState")
 
@@ -109,10 +110,15 @@ local function applyDetailScrollOffset(browser)
 end
 
 local function addMultilineLabels(panel, text, x, yOffset, height, r, g, b, font)
-    for line in text:gmatch("[^\n]+") do
-        local lineLabel = ISLabel:new(x, yOffset, height, line, r, g, b, 1, font, true)
-        panel:addChild(lineLabel)
-        yOffset = yOffset + height
+    local availableWidth = math.max(1, panel.width - x - 10)
+    for _, line in ipairs(TextLayout.wrapLines(text, availableWidth, font)) do
+        if line == "" then
+            yOffset = yOffset + math.max(4, math.floor(height * 0.55))
+        else
+            local lineLabel = ISLabel:new(x, yOffset, height, line, r, g, b, 1, font, true)
+            panel:addChild(lineLabel)
+            yOffset = yOffset + height
+        end
     end
     return yOffset
 end
@@ -181,9 +187,7 @@ local function addMetaInfoSection(panel, metaInfo, yOffset)
         if line:find("───") then
             r, g, b = 0.3, 0.4, 0.5
         end
-        local metaLabel = ISLabel:new(10, yOffset, 18, line, r, g, b, 1, UIFont.Small, true)
-        panel:addChild(metaLabel)
-        yOffset = yOffset + 16
+        yOffset = addMultilineLabels(panel, line, 10, yOffset, 16, r, g, b, UIFont.Small)
     end
     return yOffset
 end
@@ -224,16 +228,14 @@ function IrisBrowserDetail.install(IrisBrowser, context)
         local yOffset = 10
         local displayName = model.displayName
 
-        local nameLabel = ISLabel:new(10, yOffset, 25, displayName, 0.6, 0.9, 1.0, 1.0, UIFont.Medium, true)
-        self.detailPanel:addChild(nameLabel)
-        yOffset = yOffset + 30
+        yOffset = addMultilineLabels(self.detailPanel, displayName, 10, yOffset, 25,
+            0.6, 0.9, 1.0, UIFont.Medium) + 5
 
         if IrisWikiSections and IrisWikiSections.renderCoreInfoSection then
             local coreInfo = IrisWikiSections.renderCoreInfoSection(model)
             if coreInfo and coreInfo ~= "" then
-                local coreLabel = ISLabel:new(10, yOffset, 18, coreInfo, 0.7, 0.85, 0.9, 1, UIFont.Medium, true)
-                self.detailPanel:addChild(coreLabel)
-                yOffset = yOffset + 22
+                yOffset = addMultilineLabels(self.detailPanel, coreInfo, 10, yOffset, 18,
+                    0.7, 0.85, 0.9, UIFont.Medium) + 4
             end
         end
 

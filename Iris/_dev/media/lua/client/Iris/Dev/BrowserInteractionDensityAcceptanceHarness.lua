@@ -115,13 +115,15 @@ function Harness.runAll()
         first.query = "old"
         first.requirements["uc.recipe.make_223_bullets"] = true
         local second = State.forItem(browser, 1, "KO", "Base.Tongs", "dense")
+        local requirementsEmpty = true
+        for _identity, _expanded in pairs(second.requirements) do requirementsEmpty = false end
         emit(
             "interaction_density.pz_state",
             "state_invalidation",
             "locale_generation_item",
-            second.query == "" and second.full == false and next(second.requirements) == nil,
+            second.query == "" and second.full == false and requirementsEmpty,
             {query="", full=false, requirements_empty=true},
-            {query=second.query, full=second.full, requirements_empty=next(second.requirements) == nil}
+            {query=second.query, full=second.full, requirements_empty=requirementsEmpty}
         )
 
         local browserClass = {}

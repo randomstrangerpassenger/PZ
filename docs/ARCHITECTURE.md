@@ -552,6 +552,7 @@ Iris 런타임은 외부에 유지되는 호환 표면과 내부 상태·사실 
 - Layer 4 투영은 `QG`가 확정한 상호작용 상태를 표시 가능한 행과 탐색 상태로 변환한다. `EvolvedRecipe` lookup은 fixed Recipe/Right-click collection을 다시 쓰지 않고 Detail ViewModel에서 별도로 읽어 같은 표시 경계에 합성한다. Fixed collection의 total·density·visible rows는 Evolved 관계 수와 독립적으로 보존하고, Evolved collection은 자체 density·expanded·query state를 가진다. 같은 locale 라벨·역할·조건의 관계는 display group 하나로 렌더링하되 모든 exact identity와 관계 수를 보존하고, 사용자 surface에서는 KO `자유 조리` / EN `Freeform Cooking` 명칭과 폭 기반 줄바꿈을 사용한다.
 - Food-type locale projection은 raw `ContextMenu_EvolvedRecipe_*` fragment가 아니라 exact ID별 standalone target registry와 role/condition template을 결합해 행동 의미가 완결된 KO/EN 문장을 만든다. Recipe source section state와 Freeform state는 별도이며, item·locale 전환 시 이전 relation/query를 새 모델에 상속하지 않는다.
 - Build 41 current runtime은 실제 PZ 대표 관찰을 통과한 `Iris/media/lua/client/Iris/Data/IrisEvolvedRecipeLookup.lua`이며 SHA-256은 `0b86cb8a2638df627f94bbb27af759b9b46e54c55081504da04aefcc8e353088`이다. 이 hash와 다른 재생성 결과는 새 candidate이고 자동으로 current가 되지 않는다.
+- PZ runtime은 채택된 Lua lookup만 읽는다. Source-accounted owner JSON과 저장소 밖 candidate/package는 오프라인 생성·관찰·채택 입력이며 런타임 의미 입력으로 역유입하지 않는다.
 - `Browser`, `Detail ViewModel`, `Wiki` 관련 구성요소는 `Menu` 내부 표시 구조를 구성한다.
 
 `Menu`가 PZ 런타임에서 직접 읽는 사실의 표시 경로는 다음과 같이 분리한다.

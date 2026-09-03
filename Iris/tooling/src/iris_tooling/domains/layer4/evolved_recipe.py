@@ -21,8 +21,8 @@ from typing import Any, Iterable, Sequence
 from iris_tooling.domains.tooltip_static_data_projection.serialization import lua_string
 
 
-SCHEMA_VERSION = "iris-layer4-evolved-recipe-owner-v3"
-CANDIDATE_SCHEMA_VERSION = "iris-layer4-evolved-recipe-candidate-v6"
+SCHEMA_VERSION = "iris-layer4-evolved-recipe-owner-v4"
+CANDIDATE_SCHEMA_VERSION = "iris-layer4-evolved-recipe-candidate-v7"
 DEFAULT_REPOSITORY_ROOT = Path(__file__).resolve().parents[6]
 OWNER_RELATIVE_PATH = Path(
     "Iris/build/description/v2/data/evolved_recipe_owner.b41.json"
@@ -71,44 +71,67 @@ PLANNED_BASELINE = {
 }
 
 STANDALONE_TARGET_LABELS = {
-    "Beer": {"KO": "텀블러에 담긴 맥주", "EN": "beer in a tumbler"},
-    "Beer2": {"KO": "컵에 담긴 맥주", "EN": "beer in a cup"},
-    "Beverage": {"KO": "텀블러 음료", "EN": "beverage in a tumbler"},
-    "Beverage2": {"KO": "컵 음료", "EN": "beverage in a cup"},
-    "Bread": {"KO": "빵", "EN": "bread"},
-    "Burger": {"KO": "버거", "EN": "a burger"},
-    "Burrito": {"KO": "부리토", "EN": "a burrito"},
-    "Cake": {"KO": "케이크", "EN": "a cake"},
-    "ConeIcecream": {"KO": "아이스크림 콘", "EN": "an ice cream cone"},
-    "FruitSalad": {"KO": "과일 샐러드", "EN": "fruit salad"},
-    "HotDrink": {"KO": "머그 음료", "EN": "a drink in a mug"},
-    "HotDrinkRed": {"KO": "빨간 머그 음료", "EN": "a drink in a red mug"},
-    "HotDrinkSpiffo": {"KO": "스피포 머그 음료", "EN": "a drink in a Spiffo mug"},
-    "HotDrinkTea": {"KO": "찻잔 음료", "EN": "a drink in a teacup"},
-    "HotDrinkWhite": {"KO": "하얀 머그 음료", "EN": "a drink in a white mug"},
-    "Muffin": {"KO": "머핀", "EN": "muffins"},
-    "Oatmeal": {"KO": "오트밀 한 그릇", "EN": "a bowl of oatmeal"},
-    "Omelette": {"KO": "오믈렛", "EN": "an omelette"},
-    "Pancakes": {"KO": "팬케이크", "EN": "pancakes"},
-    "PastaPan": {"KO": "소스팬 파스타", "EN": "pasta in a saucepan"},
-    "PastaPot": {"KO": "냄비 파스타", "EN": "pasta in a cooking pot"},
-    "Pie": {"KO": "세이보리 파이", "EN": "a savory pie"},
-    "PieSweet": {"KO": "달콤한 파이", "EN": "a sweet pie"},
-    "Pizza": {"KO": "피자", "EN": "a pizza"},
-    "RicePan": {"KO": "소스팬 밥", "EN": "rice in a saucepan"},
-    "RicePot": {"KO": "냄비 밥", "EN": "rice in a cooking pot"},
-    "Roasted Vegetables": {"KO": "구운 채소", "EN": "roasted vegetables"},
-    "Salad": {"KO": "샐러드", "EN": "a salad"},
-    "Sandwich": {"KO": "식빵 샌드위치", "EN": "a sandwich"},
-    "Sandwich Baguette": {"KO": "바게트 샌드위치", "EN": "a baguette sandwich"},
-    "Soup": {"KO": "수프", "EN": "soup"},
-    "Stew": {"KO": "스튜", "EN": "stew"},
-    "Stir fry": {"KO": "프라이팬 볶음", "EN": "stir-fry in a frying pan"},
-    "Stir fry Griddle Pan": {"KO": "그리들 팬 볶음", "EN": "stir-fry on a griddle pan"},
-    "Taco": {"KO": "타코", "EN": "a taco"},
-    "Toast": {"KO": "토스트", "EN": "toast"},
-    "Waffles": {"KO": "와플", "EN": "waffles"},
-    "WineInGlass": {"KO": "와인잔에 담긴 와인", "EN": "wine in a glass"},
+    "Beer": {"KO": "텀블러에 담긴 맥주", "EN": "Beer in a tumbler"},
+    "Beer2": {"KO": "컵에 담긴 맥주", "EN": "Beer in a cup"},
+    "Beverage": {"KO": "텀블러에 담긴 음료", "EN": "Beverage in a tumbler"},
+    "Beverage2": {"KO": "컵에 담긴 음료", "EN": "Beverage in a cup"},
+    "Bread": {"KO": "빵", "EN": "Bread"},
+    "Burger": {"KO": "버거", "EN": "Burger"},
+    "Burrito": {"KO": "부리토", "EN": "Burrito"},
+    "Cake": {"KO": "케이크", "EN": "Cake"},
+    "ConeIcecream": {"KO": "아이스크림 콘", "EN": "Ice cream cone"},
+    "FruitSalad": {"KO": "과일 샐러드", "EN": "Fruit salad"},
+    "HotDrink": {"KO": "머그잔에 담긴 음료", "EN": "Drink in a mug"},
+    "HotDrinkRed": {"KO": "빨간 머그잔에 담긴 음료", "EN": "Drink in a red mug"},
+    "HotDrinkSpiffo": {"KO": "스피포 머그잔에 담긴 음료", "EN": "Drink in a Spiffo mug"},
+    "HotDrinkTea": {"KO": "찻잔에 담긴 음료", "EN": "Drink in a teacup"},
+    "HotDrinkWhite": {"KO": "하얀 머그잔에 담긴 음료", "EN": "Drink in a white mug"},
+    "Muffin": {"KO": "머핀", "EN": "Muffins"},
+    "Oatmeal": {"KO": "오트밀 한 그릇", "EN": "Bowl of oatmeal"},
+    "Omelette": {"KO": "오믈렛", "EN": "Omelette"},
+    "Pancakes": {"KO": "팬케이크", "EN": "Pancakes"},
+    "PastaPan": {"KO": "소스팬에 담긴 파스타", "EN": "Pasta in a saucepan"},
+    "PastaPot": {"KO": "냄비에 담긴 파스타", "EN": "Pasta in a cooking pot"},
+    "Pie": {"KO": "세이보리 파이", "EN": "Savory pie"},
+    "PieSweet": {"KO": "달콤한 파이", "EN": "Sweet pie"},
+    "Pizza": {"KO": "피자", "EN": "Pizza"},
+    "RicePan": {"KO": "소스팬에 담긴 밥", "EN": "Rice in a saucepan"},
+    "RicePot": {"KO": "냄비에 담긴 밥", "EN": "Rice in a cooking pot"},
+    "Roasted Vegetables": {"KO": "구운 채소", "EN": "Roasted vegetables"},
+    "Salad": {"KO": "샐러드", "EN": "Salad"},
+    "Sandwich": {"KO": "식빵 샌드위치", "EN": "Sandwich"},
+    "Sandwich Baguette": {"KO": "바게트 샌드위치", "EN": "Baguette sandwich"},
+    "Soup": {"KO": "수프", "EN": "Soup"},
+    "Stew": {"KO": "스튜", "EN": "Stew"},
+    "Stir fry": {"KO": "프라이팬 볶음", "EN": "Stir-fry in a frying pan"},
+    "Stir fry Griddle Pan": {"KO": "그리들 팬 볶음", "EN": "Stir-fry on a griddle pan"},
+    "Taco": {"KO": "타코", "EN": "Taco"},
+    "Toast": {"KO": "토스트", "EN": "Toast"},
+    "Waffles": {"KO": "와플", "EN": "Waffles"},
+    "WineInGlass": {"KO": "와인잔에 담긴 와인", "EN": "Wine in a glass"},
+}
+
+ACTION_PHRASES = {
+    ("ingredient", ()): {
+        "KO": "재료로 추가 가능",
+        "EN": "Can be added as an ingredient",
+    },
+    ("ingredient", ("cooked",)): {
+        "KO": "익힌 뒤 재료로 추가 가능",
+        "EN": "Can be added as an ingredient after cooking",
+    },
+    ("spice", ()): {
+        "KO": "양념으로 추가 가능",
+        "EN": "Can be added as seasoning",
+    },
+    ("spice", ("cooked",)): {
+        "KO": "익힌 뒤 양념으로 추가 가능",
+        "EN": "Can be added as seasoning after cooking",
+    },
+    ("base_item", ()): {
+        "KO": "조리 시작에 사용",
+        "EN": "Used to start preparation",
+    },
 }
 
 
@@ -498,29 +521,38 @@ def _relation_identity(
     return "qg.evolved_recipe." + hashlib.sha256(material).hexdigest()[:20]
 
 
+def _action_contract(role: str, conditions: Sequence[str]) -> tuple[str, dict[str, str]]:
+    key = (role, tuple(conditions))
+    phrases = ACTION_PHRASES.get(key)
+    if phrases is None:
+        raise EvolvedRecipeError(
+            f"unsupported presentation combination: role={role!r}, "
+            f"conditions={list(conditions)!r}"
+        )
+    return f"{role}:{','.join(conditions) if conditions else 'none'}", dict(phrases)
+
+
+def _presentation(
+    target_labels: dict[str, str], role: str, conditions: Sequence[str]
+) -> dict[str, Any]:
+    action_key, actions = _action_contract(role, conditions)
+    display = {
+        locale: f"{target_labels[locale]} · {actions[locale]}"
+        for locale in SUPPORTED_LOCALES
+    }
+    return {
+        "action_key": action_key,
+        "target_label_by_locale": dict(target_labels),
+        "action_by_locale": actions,
+        "display_by_locale": display,
+    }
+
+
 def _display(
     target: str, role: str, conditions: Sequence[str], locale: str
 ) -> str:
-    cooked = "cooked" in conditions
-    if locale == "KO":
-        if role == "base_item":
-            return f"{target} 준비에 사용할 수 있음"
-        if role == "spice":
-            if cooked:
-                return f"{target}에 양념으로 넣으려면 먼저 익혀야 함"
-            return f"{target}에 양념으로 넣을 수 있음"
-        if cooked:
-            return f"{target}에 재료로 넣으려면 먼저 익혀야 함"
-        return f"{target}에 재료로 넣을 수 있음"
-    if role == "base_item":
-        return f"Can be used to prepare {target}"
-    if role == "spice":
-        if cooked:
-            return f"Can be added to {target} as seasoning after cooking"
-        return f"Can be added to {target} as seasoning"
-    if cooked:
-        return f"Can be added to {target} as an ingredient after cooking"
-    return f"Can be added to {target} as an ingredient"
+    _, actions = _action_contract(role, conditions)
+    return f"{target} · {actions[locale]}"
 
 
 def _token_provenance(row: ItemPropertyRow, token_index: int) -> dict[str, Any]:
@@ -698,14 +730,9 @@ def build_owner(
             continue
         full_type, food_type_id, role, conditions = semantic_key
         relation_id = _relation_identity(full_type, food_type_id, role, conditions)
-        display_by_locale = {}
-        for locale in SUPPORTED_LOCALES:
-            display_by_locale[locale] = _display(
-                STANDALONE_TARGET_LABELS[food_type_id][locale],
-                role,
-                conditions,
-                locale,
-            )
+        presentation = _presentation(
+            STANDALONE_TARGET_LABELS[food_type_id], role, conditions
+        )
         provenance = sorted(
             (candidate["provenance"] for candidate in grouped),
             key=lambda value: (
@@ -718,13 +745,15 @@ def build_owner(
             {
                 "relation_id": relation_id,
                 "full_type": full_type,
+                "source_full_type": full_type,
                 "food_type_id": food_type_id,
+                "target_id": food_type_id,
                 "role": role,
                 "conditions": list(conditions),
                 "source_use": next(iter(uses)),
                 "decision": "PASS",
                 "reason": "exact_source_relation",
-                "display_by_locale": display_by_locale,
+                **presentation,
                 "provenance": provenance,
             }
         )
@@ -761,27 +790,23 @@ def build_owner(
             continue
         role = "base_item"
         conditions: tuple[str, ...] = ()
-        display_by_locale = {
-            locale: _display(
-                STANDALONE_TARGET_LABELS[food_type_id][locale],
-                role,
-                conditions,
-                locale,
-            )
-            for locale in SUPPORTED_LOCALES
-        }
+        presentation = _presentation(
+            STANDALONE_TARGET_LABELS[food_type_id], role, conditions
+        )
         relations_by_fulltype[full_type].append(
             {
                 "relation_id": _relation_identity(
                     full_type, food_type_id, role, conditions
                 ),
                 "full_type": full_type,
+                "source_full_type": full_type,
                 "food_type_id": food_type_id,
+                "target_id": food_type_id,
                 "role": role,
                 "conditions": [],
                 "decision": "PASS",
                 "reason": "exact_definition_base_relation",
-                "display_by_locale": display_by_locale,
+                **presentation,
                 "provenance": [
                     {
                         **base_item["provenance"],
@@ -801,6 +826,8 @@ def build_owner(
                 value["relation_id"],
             )
         )
+        for canonical_ordinal, relation in enumerate(relations, 1):
+            relation["canonical_ordinal"] = canonical_ordinal
 
     review_rows.sort(
         key=lambda value: (
@@ -1070,10 +1097,20 @@ def validate_owner(owner: dict[str, Any]) -> dict[str, int]:
             food_type_id = relation.get("food_type_id")
             role = relation.get("role")
             conditions = relation.get("conditions")
+            canonical_ordinal = relation.get("canonical_ordinal")
             display_by_locale = relation.get("display_by_locale")
+            target_label_by_locale = relation.get("target_label_by_locale")
+            action_by_locale = relation.get("action_by_locale")
             provenance = relation.get("provenance")
             if not isinstance(food_type_id, str) or not food_type_id:
                 raise EvolvedRecipeError(f"{full_type}: blank food type")
+            if (
+                relation.get("source_full_type") != full_type
+                or relation.get("target_id") != food_type_id
+            ):
+                raise EvolvedRecipeError(
+                    f"{full_type}/{food_type_id}: presentation identity aliases differ"
+                )
             if role not in SUPPORTED_ROLES:
                 raise EvolvedRecipeError(f"{full_type}/{food_type_id}: invalid role")
             if (
@@ -1083,6 +1120,23 @@ def validate_owner(owner: dict[str, Any]) -> dict[str, int]:
             ):
                 raise EvolvedRecipeError(
                     f"{full_type}/{food_type_id}: invalid relation conditions"
+                )
+            expected_action_key, expected_actions = _action_contract(role, conditions)
+            if (
+                relation.get("action_key") != expected_action_key
+                or action_by_locale != expected_actions
+            ):
+                raise EvolvedRecipeError(
+                    f"{full_type}/{food_type_id}: action phrase contract mismatch"
+                )
+            expected_targets = target_labels.get(food_type_id)
+            if target_label_by_locale != expected_targets:
+                raise EvolvedRecipeError(
+                    f"{full_type}/{food_type_id}: target label contract mismatch"
+                )
+            if not isinstance(canonical_ordinal, int) or canonical_ordinal < 1:
+                raise EvolvedRecipeError(
+                    f"{full_type}/{food_type_id}: invalid canonical ordinal"
                 )
             expected_identity = _relation_identity(
                 full_type, food_type_id, role, conditions
@@ -1166,6 +1220,10 @@ def validate_owner(owner: dict[str, Any]) -> dict[str, int]:
             semantic_order.append((food_type_id, role, conditions, identity))
         if semantic_order != sorted(semantic_order):
             raise EvolvedRecipeError(f"{full_type}: public relation order is unstable")
+        if [relation.get("canonical_ordinal") for relation in relations] != list(
+            range(1, len(relations) + 1)
+        ):
+            raise EvolvedRecipeError(f"{full_type}: canonical ordinals are not contiguous")
     if census.get("pass_relation_count") != relation_count:
         raise EvolvedRecipeError("PASS relation census mismatch")
     if census.get("pass_source_token_count") != pass_source_token_count:
@@ -1281,15 +1339,33 @@ def render_runtime(owner: dict[str, Any]) -> bytes:
                 lua_string(value) for value in relation["conditions"]
             )
             display = relation["display_by_locale"]
+            targets = relation["target_label_by_locale"]
+            actions = relation["action_by_locale"]
             lines.append(
                 "        { relation_id = "
                 + lua_string(relation["relation_id"])
+                + ", source_full_type = "
+                + lua_string(relation["source_full_type"])
+                + ", target_id = "
+                + lua_string(relation["target_id"])
                 + ", food_type_id = "
                 + lua_string(relation["food_type_id"])
                 + ", role = "
                 + lua_string(relation["role"])
+                + ", action_key = "
+                + lua_string(relation["action_key"])
+                + ", canonical_ordinal = "
+                + str(relation["canonical_ordinal"])
                 + ", conditions = {"
                 + conditions
+                + "}, target_label_by_locale = { EN = "
+                + lua_string(targets["EN"])
+                + ", KO = "
+                + lua_string(targets["KO"])
+                + " }, action_by_locale = { EN = "
+                + lua_string(actions["EN"])
+                + ", KO = "
+                + lua_string(actions["KO"])
                 + "}, display_by_locale = { EN = "
                 + lua_string(display["EN"])
                 + ", KO = "
@@ -1310,6 +1386,11 @@ def render_runtime(owner: dict[str, Any]) -> bytes:
             "    local relations = records[fullType]",
             "    if not relations then",
             "        return {status = \"verified_empty\", reason = \"lookup_miss\", relations = {}}",
+            "    end",
+            "    for _, relation in ipairs(relations) do",
+            "        if relation.source_full_type ~= fullType then",
+            "            return {status = \"fault\", reason = \"source_identity_mismatch\", relations = {}}",
+            "        end",
             "    end",
             "    return {status = \"available\", relations = relations}",
             "end",

@@ -1,7 +1,7 @@
 # ROADMAP.md
 
 > 상태: current canonical roadmap  
-> 기준일: 2026-09-01 (이번 갱신 범위: Iris DVF 설명·Tooltip·Menu, 기술서 획득 정보, Browser/Wiki 장문 표시, 내부 패키징·검증 적용 범위)\
+> 기준일: 2026-09-03 (이번 갱신 범위: Iris EvolvedRecipe compact/grouped successor와 실제 PZ 관찰)
 > 최상위 기준: `Philosophy.md`  
 > 결정 기준: `DECISIONS.md`  
 > 목적: Pulse 생태계의 현재 상태, 진행 방향, 다음 게이트와 Hold 경계를 고정한다.
@@ -458,6 +458,11 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
 
 ## Done
 
+- Build 41 EvolvedRecipe compact/grouped successor의 구현·실제 관찰·채택을 완료했다. (2026-09-03)
+  - 기존 2,203 relation/252 FullType, exact identity와 `canonical_ordinal`, fixed Recipe/Right-click/Tooltip 경계를 보존하면서 저밀도 compact flat row와 고밀도 action group/target child presentation을 구현했다. 검색은 개별 relation을 먼저 filter한 뒤 matched-only group으로 재구성한다.
+  - 자유 조리 검색 entry를 Detail 재구성과 분리해 KO IME와 영문 입력 focus를 유지했다. KO/EN 생성 번역의 `자유 조리`/`Freeform Cooking`을 동기화하고 Recipe 이동 검색어를 KO translated name/그 외 original name으로 분기했다.
+  - Focused test `5 passed`, Lua syntax `265 files`, candidate A/B validation·runtime byte parity와 corrected package overlay가 PASS했다. 사용자는 corrected playtest package에서 compact/grouped 표시와 세 correction 항목이 모두 통과했다고 보고했다. 관찰한 exact v7 runtime hash로 guarded adoption을 완료했고 사후 byte/hash parity, focused test `5 passed`, Lua syntax `265 files`도 PASS했다. Current runtime SHA-256은 `02c6d4b97a21285a393b873582dd9fa80bc6b25fa91d09fc7da89e89965ef47b`다.
+
 - Browser 검색 관련성·공백 처리를 구현하고 입력·분류 탐색 후속을 사용자 확인 범위에서 완료했다. (2026-08-31)
   - 정확한 표시 이름을 부분 일치와 ID-only 결과보다 우선한다. U+0020 공백 차이를 흡수하며 global 표시 이름/ID 검색과 local 대표 표시 이름 검색의 범위, FullType identity와 기존 variants를 유지한다.
   - Generation/locale snapshot과 prefix 후보를 같은 비교 규칙으로 연결했다. Edit buffer 변경을 callback/update에서 반영해 이른·누락된 붙여넣기 callback을 보완하며 같은 입력은 재검색하지 않는다.
@@ -496,7 +501,7 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
   - `primary_subcategory`와 분류 정보는 추천이나 우열 판단이 아니라 browsing / metadata 용도로 제한한다.
   - Layer 3는 confirmed description material이 있을 때만 제공하는 **선택적 설명 계층**으로 유지한다.
   - core description과 acquisition information은 서로 다른 source-bound fact로 관리한다.
-  - Layer 4는 Recipe / Right-click 상호작용의 표시를 담당하며 정보량에 따라 presentation을 조정한다. Build 41 `EvolvedRecipe`는 item-property의 `ingredient`/`spice`와 전체 definition `BaseItem` 38개를 별도 `base_item` typed relation으로 구현했다. 공개 relation은 2,203개/252 FullType이며 definition base는 32 unique FullType, non-Food 17 occurrence/13 unique다. 첫 candidate의 fixed density 회귀, v2의 KO 손상·ID 노출, v3의 definition 누락, v4의 fragment display·EN Recipe click FAIL과 v5의 관찰 전 superseded 상태를 predecessor 이력으로 보존한다. Exact 38 target registry, action-oriented KO/EN 문장, Recipe section state와 item 전환 격리, 자연화한 KO `base_item`을 적용한 v6는 사용자 실제 PZ 대표 관찰과 guarded adoption을 완료한 `observed_pass / adopted` current runtime이다. 채택 SHA-256은 `0b86cb8a2638df627f94bbb27af759b9b46e54c55081504da04aefcc8e353088`이며 이 항목의 Gate 3 후속 작업은 남아 있지 않다. 이후 source·표시 문구·runtime bytes 변경은 새 candidate와 실제 관찰을 요구한다.
+  - Layer 4는 Recipe / Right-click 상호작용의 표시를 담당하며 정보량에 따라 presentation을 조정한다. Build 41 `EvolvedRecipe`는 item-property의 `ingredient`/`spice`와 전체 definition `BaseItem` 38개를 별도 `base_item` typed relation으로 구현했다. 공개 relation은 2,203개/252 FullType이며 definition base는 32 unique FullType, non-Food 17 occurrence/13 unique다. Exact 38 target registry와 action-oriented KO/EN 문장을 확립한 v6는 관찰·채택을 통과한 predecessor다. 그 의미 계약과 fixed 영역을 보존하면서 compact flat/dense grouped presentation, matched-only 검색, persistent 입력, locale 번역·Recipe 이동 correction을 적용한 v7은 사용자 실제 PZ 관찰과 guarded adoption을 완료한 `observed_pass / adopted` current runtime이다. 채택 SHA-256은 `02c6d4b97a21285a393b873582dd9fa80bc6b25fa91d09fc7da89e89965ef47b`이며 이 계획의 후속 Gate는 남아 있지 않다. 이후 source·표시 문구·runtime bytes 변경은 새 candidate와 실제 관찰을 요구한다.
   - Recipe와 Right-click은 서로 독립적이고 동등한 활용 정보 축으로 유지한다.
 
 - Evidence / Source / Outcome 모델을 결과 상태 중심으로 고정했다.

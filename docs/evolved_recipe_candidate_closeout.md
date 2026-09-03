@@ -1,8 +1,12 @@
 # Build 41 EvolvedRecipe candidate closeout
 
-## 상태
+## Successor v7 상태
 
-`observed_pass / adopted`. 사용자는 2026-09-03에 v6 실제 PZ 관찰 체크리스트 전 항목의 통과를 명시적으로 보고했다. 관찰된 runtime SHA-256, candidate/package manifest와 owner 결속을 재확인한 뒤 guarded updater가 정확히 그 v6 lookup을 저장소 runtime에 채택했다. v1~v4의 실제 실패와 v5의 관찰 전 superseded 상태는 predecessor 이력이며 v6 결과로 소급 변경하지 않는다.
+`observed_pass / adopted / complete`. 간결한 저밀도 행과 역할·조건별 고밀도 grouping을 적용한 successor owner/candidate를 생성했다. 최초 v7과 `er7-r1` package는 실제 B41 문자열 재조합 비교에서 `missing_evolved_display`로 reject했고, `er7-r2`는 검색 입력 포커스·KO 자유 조리 제목·EN fixed Recipe 이동 검색어 회귀로 supersede됐다. 세 원인을 수정한 `playtest` package는 자동 Gate와 사용자 실제 PZ 재관찰을 모두 통과했다. 관찰한 exact v7 runtime hash로 guarded adoption을 실행했고 사후 focused test와 Lua syntax도 통과했다.
+
+## Predecessor v6 상태
+
+`observed_pass / superseded_current`. 사용자는 2026-09-03에 v6 실제 PZ 관찰 체크리스트 전 항목의 통과를 명시적으로 보고했고 당시 guarded updater가 정확히 그 v6 lookup을 저장소 runtime에 채택했다. 이 성공 이력은 유지하지만 현재 runtime은 후속 v7 adoption으로 교체됐다.
 
 ## Source accounting
 
@@ -53,8 +57,20 @@ Definition side는 Food/비Food를 가리지 않고 38개 definition occurrence 
 - Observation v6 runtime lookup SHA-256: `0b86cb8a2638df627f94bbb27af759b9b46e54c55081504da04aefcc8e353088`
 - Observation v6 candidate manifest SHA-256: `af2ca7fe5ce2943fe3f5b64decd02ff279a42ec883977885d06aaad74ccf0491`
 - Observation v6 package manifest SHA-256: `510f6dba14bcd328d70cea06eb4bbf6de8541f03f07b216d4a5bd4f739bd6d2b`
+- Successor v7 candidate A/B: `C:/Users/MW/PZ-U/candidate/er7-a`, `C:/Users/MW/PZ-U/candidate/er7-b`
+- Actual-observation FAIL v7 package source: `C:/Users/MW/PZ-U/package/er7/Iris`
+- Actual-observation FAIL remediation package: `C:/Users/MW/PZ-U/package/er7-r1/Iris`
+- Remediated v7 package source: `C:/Users/MW/PZ-U/package/er7-r2/Iris`
+- Corrected playtest package source: `C:/Users/MW/PZ-U/package/playtest/Iris`
+- Successor owner SHA-256: `92a3f8da92462eced1c99aed0c3619a7938d82c0b53f2e3c49ed98483e2008b0`
+- Successor runtime lookup SHA-256: `02c6d4b97a21285a393b873582dd9fa80bc6b25fa91d09fc7da89e89965ef47b`
+- Successor candidate manifest SHA-256: `45d983de70d2ee090e21bc0665793ba15e4cd3a3c534603f5f67fccb611f0e49`
+- Actual-observation FAIL v7 package manifest SHA-256: `d1ff922d86505530511ddf0702cba2a2993753921eb00b9daf6d8fae4c5a90ac`
+- Actual-observation FAIL remediation manifest SHA-256: `b01ff005214d0b9e7cf596f90a66e9b069d57c9a7aafaf278f75071389ce42a4`
+- Remediated v7 package manifest SHA-256: `2d74e7cc81c4c27e57ac0bd7f63cd97521b04a53035b561cf287ea9c94be4462`
+- Corrected playtest package manifest SHA-256: `cb1e724be73baec0fc1dde29158b611a379c693816d4c5cfa0ebd664fb188889`
 - Adopted repository runtime: `Iris/media/lua/client/Iris/Data/IrisEvolvedRecipeLookup.lua`
-- Adopted repository runtime SHA-256: `0b86cb8a2638df627f94bbb27af759b9b46e54c55081504da04aefcc8e353088`
+- Adopted repository runtime SHA-256: `02c6d4b97a21285a393b873582dd9fa80bc6b25fa91d09fc7da89e89965ef47b`
 
 첫 A/B의 manifest와 runtime bytes는 동일했지만 실제 PZ 관찰에서 fixed presentation 회귀가 발견되어 채택 대상이 아니다. v2는 fixed presentation을 분리했으나 raw UTF-8 Lua literal이 B41에서 손상되고 사용자 행에 내부 food type ID를 노출해 다시 FAIL했다. v3는 encoding/UI를 고쳤지만 definition side를 빠뜨린 scope-review 후보로 supersede됐다. v4는 전체 definition relation을 포함했지만 standalone 의미가 아닌 vanilla 문법 조각을 복사했고 EN Recipe section이 클릭되지 않아 not-adoptable이다. v5는 food type ID 38개 모두에 명시적인 standalone KO/EN target을 등록하고 role/condition별 행동 문장으로 생성했지만 관찰 전 `이 아이템으로 … 준비 가능`을 자연화할 필요가 확인되어 supersede됐다. v6는 KO `base_item`만 `… 준비에 사용할 수 있음`으로 바꾸고 EN과 나머지 의미 계약을 유지한다. 모든 candidate/package는 별도 경로에 staging했으며 자동화는 사용자의 일반 `Zomboid/mods/Iris` 설치본을 덮어쓰지 않았다.
 
@@ -69,6 +85,11 @@ Definition side는 Food/비Food를 가리지 않고 38개 definition occurrence 
 - KO `Base.Bowl`/`Base.WaterPot`의 `base_item` 행은 `… 준비에 사용할 수 있음`으로 자연스럽게 표시됐다. Bacon/Mushroom의 역할·조건 문구와 Salt→Mushroom 전환도 일치했고 이전 Salt relation/query가 남지 않았다.
 - EN 전환 후 Recipe section 접기/펼치기, navigation 복원, 관계 수와 행동형 문구가 KO와 같은 relation set에 결속됐다. Evolved 행은 non-clickable 상태를 유지했고 Tooltip은 변경되지 않았다.
 - 이 사용자 보고는 계획의 최대 네 대표 사례와 KO/EN 재사용 범위에 대한 Gate 3 실제 관찰 PASS다. 모든 게임 상태나 가능한 조리 조합 전수를 관찰했다는 뜻은 아니다.
+- v7은 `Base.Allsorts`, `Base.Salt`, `farming.Bacon`, `farming.BaconBits`, `Base.Bowl` 또는 `Base.WaterPot`에서 compact/grouped 문구, matched-only 검색 count, KO/EN 전환, item 전환 격리, collapse/expand, 줄바꿈, Tooltip 및 fixed Recipe 이름·navigation·density 보존을 관찰해야 한다.
+- 최초 v7 package는 모든 상호작용 projection이 `상호작용 자료를 사용할 수 없음; 재구성 시 다시 시도`로 실패했다. Candidate runtime 문자열은 decimal UTF-8 byte escape였지만 UI projection만 raw `·` literal로 compact 문장을 재조합해 비교한 것이 B41 encoding 경계를 다시 도입했다. `er7-r1`은 separator를 `string.char(194, 183)`으로 구성하며 shipped projection/renderer에서 raw non-ASCII literal을 제거했다.
+- `er7-r1`도 같은 사용자 문구로 실패했고 진단 package가 `missing_evolved_display:qg.evolved_recipe.73e20b…`를 표시했다. 해당 identity는 `Base.Allsorts`의 완전한 target/action/display 세 필드를 가진다. 따라서 B41 consumer의 재조합 byte equality 자체를 제거하고, canonical Python producer의 조합 검증과 Lua의 non-empty/action-key 검증으로 책임을 분리한 `er7-r2`를 생성했다.
+- 사용자는 `er7-r2`에서 전반적인 compact/grouped 표시가 통과했다고 보고했지만, 자유 조리 검색 입력이 상세 패널 강제 재구성 때마다 자기 text entry를 제거해 포커스와 IME 조합을 잃었다. 검색 entry를 browser-level persistent overlay로 유지하고 결과만 재구성하도록 수정했다. 번역 원본에는 있던 `Iris_Interaction_EvolvedRecipe`를 생성 번역 데이터에도 반영했다. fixed Recipe 이동은 언어와 무관하게 한국어 `translated_name`을 우선하던 코드를 KO에서만 번역명을, 그 외 locale에서는 `original_name`을 우선하도록 수정했다.
+- 사용자는 corrected `playtest` package에서 compact/grouped 표시와 matched-only 검색을 포함한 전반 항목, KO/EN 검색 입력, KO `자유 조리` 제목, EN fixed Recipe 이동이 모두 통과했다고 보고했다. 자유 조리 검색은 Browser item relevance matcher 전체가 아니라 계획에 명시된 대소문자 무시 literal relation match와 canonical-order matched-only regroup을 사용한다.
 
 ## 실행한 검증
 
@@ -87,11 +108,21 @@ Definition side는 Food/비Food를 가리지 않고 38개 definition occurrence 
 - 사후 owner/candidate projection validation: exit `0`; schema v6, owner/runtime hash와 relation metrics 일치
 - 사후 adopted runtime/observed candidate byte parity와 fixed Recipe/Right-click·Tooltip bounded payload no-diff: exit `0`
 - 사후 `powershell -ExecutionPolicy Bypass -File .\tools\check_lua_syntax.ps1`: exit `0`, `265 files`
+- Successor v7 owner 생성과 candidate A/B 생성·각 validation·package staging 및 A/B/package runtime byte 비교: 모두 exit `0`; relation `2,203`, FullType `252`, runtime SHA-256 `02c6d4…f47b`
+- Successor v7 Gate 2 focused invocation: exit `0`, `5 passed`; producer 테스트 4개와 기존 Lua 통합 harness 1개
+- Successor v7 `powershell -ExecutionPolicy Bypass -File .\tools\check_lua_syntax.ps1`: exit `0`, `265 files`
+- `er7-r1` remediation 후 focused invocation 재실행: exit `0`, `5 passed`; Lua syntax 재실행: exit `0`, `265 files`
+- `er7-r2` remediation 후 focused invocation 재실행: exit `0`, `5 passed`; Lua syntax 재실행: exit `0`, `265 files`
+- 검색·번역·EN navigation correction 후 최종 focused invocation: exit `0`, `5 passed`; Lua syntax: exit `0`, `265 files`. 첫 focused 시도는 새 persistent entry harness의 `detailScrollY` 생략 때문에 `4 passed, 1 failed`였고 nil-safe 실제 기본값 보정 후 동일 Gate를 재실행했다.
+- Successor candidate A/B 재검증과 runtime byte parity: exit `0`; corrected `playtest` package staging과 candidate overlay: exit `0`.
+- `uv run --project .\Iris\tooling --no-sync iris-tooling --repository-root . layer4 evolved-recipe adopt --owner '.\Iris\build\description\v2\data\evolved_recipe_owner.b41.json' --candidate-root 'C:\Users\MW\PZ-U\candidate\er7-a' --repository-root . --observed-runtime-sha256 '02c6d4b97a21285a393b873582dd9fa80bc6b25fa91d09fc7da89e89965ef47b'`: exit `0`, `PASS: EvolvedRecipe guarded adoption applied`.
+- 사후 repository runtime과 observed candidate byte/hash parity: exit `0`, SHA-256 `02c6d4b97a21285a393b873582dd9fa80bc6b25fa91d09fc7da89e89965ef47b`.
+- 사후 계획상 focused invocation: exit `0`, `5 passed`; 사후 Lua syntax: exit `0`, `265 files`.
 
-v4 자동 검증은 predecessor 후보에 결속되고 실제 관찰에서 partial FAIL했다. v5는 관찰 전 supersede됐다. v6만 action-oriented semantic parity, item 전환과 EN Recipe section callback을 포함한 focused 자동 범위와 사용자 실제 관찰을 모두 통과했고, 관찰 hash와 byte-identical한 runtime으로 채택됐다.
+v4 자동 검증은 predecessor 후보에 결속되고 실제 관찰에서 partial FAIL했다. v5는 관찰 전 supersede됐다. v6는 action-oriented semantic parity를 확립한 adopted predecessor이며, v7은 그 의미 계약과 fixed 영역을 보존하면서 compact/grouped presentation과 검색을 추가한 current adopted successor다.
 
 참고로 `Iris/test/test_adaptive_interaction_presentation.py` 전체 7건 실행은 이번 변경과 무관한 기존 Layer 3 수치 assertion(`2072`)이 현재 projection의 `2099`와 달라 `6 passed, 1 failed`였다. 이번 범위를 벗어난 고정 수치는 수정하거나 새 Gate로 확대하지 않았다.
 
 ## 남은 한계
 
-Gate 3와 v6 채택은 완료됐다. 실제 PZ 확인은 Salt, Bowl/WaterPot, Bacon/Mushroom을 KO/EN에서 재사용한 대표 관찰이며 모든 아이템·게임 상태·가능한 조리 조합 전수를 증명하지 않는다. 향후 source, standalone target, 표시 template 또는 runtime bytes가 달라지면 이번 관찰을 새 payload에 승계하지 않고 새 candidate/hash로 다시 관찰해야 한다.
+Gate 3와 v7 채택은 완료됐다. 실제 PZ 확인은 계획의 대표 compact/grouped 사례와 corrected 검색·번역·navigation 범위이며 모든 아이템·검색어·해상도·게임 상태·가능한 조리 조합 전수를 증명하지 않는다. 최초 v7과 `er7-r1`은 실제 관찰 FAIL이고 `er7-r2`는 부분 통과 뒤 위 세 회귀로 supersede됐다. 이번 계획에 남은 구현·관찰·채택 Gate는 없다.

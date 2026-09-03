@@ -12,6 +12,70 @@ local Theme = require("Iris/UI/Browser/IrisBrowserTheme")
 
 local IrisBrowserInteractionRenderer = {}
 
+local SEARCH_ENTRY_SLOTS = {
+    "interactionSearchEntry",
+    "evolvedSearchEntry",
+}
+
+local function beginSearchEntryLayout(browser)
+    for _, slot in ipairs(SEARCH_ENTRY_SLOTS) do
+        local entry = browser[slot]
+        if entry then entry.irisDetailActive = false end
+    end
+end
+
+local function finishSearchEntryLayout(browser)
+    for _, slot in ipairs(SEARCH_ENTRY_SLOTS) do
+        local entry = browser[slot]
+        if entry and not entry.irisDetailActive and entry:getIsVisible() then
+            entry:setVisible(false)
+        end
+    end
+    if browser.updateDetailSearchEntries then
+        browser:updateDetailSearchEntries()
+    end
+end
+
+local function ensureSearchEntry(browser, slot)
+    local entry = browser[slot]
+    if entry then return entry end
+
+    entry = ISTextEntryBox:new("", 0, 0, 1, 18)
+    entry:initialise()
+    entry:instantiate()
+    entry.onTextChange = function()
+        if entry.irisSuppressTextChange then return end
+        local state = entry.irisInteractionState
+        local value = entry:getInternalText() or ""
+        if state and state.query ~= value then
+            state.query = value
+            browser:showDetail(entry.irisFullType, true)
+        end
+    end
+    browser:addChild(entry)
+    browser[slot] = entry
+    return entry
+end
+
+local function activateSearchEntry(browser, slot, state, stateKey, fullType, x, y, width)
+    local entry = ensureSearchEntry(browser, slot)
+    entry.irisDetailActive = true
+    entry.irisInteractionState = state
+    entry.irisInteractionStateKey = stateKey
+    entry.irisFullType = fullType
+    entry.irisDetailX = x
+    entry.irisDetailY = y
+    entry.irisDetailWidth = width
+
+    local query = tostring(state.query or "")
+    if (entry:getInternalText() or "") ~= query then
+        entry.irisSuppressTextChange = true
+        entry:setText(query)
+        entry.irisSuppressTextChange = false
+    end
+    return entry
+end
+
 local function addLabel(browser, x, y, text, r, g, b)
     local label = ISLabel:new(x, y, 16, text, r, g, b, 1, UIFont.Small, true)
     browser.detailPanel:addChild(label)
@@ -64,22 +128,40 @@ local function renderRequirements(browser, row, yOffset, deps, state, stateKey)
     return yOffset
 end
 
+local function renderEvolvedText(browser, row, display, x, yOffset, source, identities)
+    local width = math.max(1, browser.detailPanel.width - 40)
+    local lines = TextLayout.wrapLines(display, width, UIFont.Small)
+    if #lines == 0 then lines = {display} end
+    for _, line in ipairs(lines) do
+        local label = addLabel(browser, x, yOffset, line, 0.9, 0.8, 0.55)
+        label.interactionRowSource = source
+        label.interactionIdentities = identities
+        label.interactionAccessibleText = row.display
+        yOffset = yOffset + 16
+    end
+    return yOffset
+end
+
 local function renderRow(browser, row, yOffset, deps, state, stateKey)
     if row.source == "evolved_recipe" then
-        local display = row.display
-        if (row.relationCount or 1) > 1 then
-            display = display .. " ×" .. tostring(row.relationCount)
+        if row.kind == "group" then
+            local heading = row.action .. " (" .. tostring(row.relationCount) .. ")"
+            yOffset = renderEvolvedText(
+                browser, row, heading, 20, yOffset,
+                "evolved_recipe_group", row.identities
+            )
+            for _, child in ipairs(row.children or {}) do
+                yOffset = renderEvolvedText(
+                    browser, child, child.targetLabel, 28, yOffset,
+                    "evolved_recipe", {child.identity}
+                )
+            end
+            return yOffset
         end
-        local width = math.max(1, browser.detailPanel.width - 40)
-        local lines = TextLayout.wrapLines(display, width, UIFont.Small)
-        if #lines == 0 then lines = {display} end
-        for _, line in ipairs(lines) do
-            local label = addLabel(browser, 20, yOffset, line, 0.9, 0.8, 0.55)
-            label.interactionRowSource = "evolved_recipe"
-            label.interactionIdentities = row.identities or {row.identity}
-            yOffset = yOffset + 16
-        end
-        return yOffset
+        return renderEvolvedText(
+            browser, row, row.display, 20, yOffset,
+            "evolved_recipe", row.identities or {row.identity}
+        )
     end
 
     local prefix = deps.tr("Iris_Prefix_RightClick", "[Action]")
@@ -110,6 +192,7 @@ local function renderRow(browser, row, yOffset, deps, state, stateKey)
 end
 
 function IrisBrowserInteractionRenderer.render(browser, browserClass, fullType, item, yOffset, deps)
+    beginSearchEntryLayout(browser)
     local projection = Collector.collect(
         deps.model.interactionState,
         deps.model.evolvedRecipeState,
@@ -120,6 +203,7 @@ function IrisBrowserInteractionRenderer.render(browser, browserClass, fullType, 
         addLabel(browser, 10, yOffset,
             deps.tr("Iris_Interaction_Unavailable", "Interaction data unavailable"),
             0.85, 0.4, 0.35)
+        finishSearchEntryLayout(browser)
         return yOffset + 20
     end
 
@@ -129,6 +213,7 @@ function IrisBrowserInteractionRenderer.render(browser, browserClass, fullType, 
         addLabel(browser, 20, yOffset,
             deps.tr("Iris_Interaction_VerifiedEmpty", "No interactions in verified Iris data"),
             0.65, 0.65, 0.65)
+        finishSearchEntryLayout(browser)
         return yOffset + 18
     end
 
@@ -146,18 +231,10 @@ function IrisBrowserInteractionRenderer.render(browser, browserClass, fullType, 
             modeButton.interactionStateKey = stateKey
             browser.detailPanel:addChild(modeButton)
 
-            local search = ISTextEntryBox:new(state.query or "", 125, yOffset, 190, 18)
-            search:initialise()
-            search:instantiate()
-            search.interactionStateKey = stateKey
-            search.onTextChange = function()
-                local value = search:getInternalText() or ""
-                if state.query ~= value then
-                    state.query = value
-                    browser:showDetail(fullType, true)
-                end
-            end
-            browser.detailPanel:addChild(search)
+            activateSearchEntry(
+                browser, "interactionSearchEntry", state, stateKey, fullType,
+                125, yOffset, 190
+            )
             yOffset = yOffset + 22
         end
 
@@ -243,21 +320,10 @@ function IrisBrowserInteractionRenderer.render(browser, browserClass, fullType, 
         yOffset = yOffset + 20
 
         if projection.evolvedDensity == "dense" then
-            local evolvedSearch = ISTextEntryBox:new(
-                evolvedState.query or "", 20, yOffset,
-                math.max(180, browser.detailPanel.width - 40), 18
+            activateSearchEntry(
+                browser, "evolvedSearchEntry", evolvedState, evolvedStateKey, fullType,
+                20, yOffset, math.max(180, browser.detailPanel.width - 40)
             )
-            evolvedSearch:initialise()
-            evolvedSearch:instantiate()
-            evolvedSearch.evolvedInteractionStateKey = evolvedStateKey
-            evolvedSearch.onTextChange = function()
-                local value = evolvedSearch:getInternalText() or ""
-                if evolvedState.query ~= value then
-                    evolvedState.query = value
-                    browser:showDetail(fullType, true)
-                end
-            end
-            browser.detailPanel:addChild(evolvedSearch)
             yOffset = yOffset + 22
         end
 
@@ -277,6 +343,7 @@ function IrisBrowserInteractionRenderer.render(browser, browserClass, fullType, 
             }, evolvedState, evolvedStateKey)
         end
     end
+    finishSearchEntryLayout(browser)
     return yOffset
 end
 

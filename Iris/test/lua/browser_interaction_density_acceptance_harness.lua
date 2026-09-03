@@ -26,10 +26,34 @@ local function recipe(identity, recipeId, en, ko)
         recipe_nav_ref = {recipe_id = recipeId, original_name = en},
     }
 end
+local evolvedOrdinal = 0
+local ACTIONS = {
+    ["ingredient:none"] = {EN = "Can be added as an ingredient", KO = "재료로 추가 가능"},
+    ["ingredient:cooked"] = {
+        EN = "Can be added as an ingredient after cooking", KO = "익힌 뒤 재료로 추가 가능",
+    },
+    ["spice:none"] = {EN = "Can be added as seasoning", KO = "양념으로 추가 가능"},
+    ["spice:cooked"] = {
+        EN = "Can be added as seasoning after cooking", KO = "익힌 뒤 양념으로 추가 가능",
+    },
+    ["base_item:none"] = {EN = "Used to start preparation", KO = "조리 시작에 사용"},
+}
 local function evolved(identity, foodTypeId, role, conditions, en, ko)
+    evolvedOrdinal = evolvedOrdinal + 1
+    local conditionKey = #conditions == 0 and "none" or table.concat(conditions, ",")
+    local actionKey = role .. ":" .. conditionKey
+    local actions = ACTIONS[actionKey]
     return {
-        relation_id = identity, food_type_id = foodTypeId, role = role,
-        conditions = conditions, display_by_locale = {EN = en, KO = ko},
+        relation_id = identity, source_full_type = "Fixture.Item",
+        target_id = foodTypeId, food_type_id = foodTypeId, role = role,
+        conditions = conditions, action_key = actionKey,
+        canonical_ordinal = evolvedOrdinal,
+        target_label_by_locale = {EN = en, KO = ko},
+        action_by_locale = actions,
+        display_by_locale = {
+            EN = en .. " · " .. (actions and actions.EN or "unsupported"),
+            KO = ko .. " · " .. (actions and actions.KO or "지원하지 않음"),
+        },
     }
 end
 local function available(lines) return {status = "available", lines = lines} end
@@ -48,7 +72,7 @@ assertEqual("fault", lookupFault.status, "fault distinct from empty")
 local evolvedOnly = Projection.build({status = "verified_empty", lines = {}}, {
     status = "available", relations = {
         evolved("qg.evolved_recipe.only", "Soup", "ingredient", {},
-            "Can be added to soup as an ingredient", "수프에 재료로 넣을 수 있음"),
+            "Soup", "수프"),
     },
 }, "EN", tr)
 assertEqual("available", evolvedOnly.status, "EvolvedRecipe-only projection is available")
@@ -65,16 +89,16 @@ assertEqual(nil, evolvedOnlyRows[1].recipe_nav_ref,
 local definitionBases = Projection.build({status = "verified_empty", lines = {}}, {
     status = "available", relations = {
         evolved("qg.evolved_recipe.bowl_salad", "Salad", "base_item", {},
-            "Can be used to prepare a salad", "샐러드 준비에 사용할 수 있음"),
+            "Salad", "샐러드"),
         evolved("qg.evolved_recipe.bowl_fruit", "FruitSalad", "base_item", {},
-            "Can be used to prepare fruit salad", "과일 샐러드 준비에 사용할 수 있음"),
+            "Fruit salad", "과일 샐러드"),
     },
 }, "KO", tr)
 local definitionBaseRows = Projection.visibleEvolvedRows(definitionBases, true, "")
 assertEqual(2, #definitionBaseRows, "definition BaseItem relations remain distinct")
 assertEqual("base_item", definitionBaseRows[1].role,
     "definition BaseItem uses its own participation role")
-assertEqual("샐러드 준비에 사용할 수 있음", definitionBaseRows[1].display,
+assertEqual("샐러드 · 조리 시작에 사용", definitionBaseRows[1].display,
     "definition BaseItem has a neutral Korean display")
 
 local mixed = Projection.build(available({
@@ -105,10 +129,9 @@ local withEvolved = Projection.build(available({
     recipe("uc.recipe.alpha", "alpha", "Alpha", "알파"),
 }), {status = "available", relations = {
     evolved("qg.evolved_recipe.soup", "Soup", "ingredient", {},
-        "Can be added to soup as an ingredient", "수프에 재료로 넣을 수 있음"),
+        "Soup", "수프"),
     evolved("qg.evolved_recipe.stew", "Stew", "spice", {"cooked"},
-        "Can be added to stew as seasoning after cooking",
-        "스튜에 양념으로 넣으려면 먼저 익혀야 함"),
+        "Stew", "스튜"),
 }}, "EN", tr)
 assertEqual("available", withEvolved.status, "EvolvedRecipe collection is available")
 assertEqual(4, withEvolved.total, "combined typed relation count")
@@ -135,10 +158,9 @@ local withEvolvedKo = Projection.build(available({
     recipe("uc.recipe.alpha", "alpha", "Alpha", "알파"),
 }), {status = "available", relations = {
     evolved("qg.evolved_recipe.soup", "Soup", "ingredient", {},
-        "Can be added to soup as an ingredient", "수프에 재료로 넣을 수 있음"),
+        "Soup", "수프"),
     evolved("qg.evolved_recipe.stew", "Stew", "spice", {"cooked"},
-        "Can be added to stew as seasoning after cooking",
-        "스튜에 양념으로 넣으려면 먼저 익혀야 함"),
+        "Stew", "스튜"),
 }}, "KO", tr)
 local withEvolvedRowsKo = Projection.visibleRows(withEvolvedKo, true, "")
 for index, row in ipairs(withEvolvedRows) do
@@ -160,21 +182,21 @@ assertEqual(2, sameDisplay.total, "duplicate labels retain distinct identities")
 local groupedEvolved = Projection.build(available({}), {
     status = "available", relations = {
         evolved("qg.evolved_recipe.rice_pan", "RicePan", "spice", {},
-            "Can be added to rice as seasoning", "밥에 양념으로 넣을 수 있음"),
+            "Rice in a saucepan", "소스팬에 담긴 밥"),
         evolved("qg.evolved_recipe.rice_pot", "RicePot", "spice", {},
-            "Can be added to rice as seasoning", "밥에 양념으로 넣을 수 있음"),
+            "Rice in a cooking pot", "냄비에 담긴 밥"),
     },
 }, "KO", tr)
 local groupedRows = Projection.visibleEvolvedRows(groupedEvolved, true, "")
 assertEqual(2, groupedEvolved.evolvedRecipeCount,
     "grouping preserves raw EvolvedRecipe relation count")
-assertEqual(1, #groupedRows, "identical locale/role/condition rows group for display")
-assertEqual(2, groupedRows[1].relationCount, "display group preserves multiplicity")
-assertEqual(2, #groupedRows[1].identities, "display group preserves exact identities")
-assertEqual("qg.evolved_recipe.rice_pan", groupedRows[1].identities[1],
-    "display group preserves first exact identity")
-assertEqual("qg.evolved_recipe.rice_pot", groupedRows[1].identities[2],
-    "display group preserves second exact identity")
+assertEqual(2, #groupedRows, "small relations remain compact flat rows")
+assertEqual("소스팬에 담긴 밥 · 양념으로 추가 가능", groupedRows[1].display,
+    "small row is compact and self-contained")
+assertEqual("qg.evolved_recipe.rice_pan", groupedRows[1].identity,
+    "small row preserves first exact identity")
+assertEqual("qg.evolved_recipe.rice_pot", groupedRows[2].identity,
+    "small row preserves second exact identity")
 
 local denseLines = {}
 for index = 1, 9 do
@@ -197,7 +219,7 @@ end
 local denseCombined = Projection.build(available(denseCombinedLines), {
     status = "available", relations = {
         evolved("qg.evolved_recipe.dense", "Soup", "ingredient", {},
-            "Can be added to soup as an ingredient", "수프에 재료로 넣을 수 있음"),
+            "Soup", "수프"),
     },
 }, "EN", tr)
 local fixedWithoutEvolved = Projection.build(available(denseCombinedLines), "EN", tr)
@@ -299,9 +321,16 @@ ISTextEntryBox = {}
 function ISTextEntryBox:new(text, x, y, width, height)
     local entry = {
         kind = "search", text = text, x = x, y = y, width = width, height = height,
+        visible = true,
         initialise = function() end, instantiate = function() end,
     }
     function entry:getInternalText() return self.text end
+    function entry:getIsVisible() return self.visible end
+    function entry:setVisible(visible) self.visible = visible end
+    function entry:setText(value) self.text = value end
+    function entry:setX(value) self.x = value end
+    function entry:setY(value) self.y = value end
+    function entry:setWidth(value) self.width = value end
     return entry
 end
 function getTextManager()
@@ -325,17 +354,41 @@ for index = 1, 21 do
     table.insert(saltEvolved, evolved(
         "qg.evolved_recipe.salt" .. index, "Dish" .. index, "spice",
         index == 7 and {"cooked"} or {},
-        "Can be added to dish " .. index .. " as seasoning" ..
-            (index == 7 and " after cooking" or ""),
-        index == 7 and ("요리 " .. index .. "에 양념으로 넣으려면 먼저 익혀야 함") or
-            ("요리 " .. index .. "에 양념으로 넣을 수 있음")
+        "Dish " .. index, "요리 " .. index
     ))
 end
 
+local denseEvolved = Projection.build({status = "verified_empty", lines = {}}, {
+    status = "available", relations = saltEvolved,
+}, "EN", tr)
+local denseGroups = Projection.visibleEvolvedRows(denseEvolved, true, "")
+assertEqual("dense", denseEvolved.evolvedDensity, "nine or more Evolved relations are dense")
+assertEqual(2, #denseGroups, "dense relations group by role and condition")
+assertEqual("spice:none", denseGroups[1].actionKey,
+    "dense group order follows its first canonical ordinal")
+assertEqual(20, denseGroups[1].relationCount, "plain spice group exact relation count")
+assertEqual("spice:cooked", denseGroups[2].actionKey,
+    "cooked spice remains a separate group")
+assertEqual(1, denseGroups[2].relationCount, "cooked spice group exact relation count")
+assertEqual(saltEvolved[1].canonical_ordinal,
+    denseGroups[1].children[1].canonicalOrdinal,
+    "group child starts with its first canonical ordinal")
+assertEqual(saltEvolved[8].canonical_ordinal,
+    denseGroups[1].children[7].canonicalOrdinal,
+    "group child order skips interleaved groups without reordering")
+local denseSearchGroups = Projection.visibleEvolvedRows(denseEvolved, false, "Dish 7")
+assertEqual(1, #denseSearchGroups, "dense search omits empty groups")
+assertEqual(1, denseSearchGroups[1].relationCount,
+    "dense search heading count uses matched exact relations")
+assertEqual("qg.evolved_recipe.salt7", denseSearchGroups[1].children[1].identity,
+    "dense search retains the matched exact relation identity")
+
 local uiBrowser = setmetatable({
     currentSelectedFullType = "Base.Salt",
+    overlayChildren = {},
+    addChild = function(self, child) table.insert(self.overlayChildren, child) end,
     detailPanel = {
-        width = 360,
+        x = 0, y = 0, width = 360, height = 1000,
         children = {},
         addChild = function(self, child) table.insert(self.children, child) end,
     },
@@ -369,7 +422,7 @@ local function findButton(title)
     return nil
 end
 local function findSearch()
-    for _, child in ipairs(uiBrowser.detailPanel.children) do
+    for _, child in ipairs(uiBrowser.overlayChildren) do
         if child.kind == "search" then return child end
     end
     return nil
@@ -377,9 +430,10 @@ end
 local function rowCount(kind)
     local count = 0
     for _, child in ipairs(uiBrowser.detailPanel.children) do
-        local matchesEvolved = kind == "evolved_recipe" and
-            child.interactionRowSource == "evolved_recipe"
-        local matchesPrefix = kind ~= "evolved_recipe" and child.kind == "label" and
+        local matchesEvolved = (kind == "evolved_recipe" or
+            kind == "evolved_recipe_group") and child.interactionRowSource == kind
+        local matchesPrefix = kind ~= "evolved_recipe" and
+            kind ~= "evolved_recipe_group" and child.kind == "label" and
             child.text:find("^" .. kind, 1, false)
         if matchesEvolved or matchesPrefix then
             count = count + 1
@@ -438,6 +492,8 @@ assertEqual(0, rowCount("evolved_recipe"), "dense freeform section starts collap
 click(findButton("[+] Freeform Cooking (21)"), "freeform section expand control")
 assertEqual(4, rowCount("%[Recipe%]"), "Evolved expansion preserves fixed Recipe rows")
 assertEqual(21, rowCount("evolved_recipe"), "freeform section shows twenty-one food rows")
+assertEqual(2, rowCount("evolved_recipe_group"),
+    "dense freeform section separates plain and cooked spice groups")
 assertEqual(4, navigationCount(), "Evolved rows add no navigation")
 for _, child in ipairs(uiBrowser.detailPanel.children) do
     if child.interactionRowSource == "evolved_recipe" then
@@ -459,8 +515,11 @@ local search = findSearch()
 assertEqual(true, search ~= nil, "dense Evolved section exposes separate search")
 search.text = "Dish 7"
 search.onTextChange()
+assertEqual(search, findSearch(), "Evolved search survives its result rebuild")
 assertEqual(4, rowCount("%[Recipe%]"), "Evolved search preserves fixed Recipe rows")
 assertEqual(1, rowCount("evolved_recipe"), "search reveals matching collapsed Evolved row")
+assertEqual(1, rowCount("evolved_recipe_group"),
+    "dense search rebuilds one matched-only group")
 local retainedState = State.forEvolved(uiBrowser, 7, "EN", "Base.Salt", "dense")
 assertEqual(false, retainedState.expanded, "same-generation rebuild retains Evolved collapse")
 assertEqual("Dish 7", retainedState.query, "same-generation rebuild retains search state")
@@ -468,8 +527,7 @@ assertEqual("Dish 7", retainedState.query, "same-generation rebuild retains sear
 uiDeps.model.interactionState = {status = "verified_empty", lines = {}}
 uiDeps.model.evolvedRecipeState = {status = "available", relations = {
     evolved("qg.evolved_recipe.salt_beer", "Beer", "spice", {},
-        "Can be added to beer in a tumbler as seasoning",
-        "텀블러에 담긴 맥주에 양념으로 넣을 수 있음"),
+        "Beer in a tumbler", "텀블러에 담긴 맥주"),
 }}
 local saltTransitionState = State.forEvolved(
     uiBrowser, 7, "EN", "Base.Salt", "single"
@@ -483,7 +541,7 @@ assertEqual(1, rowCount("evolved_recipe"),
 uiBrowser.currentSelectedFullType = "Base.MushroomGeneric1"
 uiDeps.model.evolvedRecipeState = {status = "available", relations = {
     evolved("qg.evolved_recipe.mushroom_soup", "Soup", "ingredient", {},
-        "Can be added to soup as an ingredient", "수프에 재료로 넣을 수 있음"),
+        "Soup", "수프"),
 }}
 renderUi()
 assertEqual("", saltTransitionState.query,
@@ -507,7 +565,8 @@ assertEqual(nil, mushroomText:lower():find("beer", 1, true),
 assertEqual(nil, mushroomText:lower():find("tumbler", 1, true),
     "Salt container text does not leak into Mushroom")
 
-local longDisplay = "Can be used to prepare a deliberately long freeform cooking target"
+local longTarget = "A deliberately long freeform cooking target prepared in a vessel"
+local longDisplay = longTarget .. " · Used to start preparation"
 local widthBrowser = setmetatable({
     currentSelectedFullType = "Base.Long",
     detailPanel = {
@@ -521,7 +580,7 @@ Renderer.render(widthBrowser, BrowserClass, "Base.Long", {}, 0, {
         interactionState = {status = "verified_empty", lines = {}},
         evolvedRecipeState = {status = "available", relations = {
             evolved("qg.evolved_recipe.long", "Long", "base_item", {},
-                longDisplay, "아주 긴 자유 조리 대상 준비에 사용할 수 있음"),
+                longTarget, "아주 긴 용기에 담긴 자유 조리 대상"),
         }},
         locale = "EN",
     },

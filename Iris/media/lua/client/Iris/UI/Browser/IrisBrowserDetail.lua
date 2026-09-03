@@ -107,6 +107,9 @@ local function applyDetailScrollOffset(browser)
         local ok = ObjectAccess.call(child, "setY", targetY)
         if not ok then child.y = targetY end
     end
+    if browser.updateDetailSearchEntries then
+        browser:updateDetailSearchEntries()
+    end
 end
 
 local function addMultilineLabels(panel, text, x, yOffset, height, r, g, b, font)
@@ -196,15 +199,46 @@ function IrisBrowserDetail.install(IrisBrowser, context)
     local safeRequire = context.safeRequire
     local tr = context.tr
 
+    function IrisBrowser:updateDetailSearchEntries()
+        if not self.detailPanel then return end
+        local panelX = self.detailPanel.x or 0
+        local panelY = self.detailPanel.y or 0
+        local panelHeight = self.detailPanel.height or 0
+        local slots = {"interactionSearchEntry", "evolvedSearchEntry"}
+        for _, slot in ipairs(slots) do
+            local entry = self[slot]
+            if entry then
+                local visible = entry.irisDetailActive == true
+                if visible then
+                    local targetY = panelY + (entry.irisDetailY or 0) -
+                        (self.detailScrollY or 0)
+                    entry:setX(panelX + (entry.irisDetailX or 0))
+                    entry:setY(targetY)
+                    entry:setWidth(entry.irisDetailWidth or entry.width)
+                    visible = targetY + entry.height > panelY and
+                        targetY < panelY + panelHeight
+                end
+                if entry:getIsVisible() ~= visible then
+                    entry:setVisible(visible)
+                end
+            end
+        end
+    end
+
     function IrisBrowser:rebuildDetailContent(fullType)
         removeDetailChildren(self.detailPanel)
         self.detailChildBaseY = {}
         self.currentDetailModel = nil
         self.detailBuiltFullType = fullType
         self.detailBuiltLocale = TranslationResolver.getLangKey("EN")
+        for _, slot in ipairs({"interactionSearchEntry", "evolvedSearchEntry"}) do
+            local entry = self[slot]
+            if entry then entry.irisDetailActive = false end
+        end
 
         if not fullType then
             self.detailContentHeight = 0
+            self:updateDetailSearchEntries()
             return
         end
 

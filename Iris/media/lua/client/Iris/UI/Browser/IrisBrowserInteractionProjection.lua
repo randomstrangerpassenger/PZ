@@ -30,35 +30,44 @@ local function fault(reason)
     }
 end
 
-local function groupEvolvedDisplayRows(rows)
+local function evolvedActionKey(role, conditions)
+    if type(conditions) ~= "table" then return nil end
+    if #conditions == 0 and
+        (role == "base_item" or role == "ingredient" or role == "spice") then
+        return role .. ":none"
+    end
+    if #conditions == 1 and conditions[1] == "cooked" and
+        (role == "ingredient" or role == "spice") then
+        return role .. ":cooked"
+    end
+    return nil
+end
+
+local function groupEvolvedRows(rows)
     local grouped = {}
-    local byDisplayContract = {}
+    local byAction = {}
     for _, row in ipairs(rows) do
-        local key = row.display .. "\0" .. row.role .. "\0" .. table.concat(row.conditions, ",")
-        local displayRow = byDisplayContract[key]
-        if not displayRow then
-            displayRow = {
+        local group = byAction[row.actionKey]
+        if not group then
+            group = {
+                kind = "group",
                 identity = row.identity,
                 identities = {row.identity},
                 source = row.source,
                 baseOrdinal = row.baseOrdinal,
-                display = row.display,
-                displayUnavailable = row.displayUnavailable,
-                food_type_id = row.food_type_id,
-                food_type_ids = {row.food_type_id},
+                action = row.action,
+                actionKey = row.actionKey,
                 role = row.role,
                 conditions = row.conditions,
-                sourceLine = row.sourceLine,
-                sourceLines = {row.sourceLine},
+                children = {row},
                 relationCount = 1,
             }
-            byDisplayContract[key] = displayRow
-            table.insert(grouped, displayRow)
+            byAction[row.actionKey] = group
+            table.insert(grouped, group)
         else
-            table.insert(displayRow.identities, row.identity)
-            table.insert(displayRow.food_type_ids, row.food_type_id)
-            table.insert(displayRow.sourceLines, row.sourceLine)
-            displayRow.relationCount = displayRow.relationCount + 1
+            table.insert(group.identities, row.identity)
+            table.insert(group.children, row)
+            group.relationCount = group.relationCount + 1
         end
     end
     return grouped
@@ -102,6 +111,8 @@ function IrisBrowserInteractionProjection.build(interactionState, evolvedRecipeS
     local bySource = {recipe = {}, rightclick = {}}
     local evolvedRows = {}
     local seen = {}
+    local seenEvolvedOrdinals = {}
+    local evolvedActions = {}
     for ordinal, line in ipairs(interactionState.lines) do
         if line.line_kind ~= "exclusion" then
             local identity = line.label_key
@@ -155,37 +166,57 @@ function IrisBrowserInteractionProjection.build(interactionState, evolvedRecipeS
                     if type(relation.food_type_id) ~= "string" or relation.food_type_id == "" then
                         return fault("blank_evolved_food_type:" .. identity)
                     end
-                    if relation.role ~= "base_item" and relation.role ~= "ingredient" and
-                        relation.role ~= "spice" then
-                        return fault("invalid_evolved_role:" .. identity)
+                    if relation.target_id ~= relation.food_type_id or
+                        type(relation.source_full_type) ~= "string" or
+                        relation.source_full_type == "" then
+                        return fault("invalid_evolved_presentation_identity:" .. identity)
                     end
-                    if type(relation.conditions) ~= "table" then
-                        return fault("invalid_evolved_conditions:" .. identity)
+                    local canonicalOrdinal = relation.canonical_ordinal
+                    if type(canonicalOrdinal) ~= "number" or canonicalOrdinal < 1 or
+                        canonicalOrdinal % 1 ~= 0 or seenEvolvedOrdinals[canonicalOrdinal] then
+                        return fault("invalid_evolved_ordinal:" .. identity)
                     end
-                    for _, condition in ipairs(relation.conditions) do
-                        if condition ~= "cooked" then
-                            return fault("invalid_evolved_condition:" .. identity)
-                        end
-                    end
-                    if relation.role == "base_item" and #relation.conditions > 0 then
-                        return fault("invalid_evolved_base_condition:" .. identity)
+                    seenEvolvedOrdinals[canonicalOrdinal] = true
+                    local actionKey = evolvedActionKey(relation.role, relation.conditions)
+                    if not actionKey or relation.action_key ~= actionKey then
+                        return fault("invalid_evolved_action:" .. identity)
                     end
                     if relation.recipe_id or relation.recipe_nav_ref or relation.rule_id then
                         return fault("synthetic_evolved_navigation:" .. identity)
                     end
+                    local targetByLocale = relation.target_label_by_locale
+                    local actionByLocale = relation.action_by_locale
                     local displayByLocale = relation.display_by_locale
+                    local target = type(targetByLocale) == "table" and
+                        targetByLocale[locale] or nil
+                    local action = type(actionByLocale) == "table" and
+                        actionByLocale[locale] or nil
                     local display = type(displayByLocale) == "table" and displayByLocale[locale] or nil
-                    if type(display) ~= "string" or display == "" then
+                    if type(target) ~= "string" or target == "" or
+                        type(action) ~= "string" or action == "" or
+                        type(display) ~= "string" or display == "" then
                         return fault("missing_evolved_display:" .. identity)
                     end
+                    if evolvedActions[actionKey] and evolvedActions[actionKey] ~= action then
+                        return fault("inconsistent_evolved_action:" .. actionKey)
+                    end
+                    evolvedActions[actionKey] = action
                     local row = {
-                        identity = identity, source = "evolved_recipe", baseOrdinal = ordinal,
+                        kind = "flat", identity = identity, identities = {identity},
+                        source = "evolved_recipe", baseOrdinal = canonicalOrdinal,
+                        canonicalOrdinal = canonicalOrdinal,
                         display = display, displayUnavailable = false,
-                        food_type_id = relation.food_type_id, role = relation.role,
+                        targetLabel = target, action = action, actionKey = actionKey,
+                        food_type_id = relation.food_type_id, target_id = relation.target_id,
+                        source_full_type = relation.source_full_type, role = relation.role,
                         conditions = relation.conditions, sourceLine = relation,
+                        relationCount = 1,
                     }
                     table.insert(evolvedRows, row)
                 end
+                table.sort(evolvedRows, function(left, right)
+                    return left.canonicalOrdinal < right.canonicalOrdinal
+                end)
             end
         elseif evolvedStatus ~= "verified_empty" and evolvedStatus ~= "unavailable" and
             evolvedStatus ~= "fault" then
@@ -199,7 +230,9 @@ function IrisBrowserInteractionProjection.build(interactionState, evolvedRecipeS
     end
     local fixedTotal = #rows
     local evolvedTotal = #evolvedRows
-    local evolvedDisplayRows = groupEvolvedDisplayRows(evolvedRows)
+    local evolvedDensity = Policy.density(evolvedTotal)
+    local evolvedDisplayRows = evolvedDensity == "dense" and
+        groupEvolvedRows(evolvedRows) or evolvedRows
     local total = fixedTotal + evolvedTotal
     if total == 0 then
         return {
@@ -217,7 +250,7 @@ function IrisBrowserInteractionProjection.build(interactionState, evolvedRecipeS
         evolvedRecipeCount = evolvedTotal, fixedTotal = fixedTotal,
         bySource = bySource, evolvedRows = evolvedRows,
         evolvedDisplayRows = evolvedDisplayRows,
-        density = Policy.density(fixedTotal), evolvedDensity = Policy.density(evolvedTotal),
+        density = Policy.density(fixedTotal), evolvedDensity = evolvedDensity,
         locale = locale,
         evolvedStatus = evolvedStatus, evolvedReason = evolvedReason,
     }
@@ -242,13 +275,16 @@ function IrisBrowserInteractionProjection.visibleEvolvedRows(projection, expande
     if projection.status ~= "available" then return {} end
     local needle = tostring(query or ""):lower()
     if projection.evolvedDensity == "dense" and not expanded and needle == "" then return {} end
-    local visible = {}
-    for _, row in ipairs(projection.evolvedDisplayRows or projection.evolvedRows or {}) do
+    local matched = {}
+    for _, row in ipairs(projection.evolvedRows or {}) do
         if needle == "" or row.display:lower():find(needle, 1, true) then
-            table.insert(visible, row)
+            table.insert(matched, row)
         end
     end
-    return visible
+    if projection.evolvedDensity == "dense" then
+        return groupEvolvedRows(matched)
+    end
+    return matched
 end
 
 return IrisBrowserInteractionProjection

@@ -1,7 +1,7 @@
 # ARCHITECTURE.md
 
-> 상태: 초안 v0.5  
-> 기준일: 2026-09-01  
+> 상태: 초안 v0.6
+> 기준일: 2026-09-03
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 구조 지도, 역할 경계, 의존 방향을 고정한다.  
 > 구현 상태 표기: 별도 표시가 없는 모듈은 current architecture를 기술하며, `설계 단계` 표시는 아직 구현되지 않은 target architecture를 뜻한다.
@@ -549,9 +549,12 @@ Iris 런타임은 외부에 유지되는 호환 표면과 내부 상태·사실 
 
 - 분류에서 파생된 표시 순서와 색인은 `Menu`의 탐색 구조를 구성한다.
 - Layer 3 `Menu` 투영은 승인된 기본 설명과 같은 의미 원천에 결속된 추가 맥락·획득 정보를 조합할 수 있다.
-- Layer 4 투영은 `QG`가 확정한 상호작용 상태를 표시 가능한 행과 탐색 상태로 변환한다. `EvolvedRecipe` lookup은 fixed Recipe/Right-click collection을 다시 쓰지 않고 Detail ViewModel에서 별도로 읽어 같은 표시 경계에 합성한다. Fixed collection의 total·density·visible rows는 Evolved 관계 수와 독립적으로 보존하고, Evolved collection은 자체 density·expanded·query state를 가진다. 같은 locale 라벨·역할·조건의 관계는 display group 하나로 렌더링하되 모든 exact identity와 관계 수를 보존하고, 사용자 surface에서는 KO `자유 조리` / EN `Freeform Cooking` 명칭과 폭 기반 줄바꿈을 사용한다.
-- Food-type locale projection은 raw `ContextMenu_EvolvedRecipe_*` fragment가 아니라 exact ID별 standalone target registry와 role/condition template을 결합해 행동 의미가 완결된 KO/EN 문장을 만든다. Recipe source section state와 Freeform state는 별도이며, item·locale 전환 시 이전 relation/query를 새 모델에 상속하지 않는다.
-- Build 41 current runtime은 실제 PZ 대표 관찰을 통과한 `Iris/media/lua/client/Iris/Data/IrisEvolvedRecipeLookup.lua`이며 SHA-256은 `0b86cb8a2638df627f94bbb27af759b9b46e54c55081504da04aefcc8e353088`이다. 이 hash와 다른 재생성 결과는 새 candidate이고 자동으로 current가 되지 않는다.
+- Layer 4 투영은 `QG`가 확정한 상호작용 상태를 표시 가능한 행과 탐색 상태로 변환한다. `EvolvedRecipe` lookup은 fixed Recipe/Right-click collection을 다시 쓰지 않고 Detail ViewModel에서 별도로 읽어 같은 표시 경계에 합성한다. Fixed collection의 total·density·visible rows는 Evolved 관계 수와 독립적으로 보존하고, Evolved collection은 자체 density·expanded·query state를 가진다.
+- Evolved 저밀도 투영은 target과 행동을 한 compact flat row에 표시한다. 고밀도 투영은 locale별 역할·조건 action을 group heading으로, target label을 child로 표시한다. Group과 child는 각 relation의 `canonical_ordinal`에서 순서를 얻고 모든 exact identity와 원 relation count를 보존한다. 검색은 relation을 먼저 match한 뒤 일치한 child만 regroup하며 빈 group을 만들지 않는다.
+- Food-type locale projection은 raw `ContextMenu_EvolvedRecipe_*` fragment가 아니라 exact ID별 standalone target registry와 role/condition template을 결합해 행동 의미가 완결된 KO/EN 문장을 만든다. Recipe source section state와 Freeform state는 별도이며, item·locale 전환 시 이전 relation/query를 새 모델에 상속하지 않는다. `Iris_Interaction_EvolvedRecipe`의 source translation과 생성 `IrisTranslationData`를 함께 유지해 사용자 surface에 KO `자유 조리` / EN `Freeform Cooking`을 표시한다.
+- Freeform text entry는 Detail content child가 아니라 Browser-owned persistent UI child다. Detail 결과를 재구성해도 같은 engine text box와 IME focus를 유지하며, Detail scroll은 entry의 위치와 viewport 가시성만 동기화한다. Fixed Recipe 제작 UI 이동은 현재 locale에 맞춰 KO translated name 또는 original name을 filter input으로 선택한다.
+- Build 41 current runtime은 자동 검증과 사용자 실제 PZ 대표 관찰 뒤 guarded adoption을 통과한 compact/grouped v7 `Iris/media/lua/client/Iris/Data/IrisEvolvedRecipeLookup.lua`이며 SHA-256은 `02c6d4b97a21285a393b873582dd9fa80bc6b25fa91d09fc7da89e89965ef47b`이다. 이 hash와 다른 재생성 결과는 새 candidate이고 자동으로 current가 되지 않는다.
+- 이전 v6 SHA-256 `0b86cb8a2638df627f94bbb27af759b9b46e54c55081504da04aefcc8e353088`은 실제 PZ 관찰과 당시 adoption을 통과한 predecessor지만 v7 current와 동시에 runtime authority를 갖지 않는다.
 - PZ runtime은 채택된 Lua lookup만 읽는다. Source-accounted owner JSON과 저장소 밖 candidate/package는 오프라인 생성·관찰·채택 입력이며 런타임 의미 입력으로 역유입하지 않는다.
 - `Browser`, `Detail ViewModel`, `Wiki` 관련 구성요소는 `Menu` 내부 표시 구조를 구성한다.
 
@@ -614,6 +617,19 @@ PZ에서 관찰 가능한 자료
 - 전체 검색 결과에서 카테고리 위치로 이동할 때는 해당 결과와 동일한 스냅샷·기준 아이템 식별자에 결속된 탐색 정보만 사용한다.
 - 검색 결과에서 카테고리로 이동하는 동작은 카테고리 선택과 스크롤 상태를 변경할 수 있지만 원래 검색 질의나 결과 식별자를 다시 작성하지 않는다.
 - 검색을 종료하거나 `Browser` 탐색 상태를 초기화할 때는 검색 종속 상태와 카테고리 탐색 상태의 소유 범위를 구분해 정리한다.
+
+Layer 4 자유 조리 검색은 Browser item relevance search와 입력 처리 원칙만 공유하고 별도 relation projection에서 수행한다.
+
+```text
+Freeform 입력 버퍼
+-> locale relation display의 대소문자 무시 literal 부분 일치
+-> matched relation set
+-> matched-only action group
+-> canonical/group 순서 표시
+```
+
+- Freeform 검색은 현재 `IrisBrowserSearch`의 공백 compact key, FullType ID match, relevance tier, prefix candidate snapshot과 분류 자동 이동을 사용하지 않는다.
+- Browser item 검색의 relevance 순위를 Freeform relation에 그대로 적용해 canonical/group 순서를 바꾸지 않는다. 향후 lexical matcher 일부를 공유하더라도 relation identity·ordinal·matched-only grouping은 Evolved projection이 계속 소유한다.
 
 ---
 

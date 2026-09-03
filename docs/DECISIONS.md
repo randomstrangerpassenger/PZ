@@ -1,7 +1,7 @@
 # DECISIONS.md
 
-> 상태: current decision ledger / compact trace-dedup edition, Iris DVF·Browser 검색·장문 표시 후속 반영
-> 기준일: 2026-09-01 (이번 갱신 범위: Iris DVF 설명·Tooltip·Menu, 기술서 획득 정보, Browser/Wiki 장문 표시, 내부 패키징·검증 적용 범위)
+> 상태: current decision ledger / compact trace-dedup edition, Iris EvolvedRecipe successor 후속 반영
+> 기준일: 2026-09-03 (이번 갱신 범위: Iris EvolvedRecipe compact/grouped presentation, 자유 조리 검색 입력, locale 번역·Recipe 이동)
 > 상위 기준: `Philosophy.md`
 > 목적: Pulse 생태계에서 이미 사실상 고정된 결정을 짧게 봉인하고, 같은 논쟁의 반복을 줄인다.
 
@@ -1089,11 +1089,11 @@
   - adaptive presentation integration: 2026-08-21
   - COMMON-EVIDENCE-TRACE.
 
-### Iris Layer 4 — Build 41 `EvolvedRecipe` typed relation contract
+### Iris Layer 4 — Build 41 `EvolvedRecipe` typed relation / compact-grouped presentation contract
 
-- 날짜: 2026-09-02 → 2026-09-03 v6 실제 관찰·채택
+- 날짜: 2026-09-02 → 2026-09-03 v6 실제 관찰·채택 → v7 successor 실제 관찰·채택
 
-- 상태: `observed_pass / adopted` / v6 실제 PZ 대표 관찰 PASS / runtime lookup current
+- 상태: v7 `observed_pass / adopted / runtime current`; v6 `observed_pass / superseded_current`
 
 - 결정: Build 41 item script의 active `EvolvedRecipe` 속성을 exact `FullType`과 exact food type ID의 관계로 생산한다. 관계별 역할(`ingredient`/`spice`)과 확인된 `cooked` 조건만 보존하며 fixed Recipe 전용 ID·결과물·navigation을 합성하지 않는다.
 
@@ -1107,6 +1107,11 @@
   - Fixed Recipe source header는 KO/EN 모두 명시적인 `Recipe (n)` section control이며 자체 expanded state로 click→forced rebuild→collapse/expand한다. Freeform Cooking state와 결합하지 않고 item/locale identity에 따라 state owner를 분리한다.
   - 실제 PZ에서 candidate를 관찰하기 전에는 lookup을 저장소 runtime에 채택하지 않는다. v6 실제 관찰은 KO Salt의 fixed Recipe 4·자유 조리 21과 각 section 동작, Bowl/WaterPot의 자연화 `base_item`, Bacon/Mushroom 및 Salt→Mushroom state 격리, EN relation/presentation parity, non-clickable 행과 Tooltip 무변경을 같은 후보에서 확인했다.
   - v6는 위 대표 관찰 전 항목 PASS와 exact runtime SHA-256 `0b86cb8a2638df627f94bbb27af759b9b46e54c55081504da04aefcc8e353088` 확인 후 guarded updater로 채택됐다. lookup 부재는 지원 코드에서 `lookup_not_adopted`로 격리되어 rollback 시 기존 interaction 표시를 유지한다.
+  - v7 successor는 공개 relation 의미와 exact identity를 바꾸지 않고 presentation만 변경한다. 저밀도는 target과 행동이 한 행에서 완결되는 compact flat row를 사용한다. 고밀도는 locale별 `action_key`에 해당하는 역할·조건으로 group을 만들고 target label을 child로 표시한다. Group 순서는 각 group의 첫 `canonical_ordinal`, child 순서는 관계별 `canonical_ordinal`을 따르며 exact identity와 전체 relation count를 보존한다.
+  - 고밀도 검색은 먼저 개별 locale display row에 대소문자 무시 literal 부분 일치를 적용한 뒤 일치한 관계만 다시 group한다. 빈 group은 만들지 않고 group count는 실제 match 수를 사용한다. 이 검색은 Iris Browser의 item relevance search와 같은 입력 버퍼 경계를 사용하지만 공백 compacting·FullType 검색·tier ranking·prefix candidate snapshot은 사용하지 않는다. 검색 결과는 relevance로 재정렬하지 않고 canonical/group 순서를 유지한다.
+  - Detail 재구성은 자유 조리 검색 entry를 제거하지 않는다. 입력 entry는 Browser child로 수명과 IME focus를 유지하고 Detail scroll에 맞춰 위치·가시성만 동기화한다. 검색 query와 expanded state는 계속 generation·locale·FullType owner에 귀속한다.
+  - `Iris_Interaction_EvolvedRecipe`는 EN/KO 원본과 생성 `IrisTranslationData`에 함께 존재해야 한다. Recipe 제작 UI 이동은 KO에서 `translated_name`, 그 외 locale에서 `original_name`을 우선해 현재 제작 목록의 표시 언어와 검색어를 맞춘다.
+  - corrected `C:/Users/MW/PZ-U/package/playtest/Iris`는 focused test `5 passed`, Lua syntax `265 files`, v7 candidate A/B validation·runtime byte parity와 package overlay를 통과했다. 사용자는 KO `자유 조리`, KO/EN 자유 조리 입력·필터링, EN fixed Recipe 이동을 포함한 재관찰 항목이 모두 통과했다고 보고했다. v7 owner/runtime SHA-256은 각각 `92a3f8da92462eced1c99aed0c3619a7938d82c0b53f2e3c49ed98483e2008b0` / `02c6d4b97a21285a393b873582dd9fa80bc6b25fa91d09fc7da89e89965ef47b`다. Guarded updater는 관찰한 exact runtime hash를 저장소 current lookup에 채택했고 사후 byte/hash parity, focused test `5 passed`, Lua syntax `265 files`가 모두 exit `0`이었다.
 
 - 현재 source accounting: lexical `347`, active property row `226`, raw token `2,185`, PASS property source token `2,175`, definition base relation `38`, 공개 relation `2,203`, REVIEW `0`, obsolete non-target token `10`, public FullType `252`, definition `38`. Definition BaseItem은 32 unique FullType이며 non-Food는 17 occurrence/13 unique다. 계획의 raw-token 기준선 `2,187`과의 `-2` 차이는 owner output에 기록한다.
 
@@ -1115,8 +1120,8 @@
   - EvolvedRecipe 관계를 완성된 fixed Recipe, 가능한 조합 전수, 결과 아이템 또는 Java eligibility 재구현으로 읽지 않는다.
   - `Cooked`와 `Spice`를 아이템 전역 capability로 승격하지 않는다.
   - Definition `BaseItem`을 item `EvolvedRecipe` property로 역합성하거나 Food/ingredient/spice로 바꾸지 않는다.
-  - off-repo candidate 검증만을 실제 PZ UI 관찰이나 adopted runtime 상태로 표현하지 않는다. v6의 상태 전환은 별도의 사용자 실제 PZ 관찰 보고와 guarded adoption 결과에 근거한다.
-  - v4 실제 관찰은 관계 count와 Tooltip 무회귀를 확인했지만 fragment display와 EN Recipe section bug로 `observed_partial_fail / not_adoptable`이며 후속 후보에 승계되지 않는다. v5는 관찰 전 KO `base_item` 문구를 자연화한 v6로 supersede됐다. v1~v5 payload 또는 v6와 hash가 다른 재생성 결과는 current runtime이 아니다.
+  - off-repo candidate 검증이나 실제 PZ 관찰만을 adopted runtime 상태로 표현하지 않는다. v6와 v7의 상태 전환은 각각 별도의 사용자 실제 PZ 관찰 보고와 guarded adoption 결과에 근거한다.
+  - v4 실제 관찰은 관계 count와 Tooltip 무회귀를 확인했지만 fragment display와 EN Recipe section bug로 `observed_partial_fail / not_adoptable`이며 후속 후보에 승계되지 않는다. v5는 관찰 전 KO `base_item` 문구를 자연화한 v6로 supersede됐다. 최초 v7과 `er7-r1`은 B41 display 소비 경계에서 실패했고 `er7-r2`는 compact/grouped 표시를 통과했지만 검색 focus·KO 제목·EN navigation 회귀로 corrected playtest package에 의해 supersede됐다. 이 predecessor payload를 current runtime으로 읽지 않는다.
   - EvolvedRecipe를 Recipe/Right-click과 함께 표시하는 것을 QG 전역 Source 분류 재편으로 확대하지 않는다.
 
 - Trace: `docs/iris_layer4_qg_b41_evolved_recipe_plan.md`, `docs/evolved_recipe_candidate_closeout.md`.
@@ -1237,7 +1242,7 @@
 
 ### Iris Browser — 검색 관련성 / 입력 반영 / 분류 탐색
 
-- 날짜: 2026-08-31
+- 날짜: 2026-08-31 → 2026-09-03 Layer 4 검색 경계 명시
 - 상태: current adopted / source·focused validation·package 완료 / 후속 탐색 동작 사용자 확인
 - 결정: Browser 검색은 표시 이름의 lexical 관련성을 우선하고 기본 공백 차이를 흡수한다. 검색과 분류 자동 선택은 presentation 책임이며 item identity나 의미 분류를 변경하지 않는다.
 - 현재 기준:
@@ -1245,6 +1250,7 @@
   - Global은 현재 item snapshot의 표시 이름·ID를 검색한다. 목록 내 검색은 선택 분류의 기존 folded 대표 표시 이름만 검색하며 ID 검색으로 확장하지 않는다. Global 동명 항목의 distinct FullType, local variants와 public copy-on-read shape를 보존한다.
   - 검색 document와 prefix 후보는 기존 generation/normalized-locale snapshot에 귀속한다. Prefix 재사용은 이름 compact key와 ID key가 모두 단조롭게 확장될 때만 허용하고, 후보의 기본 순서를 유지한 채 새 query의 tier를 적용한다.
   - 입력 callback과 panel update는 `getInternalText()`를 기준으로 변경된 문자열만 반영한다. 누락되거나 이른 붙여넣기 callback을 보완하되 전역 입력 함수를 교체하거나 엔진이 아직 넘기지 않은 조합 중 음절을 추정하지 않는다.
+  - 이 item relevance 계약은 Global/목록 내 Browser 검색에 한정한다. Layer 4 자유 조리 검색은 같은 `getInternalText()` 입력 원칙과 locale-owned 표시문을 사용하지만, 현재는 표시문 literal 부분 일치와 matched-only regroup만 수행한다. Browser relevance tier·공백 compacting·FullType ID·분류 자동 이동을 자유 조리 검색에 암묵적으로 적용하지 않는다.
   - 정확한 FullType, 표시 이름 exact, 공백 정규화 이름 exact 순서로 **분류 이동 대상**을 정한다. 해당 exact 집합이 같은 기존 primaryLocation을 가리킬 때만 대분류·소분류를 자동 선택한다. 이는 결과 순위의 ID 우선 예외가 아니다. 부분 일치·무결과·서로 다른 위치의 동명/정규화/ID 대소문자 충돌은 이전 분류 선택을 유지한다.
   - 자동 분류 선택은 전체 검색어와 결과를 유지한다. 목표를 가리는 소분류 필터는 비운다. 전체 검색어 삭제·공백만 입력은 대분류 목록만 있는 초기 화면으로 복귀하며 선택·하위 목록·detail·variants·하위 검색 필터를 초기화한다. 분류를 직접 누르면 global 검색을 종료하고 클릭한 분류에서 탐색한다.
 - 최소 결과 trace: package/4에서 분류 자동 선택·검색어 삭제 후 초기화·분류 직접 탐색을 사용자가 정상 확인했다. 기존 Browser 통합 검사·Lua syntax와 package 자체 검사는 해당 구현에서 통과했다. 실제 명령·범위는 [검색 closeout](iris_korean_item_search_relevance_normalization_runtime_consistency_closeout.md)에 둔다.

@@ -7,6 +7,14 @@
 local IrisBrowserRecipeNav = {}
 
 local ProtectedCall = require("Iris/Util/IrisProtectedCall")
+local TranslationResolver = require("Iris/Util/IrisTranslationResolver")
+
+local function recipeFilterText(ref)
+    if TranslationResolver.getLangKey("EN") == "KO" then
+        return ref.translated_name or ref.original_name
+    end
+    return ref.original_name or ref.translated_name
+end
 
 function IrisBrowserRecipeNav.install(IrisBrowser, context)
     function IrisBrowser:onRecipeGoToCrafting(button)
@@ -37,7 +45,7 @@ function IrisBrowserRecipeNav.install(IrisBrowser, context)
             ProtectedCall.ui(function()
                 local activeView = craftUI.panel:getActiveView()
                 if activeView and activeView.filterEntry then
-                    local filterText = ref.translated_name or ref.original_name
+                    local filterText = recipeFilterText(ref)
                     activeView.filterEntry:setText(filterText)
                 end
                 if activeView and activeView.filterAll then

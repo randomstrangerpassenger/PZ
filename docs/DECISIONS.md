@@ -1050,6 +1050,7 @@
   - status-bearing interaction state는 단일 Detail ViewModel 경계를 통해 presentation layer에 전달한다.
   - semantic interaction state와 compact / full / search 같은 presentation UI state는 분리한다.
   - 단일·소규모 interaction은 간결하게 표시하고, 고밀도 interaction은 compact / full 전환과 검색을 제공할 수 있다.
+  - 별도 relation collection을 같은 화면에 합성하더라도 기존 Recipe/Right-click total·density·기본 visible row set을 다시 계산하지 않는다. EvolvedRecipe는 자체 density·expanded·query state와 명시적인 `+/-` section control을 사용한다. 사용자 화면에서는 내부 계층명을 노출하지 않고 KO `자유 조리`, EN `Freeform Cooking`으로 표시하며 각 행은 음식 라벨부터 시작한다.
   - interaction density 차이는 표시 전략을 바꿀 수 있지만 Source / Evidence / `use_case` authority를 변경하지 않는다.
   - Recipe 제작 UI 이동은 existing recipe semantics를 변경하지 않는 presentation action이다.
   - item 전환 시 이전 item의 검색 / compact / full state를 새 item에 상속하지 않는다.
@@ -1087,6 +1088,37 @@
   - QG structured interaction contract: 2026-03-25
   - adaptive presentation integration: 2026-08-21
   - COMMON-EVIDENCE-TRACE.
+
+### Iris Layer 4 — Build 41 `EvolvedRecipe` typed relation contract
+
+- 날짜: 2026-09-02 → 2026-09-03 v6 실제 관찰·채택
+
+- 상태: `observed_pass / adopted` / v6 실제 PZ 대표 관찰 PASS / runtime lookup current
+
+- 결정: Build 41 item script의 active `EvolvedRecipe` 속성을 exact `FullType`과 exact food type ID의 관계로 생산한다. 관계별 역할(`ingredient`/`spice`)과 확인된 `cooked` 조건만 보존하며 fixed Recipe 전용 ID·결과물·navigation을 합성하지 않는다.
+
+- 현재 기준:
+
+  - 구조 parser는 `items_food.txt`, `farming.txt`, `evolvedrecipes.txt`와 EN/KO food type locale을 직접 소비한다. Layer 3 DVF, Tooltip 입력 또는 표시 문자열 역파싱을 의미 입력으로 사용하지 않는다.
+  - locale identity는 food type definition ID다. 표시 문자열은 실제 loader의 first-definition-wins 동작이 확인된 EN/KO 유효값으로 오프라인 완성하며, loader 동작을 확인하지 못한 중복 영향 관계는 REVIEW다.
+  - 공개 관계는 active item-property 측 `ingredient`/`spice`와 definition `BaseItem` 측 `base_item`을 구분하며 stable relation identity, exact FullType, food type ID, 관계별 조건, 양 locale 표시, provenance와 PASS 판정을 가진다. Definition 38 occurrence/32 unique BaseItem은 Food 여부와 무관하게 포함하고 provenance에 `definition_base_item` source role을 둔다. 같은 FullType의 property/definition 관계는 둘 다 보존한다. REVIEW와 obsolete/non-target token은 runtime projection에서 제외한다.
+  - runtime projection은 별도 `IrisEvolvedRecipeLookup`이다. Detail ViewModel과 adaptive renderer는 이 collection을 fixed Recipe/Right-click과 표시 시점에만 합성한다. Fixed total·density·visible rows·`SOURCE_ORDER`·Recipe navigation·Right-click 의미는 보존하고, EvolvedRecipe는 독립 presentation state에서만 접기·검색한다. Owner JSON은 UTF-8을 유지하고 B41 runtime Lua 문자열은 기존 Tooltip serializer의 decimal UTF-8 byte escape를 재사용한다. 동일 locale 라벨·role·condition은 표시 행에서 `×N`으로 묶되 exact relation identity 목록과 원 relation 수를 보존한다.
+  - `ContextMenu_EvolvedRecipe_*`는 vanilla 문장에 삽입되는 문법 조각일 수 있어 standalone target authority로 직접 쓰지 않는다. Exact 38 food type ID에 QG-audited KO/EN target label을 명시하고, public surface는 `넣을 수 있음` / `먼저 익혀야 함` / `… 준비에 사용할 수 있음` 및 대응 EN `Can be …` 형태의 action-oriented 완전 문장으로 생성한다. Beer/Beer2, Beverage/Beverage2, pan/pot, frying-pan/griddle 같은 서로 다른 사용 맥락은 모호하게 묶지 않는다.
+  - Fixed Recipe source header는 KO/EN 모두 명시적인 `Recipe (n)` section control이며 자체 expanded state로 click→forced rebuild→collapse/expand한다. Freeform Cooking state와 결합하지 않고 item/locale identity에 따라 state owner를 분리한다.
+  - 실제 PZ에서 candidate를 관찰하기 전에는 lookup을 저장소 runtime에 채택하지 않는다. v6는 사용자 대표 관찰 전 항목 PASS와 exact runtime SHA-256 `0b86cb8a2638df627f94bbb27af759b9b46e54c55081504da04aefcc8e353088` 확인 후 guarded updater로 채택됐다. lookup 부재는 지원 코드에서 `lookup_not_adopted`로 격리되어 rollback 시 기존 interaction 표시를 유지한다.
+
+- 현재 source accounting: lexical `347`, active property row `226`, raw token `2,185`, PASS property source token `2,175`, definition base relation `38`, 공개 relation `2,203`, REVIEW `0`, obsolete non-target token `10`, public FullType `252`, definition `38`. Definition BaseItem은 32 unique FullType이며 non-Food는 17 occurrence/13 unique다. 계획의 raw-token 기준선 `2,187`과의 `-2` 차이는 owner output에 기록한다.
+
+- 오독 금지:
+
+  - EvolvedRecipe 관계를 완성된 fixed Recipe, 가능한 조합 전수, 결과 아이템 또는 Java eligibility 재구현으로 읽지 않는다.
+  - `Cooked`와 `Spice`를 아이템 전역 capability로 승격하지 않는다.
+  - Definition `BaseItem`을 item `EvolvedRecipe` property로 역합성하거나 Food/ingredient/spice로 바꾸지 않는다.
+  - off-repo candidate 검증만을 실제 PZ UI 관찰이나 adopted runtime 상태로 표현하지 않는다. v6의 상태 전환은 별도의 사용자 실제 PZ 관찰 보고와 guarded adoption 결과에 근거한다.
+  - v4 실제 관찰은 관계 count와 Tooltip 무회귀를 확인했지만 fragment display와 EN Recipe section bug로 `observed_partial_fail / not_adoptable`이며 후속 후보에 승계되지 않는다. v5는 관찰 전 KO `base_item` 문구를 자연화한 v6로 supersede됐다. v1~v5 payload 또는 v6와 hash가 다른 재생성 결과는 current runtime이 아니다.
+  - EvolvedRecipe를 Recipe/Right-click과 함께 표시하는 것을 QG 전역 Source 분류 재편으로 확대하지 않는다.
+
+- Trace: `docs/iris_layer4_qg_b41_evolved_recipe_plan.md`, `docs/evolved_recipe_candidate_closeout.md`.
 
 ### Iris — Layer 2–3 locale projection contract
 

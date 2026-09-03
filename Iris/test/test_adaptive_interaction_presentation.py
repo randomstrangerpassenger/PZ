@@ -49,7 +49,8 @@ def test_collector_terminal_is_qg_only_and_single_scroll() -> None:
     ):
         assert forbidden not in sources
     assert "ISScrollingListBox" not in sources
-    assert 'Collector.collect(deps.model.interactionState' in sources
+    assert "deps.model.interactionState" in sources
+    assert "deps.model.evolvedRecipeState" in sources
 
 
 def test_qg_only_public_rows_and_installed_recipe_ids() -> None:
@@ -123,6 +124,7 @@ def test_ko_en_adaptive_keys_are_complete() -> None:
     required = {
         "Iris_Interaction_SourceRecipe",
         "Iris_Interaction_SourceRightClick",
+        "Iris_Interaction_EvolvedRecipe",
         "Iris_Interaction_VerifiedEmpty",
         "Iris_Interaction_Unavailable",
         "Iris_Interaction_Compact",
@@ -137,6 +139,24 @@ def test_ko_en_adaptive_keys_are_complete() -> None:
             encoding="utf-8"
         )
         assert all(f"{key} = " in text for key in required)
+        assert "Iris_Prefix_EvolvedRecipe" not in text
+
+    english = (REPOSITORY_ROOT / "Iris/media/lua/shared/translate/en/Iris_en.txt").read_text(
+        encoding="utf-8"
+    )
+    korean = (REPOSITORY_ROOT / "Iris/media/lua/shared/translate/ko/Iris_ko.txt").read_text(
+        encoding="utf-8"
+    )
+    assert 'Iris_Interaction_EvolvedRecipe = "Freeform Cooking"' in english
+    assert 'Iris_Interaction_EvolvedRecipe = "자유 조리"' in korean
+
+    renderer = (
+        REPOSITORY_ROOT
+        / "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserInteractionRenderer.lua"
+    ).read_text(encoding="utf-8")
+    assert "Iris_Prefix_EvolvedRecipe" not in renderer
+    assert "[Evolved]" not in renderer
+    assert "Evolved cooking" not in renderer
 
 
 def test_layer3_english_keys_follow_current_public_ko_projection() -> None:

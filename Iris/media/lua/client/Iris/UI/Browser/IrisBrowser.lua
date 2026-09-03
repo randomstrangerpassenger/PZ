@@ -131,6 +131,9 @@ function IrisBrowser:new(x, y, width, height)
     o._interactionStateOwner = nil
     o._interactionStateByItem = {}
     o._interactionActiveKey = nil
+    o._evolvedInteractionStateOwner = nil
+    o._evolvedInteractionStateByItem = {}
+    o._evolvedInteractionActiveKey = nil
 
     return o
 end

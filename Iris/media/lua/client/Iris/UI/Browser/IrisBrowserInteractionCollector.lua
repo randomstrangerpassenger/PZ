@@ -4,8 +4,8 @@ local Projection = require("Iris/UI/Browser/IrisBrowserInteractionProjection")
 
 local IrisBrowserInteractionCollector = {}
 
-function IrisBrowserInteractionCollector.collect(interactionState, locale, tr)
-    return Projection.build(interactionState, locale, tr)
+function IrisBrowserInteractionCollector.collect(interactionState, evolvedRecipeState, locale, tr)
+    return Projection.build(interactionState, evolvedRecipeState, locale, tr)
 end
 
 return IrisBrowserInteractionCollector

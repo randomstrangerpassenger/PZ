@@ -271,7 +271,7 @@ Iris의 정보 모델은 다섯 계층으로 구분한다.
    - 아이템과 관련된 모든 행동이나 조리법을 열거하는 계층은 아니다.
 
 4. **4계층 - 상호작용 정보 계층**
-   - `Recipe`, `Right-click`, 요구조건, 사용 맥락 등 아이템과 연결된 상호작용 정보를 구조화한다.
+   - `Recipe`, `Right-click`, `EvolvedRecipe` 관계, 요구조건, 사용 맥락 등 아이템과 연결된 상호작용 정보를 구조화한다.
 
 5. **5계층 - 내부 정보 계층**
    - PZ 내부 아이템 정보와 Iris 내부 분류·처리 정보를 담는다.
@@ -343,6 +343,7 @@ Layer 3의 주요 생산·적용 경로는 다음과 같다.
 
 - **`QG`**
   - Iris Layer 4의 상호작용 정보 생산과 검문을 소유한다.
+  - Build 41 `EvolvedRecipe`는 fixed Recipe를 확장한 레시피가 아니라 exact item `FullType`과 음식 유형을 잇는 별도 typed relation으로 생산한다. Active item-property 참여는 `ingredient`/`spice`, definition `BaseItem` 참여는 `base_item`이며 같은 FullType에서도 독립적으로 공존한다. 역할과 조건은 관계에 귀속하고 근거 없는 결과물·navigation을 만들지 않는다. 내부 food type ID와 계층명은 identity/provenance에만 남기며 사용자 행은 locale 음식 라벨·역할·조건만 표시한다.
 
 - **오프라인 도구**
   - Iris의 오프라인 생성과 검증을 실행할 도구를 제공한다.
@@ -548,7 +549,9 @@ Iris 런타임은 외부에 유지되는 호환 표면과 내부 상태·사실 
 
 - 분류에서 파생된 표시 순서와 색인은 `Menu`의 탐색 구조를 구성한다.
 - Layer 3 `Menu` 투영은 승인된 기본 설명과 같은 의미 원천에 결속된 추가 맥락·획득 정보를 조합할 수 있다.
-- Layer 4 투영은 `QG`가 확정한 상호작용 상태를 표시 가능한 행과 탐색 상태로 변환한다.
+- Layer 4 투영은 `QG`가 확정한 상호작용 상태를 표시 가능한 행과 탐색 상태로 변환한다. `EvolvedRecipe` lookup은 fixed Recipe/Right-click collection을 다시 쓰지 않고 Detail ViewModel에서 별도로 읽어 같은 표시 경계에 합성한다. Fixed collection의 total·density·visible rows는 Evolved 관계 수와 독립적으로 보존하고, Evolved collection은 자체 density·expanded·query state를 가진다. 같은 locale 라벨·역할·조건의 관계는 display group 하나로 렌더링하되 모든 exact identity와 관계 수를 보존하고, 사용자 surface에서는 KO `자유 조리` / EN `Freeform Cooking` 명칭과 폭 기반 줄바꿈을 사용한다.
+- Food-type locale projection은 raw `ContextMenu_EvolvedRecipe_*` fragment가 아니라 exact ID별 standalone target registry와 role/condition template을 결합해 행동 의미가 완결된 KO/EN 문장을 만든다. Recipe source section state와 Freeform state는 별도이며, item·locale 전환 시 이전 relation/query를 새 모델에 상속하지 않는다.
+- Build 41 current runtime은 실제 PZ 대표 관찰을 통과한 `Iris/media/lua/client/Iris/Data/IrisEvolvedRecipeLookup.lua`이며 SHA-256은 `0b86cb8a2638df627f94bbb27af759b9b46e54c55081504da04aefcc8e353088`이다. 이 hash와 다른 재생성 결과는 새 candidate이고 자동으로 current가 되지 않는다.
 - `Browser`, `Detail ViewModel`, `Wiki` 관련 구성요소는 `Menu` 내부 표시 구조를 구성한다.
 
 `Menu`가 PZ 런타임에서 직접 읽는 사실의 표시 경로는 다음과 같이 분리한다.

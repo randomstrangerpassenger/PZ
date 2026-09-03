@@ -6,6 +6,10 @@ import sys
 
 def main(argv: Sequence[str] | None = None) -> int:
     values = list(argv or ())
+    if values[:1] == ["evolved-recipe"]:
+        from .evolved_recipe import main as evolved_recipe
+
+        return evolved_recipe(values[1:])
     if values[:1] == ["tooltip-t1-d4"]:
         from .tooltip_t1_d4 import main as d4
 

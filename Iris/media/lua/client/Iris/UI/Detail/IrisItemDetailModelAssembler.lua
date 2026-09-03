@@ -10,6 +10,8 @@ local TranslationResolver = require("Iris/Util/IrisTranslationResolver")
 
 local instrumentationEnabled = false
 local metrics = { fromItemCalls = 0, staticCacheHits = 0, staticCacheMisses = 0 }
+local evolvedRecipeLookup = nil
+local evolvedRecipeLookupAttempted = false
 
 local function readonly(values)
     return setmetatable({}, {
@@ -94,6 +96,28 @@ local function safeInteractionState(UseCases, fullType)
     }
 end
 
+local function safeEvolvedRecipeState(fullType)
+    if not evolvedRecipeLookupAttempted then
+        evolvedRecipeLookupAttempted = true
+        local ok, value = safeRequire("Iris/Data/IrisEvolvedRecipeLookup")
+        if ok and type(value) == "table" and type(value.get) == "function" then
+            evolvedRecipeLookup = value
+        end
+    end
+    if not evolvedRecipeLookup then
+        return {status = "unavailable", reason = "lookup_not_adopted", relations = {}}
+    end
+    local ok, value = ProtectedCall.data(function()
+        return evolvedRecipeLookup.get(fullType)
+    end)
+    if ok and type(value) == "table" and
+        (value.status == "available" or value.status == "verified_empty" or
+            value.status == "fault") and type(value.relations) == "table" then
+        return value
+    end
+    return {status = "fault", reason = "evolved_lookup_failed", relations = {}}
+end
+
 local function layer3Payload(fullType, locale)
     local ok, renderer = safeRequire("Iris/Data/layer3_renderer")
     if not ok or not renderer or not renderer.getText or not fullType then
@@ -154,6 +178,7 @@ function Assembler.fromItem(item)
     local fullType = FactReader.value(facts.identity.fullType)
     local itemType = FactReader.value(facts.identity.itemType)
     local interactionState = safeInteractionState(IrisAPI and IrisAPI.UseCases, fullType)
+    local evolvedRecipeState = safeEvolvedRecipeState(fullType)
     local useCaseData = {
         lines = interactionState.lines or {},
         debug_lines = interactionState.debug_lines or {},
@@ -193,6 +218,7 @@ function Assembler.fromItem(item)
         },
         useCases = useCaseData,
         interactionState = interactionState,
+        evolvedRecipeState = evolvedRecipeState,
         capabilities = capabilities,
     }
     for _, group in ipairs({ "food", "weapon", "literature", "moveable" }) do
@@ -207,6 +233,7 @@ function Assembler.fromItem(item)
         moveable = facts.applicability.moveable == "known_capability",
         layer3 = layer3.available,
         useCases = #(useCaseData.lines or {}) > 0 or #(useCaseData.debug_lines or {}) > 0,
+        evolvedRecipes = #(evolvedRecipeState.relations or {}) > 0,
         capabilities = #capabilities > 0,
     }
     values.revision = tostring(fullType) .. "|" .. tostring(locale)
@@ -245,6 +272,11 @@ function Assembler.fromItem(item)
         lines = readonlyArray(values.interactionState.lines),
         exclusion_lines = readonlyArray(values.interactionState.exclusion_lines),
         debug_lines = readonlyArray(values.interactionState.debug_lines),
+    })
+    values.evolvedRecipeState = readonly({
+        status = values.evolvedRecipeState.status,
+        reason = values.evolvedRecipeState.reason,
+        relations = readonlyArray(values.evolvedRecipeState.relations),
     })
     values.capabilities = readonlyArray(values.capabilities)
     values.availability = readonly(values.availability)

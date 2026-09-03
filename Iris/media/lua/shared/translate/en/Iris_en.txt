@@ -132,6 +132,7 @@ Iris = {
     Iris_Prefix_RightClick = "[Action]",
     Iris_Interaction_SourceRecipe = "Recipe",
     Iris_Interaction_SourceRightClick = "Right-click",
+    Iris_Interaction_EvolvedRecipe = "Freeform Cooking",
     Iris_Interaction_VerifiedEmpty = "No interactions in verified Iris data",
     Iris_Interaction_Unavailable = "Interaction data unavailable; rebuild to retry",
     Iris_Interaction_Compact = "Compact",
@@ -162,4 +163,3 @@ Iris = {
     Iris_Cap_RemoveEmbeddedObject = "Remove Embedded Object",
     Iris_Cap_AttachWeaponMod = "Attach Weapon Mod",
 }
-

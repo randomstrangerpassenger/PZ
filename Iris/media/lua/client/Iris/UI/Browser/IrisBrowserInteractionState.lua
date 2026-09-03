@@ -19,7 +19,12 @@ function IrisBrowserInteractionState.forItem(browser, generation, locale, fullTy
     browser._interactionActiveKey = key
     local state = browser._interactionStateByItem[key]
     if not state then
-        state = {full = density ~= "dense", query = "", requirements = {}}
+        state = {
+            full = density ~= "dense",
+            recipeExpanded = density ~= "dense",
+            query = "",
+            requirements = {},
+        }
         browser._interactionStateByItem[key] = state
     end
     return state, key
@@ -28,6 +33,43 @@ end
 function IrisBrowserInteractionState.toggleFull(browser, key)
     local state = browser._interactionStateByItem and browser._interactionStateByItem[key]
     if state then state.full = not state.full end
+end
+
+function IrisBrowserInteractionState.toggleRecipe(browser, key)
+    local state = browser._interactionStateByItem and browser._interactionStateByItem[key]
+    if state then state.recipeExpanded = not (state.recipeExpanded == true) end
+end
+
+function IrisBrowserInteractionState.forEvolved(
+    browser, generation, locale, fullType, density
+)
+    local owner = ownerKey(generation, locale)
+    if browser._evolvedInteractionStateOwner ~= owner then
+        browser._evolvedInteractionStateOwner = owner
+        browser._evolvedInteractionStateByItem = {}
+        browser._evolvedInteractionActiveKey = nil
+    end
+    local key = owner .. "|" .. tostring(fullType)
+    if browser._evolvedInteractionActiveKey and
+        browser._evolvedInteractionActiveKey ~= key then
+        local previous = browser._evolvedInteractionStateByItem[
+            browser._evolvedInteractionActiveKey
+        ]
+        if previous then previous.query = "" end
+    end
+    browser._evolvedInteractionActiveKey = key
+    local state = browser._evolvedInteractionStateByItem[key]
+    if not state then
+        state = {expanded = density ~= "dense", query = ""}
+        browser._evolvedInteractionStateByItem[key] = state
+    end
+    return state, key
+end
+
+function IrisBrowserInteractionState.toggleEvolved(browser, key)
+    local states = browser._evolvedInteractionStateByItem
+    local state = states and states[key]
+    if state then state.expanded = not (state.expanded == true) end
 end
 
 function IrisBrowserInteractionState.toggleRequirements(browser, key, identity, defaultValue)

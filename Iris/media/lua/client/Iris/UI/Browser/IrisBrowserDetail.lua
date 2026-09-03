@@ -332,6 +332,18 @@ function IrisBrowserDetail.install(IrisBrowser, context)
         self:showDetail(self.currentSelectedFullType, true)
     end
 
+    function IrisBrowser:onToggleFixedRecipeInteraction(button)
+        if not button.interactionStateKey then return end
+        InteractionState.toggleRecipe(self, button.interactionStateKey)
+        self:showDetail(self.currentSelectedFullType, true)
+    end
+
+    function IrisBrowser:onToggleEvolvedInteraction(button)
+        if not button.evolvedInteractionStateKey then return end
+        InteractionState.toggleEvolved(self, button.evolvedInteractionStateKey)
+        self:showDetail(self.currentSelectedFullType, true)
+    end
+
     function IrisBrowser:onToggleInteractionRequirements(button)
         if not button.interactionStateKey or not button.interactionIdentity then return end
         InteractionState.toggleRequirements(

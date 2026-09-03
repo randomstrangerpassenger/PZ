@@ -132,6 +132,7 @@ Iris = {
     Iris_Prefix_RightClick = "[우클릭]",
     Iris_Interaction_SourceRecipe = "레시피",
     Iris_Interaction_SourceRightClick = "우클릭",
+    Iris_Interaction_EvolvedRecipe = "자유 조리",
     Iris_Interaction_VerifiedEmpty = "검증된 현재 Iris 자료에서 표시할 상호작용 없음",
     Iris_Interaction_Unavailable = "상호작용 자료를 사용할 수 없음; 재구성 시 다시 시도",
     Iris_Interaction_Compact = "간략히",

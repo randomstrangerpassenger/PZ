@@ -7,6 +7,7 @@ local Policy = require("Iris/UI/Browser/IrisBrowserInteractionPolicy")
 local Projection = require("Iris/UI/Browser/IrisBrowserInteractionProjection")
 local RequirementPolicy = require("Iris/UI/Browser/IrisRequirementPolicy")
 local State = require("Iris/UI/Browser/IrisBrowserInteractionState")
+local TextLayout = require("Iris/UI/Detail/IrisTextLayout")
 local Theme = require("Iris/UI/Browser/IrisBrowserTheme")
 
 local IrisBrowserInteractionRenderer = {}
@@ -21,9 +22,14 @@ local function headerText(projection, tr)
     local interaction = tr("Iris_Detail_Interaction", "Interactions")
     local recipe = tr("Iris_Interaction_SourceRecipe", "Recipe")
     local rightclick = tr("Iris_Interaction_SourceRightClick", "Right-click")
-    return interaction .. " " .. tostring(projection.total) ..
+    local text = interaction .. " " .. tostring(projection.total) ..
         "  |  " .. recipe .. " " .. tostring(projection.recipeCount) ..
         "  |  " .. rightclick .. " " .. tostring(projection.rightclickCount)
+    if projection.evolvedRecipeCount > 0 then
+        local evolved = tr("Iris_Interaction_EvolvedRecipe", "Freeform Cooking")
+        text = text .. "  |  " .. evolved .. " " .. tostring(projection.evolvedRecipeCount)
+    end
+    return text
 end
 
 local function renderRequirements(browser, row, yOffset, deps, state, stateKey)
@@ -59,9 +65,27 @@ local function renderRequirements(browser, row, yOffset, deps, state, stateKey)
 end
 
 local function renderRow(browser, row, yOffset, deps, state, stateKey)
-    local prefix = row.source == "recipe"
-        and deps.tr("Iris_Prefix_Recipe", "[Recipe]")
-        or deps.tr("Iris_Prefix_RightClick", "[Action]")
+    if row.source == "evolved_recipe" then
+        local display = row.display
+        if (row.relationCount or 1) > 1 then
+            display = display .. " ×" .. tostring(row.relationCount)
+        end
+        local width = math.max(1, browser.detailPanel.width - 40)
+        local lines = TextLayout.wrapLines(display, width, UIFont.Small)
+        if #lines == 0 then lines = {display} end
+        for _, line in ipairs(lines) do
+            local label = addLabel(browser, 20, yOffset, line, 0.9, 0.8, 0.55)
+            label.interactionRowSource = "evolved_recipe"
+            label.interactionIdentities = row.identities or {row.identity}
+            yOffset = yOffset + 16
+        end
+        return yOffset
+    end
+
+    local prefix = deps.tr("Iris_Prefix_RightClick", "[Action]")
+    if row.source == "recipe" then
+        prefix = deps.tr("Iris_Prefix_Recipe", "[Recipe]")
+    end
     local r, g, b = 0.85, 0.85, 0.85
     if row.source == "rightclick" then r, g, b = 0.7, 0.9, 0.7 end
     if row.displayUnavailable then r, g, b = 0.75, 0.55, 0.35 end
@@ -86,7 +110,12 @@ local function renderRow(browser, row, yOffset, deps, state, stateKey)
 end
 
 function IrisBrowserInteractionRenderer.render(browser, browserClass, fullType, item, yOffset, deps)
-    local projection = Collector.collect(deps.model.interactionState, deps.model.locale, deps.tr)
+    local projection = Collector.collect(
+        deps.model.interactionState,
+        deps.model.evolvedRecipeState,
+        deps.model.locale,
+        deps.tr
+    )
     if projection.status == "fault" then
         addLabel(browser, 10, yOffset,
             deps.tr("Iris_Interaction_Unavailable", "Interaction data unavailable"),
@@ -103,59 +132,149 @@ function IrisBrowserInteractionRenderer.render(browser, browserClass, fullType, 
         return yOffset + 18
     end
 
-    local state, stateKey = State.forItem(
-        browser, deps.browserGeneration, deps.model.locale, fullType, projection.density
-    )
-    if projection.density == "dense" then
-        local modeText = state.full
-            and deps.tr("Iris_Interaction_Compact", "Compact")
-            or deps.tr("Iris_Interaction_Full", "Full")
-        local modeButton = ISButton:new(10, yOffset, 110, 18, modeText, browser,
-            browserClass.onToggleInteractionDensity)
-        modeButton:initialise()
-        modeButton.interactionStateKey = stateKey
-        browser.detailPanel:addChild(modeButton)
+    if projection.fixedTotal > 0 then
+        local state, stateKey = State.forItem(
+            browser, deps.browserGeneration, deps.model.locale, fullType, projection.density
+        )
+        if projection.density == "dense" then
+            local modeText = state.full
+                and deps.tr("Iris_Interaction_Compact", "Compact")
+                or deps.tr("Iris_Interaction_Full", "Full")
+            local modeButton = ISButton:new(10, yOffset, 110, 18, modeText, browser,
+                browserClass.onToggleInteractionDensity)
+            modeButton:initialise()
+            modeButton.interactionStateKey = stateKey
+            browser.detailPanel:addChild(modeButton)
 
-        local search = ISTextEntryBox:new(state.query or "", 125, yOffset, 190, 18)
-        search:initialise()
-        search:instantiate()
-        search.interactionStateKey = stateKey
-        search.onTextChange = function()
-            local value = search:getInternalText() or ""
-            if state.query ~= value then
-                state.query = value
-                browser:showDetail(fullType, true)
+            local search = ISTextEntryBox:new(state.query or "", 125, yOffset, 190, 18)
+            search:initialise()
+            search:instantiate()
+            search.interactionStateKey = stateKey
+            search.onTextChange = function()
+                local value = search:getInternalText() or ""
+                if state.query ~= value then
+                    state.query = value
+                    browser:showDetail(fullType, true)
+                end
+            end
+            browser.detailPanel:addChild(search)
+            yOffset = yOffset + 22
+        end
+
+        local visible = Projection.visibleRows(projection, state.full, state.query)
+        local visibleBySource = {recipe = {}, rightclick = {}}
+        for _, row in ipairs(visible) do table.insert(visibleBySource[row.source], row) end
+        if state.recipeExpanded and tostring(state.query or "") == "" and
+            #visibleBySource.recipe == 0 then
+            visibleBySource.recipe = projection.bySource.recipe
+        elseif not state.recipeExpanded then
+            visibleBySource.recipe = {}
+        end
+        local visibleCount = #visibleBySource.recipe + #visibleBySource.rightclick
+        addLabel(browser, 20, yOffset,
+            deps.tr("Iris_Interaction_Visible", "Visible") .. " " ..
+            tostring(visibleCount) .. "/" .. tostring(projection.fixedTotal),
+            0.55, 0.65, 0.75)
+        yOffset = yOffset + 16
+
+        local sourceLabels = {
+            recipe = deps.tr("Iris_Interaction_SourceRecipe", "Recipe"),
+            rightclick = deps.tr("Iris_Interaction_SourceRightClick", "Right-click"),
+        }
+        for _, source in ipairs(Policy.SOURCE_ORDER) do
+            local sourceRows = projection.bySource[source]
+            if #sourceRows > 0 then
+                local headerHeight = 16
+                if source == "recipe" then
+                    local marker = state.recipeExpanded and "[-] " or "[+] "
+                    local button = ISButton:new(
+                        20, yOffset, math.max(180, browser.detailPanel.width - 40), 18,
+                        marker .. sourceLabels[source] .. " (" ..
+                            tostring(#sourceRows) .. ")",
+                        browser, browserClass.onToggleFixedRecipeInteraction
+                    )
+                    button:initialise()
+                    button.interactionStateKey = stateKey
+                    button.backgroundColor = Theme.color("transparent")
+                    button.backgroundColorMouseOver = Theme.color("sectionButtonHover")
+                    button.borderColor = Theme.color("transparent")
+                    browser.detailPanel:addChild(button)
+                    headerHeight = 20
+                else
+                    addLabel(browser, 20, yOffset,
+                        sourceLabels[source] .. " (" .. tostring(#sourceRows) .. ")",
+                        0.75, 0.8, 0.9)
+                end
+                yOffset = yOffset + headerHeight
+                for _, row in ipairs(visibleBySource[source]) do
+                    yOffset = renderRow(browser, row, yOffset, {
+                        tr = deps.tr, locale = deps.model.locale, browserClass = browserClass,
+                        projection = projection,
+                    }, state, stateKey)
+                end
             end
         end
-        browser.detailPanel:addChild(search)
-        yOffset = yOffset + 22
     end
 
-    local visible = Projection.visibleRows(projection, state.full, state.query)
-    addLabel(browser, 20, yOffset,
-        deps.tr("Iris_Interaction_Visible", "Visible") .. " " .. tostring(#visible) ..
-        "/" .. tostring(projection.total), 0.55, 0.65, 0.75)
-    yOffset = yOffset + 16
+    if projection.evolvedRecipeCount > 0 then
+        local evolvedState, evolvedStateKey = State.forEvolved(
+            browser, deps.browserGeneration, deps.model.locale, fullType,
+            projection.evolvedDensity
+        )
+        local evolvedVisible = Projection.visibleEvolvedRows(
+            projection, evolvedState.expanded, evolvedState.query
+        )
+        local visiblyExpanded = evolvedState.expanded == true or
+            (tostring(evolvedState.query or "") ~= "" and #evolvedVisible > 0)
+        local marker = visiblyExpanded and "[-] " or "[+] "
+        local sectionText = marker ..
+            deps.tr("Iris_Interaction_EvolvedRecipe", "Freeform Cooking") ..
+            " (" .. tostring(projection.evolvedRecipeCount) .. ")"
+        local sectionButton = ISButton:new(
+            20, yOffset, math.max(180, browser.detailPanel.width - 40), 18,
+            sectionText, browser, browserClass.onToggleEvolvedInteraction
+        )
+        sectionButton:initialise()
+        sectionButton.evolvedInteractionStateKey = evolvedStateKey
+        sectionButton.backgroundColor = Theme.color("transparent")
+        sectionButton.backgroundColorMouseOver = Theme.color("sectionButtonHover")
+        sectionButton.borderColor = Theme.color("transparent")
+        browser.detailPanel:addChild(sectionButton)
+        yOffset = yOffset + 20
 
-    local visibleBySource = {recipe = {}, rightclick = {}}
-    for _, row in ipairs(visible) do table.insert(visibleBySource[row.source], row) end
-    local sourceLabels = {
-        recipe = deps.tr("Iris_Interaction_SourceRecipe", "Recipe"),
-        rightclick = deps.tr("Iris_Interaction_SourceRightClick", "Right-click"),
-    }
-    for _, source in ipairs(Policy.SOURCE_ORDER) do
-        local sourceRows = projection.bySource[source]
-        if #sourceRows > 0 then
-            addLabel(browser, 20, yOffset,
-                sourceLabels[source] .. " (" .. tostring(#sourceRows) .. ")",
-                0.75, 0.8, 0.9)
-            yOffset = yOffset + 16
-            for _, row in ipairs(visibleBySource[source]) do
-                yOffset = renderRow(browser, row, yOffset, {
-                    tr = deps.tr, locale = deps.model.locale, browserClass = browserClass,
-                    projection = projection,
-                }, state, stateKey)
+        if projection.evolvedDensity == "dense" then
+            local evolvedSearch = ISTextEntryBox:new(
+                evolvedState.query or "", 20, yOffset,
+                math.max(180, browser.detailPanel.width - 40), 18
+            )
+            evolvedSearch:initialise()
+            evolvedSearch:instantiate()
+            evolvedSearch.evolvedInteractionStateKey = evolvedStateKey
+            evolvedSearch.onTextChange = function()
+                local value = evolvedSearch:getInternalText() or ""
+                if evolvedState.query ~= value then
+                    evolvedState.query = value
+                    browser:showDetail(fullType, true)
+                end
             end
+            browser.detailPanel:addChild(evolvedSearch)
+            yOffset = yOffset + 22
+        end
+
+        local visibleRelationCount = 0
+        for _, row in ipairs(evolvedVisible) do
+            visibleRelationCount = visibleRelationCount + (row.relationCount or 1)
+        end
+        addLabel(browser, 28, yOffset,
+            deps.tr("Iris_Interaction_Visible", "Visible") .. " " ..
+            tostring(visibleRelationCount) .. "/" .. tostring(projection.evolvedRecipeCount),
+            0.55, 0.65, 0.75)
+        yOffset = yOffset + 16
+        for _, row in ipairs(evolvedVisible) do
+            yOffset = renderRow(browser, row, yOffset, {
+                tr = deps.tr, locale = deps.model.locale, browserClass = browserClass,
+                projection = projection,
+            }, evolvedState, evolvedStateKey)
         end
     end
     return yOffset

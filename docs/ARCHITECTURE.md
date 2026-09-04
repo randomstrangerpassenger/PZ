@@ -1,7 +1,7 @@
 # ARCHITECTURE.md
 
 > 상태: 초안 v0.6
-> 기준일: 2026-09-04 (이번 갱신 범위: Iris Layer 3 successor contract와 현재 제품 구현의 경계)
+> 기준일: 2026-09-04 (이번 갱신 범위: Iris Layer 3 investigation authority 채택·오프라인 구현과 현재 제품의 경계)
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 구조 지도, 역할 경계, 의존 방향을 고정한다.  
 > 구현 상태 표기: 별도 표시가 없는 모듈은 current architecture를 기술하며, `설계 단계` 표시는 아직 구현되지 않은 target architecture를 뜻한다.
@@ -388,7 +388,17 @@ Layer 3 successor semantic contract의 current readpoint는 SHA-256 `6735c3eadaf
 
 이 readpoint는 human contract, `contract.json`, `casebook.json`, `predecessor_inventory.json`의 네 member를 묶으며 기존 current authority manifest와 route index에서 연결한다. 별도 producer나 runtime data path를 추가하지 않는다. 위 multi-fact·profile·Menu/S2 규칙은 채택된 successor 설계 계약이며, 현재 제품이 이미 그 표현·투영을 구현했다는 뜻은 아니다.
 
-DVF-L3-01의 focused contract test는 계약 구조·사례·readpoint 결속과 보호 대상의 불변성을 검사한다. 실제 corpus의 의미 조사 완료를 판정하는 validator나 새로운 production validation authority가 아니다. Item-level 조사 완료 조건은 DVF-L3-02, semantic/acquisition facts는 DVF-L3-03/04, 실제 표현·투영은 DVF-L3-05, runtime/current adoption은 DVF-L3-06의 책임으로 남긴다. 완료·검증 상세는 [단일 closeout](iris_dvf_layer3_multi_meaning_information_resolution_successor_contract_closeout.md)을 따른다.
+DVF-L3-01의 focused contract test는 계약 구조·사례·readpoint 결속과 보호 대상의 불변성을 검사한다. 실제 corpus의 의미 조사 완료를 판정하는 validator나 새로운 production validation authority가 아니다. 완료·검증 상세는 [단일 closeout](iris_dvf_layer3_multi_meaning_information_resolution_successor_contract_closeout.md)을 따른다.
+
+DVF-L3-02는 2026-09-04 current investigation authority로 채택을 완료했다. Readpoint는 `Iris/_docs/authority/dvf/layer3_investigation/manifest.json`이다. `Iris/tooling/src/iris_tooling/domains/layer3/investigation.py`는 원본 script/Recipe/moveable predicate로 복수 프로필을 적용하고 `(FullType, axis_id, scope_ref)`별 contributor union, pending scope, gap과 item 완료를 계산한다. Global acquisition은 한 번만 요구하며 획득 해결은 item 전체 완료의 충분조건이 아니다. Native Type 배제는 해당 native channel만 닫고 다른 행동 가능성은 direct/gap 질문에 남긴다.
+
+이 authority는 10개 프로필·5개 axis의 조사 질문/first-contact 기준과 2,105개 실제 application을 묶는다. `contract.json`은 정의·source/routing 규칙을, `evidence.jsonl`은 exact item별 원본 관찰·근거를, `applications.jsonl`은 적용 결과·필수 축·pending/gap/완료·first-contact 요구를 소유한다. Manifest는 이 세 machine member와 human contract, 상속 계약과 target source identity를 결속한다. 기존 current authority manifest와 route index가 이 readpoint를 가리킨다.
+
+`--repository-root . build layer3 investigate` 진입점은 investigation root의 evidence/application/manifest만 작성한다. 기존 compose profile 선택기와 별개의 오프라인 책임이며 composer·publisher·Lua runtime 경로를 호출하지 않는다. 결과 소비자는 상속 bound JSON의 allowed kinds·negative binding·resolved 조건을 해석하고, 별도 adopted authority의 accepted result 및 exact subject/provenance가 없는 terminal claim을 거부한다. Source 관찰에서 semantic/acquisition fact를 생산하지 않는다.
+
+Item 완료는 `scope_determined AND every_required_axis_terminal AND acquisition_state == resolved`다. 실제 accepted semantic/acquisition 결과를 공급하지 않아 현재 item complete는 0개이며, 조사 기준·전체 적용·authority 채택의 완료와 구별한다. First-contact obligation은 fact 미해결에도 남고 전역 acquisition 문장이나 대표 의미를 선택하지 않는다. Semantic/acquisition facts는 DVF-L3-03/04, 실제 표현·투영은 DVF-L3-05, runtime/current product adoption은 DVF-L3-06의 책임이다. 기존 successor bundle·corpus·composer·Menu/Tooltip·Lua·package와 product locator는 보존했다.
+
+최종 adoption G1은 exit `0`으로 통과했다. 단일 focused source의 계약·전체 application·readpoint·명시적 보호 경계 검증이며 source 전수 의미 정확성·문장 품질·runtime/package readiness의 검증이 아니다. 정확한 명령·결과·잔여는 [DVF-L3-02 closeout](iris_dvf_layer3_multi_profile_investigation_completion_first_contact_closeout.md)에 기록했다. 임시 baseline과 작성 helper는 제거했고 별도 validator나 영구 validation authority로 남기지 않았다.
 
 ### 오프라인 도구 실행 구조
 

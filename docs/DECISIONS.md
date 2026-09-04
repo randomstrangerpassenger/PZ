@@ -1,7 +1,7 @@
 # DECISIONS.md
 
-> 상태: current decision ledger / compact trace-dedup edition, Iris Layer 3 successor contract 완료 반영
-> 기준일: 2026-09-04 (이번 갱신 범위: DVF-L3-01 계약 채택·검토 정정·완료 경계; 기존 EvolvedRecipe 결정 유지)
+> 상태: current decision ledger / compact trace-dedup edition, Iris Layer 3 successor·investigation authority 채택 완료 반영
+> 기준일: 2026-09-04 (이번 갱신 범위: DVF-L3-02 최종 G1 성공·조사 기준 채택 및 문제 3~6의 후속 경계; 기존 EvolvedRecipe 결정 유지)
 > 상위 기준: `Philosophy.md`
 > 목적: Pulse 생태계에서 이미 사실상 고정된 결정을 짧게 봉인하고, 같은 논쟁의 반복을 줄인다.
 
@@ -1035,13 +1035,27 @@
   - Layer 3는 전체 활동 맥락·context-local role·broad function/effect·fact-local 상태/조건/제약·acquisition result를 소유한다. Layer 4는 exact Recipe/Right-click/EvolvedRecipe identity와 relation-local target/result/requirement를 소유한다. 두 계층은 shared upstream source를 독립적으로 소비할 수 있지만 서로의 output에서 fact를 만들지 않는다.
   - acquisition은 모든 current Layer 3 대상의 mandatory investigation axis다. `resolved / investigated_unresolved / not_investigated`를 구분하며 `resolved`는 acquisition 축만 완료할 뿐 item 전체 Layer 3 investigation 완료를 단독으로 보장하지 않는다. 뒤의 두 상태는 item investigation complete가 아니다. 확인된 acquisition은 Menu Layer 3 필수 정보지만 Tooltip S2 필수 문장은 아니다.
   - Menu Layer 3와 Tooltip S2는 같은 accepted fact authority를 사용한다. Menu는 accepted facts와 resolved acquisition을 상세히 보존하고, S2는 후속 profile first-contact axis에 따른 lower-resolution projection이다. importance·frequency·efficiency·first ordinal 또는 profile label로 대표 fact를 선택하지 않는다.
-  - profile은 investigation/composition/first-contact axis scope를 제공할 수 있지만 importance·frequency·ordinal·profile label 기반 대표 fact·role 선택이나 semantic priority를 소유하지 않는다. Profile taxonomy와 first-contact axis는 DVF-L3-02, 실제 facts는 DVF-L3-03/04, S2 fact 결합·KO/EN 표현·문장/줄 구성·omission tracking은 DVF-L3-05, runtime 통합은 DVF-L3-06에 남긴다.
+  - profile은 investigation/composition/first-contact axis scope를 제공할 수 있지만 importance·frequency·ordinal·profile label 기반 대표 fact·role 선택이나 semantic priority를 소유하지 않는다. Profile taxonomy와 first-contact axis의 owner는 DVF-L3-02이며 2026-09-04 채택을 아래 investigation 결정에 기록했다. 실제 facts는 DVF-L3-03/04, S2 fact 결합·KO/EN 표현·문장/줄 구성·omission tracking은 DVF-L3-05, runtime 통합은 DVF-L3-06에 남긴다.
   - `identity_hint`, `primary_use`, `secondary_use`, `special_context`, selected role/profile과 single core는 predecessor inventory의 disposition에 따라 유지·대체·유예한다. predecessor prose를 source 재확인 없이 successor typed fact로 자동 승격하지 않는다.
 - 채택 경계:
   - owner approval은 2026-09-03 실행 프롬프트의 사전 승인으로 충족했다.
   - DVF-L3-01은 계약 채택과 current readpoint 연결까지 완료했다. Acquisition 축 완료와 item 전체 조사 완료의 분리, profile의 후속 S2 구성 재량 보존을 최종 계약에 반영했다. 이 결정은 후속 구현을 위해 별도 대표 선택 규칙이나 전역 문장 수 제한을 신설하지 않는다.
   - current facts/decisions, Tooltip owner input, generation pointer와 pointer-selected generation, Lua runtime 및 package는 변경하지 않는다. 이 결정은 corpus·문장·runtime migration이나 release readiness가 아니다.
 - Trace: [human contract](iris_dvf_layer3_multi_meaning_information_resolution_successor_contract.md), `Iris/_docs/authority/dvf/layer3_successor/contract.json`, 위 contract manifest, [완료 범위와 G1 실행 기록](iris_dvf_layer3_multi_meaning_information_resolution_successor_contract_closeout.md). 최종 focused G1은 exit `0`이며 전체 suite·제품 통합 검증을 대신하지 않는다.
+
+### DVF-L3-02: 조사 질문·복수 프로필·first-contact와 실제 application
+
+- 날짜: 2026-09-04. 권한: DVF-L3-02 실행 프롬프트의 owner gate 사전 승인. 외부 reviewer/별도 approval gate는 이 계획의 요구사항이 아니다.
+- 상태: **complete / current investigation authority adopted**. 조사 기준·전체 target 적용·잔여 추적과 authority 채택을 완료했다. 실제 semantic/acquisition 전수 조사나 제품 전환의 완료가 아니다.
+- Investigation readpoint: `Iris/_docs/authority/dvf/layer3_investigation/manifest.json`. 기존 L3-01 successor bundle을 바꾸지 않고 네 member(contract/evidence/application/human contract)를 결속했다. 최종 manifest SHA-256은 `47be8947a0b18745560b1e7e2463adbe86ab878e5e9fefd461f2a838c164290e`다. Manifest의 `adoption_subject`는 고정 검증 subject 표시이며 current route의 `adopted`와 [단일 closeout](iris_dvf_layer3_multi_profile_investigation_completion_first_contact_closeout.md)의 실제 G1 성공이 채택 결과를 기록한다.
+- Profile은 원본 근거와 실질적 사용자 질문으로 구별한다. Native Food/Weapon/Clothing/Container/Literature/Drainable, direct residual, crafting/cooking/world-work 질문은 공존할 수 있다. 대표 profile·역할·fact를 선택하지 않는다.
+- Native Type 배제는 원본/추출이 일치하는 native channel에 한정한다. Script/Lua의 다른 기능 가능성은 direct 질문과 gap에 남긴다. Static Recipe 직접 token·moveable 원본 alias/tag·EvolvedRecipe field는 applicability 근거이며 accepted semantic fact가 아니다. 축약 index의 부재를 전역 negative로 승격하지 않는다.
+- Exact FullType 2,105개에 application을 작성했다. Scope/pending/gap, scoped required axes, first-contact contributor와 blocker를 계산한다. 전체 적용 완료와 item 완료는 다르다. 실제 semantic/acquisition results를 공급하지 않아 현재 item complete는 0개다.
+- Item completion은 scope determined AND 모든 required axis terminal AND acquisition resolved다. Prose·S2·fact 수로 완료하지 않는다. 근거로 배제된 scope에 별도 심층조사를 강제하지 않으며 미정 scope를 암묵적 N/A로 취급하지 않는다.
+- First-contact는 사용자 질문·첫 이해에 필요한 이유·상세 경계를 함께 정의한다. Food 섭취 효과와 조리 역할은 별도 질문이고, actual facts 미해결에도 obligation을 유지한다. Global acquisition은 모든 item의 Tooltip 문장이 아니다. KO/EN·fact binding·문장/줄·omission은 L3-05에 남긴다.
+- 획득 소비자는 상속 bound JSON의 allowed kinds/negative binding/resolved_requires를 해석한다. Producer none/assignment 0을 바꾸지 않고, 외부 결과는 별도 adopted authority와 accepted instance·closed scope·completeness·false-negative 제한·provenance가 있을 때만 소비한다.
+- Required identity는 `test_layer3_investigation_contract.Layer3InvestigationContractTest.test_investigation_contract` 한 건이다. 최종 adoption 모드 exact G1은 **exit `0`, `1 passed, 24 subtests passed in 1.35s`**로 종료했다. 첫 실행의 기존 entry 형식에 관한 test 오류를 수정한 뒤 같은 G1만 재실행했으며 실패를 PASS로 취급하지 않았다. 통상 재사용은 현재 계약 검사이며 과거 baseline을 요구하지 않는다. 임시 helper/baseline은 제거했고 새 validator·policy·영구 proof artifact로 채택하지 않았다.
+- 기존 current facts/decisions·composer·generation/pointer·Menu/Tooltip·Lua·package를 변경하지 않았으며 기존 current readpoint/product locator를 보존했다. Semantic/acquisition 전수 정확성·모든 item complete·제품 전환·release readiness는 주장하지 않는다. 이 문서의 후속 완료 기록 정리는 기존 G1 결과를 새 검증 실행으로 확대하지 않는다.
 
 ### Iris Layer 4 — Recipe / Right-click `use_case`, requirement / adaptive presentation contract
 

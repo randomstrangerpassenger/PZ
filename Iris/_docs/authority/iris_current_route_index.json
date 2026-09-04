@@ -1,4 +1,12 @@
 {
+  "layer3_investigation_contract": {
+    "state": "adopted",
+    "manifest_path": "Iris/_docs/authority/dvf/layer3_investigation/manifest.json",
+    "manifest_sha256": "47be8947a0b18745560b1e7e2463adbe86ab878e5e9fefd461f2a838c164290e",
+    "validation_identity": "test_layer3_investigation_contract.Layer3InvestigationContractTest.test_investigation_contract",
+    "product_migration_state": "deferred",
+    "adoption_result": "docs/iris_dvf_layer3_multi_profile_investigation_completion_first_contact_closeout.md"
+  },
   "schema_version": "iris-current-route-index-v1",
   "status": "current",
   "routes": {

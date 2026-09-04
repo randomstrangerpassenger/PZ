@@ -2725,6 +2725,12 @@
   "required_tests": [
     {
       "required": true,
+      "role": "layer3_investigation_contract",
+      "test_id": "test_layer3_investigation_contract.Layer3InvestigationContractTest.test_investigation_contract",
+      "source_file": "Iris/build/description/v2/tests/test_layer3_investigation_contract.py"
+    },
+    {
+      "required": true,
       "role": "current_authority_cutover_required_validation",
       "test_id": "test_compose_entrypoint_guard_hardening.ComposeEntrypointGuardHardeningTest.test_legacy_profile_cannot_write_current_output_and_leaves_hash_unchanged"
     },

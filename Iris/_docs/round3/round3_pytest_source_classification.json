@@ -18,13 +18,13 @@
   "source_set_binding": {
     "canonicalization": "sorted repository-relative source paths joined with LF and a terminal LF",
     "tracked_policy_sources": {
-      "count": 50,
-      "sha256": "ab7c5c51bc1d271ff04f5806b11f8be1612e33dfb935ee91054e3d69dc23fa6d"
+      "count": 51,
+      "sha256": "0ad40f0389378a8e4d26bcf5bcce4c8b5f72ab0d74829da198e69adda2510098"
     },
     "approved_clean_checkout_absent_policy_sources": {
       "count": 0,
       "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
-      "basis": "The owner-preapproved DVF-L3-01 focused test is included in VCS tracking; no approved absent policy source remains."
+      "basis": "DVF-L3-02 focused source is VCS-tracked via intent-to-add; existing policy sources retained. Owner preapproval is the current 2026-09-04 execution prompt."
     }
   },
   "reviewed_sources": [
@@ -115,6 +115,11 @@
     }
   ],
   "planned_sources": [
+    {
+      "source_file": "Iris/build/description/v2/tests/test_layer3_investigation_contract.py",
+      "classification": "current",
+      "approval_ref": "user_prompt_owner_gate_preapproval_2026-09-04"
+    },
     {
       "source_file": "Iris/build/description/v2/tests/test_round3_pytest_source_classification.py",
       "classification": "current"

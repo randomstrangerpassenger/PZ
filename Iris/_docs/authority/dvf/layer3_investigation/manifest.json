@@ -1,0 +1,41 @@
+{
+  "schema_version": "iris-layer3-investigation-manifest-v1",
+  "revision": "1",
+  "status": "adoption_subject",
+  "adoption_requires": "test_layer3_investigation_contract.Layer3InvestigationContractTest.test_investigation_contract",
+  "inherits": {
+    "path": "Iris/_docs/authority/dvf/layer3_successor/contract_manifest.json",
+    "sha256": "6735c3eadafaf4c4fd51ae56c8d0748d32903ee996d53ed43bca38822cf0932a"
+  },
+  "target_sources": [
+    {
+      "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+      "sha256": "abee189c4e3af08b499ff0a08532d7d3199054f9f09ca2111a9cd75d54086ca5"
+    },
+    {
+      "path": "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl",
+      "sha256": "5b865aefc9cefe1c6f0202cc2b61c51ce3535c002e9351bd0f810a64da67f91e"
+    }
+  ],
+  "target_count": 2105,
+  "target_set_sha256": "122ca07c483ff8e4af9ef83bfb8d28c950802a124aba1668c234bce3477b2fdb",
+  "members": [
+    {
+      "path": "Iris/_docs/authority/dvf/layer3_investigation/contract.json",
+      "sha256": "f23fe31c3c3ef82faa7a46ae7ad1bb4507a088b67e3bfa9b8c82a8eb2f4beff3"
+    },
+    {
+      "path": "Iris/_docs/authority/dvf/layer3_investigation/evidence.jsonl",
+      "sha256": "33210a4ffced5f0e25aa2c4ad080a7ecea50c435fc234ffd44908dfe58334c32"
+    },
+    {
+      "path": "Iris/_docs/authority/dvf/layer3_investigation/applications.jsonl",
+      "sha256": "afcb7a2578ba423109f94be9e4e321018a9dc749607271f9240c8632096889a2"
+    },
+    {
+      "path": "docs/iris_dvf_layer3_multi_profile_investigation_completion_first_contact_contract.md",
+      "sha256": "690b3754ea690323b72c793a3c4ab311384e26873e368f02cecd55515f4f7650"
+    }
+  ],
+  "product_migration_state": "deferred"
+}

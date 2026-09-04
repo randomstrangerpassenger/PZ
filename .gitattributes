@@ -110,3 +110,5 @@ Iris/media/lua/shared/translate/en/Iris_en.txt text eol=lf
 Iris/validation/execution/required_validations.json text eol=lf
 Iris/_docs/authority/dvf/layer3_successor/** -text
 docs/iris_dvf_layer3_multi_meaning_information_resolution_successor_contract.md -text
+Iris/_docs/authority/dvf/layer3_investigation/** -text
+docs/iris_dvf_layer3_multi_profile_investigation_completion_first_contact_contract.md -text

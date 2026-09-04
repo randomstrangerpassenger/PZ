@@ -6,6 +6,10 @@ import json
 
 def main(argv: Sequence[str] | None = None) -> int:
     values = list(argv or ())
+    if values[:1] == ["investigate"]:
+        from .investigation import main as investigate
+
+        return investigate(values[1:])
     if values[:1] == ["compose-successor"]:
         import argparse
         from pathlib import Path

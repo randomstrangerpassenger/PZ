@@ -1,0 +1,767 @@
+{
+  "schema_version": "iris-layer3-investigation-v1",
+  "revision": "1",
+  "problem_id": "DVF-L3-02",
+  "snapshot": "repository B41-labelled source snapshot at 47a44ddae53124bffd09ebafaa4b2aea0f924d59; exact upstream build unverified; source bytes bound below",
+  "inherits": {
+    "path": "Iris/_docs/authority/dvf/layer3_successor/contract_manifest.json",
+    "sha256": "6735c3eadafaf4c4fd51ae56c8d0748d32903ee996d53ed43bca38822cf0932a"
+  },
+  "profiles": [
+    {
+      "profile_id": "direct",
+      "revision": "1",
+      "purpose": "남은 직접 기능과 상태 변화",
+      "question": "다른 활동·native 질문으로 포착하지 못한 직접 기능이 있는가?",
+      "routing": {
+        "kind": "all_targets",
+        "scope": "item:direct",
+        "positive_reason": "모든 대상에 residual 직접 기능 질문을 남긴다. 어떤 기능의 존재도 단정하지 않는다.",
+        "open_reason": "이 predicate의 관찰만으로 적용을 배제할 수 없다. 원본/추출 불일치, 동적 확장 또는 다른 행동 경로를 추가 조사한다."
+      },
+      "required_axes": [
+        "operation",
+        "conditions"
+      ],
+      "first_contact": [
+        {
+          "axis_id": "operation",
+          "user_question": "이 물건으로 직접 무엇을 할 수 있는가?",
+          "first_understanding_reason": "활동 재료로만 이해하면 별도 직접 기능을 놓칠 수 있다.",
+          "detail_boundary": "동작별 exact 메뉴명·대상·세부 절차는 Layer 4와 Menu에 둔다.",
+          "required_question_ref": "operation"
+        },
+        {
+          "axis_id": "conditions",
+          "user_question": "그 기능을 사용할 수 없는 상태나 의미를 바꾸는 전제가 있는가?",
+          "first_understanding_reason": "기능 이름만 제시하면 현재 상태에서 가능한 동작으로 오인할 수 있다.",
+          "detail_boundary": "의미를 바꾸는 전제는 유지하되 수치·모든 변형별 절차는 상세로 둔다.",
+          "required_question_ref": "conditions"
+        }
+      ],
+      "overlap": "다른 모든 프로필과 공존 가능. 동일 axis/scope contributor는 union, 다른 context는 보존한다.",
+      "next_investigation": "정의된 질문을 exact 원본 행동·predicate·상태에 적용하고 부족한 source 범위를 확인한다. profile 존재로 semantic fact를 만들지 않는다.",
+      "examples": [
+        "Base.Battery",
+        "Base.Notebook"
+      ]
+    },
+    {
+      "profile_id": "ingestion",
+      "revision": "1",
+      "purpose": "Native Food의 섭취·효과",
+      "question": "Food channel에서 실제로 섭취 가능한가, 어떤 효과와 제한이 있는가?",
+      "routing": {
+        "kind": "native_type",
+        "scope": "activity:ingestion",
+        "positive_reason": "원본 item의 단일 Type과 추출 FullType/Type이 일치하여 해당 native channel의 조사 질문을 적용한다.",
+        "open_reason": "이 predicate의 관찰만으로 적용을 배제할 수 없다. 원본/추출 불일치, 동적 확장 또는 다른 행동 경로를 추가 조사한다.",
+        "value": "Food",
+        "negative_reason": "원본 단일 Type과 추출 Type이 일치하며 이 native channel과 다르다. 이 item declaration의 native channel만 배제한다. 같은 효과를 내는 Lua 행동·다른 활동 가능성은 direct 질문과 coverage gap에 보존한다."
+      },
+      "required_axes": [
+        "operation",
+        "effects",
+        "conditions"
+      ],
+      "first_contact": [
+        {
+          "axis_id": "operation",
+          "user_question": "현재 형태를 먹거나 마실 수 있는가, 먼저 처리가 필요한가?",
+          "first_understanding_reason": "닫힌 통조림과 열린 음식의 차이는 처음 접할 때 행동 가능성을 바꾼다.",
+          "detail_boundary": "여는 exact Recipe·도구 목록과 단계는 상세 관계에 둔다.",
+          "required_question_ref": "operation"
+        },
+        {
+          "axis_id": "effects",
+          "user_question": "섭취하면 무엇이 달라지는가?",
+          "first_understanding_reason": "섭취 가능성만으로 허기·갈증·그 밖의 효과를 알 수 없다. 실제 확인된 변화만 답한다.",
+          "detail_boundary": "정확한 수치·영양 조합·분량별 값은 Menu 상세이며 좋고 나쁨·효율은 평가하지 않는다.",
+          "required_question_ref": "effects"
+        },
+        {
+          "axis_id": "conditions",
+          "user_question": "상태 때문에 효과나 섭취 가능성이 바뀌는가?",
+          "first_understanding_reason": "생것·변질·밀봉 등 확인된 조건이 빠지면 기능 설명의 진실 범위가 달라진다.",
+          "detail_boundary": "상태별 시간·계산값은 상세지만 진실을 바꾸는 조건은 첫 이해에서도 유지한다.",
+          "required_question_ref": "conditions"
+        }
+      ],
+      "overlap": "다른 모든 프로필과 공존 가능. 동일 axis/scope contributor는 union, 다른 context는 보존한다.",
+      "next_investigation": "정의된 질문을 exact 원본 행동·predicate·상태에 적용하고 부족한 source 범위를 확인한다. profile 존재로 semantic fact를 만들지 않는다.",
+      "examples": [
+        "Base.Apple",
+        "Base.Dogfood",
+        "Base.DogfoodOpen"
+      ]
+    },
+    {
+      "profile_id": "combat",
+      "revision": "1",
+      "purpose": "Native Weapon 사용",
+      "question": "무기로 사용하는 방식과 성립 조건은 무엇인가?",
+      "routing": {
+        "kind": "native_type",
+        "scope": "activity:combat",
+        "positive_reason": "원본 item의 단일 Type과 추출 FullType/Type이 일치하여 해당 native channel의 조사 질문을 적용한다.",
+        "open_reason": "이 predicate의 관찰만으로 적용을 배제할 수 없다. 원본/추출 불일치, 동적 확장 또는 다른 행동 경로를 추가 조사한다.",
+        "value": "Weapon",
+        "negative_reason": "원본 단일 Type과 추출 Type이 일치하며 이 native channel과 다르다. 이 item declaration의 native channel만 배제한다. 같은 효과를 내는 Lua 행동·다른 활동 가능성은 direct 질문과 coverage gap에 보존한다."
+      },
+      "required_axes": [
+        "operation",
+        "conditions"
+      ],
+      "first_contact": [
+        {
+          "axis_id": "operation",
+          "user_question": "어떤 방식으로 공격에 쓰이는가?",
+          "first_understanding_reason": "손에 드는 도구라는 사실만으로 근접·발사 등 기능 차이를 이해할 수 없다.",
+          "detail_boundary": "공격 수치·비교·정확한 장전 절차는 첫 이해 요구가 아니며 권장 무기 판단은 하지 않는다.",
+          "required_question_ref": "operation"
+        },
+        {
+          "axis_id": "conditions",
+          "user_question": "공격 기능에 필요한 상태나 전제는 무엇인가?",
+          "first_understanding_reason": "발사·작동 전제가 빠지면 언제 기능이 가능한지 오해하게 된다.",
+          "detail_boundary": "exact 탄종·장전 행동·부착물별 관계는 상세에 두되 확인된 기능 전제를 삭제하지 않는다.",
+          "required_question_ref": "conditions"
+        }
+      ],
+      "overlap": "다른 모든 프로필과 공존 가능. 동일 axis/scope contributor는 union, 다른 context는 보존한다.",
+      "next_investigation": "정의된 질문을 exact 원본 행동·predicate·상태에 적용하고 부족한 source 범위를 확인한다. profile 존재로 semantic fact를 만들지 않는다.",
+      "examples": [
+        "Base.Hammer",
+        "Base.Pistol"
+      ]
+    },
+    {
+      "profile_id": "wearing",
+      "revision": "1",
+      "purpose": "Native Clothing 착용",
+      "question": "착용으로 제공되는 기능과 상태 조건은 무엇인가?",
+      "routing": {
+        "kind": "native_type",
+        "scope": "activity:wearing",
+        "positive_reason": "원본 item의 단일 Type과 추출 FullType/Type이 일치하여 해당 native channel의 조사 질문을 적용한다.",
+        "open_reason": "이 predicate의 관찰만으로 적용을 배제할 수 없다. 원본/추출 불일치, 동적 확장 또는 다른 행동 경로를 추가 조사한다.",
+        "value": "Clothing",
+        "negative_reason": "원본 단일 Type과 추출 Type이 일치하며 이 native channel과 다르다. 이 item declaration의 native channel만 배제한다. 같은 효과를 내는 Lua 행동·다른 활동 가능성은 direct 질문과 coverage gap에 보존한다."
+      },
+      "required_axes": [
+        "operation",
+        "conditions"
+      ],
+      "first_contact": [
+        {
+          "axis_id": "operation",
+          "user_question": "착용하면 어떤 기능을 갖는가?",
+          "first_understanding_reason": "의복이라는 분류만으로 몸에서 수행하는 확인된 기능을 알 수 없다.",
+          "detail_boundary": "보호·보온 등의 정확한 수치와 부위별 표는 상세에 둔다. 확인되지 않은 보호 효과는 만들지 않는다.",
+          "required_question_ref": "operation"
+        },
+        {
+          "axis_id": "conditions",
+          "user_question": "상태나 착용 제약이 그 기능을 바꾸는가?",
+          "first_understanding_reason": "손상이나 장착 제약이 기능의 전제를 바꿀 수 있어 조건 질문이 필요하다.",
+          "detail_boundary": "모든 수선·교체 관계는 별도 상세이며 실제 확인된 제약만 요약 가능하다.",
+          "required_question_ref": "conditions"
+        }
+      ],
+      "overlap": "다른 모든 프로필과 공존 가능. 동일 axis/scope contributor는 union, 다른 context는 보존한다.",
+      "next_investigation": "정의된 질문을 exact 원본 행동·predicate·상태에 적용하고 부족한 source 범위를 확인한다. profile 존재로 semantic fact를 만들지 않는다.",
+      "examples": [
+        "Base.Shirt_Denim"
+      ]
+    },
+    {
+      "profile_id": "storage",
+      "revision": "1",
+      "purpose": "Native Container 수납",
+      "question": "무엇을 담거나 운반하는 기능이며 어떤 제한이 있는가?",
+      "routing": {
+        "kind": "native_type",
+        "scope": "activity:storage",
+        "positive_reason": "원본 item의 단일 Type과 추출 FullType/Type이 일치하여 해당 native channel의 조사 질문을 적용한다.",
+        "open_reason": "이 predicate의 관찰만으로 적용을 배제할 수 없다. 원본/추출 불일치, 동적 확장 또는 다른 행동 경로를 추가 조사한다.",
+        "value": "Container",
+        "negative_reason": "원본 단일 Type과 추출 Type이 일치하며 이 native channel과 다르다. 이 item declaration의 native channel만 배제한다. 같은 효과를 내는 Lua 행동·다른 활동 가능성은 direct 질문과 coverage gap에 보존한다."
+      },
+      "required_axes": [
+        "operation",
+        "conditions"
+      ],
+      "first_contact": [
+        {
+          "axis_id": "operation",
+          "user_question": "이 안에 물건을 담거나 운반할 수 있는가?",
+          "first_understanding_reason": "가방의 수납 기능은 착용 외형이나 재료 역할과 다른 직접 이해 요구다.",
+          "detail_boundary": "정확한 용량·무게 감소 수치와 다른 가방과의 우열은 첫 이해 축이 아니다.",
+          "required_question_ref": "operation"
+        },
+        {
+          "axis_id": "conditions",
+          "user_question": "수납·장착 기능이 제한되는 조건은 무엇인가?",
+          "first_understanding_reason": "수납과 착용을 같은 기능으로 설명하면 적용 조건을 혼동한다.",
+          "detail_boundary": "슬롯·용량별 상세는 Menu에 두되 실제 수납 불가를 만드는 조건은 생략하지 않는다.",
+          "required_question_ref": "conditions"
+        }
+      ],
+      "overlap": "다른 모든 프로필과 공존 가능. 동일 axis/scope contributor는 union, 다른 context는 보존한다.",
+      "next_investigation": "정의된 질문을 exact 원본 행동·predicate·상태에 적용하고 부족한 source 범위를 확인한다. profile 존재로 semantic fact를 만들지 않는다.",
+      "examples": [
+        "Base.Bag_Schoolbag"
+      ]
+    },
+    {
+      "profile_id": "reading",
+      "revision": "1",
+      "purpose": "Native Literature 읽기·기록",
+      "question": "읽기·학습·기록 중 실제 어떤 기능이 있으며 조건은 무엇인가?",
+      "routing": {
+        "kind": "native_type",
+        "scope": "activity:reading",
+        "positive_reason": "원본 item의 단일 Type과 추출 FullType/Type이 일치하여 해당 native channel의 조사 질문을 적용한다.",
+        "open_reason": "이 predicate의 관찰만으로 적용을 배제할 수 없다. 원본/추출 불일치, 동적 확장 또는 다른 행동 경로를 추가 조사한다.",
+        "value": "Literature",
+        "negative_reason": "원본 단일 Type과 추출 Type이 일치하며 이 native channel과 다르다. 이 item declaration의 native channel만 배제한다. 같은 효과를 내는 Lua 행동·다른 활동 가능성은 direct 질문과 coverage gap에 보존한다."
+      },
+      "required_axes": [
+        "operation",
+        "effects",
+        "conditions"
+      ],
+      "first_contact": [
+        {
+          "axis_id": "operation",
+          "user_question": "읽거나 기록하는 데 어떻게 쓰이는가?",
+          "first_understanding_reason": "빈 노트·일반 읽을거리·학습 문헌을 하나의 효용으로 오인하지 않게 한다.",
+          "detail_boundary": "문헌에 포함된 exact 제작법·쪽 수·세부 조작은 상세에 둔다.",
+          "required_question_ref": "operation"
+        },
+        {
+          "axis_id": "effects",
+          "user_question": "읽기나 학습으로 확인된 어떤 변화가 생기는가?",
+          "first_understanding_reason": "Literature라는 타입이 학습 효과를 보장하지 않으므로 실제 변화 여부를 따로 묻는다.",
+          "detail_boundary": "정확한 배율·시간·단계별 값은 상세이며 효율 판단은 하지 않는다.",
+          "required_question_ref": "effects"
+        },
+        {
+          "axis_id": "conditions",
+          "user_question": "읽기·학습이 가능한 조건은 무엇인가?",
+          "first_understanding_reason": "기능 이름만 있으면 단계·상태에 따른 제한을 놓칠 수 있다.",
+          "detail_boundary": "개별 선행 단계 목록은 상세지만 의미를 바꾸는 전제는 보존한다.",
+          "required_question_ref": "conditions"
+        }
+      ],
+      "overlap": "다른 모든 프로필과 공존 가능. 동일 axis/scope contributor는 union, 다른 context는 보존한다.",
+      "next_investigation": "정의된 질문을 exact 원본 행동·predicate·상태에 적용하고 부족한 source 범위를 확인한다. profile 존재로 semantic fact를 만들지 않는다.",
+      "examples": [
+        "Base.Notebook",
+        "Base.BookCarpentry1"
+      ]
+    },
+    {
+      "profile_id": "expenditure",
+      "revision": "1",
+      "purpose": "Native Drainable 사용량과 변화",
+      "question": "반복 사용에서 어떤 기능이 사용량을 소모하며 무엇으로 변하는가?",
+      "routing": {
+        "kind": "native_type",
+        "scope": "activity:expenditure",
+        "positive_reason": "원본 item의 단일 Type과 추출 FullType/Type이 일치하여 해당 native channel의 조사 질문을 적용한다.",
+        "open_reason": "이 predicate의 관찰만으로 적용을 배제할 수 없다. 원본/추출 불일치, 동적 확장 또는 다른 행동 경로를 추가 조사한다.",
+        "value": "Drainable",
+        "negative_reason": "원본 단일 Type과 추출 Type이 일치하며 이 native channel과 다르다. 이 item declaration의 native channel만 배제한다. 같은 효과를 내는 Lua 행동·다른 활동 가능성은 direct 질문과 coverage gap에 보존한다."
+      },
+      "required_axes": [
+        "operation",
+        "conditions"
+      ],
+      "first_contact": [
+        {
+          "axis_id": "operation",
+          "user_question": "사용량을 소모해 어떤 기능을 수행하는가?",
+          "first_understanding_reason": "Drainable을 전부 전원·연료로 설명할 수 없다. 실제 쓰임과 소모 관계를 함께 조사한다.",
+          "detail_boundary": "정확한 잔량·횟수·교체 단계는 상세이고 타입 자체를 기능 문장으로 쓰지 않는다.",
+          "required_question_ref": "operation"
+        },
+        {
+          "axis_id": "conditions",
+          "user_question": "잔량이나 상태가 기능을 제한하거나 사용 후 형태를 바꾸는가?",
+          "first_understanding_reason": "소모 가능한 자원의 기능은 잔량과 소진 상태에서 달라질 수 있다.",
+          "detail_boundary": "소진 계산과 모든 교체 관계는 상세에 두고 확인된 작동 전제만 첫 이해에 남긴다.",
+          "required_question_ref": "conditions"
+        }
+      ],
+      "overlap": "다른 모든 프로필과 공존 가능. 동일 axis/scope contributor는 union, 다른 context는 보존한다.",
+      "next_investigation": "정의된 질문을 exact 원본 행동·predicate·상태에 적용하고 부족한 source 범위를 확인한다. profile 존재로 semantic fact를 만들지 않는다.",
+      "examples": [
+        "Base.Battery",
+        "Base.Glue"
+      ]
+    },
+    {
+      "profile_id": "crafting",
+      "revision": "1",
+      "purpose": "변환·제작 활동의 역할",
+      "question": "제작·변환 활동에서 재료·도구 등 어떤 역할이며 성립 조건은 무엇인가?",
+      "routing": {
+        "kind": "recipe_direct",
+        "scope": "activity:crafting",
+        "positive_reason": "추출된 input/keep 관계 중 원본 Recipe의 exact module-qualified direct token과 role을 확인했다.",
+        "open_reason": "이 predicate의 관찰만으로 적용을 배제할 수 없다. 원본/추출 불일치, 동적 확장 또는 다른 행동 경로를 추가 조사한다."
+      },
+      "required_axes": [
+        "role",
+        "conditions"
+      ],
+      "first_contact": [
+        {
+          "axis_id": "role",
+          "user_question": "어떤 변환 활동에서 재료나 도구로 쓰이는가?",
+          "first_understanding_reason": "직접 사용하는 물건만 설명하면 다른 물건을 만드는 데 참여하는 역할이 빠진다. input/keep는 역할 조사 단서이며 곧바로 semantic role을 만들지 않는다.",
+          "detail_boundary": "정확한 Recipe 이름·결과·수량·개별 도구 요구는 독립 Layer 4 관계로 둔다.",
+          "required_question_ref": "role"
+        },
+        {
+          "axis_id": "conditions",
+          "user_question": "이 역할이 성립하는 중요한 전제가 있는가?",
+          "first_understanding_reason": "역할이 context-local이라는 점과 확인된 제약이 빠지면 어디서나 가능한 재료·도구로 과장된다.",
+          "detail_boundary": "exact recipe-local 조건은 상세, 넓은 역할의 진실 범위를 바꾸는 조건은 첫 이해에도 필요하다.",
+          "required_question_ref": "conditions"
+        }
+      ],
+      "overlap": "다른 모든 프로필과 공존 가능. 동일 axis/scope contributor는 union, 다른 context는 보존한다.",
+      "next_investigation": "정의된 질문을 exact 원본 행동·predicate·상태에 적용하고 부족한 source 범위를 확인한다. profile 존재로 semantic fact를 만들지 않는다.",
+      "examples": [
+        "Base.Plank",
+        "Base.Watermelon",
+        "Base.Nails"
+      ]
+    },
+    {
+      "profile_id": "cooking",
+      "revision": "1",
+      "purpose": "조리 활동의 역할",
+      "question": "조리할 때 무엇을 제공하는 역할이며 어떤 상태·제약에 묶이는가?",
+      "routing": {
+        "kind": "evolved_field",
+        "scope": "activity:cooking",
+        "positive_reason": "원본 item의 nonempty EvolvedRecipe field가 조리 관계 조사 단서다. 음식 label이나 추출 부재를 이용하지 않는다.",
+        "open_reason": "이 predicate의 관찰만으로 적용을 배제할 수 없다. 원본/추출 불일치, 동적 확장 또는 다른 행동 경로를 추가 조사한다."
+      },
+      "required_axes": [
+        "role",
+        "conditions"
+      ],
+      "first_contact": [
+        {
+          "axis_id": "role",
+          "user_question": "조리 활동에서 어떻게 쓰이는가?",
+          "first_understanding_reason": "섭취 효과는 조리 활용을 대신하지 못한다. 음식이라고 모두 조리 재료라고 가정하지 않고 raw EvolvedRecipe 연결로 질문을 연다.",
+          "detail_boundary": "exact EvolvedRecipe 이름·투입량·결과 요리·모든 조합은 Layer 4와 상세에 둔다.",
+          "required_question_ref": "role"
+        },
+        {
+          "axis_id": "conditions",
+          "user_question": "조리 역할을 바꾸는 상태나 제한은 무엇인가?",
+          "first_understanding_reason": "먹을 수 있는 상태와 조리에 넣을 수 있는 상태가 같다고 보장할 수 없다.",
+          "detail_boundary": "정확한 조리 시간·모든 recipe-local 제약은 상세지만 확인된 역할의 전제는 유지한다.",
+          "required_question_ref": "conditions"
+        }
+      ],
+      "overlap": "다른 모든 프로필과 공존 가능. 동일 axis/scope contributor는 union, 다른 context는 보존한다.",
+      "next_investigation": "정의된 질문을 exact 원본 행동·predicate·상태에 적용하고 부족한 source 범위를 확인한다. profile 존재로 semantic fact를 만들지 않는다.",
+      "examples": [
+        "Base.Apple",
+        "Base.CannedCornedBeefOpen"
+      ]
+    },
+    {
+      "profile_id": "world_work",
+      "revision": "1",
+      "purpose": "월드 물체 작업의 도구 역할",
+      "question": "월드 물체를 다루는 작업에서 어떤 도구 역할과 조건이 있는가?",
+      "routing": {
+        "kind": "moveable_definition",
+        "scope": "activity:world_work",
+        "positive_reason": "원본 addToolDefinition과 parseItemTypes의 alias/tag 확장을 원본 item Tags 또는 exact FullType과 대조했다.",
+        "open_reason": "이 predicate의 관찰만으로 적용을 배제할 수 없다. 원본/추출 불일치, 동적 확장 또는 다른 행동 경로를 추가 조사한다."
+      },
+      "required_axes": [
+        "role",
+        "conditions"
+      ],
+      "first_contact": [
+        {
+          "axis_id": "role",
+          "user_question": "주변 물체 작업에서 어떤 도구로 쓰이는가?",
+          "first_understanding_reason": "제작법의 keep 역할만으로 월드 물체에 대한 독립 작업 역할을 대신할 수 없다.",
+          "detail_boundary": "exact 가구·대상·우클릭 행동과 결과 목록은 Layer 4 상세로 둔다.",
+          "required_question_ref": "role"
+        },
+        {
+          "axis_id": "conditions",
+          "user_question": "그 작업 역할이 성립하는 전제는 무엇인가?",
+          "first_understanding_reason": "도구가 있다는 사실만으로 모든 물체 작업이 가능하다고 보이지 않게 해야 한다.",
+          "detail_boundary": "정확한 대상별 기술 수준·작업 시간·성공률은 상세이고 효율·추천을 하지 않는다.",
+          "required_question_ref": "conditions"
+        }
+      ],
+      "overlap": "다른 모든 프로필과 공존 가능. 동일 axis/scope contributor는 union, 다른 context는 보존한다.",
+      "next_investigation": "정의된 질문을 exact 원본 행동·predicate·상태에 적용하고 부족한 source 범위를 확인한다. profile 존재로 semantic fact를 만들지 않는다.",
+      "examples": [
+        "Base.Hammer",
+        "Base.Crowbar",
+        "Base.Screwdriver"
+      ]
+    }
+  ],
+  "axes": [
+    {
+      "axis_id": "acquisition",
+      "question": "이 아이템은 어떤 확인된 경로로 얻는가, 또는 닫힌 조사 범위에서 얻을 수 없는가?",
+      "scope_unit": "item",
+      "na_allowed": false,
+      "allowed_result_kinds": [
+        "acquisition",
+        "acquisition_unobtainable"
+      ],
+      "terminal_requirement": "Exact FullType에 결속된 accepted acquisition 또는 정식 negative authority의 accepted unobtainable fact가 필요하다.",
+      "next_investigation": "DVF-L3-04에서 획득 source·범위·조건을 조사하고 정식 결과 authority에 결속한다.",
+      "states": [
+        "not_investigated",
+        "investigated_unresolved",
+        "resolved"
+      ]
+    },
+    {
+      "axis_id": "operation",
+      "question": "이 맥락에서 무엇을 할 수 있고 무엇이 달라지는가?",
+      "scope_unit": "context",
+      "na_allowed": true,
+      "allowed_result_kinds": [
+        "direct_function",
+        "effect",
+        "state",
+        "use_context"
+      ],
+      "terminal_requirement": "맥락 전체의 기능 질문에 답하는 accepted facts와 scope coverage가 필요하며 native Type 관찰만으로 닫지 않는다.",
+      "next_investigation": "DVF-L3-03에서 해당 script field를 실제 소비하는 Lua/엔진 동작과 상태 변화를 조사한다.",
+      "states": [
+        "not_investigated",
+        "investigated_unresolved",
+        "resolved",
+        "evidence_backed_not_applicable"
+      ]
+    },
+    {
+      "axis_id": "effects",
+      "question": "사용·섭취가 어떤 상태에 어떤 방향의 변화를 주는가?",
+      "scope_unit": "context",
+      "na_allowed": true,
+      "allowed_result_kinds": [
+        "effect",
+        "state"
+      ],
+      "terminal_requirement": "실제로 확인된 효과와 적용 상태에 대한 accepted results; 효과가 없다는 답에도 닫힌 근거가 필요하다.",
+      "next_investigation": "DVF-L3-03에서 각 효과 field와 소비 동작을 대조한다. Hunger/Thirst 효과를 전체 음식에 일반화하지 않는다.",
+      "states": [
+        "not_investigated",
+        "investigated_unresolved",
+        "resolved",
+        "evidence_backed_not_applicable"
+      ]
+    },
+    {
+      "axis_id": "role",
+      "question": "이 활동에서 재료·도구·결과 등 어떤 역할을 맡으며 그 역할은 어떤 맥락에 묶이는가?",
+      "scope_unit": "context",
+      "na_allowed": true,
+      "allowed_result_kinds": [
+        "use_context",
+        "context_role"
+      ],
+      "terminal_requirement": "활동 context와 local role의 accepted facts; Recipe 또는 tool predicate 일치는 조사 admission일 뿐이다.",
+      "next_investigation": "DVF-L3-03에서 exact Recipe·독립 Right-click 경로를 조사하고 Layer 3 활동/역할로 낮출 수 있는 의미만 정식 채택한다.",
+      "states": [
+        "not_investigated",
+        "investigated_unresolved",
+        "resolved",
+        "evidence_backed_not_applicable"
+      ]
+    },
+    {
+      "axis_id": "conditions",
+      "question": "그 기능·효과·역할이 성립하거나 달라지는 조건과 제약은 무엇인가?",
+      "scope_unit": "context",
+      "na_allowed": true,
+      "allowed_result_kinds": [
+        "condition",
+        "constraint",
+        "state"
+      ],
+      "terminal_requirement": "관련 fact에 결속된 조건·제약 또는 해당 범위에 조건이 없다는 evidence-backed N/A; 임의 fact 발견은 전체 질문 완료가 아니다.",
+      "next_investigation": "DVF-L3-03에서 사용 시점 상태·대상·조건을 조사하고 의미를 바꾸는 조건과 상세 수치를 구별한다.",
+      "states": [
+        "not_investigated",
+        "investigated_unresolved",
+        "resolved",
+        "evidence_backed_not_applicable"
+      ]
+    }
+  ],
+  "script_paths": [
+    "scripts/camping.txt",
+    "scripts/clothing/clothing_bags.txt",
+    "scripts/clothing/clothing_body.txt",
+    "scripts/clothing/clothing_hats.txt",
+    "scripts/clothing/clothing_jacket.txt",
+    "scripts/clothing/clothing_jewellery.txt",
+    "scripts/clothing/clothing_others.txt",
+    "scripts/clothing/clothing_pants.txt",
+    "scripts/clothing/clothing_shirts.txt",
+    "scripts/clothing/clothing_shoes.txt",
+    "scripts/clothing/clothing_suits.txt",
+    "scripts/clothing/clothing_underwear.txt",
+    "scripts/clothing/clothing_zeddmg.txt",
+    "scripts/evolvedrecipes.txt",
+    "scripts/farming.txt",
+    "scripts/items.txt",
+    "scripts/items_food.txt",
+    "scripts/items_literature.txt",
+    "scripts/items_radio.txt",
+    "scripts/items_weapons.txt",
+    "scripts/moveables.txt",
+    "scripts/newBags.txt",
+    "scripts/newitems.txt",
+    "scripts/newMoveables.txt",
+    "scripts/recipes.txt",
+    "scripts/recipes_radio.txt",
+    "scripts/uniquerecipes.txt",
+    "scripts/vehicles/vehiclesitems.txt"
+  ],
+  "sources": [
+    {
+      "path": "scripts/camping.txt",
+      "sha256": "5232e6b43a1faed6fa05c9771c058efaa150a0f698619b1cf6fa62fb1e1a272d"
+    },
+    {
+      "path": "scripts/clothing/clothing_bags.txt",
+      "sha256": "0e750b348a8db3cf0d485478f3e727f98373fa07d75cecb104f049767cc76f39"
+    },
+    {
+      "path": "scripts/clothing/clothing_body.txt",
+      "sha256": "e0704a3ea46770efca9cbd4de6ecdd22f0be1c3f3b870a71e466457cd47fffde"
+    },
+    {
+      "path": "scripts/clothing/clothing_hats.txt",
+      "sha256": "a1e99cdb7efa8b33b1a95336262458dac415e1d0fa2e343a629525a4c9d4c35a"
+    },
+    {
+      "path": "scripts/clothing/clothing_jacket.txt",
+      "sha256": "f2e2c7abfd63b763b659b9eb8e25c89cd11cb2f5e5d80a1eb680c45bc0a950f8"
+    },
+    {
+      "path": "scripts/clothing/clothing_jewellery.txt",
+      "sha256": "4c1530c453c0b360a8d523bb2575c6c8f1751ae48530639cf7374c96170c2cae"
+    },
+    {
+      "path": "scripts/clothing/clothing_others.txt",
+      "sha256": "f8646b6760a452366c7f861dca9c435fcf625106b0a6bf42183d9843b1d48f3c"
+    },
+    {
+      "path": "scripts/clothing/clothing_pants.txt",
+      "sha256": "b25fbb10aaa8c1f39195c709959127d224d118eeb671a8ac1e5a88f4ec267073"
+    },
+    {
+      "path": "scripts/clothing/clothing_shirts.txt",
+      "sha256": "dc1110b5d4085244056778994253f7f8f209795e7f8f97d68b437104acf55d25"
+    },
+    {
+      "path": "scripts/clothing/clothing_shoes.txt",
+      "sha256": "1d296e3d7c444663e87bfc0f996d1800ecbcfe8341163c0bff3cbeeefbfdd2bc"
+    },
+    {
+      "path": "scripts/clothing/clothing_suits.txt",
+      "sha256": "1cdc91c063206d07d1f272c766096727495ef9f447727110f5799992e1de5226"
+    },
+    {
+      "path": "scripts/clothing/clothing_underwear.txt",
+      "sha256": "56d0bf3a0067e63cbfebe78a1c49db0cdf0f8c9ab7e7204d775c1df131870eb0"
+    },
+    {
+      "path": "scripts/clothing/clothing_zeddmg.txt",
+      "sha256": "bfb951a8324218cd99a17e2731e74e2be3dc0705ee781aa614d5b1ec92a170fa"
+    },
+    {
+      "path": "scripts/evolvedrecipes.txt",
+      "sha256": "e5f2b2509d31f2142d528d911fc876c5f39528b6ef2dcc455b5ea2e954e0f044"
+    },
+    {
+      "path": "scripts/farming.txt",
+      "sha256": "a96bf5c525ed46cdb9ce419462cce09ca41888e0fa08316beea1b3db5cbfb4b5"
+    },
+    {
+      "path": "scripts/items.txt",
+      "sha256": "39b518dab8a7dd99e8c02fd55f37fe69d14b4a94ef566d28d80c61a85525d7b4"
+    },
+    {
+      "path": "scripts/items_food.txt",
+      "sha256": "d844f9f8d0f07b28918630db1b4500c52947e0178b001b969497ae8d526906d6"
+    },
+    {
+      "path": "scripts/items_literature.txt",
+      "sha256": "997df444b9710978d3109a29bc64453ea3446bb8fad3e7ee4963baf76dc86175"
+    },
+    {
+      "path": "scripts/items_radio.txt",
+      "sha256": "a6fac709aa51a2b8d110524de5c0a995ff00b961acf7f6c71c1d9fcce7fcb8de"
+    },
+    {
+      "path": "scripts/items_weapons.txt",
+      "sha256": "51c951daa6967023a831feade864d9e6b263a344a1b7f29ddc8058e94384a2a4"
+    },
+    {
+      "path": "scripts/moveables.txt",
+      "sha256": "2f966d136c3670213ff1032dd259bd0001032b8c762ed156299f744fd91bd4e8"
+    },
+    {
+      "path": "scripts/newBags.txt",
+      "sha256": "cc4324713d61b6bfb0fa7bbf5aed85c3010cde78940cfca2422e8696c7d58403"
+    },
+    {
+      "path": "scripts/newitems.txt",
+      "sha256": "06cb9bcd39cab185f3b956785c955302b39df90ef301b4f986c3b115f7668347"
+    },
+    {
+      "path": "scripts/newMoveables.txt",
+      "sha256": "9c099d6aa1be46267312ba0bde49d1df6699ab63d090bf4b9cf23b2716d23bef"
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "sha256": "062b2849a34722c52c4dc03a93592059f796504858659092c0a037f9668a0ead"
+    },
+    {
+      "path": "scripts/recipes_radio.txt",
+      "sha256": "d2525de53bf9f255308cdf5405b619b3e0f837a37137e606c383f135a58f06b5"
+    },
+    {
+      "path": "scripts/uniquerecipes.txt",
+      "sha256": "7a1bfdd74a5b1c81966cfa932e9b761df32a203d7f63aa55c153a0e5bbb82976"
+    },
+    {
+      "path": "scripts/vehicles/vehiclesitems.txt",
+      "sha256": "167c63d2d306bacc901c13144a5f7d431d4d3bc26518989fa2374a7ca5ccbf51"
+    },
+    {
+      "path": "Iris/input/items_itemscript.json",
+      "sha256": "ce52d8fe38302c5dca5b7c28d2258155c5f91b6aee52ebe2b82276a8bb28b22e"
+    },
+    {
+      "path": "Iris/input/recipes_index_full.json",
+      "sha256": "e9a6785b3fb9b4436cbfa2c3ac2ff8d4358229972726ad85533f3a6c168802c5"
+    },
+    {
+      "path": "lua/client/Moveables/ISMoveableDefinitions.lua",
+      "sha256": "766681dde6e9a625ee2e271a7fe6aeb1d176ddc247508888ac3611cda1995bdb"
+    },
+    {
+      "path": "lua/client/ISUI/ISInventoryPaneContextMenu.lua",
+      "sha256": "6db61b9f54e1368a339719635bc60341f3e5420cfb3593e5b03fc32c340b56a4"
+    }
+  ],
+  "identity": {
+    "item_id": "exact case-sensitive FullType; no normalization",
+    "axis_key": [
+      "item_id",
+      "axis_id",
+      "scope_ref"
+    ],
+    "scope_ref_is_semantic_fact": false,
+    "profile_order_is_priority": false
+  },
+  "completion": {
+    "expression": "scope_determined AND every_required_axis_terminal AND acquisition_state == resolved",
+    "scope_determined_requires": [
+      "all registered profiles routed",
+      "no pending scope or conflict",
+      "gap assessment clear"
+    ],
+    "required_axes": "global acquisition once plus scoped union of confirmed profiles; conflict retains positively observed scopes",
+    "not_inputs": [
+      "prose",
+      "S2",
+      "locale",
+      "sentence_count",
+      "fact_count",
+      "compose_profile"
+    ]
+  },
+  "source_policy": {
+    "native_type_exclusion_scope": "Only the native Type channel of the uniquely parsed, extraction-agreeing source declaration. Other mechanisms stay open.",
+    "recipe_scope": "Positive direct input/keep tokens only. Group expansion, result relations and missing index entries are not negatives.",
+    "moveable_scope": "Positive static addToolDefinition literals with original parseItemTypes aliases and original Tags. No missing-membership exclusion.",
+    "field_scope": "EvolvedRecipe nonempty opens cooking questions; absence is not negative. Runtime function, effect and acquisition are never generated.",
+    "content_basis": "ISInventoryPaneContextMenu: native branches around Food/CantEat, HandWeapon, InventoryContainer, Literature, Clothing and DrainableComboItem; evolved cooking handlers distinguish input state. These source consumers motivate questions, not accepted terminal facts.",
+    "unused_candidates": {
+      "Iris/input/rightclick_source_index.v2.4.json": "Rule/anchor inventory only; not treated as validated item predicate or source completeness.",
+      "Iris/input/fixing_fixers.json": "Abbreviated IDs do not provide original fixing provenance; covered by open direct/world-work and gap questions.",
+      "Iris/input/moveables_tooldefs.json": "Raw Lua definitions and alias/tag semantics are consumed directly instead of treating this abbreviated extraction as authoritative."
+    }
+  },
+  "admission": {
+    "new_profile_requires": [
+      "distinct user/investigation question",
+      "scope and source predicate",
+      "first-contact rationale/detail boundary",
+      "overlap examples"
+    ],
+    "change_policy": "Explicit revision and affected-source/profile reevaluation; evaluate all targets for affected profiles unless a safe subset is evidenced. No repeated seal ceremony.",
+    "gap_kinds": [
+      "definition_gap",
+      "question_scope_extension",
+      "evidence_gap",
+      "uninvestigated",
+      "application_error"
+    ]
+  },
+  "first_contact_rules": [
+    "Keep obligations without accepted facts; do not emit sentences.",
+    "No representative fact, priority, quota, sentence or line assignment.",
+    "Global acquisition is not a universal first-contact sentence.",
+    "KO/EN, actual fact selection/binding and omission tracking belong to DVF-L3-05."
+  ],
+  "examples": [
+    {
+      "item_id": "Base.Dogfood",
+      "lesson": "Food/CantEat requires operation/condition questions; do not infer immediate eating or hunger relief from Type."
+    },
+    {
+      "item_id": "Base.Apple",
+      "lesson": "Ingestion effects and cooking role are independent questions; neither replaces the other."
+    },
+    {
+      "item_id": "Base.Hammer",
+      "lesson": "Native weapon and raw moveable tag support different contexts; crafting group signals remain candidates unless direct token is verified."
+    },
+    {
+      "item_id": "Base.Plank",
+      "lesson": "Recipe direct input and keep contexts coexist; neither chooses a representative item role."
+    },
+    {
+      "item_id": "Base.Notebook",
+      "lesson": "Literature questions do not guarantee skill gain; sparse accepted facts can eventually be complete without minimum prose."
+    },
+    {
+      "item_id": "Base.Battery",
+      "lesson": "Drainable is a use-amount question, not a universal fuel/energy fact; direct function and acquisition remain distinct."
+    }
+  ],
+  "results": {
+    "current_accepted_instances": "none supplied; predecessor hints are not successor facts",
+    "consumer": "Only explicitly bound adopted result authority, exact accepted result membership, FullType/fact/provenance and whole-question scope coverage.",
+    "negative": "Inherit allowed kind and negative binding without changing current producer none/assignment 0. Separate formally adopted closed-scope result required; no source-specific negative producer here."
+  }
+}

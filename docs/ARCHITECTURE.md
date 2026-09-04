@@ -1,7 +1,7 @@
 # ARCHITECTURE.md
 
 > 상태: 초안 v0.6
-> 기준일: 2026-09-03
+> 기준일: 2026-09-04 (이번 갱신 범위: Iris Layer 3 successor contract와 현재 제품 구현의 경계)
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 구조 지도, 역할 경계, 의존 방향을 고정한다.  
 > 구현 상태 표기: 별도 표시가 없는 모듈은 current architecture를 기술하며, `설계 단계` 표시는 아직 구현되지 않은 target architecture를 뜻한다.
@@ -267,7 +267,9 @@ Iris의 정보 모델은 다섯 계층으로 구분한다.
    - `primary_subcategory`는 탐색 기준점이며 Layer 3 설명을 자동 생성하는 의미 원천으로 사용하지 않는다.
 
 3. **3계층 - 용도·개요 설명 계층**
-   - 확인된 근거가 있는 아이템의 기본 용도·효과를 사용자가 이해할 수 있는 설명으로 제공한다.
+   - 확인된 근거가 있는 아이템의 복수 용도 맥락·맥락별 역할·기능·효과·상태·조건·제약·획득 정보를 typed fact로 보존하고 사용자가 이해할 수 있는 설명으로 제공한다.
+   - exact case-sensitive FullType 하나는 대표 용도나 대표 역할 없이 `0..N`개의 Layer 3 facts를 가질 수 있다.
+   - semantic fact, provenance, investigation/coverage, approved expression과 surface projection은 서로 다른 축이다.
    - 아이템과 관련된 모든 행동이나 조리법을 열거하는 계층은 아니다.
 
 4. **4계층 - 상호작용 정보 계층**
@@ -332,13 +334,15 @@ Layer 3의 주요 생산·적용 경로는 다음과 같다.
   - 사실, 결과 상태와 분류를 확정하는 의미 분류 책임을 소유한다.
 
 - **Layer 3 의미 준비**
-  - 정식 사실과 출처 이력을 Layer 3 의미 구성이 소비할 수 있는 원천 결속 역할 자료로 분리한다.
-  - 기본 설명에 사용할 자료와 획득 정보 등 추가 맥락에 사용할 자료의 역할을 구분한다.
+  - 정식 사실과 출처 이력을 Layer 3 의미 구성이 소비할 수 있는 원천 결속 typed facts와 investigation state로 분리한다.
+  - 복수 `use_context`, context-local `context_role`, direct function/effect, state, fact-local condition/constraint와 acquisition result를 대표 선택 없이 보존한다.
+  - acquisition은 모든 current Layer 3 대상에서 조사해야 한다. Resolved는 acquisition 축 완료만 뜻하며 item 전체 investigation 완료를 단독으로 보장하지 않고, unresolved와 uninvestigated는 item investigation-complete가 아니다.
   - 원천 식별자와 출처·변환 이력을 보존하며 준비 단계의 상태 메타데이터 자체를 의미 원천으로 사용하지 않는다.
 
 - **`DVF System`**
   - Iris Layer 3의 의미 구성과 비활성 의미 후보 생산을 소유한다.
   - Layer 3 의미 준비 단계가 제공한 원천 결속 자료를 소비한다.
+  - profile은 investigation/composition/first-contact axis scope를 제공할 수 있지만 importance·frequency·ordinal·profile label로 대표 fact·role을 선택하거나 semantic priority를 부여하지 않는다. 실제 S2 fact 결합·표현·문장/줄 구성과 omission tracking은 후속 composition 책임이다.
   - 의미 책임은 채택 이전의 후보 생산에서 끝난다.
 
 - **`QG`**
@@ -375,8 +379,16 @@ Layer 3의 주요 생산·적용 경로는 다음과 같다.
 
 - **`Menu` / `Tooltip`**
   - 확정된 정보를 각 표시 구조에 맞게 소비한다.
+  - Menu Layer 3는 accepted facts와 resolved acquisition을 expanded detail로 보존한다. Tooltip S2는 같은 fact authority를 profile별 first-contact axis에 따라 낮은 해상도로 투영하며 represented fact와 truth-changing dependency reference를 유지한다.
+  - S2는 importance·frequency·efficiency·첫 ordinal 또는 profile label로 대표 fact를 선택하지 않으며 runtime에서 요약·축약·재선택·추론하지 않는다.
   - `Browser`, `Detail ViewModel`, `Wiki` 관련 구성요소는 `Menu` 내부 표시 구조를 구성한다.
   - 런타임 소비자는 표시·탐색·배치와 UI 상태를 담당한다.
+
+Layer 3 successor semantic contract의 current readpoint는 SHA-256 `6735c3eadafaf4c4fd51ae56c8d0748d32903ee996d53ed43bca38822cf0932a`인 `Iris/_docs/authority/dvf/layer3_successor/contract_manifest.json`이다. 이는 contract-only adoption이며 current corpus, generation, runtime과 package는 별도 migration 전까지 predecessor-compatible product로 유지한다.
+
+이 readpoint는 human contract, `contract.json`, `casebook.json`, `predecessor_inventory.json`의 네 member를 묶으며 기존 current authority manifest와 route index에서 연결한다. 별도 producer나 runtime data path를 추가하지 않는다. 위 multi-fact·profile·Menu/S2 규칙은 채택된 successor 설계 계약이며, 현재 제품이 이미 그 표현·투영을 구현했다는 뜻은 아니다.
+
+DVF-L3-01의 focused contract test는 계약 구조·사례·readpoint 결속과 보호 대상의 불변성을 검사한다. 실제 corpus의 의미 조사 완료를 판정하는 validator나 새로운 production validation authority가 아니다. Item-level 조사 완료 조건은 DVF-L3-02, semantic/acquisition facts는 DVF-L3-03/04, 실제 표현·투영은 DVF-L3-05, runtime/current adoption은 DVF-L3-06의 책임으로 남긴다. 완료·검증 상세는 [단일 closeout](iris_dvf_layer3_multi_meaning_information_resolution_successor_contract_closeout.md)을 따른다.
 
 ### 오프라인 도구 실행 구조
 

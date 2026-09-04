@@ -18,13 +18,13 @@
   "source_set_binding": {
     "canonicalization": "sorted repository-relative source paths joined with LF and a terminal LF",
     "tracked_policy_sources": {
-      "count": 49,
-      "sha256": "880d58eca60b2786794fd9a96ca7dd22e072219d0ca8f552ed4011eeefb6b40c"
+      "count": 50,
+      "sha256": "ab7c5c51bc1d271ff04f5806b11f8be1612e33dfb935ee91054e3d69dc23fa6d"
     },
     "approved_clean_checkout_absent_policy_sources": {
       "count": 0,
       "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
-      "basis": "No approved absent policy source remains after exact promotion of the six recurring Iris product-contract families."
+      "basis": "The owner-preapproved DVF-L3-01 focused test is included in VCS tracking; no approved absent policy source remains."
     }
   },
   "reviewed_sources": [
@@ -158,6 +158,11 @@
     {
       "source_file": "Iris/build/description/v2/tests/test_iris_line_count_lazy_validation.py",
       "classification": "current"
+    },
+    {
+      "source_file": "Iris/build/description/v2/tests/test_layer3_successor_contract.py",
+      "classification": "current",
+      "approval_ref": "user_prompt_owner_gate_preapproval_2026-09-03"
     }
   ],
   "mixed_sources": [],

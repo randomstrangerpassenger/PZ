@@ -226,6 +226,13 @@
       "delete_move_policy": "protected; no semantic authority or mutable latest state"
     },
     {
+      "path": "Iris/_docs/authority/dvf/layer3_successor/contract_manifest.json",
+      "sha256": "6735c3eadafaf4c4fd51ae56c8d0748d32903ee996d53ed43bca38822cf0932a",
+      "classification": "current",
+      "authority_role": "adopted Iris Layer 3 successor semantic contract manifest; contract-only readpoint while the current corpus, generation, runtime, and package remain predecessor-compatible",
+      "delete_move_policy": "protected; semantic changes require an additive successor contract revision and focused validation"
+    },
+    {
       "path": "Iris/_docs/round3/round3_active_core_closure.json",
       "classification": "historical",
       "authority_role": "frozen Round 3 closure snapshot superseded for current navigation by Iris/_docs/authority/iris_current_route_index.json",

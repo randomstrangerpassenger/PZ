@@ -1,0 +1,386 @@
+{
+  "schema_version": "iris-layer3-successor-casebook-v1",
+  "contract_schema_version": "iris-layer3-successor-contract-v1",
+  "purpose": "Minimal deterministic boundary fixtures; these examples are not a corpus vocabulary or game-fact assignment set.",
+  "cases": [
+    {
+      "case_id": "single_context",
+      "expected": "accept",
+      "exact_full_type": "Fixture.Hammer",
+      "provenance": {
+        "p1": {
+          "source_kind": "static_capability",
+          "evidence_ref": "fixture://hammer/use"
+        }
+      },
+      "facts": [
+        {
+          "fact_id": "f-hammer-repair",
+          "fact_kind": "use_context",
+          "payload": {
+            "context_token": "repair"
+          },
+          "provenance_refs": [
+            "p1"
+          ]
+        }
+      ],
+      "investigation": {
+        "acquisition_state": "not_investigated",
+        "acquisition_axis_complete": false,
+        "item_investigation_complete": false
+      }
+    },
+    {
+      "case_id": "materially_distinct_multi_context",
+      "expected": "accept",
+      "exact_full_type": "Fixture.MultiTool",
+      "provenance": {
+        "p1": {
+          "source_kind": "static_capability",
+          "evidence_ref": "fixture://multitool/repair"
+        },
+        "p2": {
+          "source_kind": "recipe_source",
+          "evidence_ref": "fixture://multitool/construction"
+        }
+      },
+      "facts": [
+        {
+          "fact_id": "f-multi-repair",
+          "fact_kind": "use_context",
+          "payload": {
+            "context_token": "repair"
+          },
+          "provenance_refs": [
+            "p1"
+          ]
+        },
+        {
+          "fact_id": "f-multi-construction",
+          "fact_kind": "use_context",
+          "payload": {
+            "context_token": "construction"
+          },
+          "provenance_refs": [
+            "p2"
+          ]
+        }
+      ],
+      "investigation": {
+        "acquisition_state": "investigated_unresolved",
+        "acquisition_axis_complete": false,
+        "item_investigation_complete": false
+      },
+      "surfaces": {
+        "menu_fact_refs": [
+          "f-multi-repair",
+          "f-multi-construction"
+        ],
+        "tooltip_s2": {
+          "represented_fact_refs": [
+            "f-multi-repair",
+            "f-multi-construction"
+          ],
+          "dependency_fact_refs": [],
+          "omitted_detail_refs": [],
+          "selection_basis": "profile_first_contact_axes",
+          "logical_slot": "S2"
+        }
+      }
+    },
+    {
+      "case_id": "same_context_multi_role",
+      "expected": "accept",
+      "exact_full_type": "Fixture.CookingVessel",
+      "provenance": {
+        "p1": {
+          "source_kind": "static_capability",
+          "evidence_ref": "fixture://vessel/cooking"
+        }
+      },
+      "facts": [
+        {
+          "fact_id": "f-vessel-cooking",
+          "fact_kind": "use_context",
+          "payload": {
+            "context_token": "cooking"
+          },
+          "provenance_refs": [
+            "p1"
+          ]
+        },
+        {
+          "fact_id": "f-vessel-tool",
+          "fact_kind": "context_role",
+          "payload": {
+            "role_token": "tool"
+          },
+          "context_fact_ref": "f-vessel-cooking",
+          "provenance_refs": [
+            "p1"
+          ]
+        },
+        {
+          "fact_id": "f-vessel-container",
+          "fact_kind": "context_role",
+          "payload": {
+            "role_token": "container"
+          },
+          "context_fact_ref": "f-vessel-cooking",
+          "provenance_refs": [
+            "p1"
+          ]
+        }
+      ],
+      "investigation": {
+        "acquisition_state": "not_investigated",
+        "acquisition_axis_complete": false,
+        "item_investigation_complete": false
+      }
+    },
+    {
+      "case_id": "truth_qualifying_condition",
+      "expected": "accept",
+      "exact_full_type": "Fixture.ConditionalEffect",
+      "provenance": {
+        "p1": {
+          "source_kind": "static_capability",
+          "evidence_ref": "fixture://conditional/effect"
+        }
+      },
+      "facts": [
+        {
+          "fact_id": "f-effect",
+          "fact_kind": "effect",
+          "payload": {
+            "effect_token": "reduce_hunger"
+          },
+          "provenance_refs": [
+            "p1"
+          ]
+        },
+        {
+          "fact_id": "f-effect-condition",
+          "fact_kind": "condition",
+          "payload": {
+            "condition_token": "when_consumed"
+          },
+          "applies_to_fact_refs": [
+            "f-effect"
+          ],
+          "provenance_refs": [
+            "p1"
+          ]
+        }
+      ],
+      "investigation": {
+        "acquisition_state": "not_investigated",
+        "acquisition_axis_complete": false,
+        "item_investigation_complete": false
+      },
+      "surfaces": {
+        "menu_fact_refs": [
+          "f-effect",
+          "f-effect-condition"
+        ],
+        "tooltip_s2": {
+          "represented_fact_refs": [
+            "f-effect"
+          ],
+          "dependency_fact_refs": [
+            "f-effect-condition"
+          ],
+          "omitted_detail_refs": [],
+          "selection_basis": "profile_first_contact_axes",
+          "logical_slot": "S2"
+        }
+      }
+    },
+    {
+      "case_id": "acquisition_positive",
+      "expected": "accept",
+      "exact_full_type": "Fixture.LibraryBook",
+      "provenance": {
+        "p1": {
+          "source_kind": "loot_distribution",
+          "evidence_ref": "fixture://book/library"
+        }
+      },
+      "facts": [
+        {
+          "fact_id": "f-book-acquisition",
+          "fact_kind": "acquisition",
+          "payload": {
+            "location_token": "library"
+          },
+          "provenance_refs": [
+            "p1"
+          ]
+        }
+      ],
+      "investigation": {
+        "acquisition_state": "resolved",
+        "acquisition_axis_complete": true,
+        "item_investigation_complete": false,
+        "item_completion_basis": "other_required_axes_deferred_to_DVF-L3-02"
+      },
+      "surfaces": {
+        "menu_fact_refs": [
+          "f-book-acquisition"
+        ]
+      }
+    },
+    {
+      "case_id": "acquisition_investigated_unresolved",
+      "expected": "accept",
+      "exact_full_type": "Fixture.UnknownAcquisition",
+      "provenance": {},
+      "facts": [],
+      "investigation": {
+        "acquisition_state": "investigated_unresolved",
+        "acquisition_axis_complete": false,
+        "item_investigation_complete": false
+      }
+    },
+    {
+      "case_id": "acquisition_not_investigated",
+      "expected": "accept",
+      "exact_full_type": "Fixture.UnscannedAcquisition",
+      "provenance": {},
+      "facts": [],
+      "investigation": {
+        "acquisition_state": "not_investigated",
+        "acquisition_axis_complete": false,
+        "item_investigation_complete": false
+      }
+    },
+    {
+      "case_id": "layer3_broad_layer4_exact",
+      "expected": "accept",
+      "exact_full_type": "Fixture.FoodIngredient",
+      "provenance": {
+        "p1": {
+          "source_kind": "recipe_source",
+          "evidence_ref": "fixture://ingredient/shared-upstream"
+        }
+      },
+      "facts": [
+        {
+          "fact_id": "f-food-cooking",
+          "fact_kind": "use_context",
+          "payload": {
+            "context_token": "cooking"
+          },
+          "provenance_refs": [
+            "p1"
+          ]
+        }
+      ],
+      "independent_layer4_relations": [
+        {
+          "relation_id": "l4-recipe-soup",
+          "relation_kind": "recipe",
+          "target": "Fixture.Soup"
+        },
+        {
+          "relation_id": "l4-evolved-stew",
+          "relation_kind": "evolved_recipe",
+          "target": "Fixture.Stew"
+        }
+      ],
+      "investigation": {
+        "acquisition_state": "not_investigated",
+        "acquisition_axis_complete": false,
+        "item_investigation_complete": false
+      }
+    },
+    {
+      "case_id": "identity_hint_transition",
+      "expected": "accept_transition_only",
+      "predecessor_field": "identity_hint",
+      "expected_disposition": "reinterpret_defer",
+      "automatic_successor_fact": false
+    },
+    {
+      "case_id": "special_context_transition",
+      "expected": "accept_transition_only",
+      "predecessor_field": "special_context",
+      "expected_disposition": "defer_source_reconfirmation",
+      "automatic_successor_fact": false,
+      "automatic_priority": false
+    },
+    {
+      "case_id": "representative_alias_rejected",
+      "expected": "reject",
+      "expected_reason": "forbidden_representative_alias",
+      "exact_full_type": "Fixture.BadPrimary",
+      "provenance": {
+        "p1": {
+          "source_kind": "static_capability",
+          "evidence_ref": "fixture://bad/primary"
+        }
+      },
+      "facts": [
+        {
+          "fact_id": "f-bad-primary",
+          "fact_kind": "direct_function",
+          "payload": {
+            "function_token": "cut"
+          },
+          "primary_fact": true,
+          "provenance_refs": [
+            "p1"
+          ]
+        }
+      ],
+      "investigation": {
+        "acquisition_state": "not_investigated",
+        "acquisition_axis_complete": false,
+        "item_investigation_complete": false
+      }
+    },
+    {
+      "case_id": "layer_output_leakage_rejected",
+      "expected": "reject",
+      "expected_reason": "forbidden_fact_source",
+      "exact_full_type": "Fixture.BadLayerLeak",
+      "provenance": {
+        "p1": {
+          "source_kind": "layer4_rendered_row",
+          "evidence_ref": "fixture://bad/layer4-output"
+        }
+      },
+      "facts": [
+        {
+          "fact_id": "f-bad-layer-leak",
+          "fact_kind": "use_context",
+          "payload": {
+            "context_token": "cooking"
+          },
+          "provenance_refs": [
+            "p1"
+          ]
+        }
+      ],
+      "investigation": {
+        "acquisition_state": "not_investigated",
+        "acquisition_axis_complete": false,
+        "item_investigation_complete": false
+      }
+    },
+    {
+      "case_id": "false_acquisition_completion_rejected",
+      "expected": "reject",
+      "expected_reason": "acquisition_false_completion",
+      "exact_full_type": "Fixture.BadAcquisitionCompletion",
+      "provenance": {},
+      "facts": [],
+      "investigation": {
+        "acquisition_state": "investigated_unresolved",
+        "acquisition_axis_complete": false,
+        "item_investigation_complete": true
+      }
+    }
+  ]
+}

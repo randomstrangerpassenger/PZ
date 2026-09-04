@@ -1,7 +1,7 @@
 # ROADMAP.md
 
 > 상태: current canonical roadmap  
-> 기준일: 2026-09-03 (이번 갱신 범위: Iris EvolvedRecipe compact/grouped successor와 실제 PZ 관찰)
+> 기준일: 2026-09-04 (이번 갱신 범위: DVF-L3-01 완료와 문제 2~6의 후속 경계; 기존 EvolvedRecipe 완료 상태 유지)
 > 최상위 기준: `Philosophy.md`  
 > 결정 기준: `DECISIONS.md`  
 > 목적: Pulse 생태계의 현재 상태, 진행 방향, 다음 게이트와 Hold 경계를 고정한다.
@@ -458,6 +458,14 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
 
 ## Done
 
+- **DVF-L3-01 완료:** Layer 3 복수 의미·정보 해상도 successor semantic contract를 current semantic authority로 채택했다. (완료 2026-09-03, 문서 정리 2026-09-04)
+  - exact case-sensitive FullType별 `0..N` typed facts, context-local role, fact-local condition/constraint와 fact/provenance/investigation/expression/presentation 축 분리를 확정했다.
+  - Layer 3 broad context와 Layer 4 exact Recipe/Right-click/EvolvedRecipe relation을 정보 해상도로 구분하고, shared upstream source/separate authority를 유지했다.
+  - acquisition을 mandatory investigation axis로 전환했다. Resolved는 acquisition 축만 완료하며 item 전체 조사 완료를 단독으로 보장하지 않고, unresolved/uninvestigated는 incomplete로 유지하며 resolved result의 Menu 보존을 요구했다.
+  - Menu와 Tooltip S2의 same-authority/different-depth, no-primary selection과 기존 S1/S3/S4·`0..4` row ownership을 유지했다.
+  - current semantic readpoint는 SHA-256 `6735c3eadafaf4c4fd51ae56c8d0748d32903ee996d53ed43bca38822cf0932a`인 `Iris/_docs/authority/dvf/layer3_successor/contract_manifest.json`이다. 기존 2,105개 corpus, generation, runtime과 package는 변경하지 않았으며 후속 문제 2~6의 완료나 release readiness를 주장하지 않는다.
+  - 계약 bundle·casebook·predecessor disposition, current manifest/index 연결과 required validation 한 건 등록을 완료했다. 검토 정정 후 계획의 동일 focused G1이 exit `0`, `1 passed` (`0.18s`)로 종료했다. Cache 쓰기 warning 한 건은 [closeout](iris_dvf_layer3_multi_meaning_information_resolution_successor_contract_closeout.md)에 남겼으며 full suite·Lua syntax·package/install·PZ 관찰은 이 계약 작업에서 실행하지 않았다.
+
 - Build 41 EvolvedRecipe compact/grouped successor의 구현·실제 관찰·채택을 완료했다. (2026-09-03)
   - 기존 2,203 relation/252 FullType, exact identity와 `canonical_ordinal`, fixed Recipe/Right-click/Tooltip 경계를 보존하면서 저밀도 compact flat row와 고밀도 action group/target child presentation을 구현했다. 검색은 개별 relation을 먼저 filter한 뒤 matched-only group으로 재구성한다.
   - 자유 조리 검색 entry를 Detail 재구성과 분리해 KO IME와 영문 입력 focus를 유지했다. KO/EN 생성 번역의 `자유 조리`/`Freeform Cooking`을 동기화하고 Recipe 이동 검색어를 KO translated name/그 외 original name으로 분기했다.
@@ -632,10 +640,12 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
 
 ## Next
 
-- 교정된 설명에서 **DVF 블록 조합 규칙으로 일반화할 범위**를 정리한다.
-  - 문장 구조만 복사하지 않고 기본 용도·효과·복수 역할·정보 부족별 표현과 그 표현을 허용하는 source 조건을 함께 추출한다.
-  - 이번에 채택한 개별 설명을 비교 사례로 쓰되 게임 사실의 source는 계속 원본 근거에 둔다. Menu 전용 조리 단계·수량을 Tooltip core 규칙에 섞지 않는다.
-  - 공통 규칙 변경은 아직 미구현인 후속 과제다. 새 로드맵·계획 작성이나 제품 구현을 이 문서 갱신으로 실행한 것으로 간주하지 않는다.
+- DVF Layer 3 successor의 **문제 2~6**을 dependency 순서에 따라 수행한다.
+  - DVF-L3-01의 계약 채택 gate는 완료됐다. 아래 항목은 그 완료를 위한 잔여 검증이 아니라 별도 후속 구현 범위이며, 현재 계획 완료를 corpus/runtime 전환 완료로 확대하지 않는다.
+  - DVF-L3-02에서 복수 profile applicability, 조사 축, item-level investigation completion과 profile별 first-contact axis를 확정한다.
+  - DVF-L3-03 semantic facts와 DVF-L3-04 acquisition facts는 같은 successor contract를 사용해 서로 독립된 산출물로 조사할 수 있다.
+  - 두 facts 집합 뒤 DVF-L3-05에서 Menu expanded detail과 Tooltip-first S2 fact 결합·KO/EN 표현·문장/줄 구성·omission tracking을 구현하고, DVF-L3-06에서 기존 4줄 Tooltip·runtime·current adoption을 통합한다.
+  - predecessor 문장이나 rendered Layer output을 successor fact source로 역승격하지 않으며 acquisition unresolved를 generic prose로 덮지 않는다.
 
 - 최신 current product 상태를 기준으로 **DVF freeze readiness를 재판정한다.**
   - 과거 Problem 4의 `동결 불가` verdict는 historical evidence로 유지하고 직접 수정하거나 승계하지 않는다.

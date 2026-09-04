@@ -1,0 +1,29 @@
+{
+  "schema_version": "iris-layer3-successor-contract-manifest-v1",
+  "status": "adopted",
+  "problem_id": "DVF-L3-01",
+  "semantic_identity_excludes": [
+    "review_metadata",
+    "adoption_metadata",
+    "timestamp",
+    "host"
+  ],
+  "members": [
+    {
+      "path": "docs/iris_dvf_layer3_multi_meaning_information_resolution_successor_contract.md",
+      "sha256": "fb27df5de0dcb00480eff13663269d15752cd4d8e75c3cccb9921a0555ba6436"
+    },
+    {
+      "path": "Iris/_docs/authority/dvf/layer3_successor/contract.json",
+      "sha256": "bb8201549218b08452fd603ff13727599c1021f98882de1d7dae9f3545e9890e"
+    },
+    {
+      "path": "Iris/_docs/authority/dvf/layer3_successor/casebook.json",
+      "sha256": "18afc37c86007573cc4feebfa241732a009a0ba6a46b8b089136b65beb2dd5bd"
+    },
+    {
+      "path": "Iris/_docs/authority/dvf/layer3_successor/predecessor_inventory.json",
+      "sha256": "7e5eca90bf18e10ea1ddcd081639eb189fe0e117b4c0e53d1b5f6acc42c1306f"
+    }
+  ]
+}

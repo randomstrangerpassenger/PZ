@@ -1,7 +1,7 @@
 # DECISIONS.md
 
-> 상태: current decision ledger / compact trace-dedup edition, Iris EvolvedRecipe successor 후속 반영
-> 기준일: 2026-09-03 (이번 갱신 범위: Iris EvolvedRecipe compact/grouped presentation, 자유 조리 검색 입력, locale 번역·Recipe 이동)
+> 상태: current decision ledger / compact trace-dedup edition, Iris Layer 3 successor contract 완료 반영
+> 기준일: 2026-09-04 (이번 갱신 범위: DVF-L3-01 계약 채택·검토 정정·완료 경계; 기존 EvolvedRecipe 결정 유지)
 > 상위 기준: `Philosophy.md`
 > 목적: Pulse 생태계에서 이미 사실상 고정된 결정을 짧게 봉인하고, 같은 논쟁의 반복을 줄인다.
 
@@ -1023,6 +1023,25 @@
 - `build layer3 compose-successor`로 off-live candidate를 만들고 기존 adoption / generation / install / T1 / T2 / package 경로를 사용한다. 새 shared module은 generation implementation identity에 포함하며 실제 변경된 기존 compiler identity는 G5 successor 0018에 연결한다. 과거 기록을 재작성하지 않는다.
 - Owner gate는 실행 프롬프트의 사전 승인을 적용했다. 최종 generation은 `dvf33-ed92fa5c9ed4a1ed367f5d79365d04e1996e36a05d76a33bd7b8dd2176e7f82f`이며 T1/T2와 current-only package까지 채택했다. 사용자는 실제 PZ에서 최종 패키지의 KO/EN 장문이 모두 잘리지 않고 읽힌다고 확인했다. 이 관찰은 확인한 장문 surface와 두 locale의 가독성에 한정하며 모든 item·해상도·UI scale·외부 모드 compatibility나 release readiness로 확대하지 않는다.
 - 실행 상태, exact subject/package identity와 검증 한계는 [단일 closeout](iris_dvf_shared_composition_usefulness_menu_tooltip_plan_closeout.md)을 따른다. 일회성 보조 검사는 canonical validator나 새 acceptance authority가 아니다. 이전 generation과 사용자 식품류 관찰은 predecessor 이력이다.
+
+### Iris Layer 3 — 복수 의미·정보 해상도 successor semantic contract
+
+- 날짜: 2026-09-03
+- 상태: current semantic authority / contract-only adoption. Contract manifest SHA-256: `6735c3eadafaf4c4fd51ae56c8d0748d32903ee996d53ed43bca38822cf0932a` (`Iris/_docs/authority/dvf/layer3_successor/contract_manifest.json`).
+- 결정:
+  - exact case-sensitive FullType 하나는 대표 용도·대표 역할 없이 `0..N`개의 independent typed Layer 3 facts를 가진다. 직렬화 순서는 의미 순위가 아니다.
+  - `context_role`은 item-global selection이 아니라 정확히 하나의 `use_context`에 귀속한다. `condition`과 `constraint`도 적용 대상 fact를 명시한다.
+  - semantic fact, provenance, investigation/coverage, approved expression과 surface projection은 독립 축이다. 한 축의 존재·부재로 다른 축을 자동 판정하지 않는다.
+  - Layer 3는 전체 활동 맥락·context-local role·broad function/effect·fact-local 상태/조건/제약·acquisition result를 소유한다. Layer 4는 exact Recipe/Right-click/EvolvedRecipe identity와 relation-local target/result/requirement를 소유한다. 두 계층은 shared upstream source를 독립적으로 소비할 수 있지만 서로의 output에서 fact를 만들지 않는다.
+  - acquisition은 모든 current Layer 3 대상의 mandatory investigation axis다. `resolved / investigated_unresolved / not_investigated`를 구분하며 `resolved`는 acquisition 축만 완료할 뿐 item 전체 Layer 3 investigation 완료를 단독으로 보장하지 않는다. 뒤의 두 상태는 item investigation complete가 아니다. 확인된 acquisition은 Menu Layer 3 필수 정보지만 Tooltip S2 필수 문장은 아니다.
+  - Menu Layer 3와 Tooltip S2는 같은 accepted fact authority를 사용한다. Menu는 accepted facts와 resolved acquisition을 상세히 보존하고, S2는 후속 profile first-contact axis에 따른 lower-resolution projection이다. importance·frequency·efficiency·first ordinal 또는 profile label로 대표 fact를 선택하지 않는다.
+  - profile은 investigation/composition/first-contact axis scope를 제공할 수 있지만 importance·frequency·ordinal·profile label 기반 대표 fact·role 선택이나 semantic priority를 소유하지 않는다. Profile taxonomy와 first-contact axis는 DVF-L3-02, 실제 facts는 DVF-L3-03/04, S2 fact 결합·KO/EN 표현·문장/줄 구성·omission tracking은 DVF-L3-05, runtime 통합은 DVF-L3-06에 남긴다.
+  - `identity_hint`, `primary_use`, `secondary_use`, `special_context`, selected role/profile과 single core는 predecessor inventory의 disposition에 따라 유지·대체·유예한다. predecessor prose를 source 재확인 없이 successor typed fact로 자동 승격하지 않는다.
+- 채택 경계:
+  - owner approval은 2026-09-03 실행 프롬프트의 사전 승인으로 충족했다.
+  - DVF-L3-01은 계약 채택과 current readpoint 연결까지 완료했다. Acquisition 축 완료와 item 전체 조사 완료의 분리, profile의 후속 S2 구성 재량 보존을 최종 계약에 반영했다. 이 결정은 후속 구현을 위해 별도 대표 선택 규칙이나 전역 문장 수 제한을 신설하지 않는다.
+  - current facts/decisions, Tooltip owner input, generation pointer와 pointer-selected generation, Lua runtime 및 package는 변경하지 않는다. 이 결정은 corpus·문장·runtime migration이나 release readiness가 아니다.
+- Trace: [human contract](iris_dvf_layer3_multi_meaning_information_resolution_successor_contract.md), `Iris/_docs/authority/dvf/layer3_successor/contract.json`, 위 contract manifest, [완료 범위와 G1 실행 기록](iris_dvf_layer3_multi_meaning_information_resolution_successor_contract_closeout.md). 최종 focused G1은 exit `0`이며 전체 suite·제품 통합 검증을 대신하지 않는다.
 
 ### Iris Layer 4 — Recipe / Right-click `use_case`, requirement / adaptive presentation contract
 

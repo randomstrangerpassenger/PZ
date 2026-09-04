@@ -1,0 +1,279 @@
+{
+  "schema_version": "iris-layer3-successor-contract-v1",
+  "status": "current_semantic_authority",
+  "problem_id": "DVF-L3-01",
+  "adopted_on": "2026-09-03",
+  "authority": {
+    "top": "docs/Philosophy.md",
+    "decision_ledger": "docs/DECISIONS.md",
+    "human_contract": "docs/iris_dvf_layer3_multi_meaning_information_resolution_successor_contract.md",
+    "bundle_manifest": "Iris/_docs/authority/dvf/layer3_successor/contract_manifest.json"
+  },
+  "claim_boundary": {
+    "adopted": "Layer 3 successor semantic contract and current semantic authority readpoint",
+    "product_state": "predecessor_compatible",
+    "corpus_migration": "deferred",
+    "runtime_migration": "deferred",
+    "package_migration": "deferred"
+  },
+  "identity": {
+    "item_identity": "exact_full_type",
+    "case_sensitive": true,
+    "semantic_fact_multiplicity": "0..N",
+    "fact_id_scope": "bundle_global",
+    "duplicate_fact_id_forbidden": true,
+    "ordered_serialization_is_semantically_ranked": false
+  },
+  "axes": {
+    "semantic_fact": {
+      "owns": [
+        "fact_kind",
+        "kind_specific_payload",
+        "fact_relationships"
+      ],
+      "does_not_imply": [
+        "investigation_complete",
+        "approved_expression_exists",
+        "tooltip_presence"
+      ]
+    },
+    "provenance": {
+      "owns": [
+        "source_identity",
+        "evidence_reference",
+        "transformation_lineage"
+      ],
+      "minimum_refs_per_fact": 1,
+      "rendered_layer_output_is_source": false
+    },
+    "investigation": {
+      "owns": [
+        "axis_applicability",
+        "coverage_state",
+        "unresolved_state"
+      ],
+      "does_not_create_facts": true
+    },
+    "expression": {
+      "owns": [
+        "approved_locale_expression",
+        "expression_failure"
+      ],
+      "absence_does_not_delete_fact": true
+    },
+    "presentation": {
+      "owns": [
+        "surface_projection",
+        "represented_fact_refs",
+        "dependency_fact_refs",
+        "omitted_detail_refs"
+      ],
+      "does_not_create_or_reselect_facts": true
+    }
+  },
+  "semantic_node": {
+    "required_fields": [
+      "fact_id",
+      "fact_kind",
+      "payload",
+      "provenance_refs"
+    ],
+    "allowed_fact_kinds": [
+      "use_context",
+      "context_role",
+      "direct_function",
+      "effect",
+      "state",
+      "condition",
+      "constraint",
+      "acquisition",
+      "acquisition_unobtainable"
+    ],
+    "bindings": {
+      "context_role": {
+        "required_field": "context_fact_ref",
+        "target_fact_kind": "use_context",
+        "item_global_role_forbidden": true
+      },
+      "condition": {
+        "required_field": "applies_to_fact_refs",
+        "minimum_targets": 1,
+        "qualifier_to_qualifier_binding_forbidden": true
+      },
+      "constraint": {
+        "required_field": "applies_to_fact_refs",
+        "minimum_targets": 1,
+        "qualifier_to_qualifier_binding_forbidden": true
+      },
+      "acquisition_unobtainable": {
+        "required_field": "negative_evidence_refs",
+        "minimum_targets": 1,
+        "current_producer": "none",
+        "current_assignment_count": 0
+      }
+    },
+    "nested_qualifier_and_top_level_duplicate_forbidden": true
+  },
+  "forbidden_representative_aliases": [
+    "primary_use",
+    "secondary_use",
+    "headline_fact",
+    "primary_fact",
+    "representative_fact",
+    "selected_role",
+    "primary_role",
+    "selected_profile",
+    "primary_profile",
+    "single_core_fact"
+  ],
+  "forbidden_fact_sources": [
+    "layer2_projection",
+    "layer3_rendered_body",
+    "layer4_rendered_row",
+    "layer4_relation_count",
+    "layer4_display_string",
+    "tooltip_projection",
+    "menu_projection"
+  ],
+  "vocabulary": {
+    "kind": "open_versioned_registry",
+    "seed_examples_are_exhaustive": false,
+    "admission_required_fields": [
+      "token",
+      "axis",
+      "definition",
+      "positive_examples",
+      "negative_examples",
+      "evidence_refs",
+      "boundary_unchanged"
+    ],
+    "token_rules": [
+      "A context token names a first-contact understandable activity, not a source family.",
+      "A role token is local to one use_context and is not an item-global identity.",
+      "A token must not be as broad as unspecified multiple work.",
+      "A token must not encode one exact Recipe, Right-click action, EvolvedRecipe relation, target, result, or requirement."
+    ],
+    "compatible_extension": {
+      "requires_full_contract_readoption": false,
+      "requires_boundary_unchanged": true,
+      "may_be_admitted_by": "successor investigation or corpus candidate"
+    },
+    "breaking_change": {
+      "changes": [
+        "definition_change",
+        "merge",
+        "split",
+        "layer_boundary_change"
+      ],
+      "requires_contract_revision": true,
+      "requires_current_semantic_readpoint_update": true
+    },
+    "non_exhaustive_seed_examples": {
+      "use_context": [
+        "cooking",
+        "construction",
+        "repair"
+      ],
+      "context_role": [
+        "ingredient",
+        "tool"
+      ]
+    }
+  },
+  "resolution_boundary": {
+    "layer3_owns": [
+      "broad_activity_context",
+      "context_local_role",
+      "broad_direct_function",
+      "broad_effect",
+      "fact_local_state_condition_constraint",
+      "acquisition_result"
+    ],
+    "layer4_owns": [
+      "exact_recipe_identity",
+      "exact_right_click_action_identity",
+      "exact_evolved_recipe_relation_identity",
+      "relation_local_target",
+      "relation_local_result",
+      "relation_local_requirement"
+    ],
+    "shared_upstream_source_allowed": true,
+    "separate_fact_identity_and_provenance_required": true,
+    "one_layer_output_may_create_other_layer_fact": false
+  },
+  "acquisition": {
+    "mandatory_investigation_for_current_layer3_target": true,
+    "investigation_states": [
+      "resolved",
+      "investigated_unresolved",
+      "not_investigated"
+    ],
+    "resolved_requires": "one_or_more_acquisition_facts_or_one_admissible_acquisition_unobtainable_fact",
+    "resolved_is_acquisition_axis_complete": true,
+    "resolved_is_item_investigation_complete": false,
+    "item_investigation_completion_owner": "DVF-L3-02",
+    "investigated_unresolved_is_item_investigation_complete": false,
+    "not_investigated_is_item_investigation_complete": false,
+    "unknown_state_creates_semantic_fact": false,
+    "resolved_result_is_menu_required": true,
+    "resolved_result_is_tooltip_required": false,
+    "unresolved_acquisition_discards_other_confirmed_facts": false
+  },
+  "profiles": {
+    "allowed_responsibilities": [
+      "investigation_scope",
+      "composition_scope",
+      "first_contact_axis_scope"
+    ],
+    "forbidden_responsibilities": [
+      "representative_role_selection",
+      "representative_fact_selection_by_importance_frequency_ordinal_or_profile_label",
+      "semantic_priority"
+    ],
+    "profile_taxonomy_owner": "DVF-L3-02",
+    "first_contact_axis_owner": "DVF-L3-02",
+    "actual_s2_fact_combination_expression_sentence_and_omission_owner": "DVF-L3-05"
+  },
+  "surfaces": {
+    "canonical_authority": "accepted_layer3_fact_set",
+    "menu": {
+      "depth": "expanded_detail",
+      "must_preserve_all_accepted_fact_refs": true,
+      "must_include_resolved_acquisition": true
+    },
+    "tooltip_s2": {
+      "depth": "first_contact_lower_resolution",
+      "logical_slot": "S2",
+      "profile_first_contact_axes_deferred_to": "DVF-L3-02",
+      "composition_and_locale_deferred_to": "DVF-L3-05",
+      "may_aggregate": true,
+      "represented_fact_refs_required": true,
+      "selection_by_importance_frequency_or_ordinal_forbidden": true,
+      "all_facts_required_in_one_row": false,
+      "runtime_summary_truncation_reselection_inference_forbidden": true
+    },
+    "dependency_preservation": {
+      "truth_or_scope_changing_condition_must_be_projected": true,
+      "omitted_detail_must_remain_in_menu": true
+    },
+    "retained_tooltip_structure": {
+      "logical_rows": "0..4",
+      "S1_owner": "Layer 2",
+      "S2_owner": "Layer 3",
+      "S3_owner": "Layer 4",
+      "S4_owner": "Layer 4"
+    }
+  },
+  "predecessor_inventory": "Iris/_docs/authority/dvf/layer3_successor/predecessor_inventory.json",
+  "casebook": "Iris/_docs/authority/dvf/layer3_successor/casebook.json",
+  "non_claims": [
+    "no_2105_item_successor_investigation_completion",
+    "no_predecessor_prose_migration",
+    "no_profile_or_first_contact_axis_completion",
+    "no_complete_context_or_role_vocabulary",
+    "no_ko_en_successor_corpus",
+    "no_menu_or_tooltip_successor_implementation",
+    "no_generation_runtime_or_package_adoption",
+    "no_compatibility_release_workshop_or_deployment_readiness"
+  ]
+}

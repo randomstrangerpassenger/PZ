@@ -3037,6 +3037,12 @@
       "required": true,
       "role": "promoted_recurring_iris_product_contract",
       "test_id": "test_iris_viewmodel_allocation_contract.IrisViewModelAllocationContractTest.test_method_lists_are_module_constants_and_hints_are_once_per_item"
+    },
+    {
+      "required": true,
+      "role": "layer3_successor_contract_adoption_required_validation",
+      "test_id": "test_layer3_successor_contract.Layer3SuccessorContractTest.test_contract_adoption",
+      "source_file": "Iris/build/description/v2/tests/test_layer3_successor_contract.py"
     }
   ],
   "route": "current",

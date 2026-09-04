@@ -33,6 +33,14 @@
       "Iris/validation/execution/current_environment.json"
     ]
   },
+  "layer3_successor_semantic_contract": {
+    "state": "adopted",
+    "manifest_path": "Iris/_docs/authority/dvf/layer3_successor/contract_manifest.json",
+    "manifest_sha256": "6735c3eadafaf4c4fd51ae56c8d0748d32903ee996d53ed43bca38822cf0932a",
+    "product_migration_state": "deferred",
+    "current_product_pointer_changed": false,
+    "tooltip_locator_changed": false
+  },
   "receipt_query_contract": {
     "mode": "explicit_locator_only",
     "terminal_receipt_locator_source": "caller-supplied external orchestration receipt path",

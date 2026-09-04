@@ -108,3 +108,5 @@ Iris/media/lua/client/Iris/Data/IrisTooltipRecipeVariants.lua text eol=lf
 Iris/media/lua/shared/translate/ko/Iris_ko.txt text eol=lf
 Iris/media/lua/shared/translate/en/Iris_en.txt text eol=lf
 Iris/validation/execution/required_validations.json text eol=lf
+Iris/_docs/authority/dvf/layer3_successor/** -text
+docs/iris_dvf_layer3_multi_meaning_information_resolution_successor_contract.md -text

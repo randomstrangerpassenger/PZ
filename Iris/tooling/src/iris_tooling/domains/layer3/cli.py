@@ -6,6 +6,10 @@ import json
 
 def main(argv: Sequence[str] | None = None) -> int:
     values = list(argv or ())
+    if values[:1] == ["semantic-results"]:
+        from .semantic_results import main as semantic_results
+
+        return semantic_results(values[1:])
     if values[:1] == ["investigate"]:
         from .investigation import main as investigate
 

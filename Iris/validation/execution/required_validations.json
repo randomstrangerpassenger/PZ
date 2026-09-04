@@ -3049,6 +3049,12 @@
       "role": "layer3_successor_contract_adoption_required_validation",
       "test_id": "test_layer3_successor_contract.Layer3SuccessorContractTest.test_contract_adoption",
       "source_file": "Iris/build/description/v2/tests/test_layer3_successor_contract.py"
+    },
+    {
+      "required": true,
+      "role": "layer3_semantic_results",
+      "test_id": "test_layer3_semantic_results.Layer3SemanticResultsTest.test_semantic_results_contract",
+      "source_file": "Iris/build/description/v2/tests/test_layer3_semantic_results.py"
     }
   ],
   "route": "current",

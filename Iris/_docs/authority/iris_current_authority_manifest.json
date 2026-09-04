@@ -570,6 +570,13 @@
       "classification": "current",
       "authority_role": "deterministic W0 disposition adoption",
       "delete_move_policy": "append-only successor required"
+    },
+    {
+      "path": "Iris/_docs/authority/dvf/layer3_semantic_results/manifest.json",
+      "sha256": "a3416672aa47fe4c6c84d9b8e9912377adda6e20e9eb679bf2d229cb9d3456bd",
+      "classification": "current",
+      "authority_role": "Off-live L3-03 result subject; adoption is conditional on exact G1 success and current route state, separate from L3-02 definition and product.",
+      "delete_move_policy": "Retain source/provenance/result history; correction successor required."
     }
   ],
   "validation": {

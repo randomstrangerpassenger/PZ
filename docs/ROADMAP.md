@@ -1,7 +1,7 @@
 # ROADMAP.md
 
 > 상태: current canonical roadmap  
-> 기준일: 2026-09-04 (이번 갱신 범위: DVF-L3-02 완료·최종 G1 성공과 문제 3~6의 후속 경계; 기존 EvolvedRecipe 완료 상태 유지)
+> 기준일: 2026-09-04 (이번 갱신 범위: DVF-L3-03 off-live 의미 결과 채택·최종 G1 성공과 후속 경계; 기존 EvolvedRecipe 완료 상태 유지)
 > 최상위 기준: `Philosophy.md`  
 > 결정 기준: `DECISIONS.md`  
 > 목적: Pulse 생태계의 현재 상태, 진행 방향, 다음 게이트와 Hold 경계를 고정한다.
@@ -458,12 +458,19 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
 
 ## Done
 
+- **DVF-L3-03 완료:** 비획득 semantic facts·question results·partial binding·derived application 소비를 구현했다. 현재 상태는 **adopted — 최종 G1 exit 0**이며 off-live 비획득 결과 authority로 채택했다. 최종 G1은 `1 passed, 19 subtests passed in 3.40s`, exit `0`으로 종료했다. (2026-09-04)
+  - 별도 `layer3_semantic_results/manifest.json`이 exact 2,105 target, original/new key 및 pending 이력, source interpretation, rule와 표본 감사를 결속한다. L3-02 baseline과 정의 revision 1을 보존한다.
+  - Source binding **216개**, accepted fact **4,233개**다. 기존 non-acquisition 질문 **8,882개**를 보존하고 **1,100개**를 추가해 총 **9,982개**이며, unresolved **9,900개**와 범위를 한정한 N/A **82개**를 구별한다. Partial facts는 **3,498개** 질문에 기여한다.
+  - Pending **5,767 item/profile pair**는 applicable **550개**, pending_with_blocker **5,217개**로 추적한다. 결속된 available-source 범위의 단순 미조사는 0이지만, acquisition not_investigated **2,105개**와 item complete **0/2,105**는 유지한다.
+  - 음용·독서·보관·착용·재료 회수·수선·건설 등 확인된 의미를 조건과 함께 보존하며, 부족한 engine/runtime/source는 질문별 unresolved로 남긴다. 정의 발견만으로 callback 의미 검토를 완료 처리하지 않는다.
+  - A1·B1·C2 및 단일 최종 G1의 정확한 결과와 집계는 [L3-03 closeout](iris_dvf_layer3_semantic_investigation_question_results_closeout.md)에 기록했다. 성공 후 추가 테스트는 하지 않았고, 임시 파일 삭제는 플랫폼 정책 차단으로 보류했다. 이 정리 보류를 새 채택 gate로 만들지 않는다. Acquisition·item 전체 완료·표현·runtime/product 전환은 별도 후속 범위다.
+
 - **DVF-L3-02 완료:** 복수 프로필·조사 완결성·first-contact 기준을 구현하고 전체 target에 적용하여 current investigation authority로 채택했다. (2026-09-04)
   - 10개 프로필과 5개 조사 axis를 정의하고 exact case-sensitive FullType **2,105개 전체**에 evidence/application을 작성했다. 프로필 수는 질문 차이의 결과이며 고정 quota가 아니다.
   - 원본 script/Recipe/moveable 근거를 적용·배제·미정으로 구별하고, context별 axis/contributor union·pending scope·gap·item completion을 계산한다. First-contact는 사용자 질문·선정 이유·상세 경계를 보존하며 대표 의미나 전역 acquisition 문장을 선택하지 않는다.
   - `Iris/tooling/src/iris_tooling/domains/layer3/investigation.py`와 `investigate` CLI를 추가했다. Readpoint는 `Iris/_docs/authority/dvf/layer3_investigation/manifest.json`이며 current 연결과 required test identity 한 건의 등록을 완료했다.
   - 최종 adoption G1은 **exit `0`, `1 passed, 24 subtests passed in 1.35s`**다. 기존 entry 형식에 대한 첫 test 오류를 수정한 뒤 같은 G1만 재실행했다. 성공 후 추가 confidence 검증은 하지 않았고 임시 helper/baseline을 제거했다.
-  - 실제 accepted semantic/acquisition results는 공급하지 않아 **item complete는 0/2,105**다. 개별 미해결은 작업 완료를 취소하는 잔여 gate가 아니라 L3-03/04의 조사 입력이다. 기존 successor bundle·corpus·composer·generation/runtime·KO/EN·Menu/Tooltip·package와 기존 product locator는 보존했다.
+  - L3-02 baseline에는 accepted semantic/acquisition results를 공급하지 않았으며 이를 보존한다. 이후 L3-03이 별도 비획득 결과를 공급했지만 acquisition과 open 질문이 남아 **item complete는 0/2,105**다. 기존 successor bundle·product corpus·composer·generation/runtime·KO/EN·Menu/Tooltip·package와 기존 product locator는 보존했다.
   - 정확한 적용 수·미해결 대상·부족 근거·다음 판단·검증 한계는 [단일 closeout](iris_dvf_layer3_multi_profile_investigation_completion_first_contact_closeout.md)에 기록했다. 제품 전환·release readiness를 주장하지 않는다.
 
 - **DVF-L3-01 완료:** Layer 3 복수 의미·정보 해상도 successor semantic contract를 current semantic authority로 채택했다. (완료 2026-09-03, 문서 정리 2026-09-04)
@@ -648,11 +655,11 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
 
 ## Next
 
-- DVF Layer 3 successor의 **문제 3~6**을 dependency 순서에 따라 수행한다.
-  - DVF-L3-01/02의 계약·조사 기준 채택 gate는 완료됐다. 아래 항목은 별도 후속 구현 범위이며 기존 작업 완료를 corpus/runtime 전환 완료로 확대하지 않는다.
-  - DVF-L3-03 semantic facts와 DVF-L3-04 acquisition facts는 같은 successor contract 및 채택된 investigation application의 required axes/pending scope/blockers를 입력으로 사용해 서로 독립된 산출물로 조사할 수 있다. Applicability 관찰이나 predecessor hint를 accepted fact로 자동 승격하지 않는다.
-  - L3-03에서는 `Base.Bag_PistolCase`, `Base.Lemongrass`, `Base.NoiseMaker`의 원본 부재와 `Base.ShotgunCase1`의 중복 선언, 미검증 Recipe group·동적 조리·월드 작업/수선 경로를 exact target별로 해소한다. 새 질문이 필요한 경우 definition gap 또는 question scope extension을 명시하고 영향 범위와 registry revision을 갱신한다. L3-04는 별도 획득 source·accepted result authority를 구축하며 acquisition 해결만으로 item 전체를 완료하지 않는다.
-  - 두 facts 집합 뒤 DVF-L3-05에서 Menu expanded detail과 Tooltip-first S2 fact 결합·KO/EN 표현·문장/줄 구성·omission tracking을 구현하고, DVF-L3-06에서 기존 4줄 Tooltip·runtime·current adoption을 통합한다.
+- DVF Layer 3 successor의 **문제 4~6**을 후속 범위로 수행한다.
+  - DVF-L3-01/02의 계약·조사 기준 및 DVF-L3-03의 off-live 비획득 결과 채택은 완료됐다. 아래 항목은 별도 후속 구현 범위이며 기존 작업 완료를 corpus/runtime 전환 완료로 확대하지 않는다.
+  - DVF-L3-04 acquisition facts는 L3-03과 독립된 authority로 구축한다. 같은 successor contract 및 investigation application의 required axes/pending scope/blockers를 입력으로 사용하며, L3-03의 미해결 해소나 재검증을 acquisition 전체 작업의 새 선행 gate로 요구하지 않는다. Applicability 관찰이나 predecessor hint를 accepted fact로 자동 승격하지 않는다.
+  - L3-03은 `Base.Bag_PistolCase`, `Base.Lemongrass`, `Base.NoiseMaker`의 exact 원본 부재와 `Base.ShotgunCase1`의 중복 선언을 개별 unresolved로 보존하고, Recipe group·동적 조리·월드 작업/수선의 가용 source 해석과 부족한 engine/runtime dependency를 결속했다. 새 질문이 필요한 경우 definition gap 또는 question scope extension을 명시하고 영향 범위와 registry revision을 갱신한다. L3-04는 별도 획득 source·accepted result authority를 구축하며 acquisition 해결만으로 item 전체를 완료하지 않는다.
+  - DVF-L3-05는 채택된 L3-03 partial facts·fact-local 조건·open question·first-contact와 L3-04 결과를 구조화 입력으로 받아 Menu expanded detail과 Tooltip-first S2 fact 결합·KO/EN 표현·문장/줄 구성·omission tracking을 구현한다. 대표 의미나 전역 문장 수를 강제하지 않는다. DVF-L3-06에서 기존 4줄 Tooltip·runtime·current adoption을 통합한다.
   - predecessor 문장이나 rendered Layer output을 successor fact source로 역승격하지 않으며 acquisition unresolved를 generic prose로 덮지 않는다.
 
 - 최신 current product 상태를 기준으로 **DVF freeze readiness를 재판정한다.**

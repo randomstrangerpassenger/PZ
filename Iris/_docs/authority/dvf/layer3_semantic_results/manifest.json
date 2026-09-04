@@ -1,0 +1,136 @@
+{
+  "schema_version": "iris-layer3-semantic-manifest-v1",
+  "status": "adoption_subject",
+  "authority_id": "iris-layer3-semantic-results-1",
+  "definition_readpoint": {
+    "path": "Iris/_docs/authority/dvf/layer3_investigation/manifest.json",
+    "sha256": "47be8947a0b18745560b1e7e2463adbe86ab878e5e9fefd461f2a838c164290e"
+  },
+  "inherits": {
+    "path": "Iris/_docs/authority/dvf/layer3_successor/contract_manifest.json",
+    "sha256": "6735c3eadafaf4c4fd51ae56c8d0748d32903ee996d53ed43bca38822cf0932a"
+  },
+  "corpus": {
+    "path": "Iris/_docs/authority/dvf/layer3_semantic_results/corpus.json",
+    "sha256": "fd0e44622c7a931a8a982b757641958772b0979b518907c96b03beb1b63ddb36"
+  },
+  "members": [
+    {
+      "path": "Iris/_docs/authority/dvf/layer3_semantic_results/corpus.json",
+      "sha256": "fd0e44622c7a931a8a982b757641958772b0979b518907c96b03beb1b63ddb36"
+    },
+    {
+      "path": "docs/iris_dvf_layer3_semantic_investigation_question_results_contract.md",
+      "sha256": "dc0fe78ac3deeb02ca9183d186e12d8a60d140a8d26c14dc1f83ba267cf222af"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_layer3_semantic_results.py",
+      "sha256": "89200882a40a1b5367f763ea9f29876e7cca2eee87c15330f1b79c712a11bd19"
+    },
+    {
+      "path": "Iris/tooling/src/iris_tooling/domains/layer3/semantic_results.py",
+      "sha256": "3ca43a7fc0411632ba24d66a17484f239402a09bd3c047298f54277d6e11c13b"
+    },
+    {
+      "path": "Iris/tooling/src/iris_tooling/domains/layer3/semantic_model.py",
+      "sha256": "a7a9b031a37034429f9dbfc7e3b50f1a441fd177e6077dbc397ddfcac47220e8"
+    },
+    {
+      "path": "Iris/tooling/src/iris_tooling/domains/layer3/source_reader.py",
+      "sha256": "d7f5929e8cc317295ab506bbea9724d67a639db67b78730f97f4a7d6dbe8b7c5"
+    },
+    {
+      "path": "Iris/tooling/src/iris_tooling/domains/layer3/interpretations.py",
+      "sha256": "38f4cb87d5a1d3c10939737d780dc07fc0b2dc568ac0d28d5d34269b089e9716"
+    },
+    {
+      "path": "Iris/tooling/src/iris_tooling/domains/layer3/investigation.py",
+      "sha256": "84d03ae23b7293548bde672d8f55c6117920da8e86ac9e9b2e03ae3cdbe3e30f"
+    },
+    {
+      "path": "Iris/tooling/src/iris_tooling/domains/layer3/cli.py",
+      "sha256": "2010b23b348a19d1b055c1e9a79543d9c70544cbc16b1d80ba85936cd300a7fd"
+    }
+  ],
+  "census": {
+    "targets": 2105,
+    "baseline_keys": 8882,
+    "current_keys": 9982,
+    "states": {
+      "investigated_unresolved": 9900,
+      "evidence_backed_not_applicable": 82
+    },
+    "axes": {
+      "conditions": 4700,
+      "operation": 3578,
+      "role": 1122,
+      "effects": 582
+    },
+    "scopes": {
+      "activity:crafting": 1396,
+      "item:direct": 4210,
+      "activity:cooking": 572,
+      "activity:ingestion": 1428,
+      "activity:combat": 322,
+      "activity:expenditure": 226,
+      "activity:wearing": 1096,
+      "activity:world_work": 276,
+      "activity:storage": 138,
+      "activity:reading": 318
+    },
+    "fact_kinds": {
+      "effect": 110,
+      "direct_function": 1141,
+      "condition": 1850,
+      "context_role": 566,
+      "use_context": 562,
+      "constraint": 4
+    },
+    "blockers": {
+      "RecipeManager_and_opaque_callbacks": 1396,
+      "runtime_predicate_and_indirect_dispatch": 4210,
+      "EvolvedRecipe_runtime_eligibility": 572,
+      "IsoGameCharacter.Eat_and_OnEat_dispatch": 1322,
+      "HandWeapon_attack_reload_and_character_state": 284,
+      "DrainableComboItem.Use_and_device_specific_consumers": 224,
+      "Clothing_protection_insulation_and_body_state": 1080,
+      "loader_or_declaration_identity": 80,
+      "FixingManager_stage_engine_and_world_object_state": 276,
+      "ItemContainer_capacity_and_transfer_state": 138,
+      "ISReadABook_SkillBook_and_ReadLiterature": 318
+    },
+    "carry_forward": {
+      "retained": 8882,
+      "newly_required": 1100
+    },
+    "pending_dispositions": {
+      "pending_with_blocker": 5217,
+      "applicable": 550
+    },
+    "pending_profiles": {
+      "cooking": 1879,
+      "world_work": 2085,
+      "crafting": 1779,
+      "combat": 4,
+      "expenditure": 4,
+      "ingestion": 4,
+      "reading": 4,
+      "storage": 4,
+      "wearing": 4
+    },
+    "partial_questions": 3498,
+    "item_complete": 0,
+    "acquisition_states": {
+      "not_investigated": 2105
+    }
+  },
+  "adoption_requires": "test_layer3_semantic_results.Layer3SemanticResultsTest.test_semantic_results_contract",
+  "derived_application": "semantic_model.consume(corpus.application_inputs, results, fact_question_bindings) -> investigation.resolve_item",
+  "product_migration_state": "deferred",
+  "selection": {
+    "A1": "available-source uninvestigated zero",
+    "B1": "rules and stratified audit",
+    "C2": "separate result authority"
+  },
+  "baseline_protection": "33 explicit files and prior config/product locator content; no full package/runtime parity claim"
+}

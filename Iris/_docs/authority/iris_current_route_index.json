@@ -99,5 +99,14 @@
     ],
     "blanket_round3_exclusion": false
   },
-  "maximum_navigation_hops": 1
+  "maximum_navigation_hops": 1,
+  "layer3_semantic_results": {
+    "state": "adopted",
+    "manifest_path": "Iris/_docs/authority/dvf/layer3_semantic_results/manifest.json",
+    "manifest_sha256": "a3416672aa47fe4c6c84d9b8e9912377adda6e20e9eb679bf2d229cb9d3456bd",
+    "definition_revision": "1",
+    "validation_identity": "test_layer3_semantic_results.Layer3SemanticResultsTest.test_semantic_results_contract",
+    "product_migration_state": "deferred",
+    "adoption_result": "docs/iris_dvf_layer3_semantic_investigation_question_results_closeout.md"
+  }
 }

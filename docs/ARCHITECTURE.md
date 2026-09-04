@@ -1,7 +1,7 @@
 # ARCHITECTURE.md
 
 > 상태: 초안 v0.6
-> 기준일: 2026-09-04 (이번 갱신 범위: Iris Layer 3 investigation authority 채택·오프라인 구현과 현재 제품의 경계)
+> 기준일: 2026-09-04 (이번 갱신 범위: Iris L3-03 비획득 결과 authority·structured 소비·L3-02 정의 및 현재 제품의 경계)
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 구조 지도, 역할 경계, 의존 방향을 고정한다.  
 > 구현 상태 표기: 별도 표시가 없는 모듈은 current architecture를 기술하며, `설계 단계` 표시는 아직 구현되지 않은 target architecture를 뜻한다.
@@ -396,9 +396,28 @@ DVF-L3-02는 2026-09-04 current investigation authority로 채택을 완료했�
 
 `--repository-root . build layer3 investigate` 진입점은 investigation root의 evidence/application/manifest만 작성한다. 기존 compose profile 선택기와 별개의 오프라인 책임이며 composer·publisher·Lua runtime 경로를 호출하지 않는다. 결과 소비자는 상속 bound JSON의 allowed kinds·negative binding·resolved 조건을 해석하고, 별도 adopted authority의 accepted result 및 exact subject/provenance가 없는 terminal claim을 거부한다. Source 관찰에서 semantic/acquisition fact를 생산하지 않는다.
 
-Item 완료는 `scope_determined AND every_required_axis_terminal AND acquisition_state == resolved`다. 실제 accepted semantic/acquisition 결과를 공급하지 않아 현재 item complete는 0개이며, 조사 기준·전체 적용·authority 채택의 완료와 구별한다. First-contact obligation은 fact 미해결에도 남고 전역 acquisition 문장이나 대표 의미를 선택하지 않는다. Semantic/acquisition facts는 DVF-L3-03/04, 실제 표현·투영은 DVF-L3-05, runtime/current product adoption은 DVF-L3-06의 책임이다. 기존 successor bundle·corpus·composer·Menu/Tooltip·Lua·package와 product locator는 보존했다.
+Item 완료는 `scope_determined AND every_required_axis_terminal AND acquisition_state == resolved`다. L3-02 baseline에는 accepted semantic/acquisition 결과가 없으며 이를 보존한다. L3-03은 별도 비획득 결과를 공급하지만 acquisition과 open 질문이 남아 item complete는 0개다. First-contact obligation은 fact 미해결에도 남고 전역 acquisition 문장이나 대표 의미를 선택하지 않는다. 실제 표현·투영은 DVF-L3-05, runtime/current product adoption은 DVF-L3-06의 책임이다. 기존 successor bundle·product corpus·composer·Menu/Tooltip·Lua·package와 product locator는 보존했다.
 
 최종 adoption G1은 exit `0`으로 통과했다. 단일 focused source의 계약·전체 application·readpoint·명시적 보호 경계 검증이며 source 전수 의미 정확성·문장 품질·runtime/package readiness의 검증이 아니다. 정확한 명령·결과·잔여는 [DVF-L3-02 closeout](iris_dvf_layer3_multi_profile_investigation_completion_first_contact_closeout.md)에 기록했다. 임시 baseline과 작성 helper는 제거했고 별도 validator나 영구 validation authority로 남기지 않았다.
+
+DVF-L3-03의 별도 result producer는 `iris_tooling.domains.layer3.semantic_results`이며 `build layer3 semantic-results --output <repository-local candidate directory>`로 동작한다. Source reader와 명시적 interpretation은 raw 선언·callback·action을 구별하고, `semantic_model`은 typed facts/provenance/results/partial bindings를 검사·소비한다. L3-02의 baseline writer·정의 revision은 그대로다. Readpoint는 `Iris/_docs/authority/dvf/layer3_semantic_results/manifest.json`이고 현재 상태는 **adopted — 최종 G1 exit 0**이다. 채택 판정은 [L3-03 closeout](iris_dvf_layer3_semantic_investigation_question_results_closeout.md)과 current route가 소유한다.
+
+Derived application은 corpus에 보존한 structured 입력을 같은 resolver로 계산한다. Partial facts를 open question에 연결하며 terminal fact로 승격하지 않는다. Acquisition은 L3-04의 독립 입력을 기다리고 item complete는 0이다. Product migration은 deferred이며 KO/EN 표현·S2는 L3-05, runtime/product adoption은 L3-06에 남는다. 이 corpus의 candidate lifecycle bytes는 G1 이후 바꾸지 않고 adopted loader가 성공한 readpoint의 논리 envelope를 제공한다.
+
+이 경로의 책임은 다음과 같이 나뉜다. 모두 repository offline Python tooling이며 Iris의 Lua runtime 의존성은 추가하지 않는다.
+
+| 구성요소 | 책임 |
+|---|---|
+| `source_reader.py` | 반복 선언·clause·case-sensitive FullType을 보존하고 raw 참여·group·선택 item predicate를 관찰 |
+| `interpretations.py` | 실제 검토한 callback 집합과 caller→action 의미·조건·engine handoff를 기록; 함수 발견만으로 의미 조사 완료 처리 금지 |
+| `semantic_results.py` | source-bound observation/provenance에서 사실·질문 결과·pending·key lineage와 partial binding 생산 |
+| `semantic_model.py` | Content-derived fact identity, context/qualifier 참조, 전체 structured payload의 무결성과 소비 |
+| `investigation.resolve_item()` | L3-02 질문 정의와 contributor union을 유지하며 별도 결과·partial binding을 application으로 계산 |
+| `layer3_semantic_results/manifest.json` | Corpus·producer·human contract·G1 source와 definition readpoint 결속; current route와 성공 closeout이 채택 상태 소유 |
+
+채택 corpus는 2,105 target, source binding 216개, accepted fact 4,233개와 non-acquisition 질문 9,982개를 포함한다. Fact ID는 semantic payload와 context/dependency를 반영하며 source locator·review timestamp·registry metadata는 identity에서 분리한다. 의미 정정은 새 ID와 의존 참조 재결속을 요구한다. Question key는 `(item_id, axis_id, scope_ref)`이고 revision은 metadata다. 별도 대용량 application 복제 없이 같은 corpus의 입력을 사용한다.
+
+G1은 최종 subject 전체를 한 번 소비해 `exit 0`을 확인했다. 이 결과는 scoped N/A·unresolved·partial contribution과 명시적 보호 경계를 검사한 것이며 전수 의미 정확성·실게임 동작·package readiness 보증은 아니다. `.tmp/semantic/`의 작성 helper·baseline·실행 로그는 플랫폼 정책상 삭제가 보류된 일회성 자료로, runtime 의존성·adopted authority·통상 재사용 검사의 필수 입력이 아니다.
 
 ### 오프라인 도구 실행 구조
 

@@ -310,6 +310,13 @@ def load_result_authorities(root: Path, refs: list[dict]) -> dict:
     authorities = {}
     for ref in refs:
         payload = bound_json(root, ref)
+        if payload.get("schema_version") == "iris-layer3-semantic-manifest-v1":
+            from .semantic_results import load_manifest
+            from .semantic_model import validate_payload
+
+            _, payload = load_manifest(root, ref, mode="adopted")
+            definition = read_json(local_path(root, ROOT + "/contract.json"))
+            validate_payload(payload, definition)
         require(payload.get("status") == "adopted" and payload.get("authority_id") not in authorities,
                 "invalid result authority")
         source_bindings = payload.get("source_bindings", [])
@@ -326,7 +333,9 @@ def load_result_authorities(root: Path, refs: list[dict]) -> dict:
     return authorities
 
 
-def terminal_result(item_id: str, axis: dict, result: dict, inherited: dict, authorities: dict) -> bool:
+def terminal_result(item_id: str, axis: dict, result: dict, inherited: dict, authorities: dict,
+                    *, result_mode: str = "adopted") -> bool:
+    require(result_mode in {"adopted", "candidate"}, "unknown result consumption mode")
     state = result.get("state")
     require(state in STATES, "unknown axis state")
     if state in {"not_investigated", "investigated_unresolved"}:
@@ -334,7 +343,7 @@ def terminal_result(item_id: str, axis: dict, result: dict, inherited: dict, aut
         return False
     require(state != "evidence_backed_not_applicable" or axis["na_allowed"], "N/A forbidden")
     authority = authorities.get(result.get("authority_ref"))
-    require(isinstance(authority, dict) and authority.get("status") == "adopted"
+    require(isinstance(authority, dict) and authority.get("status") == result_mode
             and bool(authority.get("binding", {}).get("sha256")), "unbound result authority")
     # An inline assertion cannot extend an adopted authority's accepted results.
     require(result in authority.get("results", []), "result not accepted by bound authority")
@@ -389,7 +398,9 @@ def terminal_result(item_id: str, axis: dict, result: dict, inherited: dict, aut
 
 
 def resolve_item(item_id: str, contract: dict, routes: list[dict], gap: dict,
-                 inherited: dict, results: list[dict] | None = None, authorities: dict | None = None) -> dict:
+                 inherited: dict, results: list[dict] | None = None, authorities: dict | None = None,
+                 *, fact_question_bindings: list[dict] | None = None,
+                 result_mode: str = "adopted") -> dict:
     acquisition_rules(inherited)
     axes = {a["axis_id"]: a for a in contract["axes"]}
     profiles = {p["profile_id"]: p for p in contract["profiles"]}
@@ -414,11 +425,31 @@ def resolve_item(item_id: str, contract: dict, routes: list[dict], gap: dict,
     for result in results or []:
         key = (result["axis_id"], result["scope_ref"])
         require(key in required and key not in supplied, "unexpected/duplicate axis result")
+        require(result.get("item_id") == item_id, "cross-item result")
+        if "registry_revision" in result:
+            require(result["registry_revision"] == contract["revision"], "stale result revision")
         supplied[key] = result
+    contributions = []
+    for relation in fact_question_bindings or []:
+        require(relation.get("question_key", [])[:1] == [item_id]
+                and len(relation["question_key"]) == 3, "invalid contribution key")
+        key = tuple(relation["question_key"][1:])
+        require(key in required and relation.get("registry_revision") == contract["revision"],
+                "stale/unexpected contribution")
+        authority = (authorities or {}).get(relation.get("authority_ref"), {})
+        require(authority.get("status") == result_mode and authority.get("binding", {}).get("sha256")
+                and relation in authority.get("fact_question_bindings", []), "unbound contribution")
+        fact = next((f for f in authority.get("facts", []) if f["fact_id"] == relation.get("fact_ref")), {})
+        require(fact.get("status") == "accepted" and fact.get("item_id") == item_id
+                and fact.get("fact_kind") in axes[key[0]]["allowed_result_kinds"], "invalid contribution fact")
+        require(relation.get("contribution") in {"partial", "whole_scope"}
+                and relation not in contributions, "duplicate/unknown contribution")
+        contributions.append(relation)
     output_axes, blockers = [], []
     for (axis_id, scope), contributors in sorted(required.items()):
         result = supplied.get((axis_id, scope), {"state": "not_investigated"})
-        terminal = terminal_result(item_id, axes[axis_id], result, inherited, authorities or {})
+        terminal = terminal_result(item_id, axes[axis_id], result, inherited, authorities or {},
+                                   result_mode=result_mode)
         output_axes.append({"item_id": item_id, "axis_id": axis_id, "scope_ref": scope,
                             "contributors": sorted(contributors), "state": result["state"],
                             "terminal": terminal, "result": result})
@@ -434,7 +465,7 @@ def resolve_item(item_id: str, contract: dict, routes: list[dict], gap: dict,
     scope_state = "determined" if not pending and gap["state"] == "assessed_clear" else "undetermined"
     acquisition = next(a for a in output_axes if a["axis_id"] == "acquisition")
     complete = scope_state == "determined" and all(a["terminal"] for a in output_axes) and acquisition["state"] == "resolved"
-    return {"item_id": item_id, "registry_revision": contract["revision"], "routing": routing,
+    output = {"item_id": item_id, "registry_revision": contract["revision"], "routing": routing,
             "pending_scope_refs": pending, "required_axes": output_axes,
             "first_contact": [{"axis_id": key[0], "scope_ref": key[1], "contributors": sorted(value),
                                "definition_refs": [f"{p}/first_contact/{key[0]}" for p in sorted(value)],
@@ -442,6 +473,9 @@ def resolve_item(item_id: str, contract: dict, routes: list[dict], gap: dict,
             "scope_state": scope_state, "coverage_gap_state": gap["state"],
             "acquisition_state": acquisition["state"],
             "item_investigation_state": "complete" if complete else "incomplete", "blockers": blockers}
+    if fact_question_bindings is not None:
+        output["fact_question_bindings"] = sorted(contributions, key=lambda r: (r["question_key"], r["fact_ref"]))
+    return output
 
 
 def applications(contract: dict, evidence: list[dict], inherited: dict) -> list[dict]:

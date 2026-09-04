@@ -112,3 +112,12 @@ Iris/_docs/authority/dvf/layer3_successor/** -text
 docs/iris_dvf_layer3_multi_meaning_information_resolution_successor_contract.md -text
 Iris/_docs/authority/dvf/layer3_investigation/** -text
 docs/iris_dvf_layer3_multi_profile_investigation_completion_first_contact_contract.md -text
+Iris/_docs/authority/dvf/layer3_semantic_results/** -text
+docs/iris_dvf_layer3_semantic_investigation_question_results_contract.md -text
+Iris/build/description/v2/tests/test_layer3_semantic_results.py -text
+Iris/tooling/src/iris_tooling/domains/layer3/semantic_results.py -text
+Iris/tooling/src/iris_tooling/domains/layer3/semantic_model.py -text
+Iris/tooling/src/iris_tooling/domains/layer3/source_reader.py -text
+Iris/tooling/src/iris_tooling/domains/layer3/interpretations.py -text
+Iris/tooling/src/iris_tooling/domains/layer3/investigation.py -text
+Iris/tooling/src/iris_tooling/domains/layer3/cli.py -text

@@ -1,7 +1,7 @@
 # DECISIONS.md
 
-> 상태: current decision ledger / compact trace-dedup edition, Iris Layer 3 successor·investigation·독립 획득 결과 authority 채택 완료 반영
-> 기준일: 2026-09-05 (이번 갱신 범위: DVF-L3-04 독립 획득 결과 채택과 L3-03 결합 소비; 기존 sealed 결정·제품 경계 유지)
+> 상태: current decision ledger / compact trace-dedup edition, Iris Layer 3 successor·investigation·획득·표현 authority 채택 완료 반영
+> 기준일: 2026-09-05 (이번 갱신 범위: DVF-L3-05 해상도 교정본 채택·선행 결과 superseded 및 L3-06 제품 통합 경계; 기존 sealed 결정 유지)
 > 상위 기준: `Philosophy.md`
 > 목적: Pulse 생태계에서 이미 사실상 고정된 결정을 짧게 봉인하고, 같은 논쟁의 반복을 줄인다.
 
@@ -1042,6 +1042,18 @@
   - DVF-L3-01은 계약 채택과 current readpoint 연결까지 완료했다. Acquisition 축 완료와 item 전체 조사 완료의 분리, profile의 후속 S2 구성 재량 보존을 최종 계약에 반영했다. 이 결정은 후속 구현을 위해 별도 대표 선택 규칙이나 전역 문장 수 제한을 신설하지 않는다.
   - current facts/decisions, Tooltip owner input, generation pointer와 pointer-selected generation, Lua runtime 및 package는 변경하지 않는다. 이 결정은 corpus·문장·runtime migration이나 release readiness가 아니다.
 - Trace: [human contract](iris_dvf_layer3_multi_meaning_information_resolution_successor_contract.md), `Iris/_docs/authority/dvf/layer3_successor/contract.json`, 위 contract manifest, [완료 범위와 G1 실행 기록](iris_dvf_layer3_multi_meaning_information_resolution_successor_contract_closeout.md). 최종 focused G1은 exit `0`이며 전체 suite·제품 통합 검증을 대신하지 않는다.
+
+### DVF-L3-05: 근거 결속 KO/EN 설명 authority
+
+- 2026-09-05, **해상도 교정본 complete / adopted (off-live)**. 사용자 실행 요청의 owner approval 및 채택 사전 승인을 적용했다. 기존 L3-01~04와 current product/runtime은 전환하지 않는다.
+- 현재 readpoint: `Iris/_docs/authority/dvf/layer3_expression/manifest.json`, SHA-256 `cff8acd83715e70c6e7b82553d47e538c7f75131437491d7cf6781875f5435be`. 독립 `adoption.json`이 성공한 exact candidate와 권한을 결속한다. Current route/authority/validation registry는 수정하지 않는다.
+- Exact target 2,105개, qualified accepted facts 5,290개, KO/EN fact-locale expression 10,580개를 결속했다. Expanded는 locale별 accepted set과 일치하며 획득 facts 1,057개를 모두 표현한다. S2는 실제 accepted first-contact contributor와 첫 이해의 진실성·범위를 바꾸는 qualifier를 표현한다. 일반 실행 전제는 `detail_qualifier_refs`와 expanded에 남겨 정상 상세 생략과 upstream gap을 구별한다. Contributor 없는 upstream first-contact obligation 6,402개는 unresolved 상태로 보존하며 item investigation complete는 여전히 0이다.
+- 모든 적용 프로필의 조합 문법과 residual 보존을 사용한다. 역할은 context-local이고 같은 조건의 중복 activity mention만 조정한다. 대표 사실·프로필, 확률 환산, filler, locale fallback, exact interaction catalogue를 만들지 않는다.
+- 선행 SHA `0abd0d3837321558252970a1ef007ac57d8f5b149c28d1532b24d44e74d673ff`의 `1 passed in 16.91s`는 그 후보의 구조적 결과이며 **superseded**다. 보고 세션이 실제 사용자-facing S2/획득 설명의 과도한 내부 정보를 지적하여 같은 작업에서 교정했다. 선행 PASS는 수정본에 승계하지 않는다.
+- 교정본은 S2를 expanded의 축약이 아닌 독립 profile 합성으로 만들고, 일반 실행 조건의 detail disposition과 의미를 바꾸는 qualifier 표현을 구별한다. Acquisition의 장소·방법·의미 있는 조건은 유지하며 가중치·raw random·callback/등록/전달 세부는 payload/provenance에만 남긴다. 문제 6에 truncation·재요약·대표 선택을 넘기지 않는다.
+- S2가 비어 있지 않은 item은 locale별 1,280개이고 825개는 비어 있다. KO 길이 p50/p95/max는 12/39/44자, EN은 27/83/104자다. 이 수치는 글자 수 cap이나 합격 임계값이 아니라 profile 합성 결과의 관찰값이다. 825개 침묵은 표현 실패가 아니라 accepted first-contact contributor 부재이므로 L3-06이 predecessor fallback·추론·대표 선택으로 채우지 않는다. 공백 축소는 별도 upstream 의미 조사 범위다.
+- 동일한 단일 focused Gate `test_layer3_expression_results.test_expression_contract`를 교정된 최종 후보에 한 번 다시 실행해 `1 passed in 14.17s`, exit `0`을 확인했다. 교정 후보의 adoption 명령 내부 adopted readback도 exit `0`이다. 선행 receipt는 `superseded_result`로 보존한다. 공용 conftest의 외부 출력·정규 registry 요구는 이번 독립 contract에 적용하지 않는다.
+- 구현·소비·검토·한계는 [expression contract](iris_layer3_expression_contract.md)와 [closeout](iris_layer3_expression_closeout.md)에 기록했다. 실제 Menu/Tooltip 노출과 S1/S3/S4·4줄·Alt·runtime/current 통합은 L3-06에 남긴다.
 
 ### DVF-L3-04: 독립 획득 결과와 조사 상태
 

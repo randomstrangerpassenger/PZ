@@ -1,7 +1,7 @@
 # ARCHITECTURE.md
 
 > 상태: 초안 v0.7
-> 기준일: 2026-09-05 (이번 갱신 범위: Iris L3-04 독립 획득 결과·L3-03 결합 소비·기존 정의 및 현재 제품 경계)
+> 기준일: 2026-09-05 (이번 갱신 범위: Iris L3-05 교정된 표현 readpoint·독립 S2 합성·L3-06 제품 통합 경계)
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 구조 지도, 역할 경계, 의존 방향을 고정한다.  
 > 구현 상태 표기: 별도 표시가 없는 모듈은 current architecture를 기술하며, `설계 단계` 표시는 아직 구현되지 않은 target architecture를 뜻한다.
@@ -342,7 +342,7 @@ Layer 3의 주요 생산·적용 경로는 다음과 같다.
 - **`DVF System`**
   - Iris Layer 3의 의미 구성과 비활성 의미 후보 생산을 소유한다.
   - Layer 3 의미 준비 단계가 제공한 원천 결속 자료를 소비한다.
-  - profile은 investigation/composition/first-contact axis scope를 제공할 수 있지만 importance·frequency·ordinal·profile label로 대표 fact·role을 선택하거나 semantic priority를 부여하지 않는다. 실제 S2 fact 결합·표현·문장/줄 구성과 omission tracking은 후속 composition 책임이다.
+  - profile은 investigation/composition/first-contact axis scope를 제공할 수 있지만 importance·frequency·ordinal·profile label로 대표 fact·role을 선택하거나 semantic priority를 부여하지 않는다. S2 fact 결합·KO/EN 표현·omission tracking은 아래 L3-05 expression authority가 소유하며, S1/S3/S4와의 4줄 구성·실제 표시 통합은 L3-06 책임이다.
   - 의미 책임은 채택 이전의 후보 생산에서 끝난다.
 
 - **`QG`**
@@ -396,13 +396,13 @@ DVF-L3-02는 2026-09-04 current investigation authority로 채택을 완료했�
 
 `--repository-root . build layer3 investigate` 진입점은 investigation root의 evidence/application/manifest만 작성한다. 기존 compose profile 선택기와 별개의 오프라인 책임이며 composer·publisher·Lua runtime 경로를 호출하지 않는다. 결과 소비자는 상속 bound JSON의 allowed kinds·negative binding·resolved 조건을 해석하고, 별도 adopted authority의 accepted result 및 exact subject/provenance가 없는 terminal claim을 거부한다. Source 관찰에서 semantic/acquisition fact를 생산하지 않는다.
 
-Item 완료는 `scope_determined AND every_required_axis_terminal AND acquisition_state == resolved`다. L3-02 baseline에는 accepted semantic/acquisition 결과가 없으며 이를 보존한다. L3-03 단독 소비는 별도 비획득 결과만 공급하므로 acquisition이 미조사이고 item complete는 0개다. 현재 L3-04 결합은 acquisition 미수행을 0으로 닫지만 다른 open 질문이 남아 item complete는 여전히 0개다. First-contact obligation은 fact 미해결에도 남고 전역 acquisition 문장이나 대표 의미를 선택하지 않는다. 실제 표현·투영은 DVF-L3-05, runtime/current product adoption은 DVF-L3-06의 책임이다. 기존 successor bundle·product corpus·composer·Menu/Tooltip·Lua·package와 product locator는 보존했다.
+Item 완료는 `scope_determined AND every_required_axis_terminal AND acquisition_state == resolved`다. L3-02 baseline에는 accepted semantic/acquisition 결과가 없으며 이를 보존한다. L3-03 단독 소비는 별도 비획득 결과만 공급하므로 acquisition이 미조사이고 item complete는 0개다. 현재 L3-04 결합은 acquisition 미수행을 0으로 닫지만 다른 open 질문이 남아 item complete는 여전히 0개다. First-contact obligation은 fact 미해결에도 남고 전역 acquisition 문장이나 대표 의미를 선택하지 않는다. 표현·투영은 아래 DVF-L3-05 authority로 채택됐으며 runtime/current product adoption은 DVF-L3-06의 책임이다. 기존 successor bundle·product corpus·composer·Menu/Tooltip·Lua·package와 product locator는 보존했다.
 
 최종 adoption G1은 exit `0`으로 통과했다. 단일 focused source의 계약·전체 application·readpoint·명시적 보호 경계 검증이며 source 전수 의미 정확성·문장 품질·runtime/package readiness의 검증이 아니다. 정확한 명령·결과·잔여는 [DVF-L3-02 closeout](iris_dvf_layer3_multi_profile_investigation_completion_first_contact_closeout.md)에 기록했다. 임시 baseline과 작성 helper는 제거했고 별도 validator나 영구 validation authority로 남기지 않았다.
 
 DVF-L3-03의 별도 result producer는 `iris_tooling.domains.layer3.semantic_results`이며 `build layer3 semantic-results --output <repository-local candidate directory>`로 동작한다. Source reader와 명시적 interpretation은 raw 선언·callback·action을 구별하고, `semantic_model`은 typed facts/provenance/results/partial bindings를 검사·소비한다. L3-02의 baseline writer·정의 revision은 그대로다. Readpoint는 `Iris/_docs/authority/dvf/layer3_semantic_results/manifest.json`이고 현재 상태는 **adopted — 최종 G1 exit 0**이다. 채택 판정은 [L3-03 closeout](iris_dvf_layer3_semantic_investigation_question_results_closeout.md)과 current route가 소유한다.
 
-Derived application은 corpus에 보존한 structured 입력을 같은 resolver로 계산한다. Partial facts를 open question에 연결하며 terminal fact로 승격하지 않는다. L3-03 단독 소비의 acquisition은 미조사이며, 현재는 아래 L3-04 독립 결과를 결합할 수 있다. 결합 후에도 item complete는 0이다. Product migration은 deferred이며 KO/EN 표현·S2는 L3-05, runtime/product adoption은 L3-06에 남는다. 이 corpus의 candidate lifecycle bytes는 G1 이후 바꾸지 않고 adopted loader가 성공한 readpoint의 논리 envelope를 제공한다.
+Derived application은 corpus에 보존한 structured 입력을 같은 resolver로 계산한다. Partial facts를 open question에 연결하며 terminal fact로 승격하지 않는다. L3-03 단독 소비의 acquisition은 미조사이며, 현재는 아래 L3-04 독립 결과를 결합할 수 있다. 결합 후에도 item complete는 0이다. KO/EN 표현·S2는 아래 L3-05에서 off-live 채택을 완료했고, runtime/product adoption은 L3-06에 남는다. 이 corpus의 candidate lifecycle bytes는 G1 이후 바꾸지 않고 adopted loader가 성공한 readpoint의 논리 envelope를 제공한다.
 
 이 경로의 책임은 다음과 같이 나뉜다. 모두 repository offline Python tooling이며 Iris의 Lua runtime 의존성은 추가하지 않는다.
 
@@ -428,6 +428,18 @@ Adopted readpoint는 `Iris/_docs/authority/dvf/layer3_acquisition_results/manife
 `acquisition_consumption.load(root, acquisition_manifest_binding, mode='adopted')`는 실제 L3-04/L3-03 loader와 L3-02 revision 1을 읽고 기존 resolver에 결과·partial bindings를 함께 전달한다. 반환값은 두 corpus/readpoint, fact-local 조건·provenance·open questions와 2,105 application이다. Candidate/adopted 혼합과 검증된 readpoint를 거치지 않은 임의의 in-memory adopted 소비를 거부한다. Acquisition은 resolved 1,025 / investigated_unresolved 1,080 / not_investigated 0이며 accepted positive facts 1,057개, negative 0개다. 비획득 projection과 item complete 0을 보존한다.
 
 단일 G1의 candidate 검사와 실제 adopted 연결이 모두 exit 0이다. Manifest의 candidate bytes와 성공 subject를 current route가 결속하며 source policy/required registry의 기존 entry는 보존한다. 자세한 검증 범위와 원본 해석의 잔여 한계는 [acquisition closeout](iris_layer3_acquisition_closeout.md)을 따른다. `.tmp/acquisition/`의 baseline·이전 candidate·캐시는 일회성 실행 보조 자료이며 adopted 소비나 정규 validator의 입력이 아니다.
+
+### Layer 3 expression readpoint — DVF-L3-05
+
+`iris_tooling.domains.layer3.expression_results`는 adopted `acquisition_consumption.load()`의 네 입력과 5,290 qualified facts를 사용해 KO/EN expanded description과 compact S2를 만든다. `expression_rules`가 프로필별 조합과 semantic 표현을, `acquisition_expression`이 획득 경로별 표현을 소유한다. Profile scope는 모든 기여자를 함께 보존하며 의미 우선순위를 만들지 않는다. 조건은 claim에 붙고 context-local role과 residual facts를 보존한다.
+
+Readpoint는 `Iris/_docs/authority/dvf/layer3_expression/manifest.json`이며 현재 SHA-256은 `cff8acd83715e70c6e7b82553d47e538c7f75131437491d7cf6781875f5435be`다. `load(root, binding, mode='adopted')`가 입력/member/rule/review/표현/ref/receipt를 검사하고 독립 description contract를 반환한다. `descriptions.json`은 fact/provenance, 10,580 fact-locale expression 대응, expanded/S2/omission/upstream obligation을 제공한다. 1,057 acquisition facts는 두 locale의 expanded에 모두 포함된다.
+
+`description_projection.py`가 expanded 문장을 재사용하거나 자르지 않고 compact first-contact proposition을 독립적으로 합성한다. First-contact obligation에 결속된 accepted 기능·효과·활동·역할을 보존하고, 일반 실행 조건은 `detail_qualifier_refs`로 추적한다. 오염수·학습 범위 등 실제 첫 이해 조건만 짧게 표현한다. Acquisition은 사용자-facing 장소·방법·범위를 설명하고 내부 가중치·무작위 수식·등록/전달 절차는 원래 payload에만 보존한다. 선행 `0abd0d…`는 해상도 결함으로 superseded이며 receipt의 선행 이력과 closeout에 보존한다. 교정된 exact 후보에 동일 Gate를 한 번 다시 귀속했다.
+
+Compact S2는 locale별 1,280개 item에 존재하고 825개 item에는 없다. KO p50/p95/max 12/39/44자와 EN 27/83/104자는 profile 합성의 관찰 결과이며 schema limit이나 semantic selection threshold가 아니다. 빈 S2는 accepted first-contact contributor가 없는 upstream 상태를 보존한 것으로, runtime consumer는 predecessor prose·다른 계층 output·번역 fallback으로 채우지 않는다. Menu expanded는 이와 독립적으로 locale별 accepted fact set 전체와 1,057 acquisition facts를 보존한다.
+
+2026-09-05 **해상도 교정본 complete / adopted (off-live)**. 교정 후보의 단일 focused Gate는 `1 passed in 14.17s`, exit `0`이며 exact candidate를 유지한 채 adoption 명령 안에서 adopted readback도 exit `0`으로 완료했다. 독립 `adoption.json`의 `superseded_result`는 선행 후보 이력을 보존하며 그 PASS를 교정본에 승계하지 않는다. 기존 current registry·route·Lua·product writer를 호출하거나 변경하지 않는다. Menu/Tooltip runtime과 S1/S3/S4의 실제 통합은 L3-06이다. [Consumer contract](iris_layer3_expression_contract.md), [closeout과 validation ceiling](iris_layer3_expression_closeout.md).
 
 ### 오프라인 도구 실행 구조
 

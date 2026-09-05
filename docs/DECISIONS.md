@@ -1,7 +1,7 @@
 # DECISIONS.md
 
-> 상태: current decision ledger / compact trace-dedup edition, Iris Layer 3 successor·investigation authority 채택 완료 반영
-> 기준일: 2026-09-04 (이번 갱신 범위: DVF-L3-03 비획득 결과 채택·최종 G1 성공과 후속 경계; 기존 EvolvedRecipe 결정 유지)
+> 상태: current decision ledger / compact trace-dedup edition, Iris Layer 3 successor·investigation·독립 획득 결과 authority 채택 완료 반영
+> 기준일: 2026-09-05 (이번 갱신 범위: DVF-L3-04 독립 획득 결과 채택과 L3-03 결합 소비; 기존 sealed 결정·제품 경계 유지)
 > 상위 기준: `Philosophy.md`
 > 목적: Pulse 생태계에서 이미 사실상 고정된 결정을 짧게 봉인하고, 같은 논쟁의 반복을 줄인다.
 
@@ -1043,13 +1043,23 @@
   - current facts/decisions, Tooltip owner input, generation pointer와 pointer-selected generation, Lua runtime 및 package는 변경하지 않는다. 이 결정은 corpus·문장·runtime migration이나 release readiness가 아니다.
 - Trace: [human contract](iris_dvf_layer3_multi_meaning_information_resolution_successor_contract.md), `Iris/_docs/authority/dvf/layer3_successor/contract.json`, 위 contract manifest, [완료 범위와 G1 실행 기록](iris_dvf_layer3_multi_meaning_information_resolution_successor_contract_closeout.md). 최종 focused G1은 exit `0`이며 전체 suite·제품 통합 검증을 대신하지 않는다.
 
+### DVF-L3-04: 독립 획득 결과와 조사 상태
+
+- 날짜: 2026-09-04. 구현 프롬프트의 owner 사전 승인으로 실행·채택 및 계획의 P4 복구 정책을 채택했다. 상태는 **complete / adopted**이며 [계약](iris_layer3_acquisition_contract.md)과 [closeout](iris_layer3_acquisition_closeout.md)이 정확한 적용 범위를 기록한다.
+- Readpoint는 `Iris/_docs/authority/dvf/layer3_acquisition_results/manifest.json`, SHA-256 `0281e7db661d2c37984568b715e53c97a3e78234b95b9fdfbb59ea1e31fa2a29`다. L3-02 revision 1과 L3-03 결과를 수정하지 않는 additive authority다.
+- Exact 2,105 target × 여섯 bounded source family의 12,630 pair를 실제 source/consumer/조건 해석에 연결했다. Acquisition resolved 1,025, investigated_unresolved 1,080, not_investigated 0이다. 확정 사실 1,057개와 복수 경로를 보존하며 정당한 closed-negative가 없어 negative는 0개다. 이 inventory는 L3-04 작업 범위이며 게임 전체 또는 다른 작업의 공통 taxonomy가 아니다.
+- Open state 자체는 fact를 생성하지 않는다. 독립 근거로 확인한 fact는 partial contribution으로 보존할 수 있다. 필수 조사를 모두 수행하고 조건까지 확인한 경로가 있으면 resolved이며, 무관한 추가 경로의 불확실성만으로 unresolved에 고정하지 않는다. 필수 조사 미수행은 not_investigated로 남겨 complete를 막는다. 이 명확화는 L3-04에만 적용하고 과거 sealed 문구를 소급 변경하지 않는다.
+- `acquisition_consumption.load()`가 실제 두 readpoint와 기존 `investigation.resolve_item()`을 사용한다. L3-03 4,233 facts / 9,982 results와 partial binding·scope/pending/gap을 보존한다. 결합 후에도 item complete는 0이다. 표현은 L3-05, runtime/current product 전환은 L3-06이다.
+- 단일 신규 G1 identity의 최종 candidate 검사는 exit 0 (`1 passed, 14 subtests passed in 9.27s`), 같은 구현의 제한된 adopted 연결 검사는 exit 0 (`1 passed in 5.32s`)이다. 기존 보호 경로 330개와 shared registration 보존을 검사했다. Current execution registry 및 기존 source policy에 한 건씩 추가하고 historical registry를 보존했다. 이후 추가 confidence 검증이나 임시 도구의 authority 승격은 하지 않는다.
+- P4: 결함이 확인된 L3-04 route만 철회하고 sealed history를 보존한 뒤 correction subject를 검증하여 재채택한다. 기존 정의 revision 변경이나 외부 설치 경로 접근을 이 승인으로 확대하지 않는다.
+
 ### DVF-L3-03: 비획득 의미와 질문 결과의 별도 authority
 
 - 날짜: 2026-09-04. A1·B1·C2는 사용자 지정 질의 작업 `01a0620a-a4a0-75a0-ba48-d7199bb9485a`의 답변을 반영한 실행 계획을 따른다. 이번 구현 프롬프트는 문서상 owner gate를 사전 승인했다.
 - 상태: **adopted — 최종 G1 exit 0**. 별도 readpoint는 `Iris/_docs/authority/dvf/layer3_semantic_results/manifest.json`이다. 테스트 변수 오류를 수정한 뒤 같은 G1을 재실행해 `1 passed, 19 subtests passed in 3.40s`, exit `0`을 확인하고 current route를 adopted로 전환했다. 성공 후 추가 검증은 하지 않았다.
 - 최종 manifest SHA-256은 `a3416672aa47fe4c6c84d9b8e9912377adda6e20e9eb679bf2d229cb9d3456bd`다. Exact target 2,105개와 source binding 216개에 대해 accepted fact 4,233개를 보존한다. Non-acquisition 질문은 9,982개이며 unresolved 9,900개와 현재 형태의 native eating에 한정한 scoped N/A 82개로 구별한다. Partial facts는 3,498개 질문에 기여하며 whole-question resolution을 뜻하지 않는다.
 - L3-02 definition revision 1과 baseline application을 보존한다. 새 raw 참여는 기존 scope의 질문 instance로 추가하고 original 8,882 non-acquisition key와 pending 5,767 item/profile pair를 유지한다. Question key에 revision을 추가하지 않는다.
-- A1은 결속된 available-source 질문·route와 pending/new key의 단순 미조사 0이다. 실제 조사 후 부족한 source/engine/runtime dependency는 unresolved로 보존한다. B1은 unique rule 전수 의미 검토와 층화 표본 감사이며, C2는 L3-02 정의와 별도 result authority의 소유권 분리다. 미해결 질문이나 fact 수로 item 완료를 선언하지 않으며 acquisition not_investigated 2,105개와 item complete 0개를 유지한다.
+- A1은 결속된 available-source 질문·route와 pending/new key의 단순 미조사 0이다. 실제 조사 후 부족한 source/engine/runtime dependency는 unresolved로 보존한다. B1은 unique rule 전수 의미 검토와 층화 표본 감사이며, C2는 L3-02 정의와 별도 result authority의 소유권 분리다. 이 L3-03 authority의 단독 소비에서는 acquisition not_investigated 2,105개와 item complete 0개였고, 현재 L3-04 결합에서는 acquisition not_investigated 0이지만 다른 open axis 때문에 item complete 0개를 유지한다.
 - Content-derived fact ID, context-local role, fact-local qualifier와 다대다 partial question binding을 채택한다. 부분적으로 확정한 사실은 unresolved 질문과 공존한다. Source 함수 발견과 의미 검토를 구분하며 명시적 검토 집합 밖 callback/action은 미조사로 남는다.
 - 원본·의미 rule·표본·질문 결과·derived application 입력은 같은 corpus에 결속한다. 기존 product facts/decisions·L3-01/02 member·composer·runtime·locale·package를 새 result authority로 대체하지 않는다. 실제 소비는 같은 resolver의 명시적 candidate/adopted 경계를 사용한다.
 - B1은 unique rule과 층화 표본의 내용 검토이며 전수 item 수작업 정확성 보증이 아니다. G1 한 public identity가 전체 corpus를 한 번 소비하고 관련 회귀·보호 경계를 함께 검사한다. 상세 상태·명령·잔여는 [단일 closeout](iris_dvf_layer3_semantic_investigation_question_results_closeout.md)을 따른다.

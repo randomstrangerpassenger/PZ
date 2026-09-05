@@ -3055,6 +3055,12 @@
       "role": "layer3_semantic_results",
       "test_id": "test_layer3_semantic_results.Layer3SemanticResultsTest.test_semantic_results_contract",
       "source_file": "Iris/build/description/v2/tests/test_layer3_semantic_results.py"
+    },
+    {
+      "required": true,
+      "role": "layer3_acquisition_results",
+      "test_id": "test_layer3_acquisition_results.Layer3AcquisitionResultsTest.test_acquisition_results_contract",
+      "source_file": "Iris/build/description/v2/tests/test_layer3_acquisition_results.py"
     }
   ],
   "route": "current",

@@ -18,8 +18,8 @@
   "source_set_binding": {
     "canonicalization": "sorted repository-relative source paths joined with LF and a terminal LF",
     "tracked_policy_sources": {
-      "count": 52,
-      "sha256": "9645cd136503301a737e4139a175e7e7e98ff193b868722b8b3e01314ebc773e"
+      "count": 53,
+      "sha256": "2e3c660009783e152d9cda8b0780d0606ffd1393838aa95319d9f19cee85842d"
     },
     "approved_clean_checkout_absent_policy_sources": {
       "count": 0,
@@ -112,6 +112,11 @@
       "source_file": "Iris/build/description/v2/tests/test_public_text_quality_acceptance_current_route.py",
       "classification": "current",
       "reason": "Validates the public-text acceptance guard bound to the current route."
+    },
+    {
+      "source_file": "Iris/build/description/v2/tests/test_layer3_acquisition_results.py",
+      "classification": "current",
+      "reason": "Independent L3-04 acquisition authority and combined resolver contract; exact G1 candidate success and owner-preapproved adoption. One required identity."
     }
   ],
   "planned_sources": [

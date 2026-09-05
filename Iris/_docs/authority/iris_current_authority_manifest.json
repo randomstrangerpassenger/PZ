@@ -577,6 +577,13 @@
       "classification": "current",
       "authority_role": "Off-live L3-03 result subject; adoption is conditional on exact G1 success and current route state, separate from L3-02 definition and product.",
       "delete_move_policy": "Retain source/provenance/result history; correction successor required."
+    },
+    {
+      "path": "Iris/_docs/authority/dvf/layer3_acquisition_results/manifest.json",
+      "sha256": "0281e7db661d2c37984568b715e53c97a3e78234b95b9fdfbb59ea1e31fa2a29",
+      "classification": "current",
+      "authority_role": "Independent off-live L3-04 acquisition result subject; exact G1 success and current route own adoption. L3-02 definitions and L3-03 non-acquisition results remain independent.",
+      "delete_move_policy": "Preserve sealed history; withdraw defective route and verify correction subject before readoption under owner-approved P4."
     }
   ],
   "validation": {

@@ -1,7 +1,7 @@
 # ARCHITECTURE.md
 
-> 상태: 초안 v0.6
-> 기준일: 2026-09-04 (이번 갱신 범위: Iris L3-03 비획득 결과 authority·structured 소비·L3-02 정의 및 현재 제품의 경계)
+> 상태: 초안 v0.7
+> 기준일: 2026-09-05 (이번 갱신 범위: Iris L3-04 독립 획득 결과·L3-03 결합 소비·기존 정의 및 현재 제품 경계)
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 구조 지도, 역할 경계, 의존 방향을 고정한다.  
 > 구현 상태 표기: 별도 표시가 없는 모듈은 current architecture를 기술하며, `설계 단계` 표시는 아직 구현되지 않은 target architecture를 뜻한다.
@@ -396,13 +396,13 @@ DVF-L3-02는 2026-09-04 current investigation authority로 채택을 완료했�
 
 `--repository-root . build layer3 investigate` 진입점은 investigation root의 evidence/application/manifest만 작성한다. 기존 compose profile 선택기와 별개의 오프라인 책임이며 composer·publisher·Lua runtime 경로를 호출하지 않는다. 결과 소비자는 상속 bound JSON의 allowed kinds·negative binding·resolved 조건을 해석하고, 별도 adopted authority의 accepted result 및 exact subject/provenance가 없는 terminal claim을 거부한다. Source 관찰에서 semantic/acquisition fact를 생산하지 않는다.
 
-Item 완료는 `scope_determined AND every_required_axis_terminal AND acquisition_state == resolved`다. L3-02 baseline에는 accepted semantic/acquisition 결과가 없으며 이를 보존한다. L3-03은 별도 비획득 결과를 공급하지만 acquisition과 open 질문이 남아 item complete는 0개다. First-contact obligation은 fact 미해결에도 남고 전역 acquisition 문장이나 대표 의미를 선택하지 않는다. 실제 표현·투영은 DVF-L3-05, runtime/current product adoption은 DVF-L3-06의 책임이다. 기존 successor bundle·product corpus·composer·Menu/Tooltip·Lua·package와 product locator는 보존했다.
+Item 완료는 `scope_determined AND every_required_axis_terminal AND acquisition_state == resolved`다. L3-02 baseline에는 accepted semantic/acquisition 결과가 없으며 이를 보존한다. L3-03 단독 소비는 별도 비획득 결과만 공급하므로 acquisition이 미조사이고 item complete는 0개다. 현재 L3-04 결합은 acquisition 미수행을 0으로 닫지만 다른 open 질문이 남아 item complete는 여전히 0개다. First-contact obligation은 fact 미해결에도 남고 전역 acquisition 문장이나 대표 의미를 선택하지 않는다. 실제 표현·투영은 DVF-L3-05, runtime/current product adoption은 DVF-L3-06의 책임이다. 기존 successor bundle·product corpus·composer·Menu/Tooltip·Lua·package와 product locator는 보존했다.
 
 최종 adoption G1은 exit `0`으로 통과했다. 단일 focused source의 계약·전체 application·readpoint·명시적 보호 경계 검증이며 source 전수 의미 정확성·문장 품질·runtime/package readiness의 검증이 아니다. 정확한 명령·결과·잔여는 [DVF-L3-02 closeout](iris_dvf_layer3_multi_profile_investigation_completion_first_contact_closeout.md)에 기록했다. 임시 baseline과 작성 helper는 제거했고 별도 validator나 영구 validation authority로 남기지 않았다.
 
 DVF-L3-03의 별도 result producer는 `iris_tooling.domains.layer3.semantic_results`이며 `build layer3 semantic-results --output <repository-local candidate directory>`로 동작한다. Source reader와 명시적 interpretation은 raw 선언·callback·action을 구별하고, `semantic_model`은 typed facts/provenance/results/partial bindings를 검사·소비한다. L3-02의 baseline writer·정의 revision은 그대로다. Readpoint는 `Iris/_docs/authority/dvf/layer3_semantic_results/manifest.json`이고 현재 상태는 **adopted — 최종 G1 exit 0**이다. 채택 판정은 [L3-03 closeout](iris_dvf_layer3_semantic_investigation_question_results_closeout.md)과 current route가 소유한다.
 
-Derived application은 corpus에 보존한 structured 입력을 같은 resolver로 계산한다. Partial facts를 open question에 연결하며 terminal fact로 승격하지 않는다. Acquisition은 L3-04의 독립 입력을 기다리고 item complete는 0이다. Product migration은 deferred이며 KO/EN 표현·S2는 L3-05, runtime/product adoption은 L3-06에 남는다. 이 corpus의 candidate lifecycle bytes는 G1 이후 바꾸지 않고 adopted loader가 성공한 readpoint의 논리 envelope를 제공한다.
+Derived application은 corpus에 보존한 structured 입력을 같은 resolver로 계산한다. Partial facts를 open question에 연결하며 terminal fact로 승격하지 않는다. L3-03 단독 소비의 acquisition은 미조사이며, 현재는 아래 L3-04 독립 결과를 결합할 수 있다. 결합 후에도 item complete는 0이다. Product migration은 deferred이며 KO/EN 표현·S2는 L3-05, runtime/product adoption은 L3-06에 남는다. 이 corpus의 candidate lifecycle bytes는 G1 이후 바꾸지 않고 adopted loader가 성공한 readpoint의 논리 envelope를 제공한다.
 
 이 경로의 책임은 다음과 같이 나뉜다. 모두 repository offline Python tooling이며 Iris의 Lua runtime 의존성은 추가하지 않는다.
 
@@ -418,6 +418,16 @@ Derived application은 corpus에 보존한 structured 입력을 같은 resolver�
 채택 corpus는 2,105 target, source binding 216개, accepted fact 4,233개와 non-acquisition 질문 9,982개를 포함한다. Fact ID는 semantic payload와 context/dependency를 반영하며 source locator·review timestamp·registry metadata는 identity에서 분리한다. 의미 정정은 새 ID와 의존 참조 재결속을 요구한다. Question key는 `(item_id, axis_id, scope_ref)`이고 revision은 metadata다. 별도 대용량 application 복제 없이 같은 corpus의 입력을 사용한다.
 
 G1은 최종 subject 전체를 한 번 소비해 `exit 0`을 확인했다. 이 결과는 scoped N/A·unresolved·partial contribution과 명시적 보호 경계를 검사한 것이며 전수 의미 정확성·실게임 동작·package readiness 보증은 아니다. `.tmp/semantic/`의 작성 helper·baseline·실행 로그는 플랫폼 정책상 삭제가 보류된 일회성 자료로, runtime 의존성·adopted authority·통상 재사용 검사의 필수 입력이 아니다.
+
+### 독립 획득 결과와 결합 소비
+
+DVF-L3-04는 `layer3/acquisition_sources.py`의 source/consumer 조사, `acquisition_results.py`의 독립 corpus·admission·manifest loader, `acquisition_consumption.py`의 결합 소비로 나뉜다. 기존 L3-03 manifest가 결속한 모듈을 수정하지 않는다. 별도 명령 `python -m iris_tooling.domains.layer3.acquisition_results --repository-root . --output <empty repository-local acquisition directory>`는 composer fallback이나 product writer를 호출하지 않는다.
+
+Adopted readpoint는 `Iris/_docs/authority/dvf/layer3_acquisition_results/manifest.json`이다. 여섯 family의 공유 원본 관찰·구체적 consumer 해석·item별 attempt가 12,630 pair에 연결된다. 문자열 hit/miss만으로 조사 완료를 허용하지 않으며 unreviewed trace, 미수행 pair와 source-member 누락을 거부한다. 확정 경로의 route/조건은 semantic ID를 구성하고 같은 의미의 provenance는 병합한다. Predecessor material 8,278건은 source-bound lead-only 자료로 남겨 truth 근거와 분리한다.
+
+`acquisition_consumption.load(root, acquisition_manifest_binding, mode='adopted')`는 실제 L3-04/L3-03 loader와 L3-02 revision 1을 읽고 기존 resolver에 결과·partial bindings를 함께 전달한다. 반환값은 두 corpus/readpoint, fact-local 조건·provenance·open questions와 2,105 application이다. Candidate/adopted 혼합과 검증된 readpoint를 거치지 않은 임의의 in-memory adopted 소비를 거부한다. Acquisition은 resolved 1,025 / investigated_unresolved 1,080 / not_investigated 0이며 accepted positive facts 1,057개, negative 0개다. 비획득 projection과 item complete 0을 보존한다.
+
+단일 G1의 candidate 검사와 실제 adopted 연결이 모두 exit 0이다. Manifest의 candidate bytes와 성공 subject를 current route가 결속하며 source policy/required registry의 기존 entry는 보존한다. 자세한 검증 범위와 원본 해석의 잔여 한계는 [acquisition closeout](iris_layer3_acquisition_closeout.md)을 따른다. `.tmp/acquisition/`의 baseline·이전 candidate·캐시는 일회성 실행 보조 자료이며 adopted 소비나 정규 validator의 입력이 아니다.
 
 ### 오프라인 도구 실행 구조
 

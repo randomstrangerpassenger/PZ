@@ -108,5 +108,14 @@
     "validation_identity": "test_layer3_semantic_results.Layer3SemanticResultsTest.test_semantic_results_contract",
     "product_migration_state": "deferred",
     "adoption_result": "docs/iris_dvf_layer3_semantic_investigation_question_results_closeout.md"
+  },
+  "layer3_acquisition_results": {
+    "state": "adopted",
+    "manifest_path": "Iris/_docs/authority/dvf/layer3_acquisition_results/manifest.json",
+    "manifest_sha256": "0281e7db661d2c37984568b715e53c97a3e78234b95b9fdfbb59ea1e31fa2a29",
+    "definition_revision": "1",
+    "validation_identity": "test_layer3_acquisition_results.Layer3AcquisitionResultsTest.test_acquisition_results_contract",
+    "product_migration_state": "deferred",
+    "adoption_result": "docs/iris_layer3_acquisition_closeout.md"
   }
 }

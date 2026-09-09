@@ -1110,3 +1110,17 @@ Closeout complete: exact implementation `801f15f6`의 terminal Run A/B/comparato
 - 2026-08-30 역할별 재명명: `TooltipStaticData`에 이어 사용자가 지목한 validation 여섯 폴더의 개별 코드·테스트·현재 설정 85개를 재명명/재배치했다. `execution`, `source_analysis`, `artifacts`, `baseline`, `scenarios`, `test_coverage`에 실제 책임을 드러내는 파일명으로 배치했고 사용처도 갱신했다. 기존 Tooltip 변경과 과거 기록은 보존한다.
 - 사용자 최종 범위인 재명명·재배치·참조 갱신은 `complete`다. N7 `current_environment.json`과 기존 writer가 생성한 record까지 현재 폴더에 반영했다. 사용자가 추가 검증을 종료했으므로 production 재생성·full gate·package·PZ 관찰은 이번 완료의 잔여 조건이 아니다.
 - 이전 T1/T2/T3 PASS를 상속하거나 이번 미실행 검사를 PASS로 주장하지 않는다. 추가 검증·봉인 작업을 요구하지 않는다. 상세 결과: `docs/iris_current_responsibility_naming_alignment_closeout.md`.
+
+### Iris DVF description migration and question adjudication recovery
+
+- [x] 2026-09-08: v4 recovery의 offline 구현, exact focused acceptance 및 동일 subject 채택/readback 완료. 2,105 item / 9,978 claim 전수 판정, 9,982 baseline key 보존 + 86 same-definition instance, local work와 pending disposition 0.
+- [x] KO/EN expanded·compact와 claim conservation을 연결한 동일 자료를 B/C에 인계. 최초 r3 인계 후 아래 표현 정정을 거친 **r6가 최종 offline 기준**이다. 과거 expanded 손실 549개 중 490개 복구, 59개는 사유가 명시된 잔여다. 각 locale expanded 공백 62 / compact 공백 121을 숨기지 않는다.
+- 최종 offline readpoint: `Iris/_docs/authority/dvf/layer3_expression/successors/r6/adoption.json`. r3 수락·채택 및 중간 후보 이력을 포함한 상세 결과·잔여 의미·정확한 명령/해시: [recovery closeout](iris_dvf_description_migration_question_adjudication_recovery_closeout.md).
+- 이 완료는 exhaustive item investigation이나 제품 전환 완료가 아니다. 기존 definition에 따른 2,105 item의 incomplete/undetermined 상태와 question/acquisition residual은 보존한다. B/C의 Menu·Tooltip 제품 통합 및 replacement 정보 보존 검증은 해당 작업에서 이어간다.
+
+- [x] 2026-09-08 r3 표현 검토 후 정정 완료: 공통 기능별 대상 합성, 실제 Type 조건 투영과 사용자 의미/상세/audit 경계 분리를 r6 actual KO/EN에서 확인했다. 같은 focused acceptance `1 passed in 1295.39s`, exit 0 및 동일 subject 채택/readback exit 0으로 종료했다. 최종 offline readpoint는 `Iris/_docs/authority/dvf/layer3_expression/successors/r6/adoption.json`이다. 위 r3 통과·채택, r4 중간 후보와 r5 중단 실행은 역사적 결과로 남기며 새 PASS를 소급 적용하지 않는다. 기존 current와 B/C 제품 통합은 이 정정의 범위에 포함하지 않는다.
+- [x] 2026-09-09 후속 상태 확인·문서 정리: 검토 세션은 실제 r6 파일과 B/C 연결을 확인한 뒤 문제 A에 추가 수정 사항이 없음을 확인했다. 이번 기록 정리에서 추가 테스트·후보 생성·제품 전환을 실행하지 않았다.
+- [ ] 문제 B — 같은 r6 compact/S2와 omission·residual을 기존 Tooltip에 연결하는 후속 범위. 기존 Tooltip 전체 동작과 다른 slot의 소유권을 보존한다. 이 세션에서는 미착수다.
+- [ ] 문제 C — 같은 r6 expanded와 qualified 관계를 Menu에 연결하는 후속 범위. Tooltip과 같은 사실을 다른 깊이로 보여 주며 새 의미를 추론하지 않는다. 이 세션에서는 미착수다.
+- 다음 구현 대상은 사용자 범위 지정 후 해당 계획에 따라 진행한다. 4,223 bounded unresolved claim과 item incomplete/undetermined 상태를 추가 조사 완료로 바꾸거나, 임시 helper·집계를 정규 validator로 승격하지 않는다. 현재 처리 구조와 문서 배치 정정은 [기존 closeout의 아키텍처 절](iris_dvf_description_migration_question_adjudication_recovery_closeout.md#r6-처리-구조와-문서-배치)에 기록한다.
+- [x] 2026-09-09 문서 변경 부작용 수습: r6에 결속된 ARCHITECTURE 원본을 복원하고 새 설명은 기존 closeout에 보존했다. 현재 checkout의 기존 정상 `load_adopted` 1회가 **exit 0**, `mode=adopted`, `targets=2105`로 끝나 B/C offline 입력 소비를 복구했다. ARCHITECTURE 본문 갱신 완료나 영구 동결 정책은 아니며, 채택 소비와 가변 문서·과거 생산 재현의 결합은 향후 해당 경로의 제약으로 남긴다. 전체 재생성·focused gate 재실행·재채택은 하지 않았다.

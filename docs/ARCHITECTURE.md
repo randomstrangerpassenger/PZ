@@ -1,7 +1,7 @@
 # ARCHITECTURE.md
 
 > 상태: 초안 v0.7
-> 기준일: 2026-09-05 (이번 갱신 범위: Iris L3-05 교정된 표현 readpoint·독립 S2 합성·L3-06 제품 통합 경계)
+> 기준일: 2026-09-07 (이번 갱신 범위: Iris L3-06 제품 통합 complete·생성/소비/package 구조)
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 구조 지도, 역할 경계, 의존 방향을 고정한다.  
 > 구현 상태 표기: 별도 표시가 없는 모듈은 current architecture를 기술하며, `설계 단계` 표시는 아직 구현되지 않은 target architecture를 뜻한다.
@@ -441,6 +441,18 @@ Compact S2는 locale별 1,280개 item에 존재하고 825개 item에는 없다. 
 
 2026-09-05 **해상도 교정본 complete / adopted (off-live)**. 교정 후보의 단일 focused Gate는 `1 passed in 14.17s`, exit `0`이며 exact candidate를 유지한 채 adoption 명령 안에서 adopted readback도 exit `0`으로 완료했다. 독립 `adoption.json`의 `superseded_result`는 선행 후보 이력을 보존하며 그 PASS를 교정본에 승계하지 않는다. 기존 current registry·route·Lua·product writer를 호출하거나 변경하지 않는다. Menu/Tooltip runtime과 S1/S3/S4의 실제 통합은 L3-06이다. [Consumer contract](iris_layer3_expression_contract.md), [closeout과 validation ceiling](iris_layer3_expression_closeout.md).
 
+### Layer 3 Menu·Alt Tooltip 제품 통합 — DVF-L3-06
+
+2026-09-07 **complete**. `iris_tooling.domains.layer3.product_projection`은 위 L3-05 readpoint를 소비해 Menu KO/EN, Tooltip base와 Recipe companion을 하나의 immutable product로 생성한다. Menu 2,105개 target의 expanded block·순서·fact/dependency reference를 보존하고, 2,280개 Tooltip support에서는 S2만 교체한다. 기존 S1/S3/S4를 보존한 최종 base에 Recipe 349개 item / 781개 variant를 결속한다.
+
+Product ID는 입력 owner·producer bytes·schema/contract·payload digest에 결속된다. 생성물은 200개 단위의 11개 Menu chunk와 Index, Descriptor, Tooltip, Recipe의 15개 Lua 파일이다. `IrisLayer3DataLookup.lua`, `IrisLayer3EnglishLookup.lua`와 `layer3_renderer.lua`가 동일 product를 소비하며 runtime은 사실을 재선택하거나 번역·요약하지 않는다. 빈 expanded는 빈 본문, S2 logical_rows=0은 해당 slot 부재로 표시한다. 잘못된 product나 누락된 component를 이전 본문 또는 stale global로 보충하지 않는다.
+
+`product_install.py`는 candidate admission, 격리 staging, facade 연결과 pointer-last promotion을 담당하며 중단 시 journal 기반 복구와 product 단위 rollback을 지원한다. `Layer3PackageProjection.psm1`과 `RuntimeLookupIndexIdentity.psm1`은 descriptor·runtime lookup identity·정확한 package member를 확인하고 `package_iris.ps1`이 선택된 product를 ZIP/설치본에 담는다.
+
+완성된 전달 product는 `l3p-4e05fc9f92da124221e3ba17469cb9562fd0f895a5fa871969101ce049818124`다. 저장소의 `IrisLayer3DataCurrent.lua`는 predecessor `dvf33-ed92fa5c9ed4a1ed367f5d79365d04e1996e36a05d76a33bd7b8dd2176e7f82f`를 가리키며 `IrisLayer3ProductCurrent.lua`는 아직 없다. 전달 product identity와 저장소 locator를 구분한다.
+
+계약과 구현 결과: [제품 소비 계약](iris_layer3_product_consumption_contract.md), [구현 closeout](iris_dvf_layer3_menu_alt_tooltip_product_integration_closeout.md).
+
 ### 오프라인 도구 실행 구조
 
 Iris의 오프라인 도구는 각 영역의 의미 판단과 이를 실행하는 공통 조정을 분리한다. 오프라인 도구는 저장소 측 생성·검증을 수행하며 런타임 의존성을 만들지 않는다.
@@ -494,6 +506,8 @@ Iris의 오프라인 도구는 각 영역의 의미 판단과 이를 실행하�
 ### `Tooltip` 정적 투영 구조
 
 `Tooltip`의 오프라인 투영은 Layer 2 / Layer 3 / Layer 4의 기존 의미 권한과 런타임용 정적 생성 사이의 경계다. 현재 오프라인 구현은 `iris_tooling.domains.tooltip_static_data_projection`이 소유한다.
+
+2026-09-06 Layer 2 Resolution Registry v2는 `layer2_contract.admit_registry_inputs()`를 materializer와 validator가 공유한다. Category Index·classification membership·usecase source는 uniform LF/CRLF만 동일시하는 `eol_lf_sha256` v1, KO/EN locale은 Category Index가 참조하는 59개 key/value의 `category_locale_sha256` v1, generated pointer와 immutable generation은 `raw_sha256` v1을 사용한다. V1 raw binding/provenance는 역사로 보존하고 v2 실패에 fallback하지 않는다. Owner bytes·sealed rows와 `2,280 = 1,406 + 874`는 불변이며 DVF-L3-06의 동일 Layer 2 prerequisite는 수용된다. Current product는 전환하지 않았다. 상세: [input identity closeout](iris_dvf_layer3_layer2_checkout_eol_identity_closeout.md).
 
 ```text
 Layer 2 / Layer 3 / Layer 4 승인 의미 산출물
@@ -769,3 +783,9 @@ Cortex는 다른 제품 영역이나 Pulse Core에 두기 부적절한 사용자
 Canvas의 `AssetEntry`, `ResourcePack`, `ResourceState`, 판정 책임과 입출력 원칙은 `Philosophy.md`에서 정의한다.
 
 현재는 이를 구현하기 위한 구성요소의 책임 분리, 실행 경계와 상태·자료 흐름이 Architecture 수준에서 아직 확정되지 않았다.
+
+## Iris offline description successor의 명시적 채택
+
+DVF description recovery는 `Iris/_docs/authority/dvf/layer3_expression/successors/<stable-id>/`에 semantic, acquisition, expression, audit 및 manifest를 하나의 불변 chain으로 둔다. 기존 root manifest와 제품 current pointer는 이 디렉터리의 존재만으로 전환되지 않는다. 이 경로의 구현은 exact candidate 수락 및 채택 실행 전까지 소비용 완료 상태가 아니다.
+
+수락된 동일 manifest에 대해서만 `adoption.json`을 추가하고 `recovery.load_adopted`로 명시적으로 읽는다. 채택 기록 안의 B/C handoff는 같은 expression member와 audit residual을 참조한다. B는 compact 및 omission 관계를, C는 expanded와 qualified 관계를 소비한다. 이 기록은 offline successor의 채택이며 제품 통합·replacement 정보 보존·runtime 검증은 B/C의 별도 책임이다. L3-02 정의, L3-03 의미, L3-04 획득 및 L3-05 표현의 기존 ownership과 writer responsibility는 이전하지 않는다.

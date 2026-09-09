@@ -113,6 +113,39 @@ docs/iris_dvf_layer3_multi_meaning_information_resolution_successor_contract.md 
 Iris/_docs/authority/dvf/layer3_investigation/** -text
 docs/iris_dvf_layer3_multi_profile_investigation_completion_first_contact_contract.md -text
 Iris/_docs/authority/dvf/layer3_semantic_results/** -text
+Iris/_docs/authority/dvf/layer3_expression/** -text
+# Preserve raw-bound expression/acquisition members and their exact source inputs.
+Iris/_docs/authority/dvf/layer3_acquisition_results/** -text
+Iris/build/description/v2/tests/test_layer3_acquisition_results.py -text
+Iris/build/description/v2/tests/test_layer3_expression_results.py -text
+Iris/tooling/src/iris_tooling/domains/layer3/acquisition_consumption.py -text
+Iris/tooling/src/iris_tooling/domains/layer3/acquisition_expression.py -text
+Iris/tooling/src/iris_tooling/domains/layer3/acquisition_results.py -text
+Iris/tooling/src/iris_tooling/domains/layer3/acquisition_sources.py -text
+Iris/tooling/src/iris_tooling/domains/layer3/description_projection.py -text
+Iris/tooling/src/iris_tooling/domains/layer3/expression_results.py -text
+Iris/tooling/src/iris_tooling/domains/layer3/expression_rules.py -text
+docs/iris_layer3_acquisition_contract.md -text
+docs/iris_layer3_expression_contract.md -text
+lua/client/ISUI/ISCollapsableWindowJoypad.lua -text
+lua/client/ISUI/Maps/Editor/WorldMapEditor.lua -text
+lua/client/ISUI/Maps/Editor/WorldMapEditorMode.lua -text
+lua/client/ISUI/Maps/Editor/WorldMapEditorMode_Stashes.lua -text
+lua/client/ISUI/Maps/Editor/WorldMapEditorResizer.lua -text
+lua/client/Tests/RecipeUtils.lua -text
+lua/client/Tests/TimedActionsTests.lua -text
+lua/server/BuildingObjects/ISShovelGroundCursor.lua -text
+lua/shared/Definitions/ContainerButtonIcons.lua -text
+lua/shared/StashDescriptions/LouisvilleStashDesc.lua -text
+lua/shared/StashDescriptions/RiversideStashDesc.lua -text
+scripts/animations.txt -text
+scripts/animations_meshes.txt -text
+scripts/clothing/clothing_body.txt -text
+scripts/mannequins.txt -text
+scripts/sounds_ui.txt -text
+scripts/vehicles/engine_rpm.txt -text
+scripts/vehicles/models_vehicles.txt -text
+scripts/weapons/sounds_spears.txt -text
 docs/iris_dvf_layer3_semantic_investigation_question_results_contract.md -text
 Iris/build/description/v2/tests/test_layer3_semantic_results.py -text
 Iris/tooling/src/iris_tooling/domains/layer3/semantic_results.py -text
@@ -121,3 +154,12 @@ Iris/tooling/src/iris_tooling/domains/layer3/source_reader.py -text
 Iris/tooling/src/iris_tooling/domains/layer3/interpretations.py -text
 Iris/tooling/src/iris_tooling/domains/layer3/investigation.py -text
 Iris/tooling/src/iris_tooling/domains/layer3/cli.py -text
+# Preserve exact recovery producer and adopted input bytes.
+Iris/tooling/src/iris_tooling/domains/layer3/recovery*.py -text
+Iris/build/description/v2/tests/test_layer3_recovery.py -text
+docs/iris_dvf_description_migration_question_adjudication_recovery_plan.md -text
+docs/ARCHITECTURE.md -text
+Iris/_docs/authority/dvf/layer3_expression/successors/r6/semantic.json filter=lfs diff=lfs merge=lfs -text
+Iris/_docs/authority/dvf/layer3_expression/successors/r6/acquisition.json filter=lfs diff=lfs merge=lfs -text
+Iris/_docs/authority/dvf/layer3_expression/successors/r6/audit.json filter=lfs diff=lfs merge=lfs -text
+Iris/_docs/authority/dvf/layer3_expression/successors/r6/descriptions.json filter=lfs diff=lfs merge=lfs -text

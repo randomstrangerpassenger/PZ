@@ -5,6 +5,113 @@ package.path = root .. "/Iris/media/lua/client/?.lua;" .. package.path
 -- Standard Lua provides next; PZ's Kahlua does not. Keep that engine boundary
 -- in this existing fixture so desktop Lua cannot hide an unsupported dependency.
 next = nil
+if mode == "product" then
+    local expected = dofile(assert(arg[3]))
+    local locale = "KO"
+    package.loaded["Iris/Util/IrisTranslationResolver"] = {
+        getLangKey = function() return locale end, getDetectedLangKey = function() return locale end,
+    }
+    -- Only the engine/API boundary is stubbed. Lookup, renderer, formatter,
+    -- FactReader and Detail assembly execute their actual successor code.
+    package.loaded["Iris/IrisAPI"] = {}
+    local lookup = require("Iris/Data/IrisLayer3DataLookup")
+    local renderer = require("Iris/Data/layer3_renderer")
+    local assembler = require("Iris/UI/Detail/IrisItemDetailModelAssembler")
+    local reader = require("Iris/Data/IrisTooltipStaticDataLookup")
+    local count, recipes, choices = 0, 0, 0
+    local function same(a, b)
+        assert(type(a) == "table" and #a == #b)
+        for i, value in ipairs(b) do assert(a[i] == value, "product row text/order") end
+    end
+    for key, item in pairs(expected.menu) do
+        count = count + 1
+        local sourceItem = {getFullType=function() return key end}
+        assert(lookup.getLocale(key, "EN") == nil and lookup.getLocale(key, nil) == nil)
+        for _, language in ipairs({"ko", "en"}) do
+            locale = language:upper()
+            local entry = assert(lookup.getLocale(key, language))
+            same(entry.blocks, item[language].blocks)
+            assert(entry.text == item[language].text, "lookup lost adopted block")
+            local raw = entry.text ~= "" and entry.text or nil
+            assert(renderer.getRawText(key, {locale=locale}) == raw)
+            assert(renderer.getText(key, {locale=locale}) == raw)
+            local model = assert(assembler.fromItem(sourceItem))
+            assert(model.fullType == key and model.locale == locale)
+            assert(model.layer3.raw == raw and model.layer3.available == (raw ~= nil), "independent Detail parity")
+            if raw then
+                assert(model.layer3.display:gsub("%s", "") == raw:gsub("%s", ""), "display semantic truncation/reorder")
+            end
+        end
+        local ko = item.ko.text ~= "" and item.ko.text or nil
+        assert(renderer.getText(key) == ko and renderer.getRawText(key, {locale="FR"}) == ko)
+    end
+    assert(count == 2105)
+    for key, rows in pairs(expected.tooltip) do
+        same(assert(reader.get(key, "ko")), rows.ko)
+        same(assert(reader.get(key, "en")), rows.en)
+        assert(reader.get(key, "KO") == nil)
+        local entry = expected.recipe[key]
+        if entry then
+            recipes = recipes + 1
+            for index, variant in ipairs(entry.variants) do
+                local view = assert(reader.open(key, function() return index end))
+                assert(view.id == variant.id)
+                same(view.ko, variant.ko); same(view.en, variant.en)
+                choices = choices + 1
+            end
+            if #entry.variants == 0 then
+                local view = assert(reader.open(key, function() error("empty Recipe selection") end))
+                same(view.ko, entry.without_recipe.ko); same(view.en, entry.without_recipe.en)
+            end
+        else
+            local view = assert(reader.open(key, function() error("nonRecipe selection") end))
+            same(view.ko, rows.ko); same(view.en, rows.en)
+        end
+    end
+    assert(recipes == 349 and choices == 781)
+    assert(lookup.get("base.Hammer") == nil and reader.open("base.Hammer", function() return 1 end) == nil)
+    -- Opening cache belongs to the tooltip instance, not the locale or dataset.
+    local alt = false
+    isKeyDown = function() return alt end
+    UIFont = {Small="Small"}
+    getTextManager = function() return {getFontHeight=function() return 16 end, MeasureStringX=function(_, _, text) return #text end} end
+    getCore = function() return {getScreenWidth=function() return 1920 end, getScreenHeight=function() return 1080 end} end
+    local randomCalls = 0
+    ZombRand = function() randomCalls = randomCalls + 1; return 0 end
+    local tooltip = require("Iris/UI/Tooltip/IrisAltTooltip")
+    tooltip.setInstrumentationEnabled(true)
+    local tip = {item={fullType=expected.recipe_sample}, width=300, height=30,
+        getAbsoluteX=function() return 10 end, getAbsoluteY=function() return 10 end,
+        drawRect=function() end, drawRectBorder=function() end, drawText=function() end}
+    local function render() tip._irisRendered=nil; tooltip.addIrisOverlay(tip) end
+    render(); assert(tooltip.getDisplayLineCacheMetrics().staticLookups == 0)
+    alt=true; locale="KO"; render()
+    local opening=assert(tip._irisOpening)
+    local view=assert(opening.view)
+    locale="EN"; render(); assert(tip._irisOpening == opening and tip._irisOpening.view == view)
+    local calls=randomCalls
+    render(); assert(randomCalls == calls)
+    alt=false; render(); assert(tip._irisOpening == nil)
+    alt=true; render(); assert(tip._irisOpening ~= opening)
+    tip.item={fullType="Base.223Box"}; render(); assert(tip._irisOpening.fullType == "Base.223Box")
+    -- Corrupt index and stale globals must fail closed even through renderer.
+    local current=require("Iris/Data/IrisLayer3DataCurrent")
+    local index=package.loaded[current.index_module]
+    local previous=index.product_id
+    index.product_id="l3p-" .. string.rep("0",64)
+    package.loaded["Iris/Data/IrisLayer3DataLookup"]=nil
+    package.loaded["Iris/Data/layer3_renderer"]=nil
+    IrisLayer3Data={["Base.Hammer"]={text_ko="stale"}}
+    assert(require("Iris/Data/layer3_renderer").getText("Base.Hammer") == nil)
+    index.product_id=previous
+    -- A stale companion silences only its invalid opening.
+    local companion=require("Iris/Data/IrisTooltipRecipeVariants")
+    local sample=companion[expected.recipe_sample]
+    sample.base={ko={"stale"},en={"stale"}}
+    assert(reader.open(expected.recipe_sample, function() return 1 end) == nil)
+    print("IRIS_PRODUCT_CONSUMER_PASS items=" .. count .. " recipes=" .. recipes .. " choices=" .. choices)
+    return
+end
 local DATA = "Iris/Data/IrisTooltipStaticData"
 local RECIPES = "Iris/Data/IrisTooltipRecipeVariants"
 local READER = "Iris/Data/IrisTooltipStaticDataLookup"
@@ -26,7 +133,12 @@ assert(reader.get("Base.223Clip", nil) == nil)
 assert(reader.get("Base.223Clip", "FR") == nil)
 assert(reader.get(nil, "en") == nil and dataLoads == 0)
 local cases = {"Base.CameraFilm", "Base.223Clip", "Base.223Box", "Base.223BulletsMold", "Base.223Bullets"}
-for i, key in ipairs(cases) do assert(#assert(reader.get(key, "en")) == i - 1) end
+local suppliedExpected = mode == "supply" and dofile(assert(arg[3])) or nil
+for i, key in ipairs(cases) do
+    local rows = assert(reader.get(key, "en"))
+    if suppliedExpected then same(rows, suppliedExpected[key].en)
+    else assert(#rows == i - 1) end
+end
 assert(dataLoads == 1)
 local payload = package.loaded[DATA]
 local count, distribution = 0, {0, 0, 0, 0, 0}
@@ -34,18 +146,21 @@ for key, record in pairs(payload) do
     count = count + 1
     assert(type(key) == "string" and type(record) == "table")
     for locale in pairs(record) do assert(locale == "ko" or locale == "en") end
-    for _, locale in ipairs({"ko", "en"}) do same(assert(reader.get(key, locale)), record[locale]) end
+    for _, locale in ipairs({"ko", "en"}) do
+        same(assert(reader.get(key, locale)), record[locale])
+        if suppliedExpected then same(record[locale], assert(suppliedExpected[key])[locale]) end
+    end
     distribution[#record.ko + 1] = distribution[#record.ko + 1] + 1
 end
 assert(count == 2280)
-same(distribution, {206, 455, 1388, 171, 60})
+if not suppliedExpected then same(distribution, {206, 455, 1388, 171, 60}) end
 same(reader.get("Base.LemonGrass", "ko"), payload["Base.LemonGrass"].ko)
 same(reader.get("Base.Lemongrass", "ko"), payload["Base.Lemongrass"].ko)
 assert(payload["Base.LemonGrass"] ~= payload["Base.Lemongrass"])
 assert(reader.get("base.223Clip", "en") == nil)
 assert(reader.get(" Base.223Clip", "en") == nil)
 local duplicate = reader.get("Base.223Bullets", "en")
-assert(#duplicate == 4 and duplicate[3] == duplicate[4])
+if not suppliedExpected then assert(#duplicate == 4 and duplicate[3] == duplicate[4]) end
 if mode == "smoke" then
     print("IRIS_TOOLTIP_T3_PASS mode=smoke exact_keys=2280")
     return
@@ -58,12 +173,16 @@ local function expectedRows(key, language, index)
     if #entry.variants == 0 then return entry.without_recipe[language] end
     return entry.variants[index or 1][language]
 end
-assert(recipeData["farming.Cabbage"].variants[1].id == "uc.recipe.make_jar_of_cabbage")
-assert(recipeData["farming.Cabbage"].variants[1].ko[2] == "[레시피] 병에 양배추 절이기")
-assert(recipeData["farming.Cabbage"].variants[1].en[2] == "[Recipe] Make Jar of Cabbage")
+local cabbageRecipe
+for _, variant in ipairs(recipeData["farming.Cabbage"].variants) do
+    if variant.id == "uc.recipe.make_jar_of_cabbage" then cabbageRecipe = variant end
+end
+assert(cabbageRecipe)
+assert(cabbageRecipe.ko[#cabbageRecipe.ko] == "[레시피] 병에 양배추 절이기")
+assert(cabbageRecipe.en[#cabbageRecipe.en] == "[Recipe] Make Jar of Cabbage")
 -- The behavior is dataset-wide, not a cabbage special case. Exercise every
 -- generated choice in both locales through the real runtime lookup.
-local recipeItems, recipeChoices = 0, 0
+local recipeItems, recipeChoices, interactionKinds = 0, 0, {}
 for key, entry in pairs(recipeData) do
     recipeItems=recipeItems+1
     if #entry.variants == 0 then
@@ -73,12 +192,21 @@ for key, entry in pairs(recipeData) do
         for index, expected in ipairs(entry.variants) do
             local view=assert(reader.open(key, function() return index end))
             assert(view.id == expected.id)
+            if suppliedExpected then
+                assert(view.kind == expected.kind)
+                interactionKinds[view.kind] = true
+                for _, language in ipairs({"ko", "en"}) do
+                    assert(#view[language] <= 4 and #view[language] == #entry.base[language])
+                    for i=1,#view[language]-1 do assert(view[language][i] == entry.base[language][i]) end
+                end
+            end
             same(view.ko, expected.ko); same(view.en, expected.en)
             recipeChoices=recipeChoices+1
         end
     end
 end
-assert(recipeItems == 349 and recipeChoices == 781)
+if not suppliedExpected then assert(recipeItems == 349 and recipeChoices == 781)
+else assert(interactionKinds.recipe and interactionKinds.rightclick and interactionKinds.evolved_recipe) end
 
 local legacyCalls = 0
 local forbidden = {
@@ -144,10 +272,17 @@ getTextManager = function() return {
     getFontHeight=function() return 17 end,
     MeasureStringX=function(_, _, text)
         if measureFailure then error("measurement failure") end
-        return #text * 6
+        -- A controlled font fixture, not a PZ font measurement.
+        local width = 0
+        for i=1,#text do
+            local byte = text:byte(i)
+            if byte < 128 then width = width+6
+            elseif byte >= 192 then width = width+12 end
+        end
+        return width
     end,
 } end
-local screenWidth, screenHeight = 900, 700
+local screenWidth, screenHeight = 1920, 1080
 getCore = function() return {
     getScreenWidth=function() return screenWidth end,
     getScreenHeight=function() return screenHeight end,
@@ -226,7 +361,8 @@ for _, kind in ipairs({"normal", "load_failure", "invalid_root", "malformed", "u
         for _, key in ipairs(cases) do
             tip.item.fullType=key; tip.drawn={}; tip.boxes=0
             ISToolTipInv.render(tip)
-            assert(table.concat(tip.drawn) == table.concat(expectedRows(key, "en")))
+            same(tip.drawn, expectedRows(key, "en"))
+            assert(#tip.drawn <= 4)
             assert(tip.boxes == (#expectedRows(key, "en") > 0 and 1 or 0))
         end
         tip.item.fullType="Base.223Clip"
@@ -241,15 +377,16 @@ for _, kind in ipairs({"normal", "load_failure", "invalid_root", "malformed", "u
         tip.item.fullType="Unknown.Item"; tip.boxes=0; ISToolTipInv.render(tip)
         assert(tip.boxes == 0 and tip.height == 30)
         tip.item=nil; ISToolTipInv.render(tip); assert(tip.height == 30)
-        tip.item={fullType="Base.223Bullets"}; tip.x=820; tip.y=640; tip.boxes=0
+        tip.item={fullType="Base.223Clip"}; tip.x=1700; tip.y=1040; tip.boxes=0
         ISToolTipInv.render(tip); assert(tip.boxes == 1 and tip.panel.x+tip.panel.width == -4)
         -- Same panel family covers narrow vanilla, screen edges, fallback and reuse.
-        payload["Fixture.Layout"] = {ko={string.rep("설명 ", 20)}, en={string.rep("long text ", 15)}}
+        payload["Fixture.Layout"] = {ko={"분류", string.rep("설명 ", 8), "획득 장소", "상호작용"},
+                                     en={"Class", string.rep("text ", 8), "Place", "Interaction"}}
         for _, placement in ipairs({
             {x=10, y=10, width=156, sw=900, sh=700, side="right", top=true},
             {x=700, y=10, width=156, sw=900, sh=700, side="left", top=true},
             {x=10, y=670, width=156, sw=900, sh=700, side="right"},
-            {x=10, y=10, width=300, sw=640, sh=700, side="right", top=true, panelWidth=326},
+            {x=10, y=10, width=300, sw=640, sh=700, side="right", top=true, panelWidth=260},
             {x=0, y=10, width=156, sw=300, sh=700, side="below"},
             {x=0, y=650, width=156, sw=300, sh=700, side="above"},
             {x=0, y=0, width=156, sw=300, sh=30, side="hidden"},
@@ -264,9 +401,11 @@ for _, kind in ipairs({"normal", "load_failure", "invalid_root", "malformed", "u
                 assert(tip.height == 30 and tip.width == placement.width)
                 if placement.side == "hidden" then
                     assert(tip.boxes == 0 and #tip.drawn == 0)
+                    assert(tip._irisOpening.displayStatus == "fit_failed" and tip._irisOpening.fitFailure)
                 else
                     assert(tip.boxes == 1)
-                    same({table.concat(tip.drawn)}, payload["Fixture.Layout"][language:lower()])
+                    same(tip.drawn, payload["Fixture.Layout"][language:lower()])
+                    assert(#tip.drawn == 4 and tip._irisOpening.displayStatus == "displayed")
                     local panel = tip.panel
                     if placement.side == "right" then assert(panel.x == tip.width+4)
                     elseif placement.side == "left" then assert(panel.x+panel.width == -4)
@@ -280,8 +419,19 @@ for _, kind in ipairs({"normal", "load_failure", "invalid_root", "malformed", "u
                 alt=true
             end
         end
+        tip._irisOpening=nil
+        payload["Fixture.Layout"] = {ko={string.rep("가", 100)}, en={string.rep("x", 200)}}
+        screenWidth, screenHeight = 900, 700
+        tip.x, tip.y, tip.width = 10, 10, 300
+        for _, language in ipairs({"KO", "EN"}) do
+            locale=language; tip.drawn={}; tip.boxes=0
+            ISToolTipInv.render(tip)
+            assert(tip.boxes == 0 and #tip.drawn == 0)
+            assert(tip._irisOpening.displayStatus == "fit_failed")
+            assert(tip._irisOpening.fitFailure.reason == "screen_capacity")
+        end
         payload["Fixture.Layout"] = nil
-        locale, screenWidth, screenHeight = "EN", 900, 700
+        locale, screenWidth, screenHeight = "EN", 1920, 1080
         tip.item.fullType, tip.x, tip.width = "Base.223Bullets", 10, 300
         tip.y, tip.drawn = 10, {}
         randomCalls, randomResult = 0, 0

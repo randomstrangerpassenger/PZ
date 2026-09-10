@@ -39,7 +39,7 @@ function Lookup.get(fullType, locale)
         local ok, loaded = ProtectedCall.call(require, "Iris/Data/IrisTooltipStaticData")
         if ok and type(loaded) == "table" and getmetatable(loaded) == nil then data = loaded end
     end
-    if not data then return nil end
+    if not data then return nil, "static_load_failure" end
     local entry = rawget(data, fullType)
     if type(entry) ~= "table" or getmetatable(entry) ~= nil then return nil end
     local rows = rawget(entry, locale)
@@ -57,31 +57,33 @@ end
 -- Pick a complete bilingual view once per opening. The producer, not runtime,
 -- owns recipe eligibility, names, row assembly, and preservation of other rows.
 function Lookup.open(fullType, pick)
-    local ko, en = Lookup.get(fullType, "ko"), Lookup.get(fullType, "en")
-    if not ko or not en then return nil end
+    local ko, koError = Lookup.get(fullType, "ko")
+    local en, enError = Lookup.get(fullType, "en")
+    if not ko or not en then return nil, koError or enError or "unsupported_or_invalid_entry" end
     if not variantsAttempted then
         variantsAttempted = true
         local ok, loaded = ProtectedCall.call(require, "Iris/Data/IrisTooltipRecipeVariants")
         if ok and type(loaded) == "table" and getmetatable(loaded) == nil then recipeData = loaded end
     end
-    if not recipeData then return nil end
+    if not recipeData then return nil, "interaction_load_failure" end
     local entry = rawget(recipeData, fullType)
     if entry == nil then return {ko=ko, en=en} end
     if type(entry) ~= "table" or getmetatable(entry) ~= nil or
         type(entry.base) ~= "table" or getmetatable(entry.base) ~= nil or
         not sameRows(entry.base.ko, ko) or not sameRows(entry.base.en, en) or
-        type(entry.variants) ~= "table" or getmetatable(entry.variants) ~= nil then return nil end
+        type(entry.variants) ~= "table" or getmetatable(entry.variants) ~= nil then return nil, "invalid_interaction_entry" end
     local count, last, seen = 0, 0, {}
     for key, variant in pairs(entry.variants) do
         if type(key) ~= "number" or key < 1 or key ~= math.floor(key) or
             type(variant) ~= "table" or getmetatable(variant) ~= nil or
+            (variant.kind ~= nil and variant.kind ~= "recipe" and variant.kind ~= "rightclick" and variant.kind ~= "evolved_recipe") or
             type(variant.id) ~= "string" or variant.id == "" or seen[variant.id] or
             not validRows(variant.ko) or not validRows(variant.en) or
-            #variant.ko == 0 or #variant.ko ~= #variant.en then return nil end
+            #variant.ko == 0 or #variant.ko ~= #variant.en then return nil, "invalid_interaction_variant" end
         seen[variant.id] = true
         count, last = count+1, math.max(last, key)
     end
-    if count ~= last then return nil end
+    if count ~= last then return nil, "invalid_interaction_array" end
     if count == 0 then
         local fixed = entry.without_recipe
         if type(fixed) ~= "table" or getmetatable(fixed) ~= nil or

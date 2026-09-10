@@ -9,6 +9,9 @@ from .contract import AcceptedInput, check_surface
 
 def project(accepted: AcceptedInput, contract: dict[str, Any]) -> tuple[dict, dict, dict]:
     data, provenance = {}, {}
+    roles = contract['slot_roles']
+    if 'candidate_subject_sha256' in accepted.binding:
+        roles = {**roles, 'S3': 'acquisition_place', 'S4': 'layer4_interaction'}
     distribution = {str(count): 0 for count in range(5)}
     for row in accepted.rows:
         full_type, slots = row["full_type"], row["slots"]
@@ -24,7 +27,7 @@ def project(accepted: AcceptedInput, contract: dict[str, Any]) -> tuple[dict, di
                 hashes[locale] = {"source_sha256": digest, "final_sha256": digest}
             line_provenance.append({
                 "position": position, "slot_id": slot["slot_id"],
-                "role": contract["slot_roles"][slot["slot_id"]],
+                "role": roles[slot["slot_id"]],
                 "semantic_identity": slot["semantic_identity"], "surface_sha256": hashes,
             })
         present = [slot["slot_id"] for slot in slots]

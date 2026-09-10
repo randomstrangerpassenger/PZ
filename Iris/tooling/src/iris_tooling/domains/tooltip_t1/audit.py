@@ -330,6 +330,9 @@ def _strict_candidate_result(
     handoff_fulltypes = [row["full_type"] for row in handoff_rows]
     if len(handoff_fulltypes) != len(set(handoff_fulltypes)) or handoff_fulltypes != support:
         raise TooltipContractError("strict handoff exact FullType set mismatch")
+    if "s2_supply" in subject:
+        from iris_tooling.domains.tooltip_static_data_projection.contract import validate_supply_rows
+        validate_supply_rows(subject["s2_supply"], handoff_rows)
 
     subject_path = output_root / "subject_binding.json"
     input_path = output_root / "t2_handoff_input.jsonl"
@@ -516,6 +519,9 @@ def _validate_strict_candidate(
 
     input_path = root / "t2_handoff_input.jsonl"
     rows = _read_jsonl_objects(input_path, "T2 handoff input")
+    if "s2_supply" in subject:
+        from iris_tooling.domains.tooltip_static_data_projection.contract import validate_supply_rows
+        validate_supply_rows(subject["s2_supply"], rows)
     for row in rows:
         validate_handoff_row(row)
         if row.get("subject_binding_ref") != "subject_binding.json":
@@ -888,6 +894,18 @@ def _slot_selected_owner(
     )
 
 
+def _slot_supplied_s2(full_type, embedded):
+    supplied = embedded['payload']['records'][full_type]
+    proof = 'subject_binding.json#/s2_supply/payload/records/' + full_type
+    if supplied['state'] != 'present':
+        return _slot_absent('S2', supplied['state'], proof)
+    identity = 'expression:' + sha256_bytes(canonical_bytes({
+        'full_type': full_type, 'locales': supplied['locales'],
+        'expression': embedded['payload']['binding']['expression'],
+    }))
+    return _slot_selected_owner('S2', identity,
+        {loc: supplied['locales'][loc]['text'] for loc in ('ko', 'en')}, proof)
+
 def _slot_selected_layer4(
     slot_id: str,
     candidate: Layer4Candidate,
@@ -1015,6 +1033,8 @@ def run_candidate(
     verify_selection_invariants: bool,
     layer2_menu_relation: Path | None = None,
     strict_production_handoff: bool = False,
+    s2_supply: Path | None = None,
+    s2_supply_sha256: str | None = None,
 ) -> dict[str, Any]:
     repository_root = repository_root.resolve()
     output_root = output_root.resolve()
@@ -1047,6 +1067,13 @@ def run_candidate(
     subject["generation_id"] = generation_id
     subject["input_sha256"] = input_hashes_before
     subject["contract_sha256"] = contract_hashes
+    supply_records = None
+    if (s2_supply is None) != (s2_supply_sha256 is None):
+        raise TooltipContractError("S2 supply requires an explicit path and SHA-256")
+    if s2_supply is not None:
+        from iris_tooling.domains.layer3.tooltip_s2_supply import load as load_s2
+        subject["s2_supply"] = load_s2(repository_root, s2_supply, s2_supply_sha256)
+        supply_records = subject["s2_supply"]["payload"]["records"]
     subject_identity = {
         "commit": subject["commit"],
         "tree": subject["tree"],
@@ -1057,6 +1084,8 @@ def run_candidate(
     if layer2_relation_receipt is not None:
         subject_identity["layer2_menu_relation_sha256"] = subject["layer2_menu_relation_sha256"]
         subject_identity["layer2_menu_relation_receipt_sha256"] = subject["layer2_menu_relation_receipt_sha256"]
+    if supply_records is not None:
+        subject_identity["s2_supply"] = subject["s2_supply"]
     subject["subject_identity_sha256"] = sha256_bytes(canonical_bytes(subject_identity))
 
     classifications = parse_classifications(repository_root / CLASSIFICATIONS)
@@ -1277,7 +1306,15 @@ def run_candidate(
         core_ids = list(core_ids_value) if valid_core_ids else []
         owner_absence = layer3_tooltip_absences.get(full_type)
         l3_proof = f"{(L3_GENERATIONS / generation_id / 'dvf_3_3_rendered.json').as_posix()}#entries/{full_type}/role_material/core_source_fact_ids"
-        if owner_absence is not None and isinstance(l3, dict):
+        if supply_records is not None:
+            supplied = supply_records[full_type]
+            proof = "subject_binding.json#/s2_supply/payload/records/" + full_type
+            if supplied["state"] == "present":
+                slots.append(_slot_supplied_s2(full_type, subject["s2_supply"]))
+            else:
+                slots.append(_slot_absent("S2", supplied["state"], proof))
+                absence_distribution["layer3|locale=all|reason=" + supplied["state"] + "|authority=" + proof] += 1
+        elif owner_absence is not None and isinstance(l3, dict):
             slots.append(_slot_correction("S2", "DVF_TOOLTIP_FACT_IDENTITY_MISSING"))
             corrections.append(_correction(
                 full_type, "layer3", "DVF owner", "DVF_TOOLTIP_FACT_IDENTITY_MISSING",
@@ -1426,6 +1463,8 @@ def run_candidate(
                     " -> Iris/media/lua/client/Iris/Data/layer3_renderer.lua#getText"
                     " -> Iris/media/lua/client/Iris/UI/Detail/IrisItemDetailModelAssembler.lua#layer3Payload"
                 )
+                if supply_records is not None:
+                    authority_relation_ref = "subject_binding.json#/s2_supply; Menu adoption deferred to C"
             elif layer == "layer4" and selected:
                 authority_relation_ref = f"{L4_OWNER_INPUT.as_posix()} -> {L4_RUNTIME_ROOT.as_posix()}/Chunk*.lua"
                 independent_consumer_evidence_ref = "Iris/media/lua/client/Iris/UI/Browser/IrisBrowserInteractionProjection.lua#label_key"

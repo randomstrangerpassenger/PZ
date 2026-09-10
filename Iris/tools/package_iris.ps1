@@ -134,8 +134,10 @@ function Copy-IrisMediaProjection {
     $sourceMediaFull = Get-FullPath $SourceMedia
     $excludedPrefixes = @(
         'lua/client/Iris/Data/IrisLayer3Generations',
-        'lua/client/Iris/Data/IrisLayer3DataChunks'
+        'lua/client/Iris/Data/IrisLayer3DataChunks',
+        'lua/client/Iris/Data/IrisLayer3ProductGenerations'
     )
+    if ($GenerationId -cmatch '^l3p-[0-9a-f]{64}$') { $excludedPrefixes += 'lua/client/Iris/Data/Layer3English' }
     foreach ($file in Get-ChildItem -LiteralPath $sourceMediaFull -Recurse -File) {
         $relative = (Get-RelativePackagePath -Root $sourceMediaFull -Path $file.FullName).Replace('\', '/')
         $excluded = $false
@@ -154,11 +156,12 @@ function Copy-IrisMediaProjection {
         Copy-Item -LiteralPath $file.FullName -Destination $target -Force
     }
 
+    $generationDirectory = if ($GenerationId -cmatch '^l3p-[0-9a-f]{64}$') { 'IrisLayer3ProductGenerations' } else { 'IrisLayer3Generations' }
     $sourceGeneration = Join-Path (
-        Join-Path $sourceMediaFull 'lua\client\Iris\Data\IrisLayer3Generations'
+        Join-Path $sourceMediaFull ("lua\client\Iris\Data\" + $generationDirectory)
     ) $GenerationId
     $destinationGeneration = Join-Path (
-        Join-Path $DestinationMedia 'lua\client\Iris\Data\IrisLayer3Generations'
+        Join-Path $DestinationMedia ("lua\client\Iris\Data\" + $generationDirectory)
     ) $GenerationId
     if (-not (Test-Path -LiteralPath $sourceGeneration -PathType Container)) {
         throw "layer3_package_selected_generation_missing: $sourceGeneration"
@@ -184,6 +187,21 @@ function Get-DecodedUtf8EolSha256 {
     return ([System.BitConverter]::ToString($hash)).Replace('-', '').ToLowerInvariant()
 }
 
+function Get-RuntimeLookupPair {
+    param(
+        [Parameter(Mandatory = $true)][string]$SourceRoot,
+        [string]$PackageRoot = ''
+    )
+    $sourceData = Join-Path $SourceRoot 'media\lua\client\Iris\Data'
+    $source = Assert-RuntimeLookupPackageParity -DataRoot $sourceData
+    $package = $null
+    if ($PackageRoot) {
+        $packageData = Join-Path $PackageRoot 'media\lua\client\Iris\Data'
+        $package = Assert-RuntimeLookupPackageParity -DataRoot $packageData
+    }
+    return @{ source = $source; package = $package }
+}
+
 function Get-StatelessRuntimePayloadIdentity {
     param(
         [Parameter(Mandatory = $true)][string]$SourceRoot,
@@ -202,7 +220,8 @@ function Get-StatelessRuntimePayloadIdentity {
     }
     $generationId = $generationMatch.Groups['generation'].Value
     $dataRoot = Join-Path $SourceRoot 'media\lua\client\Iris\Data'
-    $lookupPackageIdentity = Assert-RuntimeLookupPackageParity -DataRoot $dataRoot
+    $lookupPair = Get-RuntimeLookupPair -SourceRoot $SourceRoot -PackageRoot $PackageRoot
+    $lookupPackageIdentity = $lookupPair.source
     $generationRoot = Join-Path (Join-Path $dataRoot 'IrisLayer3Generations') $generationId
     $descriptorPath = Join-Path $generationRoot 'generation_descriptor.json'
     if (-not (Test-Path -LiteralPath $descriptorPath -PathType Leaf)) {
@@ -311,7 +330,7 @@ function Get-StatelessRuntimePayloadIdentity {
     }
     if (-not [string]::IsNullOrWhiteSpace($PackageRoot)) {
         $packageData = Join-Path $PackageRoot 'media\lua\client\Iris\Data'
-        $packageLookupPackageIdentity = Assert-RuntimeLookupPackageParity -DataRoot $packageData
+        $packageLookupPackageIdentity = $lookupPair.package
         if (
             $packageLookupPackageIdentity.generation_id -cne $lookupPackageIdentity.generation_id -or
             $packageLookupPackageIdentity.source_digest -cne $lookupPackageIdentity.source_digest
@@ -363,6 +382,35 @@ function Get-RuntimePayloadIdentity {
         [Parameter(Mandatory = $true)][string]$SourceRoot,
         [string]$PackageRoot = ''
     )
+    $productDataRoot = Join-Path $SourceRoot 'media\lua\client\Iris\Data'
+    $tooltipOwner = Get-IrisTooltipOwner -DataRoot $productDataRoot
+    if ($PackageRoot -and $null -ne $tooltipOwner) {
+        $packagedData = Join-Path $PackageRoot 'media\lua\client\Iris\Data'
+        $packagedTooltip = Get-IrisTooltipOwner -DataRoot $packagedData
+        if ($null -eq $packagedTooltip -or $packagedTooltip.product_id -cne $tooltipOwner.product_id -or
+            (Get-FileHash -LiteralPath (Join-Path $productDataRoot 'IrisTooltipOwner.json') -Algorithm SHA256).Hash -cne
+            (Get-FileHash -LiteralPath (Join-Path $packagedData 'IrisTooltipOwner.json') -Algorithm SHA256).Hash) { throw 'tooltip_package_identity_mismatch' }
+    }
+    if (Test-Path -LiteralPath (Join-Path $productDataRoot 'IrisLayer3ProductCurrent.lua')) {
+        $product = Get-IrisProductDescriptor -DataRoot $productDataRoot
+        $lookupPair = Get-RuntimeLookupPair -SourceRoot $SourceRoot -PackageRoot $PackageRoot
+        $lookup = $lookupPair.source
+        if ($PackageRoot) {
+            $packaged = Join-Path $PackageRoot 'media\lua\client\Iris\Data'
+            $packageProduct = Get-IrisProductDescriptor -DataRoot $packaged
+            $packageLookup = $lookupPair.package
+            if ($packageProduct.product_id -cne $product.product_id -or $packageLookup.source_digest -cne $lookup.source_digest) { throw 'product_package_lookup_mismatch' }
+            foreach ($file in Get-ChildItem -LiteralPath (Join-Path $SourceRoot 'media') -Recurse -File) {
+                $relative = $file.FullName.Substring((Join-Path $SourceRoot 'media').Length + 1)
+                $posix = $relative.Replace('\', '/')
+                if ($posix -cmatch '^lua/client/Iris/Data/(IrisLayer3Generations|IrisLayer3DataChunks|Layer3English)/') { continue }
+                if ($posix.StartsWith('lua/client/Iris/Data/IrisLayer3ProductGenerations/', [System.StringComparison]::Ordinal) -and -not $posix.StartsWith(('lua/client/Iris/Data/IrisLayer3ProductGenerations/' + $product.product_id + '/'), [System.StringComparison]::Ordinal)) { continue }
+                $copy = Join-Path (Join-Path $PackageRoot 'media') $relative
+                if (-not (Test-Path -LiteralPath $copy) -or (Get-FileHash -LiteralPath $copy -Algorithm SHA256).Hash -cne (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash) { throw "product_package_runtime_mismatch: $relative" }
+            }
+        }
+        return [ordered]@{ schema_version = 'iris-runtime-product-payload-identity-v1'; status = 'PASS'; generation_id = $product.product_id; lookup = $lookup; applicability = 'current_runtime_payload'; descriptor_sha256 = (Get-FileHash -LiteralPath $product.path -Algorithm SHA256).Hash.ToLowerInvariant() }
+    }
     $pointerPath = Join-Path $SourceRoot 'media\lua\client\Iris\Data\IrisLayer3DataCurrent.lua'
     if (Test-Path -LiteralPath $pointerPath -PathType Leaf) {
         $statelessIdentity = Get-StatelessRuntimePayloadIdentity `

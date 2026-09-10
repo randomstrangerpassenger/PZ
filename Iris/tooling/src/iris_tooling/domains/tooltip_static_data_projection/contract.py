@@ -111,9 +111,12 @@ def read_handoff(root: Path, locator: dict[str, Any], *, support_count: int,
     require(set(manifest) == fields and manifest["schema_version"] == "iris-tooltip-t2-handoff-manifest-v1", "T1 manifest schema mismatch")
     require(subject.get("schema_version") == "iris-tooltip-t1-subject-binding-v1", "T1 subject schema mismatch")
     identity_keys = ("commit", "tree", "generation_id", "input_sha256", "contract_sha256",
-                     "layer2_menu_relation_sha256", "layer2_menu_relation_receipt_sha256")
+                     "layer2_menu_relation_sha256", "layer2_menu_relation_receipt_sha256", "s2_supply")
     identity = {key: subject[key] for key in identity_keys if key in subject}
     require(subject.get("subject_identity_sha256") == sha256_bytes(canonical_bytes(identity)), "T1 subject identity hash mismatch")
+    if "s2_supply" in subject:
+        from iris_tooling.domains.layer3.tooltip_s2_supply import validate_embedded
+        validate_embedded(subject["s2_supply"])
     require(manifest["authority_contract_bundle_sha256"] == subject["contract_sha256"].get("authority_contract_bundle_sha256"), "T1 contract bundle mismatch")
     require(closeout.get("candidate_run_receipt", {}).get("sha256") == manifest["candidate_run_receipt_sha256"], "T1 candidate receipt binding mismatch")
     strict = closeout.get("strict_t2_handoff", {})
@@ -135,16 +138,41 @@ def read_handoff(root: Path, locator: dict[str, Any], *, support_count: int,
     require(manifest["support_count"] == manifest["handoff_row_count"] == strict.get("support_count") == strict.get("handoff_row_count") == support_count
             and manifest["support_sha256"] == manifest["handoff_fulltype_sha256"] == strict.get("support_sha256") == support_sha256
             and manifest["handoff_input_sha256"] == hashes["t2_handoff_input.jsonl"], "handoff count/hash mismatch")
+    if "s2_supply" in subject:
+        validate_supply_rows(subject["s2_supply"], rows)
     return AcceptedInput(tuple(sorted(rows, key=lambda row: row["full_type"])), {
         "subject": expected_subject, "artifact_sha256": {name: hashes[name] for name in HANDOFF_FILES},
         "authority_contract_bundle_sha256": manifest["authority_contract_bundle_sha256"],
         "support_count": support_count, "support_sha256": support_sha256,
+        **({"s2_supply_sha256": subject["s2_supply"]["sha256"],
+            "description": subject["s2_supply"]["payload"]["binding"]["expression"]}
+           if "s2_supply" in subject else {}),
     })
 
 
-def admit(repository_root: Path, handoff_root: Path, contract: dict[str, Any]) -> AcceptedInput:
+def validate_supply_rows(embedded, rows):
+    from iris_tooling.domains.layer3.tooltip_s2_supply import validate_embedded
+    payload = validate_embedded(embedded)
+    require({row['full_type'] for row in rows} == payload['records'].keys(), 'S2 handoff support drift')
+    for row in rows:
+        supplied = payload['records'][row['full_type']]
+        s2 = next((slot for slot in row['slots'] if slot['slot_id'] == 'S2'), None)
+        if supplied['state'] != 'present':
+            require(s2 is None, 'approved S2 omission replaced by fallback')
+            continue
+        identity = 'expression:' + sha256_bytes(canonical_bytes({
+            'full_type': row['full_type'], 'locales': supplied['locales'],
+            'expression': payload['binding']['expression'],
+        }))
+        require(s2 is not None and s2['semantic_identity'] == identity
+                and s2['localized_surfaces'] == {loc: supplied['locales'][loc]['text'] for loc in ('ko', 'en')},
+                'S2 handoff expression/text drift')
+
+
+def admit(repository_root: Path, handoff_root: Path, contract: dict[str, Any], *, locator=None) -> AcceptedInput:
     root = external_path(repository_root, handoff_root)
-    locator = json.loads((repository_root / ROUTE).read_text(encoding="utf-8"))["tooltip_t1_production_handoff"]
+    if locator is None:
+        locator = json.loads((repository_root / ROUTE).read_text(encoding="utf-8"))["tooltip_t1_production_handoff"]
     accepted = read_handoff(root, locator, support_count=contract["support_count"], support_sha256=contract["support_sha256"])
     subject = read_object(root / "subject_binding.json")
     commit = accepted.binding["subject"]["commit"]

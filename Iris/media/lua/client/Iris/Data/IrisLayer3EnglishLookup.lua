@@ -33,6 +33,14 @@ end
 
 function Lookup.get(fullType)
     if type(fullType) ~= "string" or fullType == "" then return nil end
+    local ok, pointer = safeRequire("Iris/Data/IrisLayer3DataCurrent")
+    if not ok then return nil end
+    if type(pointer) == "table" and pointer.schema_version == "iris_layer3_product_compat_v1" then
+        local loaded, product = safeRequire("Iris/Data/IrisLayer3DataLookup")
+        if not loaded or type(product.getLocale) ~= "function" then return nil end
+        local value = product.getLocale(fullType, "en")
+        return value and value.text ~= "" and value.text or nil
+    end
     local record = findRecord(fullType)
     if not record then return nil end
     local chunk = chunkCache[record.module]

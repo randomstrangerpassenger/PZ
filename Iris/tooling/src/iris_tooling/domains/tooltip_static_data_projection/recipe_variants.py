@@ -27,6 +27,76 @@ MISSING_NAME_EXCLUSIONS = frozenset({
 })
 
 
+def interaction_candidates(repository: Path, support) -> dict:
+    """Read the same QG owners as Menu; one flat pool, no source weighting."""
+    from iris_tooling.domains.layer4.evolved_recipe import load_owner, OWNER_RELATIVE_PATH
+    owner = json.loads((repository / OWNER_ROOT / 'upstream_usecases_by_fulltype.json').read_bytes())['fulltypes']
+    navigation = json.loads((repository / OWNER_ROOT / 'upstream_recipe_nav_registry.json').read_bytes())['entries']
+    actions = _runtime_rightclick_surfaces(repository)
+    evolved = load_owner(repository / OWNER_RELATIVE_PATH)['relations_by_fulltype']
+    contract, _ = load_contract(repository)
+    result = {}
+    for key in sorted(support):
+        source = owner.get(key, {})
+        candidates = _layer4_candidates(source)
+        require(all(c.source in {'recipe', 'rightclick'} for c in candidates), f'{key}: unsupported interaction source')
+        _, dispositions = select_layer4(candidates)
+        require(not any(d.disposition.startswith('correction_') for d in dispositions), f'{key}: invalid interaction identity')
+        pool = []
+        for disposition in dispositions:
+            if disposition.disposition not in {'selected', 'excluded_capacity'}:
+                continue
+            candidate = disposition.candidate
+            identity, kind = candidate.interaction_id, candidate.source
+            if kind == 'recipe':
+                evidence = [r for r in source['use_cases'] if r['use_case_id'] == identity]
+                require(evidence and all(any(e.get('source_type') == 'recipe_evidence' and e.get('decision') == 'PASS'
+                    for e in r.get('evidence_sources', [])) for r in evidence), f'{key}/{identity}: unapproved recipe evidence')
+                nav = navigation.get(identity, {})
+                require(nav.get('recipe_id') == identity, f'{identity}: recipe navigation identity mismatch')
+                names = {'ko': nav.get('translated_name'), 'en': nav.get('original_name')}
+                if identity in MISSING_NAME_EXCLUSIONS and not all(isinstance(n, str) and n.strip() for n in names.values()):
+                    continue
+                labels = {'ko': '[레시피] ', 'en': '[Recipe] '}
+            else:
+                names = actions.get(identity, {})
+                labels = {'ko': '[우클릭] ', 'en': '[Right-click] '}
+            require(all(isinstance(names.get(loc), str) and names[loc].strip() for loc in ('ko', 'en')),
+                    f'{identity}: missing interaction locale')
+            pool.append({'id': identity, 'kind': kind, **{loc: labels[loc] + names[loc] for loc in ('ko', 'en')}})
+        for relation in evolved.get(key, []):
+            require(relation['source_full_type'] == key, f'{key}: evolved source mismatch')
+            pool.append({'id': relation['relation_id'], 'kind': 'evolved_recipe',
+                         'ko': '[자유 조리] ' + relation['display_by_locale']['KO'],
+                         'en': '[Freeform Cooking] ' + relation['display_by_locale']['EN']})
+        require(len({v['id'] for v in pool}) == len(pool), f'{key}: duplicate interaction identity')
+        for variant in pool:
+            for loc in ('ko', 'en'):
+                check_surface(variant[loc], loc, contract, f"{key}/{variant['id']}/{loc}")
+        result[key] = sorted(pool, key=lambda v: v['id'])
+    return result
+
+
+def project_interaction_variants(base, rows, pools):
+    """Use explicit candidate slots; S3 is acquisition, never an L4 tail."""
+    result = {}
+    for row in rows:
+        key = row['full_type']
+        entry, pool = base[key], pools[key]
+        slots = row['slots']
+        s4 = [s for s in slots if s['slot_id'] == 'S4']
+        require(bool(s4) == bool(pool), f'{key}: S4 pool/slot mismatch')
+        if not pool:
+            continue
+        require(slots[-1] == s4[0] and s4[0]['semantic_identity'] == pool[0]['id']
+                and s4[0]['localized_surfaces'] == {loc: pool[0][loc] for loc in ('ko', 'en')}, f'{key}: stale S4 owner')
+        prefix = {loc: entry[loc][:-1] for loc in ('ko', 'en')}
+        require(all(entry[loc][-1] == pool[0][loc] for loc in ('ko', 'en')), f'{key}: stale S4 text')
+        result[key] = {'base': entry, 'variants': [
+            {'id': v['id'], 'kind': v['kind'], **{loc: prefix[loc] + [v[loc]] for loc in ('ko', 'en')}} for v in pool]}
+    return result
+
+
 def _decode_literal(value: str) -> str:
     tokens = re.findall(r'\\[0-9]{3}|\\["\\]|[^\\]', value[1:-1])
     raw = bytearray()
@@ -135,6 +205,8 @@ def variants_bytes(data: dict) -> bytes:
         lines.extend(["        },", "        variants = {"])
         for variant in entry["variants"]:
             lines.extend(["            {", f"                id = {lua_string(variant['id'])},"])
+            if 'kind' in variant:
+                lines.append(f"                kind = {lua_string(variant['kind'])},")
             lines.extend(arrays(variant, "                "))
             lines.append("            },")
         lines.append("        },")

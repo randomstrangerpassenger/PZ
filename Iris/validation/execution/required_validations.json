@@ -3061,6 +3061,12 @@
       "role": "layer3_acquisition_results",
       "test_id": "test_layer3_acquisition_results.Layer3AcquisitionResultsTest.test_acquisition_results_contract",
       "source_file": "Iris/build/description/v2/tests/test_layer3_acquisition_results.py"
+    },
+    {
+      "required": true,
+      "role": "layer3_product_consumption",
+      "test_id": "test_layer3_product_integration.test_product_contract",
+      "source_file": "Iris/build/description/v2/tests/test_layer3_product_integration.py"
     }
   ],
   "route": "current",

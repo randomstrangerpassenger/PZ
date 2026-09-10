@@ -31,6 +31,15 @@
     "t1_input": {
       "type": "object",
       "additionalProperties": false,
+      "dependentRequired": {
+        "s2_supply_sha256": ["description"],
+        "description": ["s2_supply_sha256"],
+        "candidate_subject_sha256": ["s2_supply_sha256"]
+      },
+      "allOf": [{
+        "if": {"not": {"required": ["candidate_subject_sha256"]}},
+        "then": {"properties": {"artifact_sha256": {"required": ["t2_handoff_manifest.json"]}}}
+      }],
       "required": [
         "subject",
         "artifact_sha256",
@@ -39,6 +48,23 @@
         "support_sha256"
       ],
       "properties": {
+        "candidate_subject_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "s2_supply_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "description": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "sha256"],
+          "properties": {
+            "path": {"type": "string", "minLength": 1},
+            "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+          }
+        },
         "subject": {
           "type": "object",
           "additionalProperties": false,
@@ -62,8 +88,7 @@
           "additionalProperties": false,
           "required": [
             "subject_binding.json",
-            "t2_handoff_input.jsonl",
-            "t2_handoff_manifest.json"
+            "t2_handoff_input.jsonl"
           ],
           "properties": {
             "subject_binding.json": {
@@ -274,7 +299,9 @@
                     "layer2_classification",
                     "layer3_core_description",
                     "layer4_interaction_1",
-                    "layer4_interaction_2"
+                    "layer4_interaction_2",
+                    "acquisition_place",
+                    "layer4_interaction"
                   ]
                 },
                 "semantic_identity": {

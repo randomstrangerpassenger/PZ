@@ -29,34 +29,16 @@ function IrisAltTooltip.getDisplayLineCacheMetrics()
     return copy
 end
 
--- Engine-measured wrapping on UTF-8 boundaries. Every byte stays in order,
--- including whitespace; only physical drawing runs are split.
-local function wrapRow(text, width, manager, font, lines)
-    local ends = {}
-    for i=1,#text do
-        local following = text:byte(i+1)
-        if not following or following < 128 or following >= 192 then ends[#ends+1]=i end
+-- Fit failures are retained on the opening and reported once per environment.
+-- They are not valid absence or a successful four-line display.
+local function fitFailure(opening, locale, reason, width, height, required)
+    local identity = locale .. ":" .. reason .. ":" .. tostring(width) .. ":" .. tostring(height)
+    if opening.fitFailureIdentity ~= identity then
+        opening.fitFailureIdentity = identity
+        print("Iris Tooltip fit failure: " .. opening.fullType .. " " .. identity .. " required=" .. tostring(required))
     end
-    local first, startByte = 1, 1
-    while first <= #ends do
-        local low, high, fit = first, #ends, first-1
-        while low <= high do
-            local middle = math.floor((low+high)/2)
-            if manager:MeasureStringX(font, text:sub(startByte, ends[middle])) <= width then
-                fit=middle; low=middle+1
-            else high=middle-1 end
-        end
-        if fit < first then return false end
-        if fit < #ends then
-            for i=fit,first,-1 do
-                if text:sub(ends[i],ends[i]):match("%s") then fit=i; break end
-            end
-        end
-        lines[#lines+1]=text:sub(startByte, ends[fit])
-        startByte=ends[fit]+1
-        first=fit+1
-    end
-    return true
+    opening.displayStatus = "fit_failed"
+    opening.fitFailure = {locale=locale, reason=reason, screenWidth=width, screenHeight=height, required=required}
 end
 
 local function addOverlay(tip)
@@ -81,10 +63,11 @@ local function addOverlay(tip)
         if instrumentationEnabled then metrics.staticLookups=metrics.staticLookups+1 end
         opening = {item=tip.item, fullType=fullType}
         tip._irisOpening = opening
-        opening.view = Lookup.open(fullType, function(count)
+        opening.view, opening.lookupError = Lookup.open(fullType, function(count)
             if ZombRand then return ZombRand(count)+1 end
             return math.random(count)
         end)
+        if opening.lookupError then opening.displayStatus = "lookup_failed" end
     end
     local rows = opening.view and opening.view[locale]
     if not rows or #rows == 0 then return end
@@ -95,52 +78,39 @@ local function addOverlay(tip)
     local core = getCore()
     local screenWidth, screenHeight = core:getScreenWidth(), core:getScreenHeight()
     local absoluteX, absoluteY = tip:getAbsoluteX(), tip:getAbsoluteY()
-    -- A separate reading panel, independent of vanilla's often narrow width.
-    local gap, minWidth, maxWidth = 4, 240, 360
+    -- Every role occupies one physical line at the normal game font size.
+    -- Widen to the measured original text, then choose a nonoverlapping side.
+    local gap = 4
     local contentWidth = 0
     for i=1,#rows do
         contentWidth = math.max(contentWidth, manager:MeasureStringX(font, rows[i]))
     end
-    local width = math.min(math.min(math.max(contentWidth+20, minWidth), maxWidth), screenWidth)
+    local width = math.max(contentWidth+20, math.min(240, screenWidth))
+    local blockHeight = #rows * lineHeight + 8
+    if #rows > 4 or width > screenWidth or blockHeight > screenHeight then
+        fitFailure(opening, locale, "screen_capacity", screenWidth, screenHeight, width)
+        return
+    end
     local rightSpace = screenWidth - (absoluteX+tip.width+gap)
     local leftSpace = absoluteX-gap
-    local x, side
-    if rightSpace >= width then
-        x, side = tip.width+gap, true
-    elseif leftSpace >= width then
-        x, side = -width-gap, true
-    elseif math.max(rightSpace, leftSpace) >= minWidth then
-        -- Keep the panel alongside vanilla when a readable narrower panel fits.
-        if rightSpace >= leftSpace then
-            width = math.min(width, rightSpace)
-            x = tip.width+gap
-        else
-            width = math.min(width, leftSpace)
-            x = -width-gap
-        end
-        side = true
-    else
-        -- Very narrow viewports: use vertical placement only as a last resort.
-        x = math.max(0, math.min(absoluteX, screenWidth-width)) - absoluteX
-    end
-    if width <= 20 then return end
-    local lines = {}
-    for i=1,#rows do
-        if not wrapRow(rows[i], width-20, manager, font, lines) then return end
-    end
-    local blockHeight = #lines * lineHeight + 8
-    if blockHeight > screenHeight then return end
-    local y
-    if side then
-        -- Top aligned unless the screen bottom requires moving only Iris up.
+    local x, y
+    if rightSpace >= width or leftSpace >= width then
+        x = rightSpace >= width and tip.width+gap or -width-gap
         y = math.max(0, math.min(absoluteY, screenHeight-blockHeight)) - absoluteY
     else
-        y = tip.height+gap
-        if absoluteY+y < 0 or absoluteY+y+blockHeight > screenHeight then
+        x = math.max(0, math.min(absoluteX, screenWidth-width)) - absoluteX
+        if absoluteY+tip.height+gap+blockHeight <= screenHeight and absoluteY+tip.height+gap >= 0 then
+            y = tip.height+gap
+        elseif absoluteY-blockHeight-gap >= 0 and absoluteY-gap <= screenHeight then
             y = -blockHeight-gap
-            if absoluteY+y < 0 or absoluteY+y+blockHeight > screenHeight then return end
+        else
+            fitFailure(opening, locale, "no_nonoverlapping_position", screenWidth, screenHeight, blockHeight)
+            return
         end
     end
+    opening.displayStatus = "displayed"
+    opening.fitFailure = nil
+    local lines = rows
     tip:drawRect(x,y,width,blockHeight,0.9,0.05,0.15,0.2)
     tip:drawRectBorder(x,y,width,blockHeight,0.8,0.4,0.6,0.7)
     for i=1,#lines do

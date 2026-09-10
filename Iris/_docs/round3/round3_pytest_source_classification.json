@@ -18,16 +18,20 @@
   "source_set_binding": {
     "canonicalization": "sorted repository-relative source paths joined with LF and a terminal LF",
     "tracked_policy_sources": {
-      "count": 53,
-      "sha256": "2e3c660009783e152d9cda8b0780d0606ffd1393838aa95319d9f19cee85842d"
+      "count": 55,
+      "sha256": "f454a28398b73174eb62e63822f4419dc2745c6fbb0d7799a797531c14446c2d"
     },
     "approved_clean_checkout_absent_policy_sources": {
       "count": 0,
-      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
-      "basis": "DVF-L3-02 focused source is VCS-tracked via intent-to-add; existing policy sources retained. Owner preapproval is the current 2026-09-04 execution prompt."
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
     }
   },
   "reviewed_sources": [
+    {
+      "source_file": "Iris/build/description/v2/tests/test_layer3_product_integration.py",
+      "classification": "current",
+      "reason": "DVF-L3-06 plan section 7: one product integration contract under normal conftest; owner preapproved implementation prompt, 2026-09-05."
+    },
     {
       "source_file": "Iris/build/description/v2/tests/test_compiler_particle_adjustment.py",
       "classification": "current",
@@ -189,6 +193,13 @@
     }
   ],
   "excluded_sources": [
+    {
+      "source_file": "Iris/build/description/v2/tests/test_layer3_expression_results.py",
+      "reason": "The immutable L3-05 expression contract owns this source through its dedicated focused invocation; product integration consumes the adopted loader.",
+      "alternative_validation": "docs/iris_layer3_expression_contract.md: Review and single Gate",
+      "owner": "repository-owner-preapproval-2026-09-06",
+      "reviewed_at": "2026-09-06"
+    },
     {
       "source_file": "Iris/build/tests/test_determinism_rc.py",
       "reason": "Regular product-contract validation executed only through the full-repository standalone route; excluded from general pytest discovery to preserve its CLI and output-isolation contract.",

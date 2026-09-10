@@ -18,7 +18,7 @@ from .layer2_contract import (
     parse_classifications,
     parse_taxonomy,
     parse_translation,
-    sha256_file,
+    admit_registry_inputs,
     support_sha256,
     CATEGORY_INDEX,
     Layer2ContractError,
@@ -76,22 +76,12 @@ def _surface_bindings(repository_root: Path) -> tuple[dict[str, dict[str, str]],
 
 def materialize(repository_root: Path) -> dict[str, Any]:
     registry = load_json_object(repository_root / RESOLUTION_REGISTRY)
-    if registry.get("schema_version") != "iris-classification-layer2-resolution-registry-v1":
-        raise Layer2ContractError("Layer 2 resolution registry schema mismatch")
+    admit_registry_inputs(repository_root, registry)
     binding = registry.get("source_subject_binding")
     if not isinstance(binding, dict) or not all(isinstance(binding.get(key), str) for key in ("commit", "tree")):
         raise Layer2ContractError("resolution registry source binding is missing")
     if registry.get("support_predicate") != SUPPORT_PREDICATE:
         raise Layer2ContractError("resolution registry support predicate mismatch")
-    input_sha256 = registry.get("input_sha256")
-    if not isinstance(input_sha256, dict) or not input_sha256:
-        raise Layer2ContractError("resolution registry input hash binding is missing")
-    for relative, expected in input_sha256.items():
-        if not isinstance(relative, str) or not isinstance(expected, str):
-            raise Layer2ContractError("resolution registry input hash row is malformed")
-        path = repository_root / relative
-        if not path.is_file() or sha256_file(path) != expected:
-            raise Layer2ContractError(f"stale Layer 2 semantic input: {relative}")
 
     report = census(repository_root)
     memberships = parse_classifications(repository_root / CLASSIFICATIONS)

@@ -30,11 +30,24 @@ def implementation_binding(repository_root: Path) -> dict:
     }
 
 
-def build(repository_root: Path, handoff_root: Path, output_root: Path) -> dict:
-    output = empty_output(repository_root, output_root)
-    implementation = implementation_binding(repository_root)
+def build(repository_root: Path, handoff_root: Path, output_root: Path, *, locator=None, s2_candidate=False, candidate_receipt_sha256=None) -> dict:
     contract, contract_hash = load_contract(repository_root)
-    accepted = admit(repository_root, handoff_root, contract)
+    if s2_candidate:
+        from iris_tooling.domains.tooltip_t1.s2_candidate import admit as admit_s2, workspace
+        require(locator is None, 'S2 candidate cannot claim an adoption locator')
+        output = workspace(repository_root, output_root)
+        require(not output.exists(), 'S2 projection output already exists')
+        require(isinstance(candidate_receipt_sha256, str), 'S2 candidate requires its admitted receipt SHA-256')
+        accepted = admit_s2(repository_root, handoff_root, candidate_receipt_sha256)
+        implementation = {'subject': accepted.binding['subject'], 'mode': 's2_candidate',
+                          'candidate_subject_sha256': accepted.binding['candidate_subject_sha256'],
+                          'generator_version': contract['generator_version'],
+                          'projection_contract_sha256': contract_hash}
+    else:
+        require(candidate_receipt_sha256 is None, 'candidate receipt requires S2 candidate mode')
+        output = empty_output(repository_root, output_root)
+        implementation = implementation_binding(repository_root)
+        accepted = admit(repository_root, handoff_root, contract, locator=locator)
     data, provenance, summary = project(accepted, contract)
     lua = lua_bytes(data)
     manifest = manifest_bytes(accepted.binding, contract_hash, contract, lua, provenance, summary)
@@ -55,7 +68,7 @@ def build(repository_root: Path, handoff_root: Path, output_root: Path) -> dict:
 
 
 def finalize(repository_root: Path, run_a_root: Path, run_b_root: Path,
-             output_root: Path, completion: dict | None = None) -> dict:
+             output_root: Path, completion: dict | None = None, *, locator=None) -> dict:
     output = empty_output(repository_root, output_root)
     expected = implementation_binding(repository_root)
     contract, _ = load_contract(repository_root)
@@ -84,8 +97,9 @@ def finalize(repository_root: Path, run_a_root: Path, run_b_root: Path,
         artifacts.append(payload)
     require(receipts[0]["t1_input"] == receipts[1]["t1_input"], "Run A/B T1 input mismatch")
     require(artifacts[0] == artifacts[1], "Run A/B bytes differ")
-    locator = json.loads((repository_root / ROUTE).read_text(encoding="utf-8"))["tooltip_t1_production_handoff"]
-    accepted = admit(repository_root, Path(locator["final_root"]), contract)
+    if locator is None:
+        locator = json.loads((repository_root / ROUTE).read_text(encoding="utf-8"))["tooltip_t1_production_handoff"]
+    accepted = admit(repository_root, Path(locator["final_root"]), contract, locator=locator)
     require(accepted.binding == receipts[0]["t1_input"], "run T1 input is no longer current")
     required_checks = {"focused_tests", "installed_inspect", "lua_syntax", "canonical_full_gate"}
     if completion is not None:
@@ -123,20 +137,25 @@ def main(argv=None) -> int:
     is_final = values[:1] == ["finalize"]
     parser = argparse.ArgumentParser(prog="iris-tooling " + ("finalize" if is_final else "build") + " tooltip-t2")
     parser.add_argument("--output-root", type=Path, required=True)
+    parser.add_argument("--handoff-locator", type=Path, help="Explicit finalized candidate locator; does not update current")
     if is_final:
         parser.add_argument("--run-a-root", type=Path, required=True)
         parser.add_argument("--run-b-root", type=Path, required=True)
         parser.add_argument("--completion-metadata-json", help="Explicit command/exit/subject/artifact bindings; omission permits artifact finalization only")
     else:
         parser.add_argument("--handoff-root", type=Path, required=True)
+        parser.add_argument('--s2-candidate', action='store_true', help='Consume the content-bound S2-only candidate; no current adoption')
+        parser.add_argument('--candidate-receipt-sha256')
     args = parser.parse_args(values[1:] if is_final else values)
     try:
         repository = require_repository_context().repository_root
+        locator = read_object(args.handoff_locator) if args.handoff_locator else None
         if is_final:
             result = finalize(repository, args.run_a_root, args.run_b_root, args.output_root,
-                              json.loads(args.completion_metadata_json) if args.completion_metadata_json else None)
+                              json.loads(args.completion_metadata_json) if args.completion_metadata_json else None, locator=locator)
         else:
-            result = build(repository, args.handoff_root, args.output_root)
+            result = build(repository, args.handoff_root, args.output_root, locator=locator,
+                           s2_candidate=args.s2_candidate, candidate_receipt_sha256=args.candidate_receipt_sha256)
     except (OSError, ValueError, KeyError, TypeError, TooltipContractError) as exc:
         print(f"tooltip-t2 blocked: {exc}", file=sys.stderr)
         return 2

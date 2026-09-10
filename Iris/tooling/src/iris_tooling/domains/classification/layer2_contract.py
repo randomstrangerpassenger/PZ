@@ -198,3 +198,119 @@ def parse_translation(path: Path) -> dict[str, str]:
             raise Layer2ContractError(f"duplicate locale key in {path}: {key}")
         result[key] = text
     return result
+
+
+REGISTRY_V1 = "iris-classification-layer2-resolution-registry-v1"
+REGISTRY_V2 = "iris-classification-layer2-resolution-registry-v2"
+EOL_IDENTITY = ("eol_lf_sha256", "all_bytes_except_uniform_lf_crlf")
+RAW_IDENTITY = ("raw_sha256", "exact_file_bytes")
+LOCALE_IDENTITY = ("category_locale_sha256", "category_index_referenced_key_values")
+
+
+def canonical_eol_bytes(raw: bytes) -> bytes:
+    """Only uniform CRLF -> LF; no BOM, whitespace or final-newline repair."""
+    lf = raw.replace(b"\r\n", b"\n")
+    if b"\r" in lf or (b"\r\n" in raw and b"\n" in raw.replace(b"\r\n", b"")):
+        raise Layer2ContractError("mixed EOL or lone CR in Layer 2 input")
+    return lf
+
+
+def referenced_locale_projection(taxonomy_path: Path, locale_path: Path) -> dict[str, str]:
+    categories, subcategories = parse_taxonomy(taxonomy_path)
+    references = list(categories.values()) + list(subcategories.values())
+    keys = set(references)
+    if len(keys) != len(references):
+        raise Layer2ContractError("duplicate taxonomy translation reference")
+    # Inspect referenced declarations before the permissive legacy parser can
+    # discard malformed lines. Unrelated UI keys do not enter this identity.
+    declaration = re.compile(r'''^\s*(?:\[\s*)?["']?(Iris_[A-Za-z0-9_]+)\b''')
+    values: dict[str, str] = {}
+    for line in locale_path.read_text(encoding="utf-8").splitlines():
+        declared = declaration.match(line)
+        if declared is None or declared.group(1) not in keys:
+            continue
+        match = _TRANSLATION_ROW.fullmatch(line)
+        if match is None or match.group(1) not in keys or not match.group(2):
+            raise Layer2ContractError(f"malformed referenced locale key in {locale_path}")
+        key, value = match.groups()
+        if key in values:
+            raise Layer2ContractError(f"duplicate referenced locale key: {key}")
+        values[key] = value
+    if set(values) != keys:
+        raise Layer2ContractError(f"missing referenced locale keys: {sorted(keys - values.keys())}")
+    return values
+
+
+def _input_roles(repository_root: Path) -> dict[str, tuple[str, str]]:
+    pointer_path = repository_root / L3_POINTER
+    if not pointer_path.resolve().is_relative_to(repository_root.resolve()):
+        raise Layer2ContractError("Layer 2 input locator escapes repository")
+    pointer = pointer_path.read_text(encoding="utf-8")
+    generations = _POINTER.findall(pointer)
+    if len(generations) != 1 or not re.fullmatch(r"[A-Za-z0-9_-]+", generations[0]):
+        raise Layer2ContractError("Layer 2 input generation locator is malformed")
+    rendered = L3_GENERATIONS / generations[0] / "dvf_3_3_rendered.json"
+    return {
+        CLASSIFICATIONS.as_posix(): EOL_IDENTITY,
+        CATEGORY_INDEX.as_posix(): EOL_IDENTITY,
+        L4_OWNER_INPUT.as_posix(): EOL_IDENTITY,
+        L3_POINTER.as_posix(): RAW_IDENTITY,
+        rendered.as_posix(): RAW_IDENTITY,
+        EN_TRANSLATION.as_posix(): LOCALE_IDENTITY,
+        KO_TRANSLATION.as_posix(): LOCALE_IDENTITY,
+    }
+
+
+def admit_registry_inputs(repository_root: Path, registry: dict[str, Any]) -> None:
+    """One fail-closed Layer 2 admission boundary, separate from artifact SHA.
+
+    V1 keeps its original raw semantics. V2 declares the adopted role contract
+    explicitly; history never supplies a fallback current binding.
+    """
+    schema = registry.get("schema_version")
+    if schema not in (REGISTRY_V1, REGISTRY_V2):
+        raise Layer2ContractError("Layer 2 resolution registry schema mismatch")
+    field = "input_sha256" if schema == REGISTRY_V1 else "input_identities"
+    other = "input_identities" if schema == REGISTRY_V1 else "input_sha256"
+    if other in registry:
+        raise Layer2ContractError("ambiguous Layer 2 current input binding")
+    bindings = registry.get(field)
+    if not isinstance(bindings, dict) or not bindings:
+        raise Layer2ContractError("Layer 2 resolution registry input binding is missing")
+    try:
+        roles = _input_roles(repository_root)
+        if set(bindings) != set(roles):
+            raise Layer2ContractError("Layer 2 input paths are missing or unexpected")
+        for relative, role in roles.items():
+            path = repository_root / relative
+            if not path.resolve().is_relative_to(repository_root.resolve()):
+                raise Layer2ContractError(f"Layer 2 input escapes repository: {relative}")
+            expected = bindings[relative]
+            algorithm = "raw_sha256"
+            if schema == REGISTRY_V2:
+                if (
+                    not isinstance(expected, dict)
+                    or set(expected) != {"algorithm", "version", "scope", "sha256"}
+                    or type(expected["version"]) is not int
+                    or expected["version"] != 1
+                    or (expected["algorithm"], expected["scope"]) != role
+                ):
+                    raise Layer2ContractError(f"invalid Layer 2 input descriptor: {relative}")
+                algorithm = expected["algorithm"]
+                expected = expected["sha256"]
+            if not isinstance(expected, str) or re.fullmatch(r"[0-9a-f]{64}", expected) is None:
+                raise Layer2ContractError(f"malformed Layer 2 input digest: {relative}")
+            if algorithm == "raw_sha256":
+                actual = sha256_file(path)
+            elif algorithm == "eol_lf_sha256":
+                actual = sha256_bytes(canonical_eol_bytes(path.read_bytes()))
+            elif algorithm == "category_locale_sha256":
+                actual = sha256_bytes(canonical_bytes(referenced_locale_projection(
+                    repository_root / CATEGORY_INDEX, path,
+                )))
+            else:
+                raise Layer2ContractError(f"unknown Layer 2 input algorithm: {algorithm}")
+            if actual != expected:
+                raise Layer2ContractError(f"stale Layer 2 semantic input: {relative}")
+    except (OSError, UnicodeError) as exc:
+        raise Layer2ContractError(f"cannot read Layer 2 input: {exc}") from exc

@@ -92,6 +92,8 @@ local function getEntry(fullType)
         elseif not ok or not result then
             RuntimeLookupDiagnostics.recordFallback("layer3", "router_unavailable")
         end
+        -- A failed successor must never resurrect a stale global/predecessor.
+        if lookup.isProduct then return nil end
     else
         RuntimeLookupDiagnostics.recordFallback("layer3", "router_unavailable")
     end
@@ -104,6 +106,11 @@ local function getEntry(fullType)
 
     if ok then
         return result
+    end
+
+    local pointerOk, pointer = safeRequire("Iris/Data/IrisLayer3DataCurrent")
+    if not pointerOk or (type(pointer) == "table" and pointer.schema_version == "iris_layer3_product_compat_v1") then
+        return nil
     end
 
     RuntimeLookupDiagnostics.recordFallback("layer3", "compat_read_failure")
@@ -134,6 +141,11 @@ end
 
 function Layer3Renderer.getRawText(fullType, options)
     local entry = getEntry(fullType)
+    if entry and entry.product_id then
+        local locale = tostring(options and options.locale or "KO"):upper() == "EN" and "en" or "ko"
+        local value = entry.locales[locale].text
+        return value ~= "" and value or nil
+    end
     if not hasPublicText(entry) then
         return nil
     end
@@ -154,6 +166,12 @@ function Layer3Renderer.getText(fullType, options)
     local includeInternalOnly = options and options.include_internal_only == true
     if publishState == "internal_only" and not includeInternalOnly then
         return nil
+    end
+
+    if entry.product_id then
+        local locale = tostring(options and options.locale or "KO"):upper() == "EN" and "en" or "ko"
+        local value = entry.locales[locale].text
+        return value ~= "" and value or nil
     end
 
     if not hasPublicText(entry) then

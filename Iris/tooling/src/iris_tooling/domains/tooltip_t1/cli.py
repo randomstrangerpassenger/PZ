@@ -16,6 +16,18 @@ from .models import TooltipContractError
 
 def main(argv: Sequence[str] | None = None) -> int:
     values = list(sys.argv[1:] if argv is None else argv)
+    if values[:1] == ['s2-candidate']:
+        from .s2_candidate import build
+        parser = argparse.ArgumentParser(prog='iris-tooling build tooltip-t1 s2-candidate')
+        parser.add_argument('--output-root', type=Path, required=True)
+        args = parser.parse_args(values[1:])
+        try:
+            result = build(require_repository_context().repository_root, args.output_root)
+        except (OSError, ValueError, KeyError, TooltipContractError) as exc:
+            print(f'tooltip-t1 S2 candidate blocked: {exc}', file=sys.stderr)
+            return 2
+        print(json.dumps(result, sort_keys=True))
+        return 0
     if values[:1] == ["d2-materialize"]:
         parser = argparse.ArgumentParser(prog="iris-tooling build tooltip-t1 d2-materialize")
         parser.add_argument("--output-root", type=Path, required=True)
@@ -128,6 +140,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--verify-invariants", action="store_true", required=True)
     parser.add_argument("--layer2-menu-relation", type=Path)
     parser.add_argument("--strict-production-handoff", action="store_true")
+    parser.add_argument("--s2-supply", type=Path)
+    parser.add_argument("--s2-supply-sha256")
     args = parser.parse_args(values)
     try:
         result = run_candidate(
@@ -137,6 +151,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             verify_selection_invariants=args.verify_invariants,
             layer2_menu_relation=args.layer2_menu_relation,
             strict_production_handoff=args.strict_production_handoff,
+            s2_supply=args.s2_supply,
+            s2_supply_sha256=args.s2_supply_sha256,
         )
     except (OSError, TooltipContractError) as exc:
         print(f"tooltip-t1 blocked: {exc}", file=sys.stderr)

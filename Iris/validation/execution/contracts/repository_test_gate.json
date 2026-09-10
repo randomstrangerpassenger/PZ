@@ -385,6 +385,10 @@
     "evidence_only_sources": [],
     "explicit_current_required_sources": [
       {
+        "path": "Iris/build/description/v2/tests/test_layer3_product_integration.py",
+        "reason": "DVF-L3-06 bilingual Menu, S2, Recipe, package/install and guarded cutover product contract"
+      },
+      {
         "path": "Iris/build/description/v2/tests/test_public_text_constituent_identity.py",
         "reason": "current cross-platform constituent identity contract required by the Foundation-to-Naturalization handoff boundary"
       },
@@ -458,6 +462,21 @@
       }
     ],
     "explicit_dedicated_route_sources": [
+      {
+        "owner_decision": "not_applicable_dedicated_route",
+        "path": "Iris/build/description/v2/tests/test_layer3_expression_results.py",
+        "reason": "The immutable L3-05 expression contract explicitly owns this source in its dedicated focused gate; the product gate consumes adopted expressions without reenacting L3-05."
+      },
+      {
+        "owner_decision": "not_applicable_dedicated_route",
+        "path": "Iris/tooling/tests/test_evolved_recipe.py",
+        "reason": "The adopted compact/grouped EvolvedRecipe successor plan owns this source through its five-test focused gate; Layer 3 product integration preserves that dedicated route."
+      },
+      {
+        "owner_decision": "not_applicable_dedicated_route",
+        "path": "Iris/tooling/tests/test_classification_layer2_input_identity.py",
+        "reason": "DVF-L3-06-1 checkout identity tests are owned by the completed dedicated Layer 2 gate; product integration consumes that validator without repeating its focused suite."
+      },
       {
         "owner_decision": "not_applicable_dedicated_route",
         "path": "Iris/tooling/tests/test_tooltip_t1_contract.py",

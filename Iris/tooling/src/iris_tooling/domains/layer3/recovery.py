@@ -11,7 +11,7 @@ from collections import defaultdict
 from copy import deepcopy
 import hashlib
 import json
-from pathlib import Path
+from pathlib import Path, PureWindowsPath, PurePosixPath
 import re
 import subprocess
 import sys
@@ -899,7 +899,93 @@ def handoff(manifest):
     }
 
 
-def load_adopted(root, adoption_ref):
+def consume_adopted(manifest, payloads):
+    """Check accepted immutable data, without replaying its historical producer.
+
+    The acceptance binding authenticates wording and source adjudication. Current
+    documents/code are not dependencies of this read. load_candidate retains the
+    full source-byte and producer reconstruction contract for historical replay.
+    """
+    inv.require(manifest.get('schema') == 'iris-layer3-recovery-chain-v1'
+                and manifest.get('status') == 'candidate', 'invalid accepted chain')
+    members = manifest['members']
+    inv.require(set(members) == set(payloads) == {'semantic', 'acquisition', 'expression', 'audit'},
+                'incomplete adopted chain')
+    semantic, acquisition, expression, audit = (payloads[k] for k in ('semantic', 'acquisition', 'expression', 'audit'))
+    inv.require(semantic['status'] == acquisition['status'] == 'candidate', 'mixed accepted payload')
+    inv.require(acquisition['semantic_readpoint'] == members['semantic']
+                and expression['inputs']['semantic'] == members['semantic']
+                and expression['inputs']['acquisition'] == members['acquisition']
+                and expression['inputs']['definition'] == manifest['definition']
+                and expression['inputs']['successor'] == manifest['successor'], 'incoherent adopted dependencies')
+    targets = semantic['target_ids']
+    inv.require(targets == sorted(set(targets)) and targets
+                and targets == acquisition['target_ids'] == [i['item_id'] for i in expression['items']],
+                'case-sensitive target mismatch')
+    inv.require(manifest['completion'] == audit['completion'] == expression['completion'] == 'complete',
+                'incomplete adopted description')
+    inv.require(manifest['focused_test'] in audit['inputs'], 'unbound focused acceptance source')
+    for ref in audit['inputs']:
+        inv.require(isinstance(ref.get('path'), str) and ref['path']
+                    and re.fullmatch('[0-9a-f]{64}', ref.get('sha256', '')), 'malformed historical input binding')
+    require_ready(audit)
+    qualified = {f['ref']: f for f in expression['facts']}
+    inv.require(len(qualified) == len(expression['facts']), 'duplicate expression fact')
+    expected = {p['authority_id'] + '/' + f['fact_id']: f for p in (semantic, acquisition) for f in p['facts']}
+    inv.require(qualified.keys() == expected.keys(), 'expression fact omission')
+    for ref, fact in qualified.items():
+        original = expected[ref]
+        inv.require(fact['item_id'] == original['item_id'] and fact['payload'] == original['payload'], 'prose-only or altered expression fact')
+    expressions = {e['expression_id']: e for e in expression['expressions']}
+    inv.require(len(expressions) == len(expression['expressions']), 'duplicate expression identity')
+    for unit in expressions.values():
+        refs = unit['represented_fact_refs']
+        inv.require(refs and len(refs) == len(set(refs)) and set(refs) <= qualified.keys()
+                    and len({qualified[r]['item_id'] for r in refs}) == 1,
+                    'cross-item or missing expression fact')
+        item_id = qualified[refs[0]]['item_id']
+        inv.require(all(d['fact_ref'] in qualified and qualified[d['fact_ref']]['item_id'] == item_id
+                        for d in unit['dependency_refs']), 'invalid expression dependency')
+    for item in expression['items']:
+        inv.require(set(item['locales']) == {'ko', 'en'}, 'missing expression locale')
+        expected_refs = {r for r, f in qualified.items() if f['item_id'] == item['item_id']}
+        for locale in ('ko', 'en'):
+            output = item['locales'][locale]
+            s2 = output['s2']
+            inv.require(s2['state'] in {'expressed', 'scoped_not_applicable', 'no_first_contact', 'upstream_gap'}
+                        and s2['logical_rows'] == int(s2['state'] == 'expressed')
+                        and bool(s2['text']) == (s2['state'] == 'expressed')
+                        and '\n' not in s2['text'] and '\r' not in s2['text'], 'invalid compact state/text')
+            inv.require(set(s2['detail_qualifier_refs']) <= expected_refs
+                        and all(d['fact_ref'] in expected_refs for d in s2['dependency_refs']),
+                        'invalid compact detail/dependency refs')
+            inv.require(set(output['expanded_represented_fact_refs']) == expected_refs, 'expression fact omission')
+            block_refs = {r for b in output['expanded'] for r in b['represented_fact_refs']}
+            inv.require(block_refs == expected_refs, 'suppressed locale expanded expression')
+            for block in output['expanded']:
+                ids = block['expression_refs']
+                inv.require(ids and all(e in expressions and expressions[e]['locale'] == locale
+                                        and expressions[e]['resolution'] == 'expanded' for e in ids)
+                            and block['text'] == ' '.join(expressions[e]['text'] for e in ids)
+                            and set(block['represented_fact_refs']) == {r for e in ids for r in expressions[e]['represented_fact_refs']},
+                            'expanded block/reference drift')
+            for ref in expected_refs:
+                ids = output['fact_expressions'].get(ref, [])
+                inv.require(ids and all(e in expressions and expressions[e]['locale'] == locale
+                                        and expressions[e]['text'] and ref in expressions[e]['represented_fact_refs'] for e in ids),
+                            'missing fact-locale expression')
+            compact = set(output['s2']['represented_fact_refs'])
+            compact_ids = output['s2']['expression_refs']
+            inv.require(all(e in expressions and expressions[e]['locale'] == locale
+                            and expressions[e]['resolution'] == 'compact' for e in compact_ids)
+                        and output['s2']['text'] == ' '.join(expressions[e]['text'] for e in compact_ids)
+                        and compact == {r for e in compact_ids for r in expressions[e]['represented_fact_refs']},
+                        'compact expression/reference drift')
+            inv.require(compact <= expected_refs and set(output['tooltip_detail_omission_refs']) == expected_refs - compact,
+                        'unaccounted compact omission')
+
+
+def load_adopted(root, adoption_ref, *, historical=False):
     """Explicit opt-in readpoint; existing root authorities remain unchanged."""
     root = Path(root).resolve()
     path = inv.local_path(root, adoption_ref['path'])
@@ -911,9 +997,26 @@ def load_adopted(root, adoption_ref):
     inv.require(acceptance['exit_code'] == 0 and acceptance['command'] == ACCEPTANCE_COMMAND
                 and acceptance['subject'] == record['manifest'], 'unaccepted recovery successor')
     manifest_path = inv.local_path(root, record['manifest']['path'])
+    recorded_environment = acceptance['candidate_environment']
+    recorded = (PureWindowsPath(recorded_environment)
+                if '\\' in recorded_environment or re.match(r'^[A-Za-z]:/', recorded_environment)
+                else PurePosixPath(recorded_environment))
+    relative_subject = Path(record['manifest']['path']).parent.parts
     inv.require(manifest_path.parent == path.parent and manifest_path.name == 'manifest.json'
-                and acceptance['candidate_environment'] == str(path.parent), 'adoption subject/path mismatch')
-    manifest, payloads = load_candidate(root, record['manifest'], consumable=True)
+                and recorded.is_absolute() and '..' not in recorded.parts
+                and recorded.parts[-len(relative_subject):] == relative_subject,
+                'adoption subject/path mismatch')
+    if historical:
+        manifest, payloads = load_candidate(root, record['manifest'], consumable=True)
+    else:
+        manifest = inv.bound_json(root, record['manifest'])
+        inv.require(set(manifest['members']) == {'semantic', 'acquisition', 'expression', 'audit'},
+                    'incomplete adopted chain')
+        for ref in manifest['members'].values():
+            inv.require(inv.local_path(root, ref['path']).parent == path.parent,
+                        'adopted member outside acceptance subject')
+        payloads = {name: inv.bound_json(root, ref) for name, ref in manifest['members'].items()}
+        consume_adopted(manifest, payloads)
     inv.require(record['handoff'] == handoff(manifest) and record['product_migration'] == 'deferred', 'mixed B/C handoff')
     return {'mode': 'adopted', 'manifest': manifest, 'payloads': payloads, 'adoption': record}
 

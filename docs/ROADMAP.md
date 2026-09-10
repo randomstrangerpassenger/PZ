@@ -458,6 +458,10 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
 
 ## Done
 
+- **DVF-L3-06 완료 — Menu·Alt Tooltip 제품 통합: complete.** 동일 L3-05 expression의 KO/EN 상세와 S2를 하나의 product에 연결했다. Menu 2,105개, Tooltip 2,280개, Recipe 349개 item / 781개 variant와 기존 S1/S3/S4·Alt opening 동작을 보존한다. (2026-09-07)
+  - Product 생성·Lua consumer·package/설치본·guarded promotion/rollback 경로를 구현했다. 최종 product는 `l3p-4e05fc9f92da124221e3ba17469cb9562fd0f895a5fa871969101ce049818124`다.
+  - Canonical launcher/native exit `0`, `214 passed, 118 subtests passed`; 최종 package Lua syntax exit `0`(125 files). 상세는 [구현 closeout](iris_dvf_layer3_menu_alt_tooltip_product_integration_closeout.md)을 따른다.
+
 - **DVF-L3-05 완료 — 해상도 교정본:** 독립 first-contact 합성 및 사용자-facing acquisition 설명을 **complete / adopted (off-live)**로 채택했다. 2,105 target, 5,290 facts, 10,580 fact-locale pair와 1,057 acquisition facts를 보존한다. (2026-09-05)
   - Readpoint: `Iris/_docs/authority/dvf/layer3_expression/manifest.json`, SHA-256 `cff8acd83715e70c6e7b82553d47e538c7f75131437491d7cf6781875f5435be`. 일반 실행 조건은 상세에 남기고 S2에서 오염수·학습·장치 등 첫 이해의 의미 범위를 실제로 표현한다. 획득 설명의 가중치·raw random·등록/전달 구현 흔적을 제거했다.
   - 선행 `0abd0d…`는 과도한 S2/획득 내부 정보 노출 때문에 superseded다. 교정된 exact 후보에 동일 Gate를 한 번 다시 실행하여 `1 passed in 14.17s`, exit `0`; adoption 내부 readback exit `0`을 확인했다. [선행 이력·교정 결과·ceiling](iris_layer3_expression_closeout.md).
@@ -664,11 +668,9 @@ Nerve는 Lua 병목을 최적화하거나 게임 행동을 조정하는 모드�
 
 ## Next
 
-- DVF Layer 3 successor의 **문제 6**을 후속 범위로 수행한다. 문제 5는 2026-09-05 해상도 교정본을 off-live authority로 채택했다.
-  - DVF-L3-01/02의 계약·조사 기준, L3-03 비획득·L3-04 독립 획득·L3-05 KO/EN expanded 및 compact S2 결과 채택은 완료됐다. 후속 구현은 이 결과의 제품 통합이며 off-live 결과 완료를 runtime/current product 전환 완료로 확대하지 않는다.
+- DVF Layer 3의 후속 다듬기는 완료된 L3-01~06의 계약·입력·제품 경로를 기준으로 진행한다.
   - L3-04는 acquisition not_investigated 0이며 확정 경로와 unresolved 결과를 함께 공급한다. L3-05가 보존한 L3-03/04 미해결 상태의 전수 해결이나 재조사를 L3-06의 새 선행 gate로 요구하지 않는다. Applicability 관찰이나 predecessor hint를 accepted fact로 자동 승격하지 않는다.
   - L3-03/04는 `Base.Bag_PistolCase`, `Base.Lemongrass`, `Base.NoiseMaker`의 exact 원본 부재와 `Base.ShotgunCase1`의 중복 선언을 개별 unresolved로 보존한다. Recipe group·동적 조리·월드 작업/수선의 가용 source 해석과 부족한 engine/runtime dependency를 결속했다. 새 정의가 필요하면 별도 definition gap 또는 scope extension 문제로 분리한다. Acquisition 해결만으로 item 전체를 완료하지 않는다.
-  - DVF-L3-05의 채택된 `layer3_expression/manifest.json`은 Menu expanded detail과 Tooltip-first S2·KO/EN·omission tracking을 제공한다. L3-06은 이 결과를 다시 조사·번역·대표 선택하지 않고 소비하여 기존 4줄 Tooltip·runtime·current adoption을 통합한다. Accepted first-contact contributor가 없는 825개 item에는 S2 fallback을 만들지 않으며, 더 많은 item을 채우려면 제품 연결과 분리된 upstream 조사 범위를 새로 열어야 한다.
   - predecessor 문장이나 rendered Layer output을 successor fact source로 역승격하지 않으며 acquisition unresolved를 generic prose로 덮지 않는다.
 
 - 최신 current product 상태를 기준으로 **DVF freeze readiness를 재판정한다.**
@@ -1111,6 +1113,13 @@ Closeout complete: exact implementation `801f15f6`의 terminal Run A/B/comparato
 - 사용자 최종 범위인 재명명·재배치·참조 갱신은 `complete`다. N7 `current_environment.json`과 기존 writer가 생성한 record까지 현재 폴더에 반영했다. 사용자가 추가 검증을 종료했으므로 production 재생성·full gate·package·PZ 관찰은 이번 완료의 잔여 조건이 아니다.
 - 이전 T1/T2/T3 PASS를 상속하거나 이번 미실행 검사를 PASS로 주장하지 않는다. 추가 검증·봉인 작업을 요구하지 않는다. 상세 결과: `docs/iris_current_responsibility_naming_alignment_closeout.md`.
 
+### Iris DVF-L3-06 Layer 2 prerequisite
+
+- [x] 2026-09-06 DVF-L3-06-1: Registry v2 역할별 input identity 채택. Taxonomy/membership/usecase의 EOL-only identity, KO/EN의 참조 59-key projection, pointer/generation의 raw identity를 구분했다. 단일 통합 Gate `5 passed`, exit `0`.
+- [x] Owner bytes·sealed rows·`2,280 = 1,406 + 874` 보존 및 DVF-L3-06이 사용하는 동일 Layer 2 validator의 current owner 수용. 확인된 Layer 2 blocker 해소, 문제 6 재개 가능.
+- [x] 2026-09-07 DVF-L3-06 Menu·Alt Tooltip 제품 통합 complete. Product build·Lua 소비·package/install과 전환/복구 경로를 구현하고 별도의 canonical 검증을 완료했다.
+- Readpoint: [Layer 2 input identity closeout](iris_dvf_layer3_layer2_checkout_eol_identity_closeout.md).
+
 ### Iris DVF description migration and question adjudication recovery
 
 - [x] 2026-09-08: v4 recovery의 offline 구현, exact focused acceptance 및 동일 subject 채택/readback 완료. 2,105 item / 9,978 claim 전수 판정, 9,982 baseline key 보존 + 86 same-definition instance, local work와 pending disposition 0.
@@ -1136,6 +1145,19 @@ Closeout complete: exact implementation `801f15f6`의 terminal Run A/B/comparato
 - [ ] **B/C 표시·제품 적용:** 실제 PZ 폰트·폭에서 최대 네 줄 적합성을 확인하고 기존 책임에 따라 Tooltip/Menu 통합을 진행한다. 임의 글자 수나 logical slot으로 물리 fit을 대체하지 않는다. `blocks.json`과 새 `descriptions.json`은 internal handoff이며 r6/current route, L3-05/06 authority, Tooltip/Menu/Lua/package 상태를 전환하지 않는다.
 - 상세 규칙·잔여·검증 한계: [의미 구성 계약](iris_dvf_semantic_block_integration_contract.md), [의미 구성 closeout](iris_dvf_semantic_block_integration_closeout.md), [설명 조합 계약](iris_dvf_description_composition_contract.md), [설명 조합 closeout](iris_dvf_description_composition_closeout.md).
 
+### Tooltip S2 공급·소유권 후속 구현 (2026-09-09)
+
+- [x] Shared adopted reader의 immutable 소비/historical 재현 분리와 B/C 반환 계약 보존.
+- [x] 승인 S2/absence 공급, strict T1 durable 입력 및 T2 explicit candidate locator 연결 구현.
+- [x] Tooltip Recipe/install/package owner 경로와 격리 fixture 검증. 실제 production adoption PASS로 확대하지 않음.
+- [ ] 실제 clean-subject strict T1/T2 finalization 및 적용 canonical 실행: 사용자 repository 경계와 외부 출력 계약 충돌, 별도 clean subject 부족으로 blocked.
+- [ ] 대표 실제 KO/EN PZ 관찰: 환경 미확보, unvalidated_but_in_scope.
+- [ ] C의 동일 adopted expanded 소비와 공동 current 전환. B가 C 전체를 수행하거나 기다리는 추가 Gate는 없음.
+
+2026-09-09 당시 B 전체는 partial이었으며 current Tooltip/Menu는 predecessor, promotion은 deferred였다. [정확한 결과·명령·인계](iris_tooltip_supply_closeout.md)를 따른다. 앞의 A 세션에서 기록한 B 미착수는 해당 시점의 역사다.
+
+2026-09-10 후속: 사용자 승인에 따라 S2-only candidate에는 실제 채택 baseline·source bytes를 결속하는 T1/T2 생산 경로와 최소 관련 통합 검사를 적용했다. 위 외부 clean-subject/전체 canonical 실행안은 이 후보의 남은 작업이 아니다. 실제 두 생산·보존·설치/복원·Lua/package 묶음은 exit 0, 8 passed이며 인게임용 `.tmp/tooltip/package/Iris.zip`을 준비했다. 이 r6 후보 당시 B 상태는 **implemented_only/PZ 대기**였다. 현재 B 완료 상태는 아래 v3 수락을 따르며 current/C 공동 전환은 별도다.
+
 ### Iris DVF 설명 품질 검수 — 완료 (2026-09-11)
 
 **Problem 3 complete — offline 자체 품질 검수 및 B/C 공통 인계.** 최종 corpus는 `ba0fc047b3a613e7ef98d2d762cfbd10c1996a02ad4e6f96d1bffa61878262d0`이며, 감독 세션도 명시된 원문·규칙 확인 범위에서 closeout을 수락했다.
@@ -1146,6 +1168,21 @@ Closeout complete: exact implementation `801f15f6`의 terminal Run A/B/comparato
 - [x] 마지막 focused 검사 exit 0 (`1 passed in 4.96s`). 마지막 교정은 29조합 / 31 items / 62 compact이며 unchanged expanded와 기존 유효 검수를 공유했다.
 - [x] Q3: 동일 최종 corpus의 compact/expanded 좌표와 refs·absence·unresolved·소비 한계를 B/C에 인계.
 
-후속 범위는 새 corpus와 B의 기존 r6 S2 공급 간 연결/adapter, C의 expanded 연결 및 실제 PZ 표시·physical fit이다. 이 세션에서 B/C runtime, current/r6/adoption/package/pointer를 전환하지 않았다. 감독의 전수 독립 재검수나 화면 fit 완료도 주장하지 않는다. 추가 confidence 검사·산출물·재생성은 잔여 작업이 아니다.
+Problem 3 수락 당시 후속 범위는 새 corpus와 B의 기존 r6 S2 공급 간 연결/adapter, C의 expanded 연결 및 실제 PZ 표시·physical fit이었다. B 범위는 아래 v3 구현·사용자 수락으로 완료했고 C는 후속으로 남는다. 이 세션에서 B/C runtime, current/r6/adoption/package/pointer를 전환하지 않았다. 감독의 전수 독립 재검수나 화면 fit 완료도 주장하지 않는다. 추가 confidence 검사·산출물·재생성은 잔여 작업이 아니다.
 
 초기 partial, `10685bc0…` 완료 수락 철회와 `ffbf506b…` 후속 수락 보류는 중간 이력이다. 현재 상태는 위 최종 수락을 따른다. 구체 before/after, identity, 명령과 한계는 [Problem 3 실행 기록](iris_dvf_description_quality_acceptance_closeout.md), 결정은 [DECISIONS](DECISIONS.md)에 있다.
+
+### 2026-09-11 B v3 — 완료 및 후속 범위
+
+**B 후보 구현·통합·실제 표시 complete.** 사용자가 인계된 `.tmp/tooltip/preview/Iris.zip`의 실제 PZ 확인 항목을 모두 통과했다고 보고하고 B 통과를 명시했다. 아래 완료 항목은 기존 자동 검사와 사용자 실제 관찰에 근거한다.
+
+- [x] 검수 compact corpus를 reader와 공급 adapter로 연결하고 원문·상태·부재·참조를 보존.
+- [x] S1 분류/S2 compact/S3 획득 장소/S4 레시피·우클릭·자유 조리 중 유효 후보 하나로 연결.
+- [x] 실제 폰트 측정 폭, 한 역할당 한 화면 줄과 최대 네 줄, Alt 및 opening 선택 수명 구현.
+- [x] 기존 후보 경로에서 공급·T2·Lua·격리 설치/복구·패키지 자동 통합 및 동일 관찰 ZIP 준비.
+- [x] 사용자의 실제 PZ 확인 및 명시적 B 수락. 별도 게임 버전·해상도·배율 수치는 미제공이며 모든 환경 보장으로 확대하지 않음.
+- [ ] 사용자가 추후 전달할 구체적인 설명 교정 사항 처리. B 재개 조건이나 현재 재생성 지시가 아닌 별도 후속 과제.
+- [ ] C가 동일 corpus의 expanded와 detail links/의미 관계를 소비하도록 연결.
+- [ ] C 준비 이후 별도 실행 범위에서 current 공동 활성화. 일반 strict production finalization·release도 B 후보 수락과 구분.
+
+구현 당시 implemented_only/PZ 대기와 이전 r6 후보 기록은 이력이다. 추가 confidence 검사나 새 검증 산출물은 남은 작업이 아니다. 추후 overflow·누락·가독성·S4 문제가 실제로 확인되면 해당 원인으로 재개하며 `fit_failed`를 정상 표시로 수락하지 않는다. 정확한 후보·명령·실패/재실행 이력과 사용자 수락은 [closeout](iris_tooltip_supply_closeout.md)을 따른다.

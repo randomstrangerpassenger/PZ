@@ -365,6 +365,47 @@ function Assert-RuntimeLookupPackageParity {
         [switch]$SkipManifestCheck
     )
 
+    if (Test-Path -LiteralPath (Join-Path $DataRoot 'IrisTooltipOwner.json')) {
+        Import-Module (Join-Path $PSScriptRoot 'Layer3PackageProjection.psm1')
+        $null = Get-IrisTooltipOwner -DataRoot $DataRoot
+    }
+    if (Test-Path -LiteralPath (Join-Path $DataRoot 'IrisLayer3ProductCurrent.lua')) {
+        # Reuse the dependency: forcing a reload from function scope removes
+        # the caller's exported descriptor commands before its next phase.
+        Import-Module (Join-Path $PSScriptRoot 'Layer3PackageProjection.psm1')
+        $product = Get-IrisProductDescriptor -DataRoot $DataRoot
+        Assert-RuntimeLookupIndexIdentity -DataRoot $DataRoot -IndexName 'UseCaseDescriptions/ChunkIndex.lua'
+        Assert-RuntimeLookupIndexIdentity -DataRoot $DataRoot -IndexName 'UseCaseDescriptions/LineCountIndex.lua'
+        $keys = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+        foreach ($number in 1..11) {
+            $chunk = [System.IO.File]::ReadAllText((Join-Path $product.root ('Chunks/Chunk{0:D3}.lua' -f $number)))
+            foreach ($match in [regex]::Matches($chunk, '\["([^"\\]+)"\]=\{\["item_id"\]="([^"\\]+)"')) {
+                if ($match.Groups[1].Value -cne $match.Groups[2].Value -or -not $keys.Add($match.Groups[1].Value)) {
+                    throw 'product_lookup_exact_key_invalid'
+                }
+            }
+        }
+        if ($keys.Count -ne 2105 -or $product.descriptor.menu_keys.Count -ne 2105 -or -not $keys.SetEquals([string[]]$product.descriptor.menu_keys)) { throw 'product_lookup_key_set_mismatch' }
+        # PowerShell enumerates the helper's returned set onto the pipeline.
+        # Reconstitute its exact, case-sensitive set at this consumer boundary.
+        $useCaseKeys = [System.Collections.Generic.HashSet[string]]::new(
+            [string[]]@(Get-RuntimeLookupActualKeys -DataRoot $DataRoot -Kind 'usecase'),
+            [System.StringComparer]::Ordinal
+        )
+        $lineCounts = Get-UseCaseActualLineCounts -DataRoot $DataRoot
+        if ($useCaseKeys.Count -ne 1631 -or $lineCounts.Count -ne 1631 -or -not $useCaseKeys.SetEquals([string[]]@($lineCounts.Keys))) { throw 'product_usecase_key_set_mismatch' }
+        # Bind both successor members and unchanged lookup owners. This is a
+        # separate explicit schema; predecessor manifests retain their rules.
+        $rows = @('product' + "`t" + $product.product_id)
+        foreach ($name in @('UseCaseDescriptions/ChunkIndex.lua', 'UseCaseDescriptions/LineCountIndex.lua')) {
+            $rows += $name + "`t" + (Get-NormalizedUtf8EolSha256 -Path (Join-Path $DataRoot $name))
+        }
+        foreach ($member in ($product.descriptor.members.PSObject.Properties | Sort-Object Name)) { $rows += $member.Name + "`t" + $member.Value }
+        $sourceDigest = Get-Utf8StringSha256 -Value ([string]::Join("`n", $rows) + "`n")
+        $manifest = [System.IO.File]::ReadAllText((Join-Path $DataRoot 'IrisRuntimeLookupPackageIdentity.json')) | ConvertFrom-Json
+        if ($manifest.schema_version -cne 'iris-runtime-product-lookup-identity-v1' -or $manifest.generation_id -cne $product.product_id -or $manifest.source_digest -cne $sourceDigest -or $manifest.layer3_entry_count -ne 2105 -or $manifest.usecase_entry_count -ne 1631 -or $manifest.line_count_entry_count -ne 1631) { throw 'product_lookup_identity_mismatch' }
+        return [ordered]@{ schema_version = 'iris-runtime-product-lookup-parity-v1'; generation_id = $product.product_id; source_digest = $sourceDigest; layer3_entry_count = 2105; usecase_entry_count = 1631; line_count_entry_count = 1631; status = 'PASS' }
+    }
     Assert-RuntimeLookupIndexIdentity -DataRoot $DataRoot -IndexName 'IrisLayer3DataChunkIndex.lua'
     Assert-RuntimeLookupIndexIdentity -DataRoot $DataRoot -IndexName 'UseCaseDescriptions/ChunkIndex.lua'
     Assert-RuntimeLookupIndexIdentity -DataRoot $DataRoot -IndexName 'UseCaseDescriptions/LineCountIndex.lua'

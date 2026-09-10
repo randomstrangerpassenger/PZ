@@ -1,0 +1,31 @@
+{
+  "schema_version": "iris-tooltip-s2-supply-contract-v1",
+  "adoption": "reviewed_description_corpus_reader",
+  "support_predicate": "current-owner-fulltype-union-v1",
+  "supply_schema": "iris-tooltip-s2-supply-v2",
+  "states": [
+    "present",
+    "absent",
+    "out_of_dvf_target"
+  ],
+  "semantic_owner": "DVF",
+  "static_recipe_install_package_owner": "Tooltip",
+  "present_identity": "exact compact with segments, detail_links, qualifier_dispositions and shared expanded",
+  "body_rewrite_allowed": false,
+  "absence_fallback_allowed": false,
+  "durable_input": "subject_binding.json.s2_supply contains exact canonical payload and SHA-256",
+  "initial_admission": "explicit input byte hash and current source reconciliation through strict T1",
+  "subsequent_consumption": "bound immutable handoff; no producer replay or mutable-document dependency",
+  "menu_parity": "unverified_without_independent_consumer_evidence",
+  "current_activation": "deferred until B/C consume the same adopted description",
+  "candidate_route": {
+    "command": "iris-tooling build tooltip-t1 s2-candidate",
+    "scope": "S1 admitted classification preserved; S2 reviewed compact; S3 acquisition places; S4 one eligible recipe/rightclick/evolved_recipe interaction. Historical strict mapping unchanged.",
+    "subject": "actual source and producer SHA-256 plus truthful Git working state; clean checkout is not claimed",
+    "workspace": "repository-local .tmp/tooltip child; no current activation",
+    "consumption": "T2 explicit --s2-candidate with pinned candidate receipt SHA-256",
+    "validation": "shared candidate production equality, focused integration, Lua and package/install/rollback; PZ remains required for B complete",
+    "legacy_finalization": "D6 Run A/B and comparator remain required for original strict re-adoption, not this pre-activation candidate."
+  },
+  "authority": "docs/iris_dvf_tooltip_s2_supply_ownership_recovery_plan.md sections 4 and 6; user implementation and owner approval"
+}

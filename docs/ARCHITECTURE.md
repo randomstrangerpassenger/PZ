@@ -790,6 +790,35 @@ DVF description recovery는 `Iris/_docs/authority/dvf/layer3_expression/successo
 
 수락된 동일 manifest에 대해서만 `adoption.json`을 추가하고 `recovery.load_adopted`로 명시적으로 읽는다. 채택 기록 안의 B/C handoff는 같은 expression member와 audit residual을 참조한다. B는 compact 및 omission 관계를, C는 expanded와 qualified 관계를 소비한다. 이 기록은 offline successor의 채택이며 제품 통합·replacement 정보 보존·runtime 검증은 B/C의 별도 책임이다. L3-02 정의, L3-03 의미, L3-04 획득 및 L3-05 표현의 기존 ownership과 writer responsibility는 이전하지 않는다.
 
+### 채택된 r6의 처리 구조
+
+2026-09-09 기준 최종 offline 채택 결과는 `Iris/_docs/authority/dvf/layer3_expression/successors/r6/adoption.json`이다. semantic, acquisition, descriptions, audit와 manifest를 함께 보관하며, B/C는 동일한 descriptions와 audit의 참조 관계를 사용한다. 기존 제품 current 전환과 runtime 연결은 별도 작업이다.
+
+구현은 `Iris/tooling/src/iris_tooling/domains/layer3/` 안에서 다음 책임을 나눈다.
+
+| 구성요소 | 입력·처리·출력 책임 |
+|---|---|
+| `recovery.py` | 기존 readpoint와 정확한 입력을 읽고 복구·표현 생성을 조정한다. 하나의 semantic/acquisition/descriptions/audit/manifest 묶음을 쓰고, 동일 후보 수락 후 채택 및 정상 소비를 수행한다. |
+| `recovery_sources.py`, `recovery_adjudication.py` | 기존 정의 안에서 근거가 확인된 의미와 참여를 수용하고 질문별 결과·남은 범위를 판정한다. 근거 부족을 표현 문구로 해결하지 않는다. |
+| `recovery_migration.py` | 이전 claim의 복구·정정·보존·책임상 제거·bounded unresolved 판정과 새 사실/표현의 conservation 관계를 기록한다. 별도 semantic writer가 아니다. |
+| `recovery_expression.py` | semantic·acquisition 사실과 결합된 application을 받아 기존 pure composer와 명시적 KO/EN 규칙으로 expanded 및 compact/S2를 만든다. 원래 사실·조건·provenance·잔여 참조를 유지한다. |
+
+같은 기능이 여러 대상에 적용될 때 compact 합성은 해당 기능의 모든 기여 사실과 대상 조건을 모은다. 예를 들어 연료, 불쏘시개, 마찰 점화를 각각 설명하면서 드럼의 통나무 조건이나 점화 도구·꺼진 상태·지구력·확률·파손 조건을 보존한다. 명시적으로 합성한 공통 조건만 중복 출력에서 제외하고, 그 밖의 추가 조건은 계속 붙인다. `primary_use` 승자나 글자수 잘라내기로 의미를 제거하지 않는다.
+
+Expanded는 수량과 작업 절차를 담당한다. 아이템 Type에 따른 조건은 이미 semantic observations에 있는 정확한 선언을 사용한다. 같은 물리적 선언의 중복 observation은 합치지만 별개의 선언이나 충돌 Type 중 하나를 선택하지 않는다. 내부 실행 분기·미확인 native 결과·연구상의 한계는 기존 `audit.json`의 사실 참조와 표현 경계에 남긴다. 내부 nonclient 조건을 플레이 모드로 바꾸거나 API 호출을 확정된 명중·발화 효과로 표현하지 않는다.
+
+문제 B는 r6 `items[].locales[ko/en].s2`와 represented/dependency refs, detail omission을 소비한다. 문제 C는 같은 파일의 expanded와 qualified 관계를 소비한다. 이 모듈들은 기존 Tooltip 전체 동작이나 S1/S3/S4, Alt 활성 조건, 최대 4줄 정책의 새 소유자가 아니며 runtime Lua에 의미 생성·재판정 책임을 넘기지 않는다. B의 공급·Tooltip owner 경로는 구현 및 격리 fixture 검증 상태이며, 실제 strict production admission과 C/current 연결은 아직 완료하지 않았다.
+
+### 입력 이력과 소비 검사 경계
+
+생산 당시 입력 해시는 결과의 근거와 재현 이력을 추적하기 위한 기록이다. 설명 문서의 편집만으로 이미 채택된 설명 데이터의 내용이 바뀌지는 않는다. 채택 데이터의 무결성·소비 호환성 확인과 과거 생산 환경의 재현 검사는 구분해야 하며, 가변 설명 문서의 현재 해시 일치를 정상 소비의 상시 전제조건으로 삼지 않는 방향으로 소비 경계를 정리한다.
+
+2026-09-09 B 구현에서 이 경계를 분리했다. 정상 `recovery.load_adopted`는 수락된 immutable chain, subject/member 위치, KO/EN·표현·참조와 B/C handoff를 검사한다. 과거 문서·소스 bytes 확인과 producer 재합성은 `load_candidate` 및 `load_adopted(..., historical=True)`에 남긴다. r6의 원본/hash와 acceptance는 변경하지 않는다. 이전 ARCHITECTURE input drift 실패는 역사적 결과로 보존한다.
+
+Tooltip의 explicit S2 공급은 `layer3/tooltip_s2_supply.py` → strict T1의 durable `subject_binding.json.s2_supply` → 기존 T2/Recipe projection → Tooltip `install.py`/package owner binding으로 연결된다. DVF는 전체 Tooltip/Recipe를 생산하지 않는다. 새로운 설치 경로는 현재 B 범위에서 격리 대상으로 제한되며, current Tooltip/Menu는 predecessor이고 실제 활성화는 C와의 공동 전환에 남는다. [구현 결과와 검증 한계](iris_tooltip_supply_closeout.md)를 따른다.
+
+2026-09-10 B 후보 경로 이력(현재 v3는 아래 소비 경계 참조): `tooltip_t1/s2_candidate.py`가 hash-bound 채택 baseline의 S1/S3/S4를 유지하면서 S2만 기존 strict row 규칙으로 교체한다. 후보 subject는 실제 input/producer bytes와 미커밋 Git 상태를 기록하고, T2의 explicit `--s2-candidate`가 pinned receipt hash로 이를 소비한다. repository-local 격리 후보의 실제 생산·결정성·설치/복원·Lua/package를 확인했으며 implemented_only/PZ 대기다. 이 경로는 정규 validator나 D6 재채택 경로를 대체하지 않고, 전체 Run A/B+comparator와 clean/external 요구는 원래 재채택 경로에 보존한다. current/C 상태는 그대로다.
+
 ### r6 사실의 의미 구성과 Problem 2 인계
 
 `DVF-COMPOSITION-1`은 채택된 r6의 locale-neutral semantic/acquisition facts를 읽어, 문장보다 앞선 의미 블록과 관계·조건 범위를 생산한다. 구현 흐름은 다음과 같다.
@@ -837,8 +866,33 @@ Planner는 exact qualifier application을 유지하며 동일 조건 범위의 �
 
 `description_composition_results.read_result(root)`는 저장된 JSON의 구조와 identity를 확인하고 반환한다. 입력 reader나 producer를 호출하지 않으므로 Problem 3은 검사한 원문을 그대로 검수할 수 있다. 입력/생성기 식별 정보는 결과에 포함되며 별도 seal·receipt·validation authority를 만들지 않는다.
 
-Problem 2는 공통 조합기와 검수 입력 확보로 완료했고, 후속 Problem 3은 공통 규칙 교정·자체 원문 품질 검수 및 B/C 공통 인계를 완료했다. B의 소비 좌표는 `items[].locales[ko/en].compact`, C는 같은 item/locale의 `expanded`이며, 원문과 함께 refs·detail links·qualifier dispositions·state/reason·unresolved를 소비한다. 기존 B의 `tooltip_s2_supply`는 r6 `s2`를 읽으므로 새 corpus의 adapter와 제품 표시 연결이 자동으로 완료된 것은 아니다.
+Problem 2는 공통 조합기와 검수 입력 확보로 완료했고, 후속 Problem 3은 공통 규칙 교정·자체 원문 품질 검수 및 B/C 공통 인계를 완료했다. B의 소비 좌표는 `items[].locales[ko/en].compact`, C는 같은 item/locale의 `expanded`이며, 원문과 함께 refs·detail links·qualifier dispositions·state/reason·unresolved를 소비한다. 현재 B v3의 `tooltip_s2_supply`는 이 reader에서 새 compact를 읽는다. 아래 후보 소비 경계가 실제 adapter와 Tooltip 조립·표시를 소유하며, C의 expanded 소비 구현은 별도다.
 
-`physical_fit`은 미측정이며 `compact`라는 이름과 hard newline 부재는 최대 네 줄 충족의 증거가 아니다. 감독 closeout 수락도 별도 전수 독립 검수나 PZ 화면 수락을 의미하지 않는다. 기존 r6 공급 및 current Tooltip/Menu/Lua/package는 유지한다. 표현 계약과 Problem 2 범위는 [표현 계약](iris_dvf_description_composition_contract.md)·[완료 보고서](iris_dvf_description_composition_closeout.md), 최종 품질 수락 identity·실제 검수와 B/C 인계는 [Problem 3 실행 기록](iris_dvf_description_quality_acceptance_closeout.md)이 소유한다. 일회성 읽기 보조 도구를 canonical validator나 새 authority로 채택하지 않는다.
+Offline corpus의 `compact`라는 이름과 hard newline 부재 자체는 화면 fit의 증거가 아니다. B v3의 실제 표시 수락은 별도의 사용자 PZ 확인에 근거한다. 게임 버전·해상도·배율 수치는 미제공이며 모든 환경의 fit을 보장하지 않는다. r6 historical 자료와 기존 current 데이터/pointer는 보존하고 후보 공급·표시는 아래 v3 경로로 구분한다. 표현 계약과 Problem 2 범위는 [표현 계약](iris_dvf_description_composition_contract.md)·[완료 보고서](iris_dvf_description_composition_closeout.md), 최종 품질 수락 identity·실제 검수와 B/C 인계는 [Problem 3 실행 기록](iris_dvf_description_quality_acceptance_closeout.md)이 소유한다. 일회성 읽기 보조 도구를 canonical validator나 새 authority로 채택하지 않는다.
 
 생산·수락 결과와 이전 문서 복원 경위는 [recovery closeout](iris_dvf_description_migration_question_adjudication_recovery_closeout.md)에 기록되어 있다. 그 문서의 정상 소비 복구 기록은 이번 본문 갱신 이전 상태에 해당한다.
+
+### 2026-09-11 Tooltip v3 소비 경계 — B 수락 완료
+
+```text
+descriptions.json → description_composition_results.read_result
+  → tooltip_s2_supply(v2): exact compact와 offline 상태·참조·상세 연결
+  → tooltip_t1.s2_candidate(v2): admitted support와 네 역할 조립
+  → tooltip_static_data_projection → Tooltip install/package
+  → IrisTooltipStaticDataLookup → IrisAltTooltip
+```
+
+DVF는 Layer 3 설명을 공급하고 Tooltip은 행 조립·후보 선택·표시·패키징을 소유한다. QG의 상호작용 유효성·의미 책임은 유지한다. Supply는 present/absent/out_of_dvf_target을 구분하고 실패나 locale 누락을 r6 또는 다른 언어로 대체하지 않는다. 원문과 segments/detail links, 존재하는 qualifier dispositions, expanded 및 의미 관계는 offline subject에 보존하며 runtime에는 표시·선택 자료만 전달한다.
+
+| 역할 | 입력과 표시 책임 |
+| --- | --- |
+| S1 | 기존 admitted Layer 2 classification 원문과 identity 보존 |
+| S2 | 같은 item/locale의 DVF compact 원문 한 줄 |
+| S3 | 기존 acquisition facts의 채집 zone 교집합·덫 zone·낚시 물가를 장소 행으로 투영. 장소 표현이 없으면 부재이며 절차나 L4로 대체하지 않음 |
+| S4 | 기존 QG recipe/rightclick 및 Menu의 EvolvedRecipe owner에서 유효 후보를 받아 종류 label과 함께 하나만 표시 |
+
+기존 strict T1의 S3/S4 두 L4 매핑은 historical 경로에 보존하고 후보 v2에서만 위 역할로 바꾼다. `recipe_variants`의 후보용 projection은 세 종류를 하나의 선택 목록으로 전달한다. `s2-candidate` CLI와 `IrisTooltipRecipeVariants.lua`는 호환 이름이며 S2만 변경한다는 의미가 아니다. Supply/candidate schema와 T2 provenance가 실제 변경 역할을 드러낸다. 기존 strict finalization의 요구를 이 후보 경로가 대체하지 않는다.
+
+Runtime은 완성된 KO/EN view 하나를 Tooltip opening 동안 유지한다. Locale 전환은 같은 identity의 언어만 바꾸고 Alt 해제·숨김·item 변경 등의 기존 갱신 시점에 선택을 해제한다. `IrisAltTooltip`은 정상 게임 폰트로 전체 원문 폭을 측정해 화면 안의 옆/아래/위에 배치하며 한 행을 한 화면 줄로 그린다. 다중 wrap·clipping·말줄임·폰트 축소·runtime 재요약은 하지 않는다. 들어갈 공간이 없으면 `fit_failed`와 원인을 남기며 이 상태는 정상 부재나 표시 성공이 아니다.
+
+자동 통합·후보 패키지와 사용자의 실제 PZ 확인으로 **B 후보 구현·통합·실제 표시를 complete**로 수락했다. 수락 후보는 `.tmp/tooltip/preview/Iris.zip`이며 exact identity와 검증/관찰 근거는 [closeout](iris_tooltip_supply_closeout.md)을 따른다. C는 동일 `descriptions.json`의 `items[].locales[ko/en].expanded`, compact detail links와 의미 관계를 사용해야 한다. C 구현 및 current 공동 활성화·일반 strict production finalization·release는 별도 범위다. 사용자가 예고한 설명 교정은 구체 지시를 기다리는 후속 표현 작업이며 이번 문서 갱신에서 producer나 corpus를 변경하지 않는다.

@@ -1,6 +1,6 @@
 # DECISIONS.md
 
-> 상태: current decision ledger / compact trace-dedup edition, Iris Layer 3 successor·investigation·획득·표현 authority 채택 완료 반영
+> 상태: current decision ledger / compact trace-dedup edition, Iris Layer 3 successor·investigation·획득·표현·offline composition 경계 반영
 > 기준일: 2026-09-10 (이번 갱신 범위: DVF-COMPOSITION-2 offline 조합기 완료와 문제 3 인계 결정; 기존 제품 current·sealed 결정 유지)
 > 상위 기준: `Philosophy.md`
 > 목적: Pulse 생태계에서 이미 사실상 고정된 결정을 짧게 봉인하고, 같은 논쟁의 반복을 줄인다.
@@ -1035,13 +1035,22 @@
   - Layer 3는 전체 활동 맥락·context-local role·broad function/effect·fact-local 상태/조건/제약·acquisition result를 소유한다. Layer 4는 exact Recipe/Right-click/EvolvedRecipe identity와 relation-local target/result/requirement를 소유한다. 두 계층은 shared upstream source를 독립적으로 소비할 수 있지만 서로의 output에서 fact를 만들지 않는다.
   - acquisition은 모든 current Layer 3 대상의 mandatory investigation axis다. `resolved / investigated_unresolved / not_investigated`를 구분하며 `resolved`는 acquisition 축만 완료할 뿐 item 전체 Layer 3 investigation 완료를 단독으로 보장하지 않는다. 뒤의 두 상태는 item investigation complete가 아니다. 확인된 acquisition은 Menu Layer 3 필수 정보지만 Tooltip S2 필수 문장은 아니다.
   - Menu Layer 3와 Tooltip S2는 같은 accepted fact authority를 사용한다. Menu는 accepted facts와 resolved acquisition을 상세히 보존하고, S2는 후속 profile first-contact axis에 따른 lower-resolution projection이다. importance·frequency·efficiency·first ordinal 또는 profile label로 대표 fact를 선택하지 않는다.
-  - profile은 investigation/composition/first-contact axis scope를 제공할 수 있지만 importance·frequency·ordinal·profile label 기반 대표 fact·role 선택이나 semantic priority를 소유하지 않는다. Profile taxonomy와 first-contact axis의 owner는 DVF-L3-02다. 2026-09-04 L3-02 정의와 L3-03 비획득 결과의 별도 채택은 아래 결정에 기록한다. Acquisition은 DVF-L3-04, S2 fact 결합·KO/EN 표현·문장/줄 구성·omission tracking은 DVF-L3-05, runtime 통합은 DVF-L3-06에 남긴다.
+  - profile은 investigation/composition/first-contact axis scope를 제공할 수 있지만 importance·frequency·ordinal·profile label 기반 대표 fact·role 선택이나 semantic priority를 소유하지 않는다. Profile taxonomy와 first-contact axis의 owner는 DVF-L3-02다. 2026-09-04 L3-02 정의와 L3-03 비획득 결과의 별도 채택은 아래 결정에 기록한다. Acquisition은 DVF-L3-04, S2 fact 결합·KO/EN 표현·문장/줄 구성·omission tracking은 DVF-L3-05, runtime 제품 통합은 완료된 DVF-L3-06이 담당한다.
   - `identity_hint`, `primary_use`, `secondary_use`, `special_context`, selected role/profile과 single core는 predecessor inventory의 disposition에 따라 유지·대체·유예한다. predecessor prose를 source 재확인 없이 successor typed fact로 자동 승격하지 않는다.
 - 채택 경계:
   - owner approval은 2026-09-03 실행 프롬프트의 사전 승인으로 충족했다.
   - DVF-L3-01은 계약 채택과 current readpoint 연결까지 완료했다. Acquisition 축 완료와 item 전체 조사 완료의 분리, profile의 후속 S2 구성 재량 보존을 최종 계약에 반영했다. 이 결정은 후속 구현을 위해 별도 대표 선택 규칙이나 전역 문장 수 제한을 신설하지 않는다.
   - current facts/decisions, Tooltip owner input, generation pointer와 pointer-selected generation, Lua runtime 및 package는 변경하지 않는다. 이 결정은 corpus·문장·runtime migration이나 release readiness가 아니다.
 - Trace: [human contract](iris_dvf_layer3_multi_meaning_information_resolution_successor_contract.md), `Iris/_docs/authority/dvf/layer3_successor/contract.json`, 위 contract manifest, [완료 범위와 G1 실행 기록](iris_dvf_layer3_multi_meaning_information_resolution_successor_contract_closeout.md). 최종 focused G1은 exit `0`이며 전체 suite·제품 통합 검증을 대신하지 않는다.
+
+### DVF-L3-06: Menu·Alt Tooltip 제품 통합
+
+- 날짜: 2026-09-07. 상태: **complete**.
+- 채택된 L3-05의 동일 expression subject에서 Menu KO/EN expanded, Tooltip S2, 기존 S1/S3/S4와 matching Recipe companion을 하나의 immutable product로 생성한다. 제품 소비 계층은 사실 선택·번역·요약을 새로 수행하지 않는다.
+- `product_projection.py`가 product identity와 payload를 생성하고, `product_install.py`가 admission·격리 staging·guarded promotion·rollback을 담당한다. Lua lookup과 renderer는 같은 product의 locale payload를 소비하며, package는 선택된 generation과 facade만 포함한다.
+- 통합 결과는 Menu 2,105개, Tooltip support 2,280개, Recipe 349개 item / 781개 variant다. 기존 0~4 logical slot과 Recipe opening 수명을 유지한다.
+- 최종 machine subject `3fa4f42642a32d40bdc6690c686e493ad40376e4`의 canonical launcher/native exit `0`, `214 passed, 118 subtests passed`; 최종 package Lua syntax exit `0`(125 files). Product는 `l3p-4e05fc9f92da124221e3ba17469cb9562fd0f895a5fa871969101ce049818124`다.
+- 상세: [제품 소비 계약](iris_layer3_product_consumption_contract.md), [구현 closeout](iris_dvf_layer3_menu_alt_tooltip_product_integration_closeout.md).
 
 ### DVF-L3-05: 근거 결속 KO/EN 설명 authority
 
@@ -1053,7 +1062,7 @@
 - 교정본은 S2를 expanded의 축약이 아닌 독립 profile 합성으로 만들고, 일반 실행 조건의 detail disposition과 의미를 바꾸는 qualifier 표현을 구별한다. Acquisition의 장소·방법·의미 있는 조건은 유지하며 가중치·raw random·callback/등록/전달 세부는 payload/provenance에만 남긴다. 문제 6에 truncation·재요약·대표 선택을 넘기지 않는다.
 - S2가 비어 있지 않은 item은 locale별 1,280개이고 825개는 비어 있다. KO 길이 p50/p95/max는 12/39/44자, EN은 27/83/104자다. 이 수치는 글자 수 cap이나 합격 임계값이 아니라 profile 합성 결과의 관찰값이다. 825개 침묵은 표현 실패가 아니라 accepted first-contact contributor 부재이므로 L3-06이 predecessor fallback·추론·대표 선택으로 채우지 않는다. 공백 축소는 별도 upstream 의미 조사 범위다.
 - 동일한 단일 focused Gate `test_layer3_expression_results.test_expression_contract`를 교정된 최종 후보에 한 번 다시 실행해 `1 passed in 14.17s`, exit `0`을 확인했다. 교정 후보의 adoption 명령 내부 adopted readback도 exit `0`이다. 선행 receipt는 `superseded_result`로 보존한다. 공용 conftest의 외부 출력·정규 registry 요구는 이번 독립 contract에 적용하지 않는다.
-- 구현·소비·검토·한계는 [expression contract](iris_layer3_expression_contract.md)와 [closeout](iris_layer3_expression_closeout.md)에 기록했다. 실제 Menu/Tooltip 노출과 S1/S3/S4·4줄·Alt·runtime/current 통합은 L3-06에 남긴다.
+- 구현·소비·검토·한계는 [expression contract](iris_layer3_expression_contract.md)와 [closeout](iris_layer3_expression_closeout.md)에 기록했다. Menu/Tooltip 노출과 S1/S3/S4·4줄·Alt·runtime 제품 통합은 위 L3-06 완료 기록을 따른다.
 
 ### DVF-L3-04: 독립 획득 결과와 조사 상태
 
@@ -2469,6 +2478,14 @@ D1 generation 전환의 조건부 downstream binding: T1 strict admission에서 
 
 2026-08-30 사용자 정정 반영: 작업별 폴더 분류로 완료를 대신하지 않고 각 실행 파일의 실제 입력·처리·출력·호출 관계에 따라 재명명했다. 현재 테스트 실행·환경 연결은 `Iris/validation/execution/`, 소스 조사는 `source_analysis/`, 산출물 저장/복원은 `artifacts/`, 기준점 채택은 `baseline/`, 시나리오 모델은 `scenarios/`, 테스트 보호 조건 비교는 `test_coverage/`가 담당한다. 위의 `current_route/` 및 이전 clean-checkout 실행 경로는 이 변경의 predecessor다. 현재 필수 목록과 환경 locator는 `Iris/validation/execution/required_validations.json`, `Iris/validation/execution/current_environment.json`이며 설정 파일도 소비 코드 옆으로 이동했다. 과거 authority/evidence record와 schema/프로토콜 식별자는 유지한다. 이 정정에서 테스트·외부 재생성·새 봉인을 수행하지 않았고 현재 게임 기능 코드도 변경하지 않았다. 정확한 파일별 역할은 기존 naming closeout의 책임별 재명명 정정 절을 따른다.
 
+### Iris — Layer 2 checkout-stable input identity 채택 (2026-09-06)
+
+- 승인: DVF-L3-06-1 구현 요청의 owner 사전 승인. Resolution Registry v2의 `input_identities`를 최종 단일 통합 Gate `5 passed`, exit `0` 뒤 current로 채택한다.
+- Category Index·classification membership·usecase source에는 `eol_lf_sha256` v1을 적용한다. Uniform LF/CRLF만 동일시하고 mixed/lone CR 및 다른 bytes의 drift는 거부한다. KO/EN locale에는 Category Index의 exact 59개 참조 key/value에 대한 `category_locale_sha256` v1을 적용한다. Referenced semantic delta는 `0`이며 참조 밖 UI key는 binding에서 제외한다.
+- Generated pointer와 immutable generation은 `raw_sha256` v1을 유지한다. Historical v1 Registry 전체, source subject와 approval provenance는 보존하며 v2 실패의 fallback으로 쓰지 않는다. Shared admission은 materializer와 validator가 공동 소비하고 candidate/product raw hash의 의미는 유지한다.
+- Owner bytes·resolved-row seal·Classification 의미와 `2,280 = 1,406 applicable + 874 display silence`를 보존했다. DVF-L3-06의 동일 Layer 2 prerequisite가 default current owner를 수용하므로 확인된 blocker에 한해 재개 가능하다. Product build/integration·package/install·PZ·current cutover 완료로 확대하지 않는다.
+- Exact migration/raw set, predecessor trace, 실행 명령과 한계: [DVF-L3-06-1 closeout](iris_dvf_layer3_layer2_checkout_eol_identity_closeout.md).
+
 ### Iris DVF description recovery — offline successor adoption
 
 - 현재 결정(2026-09-09 기록 정리): 문제 A의 offline 설명 복구·공통 표현 정정은 **r6 채택으로 완료**했다. 기준은 `Iris/_docs/authority/dvf/layer3_expression/successors/r6/adoption.json`이며, 아래 r3 수락·채택과 재개 이력은 이전 결과다. 검토 세션에서도 r6의 실제 설명과 동일 B/C 연결을 확인한 뒤 추가 수정 지시 없이 이 완료 범위를 수용했다. 이는 미해결 판정 전체에 대한 별도 보증이나 제품 current 전환 결정이 아니다.
@@ -2485,6 +2502,14 @@ D1 generation 전환의 조건부 downstream binding: T1 strict admission에서 
 - 표현 책임: 독립 기능과 첫 이해에 필요한 조건을 compact에 보존하고, 같은 기능의 확인된 대상을 모아 공통 조건을 한 번 표현한다. 대표 용도 선택이나 글자수 컷으로 기능을 없애지 않는다. 수량·작업 절차는 expanded, 내부 분기·미확인 native 결과와 근거 한계는 audit에 둔다. 실제 Type 조건은 기존의 충돌 없는 정확한 선언으로 투영하며 모호한 선언의 승자를 선택하지 않는다. 이 원칙은 새로운 semantic fact나 validation authority를 만드는 권한이 아니다.
 - 후속 경계: 문제 B는 r6 compact/S2의 Tooltip 연결, 문제 C는 동일 r6 expanded의 Menu 연결이다. 이 세션에서는 둘 다 착수하지 않았으며 기존 Tooltip 전체 동작의 소유권과 S1/S3/S4·Alt·최대 4줄 경계를 변경하지 않았다. 단순히 계속 진행하라는 요청이나 이번 문서 정리를 B/C 제품 구현 완료로 기록하지 않는다.
 - 2026-09-09 문서 배치 정정: `ARCHITECTURE.md` 갱신이 r6의 exact input과 달라 정상 소비를 막았으므로, 추가한 처리 구조·표현 책임 설명은 [기존 closeout의 아키텍처 절](iris_dvf_description_migration_question_adjudication_recovery_closeout.md#r6-처리-구조와-문서-배치)로 옮겨 보존하고 ARCHITECTURE는 보관한 정확한 원본으로 복원했다. Loader 변경·hash 대체·검사 생략·r6 재생성 없이 원래 입력 경로를 유지한다. 기존 후보/adoption/PASS는 변경하지 않았다. 현재 checkout에서 기존 정상 `load_adopted` 1회가 **exit 0**, `mode=adopted`, `targets=2105`를 반환해 B/C offline 입력 소비 복구를 확인했다. 본문 갱신 완료나 문서 영구 동결 정책으로 삼지 않으며, 가변 설명 문서·과거 생산 재현과 채택 소비의 결합은 향후 해당 경로를 다룰 때 해결할 제약으로 남긴다. 이번 수습에 focused gate 재실행·재채택은 없었다.
+
+### 2026-09-09 — Tooltip S2 공급 및 독립 소유 경로
+
+사용자가 승인한 B 계획에 따라 shared adopted reader를 historical 재현과 분리하고, `tooltip_s2_supply`의 exact S2/absence를 strict T1의 durable subject와 T2에 연결했다. 최종 Tooltip static·Recipe·격리 install/package는 Tooltip owner binding으로 관리하며 historical L3-06과 r6를 보존한다. 관련 fixture와 Lua/package 명령의 성공은 실제 strict production admission/finalization이나 실제 PZ 검증이 아니다. B는 **partial**, 해당 production 축은 **blocked**, runtime은 **unvalidated_but_in_scope**다. current Tooltip/Menu는 predecessor이고 `promotion=deferred`, C는 미완료다. 원본 dirty 변경을 commit/reset하지 않고 경로·clean subject 제한을 보존했다. 실제 명령별 exit와 인계는 [Tooltip 공급 결과](iris_tooltip_supply_closeout.md)에 기록한다.
+
+### 2026-09-10 — S2 후보에 필요한 검증 범위 적용
+
+사용자가 전체 Run A/B+comparator의 B 적용 규모를 재검토하도록 요청하고 필요한 범위로 조정하는 안을 승인했다. B 완료 조건과 실제 PZ 관찰은 유지한다. 기존 채택 T1 baseline의 S1/S3/S4를 보존하는 S2-only candidate 생산을 명시적으로 추가하고, 기존 strict row/locale/identity·T2/Recipe·install/package 규칙으로 검증한다. 미커밋 input/producer bytes를 후보 subject에 기록하며 clean이라고 주장하지 않는다. 후보는 저장소 `.tmp/tooltip`에서 생산·소비하고 일반 D6 재채택의 clean/external/Run A/B 계약과 current는 그대로 둔다. 실제 생산 결과 두 개와 관련 통합 검사는 한 호출에서 exit 0, 8 passed로 끝났으며 인게임 ZIP을 준비했다. 결과는 implemented_only/PZ 대기이고, 정규 validation authority나 새 proof 체계는 추가하지 않았다.
 
 ### 2026-09-10 — DVF-COMPOSITION-1 의미 구성 완료와 소비 경계
 
@@ -2512,8 +2537,19 @@ D1 generation 전환의 조건부 downstream binding: T1 strict admission에서 
 - **공개 범위는 바닐라 생존 모드다.** 사용자 명시 지시에 따라 치트 모드 관련 공개 문구를 전부 제외한다. 일반 기술·도구·재료·배치·소모 조건은 설명하고, source predicate와 refs는 출처 추적용으로 유지한다. 이를 source 사실 재판정이나 새로운 authority로 해석하지 않는다.
 - 최종 focused 명령은 exit 0, `1 passed in 4.96s`였다. 마지막 교정 영향 29개 조합 / 31개 item의 KO/EN compact 62개를 실제 재독했고, 기존 유효한 전체 읽기와 unchanged expanded/input을 공유했다. 실제 명령·실패와 재실행·읽기 범위는 [실행 기록](iris_dvf_description_quality_acceptance_closeout.md)이 소유한다.
 - 감독 세션은 최종 저장 hash, Hammer/Plank/BallPeenHammer/Crowbar 원문 및 공통 규칙의 허용 context·설치/철거 조건을 확인하고 위 closeout을 수락했다. 이는 감독자가 corpus 전체를 별도로 전수 재검수한 독립 acceptance나 실제 PZ 한 줄/최대 네 줄 fit 수락이 아니다. 추가 confidence 검사·산출물·재생성 없이 종료했다.
-- B와 C는 같은 최종 corpus의 `compact` / `expanded`, refs·detail links·qualifier dispositions·state/reason·unresolved를 공통 입력으로 소비한다. 기존 B의 `tooltip_s2_supply`는 r6 `s2`를 읽으므로 새 corpus 연결/adapter와 실제 표시 검증은 후속이다. r6/adoption, L3-05/06 authority, current Tooltip/Menu, Lua/package/pointer는 전환하지 않았다. 임시 읽기 도구는 canonical validator나 새 validation authority가 아니다.
+- B와 C는 같은 최종 corpus의 `compact` / `expanded`, refs·detail links·qualifier dispositions·state/reason·unresolved를 공통 입력으로 소비한다. Problem 3 수락 당시 B의 `tooltip_s2_supply`는 r6 `s2`를 읽었으며 새 corpus 연결/표시는 후속이었다. 이후 B v3 구현·사용자 PZ 수락은 아래 결정에서 완료했다. r6/adoption, L3-05/06 authority, current Tooltip/Menu, Lua/package/pointer는 전환하지 않았다. 임시 읽기 도구는 canonical validator나 새 validation authority가 아니다.
 
 중간 이력은 최종 수락과 구분한다. 초기 bounded correction은 partial이었고, `10685bc0…`의 완료 수락은 실제 건축·화장 중복과 compact 결함 때문에 철회했다. 후속 `ffbf506b…`도 일반 도구·재료의 작업 나열이 남아 수락을 보류했다. 그 잔여 유형을 공통 수정한 `ba0fc047…`가 최종이며, 이전 테스트 성공을 문장 적합성이나 최종 identity의 PASS로 승계하지 않는다.
 
 이번 문서 동기화는 사용자의 세 문서 갱신 요청에 따른 기록 정리다. ARCHITECTURE에 실제 합성 책임과 소비 경계를 반영하지만 runtime 책임이나 schema/reader 계약을 이전하지 않으며, 기존 검사 결과를 새 문서 bytes에 대한 검증으로 재발행하지 않는다.
+
+### 2026-09-11 — B v3 구현과 사용자 실제 PZ 수락
+
+- **결정: B 후보 구현·통합·실제 표시 complete.** 검수된 `descriptions.json` compact 연결과 자동 통합을 완료한 뒤, 사용자가 인계된 후보를 “다 확인했고 통과야”, “문제 B를 통과처리하자”고 수락했다. 구현 당시 implemented_only/PZ 대기는 확인 전 이력이다. 실제 관찰 근거는 사용자 보고이며 게임 버전·해상도·배율 수치는 제공되지 않았다.
+- 공급 입력은 corpus `ba0fc047b3a613e7ef98d2d762cfbd10c1996a02ad4e6f96d1bffa61878262d0`다. `description_composition_results.read_result`로 compact를 읽고 state/reason·의미 참조·상세 연결을 그대로 보존한다. 이번 B 구현에서 corpus를 재생성하거나 문장을 교정하지 않았다. C의 입력도 같은 corpus의 expanded다.
+- 후보의 역할은 S1 admitted classification, S2 DVF compact, S3 근거 있는 획득 장소, S4 유효한 recipe/rightclick/evolved_recipe 중 하나다. 기존 strict T1의 S3/S4 두 L4 매핑은 후보에서 명시적으로 바꿨고 S1 및 admitted support는 보존했다. 기존 `s2-candidate` CLI와 companion 파일명은 호환을 위해 유지하되 supply/candidate v2와 provenance로 변경 범위를 드러낸다.
+- Tooltip은 정상 게임 폰트로 원문 폭을 측정해 화면 안에 배치하고 한 역할당 한 화면 줄, 최대 네 줄을 유지한다. Alt 및 opening 단위의 단일 선택을 유지하며 locale 변경이나 매 프레임에 재추첨하지 않는다. `fit_failed`는 정상 부재나 성공이 아니며, 추후 실제 관찰에서 발생하면 표시 결함으로 처리한다.
+- 자동 통합의 최종 재실행은 exit 0, 1 passed(98.49초)였고 같은 실행의 Lua syntax/harness/install·복구/package도 exit 0이었다. 최초 선택적 필드 처리 실패와 통과한 projection node의 이력은 [closeout](iris_tooltip_supply_closeout.md)에 보존한다. 사용자 수락에 따른 추가 테스트·재생성은 하지 않는다.
+- 후속 설명 교정은 사용자가 나중에 구체 사항을 제공할 별도 과제다. B 통과를 모든 설명의 영구적인 품질 보증으로 확대하지 않는다. C 구현, current 공동 활성화, 일반 strict production finalization, release는 이번 완료 범위가 아니다. 원래 D6 재채택 계약과 historical 자료는 보존한다.
+
+동일 수락 후보는 `.tmp/tooltip/preview/Iris.zip`이며 정확한 product/ZIP identity와 인계 내용은 [최종 수락 기록](iris_tooltip_supply_closeout.md)이 소유한다. 이번 세 문서 갱신은 구현·수락 상태의 동기화이며 새 검증 결과나 권한을 만들지 않는다.

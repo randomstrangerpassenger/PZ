@@ -2,8 +2,102 @@ from __future__ import annotations
 
 from copy import deepcopy
 from pathlib import Path
+import json
 
 import pytest
+
+
+def test_adopted_reader_boundary(tmp_path, monkeypatch):
+    """Small immutable fixture: relocation and docs are not producer replay."""
+    from iris_tooling.domains.layer3 import recovery as r
+    directory = tmp_path / r.FINAL_ROOT / 'fixture'
+    directory.mkdir(parents=True)
+    def put(name, payload):
+        raw = r.canonical(payload)
+        path = directory / name
+        path.write_bytes(raw)
+        return {'path': path.relative_to(tmp_path).as_posix(), 'sha256': r.digest(raw)}
+    ref = 'semantic/f'
+    fact = {'fact_id': 'f', 'item_id': 'Base.A', 'payload': {'function': 'open'}}
+    semantic = {'status': 'candidate', 'authority_id': 'semantic', 'target_ids': ['Base.A'], 'facts': [fact]}
+    semantic_ref = put('semantic.json', semantic)
+    acquisition = {'status': 'candidate', 'authority_id': 'acquisition', 'target_ids': ['Base.A'],
+                   'facts': [], 'semantic_readpoint': semantic_ref}
+    acquisition_ref = put('acquisition.json', acquisition)
+    definition = {'path': 'definition.json', 'sha256': 'd' * 64}
+    successor = {'path': 'successor.json', 'sha256': 'e' * 64}
+    expressions, locales = [], {}
+    for loc, text in (('ko', '열 수 있다.'), ('en', 'It can be opened.')):
+        for resolution in ('expanded', 'compact'):
+            expressions.append({'expression_id': loc + resolution, 'locale': loc, 'resolution': resolution,
+                                'text': text, 'represented_fact_refs': [ref], 'dependency_refs': []})
+        locales[loc] = {'expanded': [{'text': text, 'expression_refs': [loc + 'expanded'], 'represented_fact_refs': [ref]}],
+                        'expanded_represented_fact_refs': [ref], 'fact_expressions': {ref: [loc + 'expanded']},
+                        's2': {'text': text, 'state': 'expressed', 'logical_rows': 1,
+                               'expression_refs': [loc + 'compact'], 'represented_fact_refs': [ref],
+                               'dependency_refs': [], 'detail_qualifier_refs': []}, 'tooltip_detail_omission_refs': []}
+    expression = {'completion': 'complete', 'inputs': {'semantic': semantic_ref, 'acquisition': acquisition_ref,
+                  'definition': definition, 'successor': successor}, 'facts': [{'ref': ref, **fact}],
+                  'items': [{'item_id': 'Base.A', 'locales': locales}], 'expressions': expressions}
+    doc = tmp_path / 'docs/ARCHITECTURE.md'
+    doc.parent.mkdir()
+    doc.write_bytes(b'before')
+    historical_ref = {'path': 'docs/ARCHITECTURE.md', 'sha256': r.digest(b'before')}
+    audit = {'completion': 'complete', 'inputs': [historical_ref], 'question_reassessment': [],
+             'inventory': {'clauses': [], 'claims': [], 'conservation': []}}
+    members = {'semantic': semantic_ref, 'acquisition': acquisition_ref,
+               'expression': put('descriptions.json', expression), 'audit': put('audit.json', audit)}
+    manifest = {'schema': 'iris-layer3-recovery-chain-v1', 'status': 'candidate', 'members': members,
+                'definition': definition, 'successor': successor, 'completion': 'complete', 'focused_test': historical_ref}
+    manifest_ref = put('manifest.json', manifest)
+    adoption = {'schema': 'iris-layer3-recovery-adoption-v1', 'state': 'adopted', 'authorization': 'fixture',
+                'manifest': manifest_ref, 'handoff': r.handoff(manifest), 'product_migration': 'deferred',
+                'acceptance': {'command': r.ACCEPTANCE_COMMAND, 'exit_code': 0, 'subject': manifest_ref,
+                               'candidate_environment': 'C:/historical/' + directory.relative_to(tmp_path).as_posix()}}
+    adoption_ref = put('adoption.json', adoption)
+    before = r.load_adopted(tmp_path, adoption_ref)
+    doc.write_bytes(b'after')
+    after = r.load_adopted(tmp_path, adoption_ref)
+    assert before == after and set(after) == {'mode', 'manifest', 'payloads', 'adoption'}
+    assert after['payloads']['expression']['items'][0]['locales'] == locales
+    with pytest.raises(ValueError, match='input drift'):
+        r.Inputs(tmp_path).read(**{'path': historical_ref['path'], 'expected': historical_ref['sha256']})
+    for mutation in ('locale', 'refs', 'state', 'member', 'subject', 'bytes'):
+        modified = deepcopy(expression)
+        if mutation == 'locale':
+            del modified['items'][0]['locales']['en']
+        elif mutation == 'refs':
+            modified['items'][0]['locales']['ko']['s2']['dependency_refs'] = [{'fact_ref': 'missing'}]
+        elif mutation == 'state':
+            modified['items'][0]['locales']['ko']['s2']['state'] = 'unknown'
+        if mutation in {'locale', 'refs', 'state'}:
+            with pytest.raises((ValueError, KeyError)):
+                r.consume_adopted(manifest, {'semantic': semantic, 'acquisition': acquisition,
+                                           'expression': modified, 'audit': audit})
+        elif mutation == 'member':
+            saved = (directory / 'audit.json').read_bytes()
+            (directory / 'audit.json').unlink()
+            with pytest.raises((ValueError, OSError)):
+                r.load_adopted(tmp_path, adoption_ref)
+            (directory / 'audit.json').write_bytes(saved)
+        elif mutation == 'subject':
+            wrong = deepcopy(adoption)
+            wrong['acceptance']['candidate_environment'] += '/wrong'
+            wrong_ref = put('adoption.json', wrong)
+            with pytest.raises(ValueError, match='subject/path'):
+                r.load_adopted(tmp_path, wrong_ref)
+            put('adoption.json', adoption)
+        else:
+            (directory / 'descriptions.json').write_bytes(b'{}')
+            with pytest.raises(ValueError):
+                r.load_adopted(tmp_path, adoption_ref)
+    # Historical invocation still routes to the producer-bound reader.
+    def historical(root, ref, **kwargs):
+        assert ref == manifest_ref and kwargs == {'consumable': True}
+        raise ValueError('historical producer boundary')
+    monkeypatch.setattr(r, 'load_candidate', historical)
+    with pytest.raises(ValueError, match='historical producer boundary'):
+        r.load_adopted(tmp_path, adoption_ref, historical=True)
 
 from iris_tooling.domains.tooltip_t1.contract import (
     AUTHORITY_ROOT,

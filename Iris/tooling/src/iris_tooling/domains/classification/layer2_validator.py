@@ -22,7 +22,7 @@ from .layer2_contract import (
     parse_taxonomy,
     parse_translation,
     parse_classifications,
-    sha256_file,
+    admit_registry_inputs,
     support_sha256,
     canonical_bytes,
     sha256_bytes,
@@ -47,7 +47,6 @@ def validate_owner_output(repository_root: Path, output_path: Path | None = None
         (RESOLUTION_CONTRACT, "iris-classification-layer2-resolution-contract-v2"),
         (ABSENCE_REGISTRY, "iris-classification-layer2-absence-reason-registry-v1"),
         (OUTPUT_SCHEMA, "https://json-schema.org/draft/2020-12/schema"),
-        (RESOLUTION_REGISTRY, "iris-classification-layer2-resolution-registry-v1"),
         (SURFACE_CATALOG, "iris-classification-layer2-surface-catalog-v1"),
     ):
         value = load_json_object(repository_root / relative)
@@ -60,16 +59,10 @@ def validate_owner_output(repository_root: Path, output_path: Path | None = None
         raise Layer2ContractError("Layer 2 owner output schema mismatch")
     if output.get("support_predicate") != SUPPORT_PREDICATE:
         raise Layer2ContractError("Layer 2 owner output support predicate mismatch")
-    registry = loaded[RESOLUTION_REGISTRY]
+    registry = load_json_object(repository_root / RESOLUTION_REGISTRY)
+    admit_registry_inputs(repository_root, registry)
     if output.get("source_subject_binding") != registry.get("source_subject_binding"):
         raise Layer2ContractError("Layer 2 owner output source subject binding mismatch")
-    input_hashes = registry.get("input_sha256")
-    if not isinstance(input_hashes, dict) or not input_hashes:
-        raise Layer2ContractError("Layer 2 resolution registry input binding is missing")
-    for relative, expected in input_hashes.items():
-        path = repository_root / relative
-        if not path.is_file() or sha256_file(path) != expected:
-            raise Layer2ContractError(f"stale Layer 2 semantic input: {relative}")
     report = census(repository_root)
     if output.get("frozen_support_count") != report["frozen_support_count"]:
         raise Layer2ContractError("Layer 2 owner output support count mismatch")

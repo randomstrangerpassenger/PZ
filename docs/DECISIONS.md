@@ -1,7 +1,7 @@
 # DECISIONS.md
 
 > 상태: current decision ledger / compact trace-dedup edition, Iris Layer 3 successor·investigation·획득·표현 authority 채택 완료 반영
-> 기준일: 2026-09-10 (이번 갱신 범위: DVF-COMPOSITION-1 완료 결정; 기존 제품 current·sealed 결정 유지)
+> 기준일: 2026-09-10 (이번 갱신 범위: DVF-COMPOSITION-2 offline 조합기 완료와 문제 3 인계 결정; 기존 제품 current·sealed 결정 유지)
 > 상위 기준: `Philosophy.md`
 > 목적: Pulse 생태계에서 이미 사실상 고정된 결정을 짧게 봉인하고, 같은 논쟁의 반복을 줄인다.
 
@@ -2493,4 +2493,14 @@ D1 generation 전환의 조건부 downstream binding: T1 strict admission에서 
 - Qualifier는 item-level record로 정확히 중복 제거하되 모든 fact/provenance/application ref를 보존하고 `block_common`과 `branch_local` 범위를 유지한다. Qualifier 공유는 block 병합 근거가 아니다. Problem 2는 의미와 적용 범위를 유지하는 문장 병합·분할 및 compact/expanded 구성을 선택할 수 있지만 독립 용도 삭제, `primary_use` 복귀, 관계·조건 재판정은 하지 않는다.
 - 전체 결과는 exact target 2,105개, represented accepted facts 29,202개, block 10,304개, multi-branch block 1,591개이며 accepted collection의 residual/non-public은 0이다. Spear-fishing 14개 대상의 function과 condition-decrease effect는 accepted application/direction 근거가 없어 `undetermined`로 남긴다. 후속 표현은 두 의미를 보존하되 인과를 주장하지 않는다.
 - 계획의 유일한 focused 수락 명령은 exit `0`, `1 passed in 15.34s`였다. 이는 fact conservation, 구조·참조·qualifier scope, 대표 위험 사례와 durable reader handoff의 검사이며 모든 관계에 대한 인간 의미 검토, 최종 KO/EN 품질, runtime/package/PZ 검증이 아니다. 추가 suite, Run A/B, historical replay, adoption/seal은 실행하거나 신설하지 않았다.
-- 비결정: 이 완료는 r6 원본/adoption, product current route, L3-05/06 authority, Tooltip/Menu/Lua/package를 변경하지 않는다. Problem 2의 문장 조합과 Problem 3의 전체 설명 품질 검수·제품 적용은 후속 범위다. 상세 계약과 수치는 [composition contract](iris_dvf_semantic_block_integration_contract.md)와 [closeout](iris_dvf_semantic_block_integration_closeout.md)이 소유한다.
+- 비결정: 이 완료는 r6 원본/adoption, product current route, L3-05/06 authority, Tooltip/Menu/Lua/package를 변경하지 않는다. 당시 후속이던 Problem 2의 문장 조합은 아래 결정에서 완료했으며, Problem 3의 전체 설명 품질 검수·제품 적용 판단은 남는다. 상세 계약과 수치는 [composition contract](iris_dvf_semantic_block_integration_contract.md)와 [closeout](iris_dvf_semantic_block_integration_closeout.md)이 소유한다.
+
+### 2026-09-10 — DVF-COMPOSITION-2 공통 설명 조합과 검수 입력 확보
+
+- 상태: **Problem 2 complete — offline 공통 조합기 및 Problem 3 입력 확보 범위**. 감독 검토에서 지적한 점화 반복, 물 사용 수치·절차 누적, 조명 자체 상태 전환 상세 누적을 공통 규칙으로 수정한 결과를 수락했다.
+- 결정: `blocks.json`을 의미 입력으로 KO/EN compact와 expanded를 각각 구성한다. Expanded를 잘라 compact를 만들거나 기존 r6 완성 문장을 재선택하지 않는다. 역할·독립 용도·관계 방향·대안·qualifier application을 보존하고, 미확정 창낚시/마모는 인과 없이 독립 서술한다.
+- 내용 배치는 기능·역할의 개요와 실제 상세 설명을 구분한다. 점화 도구의 대상별 수단, 물 사용의 수치·이동·개별 조리법, 휴대 조명의 자체 상태 전환·전원 운영은 상세에 두며, 해당 기능과 오염수 음용 위험 등 개요에 필요한 의미는 compact에 남긴다. FullType별 대체문, 대표 용도 단일 선택, 문자 수 절단을 사용하지 않는다. 상세 보존은 refs만 남기는 것으로 충족하지 않는다.
+- 현재 검수 입력은 `Iris/build/description/composition/descriptions.json`이다. `description_composition_results.read_result(root)`는 저장된 원문·상태·의미 연결을 재생성 없이 읽는다. `present`/`absent`/`failed`를 구분하며 r6나 다른 locale로 실패를 감추지 않는다.
+- 최종 집중 검사 exit `0`, `1 passed in 4.53s` 및 대표 KO/EN 원문 검토를 완료했다. 이 결과와 감독 수락은 전수 자연스러움·간결성·번역체 수락이나 실제 PZ fit 증명이 아니다. 임시 검사 도구를 정규 validation authority로 승격하거나 별도 seal/receipt를 추가하지 않는다.
+- 비결정: r6 adoption, 기존 L3-05/06 authority와 제품 current, Tooltip/Menu/Lua/package를 전환하지 않는다. 최대 네 줄 요구를 유지하며 실제 화면 검증은 B/C, 전체 원문 품질 검수는 Problem 3의 책임이다. 이번 문서 동기화는 기존 실행 결과를 새 검증 PASS로 재발행하지 않는다.
+- 현재 기준: [표현 계약](iris_dvf_description_composition_contract.md), [계획](iris_dvf_description_composition_plan.md), [완료 보고서](iris_dvf_description_composition_closeout.md).

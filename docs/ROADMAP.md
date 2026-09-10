@@ -1,7 +1,7 @@
 # ROADMAP.md
 
 > 상태: current canonical roadmap  
-> 기준일: 2026-09-10 (이번 갱신 범위: DVF-COMPOSITION-1 완료 및 후속 설명 조합 경계; 기존 완료 이력 유지)
+> 기준일: 2026-09-10 (이번 갱신 범위: DVF-COMPOSITION-2 완료 및 문제 3·B/C 잔여 책임; 기존 완료 이력 유지)
 > 최상위 기준: `Philosophy.md`  
 > 결정 기준: `DECISIONS.md`  
 > 목적: Pulse 생태계의 현재 상태, 진행 방향, 다음 게이트와 Hold 경계를 고정한다.
@@ -1125,11 +1125,13 @@ Closeout complete: exact implementation `801f15f6`의 terminal Run A/B/comparato
 - 다음 구현 대상은 사용자 범위 지정 후 해당 계획에 따라 진행한다. 4,223 bounded unresolved claim과 item incomplete/undetermined 상태를 추가 조사 완료로 바꾸거나, 임시 helper·집계를 정규 validator로 승격하지 않는다. 현재 처리 구조와 문서 배치 정정은 [기존 closeout의 아키텍처 절](iris_dvf_description_migration_question_adjudication_recovery_closeout.md#r6-처리-구조와-문서-배치)에 기록한다.
 - [x] 2026-09-09 문서 변경 부작용 수습: r6에 결속된 ARCHITECTURE 원본을 복원하고 새 설명은 기존 closeout에 보존했다. 현재 checkout의 기존 정상 `load_adopted` 1회가 **exit 0**, `mode=adopted`, `targets=2105`로 끝나 B/C offline 입력 소비를 복구했다. ARCHITECTURE 본문 갱신 완료나 영구 동결 정책은 아니며, 채택 소비와 가변 문서·과거 생산 재현의 결합은 향후 해당 경로의 제약으로 남긴다. 전체 재생성·focused gate 재실행·재채택은 하지 않았다.
 
-### Iris DVF semantic block composition (DVF-COMPOSITION-1)
+### Iris DVF 의미 블록·설명 조합 (DVF-COMPOSITION-1/2)
 
 - [x] **Problem 1 complete (2026-09-10):** 채택 r6의 exact 2,105개 대상과 accepted semantic/acquisition fact 29,202개를 locale-neutral 의미 구조로 전수 구성했다. `composition_rules`·`composition_model`·`composition_results`와 Problem 2 reader를 구현하고 `Iris/build/description/composition/blocks.json`에 10,304개 block, 1,591개 multi-branch grouping과 원 fact/provenance/qualifier scope를 보존했다.
 - [x] 관계·조건 경계 확정: Profile/prose/item name/input order를 관계 근거로 사용하지 않는다. 역할·대상·결과 충돌을 우선하며 context refinement, source-grounded function/result, target variant, compound와 acquisition alternative를 구분한다. Qualifier는 item-level에서 중복을 제거하되 `block_common`/`branch_local` 적용 범위를 유지하고 qualifier 공유로 block을 병합하지 않는다.
 - [x] 계획의 단일 focused command가 최종 **exit 0, `1 passed in 15.34s`**로 완료됐다. Accepted collection의 disposition은 represented 29,202 / residual 0 / non-public 0이다. 이 검사는 fact conservation과 구조·참조·범위 및 계획된 대표 위험 사례를 확인하며 모든 관계의 인간 의미 정확성이나 최종 문장 품질을 보증하지 않는다.
-- [ ] **Problem 2 — KO/EN 설명 조합:** `composition_results.read_result`와 `blocks.json`을 입력으로 사용한다. Meaning block을 문장/화면 block으로 고정하지 않고 병합·분할·compact/expanded 표현은 허용하되 독립 용도, 관계 방향, alternative와 qualifier scope를 바꾸지 않는다. Spear-fishing 14개 대상의 undetermined pair는 별도로 표현하고 근거 없는 condition-loss 인과를 만들지 않는다.
-- [ ] **Problem 3 — 전체 설명 품질 검수와 적용 판단:** Problem 2 결과의 가독성·의미 보존을 검토한 뒤 제품 적용 범위를 별도로 결정한다. 현재 `blocks.json`은 internal handoff이며 r6/current route, L3-05/06 authority, Tooltip/Menu/Lua/package 상태를 전환하지 않는다.
-- 상세 규칙·잔여·검증 한계: [composition contract](iris_dvf_semantic_block_integration_contract.md), [composition closeout](iris_dvf_semantic_block_integration_closeout.md).
+- [x] **Problem 2 complete (2026-09-10) — offline KO/EN 공통 설명 조합 및 검수 입력 확보:** `composition_results.read_result`의 의미 블록에서 compact/expanded를 독립 구성한다. 역할·관계 방향·대안·qualifier scope와 창낚시 14개 대상의 독립 서술을 유지한다. 역할/용도 병렬화, 점화 목적 합성, 물 사용 개요와 수치 상세 분리, 조명 운영·상태 전환의 상세 배치를 공통 규칙으로 구현했다.
+- [x] `Iris/build/description/composition/descriptions.json`에 2,105개 × KO/EN × 두 표면의 **8,420개 상태**와 원문·의미 연결을 보존했다. 언어별 compact는 present 1,984 / absent 121 / failed 0, expanded는 present 2,043 / absent 62 / failed 0이다. Reader는 재생성하지 않는다. 최종 계획 집중 명령 **exit 0, `1 passed in 4.53s`**와 영향받은 대표 원문 검토 뒤 감독 수락을 받았다.
+- [ ] **Problem 3 — 전체 설명 품질 검수와 적용 판단:** 저장된 동일 결과를 재생성 없이 읽어 자연스러움·간결성·번역체·의미 보존을 검수한다. ‘휴대 조명을 조작’ 같은 사용자 표현과 긴 대상 나열도 검수 대상이며, 대표 검토나 자동 검사 성공을 전수 품질 PASS로 승계하지 않는다. 제품 적용 범위는 별도로 결정한다.
+- [ ] **B/C 표시·제품 적용:** 실제 PZ 폰트·폭에서 최대 네 줄 적합성을 확인하고 기존 책임에 따라 Tooltip/Menu 통합을 진행한다. 임의 글자 수나 logical slot으로 물리 fit을 대체하지 않는다. `blocks.json`과 새 `descriptions.json`은 internal handoff이며 r6/current route, L3-05/06 authority, Tooltip/Menu/Lua/package 상태를 전환하지 않는다.
+- 상세 규칙·잔여·검증 한계: [의미 구성 계약](iris_dvf_semantic_block_integration_contract.md), [의미 구성 closeout](iris_dvf_semantic_block_integration_closeout.md), [설명 조합 계약](iris_dvf_description_composition_contract.md), [설명 조합 closeout](iris_dvf_description_composition_closeout.md).

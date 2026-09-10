@@ -1,7 +1,7 @@
 # ARCHITECTURE.md
 
 > 상태: 초안 v0.7
-> 기준일: 2026-09-10 (이번 갱신 범위: Iris DVF offline 의미 구성과 Problem 2 인계 구조; 제품 current 경계 유지)
+> 기준일: 2026-09-10 (이번 갱신 범위: Iris DVF offline 설명 조합과 Problem 3 reader 구조; 제품 current 경계 유지)
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 구조 지도, 역할 경계, 의존 방향을 고정한다.  
 > 구현 상태 표기: 별도 표시가 없는 모듈은 current architecture를 기술하며, `설계 단계` 표시는 아직 구현되지 않은 target architecture를 뜻한다.
@@ -810,4 +810,25 @@ r6 adoption
 
 현재 handoff는 exact FullType 2,105개와 accepted fact 29,202개를 10,304개 block으로 표현하며 residual/non-public disposition은 각각 0이다. 이 중 multi-branch block은 1,591개다. Spear-fishing 14개 대상의 `fish_with_spear`와 `item_condition/decrease`는 accepted 방향 근거가 없어 `undetermined`로 유지하며, consumer는 두 의미를 별도로 표현하되 인과를 주장하지 않는다.
 
-이 구조와 `blocks.json`은 Problem 1을 완료한 repository-internal development/validation handoff다. r6 원본·adoption, 기존 product current route, L3-05/06 authority, Tooltip/Menu/Lua/package를 변경하거나 대체하지 않는다. Problem 2의 KO/EN 조합과 Problem 3의 전체 설명 품질 검수·제품 적용은 후속 책임이다. 상세 규칙과 완료 범위는 [composition contract](iris_dvf_semantic_block_integration_contract.md)와 [closeout](iris_dvf_semantic_block_integration_closeout.md)을 따른다.
+이 구조와 `blocks.json`은 Problem 1을 완료한 repository-internal development/validation handoff다. r6 원본·adoption, 기존 product current route, L3-05/06 authority, Tooltip/Menu/Lua/package를 변경하거나 대체하지 않는다. Problem 2의 구현은 아래 설명 조합 경로가 소비하며, Problem 3의 전체 품질 검수와 B/C 제품 적용은 별도 책임이다. 상세 규칙과 완료 범위는 [composition contract](iris_dvf_semantic_block_integration_contract.md)와 [closeout](iris_dvf_semantic_block_integration_closeout.md)을 따른다.
+
+### 의미 블록의 KO/EN 설명 조합과 Problem 3 reader
+
+`DVF-COMPOSITION-2`는 공통 의미 계획에서 compact와 expanded를 각각 실현하는 offline 표현 경로다. 구현은 `Iris/tooling/src/iris_tooling/domains/layer3/`에 있으며 흐름은 다음과 같다.
+
+```text
+composition_results.read_result -> blocks.json의 의미·조건·관계
+-> description_composition_planner (의미 단위와 개요/상세 배치)
+-> description_composition_families + lexicon + ko/en (공통 구성과 언어별 실현)
+-> description_composition_model + results (상태·연결 계약, 생산·저장)
+-> Iris/build/description/composition/descriptions.json
+-> description_composition_results.read_result -> Problem 3 원문 검수
+```
+
+Planner는 exact qualifier application을 유지하며 동일 조건 범위의 역할·활동을 묶는다. 기능별 구성은 명시적 result 관계를 확인하고, 미확정 관계에 인과를 추가하지 않는다. 개요는 역할과 용도, 상세는 개별 제작 결과·실행 조건·운영 절차를 구성한다. 점화 도구의 수단별 분기, 물 사용 수치, 조명 자체 상태 전환은 실제 expanded 문장으로 남긴다. 예상하지 않은 추가 조건은 닫힌 문장 규칙에 흡수하지 않는다. KO/EN은 같은 의미 계획에서 독립 실현하며 서로의 문장이나 r6 완성 설명을 번역·요약 입력으로 사용하지 않는다. 기존 어휘 참고는 r6 producer 호출이나 표현 선택 authority의 재사용을 뜻하지 않는다.
+
+결과 schema는 `iris-layer3-descriptions-v1`이며 2,105개 item의 KO/EN × compact/expanded 8,420개 표면 상태를 제공한다. 각 표면은 `present`/`absent`/`failed`, 실제 원문과 segment별 block/branch/fact/qualifier/relation 연결을 갖는다. 긴 qualifier는 item-level에 한 번 저장하고 정확한 application을 참조한다. Compact의 `qualifier_dispositions`는 조건의 개요 통합·요약·상세 배치를 구분하며, `detail_links`는 같은 locale의 실제 expanded segment로 연결한다. Expanded 실패를 참조만으로 보존 완료 처리하지 않는다.
+
+`description_composition_results.read_result(root)`는 저장된 JSON의 구조와 identity를 확인하고 반환한다. 입력 reader나 producer를 호출하지 않으므로 Problem 3은 검사한 원문을 그대로 검수할 수 있다. 입력/생성기 식별 정보는 결과에 포함되며 별도 seal·receipt·validation authority를 만들지 않는다.
+
+이 경로의 완료 범위는 공통 조합기와 검수 입력 확보다. 전체 자연어 품질 수락이나 실제 화면 적합성을 뜻하지 않으며 `physical_fit`은 미측정이다. `compact`라는 이름과 hard newline 부재도 최대 네 줄 충족의 증거가 아니다. 기존 r6 공급 및 current Tooltip/Menu/Lua/package는 유지하며, 새 결과의 실제 표시·제품 적용은 B/C의 후속 책임이다. [표현 계약](iris_dvf_description_composition_contract.md)과 [완료 보고서](iris_dvf_description_composition_closeout.md)에 세부 배치와 검토 범위를 기록한다.

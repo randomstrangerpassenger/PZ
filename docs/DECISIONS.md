@@ -2504,3 +2504,16 @@ D1 generation 전환의 조건부 downstream binding: T1 strict admission에서 
 - 최종 집중 검사 exit `0`, `1 passed in 4.53s` 및 대표 KO/EN 원문 검토를 완료했다. 이 결과와 감독 수락은 전수 자연스러움·간결성·번역체 수락이나 실제 PZ fit 증명이 아니다. 임시 검사 도구를 정규 validation authority로 승격하거나 별도 seal/receipt를 추가하지 않는다.
 - 비결정: r6 adoption, 기존 L3-05/06 authority와 제품 current, Tooltip/Menu/Lua/package를 전환하지 않는다. 최대 네 줄 요구를 유지하며 실제 화면 검증은 B/C, 전체 원문 품질 검수는 Problem 3의 책임이다. 이번 문서 동기화는 기존 실행 결과를 새 검증 PASS로 재발행하지 않는다.
 - 현재 기준: [표현 계약](iris_dvf_description_composition_contract.md), [계획](iris_dvf_description_composition_plan.md), [완료 보고서](iris_dvf_description_composition_closeout.md).
+
+### 2026-09-11 — DVF-COMPOSITION-3 최종 자체 품질 수락 및 B/C 공통 인계
+
+- **결정: complete — offline 자체 설명 품질 검수 및 B/C common handoff 범위.** 최종 corpus는 `Iris/build/description/composition/descriptions.json`, SHA-256 `ba0fc047b3a613e7ef98d2d762cfbd10c1996a02ad4e6f96d1bffa61878262d0`다. 2,105 items / 8,420 states 중 present 8,054개를 자체 검수 수락했고, current-input 정상 부재 366개와 failed 0을 구분했다. Baseline 대비 변경은 4,620 surface다.
+- 공통 composition 규칙에서 조건 반복, 역할 오인, 추상 표현과 compact의 세부 작업 나열을 수정했다. 같은 branch의 공통 조건은 연속 설명에서 공유하되 qualifier application과 refs를 유지한다. 입력에 있는 건축·제작 하위 용도와 바리케이드 설치/철거 쌍만 묶고, 도구·재료·무기·부목·연료 같은 독립 역할을 보존한다. FullType별 대체문, `primary_use` 선택, 글자수 절단을 사용하지 않는다.
+- **공개 범위는 바닐라 생존 모드다.** 사용자 명시 지시에 따라 치트 모드 관련 공개 문구를 전부 제외한다. 일반 기술·도구·재료·배치·소모 조건은 설명하고, source predicate와 refs는 출처 추적용으로 유지한다. 이를 source 사실 재판정이나 새로운 authority로 해석하지 않는다.
+- 최종 focused 명령은 exit 0, `1 passed in 4.96s`였다. 마지막 교정 영향 29개 조합 / 31개 item의 KO/EN compact 62개를 실제 재독했고, 기존 유효한 전체 읽기와 unchanged expanded/input을 공유했다. 실제 명령·실패와 재실행·읽기 범위는 [실행 기록](iris_dvf_description_quality_acceptance_closeout.md)이 소유한다.
+- 감독 세션은 최종 저장 hash, Hammer/Plank/BallPeenHammer/Crowbar 원문 및 공통 규칙의 허용 context·설치/철거 조건을 확인하고 위 closeout을 수락했다. 이는 감독자가 corpus 전체를 별도로 전수 재검수한 독립 acceptance나 실제 PZ 한 줄/최대 네 줄 fit 수락이 아니다. 추가 confidence 검사·산출물·재생성 없이 종료했다.
+- B와 C는 같은 최종 corpus의 `compact` / `expanded`, refs·detail links·qualifier dispositions·state/reason·unresolved를 공통 입력으로 소비한다. 기존 B의 `tooltip_s2_supply`는 r6 `s2`를 읽으므로 새 corpus 연결/adapter와 실제 표시 검증은 후속이다. r6/adoption, L3-05/06 authority, current Tooltip/Menu, Lua/package/pointer는 전환하지 않았다. 임시 읽기 도구는 canonical validator나 새 validation authority가 아니다.
+
+중간 이력은 최종 수락과 구분한다. 초기 bounded correction은 partial이었고, `10685bc0…`의 완료 수락은 실제 건축·화장 중복과 compact 결함 때문에 철회했다. 후속 `ffbf506b…`도 일반 도구·재료의 작업 나열이 남아 수락을 보류했다. 그 잔여 유형을 공통 수정한 `ba0fc047…`가 최종이며, 이전 테스트 성공을 문장 적합성이나 최종 identity의 PASS로 승계하지 않는다.
+
+이번 문서 동기화는 사용자의 세 문서 갱신 요청에 따른 기록 정리다. ARCHITECTURE에 실제 합성 책임과 소비 경계를 반영하지만 runtime 책임이나 schema/reader 계약을 이전하지 않으며, 기존 검사 결과를 새 문서 bytes에 대한 검증으로 재발행하지 않는다.

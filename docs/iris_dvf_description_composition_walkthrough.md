@@ -162,3 +162,5 @@ uv run --project .\Iris\tooling python -I -B -m pytest --noconftest -c .\Iris\to
 이번 작업은 입력 blocks, r6 원본·producer/adoption, L3-05/06 authority, 기존 제품 current, Tooltip/Menu/Lua/adapter/package를 변경하지 않는다. 기존 dirty 변경을 보존했으며 reset·commit으로 묶지 않았다.
 
 Problem 3은 저장된 전체 원문의 자연스러움·간결성·번역체와 의미 보존을 검수한다. B/C는 실제 PZ 폰트·폭에서 최대 네 줄 요구와 제품 통합을 확인한다. `physical_fit`은 미측정이며 hard newline 부재·logical slot·임의 글자 수를 화면 적합성 증거로 사용하지 않는다. 이 범위를 유지한 채 추가 검사나 봉인 없이 세션 작업을 종료했다.
+
+2026-09-11 Problem 3은 **partial**이다. 같은 scope의 명시적 qualifier overlap, compact 중복과 점화 역할 표현 등을 공통 규칙에서 교정했다. 전체 2,105개/8,420개 상태와 366개 current-input 부재를 회계하고 focused 검사 exit 0을 얻었으나 present 전수 item 조합 검수·장문 수습은 남는다. 이번 correction의 구현 계약은 [표현 계약](iris_dvf_description_composition_contract.md)의 bounded correction 절, 정확한 bytes·변경·미검수 좌표와 B/C 보류 경계는 [실행 기록](iris_dvf_description_quality_acceptance_closeout.md)을 따른다. 이전 Problem 2 완료와 실제 제품 current를 변경하는 기록이 아니다.

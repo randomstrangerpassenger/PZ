@@ -26,7 +26,7 @@ Notebook의 compact는 “필기구 없이 메모를 읽을 수 있다. 쓰려�
 
 연료와 불쏘시개를 함께 표현할 때는 “연료나 불쏘시개로 소모할 수 있으며 불쏘시개로 쓸 때는 점화 도구가 필요하다.” / “It can be consumed as fuel or as tinder with an igniter.”로 구성한다. 국소 조건이 다른 단위는 이 결합에서 제외하며 점화 도구 조건을 연료에 확대하지 않는다.
 
-점화 도구는 공통 점화 목적 아래 실제 대상들을 합친다. 대상마다 휘발유/불쏘시개를 되풀이하는 개요 대신, 대상별 수단·준비·소모 조건을 서로 분리된 expanded에 둔다. 이는 모든 대상에서 모든 점화 수단을 허용한다는 주장이 아니다. 같은 조건을 확인한 초 점화 도구 역할과 시신 점화 기능도 이 목적에 함께 표현한다.
+점화 기능은 공통 점화 목적 아래 실제 대상들을 합친다. 기능만으로 도구 역할을 추론하지 않으므로 휘발유 등도 포함하는 공통 문장은 “점화에 쓸 수 있다”로 쓴다. 대상마다 휘발유/불쏘시개를 되풀이하는 개요 대신, 대상별 수단·준비·소모 조건을 서로 분리된 expanded에 둔다. 이는 모든 대상에서 모든 점화 수단을 허용한다는 주장이 아니다. 같은 조건을 확인한 초 점화 도구 역할과 시신 점화 기능도 이 목적에 함께 표현한다.
 
 물 용기는 보관·운반과 담긴 물의 사용 목적을 한 문장으로 구성한다. 작물 급수·차량 혈흔 세척·소화·갈증 해소 중 실제 입력에 있는 용도만 남기며, 오염수 음용의 중독 가능성은 별도로 표현한다. 작물의 파종/잔여 급수량, 소화 대상/소모량, 중독 수치 경계는 실제 상세에 둔다. 물 저장 시설 보충은 물 이동 절차로, 쌀·파스타 준비는 특정 제작 결과로 상세에 배치한다. 보관 기능이 없는 소화 도구에는 물 용기 개요를 적용하지 않는다. 예상하지 않은 추가 조건은 닫힌 개요 규칙에 흡수하지 않는다.
 
@@ -57,3 +57,11 @@ Compact의 `detail_links`는 같은 locale의 실제 expanded segment로 연결�
 `description_composition_results.read_result(root)`는 저장된 JSON을 읽고 구조를 확인할 뿐 producer나 입력 reader를 호출하지 않는다. compact는 hard newline 없이, expanded는 scope별 문단으로 저장된다. 이는 실제 PZ 폰트/폭 적합성을 뜻하지 않는다. 최대 네 줄 요구를 유지하며 물리 표시 확인은 B의 후속 책임이다.
 
 계획 §7의 집중 검사는 전체 결과 하나에서 입력 직접 대조·생성·저장·읽기를 공유한다. 자동 검사는 자연어 정확성 전체를 증명하지 않는다. 문제 3은 보존된 원문을 재생성 없이 검수한다.
+
+## 2026-09-11 bounded expression correction
+
+같은 exact qualifier application scope 안에서 명시적으로 검토한 predicate 쌍의 겹치는 표현을 합칠 수 있다. 현재 대상은 조리 자격/COOKING_ACTION, 독서 자격/READ_SELECTION, LOADING/AMMUNITION_LOADING_PATHS, PAINTING/PAINT_ACTIONS, MAKEUP_USE/MAKEUP_LIFECYCLE, 알약 소지/PILL_TAKING, CAMP_PLACEMENT/TENT_PLACEMENT다. 원래 qualifier refs와 applications는 그대로 남으며 문자열 일치만으로 predicate를 삭제하지 않는다. 각기 다른 적용 범위의 조건은 합치지 않는다.
+
+Compact에서 명시한 미끼 조건은 core disposition으로 연결하고 낚시·독서·도색·화장의 공통 조건 요약은 검토된 predicate 쌍에 한해 한 번 표현한다. 독서 시작 값의 상한 효과는 입력에 있는 감정 속성만 같은 scope에서 병렬화한다. 창 제작 도구 마모의 실제 predicate가 제공하는 사용 맥락·보존 도구·1 감소를 실현하며 미확정 창낚시 마모와 합치지 않는다. 새 짧은 기능 frame도 허용 predicate 집합 밖 조건이 있으면 적용하지 않는다. 총기 조작의 빈 칸·용량과 같은 실행 상세는 같은 locale expanded에 남긴다.
+
+이는 [Problem 3 partial 실행](iris_dvf_description_quality_acceptance_closeout.md)의 구현 계약이다. 전체 원문 품질 수락이나 accepted final corpus 인계 완료를 뜻하지 않는다.

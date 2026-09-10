@@ -1135,3 +1135,17 @@ Closeout complete: exact implementation `801f15f6`의 terminal Run A/B/comparato
 - [ ] **Problem 3 — 전체 설명 품질 검수와 적용 판단:** 저장된 동일 결과를 재생성 없이 읽어 자연스러움·간결성·번역체·의미 보존을 검수한다. ‘휴대 조명을 조작’ 같은 사용자 표현과 긴 대상 나열도 검수 대상이며, 대표 검토나 자동 검사 성공을 전수 품질 PASS로 승계하지 않는다. 제품 적용 범위는 별도로 결정한다.
 - [ ] **B/C 표시·제품 적용:** 실제 PZ 폰트·폭에서 최대 네 줄 적합성을 확인하고 기존 책임에 따라 Tooltip/Menu 통합을 진행한다. 임의 글자 수나 logical slot으로 물리 fit을 대체하지 않는다. `blocks.json`과 새 `descriptions.json`은 internal handoff이며 r6/current route, L3-05/06 authority, Tooltip/Menu/Lua/package 상태를 전환하지 않는다.
 - 상세 규칙·잔여·검증 한계: [의미 구성 계약](iris_dvf_semantic_block_integration_contract.md), [의미 구성 closeout](iris_dvf_semantic_block_integration_closeout.md), [설명 조합 계약](iris_dvf_description_composition_contract.md), [설명 조합 closeout](iris_dvf_description_composition_closeout.md).
+
+### Iris DVF 설명 품질 검수 — 완료 (2026-09-11)
+
+**Problem 3 complete — offline 자체 품질 검수 및 B/C 공통 인계.** 최종 corpus는 `ba0fc047b3a613e7ef98d2d762cfbd10c1996a02ad4e6f96d1bffa61878262d0`이며, 감독 세션도 명시된 원문·규칙 확인 범위에서 closeout을 수락했다.
+
+- [x] Q1: 2,105 items / 8,420 states의 원문·item 조합 검수와 부재 회계. Present 8,054 수락 / current-input 정상 부재 366 / failed 0.
+- [x] Q2: 역할·조건 반복, 장문·번역체·추상 표현과 일반 도구/재료 compact 나열을 공통 규칙에서 교정하고 실제 영향 결과를 재독. 독립 용도와 상세 조건을 보존했다. Baseline 대비 4,620 surface 변경.
+- [x] 바닐라 생존 모드 공개 범위 적용: 사용자 지시에 따라 공개 KO/EN 양 깊이의 치트 관련 문구 제거. 추적용 입력/refs는 유지.
+- [x] 마지막 focused 검사 exit 0 (`1 passed in 4.96s`). 마지막 교정은 29조합 / 31 items / 62 compact이며 unchanged expanded와 기존 유효 검수를 공유했다.
+- [x] Q3: 동일 최종 corpus의 compact/expanded 좌표와 refs·absence·unresolved·소비 한계를 B/C에 인계.
+
+후속 범위는 새 corpus와 B의 기존 r6 S2 공급 간 연결/adapter, C의 expanded 연결 및 실제 PZ 표시·physical fit이다. 이 세션에서 B/C runtime, current/r6/adoption/package/pointer를 전환하지 않았다. 감독의 전수 독립 재검수나 화면 fit 완료도 주장하지 않는다. 추가 confidence 검사·산출물·재생성은 잔여 작업이 아니다.
+
+초기 partial, `10685bc0…` 완료 수락 철회와 `ffbf506b…` 후속 수락 보류는 중간 이력이다. 현재 상태는 위 최종 수락을 따른다. 구체 before/after, identity, 명령과 한계는 [Problem 3 실행 기록](iris_dvf_description_quality_acceptance_closeout.md), 결정은 [DECISIONS](DECISIONS.md)에 있다.

@@ -66,6 +66,12 @@ def plan(item: dict) -> dict:
                 u["detail_reason"] = "battery servicing of the portable light; charging procedure remains expanded"
             if "electronic_salvage" in contexts:
                 u["detail_reason"] = "specific dismantling participation; the direct salvage capability remains compact"
+    # Emptying services another admitted main use. If emptying is the only
+    # public capability, retain it rather than falling back to full detail.
+    if any(u['detail_reason'] is None and not any(f['payload'].get('function') == 'dump_contents' for f in u['facts']) for u in units):
+        for u in units:
+            if any(f['payload'].get('function') == 'dump_contents' for f in u['facts']):
+                u['detail_reason'] = 'emptying the container is maintenance of its admitted main use'
     # Semantic order serves grammatical attachment only; it is not a use rank.
     units.sort(key=lambda u: (canonical([f["payload"] for f in u["facts"]]), u["fact_refs"]))
     if units and not any(u["detail_reason"] is None for u in units):
@@ -86,7 +92,7 @@ def _unit(block, branch, facts, applications):
         placement = "acquisition routes and their conditions are expanded; S3 is separate"
     elif any(f["payload"].get("activity") in PRODUCT_CONTEXTS for f in facts):
         placement = "specific recipe product and its input requirements; not asserted to be a subtype of another use"
-    elif any(f["payload"].get("role") == "repair_target" for f in facts):
+    elif {f['payload']['role'] for f in facts if f['fact_kind'] == 'context_role'} == {'repair_target'}:
         placement = "repair of the item itself is maintenance; repair-material and tool roles stay distinct"
     elif any(f["payload"].get("role") == "transformation_target" for f in facts) and any(
             f["payload"].get("activity") in {"candle_lighting", "candle_extinguishing"} for f in branch["facts"]):

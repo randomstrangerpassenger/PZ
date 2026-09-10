@@ -147,6 +147,86 @@ def test_layer3_description_composition(monkeypatch):
     assert all(row["state"] == "failed" and row["text"] == "" for surfaces in failure["locales"].values()
                for row in surfaces.values())
 
+    # Overlapping wording may be shared only inside the same application scope.
+    rows = []
+    def claim(name, kind, payload, **extra):
+        rows.append(dict(fact_id='fact:' + name, item_id='Base.Fixture', fact_kind=kind,
+                         payload=payload, provenance_refs=['prov:' + name], **extra))
+    claim('ammo', 'direct_function', {'function': 'load_matching_ammunition'})
+    claim('load', 'condition', {'predicate': vocabulary.LOADING}, applies_to_fact_refs=['fact:ammo'])
+    claim('path', 'condition', {'predicate': vocabulary.AMMUNITION_LOADING_PATHS}, applies_to_fact_refs=['fact:ammo'])
+    claim('paint', 'direct_function', {'function': 'paint_supported_surface'})
+    claim('sign', 'direct_function', {'function': 'paint_wall_sign'})
+    claim('paint_condition', 'condition', {'predicate': vocabulary.PAINTING}, applies_to_fact_refs=['fact:paint'])
+    claim('sign_condition', 'condition', {'predicate': vocabulary.PAINT_ACTIONS}, applies_to_fact_refs=['fact:sign'])
+    claim('ignition', 'direct_function', {'function': 'ignite_hearth_with_petrol'})
+    claim('ignite_condition', 'condition', {'predicate': vocabulary.HEARTH_PETROL}, applies_to_fact_refs=['fact:ignition'])
+    blocks, qualifiers, unresolved = composition_rules.semantic_blocks('Base.Fixture', rows)
+    overlap = dict(item_id='Base.Fixture', blocks=blocks, qualifiers=qualifiers, unresolved_relations=unresolved)
+    rendered = results.compose_item(overlap)
+    _compare_meaning(overlap, rendered)
+    for loc in ('ko', 'en'):
+        detail = rendered['locales'][loc]['expanded']
+        ammo = next(s for s in detail['segments'] if 'fact:ammo' in s['fact_refs'])
+        assert {'fact:load', 'fact:path'} <= set(ammo['fact_refs'])
+        assert ammo['text'].count('달리면' if loc == 'ko' else 'Running interrupts') == 1
+        assert not any({'fact:paint', 'fact:sign'} <= set(s['fact_refs']) for s in detail['segments'])
+        ignition = next(s for s in rendered['locales'][loc]['compact']['segments'] if 'fact:ignition' in s['fact_refs'])
+        assert ('도구' if loc == 'ko' else 'tool') not in ignition['text']
+    # A new, known condition must prevent the short ammunition frame from
+    # silently absorbing an additional requirement.
+    more = deepcopy(overlap)
+    extra = deepcopy(next(q for q in more['qualifiers'] if 'fact:load' in q['fact_refs']))
+    extra.update(qualifier_id='qualifier:ammo-extra', fact_refs=['fact:ammo-extra'],
+                 payload={'predicate': vocabulary.SMOKING})
+    more['qualifiers'].append(extra)
+    guarded = results.compose_item(more)
+    _compare_meaning(more, guarded)
+    assert 'A match or lighter is required' in guarded['locales']['en']['compact']['text']
+
+    # A repair target sharing its branch with a repair-material role must not
+    # hide that independently useful material role in the maintenance detail.
+    rows = []
+    claim('repair-context', 'use_context', {'activity': 'repair'})
+    claim('repair-target', 'context_role', {'role': 'repair_target'}, context_fact_ref='fact:repair-context')
+    claim('repair-material', 'context_role', {'role': 'repair_material'}, context_fact_ref='fact:repair-context')
+    blocks, qualifiers, unresolved = composition_rules.semantic_blocks('Base.Fixture', rows)
+    repair = dict(item_id='Base.Fixture', blocks=blocks, qualifiers=qualifiers, unresolved_relations=unresolved)
+    repaired = results.compose_item(repair)
+    _compare_meaning(repair, repaired)
+    for loc in ('ko', 'en'):
+        assert 'fact:repair-material' in {r for s in repaired['locales'][loc]['compact']['segments'] for r in s['fact_refs']}
+
+    # A complete treatment sentence can represent the action and state only
+    # when they share the very same qualifier application, not merely wording.
+    rows = []
+    claim('stitch', 'direct_function', {'function': 'stitch_wound'})
+    claim('stitched', 'effect', {'property': 'stitched_state', 'direction': 'set_true'})
+    claim('stitch-scope', 'condition', {'predicate': vocabulary.STITCHING},
+          applies_to_fact_refs=['fact:stitch', 'fact:stitched'])
+    blocks, qualifiers, unresolved = composition_rules.semantic_blocks('Base.Fixture', rows)
+    treatment = dict(item_id='Base.Fixture', blocks=blocks, qualifiers=qualifiers, unresolved_relations=unresolved)
+    treated = results.compose_item(treatment)
+    _compare_meaning(treatment, treated)
+    assert treated['relations'] == []
+    for loc in ('ko', 'en'):
+        for depth in ('compact', 'expanded'):
+            combined = [s for s in treated['locales'][loc][depth]['segments']
+                        if {'fact:stitch', 'fact:stitched'} <= set(s['fact_refs'])]
+            assert len(combined) == 1
+            assert combined[0]['text'].count('붕대' if loc == 'ko' else 'unbandaged') == 1
+    split = deepcopy(treatment)
+    scope = split['qualifiers'][0]
+    scope['applies_to_fact_refs'] = ['fact:stitch']
+    other = deepcopy(scope)
+    other.update(qualifier_id='qualifier:separate-effect', fact_refs=['fact:separate-effect'],
+                 applies_to_fact_refs=['fact:stitched'])
+    split['qualifiers'].append(other)
+    split_result = results.compose_item(split)
+    _compare_meaning(split, split_result)
+    assert not any({'fact:stitch', 'fact:stitched'} <= set(s['fact_refs'])
+                   for s in split_result['locales']['en']['expanded']['segments'])
+
     # The only full source read and full production in this acceptance command.
     source, result = results.produce(ROOT)
     assert len(source["items"]) == len(result["items"]) == 2105

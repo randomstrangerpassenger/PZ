@@ -41,6 +41,8 @@ def _role(unit):
 def _core(unit, locale, compact=False):
     grammar = ko if locale == "ko" else en
     contexts, roles = _role(unit)
+    if contexts == ['food_ingredient_addition'] and roles == ['base']:
+        return lex.pair(('재료를 더해 요리를 만들 수 있다', 'Ingredients can be added to prepare food'), locale)
     if contexts:
         names = [lex.context(c, locale, compact) for c in contexts]
         if roles:
@@ -53,8 +55,44 @@ def _core(unit, locale, compact=False):
 
 def _expanded(plan, locale):
     grammar = ko if locale == "ko" else en
+    segments, used = families.detail_frames(plan, locale, _links)
+    # A split context and role in the same source branch describe one activity.
+    # Keep their exact application records separate, but read the shared
+    # conditions once and explicitly continue with the role-only requirements.
+    for context in plan['units']:
+        activities, roles = _role(context)
+        if not activities or roles or set(context['fact_refs']) & used:
+            continue
+        siblings = [u for u in plan['units'] if u is not context and
+                    u['branch_refs'] == context['branch_refs'] and _role(u)[0] == activities
+                    and _role(u)[1] and not set(u['fact_refs']) & used]
+        if not siblings:
+            continue
+        role = siblings[0]
+        shared = {plan['qualifiers'][q]['payload']['predicate'] for q in context['qualifier_refs']}
+        role_predicates = {plan['qualifiers'][q]['payload']['predicate'] for q in role['qualifier_refs']}
+        if not shared or not shared <= role_predicates or any(
+            {plan['qualifiers'][q]['payload']['predicate'] for q in u['qualifier_refs']} != role_predicates for u in siblings):
+            continue
+        conditions = lex.qualifier_clauses([plan['qualifiers'][q] for q in context['qualifier_refs']], locale)
+        segments.append({'text': grammar.qualified([_core(context, locale)], conditions),
+                         **_links([context], plan), 'expression': 'exact_scope'})
+        extra = lex.qualifier_clauses([plan['qualifiers'][q] for q in role['qualifier_refs']
+                     if plan['qualifiers'][q]['payload']['predicate'] not in shared], locale)
+        role_core = grammar.role([lex.context(c, locale) for c in activities], _role(role)[1])
+        continuation = ('앞의 조건에서 ' + role_core if locale == 'ko' else 'Under those conditions, ' + role_core[0].lower() + role_core[1:])
+        segments.append({'text': grammar.qualified([continuation], extra),
+                         **_links([role], plan), 'expression': 'exact_scope'})
+        used.update(context['fact_refs'] + role['fact_refs'])
+        for other in siblings[1:]:
+            other_core = grammar.role([lex.context(c, locale) for c in activities], _role(other)[1])
+            continuation = ('같은 조건에서 ' + other_core if locale == 'ko' else 'Under the same conditions, ' + other_core[0].lower() + other_core[1:])
+            segments.append({'text': continuation + '.', **_links([other], plan), 'expression': 'exact_scope'})
+            used.update(other['fact_refs'])
     groups = defaultdict(list)
     for unit in plan["units"]:
+        if set(unit['fact_refs']) & used:
+            continue
         contexts, roles = _role(unit)
         # Exact qualifier identity and class delimit the scope of sharing.
         family = ("role", tuple(roles)) if contexts and roles else ("clauses",)
@@ -67,7 +105,6 @@ def _expanded(plan, locale):
         if unit["facts"][0]["fact_kind"] == "acquisition":
             family = ("route", tuple(unit["fact_refs"]))
         groups[(tuple(unit["qualifier_refs"]), family)].append(unit)
-    segments = []
     for (qrefs, family), units in groups.items():
         if family[0] == "candle" and len(units) > 1:
             clauses = [lex.pair(("초에 불을 붙일 수 있다", "The candle can be lit") if family[1] == "candle_lighting"
@@ -75,7 +112,8 @@ def _expanded(plan, locale):
         elif family[0] == "role":
             activities = [lex.context(c, locale) for u in units for c in _role(u)[0]]
             # Equal activity names only coalesce with equal role AND scope.
-            clauses = [grammar.role(list(dict.fromkeys(activities)), list(family[1]))]
+            clauses = ([_core(units[0], locale)] if all(_role(u) == (['food_ingredient_addition'], ['base']) for u in units)
+                       else [grammar.role(list(dict.fromkeys(activities)), list(family[1]))])
         else:
             clauses = _clauses(units, plan, locale)
         # The unresolved wear statement is independently worded with its
@@ -83,11 +121,23 @@ def _expanded(plan, locale):
         independent_wear = (len(units) == 1 and units[0]["facts"][0]["payload"] ==
                             {"property": "item_condition", "direction": "decrease"}
                             and any(plan["qualifiers"][q]["payload"]["predicate"] == lex.source.SPEAR_FISHING_WEAR for q in qrefs))
-        if independent_wear:
+        spear_tool_wear = (len(units) == 1 and units[0]["facts"][0]["payload"] ==
+                           {"property": "item_condition", "direction": "decrease"}
+                           and any(plan["qualifiers"][q]["payload"]["predicate"] == lex.source.SPEAR_TOOL_WEAR for q in qrefs))
+        if independent_wear or spear_tool_wear:
             clauses = [lex.qualifier(plan["qualifiers"][q], locale) for q in qrefs]
             conditions = []
         else:
-            conditions = [lex.qualifier(plan["qualifiers"][q], locale) for q in qrefs]
+            mood_cap = all(f['fact_kind'] == 'effect' and f['payload'].get('direction') == 'cap_at_reading_start'
+                           for u in units for f in u['facts'])
+            chef_transfer = all(f['payload'] == {'property': 'food_chef_attribution', 'direction': 'set_transferring_character'}
+                                for u in units for f in u['facts'])
+            fish_size = all(f['payload'] == {'property': 'fish_size_nutrition', 'direction': 'initialize_from_registered_size'}
+                            for u in units for f in u['facts'])
+            conditions = lex.qualifier_clauses([plan["qualifiers"][q] for q in qrefs
+                if not (mood_cap and plan['qualifiers'][q]['payload']['predicate'] == lex.source.READ_MOOD)
+                and not (chef_transfer and plan['qualifiers'][q]['payload']['predicate'] == lex.source.FOOD_TRANSFER)
+                and not (fish_size and plan['qualifiers'][q]['payload']['predicate'] == lex.source.FISH_CREATED)], locale)
         text = grammar.qualified(clauses, conditions)
         if family[0] == "route":
             text = ("획득 경로: " if locale == "ko" else "Acquisition route: ") + text
@@ -95,12 +145,20 @@ def _expanded(plan, locale):
     return segments
 
 
-def _clauses(units, plan, locale):
+def _clauses(units, plan, locale, compact=False):
     functions = {f["payload"].get("function") for u in units for f in u["facts"]}
     properties = {f["payload"].get("property") for u in units for f in u["facts"]}
     fact_refs = {r for u in units for r in u["fact_refs"]}
     result_refs = {r for relation in plan["relations"] if relation["kind"] == "result"
                    for r in relation.get("fact_refs", [])}
+    facts = [f for u in units for f in u['facts']]
+    moods = {'boredom': ('지루함', 'boredom'), 'stress': ('스트레스', 'stress'),
+             'unhappiness': ('불행', 'unhappiness')}
+    if facts and all(f['fact_kind'] == 'effect' and f['payload'].get('direction') == 'cap_at_reading_start'
+                     and f['payload'].get('property') in moods for f in facts):
+        names = [lex.pair(moods[f['payload']['property']], locale) for f in facts]
+        return [('독서 중 ' + '·'.join(names) + ' 수치가 읽기 시작 때보다 높아지지 않게 한다')
+                if locale == 'ko' else ('Reading keeps ' + en.join(names) + ' at or below the respective reading-start values')]
     if functions == {"use_furnace_bellows", None} and properties == {"forge_temperature", None} and fact_refs <= result_refs:
         return [lex.pair(("풀무로 화로의 열을 높일 수 있다", "Bellows can raise furnace heat"), locale)]
     # This coalescing is licensed by the actual function/result relations and
@@ -118,8 +176,9 @@ def _clauses(units, plan, locale):
             if "clothing_wetness" in properties:
                 text += (". 세척한 옷은 완전히 젖는다" if locale == "ko" else ". Washed clothing becomes fully wet")
             return [text]
-    return [_core(u, locale) for u in sorted(units, key=lambda u:
-        ({"direct_function": 0, "use_context": 1, "context_role": 1, "effect": 2, "state": 3}.get(u["facts"][0]["fact_kind"], 4), u["fact_refs"]))]
+    ordered = units if compact else sorted(units, key=lambda u:
+        ({"direct_function": 0, "use_context": 1, "context_role": 1, "effect": 2, "state": 3}.get(u["facts"][0]["fact_kind"], 4), u["fact_refs"]))
+    return [_core(u, locale, compact) for u in ordered]
 
 
 FUEL_FUNCTIONS = {"supply_campfire_fuel", "supply_hearth_fuel", "supply_furnace_fuel"}
@@ -151,7 +210,9 @@ def _compact(plan, locale):
             if inline:
                 decisions[(tuple(u["fact_refs"]), qref)].update(
                     placement="compact_core", text=lex.pair(inline, locale),
-                    reason="condition integrated into the capability; remaining execution detail is expanded")
+                    reason=("capability names its applicable operation; exact slot, capacity and execution conditions remain expanded"
+                            if fn in lex.CONTROL_NOUNS and lex.CONTROL_NOUNS[fn][0] == 'firearm'
+                            else "condition integrated into the capability; remaining execution detail is expanded"))
                 wording = None
             if wording:
                 conditions.append(qref)
@@ -179,7 +240,8 @@ def _compact(plan, locale):
     for key, units in groups.items():
         if key[0] == "role":
             activities = list(dict.fromkeys(lex.context(c, locale, True) for u in units for c in _role(u)[0]))
-            text = grammar.role(activities, list(key[1]), compact=True) + "."
+            text = (_core(units[0], locale, True) if all(_role(u) == (['food_ingredient_addition'], ['base']) for u in units)
+                    else grammar.role(activities, list(key[1]), compact=True)) + "."
             reason = "existential activity/role overview; exact recipe targets and eligibility in expanded"
         elif key[0] == "consumption":
             text = lex.pair(("연료나 불쏘시개로 소모할 수 있으며 불쏘시개로 쓸 때는 점화 도구가 필요하다",
@@ -191,14 +253,35 @@ def _compact(plan, locale):
                             ("점화 도구와 함께 불쏘시개로 소모할 수 있다", "It can be consumed as tinder with an igniter"), locale) + "."
             reason = "fuel/tinder role overview; distinct targets and local supply conditions in expanded"
         elif key[0] == "control":
-            nouns = [lex.pair(lex.CONTROL_NOUNS[u["facts"][0]["payload"]["function"]][1], locale) for u in units]
+            operations = [u['facts'][0]['payload']['function'] for u in units]
+            paired = []
+            combined_wording = {}
+            if key[1] == 'firearm':
+                for members, phrase in (
+                    ({'receive_weapon_upgrade', 'detach_weapon_upgrade'}, ('드라이버로 호환 부품 교체', 'exchanging compatible parts with a screwdriver')),
+                    ({'receive_firearm_magazine', 'eject_firearm_magazine'}, ('호환 탄창 삽입·배출', 'inserting and ejecting compatible magazines')),
+                    ({'load_firearm_rounds', 'unload_firearm_rounds'}, ('호환 탄약 장전·제거', 'loading and unloading matching rounds')),
+                ):
+                    if members <= set(operations):
+                        wording = lex.pair(phrase, locale)
+                        paired.append(wording)
+                        combined_wording.update({fn: wording for fn in members})
+                        operations = [fn for fn in operations if fn not in members]
+            for u in units:
+                fn = u['facts'][0]['payload']['function']
+                if fn in combined_wording:
+                    for qref in u['qualifier_refs']:
+                        decision = decisions[(tuple(u['fact_refs']), qref)]
+                        if decision['placement'] == 'compact_core':
+                            decision['text'] = combined_wording[fn]
+            nouns = paired + [lex.pair(lex.CONTROL_NOUNS[fn][1], locale) for fn in operations]
             if locale == "ko":
                 text = "·".join(nouns) + (" 기능을 지원한다." if key[1] in {"device", "firearm"} else "에 쓸 수 있다.")
             else:
                 text = ("It supports " if key[1] in {"device", "firearm"} else "It can be used for ") + en.join(nouns) + "."
             reason = "parallel named operations share their subject; actual operations and conditions stay individually linked"
         else:
-            text = grammar.parallel([_core(u, locale, True) for u in units])
+            text = grammar.parallel(_clauses(units, plan, locale, compact=True))
             reason = "function capability; local execution and outcomes remain in expanded"
         conditions = []
         dispositions = []
@@ -207,9 +290,11 @@ def _compact(plan, locale):
             for qref in u["qualifier_refs"]:
                 decision = decisions[(tuple(u["fact_refs"]), qref)]
                 dispositions.append(decision)
-                if decision["placement"] == "compact_summary" and qref not in emitted:
+                condition_key = lex.COMPACT_CONDITION_GROUPS.get(
+                    plan["qualifiers"][qref]["payload"]["predicate"], qref)
+                if decision["placement"] == "compact_summary" and condition_key not in emitted:
                     conditions.append(decision["text"])
-                    emitted.add(qref)
+                    emitted.add(condition_key)
         if conditions:
             text = grammar.qualified([text.removesuffix(".")], conditions)
         segments.append({"text": text, **_links(units, plan), "expression": "capability_overview",

@@ -1,7 +1,7 @@
 # ROADMAP.md
 
 > 상태: current canonical roadmap  
-> 기준일: 2026-09-05 (이번 갱신 범위: DVF-L3-05 해상도 교정본 off-live 채택 완료·잔여 upstream 조사와 L3-06 제품 통합 구분; 기존 완료 이력 유지)
+> 기준일: 2026-09-10 (이번 갱신 범위: DVF-COMPOSITION-1 완료 및 후속 설명 조합 경계; 기존 완료 이력 유지)
 > 최상위 기준: `Philosophy.md`  
 > 결정 기준: `DECISIONS.md`  
 > 목적: Pulse 생태계의 현재 상태, 진행 방향, 다음 게이트와 Hold 경계를 고정한다.
@@ -1124,3 +1124,12 @@ Closeout complete: exact implementation `801f15f6`의 terminal Run A/B/comparato
 - [ ] 문제 C — 같은 r6 expanded와 qualified 관계를 Menu에 연결하는 후속 범위. Tooltip과 같은 사실을 다른 깊이로 보여 주며 새 의미를 추론하지 않는다. 이 세션에서는 미착수다.
 - 다음 구현 대상은 사용자 범위 지정 후 해당 계획에 따라 진행한다. 4,223 bounded unresolved claim과 item incomplete/undetermined 상태를 추가 조사 완료로 바꾸거나, 임시 helper·집계를 정규 validator로 승격하지 않는다. 현재 처리 구조와 문서 배치 정정은 [기존 closeout의 아키텍처 절](iris_dvf_description_migration_question_adjudication_recovery_closeout.md#r6-처리-구조와-문서-배치)에 기록한다.
 - [x] 2026-09-09 문서 변경 부작용 수습: r6에 결속된 ARCHITECTURE 원본을 복원하고 새 설명은 기존 closeout에 보존했다. 현재 checkout의 기존 정상 `load_adopted` 1회가 **exit 0**, `mode=adopted`, `targets=2105`로 끝나 B/C offline 입력 소비를 복구했다. ARCHITECTURE 본문 갱신 완료나 영구 동결 정책은 아니며, 채택 소비와 가변 문서·과거 생산 재현의 결합은 향후 해당 경로의 제약으로 남긴다. 전체 재생성·focused gate 재실행·재채택은 하지 않았다.
+
+### Iris DVF semantic block composition (DVF-COMPOSITION-1)
+
+- [x] **Problem 1 complete (2026-09-10):** 채택 r6의 exact 2,105개 대상과 accepted semantic/acquisition fact 29,202개를 locale-neutral 의미 구조로 전수 구성했다. `composition_rules`·`composition_model`·`composition_results`와 Problem 2 reader를 구현하고 `Iris/build/description/composition/blocks.json`에 10,304개 block, 1,591개 multi-branch grouping과 원 fact/provenance/qualifier scope를 보존했다.
+- [x] 관계·조건 경계 확정: Profile/prose/item name/input order를 관계 근거로 사용하지 않는다. 역할·대상·결과 충돌을 우선하며 context refinement, source-grounded function/result, target variant, compound와 acquisition alternative를 구분한다. Qualifier는 item-level에서 중복을 제거하되 `block_common`/`branch_local` 적용 범위를 유지하고 qualifier 공유로 block을 병합하지 않는다.
+- [x] 계획의 단일 focused command가 최종 **exit 0, `1 passed in 15.34s`**로 완료됐다. Accepted collection의 disposition은 represented 29,202 / residual 0 / non-public 0이다. 이 검사는 fact conservation과 구조·참조·범위 및 계획된 대표 위험 사례를 확인하며 모든 관계의 인간 의미 정확성이나 최종 문장 품질을 보증하지 않는다.
+- [ ] **Problem 2 — KO/EN 설명 조합:** `composition_results.read_result`와 `blocks.json`을 입력으로 사용한다. Meaning block을 문장/화면 block으로 고정하지 않고 병합·분할·compact/expanded 표현은 허용하되 독립 용도, 관계 방향, alternative와 qualifier scope를 바꾸지 않는다. Spear-fishing 14개 대상의 undetermined pair는 별도로 표현하고 근거 없는 condition-loss 인과를 만들지 않는다.
+- [ ] **Problem 3 — 전체 설명 품질 검수와 적용 판단:** Problem 2 결과의 가독성·의미 보존을 검토한 뒤 제품 적용 범위를 별도로 결정한다. 현재 `blocks.json`은 internal handoff이며 r6/current route, L3-05/06 authority, Tooltip/Menu/Lua/package 상태를 전환하지 않는다.
+- 상세 규칙·잔여·검증 한계: [composition contract](iris_dvf_semantic_block_integration_contract.md), [composition closeout](iris_dvf_semantic_block_integration_closeout.md).

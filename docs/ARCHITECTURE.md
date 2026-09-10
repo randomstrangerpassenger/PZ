@@ -1,7 +1,7 @@
 # ARCHITECTURE.md
 
 > 상태: 초안 v0.7
-> 기준일: 2026-09-07 (이번 갱신 범위: Iris L3-06 제품 통합 complete·생성/소비/package 구조)
+> 기준일: 2026-09-10 (이번 갱신 범위: Iris DVF offline 의미 구성과 Problem 2 인계 구조; 제품 current 경계 유지)
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 구조 지도, 역할 경계, 의존 방향을 고정한다.  
 > 구현 상태 표기: 별도 표시가 없는 모듈은 current architecture를 기술하며, `설계 단계` 표시는 아직 구현되지 않은 target architecture를 뜻한다.
@@ -789,3 +789,25 @@ Canvas의 `AssetEntry`, `ResourcePack`, `ResourceState`, 판정 책임과 입출
 DVF description recovery는 `Iris/_docs/authority/dvf/layer3_expression/successors/<stable-id>/`에 semantic, acquisition, expression, audit 및 manifest를 하나의 불변 chain으로 둔다. 기존 root manifest와 제품 current pointer는 이 디렉터리의 존재만으로 전환되지 않는다. 이 경로의 구현은 exact candidate 수락 및 채택 실행 전까지 소비용 완료 상태가 아니다.
 
 수락된 동일 manifest에 대해서만 `adoption.json`을 추가하고 `recovery.load_adopted`로 명시적으로 읽는다. 채택 기록 안의 B/C handoff는 같은 expression member와 audit residual을 참조한다. B는 compact 및 omission 관계를, C는 expanded와 qualified 관계를 소비한다. 이 기록은 offline successor의 채택이며 제품 통합·replacement 정보 보존·runtime 검증은 B/C의 별도 책임이다. L3-02 정의, L3-03 의미, L3-04 획득 및 L3-05 표현의 기존 ownership과 writer responsibility는 이전하지 않는다.
+
+### r6 사실의 의미 구성과 Problem 2 인계
+
+`DVF-COMPOSITION-1`은 채택된 r6의 locale-neutral semantic/acquisition facts를 읽어, 문장보다 앞선 의미 블록과 관계·조건 범위를 생산한다. 구현 흐름은 다음과 같다.
+
+```text
+r6 adoption
+-> recovery.load_adopted
+-> composition_rules (관계·조건 판정)
+-> composition_model (구조·참조 계약)
+-> composition_results (생산·저장·읽기)
+-> Iris/build/description/composition/blocks.json
+-> Problem 2 KO/EN 설명 조합기
+```
+
+구성은 기능·역할·대상·맥락·조건·결과와 accepted source binding을 근거로 한다. Profile 이름, 기존 KO/EN 문장, 아이템 이름과 입력 순서는 관계 근거 또는 우선순위가 아니다. `context_role`은 명시된 `context_fact_ref`의 방향 있는 refinement로만 연결하고, function/result는 source-grounded function/property/direction mapping이 있을 때만 확정한다. Acquisition은 semantic function과 분리한 채 여러 획득 경로를 조건·provenance가 보존된 alternative branch로 제공한다.
+
+조건은 item-level qualifier로 소유한다. 같은 payload는 한 번 표현할 수 있지만 모든 원 fact/provenance/application ref를 유지하며, `block_common`과 `branch_local` 범위를 구분한다. Qualifier 공유만으로 독립 의미 블록을 합치지 않는다. 하나의 의미 블록은 고정 문장이나 화면 블록이 아니므로 Problem 2는 의미·관계·조건을 바꾸지 않는 범위에서 문장을 병합·분할하거나 compact/expanded 구성을 달리할 수 있다.
+
+현재 handoff는 exact FullType 2,105개와 accepted fact 29,202개를 10,304개 block으로 표현하며 residual/non-public disposition은 각각 0이다. 이 중 multi-branch block은 1,591개다. Spear-fishing 14개 대상의 `fish_with_spear`와 `item_condition/decrease`는 accepted 방향 근거가 없어 `undetermined`로 유지하며, consumer는 두 의미를 별도로 표현하되 인과를 주장하지 않는다.
+
+이 구조와 `blocks.json`은 Problem 1을 완료한 repository-internal development/validation handoff다. r6 원본·adoption, 기존 product current route, L3-05/06 authority, Tooltip/Menu/Lua/package를 변경하거나 대체하지 않는다. Problem 2의 KO/EN 조합과 Problem 3의 전체 설명 품질 검수·제품 적용은 후속 책임이다. 상세 규칙과 완료 범위는 [composition contract](iris_dvf_semantic_block_integration_contract.md)와 [closeout](iris_dvf_semantic_block_integration_closeout.md)을 따른다.

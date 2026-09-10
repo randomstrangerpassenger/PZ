@@ -1,7 +1,7 @@
 # DECISIONS.md
 
 > 상태: current decision ledger / compact trace-dedup edition, Iris Layer 3 successor·investigation·획득·표현 authority 채택 완료 반영
-> 기준일: 2026-09-05 (이번 갱신 범위: DVF-L3-05 해상도 교정본 채택·선행 결과 superseded 및 L3-06 제품 통합 경계; 기존 sealed 결정 유지)
+> 기준일: 2026-09-10 (이번 갱신 범위: DVF-COMPOSITION-1 완료 결정; 기존 제품 current·sealed 결정 유지)
 > 상위 기준: `Philosophy.md`
 > 목적: Pulse 생태계에서 이미 사실상 고정된 결정을 짧게 봉인하고, 같은 논쟁의 반복을 줄인다.
 
@@ -2485,3 +2485,12 @@ D1 generation 전환의 조건부 downstream binding: T1 strict admission에서 
 - 표현 책임: 독립 기능과 첫 이해에 필요한 조건을 compact에 보존하고, 같은 기능의 확인된 대상을 모아 공통 조건을 한 번 표현한다. 대표 용도 선택이나 글자수 컷으로 기능을 없애지 않는다. 수량·작업 절차는 expanded, 내부 분기·미확인 native 결과와 근거 한계는 audit에 둔다. 실제 Type 조건은 기존의 충돌 없는 정확한 선언으로 투영하며 모호한 선언의 승자를 선택하지 않는다. 이 원칙은 새로운 semantic fact나 validation authority를 만드는 권한이 아니다.
 - 후속 경계: 문제 B는 r6 compact/S2의 Tooltip 연결, 문제 C는 동일 r6 expanded의 Menu 연결이다. 이 세션에서는 둘 다 착수하지 않았으며 기존 Tooltip 전체 동작의 소유권과 S1/S3/S4·Alt·최대 4줄 경계를 변경하지 않았다. 단순히 계속 진행하라는 요청이나 이번 문서 정리를 B/C 제품 구현 완료로 기록하지 않는다.
 - 2026-09-09 문서 배치 정정: `ARCHITECTURE.md` 갱신이 r6의 exact input과 달라 정상 소비를 막았으므로, 추가한 처리 구조·표현 책임 설명은 [기존 closeout의 아키텍처 절](iris_dvf_description_migration_question_adjudication_recovery_closeout.md#r6-처리-구조와-문서-배치)로 옮겨 보존하고 ARCHITECTURE는 보관한 정확한 원본으로 복원했다. Loader 변경·hash 대체·검사 생략·r6 재생성 없이 원래 입력 경로를 유지한다. 기존 후보/adoption/PASS는 변경하지 않았다. 현재 checkout에서 기존 정상 `load_adopted` 1회가 **exit 0**, `mode=adopted`, `targets=2105`를 반환해 B/C offline 입력 소비 복구를 확인했다. 본문 갱신 완료나 문서 영구 동결 정책으로 삼지 않으며, 가변 설명 문서·과거 생산 재현과 채택 소비의 결합은 향후 해당 경로를 다룰 때 해결할 제약으로 남긴다. 이번 수습에 focused gate 재실행·재채택은 없었다.
+
+### 2026-09-10 — DVF-COMPOSITION-1 의미 구성 완료와 소비 경계
+
+- 결정: 채택된 r6 Layer 3 사실을 재사용 가능한 locale-neutral 의미 블록으로 구성하는 **Problem 1은 complete**다. `composition_rules.py`, `composition_model.py`, `composition_results.py`와 `Iris/build/description/composition/blocks.json`을 Problem 2의 구현·검증 입력으로 사용한다. 별도 adoption 대기 상태나 새 authority lifecycle은 만들지 않는다.
+- 관계 판정은 accepted 기능·역할·대상·맥락·조건·결과와 source-grounded mapping에만 근거한다. Profile, 기존 prose, item name, 입력 순서와 shared admission/qualifier만으로 대표 의미·우선순위·function/result 인과를 만들지 않는다. Context role은 explicit context ref의 refinement로, acquisition 복수 경로는 조건과 provenance를 유지한 alternative로 취급한다.
+- Qualifier는 item-level record로 정확히 중복 제거하되 모든 fact/provenance/application ref를 보존하고 `block_common`과 `branch_local` 범위를 유지한다. Qualifier 공유는 block 병합 근거가 아니다. Problem 2는 의미와 적용 범위를 유지하는 문장 병합·분할 및 compact/expanded 구성을 선택할 수 있지만 독립 용도 삭제, `primary_use` 복귀, 관계·조건 재판정은 하지 않는다.
+- 전체 결과는 exact target 2,105개, represented accepted facts 29,202개, block 10,304개, multi-branch block 1,591개이며 accepted collection의 residual/non-public은 0이다. Spear-fishing 14개 대상의 function과 condition-decrease effect는 accepted application/direction 근거가 없어 `undetermined`로 남긴다. 후속 표현은 두 의미를 보존하되 인과를 주장하지 않는다.
+- 계획의 유일한 focused 수락 명령은 exit `0`, `1 passed in 15.34s`였다. 이는 fact conservation, 구조·참조·qualifier scope, 대표 위험 사례와 durable reader handoff의 검사이며 모든 관계에 대한 인간 의미 검토, 최종 KO/EN 품질, runtime/package/PZ 검증이 아니다. 추가 suite, Run A/B, historical replay, adoption/seal은 실행하거나 신설하지 않았다.
+- 비결정: 이 완료는 r6 원본/adoption, product current route, L3-05/06 authority, Tooltip/Menu/Lua/package를 변경하지 않는다. Problem 2의 문장 조합과 Problem 3의 전체 설명 품질 검수·제품 적용은 후속 범위다. 상세 계약과 수치는 [composition contract](iris_dvf_semantic_block_integration_contract.md)와 [closeout](iris_dvf_semantic_block_integration_closeout.md)이 소유한다.

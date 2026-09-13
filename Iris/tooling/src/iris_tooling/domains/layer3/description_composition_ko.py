@@ -9,18 +9,21 @@ def instrumental(noun):
 
 def role(activities, roles, compact=False):
     activities = list(activities)
-    for suffix in (" 제작", " 단조", " 준비"):
-        peers = [a.removesuffix(suffix) for a in activities if a.endswith(suffix)]
-        if len(peers) > 1:
-            activities = [a for a in activities if not a.endswith(suffix)] + ["·".join(peers) + suffix]
+    # Sharing grammar must not move purposes to collect matching suffixes.
     names = "·".join(activities)
     if roles == ["repair_target"]:
         return "수리 대상이 되는 물품이다"
+    if roles == ["transformation_target"] and len(activities) == 1:
+        transformations = {
+            "창 부착물 회수": "창의 부착물을 회수할 수 있다",
+            "산탄총 총신 단축": "산탄총의 총신을 줄일 수 있다",
+        }
+        if activities[0] in transformations:
+            return transformations[activities[0]]
     nouns = "·".join(lex.pair(lex.ROLES[r], "ko") for r in roles)
-    if compact:
-        final = (ord(nouns[-1]) - ord("가")) % 28 if "가" <= nouns[-1] <= "힣" else 0
-        return f"{names}에 쓰는 {nouns}" + ("이다" if final else "다")
-    return f"{names}에 {instrumental(nouns)} 쓰인다"
+    if roles == ["tool"]:
+        return f"{names}에 사용할 수 있다"
+    return f"{names}에 {instrumental(nouns)} 사용할 수 있다"
 
 
 def parallel(clauses):

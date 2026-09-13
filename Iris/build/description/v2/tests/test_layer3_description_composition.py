@@ -51,29 +51,52 @@ def _compare_meaning(source, output):
     qualifiers = {q["qualifier_id"]: q for q in source["qualifiers"]}
     assert output["qualifiers"] == [qualifiers[q] for q in sorted(qualifiers)]
     all_refs = set(anchors) | {r for q in qualifiers.values() for r in q["fact_refs"]}
+    assert set(output['preserved_fact_refs']) == all_refs
     assert output["relations"] == sorted([r for b in source["blocks"] for r in b["relations"]],
                                           key=lambda r: r["relation_id"])
     assert output["unresolved_relations"] == source["unresolved_relations"]
     for locale in ("ko", "en"):
         expanded = output["locales"][locale]["expanded"]
         # Missing rules are failures, not an accepted corpus-sized silence.
-        assert expanded["state"] == ("present" if all_refs else "absent"), (source["item_id"], expanded["reason"])
+        assert expanded['state'] != 'failed', (source['item_id'], expanded['reason'])
         represented = set()
         for segment in expanded["segments"]:
             represented.update(segment["fact_refs"])
             refs = set(segment["fact_refs"]) & anchors.keys()
             expected_q = {q for q, value in qualifiers.items() if refs & set(value["applies_to_fact_refs"])}
+            expected_q = {q for q in expected_q if not (refs & set(qualifiers[q]['applies_to_fact_refs'])) <= {
+                r for decision in output['public_plan'] if decision['disposition'] == 'internal'
+                and set(qualifiers[q]['fact_refs']) <= set(decision['fact_refs'])
+                for r in decision.get('applies_to_fact_refs', [])}}
+            if segment['expression'] == 'public_use':
+                expected_q = set()  # capability/result claims do not assert full execution predicates
             assert set(segment["qualifier_refs"]) == expected_q
             for q in expected_q:
                 # No condition may spread to a co-ordinated independent claim.
-                assert refs <= set(qualifiers[q]["applies_to_fact_refs"])
+                if segment['expression'] == 'exact_scope':
+                    assert refs <= set(qualifiers[q]["applies_to_fact_refs"])
+                elif segment['expression'] == 'equivalent_scope':
+                    same_condition = {r for other in expected_q if qualifiers[other]['payload'] == qualifiers[q]['payload']
+                                      for r in qualifiers[other]['applies_to_fact_refs']}
+                    assert refs <= same_condition
             assert segment["qualifier_applications"] == [{"qualifier_id": q,
                 "applies_to_fact_refs": qualifiers[q]["applies_to_fact_refs"]} for q in sorted(expected_q)]
             assert set(segment["block_refs"]) == {anchors[r][0] for r in refs}
             assert set(segment["branch_refs"]) == {anchors[r][1] for r in refs}
-        assert represented == all_refs
+        assert represented <= all_refs
+        hidden = {r for u in output['internal_uses'] for r in u['fact_refs']}
+        assert not hidden & represented
+        # Every independently admitted use remains public, including recipe-only
+        # materials and transformation targets. Only the named maintenance and
+        # portable-light toggle are exempt, never a length or primary-use rank.
+        independent = {f['fact_ref'] for b in source['blocks'] for br in b['branches'] for f in br['facts']
+                       if f['fact_kind'] in {'direct_function', 'use_context', 'context_role'}
+                       and f['payload'].get('function') != 'toggle_activation'} - hidden
+        assert independent <= represented, (source['item_id'], independent - represented)
         compact = output["locales"][locale]["compact"]
         assert compact["state"] != "failed", (source["item_id"], compact["reason"])
+        compact_refs = {r for segment in compact['segments'] for r in segment['fact_refs']}
+        assert independent <= compact_refs, (source['item_id'], independent - compact_refs)
         assert "\n" not in compact["text"]
         for segment in compact["segments"]:
             for disposition in segment.get("qualifier_dispositions", []):
@@ -87,7 +110,7 @@ def _compare_meaning(source, output):
         for link in compact["detail_links"]:
             assert link["fact_refs"] == expanded["segments"][link["segment"]]["fact_refs"]
             linked.update(link["fact_refs"])
-        assert linked == all_refs
+        assert linked == represented
     for surface in ("compact", "expanded"):
         a, b = (output["locales"][loc][surface] for loc in ("ko", "en"))
         assert a["state"] == b["state"]
@@ -115,22 +138,23 @@ def test_layer3_description_composition(monkeypatch):
             rng.shuffle(branch["facts"])
     assert first == results.compose_item(shuffled)
     text = first["locales"]["en"]["expanded"]["text"]
-    assert "item to be repaired" in text and "as a tool" not in text
-    assert "Easy difficulty" in text and "Normal difficulty" in text
+    assert "item to be repaired" not in text and "as a tool" not in text
+    assert 'fact:target' in {r for entry in first['internal_uses'] for r in entry['fact_refs']}
+    assert "Easy difficulty" not in text and "Normal difficulty" not in text
     assert "therefore" not in text and "fishing causes" not in text
     assert first["unresolved_relations"]
-    assert "fact:wear" in {r for s in first["locales"]["en"]["compact"]["segments"] for r in s["fact_refs"]}
+    assert "fact:wear" not in {r for s in first["locales"]["en"]["compact"]["segments"] for r in s["fact_refs"]}
+    assert "fact:wear" in {r for s in first["locales"]["en"]["expanded"]["segments"] for r in s["fact_refs"]}
     both_roles = deepcopy(fixture)
     fuel_fact = next(f for b in both_roles["blocks"] for branch in b["branches"] for f in branch["facts"]
                      if f["payload"].get("function") == "supply_hearth_fuel")
     fuel_fact["payload"] = {"function": "provide_campfire_tinder"}
     consumed = results.compose_item(both_roles)["locales"]["en"]["compact"]["text"]
-    assert "as fuel or as tinder with an igniter" in consumed
+    assert "fuel" in consumed and "tinder" in consumed
     assert "with an igniter and fuel" not in consumed
     for loc in ("ko", "en"):
-        # Identical surface text cannot delete a distinct fact or role.
-        assert any("fact:lock" in s["fact_refs"] and "fact:editing" not in s["fact_refs"]
-                   for s in first["locales"][loc]["expanded"]["segments"])
+        assert 'fact:lock' in first['preserved_fact_refs']
+        assert not any('fact:lock' in s['fact_refs'] for s in first['locales'][loc]['expanded']['segments'])
     extra_condition = deepcopy(fixture)
     extra = deepcopy(extra_condition["qualifiers"][0])
     extra.update(qualifier_id="qualifier:additional", fact_refs=["fact:additional"],
@@ -169,7 +193,7 @@ def test_layer3_description_composition(monkeypatch):
         detail = rendered['locales'][loc]['expanded']
         ammo = next(s for s in detail['segments'] if 'fact:ammo' in s['fact_refs'])
         assert {'fact:load', 'fact:path'} <= set(ammo['fact_refs'])
-        assert ammo['text'].count('달리면' if loc == 'ko' else 'Running interrupts') == 1
+        assert ('달리면' if loc == 'ko' else 'Running interrupts') not in ammo['text']
         assert not any({'fact:paint', 'fact:sign'} <= set(s['fact_refs']) for s in detail['segments'])
         ignition = next(s for s in rendered['locales'][loc]['compact']['segments'] if 'fact:ignition' in s['fact_refs'])
         assert ('도구' if loc == 'ko' else 'tool') not in ignition['text']
@@ -231,12 +255,130 @@ def test_layer3_description_composition(monkeypatch):
     source, result = results.produce(ROOT)
     assert len(source["items"]) == len(result["items"]) == 2105
     assert result["summary"]["surfaces"] == 8420
+    examples = {i['item_id']: i['locales']['ko'] for i in result['items']}
+    socks = examples['Base.Socks_Ankle']['expanded']['text']
+    assert all(word not in socks for word in ('씻', '젖', '패딩', '중단', '데님', '가위'))
+    assert all(word in socks for word in ('신을 수 있다', '연료', '불쏘시개', '찢어진 천', '로프'))
+    assert '몸과 의류, 장비' in examples['Base.Soap2']['compact']['text']
+    assert '통조림 따개' in examples['Base.CannedCorn']['compact']['text']
+    assert '옥수수' in examples['Base.CannedCorn']['compact']['text']
+    assert '도구 없이' not in examples['Base.223Box']['expanded']['text']
+    assert '.223' in examples['Base.223Box']['compact']['text']
+    assert '당근 씨앗' in examples['farming.CarrotBagSeed']['compact']['text']
+    assert '칼로 손질해 개구리 고기' in examples['Base.Frog']['expanded']['text']
+    assert len(examples['Base.Socks_Ankle']['expanded']['use_units']) == 4
+    assert all(name not in examples['Base.Screwdriver']['expanded']['text'] for name in ('V1', 'V2', 'V3', '회수량'))
+    # The opened result admits drink_food_contents, overriding the generic
+    # native eat dispatch on the sealed item without transferring other uses.
+    assert '연유를 마실 수 있다' in examples['Base.CannedMilk']['expanded']['text']
+    assert '개봉해 옥수수를 먹을 수 있다' in examples['Base.CannedCorn']['expanded']['text']
+    assert '통조림 따개로 개봉해 스프를 마실 수 있다' in examples['Base.TinnedSoup']['expanded']['text']
+    for item_id, name in (('Base.CannedCarrots2', '당근을'), ('Base.CannedMushroomSoup', '버섯스프를'),
+                          ('Base.Dogfood', '개 사료를'), ('Base.CannedSardines', '정어리를')):
+        assert '개봉해 ' + name + ' 먹을 수 있다' in examples[item_id]['expanded']['text']
+        assert '미끼' not in examples[item_id]['expanded']['text']
+    assert '통조림 따개' not in examples['Base.CannedSardines']['compact']['text']
+    for surface in ('compact', 'expanded'):
+        assert examples['Base.CannedMilk'][surface]['text'].count('연유') == 2
+        assert '내용물' not in examples['Base.CannedMilk'][surface]['text']
+        assert '요리' not in examples['Base.Dogfood'][surface]['text']
+    english = {i['item_id']: i['locales']['en'] for i in result['items']}
+    # Tool purpose is distinct from the material's recovery conditions.
+    for surface in ('compact', 'expanded'):
+        scissors = examples['Base.Scissors'][surface]['text']
+        assert all(word in scissors for word in ('데님', '가죽', '의류', '회수'))
+        assert all(word not in scissors for word in ('실도 회수', '가위가 필요', '직물 회수'))
+        assert 'scissors' not in english['Base.Scissors'][surface]['text'].lower()
+        assert '가위' in examples['Base.Gloves_LeatherGloves'][surface]['text']
+    furniture_tools = [i['item_id'] for i in source['items'] if any(
+        f['payload'].get('activity') == 'moving_furniture'
+        for b in i['blocks'] for branch in b['branches'] for f in branch['facts'])]
+    for item_id in furniture_tools:
+        assert '일부 가구를 집어 들거나 설치' not in examples[item_id]['expanded']['text']
+        assert 'pick up or place certain furniture' not in english[item_id]['expanded']['text']
+        item = next(row for row in result['items'] if row['item_id'] == item_id)
+        assert any('concrete PickUpTool/PlaceTool' in d['reason'] for d in item['internal_uses'])
+    assert '0이 된다' in examples['Base.Wrench']['expanded']['text']
+    assert '좀비화는 막지 못한다' in examples['Base.Antibiotics']['expanded']['text']
+    for item_id in ('Base.Pasta', 'Base.Rice'):
+        assert examples[item_id]['compact']['text'] == '먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다.'
+        assert 'It can be eaten or used as a cooking ingredient.' in english[item_id]['compact']['text']
+        assert all(word in examples[item_id]['expanded']['text'] for word in ('먹을 수 있다', '요리 재료', '미끼'))
+    for item_id in ('Base.Teacup', 'Base.MugWhite'):
+        for surface in ('compact', 'expanded'):
+            assert examples[item_id][surface]['text'] == '물을 담아 보관하거나 운반할 수 있다.'
+            assert english[item_id][surface]['text'] == 'It can hold water for storage or carrying.'
+    for surface in ('compact', 'expanded'):
+        assert 'eat the Carrots' in english['Base.CannedCarrots2'][surface]['text']
+        assert 'eat the Mushroom Soup' in english['Base.CannedMushroomSoup'][surface]['text']
+        assert 'drink the Vegetable Soup' in english['Base.TinnedSoup'][surface]['text']
+        assert 'Can Opener' not in english['Base.CannedSardines'][surface]['text']
+        assert 'cooking ingredient' not in english['Base.Dogfood'][surface]['text']
+    # Individual serving results belong to the recipe relation, while the
+    # independent opening, eating and cooking uses remain in both surfaces.
+    for surface in ('compact', 'expanded'):
+        beans = examples['Base.TinnedBeans'][surface]['text']
+        assert '그릇 (콩)' not in beans
+        assert all(word in beans for word in ('통조림 따개', '먹을 수 있다', '요리 재료'))
+    assert '원래 음식' not in examples['Base.Axe']['expanded']['text']
+    assert all(name in examples['Base.Remote']['expanded']['text'] for name in ('수신기', '건전지도 나올 수', '원격제어 조정기'))
+    for item_id in ('Base.GardenSaw', 'Base.Saw'):
+        for surface in ('compact', 'expanded'):
+            assert '파이프 폭탄' in examples[item_id][surface]['text']
+            assert '신호 장치' not in examples[item_id][surface]['text']
+    for item_id in ('Base.Flour', 'Base.Cornflour'):
+        assert len(examples[item_id]['expanded']['use_units']) == 1
+        assert all(examples[item_id][surface]['text'] == '요리 재료로 쓸 수 있다.' for surface in ('compact', 'expanded'))
+    assert '반죽' in examples['Base.Yeast']['expanded']['text']
+    for item_id in ('Base.RemoteCraftedV1', 'Base.RemoteCraftedV2', 'Base.RemoteCraftedV3'):
+        assert len(examples[item_id]['expanded']['use_units']) == 1
+        assert all(word in examples[item_id]['expanded']['text'] for word in ('함께 소지', '호환', '조종 범위'))
+    for item_id in ('Base.FishingRod', 'Base.FishingRodTwineLine', 'Base.CraftedFishingRod', 'Base.CraftedFishingRodTwineLine'):
+        lines = examples[item_id]['expanded']['text'].splitlines()
+        assert all(word in lines[0] for word in ('낚시', '낚싯줄', '미끼를 잃는다'))
+        assert len(examples[item_id]['expanded']['use_units']) == 2
+    assert '소모될 수 있다' in examples['Base.SharpedStone']['expanded']['text'].splitlines()[0]
+    # Optional eating utensils are internal; actual cooking, spear and melee
+    # purposes remain public in the common producer.
+    assert all(word in examples['Base.Fork']['expanded']['text'] for word in ('음식 준비', '창', '무기'))
+    assert '식기' not in examples['Base.Fork']['expanded']['text']
+    assert '타이머' not in examples['Base.Remote']['expanded']['text']
+    assert len(examples['Base.Tongs']['expanded']['use_units']) == 1
+    assert '0.6' in examples['Base.Bass']['expanded']['text']
+    assert '0.6' not in examples['Base.KitchenKnife']['expanded']['text']
+    assert '소음 발생 장치' in examples['Base.ElectronicsScrap']['expanded']['text']
+    assert '폭발 장치' in examples['Base.ElectronicsScrap']['expanded']['text']
+    # Participant roles and compact grouping must not turn a processed item
+    # into a processing supply or erase another independently admitted use.
+    assert '상처에 감을 수 있다. 소독해서 쓸 수도 있다' in examples['Base.Bandage']['expanded']['text']
+    assert len(examples['Base.Bandage']['expanded']['use_units']) == 2
+    for item_id in ('Base.Watermelon', 'Base.Muffintray_Biscuit'):
+        for surface in ('compact', 'expanded'):
+            assert examples[item_id][surface]['text'] == '덫의 미끼로 쓸 수 있다.'
+    assert '수박 쪼개기' in examples['Base.Plank']['expanded']['text']
+    assert '칼로 손질해 개구리 고기' in examples['Base.Frog']['expanded']['text']
+    assert '천 조각' in examples['Base.Sheet']['compact']['text']
+    assert '찢어진 천 (오염됨)' in examples['Base.Sheet']['expanded']['text']
+    assert '설치 후 열고' not in examples['Base.Sheet']['expanded']['text']
+    assert '소독솜을 만드는' in examples['Base.CottonBalls']['compact']['text']
+    assert '천이나 솜을 소독' in examples['Base.Disinfectant']['compact']['text']
+    assert '손질해 살을' in examples['Base.Bass']['compact']['text']
+    assert '수박 쪼개기' in examples['Base.Plank']['compact']['text']
+    assert '시트 로프 제작 재료로' in examples['Base.Sheet']['expanded']['text']
+    assert '달걀곽에' in examples['Base.Egg']['expanded']['text']
+    assert '제작 대상:' not in examples['Base.Egg']['expanded']['text']
+    assert examples['Base.Nails']['compact']['text'].count('수리') == 1
+    assert '나무 막대가' not in examples['Base.CraftedFishingRod']['expanded']['text']
+    assert '휴대 조명' in examples['Base.Lighter']['expanded']['text']
+    assert '중단' not in examples['Base.Lighter']['expanded']['text']
+    assert '3개' not in examples['Base.BrokenFishingNet']['expanded']['text']
     for original, rendered in zip(source["items"], result["items"], strict=True):
         _compare_meaning(original, rendered)
+        assert all('·' not in row['text'] for surfaces in rendered['locales'].values() for row in surfaces.values())
         functions = {f["payload"].get("function") for b in original["blocks"] for branch in b["branches"] for f in branch["facts"]}
         if "control_portable_light" in functions:
             operations = {f["fact_ref"] for b in original["blocks"] for branch in b["branches"] for f in branch["facts"]
-                          if f["payload"].get("function") in {"toggle_activation", "light_candle", "extinguish_candle", "extinguish_on_unequip"}}
+                          if f["payload"].get("function") in {"toggle_activation", "extinguish_candle", "extinguish_on_unequip"}}
             overview_refs = {ref for s in rendered["locales"]["en"]["compact"]["segments"] for ref in s["fact_refs"]}
             assert not operations & overview_refs
         for segment in rendered["locales"]["en"]["compact"]["segments"]:
@@ -252,7 +394,8 @@ def test_layer3_description_composition(monkeypatch):
                 assert "0.3" not in segment["text"] and "20" not in segment["text"]
                 if "poisoning" in segment["text"]:
                     detailed = rendered["locales"]["en"]["expanded"]["text"]
-                    assert "tainted" in detailed.lower() and "0.3" in detailed
+                    assert "tainted" in detailed.lower() and "poison" in detailed.lower()
+                    assert any('0.3' in q['payload']['predicate'] for q in rendered['qualifiers'])
     results.write_result(ROOT, result)
     with monkeypatch.context() as patch:
         def forbidden(*args, **kwargs):

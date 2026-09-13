@@ -1,5 +1,7 @@
 # Iris 비획득 의미 결과 Walkthrough
 
+2026-09-11 A 후속 보완: 역사 r6를 수정하지 않고 기존 admitted observation에서 결과 정체성·도구 집합·결과 활용을 `recovery_relations.py`로 구조화하여 문제 1에 전달한다. 새 외부 게임 파일은 읽지 않는다. 선언 결과와 callback 확률 결과를 구별하며, 실제 EvolvedRecipe가 없는 결과에는 잔존 EvolvedRecipeName을 내용물 명칭으로 사용하지 않는다. 현재 범위·검증·후보는 [설명 품질 Walkthrough](iris_description_quality_walkthrough.md)의 후속 교정 절에 기록한다.
+
 작성일: 2026-09-04  
 대상: 현재 세션에서 구현·검증·채택한 DVF-L3-03과 관련 문서 정리
 

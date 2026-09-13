@@ -1,6 +1,12 @@
 # DVF description composition contract
 
-문제 1의 `composition_results.read_result()`가 확인한 blocks를 소비하는 offline 표현 계약이다. 의미 authority, r6 producer/선택 규칙, current supplier 및 Lua 제품 표시는 변경하지 않는다.
+문제 1의 `composition_results.read_result()`가 확인한 blocks를 소비하는 offline 표현 계약이다. 역사 r6는 보존한다. A의 `recovery_relations`가 기존 admitted observation에서 보완한 `use_relations`와 `source_traits`를 함께 소비한다. raw recipe나 기존 prose로부터 문장 조합기가 관계를 추론하지 않는다.
+
+2026-09-11 용도 교정: 내부 accepted fact 보존과 공개 claim은 별개다. 아래 과거 세부 배치에서 전량 expanded 보존·관리 절차 출력을 요구하던 부분은 이 규칙으로 대체한다. `preserved_fact_refs`는 입력 사실 전체를 추적하고, `internal_uses`는 관리·처리 metadata·획득 분리 사유를 남긴다. 공개 `public_use` segment의 fact refs는 실제 용도·역할·결과 활용 claim만 가리킨다. 표현하지 않은 전체 실행 predicate를 그 문장의 qualifier refs에 붙이지 않는다. 미표현 근거를 무관한 문장 refs에 붙여 보존 검사를 통과시키지 않는다.
+
+양말 등의 세척·패치 대상 관리, 조리자 기록, 세척 결과와 이동 중단은 DVF 용도가 아니다. 세척제의 몸/의류·장비 세척, 도구의 패치 기능, 변환 대상의 회수와 독립 제작 재료 용도는 유지한다. 획득은 의미 블록에 보존하고 기존 획득 공급으로 보내며 DVF 본문에는 넣지 않는다. 실제 독립 용도를 글자 수 때문에 숨기지 않는다.
+
+개봉·손질·분해 관계는 exact 결과 정체성, 도구의 `any_of` 대안 집합/비소모, declared/무조건 callback/조건부 callback을 구별한다. 개봉 결과의 요리·파종 활용은 A가 이미 수락한 해당 결과 활용 fact가 있을 때만 연결한다. 결과의 다른 용도를 재귀적으로 복사하지 않는다. `Base.TinOpener`의 제품 명칭은 통조림 따개이며 기존 번역 깡통 따개와 동일한 아이템이다. 내용물 이름은 활성 EvolvedRecipeName의 공통 개념 어휘 또는 확인된 결과 표시명이며 FullType 접두사를 잘라 만들지 않는다. 미확정 어망 Result와 열쇠의 동적 일치/소모 구분은 유지한다.
 
 ## 입력과 내용 배치
 
@@ -65,3 +71,34 @@ Compact의 `detail_links`는 같은 locale의 실제 expanded segment로 연결�
 Compact에서 명시한 미끼 조건은 core disposition으로 연결하고 낚시·독서·도색·화장의 공통 조건 요약은 검토된 predicate 쌍에 한해 한 번 표현한다. 독서 시작 값의 상한 효과는 입력에 있는 감정 속성만 같은 scope에서 병렬화한다. 창 제작 도구 마모의 실제 predicate가 제공하는 사용 맥락·보존 도구·1 감소를 실현하며 미확정 창낚시 마모와 합치지 않는다. 새 짧은 기능 frame도 허용 predicate 집합 밖 조건이 있으면 적용하지 않는다. 총기 조작의 빈 칸·용량과 같은 실행 상세는 같은 locale expanded에 남긴다.
 
 이는 [Problem 3 partial 실행](iris_dvf_description_quality_acceptance_closeout.md)의 구현 계약이다. 전체 원문 품질 수락이나 accepted final corpus 인계 완료를 뜻하지 않는다.
+
+
+## 2026-09-12 player-use successor (구현 중)
+
+적용 계획은 `iris_dvf_player_use_description_transition_plan.md`이며 이 절은 이전 수락 subject를 수정하지 않는다. 새 producer는 모든 unit에 공통 공개 판단을 적용한다. 확인된 독립 활용은 길이나 primary-use 순위로 expanded에만 숨기지 않는다. 자기 관리·획득·내부 계산은 원래 facts/relations/qualifiers에 남지만 공개 문장에 자동 승격하지 않는다. 미구현 함수·조건은 failed이며 정상 absence가 아니다.
+
+`public_plan`과 `internal_uses`는 composer의 선택 설명이다. 내부 처리한 qualifier의 `applies_to_fact_refs`는 원래 적용 대상에 한정하며 다른 공개 활용의 조건을 제거하지 않는다. 이는 기존 schema의 additive offline metadata이며 semantic fact authority나 validator를 신설하지 않는다.
+
+공개 의미를 모두 실현한 닫힌 조건부 frame은 양 표면에서 재사용할 수 있다. 서로 다른 qualifier application을 문장의 모든 사실에 확장하지 않고 기존 개별 application 기록을 유지한다. Expanded로 조건 설명을 위임한 frame은 expanded에서 자체 위임을 충족한 것으로 재사용하지 않는다. 알려진 함수에 추가 조건이 붙으면 closed frame이 이를 삼키지 않고 해당 조건을 처리해야 한다.
+
+기존 source adapter에서 admitted recipe와 실제 source module을 확인하여 제작 결과 이름을 연결한다. Callback은 명시적으로 검토한 결과 타입/수량 관계까지만 연결하며 실제 native 성공, 추가 회수품 또는 효과를 선언된 결과만으로 추정하지 않는다. 원래 r6/adoption과 semantic facts의 owner는 유지한다.
+
+필요한 제한적 근거 보완은 기존 `recovery_sources` owner에서 수행한다. 현재 열린 우산의 선언과 실제 야외 채집 consumer로 보완한 facts는 `blocks.source.semantic_correction`에 source bindings·observations·provenance와 함께 보존한다. 기존 composition 모델이 같은 의미 identity 및 적용 범위를 검사하며 별도 검사기나 외부 semantic authority를 만들지 않는다. 원래 adopted payload는 그대로 보존하고 composition의 유효 입력에만 correction을 더한다. Composer는 원본 script/Lua 속성을 해석하지 않는다.
+
+현재 구현 중이며 전수 의미 재판정·기존 최소 자동 검사·새 B/C 연결 전이다. 새 corpus/제품 수락은 기존 기록에서 승계하지 않는다.
+
+### 명시적 용도 근거 보완의 최종 범위
+
+2026-09-12 correction은 열린 우산 4종의 12 facts, 의약품 6종의 6 facts, 발전기의 2 facts로 한정한다. 의약품은 선언 Tooltip이 가리키는 vanilla Tooltip_EN의 명시적 목적과 기존 복용 consumer를 연결한다. 발전기는 Sandbox_EN의 야외 발전기 설명과 ISWorldObjectContextMenu의 실제 야외 주유기 조건을 연결한다. 공개 범위는 야외 사용 설정이 허용된 상태의 야외 주유기 급전이며 일반 실내·모든 가전·반경·native 계산으로 확대하지 않는다. 원래 29,202 facts(semantic 28,145 + acquisition 1,057)는 보존하며 유효 합계는 29,222다.
+
+2026-09-12 실행 완료: 위 구현 중 표기는 당시 이력이다. 최종 descriptions `ffde6886d117482336159de49dd1ddc8ff075df2499217b09400542a895246b0`에 공통 규칙을 적용하고 전수 자체 검토 및 새 B/C 후보 검사를 마쳤다. 실제 PZ 미관찰로 implemented_only이며 상세 결과는 `iris_dvf_use_description_report.md`의 closeout에 있다.
+
+## 2026-09-12 의미 판정 재개 — partial
+
+후속 실제 원문 검토에서 공통 점화 frame의 내부 지원 문구, 도구 설명의 수행 요건 나열, 음식 미끼의 추상적 주어, 차량 부품 목적의 미확정 문제가 확인되었다. 위 ‘잔여 표현 결함 0 / 실제 PZ만 남음’ 판단을 철회한다. ledger의 읽기 이력과 자동 검사 결과는 보존하지만 의미 적합성 수락으로 사용하지 않는다. 기존 ffde6886... corpus와 run-7ztpp37i C ZIP은 당시 자동 검사 통과 후보이며 의미 품질 승인 후보가 아니다. 공통 규칙과 같은 의미/조합 범위를 교정하고 재판정할 때까지 partial이다.
+
+## 2026-09-12 공통 목적군 교정 후 후보
+
+재개 시 확인된 점화 주체·음식 미끼·복합 도구 목적군·중복 수행 요건을 공통 규칙으로 교정하고 실제 영향 범위를 재판정했다. 42개 차량 부품의 구체 기능 부족은 개별 purpose_unresolved로 기록한다. 포괄적인 결함 0 선언을 복원하거나 자동 검사 성공을 의미 품질 승인으로 사용하지 않는다. 누적 전수 자체 읽기/변경 범위 재판정의 상세와 한계는 `iris_dvf_use_description_report.md`의 최신 절 및 `review/uses/items.json`에 있다.
+
+현재는 **implemented_only**: corpus `2301a4a4b8d24a28447ea53e3e47dd7143b362fb9e3b3b2531cf3152e4491e30`, B `.tmp/tooltip/run-cr4yy73j/s/.tmp/package/Iris.zip`, C `.tmp/menu/run-5b363prk/p/Iris.zip`(SHA256 `a55538e4cdaf47c771258a2c75d33dce0f93ba66cc524eb465873d1fa0086080`). 마지막 설명/B 묶음 exit 0(2 passed, 91.80s), 같은 B를 받은 C exit 0(1 passed, 72.08s). 실제 PZ는 미관찰이고 complete/독립 품질 승인/live 전환이 아니다. 과거 ffde 후보는 역사적 자동 검사 결과로만 남긴다.

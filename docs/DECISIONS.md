@@ -2553,3 +2553,9 @@ D1 generation 전환의 조건부 downstream binding: T1 strict admission에서 
 - 후속 설명 교정은 사용자가 나중에 구체 사항을 제공할 별도 과제다. B 통과를 모든 설명의 영구적인 품질 보증으로 확대하지 않는다. C 구현, current 공동 활성화, 일반 strict production finalization, release는 이번 완료 범위가 아니다. 원래 D6 재채택 계약과 historical 자료는 보존한다.
 
 동일 수락 후보는 `.tmp/tooltip/preview/Iris.zip`이며 정확한 product/ZIP identity와 인계 내용은 [최종 수락 기록](iris_tooltip_supply_closeout.md)이 소유한다. 이번 세 문서 갱신은 구현·수락 상태의 동기화이며 새 검증 결과나 권한을 만들지 않는다.
+
+### 2026-09-11 — DVF-RECOVERY-C expanded Menu 후보 구현
+
+동일 canonical corpus를 `iris-layer3-product-v2`로 투영하고 Browser Detail/Wiki에 ordered visibility units를 연결했다. 동일 branch/ref는 의미 동일성의 판정으로 사용하지 않고 보수적인 연속 표시 제약으로만 소비한다. 원문·qualifier scope·unresolved·detail links를 보존하고 문장 재작성/접기는 추가하지 않았다. accepted B의 독립 owner 및 retained bytes를 C stage/ZIP과 결속한다. C의 public facade는 유지하며 product fault/unsupported locale에서 predecessor·다른 locale로 돌아가지 않는다.
+
+C 상태는 **implemented_only**다. 마지막 required product node는 exit 0 (`1 passed in 100.05s`), actual PZ Menu 관찰은 `unvalidated_but_in_scope`다. current activation/strict finalization/release는 미수행이다. [C 실행 결과](iris_dvf_expanded_menu_structuring_common_candidate_recovery_closeout.md)가 exact candidate·검사·관찰 인계를 소유한다. 현재 required-validation 안내 경로는 `Iris/validation/execution/required_validations.json`이며 앞선 historical/current_route locator 기록을 소급 수정하지 않는다.

@@ -163,3 +163,15 @@ Iris/_docs/authority/dvf/layer3_expression/successors/r6/semantic.json filter=lf
 Iris/_docs/authority/dvf/layer3_expression/successors/r6/acquisition.json filter=lfs diff=lfs merge=lfs -text
 Iris/_docs/authority/dvf/layer3_expression/successors/r6/audit.json filter=lfs diff=lfs merge=lfs -text
 Iris/_docs/authority/dvf/layer3_expression/successors/r6/descriptions.json filter=lfs diff=lfs merge=lfs -text
+
+# Preserve the bytes used by the shared description/product input contracts.
+Iris/build/description/composition/** -text
+Iris/tooling/src/iris_tooling/domains/layer3/*.py -text
+Iris/tooling/src/iris_tooling/domains/tooltip_t1/s2_candidate.py -text
+Iris/media/lua/client/Iris/** -text
+Iris/build/description/v2/tests/test_layer3*.py -text
+Iris/test/lua/detail_view_model_locale_harness.lua -text
+Iris/tooling/tests/test_tooltip_t2_projection.py -text
+Iris/tools/Layer3PackageProjection.psm1 -text
+docs/review/structure/items.json filter=lfs diff=lfs merge=lfs -text
+docs/review/uses/items.json filter=lfs diff=lfs merge=lfs -text

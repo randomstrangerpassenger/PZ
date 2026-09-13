@@ -1186,3 +1186,26 @@ Problem 3 수락 당시 후속 범위는 새 corpus와 B의 기존 r6 S2 공급 
 - [ ] C 준비 이후 별도 실행 범위에서 current 공동 활성화. 일반 strict production finalization·release도 B 후보 수락과 구분.
 
 구현 당시 implemented_only/PZ 대기와 이전 r6 후보 기록은 이력이다. 추가 confidence 검사나 새 검증 산출물은 남은 작업이 아니다. 추후 overflow·누락·가독성·S4 문제가 실제로 확인되면 해당 원인으로 재개하며 `fit_failed`를 정상 표시로 수락하지 않는다. 정확한 후보·명령·실패/재실행 이력과 사용자 수락은 [closeout](iris_tooltip_supply_closeout.md)을 따른다.
+
+### Iris C expanded Menu 후보 — implemented_only (2026-09-11)
+
+- [x] 동일 canonical corpus의 expanded/relations/detail links를 deterministic ordered units로 투영.
+- [x] Browser Detail/우클릭 Wiki 연결, normal absent/fault 구분, accepted B 보존 및 동일 corpus 후보 패키징.
+- [x] 기존 required product node의 최종 전체 실행 exit 0 (`1 passed in 100.05s`), actual ZIP pointer/lookup 및 후보 복구 확인.
+- [ ] 같은 exact ZIP의 KO/EN 실제 PZ Menu·B 공존 관찰. `unvalidated_but_in_scope` 유지.
+
+[C 실행 결과](iris_dvf_expanded_menu_structuring_common_candidate_recovery_closeout.md)의 ZIP을 인계한다. 위 이전 시점의 C 연결 미완료는 이 후보 구현으로 갱신되며 current 공동 활성화·strict production finalization·release는 별도 범위다.
+
+## 2026-09-12 player-use successor — implemented_only
+
+공통 공개 용도 계획, 기존 source owner의 제한적 보완, 2,105개 KO/EN compact/expanded 전수 자체 검토와 동일 corpus 새 B→C 후보 연결을 완료했다. 설명은 각 표면 1,981 present / 124 absent이며 근거 부족은 별도 기록했다. 기존 블록 검사 결과와 수정 후 설명/B/C 자동 검사를 사용했다. 실제 PZ 표시 관찰은 unvalidated_but_in_scope이며 live/current·release는 전환하지 않았다. 최종 공통 후보는 `.tmp/menu/run-7ztpp37i/p/Iris.zip` (SHA256 `db2174e72e5acc50db8651c538343e6adc432950015d04d44b4da5c7145a9796`)이다. 정확한 명령/실패·수정/입력·B owner와 남은 관찰 범위는 [전환 결과](iris_dvf_use_description_report.md)의 마지막 closeout을 따른다. 과거 수락 기록은 역사적 subject로 유지한다.
+
+## 2026-09-12 의미 판정 재개 — partial
+
+후속 실제 원문 검토에서 공통 점화 frame의 내부 지원 문구, 도구 설명의 수행 요건 나열, 음식 미끼의 추상적 주어, 차량 부품 목적의 미확정 문제가 확인되었다. 위 ‘잔여 표현 결함 0 / 실제 PZ만 남음’ 판단을 철회한다. ledger의 읽기 이력과 자동 검사 결과는 보존하지만 의미 적합성 수락으로 사용하지 않는다. 기존 ffde6886... corpus와 run-7ztpp37i C ZIP은 당시 자동 검사 통과 후보이며 의미 품질 승인 후보가 아니다. 공통 규칙과 같은 의미/조합 범위를 교정하고 재판정할 때까지 partial이다.
+
+## 2026-09-12 공통 목적군 교정 후 후보
+
+재개 시 확인된 점화 주체·음식 미끼·복합 도구 목적군·중복 수행 요건을 공통 규칙으로 교정하고 실제 영향 범위를 재판정했다. 42개 차량 부품의 구체 기능 부족은 개별 purpose_unresolved로 기록한다. 포괄적인 결함 0 선언을 복원하거나 자동 검사 성공을 의미 품질 승인으로 사용하지 않는다. 누적 전수 자체 읽기/변경 범위 재판정의 상세와 한계는 `iris_dvf_use_description_report.md`의 최신 절 및 `review/uses/items.json`에 있다.
+
+현재는 **implemented_only**: corpus `2301a4a4b8d24a28447ea53e3e47dd7143b362fb9e3b3b2531cf3152e4491e30`, B `.tmp/tooltip/run-cr4yy73j/s/.tmp/package/Iris.zip`, C `.tmp/menu/run-5b363prk/p/Iris.zip`(SHA256 `a55538e4cdaf47c771258a2c75d33dce0f93ba66cc524eb465873d1fa0086080`). 마지막 설명/B 묶음 exit 0(2 passed, 91.80s), 같은 B를 받은 C exit 0(1 passed, 72.08s). 실제 PZ는 미관찰이고 complete/독립 품질 승인/live 전환이 아니다. 과거 ffde 후보는 역사적 자동 검사 결과로만 남긴다.

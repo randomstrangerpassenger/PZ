@@ -123,6 +123,28 @@ local function layer3Payload(fullType, locale)
     if not ok or not renderer or not renderer.getText or not fullType then
         return { available=false, adoptionState="unavailable", publishState=nil, raw=nil, display=nil }
     end
+    if renderer.getDisplay then
+        local success, payload = ProtectedCall.data(function()
+            return renderer.getDisplay(fullType, {locale=locale})
+        end)
+        if not success then
+            return {available=false, state="fault", reason="display_lookup_failed", adoptionState="fault"}
+        end
+        if payload then
+            local units, texts = {}, {}
+            if payload.state == "present" then
+                for i, unit in ipairs(payload.units) do
+                    units[i] = readonly({text=unit.text, firstSegment=unit.first_segment, lastSegment=unit.last_segment})
+                    texts[i] = unit.text
+                end
+            end
+            return {available=payload.state == "present", state=payload.state, reason=payload.reason,
+                adoptionState=payload.state, publishState="public", productId=payload.productId,
+                raw=payload.state == "present" and payload.text or nil,
+                display=#texts > 0 and table.concat(texts, "\n\n") or nil,
+                units=readonlyArray(units), unitCount=#units}
+        end
+    end
     local publishState = renderer.getPublishState and renderer.getPublishState(fullType) or nil
     local callOk, raw = ProtectedCall.data(function()
         return renderer.getText(fullType, { locale=locale })
@@ -236,7 +258,7 @@ function Assembler.fromItem(item)
         evolvedRecipes = #(evolvedRecipeState.relations or {}) > 0,
         capabilities = #capabilities > 0,
     }
-    values.revision = tostring(fullType) .. "|" .. tostring(locale)
+    values.revision = tostring(fullType) .. "|" .. tostring(locale) .. "|" .. tostring(layer3.productId or "legacy")
 
     values.tags = readonlyArray(values.tags)
     for _, group in ipairs({ "food", "weapon", "literature", "moveable" }) do

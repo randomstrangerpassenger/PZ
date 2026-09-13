@@ -287,8 +287,14 @@ function IrisBrowserDetail.install(IrisBrowser, context)
         end
 
         if IrisWikiSections and IrisWikiSections.renderLayer3Section then
-            local layer3Text = IrisWikiSections.renderLayer3Section(model)
-            yOffset = addSeparatedMultilineSection(self.detailPanel, layer3Text, yOffset, 0.92, 0.92, 0.92)
+            local units = IrisWikiSections.getLayer3Units(model)
+            for index, text in ipairs(units) do
+                yOffset = yOffset + 7
+                addMultilineLabels(self.detailPanel, "•", 10, yOffset, 18,
+                    0.92, 0.92, 0.92, UIFont.Medium)
+                yOffset = addMultilineLabels(self.detailPanel, text, 25, yOffset, 18,
+                    0.92, 0.92, 0.92, UIFont.Medium)
+            end
         end
 
         if IrisWikiSections and IrisWikiSections.renderLiteratureSection then
@@ -322,6 +328,9 @@ function IrisBrowserDetail.install(IrisBrowser, context)
 
     function IrisBrowser:showDetail(fullType, forceRebuild)
         local locale = TranslationResolver.getLangKey("EN")
+        if self.detailBuiltFullType ~= fullType or self.detailBuiltLocale ~= locale then
+            self.detailScrollY = 0
+        end
         local IrisBrowserData = BrowserBase.getBrowserData(context)
         local buildState = IrisBrowserData and IrisBrowserData.getBuildState and
             IrisBrowserData.getBuildState() or {generation = 0}

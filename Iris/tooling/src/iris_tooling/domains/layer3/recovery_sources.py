@@ -4543,3 +4543,186 @@ def extend(base, builder):
                     function(tool, kind, CAN_OPENING, 'package_opening', [declaration(tool), *evidence])
                     builder.activity(tool, 'package_opening', 'tool', [declaration(tool), *evidence],
                                      'package_opening', ['activity:crafting'], CAN_OPENING)
+
+
+EQUIPPED_RAIN_USE = 'The item declares equipped rain protection and is held in either hand. Outdoor foraging reduces the precipitation contribution when the held item reports rain protection; fog, snow and cloud effects remain separate.'
+
+
+
+# These are explicitly authored vanilla purposes, linked by the declaration's
+# Tooltip property. They do not infer effects from a drug name or numeric sign.
+MEDICINE_PURPOSES = {
+    'Tooltip_Painkillers': ('Reduce feelings of pain', 'use_pain_relief_medicine',
+        '통증 완화에 쓰는 약이다', 'It is medicine for pain relief'),
+    'Tooltip_PillsAntidepressant': ('Reduces unhappiness over sustained periods', 'use_unhappiness_medicine',
+        '시간을 두고 불행을 줄이는 데 쓰는 약이다', 'It is medicine for reducing unhappiness over time'),
+    'Tooltip_PillsBetablocker': ('Reduces panic', 'use_panic_relief_medicine',
+        '공포를 줄이는 데 쓰는 약이다', 'It is medicine for reducing panic'),
+    'Tooltip_PillsSleeping': ('Helps in getting to sleep. Useful when anxious or in pain.', 'use_sleep_aid_medicine',
+        '불안하거나 아플 때 잠드는 데 도움을 주는 약이다', 'It is medicine that helps with getting to sleep when anxious or in pain'),
+    'Tooltip_Vitamins': ('Provides a burst of energy when taken. Reduces fatigue.', 'use_fatigue_relief_medicine',
+        '피로를 줄이는 데 쓰는 약이다', 'It is medicine for reducing fatigue'),
+    'Tooltip_Antibiotics': ('Fights wound infections. Cannot prevent zombification.', 'use_wound_infection_medicine',
+        '상처 감염에 대응하는 약이다. 좀비화는 막지 못한다', 'It is medicine for fighting wound infections. It cannot prevent zombification'),
+}
+FUNCTIONS.update({function: ('medicine', ko, en) for _, function, ko, en in MEDICINE_PURPOSES.values()})
+GENERATOR_EXTERIOR_USE = 'The sandbox option allowing generators to work on exterior tiles must be enabled for the represented exterior fuel-pump power use. This admits the authored exterior/pump purpose only, not a supply radius or unconditional power to every device.'
+FUNCTIONS['power_exterior_fuel_pumps'] = ('power supply', '가동해 야외 주유기에 전원을 공급하는 데 쓸 수 있다', 'It can be operated to supply power to exterior fuel pumps')
+
+
+def supplement_player_uses(root, semantic):
+    """Bounded successor correction over admitted declarations, not r6 reissue.
+
+    The positive declaration supports the equipped protection capability, not
+    a promise of complete dryness. The supplied Lua foraging accessor consumer
+    additionally establishes a concrete use without inventing native wetness
+    amounts or demanding a new runtime proof of the declared capability.
+    """
+    import hashlib
+    from . import semantic_results as owner
+    from . import source_reader as reader
+
+    by_item = {}
+    for ref, observation in semantic['observations'].items():
+        content = observation.get('content', {})
+        if not isinstance(content, dict) or not content.get('raw', '').lstrip().startswith('item '):
+            continue
+        item = observation['locator'].rsplit(':', 1)[-1]
+        if item not in semantic['target_ids']:
+            continue
+        by_item.setdefault(item, []).append((ref, observation))
+    selected, medicines, generators = [], [], []
+    consumption = {f['item_id'] for f in semantic.get('facts', []) if f['fact_kind'] == 'direct_function'
+                   and f['payload'].get('function') in {'take_pills', 'take_food_medicine'}}
+    generator_subjects = {f['item_id'] for f in semantic.get('facts', []) if f['fact_kind'] == 'direct_function'
+                          and f['payload'].get('function') == 'control_installed_generator'}
+    for item, declarations in sorted(by_item.items()):
+        # Multiple observations of identical declaration bytes are harmless;
+        # conflicting declarations or property values are not resolved here.
+        if any(o['content'].get('property_conflicts') for _, o in declarations):
+            continue
+        # Existing owners use both :item:FullType and :FullType locators and
+        # preserve different newline conventions for the same source span.
+        unique = {(o['source_path'], o['source_sha256'], o['locator'].split(':', 1)[0],
+                   o['content']['raw'].replace('\r\n', '\n')): (ref, o)
+                  for ref, o in declarations}
+        if len(unique) != 1:
+            continue
+        ref, observation = next(iter(unique.values()))
+        content = observation['content']
+        props = reader.properties({'clauses': content.get('clauses', [])}, '=')
+        if item in generator_subjects:
+            generators.append((item, ref, observation))
+        tooltip = props.get('Tooltip', [])
+        if (len(tooltip) == 1 and tooltip[0] in MEDICINE_PURPOSES and props.get('Medical') == ['TRUE']
+                and props.get('Type') in (['Drainable'], ['Food']) and item in consumption):
+            medicines.append((item, ref, observation, tooltip[0]))
+        if content.get('property_conflicts') or props.get('ProtectFromRainWhenEquipped') != ['TRUE']:
+            continue
+        selected.append((item, ref, observation))
+
+    paths = ('lua/shared/Foraging/forageSystem.lua', 'lua/client/Foraging/ISSearchManager.lua')
+    raw = {path: (root / path).read_bytes() for path in paths}
+    texts = {path: data.decode('utf-8-sig') for path, data in raw.items()}
+    body = texts[paths[0]].split('function forageSystem.getWeatherPenalty(_character, _square)', 1)
+    if len(body) != 2:
+        raise ValueError('rain-use source function unavailable')
+    body = body[1].split('\nfunction ', 1)[0]
+    required = ('if not _square:isOutside() then return 1; end;',
+        '_character:getPrimaryHandItem()', '_character:getSecondaryHandItem()',
+        'primaryItem:isProtectFromRainWhileEquipped()', 'secondaryItem:isProtectFromRainWhileEquipped()',
+        'if umbrellaPrimary or umbrellaSecondary then', 'rainLevel = rainLevel * 0.1;',
+        'weatherPenalty = rainLevel + fogLevel;', 'return 1 - (weatherPenalty * effectReduction);')
+    if not all(text in body for text in required) or 'forageSystem.getWeatherPenalty(character, self.square)' not in texts[paths[1]]:
+        raise ValueError('rain-use consumer no longer matches the reviewed rule')
+    source_hashes = {path: hashlib.sha256(data).hexdigest() for path, data in raw.items()}
+    source_hashes.update({o['source_path']: o['source_sha256'] for _, _, o in selected})
+    builder = owner.Builder(source_hashes)
+    rule = 'equipped_rain_use'
+    caller = texts[paths[1]].split('function ISSearchManager:updateModifiers()', 1)[1].split('\nfunction ', 1)[0]
+    refs = [builder.observe(paths[0], paths[0] + ':getWeatherPenalty', {'source_text': body}),
+            builder.observe(paths[1], paths[1] + ':updateModifiers', {'source_text': caller})]
+    for item, ref, observation in selected:
+        builder.observations[ref] = observation
+        evidence = [ref, *refs]
+        protection = builder.fact(item, 'direct_function', {'function': 'provide_equipped_rain_protection'},
+                                  evidence, rule, ['activity:equipment'])
+        foraging = builder.fact(item, 'direct_function', {'function': 'reduce_foraging_rain_effect'},
+                                evidence, rule, ['activity:foraging'])
+        builder.fact(item, 'condition', {'predicate': EQUIPPED_RAIN_USE}, evidence, rule,
+                     ['activity:equipment', 'activity:foraging'], applies_to_fact_refs=[protection, foraging])
+    medicine_rule = 'declared_medicine_purpose'
+    if medicines:
+        tooltip_path = 'lua/shared/Translate/EN/Tooltip_EN.txt'
+        tooltip_raw = (root / tooltip_path).read_bytes()
+        tooltip_text = tooltip_raw.decode('utf-8-sig')
+        source_hashes[tooltip_path] = hashlib.sha256(tooltip_raw).hexdigest()
+        # Builder retains the shared source binding dictionary.
+        for item, ref, observation, key in medicines:
+            expected, function, _, _ = MEDICINE_PURPOSES[key]
+            readings = re.findall(r'^\s*' + re.escape(key) + r'\s*=\s*"([^"\r\n]*)"\s*,?\s*$', tooltip_text, re.M)
+            if readings != [expected]:
+                raise ValueError('medicine purpose text no longer matches the reviewed rule: ' + key)
+            source_hashes[observation['source_path']] = observation['source_sha256']
+            builder.observations[ref] = observation
+            label = builder.observe(tooltip_path, key, {'tooltip_key': key, 'purpose_text': expected})
+            dispatch = [f for f in semantic['facts'] if f['item_id'] == item and f['fact_kind'] == 'direct_function'
+                        and f['payload'].get('function') in {'take_pills', 'take_food_medicine'}]
+            dispatch_refs = sorted({r for f in dispatch for p in f['provenance_refs']
+                                    for r in semantic['provenance'][p]['observation_refs']})
+            for dispatch_ref in dispatch_refs:
+                observed = semantic['observations'][dispatch_ref]
+                source_hashes[observed['source_path']] = observed['source_sha256']
+                builder.observations[dispatch_ref] = observed
+            builder.fact(item, 'direct_function', {'function': function}, [ref, label, *dispatch_refs],
+                         medicine_rule, ['item:direct'])
+    generator_rule = 'declared_exterior_generator_use'
+    if generators:
+        setting_path = 'lua/shared/Translate/EN/Sandbox_EN.txt'
+        menu_path = 'lua/client/ISUI/ISWorldObjectContextMenu.lua'
+        setting_raw, menu_raw = (root / setting_path).read_bytes(), (root / menu_path).read_bytes()
+        setting_text, menu_text = setting_raw.decode('utf-8-sig'), menu_raw.decode('utf-8-sig')
+        setting_key = 'Sandbox_AllowExteriorGenerator_tooltip'
+        purpose = 'If enabled, generators will work on exterior tiles, allowing for example to power gas pump.'
+        guard = 'if haveFuel and ((SandboxVars.AllowExteriorGenerator and haveFuel:getSquare():haveElectricity()) or (SandboxVars.ElecShutModifier > -1 and GameTime:getInstance():getNightsSurvived() < SandboxVars.ElecShutModifier)) then'
+        if (re.findall(r'^\s*' + setting_key + r'\s*=\s*"([^"\r\n]*)"\s*,?\s*$', setting_text, re.M) != [purpose]
+                or guard not in menu_text or 'ISWorldObjectContextMenu.doFillFuelMenu(haveFuel, player, context);' not in menu_text):
+            raise ValueError('exterior generator purpose or fuel-pump consumer changed')
+        source_hashes[setting_path] = hashlib.sha256(setting_raw).hexdigest()
+        source_hashes[menu_path] = hashlib.sha256(menu_raw).hexdigest()
+        setting_ref = builder.observe(setting_path, setting_key, {'purpose_text': purpose})
+        menu_ref = builder.observe(menu_path, 'take fuel: exterior generator guard',
+                                   {'source_text': guard, 'consumer': 'ISWorldObjectContextMenu.doFillFuelMenu(haveFuel, player, context);'})
+        for item, ref, observation in generators:
+            source_hashes[observation['source_path']] = observation['source_sha256']
+            builder.observations[ref] = observation
+            admitted = [f for f in semantic['facts'] if f['item_id'] == item and f['fact_kind'] == 'direct_function'
+                        and f['payload'].get('function') == 'control_installed_generator']
+            controls = sorted({r for f in admitted for p in f['provenance_refs'] for r in semantic['provenance'][p]['observation_refs']})
+            for control in controls:
+                observed = semantic['observations'][control]
+                source_hashes[observed['source_path']] = observed['source_sha256']
+                builder.observations[control] = observed
+            evidence = [ref, setting_ref, menu_ref, *controls]
+            fid = builder.fact(item, 'direct_function', {'function': 'power_exterior_fuel_pumps'}, evidence,
+                               generator_rule, ['item:direct'])
+            builder.fact(item, 'condition', {'predicate': GENERATOR_EXTERIOR_USE}, evidence,
+                         generator_rule, ['item:direct'], applies_to_fact_refs=[fid])
+    path = 'Iris/tooling/src/iris_tooling/domains/layer3/recovery_sources.py'
+    return {'owner': path, 'producer_sha256': hashlib.sha256((root / path).read_bytes()).hexdigest(),
+        'basis': 'successor correction; predecessor semantic payload and adoption remain unchanged',
+        'rules': {rule: {'revision': '1', 'review_state': 'reviewed',
+            'preconditions': 'Unique admitted declaration with ProtectFromRainWhenEquipped=TRUE; active held-item accessor consumer in outdoor foraging.',
+            'transformation': 'Equipped rain-protection capability and reduced precipitation contribution in outdoor foraging.',
+            'exceptions': 'No complete dryness, native wetness amount, sprint behavior, reduced fog/snow/cloud effect, or guarantee of improved total foraging results.'},
+            medicine_rule: {'revision': '1', 'review_state': 'reviewed',
+                'preconditions': 'Unique admitted Medical declaration links an exact reviewed vanilla EN Tooltip purpose; admitted consumption dispatch exists.',
+                'transformation': 'Expose the explicitly authored medicinal purpose, including sustained unhappiness relief, sleep context and the antibiotic zombification exclusion.',
+                'exceptions': 'Not inferred from item names, FatigueChange sign or ReduceInfectionPower magnitude. No new dose, exact onset/duration, engine calculation or guaranteed cure claim.'},
+            generator_rule: {'revision': '1', 'review_state': 'reviewed',
+                'preconditions': 'Unique admitted generator declaration/control joins the explicit exterior-generator sandbox description and active fuel-pump power guard.',
+                'transformation': 'Conditional exterior fuel-pump power purpose, with the exterior-generator setting retained.',
+                'exceptions': 'No general indoor/all-device power claim, range, exact efficiency, native power calculation or guarantee of a particular pump being supplied.'}},
+        'source_bindings': [{'path': p, 'sha256': h} for p, h in sorted(source_hashes.items())],
+        'observations': builder.observations, 'provenance': builder.provenance,
+        'facts': [builder.facts[f] for f in sorted(builder.facts)]}

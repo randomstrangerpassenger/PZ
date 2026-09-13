@@ -16,6 +16,7 @@ import zipfile
 from .product_projection import (
     BINDING, DATA_ROOT, GENERATIONS, POINTER, SCHEMA, canonical, digest, local,
     require, table_bytes, new_output,
+    MENU_SCHEMA, DESCRIPTION, BLOCKS, accepted_tooltip,
 )
 
 COMPAT = '''-- Derived compatibility view; the common pointer is the only switch.
@@ -40,7 +41,7 @@ return {
 '''.replace("%%", "%")
 
 
-def facades(product_id):
+def facades(product_id, schema=SCHEMA):
     pointer = ('return {\n    schema_version = "iris_layer3_product_pointer_v1",\n    product_id = "' + product_id +
                '",\n    descriptor_module = "Iris/Data/' + GENERATIONS + '/' + product_id + '/Descriptor",\n}\n').encode()
     result = {POINTER: pointer, "IrisLayer3DataCurrent.lua": COMPAT.encode(),
@@ -59,6 +60,14 @@ end
 IrisLayer3Data = result
 return result
 '''}
+    if schema == MENU_SCHEMA:
+        compat = COMPAT.replace('descriptor.schema_version == "iris-layer3-product-v1"',
+                                'descriptor.schema_version == "iris-layer3-product-v2"')
+        compat = compat.replace(' and descriptor.tooltip_module == prefix .. "Tooltip" and descriptor.recipe_module == prefix .. "Recipe"', '')
+        compat = compat.replace('schema_version = "iris_layer3_product_compat_v1",',
+                                'schema_version = "iris_layer3_product_compat_v1", display_schema = "iris_expanded_display_v1",')
+        result["IrisLayer3DataCurrent.lua"] = compat.encode()
+        return result
     for file, member in (("IrisTooltipStaticData.lua", "tooltip"), ("IrisTooltipRecipeVariants.lua", "recipe")):
         result[file] = ('''local current = require("Iris/Data/IrisLayer3DataCurrent")
 local component = require(current.%s_module)
@@ -75,11 +84,17 @@ def admit(candidate: Path):
     manifest = json.loads(raw)
     require(canonical(manifest) == raw, "noncanonical product manifest")
     product_id = manifest["product_id"]
-    require(manifest["schema_version"] == SCHEMA and re.fullmatch(r"l3p-[0-9a-f]{64}", product_id)
-            and manifest["identity"]["expression"] == BINDING
+    is_menu = manifest["schema_version"] == MENU_SCHEMA
+    require(manifest["schema_version"] in {SCHEMA, MENU_SCHEMA} and re.fullmatch(r"l3p-[0-9a-f]{64}", product_id)
+            and (manifest["identity"].get("description") == DESCRIPTION and manifest["identity"].get("blocks") == BLOCKS
+                 if is_menu else manifest["identity"].get("expression") == BINDING)
             and product_id == "l3p-" + digest(canonical(manifest["identity"])), "product identity mismatch")
     expected = {"Index.lua", "Tooltip.lua", "Recipe.lua", "Descriptor.lua",
                 *("Chunks/Chunk%03d.lua" % n for n in range(1, 12))}
+    if is_menu:
+        expected -= {"Tooltip.lua", "Recipe.lua"}
+        require(manifest["b_preserved"] == manifest["identity"]["b_preserved"]
+                and manifest["shared_changes"] == manifest["identity"]["shared_changes"], "B preservation binding mismatch")
     require(set(manifest["members"]) == expected, "missing/unknown product member")
     actual = {p.relative_to(candidate).as_posix() for p in candidate.rglob("*") if p.is_file()}
     require(actual == expected | {"product_manifest.json"}, "candidate inventory mismatch")
@@ -101,12 +116,16 @@ def runtime_overlay(candidate):
     files = {prefix + name: local(candidate, name).read_bytes() for name in manifest["members"]}
     # Packaging descriptor contains binding and member hashes, never Menu
     # fact/dependency maps. Lua only reads Descriptor.lua.
-    descriptor = {"schema_version": SCHEMA, "product_id": product_id,
+    schema = manifest["schema_version"]
+    descriptor = {"schema_version": schema, "product_id": product_id,
                   "identity": manifest["identity"], "members": manifest["members"],
                   "menu_keys": sorted(manifest["menu"]),
-                  "facades": {name: digest(raw) for name, raw in facades(product_id).items()}}
+                  "facades": {name: digest(raw) for name, raw in facades(product_id, schema).items()}}
+    if schema == MENU_SCHEMA:
+        descriptor["b_preserved"] = manifest["b_preserved"]
+        descriptor["identity_json"] = canonical(manifest["identity"]).decode("utf-8")
     files[prefix + "product_descriptor.json"] = canonical(descriptor)
-    files.update(facades(product_id))
+    files.update(facades(product_id, schema))
     return files
 
 
@@ -115,6 +134,11 @@ def stage(root, candidate, output):
     root, output = root.resolve(), output.resolve()
     new_output(root, output)
     manifest = admit(candidate)
+    for name in ("IrisLayer3Product.lock", "IrisTooltip.lock"):
+        require(not local(root, (DATA_ROOT / name).as_posix()).exists(), "product writer locked")
+    if manifest["schema_version"] == MENU_SCHEMA:
+        require(output.is_relative_to(root / ".tmp/menu"), "Menu stage must stay in repository .tmp/menu")
+        accepted, _ = accepted_tooltip(root, manifest['identity'].get('tooltip_input'), manifest['identity']['description'])
     # Reject source drift since the single product invocation; staging cannot
     # silently substitute a newer runtime or owner for the observed candidate.
     for ref in manifest["identity"]["owners"] + manifest["identity"]["producer"]:
@@ -138,6 +162,16 @@ def stage(root, candidate, output):
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(local(root, "Iris/tools/" + name), target)
     data_root = output / DATA_ROOT
+    if manifest["schema_version"] == MENU_SCHEMA:
+        for name, sha in manifest["b_preserved"].items():
+            require(name in accepted and digest(accepted[name]) == sha, "B admission mismatch")
+            target = local(output, name)
+            # Unclassified source drift cannot be hidden by overlaying B bytes.
+            if target.exists() and name not in {(DATA_ROOT / n).as_posix() for n in
+                    ("IrisTooltipStaticData.lua", "IrisTooltipRecipeVariants.lua", "IrisTooltipOwner.json")}:
+                require(target.read_bytes() == accepted[name], "unclassified B runtime drift: " + name)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(accepted[name])
     for name, raw in runtime_overlay(candidate).items():
         target = local(data_root, name)
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -151,7 +185,59 @@ def stage(root, candidate, output):
               "source_digest": digest(("\n".join(identity_rows) + "\n").encode()),
               "layer3_entry_count": 2105, "usecase_entry_count": 1631, "line_count_entry_count": 1631}
     (data_root / "IrisRuntimeLookupPackageIdentity.json").write_bytes(canonical(lookup))
+    if manifest["schema_version"] == MENU_SCHEMA:
+        for name, sha in manifest["b_preserved"].items():
+            require(local(output, name).read_bytes() == accepted[name], "stage B byte mismatch: " + name)
     return manifest["product_id"]
+
+
+def restore_candidate(root, candidate, source, journal, *, interrupt_after=None):
+    """Recover a candidate overlay in place; never authorize live promotion.
+
+    Uses the existing journal/lock protocol for interrupted candidate repair.
+    The exact B owner stays present throughout; promote's owner guard remains.
+    """
+    root, source, journal = root.resolve(), source.resolve(), journal.resolve()
+    require(source.is_relative_to(root / ".tmp/menu") and journal.is_relative_to(source / ".tmp"),
+            "candidate recovery must remain inside Menu stage")
+    manifest = admit(candidate)
+    require(manifest["schema_version"] == MENU_SCHEMA, "candidate schema required")
+    accepted, _ = accepted_tooltip(root)
+    files = {(DATA_ROOT / n).as_posix(): raw for n, raw in runtime_overlay(candidate).items()}
+    files.update({n: accepted[n] for n in manifest["b_preserved"]})
+    lock = local(source, (DATA_ROOT / "IrisLayer3Product.lock").as_posix())
+    require(not lock.exists(), "product writer locked")
+    require(not journal.exists(), "journal already used")
+    if all(local(source, n).exists() and local(source, n).read_bytes() == raw for n, raw in files.items()):
+        return "no_op"
+    journal.mkdir(parents=True)
+    with lock.open("xb") as stream:
+        stream.write(canonical({"product_id": manifest["product_id"], "journal": str(journal)}))
+    members = []
+    for i, (name, raw) in enumerate(sorted(files.items())):
+        target = local(source, name)
+        before = target.read_bytes() if target.exists() else None
+        if before is not None:
+            backup = journal / "b" / str(i)
+            backup.parent.mkdir(exist_ok=True)
+            backup.write_bytes(before)
+        members.append({"path": name, "before": digest(before) if before is not None else None, "after": digest(raw)})
+    state = {"state": "prepared", "repository": str(source), "product_id": manifest["product_id"], "members": members}
+    atomic_write(journal / "transaction.json", canonical(state))
+    try:
+        for i, member in enumerate(members):
+            target = local(source, member["path"])
+            require((digest(target.read_bytes()) if target.exists() else None) == member["before"], "concurrent candidate writer")
+            atomic_write(target, files[member["path"]])
+            if i == interrupt_after:
+                raise InterruptedError("candidate repair interrupted")
+        state["state"] = "complete"
+        atomic_write(journal / "transaction.json", canonical(state))
+        lock.unlink()
+        return "complete"
+    except Exception:
+        recover(source, journal)
+        raise
 
 
 def atomic_write(path, raw):

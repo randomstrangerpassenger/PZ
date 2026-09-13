@@ -123,8 +123,20 @@ def test_layer3_composition_contract():
     # Full adopted input is loaded once. The same in-memory source proves exact
     # fact disposition and the durable result is read back once for Problem 2.
     loaded, composed = results.produce(REPO)
-    semantic_payload = loaded["payloads"]["semantic"]
+    semantic_payload = loaded["composition_semantic"]
     acquisition_payload = loaded["payloads"]["acquisition"]
+    # The immutable r6 payload remains the predecessor. The existing recovery
+    # owner supplies a separately identified, bounded successor fact delta.
+    predecessor_refs = {f['fact_id'] for f in loaded['payloads']['semantic']['facts']}
+    correction = composed['source']['semantic_correction']
+    corrected_refs = {f['fact_id'] for f in correction['facts']}
+    assert not predecessor_refs & corrected_refs
+    assert {f['fact_id'] for f in semantic_payload['facts']} == predecessor_refs | corrected_refs
+    assert {f['item_id'] for f in correction['facts']} == {
+        'Base.UmbrellaBlack', 'Base.UmbrellaBlue', 'Base.UmbrellaRed', 'Base.UmbrellaWhite',
+        'Base.Pills', 'Base.PillsAntiDep', 'Base.PillsBeta', 'Base.PillsSleepingTablets',
+        'Base.PillsVitamins', 'Base.Antibiotics', 'Base.Generator'}
+    assert len(corrected_refs) == 20
     expected = {fact["fact_id"]: fact["item_id"]
                 for payload in (semantic_payload, acquisition_payload) for fact in payload["facts"]}
     represented = {}
@@ -146,6 +158,52 @@ def test_layer3_composition_contract():
         "equivalent", "refinement", "context_variant", "alternative"}
 
     by_item = {item["item_id"]: item for item in composed["items"]}
+    for item in composed['items']:
+        for relation in item.get('use_relations', []):
+            assert set(relation['fact_refs']) <= expected.keys()
+            assert set(relation['observation_refs']) <= semantic_payload['observations'].keys()
+            assert all(':' not in tool['item_id'] for g in relation['tools'] for tool in g['items'])
+    corn = by_item['Base.CannedCorn']['use_relations'][0]
+    assert corn['results'][0]['item_id'] == 'Base.CannedCornOpen'
+    assert corn['results'][0]['names']['ko'] == '옥수수'
+    assert corn['tools'][0]['items'][0]['item_id'] == 'Base.TinOpener'
+    assert corn['result_consumption']['fact']['item_id'] == 'Base.CannedCornOpen'
+    assert corn['result_consumption']['fact']['payload'] == {'function': 'eat_food'}
+    invalid = deepcopy(composed)
+    next(i for i in invalid['items'] if i['item_id'] == 'Base.CannedCorn')['use_relations'][0]['result_consumption']['fact']['item_id'] = 'Base.CannedCarrotsOpen'
+    with pytest.raises(model.CompositionError, match='exact target fact'):
+        model.validate_result(invalid)
+    drinking = by_item['Base.TinnedSoup']['use_relations'][0]['result_consumption']
+    assert drinking['fact']['payload'] == {'function': 'drink_food_contents'}
+    assert drinking['qualifiers']
+    invalid = deepcopy(composed)
+    next(i for i in invalid['items'] if i['item_id'] == 'Base.TinnedSoup')['use_relations'][0]['result_consumption']['qualifiers'] = []
+    with pytest.raises(model.CompositionError, match='scope drift'):
+        model.validate_result(invalid)
+    soup = by_item['Base.CannedMushroomSoup']['use_relations'][0]['results'][0]
+    assert soup['names']['en'] == 'Mushroom Soup' and soup['names']['ko'] == '버섯스프'
+    from iris_tooling.domains.layer3 import recovery_sources
+    rejected = {'target_ids': ['Base.UmbrellaBlack'], 'observations': {}}
+    declaration = next(o for o in correction['observations'].values()
+        if o.get('content', {}).get('raw', '').lstrip().startswith('item UmbrellaBlack'))
+    changed = deepcopy(declaration)
+    # Property conflicts are never resolved by selecting a first declaration.
+    changed['content']['property_conflicts'] = {'ProtectFromRainWhenEquipped': ['TRUE', 'FALSE']}
+    rejected['observations']['obs:conflicting'] = changed
+    assert recovery_sources.supplement_player_uses(REPO, rejected)['facts'] == []
+    assert by_item['Base.CannedSardines']['use_relations'][0]['tools'] == []
+    assert by_item['Base.223Box']['use_relations'][0]['tools'] == []
+    frog = by_item['Base.Frog']['use_relations'][0]
+    assert len(frog['tools']) == 1 and len(frog['tools'][0]['items']) == 5
+    assert frog['result_use'] is None
+    remote = by_item['Base.Remote']['use_relations'][0]
+    assert {(r['item_id'], r['kind']) for r in remote['results']} == {
+        ('Base.Receiver', 'declared'), ('Base.ElectronicsScrap', 'callback_unconditional'),
+        ('Base.Battery', 'callback_conditional')}
+    assert by_item['Base.BrokenFishingNet']['use_relations'] == []
+    onion = by_item['Base.SackProduce_Onion']['use_relations'][0]
+    assert onion['results'][0]['names']['ko'] == '양파' and onion['result_use'] is None
+    assert by_item['farming.CarrotBagSeed']['use_relations'][0]['results'][0]['count'] == '50'
     hammer = by_item["Base.Hammer"]
     repair_role = next(node for block in hammer["blocks"] for branch in block["branches"]
                        for node in branch["facts"]

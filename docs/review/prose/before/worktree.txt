@@ -1,0 +1,118 @@
+ M Iris/_docs/authority/tooltip_static_data_projection/projection_manifest.schema.json
+ M Iris/_docs/round3/round3_pytest_source_classification.json
+ M Iris/build/classification/data/classification_layer2_resolution_registry.json
+ A Iris/build/description/v2/tests/test_layer3_product_integration.py
+ M Iris/media/lua/client/Iris/Data/IrisLayer3DataLookup.lua
+ M Iris/media/lua/client/Iris/Data/IrisLayer3EnglishLookup.lua
+ M Iris/media/lua/client/Iris/Data/layer3_renderer.lua
+ M Iris/test/lua/tooltip_static_data_runtime_harness.lua
+ M Iris/tooling/src/iris_tooling/domains/classification/layer2_contract.py
+ M Iris/tooling/src/iris_tooling/domains/classification/layer2_materializer.py
+ M Iris/tooling/src/iris_tooling/domains/classification/layer2_validator.py
+ A Iris/tooling/src/iris_tooling/domains/layer3/product_install.py
+ A Iris/tooling/src/iris_tooling/domains/layer3/product_projection.py
+ M Iris/tooling/src/iris_tooling/domains/layer3/recovery.py
+ M Iris/tooling/src/iris_tooling/domains/tooltip_static_data_projection/cli.py
+ M Iris/tooling/src/iris_tooling/domains/tooltip_static_data_projection/contract.py
+ M Iris/tooling/src/iris_tooling/domains/tooltip_t1/audit.py
+ M Iris/tooling/src/iris_tooling/domains/tooltip_t1/cli.py
+ M Iris/tooling/tests/test_tooltip_t1_contract.py
+ M Iris/tooling/tests/test_tooltip_t2_projection.py
+ M Iris/tools/Layer3PackageProjection.psm1
+ M Iris/tools/RuntimeLookupIndexIdentity.psm1
+ M Iris/tools/package_iris.ps1
+ M Iris/validation/execution/contracts/repository_test_gate.json
+ M Iris/validation/execution/required_validations.json
+ M docs/ARCHITECTURE.md
+ M docs/DECISIONS.md
+ M docs/ROADMAP.md
+ D docs/evolved_recipe_candidate_closeout.md
+ D docs/evolved_recipe_presentation_walkthrough.md
+ D docs/iris_build_validation_execution_current_authority_optimization_closeout.md
+ D docs/iris_build_validation_execution_current_authority_optimization_plan.md
+ D docs/iris_build_validation_execution_current_authority_optimization_walkthrough.md
+ D docs/iris_checkpoint_allocation_path_budget_remediation_plan.md
+ D docs/iris_current_historical_lightweighting_walkthrough.md
+ D docs/iris_current_historical_physical_separation_and_repository_lightweighting_plan.md
+ D docs/iris_current_responsibility_naming_alignment_closeout.md
+ D docs/iris_current_responsibility_naming_alignment_plan.md
+ D docs/iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan.md
+ D docs/iris_dvf_description_usefulness_tooltip_s2_menu_depth_plan_closeout.md
+ D docs/iris_dvf_layer3_acquisition_evidence_independent_results_plan.md
+ D docs/iris_dvf_layer3_fact_bound_expression_menu_tooltip_resolution_plan.md
+ D docs/iris_dvf_layer3_menu_alt_tooltip_product_integration_closeout.md
+ D docs/iris_dvf_layer3_multi_meaning_information_resolution_successor_contract.md
+ D docs/iris_dvf_layer3_multi_meaning_information_resolution_successor_contract_closeout.md
+ D docs/iris_dvf_layer3_multi_meaning_information_resolution_successor_contract_plan.md
+ D docs/iris_dvf_layer3_multi_profile_investigation_completion_first_contact_closeout.md
+ D docs/iris_dvf_layer3_multi_profile_investigation_completion_first_contact_contract.md
+ D docs/iris_dvf_layer3_multi_profile_investigation_completion_first_contact_plan.md
+ D docs/iris_dvf_layer3_semantic_investigation_question_results_closeout.md
+ D docs/iris_dvf_layer3_semantic_investigation_question_results_contract.md
+ D docs/iris_dvf_layer3_semantic_investigation_question_results_plan.md
+ D docs/iris_dvf_shared_composition_usefulness_menu_tooltip_plan.md
+ D docs/iris_dvf_shared_composition_usefulness_menu_tooltip_plan_closeout.md
+ D docs/iris_evolved_recipe_compact_grouped_presentation_successor_plan.md
+ D docs/iris_korean_item_search_relevance_normalization_runtime_consistency_closeout.md
+ D docs/iris_korean_item_search_relevance_normalization_runtime_consistency_plan.md
+ D docs/iris_layer3_acquisition_closeout.md
+ D docs/iris_layer3_acquisition_contract.md
+ D docs/iris_layer3_expression_closeout.md
+ D docs/iris_layer3_expression_contract.md
+ M docs/iris_layer3_expression_walkthrough.md
+ M docs/iris_layer3_investigation_walkthrough.md
+ D docs/iris_layer3_product_consumption_contract.md
+ D docs/iris_layer4_qg_b41_evolved_recipe_plan.md
+ D docs/iris_lightweighting_terminal_closeout.json
+ D docs/iris_menu_description_and_long_text_runtime_walkthrough.md
+ D docs/iris_menu_display_interaction_stability_problem.md
+ D docs/iris_nonregular_validation_executable_physical_retirement_plan.md
+ D docs/iris_nonregular_validation_executable_physical_retirement_roadmap.md
+ D docs/iris_regular_validation_authority_census_and_legacy_cleanup_walkthrough.md
+ D docs/iris_regular_validation_authority_contract_reconfirmation_and_temporary_legacy_cleanup_plan.md
+ D docs/iris_regular_validation_boundary_execution_consolidation_plan.md
+ D docs/iris_regular_validation_boundary_execution_consolidation_walkthrough.md
+ D docs/iris_responsibility_repository_build_validation_refactoring_plan.md
+ D docs/iris_responsibility_repository_build_validation_refactoring_plan_review.md
+ D docs/iris_responsibility_repository_build_validation_refactoring_walkthrough.md
+ M docs/iris_semantic_results_walkthrough.md
+ D docs/iris_temporary_oneoff_validation_authority_maximal_physical_retirement_plan.md
+ D docs/iris_temporary_oneoff_validation_authority_maximal_physical_retirement_walkthrough.md
+ D docs/iris_tooltip_t1_d1_layer2_classification_authority_completion_plan.md
+ D docs/iris_tooltip_t1_d1_layer2_classification_authority_completion_walkthrough.md
+ D docs/iris_tooltip_t1_d2_layer2_menu_tooltip_consumer_relation_closure_plan.md
+ D docs/iris_tooltip_t1_d3_layer3_dvf_owner_row_missing_disposition_closure_plan.md
+ D docs/iris_tooltip_t1_d4_layer4_recipe_locale_surface_completion_plan.md
+ D docs/iris_tooltip_t1_d5_current_support_exact_fulltype_identity_disposition_plan.md
+ D docs/iris_tooltip_t1_d6_integrated_current_adoption_final_reaudit_strict_production_t2_handoff_opening_plan.md
+ D docs/iris_tooltip_t1_display_contract_policy.md
+ D docs/iris_tooltip_t1_display_contract_upstream_input_readiness_plan.md
+ D docs/iris_tooltip_t1_parallel_workstream_execution_contract.md
+ D docs/iris_tooltip_t2_deterministic_ko_en_static_lua_projection_plan.md
+ D docs/iris_tooltip_t3_d1_layer3_menu_tooltip_display_en_record_fact_relation_consistency_plan.md
+ D docs/iris_tooltip_t3_static_data_alt_runtime_integration_plan.md
+?? Iris/_docs/authority/dvf/layer3_expression/successors/r1/
+?? Iris/_docs/authority/dvf/layer3_expression/successors/r2/
+?? Iris/_docs/authority/dvf/layer3_expression/successors/r3/
+?? Iris/_docs/authority/dvf/layer3_expression/successors/r4/
+?? Iris/_docs/authority/dvf/layer3_expression/successors/r5/
+?? Iris/_docs/authority/tooltip_t1/s2_supply_contract.json
+?? Iris/tooling/.tmp/
+?? Iris/tooling/src/iris_tooling/domains/layer3/tooltip_s2_supply.py
+?? Iris/tooling/src/iris_tooling/domains/tooltip_static_data_projection/install.py
+?? Iris/tooling/src/iris_tooling/domains/tooltip_t1/s2_candidate.py
+?? Iris/tooling/tests/test_classification_layer2_input_identity.py
+?? docs/iris_dvf_description_migration_recovery_problem.md
+?? docs/iris_dvf_description_quality_acceptance_plan.md
+?? docs/iris_dvf_description_quality_acceptance_problem.md
+?? docs/iris_dvf_menu_semantic_presentation_recovery_problem.md
+?? docs/iris_dvf_tooltip_ownership_recovery_problem.md
+?? docs/iris_dvf_tooltip_s2_supply_ownership_recovery_plan.md
+?? docs/iris_layer3_product_walkthrough.md
+?? docs/iris_pz_information_tooltip_recipe_ux_prior_art_research.md
+?? docs/iris_tooltip_supply_closeout.md
+?? docs/pz_public_tools_structural_analysis_prior_art_research.md
+?? docs/pz_stg_additional_prior_art_reuse_fingerprint_research.md
+?? docs/pz_stg_lua_parser_frontend_parity_research.md
+?? docs/research/stg_lua_frontend_parity/
+?? docs/review/

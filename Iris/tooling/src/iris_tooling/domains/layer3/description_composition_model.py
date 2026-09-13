@@ -37,8 +37,17 @@ def validate_result(result: dict) -> dict:
                 require(bool(text.strip()) == (state == "present"), "state/text mismatch")
                 require(state == "present" or bool(row.get("reason")), "unexplained silence")
                 require(isinstance(row.get("segments"), list), "missing text links")
-                separator = " " if surface == "compact" else "\n"
-                require(text == separator.join(s["text"] for s in row["segments"]), "segment text drift")
+                rendered = "".join(("" if n == 0 else " " if surface == "compact" or s.get('continues_use') else "\n") + s["text"]
+                                   for n, s in enumerate(row["segments"]))
+                require(text == rendered, "segment text drift")
+                if surface == 'expanded' and 'use_units' in row:
+                    covered = []
+                    for unit in row['use_units']:
+                        first, last = unit.get('first_segment'), unit.get('last_segment')
+                        require(type(first) is int and type(last) is int
+                                and 1 <= first <= last <= len(row['segments']), 'invalid use unit')
+                        covered.extend(range(first, last + 1))
+                    require(covered == list(range(1, len(row['segments']) + 1)), 'use unit coverage drift')
                 for segment in row["segments"]:
                     require(bool(segment["text"].strip()) and bool(segment["fact_refs"]),
                             "empty segment or meaning")

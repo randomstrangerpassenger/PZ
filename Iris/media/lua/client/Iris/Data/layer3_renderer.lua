@@ -142,7 +142,11 @@ end
 function Layer3Renderer.getRawText(fullType, options)
     local entry = getEntry(fullType)
     if entry and entry.product_id then
-        local locale = tostring(options and options.locale or "KO"):upper() == "EN" and "en" or "ko"
+        local locale = tostring(options and options.locale or "KO"):lower()
+        if locale ~= "ko" and locale ~= "en" then
+            if entry.locales.ko.schema_version == "iris_expanded_display_v1" then return nil end
+            locale = "ko"
+        end
         local value = entry.locales[locale].text
         return value ~= "" and value or nil
     end
@@ -154,6 +158,19 @@ function Layer3Renderer.getRawText(fullType, options)
         return lookup and lookup.get(fullType) or nil
     end
     return entry.text_ko
+end
+
+-- Additive Menu-only contract. nil means the legacy string path applies;
+-- an explicit fault must not be replaced by a predecessor or another locale.
+function Layer3Renderer.getDisplay(fullType, options)
+    local lookup = ensureLookup()
+    if not lookup or not lookup.isProduct then return nil end
+    local locale = tostring(options and options.locale or "KO"):lower()
+    local value, failure = lookup.getLocale(fullType, locale)
+    local identity = lookup.getDiagnostics().productId
+    if not value then return {state="fault", reason=failure or "product_payload_invalid", productId=identity} end
+    if value.schema_version ~= "iris_expanded_display_v1" then return nil end
+    return {state=value.state, reason=value.reason, text=value.text, units=value.units, productId=identity}
 end
 
 function Layer3Renderer.getText(fullType, options)
@@ -169,7 +186,11 @@ function Layer3Renderer.getText(fullType, options)
     end
 
     if entry.product_id then
-        local locale = tostring(options and options.locale or "KO"):upper() == "EN" and "en" or "ko"
+        local locale = tostring(options and options.locale or "KO"):lower()
+        if locale ~= "ko" and locale ~= "en" then
+            if entry.locales.ko.schema_version == "iris_expanded_display_v1" then return nil end
+            locale = "ko"
+        end
         local value = entry.locales[locale].text
         return value ~= "" and value or nil
     end

@@ -32,6 +32,7 @@ function Get-IrisTooltipOwner {
 function Get-IrisProductDescriptor {
     [CmdletBinding()]
     param([Parameter(Mandatory = $true)][string]$DataRoot)
+    if (Test-Path -LiteralPath (Join-Path $DataRoot 'IrisLayer3Product.lock')) { throw 'product_install_in_progress' }
     $pointerPath = Join-Path $DataRoot 'IrisLayer3ProductCurrent.lua'
     $pointer = [System.IO.File]::ReadAllText($pointerPath)
     $idMatch = [regex]::Matches($pointer, 'product_id = "(l3p-[0-9a-f]{64})"')
@@ -47,10 +48,12 @@ function Get-IrisProductDescriptor {
     }
     $descriptorPath = Join-Path $root 'product_descriptor.json'
     $descriptor = [System.IO.File]::ReadAllText($descriptorPath) | ConvertFrom-Json
-    if ($descriptor.schema_version -cne 'iris-layer3-product-v1' -or $descriptor.product_id -cne $id) {
+    $isMenu = $descriptor.schema_version -ceq 'iris-layer3-product-v2'
+    if (($descriptor.schema_version -cne 'iris-layer3-product-v1' -and -not $isMenu) -or $descriptor.product_id -cne $id) {
         throw 'product_descriptor_identity_mismatch'
     }
     $expected = @('Descriptor.lua', 'Index.lua', 'Tooltip.lua', 'Recipe.lua') + @(1..11 | ForEach-Object { 'Chunks/Chunk{0:D3}.lua' -f $_ })
+    if ($isMenu) { $expected = @('Descriptor.lua', 'Index.lua') + @(1..11 | ForEach-Object { 'Chunks/Chunk{0:D3}.lua' -f $_ }) }
     $names = @($descriptor.members.PSObject.Properties.Name)
     if (@(Compare-Object $expected $names -CaseSensitive).Count -ne 0) { throw 'product_member_set_invalid' }
     foreach ($name in $expected) {
@@ -64,8 +67,35 @@ function Get-IrisProductDescriptor {
         throw 'product_member_inventory_mismatch'
     }
     $facades = @('IrisLayer3ProductCurrent.lua', 'IrisLayer3DataCurrent.lua', 'IrisLayer3DataChunkIndex.lua', 'IrisLayer3DataChunks.lua', 'IrisTooltipStaticData.lua', 'IrisTooltipRecipeVariants.lua')
+    if ($isMenu) { $facades = @('IrisLayer3ProductCurrent.lua', 'IrisLayer3DataCurrent.lua', 'IrisLayer3DataChunkIndex.lua', 'IrisLayer3DataChunks.lua') }
     if (@(Compare-Object $facades @($descriptor.facades.PSObject.Properties.Name) -CaseSensitive).Count -ne 0) { throw 'product_facade_set_invalid' }
     $tooltip = Get-IrisTooltipOwner -DataRoot $DataRoot
+    if ($isMenu) {
+        $algorithm = [System.Security.Cryptography.SHA256]::Create()
+        try {
+            $digest = ([System.BitConverter]::ToString($algorithm.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($descriptor.identity_json)))).Replace('-', '').ToLowerInvariant()
+        } finally { $algorithm.Dispose() }
+        if ($id -cne ('l3p-' + $digest)) { throw 'menu_identity_hash_mismatch' }
+        $identity = $descriptor.identity_json | ConvertFrom-Json
+        if (@(Compare-Object @($descriptor.b_preserved.PSObject.Properties.Name) @($identity.b_preserved.PSObject.Properties.Name) -CaseSensitive).Count -ne 0) { throw 'menu_b_identity_member_set_mismatch' }
+        if ($identity.description.sha256 -cnotmatch '^[0-9a-f]{64}$' -or
+            $identity.tooltip_product_id -cne $tooltip.product_id) { throw 'menu_input_binding_mismatch' }
+        if ($null -eq $tooltip -or $tooltip.product_id -cne $descriptor.identity.tooltip_product_id) { throw 'menu_tooltip_owner_mismatch' }
+        $tooltipIdentity = $tooltip.identity_json | ConvertFrom-Json
+        if ($tooltipIdentity.t1_input.description.sha256 -cne $descriptor.identity.description.sha256) { throw 'menu_tooltip_corpus_mismatch' }
+        $irisRoot = [System.IO.Path]::GetFullPath((Join-Path $DataRoot '../../../../..'))
+        foreach ($member in $descriptor.b_preserved.PSObject.Properties) {
+            if ($member.Value -cne $identity.b_preserved.($member.Name)) { throw 'menu_b_identity_mismatch' }
+            if (-not $member.Name.StartsWith('Iris/media/', [System.StringComparison]::Ordinal) -or $member.Name.Contains('..') -or $member.Name.Contains('\')) { throw 'menu_b_path_invalid' }
+            $path = Join-Path $irisRoot $member.Name.Substring(5)
+            if ((Get-Item -LiteralPath $path).Attributes -band [System.IO.FileAttributes]::ReparsePoint) { throw 'menu_b_reparse' }
+            if ((Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant() -cne $member.Value) { throw "menu_b_byte_mismatch: $($member.Name)" }
+        }
+        foreach ($name in @('IrisTooltipOwner.json', 'IrisTooltipStaticData.lua', 'IrisTooltipRecipeVariants.lua')) {
+            $key = 'Iris/media/lua/client/Iris/Data/' + $name
+            if ($null -eq $descriptor.b_preserved.PSObject.Properties[$key]) { throw 'menu_b_binding_missing' }
+        }
+    }
     foreach ($name in $facades) {
         if ($null -ne $tooltip -and $name -cin @('IrisTooltipStaticData.lua', 'IrisTooltipRecipeVariants.lua')) {
             if ($tooltip.predecessor_facades.$name -cne $descriptor.facades.$name) { throw 'tooltip_predecessor_binding_mismatch' }

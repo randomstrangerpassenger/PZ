@@ -118,9 +118,10 @@ function IrisWikiPanel.createPanel(item)
     end
 
     -- B.25) 3계층 본문
-    local layer3Section = IrisWikiSections.renderLayer3Section(model)
-    if layer3Section then
-        yOffset = addWrappedLabels(content, layer3Section, 10, yOffset, 18,
+    for _, unit in ipairs(IrisWikiSections.getLayer3Units(model)) do
+        addWrappedLabels(content, "•", 10, yOffset, 18,
+            0.9, 0.9, 0.9, UIFont.Small, 22)
+        yOffset = addWrappedLabels(content, unit, 25, yOffset, 18,
             0.9, 0.9, 0.9, UIFont.Small, 22) + 7
     end
     

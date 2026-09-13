@@ -4,6 +4,10 @@ local IrisLayer3DataLookup = {}
 local safeRequire = require("Iris/Util/IrisRequire").safeRequire
 local RuntimeLookupDiagnostics = require("Iris/Data/IrisRuntimeLookupDiagnostics")
 local currentOk, current = safeRequire("Iris/Data/IrisLayer3DataCurrent")
+local productPointerOk = safeRequire("Iris/Data/IrisLayer3ProductCurrent")
+if productPointerOk and (type(current) ~= "table" or current.schema_version ~= "iris_layer3_product_compat_v1") then
+    currentOk = false
+end
 
 -- Successor products use one session snapshot for both Menu locales. The
 -- legacy router below retains its exact schema and module-name restrictions.
@@ -49,7 +53,34 @@ if not currentOk or (type(current) == "table" and current.schema_version == "iri
                     type(text) ~= "string" or text == "" then return false end
                 count = count + 1
             end
-            if count ~= #value.blocks or table.concat(value.blocks, "\n") ~= value.text then return false end
+            if count ~= #value.blocks then return false end
+            if current.display_schema == "iris_expanded_display_v1" then
+                if value.schema_version ~= current.display_schema or type(value.units) ~= "table" or
+                    type(value.reason) ~= "string" or (value.state ~= "present" and value.state ~= "absent") or
+                    (value.state == "present") ~= (value.text ~= "") then return false end
+                if value.state == "absent" and (value.reason == "" or #value.units ~= 0) then return false end
+                local position, unitCount = 1, 0
+                for ordinal, unit in pairs(value.units) do
+                    if type(ordinal) ~= "number" or ordinal < 1 or ordinal ~= math.floor(ordinal) then return false end
+                    unitCount = unitCount + 1
+                end
+                if unitCount ~= #value.units then return false end
+                local unitTexts = {}
+                for _, unit in ipairs(value.units) do
+                    if type(unit) ~= "table" or unit.first_segment ~= position or
+                        type(unit.last_segment) ~= "number" or unit.last_segment ~= math.floor(unit.last_segment) or
+                        unit.last_segment < position or unit.last_segment > count or type(unit.text) ~= "string" then return false end
+                    local texts = {}
+                    for i = position, unit.last_segment do texts[#texts + 1] = value.blocks[i] end
+                    if table.concat(texts, " ") ~= unit.text then return false end
+                    unitTexts[#unitTexts + 1] = unit.text
+                    position = unit.last_segment + 1
+                end
+                if position ~= count + 1 then return false end
+                if table.concat(unitTexts, "\n") ~= value.text then return false end
+            elseif table.concat(value.blocks, "\n") ~= value.text then
+                return false
+            end
         end
         return true
     end

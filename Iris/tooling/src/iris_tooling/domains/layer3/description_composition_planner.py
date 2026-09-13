@@ -10,7 +10,7 @@ from .composition_model import canonical
 # belong to the detailed explanation. This applies by meaning, never by item or
 # corpus frequency. All remain actual sentences in the same locale.
 DETAIL_FUNCTIONS = frozenset({
-    "wash_carried_equipment", "wash_equipment", "receive_garment_patch",
+    "wash_carried_equipment", "receive_garment_patch",
     "remove_garment_patch", "unpick_garment_patch", "rename_selected_item",
     "rename_prepared_food", "remove_applied_splint", "remove_applied_bandage",
     "consolidate_drainable_supplies", "pour_water_into_container", "receive_poured_water", "dump_water", "supply_world_water_storage",
@@ -81,6 +81,8 @@ def plan(item: dict) -> dict:
             if any(f["fact_kind"] in {"use_context", "context_role"} for f in u["facts"]):
                 u["detail_reason"] = None
     return {"item_id": item["item_id"], "units": units, "qualifiers": qualifiers,
+            "use_relations": deepcopy(item.get('use_relations', [])),
+            "source_traits": deepcopy(item.get('source_traits', {})),
             "relations": sorted(relations, key=lambda r: r["relation_id"]),
             "unresolved_relations": deepcopy(item["unresolved_relations"])}
 

@@ -68,6 +68,20 @@ function IrisWikiSections.renderLayer3Section(item)
     return model and model.layer3.display or nil
 end
 
+-- Both Menu consumers use the same precompiled visibility units. Keep the
+-- existing string facade for callers which only need the complete text.
+function IrisWikiSections.getLayer3Units(item)
+    local model = DetailViewModel.ensure(item)
+    if not model or not model.layer3.available then return {} end
+    local units = {}
+    if model.layer3.units then
+        for i = 1, model.layer3.unitCount do units[i] = model.layer3.units[i].text end
+    elseif model.layer3.display then
+        units[1] = model.layer3.display
+    end
+    return units
+end
+
 -- Only skills whose reading bonus is admitted for this presentation. The
 -- legacy Blacksmith declaration alone does not settle its active B41 behavior.
 local SKILL_LABELS = {

@@ -1,11 +1,14 @@
 # Iris Layer 3 설명 생성 Walkthrough
 
-작성일: 2026-09-05  
-대상: 현재 세션의 DVF-L3-05 구현, 사용자 표시 해상도 교정, 채택 및 canonical 문서 갱신
+최초 작성일: 2026-09-05  
+재생성일: 2026-09-07  
+대상: 현재 세션의 DVF-L3-05 구현, 사용자 표시 해상도 교정, 채택, canonical 문서 갱신 및 Git 반영
+
+이 기록의 구현·채택·검증 상태는 커밋 `517ba0c8`에 반영한 작업을 기준으로 한다. 2026-09-07 재생성에서는 Git에 보존된 Walkthrough와 closeout을 읽어 이 문서만 복원·보완했다. 새 구현이나 검증 실행은 수행하지 않았다.
 
 이번 세션에서는 이미 채택된 Layer 3 사실을 KO/EN 상세 설명과 Tooltip-first S2로 변환하는 독립 설명 authority를 구현했다. 최종 상태는 **해상도 교정본 complete / adopted (off-live)**다. Menu와 Tooltip에 연결할 설명 데이터는 준비됐으며, 실제 제품 노출과 runtime 전환은 L3-06에 남아 있다.
 
-이 문서는 구현을 읽는 순서와 결과의 의미를 설명한다. 요구사항은 [구현 계획](C:/Users/MW/Downloads/coding/PZ/docs/iris_dvf_layer3_fact_bound_expression_menu_tooltip_resolution_plan.md), 소비 규칙은 [expression contract](C:/Users/MW/Downloads/coding/PZ/docs/iris_layer3_expression_contract.md), 정확한 실행 이력과 검증 범위는 [closeout](C:/Users/MW/Downloads/coding/PZ/docs/iris_layer3_expression_closeout.md)을 따른다. Walkthrough는 새로운 validator나 채택 gate가 아니다.
+이 문서는 구현을 읽는 순서와 결과의 의미를 설명한다. 요구사항은 [구현 계획](https://github.com/randomstrangerpassenger/PZ/blob/517ba0c85ad0fcfca4c7b2a297399f9771f948d7/docs/iris_dvf_layer3_fact_bound_expression_menu_tooltip_resolution_plan.md), 소비 규칙은 [expression contract](https://github.com/randomstrangerpassenger/PZ/blob/517ba0c85ad0fcfca4c7b2a297399f9771f948d7/docs/iris_layer3_expression_contract.md), 정확한 실행 이력과 검증 범위는 [closeout](https://github.com/randomstrangerpassenger/PZ/blob/517ba0c85ad0fcfca4c7b2a297399f9771f948d7/docs/iris_layer3_expression_closeout.md)을 따른다. Walkthrough는 새로운 validator나 채택 gate가 아니다.
 
 ## 1. 출발점과 완료 범위
 
@@ -139,3 +142,10 @@ Installed package 준비와 candidate 생성은 acceptance 테스트가 아니�
 구현·교정 결과는 사용자가 지정한 보고 세션에도 전달했다. 기존 사용자 문서 삭제는 이번 구현의 변경으로 취급하거나 복구하지 않았다.
 
 L3-06은 채택된 expanded와 compact S2를 Menu·Tooltip에 연결하고 S1/S3/S4·4줄·Alt·runtime/current adoption을 통합한다. 여기서 설명을 다시 번역·요약·절단하거나 대표 사실을 고르지 않는다. 빈 S2를 predecessor 문장이나 다른 계층 output으로 채우지 않으며, 미해결 upstream 질문의 전수 재조사를 제품 연결의 새 선행 gate로 만들지 않는다.
+## 8. Git 반영과 문서 재생성
+
+구현·채택 데이터·테스트 소스·관련 문서 16개를 커밋 [`517ba0c8`](https://github.com/randomstrangerpassenger/PZ/commit/517ba0c85ad0fcfca4c7b2a297399f9771f948d7)에 포함했다. 커밋 메시지는 `feat(iris): adopt Layer 3 fact-bound descriptions`다. 작업 브랜치가 이미 `main`이어서 직접 커밋했고, `origin/main`으로 push한 뒤 당시 로컬과 원격이 같은 상태임을 확인했다. 별도 merge commit은 만들지 않았다.
+
+이 커밋에는 기존 사용자 문서 삭제 51건과 임시 uv 파일을 포함하지 않았다. Git 반영 과정에서도 추가 테스트를 실행하지 않았다.
+
+2026-09-07 사용자의 재생성 요청 시 Walkthrough와 계획·계약·closeout은 작업 폴더에서 삭제된 상태였다. 이번에는 이 Walkthrough만 다시 생성했다. 계획·계약·closeout 링크는 삭제된 로컬 파일 대신 위 구현 커밋의 보존본을 가리킨다. 재생성 문서 자체의 추가 커밋·push는 수행하지 않았다.

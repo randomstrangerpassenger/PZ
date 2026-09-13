@@ -1,5 +1,7 @@
 # Iris 설명 품질 개선 Walkthrough
 
+현재 후속 교정 결과는 문서 끝의 **용도 중심 producer 교정** 절을 따른다. 아래 최초 corpus 수락은 그 당시 생성본의 이력이며 새 후보의 인게임 품질 수락으로 승계하지 않는다.
+
 작성일: 2026-09-11
 
 이번 세션에서는 [설명 품질 수락 계획](iris_dvf_description_quality_acceptance_plan.md)에 따라 의미 블록에서 생성하는 KO/EN compact·expanded 설명을 검수하고, 발견한 문제를 공통 합성 규칙에서 수정했다. 최종 결과는 **오프라인 corpus 자체 품질 수락과 동일 corpus의 B/C 인계 완료**다. 이후 사용자 요청으로 DECISIONS·ROADMAP·ARCHITECTURE의 현재 상태와 실제 합성 책임을 정리했다.
@@ -109,3 +111,64 @@ B의 기존 `tooltip_s2_supply`는 r6 `s2`를 소비하므로 adapter와 product
 기존 closeout의 “ARCHITECTURE 본문 유지” 설명은 구현 closeout 당시의 상태를 가리킨다. 이후 요청된 문서 정리에서는 실제 코드 책임에 맞춰 ARCHITECTURE도 갱신했다. 문서 정리는 corpus나 런타임 계약을 다시 변경하지 않았다.
 
 `docs/review/prose/read_corpus.py`와 비교·읽기 기록은 이번 작업의 일회성 보조 자료다. canonical validator나 새 validation authority로 승격하지 않았다. 같은 입력·생산 경계의 기존 결과와 얕은 경로를 재사용했고 추가 seal·receipt·manifest·proof artifact나 gate는 만들지 않았다. 기존 dirty 작업을 reset하거나 commit하지 않았다.
+
+## 8. 용도 중심 producer 교정 — 2026-09-11
+
+[용도 조사 보고서](iris_dvf_use_description_report.md)에 기반해 A·1·2의 기존 경로와 3의 검사 기대를 직접 교정했다. 별도 문제·계획·Gate나 validator는 추가하지 않았다. r6와 기존 dirty/deleted/untracked 작업을 보존했으며 branch/worktree/clone·commit·push·외부 게임 폴더 접근은 수행하지 않았다.
+
+### 공통 규칙과 결과
+
+- A `recovery_relations.py`: admitted 함수의 observation에 연결된 recipe 입력/keep/Result를 구조화한다. 선언 결과·무조건 callback 추가·조건부 callback 결과를 구별한다. 기존 결과 요리/파종 fact가 있을 때만 결과 활용을 연결한다. `TinOpener`는 기존 깡통 따개와 같은 식별자를 유지하면서 제품 명칭을 통조림 따개로 전달한다. 이름은 결과 선언과 활성 음식 개념/locale 표시명에서 얻는다.
+- 문제 1 `composition_results.py`, `composition_model.py`: 원래 29,202개 fact와 block/branch ID를 보존하고 `use_relations`, `source_traits`를 전달한다. 도구 대안은 any_of, 여러 도구 슬롯은 결합 관계다. 포장 결과 수량은 파종 소모량과 별개로 보존한다.
+- 문제 2 `description_composition_uses.py`, planner/results: 관리 대상의 세척·패치·이름 변경, 세척 처리 결과·조리자 metadata를 공개 용도에서 제외한다. 세척제, 착용, 직물/로프 재료, 연료/불쏘시개, 점화, 조명, 변환 회수와 독립 제작 재료는 남긴다. 획득은 블록과 기존 S3 공급에 유지하며 DVF 본문과 분리한다. 새 frame이 용도를 출력한 뒤 나머지 상세를 compact로 다시 끌어올리던 fallback도 고쳤다.
+- 내부 사실 전체는 `preserved_fact_refs`, 제외 사유는 `internal_uses`에 연결한다. 공개 `public_use` 문장은 실제 주장한 기능/역할 refs만 사용한다. 표현하지 않은 실행 predicate의 refs를 이 문장에 넣지 않는다. 기존 exact-scope 문장의 조건 검사와 모든 독립 기능/재료 역할의 expanded 보존 검사는 유지한다.
+- B/C: 새 Tooltip ZIP을 명시적 입력으로 받아 동일 corpus의 메뉴 후보를 구성한다. 기존 B 승인 ZIP `.tmp/tooltip/preview/Iris.zip`과 이전 C 후보는 보존했다. 패키지 검사는 고정된 과거 corpus hash 대신 새 입력의 실제 identity와 Tooltip/Menu corpus 일치를 확인한다. 런타임 문장 수정이나 UI 폭 확대는 하지 않았다.
+
+최종 변화는 KO compact 753개, EN compact 752개, expanded 각 1,645개다. Expanded 변화에는 기존 획득 본문 분리도 포함된다. 두 언어 각각 compact/expanded present 1,984개, absent 121개, failed 0개다. 기존 획득 전용 59개는 DVF 본문 부재가 되었지만 블록/획득 공급은 남는다.
+
+A가 전달한 명명 관계는 79개다: 통조림 19, 농산물 자루 18, 전자제품 분해 12, 병 식품 9, 탄약 상자 8, 씨앗 봉지 7, 일반 상자 4, 달걀 포장 1, 개구리 1. 새 명명 frame은 이 중 확인한 65개 관계에 적용했다. 병 식품·일반 상자·달걀의 기존 callback 전용 표현은 유지하여 뚜껑 등 별도 결과를 잃지 않게 했다. 전체 적용 관계의 EN 요약과 대표 KO, 복합 역할을 읽었고 자동 검사는 2,105개 전 항목에서 독립 용도 보존을 비교했다. 세척 대상 함수는 778개, 패치 대상은 194개, 세척제 2개, 휴대 조명 5개에 존재한다.
+
+| 대표 항목 | 교정 전 발췌 | 현재 KO 결과/의미 |
+| --- | --- | --- |
+| 양말 | 물로 피·때 세척, 완전히 젖음, 이동 중단, Cotton에 데님·가죽 가위 조건 | 연료·불쏘시개로 소모할 수 있다. 양말 자리에 착용한다. 찢어 직물을 회수하는 재료다. 시트 로프 제작에 쓰는 재료다. |
+| 비누 | 몸 세척에 의류 결과·물 부족 처리까지 결합 | 몸과 의류·장비를 물로 씻을 때 쓰는 세척제다. |
+| 옥수수 통조림 | 맞는 개봉 도구로 내용물을 꺼내는 통조림 | 통조림 따개로 개봉해 꺼낸 옥수수를 요리 재료로 쓸 수 있다. |
+| .223 상자 | 탄약이 든 상자 | 도구 없이 개봉해 .223 탄약을 얻을 수 있다. |
+| 당근 자루 | 농산물·신선도 설명 | 도구 없이 개봉해 꺼낸 당근을 요리 재료로 쓸 수 있다. |
+| 당근 씨앗 봉지 | 이 작물의 낱알 씨앗 | 봉지를 열어 꺼낸 당근 씨앗을 파종하는 데 쓸 수 있다. Expanded의 봉지 선언 수량 50과 내부 파종 소모 12는 서로 다른 관계다. |
+| 개구리 | 허용된 칼로 손질해 고기 | Compact는 개구리 고기를 명명한다. Expanded는 돌칼/사냥용 칼/부엌칼/마체테/중식도 대안과 도구 비소모를 보존한다. |
+| 리모컨 | 전자 부품 회수, 추가 부품 비보장 | 수신기·전기 회로 부속 회수와 건전지 가능성을 구별한다. 타이머·원격 조작 부품 제작 재료는 별도 용도로 남는다. |
+
+부서진 어망의 `Wire;3`를 철사 3개 확정 회수로 바꾸지 않았다. 열쇠의 동적 일치와 문 잠금 비소모/자물쇠 제거 소모도 유지했다. 라이터의 점화·휴대 조명, 손전등의 조명·분해 회수, TinnedBeans의 직접 제작 참여와 개봉 후 요리 재료 관계를 보존했다.
+
+근거 정정 두 가지: `Make Pot of Soup`의 미개봉 CannedMushroomSoup 예시는 `scripts/recipes.txt:194`의 주석 구간에 있어 활성 제작법으로 추가하지 않았다. Onion은 실제 EvolvedRecipe 없이 `EvolvedRecipeName=Mushroom`만 남아 있으므로 양파 자루 결과를 버섯이라고 쓰지 않고 확인된 양파 표시명을 사용한다. 양파에 요리 재료 용도를 새로 전이하지 않는다. 보고서 조사 이력은 유지하고 첫 근거의 정정만 보고서에 표시했다.
+
+### 실행한 기존 필수 검사
+
+PowerShell, 저장소 root에서 실행했다. 최초 묶음은 문장 fixture 실패로 `1 failed, 2 passed`(102.93초), exit 1이었다. 공통 frame 이후 compact fallback이 상세를 재노출한 문제와 명명 guard를 고친 뒤 다음 묶음이 **3 passed in 101.84s, exit 0**이었다.
+
+```powershell
+$env:PYTEST_DISABLE_PLUGIN_AUTOLOAD='1'
+uv run --project .\Iris\tooling python -I -B -m pytest --noconftest -c .\Iris\tooling\pyproject.toml .\Iris\build\description\v2\tests\test_layer3_composition.py .\Iris\build\description\v2\tests\test_layer3_description_composition.py .\Iris\tooling\tests\test_tooltip_t2_projection.py::test_s2_supply_and_owner_integration --basetemp .\.tmp\tooltip\uses -q -s
+```
+
+B 통합 내부의 `powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\check_lua_syntax.ps1`, Tooltip runtime supply harness, 후보 `package_iris.ps1 -Zip`도 각각 exit 0이다. B 새 후보 ID는 `ttp-b21cade30605f97143149ea7d3e1c89b86415307b7f6537b46484e60039a8828`이다.
+
+C 기존 검사 최초 실행은 고정된 판자 첫 단위 길이를 요구하던 Lua 기대에서 exit 1(38.45초)이었다. 전체 source 단위/범위 대조를 유지하고 위치 고정 기대만 제거했다. 같은 `.tmp/menu/run-w3ghss8_`의 제품/입력/단계를 재사용했으며 완료된 source/stage Lua syntax(exit 0, 388 files)는 반복하지 않았다. 실패했던 모델과 이어지는 기존 runtime/package 검사를 다음 명령으로 실행해 **1 passed in 52.57s, exit 0**을 얻었다.
+
+```powershell
+$env:PYTEST_DISABLE_PLUGIN_AUTOLOAD='1'
+$env:IRIS_MENU_TOOLTIP_CANDIDATE='.tmp/tooltip/uses/Iris.zip'
+$env:IRIS_MENU_RESUME_PACKAGE='C:/Users/MW/Downloads/coding/PZ/.tmp/menu/run-w3ghss8_'
+uv run --project .\Iris\tooling python -I -B -m pytest --noconftest -c .\Iris\tooling\pyproject.toml .\Iris\build\description\v2\tests\test_layer3_product_integration.py --basetemp .\.tmp\menu\uses -q -s
+```
+
+Browser/Wiki 4,210 locale 상태, B 2,280 지원 key, L4 모델, package admission, `package_iris.ps1 -PackageApplicability current_runtime_payload -Zip`, ZIP 내부 C pointer/model이 각각 exit 0이다. fit failure 로그는 의도된 작은 화면 fixture의 거부 검사이며 실제 PZ 화면 관찰이 아니다. 장기 실행은 도구 세션으로 상태를 확인했고 중단할 비정상 실행은 없었다. 저장소 전체 Run A/B/comparator와 Java/JS 검사는 실행하지 않았다.
+
+### 검토 후보와 남은 범위
+
+- 데이터: [blocks.json](../Iris/build/description/composition/blocks.json), [descriptions.json](../Iris/build/description/composition/descriptions.json).
+- 교정 B 단독 후보: [Tooltip Iris.zip](../.tmp/tooltip/uses/Iris.zip).
+- 사용자 검토용 동일 corpus B/C 통합 후보: [Iris.zip](../.tmp/menu/uses/Iris.zip). 기존 검사 산출물 `.tmp/menu/run-w3ghss8_/p/Iris.zip`을 그대로 복사했다. SHA-256 `6503a9466554596ab84ca346b641e0f9ac83ca749e7c838b03b03c4a03ecaeb2`, C ID `l3p-289febd9bb92e3b88ca86437084dd378ee68b9161799a5ae1a48eefceaa0c4d5`.
+
+Producer 교정과 위 오프라인 공급/패키지 검사는 완료했다. 기존 B 사용자 인게임 통과 상태는 이전 승인 후보에 그대로 귀속한다. 새 후보의 실제 PZ 폰트·해상도·Alt 네 물리적 줄, KO/EN 메뉴 가독성과 상호작용은 사용자 검토 전이다. C는 implemented_only이며 실제 메뉴 품질 통과로 올리지 않는다. Native 결과 전달, 미확정 어망 결과, 미래 모드와 미확인 차량/가구/낚시 범위는 새로 확정하지 않았다. 추가 증명이나 자동 감독은 남은 작업이 아니다.

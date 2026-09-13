@@ -896,3 +896,9 @@ DVF는 Layer 3 설명을 공급하고 Tooltip은 행 조립·후보 선택·표�
 Runtime은 완성된 KO/EN view 하나를 Tooltip opening 동안 유지한다. Locale 전환은 같은 identity의 언어만 바꾸고 Alt 해제·숨김·item 변경 등의 기존 갱신 시점에 선택을 해제한다. `IrisAltTooltip`은 정상 게임 폰트로 전체 원문 폭을 측정해 화면 안의 옆/아래/위에 배치하며 한 행을 한 화면 줄로 그린다. 다중 wrap·clipping·말줄임·폰트 축소·runtime 재요약은 하지 않는다. 들어갈 공간이 없으면 `fit_failed`와 원인을 남기며 이 상태는 정상 부재나 표시 성공이 아니다.
 
 자동 통합·후보 패키지와 사용자의 실제 PZ 확인으로 **B 후보 구현·통합·실제 표시를 complete**로 수락했다. 수락 후보는 `.tmp/tooltip/preview/Iris.zip`이며 exact identity와 검증/관찰 근거는 [closeout](iris_tooltip_supply_closeout.md)을 따른다. C는 동일 `descriptions.json`의 `items[].locales[ko/en].expanded`, compact detail links와 의미 관계를 사용해야 한다. C 구현 및 current 공동 활성화·일반 strict production finalization·release는 별도 범위다. 사용자가 예고한 설명 교정은 구체 지시를 기다리는 후속 표현 작업이며 이번 문서 갱신에서 producer나 corpus를 변경하지 않는다.
+
+### C canonical expanded Menu 후보 (2026-09-11)
+
+`product_projection.build_menu_product()` → v2 Menu chunks → candidate ProductCurrent/Descriptor/compatibility DataCurrent/Index → `IrisLayer3DataLookup` → `layer3_renderer.getDisplay()` → readonly Detail model → `IrisWikiSections.getLayer3Units()` → Browser Detail 및 WikiPanel. 표시 단위는 원문 segment의 연속 구간이며 관계 의미를 재분류하지 않는다. FullType/locale/state와 segment 순서를 보존한다. accepted B는 별도 Tooltip owner와 raw bytes로 같은 corpus에 결속하고 historical unified Tooltip writer를 C에 재사용하지 않는다.
+
+C 구현·자동 검증은 완료했으며 실제 PZ 관찰은 미실시이므로 **implemented_only**다. source current/production activation은 전환하지 않았다. [후보와 관찰 인계](iris_dvf_expanded_menu_structuring_common_candidate_recovery_closeout.md)를 따른다.

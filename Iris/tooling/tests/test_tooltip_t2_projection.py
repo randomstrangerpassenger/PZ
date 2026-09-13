@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import copy
 import json
+import os
 from pathlib import Path
 import random
 import re
@@ -126,6 +127,12 @@ def test_s2_supply_and_owner_integration(tmp_path):
     contract, contract_hash = load_contract(repository)
     baseline, _, _ = project(before, contract)
     assert baseline == read_static_data((repository / DATA_ROOT / LUA_NAME).read_bytes()), 'stale before handoff'
+    # Keep this shared B execution boundary shallow for Windows package paths.
+    import tempfile
+    parent = repository / '.tmp/tooltip'
+    parent.mkdir(parents=True, exist_ok=True)
+    tmp_path = Path(tempfile.mkdtemp(prefix='run-', dir=parent))
+    print(f'workspace={tmp_path}', flush=True)
     handoff = tmp_path / 'h'
     receipt = s2_candidate.build(repository, handoff)
     second = tmp_path / 'i'
@@ -239,9 +246,10 @@ def test_s2_supply_and_owner_integration(tmp_path):
         print('fixture command exit=0:', subprocess.list2cmdline(args))
     expected = tmp_path / 'expected.lua'
     expected.write_bytes(raw)
-    command(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File',
-             str(repository / 'tools/check_lua_syntax.ps1')])
-    command(['lua', str(repository / 'Iris/test/lua/tooltip_static_data_runtime_harness.lua'), str(staged), 'supply', str(expected)])
+    if not os.environ.get('IRIS_SHARED_MENU_VALIDATION'):
+        command(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File',
+                 str(repository / 'tools/check_lua_syntax.ps1')])
+        command(['lua', str(repository / 'Iris/test/lua/tooltip_static_data_runtime_harness.lua'), str(staged), 'supply', str(expected)])
     package = staged / '.tmp/package'
     command(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', str(staged / 'Iris/tools/package_iris.ps1'),
              '-OutputRoot', str(package), '-Zip'])
@@ -255,7 +263,11 @@ def test_s2_supply_and_owner_integration(tmp_path):
             install.admit(candidate)
         (candidate / name).write_bytes(saved)
     print('S2 candidate (PZ pending; no current adoption):', dict(Counter(r['state'] for r in payload['records'].values())),
-          'supply', embedded['sha256'], 'product', owner['product_id'], 'rows', summary['line_distribution'])
+          'supply', embedded['sha256'], 'product', owner['product_id'], 'rows', summary['line_distribution'], 'zip', package / 'Iris.zip')
+    if os.environ.get('IRIS_SHARED_MENU_VALIDATION'):
+        # The next selected product node consumes these exact B bytes, runs
+        # syntax and both runtime harnesses on the common B/C stage and ZIP.
+        os.environ['IRIS_MENU_TOOLTIP_CANDIDATE'] = (package / 'Iris.zip').relative_to(repository).as_posix()
 
 
 def test_package_rejects_tooltip_writer_lock():

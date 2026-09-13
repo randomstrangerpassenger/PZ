@@ -1,5 +1,7 @@
 # Iris Layer 3 의미 구성 Walkthrough
 
+2026-09-11 후속 용도 교정: 기존 r6/블록 ID와 29,202개 사실을 보존한 채 A의 `recovery_relations`가 source observation의 exact 개봉·손질·분해 결과와 도구 대안을 `use_relations`, 적용 재질을 `source_traits`로 전달한다. 내부 보존과 공개 문장 선택은 분리했다. 현재 교정의 결과와 검증은 [설명 품질 Walkthrough](iris_description_quality_walkthrough.md)의 후속 교정 절을 따른다. 아래 최초 구현 이력은 유지한다.
+
 > 작성일: 2026-09-10  
 > 상태: **DVF-COMPOSITION-1 / Problem 1 complete**  
 > 범위: 채택된 r6 Layer 3 사실을 locale-neutral 의미 블록으로 구성하고 Problem 2에 인계

@@ -74,7 +74,7 @@ def acquisition_places(root):
                     payload = fact['payload']
                     method = payload['route']['method']
                     if method in {'foraging', 'foraging_crop_seed'}:
-                        pair = {loc: ('채집: ' if loc == 'ko' else 'Foraging: ') + locations(payload, loc) for loc in places}
+                        pair = {loc: ('획득: ' if loc == 'ko' else 'Acquisition: ') + locations(payload, loc) for loc in places}
                     elif method == 'trapping':
                         zones = sorted(re.fullmatch(r'\.zone\["([^"]+)"\]', k)[1]
                             for k, value in payload['conditions']['definition'].items()

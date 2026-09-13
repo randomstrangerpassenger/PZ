@@ -11,11 +11,19 @@ def role(activities, roles, compact=False):
     if roles == ["repair_target"]:
         return "It is an item to be repaired"
     activities = list(activities)
-    for suffix in (" crafting", " forging", " preparation"):
-        peers = [a.removesuffix(suffix) for a in activities if a.endswith(suffix)]
-        if len(peers) > 1 and all(" and " not in p for p in peers):
-            activities = [a for a in activities if not a.endswith(suffix)] + [join(peers) + suffix]
-    return ("It is " if compact else "It serves as ") + join([lex.pair(lex.ROLES[r], "en") for r in roles]) + " for " + join(activities)
+    if roles == ["transformation_target"] and len(activities) == 1:
+        transformations = {
+            "spear-attachment recovery": "Its spear attachment can be recovered",
+            "shotgun barrel shortening": "Its shotgun barrel can be shortened",
+        }
+        if activities[0] in transformations:
+            return transformations[activities[0]]
+    # Preserve the common semantic traversal; suffix elision used to move
+    # crafting/preparation peers across intervening independent purposes.
+    nouns = join([lex.pair(lex.ROLES[r], "en") for r in roles])
+    if roles == ["tool"]:
+        return "It can be used for " + join(activities)
+    return "It can be used as " + nouns + " for " + join(activities)
 
 
 def parallel(clauses):

@@ -75,16 +75,71 @@ def validate_result(result: dict) -> dict:
             and all(isinstance(value, int) and value >= 0 for value in expected_counts.values()),
             "invalid input fact counts")
 
+    correction = source.get('semantic_correction')
+    correction_facts = {}
+    if correction is not None:
+        from . import semantic_model as semantic
+        require(correction.get('owner') == 'Iris/tooling/src/iris_tooling/domains/layer3/recovery_sources.py'
+                and len(correction.get('producer_sha256', '')) == 64, 'unbound semantic correction owner')
+        bindings = {r['path']: r['sha256'] for r in correction['source_bindings']}
+        observations, provenance = correction['observations'], correction['provenance']
+        for ref, observation in observations.items():
+            require(observation['source_sha256'] == bindings.get(observation['source_path'])
+                    and ref == semantic.identity('obs', observation), 'unbound correction observation')
+        for ref, row in provenance.items():
+            require(row['rule_ref'] in correction['rules'] and set(row['observation_refs']) <= observations.keys()
+                    and row['source_sha256'] == bindings.get(row['source_path']), 'unbound correction provenance')
+        for fact in correction['facts']:
+            ref = fact['fact_id']
+            require(ref not in correction_facts and ref == semantic.fact_identity(fact)
+                    and fact['status'] == 'accepted' and fact['fact_kind'] in semantic.KINDS
+                    and set(fact['payload']) == semantic.PAYLOAD_FIELDS[fact['fact_kind']]
+                    and set(fact['provenance_refs']) <= provenance.keys()
+                    and bool(fact['provenance_refs']), 'invalid corrected fact')
+            correction_facts[ref] = fact
+
     items = result.get("items")
     require(isinstance(items, list), "missing composition items")
     require([row.get("item_id") for row in items] == sorted({row.get("item_id") for row in items}),
             "duplicate or unsorted item")
+    by_item = {item['item_id']: item for item in items}
     seen_facts: dict[str, str] = {}
     seen_blocks: set[str] = set()
     relation_counts = Counter()
     qualifier_counts = Counter()
     for item in items:
         item_id = item["item_id"]
+        local_refs = {f['fact_ref'] for b in item.get('blocks', []) for br in b['branches'] for f in br['facts']}
+        for relation in item.get('use_relations', []):
+            require(relation['fact_refs'] and set(relation['fact_refs']) <= local_refs, 'unbound use relation')
+            require(relation['observation_refs'] and relation['input_role'] in {'transformation_target', 'tool', 'material', 'ingredient', 'attachment', 'container'}, 'missing source relation evidence')
+            if relation['function'] == 'recipe_use':
+                require(isinstance(relation.get('activity'), str) and relation['activity'], 'missing recipe activity')
+                returned = {'Recipe.OnCreate.GetMuffin': 'Base.MuffinTray',
+                            'Recipe.OnCreate.GetBiscuit': 'Base.MuffinTray',
+                            'Recipe.OnCreate.GetCookies': 'Base.BakingTray'}.get(relation.get('callback'))
+                require(all(r['kind'] == 'declared' or (r['kind'] == 'callback_unconditional'
+                    and returned and r['item_id'] == returned and r['count'] == '1')
+                    for r in relation['results']), 'unreviewed recipe callback result')
+            require(relation['result_use'] in {None, 'prepare_opened_food_ingredient', 'sow_extracted_seeds'}, 'unsupported result-use transfer')
+            consumption = relation.get('result_consumption')
+            if consumption is not None:
+                require(relation['function'] == 'unpack_canned_food'
+                        and len(relation['results']) == 1
+                        and relation['results'][0]['kind'] == 'declared', 'unbounded result consumption')
+                target = by_item.get(relation['results'][0]['item_id'], {})
+                fact = consumption.get('fact', {})
+                target_facts = [f for b in target.get('blocks', []) for branch in b['branches'] for f in branch['facts']]
+                require(fact in target_facts and fact.get('fact_kind') == 'direct_function'
+                        and fact.get('payload', {}).get('function') in {'eat_food', 'consume_edible_food', 'drink_food_contents'},
+                        'result consumption lacks exact target fact')
+                require(consumption.get('qualifiers') == [q for q in target['qualifiers']
+                        if fact['fact_ref'] in q['applies_to_fact_refs']], 'result consumption scope drift')
+            for output in relation['results']:
+                require(output['kind'] in {'declared', 'callback_unconditional', 'callback_conditional'}
+                        and output['observation_ref'] and set(output['names']) == {'ko', 'en'}, 'invalid named result')
+            for group in relation['tools']:
+                require(group['mode'] == 'any_of' and group['consumed'] is False and group['items'], 'invalid tool alternative')
         blocks = item.get("blocks")
         require(isinstance(blocks, list), "invalid composition block collection")
         require([block.get("block_id") for block in blocks]
@@ -186,6 +241,22 @@ def validate_result(result: dict) -> dict:
                     and relation.get("consumer_effect"), "unexplained unresolved relation")
             relation_counts["undetermined"] += 1
 
+    require(set(correction_facts) <= seen_facts.keys(), 'corrected fact omitted from composition')
+    for item in items:
+        for block in item['blocks']:
+            for branch in block['branches']:
+                for node in branch['facts']:
+                    fact = correction_facts.get(node['fact_ref'])
+                    if fact:
+                        require(fact['item_id'] == item['item_id'] and fact['fact_kind'] == node['fact_kind']
+                                and fact['payload'] == node['payload'], 'corrected fact meaning drift')
+        for q in item['qualifiers']:
+            for ref in q['fact_refs']:
+                fact = correction_facts.get(ref)
+                if fact:
+                    require(fact['item_id'] == item['item_id'] and fact['payload'] == q['payload']
+                            and sorted(fact['applies_to_fact_refs']) == q['applies_to_fact_refs'],
+                            'corrected qualifier application drift')
     summary = result.get("summary", {})
     require(summary.get("targets") == len(items), "target count drift")
     require(summary.get("blocks") == len(seen_blocks), "block count drift")

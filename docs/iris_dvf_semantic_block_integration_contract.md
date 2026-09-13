@@ -6,6 +6,10 @@ This contract defines the locale-neutral meaning structure produced from the ado
 
 The input is `Iris/_docs/authority/dvf/layer3_expression/successors/r6/adoption.json` at SHA-256 `7dded22fad93b7eeff8debf56205cb9ee84220758d53ecb41396889fb49bd799`. The normal `recovery.load_adopted` path supplies the bound semantic and acquisition payloads.
 
+2026-09-11 use-description correction: `recovery_relations.enrich` is the A adapter for already admitted observations. It adds `source_traits` and `use_relations` to the handoff without changing historical r6 facts, IDs or block identities. Named result items retain declaration references, quantities, explicit tool alternatives and reuse, and declared/unconditional-callback/conditional-callback distinctions. Cooking and sowing transfers require the existing admitted result-use fact. Locale and adapter source bytes are identified in `source.relation_adapter`; this is not a new adoption authority.
+
+Internal block preservation does not require public prose for every block. Problem 2 may exclude item maintenance, process metadata and acquisition from DVF use prose while preserving them in this handoff. Transformation targets supplying recovered material and independently useful recipe roles remain public uses. No block or fact is deleted to make the prose shorter.
+
 ## 2. Decision order
 
 Composition applies the following rules in order. Generated KO/EN prose, Profile names, input array order, and item names are never relation evidence.

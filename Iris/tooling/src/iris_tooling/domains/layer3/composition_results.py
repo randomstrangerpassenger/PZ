@@ -7,6 +7,8 @@ from pathlib import Path
 from . import composition_model as model
 from . import composition_rules as rules
 from . import recovery
+from . import recovery_relations
+from . import recovery_sources
 
 
 ADOPTION_REF = {
@@ -31,7 +33,17 @@ def produce(root: Path) -> tuple[dict, dict]:
     root = Path(root).resolve()
     loaded = recovery.load_adopted(root, ADOPTION_REF)
     payloads = loaded["payloads"]
-    result = rules.compose(payloads["semantic"], payloads["acquisition"], source_identity(loaded))
+    delta = recovery_sources.supplement_player_uses(root, payloads['semantic'])
+    semantic = dict(payloads['semantic'],
+        facts=payloads['semantic']['facts'] + delta['facts'],
+        observations={**payloads['semantic']['observations'], **delta['observations']},
+        provenance={**payloads['semantic']['provenance'], **delta['provenance']})
+    source = source_identity(loaded)
+    source['semantic_correction'] = delta
+    source['fact_counts']['semantic'] = len(semantic['facts'])
+    result = rules.compose(semantic, payloads['acquisition'], source)
+    recovery_relations.enrich(root, semantic, result)
+    loaded = dict(loaded, composition_semantic=semantic)
     return loaded, result
 
 

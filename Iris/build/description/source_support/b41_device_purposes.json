@@ -12,6 +12,22 @@
     {
       "path": "zombie/iso/objects/IsoGenerator.class",
       "sha256": "4574fc753e23a5d4d330e88f6fd10879bdad8c8f5807540e716383ea19f6b183"
+    },
+    {
+      "path": "zombie/iso/IsoGridSquare.class",
+      "sha256": "9e276bb7c12f94d446f7f0aab65d87a71735070b6ac37287ac01a4c7fa0cf7f8"
+    },
+    {
+      "path": "zombie/iso/objects/IsoMolotovCocktail.class",
+      "sha256": "9bbacfc33e6b5b0ae470e467331d430b998ed6081790be6e6fa560fb24f81a91"
+    },
+    {
+      "path": "zombie/characters/IsoGameCharacter.class",
+      "sha256": "657577b8f188710cdcd3ef1d00adf4406c6f7b82c48bb212bcdc415926dd59ea"
+    },
+    {
+      "path": "zombie/inventory/types/HandWeapon.class",
+      "sha256": "4831e10497e461ab175742fcd06a6d5205886086143c670473d60f99cedbf2cc"
     }
   ],
   "consumer_bindings": [
@@ -37,6 +53,33 @@
       "effect": "IsoGenerator.setSurroundingElectricity checks activation, spatial bounds and AllowExteriorGenerator; offsets 402-430 setHaveElectricity on eligible squares",
       "consumers": "Same method registers powered clothes dryers, washers, combination appliances, stoves, televisions, radios and refrigerated containers",
       "limit": "Nearby electrical equipment; outdoor supply follows sandbox permission, no unlimited range or universal compatibility claim."
+    },
+    "explosion": {
+      "entry": "Admitted ISPlaceTrap.perform creates IsoTrap; instantaneous MolotovCocktail throws also create and trigger IsoTrap through IsoMolotovCocktail.Explode.",
+      "property": "IsoTrap constructor copies ExplosionRange and ExplosionPower from HandWeapon. Both must be positive for this purpose.",
+      "effect": "IsoTrap.triggerExplosion(false) offsets 164-183 calls drawCircleExplosion with Explosion mode. IsoGridSquare.explosion calls Hit using ExplosionPower.",
+      "limit": "Blast damage purpose only; no guaranteed hit, kill, radius or universal damage claim."
+    },
+    "fire": {
+      "entry": "Same placed trap or instantaneous thrown trap entry as explosion.",
+      "property": "Positive FireRange and FirePower copied from HandWeapon.",
+      "effect": "IsoTrap.triggerExplosion offsets 186-205 dispatches Fire mode. IsoGridSquare.drawCircleExplosion offsets 307-342 tests FirePower and calls IsoFireManager.StartFire.",
+      "limit": "Can start nearby fires, no guaranteed ignition, spread, damage or kill claim."
+    },
+    "smoke": {
+      "entry": "Same placed trap or instantaneous thrown trap entry as explosion.",
+      "property": "Positive SmokeRange copied from HandWeapon.",
+      "effect": "IsoTrap.triggerExplosion offsets 208-227 dispatches Smoke mode. IsoGridSquare.drawCircleExplosion offsets 187-222 calls StartSmoke and smoke. smoke offsets 25-47 calls IsoZombie.setTarget(null) and changeState(ZombieIdleState).",
+      "limit": "Releases smoke and disrupts the current zombie target; no visibility occlusion, duration, safe escape or prevention of reacquisition claim."
+    },
+    "throwing": {
+      "entry": "IsoGameCharacter.Throw offsets 268-361 creates IsoBall for PhysicsObject Ball; every other non-null PhysicsObject uses IsoMolotovCocktail. HandWeapon.isInstantExplosion requires ExplosionTimer <= 0, SensorRange <= 0 and remote ID -1; reviewed absent script timer/sensor defaults are zero.",
+      "limit": "IsoMolotovCocktail.Explode only triggers local IsoTrap for HandWeapon.isInstantExplosion. Sensor/timer/remote purposes are admitted through placement, not inferred from throwing."
+    },
+    "activation": {
+      "timer": "ISPlaceTrap.perform creates IsoTrap; its constructor copies ExplosionTimer. IsoTrap.update offsets 120-150 counts down, then calls triggerExplosion with SensorRange > 0 as the sensor-arming flag. ISTrapMenu/ISInventoryPaneContextMenu timer control changes ExplosionTimer.",
+      "sensor": "triggerExplosion(true) offsets 15-76 marks the sensor squares with trap coordinates. IsoGameCharacter.updateInternal offsets 119-156 checks trap coordinates and calls IsoGridSquare.explodeTrap, which invokes triggerExplosion(false).",
+      "limit": "State that a placed and armed sensor activates on movement, without claiming immediate arming, a detection radius or a thrown-device effect."
     }
   }
 }

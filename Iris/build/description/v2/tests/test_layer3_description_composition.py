@@ -512,7 +512,8 @@ def test_layer3_description_composition(monkeypatch):
         assert all(word in examples['Base.Earring_LoopSmall_Gold_Both'][surface]['text'] for word in ('귀에 착용', '옮겨'))
         assert '기분 전환' in examples['Base.Book'][surface]['text']
         assert 'CD 플레이어' in examples['Base.Disc_Retail'][surface]['text']
-        assert all(word in examples['Base.VHS_Home'][surface]['text'] for word in ('영상', '지루함', '기술과 제작법', '스트레스'))
+        assert all(word in examples['Base.VHS_Home'][surface]['text'] for word in ('영상', '지루함', '기술과 제작법'))
+        assert ('스트레스' in examples['Base.VHS_Home'][surface]['text']) == (surface == 'expanded')
         assert '교체용 전구' in examples['Base.LightBulbBlue'][surface]['text']
     for item_id in ('Base.Log', 'Base.Glue', 'Base.ElectronicsScrap'):
         assert '쓰는 재료다' not in examples[item_id]['compact']['text']

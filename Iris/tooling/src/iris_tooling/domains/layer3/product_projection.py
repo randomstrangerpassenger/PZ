@@ -42,9 +42,9 @@ LOCALES = ("ko", "en")
 
 MENU_SCHEMA = "iris-layer3-product-v2"
 DESCRIPTION = {"path": "Iris/build/description/composition/descriptions.json",
-               "sha256": "8510f3003f7150ad034d83ef1496a2540b3fc5ac62acecb622d7c3bce7ba6ed3"}
+               "sha256": "c9e1d15da5fe6179567d60b4e8f622ce11ac6a30ce26f5a48a47839715c7b8e1"}
 BLOCKS = {"path": "Iris/build/description/composition/blocks.json",
-          "sha256": "e290c79b0f6d3b8738df5203926aa249309f8c14eaf6eebbed13e809a40ed455"}
+          "sha256": "6e977a7281b867470970ba017eda096cd27e373664730686b28e53c823bd6cb7"}
 ACCEPTED_TOOLTIP = {"path": ".tmp/tooltip/preview/Iris.zip",
                     "sha256": "33b5927127442b16dca917c6f49f3e661743123c0cbd3d5890d47cb6fca96860"}
 ACCEPTED_DESCRIPTION = {"path": "Iris/build/description/composition/descriptions.json",

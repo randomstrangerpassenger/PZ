@@ -15,6 +15,33 @@ FUNCTIONS = {'unpack_canned_food', 'unpack_produce', 'unpack_ammunition',
              'unpack_seeds', 'unpack_eggs', 'unpack_jarred_food',
              'unpack_box_contents', 'prepare_frog_meat', 'dismantle_electronics'}
 
+VEHICLE_PART_CATEGORIES = {
+    'Tire': 'tire', 'Brake': 'brake', 'Suspension': 'suspension',
+    'Battery': 'electrical', 'Headlight': 'electrical', 'Radio': 'electrical',
+    'Radio_HAM': 'electrical', 'Seat': 'seat', 'Window': 'glazing',
+    'Windshield': 'glazing', 'GasTank': 'fuel_tank', 'Muffler': 'exhaust',
+    'Door': 'bodywork', 'EngineDoor': 'bodywork', 'TrunkDoor': 'bodywork',
+}
+
+
+def vehicle_tool_roles(text, item_id):
+    """Only paired installation/removal requirements license the shared frame."""
+    text = reader.mask(text)
+    roles = defaultdict(set)
+    for match in re.finditer(r'\btable\s+(install|uninstall)\s*\{', text):
+        start, end, depth = match.end(), match.end(), 1
+        while end < len(text) and depth:
+            depth += (text[end] == '{') - (text[end] == '}')
+            end += 1
+        if depth:
+            raise ValueError('unclosed vehicle operation table')
+        for body in re.findall(r'\{([^{}]*)\}', text[start:end-1], re.S):
+            fields = reader.unique_properties({'clauses': reader.clauses(body)})
+            if fields and fields.get('type') == item_id and fields.get('keep') == 'true':
+                role = 'direct' if fields.get('equip') in {'primary', 'both'} else 'support'
+                roles[role].add(match[1])
+    return {role for role, operations in roles.items() if operations == {'install', 'uninstall'}}
+
 
 
 def enrich(root, semantic, composition):
@@ -96,7 +123,7 @@ def enrich(root, semantic, composition):
     purpose_fields = ('Type', 'DisplayCategory', 'Categories', 'SubCategory', 'Tags', 'Ranged', 'Poison',
                       'ExplosionPower', 'FirePower', 'SmokeRange', 'NoiseRange',
                       'RemoteController', 'RemoteRange', 'SensorRange', 'ExplosionTimer',
-                      'CanBeRemote', 'AcceptMediaType', 'MediaCategory', 'ClothingItemExtraOption', 'WorldObjectSprite', 'BodyLocation', 'CanBeEquipped')
+                      'CanBeRemote', 'CanBePlaced', 'AcceptMediaType', 'MediaCategory', 'ClothingItemExtraOption', 'WorldObjectSprite', 'BodyLocation', 'CanBeEquipped')
 
     def named(item, food=False):
         fields = declarations[item]
@@ -263,6 +290,30 @@ def enrich(root, semantic, composition):
         item['source_traits']['repair_targets'] = [repair_targets[k] for k in sorted(repair_targets)]
         functions = {f['payload'].get('function'): f for f in by_item[item_id]
                      if f['fact_kind'] == 'direct_function'}
+        if 'service_vehicle_parts' in functions:
+            fact = functions['service_vehicle_parts']
+            refs = sorted({r for p in fact['provenance_refs']
+                           for r in semantic['provenance'][p]['observation_refs']})
+            service_roles = {}
+            categories = VEHICLE_PART_CATEGORIES
+            for ref in refs:
+                obs = observations[ref]
+                path = obs['source_path']
+                if not path.startswith('scripts/vehicles/template_'):
+                    continue
+                raw = (root / path).read_bytes()
+                if hashlib.sha256(raw).hexdigest() != obs['source_sha256']:
+                    raise ValueError('admitted vehicle template drift: ' + path)
+                text = reader.mask(raw.decode('utf-8-sig'))
+                template = re.search(r'\btemplate\s+vehicle\s+(\w+)', text)
+                if not template or template[1] not in categories:
+                    continue
+                for role in vehicle_tool_roles(text, item_id):
+                    key = (categories[template[1]], role)
+                    service_roles.setdefault(key, []).append(ref)
+            item['source_traits']['vehicle_service_roles'] = [
+                {'category': category, 'role': role, 'observation_refs': sorted(set(refs))}
+                for (category, role), refs in sorted(service_roles.items())]
         for fn in sorted(FUNCTIONS & functions.keys()):
             fact = functions[fn]
             evidence = sorted({r for p in fact['provenance_refs']
@@ -372,6 +423,17 @@ def enrich(root, semantic, composition):
                                  'count': p['clause'].split('=', 1)[1] if '=' in p['clause'] else '1'} for p in outputs],
                     'observation_refs': sorted({ref, groups_ref}) if callbacks else [ref],
                 }
+                # A processing material may explain the immediate result's
+                # purpose. This bounded join does not inherit every later use.
+                if role in {'material', 'ingredient', 'container'} and len(outputs) == 1:
+                    purposes = [f for f in by_item[outputs[0]['item_id']]
+                                if f['payload'].get('function') == 'plaster_supported_structure']
+                    if len(purposes) == 1:
+                        purpose = purposes[0]
+                        recipe_relations[key]['result_purpose'] = {
+                            'function': purpose['payload']['function'], 'fact_ref': purpose['fact_id'],
+                            'observation_refs': sorted({r for p in purpose['provenance_refs']
+                                                       for r in semantic['provenance'][p]['observation_refs']})}
                 if context['payload']['activity'] == 'explosive_modification':
                     # The admitted Add recipes consume the device first,
                     # the fitted component second, then assembly supplies.

@@ -121,3 +121,83 @@ def test_native_purpose_requires_admitted_action_and_positive_property():
     assert set(builder.facts) == {('ModA.Sound', 'emit_attracting_noise'),
                                  ('ModB.Renamed', 'emit_attracting_noise'),
                                  ('ModA.Power', 'supply_nearby_electricity')}
+
+
+def test_device_effects_require_consumed_properties_and_reachable_consumer():
+    from pathlib import Path
+    from iris_tooling.domains.layer3 import recovery_sources
+
+    class Builder:
+        def __init__(self):
+            self.observations, self.facts = {}, []
+        def observe(self, *args):
+            return 'proof:native'
+        def fact(self, item, kind, payload, *args):
+            self.facts.append((item, payload['function']))
+
+    def admit(name, fields, action):
+        item = 'ExampleMod.' + name
+        fields = {'Type': 'Weapon', **fields}
+        semantic = {'facts': [{'item_id': item, 'payload': {'function': action}}]}
+        obs = {'source_path': 'fixture', 'source_sha256': 'fixture', 'locator': 'item:' + item,
+               'content': {'raw': 'item ' + item, 'clauses': [k + ' = ' + v for k, v in fields.items()]}}
+        builder = Builder()
+        recovery_sources.supplement_native_device_purposes(Path(__file__).resolve().parents[5],
+                                                          semantic, {item: [('fixture', obs)]}, builder, {})
+        return {fn for _, fn in builder.facts}
+
+    blast = {'ExplosionPower': '70', 'ExplosionRange': '6'}
+    assert admit('New', blast, 'place_trigger_device') == {'device_explosion_damage'}
+    assert admit('Renamed', blast, 'place_trigger_device') == admit('New', blast, 'place_trigger_device')
+    assert not admit('NoRange', {'ExplosionPower': '70'}, 'place_trigger_device')
+    assert not admit('ZeroRange', {**blast, 'ExplosionRange': '0'}, 'place_trigger_device')
+    assert not admit('UnknownPower', {**blast, 'ExplosionPower': 'unknown'}, 'place_trigger_device')
+    assert not admit('Unjoined', blast, None)
+    assert admit('Smoke', {'SmokeRange': '5'}, 'place_trigger_device') == {'device_smoke_distraction'}
+    assert admit('Fire', {'FireRange': '4', 'FirePower': '90'}, 'place_trigger_device') == {'device_start_fire'}
+    thrown = {**blast, 'PhysicsObject': 'UnseenTexture'}
+    assert admit('Throw', thrown, 'request_physics_attack') == {'device_explosion_damage'}
+    for extra in ({'PhysicsObject': 'Ball'}, {'SensorRange': '3'}, {'ExplosionTimer': '5'},
+                  {'ExplosionTimer': 'unknown'}, {'CanBeRemote': 'true'}):
+        assert not admit('NotInstant', {**thrown, **extra}, 'request_physics_attack')
+
+
+def test_relation_rendering_does_not_use_item_identity():
+    import json
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[5]
+    blocks = json.loads((root/'Iris/build/description/composition/blocks.json').read_text())
+    items = {i['item_id']: i for i in blocks['items']}
+    for key in ('Base.PlasterPowder', 'Base.BucketEmpty', 'Base.Jack', 'Base.LugWrench',
+                'Base.Screwdriver', 'Base.Wrench', 'Base.SmokeBombSensorV1'):
+        a = results.compose_item(items[key])
+        renamed = deepcopy(items[key])
+        renamed['item_id'] = 'ExampleMod.UnrelatedName'
+        b = results.compose_item(renamed)
+        for locale in ('ko', 'en'):
+            for surface in ('compact', 'expanded'):
+                assert a['locales'][locale][surface]['text'] == b['locales'][locale][surface]['text']
+    for key in ('Base.SmokeBomb', 'Base.NoiseTrap'):
+        assert '설치하거나 던져서' in results.compose_item(items[key])['locales']['ko']['expanded']['text']
+    for key, method in (('Base.SmokeBombSensorV1','움직임을 감지'), ('Base.SmokeBombTriggered','지연 작동')):
+        text = results.compose_item(items[key])['locales']['ko']['expanded']['text']
+        assert method in text and '던져서' not in text
+    powder = deepcopy(items['Base.PlasterPowder'])
+    powder['use_relations'] = []
+    # The noun alone cannot license inheriting the result's painting purpose.
+    assert '도색' not in results.compose_item(powder)['locales']['ko']['expanded']['text']
+
+
+def test_vehicle_tool_role_comes_from_paired_operation_requirements():
+    from iris_tooling.domains.layer3.recovery_relations import vehicle_tool_roles
+    def tables(name, equip='', keep='true', operations=('install', 'uninstall')):
+        return ''.join('table ' + op + ' { items { 1 { type = ' + name +
+                       ', keep = ' + keep + (', equip = ' + equip if equip else '') + ', } } }'
+                       for op in operations)
+    assert vehicle_tool_roles(tables('Mod.Tool', 'primary'), 'Mod.Tool') == {'direct'}
+    assert vehicle_tool_roles(tables('Other.Renamed', 'primary'), 'Other.Renamed') == {'direct'}
+    assert vehicle_tool_roles(tables('Mod.Tool'), 'Mod.Tool') == {'support'}
+    assert vehicle_tool_roles(tables('Mod.Tool', 'secondary'), 'Mod.Tool') == {'support'}
+    assert not vehicle_tool_roles(tables('Mod.Tool', 'primary', operations=('install',)), 'Mod.Tool')
+    assert not vehicle_tool_roles(tables('Mod.Tool', 'primary', keep='false'), 'Mod.Tool')
+    assert not vehicle_tool_roles(tables('Mod.Tool', 'primary'), 'Mod.Unrelated')

@@ -39,6 +39,15 @@ def command(argv, cwd, checkpoint, product_id):
     return output
 
 
+def test_current_menu_input_binding():
+    """Validate the current canonical menu input without building a package."""
+    payload, blocks = product.read_menu_inputs(ROOT)
+    menu, trace = product.expanded_projection(payload, blocks)
+    assert len(menu) == len(trace) == len(payload['items']) == 2105
+    for item in payload['items']:
+        assert trace[item['item_id']]['source'] == item
+
+
 def test_product_contract(tmp_path, monkeypatch):
     candidate_zip = os.environ.get('IRIS_MENU_TOOLTIP_CANDIDATE')
     if candidate_zip:

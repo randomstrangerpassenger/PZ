@@ -1,0 +1,1515 @@
+[
+  {
+    "item_id": "Base.Aerosolbomb",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "움직임 감지, 원격 작동, 시간 지연 기능을 더해 개조할 수 있다. 투척 공격에 쓸 수 있다.",
+        "expanded": "움직임 감지, 원격 작동, 시간 지연 기능을 더해 개조할 수 있다.\n투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be modified for motion sensing, remote activation, and time delay. It can be used for throwing attacks.",
+        "expanded": "It can be modified for motion sensing, remote activation, and time delay.\nIt can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "움직임 감지, 원격 작동, 시간 지연 기능을 더해 개조할 수 있다. 폭발로 주변에 피해를 줄 수 있다.",
+        "expanded": "움직임 감지, 원격 작동, 시간 지연 기능을 더해 개조할 수 있다.\n폭발로 주변에 피해를 줄 수 있다. 던져서 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be modified for motion sensing, remote activation, and time delay. It can cause blast damage nearby.",
+        "expanded": "It can be modified for motion sensing, remote activation, and time delay.\nIt can cause blast damage nearby. It can be thrown."
+      }
+    }
+  },
+  {
+    "item_id": "Base.AerosolbombRemote",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다. 투척 공격에 쓸 수 있다.",
+        "expanded": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다.\n투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be activated remotely after linking it to a compatible controller. It can be used for throwing attacks.",
+        "expanded": "It can be activated remotely after linking it to a compatible controller.\nIt can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다. 폭발로 주변에 피해를 줄 수 있다.",
+        "expanded": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다.\n폭발로 주변에 피해를 줄 수 있다. 설치해 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be activated remotely after linking it to a compatible controller. It can cause blast damage nearby.",
+        "expanded": "It can be activated remotely after linking it to a compatible controller.\nIt can cause blast damage nearby. It can be placed for use."
+      }
+    }
+  },
+  {
+    "item_id": "Base.AerosolbombSensorV1",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "투척 공격에 쓸 수 있다.",
+        "expanded": "투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for throwing attacks.",
+        "expanded": "It can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "폭발로 주변에 피해를 줄 수 있다.",
+        "expanded": "폭발로 주변에 피해를 줄 수 있다. 설치한 뒤 움직임을 감지하면 작동한다."
+      },
+      "en": {
+        "compact": "It can cause blast damage nearby.",
+        "expanded": "It can cause blast damage nearby. Once placed and armed, it activates when movement is detected."
+      }
+    }
+  },
+  {
+    "item_id": "Base.AerosolbombSensorV2",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "투척 공격에 쓸 수 있다.",
+        "expanded": "투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for throwing attacks.",
+        "expanded": "It can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "폭발로 주변에 피해를 줄 수 있다.",
+        "expanded": "폭발로 주변에 피해를 줄 수 있다. 설치한 뒤 움직임을 감지하면 작동한다."
+      },
+      "en": {
+        "compact": "It can cause blast damage nearby.",
+        "expanded": "It can cause blast damage nearby. Once placed and armed, it activates when movement is detected."
+      }
+    }
+  },
+  {
+    "item_id": "Base.AerosolbombSensorV3",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "투척 공격에 쓸 수 있다.",
+        "expanded": "투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for throwing attacks.",
+        "expanded": "It can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "폭발로 주변에 피해를 줄 수 있다.",
+        "expanded": "폭발로 주변에 피해를 줄 수 있다. 설치한 뒤 움직임을 감지하면 작동한다."
+      },
+      "en": {
+        "compact": "It can cause blast damage nearby.",
+        "expanded": "It can cause blast damage nearby. Once placed and armed, it activates when movement is detected."
+      }
+    }
+  },
+  {
+    "item_id": "Base.AerosolbombTriggered",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "투척 공격에 쓸 수 있다.",
+        "expanded": "투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for throwing attacks.",
+        "expanded": "It can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "폭발로 주변에 피해를 줄 수 있다.",
+        "expanded": "폭발로 주변에 피해를 줄 수 있다. 시간을 맞춰 설치하면 지연 작동시킬 수 있다."
+      },
+      "en": {
+        "compact": "It can cause blast damage nearby.",
+        "expanded": "It can cause blast damage nearby. It can be placed with a timer for delayed activation."
+      }
+    }
+  },
+  {
+    "item_id": "Base.AlcoholBandage",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "화상 세척에 쓸 수 있다. 상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다.",
+        "expanded": "화상을 씻는 데 쓸 수 있다.\n상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for cleaning burns. It can be wrapped around wounds. If infected, it can infect the wound.",
+        "expanded": "It can be used to clean burns.\nIt can be wrapped around wounds. If infected, it can infect the wound."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "화상 세척에 쓸 수 있다. 상처에 감을 수 있다.",
+        "expanded": "화상을 씻는 데 쓸 수 있다.\n상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for cleaning burns. It can be wrapped around wounds.",
+        "expanded": "It can be used to clean burns.\nIt can be wrapped around wounds. Infected material can cause wound infection."
+      }
+    }
+  },
+  {
+    "item_id": "Base.AlcoholRippedSheets",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "화상 세척에 쓸 수 있다. 상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다.",
+        "expanded": "화상을 씻는 데 쓸 수 있다.\n상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for cleaning burns. It can be wrapped around wounds. If infected, it can infect the wound.",
+        "expanded": "It can be used to clean burns.\nIt can be wrapped around wounds. If infected, it can infect the wound."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "화상 세척에 쓸 수 있다. 상처에 감을 수 있다.",
+        "expanded": "화상을 씻는 데 쓸 수 있다.\n상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for cleaning burns. It can be wrapped around wounds.",
+        "expanded": "It can be used to clean burns.\nIt can be wrapped around wounds. Infected material can cause wound infection."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Bandage",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "화상 세척에 쓸 수 있다. 상처에 감을 수 있다. 소독해서 쓸 수도 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다.",
+        "expanded": "화상을 씻는 데 쓸 수 있다.\n상처에 감을 수 있다. 소독해서 쓸 수도 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for cleaning burns. It can be wrapped around wounds. It can also be disinfected before use. If infected, it can infect the wound.",
+        "expanded": "It can be used to clean burns.\nIt can be wrapped around wounds. It can also be disinfected before use. If infected, it can infect the wound."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "화상 세척에 쓸 수 있다. 상처에 감을 수 있다. 소독해서 쓸 수도 있다.",
+        "expanded": "화상을 씻는 데 쓸 수 있다.\n상처에 감을 수 있다. 소독해서 쓸 수도 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for cleaning burns. It can be wrapped around wounds. It can also be disinfected before use.",
+        "expanded": "It can be used to clean burns.\nIt can be wrapped around wounds. It can also be disinfected before use. Infected material can cause wound infection."
+      }
+    }
+  },
+  {
+    "item_id": "Base.BandageDirty",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다. 물로 씻어 다시 쓸 수 있다.",
+        "expanded": "상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다.\n물로 씻어 다시 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be wrapped around wounds. If infected, it can infect the wound. It can be washed with water for reuse.",
+        "expanded": "It can be wrapped around wounds. If infected, it can infect the wound.\nIt can be washed with water for reuse."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "상처에 감을 수 있다. 물로 씻어 다시 쓸 수 있다.",
+        "expanded": "상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.\n물로 씻어 다시 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be wrapped around wounds. It can be washed with water for reuse.",
+        "expanded": "It can be wrapped around wounds. Infected material can cause wound infection.\nIt can be washed with water for reuse."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Bandaid",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다.",
+        "expanded": "상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다."
+      },
+      "en": {
+        "compact": "It can be wrapped around wounds. If infected, it can infect the wound.",
+        "expanded": "It can be wrapped around wounds. If infected, it can infect the wound."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "상처에 감을 수 있다.",
+        "expanded": "상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다."
+      },
+      "en": {
+        "compact": "It can be wrapped around wounds.",
+        "expanded": "It can be wrapped around wounds. Infected material can cause wound infection."
+      }
+    }
+  },
+  {
+    "item_id": "Base.BucketEmpty",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "물을 담아 보관하거나 운반할 수 있다. 석고를 섞는 용기로 쓸 수 있다.",
+        "expanded": "물을 담아 보관하거나 운반할 수 있다.\n석고를 섞는 용기로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can hold water for storage or carrying. It can be used as a container for plaster mixing.",
+        "expanded": "It can hold water for storage or carrying.\nIt can be used as a container for plaster mixing."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "도색할 구조물에 바를 석고를 섞는 용기로 쓸 수 있다. 물을 담아 보관하거나 운반할 수 있다.",
+        "expanded": "도색할 구조물에 바를 석고를 섞는 용기로 쓸 수 있다.\n물을 담아 보관하거나 운반할 수 있다."
+      },
+      "en": {
+        "compact": "It can hold plaster being mixed to prepare structures for painting. It can hold water for storage or carrying.",
+        "expanded": "It can hold plaster being mixed to prepare structures for painting.\nIt can hold water for storage or carrying."
+      }
+    }
+  },
+  {
+    "item_id": "Base.BucketWaterFull",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다. 석고를 섞는 용기로 쓸 수 있다.",
+        "expanded": "물을 담아 보관하거나 운반하고, 다른 용기나 물 저장 시설로 옮길 수 있다.\n작물에 물을 줄 수 있다.\n물로 차량의 혈흔을 씻을 수 있다.\n바닥이나 몸에 붙은 불을 끌 수 있다.\n담긴 물을 마셔 갈증을 줄일 수 있다. 오염된 물을 마시면 중독될 수 있다.\n석고를 섞는 용기로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can carry water for drinking, farming and tasks such as cleaning; drinking tainted water risks poisoning. It can be used as a container for plaster mixing.",
+        "expanded": "It can store and carry water and transfer it to other containers or water storage fixtures.\nIt can water seeded crops.\nIts water can wash vehicle bloodstains.\nIt can extinguish fires on the ground or on characters.\nIts water can be drunk to reduce thirst. Drinking tainted water can cause poisoning.\nIt can be used as a container for plaster mixing."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "도색할 구조물에 바를 석고를 섞는 용기로 쓸 수 있다. 물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다.",
+        "expanded": "도색할 구조물에 바를 석고를 섞는 용기로 쓸 수 있다.\n물을 담아 보관하거나 운반하고, 다른 용기나 물 저장 시설로 옮길 수 있다.\n작물에 물을 줄 수 있다.\n물로 차량의 혈흔을 씻을 수 있다.\n바닥이나 몸에 붙은 불을 끌 수 있다.\n담긴 물을 마셔 갈증을 줄일 수 있다. 오염된 물을 마시면 중독될 수 있다."
+      },
+      "en": {
+        "compact": "It can hold plaster being mixed to prepare structures for painting. It can carry water for drinking, farming and tasks such as cleaning; drinking tainted water risks poisoning.",
+        "expanded": "It can hold plaster being mixed to prepare structures for painting.\nIt can store and carry water and transfer it to other containers or water storage fixtures.\nIt can water seeded crops.\nIts water can wash vehicle bloodstains.\nIt can extinguish fires on the ground or on characters.\nIts water can be drunk to reduce thirst. Drinking tainted water can cause poisoning."
+      }
+    }
+  },
+  {
+    "item_id": "Base.DenimStrips",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "상처 처치나 의류 수선에 쓸 수 있다. 감염된 재료로 상처를 감으면 감염을 일으킬 수 있다. 화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다.",
+        "expanded": "화상을 씻는 데 쓸 수 있다.\n상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다.\n화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다.\n의류의 구멍을 덧대거나 패딩을 추가할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for wound care or clothing repairs. Infected material can infect a wound when used as bandaging. It can supply material for making incendiary devices, tools, and splints.",
+        "expanded": "It can be used to clean burns.\nIt can be wrapped around wounds. If infected, it can infect the wound.\nIt can supply material for making incendiary devices, tools, and splints.\nIt can be used to patch garment holes or add padding."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "상처 처치나 의류 수선에 쓸 수 있다. 화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다.",
+        "expanded": "화상을 씻는 데 쓸 수 있다.\n상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.\n화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다.\n의류의 구멍을 덧대거나 패딩을 추가할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for wound care or clothing repairs. It can supply material for making incendiary devices, tools, and splints.",
+        "expanded": "It can be used to clean burns.\nIt can be wrapped around wounds. Infected material can cause wound infection.\nIt can supply material for making incendiary devices, tools, and splints.\nIt can be used to patch garment holes or add padding."
+      }
+    }
+  },
+  {
+    "item_id": "Base.DenimStripsDirty",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다. 물로 씻어 다시 쓸 수 있다. 화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다.",
+        "expanded": "상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다.\n물로 씻어 다시 쓸 수 있다.\n화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be wrapped around wounds. If infected, it can infect the wound. It can be washed with water for reuse. It can supply material for making incendiary devices, tools, and splints.",
+        "expanded": "It can be wrapped around wounds. If infected, it can infect the wound.\nIt can be washed with water for reuse.\nIt can supply material for making incendiary devices, tools, and splints."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "상처에 감을 수 있다. 물로 씻어 다시 쓸 수 있다. 화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다.",
+        "expanded": "상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.\n물로 씻어 다시 쓸 수 있다.\n화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be wrapped around wounds. It can be washed with water for reuse. It can supply material for making incendiary devices, tools, and splints.",
+        "expanded": "It can be wrapped around wounds. Infected material can cause wound infection.\nIt can be washed with water for reuse.\nIt can supply material for making incendiary devices, tools, and splints."
+      }
+    }
+  },
+  {
+    "item_id": "Base.FlameTrap",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "움직임 감지, 원격 작동, 시간 지연 기능을 더해 개조할 수 있다. 투척 공격에 쓸 수 있다.",
+        "expanded": "움직임 감지, 원격 작동, 시간 지연 기능을 더해 개조할 수 있다.\n투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be modified for motion sensing, remote activation, and time delay. It can be used for throwing attacks.",
+        "expanded": "It can be modified for motion sensing, remote activation, and time delay.\nIt can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "움직임 감지, 원격 작동, 시간 지연 기능을 더해 개조할 수 있다. 주변에 불을 붙이는 데 쓸 수 있다.",
+        "expanded": "움직임 감지, 원격 작동, 시간 지연 기능을 더해 개조할 수 있다.\n주변에 불을 붙이는 데 쓸 수 있다. 던져서 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be modified for motion sensing, remote activation, and time delay. It can be used to start fires nearby.",
+        "expanded": "It can be modified for motion sensing, remote activation, and time delay.\nIt can be used to start fires nearby. It can be thrown."
+      }
+    }
+  },
+  {
+    "item_id": "Base.FlameTrapRemote",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다. 투척 공격에 쓸 수 있다.",
+        "expanded": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다.\n투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be activated remotely after linking it to a compatible controller. It can be used for throwing attacks.",
+        "expanded": "It can be activated remotely after linking it to a compatible controller.\nIt can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다. 주변에 불을 붙이는 데 쓸 수 있다.",
+        "expanded": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다.\n주변에 불을 붙이는 데 쓸 수 있다. 설치해 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be activated remotely after linking it to a compatible controller. It can be used to start fires nearby.",
+        "expanded": "It can be activated remotely after linking it to a compatible controller.\nIt can be used to start fires nearby. It can be placed for use."
+      }
+    }
+  },
+  {
+    "item_id": "Base.FlameTrapSensorV1",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "투척 공격에 쓸 수 있다.",
+        "expanded": "투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for throwing attacks.",
+        "expanded": "It can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "주변에 불을 붙이는 데 쓸 수 있다.",
+        "expanded": "주변에 불을 붙이는 데 쓸 수 있다. 설치한 뒤 움직임을 감지하면 작동한다."
+      },
+      "en": {
+        "compact": "It can be used to start fires nearby.",
+        "expanded": "It can be used to start fires nearby. Once placed and armed, it activates when movement is detected."
+      }
+    }
+  },
+  {
+    "item_id": "Base.FlameTrapSensorV2",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "투척 공격에 쓸 수 있다.",
+        "expanded": "투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for throwing attacks.",
+        "expanded": "It can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "주변에 불을 붙이는 데 쓸 수 있다.",
+        "expanded": "주변에 불을 붙이는 데 쓸 수 있다. 설치한 뒤 움직임을 감지하면 작동한다."
+      },
+      "en": {
+        "compact": "It can be used to start fires nearby.",
+        "expanded": "It can be used to start fires nearby. Once placed and armed, it activates when movement is detected."
+      }
+    }
+  },
+  {
+    "item_id": "Base.FlameTrapSensorV3",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "투척 공격에 쓸 수 있다.",
+        "expanded": "투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for throwing attacks.",
+        "expanded": "It can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "주변에 불을 붙이는 데 쓸 수 있다.",
+        "expanded": "주변에 불을 붙이는 데 쓸 수 있다. 설치한 뒤 움직임을 감지하면 작동한다."
+      },
+      "en": {
+        "compact": "It can be used to start fires nearby.",
+        "expanded": "It can be used to start fires nearby. Once placed and armed, it activates when movement is detected."
+      }
+    }
+  },
+  {
+    "item_id": "Base.FlameTrapTriggered",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "투척 공격에 쓸 수 있다.",
+        "expanded": "투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for throwing attacks.",
+        "expanded": "It can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "주변에 불을 붙이는 데 쓸 수 있다.",
+        "expanded": "주변에 불을 붙이는 데 쓸 수 있다. 시간을 맞춰 설치하면 지연 작동시킬 수 있다."
+      },
+      "en": {
+        "compact": "It can be used to start fires nearby.",
+        "expanded": "It can be used to start fires nearby. It can be placed with a timer for delayed activation."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Football2",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "투척 공격에 쓸 수 있다.",
+        "expanded": "투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for throwing attacks.",
+        "expanded": "It can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "던져서 사용할 수 있다.",
+        "expanded": "던져서 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be thrown.",
+        "expanded": "It can be thrown."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Generator",
+    "coordinates": [
+      "ko/expanded",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "가동해 주변 전기 설비에 전원을 공급할 수 있다.",
+        "expanded": "가동해 주변 전기 설비에 전원을 공급할 수 있다. 야외 발전기 사용이 허용된 설정에서는 야외 주유기에도 전원을 공급할 수 있다."
+      },
+      "en": {
+        "compact": "It can be operated to power nearby electrical equipment.",
+        "expanded": "It can be operated to power nearby electrical equipment. It can also power exterior fuel pumps when outdoor generator use is enabled."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "가동해 주변 전기 설비에 전원을 공급할 수 있다.",
+        "expanded": "가동해 주변의 냉장고나 세탁기 등 전기 설비에 전원을 공급할 수 있다."
+      },
+      "en": {
+        "compact": "It can be operated to power nearby electrical equipment.",
+        "expanded": "It can be operated to power nearby electrical equipment such as refrigerators and washing machines."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Jack",
+    "coordinates": [
+      "ko/expanded",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "차량 부품을 장착하거나 탈거하는 데 사용할 수 있다.",
+        "expanded": "차량 부품을 장착하거나 탈거하는 데 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used to install or remove vehicle parts.",
+        "expanded": "It can be used to install or remove vehicle parts."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "차량 부품을 장착하거나 탈거하는 데 사용할 수 있다.",
+        "expanded": "타이어, 브레이크 및 서스펜션 장착과 탈거에 필요한 보조 도구로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be used to install or remove vehicle parts.",
+        "expanded": "It is a required supporting tool for installing and removing tires, brakes, and suspension parts."
+      }
+    }
+  },
+  {
+    "item_id": "Base.LeatherStrips",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "상처 처치나 의류 수선에 쓸 수 있다. 감염된 재료로 상처를 감으면 감염을 일으킬 수 있다.",
+        "expanded": "화상을 씻는 데 쓸 수 있다.\n상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다.\n의류의 구멍을 덧대거나 패딩을 추가할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for wound care or clothing repairs. Infected material can infect a wound when used as bandaging.",
+        "expanded": "It can be used to clean burns.\nIt can be wrapped around wounds. If infected, it can infect the wound.\nIt can be used to patch garment holes or add padding."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "상처 처치나 의류 수선에 쓸 수 있다.",
+        "expanded": "화상을 씻는 데 쓸 수 있다.\n상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.\n의류의 구멍을 덧대거나 패딩을 추가할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for wound care or clothing repairs.",
+        "expanded": "It can be used to clean burns.\nIt can be wrapped around wounds. Infected material can cause wound infection.\nIt can be used to patch garment holes or add padding."
+      }
+    }
+  },
+  {
+    "item_id": "Base.LeatherStripsDirty",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다. 물로 씻어 다시 쓸 수 있다.",
+        "expanded": "상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다.\n물로 씻어 다시 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be wrapped around wounds. If infected, it can infect the wound. It can be washed with water for reuse.",
+        "expanded": "It can be wrapped around wounds. If infected, it can infect the wound.\nIt can be washed with water for reuse."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "상처에 감을 수 있다. 물로 씻어 다시 쓸 수 있다.",
+        "expanded": "상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.\n물로 씻어 다시 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be wrapped around wounds. It can be washed with water for reuse.",
+        "expanded": "It can be wrapped around wounds. Infected material can cause wound infection.\nIt can be washed with water for reuse."
+      }
+    }
+  },
+  {
+    "item_id": "Base.LugWrench",
+    "coordinates": [
+      "ko/expanded",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "차량 부품을 장착하거나 탈거하는 데 사용할 수 있다.",
+        "expanded": "차량 부품을 장착하거나 탈거하는 데 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used to install or remove vehicle parts.",
+        "expanded": "It can be used to install or remove vehicle parts."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "차량 부품을 장착하거나 탈거하는 데 사용할 수 있다.",
+        "expanded": "타이어 장착과 탈거에 작업 도구로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be used to install or remove vehicle parts.",
+        "expanded": "It can be used to install and remove tires."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Molotov",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "투척 공격에 쓸 수 있다.",
+        "expanded": "투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for throwing attacks.",
+        "expanded": "It can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "주변에 불을 붙이는 데 쓸 수 있다.",
+        "expanded": "주변에 불을 붙이는 데 쓸 수 있다. 던져서 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used to start fires nearby.",
+        "expanded": "It can be used to start fires nearby. It can be thrown."
+      }
+    }
+  },
+  {
+    "item_id": "Base.NoiseTrap",
+    "coordinates": [
+      "ko/expanded",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "원격 작동, 움직임 감지, 시간 지연 기능을 더해 개조할 수 있다. 소음을 내 좀비의 주의를 끄는 데 쓸 수 있다.",
+        "expanded": "원격 작동, 움직임 감지, 시간 지연 기능을 더해 개조할 수 있다.\n소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 던져서 사용할 수도 있다."
+      },
+      "en": {
+        "compact": "It can be modified for remote activation, motion sensing, and time delay. It can produce noise to attract zombies.",
+        "expanded": "It can be modified for remote activation, motion sensing, and time delay.\nIt can produce noise to attract zombies. It can also be thrown."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "원격 작동, 움직임 감지, 시간 지연 기능을 더해 개조할 수 있다. 소음을 내 좀비의 주의를 끄는 데 쓸 수 있다.",
+        "expanded": "원격 작동, 움직임 감지, 시간 지연 기능을 더해 개조할 수 있다.\n소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 설치하거나 던져서 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be modified for remote activation, motion sensing, and time delay. It can produce noise to attract zombies.",
+        "expanded": "It can be modified for remote activation, motion sensing, and time delay.\nIt can produce noise to attract zombies. It can be placed or thrown for use."
+      }
+    }
+  },
+  {
+    "item_id": "Base.NoiseTrapRemote",
+    "coordinates": [
+      "ko/expanded",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다. 소음을 내 좀비의 주의를 끄는 데 쓸 수 있다.",
+        "expanded": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다.\n소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 던져서 사용할 수도 있다."
+      },
+      "en": {
+        "compact": "It can be activated remotely after linking it to a compatible controller. It can produce noise to attract zombies.",
+        "expanded": "It can be activated remotely after linking it to a compatible controller.\nIt can produce noise to attract zombies. It can also be thrown."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다. 소음을 내 좀비의 주의를 끄는 데 쓸 수 있다.",
+        "expanded": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다.\n소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 설치해 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be activated remotely after linking it to a compatible controller. It can produce noise to attract zombies.",
+        "expanded": "It can be activated remotely after linking it to a compatible controller.\nIt can produce noise to attract zombies. It can be placed for use."
+      }
+    }
+  },
+  {
+    "item_id": "Base.NoiseTrapSensorV1",
+    "coordinates": [
+      "ko/expanded",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다.",
+        "expanded": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 던져서 사용할 수도 있다."
+      },
+      "en": {
+        "compact": "It can produce noise to attract zombies.",
+        "expanded": "It can produce noise to attract zombies. It can also be thrown."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다.",
+        "expanded": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 설치한 뒤 움직임을 감지하면 작동한다."
+      },
+      "en": {
+        "compact": "It can produce noise to attract zombies.",
+        "expanded": "It can produce noise to attract zombies. Once placed and armed, it activates when movement is detected."
+      }
+    }
+  },
+  {
+    "item_id": "Base.NoiseTrapSensorV2",
+    "coordinates": [
+      "ko/expanded",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다.",
+        "expanded": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 던져서 사용할 수도 있다."
+      },
+      "en": {
+        "compact": "It can produce noise to attract zombies.",
+        "expanded": "It can produce noise to attract zombies. It can also be thrown."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다.",
+        "expanded": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 설치한 뒤 움직임을 감지하면 작동한다."
+      },
+      "en": {
+        "compact": "It can produce noise to attract zombies.",
+        "expanded": "It can produce noise to attract zombies. Once placed and armed, it activates when movement is detected."
+      }
+    }
+  },
+  {
+    "item_id": "Base.NoiseTrapSensorV3",
+    "coordinates": [
+      "ko/expanded",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다.",
+        "expanded": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 던져서 사용할 수도 있다."
+      },
+      "en": {
+        "compact": "It can produce noise to attract zombies.",
+        "expanded": "It can produce noise to attract zombies. It can also be thrown."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다.",
+        "expanded": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 설치한 뒤 움직임을 감지하면 작동한다."
+      },
+      "en": {
+        "compact": "It can produce noise to attract zombies.",
+        "expanded": "It can produce noise to attract zombies. Once placed and armed, it activates when movement is detected."
+      }
+    }
+  },
+  {
+    "item_id": "Base.NoiseTrapTriggered",
+    "coordinates": [
+      "ko/expanded",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다.",
+        "expanded": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 던져서 사용할 수도 있다."
+      },
+      "en": {
+        "compact": "It can produce noise to attract zombies.",
+        "expanded": "It can produce noise to attract zombies. It can also be thrown."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다.",
+        "expanded": "소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 시간을 맞춰 설치하면 지연 작동시킬 수 있다."
+      },
+      "en": {
+        "compact": "It can produce noise to attract zombies.",
+        "expanded": "It can produce noise to attract zombies. It can be placed with a timer for delayed activation."
+      }
+    }
+  },
+  {
+    "item_id": "Base.PipeBomb",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "시간 지연, 움직임 감지, 원격 작동 기능을 더해 개조할 수 있다. 투척 공격에 쓸 수 있다.",
+        "expanded": "시간 지연, 움직임 감지, 원격 작동 기능을 더해 개조할 수 있다.\n투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be modified for time delay, motion sensing, and remote activation. It can be used for throwing attacks.",
+        "expanded": "It can be modified for time delay, motion sensing, and remote activation.\nIt can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "시간 지연, 움직임 감지, 원격 작동 기능을 더해 개조할 수 있다. 폭발로 주변에 피해를 줄 수 있다.",
+        "expanded": "시간 지연, 움직임 감지, 원격 작동 기능을 더해 개조할 수 있다.\n폭발로 주변에 피해를 줄 수 있다. 던져서 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be modified for time delay, motion sensing, and remote activation. It can cause blast damage nearby.",
+        "expanded": "It can be modified for time delay, motion sensing, and remote activation.\nIt can cause blast damage nearby. It can be thrown."
+      }
+    }
+  },
+  {
+    "item_id": "Base.PipeBombRemote",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다. 투척 공격에 쓸 수 있다.",
+        "expanded": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다.\n투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be activated remotely after linking it to a compatible controller. It can be used for throwing attacks.",
+        "expanded": "It can be activated remotely after linking it to a compatible controller.\nIt can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다. 폭발로 주변에 피해를 줄 수 있다.",
+        "expanded": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다.\n폭발로 주변에 피해를 줄 수 있다. 설치해 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be activated remotely after linking it to a compatible controller. It can cause blast damage nearby.",
+        "expanded": "It can be activated remotely after linking it to a compatible controller.\nIt can cause blast damage nearby. It can be placed for use."
+      }
+    }
+  },
+  {
+    "item_id": "Base.PipeBombSensorV1",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "투척 공격에 쓸 수 있다.",
+        "expanded": "투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for throwing attacks.",
+        "expanded": "It can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "폭발로 주변에 피해를 줄 수 있다.",
+        "expanded": "폭발로 주변에 피해를 줄 수 있다. 설치한 뒤 움직임을 감지하면 작동한다."
+      },
+      "en": {
+        "compact": "It can cause blast damage nearby.",
+        "expanded": "It can cause blast damage nearby. Once placed and armed, it activates when movement is detected."
+      }
+    }
+  },
+  {
+    "item_id": "Base.PipeBombSensorV2",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "투척 공격에 쓸 수 있다.",
+        "expanded": "투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for throwing attacks.",
+        "expanded": "It can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "폭발로 주변에 피해를 줄 수 있다.",
+        "expanded": "폭발로 주변에 피해를 줄 수 있다. 설치한 뒤 움직임을 감지하면 작동한다."
+      },
+      "en": {
+        "compact": "It can cause blast damage nearby.",
+        "expanded": "It can cause blast damage nearby. Once placed and armed, it activates when movement is detected."
+      }
+    }
+  },
+  {
+    "item_id": "Base.PipeBombSensorV3",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "투척 공격에 쓸 수 있다.",
+        "expanded": "투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for throwing attacks.",
+        "expanded": "It can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "폭발로 주변에 피해를 줄 수 있다.",
+        "expanded": "폭발로 주변에 피해를 줄 수 있다. 설치한 뒤 움직임을 감지하면 작동한다."
+      },
+      "en": {
+        "compact": "It can cause blast damage nearby.",
+        "expanded": "It can cause blast damage nearby. Once placed and armed, it activates when movement is detected."
+      }
+    }
+  },
+  {
+    "item_id": "Base.PipeBombTriggered",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "투척 공격에 쓸 수 있다.",
+        "expanded": "투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for throwing attacks.",
+        "expanded": "It can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "폭발로 주변에 피해를 줄 수 있다.",
+        "expanded": "폭발로 주변에 피해를 줄 수 있다. 시간을 맞춰 설치하면 지연 작동시킬 수 있다."
+      },
+      "en": {
+        "compact": "It can cause blast damage nearby.",
+        "expanded": "It can cause blast damage nearby. It can be placed with a timer for delayed activation."
+      }
+    }
+  },
+  {
+    "item_id": "Base.PlasterPowder",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "석고를 섞을 때 재료로 쓸 수 있다.",
+        "expanded": "석고를 섞을 때 재료로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be used as a material for plaster mixing.",
+        "expanded": "It can be used as a material for plaster mixing."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "도색할 구조물에 바를 석고를 만드는 재료로 쓸 수 있다.",
+        "expanded": "도색할 구조물에 바를 석고를 만드는 재료로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be used to make plaster for preparing structures for painting.",
+        "expanded": "It can be used to make plaster for preparing structures for painting."
+      }
+    }
+  },
+  {
+    "item_id": "Base.RippedSheets",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "응급처치와 의류 수선에 쓸 수 있다. 감염된 재료로 상처를 감으면 감염을 일으킬 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치 및 연막 장치를 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+        "expanded": "화상을 씻는 데 쓸 수 있다.\n상처에 감을 수 있다. 소독해서 쓸 수도 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다.\n골절을 고정하는 부목 재료로 쓸 수 있다.\n의류의 구멍을 덧대거나 패딩을 추가할 수 있다.\n건축 재료로 쓸 수 있다.\n화염 장치, 연막 장치, 야영 장비 및 도구를 만드는 재료로 쓸 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for first aid or clothing repairs. Infected material can infect a wound when used as bandaging. It can supply material for construction. It can also be used to make incendiary devices and smoke devices. It can be used as fuel or tinder, for example in campfires.",
+        "expanded": "It can be used to clean burns.\nIt can be wrapped around wounds. It can also be disinfected before use. If infected, it can infect the wound.\nIt can supply splinting material for fractures.\nIt can be used to patch garment holes or add padding.\nIt can be used as material for construction.\nIt can supply material for making incendiary devices, smoke devices, camping equipment, and tools.\nIt can be used as fuel or tinder, for example in campfires."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "응급처치와 의류 수선에 쓸 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치 및 연막 장치를 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+        "expanded": "화상을 씻는 데 쓸 수 있다.\n상처에 감을 수 있다. 소독해서 쓸 수도 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.\n골절을 고정하는 부목 재료로 쓸 수 있다.\n의류의 구멍을 덧대거나 패딩을 추가할 수 있다.\n건축 재료로 쓸 수 있다.\n화염 장치, 연막 장치, 야영 장비 및 도구를 만드는 재료로 쓸 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for first aid or clothing repairs. It can supply material for construction. It can also be used to make incendiary devices and smoke devices. It can be used as fuel or tinder, for example in campfires.",
+        "expanded": "It can be used to clean burns.\nIt can be wrapped around wounds. It can also be disinfected before use. Infected material can cause wound infection.\nIt can supply splinting material for fractures.\nIt can be used to patch garment holes or add padding.\nIt can be used as material for construction.\nIt can supply material for making incendiary devices, smoke devices, camping equipment, and tools.\nIt can be used as fuel or tinder, for example in campfires."
+      }
+    }
+  },
+  {
+    "item_id": "Base.RippedSheetsDirty",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다. 물로 씻어 다시 쓸 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치 및 연막 장치를 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+        "expanded": "상처에 감을 수 있다. 감염된 상태로 쓰면 상처를 감염시킬 수 있다.\n물로 씻어 다시 쓸 수 있다.\n화염 장치, 연막 장치, 야영 장비, 도구 및 부목을 만드는 재료로 쓸 수 있다.\n건축 재료로 쓸 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be wrapped around wounds. If infected, it can infect the wound. It can be washed with water for reuse. It can supply material for construction. It can also be used to make incendiary devices and smoke devices. It can be used as fuel or tinder, for example in campfires.",
+        "expanded": "It can be wrapped around wounds. If infected, it can infect the wound.\nIt can be washed with water for reuse.\nIt can supply material for making incendiary devices, smoke devices, camping equipment, tools, and splints.\nIt can be used as material for construction.\nIt can be used as fuel or tinder, for example in campfires."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "상처에 감을 수 있다. 물로 씻어 다시 쓸 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치 및 연막 장치를 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.",
+        "expanded": "상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.\n물로 씻어 다시 쓸 수 있다.\n화염 장치, 연막 장치, 야영 장비, 도구 및 부목을 만드는 재료로 쓸 수 있다.\n건축 재료로 쓸 수 있다.\n모닥불 등의 연료나 불쏘시개로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be wrapped around wounds. It can be washed with water for reuse. It can supply material for construction. It can also be used to make incendiary devices and smoke devices. It can be used as fuel or tinder, for example in campfires.",
+        "expanded": "It can be wrapped around wounds. Infected material can cause wound infection.\nIt can be washed with water for reuse.\nIt can supply material for making incendiary devices, smoke devices, camping equipment, tools, and splints.\nIt can be used as material for construction.\nIt can be used as fuel or tinder, for example in campfires."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Screwdriver",
+    "coordinates": [
+      "ko/expanded",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "전자기기 제작, 분해, 개조와 목공, 정비 작업에 쓸 수 있다. 무기로도 쓸 수 있다.",
+        "expanded": "전자 부품과 무전기를 만들 수 있다. 라디오와 TV를 포함한 전자기기를 분해해 부품을 회수할 수 있다. 조명을 건전지용으로 개조할 수 있다.\n목재를 가공하는 데 쓸 수 있다.\n톱과 드라이버로 목제 계단 및 기둥 조명 같은 설치물을 해체해 재료를 회수하는 데 쓸 수 있다.\n차량 부품을 장착하거나 탈거하는 데 사용할 수 있다.\n호환 무기의 부착물을 장착하거나 제거할 수 있다.\n제작한 창에 부착해 쓸 수 있다.\n무기로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for electronics work, woodworking and mechanical maintenance. It can also serve as a weapon.",
+        "expanded": "It can be used to make electronic components and radios. It can be used to dismantle electronic devices, including radios and TVs, to recover parts. It can convert lamps to battery power.\nIt can be used for woodworking.\nA saw and screwdriver can be used to dismantle constructed objects such as wooden stairs and pillar lamps and recover materials.\nIt can be used to install or remove vehicle parts.\nIt can be used to install or remove compatible weapon parts.\nIt can be attached to a crafted spear.\nIt can be used as a weapon."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "전자기기 제작, 분해, 개조와 목공, 정비 작업에 쓸 수 있다. 무기로도 쓸 수 있다.",
+        "expanded": "전자 부품과 무전기를 만들 수 있다. 라디오와 TV를 포함한 전자기기를 분해해 부품을 회수할 수 있다. 조명을 건전지용으로 개조할 수 있다.\n목재를 가공하는 데 쓸 수 있다.\n톱과 드라이버로 목제 계단 및 기둥 조명 같은 설치물을 해체해 재료를 회수하는 데 쓸 수 있다.\n전기 부품, 좌석 및 차량 유리 장착과 탈거에 작업 도구로 쓸 수 있다. 연료 탱크 장착과 탈거에 필요한 보조 도구로 쓸 수 있다.\n호환 무기의 부착물을 장착하거나 제거할 수 있다.\n제작한 창에 부착해 쓸 수 있다.\n무기로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for electronics work, woodworking and mechanical maintenance. It can also serve as a weapon.",
+        "expanded": "It can be used to make electronic components and radios. It can be used to dismantle electronic devices, including radios and TVs, to recover parts. It can convert lamps to battery power.\nIt can be used for woodworking.\nA saw and screwdriver can be used to dismantle constructed objects such as wooden stairs and pillar lamps and recover materials.\nIt can be used to install and remove electrical parts, seats, and vehicle windows. It is a required supporting tool for installing and removing fuel tanks.\nIt can be used to install or remove compatible weapon parts.\nIt can be attached to a crafted spear.\nIt can be used as a weapon."
+      }
+    }
+  },
+  {
+    "item_id": "Base.SmokeBomb",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "움직임 감지, 시간 지연, 원격 작동 기능을 더해 개조할 수 있다. 투척 공격에 쓸 수 있다.",
+        "expanded": "움직임 감지, 시간 지연, 원격 작동 기능을 더해 개조할 수 있다.\n투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be modified for motion sensing, time delay, and remote activation. It can be used for throwing attacks.",
+        "expanded": "It can be modified for motion sensing, time delay, and remote activation.\nIt can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "움직임 감지, 시간 지연, 원격 작동 기능을 더해 개조할 수 있다. 연막을 퍼뜨려 좀비가 쫓던 대상을 놓치게 할 수 있다.",
+        "expanded": "움직임 감지, 시간 지연, 원격 작동 기능을 더해 개조할 수 있다.\n연막을 퍼뜨려 좀비가 쫓던 대상을 놓치게 할 수 있다. 설치하거나 던져서 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be modified for motion sensing, time delay, and remote activation. It can release smoke that makes zombies lose their current target.",
+        "expanded": "It can be modified for motion sensing, time delay, and remote activation.\nIt can release smoke that makes zombies lose their current target. It can be placed or thrown for use."
+      }
+    }
+  },
+  {
+    "item_id": "Base.SmokeBombRemote",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다. 투척 공격에 쓸 수 있다.",
+        "expanded": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다.\n투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be activated remotely after linking it to a compatible controller. It can be used for throwing attacks.",
+        "expanded": "It can be activated remotely after linking it to a compatible controller.\nIt can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다. 연막을 퍼뜨려 좀비가 쫓던 대상을 놓치게 할 수 있다.",
+        "expanded": "호환 조종기에 연결하면 원격으로 작동시킬 수 있다.\n연막을 퍼뜨려 좀비가 쫓던 대상을 놓치게 할 수 있다. 설치해 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be activated remotely after linking it to a compatible controller. It can release smoke that makes zombies lose their current target.",
+        "expanded": "It can be activated remotely after linking it to a compatible controller.\nIt can release smoke that makes zombies lose their current target. It can be placed for use."
+      }
+    }
+  },
+  {
+    "item_id": "Base.SmokeBombSensorV1",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "투척 공격에 쓸 수 있다.",
+        "expanded": "투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for throwing attacks.",
+        "expanded": "It can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "연막을 퍼뜨려 좀비가 쫓던 대상을 놓치게 할 수 있다.",
+        "expanded": "연막을 퍼뜨려 좀비가 쫓던 대상을 놓치게 할 수 있다. 설치한 뒤 움직임을 감지하면 작동한다."
+      },
+      "en": {
+        "compact": "It can release smoke that makes zombies lose their current target.",
+        "expanded": "It can release smoke that makes zombies lose their current target. Once placed and armed, it activates when movement is detected."
+      }
+    }
+  },
+  {
+    "item_id": "Base.SmokeBombSensorV2",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "투척 공격에 쓸 수 있다.",
+        "expanded": "투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for throwing attacks.",
+        "expanded": "It can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "연막을 퍼뜨려 좀비가 쫓던 대상을 놓치게 할 수 있다.",
+        "expanded": "연막을 퍼뜨려 좀비가 쫓던 대상을 놓치게 할 수 있다. 설치한 뒤 움직임을 감지하면 작동한다."
+      },
+      "en": {
+        "compact": "It can release smoke that makes zombies lose their current target.",
+        "expanded": "It can release smoke that makes zombies lose their current target. Once placed and armed, it activates when movement is detected."
+      }
+    }
+  },
+  {
+    "item_id": "Base.SmokeBombSensorV3",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "투척 공격에 쓸 수 있다.",
+        "expanded": "투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for throwing attacks.",
+        "expanded": "It can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "연막을 퍼뜨려 좀비가 쫓던 대상을 놓치게 할 수 있다.",
+        "expanded": "연막을 퍼뜨려 좀비가 쫓던 대상을 놓치게 할 수 있다. 설치한 뒤 움직임을 감지하면 작동한다."
+      },
+      "en": {
+        "compact": "It can release smoke that makes zombies lose their current target.",
+        "expanded": "It can release smoke that makes zombies lose their current target. Once placed and armed, it activates when movement is detected."
+      }
+    }
+  },
+  {
+    "item_id": "Base.SmokeBombTriggered",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "투척 공격에 쓸 수 있다.",
+        "expanded": "투척 공격에 사용할 수 있다."
+      },
+      "en": {
+        "compact": "It can be used for throwing attacks.",
+        "expanded": "It can be used for throwing attacks."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "연막을 퍼뜨려 좀비가 쫓던 대상을 놓치게 할 수 있다.",
+        "expanded": "연막을 퍼뜨려 좀비가 쫓던 대상을 놓치게 할 수 있다. 시간을 맞춰 설치하면 지연 작동시킬 수 있다."
+      },
+      "en": {
+        "compact": "It can release smoke that makes zombies lose their current target.",
+        "expanded": "It can release smoke that makes zombies lose their current target. It can be placed with a timer for delayed activation."
+      }
+    }
+  },
+  {
+    "item_id": "Base.VHS_Home",
+    "coordinates": [
+      "ko/compact",
+      "en/compact"
+    ],
+    "before": {
+      "ko": {
+        "compact": "녹화 영상을 감상하고, 내용에 따라 지루함을 달래거나 기술과 제작법을 배울 수 있다. 일부 내용은 스트레스를 느끼게 할 수 있다.",
+        "expanded": "VHS 재생 기능이 있는 TV로 녹화된 영상을 볼 수 있다. 내용에 따라 지루함을 달래거나 기술과 제작법을 배우는 데도 쓸 수 있다. 일부 내용은 스트레스를 느끼게 할 수 있다."
+      },
+      "en": {
+        "compact": "Its video can be enjoyed and, depending on the recording, help you relieve boredom or learn skills and recipes. Some recordings can also cause stress.",
+        "expanded": "Its recorded video can be watched on a TV that supports VHS playback. Depending on the recording, it can also help you relieve boredom or learn skills and recipes. Some recordings can also cause stress."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "녹화 영상을 감상하고, 내용에 따라 지루함을 달래거나 기술과 제작법을 배울 수 있다.",
+        "expanded": "VHS 재생 기능이 있는 TV로 녹화된 영상을 볼 수 있다. 내용에 따라 지루함을 달래거나 기술과 제작법을 배우는 데도 쓸 수 있다. 일부 내용은 스트레스를 느끼게 할 수 있다."
+      },
+      "en": {
+        "compact": "Its video can be enjoyed and, depending on the recording, help you relieve boredom or learn skills and recipes.",
+        "expanded": "Its recorded video can be watched on a TV that supports VHS playback. Depending on the recording, it can also help you relieve boredom or learn skills and recipes. Some recordings can also cause stress."
+      }
+    }
+  },
+  {
+    "item_id": "Base.VHS_Retail",
+    "coordinates": [
+      "ko/compact",
+      "en/compact"
+    ],
+    "before": {
+      "ko": {
+        "compact": "녹화 영상을 감상하고, 내용에 따라 지루함을 달래거나 기술과 제작법을 배울 수 있다. 일부 내용은 스트레스나 공포를 느끼게 할 수 있다.",
+        "expanded": "VHS 재생 기능이 있는 TV로 녹화된 영상을 볼 수 있다. 내용에 따라 지루함을 달래거나 기술과 제작법을 배우는 데도 쓸 수 있다. 일부 내용은 스트레스나 공포를 느끼게 할 수 있다."
+      },
+      "en": {
+        "compact": "Its video can be enjoyed and, depending on the recording, help you relieve boredom or learn skills and recipes. Some recordings can also cause stress or panic.",
+        "expanded": "Its recorded video can be watched on a TV that supports VHS playback. Depending on the recording, it can also help you relieve boredom or learn skills and recipes. Some recordings can also cause stress or panic."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "녹화 영상을 감상하고, 내용에 따라 지루함을 달래거나 기술과 제작법을 배울 수 있다.",
+        "expanded": "VHS 재생 기능이 있는 TV로 녹화된 영상을 볼 수 있다. 내용에 따라 지루함을 달래거나 기술과 제작법을 배우는 데도 쓸 수 있다. 일부 내용은 스트레스나 공포를 느끼게 할 수 있다."
+      },
+      "en": {
+        "compact": "Its video can be enjoyed and, depending on the recording, help you relieve boredom or learn skills and recipes.",
+        "expanded": "Its recorded video can be watched on a TV that supports VHS playback. Depending on the recording, it can also help you relieve boredom or learn skills and recipes. Some recordings can also cause stress or panic."
+      }
+    }
+  },
+  {
+    "item_id": "Base.Wrench",
+    "coordinates": [
+      "ko/compact",
+      "ko/expanded",
+      "en/compact",
+      "en/expanded"
+    ],
+    "before": {
+      "ko": {
+        "compact": "엔진에서 부품을 회수할 수 있다. 손상된 차량 엔진을 수리하는 데 사용할 수 있다. 무기로 쓸 수 있다.",
+        "expanded": "엔진에서 부품을 회수할 수 있다.\n손상된 차량 엔진을 수리하는 데 사용할 수 있다.\n무기로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be used to salvage engine parts. It can be used to repair damaged vehicle engines. It can be used as a weapon.",
+        "expanded": "It can be used to salvage engine parts.\nIt can be used to repair damaged vehicle engines.\nIt can be used as a weapon."
+      }
+    },
+    "after": {
+      "ko": {
+        "compact": "엔진에서 부품을 회수할 수 있다. 손상된 차량 엔진을 수리하는 데 사용할 수 있다. 차량 부품을 장착하거나 탈거하는 데 사용할 수 있다. 무기로 쓸 수 있다.",
+        "expanded": "엔진에서 부품을 회수할 수 있다.\n손상된 차량 엔진을 수리하는 데 사용할 수 있다.\n브레이크, 서스펜션, 연료 탱크, 배기 부품 및 차체 부품 장착과 탈거에 작업 도구로 쓸 수 있다.\n무기로 쓸 수 있다."
+      },
+      "en": {
+        "compact": "It can be used to salvage engine parts. It can be used to repair damaged vehicle engines. It can be used to install or remove vehicle parts. It can be used as a weapon.",
+        "expanded": "It can be used to salvage engine parts.\nIt can be used to repair damaged vehicle engines.\nIt can be used to install and remove brakes, suspension parts, fuel tanks, exhaust parts, and body panels.\nIt can be used as a weapon."
+      }
+    }
+  }
+]

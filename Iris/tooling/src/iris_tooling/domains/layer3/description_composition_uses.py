@@ -4,6 +4,7 @@ Execution evidence stays in the input. Only claims actually expressed are linked
 as public facts; no procedure refs are attached to a shorter unrelated sentence.
 """
 from copy import deepcopy
+import re
 from . import description_composition_lexicon as lex
 from . import description_composition_en as en
 from . import description_composition_ko as ko
@@ -841,13 +842,86 @@ def frames(plan, locale, links, compact):
                              'It can be operated to power nearby electrical equipment such as refrigerators and washing machines'), locale)
         emit(electricity + pumps, text)
 
+    def device_method():
+        traits = plan.get('source_traits', {})
+        def positive(key):
+            value = traits.get(key, '')
+            return bool(re.fullmatch(r'\d+(?:\.\d+)?', value)) and float(value) > 0
+        if traits.get('CanBePlaced', '').lower() == 'true':
+            # The purpose proof joins placement to the native effect. Keep the
+            # separate physics dispatch as evidence without claiming a thrown
+            # sensor/timer device activates through the instantaneous path.
+            if positive('SensorRange'):
+                return lex.pair(('설치한 뒤 움직임을 감지하면 작동한다',
+                                 'Once placed and armed, it activates when movement is detected'), locale)
+            if positive('ExplosionTimer'):
+                return lex.pair(('시간을 맞춰 설치하면 지연 작동시킬 수 있다',
+                                 'It can be placed with a timer for delayed activation'), locale)
+            if (all(re.fullmatch(r'0+(?:\.0+)?', traits.get(key, '0'))
+                    for key in ('SensorRange', 'ExplosionTimer'))
+                    and traits.get('CanBeRemote', '').lower() != 'true'):
+                return lex.pair(('설치하거나 던져서 사용할 수 있다',
+                                 'It can be placed or thrown for use'), locale)
+            return lex.pair(('설치해 사용할 수 있다', 'It can be placed for use'), locale)
+        return lex.pair(('던져서 사용할 수 있다', 'It can be thrown'), locale)
+
+    device_effects = select({'device_explosion_damage', 'device_start_fire', 'device_smoke_distraction'})
+    if device_effects:
+        throwing = select({'request_physics_attack'})
+        sentences = [lex.core(u['facts'][0], locale) for u in device_effects]
+        text = '. '.join(s.rstrip('.') for s in sentences)
+        if throwing and not compact:
+            text += '. ' + device_method()
+        emit(device_effects + throwing, text)
+
+    # The declared result supplies just enough purpose to explain a processing
+    # role; the input is never described as applying the finished material.
+    for unit in units:
+        joined = [r for r in unit.get('recipe_targets', [])
+                  if r.get('result_purpose', {}).get('function') == 'plaster_supported_structure']
+        if joined and not used & set(unit['fact_refs']):
+            roles = {r['input_role'] for r in joined}
+            if roles == {'container'}:
+                wording = ('도색할 구조물에 바를 석고를 섞는 용기로 쓸 수 있다',
+                           'It can hold plaster being mixed to prepare structures for painting')
+            elif roles <= {'material', 'ingredient'}:
+                wording = ('도색할 구조물에 바를 석고를 만드는 재료로 쓸 수 있다',
+                           'It can be used to make plaster for preparing structures for painting')
+            else:
+                continue
+            emit([unit], lex.pair(wording, locale))
+
+    if not compact:
+        service = select({'service_vehicle_parts'})
+        targets = plan.get('source_traits', {}).get('vehicle_service_roles', [])
+        labels = {'tire': ('타이어', 'tires'), 'brake': ('브레이크', 'brakes'),
+                  'suspension': ('서스펜션', 'suspension parts'), 'electrical': ('전기 부품', 'electrical parts'),
+                  'seat': ('좌석', 'seats'), 'glazing': ('차량 유리', 'vehicle windows'),
+                  'fuel_tank': ('연료 탱크', 'fuel tanks'), 'exhaust': ('배기 부품', 'exhaust parts'),
+                  'bodywork': ('차체 부품', 'body panels')}
+        if service and targets:
+            sentences = []
+            for role in ('direct', 'support'):
+                selected = {t['category'] for t in targets if t['role'] == role}
+                names = [lex.pair(labels[k], locale) for k in labels if k in selected]
+                if not names:
+                    continue
+                noun = parallel_names(names)
+                if locale == 'ko':
+                    sentences.append(noun + (' 장착과 탈거에 작업 도구로 쓸 수 있다' if role == 'direct'
+                                              else ' 장착과 탈거에 필요한 보조 도구로 쓸 수 있다'))
+                else:
+                    sentences.append(('It can be used to install and remove ' if role == 'direct'
+                                      else 'It is a required supporting tool for installing and removing ') + noun)
+            emit(service, '. '.join(sentences))
+
     noise = select({'emit_attracting_noise'})
     if noise:
         throwing = select({'request_physics_attack'})
         text = lex.pair(('소음을 내 좀비의 주의를 끄는 데 쓸 수 있다',
                          'It can produce noise to attract zombies'), locale)
         if throwing and not compact:
-            text += lex.pair(('. 던져서 사용할 수도 있다', '. It can also be thrown'), locale)
+            text += '. ' + device_method()
         emit(noise + throwing, text)
 
     tent = select({'pitch_tent', 'rest_at_placed_tent'})
@@ -1645,8 +1719,8 @@ def frames(plan, locale, links, compact):
         if preparation:
             text += '. 소독해서 쓸 수도 있다' if locale == 'ko' else '. It can also be disinfected before use'
         if infection and not compact:
-            text += ('. 상처에 감을 때 재료의 감염이 옮을 수 있다' if locale == 'ko'
-                     else '. Infection can pass from the material to the wound')
+            text += ('. 감염된 재료를 쓰면 상처가 감염될 수 있다' if locale == 'ko'
+                     else '. Infected material can cause wound infection')
         emit(bandaging + preparation + infection, text)
 
     if compact:

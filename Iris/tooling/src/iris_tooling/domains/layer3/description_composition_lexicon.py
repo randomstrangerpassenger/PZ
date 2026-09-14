@@ -767,3 +767,4 @@ USE_QUALIFIERS[source.BURNT_VEHICLE_USE] = ('불타거나 파손된 차량에 �
 USE_QUALIFIERS[source.SPEAR_STONE_LOSS] = ('창을 만들 때 소모될 수 있다', 'It may be consumed when used to craft a spear')
 
 FUNCTIONS['install_vehicle_tire'] = ('호환 차량에 타이어로 장착할 수 있다', 'It can be installed as a tire on a compatible vehicle')
+FUNCTIONS['service_vehicle_parts'] = ('차량 부품을 장착하거나 탈거하는 데 사용할 수 있다', 'It can be used to install or remove vehicle parts')

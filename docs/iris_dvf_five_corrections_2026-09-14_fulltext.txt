@@ -1,0 +1,462 @@
+[1] Base.Aerosolbomb
+KO C: 움직임 감지, 원격 작동, 시간 지연 기능을 더해 개조할 수 있다. 폭발로 주변에 피해를 줄 수 있다.
+KO E: 움직임 감지, 원격 작동, 시간 지연 기능을 더해 개조할 수 있다.
+폭발로 주변에 피해를 줄 수 있다. 던져서 사용할 수 있다.
+EN C: It can be modified for motion sensing, remote activation, and time delay. It can cause blast damage nearby.
+EN E: It can be modified for motion sensing, remote activation, and time delay.
+It can cause blast damage nearby. It can be thrown.
+
+[2] Base.AerosolbombRemote, Base.PipeBombRemote
+KO C: 호환 조종기에 연결하면 원격으로 작동시킬 수 있다. 폭발로 주변에 피해를 줄 수 있다.
+KO E: 호환 조종기에 연결하면 원격으로 작동시킬 수 있다.
+폭발로 주변에 피해를 줄 수 있다. 설치해 사용할 수 있다.
+EN C: It can be activated remotely after linking it to a compatible controller. It can cause blast damage nearby.
+EN E: It can be activated remotely after linking it to a compatible controller.
+It can cause blast damage nearby. It can be placed for use.
+
+[3] Base.AerosolbombSensorV1, Base.AerosolbombSensorV2, Base.AerosolbombSensorV3, Base.PipeBombSensorV1, Base.PipeBombSensorV2, Base.PipeBombSensorV3
+KO C: 폭발로 주변에 피해를 줄 수 있다.
+KO E: 폭발로 주변에 피해를 줄 수 있다. 설치한 뒤 움직임을 감지하면 작동한다.
+EN C: It can cause blast damage nearby.
+EN E: It can cause blast damage nearby. Once placed and armed, it activates when movement is detected.
+
+[4] Base.AerosolbombTriggered, Base.PipeBombTriggered
+KO C: 폭발로 주변에 피해를 줄 수 있다.
+KO E: 폭발로 주변에 피해를 줄 수 있다. 시간을 맞춰 설치하면 지연 작동시킬 수 있다.
+EN C: It can cause blast damage nearby.
+EN E: It can cause blast damage nearby. It can be placed with a timer for delayed activation.
+
+[5] Base.AlcoholBandage, Base.AlcoholRippedSheets
+KO C: 화상 세척에 쓸 수 있다. 상처에 감을 수 있다.
+KO E: 화상을 씻는 데 쓸 수 있다.
+상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.
+EN C: It can be used for cleaning burns. It can be wrapped around wounds.
+EN E: It can be used to clean burns.
+It can be wrapped around wounds. Infected material can cause wound infection.
+
+[6] Base.BakingSoda, Base.Cornflour, Base.Flour
+KO C: 요리 재료로 쓸 수 있다.
+KO E: 요리 재료로 쓸 수 있다.
+EN C: It can be used as a cooking ingredient.
+EN E: It can be used as a cooking ingredient.
+
+[7] Base.Bandage
+KO C: 화상 세척에 쓸 수 있다. 상처에 감을 수 있다. 소독해서 쓸 수도 있다.
+KO E: 화상을 씻는 데 쓸 수 있다.
+상처에 감을 수 있다. 소독해서 쓸 수도 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.
+EN C: It can be used for cleaning burns. It can be wrapped around wounds. It can also be disinfected before use.
+EN E: It can be used to clean burns.
+It can be wrapped around wounds. It can also be disinfected before use. Infected material can cause wound infection.
+
+[8] Base.BandageDirty, Base.LeatherStripsDirty
+KO C: 상처에 감을 수 있다. 물로 씻어 다시 쓸 수 있다.
+KO E: 상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.
+물로 씻어 다시 쓸 수 있다.
+EN C: It can be wrapped around wounds. It can be washed with water for reuse.
+EN E: It can be wrapped around wounds. Infected material can cause wound infection.
+It can be washed with water for reuse.
+
+[9] Base.Bandaid
+KO C: 상처에 감을 수 있다.
+KO E: 상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.
+EN C: It can be wrapped around wounds.
+EN E: It can be wrapped around wounds. Infected material can cause wound infection.
+
+[10] Base.Bowl
+KO C: 요리할 때 재료를 담거나 조리한 음식을 나누어 담는 데 쓸 수 있다. 물을 담아 보관하거나 운반할 수 있다.
+KO E: 재료를 더해 요리를 만들 수 있다.
+조리한 냄비 음식을 나누어 담을 수 있다.
+물을 담아 보관하거나 운반할 수 있다.
+EN C: It can be used for food preparation and for holding portions of prepared meals. It can hold water for storage or carrying.
+EN E: Ingredients can be added to prepare food.
+It can be used to divide prepared pot meals into portions.
+It can hold water for storage or carrying.
+
+[11] Base.BucketEmpty
+KO C: 도색할 구조물에 바를 석고를 섞는 용기로 쓸 수 있다. 물을 담아 보관하거나 운반할 수 있다.
+KO E: 도색할 구조물에 바를 석고를 섞는 용기로 쓸 수 있다.
+물을 담아 보관하거나 운반할 수 있다.
+EN C: It can hold plaster being mixed to prepare structures for painting. It can hold water for storage or carrying.
+EN E: It can hold plaster being mixed to prepare structures for painting.
+It can hold water for storage or carrying.
+
+[12] Base.BucketPlasterFull
+KO C: 구조물에 석고를 발라 도색을 준비할 수 있다.
+KO E: 구조물에 석고를 발라 도색을 준비할 수 있다.
+EN C: It can be used to plaster supported structures to prepare them for painting.
+EN E: It can be used to plaster supported structures to prepare them for painting.
+
+[13] Base.BucketWaterFull
+KO C: 도색할 구조물에 바를 석고를 섞는 용기로 쓸 수 있다. 물을 담아 마시거나 농사, 세척 등에 공급할 수 있다. 오염된 물을 마시면 중독될 수 있다.
+KO E: 도색할 구조물에 바를 석고를 섞는 용기로 쓸 수 있다.
+물을 담아 보관하거나 운반하고, 다른 용기나 물 저장 시설로 옮길 수 있다.
+작물에 물을 줄 수 있다.
+물로 차량의 혈흔을 씻을 수 있다.
+바닥이나 몸에 붙은 불을 끌 수 있다.
+담긴 물을 마셔 갈증을 줄일 수 있다. 오염된 물을 마시면 중독될 수 있다.
+EN C: It can hold plaster being mixed to prepare structures for painting. It can carry water for drinking, farming and tasks such as cleaning; drinking tainted water risks poisoning.
+EN E: It can hold plaster being mixed to prepare structures for painting.
+It can store and carry water and transfer it to other containers or water storage fixtures.
+It can water seeded crops.
+Its water can wash vehicle bloodstains.
+It can extinguish fires on the ground or on characters.
+Its water can be drunk to reduce thirst. Drinking tainted water can cause poisoning.
+
+[14] Base.Butter, Base.Cheese, Base.Lard, Base.Margarine, Base.OilOlive, Base.OilVegetable, Base.Salt, Base.TomatoPaste, Base.WildEggs
+KO C: 먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다.
+KO E: 먹을 수 있다.
+요리 재료로 쓸 수 있다.
+덫의 미끼로 쓸 수 있다.
+EN C: It can be eaten or used as a cooking ingredient. It can also be used as trap bait.
+EN E: It can be eaten.
+It can be used as a cooking ingredient.
+It can be used as trap bait.
+
+[15] Base.CannedMilkOpen, Base.Milk
+KO C: 작물 치료용 분무액을 만드는 재료로 쓸 수 있다. 마실 수 있다. 요리 재료로 쓸 수 있다.
+KO E: 작물 치료용 분무액을 만드는 재료로 쓸 수 있다.
+마실 수 있다.
+요리 재료로 쓸 수 있다.
+EN C: It can be used as an ingredient for making crop-treatment spray. It can be drunk. It can be used as a cooking ingredient.
+EN E: It can be used as an ingredient for making crop-treatment spray.
+It can be drunk.
+It can be used as a cooking ingredient.
+
+[16] Base.Comfrey, Base.Plantain, Base.WildGarlic
+KO C: 약초 찜질제를 만드는 데 쓸 수 있다.
+KO E: 약초 찜질제를 만드는 데 쓸 수 있다.
+EN C: It can be used to make herbal poultices.
+EN E: It can be used to make herbal poultices.
+
+[17] Base.DenimStrips
+KO C: 상처 처치나 의류 수선에 쓸 수 있다. 화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다.
+KO E: 화상을 씻는 데 쓸 수 있다.
+상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.
+화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다.
+의류의 구멍을 덧대거나 패딩을 추가할 수 있다.
+EN C: It can be used for wound care or clothing repairs. It can supply material for making incendiary devices, tools, and splints.
+EN E: It can be used to clean burns.
+It can be wrapped around wounds. Infected material can cause wound infection.
+It can supply material for making incendiary devices, tools, and splints.
+It can be used to patch garment holes or add padding.
+
+[18] Base.DenimStripsDirty
+KO C: 상처에 감을 수 있다. 물로 씻어 다시 쓸 수 있다. 화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다.
+KO E: 상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.
+물로 씻어 다시 쓸 수 있다.
+화염 장치, 도구 및 부목을 만드는 재료로 쓸 수 있다.
+EN C: It can be wrapped around wounds. It can be washed with water for reuse. It can supply material for making incendiary devices, tools, and splints.
+EN E: It can be wrapped around wounds. Infected material can cause wound infection.
+It can be washed with water for reuse.
+It can supply material for making incendiary devices, tools, and splints.
+
+[19] Base.Disc_Retail
+KO C: CD 플레이어로 녹음된 소리를 들을 수 있다. 내용에 따라 지루함을 달래는 데도 쓸 수 있다.
+KO E: CD 플레이어로 녹음된 소리를 들을 수 있다. 내용에 따라 지루함을 달래는 데도 쓸 수 있다.
+EN C: Its recorded audio can be heard with a CD player. Depending on the recording, it can also help you relieve boredom.
+EN E: Its recorded audio can be heard with a CD player. Depending on the recording, it can also help you relieve boredom.
+
+[20] Base.Egg
+KO C: 먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다.
+KO E: 달걀곽에 모아 포장할 수 있다.
+먹을 수 있다.
+요리 재료로 쓸 수 있다.
+덫의 미끼로 쓸 수 있다.
+EN C: It can be eaten or used as a cooking ingredient. It can also be used as trap bait.
+EN E: It can be packed with other eggs into a carton.
+It can be eaten.
+It can be used as a cooking ingredient.
+It can be used as trap bait.
+
+[21] Base.EngineParts
+KO C: 손상된 차량 엔진을 수리하는 데 사용할 수 있다.
+KO E: 손상된 차량 엔진을 수리하는 데 사용할 수 있다.
+EN C: It can be used to repair damaged vehicle engines.
+EN E: It can be used to repair damaged vehicle engines.
+
+[22] Base.FlameTrap
+KO C: 움직임 감지, 원격 작동, 시간 지연 기능을 더해 개조할 수 있다. 주변에 불을 붙이는 데 쓸 수 있다.
+KO E: 움직임 감지, 원격 작동, 시간 지연 기능을 더해 개조할 수 있다.
+주변에 불을 붙이는 데 쓸 수 있다. 던져서 사용할 수 있다.
+EN C: It can be modified for motion sensing, remote activation, and time delay. It can be used to start fires nearby.
+EN E: It can be modified for motion sensing, remote activation, and time delay.
+It can be used to start fires nearby. It can be thrown.
+
+[23] Base.FlameTrapRemote
+KO C: 호환 조종기에 연결하면 원격으로 작동시킬 수 있다. 주변에 불을 붙이는 데 쓸 수 있다.
+KO E: 호환 조종기에 연결하면 원격으로 작동시킬 수 있다.
+주변에 불을 붙이는 데 쓸 수 있다. 설치해 사용할 수 있다.
+EN C: It can be activated remotely after linking it to a compatible controller. It can be used to start fires nearby.
+EN E: It can be activated remotely after linking it to a compatible controller.
+It can be used to start fires nearby. It can be placed for use.
+
+[24] Base.FlameTrapSensorV1, Base.FlameTrapSensorV2, Base.FlameTrapSensorV3
+KO C: 주변에 불을 붙이는 데 쓸 수 있다.
+KO E: 주변에 불을 붙이는 데 쓸 수 있다. 설치한 뒤 움직임을 감지하면 작동한다.
+EN C: It can be used to start fires nearby.
+EN E: It can be used to start fires nearby. Once placed and armed, it activates when movement is detected.
+
+[25] Base.FlameTrapTriggered
+KO C: 주변에 불을 붙이는 데 쓸 수 있다.
+KO E: 주변에 불을 붙이는 데 쓸 수 있다. 시간을 맞춰 설치하면 지연 작동시킬 수 있다.
+EN C: It can be used to start fires nearby.
+EN E: It can be used to start fires nearby. It can be placed with a timer for delayed activation.
+
+[26] Base.Football2
+KO C: 던져서 사용할 수 있다.
+KO E: 던져서 사용할 수 있다.
+EN C: It can be thrown.
+EN E: It can be thrown.
+
+[27] Base.Fork, Base.Spoon
+KO C: 반죽 만들기를 비롯한 요리에 도구로 쓸 수 있다. 제작한 창에 부착해 쓸 수 있다. 무기로 쓸 수 있다.
+KO E: 반죽 만들기를 비롯한 요리에 도구로 쓸 수 있다.
+제작한 창에 부착해 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C: It can be used as a cooking tool, including for preparing dough. It can be attached to a crafted spear. It can be used as a weapon.
+EN E: It can be used as a cooking tool, including for preparing dough.
+It can be attached to a crafted spear.
+It can be used as a weapon.
+
+[28] Base.Generator
+KO C: 가동해 주변 전기 설비에 전원을 공급할 수 있다.
+KO E: 가동해 주변의 냉장고나 세탁기 등 전기 설비에 전원을 공급할 수 있다.
+EN C: It can be operated to power nearby electrical equipment.
+EN E: It can be operated to power nearby electrical equipment such as refrigerators and washing machines.
+
+[29] Base.Jack
+KO C: 차량 부품을 장착하거나 탈거하는 데 사용할 수 있다.
+KO E: 타이어, 브레이크 및 서스펜션 장착과 탈거에 필요한 보조 도구로 쓸 수 있다.
+EN C: It can be used to install or remove vehicle parts.
+EN E: It is a required supporting tool for installing and removing tires, brakes, and suspension parts.
+
+[30] Base.LeatherStrips
+KO C: 상처 처치나 의류 수선에 쓸 수 있다.
+KO E: 화상을 씻는 데 쓸 수 있다.
+상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.
+의류의 구멍을 덧대거나 패딩을 추가할 수 있다.
+EN C: It can be used for wound care or clothing repairs.
+EN E: It can be used to clean burns.
+It can be wrapped around wounds. Infected material can cause wound infection.
+It can be used to patch garment holes or add padding.
+
+[31] Base.LugWrench
+KO C: 차량 부품을 장착하거나 탈거하는 데 사용할 수 있다.
+KO E: 타이어 장착과 탈거에 작업 도구로 쓸 수 있다.
+EN C: It can be used to install or remove vehicle parts.
+EN E: It can be used to install and remove tires.
+
+[32] Base.Molotov
+KO C: 주변에 불을 붙이는 데 쓸 수 있다.
+KO E: 주변에 불을 붙이는 데 쓸 수 있다. 던져서 사용할 수 있다.
+EN C: It can be used to start fires nearby.
+EN E: It can be used to start fires nearby. It can be thrown.
+
+[33] Base.MortarPestle
+KO C: 약초 찜질제를 만드는 도구로 쓸 수 있다.
+KO E: 약초 찜질제를 만드는 도구로 쓸 수 있다.
+EN C: It can be used as a tool for making herbal poultices.
+EN E: It can be used as a tool for making herbal poultices.
+
+[34] Base.MuffinTray
+KO C: 반죽을 담아 요리를 만드는 데 쓸 수 있다.
+KO E: 반죽을 담아 요리를 만드는 데 쓸 수 있다.
+EN C: It can hold dough or batter for preparing food.
+EN E: It can hold dough or batter for preparing food.
+
+[35] Base.NoiseTrap
+KO C: 원격 작동, 움직임 감지, 시간 지연 기능을 더해 개조할 수 있다. 소음을 내 좀비의 주의를 끄는 데 쓸 수 있다.
+KO E: 원격 작동, 움직임 감지, 시간 지연 기능을 더해 개조할 수 있다.
+소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 설치하거나 던져서 사용할 수 있다.
+EN C: It can be modified for remote activation, motion sensing, and time delay. It can produce noise to attract zombies.
+EN E: It can be modified for remote activation, motion sensing, and time delay.
+It can produce noise to attract zombies. It can be placed or thrown for use.
+
+[36] Base.NoiseTrapRemote
+KO C: 호환 조종기에 연결하면 원격으로 작동시킬 수 있다. 소음을 내 좀비의 주의를 끄는 데 쓸 수 있다.
+KO E: 호환 조종기에 연결하면 원격으로 작동시킬 수 있다.
+소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 설치해 사용할 수 있다.
+EN C: It can be activated remotely after linking it to a compatible controller. It can produce noise to attract zombies.
+EN E: It can be activated remotely after linking it to a compatible controller.
+It can produce noise to attract zombies. It can be placed for use.
+
+[37] Base.NoiseTrapSensorV1, Base.NoiseTrapSensorV2, Base.NoiseTrapSensorV3
+KO C: 소음을 내 좀비의 주의를 끄는 데 쓸 수 있다.
+KO E: 소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 설치한 뒤 움직임을 감지하면 작동한다.
+EN C: It can produce noise to attract zombies.
+EN E: It can produce noise to attract zombies. Once placed and armed, it activates when movement is detected.
+
+[38] Base.NoiseTrapTriggered
+KO C: 소음을 내 좀비의 주의를 끄는 데 쓸 수 있다.
+KO E: 소음을 내 좀비의 주의를 끄는 데 쓸 수 있다. 시간을 맞춰 설치하면 지연 작동시킬 수 있다.
+EN C: It can produce noise to attract zombies.
+EN E: It can produce noise to attract zombies. It can be placed with a timer for delayed activation.
+
+[39] Base.PipeBomb
+KO C: 시간 지연, 움직임 감지, 원격 작동 기능을 더해 개조할 수 있다. 폭발로 주변에 피해를 줄 수 있다.
+KO E: 시간 지연, 움직임 감지, 원격 작동 기능을 더해 개조할 수 있다.
+폭발로 주변에 피해를 줄 수 있다. 던져서 사용할 수 있다.
+EN C: It can be modified for time delay, motion sensing, and remote activation. It can cause blast damage nearby.
+EN E: It can be modified for time delay, motion sensing, and remote activation.
+It can cause blast damage nearby. It can be thrown.
+
+[40] Base.PlasterPowder
+KO C: 도색할 구조물에 바를 석고를 만드는 재료로 쓸 수 있다.
+KO E: 도색할 구조물에 바를 석고를 만드는 재료로 쓸 수 있다.
+EN C: It can be used to make plaster for preparing structures for painting.
+EN E: It can be used to make plaster for preparing structures for painting.
+
+[41] Base.RippedSheets
+KO C: 응급처치와 의류 수선에 쓸 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치 및 연막 장치를 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 화상을 씻는 데 쓸 수 있다.
+상처에 감을 수 있다. 소독해서 쓸 수도 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.
+골절을 고정하는 부목 재료로 쓸 수 있다.
+의류의 구멍을 덧대거나 패딩을 추가할 수 있다.
+건축 재료로 쓸 수 있다.
+화염 장치, 연막 장치, 야영 장비 및 도구를 만드는 재료로 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be used for first aid or clothing repairs. It can supply material for construction. It can also be used to make incendiary devices and smoke devices. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be used to clean burns.
+It can be wrapped around wounds. It can also be disinfected before use. Infected material can cause wound infection.
+It can supply splinting material for fractures.
+It can be used to patch garment holes or add padding.
+It can be used as material for construction.
+It can supply material for making incendiary devices, smoke devices, camping equipment, and tools.
+It can be used as fuel or tinder, for example in campfires.
+
+[42] Base.RippedSheetsDirty
+KO C: 상처에 감을 수 있다. 물로 씻어 다시 쓸 수 있다. 건축에 재료로 쓸 수 있다. 화염 장치 및 연막 장치를 만들 때도 쓸 수 있다. 모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+KO E: 상처에 감을 수 있다. 감염된 재료를 쓰면 상처가 감염될 수 있다.
+물로 씻어 다시 쓸 수 있다.
+화염 장치, 연막 장치, 야영 장비, 도구 및 부목을 만드는 재료로 쓸 수 있다.
+건축 재료로 쓸 수 있다.
+모닥불 등의 연료나 불쏘시개로 쓸 수 있다.
+EN C: It can be wrapped around wounds. It can be washed with water for reuse. It can supply material for construction. It can also be used to make incendiary devices and smoke devices. It can be used as fuel or tinder, for example in campfires.
+EN E: It can be wrapped around wounds. Infected material can cause wound infection.
+It can be washed with water for reuse.
+It can supply material for making incendiary devices, smoke devices, camping equipment, tools, and splints.
+It can be used as material for construction.
+It can be used as fuel or tinder, for example in campfires.
+
+[43] Base.RollingPin
+KO C: 반죽 만들기를 비롯한 요리에 도구로 쓸 수 있다. 무기로 쓸 수 있다.
+KO E: 반죽 만들기를 비롯한 요리에 도구로 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C: It can be used as a cooking tool, including for preparing dough. It can be used as a weapon.
+EN E: It can be used as a cooking tool, including for preparing dough.
+It can be used as a weapon.
+
+[44] Base.Screwdriver
+KO C: 전자기기 제작, 분해, 개조와 목공, 정비 작업에 쓸 수 있다. 무기로도 쓸 수 있다.
+KO E: 전자 부품과 무전기를 만들 수 있다. 라디오와 TV를 포함한 전자기기를 분해해 부품을 회수할 수 있다. 조명을 건전지용으로 개조할 수 있다.
+목재를 가공하는 데 쓸 수 있다.
+톱과 드라이버로 목제 계단 및 기둥 조명 같은 설치물을 해체해 재료를 회수하는 데 쓸 수 있다.
+전기 부품, 좌석 및 차량 유리 장착과 탈거에 작업 도구로 쓸 수 있다. 연료 탱크 장착과 탈거에 필요한 보조 도구로 쓸 수 있다.
+호환 무기의 부착물을 장착하거나 제거할 수 있다.
+제작한 창에 부착해 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C: It can be used for electronics work, woodworking and mechanical maintenance. It can also serve as a weapon.
+EN E: It can be used to make electronic components and radios. It can be used to dismantle electronic devices, including radios and TVs, to recover parts. It can convert lamps to battery power.
+It can be used for woodworking.
+A saw and screwdriver can be used to dismantle constructed objects such as wooden stairs and pillar lamps and recover materials.
+It can be used to install and remove electrical parts, seats, and vehicle windows. It is a required supporting tool for installing and removing fuel tanks.
+It can be used to install or remove compatible weapon parts.
+It can be attached to a crafted spear.
+It can be used as a weapon.
+
+[45] Base.SmokeBomb
+KO C: 움직임 감지, 시간 지연, 원격 작동 기능을 더해 개조할 수 있다. 연막을 퍼뜨려 좀비가 쫓던 대상을 놓치게 할 수 있다.
+KO E: 움직임 감지, 시간 지연, 원격 작동 기능을 더해 개조할 수 있다.
+연막을 퍼뜨려 좀비가 쫓던 대상을 놓치게 할 수 있다. 설치하거나 던져서 사용할 수 있다.
+EN C: It can be modified for motion sensing, time delay, and remote activation. It can release smoke that makes zombies lose their current target.
+EN E: It can be modified for motion sensing, time delay, and remote activation.
+It can release smoke that makes zombies lose their current target. It can be placed or thrown for use.
+
+[46] Base.SmokeBombRemote
+KO C: 호환 조종기에 연결하면 원격으로 작동시킬 수 있다. 연막을 퍼뜨려 좀비가 쫓던 대상을 놓치게 할 수 있다.
+KO E: 호환 조종기에 연결하면 원격으로 작동시킬 수 있다.
+연막을 퍼뜨려 좀비가 쫓던 대상을 놓치게 할 수 있다. 설치해 사용할 수 있다.
+EN C: It can be activated remotely after linking it to a compatible controller. It can release smoke that makes zombies lose their current target.
+EN E: It can be activated remotely after linking it to a compatible controller.
+It can release smoke that makes zombies lose their current target. It can be placed for use.
+
+[47] Base.SmokeBombSensorV1, Base.SmokeBombSensorV2, Base.SmokeBombSensorV3
+KO C: 연막을 퍼뜨려 좀비가 쫓던 대상을 놓치게 할 수 있다.
+KO E: 연막을 퍼뜨려 좀비가 쫓던 대상을 놓치게 할 수 있다. 설치한 뒤 움직임을 감지하면 작동한다.
+EN C: It can release smoke that makes zombies lose their current target.
+EN E: It can release smoke that makes zombies lose their current target. Once placed and armed, it activates when movement is detected.
+
+[48] Base.SmokeBombTriggered
+KO C: 연막을 퍼뜨려 좀비가 쫓던 대상을 놓치게 할 수 있다.
+KO E: 연막을 퍼뜨려 좀비가 쫓던 대상을 놓치게 할 수 있다. 시간을 맞춰 설치하면 지연 작동시킬 수 있다.
+EN C: It can release smoke that makes zombies lose their current target.
+EN E: It can release smoke that makes zombies lose their current target. It can be placed with a timer for delayed activation.
+
+[49] Base.Spatula
+KO C: 반죽 만들기를 비롯한 요리에 도구로 쓸 수 있다.
+KO E: 반죽 만들기를 비롯한 요리에 도구로 쓸 수 있다.
+EN C: It can be used as a cooking tool, including for preparing dough.
+EN E: It can be used as a cooking tool, including for preparing dough.
+
+[50] Base.Sugar, Base.SugarBrown
+KO C: 먹거나 요리 재료로 쓸 수 있다. 덫의 미끼로도 쓸 수 있다. 채소 병조림에 재료로 사용할 수 있다.
+KO E: 먹을 수 있다.
+요리 재료로 쓸 수 있다.
+덫의 미끼로 쓸 수 있다.
+채소 병조림에 재료로 사용할 수 있다.
+EN C: It can be eaten or used as a cooking ingredient. It can also be used as trap bait. It can be used as a material for vegetable jarring.
+EN E: It can be eaten.
+It can be used as a cooking ingredient.
+It can be used as trap bait.
+It can be used as a material for vegetable jarring.
+
+[51] Base.SugarPacket
+KO C: 먹을 수 있다. 요리 재료로 쓸 수 있다. 채소 병조림에 재료로 사용할 수 있다.
+KO E: 먹을 수 있다.
+요리 재료로 쓸 수 있다.
+채소 병조림에 재료로 사용할 수 있다.
+EN C: It can be eaten. It can be used as a cooking ingredient. It can be used as a material for vegetable jarring.
+EN E: It can be eaten.
+It can be used as a cooking ingredient.
+It can be used as a material for vegetable jarring.
+
+[52] Base.VHS_Home
+KO C: 녹화 영상을 감상하고, 내용에 따라 지루함을 달래거나 기술과 제작법을 배울 수 있다.
+KO E: VHS 재생 기능이 있는 TV로 녹화된 영상을 볼 수 있다. 내용에 따라 지루함을 달래거나 기술과 제작법을 배우는 데도 쓸 수 있다. 일부 내용은 스트레스를 느끼게 할 수 있다.
+EN C: Its video can be enjoyed and, depending on the recording, help you relieve boredom or learn skills and recipes.
+EN E: Its recorded video can be watched on a TV that supports VHS playback. Depending on the recording, it can also help you relieve boredom or learn skills and recipes. Some recordings can also cause stress.
+
+[53] Base.VHS_Retail
+KO C: 녹화 영상을 감상하고, 내용에 따라 지루함을 달래거나 기술과 제작법을 배울 수 있다.
+KO E: VHS 재생 기능이 있는 TV로 녹화된 영상을 볼 수 있다. 내용에 따라 지루함을 달래거나 기술과 제작법을 배우는 데도 쓸 수 있다. 일부 내용은 스트레스나 공포를 느끼게 할 수 있다.
+EN C: Its video can be enjoyed and, depending on the recording, help you relieve boredom or learn skills and recipes.
+EN E: Its recorded video can be watched on a TV that supports VHS playback. Depending on the recording, it can also help you relieve boredom or learn skills and recipes. Some recordings can also cause stress or panic.
+
+[54] Base.WildGarlic2
+KO C: 약초 찜질제를 만드는 데 쓸 수 있다. 먹을 수 있다. 요리 재료로 쓸 수 있다.
+KO E: 약초 찜질제를 만드는 데 쓸 수 있다.
+먹을 수 있다.
+요리 재료로 쓸 수 있다.
+EN C: It can be used to make herbal poultices. It can be eaten. It can be used as a cooking ingredient.
+EN E: It can be used to make herbal poultices.
+It can be eaten.
+It can be used as a cooking ingredient.
+
+[55] Base.Wrench
+KO C: 엔진에서 부품을 회수할 수 있다. 손상된 차량 엔진을 수리하는 데 사용할 수 있다. 차량 부품을 장착하거나 탈거하는 데 사용할 수 있다. 무기로 쓸 수 있다.
+KO E: 엔진에서 부품을 회수할 수 있다.
+손상된 차량 엔진을 수리하는 데 사용할 수 있다.
+브레이크, 서스펜션, 연료 탱크, 배기 부품 및 차체 부품 장착과 탈거에 작업 도구로 쓸 수 있다.
+무기로 쓸 수 있다.
+EN C: It can be used to salvage engine parts. It can be used to repair damaged vehicle engines. It can be used to install or remove vehicle parts. It can be used as a weapon.
+EN E: It can be used to salvage engine parts.
+It can be used to repair damaged vehicle engines.
+It can be used to install and remove brakes, suspension parts, fuel tanks, exhaust parts, and body panels.
+It can be used as a weapon.
+
+[56] Base.Yeast
+KO C: 반죽을 만드는 재료로 쓸 수 있다.
+KO E: 반죽을 만드는 재료로 쓸 수 있다.
+EN C: It can be used as an ingredient for preparing dough and batter.
+EN E: It can be used as an ingredient for preparing dough and batter.
+

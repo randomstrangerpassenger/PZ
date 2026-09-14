@@ -4763,6 +4763,7 @@ def supplement_player_uses(root, semantic):
     learning_rule.update(supplement_attachment_purposes(root, semantic, by_item, builder, source_hashes))
     learning_rule.update(supplement_placed_purposes(root, semantic, by_item, builder, source_hashes))
     learning_rule.update(supplement_native_device_purposes(root, semantic, by_item, builder, source_hashes))
+    learning_rule.update(supplement_vehicle_tool_purposes(root, semantic, by_item, builder, source_hashes))
 
     path = 'Iris/tooling/src/iris_tooling/domains/layer3/recovery_sources.py'
     return {'owner': path, 'producer_sha256': hashlib.sha256((root / path).read_bytes()).hexdigest(),
@@ -5059,6 +5060,9 @@ for _name, (_ko, _en) in PLACED_PURPOSES.items():
 
 FUNCTIONS['emit_attracting_noise'] = ('noise', '소음을 내 좀비의 주의를 끄는 데 쓸 수 있다', 'It can produce noise to attract zombies')
 FUNCTIONS['supply_nearby_electricity'] = ('power supply', '가동해 주변 전기 설비에 전원을 공급할 수 있다', 'It can be operated to power nearby electrical equipment')
+FUNCTIONS['device_explosion_damage'] = ('explosion', '폭발로 주변에 피해를 줄 수 있다', 'It can cause blast damage nearby')
+FUNCTIONS['device_start_fire'] = ('fire', '주변에 불을 붙이는 데 쓸 수 있다', 'It can be used to start fires nearby')
+FUNCTIONS['device_smoke_distraction'] = ('smoke', '연막을 퍼뜨려 좀비가 쫓던 대상을 놓치게 할 수 있다', 'It can release smoke that makes zombies lose their current target')
 
 
 def supplement_native_device_purposes(root, semantic, by_item, builder, source_hashes):
@@ -5069,7 +5073,7 @@ def supplement_native_device_purposes(root, semantic, by_item, builder, source_h
     path = 'Iris/build/description/source_support/b41_device_purposes.json'
     raw = (root / path).read_bytes()
     digest = hashlib.sha256(raw).hexdigest()
-    if digest != '88b08fe4fdc0bd553c1e22a3b5cb9232c5eb78ef2c1fdd1c3d448493eba8f5b6':
+    if digest != '29d555b32ff7e2740c06e31fce8f149543707b58636e4ddb5bdf428635e78ce0':
         raise ValueError('reviewed B41 device-purpose snapshot changed')
     data = json.loads(raw)
     source_hashes[path] = digest
@@ -5094,6 +5098,25 @@ def supplement_native_device_purposes(root, semantic, by_item, builder, source_h
         if (fields.get('Type') == 'Weapon' and 'place_trigger_device' in functions
                 and re.fullmatch(r'\d+(?:\.\d+)?', noise_range) and float(noise_range) > 0):
             selected.append(('noise', 'emit_attracting_noise'))
+        def positive(key):
+            value = fields.get(key, '')
+            return bool(re.fullmatch(r'\d+(?:\.\d+)?', value)) and float(value) > 0
+
+        # Placement reaches IsoTrap directly. An instantaneous non-ball throw
+        # reaches the same consumer through IsoMolotovCocktail.Explode.
+        thrown_trap = ('request_physics_attack' in functions
+                       and fields.get('PhysicsObject') not in {None, '', 'Ball'}
+                       and all(re.fullmatch(r'0+(?:\.0+)?', fields.get(key, '0'))
+                               for key in ('ExplosionTimer', 'SensorRange'))
+                       and fields.get('CanBeRemote', '').lower() != 'true')
+        if fields.get('Type') == 'Weapon' and ('place_trigger_device' in functions or thrown_trap):
+            for purpose, function, properties in (
+                ('explosion', 'device_explosion_damage', ('ExplosionRange', 'ExplosionPower')),
+                ('fire', 'device_start_fire', ('FireRange', 'FirePower')),
+                ('smoke', 'device_smoke_distraction', ('SmokeRange',)),
+            ):
+                if all(positive(key) for key in properties):
+                    selected.append((purpose, function))
         if 'control_installed_generator' in functions:
             selected.append(('power', 'supply_nearby_electricity'))
         for purpose, function in selected:
@@ -5104,10 +5127,60 @@ def supplement_native_device_purposes(root, semantic, by_item, builder, source_h
             source_hashes[observation['source_path']] = observation['source_sha256']
             builder.fact(item, 'direct_function', {'function': function}, [ref, proof],
                          'native_device_purpose', ['item:direct'])
-    return {'native_device_purpose': {'revision': '1', 'review_state': 'reviewed',
-        'preconditions': 'Unique admitted declaration and admitted native placement or generator control; noise additionally requires positive NoiseRange.',
-        'transformation': 'Join placement to native world sound and zombie response, or generator control to surrounding electricity.',
-        'exceptions': 'No inferred damage, universal zombie response, unlimited power range, item-name matching or unreviewed native behavior.'}}
+    return {'native_device_purpose': {'revision': '2', 'review_state': 'reviewed',
+        'preconditions': 'Unique admitted declaration and admitted placement, instantaneous non-ball throw or generator control. Each effect requires its positive consumed properties.',
+        'transformation': 'Join placement/throwing to reviewed noise, blast, fire or smoke consumers; join generator control to nearby electricity.',
+        'exceptions': 'No guaranteed hit, ignition, escape, universal zombie response, unlimited power range, item-name matching or unreviewed native behavior.'}}
+
+
+def supplement_vehicle_tool_purposes(root, semantic, by_item, builder, source_hashes):
+    """Recover kept tools from paired vehicle operations, without an item allowlist."""
+    import hashlib
+    from .recovery_relations import vehicle_tool_roles, VEHICLE_PART_CATEGORIES
+    from . import source_reader as reader
+    rule = 'paired_vehicle_template_tool'
+    existing = {f['item_id'] for f in semantic.get('facts', [])
+                if f['payload'].get('function') == 'service_vehicle_parts'}
+    tool_templates = {}
+    for path in sorted((root / 'scripts/vehicles').glob('template_*.txt')):
+        text = path.read_text(encoding='utf-8-sig')
+        template = re.search(r'\btemplate\s+vehicle\s+(\w+)', reader.mask(text))
+        if not template or template[1] not in VEHICLE_PART_CATEGORIES:
+            continue
+        for item in set(re.findall(r'\btype\s*=\s*(\w+\.\w+)', reader.mask(text))):
+            if item not in existing and item in by_item and vehicle_tool_roles(text, item):
+                tool_templates.setdefault(item, []).append(path.relative_to(root).as_posix())
+    paths = (VEHICLE_MENU, VEHICLE_MECHANICS, VEHICLE_INSTALL, VEHICLE_UNINSTALL,
+             VEHICLE_CALLBACKS, VEHICLE_COMMANDS)
+    consumer_refs = []
+    for path in paths:
+        raw = (root / path).read_bytes()
+        text = raw.decode('utf-8-sig')
+        if path == VEHICLE_MENU and not all(token in text for token in (
+                'function ISVehiclePartMenu.equipRequiredItems', 'item.equip == "primary"',
+                'item.equip == "secondary"', 'part:getTable("install")', 'part:getTable("uninstall")')):
+            raise ValueError('reviewed vehicle tool consumer changed')
+        source_hashes[path] = hashlib.sha256(raw).hexdigest()
+        consumer_refs.append(builder.observe(path, 'paired vehicle tool consumer', {'source_text': text}))
+    for item, paths in sorted(tool_templates.items()):
+        records = by_item[item]
+        unique = {(o['source_path'], o['source_sha256'], o['content']['raw'].replace('\r\n', '\n')):
+                  (ref, o) for ref, o in records}
+        if len(unique) != 1 or any(o['content'].get('property_conflicts') for _, o in records):
+            continue
+        ref, obs = next(iter(unique.values()))
+        builder.observations[ref] = obs
+        source_hashes[obs['source_path']] = obs['source_sha256']
+        evidence = [ref, *consumer_refs]
+        for path in paths:
+            raw = (root / path).read_bytes()
+            source_hashes[path] = hashlib.sha256(raw).hexdigest()
+            evidence.append(builder.observe(path, 'paired vehicle tool template', {'source_text': raw.decode('utf-8-sig')}))
+        builder.fact(item, 'direct_function', {'function': 'service_vehicle_parts'}, evidence, rule, ['item:direct'])
+    return {rule: {'revision': '1', 'review_state': 'reviewed',
+                  'preconditions': 'Unique admitted item declaration; explicit kept tool in both install and uninstall of a reviewed vehicle part category.',
+                  'transformation': 'Join template requirements to inventory transfer, hand equipment and vehicle installation/removal consumers. Primary/both is the working tool; secondary or unequipped kept items support the operation.',
+                  'exceptions': 'No item-name allowlist, inferred lifting animation, unpaired action, detailed part inventory or new runtime behavior.'}}
 
 
 def supplement_placed_purposes(root, semantic, by_item, builder, source_hashes):

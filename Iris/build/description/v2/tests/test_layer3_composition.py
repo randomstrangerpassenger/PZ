@@ -132,12 +132,15 @@ def test_layer3_composition_contract():
     corrected_refs = {f['fact_id'] for f in correction['facts']}
     assert not predecessor_refs & corrected_refs
     assert {f['fact_id'] for f in semantic_payload['facts']} == predecessor_refs | corrected_refs
-    assert {f['item_id'] for f in correction['facts'] if f['admission']['rule_ref'] not in {'declared_learning_and_recorded_content', 'installed_battery_power_purpose', 'installed_vehicle_light_purpose', 'declared_morale_reading_purpose', 'declared_attachment_purpose', 'placed_sprite_purpose', 'native_attachment_purpose', 'native_device_purpose'}} == {
+    assert {f['item_id'] for f in correction['facts'] if f['admission']['rule_ref'] not in {'declared_learning_and_recorded_content', 'installed_battery_power_purpose', 'installed_vehicle_light_purpose', 'declared_morale_reading_purpose', 'declared_attachment_purpose', 'placed_sprite_purpose', 'native_attachment_purpose', 'native_device_purpose', 'paired_vehicle_template_tool'}} == {
         'Base.UmbrellaBlack', 'Base.UmbrellaBlue', 'Base.UmbrellaRed', 'Base.UmbrellaWhite',
         'Base.Pills', 'Base.PillsAntiDep', 'Base.PillsBeta', 'Base.PillsSleepingTablets',
         'Base.PillsVitamins', 'Base.Antibiotics', 'Base.Generator'}
     devices = [f for f in correction['facts'] if f['admission']['rule_ref'] == 'native_device_purpose']
-    assert len(devices) == 7
+    assert len(devices) == 32
+    assert {fn: sum(f['payload']['function'] == fn for f in devices) for fn in
+            ('device_explosion_damage', 'device_start_fire', 'device_smoke_distraction')} == {
+                'device_explosion_damage': 12, 'device_start_fire': 7, 'device_smoke_distraction': 6}
     assert {f['item_id'] for f in devices if f['payload']['function'] == 'supply_nearby_electricity'} == {'Base.Generator'}
     assert {f['item_id'] for f in devices if f['payload']['function'] == 'emit_attracting_noise'} == {
         'Base.NoiseTrap', 'Base.NoiseTrapTriggered', 'Base.NoiseTrapRemote',
@@ -163,7 +166,9 @@ def test_layer3_composition_contract():
     assert len(attachments) == 12
     assert not {'Base.Bayonnet', 'Base.GunLight'} & {f['item_id'] for f in attachments}
     assert {f['payload']['function'] for f in attachments if f['item_id'] == 'Base.AmmoStraps'} == {'attachment_purpose_reload'}
-    assert len(corrected_refs) == 88 + len(placed) + len(native_attachments) + len(devices)
+    vehicle_tools = [f for f in correction['facts'] if f['admission']['rule_ref'] == 'paired_vehicle_template_tool']
+    assert {(f['item_id'], f['payload']['function']) for f in vehicle_tools} == {('Base.Wrench', 'service_vehicle_parts')}
+    assert len(corrected_refs) == 88 + len(placed) + len(native_attachments) + len(devices) + len(vehicle_tools)
     assert {f['item_id'] for f in correction['facts'] if f['payload'].get('function') == 'supply_vehicle_electrical_power'} == {'Base.CarBattery1', 'Base.CarBattery2', 'Base.CarBattery3'}
     expected = {fact["fact_id"]: fact["item_id"]
                 for payload in (semantic_payload, acquisition_payload) for fact in payload["facts"]}
